@@ -23,6 +23,9 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
+/obj/item/reagent_containers/spray/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	return interact_with_atom(target, user, modifiers)
+
 /obj/item/reagent_containers/spray/normal_act(atom/A, mob/living/user)
 	. = TRUE
 	if(isstorage(A) || ismodcontrol(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
@@ -128,13 +131,6 @@
 	spray_currentrange = 2
 	amount_per_transfer_from_this = 10
 	list_reagents = list("cleaner" = 250)
-
-/obj/item/reagent_containers/spray/cleaner/activate_self(mob/user)
-	if(..())
-		return
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
-	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 /obj/item/reagent_containers/spray/cleaner/advanced
 	name = "advanced space cleaner"
