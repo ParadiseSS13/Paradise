@@ -28,6 +28,7 @@
 	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
 
 /obj/item/reagent_containers/glass/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!is_open_container())
 		return
 

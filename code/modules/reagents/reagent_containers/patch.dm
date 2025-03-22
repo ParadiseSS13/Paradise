@@ -12,6 +12,12 @@
 	var/instant_application = FALSE
 	var/needs_to_apply_reagents = TRUE
 
+/obj/item/reagent_containers/patch/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isnull(target.reagents))
+		return
+
+	return ..()
+
 /obj/item/reagent_containers/patch/mob_act(mob/target, mob/living/user)
 	apply(target, user)
 	return ITEM_INTERACT_COMPLETE

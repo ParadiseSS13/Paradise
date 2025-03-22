@@ -53,6 +53,12 @@
 	qdel(src)
 	return TRUE
 
+/obj/item/reagent_containers/pill/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isnull(target.reagents))
+		return
+
+	return ..()
+
 /obj/item/reagent_containers/pill/mob_act(mob/target, mob/living/user)
 	apply(target, user)
 	return TRUE
