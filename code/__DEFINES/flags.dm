@@ -110,10 +110,9 @@
 #define HAS_ALT_HEADS		(1<<11)
 #define HAS_WING			(1<<12)
 #define HAS_BODYACC_COLOR	(1<<13)
-#define HAS_SPECIES_SUBTYPE (1<<14)
-#define BALD				(1<<15)
-#define ALL_RPARTS			(1<<16)
-#define SHAVED				(1<<17)
+#define BALD				(1<<14)
+#define ALL_RPARTS			(1<<15)
+#define SHAVED				(1<<16)
 
 //Pre-baked combinations of the above body flags
 #define HAS_BODY_ACCESSORY 	(HAS_TAIL | HAS_WING)
