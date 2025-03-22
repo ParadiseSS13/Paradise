@@ -18,6 +18,12 @@
 	if(!icon_state)
 		icon_state = "pill[rand(1, 20)]"
 
+/obj/item/reagent_containers/pill/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
+	apply(user, user)
+
 /obj/item/reagent_containers/pill/proc/apply(mob/living/carbon/C, mob/user)
 	if(!istype(C))
 		return FALSE

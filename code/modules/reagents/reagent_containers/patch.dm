@@ -16,6 +16,12 @@
 	apply(target, user)
 	return ITEM_INTERACT_COMPLETE
 
+/obj/item/reagent_containers/patch/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
+	apply(user, user)
+
 /obj/item/reagent_containers/patch/proc/apply(mob/living/carbon/C, mob/user)
 	if(!istype(C))
 		return
