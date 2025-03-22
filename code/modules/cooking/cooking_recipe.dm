@@ -7,10 +7,7 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
  * A cooking rework ported from Sojourn and heavily adapted for Para.
  *
  * The recipe datum outlines a list of steps from getting a piece of food from
- * point A to point B. Recipes have a list of steps including optional ones to
- * increase the total quality of the food. Following a recipe incorrectly (i.e.,
- * adding too much of an item, having the burner too hot, etc.) Will decrease
- * the quality of the food.
+ * point A to point B.
  *
  * Recipes have clear start and end points. They start with a particular item
  * and end with a particular item. That said, a start item can follow multiple
@@ -19,45 +16,34 @@ GLOBAL_LIST_EMPTY(pcwj_cookbook_lookup)
  * their intended result should be. (Donuts vs Bagels)
  *
  * Recipes are loaded at startup. Food items reference it by the recipe_tracker
- * datum. By following the steps correctly, good food can be made. Food quality
- * is calculated based on the steps taken.
+ * datum.
  *
  * Recipes and their steps are singletons. Cooking processes should never alter
  * them.
 */
 /datum/cooking/recipe
-	/// Name for the cooking guide. Auto-populates from result food if not set.
-	var/name
-	/// Description for the cooking guide. Auto-populates from result food if not set.
-	var/description
-	var/recipe_guide		// Step by step recipe guide. I hate it.
-	var/recipe_icon			// Icon for the cooking guide. Auto-populates if not set.
-	var/recipe_icon_state	// Icon state for the cooking guide. Auto-populates if not set.
-
 	/// The type of the cooking container the recipe is performed in.
 	var/obj/item/reagent_containers/cooking/container_type
-
 	/// Type path for the product created by the recipe.
 	var/product_type
-	var/product_name
 	/// How much of a thing is made per case of the recipe being followed.
 	var/product_count = 1
 
 	// Special variables that must be defined INSTEAD of product_type in order to create reagents instead of an object.
 	var/reagent_id
 	var/reagent_amount
-	var/reagent_name
-	var/reagent_desc
-
-	var/icon_image_file
 
 	/// Determines if we entirely replace the contents of the food product with the slurry that goes into it.
 	var/replace_reagents = FALSE
 
 	/// Everything appears in the catalog by default.
 	var/appear_in_default_catalog = TRUE
+	/// The category of the recipe for the cookbook PDA app and other sources of recipe info.
 	var/catalog_category = "Miscellaneous"
 
+	/// A list of [/datum/cooking/recipe_step]s needed to be followed
+	/// to create the recipe. Generally steps must be completed in order
+	/// for the preparation to be considered valid.
 	var/list/steps
 
 /datum/cooking/recipe/proc/create_product(datum/cooking/recipe_tracker/tracker)
