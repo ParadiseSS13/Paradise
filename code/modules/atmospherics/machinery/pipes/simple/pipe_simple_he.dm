@@ -8,8 +8,8 @@
 	var/initialize_directions_he
 	var/surface = 2
 
-	minimum_temperature_difference = 20
-	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
+	minimum_temperature_difference = 0.5
+	thermal_conductivity = HE_HEAT_TRANSFER_COEFFICIENT
 
 	color = "#404040"
 	buckle_lying = TRUE
