@@ -25,7 +25,6 @@
 	container_type = OPENCONTAINER
 	visible_transfer_rate = null
 	possible_transfer_amounts = null
-	new_attack_chain = TRUE
 
 	/// The [/datum/cooking/recipe_tracker] of the current food preparation.
 	var/datum/cooking/recipe_tracker/tracker = null
