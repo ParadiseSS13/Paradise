@@ -204,6 +204,9 @@
 	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
 	player.click_on(beaker)
 	TEST_ASSERT_LAST_CHATLOG(player, "You dissolve [pill] in [beaker].")
+	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.use_item_in_hand()
+	TEST_ASSERT_LAST_CHATLOG(player, "You swallow [pill].")
 
 	// Patches
 	var/obj/item/reagent_containers/patch/patch = player.spawn_obj_in_hand(/obj/item/reagent_containers/patch/silver_sulf)
