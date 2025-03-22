@@ -646,7 +646,8 @@
 /datum/action/item_action/accessory/storage
 	name = "View Storage"
 
-
+/datum/action/item_action/call_link
+	name = "Call MODlink"
 
 //Preset for spells
 /datum/action/spell_action
