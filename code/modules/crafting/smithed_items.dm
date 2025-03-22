@@ -169,6 +169,8 @@
 	var/datum/smith_quality/quality
 	/// The material of the item
 	var/datum/smith_material/material
+	/// Is this item valid for secondary goals?
+	var/secondary_goal_candidate = FALSE
 
 	new_attack_chain = TRUE
 
@@ -264,6 +266,7 @@
 	brute_armor = 10
 	explosive_armor = 10
 	heat_insulation = -10
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/thermal
 	name = "thermal plate"
@@ -271,6 +274,7 @@
 	brute_armor = -10
 	burn_armor = 10
 	heat_insulation = 10
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/fireproofing
 	name = "fireproofing plate"
@@ -278,6 +282,7 @@
 	burn_armor = 10
 	movement_speed_mod = -0.2
 	heat_insulation = 20
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/reflective
 	name = "reflective plate"
@@ -285,18 +290,21 @@
 	burn_armor = -10
 	laser_armor = 10
 	siemens_coeff = -0.2
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/rad_hazard
 	name = "radiation hazard plate"
 	desc = "A dense plate that can reduce a wearer's radiation exposure."
 	heat_insulation = -10
 	radiation_armor = 20
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/rubberized
 	name = "rubberized plate"
 	desc = "A flexible plate that is resistant to electrical shocks."
 	brute_armor = -10
 	siemens_coeff = 0.2
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/advanced
 	name = "advanced armor mesh"
@@ -440,12 +448,14 @@
 	base_speed_mod = -0.2
 	failure_rate = 5
 	base_efficiency_mod = 0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/tool_bit/efficiency
 	name = "efficient bit"
 	desc = "A tool bit optimized for efficiency, at the cost of speed."
 	base_speed_mod = 0.2
 	base_efficiency_mod = -0.25
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/tool_bit/balanced
 	name = "balanced bit"
@@ -453,6 +463,7 @@
 	base_speed_mod = -0.1
 	failure_rate = 2
 	base_efficiency_mod = -0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/tool_bit/heavy
 	name = "heavy duty bit"
@@ -571,6 +582,7 @@
 	desc = "A lens that accelerates energy beams to a higher velocity, using some of its own energy to propel it."
 	base_laser_speed_mult = 0.1
 	base_damage_mult = -0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/speed
 	name = "speed lens"
@@ -578,12 +590,14 @@
 	base_fire_rate_mult = 0.15
 	base_damage_mult = -0.1
 	durability = 30
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/amplifier
 	name = "amplifier lens"
 	desc = "A lens that increases the frequency of emitted beams, increasing their potency."
 	base_power_mult = 0.2
 	base_damage_mult = 0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/efficiency
 	name = "efficiency lens"
@@ -591,6 +605,7 @@
 	base_power_mult = -0.2
 	base_damage_mult = -0.1
 	durability = 80
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/rapid
 	name = "rapid lens"

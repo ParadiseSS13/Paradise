@@ -16818,6 +16818,9 @@
 	pixel_y = 3
 	},
 /obj/item/stack/sheet/metal/ten,
+/obj/machinery/requests_console/directional/north{
+	department = "Smith"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"

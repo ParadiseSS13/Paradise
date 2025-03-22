@@ -23402,7 +23402,9 @@
 	},
 /area/station/science/rnd)
 "bBf" = (
-/obj/machinery/requests_console/directional/south,
+/obj/machinery/requests_console/directional/south{
+	department = "Smith"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
