@@ -1764,6 +1764,11 @@
 				return G
 			break
 
+/datum/mind/proc/check_ghost_client()
+	var/mob/dead/observer/G = get_ghost()
+	if(G.client)
+		return TRUE
+
 /datum/mind/proc/grab_ghost(force)
 	var/mob/dead/observer/G = get_ghost(even_if_they_cant_reenter = force)
 	. = G
