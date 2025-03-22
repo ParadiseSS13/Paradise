@@ -495,7 +495,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		var/icon/overlay_icon = new('icons/obj/stationobjs.dmi', "holopad1_lightmask")
 		var/mob/living/silicon/ai/AI
 		for(var/mob/living/user in masters)
-			if(istype(user, /mob/living/silicon/ai))
+			if(is_ai(user))
 				AI = user
 				break
 		if(AI)
