@@ -234,6 +234,8 @@
 
 			path = list()
 			return
+		
+		var/target_uid = target.UID() // target can become null while path is calculated, so we need to store UID
 		if(!length(path)) // No path, need a new one
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
@@ -243,12 +245,12 @@
 
 			if(!bot_move(target))
 				add_to_ignore(target)
-				ignore_job -= target.UID()
+				ignore_job -= target_uid
 				target = null
 				set_mode(BOT_IDLE)
 				return
 		else if(!bot_move(target))
-			ignore_job -= target.UID()
+			ignore_job -= target_uid
 			target = null
 			set_mode(BOT_IDLE)
 			return
