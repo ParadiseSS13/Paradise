@@ -58,12 +58,6 @@
 "cw" = (
 /turf/template_noop,
 /area/template_noop)
-"cA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "cJ" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -76,7 +70,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "dj" = (
 /obj/machinery/computer/security{
@@ -136,7 +130,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
+"fR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "fS" = (
 /obj/machinery/shower{
@@ -184,19 +184,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "gy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
-"gZ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "ha" = (
 /obj/structure/window/plastitanium{
@@ -234,6 +228,9 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "iO" = (
@@ -269,7 +266,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
+"jQ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "jU" = (
 /obj/structure/chair/comfy/shuttle,
@@ -277,7 +280,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "kw" = (
 /obj/structure/cable{
@@ -289,7 +292,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "lr" = (
 /obj/structure/railing{
@@ -308,7 +311,7 @@
 /area/shuttle/escape)
 "lH" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "lW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -343,7 +346,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "ne" = (
 /obj/structure/cable{
@@ -353,7 +356,19 @@
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
+"nf" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "nj" = (
 /obj/structure/cable{
@@ -394,7 +409,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "of" = (
 /obj/effect/turf_decal/stripes/line,
@@ -415,6 +430,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/shuttle/escape)
+"ov" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/structure/sign/greencross,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 "oU" = (
 /obj/machinery/computer/operating{
 	dir = 4
@@ -431,10 +451,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
-"ph" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "pk" = (
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
@@ -459,6 +476,12 @@
 	},
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"qF" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "qZ" = (
 /obj/machinery/status_display{
@@ -580,7 +603,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "wW" = (
 /obj/structure/chair/comfy/shuttle{
@@ -621,7 +644,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "yN" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -652,7 +675,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Au" = (
 /obj/structure/railing/corner{
@@ -675,7 +698,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Bz" = (
 /obj/structure/extinguisher_cabinet{
@@ -694,11 +717,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Cr" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Cw" = (
 /obj/machinery/computer/crew{
@@ -893,7 +916,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "JK" = (
 /obj/machinery/status_display{
@@ -914,7 +937,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Kb" = (
 /turf/simulated/floor/mineral/plastitanium,
@@ -1017,6 +1040,12 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
+"NO" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
 "NS" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -1050,15 +1079,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
-"Oz" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "Px" = (
 /obj/machinery/atmospherics/trinary/filter/flipped{
 	dir = 8;
@@ -1083,7 +1103,7 @@
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Qn" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1101,7 +1121,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Rb" = (
 /obj/structure/cable{
@@ -1204,7 +1224,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Xg" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -1235,26 +1255,20 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Ya" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"Ye" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "Yj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Yp" = (
 /obj/structure/cable{
@@ -1263,7 +1277,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "YP" = (
 /obj/machinery/shower{
@@ -1298,14 +1312,14 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "ZA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "ZK" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1317,7 +1331,19 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
+"ZZ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -1378,18 +1404,18 @@ Ks
 Ks
 Ks
 hJ
-FE
+fR
 aI
-Kb
+qF
 XM
 Kb
 Kb
 Kb
 aI
-bV
+NO
 YP
-bV
-Ib
+NO
+nf
 aI
 eK
 eK
@@ -1557,8 +1583,8 @@ fi
 lB
 Xd
 Kb
-aI
-cw
+lB
+Wf
 cw
 cw
 eK
@@ -1597,7 +1623,7 @@ Kb
 Kb
 Kb
 jG
-Ye
+Ib
 ZA
 Kb
 zl
@@ -1631,7 +1657,7 @@ Kb
 pk
 Kb
 gy
-gZ
+NO
 kJ
 Kb
 Dh
@@ -1674,7 +1700,7 @@ Kb
 aI
 Kb
 jG
-ph
+bV
 Cr
 Kb
 aI
@@ -1683,7 +1709,7 @@ QN
 Id
 tj
 lH
-ph
+bV
 yh
 kw
 mM
@@ -1717,7 +1743,7 @@ Kb
 pk
 Kb
 mX
-cA
+jQ
 Yj
 Kb
 Dh
@@ -1769,7 +1795,7 @@ Kb
 Kb
 Kb
 jG
-Oz
+Os
 ZA
 Kb
 zl
@@ -1802,9 +1828,9 @@ eH
 Fy
 lB
 lB
-aI
+ov
 LO
-aI
+ov
 aI
 bf
 aI
@@ -1815,8 +1841,8 @@ fi
 lB
 Xd
 Kb
-aI
-cw
+lB
+Wf
 cw
 cw
 eK
@@ -1895,7 +1921,7 @@ rG
 rG
 rG
 rG
-aI
+ov
 Kb
 fi
 lB
@@ -1981,17 +2007,17 @@ wY
 wz
 De
 Kz
-aI
+ov
 Kb
 JK
 Kb
 Kb
 Kb
 aI
-bV
+jQ
 fS
-bV
-Os
+jQ
+ZZ
 aI
 eK
 eK
