@@ -1201,9 +1201,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
-							/obj/item/stack/sheet/plasteel = 5)
+							/obj/item/stack/sheet/plasteel = 5
+	)
 
-<<<<<<< HEAD
+
 /obj/item/circuitboard/processing_node
 	board_name = "Processing Node"
 	icon_state = "science"
@@ -1215,7 +1216,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/mineral/gold = 10,
 							/obj/item/stack/sheet/mineral/silver = 10,
 							/obj/item/stack/sheet/mineral/diamond = 1,
-							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/cable_coil = 5
 	)
 
 /obj/item/circuitboard/network_node
@@ -1228,8 +1229,9 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor = 2,
 							/obj/item/stack/sheet/mineral/gold = 10,
 							/obj/item/stack/sheet/mineral/silver = 10,
-							/obj/item/stack/cable_coil = 5,
-=======
+							/obj/item/stack/cable_coil = 5
+	)
+
 /obj/item/circuitboard/autochef
 	board_name = "Autochef"
 	icon_state = "generic"
@@ -1240,5 +1242,4 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 1,
->>>>>>> master
 	)

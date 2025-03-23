@@ -662,7 +662,7 @@
 	build_path = /obj/item/circuitboard/merch
 	category = list("Misc. Machinery")
 
-<<<<<<< HEAD
+
 /datum/design/processing_node
 	name =  "Machine Design (Processing Node)"
 	desc = "The circuit board for a processing node."
@@ -691,7 +691,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/ai_resource_console
-=======
+
 /datum/design/autochef
 	name = "Machine Design (Autochef)"
 	desc = "The circuit board for an autochef."
@@ -700,5 +700,4 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/autochef
->>>>>>> master
 	category = list("Misc. Machinery")
