@@ -20,7 +20,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/mech_transport)
 "aZ" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)

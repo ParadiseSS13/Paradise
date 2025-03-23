@@ -158,6 +158,9 @@
 
 	GLOB.emote_list = init_emote_list()
 
+	// Set up PCWJ recipes
+	initialize_cooking_recipes()
+
 	// Keybindings
 	for(var/path in subtypesof(/datum/keybinding))
 		var/datum/keybinding/D = path

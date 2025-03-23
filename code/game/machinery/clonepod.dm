@@ -564,7 +564,7 @@
 
 /obj/machinery/clonepod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(used.is_open_container())
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+		return ..()
 
 	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(!allowed(user))

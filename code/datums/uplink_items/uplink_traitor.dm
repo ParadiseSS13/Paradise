@@ -234,6 +234,7 @@
 	cost = 50
 	job = list("Scientist")
 	hijack_only = TRUE
+	surplus = 0
 
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
@@ -274,6 +275,15 @@
 	item = /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist
 	cost = 30
 	job = list("Life Support Specialist")
+
+/datum/uplink_item/jobspecific/contortionist_plasmaman
+	name = "Contortionist's Plasma Envirosuit"
+	desc = "A highly flexible envirosuit that will help you navigate the ventilation loops of the station internally, specialized for Plasmamen. Comes with pockets and ID slot, but can't be used without stripping off most gear, including backpack, belt, and exosuit. Free hands are also necessary to crawl around inside."
+	reference = "AIRJP"
+	item = /obj/item/clothing/under/plasmaman/atmospherics/contortionist
+	cost = 30
+	job = list("Life Support Specialist")
+	species = list("Plasmaman")
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"

@@ -6,6 +6,8 @@ pub use to_grid_map::to_grid_map;
 pub mod map_to_string;
 pub use map_to_string::map_to_string;
 
+use eyre::Context;
+
 use dmmtools::dmm;
 use dmmtools::dmm::Coord3;
 
@@ -141,7 +143,7 @@ pub struct GridMap {
 }
 
 impl GridMap {
-    pub fn from_file(path: &std::path::Path) -> Option<GridMap> {
-        Some(to_grid_map(&dmm::Map::from_file(&path).ok()?))
+    pub fn from_file(path: &std::path::Path) -> eyre::Result<GridMap> {
+        Ok(to_grid_map(&dmm::Map::from_file(&path).wrap_err(format!("failure to read from dmm parser"))?))
     }
 }

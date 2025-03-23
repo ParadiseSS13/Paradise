@@ -256,3 +256,5 @@
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
+
+	new_attack_chain = TRUE

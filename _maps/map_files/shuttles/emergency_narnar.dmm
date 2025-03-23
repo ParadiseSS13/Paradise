@@ -16,9 +16,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ae" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "af" = (

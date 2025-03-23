@@ -277,6 +277,8 @@
 
 /obj/item/rcd/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 	if(!length(possible_actions))
 		possible_actions = list()
 		for(var/action_type in subtypesof(/datum/rcd_act))
@@ -419,6 +421,9 @@
 	SStgui.update_uis(src)
 
 /obj/item/rcd/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/smithed_item/tool_bit))
+		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, used, user)
+		return ..()
 	if(!istype(used, /obj/item/rcd_ammo))
 		return ..()
 	var/obj/item/rcd_ammo/ammo = used
@@ -636,6 +641,7 @@
  * * amount - the amount of matter to use
  */
 /obj/item/rcd/use(amount)
+	amount = amount * bit_efficiency_mod
 	if(matter < amount)
 		return FALSE
 	matter -= amount
