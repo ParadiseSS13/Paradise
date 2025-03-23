@@ -90,7 +90,7 @@
 /////////////////////////
 /datum/food_processor_process/meat
 	input = /obj/item/food/meat
-	output = /obj/item/food/meatball
+	output = /obj/item/food/ground_meat
 
 /datum/food_processor_process/potato
 	input = /obj/item/food/grown/potato

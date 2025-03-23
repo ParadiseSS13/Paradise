@@ -47,9 +47,6 @@ GLOBAL_LIST_INIT(round_end_sounds, list(
 
 GLOBAL_LIST_INIT(cooking_recipe_types, list(
 	RECIPE_MICROWAVE = /datum/recipe/microwave,
-	RECIPE_OVEN = /datum/recipe/oven,
-	RECIPE_GRILL = /datum/recipe/grill,
-	RECIPE_CANDY = /datum/recipe/candy
 	))
 GLOBAL_LIST_INIT(cooking_recipes, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
 GLOBAL_LIST_INIT(cooking_ingredients, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
