@@ -449,7 +449,7 @@
 	req_tech = list("programming" = 2, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/oven
+	build_path = /obj/item/circuitboard/cooking/oven
 	category = list("Misc. Machinery")
 
 /datum/design/grill
@@ -462,14 +462,14 @@
 	build_path = /obj/item/circuitboard/grill
 	category = list("Misc. Machinery")
 
-/datum/design/candy_maker
-	name = "Machine Board (Candy Maker)"
-	desc = "The circuit board for a Candy Maker."
-	id = "candymaker"
+/datum/design/ice_cream_mixer
+	name = "Machine Board (Ice Cream Mixer)"
+	desc = "The circuit board for an Ice Cream Mixer."
+	id = "ice_cream_mixer"
 	req_tech = list("programming" = 2, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/candy_maker
+	build_path = /obj/item/circuitboard/cooking/ice_cream_mixer
 	category = list("Misc. Machinery")
 
 /datum/design/deepfryer
@@ -662,6 +662,7 @@
 	build_path = /obj/item/circuitboard/merch
 	category = list("Misc. Machinery")
 
+<<<<<<< HEAD
 /datum/design/processing_node
 	name =  "Machine Design (Processing Node)"
 	desc = "The circuit board for a processing node."
@@ -690,4 +691,14 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/ai_resource_console
+=======
+/datum/design/autochef
+	name = "Machine Design (Autochef)"
+	desc = "The circuit board for an autochef."
+	id = "autochef"
+	req_tech = list("programming" = 3, "bluespace" = 3, "materials" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/autochef
+>>>>>>> master
 	category = list("Misc. Machinery")

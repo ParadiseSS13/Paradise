@@ -496,47 +496,15 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/oven
-	board_name = "Oven"
-	icon_state = "service"
-	build_path = /obj/machinery/kitchen_machine/oven
-	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
-	req_components = list(
-							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
-
-/obj/item/circuitboard/grill
-	board_name = "Grill"
-	icon_state = "service"
-	build_path = /obj/machinery/kitchen_machine/grill
-	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
-	req_components = list(
-							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
-
-/obj/item/circuitboard/candy_maker
-	board_name = "Candy Maker"
-	icon_state = "service"
-	build_path = /obj/machinery/kitchen_machine/candy_maker
-	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
-	req_components = list(
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
-
 /obj/item/circuitboard/deepfryer
 	board_name = "Deep Fryer"
 	icon_state = "service"
-	build_path = /obj/machinery/cooker/deepfryer
+	build_path = /obj/machinery/cooking/deepfryer
 	board_type = "machine"
 	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stack/cable_coil = 5)
 
 /obj/item/circuitboard/gibber
@@ -1235,6 +1203,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 3,
 							/obj/item/stack/sheet/plasteel = 5)
 
+<<<<<<< HEAD
 /obj/item/circuitboard/processing_node
 	board_name = "Processing Node"
 	icon_state = "science"
@@ -1260,4 +1229,16 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/mineral/gold = 10,
 							/obj/item/stack/sheet/mineral/silver = 10,
 							/obj/item/stack/cable_coil = 5,
+=======
+/obj/item/circuitboard/autochef
+	board_name = "Autochef"
+	icon_state = "generic"
+	board_type = "machine"
+	build_path = /obj/machinery/autochef
+	origin_tech = "programming=3;bluespace=3;materials=3"
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1,
+>>>>>>> master
 	)
