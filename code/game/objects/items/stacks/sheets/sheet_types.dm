@@ -727,14 +727,14 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("plastic knife", /obj/item/kitchen/knife/plastic, 1, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe_list("plastic moulds", list(
-		new /datum/stack_recipe("bear mould", /obj/item/kitchen/mould/bear, 1, on_floor = TRUE),
-		new /datum/stack_recipe("worm mould", /obj/item/kitchen/mould/worm, 1, on_floor = TRUE),
-		new /datum/stack_recipe("bean mould", /obj/item/kitchen/mould/bean, 1, on_floor = TRUE),
-		new /datum/stack_recipe("ball mould", /obj/item/kitchen/mould/ball, 1, on_floor = TRUE),
-		new /datum/stack_recipe("cane mould", /obj/item/kitchen/mould/cane, 1, on_floor = TRUE),
-		new /datum/stack_recipe("cash mould", /obj/item/kitchen/mould/cash, 1, on_floor = TRUE),
-		new /datum/stack_recipe("coin mould", /obj/item/kitchen/mould/coin, 1, on_floor = TRUE),
-		new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = TRUE),
+		new /datum/stack_recipe("bear mould", /obj/item/reagent_containers/cooking/mould/bear, 1, on_floor = TRUE),
+		new /datum/stack_recipe("worm mould", /obj/item/reagent_containers/cooking/mould/worm, 1, on_floor = TRUE),
+		new /datum/stack_recipe("bean mould", /obj/item/reagent_containers/cooking/mould/bean, 1, on_floor = TRUE),
+		new /datum/stack_recipe("ball mould", /obj/item/reagent_containers/cooking/mould/ball, 1, on_floor = TRUE),
+		new /datum/stack_recipe("cane mould", /obj/item/reagent_containers/cooking/mould/cane, 1, on_floor = TRUE),
+		new /datum/stack_recipe("cash mould", /obj/item/reagent_containers/cooking/mould/cash, 1, on_floor = TRUE),
+		new /datum/stack_recipe("coin mould", /obj/item/reagent_containers/cooking/mould/coin, 1, on_floor = TRUE),
+		new /datum/stack_recipe("sucker mould", /obj/item/reagent_containers/cooking/mould/loli, 1, on_floor = TRUE),
 		)),
 	))
 

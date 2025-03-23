@@ -40,7 +40,9 @@
 			. += filling
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
-	var/mob/user = usr
+	drag_drop_onto(target, usr)
+
+/obj/machinery/iv_drip/proc/drag_drop_onto(mob/living/target, mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!ishuman(user))
@@ -50,7 +52,7 @@
 		if(!bag)
 			to_chat(user, "<span class='warning'>There's no IV bag connected to [src]!</span>")
 			return
-		bag.afterattack__legacy__attackchain(target, usr, TRUE)
+		bag.mob_act(target, user)
 		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
@@ -75,8 +77,8 @@
 		START_PROCESSING(SSmachines, src)
 		return ITEM_INTERACT_COMPLETE
 	else if(bag && istype(used, /obj/item/reagent_containers))
-		bag.attackby__legacy__attackchain(used)
-		used.afterattack__legacy__attackchain(bag, usr, TRUE)
+		var/obj/item/reagent_containers/container = used
+		container.normal_act(bag, user)
 		update_icon(UPDATE_OVERLAYS)
 		return ITEM_INTERACT_COMPLETE
 
