@@ -1,0 +1,1 @@
+/obj/structure/window/@SUBTYPES : /obj/structure/window/@SUBTYPES{@OLD;layer=@SKIP}
