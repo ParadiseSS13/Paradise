@@ -2351,14 +2351,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"iA" = (
-/obj/structure/noticeboard{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/syndicate_mothership)
 "iC" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel/dark,
@@ -2497,6 +2489,16 @@
 /obj/mecha/combat/marauder/mauler/loaded,
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"ja" = (
+/obj/structure/table/wood,
+/obj/item/kitchen/knife/pizza_cutter{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
 /area/syndicate_mothership)
 "jb" = (
 /obj/structure/table/wood/fancy/royalblack,
@@ -3539,7 +3541,6 @@
 /area/shuttle/syndicate)
 "mK" = (
 /obj/machinery/computer/shuttle/syndicate/recall,
-/obj/item/paper/syndimemo,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -3864,12 +3865,12 @@
 "nI" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/bottle/beer{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = 5;
 	pixel_y = -2
+	},
+/obj/item/reagent_containers/drinks/bottle/beer{
+	pixel_x = -2;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -3880,7 +3881,10 @@
 /area/admin)
 "nK" = (
 /obj/structure/table/wood,
-/obj/item/pizzabox,
+/obj/item/deck/cards/syndicate{
+	pixel_x = -7;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -3997,14 +4001,7 @@
 /area/admin)
 "ob" = (
 /obj/structure/table/wood,
-/obj/item/deck/cards/syndicate{
-	pixel_x = -7;
-	pixel_y = 3
-	},
-/obj/item/kitchen/knife/pizza_cutter{
-	pixel_x = 4;
-	pixel_y = 7
-	},
+/obj/item/paper/syndimemo,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -5422,6 +5419,12 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
+"ta" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "tb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -6106,6 +6109,15 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"vz" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/syndie,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "vA" = (
 /obj/structure/railing,
 /obj/structure/table/wood,
@@ -6339,6 +6351,20 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/trader_station/sol)
+"wr" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/glass{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "ws" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/reedbush,
@@ -7058,9 +7084,11 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "zs" = (
-/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
+	},
+/obj/structure/noticeboard{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -7711,15 +7739,6 @@
 	},
 /turf/simulated/floor/backrooms_carpet,
 /area/backrooms)
-"BV" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/external{
-	id_tag = "syndicate_away"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/syndicate_mothership)
 "BX" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
@@ -8724,12 +8743,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "FA" = (
-/obj/item/mounted/shower{
-	dir = 1
-	},
 /obj/structure/curtain/open/shower/security,
 /obj/item/soap/syndie,
 /obj/item/bikehorn/rubberducky/captainducky,
+/obj/machinery/shower{
+	dir = 1;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "FB" = (
@@ -9295,6 +9315,15 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"Hx" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/syndie,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "Hy" = (
 /obj/structure/toilet{
 	dir = 8
@@ -10982,10 +11011,6 @@
 /area/holodeck/source_desert)
 "MS" = (
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/external{
-	id_tag = "syndishuttle_door_ext";
-	name = "Ship External Access"
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -11011,6 +11036,10 @@
 	name = "syndicate base";
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
 	width = 18
+	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "syndishuttle_door_ext";
+	name = "Ship External Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
@@ -12616,12 +12645,6 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_knightarena)
-"St" = (
-/obj/structure/fence/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/snow,
-/area/syndicate_mothership)
 "Su" = (
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/wood,
@@ -14394,14 +14417,14 @@
 /area/centcom/evac)
 "YS" = (
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/external{
-	id_tag = "syndishuttle_door_int";
-	locked = 1;
-	name = "Ship External Access"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "syndishuttle_door_int";
+	name = "Ship Internal Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "YT" = (
@@ -59060,9 +59083,9 @@ uw
 uw
 uw
 uw
-St
-xE
-Sd
+VK
+uw
+Yi
 BZ
 BZ
 Yi
@@ -62159,7 +62182,7 @@ KY
 uw
 BZ
 BY
-BV
+TV
 MS
 xB
 sn
@@ -63961,7 +63984,7 @@ BJ
 qK
 qT
 rZ
-Yi
+Sd
 Yi
 uw
 uw
@@ -64212,8 +64235,8 @@ BY
 BY
 BY
 BY
-na
-na
+vz
+vz
 oR
 qO
 qU
@@ -64470,7 +64493,7 @@ BY
 BY
 na
 nI
-nY
+wr
 BY
 qO
 ra
@@ -64725,7 +64748,7 @@ BY
 BY
 BY
 BY
-na
+ta
 nK
 ob
 BY
@@ -64981,10 +65004,10 @@ Se
 BY
 BY
 BY
-BY
 ne
 na
-na
+nY
+ja
 BY
 nW
 rb
@@ -65230,7 +65253,7 @@ uw
 uw
 uw
 uw
-Sd
+BZ
 BY
 BY
 Sd
@@ -65240,8 +65263,8 @@ bm
 Sd
 mM
 BY
-BY
-BY
+Hx
+Hx
 BY
 BY
 BY
@@ -65487,7 +65510,7 @@ uw
 ab
 uw
 uw
-Sd
+BZ
 BY
 BY
 Sd
@@ -65744,7 +65767,7 @@ uw
 uw
 uw
 yE
-Sd
+BZ
 BY
 BY
 Sd
@@ -65753,7 +65776,7 @@ rw
 rw
 Sd
 mO
-iA
+BY
 BY
 nW
 pz
@@ -66001,7 +66024,7 @@ uw
 uw
 uw
 uw
-Sd
+BZ
 BY
 BY
 Sd
@@ -66258,7 +66281,7 @@ uw
 tV
 uw
 uw
-Sd
+BZ
 BY
 BY
 Sd
@@ -66515,7 +66538,7 @@ uw
 ab
 uw
 uw
-Sd
+BZ
 BY
 BY
 Sd
