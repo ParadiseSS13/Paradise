@@ -1183,7 +1183,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/berry_muffin
-	name = "berry_muffin"
+	name = "berry muffin"
 	desc = "A delicious and spongy little cake, with berries."
 	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "berry_muffin"
