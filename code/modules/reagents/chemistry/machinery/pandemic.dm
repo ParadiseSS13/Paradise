@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 	var/datum/symptom/S
 	symptomlist += list("No Prediction")
 	for(var/i in GLOB.list_symptoms)
-		//I don't know a way to access the name of something with only the path without creating an instance.
+		// I don't know a way to access the name of something with only the path without creating an instance.
 		S = new i()
 		symptomlist += list(S.name)
 		qdel(S)
@@ -127,34 +127,33 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 	var/current_strain = ""
 	var/stealth_init = FALSE
 	var/stealth = 0
-	for(var/datum/disease/advance/AD in R.data["viruses"])
-		//automatically analyze if the tracker stores the ID of an analyzed disease
-		if(AD.tracker && (AD.tracker in GLOB.known_advanced_diseases["[z]"]))
-			if(!(AD.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]))
-				GLOB.known_advanced_diseases["[z]"] += list(AD.GetDiseaseID())
-		if(AD.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
+	for(var/datum/disease/advance/to_analyze in R.data["viruses"])
+		// Automatically analyze if the tracker stores the ID of an analyzed disease
+		if(to_analyze.tracker && (to_analyze.tracker in GLOB.known_advanced_diseases["[z]"]))
+			if(!(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]))
+				GLOB.known_advanced_diseases["[z]"] += list(to_analyze.GetDiseaseID())
+		if(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
 			return
-		if(AD.strain != current_strain || current_strain == "")
+		if(to_analyze.strain != current_strain || current_strain == "")
 			strains++
 			if(strains > 1)
 				analysis_time_delta = - 2
 				SStgui.update_uis(src, TRUE)
 				return
-			current_strain = AD.strain
+			current_strain = to_analyze.strain
 
 		if(!stealth_init)
-			for(var/datum/symptom/S in AD.symptoms)
+			for(var/datum/symptom/S in to_analyze.symptoms)
 				stealth += S.stealth
-			stealth += AD.base_properties["stealth"]
+			stealth += to_analyze.base_properties["stealth"]
 			stealth_init = TRUE
 
-		if(!(AD.stage in stages))
+		if(!(to_analyze.stage in stages))
 			stage_amount++
-			stages += AD.stage
+			stages += to_analyze.stage
 	stealth = max(stealth, 0)
 	analysis_time_delta = max((6 * (stealth ** 0.7)) + 1.1 - stage_amount ** 2 , 0) * 10 MINUTES
 	SStgui.update_uis(src, TRUE)
-
 
 /obj/machinery/computer/pandemic/proc/stop_analysis()
 	analysis_time_delta = -1
@@ -405,36 +404,34 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 				break
 
 	var/list/strains = list()
-	for(var/datum/disease/D in GetViruses())
+	for(var/datum/disease/blood_disease in GetViruses())
 		var/known = FALSE
-		if(D.visibility_flags & HIDDEN_PANDEMIC)
+		if(blood_disease.visibility_flags & HIDDEN_PANDEMIC)
 			continue
 
 		var/list/symptoms = list()
 		var/list/base_stats = list()
-		var/datum/disease/advance/A = D
-		if(istype(D, /datum/disease/advance))
-			known = (A.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
-			D = GLOB.archive_diseases[A.GetDiseaseID()]
-			if(!D)
+		var/datum/disease/advance/advanced_disease = blood_disease
+		if(istype(blood_disease, /datum/disease/advance))
+			known = (advanced_disease.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
+			blood_disease = GLOB.archive_diseases[advanced_disease.GetDiseaseID()]
+			if(!blood_disease)
 				CRASH("We weren't able to get the advance disease from the archive.")
-			for(var/datum/symptom/S in A.symptoms)
+			for(var/datum/symptom/virus_symptom in advanced_disease.symptoms)
 				symptoms += list(list(
-					"name" = S.name,
-					"stealth" = known ? S.stealth : "UNKNOWN",
-					"resistance" = known ? S.resistance : "UNKNOWN",
-					"stageSpeed" = known ? S.stage_speed : "UNKNOWN",
-					"transmissibility" = known ? S.transmittable : "UNKNOWN",
-					"complexity" = known ? S.level : "UNKNOWN",
+					"name" = virus_symptom.name,
+					"stealth" = known ? virus_symptom.stealth : "UNKNOWN",
+					"resistance" = known ? virus_symptom.resistance : "UNKNOWN",
+					"stagevirus_symptompeed" = known ? virus_symptom.stage_speed : "UNKNOWN",
+					"transmissibility" = known ? virus_symptom.transmittable : "UNKNOWN",
+					"complexity" = known ? virus_symptom.level : "UNKNOWN",
 				))
 
-			base_stats["stealth"] = A.base_properties["stealth"]
-			base_stats["resistance"] = A.base_properties["resistance"]
-			base_stats["stageSpeed"] = A.base_properties["stage rate"]
-			base_stats["transmissibility"] = A.base_properties["transmittable"]
-			base_stats["severity"] = A.base_properties["severity"]
-
-
+			base_stats["stealth"] = advanced_disease.base_properties["stealth"]
+			base_stats["resistance"] = advanced_disease.base_properties["resistance"]
+			base_stats["stageSpeed"] = advanced_disease.base_properties["stage rate"]
+			base_stats["transmissibility"] = advanced_disease.base_properties["transmittable"]
+			base_stats["severity"] = advanced_disease.base_properties["severity"]
 		else
 			known = TRUE
 			base_stats["stealth"] = 0
@@ -443,34 +440,34 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 			base_stats["transmissibility"] = 0
 			base_stats["severity"] = 0
 		strains += list(list(
-			"commonName" = known ? D.name : "Unknown strain",
-			"description" = known ? D.desc : "Unknown strain",
-			"strainID" = istype(D, /datum/disease/advance) ? A.strain : D.name,
-			"strainFullID" = istype(D, /datum/disease/advance) ? A.GetDiseaseID() : D.name,
-			"diseaseID" = istype(D, /datum/disease/advance) ? A.id : D.name,
-			"sample_stage" = D.stage,
+			"commonName" = known ? blood_disease.name : "Unknown strain",
+			"description" = known ? blood_disease.desc : "Unknown strain",
+			"strainID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.strain : blood_disease.name,
+			"strainFullID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.GetDiseaseID() : blood_disease.name,
+			"diseaseID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.id : blood_disease.name,
+			"sample_stage" = blood_disease.stage,
 			"known" = known,
 			"bloodDNA" = Blood.data["blood_DNA"],
 			"bloodType" = Blood.data["blood_type"],
-			"diseaseAgent" = D.agent,
-			"possibleTreatments" = known ? D.cure_text : "Unknown strain",
-			"transmissionRoute" = known ? D.spread_text : "Unknown strain",
+			"diseaseAgent" = blood_disease.agent,
+			"possibleTreatments" = known ? blood_disease.cure_text : "Unknown strain",
+			"transmissionRoute" = known ? blood_disease.spread_text : "Unknown strain",
 			"symptoms" = symptoms,
 			"baseStats" = base_stats,
-			"isAdvanced" = istype(D, /datum/disease/advance),
+			"isAdvanced" = istype(blood_disease, /datum/disease/advance),
 		))
 	data["strains"] = strains
 
 	var/list/resistances = list()
 	for(var/resistance in GetResistances())
 		if(!ispath(resistance))
-			var/datum/disease/D = GLOB.archive_diseases[resistance]
-			if(D)
-				resistances += list(D.name)
+			var/datum/disease/resisted_disease = GLOB.archive_diseases[resistance]
+			if(resisted_disease)
+				resistances += list(resisted_disease.name)
 		else if(resistance)
-			var/datum/disease/D = new resistance(0, null)
-			if(D)
-				resistances += list(D.name)
+			var/datum/disease/resistance_disease = new resistance(0, null)
+			if(resistance_disease)
+				resistances += list(resistance_disease.name)
 	data["resistances"] = resistances
 	data["analysis_time_delta"] = analysis_time_delta
 

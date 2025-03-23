@@ -34,8 +34,6 @@ GLOBAL_LIST_INIT(plant_cures,list(
 									"cbd", "thc", "nicotine" , "psilocybin"
 ))
 
-
-
 /*
 
 	PROPERTIES
@@ -74,34 +72,34 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
  */
 
-/datum/disease/advance/New(process = 1, datum/disease/advance/D)
-	if(!istype(D))
-		D = null
+/datum/disease/advance/New(process = 1, datum/disease/advance/to_copy)
+	if(!istype(to_copy))
+		to_copy = null
 	strain = "origin"
 	// whether to generate a new cure or not
 	var/new_cure = TRUE
 	// Generate symptoms if we weren't given any.
 	if(!symptoms || !length(symptoms))
-		if(!D || !D.symptoms || !length(D.symptoms))
+		if(!to_copy || !to_copy.symptoms || !length(to_copy.symptoms))
 			symptoms = GenerateSymptoms(0, 2)
 		else
-			for(var/datum/symptom/S in D.symptoms)
+			for(var/datum/symptom/S in to_copy.symptoms)
 				symptoms += new S.type
 	// Copy cure, evolution ability and strain if we are copying an existing disease
-	if(D)
-		base_properties = D.base_properties
-		stage = D.stage
-		evolution_chance = D.evolution_chance
-		tracker = D.tracker
-		for(var/r in D.cures)
+	if(to_copy)
+		base_properties = to_copy.base_properties.Copy()
+		stage = to_copy.stage
+		evolution_chance = to_copy.evolution_chance
+		tracker = to_copy.tracker
+		for(var/r in to_copy.cures)
 			cures += r
-		cure_text = D.cure_text
-		strain = D.strain
+		cure_text = to_copy.cure_text
+		strain = to_copy.strain
 		new_cure = FALSE
 
 	Refresh(FALSE, FALSE , new_cure, FALSE)
 
-	..(process, D)
+	..(process, to_copy)
 	return
 
 /datum/disease/advance/Destroy()
@@ -122,7 +120,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			Evolve(min, max)
 		else
 			Devolve()
-		//create a new strain even if we didn't gain or lose symptoms
+		// Create a new strain even if we didn't gain or lose symptoms
 		if(lastStrain == strain)
 			Refresh()
 	if(symptoms && length(symptoms))
@@ -468,18 +466,18 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(!user)
 		return
 
-	var/datum/disease/advance/D = new(0, null)
+	var/datum/disease/advance/admin_disease = new(0, null)
 
 	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
 
 	for(var/prop in base_props)
 		var/current_prop = input(user, "Enter base [prop]", "Base Stats", null)
 		if(current_prop)
-			D.base_properties[prop] = text2num(current_prop)
+			admin_disease.base_properties[prop] = text2num(current_prop)
 
 	var/i = VIRUS_SYMPTOM_LIMIT
 
-	D.symptoms = list()
+	admin_disease.symptoms = list()
 
 	var/list/symptoms = list()
 	symptoms += "Done"
@@ -493,19 +491,19 @@ GLOBAL_LIST_INIT(plant_cures,list(
 				i = 0
 			else if(ispath(symptom))
 				var/datum/symptom/S = new symptom
-				if(!D.HasSymptom(S))
-					D.symptoms += S
+				if(!admin_disease.HasSymptom(S))
+					admin_disease.symptoms += S
 					i -= 1
 	while(i > 0)
 
-	if(length(D.symptoms) > 0)
+	if(length(admin_disease.symptoms) > 0)
 
 		var/new_name = stripped_input(user, "Name your new disease.", "New Name")
 		if(!new_name)
 			return
-		D.AssignName(new_name)
-		D.Refresh()
-		return D
+		admin_disease.AssignName(new_name)
+		admin_disease.Refresh()
+		return admin_disease
 
 
 

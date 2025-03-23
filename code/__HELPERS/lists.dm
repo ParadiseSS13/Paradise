@@ -115,7 +115,7 @@
 
 		return "[output][and_text][input[index]]"
 
-//Returns a map in plain english as a string
+// Returns a map in plain english as a string
 /proc/english_map(list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = length(input)
 	if(!total)

@@ -754,52 +754,52 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-	var/datum/disease/D = null
+	var/datum/disease/given_disease = null
 	if((input("Would you like to create your own disease?") as null|anything in list("Yes","No")) == "Yes")
-		D = AdminCreateVirus(usr)
+		given_disease = AdminCreateVirus(usr)
 	else
-		D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
+		given_disease = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
 
-	if(!D) return
+	if(!given_disease) return
 
-	if(!istype(D, /datum/disease/advance))
-		D = new D
-	T.ForceContractDisease(D)
+	if(!istype(given_disease, /datum/disease/advance))
+		given_disease = new given_disease
+	T.ForceContractDisease(given_disease)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
+	log_admin("[key_name(usr)] gave [key_name(T)] the disease [given_disease].")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [given_disease].</span>")
 
 /client/proc/disease_outbreak()
 	set category = "Event"
 	set name = "Disease Outbreak"
 	set desc = "Creates a disease and infects a random player with it"
-	var/datum/disease/D = null
+	var/datum/disease/given_disease = null
 	//var/create = input("Would you like to create your own disease?") in list("Yes","No")
 	if((input("Would you like to create your own disease?") as null|anything in list("Yes","No")) == "Yes")
-		D = AdminCreateVirus(usr)
+		given_disease = AdminCreateVirus(usr)
 	else
-		D = input("Choose a disease for the outbreak", "ACHOO") as null|anything in GLOB.diseases
-	if(!D)
+		given_disease = input("Choose a disease for the outbreak", "ACHOO") as null|anything in GLOB.diseases
+	if(!given_disease)
 		return
 
-	if(!istype(D, /datum/disease/advance))
-		D = new D
+	if(!istype(given_disease, /datum/disease/advance))
+		given_disease = new given_disease
 
 	for(var/thing in shuffle(GLOB.human_list))
 		var/mob/living/carbon/human/H = thing
 		if(H.stat == DEAD || !is_station_level(H.z))
 			continue
-		if(!H.HasDisease(D))
-			H.ForceContractDisease(D)
+		if(!H.HasDisease(given_disease))
+			H.ForceContractDisease(given_disease)
 			break
-	if(istype(D, /datum/disease/advance))
-		var/datum/disease/advance/AD = D
+	if(istype(given_disease, /datum/disease/advance))
+		var/datum/disease/advance/given_advanced_disease = given_disease
 		var/list/name_symptoms = list()
-		for(var/datum/symptom/S in AD.symptoms)
+		for(var/datum/symptom/S in given_advanced_disease.symptoms)
 			name_symptoms += S.name
-		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [AD.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats [english_map(AD.base_properties)]")
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [given_advanced_disease.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats [english_map(given_advanced_disease.base_properties)]")
 	else
-		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [D.name]!")
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [given_disease.name]!")
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
 	set name = "\[Admin\] Make Sound"
