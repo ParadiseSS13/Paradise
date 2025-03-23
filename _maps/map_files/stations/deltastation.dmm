@@ -6322,6 +6322,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -11432,10 +11433,10 @@
 /area/station/hallway/primary/fore/south)
 "aTc" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
+/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
+/obj/machinery/door/airlock/glass{
 	name = "Kitchen Garden"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "aTd" = (
@@ -65871,12 +65872,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/break_room)
-"jLs" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "jLQ" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -79563,6 +79558,12 @@
 	icon_state = "dark"
 	},
 /area/station/security/execution)
+"qXQ" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/turf/simulated/floor/wood,
+/area/station/hallway/primary/fore/north)
 "qYc" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -83557,6 +83558,9 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/fore/north)
 "sMA" = (
@@ -84770,6 +84774,10 @@
 	icon_state = "darkred"
 	},
 /area/station/security/prisonershuttle)
+"tum" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/station/service/kitchen)
 "tuq" = (
 /obj/structure/sign/botany{
 	pixel_y = 32
@@ -85161,6 +85169,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -88509,6 +88518,9 @@
 	},
 /area/station/security/prison/cell_block/a)
 "viD" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/fore/north)
 "vjg" = (
@@ -125220,7 +125232,7 @@ pNN
 ath
 dmA
 apG
-jLs
+aor
 avM
 aor
 aya
@@ -129339,7 +129351,7 @@ rZT
 lQg
 vuG
 aOx
-viD
+qXQ
 viD
 sMz
 sMz
@@ -130122,9 +130134,9 @@ aFA
 aFA
 aYZ
 aYZ
-aYZ
+tum
 aTc
-aYZ
+tum
 aYZ
 aYZ
 aYZ
