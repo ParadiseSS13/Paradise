@@ -1047,7 +1047,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "fY" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1402,6 +1402,7 @@
 /area/ruin/unpowered/syndicate_space_base/virology)
 "hP" = (
 /obj/structure/table,
+/obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1435,7 +1436,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "ig" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -3093,6 +3094,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/structure/closet/crate/cookware,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -3857,6 +3859,13 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/wood,
+/area/ruin/unpowered/syndicate_space_base/service)
+"wm" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/board,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/ruin/unpowered/syndicate_space_base/service)
 "wn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4768,7 +4777,7 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "BJ" = (
 /obj/machinery/light,
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -4787,7 +4796,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "BL" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8313,14 +8323,10 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "Xp" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/chef_recipes{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/item/kitchen/rollingpin,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -11482,7 +11488,7 @@ gW
 oM
 oM
 mk
-hP
+wm
 MT
 Cw
 fY
