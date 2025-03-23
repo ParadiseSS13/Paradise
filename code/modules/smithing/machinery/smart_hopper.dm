@@ -1,3 +1,8 @@
+#define BASE_POINT_MULT 0.60
+#define BASE_SHEET_MULT 0.60
+#define POINT_MULT_ADD_PER_RATING 0.10
+#define SHEET_MULT_ADD_PER_RATING 0.20
+
 /obj/machinery/mineral/smart_hopper
 	name = "smart hopper"
 	desc = "An electronic deposit bin that accepts raw ores and delivers them to an adjacent magma crucible."
@@ -201,3 +206,8 @@
 	var/time_to_animate = max(ore_amount * 2, 1 SECONDS)
 	addtimer(VARSET_CALLBACK(src, icon_state, "hopper"), time_to_animate)
 	linked_crucible.animate_transfer(time_to_animate)
+
+#undef BASE_POINT_MULT
+#undef BASE_SHEET_MULT
+#undef POINT_MULT_ADD_PER_RATING
+#undef SHEET_MULT_ADD_PER_RATING
