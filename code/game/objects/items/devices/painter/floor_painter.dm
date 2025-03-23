@@ -7,6 +7,7 @@
 	var/floor_icon = 'icons/turf/floors.dmi'
 	var/floor_state = "floor"
 	var/floor_dir = SOUTH
+	var/wide_mode = FALSE
 
 	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "bcircuit", "black", "blackcorner", "blue", "bluecorner",
 		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "browncornerold", "brownfull", "cafeteria", "caution",
@@ -27,13 +28,25 @@
 		return
 	var/turf/simulated/floor/plasteel/F = target
 
-	if(F.icon_state == floor_state && F.dir == floor_dir)
+	if(!wide_mode && F.icon_state == floor_state && F.dir == floor_dir)
 		to_chat(user, "<span class='notice'>This is already painted [floor_state] [dir2text(floor_dir)]!</span>")
 		return
 
 	F.icon_state = floor_state
 	F.icon_regular_floor = floor_state
 	F.dir = floor_dir
+
+	if(wide_mode)
+		var/turf/simulated/floor/plasteel/tileList = F.AdjacentTurfs(TRUE, FALSE, FALSE)
+
+		if(length(tileList) == 0)
+			return
+
+		for(var/turf/simulated/floor/plasteel/T in tileList)
+			T.icon_state = floor_state
+			T.icon_regular_floor = floor_state
+			T.dir = floor_dir
+
 	return TRUE
 
 /datum/painter/floor/pick_color(mob/user)
@@ -56,6 +69,7 @@
 	var/list/data = list()
 	data["selectedStyle"] = floor_state
 	data["selectedDir"] = floor_dir
+	data["wideMode"] = wide_mode
 	return data
 
 /datum/painter/floor/ui_static_data(mob/user)
@@ -86,5 +100,8 @@
 		var/dir = params["direction"]
 		if(dir != 0)
 			floor_dir = dir
+
+	if(action == "wide_mode")
+		wide_mode = !wide_mode
 
 	return TRUE
