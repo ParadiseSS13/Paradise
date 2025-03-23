@@ -60849,12 +60849,8 @@
 /turf/simulated/floor/plating,
 /area/station/security/detective)
 "hac" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
-/obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/wrench,
 /obj/structure/shelf/service,
@@ -60863,20 +60859,8 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/alarm/directional/west,
-/obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/delivery/hollow,
-/obj/item/wrench,
-/obj/structure/shelf/service,
 /obj/item/stack/sheet/wood{
 	amount = 30
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -79562,23 +79546,10 @@
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "qXd" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/table,
-/obj/item/kitchen/rollingpin,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/condiment/enzyme,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
