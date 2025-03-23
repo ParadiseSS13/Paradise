@@ -2089,13 +2089,6 @@
 	icon_state = "red"
 	},
 /area/station/maintenance/fore2)
-"aoz" = (
-/obj/machinery/economy/atm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/port/north)
 "aoA" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -15554,10 +15547,12 @@
 /obj/machinery/alarm/directional/west,
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
-/obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/wrench,
 /obj/structure/shelf/service,
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -15950,13 +15945,13 @@
 	},
 /area/station/service/kitchen)
 "bfk" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
 /area/station/service/kitchen)
 "bfm" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -16317,7 +16312,7 @@
 "bgB" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/reagent_containers/condiment/enzyme,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -16633,6 +16628,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -17783,11 +17779,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bll" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blm" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/closet/crate/cookware,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bln" = (
@@ -21344,6 +21340,7 @@
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 5
 	},
+/obj/item/reagent_containers/cooking/grill_grate,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -27630,8 +27627,8 @@
 /area/station/hallway/primary/port/north)
 "bQy" = (
 /obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bQz" = (
@@ -37012,6 +37009,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/control)
+"cwx" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "redcorner"
+	},
+/area/station/hallway/primary/starboard/east)
 "cwy" = (
 /obj/item/kirbyplants/large,
 /obj/structure/sign/electricshock{
@@ -48493,7 +48497,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "dlP" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -58673,6 +58678,13 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
+"fuw" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/station/medical/reception)
 "fuH" = (
 /obj/machinery/economy/vending/autodrobe,
 /obj/machinery/light/small{
@@ -61790,6 +61802,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"hlx" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central)
 "hly" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
@@ -63661,13 +63683,6 @@
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/public/vacant_office)
-"ims" = (
-/obj/machinery/economy/atm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurplecorner"
-	},
-/area/station/science/lobby)
 "imG" = (
 /obj/structure/table/glass,
 /obj/machinery/computer/med_data/laptop{
@@ -66883,16 +66898,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/south)
-"kdT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/economy/atm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central)
 "kej" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
@@ -67075,13 +67080,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
-"khT" = (
-/obj/machinery/economy/atm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
-	},
-/area/station/hallway/primary/starboard/east)
 "khY" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -69394,10 +69392,6 @@
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/item/book/manual/wiki/chef_recipes{
-	pixel_x = 4;
-	pixel_y = 2
-	},
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
@@ -70259,6 +70253,10 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/north)
+"lXJ" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedbar)
 "lYp" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -72922,10 +72920,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"nrA" = (
-/obj/machinery/economy/atm/directional/north,
-/turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/abandonedbar)
 "nsl" = (
 /obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
@@ -73392,6 +73386,13 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat)
+"nFz" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/port/north)
 "nFL" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
@@ -74464,6 +74465,12 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/paramedic)
+"ong" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/cooking/grill,
+/turf/simulated/floor/plasteel,
+/area/station/service/kitchen)
 "ont" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -80279,6 +80286,13 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
+"rnx" = (
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/lobby)
 "rnA" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -83084,13 +83098,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/coldroom)
-"sDM" = (
-/obj/machinery/economy/atm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/station/medical/reception)
 "sDN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -88873,7 +88880,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "vCA" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
+/obj/item/reagent_containers/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -118149,7 +118157,7 @@ sEA
 cXS
 drn
 irt
-nrA
+lXJ
 dfU
 dcT
 deD
@@ -123504,7 +123512,7 @@ bGR
 brV
 brV
 brV
-aoz
+nFz
 bQw
 brV
 bUC
@@ -129963,7 +129971,7 @@ cIW
 cKw
 cMd
 msD
-ims
+rnx
 tQM
 cSm
 cZt
@@ -132995,7 +133003,7 @@ bdS
 bdQ
 bdP
 bdQ
-bQy
+ong
 aYZ
 fJp
 npJ
@@ -133283,7 +133291,7 @@ drp
 bYv
 mTf
 bYv
-kdT
+hlx
 tmq
 tmq
 cqo
@@ -137671,7 +137679,7 @@ ckv
 cHN
 ppu
 cKX
-sDM
+fuw
 cNW
 vXU
 qqT
@@ -144837,7 +144845,7 @@ vOc
 hhU
 vOc
 vOc
-khT
+cwx
 bVq
 sUE
 pYm
