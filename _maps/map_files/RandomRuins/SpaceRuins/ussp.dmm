@@ -4881,7 +4881,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitered"
@@ -5202,7 +5202,8 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -6418,7 +6419,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rm" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"

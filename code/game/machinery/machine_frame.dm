@@ -319,6 +319,7 @@ to destroy them and players will be able to make replacements.
 		"JaniDrobe" =							/obj/machinery/economy/vending/janidrobe,
 		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe,
 		"TrainDrobe" =							/obj/machinery/economy/vending/traindrobe,
+		"Castivend" =							/obj/machinery/economy/vending/smith,
 		"CrewVend 3000" =						/obj/machinery/economy/vending/custom)
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
@@ -495,47 +496,15 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/oven
-	board_name = "Oven"
-	icon_state = "service"
-	build_path = /obj/machinery/kitchen_machine/oven
-	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
-	req_components = list(
-							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
-
-/obj/item/circuitboard/grill
-	board_name = "Grill"
-	icon_state = "service"
-	build_path = /obj/machinery/kitchen_machine/grill
-	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
-	req_components = list(
-							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
-
-/obj/item/circuitboard/candy_maker
-	board_name = "Candy Maker"
-	icon_state = "service"
-	build_path = /obj/machinery/kitchen_machine/candy_maker
-	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
-	req_components = list(
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
-
 /obj/item/circuitboard/deepfryer
 	board_name = "Deep Fryer"
 	icon_state = "service"
-	build_path = /obj/machinery/cooker/deepfryer
+	build_path = /obj/machinery/cooking/deepfryer
 	board_type = "machine"
 	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stack/cable_coil = 5)
 
 /obj/item/circuitboard/gibber
@@ -1051,6 +1020,72 @@ to destroy them and players will be able to make replacements.
 	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
 // End telecomms circuit boards
 
+/obj/item/circuitboard/smart_hopper
+	board_name = "Ore Redemption"
+	icon_state = "supply"
+	build_path = /obj/machinery/mineral/smart_hopper
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=2"
+	req_components = list(
+							/obj/item/stack/sheet/glass = 1,
+							/obj/item/stock_parts/matter_bin = 3,
+							/obj/item/stock_parts/manipulator = 1)
+
+/obj/item/circuitboard/magma_crucible
+	board_name = "Magma Crucible"
+	icon_state = "supply"
+	build_path = /obj/machinery/magma_crucible
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=4"
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/assembly/igniter = 1)
+
+/obj/item/circuitboard/casting_basin
+	board_name = "Casting Basin"
+	icon_state = "supply"
+	build_path = /obj/machinery/smithing/casting_basin
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=4"
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stack/sheet/glass = 1
+						)
+
+/obj/item/circuitboard/power_hammer
+	board_name = "Power Hammer"
+	icon_state = "supply"
+	build_path = /obj/machinery/smithing/power_hammer
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=4"
+	req_components = list(
+							/obj/item/stock_parts/manipulator = 4,
+							/obj/item/stack/sheet/plasteel = 1)
+
+/obj/item/circuitboard/lava_furnace
+	board_name = "Lava Furnace"
+	icon_state = "supply"
+	build_path = /obj/machinery/smithing/lava_furnace
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=4"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 4,
+							/obj/item/assembly/igniter = 1)
+
+/obj/item/circuitboard/kinetic_assembler
+	board_name = "Kinetic Assembler"
+	icon_state = "supply"
+	build_path = /obj/machinery/smithing/kinetic_assembler
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=4"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 1,
+							/obj/item/stock_parts/manipulator = 3,
+							/obj/item/stack/sheet/glass = 1)
+
 /obj/item/circuitboard/ore_redemption
 	board_name = "Ore Redemption"
 	icon_state = "supply"
@@ -1167,3 +1202,15 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
 							/obj/item/stack/sheet/plasteel = 5)
+
+/obj/item/circuitboard/autochef
+	board_name = "Autochef"
+	icon_state = "generic"
+	board_type = "machine"
+	build_path = /obj/machinery/autochef
+	origin_tech = "programming=3;bluespace=3;materials=3"
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)

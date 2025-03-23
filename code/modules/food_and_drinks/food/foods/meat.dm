@@ -113,6 +113,8 @@
 		else
 			qdel(src)
 
+	return ..()
+
 //////////////////////////
 //		Monster Meat	//
 //////////////////////////
@@ -252,6 +254,76 @@
 		baconbeacon.forceMove(user)
 		baconbeacon.digest_delay()
 		baconbeacon = null
+
+/obj/item/food/meat/patty
+	name = "patty"
+	desc = "A juicy cooked patty, ready to be slapped between two buns."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "patty"
+	bitesize = 3
+	list_reagents = list("protein" = 3)
+
+/obj/item/food/meat/patty_raw
+	name = "raw patty"
+	desc = "A raw patty ready to be grilled into a juicy and delicious burger."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "patty_raw"
+	bitesize = 3
+	list_reagents = list("protein" = 2)
+
+/obj/item/food/meat/patty_raw/attack_self__legacy__attackchain(mob/user)
+	user.visible_message(
+		"<span class='notice'>[user] shapes [src] into a ball.</span>",
+		"<span class='notice'>You shape [src] into a ball.</span>"
+	)
+	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
+	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
+	user.drop_item()
+	qdel(src)
+	user.put_in_hands(M)
+	return 1
+
+/obj/item/food/ground_meat
+	name = "ground meat"
+	desc = "Some meat that has minced with a processor."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "groundbeef"
+	filling_color = "#DB0000"
+	list_reagents = list("protein" = 4, "vitamin" = 1)
+	tastes = list("raw meat" = 1)
+
+/obj/item/food/ground_meat/attack_self__legacy__attackchain(mob/living/user)
+	user.visible_message(
+		"<span class='notice'>[user] shapes [src] into a ball.</span>",
+		"<span class='notice'>You shape [src] into a ball of raw ground meat.</span>"
+	)
+	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
+	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
+	user.drop_item()
+	qdel(src)
+	user.put_in_hands(M)
+	return TRUE
+
+/obj/item/food/meat/raw_meatball
+	name = "raw meatball"
+	desc = "Some ground meat shaped into a ball."
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "meatball_raw"
+	filling_color = "#DB4444"
+	list_reagents = list("protein" = 4, "vitamin" = 1)
+	tastes = list("raw meat" = 1)
+
+/obj/item/food/meat/raw_meatball/attack_self__legacy__attackchain(mob/user)
+	user.visible_message(
+		"<span class='notice'>[user] flattens [src] into a patty.</span>",
+		"<span class='notice'>You flatten [src] into a raw patty.</span>"
+	)
+	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
+	var/obj/item/food/meat/patty_raw/M = new(get_turf(user))
+	user.drop_item()
+	qdel(src)
+	user.put_in_hands(M)
+	return TRUE
 
 /obj/item/food/meatball
 	name = "meatball"

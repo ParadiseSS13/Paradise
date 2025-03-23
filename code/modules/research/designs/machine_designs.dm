@@ -449,7 +449,7 @@
 	req_tech = list("programming" = 2, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/oven
+	build_path = /obj/item/circuitboard/cooking/oven
 	category = list("Misc. Machinery")
 
 /datum/design/grill
@@ -462,14 +462,14 @@
 	build_path = /obj/item/circuitboard/grill
 	category = list("Misc. Machinery")
 
-/datum/design/candy_maker
-	name = "Machine Board (Candy Maker)"
-	desc = "The circuit board for a Candy Maker."
-	id = "candymaker"
+/datum/design/ice_cream_mixer
+	name = "Machine Board (Ice Cream Mixer)"
+	desc = "The circuit board for an Ice Cream Mixer."
+	id = "ice_cream_mixer"
 	req_tech = list("programming" = 2, "magnets" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/candy_maker
+	build_path = /obj/item/circuitboard/cooking/ice_cream_mixer
 	category = list("Misc. Machinery")
 
 /datum/design/deepfryer
@@ -510,6 +510,66 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/ore_redemption
+	category = list ("Misc. Machinery")
+
+/datum/design/smart_hopper
+	name = "Machine Design (Smart Hopper)"
+	desc = "The circuit board for a Smart Hopper."
+	id = "smart_hopper"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/smart_hopper
+	category = list ("Misc. Machinery")
+
+/datum/design/magma_crucible
+	name = "Machine Design (Magma Crucible)"
+	desc = "The circuit board for a Magma Crucible."
+	id = "magma_crucible"
+	req_tech = list("programming" = 2, "engineering" = 5, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/magma_crucible
+	category = list ("Misc. Machinery")
+
+/datum/design/casting_basin
+	name = "Machine Design (Casting Bench)"
+	desc = "The circuit board for a Casting Bench."
+	id = "casting_bench"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/casting_basin
+	category = list ("Misc. Machinery")
+
+/datum/design/power_hammer
+	name = "Machine Design (Power Hammer)"
+	desc = "The circuit board for a Power Hammer."
+	id = "power_hammer"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/power_hammer
+	category = list ("Misc. Machinery")
+
+/datum/design/lava_furnace
+	name = "Machine Design (Lava Furnace)"
+	desc = "The circuit board for a Lava Furnace."
+	id = "lava_furnace"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/lava_furnace
+	category = list ("Misc. Machinery")
+
+/datum/design/kinetic_assembler
+	name = "Machine Design (Kinetic Assembler)"
+	desc = "The circuit board for a Kinetic Assembler."
+	id = "kinetic_assembler"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/kinetic_assembler
 	category = list ("Misc. Machinery")
 
 /datum/design/mining_equipment_vendor
@@ -600,4 +660,14 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/merch
+	category = list("Misc. Machinery")
+
+/datum/design/autochef
+	name = "Machine Design (Autochef)"
+	desc = "The circuit board for an autochef."
+	id = "autochef"
+	req_tech = list("programming" = 3, "bluespace" = 3, "materials" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/autochef
 	category = list("Misc. Machinery")
