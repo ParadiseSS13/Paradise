@@ -1982,7 +1982,15 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/obj/docking_port/mobile/admin,
+/obj/docking_port/mobile/admin{
+	dir = 2;
+	dwidth = 8;
+	height = 15;
+	id = "admin";
+	name = "administration shuttle";
+	timid = 1;
+	width = 18
+	},
 /obj/docking_port/stationary{
 	dir = 2;
 	dwidth = 9;
