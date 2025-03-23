@@ -2967,13 +2967,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kO" = (
-/obj/item/paper_bin,
-/obj/item/pen/red,
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/paper_bin/syndicate,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kP" = (
 /obj/structure/bed,
+/obj/item/bedsheet/syndie,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kQ" = (
@@ -3275,6 +3276,14 @@
 /obj/structure/computerframe,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"lU" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/ashtray/bronze{
+	pixel_x = 5;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "lW" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel/dark,
@@ -4765,8 +4774,8 @@
 /area/centcom/control)
 "qT" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/drinks/bottle/rum,
+/obj/item/paper_bin,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "qU" = (
@@ -6660,7 +6669,18 @@
 /area/admin)
 "xg" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/storage/bag/dice,
+/obj/item/storage/bag/dice{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/paper_bin{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/pen/multi/syndicate{
+	pixel_x = -6;
+	pixel_y = 4
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership)
 "xj" = (
@@ -7481,6 +7501,12 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"AW" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "AX" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
@@ -9308,6 +9334,18 @@
 	icon_state = "darkyellow"
 	},
 /area/shuttle/escape)
+"Hu" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/obj/item/lighter/zippo/contractor{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Hv" = (
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
@@ -12574,6 +12612,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/evac)
+"Sc" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/paper_bin,
+/obj/item/pen/multi/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Sd" = (
 /turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/syndicate_mothership)
@@ -13633,6 +13677,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Ww" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin/syndicate,
+/obj/item/pen/multi/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "Wx" = (
 /obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel,
@@ -68072,7 +68122,7 @@ Sd
 iN
 XJ
 XJ
-jr
+Ww
 jM
 XJ
 XJ
@@ -69106,7 +69156,7 @@ Sd
 jZ
 kk
 kv
-kD
+AW
 kP
 Sd
 XJ
@@ -71687,8 +71737,8 @@ Tg
 fk
 kU
 kU
-qx
-qx
+Sc
+lU
 Cc
 Zk
 lg
@@ -71944,7 +71994,7 @@ Sd
 Zk
 Gm
 kU
-qx
+Hu
 Ie
 kU
 Zk
