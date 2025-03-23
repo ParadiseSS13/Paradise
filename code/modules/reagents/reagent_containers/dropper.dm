@@ -11,6 +11,8 @@
 	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
+	/// How long it takes to drip the contents into someone's eyes.
+	var/mob_drip_delay = 3 SECONDS
 
 /obj/item/reagent_containers/dropper/on_reagent_change()
 	if(!reagents.total_volume)
@@ -18,12 +20,8 @@
 	else
 		icon_state = "[initial(icon_state)]1"
 
-/obj/item/reagent_containers/dropper/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	return
-
-/obj/item/reagent_containers/dropper/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/reagent_containers/dropper/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	var/to_transfer = 0
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
@@ -31,7 +29,7 @@
 			return
 		if(user != C)
 			visible_message("<span class='danger'>[user] begins to drip something into [C]'s eyes!</span>")
-			if(!do_mob(user, C, 30))
+			if(!do_mob(user, C, mob_drip_delay))
 				return
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
@@ -67,34 +65,36 @@
 		to_transfer = reagents.trans_to(C, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
 
-	if(isobj(target))
-		if(!target.reagents)
+/obj/item/reagent_containers/dropper/normal_act(atom/target, mob/living/user)
+	var/to_transfer = 0
+	if(!target.reagents)
+		return
+
+	if(reagents.total_volume)
+		if(!target.is_open_container() && !(isfood(target) && !ispill(target)) && !istype(target, /obj/item/clothing/mask/cigarette))
+			to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
 			return
 
-		if(reagents.total_volume)
-			if(!target.is_open_container() && !(isfood(target) && !ispill(target)) && !istype(target, /obj/item/clothing/mask/cigarette))
-				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
-				return
+		if(target.reagents.total_volume >= target.reagents.maximum_volume)
+			to_chat(user, "<span class='warning'>[target] is full.</span>")
+			return
 
-			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				to_chat(user, "<span class='warning'>[target] is full.</span>")
-				return
+		to_transfer = reagents.trans_to(target, amount_per_transfer_from_this)
+		to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
 
-			to_transfer = reagents.trans_to(target, amount_per_transfer_from_this)
-			to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
+	else
+		if(!target.is_open_container() && !istype(target, /obj/structure/reagent_dispensers))
+			to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target].</span>")
+			return
 
-		else
-			if(!target.is_open_container() && !istype(target, /obj/structure/reagent_dispensers))
-				to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target].</span>")
-				return
+		if(!target.reagents.total_volume)
+			to_chat(user, "<span class='warning'>[target] is empty.</span>")
+			return
 
-			if(!target.reagents.total_volume)
-				to_chat(user, "<span class='warning'>[target] is empty.</span>")
-				return
+		to_transfer = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
-			to_transfer = target.reagents.trans_to(src, amount_per_transfer_from_this)
-
-			to_chat(user, "<span class='notice'>You fill [src] with [to_transfer] units of the solution.</span>")
+		to_chat(user, "<span class='notice'>You fill [src] with [to_transfer] units of the solution.</span>")
+	return TRUE
 
 /obj/item/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"
@@ -113,10 +113,10 @@
 //Syndicate item. Virus transmitting mini hypospray
 /obj/item/reagent_containers/dropper/precision/viral_injector
 
-/obj/item/reagent_containers/dropper/precision/viral_injector/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	if(M.can_inject(user, TRUE))
-		to_chat(user, "<span class='warning'>You stealthily stab [M] with [src].</span>")
-		if(reagents.total_volume && M.reagents)
+/obj/item/reagent_containers/dropper/precision/viral_injector/mob_act(mob/living/target, mob/living/user)
+	if(target.can_inject(user, TRUE))
+		to_chat(user, "<span class='warning'>You stealthily stab [target] with [src].</span>")
+		if(reagents.total_volume && target.reagents)
 			var/list/injected = list()
 			for(var/datum/reagent/R in reagents.reagent_list)
 				injected += R.name
@@ -135,10 +135,10 @@
 							virusData += " ([english_list(english_symptoms)])"
 						virList += virusData
 					var/str = english_list(virList)
-					add_attack_logs(user, M, "Infected with [str].")
+					add_attack_logs(user, target, "Infected with [str].")
 
-				reagents.reaction(M, REAGENT_INGEST, reagents.total_volume)
-				reagents.trans_to(M, 1)
+				reagents.reaction(target, REAGENT_INGEST, reagents.total_volume)
+				reagents.trans_to(target, 1)
 
 			var/contained = english_list(injected)
-			add_attack_logs(user, M, "Injected with [src] containing ([contained])")
+			add_attack_logs(user, target, "Injected with [src] containing ([contained])")
