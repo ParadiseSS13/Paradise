@@ -41,18 +41,23 @@
 		if(bandwidth < 0)
 			refund_upgrades()
 
+/datum/program_picker/proc/get_installed_programs()
+	var/list/installed_programs = list()
+	for(var/datum/ai_program/program in possible_programs)
+		if(program.installed)
+			installed_programs += program
+	return installed_programs
+
 /datum/program_picker/proc/refund_purchases()
-	var/list/potential_losses = possible_programs
+	var/list/potential_losses = get_installed_programs()
 	while(memory < 0)
 		if(!length(potential_losses))
 			return
 		var/datum/ai_program/program = pick_n_take(potential_losses)
-		if(!program.installed)
-			continue
 		program.uninstall(assigned_ai)
 
 /datum/program_picker/proc/refund_upgrades()
-	var/list/potential_losses = possible_programs
+	var/list/potential_losses = get_installed_programs()
 	while(bandwidth < 0)
 		if(!length(potential_losses))
 			return
@@ -121,6 +126,9 @@
 								return FALSE
 							selected_program.name = initial(selected_program.name)
 							selected_program.spell_level++
+							program.upgrade_level++
+							program.bandwidth_used++
+							bandwidth--
 							if(selected_program.spell_level >= selected_program.level_max)
 								to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
 							selected_program.on_purchase_upgrade()
@@ -186,11 +194,8 @@
 	create_attack_logs = FALSE
 
 /datum/ai_program/proc/upgrade(mob/living/silicon/ai/user)
-	upgrade_level++
-	bandwidth_used++
 	if(!istype(user))
 		return
-	user.program_picker.bandwidth--
 
 /datum/ai_program/proc/downgrade(mob/living/silicon/ai/user)
 	if(!istype(user))
