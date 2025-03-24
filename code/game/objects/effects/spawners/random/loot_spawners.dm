@@ -129,3 +129,10 @@
 /obj/effect/spawner/random/loot_crate/rarely
 	name = "lootcrate spawner, 20% chance"
 	spawn_loot_chance = 20
+
+/obj/effect/spawner/random/loot/bluespace_tap/food_mixed
+	loot = list(
+		/obj/effect/spawner/random/bluespace_tap/food_common = 6,
+		/obj/effect/spawner/random/bluespace_tap/food_uncommon = 3,
+		/obj/effect/spawner/random/bluespace_tap/food_rare,
+	)

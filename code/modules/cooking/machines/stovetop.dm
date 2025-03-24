@@ -131,3 +131,12 @@
 		/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/capacitor = 1,
 	)
+
+/obj/machinery/cooking/stovetop/loaded/Initialize(mapload)
+	. = ..()
+	for(var/i in 1 to length(surfaces))
+		if(i % 2 == 0)
+			surfaces[i].container = new /obj/item/reagent_containers/cooking/pot
+		else
+			surfaces[i].container = new /obj/item/reagent_containers/cooking/pan
+	update_appearance()

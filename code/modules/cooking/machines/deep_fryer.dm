@@ -131,3 +131,9 @@
 		/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/capacitor = 1,
 	)
+
+/obj/machinery/cooking/deepfryer/loaded/Initialize(mapload)
+	. = ..()
+	for(var/i in 1 to length(surfaces))
+		surfaces[i].container = new /obj/item/reagent_containers/cooking/deep_basket
+	update_appearance()
