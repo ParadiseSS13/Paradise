@@ -5,9 +5,9 @@
 	/// List of programs that can be bought
 	var/list/possible_programs
 	/// How much memory is available
-	var/memory = 1
+	var/memory = 3
 	/// How much total memory does the system have?
-	var/total_memory = 1
+	var/total_memory = 3
 	/// How much bandwidth is available
 	var/bandwidth = 1
 	/// How much total bandwidth does the system have?
