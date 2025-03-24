@@ -916,7 +916,7 @@
 
 /datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		M.reagents.add_reagent("sodiumchloride", rand(10,20))	// The salt!
+		M.reagents.add_reagent("sodiumchloride", rand(10, 20))	// The salt!
 		var/spooky_eat = pick("A wave of seething anger briefly passes over you!", "This is all bullshit!", "You internally seethe and mald.", "You briefly see a dense halo of spirits taunting you!")
 		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
 
