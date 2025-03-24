@@ -112,6 +112,14 @@
 	switch(action)
 		if("select")
 			var/datum/ai_program/program = locateUID(params["uid"])
+			if(!program.installed) // Handle installing any program here.
+				if(program.cost > memory)
+					to_chat(A, "<span class='warning'>You cannot afford this program.</span>")
+					return FALSE
+				memory -= program.cost
+				program.installed = TRUE
+
+			// Active programs
 			if(!program.upgrade)
 				var/datum/spell/ai_spell/new_spell = new program.power_type
 				// Upgrading an existing active program
@@ -122,36 +130,35 @@
 							return FALSE
 						else
 							if(bandwidth < 1)
-								temp = "You cannot afford this upgrade!"
+								to_chat(A, "<span class='warning'>You cannot afford this upgrade!</span>")
 								return FALSE
 							selected_program.name = initial(selected_program.name)
 							selected_program.spell_level++
-							program.upgrade_level++
-							program.bandwidth_used++
-							bandwidth--
 							if(selected_program.spell_level >= selected_program.level_max)
 								to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
 							selected_program.on_purchase_upgrade()
 							program.upgrade(A)
 							return TRUE
 
-				// No same active program found, install
-				if(program.cost > memory)
-					to_chat(A, "<span class='notice'>You cannot afford this program.</span>")
-					return FALSE
-				memory -= program.cost
+				// No same active program found, install the new active power.
 				SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
-				program.upgrade(A) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
+				program.upgrade(A, first_install = TRUE) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
 				A.AddSpell(new_spell)
 				to_chat(A, program.unlock_text)
 				A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
-				program.installed = TRUE
 				return TRUE
+
 			// Passive programs
 			if(program.upgrade_level > program.max_level)
 				to_chat(A, "<span class='notice'>This program cannot be upgraded any further.</span>")
 				return FALSE
-			program.upgrade(A)
+			if(!program.upgrade_level)
+				program.upgrade(A, first_install = TRUE)
+			else
+				if(bandwidth < 1)
+					to_chat(A, "<span class='warning'>You cannot afford this upgrade!</span>")
+					return FALSE
+				program.upgrade(A)
 			to_chat(A, program.unlock_text)
 			A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
 			return TRUE
@@ -193,9 +200,13 @@
 	auto_use_uses = FALSE // This is an infinite ability.
 	create_attack_logs = FALSE
 
-/datum/ai_program/proc/upgrade(mob/living/silicon/ai/user)
+/datum/ai_program/proc/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
 	if(!istype(user))
 		return
+	upgrade_level++
+	if(!first_install)
+		bandwidth_used++
+		user.program_picker.bandwidth--
 
 /datum/ai_program/proc/downgrade(mob/living/silicon/ai/user)
 	if(!istype(user))
@@ -409,7 +420,8 @@
 	unlock_text = "Universal adapter installation complete!"
 	upgrade = TRUE
 
-/datum/ai_program/universal_adapter/upgrade(mob/living/silicon/ai/user)
+/datum/ai_program/universal_adapter/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
+	..()
 	if(!istype(user))
 		return
 	user.universal_adapter = TRUE
@@ -532,7 +544,8 @@
 	unlock_text = "Bluespace miner installation complete!"
 	upgrade = TRUE
 
-/datum/ai_program/bluespace_miner/upgrade(mob/living/silicon/ai/user)
+/datum/ai_program/bluespace_miner/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
+	..()
 	if(!istype(user))
 		return
 	user.bluespace_miner_rate = 100 + (100 * upgrade_level)
@@ -568,7 +581,8 @@
 	..()
 	original_price_mod = SSeconomy.pack_price_modifier
 
-/datum/ai_program/multimarket_analyser/upgrade(mob/living/silicon/ai/user)
+/datum/ai_program/multimarket_analyser/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
+	..()
 	SSeconomy.pack_price_modifier = original_price_mod * (0.95 - (0.05 * upgrade_level))
 	upgrade_level++
 	installed = TRUE
@@ -676,7 +690,8 @@
 	/// Track the original delay
 	var/original_door_delay = 3 SECONDS
 
-/datum/ai_program/enhanced_doors/upgrade(mob/living/silicon/ai/user)
+/datum/ai_program/enhanced_doors/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
+	..()
 	if(!istype(user))
 		return
 	user.door_bolt_delay = original_door_delay * (1 - (upgrade_level * 0.1))
@@ -899,7 +914,8 @@
 	unlock_text = "Tag and track software online."
 	max_level = 8
 
-/datum/ai_program/enhanced_tracker/upgrade(mob/living/silicon/ai/user)
+/datum/ai_program/enhanced_tracker/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
+	..()
 	if(!istype(user))
 		return
 	user.enhanced_tracking = TRUE
