@@ -880,9 +880,9 @@
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 5
 	if(spell_level >= 10)
-		AI.play_sound_remote(user, 'sound/items/airhorn.ogg', 50,)
+		AI.play_sound_remote(target, 'sound/items/airhorn.ogg', 50,)
 	else
-		AI.play_sound_remote(user, 'sound/items/bikehorn.ogg', 50)
+		AI.play_sound_remote(target, 'sound/items/bikehorn.ogg', 50)
 
 /datum/spell/ai_spell/ranged/honk_subsystem/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 15) SECONDS, 15 SECONDS)
