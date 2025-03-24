@@ -27,6 +27,8 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	var/heat_amount = 25000
 	/// Are we overheating?
 	var/overheating = FALSE
+	// What's the overheat temperature?
+	var/overheat_temp = 324
 	/// Used to ensure it takes a few seconds of being hot before overheating
 	var/overheat_counter = 0
 	/// How efficient is this machine?
@@ -41,7 +43,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 /obj/machinery/ai_node/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This machine is temperature sensitive. Any temperature colder than 273K will freeze it, whle any temperature higher than 373K will cause it to overheat.</span>"
+	. += "<span class='notice'>This machine is temperature sensitive. Any temperature colder than 273K will freeze it, whle any temperature higher than [overheat_temp]K will cause it to overheat.</span>"
 
 /obj/machinery/ai_node/process()
 	..()
@@ -97,6 +99,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	efficiency = E / 2
 	// Adjust values according to the new stock parts.
 	heat_amount = initial(heat_amount) * efficiency
+	overheat_temp = initial(overheat_temp) + (50 * efficiency)
 	update_idle_power_consumption(power_channel, initial(idle_power_consumption) * efficiency)
 	update_active_power_consumption(power_channel, initial(active_power_consumption) * efficiency)
 	var/old_resource_amount = resource_amount
@@ -176,7 +179,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		removed.set_temperature(removed.temperature() + node.heat_amount / heat_capacity)
 	env.merge(removed)
 	// Heat check
-	if(env.temperature() > 373 || env.temperature() < 273) // If the temperature is outside 0-100C...
+	if(env.temperature() > node.overheat_temp || env.temperature() < 273) // If the temperature is outside 0-100C...
 		// Turn the node off due to temperature problems
 		node.overheat_counter++
 		if(node.overheat_counter >= 5)
