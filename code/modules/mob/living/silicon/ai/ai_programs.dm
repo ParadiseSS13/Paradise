@@ -614,6 +614,7 @@
 	target.switchcount = 0
 	target.emagged = FALSE
 	target.on = target.has_power()
+	target.update(TRUE, TRUE, FALSE)
 	AI.program_picker.nanites -= 5
 	AI.play_sound_remote(target, 'sound/machines/ding.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
