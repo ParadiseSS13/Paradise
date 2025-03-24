@@ -662,7 +662,6 @@
 	build_path = /obj/item/circuitboard/merch
 	category = list("Misc. Machinery")
 
-
 /datum/design/processing_node
 	name =  "Machine Design (Processing Node)"
 	desc = "The circuit board for a processing node."

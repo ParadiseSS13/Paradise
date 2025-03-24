@@ -58,10 +58,27 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		assigned_ai = null
 	GLOB.ai_nodes -= src
 
+/obj/machinery/ai_node/screwdriver_act(mob/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+
+/obj/machinery/ai_node/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/ai_node/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
 /obj/machinery/ai_node/update_icon_state()
 	. = ..()
 	if(overheating)
 		icon_state = "[icon_base]-hot"
+		return
+	if(panel_open)
+		icon_state = "[icon_base]-open"
 		return
 	icon_state = "[icon_base]-[active ? "on" : "off"]"
 

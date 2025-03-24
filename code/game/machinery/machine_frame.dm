@@ -1204,7 +1204,6 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/plasteel = 5
 	)
 
-
 /obj/item/circuitboard/processing_node
 	board_name = "Processing Node"
 	icon_state = "science"
