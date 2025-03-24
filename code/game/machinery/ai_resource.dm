@@ -39,6 +39,10 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	..()
 	GLOB.ai_nodes += src
 
+/obj/machinery/ai_node/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This machine is temperature sensitive. Any temperature colder than 273K will freeze it, whle any temperature higher than 373K will cause it to overheat.</span>"
+
 /obj/machinery/ai_node/process()
 	..()
 	if(active)
@@ -182,7 +186,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 /obj/machinery/ai_node/processing_node
 	name = "processing node"
-	desc = "Highly advanced machinery with a manual switch. While running, it grants an AI memory."
+	desc = "A rack of processors with a manual on/off switch. While running, it grants an AI memory."
 	icon = 'icons/obj/machines/ai_machinery.dmi'
 	icon_state = "processor-off"
 	resource_key = "memory"
@@ -204,7 +208,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 /obj/machinery/ai_node/network_node
 	name = "network node"
-	desc = "Highly advanced machinery with an on/off switch. While running, it grants an AI bandwidth."
+	desc = "A rack of servers with a manual on/off switch. While running, it grants an AI bandwidth."
 	icon = 'icons/obj/machines/ai_machinery.dmi'
 	icon_state = "network-off"
 	resource_key = "bandwidth"
