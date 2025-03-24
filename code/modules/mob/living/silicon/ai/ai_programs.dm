@@ -378,7 +378,7 @@
 	action_icon_state = "tube"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
-	base_cooldown = 450 SECONDS
+	base_cooldown = 300 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 10
 	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to repair...</span>"
@@ -409,7 +409,7 @@
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 
 /datum/spell/ai_spell/ranged/repair_nanites/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), 30 SECONDS)
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), cooldown_min)
 
 // Universal Adapter - Unlocks usage of repair nanites and power shunt for IPCs
 /datum/ai_program/universal_adapter
@@ -653,7 +653,7 @@
 	action_icon_state = "scalpel_laser1_on"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
-	base_cooldown = 450 SECONDS
+	base_cooldown = 300 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 8
 	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to perform surgery...</span>"
@@ -677,6 +677,9 @@
 					E.mend_fracture()
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
+
+/datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), cooldown_min)
 
 // Enhanced Door Controls: Reduces delay in bolting and shocking doors
 /datum/ai_program/enhanced_doors
