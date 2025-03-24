@@ -204,6 +204,7 @@
 /obj/machinery/cooking/grill/loaded/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to length(surfaces))
-		surfaces[i].container = new /obj/item/reagent_containers/cooking/grill_grate
+		var/datum/cooking_surface/surface = surfaces[i]
+		surface.container = new /obj/item/reagent_containers/cooking/grill_grate
 	stored_wood = 30
 	update_appearance()

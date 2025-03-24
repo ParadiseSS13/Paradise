@@ -168,5 +168,6 @@
 /obj/machinery/cooking/oven/loaded/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to length(surfaces))
-		surfaces[i].container = new /obj/item/reagent_containers/cooking/oven
+		var/datum/cooking_surface/surface = surfaces[i]
+		surface.container = new /obj/item/reagent_containers/cooking/oven
 	update_appearance()
