@@ -92,9 +92,6 @@ Note: Must be placed west/left of and R&D console to function.
 		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
 		return ITEM_INTERACT_COMPLETE
 
-	if(used.is_open_container())
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
-
 	return ..()
 
 /obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
