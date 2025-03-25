@@ -271,6 +271,7 @@
 	var/obj/machinery/target = targets[1]
 	if(!istype(target, /obj/machinery/light) && !istype(target, /obj/machinery/power/apc))
 		to_chat(user, "<span class='warning'>You can only recolor lights!</span>")
+		revert_cast()
 		return
 	// Color selection
 	var/color_picked = tgui_input_color(user, "Please select a light color.", "RGB Lighting Color")
@@ -281,6 +282,7 @@
 	if(istype(target, /obj/machinery/power/apc))
 		if(spell_level < 3) // If you haven't upgraded it 3 times, you have to color lights individually.
 			to_chat(user, "<span class='warning'>Your coloring subsystem is not strong enough to target an entire room!</span>")
+			revert_cast()
 			return
 		var/obj/machinery/power/apc/A = target
 		for(var/obj/machinery/light/L in A.apc_area)
@@ -327,14 +329,17 @@
 	var/target = targets[1]
 	if(!istype(target, /mob/living/silicon/robot) && !istype(target, /obj/machinery/power/apc) && !istype(target, /obj/mecha) && !istype(target, /mob/living/carbon/human/machine))
 		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
+		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(istype(target, /mob/living/carbon/human/machine)  && !AI.universal_adapter)
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
+		revert_cast()
 		return
 	var/area/A = get_area(user)
 	if(A == null)
 		to_chat(user, "<span class='warning'>No SMES detected to power from!</span>")
+		revert_cast()
 		return
 	if(istype(target, /obj/mecha))
 		var/obj/mecha/T = target
@@ -390,10 +395,12 @@
 	var/target = targets[1]
 	if(!istype(target, /mob/living/silicon/robot) && !istype(target, /obj/machinery/power/apc) && !istype(target, /obj/mecha) && !istype(target, /mob/living/carbon/human/machine))
 		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
+		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(istype(target, /mob/living/carbon/human/machine)  && !AI.universal_adapter)
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
+		revert_cast()
 		return
 	if(istype(target, /obj/mecha)|| istype(target, /obj/machinery/power/apc))
 		var/obj/T = target
@@ -470,10 +477,12 @@
 	var/obj/machinery/door/airlock/target = targets[1]
 	if(!istype(target))
 		to_chat(user, "<span class='warning'>You can only repair airlocks!</span>")
+		revert_cast()
 		return
 
 	if(target.wires.is_cut(WIRE_AI_CONTROL))
 		to_chat(user, "<span class='warning'>Error: Null Connection to Airlock!</span>")
+		revert_cast()
 		return
 
 	var/turf/T = get_turf(target)
@@ -523,6 +532,7 @@
 	var/turf/target = get_turf(targets[1])
 	if(!isturf(target))
 		to_chat(user, "<span class='warning'>Invalid location for nanofrost deployment!</span>")
+		revert_cast()
 		return
 
 	var/obj/effect/nanofrost_container/nanofrost = new /obj/effect/nanofrost_container(target)
@@ -623,6 +633,7 @@
 	var/obj/machinery/light/target = targets[1]
 	if(!istype(target))
 		to_chat(user, "<span class='warning'>You can only repair lights!</span>")
+		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	// Handle repairs here since we're using a spell and not a tool
@@ -665,6 +676,7 @@
 	var/mob/living/carbon/human/target = targets[1]
 	if(!istype(target) || istype(target, /mob/living/carbon/human/machine))
 		to_chat(user, "<span class='warning'>You can only heal organic crew!</span>")
+		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 75
@@ -757,6 +769,7 @@
 		// If there are no possible techs to upgrade, stop the program
 		if(!tech_to_upgrade)
 			to_chat(user, "<span class='notice'>Current research cannot be discovered any further.</span>")
+			revert_cast()
 			return
 		// No illegals until level 10
 		if(spell_level < 10 && istype(tech_to_upgrade, /datum/tech/syndicate))
@@ -859,6 +872,7 @@
 		if("Security")
 			sign_type = /obj/structure/holosign/barrier
 		else
+			revert_cast()
 			return
 	var/target = targets[1]
 	var/mob/living/silicon/ai/AI = user
