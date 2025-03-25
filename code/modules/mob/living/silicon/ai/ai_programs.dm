@@ -269,6 +269,9 @@
 
 /datum/spell/ai_spell/ranged/rgb_lighting/cast(list/targets, mob/user)
 	var/obj/machinery/target = targets[1]
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
 	if(!istype(target, /obj/machinery/light) && !istype(target, /obj/machinery/power/apc))
 		to_chat(user, "<span class='warning'>You can only recolor lights!</span>")
 		revert_cast()
@@ -327,6 +330,9 @@
 
 /datum/spell/ai_spell/ranged/power_shunt/cast(list/targets, mob/user)
 	var/target = targets[1]
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
 	if(!istype(target, /mob/living/silicon/robot) && !istype(target, /obj/machinery/power/apc) && !istype(target, /obj/mecha) && !istype(target, /mob/living/carbon/human/machine))
 		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
 		revert_cast()
@@ -393,6 +399,9 @@
 
 /datum/spell/ai_spell/ranged/repair_nanites/cast(list/targets, mob/user)
 	var/target = targets[1]
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
 	if(!istype(target, /mob/living/silicon/robot) && !istype(target, /obj/machinery/power/apc) && !istype(target, /obj/mecha) && !istype(target, /mob/living/carbon/human/machine))
 		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
 		revert_cast()
@@ -475,6 +484,9 @@
 
 /datum/spell/ai_spell/ranged/door_override/cast(list/targets, mob/user)
 	var/obj/machinery/door/airlock/target = targets[1]
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
 	if(!istype(target))
 		to_chat(user, "<span class='warning'>You can only repair airlocks!</span>")
 		revert_cast()
@@ -530,6 +542,9 @@
 
 /datum/spell/ai_spell/ranged/extinguishing_system/cast(list/targets, mob/user)
 	var/turf/target = get_turf(targets[1])
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
 	if(!isturf(target))
 		to_chat(user, "<span class='warning'>Invalid location for nanofrost deployment!</span>")
 		revert_cast()
@@ -631,6 +646,9 @@
 
 /datum/spell/ai_spell/ranged/light_repair/cast(list/targets, mob/user)
 	var/obj/machinery/light/target = targets[1]
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
 	if(!istype(target))
 		to_chat(user, "<span class='warning'>You can only repair lights!</span>")
 		revert_cast()
@@ -674,6 +692,9 @@
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/cast(list/targets, mob/user)
 	var/mob/living/carbon/human/target = targets[1]
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
 	if(!istype(target) || istype(target, /mob/living/carbon/human/machine))
 		to_chat(user, "<span class='warning'>You can only heal organic crew!</span>")
 		revert_cast()
@@ -818,6 +839,9 @@
 
 /datum/spell/ai_spell/ranged/emergency_sealant/cast(list/targets, mob/user)
 	var/target = targets[1]
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 50
 	AI.play_sound_remote(target, 'sound/effects/bubbles2.ogg', 50)
@@ -860,6 +884,10 @@
 	var/signs = list()
 
 /datum/spell/ai_spell/ranged/holosign_displayer/cast(list/targets, mob/user)
+	var/target = targets[1]
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
 	var/sign_id = tgui_input_list(usr, "Select an holosgn!", "AI", sign_choices)
 	if(!sign_id)
 		return
@@ -874,7 +902,6 @@
 		else
 			revert_cast()
 			return
-	var/target = targets[1]
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 10
 	var/H = new sign_type(get_turf(target), src)
@@ -911,6 +938,9 @@
 /datum/spell/ai_spell/ranged/honk_subsystem/cast(list/targets, mob/user)
 	var/target = targets[1]
 	if(!target)
+		return
+	if(!check_camera_vision(user, target))
+		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 5

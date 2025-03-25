@@ -65,6 +65,14 @@
 	desc = "[initial(desc)] It has [uses] use\s remaining."
 	UpdateButtons()
 
+/datum/spell/ai_spell/proc/check_camera_vision(mob/user, atom/target)
+	var/turf/target_turf = get_turf(target)
+	var/datum/camerachunk/C = GLOB.cameranet.get_camera_chunk(target_turf.x, target_turf.y, target_turf.z)
+	if(!C.visible_turfs[target_turf])
+		to_chat(user, "<span class='warning'>You don't have camera vision of this location!</span>")
+		return FALSE
+	return TRUE
+
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/spell/ai_spell/ranged
 	name = "Ranged AI Action"
