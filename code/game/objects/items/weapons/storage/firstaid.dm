@@ -349,7 +349,7 @@
 
 /obj/item/storage/pill_bottle/try_opening(mob/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY))
-		to_chat(user, "<span class='warning'>Try as much as you want, the child-proof cap twarts your attempts to open [src]!</span>")
+		to_chat(user, "<span class='warning'>Try as much as you want, the child-proof cap thwarts your attempts to open [src]!</span>")
 		return FALSE
 
 	to_chat(user, "<span class='notice'>You start fiddling with the child-proof cap on [src]...</span>")
