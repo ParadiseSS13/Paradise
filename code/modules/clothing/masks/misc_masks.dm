@@ -419,6 +419,7 @@
 		var/datum/action/item_action/adjust/act = new(src)
 		if(loc == user)
 			act.Grant(user)
+		to_chat(user, ("<span class='notice'>You untie the neckercheif.</span>"))
 	else
 		icon = 'icons/obj/clothing/neck.dmi'
 		flags_inv = FALSE
@@ -439,6 +440,7 @@
 		for(var/datum/action/item_action/adjust/act in actions)
 			act.Remove(user)
 			qdel(act)
+		to_chat(user, ("<span class='notice'>You tie [src] up like a neckerchief.</span>"))
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
