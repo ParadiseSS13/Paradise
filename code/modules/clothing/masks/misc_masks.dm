@@ -366,7 +366,6 @@
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BANDANA
 	can_toggle = TRUE
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -378,7 +377,65 @@
 	actions_types = list(/datum/action/item_action/adjust)
 
 /obj/item/clothing/mask/bandana/attack_self__legacy__attackchain(mob/user)
-	adjustmask(user)
+	if(slot_flags & ITEM_SLOT_MASK || slot_flags & ITEM_SLOT_HEAD)
+		adjustmask(user)
+
+/obj/item/clothing/mask/bandana/examine(mob/user)
+	. = ..()
+	if(slot_flags & ITEM_SLOT_NECK)
+		. += "Alt-click to untie it to wear as a mask!"
+	else
+		. += "Alt-click to tie it up to wear on your neck!"
+
+
+/obj/item/clothing/mask/bandana/AltClick(mob/user)
+	if(!iscarbon(user))
+		return
+
+	var/mob/living/carbon/char = user
+	if((char.get_item_by_slot(ITEM_SLOT_NECK) == src) || (char.get_item_by_slot(ITEM_SLOT_MASK) == src) || (char.get_item_by_slot(ITEM_SLOT_HEAD) == src))
+		to_chat(user, ("<span class='warning'>You can't tie [src] while wearing it!</span>"))
+		return
+
+	if(slot_flags & ITEM_SLOT_NECK)
+		icon = initial(icon)
+		flags_inv = initial(flags_inv)
+		flags_cover = initial(flags_cover)
+		slot_flags = initial(slot_flags)
+		icon_state = replacetext(icon_state, "_neck", "")
+		dyeable = initial(dyeable)
+		can_toggle = initial(can_toggle)
+		sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
+		)
+		actions_types = list(/datum/action/item_action/adjust)
+		var/datum/action/item_action/adjust/act = new(src)
+		if(loc == user)
+			act.Grant(user)
+	else
+		icon = 'icons/obj/clothing/neck.dmi'
+		flags_inv = FALSE
+		flags_cover = FALSE
+		slot_flags = ITEM_SLOT_NECK
+		if(up)
+			icon_state = replacetext(icon_state, "_up", "")
+			up = FALSE
+		icon_state += "_neck"
+		dyeable = FALSE
+		can_toggle = FALSE
+		sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		)
+		actions_types = list()
+		for(var/datum/action/item_action/adjust/act in actions)
+			act.Remove(user)
+			qdel(act)
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
