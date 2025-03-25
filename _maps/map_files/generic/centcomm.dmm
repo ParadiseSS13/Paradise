@@ -1281,6 +1281,10 @@
 "eQ" = (
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_boxingcourt)
+"eS" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/pod/dark,
+/area/syndicate_mothership)
 "eW" = (
 /obj/structure/sink{
 	dir = 8;
@@ -4866,6 +4870,8 @@
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "re" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/effect/turf_decal/box,
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/pod/dark,
 /area/syndicate_mothership)
@@ -6969,6 +6975,10 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
+"yC" = (
+/obj/structure/marker_beacon/dock_marker,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/centcom)
 "yE" = (
 /obj/structure/flora/tree/pine{
 	pixel_x = 1
@@ -7045,6 +7055,11 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
+"zf" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/pod/dark,
+/area/syndicate_mothership)
 "zg" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -10990,6 +11005,9 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"MJ" = (
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/centcom)
 "ML" = (
 /obj/machinery/flasher{
 	id = "tdomeflash";
@@ -11111,6 +11129,10 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"MW" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/centcom)
 "MX" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -55284,20 +55306,20 @@ Nd
 Nd
 Nd
 Nd
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
 Nd
 Nd
 Nd
@@ -55543,15 +55565,15 @@ uw
 Nd
 Nd
 Nd
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+MJ
+MW
+MJ
+MJ
+MW
+MJ
+MJ
+MW
+MJ
 Nd
 Nd
 Nd
@@ -55801,14 +55823,14 @@ uw
 ab
 Nd
 Nd
-aN
-Db
-aN
-aN
-aN
-Db
-aN
-aN
+MJ
+yC
+MJ
+MJ
+MJ
+yC
+MJ
+MJ
 Nd
 ab
 uw
@@ -56060,10 +56082,10 @@ uw
 Nd
 Nd
 Nd
-aN
-aN
-aN
-aN
+MJ
+MJ
+MJ
+MJ
 Nd
 Nd
 Nd
@@ -66370,9 +66392,9 @@ mP
 nl
 FA
 Sd
+eS
 RY
-RY
-RY
+eS
 Sd
 sM
 XJ
@@ -66627,7 +66649,7 @@ mR
 nl
 nL
 Sd
-RY
+zf
 RY
 RY
 Sd
@@ -66884,7 +66906,7 @@ no
 nl
 pi
 Sd
-RY
+zf
 RY
 RY
 Sd
@@ -67141,7 +67163,7 @@ Sd
 Sd
 Sd
 Sd
-RY
+zf
 RY
 RY
 Sd
