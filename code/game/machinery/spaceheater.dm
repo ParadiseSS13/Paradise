@@ -30,6 +30,7 @@
 	cell = null
 	for(var/obj/item/stock_parts/cell/P in component_parts)
 		cell = P
+		return
 
 /obj/machinery/space_heater/deconstruct(disassembled)
 	if(cell)
@@ -90,7 +91,7 @@
 	user.visible_message(
 		"<span class='notice'>[user] inserts a power cell into [src].</span>",
 		"<span class='notice'>You insert the power cell into [src].</span>"
-		)
+	)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/space_heater/screwdriver_act(mob/living/user, obj/item/I)
