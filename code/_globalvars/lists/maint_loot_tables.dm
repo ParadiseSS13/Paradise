@@ -165,6 +165,12 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 	) = 45,
 
 	list(
+		// Plausible Deniability items
+		/obj/item/storage/box/syndie_kit/nuke,
+		/obj/item/storage/box/syndie_kit/supermatter
+	) = 1,
+
+	list(
 		// Health/repair kits
 		/obj/item/storage/firstaid/regular,
 		/obj/item/storage/firstaid/machine,
