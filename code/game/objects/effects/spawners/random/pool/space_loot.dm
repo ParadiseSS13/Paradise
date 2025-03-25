@@ -8,7 +8,7 @@
 	spawn_pool_id = "space_loot_spawn_pool"
 	record_spawn = TRUE
 	spawn_random_offset = TRUE // static things are boring!
-	spawn_random_offset_max_pixels = 12
+	spawn_random_offset_max_pixels = 8
 
 /obj/effect/spawner/random/pool/spaceloot/record_item(type_path_to_make)
 	if(ispath(type_path_to_make, /obj/effect))
@@ -17,6 +17,7 @@
 	SSblackbox.record_feedback("tally", "space_loot_spawns", 1, "[type_path_to_make]")
 
 /obj/effect/spawner/random/pool/spaceloot/dvorak_core_table
+	spawn_random_offset = FALSE
 	point_value = 100
 	guaranteed = TRUE
 	loot = list(
@@ -89,7 +90,7 @@
 	)
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/stetchkin
-	name = "syndicate depot loot, 20% stetchkin"
+	name = "syndicate depot loot, 80% stetchkin"
 	icon_state = "stetchkin"
 	spawn_loot_chance = 80
 	point_value = 25
@@ -269,6 +270,7 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mob
 	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "syndicate_random"
+	spawn_random_offset = FALSE
 	point_value = 3
 	loot = list(
 		/mob/living/simple_animal/hostile/syndicate = 40,

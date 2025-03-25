@@ -210,6 +210,7 @@
 	var/hair_colour
 	var/facial_hair_colour
 	var/skin_tone
+	var/eyes_color
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
@@ -246,22 +247,28 @@
 	H.socks = "Nude"
 	var/obj/item/organ/external/head/D = H.get_organ("head")
 	if(istype(D))
+		if(eyes_color)
+			H.change_eye_color(eyes_color)
 		if(hair_style)
 			D.h_style = hair_style
 		else
 			D.h_style = random_hair_style(H.gender, D.dna.species.sprite_sheet_name)
 		if(hair_colour)
 			D.hair_colour = hair_colour
+			D.sec_hair_colour = hair_colour
 		else
 			D.hair_colour = rand_hex_color()
+			D.sec_hair_colour = D.hair_colour
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else
 			D.f_style = random_facial_hair_style(H.gender, D.dna.species.sprite_sheet_name)
 		if(facial_hair_colour)
-			D.facial_colour = hair_colour
+			D.facial_colour = facial_hair_colour
+			D.sec_facial_colour = facial_hair_colour
 		else
 			D.facial_colour = rand_hex_color()
+			D.sec_facial_colour = D.facial_colour
 	if(skin_tone)
 		H.s_tone = skin_tone
 	else

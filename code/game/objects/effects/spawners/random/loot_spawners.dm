@@ -131,7 +131,6 @@
 	spawn_loot_chance = 20
 
 /obj/effect/spawner/random/syndie_mob_loot
-	spawn_loot_chance = 25
 	loot = list(
 		/obj/item/reagent_containers/patch/styptic,
 		/obj/item/reagent_containers/patch/silver_sulf,

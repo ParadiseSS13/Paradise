@@ -3,8 +3,6 @@
 /obj/effect/mob_spawn/human/corpse/syndicate
 	name = "Syndicate Operative"
 	id_job = "err#unkwn"
-	hair_colour = "#000000"
-	facial_hair_colour = "#000000"
 	id_access_list = list(ACCESS_SYNDICATE)
 	outfit = /datum/outfit/syndicatecorpse
 	del_types = list()
@@ -20,7 +18,12 @@
 		mob_name = "[syndicate_name()] [name_to_add] #[num_to_add]"
 		name_changed = TRUE
 	brute_damage = rand(0, 200)
-	skin_tone = rand(40, 120)
+	var/hcolor = pick("#000000", "#8B4513", "#FFD700")
+	var/ecolor = pick("#000000", "#8B4513", "#1E90FF")
+	hair_colour = hcolor
+	facial_hair_colour = hcolor
+	eyes_color = ecolor
+	skin_tone = pick(-50, -30, -10, 0, 0, 0, 10)
 	return ..()
 
 /datum/outfit/syndicatecorpse
@@ -55,7 +58,7 @@
 		internals_slot = ITEM_SLOT_SUIT_STORE
 	if(armory_loot)
 		backpack_contents |= /obj/item/storage/box/syndie_kit/loot/elite
-	else if(prob(25))
+	else if(prob(50))
 		backpack_contents |= /obj/item/storage/box/syndie_kit/loot
 
 /datum/outfit/syndicatecorpse/post_equip(mob/living/carbon/human/H, visualsOnly)
