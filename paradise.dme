@@ -563,6 +563,7 @@
 #include "code\datums\elements\atmos_requirements.dm"
 #include "code\datums\elements\body_temperature.dm"
 #include "code\datums\elements\bombable_turf.dm"
+#include "code\datums\elements\butchers_humans.dm"
 #include "code\datums\elements\connect_loc.dm"
 #include "code\datums\elements\decal_element.dm"
 #include "code\datums\elements\earhealing.dm"
