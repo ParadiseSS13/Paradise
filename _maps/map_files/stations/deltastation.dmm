@@ -30311,39 +30311,60 @@
 /area/station/command/office/ntrep)
 "cae" = (
 /obj/structure/bookcase/sop,
-/turf/simulated/floor/wood,
-/area/station/command/office/ntrep)
-"caf" = (
-/obj/structure/chair/sofa/right,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
+"caf" = (
+/obj/structure/chair/sofa/right,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "cag" = (
 /obj/structure/chair/sofa,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "cah" = (
 /obj/structure/chair/sofa/corner,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "cai" = (
 /obj/machinery/suit_storage_unit/blueshield/secure,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "caj" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
 "cal" = (
 /obj/structure/closet/secure_closet/blueshield,
 /obj/machinery/requests_console/directional/north,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "cam" = (
@@ -31027,7 +31048,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -31037,9 +31058,6 @@
 /obj/structure/chair/sofa{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
@@ -31048,6 +31066,9 @@
 "ccd" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
@@ -31501,6 +31522,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "cdQ" = (
@@ -31979,6 +32003,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
@@ -48779,6 +48806,9 @@
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -88033,6 +88063,13 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"uZx" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/command/office/ntrep)
 "vat" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
@@ -91339,6 +91376,13 @@
 	temperature = 80
 	},
 /area/station/science/xenobiology)
+"wKO" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/command/office/blueshield)
 "wLR" = (
 /obj/structure/morgue,
 /obj/effect/landmark/spawner/rev,
@@ -133540,7 +133584,7 @@ aaa
 aaa
 aaa
 aaa
-bOZ
+uZx
 caf
 cca
 cfK
@@ -133797,7 +133841,7 @@ pjv
 aaa
 aaa
 aaa
-bOZ
+uZx
 cag
 ccb
 cdN
@@ -134054,7 +134098,7 @@ aaa
 aaa
 aaa
 aaa
-bOZ
+uZx
 cah
 ccc
 cdO
@@ -134568,7 +134612,7 @@ aaa
 aaa
 aaa
 aaa
-bQI
+wKO
 cai
 ccd
 cdP
@@ -134825,7 +134869,7 @@ aaa
 aaa
 aaa
 aaa
-bQI
+wKO
 caj
 cce
 cdQ
