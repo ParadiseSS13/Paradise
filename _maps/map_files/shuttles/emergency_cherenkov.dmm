@@ -921,7 +921,7 @@
 "Dd" = (
 /obj/docking_port/mobile/emergency{
 	dwidth = 16;
-	height = 17;
+	height = 19;
 	timid = 1;
 	width = 41;
 	name = "NXV Cherenkov emergency shuttle";
