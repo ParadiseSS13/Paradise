@@ -185,7 +185,8 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		if(node.overheat_counter >= 5)
 			node.overheat()
 		return
-	node.overheat_counter--
+	if(node.overheat_counter)
+		node.overheat_counter--
 
 /obj/machinery/ai_node/processing_node
 	name = "processing node"

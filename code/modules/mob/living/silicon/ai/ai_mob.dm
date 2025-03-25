@@ -279,6 +279,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(aiRadio)
 	QDEL_NULL(builtInCamera)
+	tracked_mob = null
 	return ..()
 
 /mob/living/silicon/ai/get_radio()
