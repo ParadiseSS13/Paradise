@@ -286,10 +286,12 @@
 		for(var/obj/machinery/light/L in A.apc_area)
 			L.color = new_color
 			L.brightness_color = new_color
+			L.update(TRUE, TRUE, FALSE)
 	else
 		var/obj/machinery/light/L = target
 		L.color = new_color
 		L.brightness_color = new_color
+		L.update(TRUE, TRUE, FALSE)
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 5
 	AI.play_sound_remote(target, 'sound/effects/spray.ogg', 50)
