@@ -30,6 +30,17 @@
 /obj/machinery/power/emitter/cherenkov,
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
+"aw" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
 "aI" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -114,6 +125,17 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"ej" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "ew" = (
 /obj/effect/turf_decal/stripes/line{
@@ -704,7 +726,6 @@
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "wz" = (
-/obj/machinery/optable,
 /obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -881,8 +902,12 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "CP" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/plastitanium,
+/obj/machinery/optable,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Dc" = (
 /obj/structure/cable{
@@ -910,16 +935,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "De" = (
-/obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/storage/surgical_tray,
-/obj/item/reagent_containers/glass/bottle/morphine{
-	pixel_y = 13
-	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/machinery/recharge_station,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Df" = (
 /obj/structure/railing{
@@ -1634,12 +1651,12 @@ cw
 cw
 cw
 cw
+cw
+cw
+cw
+cw
+cw
 Wf
-lB
-aI
-aI
-aI
-lB
 lB
 lB
 Fz
@@ -1677,16 +1694,16 @@ cw
 cw
 cw
 cw
+Wf
 lB
-Wy
-Ks
-Ks
-Ks
-Ks
+aI
+aI
+aI
+lB
 Ks
 hJ
 fR
-aI
+lB
 qF
 XM
 Kb
@@ -1697,6 +1714,49 @@ NO
 YP
 NO
 nf
+lB
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+"}
+(3,1,1) = {"
+cw
+cw
+cw
+cw
+cw
+cw
+lB
+Wy
+Ks
+Ks
+Ks
+Ks
+FE
+FE
+FE
+aI
+Kb
+gy
+ZK
+kJ
+Kb
+CN
+bV
+bV
+bV
+bV
 TX
 iX
 iX
@@ -1713,7 +1773,7 @@ nM
 nM
 Jw
 "}
-(3,1,1) = {"
+(4,1,1) = {"
 cw
 cw
 cw
@@ -1731,11 +1791,11 @@ FE
 FE
 aI
 Kb
-gy
-ZK
-kJ
+fi
+lB
+Qk
 Kb
-CN
+aI
 bV
 bV
 bV
@@ -1756,7 +1816,7 @@ xo
 xo
 xo
 "}
-(4,1,1) = {"
+(5,1,1) = {"
 cw
 cw
 cw
@@ -1775,10 +1835,10 @@ eE
 aI
 Kb
 fi
-lB
-Qk
+Td
+jU
 Kb
-aI
+lB
 Mu
 Ir
 Mu
@@ -1799,7 +1859,7 @@ JT
 JT
 JT
 "}
-(5,1,1) = {"
+(6,1,1) = {"
 cw
 cw
 Wf
@@ -1819,7 +1879,7 @@ lB
 IE
 fi
 Td
-jU
+aw
 qZ
 lB
 lB
@@ -1842,7 +1902,7 @@ cw
 cw
 cw
 "}
-(6,1,1) = {"
+(7,1,1) = {"
 Wf
 lB
 lB
@@ -1864,9 +1924,9 @@ fi
 lB
 Xd
 Kb
+Kp
 lB
 Wf
-cw
 cw
 ib
 cw
@@ -1885,7 +1945,7 @@ nm
 qx
 cw
 "}
-(7,1,1) = {"
+(8,1,1) = {"
 aI
 Zp
 bw
@@ -1899,7 +1959,7 @@ Kb
 Kb
 yN
 aI
-CP
+De
 Kb
 Kb
 Kb
@@ -1907,8 +1967,8 @@ jG
 Ib
 ZA
 Kb
+Kp
 zl
-cw
 cw
 cw
 ib
@@ -1928,7 +1988,7 @@ UC
 wF
 cw
 "}
-(8,1,1) = {"
+(9,1,1) = {"
 aI
 yT
 Kb
@@ -1950,8 +2010,8 @@ Zq
 wK
 zK
 Kb
+Kb
 aI
-cw
 cw
 cw
 ib
@@ -1971,7 +2031,7 @@ tT
 wF
 cw
 "}
-(9,1,1) = {"
+(10,1,1) = {"
 aI
 Mg
 Kp
@@ -1993,8 +2053,8 @@ lH
 AT
 yh
 kw
+kw
 mM
-uZ
 uZ
 uZ
 uI
@@ -2014,7 +2074,7 @@ Nr
 wF
 cw
 "}
-(10,1,1) = {"
+(11,1,1) = {"
 aI
 AK
 Kb
@@ -2036,8 +2096,8 @@ JZ
 wK
 ne
 Kb
+Kb
 aI
-cw
 cw
 cw
 bM
@@ -2057,7 +2117,7 @@ ho
 wF
 cw
 "}
-(11,1,1) = {"
+(12,1,1) = {"
 aI
 xS
 xJ
@@ -2071,7 +2131,7 @@ Kb
 Kb
 VA
 aI
-CP
+De
 Kb
 Kb
 Kb
@@ -2079,8 +2139,8 @@ jG
 Os
 ZA
 Kb
+Kp
 zl
-cw
 cw
 cw
 bM
@@ -2100,7 +2160,7 @@ vl
 wF
 cw
 "}
-(12,1,1) = {"
+(13,1,1) = {"
 Wf
 lB
 lB
@@ -2122,9 +2182,9 @@ fi
 lB
 Xd
 Kb
+Kp
 lB
 Wf
-cw
 cw
 bM
 cw
@@ -2143,7 +2203,7 @@ UJ
 hc
 cw
 "}
-(13,1,1) = {"
+(14,1,1) = {"
 cw
 cw
 Wf
@@ -2186,7 +2246,7 @@ cw
 cw
 cw
 "}
-(14,1,1) = {"
+(15,1,1) = {"
 cw
 cw
 cw
@@ -2205,10 +2265,10 @@ rG
 ov
 Kb
 fi
-lB
-Qk
+Td
+ej
 Kb
-aI
+lB
 Mu
 GB
 Mu
@@ -2229,7 +2289,7 @@ nM
 nM
 Jw
 "}
-(15,1,1) = {"
+(16,1,1) = {"
 cw
 cw
 cw
@@ -2247,11 +2307,11 @@ rG
 rG
 Xs
 Kb
-mX
-pg
-Yj
+fi
+lB
+Qk
 Kb
-CN
+aI
 bV
 bV
 bV
@@ -2272,7 +2332,7 @@ xo
 xo
 xo
 "}
-(16,1,1) = {"
+(17,1,1) = {"
 cw
 cw
 cw
@@ -2284,21 +2344,21 @@ Jh
 rG
 zx
 Nb
-wY
 wz
-De
+rG
+rG
 Kz
 ov
 Kb
-JK
+mX
+pg
+Yj
 Kb
-Kb
-Kb
-aI
-jQ
-fS
-jQ
-ZZ
+CN
+bV
+bV
+bV
+bV
 iu
 iX
 iX
@@ -2315,7 +2375,7 @@ JT
 JT
 JT
 "}
-(17,1,1) = {"
+(18,1,1) = {"
 cw
 cw
 cw
@@ -2328,6 +2388,49 @@ aI
 aI
 aI
 lB
+wY
+CP
+Hi
+lB
+Kb
+JK
+Kb
+Kb
+Kb
+aI
+jQ
+fS
+jQ
+ZZ
+lB
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+"}
+(19,1,1) = {"
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+cw
+Wf
 lB
 lB
 aI
