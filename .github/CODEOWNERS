@@ -27,6 +27,11 @@ rustlibs.dll @AffectedArc07
 rustlibs_prod.dll @AffectedArc07
 rust_g.dll @AffectedArc07
 
+# temp executables because life is pain
+rustlibs_515.dll @AffectedArc07
+rustlibs_516.dll @AffectedArc07
+rustlibs_515_prod.dll @AffectedArc07
+rustlibs_516_prod.dll @AffectedArc07
 ### S34NW
 
 # TGUI stuff

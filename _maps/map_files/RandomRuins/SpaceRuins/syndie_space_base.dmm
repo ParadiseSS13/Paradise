@@ -6838,7 +6838,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "OT" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "OU" = (
 /turf/template_noop,

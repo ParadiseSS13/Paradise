@@ -36,7 +36,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "cB" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "du" = (
 /obj/effect/decal/cleanable/dirt,

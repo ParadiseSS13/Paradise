@@ -46,6 +46,24 @@
 	name = "Asteroid 5"
 	description = "Oh my god, another giant rock!"
 
+/datum/map_template/ruin/space/asteroidmining1
+	id = "asteroidmining1"
+	suffix = "asteroidmining1.dmm"
+	name = "Mining Asteroid 1"
+	description = "A giant rock rich in ores!"
+
+/datum/map_template/ruin/space/asteroidmining2
+	id = "asteroidmining2"
+	suffix = "asteroidmining2.dmm"
+	name = "Mining Asteroid 2"
+	description = "A cluster of rocks rich in ore."
+
+/datum/map_template/ruin/space/asteroidmining3
+	id = "asteroidmining3"
+	suffix = "asteroidmining3.dmm"
+	name = "Mining Asteroid 3"
+	description = "They dug too greedily, and too deeply..."
+
 /datum/map_template/ruin/space/deep_storage
 	id = "deep-storage"
 	suffix = "deepstorage.dmm"

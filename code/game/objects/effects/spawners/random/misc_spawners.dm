@@ -94,3 +94,12 @@
 	)
 	record_spawn = TRUE
 
+/obj/effect/spawner/random/stock_parts
+	name = "stock parts spawner"
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "stock_parts"
+	loot_subtype_path = /obj/item/stock_parts
+
+/obj/effect/spawner/random/stock_parts/Initialize(mapload)
+	spawn_loot_count = rand(4, 7)
+	. = ..()

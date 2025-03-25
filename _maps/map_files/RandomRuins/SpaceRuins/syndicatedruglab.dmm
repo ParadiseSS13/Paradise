@@ -224,7 +224,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "yI" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/syndicate_druglab/asteroid)
 "yV" = (
 /obj/structure/machine_frame,

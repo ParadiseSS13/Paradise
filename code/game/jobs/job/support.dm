@@ -28,7 +28,8 @@
 		ACCESS_SUPPLY_SHUTTLE,
 		ACCESS_WEAPONS,
 		ACCESS_TELEPORTER,
-		ACCESS_EXPEDITION
+		ACCESS_EXPEDITION,
+		ACCESS_SMITH
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
@@ -87,7 +88,39 @@
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
 
+/datum/job/smith
+	title = "Smith"
+	flag = JOB_SMITH
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 1
+	spawn_positions = 1
+	job_department_flags = DEP_FLAG_SUPPLY
+	supervisors = "the quartermaster"
+	department_head = list("Quartermaster")
+	selection_color = "#eeddbe"
+	access = list(
+		ACCESS_CARGO_BAY,
+		ACCESS_CARGO,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_SMITH
+	)
+	alt_titles = list("Metalworker", "Tinkerer")
+	outfit = /datum/outfit/job/smith
 
+/datum/outfit/job/smith
+	name = "Smith"
+	jobtype = /datum/job/smith
+
+	gloves = /obj/item/clothing/gloves/smithing
+	uniform = /obj/item/clothing/under/rank/cargo/smith
+	l_ear = /obj/item/radio/headset/headset_cargo
+	shoes = /obj/item/clothing/shoes/workboots/smithing
+	id = /obj/item/card/id/smith
+	pda = /obj/item/pda/cargo
 
 /datum/job/mining
 	title = "Shaft Miner"
