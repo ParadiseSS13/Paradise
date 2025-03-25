@@ -19001,6 +19001,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
+"bsS" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/command/office/blueshield)
 "bsU" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -29318,33 +29325,21 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "caf" = (
-/obj/structure/chair/sofa/right,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "cag" = (
 /obj/structure/chair/sofa,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "cah" = (
-/obj/structure/chair/sofa/corner,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/chair/sofa/corner,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "cai" = (
@@ -69896,6 +69891,13 @@
 	icon_state = "vault"
 	},
 /area/station/turret_protected/aisat)
+"lUN" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/command/office/ntrep)
 "lVA" = (
 /obj/machinery/computer/operating,
 /turf/simulated/floor/plasteel/white,
@@ -87286,6 +87288,16 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/starboard)
+"ure" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/command/office/ntrep)
 "urr" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/emcloset,
@@ -88609,6 +88621,9 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/ntrep)
 "vat" = (
@@ -92125,6 +92140,9 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/blueshield)
 "wLz" = (
@@ -134753,7 +134771,7 @@ pjv
 aaa
 aaa
 aaa
-uZx
+ure
 cag
 ccb
 cdN
@@ -135010,7 +135028,7 @@ aaa
 aaa
 aaa
 aaa
-uZx
+lUN
 cah
 ccc
 cdO
@@ -135781,7 +135799,7 @@ aaa
 aaa
 aaa
 aaa
-wKO
+bsS
 caj
 cce
 cdQ
