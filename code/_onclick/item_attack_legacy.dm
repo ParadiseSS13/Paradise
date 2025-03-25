@@ -62,7 +62,9 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(O)
 
-	if(!O.new_attack_chain)
+	if(O.new_attack_chain)
+		O.attacked_by(src, user)
+	else
 		O.attacked_by__legacy__attackchain(src, user)
 
 /**
