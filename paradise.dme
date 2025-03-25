@@ -2975,6 +2975,7 @@
 #include "code\modules\surgery\core_removal.dm"
 #include "code\modules\surgery\dental_implant.dm"
 #include "code\modules\surgery\encased.dm"
+#include "code\modules\surgery\external_infection_treatment.dm"
 #include "code\modules\surgery\generic.dm"
 #include "code\modules\surgery\limb_augmentation.dm"
 #include "code\modules\surgery\limb_reattach.dm"
