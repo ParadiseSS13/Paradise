@@ -366,6 +366,7 @@
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BANDANA
 	can_toggle = TRUE
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -405,6 +406,7 @@
 		icon_state = replacetext(icon_state, "_neck", "")
 		dyeable = initial(dyeable)
 		can_toggle = initial(can_toggle)
+
 		sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -428,6 +430,7 @@
 		icon_state += "_neck"
 		dyeable = FALSE
 		can_toggle = FALSE
+
 		sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
