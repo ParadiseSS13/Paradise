@@ -442,7 +442,7 @@
 /obj/item/mounted/frame/extinguisher{
 	pixel_y = 32
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
