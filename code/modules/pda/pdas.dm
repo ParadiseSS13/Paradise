@@ -184,6 +184,7 @@
 	model_name = "Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition"
 
 /obj/item/pda/chef
+	default_cartridge = /obj/item/cartridge/chef
 	icon_state = "pda-chef"
 
 /obj/item/pda/bar
