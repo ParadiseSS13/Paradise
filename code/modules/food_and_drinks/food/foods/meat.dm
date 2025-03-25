@@ -34,8 +34,6 @@
 
 /obj/item/food/meat/human
 	name = "-meat"
-	var/subjectname = ""
-	var/subjectjob = null
 	tastes = list("salty meat" = 1)
 
 /obj/item/food/meat/slab/meatproduct
