@@ -2242,6 +2242,10 @@
 "ape" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/ids,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
@@ -2889,7 +2893,8 @@
 /area/station/command/customs)
 "aqT" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/intercom,
+/obj/item/stack/package_wrap,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -13545,11 +13550,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/item/stamp/qm{
-	pixel_x = -6;
-	pixel_y = -8
-	},
-/obj/item/radio/intercom,
+/obj/item/folder,
+/obj/item/stamp/qm,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -14416,6 +14418,10 @@
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/quartermaster,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -20308,9 +20314,6 @@
 	dir = 10
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "buz" = (
@@ -20324,11 +20327,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "buA" = (
 /obj/item/kirbyplants/large,
-/obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
@@ -63193,6 +63196,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/supply/miningdock)
+"hZa" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/economy/vending/wallmed/directional/south,
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/medbay)
 "hZe" = (
 /obj/structure/lattice,
 /obj/machinery/camera{
@@ -70694,6 +70704,10 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/transmission_laser)
+"mjX" = (
+/obj/machinery/economy/vending/wallmed/directional/south,
+/turf/simulated/wall/r_wall,
+/area/station/medical/chemistry)
 "mkp" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -120089,7 +120103,7 @@ aXo
 btn
 btn
 btn
-aOg
+aOb
 aOg
 byl
 byl
@@ -135560,7 +135574,7 @@ ecX
 tRn
 tDw
 cXe
-cXe
+mjX
 xzZ
 nqn
 lEa
@@ -136079,7 +136093,7 @@ ddV
 cMq
 pwS
 tLO
-pwS
+hZa
 cXe
 cXe
 cXe
