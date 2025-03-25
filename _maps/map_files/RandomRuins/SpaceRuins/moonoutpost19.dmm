@@ -4977,7 +4977,8 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "qQ" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -6900,7 +6901,7 @@
 	},
 /area/ruin/space/moonbase19)
 "zM" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -10841,7 +10842,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "RH" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
