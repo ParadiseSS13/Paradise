@@ -6,6 +6,7 @@
 	icon_opened = "crate_open"
 	icon_closed = "crate"
 	climbable = TRUE
+	enable_door_overlay = FALSE
 	var/rigged = FALSE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
