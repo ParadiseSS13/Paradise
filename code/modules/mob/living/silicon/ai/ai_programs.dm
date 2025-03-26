@@ -372,7 +372,7 @@
 
 /datum/spell/ai_spell/ranged/power_shunt/on_purchase_upgrade()
 	power_sent = min(10000, 2500 + (spell_level * 2500))
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), 30 SECONDS)
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 60)), cooldown_min)
 
 // Repair Nanites - Uses large numbers of nanites to repair things
 /datum/ai_program/repair_nanites
@@ -427,7 +427,7 @@
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 
 /datum/spell/ai_spell/ranged/repair_nanites/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), cooldown_min)
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 60)), cooldown_min)
 
 // Universal Adapter - Unlocks usage of repair nanites and power shunt for IPCs
 /datum/ai_program/universal_adapter
@@ -714,7 +714,7 @@
 					E.fix_burn_wound()
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - ((spell_level-3) * 60)), cooldown_min)
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 60)), cooldown_min)
 
 // Enhanced Door Controls: Reduces delay in bolting and shocking doors
 /datum/ai_program/enhanced_doors
@@ -845,6 +845,10 @@
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 50
 	AI.play_sound_remote(target, 'sound/effects/bubbles2.ogg', 50)
+	new /obj/effect/temp_visual/single_user/ai_telegraph(target, user)
+	addtimer(CALLBACK(src, PROC_REF(do_metal_foam), user, target), 3 SECONDS)
+
+/datum/spell/ai_spell/ranged/emergency_sealant/proc/do_metal_foam(mob/user, target)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 15)
 	var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
 	F.spread_amount = 2
