@@ -34,6 +34,12 @@
 /turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
+/turf/simulated/floor/indestructible/crowbar_act(mob/user, obj/item/I)
+	return
+
+/turf/simulated/floor/indestructible/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
 /turf/simulated/floor/indestructible/airless
 	oxygen = 0
 	nitrogen = 0

@@ -622,3 +622,24 @@
 					)
 	special = TRUE
 	department_restrictions = list(DEPARTMENT_COMMAND)
+
+/datum/supply_packs/misc/cookware_crate
+	name = "Kitchen Cookware Crate"
+	cost = 250
+	contains = list(
+		/obj/item/reagent_containers/cooking/board,
+		/obj/item/reagent_containers/cooking/bowl,
+		/obj/item/reagent_containers/cooking/bowl,
+		/obj/item/reagent_containers/cooking/deep_basket,
+		/obj/item/reagent_containers/cooking/deep_basket,
+		/obj/item/reagent_containers/cooking/grill_grate,
+		/obj/item/reagent_containers/cooking/grill_grate,
+		/obj/item/reagent_containers/cooking/icecream_bowl,
+		/obj/item/reagent_containers/cooking/oven,
+		/obj/item/reagent_containers/cooking/pan,
+		/obj/item/reagent_containers/cooking/pan,
+		/obj/item/reagent_containers/cooking/pot,
+		/obj/item/reagent_containers/cooking/pot,
+	)
+	containertype = /obj/structure/closet/crate/cookware
+	containername = "cookware crate"

@@ -117,12 +117,7 @@
 		plane_masters_update()
 		return FALSE
 
-	. = ..()
-	if(!.)
-		return
-	var/mob/screenmob = viewmob || mymob
-	screenmob.client.screen += static_inventory
-
+	return ..()
 
 // We should only see observed mob alerts.
 /datum/hud/ghost/reorganize_alerts(mob/viewmob)
