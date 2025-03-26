@@ -75659,8 +75659,7 @@
 /area/station/aisat)
 "oUT" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -76765,6 +76764,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
+"pzF" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "pzO" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -78126,7 +78129,6 @@
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -85649,12 +85651,11 @@
 /area/station/medical/cloning)
 "tHR" = (
 /obj/machinery/economy/vending/plasmaresearch,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -128604,7 +128605,7 @@ afY
 xyH
 uFS
 nFk
-dOO
+pzF
 qjI
 ddy
 hxP
