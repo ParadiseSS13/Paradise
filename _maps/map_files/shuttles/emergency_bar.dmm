@@ -15,10 +15,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "af" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ah" = (
@@ -68,10 +65,8 @@
 	},
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 28
-	},
 /obj/effect/turf_decal/woodsiding,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/carpet/royalblue,
 /area/shuttle/escape)
 "ar" = (
@@ -486,6 +481,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"hO" = (
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
 "li" = (
 /obj/structure/closet/fireaxecabinet{
 	pixel_x = 32
@@ -795,6 +794,15 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
+"GE" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/shuttle/escape)
 "HU" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -962,6 +970,13 @@
 	},
 /obj/structure/chair/wood/wings,
 /turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"PS" = (
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Qp" = (
 /obj/structure/table/wood,
@@ -1350,7 +1365,7 @@ br
 br
 am
 ac
-av
+GE
 av
 aA
 aA
@@ -1470,7 +1485,7 @@ bC
 MZ
 bn
 bn
-bn
+PS
 bC
 qr
 qr
@@ -1596,7 +1611,7 @@ bz
 aK
 bC
 Na
-Zz
+hO
 Zz
 aS
 aU
