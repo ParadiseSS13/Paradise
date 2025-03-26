@@ -64,7 +64,7 @@
 		else  // SMITH_GOAL_HARD
 			reward += SSeconomy.credits_per_hard_smith_goal
 
-	report_message = "A situation came up that needs specialized equipment. We're going to need a [quality.name] [material.name] [product_type.name]. You'll be rewarded handsomely for your work."
+	report_message = "A situation came up that needs specialized equipment. We're going to need \a [quality.name] [material.name] [product_type.name]. You'll be rewarded handsomely for your work."
 	admin_desc = "A [quality.name] [material.name] [product_type.name] request."
 
 /datum/secondary_goal_progress/random_smithed_item
