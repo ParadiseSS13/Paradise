@@ -851,9 +851,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 	icon_state = "plague_talisman"
 	origin_tech = "bluespace=4;materials=4"
 	w_class = WEIGHT_CLASS_TINY
-	var/chosen_plague
-
 	new_attack_chain = TRUE
+	var/chosen_plague
 
 //checks if they're a valid target before trying to raise
 /obj/item/plague_talisman/attack(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
