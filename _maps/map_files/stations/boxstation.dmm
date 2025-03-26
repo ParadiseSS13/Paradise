@@ -102,8 +102,7 @@
 "abP" = (
 /obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -312,8 +311,7 @@
 	pixel_x = -32
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
@@ -325,8 +323,7 @@
 	},
 /obj/item/clothing/ears/earmuffs,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
@@ -342,8 +339,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/flashbangs,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
@@ -404,8 +400,7 @@
 "adg" = (
 /obj/structure/dispenser/oxygen,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -414,8 +409,7 @@
 "adh" = (
 /obj/machinery/suit_storage_unit/security/secure,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -625,8 +619,7 @@
 	pixel_y = 3
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2168,8 +2161,7 @@
 /obj/item/clothing/head/helmet/riot,
 /obj/item/clothing/head/helmet/riot,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -12934,8 +12926,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
@@ -12952,8 +12943,7 @@
 "aTG" = (
 /obj/structure/chair/sofa/left,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
@@ -12966,8 +12956,7 @@
 "aTI" = (
 /obj/structure/chair/sofa,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/wood,
@@ -13041,8 +13030,7 @@
 /area/station/ai_monitored/storage/eva)
 "aTR" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
@@ -15967,8 +15955,7 @@
 "bcR" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
@@ -56359,8 +56346,7 @@
 	name = "CORPSE disposal unit"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -69286,8 +69272,7 @@
 /area/station/science/robotics)
 "oAs" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{

@@ -208,8 +208,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1528,8 +1527,7 @@
 "aqF" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel/funeral)
@@ -1550,8 +1548,7 @@
 	pixel_x = -3
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/storage/fancy/shell/tranquilizer,
 /obj/structure/shelf/security,
@@ -7380,8 +7377,7 @@
 "bye" = (
 /obj/structure/closet/coffin,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -8976,8 +8972,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -12657,8 +12652,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/camera/motion{
 	c_tag = "AI West";
@@ -16014,8 +16008,7 @@
 "djB" = (
 /obj/structure/table,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/clothing/ears/earmuffs,
 /obj/item/clothing/ears/earmuffs{
@@ -16924,8 +16917,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -22100,8 +22092,7 @@
 /area/station/hallway/primary/central/south)
 "evv" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/wood,
 /obj/item/folder/blue,
@@ -34145,8 +34136,7 @@
 	pixel_y = -3
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -37193,8 +37183,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -37364,8 +37353,7 @@
 /area/station/maintenance/apmaint2)
 "huz" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/rack,
 /obj/item/clothing/neck/scarf/stripedblue,
@@ -38027,8 +38015,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
@@ -42338,8 +42325,7 @@
 /area/station/engineering/equipmentstorage)
 "iuD" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -43360,8 +43346,7 @@
 /area/station/maintenance/aft2)
 "iEB" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/sign/clown{
 	pixel_x = -32
@@ -44350,8 +44335,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -47778,8 +47762,7 @@
 /area/station/security/armory/secure)
 "jxe" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -49327,8 +49310,7 @@
 	pixel_x = 5
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom/gallery)
@@ -53311,8 +53293,7 @@
 "kBT" = (
 /obj/structure/closet/coffin,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -60057,8 +60038,7 @@
 /area/station/engineering/tech_storage)
 "lXg" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/glass/reinforced,
 /obj/item/ai_module/reset,
@@ -61353,8 +61333,7 @@
 /area/station/engineering/atmos/storage)
 "mlQ" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/wood,
 /obj/item/pinpointer,
@@ -66614,8 +66593,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -71081,8 +71059,7 @@
 	dir = 2
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -71333,8 +71310,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/chapel_office,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel/funeral)
@@ -73296,8 +73272,7 @@
 /area/station/maintenance/apmaint2)
 "oCg" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
@@ -83412,8 +83387,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
@@ -88714,8 +88688,7 @@
 	pixel_y = -3
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -105365,8 +105338,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/landmark/spawner/rev,
 /obj/structure/morgue{
@@ -106402,8 +106374,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -107903,8 +107874,7 @@
 /area/station/maintenance/fpmaint)
 "vsq" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/glass/reinforced,
 /obj/item/flash,
@@ -113385,8 +113355,7 @@
 /area/station/public/construction)
 "wwv" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8

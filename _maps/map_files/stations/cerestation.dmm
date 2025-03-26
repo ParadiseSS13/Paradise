@@ -23004,8 +23004,7 @@
 	name = "N2 to Pure"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/classic/reversed{
@@ -23121,8 +23120,7 @@
 	name = "O2 to Pure"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/classic/reversed{
@@ -61172,8 +61170,7 @@
 "lTC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
@@ -84662,8 +84659,7 @@
 "rGv" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -85316,8 +85312,7 @@
 "rNo" = (
 /obj/machinery/cooking/deepfryer,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/wood,
@@ -101137,8 +101132,7 @@
 	name = "cadaver delivery chute"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/science/robotics{
 	dir = 8
