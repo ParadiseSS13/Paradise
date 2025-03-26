@@ -269,4 +269,4 @@
 
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
-	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer.</span>")

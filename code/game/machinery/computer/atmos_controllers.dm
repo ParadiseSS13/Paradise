@@ -373,7 +373,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	return TRUE
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_inlet(mob/living/user, obj/item/multitool/M)
-	var/choice = tgui_alert(user, "Would you like to add an inlet, Remove the existing inlet or clear it?", "Configuration", list("Add", "Remove", "Clear", "Cancel"))
+	var/choice = tgui_alert(user, "Would you like to add an inlet, remove the existing inlet or clear it?", "Configuration", list("Add", "Remove", "Clear", "Cancel"))
 	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
@@ -431,7 +431,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_outlet(mob/living/user, obj/item/multitool/M)
-	var/choice = tgui_alert(user, "Would you like to add an outlet, Remove the existing outlet or clear it?", "Configuration", list("Add", "Remove", "Clear", "Cancel"))
+	var/choice = tgui_alert(user, "Would you like to add an outlet, remove the existing outlet or clear it?", "Configuration", list("Add", "Remove", "Clear", "Cancel"))
 	if(!choice || (choice == "Cancel") || !Adjacent(user))
 		return
 
