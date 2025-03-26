@@ -1806,7 +1806,6 @@
 #include "code\modules\client\preference\quirks\quirk.dm"
 #include "code\modules\client\preference\quirks\quirk_tgui.dm"
 #include "code\modules\client\preference\quirks\negative_quirks.dm"
-#include "code\modules\client\preference\quirks\neutral_quirks.dm"
 #include "code\modules\client\preference\quirks\positive_quirks.dm"
 #include "code\modules\clothing\chameleon.dm"
 #include "code\modules\clothing\clothing.dm"
