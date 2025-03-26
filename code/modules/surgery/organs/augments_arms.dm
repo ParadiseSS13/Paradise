@@ -475,7 +475,7 @@
 		H.IgniteMob()
 		var/datum/organ/battery/microbattery = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
 		microbattery.linked_organ.receive_damage(H.bodytemperature / 50)
-		H.visible_message("<span class='warning'>...Then immediately bursts into flame!</span>", "<span class='warning'>Something inside you combusts!</span>")
+		H.visible_message("<span class='warning'>...Then immediately bursts into flame!</span>", "<span class='userdanger'>Something inside you combusts!</span>")
 
 /obj/item/organ/internal/cyberimp/arm/telebaton
 	name = "telebaton implant"
