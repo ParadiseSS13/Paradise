@@ -163,7 +163,7 @@
 			A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
 			return TRUE
 
-// The base program type, which holds info about each ability.
+/// The base program type, which holds info about each ability.
 /datum/ai_program
 	var/program_name
 	var/description = ""
@@ -245,7 +245,7 @@
 	// user.program_picker.use(user) // WebUI call. Replace with TGUI call below.
 	user.program_picker.ui_interact(user)
 
-// RGB Lighting - Recolors Lights
+/// RGB Lighting - Recolors Lights
 /datum/ai_program/rgb_lighting
 	program_name = "RGB Lighting"
 	program_id = "rgb_lighting"
@@ -305,7 +305,7 @@
 /datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = base_cooldown - (spell_level * 5)
 
-// Power Shunt - Recharges things from your SMES
+/// Power Shunt - Recharges things from your SMES
 /datum/ai_program/power_shunt
 	program_name = "Power Shunt"
 	program_id = "power_shunt"
@@ -374,7 +374,7 @@
 	power_sent = min(10000, 2500 + (spell_level * 2500))
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 60)), cooldown_min)
 
-// Repair Nanites - Uses large numbers of nanites to repair things
+/// Repair Nanites - Uses large numbers of nanites to repair things
 /datum/ai_program/repair_nanites
 	program_name = "Repair Nanites"
 	program_id = "repair_nanites"
@@ -407,13 +407,13 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(istype(target, /mob/living/carbon/human/machine)  && !AI.universal_adapter)
+	if(istype(target, /mob/living/carbon/human/machine) && !AI.universal_adapter)
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
 		revert_cast()
 		return
 	if(istype(target, /obj/mecha)|| istype(target, /obj/machinery/power/apc))
 		var/obj/T = target
-		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 +  min(0.3, (0.1 * spell_level))))
+		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level))))
 	if(istype(target, /mob/living/silicon/robot))
 		var/mob/living/silicon/robot/T = target
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
@@ -429,7 +429,7 @@
 /datum/spell/ai_spell/ranged/repair_nanites/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 60)), cooldown_min)
 
-// Universal Adapter - Unlocks usage of repair nanites and power shunt for IPCs
+/// Universal Adapter - Unlocks usage of repair nanites and power shunt for IPCs
 /datum/ai_program/universal_adapter
 	program_name = "Universal Adapter"
 	program_id = "universal_adapter"
@@ -459,7 +459,7 @@
 	user.adapter_efficiency = 0.5
 	user.universal_adapter = FALSE
 
-// Door Override - Repairs door wires if the AI wire is not cut
+/// Door Override - Repairs door wires if the AI wire is not cut
 /datum/ai_program/door_override
 	program_name = "Door Override"
 	program_id = "door_override"
@@ -517,7 +517,7 @@
 	if(spell_level == 5)
 		desc += " Firmware version sufficient enough to repair damage caused by a cryptographic sequencer."
 
-// Automated Extinguishing System: Deploys nanofrost to a target tile
+/// Automated Extinguishing System - Deploys nanofrost to a target tile
 /datum/ai_program/extinguishing_system
 	program_name = "Automated Extinguishing System"
 	program_id = "extinguishing_system"
@@ -561,7 +561,7 @@
 /datum/spell/ai_spell/ranged/extinguishing_system/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 30 SECONDS)
 
-// Bluespace Miner Subsystem - Makes money for science, at the cost of extra power drain
+/// Bluespace Miner Subsystem - Makes money for science, at the cost of extra power drain
 /datum/ai_program/bluespace_miner
 	program_name = "Bluespace Miner Subsystem"
 	program_id = "bluespace_miner"
@@ -592,7 +592,7 @@
 		return
 	user.bluespace_miner_rate = 100
 
-// Multimarket Analysis Subsystem: Reduce prices of things at cargo
+/// Multimarket Analysis Subsystem - Reduce prices of things at cargo
 /datum/ai_program/multimarket_analyser
 	program_name = "Multimarket Analysis Subsystem"
 	program_id = "multimarket_analyser"
@@ -622,7 +622,7 @@
 	..()
 	SSeconomy.pack_price_modifier = original_price_mod
 
-// Light Synthesizer - Fixes lights
+/// Light Synthesizer - Fixes lights
 /datum/ai_program/light_repair
 	program_name = "Light Synthesizer"
 	program_id = "light_repair"
@@ -664,10 +664,10 @@
 	AI.play_sound_remote(target, 'sound/machines/ding.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
-/datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
+/datum/spell/ai_spell/ranged/light_repair/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = base_cooldown - (spell_level * 5)
 
-// Nanosurgeon Deployment - Uses large numbers of nanites to heal things
+/// Nanosurgeon Deployment - Uses large numbers of nanites to heal things
 /datum/ai_program/nanosurgeon_deployment
 	program_name = "Nanosurgeon Deployment"
 	program_id = "nanosurgeon_deployment"
@@ -716,7 +716,7 @@
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 60)), cooldown_min)
 
-// Enhanced Door Controls: Reduces delay in bolting and shocking doors
+/// Enhanced Door Controls - Reduces delay in bolting and shocking doors
 /datum/ai_program/enhanced_doors
 	program_name = "Enhanced Door Controls"
 	program_id = "enhanced_doors"
@@ -744,7 +744,7 @@
 	user.door_bolt_delay = original_door_delay
 
 
-// Experimental Research Subsystem - Knowledge is power
+/// Experimental Research Subsystem - Knowledge is power
 /datum/ai_program/research_subsystem
 	program_name = "Experimental Research Subsystem"
 	program_id = "research_subsystem"
@@ -892,7 +892,7 @@
 	if(!check_camera_vision(user, target))
 		revert_cast()
 		return
-	var/sign_id = tgui_input_list(usr, "Select an holosgn!", "AI", sign_choices)
+	var/sign_id = tgui_input_list(usr, "Select a holosgn!", "AI", sign_choices)
 	if(!sign_id)
 		return
 	var/sign_type
@@ -917,7 +917,7 @@
 	playsound(H.loc, 'sound/machines/chime.ogg', 20, 1)
 	qdel(H)
 
-// HONK Subsystem - HONK
+/// HONK Subsystem - HONK
 /datum/ai_program/honk_subsystem
 	program_name = "Honk Subsystem"
 	program_id = "honk_subsystem"
