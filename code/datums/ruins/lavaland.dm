@@ -81,7 +81,7 @@
 	name = "Althland Minebot Factory"
 	id = "althland-minebot-factory"
 	description = "A long-since abandoned factory, teeming with the remains of the abandoned robotics within. This once busy settlement now lay in ruin, a testament to the harsh reality of the wastes. \
-	On rare occasions such as this, it is a reminder that even in disrepair, some places may still great power within."
+	On rare occasions such as this, it is a reminder that even in disrepair, some places may still contain great power within."
 	suffix = "lavaland_surface_althland_minebot_factory.dmm"
 	allow_duplicates = FALSE
 
