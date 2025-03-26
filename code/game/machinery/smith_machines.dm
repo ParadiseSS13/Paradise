@@ -306,6 +306,7 @@
 		if(istype(machine, /obj/machinery/smithing/casting_basin))
 			var/obj/machinery/smithing/casting_basin/basin = machine
 			basin.linked_crucible = null
+	linked_machines.Cut()
 	return ..()
 
 /obj/machinery/magma_crucible/power_change()
