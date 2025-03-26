@@ -167,7 +167,7 @@
 		return
 
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, amount = 3, volume = I.tool_volume))
+	if(I.use_tool(src, user, 5 SECONDS, amount = 3, volume = I.tool_volume))
 		if((stat & BROKEN) || opened == APC_COVER_OFF)
 			new /obj/item/stack/sheet/metal(loc)
 			user.visible_message(\
