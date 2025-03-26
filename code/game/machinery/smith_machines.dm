@@ -35,7 +35,6 @@
 
 /obj/machinery/mineral/smart_hopper/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_CRUCIBLE_DESTROYED, PROC_REF(unlink_crucible))
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/smart_hopper(null)
@@ -48,7 +47,7 @@
 	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
 	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
 		linked_crucible = crucible
-		linked_crucible.linked_machines += src
+		linked_crucible.linked_machines |= src
 		return
 
 /obj/machinery/mineral/smart_hopper/update_overlays()
@@ -128,7 +127,7 @@
 			to_chat(user, "<span class='warning'>You cannot link [src] to [multi.buffer]!</span>")
 			return
 		linked_crucible = multi.buffer
-		linked_crucible.linked_machines += src
+		linked_crucible.linked_machines |= src
 		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
 
 /obj/machinery/mineral/smart_hopper/crowbar_act(mob/user, obj/item/I)
@@ -155,6 +154,7 @@
 /obj/machinery/mineral/smart_hopper/Destroy()
 	if(linked_crucible)
 		linked_crucible.linked_machines -= src
+		linked_crucible = null
 	if(ore_buffer)
 		for(var/obj/item/ores in ore_buffer)
 			ores.forceMove(src.loc)
@@ -219,13 +219,6 @@
 	var/time_to_animate = max(ore_amount * 2, 1 SECONDS)
 	addtimer(VARSET_CALLBACK(src, icon_state, "hopper"), time_to_animate)
 	linked_crucible.animate_transfer(time_to_animate)
-
-/obj/machinery/mineral/smart_hopper/proc/unlink_crucible(atom/source, obj/machinery/magma_crucible/crucible)
-	SIGNAL_HANDLER // COMSIG_CRUCIBLE_DESTROYED
-	if(!istype(crucible))
-		return
-	if(crucible == linked_crucible)
-		linked_crucible = null
 
 /obj/machinery/magma_crucible
 	name = "magma crucible"
@@ -307,7 +300,12 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 	for(var/obj/machinery/machine in linked_machines)
-		SEND_SIGNAL(machine, COMSIG_CRUCIBLE_DESTROYED, src)
+		if(istype(machine, /obj/machinery/mineral/smart_hopper))
+			var/obj/machinery/mineral/smart_hopper/hopper = machine
+			hopper.linked_crucible = null
+		if(istype(machine, /obj/machinery/smithing/casting_basin))
+			var/obj/machinery/smithing/casting_basin/basin = machine
+			basin.linked_crucible = null
 	return ..()
 
 /obj/machinery/magma_crucible/power_change()
@@ -511,7 +509,6 @@
 
 /obj/machinery/smithing/casting_basin/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_CRUCIBLE_DESTROYED, PROC_REF(unlink_crucible))
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/casting_basin(null)
@@ -522,7 +519,7 @@
 	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
 	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
 		linked_crucible = crucible
-		linked_crucible.linked_machines += src
+		linked_crucible.linked_machines |= src
 		return
 
 /obj/machinery/smithing/casting_basin/examine(mob/user)
@@ -599,7 +596,7 @@
 			to_chat(user, "<span class='notice'>You cannot link [src] to [multi.buffer]!</span>")
 			return
 		linked_crucible = multi.buffer
-		linked_crucible.linked_machines += src
+		linked_crucible.linked_machines |= src
 		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
 
 /obj/machinery/smithing/casting_basin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -727,14 +724,8 @@
 /obj/machinery/smithing/casting_basin/Destroy()
 	if(linked_crucible)
 		linked_crucible.linked_machines -= src
-	return ..()
-
-/obj/machinery/smithing/casting_basin/proc/unlink_crucible(atom/source, obj/machinery/magma_crucible/crucible)
-	SIGNAL_HANDLER // COMSIG_CRUCIBLE_DESTROYED
-	if(!istype(crucible))
-		return
-	if(crucible == linked_crucible)
 		linked_crucible = null
+	return ..()
 
 /obj/machinery/smithing/power_hammer
 	name = "power hammer"

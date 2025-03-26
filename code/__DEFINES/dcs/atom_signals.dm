@@ -149,5 +149,3 @@
 #define COMSIG_LENS_ATTACH "lens_attach"
 /// When using an insert on an item that can accept an insert
 #define COMSIG_INSERT_ATTACH "insert_attach"
-/// When a magma crucible is destroyed
-#define COMSIG_CRUCIBLE_DESTROYED "crucible_destroy"
