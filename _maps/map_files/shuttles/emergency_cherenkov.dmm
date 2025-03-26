@@ -53,9 +53,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bM" = (
@@ -759,12 +757,10 @@
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "xJ" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "xS" = (
@@ -1057,9 +1053,7 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "IE" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Jh" = (
@@ -1562,6 +1556,13 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"Yh" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
 "Yj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -1742,7 +1743,7 @@ Wy
 Ks
 Ks
 Ks
-Ks
+Yh
 FE
 FE
 FE
