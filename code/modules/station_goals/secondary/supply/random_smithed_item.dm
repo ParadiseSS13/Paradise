@@ -53,16 +53,22 @@
 			reward += SSeconomy.credits_per_easy_smith_goal
 		if(SMITH_GOAL_MEDIUM)
 			reward += SSeconomy.credits_per_normal_smith_goal
-		else  // SMITH_GOAL_HARD
+		if(SMITH_GOAL_HARD)
 			reward += SSeconomy.credits_per_hard_smith_goal
+		else
+			reward += SSeconomy.credits_per_easy_smith_goal
+			log_debug("No valid quality reward selected for smith secondary goal.")
 
 	switch(material.secondary_goal_difficulty)
 		if(SMITH_GOAL_EASY)
 			reward += SSeconomy.credits_per_easy_smith_goal
 		if(SMITH_GOAL_MEDIUM)
 			reward += SSeconomy.credits_per_normal_smith_goal
-		else  // SMITH_GOAL_HARD
+		if(SMITH_GOAL_HARD)
 			reward += SSeconomy.credits_per_hard_smith_goal
+		else
+			reward += SSeconomy.credits_per_easy_smith_goal
+			log_debug("No valid material reward selected for smith secondary goal.")
 
 	report_message = "A situation came up that needs specialized equipment. We're going to need \a [quality.name] [material.name] [product_type.name]. You'll be rewarded handsomely for your work."
 	admin_desc = "\A [quality.name] [material.name] [product_type.name] request."
