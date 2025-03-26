@@ -64,11 +64,9 @@
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
-	if(!reagents && max_water)
-		create_reagents(max_water)
+	if(!reagents)
+		create_reagents(max_water + max_firefighting_foam)
 		reagents.add_reagent("water", max_water)
-	if(!reagents && max_firefighting_foam)
-		create_reagents(max_firefighting_foam)
 		reagents.add_reagent("firefighting_foam", max_firefighting_foam)
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
