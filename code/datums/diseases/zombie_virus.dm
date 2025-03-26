@@ -25,7 +25,7 @@
 	var/instant_zombie
 
 /datum/disease/zombie/New(chosen_plague, plague_zomb)
-	if(plague_zomb == TRUE)
+	if(plague_zomb)
 		plague_disease = chosen_plague
 		instant_zombie = TRUE
 
