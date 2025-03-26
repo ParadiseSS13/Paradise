@@ -132,7 +132,7 @@
 			if(prob(3))
 				affected_mob.emote("sneeze")
 			if(prob(3))
-				to_chat(affected_mob, "<span class='danger'>Your throat burns and itchs!</span>")
+				to_chat(affected_mob, "<span class='danger'>Your throat burns and itches!</span>")
 
 		if(5)
 			if(prob(2))
