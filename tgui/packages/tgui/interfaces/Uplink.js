@@ -138,15 +138,17 @@ const ItemsPage = (_properties, context) => {
               value={searchText}
             />
           </Section>
-          <Box mt={1} bold>
-            {'GOING OUT OF BUSINESS SALE! EVERYTHING MUST GO! ALL ITEMS 50% OFF!'.split('').map((char, i) => {
-              const rainbow = ['red', 'orange', 'yellow', 'lime', 'cyan', 'violet'];
-              return (
-                <span key={i} style={{ color: rainbow[i % rainbow.length] }}>
-                  {char}
-                </span>
-              );
-            })}
+          <Box mt={1} bold backgroundColor="rgba(0, 0, 0, 0.3)" p={1}>
+            <marquee>
+              {'GOING OUT OF BUSINESS SALE! EVERYTHING MUST GO! ALL ITEMS 50% OFF!'.split('').map((char, i) => {
+                const rainbow = ['red', 'orange', 'yellow', 'lime', 'cyan', 'violet'];
+                return (
+                  <span key={i} style={{ color: rainbow[i % rainbow.length] }}>
+                    {char}
+                  </span>
+                );
+              })}
+            </marquee>
           </Box>
         </Stack.Item>
       </Stack>
