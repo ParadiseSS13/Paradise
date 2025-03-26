@@ -147,12 +147,10 @@
 /area/shuttle/escape)
 "z" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "B" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -241,6 +239,7 @@ G
 i
 G
 G
+b
 h
 "}
 (2,1,1) = {"
@@ -260,6 +259,7 @@ m
 f
 m
 M
+c
 z
 B
 "}
@@ -280,6 +280,7 @@ m
 m
 m
 m
+c
 z
 C
 "}
@@ -300,6 +301,7 @@ u
 g
 o
 y
+c
 z
 C
 "}
@@ -321,5 +323,6 @@ G
 c
 G
 G
+b
 h
 "}
