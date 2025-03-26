@@ -124,9 +124,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "x" = (
@@ -185,9 +183,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "G" = (
@@ -201,14 +197,12 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 28
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -27
 	},
 /obj/structure/table/reinforced,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "M" = (
