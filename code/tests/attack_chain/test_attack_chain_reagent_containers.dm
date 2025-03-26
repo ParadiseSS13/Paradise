@@ -356,3 +356,10 @@
 	player.click_on(target)
 	TEST_ASSERT_ANY_CHATLOG(player, "[player.puppet] drips something into [target.puppet]'s eyes")
 	TEST_ASSERT_NOT_CHATLOG(player, "You cannot directly remove reagents from [target.puppet]")
+
+/datum/game_test/attack_chain_spray/Run()
+	var/datum/test_puppeteer/player = new(src)
+	var/obj/item/reagent_containers/spray/spray = player.spawn_obj_in_hand(/obj/item/reagent_containers/spray)
+	var/obj/structure/table = player.spawn_obj_nearby(/obj/structure/table)
+	player.click_on(table)
+	TEST_ASSERT(spray in get_turf(table), "spray bottle not placed on table")
