@@ -53,7 +53,7 @@
 	. = ..()
 	if(!reagents)
 		create_reagents(max_water)
-		reagents.add_reagent("water", max_water)
+		reagents.add_reagent("sacid", max_water)
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
 /obj/item/extinguisher/activate_self(mob/user)
@@ -149,7 +149,7 @@
 		INVOKE_ASYNC(water, TYPE_PROC_REF(/obj/effect/particle_effect/water, extinguish_move), new_target)
 
 /obj/item/extinguisher/cyborg_recharge(coeff, emagged)
-	reagents.check_and_add("water", max_water, 5 * coeff)
+	reagents.check_and_add("sacid", max_water, 5 * coeff)
 
 /obj/item/extinguisher/proc/buckled_speed_move(obj/structure/chair/buckled_to, direction) // Buckled_to may not be a chair here, but we're assuming so because it makes it easier to typecheck
 	var/movementdirection = turn(direction, 180)
