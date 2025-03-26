@@ -35,7 +35,7 @@
 /datum/spell/zombie_claws/proc/dispel()
 	var/mob/living/carbon/human/user = action.owner
 	var/obj/item/zombie_claw/claw = user.get_active_hand()
-	if(istype(claw, /obj/item/zombie_claw || /obj/item/zombie_claw/plague_claw))
+	if(istype(claw, /obj/item/zombie_claw) || istype(claw, /obj/item/zombie_claw/plague_claw))
 		qdel(claw)
 		return TRUE
 
