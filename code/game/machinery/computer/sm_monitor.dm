@@ -52,6 +52,7 @@
 		data["active"] = TRUE
 		data["SM_integrity"] = active.get_integrity()
 		data["SM_power"] = active.power
+		data["SM_pre_reduction_power"] = active.pre_reduction_power
 		data["SM_temperature"] = active.temperature
 		data["SM_ambienttemp"] = air.temperature()
 		data["SM_ambientpressure"] = air.return_pressure()
