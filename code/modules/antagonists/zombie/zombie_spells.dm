@@ -110,8 +110,8 @@
 	if(HAS_TRAIT(user, TRAIT_PLAGUE_ZOMBIE))
 		try_virus_infect(attack_target, user, claw_disease)
 		return
-	else
-		try_infect(attack_target, user)
+	
+	try_infect(attack_target, user)
 
 	var/obj/item/organ/internal/brain/eat_brain = attack_target.get_organ_slot("brain")
 	if(!eat_brain)
