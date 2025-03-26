@@ -869,7 +869,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 
 	if(victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
-		to_chat(necromancer, "<span class='warning'>This one has already been risen! Give it time.</span>")
+		to_chat(necromancer, "<span class='warning'>This one is already under the artifact's influence! Give it time.</span>")
 		return
 
 	raise_victim(victim, necromancer)
