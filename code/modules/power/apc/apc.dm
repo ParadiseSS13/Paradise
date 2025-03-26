@@ -242,127 +242,147 @@
 		attack_hand(user)
 		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(used, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
+	// Adding power cell.
+	if(istype(used, /obj/item/stock_parts/cell) && opened)
 		if(cell)
-			to_chat(user, "<span class='warning'>There is a power cell already installed!</span>")
+			to_chat(user, "<span class='warning'>[src] already has a power cell!</span>")
 			return ITEM_INTERACT_COMPLETE
-		else
-			if(stat & MAINT)
-				to_chat(user, "<span class='warning'>There is no connector for your power cell!</span>")
-				return ITEM_INTERACT_COMPLETE
-			if(!user.drop_item())
-				return ITEM_INTERACT_COMPLETE
-			used.forceMove(src)
-			cell = used
 
-			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
-				demon.forceMove(src)
-				demon.current_power = src
-				if(!being_hijacked) // first come first serve
-					demon.try_hijack_apc(src)
-			if(being_hijacked)
-				cell.rigged = FALSE // don't blow the demon up
+		if(stat & MAINT)
+			to_chat(user, "<span class='warning'>[src] has no electronics inside!</span>")
+			return ITEM_INTERACT_COMPLETE
 
-			user.visible_message(\
-				"[user.name] has inserted the power cell to [name]!",\
-				"<span class='notice'>You insert the power cell.</span>")
-			chargecount = 0
-			update_icon()
+		if(!user.drop_item())
+			return ITEM_INTERACT_COMPLETE
 
+		used.forceMove(src)
+		cell = used
+
+		for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+			demon.forceMove(src)
+			demon.current_power = src
+			if(!being_hijacked) // First come, first serve!
+				demon.try_hijack_apc(src)
+		if(being_hijacked)
+			cell.rigged = FALSE // Do not explode the demon.
+
+		user.visible_message(
+			"<span class='notice'>[user] inserts [used] into [src].</span>",
+			"<span class='notice'>You insert [used] into [src].</span>"
+			)
+		chargecount = 0
+		update_icon()
 		return ITEM_INTERACT_COMPLETE
-	else if(used.GetID())			// trying to unlock the interface with an ID card
+
+	// Swiping ID card.
+	if(used.GetID())
 		togglelock(user)
 		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(used, /obj/item/stack/cable_coil) && opened)
+	// Adding cables.
+	if(istype(used, /obj/item/stack/cable_coil) && opened)
 		var/turf/host_turf = get_turf(src)
 		if(!host_turf)
 			throw EXCEPTION("attackby on APC when it's not on a turf")
 			return ITEM_INTERACT_COMPLETE
+
 		if(host_turf.intact)
-			to_chat(user, "<span class='warning'>You must remove the floor plating in front of the APC first!</span>")
+			to_chat(user, "<span class='warning'>You must expode the floor plating in front of [src] first!</span>")
 			return ITEM_INTERACT_COMPLETE
-		else if(terminal) // it already have terminal
-			to_chat(user, "<span class='warning'>This APC is already wired!</span>")
+
+		if(terminal)
+			to_chat(user, "<span class='warning'>[src] is already wired!</span>")
 			return ITEM_INTERACT_COMPLETE
-		else if(!has_electronics())
-			to_chat(user, "<span class='warning'>There is nothing to wire!</span>")
+
+		if(!has_electronics())
+			to_chat(user, "<span class='warning'>[src] has no electronics inside to wire!</span>")
 			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/stack/cable_coil/C = used
 		if(C.get_amount() < 10)
-			to_chat(user, "<span class='warning'>You need ten lengths of cable for APC!</span>")
+			to_chat(user, "<span class='warning'>You need ten lengths of cable to wire [src]!</span>")
 			return ITEM_INTERACT_COMPLETE
-		user.visible_message("[user.name] adds cables to the APC frame.", \
-							"<span class='notice'>You start adding cables to the APC frame...</span>")
+
+		user.visible_message(
+			"<span class='notice'>[user] starts adding cables to [src]...</span>",
+			"<span class='notice'>You start adding cables to [src]...</span>"
+			)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, target = src))
 			if(C.get_amount() < 10 || !C)
 				return ITEM_INTERACT_COMPLETE
+
 			if(C.get_amount() >= 10 && !terminal && opened && has_electronics())
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
 				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE))
 					do_sparks(5, TRUE, src)
 					return ITEM_INTERACT_COMPLETE
+
 				C.use(10)
-				to_chat(user, "<span class='notice'>You add cables to the APC frame.</span>")
+				to_chat(user, "<span class='notice'>You add cables to [src].</span>")
 				make_terminal()
 				terminal.connect_to_network()
-
 		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(used, /obj/item/apc_electronics) && opened)
-		if(has_electronics()) // there are already electronicks inside
-			to_chat(user, "<span class='warning'>You cannot put the board inside, there already is one!</span>")
-			return ITEM_INTERACT_COMPLETE
-		else if(stat & BROKEN)
-			to_chat(user, "<span class='warning'>You cannot put the board inside, the frame is damaged!</span>")
-			return ITEM_INTERACT_COMPLETE
-
-		user.visible_message("[user.name] inserts [used] into [src].", \
-							"<span class='notice'>You start to insert [used] into the frame...</span>")
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 10, target = src))
-			if(!has_electronics())
-				electronics_state = APC_ELECTRONICS_INSTALLED
-				locked = FALSE
-				to_chat(user, "<span class='notice'>You place [used] inside the frame.</span>")
-				stat &= ~MAINT
-				update_icon()
-				qdel(used)
-
-		return ITEM_INTERACT_COMPLETE
-
-	else if(istype(used, /obj/item/mounted/frame/apc_frame) && opened)
-		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity)) // There is nothing to repair
-			to_chat(user, "<span class='warning'>You found no reason for repairing this APC.</span>")
-			return ITEM_INTERACT_COMPLETE
-		if(!(stat & BROKEN) && opened == APC_COVER_OFF) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
-			user.visible_message("[user.name] replaces missing APC's cover.",\
-							"<span class='notice'>You begin to replace APC's cover...</span>")
-			if(do_after(user, 20, target = src)) // replacing cover is quicker than replacing whole frame
-				to_chat(user, "<span class='notice'>You replace missing APC's cover.</span>")
-				qdel(used)
-				opened = APC_OPENED
-				update_icon()
-			return ITEM_INTERACT_COMPLETE
+	// Adding APC electronics.
+	if(istype(used, /obj/item/apc_electronics) && opened)
 		if(has_electronics())
-			to_chat(user, "<span class='warning'>You cannot repair this APC until you remove the electronics still inside!</span>")
+			to_chat(user, "<span class='warning'>[src] already contains APC electronics!</span>")
 			return ITEM_INTERACT_COMPLETE
-		user.visible_message("[user.name] replaces the damaged APC frame with a new one.",\
-							"<span class='notice'>You begin to replace the damaged APC frame...</span>")
-		if(do_after(user, 50, target = src))
-			to_chat(user, "<span class='notice'>You replace the damaged APC frame with a new one.</span>")
-			qdel(used)
-			stat &= ~BROKEN
-			obj_integrity = max_integrity
-			if(opened == APC_COVER_OFF)
-				opened = APC_OPENED
+
+		if(stat & BROKEN)
+			to_chat(user, "<span class='warning'>[src] is damaged! You must repair the frame before you can install [used]!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		if(!has_electronics())
+			user.visible_message(
+				"<span class='notice'>[user] installs [used] into [src]...</span>",
+				"<span class='notice'>You install [used] into [src]...</span>"
+				)
+			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+			electronics_state = APC_ELECTRONICS_INSTALLED
+			locked = FALSE
+			stat &= ~MAINT
 			update_icon()
+			qdel(used)
+
 		return ITEM_INTERACT_COMPLETE
-	else
-		return ..()
+
+	// APC frame repair. Takes no time, the trade-off is you sacrifice the metal used to build the replacement frame vs. being able to recover it from the old one.
+	if(istype(used, /obj/item/mounted/frame/apc_frame) && opened)
+		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity))
+			to_chat(user, "<span class='warning'>[src] has no damage to fix!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		// Only cover is broken, no need to remove any components.
+		if(!(stat & BROKEN) && opened == APC_COVER_OFF)
+			user.visible_message(
+				"<span class='notice'>[user] replaces the missing cover of [src].</span>",
+				"<span class='notice'>You replace the missing cover of [src].</span>"
+				)
+			qdel(used)
+			opened = APC_OPENED
+			update_icon()
+			return ITEM_INTERACT_COMPLETE
+
+		if(has_electronics())
+			to_chat(user, "<span class='warning'>You cannot repair [src] until you remove the electronics!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		user.visible_message(
+			"<span class='notice'>[user] replaces the damaged frame of [src].</span>",
+			"<span class='notice'>You replace the damaged frame of [src].</span>"
+			)
+		qdel(used)
+		stat &= ~BROKEN
+		obj_integrity = max_integrity
+		if(opened == APC_COVER_OFF)
+			opened = APC_OPENED
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/power/apc/AltClick(mob/user)
 	if(Adjacent(user))
