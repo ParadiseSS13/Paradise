@@ -83,7 +83,7 @@
 			if(prob(2) && affected_mob.nutrition >= 100)
 				affected_mob.adjustBruteLoss(5)
 				affected_mob.vomit(6,0,TRUE,7,0)
-				affected_mob.visible_message("[affected_mob] vomits with such force that [p_theyre(FALSE)] sent flying backwards!", "You vomit a torrent of magic bile so forcefully, that you are sent flying!", "You hear someone vomit profusely.")
+				affected_mob.visible_message("<span class='danger'>[affected_mob] vomits with such force that [p_theyre(FALSE)] sent flying backwards!</span>", "<span class='userdanger'>You vomit a torrent of magic bile so forcefully, that you are sent flying!</span>", "<span class='warning'>You hear someone vomit profusely.</span>")
 				do_fling(affected_mob)
 
 /datum/disease/grut_gut/proc/do_fling()
