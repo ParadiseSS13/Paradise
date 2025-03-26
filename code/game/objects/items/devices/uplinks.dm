@@ -72,6 +72,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(length(I.species))
 				if(!(I.species.Find(species)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
+			I.cost = max(round(I.cost / 2), 1)
 			cats[length(cats)]["items"] += list(list(
 				"name" = sanitize(I.name),
 				"desc" = sanitize(I.description()),
