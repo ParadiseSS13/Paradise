@@ -872,7 +872,7 @@
 	},
 /area/station/security/armory/secure)
 "aeT" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -10475,7 +10475,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "aLk" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
@@ -19798,7 +19798,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/kitchen_machine/grill,
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -19832,17 +19832,17 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
 "boo" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -19856,7 +19856,7 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/bar)
 "boq" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -19887,7 +19887,7 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -20300,6 +20300,10 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/shelf/service,
+/obj/item/storage/box/cups,
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -20852,6 +20856,7 @@
 "brm" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
+/obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -21845,13 +21850,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"but" = (
-/obj/structure/table,
-/obj/item/kitchen/knife,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/service/kitchen)
 "buu" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/bottle/cream,
@@ -21943,9 +21941,8 @@
 	},
 /area/station/service/kitchen)
 "buK" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
 /obj/machinery/requests_console/directional/east,
+/obj/structure/closet/crate/cookware,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -46021,7 +46018,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "dmp" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "dmq" = (
@@ -49757,6 +49755,10 @@
 /obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 11
+	},
+/obj/item/kitchen/utensil/pfork{
+	pixel_x = 3;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -58247,6 +58249,13 @@
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/station/command/bridge)
+"iRs" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/board,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "iRC" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -59847,7 +59856,8 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
 "jHG" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -64444,13 +64454,17 @@
 /area/station/maintenance/aft)
 "lXd" = (
 /obj/structure/table/reinforced,
-/obj/item/kitchen/utensil/pfork,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/reagent_containers/cooking/board,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/reagent_containers/cooking/pan,
+/obj/item/reagent_containers/cooking/pot,
+/obj/item/reagent_containers/cooking/grill_grate,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -66897,7 +66911,7 @@
 /turf/simulated/floor/carpet/green,
 /area/station/command/bridge)
 "ntr" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -68379,6 +68393,11 @@
 "ogf" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/directional/south,
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 6;
+	pixel_x = -1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -74274,7 +74293,7 @@
 /area/station/maintenance/asmaint2)
 "qXR" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -79237,6 +79256,13 @@
 /obj/item/stack/spacecash/c200,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
+"tLA" = (
+/obj/structure/table,
+/obj/machinery/cooking/stovetop,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "tLB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -85193,7 +85219,7 @@
 "wWp" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/machinery/light/small,
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -125909,7 +125935,7 @@ bdT
 bdT
 bon
 btJ
-but
+bus
 bsT
 bof
 bwo
@@ -126166,7 +126192,7 @@ bpG
 bdT
 boj
 btJ
-bus
+iRs
 bsS
 bof
 bof
@@ -126935,7 +126961,7 @@ bLU
 bjv
 dnE
 bmy
-boo
+tLA
 btP
 buv
 bof

@@ -25,6 +25,13 @@
 
 	// ToasTODO: Add an AltClick test
 
+// Test recipe for testing reagent containers in old kitchen machinery
+/datum/recipe/microwave/test_recipe
+	duplicate = FALSE
+	reagents = list("sodiumchloride" = 50)
+	items = list(/obj/item/food/grown/apple)
+	result = /obj/item/food/badrecipe
+
 /datum/game_test/attack_chain_condiment/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/item/reagent_containers/saltshaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/condiment/saltshaker)
@@ -33,8 +40,8 @@
 	player.click_on(watertank)
 	TEST_ASSERT_LAST_CHATLOG(player, "[saltshaker] is full!")
 
-	var/obj/machinery/kitchen_machine/grill = player.spawn_obj_nearby(/obj/machinery/kitchen_machine/grill)
-	player.click_on(grill)
+	var/obj/machinery/kitchen_machine/microwave = player.spawn_obj_nearby(/obj/machinery/kitchen_machine/microwave)
+	player.click_on(microwave)
 	TEST_ASSERT_ANY_CHATLOG(player, "You transfer")
 	TEST_ASSERT_NOT_CHATLOG(player, "You hit")
 
@@ -42,7 +49,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You swallow some")
 
 	saltshaker.reagents.total_volume = 0
-	player.click_on(grill)
+	player.click_on(microwave)
 	TEST_ASSERT_LAST_CHATLOG(player, "is empty!")
 	player.click_on(player)
 	TEST_ASSERT_LAST_CHATLOG(player, "None of [saltshaker] left, oh no!")
@@ -192,6 +199,8 @@
 	var/datum/test_puppeteer/player = new(src)
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 
+	var/obj/structure/table/table = player.spawn_obj_nearby(/obj/structure/table)
+
 	// Pills
 	var/obj/pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
 	player.click_on_self()
@@ -207,6 +216,9 @@
 	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
 	player.use_item_in_hand()
 	TEST_ASSERT_LAST_CHATLOG(player, "You swallow [pill].")
+	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.click_on(table)
+	TEST_ASSERT(pill in get_turf(table), "pill not placed on table")
 
 	// Patches
 	var/obj/item/reagent_containers/patch/patch = player.spawn_obj_in_hand(/obj/item/reagent_containers/patch/silver_sulf)
@@ -223,9 +235,15 @@
 	beaker.reagents.add_reagent("sanguine_reagent", 10)
 	player.click_on(clonepod)
 	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 10 units of the solution to [clonepod].")
-	var/obj/structure/table/table = player.spawn_obj_nearby(/obj/structure/table)
 	player.click_on(table)
 	TEST_ASSERT(beaker in get_turf(table), "beaker not placed on table")
+
+	// Pill bottles
+	var/obj/pill_bottle = player.spawn_obj_in_hand(/obj/item/storage/pill_bottle)
+	player.puppet.swap_hand()
+	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.click_on(pill_bottle)
+	TEST_ASSERT_LAST_CHATLOG(player, "You put [pill] into [pill_bottle].")
 
 /datum/game_test/attack_chain_syringes/Run()
 	var/datum/test_puppeteer/player = new(src)
@@ -326,3 +344,15 @@
 	autoinjector = player.spawn_obj_in_hand(/obj/item/reagent_containers/hypospray/autoinjector/stimpack)
 	player.click_on(target)
 	TEST_ASSERT_ANY_CHATLOG(player, "You inject [target] with [autoinjector]")
+
+/datum/game_test/attack_chain_droppers/Run()
+	var/datum/test_puppeteer/player = new(src)
+	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
+	var/obj/item/reagent_containers/dropper/dropper = player.spawn_obj_in_hand(/obj/item/reagent_containers/dropper)
+	dropper.mob_drip_delay = 0
+	var/obj/item/beaker = player.spawn_obj_nearby(/obj/item/reagent_containers/glass/beaker/waterbottle)
+	player.click_on(beaker)
+	TEST_ASSERT_LAST_CHATLOG(player, "You fill [dropper] with 1 units of the solution.")
+	player.click_on(target)
+	TEST_ASSERT_ANY_CHATLOG(player, "[player.puppet] drips something into [target.puppet]'s eyes")
+	TEST_ASSERT_NOT_CHATLOG(player, "You cannot directly remove reagents from [target.puppet]")

@@ -2645,8 +2645,8 @@
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
 "ava" = (
-/obj/machinery/processor,
 /obj/machinery/alarm/directional/north,
+/obj/structure/closet/crate/cookware,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -10953,7 +10953,8 @@
 /turf/simulated/wall,
 /area/station/science/genetics)
 "bDF" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "bDG" = (
@@ -28599,11 +28600,8 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "emv" = (
-/obj/machinery/kitchen_machine/microwave{
-	pixel_y = 5
-	},
-/obj/structure/table/reinforced,
 /obj/structure/window/basic,
+/obj/machinery/processor,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -38011,6 +38009,9 @@
 "gGj" = (
 /obj/structure/table,
 /obj/item/wrench,
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "gGl" = (
@@ -43164,7 +43165,7 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "hRT" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /obj/structure/window/basic{
 	dir = 1
 	},
@@ -50329,7 +50330,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/misc_lab)
 "jxH" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -55309,8 +55310,7 @@
 /area/station/security/brig)
 "kCC" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/chef_recipes,
-/obj/item/kitchen/knife,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -68853,7 +68853,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/storage)
 "nQq" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -74702,7 +74702,8 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
 "ply" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/machinery/camera{
 	c_tag = "Prison Cafeteria";
 	network = list("Prison","SS13");
@@ -77088,7 +77089,7 @@
 	},
 /area/station/public/storage/tools/auxiliary)
 "pOz" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -83350,7 +83351,8 @@
 /turf/simulated/floor/plating,
 /area/station/command/meeting_room)
 "rpg" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -85312,7 +85314,7 @@
 	},
 /area/station/security/prison/cell_block/a)
 "rNo" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -89067,6 +89069,7 @@
 /obj/structure/table,
 /obj/item/eftpos,
 /obj/item/kitchen/rollingpin,
+/obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -97146,7 +97149,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "uzZ" = (
@@ -101200,9 +101203,7 @@
 /area/station/maintenance/disposal/east)
 "vyr" = (
 /obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_y = 5
-	},
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
