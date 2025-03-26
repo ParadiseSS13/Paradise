@@ -986,9 +986,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1173,9 +1171,7 @@
 	},
 /area/ruin/space/moonbase19)
 "dD" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "dE" = (
@@ -2557,9 +2553,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/structure/closet/crate,
 /obj/machinery/light/small{
 	dir = 1
