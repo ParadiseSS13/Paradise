@@ -914,7 +914,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 //choose what disease this zombie will get
 /obj/item/plague_talisman/proc/pick_disease()
 	var/picked_disease
-	var/list/possible_diseases = list(
+	var/static/list/possible_diseases = list(
 		/datum/disease/beesease/wizard_variant,
 		/datum/disease/berserker/wizard_variant,
 		/datum/disease/cold9/wizard_variant,
