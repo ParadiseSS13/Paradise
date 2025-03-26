@@ -21,6 +21,11 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
 
+/obj/item/crowbar/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
+
 /obj/item/crowbar/red
 	desc = "A hefty steel crowbar with red stripes. It'll hit a bit harder than a normal crowbar."
 	icon_state = "crowbar_red"
@@ -137,5 +142,10 @@
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
 	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.on_detached()
+		bit.forceMove(cutjaws)
+		cutjaws.attached_bits += bit
+		bit.on_attached(cutjaws)
 	qdel(src)
 	user.put_in_active_hand(cutjaws)
