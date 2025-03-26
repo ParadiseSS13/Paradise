@@ -111,7 +111,7 @@
 	if(!check_personal_crate(AM))
 		return
 
-	if(!istype(AM, /obj/item/smithed_item/))
+	if(!istype(AM, /obj/item/smithed_item))
 		return
 
 	if(!check_parameters(AM))
