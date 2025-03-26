@@ -57,7 +57,6 @@
 					update_icon()
 					return
 
-					//SSticker.mode:apcs-- //XSI said no and I agreed. -rastaf0
 				if(emagged) // We emag board, not APC's frame
 					emagged = FALSE
 					user.visible_message(

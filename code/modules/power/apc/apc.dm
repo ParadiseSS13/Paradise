@@ -287,7 +287,7 @@
 			return ITEM_INTERACT_COMPLETE
 
 		if(host_turf.intact)
-			to_chat(user, "<span class='warning'>You must expode the floor plating in front of [src] first!</span>")
+			to_chat(user, "<span class='warning'>You must expose the floor plating in front of [src] first!</span>")
 			return ITEM_INTERACT_COMPLETE
 
 		if(terminal)
