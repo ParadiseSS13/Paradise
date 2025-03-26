@@ -78,6 +78,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	SStgui.update_uis(src)
 
 /obj/item/gps/ui_data(mob/user)
+	var/list/mining_zlevels = levels_by_trait(ORE_LEVEL)
 	var/list/data = list()
 	if(emped)
 		data["emped"] = TRUE
@@ -106,13 +107,24 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		var/turf/GT = get_turf(G)
 		if(isnull(GT) || !G.tracking || G == src)
 			continue
-		if((G.local || same_z) && (GT.z != T.z))
+
+		// If both signals are on lavaland, we don't skip them, because we want
+		// to have some indication of where lavaland sector bridges are, which
+		// we do by providing a directional arrow, without distance, in the GPS UI.
+		var/both_lavaland = (T.z in mining_zlevels) && (G.z in mining_zlevels)
+		if((!both_lavaland) && (G.local || same_z) && (GT.z != T.z))
 			continue
 
 		var/list/signal = list("tag" = G.gpstag, "area" = null, "position" = null)
 		if(!G.emped)
 			signal["area"] = get_area_name(G, TRUE)
 			signal["position"] = ATOM_COORDS(GT)
+
+			if(both_lavaland && T.z != GT.z)
+				var/bridge_direction = SSmapping.lavaland_theme.get_bridge_direction(GT.z, T.z)
+				if(bridge_direction)
+					signal["due"] = dir2angle(text2num(bridge_direction))
+
 		signals += list(signal)
 	data["signals"] = signals
 

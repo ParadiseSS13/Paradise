@@ -289,8 +289,10 @@ can change these settings under `ruin_configuration`:
 - `enable_lavaland`: whether to load the Lavaland z-level.
 - `enable_space_ruins`: despite its name, this controls whether ruins are
   spawned for both space _and_ Lavaland.
-- `minimum_zlevels` and `maximum_zlevels` control the number of space z-levels
-  generated. If you don't need any, set both to `0`.
+- `minimum_space_zlevels`/`maximum_space_zlevels` and
+  `minimum_lavaland_zlevels`/`maximum_lavaland_zlevels` control the number of
+  z-levels generated for space and Lavaland, respectively. If you don't need
+  any, set both to `0`.
 
 ### Enabling or disabling station traits
 
