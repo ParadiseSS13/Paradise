@@ -69,20 +69,13 @@ const SupermatterMonitorDataView = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     active,
-
     SM_integrity,
-
     SM_power,
     SM_pre_reduction_power,
-
     SM_ambienttemp,
-
     SM_ambientpressure,
-
     SM_moles,
-
     SM_gas_coefficient,
-
     SM_temperature,
   } = data;
   const gases = flow([(gases) => gases.filter((gas) => gas.amount >= 0.01), sortBy((gas) => -gas.amount)])(
