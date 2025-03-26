@@ -1,9 +1,9 @@
 /// Config holder for all things regarding space ruins and lavaland ruins
 /datum/configuration_section/ruin_configuration
 	/// Whether to load the lavaland Z-level
-	var/enable_lavaland = TRUE
+	var/enable_lavaland = FALSE
 	/// Enable or disable all ruins, including lavaland ruins and lavaland tendrils.
-	var/enable_space_ruins = TRUE
+	var/enable_space_ruins = FALSE
 	/// Minimum number of extra zlevels to fill with ruins
 	var/extra_levels_min = 2
 	/// Maximum number of extra zlevels to fill with ruins
