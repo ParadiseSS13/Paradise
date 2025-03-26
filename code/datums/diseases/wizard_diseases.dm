@@ -191,7 +191,7 @@
 				affected_mob.emote("cough")
 		if(4)
 			if(prob(3))
-				to_chat(affected_mob, "<span class='danger'>Your chest feels like its going to cave in!</span>")
+				to_chat(affected_mob, "<span class='danger'>Your chest feels like it's going to cave in!</span>")
 			if(prob(2))
 				affected_mob.emote("cough")
 			if(prob(2))
