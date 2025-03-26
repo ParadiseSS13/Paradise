@@ -78136,9 +78136,7 @@
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
