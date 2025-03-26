@@ -63595,6 +63595,14 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
+"mzy" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/reagent_dispensers/watertank/firetank,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/atmos)
 "mzz" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -66182,14 +66190,9 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
-"nho" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/reagent_dispensers/watertank/firetank,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellow"
-	},
-/area/station/engineering/atmos)
+"nhj" = (
+/turf/simulated/floor/plating/airless,
+/area/station/maintenance/fsmaint)
 "nhx" = (
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
@@ -142212,7 +142215,7 @@ jDd
 lMu
 cZf
 deb
-nho
+mzy
 skI
 bUV
 bVx
