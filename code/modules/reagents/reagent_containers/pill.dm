@@ -18,6 +18,12 @@
 	if(!icon_state)
 		icon_state = "pill[rand(1, 20)]"
 
+/obj/item/reagent_containers/pill/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
+	apply(user, user)
+
 /obj/item/reagent_containers/pill/proc/apply(mob/living/carbon/C, mob/user)
 	if(!istype(C))
 		return FALSE
@@ -46,6 +52,12 @@
 	reagents.trans_to(C, reagents.total_volume)
 	qdel(src)
 	return TRUE
+
+/obj/item/reagent_containers/pill/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isnull(target.reagents))
+		return
+
+	return ..()
 
 /obj/item/reagent_containers/pill/mob_act(mob/target, mob/living/user)
 	apply(target, user)
