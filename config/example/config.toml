@@ -604,7 +604,7 @@ redis_connstring = "redis://127.0.0.1/"
 # This section contains configuration for all space ruins and lava ruins
 
 # Whether to load the lavaland Z-level.
-enable_lavaland = true
+enable_lavaland = false
 # Globally enable and disable placing of all ruins, including lavaland ruins and lavaland tendrils.
 enable_space_ruins = false
 # Minimum number of extra zlevels to generate and fill with ruins
