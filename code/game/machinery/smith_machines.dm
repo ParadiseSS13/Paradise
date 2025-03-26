@@ -35,6 +35,7 @@
 
 /obj/machinery/mineral/smart_hopper/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_CRUCIBLE_DESTROYED, PROC_REF(unlink_crucible))
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/smart_hopper(null)
@@ -47,6 +48,7 @@
 	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
 	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
 		linked_crucible = crucible
+		linked_crucible.linked_machines += src
 		return
 
 /obj/machinery/mineral/smart_hopper/update_overlays()
@@ -126,6 +128,7 @@
 			to_chat(user, "<span class='warning'>You cannot link [src] to [multi.buffer]!</span>")
 			return
 		linked_crucible = multi.buffer
+		linked_crucible.linked_machines += src
 		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
 
 /obj/machinery/mineral/smart_hopper/crowbar_act(mob/user, obj/item/I)
@@ -148,6 +151,14 @@
 		return
 	input_dir = turn(input_dir, -90)
 	to_chat(user, "<span class='notice'>You change [src]'s input, moving the input to [dir2text(input_dir)].</span>")
+
+/obj/machinery/mineral/smart_hopper/Destroy()
+	if(linked_crucible)
+		linked_crucible.linked_machines -= src
+	if(ore_buffer)
+		for(var/obj/item/ores in ore_buffer)
+			ores.forceMove(src.loc)
+	return ..()
 
 /obj/machinery/mineral/smart_hopper/proc/process_ores(list/obj/item/stack/ore/ore_list)
 	if(!linked_crucible)
@@ -209,6 +220,13 @@
 	addtimer(VARSET_CALLBACK(src, icon_state, "hopper"), time_to_animate)
 	linked_crucible.animate_transfer(time_to_animate)
 
+/obj/machinery/mineral/smart_hopper/proc/unlink_crucible(atom/source, obj/machinery/magma_crucible/crucible)
+	SIGNAL_HANDLER // COMSIG_CRUCIBLE_DESTROYED
+	if(!istype(crucible))
+		return
+	if(crucible == linked_crucible)
+		linked_crucible = null
+
 /obj/machinery/magma_crucible
 	name = "magma crucible"
 	desc = "A massive machine that smelts down raw ore into a fine slurry, then sorts it into respective tanks for storage and use."
@@ -230,6 +248,8 @@
 	var/adding_ore
 	/// State for if ore is being taken from it
 	var/pouring
+	/// List of linked machines
+	var/list/linked_machines = list()
 
 /obj/machinery/magma_crucible/Initialize(mapload)
 	. = ..()
@@ -284,9 +304,10 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/Destroy()
-	. = ..()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
+	for(var/obj/machinery/machine in linked_machines)
+		SEND_SIGNAL(machine, COMSIG_CRUCIBLE_DESTROYED, src)
 	return ..()
 
 /obj/machinery/magma_crucible/power_change()
@@ -490,6 +511,7 @@
 
 /obj/machinery/smithing/casting_basin/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_CRUCIBLE_DESTROYED, PROC_REF(unlink_crucible))
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/casting_basin(null)
@@ -500,6 +522,7 @@
 	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
 	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
 		linked_crucible = crucible
+		linked_crucible.linked_machines += src
 		return
 
 /obj/machinery/smithing/casting_basin/examine(mob/user)
@@ -576,6 +599,7 @@
 			to_chat(user, "<span class='notice'>You cannot link [src] to [multi.buffer]!</span>")
 			return
 		linked_crucible = multi.buffer
+		linked_crucible.linked_machines += src
 		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
 
 /obj/machinery/smithing/casting_basin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -699,6 +723,18 @@
 		// Clean up temps
 		qdel(temp_product)
 		return FINISH_ATTACK
+
+/obj/machinery/smithing/casting_basin/Destroy()
+	if(linked_crucible)
+		linked_crucible.linked_machines -= src
+	return ..()
+
+/obj/machinery/smithing/casting_basin/proc/unlink_crucible(atom/source, obj/machinery/magma_crucible/crucible)
+	SIGNAL_HANDLER // COMSIG_CRUCIBLE_DESTROYED
+	if(!istype(crucible))
+		return
+	if(crucible == linked_crucible)
+		linked_crucible = null
 
 /obj/machinery/smithing/power_hammer
 	name = "power hammer"
