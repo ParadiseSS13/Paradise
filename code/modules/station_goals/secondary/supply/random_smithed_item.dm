@@ -14,10 +14,10 @@
 /datum/station_goal/secondary/random_smithed_item/randomize_params()
 	var/list/valid_types = list()
 	for(var/S in subtypesof(/obj/item/smithed_item))
-		var/obj/item/smithed_item/possible_item = S
-		if(!possible_item.secondary_goal_candidate)
+		var/obj/item/smithed_item/possible_item_type = S
+		if(!possible_item_type.secondary_goal_candidate)
 			continue
-		valid_types += possible_item
+		valid_types += possible_item_type
 
 	var/valid_qualities = list()
 	for(var/Q in subtypesof(/datum/smith_quality))
