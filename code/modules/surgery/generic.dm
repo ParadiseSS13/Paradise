@@ -322,7 +322,8 @@
 
 	// Only slimes have slime hands
 	if(isslimeperson(target))
-		if(affected in list(HAND_LEFT, HAND_RIGHT))
+		//if(affected in list(HAND_LEFT, HAND_RIGHT))
+		if(istype(affected, /obj/item/organ/external/hand))
 			new /obj/item/gun/magic/hook/slime_hand(get_turf(target))
 			qdel(thing)
 

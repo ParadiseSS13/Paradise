@@ -261,7 +261,7 @@
 			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 
 			//Bald heads slap the hardest
-			if(head_organ.h_style in list("Bald", "Balding_Fade", "Skinhead"))
+			if(head_organ && (head_organ.h_style in list("Bald", "Balding_Fade", "Skinhead")))
 				playsound(target.loc, pick('sound/slap/slap.ogg', 'sound/slap/slap_oh.ogg', 'sound/slap/i_like_ya_cut_g_slap.ogg'), 10, FALSE)
 				H.KnockDown(2 SECONDS)
 				H.Jitter(1.5 SECONDS)
