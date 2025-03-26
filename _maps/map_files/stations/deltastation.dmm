@@ -83063,7 +83063,7 @@
 	},
 /area/station/medical/medbay)
 "sAs" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
