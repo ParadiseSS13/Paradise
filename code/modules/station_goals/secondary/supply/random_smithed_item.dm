@@ -8,7 +8,7 @@
 	var/datum/smith_quality/quality
 	/// What should the material type be?
 	var/datum/smith_material/material
-	/// What do you get for accomplishing this goal?
+	/// What do you get for accomplishing this goal (in credits)
 	var/reward
 
 /datum/station_goal/secondary/random_smithed_item/randomize_params()
