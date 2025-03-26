@@ -17,8 +17,10 @@
 	new_attack_chain = TRUE
 
 /obj/item/reagent_containers/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(isliving(target) && mob_act(target, user))
-		return ITEM_INTERACT_COMPLETE
+	if(isliving(target))
+		user.changeNext_move(CLICK_CD_MELEE)
+		if(mob_act(target, user))
+			return ITEM_INTERACT_COMPLETE
 	if(normal_act(target, user))
 		return ITEM_INTERACT_COMPLETE
 	return ..()
@@ -34,6 +36,9 @@
 	if(!length(possible_transfer_amounts))
 		// Nothing to configure.
 		return FALSE
+	return TRUE
+
+/obj/item/reagent_containers/proc/is_valid_interaction(mob/user)
 	if(isrobot(user) && src.loc == user)
 		// Borgs can configure their modules.
 		return TRUE
@@ -49,6 +54,7 @@
 		// I guess there's, like, a switch or a dial or something?
 		// Whatever, you need to use your hands for this.
 		return FALSE
+
 	return TRUE
 
 /obj/item/reagent_containers/AltClick(mob/user)

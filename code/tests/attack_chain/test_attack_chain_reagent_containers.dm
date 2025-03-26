@@ -25,6 +25,13 @@
 
 	// ToasTODO: Add an AltClick test
 
+// Test recipe for testing reagent containers in old kitchen machinery
+/datum/recipe/microwave/test_recipe
+	duplicate = FALSE
+	reagents = list("sodiumchloride" = 50)
+	items = list(/obj/item/food/grown/apple)
+	result = /obj/item/food/badrecipe
+
 /datum/game_test/attack_chain_condiment/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/item/reagent_containers/saltshaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/condiment/saltshaker)
@@ -33,8 +40,8 @@
 	player.click_on(watertank)
 	TEST_ASSERT_LAST_CHATLOG(player, "[saltshaker] is full!")
 
-	var/obj/machinery/kitchen_machine/grill = player.spawn_obj_nearby(/obj/machinery/kitchen_machine/grill)
-	player.click_on(grill)
+	var/obj/machinery/kitchen_machine/microwave = player.spawn_obj_nearby(/obj/machinery/kitchen_machine/microwave)
+	player.click_on(microwave)
 	TEST_ASSERT_ANY_CHATLOG(player, "You transfer")
 	TEST_ASSERT_NOT_CHATLOG(player, "You hit")
 
@@ -42,7 +49,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You swallow some")
 
 	saltshaker.reagents.total_volume = 0
-	player.click_on(grill)
+	player.click_on(microwave)
 	TEST_ASSERT_LAST_CHATLOG(player, "is empty!")
 	player.click_on(player)
 	TEST_ASSERT_LAST_CHATLOG(player, "None of [saltshaker] left, oh no!")
@@ -192,7 +199,56 @@
 	var/datum/test_puppeteer/player = new(src)
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 
-	// Syringes
+	var/obj/structure/table/table = player.spawn_obj_nearby(/obj/structure/table)
+
+	// Pills
+	var/obj/pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.click_on_self()
+	TEST_ASSERT_LAST_CHATLOG(player, "You swallow [pill].")
+	var/obj/beaker = player.spawn_obj_nearby(/obj/item/reagent_containers/glass/beaker)
+	player.puppet.swap_hand()
+	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.click_on(beaker)
+	TEST_ASSERT_LAST_CHATLOG(player, "You break open [pill] in [beaker].")
+	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.click_on(beaker)
+	TEST_ASSERT_LAST_CHATLOG(player, "You dissolve [pill] in [beaker].")
+	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.use_item_in_hand()
+	TEST_ASSERT_LAST_CHATLOG(player, "You swallow [pill].")
+	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.click_on(table)
+	TEST_ASSERT(pill in get_turf(table), "pill not placed on table")
+
+	// Patches
+	var/obj/item/reagent_containers/patch/patch = player.spawn_obj_in_hand(/obj/item/reagent_containers/patch/silver_sulf)
+	player.click_on_self()
+	TEST_ASSERT_LAST_CHATLOG(player, "You apply [patch].")
+	patch = player.spawn_obj_in_hand(/obj/item/reagent_containers/patch/silver_sulf)
+	patch.instant_application = TRUE
+	player.click_on(target)
+	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] forces [target.puppet] to apply [patch].")
+
+	// Beakers
+	beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker)
+	var/obj/machinery/clonepod/clonepod = player.spawn_obj_nearby(/obj/machinery/clonepod)
+	beaker.reagents.add_reagent("sanguine_reagent", 10)
+	player.click_on(clonepod)
+	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 10 units of the solution to [clonepod].")
+	player.click_on(table)
+	TEST_ASSERT(beaker in get_turf(table), "beaker not placed on table")
+
+	// Pill bottles
+	var/obj/pill_bottle = player.spawn_obj_in_hand(/obj/item/storage/pill_bottle)
+	player.puppet.swap_hand()
+	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.click_on(pill_bottle)
+	TEST_ASSERT_LAST_CHATLOG(player, "You put [pill] into [pill_bottle].")
+
+/datum/game_test/attack_chain_syringes/Run()
+	var/datum/test_puppeteer/player = new(src)
+	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
+
 	var/obj/item/reagent_containers/syringe/syringe = player.spawn_obj_in_hand(/obj/item/reagent_containers/syringe)
 	var/obj/beaker = player.spawn_obj_nearby(/obj/item/reagent_containers/glass/beaker)
 	beaker.reagents.add_reagent("plasma_dust", 10)
@@ -212,14 +268,19 @@
 	var/obj/slime_extract = player.spawn_obj_nearby(/obj/item/slime_extract/grey)
 	player.click_on(slime_extract)
 	TEST_ASSERT_ANY_CHATLOG(player, "the used slime extract's power is consumed in the reaction")
-	player.put_away(syringe)
 
-	// IV Bags
+	player.click_on(beaker)
+	TEST_ASSERT_LAST_CHATLOG(player, "You inject 5 units of the solution")
+
+/datum/game_test/attack_chain_iv_bags/Run()
+	var/datum/test_puppeteer/player = new(src)
+	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
+
 	var/obj/machinery/iv_drip/iv_drip = player.spawn_obj_nearby(/obj/machinery/iv_drip)
 	var/obj/blood_bag = player.spawn_obj_in_hand(/obj/item/reagent_containers/iv_bag)
 	player.click_on(iv_drip)
 	TEST_ASSERT_LAST_CHATLOG(player, "You attach [blood_bag] to [iv_drip].")
-	beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker/cryoxadone)
+	var/obj/beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker/cryoxadone)
 	player.click_on(iv_drip)
 	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 10 units of the solution to [blood_bag].")
 	player.put_away(beaker)
@@ -227,30 +288,36 @@
 	iv_drip.drag_drop_onto(target.puppet, player.puppet)
 	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] inserts [blood_bag]'s needle into [target.puppet]'s arm")
 
-	// Pills
-	var/obj/pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
-	player.click_on_self()
-	TEST_ASSERT_LAST_CHATLOG(player, "You swallow [pill].")
-	player.retrieve(beaker)
+	blood_bag = player.spawn_obj_in_hand(/obj/item/reagent_containers/iv_bag)
 	player.puppet.swap_hand()
-	pill = player.spawn_obj_in_hand(/obj/item/reagent_containers/pill/salicylic)
+	player.retrieve(beaker)
+	player.click_on(blood_bag)
+	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 10 units of the solution to [blood_bag]")
+
+	player.puppet.swap_hand()
 	player.click_on(beaker)
-	TEST_ASSERT_LAST_CHATLOG(player, "You dissolve [pill] in [beaker].")
+	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 1 units of the solution to [beaker]")
 
-	// Patches
-	var/obj/item/reagent_containers/patch/patch = player.spawn_obj_in_hand(/obj/item/reagent_containers/patch/silver_sulf)
-	player.click_on_self()
-	TEST_ASSERT_LAST_CHATLOG(player, "You apply [patch].")
-	patch = player.spawn_obj_in_hand(/obj/item/reagent_containers/patch/silver_sulf)
-	patch.instant_application = TRUE
-	player.click_on(target)
-	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] forces [target.puppet] to apply [patch].")
+/datum/game_test/attack_chain_chemistry_bags/Run()
+	var/datum/test_puppeteer/player = new(src)
 
-	// Beakers
-	beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker)
-	var/obj/structure/table/table = player.spawn_obj_nearby(/obj/structure/table)
-	player.click_on(table)
-	TEST_ASSERT(beaker in get_turf(table), "beaker not placed on table")
+	var/obj/table = player.spawn_obj_nearby(/obj/structure/table)
+	var/turf/T = get_turf(table)
+	var/obj/last_patch
+	for(var/i in 1 to 5)
+		last_patch = new /obj/item/reagent_containers/patch/styptic(T)
+	var/obj/chem_bag = player.spawn_obj_in_hand(/obj/item/storage/bag/chemistry)
+	player.click_on(last_patch)
+	TEST_ASSERT_EQUAL(length(chem_bag.contents), 5, "chem bag failed to pick up patches")
+
+	var/obj/chem_fridge = player.spawn_obj_nearby(/obj/machinery/smartfridge/medbay)
+	player.click_on(chem_fridge)
+	TEST_ASSERT_LAST_CHATLOG(player, "You load [chem_fridge] with [chem_bag]")
+
+	player.puppet.swap_hand()
+	var/obj/patch = player.spawn_obj_in_hand(/obj/item/reagent_containers/patch/styptic)
+	player.click_on(chem_bag)
+	TEST_ASSERT_LAST_CHATLOG(player, "You put [patch] into [chem_bag]")
 
 /datum/game_test/attack_chain_rags/Run()
 	var/datum/test_puppeteer/player = new(src)
@@ -277,3 +344,22 @@
 	autoinjector = player.spawn_obj_in_hand(/obj/item/reagent_containers/hypospray/autoinjector/stimpack)
 	player.click_on(target)
 	TEST_ASSERT_ANY_CHATLOG(player, "You inject [target] with [autoinjector]")
+
+/datum/game_test/attack_chain_droppers/Run()
+	var/datum/test_puppeteer/player = new(src)
+	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
+	var/obj/item/reagent_containers/dropper/dropper = player.spawn_obj_in_hand(/obj/item/reagent_containers/dropper)
+	dropper.mob_drip_delay = 0
+	var/obj/item/beaker = player.spawn_obj_nearby(/obj/item/reagent_containers/glass/beaker/waterbottle)
+	player.click_on(beaker)
+	TEST_ASSERT_LAST_CHATLOG(player, "You fill [dropper] with 1 units of the solution.")
+	player.click_on(target)
+	TEST_ASSERT_ANY_CHATLOG(player, "[player.puppet] drips something into [target.puppet]'s eyes")
+	TEST_ASSERT_NOT_CHATLOG(player, "You cannot directly remove reagents from [target.puppet]")
+
+/datum/game_test/attack_chain_spray/Run()
+	var/datum/test_puppeteer/player = new(src)
+	var/obj/item/reagent_containers/spray/spray = player.spawn_obj_in_hand(/obj/item/reagent_containers/spray)
+	var/obj/structure/table = player.spawn_obj_nearby(/obj/structure/table)
+	player.click_on(table)
+	TEST_ASSERT(spray in get_turf(table), "spray bottle not placed on table")

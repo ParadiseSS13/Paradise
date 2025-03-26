@@ -91,11 +91,12 @@
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!target.reagents)
-		return
+		return FALSE
 
-	if(isliving(target))
-		var/mob/living/L = target
+	var/mob/living/L = target
+	if(istype(L))
 		if(injection_target) // Removing the needle
 			if(L != injection_target)
 				to_chat(user, "<span class='notice'>[src] is already inserted into [injection_target]'s arm!")
@@ -123,7 +124,12 @@
 									"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
 			begin_processing(L)
 
-	else if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
+/obj/item/reagent_containers/iv_bag/normal_act(atom/target, mob/living/user)
+	. = TRUE
+	if(!target.reagents)
+		return FALSE
+
+	if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty.</span>")
 			return

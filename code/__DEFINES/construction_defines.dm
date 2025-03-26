@@ -65,6 +65,7 @@
 #define TINT_CONTROL_GROUP_NONE 0
 
 /// Material defines, for determining how much of a given material an item contains
+#define MAT_WOOD			"wood"
 #define MAT_METAL			"metal"
 #define MAT_GLASS			"glass"
 #define MAT_SILVER			"silver"

@@ -28,6 +28,7 @@
 	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
 
 /obj/item/reagent_containers/glass/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!is_open_container())
 		return
 
@@ -85,6 +86,7 @@
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [target].</span>")
+		return
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)
