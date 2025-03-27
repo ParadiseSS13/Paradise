@@ -375,6 +375,8 @@
 
 /obj/machinery/power/apc/obj_break(damage_flag)
 	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			playsound(src.loc, 'sound/misc/apcdestroyed.ogg', 75)
 		set_broken()
 
 // attack with hand - remove cell (if cover open) or interact with the APC
