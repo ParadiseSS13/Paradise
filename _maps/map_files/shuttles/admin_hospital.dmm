@@ -285,12 +285,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"bu" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
 "bv" = (
 /obj/machinery/economy/vending/medical,
 /obj/machinery/light{
@@ -342,6 +336,7 @@
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bG" = (
@@ -655,8 +650,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/titanium,
@@ -699,6 +693,15 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"MI" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 "RB" = (
 /obj/machinery/sleeper{
 	dir = 1;
@@ -714,13 +717,6 @@
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"Vk" = (
-/obj/structure/bed{
-	name = "Triage: High Priority"
-	},
-/obj/structure/closet/walllocker/emerglocker/east,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 
@@ -853,7 +849,7 @@ aT
 aP
 bb
 Dw
-bu
+MI
 aw
 aw
 bP
@@ -936,7 +932,7 @@ aP
 bv
 bE
 aw
-Vk
+bQ
 cb
 ci
 bQ

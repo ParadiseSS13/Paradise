@@ -131,9 +131,7 @@
 	},
 /area/shuttle/escape)
 "aN" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aO" = (
@@ -293,9 +291,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bi" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bj" = (
