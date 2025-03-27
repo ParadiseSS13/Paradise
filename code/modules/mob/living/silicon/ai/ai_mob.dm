@@ -155,6 +155,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/// The cached AI annoucement help menu.
 	var/ai_announcement_string_menu
 
+	/// Is the AI in storage?
+	var/in_storage = FALSE
+
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	add_verb(src, GLOB.ai_verbs_default)
 	add_verb(src, silicon_subsystems)

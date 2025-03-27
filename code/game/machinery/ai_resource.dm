@@ -47,14 +47,16 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 /obj/machinery/ai_node/process()
 	..()
+	if(stat & NOPOWER)
+		atom_say("ERROR: Insufficient power! Shutting down...")
+		turn_off()
+		return
 	if(active)
 		milla.invoke_async(src)
 
 /obj/machinery/ai_node/Destroy()
 	. = ..()
-	if(assigned_ai)
-		assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
-		assigned_ai = null
+	turn_off()
 	GLOB.ai_nodes -= src
 
 /obj/machinery/ai_node/on_deconstruction()
@@ -109,33 +111,50 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		assigned_ai.program_picker.modify_resource(resource_key, (resource_amount - old_resource_amount))
 
 /obj/machinery/ai_node/attack_hand(user as mob)
+	toggle(user)
+
+/obj/machinery/ai_node/proc/toggle(mob/user = null)
 	if(overheating)
-		to_chat(user, "<span class='notice'>You turn the overheating [src] off.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You turn the overheating [src] off.</span>")
 		overheating = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		return
 	active = !active
-	to_chat(user, "<span class = 'notice'>You turn [src] [active ? "on" : "off"].</span>")
+	if(user)
+		to_chat(user, "<span class = 'notice'>You turn [src] [active ? "on" : "off"].</span>")
 	if(active) // We're booting up
-		find_ai()
-		if(!assigned_ai) // No eligible AI found, abort
-			active = FALSE
-			to_chat(user, "<span class = 'warning'>ERROR: No AI detected. Shutting down...</span>")
-			to_chat(user, "<span class = 'notice'>The Processing Node turns off.</span>")
-		else // We have an AI
-			assigned_ai.program_picker.modify_resource(resource_key, resource_amount)
-			change_power_mode(ACTIVE_POWER_USE)
+		refresh_ai()
 	else // We're shutting down
-		if(assigned_ai)
-			assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
-			assigned_ai = null
-		change_power_mode(IDLE_POWER_USE)
+		turn_off()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/ai_node/proc/refresh_ai()
+	assigned_ai = null
+	find_ai()
+	if(!assigned_ai) // No eligible AI found, abort
+		active = FALSE
+		atom_say("ERROR: No AI detected. Shutting down...")
+		turn_off()
+	else // We have an AI
+		assigned_ai.program_picker.modify_resource(resource_key, resource_amount)
+		change_power_mode(ACTIVE_POWER_USE)
+		update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/ai_node/proc/turn_off()
+	active = FALSE
+	if(assigned_ai)
+		assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
+		assigned_ai = null
+	change_power_mode(IDLE_POWER_USE)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/ai_node/proc/find_ai()
 	if(!resource_key)
 		return
 	for(var/mob/living/silicon/ai/new_ai as anything in GLOB.ai_list)
+		if(new_ai.stat || new_ai.in_storage)
+			continue
 		if(!assigned_ai) // Not found
 			assigned_ai = new_ai // Assign to the first AI in the list to start
 			continue
@@ -146,10 +165,8 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 			assigned_ai = new_ai
 
 /obj/machinery/ai_node/proc/overheat()
-	active = FALSE
-	if(assigned_ai)
-		assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
-		assigned_ai = null
+	turn_off()
+	atom_say("ERROR: Heat critical!")
 	obj_integrity -= (max_integrity / 3) // Overheat it three times and it breaks
 	change_power_mode(IDLE_POWER_USE)
 	update_icon(UPDATE_ICON_STATE)
