@@ -337,18 +337,19 @@
 
 		if(!has_electronics())
 			to_chat(user, "<span class='notice'>You start to add [used] to [src].</span>")
-			if(do_after(user, 1 SECONDS, target = src))
-				user.visible_message(
-					"<span class='notice'>[user] installs [used] into [src]...</span>",
-					"<span class='notice'>You install [used] into [src]...</span>"
-					)
-				playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-				electronics_state = APC_ELECTRONICS_INSTALLED
-				locked = FALSE
-				stat &= ~MAINT
-				update_icon()
-				qdel(used)
+			if(!do_after(user, 1 SECONDS, target = src))
+				return ITEM_INTERACT_COMPLETE
 
+			user.visible_message(
+				"<span class='notice'>[user] installs [used] into [src]...</span>",
+				"<span class='notice'>You install [used] into [src]...</span>"
+				)
+			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+			electronics_state = APC_ELECTRONICS_INSTALLED
+			locked = FALSE
+			stat &= ~MAINT
+			update_icon()
+			qdel(used)
 		return ITEM_INTERACT_COMPLETE
 
 	// APC frame repair. Takes no time, the trade-off is you sacrifice the metal used to build the replacement frame vs. being able to recover it from the old one.
@@ -359,6 +360,10 @@
 
 		// Only cover is broken, no need to remove any components.
 		if(!(stat & BROKEN) && opened == APC_COVER_OFF)
+			to_chat(user, "<span class='notice'>You begin to replace the missing cover of [src].</span>")
+			if(!do_after(user, 2 SECONDS, target = src))
+				return ITEM_INTERACT_COMPLETE
+
 			user.visible_message(
 				"<span class='notice'>[user] replaces the missing cover of [src].</span>",
 				"<span class='notice'>You replace the missing cover of [src].</span>"
