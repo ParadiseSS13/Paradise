@@ -945,7 +945,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "An enchanted mug which can be filled with any of various liquids on command."
 	icon_state = "evermug"
 
-/obj/item/reagent_containers/drinks/everfull/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/drinks/everfull/activate_self(mob/user)
+	if(..())
+		return
+
 	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
 							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
 							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
