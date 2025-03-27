@@ -6,7 +6,6 @@
 	icon_screen = "command"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/aiupload
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/mob/living/silicon/ai/current = null
 	var/opened = FALSE
 	light_color = LIGHT_COLOR_WHITE
@@ -128,7 +127,6 @@
 	desc = "Used to upload laws to Cyborgs."
 	icon_screen = "command"
 	icon_keyboard = "med_key"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/borgupload
 	var/mob/living/silicon/robot/current = null
 
