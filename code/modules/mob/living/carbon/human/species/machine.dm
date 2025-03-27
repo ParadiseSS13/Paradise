@@ -248,8 +248,11 @@
 /datum/species/machine/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)
 	if(flags & SHOCK_ILLUSION)
 		return
-	H.adjustBrainLoss(shock_damage)
-	H.adjust_nutrition(shock_damage)
+	H.say("Awwwwwwww yeahhhhhhhh")
+	H.Stuttering(5 * shock_damage SECONDS)
+	H.Jitter(7 * shock_damage SECONDS)
+	H.Dizzy(5 * shock_damage SECONDS)
+	H.Druggy(5 * shock_damage SECONDS)
 
 /datum/species/machine/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	H.adjustBrainLoss(H.radiation / 100)
