@@ -234,7 +234,7 @@ CONTENTS:
 		"<span class='userdanger'>Unsure which end of [src] is which, you accidentally zap yourself with a fireball!</span>",
 		"<span class='userdanger'>You hear a firey explosion!</span>"
 	)
-	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, "Fireball to the face from failed cigarette lighting")
+	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, cause = "Fireball to the face from failed cigarette lighting")
 	charges--
 	return TRUE
 
