@@ -259,7 +259,7 @@
 /obj/item/gun/energy/gun/shotgun/examine_more(mob/user)
 	..()
 	. = list()
-	. += "The ES-9 is a larger and heavier version of Shellguard Munitions' EG-7 Energy Gun. Featuring a diffracting lens and heavier power core, this energy weapon emulates the common shotgun."
+	. += "The ES-9 is a larger and heavier version of Shellguard Munitions' EG-7 Energy Gun. Featuring a heavier power core and a set of prisms for splitting the primary beam into multiple shots, this energy weapon emulates the common shotgun."
 	. += ""
 	. += "This scatter-beam technology allows for more energy output per trigger pull, however the increased heat on the focusing lens has resulted in a decreased fire rate compared to the standard fare. \
 	It is a Nanotrasen officer's best friend, allowing them to stop crime one trigger pull at a time."
