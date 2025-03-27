@@ -308,7 +308,7 @@
 			"<span class='notice'>You start adding cables to [src]...</span>"
 			)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 2 SECONDS, target = src))
+		if(do_after(user, 5 SECONDS, target = src))
 			if(C.get_amount() < 10 || !C)
 				return ITEM_INTERACT_COMPLETE
 
