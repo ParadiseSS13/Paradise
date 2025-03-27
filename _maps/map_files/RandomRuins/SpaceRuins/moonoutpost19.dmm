@@ -983,16 +983,6 @@
 	icon_state = "black"
 	},
 /area/ruin/space/moonbase19)
-"cY" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/catwalk,
-/area/ruin/space/moonbase19)
 "da" = (
 /obj/structure/chair{
 	dir = 8
@@ -1171,9 +1161,7 @@
 	},
 /area/ruin/space/moonbase19)
 "dD" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "dE" = (
@@ -1539,6 +1527,33 @@
 	dir = 8;
 	icon_state = "black"
 	},
+/area/ruin/space/moonbase19)
+"eT" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "eU" = (
 /turf/simulated/floor/plasteel{
@@ -2553,16 +2568,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/space/moonbase19)
-"ic" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/closet/crate,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "id" = (
 /obj/structure/largecrate,
@@ -4175,6 +4180,33 @@
 	icon_state = "black";
 	dir = 8
 	},
+/area/ruin/space/moonbase19)
+"nD" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/closet/walllocker/emerglocker{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "nE" = (
 /obj/structure/cable{
@@ -16658,7 +16690,7 @@ ad
 ad
 ad
 ag
-ic
+eT
 is
 hO
 dh
@@ -16780,7 +16812,7 @@ Ib
 hI
 ad
 ag
-cY
+nD
 it
 hu
 dj

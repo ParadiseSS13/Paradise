@@ -6544,7 +6544,7 @@
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "zm" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/flashlight/flare,
 /turf/simulated/floor/mineral/titanium/blue,
