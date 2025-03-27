@@ -9,7 +9,7 @@
 
 /obj/item/grenade/syndieminibomb/prime()
 	update_mob()
-	explosion(loc, 1, 2, 4, flame_range = 2, cause = src.cause)
+	explosion(loc, 1, 2, 4, flame_range = 2, cause = explosion_cause)
 	qdel(src)
 
 /obj/item/grenade/syndieminibomb/fake
