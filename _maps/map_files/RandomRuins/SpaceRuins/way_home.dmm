@@ -9,7 +9,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
 "d" = (
-/obj/structure/signpost{
+/obj/structure/signpost/ruin{
 	name = "salvation"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
