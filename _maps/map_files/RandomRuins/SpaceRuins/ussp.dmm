@@ -4881,7 +4881,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitered"
@@ -5202,7 +5202,8 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -5898,8 +5899,7 @@
 /area/ruin/space/derelict/arrival)
 "pU" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -5911,8 +5911,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "pV" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/crate/freezer,
 /obj/item/food/grown/potato,
@@ -5926,8 +5925,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "pW" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/plasteel{
@@ -5939,8 +5937,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/plasteel{
@@ -6418,7 +6415,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rm" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -6448,8 +6445,7 @@
 	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -6462,8 +6458,7 @@
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
@@ -6474,8 +6469,7 @@
 	},
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -6630,8 +6624,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -6639,16 +6632,14 @@
 /area/ruin/space/derelict/arrival)
 "rL" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
 "rM" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -6746,8 +6737,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/leafybush,
@@ -6755,8 +6745,7 @@
 /area/ruin/space/derelict/arrival)
 "rV" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
@@ -6766,8 +6755,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,

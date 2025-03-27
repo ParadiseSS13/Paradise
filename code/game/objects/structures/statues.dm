@@ -71,25 +71,10 @@
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
 
-/obj/structure/statue/uranium/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	radiate()
-	return ..()
-
-/obj/structure/statue/uranium/Bumped(atom/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/attack_hand(mob/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event + 1.5 SECONDS)
-			active = TRUE
-			radiation_pulse(src, 30)
-			last_event = world.time
-			active = FALSE
+/obj/statue/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /obj/structure/statue/plasma
 	max_integrity = 200

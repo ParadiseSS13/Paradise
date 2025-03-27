@@ -343,9 +343,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 
 /obj/machinery/gravity_generator/main/proc/pulse_radiation()
-	radiation_pulse(src, 600, 2)
+	radiation_pulse(src, 2400, BETA_RAD)
 	for(var/mob/living/L in view(7, src)) //Windows kinda make it a non threat, no matter how much I amp it up, so let us cheat a little
-		radiation_pulse(get_turf(L), 600, 2)
+		radiation_pulse(get_turf(L), 2400, BETA_RAD)
 
 /**
   * Shake everyone on the area list and play an alarm to let them know that gravity was enagaged/disenagaged.

@@ -1,6 +1,6 @@
 /// The subsystem used to tick [/datum/ai_controllers] instances. Handling the re-checking of plans.
 SUBSYSTEM_DEF(ai_controllers)
-	name = "AI Controller Ticker"
+	name = "AI Controller"
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND
 	priority = FIRE_PRIORITY_NPC
 	init_order = INIT_ORDER_AI_CONTROLLERS

@@ -248,7 +248,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -266,7 +266,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 
@@ -326,7 +326,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -346,7 +346,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -366,7 +366,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -419,7 +419,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -859,7 +859,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))

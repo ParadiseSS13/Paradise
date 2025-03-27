@@ -474,6 +474,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(!C.check_clothing(src))//return values confuse me right now
 				return
 
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/plasmaman/atmospherics/contortionist))
+			var/obj/item/clothing/under/plasmaman/atmospherics/contortionist/C = H.w_uniform
+			if(!C.check_clothing(src))
+				return
+
+
 	var/obj/machinery/atmospherics/unary/vent_found
 
 	if(clicked_on)
@@ -865,7 +873,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [breakout_time / 10] seconds and you need to stay still.)</span>")
-	if(!do_after(src, breakout_time, FALSE, src, allow_moving = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check))), allow_moving_target = TRUE))
+	if(!do_after(src, breakout_time, FALSE, src, allow_moving = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check))), allow_moving_target = TRUE, hidden = TRUE))
 		if(src && buckled)
 			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
@@ -931,7 +939,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	apply_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
 	visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
 	to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
-	if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check)))))
+	if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check))), hidden = TRUE))
 		visible_message("<span class='warning'>[src] removes [I]!</span>")
 		to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
 		if(I.security_lock)
@@ -1113,12 +1121,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return TRUE
 
 /mob/living/carbon/proc/shock_reduction()
-	var/shock_reduction = 0
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction)
-				shock_reduction += R.shock_reduction
-	return shock_reduction
+	return 0
 
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return TRUE
@@ -1168,17 +1171,21 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
 		return FALSE
 
+	var/list/reaction_msg = list()
 	if(fullness <= 50)
-		to_chat(src, "<span class='warning'>You hungrily chew out a piece of [to_eat] and gobble it!</span>")
+		reaction_msg += "You hungrily chew out a piece of [to_eat] and gobble it!"
+		to_chat(src, "<span class='warning'></span>")
 	else if(fullness > 50 && fullness < 150)
-		to_chat(src, "<span class='notice'>You hungrily begin to eat [to_eat].</span>")
+		reaction_msg += "You hungrily begin to eat [to_eat]."
 	else if(fullness > 150 && fullness < 500)
-		to_chat(src, "<span class='notice'>You take a bite of [to_eat].</span>")
+		reaction_msg += "You take a bite of [to_eat]."
 	else if(fullness > 500 && fullness < 600)
-		to_chat(src, "<span class='notice'>You unwillingly chew a bit of [to_eat].</span>")
+		reaction_msg += "You unwillingly chew a bit of [to_eat]."
 	else if(fullness > (600 * (1 + overeatduration / 2000))) // The more you eat - the more you can eat
 		to_chat(src, "<span class='warning'>You cannot force any more of [to_eat] to go down your throat.</span>")
 		return FALSE
+
+	to_chat(src, "<span class='notice'>[jointext(reaction_msg, " ")]</span>")
 
 	return TRUE
 
@@ -1406,3 +1413,12 @@ so that different stomachs can handle things in different ways VB*/
 	M.update_revive()
 	add_attack_logs(M, M, "Revived with Lazarus Reagent")
 	SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
+
+/mob/living/carbon/is_inside_mob(atom/thing)
+	if(!(..()))
+		return FALSE
+	if(head && head.UID() == thing.UID())
+		return FALSE
+	if(wear_suit && wear_suit.UID() == thing.UID())
+		return FALSE
+	return TRUE

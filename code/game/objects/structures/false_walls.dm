@@ -14,7 +14,8 @@
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	layer = TURF_LAYER
 
 	var/mineral = /obj/item/stack/sheet/metal
@@ -63,6 +64,7 @@
 		toggle(user)
 
 /obj/structure/falsewall/attack_hand(mob/user)
+	. = ..()
 	toggle(user)
 
 /obj/structure/falsewall/proc/toggle(mob/user)
@@ -217,23 +219,10 @@
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
 
-/obj/structure/falsewall/uranium/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	radiate()
-	..()
-
-/obj/structure/falsewall/uranium/attack_hand(mob/user as mob)
-	radiate()
-	..()
-
-/obj/structure/falsewall/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event + 1.5 SECONDS)
-			active = TRUE
-			radiation_pulse(src, 150)
-			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
-				T.radiate()
-			last_event = world.time
-			active = FALSE
+/obj/structure/falsewall/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 /*
  * Other misc falsewall types
  */

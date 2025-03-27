@@ -222,6 +222,12 @@
 /mob/living/silicon/drop_item()
 	return
 
+/mob/living/silicon/put_in_l_hand(obj/item/W, skip_blocked_hands_check)
+	return
+
+/mob/living/silicon/put_in_r_hand(obj/item/W, skip_blocked_hands_check)
+	return
+
 /mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return FALSE //So borgs they don't die trying to fix wiring
 
@@ -280,10 +286,14 @@
 
 	return 2
 
-/mob/living/silicon/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
+/mob/living/silicon/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		place_on_head(user.get_active_hand(), user)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/mob/living/silicon/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)
 	if(I.force)
 		var/bonus_damage = 0

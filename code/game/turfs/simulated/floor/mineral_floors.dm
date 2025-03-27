@@ -247,6 +247,11 @@
 	var/last_event = 0
 	var/active = FALSE
 
+/turf/simulated/floor/mineral/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 100, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
+
 /turf/simulated/floor/mineral/uranium/Entered(mob/AM)
 	.=..()
 	if(!.)
@@ -268,7 +273,7 @@
 	if(!active)
 		if(world.time > last_event + 15)
 			active = TRUE
-			radiation_pulse(src, 10)
+			radiation_pulse(src, 40, ALPHA_RAD)
 			for(var/turf/simulated/floor/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time

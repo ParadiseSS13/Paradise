@@ -42,6 +42,9 @@
 	/// Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
 
+	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays.
+	var/list/managed_vis_overlays
+
 	// Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 	/// List of fibers that this atom has
@@ -60,8 +63,12 @@
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
-	/// Radiation insulation types
-	var/rad_insulation = RAD_NO_INSULATION
+	/// Radiation insulation for alpha emissions
+	var/rad_insulation_alpha = RAD_ALPHA_BLOCKER
+	/// Radiation insulation for beta emissions
+	var/rad_insulation_beta = RAD_NO_INSULATION
+	/// Radiation insulation for gamma emissions
+	var/rad_insulation_gamma = RAD_NO_INSULATION
 
 	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
 	var/chat_color_name
@@ -136,6 +143,9 @@
 
 	/// Do we care about temperature at all? Saves us a ton of proc calls during big fires.
 	var/cares_about_temperature = FALSE
+
+	// Should we ignore PROJECTILE_HIT_THRESHHOLD_LAYER to hit it? Allows us to hit things like floor, cables etc.
+	var/proj_ignores_layer = FALSE
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -591,6 +601,9 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
+/atom/proc/hammer_act(mob/living/user, obj/item/I)
+	return
+
 /// This is when an atom is emagged. Should return false if it fails, or it has no emag_act defined.
 /atom/proc/emag_act(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
@@ -608,10 +621,32 @@
 /**
  * Respond to a radioactive wave hitting this atom
  *
- * Default behaviour is to send [COMSIG_ATOM_RAD_ACT] and return
+ * This should only be called through the atom/base_rad_act proc
  */
-/atom/proc/rad_act(amount)
-	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
+/atom/proc/rad_act(atom/source, amount, emission_type)
+	return
+
+/**
+* Sends a COMSIG_ATOM_RAD_ACT signal, calls the atoms rad_act with the amount of radiation it should have absorbed and returns the rad insulation of the atom that isappropriate for emission_type
+*/
+/atom/proc/base_rad_act(atom/source, amount, emission_type)
+	switch(emission_type)
+		if(ALPHA_RAD)
+			. = rad_insulation_alpha
+		if(BETA_RAD)
+			. = rad_insulation_beta
+		if(GAMMA_RAD)
+			. = rad_insulation_gamma
+	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount, emission_type)
+	if(amount >= RAD_BACKGROUND_RADIATION)
+		rad_act(source, amount * (1 - .), emission_type)
+
+/// Attempt to contaminate a single atom
+/atom/proc/contaminate_atom(atom/source, intensity, emission_type)
+	if(flags_2 & RAD_NO_CONTAMINATE_2 || (SEND_SIGNAL(src, COMSIG_ATOM_RAD_CONTAMINATING) & COMPONENT_BLOCK_CONTAMINATION))
+		return
+	AddComponent(/datum/component/radioactive, intensity, source, emission_type)
+
 
 /atom/proc/fart_act(mob/living/M)
 	return FALSE
@@ -1002,8 +1037,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/clean_radiation(clean_factor = 2)
 	var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive)
 	if(!QDELETED(healthy_green_glow))
-		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
-		if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
+		healthy_green_glow.alpha_strength = max(0, (healthy_green_glow.alpha_strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
+		healthy_green_glow.beta_strength = max(0, (healthy_green_glow.beta_strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
+		healthy_green_glow.gamma_strength = max(0, (healthy_green_glow.gamma_strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
+		if((healthy_green_glow.alpha_strength + healthy_green_glow.beta_strength + healthy_green_glow.gamma_strength) <= RAD_BACKGROUND_RADIATION)
 			healthy_green_glow.RemoveComponent()
 
 /obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)

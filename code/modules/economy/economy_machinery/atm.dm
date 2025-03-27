@@ -33,6 +33,8 @@
 /obj/machinery/economy/atm/Initialize(mapload)
 	. = ..()
 	update_icon()
+	if(mapload)
+		new /obj/effect/turf_decal/delivery/green/hollow(loc)
 
 /obj/machinery/economy/atm/update_icon_state()
 	. = ..()

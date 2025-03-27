@@ -100,62 +100,31 @@
 	..()
 	reached_target = 0
 
-/mob/living/simple_animal/bot/mulebot/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
-		cell_insert(I, user)
-		return
+		if(!user.drop_item())
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/crowbar) && open && cell)
-		cell_remove(I, user)
-		return
+		var/obj/item/stock_parts/cell/C = I
+		C.forceMove(src)
+		cell = C
+		visible_message("[user] inserts a cell into [src].",
+						"<span class='notice'>You insert the new cell into [src].</span>")
+		update_controls()
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/wrench))
-		if(health < maxHealth)
-			adjustBruteLoss(-25)
-			updatehealth()
-			user.visible_message(
-				"<span class='notice'>[user] repairs [src]!</span>",
-				"<span class='notice'>You repair [src]!</span>"
-			)
-			return
-		to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
-		return
-
-	if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
-		return attack_hand(user)
-
-	if(load && ismob(load))  // chance to knock off rider
+	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
 			user.visible_message("<span class='danger'>[user] knocks [load] off [src] with \the [I]!</span>",
-									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>"
-			)
-			return
-		to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
-		..()
-		return
-	..()
-	update_icon()
-	return
+									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>")
+		else
+			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
 
-
-/mob/living/simple_animal/bot/mulebot/proc/cell_insert(obj/item/I, mob/user)
-	if(!user.drop_item())
-		return
-	var/obj/item/stock_parts/cell/C = I
-	C.forceMove(src)
-	cell = C
-	visible_message(
-		"[user] inserts a cell into [src].",
-		"<span class='notice'>You insert the new cell into [src].</span>"
-		)
-	update_controls()
-	update_icon()
-
-/mob/living/simple_animal/bot/mulebot/proc/cell_remove(obj/item/I, mob/user)
-	cell.add_fingerprint(user)
-	cell.forceMove(user.loc)
-	update_icon()
+	return ..()
 
 /mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
 	if(!open || !cell)

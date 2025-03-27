@@ -153,6 +153,7 @@
 	..()
 
 /turf/attack_hand(mob/user as mob)
+	. = ..()
 	user.Move_Pulled(src)
 
 /turf/attack_robot(mob/user)
@@ -551,7 +552,7 @@
 	LAZYADD(blueprint_data, I)
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
+	if(SSticker.current_state == GAME_STATE_STARTUP || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type = /turf/space)

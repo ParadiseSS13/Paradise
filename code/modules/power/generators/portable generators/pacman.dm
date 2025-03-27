@@ -333,12 +333,12 @@
 /obj/machinery/power/port_gen/pacman/super/use_fuel()
 	//produces a tiny amount of radiation when in use
 	if(prob(2 * power_output))
-		radiation_pulse(get_turf(src), 50)
+		radiation_pulse(get_turf(src), 200, ALPHA_RAD)
 	..()
 
 /obj/machinery/power/port_gen/pacman/super/explode()
 	//a nice burst of radiation
-	radiation_pulse(get_turf(src), 500, 2)
+	radiation_pulse(get_turf(src), 2000, ALPHA_RAD)
 	explosion(loc, 3, 3, 5, 3)
 	qdel(src)
 

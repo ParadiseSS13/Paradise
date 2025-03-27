@@ -73,11 +73,10 @@
 	if(stat == CONSCIOUS)
 		eat_plants()
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
+/mob/living/simple_animal/hostile/retaliate/goat/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/hostile/retaliate/goat/proc/eat_plants()
 	var/eaten = FALSE
@@ -146,12 +145,10 @@
 	QDEL_NULL(udder)
 	return ..()
 
-/mob/living/simple_animal/cow/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/mob/living/simple_animal/cow/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
-		return TRUE
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/cow/Life(seconds, times_fired)
 	. = ..()
@@ -319,7 +316,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return
 	GLOB.chicken_count -= 1
 
-/mob/living/simple_animal/chicken/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/mob/living/simple_animal/chicken/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, food_type)) //feedin' dem chickens
 		if(stat == CONSCIOUS && eggsleft < 8)
 			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"
@@ -330,8 +327,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 			//world << eggsleft
 		else
 			to_chat(user, "<span class='warning'>[name] doesn't seem hungry!</span>")
-	else
-		..()
+
+		return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/chicken/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)

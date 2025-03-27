@@ -603,7 +603,7 @@
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
-								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]")
+								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["blood_type"]]")
 								to_chat(usr, "<b>DNA:</b> [R.fields["b_dna"]]")
 								to_chat(usr, "<b>Minor Disabilities:</b> [R.fields["mi_dis"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["mi_dis_d"]]")
@@ -1502,7 +1502,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_item_to_ground(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
-	rad_act(current_size * 3)
+	base_rad_act(S, current_size * 3, GAMMA_RAD)
 
 /mob/living/carbon/human/narsie_act()
 	if(iswizard(src) || IS_CULTIST(src)) // Wizards are immune to the magic. Cultists also don't get transformed.
@@ -2035,12 +2035,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(recipe.check_reagents_assoc_list(available_reagents) != INGREDIENT_CHECK_FAILURE && recipe.check_items_assoc_list(available_ingredients) != INGREDIENT_CHECK_FAILURE)
 			if(istype(recipe, /datum/recipe/microwave))
 				possible_recipes[recipe] = RECIPE_MICROWAVE
-			else if(istype(recipe, /datum/recipe/oven))
-				possible_recipes[recipe] = RECIPE_OVEN
-			else if(istype(recipe, /datum/recipe/grill))
-				possible_recipes[recipe] = RECIPE_GRILL
-			else if(istype(recipe, /datum/recipe/candy))
-				possible_recipes[recipe] = RECIPE_CANDY
 			else
 				possible_recipes[recipe] = "something? This shouldn't happen, make a bug report"
 
@@ -2132,3 +2126,35 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		hallucination_to_make = string_path
 	new hallucination_to_make(get_turf(src), src)
 
+/// Checks if an item is inside the body of the mob
+/mob/living/carbon/human/is_inside_mob(atom/thing)
+	if(!(..()))
+		return FALSE
+	if(w_uniform && w_uniform.UID() == thing.UID())
+		return FALSE
+	if(shoes && shoes.UID() == thing.UID())
+		return FALSE
+	if(belt && belt.UID() == thing.UID())
+		return FALSE
+	if(gloves && gloves.UID() == thing.UID())
+		return FALSE
+	if(neck && neck.UID() == thing.UID())
+		return FALSE
+	if(glasses && glasses.UID() == thing.UID())
+		return FALSE
+	if(l_ear && l_ear.UID() == thing.UID())
+		return FALSE
+	if(r_ear && r_ear.UID() == thing.UID())
+		return FALSE
+	if(wear_id && wear_id.UID() == thing.UID())
+		return FALSE
+	if(wear_pda && wear_pda.UID() == thing.UID())
+		return FALSE
+	if(r_store && r_store.UID() == thing.UID())
+		return FALSE
+	if(l_store && l_store.UID() == thing.UID())
+		return FALSE
+	if(s_store && s_store.UID() == thing.UID())
+		return FALSE
+
+	return TRUE

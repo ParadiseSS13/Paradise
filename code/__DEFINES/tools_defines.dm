@@ -5,6 +5,7 @@
 #define TOOL_WIRECUTTER 	"wirecutter"
 #define TOOL_WRENCH 		"wrench"
 #define TOOL_WELDER 		"welder"
+#define TOOL_HAMMER			"hammer"
 
 GLOBAL_LIST_INIT(construction_tool_behaviors, list(
 	TOOL_CROWBAR,

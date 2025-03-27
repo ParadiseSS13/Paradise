@@ -4,59 +4,42 @@
 /obj/structure/curtain
 	icon = 'icons/obj/curtain.dmi'
 	name = "curtain"
-	icon_state = "closed"
+	icon_state = "curtain_rod"
 	face_while_pulling = FALSE
 	layer = SHOWER_CLOSED_LAYER
 	opacity = TRUE
 	density = FALSE
-	var/image/overlay = null
 	new_attack_chain = TRUE
-	var/assembled = FALSE
+	var/assembled = TRUE
 	var/overlay_color = "#ffffff"
 	var/overlay_alpha = 255
 
-
-/obj/structure/curtain/Initialize(mapload)
+/obj/structure/curtain/Initialize(mapload, assembled_ = TRUE)
 	. = ..()
-	if(opacity)
-		icon_state = "closed"
-		overlay = image("closed_overlay")
-		overlay.color = overlay_color
-		overlay.alpha = overlay_alpha
-		add_overlay(overlay)
-		layer = SHOWER_CLOSED_LAYER
-	else
-		icon_state = "open"
-		overlay = image("open_overlay")
-		overlay.color = overlay_color
-		overlay.alpha = overlay_alpha
-		add_overlay(overlay)
-		layer = SHOWER_OPEN_LAYER
+	assembled = assembled_
+	update_appearance()
 
 /obj/structure/curtain/open
-	icon_state = "open"
-	layer = SHOWER_OPEN_LAYER
 	opacity = FALSE
 
 /obj/item/mounted/curtain/curtain_fixture
 	icon_state = "handheld"
 	icon = 'icons/obj/curtain.dmi'
-	name = "\improper curtain rod assembly"
-	new_attack_chain = TRUE
+	name = "curtain rod assembly"
 
 /obj/item/mounted/curtain/curtain_fixture/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
-	if(!istype(target ,/obj/structure/window) && !istype(target, /turf/simulated/wall/))
+	if(!istype(target, /obj/structure/window) && !istype(target, /turf/simulated/wall))
 		return
 	var/on_wall = get_turf(target)
 	to_chat(user, "<span class='notice'>You begin attaching [src] to [on_wall].</span>")
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 	if(!do_after(user, 3 SECONDS, target = on_wall))
 		return
-	var/obj/structure/curtain/assembly/new_curtain = new /obj/structure/curtain/assembly(on_wall)
-	new_curtain.fingerprints = src.fingerprints
-	new_curtain.fingerprintshidden = src.fingerprintshidden
-	new_curtain.fingerprintslast = src.fingerprintslast
+	var/obj/structure/curtain/curtain = new(on_wall, FALSE)
+	curtain.fingerprints = src.fingerprints
+	curtain.fingerprintshidden = src.fingerprintshidden
+	curtain.fingerprintslast = src.fingerprintslast
 
 	user.visible_message("<span class='notice'>[user] attaches the [src] to [on_wall].</span>", \
 		"<span class='notice'>You attach the [src] to [on_wall].</span>")
@@ -68,63 +51,66 @@
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 	if(!do_after(user, 3 SECONDS, target = get_turf(user)))
 		return
-	var/obj/structure/curtain/assembly/new_curtain = new /obj/structure/curtain/assembly(get_turf(user))
-	new_curtain.fingerprints = src.fingerprints
-	new_curtain.fingerprintshidden = src.fingerprintshidden
-	new_curtain.fingerprintslast = src.fingerprintslast
+	var/obj/structure/curtain/curtain = new(get_turf(user), FALSE)
+	curtain.fingerprints = src.fingerprints
+	curtain.fingerprintshidden = src.fingerprintshidden
+	curtain.fingerprintslast = src.fingerprintslast
 
 	user.visible_message("<span class='notice'>[user] attaches the [src] to the ceiling.</span>", \
 		"<span class='notice'>You attach the [src] to the ceiling.</span>")
 	qdel(src)
 
-
-
-/obj/structure/curtain/assembly
-	icon_state = "assembly0"
-	name = "Curtain Rod"
-	opacity = FALSE
-	density = FALSE
-	desc = "A curtain assembly! It needs a <b>material</b>."
-
-/obj/structure/curtain/assembly/examine(mob/user)
+/obj/structure/curtain/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-Click to take it down.</span>"
 
-/obj/structure/curtain/assembly/AltClick(mob/user)
+	if(!assembled)
+		. += "<span class='notice'>Alt-Click to take it down.</span>"
+
+/obj/structure/curtain/AltClick(mob/user)
+	if(assembled)
+		return
+
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(!Adjacent(user))
 		return
-	// TODO: turn back into assembly item
-	new /obj/item/mounted/curtain/curtain_fixture(get_turf(user))
-	playsound(loc, 'sound/effects/salute.ogg' , 75, TRUE)
+	var/obj/item/mounted/curtain/curtain_fixture/fixture = new /obj/item/mounted/curtain/curtain_fixture(get_turf(user))
+	user.put_in_hands(fixture)
+	playsound(loc, 'sound/effects/salute.ogg', 75, TRUE)
 	qdel(src)
 
-/obj/structure/curtain/assembly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/stack/sheet/cloth)) // Are we putting the cloth onto the assembly on the wall?
+/obj/structure/curtain/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(assembled && istype(used, /obj/item/toy/crayon))
+		color = tgui_input_color(user,"Please choose a color.", "Curtain Color")
+		return ITEM_INTERACT_COMPLETE
+
+	if(!assembled && istype(used, /obj/item/stack/sheet/cloth)) // Are we putting the cloth onto the assembly on the wall?
 		var/obj/item/stack/sheet/cloth/cloth_used = used
 		if(!cloth_used.use(2))
 			to_chat(user, "<span class='warning'> You need two sheets of cloth to hang the curtains.</span>")
 			return ITEM_INTERACT_COMPLETE
 
-		var/obj/structure/curtain/new_curtain = new /obj/structure/curtain/(loc, 1)
-		new_curtain.assembled = TRUE
+		assembled = TRUE
+		update_appearance()
 		playsound(loc, used.drop_sound, 75, TRUE) // Play a generic cloth sound.
-		qdel(src)
 
 		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/curtain/attack_hand(mob/user)
-	playsound(get_turf(loc), "rustle", 15, TRUE, -5)
-	update_icon(UPDATE_OVERLAYS)
-	..()
+	. = ..()
+	toggle_curtain()
+
 /obj/structure/curtain/attack_robot(mob/living/user)
 	. = ..()
-	playsound(get_turf(loc), "rustle", 15, TRUE, -5)
-	update_icon(UPDATE_OVERLAYS)
-	..()
+	if(Adjacent(user))
+		toggle_curtain()
 
+/obj/structure/curtain/proc/toggle_curtain()
+	if(assembled)
+		playsound(get_turf(loc), "rustle", 15, TRUE, -5)
+		set_opacity(!opacity)
+		update_appearance()
 
 /obj/structure/curtain/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -136,50 +122,58 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
+/obj/structure/curtain/update_name(updates)
+	. = ..()
+	name = assembled ? "curtain" : "curtain rod"
+
+/obj/structure/curtain/update_desc()
+	. = ..()
+	if(assembled)
+		desc = "A curtain."
+	else
+		desc = "A curtain assembly! It still lacks drapes however, some cloth would serve as some nicely."
+
 /obj/structure/curtain/update_overlays()
 	. = ..()
-	set_opacity(!opacity)
-	cut_overlays()
+	if(!assembled)
+		opacity = FALSE
+		return
+
 	if(opacity)
-		icon_state = "closed"
-		overlay = image("closed_overlay")
+		var/image/overlay = image("closed_overlay")
 		overlay.color = overlay_color
 		overlay.alpha = overlay_alpha
-		add_overlay(overlay)
+		. += overlay
 		layer = SHOWER_CLOSED_LAYER
 	else
-		icon_state = "open"
-		overlay = image("open_overlay")
+		var/image/overlay = image("open_overlay")
 		overlay.color = overlay_color
 		overlay.alpha = overlay_alpha
-		add_overlay(overlay)
+		. += overlay
 		layer = SHOWER_OPEN_LAYER
-
-/obj/structure/curtain/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/toy/crayon))
-		color = tgui_input_color(user,"Please choose a color.", "Curtain Color")
-		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(!assembled)
+		to_chat(user, "<span class='notice'>You should probably add some drapes to [src] before anchoring it in place...</span>")
+		return
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(anchored)
-		user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-		if(I.use_tool(src, user, 50, volume = I.tool_volume) && anchored)
+		user.visible_message("<span class='notice'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		if(I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume) && anchored)
 			anchored = FALSE
 			to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
 	else
-		user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
-		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
+		user.visible_message("<span class='notice'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		if(I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume) && !anchored)
 			anchored = TRUE
 			to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
 
-
-
 /obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
 	if(anchored)
-		return
+		to_chat(user, "<span class='warning'>You will need to undo the <b>screws</b> anchoring [src] before removing the drapes.</span>")
+		return TRUE
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
@@ -187,21 +181,16 @@
 		WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
 		if(I.use_tool(src,user, 5 SECONDS, volume = I.tool_volume))
 			WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
-			var/obj/structure/curtain/assembly/new_assembly = new /obj/structure/curtain/assembly(loc, 1)
-			new_assembly.assembled = TRUE
-			var/obj/item/stack/sheet/cloth/dropped_cloth = new /obj/item/stack/sheet/cloth(loc, 2)
-			qdel(src)
+			assembled = FALSE
+			update_appearance()
+			new /obj/item/stack/sheet/cloth(loc, 2)
 			return
 		return
 
-	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
-		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
-		deconstruct()
-
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/cloth(loc, 2)
-	new /obj/item/stack/rods(loc, 1)
+	if(assembled)
+		new /obj/item/stack/sheet/cloth(loc, 2)
+	new /obj/item/stack/rods(loc, 2)
 	qdel(src)
 
 /obj/structure/curtain/black
