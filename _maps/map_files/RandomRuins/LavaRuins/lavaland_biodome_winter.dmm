@@ -169,7 +169,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aL" = (
-/obj/mecha/working/ripley/mining,
+/obj/mecha/working/ripley/mining/old,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aM" = (

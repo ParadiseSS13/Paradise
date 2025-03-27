@@ -15,8 +15,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
-	var/turf/startT = spaceDebrisStartLoc(startside, level_name_to_num(MAIN_STATION))
-	var/turf/endT = spaceDebrisFinishLoc(startside, level_name_to_num(MAIN_STATION))
+	var/turf/startT = pick_edge_loc(startside, level_name_to_num(MAIN_STATION))
+	var/turf/endT = pick_edge_loc(REVERSE_DIR(startside), level_name_to_num(MAIN_STATION))
 	new /obj/effect/immovablerod/event(startT, endT)
 
 /obj/effect/immovablerod
@@ -32,9 +32,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/move_delay = 1
 	var/atom/start
 	var/atom/end
+	/// The minimum amount of damage dealt to walls, relative to their max HP.
+	var/wall_damage_min_fraction = 0.9
+	/// The maximum amount of damage dealt to walls, relative to their max HP. Values over 1 are useful for adjusting the probability of destroying the wall.
+	var/wall_damage_max_fraction = 1.4
 
 /obj/effect/immovablerod/New(atom/_start, atom/_end, delay)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_EDGE_TRANSITIONS, ROUNDSTART_TRAIT)
 	start = _start
 	end = _end
 	loc = start
@@ -70,43 +75,81 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/singularity_pull()
 	return
 
-/obj/effect/immovablerod/Bump(atom/clong)
+/obj/effect/immovablerod/Move(turf/newloc, direction)
+	if(!istype(newloc))
+		return ..()
+
+	if(!direction)
+		direction = get_dir(src, newloc)
+	forceMove(newloc)
+	setDir(direction)
+
 	if(prob(10))
 		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		audible_message("CLANG")
 
-	if(clong && prob(25))
-		x = clong.x
-		y = clong.y
+	clong_turf(newloc)
+	if(isnull(newloc))
+		// The turf is dead, long live the turf!
+		newloc = loc
 
-	if(isturf(clong) || isobj(clong))
-		if(clong.density)
-			clong.ex_act(EXPLODE_HEAVY)
+	while(TRUE)
+		var/hit_something_dense = FALSE
+		for(var/atom/victim as anything in newloc)
+			clong_thing(victim)
+			if(victim.density)
+				hit_something_dense = TRUE
 
-	else if(ismob(clong))
-		if(ishuman(clong))
-			var/mob/living/carbon/human/H = clong
+		// Keep hitting stuff until there's nothing dense or we randomly go through it.
+		if(!hit_something_dense || prob(25))
+			break
+
+/obj/effect/immovablerod/proc/clong_turf(turf/victim)
+	if(!victim.density)
+		return
+
+	if(iswallturf(victim))
+		var/turf/simulated/wall/W = victim
+		W.take_damage(rand(W.damage_cap * wall_damage_min_fraction, W.damage_cap * wall_damage_max_fraction))
+	else
+		victim.ex_act(EXPLODE_LIGHT)
+
+/obj/effect/immovablerod/proc/clong_thing(atom/victim)
+	if(isobj(victim) && victim.density)
+		victim.ex_act(EXPLODE_HEAVY)
+	else if(ismob(victim))
+		if(ishuman(victim))
+			var/mob/living/carbon/human/H = victim
 			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>",
 				"<span class='userdanger'>The rod penetrates you!</span>",
 				"<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
-		if(clong.density || prob(10))
-			clong.ex_act(EXPLODE_HEAVY)
+		if(victim.density || prob(10))
+			victim.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/event
+	wall_damage_min_fraction = 0.33
+	wall_damage_max_fraction = 1.33
 	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
 	// Chance to expose the tile to space is like 60% of this value.
 	var/floor_rip_chance = 40
+	// Chance to damage the floor if we didn't rip it.
+	var/floor_graze_chance = 50
 
 /obj/effect/immovablerod/event/Move()
-	var/atom/oldloc = loc
 	. = ..()
-	if(prob(floor_rip_chance))
-		var/turf/simulated/floor/T = get_turf(oldloc)
-		if(istype(T))
-			T.ex_act(EXPLODE_HEAVY)
 	if(loc == end)
 		qdel(src)
+
+/obj/effect/immovablerod/event/clong_turf(turf/victim)
+	if(!isfloorturf(victim))
+		return ..()
+
+	var/turf/simulated/floor/T = victim
+	if(prob(floor_rip_chance))
+		T.ex_act(EXPLODE_HEAVY)
+	else if(prob(floor_graze_chance))
+		T.ex_act(EXPLODE_LIGHT)
 
 /obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
 	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)

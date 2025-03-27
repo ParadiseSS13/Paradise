@@ -242,6 +242,7 @@
 	name = "Unfold/Fold Chassis"
 	desc = "Allows you to fold in/out of your mobile form."
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 20 SECONDS
 	action_icon_state = "repairbot"
 	action_background_icon_state = "bg_tech_blue"
@@ -263,7 +264,7 @@
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(ismob(card.loc))
 		var/mob/holder = card.loc
-		holder.unEquip(card)
+		holder.drop_item_to_ground(card)
 	else if(istype(card.loc, /obj/item/pda))
 		var/obj/item/pda/holder = card.loc
 		holder.pai = null
@@ -288,7 +289,7 @@
 	update_icons()
 
 //Overriding this will stop a number of headaches down the track.
-/mob/living/silicon/pai/attackby(obj/item/W as obj, mob/user as mob, params)
+/mob/living/silicon/pai/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if(stat == DEAD)
@@ -301,8 +302,13 @@
 		else
 			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
 
-		return
-	else if(W.force)
+		return ITEM_INTERACT_COMPLETE
+
+/mob/living/silicon/pai/attack_by(obj/item/W, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		adjustBruteLoss(W.force)
 	else
@@ -310,7 +316,6 @@
 	spawn(1)
 		if(stat != 2)
 			close_up()
-	return
 
 /mob/living/silicon/pai/welder_act()
 	return
@@ -342,7 +347,7 @@
 	if(istype(H))
 		var/mob/living/M = H.loc
 		if(istype(M))
-			M.unEquip(H)
+			M.drop_item_to_ground(H)
 		H.loc = get_turf(src)
 		loc = get_turf(H)
 

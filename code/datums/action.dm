@@ -304,6 +304,8 @@
 
 /datum/action/item_action/clear_records
 	name = "Clear Scanner Records"
+	button_overlay_icon_state = "scanner_clear"
+	use_itemicon = FALSE
 
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"
@@ -314,7 +316,7 @@
 /datum/action/item_action/toggle_barrier_spread
 	name = "Toggle Barrier Spread"
 
-/datum/action/item_action/equip_unequip_TED_Gun
+/datum/action/item_action/equip_unequip_ted_gun
 	name = "Equip/Unequip TED Gun"
 
 /datum/action/item_action/toggle_paddles
@@ -435,7 +437,7 @@
 /datum/action/item_action/noir
 	name = "Noir"
 
-/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
+/datum/action/item_action/yeeeaaaaahhhhhhhhhhhhh
 	name = "YEAH!"
 
 /datum/action/item_action/laugh_track
@@ -579,6 +581,10 @@
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
 	G.dash(usr)
 
+/datum/action/item_action/toogle_camera_flash
+	name = "Toggle camera flash"
+	desc = "Toggles the camera's flash, which will fully light up the photo. Turn this off if you want the ambient light."
+
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS
@@ -616,6 +622,10 @@
 	var/obj/item/voice_changer/V = target
 	V.set_voice(usr)
 
+/datum/action/item_action/herald
+	name = "Mirror Walk"
+	desc = "Use near a mirror to enter it."
+
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
@@ -637,9 +647,6 @@
 	name = "View Storage"
 
 
-/datum/action/item_action/accessory/herald
-	name = "Mirror Walk"
-	desc = "Use near a mirror to enter it."
 
 //Preset for spells
 /datum/action/spell_action

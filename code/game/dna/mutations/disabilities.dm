@@ -68,29 +68,6 @@
 	..()
 	block = GLOB.clumsyblock
 
-/datum/mutation/disability/tourettes
-	name = "Tourettes"
-	activation_messages = list("You twitch.")
-	deactivation_messages = list("Your mouth tastes like soap.")
-
-/datum/mutation/disability/tourettes/New()
-	..()
-	block = GLOB.twitchblock
-
-/datum/mutation/disability/tourettes/on_life(mob/living/carbon/human/H)
-	if(prob(10))
-		switch(rand(1, 3))
-			if(1)
-				H.emote("twitch")
-			if(2 to 3)
-				H.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
-		var/x_offset_old = H.pixel_x
-		var/y_offset_old = H.pixel_y
-		var/x_offset = H.pixel_x + rand(-2, 2)
-		var/y_offset = H.pixel_y + rand(-1, 1)
-		animate(H, pixel_x = x_offset, pixel_y = y_offset, time = 1)
-		animate(H, pixel_x = x_offset_old, pixel_y = y_offset_old, time = 1)
-
 /datum/mutation/disability/nervousness
 	name = "Nervousness"
 	activation_messages = list("You feel nervous.")
@@ -122,7 +99,6 @@
 /datum/mutation/disability/blindness/deactivate(mob/M)
 	..()
 	M.update_blind_effects()
-
 
 /datum/mutation/disability/colourblindness
 	name = "Colourblindness"
@@ -251,6 +227,18 @@
 /datum/mutation/disability/mute/on_say(mob/M, message)
 	return ""
 
+/datum/mutation/disability/paraplegic
+	name = "Paraplegic"
+	desc = "Your legs don't work, even with prosthetics."
+	activation_messages = list("MY LEG!")
+	deactivation_messages = list("You can feel your legs again.")
+	instability = -GENE_INSTABILITY_MAJOR
+	traits_to_add = list(TRAIT_PARAPLEGIC)
+
+/datum/mutation/disability/paraplegic/New()
+	..()
+	block = GLOB.paraplegicblock
+
 ////////////////////////////////////////
 // MARK: Harmful to everyone
 ////////////////////////////////////////
@@ -277,7 +265,7 @@
 	return TRUE
 
 /datum/mutation/disability/radioactive/on_life(mob/living/carbon/human/H)
-	radiation_pulse(H, 20)
+	radiation_pulse(H, 80, ALPHA_RAD)
 
 /datum/mutation/disability/radioactive/on_draw_underlays(mob/M, g)
 	return "rads_s"

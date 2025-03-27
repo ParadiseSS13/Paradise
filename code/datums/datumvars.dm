@@ -83,21 +83,21 @@
 /datum/proc/vv_get_dropdown()
 	. = list()
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Jump to Object"] = "byond://?_src_=vars;jump_to=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
 	. = list()
-	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
+	.["Manipulate Colour Matrix"] = "byond://?_src_=vars;manipcolours=[UID()]"
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
@@ -112,6 +112,8 @@
 	if(!D)
 		return
 
+	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/simple/vv)
+	asset_cache_datum.send(usr)
 
 	var/islist = islist(D)
 	var/isclient = isclient(D)
@@ -204,11 +206,11 @@
 	if(islist)
 		dropdownoptions = list(
 			"---",
-			"Add Item" = "?_src_=vars;listadd=[refid]",
-			"Remove Nulls" = "?_src_=vars;listnulls=[refid]",
-			"Remove Dupes" = "?_src_=vars;listdupes=[refid]",
-			"Set len" = "?_src_=vars;listlen=[refid]",
-			"Shuffle" = "?_src_=vars;listshuffle=[refid]"
+			"Add Item" = "byond://?_src_=vars;listadd=[refid]",
+			"Remove Nulls" = "byond://?_src_=vars;listnulls=[refid]",
+			"Remove Dupes" = "byond://?_src_=vars;listdupes=[refid]",
+			"Set len" = "byond://?_src_=vars;listlen=[refid]",
+			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]"
 		)
 	else
 		dropdownoptions = D.vv_get_dropdown()
@@ -249,19 +251,11 @@
 
 	var/html = {"
 <html>
-	<meta charset="UTF-8">
 	<head>
+		<meta charset="UTF-8">
 		<title>[title]</title>
-		<style>
-			body {
-				font-family: Verdana, sans-serif;
-				font-size: 9pt;
-			}
-			.value {
-				font-family: "Courier New", monospace;
-				font-size: 8pt;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="[SSassets.transport.get_asset_url("view_variables.css")]">
+		[window_scaling ? "<style>body {zoom: [100 / window_scaling]%;}</style>" : ""]
 	</head>
 	<body onload='selectTextField(); updateSearch()' onkeydown='return checkreload()' onkeyup='updateSearch()'>
 		<script type="text/javascript">
@@ -301,13 +295,15 @@
 					{
 						try{
 							var li = lis\[i\];
-							if(li.style.backgroundColor == "#ffee88")
+							if(li.className == "var visible" && li.style.backgroundColor == "#ffee88")
 							{
-								if((i-1) >= 0){
-									var li_new = lis\[i-1\];
-									li.style.backgroundColor = "white";
-									li_new.style.backgroundColor = "#ffee88";
-									return
+								for(var j = i-1; j >= 0; --j) {
+									var li_new = lis\[j\];
+									if(li_new.className == "var visible") {
+										li.style.backgroundColor = "white";
+										li_new.style.backgroundColor = "#ffee88";
+										return
+									}
 								}
 							}
 						}catch(err) {  }
@@ -321,13 +317,15 @@
 					{
 						try{
 							var li = lis\[i\];
-							if(li.style.backgroundColor == "#ffee88")
+							if(li.className == "var visible" && li.style.backgroundColor == "#ffee88")
 							{
-								if((i+1) < lis.length){
-									var li_new = lis\[i+1\];
-									li.style.backgroundColor = "white";
-									li_new.style.backgroundColor = "#ffee88";
-									return
+								for(var j = i+1; j < lis.length; ++j) {
+									var li_new = lis\[j\];
+									if(li_new.className == "var visible") {
+										li.style.backgroundColor = "white";
+										li_new.style.backgroundColor = "#ffee88";
+										return
+									}
 								}
 							}
 						}catch(err) {  }
@@ -335,38 +333,26 @@
 					return
 				}
 
-				//This part here resets everything to how it was at the start so the filter is applied to the complete list. Screw efficiency, it's client-side anyway and it only looks through 200 or so variables at maximum anyway (mobs).
-				if(complete_list != null && complete_list != ""){
-					var vars_ol1 = document.getElementById("vars");
-					vars_ol1.innerHTML = complete_list
-				}
 				document.cookie="[refid][cookieoffset]search="+encodeURIComponent(filter);
-				if(filter == ""){
-					return;
-				}else{
-					var vars_ol = document.getElementById('vars');
-					var lis = vars_ol.getElementsByTagName("li");
-					for(var i = 0; i < lis.length; ++i)
-					{
-						try{
-							var li = lis\[i\];
-							if(li.innerText.toLowerCase().indexOf(filter) == -1)
-							{
-								vars_ol.removeChild(li);
-								i--;
-							}
-						}catch(err) {   }
-					}
-				}
-				var lis_new = vars_ol.getElementsByTagName("li");
-				for(var j = 0; j < lis_new.length; ++j)
+				var vars_ol = document.getElementById('vars');
+				var lis = vars_ol.getElementsByTagName("li");
+				var first = true;
+				for(var i = 0; i < lis.length; ++i)
 				{
-					var li1 = lis\[j\];
-					if(j == 0){
-						li1.style.backgroundColor = "#ffee88";
-					}else{
-						li1.style.backgroundColor = "white";
-					}
+					try{
+						var li = lis\[i\];
+						li.style.backgroundColor = "white";
+						if(li.innerText.toLowerCase().indexOf(filter) == -1)
+						{
+							li.className = "var";
+						} else {
+							if(first) {
+								li.style.backgroundColor = "#ffee88";
+								first = false;
+							}
+							li.className = "var visible";
+						}
+					}catch(err) {   }
 				}
 			}
 			function selectTextField() {
@@ -468,58 +454,78 @@
 
 	if(istype(D, /datum))
 		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
-	usr << browse(html, "window=variables[refid];size=475x650")
+
+	var/size_string = window_scaling ? "size=[475 * window_scaling]x[650 * window_scaling]" : "size=[475]x[650]"
+	usr << browse(html, "window=variables[refid];[size_string]")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, datum/DA = null, sanitize = TRUE)
+/proc/debug_variable(name, value, level, datum/owner, sanitize = TRUE)
 	var/header
-	if(DA)
-		if(islist(DA))
-			var/list/debug_list = DA
+	if(owner)
+		if(islist(owner))
+			var/list/debug_list = owner
 			var/index = name
 			if(value)
 				name = debug_list[name] // name is really the index until this line
 			else
 				value = debug_list[name]
-			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
+			header = "<li class='vars visible'>(<a href='byond://?_src_=vars;listedit=\ref[owner];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[owner];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[owner];index=[index]'>-</a>) "
 		else
-			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
+			header = "<li class='vars visible'>(<a href='byond://?_src_=vars;datumedit=[owner.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[owner.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[owner.UID()];varnamemass=[name]'>M</a>) "
 	else
 		header = "<li>"
 
-	var/item
+	var/name_part = VV_HTML_ENCODE(name)
+	if(level > 0 || islist(owner)) //handling keys in assoc lists
+		if(isdatum(name))
+			var/datum/datum_key = name
+			name_part = "<a href='byond://?_src_=vars;Vars=[datum_key.UID()]'>[VV_HTML_ENCODE(name)] \ref[datum_key]</a>"
+		else if(isclient(name))
+			var/client/client_key = name
+			name_part = "<a href='byond://?_src_=vars;Vars=[client_key.UID()]'>[VV_HTML_ENCODE(client_key)] \ref[client_key]</a> ([client_key] [client_key.type])"
+		else if(islist(name))
+			var/list/list_value = name
+			name_part = "<a href='byond://?_src_=vars;VarsList=\ref[list_value]'> /list ([length(list_value)]) \ref[name]</a>"
+
+	var/item = _debug_variable_value(name, value, level, owner, sanitize)
+
+	return "[header][name_part] = [item]</li>"
+
+/proc/_debug_variable_value(name, value, level, datum/owner, sanitize)
+
+	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] \ref[value]s)"
+
 	if(isnull(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>null</span>"
+		return "<span class='value'>null</span>"
+
+	else if(is_color_text(value))
+		return "<span class='value'><span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"</span>"
 
 	else if(istext(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		item = "[name] = /icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		return "/icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
-		item = "[name] = /icon (<span class='value'>[value]</span>)"
+		return "/icon (<span class='value'>[value]</span>)"
 		#endif
 
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
+		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image (<span class='value'>[value]</span>)"
 		#endif
 
 	else if(isfile(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>'[value]'</span>"
+		return "<span class='value'>'[value]'</span>"
 
 	else if(istype(value, /datum))
 		var/datum/D = value
-		item = "<a href='byond://?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
+		return D.debug_variable_value(sanitize)
 
-	else if(isclient(value))
-		var/client/C = value
-		item = "<a href='byond://?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [C] [C.type]"
-//
 	else if(islist(value))
 		var/list/L = value
 		var/list/items = list()
@@ -536,19 +542,29 @@
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
+			return "<a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a><ul>[items.Join()]</ul>"
 
 		else
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
+			return "<a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a>"
 
 	else if(name in GLOB.bitfields)
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
+		return "<span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
 	else
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		return "<span class='value'>[VV_HTML_ENCODE(value)]</span>"
 
-	return "[header][item]</li>"
+/datum/proc/debug_variable_value(sanitize)
+	return "<a href='byond://?_src_=vars;Vars=[UID()]'>[VV_HTML_ENCODE(src)] \ref[src]</a> ([type])"
 
-#undef VV_HTML_ENCODE
+/matrix/debug_variable_value(sanitize)
+	return {"<span class='value'>
+			<table class='matrixbrak'><tbody><tr><td class='lbrak'>&nbsp;</td><td>
+			<table class='matrix'>
+			<tbody>
+				<tr><td>[a]</td><td>[d]</td><td>0</td></tr>
+				<tr><td>[b]</td><td>[e]</td><td>0</td></tr>
+				<tr><td>[c]</td><td>[f]</td><td>1</td></tr>
+			</tbody>
+			</table></td><td class='rbrak'>&nbsp;</td></tr></tbody></table></span>"} //TODO link to modify_transform wrapper for all matrices
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
@@ -778,17 +794,15 @@
 		if(!check_rights(R_SERVER | R_EVENT))
 			return
 
-		var/mob/living/carbon/C = locateUID(href_list["hallucinate"])
+		var/mob/living/carbon/human/C = locateUID(href_list["hallucinate"])
 		if(!istype(C))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon</span>")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in subtypesof(/obj/effect/hallucination)
+		var/haltype = tgui_input_list(usr, "Select Hallucination Type", "Hallucinate", (subtypesof(/obj/effect/hallucination) + subtypesof(/datum/hallucination_manager)))
 		if(!haltype)
 			return
-		C.Hallucinate(20 SECONDS)
-		var/datum/status_effect/transient/hallucination/H = C.has_status_effect(STATUS_EFFECT_HALLUCINATION)
-		H.hallucinate(haltype)
+		C.invoke_hallucination(haltype)
 		message_admins("[key_name(usr)] has given [key_name(C)] the [haltype] hallucination")
 		log_admin("[key_name_admin(usr)] has given [key_name_admin(C)] the [haltype] hallucination")
 		href_list["datumrefresh"] = href_list["hallucinate"]
@@ -1154,8 +1168,9 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/new_organ = input("Please choose an organ to add.","Organ",null) as null|anything in subtypesof(/obj/item/organ)-/obj/item/organ
-		if(!new_organ) return
+		var/new_organ = tgui_input_list(usr, "Please choose an organ to add.", "Organ", subtypesof(/obj/item/organ))
+		if(!new_organ)
+			return
 
 		if(!M)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -1177,7 +1192,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/obj/item/organ/internal/rem_organ = input("Please choose an organ to remove.","Organ",null) as null|anything in M.internal_organs
+		var/obj/item/organ/internal/rem_organ = tgui_input_list(usr, "Please choose an organ to remove.", "Organ", M.internal_organs)
 
 		if(!M)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -1472,3 +1487,5 @@
 		to_chat(src, "<span class='debug'>Now showing GLOB.[var_search].</span>")
 		return debug_variables(result)
 	to_chat(src, "<span class='debug'>GLOB.[var_search] returned [result].</span>")
+
+#undef VV_HTML_ENCODE

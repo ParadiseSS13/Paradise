@@ -53,7 +53,7 @@
 		var/obj/item/crusher_trophy/T = t
 		. += "<span class='notice'>It has \a [T] attached, which causes [T.effect_desc()].</span>"
 
-/obj/item/kinetic_crusher/attackby(obj/item/I, mob/living/user)
+/obj/item/kinetic_crusher/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/crusher_trophy))
 		var/obj/item/crusher_trophy/T = I
 		T.add_to(src, user)
@@ -72,7 +72,7 @@
 	else
 		to_chat(user, "<span class='warning'>There are no trophies on [src].</span>")
 
-/obj/item/kinetic_crusher/attack(mob/living/target, mob/living/carbon/user)
+/obj/item/kinetic_crusher/attack__legacy__attackchain(mob/living/target, mob/living/carbon/user)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, "<span class='warning'>[src] is too heavy to use with one hand. You fumble and drop everything.</span>")
 		user.drop_r_hand()
@@ -103,7 +103,7 @@
 	if(ismob(user) && isturf(user.loc))
 		return user.loc
 
-/obj/item/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
+/obj/item/kinetic_crusher/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity_flag, clickparams)
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		return
@@ -189,10 +189,7 @@
 		. += "[icon_state]_uncharged"
 	if(light_on)
 		. += "[icon_state]_lit"
-	spawn(1)
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+	update_action_buttons()
 
 //destablizing force
 /obj/item/projectile/destabilizer
@@ -245,7 +242,7 @@
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
 
-/obj/item/crusher_trophy/attackby(obj/item/A, mob/living/user)
+/obj/item/crusher_trophy/attackby__legacy__attackchain(obj/item/A, mob/living/user)
 	if(istype(A, /obj/item/kinetic_crusher))
 		add_to(A, user)
 	else
@@ -257,7 +254,7 @@
 		if(istype(T, denied_type) || istype(src, T.denied_type))
 			to_chat(user, "<span class='warning'>You can't seem to attach [src] to [H]. Maybe remove a few trophies?</span>")
 			return FALSE
-	if(!user.unEquip(src))
+	if(!user.unequip(src))
 		return
 	forceMove(H)
 	H.trophies += src

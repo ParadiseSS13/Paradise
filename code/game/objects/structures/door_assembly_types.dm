@@ -186,6 +186,12 @@
 	overlays_file = GET_CULT_DATA(airlock_unruned_overlays_file, initial(overlays_file))
 	update_icon()
 
+/obj/structure/door_assembly/door_assembly_clockwork
+	icon = 'icons/obj/doors/airlocks/clockwork/clockwork.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/clockwork/clockwork-overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/clockwork
+	glass_type = /obj/machinery/door/airlock/clockwork/glass
+
 /obj/structure/door_assembly/door_assembly_centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'

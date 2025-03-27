@@ -42,17 +42,26 @@
 
 	qdel(src)
 
-/obj/item/reagent_containers/drinks/bottle/attack(mob/living/target, mob/living/user)
-
-	if(!target)
-		return
-
-	if(user.a_intent != INTENT_HARM || !is_glass)
+/obj/item/reagent_containers/drinks/bottle/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(user.a_intent != INTENT_HARM)
 		return ..()
 
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
-		return
+/obj/item/reagent_containers/drinks/bottle/pre_attack(atom/A, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(isliving(A))
+		if(!is_glass)
+			mob_act(A, user)
+			return FINISH_ATTACK
+
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>You don't want to harm [A]!</span>")
+			return FINISH_ATTACK
+
+/obj/item/reagent_containers/drinks/bottle/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
 	force = 15 //Smashing bottles over someoen's head hurts.
 
@@ -277,6 +286,20 @@
 	icon_state = "fernetbottle"
 	list_reagents = list("fernet" = 100)
 
+/obj/item/reagent_containers/drinks/bottle/beer
+	name = "space beer"
+	desc = "Contains only water, malt and hops."
+	icon_state = "beer"
+	volume = 50
+	list_reagents = list("beer" = 50)
+
+/obj/item/reagent_containers/drinks/bottle/ale
+	name = "Magm-Ale"
+	desc = "A true dorf's drink of choice."
+	icon_state = "alebottle"
+	volume = 50
+	list_reagents = list("ale" = 50)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/drinks/bottle/orangejuice
@@ -378,8 +401,8 @@
 		hotspot.temperature = 1000
 		hotspot.recolor()
 
-/obj/item/reagent_containers/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
-	if(I.get_heat() && !active)
+/obj/item/reagent_containers/drinks/bottle/molotov/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.get_heat() && !active)
 		active = TRUE
 		var/turf/bombturf = get_turf(src)
 		var/area/bombarea = get_area(bombturf)
@@ -401,8 +424,12 @@
 						SplashReagents(A)
 						A.fire_act()
 					qdel(src)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/reagent_containers/drinks/bottle/molotov/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/bottle/molotov/activate_self(mob/user)
+	if(..())
+		return
+
 	if(active)
 		if(!is_glass)
 			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")

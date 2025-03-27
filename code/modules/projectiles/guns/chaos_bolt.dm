@@ -18,7 +18,8 @@
 
 /obj/item/projectile/magic/chaos/on_hit(atom/target, blocked = 0)
 	. = ..()
-
+	if(!.)
+		return
 	if(iswallturf(target) || isobj(target))
 		target.color = pick(GLOB.random_color_list)
 		return
@@ -121,7 +122,7 @@
 			H.makeCluwne()
 		if("spaced")
 			for(var/obj/item/I in H)
-				H.unEquip(I, TRUE)
+				H.drop_item_to_ground(I, force = TRUE)
 			var/turf/T = safepick(get_area_turfs(/area/space/nearstation)) //Send in space next to the station
 			if(!T) //Shouldn't happen but just in case
 				T = safepick(get_area_turfs(/area/space))
@@ -147,7 +148,7 @@
 			explosion(get_turf(H), 1, 1, 1, cause = "staff of chaos lethal explosion effect")
 		if("cheese morphed")
 			H.visible_message("<span class='chaosverybad'>[H] transforms into cheese!</span>", "<span class='chaosverybad'>You've been transformed into cheese!</span>")
-			new /obj/item/food/cheesewedge(get_turf(H))
+			new /obj/item/food/sliced/cheesewedge(get_turf(H))
 			qdel(H)
 		if("supermattered")
 			var/obj/machinery/atmospherics/supermatter_crystal/supercrystal = GLOB.main_supermatter_engine
@@ -322,7 +323,7 @@
 		if("toy revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver/capgun/chaosprank
 		if("cheese")
-			item_to_summon = /obj/item/food/cheesewedge
+			item_to_summon = /obj/item/food/sliced/cheesewedge
 			explosion_amount = rand(5, 10)
 		if("food")
 			target.visible_message("<span class='chaosneutral'>Food scatters around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatters around you!</span>")

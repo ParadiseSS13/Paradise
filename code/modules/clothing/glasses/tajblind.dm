@@ -19,7 +19,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
 
-/obj/item/clothing/glasses/hud/tajblind/attack_self(mob/user)
+/obj/item/clothing/glasses/hud/tajblind/attack_self__legacy__attackchain(mob/user)
 	toggle_veil(user, TRUE)
 
 /obj/item/clothing/glasses/hud/tajblind/proc/toggle_veil(mob/user, voluntary)
@@ -99,7 +99,6 @@
 	icon_state = "tajblind_med"
 	item_state = "tajblind_med"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
 /obj/item/clothing/glasses/hud/tajblind/med/Initialize(mapload)
 	. = ..()
@@ -110,7 +109,6 @@
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
 	hud_types = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /obj/item/clothing/glasses/hud/tajblind/sec/Initialize(mapload)
 	. = ..()
@@ -170,7 +168,6 @@
 	icon_state = "tajblind_med"
 	item_state = "tajblind_med"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize(mapload)
 	. = ..()
@@ -182,7 +179,6 @@
 	item_state = "tajblind_sec"
 	see_in_dark = 1
 	hud_types = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize(mapload)
 	. = ..()

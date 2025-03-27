@@ -7,6 +7,10 @@
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/laser.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	/// Damage multiplier from equipped lenses
+	var/lens_damage_multiplier = 1
+	/// Speed multiplier from equipped lenses.
+	var/lens_speed_multiplier = 1
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser
@@ -255,7 +259,6 @@
 
 /obj/item/ammo_casing/energy/arc_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg' //New sound
-	e_cost = 125 //8 shots?
 	select_name = "lightning beam" //I guess
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE // Depends on sprite
 	projectile_type = /obj/item/projectile/energy/arc_revolver
@@ -280,7 +283,7 @@
 	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
 
 /obj/item/ammo_casing/energy/charged_plasma
-	projectile_type = /obj/item/projectile/energy/charged_plasma
+	projectile_type = /obj/item/projectile/homing/charged_plasma
 	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention

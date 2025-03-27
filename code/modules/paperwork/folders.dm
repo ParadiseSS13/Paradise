@@ -34,7 +34,7 @@
 	if(length(contents))
 		. += "folder_paper"
 
-/obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/folder/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
 		user.drop_item()
 		W.loc = src
@@ -45,7 +45,7 @@
 	else
 		return ..()
 
-/obj/item/folder/attack_self(mob/user as mob)
+/obj/item/folder/attack_self__legacy__attackchain(mob/user as mob)
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><title>[name]</title>"}
 
 	for(var/obj/item/paper/P in src)
@@ -85,11 +85,11 @@
 		else if(href_list["browse"])
 			var/obj/item/paper_bundle/P = locate(href_list["browse"])
 			if(P && (P.loc == src) && istype(P))
-				P.attack_self(usr)
+				P.attack_self__legacy__attackchain(usr)
 				onclose(usr, "[P.name]")
 
 		//Update everything
-		attack_self(usr)
+		attack_self__legacy__attackchain(usr)
 		update_icon(UPDATE_OVERLAYS)
 	return
 

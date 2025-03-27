@@ -8,7 +8,7 @@
 "ci" = (
 /obj/machinery/door/airlock,
 /obj/structure/fans/tiny,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "cx" = (
@@ -38,6 +38,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -46,6 +47,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/color/random,
 /obj/item/clothing/under/dress/sundress,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)
 "fH" = (
@@ -66,8 +68,6 @@
 /area/ruin/space/powered)
 "gs" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -75,14 +75,15 @@
 /area/ruin/space/powered)
 "gP" = (
 /obj/structure/table/wood,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "gY" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "hB" = (
@@ -97,13 +98,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
+"ic" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
+/area/ruin/space/powered)
 "iY" = (
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)
 "jf" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -125,7 +129,6 @@
 /area/ruin/space/powered)
 "lq" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/suit/jacket/fluff,
 /obj/item/clothing/under/color/random,
 /obj/item/clothing/under/suit/navy,
 /obj/item/clothing/under/pants/blackjeans,
@@ -156,8 +159,6 @@
 /area/ruin/space/powered)
 "oI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -168,18 +169,12 @@
 /area/ruin/space/powered)
 "pi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -216,8 +211,6 @@
 /area/ruin/space/powered)
 "uO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -227,7 +220,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "vN" = (
-/turf/space,
+/turf/template_noop,
 /area/template_noop)
 "zs" = (
 /obj/structure/bed,
@@ -242,8 +235,14 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
+"AF" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
 "Cq" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Cw" = (
@@ -257,8 +256,6 @@
 /area/ruin/space/powered)
 "CF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -266,8 +263,6 @@
 /area/ruin/space/powered)
 "CP" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -291,6 +286,13 @@
 	dir = 6;
 	icon_state = "black"
 	},
+/area/ruin/space/powered)
+"EZ" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Gh" = (
 /obj/structure/disposalpipe/segment{
@@ -329,11 +331,9 @@
 "Id" = (
 /obj/structure/falsewall/rock_ancient,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Il" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -350,9 +350,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/ruin/space/powered)
-"JY" = (
-/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Kh" = (
 /obj/structure/safe/floor,
@@ -376,15 +373,11 @@
 /obj/structure/rack,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered)
-"Px" = (
-/obj/structure/falsewall/rock_ancient,
-/turf/space,
-/area/ruin/space/powered)
 "PM" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "Qv" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
@@ -399,6 +392,12 @@
 	icon_state = "black"
 	},
 /area/ruin/space/powered)
+"Sg" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/mineral/ancient,
+/area/ruin/space/powered)
 "Sk" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/plastitanium,
@@ -412,7 +411,7 @@
 	},
 /area/ruin/space/powered)
 "SL" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/powered)
 "Tb" = (
@@ -430,6 +429,12 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/space/powered)
+"TK" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
 "TQ" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -441,8 +446,6 @@
 /area/ruin/space/powered)
 "TT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -451,6 +454,7 @@
 "Ub" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel/drunk_accident,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -466,8 +470,6 @@
 /area/ruin/space/powered)
 "Vl" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -490,7 +492,6 @@
 /area/ruin/space/powered)
 "XM" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -501,19 +502,13 @@
 /area/ruin/space/powered)
 "XP" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -583,9 +578,11 @@ vN
 vN
 vN
 vN
-Ya
-Ya
-Ya
+vN
+vN
+vN
+vN
+vN
 vN
 vN
 "}
@@ -608,13 +605,43 @@ vN
 vN
 vN
 vN
+vN
+Ya
+Ya
+Ya
+vN
+vN
+vN
+"}
+(3,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
 Ya
 Ya
 Ya
 Ya
 vN
+vN
 "}
-(3,1,1) = {"
+(4,1,1) = {"
+vN
 vN
 vN
 vN
@@ -638,8 +665,10 @@ Ya
 Ya
 Ya
 Ya
+vN
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+vN
 vN
 vN
 vN
@@ -663,8 +692,10 @@ Ya
 Ya
 Ya
 Ya
+vN
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+vN
 vN
 vN
 vN
@@ -673,6 +704,7 @@ XP
 Yu
 Ya
 Ya
+Sg
 Ya
 Ya
 Ya
@@ -687,9 +719,10 @@ Ya
 Ya
 Ya
 Ya
-Ya
+vN
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+vN
 vN
 vN
 vN
@@ -713,8 +746,10 @@ Ya
 Ya
 vN
 vN
+vN
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+vN
 vN
 vN
 PM
@@ -738,8 +773,10 @@ Ya
 Ya
 vN
 vN
+vN
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+vN
 vN
 Ya
 PM
@@ -763,8 +800,10 @@ Ya
 vN
 vN
 vN
+vN
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+vN
 Ya
 Ya
 CP
@@ -788,8 +827,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+vN
 vN
 Ya
 CF
@@ -813,15 +854,17 @@ vN
 vN
 vN
 vN
+vN
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+vN
 vN
 Ya
 CF
 zx
 zx
 zx
-zx
+ic
 zx
 gY
 DV
@@ -838,8 +881,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+vN
 Ya
 Ya
 CF
@@ -863,8 +908,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+vN
 Ya
 Ya
 CF
@@ -888,8 +935,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+vN
 vN
 Ya
 CF
@@ -913,15 +962,17 @@ vN
 vN
 vN
 vN
+vN
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+vN
 vN
 Ya
 CF
 zx
 zx
 zx
-JY
+TT
 Ed
 zx
 kP
@@ -938,8 +989,10 @@ vN
 vN
 vN
 vN
+vN
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+vN
 vN
 Ya
 gs
@@ -963,15 +1016,17 @@ vN
 vN
 vN
 vN
+vN
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+vN
 vN
 vN
 Ya
 Ya
 CF
 zx
-JY
+TT
 zx
 Ya
 Aa
@@ -988,15 +1043,17 @@ vN
 vN
 vN
 vN
+vN
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+vN
 vN
 vN
 vN
 Ya
 gs
 Id
-Vl
+EZ
 PM
 Ya
 qN
@@ -1006,31 +1063,7 @@ Ml
 PM
 vN
 vN
-vN
-vN
-vN
-vN
-vN
-vN
-vN
-"}
-(19,1,1) = {"
-vN
-vN
-vN
-vN
-Ya
-Ya
-PM
-Px
-Ya
-vN
-vN
-vN
-vN
-vN
-vN
-vN
+AF
 vN
 vN
 vN
@@ -1044,9 +1077,65 @@ vN
 vN
 vN
 vN
+vN
+Ya
+Ya
+PM
+ph
+Ya
+vN
+vN
+TK
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(21,1,1) = {"
+vN
+vN
+vN
+vN
+vN
 Ya
 Ya
 ph
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+"}
+(22,1,1) = {"
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
+vN
 vN
 vN
 vN

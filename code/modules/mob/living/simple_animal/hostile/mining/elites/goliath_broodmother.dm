@@ -263,7 +263,7 @@
 	if(prob(bonus_value) && target.stat != DEAD)
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(get_turf(target), user)
 
-/obj/item/crusher_trophy/broodmother_tongue/attack_self(mob/user)
+/obj/item/crusher_trophy/broodmother_tongue/attack_self__legacy__attackchain(mob/user)
 	if(!isliving(user))
 		return
 	var/mob/living/living_user = user

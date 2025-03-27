@@ -25,7 +25,7 @@
 	/// Will this recipe send an admin message when it's completed.
 	var/alert_admins_on_craft = FALSE
 
-/datum/crafting_recipe/IED
+/datum/crafting_recipe/ied
 	name = "IED"
 	result = list(/obj/item/grenade/iedcasing)
 	reqs = list(/datum/reagent/fuel = 50,
@@ -82,7 +82,7 @@
 	result = list(/obj/item/pneumatic_cannon/ghetto)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	reqs = list(/obj/item/stack/sheet/metal = 4,
-				/obj/item/stack/packageWrap = 8,
+				/obj/item/stack/package_wrap = 8,
 				/obj/item/pipe = 2)
 	time = 300
 	category = CAT_WEAPONRY
@@ -475,7 +475,7 @@
 	reqs = list(/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/pipe = 1,
 				/obj/item/weaponcrafting/stock = 1,
-				/obj/item/stack/packageWrap = 5,)
+				/obj/item/stack/package_wrap = 5,)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 100
 	category = CAT_WEAPONRY
@@ -549,7 +549,7 @@
 
 /datum/crafting_recipe/sushimat
 	name = "Sushi Mat"
-	result = list(/obj/item/kitchen/sushimat)
+	result = list(/obj/item/reagent_containers/cooking/sushimat)
 	time = 10
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/cable_coil = 2)
@@ -689,15 +689,6 @@
 				/obj/item/stack/sheet/mineral/gold = 1)
 	category = CAT_MISC
 
-/datum/crafting_recipe/showercurtain
-	name = "Shower Curtains"
-	result = list(/obj/structure/curtain)
-	time = 20
-	reqs = list(/obj/item/stack/sheet/cloth = 2,
-				/obj/item/stack/sheet/plastic = 2,
-				/obj/item/stack/rods = 1)
-	category = CAT_MISC
-
 /datum/crafting_recipe/chemical_payload
 	name = "Chemical Payload (C4)"
 	result = list(/obj/item/bombcore/chemical)
@@ -746,7 +737,7 @@
 
 /datum/crafting_recipe/bonetalisman
 	name = "Bone Talisman"
-	result = list(/obj/item/clothing/accessory/necklace/talisman)
+	result = list(/obj/item/clothing/accessory/talisman)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/sinew = 1)
@@ -754,7 +745,7 @@
 
 /datum/crafting_recipe/bonecodpiece
 	name = "Skull Codpiece"
-	result = list(/obj/item/clothing/accessory/necklace/skullcodpiece)
+	result = list(/obj/item/clothing/accessory/skullcodpiece)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
@@ -851,7 +842,7 @@
 	name = "Bonfire"
 	time = 60
 	reqs = list(/obj/item/grown/log = 5)
-	result = list(/obj/structure/bonfire)
+	result = list(/obj/structure/lightable/bonfire)
 	category = CAT_PRIMAL
 	alert_admins_on_craft = TRUE
 

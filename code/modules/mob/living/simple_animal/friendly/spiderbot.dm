@@ -46,15 +46,15 @@
 		eject_brain()
 	return ..()
 
-/mob/living/simple_animal/spiderbot/attackby(obj/item/O, mob/living/user, params)
+/mob/living/simple_animal/spiderbot/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/mmi))
 		var/obj/item/mmi/B = O
 		if(mmi) //There's already a brain in it.
 			to_chat(user, "<span class='warning'>There's already a brain in [src]!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!B.brainmob)
 			to_chat(user, "<span class='warning'>Sticking an empty MMI into the frame would sort of defeat the purpose.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!B.brainmob.key)
 			var/ghost_can_reenter = 0
 			if(B.brainmob.mind)
@@ -68,15 +68,15 @@
 						break
 			if(!ghost_can_reenter)
 				to_chat(user, "<span class='notice'>[B] is completely unresponsive; there's no point.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		if(B.brainmob.stat == DEAD)
 			to_chat(user, "<span class='warning'>[B] is dead. Sticking it into the frame would sort of defeat the purpose.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(jobban_isbanned(B.brainmob, "Cyborg") || jobban_isbanned(B.brainmob, "nonhumandept"))
 			to_chat(user, "<span class='warning'>[B] does not seem to fit.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, "<span class='notice'>You install [B] in [src]!</span>")
 
@@ -86,16 +86,16 @@
 		transfer_personality(B)
 
 		update_icon()
-		return 1
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
 		if(!mmi)
 			to_chat(user, "<span class='warning'>There's no reason to swipe your ID - the spiderbot has no brain to remove.</span>")
-			return 0
+			return ITEM_INTERACT_COMPLETE
 
 		if(emagged)
 			to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
-			return 0
+			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/card/id/id_card
 
@@ -108,13 +108,10 @@
 		if(ACCESS_ROBOTICS in id_card.access)
 			to_chat(user, "<span class='notice'>You swipe your access card and pop the brain out of [src].</span>")
 			eject_brain()
-			return 1
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>You swipe your card, with no effect.</span>")
-			return 0
-
-	else
-		..()
+			return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/spiderbot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)

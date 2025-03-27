@@ -15,12 +15,12 @@
 	/// Whether `attack_self` will move ("dribble") it to the other hand
 	var/dribbleable = FALSE // Most balls do not have a dribble animation
 
-/obj/item/beach_ball/attack_self(mob/user)
+/obj/item/beach_ball/attack_self__legacy__attackchain(mob/user)
 	if(!dribbleable)
 		return
 
 	if(!user.get_inactive_hand()) // We ballin
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_inactive_hand(src)
 	else
 		to_chat(user, "<span class='warning'>You can't dribble to an occupied hand!</span>")
@@ -69,7 +69,7 @@
 	density = TRUE
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 
-/obj/structure/holohoop/attackby(obj/item/W, mob/user, params)
+/obj/structure/holohoop/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/grab) && get_dist(src, user) <= 1)
 		var/obj/item/grab/G = W
 		if(G.state < GRAB_AGGRESSIVE)

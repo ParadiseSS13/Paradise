@@ -307,9 +307,9 @@ Difficulty: Hard
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A, yes)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A)
 	if(charging)
-		if(isliving(A) && yes)
+		if(isliving(A))
 			var/mob/living/L = A
 			if(!istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -345,8 +345,11 @@ Difficulty: Hard
 		disable_shield()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!body_shield_enabled)
-		return ..()
+		return
 	do_sparks(2, 1, src)
 	visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attack!</span>")
 	if(I.force)
@@ -596,7 +599,7 @@ Difficulty: Hard
 					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
 					hotspot.temperature = 1000
 					hotspot.recolor()
-					T.hotspot_expose(700,50,1)
+					T.hotspot_expose(700, 50)
 			if(mode == VORTEX)
 				var/turf/T = get_turf(src)
 				for(var/atom/A in T)
@@ -695,9 +698,9 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
 	leg_part = Beam(core.beam, "leg_connection", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/onTransitZ(old_z,new_z)
+/mob/living/simple_animal/hostile/ancient_robot_leg/on_changed_z_level(turf/old_turf, turf/new_turf)
 	..()
-	update_z(new_z)
+	update_z(new_turf?.z)
 	if(leg_part)
 		QDEL_NULL(leg_part)
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
@@ -730,10 +733,10 @@ Difficulty: Hard
 	walk_towards(src, T, movespeed)
 	DestroySurroundings()
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A, yes)
+/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A)
 	if(!core.charging)
 		return
-	if(isliving(A) && yes)
+	if(isliving(A))
 		if(!istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -820,7 +823,7 @@ Difficulty: Hard
 	tesla_zap(src, zap_range, power, zap_flags)
 	qdel(src)
 
-/obj/item/projectile/energy/tesla_bolt/Bump(atom/A, yes) // Don't want the projectile hitting the legs
+/obj/item/projectile/energy/tesla_bolt/Bump(atom/A) // Don't want the projectile hitting the legs
 	if(!istype(/mob/living/simple_animal/hostile/ancient_robot_leg, A))
 		return ..()
 	var/turf/target_turf = get_turf(A)

@@ -195,3 +195,20 @@ deviation is impossible.
    be given for hijackers and accessibility to the emergency shuttle console, as
    well as the ability of crew to storm the bridge if necessary to prevent a
    hijack.
+
+# Submap-Specific Guidance
+
+1. Submaps should be used to increase variety and add an element of chance to
+   player mechanics. They should not be used with an intention to confuse
+   players, or to cut off the primary path through the maintenance tunnels.
+   Primary paths through maints can make detours but must return to their
+   original ingress and egress points. Paths which lead to department maints
+   airlocks must remain obvious and easily accessible.
+
+2. All pre-existing balance guidelines regarding mapping apply to submaps. Loot
+   counts must remain consistent. Walls should only be reinforced in appropriate
+   places. There should be no "treasure troves" or hoards only accessible with
+   detailed map knowledge. AI cameras cannot be placed in maints submaps.
+   Antag/sec balance, tactical flexibility, and navigability must be considered.
+   Dead ends are to be avoided. Department maintenance airlocks may not be moved
+   or removed.

@@ -14,6 +14,11 @@
 	///Shoebypassing, walking interaction, silence
 	var/flags
 
+	///given to connect_loc to listen for something moving over target
+	var/static/list/crossed_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+
 	var/cooldown = 0
 
 /datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100, _weaken_duration = 6 SECONDS, _flags = NONE)
@@ -23,10 +28,12 @@
 	src.weaken_duration = _weaken_duration
 	src.flags = _flags
 
-/datum/component/caltrop/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, PROC_REF(Crossed))
+	if(ismovable(parent))
+		AddComponent(/datum/component/connect_loc_behalf, parent, crossed_connections)
+	else
+		RegisterSignal(get_turf(parent), COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 
-/datum/component/caltrop/proc/Crossed(datum/source, atom/movable/AM)
+/datum/component/caltrop/proc/on_entered(atom/source, atom/movable/entered, turf/old_loc)
 	var/atom/A = parent
 	if(!has_gravity(A))
 		return
@@ -34,10 +41,10 @@
 	if(!prob(probability))
 		return
 
-	if(!ishuman(AM))
+	if(!ishuman(entered))
 		return
 
-	var/mob/living/carbon/human/H = AM
+	var/mob/living/carbon/human/H = entered
 
 	if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 		return
@@ -82,3 +89,7 @@
 
 		cooldown = world.time
 	H.Weaken(weaken_duration)
+
+/datum/component/caltrop/UnregisterFromParent()
+	if(ismovable(parent))
+		qdel(GetComponent(/datum/component/connect_loc_behalf))

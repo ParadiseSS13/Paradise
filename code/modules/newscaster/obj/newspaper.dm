@@ -37,7 +37,7 @@
 	if(!news_content)
 		news_content = list()
 
-/obj/item/newspaper/attack_self(mob/user)
+/obj/item/newspaper/attack_self__legacy__attackchain(mob/user)
 	if(rolled)
 		to_chat(user, "<span class='warning'>Unroll it first!</span>")
 		return
@@ -99,7 +99,7 @@
 				for(var/datum/feed_channel/NP in news_content)
 					pages++
 				if(important_message!=null)
-					dat += "<div style='float:center;'><font size=4><b>Wanted Issue:</b></font size></div><br><br>"
+					dat += "<div style='float:center;'><font size=4><b>Wanted Issue:</b></font></div><br><br>"
 					dat += "<b>Criminal name</b>: <font color='maroon'>[important_message.author]</font><br>"
 					dat += "<b>Description</b>: [important_message.body]<br>"
 					dat += "<b>Photo:</b>: "
@@ -153,9 +153,9 @@
 		curr_page--
 		playsound(loc, "pageturn", 50, TRUE)
 	if(loc == M)
-		attack_self(M)
+		attack_self__legacy__attackchain(M)
 
-/obj/item/newspaper/attackby(obj/item/W, mob/user, params)
+/obj/item/newspaper/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		if(rolled)
 			to_chat(user, "<span class='warning'>Unroll it first!</span>")
@@ -170,7 +170,7 @@
 			scribble = s
 			user.visible_message("<span class='notice'>[user] scribbles something on [src].</span>",\
 								"<span class='notice'>You scribble on page number [curr_page] of [src].</span>")
-			attack_self(user)
+			attack_self__legacy__attackchain(user)
 		return
 	return ..()
 

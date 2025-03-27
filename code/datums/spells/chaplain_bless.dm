@@ -3,11 +3,11 @@
 	name = "Bless"
 	desc = "Blesses a single person."
 
-	school = "transmutation"
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	antimagic_flags = NONE
 
 	selection_activated_message = "<span class='notice'>You prepare a blessing. Click on a target to start blessing.</span>"
 	selection_deactivated_message = "<span class='notice'>The crew will be blessed another time.</span>"

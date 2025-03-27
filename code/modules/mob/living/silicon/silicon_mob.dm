@@ -222,6 +222,12 @@
 /mob/living/silicon/drop_item()
 	return
 
+/mob/living/silicon/put_in_l_hand(obj/item/W, skip_blocked_hands_check)
+	return
+
+/mob/living/silicon/put_in_r_hand(obj/item/W, skip_blocked_hands_check)
+	return
+
 /mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return FALSE //So borgs they don't die trying to fix wiring
 
@@ -280,10 +286,14 @@
 
 	return 2
 
-/mob/living/silicon/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/silicon/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		place_on_head(user.get_active_hand(), user)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/mob/living/silicon/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)
 	if(I.force)
 		var/bonus_damage = 0
@@ -539,7 +549,7 @@
 		to_chat(user, "<span class='warning'>[item_to_add] does not fit on the head of [src]!</span>")
 		return FALSE
 
-	if(!user.unEquip(item_to_add))
+	if(!user.transfer_item_to(item_to_add, src))
 		to_chat(user, "<span class='warning'>[item_to_add] is stuck to your hand, you cannot put it on [src]!</span>")
 		return FALSE
 
@@ -547,7 +557,6 @@
 		"<span class='notice'>[user] puts [item_to_add] on [real_name].</span>",
 		"<span class='notice'>You put [item_to_add] on [real_name].</span>"
 	)
-	item_to_add.forceMove(src)
 	silicon_hat = item_to_add
 	update_icons()
 
@@ -578,7 +587,7 @@
 
 /mob/living/silicon/proc/drop_hat()
 	if(silicon_hat)
-		unEquip(silicon_hat)
+		drop_item_to_ground(silicon_hat)
 		null_hat()
 		update_icons()
 		return TRUE
@@ -594,3 +603,6 @@
 	if(silicon_hat)
 		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
 		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
+
+/mob/living/silicon/plushify(plushie_override, curse_time)
+	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)

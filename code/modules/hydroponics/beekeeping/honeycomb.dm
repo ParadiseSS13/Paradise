@@ -7,11 +7,11 @@
 	volume = 10
 	list_reagents = list("honey" = 5)
 	var/honey_color = ""
+	scatter_distance = 8
 
 /obj/item/food/honeycomb/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(8,-8)
-	pixel_y = rand(8,-8)
+	scatter_atom()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/food/honeycomb/update_overlays()

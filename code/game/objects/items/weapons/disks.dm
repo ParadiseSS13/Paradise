@@ -9,7 +9,7 @@
 /obj/item/disk/data
 	name = "Cloning Data Disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
-	var/datum/dna2/record/buf = null
+	var/datum/dna2_record/buf = null
 	var/read_only = FALSE //Well,it's still a floppy disk
 
 /obj/item/disk/data/proc/initialize_data()
@@ -54,10 +54,10 @@
 //Disk stuff.
 /obj/item/disk/data/New()
 	. = ..()
-	var/diskcolor = pick(0, 1, 2)
+	var/diskcolor = pick(0, 1, 2, 3, 4, 5)
 	icon_state = "datadisk[diskcolor]"
 
-/obj/item/disk/data/attack_self(mob/user)
+/obj/item/disk/data/attack_self__legacy__attackchain(mob/user)
 	read_only = !read_only
 	to_chat(user, "You flip the write-protect tab to [read_only ? "protected" : "unprotected"].")
 

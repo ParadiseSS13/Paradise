@@ -63,15 +63,14 @@
 
 	if(S.pickup_all_on_tile)
 		for(var/obj/item/stack/ore/O in contents)
-			O.attackby(S, user)
+			O.attackby__legacy__attackchain(S, user)
 			return
 
-/turf/simulated/floor/plating/asteroid/attackby(obj/item/I, mob/user, params)
-	//note that this proc does not call ..()
-	if(!I|| !user)
-		return FALSE
+/turf/simulated/floor/plating/asteroid/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(QDELETED(user)|| QDELETED(used))
+		return ITEM_INTERACT_COMPLETE
 
-	if((istype(I, /obj/item/shovel) || istype(I, /obj/item/pickaxe)))
+	if((istype(used, /obj/item/shovel) || istype(used, /obj/item/pickaxe)))
 		if(!can_dig(user))
 			return TRUE
 
@@ -81,19 +80,19 @@
 
 		to_chat(user, "<span class='notice'>You start digging...</span>")
 
-		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 40 * I.toolspeed, target = src))
+		playsound(src, used.usesound, 50, TRUE)
+		if(do_after(user, 40 * used.toolspeed, target = src))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")
 			getDug()
 			return TRUE
 
-	else if(istype(I, /obj/item/storage/bag/ore))
-		attempt_ore_pickup(I, user)
+	else if(istype(used, /obj/item/storage/bag/ore))
+		attempt_ore_pickup(used, user)
 
-	else if(istype(I, /obj/item/stack/tile))
-		var/obj/item/stack/tile/Z = I
+	else if(istype(used, /obj/item/stack/tile))
+		var/obj/item/stack/tile/Z = used
 		if(!Z.use(1))
 			return
 		if(istype(Z, /obj/item/stack/tile/plasteel)) // Turn asteroid floors into plating by default
@@ -101,6 +100,9 @@
 		else
 			ChangeTurf(Z.turf_type, keep_icon = FALSE)
 		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+
+/turf/simulated/floor/plating/asteroid/screwdriver_act(mob/user, obj/item/I)
+	return
 
 /turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/I)
 	return

@@ -8,6 +8,7 @@
 	taste_description = "burning"
 	burn_temperature = T0C + 500
 	burn_duration = 20 SECONDS
+	burn_color = "white"
 	var/temp_fire = 4000
 	var/temp_deviance = 1000
 	var/size_divisor = 40
@@ -46,6 +47,7 @@
 	size_divisor = 80
 	mob_burning = 3 // 15
 	burn_temperature = T0C + 700
+	burn_color = "white"
 
 /datum/reagent/napalm
 	name = "Napalm"
@@ -198,6 +200,7 @@
 	taste_description = "rust"
 	burn_temperature = T0C + 1500 // hahahahHAHAHAHAH LET IT BURN
 	burn_duration = 5 SECONDS // Not for long though
+	burn_color = "blue" // too hot!
 
 /datum/reagent/thermite/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -253,6 +256,7 @@
 	burn_temperature = T0C + 700
 	burn_duration = 15 SECONDS
 	fire_stack_applications = 3
+	burn_color = "green"
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	if(M.on_fire)

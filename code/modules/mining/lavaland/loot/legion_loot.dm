@@ -30,7 +30,7 @@
 	. += "<span class='notice'>Use it on targets to summon thunderbolts from the sky.</span>"
 	. += "<span class='notice'>The thunderbolts are boosted if in an area with weather effects.</span>"
 
-/obj/item/storm_staff/attack(mob/living/target, mob/living/user)
+/obj/item/storm_staff/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(cigarette_lighter_act(user, target))
 		return TRUE
 
@@ -62,7 +62,7 @@
 	thunder_charges--
 	return TRUE
 
-/obj/item/storm_staff/attack_self(mob/user)
+/obj/item/storm_staff/attack_self__legacy__attackchain(mob/user)
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
 	if(!user_area || !user_turf)
@@ -92,7 +92,7 @@
 			user.transform *= 1.2
 			animate(user, color = old_color, transform = old_transform, time = 1 SECONDS)
 
-/obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/storm_staff/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	// This early return stops the staff from shooting lightning at someone when being used as a lighter.
 	if(iscarbon(target))
 		var/mob/living/carbon/cig_haver = target

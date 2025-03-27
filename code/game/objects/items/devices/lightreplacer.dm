@@ -61,7 +61,7 @@
 	. = ..()
 	. += status_string()
 
-/obj/item/lightreplacer/attackby(obj/item/I, mob/user)
+/obj/item/lightreplacer/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(uses >= max_uses)
 		to_chat(user, "<span class='warning'>[src] is full.</span>")
 		return
@@ -77,7 +77,7 @@
 		return
 
 	if(istype(I, /obj/item/shard))
-		if(!user.unEquip(I))
+		if(!user.drop_item_to_ground(I))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 
@@ -88,7 +88,7 @@
 
 	if(istype(I, /obj/item/light))
 		var/obj/item/light/L = I
-		if(!user.unEquip(L))
+		if(!user.drop_item_to_ground(L))
 			to_chat(user, "<span class='warning'>[L] is stuck to your hand!</span>")
 			return
 
@@ -142,7 +142,7 @@
 		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 		return TRUE
 
-/obj/item/lightreplacer/attack_self(mob/user)
+/obj/item/lightreplacer/attack_self__legacy__attackchain(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
 		ReplaceLight(target, user)
 	to_chat(user, status_string())
@@ -210,10 +210,10 @@
 	else
 		return 0
 
-/obj/item/lightreplacer/afterattack(atom/target, mob/U, proximity)
+/obj/item/lightreplacer/afterattack__legacy__attackchain(atom/target, mob/U, proximity)
 	. = ..()
 	if(isitem(target))
-		attackby(target, U)
+		attackby__legacy__attackchain(target, U)
 		return
 
 	if(!proximity && !bluespace_toggle)

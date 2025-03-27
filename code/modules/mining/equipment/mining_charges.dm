@@ -26,11 +26,11 @@
 	if(timer_off)
 		. += "<span class='notice'>The mining charge is connected to a detonator.</span>"
 
-/obj/item/grenade/plastic/miningcharge/attack_self(mob/user)
+/obj/item/grenade/plastic/miningcharge/attack_self__legacy__attackchain(mob/user)
 	if(nadeassembly)
-		nadeassembly.attack_self(user)
+		nadeassembly.attack_self__legacy__attackchain(user)
 
-/obj/item/grenade/plastic/miningcharge/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/miningcharge/afterattack__legacy__attackchain(atom/movable/AM, mob/user, flag)
 	if(!ismineralturf(AM) && !hacked)
 		return
 	if(is_ancient_rock(AM) && !hacked)
@@ -45,7 +45,7 @@
 	to_chat(user, "<span class='notice'>You start planting [src].</span>")
 	if(!do_after(user, (2.5 SECONDS) * toolspeed, target = AM))
 		return
-	if(!user.unEquip(src))
+	if(!user.unequip(src))
 		return
 	target = AM
 	forceMove(AM)
@@ -55,7 +55,7 @@
 	installed = TRUE
 	target.overlays += image_overlay
 
-/obj/item/grenade/plastic/miningcharge/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/miningcharge/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/detonator))
 		return
 	var/obj/item/detonator/detonator = I
@@ -157,7 +157,7 @@
 	. = ..()
 	. += "<span class='notice'>This scanner has an extra port for overriding mining charge safeties.</span>"
 
-/obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/item/grenade/plastic/miningcharge))
 		return
 	var/obj/item/grenade/plastic/miningcharge/charge = target
@@ -200,7 +200,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/item/detonator/attack_self(mob/user)
+/obj/item/detonator/attack_self__legacy__attackchain(mob/user)
 	playsound(src, 'sound/items/detonator.ogg', 40)
 	if(length(bombs))
 		to_chat(user, "<span class='notice'>Activating explosives...</span>")

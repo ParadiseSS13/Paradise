@@ -506,6 +506,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	antimagic_flags = NONE
 	selection_activated_message = "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
 	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
 	action_icon_state = "hackerman"
@@ -663,14 +664,25 @@
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
-	desc = "This implant will attempt to heal you out of critical condition. For the faint of heart!"
+	desc = "This implant will attempt to revive and heal you out of critical condition or death. For the faint of heart!"
 	icon_state = "reviver_implant"
 	implant_overlay = null
-	origin_tech = "materials=5;programming=4;biotech=4"
+	origin_tech = "materials=5;programming=5;biotech=6"
 	slot = "heartdrive"
-	var/revive_cost = 0
+	/// How long the implant will go on cooldown for once the user has exited crit, in seconds.
+	var/revive_cost = 0 SECONDS
+	/// Are we in the progress of healing the user?
 	var/reviving = FALSE
-	var/cooldown = 0
+	/// Have we defibed someone this heal period? If so, do not heal past crit without an upgraded heart, as it is low on juice.
+	var/has_defibed = FALSE
+	/// How long we are on cooldown for
+	COOLDOWN_DECLARE(reviver_cooldown)
+	/// How long till we can try to defib again
+	COOLDOWN_DECLARE(defib_cooldown)
+	/// This check is an aditional minute delay applied to nuggeted IPCS, so they are not endlessly instantly reviving.
+	COOLDOWN_DECLARE(nugget_contingency)
+	/// The trigger when nuggeted is detected. Resets when revived. Prevents the cooldown from being applied again.
+	var/applied_nugget_cooldown = FALSE
 
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	name = "Hardened reviver implant"
@@ -680,52 +692,152 @@
 	. = ..()
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
 
+/obj/item/organ/internal/cyberimp/chest/reviver/dead_process()
+	try_heal() // Allows implant to work even on dead people
+
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
-	if(cooldown > world.time || owner.suiciding) // don't heal while you're in cooldown!
-		return
+	try_heal()
+
+/obj/item/organ/internal/cyberimp/chest/reviver/proc/try_heal()
 	if(reviving)
-		reviving = FALSE
-		if(owner.health <= HEALTH_THRESHOLD_CRIT + 10) //We do not want to leave them on the end of crit constantly.
-			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
-			reviving = TRUE
-		if(owner.health > HEALTH_THRESHOLD_CRIT && owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //We do not do an else, as we need them to cure shock inside this magic zone of 10 damage
-			for(var/datum/disease/critical/shock/S in owner.viruses)
-				S.cure()
-				revive_cost += 150
-				to_chat(owner, "<span class='notice'>You feel better.</span>")
-		if(!reviving)
-			return
-	cooldown = revive_cost + world.time
-	revive_cost = 0
-	reviving = TRUE
+		if(owner.stat != DEAD && reached_heal_threshold()) //Don't stop healing when they are dead.
+			COOLDOWN_START(src, reviver_cooldown, revive_cost)
+			reviving = FALSE
+			to_chat(owner, "<span class='notice'>Your reviver implant shuts down and starts recharging. It will be ready again in [DisplayTimeText(revive_cost)].</span>")
+			applied_nugget_cooldown = FALSE
+		else
+			addtimer(CALLBACK(src, PROC_REF(heal)), 3 SECONDS)
+		return
+	if(!COOLDOWN_FINISHED(src, reviver_cooldown) || owner.suiciding || !COOLDOWN_FINISHED(src, nugget_contingency)) // don't heal while you're in cooldown!
+		return
+	if(owner.health <= 0 || owner.stat == DEAD)
+		if(ismachineperson(owner))
+			if(!applied_nugget_cooldown && length(owner.bodyparts) <= 2)
+				COOLDOWN_START(src, nugget_contingency, 1 MINUTES)
+				applied_nugget_cooldown = TRUE
+				return
+		revive_cost = 0
+		reviving = TRUE
+		has_defibed = FALSE
+		to_chat(owner, "<span class='notice'>You feel a faint buzzing as your reviver implant starts patching your wounds...</span>")
+		COOLDOWN_START(src, defib_cooldown, 8 SECONDS) // 5 seconds after heal proc delay
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
 	if(QDELETED(owner))
 		return
-	if(prob(90) && owner.getOxyLoss())
+	// This is not on defib check so it doesnt revive IPCs either in a demon.
+	if(HAS_TRAIT(owner, TRAIT_UNREVIVABLE))
+		return
+	if(COOLDOWN_FINISHED(src, defib_cooldown))
+		revive_dead()
+	/// boolean that stands for if PHYSICAL damage being patched
+	var/body_damage_patched = FALSE
+	if(owner.getOxyLoss())
 		owner.adjustOxyLoss(-3)
-		revive_cost += 5
-	if(prob(75) && owner.getBruteLoss())
-		owner.adjustBruteLoss(-2)
-		revive_cost += 15
-	if(prob(75) && owner.getFireLoss())
-		owner.adjustFireLoss(-2)
-		revive_cost += 15
-	if(prob(40) && owner.getToxLoss())
+		revive_cost += 0.5 SECONDS
+	if(owner.getBruteLoss())
+		owner.adjustBruteLoss(-2, robotic = TRUE)
+		revive_cost += 4 SECONDS
+		body_damage_patched = TRUE
+	if(owner.getFireLoss())
+		owner.adjustFireLoss(-2, robotic = TRUE)
+		revive_cost += 4 SECONDS
+		body_damage_patched = TRUE
+	if(owner.getToxLoss())
 		owner.adjustToxLoss(-1)
-		revive_cost += 25
+		revive_cost += 4 SECONDS
 
+	if(body_damage_patched && prob(25)) // healing is called every few seconds, not every tick
+		if(owner.stat != CONSCIOUS)
+			owner.visible_message("<span class='warning'>[owner]'s body [pick("twitches", "shifts", "shivers", "spasms", "vibrates")] a bit.</span>", \
+			"<span class='notice'>You feel like something is patching your injured body.</span>")
+		else // No twitching if awake.
+			to_chat(owner, "<span class='notice'>You feel like something is patching your injured body.</span>")
+
+/obj/item/organ/internal/cyberimp/chest/reviver/proc/revive_dead()
+	if(!COOLDOWN_FINISHED(src, defib_cooldown) || owner.stat != DEAD || !can_defib())
+		return
+	var/mob/dead/observer/ghost = owner.get_ghost()
+	if(ghost)
+		if(!ghost.can_reenter_corpse)
+			return
+		to_chat(ghost, "<span class='ghostalert'>You are being revived by [src]!</span>")
+		window_flash(ghost.client)
+		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
+	COOLDOWN_START(src, defib_cooldown, 16 SECONDS)
+	playsound(get_turf(owner), 'sound/machines/defib_charge.ogg', 50, FALSE)
+	owner.grab_ghost()
+	owner.visible_message("<span class='warning'>[owner]'s body spasms violently!</span>")
+	addtimer(CALLBACK(src, PROC_REF(zap_em)), 5 SECONDS)
+
+/obj/item/organ/internal/cyberimp/chest/reviver/proc/zap_em()
+	playsound(owner, 'sound/machines/defib_zap.ogg', 75, TRUE, -1)
+	// Inflict some brain damage scaling with time spent dead
+	var/time_dead = world.time - owner.timeofdeath
+	var/obj/item/organ/internal/brain/sponge = owner.get_int_organ(/obj/item/organ/internal/brain)
+	var/defib_time_brain_damage = min(100 * time_dead / BASE_DEFIB_TIME_LIMIT, 89) // 20 from 1 minute onward, +20 per minute up to 99 (10 organ damage flat added after)
+	if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > sponge.damage)
+		owner.setBrainLoss(defib_time_brain_damage)
+	// Turns out it takes some raw materials to heal you so much and defib you from inside. We took some material from your organs and iron from blood, hope you do not mind!
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		for(var/obj/item/organ/internal/I in H.internal_organs)
+			I.receive_damage(10, TRUE)
+		H.blood_volume *= 0.85
+	revive_cost += 10 MINUTES // Additional 10 minutes cooldown after revival.
+	owner.SetLoseBreath(0) //Reset the heart attack losebreath of hell
+	owner.set_heartattack(FALSE)
+	owner.update_revive()
+	owner.KnockOut()
+	owner.Paralyse(10 SECONDS)
+	owner.emote("gasp")
+	owner.Jitter(20 SECONDS)
+	has_defibed = TRUE
+	SEND_SIGNAL(owner, COMSIG_LIVING_MINOR_SHOCK)
+	add_attack_logs(owner, owner, "Revived with [src]")
+
+/obj/item/organ/internal/cyberimp/chest/reviver/proc/can_defib()
+	if(!owner)
+		return FALSE
+	// They will get up on their own.
+	if(ismachineperson(owner))
+		return FALSE
+	// Slight tweak, revive if brute burn and oxygen loss *combined* are above 210, to avoid spam defibing at like, 200+ brute burn damage or 200 o2 loss
+	if(!owner.is_revivable() || owner.getBruteLoss() + owner.getFireLoss() + owner.getOxyLoss() >= 210 || HAS_TRAIT(owner, TRAIT_HUSK) || owner.blood_volume < BLOOD_VOLUME_SURVIVE)
+		return FALSE
+	// Let us break this on multiple lines
+	// Clone loss is a new addition outside defib code, to avoid endless revive hell.
+	// Avoid defibing with over 125 toxin loss as well. This also means toxin will delay someone from being revived *much* longer.
+	if(!owner.get_organ_slot("brain") || HAS_TRAIT(owner, TRAIT_FAKEDEATH) || HAS_TRAIT(owner, TRAIT_BADDNA) || owner.getCloneLoss() >= 180 || owner.getToxLoss() >= 125)
+		return FALSE
+	return TRUE
+
+/obj/item/organ/internal/cyberimp/chest/reviver/proc/reached_heal_threshold()
+	// By default, 0 health. Won't heal you out of shock alone, will need some medical attention still if you do not have meds!
+	// Will heal you out of crit though with 2 ticks of extra healing, due to callback.
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		var/heal_threshold = 0
+		var/obj/item/organ/internal/heart/cybernetic/upgraded/U = H.get_int_organ(/obj/item/organ/internal/heart/cybernetic/upgraded)
+		if(U) // The heart assists in healing, and will heal you out of shock.
+			heal_threshold = 25
+		if(!has_defibed) // Not low on power, can heal you out of shock.
+			heal_threshold = 25
+		if(H.health > heal_threshold)
+			return TRUE
+	return FALSE
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)
 	if(!owner || emp_proof)
 		return
 	if(reviving)
-		revive_cost += 200
+		revive_cost += 40 SECONDS
+		COOLDOWN_START(src, defib_cooldown, 20 SECONDS)
 	else
-		cooldown += 200
+		COOLDOWN_START(src, reviver_cooldown, 20 SECONDS)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		if(H.stat != DEAD && prob(50 / severity))
+		if(H.stat != DEAD && prob(50 / severity) && H.can_heartattack())
 			H.set_heartattack(TRUE)
 			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), 600 / severity)
 
@@ -734,6 +846,8 @@
 	if(!istype(H))
 		return
 	H.set_heartattack(FALSE)
+	H.adjustOxyLoss(-100) ///In the unlikely case that you are still alive, this should get you maybe to livable circumstances.
+	H.SetLoseBreath(0)
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 

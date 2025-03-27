@@ -13,7 +13,7 @@
 
 	origin_tech = "engineering=1;magnets=1"
 
-/obj/item/mining_scanner/attack_self(mob/user)
+/obj/item/mining_scanner/attack_self__legacy__attackchain(mob/user)
 	if(!user.client)
 		return
 	if(current_cooldown <= world.time)
@@ -24,7 +24,7 @@
 //Debug item to identify all ore spread quickly
 /obj/item/mining_scanner/admin
 
-/obj/item/mining_scanner/admin/attack_self(mob/user)
+/obj/item/mining_scanner/admin/attack_self__legacy__attackchain(mob/user)
 	for(var/turf/simulated/mineral/M in world)
 		if(M.ore?.scan_icon_state)
 			M.icon_state = M.ore.scan_icon_state

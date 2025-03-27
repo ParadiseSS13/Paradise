@@ -29,7 +29,7 @@
 	I.forceMove(src)
 	name = "[initial(name)] ([storedorgan.name])"
 
-/obj/item/autosurgeon/organ/attack_self(mob/user) //when the object it used...
+/obj/item/autosurgeon/organ/attack_self__legacy__attackchain(mob/user) //when the object it used...
 	if(!uses)
 		to_chat(user, "<span class='alert'>[src] has already been used. The tools are dull and won't reactivate.</span>")
 		return
@@ -46,7 +46,7 @@
 	if(!uses)
 		desc = "[initial(desc)] Looks like it's been used up."
 
-/obj/item/autosurgeon/organ/attackby(obj/item/I, mob/user, params)
+/obj/item/autosurgeon/organ/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, organ_type))
 		if(storedorgan)
 			to_chat(user, "<span class='alert'>[src] already has an implant stored.</span>")
@@ -151,5 +151,11 @@
 
 /obj/item/autosurgeon/organ/syndicate/oneuse/hardened_heart
 	starting_organ = /obj/item/organ/internal/heart/cybernetic/upgraded/hardened
+
+/obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/syndie_mantis
+
+/obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/syndie_mantis/l
 
 #undef INFINITE

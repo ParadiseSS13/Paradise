@@ -126,7 +126,7 @@
 		if(PIPE_DISPOSALS_OUTLET)
 			return /obj/structure/disposaloutlet
 		if(PIPE_DISPOSALS_CHUTE)
-			return /obj/machinery/disposal/deliveryChute
+			return /obj/machinery/disposal/delivery_chute
 		if(PIPE_DISPOSALS_SORT_RIGHT, PIPE_DISPOSALS_SORT_LEFT)
 			return /obj/structure/disposalpipe/sortjunction
 	return
@@ -187,7 +187,7 @@
 			nicetype = "sorting pipe"
 	return nicetype
 
-/obj/structure/disposalconstruct/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalconstruct/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/nicetype = get_nice_name()
 	var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
 	var/turf/T = get_turf(src)
@@ -248,7 +248,7 @@
 
 					else if(ptype==PIPE_DISPOSALS_CHUTE) // Disposal outlet
 
-						var/obj/machinery/disposal/deliveryChute/P = new /obj/machinery/disposal/deliveryChute(src.loc)
+						var/obj/machinery/disposal/delivery_chute/P = new /obj/machinery/disposal/delivery_chute(src.loc)
 						src.transfer_fingerprints_to(P)
 						P.dir = dir
 

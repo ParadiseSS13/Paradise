@@ -46,7 +46,7 @@
 
 /obj/structure/closet/critter/random/populate_contents()
 	content_mob = pick(/mob/living/simple_animal/pet/dog/corgi,
-	/mob/living/simple_animal/pet/dog/corgi/Lisa,
+	/mob/living/simple_animal/pet/dog/corgi/lisa,
 	/mob/living/simple_animal/cow,
 	/mob/living/simple_animal/pig,
 	/mob/living/simple_animal/hostile/retaliate/goat,
@@ -64,7 +64,7 @@
 
 /obj/structure/closet/critter/corgi/populate_contents()
 	if(prob(50))
-		content_mob = /mob/living/simple_animal/pet/dog/corgi/Lisa
+		content_mob = /mob/living/simple_animal/pet/dog/corgi/lisa
 
 /obj/structure/closet/critter/cow
 	name = "cow crate"
@@ -95,7 +95,7 @@
 
 /obj/structure/closet/critter/cat/populate_contents()
 	if(prob(50))
-		content_mob = /mob/living/simple_animal/pet/cat/Proc
+		content_mob = /mob/living/simple_animal/pet/cat/proc_cat
 
 /obj/structure/closet/critter/pug
 	name = "pug crate"

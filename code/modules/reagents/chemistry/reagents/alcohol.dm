@@ -822,14 +822,14 @@
 /datum/reagent/consumable/ethanol/singulo
 	name = "Singulo"
 	id = "singulo"
-	description = "A bluespace beverage!"
+	description = "The edge of eternity, contained in a glass."
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	dizzy_adj = 30 SECONDS
 	alcohol_perc = 0.7
 	drink_icon = "singulo"
 	drink_name = "Singulo"
-	drink_desc = "A bluespace beverage."
+	drink_desc = "The edge of eternity, contained in a glass."
 	taste_description = "infinity"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -1253,7 +1253,7 @@
 	if(prob(8))
 		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
 	if(prob(2 * volume))
-		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</b></span>")
+		to_chat(M, "<span class='userdanger'><b>OH GOD OH GOD PLEASE NO!!</b></span>")
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 		if(prob(50))

@@ -7,6 +7,8 @@
 	layer = MOB_LAYER - 0.1
 	mob_biotypes = MOB_ROBOTIC
 	light_range = 3
+	light_power = 0.5
+	light_color = "#f3ffbb"
 	stop_automated_movement = TRUE
 	wander = FALSE
 	healable = FALSE
@@ -141,6 +143,58 @@
 	/// Will be true if we lost target we were chasing
 	var/lost_target = FALSE
 
+	/// Cooldown for when to cleanup the ignore list.
+	COOLDOWN_DECLARE(ignore_list_cleanup_cd)
+
+/mob/living/simple_animal/bot/Initialize(mapload)
+	. = ..()
+	GLOB.bots_list += src
+	icon_living = icon_state
+	icon_dead = icon_state
+	access_card = new /obj/item/card/id(src)
+	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
+	access_card.access += ACCESS_ROBOTICS
+	set_custom_texts()
+	Radio = new/obj/item/radio/headset/bot(src)
+	Radio.follow_target = src
+	add_language("Galactic Common", 1)
+	add_language("Sol Common", 1)
+	add_language("Tradeband", 1)
+	add_language("Gutter", 1)
+	add_language("Trinary", 1)
+	default_language = GLOB.all_languages["Galactic Common"]
+
+	prepare_huds()
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_to_hud(src)
+		permanent_huds |= diag_hud
+
+	diag_hud_set_bothealth()
+	diag_hud_set_botstat()
+	diag_hud_set_botmode()
+
+	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
+
+/mob/living/simple_animal/bot/Destroy()
+	if(paicard)
+		ejectpai()
+	set_path(null)
+
+	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
+	if(data_hud)
+		data_hud.remove_hud_from(src)
+
+	GLOB.bots_list -= src
+	QDEL_NULL(path)
+	QDEL_NULL(Radio)
+	QDEL_NULL(access_card)
+
+	if(reset_access_timer_id)
+		deltimer(reset_access_timer_id)
+		reset_access_timer_id = null
+
+	ignore_list = null
+	return ..()
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
@@ -163,13 +217,13 @@
 			lost_target = FALSE
 		last_target_location = get_turf(target)
 		var/dist = get_dist(src, target)
-		walk_to(src, target, 1, 4)
+		GLOB.move_manager.move_to(src, target, 1, 4)
 		if(get_dist(src, target) >= dist)
 			frustration++
 		return
 
 	if(!lost_target)
-		walk_to(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		lost_target = TRUE
 		frustration = 0
 
@@ -185,6 +239,10 @@
 		set_path(last_target_pos_path)
 		bot_move(last_target_location, move_speed = 6)
 	frustration++
+
+/// Setter for mode, so it's all tracable to one place.
+/mob/living/simple_animal/bot/proc/set_mode(new_mode)
+	mode = new_mode
 
 /mob/living/simple_animal/bot/proc/get_mode()
 	if(client) // Player bots do not have modes, thus the override. Also an easy way for PDA users/AI to know when a bot is a player.
@@ -222,61 +280,11 @@
 	update_icon()
 	update_controls()
 
-/mob/living/simple_animal/bot/Initialize(mapload)
-	. = ..()
-	GLOB.bots_list += src
-	icon_living = icon_state
-	icon_dead = icon_state
-	access_card = new /obj/item/card/id(src)
-	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
-	access_card.access += ACCESS_ROBOTICS
-	set_custom_texts()
-	Radio = new/obj/item/radio/headset/bot(src)
-	Radio.follow_target = src
-	add_language("Galactic Common", 1)
-	add_language("Sol Common", 1)
-	add_language("Tradeband", 1)
-	add_language("Gutter", 1)
-	add_language("Trinary", 1)
-	default_language = GLOB.all_languages["Galactic Common"]
-
-	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
-		permanent_huds |= diag_hud
-
-	diag_hud_set_bothealth()
-	diag_hud_set_botstat()
-	diag_hud_set_botmode()
-
-	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
-
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return // We use a different hud
 
 /mob/living/simple_animal/bot/med_hud_set_status()
 	return // We use a different hud
-
-
-/mob/living/simple_animal/bot/Destroy()
-	if(paicard)
-		ejectpai()
-	set_path(null)
-
-	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
-	if(data_hud)
-		data_hud.remove_hud_from(src)
-
-	GLOB.bots_list -= src
-	QDEL_NULL(path)
-	QDEL_NULL(Radio)
-	QDEL_NULL(access_card)
-
-	if(reset_access_timer_id)
-		deltimer(reset_access_timer_id)
-		reset_access_timer_id = null
-
-	return ..()
 
 /mob/living/simple_animal/bot/mob_negates_gravity()
 	return anchored
@@ -331,17 +339,35 @@
 	..(reason)
 	diag_hud_set_bothealth()
 
+/// Add an atom to our list of ignored objects.
+/mob/living/simple_animal/bot/proc/add_to_ignore(atom/subject)
+	if(isnull(subject) || (subject in ignore_list))
+		return
+
+	if(length(ignore_list) >= 50)
+		remove_ignored_atom(ignore_list[1])
+
+	ignore_list += subject
+	RegisterSignal(subject, COMSIG_PARENT_QDELETING, PROC_REF(remove_ignored_atom))
+
+/// Remove an atom from the ignore list.
+/mob/living/simple_animal/bot/proc/remove_ignored_atom(datum/source)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	ignore_list -= source
+
+/// Wipe the ignore list.
+/mob/living/simple_animal/bot/proc/clear_ignore_list()
+	for(var/atom/A as anything in ignore_list)
+		remove_ignored_atom(A)
+
 /mob/living/simple_animal/bot/handle_automated_action()
 	diag_hud_set_botmode()
 
-	if(++ignore_list_cleanup_timer == 300) // Every 300 actions, clean up the ignore list from old junk
-		for(var/uid in ignore_list)
-			var/atom/referred_atom = locateUID(uid)
-			if(!referred_atom || QDELETED(referred_atom))
-				ignore_list -= uid
-		ignore_list_cleanup_timer = 0
-	else
-		ignore_list_cleanup_timer++
+	if(COOLDOWN_FINISHED(src, ignore_list_cleanup_cd))
+		clear_ignore_list()
+		COOLDOWN_START(src, ignore_list_cleanup_cd, 20 SECONDS)
 
 	if(!on)
 		return
@@ -356,6 +382,8 @@
 		if(BOT_SUMMON)		// Called by PDA
 			bot_summon()
 			return
+		if(BOT_PATHING)
+			return FALSE
 	return TRUE // Successful completion. Used to prevent child process() continuing if this one is ended early.
 
 /mob/living/simple_animal/bot/attack_alien(mob/living/carbon/alien/user)
@@ -395,44 +423,44 @@
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
 
-/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(emagged)
 			to_chat(user, "<span class='danger'>ERROR</span>")
 		if(open)
 			to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(W, /obj/item/paicard))
 		if(paicard)
 			to_chat(user, "<span class='warning'>A [paicard] is already inserted!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!allow_pai || key)
 			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(locked || open || hijacked)
 			to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/paicard/card = W
 		if(!card.pai?.mind)
 			to_chat(user, "<span class='warning'>[W] is inactive.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
 			to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		W.forceMove(src)
 		paicard = card
@@ -443,20 +471,19 @@
 		name = paicard.pai.name
 		faction = user.faction
 		add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			if(paicard)
 				user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
 				ejectpai(user)
-				return
-	return ..()
+				return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -572,7 +599,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	for(var/atom/A in view(scan_range, src)) // Search for something in range!
 		if(!istype(A, scan_type)) // Check that the thing we found is the type we want!
 			continue // If not, keep searching!
-		if((A.UID() in ignore_list) || (A == old_target)) // Filter for blacklisted elements, usually unreachable or previously processed oness
+		if((A in ignore_list) || (A == old_target)) // Filter for blacklisted elements, usually unreachable or previously processed ones
 			continue
 		var/scan_result = process_scan(A) // Some bots may require additional processing when a result is selected.
 		if(!scan_result)
@@ -597,12 +624,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 // When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
 	return scan_target
-
-
-/mob/living/simple_animal/bot/proc/add_to_ignore(atom/A)
-	if(length(ignore_list) >= 50) // This will help keep track of them, so the bot is always trying to reach a blocked spot.
-		ignore_list.Cut(1, 2) // If the list is full, insert newest, delete oldest.
-	ignore_list |= A.UID()
 
 /*
 Movement proc for stepping a bot through a path generated through A-star.
@@ -669,7 +690,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(message)
 			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [length(path)-1] meters to destination.</span>")
 		pathset = TRUE
-		mode = BOT_RESPONDING
+		set_mode(BOT_RESPONDING)
 		tries = 0
 	else
 		if(message)
@@ -704,7 +725,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	pathset = FALSE
 	access_card.access = prev_access
 	tries = 0
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
@@ -732,7 +753,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return
 
 	if(!auto_patrol) // A bot not set to patrol should not be patrolling.
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		return
 
 
@@ -748,7 +769,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(!length(path))
 		patrol_target = null
 		return
-	mode = BOT_PATROL
+	set_mode(BOT_PATROL)
 
 // Perform a single patrol step
 
@@ -774,7 +795,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			addtimer(CALLBACK(src, PROC_REF(patrol_step_not_moved)), 2)
 
 	else // No path, so calculate new one
-		mode = BOT_START_PATROL
+		set_mode(BOT_START_PATROL)
 
 /mob/living/simple_animal/bot/proc/patrol_step_not_moved()
 	calc_path()
@@ -792,7 +813,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		destination = next_destination
 	else
 		auto_patrol = FALSE
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		speak("Disengaging patrol mode.")
 
 /mob/living/simple_animal/bot/proc/get_next_patrol_target()
@@ -866,7 +887,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			if(length(user_access))
 				access_card.access = user_access + prev_access // Adds the user's access, if any.
 
-			mode = BOT_SUMMON
+			set_mode(BOT_SUMMON)
 			calc_summon_path()
 			speak("Responding.", radio_channel)
 

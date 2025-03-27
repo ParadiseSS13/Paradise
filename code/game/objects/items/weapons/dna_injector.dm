@@ -6,7 +6,7 @@
 	item_state = "dnainjector"
 	belt_icon = "syringe"
 	var/block = 0
-	var/datum/dna2/record/buf = null
+	var/datum/dna2_record/buf = null
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -118,7 +118,7 @@
 			if(H)
 				H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
 
-/obj/item/dnainjector/attack(mob/M, mob/user)
+/obj/item/dnainjector/attack__legacy__attackchain(mob/M, mob/user)
 	if(used)
 		to_chat(user, "<span class='warning'>This injector is used up!</span>")
 		return
@@ -464,26 +464,6 @@
 /obj/item/dnainjector/anticlumsy/GetInitBlock()
 	return GLOB.clumsyblock
 
-/obj/item/dnainjector/antitour
-	name = "DNA-Injector (Anti-Tour.)"
-	desc = "Will cure tourettes."
-	datatype = DNA2_BUF_SE
-	value = 0x001
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/antitour/GetInitBlock()
-	return GLOB.twitchblock
-
-/obj/item/dnainjector/tourmut
-	name = "DNA-Injector (Tour.)"
-	desc = "Gives you a nasty case off tourettes."
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/tourmut/GetInitBlock()
-	return GLOB.twitchblock
-
 /obj/item/dnainjector/stuttmut
 	name = "DNA-Injector (Stutt.)"
 	desc = "Makes you s-s-stuttterrr."
@@ -524,6 +504,26 @@
 
 /obj/item/dnainjector/antiblind/GetInitBlock()
 	return GLOB.blindblock
+
+/obj/item/dnainjector/paraplegicmut
+	name = "DNA-Injector (Paraplegic)"
+	desc = "Faceplanting, in needle form."
+	datatype = DNA2_BUF_SE
+	value = 0xFFF
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/paraplegicmut/GetInitBlock()
+	return GLOB.paraplegicblock
+
+/obj/item/dnainjector/antiparaplegic
+	name = "DNA-Injector (Anti-Paraplegic)"
+	desc = "Returns your legs to working order."
+	datatype = DNA2_BUF_SE
+	value = 0x001
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/antiparaplegic/GetInitBlock()
+	return GLOB.paraplegicblock
 
 /obj/item/dnainjector/deafmut
 	name = "DNA-Injector (Deaf)"

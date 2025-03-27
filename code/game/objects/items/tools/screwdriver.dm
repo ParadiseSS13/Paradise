@@ -1,7 +1,7 @@
 //Screwdriver
 /obj/item/screwdriver
 	name = "screwdriver"
-	desc = "You can be totally screwy with this."
+	desc = "A common screwdriver made of plastic and steel, fitted with a Sector-standard Phillips head."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_map"
 	belt_icon = "screwdriver"
@@ -23,13 +23,18 @@
 	tool_behaviour = TOOL_SCREWDRIVER
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
+	new_attack_chain = TRUE
+
 /obj/item/screwdriver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
+	RegisterSignal(src, COMSIG_ATTACK, PROC_REF(on_attack))
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
-	desc = "A screwdriver with an ultra thin tip."
+	desc = "A specialized screwdriver with an ultra-thin flathead tip, meant for accessing very specific machinery."
 	icon_state = "screwdriver_nuke"
 	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
@@ -50,26 +55,28 @@
 	if(prob(75))
 		src.pixel_y = rand(0, 16)
 
-/obj/item/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!istype(M) || user.a_intent == INTENT_HELP)
-		return ..()
+/obj/item/screwdriver/proc/on_attack(datum/source, mob/living/carbon/target, mob/living/user)
+	if(!istype(target) || user.a_intent == INTENT_HELP)
+		return
 	if(user.zone_selected != "eyes" && user.zone_selected != "head")
-		return ..()
+		return
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		M = user
-	return eyestab(M,user)
+		target = user
+	eyestab(target, user)
+	return COMPONENT_SKIP_ATTACK
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"
 	desc = "A screwdriver made of brass. The handle feels freezing cold."
 	icon_state = "screwdriver_brass"
+	belt_icon = "screwdriver_brass"
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/screwdriver/cargo
 	name = "cargo screwdriver"
-	desc = "A brownish screwdriver belonging to the supply department. Unfortunately, it can't do all the paperwork for you..."
+	desc = "A brown screwdriver proudly bearing the (very small) heraldry of the Supply Department. It's faster than a typical screwdriver thanks to its magnetic tip."
 	icon_state = "screwdriver_cargo"
 	belt_icon = "screwdriver_cargo"
 	toolspeed = 0.75
@@ -92,7 +99,7 @@
 
 /obj/item/screwdriver/power
 	name = "hand drill"
-	desc = "A simple hand drill with a screwdriver bit attached."
+	desc = "A powerful, hand-held drill fitted with a long-lasting battery. It has a screwdriver head attached."
 	icon_state = "drill_screw"
 	item_state = "drill"
 	belt_icon = "hand_drill"
@@ -117,15 +124,23 @@
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/screwdriver/power/attack_self(mob/user)
+/obj/item/screwdriver/power/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
 	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.on_detached()
+		bit.forceMove(b_drill)
+		b_drill.attached_bits += bit
+		bit.on_attached(b_drill)
 	qdel(src)
 	user.put_in_active_hand(b_drill)
 
 /obj/item/screwdriver/cyborg
 	name = "powered screwdriver"
-	desc = "An electrical screwdriver, designed to be both precise and quick."
+	desc = "A powered screwdriver typically found in construction and engineering robots."
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.5

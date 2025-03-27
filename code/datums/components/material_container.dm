@@ -37,7 +37,7 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
 
 	var/list/possible_mats = list()
@@ -74,7 +74,7 @@
 	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
 		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
 		return
-	. = COMPONENT_NO_AFTERATTACK
+	. = COMPONENT_SKIP_AFTERATTACK
 	var/datum/callback/pc = precondition
 	if(pc && !pc.Invoke(user))
 		return
@@ -390,6 +390,30 @@
 	id = MAT_BLUESPACE
 	sheet_type = /obj/item/stack/ore/bluespace_crystal/refined
 	ore_type = /obj/item/stack/ore/bluespace_crystal
+
+/datum/material/brass
+	name = "Brass"
+	id = MAT_BRASS
+	sheet_type = /obj/item/stack/tile/brass
+	ore_type = /obj/item/stack/ore/brass
+
+/datum/material/palladium
+	name = "Palladium"
+	id = MAT_PALLADIUM
+	sheet_type = /obj/item/stack/sheet/mineral/palladium
+	ore_type = /obj/item/stack/ore/palladium
+
+/datum/material/platinum
+	name = "Platinum"
+	id = MAT_PLATINUM
+	sheet_type = /obj/item/stack/sheet/mineral/platinum
+	ore_type = /obj/item/stack/ore/platinum
+
+/datum/material/iridium
+	name = "Iridium"
+	id = MAT_IRIDIUM
+	sheet_type = /obj/item/stack/sheet/mineral/iridium
+	ore_type = /obj/item/stack/ore/iridium
 
 /datum/material/bananium
 	name = "Bananium"

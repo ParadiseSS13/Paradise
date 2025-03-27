@@ -47,6 +47,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
+	GLOB.alive_megafauna_list |= UID()
 	if(internal_gps && true_spawn)
 		internal_gps = new internal_gps(src)
 	for(var/action_type in attack_action_types)
@@ -57,6 +58,7 @@
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
 	UnregisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET)
+	GLOB.alive_megafauna_list -= UID()
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
@@ -75,6 +77,7 @@
 	return ..() && health <= 0
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
+	GLOB.alive_megafauna_list -= UID()
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
@@ -103,7 +106,7 @@
 		else
 			devour(L)
 
-/mob/living/simple_animal/hostile/megafauna/onTransitZ(old_z, new_z)
+/mob/living/simple_animal/hostile/megafauna/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()
 	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()

@@ -40,9 +40,9 @@
 
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
-/obj/item/hand_tele/attack_self(mob/user)
+/obj/item/hand_tele/attack_self__legacy__attackchain(mob/user)
 	// The turf the user is currently located in.
 	var/turf/current_location = get_turf(user)
 	if(emp_timer > world.time)
@@ -72,6 +72,7 @@
 		turfs += T
 	if(length(turfs))
 		L["None (Dangerous)"] = pick(turfs)
+	flick("hand_tele_activated", src)
 	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
 	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
 		return

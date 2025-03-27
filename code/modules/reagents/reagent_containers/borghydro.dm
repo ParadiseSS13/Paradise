@@ -88,28 +88,36 @@
 		robot.cell.use(charge_cost)
 	total_reagents = min((total_reagents + BORGHYPO_REFILL_VALUE), maximum_reagents)
 
-/obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
-	if(!total_reagents)
-		to_chat(user, "<span class='warning'>The injector is empty.</span>")
-		return
-	if(!istype(M))
-		return
-	if(total_reagents && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick))
-		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
-		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
+/obj/item/reagent_containers/borghypo/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(ishuman(target))
+		var/mob/living/carbon/human/mob = target
+		if(!total_reagents)
+			to_chat(user, "<span class='warning'>The injector is empty.</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(!mob.can_inject(user, TRUE, user.zone_selected, penetrate_thick))
+			return ITEM_INTERACT_COMPLETE
 
-		M.reagents.add_reagent(choosen_reagent, 5)
+		to_chat(user, "<span class='notice'>You inject [mob] with the injector.</span>")
+		to_chat(mob, "<span class='notice'>You feel a tiny prick!</span>")
+		mob.reagents.add_reagent(choosen_reagent, 5)
 		total_reagents = (total_reagents - 5)
-		if(M.reagents)
+		if(mob.reagents)
 			var/datum/reagent/injected = GLOB.chemical_reagents_list[choosen_reagent]
 			var/contained = injected.name
-			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [5] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
+			add_attack_logs(user, mob, "Injected with [name] containing [contained], transfered [5] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
 			to_chat(user, "<span class='notice'>[5] units injected. [total_reagents] units remaining.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(isliving(target)) // ignore non-human mobs
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_containers/borghypo/proc/get_radial_contents()
 	return reagent_icons & reagent_ids
 
-/obj/item/reagent_containers/borghypo/attack_self(mob/user)
+/obj/item/reagent_containers/borghypo/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
 	var/selected_reagent = show_radial_menu(user, src, get_radial_contents(), radius = 48)
 	if(!selected_reagent)

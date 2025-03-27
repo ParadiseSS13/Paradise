@@ -21,3 +21,6 @@
 #define VV_MARKED_DATUM "Marked Datum"
 #define VV_BITFIELD "Bitfield"
 #define VV_REGEX "Regex"
+#define VV_VISIBLE_ATOM "Visible Atom"
+#define VV_INSIDE_VISIBLE_ATOM "Inside a Visible Atom"
+#define VV_VISIBLE_TURF "Visible Turf"

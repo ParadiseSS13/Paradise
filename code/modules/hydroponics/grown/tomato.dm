@@ -19,7 +19,7 @@
 	name = "tomato"
 	desc = "I say to-mah-to, you say tom-mae-to."
 	icon_state = "tomato"
-	slice_path = /obj/item/food/tomatoslice
+	slice_path = /obj/item/food/sliced/tomato
 	slices_num = 4
 	splat_type = /obj/effect/decal/cleanable/tomato_smudge
 	filling_color = "#FF6347"
@@ -129,13 +129,13 @@
 	origin_tech = "biotech=4;combat=5"
 	distill_reagent = "demonsblood"
 
-/obj/item/food/grown/tomato/killer/attack(mob/M, mob/user, def_zone)
+/obj/item/food/grown/tomato/killer/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	if(awakening)
 		to_chat(user, "<span class='warning'>The tomato is twitching and shaking, preventing you from eating it.</span>")
 		return
 	..()
 
-/obj/item/food/grown/tomato/killer/attack_self(mob/user)
+/obj/item/food/grown/tomato/killer/attack_self__legacy__attackchain(mob/user)
 	if(awakening || isspaceturf(user.loc))
 		return
 	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
@@ -152,7 +152,7 @@
 			K.health = K.maxHealth
 			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
 			if(user)
-				user.unEquip(src)
+				user.unequip(src)
 			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")
 			log_game("[key_name(user)] released a killer tomato at [COORD(T)]")
 			qdel(src)

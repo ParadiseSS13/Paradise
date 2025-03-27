@@ -63,7 +63,7 @@ To draw a rune, use a ritual dagger.
 		keyword = set_keyword
 	var/image/blood = image(loc = src)
 	blood.override = 1
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
+	for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 		AI.client.images += blood
 
 /obj/effect/rune/examine(mob/user)
@@ -75,27 +75,28 @@ To draw a rune, use a ritual dagger.
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> <span class='cultitalic'>[keyword]</span>"
 
-/obj/effect/rune/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
+/obj/effect/rune/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(!can_dagger_erase_rune(user))
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/melee/cultblade/dagger/D = I
-		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
-		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, target = src))
+		var/obj/item/melee/cultblade/dagger/dagger = used
+		user.visible_message("<span class='warning'>[user] begins to erase [src] with [dagger].</span>")
+		if(do_after(user, initial(scribe_delay) * dagger.scribe_multiplier, target = src))
 			to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
 			qdel(src)
-		return
-	if(istype(I, /obj/item/nullrod))
-		if(IS_CULTIST(user))//cultist..what are doing..cultist..staph...
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/nullrod))
+		var/obj/item/nullrod/nullrod = used
+		if(IS_CULTIST(user)) // cultist..what are doing..cultist..staph...
 			user.drop_item()
-			user.visible_message("<span class='warning'>[I] suddenly glows with a white light, forcing [user] to drop it in pain!</span>", \
-			"<span class='danger'>[I] suddenly glows with a white light that sears your hand, forcing you to drop it!</span>") // TODO: Make this actually burn your hand
-			return
-		to_chat(user,"<span class='danger'>You disrupt the magic of [src] with [I].</span>")
+			user.visible_message("<span class='warning'>[nullrod] suddenly glows with a white light, forcing [user] to drop it in pain!</span>", \
+			"<span class='danger'>[nullrod] suddenly glows with a white light that sears your hand, forcing you to drop it!</span>") // TODO: Make this actually burn your hand
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user,"<span class='danger'>You disrupt the magic of [src] with [nullrod].</span>")
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/rune/proc/can_dagger_erase_rune(mob/user)
 	return TRUE
@@ -249,9 +250,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(src)
 
 /mob/proc/null_rod_check() //The null rod, if equipped, will protect the holder from the effects of most runes
-	var/obj/item/nullrod/N = locate() in src
-	if(N)
-		return N
+	if(can_block_magic(MAGIC_RESISTANCE_HOLY))
+		return TRUE
 	return FALSE
 
 //Rite of Enlightenment: Converts a normal crewmember to the cult, or offer them as sacrifice if cant be converted.
@@ -592,7 +592,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	. = ..()
 	if(IS_CULTIST(user) || user.stat == DEAD)
 		. += "<b>Sacrifices unrewarded:</b><span class='cultitalic'> [length(GLOB.sacrificed) - sacrifices_used]</span>"
-		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic> [SOULS_TO_REVIVE]</span>"
+		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic'> [SOULS_TO_REVIVE]</span>"
 
 /obj/effect/rune/raise_dead/proc/revive_alive(mob/living/target)
 	target.visible_message("<span class='warning'>Dark magic begins to surround [target], regenerating their body.</span>")
@@ -1003,7 +1003,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>",
 								"<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/item/I in new_human.get_all_slots())
-			new_human.unEquip(I)
+			new_human.drop_item_to_ground(I)
 		new_human.mind.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
 		new_human.dust()
 
@@ -1098,11 +1098,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 	sleep(40)
 	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
-/obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
-	if((istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)))
+/obj/effect/rune/narsie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	if((istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)))
 		log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
-	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
+	if(istype(used, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
 		log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
-	return ..()

@@ -21,6 +21,10 @@
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)
@@ -28,14 +32,13 @@
 	plastic_overlay_target = null
 	return ..()
 
-/obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly))
 		var/obj/item/assembly/A = I
-		if(!user.unEquip(I))
+		if(!user.transfer_item_to(A, src))
 			return ..()
 		nadeassembly = A
 		A.master = src
-		A.loc = src
 		assemblyattacher = user.ckey
 		to_chat(user, "<span class='notice'>You add [A] to [src].</span>")
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
@@ -50,17 +53,27 @@
 		return
 	..()
 
-/obj/item/grenade/plastic/Crossed(atom/movable/AM, oldloc)
+/obj/item/grenade/plastic/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.on_atom_entered(source, entered)
 
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
 
-/obj/item/grenade/plastic/attack_self(mob/user)
+/obj/item/grenade/plastic/hear_talk(mob/living/M as mob, list/message_pieces)
+	if(istype(nadeassembly, /obj/item/assembly/voice))
+		var/obj/item/assembly/voice/voice_analyzer = nadeassembly
+		voice_analyzer.hear_input(M, multilingual_to_message(message_pieces), 0)
+
+/obj/item/grenade/plastic/hear_message(mob/living/M as mob, msg)
+	if(istype(nadeassembly, /obj/item/assembly/voice))
+		var/obj/item/assembly/voice/voice_analyzer = nadeassembly
+		voice_analyzer.hear_input(M, msg, 1)
+
+/obj/item/grenade/plastic/attack_self__legacy__attackchain(mob/user)
 	if(nadeassembly)
-		nadeassembly.attack_self(user)
+		nadeassembly.attack_self__legacy__attackchain(user)
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
@@ -68,7 +81,7 @@
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
-/obj/item/grenade/plastic/afterattack(mob/AM, mob/user, flag)
+/obj/item/grenade/plastic/afterattack__legacy__attackchain(mob/AM, mob/user, flag)
 	if(!flag)
 		return
 	if(ismob(AM) && AM.stat == CONSCIOUS)
@@ -82,8 +95,9 @@
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]</span>")
 
 	if(do_after(user, 1.5 SECONDS * toolspeed, target = AM))
-		if(!user.unEquip(src))
+		if(!user.unequip(src))
 			return
+
 		target = AM
 		loc = null
 
@@ -166,7 +180,7 @@
 	/// Will the explosion cause a breach. C4 placed on floors will always cause a breach, regardless of this value.
 	var/ex_breach = FALSE
 
-/obj/item/grenade/plastic/c4/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/c4/afterattack__legacy__attackchain(atom/movable/AM, mob/user, flag)
 	aim_dir = get_dir(user, AM)
 	..()
 

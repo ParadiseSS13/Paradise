@@ -13,6 +13,7 @@
 /area/ruin/space/methlab)
 "d" = (
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "e" = (
@@ -77,7 +78,6 @@
 /area/ruin/space/methlab)
 "p" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/east{
@@ -125,7 +125,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "K" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/methlab)
 
 (1,1,1) = {"
@@ -135,10 +135,12 @@ a
 a
 a
 a
-b
-b
-b
-b
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -149,12 +151,14 @@ a
 a
 a
 a
+a
+a
+a
 b
 b
 b
 b
-b
-b
+a
 a
 a
 a
@@ -164,19 +168,40 @@ a
 a
 a
 a
-b
-b
-K
-K
-K
+a
+a
 b
 b
 b
+b
+b
+b
+a
+a
 a
 a
 a
 "}
 (4,1,1) = {"
+a
+a
+a
+a
+b
+b
+K
+K
+K
+b
+b
+b
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
 a
 a
 a
@@ -191,8 +216,10 @@ b
 a
 a
 a
+a
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+a
 a
 a
 a
@@ -207,8 +234,10 @@ b
 b
 b
 b
+a
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+a
 a
 a
 b
@@ -223,8 +252,10 @@ y
 b
 b
 b
+a
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+a
 a
 a
 b
@@ -239,8 +270,10 @@ b
 b
 b
 a
+a
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+a
 a
 b
 b
@@ -255,8 +288,10 @@ b
 a
 a
 a
+a
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+a
 b
 b
 K
@@ -271,8 +306,10 @@ b
 a
 a
 a
+a
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+a
 b
 b
 b
@@ -287,8 +324,10 @@ b
 a
 a
 a
+a
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+a
 a
 a
 b
@@ -303,8 +342,10 @@ b
 a
 a
 a
+a
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+a
 a
 a
 b
@@ -319,29 +360,16 @@ a
 a
 a
 a
+a
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+a
 a
 b
 b
 b
 j
 b
-b
-b
-b
-a
-a
-a
-a
-a
-"}
-(14,1,1) = {"
-a
-b
-b
-b
-k
 b
 b
 b
@@ -357,8 +385,10 @@ a
 a
 b
 b
-a
-a
+b
+k
+b
+b
 b
 a
 a
@@ -373,6 +403,44 @@ a
 a
 a
 b
+b
+a
+a
+b
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(17,1,1) = {"
+a
+a
+a
+a
+b
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(18,1,1) = {"
+a
+a
+a
+a
+a
+a
 a
 a
 a

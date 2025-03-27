@@ -139,7 +139,7 @@
 	else
 		log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks an overmind.")
 
-/obj/structure/blob/core/onTransitZ(old_z, new_z)
-	if(overmind && is_station_level(new_z))
+/obj/structure/blob/core/on_changed_z_level(turf/old_turf, turf/new_turf)
+	if(overmind && is_station_level(new_turf?.z))
 		overmind.forceMove(get_turf(src))
 	return ..()

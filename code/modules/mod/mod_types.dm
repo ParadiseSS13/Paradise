@@ -28,9 +28,9 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(!default_pins[module.type]) //this module isnt meant to be pinned by default
 			continue
-		if(UID(wearer) in default_pins[module.type]) //if we already had pinned once to this user, don care anymore
+		if(wearer.UID() in default_pins[module.type]) //if we already had pinned once to this user, don care anymore
 			continue
-		default_pins[module.type] += UID(wearer)
+		default_pins[module.type] += wearer.UID()
 		module.pin(wearer)
 
 /obj/item/mod/control/pre_equipped/uninstall(obj/item/mod/module/old_module, deleting)
@@ -241,7 +241,7 @@
 
 /obj/item/mod/control/pre_equipped/magnate/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/mod/control/pre_equipped/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
@@ -366,12 +366,17 @@
 	var/insignia_type = /obj/item/mod/module/insignia
 	/// Additional module we add, as a treat.
 	var/additional_module
+	/// Inquisitorial module, as we have reached that point.
+	var/inquisitorial_module
 
 /obj/item/mod/control/pre_equipped/responsory/Initialize(mapload, new_theme, new_skin, new_core)
 	applied_modules.Insert(1, insignia_type)
 	if(additional_module)
 		applied_modules += additional_module
 		default_pins += additional_module
+	if(inquisitorial_module)
+		applied_modules += inquisitorial_module
+
 	return ..()
 
 /obj/item/mod/control/pre_equipped/responsory/commander
@@ -410,9 +415,10 @@
 	insignia_type = /obj/item/mod/module/insignia/chaplain
 	additional_module = /obj/item/mod/module/injector
 
-/// Diffrent look, as well as magic proof on TG. We don't have the magic proof stuff here, but it's perfect for inqusitors. Or if you want to give your ERT a fancy look.
+/// Diffrent look, as well as magic proof. It's perfect for inqusitors. Or if you want to give your ERT a fancy look. At this time, the other ones are unused, and frankly I don't like the idea of antimagic gamma.
 /obj/item/mod/control/pre_equipped/responsory/inquisitory
 	applied_skin = "inquisitory"
+	inquisitorial_module = /obj/item/mod/module/anti_magic
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
 	insignia_type = /obj/item/mod/module/insignia/commander

@@ -3,7 +3,10 @@
 	if(prescription_upgradable && prescription)
 		upgrade_prescription()
 
-/obj/item/clothing/glasses/attackby(obj/item/I, mob/user)
+	if(hide_examine)
+		ADD_TRAIT(src, TRAIT_HIDE_EXAMINE, INNATE_TRAIT)
+
+/obj/item/clothing/glasses/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(!prescription_upgradable || user.stat || user.restrained() || !ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/H = user
@@ -13,7 +16,7 @@
 		if(prescription)
 			to_chat(H, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
 			return
-		H.unEquip(I)
+		H.drop_item_to_ground(I)
 		upgrade_prescription(I)
 		to_chat(H, "<span class='notice'>You fit [src] with lenses from [I].</span>")
 
@@ -125,6 +128,7 @@
 	icon_state = "sunhudmeson"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
+	hide_examine = TRUE
 
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
@@ -344,6 +348,8 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
+	hide_examine = TRUE
+
 /obj/item/clothing/glasses/sunglasses_fake
 	name = "cheap sunglasses"
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
@@ -366,7 +372,7 @@
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
 	actions_types = list(/datum/action/item_action/noir)
 
-/obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
+/obj/item/clothing/glasses/sunglasses/noir/attack_self__legacy__attackchain(mob/user)
 	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
@@ -381,9 +387,9 @@
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
 	var/punused = FALSE
-	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
+	actions_types = list(/datum/action/item_action/yeeeaaaaahhhhhhhhhhhhh)
 
-/obj/item/clothing/glasses/sunglasses/yeah/attack_self(mob/user)
+/obj/item/clothing/glasses/sunglasses/yeah/attack_self__legacy__attackchain(mob/user)
 	pun(user)
 
 /obj/item/clothing/glasses/sunglasses/yeah/proc/pun(mob/user)
@@ -451,7 +457,7 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/welding/attack_self(mob/user)
+/obj/item/clothing/glasses/welding/attack_self__legacy__attackchain(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/glasses/welding/superior

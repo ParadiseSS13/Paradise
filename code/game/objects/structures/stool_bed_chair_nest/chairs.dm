@@ -21,6 +21,8 @@
 	var/comfort = 0
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
+	/// Will it set to the layer above the player or not? Use with Armrests.
+	var/uses_armrest = FALSE 
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
@@ -32,11 +34,11 @@
 		W.setDir(dir)
 		qdel(src)
 
-/obj/structure/chair/Move(atom/newloc, direct)
+/obj/structure/chair/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_rotation()
 
-/obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/chair/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
 		if(!SK.status)
@@ -111,7 +113,7 @@
 	if(possible_dirs == 8) // We don't want chairs with corner dirs to sit over mobs, it is handled by armrests
 		layer = OBJ_LAYER
 		return
-	if(has_buckled_mobs() && dir == NORTH)
+	if(has_buckled_mobs() && dir == NORTH && !uses_armrest)
 		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
@@ -210,37 +212,45 @@
 		cut_overlay(armrest)
 
 /obj/structure/chair/comfy/brown
-	color = rgb(141,70,0)
+	color = rgb(128,83,51)
 
 /obj/structure/chair/comfy/red
-	color = rgb(218,2,10)
+	color = rgb(204, 62, 66)
 
 /obj/structure/chair/comfy/teal
-	color = rgb(0,234,250)
+	color = rgb(64,186,174)
 
 /obj/structure/chair/comfy/black
-	color = rgb(60,60,60)
+	color = rgb(74,74,85)
 
 /obj/structure/chair/comfy/green
-	color = rgb(1,196,8)
+	color = rgb(78,188,81)
 
 /obj/structure/chair/comfy/purp
-	color = rgb(112,2,176)
+	color = rgb(138,80,180)
 
 /obj/structure/chair/comfy/blue
-	color = rgb(2,9,210)
+	color = rgb(70,90,190)
 
 /obj/structure/chair/comfy/beige
-	color = rgb(255,253,195)
+	color = rgb(174,169,147)
 
 /obj/structure/chair/comfy/lime
-	color = rgb(255,251,0)
+	color = rgb(160,251,66)
+
+/obj/structure/chair/comfy/yellow
+	color = rgb(216,187,70)
+
+/obj/structure/chair/comfy/orange
+	color = rgb(229,111,52)
 
 /obj/structure/chair/office
 	anchored = FALSE
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+	var/image/armrest
+	uses_armrest = TRUE
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
@@ -272,6 +282,34 @@
 /obj/structure/chair/office/dark
 	icon_state = "officechair_dark"
 
+/obj/structure/chair/office/proc/get_armrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
+
+/obj/structure/chair/office/Initialize(mapload)
+	armrest = get_armrest()
+	armrest.layer = ABOVE_MOB_LAYER
+	return ..()
+
+/obj/structure/chair/office/Destroy()
+	QDEL_NULL(armrest)
+	return ..()
+
+/obj/structure/chair/office/post_buckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/office/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/office/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
+	else
+		cut_overlay(armrest)
+
+
+
 /obj/structure/chair/barber
 	icon_state = "barber_chair"
 	buildstackamount = 1
@@ -294,7 +332,7 @@
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
-/obj/structure/chair/sofa/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/chair/sofa/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	. = ..()
 	if(!colorable)
 		return
@@ -373,6 +411,19 @@
 /obj/structure/chair/sofa/pew/right
 	icon_state = "pewend_right"
 
+/obj/structure/chair/sofa/pew/clockwork
+	name = "brass pew"
+	desc = "An ornate pew fashioned from brass. It is even less comfortable than a regular pew, but it does radiate a pleasent warmth."
+	icon_state = "clockwork_pew_middle"
+	buildstacktype = /obj/item/stack/tile/brass
+	buildstackamount = 5
+
+/obj/structure/chair/sofa/pew/clockwork/left
+	icon_state = "clockwork_pew_left"
+
+/obj/structure/chair/sofa/pew/clockwork/right
+	icon_state = "clockwork_pew_right"
+
 /obj/structure/chair/sofa/bench
 	name = "bench"
 	desc = "You sit in this. Either by will or force."
@@ -399,7 +450,7 @@
 /obj/structure/chair/sofa/bench/handle_layer()
 	return
 
-/obj/structure/chair/sofa/bench/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/chair/sofa/bench/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
@@ -454,6 +505,16 @@
 	max_integrity = 70
 	buildstackamount = 2
 	buildstacktype = /obj/item/stack/sheet/bamboo
+
+/obj/structure/chair/stool/wood
+	name = "wooden chair"
+	desc = "A short wooden stool. Pull up a stump, won't you?"
+	icon_state = "wooden_stool"
+	resistance_flags = FLAMMABLE
+	max_integrity = 50
+	buildstackamount = 2
+	buildstacktype = /obj/item/stack/sheet/wood
+	item_chair = /obj/item/chair/stool/wood
 
 /obj/item/chair
 	name = "chair"
@@ -522,6 +583,13 @@
 	item_state = "stool_bamboo"
 	origin_type = /obj/structure/chair/stool/bamboo
 
+/obj/item/chair/stool/wood
+	name = "wood stool"
+	desc = "The barfighter's choice of stool."
+	icon_state = "wooden_stool_toppled"
+	item_state = "stool_wood"
+	origin_type = /obj/structure/chair/stool/wood
+
 /obj/item/chair/AltClick(mob/user)
 	. = ..()
 	if(Adjacent(user))
@@ -557,7 +625,7 @@
 		return 1
 	return 0
 
-/obj/item/chair/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/chair/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	..()
 	if(!proximity)
 		return
@@ -571,10 +639,10 @@
 				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 		smash(user)
 
-/obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
+/obj/item/chair/stool/attack__legacy__attackchain(mob/M as mob, mob/user as mob)
 	if(prob(5) && isliving(M))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
-		user.unEquip(src)
+		user.unequip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
 		qdel(src)

@@ -3,7 +3,7 @@
 	name = "Humanoid Optics"
 	species_allowed = list("Machine")
 	icon_state = "optics"
-	models_allowed = list("Bishop Cybernetics", "Hesphiastos Industries", "Ward-Takahashi", "Xion Manufacturing Group", "Zeng-Hu Pharmaceuticals") //Should be the same as the manufacturing company of the limb in robolimbs.dm
+	models_allowed = list("Bishop Cybernetics", "Hephaestus Industries", "Ward-Takahashi", "Xion Manufacturing Group", "Zeng-Hu Pharmaceuticals") //Should be the same as the manufacturing company of the limb in robolimbs.dm
 
 /datum/sprite_accessory/body_markings/head/optics/bishop_alt
 	name = "Bishop Alt. Optics"

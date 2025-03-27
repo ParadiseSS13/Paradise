@@ -22,6 +22,11 @@
 	pixel_x = target.pixel_x + rand(-4,4)
 	pixel_y = target.pixel_y + rand(-4,4)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 	START_PROCESSING(SSobj, src)
 
 /obj/effect/acid/Destroy()
@@ -50,9 +55,12 @@
 		qdel(src)
 		return 0
 
-/obj/effect/acid/Crossed(AM as mob|obj)
-	if(isliving(AM))
-		var/mob/living/L = AM
+/obj/effect/acid/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+	if(!isliving(entered) && !isobj(entered))
+		return
+	if(isliving(entered))
+		var/mob/living/L = entered
 		if(HAS_TRAIT(L, TRAIT_FLYING))
 			return
 		if(L.m_intent != MOVE_INTENT_WALK && prob(40))

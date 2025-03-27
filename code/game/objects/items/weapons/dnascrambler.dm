@@ -12,7 +12,7 @@
 	else
 		icon_state = "lepopen"
 
-/obj/item/dnascrambler/attack(mob/M as mob, mob/user as mob)
+/obj/item/dnascrambler/attack__legacy__attackchain(mob/M as mob, mob/user as mob)
 	if(!M || !user)
 		return
 

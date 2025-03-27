@@ -42,7 +42,7 @@
 		current_area.powernet.power_change()
 	log_and_message_admins("Power has been drained from all APCs.")
 
-/proc/power_failure(announce = TRUE)
+/proc/power_failure(announce = TRUE, probability = APC_BREAK_PROBABILITY)
 	// skip any APCs that are too critical to disable
 	var/list/skipped_areas_apc = list(
 		/area/station/engineering/engine,
@@ -58,7 +58,7 @@
 		if((current_area.type in skipped_areas_apc) || !is_station_level(A.z))
 			continue
 		// if we are going to break this one
-		if(prob(APC_BREAK_PROBABILITY))
+		if(prob(probability))
 			A.apc_short()
 			affected_apc_count++
 	log_and_message_admins("APC Short Out event has shorted out [affected_apc_count] APCs.")

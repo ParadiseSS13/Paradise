@@ -4,14 +4,15 @@ import { Window } from '../layouts';
 
 export const GhostHudPanel = (props, context) => {
   const { data } = useBackend(context);
-  const { security, medical, diagnostic, radioactivity, ahud } = data;
+  const { security, medical, diagnostic, pressure, radioactivity, ahud } = data;
   return (
-    <Window width={250} height={207} theme="nologo">
+    <Window width={250} height={217} theme="nologo">
       <Window.Content>
         <Section>
           <HudEntry label="Medical" type="medical" is_active={medical} />
           <HudEntry label="Security" type="security" is_active={security} />
           <HudEntry label="Diagnostic" type="diagnostic" is_active={diagnostic} />
+          <HudEntry label="Pressure" type="pressure" is_active={pressure} />
           <Divider />
           <HudEntry
             label="Radioactivity"

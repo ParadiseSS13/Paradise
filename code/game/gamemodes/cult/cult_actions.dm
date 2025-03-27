@@ -121,8 +121,8 @@
 /datum/action/innate/cult/use_dagger/Activate()
 	var/obj/item/melee/cultblade/dagger/D = owner.find_item(/obj/item/melee/cultblade/dagger)
 	if(D)
-		owner.remove_from_mob(D)
+		owner.unequip(D)
 		owner.put_in_hands(D)
-		D.attack_self(owner)
+		D.activate_self(owner)
 	else
 		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell.</span>")

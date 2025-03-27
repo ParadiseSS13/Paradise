@@ -331,7 +331,7 @@
 		error_message(user, "Incorrect Credentials")
 
 /datum/data/pda/app/nanobank/proc/input_account_pin(mob/user)
-	var/attempt_pin = tgui_input_number(user, "Enter pin code", "NanoBank Account Auth", max_value = 99999)
+	var/attempt_pin = tgui_input_number(user, "Enter pin code", "NanoBank Account Auth", max_value = BANK_PIN_MAX, min_value = BANK_PIN_MIN)
 	if(!user_account || isnull(attempt_pin))
 		return
 	return attempt_pin
@@ -467,7 +467,7 @@
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction")
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction", max_value = BANK_PIN_MAX, min_value = BANK_PIN_MIN)
 		if(!attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)

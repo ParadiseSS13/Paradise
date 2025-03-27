@@ -120,7 +120,7 @@
 	name = "sol gov universal self assembling gun parts kit"
 	icon_state = "solcase" //Ikea reference pending.
 
-/obj/item/weaponcrafting/gunkit/universal_gun_kit/afterattack(obj/item/weaponcrafting/gunkit/gunkit_to_use, mob/user, flag)
+/obj/item/weaponcrafting/gunkit/universal_gun_kit/afterattack__legacy__attackchain(obj/item/weaponcrafting/gunkit/gunkit_to_use, mob/user, flag)
 	if(!istype(gunkit_to_use))
 		return
 	if(!gunkit_to_use.outcome)
@@ -134,23 +134,23 @@
 	if(istype(gunkit_to_use, /obj/item/weaponcrafting/gunkit/sparker)) //Snowflake checking, but I don't want a person with a self assembling kit to be robbed
 		var/obj/item/gun_produceda = new gunkit_to_use.outcome
 		var/obj/item/gun_producedb = new gunkit_to_use.outcome
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(gun_produceda)
 		user.put_in_hands(gun_producedb)
 	else
 		var/obj/item/gun_produced = new gunkit_to_use.outcome
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(gun_produced)
 	qdel(gunkit_to_use)
 	qdel(src)
 
 // CRAFTING //
 
-/obj/item/weaponcrafting/receiver/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weaponcrafting/receiver/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/pipe))
 		to_chat(user, "You attach the shotgun barrel to the receiver. The pins seem loose.")
 		var/obj/item/weaponcrafting/ishotgunconstruction/I = new /obj/item/weaponcrafting/ishotgunconstruction
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(I)
 		qdel(W)
 		qdel(src)
@@ -166,7 +166,7 @@
 
 /obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/I)
 	var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
-	user.unEquip(src)
+	user.unequip(src)
 	user.put_in_hands(C)
 	to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
 	qdel(src)
@@ -178,11 +178,11 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
-/obj/item/weaponcrafting/ishotgunconstruction2/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weaponcrafting/ishotgunconstruction2/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weaponcrafting/stock))
 		to_chat(user, "You attach the stock to the receiver-barrel assembly.")
 		var/obj/item/weaponcrafting/ishotgunconstruction3/I = new /obj/item/weaponcrafting/ishotgunconstruction3
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(I)
 		qdel(W)
 		qdel(src)
@@ -194,13 +194,13 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep2"
 
-/obj/item/weaponcrafting/ishotgunconstruction3/attackby(obj/item/I, mob/user as mob, params)
+/obj/item/weaponcrafting/ishotgunconstruction3/attackby__legacy__attackchain(obj/item/I, mob/user as mob, params)
 	..()
-	if(istype(I, /obj/item/stack/packageWrap))
-		var/obj/item/stack/packageWrap/C = I
+	if(istype(I, /obj/item/stack/package_wrap))
+		var/obj/item/stack/package_wrap/C = I
 		if(C.use(5))
 			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
-			user.unEquip(src)
+			user.unequip(src)
 			user.put_in_hands(W)
 			to_chat(user, "<span class='notice'>You tie the wrapping paper around the stock and the barrel to secure it.</span>")
 			qdel(src)

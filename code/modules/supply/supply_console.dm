@@ -462,7 +462,7 @@
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction", max_value = 99999)
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction", max_value = BANK_PIN_MAX, min_value = BANK_PIN_MIN)
 		if(!Adjacent(user) || !attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)
@@ -518,7 +518,7 @@
 
 /obj/machinery/computer/supplycomp/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	to_chat(user, "<span class='notice sans'>Special supplies unlocked.</span>")
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)

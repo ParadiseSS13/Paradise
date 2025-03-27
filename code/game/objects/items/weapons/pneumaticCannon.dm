@@ -56,7 +56,7 @@
 	if(I.w_class > w_class)
 		to_chat(user, "<span class='warning'>[I] is too large to fit into [src]!</span>")
 		return FALSE
-	if(!user.unEquip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
+	if(!user.unequip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
 		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
 		return FALSE
 	loaded_items.Add(I)
@@ -75,7 +75,7 @@
 		pressure_setting++
 	to_chat(user, "<span class='notice'>You tweak [src]'s pressure output to [pressure_setting].</span>")
 
-/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
+/obj/item/pneumatic_cannon/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/tank/internals) && !tank)
 		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
@@ -92,7 +92,7 @@
 	remove_tank(user)
 	return TRUE
 
-/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
+/obj/item/pneumatic_cannon/afterattack__legacy__attackchain(atom/target, mob/living/carbon/human/user, flag, params)
 	if(isstorage(target)) //So you can store it in backpacks
 		return ..()
 	if(istype(target, /obj/structure/rack)) //So you can store it on racks
@@ -144,7 +144,7 @@
 	if(tank)
 		to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
 		return
-	if(!user.unEquip(new_tank))
+	if(!user.unequip(new_tank))
 		return
 	to_chat(user, "<span class='notice'>You hook [new_tank] up to [src].</span>")
 	new_tank.forceMove(src)

@@ -284,6 +284,8 @@
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "No id", if_no_job = "No job")
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return if_no_id
 	var/obj/item/card/id/id = wear_id?.GetID()
 	if(istype(id))
 		return id.rank || if_no_job
@@ -292,6 +294,8 @@
 //gets assignment from ID, PDA, Wallet, etc.
 //This should not be relied on for authentication, because PDAs show their owner's job, even if an ID is not inserted
 /mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job")
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return if_no_id
 	if(!wear_id)
 		return if_no_id
 	var/obj/item/card/id/id = wear_id.GetID()
@@ -331,6 +335,8 @@
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name(id_override = FALSE)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return "Unknown"
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
@@ -597,7 +603,7 @@
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
-								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]")
+								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["blood_type"]]")
 								to_chat(usr, "<b>DNA:</b> [R.fields["b_dna"]]")
 								to_chat(usr, "<b>Minor Disabilities:</b> [R.fields["mi_dis"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["mi_dis_d"]]")
@@ -644,8 +650,7 @@
 
 	if(href_list["employment_more"])
 		if(hasHUD(usr, EXAMINE_HUD_SKILLS))
-			if(usr.incapacitated() && !isobserver(usr))
-				return
+
 
 			var/skills
 			var/perpname = get_visible_name(TRUE)
@@ -656,6 +661,10 @@
 						break
 				if(skills)
 					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
+
+	if(href_list["ai"])
+		try_set_malf_status(usr)
+
 	. = ..()
 
 /mob/living/carbon/human/proc/try_set_criminal_status(mob/user)
@@ -717,9 +726,52 @@
 	else if(isrobot(user))
 		var/mob/living/silicon/robot/U = user
 		rank = "[U.modtype] [U.braintype]"
-	else if(isAI(user))
+	else if(is_ai(user))
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
+
+/mob/living/carbon/human/proc/try_set_malf_status(mob/user)
+	if(!hasHUD(user, EXAMINE_HUD_MALF_WRITE))
+		return
+	if(user.incapacitated())
+		return
+
+	var/targetname = get_visible_name(TRUE)
+	if(targetname == "Unknown")
+		to_chat(user, "<span class='warning'>Unable to set a status for unknown persons.</span>")
+		return
+
+	var/datum/data/record/found_record
+	outer:
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == targetname)
+				for(var/datum/data/record/R in GLOB.data_core.security)
+					if(R.fields["id"] == E.fields["id"])
+						found_record = E
+					break outer
+
+	if(!found_record)
+		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
+		return
+
+	var/static/list/possible_status = list(
+		MALF_STATUS_NONE,
+		MALF_STATUS_GREEN,
+		MALF_STATUS_RED,
+		MALF_STATUS_AVOID,
+	)
+
+	var/new_status = tgui_input_list(user, "What status shall we give [targetname]?", "MALF Status", possible_status)
+	if(!new_status)
+		return
+
+	if(!hasHUD(user, EXAMINE_HUD_MALF_WRITE))
+		return
+
+	found_record.fields["ai_target"] = new_status
+
+	update_all_mob_malf_hud(new_status)
+
 
 /mob/living/carbon/human/can_be_flashed(intensity = 1, override_blindness_check = 0)
 
@@ -923,7 +975,7 @@
 					H.UpdateAppearance()
 
 	//Replacing lost organs with the species default.
-	temp_holder = new /mob/living/carbon/human()
+	temp_holder = new /mob/living/carbon/human/fake()
 	var/list/species_organs = H.dna.species.has_organ.Copy() //Compile a list of species organs and tack on the mutantears afterward.
 	if(H.dna.species.mutantears)
 		species_organs["ears"] = H.dna.species.mutantears
@@ -1111,7 +1163,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_SHOES, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND)
+	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_SHOES, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_NECK)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
@@ -1447,10 +1499,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	..()
 	if(current_size >= STAGE_THREE)
 		for(var/obj/item/hand in get_both_hands(src))
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_item_to_ground(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
-	rad_act(current_size * 3)
+	base_rad_act(S, current_size * 3, GAMMA_RAD)
 
 /mob/living/carbon/human/narsie_act()
 	if(iswizard(src) || IS_CULTIST(src)) // Wizards are immune to the magic. Cultists also don't get transformed.
@@ -1782,9 +1834,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	// Equipment
 	equip_list.len = ITEM_SLOT_AMOUNT
-	for(var/i = 1, i < ITEM_SLOT_AMOUNT, i++)
-		var/obj/item/thing = get_item_by_slot(i)
-		if(thing != null)
+	for(var/i in 1 to ITEM_SLOT_AMOUNT)
+		var/obj/item/thing = get_item_by_slot(1<<(i - 1)) // -1 because ITEM_SLOT_FLAGS start at 0 (and BYOND lists do not)
+		if(!isnull(thing))
 			equip_list[i] = thing.serialize()
 
 	for(var/obj/item/bio_chip/implant in src)
@@ -1841,20 +1893,20 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	// #1: Jumpsuit
 	// #2: Outer suit
 	// #3+: Everything else
-	if(islist(equip_list[ITEM_SLOT_JUMPSUIT]))
-		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_JUMPSUIT], T)
+	if(islist(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_JUMPSUIT)]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_JUMPSUIT)], T)
 		equip_to_slot_if_possible(C, ITEM_SLOT_JUMPSUIT)
 
-	if(islist(equip_list[ITEM_SLOT_OUTER_SUIT]))
-		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_OUTER_SUIT], T)
+	if(islist(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT)]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT)], T)
 		equip_to_slot_if_possible(C, ITEM_SLOT_OUTER_SUIT)
 
-	for(var/i = 1, i < ITEM_SLOT_AMOUNT, i++)
-		if(i == ITEM_SLOT_JUMPSUIT || i == ITEM_SLOT_OUTER_SUIT)
+	for(var/i in 1 to (ITEM_SLOT_AMOUNT))
+		if(i == ITEM_SLOT_2_INDEX(ITEM_SLOT_JUMPSUIT) || i == ITEM_SLOT_2_INDEX(ITEM_SLOT_OUTER_SUIT))
 			continue
 		if(islist(equip_list[i]))
 			var/obj/item/clothing/C = list_to_object(equip_list[i], T)
-			equip_to_slot_if_possible(C, i)
+			equip_to_slot_if_possible(C, 1<<(i - 1)) // -1 because ITEM_SLOT_FLAGS start at 0 (and BYOND lists do not)
 	update_icons()
 
 	..()
@@ -1983,12 +2035,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(recipe.check_reagents_assoc_list(available_reagents) != INGREDIENT_CHECK_FAILURE && recipe.check_items_assoc_list(available_ingredients) != INGREDIENT_CHECK_FAILURE)
 			if(istype(recipe, /datum/recipe/microwave))
 				possible_recipes[recipe] = RECIPE_MICROWAVE
-			else if(istype(recipe, /datum/recipe/oven))
-				possible_recipes[recipe] = RECIPE_OVEN
-			else if(istype(recipe, /datum/recipe/grill))
-				possible_recipes[recipe] = RECIPE_GRILL
-			else if(istype(recipe, /datum/recipe/candy))
-				possible_recipes[recipe] = RECIPE_CANDY
 			else
 				possible_recipes[recipe] = "something? This shouldn't happen, make a bug report"
 
@@ -2064,3 +2110,51 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/check_brain_threshold(threshold_level)
 	var/obj/item/organ/internal/brain/brain_organ = get_int_organ(/obj/item/organ/internal/brain)
 	return brain_organ.damage >= (brain_organ.max_damage * threshold_level)
+
+
+/mob/living/carbon/human/plushify(plushie_override, curse_time)
+	. = ..(dna.species.plushie_type, curse_time)
+
+/*
+ * Invokes a hallucination on the mob. Hallucination must be a path or a string of a path
+ */
+/mob/living/carbon/human/proc/invoke_hallucination(hallucination_to_make)
+	var/string_path = text2path(hallucination_to_make)
+	if(!ispath(hallucination_to_make))
+		if(!string_path)
+			return
+		hallucination_to_make = string_path
+	new hallucination_to_make(get_turf(src), src)
+
+/// Checks if an item is inside the body of the mob
+/mob/living/carbon/human/is_inside_mob(atom/thing)
+	if(!(..()))
+		return FALSE
+	if(w_uniform && w_uniform.UID() == thing.UID())
+		return FALSE
+	if(shoes && shoes.UID() == thing.UID())
+		return FALSE
+	if(belt && belt.UID() == thing.UID())
+		return FALSE
+	if(gloves && gloves.UID() == thing.UID())
+		return FALSE
+	if(neck && neck.UID() == thing.UID())
+		return FALSE
+	if(glasses && glasses.UID() == thing.UID())
+		return FALSE
+	if(l_ear && l_ear.UID() == thing.UID())
+		return FALSE
+	if(r_ear && r_ear.UID() == thing.UID())
+		return FALSE
+	if(wear_id && wear_id.UID() == thing.UID())
+		return FALSE
+	if(wear_pda && wear_pda.UID() == thing.UID())
+		return FALSE
+	if(r_store && r_store.UID() == thing.UID())
+		return FALSE
+	if(l_store && l_store.UID() == thing.UID())
+		return FALSE
+	if(s_store && s_store.UID() == thing.UID())
+		return FALSE
+
+	return TRUE

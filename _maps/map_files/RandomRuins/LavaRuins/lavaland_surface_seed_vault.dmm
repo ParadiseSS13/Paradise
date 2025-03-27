@@ -62,7 +62,7 @@
 /area/ruin/powered/seedvault)
 "ed" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/spawner/random/seed_vault,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "eI" = (
@@ -471,6 +471,14 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
+"ZO" = (
+/obj/structure/closet/firecloset/full,
+/obj/item/clothing/suit/fire/firefighter,
+/obj/item/clothing/head/hardhat/red,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "ZQ" = (
@@ -1166,11 +1174,11 @@ aa
 aa
 aa
 yZ
-al
-yc
+yZ
+yZ
 xe
-eI
-OL
+Wu
+vt
 vt
 vt
 vt
@@ -1196,8 +1204,8 @@ yZ
 yZ
 no
 no
-Lg
-nt
+ZO
+ZO
 vt
 DQ
 nt

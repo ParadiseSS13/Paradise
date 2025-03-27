@@ -140,7 +140,7 @@
 	icon = 'icons/mob/blob.dmi'
 	color = rgb(145, 150, 0)
 
-/obj/effect/gluttony/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
+/obj/effect/gluttony/CanPass(atom/movable/mover, border_dir)//So bullets will fly over and stuff.
 	if(ishuman(mover))
 		var/mob/living/carbon/human/H = mover
 		if(H.nutrition >= NUTRITION_LEVEL_FAT || HAS_TRAIT(H, TRAIT_FAT))
@@ -194,7 +194,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/kitchen/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity)
+/obj/item/kitchen/knife/envy/afterattack__legacy__attackchain(atom/movable/AM, mob/living/carbon/human/user, proximity)
 	. = ..()
 	if(!proximity)
 		return

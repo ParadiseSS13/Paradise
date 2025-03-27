@@ -164,15 +164,15 @@
 //Paradise Port: I added this because..SPOOPY DEMON IN YOUR BRAIN
 
 
-/datum/action/innate/demon/whisper
+/datum/action/innate/demon_whisper
 	name = "Demonic Whisper"
 	button_overlay_icon_state = "demon_comms"
 	button_background_icon_state = "bg_demon"
 
-/datum/action/innate/demon/whisper/IsAvailable()
+/datum/action/innate/demon_whisper/IsAvailable()
 	return ..()
 
-/datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
+/datum/action/innate/demon_whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
 	var/list/validtargets = list()
 	for(var/mob/living/M in view(user.client.maxview(), get_turf(user)))
 		if(M && M.mind && M.stat != DEAD)
@@ -188,7 +188,7 @@
 	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
-/datum/action/innate/demon/whisper/Activate()
+/datum/action/innate/demon_whisper/Activate()
 	var/mob/living/choice = choose_targets()
 	if(!choice)
 		return
@@ -220,7 +220,7 @@
 /obj/item/organ/internal/heart/demon/prepare_eat()
 	return // Just so people don't accidentally waste it
 
-/obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/attack_self__legacy__attackchain(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						"<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
@@ -230,7 +230,7 @@
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /// SLAUGHTER DEMON HEART
 
-/obj/item/organ/internal/heart/demon/slaughter/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/slaughter/attack_self__legacy__attackchain(mob/living/user)
 	..()
 
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
@@ -326,6 +326,7 @@
 	return FALSE
 
 /datum/objective/demon_fluff
+	name = "Spread blood"
 	needs_target = FALSE
 
 /datum/objective/demon_fluff/New()

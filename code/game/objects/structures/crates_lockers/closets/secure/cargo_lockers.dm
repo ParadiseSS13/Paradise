@@ -32,6 +32,20 @@
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/expedition(src)
 
+/obj/structure/closet/secure_closet/smith
+	name = "smith's locker"
+	req_access = list(ACCESS_SMITH)
+	icon_state = "cargo"
+	opened_door_sprite = "cargo"
+	closed_door_sprite = "smith"
+
+/obj/structure/closet/secure_closet/smith/populate_contents()
+	new /obj/item/radio/headset/headset_cargo(src)
+	new /obj/item/storage/bag/garment/smith(src)
+	new /obj/item/eftpos(src)
+	new /obj/item/pickaxe/drill(src)
+	new /obj/item/rcs(src)
+
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
 	req_access = list(ACCESS_QM)
@@ -47,7 +61,7 @@
 	new /obj/item/clothing/accessory/medal/supply(src)
 	new /obj/item/clothing/suit/pimpcoat/tan(src)
 	new /obj/item/rcs(src)
-	new /obj/item/destTagger(src)
+	new /obj/item/dest_tagger(src)
 	new /obj/item/reagent_containers/drinks/mug/qm(src)
 	new /obj/item/flash(src)
 	new /obj/item/cartridge/qm(src)

@@ -91,7 +91,7 @@
 	if(istype(H.shoes, /obj/item/clothing/shoes/slippers))
 		sleep_ratio *= 2
 		// take your shoes off first, you filthy animal
-		H.unEquip(H.shoes)
+		H.drop_item_to_ground(H.shoes)
 
 	var/extinguished_candle = FALSE
 	for(var/obj/item/candle/C in range(2, src))
@@ -128,6 +128,13 @@
 
 	return TRUE
 
+/obj/structure/bed/wood
+	name = "wooden slab"
+	desc = "It looks even less comfortable than the floor it's built on..."
+	icon_state = "bed_wood"
+	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
+
 /*
  * Roller beds
  */
@@ -145,7 +152,7 @@
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
 
-/obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
+/obj/structure/bed/roller/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
 		if(has_buckled_mobs())
 			if(length(buckled_mobs) > 1)
@@ -185,12 +192,12 @@
 	w_class = WEIGHT_CLASS_BULKY
 	var/extended = /obj/structure/bed/roller
 
-/obj/item/roller/attack_self(mob/user)
+/obj/item/roller/attack_self__legacy__attackchain(mob/user)
 	var/obj/structure/bed/roller/R = new extended(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/item/roller/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/roller/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(isturf(target))
@@ -200,7 +207,7 @@
 			R.add_fingerprint(user)
 			qdel(src)
 
-/obj/item/roller/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/roller/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/roller_holder))
 		var/obj/item/roller_holder/RH = W
 		if(!RH.held)
@@ -216,7 +223,7 @@
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
 	extended = /obj/structure/bed/roller/holo
 
-/obj/item/roller/holo/attackby(obj/item/W, mob/user, params)
+/obj/item/roller/holo/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	return
 
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
@@ -242,7 +249,7 @@
 	..()
 	held = new /obj/item/roller(src)
 
-/obj/item/roller_holder/attack_self(mob/user as mob)
+/obj/item/roller_holder/attack_self__legacy__attackchain(mob/user as mob)
 	if(!held)
 		to_chat(user, "<span class='notice'>The rack is empty.</span>")
 		return

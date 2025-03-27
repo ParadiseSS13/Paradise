@@ -372,7 +372,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	surplus = 50
 
-/datum/uplink_item/stealthy_weapons/RSG
+/datum/uplink_item/stealthy_weapons/rsg
 	name = "Rapid Syringe Gun"
 	desc = "A syndicate rapid syringe gun able to fill and fire syringes automatically from an internal reagent reservoir. Comes pre-loaded with 7 empty syringes, and has a maximum capacity of 14 syringes and 300u of reagents."
 	reference = "RSG"
@@ -494,13 +494,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
 
-/datum/uplink_item/stealthy_tools/chameleon_stamp
-	name = "Chameleon Stamp"
-	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
-	it can also be used in a washing machine to forge clothing."
-	reference = "CHST"
-	item = /obj/item/stamp/chameleon
-	cost = 1
+/datum/uplink_item/stealthy_tools/forgers_kit
+	name = "Forger's Kit"
+	desc = "A set consisting of a stamp and a special pen. The stamp can be activated to imitate an official Nanotrasen Stamp, \
+		allowing you to forge false documents for access or equipment, and can also be used in a washing machine to create counterfeit clothing. \
+			The included pen lets you create fake signatures, further enhancing your forgery capabilities."
+	reference = "FGK"
+	item = /obj/item/storage/box/syndie_kit/forgers_kit
+	cost = 10
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chameleonflag
@@ -711,7 +712,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Hacked AI Upload Module"
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
 	reference = "HAI"
-	item = /obj/item/aiModule/syndicate
+	item = /obj/item/ai_module/syndicate
 	cost = 15
 
 /datum/uplink_item/device_tools/powersink
@@ -821,8 +822,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Heavily Modified Springlock MODsuit Module"
 	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
 		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
-		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
-		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you? \
+		up. While springlocks in older models were prone to \"snapping\" due to environmental humidity, \
+		this version reacts solely to specific chemical triggers, such as smoke from grenades. \
+		You know what it's like to have an entire exoskeleton enter you? \
 		This version of the module has been modified to allow for near instant activation of the MODsuit. \
 		Useful for quickly getting your MODsuit on/off, or for taking care of a target via a tragic accident. \
 		It is hidden as a DNA lock module. It will block retraction for 10 seconds by default to allow you to follow \
@@ -947,6 +949,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/scope_eyes
 	cost = 10
 
+/datum/uplink_item/cyber_implants/mantis_kit
+	name = "'Naginata' Mantis Blades Kit"
+	desc = "A pair of devastating 'Naginata' concealable mantis blades, which retract into the arms of the user. \
+	Their monomolecular edges will easily tear through flesh and armor alike, and can even pry open airlocks when used together. \
+	When both blades are equipped, they enable the user to perform double attacks. \
+	Can be used to parry incoming melee attacks."
+	reference = "MBK"
+	item = /obj/item/storage/box/syndie_kit/syndie_mantis
+	cost = 75
+	surplus = 0
+	can_discount = FALSE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 ////////////////////////////////////////
 // MARK: POINTLESS BADASSERY
@@ -1004,40 +1018,40 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // MARK: BUNDLES AND TELECRYSTALS
 ////////////////////////////////////////
 
-/datum/uplink_item/bundles_TC
+/datum/uplink_item/bundles_tc
 	category = "Bundles and Telecrystals"
 	surplus = 0
 	can_discount = FALSE
 
-/datum/uplink_item/bundles_TC/telecrystal
+/datum/uplink_item/bundles_tc/telecrystal
 	name = "Raw Telecrystal"
 	desc = "Telecrystal in its rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
 	reference = "RTC"
 	item = /obj/item/stack/telecrystal
 	cost = 1
 
-/datum/uplink_item/bundles_TC/telecrystal/five
+/datum/uplink_item/bundles_tc/telecrystal/five
 	name = "5 Raw Telecrystals"
 	desc = "Five telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
 	reference = "RTCF"
 	item = /obj/item/stack/telecrystal/five
 	cost = 5
 
-/datum/uplink_item/bundles_TC/telecrystal/twenty
+/datum/uplink_item/bundles_tc/telecrystal/twenty
 	name = "20 Raw Telecrystals"
 	desc = "Twenty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
 	reference = "RTCT"
 	item = /obj/item/stack/telecrystal/twenty
 	cost = 20
 
-/datum/uplink_item/bundles_TC/telecrystal/fifty
+/datum/uplink_item/bundles_tc/telecrystal/fifty
 	name = "50 Raw Telecrystals"
 	desc = "Fifty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
 	reference = "RTCB"
 	item = /obj/item/stack/telecrystal/fifty
 	cost = 50
 
-/datum/uplink_item/bundles_TC/telecrystal/hundred
+/datum/uplink_item/bundles_tc/telecrystal/hundred
 	name = "100 Raw Telecrystals"
 	desc = "One-hundred telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
 	reference = "RTCH"

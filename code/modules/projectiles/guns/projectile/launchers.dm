@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	can_holster = FALSE  // Not your normal revolver
 
-/obj/item/gun/projectile/revolver/grenadelauncher/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/grenadelauncher/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
@@ -29,7 +29,7 @@
 	icon_state = "mecha_grenadelnchr"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi/fifteen
 
-/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
+/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self__legacy__attackchain()
 	return
 
 /obj/item/gun/projectile/automatic/gyropistol
@@ -72,14 +72,14 @@
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()
 	return
 
-/obj/item/gun/projectile/automatic/speargun/attack_self()
+/obj/item/gun/projectile/automatic/speargun/attack_self__legacy__attackchain()
 	return
 
 /obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
-/obj/item/gun/projectile/automatic/speargun/attackby(obj/item/A, mob/user, params)
-	var/num_loaded = magazine.attackby(A, user, params, 1)
+/obj/item/gun/projectile/automatic/speargun/attackby__legacy__attackchain(obj/item/A, mob/user, params)
+	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
 	if(num_loaded)
 		to_chat(user, "<span class='notice'>You load [num_loaded] spear\s into \the [src].</span>")
 		update_icon()

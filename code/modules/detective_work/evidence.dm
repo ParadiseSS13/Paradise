@@ -8,12 +8,12 @@
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/evidencebag/afterattack(obj/item/I, mob/user,proximity)
+/obj/item/evidencebag/afterattack__legacy__attackchain(obj/item/I, mob/user,proximity)
 	if(!proximity || loc == I)
 		return
 	evidencebagEquip(I, user)
 
-/obj/item/evidencebag/attackby(obj/item/I, mob/user, params)
+/obj/item/evidencebag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(evidencebagEquip(I, user))
 		return 1
 
@@ -41,7 +41,7 @@
 		if(isstorage(I.loc))	//in a container.
 			var/obj/item/storage/U = I.loc
 			U.remove_from_storage(I, src)
-		else if(!user.is_holding(I) || !user.unEquip(I))					//in a hand
+		else if(!user.is_holding(I) || !user.unequip(I))					//in a hand
 			return
 
 	user.visible_message("<span class='notice'>[user] puts [I] into [src].</span>", "<span class='notice'>You put [I] inside [src].</span>",\
@@ -65,7 +65,7 @@
 	w_class = I.w_class
 	return 1
 
-/obj/item/evidencebag/attack_self(mob/user)
+/obj/item/evidencebag/attack_self__legacy__attackchain(mob/user)
 	if(length(contents))
 		var/obj/item/I = contents[1]
 		user.visible_message("<span class='notice'>[user] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>",\

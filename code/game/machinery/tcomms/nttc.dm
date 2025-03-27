@@ -109,6 +109,9 @@
 		// Supply
 		"Quartermaster" = "supradio",
 		"Cargo Technician" = "supradio",
+		"Smith" = "supradio",
+		"Metalworker" = "supradio",
+		"Tinkerer" = "supradio",
 		"Shaft Miner" = "supradio",
 		"Spelunker" = "supradio",
 		"Explorer" = "supradio",
@@ -132,6 +135,8 @@
 		"Journalist" = "srvradio",
 		"Librarian" = "srvradio",
 		"Mime" = "srvradio",
+		// Procedure
+		"Nanotrasen Career Trainer" = "proradio",
 	)
 	/// List of Command jobs
 	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "Quartermaster", "AI")

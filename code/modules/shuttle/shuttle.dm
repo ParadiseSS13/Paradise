@@ -49,11 +49,11 @@
 
 //returns a list(x0,y0, x1,y1) where points 0 and 1 are bounding corners of the projected rectangle
 /obj/docking_port/proc/return_coords(_x, _y, _dir)
-	if(!_dir)
+	if(_dir == null)
 		_dir = dir
-	if(!_x)
+	if(_x == null)
 		_x = x
-	if(!_y)
+	if(_y == null)
 		_y = y
 
 	//byond's sin and cos functions are inaccurate. This is faster and perfectly accurate
@@ -75,7 +75,7 @@
 		_y + (-dwidth*sin) + (-dheight*cos),
 		_x + (-dwidth+width-1)*cos - (-dheight+height-1)*sin,
 		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
-		)
+	)
 
 //returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
@@ -171,11 +171,11 @@
 		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 		return FALSE
 
-	SSshuttle.stationary += src
+	SSshuttle.stationary_docking_ports += src
 	if(!id)
-		id = "[length(SSshuttle.stationary)]"
+		id = "[length(SSshuttle.stationary_docking_ports)]"
 	if(name == "dock")
-		name = "dock[length(SSshuttle.stationary)]"
+		name = "dock[length(SSshuttle.stationary_docking_ports)]"
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -190,6 +190,12 @@
 	name = "In transit"
 	turf_type = /turf/space/transit
 	lock_shuttle_doors = TRUE
+	/// The turf reservation returned by the transit area request
+	var/datum/turf_reservation/reserved_area
+	/// The area created during the transit area reservation
+	var/area/shuttle/transit/assigned_area
+	/// The mobile port that owns this transit port
+	var/obj/docking_port/mobile/owner
 
 /obj/docking_port/stationary/transit/register()
 	if(!..())
@@ -197,7 +203,7 @@
 
 	name = "In transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
 
-	SSshuttle.transit += src
+	SSshuttle.transit_docking_ports += src
 	return 1
 
 /obj/docking_port/mobile
@@ -213,7 +219,6 @@
 	var/callTime = 50				//time spent in transit (deciseconds)
 	var/ignitionTime = 30			// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
 	var/roundstart_move				//id of port to send shuttle to at roundstart
-	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
 
 	/// The speed factor for this shuttle. Higher means faster.
@@ -223,12 +228,18 @@
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
+	var/obj/docking_port/stationary/transit/assigned_transit
 	/// Does this shuttle use the lockdown system?
 	var/uses_lockdown = FALSE
 	/// If this variable is true, shuttle is on lockdown, and other requests can not be processed
 	var/lockeddown = FALSE
 	/// Is this a shuttle that completely destroys whatever dares to get in it's way?
 	var/lance_docking = FALSE
+
+	/// The direction the shuttle prefers to travel in, ie what direction the animation will cause it to appear to be traveling in
+	var/preferred_direction = NORTH
+	/// relative direction of the docking port from the front of the shuttle. NORTH is towards front, EAST would be starboard side, WEST port, etc.
+	var/port_direction = NORTH
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -259,18 +270,18 @@
 	if(!SSshuttle)
 		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 
-	SSshuttle.mobile += src
+	SSshuttle.mobile_docking_ports += src
 
 	if(!id)
-		id = "[length(SSshuttle.mobile)]"
+		id = "[length(SSshuttle.mobile_docking_ports)]"
 	if(name == "shuttle")
-		name = "shuttle[length(SSshuttle.mobile)]"
+		name = "shuttle[length(SSshuttle.mobile_docking_ports)]"
 
 	return 1
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
-		SSshuttle.mobile -= src
+		SSshuttle.mobile_docking_ports -= src
 		areaInstance = null
 		destination = null
 		previous = null
@@ -448,12 +459,12 @@
 		if(!canMove())
 			return -1
 
-	var/datum/milla_safe/docking_port_dock/milla = new()
+	var/datum/milla_safe_must_sleep/docking_port_dock/milla = new()
 	milla.invoke_async(src, S1, force, transit)
 
-/datum/milla_safe/docking_port_dock
+/datum/milla_safe_must_sleep/docking_port_dock
 
-/datum/milla_safe/docking_port_dock/on_run(obj/docking_port/mobile/mobile_port, obj/docking_port/stationary/S1, force, transit)
+/datum/milla_safe_must_sleep/docking_port_dock/on_run(obj/docking_port/mobile/mobile_port, obj/docking_port/stationary/S1, force, transit)
 	// Re-check that it's OK to dock.
 	if(S1.get_docked() == mobile_port)
 		mobile_port.remove_ripples()
@@ -575,10 +586,12 @@
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
+	if(assigned_transit && check_dock(assigned_transit))
+		return assigned_transit
+	stack_trace("[name] ([id])'s findTransitDock() was called, but there was no assigned transit dock, reverting to emergency fallback.")
 	var/obj/docking_port/stationary/transit/T = SSshuttle.getDock("[id]_transit")
 	if(T && check_dock(T))
 		return T
-
 
 /obj/docking_port/mobile/proc/findRoundstartDock()
 	var/obj/docking_port/stationary/D
@@ -698,6 +711,9 @@
 /obj/docking_port/mobile/proc/check()
 	check_effects()
 
+	if(mode == SHUTTLE_IGNITING)
+		check_transit_zone()
+
 	var/timeLeft = timeLeft(1)
 
 	if(timeLeft <= 0)
@@ -711,6 +727,9 @@
 					setTimer(20)	//can't dock for some reason, try again in 2 seconds
 					return
 			if(SHUTTLE_IGNITING)
+				if(!check_transit_zone())
+					setTimer(20)
+					return
 				mode = SHUTTLE_CALL
 				setTimer(callTime)
 				enterTransit()
@@ -792,6 +811,16 @@
 			dst = destination
 		. += " towards [dst ? dst.name : "unknown location"] ([timeLeft(600)]mins)"
 
+/obj/docking_port/mobile/proc/transit_failure()
+	message_admins("Shuttle [src] repeatedly failed to create transit zone.")
+
+/obj/docking_port/mobile/proc/check_transit_zone()
+	if(assigned_transit)
+		return TRUE
+	SSshuttle.request_transit_dock(src)
+	return FALSE
+
+
 /obj/docking_port/mobile/labour
 	dir = 8
 	dwidth = 2
@@ -801,6 +830,7 @@
 	rebuildable = TRUE
 	width = 9
 	uses_lockdown = TRUE
+	port_direction = EAST
 
 /obj/docking_port/mobile/mining
 	dir = 8
@@ -811,6 +841,92 @@
 	rebuildable = TRUE
 	width = 7
 	uses_lockdown = TRUE
+	port_direction = EAST
+
+/obj/docking_port/mobile/specops
+	dir = 8
+	dwidth = 2
+	height = 11
+	id = "specops"
+	name = "ert shuttle"
+	width = 5
+	preferred_direction = EAST
+
+/obj/docking_port/mobile/sit
+	dir = 8
+	dwidth = 3
+	height = 5
+	id = "sit"
+	name = "SIT shuttle"
+	width = 11
+	preferred_direction = SOUTH
+	port_direction = WEST
+
+/obj/docking_port/mobile/sst
+	dir = 4
+	dwidth = 7
+	height = 5
+	id = "sst"
+	name = "SST shuttle"
+	width = 11
+	preferred_direction = SOUTH
+	port_direction = EAST
+
+/obj/docking_port/mobile/admin
+	dir = 2
+	dwidth = 8
+	height = 15
+	id = "admin"
+	name = "administration shuttle"
+	timid = TRUE
+	width = 18
+
+/obj/docking_port/mobile/ferry
+	dir = 8
+	dwidth = 2
+	height = 12
+	id = "ferry"
+	name = "ferry shuttle"
+	width = 5
+	preferred_direction = EAST
+
+/obj/docking_port/mobile/trade_sol
+	dir = 8
+	dwidth = 4
+	height = 11
+	id = "trade_sol"
+	name = "sol trade shuttle"
+	width = 9
+	preferred_direction = EAST
+
+/obj/docking_port/mobile/nuke_ops
+	dheight = 9
+	dir = 2
+	dwidth = 5
+	height = 22
+	id = "syndicate"
+	name = "syndicate infiltrator"
+	width = 18
+
+/obj/docking_port/mobile/free_golem
+	dir = 8
+	dwidth = 8
+	height = 20
+	id = "freegolem"
+	name = "Free Golem Ship"
+	width = 16
+	preferred_direction = WEST
+	port_direction = SOUTH
+
+/obj/docking_port/mobile/whiteship
+	dir = 8
+	id = "whiteship"
+	name = "NEV Cherub"
+	dwidth = 6
+	height = 19
+	width = 12
+	preferred_direction = WEST
+	port_direction = SOUTH
 
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
@@ -848,7 +964,7 @@
 		// find close shuttle that is ok to mess with
 		if(!SSshuttle) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
 			return
-		for(var/obj/docking_port/mobile/D in SSshuttle.mobile)
+		for(var/obj/docking_port/mobile/D in SSshuttle.mobile_docking_ports)
 			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
 				M = D
 				shuttleId = M.id
@@ -859,7 +975,7 @@
 	if(M && !possible_destinations)
 		// find perfect fits
 		possible_destinations = ""
-		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
 			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
 				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
 
@@ -890,7 +1006,7 @@
 		var/list/docking_ports = list()
 		data["docking_ports"] = docking_ports
 		var/list/options = params2list(possible_destinations)
-		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
 			if(!options.Find(S.id))
 				continue
 			if(!M.check_dock(S))
@@ -927,8 +1043,11 @@
 			if(2)
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 			if(3)
-				atom_say("Shuttle has already received a pending movement request. Please wait until the movement request is processed.")
-
+				atom_say("Shuttle is refuelling at dock. Please wait...")
+			if(4)
+				atom_say("Shuttle is currently en-route. The shuttle cannot be rerouted at this time.")
+			if(5)
+				atom_say("Shuttle is currently departing. Please wait...")
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)

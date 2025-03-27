@@ -9,6 +9,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_color = "#ffffd0"
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
@@ -30,19 +31,17 @@
 		set_light(0)
 	update_icon()
 
-/obj/item/flashlight/attack_self(mob/user)
+/obj/item/flashlight/attack_self__legacy__attackchain(mob/user)
 	if(!isturf(user.loc))
 		to_chat(user, "You cannot turn the light on while in this [user.loc].")//To prevent some lighting anomalities.
 		return FALSE
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 	return TRUE
 
-/obj/item/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)
 	add_fingerprint(user)
 	if(on && user.zone_selected == "eyes")
 
@@ -127,6 +126,7 @@
 	flags = CONDUCT
 	materials = list()
 	on = TRUE
+	light_color = "#fff4bb"
 
 /obj/item/flashlight/lamp/examine(mob/user)
 	. = ..()
@@ -137,6 +137,7 @@
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
+	light_color = "#AAFFAA"
 
 /obj/item/flashlight/lamp/green/off
 	on = FALSE
@@ -145,7 +146,7 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
@@ -153,6 +154,7 @@
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
+	light_color = "#f7ff57"
 
 // FLARES
 
@@ -188,7 +190,7 @@
 /obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
 	if(pos && produce_heat)
-		pos.hotspot_expose(produce_heat, 5)
+		pos.hotspot_expose(produce_heat, 1)
 	fuel = max(fuel - 1, 0)
 	if(!fuel || !on)
 		turn_off()
@@ -206,7 +208,7 @@
 	attack_verb = list()
 	update_brightness()
 
-/obj/item/flashlight/flare/attack_self(mob/user)
+/obj/item/flashlight/flare/attack_self__legacy__attackchain(mob/user)
 	// Usual checks
 	if(!fuel)
 		to_chat(user, "<span class='notice'>[src] is out of fuel.</span>")
@@ -360,7 +362,7 @@
 		update_brightness()
 		icon_state = initial(icon_state)
 
-/obj/item/flashlight/slime/attack_self(mob/user)
+/obj/item/flashlight/slime/attack_self__legacy__attackchain(mob/user)
 	return //Bio-luminescence does not toggle.
 
 /obj/item/flashlight/slime/extinguish_light(force = FALSE)
@@ -394,12 +396,12 @@
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
 	return TRUE
 
-/obj/item/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/emp/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)
 	if(on && user.zone_selected == "eyes") // call original attack proc only if aiming at the eyes
 		..()
 	return
 
-/obj/item/flashlight/emp/afterattack(atom/A as mob|obj, mob/user, proximity)
+/obj/item/flashlight/emp/afterattack__legacy__attackchain(atom/A as mob|obj, mob/user, proximity)
 	if(!proximity) return
 	if(emp_cur_charges > 0)
 		emp_cur_charges -= 1

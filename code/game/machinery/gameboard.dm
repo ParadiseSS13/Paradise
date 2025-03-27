@@ -25,7 +25,7 @@
 	if(stat & NOPOWER)
 		set_light(0)
 	else
-		set_light(3, 3)
+		set_light(3, 1)
 
 /obj/machinery/gameboard/update_icon_state()
 	if(stat & NOPOWER)

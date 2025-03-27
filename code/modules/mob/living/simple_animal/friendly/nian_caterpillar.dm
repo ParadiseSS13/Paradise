@@ -54,7 +54,7 @@
 	add_language("Tkachi")
 	evolve_action.Grant(src)
 
-/mob/living/simple_animal/nian_caterpillar/proc/evolve(obj/structure/moth/cocoon/C, datum/mind/M)
+/mob/living/simple_animal/nian_caterpillar/proc/evolve(obj/structure/moth_cocoon/C, datum/mind/M)
 	if(stat != CONSCIOUS)
 		return FALSE
 
@@ -99,7 +99,7 @@
 		adult.real_name = adult.dna.species.get_random_name()
 		adult.name = adult.real_name
 	for(var/obj/item/W in contents)
-		unEquip(W)
+		drop_item_to_ground(W)
 
 	qdel(src)
 	return TRUE
@@ -124,11 +124,11 @@
 	else
 		get_scooped(M)
 
-/mob/living/simple_animal/nian_caterpillar/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/simple_animal/nian_caterpillar/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		gib() // Commit die.
-	else
-		..()
 
 /datum/action/innate/nian_caterpillar_emerge
 	name = "Evolve"
@@ -136,7 +136,7 @@
 	button_overlay_icon = 'icons/effects/effects.dmi'
 	button_overlay_icon_state = "cocoon1"
 
-/datum/action/innate/nian_caterpillar_emerge/proc/emerge(obj/structure/moth/cocoon/C)
+/datum/action/innate/nian_caterpillar_emerge/proc/emerge(obj/structure/moth_cocoon/C)
 	for(var/mob/living/carbon/human/H in C)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
@@ -148,7 +148,7 @@
 
 	user.visible_message("<span class='notice'>[user] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
 	if(do_after(user, COCOON_WEAVE_DELAY, FALSE, user))
-		var/obj/structure/moth/cocoon/C = new(get_turf(user))
+		var/obj/structure/moth_cocoon/C = new(get_turf(user))
 		var/datum/mind/H = user.mind
 		user.evolve(C, H)
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)

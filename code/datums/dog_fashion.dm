@@ -266,7 +266,7 @@
 	name = "Colonel REAL_NAME"
 	desc = "Keep away from live vox."
 
-/datum/dog_fashion/head/HoS
+/datum/dog_fashion/head/hos
 	name = "Head of Security REAL_NAME"
 	desc = "Probably better than the last HoS."
 
@@ -304,3 +304,7 @@
 /datum/dog_fashion/head/qm
 	name = "Supplymaster REAL_NAME"
 	desc = "A loyal watchdog for the most secure transportation."
+
+/datum/dog_fashion/head/smith
+	name = "Metalworker REAL_NAME"
+	desc = "Whatever you do, don't let them hold the hot metal in their mouth."

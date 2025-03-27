@@ -26,6 +26,13 @@
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
 
+/obj/item/restraints/legcuffs/beartrap/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/restraints/legcuffs/beartrap/update_icon_state()
 	icon_state = "beartrap[armed]"
 
@@ -39,7 +46,7 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
+/obj/item/restraints/legcuffs/beartrap/attack_self__legacy__attackchain(mob/user)
 	..()
 
 	if(!ishuman(user) || user.restrained())
@@ -50,7 +57,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
-/obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
+/obj/item/restraints/legcuffs/beartrap/attackby__legacy__attackchain(obj/item/I, mob/user) //Let's get explosive.
 	if(istype(I, /obj/item/grenade/iedcasing))
 		if(IED)
 			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
@@ -97,16 +104,15 @@
 		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
 	return TRUE
 
-/obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
-	if(!armed || !isturf(loc))
-		return ..()
+/obj/item/restraints/legcuffs/beartrap/proc/on_atom_entered(datum/source, mob/living/entered)
+	if(!armed || !isturf(loc) || !istype(entered))
+		return
 
-	var/mob/living/L = AM
-	if((iscarbon(AM) || isanimal(AM)) && !HAS_TRAIT(L, TRAIT_FLYING))
-		spring_trap(AM)
+	if((iscarbon(entered) || isanimal(entered)) && !HAS_TRAIT(entered, TRAIT_FLYING))
+		spring_trap(entered)
 
-		if(ishuman(AM))
-			var/mob/living/carbon/H = AM
+		if(ishuman(entered))
+			var/mob/living/carbon/H = entered
 			if(IS_HORIZONTAL(H))
 				H.apply_damage(trap_damage, BRUTE, "chest")
 			else
@@ -117,11 +123,10 @@
 				H.update_inv_legcuffed()
 				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		else
-			if(istype(L, /mob/living/simple_animal/hostile/bear))
-				L.apply_damage(trap_damage * 2.5, BRUTE)
+			if(istype(entered, /mob/living/simple_animal/hostile/bear))
+				entered.apply_damage(trap_damage * 2.5, BRUTE)
 			else
-				L.apply_damage(trap_damage * 1.75, BRUTE)
-	..()
+				entered.apply_damage(trap_damage * 1.75, BRUTE)
 
 /obj/item/restraints/legcuffs/beartrap/on_found(mob/finder)
 	if(!armed)
@@ -219,7 +224,7 @@
 	L.update_inv_l_hand()
 	spinning = TRUE
 	for(var/i in 1 to max_spins)
-		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L))))
+		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L)), hidden = TRUE))
 			reset_values(L)
 			break
 		throw_range += range_increment

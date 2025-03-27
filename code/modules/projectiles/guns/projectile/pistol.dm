@@ -95,7 +95,7 @@
 	item_state = "deagleg"
 
 //APS Pistol//
-/obj/item/gun/projectile/automatic/pistol/APS
+/obj/item/gun/projectile/automatic/pistol/aps
 	name = "stechkin APS pistol"
 	desc = "A deadly automatic pistol produced by the USSP's State Armory. Uses 10mm ammo."
 	icon_state = "aps"

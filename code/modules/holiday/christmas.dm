@@ -4,7 +4,7 @@
 		for(var/turf/simulated/floor/T in orange(1,xmas))
 			for(var/i=1,i<=rand(1,5),i++)
 				new /obj/item/a_gift(T)
-	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_list)
+	for(var/mob/living/simple_animal/pet/dog/corgi/ian/Ian in GLOB.mob_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat)
 	for(var/datum/crafting_recipe/snowman/S in GLOB.crafting_recipes)
 		S.always_available = TRUE
@@ -33,7 +33,9 @@
 	desc = "Directions for use: Requires two people, one to pull each end."
 	var/cracked = 0
 
-/obj/item/toy/xmas_cracker/attack(mob/target, mob/user)
+/obj/item/toy/xmas_cracker/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..())
+		return FINISH_ATTACK
 	if(!cracked && ishuman(target) && (target.stat == CONSCIOUS) && !target.get_active_hand())
 		target.visible_message("<span class='notice'>[user] and [target] pop \an [src]! *pop*</span>", "<span class='notice'>You pull \an [src] with [target]! *pop*</span>", "<span class='notice'>You hear a *pop*.</span>")
 		var/obj/item/paper/Joke = new /obj/item/paper(user.loc)

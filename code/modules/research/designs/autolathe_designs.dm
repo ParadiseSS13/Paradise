@@ -82,6 +82,14 @@
 	build_path = /obj/item/screwdriver
 	category = list("initial","Tools")
 
+/datum/design/hammer
+	name = "Hammer"
+	id = "hammer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/hammer
+	category = list("initial","Tools")
+
 /datum/design/wirecutters
 	name = "Wirecutters"
 	id = "wirecutters"
@@ -186,6 +194,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/ears/earmuffs
 	category = list("initial", "Miscellaneous")
+
 /datum/design/painter
 	name = "Modular Painter"
 	id = "mod_painter"
@@ -193,6 +202,14 @@
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
 	build_path = /obj/item/painter
 	category = list("initial", "Miscellaneous")
+
+/datum/design/eftpos
+	name = "EFTPOS"
+	id = "eftpos"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
+	build_path = /obj/item/eftpos
+	category = list("initial","Miscellaneous")
 
 /datum/design/metal
 	name = "Metal"
@@ -245,6 +262,22 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 12000)
 	build_path = /obj/item/kitchen/knife
+	category = list("initial","Dinnerware")
+
+/datum/design/cheese_knife
+	name = "Cheese Knife"
+	id = "cheese_knife"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/kitchen/knife/cheese
+	category = list("initial","Dinnerware")
+
+/datum/design/pizza_cutter
+	name = "Pizza Cutter"
+	id = "pizza_cutter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000)
+	build_path = /obj/item/kitchen/knife/pizza_cutter
 	category = list("initial","Dinnerware")
 
 /datum/design/fork
@@ -404,7 +437,7 @@
 	id = "fixovein"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
-	build_path = /obj/item/FixOVein
+	build_path = /obj/item/fix_o_vein
 	category = list("initial", "Medical")
 
 /datum/design/bonegel
@@ -548,7 +581,7 @@
 	id = "stethoscope"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500)
-	build_path = /obj/item/clothing/accessory/stethoscope
+	build_path = /obj/item/clothing/neck/stethoscope
 	category = list("initial", "Medical")
 
 /datum/design/timer
@@ -769,6 +802,14 @@
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("hacked", "Security")
 
+/datum/design/laser_slug
+	name = "Laser Slug"
+	id = "laser_slug"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000) //Power comes at a price of 4000 glass
+	build_path = /obj/item/ammo_casing/shotgun/laserslug
+	category = list("hacked", "Security")
+
 /datum/design/buckshot
 	name = "Buckshot Shell"
 	id = "buckshot"
@@ -878,7 +919,7 @@
 	id = "desttagger"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 250, MAT_GLASS = 150)
-	build_path = /obj/item/destTagger
+	build_path = /obj/item/dest_tagger
 	category = list("initial", "Electronics")
 
 /datum/design/handlabeler
@@ -955,6 +996,7 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
+	requires_whitelist = TRUE
 
 /datum/design/desk_bell
 	name = "Desk Bell"

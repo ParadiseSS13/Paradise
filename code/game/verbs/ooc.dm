@@ -177,10 +177,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 			if(target.mob in heard)
 				send = 1
-				if(isAI(target.mob))
+				if(is_ai(target.mob))
 					prefix = " (Core)"
 
-			else if(isAI(target.mob)) // Special case
+			else if(is_ai(target.mob)) // Special case
 				var/mob/living/silicon/ai/A = target.mob
 				if(A.eyeobj in hearers(7, source))
 					send = 1

@@ -40,7 +40,7 @@
 
 /obj/machinery/camera/tracking_head/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor, _radius = 6)
+	proximity_monitor = new(src, 6)
 	camera_overlay = new(get_turf(src))
 	switch(dir)
 		if(NORTH)
@@ -146,7 +146,7 @@
 	assembly.upgrades.Add(new /obj/item/analyzer(assembly))
 	setPowerUsage()
 	//Update what it can see.
-	GLOB.cameranet.updateVisibility(src, 0)
+	GLOB.cameranet.update_visibility(src, 0)
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()
@@ -155,7 +155,7 @@
 	if(name == initial(name))
 		name = "motion-sensitive security camera"
 	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
-	AddComponent(/datum/component/proximity_monitor, CAMERA_VIEW_DISTANCE)
+	proximity_monitor = new(src, CAMERA_VIEW_DISTANCE)
 	setPowerUsage()
 	// Add it to machines that process
 	START_PROCESSING(SSmachines, src)

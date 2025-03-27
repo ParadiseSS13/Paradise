@@ -23,7 +23,11 @@
 /obj/effect/particle_effect/smoke/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE), PROC_REF(smoke_mob)) //If someone crosses the smoke or the smoke crosses someone
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(smoke_mob)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(smoke_mob))
 	GLOB.smokes_active++
 	lifetime += rand(-1, 1)
 	create_reagents(10)
@@ -31,7 +35,7 @@
 /obj/effect/particle_effect/smoke/Destroy()
 	animate(src, 2 SECONDS, alpha = 0, easing = EASE_IN | CIRCULAR_EASING)
 	STOP_PROCESSING(SSobj, src)
-	UnregisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE))
+	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	GLOB.smokes_active--
 	return ..()
 
@@ -56,7 +60,7 @@
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/breather)
-	SIGNAL_HANDLER //COMSIG_MOVABLE_CROSSED and COMSIG_CROSSED_MOVABLE
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED + COMSIG_MOVABLE_MOVED
 	if(!istype(breather))
 		return FALSE
 	if(lifetime < 1)
@@ -125,7 +129,7 @@
 	lifetime = 16 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
-/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target)
+/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
 		B.damage = (B.damage / 2)
@@ -143,25 +147,23 @@
 	lifetime = 10 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
-/obj/effect/particle_effect/smoke/steam/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(!isliving(AM))
+/obj/effect/particle_effect/smoke/steam/smoke_mob(mob/living/breather)
+	if(!istype(breather))
 		return
-	var/mob/living/crosser = AM
-	if(IS_MINDFLAYER(crosser))
+	if(IS_MINDFLAYER(breather))
 		return // Mindflayers are fully immune to steam
-	if(!ishuman(crosser))
-		crosser.adjustFireLoss(8)
+	if(!ishuman(breather))
+		breather.adjustFireLoss(8)
 		return
 
-	var/mob/living/carbon/human/human_crosser = AM
+	var/mob/living/carbon/human/human_crosser = breather
 	var/fire_armour = human_crosser.get_thermal_protection()
 	if(fire_armour >= FIRE_SUIT_MAX_TEMP_PROTECT || HAS_TRAIT(human_crosser, TRAIT_RESISTHEAT))
 		return
 
-	crosser.adjustFireLoss(5)
+	breather.adjustFireLoss(5)
 	if(prob(20))
-		to_chat(crosser, "<span class='warning'>You are being scalded by the hot steam!</span>")
+		to_chat(breather, "<span class='warning'>You are being scalded by the hot steam!</span>")
 
 /////////////////////////////////////////////
 // Nanofrost smoke
@@ -171,53 +173,71 @@
 	name = "nanofrost smoke"
 	color = "#B2FFFF"
 	opacity = FALSE
+	var/spread_range = 6
+	lifetime = 0.5 SECONDS_TO_LIFE_CYCLES
 
 /datum/effect_system/smoke_spread/freezing
 	effect_type = /obj/effect/particle_effect/smoke/freezing
-	var/blast = FALSE
 
-/datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
-	if(issimulatedturf(A))
-		var/turf/simulated/T = A
-		if(!T.blocks_air)
-			var/datum/milla_safe/smoke_spread_chill/milla = new()
-			milla.invoke_async(src, T)
-		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
-			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
-				V.welded = TRUE
-				V.update_icon()
-				V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
-		for(var/obj/machinery/atmospherics/unary/vent_scrubber/U in T)
-			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent scrubber.
-				U.welded = TRUE
-				U.update_icon()
-				U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
-		for(var/mob/living/L in T)
-			L.ExtinguishMob()
-		for(var/obj/item/Item in T)
-			Item.extinguish()
+/obj/effect/particle_effect/smoke/freezing/process()
+	. = ..()
+	var/turf/T = get_turf(src)
+	if(!istype(T))
+		return
 
-/datum/milla_safe/smoke_spread_chill
+	for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
+		if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
+			V.welded = TRUE
+			V.update_icon()
+			V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
+	for(var/obj/machinery/atmospherics/unary/vent_scrubber/U in T)
+		if(!isnull(U.welded) && !U.welded) //must be an unwelded vent scrubber.
+			U.welded = TRUE
+			U.update_icon()
+			U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
+	for(var/mob/living/L in T)
+		L.ExtinguishMob()
+	for(var/obj/item/Item in T)
+		Item.extinguish()
 
-/datum/milla_safe/smoke_spread_chill/on_run(datum/effect_system/smoke_spread/smoke, turf/T)
+	var/datum/milla_safe/nanofrost_extinguish/milla = new()
+	milla.invoke_async(src, T)
+
+/datum/milla_safe/nanofrost_extinguish/on_run(obj/effect/particle_effect/smoke/freezing/smoke, turf/T)
+	if(!istype(T))
+		return
 	var/datum/gas_mixture/env = get_turf_air(T)
-	if(get_dist(T, smoke) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-		env.set_temperature(2)
-	for(var/obj/effect/hotspot/H in T)
+	for(var/obj/effect/hotspot/fake/H in T)
 		qdel(H)
-		if(env.toxins())
-			env.set_nitrogen(env.nitrogen() + env.toxins())
-			env.set_toxins(0)
 
-/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, datum/reagents/chemicals, blasting = FALSE)
-	..()
-	blast = blasting
+	if(env.fuel_burnt() == 0)
+		return
 
-/datum/effect_system/smoke_spread/freezing/start()
-	if(blast)
-		for(var/turf/T in RANGE_TURFS(2, location))
-			Chilled(T)
-	..()
+	env.set_temperature(2)
+	env.set_nitrogen(env.nitrogen() + env.toxins())
+	env.set_toxins(0)
+
+	if(smoke.spread_range <= 0 || smoke.lifetime > 0)
+		return
+
+	// Spread the smoke, up to spread_range.
+	for(var/direction in list(NORTH, SOUTH, EAST, WEST))
+		var/turf/neighbor = get_step(T, direction)
+		if(isnull(neighbor))
+			continue
+		if(neighbor.density)
+			continue
+		var/has_nanofrost = FALSE
+		for(var/datum/effect_system/smoke_spread/freezing in neighbor)
+			has_nanofrost = TRUE
+			break
+		if(has_nanofrost)
+			continue
+		if(prob(50))
+			continue
+
+		var/obj/effect/particle_effect/smoke/freezing/new_smoke = new(neighbor)
+		new_smoke.spread_range = smoke.spread_range - 1
 
 /////////////////////////////////////////////
 // Sleep smoke

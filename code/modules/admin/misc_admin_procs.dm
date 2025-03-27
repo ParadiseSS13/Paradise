@@ -157,7 +157,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		"}
 
 	var/jumptoeye = ""
-	if(isAI(M))
+	if(is_ai(M))
 		var/mob/living/silicon/ai/A = M
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			jumptoeye = " <b>(<A href='byond://?_src_=holder;jumpto=[A.eyeobj.UID()]'>Eye</A>)</b>"
@@ -199,7 +199,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 				body += "<A href='byond://?_src_=holder;corgione=[M.UID()]'>Corgize</A> | "
 
 			//AI / Cyborg
-			if(isAI(M))
+			if(is_ai(M))
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
 				body += {"<A href='byond://?_src_=holder;makeai=[M.UID()]'>Make AI</A> |
@@ -327,6 +327,8 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	dat += "<p><a href='byond://?src=[cached_UID];c_mode=1'>Change Game Mode</a><br></p>"
 	if(GLOB.master_mode == "secret")
 		dat += "<p><a href='byond://?src=[cached_UID];f_secret=1'>(Force Secret Mode)</a><br></p>"
+	if(GLOB.master_mode == "dynamic" || (GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
+		dat += "<p><a href='byond://?src=[cached_UID];f_dynamic=1'>(Force Dynamic Rulesets)</a><br></p>"
 	dat += "<hr><br>"
 	dat += "<p><a href='byond://?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
 	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
@@ -473,9 +475,9 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 	GLOB.dsay_enabled = !(GLOB.dsay_enabled)
 	if(GLOB.dsay_enabled)
-		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
+		to_chat(world, "<b>Deadchat has been globally enabled!</b>", MESSAGE_TYPE_DEADCHAT)
 	else
-		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
+		to_chat(world, "<b>Deadchat has been globally disabled!</b>", MESSAGE_TYPE_DEADCHAT)
 	log_admin("[key_name(usr)] toggled deadchat.")
 	message_admins("[key_name_admin(usr)] toggled deadchat.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
@@ -514,7 +516,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		alert("Unable to start the game as it is not set up.")
 		return
 
@@ -602,7 +604,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_STARTUP)
 		alert("Slow down a moment, let the ticker start first!")
 		return
 
@@ -672,7 +674,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		antag_list += "Wizard"
 	if(IS_CHANGELING(M))
 		antag_list += "Changeling"
-	if(M.mind in SSticker.mode.abductors)
+	if(M.mind.has_antag_datum(/datum/antagonist/abductor))
 		antag_list += "Abductor"
 	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
 		antag_list += "Vampire"
@@ -744,7 +746,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(length(matches)==1)
 		chosen = matches[1]
 	else
-		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches
+		chosen = tgui_input_list(usr, "Select an Atom Type", "Spawn Atom", matches)
 		if(!chosen)
 			return
 
@@ -795,30 +797,34 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
+	var/list/messages = list()
 	for(var/mob/living/silicon/S in GLOB.mob_list)
+		if(istype(S, /mob/living/silicon/decoy) && !S.client)
+			continue
 		ai_number++
-		if(isAI(S))
-			to_chat(usr, "<b>AI [key_name(S, TRUE)]'s laws:</b>")
+		if(is_ai(S))
+			messages += "<b>AI [key_name(S, TRUE)]'s laws:</b>"
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
-			to_chat(usr, "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>")
+			messages += "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>"
 		else if(ispAI(S))
 			var/mob/living/silicon/pai/P = S
-			to_chat(usr, "<b>pAI [key_name(S, TRUE)]'s laws:</b>")
-			to_chat(usr, "[P.pai_law0]")
+			messages += "<b>pAI [key_name(S, TRUE)]'s laws:</b>"
+			messages += "[P.pai_law0]"
 			if(P.pai_laws)
-				to_chat(usr, "[P.pai_laws]")
+				messages += "[P.pai_laws]"
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			to_chat(usr, "<b>SILICON [key_name(S, TRUE)]'s laws:</b>")
+			messages += "<b>SILICON [key_name(S, TRUE)]'s laws:</b>"
 
 		if(S.laws == null)
-			to_chat(usr, "[key_name(S, TRUE)]'s laws are null. Contact a coder.")
+			messages += "[key_name(S, TRUE)]'s laws are null. Contact a coder."
 		else
-			S.laws.show_laws(usr)
+			messages += S.laws.return_laws_text()
 	if(!ai_number)
-		to_chat(usr, "<b>No AI's located.</b>")//Just so you know the thing is actually working and not just ignoring you.
+		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
+	to_chat(usr, chat_box_examine(messages.Join("\n")))
 
 	log_admin("[key_name(usr)] checked the AI laws")
 	message_admins("[key_name_admin(usr)] checked the AI laws")
@@ -964,7 +970,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 		return TRUE
 
-	if(istype(tothing, /obj/structure/AIcore/deactivated))
+	if(istype(tothing, /obj/structure/ai_core/deactivated))
 
 		var/question = "Are you sure you want to place [frommob.name]([frommob.key]) in control of an empty AI core?"
 

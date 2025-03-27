@@ -28,11 +28,11 @@
 /obj/item/gun/projectile/shotgun/proc/get_shotgun_info()
 	return "<span class='notice'>After firing a shot, use this item in hand to remove the spent shell.</span>"
 
-/obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/shotgun/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	. = ..()
 	if(.)
 		return
-	var/num_loaded = magazine.attackby(A, user, params, 1)
+	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
 	if(num_loaded)
 		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
 		A.update_icon()
@@ -50,7 +50,7 @@
 		return FALSE
 	return chambered.BB
 
-/obj/item/gun/projectile/shotgun/attack_self(mob/living/user)
+/obj/item/gun/projectile/shotgun/attack_self__legacy__attackchain(mob/living/user)
 	if(!COOLDOWN_FINISHED(src, pump_cooldown))
 		return
 	pump(user)
@@ -91,7 +91,7 @@
 	sawn_desc = "Come with me if you want to live."
 	sawn_state = SAWN_INTACT
 
-/obj/item/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/shotgun/riot/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
 	if(istype(A, /obj/item/melee/energy))
@@ -116,7 +116,7 @@
 			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
 			return
 		else
-			afterattack(user, user)
+			afterattack__legacy__attackchain(user, user)
 			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
 	if(magazine.ammo_count())	//Spill the mag onto the floor
 		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
@@ -153,11 +153,11 @@
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
-			afterattack(user, user)
+			afterattack__legacy__attackchain(user, user)
 			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
 			return
 		else
-			afterattack(user, user)
+			afterattack__legacy__attackchain(user, user)
 			user.visible_message("[src] goes click!", "<span class='notice'>[src] you are holding goes click.</span>")
 	if(magazine.ammo_count())	//Spill the mag onto the floor
 		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
@@ -237,7 +237,7 @@
 		process_fire(user, user,0)
 		. = 1
 
-/obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/shotgun/boltaction/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(!bolt_open)
 		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
 		return
@@ -263,7 +263,7 @@
 	..()
 	guns_left = 0
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/attack_self()
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/attack_self__legacy__attackchain()
 	return
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
@@ -355,9 +355,9 @@
 	QDEL_NULL(alternate_magazine)
 	return ..()
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/attack_self(mob/living/user)
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/attack_self__legacy__attackchain(mob/living/user)
 	if(!chambered && length(magazine.contents))
-		pump()
+		pump(user)
 	else
 		toggle_tube(user)
 
@@ -376,6 +376,6 @@
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
 	if(user.incapacitated() || !Adjacent(user) || !istype(user))
 		return
-	pump()
+	pump(user)
 
 // DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in revolver.dm

@@ -18,7 +18,7 @@
 	list_enginebeacons.Cut()
 	return ..()
 
-/obj/item/enginepicker/attack_self(mob/living/carbon/user)
+/obj/item/enginepicker/attack_self__legacy__attackchain(mob/living/carbon/user)
 	if(user.incapacitated())
 		return
 
@@ -74,7 +74,7 @@
 		new G(T)		//Spawns the switch-selected engine on the chosen beacon's turf
 
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 			ailist += A
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)

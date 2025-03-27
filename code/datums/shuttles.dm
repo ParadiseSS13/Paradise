@@ -146,14 +146,6 @@
 	CCport.dheight = 0
 	CCport.width = 19
 	CCport.dwidth = 9
-	var/obj/docking_port/stationary/CCtransit
-	CCtransit = SSshuttle.getDock("emergency_transit")
-	CCtransit.setDir(2)
-	CCtransit.forceMove(locate(113, 68, 1))
-	CCtransit.height = 50
-	CCtransit.dheight = 0
-	CCtransit.width = 19
-	CCtransit.dwidth = 9
 	var/obj/docking_port/stationary/syndicate
 	syndicate = SSshuttle.getDock("emergency_syndicate")
 	syndicate.setDir(8)

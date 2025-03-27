@@ -47,6 +47,19 @@
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
 
+GLOBAL_LIST_INIT(aalarm_modes, list(
+	"[AALARM_MODE_FILTERING]" = "Filtering",
+	"[AALARM_MODE_DRAUGHT]" = "Draught",
+	"[AALARM_MODE_PANIC]" = "Panic",
+	"[AALARM_MODE_CYCLE]" = "Cycle",
+	"[AALARM_MODE_SIPHON]" = "Siphon",
+	"[AALARM_MODE_CONTAMINATED]" = "Contaminated",
+	"[AALARM_MODE_REFILL]" = "Refill",
+	"[AALARM_MODE_CUSTOM]" = "Custom",
+	"[AALARM_MODE_OFF]" = "Off",
+	"[AALARM_MODE_FLOOD]" = "Flood",
+))
+
 /obj/machinery/alarm
 	name = "air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."
@@ -75,7 +88,7 @@
 	var/AAlarmwires = 31
 	var/shorted = FALSE
 
-	var/mode = AALARM_MODE_SCRUBBING
+	var/mode = AALARM_MODE_FILTERING
 	var/preset = AALARM_PRESET_HUMAN
 	var/area/alarm_area
 	var/danger_level = ATMOS_ALARM_NONE
@@ -90,6 +103,9 @@
 	var/list/TLV = list()
 
 	var/report_danger_level = TRUE
+
+	/// Which MILLA tick were we initialized at?
+	var/init_tick
 
 /obj/machinery/alarm/monitor
 	report_danger_level = FALSE
@@ -187,7 +203,7 @@
 			)
 
 	if(!no_cycle_after)
-		mode = AALARM_MODE_REPLACEMENT
+		mode = AALARM_MODE_CYCLE
 		apply_mode()
 
 /obj/machinery/alarm/Initialize(mapload, direction, building = 0)
@@ -209,6 +225,7 @@
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 	GLOB.air_alarms += src
+	alarm_area.air_alarms += src
 
 	if(!mapload)
 		GLOB.air_alarms = sortAtom(GLOB.air_alarms)
@@ -218,17 +235,14 @@
 	if(!building)
 		first_run()
 
-	if(!master_is_operating())
-		elect_master()
+	init_tick = SSair.milla_tick
 
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
+	alarm_area.air_alarms -= src
 	GLOB.air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
-	if(alarm_area && alarm_area.master_air_alarm == src)
-		alarm_area.master_air_alarm = null
-		elect_master(exclude_self = 1)
 	alarm_area = null
 	return ..()
 
@@ -236,34 +250,17 @@
 	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
-/obj/machinery/alarm/proc/master_is_operating()
-	if(!alarm_area)
-		alarm_area = get_area(src)
-	if(!alarm_area)
-		. = FALSE
-		CRASH("Air alarm /obj/machinery/alarm lacks alarm_area vars during proc/master_is_operating()")
-	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
-
-
-/obj/machinery/alarm/proc/elect_master(exclude_self = 0) //Why is this an alarm and not area proc?
-	for(var/obj/machinery/alarm/AA in alarm_area)
-		if(exclude_self && AA == src)
-			continue
-		if(!(AA.stat & (NOPOWER|BROKEN)))
-			alarm_area.master_air_alarm = AA
-			return 1
-	return 0
-
 /obj/machinery/alarm/process()
-	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != 2)
+	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != 2 || init_tick == SSair.milla_tick)
 		return
 
 	var/turf/simulated/location = loc
 	if(!istype(location))
 		return 0
 
-	var/datum/milla_safe/airalarm_heat_cool/milla = new()
-	milla.invoke_async(src)
+	if(thermostat_state)
+		var/datum/milla_safe/airalarm_heat_cool/milla = new()
+		milla.invoke_async(src)
 
 	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.volume
@@ -272,6 +269,15 @@
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
+	if(environment_pressure < cur_tlv.min2 && mode == AALARM_MODE_FILTERING)
+		mode = AALARM_MODE_OFF
+		apply_mode()
+		var/area/A = location.loc
+		A.firealert(src)
+
+	if(mode == AALARM_MODE_REFILL && environment_pressure >= cur_tlv.min1)
+		mode = AALARM_MODE_FILTERING
+		apply_mode()
 
 	cur_tlv = TLV["oxygen"]
 	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen() * GET_PP)
@@ -309,8 +315,9 @@
 	if(old_danger_level != danger_level)
 		apply_danger_level()
 
-	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
-		mode = AALARM_MODE_SCRUBBING
+	cur_tlv = TLV["pressure"]
+	if(mode == AALARM_MODE_CYCLE && environment_pressure < cur_tlv.min2 * 0.05)
+		mode = AALARM_MODE_REFILL
 		apply_mode()
 
 /datum/milla_safe/airalarm_heat_cool
@@ -319,8 +326,6 @@
 	var/turf/location = get_turf(alarm)
 	var/datum/gas_mixture/environment = get_turf_air(location)
 
-	if(!alarm.thermostat_state)
-		return
 	var/datum/tlv/cur_tlv = alarm.TLV["temperature"]
 	//Handle temperature adjustment here.
 	if(environment.temperature() < alarm.target_temperature - 2 || environment.temperature() > alarm.target_temperature + 2 || alarm.regulating_temperature)
@@ -393,8 +398,9 @@
 	underlays += emissive_appearance(icon, "alarm_lightmask")
 
 /obj/machinery/alarm/proc/apply_mode()
+	var/datum/tlv/pressure_tlv = TLV["pressure"]
 	switch(mode)
-		if(AALARM_MODE_SCRUBBING)
+		if(AALARM_MODE_FILTERING)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 				if(S.stat & (NOPOWER|BROKEN))
 					continue
@@ -412,8 +418,8 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
-				P.external_pressure_bound = ONE_ATMOSPHERE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
+				P.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
 				P.update_icon(UPDATE_ICON_STATE)
 
 
@@ -433,12 +439,12 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
-				P.external_pressure_bound = ONE_ATMOSPHERE
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
+				P.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
 				P.update_icon(UPDATE_ICON_STATE)
 
 
-		if(AALARM_MODE_VENTING)
+		if(AALARM_MODE_DRAUGHT)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 				if(S.stat & (NOPOWER|BROKEN))
 					continue
@@ -451,8 +457,8 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
-				P.external_pressure_bound = ONE_ATMOSPHERE * 2
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
+				P.external_pressure_bound = pressure_tlv.max1
 				P.update_icon(UPDATE_ICON_STATE)
 
 
@@ -472,12 +478,12 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = TRUE
-				P.external_pressure_bound = ONE_ATMOSPHERE * 3
+				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
+				P.external_pressure_bound = (pressure_tlv.min1 + pressure_tlv.max1) / 2
 				P.update_icon(UPDATE_ICON_STATE)
 
 
-		if(AALARM_MODE_PANIC, AALARM_MODE_REPLACEMENT)
+		if(AALARM_MODE_PANIC, AALARM_MODE_CYCLE)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 				if(S.stat & (NOPOWER|BROKEN))
 					continue
@@ -534,7 +540,7 @@
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
-				P.pressure_checks = 2
+				P.pressure_checks = ONLY_CHECK_INT_PRESSURE
 				P.internal_pressure_bound = 0
 				P.update_icon(UPDATE_ICON_STATE)
 
@@ -650,7 +656,7 @@
 	return data
 
 /obj/machinery/alarm/proc/has_rcon_access(mob/user)
-	return user && (isAI(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
+	return user && (is_ai(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
 
 // Intentional nulls here
 /obj/machinery/alarm/ui_data(mob/user)
@@ -671,15 +677,16 @@
 	data["atmos_alarm"] = alarm_area.atmosalm
 	data["emagged"] = emagged
 	data["modes"] = list(
-		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants", "id" = AALARM_MODE_SCRUBBING),\
-		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing", "id" = AALARM_MODE_VENTING),\
-		AALARM_MODE_PANIC       = list("name"="Panic Siphon","desc"="Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),\
-		AALARM_MODE_REPLACEMENT = list("name"="Cycle",       "desc"="Siphons air before replacing", "id" = AALARM_MODE_REPLACEMENT),\
-		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room", "id" = AALARM_MODE_SIPHON),\
-		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),\
-		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output", "id" = AALARM_MODE_REFILL),\
-		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),\
-		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
+		"mode[AALARM_MODE_FILTERING]"		= list("name"=GLOB.aalarm_modes["[AALARM_MODE_FILTERING]"],	"desc"="Scrubs out contaminants. Will shut off and drop firelocks if pressure drops too low.", "id" = AALARM_MODE_FILTERING),
+		"mode[AALARM_MODE_DRAUGHT]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_DRAUGHT]"],			"desc"="Siphons out air while replacing", "id" = AALARM_MODE_DRAUGHT),
+		"mode[AALARM_MODE_PANIC]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_PANIC]"],				"desc"="Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),
+		"mode[AALARM_MODE_CYCLE]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_CYCLE]"],				"desc"="Siphons air before replacing", "id" = AALARM_MODE_CYCLE),
+		"mode[AALARM_MODE_SIPHON]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_SIPHON]"],			"desc"="Siphons air out of the room", "id" = AALARM_MODE_SIPHON),
+		"mode[AALARM_MODE_CONTAMINATED]"	= list("name"=GLOB.aalarm_modes["[AALARM_MODE_CONTAMINATED]"],		"desc"="Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),
+		"mode[AALARM_MODE_REFILL]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_REFILL]"],			"desc"="Refills a room to normal pressure, then switches to Filtering.", "id" = AALARM_MODE_REFILL),
+		"mode[AALARM_MODE_CUSTOM]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_CUSTOM]"],			"desc"="Custom settings with no automatic mode switching.", "id" = AALARM_MODE_CUSTOM),
+		"mode[AALARM_MODE_OFF]"				= list("name"=GLOB.aalarm_modes["[AALARM_MODE_OFF]"],				"desc"="Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),
+		"mode[AALARM_MODE_FLOOD]"			= list("name"=GLOB.aalarm_modes["[AALARM_MODE_FLOOD]"],				"desc"="Shuts off scrubbers and opens vents", 	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
 	)
 	data["mode"] = mode
 	data["presets"] = list(
@@ -771,7 +778,7 @@
 	return thresholds
 
 /obj/machinery/alarm/ui_state(mob/user)
-	if(isAI(user))
+	if(is_ai(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.lacks_power() || AI.apc_override)
 			return GLOB.always_state
@@ -796,7 +803,7 @@
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || isrobot(user) || emagged || user.has_unlimited_silicon_privilege)
+	else if(is_ai(user) || isrobot(user) || emagged || user.has_unlimited_silicon_privilege)
 		return TRUE
 	else
 		return !locked
@@ -805,7 +812,7 @@
 	if(buildstage != 2)
 		return UI_CLOSE
 
-	if(aidisabled && (isAI(user) || isrobot(user)))
+	if(aidisabled && (is_ai(user) || isrobot(user)))
 		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
 		return UI_CLOSE
 
@@ -871,6 +878,8 @@
 					if(!((U in alarm_area.vents) || (U in alarm_area.scrubbers)))
 						message_admins("<span class='boldannounceooc'>[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!</span>")
 						return
+
+					mode = AALARM_MODE_CUSTOM
 
 					// Its a vent. Handle
 					if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
@@ -994,14 +1003,14 @@
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
-/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
+/obj/machinery/alarm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
 
 	switch(buildstage)
 		if(AIR_ALARM_READY)
-			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
+			if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 					locked = !locked
@@ -1009,14 +1018,15 @@
 					SStgui.update_uis(src)
 				else
 					to_chat(user, "<span class='warning'>Access denied.</span>")
-				return
+
+				return ITEM_INTERACT_COMPLETE
 
 		if(AIR_ALARM_UNWIRED)
-			if(iscoil(I))
-				var/obj/item/stack/cable_coil/coil = I
+			if(iscoil(used))
+				var/obj/item/stack/cable_coil/coil = used
 				if(coil.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				to_chat(user, "<span class='notice'>You wire [src]!</span>")
 				playsound(get_turf(src), coil.usesound, 50, 1)
@@ -1026,15 +1036,15 @@
 				wiresexposed = TRUE
 				update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 				first_run()
-				return
+				return ITEM_INTERACT_COMPLETE
 		if(AIR_ALARM_FRAME)
-			if(istype(I, /obj/item/airalarm_electronics))
-				to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-				playsound(get_turf(src), I.usesound, 50, 1)
-				qdel(I)
+			if(istype(used, /obj/item/airalarm_electronics))
+				to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+				playsound(get_turf(src), used.usesound, 50, TRUE)
+				qdel(used)
 				buildstage = 1
 				update_icon(UPDATE_ICON_STATE)
-				return
+				return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
@@ -1132,7 +1142,7 @@
 	. = ..()
 	switch(buildstage)
 		if(AIR_ALARM_FRAME)
-			. += "<span class='notice'>Its <i>circuit</i> is missing and the <b>bolts<b> are exposed.</span>"
+			. += "<span class='notice'>Its <i>circuit</i> is missing and the <b>bolts</b> are exposed.</span>"
 		if(AIR_ALARM_UNWIRED)
 			. += "<span class='notice'>The frame is missing <i>wires</i> and the control circuit can be <b>pried out</b>.</span>"
 		if(AIR_ALARM_READY)

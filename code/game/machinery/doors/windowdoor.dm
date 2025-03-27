@@ -13,6 +13,7 @@
 	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 70, ACID = 100)
 	glass = TRUE // Used by polarized helpers. Windoors are always glass.
 	superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
+	cares_about_temperature = TRUE
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = FALSE
@@ -31,6 +32,12 @@
 	. = ..()
 	if(req_access && length(req_access))
 		base_state = icon_state
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 	if(name != initial(name))
 		return
@@ -112,7 +119,7 @@
 					return
 				do_animate("deny")
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 	var/mob/living/M = AM
 	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
@@ -140,14 +147,14 @@
 
 	return mob_dir & unres_sides
 
-/obj/machinery/door/window/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/window/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return TRUE
 	if(isliving(mover))
 		var/mob/living/living_mover = mover
 		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
 			return TRUE
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
+	if(border_dir == dir) //Make sure looking at appropriate border
 		return !density
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
@@ -172,17 +179,20 @@
 /obj/machinery/door/window/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower())
 
-/obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return TRUE
-	if(isliving(mover))
-		var/mob/living/living_mover = mover
+/obj/machinery/door/window/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	if(istype(leaving) && leaving.checkpass(PASSGLASS))
+		return
+
+	if(isliving(leaving))
+		var/mob/living/living_mover = leaving
 		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
-			return TRUE
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+			return
+
+	if(direction == dir && density)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/machinery/door/window/open(forced=0)
 	if(operating) //doors can still open when emag-disabled
@@ -195,20 +205,20 @@
 			return 0
 	if(!operating) //in case of emag
 		operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	do_animate("opening")
 	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state ="[base_state]open"
-	sleep(10)
+	addtimer(CALLBACK(src, PROC_REF(finish_open)), 8)
 
+/obj/machinery/door/window/proc/finish_open()
 	density = FALSE
-//	sd_set_opacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
 	recalculate_atmos_connectivity()
 	update_freelook_sight()
 
 	if(operating) //emag again
 		operating = NONE
-	return 1
 
 /obj/machinery/door/window/close(forced=0)
 	if(operating)
@@ -227,11 +237,11 @@
 	density = TRUE
 	if(polarized_on)
 		set_opacity(TRUE)
-	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	sleep(10)
 
 	operating = NONE
+	recalculate_atmos_connectivity()
 	return 1
 
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -259,7 +269,7 @@
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
 
-/obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/window/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
@@ -295,7 +305,7 @@
 
 /obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	operating = DOOR_MALF
 	flick("[base_state]spark", src)
@@ -304,10 +314,10 @@
 	operating = NONE
 	return TRUE
 
-/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	add_fingerprint(user)
 	return ..()
@@ -377,6 +387,7 @@
 					ae = electronics
 					electronics = null
 					ae.forceMove(loc)
+				ae.is_installed = FALSE
 
 				qdel(src)
 	else

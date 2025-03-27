@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/pick_icon,
 	/mob/living/silicon/ai/proc/sensor_mode,
 	/mob/living/silicon/ai/proc/show_laws_verb,
+	/mob/living/silicon/ai/proc/toggle_fast_holograms,
 	/mob/living/silicon/ai/proc/toggle_acceleration,
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
@@ -50,7 +51,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	hat_offset_y = 3
 	is_centered = TRUE
 	can_be_hatted = TRUE
-	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
+	var/list/network = list("SS13", "Mining Outpost", "Labor Camp")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
@@ -69,7 +70,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
 	var/datum/spell/ai_spell/choose_modules/modules_action
-	var/list/datum/AI_Module/current_modules = list()
+	var/list/datum/ai_module/current_modules = list()
 	var/can_dominate_mechs = FALSE
 	var/shunted = FALSE // TRUE if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
 
@@ -104,10 +105,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/doomsday_device/doomsday_device
 
 	var/obj/machinery/hologram/holopad/holo = null
-	var/mob/camera/aiEye/eyeobj
-	var/sprint = 10
-	var/cooldown = 0
-	var/acceleration = 1
+	var/mob/camera/eye/ai/eyeobj
+	var/fast_holograms = TRUE
 	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 
 	/// If true, this AI core can use the teleporter.
@@ -115,13 +114,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/machinery/camera/portable/builtInCamera
 
-	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
+	var/obj/structure/ai_core/deactivated/linked_core //For exosuit control
 
 	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
-	var/list/all_eyes = list()
 	var/next_text_announcement
 
 	//Used with the hotkeys on 2-5 to store locations.
@@ -154,8 +152,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/pickedName = null
 	while(!pickedName)
 		pickedName = pick(GLOB.ai_names)
-		for(var/mob/living/silicon/ai/A in GLOB.mob_list)
-			if(A.real_name == pickedName && length(possibleNames) > 1) //fixing the theoretically possible infinite loop
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
+			if(A.real_name == pickedName && length(possibleNames) > 1) // fixing the theoretically possible infinite loop
 				possibleNames -= pickedName
 				pickedName = null
 
@@ -200,7 +198,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
-	add_language("Neo-Russkiya", 1)
+	add_language("Zvezhan", 1)
 	add_language("Gutter", 1)
 	add_language("Sinta'unathi", 1)
 	add_language("Siik'tajr", 1)
@@ -217,7 +215,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
-			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
+			new/obj/structure/ai_core/deactivated(loc)//New empty terminal.
 			qdel(src)//Delete AI.
 			return
 		else
@@ -229,7 +227,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
 
-	create_eye()
+	eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
 	builtInCamera.c_tag = name
@@ -769,7 +767,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(controlled_mech)
 			to_chat(src, "<span class='warning'>You are already loaded into an onboard computer!</span>")
 			return
-		if(!GLOB.cameranet.checkCameraVis(M))
+		if(!GLOB.cameranet.check_camera_vis(M))
 			to_chat(src, "<span class='warning'>Exosuit is no longer near active cameras.</span>")
 			return
 		if(lacks_power())
@@ -826,7 +824,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		//The target must be in view of a camera or near the core.
 	if(turf_check in range(get_turf(src)))
 		call_bot(turf_check)
-	else if(GLOB.cameranet && GLOB.cameranet.checkTurfVis(turf_check))
+	else if(GLOB.cameranet && GLOB.cameranet.check_turf_vis(turf_check))
 		call_bot(turf_check)
 	else
 		to_chat(src, "<span class='danger'>Selected location is not visible.</span>")
@@ -882,7 +880,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/switchCamera(obj/machinery/camera/C)
 
 	if(!tracking)
-		cameraFollow = null
+		camera_follow = null
 
 	if(QDELETED(C) || stat == DEAD) //C.can_use())
 		return FALSE
@@ -891,7 +889,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		view_core()
 		return
 	// ok, we're alive, camera is good and in our network...
-	eyeobj.setLoc(get_turf(C))
+	eyeobj.set_loc(get_turf(C))
 	//machine = src
 
 	return TRUE
@@ -939,7 +937,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(!C.can_use())
 				continue
 			if(network in C.network)
-				U.eyeobj.setLoc(get_turf(C))
+				U.eyeobj.set_loc(get_turf(C))
 				break
 	to_chat(src, "<span class='notice'>Switched to [network] camera network.</span>")
 //End of code by Mord_Sith
@@ -1238,7 +1236,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/obj/machinery/camera/add = list()
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
-	for(var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
+	for(var/datum/camerachunk/CC in eyeobj.visible_camera_chunks)
 		for(var/obj/machinery/camera/C in CC.active_cameras)
 			if(!C.can_use() || get_dist(C, eyeobj) > 7)
 				continue
@@ -1322,7 +1320,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				to_chat(user, "<span class='warning'>Intelligence transfer aborted.</span>")
 				return
 
-		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
+		new /obj/structure/ai_core/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
@@ -1340,7 +1338,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
 		var/turf/T = isturf(A) ? A : get_turf_pixel(A)
-		return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T)) || apc_override
+		return (GLOB.cameranet && GLOB.cameranet.check_turf_vis(T)) || apc_override
 	//AI is carded/shunted
 	//view(src) returns nothing for carded/shunted AIs and they have x-ray vision so just use get_dist
 	var/list/viewscale = getviewsize(client.view)
@@ -1389,7 +1387,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 ///Removes all malfunction-related /datum/action's from the target AI.
 /mob/living/silicon/ai/proc/remove_malf_abilities()
 	QDEL_NULL(modules_action)
-	for(var/datum/AI_Module/AM in current_modules)
+	for(var/datum/ai_module/AM in current_modules)
 		for(var/datum/action/A in actions)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
@@ -1433,8 +1431,45 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
 
-/mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
-	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
+// Return to the Core.
+/mob/living/silicon/ai/proc/core()
+	set category = "AI Commands"
+	set name = "AI Core"
+
+	view_core()
+
+/mob/living/silicon/ai/proc/view_core()
+
+	current = null
+	camera_follow = null
+	unset_machine()
+
+	if(eyeobj && loc)
+		eyeobj.loc = loc
+	else
+		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
+		eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
+
+	eyeobj.set_loc(loc)
+
+/mob/living/silicon/ai/proc/toggle_fast_holograms()
+	set category = "AI Commands"
+	set name = "Toggle Fast Holograms"
+
+	if(usr.stat == DEAD || !is_ai_eye(eyeobj))
+		return
+	fast_holograms = !fast_holograms
+	to_chat(usr, "Fast holograms have been toggled [fast_holograms ? "on" : "off"].")
+
+/mob/living/silicon/ai/proc/toggle_acceleration()
+	set category = "AI Commands"
+	set name = "Toggle Camera Acceleration"
+
+	if(usr.stat == DEAD)
+		return //won't work if dead
+	if(is_ai_eye(eyeobj))
+		eyeobj.acceleration = !eyeobj.acceleration
+		to_chat(usr, "Camera acceleration has been toggled [eyeobj.acceleration ? "on" : "off"].")
 
 /mob/living/silicon/ai/handle_fire()
 	return

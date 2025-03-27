@@ -39,6 +39,7 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
+
 	/// Width of the window that opens
 	var/paper_width = 600
 	/// Height of the window that opens
@@ -48,6 +49,8 @@
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
 	var/regex/blacklist = new("(<iframe|<embed|<script|<canvas|<video|<audio|onload)", "g") // Blacklist of naughties
+
+	scatter_distance = 8
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
@@ -126,7 +129,7 @@
 		desc = initial(desc)
 	add_fingerprint(user)
 
-/obj/item/paper/attack_self(mob/living/user as mob)
+/obj/item/paper/attack_self__legacy__attackchain(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		if(!spam_flag)
@@ -148,14 +151,14 @@
 	else
 		show_content(user, forcestars = 1)
 
-/obj/item/paper/attack(mob/living/carbon/M, mob/living/carbon/user, def_zone)
+/obj/item/paper/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user, def_zone)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/H = M
 	if(user.zone_selected == "eyes")
 		user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
 			"<span class='notice'>You show the paper to [H].</span>")
-		H.examinate(src)
+		to_chat(H, "<a href='byond://?src=[UID()];show_content=1'>Read \the [src]</a>")
 
 	else if(user.zone_selected == "mouth")
 		if(H == user)
@@ -389,8 +392,14 @@
 		var/id = href_list["write"]
 		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
+	if(href_list["show_content"])
+		var/dist = get_dist(src, usr)
+		if(dist < 2)
+			show_content(usr)
+		else
+			to_chat(usr, "<span class='notice'>I'm too far away from \the [src] to read it.</span>")
 
-/obj/item/paper/attackby(obj/item/P, mob/living/user, params)
+/obj/item/paper/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
 	..()
 
 	if(resistance_flags & ON_FIRE)
@@ -412,38 +421,38 @@
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
-		user.unEquip(P)
+		user.drop_item_to_ground(P)
 		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_r_hand(B)
 			else if(h_user.l_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_l_hand(B)
 			else if(h_user.l_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_hands(B)
 			else if(!isturf(src.loc))
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You clip [P] to [(src.name == "paper") ? "the paper" : src.name].</span>")
-		src.loc = B
+		forceMove(B)
 		P.loc = B
 		B.amount++
 		B.update_icon()
@@ -478,7 +487,7 @@
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
+			user.drop_item_to_ground(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
@@ -486,7 +495,7 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 
@@ -534,11 +543,11 @@
 /*
  * Premade paper
  */
-/obj/item/paper/Court
+/obj/item/paper/court
 	name = "Judgement"
 	info = "For crimes against the station, the offender is sentenced to:<BR>\n<BR>\n"
 
-/obj/item/paper/Toxin
+/obj/item/paper/toxin
 	name = "Chemical Information"
 	info = "Known Onboard Toxins:<BR>\n\tGrade A Semi-Liquid Plasma:<BR>\n\t\tHighly poisonous. You cannot sustain concentrations above 15 units.<BR>\n\t\tA gas mask fails to filter plasma after 50 units.<BR>\n\t\tWill attempt to diffuse like a gas.<BR>\n\t\tFiltered by scrubbers.<BR>\n\t\tThere is a bottled version which is very different<BR>\n\t\t\tfrom the version found in canisters!<BR>\n<BR>\n\t\tWARNING: Highly Flammable. Keep away from heat sources<BR>\n\t\texcept in a enclosed fire area!<BR>\n\t\tWARNING: It is a crime to use this without authorization.<BR>\nKnown Onboard Anti-Toxin:<BR>\n\tAnti-Toxin Type 01P: Works against Grade A Plasma.<BR>\n\t\tBest if injected directly into bloodstream.<BR>\n\t\tA full injection is in every regular Med-Kit.<BR>\n\t\tSpecial toxin Kits hold around 7.<BR>\n<BR>\nKnown Onboard Chemicals (other):<BR>\n\tRejuvenation T#001:<BR>\n\t\tEven 1 unit injected directly into the bloodstream<BR>\n\t\t\twill cure paralysis and sleep plasma.<BR>\n\t\tIf administered to a dying patient it will prevent<BR>\n\t\t\tfurther damage for about units*3 seconds.<BR>\n\t\t\tit will not cure them or allow them to be cured.<BR>\n\t\tIt can be administeredd to a non-dying patient<BR>\n\t\t\tbut the chemicals disappear just as fast.<BR>\n\tSoporific T#054:<BR>\n\t\t5 units wilkl induce precisely 1 minute of sleep.<BR>\n\t\t\tThe effect are cumulative.<BR>\n\t\tWARNING: It is a crime to use this without authorization"
 
@@ -622,10 +631,6 @@
 	name = "Greetings from Billy Bob"
 	info = "<B>Hey fellow botanist!</B><BR>\n<BR>\nI didn't trust the station folk so I left<BR>\na couple of weeks ago. But here's some<BR>\ninstructions on how to operate things here.<BR>\nYou can grow plants and each iteration they become<BR>\nstronger, more potent and have better yield, if you<BR>\nknow which ones to pick. Use your botanist's analyzer<BR>\nfor that. You can turn harvested plants into seeds<BR>\nat the seed extractor, and replant them for better stuff!<BR>\nSometimes if the weed level gets high in the tray<BR>\nmutations into different mushroom or weed species have<BR>\nbeen witnessed. On the rare occassion even weeds mutate!<BR>\n<BR>\nEither way, have fun!<BR>\n<BR>\nBest regards,<BR>\nBilly Bob Johnson.<BR>\n<BR>\nPS.<BR>\nHere's a few tips:<BR>\nIn nettles, potency = damage<BR>\nIn amanitas, potency = deadliness + side effect<BR>\nIn Liberty caps, potency = drug power + effect<BR>\nIn chilis, potency = heat<BR>\n<B>Nutrients keep mushrooms alive!</B><BR>\n<B>Water keeps weeds such as nettles alive!</B><BR>\n<B>All other plants need both.</B>"
 
-/obj/item/paper/chef
-	name = "Cooking advice from Morgan Ramslay"
-	info = "Right, so you're wanting to learn how to feed the teeming masses of the station yeah?<BR>\n<BR>\nWell I was asked to write these tips to help you not burn all of your meals and prevent food poisonings.<BR>\n<BR>\nOkay first things first, making a humble ball of dough.<BR>\n<BR>\nCheck the lockers for a bag or two of flour and then find a glass cup or a beaker, something that can hold liquids. Next pour 15 units of flour into the container and then pour 10 units of water in as well. Hey presto! You've made a ball of dough, which can lead to many possibilities.<BR>\n<BR>\nAlso, before I forget, KEEP YOUR FOOD OFF THE DAMN FLOOR! Space ants love getting onto any food not on a table or kept away in a closed locker. You wouldn't believe how many injuries have resulted from space ants...<BR>\n<BR>\nOkay back on topic, let's make some cheese, just follow along with me here.<BR>\n<BR>\nLook in the lockers again for some milk cartons and grab another glass to mix with. Next look around for a bottle named 'Universal Enzyme' unless they changed the look of it, it should be a green bottle with a red label. Now pour 5 units of enzyme into a glass and 40 units of milk into the glass as well. In a matter of moments you'll have a whole wheel of cheese at your disposal.<BR>\n<BR>\nOkay now that you've got the ingredients, let's make a classic crewman food, cheese bread.<BR>\n<BR>\nMake another ball of dough, and cut up your cheese wheel with a knife or something else sharp such as a pair of wire cutters. Okay now look around for an oven in the kitchen and put 2 balls of dough and 2 cheese wedges into the oven and turn it on. After a few seconds a fresh and hot loaf of cheese bread will pop out. Lastly cut it into slices with a knife and serve.<BR>\n<BR>\nCongratulations on making it this far. If you haven't created a burnt mess of slop after following these directions you might just be on your way to becoming a master chef someday.<BR>\n<BR>\nBe sure to look up other recipes and bug the Head of Personnel if Botany isn't providing you with crops, wheat is your friend and lifeblood.<BR>\n<BR>\nGood luck in the kitchen, and try not to burn down the place.<BR>\n<BR>\n-Morgan Ramslay"
-
 /obj/item/paper/djstation
 	name = "Mission Briefing"
 	info = "<center><h2>Welcome to Listening Post Yenisei!</h2></center><br>\
@@ -697,6 +702,82 @@
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
 	info = ""
+
+/obj/item/paper/syndicate/listening_post
+	name = "mission briefing"
+	info = {"<center><h1>Mission Details:</h1></center>
+	<br><br>
+	Greetings, agent. You have been assigned to a newly constructed listening post hidden in Nanotrasen-controlled space.
+	You are to monitor transmissions from the Nanotrasen space stations in the system, as well as those from potentially significant ships passing through the system.
+	<br><br>
+	Urgent reports are to be relayed immeditely to your handler, otherwise, condense significant happenings into packets to be sent out at scheduled intervals, to minimise the chances your transmissions being detected.
+	<br><br>
+	Accurate intelligence is crucial to the success of our operatives onboard. Do not fail us.
+	<br><br>
+	<b>Glory to the Syndicate!</b>"}
+
+/obj/item/paper/listening_post_report_1
+	name = "Report 01 - URGENT"
+	info = {"<b>URGENT:</b> Intercepted communications from the NAS Trurl have revealed that a shipment of nuclear fission warheads are being shipped into the system to replace aging inventory.
+	<br><br>
+	The convoy is lightly defended and disguised as a regular freight carrying operation. They are not expecting, nor prepared to stop a determined attacker."}
+
+/obj/item/paper/listening_post_report_2
+	name = "Report 02"
+	info = {"* Security across all shipping operations has been substantailly boosted, and the NAS Trurl has declared a heightened state of alert across all stations in the system.
+	<br><br>
+	* The NSS Farragus is reporting heightened mineral output - extra shipping traffic likely.
+	<br><br>
+	* The NSS Cyberiad's communications channels are flooded with garbled reports about a dangerous "floor cluwne" - exact details unclear."}
+
+/obj/item/paper/listening_post_report_3
+	name = "Report 03"
+	info = {"* Now that several months have passed, the security situation is slowly cooling down - the NAS Trurl's heightened state of alert is no longer in effect. Routine shipping traffic escorts are beginning to thin.
+	<br><br>
+	* The NSS Kerberos is reporting that mining output has dropped to zero. Morale has plummeted, engineers and roboticists are tearing apart old metal furnature and windows to secure materials.
+	<br><br>
+	* The NSS Diagoras is reporting a major plasma fire, but it appears to be contained to an asteroid attached to the station.
+	<br><br>
+	* Some form of pirate radio station appeared in the system and is broadcasting what appears to be Soviet state-made entertainment media - It is of highly doubious entertainment value, however.
+	These broadcasts are not on NT frequencies and therefore are not causing interferance."}
+
+/obj/item/paper/listening_post_report_4
+	name = "Report 04"
+	info = {"* The NAS Trurl has ordered all stations to prepare for a potentiel visit from multiple VIPs. Details scarce, security levels elevted.
+	<br><br>
+	* A USSP-operated station has been detected in the system.
+	It is intermittently communicating with the Soviet pirate radio station (which appears to be operated by the USSP as well). Both operations appear to be independent of each other. Will continue to monitor for developments.
+	<br><br>
+	* A TSF destroyer "TSFN Oberon" jumped into the system and opened encrypted communications with the NAS Trurl, contents of transmission unknown.
+	Broadcast exchanges continued as the destroyer adopted a search pattern. After six hours, the destroyer jumped out of system. At no point did it approach near either of the USSP installations.
+	<br><br>
+	* Nanotrasen plasma shipments have been disrupted by a massive migration of space carp, causing backlogs at shipping terminals."}
+
+/obj/item/paper/listening_post_report_5
+	name = "Report 05"
+	info = {"* Intermittent hyperwave broadcasts have been detected from the USSP pirate radio station. Broadcasts are highly directional (which hindered detection), pointing towards USSP space.
+	These messages are highly encrypted. It appears likely that the USSP is conducting eavesdropping operations against Nanotrasen as well.
+	<br><br>
+	* A terror spider outbreak was reported on the NSS Cerebron. Early discovery and an unusual lack of coordiation on the part of the spiders allowed the outbreak to be rapidly contained.
+	<br><br>
+	* The NSS Farragus's communications are flooded with garbled reports about "Ei Nath" -
+	piecing together fragments of communications suggests that this "Ei Nath" is a highly dangerous individual whose mere pressence causes great fear among Nanotrasen personnel. Attempt recruitment?"}
+
+/obj/item/paper/listening_post_report_6
+	name = "Report 06 - URGENT"
+	info = {"<b>URGENT:</b> An Aussec Armoury freighter has suffered an engine failure near the edge of the system, dropping out of hyperspace.
+	<br><br>
+	Escorts will be absent until they can retrace path. Limited window to execute raiding operations."}
+
+/obj/item/paper/listening_post_report_7
+	name = "Report 07"
+	info = {"* The USSP space station has gone silent on all frequencies for an extended period of time. USSP listening post continues to operate (the contents of the cover singal is not getting any better).
+	<br><br>
+	* New signals are being detected from an old Nanotrasen communications satellite. Multiple Nanotrasen explorers attempting to investigate are MIA.
+	<br><br>
+	* Vox skipjack detected in area, communications completely unintelligible. Likely preparing to launch shuttles to trade with or raid the stations in the area.
+	<br><br>
+	* <b>CAUTION:</b> Nanotrasen exploration teams growing in size and are scouring much larger areas than before. They are now operating dangerously close to this installation, requesting additional security."}
 
 /obj/item/paper/nanotrasen
 	name = "paper"
@@ -787,6 +868,13 @@
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
 	name = "Lava Field Observations"
 	info = "<center>Asteroid Core Observation Log 306</center><hr><br><i>We took some additional samples of the deep layers of the molten core of the asteroid. Undetermined trace elements were able to be identified in the solution. Its possible this is how the plasma remains so stable at these temperatures. None of our current filter methods have been able to properly extract it as of yet, but we're certain a breakthrough is on the horizon. We did it before, we can do it again.</i>"
+
+/obj/item/paper/clockwork_cult_message
+	name = "Old handwritten note"
+	info = "<center>To any brothers and sisters that journey here from beyond the system:</center><br><br>\
+	The Nar'Sien dogs have failed, and we have gleaned the method by which we can awake His divine mechanism. The spark shall be turned into lightning and the gears shall once again turn.<br><br>\
+	We go now to purge the dogs from the hole we know they hide within, and then The Eminance shall then call us back to Reebe so that we may begin preperations for His awakening.<br><br>\
+	The guardians shall protect the monastery in our stead. Make use of its supplies and prepare for our return, together we shall all finalize His vison."
 
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
@@ -963,17 +1051,18 @@
 
 /obj/item/paper/researchnotes
 	name = "paper - 'Research Notes'"
-	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+	info = "<b>The notes appear gibberish to you. Perhaps a scientific analyzer in R&D could make sense of them?</b>"
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
-/obj/item/paper/researchnotes/New()
-	..()
+/obj/item/paper/researchnotes/Initialize(mapload)
+	. = ..()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
 
+// I want this type dead
 /obj/item/paper/instruction
 	name = "Instruction Notes"
 

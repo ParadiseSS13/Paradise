@@ -8,6 +8,7 @@
 	move_resist = INFINITY
 	anchored = TRUE
 	can_be_hit = FALSE
+	new_attack_chain = TRUE
 
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	return
@@ -103,11 +104,12 @@
 	if(desc)
 		. += desc
 
-/obj/effect/decal/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks))
-		scoop(I, user)
+/obj/effect/decal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks))
+		scoop(used, user)
 	else if(issimulatedturf(loc))
-		I.melee_attack_chain(user, loc)
+		used.melee_attack_chain(user, loc)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/effect/decal/attack_animal(mob/living/simple_animal/M)
 	if(issimulatedturf(loc))

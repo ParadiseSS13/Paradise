@@ -27,7 +27,7 @@
 		is_operating = FALSE
 		return FALSE
 	user.visible_message("<span class='danger'>[user] begins vomiting an arachnid!</span>")
-	if(do_after(user, 4 SECONDS, FALSE, target = user)) // Takes 4 seconds to spawn a spider
+	if(do_after(user, 4 SECONDS, FALSE, target = user, hidden = TRUE)) // Takes 4 seconds to spawn a spider
 		spider_counter++
 		user.visible_message("<span class='danger'>[user] vomits up an arachnid!</span>")
 		var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/S = new(user.loc)
@@ -114,7 +114,7 @@
 	switch(current_order)
 		if(IDLE_AGGRESSIVE)
 			Find_Enemies(around)
-			walk(src, 0)
+			GLOB.move_manager.stop_looping(src)
 		if(FOLLOW_AGGRESSIVE)
 			Find_Enemies(around)
 			for(var/mob/living/carbon/C in around)
@@ -131,7 +131,7 @@
 					return TRUE
 				Goto(C, 0.5 SECONDS, 1)
 		if(IDLE_RETALIATE)
-			walk(src, 0)
+			GLOB.move_manager.stop_looping(src)
 
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
 		if(faction_check_mob(H) && !attack_same && !H.attack_same)
@@ -159,10 +159,11 @@
 		if(!faction_check_mob(M))
 			enemies |= M
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attackby(obj/item/W, mob/user, params)
-	. = ..()
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_by(obj/item/W, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 	if(W.force == 0)
-		return
+		return FINISH_ATTACK
 	if(!faction_check_mob(user))
 		enemies |= user
 

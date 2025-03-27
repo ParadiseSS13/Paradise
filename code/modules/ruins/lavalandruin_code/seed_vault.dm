@@ -1,12 +1,12 @@
-/obj/effect/spawner/lootdrop/seed_vault
+/obj/effect/spawner/random/seed_vault
 	name = "seed vault seeds"
-	lootcount = 1
 
-	loot = list(/obj/item/food/grown/mushroom/glowshroom/glowcap = 10,
-				/obj/item/seeds/cherry/bomb = 10,
-				/obj/item/seeds/berry/glow = 10,
-				/obj/item/seeds/sunflower/moonflower = 8
-				)
+	loot = list(
+		/obj/item/food/grown/mushroom/glowshroom/glowcap = 10,
+		/obj/item/seeds/cherry/bomb = 10,
+		/obj/item/seeds/berry/glow = 10,
+		/obj/item/seeds/sunflower/moonflower = 8,
+	)
 
 /obj/effect/mob_spawn/human/alive/seed_vault
 	name = "preserved terrarium"

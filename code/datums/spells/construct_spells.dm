@@ -13,7 +13,6 @@
 	desc = "This spell constructs a cult floor."
 	action_icon_state = "floorconstruct"
 	action_background_icon_state = "bg_cult"
-	school = "conjuration"
 	base_cooldown = 20
 	clothes_req = FALSE
 	invocation = "none"
@@ -27,7 +26,6 @@
 	desc = "This spell constructs a cult wall."
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
-	school = "conjuration"
 	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "none"
@@ -39,7 +37,6 @@
 /datum/spell/aoe/conjure/build/wall/reinforced
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall."
-	school = "conjuration"
 	base_cooldown = 300
 	clothes_req = FALSE
 	invocation = "none"
@@ -55,7 +52,6 @@
 	desc = "This spell uses vile sorcery to create a spirit-trapping soulstone."
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_cult"
-	school = "conjuration"
 	base_cooldown = 3000
 	clothes_req = FALSE
 	invocation = "none"
@@ -77,7 +73,6 @@
 	desc = "This spell uses dark magic to craft an unholy beacon. Heals cultists, and makes a handy light source."
 	action_icon_state = "pylon"
 	action_background_icon_state = "bg_cult"
-	school = "conjuration"
 	base_cooldown = 200
 	clothes_req = FALSE
 	invocation = "none"
@@ -92,7 +87,6 @@
 	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire."
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
-	school = "transmutation"
 	base_cooldown = 300
 	clothes_req = FALSE
 	invocation = "none"
@@ -140,7 +134,6 @@
 	name = "Lesser Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 	action_background_icon_state = "bg_cult"
-	school = "evocation"
 	base_cooldown = 400
 	clothes_req = FALSE
 	invocation = "none"
@@ -167,7 +160,6 @@
 	desc = "This spell spawns a cloud of paralysing smoke."
 	action_icon_state = "parasmoke"
 	action_background_icon_state = "bg_cult"
-	school = "conjuration"
 	base_cooldown = 200
 	clothes_req = FALSE
 	invocation = "none"

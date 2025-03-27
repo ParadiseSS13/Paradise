@@ -1,0 +1,335 @@
+[
+	{
+		"original": "/area/ruin/unpowered/BMPship",
+		"replace": "/area/ruin/unpowered/bm_pship",
+		"override": "/area/ruin/unpowered/bmp_ship"
+	},
+	{
+		"original": "/area/ruin/unpowered/BMPship/Aft",
+		"replace": "/area/ruin/unpowered/bm_pship/aft",
+		"override": "/area/ruin/unpowered/bmp_ship/aft"
+	},
+	{
+		"original": "/area/ruin/unpowered/BMPship/Delta",
+		"replace": "/area/ruin/unpowered/bm_pship/delta",
+		"override": "/area/ruin/unpowered/bmp_ship/delta"
+	},
+	{
+		"original": "/area/ruin/unpowered/BMPship/Fore",
+		"replace": "/area/ruin/unpowered/bm_pship/fore",
+		"override": "/area/ruin/unpowered/bmp_ship/fore"
+	},
+	{
+		"original": "/area/ruin/unpowered/BMPship/Midship",
+		"replace": "/area/ruin/unpowered/bm_pship/midship",
+		"override": "/area/ruin/unpowered/bmp_ship/midship"
+	},
+	{ "original": "/area/station/security/prison/cell_block/A", "replace": "/area/station/security/prison/cell_block/a" },
+	{ "original": "/atom/movable/screen/act_intent/robot/AI", "replace": "/atom/movable/screen/act_intent/robot/ai" },
+	{ "original": "/atom/movable/screen/blob/BlobHelp", "replace": "/atom/movable/screen/blob/blob_help" },
+	{ "original": "/atom/movable/screen/blob/Blobbernaut", "replace": "/atom/movable/screen/blob/blobbernaut" },
+	{ "original": "/atom/movable/screen/blob/FactoryBlob", "replace": "/atom/movable/screen/blob/factory_blob" },
+	{ "original": "/atom/movable/screen/blob/JumpToCore", "replace": "/atom/movable/screen/blob/jump_to_core" },
+	{ "original": "/atom/movable/screen/blob/JumpToNode", "replace": "/atom/movable/screen/blob/jump_to_node" },
+	{ "original": "/atom/movable/screen/blob/NodeBlob", "replace": "/atom/movable/screen/blob/node_blob" },
+	{ "original": "/atom/movable/screen/blob/ReadaptChemical", "replace": "/atom/movable/screen/blob/readapt_chemical" },
+	{ "original": "/atom/movable/screen/blob/RelocateCore", "replace": "/atom/movable/screen/blob/relocate_core" },
+	{ "original": "/atom/movable/screen/blob/ResourceBlob", "replace": "/atom/movable/screen/blob/resource_blob" },
+	{ "original": "/atom/movable/screen/blob/Split", "replace": "/atom/movable/screen/blob/split" },
+	{ "original": "/atom/movable/screen/blob/StorageBlob", "replace": "/atom/movable/screen/blob/storage_blob" },
+	{ "original": "/atom/movable/screen/guardian/Communicate", "replace": "/atom/movable/screen/guardian/communicate" },
+	{ "original": "/atom/movable/screen/guardian/Manifest", "replace": "/atom/movable/screen/guardian/manifest" },
+	{ "original": "/atom/movable/screen/guardian/Recall", "replace": "/atom/movable/screen/guardian/recall" },
+	{ "original": "/atom/movable/screen/guardian/ToggleLight", "replace": "/atom/movable/screen/guardian/toggle_light" },
+	{ "original": "/atom/movable/screen/guardian/ToggleMode", "replace": "/atom/movable/screen/guardian/toggle_mode" },
+	{ "original": "/datum/AI_Module", "replace": "/datum/ai_module" },
+	{ "original": "/datum/ErrorViewer", "replace": "/datum/error_viewer" },
+	{ "original": "/datum/ErrorViewer/ErrorCache", "replace": "/datum/error_viewer/error_cache" },
+	{ "original": "/datum/ErrorViewer/ErrorEntry", "replace": "/datum/error_viewer/error_entry" },
+	{ "original": "/datum/ErrorViewer/ErrorSource", "replace": "/datum/error_viewer/error_source" },
+	{ "original": "/datum/SDQL_parser", "replace": "/datum/sdql_parser" },
+	{ "original": "/datum/action/changeling/absorbDNA", "replace": "/datum/action/changeling/absorb_dna" },
+	{
+		"original": "/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH",
+		"replace": "/datum/action/item_action/yeeeaaaaahhhhhhhhhhhhh"
+	},
+	{
+		"original": "/datum/action/item_action/equip_unequip_TED_Gun",
+		"replace": "/datum/action/item_action/equip_unequip_ted_gun"
+	},
+	{ "original": "/datum/bottler_recipe/Applepocalypse", "replace": "/datum/bottler_recipe/applepocalypse" },
+	{ "original": "/datum/bottler_recipe/Berry_Banned", "replace": "/datum/bottler_recipe/berry_banned" },
+	{ "original": "/datum/bottler_recipe/Berry_Banned2", "replace": "/datum/bottler_recipe/berry_banned2" },
+	{ "original": "/datum/bottler_recipe/Blackeye_Brew", "replace": "/datum/bottler_recipe/blackeye_brew" },
+	{ "original": "/datum/bottler_recipe/Grape_Granade", "replace": "/datum/bottler_recipe/grape_granade" },
+	{ "original": "/datum/bottler_recipe/Meteor_Malt", "replace": "/datum/bottler_recipe/meteor_malt" },
+	{ "original": "/datum/bottler_recipe/Paradise_Punch", "replace": "/datum/bottler_recipe/paradise_punch" },
+	{ "original": "/datum/chemical_reaction/kahluaVodka", "replace": "/datum/chemical_reaction/kahlua_vodka" },
+	{ "original": "/datum/chemical_reaction/slimeRNG", "replace": "/datum/chemical_reaction/slime_rng" },
+	{ "original": "/datum/crafting_recipe/Ebi_maki", "replace": "/datum/crafting_recipe/ebi_maki" },
+	{ "original": "/datum/crafting_recipe/IED", "replace": "/datum/crafting_recipe/ied" },
+	{ "original": "/datum/crafting_recipe/Ikura_maki", "replace": "/datum/crafting_recipe/ikura_maki" },
+	{ "original": "/datum/crafting_recipe/Inari_maki", "replace": "/datum/crafting_recipe/inari_maki" },
+	{ "original": "/datum/crafting_recipe/Masago_maki", "replace": "/datum/crafting_recipe/masago_maki" },
+	{ "original": "/datum/crafting_recipe/Sake_maki", "replace": "/datum/crafting_recipe/sake_maki" },
+	{ "original": "/datum/crafting_recipe/SmokedSalmon_maki", "replace": "/datum/crafting_recipe/smoked_salmon_maki" },
+	{ "original": "/datum/crafting_recipe/Tai_maki", "replace": "/datum/crafting_recipe/tai_maki" },
+	{ "original": "/datum/crafting_recipe/TobikoEgg_maki", "replace": "/datum/crafting_recipe/tobiko_egg_maki" },
+	{ "original": "/datum/crafting_recipe/Tobiko_maki", "replace": "/datum/crafting_recipe/tobiko_maki" },
+	{ "original": "/datum/crafting_recipe/sushi_Ebi", "replace": "/datum/crafting_recipe/sushi_ebi" },
+	{ "original": "/datum/crafting_recipe/sushi_Ikura", "replace": "/datum/crafting_recipe/sushi_ikura" },
+	{ "original": "/datum/crafting_recipe/sushi_Inari", "replace": "/datum/crafting_recipe/sushi_inari" },
+	{ "original": "/datum/crafting_recipe/sushi_Masago", "replace": "/datum/crafting_recipe/sushi_masago" },
+	{ "original": "/datum/crafting_recipe/sushi_Sake", "replace": "/datum/crafting_recipe/sushi_sake" },
+	{ "original": "/datum/crafting_recipe/sushi_SmokedSalmon", "replace": "/datum/crafting_recipe/sushi_smoked_salmon" },
+	{ "original": "/datum/crafting_recipe/sushi_Tai", "replace": "/datum/crafting_recipe/sushi_tai" },
+	{ "original": "/datum/crafting_recipe/sushi_Tobiko", "replace": "/datum/crafting_recipe/sushi_tobiko" },
+	{ "original": "/datum/crafting_recipe/sushi_TobikoEgg", "replace": "/datum/crafting_recipe/sushi_tobiko_egg" },
+	{ "original": "/datum/design/BS_RPED", "replace": "/datum/design/bs_rped" },
+	{ "original": "/datum/design/RPED", "replace": "/datum/design/rped" },
+	{
+		"original": "/datum/dog_fashion/head/HoS",
+		"replace": "/datum/dog_fashion/head/ho_s",
+		"override": "/datum/dog_fashion/head/hos"
+	},
+	{ "original": "/datum/gear/pAI", "replace": "/datum/gear/p_ai", "override": "/datum/gear/pai" },
+	{ "original": "/datum/holiday/UFO", "replace": "/datum/holiday/ufo" },
+	{ "original": "/datum/mapGenerator", "replace": "/datum/map_generator" },
+	{ "original": "/datum/mapGeneratorModule", "replace": "/datum/map_generator_module" },
+	{
+		"original": "/datum/mapGeneratorModule/border/asteroidWalls",
+		"replace": "/datum/map_generator_module/border/asteroid_walls"
+	},
+	{
+		"original": "/datum/mapGeneratorModule/border/syndieWalls",
+		"replace": "/datum/map_generator_module/border/syndie_walls"
+	},
+	{ "original": "/datum/mapGeneratorModule/bottomLayer", "replace": "/datum/map_generator_module/bottom_layer" },
+	{
+		"original": "/datum/mapGeneratorModule/bottomLayer/asteroidTurfs",
+		"replace": "/datum/map_generator_module/bottom_layer/asteroid_turfs"
+	},
+	{
+		"original": "/datum/mapGeneratorModule/bottomLayer/asteroidWalls",
+		"replace": "/datum/map_generator_module/bottom_layer/asteroid_walls"
+	},
+	{
+		"original": "/datum/mapGeneratorModule/bottomLayer/grassTurfs",
+		"replace": "/datum/map_generator_module/bottom_layer/grass_turfs"
+	},
+	{
+		"original": "/datum/mapGeneratorModule/bottomLayer/syndieFloor",
+		"replace": "/datum/map_generator_module/bottom_layer/syndie_floor"
+	},
+	{ "original": "/datum/mapGeneratorModule/deadTrees", "replace": "/datum/map_generator_module/dead_trees" },
+	{ "original": "/datum/mapGeneratorModule/denseLayer", "replace": "/datum/map_generator_module/dense_layer" },
+	{
+		"original": "/datum/mapGeneratorModule/denseLayer/grassTufts",
+		"replace": "/datum/map_generator_module/dense_layer/grass_tufts"
+	},
+	{ "original": "/datum/mapGeneratorModule/pineTrees", "replace": "/datum/map_generator_module/pine_trees" },
+	{ "original": "/datum/mapGeneratorModule/randBushes", "replace": "/datum/map_generator_module/rand_bushes" },
+	{ "original": "/datum/mapGeneratorModule/randRocks", "replace": "/datum/map_generator_module/rand_rocks" },
+	{ "original": "/datum/mapGeneratorModule/splatterLayer", "replace": "/datum/map_generator_module/splatter_layer" },
+	{
+		"original": "/datum/mapGeneratorModule/splatterLayer/asteroidMonsters",
+		"replace": "/datum/map_generator_module/splatter_layer/asteroid_monsters"
+	},
+	{
+		"original": "/datum/mapGeneratorModule/splatterLayer/asteroidWalls",
+		"replace": "/datum/map_generator_module/splatter_layer/asteroid_walls"
+	},
+	{
+		"original": "/datum/mapGeneratorModule/splatterLayer/syndieMobs",
+		"replace": "/datum/map_generator_module/splatter_layer/syndie_mobs"
+	},
+	{
+		"original": "/datum/mapGeneratorModule/syndieFurniture",
+		"replace": "/datum/map_generator_module/syndie_furniture"
+	},
+	{ "original": "/datum/middleClickOverride", "replace": "/datum/middle_click_override" },
+	{ "original": "/datum/middleClickOverride/badminClicker", "replace": "/datum/middle_click_override/badmin_clicker" },
+	{ "original": "/datum/objective/abductee/POWERUNLIMITED", "replace": "/datum/objective/abductee/powerunlimited" },
+	{ "original": "/datum/objective/revenantFluff", "replace": "/datum/objective/revenant_fluff" },
+	{ "original": "/datum/paiController", "replace": "/datum/pai_controller" },
+	{ "original": "/datum/prize_item/AI", "replace": "/datum/prize_item/ai" },
+	{ "original": "/datum/recipe/grill/sushi_Ebi", "replace": "/datum/recipe/grill/sushi_ebi" },
+	{ "original": "/datum/recipe/grill/sushi_Ikura", "replace": "/datum/recipe/grill/sushi_ikura" },
+	{ "original": "/datum/recipe/grill/sushi_Inari", "replace": "/datum/recipe/grill/sushi_inari" },
+	{ "original": "/datum/recipe/grill/sushi_Masago", "replace": "/datum/recipe/grill/sushi_masago" },
+	{ "original": "/datum/recipe/grill/sushi_Sake", "replace": "/datum/recipe/grill/sushi_sake" },
+	{ "original": "/datum/recipe/grill/sushi_SmokedSalmon", "replace": "/datum/recipe/grill/sushi_smoked_salmon" },
+	{ "original": "/datum/recipe/grill/sushi_Tai", "replace": "/datum/recipe/grill/sushi_tai" },
+	{ "original": "/datum/recipe/grill/sushi_Tamago", "replace": "/datum/recipe/grill/sushi_tamago" },
+	{ "original": "/datum/recipe/grill/sushi_Tobiko", "replace": "/datum/recipe/grill/sushi_tobiko" },
+	{ "original": "/datum/recipe/grill/sushi_TobikoEgg", "replace": "/datum/recipe/grill/sushi_tobiko_egg" },
+	{ "original": "/datum/recipe/grill/sushi_Unagi", "replace": "/datum/recipe/grill/sushi_unagi" },
+	{ "original": "/datum/sortInstance", "replace": "/datum/sort_instance" },
+	{ "original": "/datum/spell/aoe/conjure/summonEdSwarm", "replace": "/datum/spell/aoe/conjure/summon_ed_swarm" },
+	{
+		"original": "/datum/sprite_accessory/head_accessory/kidan/kidan_Mantie_Curled",
+		"replace": "/datum/sprite_accessory/head_accessory/kidan/kidan_mantie_curled"
+	},
+	{
+		"original": "/datum/sprite_accessory/head_accessory/kidan/kidan_Mantie_Long",
+		"replace": "/datum/sprite_accessory/head_accessory/kidan/kidan_mantie_long"
+	},
+	{ "original": "/datum/status_effect/hippocraticOath", "replace": "/datum/status_effect/hippocratic_oath" },
+	{
+		"original": "/datum/supply_packs/engineering/engine/PA",
+		"replace": "/datum/supply_packs/engineering/engine/pa",
+		"override": "/datum/supply_packs/engineering/engine/particle_accelerator"
+	},
+	{
+		"original": "/datum/uplink_item/ammo/bulldog_XLmagsbag",
+		"replace": "/datum/uplink_item/ammo/bulldog_x_lmagsbag",
+		"override": "/datum/uplink_item/ammo/bulldog_xl_magsbag"
+	},
+	{ "original": "/datum/uplink_item/bundles_TC", "replace": "/datum/uplink_item/bundles_tc" },
+	{ "original": "/datum/uplink_item/stealthy_weapons/RSG", "replace": "/datum/uplink_item/stealthy_weapons/rsg" },
+	{ "original": "/mob/camera/aiEye", "replace": "/mob/camera/ai_eye" },
+	{ "original": "/mob/living/simple_animal/cockroach/Brad", "replace": "/mob/living/simple_animal/cockroach/brad" },
+	{ "original": "/mob/living/simple_animal/crab/Coffee", "replace": "/mob/living/simple_animal/crab/coffee" },
+	{
+		"original": "/mob/living/simple_animal/hostile/bear/Hudson",
+		"replace": "/mob/living/simple_animal/hostile/bear/hudson"
+	},
+	{ "original": "/mob/living/simple_animal/mouse/brown/Tom", "replace": "/mob/living/simple_animal/mouse/brown/tom" },
+	{
+		"original": "/mob/living/simple_animal/mouse/white/Brain",
+		"replace": "/mob/living/simple_animal/mouse/white/brain"
+	},
+	{ "original": "/mob/living/simple_animal/parrot/Poly", "replace": "/mob/living/simple_animal/parrot/poly" },
+	{
+		"original": "/mob/living/simple_animal/pet/cat/Proc",
+		"replace": "/mob/living/simple_animal/pet/cat/proc",
+		"override": "/mob/living/simple_animal/pet/cat/proc_cat"
+	},
+	{ "original": "/mob/living/simple_animal/pet/cat/Runtime", "replace": "/mob/living/simple_animal/pet/cat/runtime" },
+	{ "original": "/mob/living/simple_animal/pet/cat/Syndi", "replace": "/mob/living/simple_animal/pet/cat/syndi" },
+	{
+		"original": "/mob/living/simple_animal/pet/cat/Var",
+		"replace": "/mob/living/simple_animal/pet/cat/var",
+		"override": "/mob/living/simple_animal/pet/cat/var_cat"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/dog/corgi/Ian",
+		"replace": "/mob/living/simple_animal/pet/dog/corgi/ian"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/dog/corgi/Lisa",
+		"replace": "/mob/living/simple_animal/pet/dog/corgi/lisa"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/dog/fox/Renault",
+		"replace": "/mob/living/simple_animal/pet/dog/fox/renault"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/dog/fox/Syndifox",
+		"replace": "/mob/living/simple_animal/pet/dog/fox/syndifox"
+	},
+	{ "original": "/obj/item/CQC_manual", "replace": "/obj/item/cqc_manual" },
+	{ "original": "/obj/item/FixOVein", "replace": "/obj/item/fix_o_vein" },
+	{ "original": "/obj/item/aiModule", "replace": "/obj/item/ai_module" },
+	{ "original": "/obj/item/aiModule/oneCrewMember", "replace": "/obj/item/ai_module/one_crew_member" },
+	{ "original": "/obj/item/aiModule/protectStation", "replace": "/obj/item/ai_module/protect_station" },
+	{ "original": "/obj/item/aiModule/toyAI", "replace": "/obj/item/aiModule/toy_ai" },
+	{ "original": "/obj/item/ammo_box/magazine/m12g/XtrLrg", "replace": "/obj/item/ammo_box/magazine/m12g/xtr_lrg" },
+	{ "original": "/obj/item/badminBook", "replace": "/obj/item/badmin_book" },
+	{ "original": "/obj/item/circuitboard/HolodeckControl", "replace": "/obj/item/circuitboard/holodeck_control" },
+	{
+		"original": "/obj/item/clothing/accessory/medal/fluff/XannZxiax",
+		"replace": "/obj/item/clothing/accessory/medal/fluff/xann_zxiax"
+	},
+	{
+		"original": "/obj/item/clothing/head/HoS",
+		"replace": "/obj/item/clothing/head/ho_s",
+		"override": "/obj/item/clothing/head/hos"
+	},
+	{
+		"original": "/obj/item/clothing/head/collectable/HoP",
+		"replace": "/obj/item/clothing/head/collectable/ho_p",
+		"override": "/obj/item/clothing/head/collectable/hop"
+	},
+	{
+		"original": "/obj/item/clothing/head/collectable/HoS",
+		"replace": "/obj/item/clothing/head/collectable/ho_s",
+		"override": "/obj/item/clothing/head/collectable/hos"
+	},
+	{ "original": "/obj/item/destTagger", "replace": "/obj/item/dest_tagger" },
+	{ "original": "/obj/item/food/sliceable/Ebi_maki", "replace": "/obj/item/food/sliceable/ebi_maki" },
+	{ "original": "/obj/item/food/sliceable/Ikura_maki", "replace": "/obj/item/food/sliceable/ikura_maki" },
+	{ "original": "/obj/item/food/sliceable/Inari_maki", "replace": "/obj/item/food/sliceable/inari_maki" },
+	{ "original": "/obj/item/food/sliceable/Masago_maki", "replace": "/obj/item/food/sliceable/masago_maki" },
+	{ "original": "/obj/item/food/sliceable/Sake_maki", "replace": "/obj/item/food/sliceable/sake_maki" },
+	{
+		"original": "/obj/item/food/sliceable/SmokedSalmon_maki",
+		"replace": "/obj/item/food/sliceable/smoked_salmon_maki"
+	},
+	{ "original": "/obj/item/food/sliceable/Tai_maki", "replace": "/obj/item/food/sliceable/tai_maki" },
+	{ "original": "/obj/item/food/sliceable/Tamago_maki", "replace": "/obj/item/food/sliceable/tamago_maki" },
+	{ "original": "/obj/item/food/sliceable/TobikoEgg_maki", "replace": "/obj/item/food/sliceable/tobiko_egg_maki" },
+	{ "original": "/obj/item/food/sliceable/Tobiko_maki", "replace": "/obj/item/food/sliceable/tobiko_maki" },
+	{ "original": "/obj/item/food/sushi_Ebi", "replace": "/obj/item/food/sushi_ebi" },
+	{ "original": "/obj/item/food/sushi_Ikura", "replace": "/obj/item/food/sushi_ikura" },
+	{ "original": "/obj/item/food/sushi_Inari", "replace": "/obj/item/food/sushi_inari" },
+	{ "original": "/obj/item/food/sushi_Masago", "replace": "/obj/item/food/sushi_masago" },
+	{ "original": "/obj/item/food/sushi_Sake", "replace": "/obj/item/food/sushi_sake" },
+	{ "original": "/obj/item/food/sushi_SmokedSalmon", "replace": "/obj/item/food/sushi_smoked_salmon" },
+	{ "original": "/obj/item/food/sushi_Tai", "replace": "/obj/item/food/sushi_tai" },
+	{ "original": "/obj/item/food/sushi_Tamago", "replace": "/obj/item/food/sushi_tamago" },
+	{ "original": "/obj/item/food/sushi_Tobiko", "replace": "/obj/item/food/sushi_tobiko" },
+	{ "original": "/obj/item/food/sushi_TobikoEgg", "replace": "/obj/item/food/sushi_tobiko_egg" },
+	{ "original": "/obj/item/food/sushi_Unagi", "replace": "/obj/item/food/sushi_unagi" },
+	{
+		"original": "/obj/item/gun/projectile/automatic/pistol/APS",
+		"replace": "/obj/item/gun/projectile/automatic/pistol/aps"
+	},
+	{ "original": "/obj/item/paper/Court", "replace": "/obj/item/paper/court" },
+	{ "original": "/obj/item/paper/Toxin", "replace": "/obj/item/paper/toxin" },
+	{ "original": "/obj/item/reagent_containers/hypospray/CMO", "replace": "/obj/item/reagent_containers/hypospray/cmo" },
+	{
+		"original": "/obj/item/reagent_containers/iv_bag/blood/AMinus",
+		"replace": "/obj/item/reagent_containers/iv_bag/blood/a_minus"
+	},
+	{
+		"original": "/obj/item/reagent_containers/iv_bag/blood/APlus",
+		"replace": "/obj/item/reagent_containers/iv_bag/blood/a_plus"
+	},
+	{
+		"original": "/obj/item/reagent_containers/iv_bag/blood/BMinus",
+		"replace": "/obj/item/reagent_containers/iv_bag/blood/b_minus"
+	},
+	{
+		"original": "/obj/item/reagent_containers/iv_bag/blood/BPlus",
+		"replace": "/obj/item/reagent_containers/iv_bag/blood/b_plus"
+	},
+	{
+		"original": "/obj/item/reagent_containers/iv_bag/blood/OMinus",
+		"replace": "/obj/item/reagent_containers/iv_bag/blood/o_minus"
+	},
+	{
+		"original": "/obj/item/reagent_containers/iv_bag/blood/OPlus",
+		"replace": "/obj/item/reagent_containers/iv_bag/blood/o_plus"
+	},
+	{ "original": "/obj/item/shippingPackage", "replace": "/obj/item/shipping_package" },
+	{ "original": "/obj/item/smallDelivery", "replace": "/obj/item/small_delivery" },
+	{ "original": "/obj/item/stack/packageWrap", "replace": "/obj/item/stack/package_wrap" },
+	{
+		"original": "/obj/item/storage/backpack/duffel/syndie/shotgunXLmags",
+		"replace": "/obj/item/storage/backpack/duffel/syndie/shotgun_x_lmags",
+		"override": "/obj/item/storage/backpack/duffel/syndie/shotgun_xl_mags"
+	},
+	{
+		"original": "/obj/item/storage/box/PDAs",
+		"replace": "/obj/item/storage/box/pd_as",
+		"override": "/obj/item/storage/box/pdas"
+	},
+	{ "original": "/obj/item/toy/AI", "replace": "/obj/item/toy/ai" },
+	{ "original": "/obj/machinery/computer/HolodeckControl", "replace": "/obj/machinery/computer/holodeck_control" },
+	{ "original": "/obj/machinery/disposal/deliveryChute", "replace": "/obj/machinery/disposal/delivery_chute" },
+	{ "original": "/obj/structure/AIcore", "replace": "/obj/structure/a_icore", "override": "/obj/structure/ai_core" },
+	{ "original": "/obj/structure/bigDelivery", "replace": "/obj/structure/big_delivery" },
+	{ "original": "/obj/structure/closet/secure_closet/CMO", "replace": "/obj/structure/closet/secure_closet/cmo" },
+	{ "original": "/obj/structure/closet/secure_closet/RD", "replace": "/obj/structure/closet/secure_closet/rd" }
+]

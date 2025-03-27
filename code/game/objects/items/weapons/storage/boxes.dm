@@ -218,12 +218,12 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
-/obj/item/storage/box/PDAs
+/obj/item/storage/box/pdas
 	name = "spare PDAs"
 	desc = "A box of spare PDA microcomputers."
 	icon_state = "pda_box"
 
-/obj/item/storage/box/PDAs/populate_contents()
+/obj/item/storage/box/pdas/populate_contents()
 	var/newcart = pick(
 		/obj/item/cartridge/engineering,
 		/obj/item/cartridge/security,
@@ -324,7 +324,7 @@
 	new /obj/item/circuitboard/rdserver(src)
 	new /obj/item/circuitboard/rdconsole(src)
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/manipulator(src)
@@ -751,51 +751,93 @@
 
 /obj/item/storage/fancy/shell/tranquilizer
 	name = "ammunition box (Tranquilizer darts)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "tranqbox"
 	shell_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
 /obj/item/storage/fancy/shell/slug
 	name = "ammunition box (Slug)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "slugbox"
 	shell_type = /obj/item/ammo_casing/shotgun
 
 /obj/item/storage/fancy/shell/buck
 	name = "ammunition box (Buckshot)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "buckbox"
 	shell_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/storage/fancy/shell/dragonsbreath
 	name = "ammunition box (Dragonsbreath)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "dragonsbox"
 	shell_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/storage/fancy/shell/stun
 	name = "ammunition box (Stun shells)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "stunbox"
 	shell_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/storage/fancy/shell/beanbag
 	name = "ammunition box (Beanbag shells)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "beanbox"
 	shell_type = /obj/item/ammo_casing/shotgun/beanbag
 
 /obj/item/storage/fancy/shell/rubbershot
 	name = "ammunition box (Rubbershot shells)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "rubberbox"
 	shell_type = /obj/item/ammo_casing/shotgun/rubbershot
 
 /obj/item/storage/fancy/shell/holy
 	name = "ammunition box (Holy Water darts)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "holybox"
 	shell_type = /obj/item/ammo_casing/shotgun/holy
+
+/obj/item/storage/fancy/shell/confetti
+	name = "ammunition box (Confettishot)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "partybox"
+	shell_type = /obj/item/ammo_casing/shotgun/confetti
+
+/obj/item/storage/fancy/shell/meteor
+	name = "ammunition box (Meteorslug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "meteorbox"
+	shell_type = /obj/item/ammo_casing/shotgun/meteorslug
+
+/obj/item/storage/fancy/shell/ion
+	name = "ammunition box (Ionshot)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "ionbox"
+	shell_type = /obj/item/ammo_casing/shotgun/ion
+
+/obj/item/storage/fancy/shell/pulse
+	name = "ammunition box (Proto Pulse Slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "pulsebox"
+	shell_type = /obj/item/ammo_casing/shotgun/pulseslug
+
+/obj/item/storage/fancy/shell/incindiary
+	name = "ammunition box (Incendiary slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "incendiarybox"
+	shell_type = /obj/item/ammo_casing/shotgun/incendiary
+
+/obj/item/storage/fancy/shell/lasershot
+	name = "ammunition box (Lasershot)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "lasershotbox"
+	shell_type = /obj/item/ammo_casing/shotgun/lasershot
+
+/obj/item/storage/fancy/shell/frag12
+	name = "ammunition box (FRAG-12 slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "frag12box"
+	shell_type = /obj/item/ammo_casing/shotgun/frag12
 
 ////////////////
 /* Donk Boxes */
@@ -1016,7 +1058,7 @@
 	else
 		icon_state = "[item_state]_closed"
 
-/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/papersack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(length(contents))
@@ -1048,6 +1090,14 @@
 				qdel(src)
 				return
 	return ..()
+
+/obj/item/storage/box/papersack/pbj_lunch
+	name = "peanut butter and jelly lunch"
+	desc = "A paper sack filled with enough sandwiches to feed a department."
+
+/obj/item/storage/box/papersack/pbj_lunch/populate_contents()
+	for(var/i in 1 to 10)
+		new /obj/item/food/peanut_butter_jelly(src)
 
 /obj/item/storage/box/relay_kit
 	name = "telecommunications relay kit"
@@ -1142,7 +1192,7 @@
 
 /obj/item/storage/box/rndboards/populate_contents()
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/scientific_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
 	new /obj/item/circuitboard/rnd_network_controller(src)
@@ -1185,7 +1235,7 @@
 	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
 	return (BRUTELOSS)
 
-/obj/item/storage/box/hug/attack_self(mob/user)
+/obj/item/storage/box/hug/attack_self__legacy__attackchain(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, TRUE, -5)
@@ -1238,6 +1288,17 @@
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/screwdriver(src)
 
+/obj/item/storage/box/crewvend
+	name = "CrewVend 3000 Kit"
+	desc = "Contains everything you need to build your own vending machine!"
+
+/obj/item/storage/box/crewvend/populate_contents()
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	var/obj/item/circuitboard/vendor/board = new /obj/item/circuitboard/vendor(src)
+	board.set_type("CrewVend 3000")
+	new /obj/item/screwdriver(src)
+
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
 	desc = "Contains everything needed to get yourself killed for a medal."
@@ -1274,6 +1335,22 @@
 /obj/item/storage/box/tacticool_envirosuit/populate_contents()
 	new /obj/item/clothing/under/plasmaman/tacticool(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/tacticool(src)
+
+/obj/item/storage/box/autochef
+	name = "autochef starter kit"
+	desc = "Contains everything you need to build and use an autochef."
+
+/obj/item/storage/box/autochef/populate_contents()
+	new /obj/item/circuitboard/autochef(src)
+	new /obj/item/stack/sheet/metal(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/micro_laser(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/autochef_remote(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/paper/autochef_quickstart(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

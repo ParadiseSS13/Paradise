@@ -342,9 +342,15 @@
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown")
 
-/datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
-	radiation_pulse(H, 20)
-	..()
+/datum/species/golem/uranium/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = H.AddComponent(/datum/component/inherent_radioactivity, 40, 0, 0)
+	START_PROCESSING(SSradiation, radioactivity)
+
+/datum/species/golem/uranium/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/component/inherent_radioactivity/rads = H.GetComponent(/datum/component/inherent_radioactivity)
+	rads.RemoveComponent()
 
 //Ventcrawler
 /datum/species/golem/plastic
@@ -372,7 +378,7 @@
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] turns into a pile of sand!</span>")
 	for(var/obj/item/W in H)
-		H.unEquip(W)
+		H.drop_item_to_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/stack/ore/glass(get_turf(H))
 	qdel(H)
@@ -406,7 +412,7 @@
 	playsound(H, "shatter", 70, 1)
 	H.visible_message("<span class='danger'>[H] shatters!</span>")
 	for(var/obj/item/W in H)
-		H.unEquip(W)
+		H.drop_item_to_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/shard(get_turf(H))
 	qdel(H)
@@ -758,7 +764,7 @@
 	cloth_golem = null
 	qdel(src)
 
-/obj/structure/cloth_pile/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/structure/cloth_pile/attackby__legacy__attackchain(obj/item/P, mob/living/carbon/human/user, params)
 	. = ..()
 
 	if(resistance_flags & ON_FIRE)

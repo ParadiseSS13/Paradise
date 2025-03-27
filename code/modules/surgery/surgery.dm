@@ -49,6 +49,14 @@
 	/// How likely it should be for the surgery to cause infection: 0-1
 	var/germ_prevention_quality = 0
 
+/**
+ * Create a new surgery.
+ *
+ * Arguments:
+ * * surgery_target - The atom the target is being performed on.
+ * * surgery_location - The body zone that the surgery is being performed on.
+ * * surgery_bodypart - The body part that the surgery is being performed on.
+ */
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(!surgery_target)
@@ -337,7 +345,7 @@
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_SUCCESS
 
-	play_preop_sound(user, target, target_zone, tool, surgery)
+	INVOKE_ASYNC(src, PROC_REF(play_preop_sound), user, target, target_zone, tool, surgery)
 
 	if(tool)
 		speed_mod = tool.toolspeed
@@ -394,10 +402,10 @@
 
 	surgery.step_in_progress = FALSE
 	if(advance)
-		play_success_sound(user, target, target_zone, tool, surgery)
+		INVOKE_ASYNC(src, PROC_REF(play_success_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_SUCCESS
 	else
-		play_failure_sound(user, target, target_zone, tool, surgery)
+		INVOKE_ASYNC(src, PROC_REF(play_failure_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_FAILURE
 
 /**
@@ -488,10 +496,27 @@
 /**
  * Get the action that will be performed during this surgery step, in context of the surgery it is a part of.
  *
- * * surgery - A surgery in progress.
+ * Arguments:
+ * * surgery - The main surgery this is being invoked by.
+ * * with_tools - Whether to include the tool necessary for the step at the end of the step information.
+ * *
  */
-/datum/surgery_step/proc/get_step_information(datum/surgery/surgery)
-	return name
+/datum/surgery_step/proc/get_step_information(datum/surgery/surgery, with_tools = FALSE)
+	if(!with_tools)
+		return name
+
+	var/list/tools = list()
+	for(var/tool in allowed_tools)
+		// only list main surgery tools. you can figure out the improvised version by trying (or reading the wiki lul)
+		if((tool in GLOB.surgery_tool_behaviors) || ((tool in GLOB.construction_tool_behaviors) && allowed_tools[tool] == 100))
+			tools |= tool
+	if(!length(tools))
+		// if nothing else, just pick the first in the list.
+		var/atom/tool = allowed_tools[1]
+		tools |= (ispath(tool)) ? tool::name : "[tool]"
+
+
+	return "[name] ([english_list(tools, and_text=" or ")])"
 
 /**
  * Spread some nasty germs to an organ.
@@ -510,7 +535,7 @@
 	if(user.gloves)
 		germ_level = user.gloves.germ_level
 	target_organ.germ_level = max(germ_level, target_organ.germ_level)
-	spread_germs_by_incision(target_organ, tool) //germ spread from environement to patient
+	INVOKE_ASYNC(src, PROC_REF(spread_germs_by_incision), target_organ, tool) //germ spread from environement to patient
 
 /**
  * Spread germs directly from a tool.

@@ -290,16 +290,6 @@
 	R.handle_reactions()
 	return amount
 
-/datum/reagents/proc/can_metabolize(mob/living/carbon/human/H, datum/reagent/R)
-	if(!H.dna.species || !H.dna.species.reagent_tag)
-		return FALSE
-	if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
-		return TRUE
-	if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
-		return TRUE
-	//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
-		return TRUE
 
 /**
  * Called by `/mob/living/proc/Life`. You shouldn't have to use this one directly.
@@ -327,7 +317,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent
-			var/can_process = can_metabolize(H, R)
+			var/can_process = H.can_metabolize(R)
 			//If handle_reagents returns 0, it's doing the reagent removal on its own
 			var/species_handled = !(H.dna.species.handle_reagents(H, R))
 			can_process = can_process && !species_handled
@@ -559,9 +549,10 @@
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
 		if(R.id == reagent)
-			if(ishuman(my_atom) && can_metabolize(my_atom, R))
-				var/mob/living/carbon/human/M = my_atom
-				R.on_mob_delete(M)
+			if(ishuman(my_atom))
+				var/mob/living/carbon/human/human = my_atom
+				if(human.can_metabolize(R))
+					R.on_mob_delete(human)
 			cached_reagents -= A
 			qdel(A)
 			update_total()
@@ -684,6 +675,9 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
+/datum/reagents/proc/get_free_space()
+	return maximum_volume - total_volume
+
 /**
  * Attempts to add X of the matching reagent to the holder.
  *
@@ -714,13 +708,13 @@
 
 	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
 	if(D)
-
 		var/datum/reagent/R = new D.type()
 		cached_reagents += R
 		R.holder = src
 		R.volume = amount
 		if(ishuman(my_atom))
-			if(can_metabolize(my_atom, R))
+			var/mob/living/carbon/human/human = my_atom
+			if(human.can_metabolize(R))
 				R.on_new(data)
 		else
 			R.on_new(data)
@@ -728,11 +722,15 @@
 		if(data)
 			R.data = data
 
-		if(ishuman(my_atom) && can_metabolize(my_atom, R))
-			R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
+		if(ishuman(my_atom))
+			var/mob/living/carbon/human/human = my_atom
+			if(human.can_metabolize(R))
+				R.on_mob_add(my_atom) //Must occur before it could posibly run on_mob_delete
+
 		update_total()
 		if(my_atom)
 			my_atom.on_reagent_change()
+
 		if(!no_react)
 			temperature_react()
 			handle_reactions()
@@ -787,6 +785,9 @@
 				else
 					return FALSE
 	return FALSE
+
+/datum/reagents/proc/is_empty()
+	return length(reagent_list) == 0
 
 /**
  * Returns the amount of the matching reagent inside the holder.

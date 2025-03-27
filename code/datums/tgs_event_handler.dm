@@ -13,6 +13,9 @@ GLOBAL_VAR_INIT(slower_restart, FALSE)
 	receive_health_checks = TRUE
 
 /datum/tgs_event_handler/impl/HandleEvent(event_code, ...)
+	// Do this for any TGS event receieved as deployments dont proc the heartbeat event
+	SSheartbeat.last_heartbeat = REALTIMEOFDAY
+
 	switch(event_code)
 		if(TGS_EVENT_REBOOT_MODE_CHANGE)
 			var/list/reboot_mode_lookup = list ("[TGS_REBOOT_MODE_NORMAL]" = "be normal", "[TGS_REBOOT_MODE_SHUTDOWN]" = "shutdown the server", "[TGS_REBOOT_MODE_RESTART]" = "hard restart the server")
@@ -50,7 +53,7 @@ GLOBAL_VAR_INIT(slower_restart, FALSE)
 				deltimer(reattach_timer)
 				reattach_timer = null
 		if(TGS_EVENT_HEALTH_CHECK)
-			SSheartbeat.last_heartbeat = REALTIMEOFDAY
+			return // does no extra behaviour
 
 /datum/tgs_event_handler/impl/proc/LateOnReattach()
 	server_announce_adminonly("\[Warning] TGS hasn't notified us of it coming back for a full minute! Is there a problem?")

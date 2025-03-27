@@ -22,7 +22,7 @@
 		pinned_target = null
 		density = TRUE
 
-/obj/structure/target_stake/attackby(obj/item/W, mob/user, params)
+/obj/structure/target_stake/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	// Putting objects on the stake. Most importantly, targets
 	if(istype(W, /obj/item/target) && !pinned_target)
 		density = FALSE

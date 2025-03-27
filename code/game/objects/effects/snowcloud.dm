@@ -66,6 +66,7 @@
 	desc = "Perfect for making snow angels, or throwing at other people!"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "snow1"
+	plane = FLOOR_PLANE
 	layer = ABOVE_ICYOVERLAY_LAYER
 
 /obj/effect/snow/New()
@@ -96,17 +97,15 @@
 	user.put_in_hands(SB)
 	to_chat(user, "<span class='notice'>You scoop up some snow and make \a [SB]!</span>")
 
-/obj/effect/snow/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/shovel))
-		var/obj/item/shovel/S = I
+/obj/effect/snow/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/shovel))
+		var/obj/item/shovel/shovel = used
 		user.visible_message("<span class='notice'>[user] is clearing away [src]...</span>", "<span class='notice'>You begin clearing away [src]...</span>", "<span class='warning'>You hear a wettish digging sound.</span>")
-		playsound(loc, S.usesound, 50, TRUE)
-		if(!do_after(user, 50 * S.toolspeed, target = src))
-			return
-		user.visible_message("<span class='notice'>[user] clears away [src]!</span>", "<span class='notice'>You clear away [src]!</span>")
-		qdel(src)
-	else
-		return ..()
+		playsound(loc, shovel.usesound, 50, TRUE)
+		if(do_after(user, 50 * shovel.toolspeed, target = src))
+			user.visible_message("<span class='notice'>[user] clears away [src]!</span>", "<span class='notice'>You clear away [src]!</span>")
+			qdel(src)	
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/snow/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()

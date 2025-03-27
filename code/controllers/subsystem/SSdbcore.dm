@@ -104,7 +104,7 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
 	if(GLOB.configuration.database.enabled)
 		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
-		#ifndef UNIT_TESTS
+		#ifndef GAME_TESTS
 		if(GLOB.configuration.database.enabled && GLOB.configuration.database.version != SQL_VERSION)
 			GLOB.configuration.database.enabled = FALSE
 			schema_valid = FALSE

@@ -74,7 +74,7 @@
 	icon_state = "book[rand(1,8)]"
 
 
-/obj/item/book/attack(mob/M, mob/living/user)
+/obj/item/book/attack__legacy__attackchain(mob/M, mob/living/user)
 	if(user.a_intent == INTENT_HELP)
 		force = 0
 		attack_verb = list("educated")
@@ -83,7 +83,7 @@
 		attack_verb = list("bashed", "whacked")
 	..()
 
-/obj/item/book/attack_self(mob/user)
+/obj/item/book/attack_self__legacy__attackchain(mob/user)
 	if(carved)
 		//Attempt to remove inserted object, if none found, remind user that someone vandalized their book (Bastards)!
 		if(!remove_stored_item(user, TRUE))
@@ -92,7 +92,7 @@
 	user.visible_message("<span class='notice'>[user] opens a book titled \"[title]\" and begins reading intently.</span>")
 	read_book(user)
 
-/obj/item/book/attackby(obj/item/I, mob/user, params)
+/obj/item/book/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		edit_book(user)
 	else if(istype(I, /obj/item/barcodescanner))

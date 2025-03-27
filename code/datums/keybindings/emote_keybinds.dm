@@ -278,15 +278,15 @@
 	return isalien(M) && ..()
 
 /datum/keybinding/emote/carbon/alien/humanoid/roar
-	linked_emote = /datum/emote/living/carbon/alien/humanoid/roar
+	linked_emote = /datum/emote/living/carbon/alien_humanoid/roar
 	name = "Roar"
 
 /datum/keybinding/emote/carbon/alien/humanoid/hiss
-	linked_emote = /datum/emote/living/carbon/alien/humanoid/hiss
+	linked_emote = /datum/emote/living/carbon/alien_humanoid/hiss
 	name = "Hiss"
 
 /datum/keybinding/emote/carbon/alien/humanoid/gnarl
-	linked_emote = /datum/emote/living/carbon/alien/humanoid/gnarl
+	linked_emote = /datum/emote/living/carbon/alien_humanoid/gnarl
 	name = "Gnarl"
 
 /datum/keybinding/emote/carbon/brain
@@ -397,7 +397,7 @@
 	linked_emote = /datum/emote/living/carbon/human/salute
 	name = "Salute"
 
-/datum/keybinding/emote/carbon/human/sign/signal
+/datum/keybinding/emote/carbon/human/signal
 	linked_emote = /datum/emote/living/carbon/sign/signal
 	name = "Signal"
 
@@ -509,7 +509,11 @@
 	linked_emote = /datum/emote/living/carbon/human/creak
 	name = "Creak"
 
-/datum/keybinding/emote/carbon/human/slime/squish
+/datum/keybinding/emote/carbon/human/diona_chirp
+	linked_emote = /datum/emote/living/carbon/human/diona_chirp
+	name = "Chirp (Diona)"
+
+/datum/keybinding/emote/carbon/human/squish
 	linked_emote = /datum/emote/living/carbon/human/slime/squish
 	name = "Squish"
 
@@ -556,11 +560,11 @@
 	linked_emote = /datum/emote/living/carbon/human/monkey/tail
 	name = "Tail (Monkey)"
 
-/datum/keybinding/emote/carbon/human/monkey/scream/screech
+/datum/keybinding/emote/carbon/human/monkey/screech
 	linked_emote = /datum/emote/living/carbon/human/scream/screech
 	name = "Screech (Monkey)"
 
-/datum/keybinding/emote/carbon/human/monkey/scream/screech/roar
+/datum/keybinding/emote/carbon/human/monkey/screech/roar
 	linked_emote = /datum/emote/living/carbon/human/scream/screech/roar
 	name = "Roar (Monkey)"
 

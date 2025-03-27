@@ -118,6 +118,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "bubblegum_arena_exit"
 	icon_state = "bubblegumjumpscare"
 
+/obj/effect/landmark/spawner/backrooms
+	name = "backrooms_spawn"
+	icon_state = "Assistant"
+
+/obj/effect/landmark/spawner/backrooms/Initialize(mapload)
+	spawner_list = GLOB.backroomswarp
+	return ..()
+
 /obj/effect/landmark/spawner/syndie
 	name = "Syndicate-Spawn"
 	icon_state = "Syndie"
@@ -242,7 +250,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/spawner/roundstart_observer/Initialize(mapload)
 	spawner_list = GLOB.roundstart_observer_start
 	return ..()
-	
+
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
 	..()
@@ -308,6 +316,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/start/cargo_technician
 	name = "Cargo Technician"
+	icon_state = "CargoTech"
+
+/obj/effect/landmark/start/smith
+	name = "Smith"
 	icon_state = "CargoTech"
 
 /obj/effect/landmark/start/chaplain
@@ -422,9 +434,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "Warden"
 	icon_state = "Warden"
 
+/obj/effect/landmark/start/nanotrasen_career_trainer
+	name ="Nanotrasen Career Trainer"
+	icon_state = "NCT"
+
 /obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
 
+/obj/effect/landmark/game_test/bottom_left_corner
+
+/obj/effect/landmark/game_test/top_right_corner
 
 //Costume spawner landmarks
 
@@ -450,7 +469,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/costume/madscientist/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick_captain_suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/suit/storage/labcoat/mad(src.loc)
 	new /obj/item/clothing/glasses/gglasses(src.loc)
@@ -458,7 +477,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/costume/elpresidente/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick_captain_suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/mask/cigarette/cigar/havana(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)
@@ -659,24 +678,3 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/mob_spawner/abandoned_minebot
 	mobtype = /mob/living/simple_animal/hostile/asteroid/abandoned_minebot
-
-// Damage tiles
-/obj/effect/landmark/damageturf
-	icon_state = "damaged"
-
-/obj/effect/landmark/damageturf/Initialize(mapload)
-	. = ..()
-	var/turf/simulated/T = get_turf(src)
-	if(istype(T))
-		T.break_tile()
-
-/obj/effect/landmark/burnturf
-	icon_state = "burned"
-
-/obj/effect/landmark/burnturf/Initialize(mapload)
-	. = ..()
-	var/turf/simulated/T = get_turf(src)
-	T.burn_tile()
-
-/obj/effect/landmark/free_golem_spawn
-	name = "Free Golem Spawn Point"

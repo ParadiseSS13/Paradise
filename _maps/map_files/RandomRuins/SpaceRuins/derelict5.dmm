@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aN" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot_crate/rarely,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
@@ -65,7 +65,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "jz" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "kb" = (
@@ -81,6 +81,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"lE" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "mn" = (
@@ -124,7 +128,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "qF" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot_crate/rarely,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel,
@@ -150,7 +154,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "sd" = (
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "vg" = (
@@ -172,7 +176,7 @@
 /area/ruin/space/unpowered)
 "xQ" = (
 /obj/structure/table,
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/toy/russian_revolver,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "yq" = (
@@ -214,7 +218,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Dt" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "Gx" = (
 /obj/effect/decal/cleanable/blood,
@@ -241,6 +245,7 @@
 /area/ruin/space/unpowered)
 "LA" = (
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "LD" = (
@@ -268,7 +273,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Pq" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/unpowered)
 "Qx" = (
@@ -411,7 +416,6 @@ TT
 TT
 TT
 TT
-TT
 yq
 TT
 TT
@@ -428,6 +432,7 @@ VS
 TT
 TT
 yq
+TT
 TT
 "}
 (3,1,1) = {"
@@ -463,7 +468,6 @@ TT
 TT
 TT
 TT
-TT
 Dt
 Dt
 VS
@@ -471,9 +475,9 @@ TT
 TT
 TT
 TT
+TT
 "}
 (4,1,1) = {"
-TT
 TT
 TT
 TT
@@ -513,6 +517,7 @@ TT
 TT
 TT
 VS
+TT
 "}
 (5,1,1) = {"
 TT
@@ -541,8 +546,8 @@ TT
 TT
 TT
 TT
-TT
 yq
+TT
 TT
 TT
 TT
@@ -557,7 +562,6 @@ TT
 TT
 "}
 (6,1,1) = {"
-TT
 TT
 TT
 TT
@@ -597,6 +601,7 @@ TT
 TT
 Dt
 TT
+TT
 "}
 (7,1,1) = {"
 TT
@@ -607,13 +612,13 @@ TT
 TT
 TT
 TT
+WA
+WA
+WA
+WA
+WA
+WA
 TT
-WA
-WA
-WA
-WA
-WA
-WA
 TT
 TT
 TT
@@ -648,7 +653,6 @@ TT
 TT
 TT
 TT
-TT
 Qx
 Qx
 Qx
@@ -679,12 +683,12 @@ TT
 yq
 TT
 yq
+TT
 TT
 TT
 "}
 (9,1,1) = {"
 TT
-TT
 yq
 TT
 TT
@@ -712,6 +716,7 @@ TT
 VS
 VS
 Dt
+TT
 TT
 TT
 TT
@@ -731,7 +736,6 @@ TT
 TT
 TT
 TT
-TT
 Qx
 Dt
 Dt
@@ -765,9 +769,9 @@ TT
 TT
 yq
 TT
+TT
 "}
 (11,1,1) = {"
-TT
 TT
 TT
 TT
@@ -798,6 +802,7 @@ Dt
 VS
 VS
 VS
+TT
 TT
 TT
 TT
@@ -814,24 +819,24 @@ TT
 TT
 TT
 TT
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Dt
+Qx
+Qx
+Dt
+Qx
+Qx
+WA
+WA
+WA
+WA
 TT
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Dt
-Qx
-Qx
-Dt
-Qx
-Qx
-WA
-WA
-WA
-WA
 TT
 TT
 TT
@@ -856,24 +861,24 @@ TT
 TT
 TT
 TT
+Qx
+Qx
+Qx
+Dt
+Dt
+Qx
+Qx
+Dt
+Qx
+Qx
+Dt
+Dt
+Qx
+Qx
+Qx
+WA
+WA
 TT
-Qx
-Qx
-Qx
-Dt
-Dt
-Qx
-Qx
-Dt
-Qx
-Qx
-Dt
-Dt
-Qx
-Qx
-Qx
-WA
-WA
 TT
 TT
 TT
@@ -898,26 +903,26 @@ TT
 TT
 TT
 TT
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+WA
+WA
+WA
 TT
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-WA
-WA
-WA
 TT
 TT
 TT
@@ -940,26 +945,26 @@ TT
 TT
 TT
 TT
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Qx
+Pq
+Pq
+Se
+Pq
+Se
+Qx
+Dt
+Dt
+Qx
+Qx
+WA
+WA
 TT
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Qx
-Pq
-Pq
-Se
-Pq
-Se
-Qx
-Dt
-Dt
-Qx
-Qx
-WA
-WA
 TT
 TT
 TT
@@ -977,7 +982,6 @@ TT
 TT
 "}
 (16,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1017,9 +1021,9 @@ TT
 TT
 TT
 TT
+TT
 "}
 (17,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1059,9 +1063,9 @@ TT
 TT
 TT
 TT
+TT
 "}
 (18,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1101,9 +1105,9 @@ TT
 TT
 TT
 TT
+TT
 "}
 (19,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1143,9 +1147,9 @@ Qx
 TT
 TT
 TT
+TT
 "}
 (20,1,1) = {"
-TT
 TT
 yq
 TT
@@ -1185,9 +1189,9 @@ Qx
 TT
 TT
 TT
+TT
 "}
 (21,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1227,9 +1231,9 @@ Qx
 Qx
 Qx
 TT
+TT
 "}
 (22,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1269,9 +1273,9 @@ Dt
 Dt
 Qx
 TT
+TT
 "}
 (23,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1311,6 +1315,7 @@ Qx
 Qx
 Qx
 Qx
+TT
 "}
 (24,1,1) = {"
 TT
@@ -1320,12 +1325,11 @@ TT
 TT
 TT
 TT
-TT
 Qx
 Qx
 Qx
 Qx
-zN
+lE
 vE
 hG
 bO
@@ -1353,9 +1357,9 @@ Qx
 Qx
 Qx
 Qx
+TT
 "}
 (25,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1395,9 +1399,9 @@ Dt
 Qx
 Qx
 Qx
+TT
 "}
 (26,1,1) = {"
-TT
 TT
 TT
 VS
@@ -1437,9 +1441,9 @@ Dt
 Qx
 Qx
 Qx
+TT
 "}
 (27,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1479,9 +1483,9 @@ Qx
 Qx
 Qx
 Qx
+TT
 "}
 (28,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1521,9 +1525,9 @@ Qx
 Qx
 Dt
 Qx
+TT
 "}
 (29,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1563,9 +1567,9 @@ Qx
 Qx
 Dt
 Qx
+TT
 "}
 (30,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1605,9 +1609,9 @@ Qx
 Qx
 Qx
 Qx
+TT
 "}
 (31,1,1) = {"
-TT
 TT
 TT
 VS
@@ -1647,9 +1651,9 @@ Dt
 Qx
 Qx
 Qx
+TT
 "}
 (32,1,1) = {"
-TT
 TT
 VS
 VS
@@ -1688,11 +1692,11 @@ Dt
 Dt
 Qx
 Qx
+TT
 TT
 "}
 (33,1,1) = {"
 TT
-TT
 VS
 VS
 Dt
@@ -1730,12 +1734,12 @@ Qx
 Qx
 Qx
 Qx
+TT
 TT
 "}
 (34,1,1) = {"
 TT
 TT
-TT
 Dt
 Dt
 VS
@@ -1772,11 +1776,11 @@ Qx
 Qx
 Qx
 Qx
+TT
 TT
 "}
 (35,1,1) = {"
 TT
-TT
 VS
 TT
 TT
@@ -1813,12 +1817,12 @@ Qx
 Qx
 Qx
 Qx
+TT
 TT
 TT
 "}
 (36,1,1) = {"
 TT
-TT
 VS
 TT
 TT
@@ -1855,6 +1859,7 @@ Qx
 Qx
 Qx
 Qx
+TT
 TT
 TT
 "}
@@ -1864,7 +1869,6 @@ TT
 TT
 TT
 TT
-TT
 VS
 TT
 TT
@@ -1899,9 +1903,9 @@ Qx
 Qx
 TT
 TT
+TT
 "}
 (38,1,1) = {"
-TT
 TT
 TT
 TT
@@ -1941,50 +1945,9 @@ TT
 TT
 TT
 TT
+TT
 "}
 (39,1,1) = {"
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-TT
-"}
-(40,1,1) = {"
 TT
 TT
 TT

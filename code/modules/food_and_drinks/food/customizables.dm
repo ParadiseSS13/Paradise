@@ -6,33 +6,33 @@ do {\
 	qdel(src);\
 } while(FALSE)
 
-/obj/item/food/breadslice/attackby(obj/item/W, mob/user, params)
+/obj/item/food/sliced/bread/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/sandwich)
 		return
 	..()
 
-/obj/item/food/bun/attackby(obj/item/W, mob/user, params)
+/obj/item/food/bun/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/burger)
 		return
 	..()
 
-/obj/item/food/sliceable/flatdough/attackby(obj/item/W, mob/user, params)
+/obj/item/food/sliceable/flatdough/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pizza)
 		return
 	..()
 
 
-/obj/item/food/boiledspaghetti/attackby(obj/item/W, mob/user, params)
+/obj/item/food/boiledspaghetti/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pasta)
 		return
 	..()
 
 
-/obj/item/trash/plate/attackby(obj/item/W, mob/user, params)
+/obj/item/trash/plate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
 		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/fullycustom)
 		return
@@ -46,10 +46,10 @@ do {\
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "soup"
 
-/obj/item/trash/bowl/attackby(obj/item/I, mob/user, params)
+/obj/item/trash/bowl/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food) && !(I.flags & NODROP))
 		var/obj/item/food/customizable/soup/S = new(get_turf(user))
-		S.attackby(I, user, params)
+		S.attackby__legacy__attackchain(I, user, params)
 		qdel(src)
 	else
 		..()
@@ -326,7 +326,7 @@ do {\
 	tastes = list("bun" = 4)
 
 
-/obj/item/food/customizable/attackby(obj/item/I, mob/user, params)
+/obj/item/food/customizable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 
 	if(istype(I, /obj/item/kitchen/utensil) || is_pen(I))
@@ -356,7 +356,7 @@ do {\
 			to_chat(user, "<span class='warning'>Merging [snack] and [src] together is going to make a mess.</span>")
 			return
 
-	if(!user.unEquip(snack))
+	if(!user.unequip(snack))
 		to_chat(user, "<span class='warning'>[snack] is stuck to your hand!</span>")
 		return
 

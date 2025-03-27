@@ -9,7 +9,6 @@ LINEN BINS
 	desc = "A surprisingly soft linen bedsheet."
 	icon = 'icons/obj/bedsheet.dmi'
 	icon_state = "sheet"
-	item_state = "bedsheet"
 	lefthand_file = 'icons/mob/inhands/bedsheet_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/bedsheet_righthand.dmi'
 	layer = 4
@@ -19,8 +18,9 @@ LINEN BINS
 	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
 	resistance_flags = FLAMMABLE
-	slot_flags = ITEM_SLOT_BACK
+	slot_flags = ITEM_SLOT_NECK
 	dog_fashion = /datum/dog_fashion/head/ghost
+	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BEDSHEET
 
 	var/list/dream_messages = list("white")
@@ -36,7 +36,7 @@ LINEN BINS
 		return
 	return ..()
 
-/obj/item/bedsheet/attack_self(mob/user as mob)
+/obj/item/bedsheet/attack_self__legacy__attackchain(mob/user as mob)
 	user.drop_item()
 	if(layer == initial(layer))
 		layer = 5
@@ -45,7 +45,7 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
-/obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
+/obj/item/bedsheet/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
 		transfer_fingerprints_to(C)
@@ -251,6 +251,15 @@ LINEN BINS
 	dream_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 	nightmare_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 
+/obj/item/bedsheet/clockwork
+	name = "Ratvarian bedsheet"
+	desc = "You might dream of Ratvar if you sleep with this. The fabric has threads of brass sewn into it which eminate a pleasent warmth."
+	icon_state = "sheetclockwork"
+	item_state = "bedsheetclockwork"
+	item_color = "brass"
+	dream_messages = list("tick, tock, tick, tock, tick, tock, tick, tock", "a great shining city of brass", "men in radiant suits of brass", "a perfect blueprint of the world", "a glowing cogwheel", "a massive humanoid figure")
+	nightmare_messages = list("<span_class = userdanger>\"the Nar'Sian dogs shall be CRUSHED!\"</span>", "the unenlightened, ready to hear His word", "a half-buried brass titan", "two massive humanoid figures attacking each other")
+
 /obj/item/bedsheet/wiz
 	name = "wizard's bedsheet"
 	desc = "A special fabric enchanted with magic so you can have an enchanted night. It even glows!"
@@ -317,7 +326,7 @@ LINEN BINS
 		default_unfasten_wrench(user, I, time = 20)
 		return TRUE
 
-/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
+/obj/structure/bedsheetbin/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
 		if(!user.drop_item())
 			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")

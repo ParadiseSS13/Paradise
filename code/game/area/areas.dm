@@ -61,8 +61,10 @@
 	var/list/firealarms
 	var/firedoors_last_closed_on = 0
 
-	/// The air alarm to use for atmos_alert consoles
-	var/obj/machinery/alarm/master_air_alarm
+	/// Timer to stop ongoing fire alarm sounds
+	var/firealarm_sound_stop_timer = null
+	/// The air alarms present in this area.
+	var/list/air_alarms = list()
 	/// The list of vents in our area.
 	var/list/obj/machinery/atmospherics/unary/vent_pump/vents = list()
 	/// The list of scrubbers in our area.
@@ -301,10 +303,17 @@
 			continue
 
 		// At this point, the area is safe and the door is technically functional.
+		// Firedoors do not close automatically by default, and setting it to false when the alarm is off prevents unnecessary timers from being created. Emagged doors are permanently disabled from automatically closing, or being operated by alarms altogether apart from the lights.
+		if(!D.emagged)
+			if(opening)
+				D.autoclose = FALSE
+			else
+				D.autoclose = TRUE
 
 		INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, deactivate_alarm) : TYPE_PROC_REF(/obj/machinery/door/firedoor, activate_alarm)))
-		if(D.welded)
+		if(D.welded || D.emagged)
 			continue // Alarm is toggled, but door stuck
+
 		if(D.operating)
 			if((D.operating == DOOR_OPENING && opening) || (D.operating == DOOR_CLOSING && !opening))
 				continue
@@ -331,6 +340,8 @@
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
 			GLOB.firealarm_soundloop.start(F)
+		if(!firealarm_sound_stop_timer)
+			firealarm_sound_stop_timer = addtimer(CALLBACK(src, PROC_REF(stop_alarm_sounds)), 4 MINUTES, TIMER_STOPPABLE | TIMER_UNIQUE)
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -341,6 +352,10 @@
 
 	START_PROCESSING(SSobj, src)
 
+/area/proc/stop_alarm_sounds()
+	for(var/obj/machinery/firealarm/F in firealarms)
+		F.update_icon()
+		GLOB.firealarm_soundloop.stop(F)
 /**
   * Reset the firealarm alert for this area
   *
@@ -353,6 +368,9 @@
 	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
+		if(firealarm_sound_stop_timer)
+			deltimer(firealarm_sound_stop_timer)
+			firealarm_sound_stop_timer = null
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()

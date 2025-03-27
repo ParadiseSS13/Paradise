@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/syndicate
-	base_icon = "syndie_bloodhound"
-	icon_state = "syndie_bloodhound"
+	base_icon = "spidersyndi"
+	icon_state = "spidersyndi"
 	lawupdate = FALSE
 	scrambledcodes = TRUE
 	has_camera = FALSE
@@ -9,6 +9,7 @@
 	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
+	allow_resprite = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = TRUE
 	damage_protection = 5
@@ -38,6 +39,11 @@
 			to_chat(src, playstyle_string)
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+
+/mob/living/silicon/robot/syndicate/air_push(direction, strength)
+	// Syndicate borgs ignore airflow, because they're bloody expensive.
+	// This should probably be revisited later, as part of a broader move_resist/move_force/pull_force rework.
+	return
 
 /mob/living/silicon/robot/syndicate/medical
 	base_icon = "syndi-medi"
@@ -110,12 +116,12 @@
 		if(!cham_proj)
 			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
 			return
-	cham_proj.attack_self(src)
+	cham_proj.attack_self__legacy__attackchain(src)
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby()
+/mob/living/silicon/robot/syndicate/saboteur/attack_by(obj/item/attacking, mob/living/user, params)
+	. = ..()
 	if(cham_proj)
 		cham_proj.disrupt(src)
-	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/attack_hand()
 	if(cham_proj)

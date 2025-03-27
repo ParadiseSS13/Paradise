@@ -40,6 +40,7 @@
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
 	var/auto_wrench_toggle = TRUE
+	var/pipe_label = null
 
 	//Lists of things
 	var/list/mainmenu = list(
@@ -115,6 +116,7 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	P.label = pipe_label
 	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
@@ -211,7 +213,7 @@
 		return
 // TGUI stuff
 
-/obj/item/rpd/attack_self(mob/user)
+/obj/item/rpd/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/rpd/ui_state(mob/user)
@@ -266,6 +268,8 @@
 			mode = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("auto_wrench_toggle")
 			auto_wrench_toggle = !auto_wrench_toggle
+		if("set_label")
+			pipe_label = params[action]
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)
@@ -304,7 +308,7 @@
 				return //Either nothing was selected, or an invalid mode was selected
 		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
 
-/obj/item/rpd/afterattack(atom/target, mob/user, proximity)
+/obj/item/rpd/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
 	if(isstorage(target))
 		var/obj/item/storage/S = target
@@ -342,20 +346,20 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		if(get_dist(src, T) >= (user.client.maxview() + 2))
+		if(get_dist(src, T) >= (user.client.maxview() / 2))
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
 			return
 
-		if(!(user in viewers(12, T))) // Checks if the user can see the target turf
+		if(!(user in hearers(12, T))) // Checks if user can hear the target turf, cause viewers doesnt work for it.
 			to_chat(user, "<span class='warning'>[src] needs full visibility to determine the dispensing location.</span>")
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE)
 			return
 		user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	T.rpd_act(user, src)
 
-/obj/item/rpd/attack_obj(obj/O, mob/living/user)
+/obj/item/rpd/attack_obj__legacy__attackchain(obj/O, mob/living/user)
 	if(user.a_intent != INTENT_HARM)
 		if(istype(O, /obj/machinery/atmospherics/pipe))
 			return

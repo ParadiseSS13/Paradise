@@ -6,7 +6,8 @@
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_HEAVY_INSULATION
+	cares_about_temperature = TRUE
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
 	max_integrity = 200
@@ -40,13 +41,13 @@
 	for(var/i=0;i < metalAmount;i++)
 		new metal_type(get_turf(src))
 
-/obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
+/obj/structure/girder/temperature_expose(exposed_temperature)
 	..()
 	var/temp_check = exposed_temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)
 
-/obj/structure/girder/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
@@ -406,7 +407,7 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
-/obj/structure/girder/CanPass(atom/movable/mover, turf/target)
+/obj/structure/girder/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGIRDER))
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
@@ -463,7 +464,7 @@
 	. = ..()
 	icon_state = GET_CULT_DATA(cult_girder_icon_state, initial(icon_state))
 
-/obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
+/obj/structure/girder/cult/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) //Cultists can demolish cult girders instantly with their dagger
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")

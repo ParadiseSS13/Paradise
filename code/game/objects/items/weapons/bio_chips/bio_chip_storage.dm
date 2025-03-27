@@ -1,4 +1,4 @@
-/obj/item/storage/hidden/implant
+/obj/item/storage/hidden_implant
 	name = "bluespace pocket"
 	storage_slots = 2
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -17,11 +17,11 @@
 	implant_data = /datum/implant_fluff/storage
 	implant_state = "implant-syndicate"
 
-	var/obj/item/storage/hidden/implant/storage
+	var/obj/item/storage/hidden_implant/storage
 
 /obj/item/bio_chip/storage/Initialize(mapload)
 	. = ..()
-	storage = new /obj/item/storage/hidden/implant(src)
+	storage = new /obj/item/storage/hidden_implant(src)
 
 /obj/item/bio_chip/storage/emp_act(severity)
 	..()

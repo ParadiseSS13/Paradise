@@ -71,7 +71,7 @@
 				current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
 			chassis.occupant_message("You mop \the [target].")
 			if(holosign_enabled)
-				holosign_controller.afterattack(target_turf, chassis.occupant, TRUE)
+				holosign_controller.afterattack__legacy__attackchain(target_turf, chassis.occupant, TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
@@ -109,7 +109,7 @@
 	if(afilter.get("toggle_holosign"))
 		holosign_enabled = !holosign_enabled
 		if(!holosign_enabled)
-			holosign_controller.attack_self(chassis.occupant)
+			holosign_controller.attack_self__legacy__attackchain(chassis.occupant)
 		update_equip_info()
 		return
 
@@ -220,8 +220,8 @@
 // Garbage Magnet
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet
 	name = "\improper WA1E Garbage Magnet"
-	desc = "Bluespace technology integrated with an oversized garbage bag and heavy duty magnets allows this device to pick up all manner of litter. \
-	The complex technology prevents users from directly looking inside the bag."
+	desc = "An industrial vaccuum cleaner integrated with an oversized garbage bag and heavy duty magnets allows this device to pick up all manner of litter. \
+	The device's safety systems prevent users from directly looking inside the bag."
 	icon_state = "mecha_trash_magnet"
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 5

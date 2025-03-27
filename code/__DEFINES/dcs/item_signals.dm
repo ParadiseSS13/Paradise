@@ -6,21 +6,7 @@
 
 // /obj/item
 
-///from base of obj/item/attack(): (/mob/living/target, /mob/living/user)
-#define COMSIG_ITEM_ATTACK "item_attack"
-///from base of obj/item/attack_self(): (/mob)
-#define COMSIG_ITEM_ATTACK_SELF "item_attack_self"
-	#define COMPONENT_NO_INTERACT (1<<0)
-///from base of obj/item/attack_obj(): (/obj, /mob)
-#define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
-	#define COMPONENT_NO_ATTACK_OBJ (1<<0)
-///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"
-	#define COMPONENT_NO_ATTACK (1<<0)
-///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_BEING_ATTACKED "item_being_attacked"
-///from base of obj/item/afterattack(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_AFTERATTACK "item_afterattack"
+
 ///called on [/obj/item] before unequip from base of [/mob/proc/unEquip]: (force, atom/newloc, no_move, invdrop, silent)
 #define COMSIG_ITEM_PRE_UNEQUIP "item_pre_unequip"
 	///only the pre unequip can be cancelled
@@ -41,9 +27,6 @@
 	#define COMPONENT_BLOCK_SHARPEN_BLOCKED (1<<1)
 	#define COMPONENT_BLOCK_SHARPEN_ALREADY (1<<2)
 	#define COMPONENT_BLOCK_SHARPEN_MAXED (1<<3)
-///from base of [/obj/item/proc/tool_attack_chain]: (atom/tool, mob/user)
-#define COMSIG_TOOL_ATTACK "tool_attack"
-	#define COMPONENT_CANCEL_TOOLACT (1<<0)
 /// Called by [/obj/item/assembly/proc/pulse]
 #define COMSIG_ASSEMBLY_PULSED "item_assembly_pulsed"
 ///from [/mob/living/carbon/human/proc/Move]: ()
@@ -129,7 +112,14 @@
 
 // other items
 
-/// from base of /obj/item/slimepotion/speed/afterattack(): (obj/target, /obj/src, mob/user)
+/// from base of /obj/item/slimepotion/speed/afterattack__legacy__attackchain(): (obj/target, /obj/src, mob/user)
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)
 
+// Cyborg specific items
+
+/// from /mob/living/silicon/robot/proc/activate_item() (mob/user), A general signal for if a specific borg item needs something done when being activated.
+#define COMSIG_CYBORG_ITEM_ACTIVATED "cyborg_activation"
+
+/// from /mob/living/silicon/robot/proc/deactivate_item() (mob/user), A general signal for if a specific borg item needs something done when being deactivated.
+#define COMSIG_CYBORG_ITEM_DEACTIVATED "cyborg_deactivation"

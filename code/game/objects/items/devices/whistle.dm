@@ -12,7 +12,7 @@
 	var/next_use_time
 	var/spamcheck = FALSE
 
-/obj/item/hailer/attack_self(mob/living/carbon/user as mob)
+/obj/item/hailer/attack_self__legacy__attackchain(mob/living/carbon/user as mob)
 	if(world.time < next_use_time)
 		return
 
@@ -51,7 +51,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
 		)
 
-/obj/item/clothing/mask/whistle/attack_self(mob/user)
+/obj/item/clothing/mask/whistle/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, whistle_cooldown))
 		return
 

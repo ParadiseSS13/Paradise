@@ -42,7 +42,7 @@
 		underlays += can_underlay
 
 
-/obj/item/grenade/iedcasing/attack_self(mob/user) //
+/obj/item/grenade/iedcasing/attack_self__legacy__attackchain(mob/user) //
 	if(!active)
 		if(clown_check(user))
 			to_chat(user, "<span class='warning'>You light [src]!</span>")

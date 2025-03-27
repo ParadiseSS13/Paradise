@@ -15,8 +15,6 @@
 					/obj/item/reagent_containers/condiment/peppermill,
 					/obj/item/kitchen/rollingpin,
 					/obj/item/storage/fancy/egg_box,
-					/obj/item/mixing_bowl,
-					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/condiment/enzyme,
 					/obj/item/reagent_containers/condiment/sugar,
 					/obj/item/food/meat/monkey,
@@ -33,9 +31,26 @@
 					/obj/item/pizzabox/mushroom,
 					/obj/item/pizzabox/pepperoni,
 					/obj/item/pizzabox/vegetable,
-					/obj/item/pizzabox/hawaiian)
+					/obj/item/pizzabox/hawaiian,
+					/obj/item/kitchen/knife/pizza_cutter)
 	cost = 500
 	containername = "Pizza crate"
+
+/datum/supply_packs/organic/fancyparty
+	name = "Executive Party Crate"
+	contains = list(/obj/item/food/sliceable/cheesewheel/edam,
+					/obj/item/food/sliceable/cheesewheel/blue,
+					/obj/item/food/sliceable/cheesewheel/camembert,
+					/obj/item/food/sliceable/cheesewheel/camembert,
+					/obj/item/food/sliceable/cheesewheel/smoked,
+					/obj/item/reagent_containers/drinks/bottle/wine,
+					/obj/item/food/caviar,
+					/obj/item/food/caviar,
+					/obj/item/reagent_containers/drinks/drinkingglass,
+					/obj/item/reagent_containers/drinks/drinkingglass)
+	cost = 1000
+	containername = "Executive Party crate"
+	containertype = /obj/structure/closet/crate/freezer/deluxe
 
 /// its a bit hacky...
 /datum/supply_packs/misc/randomised/ingredients
@@ -126,12 +141,12 @@
 					/obj/item/reagent_containers/drinks/shaker,
 					/obj/item/reagent_containers/drinks/bottle/patron,
 					/obj/item/reagent_containers/drinks/bottle/goldschlager,
-					/obj/item/reagent_containers/drinks/cans/ale,
-					/obj/item/reagent_containers/drinks/cans/ale,
-					/obj/item/reagent_containers/drinks/cans/beer,
-					/obj/item/reagent_containers/drinks/cans/beer,
-					/obj/item/reagent_containers/drinks/cans/beer,
-					/obj/item/reagent_containers/drinks/cans/beer,
+					/obj/item/reagent_containers/drinks/bottle/ale,
+					/obj/item/reagent_containers/drinks/bottle/ale,
+					/obj/item/reagent_containers/drinks/bottle/beer,
+					/obj/item/reagent_containers/drinks/bottle/beer,
+					/obj/item/reagent_containers/drinks/bottle/beer,
+					/obj/item/reagent_containers/drinks/bottle/beer,
 					/obj/item/grenade/confetti,
 					/obj/item/grenade/confetti)
 	cost = 250

@@ -58,7 +58,7 @@
 	item_state = "gy_suit"
 	item_color = "vice"
 
-/obj/item/clothing/under/misc/gimmick/rank/captain/suit
+/obj/item/clothing/under/misc/gimmick_captain_suit
 	name = "captain's suit"
 	desc = "A green suit and yellow necktie. Exemplifies authority."
 	icon_state = "green_suit"

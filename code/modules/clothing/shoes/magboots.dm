@@ -34,7 +34,7 @@
 		return
 	check_mag_pulse(user, removing = TRUE)
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/attack_self__legacy__attackchain(mob/user)
 	toggle_magpulse(user)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
@@ -53,9 +53,7 @@
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 	check_mag_pulse(user, removing = (user.get_item_by_slot(ITEM_SLOT_SHOES) != src))
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user, removing = FALSE)
@@ -101,7 +99,7 @@
 
 /obj/item/clothing/shoes/magboots/advance/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/shoes/magboots/syndie
 	name = "blood-red magboots"
@@ -272,12 +270,12 @@
 	cell = null
 	update_icon()
 
-/obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/magboots/gravity/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.drop_item_to_ground(I))
 			return
 		I.forceMove(src)
 		cell = I

@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "bm" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
 	},
@@ -42,8 +42,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/unpowered/misc_lavaruin)
 "en" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/item/reagent_containers/hypospray/autoinjector{
 	name = "emergency autoinjector";
 	icon_state = "autoinjector0"
@@ -56,7 +56,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered/misc_lavaruin)
 "eG" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
 /obj/item/stack/rods,
 /obj/item/airlock_electronics,
@@ -70,7 +70,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "ge" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel/lavaland_air{
@@ -84,7 +84,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/unpowered/misc_lavaruin)
 "hb" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "hK" = (
@@ -113,7 +113,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "kv" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/flashlight/flare,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
@@ -129,7 +129,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "mN" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
 	icon_state = "basalt_dug"
@@ -143,7 +143,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/unpowered/misc_lavaruin)
 "oD" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /obj/item/storage/briefcase{
 	pixel_x = 3;
 	pixel_y = -5
@@ -181,14 +181,14 @@
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "sa" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/molten_object,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
@@ -197,7 +197,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "sx" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -217,7 +217,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
 	},
@@ -237,14 +237,14 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered/misc_lavaruin)
 "uQ" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "vA" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random/oil/maybe,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -274,7 +274,7 @@
 	dir = 8
 	},
 /obj/effect/mob_spawn/human/corpse/skeleton,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
 	},
@@ -336,7 +336,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "Ax" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -369,8 +369,8 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Ca" = (
-/obj/effect/landmark/burnturf,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Dt" = (
@@ -396,7 +396,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "FN" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "FO" = (
@@ -416,7 +416,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "HJ" = (
@@ -434,7 +434,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "IL" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /obj/structure/window/reinforced,
 /obj/item/c_tube,
 /obj/item/flashlight,
@@ -442,7 +442,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "IQ" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
@@ -484,15 +484,15 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "Mf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "My" = (
 /obj/machinery/door/airlock/public,
-/obj/effect/landmark/damageturf,
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/oil/maybe,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
@@ -504,7 +504,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "MS" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
 	},
@@ -521,12 +521,12 @@
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/ruin/unpowered/misc_lavaruin)
 "Oq" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "Oz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/largecrate,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
@@ -563,11 +563,11 @@
 /area/lavaland/surface/outdoors)
 "RP" = (
 /obj/machinery/door/airlock/public,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "Sd" = (
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
@@ -584,7 +584,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "Tb" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/ash,
 /obj/item/storage/box/survival,
 /obj/structure/window/reinforced{
@@ -624,22 +624,22 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/unpowered/misc_lavaruin)
 "Uw" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "Uz" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "UV" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/rods,
-/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Vs" = (
@@ -680,7 +680,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "Yg" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "Yi" = (

@@ -71,7 +71,7 @@
 	icon_state = "crutches0"
 	return ..()
 
-/obj/item/crutches/attackby(obj/item/I, mob/user, params)
+/obj/item/crutches/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(!is_open)
 		return
@@ -81,7 +81,7 @@
 			return
 		if(I.flags & ABSTRACT)
 			return
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			to_chat(user, "<span class='notice'>[I] doesn't seem to want to go into [src]!</span>")
 			return
 		I.forceMove(src)
@@ -120,6 +120,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 5
+
+/obj/item/c_tube/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	qdel(src)
+	return TRUE
 
 
 
@@ -160,7 +164,7 @@
 	..()
 	icon_state = "1"
 
-/obj/item/lightning/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
+/obj/item/lightning/afterattack__legacy__attackchain(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
 	var/angle = get_angle(A, user)
 	//to_chat(world, angle)
 	angle = round(angle) + 45
@@ -204,7 +208,7 @@
 	hitsound = 'sound/weapons/ring.ogg'
 	var/cooldown = 0
 
-/obj/item/phone/attack_self(mob/user)
+/obj/item/phone/attack_self__legacy__attackchain(mob/user)
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time

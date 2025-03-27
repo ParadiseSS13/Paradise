@@ -93,7 +93,7 @@
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
 	late = TRUE
-	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered)
+	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor)
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
@@ -161,7 +161,7 @@
 
 //part responsible for windoors (thanks S34N)
 /obj/effect/mapping_helpers/airlock/windoor
-	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)
+	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/airlock)
 
 /// Apply to a wall (or floor, technically) to ensure it is instantly destroyed by any explosion, even if usually invulnerable
 /obj/effect/mapping_helpers/bombable_wall
@@ -194,3 +194,52 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk/payload(obj/machinery/door/window/windoor)
 	if(windoor.dir == dir)
 		windoor.name = "[get_area_name(windoor, TRUE)] Desk"
+
+/obj/effect/mapping_helpers/turfs
+	icon = 'icons/turf/overlays.dmi'
+
+/obj/effect/mapping_helpers/turfs/Initialize(mapload)
+	. = ..()
+
+	var/turf/T = get_turf(src)
+	if(istype(T))
+		payload(T)
+
+/obj/effect/mapping_helpers/turfs/proc/payload(turf/simulated/T)
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("root turf mapping_helper payload called")
+
+/obj/effect/mapping_helpers/turfs/damage
+	icon_state = "damaged"
+
+/obj/effect/mapping_helpers/turfs/damage/payload(turf/simulated/T)
+	T.break_tile()
+
+/obj/effect/mapping_helpers/turfs/burn
+	icon_state = "burned"
+
+/obj/effect/mapping_helpers/turfs/burn/payload(turf/simulated/T)
+	T.burn_tile()
+
+/obj/effect/mapping_helpers/turfs/rust
+	icon = 'icons/effects/rust_overlay.dmi'
+	icon_state = "rust1"
+	var/spawn_probability = 100
+
+/obj/effect/mapping_helpers/turfs/rust/payload(turf/simulated/wall/T)
+	if(!istype(T))
+		return
+
+	if(prob(spawn_probability))
+		rustify(T)
+
+/obj/effect/mapping_helpers/turfs/proc/rustify(turf/T)
+	var/turf/simulated/wall/W = T
+	if(istype(W) && !HAS_TRAIT(W, TRAIT_RUSTY))
+		W.rust_turf()
+
+/obj/effect/mapping_helpers/turfs/rust/probably
+	spawn_probability = 75
+
+/obj/effect/mapping_helpers/turfs/rust/maybe
+	spawn_probability = 25

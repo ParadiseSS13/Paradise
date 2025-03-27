@@ -6,6 +6,7 @@
 	anchored = TRUE
 	density = FALSE
 	max_integrity = 15
+	cares_about_temperature = TRUE
 	var/mob/living/carbon/human/master_commander = null
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -26,7 +27,7 @@
 	master_commander = null
 	return ..()
 
-/obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/spider/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
@@ -39,16 +40,19 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
-		return TRUE
-	else if(isliving(mover))
-		if(prob(50))
-			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			return FALSE
-	else if(isprojectile(mover))
-		return prob(30)
-	return TRUE
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/spider/stickyweb/proc/on_atom_exit(datum/source, atom/exiter)
+	if(istype(exiter, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(exiter))
+		return
+	if(isliving(exiter) && prob(50))
+		to_chat(exiter, "<span class='danger'>You get stuck in [src] for a moment.</span>")
+		return COMPONENT_ATOM_BLOCK_EXIT
+	if(isprojectile(exiter) && prob(30))
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/spider/eggcluster
 	name = "egg cluster"
@@ -108,8 +112,8 @@
 
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	// Release possible ref if a walk is still being processed
-	walk_to(src, 0)
+	// Cancel our movement.
+	GLOB.move_manager.stop_looping(src)
 	entry_vent = null
 	if(amount_grown < 100)
 		new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
@@ -172,7 +176,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				walk_to(src, entry_vent, 1)
+				GLOB.move_manager.home_onto(src, entry_vent, 1, 10)
 				break
 	if(isturf(loc))
 		amount_grown += rand(0,2)
@@ -211,7 +215,7 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
-	walk_to(src, pick(available_turfs))
+	GLOB.move_manager.home_onto(src, pick(available_turfs), 1, 10)
 	return TRUE
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)

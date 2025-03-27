@@ -12,6 +12,7 @@
 #define TARGET_INVALID_NOTHEAD			11
 #define TARGET_INVALID_CULTIST			12
 #define TARGET_INVALID_CULT_CONVERTABLE	13
+#define TARGET_CRYOING					14
 
 //gamemode istype helpers
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))
@@ -70,3 +71,16 @@
 #define NUKE_SITE_OFF_STATION_ZLEVEL 2
 /// The bomb's location cannot be found.
 #define NUKE_SITE_INVALID 3
+
+/**
+ * Dynamic Gamemode Defines
+ */
+#define DYNAMIC_RULESET_NORMAL "Normal"
+#define DYNAMIC_RULESET_FORCED "<b>Forced</b>"
+#define DYNAMIC_RULESET_BANNED "<b>Banned</b>"
+
+#define RULESET_FAILURE_BUDGET "Not enough budget"
+#define RULESET_FAILURE_ANTAG_BUDGET "Not enough antag budget"
+#define RULESET_FAILURE_NO_PLAYERS "No drafted players"
+#define RULESET_FAILURE_MUTUAL_RULESET "No banned mutual rulesets"
+#define RULESET_FAILURE_CHANGELING_SECONDARY_RULESET "Needs a secondary ruleset in rotation"

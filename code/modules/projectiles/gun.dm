@@ -174,7 +174,7 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
-/obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(firing_burst)
 		return
 	if(SEND_SIGNAL(src, COMSIG_GUN_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
@@ -330,33 +330,32 @@
 			user.update_inv_r_hand()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
-/obj/item/gun/attack(mob/M, mob/user)
+/obj/item/gun/attack__legacy__attackchain(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
 		if(bayonet)
-			M.attackby(bayonet, user)
+			M.attack_by(bayonet, user)
 		else
 			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user, params)
+/obj/item/gun/attack_obj__legacy__attackchain(obj/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
-			O.attackby(bayonet, user)
+			O.attackby__legacy__attackchain(bayonet, user)
 			return
 	return ..()
 
-/obj/item/gun/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flashlight/seclite))
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!gun_light)
-				if(!user.unEquip(I))
+				if(!user.transfer_item_to(I, src))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 				if(S.on)
 					set_light(0)
 				gun_light = S
-				I.loc = src
 				update_icon()
 				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
@@ -429,9 +428,7 @@
 	else
 		set_light(0)
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)

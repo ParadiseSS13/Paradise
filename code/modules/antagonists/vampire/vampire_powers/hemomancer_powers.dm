@@ -73,7 +73,7 @@
 /obj/item/vamp_claws/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
-/obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
+/obj/item/vamp_claws/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 
@@ -120,13 +120,13 @@
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
-/obj/item/vamp_claws/attack_self(mob/user)
+/obj/item/vamp_claws/attack_self__legacy__attackchain(mob/user)
 	qdel(src)
 	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
 
 /datum/spell/vampire/blood_tendrils
 	name = "Blood Tendrils (10)"
-	desc = "You summon blood tendrils from bluespace after a delay to ensnare people in an area, slowing them down."
+	desc = "You summon a small field of horrific blood tendrils after a delay to ensnare people in an area, slowing them down."
 	gain_desc = "You have gained the ability to summon blood tendrils to slow people down in an area that you target."
 	required_blood = 10
 
@@ -135,7 +135,7 @@
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
-	selection_activated_message = "<span class='notice'>You channel blood magics to weaken the bluespace veil. <b>Left-click to cast at a target area!</b></span>"
+	selection_activated_message = "<span class='notice'>You prepare to summon a set of blood tendrils. <b>Left-click to cast at a target area!</b></span>"
 	selection_deactivated_message = "<span class='notice'>Your magics subside.</span>"
 
 /datum/spell/vampire/blood_tendrils/create_new_targeting()
@@ -250,7 +250,7 @@
 	return ..()
 
 
-/obj/structure/blood_barrier/CanPass(atom/movable/mover, turf/target)
+/obj/structure/blood_barrier/CanPass(atom/movable/mover, border_dir)
 	if(!isliving(mover))
 		return FALSE
 	var/mob/living/L = mover
@@ -270,7 +270,6 @@
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
 	jaunt_duration = 3 SECONDS
 	clothes_req = FALSE
-	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_pool"
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/blood_pool
@@ -407,7 +406,7 @@
 		owner.AdjustWeakened(-2 SECONDS)
 		owner.AdjustKnockDown(-2 SECONDS)
 		if(drain_amount == 10)
-			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
+			to_chat(H, "<span class='warning'><b>You feel your life force draining!</b></span>")
 
 		if(beam_number >= max_beams)
 			break

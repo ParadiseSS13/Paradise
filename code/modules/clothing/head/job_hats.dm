@@ -117,13 +117,13 @@
 	)
 
 //Security
-/obj/item/clothing/head/HoS
+/obj/item/clothing/head/hos
 	name = "head of security's cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hos_cap"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
-	dog_fashion = /datum/dog_fashion/head/HoS
+	dog_fashion = /datum/dog_fashion/head/hos
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
@@ -193,3 +193,14 @@
 	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers. It is as dark as the coroner's humor."
 	icon_state = "surgcap_black"
 	dog_fashion = /datum/dog_fashion/head/surgery
+
+// NT Career Trainer
+/obj/item/clothing/head/drilltrainer
+	name = "campaign hat"
+	desc = "A wide-brimmed campaign hat with a drill sergeant feel, worn by Career Trainers to project knowledge and guide new employees with classic style."
+	icon_state = "trainercampaign"
+	item_state = "trainercampaign"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)

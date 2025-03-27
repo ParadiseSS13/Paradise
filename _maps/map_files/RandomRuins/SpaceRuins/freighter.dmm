@@ -10,7 +10,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/space/powered)
 "dN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/disco,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
@@ -51,7 +51,7 @@
 	},
 /area/ruin/space/powered)
 "hM" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "iq" = (
@@ -108,7 +108,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "mk" = (
@@ -153,7 +153,7 @@
 /area/ruin/space/powered)
 "nq" = (
 /obj/structure/closet/crate,
-/obj/item/banhammer,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "nD" = (
@@ -183,7 +183,8 @@
 	},
 /area/ruin/space/powered)
 "rV" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "st" = (
@@ -202,8 +203,8 @@
 	},
 /area/ruin/space/powered)
 "sB" = (
-/obj/machinery/kitchen_machine/oven,
-/obj/effect/landmark/damageturf,
+/obj/machinery/cooking/oven,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -248,12 +249,13 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
 	},
-/turf/space,
+/turf/template_noop,
 /area/ruin/space/powered)
 "wa" = (
 /obj/structure/safe,
 /obj/item/id_decal/gold,
 /obj/item/stack/spacecash/c200,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -326,7 +328,7 @@
 /obj/effect/spawner/random/book{
 	pixel_x = -7
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
@@ -338,7 +340,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "Br" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -383,7 +385,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "EZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -444,7 +446,7 @@
 	},
 /area/ruin/space/powered)
 "Ij" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "Ix" = (
@@ -493,7 +495,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Kh" = (
-/turf/space,
+/turf/template_noop,
 /area/template_noop)
 "Ki" = (
 /obj/structure/table,
@@ -549,7 +551,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "MX" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
@@ -679,7 +681,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -714,9 +716,8 @@ Kh
 Kh
 Kh
 Kh
-vN
-vN
-vN
+Kh
+Kh
 Kh
 Kh
 Kh
@@ -733,10 +734,9 @@ Kh
 Kh
 Kh
 Kh
-Kh
-JC
-JC
-JC
+vN
+vN
+vN
 Kh
 Kh
 Kh
@@ -753,6 +753,24 @@ Kh
 Kh
 Kh
 Kh
+JC
+JC
+JC
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+"}
+(4,1,1) = {"
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
 LW
 LW
 LW
@@ -765,8 +783,7 @@ Kh
 Kh
 Kh
 "}
-(4,1,1) = {"
-Kh
+(5,1,1) = {"
 Kh
 Kh
 Kh
@@ -785,8 +802,7 @@ Kh
 Kh
 Kh
 "}
-(5,1,1) = {"
-Kh
+(6,1,1) = {"
 Kh
 Kh
 Kh
@@ -805,8 +821,7 @@ Kh
 Kh
 Kh
 "}
-(6,1,1) = {"
-Kh
+(7,1,1) = {"
 Kh
 Kh
 Kh
@@ -825,8 +840,7 @@ Kh
 Kh
 Kh
 "}
-(7,1,1) = {"
-Kh
+(8,1,1) = {"
 Kh
 Kh
 Kh
@@ -845,8 +859,7 @@ Kh
 Kh
 Kh
 "}
-(8,1,1) = {"
-Kh
+(9,1,1) = {"
 Kh
 Kh
 Kh
@@ -865,8 +878,7 @@ Kh
 Kh
 Kh
 "}
-(9,1,1) = {"
-Kh
+(10,1,1) = {"
 Kh
 Kh
 Kh
@@ -885,8 +897,7 @@ Kh
 Kh
 Kh
 "}
-(10,1,1) = {"
-Kh
+(11,1,1) = {"
 Kh
 Kh
 Kh
@@ -905,8 +916,7 @@ Kh
 Kh
 Kh
 "}
-(11,1,1) = {"
-Kh
+(12,1,1) = {"
 Kh
 Kh
 Kh
@@ -925,8 +935,7 @@ Kh
 Kh
 Kh
 "}
-(12,1,1) = {"
-Kh
+(13,1,1) = {"
 Kh
 Kh
 Kh
@@ -945,8 +954,7 @@ Kh
 Kh
 Kh
 "}
-(13,1,1) = {"
-Kh
+(14,1,1) = {"
 Kh
 Kh
 Kh
@@ -965,8 +973,7 @@ Kh
 Kh
 Kh
 "}
-(14,1,1) = {"
-Kh
+(15,1,1) = {"
 Kh
 Kh
 vN
@@ -985,8 +992,7 @@ vN
 Kh
 Kh
 "}
-(15,1,1) = {"
-Kh
+(16,1,1) = {"
 Kh
 Kh
 JC
@@ -1005,8 +1011,7 @@ JC
 Kh
 Kh
 "}
-(16,1,1) = {"
-Kh
+(17,1,1) = {"
 Kh
 LW
 LW
@@ -1025,8 +1030,7 @@ LW
 LW
 Kh
 "}
-(17,1,1) = {"
-Kh
+(18,1,1) = {"
 Kh
 LW
 Zt
@@ -1045,8 +1049,7 @@ zL
 LW
 Kh
 "}
-(18,1,1) = {"
-Kh
+(19,1,1) = {"
 Kh
 LW
 MX
@@ -1065,8 +1068,7 @@ Ix
 fY
 Kh
 "}
-(19,1,1) = {"
-Kh
+(20,1,1) = {"
 Kh
 LW
 LW
@@ -1085,8 +1087,7 @@ LW
 LW
 Kh
 "}
-(20,1,1) = {"
-Kh
+(21,1,1) = {"
 Kh
 Kh
 Kh
@@ -1105,8 +1106,7 @@ As
 LW
 Kh
 "}
-(21,1,1) = {"
-Kh
+(22,1,1) = {"
 Kh
 Kh
 Kh
@@ -1125,8 +1125,7 @@ fL
 fY
 Kh
 "}
-(22,1,1) = {"
-Kh
+(23,1,1) = {"
 Kh
 Kh
 Kh
@@ -1145,8 +1144,7 @@ LW
 LW
 Kh
 "}
-(23,1,1) = {"
-Kh
+(24,1,1) = {"
 Kh
 Kh
 Kh
@@ -1165,8 +1163,7 @@ Kh
 Kh
 Kh
 "}
-(24,1,1) = {"
-Kh
+(25,1,1) = {"
 Kh
 Kh
 Kh
@@ -1185,8 +1182,7 @@ Kh
 Kh
 Kh
 "}
-(25,1,1) = {"
-Kh
+(26,1,1) = {"
 Kh
 Kh
 Kh
@@ -1205,8 +1201,7 @@ Kh
 Kh
 Kh
 "}
-(26,1,1) = {"
-Kh
+(27,1,1) = {"
 Kh
 Kh
 Kh
@@ -1225,8 +1220,7 @@ Kh
 Kh
 Kh
 "}
-(27,1,1) = {"
-Kh
+(28,1,1) = {"
 Kh
 Kh
 Kh
@@ -1245,40 +1239,19 @@ Kh
 Kh
 Kh
 "}
-(28,1,1) = {"
-Kh
-Kh
-Kh
-Kh
-Kh
-LW
-LW
-fY
-fY
-fY
-fY
-LW
-LW
-Kh
-Kh
-Kh
-Kh
-Kh
-"}
 (29,1,1) = {"
 Kh
 Kh
 Kh
 Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
-Kh
+LW
+LW
+fY
+fY
+fY
+fY
+LW
+LW
 Kh
 Kh
 Kh
@@ -1286,7 +1259,6 @@ Kh
 Kh
 "}
 (30,1,1) = {"
-Kh
 Kh
 Kh
 Kh

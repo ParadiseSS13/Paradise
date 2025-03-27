@@ -2,10 +2,15 @@
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
+	// We probably shouldn't ever be setting this. LONG_GLIDE makes diagonal movement faster, because you move at full speed on both axes. However, we have manual changes scatterd around that undo this, and re-establish euclidian movement. Yes, that's exactly as silly as it sounds.
+	// Still, for the moment, we should at least make all mobs behave the same way that carbons do.
+	appearance_flags = LONG_GLIDE
 	pressure_resistance = 8
 	throwforce = 10
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	rad_insulation_beta = RAD_MOB_INSULATION
+	rad_insulation_gamma = RAD_MOB_INSULATION
 
 	/// Is this mob alive, unconscious or dead?
 	var/stat = CONSCIOUS // TODO: Move to /mob/living
@@ -80,8 +85,9 @@
 	var/obj/item/back = null //Human
 	var/obj/item/tank/internal = null //Human
 	/// Active storage container
-	var/obj/item/storage/s_active = null //Carbon
-	var/obj/item/clothing/mask/wear_mask = null //Carbon
+	var/obj/item/storage/s_active
+	/// The currently worn mask
+	var/obj/item/wear_mask
 
 	/// The instantiated version of the mob's hud.
 	var/datum/hud/hud_used = null
@@ -250,3 +256,5 @@
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
+
+	new_attack_chain = TRUE

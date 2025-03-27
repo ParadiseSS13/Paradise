@@ -152,18 +152,22 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	update_icon()
 
 // Step 2
-/obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gravity_generator/main/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(construction_state != GRAV_NEEDS_PLASTEEL)
 		return ..()
-	if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/PS = I
+
+	if(istype(used, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/PS = used
 		if(PS.amount < 10)
 			to_chat(user, "<span class='warning'>You need 10 sheets of plasteel.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, "<span class='notice'>You add new plating to the framework.</span>")
 		construction_state = GRAV_NEEDS_WRENCH
 		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 // Step 3
 /obj/machinery/gravity_generator/main/wrench_act(mob/living/user, obj/item/I)
@@ -339,9 +343,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 
 /obj/machinery/gravity_generator/main/proc/pulse_radiation()
-	radiation_pulse(src, 600, 2)
+	radiation_pulse(src, 2400, BETA_RAD)
 	for(var/mob/living/L in view(7, src)) //Windows kinda make it a non threat, no matter how much I amp it up, so let us cheat a little
-		radiation_pulse(get_turf(L), 600, 2)
+		radiation_pulse(get_turf(L), 2400, BETA_RAD)
 
 /**
   * Shake everyone on the area list and play an alarm to let them know that gravity was enagaged/disenagaged.

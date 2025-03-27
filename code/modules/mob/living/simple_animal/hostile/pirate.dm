@@ -49,7 +49,7 @@
 			/obj/effect/gibspawner/generic,
 			/obj/effect/gibspawner/generic)
 
-/mob/living/simple_animal/hostile/pirate/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/pirate/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/pirate/ListTargetsLazy()

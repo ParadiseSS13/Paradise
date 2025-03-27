@@ -238,6 +238,17 @@
 	knife_slot = TRUE
 	dyeable = FALSE
 
+/obj/item/clothing/shoes/workboots/smithing
+	name = "smithing boots"
+	desc = "Steel-toed smithing boots to designed to protect the feet against both heavy objects and hot metal."
+	icon_state = "smith"
+	resistance_flags = FIRE_PROOF
+	cold_protection = FEET|LEGS
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
+	heat_protection = FEET|LEGS
+	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	dyeable = FALSE
+
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
 	desc = "Boots lined with 'synthetic' animal fur."
@@ -423,7 +434,7 @@
 	desc = "A pair of masterfully crafted lizard skin boots. Finally a good application for the station's most bothersome inhabitants."
 	icon_state = "lizardboots_blue"
 
-/obj/effect/spawner/lootdrop/lizardboots
+/obj/effect/spawner/random/lizardboots
 	name = "random lizard boot quality"
 	desc = "Which ever gets picked, the lizard race loses."
 	icon = 'icons/obj/clothing/shoes.dmi'

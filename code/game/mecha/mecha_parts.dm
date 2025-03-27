@@ -27,7 +27,7 @@
 	QDEL_NULL(construct)
 	return ..()
 
-/obj/item/mecha_parts/chassis/attackby(obj/item/W, mob/user, params)
+/obj/item/mecha_parts/chassis/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!construct || !construct.action(W, user))
 		return ..()
 
@@ -265,7 +265,7 @@
 	..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
 
-/obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
+/obj/item/mecha_parts/chassis/phazon/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(istype(I, /obj/item/assembly/signaler/anomaly) && !istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
 		to_chat(user, "<span class='warning'>The anomaly core socket only accepts bluespace anomaly cores!</span>")

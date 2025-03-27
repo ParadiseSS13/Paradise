@@ -106,6 +106,7 @@
 	name = "Place Teleportation Beacon"
 	desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon requires an anchor, will not work on space tiles."
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 300 SECONDS
 	action_icon_state = "no_state"
 	action_background_icon = 'icons/mob/guardian.dmi'
@@ -129,6 +130,7 @@
 	name = "Set Surveillance Snare"
 	desc = "Places an invisible Surveillance Snare on the ground, if someone walks over it you'll be alerted. Max of 6 snares active at a time"
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 3 SECONDS
 	action_icon_state = "no_state"
 	action_background_icon = 'icons/mob/guardian.dmi'
@@ -142,7 +144,7 @@
 	var/mob/living/simple_animal/hostile/guardian/ranged/guardian_user = user
 	if(length(guardian_user.snares) < 6)
 		var/turf/snare_loc = get_turf(target)
-		var/obj/item/effect/snare/S = new /obj/item/effect/snare(snare_loc)
+		var/obj/effect/snare/S = new /obj/effect/snare(snare_loc)
 		S.spawner = guardian_user
 		S.name = "[get_area(snare_loc)] trap ([snare_loc.x],[snare_loc.y],[snare_loc.z])"
 		guardian_user.snares |= S
@@ -160,6 +162,7 @@
 	name = "Change battlecry"
 	desc = "Changes your battlecry."
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 1 SECONDS
 	action_icon_state = "no_state"
 	action_background_icon = 'icons/mob/guardian.dmi'

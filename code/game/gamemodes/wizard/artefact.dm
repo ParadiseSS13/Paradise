@@ -59,7 +59,7 @@
 
 	dust_if_respawnable(C)
 
-/obj/item/contract/attack_self(mob/user as mob)
+/obj/item/contract/attack_self__legacy__attackchain(mob/user as mob)
 	if(..())
 		return
 
@@ -88,7 +88,7 @@
 	var/activate_descriptor = "reality"
 	var/rend_desc = "You should run now."
 
-/obj/item/veilrender/attack_self(mob/user as mob)
+/obj/item/veilrender/attack_self__legacy__attackchain(mob/user as mob)
 	if(charged)
 		new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
 		charged = 0
@@ -128,12 +128,11 @@
 	if(spawn_amt_left <= 0)
 		qdel(src)
 
-/obj/effect/rend/attackby(obj/item/I as obj, mob/user as mob)
-	if(istype(I, /obj/item/nullrod))
-		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
+/obj/effect/rend/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/nullrod))
+		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [used].</span>")
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/rend/singularity_pull()
 	return
@@ -213,7 +212,7 @@
 		current_owner.update_sight()
 		current_owner.update_icons()
 
-/obj/item/scrying/attack_self(mob/user as mob)
+/obj/item/scrying/attack_self__legacy__attackchain(mob/user as mob)
 	if(in_use)
 		return
 	in_use = TRUE
@@ -286,13 +285,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 	GLOB.multiverse.Remove(src)
 	return ..()
 
-/obj/item/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
+/obj/item/multisword/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
 	if(M.real_name == user.real_name)
 		to_chat(user, "<span class='warning'>[src] detects benevolent energies in your target and redirects your attack!</span>")
 		return
 	..()
 
-/obj/item/multisword/attack_self(mob/user)
+/obj/item/multisword/attack_self__legacy__attackchain(mob/user)
 	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 		to_chat(user, "<span class='warning'>You know better than to touch your teacher's stuff.</span>")
 		return
@@ -689,7 +688,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(cooldown_time_left)
 		. += "[src] is being strained by the amount of risen skeletons thralls. It cannot be used to rise another skeleton thrall for <b>[cooldown_time_left / 10] seconds</b>."
 
-/obj/item/necromantic_stone/attack(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+/obj/item/necromantic_stone/attack__legacy__attackchain(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 	if(!istype(victim) || !istype(necromancer))
 		return ..()
 
@@ -752,7 +751,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	victim.revive()
 
 	for(var/obj/item/item in victim)
-		victim.unEquip(item)
+		victim.drop_item_to_ground(item)
 
 	var/skeleton_type = pick("roman", "pirate", "yand", "clown")
 
@@ -855,7 +854,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "An enchanted mug which can be filled with any of various liquids on command."
 	icon_state = "evermug"
 
-/obj/item/reagent_containers/drinks/everfull/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/everfull/activate_self(mob/user)
+	if(..())
+		return
+
 	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
 							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
 							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),

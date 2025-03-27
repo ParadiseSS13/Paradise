@@ -395,7 +395,7 @@
 		occupant_message("<span class='warning'>[fuel_name] traces in target minimal! [I] cannot be used as fuel.</span>")
 		return 0
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
+/obj/item/mecha_parts/mecha_equipment/generator/attackby__legacy__attackchain(weapon,mob/user, params)
 	load_fuel(weapon)
 
 /obj/item/mecha_parts/mecha_equipment/generator/process()
@@ -434,11 +434,11 @@
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 150
 	power_per_cycle = 250
-	var/rad_per_cycle = 30
+	var/rad_per_cycle = 120
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
-		radiation_pulse(get_turf(src), rad_per_cycle)
+		radiation_pulse(get_turf(src), rad_per_cycle, BETA_RAD)
 
 /obj/item/mecha_parts/mecha_equipment/thrusters
 	name = "exosuit ion thrusters"

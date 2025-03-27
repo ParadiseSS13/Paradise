@@ -58,6 +58,8 @@
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX
+	color = COLOR_GREEN
+
 
 /obj/item/projectile/bullet/incendiary
 	immolate = 1
@@ -145,6 +147,9 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
+/obj/item/projectile/bullet/heavybullet2
+	damage = 40
+
 /// taser slugs for shotguns, nothing special
 /obj/item/projectile/bullet/stunshot
 	name = "stunshot"
@@ -167,7 +172,7 @@
 		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
 		hotspot.temperature = 1000
 		hotspot.recolor()
-		location.hotspot_expose(700, 50, 1)
+		location.hotspot_expose(700, 50)
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
 	name = "dragonsbreath round"

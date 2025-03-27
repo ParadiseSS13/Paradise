@@ -19,7 +19,7 @@
 	icon_dead = "towercap-dead"
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list(/obj/item/seeds/tower/steel)
-	reagents_add = list("carbon" = 0.2)
+	reagents_add = list("plantmatter" = 0.225)
 
 /obj/item/seeds/tower/steel
 	name = "pack of steel-cap mycelium"
@@ -52,7 +52,7 @@
 	/obj/item/food/grown/ambrosia/deus,
 	/obj/item/food/grown/wheat))
 
-/obj/item/grown/log/attackby(obj/item/W, mob/user, params)
+/obj/item/grown/log/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.sharp)
 		if(in_inventory)
 			to_chat(user, "<span class='warning'>You need to place [src] on a flat surface to make [plank_name].</span>")
@@ -70,7 +70,7 @@
 		if(leaf.dry)
 			user.show_message("<span class='notice'>You wrap \the [W] around the log, turning it into a torch!</span>")
 			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
-			usr.unEquip(W)
+			user.unequip(leaf)
 			usr.put_in_active_hand(T)
 			qdel(leaf)
 			qdel(src)
@@ -119,9 +119,112 @@
 	name = "wooden spikes"
 	icon_state = "woodspike"
 
-/////////BONFIRES//////////
+//MARK: Bonfires and torches
 
-/obj/structure/bonfire
+/obj/structure/lightable
+	name = "lightable fire"
+	var/burning = FALSE
+	var/lighter // Who lit the fucking thing
+	var/fire_stack_strength = 5
+	var/dangerous = TRUE // Does this burn things that cross it?
+	var/heat_factor = 1000 // How much does this heat up the air?
+	var/light_strength = 6
+	light_color = "#ED9200"
+	density = FALSE
+	anchored = TRUE
+	new_attack_chain = TRUE
+
+/obj/structure/lightable/proc/CheckOxygen()
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/G = T.get_readonly_air()
+	if(G.oxygen() > MIN_OXY_IGNITE)
+		return 1
+	return 0
+
+/obj/structure/lightable/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/lightable/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	if(burning && dangerous)
+		Burn()
+		if(ishuman(entered))
+			var/mob/living/carbon/human/H = entered
+			add_attack_logs(src, H, "Burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
+
+/obj/structure/lightable/proc/StartBurning(mob/user)
+	if(burning)
+		return
+	if(!CheckOxygen())
+		to_chat(user, "<span class='warning'>You can't seem to ignite [src] in this environment!</span>")
+		return
+
+	icon_state = "[initial(icon_state)]_burning"
+	burning = TRUE
+	set_light(light_strength, l_color = light_color)
+	Burn()
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/lightable/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
+	StartBurning()
+
+/obj/structure/lightable/proc/Burn()
+	var/turf/current_location = get_turf(src)
+	current_location.hotspot_expose(heat_factor, 10)
+	for(var/A in current_location)
+		if(A == src)
+			continue
+		if(isobj(A))
+			var/obj/O = A
+			if(dangerous)
+				O.fire_act(1000, 500)
+			else 
+				O.temperature_expose(exposed_temperature = 400)
+		else if(isliving(A))
+			var/mob/living/L = A
+			if(dangerous)
+				L.adjust_fire_stacks(fire_stack_strength)
+				L.IgniteMob()
+			else 
+				L.adjust_bodytemperature(10, 310)
+
+/obj/structure/lightable/process()
+	if(!CheckOxygen())
+		extinguish()
+		return
+	Burn()
+
+/obj/structure/lightable/extinguish()
+	if(burning)
+		icon_state = initial(icon_state)
+		burning = 0
+		set_light(0)
+		STOP_PROCESSING(SSobj, src)
+
+/obj/structure/lightable/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	if(istype(used, /obj/item/stack/rods) && !can_buckle)
+		var/obj/item/stack/rods/R = used
+		R.use(1)
+		can_buckle = TRUE
+		buckle_requires_restraints = TRUE
+		to_chat(user, "<span class='italics'>You add a rod to [src].</span>")
+		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
+		underlays += U
+		return ITEM_INTERACT_COMPLETE
+	if(used.get_heat())
+		lighter = user.ckey
+		user.create_log(MISC_LOG, "lit a bonfire", src)
+		StartBurning(user)
+		return ITEM_INTERACT_COMPLETE
+
+/obj/structure/lightable/bonfire
 	name = "bonfire"
 	desc = "For grilling, broiling, charring, smoking, heating, roasting, toasting, simmering, searing, melting, and occasionally burning things."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -129,116 +232,60 @@
 	density = FALSE
 	anchored = TRUE
 	buckle_lying = FALSE
-	var/burning = FALSE
-	var/lighter // Who lit the fucking thing
-	var/fire_stack_strength = 5
 
-/obj/structure/bonfire/dense
+/obj/structure/lightable/bonfire/dense
 	density = TRUE
 
 /// haha empty define
-/obj/structure/bonfire/lit
+/obj/structure/lightable/bonfire/lit
 
-/obj/structure/bonfire/lit/dense
+/obj/structure/lightable/bonfire/lit/dense
 	density = TRUE
 
-/obj/structure/bonfire/lit/Initialize(mapload)
+/obj/structure/lightable/bonfire/lit/Initialize(mapload)
 	. = ..()
 	StartBurning()
 
-/obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/rods) && !can_buckle)
-		var/obj/item/stack/rods/R = W
-		R.use(1)
-		can_buckle = TRUE
-		buckle_requires_restraints = TRUE
-		to_chat(user, "<span class='italics'>You add a rod to [src].</span>")
-		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
-		underlays += U
-	if(W.get_heat())
-		lighter = user.ckey
-		user.create_log(MISC_LOG, "lit a bonfire", src)
-		StartBurning(user)
-
-/obj/structure/bonfire/attack_hand(mob/user)
+/obj/structure/lightable/bonfire/attack_hand(mob/user)
 	if(burning)
 		to_chat(user, "<span class='warning'>You need to extinguish [src] before removing the logs!</span>")
 		return
 	if(!has_buckled_mobs() && do_after(user, 50, target = src))
 		for(var/I in 1 to 5)
 			var/obj/item/grown/log/L = new /obj/item/grown/log(loc)
-			L.pixel_x += rand(1,4)
-			L.pixel_y += rand(1,4)
+			L.scatter_atom()
 		qdel(src)
 		return
 	..()
 
-
-/// Check if we're standing in an oxygenless environment
-/obj/structure/bonfire/proc/CheckOxygen()
-	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/G = T.get_readonly_air()
-	if(G.oxygen() > MIN_OXY_IGNITE)
-		return 1
-	return 0
-
-/obj/structure/bonfire/proc/StartBurning(mob/user)
-	if(burning)
-		return
-	if(!CheckOxygen())
-		to_chat(user, "<span class='warning'>You can't seem to ignite [src] in this environment!</span>")
-		return
-
-	icon_state = "bonfire_on_fire"
-	burning = TRUE
-	set_light(6, l_color = "#ED9200")
-	Burn()
-	START_PROCESSING(SSobj, src)
-
-/obj/structure/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
-	StartBurning()
-
-/obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
-	if(burning)
-		Burn()
-		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
-			add_attack_logs(src, H, "Burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
-
-/obj/structure/bonfire/proc/Burn()
-	var/turf/current_location = get_turf(src)
-	current_location.hotspot_expose(1000,500,1)
-	for(var/A in current_location)
-		if(A == src)
-			continue
-		if(isobj(A))
-			var/obj/O = A
-			O.fire_act(1000, 500)
-		else if(isliving(A))
-			var/mob/living/L = A
-			L.adjust_fire_stacks(fire_stack_strength)
-			L.IgniteMob()
-
-/obj/structure/bonfire/process()
-	if(!CheckOxygen())
-		extinguish()
-		return
-	Burn()
-
-/obj/structure/bonfire/extinguish()
-	if(burning)
-		icon_state = "bonfire"
-		burning = 0
-		set_light(0)
-		STOP_PROCESSING(SSobj, src)
-
-/obj/structure/bonfire/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+/obj/structure/lightable/bonfire/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(..())
 		M.pixel_y += 13
 
-/obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
+/obj/structure/lightable/bonfire/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
 	if(..())
 		buckled_mob.pixel_y -= 13
+
+/obj/structure/lightable/torch
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "torch"
+	name = "torch sconce"
+	desc = "A standing torch sconce, made from towercap wood."
+	dangerous = FALSE
+	light_strength = 4
+	light_color = "#f5df15"
+	max_integrity = 100
+
+/obj/structure/lightable/torch/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct()
+
+/obj/structure/lightable/torch/deconstruct()
+	density = FALSE
+	new /obj/item/stack/sheet/wood (get_turf(src), 5)
+	qdel(src)
+	..()
 
 #undef MIN_OXY_IGNITE

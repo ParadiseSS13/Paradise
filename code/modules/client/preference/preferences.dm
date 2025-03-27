@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
+	var/toggles3 = TOGGLES_3_DEFAULT // Created for see above. I need to JSONify this at some point -aa07
 	var/sound = SOUND_DEFAULT
 	var/light = LIGHT_DEFAULT
 	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
@@ -181,6 +182,11 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
 			var/datum/species/S = GLOB.all_species[active_character.species]
+			var/datum/species/subtype = GLOB.all_species[active_character.species_subtype]
+			if(istype(S) && istype(subtype))
+				subtype = new subtype.type()
+				S = new S.type()
+				S.bodyflags |= subtype.bodyflags
 			if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 				active_character.species = initial(active_character.species)
 				S = GLOB.all_species[active_character.species]
@@ -204,8 +210,10 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Identity</h2>"
 			dat += "<b>Age:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
-			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
+			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(Randomize)</a><br>"
 			dat += "<b>Species:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
+			if(S.bodyflags & HAS_SPECIES_SUBTYPE)
+				dat += "<b>Species Sub-Type:</b> <a href='byond://?_src_=prefs;preference=species_subtype;task=input'>[active_character.species_subtype]</a><br>"
 			dat += "<b>Gender:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
 			dat += "<b>Body Type:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
 			dat += "<br>"
@@ -237,6 +245,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Physique:</b> <a href='byond://?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
 			dat += "<b>Height:</b> <a href='byond://?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
 			dat += "<b>Cyborg Brain Type:</b> <a href='byond://?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><br>"
+			dat += "<b>PDA Ringtone:</b> <a href='byond://?_src_=prefs;preference=pda_ringtone;task=input'>[active_character.pda_ringtone]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(length(active_character.flavor_text) <= 40)
 				if(!length(active_character.flavor_text))
@@ -297,7 +306,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				active_character.f_style = "Shaved"
 
 
-			if(!(S.bodyflags & ALL_RPARTS))
+			if(!(S.bodyflags & ALL_RPARTS) && (S.eyes != "blank_eyes") && !(S.bodyflags & NO_EYES))
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(active_character.e_colour)]<br>"
 
@@ -472,6 +481,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Set screentip mode:</b> <a href='byond://?_src_=prefs;preference=screentip_mode'>[(screentip_mode == 0) ? "Disabled" : "[screentip_mode]px"]</a><br>"
 			dat += "<b>Screentip color:</b> <span style='border: 1px solid #161616; background-color: [screentip_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=screentip_color'><b>Change</b></a><br>"
 			dat += "<b>Thought Bubble when pointing:</b> <a href='byond://?_src_=prefs;preference=thought_bubble'>[(toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Cogbar indicators:</b> <a href='byond://?_src_=prefs;preference=cogbar'>[(toggles3 & PREFTOGGLE_3_COGBAR_ANIMATIONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += " - <b>Alpha (transparency):</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " - <b>Color:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
@@ -626,7 +636,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 770)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 810)
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 

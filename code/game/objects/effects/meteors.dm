@@ -29,8 +29,8 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	while(!isspaceturf(pickedstart))
 		var/startSide = pick(GLOB.cardinal)
 		var/startZ = level_name_to_num(MAIN_STATION)
-		pickedstart = spaceDebrisStartLoc(startSide, startZ)
-		pickedgoal = spaceDebrisFinishLoc(startSide, startZ)
+		pickedstart = pick_edge_loc(startSide, startZ)
+		pickedgoal = pick_edge_loc(REVERSE_DIR(startSide), startZ)
 		max_i--
 		if(max_i <= 0)
 			return
@@ -38,41 +38,23 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
 	M.dest = pickedgoal
 
-/proc/spaceDebrisStartLoc(startSide, Z)
+/proc/pick_edge_loc(startSide, Z)
 	var/starty
 	var/startx
 	switch(startSide)
 		if(NORTH)
-			starty = world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD)
-			startx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			starty = world.maxy
+			startx = rand(1, world.maxx)
 		if(EAST)
-			starty = rand((TRANSITIONEDGE + MAP_EDGE_PAD),world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
-			startx = world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD)
+			starty = rand(1, world.maxy)
+			startx = world.maxx
 		if(SOUTH)
-			starty = (TRANSITIONEDGE + MAP_EDGE_PAD)
-			startx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			starty = 1
+			startx = rand(1, world.maxx)
 		if(WEST)
-			starty = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
-			startx = (TRANSITIONEDGE + MAP_EDGE_PAD)
-	. = locate(startx, starty, Z)
-
-/proc/spaceDebrisFinishLoc(startSide, Z)
-	var/endy
-	var/endx
-	switch(startSide)
-		if(NORTH)
-			endy = (TRANSITIONEDGE + MAP_EDGE_PAD)
-			endx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
-		if(EAST)
-			endy = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
-			endx = (TRANSITIONEDGE + MAP_EDGE_PAD)
-		if(SOUTH)
-			endy = world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD)
-			endx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
-		if(WEST)
-			endy = rand((TRANSITIONEDGE + MAP_EDGE_PAD),world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
-			endx = world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD)
-	. = locate(endx, endy, Z)
+			starty = rand(1, world.maxy)
+			startx = 1
+	return locate(startx, starty, Z)
 
 ///////////////////////
 //The meteor effect
@@ -96,7 +78,8 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/list/meteordrop = list(/obj/item/stack/ore/iron)
 	var/dropamt = 2
 
-/obj/effect/meteor/Move()
+/obj/effect/meteor/Move(atom/newloc, direction, glide_size_override = 0, update_dir = TRUE)
+	// Delete if we reach our goal or somehow leave the Z level.
 	if(z != z_original || loc == dest)
 		qdel(src)
 		return FALSE
@@ -114,16 +97,20 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	if(timerid)
 		deltimer(timerid)
 	GLOB.meteor_list -= src
-	walk(src, 0) //this cancels the walk_towards() proc
+	GLOB.move_manager.stop_looping(src) //this cancels the GLOB.move_manager.home_onto() proc
 	return ..()
 
 /obj/effect/meteor/Initialize(mapload, target)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_EDGE_TRANSITIONS, ROUNDSTART_TRAIT)
 	z_original = z
 	GLOB.meteor_list += src
 	SpinAnimation()
 	timerid = QDEL_IN(src, lifetime)
 	chase_target(target)
+
+/obj/effect/meteor/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
 
 /obj/effect/meteor/Bump(atom/A)
 	if(A)
@@ -159,12 +146,11 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/ex_act()
 	return
 
-/obj/effect/meteor/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pickaxe))
+/obj/effect/meteor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/pickaxe))
 		make_debris()
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/meteor/proc/make_debris()
 	for(var/throws = dropamt, throws > 0, throws--)
@@ -174,7 +160,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
 	set waitfor = FALSE
 	if(chasing)
-		walk_towards(src, chasing, delay)
+		GLOB.move_manager.home_onto(src, chasing, delay)
 
 /obj/effect/meteor/proc/meteor_effect()
 	if(heavy)
@@ -193,6 +179,52 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 ///////////////////////
 //Meteor types
 ///////////////////////
+
+//Fake
+/obj/effect/meteor/fake
+	name = "simulated meteor"
+	desc = "A simulated meteor for testing shield satellites. How did you see this, anyway?"
+	invisibility = INVISIBILITY_MAXIMUM
+	density = FALSE
+	pass_flags = NONE
+	/// The station goal that is simulating this meteor.
+	var/datum/station_goal/station_shield/goal
+	/// Did we crash into something? Used to avoid falsely reporting success when qdeleted.
+	var/failed = FALSE
+
+/obj/effect/meteor/fake/Initialize(mapload)
+	. = ..()
+	for(var/datum/station_goal/station_shield/found_goal in SSticker.mode.station_goals)
+		goal = found_goal
+		return
+
+/obj/effect/meteor/fake/Destroy()
+	if(!failed)
+		succeed()
+	goal = null
+	return ..()
+
+/obj/effect/meteor/fake/ram_turf(turf/T)
+	if(!isspaceturf(T))
+		fail()
+		return
+	for(var/thing in T)
+		if(isobj(thing) && !iseffect(thing))
+			fail()
+			return
+
+/obj/effect/meteor/fake/get_hit()
+	return
+
+/obj/effect/meteor/fake/proc/succeed()
+	if(istype(goal))
+		goal.update_coverage(TRUE, get_turf(src))
+
+/obj/effect/meteor/fake/proc/fail()
+	if(istype(goal))
+		goal.update_coverage(FALSE, get_turf(src))
+	failed = TRUE
+	qdel(src)
 
 //Dust
 /obj/effect/meteor/dust
@@ -250,7 +282,9 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	..()
 	explosion(loc, 0, 0, 4, 3, 0)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-	radiation_pulse(src, 5000, 7)
+	radiation_pulse(src, 20000, 7, ALPHA_RAD)
+	for(var/turf/target_turf in range(loc, 3))
+		contaminate_target(target_turf, src, 2000, ALPHA_RAD)
 	//Hot take on this one. This often hits walls. It really has to breach into somewhere important to matter. This at leats makes the area slightly dangerous for a bit
 
 /obj/effect/meteor/bananium

@@ -1,10 +1,15 @@
 /datum/buildmode_mode/boom
 	key = "boom"
 
+	// Range of Total Devastation
 	var/devastation = -1
+	// Ramge of Heavy Impact
 	var/heavy = -1
+	// Range of Light Impact
 	var/light = -1
+	// Range of Flash
 	var/flash = -1
+	// Range of Flames
 	var/flames = -1
 
 /datum/buildmode_mode/boom/show_help(mob/user)
@@ -13,16 +18,11 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/boom/change_settings(mob/user)
-	devastation = input("Range of total devastation. -1 to none", "Input")  as num|null
-	if(devastation == null) devastation = -1
-	heavy = input("Range of heavy impact. -1 to none", "Input")  as num|null
-	if(heavy == null) heavy = -1
-	light = input("Range of light impact. -1 to none", "Input")  as num|null
-	if(light == null) light = -1
-	flash = input("Range of flash. -1 to none", "Input")  as num|null
-	if(flash == null) flash = -1
-	flames = input("Range of flames. -1 to none", "Input")  as num|null
-	if(flames == null) flames = -1
+	devastation = tgui_input_number(user, "Range of Total Devasation", "Devastation", -1, min_value = -1)
+	heavy = tgui_input_number(user, "Range of Heavy Impact", "Heavy Impact", -1, min_value = -1)
+	light = tgui_input_number(user, "Range of Light Impact", "Light Impact", -1, min_value = -1)
+	flash = tgui_input_number(user, "Range of Flash", "Flash", -1, min_value = -1)
+	flames = tgui_input_number(user, "Range of Flames", "Flames", -1, min_value = -1)
 
 /datum/buildmode_mode/boom/handle_click(user, params, obj/object)
 	var/list/pa = params2list(params)

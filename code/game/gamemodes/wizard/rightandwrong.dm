@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/energy/bsg/prebuilt,
 	/obj/item/gun/energy/xray,
 	/obj/item/gun/energy/plasma_pistol,
-	/obj/item/gun/projectile/automatic/pistol/APS, // whyyy is this capitalized
+	/obj/item/gun/projectile/automatic/pistol/aps, // whyyy is this capitalized
 	/obj/item/gun/projectile/revolver/overgrown,
 	/obj/item/gun/energy/gun/blueshield/pdw9,
 	/obj/item/gun/energy/disabler/silencer,

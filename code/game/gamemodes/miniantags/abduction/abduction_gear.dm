@@ -72,11 +72,12 @@ CONTENTS:
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = ABDUCTOR_VEST_STEALTH
 	var/stealth_active = 0
-	var/combat_cooldown = 10
+	var/combat_cooldown = 10 SECONDS
 	var/datum/icon_snapshot/disguise
 	var/stealth_armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 450, ACID = 450)
 	sprite_sheets = null
+	COOLDOWN_DECLARE(abductor_adrenaline)
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
 	. = ..()
@@ -102,9 +103,7 @@ CONTENTS:
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
@@ -158,26 +157,20 @@ CONTENTS:
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
 	if(ishuman(loc))
-		if(combat_cooldown != initial(combat_cooldown))
-			to_chat(loc, "<span class='warning'>Combat injection is still recharging.</span>")
+		if(!COOLDOWN_FINISHED(src, abductor_adrenaline))
+			to_chat(loc, "<span class='warning'>Combat injection is still recharging. Please wait [round(COOLDOWN_TIMELEFT(src, abductor_adrenaline), 1 SECONDS) / 10] seconds.</span>")
 			return
 		var/mob/living/carbon/human/M = loc
+		to_chat(loc, "<span class='notice'>You feel a series of pricks down your back, followed by a surge of energy!</span>")
 		M.adjustStaminaLoss(-75)
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
 		M.SetKnockDown(0)
 		M.stand_up(TRUE)
-		combat_cooldown = 0
-		START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/suit/armor/abductor/vest/process()
-	combat_cooldown++
-	if(combat_cooldown==initial(combat_cooldown))
-		STOP_PROCESSING(SSobj, src)
+		COOLDOWN_START(src, abductor_adrenaline, combat_cooldown)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.vest == src)
 			C.vest = null
@@ -191,12 +184,12 @@ CONTENTS:
 	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
-/obj/item/abductor/silencer/attack(mob/living/M, mob/user)
+/obj/item/abductor/silencer/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(!AbductorCheck(user))
 		return
 	radio_off(M, user)
 
-/obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/silencer/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(flag)
 		return
 	if(!AbductorCheck(user))
@@ -265,9 +258,7 @@ CONTENTS:
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
 	update_icon(UPDATE_ICON_STATE)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/abductor_baton/update_icon_state()
 	switch(mode)
@@ -284,7 +275,7 @@ CONTENTS:
 			icon_state = "wonderprodProbe"
 			item_state = "wonderprodProbe"
 
-/obj/item/abductor_baton/attack(mob/target, mob/living/user)
+/obj/item/abductor_baton/attack__legacy__attackchain(mob/target, mob/living/user)
 	if(!isabductor(user))
 		return
 
@@ -316,7 +307,7 @@ CONTENTS:
 		if(BATON_PROBE)
 			ProbeAttack(L,user)
 
-/obj/item/abductor_baton/attack_self(mob/living/user)
+/obj/item/abductor_baton/attack_self__legacy__attackchain(mob/living/user)
 	toggle(user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -449,7 +440,7 @@ CONTENTS:
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
 
-/obj/item/abductor/gizmo/attack_self(mob/user)
+/obj/item/abductor/gizmo/attack_self__legacy__attackchain(mob/user)
 	if(!ScientistCheck(user))
 		return
 	if(!console)
@@ -464,7 +455,7 @@ CONTENTS:
 		icon_state = "gizmo_scan"
 	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
 
-/obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
+/obj/item/abductor/gizmo/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(!ScientistCheck(user))
 		return
 	if(!console)
@@ -477,7 +468,7 @@ CONTENTS:
 		if(GIZMO_MARK)
 			mark(M, user)
 
-/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/gizmo/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(flag)
 		return
 	if(!ScientistCheck(user))
@@ -531,7 +522,7 @@ CONTENTS:
 	item_state = "silencer"
 	var/mode = MIND_DEVICE_MESSAGE
 
-/obj/item/abductor/mind_device/attack_self(mob/user)
+/obj/item/abductor/mind_device/attack_self__legacy__attackchain(mob/user)
 	if(!ScientistCheck(user))
 		return
 
@@ -543,7 +534,7 @@ CONTENTS:
 		icon_state = "mind_device_message"
 	to_chat(user, "<span class='notice'>You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE</span>")
 
-/obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/mind_device/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
 	if(!ScientistCheck(user))
 		return
 
@@ -766,7 +757,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/FixOVein/alien
+/obj/item/fix_o_vein/alien
 	name = "alien FixOVein"
 	desc = "Bloodless aliens would totally know how to stop internal bleeding... Right?"
 	icon = 'icons/obj/abductor.dmi'

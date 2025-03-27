@@ -228,7 +228,7 @@
 	if(!G || G.oxygen() < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return FALSE
-	T.hotspot_expose(700, 50, 1)
+	T.hotspot_expose(700, 10)
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 
@@ -320,7 +320,7 @@
 	return G
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 

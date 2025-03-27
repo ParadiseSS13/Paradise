@@ -28,12 +28,13 @@
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 
+	scatter_distance = 10
+
 /obj/item/ammo_casing/New()
 	..()
 	if(projectile_type)
 		BB = new projectile_type(src)
-	pixel_x = rand(-10.0, 10)
-	pixel_y = rand(-10.0, 10)
+	scatter_atom()
 	dir = pick(GLOB.alldirs)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
@@ -49,7 +50,7 @@
 		BB = new projectile_type(src, params)
 	return
 
-/obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/ammo_casing/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_box))
 		var/obj/item/ammo_box/box = I
 		if(box.slow_loading)
@@ -192,7 +193,7 @@
 /obj/item/ammo_box/proc/can_load(mob/user)
 	return 1
 
-/obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = 0, replace_spent = 0)
+/obj/item/ammo_box/attackby__legacy__attackchain(obj/item/A, mob/user, params, silent = 0, replace_spent = 0)
 	var/num_loaded = 0
 	if(!can_load(user))
 		return
@@ -211,6 +212,8 @@
 			user.drop_item()
 			AC.loc = src
 			num_loaded++
+		else
+			to_chat(user, "<span class='notice'>You are unable to fit [AC] into \the [src].</span>")
 	if(num_loaded)
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
@@ -220,7 +223,7 @@
 
 	return num_loaded
 
-/obj/item/ammo_box/attack_self(mob/user as mob)
+/obj/item/ammo_box/attack_self__legacy__attackchain(mob/user as mob)
 	var/obj/item/ammo_casing/A = get_round()
 	if(A)
 		user.put_in_hands(A)

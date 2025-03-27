@@ -104,7 +104,7 @@
 			L.Weaken(10 SECONDS)
 
 
-/obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
+/obj/structure/transit_tube/station/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
 		var/obj/item/grab/G = W
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)

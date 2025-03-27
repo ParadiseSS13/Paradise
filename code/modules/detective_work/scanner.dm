@@ -5,8 +5,8 @@
 /obj/item/detective_scanner
 	name = "forensic scanner"
 	desc = "Used to remotely scan objects and biomass for DNA and fingerprints. Can print a report of the findings."
-	icon = 'icons/goonstation/objects/objects.dmi'
-	icon_state = "detscanner"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "detective_scanner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
 	flags = CONDUCT | NOBLUDGEON
@@ -16,7 +16,7 @@
 	var/list/log = list()
 	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)
 
-/obj/item/detective_scanner/attack_self(mob/user)
+/obj/item/detective_scanner/attack_self__legacy__attackchain(mob/user)
 	var/search = tgui_input_text(user, "Enter name, fingerprint or blood DNA.", "Find record")
 
 	if(!search || user.stat || user.incapacitated())
@@ -100,10 +100,10 @@
 		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
 
 
-/obj/item/detective_scanner/attack()
+/obj/item/detective_scanner/attack__legacy__attackchain()
 	return
 
-/obj/item/detective_scanner/afterattack(atom/A, mob/user)
+/obj/item/detective_scanner/afterattack__legacy__attackchain(atom/A, mob/user)
 	scan(A, user)
 
 /obj/item/detective_scanner/proc/scan(atom/A, mob/user)

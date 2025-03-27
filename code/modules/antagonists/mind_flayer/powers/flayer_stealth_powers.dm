@@ -189,7 +189,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	var/conversion_time = 7 SECONDS
 
-/obj/item/melee/swarm_hand/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+/obj/item/melee/swarm_hand/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!isrobot(target))
 		return
@@ -201,7 +201,7 @@
 		to_chat(user, "<span class='notice'>Your override attempt fails before it can even begin.</span>")
 		qdel(src)
 		return
-	if(!do_mob(user, borg, conversion_time))
+	if(!do_mob(user, borg, conversion_time, hidden = TRUE))
 		to_chat(user, "<span class='notice'>Your concentration breaks.</span>")
 		qdel(src)
 		return

@@ -134,6 +134,7 @@
 	clothes_req = FALSE
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
+	antimagic_flags = MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND
 
 /datum/spell/revenant_transmit/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -165,6 +166,7 @@
 	var/unlock_amount = 100
 	/// How much essence it costs to use
 	var/cast_amount = 50
+	antimagic_flags = MAGIC_RESISTANCE_HOLY
 
 /datum/spell/aoe/revenant/New()
 	..()
@@ -378,18 +380,20 @@
 	possessed_object.escape_chance = 100 // We cannot be contained
 	ADD_TRAIT(possessed_object, TRAIT_DODGE_ALL_OBJECTS, "Revenant")
 
-	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
-	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
+	addtimer(CALLBACK(src, PROC_REF(attack__legacy__attackchain), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
+	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack__legacy__attackchain), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
 	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/simple_animal/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
 
 /// Handles finding a valid target and throwing us at it
-/datum/spell/aoe/revenant/haunt_object/proc/attack(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
+/datum/spell/aoe/revenant/haunt_object/proc/attack__legacy__attackchain(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
 	var/list/potential_victims = list()
 	for(var/turf/turf_to_search in spiral_range_turfs(aoe_range, get_turf(possessed_object)))
-		for(var/mob/living/carbon/potential_victim in turf_to_search)
+		for(var/mob/living/potential_victim in turf_to_search)
 			if(QDELETED(possessed_object) || !can_see(possessed_object, potential_victim, aoe_range)) // You can't see me
 				continue
 			if(potential_victim.stat != CONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
+				continue
+			if(istype(potential_victim, user) || istype(potential_victim, possessed_object))
 				continue
 			potential_victims.Add(potential_victim)
 
@@ -400,7 +404,7 @@
 		set_outline(possessed_object)
 		return
 
-	var/mob/living/carbon/victim = pick(potential_victims)
+	var/mob/living/victim = pick(potential_victims)
 	possessed_object.throw_at(victim, aoe_range, 2, user, dodgeable = FALSE)
 
 /// Sets the glow on the haunted object, scales up based on throwforce
@@ -493,18 +497,18 @@
 
 /turf/simulated/wall/defile()
 	..()
-	if(prob(15) && !rusted)
+	if(prob(15))
 		new/obj/effect/temp_visual/revenant(loc)
-		rust()
+		magic_rust_turf()
 
 /turf/simulated/wall/indestructible/defile()
 	return
 
 /turf/simulated/wall/r_wall/defile()
 	..()
-	if(prob(15) && !rusted)
+	if(prob(15))
 		new/obj/effect/temp_visual/revenant(loc)
-		rust()
+		magic_rust_turf()
 
 /mob/living/carbon/human/defile()
 	to_chat(src, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
@@ -529,8 +533,10 @@
 		broken = FALSE
 		burnt = FALSE
 		make_plating(1)
+		magic_rust_turf()
 
 /turf/simulated/floor/plating/defile()
+	magic_rust_turf()
 	if(flags & BLESSED_TILE)
 		flags &= ~BLESSED_TILE
 		new /obj/effect/temp_visual/revenant(loc)

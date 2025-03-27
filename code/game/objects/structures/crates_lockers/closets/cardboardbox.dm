@@ -69,7 +69,7 @@
 /obj/structure/closet/cardboard/welder_act()
 	return
 
-/obj/structure/closet/cardboard/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/closet/cardboard/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(src.opened)
 		if(istype(W, /obj/item/wirecutters))
 			var/obj/item/wirecutters/WC = W
@@ -98,3 +98,5 @@
 			decalselection = lowertext(decalselection)
 			custom_skin = "_[decalselection]"
 			update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
+		return
+	return ..()

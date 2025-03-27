@@ -182,6 +182,18 @@
 	icon_state = "dark"
 	requires_power = FALSE
 
+/area/ruin/space/turreted_outpost
+	name = "Syndicate Interdiction Platform"
+	icon_state = "red"
+
+/area/ruin/space/turreted_outpost/vault
+	name = "Syndicate Interdiction Platform Vault"
+	icon_state = "storage"
+
+/area/ruin/space/turreted_outpost/solars
+	name = "Syndicate Interdiction Platform Solars"
+	icon_state = "general_solars"
+
 /area/ruin/space/abandoned_engi_sat
 	name = "Abandoned NT Engineering Satellite"
 	apc_starts_off = TRUE
@@ -271,3 +283,9 @@
 
 /area/ruin/space/clown_mime_ruin
 	name = "\improper Derelict Transport Vessel"
+
+/area/ruin/space/clockwork_monastery
+	name = "\improper Abandoned Clockwork Monastery"
+	there_can_be_many = FALSE
+	requires_power = FALSE
+	ambientsounds = list("sound/ambience/reebe_ambience_1.ogg", "sound/ambience/reebe_ambience_2.ogg", "sound/ambience/reebe_ambience_3.ogg")

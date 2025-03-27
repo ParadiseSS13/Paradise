@@ -23,11 +23,27 @@
 
 /turf/simulated/floor/transparent/glass/Initialize(mapload)
 	. = ..()
-	var/image/I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
-	I.plane = PLANE_SPACE
+	return INITIALIZE_HINT_LATELOAD
+
+/turf/simulated/floor/transparent/glass/LateInitialize()
+	. = ..()
+	var/image/I = null
+	if(is_mining_level(z))
+		if(SSmapping.lavaland_theme?.primary_turf_type_icon)
+			I = null
+			I = image(SSmapping.lavaland_theme.primary_turf_type_icon, src, "windowed")
+		else
+			I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
+			I.plane = PLANE_SPACE
+	else
+		I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
+		I.plane = PLANE_SPACE
+
+	I.layer = PLATING_LAYER
 	underlays += I
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
+	QUEUE_SMOOTH(src)
 
 /turf/simulated/floor/transparent/glass/welder_act(mob/user, obj/item/I)
 	if(!broken && !burnt)
@@ -50,12 +66,9 @@
 		R = user.get_inactive_hand()
 	else if(isrobot(user))
 		var/mob/living/silicon/robot/robouser = user
-		if(istype(robouser.module_state_1, /obj/item/stack/sheet/metal))
-			R = robouser.module_state_1
-		else if(istype(robouser.module_state_2, /obj/item/stack/sheet/metal))
-			R = robouser.module_state_2
-		else if(istype(robouser.module_state_3, /obj/item/stack/sheet/metal))
-			R = robouser.module_state_3
+		var/metal_slot = robouser.get_module_by_item(/obj/item/stack/sheet/metal)
+		if(metal_slot)
+			R = robouser.all_active_items[metal_slot]
 
 	if(!istype(R, /obj/item/stack/sheet/metal) || R.get_amount() < 2)
 		to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")

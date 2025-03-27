@@ -76,7 +76,7 @@
 	if(part in overslotting_parts)
 		var/obj/item/overslot = wearer.get_item_by_slot(part.slot_flags)
 		if(overslot)
-			wearer.unEquip(overslot, TRUE)
+			wearer.drop_item_to_ground(overslot, force = TRUE)
 			overslotting_parts[part] = overslot
 			overslot.forceMove(part)
 			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
@@ -104,8 +104,7 @@
 		to_chat(user, "<span class='warning'>You already have retracted there!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	part.flags &= ~NODROP
-	wearer.unEquip(part, TRUE)
-	part.forceMove(src)
+	wearer.transfer_item_to(part, src, force = TRUE)
 	if(overslotting_parts[part])
 		UnregisterSignal(part, COMSIG_ATOM_EXITED)
 		var/obj/item/overslot = overslotting_parts[part]

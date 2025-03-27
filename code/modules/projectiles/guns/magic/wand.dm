@@ -44,12 +44,12 @@ CONTENTS:
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
 
 
-/obj/item/gun/magic/wand/attack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/attack__legacy__attackchain(atom/target, mob/living/user)
 	if(target == user)
 		return
 	..()
 
-/obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/afterattack__legacy__attackchain(atom/target, mob/living/user)
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
@@ -192,7 +192,7 @@ CONTENTS:
 	charges--
 	..()
 
-/obj/item/gun/magic/wand/fireball/attack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/fireball/attack__legacy__attackchain(atom/target, mob/living/user)
 	if(!iscarbon(target))
 		return ..()
 

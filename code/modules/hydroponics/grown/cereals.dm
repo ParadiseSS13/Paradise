@@ -89,7 +89,7 @@
 	tastes = list("meatwheat" = 1)
 	can_distill = FALSE
 
-/obj/item/food/grown/meatwheat/attack_self(mob/living/user)
+/obj/item/food/grown/meatwheat/attack_self__legacy__attackchain(mob/living/user)
 	user.visible_message("<span class='notice'>[user] crushes [src] into meat.</span>", "<span class='notice'>You crush [src] into something that resembles meat.</span>")
 	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
 	var/obj/item/food/meat/meatwheat/M = new(get_turf(user))

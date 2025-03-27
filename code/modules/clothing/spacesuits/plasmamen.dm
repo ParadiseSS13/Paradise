@@ -4,6 +4,7 @@
 	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
 	icon_state = "plasmaman-helm"
 	item_state = "plasmaman-helm"
+	base_icon_state = "plasmaman-helm"
 	strip_delay = 80
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_WELDER
@@ -15,6 +16,9 @@
 	var/smile_color = "#FF0000"
 	var/visor_icon = "envisor"
 	var/smile_state = "envirohelm_smile"
+
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_PLASMAMEN_HELMET
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
@@ -28,6 +32,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
+	base_icon_state = icon_state
 	visor_toggling()
 	update_icon()
 
@@ -45,15 +50,13 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon(updates=ALL)
 	. = ..()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!up)
-		icon_state = initial(icon_state)
+		icon_state = base_icon_state
 	else
-		icon_state = "[initial(icon_state)][on ? "-light":""]"
+		icon_state = "[base_icon_state][on ? "-light":""]"
 	item_state = icon_state
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
@@ -61,7 +64,7 @@
 	if(!up)
 		. += visor_icon
 
-/obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/plasmaman/attack_self__legacy__attackchain(mob/user)
 	toggle_light(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user, update_light)
@@ -196,6 +199,12 @@
 	item_state = "expedition_envirohelm"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
 
+/obj/item/clothing/head/helmet/space/plasmaman/smith
+	name = "smithing plasma envirosuit helmet"
+	desc = "A plasmaman helmet design for smiths."
+	icon_state = "smith_envirohelm"
+	item_state = "smith_envirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit helmet"
 	desc = "An envirohelmet specially designed for only the most pious of plasmamen."
@@ -303,7 +312,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
 	. = ..()
 	if(!reskinned)
-		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it when held.</span>"
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
 	..()
@@ -354,3 +363,9 @@
 	if(!H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	return TRUE
+
+/obj/item/clothing/head/helmet/space/plasmaman/trainer
+	name = "\improper NT Career Trainer envirosuit helmet"
+	desc = "A plasmaman envirohelm designed for the nanotrasen career trainer."
+	icon_state = "trainer_envirohelm"
+	item_state = "trainer_envirohelm"

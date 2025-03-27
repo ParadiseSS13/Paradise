@@ -42,6 +42,10 @@
 	new /obj/item/clothing/suit/jacket/bomber/mining(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
+	new /obj/item/clothing/under/plasmaman/mining(src)
+	new /obj/item/clothing/under/plasmaman/mining(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"

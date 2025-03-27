@@ -59,7 +59,7 @@
 
 /obj/item/mod/module/Initialize(mapload)
 	. = ..()
-	module_UID = UID(src)
+	module_UID = UID()
 	if(module_type != MODULE_ACTIVE)
 		return
 	if(ispath(device))
@@ -106,7 +106,7 @@
 	if(!mod.active || mod.activating || !mod.get_charge())
 		to_chat(mod.wearer, "<span class='warning'>Module is unpowered!</span>")
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
+	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
 	if(module_type == MODULE_ACTIVE)
 		if(mod.selected_module && !mod.selected_module.on_deactivation(display_message = FALSE))
@@ -118,8 +118,9 @@
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 				RegisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dropkey))
 			else
-				to_chat(mod.wearer, "<span class='warning'>You can not extend the [device]!</span>")
-				mod.wearer.drop_item()
+				to_chat(mod.wearer, "<span class='warning'>You cannot extend [device]!</span>")
+				if(device.loc != src)
+					device.forceMove(src)
 				return FALSE
 		else
 			var/used_button = "Middle Click"
@@ -147,8 +148,7 @@
 			to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
 
 		if(device)
-			mod.wearer.unEquip(device, 1)
-			device.forceMove(src)
+			mod.wearer.transfer_item_to(device, src, force = TRUE)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
 			UnregisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP)
 		else
@@ -157,7 +157,7 @@
 	else if(display_message)
 		to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
 	//mod.wearer.update_clothing(mod.slot_flags)
-	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED)
+	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED, mod.wearer)
 	mod.update_mod_overlays()
 	return TRUE
 
@@ -169,7 +169,7 @@
 	if(!check_power(use_power_cost))
 		to_chat(mod.wearer, "<span class='warning'>Module costs too much power to use!</span>")
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
+	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
 	COOLDOWN_START(src, cooldown_timer, cooldown_time)
 	//addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_clothing), mod.slot_flags), cooldown_time+1) //need to run it a bit after the cooldown starts to avoid conflicts
@@ -304,9 +304,9 @@
 		return
 	var/image/final_overlay
 	if(sprite_sheets && sprite_sheets[user.dna.species.sprite_sheet_name])
-		final_overlay = image(icon = sprite_sheets[user.dna.species.sprite_sheet_name], icon_state = used_overlay, layer = EFFECTS_LAYER)
+		final_overlay = image(icon = sprite_sheets[user.dna.species.sprite_sheet_name], icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
 	else
-		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
+		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
 	if(mod_color_overide)
 		final_overlay.color = mod_color_overide
 	. += final_overlay
@@ -397,7 +397,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, params)
+/obj/item/mod/module/anomaly_locked/attackby__legacy__attackchain(obj/item/item, mob/living/user, params)
 	if(item.type in accepted_anomalies)
 		if(core)
 			to_chat(user, "<span class='warning'>A core is already installed!</span>")

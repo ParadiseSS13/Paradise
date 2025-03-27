@@ -79,7 +79,8 @@
 /area/survivalpod)
 "o" = (
 /obj/structure/window/reinforced/survival_pod{
-	dir = 8
+	dir = 8;
+	pixel_y = -8
 	},
 /obj/machinery/door/window/survival_pod{
 	dir = 1
@@ -88,13 +89,8 @@
 /area/survivalpod)
 "p" = (
 /obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/black,
-/area/survivalpod)
-"q" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 9
+	dir = 8;
+	pixel_y = -8
 	},
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
@@ -112,7 +108,7 @@
 /area/survivalpod)
 "u" = (
 /obj/structure/tubes,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "v" = (
@@ -120,7 +116,6 @@
 	dir = 1
 	},
 /obj/structure/displaycase{
-	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
 	pixel_y = -4;
 	start_showpiece_type = /obj/item/fakeartefact;
@@ -176,7 +171,7 @@
 	pixel_x = -4;
 	pixel_y = 1
 	},
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "C" = (
@@ -231,7 +226,7 @@ a
 n
 o
 p
-q
+r
 r
 a
 "}

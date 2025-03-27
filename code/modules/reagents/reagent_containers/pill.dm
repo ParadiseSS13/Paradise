@@ -18,6 +18,12 @@
 	if(!icon_state)
 		icon_state = "pill[rand(1, 20)]"
 
+/obj/item/reagent_containers/pill/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
+	apply(user, user)
+
 /obj/item/reagent_containers/pill/proc/apply(mob/living/carbon/C, mob/user)
 	if(!istype(C))
 		return FALSE
@@ -47,14 +53,19 @@
 	qdel(src)
 	return TRUE
 
-/obj/item/reagent_containers/pill/attack(mob/living/carbon/C, mob/user)
-	return apply(C, user)
+/obj/item/reagent_containers/pill/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isnull(target.reagents))
+		return
 
-/obj/item/reagent_containers/pill/attack_self(mob/user)
-	return apply(user, user)
+	return ..()
 
-/obj/item/reagent_containers/pill/afterattack(obj/target, mob/user, proximity)
-	if(!proximity || !target.is_refillable())
+/obj/item/reagent_containers/pill/mob_act(mob/target, mob/living/user)
+	apply(target, user)
+	return TRUE
+
+/obj/item/reagent_containers/pill/normal_act(atom/target, mob/living/user)
+	. = TRUE
+	if(!target.is_refillable())
 		return
 	if(target.reagents.holder_full())
 		to_chat(user, "<span class='warning'>[target] is full.</span>")

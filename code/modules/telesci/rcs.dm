@@ -10,14 +10,14 @@
 	desc = "A device used to teleport crates and closets to cargo telepads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
-	item_state = "rcd"
+	item_state = "rcs"
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
 	throw_speed = 2
 	throw_range = 5
 	toolspeed = 1
-	usesound = 'sound/machines/click.ogg'
+	usesound = 'sound/weapons/flash.ogg'
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
 	/// Selected telepad
@@ -27,6 +27,11 @@
 	var/teleporting = FALSE
 	/// How much power does each teleport use?
 	var/chargecost = 1000
+
+/obj/item/rcs/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/rcs/get_cell()
 	return rcell
@@ -46,7 +51,7 @@
 /**
   * Used to select telepad location.
   */
-/obj/item/rcs/attack_self(mob/user)
+/obj/item/rcs/attack_self__legacy__attackchain(mob/user)
 	if(teleporting)
 		to_chat(user, "<span class='warning'>Error: Unable to change destination while in use.</span>")
 		return
@@ -124,14 +129,15 @@
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
-	playsound(src, usesound, 50, TRUE)
+	playsound(get_turf(src), usesound, 25, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 50 * toolspeed, target = C))
 		teleporting = FALSE
 		return
 
 	teleporting = FALSE
-	rcell.use(chargecost)
-	do_sparks(5, TRUE, C)
+	var/final_cost = chargecost * bit_efficiency_mod
+	rcell.use(final_cost)
+	playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 	do_teleport(C, target)
-	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
+	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/final_cost)] charge\s left.</span>")

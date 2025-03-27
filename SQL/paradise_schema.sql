@@ -82,6 +82,8 @@ CREATE TABLE `characters` (
   `custom_emotes` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   `runechat_color` VARCHAR(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#FFFFFF',
   `cyborg_brain_type` ENUM('MMI', 'Robobrain', 'Positronic') NOT NULL DEFAULT 'MMI',
+  `pda_ringtone` VARCHAR(16) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+  `species_subtype` VARCHAR(45) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'None',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -280,6 +282,7 @@ CREATE TABLE `player` (
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` int(11) DEFAULT NULL,
   `toggles_2` int(11) DEFAULT NULL,
+  `toggles_3` int(11) DEFAULT NULL,
   `sound` mediumint(8) DEFAULT '31',
   `light` MEDIUMINT(3) NOT NULL DEFAULT '7',
   `glowlevel` TINYINT(1) NOT NULL DEFAULT '1',

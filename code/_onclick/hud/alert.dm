@@ -514,7 +514,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/living/silicon/ai/AI = usr
 	var/turf/T = get_turf(target)
 	if(T)
-		AI.eyeobj.setLoc(T)
+		AI.eyeobj.set_loc(T)
 
 //MECHS
 /atom/movable/screen/alert/low_mech_integrity

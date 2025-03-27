@@ -102,7 +102,6 @@
 /area/shuttle/escape)
 "ar" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
 	dir = 4
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -414,7 +413,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "br" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -432,7 +431,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "bx" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
@@ -544,14 +543,14 @@
 	},
 /area/shuttle/escape)
 "bJ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -673,7 +672,7 @@
 	},
 /area/shuttle/escape)
 "cb" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "cc" = (

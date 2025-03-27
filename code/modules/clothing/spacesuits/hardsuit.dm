@@ -50,7 +50,7 @@
 	suit = null
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/attack_self__legacy__attackchain(mob/user)
 	toggle_light(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_light(mob/user)
@@ -65,9 +65,7 @@
 		set_light(brightness_on)
 	else
 		set_light(0)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/hardsuit/extinguish_light(force = FALSE)
 	if(on)
@@ -100,10 +98,7 @@
 	if(msg && ishuman(wearer))
 		wearer.show_message("<b><span class='robot'>[msg]</span></b>", 1)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
-	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION)
-		return
+/obj/item/clothing/head/helmet/space/hardsuit/rad_act(atom/source, amount, emission_type)
 	current_tick_amount += amount
 
 /obj/item/clothing/head/helmet/space/hardsuit/process()
@@ -192,11 +187,11 @@
 		W.suit = src
 		helmet = W
 
-/obj/item/clothing/suit/space/hardsuit/attack_self(mob/user)
+/obj/item/clothing/suit/space/hardsuit/attack_self__legacy__attackchain(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	..()
 
-/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/space/hardsuit/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
 		if(jetpack)
 			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
@@ -205,7 +200,7 @@
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 
-		if(user.unEquip(I))
+		if(user.temperature_expose(I))
 			I.forceMove(src)
 			jetpack = I
 			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
@@ -280,7 +275,7 @@
 	linkedsuit = null
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user) //Toggle Helmet
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self__legacy__attackchain(mob/user) //Toggle Helmet
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You cannot toggle your helmet while in this [user.loc]!</span>" )
 		return
@@ -310,9 +305,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
 	if(linkedsuit)

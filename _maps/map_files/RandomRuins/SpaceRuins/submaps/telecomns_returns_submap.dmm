@@ -81,7 +81,7 @@
 /area/template_noop)
 "iP" = (
 /obj/machinery/economy/vending/cola,
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "jh" = (
@@ -179,7 +179,7 @@
 /area/template_noop)
 "sm" = (
 /obj/machinery/economy/vending/cola,
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/template_noop,
 /area/template_noop)
 "uH" = (

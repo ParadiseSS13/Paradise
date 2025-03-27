@@ -1,0 +1,13 @@
+help: 'Use the specific directional subtypes for this newscaster.'
+/obj/machinery/newscaster:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+=/obj/machinery/newscaster:
+  banned: true
+=/obj/machinery/newscaster/directional:
+  banned: true
+=/obj/machinery/newscaster/security_unit:
+  banned: true
+=/obj/machinery/newscaster/security_unit/directional:
+  banned: true

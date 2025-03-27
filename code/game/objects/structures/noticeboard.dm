@@ -89,7 +89,7 @@
 				return
 			var/obj/item/held_item = usr.get_active_hand()
 			if(is_pen(held_item))
-				paper.attackby(held_item, usr)
+				paper.attackby__legacy__attackchain(held_item, usr)
 				return
 			else
 				usr.put_in_hands(paper)
@@ -104,7 +104,7 @@
 			paper.show_content(usr)
 			return
 
-/obj/structure/noticeboard/attackby(obj/item/I, mob/user, params)
+/obj/structure/noticeboard/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/paper))
 		if(notices >= MAX_NOTICES)
 			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")

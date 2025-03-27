@@ -12,7 +12,7 @@
 	..()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/stack/tape_roll/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/stack/tape_roll/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
 	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?
 		return
 	if(M.wear_mask)

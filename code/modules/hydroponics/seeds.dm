@@ -210,7 +210,7 @@
 
 	return new /obj/item/unsorted_seeds(src, mutation_level, tray.get_mutation_focus())
 
-/obj/item/seeds/proc/harvest(mob/user = usr)
+/obj/item/seeds/proc/harvest(mob/user, obj/item/storage/bag/plants/bag)
 	var/obj/machinery/hydroponics/tray = loc
 	var/output_loc = tray.Adjacent(user) ? user.loc : tray.loc // Needed for TK
 
@@ -222,6 +222,8 @@
 		var/obj/item/produce = new product(output_loc, mutated_seed)
 		if(!produce)
 			return
+		if(bag && bag.can_be_inserted(produce))
+			bag.handle_item_insertion(produce, user, TRUE)
 
 		product_name = produce.name
 
@@ -391,7 +393,7 @@
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  // In case seeds have some special interaction with special chems
 	return
 
-/obj/item/seeds/attackby(obj/item/O, mob/user, params)
+/obj/item/seeds/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
 		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
@@ -619,8 +621,7 @@
 /obj/item/unsorted_seeds/New(obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
 	..()
 	template = template.Copy()
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(-6, 6)
+	scatter_atom()
 	if(seed_data_in)
 		seed_data = seed_data_in
 	else
@@ -640,12 +641,12 @@
 /obj/item/unsorted_seeds/proc/sort(depth = 1)
 	seed_data.transform(src, depth)
 
-/obj/item/unsorted_seeds/attack_self(mob/user)
+/obj/item/unsorted_seeds/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='notice'>[user] crudely sorts through [src] by hand.</span>", "<span class='notice'>You crudely sort through [src] by hand. This would be easier and more effective with some sort of tool.")
 	if(do_after(user, 3 SECONDS, TRUE, src, must_be_held = TRUE))
 		sort()
 
-/obj/item/unsorted_seeds/attackby(obj/item/O, mob/user, params)
+/obj/item/unsorted_seeds/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
 		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()

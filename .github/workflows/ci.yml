@@ -52,8 +52,8 @@ jobs:
           python tools/ci/check_map_sizes.py
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
-          python -m tools.ci.check_icon_conflicts
-          python -m tools.ci.check_icon_dupenames
+          python tools/ci/check_icons.py
+          python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
 
       - name: Run DreamChecker
@@ -68,6 +68,10 @@ jobs:
       - name: Setup OD
         run: |
           bash tools/ci/setup_od.sh
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.3.1
+        with:
+          dotnet-version: 9.x
       - name: Run OD
         run: |
           bash tools/ci/run_od.sh
@@ -89,22 +93,42 @@ jobs:
           tools/ci/generate_maplist.sh
           DreamMaker -DMULTIINSTANCE -DCIMAP paradise.dme
 
-  unit_tests_and_sql:
-    name: Unit Tests + SQL Validation
+  station_mapload_tests:
+    name: Station Tests
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype: ['/datum/map/boxstation', '/datum/map/deltastation', '/datum/map/metastation', '/datum/map/cerestation', '/datum/map/emeraldstation']
-        byondtype: ['STABLE']
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306
-        options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+        station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
+        byondtype: ['STABLE', 'BETA']
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Cache
+        uses: actions/cache@v4
+        with:
+          path: $HOME/BYOND
+          key: ${{ runner.os }}-byond
+      - name: Install RUST_G Deps
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update || true
+          sudo apt install zlib1g-dev:i386
+          tools/ci/install_rustg.sh
+      - name: Compile & Run Unit Tests
+        run: |
+          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
+          source $HOME/BYOND/byond/bin/byondsetup
+          DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
+          tools/ci/run_server.sh
+
+  unit_tests_and_sql:
+    name: Unit Tests + SQL Validation
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        byondtype: ['STABLE', 'BETA']
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache
@@ -127,8 +151,8 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DMULTIINSTANCE -DCIBUILDING paradise.dme
-          echo '${{ matrix.maptype }}' > data/next_map.txt
+          DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
 
   windows_dll_tests:

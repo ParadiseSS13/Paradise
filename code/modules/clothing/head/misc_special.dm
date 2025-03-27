@@ -24,7 +24,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 75)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	actions_types = list(/datum/action/item_action/toggle)
-	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
+	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
@@ -35,7 +35,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
-/obj/item/clothing/head/welding/attack_self(mob/user)
+/obj/item/clothing/head/welding/attack_self__legacy__attackchain(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/head/welding/flamedecal
@@ -80,7 +80,7 @@
 	if(isturf(location))
 		location.hotspot_expose(700, 1)
 
-/obj/item/clothing/head/cakehat/attack_self(mob/user)
+/obj/item/clothing/head/cakehat/attack_self__legacy__attackchain(mob/user)
 	if(status > 1)
 		return
 	onfire = !onfire
@@ -112,7 +112,7 @@
 	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
-/obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
+/obj/item/clothing/head/ushanka/attack_self__legacy__attackchain(mob/user as mob)
 	if(icon_state == "ushankadown")
 		icon_state = "ushankaup"
 		item_state = "ushankaup"

@@ -49,7 +49,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target)
+/obj/structure/blob/shield/CanPass(atom/movable/mover, border_dir)
 	return istype(mover) && mover.checkpass(PASSBLOB)
 
 /obj/structure/blob/shield/reflective

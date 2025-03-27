@@ -8,7 +8,7 @@
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "Tajaran hail from the mineral-rich arctic moon of Ahdomai. \
-	They were introduced into the galactic scene after the Skrellian discovery and were elevated to be associates to the Solar-Central Compact.<br/><br/> \
+	Currently a minor player within the Orion Sector, Adhomai is only loosely united by an alliance of Tajaran clans following their rebellion against the tyrannical Overseers.<br/><br/> \
 	The teachings of S'randarr and solar iconography dominate their religious practices, \
 	and Tajaran often speak in the third person due to the lack of first-person references in their native tongue."
 
@@ -55,6 +55,8 @@
 			"r" = list("rr", "rrr", "rrrr")
 		)
 	autohiss_exempt = list("Siik'tajr")
+
+	plushie_type = /obj/item/toy/plushie/grey_cat
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

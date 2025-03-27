@@ -62,7 +62,7 @@
 			pixel_y = -8
 			layer = FLY_LAYER
 
-/obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/toilet/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/reagent_containers))
 		if(!open)
 			return
@@ -230,7 +230,7 @@
 	anchored = TRUE
 
 
-/obj/structure/urinal/attackby(obj/item/I, mob/user, params)
+/obj/structure/urinal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!G.confirm())
@@ -307,6 +307,13 @@
 				pixel_y = -5
 				layer = FLY_LAYER
 
+/obj/machinery/shower/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
 	var/obj/effect/mist/mist = locate() in loc
@@ -339,9 +346,11 @@
 		if(istype(T) && !T.density)
 			T.MakeSlippery(TURF_WET_WATER, 5 SECONDS)
 
-/obj/machinery/shower/attackby(obj/item/I, mob/user, params)
-	if(I.type == /obj/item/analyzer)
+/obj/machinery/shower/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>The water temperature seems to be [current_temperature].</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/shower/wrench_act(mob/user, obj/item/I)
@@ -401,10 +410,10 @@
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		qdel(mist)
 
-/obj/machinery/shower/Crossed(atom/movable/AM)
-	..()
+/obj/machinery/shower/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 	if(on)
-		wash(AM)
+		wash(entered)
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)
@@ -540,7 +549,7 @@
 		user.clean_blood()
 
 
-/obj/structure/sink/attackby(obj/item/O, mob/user, params)
+/obj/structure/sink/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(busy)
 		to_chat(user, "<span class='warning'>Someone's already washing here!</span>")
 		return
@@ -650,7 +659,7 @@
 	..()
 	icon_state = "puddle"
 
-/obj/structure/sink/puddle/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/structure/sink/puddle/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	icon_state = "puddle-splash"
 	..()
 	icon_state = "puddle"
@@ -674,8 +683,6 @@
 /obj/item/mounted/shower/try_build(turf/on_wall, mob/user, proximity_flag)
 	//overriding this because we don't care about other items on the wall, but still need to do adjacent checks
 	if(!on_wall || !user)
-		return
-	if(proximity_flag != 1) //if we aren't next to the wall
 		return
 	if(!(get_dir(on_wall, user) in GLOB.cardinal))
 		to_chat(user, "<span class='warning'>You need to be standing next to a wall to place \the [src].</span>")
@@ -711,7 +718,7 @@
 	..()
 	desc = "An entire [result_name] in a box, straight from Space Sweden. It has an [pick("unpronounceable", "overly accented", "entirely gibberish", "oddly normal-sounding")] name."
 
-/obj/item/bathroom_parts/attack_self(mob/user)
+/obj/item/bathroom_parts/attack_self__legacy__attackchain(mob/user)
 	var/turf/T = get_turf(user)
 	if(!T)
 		to_chat(user, "<span class='warning'>You can't build that here!</span>")
@@ -726,7 +733,7 @@
 		S.anchored = FALSE
 		S.dir = user.dir
 		S.update_icon()
-		user.unEquip(src, 1)
+		user.unequip(src, force = TRUE)
 		qdel(src)
 		if(prob(50))
 			new /obj/item/stack/sheet/cardboard(T)

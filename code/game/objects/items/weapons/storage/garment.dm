@@ -33,12 +33,13 @@
 	new /obj/item/clothing/head/beret/captain(src)
 	new /obj/item/clothing/head/beret/captain/white(src)
 	new /obj/item/clothing/head/crown/fancy(src)
+	new /obj/item/clothing/neck/cloak/captain(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/coat(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/coat/white(src)
-	new /obj/item/clothing/suit/mantle/armor/captain(src)
+	new /obj/item/clothing/neck/cloak/captain_mantle(src)
 	new /obj/item/clothing/under/rank/captain(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
 	new /obj/item/clothing/under/rank/captain/dress(src)
@@ -48,6 +49,8 @@
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/captain(src)
+	new /obj/item/clothing/under/plasmaman/captain(src)
 
 /obj/item/storage/bag/garment/head_of_personnel
 	name = "head of personnel's garment bag"
@@ -56,7 +59,8 @@
 /obj/item/storage/bag/garment/head_of_personnel/populate_contents()
 	new /obj/item/clothing/head/hop(src)
 	new /obj/item/clothing/head/beret/hop(src)
-	new /obj/item/clothing/suit/mantle/armor/hop(src)
+	new /obj/item/clothing/neck/cloak/head_of_personnel(src)
+	new /obj/item/clothing/neck/cloak/hop_mantle(src)
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/suit/hopcoat(src)
 	new /obj/item/clothing/under/rank/civilian/hop(src)
@@ -71,23 +75,28 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/hop(src)
+	new /obj/item/clothing/under/plasmaman/hop(src)
 
 /obj/item/storage/bag/garment/head_of_security
 	name = "head of security's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the head of security."
 
 /obj/item/storage/bag/garment/head_of_security/populate_contents()
-	new /obj/item/clothing/head/HoS(src)
+	new /obj/item/clothing/head/hos(src)
 	new /obj/item/clothing/head/beret/hos(src)
+	new /obj/item/clothing/neck/cloak/head_of_security(src)
 	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/suit/armor/hos/alt(src)
-	new /obj/item/clothing/suit/mantle/armor(src)
+	new /obj/item/clothing/neck/cloak/hos_mantle(src)
 	new /obj/item/clothing/under/rank/security/head_of_security(src)
 	new /obj/item/clothing/under/rank/security/formal/head_of_security(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/corporate(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/skirt(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/skirt/corporate(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/security/hos(src)
+	new /obj/item/clothing/under/plasmaman/security/hos(src)
 
 /obj/item/storage/bag/garment/research_director
 	name = "research director's garment bag"
@@ -95,15 +104,18 @@
 
 /obj/item/storage/bag/garment/research_director/populate_contents()
 	new /obj/item/clothing/head/beret/sci(src)
+	new /obj/item/clothing/neck/cloak/research_director(src)
 	new /obj/item/clothing/under/rank/rnd/research_director(src)
 	new /obj/item/clothing/suit/storage/labcoat/rd(src)
-	new /obj/item/clothing/suit/mantle/labcoat(src)
+	new /obj/item/clothing/neck/cloak/rd_mantle(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/glasses/science(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/glasses/hud/diagnostic/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/rd(src)
+	new /obj/item/clothing/under/plasmaman/rd(src)
 
 
 /obj/item/storage/bag/garment/chief_medical_officer
@@ -114,16 +126,19 @@
 	new /obj/item/clothing/head/surgery/blue(src)
 	new /obj/item/clothing/head/surgery/green(src)
 	new /obj/item/clothing/head/surgery/purple(src)
+	new /obj/item/clothing/neck/cloak/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
 	new /obj/item/clothing/under/rank/medical/scrubs(src)
 	new /obj/item/clothing/under/rank/medical/scrubs/green(src)
 	new /obj/item/clothing/under/rank/medical/scrubs/purple(src)
 	new /obj/item/clothing/suit/storage/labcoat/cmo(src)
-	new /obj/item/clothing/suit/mantle/labcoat/chief_medical_officer(src)
+	new /obj/item/clothing/neck/cloak/cmo_mantle(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/brown	(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/cmo(src)
+	new /obj/item/clothing/under/plasmaman/cmo(src)
 
 /obj/item/storage/bag/garment/chief_engineer
 	name = "chief engineer's garment bag"
@@ -133,14 +148,17 @@
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/clothing/neck/cloak/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
-	new /obj/item/clothing/suit/mantle/chief_engineer(src)
+	new /obj/item/clothing/neck/cloak/ce_mantle(src)
 	new /obj/item/clothing/suit/storage/hazardvest/ce(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/glasses/meson/sunglasses(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce(src)
+	new /obj/item/clothing/under/plasmaman/engineering/ce(src)
 
 /obj/item/storage/bag/garment/nanotrasen_representative
 	name = "\improper Nanotrasen representative's garment bag"
@@ -157,6 +175,8 @@
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/white(src)
+	new /obj/item/clothing/under/plasmaman/enviroslacks(src)
 
 /obj/item/storage/bag/garment/magistrate
 	name = "magistrate's garment bag"
@@ -172,6 +192,8 @@
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/white(src)
+	new /obj/item/clothing/under/plasmaman/enviroslacks(src)
 
 /obj/item/storage/bag/garment/blueshield
 	name = "blueshield's garment bag"
@@ -192,7 +214,9 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/accessory/blue(src)
+	new /obj/item/clothing/neck/tie/blue(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/blueshield(src)
+	new /obj/item/clothing/under/plasmaman/blueshield(src)
 
 /obj/item/storage/bag/garment/quartermaster
 	name = "quartermaster's garment bag"
@@ -207,12 +231,15 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/head/qm(src)
 	new /obj/item/clothing/head/beret/qm(src)
+	new /obj/item/clothing/neck/cloak/quartermaster(src)
 	new /obj/item/clothing/head/hardhat/orange(src)
 	new /obj/item/clothing/suit/qmcoat(src)
-	new /obj/item/clothing/suit/mantle/qm(src)
+	new /obj/item/clothing/neck/cloak/qm_mantle(src)
 	new /obj/item/clothing/suit/storage/hazardvest/qm(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/cargo(src)
+	new /obj/item/clothing/under/plasmaman/cargo(src)
 
 /obj/item/storage/bag/garment/warden
 	name = "warden's garment bag"
@@ -228,8 +255,10 @@
 	new /obj/item/clothing/under/rank/security/warden/corporate(src)
 	new /obj/item/clothing/under/rank/security/warden/skirt(src)
 	new /obj/item/clothing/under/rank/security/warden/skirt/corporate(src)
-	new /obj/item/clothing/mask/gas/sechailer/warden(src)
+	new /obj/item/clothing/mask/gas/sechailer/swat/warden(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/security/warden(src)
+	new /obj/item/clothing/under/plasmaman/security/warden(src)
 
 /obj/item/storage/bag/garment/detective
 	name = "detective's garment bag"
@@ -244,7 +273,7 @@
 	new /obj/item/clothing/head/det_hat(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
-	new /obj/item/clothing/accessory/black(src)
+	new /obj/item/clothing/neck/tie/black(src)
 	new /obj/item/clothing/accessory/holster/armpit(src)
 	new /obj/item/clothing/glasses/sunglasses/yeah(src)
 
@@ -262,14 +291,11 @@
 	new /obj/item/clothing/suit/witchhunter(src)
 	new /obj/item/clothing/head/witchhunter_hat(src)
 	new /obj/item/clothing/suit/holidaypriest(src)
-	new /obj/item/clothing/under/dress/wedding/bride_white(src)
 	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
 	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
-	new /obj/item/clothing/gloves/ring/silver(src)
-	new /obj/item/clothing/gloves/ring/silver(src)
-	new /obj/item/clothing/gloves/ring/gold(src)
-	new /obj/item/clothing/gloves/ring/gold(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain(src)
+	new /obj/item/clothing/under/plasmaman/chaplain(src)
 
 /obj/item/storage/bag/garment/psychologist
 	name = "psychologist's garment bag"
@@ -284,7 +310,9 @@
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/glasses/hud/skills(src)
-	new /obj/item/clothing/accessory/blue(src)
+	new /obj/item/clothing/neck/tie/blue(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman(src)
+	new /obj/item/clothing/under/plasmaman(src)
 
 /obj/item/storage/bag/garment/paramedic
 	name = "paramedic's garment bag"
@@ -299,6 +327,8 @@
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/medical(src)
+	new /obj/item/clothing/under/plasmaman/medical(src)
 
 /obj/item/storage/bag/garment/explorer
 	name = "explorer's garment bag"
@@ -312,3 +342,20 @@
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/mask/gas/explorer(src)
+
+/obj/item/storage/bag/garment/smith
+	name = "smith's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the smith."
+
+/obj/item/storage/bag/garment/smith/populate_contents()
+	new /obj/item/clothing/under/rank/cargo/smith(src)
+	new /obj/item/clothing/under/rank/cargo/smith/skirt(src)
+	new /obj/item/clothing/under/rank/cargo/smith/overalls(src)
+	new /obj/item/clothing/suit/apron/smith(src)
+	new /obj/item/clothing/suit/jacket/bomber/smith(src)
+	new /obj/item/clothing/head/soft/smith(src)
+	new /obj/item/clothing/head/beret/smith(src)
+	new /obj/item/clothing/gloves/smithing(src)
+	new /obj/item/clothing/shoes/workboots/smithing(src)
+	new /obj/item/clothing/under/plasmaman/smith(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/smith(src)

@@ -62,16 +62,18 @@
 	breakouttime = 5 SECONDS
 	flags = DROPDEL
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/Crossed(AM, oldloc)
-	if(!iscarbon(AM) || !armed)
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/on_atom_entered(datum/source, atom/movable/entered)
+	if(!iscarbon(entered) || !armed)
 		return
-	var/mob/living/carbon/C = AM
+	var/mob/living/carbon/C = entered
 	if(!C.affects_vampire()) // no parameter here so holy always protects
 		return
 	C.extinguish_light()
 	C.EyeBlind(20 SECONDS)
 	STOP_PROCESSING(SSobj, src) // won't wither away once you are trapped
-	..()
+
+	. = ..()
+
 	if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
 		qdel(src)
 
@@ -84,7 +86,7 @@
 		to_chat(user, "<span class='userdanger'>The snare sends a psychic backlash!</span>")
 		C.EyeBlind(20 SECONDS)
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby(obj/item/I, mob/user)
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby__legacy__attackchain(obj/item/I, mob/user)
 	var/obj/item/flash/flash = I
 	if(!istype(flash) || !flash.try_use_flash(user))
 		return ..()
@@ -138,7 +140,7 @@
 	if(!making_anchor && !anchor) // first cast, setup the anchor
 		var/turf/anchor_turf = get_turf(user)
 		making_anchor = TRUE
-		if(do_mob(user, user, 5 SECONDS, only_use_extra_checks = TRUE)) // no checks, cant fail
+		if(do_mob(user, user, 5 SECONDS, only_use_extra_checks = TRUE, hidden = TRUE)) // no checks, cant fail
 			make_anchor(user, anchor_turf)
 			making_anchor = FALSE
 			return

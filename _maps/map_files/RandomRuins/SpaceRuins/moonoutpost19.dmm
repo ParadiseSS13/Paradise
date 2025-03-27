@@ -34,7 +34,7 @@
 	},
 /area/ruin/space/moonbase19)
 "af" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "ag" = (
@@ -42,8 +42,6 @@
 /area/ruin/space/moonbase19)
 "ah" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -149,8 +147,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -286,7 +282,7 @@
 /turf/simulated/wall,
 /area/ruin/space/moonbase19)
 "aM" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/moonbase19)
 "aN" = (
@@ -361,7 +357,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -578,7 +574,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -754,8 +750,6 @@
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -790,7 +784,7 @@
 	},
 /area/ruin/space/moonbase19)
 "cp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "cq" = (
@@ -802,7 +796,7 @@
 	},
 /area/ruin/space/moonbase19)
 "cr" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
 "cs" = (
@@ -899,7 +893,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "cF" = (
@@ -992,9 +986,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1179,9 +1171,7 @@
 	},
 /area/ruin/space/moonbase19)
 "dD" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "dE" = (
@@ -1338,8 +1328,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1361,7 +1349,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -1448,7 +1436,7 @@
 	},
 /area/ruin/space/moonbase19)
 "ey" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1499,7 +1487,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/moonbase19)
 "eK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "West Lobby";
@@ -1625,18 +1613,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
@@ -1739,7 +1721,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/moonbase19)
 "fC" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 10
@@ -1837,14 +1819,14 @@
 "fX" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
 "fY" = (
 /obj/item/stack/sheet/mineral/titanium,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/molten_object/large,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
 "gb" = (
@@ -1992,7 +1974,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -2015,7 +1997,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gy" = (
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/drinks/coffee{
@@ -2053,7 +2035,7 @@
 /area/ruin/space/moonbase19)
 "gC" = (
 /obj/effect/decal/cleanable/greenglow,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
@@ -2122,7 +2104,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "gP" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -2150,7 +2132,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gW" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
@@ -2224,7 +2206,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
@@ -2312,7 +2294,7 @@
 	},
 /area/ruin/space/moonbase19)
 "hs" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -2334,8 +2316,6 @@
 /area/ruin/space/moonbase19)
 "hw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2517,7 +2497,7 @@
 "hV" = (
 /obj/structure/railing,
 /obj/structure/closet/secure_closet,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -3;
 	pixel_y = -2
 	},
@@ -2573,9 +2553,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/structure/closet/crate,
 /obj/machinery/light/small{
 	dir = 1
@@ -2656,7 +2634,7 @@
 	},
 /area/ruin/space/moonbase19)
 "io" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/directions/engineering{
 	pixel_x = -32;
 	dir = 8
@@ -2925,8 +2903,6 @@
 "iZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
@@ -2990,7 +2966,7 @@
 	},
 /area/ruin/space/moonbase19)
 "jj" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -3040,7 +3016,7 @@
 /area/ruin/space/moonbase19)
 "jp" = (
 /obj/structure/railing,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -3053,7 +3029,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "jr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "jt" = (
@@ -3111,7 +3087,7 @@
 	},
 /area/ruin/space/moonbase19)
 "jC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
@@ -3148,7 +3124,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -3242,8 +3218,6 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -3318,8 +3292,8 @@
 	},
 /area/ruin/space/moonbase19)
 "kg" = (
-/obj/item/kirbyplants,
-/obj/effect/landmark/damageturf,
+/obj/item/kirbyplants/large,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -3443,7 +3417,6 @@
 /area/ruin/space/moonbase19)
 "kz" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -3452,7 +3425,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "kB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 10
 	},
@@ -3479,7 +3452,7 @@
 	},
 /area/ruin/space/moonbase19)
 "kG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
@@ -3502,7 +3475,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/moonbase19)
 "kN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -3579,7 +3552,6 @@
 	req_access = null
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/box,
@@ -3666,7 +3638,7 @@
 	},
 /area/ruin/space/moonbase19)
 "lD" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3703,7 +3675,7 @@
 	},
 /area/ruin/space/moonbase19)
 "lI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
@@ -3715,8 +3687,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -3796,8 +3766,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -3895,7 +3863,7 @@
 	},
 /area/ruin/space/moonbase19)
 "mv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -4031,12 +3999,9 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/box,
@@ -4047,8 +4012,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /mob/living/simple_animal/hostile/alien/sentinel,
@@ -4141,7 +4104,6 @@
 	id_tag = "awaymlock"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -4181,7 +4143,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ny" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "nz" = (
@@ -4218,13 +4180,9 @@
 /area/ruin/space/moonbase19)
 "nE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/engine,
@@ -4261,8 +4219,6 @@
 /area/ruin/space/moonbase19)
 "nK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -4331,8 +4287,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4362,8 +4316,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4375,8 +4327,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/hostile/alien,
@@ -4466,13 +4416,9 @@
 "oH" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4550,7 +4496,7 @@
 	},
 /area/ruin/space/moonbase19)
 "oU" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4595,7 +4541,6 @@
 	id_tag = "awaymlock"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -4634,13 +4579,9 @@
 /area/ruin/space/moonbase19)
 "pp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/item/clothing/gloves/color/yellow,
@@ -4662,8 +4603,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -4778,8 +4717,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4815,8 +4752,6 @@
 "pW" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4874,12 +4809,9 @@
 /area/ruin/space/moonbase19)
 "qm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -4942,7 +4874,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "qu" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "escape"
@@ -5034,14 +4966,13 @@
 /obj/machinery/atmospherics/air_sensor,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "qQ" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -5056,7 +4987,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault1,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5110,7 +5041,7 @@
 /area/ruin/space/moonbase19)
 "rk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
@@ -5206,8 +5137,6 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/meson,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/item/paper/fluff/ruins/moonoutpost19/engineering,
@@ -5253,7 +5182,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "rH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "escape"
@@ -5274,8 +5203,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/chair{
@@ -5316,13 +5243,9 @@
 /area/ruin/space/moonbase19)
 "rS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/alien/weeds/node,
@@ -5413,8 +5336,6 @@
 	pixel_y = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/table/reinforced,
@@ -5422,8 +5343,6 @@
 /area/ruin/space/moonbase19)
 "si" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -5444,8 +5363,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5491,11 +5408,9 @@
 	},
 /area/ruin/space/moonbase19)
 "sp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -5518,13 +5433,12 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "sF" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/moonbase19)
 "sK" = (
@@ -5579,7 +5493,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "td" = (
@@ -5630,8 +5544,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5653,7 +5565,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "to" = (
@@ -5668,8 +5580,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -5724,14 +5634,12 @@
 	},
 /area/ruin/space/moonbase19)
 "tE" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "tG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/sign/security{
@@ -5899,15 +5807,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -5985,13 +5890,9 @@
 /area/ruin/space/moonbase19)
 "vd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
@@ -6015,9 +5916,8 @@
 /area/ruin/space/moonbase19)
 "vh" = (
 /obj/structure/rack,
-/obj/item/mecha_parts/core,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/stock_parts/cell/infinite/abductor,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault3,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6066,8 +5966,6 @@
 	},
 /obj/item/hand_labeler,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -6076,7 +5974,7 @@
 	},
 /area/ruin/space/moonbase19)
 "vB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6134,7 +6032,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -6251,7 +6149,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "wp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 5
@@ -6272,7 +6170,7 @@
 	},
 /area/ruin/space/moonbase19)
 "wv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -6368,8 +6266,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6385,15 +6281,13 @@
 	},
 /area/ruin/space/moonbase19)
 "xi" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/stairs{
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
 "xl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6440,13 +6334,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -6570,7 +6460,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "xZ" = (
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/disposal/delivery_chute{
 	dir = 8
 	},
 /obj/structure/disposalpipe/trunk,
@@ -6671,8 +6561,6 @@
 	initialize_directions = 11
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -6686,13 +6574,9 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6738,7 +6622,7 @@
 /area/ruin/space/moonbase19)
 "yE" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
@@ -6813,12 +6697,12 @@
 	},
 /area/ruin/space/moonbase19)
 "yR" = (
-/obj/item/food/xenomeatbreadslice,
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread,
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 7;
 	pixel_x = 6
 	},
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 9;
 	pixel_x = -5
 	},
@@ -6841,8 +6725,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -6886,8 +6768,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -6907,8 +6787,8 @@
 	},
 /area/ruin/space/moonbase19)
 "zn" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "zr" = (
@@ -6921,8 +6801,6 @@
 "zu" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -6952,8 +6830,6 @@
 	pixel_x = 2
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -6976,7 +6852,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -6989,7 +6865,7 @@
 	},
 /area/ruin/space/moonbase19)
 "zK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
@@ -7019,7 +6895,7 @@
 	},
 /area/ruin/space/moonbase19)
 "zM" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -7248,8 +7124,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7269,8 +7143,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -7403,7 +7275,7 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/alien/resin/wall,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Bu" = (
@@ -7443,8 +7315,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -7525,8 +7395,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -7586,8 +7454,6 @@
 /area/ruin/space/moonbase19)
 "Cr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -7626,8 +7492,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7711,8 +7575,6 @@
 /area/ruin/space/moonbase19)
 "CM" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7724,8 +7586,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7752,8 +7612,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -7884,7 +7742,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Dy" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
@@ -7899,8 +7757,6 @@
 "DA" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk,
@@ -8048,7 +7904,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Ep" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
@@ -8062,9 +7918,7 @@
 /obj/structure/rack,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/machinery/light/small,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -8083,8 +7937,6 @@
 	},
 /mob/living/simple_animal/hostile/alien,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8136,8 +7988,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8235,8 +8085,6 @@
 /area/ruin/space/moonbase19)
 "Fc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8256,8 +8104,6 @@
 /obj/structure/table/reinforced,
 /obj/item/stock_parts/cell/high,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -8272,7 +8118,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Fk" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -8285,8 +8131,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/assembly/signaler/anomaly/random,
-/obj/item/storage/lockbox/experimental_weapon,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault2,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8388,7 +8233,7 @@
 	},
 /area/ruin/space/moonbase19)
 "FO" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -8416,7 +8261,7 @@
 	},
 /area/ruin/space/moonbase19)
 "FV" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8449,8 +8294,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/air_sensor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -8466,7 +8309,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "Ge" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Gg" = (
@@ -8509,8 +8352,6 @@
 /area/ruin/space/moonbase19)
 "Gq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -8523,8 +8364,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8538,14 +8377,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -8580,10 +8417,8 @@
 /area/ruin/space/moonbase19)
 "GD" = (
 /obj/structure/holosign/barrier/engineering,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -8767,8 +8602,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -8783,7 +8616,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "HA" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -8804,8 +8637,6 @@
 	status = 2
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -8814,13 +8645,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/clothing/glasses/welding{
@@ -8930,8 +8757,6 @@
 /area/ruin/space/moonbase19)
 "Ip" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/engine,
@@ -9027,7 +8852,7 @@
 /area/ruin/space/moonbase19)
 "IN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "IO" = (
@@ -9075,13 +8900,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -9238,9 +9060,7 @@
 /area/ruin/space/moonbase19)
 "JP" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "JQ" = (
@@ -9276,12 +9096,9 @@
 	locked = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/light{
@@ -9370,8 +9187,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -9408,14 +9223,14 @@
 	},
 /area/ruin/space/moonbase19)
 "Kz" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
 	dir = 4
 	},
 /area/ruin/space/moonbase19)
 "KC" = (
-/obj/machinery/disposal/deliveryChute,
+/obj/machinery/disposal/delivery_chute,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -9452,7 +9267,6 @@
 /area/ruin/space/moonbase19)
 "KI" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/box,
@@ -9535,7 +9349,6 @@
 	id_tag = "awaycontlockdown"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -9554,7 +9367,7 @@
 /area/ruin/space/moonbase19)
 "Lb" = (
 /obj/structure/rack,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Ld" = (
@@ -9654,7 +9467,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 4
@@ -9677,8 +9490,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -9844,9 +9655,7 @@
 /area/ruin/space/moonbase19)
 "MF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/machinery/camera{
 	c_tag = "Hangar";
 	dir = 1;
@@ -9887,8 +9696,6 @@
 "MJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -9922,8 +9729,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -9933,6 +9738,9 @@
 /area/ruin/space/moonbase19)
 "MT" = (
 /obj/structure/lattice,
+/obj/item/shard{
+	icon_state = "medium"
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "MU" = (
@@ -9942,7 +9750,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "MY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -9966,7 +9774,6 @@
 /area/ruin/space/moonbase19)
 "Nc" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -10015,8 +9822,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10082,8 +9887,6 @@
 "Ny" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10133,8 +9936,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10156,7 +9957,7 @@
 	pixel_y = 7;
 	pixel_x = -3
 	},
-/obj/item/clothing/accessory/horrible{
+/obj/item/clothing/neck/tie/horrible{
 	pixel_y = -2;
 	pixel_x = 2
 	},
@@ -10212,7 +10013,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Od" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -10289,7 +10090,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Oo" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -10319,8 +10120,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -10431,8 +10230,6 @@
 /area/ruin/space/moonbase19)
 "OX" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10486,8 +10283,6 @@
 "Pj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -10585,7 +10380,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "PP" = (
@@ -10597,7 +10392,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "PQ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -10632,16 +10427,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/stack/rods,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -10665,14 +10457,14 @@
 /obj/structure/railing/cap{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
 	},
 /area/ruin/space/moonbase19)
 "Qf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -10680,8 +10472,6 @@
 /area/ruin/space/moonbase19)
 "Qh" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -10779,8 +10569,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -10878,7 +10666,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "QP" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "QQ" = (
@@ -10918,8 +10706,6 @@
 "QZ" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/stairs,
@@ -10934,13 +10720,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10952,8 +10734,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -10997,8 +10777,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11058,7 +10836,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "RH" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -11138,8 +10916,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -11227,10 +11003,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Sz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -11322,12 +11096,9 @@
 	dir = 2
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/box,
@@ -11371,12 +11142,9 @@
 /area/ruin/space/moonbase19)
 "Tn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -11461,8 +11229,6 @@
 /area/ruin/space/moonbase19)
 "TF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -11477,8 +11243,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -11526,15 +11290,11 @@
 	pixel_y = -32
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -11596,8 +11356,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11623,8 +11381,6 @@
 /area/ruin/space/moonbase19)
 "Ur" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -11647,8 +11403,6 @@
 	color = "green"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -11747,11 +11501,9 @@
 /area/ruin/space/moonbase19)
 "UO" = (
 /obj/structure/lattice,
-/obj/item/shard{
-	icon_state = "medium"
-	},
+/obj/machinery/door/firedoor/closed,
 /turf/template_noop,
-/area/space/nearstation)
+/area/ruin/space/moonbase19)
 "UQ" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -11891,7 +11643,7 @@
 	},
 /area/ruin/space/moonbase19)
 "VG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 9
@@ -11899,8 +11651,6 @@
 /area/ruin/space/moonbase19)
 "VH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -11966,15 +11716,13 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "VT" = (
 /obj/structure/bed,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "VU" = (
@@ -12031,10 +11779,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Wg" = (
-/obj/structure/lattice,
-/obj/machinery/door/firedoor/closed,
+/obj/item/stack/rods,
 /turf/template_noop,
-/area/ruin/space/moonbase19)
+/area/space/nearstation)
 "Wi" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
@@ -12049,7 +11796,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Wn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -12115,14 +11862,12 @@
 /obj/item/cigbutt{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "WF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -12146,7 +11891,7 @@
 	},
 /area/ruin/space/moonbase19)
 "WJ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 9
 	},
@@ -12190,16 +11935,12 @@
 	},
 /obj/structure/alien/weeds/node,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "WW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -12208,7 +11949,9 @@
 	},
 /area/ruin/space/moonbase19)
 "WX" = (
-/obj/item/stack/rods,
+/obj/item/shard{
+	icon_state = "medium"
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "WZ" = (
@@ -12266,9 +12009,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Xl" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
+/obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
 "Xm" = (
@@ -12298,8 +12039,6 @@
 /area/ruin/space/moonbase19)
 "Xq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -12344,8 +12083,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12410,7 +12147,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -12487,7 +12224,7 @@
 	},
 /area/ruin/space/moonbase19)
 "XY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -12525,9 +12262,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -12688,8 +12423,6 @@
 "YS" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -12723,7 +12456,7 @@
 /area/ruin/space/moonbase19)
 "Za" = (
 /obj/structure/holosign/barrier/engineering,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Zb" = (
@@ -12751,8 +12484,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12761,7 +12492,7 @@
 "Zh" = (
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "awayscilock1"
 	},
@@ -12841,8 +12572,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -12894,8 +12623,6 @@
 "ZL" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -12979,42 +12706,43 @@ aa
 aa
 aa
 aa
-tX
-tX
-tX
-tX
-tX
-tX
-tX
 aa
 aa
 aa
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
 aa
 aa
 aa
-tX
-tX
-tX
-tX
-tX
-tX
 aa
-tX
-tX
 aa
-tX
-tX
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -13031,6 +12759,67 @@ aa
 aa
 "}
 (2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+aa
+aa
+aa
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+aa
+aa
+aa
+tX
+tX
+tX
+tX
+tX
+tX
+aa
+tX
+tX
+aa
+tX
+tX
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
 aa
 aa
 aa
@@ -13089,8 +12878,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(3,1,1) = {"
+(4,1,1) = {"
 aa
 aa
 aa
@@ -13149,8 +12939,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(4,1,1) = {"
+(5,1,1) = {"
 aa
 aa
 aa
@@ -13209,8 +13000,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(5,1,1) = {"
+(6,1,1) = {"
 aa
 aa
 aa
@@ -13269,8 +13061,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(6,1,1) = {"
+(7,1,1) = {"
 aa
 aa
 aa
@@ -13329,8 +13122,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(7,1,1) = {"
+(8,1,1) = {"
 aa
 aa
 aa
@@ -13389,8 +13183,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(8,1,1) = {"
+(9,1,1) = {"
 aa
 aa
 tX
@@ -13449,8 +13244,9 @@ tX
 aa
 aa
 aa
+aa
 "}
-(9,1,1) = {"
+(10,1,1) = {"
 aa
 aa
 tX
@@ -13509,8 +13305,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(10,1,1) = {"
+(11,1,1) = {"
 aa
 aa
 tX
@@ -13569,8 +13366,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(11,1,1) = {"
+(12,1,1) = {"
 aa
 aa
 tX
@@ -13629,8 +13427,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(12,1,1) = {"
+(13,1,1) = {"
 aa
 aa
 tX
@@ -13689,8 +13488,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(13,1,1) = {"
+(14,1,1) = {"
 aa
 aa
 tX
@@ -13749,8 +13549,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(14,1,1) = {"
+(15,1,1) = {"
 aa
 aa
 tX
@@ -13809,8 +13610,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(15,1,1) = {"
+(16,1,1) = {"
 aa
 aa
 tX
@@ -13869,8 +13671,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(16,1,1) = {"
+(17,1,1) = {"
 aa
 aa
 tX
@@ -13929,8 +13732,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(17,1,1) = {"
+(18,1,1) = {"
 aa
 aa
 aa
@@ -13989,8 +13793,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(18,1,1) = {"
+(19,1,1) = {"
 aa
 aa
 aa
@@ -14049,8 +13854,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(19,1,1) = {"
+(20,1,1) = {"
 aa
 aa
 aa
@@ -14109,8 +13915,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(20,1,1) = {"
+(21,1,1) = {"
 aa
 aa
 aa
@@ -14169,8 +13976,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(21,1,1) = {"
+(22,1,1) = {"
 aa
 aa
 aa
@@ -14229,8 +14037,9 @@ Wl
 tX
 tX
 tX
+aa
 "}
-(22,1,1) = {"
+(23,1,1) = {"
 aa
 aa
 tX
@@ -14289,8 +14098,9 @@ gi
 fV
 tX
 tX
+aa
 "}
-(23,1,1) = {"
+(24,1,1) = {"
 aa
 tX
 tX
@@ -14300,7 +14110,7 @@ PB
 ag
 ag
 ny
-MT
+Xl
 EE
 ag
 ag
@@ -14349,8 +14159,9 @@ fw
 hI
 tX
 tX
+aa
 "}
-(24,1,1) = {"
+(25,1,1) = {"
 aa
 tX
 tX
@@ -14359,8 +14170,8 @@ tE
 bP
 ag
 wl
-MT
 Xl
+WX
 ON
 ny
 wP
@@ -14409,8 +14220,9 @@ Ob
 ph
 tX
 tX
+aa
 "}
-(25,1,1) = {"
+(26,1,1) = {"
 aa
 tX
 tX
@@ -14418,12 +14230,12 @@ af
 DM
 bP
 ag
-MT
-MT
-ON
-WX
+Xl
+Xl
 ON
 Wg
+ON
+UO
 Za
 Sz
 ag
@@ -14469,8 +14281,9 @@ ad
 tX
 tX
 tX
+aa
 "}
-(26,1,1) = {"
+(27,1,1) = {"
 aa
 tX
 tX
@@ -14482,8 +14295,8 @@ IW
 wl
 ON
 RA
+MT
 UO
-Wg
 GD
 Fc
 mJ
@@ -14529,8 +14342,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(27,1,1) = {"
+(28,1,1) = {"
 aa
 tX
 tX
@@ -14541,7 +14355,7 @@ af
 af
 IW
 nu
-MT
+Xl
 af
 af
 RN
@@ -14589,8 +14403,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(28,1,1) = {"
+(29,1,1) = {"
 aa
 tX
 tX
@@ -14649,8 +14464,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(29,1,1) = {"
+(30,1,1) = {"
 aa
 aa
 tX
@@ -14709,8 +14525,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(30,1,1) = {"
+(31,1,1) = {"
 aa
 aa
 tX
@@ -14769,8 +14586,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(31,1,1) = {"
+(32,1,1) = {"
 aa
 aa
 tX
@@ -14829,8 +14647,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(32,1,1) = {"
+(33,1,1) = {"
 aa
 aa
 tX
@@ -14889,8 +14708,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(33,1,1) = {"
+(34,1,1) = {"
 aa
 aa
 aa
@@ -14949,8 +14769,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(34,1,1) = {"
+(35,1,1) = {"
 aa
 aa
 aa
@@ -15009,8 +14830,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(35,1,1) = {"
+(36,1,1) = {"
 aa
 aa
 aa
@@ -15069,8 +14891,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(36,1,1) = {"
+(37,1,1) = {"
 aa
 aa
 tX
@@ -15129,8 +14952,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(37,1,1) = {"
+(38,1,1) = {"
 aa
 aa
 tX
@@ -15189,8 +15013,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(38,1,1) = {"
+(39,1,1) = {"
 aa
 aa
 tX
@@ -15249,8 +15074,9 @@ ag
 tX
 tX
 aa
+aa
 "}
-(39,1,1) = {"
+(40,1,1) = {"
 aa
 aa
 tX
@@ -15309,8 +15135,9 @@ ag
 ag
 tX
 aa
+aa
 "}
-(40,1,1) = {"
+(41,1,1) = {"
 aa
 aa
 tX
@@ -15369,8 +15196,9 @@ tW
 ag
 tX
 tX
+aa
 "}
-(41,1,1) = {"
+(42,1,1) = {"
 aa
 aa
 tX
@@ -15429,8 +15257,9 @@ cm
 af
 tX
 tX
+aa
 "}
-(42,1,1) = {"
+(43,1,1) = {"
 aa
 aa
 tX
@@ -15489,8 +15318,9 @@ rZ
 ag
 tX
 tX
+aa
 "}
-(43,1,1) = {"
+(44,1,1) = {"
 aa
 aa
 tX
@@ -15549,8 +15379,9 @@ jb
 tX
 tX
 tX
+aa
 "}
-(44,1,1) = {"
+(45,1,1) = {"
 aa
 tX
 tX
@@ -15609,8 +15440,9 @@ pK
 tX
 tX
 tX
+aa
 "}
-(45,1,1) = {"
+(46,1,1) = {"
 aa
 tX
 tX
@@ -15669,8 +15501,9 @@ db
 pK
 tX
 tX
+aa
 "}
-(46,1,1) = {"
+(47,1,1) = {"
 aa
 tX
 tX
@@ -15729,8 +15562,9 @@ ag
 jb
 tX
 tX
+aa
 "}
-(47,1,1) = {"
+(48,1,1) = {"
 aa
 tX
 tX
@@ -15789,8 +15623,9 @@ ag
 kp
 Rv
 tX
+aa
 "}
-(48,1,1) = {"
+(49,1,1) = {"
 aa
 tX
 tX
@@ -15849,8 +15684,9 @@ ag
 jb
 pK
 tX
+aa
 "}
-(49,1,1) = {"
+(50,1,1) = {"
 aa
 tX
 tX
@@ -15909,8 +15745,9 @@ ag
 aj
 eC
 tX
+aa
 "}
-(50,1,1) = {"
+(51,1,1) = {"
 aa
 aa
 tX
@@ -15969,8 +15806,9 @@ ag
 hP
 Gg
 tX
+aa
 "}
-(51,1,1) = {"
+(52,1,1) = {"
 aa
 aa
 tX
@@ -16029,8 +15867,9 @@ jb
 kp
 Gg
 tX
+aa
 "}
-(52,1,1) = {"
+(53,1,1) = {"
 aa
 aa
 tX
@@ -16089,8 +15928,9 @@ tI
 Gg
 Gg
 tX
+aa
 "}
-(53,1,1) = {"
+(54,1,1) = {"
 aa
 aa
 tX
@@ -16149,8 +15989,9 @@ pK
 Gg
 tX
 tX
+aa
 "}
-(54,1,1) = {"
+(55,1,1) = {"
 aa
 aa
 tX
@@ -16209,8 +16050,9 @@ Ln
 Gg
 tX
 tX
+aa
 "}
-(55,1,1) = {"
+(56,1,1) = {"
 aa
 aa
 tX
@@ -16269,8 +16111,9 @@ qA
 Gg
 tX
 tX
+aa
 "}
-(56,1,1) = {"
+(57,1,1) = {"
 aa
 tX
 tX
@@ -16329,8 +16172,9 @@ Oi
 Gg
 tX
 aa
+aa
 "}
-(57,1,1) = {"
+(58,1,1) = {"
 aa
 tX
 tX
@@ -16389,8 +16233,9 @@ Gg
 Gg
 tX
 aa
+aa
 "}
-(58,1,1) = {"
+(59,1,1) = {"
 aa
 tX
 tX
@@ -16449,8 +16294,9 @@ Gg
 tX
 tX
 aa
+aa
 "}
-(59,1,1) = {"
+(60,1,1) = {"
 aa
 tX
 tX
@@ -16509,8 +16355,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(60,1,1) = {"
+(61,1,1) = {"
 aa
 tX
 tX
@@ -16569,8 +16416,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(61,1,1) = {"
+(62,1,1) = {"
 aa
 tX
 tX
@@ -16629,8 +16477,9 @@ db
 tX
 tX
 aa
+aa
 "}
-(62,1,1) = {"
+(63,1,1) = {"
 aa
 tX
 tX
@@ -16689,8 +16538,9 @@ jb
 tX
 aa
 aa
+aa
 "}
-(63,1,1) = {"
+(64,1,1) = {"
 aa
 tX
 tX
@@ -16749,8 +16599,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(64,1,1) = {"
+(65,1,1) = {"
 aa
 tX
 tX
@@ -16809,8 +16660,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(65,1,1) = {"
+(66,1,1) = {"
 aa
 tX
 tX
@@ -16869,8 +16721,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(66,1,1) = {"
+(67,1,1) = {"
 aa
 aa
 tX
@@ -16929,8 +16782,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(67,1,1) = {"
+(68,1,1) = {"
 aa
 aa
 tX
@@ -16989,8 +16843,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(68,1,1) = {"
+(69,1,1) = {"
 aa
 aa
 tX
@@ -17049,8 +16904,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(69,1,1) = {"
+(70,1,1) = {"
 aa
 aa
 tX
@@ -17109,8 +16965,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(70,1,1) = {"
+(71,1,1) = {"
 aa
 aa
 aa
@@ -17169,8 +17026,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(71,1,1) = {"
+(72,1,1) = {"
 aa
 aa
 aa
@@ -17229,8 +17087,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(72,1,1) = {"
+(73,1,1) = {"
 aa
 aa
 aa
@@ -17289,8 +17148,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(73,1,1) = {"
+(74,1,1) = {"
 aa
 aa
 aa
@@ -17349,8 +17209,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(74,1,1) = {"
+(75,1,1) = {"
 aa
 aa
 aa
@@ -17409,8 +17270,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(75,1,1) = {"
+(76,1,1) = {"
 aa
 aa
 aa
@@ -17469,8 +17331,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(76,1,1) = {"
+(77,1,1) = {"
 aa
 aa
 aa
@@ -17529,8 +17392,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(77,1,1) = {"
+(78,1,1) = {"
 aa
 aa
 aa
@@ -17589,8 +17453,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(78,1,1) = {"
+(79,1,1) = {"
 aa
 aa
 aa
@@ -17649,8 +17514,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(79,1,1) = {"
+(80,1,1) = {"
 aa
 aa
 aa
@@ -17709,8 +17575,9 @@ tX
 aa
 aa
 aa
+aa
 "}
-(80,1,1) = {"
+(81,1,1) = {"
 aa
 aa
 aa
@@ -17764,6 +17631,68 @@ tX
 tX
 tX
 tX
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(82,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa

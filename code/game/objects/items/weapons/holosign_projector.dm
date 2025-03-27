@@ -18,7 +18,7 @@
 	var/holosign_type = null
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
 
-/obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
+/obj/item/holosign_creator/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	if(flag)
 		if(!check_allowed_items(target, 1))
 			return
@@ -50,10 +50,10 @@
 				else
 					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
 
-/obj/item/holosign_creator/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/holosign_creator/attack__legacy__attackchain(mob/living/carbon/human/M, mob/user)
 	return
 
-/obj/item/holosign_creator/attack_self(mob/user)
+/obj/item/holosign_creator/attack_self__legacy__attackchain(mob/user)
 	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
@@ -80,7 +80,7 @@
 		. += "<span class='notice'>Alt Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
 
 
-/obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag)
+/obj/item/holosign_creator/janitor/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	var/obj/structure/holosign/wetsign/WS = ..()
 	if(WS && wet_enabled)
 		WS.wet_timer_start(src)
@@ -127,7 +127,7 @@
 	holosign_type = /obj/structure/holosign/barrier/cyborg
 	var/shock = 0
 
-/obj/item/holosign_creator/cyborg/attack_self(mob/user)
+/obj/item/holosign_creator/cyborg/attack_self__legacy__attackchain(mob/user)
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
 

@@ -144,7 +144,7 @@
 	name = spirit_name
 
 	if(A == src) // If we're clicking ourself we should not attack ourself.
-		possessed_item.attack_self(src)
+		possessed_item.attack_self__legacy__attackchain(src)
 	else
 		..()
 
@@ -173,11 +173,12 @@
 	set_opacity(possessed_item.opacity)
 	return ..(NONE)
 
-/mob/living/simple_animal/possessed_object/attackby(obj/item/O, mob/living/user)
-	. = ..()
+/mob/living/simple_animal/possessed_object/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/nullrod))
 		visible_message("<span type='notice'>[O] dispels the spooky aura!</span>")
 		death()
+
+		return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
 	//Don't call parent here as the mob isn't doing the hitting, technically

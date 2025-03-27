@@ -353,6 +353,9 @@
 	if(gloves)
 		if(gloves.max_heat_protection_temperature && gloves.max_heat_protection_temperature >= temperature)
 			thermal_protection_flags |= gloves.heat_protection
+	if(neck)
+		if(neck.max_heat_protection_temperature && neck.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= neck.heat_protection
 	if(wear_mask)
 		if(wear_mask.max_heat_protection_temperature && wear_mask.max_heat_protection_temperature >= temperature)
 			thermal_protection_flags |= wear_mask.heat_protection
@@ -414,6 +417,9 @@
 	if(gloves)
 		if(gloves.min_cold_protection_temperature && gloves.min_cold_protection_temperature <= temperature)
 			thermal_protection_flags |= gloves.cold_protection
+	if(neck)
+		if(neck.min_cold_protection_temperature && neck.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= neck.cold_protection
 	if(wear_mask)
 		if(wear_mask.min_cold_protection_temperature && wear_mask.min_cold_protection_temperature <= temperature)
 			thermal_protection_flags |= wear_mask.cold_protection
@@ -528,6 +534,8 @@
 		covered |= shoes.body_parts_covered
 	if(gloves)
 		covered |= gloves.body_parts_covered
+	if(neck)
+		covered |= neck.body_parts_covered
 	if(wear_mask)
 		covered |= wear_mask.body_parts_covered
 
@@ -681,60 +689,85 @@
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
 						Weaken(6 SECONDS)
 
+/mob/living/carbon/human/proc/can_metabolize(datum/reagent/reagent)
+	var/datum/species/species = dna.species
+	if(!species || !species.reagent_tag)
+		return FALSE
+
+	// SYNTHETIC-oriented reagents require PROCESS_SYN
+	if((reagent.process_flags & SYNTHETIC) && (species.reagent_tag & PROCESS_SYN))
+		return TRUE
+
+	// ORGANIC-oriented reagents require PROCESS_ORG
+	if((reagent.process_flags & ORGANIC) && (species.reagent_tag & PROCESS_ORG))
+		return TRUE
+
+	// Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
+	if((reagent.process_flags & ORGANIC) && (reagent.process_flags & SYNTHETIC) && (species.reagent_tag & PROCESS_DUO))
+		return TRUE
+	return FALSE
+
+/mob/living/carbon/human/shock_reduction(allow_true_health_reagents = TRUE)
+	var/shock_reduction = 0
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(allow_true_health_reagents && R.view_true_health) // Checks if the call is for movement speed and if the reagent shouldn't muddy up the player's health HUD
+				continue
+			if(R.shock_reduction && can_metabolize(R))
+				shock_reduction += R.shock_reduction
+	return shock_reduction
+
 #define BODYPART_PAIN_REDUCTION 5
 
 /mob/living/carbon/human/update_health_hud()
 	if(!client)
 		return
-	if(dna.species.update_health_hud())
-		return
-	else
-		var/shock_reduction = shock_reduction()
-		if(healths)
-			var/health_amount = get_perceived_trauma(shock_reduction)
-			if(..(health_amount)) //not dead
-				switch(health_hud_override)
-					if(HEALTH_HUD_OVERRIDE_CRIT)
-						healths.icon_state = "health6"
-					if(HEALTH_HUD_OVERRIDE_DEAD)
-						healths.icon_state = "health7"
-					if(HEALTH_HUD_OVERRIDE_HEALTHY)
-						healths.icon_state = "health0"
+	var/shock_reduction = shock_reduction()
+	if(healths)
+		var/health_amount = get_perceived_trauma(shock_reduction)
+		if(..(health_amount)) //not dead
+			switch(health_hud_override)
+				if(HEALTH_HUD_OVERRIDE_CRIT)
+					healths.icon_state = "health6"
+				if(HEALTH_HUD_OVERRIDE_DEAD)
+					healths.icon_state = "health7"
+				if(HEALTH_HUD_OVERRIDE_HEALTHY)
+					healths.icon_state = "health0"
 
-		if(healthdoll)
-			if(stat == DEAD)
-				healthdoll.icon_state = "healthdoll_DEAD"
-				if(length(healthdoll.overlays))
-					healthdoll.overlays.Cut()
-			else
-				var/list/new_overlays = list()
-				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
-				// Use the dead health doll as the base, since we have proper "healthy" overlays now
-				healthdoll.icon_state = "healthdoll_DEAD"
-				for(var/obj/item/organ/external/O in bodyparts)
-					var/damage = O.get_damage()
-					damage -= shock_reduction / BODYPART_PAIN_REDUCTION
-					var/comparison = (O.max_damage/5)
-					var/icon_num = 0
-					if(damage > 0)
-						icon_num = 1
-					if(damage > (comparison))
-						icon_num = 2
-					if(damage > (comparison*2))
-						icon_num = 3
-					if(damage > (comparison*3))
-						icon_num = 4
-					if(damage > (comparison*4))
-						icon_num = 5
-					new_overlays += "[O.limb_name][icon_num]"
-				healthdoll.overlays += (new_overlays - cached_overlays)
-				healthdoll.overlays -= (cached_overlays - new_overlays)
-				healthdoll.cached_healthdoll_overlays = new_overlays
-
-		if(health <= HEALTH_THRESHOLD_SUCCUMB)
-			throw_alert("succumb", /atom/movable/screen/alert/succumb)
+	if(healthdoll)
+		if(stat == DEAD)
+			healthdoll.icon_state = "healthdoll_DEAD"
+			if(length(healthdoll.overlays))
+				healthdoll.overlays.Cut()
 		else
-			clear_alert("succumb")
+			var/list/new_overlays = list()
+			var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
+			// Use the dead health doll as the base, since we have proper "healthy" overlays now
+			healthdoll.icon_state = "healthdoll_DEAD"
+			for(var/obj/item/organ/external/O in bodyparts)
+				var/damage = O.get_damage()
+				damage -= shock_reduction / BODYPART_PAIN_REDUCTION
+				var/comparison = (O.max_damage/5)
+				var/icon_num = 0
+				if(damage > 0)
+					icon_num = 1
+				if(damage > (comparison))
+					icon_num = 2
+				if(damage > (comparison*2))
+					icon_num = 3
+				if(damage > (comparison*3))
+					icon_num = 4
+				if(damage > (comparison*4))
+					icon_num = 5
+				new_overlays += "[O.limb_name][icon_num]"
+			healthdoll.overlays += (new_overlays - cached_overlays)
+			healthdoll.overlays -= (cached_overlays - new_overlays)
+			healthdoll.cached_healthdoll_overlays = new_overlays
+
+	if(health <= HEALTH_THRESHOLD_SUCCUMB)
+		throw_alert("succumb", /atom/movable/screen/alert/succumb)
+	else
+		clear_alert("succumb")
 
 #undef BODYPART_PAIN_REDUCTION
 

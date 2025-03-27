@@ -4,7 +4,7 @@ import os
 import sys
 import time
 from collections import namedtuple
-
+from concurrent.futures import ProcessPoolExecutor
 Failure = namedtuple("Failure", ["filename", "lineno", "message"])
 
 RED = "\033[0;31m"
@@ -139,12 +139,12 @@ FOR_ALL_DATUMS = re.compile(r"for\s*\(\s*var\/((\w+)(?:(?:\/\w+){2,})?)\)")
 FOR_ALL_NOT_DATUMS = re.compile(r"for\s*\(\s*var\/((?:atom|area|turf|obj|mob)(?:\/\w+))\)")
 def check_datum_loops(idx, line):
     if FOR_ALL_DATUMS.search(line) or FOR_ALL_NOT_DATUMS.search(line):
-        return Failure(
+        return [(
             idx + 1,
             # yes this will concatenate the strings, don't look too hard
             "Found a for loop without explicit contents. If you're trying to loop over everything in the world, first double check that you truly need to, and if so specify \'in world\'.\n"
             "If you're trying to check bare datums, please ensure that your value is only cast to /datum, and please make sure you use \'as anything\', or use a global list instead."
-        )
+        )]
 
 HREF_OLD_STYLE = re.compile(r"href[\s='\"\\]*\?")
 def check_href_styles(idx, line):
@@ -181,6 +181,17 @@ def check_istype_src(idx, line):
     if CONDITIONAL_ISTYPE_SRC.search(line):
         return [(idx + 1, "Our coding requirements prohibit use of istype(src, /any_type). Consider making the behavior dependent on a variable and/or overriding a proc instead.")]
 
+CAMEL_CASE_TYPE_NAMES = re.compile(r"^/[\w]\S+/{1}([a-zA-Z]+([A-Z][a-z]+)+|([A-Z]+[a-z]+))$")
+def check_camel_case_type_names(idx, line):
+    if result := CAMEL_CASE_TYPE_NAMES.search(line):
+        type_result = result.group(0)
+        return [(idx + 1, f"name of type {type_result} is not in snake_case format.")]
+
+UID_WITH_PARAMETER = re.compile(r"\bUID\(\w+\)")
+def check_uid_parameters(idx, line):
+    if result := UID_WITH_PARAMETER.search(line):
+        return [(idx + 1, "UID() does not take arguments. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -197,8 +208,31 @@ CODE_CHECKS = [
     check_initialize_missing_mapload,
     check_empty_list_whitespace,
     check_istype_src,
+    check_camel_case_type_names,
+    check_uid_parameters,
 ]
 
+def lint_file(code_filepath: str) -> list[Failure]:
+    all_failures = []
+    with open(code_filepath, encoding="UTF-8") as code:
+        filename = code_filepath.split(os.path.sep)[-1]
+
+        extra_checks = []
+        if filename != IGNORE_515_PROC_MARKER_FILENAME:
+            extra_checks.append(check_515_proc_syntax)
+        if filename != IGNORE_ATOM_ICON_FILE:
+            extra_checks.append(check_manual_icon_updates)
+
+        last_line = None
+        for idx, line in enumerate(code):
+            for check in CODE_CHECKS + extra_checks:
+                if failures := check(idx, line):
+                    all_failures += [Failure(code_filepath, lineno, message) for lineno, message in failures]
+            last_line = line
+
+        if last_line and last_line[-1] != '\n':
+            all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline"))
+    return all_failures
 
 if __name__ == "__main__":
     print("check_grep2 started")
@@ -212,26 +246,9 @@ if __name__ == "__main__":
         dm_files = [sys.argv[1]]
 
     all_failures = []
-
-    for code_filepath in dm_files:
-        with open(code_filepath, encoding="UTF-8") as code:
-            filename = code_filepath.split(os.path.sep)[-1]
-
-            extra_checks = []
-            if filename != IGNORE_515_PROC_MARKER_FILENAME:
-                extra_checks.append(check_515_proc_syntax)
-            if filename != IGNORE_ATOM_ICON_FILE:
-                extra_checks.append(check_manual_icon_updates)
-
-            last_line = None
-            for idx, line in enumerate(code):
-                for check in CODE_CHECKS + extra_checks:
-                    if failures := check(idx, line):
-                        all_failures += [Failure(code_filepath, lineno, message) for lineno, message in failures]
-                last_line = line
-
-            if last_line and last_line[-1] != '\n':
-                all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline"))
+    with ProcessPoolExecutor() as executor:
+        for failures in executor.map(lint_file, dm_files):
+            all_failures += failures
 
     if all_failures:
         exit_code = 1

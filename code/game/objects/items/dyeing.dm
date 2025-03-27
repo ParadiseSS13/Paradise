@@ -28,6 +28,9 @@
 	icon_state = initial(target_obj.icon_state)
 	item_state = initial(target_obj.item_state)
 	sprite_sheets = target_obj.sprite_sheets
+	item_color = target_obj.item_color
+	desc = target_obj.desc
+	base_icon_state = target_obj.base_icon_state
 
 	// update inhand sprites
 	lefthand_file = initial(target_obj.lefthand_file)

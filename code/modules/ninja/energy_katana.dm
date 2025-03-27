@@ -12,11 +12,11 @@
 	var/datum/effect_system/spark_spread/spark_system
 
 
-/obj/item/katana/energy/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/katana/energy/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(user, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	return ..()
 
-/obj/item/katana/energy/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/katana/energy/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!user || !target)
 		return
 

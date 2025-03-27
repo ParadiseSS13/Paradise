@@ -3,15 +3,10 @@
 	config_tag = "abduction"
 	recommended_enemies = 2
 	required_players = 15
-	var/max_teams = 4
 	abductor_teams = 1
 	single_antag_positions = list()
-	var/list/datum/mind/scientists = list()
-	var/list/datum/mind/agents = list()
-	var/list/datum/objective/team_objectives = list()
-	var/list/team_names = list()
+	var/max_teams = 4
 	var/finished = FALSE
-	var/list/datum/mind/possible_abductors = list()
 
 /datum/game_mode/abduction/announce()
 	to_chat(world, "<B>The current game mode is - Abduction!</B>")
@@ -20,164 +15,35 @@
 	to_chat(world, "<b>Crew</b> - don't get abducted and stop the abductors.")
 
 /datum/game_mode/abduction/pre_setup()
-	possible_abductors = get_players_for_role(ROLE_ABDUCTOR)
-
+	var/possible_abductors = get_players_for_role(ROLE_ABDUCTOR)
 	if(!length(possible_abductors))
-		return 0
+		return FALSE
 
-	abductor_teams = max(1, min(max_teams,round(num_players()/15)))
-	var/possible_teams = max(1,round(length(possible_abductors) / 2))
-	abductor_teams = min(abductor_teams,possible_teams)
+	abductor_teams = clamp(min(round(num_players() / 15), round(length(possible_abductors) / 2)), 1, max_teams)
 
-	abductors.len = 2*abductor_teams
-	scientists.len = abductor_teams
-	agents.len = abductor_teams
-	team_objectives.len = abductor_teams
-	team_names.len = abductor_teams
+	for(var/i in 1 to abductor_teams)
+		var/datum/mind/mind_1 = pick_n_take(possible_abductors)
+		var/datum/mind/mind_2 = pick_n_take(possible_abductors)
+		if(!mind_1 || !mind_2)
+			break
+		new /datum/team/abductor(list(mind_1, mind_2))
 
-	for(var/i=1,i<=abductor_teams,i++)
-		if(!make_abductor_team(i))
-			return 0
+		// Add a special role so they dont pick up any other antagonist stuff
+		mind_1.assigned_role = SPECIAL_ROLE_ABDUCTOR_AGENT
+		mind_1.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
+		mind_1.offstation_role = TRUE
+
+		mind_2.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
+		mind_2.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
+		mind_2.offstation_role = TRUE
 	..()
-	return 1
-
-/datum/game_mode/abduction/proc/make_abductor_team(team_number,preset_agent=null,preset_scientist=null)
-	//Team Name
-	team_names[team_number] = "Mothership [pick(GLOB.greek_letters)]" //TODO Ensure unique and actual alieny names
-	//Team Objective
-	var/datum/objective/experiment/team_objective = new
-	team_objective.abductor_team_number = team_number
-	team_objectives[team_number] = team_objective
-	//Team Members
-
-	if(!preset_agent || !preset_scientist)
-		if(length(possible_abductors) <=2)
-			return 0
-
-	var/datum/mind/scientist
-	var/datum/mind/agent
-
-	if(!preset_scientist)
-		scientist = pick(possible_abductors)
-		possible_abductors -= scientist
-	else
-		scientist = preset_scientist
-
-	if(!preset_agent)
-		agent = pick(possible_abductors)
-		possible_abductors -= agent
-	else
-		agent = preset_agent
-
-
-	scientist.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
-	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
-	scientist.offstation_role = TRUE
-	log_game("[key_name(scientist)] has been selected as an abductor team [team_number] scientist.")
-
-	agent.assigned_role = SPECIAL_ROLE_ABDUCTOR_AGENT
-	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
-	agent.offstation_role = TRUE
-	log_game("[key_name(agent)] has been selected as an abductor team [team_number] agent.")
-
-	abductors |= agent
-	abductors |= scientist
-	scientists[team_number] = scientist
-	agents[team_number] = agent
-	return 1
+	return TRUE
 
 /datum/game_mode/abduction/post_setup()
-	for(var/team_number=1,team_number<=abductor_teams,team_number++)
-		post_setup_team(team_number)
+	for(var/datum/team/abductor/team in actual_abductor_teams)
+		team.create_agent()
+		team.create_scientist()
 	return ..()
-
-//Used for create antag buttons
-/datum/game_mode/abduction/proc/post_setup_team(team_number)
-	var/list/obj/effect/landmark/abductor/agent_landmarks = list()
-	var/list/obj/effect/landmark/abductor/scientist_landmarks = list()
-	agent_landmarks.len = max_teams
-	scientist_landmarks.len = max_teams
-	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
-		if(istype(A,/obj/effect/landmark/abductor/agent))
-			agent_landmarks[text2num(A.team)] = A
-		else if(istype(A,/obj/effect/landmark/abductor/scientist))
-			scientist_landmarks[text2num(A.team)] = A
-
-	var/team_name = team_names[team_number]
-
-	var/datum/mind/agent
-	var/obj/effect/landmark/L
-	var/datum/mind/scientist
-	var/mob/living/carbon/human/H
-	var/datum/species/abductor/S
-
-	team_name = team_names[team_number]
-	agent = agents[team_number]
-	H = agent.current
-	L = agent_landmarks[team_number]
-	H.forceMove(get_turf(L))
-	H.body_accessory = null
-	H.set_species(/datum/species/abductor)
-	S = H.dna.species
-	S.team = team_number
-	H.real_name = team_name + " Agent"
-	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
-	H.overeatduration = 0
-	H.dna.flavor_text = null
-	H.flavor_text = null
-	H.equipOutfit(/datum/outfit/abductor/agent)
-	greet_agent(agent,team_number)
-	update_abductor_icons_added(agent)
-
-	scientist = scientists[team_number]
-	H = scientist.current
-	L = scientist_landmarks[team_number]
-	H.forceMove(get_turf(L))
-	H.body_accessory = null
-	H.set_species(/datum/species/abductor)
-	S = H.dna.species
-	S.scientist = TRUE
-	S.team = team_number
-	H.real_name = team_name + " Scientist"
-	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
-	H.overeatduration = 0
-	H.dna.flavor_text = null
-	H.flavor_text = null
-	H.equipOutfit(/datum/outfit/abductor/scientist)
-	greet_scientist(scientist,team_number)
-	update_abductor_icons_added(scientist)
-
-/datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor, team_number)
-	var/datum/objective/stay_hidden/O = new
-	abductor.add_mind_objective(O)
-	abductor.objective_holder.add_objective(team_objectives[team_number]) // this needs to be changed when abductor teams are changed to actual antag teams
-	var/team_name = team_names[team_number]
-
-	SEND_SOUND(abductor.current, sound('sound/ambience/antag/abductors.ogg'))
-	var/list/messages = list()
-	messages.Add("<span class='notice'>You are an agent of [team_name]!</span>")
-	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
-	messages.Add("<span class='notice'>Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve.</span>")
-	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
-	messages.Add(abductor.prepare_announce_objectives())
-	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
-	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor agent")
-
-/datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor, team_number)
-	var/datum/objective/stay_hidden/O = new
-	abductor.add_mind_objective(O)
-	abductor.objective_holder.add_objective(team_objectives[team_number]) // this needs to be changed when abductor teams are changed to actual antag teams
-	var/team_name = team_names[team_number]
-
-	SEND_SOUND(abductor.current, sound('sound/ambience/antag/abductors.ogg'))
-	var/list/messages = list()
-	messages.Add("<span class='notice'>You are a scientist of [team_name]!</span>")
-	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
-	messages.Add("<span class='notice'>Use your tool and ship consoles to support the agent and retrieve human specimens.</span>")
-	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
-	messages.Add(abductor.prepare_announce_objectives())
-	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
-	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)
@@ -186,10 +52,9 @@
 
 /datum/game_mode/abduction/check_finished()
 	if(!finished)
-		for(var/team_number=1,team_number<=abductor_teams,team_number++)
-			var/obj/machinery/abductor/console/con = get_team_console(team_number)
-			var/datum/objective/objective = team_objectives[team_number]
-			if(con.experiment.points >= objective.target_amount)
+		for(var/datum/team/abductor/team in actual_abductor_teams)
+			var/obj/machinery/abductor/console/con = get_team_console(team.team_number)
+			if(con.experiment.points >= team.experiment_objective.target_amount)
 				SSshuttle.emergency.request(null, 0.5, reason = "Large amount of abnormal thought patterns detected. All crew are recalled for mandatory evaluation and reconditioning.")
 				SSshuttle.emergency.canRecall = FALSE
 				finished = TRUE
@@ -197,14 +62,12 @@
 	return ..()
 
 /datum/game_mode/abduction/declare_completion()
-	for(var/team_number=1,team_number<=abductor_teams,team_number++)
-		var/obj/machinery/abductor/console/console = get_team_console(team_number)
-		var/datum/objective/objective = team_objectives[team_number]
-		var/team_name = team_names[team_number]
-		if(console.experiment.points >= objective.target_amount)
-			to_chat(world, "<span class='greenannounce'>[team_name] team fulfilled its mission!</span>")
+	for(var/datum/team/abductor/team in actual_abductor_teams)
+		var/obj/machinery/abductor/console/console = get_team_console(team.team_number)
+		if(console.experiment.points >= team.experiment_objective.target_amount)
+			to_chat(world, "<span class='greenannounce'>[team.name] team fulfilled its mission!</span>")
 		else
-			to_chat(world, "<span class='boldannounceic'>[team_name] team failed its mission.</span>")
+			to_chat(world, "<span class='boldannounceic'>[team.name] team failed its mission.</span>")
 	..()
 	return 1
 
@@ -271,25 +134,3 @@
 			else
 				return FALSE
 	return FALSE
-
-/datum/game_mode/proc/remove_abductor(datum/mind/abductor_mind)
-	if(abductor_mind in abductors)
-		SSticker.mode.abductors -= abductor_mind
-		abductor_mind.special_role = null
-		abductor_mind.current.create_attack_log("<span class='danger'>No longer abductor</span>")
-		abductor_mind.current.create_log(CONVERSION_LOG, "No longer abductor")
-		if(issilicon(abductor_mind.current))
-			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
-		else
-			to_chat(abductor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer an abductor.</span>")
-		SSticker.mode.update_abductor_icons_removed(abductor_mind)
-
-/datum/game_mode/proc/update_abductor_icons_added(datum/mind/alien_mind)
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
-	hud.join_hud(alien_mind.current)
-	set_antag_hud(alien_mind.current, ((alien_mind in abductors) ? "abductor" : "abductee"))
-
-/datum/game_mode/proc/update_abductor_icons_removed(datum/mind/alien_mind)
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
-	hud.leave_hud(alien_mind.current)
-	set_antag_hud(alien_mind.current, null)

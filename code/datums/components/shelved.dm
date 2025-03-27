@@ -25,7 +25,7 @@
 
 /datum/component/shelver/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_SHELF_ATTEMPT_PICKUP, PROC_REF(on_shelf_attempt_pickup))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(on_attackby))
 	RegisterSignal(parent, COMSIG_SHELF_ITEM_REMOVED, PROC_REF(on_shelf_item_removed))
 	RegisterSignal(parent, COMSIG_SHELF_ADDED_ON_MAPLOAD, PROC_REF(prepare_autoshelf))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
@@ -117,18 +117,18 @@
 				O.update_appearance(UPDATE_ICON)
 
 /datum/component/shelver/proc/on_attackby(datum/source, obj/item/attacker, mob/user, params)
-	SIGNAL_HANDLER // COMSIG_PARENT_ATTACKBY
+	SIGNAL_HANDLER // COMSIG_ATTACK_BY
 
 	if(isrobot(user))
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_SKIP_AFTERATTACK
 	if(attacker.flags & ABSTRACT)
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_SKIP_AFTERATTACK
 	if(user.a_intent == INTENT_HARM)
 		return
 
 	if(length(allowed_types) && !(attacker.type in allowed_types))
 		to_chat(user, "<span class='notice'>[attacker] won't fit on [parent]!</span>")
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_SKIP_AFTERATTACK
 
 	var/list/PL = params2list(params)
 	var/icon_x = text2num(PL["icon-x"])
@@ -140,7 +140,7 @@
 		if(icon_x >= coords[1] && icon_x <= coords[3] && icon_y >= coords[2] && icon_y <= coords[4])
 			if(used_places[i])
 				to_chat(user, "<span class='notice'>There's already something there on [parent].</span>")
-				return COMPONENT_NO_AFTERATTACK
+				return COMPONENT_SKIP_AFTERATTACK
 
 			var/position_details = placement_zones[coords]
 			if(user.drop_item())
@@ -149,7 +149,7 @@
 					"<span class='notice'>[user] places [attacker] on [parent].</span>",
 					"<span class='notice'>You place [attacker] on [parent].</span>",
 				)
-				return COMPONENT_NO_AFTERATTACK
+				return COMPONENT_SKIP_AFTERATTACK
 
 /**
  * Add an item to the shelf.
@@ -202,6 +202,15 @@
 	)
 	default_scale = 0.80
 	default_rotation = -90
+
+/datum/component/shelver/spear_rack
+	placement_zones = list(
+		list(1,  1, 13, 32) = list("x" = -6, "y" = 2, "layer" = BELOW_OBJ_LAYER),
+		list(14, 1, 20, 32) = list("x" = 0, "y" = 2, "layer" = BELOW_OBJ_LAYER),
+		list(21, 1, 32, 32) = list("x" = 6, "y" = 2, "layer" = BELOW_OBJ_LAYER),
+	)
+	default_scale = 0.80
+	default_rotation = -45
 
 /// A component for items stored on shelves, propagated by [/datum/component/shelver] components.
 /datum/component/shelved

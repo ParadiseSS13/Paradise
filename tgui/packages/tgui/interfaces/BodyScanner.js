@@ -26,6 +26,7 @@ const abnormalities = [
   ['blind', 'average', 'Cataracts detected.'],
   ['colourblind', 'average', 'Photoreceptor abnormalities detected.'],
   ['nearsighted', 'average', 'Retinal misalignment detected.'],
+  ['paraplegic', 'bad', 'Lumbar nerves damaged.'],
 ];
 
 const damages = [
@@ -172,7 +173,16 @@ const BodyScannerMainOccupant = (props, context) => {
 
 const BodyScannerMainAbnormalities = (props) => {
   const { occupant } = props;
-  if (!(occupant.hasBorer || occupant.blind || occupant.colourblind || occupant.nearsighted || occupant.hasVirus)) {
+  if (
+    !(
+      occupant.hasBorer ||
+      occupant.blind ||
+      occupant.colourblind ||
+      occupant.nearsighted ||
+      occupant.hasVirus ||
+      occupant.paraplegic
+    )
+  ) {
     return (
       <Section title="Abnormalities">
         <Box color="label">No abnormalities found.</Box>

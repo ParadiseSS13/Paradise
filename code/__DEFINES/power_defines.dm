@@ -46,3 +46,6 @@
 #define KJ * 1e3
 #define MJ * 1e6
 #define GJ * 1e9
+
+/// Conversion ratio from Watt over a machine process tick time to Joules
+#define WATT_TICK_TO_JOULE 2

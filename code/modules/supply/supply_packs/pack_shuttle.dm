@@ -81,12 +81,6 @@
 	cost = 2500
 	template = /datum/map_template/shuttle/emergency/old
 
-// this one isn't great but it isn't horrible either
-
-/datum/supply_packs/abstract/shuttle/cramped
-	cost = 3750
-	template = /datum/map_template/shuttle/emergency/cramped
-
 /datum/supply_packs/abstract/shuttle/military
 	cost = 3500
 	template = /datum/map_template/shuttle/emergency/military
@@ -134,12 +128,6 @@
 
 // these, otoh, have some pretty silly features, and are hidden behind emag
 
-/datum/supply_packs/abstract/shuttle/clown
-	speed_factor = 0.75  // this one's a little slower, enjoy your ride!
-	cmag_hidden = TRUE
-	cost = 500  // let the clown have it
-	template = /datum/map_template/shuttle/emergency/clown
-
 /datum/supply_packs/abstract/shuttle/narnar
 	cost = 3000
 	hidden = TRUE
@@ -149,3 +137,16 @@
 	hidden = TRUE
 	cost = 4000
 	template = /datum/map_template/shuttle/emergency/jungle
+
+// these are hidden behind cmag
+
+/datum/supply_packs/abstract/shuttle/clown
+	speed_factor = 0.75  // this one's a little slower, enjoy your ride!
+	cmag_hidden = TRUE
+	cost = 500  // let the clown have it
+	template = /datum/map_template/shuttle/emergency/clown
+
+/datum/supply_packs/abstract/shuttle/cramped
+	cost = 3750
+	cmag_hidden = TRUE
+	template = /datum/map_template/shuttle/emergency/cramped

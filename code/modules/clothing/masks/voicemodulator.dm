@@ -20,7 +20,7 @@
 	icon_state = "swat"
 	item_state = "swat"
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/mask/gas/voice_modulator/chameleon/Initialize(mapload)
 	. = ..()

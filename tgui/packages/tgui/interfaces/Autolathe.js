@@ -123,7 +123,7 @@ export const Autolathe = (props, context) => {
                       })
                     }
                   >
-                    {toTitleCase(recipe.name)}
+                    {recipe.name}
                   </Button>
                   {recipe.max_multiplier >= 10 && (
                     <Button

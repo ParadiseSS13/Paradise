@@ -73,7 +73,7 @@
 	icon_grow = "spacemanstrumpet-grow"
 	icon_dead = "spacemanstrumpet-dead"
 	mutatelist = null
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
+	reagents_add = list("nutriment" = 0.05)
 
 /obj/item/food/grown/trumpet
 	seed = /obj/item/seeds/poppy/lily/trumpet
@@ -167,8 +167,8 @@
 	throw_speed = 1
 	throw_range = 3
 
-/obj/item/grown/sunflower/attack(mob/M, mob/user)
-	to_chat(M, "<font color='green'><b>[user] smacks you with a sunflower!</font><font color='yellow'><b> FLOWER POWER<b></font>")
+/obj/item/grown/sunflower/attack__legacy__attackchain(mob/M, mob/user)
+	to_chat(M, "<font color='green'><b>[user] smacks you with a sunflower!</b></font><font color='yellow'><b>FLOWER POWER</b></font>")
 	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
 
 // Moonflower
@@ -228,7 +228,7 @@
 	..()
 	force = round((5 + seed.potency / 5), 1)
 
-/obj/item/grown/novaflower/attack(mob/living/carbon/M, mob/user)
+/obj/item/grown/novaflower/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	..()
 	if(isliving(M))
 		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of [src]!</span>")
@@ -237,14 +237,13 @@
 			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
 			log_game("[key_name(user)] set [key_name(M)] on fire")
 
-/obj/item/grown/novaflower/afterattack(atom/A as mob|obj, mob/user,proximity)
+/obj/item/grown/novaflower/afterattack__legacy__attackchain(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)
 		return
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)
 	else
 		to_chat(usr, "<span class='warning'>All the petals have fallen off [src] from violent whacking!</span>")
-		usr.unEquip(src)
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)

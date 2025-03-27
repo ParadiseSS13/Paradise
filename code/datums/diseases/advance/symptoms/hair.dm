@@ -37,13 +37,13 @@ BONUS
 		switch(A.stage)
 			if(1, 2, 3)
 				to_chat(H, "<span class='warning'>Your scalp itches.</span>")
-				head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
+				head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
 			else
 				to_chat(H, "<span class='warning'>Hair bursts forth from your scalp!</span>")
 				var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
 
-				if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
+				if(head_organ.dna.species.sprite_sheet_name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 					head_organ.h_style = "Very Long Hair"
 				else //Otherwise, give them a random hair style.
-					head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
+					head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
 		H.update_hair()

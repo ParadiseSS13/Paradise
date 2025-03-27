@@ -1529,7 +1529,7 @@
 				holder.icon_state = "phazon16"
 			else
 				user.visible_message("[user] removes the bluespace crystal from the [holder].", "You remove the bluespace crystal from the [holder].")
-				new /obj/item/stack/ore/bluespace_crystal(get_turf(holder), new_amount = 5)
+				new /obj/item/stack/ore/bluespace_crystal(get_turf(holder), 5)
 				holder.icon_state = "phazon14"
 		if(8)
 			if(diff==CONSTRUCTION_PATH_FORWARDS)

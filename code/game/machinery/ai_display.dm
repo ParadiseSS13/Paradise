@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	return ..()
 
 /obj/machinery/ai_status_display/attack_ai(mob/living/silicon/ai/user)
-	if(isAI(user))
+	if(is_ai(user))
 		user.ai_statuschange()
 
 /obj/machinery/ai_status_display/emp_act(severity)

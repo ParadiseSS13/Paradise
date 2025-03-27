@@ -58,7 +58,7 @@
 	colour = pick(lipstick_colors)
 	name = "[colour] lipstick"
 
-/obj/item/lipstick/attack_self(mob/user)
+/obj/item/lipstick/attack_self__legacy__attackchain(mob/user)
 	cut_overlays()
 	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
 	open = !open
@@ -70,7 +70,7 @@
 	else
 		icon_state = "lipstick"
 
-/obj/item/lipstick/attack(mob/M, mob/user)
+/obj/item/lipstick/attack__legacy__attackchain(mob/M, mob/user)
 	if(!open || !istype(M))
 		return
 
@@ -107,7 +107,7 @@
 	usesound = 'sound/items/welder2.ogg'
 	toolspeed = 1
 
-/obj/item/razor/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/razor/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ("head")

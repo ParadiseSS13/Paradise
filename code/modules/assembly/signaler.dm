@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	to_chat(user, "<span class='notice'>You activate [src].</span>")
 	activate()
 
-/obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/signaler/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(issignaler(W))
 		var/obj/item/assembly/signaler/signaler2 = W
 		if(secured && signaler2.secured)
@@ -60,7 +60,8 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 /obj/item/assembly/signaler/proc/signal_callback()
 	pulse(1)
-	visible_message("[bicon(src)] *beep* *beep*")
+	visible_message("[bicon(src)] *beep* *beep* *beep*")
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 
 // Activation pre-runner, handles cooldown and calls signal(), invoked from ui_act()
 /obj/item/assembly/signaler/activate()
@@ -75,7 +76,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 // UI STUFF //
 
-/obj/item/assembly/signaler/attack_self(mob/user)
+/obj/item/assembly/signaler/attack_self__legacy__attackchain(mob/user)
 	ui_interact(user)
 
 /obj/item/assembly/signaler/ui_state(mob/user)

@@ -62,6 +62,7 @@
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
 	var/parrot_sleep_max = 25 //The time the parrot sits while perched before looking around. Mosly a way to avoid the parrot's AI in process_ai() being run every single tick.
 	var/parrot_sleep_dur = 25 //Same as above, this is the var that physically counts down
+	var/wander_probability = 90
 	var/parrot_dam_zone = list("chest", "head", "l_arm", "l_leg", "r_arm", "r_leg") //For humans, select a bodypart to attack
 
 	var/parrot_speed = 5 //"Delay in world ticks between movement." according to byond. Yeah, that's BS but it does directly affect movement. Higher number = slower.
@@ -72,6 +73,8 @@
 
 	//Headset for Poly to yell at engineers :)
 	var/obj/item/radio/headset/ears = null
+	var/speech_probability = 10
+	var/hear_probability = 50
 
 	//The thing the parrot is currently interested in. This gets used for items the parrot wants to pick up, mobs it wants to steal from,
 	//mobs it wants to attack or mobs that have attacked it
@@ -81,6 +84,7 @@
 	//These vars store their preffered perch and if they dont have one, what they can use as a perch
 	var/obj/parrot_perch = null
 	var/list/desired_perches
+	var/leaving_perch_probability = 10
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
@@ -105,17 +109,22 @@
 	desired_perches = typecacheof(list(
 		/obj/machinery/clonepod,
 		/obj/machinery/computer,
-		/obj/machinery/dna_scannernew,
+		/obj/machinery/photocopier,
 		/obj/machinery/nuclearbomb,
 		/obj/machinery/particle_accelerator,
-		/obj/machinery/recharge_station,
-		/obj/machinery/smartfridge,
-		/obj/machinery/suit_storage_unit,
-		/obj/machinery/tcomms,
+		/obj/machinery/atmospherics/portable,
+		/obj/machinery/smartfridge/foodcart,
+		/obj/machinery/message_server,
+		/obj/machinery/tcomms/relay,
 		/obj/machinery/teleport,
 		/obj/structure/computerframe,
 		/obj/structure/displaycase,
-		/obj/structure/filingcabinet
+		/obj/structure/rack,
+		/obj/structure/closet/crate
+	)) - typecacheof(list(
+		/obj/machinery/computer/security/telescreen,
+		/obj/machinery/computer/cryopod,
+		/obj/machinery/computer/guestpass
 	))
 
 /mob/living/simple_animal/parrot/add_strippable_element()
@@ -149,6 +158,7 @@
 
 	if(stat == CONSCIOUS && M.a_intent == "harm")
 		icon_state = "parrot_fly" //It is going to be flying regardless of whether it flees or attacks
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 
 		if(parrot_state == PARROT_PERCH)
 			parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
@@ -167,18 +177,19 @@
 	return
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/user, params)
-	..()
-	if(stat == CONSCIOUS && !client && !istype(O, /obj/item/stack/medical))
-		if(O.force)
-			if(parrot_state == PARROT_PERCH)
-				parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
+/mob/living/simple_animal/parrot/attacked_by(obj/item/O, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
 
-			parrot_interest = user
-			parrot_state = PARROT_SWOOP|PARROT_FLEE
-			icon_state = "parrot_fly"
-			drop_held_item(FALSE)
-	return
+	if(O.force)
+		if(parrot_state == PARROT_PERCH)
+			parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
+
+		parrot_interest = user
+		parrot_state = PARROT_SWOOP|PARROT_FLEE
+		icon_state = "parrot_fly"
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+		drop_held_item(FALSE)
 
 //Bullets
 /mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/P)
@@ -191,6 +202,7 @@
 		parrot_state = PARROT_WANDER //OWFUCK, Been shot! RUN LIKE HELL!
 		parrot_been_shot += 5
 		icon_state = "parrot_fly"
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 		drop_held_item(FALSE)
 	return
 
@@ -213,6 +225,7 @@
 	//Sprite and AI update for when a parrot gets pulled
 	if(pulledby && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 
 /mob/living/simple_animal/parrot/proc/update_available_channels()
 	available_channels.Cut()
@@ -263,7 +276,7 @@
 	Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
 	Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
 	Then it clears the buffer to make sure they dont magically remember something from hours ago. */
-	if(length(speech_buffer) && prob(10))
+	if(length(speech_buffer) && prob(speech_probability))
 		if(length(clean_speak))
 			clean_speak -= pick(clean_speak)
 
@@ -273,14 +286,10 @@
 //-----SLEEPING
 	if(parrot_state == PARROT_PERCH)
 		if(parrot_perch && parrot_perch.loc != loc) //Make sure someone hasnt moved our perch on us
-			if(parrot_perch in view(src))
-				parrot_state = PARROT_SWOOP|PARROT_RETURN
-				icon_state = "parrot_fly"
-				return
-			else
-				parrot_state = PARROT_WANDER
-				icon_state = "parrot_fly"
-				return
+			parrot_state = (parrot_perch in view(src)) ? (PARROT_SWOOP|PARROT_RETURN) : PARROT_WANDER
+			icon_state = "parrot_fly"
+			ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+			return
 
 		if(--parrot_sleep_dur) //Zzz
 			return
@@ -291,12 +300,21 @@
 			//Cycle through message modes for the headset
 			update_speak()
 
+			if(prob(leaving_perch_probability))
+				// Parrot no longer likes this perch and will try to find another one
+				parrot_perch = null
+				parrot_state = PARROT_WANDER
+				icon_state = "parrot_fly"
+				ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+				return
+
 			//Search for item to steal
-			parrot_interest = search_for_perch_and_item()
+			parrot_interest = search_for_perch_or_item()
 			if(parrot_interest)
 				custom_emote(EMOTE_VISIBLE, "looks in [parrot_interest]'s direction and takes flight.")
 				parrot_state = PARROT_SWOOP|PARROT_STEAL
 				icon_state = "parrot_fly"
+				ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 			return
 
 //-----WANDERING - This is basically a 'I dont know what to do yet' state
@@ -307,12 +325,12 @@
 
 		//Wander around aimlessly. This will help keep the loops from searches down
 		//and possibly move the mob into a new are in view of something they can use
-		if(prob(90))
+		if(prob(wander_probability))
 			step(src, pick(GLOB.cardinal))
 			return
 
 		if(!held_item && !parrot_perch) //If we've got nothing to do.. look for something to do.
-			var/atom/movable/AM = search_for_perch_and_item() //This handles checking through lists so we know it's either a perch or stealable item
+			var/atom/movable/AM = search_for_perch_or_item() //This handles checking through lists so we know it's either a perch or stealable item
 			if(AM)
 				if(isitem(AM) || isliving(AM))	//If stealable item
 					parrot_interest = AM
@@ -320,7 +338,7 @@
 					face_atom(AM)
 					custom_emote(EMOTE_VISIBLE, "turns and flies towards [parrot_interest].")
 					return
-				else	//Else it's a perch
+				else if(is_type_in_typecache(AM, desired_perches))	//Else if it's a perch
 					parrot_perch = AM
 					parrot_state = PARROT_SWOOP|PARROT_RETURN
 					return
@@ -335,8 +353,9 @@
 			return
 
 		else //Have an item but no perch? Find one!
-			parrot_perch = search_for_perch_and_item()
-			if(parrot_perch)
+			var/atom/movable/AM = search_for_perch_or_item()
+			if(is_type_in_typecache(AM, desired_perches))
+				parrot_perch = AM
 				parrot_state = PARROT_SWOOP|PARROT_RETURN
 				return
 //-----STEALING
@@ -359,13 +378,13 @@
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
-		var/list/path_to_take = get_path_to(src, parrot_interest)
-		if(length(path_to_take) <= 1) // The target is below us
+		var/list/path_to_take = get_path_to(src, parrot_interest, mintargetdist = 1)
+		if(!length(path_to_take)) // The target is unachievable
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
-		walk_to(src, path_to_take[2], 0, parrot_speed)
+		walk_to(src, parrot_interest, 1, parrot_speed)
 		return
 
 //-----RETURNING TO PERCH
@@ -382,15 +401,16 @@
 			drop_held_item()
 			parrot_state = PARROT_PERCH
 			icon_state = "parrot_sit"
+			REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 			return
 
-		var/list/path_to_take = get_path_to(src, parrot_perch)
-		if(length(path_to_take) <= 1) // The target is below us
+		var/list/path_to_take = get_path_to(src, parrot_perch, mintargetdist = 1)
+		if(!length(path_to_take)) // The target is unachievable
 			parrot_perch = null
 			parrot_state = PARROT_WANDER
 			return
 
-		walk_to(src, path_to_take[2], 0, parrot_speed)
+		walk_to(src, parrot_perch, 1, parrot_speed)
 		return
 
 //-----FLEEING
@@ -469,10 +489,10 @@
 		//Because the most appropriate place to set icon_state is movement_delay(), clearly
 	return ..()
 
-/mob/living/simple_animal/parrot/proc/search_for_perch_and_item(list/stuff)
+/mob/living/simple_animal/parrot/proc/search_for_perch_or_item()
 	var/turf/my_turf = get_turf(src)
 	var/list/computed_paths = list()
-	for(var/obj/O in view(src))
+	for(var/obj/O in shuffle(view(src)))
 		var/is_eligible = FALSE
 		if(!parrot_perch && is_type_in_typecache(O, desired_perches))
 			is_eligible = TRUE
@@ -489,8 +509,12 @@
 		var/turf/T = get_turf(O)
 		if(my_turf != T)
 			var/cache_id = "[my_turf.UID()]_[T.UID()]"
-			computed_paths[cache_id] = computed_paths[cache_id] || get_path_to(src, T)
-			if(!length(computed_paths[cache_id]))
+			var/list/path = computed_paths[cache_id] || get_path_to(src, T, mintargetdist = 1)
+			computed_paths[cache_id] = path
+			if(!length(path))
+				continue
+			var/turf/target_turf = path[length(path)]
+			if(!target_turf.Adjacent(O))
 				continue
 
 		return O
@@ -558,7 +582,7 @@
 		if(C.r_hand && C.r_hand.w_class <= WEIGHT_CLASS_SMALL)
 			stolen_item = C.r_hand
 
-		if(stolen_item && C.unEquip(stolen_item))
+		if(stolen_item && C.drop_item_to_ground(stolen_item))
 			try_grab_item(stolen_item)
 			visible_message("<span class='notice'>[src] grabs [held_item] out of [C]'s hand!</span>", "<span class='notice'>You snag [held_item] out of [C]'s hand!</span>", "You hear the sounds of wings flapping furiously.")
 			return held_item
@@ -619,6 +643,7 @@
 			if(is_type_in_typecache(AM, desired_perches))
 				forceMove(AM.loc)
 				icon_state = "parrot_sit"
+				REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 				return
 	to_chat(src, "<span class='warning'>There is no perch nearby to sit on.</span>")
 	return
@@ -649,7 +674,7 @@
 /*
  * Sub-types
  */
-/mob/living/simple_animal/parrot/Poly
+/mob/living/simple_animal/parrot/poly
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	clean_speak = list(
@@ -657,6 +682,7 @@
 		"Check the crystal, you chucklefucks!",
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
+		"WHO TOOK THE DAMN MODSUITS?",
 		"WHO TOOK THE DAMN HARDSUITS?",
 		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
 		"Why are there so many atmos alerts?",
@@ -674,18 +700,54 @@
 		"Chief Engineers are the SM's natural diet.",
 		"Don't eat the forbidden nacho!",
 		"Is the engine meant to be making that noise?",
+		"THE TESLA IS LOOSE CALL THE SHUTTLE",
+		"Go fix the chewed wires, you lazy bums!",
+		"Go fix that breach, or we'll all suffocate!",
+		"Why is the engine failing?",
+		"Checked that everything is connected as it should be?",
+		"If you push the SM too far we'll have to abandon station!",
+		"SOS, save our supermatter!",
+		"Is that a spider in the SM?",
+		"Remember those mesons, or you'll be seeing spiders in the SM!",
+		"Check the air alarm is set properly!",
+		"Is the station goal done yet?",
+		"WHO TOOK THE DAMN MODSUITS?",
+		"Don't wire the Bluespace Harvester to the Grid, or the station will be powerless!",
+		"THE BSH IS SPAWNING HORRIFIC THINGS, YOU PUT IT TOO HIGH!",
+		"It's an excellent idea to aim the BSA at the shuttle.",
+		"Nitrogen is an awful gas if you need to power a BSH!",
+		"There's a hole in the shield coverage!",
+		"The shields aren't up and meteors are inbound!",
+		"The leading cause of death among engineers is due to deactivated magboots, whether that's due to unwrenching a pressurized pipe or being pulled into the embrace of the SM, it means turn on your magboots!",
+		"BORGS BAD",
+		"You're telling me a Kentucky fried this vox?",
+		"AI OPEN",
+		"BLUESHIELD TO ME!",
+		"ITS LOOSE",
+		"TESLA IN THE HALLS",
+		"I deep fried the nuke disc",
+		"SQUAWK!",
+		"Honk.",
+		"Bridge gone",
+		"Someone set up telecomms",
+		"TOXINS!",
+		"ONI SOMA!",
+		"GOLDEN BLAST",
+		"Is there supposed to be this much plasma in the chamber??",,
+		"Why are there so many borgs?",
+		"Why're your eyes glowing red?"
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	available_channels = list(":e")
 
-/mob/living/simple_animal/parrot/Poly/Initialize(mapload)
+/mob/living/simple_animal/parrot/poly/Initialize(mapload)
 	. = ..()
 
 	ears = new /obj/item/radio/headset/headset_eng(src)
 	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
 
-/mob/living/simple_animal/parrot/Poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
+/mob/living/simple_animal/parrot/poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
 	return FALSE
 
 /mob/living/simple_animal/parrot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
@@ -694,12 +756,12 @@
 		used_radios += ears
 
 /mob/living/simple_animal/parrot/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
-	if(speaker != src && prob(50))
+	if(speaker != src && prob(hear_probability))
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
 /mob/living/simple_animal/parrot/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, atom/follow_target, check_name_against)
-	if(speaker != src && prob(50))
+	if(speaker != src && prob(hear_probability))
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 

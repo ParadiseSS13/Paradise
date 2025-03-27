@@ -15,12 +15,18 @@
 	container_type = TRANSPARENT
 	///If this variable is true, the syringe will work through hardsuits / modsuits / biosuits.
 	var/penetrates_thick = FALSE
+	var/syringe_draw_time = 3 SECONDS
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
 		update_icon()
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
@@ -33,7 +39,10 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack_self(mob/user)
+/obj/item/reagent_containers/syringe/activate_self(mob/user)
+	if(..())
+		return
+
 	mode = !mode
 	update_icon()
 
@@ -41,16 +50,109 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack(mob/living/M, mob/living/user, def_zone)
-	return
+/obj/item/reagent_containers/syringe/proc/mob_inject(mob/living/L, mob/living/user)
+	. = TRUE
 
-/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/bag))
-		..()
-
-/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
-	if(!proximity)
+	if(!reagents.total_volume)
+		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 		return
+
+	if(!L && !L.is_injectable(user)) //only checks on non-living mobs, due to how can_inject() handles
+		to_chat(user, "<span class='warning'>You cannot directly fill [L]!</span>")
+		return
+
+	if(L.reagents.total_volume >= L.reagents.maximum_volume)
+		to_chat(user, "<span class='notice'>[L] is full.</span>")
+		return
+
+	if(L) //living mob
+		if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick))
+			return
+		if(L != user)
+			L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
+									"<span class='userdanger'>[user] is trying to inject you!</span>")
+			if(!do_mob(user, L))
+				return
+			if(!reagents.total_volume)
+				return
+			if(L.reagents.total_volume >= L.reagents.maximum_volume)
+				return
+			L.visible_message("<span class='danger'>[user] injects [L] with the syringe!", \
+							"<span class='userdanger'>[user] injects [L] with the syringe!")
+
+		var/list/rinject = list()
+		for(var/datum/reagent/R in reagents.reagent_list)
+			rinject += R.name
+		var/contained = english_list(rinject)
+
+		add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+
+/obj/item/reagent_containers/syringe/proc/mob_draw(mob/living/L, mob/living/user)
+	. = TRUE
+
+	var/drawn_amount = reagents.maximum_volume - reagents.total_volume
+	if(L != user)
+		L.visible_message("<span class='danger'>[user] is trying to take a blood sample from [L]!</span>", \
+						"<span class='userdanger'>[user] is trying to take a blood sample from [L]!</span>")
+		busy = TRUE
+		if(!do_mob(user, L, syringe_draw_time))
+			busy = FALSE
+			return
+		if(reagents.holder_full())
+			return
+	busy = FALSE
+	if(L.transfer_blood_to(src, drawn_amount))
+		user.visible_message("<span class='notice'>[user] takes a blood sample from [L].</span>")
+	else
+		to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
+
+	if(reagents.holder_full())
+		mode = !mode
+		update_icon()
+
+/obj/item/reagent_containers/syringe/proc/normal_draw(atom/target, mob/living/user)
+	. = TRUE
+	if(!target.reagents.total_volume)
+		to_chat(user, "<span class='warning'>[target] is empty!</span>")
+		return
+
+	if(!target.is_drawable(user))
+		to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
+		return
+
+	var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
+	to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
+
+	if(reagents.holder_full())
+		mode = !mode
+		update_icon()
+
+/obj/item/reagent_containers/syringe/proc/normal_inject(atom/target, mob/living/user)
+	. = TRUE
+
+	if(isfood(target))
+		var/list/chemicals = list()
+		for(var/datum/reagent/chem in reagents.reagent_list)
+			chemicals += chem.name
+		var/contained_chemicals = english_list(chemicals)
+		add_attack_logs(user, target, "Injected [amount_per_transfer_from_this]u [contained_chemicals] into food item")
+		finish_injection(target, user)
+
+/obj/item/reagent_containers/syringe/normal_act(atom/target, mob/living/user)
+	. = TRUE
+	if(!target.reagents)
+		return FALSE
+
+	switch(mode)
+		if(SYRINGE_DRAW)
+			return normal_draw(target, user)
+		if(SYRINGE_INJECT)
+			. = normal_inject(target, user)
+			if(.)
+				finish_injection(target, user)
+
+/obj/item/reagent_containers/syringe/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!target.reagents)
 		return
 
@@ -62,95 +164,26 @@
 
 	switch(mode)
 		if(SYRINGE_DRAW)
-
 			if(reagents.holder_full())
 				to_chat(user, "<span class='notice'>The syringe is full.</span>")
 				return
 
-			if(L) //living mob
-				var/drawn_amount = reagents.maximum_volume - reagents.total_volume
-				if(target != user)
-					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
-									"<span class='userdanger'>[user] is trying to take a blood sample from [target]!</span>")
-					busy = TRUE
-					if(!do_mob(user, target))
-						busy = FALSE
-						return
-					if(reagents.holder_full())
-						return
-				busy = FALSE
-				if(L.transfer_blood_to(src, drawn_amount))
-					user.visible_message("<span class='notice'>[user] takes a blood sample from [L].</span>")
-				else
-					to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
-
-			else //if not mob
-				if(!target.reagents.total_volume)
-					to_chat(user, "<span class='warning'>[target] is empty!</span>")
-					return
-
-				if(!target.is_drawable(user))
-					to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
-					return
-
-				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
-
-				to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
-			if(reagents.holder_full())
-				mode = !mode
-				update_icon()
-
+			// still one check here because we're not sure from the above logic
+			if(istype(L))
+				return mob_draw(L, user)
 		if(SYRINGE_INJECT)
-			if(!reagents.total_volume)
-				to_chat(user, "<span class='notice'>[src] is empty.</span>")
-				return
+			. = mob_inject(L, user)
+			if(.)
+				finish_injection(target, user)
 
-			if(!L && !target.is_injectable(user)) //only checks on non-living mobs, due to how can_inject() handles
-				to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
-				return
-
-			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				to_chat(user, "<span class='notice'>[target] is full.</span>")
-				return
-
-			if(L) //living mob
-				if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick))
-					return
-				if(L != user)
-					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
-											"<span class='userdanger'>[user] is trying to inject you!</span>")
-					if(!do_mob(user, L))
-						return
-					if(!reagents.total_volume)
-						return
-					if(L.reagents.total_volume >= L.reagents.maximum_volume)
-						return
-					L.visible_message("<span class='danger'>[user] injects [L] with the syringe!", \
-									"<span class='userdanger'>[user] injects [L] with the syringe!")
-
-				var/list/rinject = list()
-				for(var/datum/reagent/R in reagents.reagent_list)
-					rinject += R.name
-				var/contained = english_list(rinject)
-
-				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-
-			if(isfood(target))
-
-				var/list/chemicals = list()
-				for(var/datum/reagent/chem in reagents.reagent_list)
-					chemicals += chem.name
-				var/contained_chemicals = english_list(chemicals)
-
-				add_attack_logs(user, target, "Injected [amount_per_transfer_from_this]u [contained_chemicals] into food item")
-
-			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
-			reagents.reaction(L, REAGENT_INGEST, fraction)
-			reagents.trans_to(target, amount_per_transfer_from_this)
-			to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
-			if(reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
-				mode = SYRINGE_DRAW
-				update_icon()
+/obj/item/reagent_containers/syringe/proc/finish_injection(atom/target, mob/living/user)
+	var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
+	reagents.reaction(target, REAGENT_INGEST, fraction)
+	reagents.trans_to(target, amount_per_transfer_from_this)
+	to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
+	if(reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
+		mode = SYRINGE_DRAW
+		update_icon()
 
 /obj/item/reagent_containers/syringe/update_icon_state()
 	var/rounded_vol
@@ -181,7 +214,10 @@
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
-/obj/item/reagent_containers/syringe/Crossed(mob/living/carbon/human/H, oldloc)
+/obj/item/reagent_containers/syringe/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	var/mob/living/carbon/human/H = entered
 	if(!istype(H) || !H.reagents || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || ismachineperson(H))
 		return
 

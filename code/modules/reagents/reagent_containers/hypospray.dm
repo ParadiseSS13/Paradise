@@ -69,16 +69,20 @@
 			reagents.reaction(M, REAGENT_INGEST, 0.1)
 		return TRUE
 
-/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
-	return apply(M, user)
+/obj/item/reagent_containers/hypospray/mob_act(mob/target, mob/living/user)
+	apply(target, user)
+	return TRUE
 
-/obj/item/reagent_containers/hypospray/attack_self(mob/user)
-	return apply(user, user)
+/obj/item/reagent_containers/hypospray/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
 
-/obj/item/reagent_containers/hypospray/attackby(obj/item/I, mob/user, params)
+	apply(user, user)
+
+/obj/item/reagent_containers/hypospray/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(is_pen(I))
 		rename_interactive(user, I, use_prefix = TRUE, prompt = "Give [src] a title.")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -149,7 +153,7 @@
 //////////////////////////////
 // MARK: CMO HYPO
 //////////////////////////////
-/obj/item/reagent_containers/hypospray/CMO
+/obj/item/reagent_containers/hypospray/cmo
 	name = "advanced hypospray"
 	desc = "Nanotrasen's own, reverse-engineered and improved version of DeForest's hypospray."
 	list_reagents = list("omnizine" = 30)
@@ -157,11 +161,11 @@
 	penetrate_thick = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
+/obj/item/reagent_containers/hypospray/cmo/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
-/obj/item/reagent_containers/hypospray/CMO/examine_more(mob/user)
+/obj/item/reagent_containers/hypospray/cmo/examine_more(mob/user)
 	. = ..()
 	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
 	. += ""
@@ -189,18 +193,16 @@
 	container_type = DRAWABLE
 	flags = null
 
-/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/mob_act(mob/target, mob/living/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return
-	..()
+		return TRUE
+	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-	return TRUE
 
-/obj/item/reagent_containers/hypospray/autoinjector/attack_self(mob/user)
-	..()
+/obj/item/reagent_containers/hypospray/autoinjector/activate_self(mob/user)
+	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-	return TRUE
 
 /obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
 	if(reagents.total_volume > 0)
@@ -268,9 +270,9 @@
 	volume = 40
 	list_reagents = list("nanocalcium" = 30, "epinephrine" = 10)
 
-/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/apply(mob/living/M, mob/user)
 	if(..())
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure
 	name = "\improper Anti-Plague Sequence Alpha autoinjector"
@@ -281,7 +283,7 @@
 	container_type = null //No sucking out the reagent
 	list_reagents = list("zombiecure1" = 15)
 
-/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/apply(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
 

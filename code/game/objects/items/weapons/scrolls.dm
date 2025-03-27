@@ -21,7 +21,7 @@
 	. += "<span class='notice'>Number of uses: [uses]. This scroll will vanish after the final use.</span>"
 	. += "<span class='notice'>P.S. Don't forget to bring your gear, you'll need it to cast most spells.</span>"
 
-/obj/item/teleportation_scroll/attack_self(mob/living/user)
+/obj/item/teleportation_scroll/attack_self__legacy__attackchain(mob/living/user)
 	if(!uses) //somehow?
 		to_chat(user, "<span class='warning'>You attempt to read the scroll but it disintegrates in your hand, it appears that is has run out of charges!</span>")
 		qdel(src)

@@ -205,7 +205,7 @@
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
 	var/mode = MECH_RCD_MODE_DECONSTRUCT
-	var/canRwall = 0
+	var/can_rwall = 0
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
@@ -231,7 +231,7 @@
 	switch(mode)
 		if(MECH_RCD_MODE_DECONSTRUCT)
 			if(iswallturf(target))
-				if((isreinforcedwallturf(target) && !canRwall) || istype(target, /turf/simulated/wall/indestructible))
+				if((isreinforcedwallturf(target) && !can_rwall) || istype(target, /turf/simulated/wall/indestructible))
 					return 0
 				var/turf/simulated/wall/W = target
 				occupant_message("Deconstructing [target]...")
@@ -503,8 +503,8 @@
 	chassis.occupant.changeNext_click(equip_cooldown)
 	var/proximate = chassis.Adjacent(target)
 	if(proximate)
-		target.attackby(internal_crusher, chassis.occupant)
-	internal_crusher.afterattack(target, chassis.occupant, proximate, null)
+		target.attackby__legacy__attackchain(internal_crusher, chassis.occupant)
+	internal_crusher.afterattack__legacy__attackchain(target, chassis.occupant, proximate, null)
 
 #undef MECH_RCD_MODE_DECONSTRUCT
 #undef MECH_RCD_MODE_WALL_OR_FLOOR

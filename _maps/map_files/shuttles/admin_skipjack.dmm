@@ -40,7 +40,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/administration)
 "aj" = (
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/admin{
 	dir = 2;
 	dwidth = 9;
 	height = 18;
@@ -301,7 +301,7 @@
 "ck" = (
 /obj/item/clothing/head/collectable/xenom,
 /obj/item/clothing/head/chicken,
-/obj/item/aiModule/syndicate,
+/obj/item/ai_module/syndicate,
 /obj/item/storage/box/zipties,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
@@ -337,7 +337,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "cp" = (
-/obj/structure/AIcore,
+/obj/structure/ai_core,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "cu" = (

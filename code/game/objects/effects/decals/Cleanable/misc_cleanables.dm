@@ -36,6 +36,9 @@
 /obj/effect/decal/cleanable/glass/plasma
 	icon_state = "plasmatiny"
 
+/obj/effect/decal/cleanable/glass/plastitanium
+	icon_state = "plastitaniumtiny"
+
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
 	desc = "Someone should clean that up."
@@ -159,9 +162,8 @@
 /obj/effect/decal/cleanable/vomit/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
-	gravity_check = has_gravity(src, T)
-	if(loc != T)
-		forceMove(T)
+	check_gravity(T)
+
 	if(!gravity_check)
 		layer = MOB_LAYER
 		plane = GAME_PLANE
@@ -171,15 +173,27 @@
 			animate_levitate(src, -1, rand(30, 120))
 		icon = 'icons/effects/blood_weightless.dmi'
 
-/obj/effect/decal/cleanable/vomit/Bump(atom/A, yes)
-	. = ..()
-	if(A.density)
-		splat(A)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/decal/cleanable/vomit/Crossed(atom/movable/AM, oldloc)
+/obj/effect/decal/cleanable/vomit/Bump(atom/A)
+	if(gravity_check)
+		return ..()
+
+	if(iswallturf(A) || istype(A, /obj/structure/window))
+		splat(A)
+		return
+	else if(A.density)
+		splat(get_turf(A))
+		return
+
+	return ..()
+
+/obj/effect/decal/cleanable/vomit/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(!gravity_check)
-		splat(AM)
-	..()
+		splat(entered)
 
 /obj/effect/decal/cleanable/vomit/proc/splat(atom/A)
 	if(gravity_check)
@@ -200,22 +214,11 @@
 		plane = initial(plane)
 	animate(src)
 
-/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir)
+/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(gravity_check)
-		return 1
+		return TRUE
 
-	if(has_gravity(src))
-		if(!gravity_check)
-			splat(get_step(src, movement_dir))
-		return 1
-
-	if(pulledby && !pulledby.pulling)
-		return 1
-
-	if(throwing)
-		return 1
-
-	return 0
+	return ..()
 
 /obj/effect/decal/cleanable/vomit/green
 	name = "green vomit"

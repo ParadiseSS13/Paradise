@@ -130,8 +130,6 @@ As a Traitor, you can manufacture and recycle revolver bullets at a hacked autol
 As a Traitor, you may sometimes be assigned to hunt other traitors, and in turn be hunted by others.
 As a Traitor, the syndicate encryption key is very useful for coordinating plans with your fellow traitors -- or, of course, betraying them.
 As a Traitor, plasma can be injected into many things to sabotage them. Power cells, light bulbs, cigars and e-cigs will all explode when used.
-As a Traitor, if you can find another Traitor and pool your TC you can buy a mega surplus crate, which costs 200 TC but contains a lot of random syndicate gear.
-As a Traitor, you can eject someone from cloning early by disabling power in genetics. Note that they will suffer more genetic damage and may lose vital organs from this.
 As a Nuclear Operative, communication is key! Use ; to speak to your fellow operatives and coordinate an attack plan.
 As a Nuclear Operative, you should look into purchasing a syndicate cyborg, as they can provide heavy fire support, full access, are immune to conventional stuns, and can easily take down the AI.
 As a Nuclear Operative, stick together! While your equipment is robust, your fellow operatives are much better at saving your life: they can drag you away from danger while stunned and provide cover fire.

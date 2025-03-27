@@ -36,26 +36,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
 	var/detonate = TRUE // Can the PDA be blown up?
 	var/ttone = "beep" //The ringtone!
-	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
-								"boop" = 'sound/machines/boop.ogg',
-								"electronic" = 'sound/machines/notif1.ogg',
-								"chime" = 'sound/machines/notif2.ogg',
-								"slip" = 'sound/misc/slip.ogg',
-								"honk" = 'sound/items/bikehorn.ogg',
-								"SKREE" = 'sound/voice/shriek1.ogg',
-								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
-								"boom" = 'sound/effects/explosionfar.ogg',
-								"gavel" = 'sound/items/gavel.ogg',
-								"xeno" = 'sound/voice/hiss1.ogg',
-								"smoke" = 'sound/magic/smoke.ogg',
-								"shatter" = 'sound/effects/pylon_shatter.ogg',
-								"energy" = 'sound/weapons/egloves.ogg',
-								"flare" = 'sound/goonstation/misc/matchstick_light.ogg',
-								"interference" = 'sound/misc/interference.ogg',
-								"zap" = 'sound/effects/eleczap.ogg',
-								"disgusting" = 'sound/effects/blobattack.ogg',
-								"hungry" = 'sound/weapons/bite.ogg')
-
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
 		new/datum/data/pda/app/notekeeper,
@@ -95,6 +75,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
 	add_pen(new default_pen(src))
+	update_icon(UPDATE_OVERLAYS)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -128,9 +109,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
 	if((!is_screen_atom(over_object)) && can_use())
-		return attack_self(M)
+		return attack_self__legacy__attackchain(M)
 
-/obj/item/pda/attack_self(mob/user as mob)
+/obj/item/pda/attack_self__legacy__attackchain(mob/user as mob)
 	if(active_uplink_check(user))
 		return
 	ui_interact(user)
@@ -161,14 +142,40 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/update_overlays()
 	. = ..()
+	var/datum/data/pda/utility/flashlight/flash = find_program(/datum/data/pda/utility/flashlight)
+	if(flash.fon)
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-light-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-light-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-light")
+
 	if(id)
-		. += image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-id-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-id-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-id")
+
+	if(held_pen)
+		if(icon_state != "pda-syndi")
+			if(icon_state == "pda-library")
+				. += image('icons/obj/pda.dmi', "pda-pen-library")
+			else
+				. += image('icons/obj/pda.dmi', "pda-pen")
 
 	if(length(notifying_programs))
-		if(icon_state == "pda-library")
-			. += image('icons/obj/pda.dmi', "pda-r-library")
-		else
-			. += image('icons/obj/pda.dmi', "pda-r")
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-dm-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-dm-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-dm")
 
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)
@@ -234,6 +241,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			user.put_in_hands(held_pen)
 			clear_pen()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
@@ -264,7 +272,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(wearing_human.wear_id == src)
 			wearing_human.sec_hud_set_ID()
 
-/obj/item/pda/attackby(obj/item/C, mob/user, params)
+/obj/item/pda/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	..()
 	if(istype(C, /obj/item/cartridge) && !cartridge)
 		cartridge = C
@@ -324,16 +332,18 @@ GLOBAL_LIST_EMPTY(PDAs)
 	P.forceMove(src)
 	held_pen = P
 	RegisterSignal(held_pen, COMSIG_PARENT_QDELETING, PROC_REF(clear_pen))
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/proc/clear_pen()
 	UnregisterSignal(held_pen, COMSIG_PARENT_QDELETING)
 	held_pen = null
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
+/obj/item/pda/attack__legacy__attackchain(mob/living/C as mob, mob/living/user as mob)
 	if(iscarbon(C) && scanmode)
 		scanmode.scan_mob(C, user)
 
-/obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
+/obj/item/pda/afterattack__legacy__attackchain(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
 	if(proximity && scanmode)
 		scanmode.scan_atom(A, user)
 
@@ -377,8 +387,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
 		playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 50, TRUE)
 	else
-		if(ttone in ttone_sound)
-			S = ttone_sound[ttone]
+		if(ttone in GLOB.pda_ringtone_choices)
+			S = GLOB.pda_ringtone_choices[ttone]
 		else
 			S = 'sound/machines/twobeep_high.ogg'
 		playsound(loc, S, 50, TRUE)

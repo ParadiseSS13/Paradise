@@ -83,6 +83,7 @@
 	var/list/strippable_inventory_slots = list()
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+	var/razor_shave_delay = 5 SECONDS
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
@@ -115,12 +116,12 @@
 
 /mob/living/simple_animal/pet/dog/corgi/RangedAttack(atom/A, params)
 	if(inventory_back)
-		inventory_back.afterattack(A, src)
+		inventory_back.afterattack__legacy__attackchain(A, src)
 
 /mob/living/simple_animal/pet/dog/corgi/UnarmedAttack(atom/A)
 	if(istype(inventory_back, /obj/item/extinguisher))
 		var/obj/item/extinguisher/E = inventory_back
-		if(E.AttemptRefill(A, src))
+		if(E.attempt_refill(A, src))
 			return
 	return ..()
 
@@ -184,16 +185,16 @@
 			armorval += inventory_back.armor.getRating(type)
 	return armorval * 0.5
 
-/mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/pet/dog/corgi/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/razor))
 		if(shaved)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(nofur)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it doesn't have a fur coat!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, razor_shave_delay, target = src))
 			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O].</span>")
 			playsound(loc, O.usesound, 20, TRUE)
 			shaved = TRUE
@@ -203,9 +204,10 @@
 				icon_state = icon_living
 			else
 				icon_state = icon_dead
-		return
-	..()
-	update_corgi_fluff()
+		update_corgi_fluff()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
 //to be compatible with them. The objects are below.
@@ -224,7 +226,7 @@
 			return
 		return
 
-	if(user && !user.unEquip(item_to_add))
+	if(user && !user.drop_item_to_ground(item_to_add))
 		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 		return 0
 
@@ -316,7 +318,7 @@
 		add_overlay(back_icon)
 
 //IAN! SQUEEEEEEEEE~
-/mob/living/simple_animal/pet/dog/corgi/Ian
+/mob/living/simple_animal/pet/dog/corgi/ian
 	name = "Ian"
 	real_name = "Ian"	//Intended to hold the name without altering it.
 	gender = MALE
@@ -332,19 +334,19 @@
 	var/record_age = 1
 	var/saved_head //path
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/Initialize(mapload)
+/mob/living/simple_animal/pet/dog/corgi/ian/Initialize(mapload)
 	. = ..()
 	SSpersistent_data.register(src)
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/Destroy()
+/mob/living/simple_animal/pet/dog/corgi/ian/Destroy()
 	SSpersistent_data.registered_atoms -= src
 	return ..()
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/death()
+/mob/living/simple_animal/pet/dog/corgi/ian/death()
 	write_memory(TRUE)
 	..()
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/persistent_load()
+/mob/living/simple_animal/pet/dog/corgi/ian/persistent_load()
 	read_memory()
 	if(age == 0)
 		var/turf/target = get_turf(loc)
@@ -365,12 +367,12 @@
 		desc = "At a ripe old age of [record_age], Ian's not as spry as he used to be, but he'll always be the HoP's beloved corgi." //RIP
 		turns_per_move = 20
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/persistent_save()
+/mob/living/simple_animal/pet/dog/corgi/ian/persistent_save()
 	if(SEND_SIGNAL(src, COMSIG_LIVING_WRITE_MEMORY) & COMPONENT_DONT_WRITE_MEMORY)
 		return FALSE
 	write_memory(FALSE)
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/proc/read_memory()
+/mob/living/simple_animal/pet/dog/corgi/ian/proc/read_memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Ian.sav")
 		S["age"] 		>> age
@@ -393,7 +395,7 @@
 		place_on_head(new saved_head)
 	log_debug("Persistent data for [src] loaded (age: [age] | record_age: [record_age] | saved_head: [saved_head ? saved_head : "None"])")
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/proc/write_memory(dead)
+/mob/living/simple_animal/pet/dog/corgi/ian/proc/write_memory(dead)
 	var/json_file = file("data/npc_saves/Ian.json")
 	var/list/file_data = list()
 	if(!dead)
@@ -414,7 +416,7 @@
 	WRITE_FILE(json_file, json_encode(file_data))
 	log_debug("Persistent data for [src] saved (age: [age] | record_age: [record_age] | saved_head: [saved_head ? saved_head : "None"])")
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/handle_automated_movement()
+/mob/living/simple_animal/pet/dog/corgi/ian/handle_automated_movement()
 	. = ..()
 	//Feeding, chasing food, FOOOOODDDD
 	if(IS_HORIZONTAL(src) || buckled)
@@ -450,7 +452,7 @@
 	if(prob(1))
 		chasetail()
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/proc/move_to_target()
+/mob/living/simple_animal/pet/dog/corgi/ian/proc/move_to_target()
 	stop_automated_movement = TRUE
 	step_to(src, movement_target, 1)
 	sleep(3)
@@ -470,7 +472,7 @@
 		else if(prob(30) && ishuman(movement_target.loc)) // mean hooman has stolen it
 			custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/narsie_act()
+/mob/living/simple_animal/pet/dog/corgi/ian/narsie_act()
 	playsound(src, 'sound/misc/demon_dies.ogg', 75, TRUE)
 	var/mob/living/simple_animal/pet/dog/corgi/narsie/N = new(loc)
 	N.setDir(dir)
@@ -534,11 +536,11 @@
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1	//Void puppies can navigate space.
 
 //LISA! SQUEEEEEEEEE~
-/mob/living/simple_animal/pet/dog/corgi/Lisa
+/mob/living/simple_animal/pet/dog/corgi/lisa
 	name = "Lisa"
 	real_name = "Lisa"
 	gender = FEMALE
@@ -554,11 +556,11 @@
 	strippable_inventory_slots = list(/datum/strippable_item/corgi_back, /datum/strippable_item/pet_collar) //Lisa already has a cute bow!
 	var/turns_since_scan = 0
 
-/mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
+/mob/living/simple_animal/pet/dog/corgi/lisa/Life()
 	..()
 	make_babies()
 
-/mob/living/simple_animal/pet/dog/corgi/Lisa/handle_automated_movement()
+/mob/living/simple_animal/pet/dog/corgi/lisa/handle_automated_movement()
 	. = ..()
 	if(!IS_HORIZONTAL(src) && !buckled)
 		if(prob(1))

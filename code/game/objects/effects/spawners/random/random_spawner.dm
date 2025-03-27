@@ -51,6 +51,18 @@
 	spawn_loot()
 	return INITIALIZE_HINT_QDEL
 
+/obj/effect/spawner/random/proc/generate_loot_list()
+	if(loot_type_path)
+		loot += typesof(loot_type_path)
+
+	if(loot_subtype_path)
+		loot += subtypesof(loot_subtype_path)
+
+	return loot
+
+/obj/effect/spawner/random/proc/check_safe(type_path_to_make)
+	return TRUE
+
 ///If the spawner has any loot defined, randomly picks some and spawns it. Does not cleanup the spawner.
 /obj/effect/spawner/random/proc/spawn_loot(lootcount_override)
 	if(!prob(spawn_loot_chance))
@@ -58,29 +70,31 @@
 
 	var/list/spawn_locations = get_spawn_locations(spawn_scatter_radius)
 	var/spawn_loot_count = isnull(lootcount_override) ? src.spawn_loot_count : lootcount_override
+	var/atom/container
 
 	if(spawn_inside)
-		new spawn_inside(loc)
+		container = new spawn_inside(loc)
 
 	if(spawn_all_loot)
 		spawn_loot_count = INFINITY
 		spawn_loot_double = FALSE
 
-	if(loot_type_path)
-		loot += typesof(loot_type_path)
+	var/list/loot_list = generate_loot_list()
+	var/safe_failure_count = 0
 
-	if(loot_subtype_path)
-		loot += subtypesof(loot_subtype_path)
-
-	if(length(loot))
+	if(length(loot_list))
 		var/loot_spawned = 0
 		var/pixel_divider = FLOOR(spawn_random_offset_max_pixels / spawn_loot_split_pixel_offsets, 1)
-		while((spawn_loot_count-loot_spawned) && length(loot))
+		while((spawn_loot_count-loot_spawned) && length(loot_list) && safe_failure_count <= 10)
 			loot_spawned++
+			var/lootspawn = pick_weight_recursive(loot_list)
 
-			var/lootspawn = pick_weight_recursive(loot)
+			if(!check_safe(lootspawn))
+				safe_failure_count++
+				continue
+
 			if(!spawn_loot_double)
-				loot.Remove(lootspawn)
+				loot_list.Remove(lootspawn)
 			if(lootspawn)
 				var/turf/spawn_loc = loc
 				if(spawn_scatter_radius > 0 && length(spawn_locations))
@@ -91,6 +105,13 @@
 					continue
 
 				var/atom/movable/spawned_loot = make_item(spawn_loc, lootspawn)
+
+				// If we make something that then makes something else and gets itself
+				// qdel'd, we'll have a null result here. This doesn't necessarily mean
+				// that nothing's been spawned, so it's not necessarily a failure.
+				if(!spawned_loot)
+					continue
+
 				spawned_loot.setDir(dir)
 
 				if(!spawn_loot_split && !spawn_random_offset)
@@ -106,6 +127,10 @@
 						var/column = FLOOR(loot_spawned / pixel_divider, 1)
 						spawned_loot.pixel_x = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider) + (column * spawn_loot_split_pixel_offsets)
 						spawned_loot.pixel_y = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider)
+
+				if(container)
+					spawned_loot.forceMove(container)
+
 
 /**
  *  Makes the actual item related to our spawner. If `record_spawn` is `TRUE`,

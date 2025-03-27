@@ -561,3 +561,45 @@
 		if(length(M.equipment) < M.max_equip)
 			return TRUE
 	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
+	name = "exosuit medical beamgun"
+	desc = "Equipment for medical exosuits. A mounted medical nanite projector which will treat patients with a focused beam. Unlike its handheld counterpart, it is incapable of healing internal injuries."
+	icon_state = "mecha_medigun"
+	energy_drain = 20
+	range = MECHA_MELEE | MECHA_RANGED
+	equip_cooldown = 0
+	origin_tech = "combat=5;materials=6;powerstorage=6;biotech=6"
+	var/obj/item/gun/medbeam/mech/medigun
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 8000, MAT_PLASMA = 3000, MAT_GOLD = 8000, MAT_DIAMOND = 2000)
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/Initialize(mapload)
+	. = ..()
+	medigun = new(src)
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/Destroy()
+	QDEL_NULL(medigun)
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/process()
+	if(..())
+		return
+	medigun.process()
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/action(atom/target)
+	medigun.process_fire(target, loc)
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/detach()
+	if(medigun)
+		medigun.LoseTarget()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/can_attach(obj/mecha/medical/M)
+	if(..())
+		for(var/obj/item/beamgun in M)
+			if(istype(beamgun, /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam))
+				return FALSE	//One beamgun per mech
+		if(istype(M))
+			return TRUE
+	return FALSE

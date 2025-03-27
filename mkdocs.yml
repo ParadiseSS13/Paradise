@@ -36,6 +36,7 @@ plugins:
   - social:
       cards_layout_options:
         background_color: '#861f41'
+  - glightbox
 
 markdown_extensions:
   - admonition
@@ -81,12 +82,14 @@ nav:
       - 'Style Guidelines': './coding/style_guidelines.md'
       - 'Coding Requirements': './coding/coding_requirements.md'
       - 'Testing Requirements': './coding/testing_requirements.md'
+      - 'Database Changes': './coding/db_changes.md'
 
   - 'Mapping':
       - 'Mapping Quickstart': './mapping/quickstart.md'
       - 'Mapping Requirements': './mapping/requirements.md'
       - 'Design Guidelines': './mapping/design.md'
       - 'Guide to Submaps': './mapping/submaps.md'
+      - 'Spawn Pools': './mapping/spawn_pools.md'
 
   - 'References':
       - 'Glossary': './references/glossary.md'
@@ -95,3 +98,6 @@ nav:
       - 'Advanced Bitflags': './references/adv_bitflags.md'
       - 'Using Feedback Data': './references/feedback_data.md'
       - 'Tick Order': './references/tick_order.md'
+      - 'Movement Signals': './references/movement_signals.md'
+      - 'Attack Chain': './references/attack_chain.md'
+      - 'AI Controllers': './references/ai_controllers.md'

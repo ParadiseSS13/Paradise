@@ -281,7 +281,7 @@
 	/// There are two reloading processes ongoing so cancel them
 	var/double_loaded = FALSE
 
-/obj/item/ammo_box/magazine/wt550m9/attackby(obj/item/A, mob/user, params)
+/obj/item/ammo_box/magazine/wt550m9/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC))
@@ -466,6 +466,16 @@
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
+/obj/item/ammo_box/magazine/m12g/rubbershot
+	name = "shotgun magazine (12g rubbershot)"
+	icon_state = "m12gb"
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+
+/obj/item/ammo_box/magazine/m12g/rubbershot/give_round(obj/item/ammo_casing/R, replace_spent)
+	if(istype(R, /obj/item/ammo_casing/shotgun/frag12) || istype(R, /obj/item/ammo_casing/shotgun/buckshot))
+		return 0
+	return ..()
+
 /obj/item/ammo_box/magazine/m12g/stun
 	name = "shotgun magazine (12g taser slugs)"
 	icon_state = "m12gs"
@@ -487,7 +497,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
 
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg
+/obj/item/ammo_box/magazine/m12g/xtr_lrg
 	name = "\improper XL shotgun magazine (12g slugs)"
 	desc = "An extra large drum magazine."
 	icon_state = "m12gXlSl"
@@ -495,12 +505,12 @@
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 16
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/buckshot
 	name = "\improper XL shotgun magazine (12g buckshot)"
 	icon_state = "m12gXlBs"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/dragon
 	name = "\improper XL shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
@@ -580,7 +590,8 @@
 /// Used by red ERT. Keeps the size for them
 /obj/item/ammo_box/magazine/laser/ert
 	name = "compact laser carbine projector magazine"
-	desc = "By use of bluespace technology, the ammo casings are stored in a pocket dimension, saving on space and making them EMP proof."
+	desc = "An ultra-compact magazine incorporating experimental bluespace technology to hold 20 rounds in a mag the size of a cigarette lighter, while keeping them safe from EMPs. Each magazine costs as much as 5 of the carbines that use it, \
+		but nobody's accused NT budget allocation of being practical before."
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/ammo_box/magazine/laser/ert/emp_act(severity)
@@ -625,10 +636,10 @@
 	. = ..()
 	. += "<span class='notice'>There is [charge_percent()]% charge left!</span>"
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attack_self()
+/obj/item/ammo_box/magazine/detective/speedcharger/attack_self__legacy__attackchain()
 	return
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attackby()
+/obj/item/ammo_box/magazine/detective/speedcharger/attackby__legacy__attackchain()
 	return
 
 /obj/item/ammo_box/magazine/c_foam
@@ -638,5 +649,5 @@
 	ammo_type = /obj/item/ammo_casing/caseless/c_foam
 	max_ammo = 12
 
-/obj/item/ammo_box/magazine/c_foam/attack_self(mob/user)
+/obj/item/ammo_box/magazine/c_foam/attack_self__legacy__attackchain(mob/user)
 	return

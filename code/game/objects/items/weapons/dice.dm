@@ -165,7 +165,7 @@
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	if(!ishuman(user) || !user.mind || iswizard(user))
 		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -197,6 +197,13 @@
 				qdel(I)
 		if(5)
 			//Monkeying
+			if(ismachineperson(user))
+				playsound(get_turf(user), 'sound/machines/ding.ogg', 100, 1)
+				var/obj/fresh_toast = new /obj/item/food/toast(get_turf(user))
+				fresh_toast.desc += " It came out of [user]!"
+				to_chat(user, "<span class='userdanger'>Your internal structure is getting really toasty!</span>")
+				user.gib()
+				return
 			T.visible_message("<span class='userdanger'>[user] transforms into a monkey!</span>")
 			user.monkeyize()
 		if(6)
@@ -339,7 +346,7 @@
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
 
-/obj/item/dice/attack_self(mob/user)
+/obj/item/dice/attack_self__legacy__attackchain(mob/user)
 	diceroll(user)
 
 /obj/item/dice/throw_impact(atom/target)

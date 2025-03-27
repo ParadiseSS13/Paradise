@@ -4,7 +4,7 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 /datum/antagonist/mindslave
 	name = "Mindslave"
 	roundend_category = "mindslaves"
-	job_rank = SPECIAL_ROLE_TRAITOR
+	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	antag_hud_name = "mindslave" // This isn't named "hudmindslave" because `add_serve_hud()` adds "hud" to the beginning.

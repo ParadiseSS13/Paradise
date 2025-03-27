@@ -5,8 +5,8 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	name = "fire"
 	desc = "You don't think you should touch this."
 	icon = 'icons/effects/chemical_fire.dmi'
-	icon_state = "fire1"
-
+	icon_state = "red_small"
+	base_icon_state = "red"
 	/// How hot is our fire?
 	var/temperature
 	/// How long will our fire last
@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	/// How many firestacks does the fire give to mobs
 	var/application_stacks = 1
 
-/obj/effect/fire/Initialize(mapload, reagent_temperature, reagent_duration, fire_applications)
+/obj/effect/fire/Initialize(mapload, reagent_temperature, reagent_duration, fire_applications, color)
 	. = ..()
 
 	if(reagent_duration < 0 || reagent_temperature <= 0) // There is no reason for this thing to exist
@@ -24,6 +24,9 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	duration = reagent_duration
 	temperature = reagent_temperature
 	application_stacks = max(application_stacks, fire_applications)
+	if(color)
+		base_icon_state = color
+	update_icon()
 
 	for(var/obj/effect/fire/flame in get_turf(src))
 		if(!istype(flame) || flame == src)
@@ -32,6 +35,11 @@ GLOBAL_LIST_EMPTY(flame_effects)
 
 	GLOB.flame_effects += src
 	START_PROCESSING(SSprocessing, src)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/fire/Destroy()
 	. = ..()
@@ -43,6 +51,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 		fizzle()
 		return
 	duration -= 2 SECONDS
+	update_icon(UPDATE_ICON_STATE)
 
 	for(var/atom/movable/thing_to_burn in get_turf(src))
 		if(isliving(thing_to_burn))
@@ -63,6 +72,14 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	var/datum/milla_safe/fire_heat_air/milla = new()
 	milla.invoke_async(src, location)
 
+/obj/effect/fire/update_icon_state()
+	var/suffix = "small"
+	if(duration >= 30 SECONDS)
+		suffix = "big"
+	else if(duration >= 10 SECONDS)
+		suffix = "medium"
+	icon_state = "[base_icon_state]_[suffix]"
+
 /datum/milla_safe/fire_heat_air
 
 /datum/milla_safe/fire_heat_air/on_run(obj/effect/fire/fire, turf/T)
@@ -74,19 +91,19 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	duration -= 10 SECONDS
 	if(duration <= 0)
 		fizzle()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/effect/fire/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(isliving(AM))
-		if(!damage_mob(AM))
+/obj/effect/fire/proc/on_atom_entered(datum/source, atom/movable/entered, old_loc)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+	if(isliving(entered))
+		if(!damage_mob(entered))
 			return
-		to_chat(AM, "<span class='warning'>[src] burns you!</span>")
+		to_chat(entered, "<span class='warning'>[src] burns you!</span>")
 		return
 
-	if(isitem(AM))
-		var/obj/item/item_to_burn = AM
+	if(isitem(entered))
+		var/obj/item/item_to_burn = entered
 		item_to_burn.fire_act(null, temperature)
-		return
 
 /obj/effect/fire/proc/fizzle()
 	playsound(src, 'sound/effects/fire_sizzle.ogg', 50, TRUE)

@@ -163,7 +163,7 @@
 	for(var/obj/item/toy/crayon/crayon in contents)
 		. += image('icons/obj/crayons.dmi', crayon.dye_color)
 
-/obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/fancy/crayons/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
 		switch(C.dye_color)
@@ -198,7 +198,7 @@
 	for(var/I in 1 to storage_slots)
 		new /obj/item/match(src)
 
-/obj/item/storage/fancy/matches/attackby(obj/item/match/W, mob/user, params)
+/obj/item/storage/fancy/matches/attackby__legacy__attackchain(obj/item/match/W, mob/user, params)
 	if(istype(W, /obj/item/match) && !W.lit)
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
@@ -247,7 +247,7 @@
 /obj/item/storage/fancy/cigarettes/update_icon_state()
 	icon_state = "[initial(icon_state)][length(contents)]"
 
-/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M, mob/living/user)
+/obj/item/storage/fancy/cigarettes/attack__legacy__attackchain(mob/living/carbon/M, mob/living/user)
 	if(!ismob(M))
 		return
 
@@ -447,7 +447,7 @@
 	else
 		. += "ledb"
 
-/obj/item/storage/lockbox/vials/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/lockbox/vials/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	update_icon()
 

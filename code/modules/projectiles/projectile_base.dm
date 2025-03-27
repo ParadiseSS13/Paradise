@@ -88,6 +88,9 @@
 	///Has the projectile been fired?
 	var/has_been_fired = FALSE
 
+	/// Does this projectile hit living non dense mobs?
+	var/always_hit_living_nondense = FALSE
+
 	//Hitscan
 	var/hitscan = FALSE //Whether this is hitscan. If it is, speed is basically ignored.
 	var/list/beam_segments //assoc list of datum/point_precise or datum/point_precise/vector, start = end. Used for hitscan effect generation.
@@ -134,6 +137,13 @@
 
 /obj/item/projectile/New()
 	return ..()
+
+/obj/item/projectile/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/projectile/proc/Range()
 	range--
@@ -259,16 +269,14 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
-/obj/item/projectile/Bump(atom/A, yes)
-	if(!yes) //prevents double bumps.
-		return
-
+/obj/item/projectile/Bump(atom/A)
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
+			permutated.Cut()
 			ignore_source_check = TRUE
 			range = initial(range)
 			return TRUE
@@ -299,7 +307,7 @@
 	prehit(A)
 	var/pre_permutation = A.atom_prehit(src)
 	var/permutation = -1
-	if(pre_permutation != ATOM_PREHIT_FAILURE)
+	if(pre_permutation != ATOM_PREHIT_FAILURE && !(A in permutated))
 		permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge)
@@ -319,7 +327,7 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1 //Bullets don't drift in space
 
 /obj/item/projectile/process()
@@ -375,7 +383,7 @@
 		else if(T != loc)
 			step_towards(src, T)
 			hitscan_last = loc
-		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+		if(original && (ismob(original) || original.proj_ignores_layer || original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original, TRUE)
 	if(QDELETED(src)) //deleted on last move
@@ -429,10 +437,10 @@
 	xo = new_x - curloc.x
 	set_angle(get_angle(curloc, original))
 
-/obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
-	..()
-	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
-		Bump(AM, 1)
+/// A mob moving on a tile with a projectile is hit by it.
+/obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered) && entered.density && !checkpass(PASSMOB) && !(entered in permutated) && (entered.loc == loc))
+		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()
 	if(hitscan)

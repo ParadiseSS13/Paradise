@@ -56,7 +56,7 @@
 	var/static/beehometypecache = typecacheof(/obj/structure/beebox)
 	var/static/hydroponicstypecache = typecacheof(/obj/machinery/hydroponics)
 
-/mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
@@ -286,7 +286,7 @@
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 
-/obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
+/obj/item/queen_bee/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/reagent_containers/syringe))
 		return ..()
 	var/obj/item/reagent_containers/syringe/S = I

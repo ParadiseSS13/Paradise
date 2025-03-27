@@ -450,6 +450,15 @@
 		qdel(removing)
 
 /**
+  * Removes all components of a given type from the datum
+  */
+/datum/proc/DeleteComponentsType(component_type_to_nuke)
+	var/list/components = GetComponents(component_type_to_nuke)
+	for(var/datum/component/removing in components)
+		if(!QDELETED(removing))
+			qdel(removing)
+
+/**
   * Get existing component of type, or create it and return a reference to it
   *
   * Use this if the item needs to exist at the time of this call, but may not have been created before now

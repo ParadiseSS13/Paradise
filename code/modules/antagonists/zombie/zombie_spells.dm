@@ -5,6 +5,7 @@
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 0 SECONDS
 	var/list/our_claws = list()
 	var/infection_stage = 1 // mostly for adminbus and testing
@@ -88,7 +89,7 @@
 	else
 		force = initial(force)
 
-/obj/item/zombie_claw/afterattack(atom/atom_target, mob/user, proximity_flag, click_parameters)
+/obj/item/zombie_claw/afterattack__legacy__attackchain(atom/atom_target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -112,7 +113,7 @@
 		to_chat(user, "<span class='warning zombie'>[target]'s brains are blocked.</span>")
 		return // Armor blocks zombies trying to eat your brains!
 
-	to_chat(target, "<span class='userdanger'[user]'s claws dig into your [brain_holder.encased]!</span>")
+	to_chat(target, "<span class='userdanger'>[user]'s claws dig into your [brain_holder.encased]!</span>")
 	user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_holder.name]!</span>", "<span class='danger zombie'>We dig into [target]'s [brain_holder.encased ? brain_holder.encased : brain_holder]...</span>")
 	playsound(user, 'sound/weapons/armblade.ogg', 50, TRUE)
 	if(!do_mob(user, target, 3 SECONDS))
@@ -150,6 +151,6 @@
 		for(var/datum/disease/zombie/zomb in target.viruses)
 			zomb.stage = max(zomb.stage, infection_stage)
 
-/obj/item/zombie_claw/attack_self(mob/user)
+/obj/item/zombie_claw/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	qdel(src)

@@ -46,6 +46,7 @@
 
 // Interfaces
 @include meta.load-css('./interfaces/AccountsUplinkTerminal.scss');
+@include meta.load-css('./interfaces/AdminAntagMenu.scss');
 @include meta.load-css('./interfaces/AlertModal.scss');
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');

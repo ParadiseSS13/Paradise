@@ -24,14 +24,16 @@
 	clonemind = null
 	return ..()
 
-/obj/machinery/grey_autocloner/attackby(obj/item/bio_chip_implanter/implant, mob/user, params)
+/obj/machinery/grey_autocloner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/bio_chip_implanter/implant = used
 	if(!istype(implant) || !(istype(implant.imp, /obj/item/bio_chip/grey_autocloner)))
 		return ..()
 	var/obj/item/bio_chip/grey_autocloner/autoclone = implant.imp
 	autoclone.linked = src
 	atom_say("Link confirmed!")
+	return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/grey_autocloner/proc/growclone(datum/dna2/record/R)
+/obj/machinery/grey_autocloner/proc/growclone(datum/dna2_record/R)
 	if(attempting || stat & (NOPOWER|BROKEN))
 		return FALSE
 	clonemind = locateUID(R.mind)

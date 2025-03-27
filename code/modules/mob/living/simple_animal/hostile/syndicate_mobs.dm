@@ -7,6 +7,7 @@
 	icon_dead = "syndicate_dead" // Does not actually exist. del_on_death.
 	icon_gib = "syndicate_gib" // Does not actually exist. del_on_death.
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0)
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -21,6 +22,7 @@
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
+	stat_attack = UNCONSCIOUS
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
 	check_friendly_fire = TRUE
@@ -48,8 +50,8 @@
 ///////////////Sword and shield////////////
 
 /mob/living/simple_animal/hostile/syndicate/melee
-	melee_damage_lower = 30
-	melee_damage_upper = 25
+	melee_damage_lower = 25
+	melee_damage_upper = 30
 	icon_state = "syndicate_sword"
 	icon_living = "syndicate_sword"
 	attacktext = "slashes"
@@ -60,36 +62,23 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/O as obj, mob/user as mob, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(O.force)
-		if(prob(melee_block_chance))
-			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield!</span>")
-		else
-			var/damage = O.force
-			if(O.damtype == STAMINA)
-				damage = 0
-			if(force_threshold && damage < force_threshold)
-				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
-				return
-			adjustHealth(damage)
-			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user].</span>")
-		playsound(loc, O.hitsound, 25, TRUE, -1)
-	else
-		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>")
+/mob/living/simple_animal/hostile/syndicate/melee/attack_by(obj/item/O, mob/living/user, params)
+	if(prob(melee_block_chance))
+		visible_message("<span class='boldwarning'>[src] blocks [O] with its shield!</span>")
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
+		return FINISH_ATTACK
 
+	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
 		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
-	else
-		if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
-			adjustHealth(Proj.damage)
-	return 0
+		return
+
+	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
@@ -103,7 +92,6 @@
 	name = "Syndicate Operative"
 	force_threshold = 6 // Prevents people using punches to bypass eshield
 	robust_searching = TRUE // Together with stat_attack, ensures dionae/etc that regen are killed properly
-	stat_attack = UNCONSCIOUS
 	universal_speak = TRUE
 	icon_state = "syndicate_swordonly"
 	icon_living = "syndicate_swordonly"
@@ -129,7 +117,6 @@
 	name = "[name] [pick(GLOB.last_names)]"
 	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
-
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/ListTargetsLazy()
 	// The normal ListTargetsLazy ignores walls, which is very bad in the case of depot mobs. So we override it.
@@ -237,13 +224,12 @@
 	new /obj/effect/gibspawner/human(get_turf(src))
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, border_dir)
 	if(isliving(mover))
 		var/mob/living/blocker = mover
 		if(faction_check_mob(blocker))
 			return 1
 	return ..()
-
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer
 	name = "Syndicate Officer"
@@ -257,15 +243,12 @@
 	. = ..()
 	if(prob(50))
 		// 50% chance of switching to ranged variant.
-		melee_damage_lower = 30
-		melee_damage_upper = 25
 		attacktext = "punches"
 		attack_sound = 'sound/weapons/cqchit1.ogg'
 		ranged = TRUE
 		rapid = 3
 		retreat_distance = 5
 		minimum_distance = 3
-		melee_block_chance = 0
 		ranged_block_chance = 0
 		icon_state = "syndicate_pistol"
 		icon_living = "syndicate_pistol"
@@ -277,26 +260,27 @@
 	icon_state = "syndicate_stormtrooper_sword"
 	icon_living = "syndicate_stormtrooper_sword"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	armour_penetration_percentage = 50 // same as e-sword
 	minbodytemp = 0
-	maxHealth = 200
-	health = 200
+	maxHealth = 250
+	health = 250
 	melee_block_chance = 40
+	ranged_block_chance = 35 // same as officer's
 	alert_on_shield_breach = TRUE
-	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+	return TRUE // he should be able to chase us in space
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
 	. = ..()
 	if(prob(50))
 		// 50% chance of switching to extremely dangerous ranged variant
-		melee_damage_lower = 10
-		melee_damage_upper = 10
 		attacktext = "punches"
-		attack_sound = 'sound/weapons/punch1.ogg'
+		attack_sound = 'sound/weapons/cqchit1.ogg'
 		ranged = TRUE
 		retreat_distance = 2
 		minimum_distance = 2
-		melee_block_chance = 0
 		ranged_block_chance = 0
 		icon_state = "syndicate_stormtrooper_shotgun"
 		icon_living = "syndicate_stormtrooper_shotgun"
@@ -316,6 +300,12 @@
 			O.shield_key = TRUE
 			depotarea.shields_up()
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/death() // i hope it's all right
+	if(!istype(depotarea))
+		return ..()
+	if(!length(depotarea.shield_list)) // not opening lockers without getting shields down
+		depotarea.unlock_lockers()
+	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space
 	name = "Syndicate Backup"
@@ -327,10 +317,9 @@
 	wander = FALSE
 	alert_on_spacing = FALSE // So it chasing players in space doesn't make depot explode.
 	alert_on_timeout = FALSE // So random fauna doesn't make depot explode.
-	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list() // Explodes, doesn't drop loot.
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/death()
@@ -353,7 +342,7 @@
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged
@@ -365,6 +354,7 @@
 	icon_living = "syndicate_smg"
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/c45
+
 /mob/living/simple_animal/hostile/syndicate/ranged/space
 	icon_state = "syndicate_space_smg"
 	icon_living = "syndicate_space_smg"
@@ -379,8 +369,7 @@
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 
-
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
@@ -415,7 +404,6 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = TRUE
 	deathmessage = "is smashed into pieces!"
-
 	initial_traits = list(TRAIT_FLYING)
 
 /mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
