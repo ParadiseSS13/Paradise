@@ -30,16 +30,17 @@
 			possible_programs += program
 
 /datum/program_picker/proc/modify_resource(key, amount)
-	if(key == "memory")
-		memory += amount
-		total_memory += amount
-		if(memory < 0)
-			refund_purchases()
-	if(key == "bandwidth")
-		bandwidth += amount
-		total_bandwidth += amount
-		if(bandwidth < 0)
-			refund_upgrades()
+	switch(key)
+		if("memory")
+			memory += amount
+			total_memory += amount
+			if(memory < 0)
+				refund_purchases()
+		if("bandwidth")
+			bandwidth += amount
+			total_bandwidth += amount
+			if(bandwidth < 0)
+				refund_upgrades()
 
 /datum/program_picker/proc/get_installed_programs()
 	var/list/installed_programs = list()
@@ -268,6 +269,10 @@
 	selection_deactivated_message = "<span class='notice'>You cancel the request from the lighting controller.</span>"
 
 /datum/spell/ai_spell/ranged/rgb_lighting/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/obj/machinery/target = targets[1]
 	if(!check_camera_vision(user, target))
 		revert_cast()
@@ -329,16 +334,20 @@
 	var/power_sent = 2500
 
 /datum/spell/ai_spell/ranged/power_shunt/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/target = targets[1]
 	if(!check_camera_vision(user, target))
 		revert_cast()
 		return
-	if(!istype(target, /mob/living/silicon/robot) && !istype(target, /obj/machinery/power/apc) && !istype(target, /obj/mecha) && !istype(target, /mob/living/carbon/human/machine))
+	if(!isrobot(target) && !isapc(target) && !ismecha(target) && !ismachineperson(target))
 		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(istype(target, /mob/living/carbon/human/machine)  && !AI.universal_adapter)
+	if(ismachineperson(target)  && !AI.universal_adapter)
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
 		revert_cast()
 		return
@@ -347,16 +356,16 @@
 		to_chat(user, "<span class='warning'>No SMES detected to power from!</span>")
 		revert_cast()
 		return
-	if(istype(target, /obj/mecha))
+	if(ismecha(target))
 		var/obj/mecha/T = target
 		T.cell.give(power_sent)
-	if(istype(target, /mob/living/silicon/robot))
+	if(isrobot(target))
 		var/mob/living/silicon/robot/T = target
 		T.cell.give(power_sent)
-	if(istype(target, /obj/machinery/power/apc))
+	if(isapc(target))
 		var/obj/machinery/power/apc/T = target
 		T.cell.give(power_sent)
-	if(istype(target, /mob/living/carbon/human/machine))
+	if(ismachineperson(target))
 		var/mob/living/carbon/human/machine/T = target
 		T.adjust_nutrition(AI.adapter_efficiency * (power_sent / 10))
 
@@ -398,27 +407,31 @@
 	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
 
 /datum/spell/ai_spell/ranged/repair_nanites/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/target = targets[1]
 	if(!check_camera_vision(user, target))
 		revert_cast()
 		return
-	if(!istype(target, /mob/living/silicon/robot) && !istype(target, /obj/machinery/power/apc) && !istype(target, /obj/mecha) && !istype(target, /mob/living/carbon/human/machine))
-		to_chat(user, "<span class='warning'>You can only recharge borgs, mechs, and APCs!</span>")
+	if(!isrobot(target) && !isapc(target) && !ismecha(target) && !ismachineperson(target))
+		to_chat(user, "<span class='warning'>You can only repair borgs, mechs, and APCs!</span>")
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(istype(target, /mob/living/carbon/human/machine) && !AI.universal_adapter)
-		to_chat(user, "<span class='warning'>This software lacks the required upgrade to recharge IPCs!</span>")
+	if(ismachineperson(target) && !AI.universal_adapter)
+		to_chat(user, "<span class='warning'>This software lacks the required upgrade to repair IPCs!</span>")
 		revert_cast()
 		return
-	if(istype(target, /obj/mecha)|| istype(target, /obj/machinery/power/apc))
+	if(ismecha(target)|| isapc(target))
 		var/obj/T = target
 		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level))))
-	if(istype(target, /mob/living/silicon/robot))
+	if(isrobot(target))
 		var/mob/living/silicon/robot/T = target
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		T.heal_overall_damage(damage_healed, damage_healed)
-	if(istype(target, /mob/living/carbon/human/machine))
+	if(ismachineperson(target))
 		var/mob/living/carbon/human/machine/T = target
 		var/damage_healed = AI.adapter_efficiency * (20 + (min(30, (10 * spell_level))))
 		T.heal_overall_damage(damage_healed, damage_healed, TRUE, 0, 1)
@@ -479,10 +492,14 @@
 	base_cooldown = 60 SECONDS
 	cooldown_min = 60 SECONDS
 	level_max = 5
-	selection_activated_message = "<span class='notice'>You hook into the station's lighting controller...</span>"
-	selection_deactivated_message = "<span class='notice'>You cancel the request from the lighting controller.</span>"
+	selection_activated_message = "<span class='notice'>You prepare to deploy repairing nanites to a door...</span>"
+	selection_deactivated_message = "<span class='notice'>You cancel the request.</span>"
 
 /datum/spell/ai_spell/ranged/door_override/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/obj/machinery/door/airlock/target = targets[1]
 	if(!check_camera_vision(user, target))
 		revert_cast()
@@ -541,6 +558,10 @@
 	selection_deactivated_message = "<span class='notice'>You let the nanofrost dissipate.</span>"
 
 /datum/spell/ai_spell/ranged/extinguishing_system/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/turf/target = get_turf(targets[1])
 	if(!check_camera_vision(user, target))
 		revert_cast()
@@ -645,6 +666,10 @@
 	selection_deactivated_message = "<span class='notice'>You cancel the request.</span>"
 
 /datum/spell/ai_spell/ranged/light_repair/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/obj/machinery/light/target = targets[1]
 	if(!check_camera_vision(user, target))
 		revert_cast()
@@ -687,15 +712,19 @@
 	base_cooldown = 300 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 8
-	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to perform surgery...</span>"
+	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to perform organic repairs...</span>"
 	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/mob/living/carbon/human/target = targets[1]
 	if(!check_camera_vision(user, target))
 		revert_cast()
 		return
-	if(!istype(target) || istype(target, /mob/living/carbon/human/machine))
+	if(!istype(target) || ismachineperson(target))
 		to_chat(user, "<span class='warning'>You can only heal organic crew!</span>")
 		revert_cast()
 		return
@@ -756,7 +785,7 @@
 
 /datum/spell/ai_spell/research_subsystem
 	name = "Experimental Research Subsystem"
-	desc = "Heal a crew member with large numbers of robotic nanomachines!"
+	desc = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field."
 	action_icon = 'icons/obj/machines/research.dmi'
 	action_icon_state = "tdoppler"
 	auto_use_uses = FALSE
@@ -776,11 +805,13 @@
 			break
 	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
 	if(!RNC) // Could not find the RND server. It probably blew up.
+		to_chat(user, "<span class='warning'>No research server found!</span>")
 		return
 
 	var/upgraded = FALSE
 	var/datum/research/files = RNC.research_files
 	if(!files)
+		to_chat(user, "<span class='warning'>No research server found!</span>")
 		return
 	var/list/possible_tech = list()
 	for(var/datum/tech/T in files.possible_tech)
@@ -815,7 +846,7 @@
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 600 SECONDS)
 
 // Emergency Sealant - Patches holes with metal foam
-/datum/ai_program/research_semergency_sealantubsystem
+/datum/ai_program/emergency_sealant
 	program_name = "Emergency Sealant"
 	program_id = "emergency_sealant"
 	description = "Deploy an area of metal foam to rapidly repair and seal hull breaches."
@@ -838,6 +869,10 @@
 	selection_deactivated_message = "<span class='notice'>You dissolve the unused canister.</span>"
 
 /datum/spell/ai_spell/ranged/emergency_sealant/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/target = targets[1]
 	if(!check_camera_vision(user, target))
 		revert_cast()
@@ -888,11 +923,15 @@
 	var/signs = list()
 
 /datum/spell/ai_spell/ranged/holosign_displayer/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/target = targets[1]
 	if(!check_camera_vision(user, target))
 		revert_cast()
 		return
-	var/sign_id = tgui_input_list(usr, "Select a holosgn!", "AI", sign_choices)
+	var/sign_id = tgui_input_list(usr, "Select a holosign!", "AI", sign_choices)
 	if(!sign_id)
 		return
 	var/sign_type
@@ -940,6 +979,10 @@
 	selection_deactivated_message = "<span class='notice'>You reduce the amount of humor in your subsystems.</span>"
 
 /datum/spell/ai_spell/ranged/honk_subsystem/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
 	var/target = targets[1]
 	if(!target)
 		return
