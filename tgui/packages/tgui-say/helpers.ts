@@ -26,7 +26,7 @@ export const windowClose = () => {
  * Modifies the window size.
  */
 export const windowSet = (size = WINDOW_SIZES.small) => {
-  let sizeStr = `${WINDOW_SIZES.width}x${size}`;
+  let sizeStr = `${WINDOW_SIZES.width * window.devicePixelRatio}x${size * window.devicePixelRatio}`;
 
   Byond.winset('tgui_say.browser', {
     size: sizeStr,
@@ -39,8 +39,13 @@ export const windowSet = (size = WINDOW_SIZES.small) => {
 
 /** Helper function to set window size and visibility */
 const setWindowVisibility = (visible: boolean) => {
+  let sizeStr = `${WINDOW_SIZES.width * window.devicePixelRatio}x${WINDOW_SIZES.small * window.devicePixelRatio}`;
   Byond.winset('tgui_say', {
     'is-visible': visible,
-    size: `${WINDOW_SIZES.width}x${WINDOW_SIZES.small}`,
+    size: sizeStr,
+  });
+
+  Byond.winset('tgui_say.browser', {
+    size: sizeStr,
   });
 };
