@@ -712,7 +712,7 @@
 	investigate_log("Supermatter shard consumed by singularity.", "singulo")
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
-	var/supermatter_sound = sound('sound/effects/supermatter.ogg')
+	var/supermatter_sound = sound('sound/spookoween/scary_horn2.ogg')
 	for(var/M in GLOB.player_list)
 		if(atoms_share_level(M, src))
 			SEND_SOUND(M, supermatter_sound) //everyone goan know bout this
@@ -785,7 +785,7 @@
 		cause = "contact"
 	nom.visible_message(vis_msg, mob_msg, "<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
 	investigate_log("has been attacked ([cause]) by [key_name(nom)]", "supermatter")
-	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+	playsound(get_turf(src), 'sound/spookoween/scary_horn2.ogg', 50, TRUE)
 	Consume(nom)
 
 /obj/machinery/atmospherics/supermatter_crystal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -845,7 +845,7 @@
 
 	if(isliving(AM))
 		AM.visible_message("<span class='danger'>[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
-		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
+		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly honking. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
 	else if(isobj(AM) && !iseffect(AM))
 		AM.visible_message("<span class='danger'>[AM] smacks into [src] and rapidly flashes to ash.</span>", null,\
@@ -853,7 +853,7 @@
 	else
 		return
 
-	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+	playsound(get_turf(src), 'sound/spookoween/scary_horn2.ogg', 50, TRUE)
 	Consume(AM)
 
 /obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A)
@@ -1050,7 +1050,7 @@
 	icon_state = "darkmatter"
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_pull(turf/center, pull_range = 3)
-	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view, channel = CHANNEL_ENGINE)
+	playsound(center, 'sound/items/bikehorn.ogg', 100, TRUE, extrarange = pull_range - world.view, channel = CHANNEL_ENGINE)
 	for(var/atom/movable/P in orange(pull_range,center))
 		if((P.anchored || P.move_resist >= MOVE_FORCE_EXTREMELY_STRONG)) //move resist memes.
 			if(istype(P, /obj/structure/closet))
