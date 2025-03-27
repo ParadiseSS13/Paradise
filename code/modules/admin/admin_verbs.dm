@@ -42,6 +42,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
+	/client/proc/cmd_staff_say,
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
 	/client/proc/cmd_dev_say,
@@ -225,7 +226,15 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/admin_observe_target,
 	/client/proc/cmd_mentor_say,	/* mentor say*/
 	/client/proc/view_msays,
+	/client/proc/cmd_staff_say,
+	/client/proc/view_staffsays
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
+))
+GLOBAL_LIST_INIT(admin_verbs_dev, list(
+	/client/proc/cmd_dev_say,
+	/client/proc/view_devsays,
+	/client/proc/cmd_staff_say,
+	/client/proc/view_staffsays
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 	/client/proc/callproc,
@@ -311,7 +320,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 		if(holder.rights & R_DEV_TEAM)
-			add_verb(src, /client/proc/cmd_dev_say)
+			add_verb(src, GLOB.admin_verbs_dev)
 		if(is_connecting_from_localhost())
 			add_verb(src, /client/proc/export_current_character)
 
@@ -344,7 +353,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.admin_verbs_proccall,
 		GLOB.admin_verbs_show_debug_verbs,
 		GLOB.admin_verbs_ticket,
-		GLOB.admin_verbs_maintainer
+		GLOB.admin_verbs_maintainer,
+		GLOB.admin_verbs_dev
 	))
 	add_verb(src, /client/proc/show_verbs)
 

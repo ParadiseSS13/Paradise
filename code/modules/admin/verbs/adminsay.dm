@@ -91,7 +91,7 @@
 	set name = "Staffsay"
 	set hidden = TRUE
 
-	if(!check_rights())
+	if(!check_rights(R_DEV_TEAM|R_ADMIN|R_MENTOR))
 		return
 
 	msg = emoji_parse(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))

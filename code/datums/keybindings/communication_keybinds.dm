@@ -7,7 +7,7 @@
 
 /datum/keybinding/client/communication/down(client/C)
 	. = ..()
-	if(!isnull(required_rights) && !check_rights(required_rights, FALSE, C.mob))
+	if(required_rights && !check_rights(required_rights, FALSE, C.mob))
 		return
 
 	if(mute_category && check_mute(C.ckey, mute_category))
@@ -81,4 +81,4 @@
 /datum/keybinding/client/communication/staffsay
 	name = STAFF_CHANNEL
 	keys = list("-")
-	required_rights = 0 // 0 rights, but requires a holder
+	required_rights = R_DEV_TEAM | R_MENTOR | R_ADMIN
