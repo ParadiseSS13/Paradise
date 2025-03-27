@@ -218,3 +218,63 @@
 	desc = "A small wooden stick, usually topped by popsicles or other frozen treats."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "popsicle_stick"
+
+/obj/item/gun/magic/hook/slime_hand
+	name = "slime hand"
+	desc = "Aim at bald people for peak comedy"
+	ammo_type = /obj/item/ammo_casing/magic/hook/slime_hand
+	icon_state = "slime_hand_tp"
+	item_state = "slime_hand_tp"
+	fire_sound = 'sound/effects/slime_squish.ogg'
+	max_charges = 1
+	recharge_rate = 1
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/ammo_casing/magic/hook/slime_hand
+	name = "slime hand"
+	desc = "a slime hand."
+	projectile_type = /obj/item/projectile/hook/slime_hand
+	caliber = "hook"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "slime_hand_tp"
+
+/obj/item/projectile/hook/slime_hand
+	name = "slime hand"
+	icon_state = "slime_hand_tp"
+	icon = 'icons/obj/projectiles.dmi'
+	damage = 20
+	damage_type = STAMINA
+	hitsound = null
+
+/obj/item/projectile/hook/slime_hand/fire(setAngle)
+	if(firer)
+		color = firer_source_atom.color
+		chain = firer.Beam(src, icon_state = "slime_beam_tp", icon = 'icons/obj/projectiles.dmi', time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor, beam_color = color)
+	..()
+
+/obj/item/projectile/hook/slime_hand/on_hit(atom/target)
+	if(isturf(target))
+		return 0
+	if(ismob(target))
+		if(istype(target, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = target
+			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+
+			//Bald heads slap the hardest
+			if(head_organ && (head_organ.h_style in list("Bald", "Balding_Fade", "Skinhead")))
+				playsound(target.loc, pick('sound/slap/slap.ogg', 'sound/slap/slap_oh.ogg', 'sound/slap/i_like_ya_cut_g_slap.ogg'), 10, FALSE)
+				H.KnockDown(2 SECONDS)
+				H.Jitter(1.5 SECONDS)
+				to_chat(H, "<span class='danger'>[firer] likes ya cut G</span>")
+				//H.visible_message("<span class='danger'>[firer] likes ya cut G</span>")
+				return 1
+
+		playsound(target.loc, 'sound/weapons/slap.ogg', 40, FALSE)
+
+	// Sticky slime hand yoinks stuff
+	if(isobj(target))
+		if(istype(target, /obj/item))
+			var/obj/item/S = target
+			S.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
+
+	return 1

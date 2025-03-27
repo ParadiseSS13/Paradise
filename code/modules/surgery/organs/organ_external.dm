@@ -629,6 +629,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Let people make limbs become fun things when removed
 	var/atom/movable/dropped_part = remove(null, ignore_children)
 
+	// Only slimes have slime hands
+	if(isslimeperson(victim))
+		if(body_part in list(HAND_LEFT, HAND_RIGHT))
+			dropped_part = new /obj/item/gun/magic/hook/slime_hand(get_turf(victim))
+			dropped_part.color = victim.skin_colour
+			qdel(src)
+
 	if(parent)
 		parent.children -= src
 		if(!nodamage)
@@ -736,6 +743,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 		playsound(T, 'sound/effects/splat.ogg', 25, 1)
 	for(var/obj/item/I in src)
 		I.forceMove(T)
+		if(istype(I, /obj/item/organ/external))
+			var/obj/item/organ/external/E = I
+
+			// Only slimes have slime hands
+			if(istype(E.dna.species, /datum/species/slime) && (body_part in list(ARM_LEFT, ARM_RIGHT)))
+				var/atom/movable/dropped_part = new /obj/item/gun/magic/hook/slime_hand(get_turf(E))
+				//dropped_part.color = color "Doesnt work :("
+				qdel(I)
 
 /****************************************************
 			HELPERS

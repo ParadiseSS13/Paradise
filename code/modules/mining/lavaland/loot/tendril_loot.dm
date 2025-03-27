@@ -362,8 +362,9 @@
 	knockdown = 6 SECONDS
 
 /obj/item/projectile/hook/fire(setAngle)
-	if(firer)
-		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
+	if(icon_state == "hook")
+		if(firer)
+			chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
 	..()
 	//TODO: root the firer until the chain returns
 
