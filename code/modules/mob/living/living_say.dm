@@ -111,6 +111,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return FALSE
 
+
+
 	if(sanitize)
 		if(speaks_ooc)
 			if(GLOB.configuration.general.enable_ooc_emoji)
@@ -119,6 +121,12 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				message = sanitize(message)
 		else
 			message = sanitize_for_ic(message)
+
+	var/list/emoji_found = list()
+
+	// lazy, just force it
+	message = emoji_parse(message, emoji_found)
+
 
 	if(stat)
 		if(stat == DEAD)
