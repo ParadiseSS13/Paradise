@@ -44,4 +44,8 @@ const setWindowVisibility = (visible: boolean) => {
     'is-visible': visible,
     size: sizeStr,
   });
+
+  Byond.winset('tgui_say.browser', {
+    size: sizeStr,
+  });
 };
