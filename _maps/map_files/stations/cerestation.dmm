@@ -1310,14 +1310,13 @@
 	},
 /area/station/medical/medbay3)
 "ajq" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/computer/aiupload,
 /obj/machinery/door/window/classic/reversed{
 	name = "Console Access"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload,
+/obj/machinery/computer/aiupload/hardened,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74657,9 +74656,6 @@
 	},
 /area/station/public/storefront)
 "pkO" = (
-/obj/machinery/computer/borgupload{
-	dir = 1
-	},
 /obj/machinery/door/window/classic/reversed{
 	dir = 1;
 	name = "Console Access"
@@ -74672,6 +74668,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/machinery/computer/borgupload/hardened{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

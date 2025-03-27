@@ -162,17 +162,27 @@
 	icon_state = "command"
 	build_path = /obj/machinery/computer/aiupload
 	origin_tech = "programming=4;engineering=4"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/circuitboard/aiupload_broken
 	board_name = "AI Upload"
-	desc = "<span class='warning'>The board is charred and smells of burnt plastic. It has been rendered useless.</span>"
+	desc = "<span class='warning'>The board is charred and smells of burnt plastic. You think you can get it working again with a screwdriver.</span>"
 	icon_state = "command_broken"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/circuitboard/aiupload_broken/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return
+	new /obj/item/circuitboard/aiupload(get_turf(src))
+	qdel(src)
 
 /obj/item/circuitboard/borgupload
 	board_name = "Cyborg Upload"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/borgupload
 	origin_tech = "programming=4;engineering=4"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/circuitboard/nonfunctional
 	board_name = "destroyed"

@@ -79081,15 +79081,15 @@
 	c_tag = "AI Upload Chamber";
 	dir = 10
 	},
-/obj/machinery/computer/aiupload{
-	dir = 1
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload{
 	dir = 1
 	},
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
 	name = "Console Access"
+	},
+/obj/machinery/computer/aiupload/hardened{
+	dir = 1
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
@@ -79282,11 +79282,11 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
-/obj/machinery/computer/borgupload,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload,
 /obj/machinery/door/window/reinforced/reversed{
 	name = "Console Access"
 	},
+/obj/machinery/computer/borgupload/hardened,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "tMe" = (
