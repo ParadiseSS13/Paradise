@@ -336,16 +336,18 @@
 			return ITEM_INTERACT_COMPLETE
 
 		if(!has_electronics())
-			user.visible_message(
-				"<span class='notice'>[user] installs [used] into [src]...</span>",
-				"<span class='notice'>You install [used] into [src]...</span>"
-				)
-			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-			electronics_state = APC_ELECTRONICS_INSTALLED
-			locked = FALSE
-			stat &= ~MAINT
-			update_icon()
-			qdel(used)
+			to_chat(user, "<span class='notice'>You start to add [used] to [src].</span>")
+			if(do_after(user, 1 SECONDS, target = src))
+				user.visible_message(
+					"<span class='notice'>[user] installs [used] into [src]...</span>",
+					"<span class='notice'>You install [used] into [src]...</span>"
+					)
+				playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+				electronics_state = APC_ELECTRONICS_INSTALLED
+				locked = FALSE
+				stat &= ~MAINT
+				update_icon()
+				qdel(used)
 
 		return ITEM_INTERACT_COMPLETE
 
