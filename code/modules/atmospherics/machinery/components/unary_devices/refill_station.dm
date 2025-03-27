@@ -59,6 +59,8 @@
 	return TRUE
 
 /obj/machinery/atmospherics/unary/refill_station/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/analyzer))
+		return ..()
 	if(!istype(used, /obj/item/tank))
 		to_chat(user, "<span class='warning'>[used] does not fit in [src]'s tank slot.</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -128,8 +130,8 @@
 
 	var/transfer_moles = 0
 	transfer_moles = pressure_delta * holding_environment.volume / (refill_station.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
-	// Make it take some time. Max 1 moles per cycle.
-	transfer_moles = min(transfer_moles, 1)
+	// Make it take some time. Max half a mole per cycle.
+	transfer_moles = min(transfer_moles, 0.5)
 	// Actually transfer the gas
 	var/datum/gas_mixture/removed = refill_station.air_contents.remove(transfer_moles)
 	holding_environment.merge(removed)
@@ -166,5 +168,25 @@
 			overlays += "filling_plasma"
 		else
 			overlays += "filled_plasma"
+
+/obj/machinery/atmospherics/unary/refill_station/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/tank/internals/plasmaman))
+		to_chat(user, "<span class='warning'>[used] does not fit in [src]'s tank slot.</span>")
+		return ITEM_INTERACT_COMPLETE
+	if(!(stat & BROKEN))
+		if(used.flags & NODROP || !user.transfer_item_to(used, src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/tank/new_tank = used
+		to_chat(user, "<span class='notice'>[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [new_tank]" : "You insert [new_tank] into [src]"].</span>")
+		investigate_log("[key_name(user)] started a transfer into [new_tank] at [src].<br>", "atmos")
+		if(holding_tank)
+			replace_tank(user, new_tank)
+		else
+			holding_tank = new_tank
+			if(!(stat & NOPOWER))
+				on = TRUE
+		update_icon(UPDATE_OVERLAYS)
+	return ITEM_INTERACT_COMPLETE
 
 #undef MAX_TARGET_PRESSURE
