@@ -68739,20 +68739,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"lqd" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/basic,
-/obj/structure/window/basic{
-	dir = 1
-	},
-/obj/structure/window/basic{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "lqg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -132515,7 +132501,7 @@ dKo
 dKo
 dKo
 dNb
-lqd
+dNN
 dOw
 dXJ
 uaj
@@ -132772,7 +132758,7 @@ dKo
 dKo
 dKo
 dQp
-pAd
+dNO
 dRG
 dXJ
 dKo
