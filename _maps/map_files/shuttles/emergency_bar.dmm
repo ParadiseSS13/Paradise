@@ -14,9 +14,7 @@
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ah" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ai" = (
@@ -49,9 +47,7 @@
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -133,9 +129,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
