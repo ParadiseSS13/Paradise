@@ -38117,7 +38117,7 @@
 	desc = "An old NT branded sleeper, decommissioned after heavy usage. None of the functional machinery remains inside.";
 	name = "Decommissioned Sleeper"
 	},
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -59387,7 +59387,7 @@
 "lRY" = (
 /obj/effect/decal/cleanable/greenglow,
 /obj/structure/glowshroom,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "lSa" = (
