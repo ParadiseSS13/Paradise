@@ -252,6 +252,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	var/screen = ALLOCATED_RESOURCES
 
 /obj/machinery/computer/ai_resource/attack_ai(mob/user) // Bad AI, no access to stealing resources
+	to_chat(user, "<span class='warning'>ERROR: Firewall blocked! Station AI's are not permitted to interface with this console!</span>")
 	return
 
 /obj/machinery/computer/ai_resource/attack_hand(mob/user)
