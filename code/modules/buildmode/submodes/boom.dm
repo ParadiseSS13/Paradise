@@ -24,7 +24,7 @@
 	flash = tgui_input_number(user, "Range of Flash", "Flash", -1, min_value = -1)
 	flames = tgui_input_number(user, "Range of Flames", "Flames", -1, min_value = -1)
 
-/datum/buildmode_mode/boom/handle_click(user, params, obj/object)
+/datum/buildmode_mode/boom/handle_click(mob/user, params, obj/object)
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 
