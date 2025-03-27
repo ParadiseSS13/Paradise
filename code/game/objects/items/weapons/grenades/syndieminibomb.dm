@@ -5,14 +5,16 @@
 	icon_state = "syndicate"
 	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4;syndicate=3"
+	var/explosion_cause = "Syndicate minibomb"
 
 /obj/item/grenade/syndieminibomb/prime()
 	update_mob()
-	explosion(loc, 1, 2, 4, flame_range = 2)
+	explosion(loc, 1, 2, 4, flame_range = 2, cause = src.cause)
 	qdel(src)
 
 /obj/item/grenade/syndieminibomb/fake
 	origin_tech = "materials=3;magnets=4;syndicate=1" // no clown, this bomb not exactly the same
+	explosion_cause = "Trick Syndicate minibomb"
 
 /obj/item/grenade/syndieminibomb/fake/examine(mob/user)
 	. = ..()
@@ -32,6 +34,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
+	explosion_cause = "Syndicate minibomb (disguised as a black pen)"
 
 /obj/item/grenade/syndieminibomb/pen/attack_self__legacy__attackchain(mob/user)
 	if(!active)

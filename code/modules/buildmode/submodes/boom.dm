@@ -30,4 +30,4 @@
 
 	if(left_click)
 		log_admin("Build Mode: [key_name(user)] created an explosion at ([object.x],[object.y],[object.z])")
-		explosion(object, devastation, heavy, light, flash, null, TRUE, flames)
+		explosion(object, devastation, heavy, light, flash, null, TRUE, flames, cause = "Buildmode boom")
