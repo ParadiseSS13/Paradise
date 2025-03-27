@@ -4985,7 +4985,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint)
 "bWM" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/machinery/cooking/ice_cream_mixer,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -5098,6 +5098,13 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/brig)
+"bYr" = (
+/obj/machinery/cooking/grill,
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "bYy" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -10918,6 +10925,10 @@
 	},
 /area/station/security/permabrig)
 "dmZ" = (
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
+/obj/item/storage/box/cups,
 /obj/structure/shelf/service,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
@@ -11024,7 +11035,7 @@
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "dnS" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -12613,13 +12624,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain)
-"dEW" = (
-/obj/item/kitchen/knife,
-/obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/service/kitchen)
 "dEX" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -12644,7 +12648,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "eng_vent"
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -16346,7 +16350,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/office/rd)
 "eyJ" = (
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
@@ -18577,6 +18581,13 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
+"eWA" = (
+/obj/item/reagent_containers/cooking/board,
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "eWD" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	name = "Testing Lab Shutters";
@@ -19978,9 +19989,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/east)
 "foE" = (
+/obj/structure/closet/crate/cookware,
 /obj/machinery/requests_console/directional/west,
-/obj/machinery/reagentgrinder,
-/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -20175,7 +20185,7 @@
 /area/station/maintenance/electrical)
 "frZ" = (
 /obj/machinery/economy/vending/medical,
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = 28
@@ -27945,7 +27955,6 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "hlY" = (
-/obj/machinery/kitchen_machine/grill,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -28298,7 +28307,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -28376,7 +28385,10 @@
 	},
 /area/station/maintenance/asmaint)
 "hsv" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
+	},
+/obj/structure/table,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -30054,7 +30066,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "hNF" = (
@@ -31420,6 +31431,7 @@
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "idV" = (
+/obj/item/kitchen/knife,
 /obj/item/kitchen/rollingpin,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -46887,7 +46899,7 @@
 	},
 /area/station/engineering/control)
 "mhg" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "mhn" = (
@@ -54891,7 +54903,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = -27
@@ -56651,7 +56663,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
 "pbW" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluefull"
@@ -61470,7 +61482,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "qzc" = (
@@ -64112,10 +64124,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "rky" = (
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = 3;
-	pixel_y = 6
-	},
+/obj/machinery/cooking/stovetop,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -70980,13 +70989,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
-"tpW" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/kitchen_machine/oven,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/station/security/permabrig)
 "tqe" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -73065,7 +73067,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -74189,7 +74191,6 @@
 /area/station/service/kitchen)
 "ukg" = (
 /obj/effect/spawner/random/cobweb/left/frequent,
-/obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "ukq" = (
@@ -78325,7 +78326,6 @@
 	},
 /area/station/command/vault)
 "vzK" = (
-/obj/machinery/cooker/deepfryer,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/blood/xeno,
 /turf/simulated/floor/plasteel{
@@ -80903,7 +80903,7 @@
 /turf/simulated/floor/carpet,
 /area/station/service/bar)
 "wnR" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -82353,10 +82353,6 @@
 /obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/transparent/glass,
 /area/station/hallway/primary/central/south)
-"wLc" = (
-/obj/machinery/kitchen_machine/grill,
-/turf/simulated/floor/wood,
-/area/station/maintenance/aft)
 "wLd" = (
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -82376,7 +82372,7 @@
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/station/command/bridge)
 "wLt" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -86782,7 +86778,7 @@
 	dir = 4;
 	layer = 2.9
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "xYs" = (
@@ -107638,7 +107634,7 @@ eKW
 clq
 bkU
 kXr
-wLc
+dfI
 gCm
 dfI
 kgE
@@ -114754,7 +114750,7 @@ hDB
 dsT
 nmf
 ghS
-rky
+bYr
 bBA
 idV
 xfM
@@ -115270,7 +115266,7 @@ dmZ
 biX
 bWM
 idx
-qZZ
+eWA
 cXS
 cGo
 cGo
@@ -115527,7 +115523,7 @@ biX
 biX
 hsv
 idx
-dEW
+qZZ
 jjc
 cGo
 xDG
@@ -136806,7 +136802,7 @@ bzC
 bzC
 bbr
 blI
-tpW
+lhc
 uuM
 blI
 blI
