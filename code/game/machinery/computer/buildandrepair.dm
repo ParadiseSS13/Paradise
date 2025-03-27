@@ -162,6 +162,7 @@
 	icon_state = "command"
 	build_path = /obj/machinery/computer/aiupload
 	origin_tech = "programming=4;engineering=4"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/circuitboard/aiupload_broken
 	board_name = "AI Upload"
@@ -173,6 +174,7 @@
 	icon_state = "command"
 	build_path = /obj/machinery/computer/borgupload
 	origin_tech = "programming=4;engineering=4"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/circuitboard/nonfunctional
 	board_name = "destroyed"
