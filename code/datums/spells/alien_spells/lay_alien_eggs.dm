@@ -35,5 +35,5 @@
 
 /datum/spell/alien_spell/combust_facehuggers/proc/blow_it_up(obj/target, mob/user)
 	add_attack_logs(user, target, "Caused it to explode")
-	explosion(get_turf(target), 0, 2, 3, 3, cause = "[user.real_name || user.name]: [name]")
+	explosion(get_turf(target), 0, 2, 3, 3, cause = "[user.ckey]: [name]")
 	to_chat(user, "<span class='noticealien'>[target] has detonated!</span>")
