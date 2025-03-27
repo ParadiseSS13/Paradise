@@ -12358,7 +12358,7 @@
 "aVZ" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aWa" = (
