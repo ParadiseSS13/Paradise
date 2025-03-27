@@ -110,7 +110,7 @@
 	if(HAS_TRAIT(user, TRAIT_PLAGUE_ZOMBIE))
 		try_virus_infect(attack_target, user, claw_disease)
 		return
-	
+
 	try_infect(attack_target, user)
 
 	var/obj/item/organ/internal/brain/eat_brain = attack_target.get_organ_slot("brain")
@@ -179,8 +179,8 @@
 /obj/item/zombie_claw/plague_claw
 	name = "Plague Claws"
 	desc = "Claws extend from your rotting hands, oozing a putrid ichor. Perfect for rending bone and flesh for your master."
-	armour_penetration_percentage = 25
-	force = 35
+	armour_penetration_percentage = 20
+	force = 26
 	attack_effect_override = ATTACK_EFFECT_CLAW
 
 /obj/item/zombie_claw/plague_claw/Initialize(mapload, new_parent_spell, disease)
@@ -205,5 +205,9 @@
 	if(!target.HasDisease(claw_disease))
 		var/datum/disease/plague = new claw_disease
 		target.ContractDisease(plague)
+	else if(prob(40)) // 40% chance to advance the disease
+		for(var/datum/disease/D in target.viruses)
+			if(D.type == claw_disease && D.stage < D.max_stages)
+				D.stage += 1
 	target.bleed_rate = max(5, target.bleed_rate + 1) // Very sharp, ouch!
 

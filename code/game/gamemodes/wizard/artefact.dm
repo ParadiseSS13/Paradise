@@ -892,11 +892,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 	// Wiz and minions should contract their own diseases
 	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
+	necromancer.add_language("Zombie", TRUE) // make sure necromancer can speak to the bois
+
+	addtimer(CALLBACK(src, PROC_REF(finish_convert), victim, necromancer, chosen_plague), 5 SECONDS)
 
 	qdel(src) // talismans are single use
 
-	sleep(50) // so that mindslave comes after the zombie antag
-
+/obj/item/plague_talisman/proc/finish_convert(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer, datum/disease/chosen_plague)
 	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
 		You have been bestowed the following plague: <br> \
 		[chosen_plague.name]!</span>"
@@ -904,11 +906,11 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	// Cant very well have your new minions dead for so long
 	victim.heal_overall_damage(1000, 1000)
+	victim.ExtinguishMob()
 	victim.med_hud_set_health()
 	victim.med_hud_set_status()
 	victim.update_hands_hud()
 	victim.update_body()
-
 
 //choose what disease this zombie will get
 /obj/item/plague_talisman/proc/pick_disease()

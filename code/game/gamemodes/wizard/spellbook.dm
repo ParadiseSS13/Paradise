@@ -450,6 +450,10 @@
 	item_path = /obj/item/storage/belt/plague_talisman
 	category = "Artefacts"
 
+/datum/spellbook_entry/item/plague_talisman/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	. = ..()
+	if(.)
+		user.add_language("Zombie")
 
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"

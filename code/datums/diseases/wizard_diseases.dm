@@ -51,10 +51,10 @@
 			if(prob(3))
 				to_chat(affected_mob, "<span class='danger'>You feel bloated.</span>")
 			if(prob(2))
-				to_chat(affected_mob, "<span class='danger'>Your feel an uncomfortable pressure in your abdomen</span>")
+				to_chat(affected_mob, "<span class='danger'>Your feel an uncomfortable pressure in your abdomen.</span>")
 		if(3)
 			if(prob(3))
-				to_chat(affected_mob, "<span class='danger'>Your feel an uncomfortable pressure in your abdomen</span>")
+				to_chat(affected_mob, "<span class='danger'>Your feel an uncomfortable pressure in your abdomen.</span>")
 			if(prob(2))
 				affected_mob.custom_emote(EMOTE_VISIBLE, "burps")
 			if(prob(1))
@@ -68,7 +68,7 @@
 			if(prob(3))
 				to_chat(affected_mob, "<span class='danger'>Your feel horribly bloated.</span>")
 			if(prob(2))
-				to_chat(affected_mob, "<span class='danger'>A deep bubbling resounds through your chest</span>")
+				to_chat(affected_mob, "<span class='danger'>A deep bubbling resounds through your chest.</span>")
 		if(5)
 			if(prob(2))
 				affected_mob.custom_emote(EMOTE_VISIBLE, "belches loudly!")
@@ -221,7 +221,8 @@
 	milla.invoke_async(src)
 	if(world.time >= time_to_live) // dont want to remove the spot, but stop removing atmos
 		STOP_PROCESSING(SSprocessing, src)
-		desc = "Despite the hazard, its dazzlingly beautiful. It seems to be inert now."
+		src.visible_message("<span class = 'danger'>The spacematter vomit evaporates into nothingness!</span>")
+		qdel(src)
 
 /datum/milla_safe/spacematter_vomit_process
 

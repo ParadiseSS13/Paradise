@@ -72,7 +72,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 		L.remove_language(lang.name)
 	L.add_language("Zombie")
 	L.default_language = GLOB.all_languages["Zombie"]
-	if(!HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE)) // Lets not extinguish wizard's lights
+	if(!HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
 		L.extinguish_light() // zombies prefer darkness
 	for(var/trait in zombie_traits)
 		ADD_TRAIT(L, trait, ZOMBIE_TRAIT)
