@@ -81098,10 +81098,6 @@
 /area/station/public/fitness)
 "rGk" = (
 /obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -81110,6 +81106,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "rGF" = (
