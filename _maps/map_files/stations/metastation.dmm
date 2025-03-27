@@ -14372,7 +14372,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bkb" = (
@@ -14418,7 +14418,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bkk" = (
@@ -21098,7 +21098,6 @@
 "bEG" = (
 /obj/structure/rack,
 /obj/item/storage/box/donkpockets,
-/obj/item/book/manual/wiki/chef_recipes,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "bES" = (
@@ -21835,7 +21834,6 @@
 	},
 /area/station/service/bar)
 "bHR" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/door_control{
 	id = "kitchen_counter";
 	name = "Kitchen Counter Shutters";
@@ -21843,6 +21841,7 @@
 	pixel_y = 24;
 	req_access = list(28)
 	},
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -23911,8 +23910,8 @@
 /area/station/supply/expedition)
 "bQC" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
 /obj/machinery/requests_console/directional/west,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -23945,7 +23944,8 @@
 /area/station/service/kitchen)
 "bQJ" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
+/obj/item/reagent_containers/cooking/board,
+/obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -24425,7 +24425,7 @@
 /turf/space,
 /area/station/engineering/solar/aft_port)
 "bSx" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "custom placement";
@@ -39990,10 +39990,11 @@
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "dnI" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/item/storage/bag/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -41722,7 +41723,9 @@
 /area/station/engineering/gravitygenerator)
 "edB" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/chef_recipes,
+/obj/item/reagent_containers/condiment/enzyme{
+	layer = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -54678,20 +54681,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"jOv" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
-/obj/machinery/camera{
-	c_tag = "Kitchen - Fore";
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/service/kitchen)
 "jOA" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/disposalpipe/segment{
@@ -66367,10 +66356,7 @@
 /area/station/maintenance/starboard)
 "oXP" = (
 /obj/structure/table,
-/obj/item/storage/bag/tray,
-/obj/item/reagent_containers/condiment/enzyme{
-	layer = 5
-	},
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -76972,6 +76958,19 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
+"tEq" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/closet/crate/cookware,
+/obj/machinery/camera{
+	c_tag = "Kitchen - Fore";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "tEL" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -77231,6 +77230,9 @@
 /obj/item/book/manual/wiki/sop_service,
 /obj/item/storage/box/donkpockets,
 /obj/machinery/firealarm/directional/south,
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -80684,7 +80686,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "vpw" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -85653,10 +85655,6 @@
 	pixel_x = -8;
 	pixel_y = 11
 	},
-/obj/item/book/manual/wiki/chef_recipes{
-	pixel_x = 4;
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -86572,7 +86570,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/east)
 "ycj" = (
-/obj/machinery/cooker/deepfryer,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
 	pixel_y = -30
@@ -86580,6 +86577,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -119916,7 +119914,7 @@ tmt
 jQx
 hLX
 bQC
-jOv
+tEq
 bTD
 bSt
 bQI

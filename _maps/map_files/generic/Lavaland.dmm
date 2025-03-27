@@ -3420,7 +3420,8 @@
 	},
 /area/mine/laborcamp)
 "jJ" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -6549,7 +6550,7 @@
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "zm" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/flashlight/flare,
 /turf/simulated/floor/mineral/titanium/blue,
