@@ -215,7 +215,7 @@
 	icon_state = "hacktool-g"
 	busy = TRUE
 	to_chat(user, "<span class='notice'>[src] is attempting to interface with [target]...</span>")
-	if(do_after(user, hack_speed, target = target))
+	if(do_after(user, hack_speed, target = target, hidden = TRUE))
 		busy = FALSE
 		icon_state = "hacktool"
 		return TRUE
