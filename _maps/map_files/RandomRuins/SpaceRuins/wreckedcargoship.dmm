@@ -407,7 +407,6 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "nH" = (
-/obj/machinery/light/small,
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
@@ -1088,6 +1087,7 @@
 "Sj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "SI" = (
