@@ -28,6 +28,7 @@ SUBSYSTEM_DEF(late_mapping)
 		log_startup_progress("Generated [mgcount] mazes in [duration]s")
 
 	maintenance_mice()
+	planet_of_the_apes()
 
 	GLOB.spawn_pool_manager.process_pools()
 
@@ -61,3 +62,12 @@ SUBSYSTEM_DEF(late_mapping)
 			new /mob/living/simple_animal/mouse(pick_n_take(maintenance_turfs))
 
 	log_debug("Spawned [mice_number] mice over in [stop_watch(watch)]s")
+
+/**
+ * Return to monke, some monkeys will evolve
+ */
+/datum/controller/subsystem/late_mapping/proc/planet_of_the_apes()
+	log_startup_progress("Ook, ook... OOK!")
+	for(var/mob/living/carbon/human/monkey/M in GLOB.carbon_list)
+		if(prob(15))
+			M.gorillize()

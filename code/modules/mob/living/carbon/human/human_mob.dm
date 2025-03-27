@@ -152,6 +152,10 @@
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
+	if(mapload)
+		return
+	if(prob(10))
+		addtimer(CALLBACK(src, PROC_REF(gorillize), prob(5)), 3 SECONDS) // OH SHIT
 
 /mob/living/carbon/human/farwa/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/tajaran)
