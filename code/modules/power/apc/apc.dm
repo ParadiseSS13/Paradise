@@ -350,7 +350,7 @@
 			qdel(used)
 		return ITEM_INTERACT_COMPLETE
 
-	// APC frame repair. Takes no time, the trade-off is you sacrifice the metal used to build the replacement frame vs. being able to recover it from the old one.
+	// APC frame repair.
 	if(istype(used, /obj/item/mounted/frame/apc_frame) && opened)
 		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity))
 			to_chat(user, "<span class='warning'>[src] has no damage to fix!</span>")
