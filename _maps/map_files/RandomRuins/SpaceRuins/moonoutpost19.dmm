@@ -1543,9 +1543,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "eU" = (
@@ -4178,9 +4176,6 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing{
 	dir = 8
@@ -4189,6 +4184,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "nE" = (
@@ -6252,9 +6248,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "wR" = (
