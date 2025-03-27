@@ -5138,8 +5138,7 @@
 /area/station/maintenance/disposal)
 "axD" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -6656,8 +6655,7 @@
 /area/station/supply/storage)
 "aCK" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/turf_decal/arrows/black{
 	dir = 4
@@ -13670,8 +13668,7 @@
 /area/station/engineering/atmos)
 "bav" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -13725,8 +13722,7 @@
 /area/station/maintenance/fore)
 "baE" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -17102,8 +17098,7 @@
 /area/space/nearstation)
 "bmp" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -17113,15 +17108,13 @@
 /area/station/aisat)
 "bmq" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bmr" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -17567,8 +17560,7 @@
 /area/station/engineering/control)
 "boe" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -18550,8 +18542,7 @@
 "brq" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -18561,15 +18552,13 @@
 "brr" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/space,
 /area/space/nearstation)
 "brs" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/space,
 /area/space/nearstation)
@@ -18602,8 +18591,7 @@
 "brw" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -21205,8 +21193,7 @@
 /area/station/maintenance/fore)
 "bAm" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -24515,8 +24502,7 @@
 /area/station/security/permabrig)
 "bJO" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -25220,8 +25206,7 @@
 /area/station/security/warden)
 "bLM" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -25250,8 +25235,7 @@
 /area/station/turret_protected/ai)
 "bLR" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/lattice,
 /turf/space,
@@ -26875,8 +26859,7 @@
 "bQO" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/flashlight/lamp/green,
 /obj/machinery/light{
@@ -26887,8 +26870,7 @@
 "bQP" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/paper_bin/nanotrasen,
 /obj/item/melee/chainofcommand,
@@ -26911,8 +26893,7 @@
 "bQS" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/storage/secure/briefcase,
 /obj/item/storage/lockbox/medal,
@@ -33690,8 +33671,7 @@
 /area/station/aisat)
 "cpd" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -34253,8 +34233,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -37184,8 +37163,7 @@
 /area/station/public/fitness)
 "czf" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -38808,22 +38786,19 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/fitness)
 "cEx" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/fitness)
 "cEy" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/window{
 	dir = 4
@@ -43618,8 +43593,7 @@
 /area/station/science/xenobiology)
 "cUV" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -45967,8 +45941,7 @@
 "deA" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -45996,8 +45969,7 @@
 "deC" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -46013,8 +45985,7 @@
 "deD" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -46030,8 +46001,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -47948,8 +47918,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/cable,
 /obj/structure/cable{
@@ -49388,7 +49357,7 @@
 	},
 /area/station/maintenance/aft)
 "dtS" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -51389,8 +51358,7 @@
 "dFf" = (
 /obj/item/target,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
@@ -53807,8 +53775,7 @@
 /area/station/hallway/secondary/exit)
 "dSz" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -55763,8 +55730,7 @@
 /area/station/service/kitchen)
 "ema" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /mob/living/simple_animal/crab/coffee,
 /turf/simulated/floor/beach/water{
@@ -57721,8 +57687,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
@@ -61984,7 +61949,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "hEk" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
@@ -62377,8 +62342,7 @@
 /area/station/hallway/primary/central)
 "hQq" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
@@ -67523,8 +67487,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/transparent/glass,
 /area/station/aisat)
@@ -67962,8 +67925,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/transparent/glass,
 /area/station/aisat)
@@ -69378,12 +69340,10 @@
 /area/station/supply/break_room)
 "lCU" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/space,
 /area/space/nearstation)
@@ -74507,8 +74467,7 @@
 /area/space/nearstation)
 "opS" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/rack,
 /obj/item/clothing/shoes/magboots{
@@ -74595,8 +74554,7 @@
 /area/station/medical/surgery/secondary)
 "orz" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -75773,8 +75731,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/space,
 /area/space/nearstation)
@@ -80292,8 +80249,7 @@
 /area/station/maintenance/starboard2)
 "rly" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -82606,8 +82562,7 @@
 "sot" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/crate/rcd,
 /obj/machinery/door/window/classic/normal{
@@ -83180,7 +83135,7 @@
 	},
 /area/station/medical/medbay)
 "sAs" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -85844,7 +85799,7 @@
 	dir = 1;
 	network = list("Medical","SS13")
 	},
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
@@ -87292,8 +87247,7 @@
 "uxq" = (
 /mob/living/carbon/human/monkey,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/grass,
 /area/station/science/genetics)
@@ -87537,8 +87491,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/grass,
@@ -89286,9 +89239,7 @@
 /turf/simulated/wall,
 /area/station/engineering/gravitygenerator)
 "vzU" = (
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "vAF" = (
@@ -90374,7 +90325,7 @@
 /area/station/supply/expedition)
 "vZx" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "vZK" = (
@@ -92594,8 +92545,7 @@
 /area/station/hallway/primary/starboard/east)
 "xfs" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/window/reinforced/normal{
 	name = "Accused";
@@ -93787,7 +93737,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "xIm" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
