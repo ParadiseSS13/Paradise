@@ -35,20 +35,20 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/get_admin_say()
-	if(check_rights(R_ADMIN, FALSE))
-		var/msg = input(src, null, "asay \"text\"") as text|null
-		cmd_admin_say(msg)
+// /client/proc/get_admin_say()
+// 	if(check_rights(R_ADMIN, FALSE))
+// 		var/msg = input(src, null, "asay \"text\"") as text|null
+// 		cmd_admin_say(msg)
 
-/client/proc/get_mentor_say()
-	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
-		var/msg = input(src, null, "msay \"text\"") as text|null
-		cmd_mentor_say(msg)
+// /client/proc/get_mentor_say()
+// 	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
+// 		var/msg = input(src, null, "msay \"text\"") as text|null
+// 		cmd_mentor_say(msg)
 
-/client/proc/get_dev_team_say()
-	if(check_rights(R_DEV_TEAM | R_ADMIN | R_MOD))
-		var/msg = input(src, null, "devsay \"text\"") as text|null
-		cmd_dev_say(msg)
+// /client/proc/get_dev_team_say()
+// 	if(check_rights(R_DEV_TEAM | R_ADMIN | R_MOD))
+// 		var/msg = input(src, null, "devsay \"text\"") as text|null
+// 		cmd_dev_say(msg)
 
 /client/proc/cmd_dev_say(msg as text)
 	set name = "Devsay"
@@ -86,6 +86,43 @@
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/cmd_staff_say(msg as text)
+	set name = "Staffsay"
+	set hidden = TRUE
+
+	if(!check_rights())
+		return
+
+	msg = emoji_parse(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
+
+	if(!msg)
+		return
+
+	log_staffsay(msg, src)
+	var/datum/say/staffsay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	GLOB.staffsays += staffsay
+	mob.create_log(OOC_LOG, "STAFFSAY: [msg]")
+
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = GLOB.configuration.system.instance_id
+		data["message"] = html_decode(msg)
+		SSredis.publish("byond.staffsay", json_encode(data))
+
+	for(var/client/C in GLOB.admins)
+		if(check_rights(0, 0, C.mob))
+			var/display_name = key
+			if(holder.fakekey)
+				if(C.holder && C.holder.rights & R_ADMIN)
+					display_name = "[holder.fakekey]/([key])"
+				else
+					display_name = holder.fakekey
+			msg = "<span class='emoji_enabled'>[msg]</span>"
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "staff_channel_admin" : "staff_channel"]'>STAFF: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_STAFFCHAT, confidential = TRUE)
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Staffsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_mentor_say(msg as text)
 	set name = "Msay"

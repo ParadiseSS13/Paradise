@@ -9,4 +9,5 @@
 #define ADMIN_CHANNEL "Admin"
 #define DSAY_CHANNEL "Dsay"
 #define DEV_CHANNEL "Dev"
+#define STAFF_CHANNEL "Staff"
 

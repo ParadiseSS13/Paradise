@@ -54,6 +54,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/view_asays,
 	/client/proc/view_msays,
 	/client/proc/view_devsays,
+	/client/proc/view_staffsays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
