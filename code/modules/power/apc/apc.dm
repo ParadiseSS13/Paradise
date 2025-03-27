@@ -257,7 +257,10 @@
 
 		used.forceMove(src)
 		cell = used
-
+		user.visible_message(
+			"<span class='notice'>[user] inserts [used] into [src].</span>",
+			"<span class='notice'>You insert [used] into [src].</span>"
+			)
 		for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
 			demon.forceMove(src)
 			demon.current_power = src
@@ -265,11 +268,6 @@
 				demon.try_hijack_apc(src)
 		if(being_hijacked)
 			cell.rigged = FALSE // Do not explode the demon.
-
-		user.visible_message(
-			"<span class='notice'>[user] inserts [used] into [src].</span>",
-			"<span class='notice'>You insert [used] into [src].</span>"
-			)
 		chargecount = 0
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
