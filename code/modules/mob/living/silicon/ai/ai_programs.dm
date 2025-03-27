@@ -473,17 +473,17 @@
 	user.universal_adapter = FALSE
 
 /// Door Override - Repairs door wires if the AI wire is not cut
-/datum/ai_program/door_override
-	program_name = "Door Override"
-	program_id = "door_override"
-	description = "Repair an airlocks's wires, if the AI control wire is not cut."
+/datum/ai_program/airlock_restoration
+	program_name = "Airlock Restoration"
+	program_id = "airlock_restoration"
+	description = "Repair an airlock's wires, if the AI control wire is not cut."
 	cost = 2
 	nanite_cost = 25
-	power_type = /datum/spell/ai_spell/ranged/door_override
+	power_type = /datum/spell/ai_spell/ranged/airlock_restoration
 	unlock_text = "Door repair and override firmware installation complete!"
 
-/datum/spell/ai_spell/ranged/door_override
-	name = "Door Override"
+/datum/spell/ai_spell/ranged/airlock_restoration
+	name = "Airlock Restoration"
 	desc = "Repair the wires in an airlock that still has an intact AI control wire."
 	action_icon = 'icons/obj/doors/doorint.dmi'
 	action_icon_state = "door_closed"
@@ -495,7 +495,7 @@
 	selection_activated_message = "<span class='notice'>You prepare to deploy repairing nanites to a door...</span>"
 	selection_deactivated_message = "<span class='notice'>You cancel the request.</span>"
 
-/datum/spell/ai_spell/ranged/door_override/cast(list/targets, mob/user)
+/datum/spell/ai_spell/ranged/airlock_restoration/cast(list/targets, mob/user)
 	if(!length(targets))
 		to_chat(user, "<span class='warning'>No valid target!</span>")
 		revert_cast()
@@ -530,7 +530,7 @@
 			target.emagged = FALSE
 			target.electronics = initial(target.electronics)
 
-/datum/spell/ai_spell/ranged/door_override/on_purchase_upgrade()
+/datum/spell/ai_spell/ranged/airlock_restoration/on_purchase_upgrade()
 	if(spell_level == 5)
 		desc += " Firmware version sufficient enough to repair damage caused by a cryptographic sequencer."
 
@@ -888,7 +888,7 @@
 	var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
 	F.spread_amount = 2
 
-/datum/spell/ai_spell/ranged/door_override/on_purchase_upgrade()
+/datum/spell/ai_spell/ranged/emergency_sealant/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 30 SECONDS)
 
 // Holosign Deployment - Deploys a holosign on the selected turf
