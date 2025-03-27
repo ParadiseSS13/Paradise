@@ -74,7 +74,7 @@ export class TguiSay extends Component<{}, State> {
   }
 
   componentDidMount() {
-    windowSet(WINDOW_SIZES.small)
+    windowSet(WINDOW_SIZES.small);
     Byond.subscribeTo('props', this.handleProps);
     Byond.subscribeTo('open', this.handleOpen);
   }
