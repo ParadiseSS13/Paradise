@@ -113166,11 +113166,11 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/station/maintenance/asmaint)
 "wux" = (
-/obj/machinery/computer/aiupload{
-	dir = 4
-	},
 /obj/machinery/door/window/reinforced/reversed{
 	name = "Console Access";
+	dir = 4
+	},
+/obj/machinery/computer/aiupload/hardened{
 	dir = 4
 	},
 /turf/simulated/floor/bluegrid,
@@ -120695,15 +120695,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "xXf" = (
-/obj/machinery/computer/borgupload{
-	dir = 8
-	},
 /obj/machinery/door/window/reinforced/reversed{
 	name = "Console Access";
 	dir = 8
 	},
 /obj/machinery/camera/motion{
 	c_tag = "AI Upload Chamber";
+	dir = 8
+	},
+/obj/machinery/computer/borgupload/hardened{
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid,

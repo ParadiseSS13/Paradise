@@ -1665,7 +1665,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/computer/borgupload{
+/obj/machinery/computer/borgupload/hardened{
 	dir = 4
 	},
 /turf/simulated/floor/greengrid,
@@ -68779,7 +68779,7 @@
 /area/station/legal/lawoffice)
 "qbe" = (
 /obj/machinery/alarm/directional/west,
-/obj/machinery/computer/aiupload{
+/obj/machinery/computer/aiupload/hardened{
 	dir = 4
 	},
 /turf/simulated/floor/greengrid,

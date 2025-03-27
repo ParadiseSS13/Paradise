@@ -27319,7 +27319,7 @@
 	id = "AI";
 	pixel_y = -21
 	},
-/obj/machinery/computer/aiupload{
+/obj/machinery/computer/aiupload/hardened{
 	dir = 1
 	},
 /turf/simulated/floor/bluegrid,
@@ -27333,7 +27333,7 @@
 /obj/item/radio/intercom/private{
 	pixel_y = -28
 	},
-/obj/machinery/computer/borgupload{
+/obj/machinery/computer/borgupload/hardened{
 	dir = 1
 	},
 /turf/simulated/floor/bluegrid,
