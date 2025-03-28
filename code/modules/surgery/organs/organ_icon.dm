@@ -155,7 +155,7 @@
 		new_icon_state = "[icon_name][gendered_icon ? "_f" : ""]"
 	else
 		if(gendered_icon)
-			switch(dna.GetUITriState(DNA_UI_BODY_TYPE))
+			switch(dna.GetUIState(DNA_UI_BODY_TYPE))
 				if(DNA_GENDER_FEMALE)
 					body = "f"
 				else
