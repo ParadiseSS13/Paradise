@@ -315,8 +315,7 @@ CONTENTS:
 		H.update_inv_r_hand()
 
 /obj/item/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
-	L.lastattacker = user.real_name
-	L.lastattackerckey = user.ckey
+	L.store_last_attacker(user)
 
 	L.KnockDown(7 SECONDS)
 	L.apply_damage(80, STAMINA)

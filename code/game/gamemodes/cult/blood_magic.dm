@@ -425,7 +425,7 @@
 		qdel(src)
 		return
 	add_attack_logs(user, M, "used a cult spell ([src]) on")
-	M.lastattacker = user.real_name
+	M.store_last_attacker(user)
 
 /obj/item/melee/blood_magic/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	. = ..()

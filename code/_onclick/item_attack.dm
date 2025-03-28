@@ -178,9 +178,7 @@
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
-	target.lastattacker = user.real_name
-	target.lastattackerckey = user.ckey
-
+	target.store_last_attacker(user)
 	user.do_attack_animation(target)
 	add_fingerprint(user)
 

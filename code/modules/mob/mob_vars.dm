@@ -38,8 +38,6 @@
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
-	var/lastattacker = null // real name of the person  doing the attacking
-	var/lastattackerckey = null // their ckey
 	var/list/attack_log_old = list()
 	var/list/debug_log = null
 
