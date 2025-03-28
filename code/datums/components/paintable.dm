@@ -26,6 +26,6 @@
 	var/colour = spraycan.colour
 	current_paint = colour
 	var/atom/A = parent
-	A.add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
+	A.add_atom_colour(color_transition_filter(colour, SATURATION_MULTIPLY), ADMIN_COLOUR_PRIORITY)
 	playsound(spraycan, 'sound/effects/spray.ogg', 5, TRUE, 5)
 	to_chat(user, "<span class='notice'>You spray [spraycan] on [A], painting it.</span>")
