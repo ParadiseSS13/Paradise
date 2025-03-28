@@ -60,6 +60,13 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(level == 1)
 		hide(T.intact)
 
+/obj/structure/cable/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		. += "<span class='notice'>Total power: [DisplayPower(powernet.available_power)]</span>"
+		. += "<span class='notice'>Load: [DisplayPower(powernet.power_demand)]</span>"
+		. += "<span class='notice'>Excess power: [DisplayPower(get_surplus())]</span>"
+
 /obj/structure/cable/Destroy()
 	if(powernet)
 		cut_cable_from_powernet()		// update the powernets
