@@ -39,10 +39,8 @@
 
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
-	name = "NTV Charon (Bar)"
-	description = "A modification of the standard shuttle featuring a bathroom, quality lounge for the heads, and a \
-		small gambling table."
-
+	name = "NTV Bullet (Bar)"
+	description = "A luxuriously outfitted shuttle featuring a full-sized bar, gambling table, and bathroom suite. The Command section is equipped with a spacious drawing room."
 
 /datum/map_template/shuttle/emergency/cyb
 	suffix = "cyb"
