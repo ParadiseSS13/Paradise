@@ -1,8 +1,7 @@
 [ruin_configuration]
 enable_lavaland = false
-enable_space_ruins = false
-minimum_zlevels = 0
-maximum_zlevels = 0
+enable_space = false
+enable_ruins = false
 
 [redis_configuration]
 enabled = false
