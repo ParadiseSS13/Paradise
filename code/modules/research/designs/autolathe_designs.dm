@@ -864,7 +864,7 @@
 	build_type = AUTOLATHE
 	materials = list (MAT_METAL = 25000)
 	build_path = /obj/item/ammo_box/b38
-	category = list("Security")
+	category = list("hacked", "Security")
 
 /datum/design/rubber38
 	name = "Ammo Box (.38 Rubber)"
@@ -872,7 +872,7 @@
 	build_type = AUTOLATHE
 	materials = list (MAT_METAL = 25000)
 	build_path = /obj/item/ammo_box/b38/rubber
-	category = list("Security")
+	category = list("initial", "Security")
 
 /datum/design/c10mm
 	name = "Ammo Box (10mm)"
