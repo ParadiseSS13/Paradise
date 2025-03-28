@@ -39,13 +39,10 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
 /obj/docking_port/mobile/admin{
-	dir = 2;
 	dwidth = 9;
 	height = 18;
-	id = "admin";
 	name = "hospital";
 	roundstart_move = "cc_bay_1";
-	timid = 1;
 	width = 19
 	},
 /obj/machinery/door/poddoor{
@@ -275,7 +272,8 @@
 	pixel_y = 25
 	},
 /obj/machinery/recharger/wallcharger{
-	pixel_y = 35
+	pixel_x = 32;
+	pixel_y = -3
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -285,13 +283,6 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"bu" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bv" = (
@@ -345,6 +336,7 @@
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bG" = (
@@ -701,6 +693,15 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"MI" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 "RB" = (
 /obj/machinery/sleeper{
 	dir = 1;
@@ -848,7 +849,7 @@ aT
 aP
 bb
 Dw
-bu
+MI
 aw
 aw
 bP
