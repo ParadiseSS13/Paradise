@@ -438,6 +438,22 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
+/datum/uplink_item/dangerous/bulldog_traitor
+	name = "Bulldog Shotgun"
+	desc = "Lean and mean: Optimized for people that want to get up close and personal. Comes loaded with rubbershot. Extra Ammo sold separately."
+	reference = "BLSG"
+	item = /obj/item/gun/projectile/automatic/shotgun/bulldog/traitor
+	cost = 50
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/bull_rubbershot
+	name = "Bulldog - 12g Rubbershot Magazine"
+	desc = "An additional 8-round rubbershot magazine for use in the Bulldog shotgun."
+	reference = "12BRU"
+	item = /obj/item/ammo_box/magazine/m12g/rubbershot
+	cost = 10
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/dangerous/guardian
 	name = "Holoparasites"
 	reference = "HPA"
