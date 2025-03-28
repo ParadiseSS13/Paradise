@@ -21055,7 +21055,9 @@
 /area/station/engineering/smes)
 "fBE" = (
 /obj/machinery/alarm/directional/west,
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -25909,6 +25911,13 @@
 	icon_state = "redfull"
 	},
 /area/station/security/permabrig)
+"gLQ" = (
+/obj/machinery/field/generator,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/secure_storage)
 "gLT" = (
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
@@ -27967,7 +27976,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/west)
 "hmf" = (
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -128435,7 +128446,7 @@ wOL
 xDc
 pdo
 eND
-mZM
+gLQ
 xnT
 uIJ
 sAP
