@@ -77346,7 +77346,8 @@
 /obj/machinery/door/airlock/mining/glass,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
