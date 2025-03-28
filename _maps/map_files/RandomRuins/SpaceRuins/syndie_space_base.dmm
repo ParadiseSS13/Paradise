@@ -1598,6 +1598,10 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"iM" = (
+/obj/machinery/atmospherics/unary/refill_station,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "iQ" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -1820,6 +1824,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"kz" = (
+/obj/machinery/atmospherics/unary/refill_station/plasma,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "kB" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 1
@@ -2841,6 +2849,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
+"qr" = (
+/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "qs" = (
 /obj/machinery/light,
 /obj/machinery/porta_turret/syndicate/exterior,
@@ -9896,7 +9908,7 @@ OQ
 BZ
 qF
 PA
-qF
+qr
 Ao
 tG
 kE
@@ -10179,7 +10191,7 @@ iW
 eW
 iW
 tG
-qF
+kz
 Fl
 nE
 Mp
@@ -10333,7 +10345,7 @@ tG
 tG
 tG
 XH
-qF
+iM
 qF
 LF
 tG

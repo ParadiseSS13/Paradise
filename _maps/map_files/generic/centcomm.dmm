@@ -784,6 +784,13 @@
 /obj/item/camera,
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
+"de" = (
+/obj/machinery/atmospherics/unary/refill_station/plasma,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "df" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/outpost)
@@ -2487,6 +2494,15 @@
 	},
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
+"jj" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "jk" = (
 /obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/plasteel/dark,
@@ -8171,10 +8187,7 @@
 /turf/simulated/floor/engine,
 /area/admin)
 "DS" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
-/obj/item/kirbyplants/large,
+/obj/machinery/atmospherics/unary/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -11000,7 +11013,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Nz" = (
-/obj/structure/filingcabinet/security,
+/obj/machinery/atmospherics/unary/refill_station,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -13913,11 +13926,9 @@
 /area/tdome/tdomeobserve)
 "XZ" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -32
+	name = "south bump";
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -33704,7 +33715,7 @@ Ji
 Ra
 Xz
 RD
-Of
+de
 Ra
 Ra
 Ra
@@ -34995,7 +35006,7 @@ uX
 uX
 uX
 cC
-Xz
+jj
 Zr
 NZ
 ic
