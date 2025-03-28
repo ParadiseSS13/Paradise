@@ -142,6 +142,9 @@
 				to_chat(user, "You remove the label from [src].")
 				return 1
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
+
+		if(length(beakers) == 0) 
+			container_type = TRANSPARENT // Allows to see reagents in player's made bombs
 		if(length(beakers) == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
 			return
@@ -151,6 +154,9 @@
 				user.drop_item()
 				I.forceMove(src)
 				beakers += I
+				// Saving reagents to show them via scanners
+				reagents.reagent_list.Add(I.reagents.reagent_list)
+				reagents.update_total()
 			else
 				to_chat(user, "<span class='notice'>[I] is empty.</span>")
 
