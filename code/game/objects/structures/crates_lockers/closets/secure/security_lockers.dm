@@ -189,9 +189,10 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
-	new /obj/effect/spawner/detgun(src)
-	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
-	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
+	new /obj/item/gun/projectile/revolver/detective(src)
+	new /obj/item/pinpointer/crew(src)
+	new /obj/item/ammo_box/a38/rubber(src)
+	new /obj/item/ammo_box/a38/rubber(src)
 	new /obj/item/clipboard(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/detective_scanner(src)

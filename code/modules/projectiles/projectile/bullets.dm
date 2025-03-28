@@ -13,6 +13,13 @@
 	damage = 5
 	stamina = 40
 
+/obj/item/projectile/bullet/a38 // Lethal shot
+	damage = 20
+
+/obj/item/projectile/bullet/rubber38 // Rubber shot
+	damage = 5
+	stamina = 25
+
 /obj/item/projectile/bullet/weakbullet/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(isliving(target))

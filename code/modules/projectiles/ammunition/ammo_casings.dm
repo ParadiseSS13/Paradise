@@ -35,6 +35,18 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
+/obj/item/ammo_casing/detective/a38
+	name = ".38 round"
+	desc = "A .38 bullet casing."
+	caliber = "38"
+	projectile_type = /obj/item/projectile/bullet/a38
+
+/obj/item/ammo_casing/detective/rubber38
+	name = ".38 rubber round"
+	desc = "A .38 bullet casing. This one has a rubber tip for less-lethal takedowns."
+	caliber = "38"
+	projectile_type = /obj/item/projectile/bullet/rubber38
+
 /obj/item/ammo_casing/c38/invisible
 	projectile_type = /obj/item/projectile/bullet/mime
 	muzzle_flash_effect = null // invisible eh

@@ -114,7 +114,7 @@
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	icon_state = "holster"
 	item_color = "holster"
-	holster_allow = list(/obj/item/gun/projectile, /obj/item/gun/energy/detective)
+	holster_allow = list(/obj/item/gun/projectile, /obj/item/gun/energy/detective, /obj/item/gun/projectile/revolver/detective)
 
 /obj/item/clothing/accessory/holster/waist
 	name = "shoulder holster"
