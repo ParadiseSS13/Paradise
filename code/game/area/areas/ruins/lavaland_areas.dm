@@ -66,5 +66,9 @@
 	name = "Excavation Pit"
 	icon_state = "red"
 
+/area/ruin/unpowered/althland_factory
+	name = "Minebot Factory"
+	icon_state = "red"
+
 // This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
 /area/ruin/unpowered/misc_lavaruin
