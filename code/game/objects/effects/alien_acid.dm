@@ -63,6 +63,11 @@
 		var/mob/living/L = entered
 		if(HAS_TRAIT(L, TRAIT_FLYING))
 			return
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			var/obj/item/clothing/S = H.shoes
+			if(S?.resistance_flags & ACID_PROOF || S?.resistance_flags & UNACIDABLE)
+				return
 		if(L.m_intent != MOVE_INTENT_WALK && prob(40))
 			var/acid_used = min(acid_level * 0.05, 20)
 			if(L.acid_act(10, acid_used, "feet"))
