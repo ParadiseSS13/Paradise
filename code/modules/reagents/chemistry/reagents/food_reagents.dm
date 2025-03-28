@@ -916,7 +916,8 @@
 
 /datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		var/spooky_eat = pick("Ugh, why did you eat that? Your mouth feels haunted. Haunted with bad flavors.", "Ugh, why did you eat that? It has the texture of ham aspic.  From the 1950s.  Left out in the sun.", "Ugh, why did you eat that? It tastes like a ghost fart.", "Ugh, why did you eat that? It tastes like flavor died.")
+		M.reagents.add_reagent("sodiumchloride", rand(10, 20))	// The salt!
+		var/spooky_eat = pick("A wave of seething anger briefly passes over you!", "This is all bullshit!", "You internally seethe and mald.", "You briefly see a dense halo of spirits taunting you!")
 		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
