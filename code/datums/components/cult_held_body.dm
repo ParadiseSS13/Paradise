@@ -23,12 +23,12 @@
 /datum/component/construct_held_body/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(drop_body))
 	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(drop_body))
-	RegisterSignal(parent, COMSIG_SHADE_TO_CONSTRUCT_TRANSFER, PROC_REF(transfer_held_body))
+	RegisterSignal(parent, COMSIG_TRANSFER_HELD_BODY, PROC_REF(transfer_held_body))
 
 /datum/component/construct_held_body/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOB_DEATH)
 	UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
-	UnregisterSignal(parent, COMSIG_SHADE_TO_CONSTRUCT_TRANSFER)
+	UnregisterSignal(parent, COMSIG_TRANSFER_HELD_BODY)
 
 /datum/component/construct_held_body/proc/add_body(atom/movable/new_body)
 	held_body = new_body
@@ -41,7 +41,7 @@
 	held_body = null
 
 /datum/component/construct_held_body/proc/transfer_held_body(mob/living/current_parent, mob/living/new_body_holder)
-	SIGNAL_HANDLER // COMSIG_SHADE_TO_CONSTRUCT_TRANSFER
+	SIGNAL_HANDLER // COMSIG_TRANSFER_HELD_BODY
 	new_body_holder.TakeComponent(src)
 
 /datum/component/construct_held_body/proc/drop_body()
