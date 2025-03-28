@@ -5,25 +5,53 @@ RESTRICT_TYPE(/datum/job_candidate)
 /// of fake candidates, allowing testing of the role selection system independent
 /// of the number of actual players.
 /datum/job_candidate
+	/// The character being considered for assignment. Is a default character
+	/// save but can have player characters loaded into it via
+	/// [/datum/job_candidate/proc/load_from_player].
 	VAR_PRIVATE/datum/character_save/active_character
+	/// The jobbans of the current player or simulated candidate.
 	VAR_PRIVATE/datum/job_ban_holder/jbh
+	/// The list of special roles the candidate has enabled.
 	VAR_PRIVATE/list/be_special = list()
+	/// The jobs that the candidate cannot play, usually populated as a result
+	/// of the candidate being assigned a special/antag role.
 	VAR_PRIVATE/list/restricted_roles = list()
-
+	/// The account age in days.
 	VAR_PRIVATE/account_age_in_days
+	/// The bitfield of admin rights the candidate has. Used to allow bypasses
+	/// of playtime requirements for admins if
+	/// [/datum/configuration_section/job_configuration/var/enable_exp_admin_bypass]
+	/// is set.
 	VAR_PRIVATE/admin_rights = 0
+	/// The name of the assigned job, once one has been assigned.
 	VAR_PRIVATE/assigned_job_title = null
+	/// A query parameterized list of jobs to hours played.
 	VAR_PRIVATE/exp
+	/// Whether or not the player represented by the candidate is an admin.
 	VAR_PRIVATE/is_admin = FALSE
+	/// Whether or not the player represented by the candidate is logged in on a
+	/// guest account.
 	VAR_PRIVATE/is_guest_key = FALSE
+	/// Whether or not the candidate is a late join candidate, as opposed to a
+	/// roundstart one.
 	VAR_PRIVATE/latejoin = FALSE
+	/// The player's ckey, if the candidate is representing a real player.
 	VAR_PRIVATE/real_ckey
+	/// Whether or not the player is being returned to the lobby due to a failed
+	/// job selection.
 	VAR_PRIVATE/return_to_lobby = FALSE
+	/// What, if any, special/antag role has been assigned to the candidate
+	/// ahead of job selection.
 	VAR_PRIVATE/special_role
 
 /datum/job_candidate/New()
 	active_character = new()
 	jbh = new()
+
+/datum/job_candidate/Destroy(force, ...)
+	active_character = null
+	jbh = null
+	. = ..()
 
 /datum/job_candidate/proc/to_string()
 	return real_ckey ? real_ckey : "(simulated) [active_character.real_name]"
@@ -76,6 +104,12 @@ RESTRICT_TYPE(/datum/job_candidate)
 	return flag in be_special
 
 /datum/job_candidate/proc/load_from_player(mob/new_player/player)
+	if(!istype(player))
+		log_debug("asked to load job candidate from null player")
+		return
+	if(!istype(player.client))
+		log_debug("asked to load job candidate from player [player] with no attached client")
+		return
 	active_character = player.client.prefs.active_character
 	jbh.reload_jobbans(player.client)
 	account_age_in_days = player.client.player_age

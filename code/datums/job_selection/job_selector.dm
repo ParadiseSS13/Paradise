@@ -122,7 +122,7 @@ RESTRICT_TYPE(/datum/job_selector)
 			if(!job)
 				continue
 			var/list/job_candidates = find_job_candidates(job, level)
-			if(!job_candidates.len)
+			if(!length(job_candidates))
 				continue
 
 			var/list/filtered_candidates = list()
