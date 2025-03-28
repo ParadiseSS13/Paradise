@@ -8,13 +8,11 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = NONE
-	/// How much gas the machine can hold
-	var/volume = 1000
 	/// The desired pressure the refill station should be outputting into a holding tank.
 	target_pressure = MAX_TARGET_PRESSURE
 	can_unwrench_while_on = FALSE
 	/// The current air contents of this device
-	var/datum/gas_mixture/air_contents
+	var/datum/gas_mixture/air_contents = new
 	/// The tank inserted into the machine
 	var/obj/item/tank/holding_tank
 	/// The maximum pressure of the device
@@ -23,7 +21,8 @@
 /obj/machinery/atmospherics/refill_station/Initialize(mapload)
 	. = ..()
 	SSair.atmos_machinery += src
-	air_contents.volume = volume
+	air_contents.volume = 1000
+	air_contents.set_temperature(T20C)
 
 /obj/machinery/atmospherics/refill_station/examine(mob/user)
 	. = ..()

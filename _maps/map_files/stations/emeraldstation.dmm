@@ -30637,10 +30637,6 @@
 	icon_state = "redfull"
 	},
 /area/station/security/permabrig)
-"gdb" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/hallway/secondary/entry/west)
 "gdk" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -40036,10 +40032,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/central/se)
-"hWy" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/hallway/primary/central/sw)
 "hWz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -144445,7 +144437,7 @@ xIe
 oDp
 qXp
 eTM
-hWy
+dbR
 dbR
 dbR
 jcl
@@ -146548,7 +146540,7 @@ uPm
 aZS
 aZS
 aZS
-gdb
+ixW
 ixW
 cEq
 dnw
