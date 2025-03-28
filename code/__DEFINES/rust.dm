@@ -131,6 +131,24 @@
 /proc/mapmanip_read_dmm(mapname)
 	return RUSTLIB_CALL(mapmanip_read_dmm_file, mapname)
 
+// MARK: Redis
+#define RUSTLIBS_REDIS_ERROR_CHANNEL "RUSTG_REDIS_ERROR_CHANNEL"
+
+/proc/rustlibs_redis_connect(addr)
+	return RUSTLIB_CALL(redis_connect, addr)
+
+/proc/rustlibs_redis_disconnect()
+	return RUSTLIB_CALL(redis_disconnect)
+
+/proc/rustlibs_redis_subscribe(channel)
+	return RUSTLIB_CALL(redis_subscribe, channel)
+
+/proc/rustlibs_redis_get_messages()
+	return RUSTLIB_CALL(redis_get_messages)
+
+/proc/rustlibs_redis_publish(channel, message)
+	return RUSTLIB_CALL(redis_publish, channel, message)
+
 #undef RUSTLIB
 #undef RUSTLIB_CALL
 
