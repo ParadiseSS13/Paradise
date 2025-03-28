@@ -96,6 +96,11 @@
 	template = /datum/map_template/shuttle/emergency/shadow
 	speed_factor = 2 //Fast enough that it probably won't burn down entirely after the crew looses the plasma
 
+/datum/supply_packs/abstract/shuttle/cherenkov
+	cost = 3250
+	template = /datum/map_template/shuttle/emergency/cherenkov
+	speed_factor = 2 // Speedy enough to not explode during the round trip.
+
 /datum/supply_packs/abstract/shuttle/lance
 	cost = 5000 //please don't order this for funny please sir
 	template = /datum/map_template/shuttle/emergency/lance
