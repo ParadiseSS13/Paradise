@@ -15521,6 +15521,11 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
+"bnG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/refill_station/plasma,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "bnJ" = (
 /obj/structure/rack{
 	dir = 8;
@@ -19554,11 +19559,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "bzA" = (
-/obj/item/kirbyplants/large/plant8,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "bzC" = (
@@ -19899,13 +19903,15 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/solar/fore_port)
 "bAE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -19923,8 +19929,8 @@
 	},
 /area/station/engineering/smes)
 "bAQ" = (
-/obj/item/beacon,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "bAR" = (
@@ -20144,11 +20150,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -36960,6 +36966,7 @@
 	c_tag = "Departure Lounge - Port Fore";
 	dir = 4
 	},
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "cSO" = (
@@ -43158,6 +43165,13 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
+"eMr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "eMs" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -44702,6 +44716,13 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"fss" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/item/beacon,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/east)
 "fsT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -45961,6 +45982,10 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/armory/secure)
+"fSt" = (
+/obj/machinery/atmospherics/refill_station/oxygen,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard2)
 "fSz" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -46750,6 +46775,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/alarm/directional/north,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "cautioncorner"
@@ -50267,6 +50293,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "hMf" = (
@@ -53331,6 +53358,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
+"jhI" = (
+/obj/machinery/atmospherics/refill_station/plasma,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/apmaint)
 "jil" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -63110,6 +63141,12 @@
 "nxT" = (
 /turf/simulated/wall,
 /area/station/maintenance/xenobio_north)
+"nxV" = (
+/obj/machinery/atmospherics/refill_station/plasma,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/station/security/permabrig)
 "nya" = (
 /obj/machinery/economy/vending/coffee,
 /obj/effect/turf_decal/delivery/hollow,
@@ -68394,17 +68431,12 @@
 	},
 /area/station/command/office/cmo)
 "pSL" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/refill_station/plasma,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/east)
+/area/station/hallway/primary/starboard/north)
 "pSM" = (
 /obj/machinery/camera{
 	c_tag = "Head of Security's Office"
@@ -68809,6 +68841,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/obj/item/kirbyplants/large/plant8,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "qbE" = (
@@ -75511,6 +75547,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/nw)
+"sWZ" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cautioncorner"
+	},
+/area/station/hallway/primary/starboard/east)
 "sXz" = (
 /obj/structure/chair/sofa/corp,
 /turf/simulated/floor/plasteel{
@@ -76731,6 +76774,7 @@
 	},
 /area/station/security/main)
 "txR" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -81520,6 +81564,13 @@
 	icon_state = "black"
 	},
 /area/station/security/brig)
+"vMK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/refill_station/plasma,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "vMO" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -85130,6 +85181,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
+"xvs" = (
+/turf/simulated/wall/r_wall,
+/area/station/hallway/primary/starboard/north)
 "xvB" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -98318,7 +98372,7 @@ bin
 mVN
 bAQ
 baJ
-xhx
+fss
 cmu
 mVN
 aaa
@@ -99860,7 +99914,7 @@ bin
 abq
 mVN
 bzA
-pSL
+tjR
 fqB
 niH
 uWq
@@ -102721,7 +102775,7 @@ erF
 cky
 crG
 crG
-cCy
+jhI
 bZP
 cSP
 cyy
@@ -109833,7 +109887,7 @@ kkP
 owq
 apK
 jRX
-uZy
+nxV
 tfl
 aRx
 qMU
@@ -112254,7 +112308,7 @@ bZU
 cXK
 cTD
 bZU
-cQM
+eMr
 mky
 cRt
 cVc
@@ -112511,7 +112565,7 @@ bZU
 cXK
 cQo
 bZU
-cQM
+vMK
 cTg
 cSk
 gnZ
@@ -122723,8 +122777,8 @@ xNa
 aLl
 aaa
 aaa
-aaa
 blo
+pSL
 aIr
 nyR
 rve
@@ -122980,8 +123034,8 @@ eiI
 aBZ
 vuo
 aZK
-beC
-beC
+xvs
+xvs
 gFZ
 boX
 bqD
@@ -123536,7 +123590,7 @@ csh
 cte
 lBw
 qyp
-cwG
+fSt
 crq
 uWe
 cmB
@@ -124759,7 +124813,7 @@ aBZ
 aVc
 cbc
 vmT
-dAH
+bnG
 cxr
 avA
 aCa
@@ -126587,7 +126641,7 @@ oob
 bgN
 bkU
 xCF
-bqx
+sWZ
 bqJ
 bhY
 cgn

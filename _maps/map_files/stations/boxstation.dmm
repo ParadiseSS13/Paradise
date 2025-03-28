@@ -6298,6 +6298,7 @@
 /area/station/security/processing)
 "axu" = (
 /obj/machinery/newscaster/directional/south,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -18294,10 +18295,10 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "bjS" = (
-/obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "bjT" = (
@@ -20013,6 +20014,7 @@
 /area/station/service/kitchen)
 "boP" = (
 /obj/machinery/light,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -36239,8 +36241,7 @@
 /area/station/maintenance/aft)
 "cAo" = (
 /obj/machinery/alarm/directional/south,
-/obj/structure/table,
-/obj/item/book/manual/wiki/sop_engineering,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -38062,6 +38063,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -39749,6 +39751,7 @@
 /obj/machinery/light,
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
+/obj/item/book/manual/wiki/sop_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -49494,6 +49497,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"emv" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "emy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor{
@@ -58449,6 +58456,16 @@
 	icon_state = "cautioncorner"
 	},
 /area/station/maintenance/asmaint2)
+"iVQ" = (
+/obj/structure/sign/vacuum/external{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "iWm" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "CE"
@@ -62760,6 +62777,11 @@
 	icon_state = "white"
 	},
 /area/station/science/genetics)
+"lfQ" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "lgS" = (
 /obj/structure/closet/secure_closet/brig,
 /turf/simulated/floor/plasteel{
@@ -64260,6 +64282,10 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/science/lobby)
+"lRI" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "lSg" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/spawner/random/cobweb/right/frequent,
@@ -64986,6 +65012,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
+"mkV" = (
+/obj/machinery/atmospherics/refill_station/oxygen,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "mlv" = (
 /obj/machinery/light/small,
 /obj/structure/closet,
@@ -71264,11 +71294,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "pAp" = (
-/obj/item/kirbyplants/large,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/aft/south)
+/obj/machinery/atmospherics/refill_station/plasma,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "pAJ" = (
 /obj/structure/flora/tree/jungle,
 /turf/simulated/floor/grass/jungle/no_creep,
@@ -71590,6 +71619,10 @@
 	icon_state = "purple"
 	},
 /area/station/maintenance/asmaint2)
+"pLB" = (
+/obj/machinery/atmospherics/refill_station/plasma,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint2)
 "pLR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -74620,6 +74653,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"rge" = (
+/obj/machinery/atmospherics/refill_station/oxygen,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "rgq" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -75533,10 +75570,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "rFe" = (
-/obj/structure/chair/sofa/bench{
-	dir = 4
+/obj/machinery/atmospherics/refill_station/plasma,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purplecorner"
 	},
-/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "rFx" = (
 /obj/structure/table,
@@ -77683,6 +77721,13 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"sPB" = (
+/obj/machinery/atmospherics/refill_station/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/station/hallway/primary/aft/south)
 "sPF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -97391,7 +97436,7 @@ aVV
 apx
 apx
 apx
-blB
+iVQ
 boP
 aLd
 aaa
@@ -105854,7 +105899,7 @@ rMP
 blG
 aHl
 aLu
-aHS
+pLB
 aLB
 aLB
 aGn
@@ -107382,8 +107427,8 @@ wjV
 lKq
 qen
 xBl
-twu
-aEO
+lfQ
+pAp
 jkw
 avf
 aEO
@@ -115948,7 +115993,7 @@ oac
 pqW
 tiE
 cHD
-pAp
+cnA
 cRR
 cRR
 cRR
@@ -117479,7 +117524,7 @@ nvR
 cvB
 csD
 cBv
-cBv
+sPB
 cEi
 cFh
 cGJ
@@ -131553,7 +131598,7 @@ aGX
 aQI
 aGY
 aGX
-aGY
+rge
 aGY
 aGX
 aGX
@@ -134740,7 +134785,7 @@ csL
 hyk
 csL
 csL
-csL
+emv
 ciY
 aab
 aab
@@ -138515,8 +138560,8 @@ aaa
 aaa
 bEF
 bEF
+lRI
 dBt
-rFe
 hpY
 glD
 kTU
@@ -138525,7 +138570,7 @@ cXj
 uuo
 iSv
 bNv
-bNv
+rFe
 boD
 ciY
 cDo
@@ -141084,7 +141129,7 @@ aab
 aab
 aaa
 ktQ
-bzO
+mkV
 bmm
 bBl
 oWE
