@@ -2312,7 +2312,7 @@
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/refill_station/oxygen,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -2545,6 +2545,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "go" = (
+/obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
@@ -3836,7 +3837,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "lZ" = (
-/obj/machinery/atmospherics/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -7338,6 +7339,13 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
+"DH" = (
+/obj/machinery/atmospherics/refill_station/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/west)
 "DO" = (
 /obj/machinery/door/airlock/glass{
 	name = "Labor Camp Library"
@@ -8379,6 +8387,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/targetable)
+"JC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 8
+	},
+/area/mine/laborcamp)
 "JD" = (
 /obj/structure/grille/broken,
 /obj/structure/grille/broken,
@@ -8432,14 +8448,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
-"JY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/refill_station/plasma,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	dir = 8
-	},
-/area/mine/laborcamp)
 "JZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -8838,6 +8846,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -9311,7 +9320,6 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -9373,13 +9381,6 @@
 	dir = 8
 	},
 /area/mine/outpost/medbay)
-"PS" = (
-/obj/machinery/atmospherics/refill_station/plasma,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/hallway/west)
 "PT" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/condiment/saltshaker{
@@ -15704,7 +15705,7 @@ dh
 OG
 au
 gE
-JY
+JC
 SW
 Iv
 hQ
@@ -23959,8 +23960,8 @@ xQ
 Kd
 Ji
 QK
+DH
 Pz
-PS
 Oq
 dB
 dB
@@ -24216,8 +24217,8 @@ eM
 Zh
 Zh
 bR
-xI
 bR
+xI
 Oq
 Yk
 We

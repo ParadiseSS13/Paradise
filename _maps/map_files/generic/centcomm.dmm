@@ -784,13 +784,6 @@
 /obj/item/camera,
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
-"de" = (
-/obj/machinery/atmospherics/refill_station/plasma,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
-	},
-/area/centcom/specops)
 "df" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/outpost)
@@ -2494,15 +2487,6 @@
 	},
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
-"jj" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
-	},
-/area/centcom/specops)
 "jk" = (
 /obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/plasteel/dark,
@@ -8187,7 +8171,7 @@
 /turf/simulated/floor/engine,
 /area/admin)
 "DS" = (
-/obj/machinery/atmospherics/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -13002,6 +12986,15 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"US" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -13926,9 +13919,11 @@
 /area/tdome/tdomeobserve)
 "XZ" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/chair{
+	dir = 1
+	},
 /obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -14413,6 +14408,13 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
+	},
+/area/centcom/specops)
+"ZE" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "ZF" = (
@@ -33715,7 +33717,7 @@ Ji
 Ra
 Xz
 RD
-de
+ZE
 Ra
 Ra
 Ra
@@ -35006,7 +35008,7 @@ uX
 uX
 uX
 cC
-jj
+US
 Zr
 NZ
 ic
