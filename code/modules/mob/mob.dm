@@ -25,7 +25,6 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
-	LAssailant = null
 	runechat_msg_location = null
 	if(length(observers))
 		for(var/mob/dead/observe as anything in observers)

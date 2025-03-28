@@ -73,10 +73,6 @@
 
 /obj/item/storage/bible/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	add_attack_logs(user, M, "Hit with [src]")
-	if(!iscarbon(user))
-		M.LAssailant = null
-	else
-		M.LAssailant = user
 
 	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")

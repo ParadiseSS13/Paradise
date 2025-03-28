@@ -661,11 +661,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
 		return
 
-	if(!iscarbon(user))
-		M.LAssailant = null
-	else
-		M.LAssailant = user
-
 	src.add_fingerprint(user)
 
 	playsound(loc, src.hitsound, 30, TRUE, -1)

@@ -343,10 +343,6 @@
 		icon_state = "grabbed+1"
 
 		add_attack_logs(assailant, affecting, "Neck grabbed", ATKLOG_ALL)
-		if(!iscarbon(assailant))
-			affecting.LAssailant = null
-		else
-			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
 		affecting.Stun(3 SECONDS) // Ensures the grab is able to be secured

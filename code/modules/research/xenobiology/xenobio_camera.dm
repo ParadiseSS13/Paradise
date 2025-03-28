@@ -269,7 +269,6 @@
 				if(/obj/item/food/monkeycube/wolpincube) 							// Wolpin
 					food = new /mob/living/carbon/human/wolpin(remote_eye.loc)
 			SSmobs.cubemonkeys += food
-			food.LAssailant = C
 			X.monkeys --
 			to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
 	else
@@ -466,21 +465,19 @@
 		return
 	else if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food
 			switch(recycler.cube_type)
 				if(/obj/item/food/monkeycube) 										// Regular monkey
-					food = new /mob/living/carbon/human/monkey(T)
+					new /mob/living/carbon/human/monkey(T)
 				if(/obj/item/food/monkeycube/nian_wormecube) 						// Worme
-					food = new /mob/living/carbon/human/nian_worme(T)
+					new /mob/living/carbon/human/nian_worme(T)
 				if(/obj/item/food/monkeycube/farwacube) 								// Farwa
-					food = new /mob/living/carbon/human/farwa(T)
+					new /mob/living/carbon/human/farwa(T)
 				if(/obj/item/food/monkeycube/stokcube) 								// Stok
-					food = new /mob/living/carbon/human/stok(T)
+					new /mob/living/carbon/human/stok(T)
 				if(/obj/item/food/monkeycube/neaeracube) 							// Neara
-					food = new /mob/living/carbon/human/neara(T)
+					new /mob/living/carbon/human/neara(T)
 				if(/obj/item/food/monkeycube/wolpincube) 							// Wolpin
-					food = new /mob/living/carbon/human/wolpin(T)
-			food.LAssailant = C
+					new /mob/living/carbon/human/wolpin(T)
 			X.monkeys--
 			X.monkeys = round(X.monkeys, 0.1)
 			to_chat(user, "[X] now has [X.monkeys] monkeys left.")
