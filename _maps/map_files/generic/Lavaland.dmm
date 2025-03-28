@@ -9481,7 +9481,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "QC" = (
-/obj/machinery/requests_console/directional/north,
+/obj/machinery/requests_console/smith/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
