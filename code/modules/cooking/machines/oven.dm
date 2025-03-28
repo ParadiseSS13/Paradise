@@ -169,5 +169,5 @@
 	. = ..()
 	for(var/i in 1 to length(surfaces))
 		var/datum/cooking_surface/surface = surfaces[i]
-		surface.container = new /obj/item/reagent_containers/cooking/oven
+		surface.container = new /obj/item/reagent_containers/cooking/oven(src)
 	update_appearance()
