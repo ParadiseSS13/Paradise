@@ -112,7 +112,7 @@
 				on = FALSE
 				update_icon()
 		else if(on && holding_tank && direction == DIRECTION_OUT)
-			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", "atmos")
+			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/pump/attack_ai(mob/user)
 	add_hiddenprint(user)
@@ -163,7 +163,7 @@
 				return
 			on = !on
 			if(on && direction == DIRECTION_OUT)
-				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
+				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 			update_icon()
 			return TRUE
 
@@ -173,7 +173,7 @@
 			else
 				direction = DIRECTION_OUT
 			if(on && holding_tank)
-				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
+				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 			update_icon()
 			return TRUE
 

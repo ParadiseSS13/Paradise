@@ -445,7 +445,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/turf/T = get_turf(src)
 	message_admins("Plasma coin ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
 	log_game("Plasma coin ignited by [key_name(user)] in [COORD(T)]")
-	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", INVESTIGATE_ATMOS)
 	user.create_log(MISC_LOG, "Plasma coin ignited using [I]", src)
 	fire_act()
 

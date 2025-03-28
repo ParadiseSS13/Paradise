@@ -186,7 +186,7 @@
 	if(W.get_heat())
 		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
 		log_game("Plasma mineral door ignited by [key_name(user)] in ([x], [y], [z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
 		TemperatureAct(100)
 	else
 		return ..()

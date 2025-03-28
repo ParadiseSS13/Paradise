@@ -19,21 +19,21 @@
 /obj/machinery/atmospherics/trinary/mixer/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
-	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/mixer/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
-		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/mixer/AIAltClick(mob/living/silicon/user)
 	set_max(user)
-	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
@@ -172,19 +172,19 @@
 	switch(action)
 		if("power")
 			toggle()
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("set_node")
 			if(params["node_name"] == "Node 1")
 				node1_concentration = clamp(round(text2num(params["concentration"]), 0.01), 0, 1)
 				node2_concentration = round(1 - node1_concentration, 0.01)
-				investigate_log("was set to [node1_concentration] % on node 1 by [key_name(usr)]", "atmos")
+				investigate_log("was set to [node1_concentration] % on node 1 by [key_name(usr)]", INVESTIGATE_ATMOS)
 				return TRUE
 			else
 				node2_concentration = clamp(round(text2num(params["concentration"]), 0.01), 0, 1)
 				node1_concentration = round(1 - node2_concentration, 0.01)
-				investigate_log("was set to [node2_concentration] % on node 2 by [key_name(usr)]", "atmos")
+				investigate_log("was set to [node2_concentration] % on node 2 by [key_name(usr)]", INVESTIGATE_ATMOS)
 				return TRUE
 
 		if("max_pressure")
@@ -199,7 +199,7 @@
 			target_pressure = clamp(text2num(params["pressure"]), 0, MAX_OUTPUT_PRESSURE)
 			. = TRUE
 	if(.)
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/mixer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(is_pen(used))
