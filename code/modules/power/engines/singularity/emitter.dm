@@ -85,7 +85,7 @@
 /obj/machinery/power/emitter/Destroy()
 	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)]) [usr ? "Broken by [key_name_admin(usr)]" : ""]", ATKLOG_FEW)
 	log_game("Emitter deleted at ([x],[y],[z])")
-	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z]) [usr ? "Broken by [key_name(usr)]" : ""]","singulo")
+	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z]) [usr ? "Broken by [key_name(usr)]" : ""]",INVESTIGATE_SINGULO)
 	QDEL_NULL(sparks)
 	return ..()
 
@@ -125,11 +125,11 @@
 		toggle = "off"
 		shot_number = 0
 		fire_delay = maximum_fire_delay
-		investigate_log("turned <font color='red'>off</font> by [key_name(user)]", "singulo")
+		investigate_log("turned <font color='red'>off</font> by [key_name(user)]", INVESTIGATE_SINGULO)
 	else
 		active = TRUE
 		toggle = "on"
-		investigate_log("turned <font color='green'>on</font> by [key_name(user)]", "singulo")
+		investigate_log("turned <font color='green'>on</font> by [key_name(user)]", INVESTIGATE_SINGULO)
 
 	to_chat(user, "You turn [src] [toggle].")
 	message_admins("Emitter turned [toggle] by [key_name_admin(user)] in ([x], [y], [z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
@@ -249,12 +249,12 @@
 		if(!powered)
 			powered = TRUE
 			update_icon()
-			investigate_log("regained power and turned <font color='green'>on</font>","singulo")
+			investigate_log("regained power and turned <font color='green'>on</font>",INVESTIGATE_SINGULO)
 	else
 		if(powered)
 			powered = FALSE
 			update_icon()
-			investigate_log("lost power and turned <font color='red'>off</font>","singulo")
+			investigate_log("lost power and turned <font color='red'>off</font>",INVESTIGATE_SINGULO)
 		return
 
 	if(!check_delay())
