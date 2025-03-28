@@ -6,6 +6,7 @@
 * 5. PDW-9 PISTOL
 * 6. HYBRID TURRET GUN
 * 7. ADVANCED ENERGY GUN
+* 8. ENERGY SHOTGUN
 */
 //////////////////////////////
 // MARK: ENERGY GUN
@@ -230,3 +231,35 @@
 	. += ""
 	. += "Nonetheless, Nanotrasen Marketing is very pleased with the current product, and hopes that it can soon be sold on the galactic market to customers that wish to employ energy weapons \
 	free from the logistical constraints of recharging stations."
+
+//////////////////////////////
+// MARK: ENERGY SHOTGUN
+//////////////////////////////
+/obj/item/gun/energy/gun/shotgun
+	name = "ES-9 Energy Scatterbeam"
+	desc = "A hybrid fire energy shotgun manufactured by Shellguard Munitions Co. The pump changes the modes between 'disable' and 'kill'."
+	icon_state = "eshotgun"
+	item_state = null
+	origin_tech = "combat=5;magnets=5"
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	var/fail_tick = 0
+	ammo_x_offset = 1
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/eshotgun, /obj/item/ammo_casing/energy/laser/eshotgun)
+	var/pump_time = 1 SECONDS
+	COOLDOWN_DECLARE(pump_cooldown)
+
+/obj/item/gun/energy/gun/shotgun/select_fire(mob/living/user)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, pump_cooldown))
+		return
+	playsound(user, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
+	COOLDOWN_START(src, pump_cooldown, pump_time)
+
+/obj/item/gun/energy/gun/shotgun/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The ES-9 is a larger and heavier version of Shellguard Munitions' EG-7 Energy Gun. Featuring a heavier power core and a set of prisms for splitting the primary beam into multiple shots, this energy weapon emulates the common shotgun."
+	. += ""
+	. += "This scatter-beam technology allows for more energy output per trigger pull, however the increased heat on the focusing lens has resulted in a decreased fire rate compared to the standard fare. \
+	It is a Nanotrasen officer's best friend, allowing them to stop crime one trigger pull at a time."
