@@ -96,8 +96,7 @@ SUBSYSTEM_DEF(redis)
 			else
 				error_str = redis_error_data
 
-			message_admins("Redis error: [error_str] | Please inform the server host | like genuinely please ping AA immediately because this means the entire PR idea is fucked.") // uh oh
-			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "<@200631029675982858> redis dun did it again: [error_str]") // temp do not let this get merged with this or the above
+			message_admins("Redis error: [error_str] | Please inform the server host")
 			log_game("Redis error: [error_str]")
 			continue
 		// Check its an actual channel
