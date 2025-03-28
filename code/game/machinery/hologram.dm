@@ -490,11 +490,21 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		return
 	else if(ringing)
 		icon_state = "holopad_ringing"
-	else if(total_users)
-		icon_state = "holopad1"
-	else
+	else if(total_users) {
 		icon_state = "holopad0"
-
+		var/icon/overlay_icon = new('icons/obj/stationobjs.dmi', "holopad1_lightmask")
+		var/mob/living/silicon/ai/AI
+		for(var/mob/living/user in masters)
+			if(is_ai(user))
+				AI = user
+				break
+		if(AI)
+			overlay_icon.ColorTone(AI.hologram_color)
+		overlays += overlay_icon
+	} else {
+		icon_state = "holopad0"
+		overlays.Cut()
+	}
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
 	eye = user.remote_control
@@ -504,6 +514,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
 		AI.current = src
+		var/obj/effect/overlay/holoray = holorays[user]
+		holoray.icon = getHologramIcon(icon('icons/effects/96x96.dmi', "holoray"), FALSE, AI.hologram_color, 1)
 	SetLightsAndPower()
 	update_holoray(user, get_turf(loc))
 	return TRUE
