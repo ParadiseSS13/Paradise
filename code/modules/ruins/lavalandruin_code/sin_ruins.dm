@@ -161,25 +161,22 @@
 	icon_state = "magic_mirror"
 
 /obj/structure/mirror/magic/pride/curse(mob/user)
-	user.visible_message("<span class='danger'><B>The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!</B></span>", \
+	user.visible_message("<span class='danger'><b>The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!</b></span>", \
 	"<span class='notice'>Perfect. Much better! Now <i>nobody</i> will be able to resist yo-</span>")
 
 	var/turf/T = get_turf(user)
-	var/list/levels = GLOB.space_manager.z_list.Copy()
-	for(var/level in levels)
-		if(!is_teleport_allowed(level))
-			levels -= level
-	if(user.z != 3) //if you somehow manage to bloody get out of lavaland without closing the UI
-		var/turf/return_turf = locate(user.x, user.y, 3) //return to sender
+	if(!user.Adjacent(src)) // Trying to escape?
+		var/turf/return_turf = locate(x, y - 1, z) // To the south one to account for the fact the mirror is on a wall
 		var/mob/living/carbon/human/fool = user
 		if(return_turf && fool)
-			to_chat(fool, "<span class='danger'><B>You dare try to play me for a fool?</B></span>")
+			to_chat(fool, "<span class='colossus'><b>You dare try to play me for a fool?</b></span>")
 			fool.monkeyize()
 			fool.forceMove(return_turf)
 			return
-	T.ChangeTurf(/turf/simulated/floor/chasm/pride)
-	var/turf/simulated/floor/chasm/C = T
-	C.drop(user)
+	T.ChangeTurf(/turf/simulated/floor/chasm/space_ruin)
+	if(user.Adjacent(src))
+		var/turf/simulated/floor/chasm/space_ruin/C = T
+		C.drop(user)
 
 // Envy
 /// Envy's knife: Found in the Envy ruin. Attackers take on the appearance of whoever they strike.
