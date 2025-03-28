@@ -2315,7 +2315,7 @@
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -3839,7 +3839,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "lZ" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -8430,7 +8430,7 @@
 /area/shuttle/mining)
 "JY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 8
@@ -9310,7 +9310,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -9372,7 +9372,7 @@
 	},
 /area/mine/outpost/medbay)
 "PS" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"

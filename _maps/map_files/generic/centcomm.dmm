@@ -785,7 +785,7 @@
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "de" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -8187,7 +8187,7 @@
 /turf/simulated/floor/engine,
 /area/admin)
 "DS" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -11013,7 +11013,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Nz" = (
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"

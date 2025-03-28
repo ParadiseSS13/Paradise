@@ -3483,7 +3483,7 @@
 	},
 /area/station/security/brig)
 "aok" = (
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -12455,7 +12455,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "aRP" = (
@@ -12910,7 +12910,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint2)
 "aTD" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -16842,7 +16842,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -18292,7 +18292,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "bjT" = (
@@ -24040,7 +24040,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "bEb" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bEc" = (
@@ -36238,7 +36238,7 @@
 /area/station/maintenance/aft)
 "cAo" = (
 /obj/machinery/alarm/directional/south,
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -39752,7 +39752,7 @@
 	},
 /area/station/hallway/primary/aft/south)
 "cNT" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -48978,7 +48978,7 @@
 	},
 /area/station/engineering/atmos)
 "edh" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "edp" = (
@@ -49219,7 +49219,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/meeting_room)
 "ehd" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "ehf" = (
@@ -55846,7 +55846,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "hAh" = (
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -56449,7 +56449,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "hPR" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "hQe" = (
@@ -57793,7 +57793,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/detective)
 "iEX" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "iFa" = (
@@ -60864,7 +60864,7 @@
 /area/station/maintenance/asmaint)
 "kiN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "kiQ" = (
@@ -68314,7 +68314,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "ocX" = (
@@ -75559,7 +75559,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "rFe" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -77108,7 +77108,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "sxp" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "sxv" = (
@@ -81609,7 +81609,7 @@
 	},
 /area/station/maintenance/asmaint)
 "uYm" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "uYU" = (

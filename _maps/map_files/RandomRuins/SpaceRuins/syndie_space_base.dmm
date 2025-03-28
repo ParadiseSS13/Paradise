@@ -1599,7 +1599,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "iM" = (
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "iQ" = (
@@ -1825,7 +1825,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "kz" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "kB" = (
@@ -2850,7 +2850,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "qr" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "qs" = (

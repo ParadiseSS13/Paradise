@@ -768,7 +768,7 @@
 	},
 /area/station/turret_protected/ai)
 "aeU" = (
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -1415,7 +1415,7 @@
 	},
 /area/station/turret_protected/ai)
 "ajZ" = (
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -14246,7 +14246,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
 "bUn" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "bUp" = (
@@ -15515,7 +15515,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/mine/unexplored/cere/orbiting)
 "cbu" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "cbP" = (
@@ -17257,7 +17257,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "cpF" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -28279,7 +28279,7 @@
 /obj/structure/sign/pods{
 	pixel_x = 32
 	},
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -29320,7 +29320,7 @@
 /obj/structure/sign/electricshock{
 	pixel_x = -32
 	},
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -35406,7 +35406,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -36798,7 +36798,7 @@
 	},
 /area/station/engineering/atmos)
 "gps" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -38962,7 +38962,7 @@
 	},
 /area/station/supply/storage)
 "gTE" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -44075,7 +44075,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "icz" = (
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "icL" = (
@@ -46193,7 +46193,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/service/bar)
 "iCf" = (
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "iCg" = (
@@ -48153,7 +48153,7 @@
 	},
 /area/station/science/misc_lab)
 "iZB" = (
-/obj/machinery/atmospherics/unary/refill_station,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -65520,7 +65520,7 @@
 	},
 /area/station/maintenance/port2)
 "mYr" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "mYu" = (
@@ -79072,7 +79072,7 @@
 	},
 /area/station/science/toxins/mixing)
 "qlp" = (
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -80791,7 +80791,7 @@
 	c_tag = "Security Lobby West";
 	dir = 6
 	},
-/obj/machinery/atmospherics/unary/refill_station/nitrogen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -83277,7 +83277,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "rnK" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -98388,7 +98388,7 @@
 	},
 /area/station/hallway/primary/fore/north)
 "uOD" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/apmaint)
 "uOL" = (
@@ -111807,7 +111807,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "xXX" = (
-/obj/machinery/atmospherics/unary/refill_station/plasma,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},

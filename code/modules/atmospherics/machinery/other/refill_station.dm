@@ -1,28 +1,31 @@
 /// The maximum `target_pressure` you can set on the station. Equates to about 1013.25 kPa.
 #define MAX_TARGET_PRESSURE 10 * ONE_ATMOSPHERE
 
-/obj/machinery/atmospherics/unary/refill_station
-	name = "oxygen refill station"
+/obj/machinery/atmospherics/refill_station
+	name = "refill station"
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "filler_oxy"
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = NONE
-
+	/// How much gas the machine can hold
+	var/volume = 1000
 	/// The desired pressure the refill station should be outputting into a holding tank.
 	target_pressure = MAX_TARGET_PRESSURE
 	can_unwrench_while_on = FALSE
+	/// The current air contents of this device
+	var/datum/gas_mixture/air_contents
 	/// The tank inserted into the machine
 	var/obj/item/tank/holding_tank
 	/// The maximum pressure of the device
 	var/maximum_pressure = 10 * ONE_ATMOSPHERE
 
-/obj/machinery/atmospherics/unary/refill_station/Initialize(mapload)
+/obj/machinery/atmospherics/refill_station/Initialize(mapload)
 	. = ..()
-	air_contents.volume = 35
-	initialize_directions = dir
+	SSair.atmos_machinery += src
+	air_contents.volume = volume
 
-/obj/machinery/atmospherics/unary/refill_station/examine(mob/user)
+/obj/machinery/atmospherics/refill_station/examine(mob/user)
 	. = ..()
 	. += "The Nanotrasen standard [src] is a vital piece of equipment for \
 	ensuring a multi-species crew. By providing an easy-to-access source of refillable air of \
@@ -32,7 +35,7 @@
 		. += ""
 		. += "<span class='notice'>The pressure gauge on the inserted tank displays [round(holding_tank.air_contents.return_pressure())] kPa.</span>"
 
-/obj/machinery/atmospherics/unary/refill_station/update_overlays()
+/obj/machinery/atmospherics/refill_station/update_overlays()
 	overlays.Cut()
 	if(holding_tank)
 		overlays += "tank_oxy"
@@ -44,10 +47,10 @@
 		else
 			overlays += "filled_oxy"
 
-/obj/machinery/atmospherics/unary/refill_station/return_analyzable_air()
+/obj/machinery/atmospherics/refill_station/return_analyzable_air()
 	return air_contents
 
-/obj/machinery/atmospherics/unary/refill_station/proc/replace_tank(mob/living/user, obj/item/tank/new_tank)
+/obj/machinery/atmospherics/refill_station/proc/replace_tank(mob/living/user, obj/item/tank/new_tank)
 	if(!holding_tank)
 		return FALSE
 	if(Adjacent(user) && !issilicon(user))
@@ -58,7 +61,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-/obj/machinery/atmospherics/unary/refill_station/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/machinery/atmospherics/refill_station/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/analyzer))
 		return ..()
 	if(!istype(used, /obj/item/tank))
@@ -80,7 +83,7 @@
 		update_icon(UPDATE_OVERLAYS)
 	return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/atmospherics/unary/refill_station/attack_hand(mob/living/user)
+/obj/machinery/atmospherics/refill_station/attack_hand(mob/living/user)
 	if(!holding_tank)
 		to_chat(user, "<span class='warning'>There is no tank to remove.</span>")
 		return FINISH_ATTACK
@@ -89,34 +92,16 @@
 	on = FALSE
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/atmospherics/unary/refill_station/process_atmos()
+/obj/machinery/atmospherics/refill_station/process_atmos()
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		return
 	var/datum/milla_safe/refill_station_process/milla = new()
 	milla.invoke_async(src)
 
-/obj/machinery/atmospherics/unary/refill_station/wrench_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
-	if(!selected)
-		return
-	dir = choices[selected]
-	var/node_connect = dir
-	initialize_directions = dir
-	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-		if(target.initialize_directions & get_dir(target,src))
-			node = target
-			break
-	initialize_atmos_network()
-
 /datum/milla_safe/refill_station_process
 
-/datum/milla_safe/refill_station_process/on_run(obj/machinery/atmospherics/unary/refill_station/refill_station)
-	// Refill the filler
-	refill_station.parent.update = TRUE
+/datum/milla_safe/refill_station_process/on_run(obj/machinery/atmospherics/refill_station/refill_station)
 	// Refill the holding tank
 	if(!refill_station.on)
 		return
@@ -137,11 +122,22 @@
 	holding_environment.merge(removed)
 	refill_station.update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/atmospherics/unary/refill_station/nitrogen
+/obj/machinery/atmospherics/refill_station/oxygen
+	name = "oxygen refill station"
+
+/obj/machinery/atmospherics/refill_station/oxygen/Initialize(mapload)
+	. = ..()
+	air_contents.set_oxygen(maximum_pressure * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/atmospherics/refill_station/nitrogen
 	name = "nitrogen refill station"
 	icon_state = "filler_nitro"
 
-/obj/machinery/atmospherics/unary/refill_station/nitrogen/update_overlays()
+/obj/machinery/atmospherics/refill_station/nitrogen/Initialize(mapload)
+	. = ..()
+	air_contents.set_nitrogen(maximum_pressure * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/atmospherics/refill_station/nitrogen/update_overlays()
 	overlays.Cut()
 	if(holding_tank)
 		overlays += "tank_nitro"
@@ -153,11 +149,15 @@
 		else
 			overlays += "filled_nitro"
 
-/obj/machinery/atmospherics/unary/refill_station/plasma
+/obj/machinery/atmospherics/refill_station/plasma
 	name = "plasma refill station"
 	icon_state = "filler_plasma"
 
-/obj/machinery/atmospherics/unary/refill_station/plasma/update_overlays()
+/obj/machinery/atmospherics/refill_station/plasma/Initialize(mapload)
+	. = ..()
+	air_contents.set_toxins(maximum_pressure * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/atmospherics/refill_station/plasma/update_overlays()
 	overlays.Cut()
 	if(holding_tank)
 		overlays += "tank_plasma"
@@ -169,7 +169,9 @@
 		else
 			overlays += "filled_plasma"
 
-/obj/machinery/atmospherics/unary/refill_station/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/machinery/atmospherics/refill_station/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/analyzer))
+		return ..()
 	if(!istype(used, /obj/item/tank/internals/plasmaman))
 		to_chat(user, "<span class='warning'>[used] does not fit in [src]'s tank slot.</span>")
 		return ITEM_INTERACT_COMPLETE
