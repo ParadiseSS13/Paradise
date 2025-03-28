@@ -10,7 +10,7 @@
 /obj/structure/safe/floor,
 /obj/item/golden_record,
 /turf/simulated/wall/satellite,
-/area/template_noop)
+/area/ruin/unpowered)
 "e" = (
 /turf/template_noop,
 /area/template_noop)
