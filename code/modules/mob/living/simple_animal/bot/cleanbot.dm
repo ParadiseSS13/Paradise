@@ -157,19 +157,21 @@
 		target = null
 
 	if(target)
+		var/target_uid = target.UID() // target can become null while path is calculated, so we need to store UID
 		if(!length(path)) //No path, need a new one
 			set_mode(BOT_PATHING)
 			path = get_path_to(src, target, 30, access = access_card.access)
 			if(!bot_move(target))
-				ignore_job -= target.UID()
+				ignore_job -= target_uid
 				add_to_ignore(target)
 				target = null
 				path = list()
+				set_mode(BOT_IDLE)
 				return
 			set_mode(BOT_MOVING)
 
 		else if(!bot_move(target))
-			ignore_job -= target.UID()
+			ignore_job -= target_uid
 			target = null
 			set_mode(BOT_IDLE)
 			return

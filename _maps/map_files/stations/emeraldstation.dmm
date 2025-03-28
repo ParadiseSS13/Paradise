@@ -208,8 +208,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -507,7 +506,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "ahp" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /obj/item/organ/internal/lungs/vox,
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/effect/spawner/random/cobweb/right/rare,
@@ -715,14 +714,19 @@
 /area/station/hallway/primary/fore/north)
 "ajj" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/chef_recipes,
-/obj/item/kitchen/utensil/pfork,
 /obj/structure/railing{
 	dir = 4
 	},
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
 	pixel_y = 25
+	},
+/obj/item/reagent_containers/cooking/oven,
+/obj/item/kitchen/utensil/pfork{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/cooking/grill_grate{
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -1523,8 +1527,7 @@
 "aqF" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel/funeral)
@@ -1545,8 +1548,7 @@
 	pixel_x = -3
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/storage/fancy/shell/tranquilizer,
 /obj/structure/shelf/security,
@@ -2546,7 +2548,7 @@
 /area/station/security/prison/cell_block)
 "aAR" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -2738,9 +2740,9 @@
 /area/station/supply/qm)
 "aDv" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "aDx" = (
@@ -4519,7 +4521,7 @@
 /area/station/medical/medbay2)
 "aWx" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -5252,7 +5254,7 @@
 "bcg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "bch" = (
@@ -7375,8 +7377,7 @@
 "bye" = (
 /obj/structure/closet/coffin,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -8971,8 +8972,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -11526,7 +11526,7 @@
 "cmH" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "cmI" = (
@@ -12074,6 +12074,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+"csS" = (
+/obj/structure/table,
+/obj/machinery/cooking/grill,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "csT" = (
 /obj/effect/spawner/random/oil/maybe,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -12645,8 +12652,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/camera/motion{
 	c_tag = "AI West";
@@ -14129,7 +14135,7 @@
 /area/station/engineering/smes)
 "cOx" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -15952,7 +15958,7 @@
 /area/station/service/hydroponics)
 "diy" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "diD" = (
@@ -16002,8 +16008,7 @@
 "djB" = (
 /obj/structure/table,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/clothing/ears/earmuffs,
 /obj/item/clothing/ears/earmuffs{
@@ -16150,6 +16155,10 @@
 /obj/item/reagent_containers/drinks/bottle/cream{
 	pixel_x = 6;
 	pixel_y = -2
+	},
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = -7;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -16369,13 +16378,13 @@
 /area/station/maintenance/security/aft_starboard)
 "dmR" = (
 /obj/structure/closet/crate,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -16908,8 +16917,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -17695,6 +17703,7 @@
 "dAa" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -17854,7 +17863,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "dCa" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -21161,7 +21171,7 @@
 "eme" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "emi" = (
@@ -22082,8 +22092,7 @@
 /area/station/hallway/primary/central/south)
 "evv" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/wood,
 /obj/item/folder/blue,
@@ -22622,6 +22631,9 @@
 /obj/item/shovel/spade{
 	pixel_y = -6
 	},
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "eBb" = (
@@ -22932,12 +22944,12 @@
 /area/station/command/office/blueshield)
 "eEs" = (
 /obj/structure/closet/crate,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/starboard)
 "eEt" = (
@@ -24307,7 +24319,7 @@
 /area/station/maintenance/apmaint)
 "eTs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -25597,12 +25609,17 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/chef_recipes,
-/obj/item/kitchen/utensil/pfork,
+/obj/item/kitchen/utensil/pfork{
+	pixel_x = -5
+	},
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
 	pixel_y = 25
 	},
+/obj/item/reagent_containers/cooking/grill_grate{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -25966,7 +25983,7 @@
 "fhT" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "fhY" = (
@@ -33814,10 +33831,7 @@
 /area/station/medical/surgery/secondary)
 "gJF" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -34122,8 +34136,7 @@
 	pixel_y = -3
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -37170,8 +37183,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -37341,8 +37353,7 @@
 /area/station/maintenance/apmaint2)
 "huz" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/rack,
 /obj/item/clothing/neck/scarf/stripedblue,
@@ -37595,7 +37606,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/spawner/late/crew,
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "hwx" = (
@@ -38004,8 +38015,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
@@ -41744,7 +41754,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -42237,7 +42247,7 @@
 /area/station/security/armory/secure)
 "itZ" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/t_scanner,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -42315,8 +42325,7 @@
 /area/station/engineering/equipmentstorage)
 "iuD" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -42802,7 +42811,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/closet/crate/cookware,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -43337,8 +43346,7 @@
 /area/station/maintenance/aft2)
 "iEB" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/sign/clown{
 	pixel_x = -32
@@ -44327,8 +44335,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -47755,8 +47762,7 @@
 /area/station/security/armory/secure)
 "jxe" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -49304,8 +49310,7 @@
 	pixel_x = 5
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom/gallery)
@@ -49909,7 +49914,7 @@
 "jRJ" = (
 /obj/machinery/alarm/directional/south,
 /obj/structure/closet/firecloset,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/security/aft_port)
 "jRK" = (
@@ -53288,8 +53293,7 @@
 "kBT" = (
 /obj/structure/closet/coffin,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -53369,7 +53373,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "kCM" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "kCQ" = (
@@ -53618,7 +53622,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/trash,
 /obj/item/crowbar,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "kHv" = (
@@ -56014,7 +56018,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "lgL" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -58445,10 +58449,10 @@
 /area/station/hallway/primary/starboard)
 "lEt" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -59012,7 +59016,8 @@
 	},
 /area/station/supply/storage)
 "lLN" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -60033,8 +60038,7 @@
 /area/station/engineering/tech_storage)
 "lXg" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/glass/reinforced,
 /obj/item/ai_module/reset,
@@ -61329,8 +61333,7 @@
 /area/station/engineering/atmos/storage)
 "mlQ" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/wood,
 /obj/item/pinpointer,
@@ -64811,6 +64814,17 @@
 /obj/machinery/shieldwallgen,
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
+"mWr" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/warden)
 "mWx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -64875,7 +64889,7 @@
 /area/station/public/fitness)
 "mWP" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "mWS" = (
@@ -66590,8 +66604,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -67017,7 +67030,7 @@
 "nsf" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "nsh" = (
@@ -67103,7 +67116,7 @@
 /area/station/security/brig)
 "ntJ" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/paper_bin,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -67905,7 +67918,7 @@
 "nBJ" = (
 /obj/structure/table,
 /obj/item/decorations/sticky_decorations/flammable/ghost,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -69604,11 +69617,11 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/structure/table,
-/obj/item/hand_labeler,
 /obj/machinery/camera{
 	c_tag = "Kitchen North"
 	},
+/obj/structure/table,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -70272,8 +70285,8 @@
 /area/station/maintenance/fsmaint2)
 "nYu" = (
 /obj/structure/closet/secure_closet/evidence,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/item/restraints/handcuffs/pinkcuffs,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
@@ -71006,7 +71019,7 @@
 "oeZ" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -71057,8 +71070,7 @@
 	dir = 2
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -71309,8 +71321,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/chapel_office,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel/funeral)
@@ -73272,8 +73283,7 @@
 /area/station/maintenance/apmaint2)
 "oCg" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
@@ -74573,7 +74583,7 @@
 	},
 /area/station/medical/reception)
 "oOr" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "oOy" = (
@@ -78521,7 +78531,7 @@
 "pBT" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "pCt" = (
@@ -80502,7 +80512,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
@@ -80631,7 +80641,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/fsmaint)
 "pXZ" = (
-/obj/item/kitchen/sushimat{
+/obj/item/reagent_containers/cooking/sushimat{
 	name = "Prayer Mat"
 	},
 /turf/simulated/floor/plating,
@@ -81295,7 +81305,7 @@
 /area/station/engineering/equipmentstorage)
 "qey" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -83354,7 +83364,7 @@
 "qCB" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -83388,8 +83398,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
@@ -85958,7 +85967,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/spawner/late/crew,
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "rdc" = (
@@ -88690,8 +88699,7 @@
 	pixel_y = -3
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -92478,10 +92486,7 @@
 /area/station/security/storage)
 "spb" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 5
-	},
-/obj/item/reagent_containers/condiment/enzyme,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -92646,7 +92651,7 @@
 /area/station/hallway/primary/central/ne)
 "sqZ" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/stack/cable_coil,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -97643,7 +97648,7 @@
 /area/station/security/processing)
 "toU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "toV" = (
@@ -100224,7 +100229,7 @@
 "tRB" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "tRV" = (
@@ -105344,8 +105349,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/landmark/spawner/rev,
 /obj/structure/morgue{
@@ -106381,8 +106385,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -107882,8 +107885,7 @@
 /area/station/maintenance/fpmaint)
 "vsq" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/glass/reinforced,
 /obj/item/flash,
@@ -108432,7 +108434,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "vyC" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -108985,7 +108987,7 @@
 /obj/item/decorations/sticky_decorations/flammable/tinsel/red{
 	pixel_y = 12
 	},
-/obj/item/mixing_bowl{
+/obj/item/reagent_containers/cooking/bowl{
 	name = "Ians Water Bowl"
 	},
 /obj/machinery/light/small{
@@ -109785,8 +109787,8 @@
 /area/station/engineering/control)
 "vLQ" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "vLS" = (
@@ -111153,9 +111155,9 @@
 "vZb" = (
 /obj/structure/closet,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -113364,8 +113366,7 @@
 /area/station/public/construction)
 "wwv" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -115326,7 +115327,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "wSH" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/item/clothing/head/chefhat,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -119301,7 +119302,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "xIl" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -121007,7 +121008,12 @@
 /area/station/science/robotics/chargebay)
 "yaQ" = (
 /obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/machinery/reagentgrinder{
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 11
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -121085,7 +121091,7 @@
 /obj/structure/sign/poster/official/love_ian{
 	pixel_y = -32
 	},
-/obj/item/kitchen/sushimat{
+/obj/item/reagent_containers/cooking/sushimat{
 	name = "Prayer Mat"
 	},
 /obj/item/clothing/suit/ianshirt{
@@ -153383,7 +153389,7 @@ odE
 odE
 dkD
 vak
-gJF
+csS
 hxL
 yaQ
 qeR
@@ -170266,7 +170272,7 @@ kWw
 wgz
 nHY
 xcQ
-vTq
+mWr
 aGg
 fWa
 qJu
