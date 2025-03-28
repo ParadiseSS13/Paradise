@@ -14,6 +14,10 @@
   background: hsl(0, 100%, 12.5%);
 }
 
+.chat-emoji img {
+  display: none;
+}
+
 .boxed_message.green_border {
   background: hsl(40, 100%, 7.5%);
 }

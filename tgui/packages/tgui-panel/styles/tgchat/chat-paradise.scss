@@ -11,6 +11,10 @@
   border-color: hsla(20, 50%, 75%, 0.25);
 }
 
+.chat-emoji img {
+  display: none;
+}
+
 .boxed_message.red_border {
   background: hsla(0, 75%, 5%, 0.25);
   border-color: hsla(0, 100%, 50%, 0.5);
