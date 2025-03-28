@@ -39361,19 +39361,7 @@
 	},
 /area/station/science/research)
 "djh" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/hologram/holopad,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "CHAP2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -50325,9 +50313,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "hVk" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/light/small,
 /obj/machinery/light_switch{
 	dir = 1;
@@ -50340,15 +50325,6 @@
 	id = "CHAP";
 	pixel_x = -6;
 	pixel_y = -24
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "CHAP"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -53157,6 +53133,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"jlK" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CHAP2"
+	},
+/turf/simulated/floor/plating,
+/area/station/service/chapel/funeral)
 "jlL" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Danger: Conveyor Access";
@@ -61778,23 +61760,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "mYb" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/table/wood,
 /obj/item/food/grown/harebell,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "CHAP2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -66949,21 +66919,9 @@
 	},
 /area/station/medical/reception)
 "plz" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/stripes/line,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "CHAP2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/station/service/chapel/funeral)
 "plD" = (
@@ -73885,20 +73843,8 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "shF" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/chair/comfy/black{
 	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "CHAP"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -74067,23 +74013,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
-"smg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "CHAP"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/service/chapel)
 "smj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -78060,19 +77989,7 @@
 	},
 /area/station/science/toxins/mixing)
 "ubm" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/hologram/holopad,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "CHAP"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -84771,7 +84688,7 @@
 /area/station/hallway/primary/aft/north)
 "xdC" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Processing"
+	id = "CHAP"
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
@@ -107565,7 +107482,7 @@ cVM
 mBZ
 cUg
 rte
-fqo
+jlK
 aaa
 aaa
 aaa
@@ -107822,7 +107739,7 @@ cVM
 mBZ
 cUg
 rte
-fqo
+jlK
 aaa
 aaa
 aaa
@@ -108079,7 +107996,7 @@ cWN
 amd
 cUg
 djh
-fqo
+jlK
 aaa
 aaa
 aaa
@@ -110648,7 +110565,7 @@ cUY
 csw
 cFD
 cUX
-smg
+oiv
 xdC
 aaa
 aaa
@@ -110905,7 +110822,7 @@ cUZ
 xJB
 cFD
 bdq
-smg
+oiv
 xdC
 aaa
 aaa
