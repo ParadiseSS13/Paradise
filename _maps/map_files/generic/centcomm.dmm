@@ -503,8 +503,7 @@
 "cf" = (
 /obj/structure/table/abductor,
 /obj/item/paper/abductor,
-/obj/item/scalpel/alien,
-/obj/item/cautery/alien,
+/obj/item/scalpel/laser/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "cg" = (
