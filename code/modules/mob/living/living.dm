@@ -1008,12 +1008,6 @@
 	AM.pulledby = src
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
-	if(ismob(AM))
-		var/mob/M = AM
-		if(!iscarbon(src))
-			M.LAssailant = null
-		else
-			M.LAssailant = usr
 
 /mob/living/proc/check_pull()
 	if(pulling && !pulling.Adjacent(src))
