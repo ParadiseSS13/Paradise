@@ -147,7 +147,12 @@
 	..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
-		M.m_hidden = 1
+		M.m_hidden = TRUE
+
+/obj/item/pda/syndicate_fake
+	icon_state = "pda-syndi"
+	name = "Military PDA"
+	default_pen = /obj/item/pen/multi/syndicate
 
 /obj/item/pda/chaplain
 	icon_state = "pda-chaplain"

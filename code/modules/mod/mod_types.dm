@@ -268,8 +268,7 @@
 
 /obj/item/mod/control/pre_equipped/traitor/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/mask/gas/syndicate(bag)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
+	new /obj/item/storage/box/survival_syndie/traitor(bag)
 
 /obj/item/mod/control/pre_equipped/traitor_elite
 	theme = /datum/mod_theme/elite
@@ -289,8 +288,7 @@
 
 /obj/item/mod/control/pre_equipped/traitor_elite/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/mask/gas/syndicate(bag)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
+	new /obj/item/storage/box/survival_syndie/traitor(bag)
 
 /obj/item/mod/control/pre_equipped/nuclear
 	theme = /datum/mod_theme/syndicate
