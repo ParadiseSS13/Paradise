@@ -62630,21 +62630,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/security/permabrig)
-"iyT" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/item/storage/toolbox/emergency,
-/obj/effect/spawner/random/glowstick,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "izj" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
@@ -127484,7 +127469,7 @@ aor
 aor
 aor
 yhf
-iyT
+aor
 aor
 aor
 aor
