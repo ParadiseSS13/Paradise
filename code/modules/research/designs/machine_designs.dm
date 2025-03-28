@@ -662,6 +662,35 @@
 	build_path = /obj/item/circuitboard/merch
 	category = list("Misc. Machinery")
 
+/datum/design/processing_node
+	name =  "Machine Design (Processing Node)"
+	desc = "The circuit board for a processing node."
+	id = "processing_node"
+	req_tech = list("programming" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
+	build_path = /obj/item/circuitboard/processing_node
+	category = list("Misc. Machinery")
+
+/datum/design/network_node
+	name =  "Machine Design (Network Node)"
+	desc = "The circuit board for a network node."
+	id = "network_node"
+	req_tech = list("programming" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
+	build_path = /obj/item/circuitboard/network_node
+	category = list("Misc. Machinery")
+
+/datum/design/ai_resource_console
+	name =  "Computer Design (AI Resource Console)"
+	desc = "The circuit board for an AI Resource Console."
+	id = "ai_resource_console"
+	req_tech = list("programming" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/ai_resource_console
+
 /datum/design/autochef
 	name = "Machine Design (Autochef)"
 	desc = "The circuit board for an autochef."

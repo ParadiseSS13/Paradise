@@ -32,6 +32,26 @@
 	if(auto_use_uses)
 		adjust_uses(-1, user)
 
+/datum/spell/ai_spell/proc/find_nearest_camera(atom/target)
+	var/area/A = get_area(target)
+	if(!istype(A))
+		return
+	var/closest_camera = null
+	for(var/obj/machinery/camera/C in A)
+		if(isnull(closest_camera))
+			closest_camera = C
+			continue
+		if(get_dist(closest_camera, target) > get_dist(C, target))
+			closest_camera = C
+			continue
+	return closest_camera
+
+/datum/spell/ai_spell/proc/camera_beam(target, icon_state, icon, time)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = icon_state, icon = icon, time = time)
+
 /datum/spell/ai_spell/proc/adjust_uses(amt, mob/living/silicon/ai/owner, silent)
 	uses += amt
 	if(!silent && uses)
@@ -44,6 +64,14 @@
 		return
 	desc = "[initial(desc)] It has [uses] use\s remaining."
 	UpdateButtons()
+
+/datum/spell/ai_spell/proc/check_camera_vision(mob/user, atom/target)
+	var/turf/target_turf = get_turf(target)
+	var/datum/camerachunk/C = GLOB.cameranet.get_camera_chunk(target_turf.x, target_turf.y, target_turf.z)
+	if(!C.visible_turfs[target_turf])
+		to_chat(user, "<span class='warning'>You don't have camera vision of this location!</span>")
+		return FALSE
+	return TRUE
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/spell/ai_spell/ranged
