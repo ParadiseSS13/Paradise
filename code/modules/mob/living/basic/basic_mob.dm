@@ -160,6 +160,7 @@ RESTRICT_TYPE(/mob/living/basic)
 		if("minimum_survivable_temperature", "maximum_survivable_temperature", "unsuitable_cold_damage", "unsuitable_heat_damage")
 			apply_temperature_requirements()
 
+/// Return whether or not ghosts can take over this mob via "Respawn as NPC"
 /mob/living/basic/proc/valid_respawn_target_for(mob/user)
 	return FALSE
 

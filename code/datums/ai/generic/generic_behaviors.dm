@@ -4,7 +4,10 @@
 	var/mob/living/living_pawn = controller.pawn
 	if(!istype(living_pawn))
 		return AI_BEHAVIOR_INSTANT
-	living_pawn.custom_emote(EMOTE_VISIBLE, emote)
+	if(emote in GLOB.emote_list)
+		living_pawn.emote(emote)
+	else
+		living_pawn.custom_emote(EMOTE_VISIBLE, emote)
 	if(speech_sound) // Only audible emotes will pass in a sound
 		playsound(living_pawn, speech_sound, 80, vary = TRUE, pressure_affected =TRUE, ignore_walls = FALSE)
 	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED

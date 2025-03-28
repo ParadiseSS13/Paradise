@@ -40,4 +40,4 @@
 	if(!length(emotes_to_pick))
 		return
 	var/mob/living/living_pawn = controller.pawn
-	living_pawn.manual_emote(pick(emotes_to_pick))
+	living_pawn.custom_emote(EMOTE_VISIBLE, pick(emotes_to_pick))

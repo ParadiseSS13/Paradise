@@ -16,8 +16,6 @@
 	var/datum/callback/post_tipped_callback
 	/// Callback to additional behavior after being untipped.
 	var/datum/callback/post_untipped_callback
-	/// Callback to any extra roleplay behaviour
-	var/datum/callback/roleplay_callback
 	///The timer given until they untip themselves
 	var/self_untip_timer
 
@@ -50,7 +48,6 @@
 	pre_tipped_callback = null
 	post_tipped_callback = null
 	post_untipped_callback = null
-	roleplay_callback = null
 	return ..()
 
 /**
@@ -190,7 +187,7 @@
 	post_untipped_callback?.Invoke()
 
 	tipped_mob.visible_message(
-		"<span class='notice'>[tipped_mob] rights itself.</span>",
+		"<span class='notice'>[tipped_mob] rights [tipped_mob.p_themselves()].</span>",
 		"<span class='notice'>You right yourself.</span>"
 	)
 
