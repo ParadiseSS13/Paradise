@@ -18198,7 +18198,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bjx" = (
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "bjy" = (
@@ -50483,14 +50483,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"eOg" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/economy/atm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
-/area/station/security/lobby)
 "eOh" = (
 /obj/machinery/economy/vending/cigarette,
 /obj/structure/window/reinforced,
@@ -52939,11 +52931,6 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/asmaint)
-"gaW" = (
-/obj/effect/spawner/random/blood/often,
-/obj/machinery/economy/atm/directional/north,
-/turf/simulated/floor/wood,
-/area/station/maintenance/apmaint2)
 "gba" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -60057,6 +60044,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
+"jPg" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/station/security/lobby)
 "jPk" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -61437,6 +61432,13 @@
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravitygenerator)
+"kyJ" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/aft/south)
 "kzB" = (
 /obj/effect/spawner/random/food_or_drink/three_course_meal,
 /obj/structure/closet/crate/freezer,
@@ -64369,10 +64371,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
-"lVm" = (
-/obj/item/kirbyplants/large,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "lVr" = (
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 10
@@ -68115,15 +68113,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"nZt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/north)
 "nZF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
@@ -73529,6 +73518,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"qEe" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/north)
 "qEg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -75061,6 +75056,10 @@
 	icon_state = "dark"
 	},
 /area/station/telecomms/chamber)
+"rsw" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "rsz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -75495,13 +75494,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"rED" = (
-/obj/machinery/economy/atm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/aft/south)
 "rET" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -82831,12 +82823,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
-"vGS" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/north)
 "vHd" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -82983,6 +82969,15 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/exit)
+"vKU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/north)
 "vLb" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -85832,6 +85827,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
+"xnt" = (
+/obj/effect/spawner/random/blood/often,
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/wood,
+/area/station/maintenance/apmaint2)
 "xnF" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -97890,7 +97890,7 @@ aJP
 aRm
 aOR
 aQa
-vGS
+qEe
 aMD
 fay
 fay
@@ -98918,7 +98918,7 @@ aJR
 aRV
 aOR
 aQa
-nZt
+vKU
 aRd
 nff
 aUm
@@ -110286,7 +110286,7 @@ gwb
 uWp
 tGO
 cgQ
-gaW
+xnt
 xRm
 lnh
 kym
@@ -116197,7 +116197,7 @@ cBp
 cAL
 cDY
 cvx
-rED
+kyJ
 mqV
 ePP
 ePP
@@ -116636,7 +116636,7 @@ avd
 axD
 axA
 ayj
-eOg
+jPg
 azP
 aBY
 aCv
@@ -124382,7 +124382,7 @@ bqk
 bqk
 bqk
 bAV
-lVm
+rsw
 aUS
 bAo
 bHy

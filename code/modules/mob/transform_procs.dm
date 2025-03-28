@@ -232,6 +232,7 @@
 /mob/proc/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
+	mobtypes |= subtypesof(/mob/living/basic)
 	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a Type", mobtypes)
 
 	if(!mobpath)

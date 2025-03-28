@@ -10570,7 +10570,7 @@
 /turf/simulated/floor/carpet,
 /area/station/service/theatre)
 "aPX" = (
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "aQb" = (

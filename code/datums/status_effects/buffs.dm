@@ -413,10 +413,10 @@
 			L.adjustBruteLoss(-3.5)
 			L.adjustFireLoss(-3.5)
 			heal_points--
-	else if(isanimal(L))
-		var/mob/living/simple_animal/SM = L
-		if(SM.health < SM.maxHealth)
-			SM.adjustHealth(-3.5)
+	else if(isanimal_or_basicmob(L))
+		var/mob/living/animal = L
+		if(animal.health < animal.maxHealth)
+			animal.adjustHealth(-3.5)
 			force_particle = TRUE
 			if(prob(50)) // Animals are simpler
 				heal_points--

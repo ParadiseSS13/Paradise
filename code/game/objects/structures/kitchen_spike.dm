@@ -89,7 +89,7 @@
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
 	if(!user.Adjacent(src) || !user.Adjacent(victim) || is_ai(user) || !ismob(victim))
 		return
-	if(isanimal(user) && victim != user)
+	if(isanimal_or_basicmob(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
 	add_fingerprint(user)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure/kitchenspike, start_spike), victim, user)

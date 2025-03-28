@@ -199,7 +199,7 @@ SLIME SCANNER
 	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(10) && IS_HORIZONTAL(M))
 		probably_dead = TRUE
 
-	if(issimple_animal(M))
+	if(isanimal_or_basicmob(M))
 		// No box here, keep it simple.
 		if(probably_dead)
 			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: <font color='red'>Dead</font></span>")
