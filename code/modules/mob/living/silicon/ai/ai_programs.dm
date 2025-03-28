@@ -243,7 +243,6 @@
 
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
 	. = ..()
-	// user.program_picker.use(user) // WebUI call. Replace with TGUI call below.
 	user.program_picker.ui_interact(user)
 
 /// RGB Lighting - Recolors Lights
