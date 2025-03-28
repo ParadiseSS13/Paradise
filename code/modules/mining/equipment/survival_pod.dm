@@ -185,17 +185,6 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-//NanoMed
-/obj/machinery/economy/vending/wallmed/survival_pod
-	name = "survival pod medical supply"
-	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
-	req_access = list()
-
-	products = list(/obj/item/stack/medical/splint = 2)
-	contraband = list()
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod, 32, 32)
-
 //Computer
 /obj/item/gps/computer
 	name = "pod computer"
