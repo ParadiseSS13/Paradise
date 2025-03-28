@@ -407,6 +407,8 @@ emp_act
 	//DAMAGE//
 	for(var/obj/item/organ/external/affecting in damaged)
 		affecting.receive_damage(acidity, 2 * acidity)
+		to_chat(src, "<span class='userdanger'>The acid burns you!</span>")
+		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE)
 
 		if(istype(affecting, /obj/item/organ/external/head))
 			var/obj/item/organ/external/head/head_organ = affecting
