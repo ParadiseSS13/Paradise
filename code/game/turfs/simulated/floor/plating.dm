@@ -317,6 +317,13 @@
 	toxins = 10
 	atmos_mode = ATMOS_MODE_NO_DECAY
 
+/turf/simulated/floor/engine/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
