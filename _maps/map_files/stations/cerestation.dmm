@@ -25870,7 +25870,7 @@
 "dCv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -37257,7 +37257,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "green"
