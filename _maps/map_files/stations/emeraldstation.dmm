@@ -42659,15 +42659,15 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "ixQ" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
-	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	name = "Research and Development Lab Shutters";
+	id_tag = "rndlab2"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
@@ -112019,11 +112019,6 @@
 "wid" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
-	},
 /obj/item/desk_bell{
 	pixel_y = 8;
 	anchored = 1
@@ -112034,6 +112029,11 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	name = "Research and Development Lab Shutters";
+	id_tag = "rndlab2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
@@ -119037,7 +119037,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
+	id_tag = "rndlab2"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
