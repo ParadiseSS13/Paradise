@@ -36516,7 +36516,6 @@
 	},
 /area/station/maintenance/port)
 "cFR" = (
-/obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -36529,7 +36528,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cFS" = (
-/obj/structure/girder,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -36539,20 +36537,20 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cFT" = (
-/obj/structure/closet/crate,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random/maintenance,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/girder,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -57679,6 +57677,23 @@
 	icon_state = "darkgreen"
 	},
 /area/station/service/hydroponics)
+"gqB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/maintenance/port)
 "gqE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -71987,9 +72002,6 @@
 	},
 /area/station/medical/medbay)
 "njt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -119943,7 +119955,7 @@ xVX
 xVX
 cDv
 dmq
-mAo
+gqB
 mSr
 cIx
 cIx
