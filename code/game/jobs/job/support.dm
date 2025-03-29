@@ -578,6 +578,21 @@
 	backpack_contents = list(
 		/obj/item/videocam/advanced = 1)
 
+/obj/item/storage/box/librarian
+	name = "best selling books of 2568"
+	desc = "A bundle of books guaranteed to draw readers from all across the station. Nobody will ever call you useless again!"
+
+/obj/item/storage/box/librarian/populate_contents()
+	new /obj/item/spellbook/oneuse/mime(src)
+	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
+	new /obj/item/cqc_manual(src)
+	new /obj/item/sleeping_carp_scroll(src)
+
+/datum/outfit/job/librarian/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	backpack_contents += /obj/item/storage/box/librarian
+	backpack_contents += /obj/item/spellbook/oneuse/summonitem/librarian
+
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)

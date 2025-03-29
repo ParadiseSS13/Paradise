@@ -139,20 +139,14 @@
 			if(user.mind)
 				to_chat(user, "<span class='notice'>You've already read this one.</span>")
 			return
-	if(used)
-		recoil(user)
-	else
-		user.mind.AddSpell(S)
-		to_chat(user, "<span class='notice'>You flip through the pages. Your understanding of the boundaries of reality increases. You can cast [spellname]!</span>")
-		user.create_log(MISC_LOG, "learned the spell [spellname] ([S])")
-		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
-		onlearned(user)
+	user.mind.AddSpell(S)
+	to_chat(user, "<span class='notice'>You flip through the pages. Your understanding of the boundaries of reality increases. You can cast [spellname]!</span>")
+	user.create_log(MISC_LOG, "learned the spell [spellname] ([S])")
+	user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
+	onlearned(user)
 
-/obj/item/spellbook/oneuse/mime/recoil(mob/user)
-	to_chat(user, "<span class='notice'>You flip through the pages. Nothing of interest to you.</span>")
 
 /obj/item/spellbook/oneuse/mime/onlearned(mob/user)
-	used = TRUE
 	if(!locate(/datum/spell/mime/speak) in user.mind.spell_list) //add vow of silence if not known by user
 		user.mind.AddSpell(new /datum/spell/mime/speak)
 		to_chat(user, "<span class='notice'>You have learned how to use silence to improve your performance.</span>")
