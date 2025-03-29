@@ -24433,6 +24433,9 @@
 "bQJ" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -24458,15 +24461,10 @@
 /area/station/service/kitchen)
 "bQP" = (
 /obj/structure/table,
-/obj/item/food/mint,
-/obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 5
-	},
-/obj/item/reagent_containers/condiment/enzyme,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -42790,6 +42788,9 @@
 /area/station/security/storage)
 "edB" = (
 /obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme,
+/obj/item/kitchen/rollingpin,
+/obj/item/food/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -46452,11 +46453,12 @@
 /area/station/security/permabrig)
 "fTi" = (
 /obj/structure/table,
-/obj/item/storage/bag/tray,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/item/storage/bag/tray,
+/obj/item/storage/bag/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -53612,6 +53614,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/item/kitchen/utensil/pfork,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -63590,11 +63593,11 @@
 /area/station/hallway/primary/central)
 "omG" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/bag/tray,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -64912,11 +64915,11 @@
 /area/station/maintenance/starboard)
 "pcd" = (
 /obj/structure/table/reinforced,
-/obj/item/kitchen/utensil/pfork,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -73400,11 +73403,11 @@
 /area/station/security/permabrig)
 "toU" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
+/obj/item/reagent_containers/cooking/board,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/reagent_containers/cooking/pan,
+/obj/item/reagent_containers/cooking/pot,
+/obj/item/reagent_containers/cooking/grill_grate,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

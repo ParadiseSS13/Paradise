@@ -57857,8 +57857,13 @@
 /turf/simulated/floor/carpet/purple,
 /area/station/hallway/secondary/exit)
 "hlr" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/item/reagent_containers/cooking/board,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/reagent_containers/cooking/pan,
+/obj/item/reagent_containers/cooking/pot,
+/obj/item/reagent_containers/cooking/grill_grate,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "hly" = (
@@ -94710,7 +94715,7 @@
 "sCZ" = (
 /obj/machinery/alarm/directional/north,
 /obj/structure/table,
-/obj/machinery/cooking/grill,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -109072,10 +109077,8 @@
 /area/station/medical/chemistry)
 "xmd" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_y = 5
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

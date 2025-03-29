@@ -14868,13 +14868,13 @@
 /area/station/security/permabrig)
 "bfo" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/machinery/cooking/oven,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -45782,6 +45782,10 @@
 	pixel_x = -8;
 	pixel_y = 11
 	},
+/obj/item/kitchen/utensil/pfork{
+	pixel_x = 3;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -48261,6 +48265,14 @@
 	icon_state = "dark"
 	},
 /area/station/security/main)
+"fse" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/table,
+/obj/machinery/cooking/stovetop,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "fsm" = (
 /obj/structure/railing{
 	dir = 6
@@ -65788,13 +65800,17 @@
 /area/station/service/clown)
 "lXd" = (
 /obj/structure/table/reinforced,
-/obj/item/kitchen/utensil/pfork,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/reagent_containers/cooking/board,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/reagent_containers/cooking/pan,
+/obj/item/reagent_containers/cooking/pot,
+/obj/item/reagent_containers/cooking/grill_grate,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -79703,10 +79719,8 @@
 /area/station/maintenance/fpmaint2)
 "qXR" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_y = 6
-	},
 /obj/machinery/light/directional/north,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -136587,7 +136601,7 @@ aUS
 dAh
 aBB
 umx
-aBB
+fse
 bof
 wCP
 bof
