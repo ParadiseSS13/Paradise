@@ -25575,7 +25575,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "bWQ" = (
-/obj/structure/cable,
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -31713,6 +31712,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -36550,9 +36552,6 @@
 /obj/machinery/alarm/directional/south,
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -39041,6 +39040,9 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -41121,9 +41123,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -59217,9 +59216,6 @@
 /turf/space,
 /area/space)
 "lQc" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -75354,6 +75350,8 @@
 	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "sSO" = (
@@ -82151,6 +82149,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
