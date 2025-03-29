@@ -24,6 +24,7 @@ Bonus
 	transmittable = -1
 	level = 5
 	severity = 3
+	treatments = list("synaptazine" , "ephedrine")
 
 /datum/symptom/hallucigen/Activate(datum/disease/advance/A)
 	..()

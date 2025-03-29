@@ -28,6 +28,7 @@ Bonus
 	transmittable = 1
 	level = 3
 	severity = 4
+	treatments = list("calomel" , "charcoal", "pen_acid")
 
 /datum/symptom/vomit/Activate(datum/disease/advance/A)
 	..()

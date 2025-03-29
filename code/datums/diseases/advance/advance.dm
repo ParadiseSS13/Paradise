@@ -1,3 +1,7 @@
+/// Evoltion chance each cycle in percents.
+/// a value of 0.0057% corresponds to a 1 in 30 chance of new strain every 600 cycles or 20 minutes.
+#define EVOLUTION_CHANCE 0.0057
+
 /*
 
 	Advance Disease is a system for Virologist to Engineer their own disease with symptoms that have effects and properties
@@ -6,14 +10,28 @@
 	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
 
 */
+GLOBAL_VAR_INIT(next_unique_strain, 1)
+
 GLOBAL_LIST_EMPTY(archive_diseases)
 
 // The order goes from easy to cure to hard to cure.
-GLOBAL_LIST_INIT(advance_cures, list(
+GLOBAL_LIST_INIT(standard_cures, list(
 									"sodiumchloride", "sugar", "orangejuice",
 									"spaceacillin", "salglu_solution", "ethanol",
 									"teporone", "diphenhydramine", "lipolicide",
 									"silver", "gold"
+))
+
+GLOBAL_LIST_INIT(advanced_cures, list(
+									"atropine", "mitocholide", "lazarus_reagent",
+									"cryoxadone", "hydrocodone", "haloperidol",
+									"degreaser", "perfluorodecalin"
+))
+
+GLOBAL_LIST_INIT(plant_cures,list(
+									"bicaridine", "kelotane", "omnizine",
+									"synaptizine", "weak_omnizine", "morphine",
+									"cbd", "thc", "nicotine" , "psilocybin"
 ))
 
 /*
@@ -34,9 +52,19 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	// NEW VARS
 
-	var/list/symptoms = list() // The symptoms of the disease.
+	/// The base properties of the virus. retained between strains
+	var/list/base_properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
+	/// Can the virus spotaneously evolve?
+	var/evolution_chance = EVOLUTION_CHANCE
+	/// The symptoms of the disease.
+	var/list/symptoms = list()
+	/// A unique ID for the strain and symptoms.
 	var/id = ""
+	/// Saves an ID. If that ID is analyzed the virus will be automatically analyzed when inserted into the PANDEMIC
+	var/tracker = ""
 	var/processing = FALSE
+	/// A unique ID for the strain. Uses the unique_datum_id of the first virus datum that is of that strain.
+	var/strain = ""
 
 /*
 
@@ -44,21 +72,34 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
  */
 
-/datum/disease/advance/New(process = 1, datum/disease/advance/D)
-	if(!istype(D))
-		D = null
+/datum/disease/advance/New(process = 1, datum/disease/advance/to_copy)
+	if(!istype(to_copy))
+		to_copy = null
+	strain = "origin"
+	// whether to generate a new cure or not
+	var/new_cure = TRUE
 	// Generate symptoms if we weren't given any.
-
 	if(!symptoms || !length(symptoms))
-
-		if(!D || !D.symptoms || !length(D.symptoms))
+		if(!to_copy || !to_copy.symptoms || !length(to_copy.symptoms))
 			symptoms = GenerateSymptoms(0, 2)
 		else
-			for(var/datum/symptom/S in D.symptoms)
+			for(var/datum/symptom/S in to_copy.symptoms)
 				symptoms += new S.type
+	// Copy cure, evolution ability and strain if we are copying an existing disease
+	if(to_copy)
+		base_properties = to_copy.base_properties.Copy()
+		stage = to_copy.stage
+		evolution_chance = to_copy.evolution_chance
+		tracker = to_copy.tracker
+		for(var/r in to_copy.cures)
+			cures += r
+		cure_text = to_copy.cure_text
+		strain = to_copy.strain
+		new_cure = FALSE
 
-	Refresh()
-	..(process, D)
+	Refresh(FALSE, FALSE , new_cure, FALSE)
+
+	..(process, to_copy)
 	return
 
 /datum/disease/advance/Destroy()
@@ -71,15 +112,34 @@ GLOBAL_LIST_INIT(advance_cures, list(
 /datum/disease/advance/stage_act()
 	if(!..())
 		return FALSE
+	if(prob(evolution_chance))
+		var/min = rand(1,6)
+		var/max = rand(min,6)
+		var/lastStrain = strain
+		if(prob(95))
+			Evolve(min, max)
+		else
+			Devolve()
+		// Create a new strain even if we didn't gain or lose symptoms
+		if(lastStrain == strain)
+			Refresh()
 	if(symptoms && length(symptoms))
-
+		var/list/mob_reagents = list()
+		for(var/datum/reagent/chem in affected_mob.reagents.reagent_list)
+			mob_reagents += chem.id
 		if(!processing)
 			processing = TRUE
 			for(var/datum/symptom/S in symptoms)
 				S.Start(src)
-
+		var/treated = FALSE
 		for(var/datum/symptom/S in symptoms)
-			S.Activate(src)
+			treated = FALSE
+			for(var/treatment in S.treatments)
+				if(treatment in mob_reagents)
+					treated = TRUE
+					affected_mob.reagents.remove_reagent(treatment, S.purge_amount)
+			if(!treated)
+				S.Activate(src)
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
 	return TRUE
@@ -177,9 +237,15 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	return generated
 
-/datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE)
+/datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE, new_cure = TRUE, new_strain = TRUE)
+	if(new_strain)
+		strain = "adv_[num2text(GLOB.next_unique_strain++, 8)]"
+		evolution_chance = EVOLUTION_CHANCE
+
+	if(evolution_chance)
+		evolution_chance = EVOLUTION_CHANCE
 	var/list/properties = GenerateProperties()
-	AssignProperties(properties)
+	AssignProperties(properties, new_cure)
 	id = null
 
 	if(!GLOB.archive_diseases[GetDiseaseID()])
@@ -197,10 +263,11 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(!symptoms || !length(symptoms))
 		CRASH("We did not have any symptoms before generating properties.")
 
-	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
+	var/list/properties = base_properties.Copy()
 
 	for(var/datum/symptom/S in symptoms)
-
+		if(istype(S, /datum/symptom/viralevolution))
+			evolution_chance *= 1.5
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
 		properties["stage rate"] += S.stage_speed
@@ -210,14 +277,13 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	return properties
 
 // Assign the properties that are in the list.
-/datum/disease/advance/proc/AssignProperties(list/properties = list())
-
+/datum/disease/advance/proc/AssignProperties(list/properties = list(), new_cure = TRUE)
 	if(properties && length(properties))
 		switch(properties["stealth"])
-			if(2)
+			if(0 to 2)
+				visibility_flags = 0
+			if(2 to INFINITY)
 				visibility_flags = HIDDEN_SCANNER
-			if(3 to INFINITY)
-				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
 		SetSpread(clamp(2 ** (properties["transmittable"] - length(symptoms)), BLOOD, AIRBORNE))
@@ -225,7 +291,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		stage_prob = max(properties["stage rate"], 2)
 		SetSeverity(properties["severity"])
-		GenerateCure(properties)
+		evolution_chance *= (1 + sqrtor0(properties["stage rate"]) / 3)
+		if(new_cure)
+			GenerateCure(properties)
 	else
 		CRASH("Our properties were empty or null!")
 
@@ -264,18 +332,25 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			severity = "Unknown"
 
 
+/datum/disease/advance/proc/CurePick(list/curelist = list())
+	var/list/options = curelist - cures
+	return pick(options)
+
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && length(properties))
-		var/res = clamp(properties["resistance"] - (length(symptoms) / 2), 1, length(GLOB.advance_cures))
-//		to_chat(world, "Res = [res]")
-		cures = list(GLOB.advance_cures[res])
-
-		// Get the cure name from the cure_id
-		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
-		cure_text = D.name
-
-
+		var/res = clamp((properties["resistance"] - length(symptoms) / 2) / 2 , 1 , length(GLOB.advanced_cures))
+		cures = list()
+		cure_text = ""
+		cures += pick(GLOB.standard_cures)
+		if(res > 1)
+			cures += prob(50) ? CurePick(GLOB.advanced_cures) : CurePick(GLOB.plant_cures)
+		if(res > 2)
+			cures += prob(50) ? CurePick(GLOB.plant_cures) : CurePick(GLOB.drinks)
+		for(var/cure in cures)
+			// Get the cure name from the cure_id
+			var/datum/reagent/D = GLOB.chemical_reagents_list[cure]
+			cure_text += cure_text == "" ? "[D.name]" : ", [D.name]"
 	return
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
@@ -296,8 +371,11 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	return
 
 // Name the disease.
-/datum/disease/advance/proc/AssignName(name = "Unknown")
-	src.name = name
+/datum/disease/advance/proc/AssignName(_name = "Unknown")
+	name = _name
+	if(GLOB.archive_diseases[GetDiseaseID()])
+		var/datum/disease/advance/virus = GLOB.archive_diseases[GetDiseaseID()]
+		virus.name = _name
 	return
 
 // Return a unique ID of the disease.
@@ -306,7 +384,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		var/list/L = list()
 		for(var/datum/symptom/S in symptoms)
 			L += S.id
-		L = sortList(L) // Sort the list so it doesn't matter which order the symptoms are in.
+		L = sortList(L) // Sort the list so it doesn't matter which order the symptoms are in and add the strain to the end
+		L += strain
 		var/result = jointext(L, ":")
 		id = result
 	return id
@@ -362,7 +441,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		diseases -= D1
 
 		var/datum/disease/advance/D2 = pick(diseases)
-		D2.Mix(D1)
+		// So that we don't mix a virus with itself
+		if(D2.GetDiseaseID() != D1.GetDiseaseID())
+			D2.Mix(D1)
 
 	// Should be only 1 entry left, but if not let's only return a single entry
 	// to_chat(world, "END MIXING!!!!!")
@@ -385,10 +466,18 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(!user)
 		return
 
+	var/datum/disease/advance/admin_disease = new(0, null)
+
+	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
+
+	for(var/prop in base_props)
+		var/current_prop = input(user, "Enter base [prop]", "Base Stats", null)
+		if(current_prop)
+			admin_disease.base_properties[prop] = text2num(current_prop)
+
 	var/i = VIRUS_SYMPTOM_LIMIT
 
-	var/datum/disease/advance/D = new(0, null)
-	D.symptoms = list()
+	admin_disease.symptoms = list()
 
 	var/list/symptoms = list()
 	symptoms += "Done"
@@ -402,34 +491,19 @@ GLOBAL_LIST_INIT(advance_cures, list(
 				i = 0
 			else if(ispath(symptom))
 				var/datum/symptom/S = new symptom
-				if(!D.HasSymptom(S))
-					D.symptoms += S
+				if(!admin_disease.HasSymptom(S))
+					admin_disease.symptoms += S
 					i -= 1
 	while(i > 0)
 
-	if(length(D.symptoms) > 0)
+	if(length(admin_disease.symptoms) > 0)
 
 		var/new_name = stripped_input(user, "Name your new disease.", "New Name")
 		if(!new_name)
 			return
-		D.AssignName(new_name)
-		D.Refresh()
-
-		for(var/datum/disease/advance/AD in GLOB.active_diseases)
-			AD.Refresh()
-
-		for(var/thing in shuffle(GLOB.human_list))
-			var/mob/living/carbon/human/H = thing
-			if(H.stat == DEAD || !is_station_level(H.z))
-				continue
-			if(!H.HasDisease(D))
-				H.ForceContractDisease(D)
-				break
-
-		var/list/name_symptoms = list()
-		for(var/datum/symptom/S in D.symptoms)
-			name_symptoms += S.name
-		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.name]! It has these symptoms: [english_list(name_symptoms)]")
+		admin_disease.AssignName(new_name)
+		admin_disease.Refresh()
+		return admin_disease
 
 
 
@@ -460,3 +534,5 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		var/datum/symptom/S = i
 		total_transmittable += S.transmittable
 	return total_transmittable
+
+#undef EVOLUTION_CHANCE

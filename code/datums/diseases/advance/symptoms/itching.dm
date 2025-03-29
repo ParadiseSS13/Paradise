@@ -25,6 +25,7 @@ BONUS
 	transmittable = 1
 	level = 1
 	severity = 1
+	treatments = list("silver_sulfadiazine")
 
 /datum/symptom/itching/Activate(datum/disease/advance/A)
 	..()
