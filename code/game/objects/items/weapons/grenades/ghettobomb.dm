@@ -63,5 +63,5 @@
 
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
 	update_mob()
-	explosion(loc, -1, -1, 2, flame_range = 4)	// small explosion, plus a very large fireball.
+	explosion(loc, -1, -1, 2, flame_range = 4, cause = "IED grenade")	// small explosion, plus a very large fireball.
 	qdel(src)
