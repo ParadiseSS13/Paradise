@@ -111,19 +111,12 @@
 		to_chat(user, "<span class='warning'>[src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
 		playsound(loc, 'sound/effects/refill.ogg', 50, TRUE)
 		return FINISH_ATTACK
-	if(ishuman(A))
-		var/mob/living/carbon/human/human_target = A
-		force *= fisto_setting
-		if(human_target.check_shields(src, force, "[user]'s [name]", MELEE_ATTACK))
-			user.do_attack_animation(human_target)
-			user.changeNext_move(CLICK_CD_MELEE)
-			force /= fisto_setting
-			return FINISH_ATTACK
-		force /= fisto_setting
 
 /obj/item/melee/powerfist/attack(mob/living/target, mob/living/user, params)
 	force *= fisto_setting
-	. = ..()
+	if(..())
+		force /= fisto_setting
+		return FINISH_ATTACK
 	force /= fisto_setting
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)
 	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, TRUE)
