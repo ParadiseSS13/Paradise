@@ -3,7 +3,7 @@
 /obj/structure/light_fake
 	name = "light fixture"
 	desc = "A lighting fixture."
-	icon = 'modular_ss220/aesthetics/lights/icons/lights.dmi'
+	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube1"
 	anchored = TRUE
 	layer = ABOVE_ALL_MOB_LAYER
@@ -15,7 +15,6 @@
 /obj/structure/light_fake/small
 	name = "light fixture"
 	desc = "A small lighting fixture."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb1"
 	light_color = "#a0a080"
 	light_range = 4
