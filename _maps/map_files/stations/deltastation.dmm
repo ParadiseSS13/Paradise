@@ -54086,7 +54086,6 @@
 	name = "Bar Office"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/bar,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore)
 "eIG" = (
