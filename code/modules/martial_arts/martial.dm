@@ -315,20 +315,9 @@
 /obj/item/sleeping_carp_scroll/attack_self__legacy__attackchain(mob/living/carbon/human/user as mob)
 	if(!istype(user) || !user)
 		return
-	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(IS_CHANGELING(user) || IS_MINDFLAYER(user))
-			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
-			return
-		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
-			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
-			return
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
-	user.drop_item()
-	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
-	new /obj/effect/decal/cleanable/ash(get_turf(src))
-	qdel(src)
 
 /obj/item/cqc_manual
 	name = "old manual"
@@ -339,24 +328,14 @@
 /obj/item/cqc_manual/attack_self__legacy__attackchain(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(IS_CHANGELING(user) || IS_MINDFLAYER(user))
-			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
-			return
-		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
-			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
-			return
-		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(user.mind)
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
 			return
 
 	to_chat(user, "<span class='boldannounceic'>You remember the basics of CQC.</span>")
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
-	user.drop_item()
-	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
-	new /obj/effect/decal/cleanable/ash(get_turf(src))
-	qdel(src)
 
 /obj/item/bostaff
 	name = "bo staff"

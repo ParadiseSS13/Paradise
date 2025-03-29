@@ -1141,6 +1141,12 @@
 	to_chat(user, "<span class='warning'>[src] suddenly vanishes!</span>")
 	qdel(src)
 
+/obj/item/spellbook/oneuse/summonitem/librarian
+	spell = /datum/spell/summonitem/librarian
+	spellname = "instant book summons"
+	icon_state = "booksummons"
+	desc = "This book is bright and garish, very hard to miss."
+
 /obj/item/spellbook/oneuse/fake_gib
 	spell = /datum/spell/touch/fake_disintegrate
 	spellname = "disintegrate"
