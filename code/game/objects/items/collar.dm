@@ -70,8 +70,8 @@
 	pet_death_announcer.follow_target = src
 	if(istype(pet_death_area, /area/syndicate_mothership) || istype(pet_death_area, /area/shuttle/syndicate_elite))
 		//give the syndicats a bit of stealth
-		pet_death_announcer.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
+		pet_death_announcer.autosay("[M] подвергся акту вандализма в космосе!", "Датчик Смерти [M]")
 	else
-		pet_death_announcer.autosay("[M] has been vandalized in [pet_death_area.name]!", "[M]'s Death Alarm")
+		pet_death_announcer.autosay("[M] подвергся акту вандализма в [pet_death_area.name]!", "Датчик Смерти [M]")
 	qdel(pet_death_announcer)
 	STOP_PROCESSING(SSobj, src)

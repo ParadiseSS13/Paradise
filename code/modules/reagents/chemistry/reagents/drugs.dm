@@ -914,7 +914,7 @@
 		L.visible_message(
 			"<span class='danger'>[L] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!</span>",
 			"<span class='danger'>As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.</span>")
-		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
+		L.custom_emote(EMOTE_VISIBLE, "кашляет кровью!")
 		L.bleed(25)
 		L.apply_damage(max(current_cycle * 2 / 3, 60), STAMINA)
 		L.KnockDown((current_cycle * 2 / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
@@ -1068,7 +1068,7 @@
 
 
 	if(prob(5))
-		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
+		L.custom_emote(EMOTE_VISIBLE, "кашляет кровью!")
 		L.bleed(5)
 
 	if(prob(10))

@@ -1,5 +1,5 @@
 /obj/mecha/medical/odysseus
-	desc = "These exosuits are developed and produced by DeForest Medical Corporation, for rescue operations."
+	desc = "Медицинский экзокостюм, разработанный корпорацией DeForest Medical для спасательных операций."
 	name = "Odysseus"
 	icon_state = "odysseus"
 	initial_icon = "odysseus"
@@ -17,7 +17,7 @@
 	. = ..()
 	if(. && ishuman(H))
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			occupant_message("<span class='warning'>[H.glasses] prevent you from using the built-in medical hud.</span>")
+			occupant_message("<span class='warning'>[capitalize(H.glasses.declent_ru(NOMINATIVE))] мешают вам использовать встроенный медицинский HUD.</span>")
 		else
 			var/datum/atom_hud/data/human/medical/advanced/A = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 			A.add_hud_to(H)
@@ -47,9 +47,9 @@
 
 /obj/mecha/medical/odysseus/examine_more(mob/user)
 	. = ..()
-	. += "<i>The Odysseus is a relatively fast, lightweight, and easy-to-maintain exosuit developed by DeForest Medical Corporation. \
-	Initially designed for patient rescue and care within hostile environments, it has seen semi-widespread use throughout the sector, usually by larger corporations and military groups who value its ability to get in and out of even the most rugged disaster zones.</i>"
+	. += "<i>Одиссей — это относительно быстрый, легкий и простой в обслуживании экзокостюм, разработанный корпорацией DeForest Medical. \
+	Первоначально созданный для спасения и ухода за пациентами в сложных условиях. Он получил высокое распространение в секторе, обычно среди крупных корпораций и военных групп, которые ценят его способность входить и выходить даже из самых трудных зон бедствия.</i>"
 	. += ""
-	. += "<i>DeForest has seen modest success from the Odysseus, with only minor complaints arising from its sluggish pace and lack of armor or defensive capabilities. \
-	Despite these flaws, it has found a home amid Nanotrasen medical teams, where Paramedics find solid uses for it and its varied equipment loadout. \
-	As with all station-side mechs, Nanotrasen has purchased the license to produce the Odysseus in their facilities.</i>"
+	. += "<i>DeForest Medical добилась скромного успеха с экзокостюмом Одиссей, получив лишь незначительные жалобы на его медлительность и недостаток брони или оборонительных возможностей. \
+	Несмотря на эти недостатки, он нашёл применение в медицинских командах Nanotrasen, где парамедики находят полезное применение ему и и его разнообразным комплектам оборудования. \
+	Как в случаях со всеми станционными мехами, Nanotrasen приобрела лицензию на производство Одиссея на своих предприятиях.</i>"

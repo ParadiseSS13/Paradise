@@ -329,13 +329,13 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors)
+	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors + ss220_vendors) // SS220 ADDITION - ss220_vendors
 	if(!choice)
 		return
 	set_type(choice)
 
 /obj/item/circuitboard/vendor/proc/set_type(type)
-	var/static/list/buildable_vendors = station_vendors + unique_vendors
+	var/static/list/buildable_vendors = station_vendors + unique_vendors + ss220_vendors // SS220 ADDITION - ss220_vendors
 	var/obj/machinery/economy/vending/typepath = buildable_vendors[type]
 	build_path = typepath
 	board_name = "[type] Vendor"

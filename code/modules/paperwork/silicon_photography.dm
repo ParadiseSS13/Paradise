@@ -40,7 +40,7 @@
 
 	else
 		injectaialbum(P)
-		to_chat(usr, "<span class='unconscious'>Image recorded</span>")
+		to_chat(usr, "<span class='unconscious'>Снимок сохранён</span>")
 
 /obj/item/camera/siliconcam/proc/selectpicture(obj/item/camera/siliconcam/cam)
 	if(!cam)
@@ -49,11 +49,11 @@
 	var/list/nametemp = list()
 	var/find
 	if(length(cam.aipictures) == 0)
-		to_chat(usr, "<span class='userdanger'>No images saved</span>")
+		to_chat(usr, "<span class='userdanger'>Нет сохранённых снимков</span>")
 		return
 	for(var/datum/picture/t in cam.aipictures)
 		nametemp += t.fields["name"]
-	find = tgui_input_list(usr, "Select image (numbered in order taken)", "Pick Image", nametemp)
+	find = tgui_input_list(usr, "Выберите снимок (пронумерованы в порядке получения)", "Выбор снимка", nametemp)
 
 	for(var/datum/picture/q in cam.aipictures)
 		if(q.fields["name"] == find)
@@ -81,7 +81,7 @@
 		return
 
 	cam.aipictures -= selection
-	to_chat(usr, "<span class='unconscious'>Image deleted</span>")
+	to_chat(usr, "<span class='unconscious'>Снимок удалён</span>")
 
 /obj/item/camera/siliconcam/ai_camera/can_capture_turf(turf/T, mob/user)
 	var/mob/living/silicon/ai = user
@@ -95,44 +95,44 @@
 
 /obj/item/camera/siliconcam/proc/camera_mode_off()
 	src.in_camera_mode = 0
-	to_chat(usr, "<B>Camera Mode deactivated</B>")
+	to_chat(usr, "<B>Режим фотоаппарата деактивирован</B>")
 
 /obj/item/camera/siliconcam/proc/camera_mode_on()
 	src.in_camera_mode = 1
-	to_chat(usr, "<B>Camera Mode activated</B>")
+	to_chat(usr, "<B>Режим фотоаппарата активирован</B>")
 
 /obj/item/camera/siliconcam/ai_camera/printpicture(mob/user, datum/picture/P)
 	injectaialbum(P)
-	to_chat(usr, "<span class='unconscious'>Image recorded</span>")
+	to_chat(usr, "<span class='unconscious'>Снимок записан</span>")
 
 /obj/item/camera/siliconcam/robot_camera/printpicture(mob/user, datum/picture/P)
 	injectmasteralbum(P)
 
 /obj/item/camera/siliconcam/ai_camera/verb/take_image()
-	set category = "AI Commands"
-	set name = "Take Image"
-	set desc = "Takes an image"
+	set category = "Команды ИИ"
+	set name = "Сделать снимок"
+	set desc = "Делает снимок"
 
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/ai_camera/verb/change_lens()
-	set category = "AI Commands"
-	set name = "Set Photo Focus"
-	set desc = "Changes the lens size of your photo camera"
+	set category = "Команды ИИ"
+	set name = "Установить фокус камеры"
+	set desc = "Изменяет размер линзы камеры"
 
 	change_size()
 
 /obj/item/camera/siliconcam/ai_camera/verb/view_images()
-	set category = "AI Commands"
-	set name = "View Images"
-	set desc = "View images"
+	set category = "Команды ИИ"
+	set name = "Просмотреть снимки"
+	set desc = "Показывает снимки"
 
 	viewpictures()
 
 /obj/item/camera/siliconcam/ai_camera/verb/delete_images()
-	set category = "AI Commands"
-	set name = "Delete Image"
-	set desc = "Delete image"
+	set category = "Команды ИИ"
+	set name = "Удалить снимок"
+	set desc = "Удаляет снимок"
 
 	deletepicture(src)
 

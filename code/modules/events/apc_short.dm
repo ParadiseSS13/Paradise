@@ -20,7 +20,7 @@
 		SEND_SOUND(M, S)
 
 /datum/event/apc_short/announce()
-	GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please repair shorted APCs.", "Systems Power Failure", 'sound/AI/power_short.ogg')
+	GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "ВНИМАНИЕ: Сбой системы питания.", 'sound/AI/power_short.ogg')
 
 /datum/event/apc_short/end()
 	return TRUE
@@ -30,7 +30,7 @@
 		/area/station/engineering/engine,
 		/area/station/engineering/engine/supermatter,
 		/area/station/turret_protected/ai)
-	GLOB.minor_announcement.Announce("Power failure detected in [station_name()]'s powernet. All APCs have lost power. Gravity systems likely to fail.", "Systems Power Failure", 'sound/AI/attention.ogg')
+	GLOB.minor_announcement.Announce("Обнаружен сбой питания в сети [station_name()]. Все ЛКП были разряжены. Вероятен отказ генератора гравитации.", "ВНИМАНИЕ: Отказ системы питания.", 'sound/AI/attention.ogg')
 	for(var/thing in GLOB.apcs)
 		var/obj/machinery/power/apc/A = thing
 		var/area/current_area = get_area(A)
@@ -49,7 +49,7 @@
 		/area/station/engineering/engine/supermatter,
 		/area/station/turret_protected/ai)
 	if(announce)
-		GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please repair shorted APCs.", "Systems Power Failure", 'sound/AI/power_short.ogg')
+		GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "ВНИМАНИЕ: Сбой системы питания.", 'sound/AI/power_short.ogg')
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0
 	for(var/thing in GLOB.apcs)
@@ -66,7 +66,7 @@
 /proc/power_restore(announce = TRUE, power_type)
 	if(power_type == 0)	//Power without Repairing
 		if(announce)
-			GLOB.minor_announcement.Announce("All operational APCs on \the [station_name()] have been fully charged.", "Power Systems Nominal", 'sound/AI/power_restore.ogg')
+			GLOB.minor_announcement.Announce("Все исправные ЛКП на \the [station_name()] были успешно заряжены", "Системы электропитания.", 'sound/AI/power_restore.ogg')
 		var/affected_apc_count = 0
 		for(var/thing in GLOB.apcs)
 			var/obj/machinery/power/apc/A = thing
@@ -80,7 +80,7 @@
 		log_and_message_admins("Power has been restored to [affected_apc_count] APCs.")
 	if(power_type == 1)	//Repair without charging
 		if(announce)
-			GLOB.minor_announcement.Announce("All APCs on \the [station_name()] have been repaired.", "Power Systems Nominal", 'sound/AI/power_restore.ogg')
+			GLOB.minor_announcement.Announce("Все ЛКП на \the [station_name()] были восстановлены.", "Системы электропитания.", 'sound/AI/power_restore.ogg')
 		for(var/thing in GLOB.apcs)
 			var/obj/machinery/power/apc/A = thing
 			var/area/current_area = get_area(A)
@@ -91,7 +91,7 @@
 		log_and_message_admins("Power has been restored to all APCs.")
 	if(power_type == 2)	//Repair and Power APCs
 		if(announce)
-			GLOB.minor_announcement.Announce("All APCs on \the [station_name()] have been repaired and recharged. We apologize for the inconvenience.", "Power Systems Optimal", 'sound/AI/power_restore.ogg')
+			GLOB.minor_announcement.Announce("Все ЛКП на \the [station_name()] были восстановлены и заряжены. Приносим извенения за неудобства.", "Системы электропитания.", 'sound/AI/power_restore.ogg')
 		// repair the APCs and recharge them
 		for(var/thing in GLOB.apcs)
 			var/obj/machinery/power/apc/A = thing
@@ -105,7 +105,7 @@
 
 /proc/power_restore_quick(announce = TRUE)
 	if(announce)
-		GLOB.minor_announcement.Announce("All SMESs on \the [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", 'sound/AI/power_restore.ogg')
+		GLOB.minor_announcement.Announce("Все СМЕСы на \the [station_name()] были заряжены. Приносим извенения за неудобства.", "Системы электропитания.", 'sound/AI/power_restore.ogg')
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/S in GLOB.machines)
 		if(!is_station_level(S.z))

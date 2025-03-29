@@ -6,9 +6,9 @@
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	blurb = "Plasmamen are the remnants of a species that was either exiled to, or crashed upon, the plasma-rich world of Boron. \
-	Believed to have initially served as indentured labourers, Plasmamen are the result of chronic plasma exposure throughout several hundred generations.<br/><br/> \
-	Their leaders must ritually self-immolate and are only allowed to hold office for as long as they remain on fire."
+	blurb = "Плазмамены - это остатки вида, который был либо изгнан на богатый плазмой планету Бор, либо потерпел на нем неудачу. \
+	Считается, что первоначально они служили подневольными рабочими, а сам результат становление Плазмаменом - это хроническое воздействие на организм плазмы на протяжении нескольких сотен поколений.<br/><br/> \
+	Их лидер должен совершать ритуальное самосожжение, и ему разрешается занимать свой пост только до тех пор, пока он остаётся в огне."
 
 	species_traits = list(NO_BLOOD, NO_HAIR)
 	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_NOHUNGER, TRAIT_BURN_WOUND_IMMUNE)

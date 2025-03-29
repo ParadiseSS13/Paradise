@@ -1,0 +1,572 @@
+/obj/item/radio/intercom {pixel_y=-22} : /obj/item/radio/intercom/directional/south
+/obj/item/radio/intercom {pixel_x=-22} : /obj/item/radio/intercom/directional/west
+/obj/item/radio/intercom {pixel_x=22} : /obj/item/radio/intercom/directional/east
+/obj/item/radio/intercom {pixel_y=22} : /obj/item/radio/intercom/directional/north
+/obj/item/radio/intercom {name="custom placement"} : /obj/item/radio/intercom
+
+/obj/machinery/economy/vending/wallmed {pixel_y=-32} : /obj/machinery/economy/vending/wallmed/directional/south
+/obj/machinery/economy/vending/wallmed {pixel_y=-28} : /obj/machinery/economy/vending/wallmed/directional/south
+/obj/machinery/economy/vending/wallmed {pixel_y=32} : /obj/machinery/economy/vending/wallmed/directional/north
+/obj/machinery/economy/vending/wallmed {pixel_y=28} : /obj/machinery/economy/vending/wallmed/directional/north
+/obj/machinery/economy/vending/wallmed {pixel_x=-28} : /obj/machinery/economy/vending/wallmed/directional/west
+/obj/machinery/economy/vending/wallmed {pixel_x=28} : /obj/machinery/economy/vending/wallmed/directional/east
+/obj/machinery/economy/vending/wallmed {pixel_x=-25} : /obj/machinery/economy/vending/wallmed/directional/west
+/obj/machinery/economy/vending/wallmed {layer=3.3} : /obj/machinery/economy/vending/wallmed/directional/east
+
+/obj/machinery/alarm {pixel_y=-24} : /obj/machinery/alarm/directional/south
+/obj/machinery/alarm {pixel_y=24} : /obj/machinery/alarm/directional/north
+/obj/machinery/alarm {pixel_x=-24} : /obj/machinery/alarm/directional/west
+/obj/machinery/alarm {pixel_x=24} : /obj/machinery/alarm/directional/east
+
+/obj/machinery/firealarm {name="south bump";pixel_y=-24} : /obj/machinery/firealarm/directional/south
+/obj/machinery/firealarm {name="custom placement";pixel_y=-24} : /obj/machinery/firealarm/directional/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/firealarm {name="north bump";pixel_y=24} : /obj/machinery/firealarm/directional/north
+/obj/machinery/firealarm {name="custom placement";pixel_y=24} : /obj/machinery/firealarm/directional/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/firealarm {name="west bump";pixel_x=-24} : /obj/machinery/firealarm/directional/west
+/obj/machinery/firealarm {name="custom placement";pixel_x=-24} : /obj/machinery/firealarm/directional/west {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/firealarm {name="east bump";pixel_x=24} : /obj/machinery/firealarm/directional/east
+/obj/machinery/firealarm {name="custom placement";pixel_x=24} : /obj/machinery/firealarm/directional/east {@OLD;pixel_y=@SKIP;name=@SKIP}
+
+/obj/machinery/light_switch {name="south bump";pixel_y=-24} : /obj/machinery/light_switch/south
+/obj/machinery/light_switch {name="custom placement";pixel_y=-24} : /obj/machinery/light_switch/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/light_switch {name="north bump";pixel_y=24} : /obj/machinery/light_switch/north
+/obj/machinery/light_switch {name="custom placement";pixel_y=24} : /obj/machinery/light_switch/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/light_switch {name="west bump";pixel_x=-24} : /obj/machinery/light_switch/west
+/obj/machinery/light_switch {name="custom placement";pixel_x=-24} : /obj/machinery/light_switch/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/light_switch {name="east bump";pixel_x=24} : /obj/machinery/light_switch/east
+/obj/machinery/light_switch {name="custom placement";pixel_x=24} : /obj/machinery/light_switch/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/light_switch {name="custom placement"} : /obj/machinery/light_switch {@OLD}
+
+/obj/machinery/holosign_switch {pixel_y=-24} : /obj/machinery/holosign_switch/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/holosign_switch {pixel_x=-24} : /obj/machinery/holosign_switch/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/holosign_switch {pixel_x=24} : /obj/machinery/holosign_switch/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/holosign_switch {pixel_y=24} : /obj/machinery/holosign_switch/north {@OLD;pixel_y=@SKIP}
+
+/obj/machinery/keycard_auth {pixel_y=-24} : /obj/machinery/keycard_auth/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/keycard_auth {pixel_y=-38} : /obj/machinery/keycard_auth/south
+/obj/machinery/keycard_auth {pixel_y=-35} : /obj/machinery/keycard_auth/south
+/obj/machinery/keycard_auth {pixel_y=-26} : /obj/machinery/keycard_auth/south
+/obj/machinery/keycard_auth {pixel_y=24} : /obj/machinery/keycard_auth/north
+/obj/machinery/keycard_auth {pixel_x=-24} : /obj/machinery/keycard_auth/west
+/obj/machinery/keycard_auth {pixel_x=-24;pixel_y=4} : /obj/machinery/keycard_auth/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/keycard_auth {pixel_x=-28;pixel_y=2} : /obj/machinery/keycard_auth/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/keycard_auth {pixel_x=24} : /obj/machinery/keycard_auth/east
+/obj/machinery/keycard_auth {pixel_x=24;pixel_y=-2} : /obj/machinery/keycard_auth/east {@OLD;pixel_y=@SKIP}
+
+/obj/machinery/light {dir=1;nightshift_allowed=0;nightshift_enabled=1}  : /obj/machinery/light/nightshifted/north
+/obj/machinery/light {dir=4;nightshift_allowed=0;nightshift_enabled=1} : /obj/machinery/light/nightshifted/east
+/obj/machinery/light {dir=8;nightshift_allowed=0;nightshift_enabled=1} : /obj/machinery/light/nightshifted/west
+/obj/machinery/light {nightshift_allowed=0;nightshift_enabled=1} : /obj/machinery/light/nightshifted/south
+
+/obj/machinery/light {dir=1}  : /obj/machinery/light/directional/north
+/obj/machinery/light {dir=4} : /obj/machinery/light/directional/east
+/obj/machinery/light {dir=8} : /obj/machinery/light/directional/west
+/obj/machinery/light : /obj/machinery/light/directional/south
+
+/obj/machinery/light/built {dir=1}  : /obj/machinery/light/built/north
+/obj/machinery/light/built {dir=4} : /obj/machinery/light/built/east
+/obj/machinery/light/built {dir=8} : /obj/machinery/light/built/west
+/obj/machinery/light/built : /obj/machinery/light/built/south
+
+/obj/machinery/light/small {dir=1;nightshift_allowed=0;nightshift_enabled=1} : /obj/machinery/light/small/nightshifted/north
+/obj/machinery/light/small {dir=4;nightshift_allowed=0;nightshift_enabled=1} : /obj/machinery/light/small/nightshifted/east
+/obj/machinery/light/small {dir=8;nightshift_allowed=0;nightshift_enabled=1} : /obj/machinery/light/small/nightshifted/west
+/obj/machinery/light/small {nightshift_allowed=0;nightshift_enabled=1} : /obj/machinery/light/small/nightshifted/south
+
+/obj/machinery/light/small {dir=1} : /obj/machinery/light/small/directional/north
+/obj/machinery/light/small {dir=4} : /obj/machinery/light/small/directional/east
+/obj/machinery/light/small {dir=8} : /obj/machinery/light/small/directional/west
+/obj/machinery/light/small : /obj/machinery/light/small/directional/south
+
+/obj/machinery/light/small/built {dir=1} : /obj/machinery/light/small/built/north
+/obj/machinery/light/small/built {dir=4} : /obj/machinery/light/small/built/east
+/obj/machinery/light/small/built {dir=8} : /obj/machinery/light/small/built/west
+/obj/machinery/light/small/built : /obj/machinery/light/small/built/south
+
+/obj/machinery/light_construct {dir=1} : /obj/machinery/light_construct/directional/north
+/obj/machinery/light_construct {dir=4} : /obj/machinery/light_construct/directional/east
+/obj/machinery/light_construct {dir=8} : /obj/machinery/light_construct/directional/west
+/obj/machinery/light_construct : /obj/machinery/light_construct/directional/south
+
+/obj/machinery/light_construct/small {dir=1} : /obj/machinery/light_construct/small/north
+/obj/machinery/light_construct/small {dir=4} : /obj/machinery/light_construct/small/east
+/obj/machinery/light_construct/small {dir=8} : /obj/machinery/light_construct/small/west
+/obj/machinery/light_construct/small : /obj/machinery/light_construct/small/south
+
+/obj/structure/extinguisher_cabinet {name="south bump";pixel_y=-30} : /obj/structure/extinguisher_cabinet/directional/south
+/obj/structure/extinguisher_cabinet {name="south bump";pixel_y=-32} : /obj/structure/extinguisher_cabinet/directional/south
+/obj/structure/extinguisher_cabinet {name="north bump";pixel_y=30} : /obj/structure/extinguisher_cabinet/directional/north
+/obj/structure/extinguisher_cabinet {name="north bump";pixel_y=32} : /obj/structure/extinguisher_cabinet/directional/north
+/obj/structure/extinguisher_cabinet {name="west bump";pixel_x=-24} : /obj/structure/extinguisher_cabinet/directional/west
+/obj/structure/extinguisher_cabinet {name="west bump";pixel_x=-27} : /obj/structure/extinguisher_cabinet/directional/west
+/obj/structure/extinguisher_cabinet {name="west bump";pixel_x=-30} : /obj/structure/extinguisher_cabinet/directional/west
+/obj/structure/extinguisher_cabinet {name="west bump";pixel_x=-28} : /obj/structure/extinguisher_cabinet/directional/west
+/obj/structure/extinguisher_cabinet {pixel_x=-28} : /obj/structure/extinguisher_cabinet/directional/west
+/obj/structure/extinguisher_cabinet {name="east bump";pixel_x=24} : /obj/structure/extinguisher_cabinet/directional/east
+/obj/structure/extinguisher_cabinet {name="east bump";pixel_x=30} : /obj/structure/extinguisher_cabinet/directional/east
+/obj/structure/extinguisher_cabinet {name="east bump";pixel_x=27} : /obj/structure/extinguisher_cabinet/directional/east
+/obj/structure/extinguisher_cabinet {pixel_x=28} : /obj/structure/extinguisher_cabinet/directional/east
+/obj/structure/extinguisher_cabinet {pixel_x=32} : /obj/structure/extinguisher_cabinet/directional/east
+/obj/structure/extinguisher_cabinet {name="custom placement"} : /obj/structure/extinguisher_cabinet
+
+/obj/structure/reagent_dispensers/fueltank/chem {pixel_y=-32} : /obj/structure/reagent_dispensers/fueltank/chem/south
+/obj/structure/reagent_dispensers/fueltank/chem {pixel_y=32} : /obj/structure/reagent_dispensers/fueltank/chem/north
+/obj/structure/reagent_dispensers/fueltank/chem {pixel_x=-32} : /obj/structure/reagent_dispensers/fueltank/chem/west
+/obj/structure/reagent_dispensers/fueltank/chem {pixel_x=32} : /obj/structure/reagent_dispensers/fueltank/chem/east
+
+/obj/structure/reagent_dispensers/virusfood {pixel_y=-32} : /obj/structure/reagent_dispensers/virusfood/south
+/obj/structure/reagent_dispensers/virusfood {pixel_y=32} : /obj/structure/reagent_dispensers/virusfood/north
+/obj/structure/reagent_dispensers/virusfood {pixel_x=-32} : /obj/structure/reagent_dispensers/virusfood/west
+/obj/structure/reagent_dispensers/virusfood {pixel_x=32} : /obj/structure/reagent_dispensers/virusfood/east
+
+/obj/structure/reagent_dispensers/spacecleanertank {pixel_y=-32} : /obj/structure/reagent_dispensers/spacecleanertank/south
+/obj/structure/reagent_dispensers/spacecleanertank {pixel_y=32} : /obj/structure/reagent_dispensers/spacecleanertank/north
+/obj/structure/reagent_dispensers/spacecleanertank {pixel_y=30} : /obj/structure/reagent_dispensers/spacecleanertank/north
+/obj/structure/reagent_dispensers/spacecleanertank {pixel_y=27} : /obj/structure/reagent_dispensers/spacecleanertank/north
+/obj/structure/reagent_dispensers/spacecleanertank {pixel_x=-32} : /obj/structure/reagent_dispensers/spacecleanertank/west
+/obj/structure/reagent_dispensers/spacecleanertank {pixel_x=32} : /obj/structure/reagent_dispensers/spacecleanertank/east
+
+/obj/structure/reagent_dispensers/peppertank {pixel_y=-32} : /obj/structure/reagent_dispensers/peppertank/south
+/obj/structure/reagent_dispensers/peppertank {pixel_y=32} : /obj/structure/reagent_dispensers/peppertank/north
+/obj/structure/reagent_dispensers/peppertank {pixel_y=30} : /obj/structure/reagent_dispensers/peppertank/north
+/obj/structure/reagent_dispensers/peppertank {pixel_x=-32} : /obj/structure/reagent_dispensers/peppertank/west
+/obj/structure/reagent_dispensers/peppertank {pixel_x=32} : /obj/structure/reagent_dispensers/peppertank/east
+
+/obj/machinery/newscaster {dir=1;name="south bump";pixel_y=-28} : /obj/machinery/newscaster/directional/south
+/obj/machinery/newscaster {name="north bump";pixel_y=28} : /obj/machinery/newscaster/directional/north
+/obj/machinery/newscaster {dir=4;name="west bump";pixel_x=-28} : /obj/machinery/newscaster/directional/west
+/obj/machinery/newscaster {dir=8;name="east bump";pixel_x=28} : /obj/machinery/newscaster/directional/east
+
+/obj/machinery/newscaster/security_unit {pixel_y=-28} : /obj/machinery/newscaster/security_unit/south
+/obj/machinery/newscaster/security_unit {pixel_y=28} : /obj/machinery/newscaster/security_unit/north
+/obj/machinery/newscaster/security_unit {pixel_x=-28} : /obj/machinery/newscaster/security_unit/west
+/obj/machinery/newscaster/security_unit {pixel_x=28} : /obj/machinery/newscaster/security_unit/east
+
+/obj/structure/sink {dir=1;pixel_y=-4} : /obj/structure/sink/directional/south
+/obj/structure/sink {dir=1;pixel_y=-10} : /obj/structure/sink/directional/south
+/obj/structure/sink {pixel_y=18} : /obj/structure/sink/directional/north
+/obj/structure/sink {pixel_y=25} : /obj/structure/sink/directional/north
+/obj/structure/sink {pixel_y=32} : /obj/structure/sink/directional/north
+/obj/structure/sink {pixel_y=22} : /obj/structure/sink/directional/north
+/obj/structure/sink {dir=4;pixel_x=12} : /obj/structure/sink/directional/west
+/obj/structure/sink {dir=4;pixel_x=11} : /obj/structure/sink/directional/west
+/obj/structure/sink {dir=4;pixel_x=13} : /obj/structure/sink/directional/west
+/obj/structure/sink {dir=8;pixel_x=-12} : /obj/structure/sink/directional/east
+/obj/structure/sink {dir=8;pixel_x=-12;pixel_y=2} : /obj/structure/sink/directional/east
+
+/obj/structure/sink/kitchen {pixel_y=-28} : /obj/structure/sink/kitchen/south
+/obj/structure/sink/kitchen {pixel_y=18} : /obj/structure/sink/kitchen/north
+/obj/structure/sink/kitchen {pixel_y=25} : /obj/structure/sink/kitchen/north
+/obj/structure/sink/kitchen {pixel_y=28} : /obj/structure/sink/kitchen/north
+/obj/structure/sink/kitchen {pixel_x=-12} : /obj/structure/sink/kitchen/west
+/obj/structure/sink/kitchen {pixel_x=-13} : /obj/structure/sink/kitchen/west
+/obj/structure/sink/kitchen {pixel_x=28} : /obj/structure/sink/kitchen/east
+/obj/structure/sink/kitchen {pixel_x=12} : /obj/structure/sink/kitchen/east
+
+/obj/structure/sign/poster/official/random {pixel_y=-32} : /obj/structure/sign/poster/official/random/south
+/obj/structure/sign/poster/official/random {pixel_y=32} : /obj/structure/sign/poster/official/random/north
+/obj/structure/sign/poster/official/random {pixel_x=-32} : /obj/structure/sign/poster/official/random/west
+/obj/structure/sign/poster/official/random {pixel_x=32} : /obj/structure/sign/poster/official/random/east
+
+/obj/structure/sign/poster/contraband/random {pixel_y=-32} : /obj/structure/sign/poster/contraband/random/south
+/obj/structure/sign/poster/contraband/random {pixel_y=32} : /obj/structure/sign/poster/contraband/random/north
+/obj/structure/sign/poster/contraband/random {pixel_x=-32} : /obj/structure/sign/poster/contraband/random/west
+/obj/structure/sign/poster/contraband/random {pixel_x=32} : /obj/structure/sign/poster/contraband/random/east
+
+/obj/machinery/status_display {pixel_y=-32} : /obj/machinery/status_display/directional/south
+/obj/machinery/status_display {pixel_y=32} : /obj/machinery/status_display/directional/north
+/obj/machinery/status_display {pixel_x=-32} : /obj/machinery/status_display/directional/west
+/obj/machinery/status_display {pixel_x=32} : /obj/machinery/status_display/directional/east
+
+/obj/machinery/status_display/supply_display {pixel_y=-32} : /obj/machinery/status_display/supply_display/south
+/obj/machinery/status_display/supply_display {pixel_y=32} : /obj/machinery/status_display/supply_display/north
+/obj/machinery/status_display/supply_display {pixel_x=-32} : /obj/machinery/status_display/supply_display/west
+/obj/machinery/status_display/supply_display {pixel_x=32} : /obj/machinery/status_display/supply_display/east
+
+/obj/machinery/ai_status_display {pixel_y=-32} : /obj/machinery/ai_status_display/south
+/obj/machinery/ai_status_display {pixel_y=32} : /obj/machinery/ai_status_display/north
+/obj/machinery/ai_status_display {pixel_x=-32} : /obj/machinery/ai_status_display/west
+/obj/machinery/ai_status_display {pixel_x=32} : /obj/machinery/ai_status_display/east
+
+/obj/machinery/computer/security/telescreen/entertainment {pixel_y=-32} : /obj/machinery/computer/security/telescreen/entertainment/directional/south
+/obj/machinery/computer/security/telescreen/entertainment {pixel_y=32} : /obj/machinery/computer/security/telescreen/entertainment/directional/north
+/obj/machinery/computer/security/telescreen/entertainment {pixel_x=-32} : /obj/machinery/computer/security/telescreen/entertainment/directional/west
+/obj/machinery/computer/security/telescreen/entertainment {pixel_x=32} : /obj/machinery/computer/security/telescreen/entertainment/directional/east
+
+/obj/machinery/economy/atm {pixel_y=-32} : /obj/machinery/economy/atm/south
+/obj/machinery/economy/atm {pixel_y=32} : /obj/machinery/economy/atm/north
+/obj/machinery/economy/atm {pixel_x=-32} : /obj/machinery/economy/atm/west
+/obj/machinery/economy/atm {pixel_x=32} : /obj/machinery/economy/atm/east
+
+/obj/machinery/door_control {pixel_y=-16;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-17;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-18;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-19;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-20;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-21;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-22;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-23;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-24;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-25;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-26;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-27;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-28;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-29;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-30;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-31;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-32;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-33;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-34;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-35;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/south {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=16;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=17;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=18;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=19;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=20;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=21;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=22;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=23;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=24;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=25;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=26;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=27;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=28;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=29;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=30;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=31;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=32;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=33;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=34;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=35;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/north {@OLD;pixel_y=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-16;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-17;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-18;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-19;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-20;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-21;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-22;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-23;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-24;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-25;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-26;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-27;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-28;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-29;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-30;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-31;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-32;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-33;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-34;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-35;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/west {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=16;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=17;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=18;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=19;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=20;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=21;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=22;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=23;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=24;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=25;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=26;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=27;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=28;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=29;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=30;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=31;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=32;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=33;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=34;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=35;specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control/east {@OLD;pixel_x=@SKIP;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {specialfunctions=4;normaldoorcontrol=1} : /obj/machinery/door_control/bolt_control {@OLD;name=@SKIP;specialfunctions=@SKIP;normaldoorcontrol=@SKIP}
+
+/obj/machinery/door_control {pixel_y=-16;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-17;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-18;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-19;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-20;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-21;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-22;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-23;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-24;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-25;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-26;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-27;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-28;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-29;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-30;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-31;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-32;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-33;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-34;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=-35;normaldoorcontrol=1} : /obj/machinery/door_control/normal/south {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=16;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=17;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=18;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=19;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=20;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=21;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=22;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=23;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=24;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=25;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=26;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=27;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=28;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=29;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=30;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=31;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=32;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=33;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=34;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_y=35;normaldoorcontrol=1} : /obj/machinery/door_control/normal/north {@OLD;pixel_y=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-16;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-17;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-18;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-19;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-20;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-21;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-22;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-23;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-24;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-25;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-26;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-27;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-28;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-29;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-30;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-31;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-32;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-33;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-34;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=-35;normaldoorcontrol=1} : /obj/machinery/door_control/normal/west {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=16;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=17;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=18;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=19;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=20;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=21;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=22;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=23;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=24;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=25;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=26;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=27;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=28;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=29;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=30;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=31;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=32;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=33;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=34;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {pixel_x=35;normaldoorcontrol=1} : /obj/machinery/door_control/normal/east {@OLD;pixel_x=@SKIP;normaldoorcontrol=@SKIP}
+/obj/machinery/door_control {normaldoorcontrol=1} : /obj/machinery/door_control/normal {@OLD;normaldoorcontrol=@SKIP}
+
+/obj/machinery/door_control {pixel_y=-16} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-17} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-18} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-19} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-20} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-21} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-22} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-23} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-24} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-25} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-26} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-27} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-28} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-29} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-30} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-31} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-32} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-33} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-34} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=-35} : /obj/machinery/door_control/shutter/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=16} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=17} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=18} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=19} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=20} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=21} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=22} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=23} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=24} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=25} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=26} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=27} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=28} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=29} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=30} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=31} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=32} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=33} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=34} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_y=35} : /obj/machinery/door_control/shutter/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control {pixel_x=-16} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-17} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-18} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-19} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-20} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-21} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-22} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-23} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-24} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-25} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-26} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-27} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-28} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-29} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-30} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-31} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-32} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-33} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-34} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=-35} : /obj/machinery/door_control/shutter/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=16} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=17} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=18} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=19} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=20} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=21} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=22} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=23} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=24} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=25} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=26} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=27} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=28} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=29} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=30} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=31} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=32} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=33} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=34} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control {pixel_x=35} : /obj/machinery/door_control/shutter/east {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control : /obj/machinery/door_control/shutter {@OLD}
+
+/obj/machinery/door_control/no_emag {pixel_y=-24} : /obj/machinery/door_control/no_emag/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control/no_emag {pixel_y=24} : /obj/machinery/door_control/no_emag/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/door_control/no_emag {pixel_x=-24} : /obj/machinery/door_control/no_emag/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/door_control/no_emag {pixel_x=24} : /obj/machinery/door_control/no_emag/east {@OLD;pixel_x=@SKIP}
+
+/obj/machinery/access_button {pixel_y=-24} : /obj/machinery/access_button/south {@OLD;pixel_y=@SKIP}
+/obj/machinery/access_button {pixel_y=24} : /obj/machinery/access_button/north {@OLD;pixel_y=@SKIP}
+/obj/machinery/access_button {pixel_x=-24} : /obj/machinery/access_button/west {@OLD;pixel_x=@SKIP}
+/obj/machinery/access_button {pixel_x=24} : /obj/machinery/access_button/east {@OLD;pixel_x=@SKIP}
+
+/obj/machinery/button/windowtint {pixel_y=-16} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-17} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-18} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-19} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-20} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-21} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-22} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-23} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-24} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-25} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-26} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-27} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-28} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-29} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-30} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-31} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-32} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-33} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-34} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=-35} : /obj/machinery/button/windowtint/south {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=16} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=17} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=18} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=19} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=20} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=21} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=22} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=23} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=24} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=25} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=26} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=27} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=28} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=29} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=30} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=31} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=32} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=33} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=34} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_y=35} : /obj/machinery/button/windowtint/north {@OLD;pixel_y=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-16} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-17} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-18} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-19} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-20} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-21} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-22} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-23} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-24} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-25} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-26} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-27} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-28} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-29} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-30} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-31} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-32} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-33} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-34} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=-35} : /obj/machinery/button/windowtint/west {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=16} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=17} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=18} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=19} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=20} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=21} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=22} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=23} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=24} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=25} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=26} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=27} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=28} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=29} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=30} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=31} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=32} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=33} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=34} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+/obj/machinery/button/windowtint {pixel_x=35} : /obj/machinery/button/windowtint/east {@OLD;pixel_x=@SKIP;name=@SKIP}
+
+/obj/machinery/power/apc {pixel_y=-24;name="south bump"} : /obj/machinery/power/apc/directional/south
+/obj/machinery/power/apc {pixel_y=24;name="north bump"} : /obj/machinery/power/apc/directional/north
+/obj/machinery/power/apc {pixel_x=-24;name="west bump"} : /obj/machinery/power/apc/directional/west
+/obj/machinery/power/apc {pixel_x=24;name="east bump"} : /obj/machinery/power/apc/directional/east
+
+/obj/machinery/power/apc {pixel_y=-24;name="south bump Engineering"} : /obj/machinery/power/apc/engineering/south
+/obj/machinery/power/apc {pixel_y=24;name="north bump Engineering"} : /obj/machinery/power/apc/engineering/north
+/obj/machinery/power/apc {pixel_x=-24;name="west bump Engineering"} : /obj/machinery/power/apc/engineering/west
+/obj/machinery/power/apc {pixel_x=24;name="east bump Engineering"} : /obj/machinery/power/apc/engineering/east
+/obj/machinery/power/apc {pixel_y=24;name="north bump Atmospherics"} : /obj/machinery/power/apc/engineering/north {@OLD;name=@SKIP;dir=@SKIP;pixel_y=@SKIP;shock_proof=@SKIP}
+
+/obj/machinery/power/apc {pixel_y=-24;name="south bump Important Area"} : /obj/machinery/power/apc/important/south
+/obj/machinery/power/apc {pixel_y=24;name="north bump Important Area"} : /obj/machinery/power/apc/important/north
+/obj/machinery/power/apc {pixel_x=-24;name="west bump Important Area"} : /obj/machinery/power/apc/important/west
+/obj/machinery/power/apc {pixel_x=24;name="east bump Important Area"} : /obj/machinery/power/apc/important/east
+
+/obj/machinery/power/apc {pixel_y=-24;name="Cryo and Arrivals Super APC"} : /obj/machinery/power/apc/cryo/south
+/obj/machinery/power/apc {pixel_y=24;name="Cryo and Arrivals Super APC"} : /obj/machinery/power/apc/cryo/north
+/obj/machinery/power/apc {pixel_x=-24;name="Cryo and Arrivals Super APC"} : /obj/machinery/power/apc/cryo/west
+/obj/machinery/power/apc {pixel_x=24;name="Cryo and Arrivals Super APC"} : /obj/machinery/power/apc/cryo/east
+
+/obj/machinery/power/apc {pixel_y=-24;name="Engineering Engine Super APC"} : /obj/machinery/power/apc/super/south
+/obj/machinery/power/apc {pixel_y=24;name="Engineering Engine Super APC"} : /obj/machinery/power/apc/super/north
+/obj/machinery/power/apc {pixel_x=-24;name="Engineering Engine Super APC"} : /obj/machinery/power/apc/super/west
+/obj/machinery/power/apc {pixel_x=24;name="Engineering Engine Super APC"} : /obj/machinery/power/apc/super/east
+
+/obj/machinery/power/apc/off_station {pixel_y=-24} : /obj/machinery/power/apc/off_station/south
+/obj/machinery/power/apc/off_station {pixel_y=24} : /obj/machinery/power/apc/off_station/north
+/obj/machinery/power/apc/off_station {pixel_x=-24} : /obj/machinery/power/apc/off_station/west
+/obj/machinery/power/apc/off_station {pixel_x=24} : /obj/machinery/power/apc/off_station/east
+
+/obj/machinery/power/apc/off_station/empty_charge {pixel_y=-24} : /obj/machinery/power/apc/off_station/empty_charge/south
+/obj/machinery/power/apc/off_station/empty_charge {pixel_y=24} : /obj/machinery/power/apc/off_station/empty_charge/north
+/obj/machinery/power/apc/off_station/empty_charge {pixel_x=-24} : /obj/machinery/power/apc/off_station/empty_charge/west
+/obj/machinery/power/apc/off_station/empty_charge {pixel_x=24} : /obj/machinery/power/apc/off_station/empty_charge/east

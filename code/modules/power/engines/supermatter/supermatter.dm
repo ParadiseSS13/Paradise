@@ -122,15 +122,15 @@
 	///The damage we had before this cycle. Used to limit the damage we can take each cycle, and for safe_alert
 	var/damage_archived = 0
 	///Our "Shit is no longer fucked" message. We send it when damage is less then damage_archived
-	var/safe_alert = "Crystalline hyperstructure returning to safe operating parameters."
+	var/safe_alert = "Возвращение кристаллической гиперструктуры к безопасным рабочим параметрам."
 	///The point at which we should start sending messeges about the damage to the engi channels.
 	var/warning_point = 50
 	///The alert we send when we've reached warning_point
-	var/warning_alert = "Danger! Crystal hyperstructure integrity faltering!"
+	var/warning_alert = "Опасность! Нарушение целостности гиперструктуры кристалла!"
 	///The point at which we start sending messages to the common channel
 	var/emergency_point = 700
 	///The alert we send when we've reached emergency_point
-	var/emergency_alert = "CRYSTAL DELAMINATION IMMINENT."
+	var/emergency_alert = "РАССЛОЕНИЕ КРИСТАЛЛА НЕИЗБЕЖНО."
 	///The point at which we delam
 	var/explosion_point = 900
 	///When we pass this amount of damage we start shooting bolts
@@ -315,8 +315,10 @@
 	switch(get_status())
 		if(SUPERMATTER_DELAMINATING)
 			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+			GLOB.major_announcement.Announce("ВНИМАНИЕ, АКТИВНАЯ ЗОНА РЕАКТОРА НАХОДИТСЯ В КРИТИЧЕСКОМ СОСТОЯНИИ!", "РЕАКТОР СУПЕРМАТЕРИИ: СОСТОЯНИЕ КРИТИЧЕСКОЕ!", 'modular_ss220/aesthetics_sounds/sound/supermatter/meltdown.ogg') // SS220 EDIT - ADDITION
 		if(SUPERMATTER_EMERGENCY)
 			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
+			GLOB.major_announcement.Announce("ВНИМАНИЕ, АКТИВНАЯ ЗОНА РЕАКТОРА НАХОДИТСЯ В СОСТОЯНИИ КРИТИЧЕСКОГО ПЕРЕГРЕВА. ЯДЕРНАЯ КАТАСТРОФА НЕИЗБЕЖНА!", "РЕАКТОР СУПЕРМАТЕРИИ: СОСТОЯНИЕ КРИТИЧЕСКОЕ!", 'modular_ss220/aesthetics_sounds/sound/supermatter/core_overheating.ogg') // SS220 EDIT - ADDITION
 		if(SUPERMATTER_DANGER)
 			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)
@@ -338,7 +340,7 @@
 	var/image/causality_field = image(icon, null, "causality_field")
 	add_overlay(causality_field)
 
-	var/speaking = "<span class='reallybig'>[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated.</span>"
+	var/speaking = "<span class='reallybig'>[emergency_alert] Суперматерия достигла критического нарушения целостности. Активировано аварийное дестабилизационное поле.</span>"
 	for(var/mob/M in GLOB.player_list) // for all players
 		var/turf/T = get_turf(M)
 		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
@@ -351,7 +353,7 @@
 			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
 			return
 		if(damage < explosion_point) // Cutting it a bit close there engineers
-			radio.autosay("<span class='big'>[safe_alert] Failsafe has been disengaged.</span>", name, null)
+			radio.autosay("<span class='big'>[safe_alert] Система отказоустойчивости деактивирована.</span>", name, null)
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
@@ -360,7 +362,7 @@
 			sleep(10)
 			continue
 		else if(i > 50)
-			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before causality stabilization.</b>"
+			speaking = "<b>До взрыва кристалла суперматерии осталось [DisplayTimeText(i, TRUE)].</b>"
 		else
 			speaking = "<span class='reallybig'>[i * 0.1]...</span>"
 		radio.autosay(speaking, name, null)
@@ -408,6 +410,7 @@
 			E.energy = 200 //Gets us about 9 balls
 
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
+	playsound(src, 'modular_ss220/aesthetics_sounds/sound/supermatter/explode.ogg', 100, FALSE, 40, 30, falloff_distance = 10) //SS220 EDIT - ADDITION
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
 	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
@@ -666,27 +669,27 @@
 
 			//Oh shit it's bad, time to freak out
 			if(damage > emergency_point)
-				radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
+				radio.autosay("<span class='big'>[emergency_alert] Целостность: [get_integrity()]%</span>", name, null)
 				lastwarning = REALTIMEOFDAY
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", "supermatter")
 					message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 					has_reached_emergency = TRUE
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
+				radio.autosay("<b>[warning_alert] Целостность: [get_integrity()]%</b>", name, "Engineering")
 				lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
 			else                                                 // Phew, we're safe
-				radio.autosay("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
+				radio.autosay("<b>[safe_alert] Целостность: [get_integrity()]%</b>", name, "Engineering")
 				lastwarning = REALTIMEOFDAY
 
 			if(power > POWER_PENALTY_THRESHOLD)
-				radio.autosay("<b>Warning: Hyperstructure has reached dangerous power level.</b>", name, "Engineering")
+				radio.autosay("<b>Гиперструктура достигла опасного уровня мощности.</b>", name, "Engineering")
 				if(powerloss_inhibitor < 0.5)
-					radio.autosay("<b>DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.</b>", name, "Engineering")
+					radio.autosay("<b>ОПАСНОСТЬ: ИДЕТ ИНЕРЦИОННАЯ ЦЕПНАЯ РЕАКЦИЯ ЗАРЯДА.</b>", name, "Engineering")
 
 			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
-				radio.autosay("<b>Warning: Critical coolant mass reached.</b>", name, "Engineering")
+				radio.autosay("<b>Предупреждение: Достигнута критическая масса теплоносителя.</b>", name, "Engineering")
 		//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()

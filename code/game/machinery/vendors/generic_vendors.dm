@@ -69,25 +69,25 @@
 					/obj/item/reagent_containers/drinks/bottle/fernet = 5)
 
 	vend_delay = 15
-	slogan_list = list("I hope nobody asks me for a bloody cup o' tea...",
-						"Alcohol is humanity's friend. Would you abandon a friend?",
-						"Quite delighted to serve you!",
-						"Is nobody thirsty on this station?")
+	slogan_list = list("Надеюсь, никто не попросит меня о чёртовой кружке чая...",
+						"Алкоголь - друг человека. Вы же не бросите друга?",
+						"Очень рад вас обслужить!",
+						"Никто на этой станции не хочет выпить?")
 
-	ads_list = list("Drink up!",
-					"Booze is good for you!",
-					"Alcohol is humanity's best friend.",
-					"Quite delighted to serve you!",
-					"Care for a nice, cold beer?",
-					"Nothing cures you like booze!",
-					"Have a sip!","Have a drink!",
-					"Have a beer!","Beer is good for you!",
-					"Only the finest alcohol!",
-					"Best quality booze since 2053!",
-					"Award-winning wine!",
-					"Maximum alcohol!",
-					"Man loves beer.",
-					"A toast for progress!")
+	ads_list = list("Выпьем!",
+					"Бухло пойдёт вам на пользу!",
+					"Алкоголь - друг человека.",
+					"Очень рад вас обслужить!",
+					"Хотите отличного холодного пива?",
+					"Ничто так не лечит, как бухло!",
+					"Пригубите!","Выпейте!",
+					"Возьмите пивка!","Пиво пойдёт вам на пользу!",
+					"Только лучший алкоголь!",
+					"Бухло лучшего качества с 2053 года!",
+					"Вино со множеством наград!",
+					"Максимум алкоголя!",
+					"Твоё любимое пиво.",
+					"Тост: «За прогресс!»")
 
 	refill_canister = /obj/item/vending_refill/boozeomat
 
@@ -396,12 +396,12 @@
 	icon_state = "clothes"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
-	slogan_list = list("Dress for success!",
-					"Prepare to look swagalicious!",
-					"Look at all this free swag!",
-					"Why leave style up to fate? Use the ClothesMate!")
+	slogan_list = list("Одевайся и врывайся!",
+					"Готовься выглядеть воскрутительно!",
+					"Посмотрите на эти халявные шмотки!",
+					"Зачем бросать стиль на волю судьбы? Воспользуйтесь ClothesMate!")
 	vend_delay = 15
-	vend_reply = "Thank you for using the ClothesMate!"
+	vend_reply = "Спасибо за использование ClothesMate!"
 	category = VENDOR_TYPE_CLOTHING
 	products = list(/obj/item/clothing/suit/ianshirt = 2,
 					/obj/item/clothing/under/misc/overalls = 2,
@@ -584,10 +584,10 @@
 	name = "\improper MagiVend"
 	desc = "A magic vending machine."
 	icon_state = "MagiVend"
-	slogan_list = list("Sling spells the proper way with MagiVend!",
-					"Be your own Houdini! Use MagiVend!")
+	slogan_list = list("Колдуйте правильно с помощью MagiVend!",
+					"Станьте сами себе Гудини! Используйте MagiVend!")
 	vend_delay = 15
-	vend_reply = "Have an enchanted evening!"
+	vend_reply = "Волшебного вечера!"
 	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("FJKLFJSD",
 					"AJKFLBJAKL",
@@ -616,7 +616,6 @@
 					/obj/item/clothing/mask/gas/mime/wizard = 1,
 					/obj/item/clothing/shoes/sandal/marisa = 1,
 					/obj/item/staff = 2)
-
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
@@ -628,10 +627,10 @@
 	icon_state = "theater"
 	icon_lightmask = "theater"
 	icon_deny = "theater_deny"
-	slogan_list = list("Dress for success!",
-					"Suited and booted!",
-					"It's show time!",
-					"Why leave style up to fate? Use AutoDrobe!")
+	slogan_list = list("Одевайся и врывайся!",
+					"Одетый и обутый!",
+					"Время представления!",
+					"Зачем бросать стиль на волю судьбы? Воспользуйтесь AutoDrobe!")
 
 	vend_delay = 15
 	vend_reply = "Thank you for using AutoDrobe!"
@@ -879,8 +878,8 @@
 /obj/machinery/economy/vending/sustenance
 	name = "\improper Sustenance Vendor"
 	desc = "A vending machine which vends food, as required by section 47-C of the NT's Prisoner Ethical Treatment Agreement."
-	slogan_list = list("Enjoy your meal.",
-					"Enough calories to support strenuous labor.")
+	slogan_list = list("Наслаждайся своей стряпнёй.",
+					"Достаточно калорий чтоб не сдохнуть.")
 
 	ads_list = list("The healthiest!",
 					"Award-winning chocolate bars!",
@@ -931,19 +930,19 @@
 /obj/machinery/economy/vending/snack
 	name = "\improper Getmore Chocolate Corp"
 	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars."
-	slogan_list = list("Try our new nougat bar!",
-					"Twice the calories for half the price!")
+	slogan_list = list("Попробуйте наш новый батончик с нугой!",
+					"Вдвое больше калорий за полцены!")
 
-	ads_list = list("The healthiest!",
-					"Award-winning chocolate bars!",
-					"Mmm! So good!",
-					"Oh my god it's so juicy!",
-					"Have a snack.",
-					"Snacks are good for you!",
-					"Have some more Getmore!",
-					"Best quality snacks straight from mars.",
-					"We love chocolate!",
-					"Try our new jerky!")
+	ads_list = list("Самые полезные!",
+					"Удостоенные наград шоколадные плитки!",
+					"Ммм! Как вкусно!",
+					"Боже мой, какой сочный!",
+					"Перекуси!",
+					"Закуски полезны для вас!",
+					"Запаситесь закусками Getmore!",
+					"Самые качественные закуски прямо с Марса.",
+					"Мы любим шоколад!",
+					"Попробуйте наше новое вяленое мясо!")
 
 	icon_state = "snack"
 	icon_lightmask = "nutri"
@@ -987,10 +986,10 @@
 /obj/machinery/economy/vending/chinese
 	name = "\improper Mr. Chang"
 	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
-	slogan_list = list("Taste 5000 years of culture!",
-					"Mr. Chang, approved for safe consumption in over 10 sectors!",
-					"Chinese food is great for a date night, or a lonely night!",
-					"You can't go wrong with Mr. Chang's authentic Chinese food!")
+	slogan_list = list("Попробуйте 5000 лет культуры!",
+					"Мистер Чанг, одобрен для безопасного потребления в более чем 10 секторах!",
+					"Китайская кухня отлично подходит для вечернего свидания или одинокого вечера!",
+					"Вы не ошибетесь, если попробуете настоящую китайскую кухню от мистера Чанга!")
 
 	icon_state = "chang"
 	icon_lightmask = "chang"
@@ -1020,14 +1019,14 @@
 	icon_state = "Cola_Machine"
 	icon_lightmask = "Cola_Machine"
 	icon_panel = "thin_vendor"
-	slogan_list = list("Robust Softdrinks: More robust than a toolbox to the head!")
-	ads_list = list("Refreshing!",
-					"Hope you're thirsty!",
-					"Over 1 million drinks sold!",
-					"Thirsty? Why not cola?",
-					"Please, have a drink!",
-					"Drink up!",
-					"The best drinks in space.")
+	slogan_list = list("Робаст Софтдринкс: крепче, чем тулбоксом по голове!")
+	ads_list = list("Освежает!",
+					"Надеюсь, вас одолела жажда!",
+					"Продано больше миллиона бутылок!",
+					"Хотите пить? Почему бы не взять колы?",
+					"Пей на здоровье!",
+					"Освежись!",
+					"Лучшие напитки в космосе.")
 
 	category = VENDOR_TYPE_DRINK
 	products = list(/obj/item/reagent_containers/drinks/cans/cola = 10,
@@ -1057,10 +1056,10 @@
 /obj/machinery/economy/vending/artvend
 	name = "\improper ArtVend"
 	desc = "A vending machine for art supplies."
-	slogan_list = list("Stop by for all your artistic needs!",
-					"Color the floors with crayons, not blood!",
-					"Don't be a starving artist, use ArtVend. ",
-					"Don't fart, do art!")
+	slogan_list = list("Решение для всех ваших творческих нужд!",
+					"Окрашивайте полы мелками, а не кровью!",
+					"Не будьте голодающим художником, используйте ArtVend.",
+					"Не перди, твори!")
 
 	ads_list = list("Just like Kindergarten!",
 					"Now with 1000% more vibrant colors!",
@@ -1146,11 +1145,11 @@
 /obj/machinery/economy/vending/crittercare
 	name = "\improper CritterCare"
 	desc = "A vending machine for pet supplies."
-	slogan_list = list("Stop by for all your animal's needs!",
-					"Cuddly pets deserve a stylish collar!",
-					"Pets in space, what could be more adorable?",
-					"Freshest fish eggs in the system!",
-					"Rocks are the perfect pet, buy one today!")
+	slogan_list = list("Всё необходимое для ваших питомцев!",
+					"Милые питомцы заслуживают стильного ошейника!",
+					"Космические питомцы, что может быть очаровательнее?",
+					"Свежайшая рыбья икра в секторе!",
+					"Камни - идеальные питомцы, купите уже сегодня!")
 
 	ads_list = list("House-training costs extra!",
 					"Now with 1000% more cat hair!",
@@ -1204,19 +1203,19 @@
 /obj/machinery/economy/vending/cigarette
 	name = "\improper ShadyCigs Deluxe"
 	desc = "If you want to get cancer, might as well do it in style."
-	slogan_list = list("Space cigs taste good like a cigarette should.",
-					"I'd rather toolbox than switch.",
-					"Smoke!",
-					"Don't believe the reports - smoke today!")
+	slogan_list = list("Космосигареты хороши на вкус, какими они и должны быть.",
+					"Курение убивает, но не сегодня!",
+					"Курите!",
+					"Не верьте исследованиям - курите сегодня!")
 
-	ads_list = list("Probably not bad for you!",
-					"Don't believe the scientists!",
-					"It's good for you!",
-					"Don't quit, buy more!",
-					"Smoke!",
-					"Nicotine heaven.",
-					"Best cigarettes since 2150.",
-					"Award-winning cigs.")
+	ads_list = list("Наверняка не вредно!",
+					"Не верьте ученым!",
+					"На здоровье!",
+					"Не бросайте курить, купите ещё!",
+					"Курите!",
+					"Никотиновый рай.",
+					"Лучшие сигареты с 2150 года.",
+					"Сигареты с множеством наград.")
 
 	vend_delay = 34
 	icon_state = "cigs"
@@ -1286,14 +1285,14 @@
 /obj/machinery/economy/vending/cigarette/beach
 	name = "\improper ShadyCigs Ultra"
 	desc = "Now with extra premium products!"
-	slogan_list = list("Turn on, tune in, drop out!",
-					"Better living through chemistry!",
-					"Toke!",
-					"Don't forget to keep a smile on your lips and a song in your heart!")
+	slogan_list = list("Включи, настрой, получи!",
+					"С химией жить веселей!",
+					"Затянитесь!",
+					"Сохраняй улыбку на устах и песню в своём сердце!")
 
-	ads_list = list("Probably not bad for you!",
-					"Dope will get you through times of no money better than money will get you through times of no dope!",
-					"It's good for you!")
+	ads_list = list("Наверняка не вредно!",
+					"Допинг проведёт через безденежье лучше, чем деньги через бездопингье!",
+					"На здоровье!")
 
 	products = list(/obj/item/clothing/mask/cigarette/cigar = 6,
 				/obj/item/clothing/mask/cigarette/cigar/cohiba = 6,
@@ -1368,7 +1367,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed, 32, 32)
 /obj/machinery/economy/vending/cart
 	name = "\improper PTech"
 	desc = "Cartridges for PDA's."
-	slogan_list = list("Carts to go!")
+	slogan_list = list("Карточки в дорогу!")
 
 	icon_state = "cart"
 	icon_lightmask = "med"

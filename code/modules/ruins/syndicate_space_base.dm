@@ -18,7 +18,7 @@
 					/obj/item/grenade/chem_grenade/adv_release = 5,
 					/obj/item/reagent_containers/drinks/bottle/holywater = 1,
 					/obj/item/pen/sleepy/undisguised = 1)
-	slogan_list = list("It's not pyromania if you're getting paid!","You smell that? Plasma, son. Nothing else in the world smells like that.","I love the smell of Plasma in the morning.")
+	slogan_list = list("Это не пиромания, если тебе платят!","Чувствуешь запах? Плазма, сынок. Больше ничто в мире так не пахнет.","Люблю запах плазмы по утрам.")
 	resistance_flags = FIRE_PROOF
 
 // Spawners

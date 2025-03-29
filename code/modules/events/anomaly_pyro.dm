@@ -3,5 +3,5 @@
 	startWhen = 3
 	announceWhen = 10
 	anomaly_path = /obj/effect/anomaly/pyro
-	prefix_message = "Pyroclastic anomaly detected on long range scanners."
+	prefix_message = "На сканерах дальнего действия обнаружена пирокластическая аномалия."
 	announce_sound = 'sound/AI/anomaly_pyro.ogg'

@@ -397,3 +397,4 @@
 		valid_body_accessories = owner.generate_valid_body_accessories()
 	if(!length(valid_alt_head_styles))
 		valid_alt_head_styles = owner.generate_valid_alt_heads()
+	SEND_SIGNAL(owner, COMSIG_CMA_TRANSFORM) //SS220 ADDITION - SERPENTIDS

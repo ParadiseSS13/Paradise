@@ -32,7 +32,7 @@
 /obj/structure/cult/functional
 	max_integrity = 100
 	var/cooldowntime = 0
-	var/death_message = "<span class='danger'>The structure falls apart.</span>" //The message shown when the structure is destroyed
+	var/death_message = "<span class='danger'>Конструкция разваливается на части.</span>" //The message shown when the structure is destroyed
 	var/death_sound = 'sound/items/bikehorn.ogg'
 	var/heathen_message = "You're a huge nerd, go away. Also, a coder forgot to put a message here."
 	var/selection_title = "Oops"
@@ -139,7 +139,7 @@
 	desc = "A bloodstained altar dedicated to a cult."
 	icon_state = "altar"
 	max_integrity = 150 //Sturdy
-	death_message = "<span class='danger'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
+	death_message = "<span class='danger'>Алтарь разлетается на осколки, выпуская в воздух каскад духов!</span>"
 	death_sound = 'sound/effects/altar_break.ogg'
 	heathen_message = "<span class='warning'>There is a foreboding aura to the altar and you want nothing to do with it.</span>"
 	selection_prompt = "You study the rituals on the altar..."
@@ -160,7 +160,7 @@
 	light_range = 2
 	light_color = LIGHT_COLOR_LAVA
 	max_integrity = 300 //Made of metal
-	death_message = "<span class='danger'>The forge falls apart, its lava cooling and winking away!</span>"
+	death_message = "<span class='danger'>Кузница разваливается на части, ее лава остывает и угасает!</span>"
 	death_sound = 'sound/effects/forge_destroy.ogg'
 	heathen_message = "<span class='warning'>Your hand feels like it's melting off as you try to touch the forge.</span>"
 	selection_prompt = "You study the schematics etched on the forge..."
@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	light_range = 1.5
 	light_color = LIGHT_COLOR_RED
 	max_integrity = 50 //Very fragile
-	death_message = "<span class='danger'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
+	death_message = "<span class='danger'>Кристалл пилона вибрирует и яростно светится, прежде чем разлететься на куски!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
 
 	var/heal_delay = 30
@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	light_range = 1.5
 	light_color = LIGHT_COLOR_FIRE
 	max_integrity = 125 //Slightly sturdy
-	death_message = "<span class='danger'>The desk breaks apart, its books falling to the floor.</span>"
+	death_message = "<span class='danger'>Стол разваливается на части, книги падают на пол.</span>"
 	death_sound = 'sound/effects/wood_break.ogg'
 	heathen_message = "<span class='cultlarge'>What do you hope to seek?</span>"
 	selection_prompt = "You flip through the black pages of the archives..."

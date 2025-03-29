@@ -14,7 +14,7 @@
 		origin_test.Fail("unexpected puppeteer carbon type [carbon_type]", __FILE__, __LINE__)
 
 	if(!initial_location)
-		initial_location = locate(179, 136, 1) // Center of admin testing area
+		initial_location = locate(20, 210, 2) // Center of admin testing area // SS220 EDIT - center of admin testing area at Admin_Zone.dmm
 	origin_test = origin_test_
 	puppet = origin_test.allocate(carbon_type, initial_location)
 	var/datum/mind/new_mind = new("interaction_test_[puppet.UID()]")
@@ -117,7 +117,7 @@
 		return puppet_chat_list[length(puppet_chat_list)]
 
 /datum/test_puppeteer/proc/last_chatlog_has_text(snippet)
-	return findtextEx(get_last_chatlog(), snippet)
+	return findtextEx_char(get_last_chatlog(), snippet)
 
 /datum/test_puppeteer/proc/any_chatlog_has_text(snippet)
 	for(var/chat_line in get_chatlogs())

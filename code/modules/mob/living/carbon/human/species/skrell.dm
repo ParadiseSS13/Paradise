@@ -5,10 +5,10 @@
 	language = "Skrellian"
 	primitive_form = /datum/species/monkey/skrell
 
-	blurb = "Skrell are an amphibious species, that come from the planet Jargon 4, a humid planet filled with swamps and archipelagos. \
-	Skrell are a highly advanced and logical race who live under the rule of the Qerr'Katish, the main governmental body.<br/><br/> \
-	Skrell are herbivores and opulent in nature thanks to central tenets of the Skrellian religion. \
-	While classically preferring diplomacy, the Skrell participate in the largest military alliance in the galaxy, the Solar-Central Compact."
+	blurb = "Скреллы - вид амфибий, родом с Кверрбалака, влажной тропической планеты, полной болот и архипелагов. \
+	Скреллы это высокоразвитая и разумная раса, живущая под властью Кверр-Кэтиш, главного правительственного органа.<br/><br/> \
+	Скреллы травоядны и изобильны по своей природе благодаря главным постулатам скреллской культуры. \
+	Хотя Скреллы предпочитают дипломатию, они участвуют в крупнейшем военном союзе в галактике - Человеко-Скреллаинском Альянсе."
 
 	species_traits = list(LIPS, NO_HAIR)
 	inherent_traits = list(TRAIT_NOFAT, TRAIT_WATERBREATH)

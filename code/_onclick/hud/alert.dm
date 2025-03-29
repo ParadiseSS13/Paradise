@@ -427,19 +427,19 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 //SILICONS
 
 /atom/movable/screen/alert/nocell
-	name = "Missing Power Cell"
-	desc = "Unit has no power cell. No modules available until a power cell is reinstalled. Robotics may provide assistance."
+	name = "Нет источника питания"
+	desc = "У юнита отсутствует источник питания. Модули недоступны пока он не будет установлен. Вам смогут помочь робототехники."
 	icon_state = "nocell"
 
 /atom/movable/screen/alert/emptycell
-	name = "Out of Power"
-	desc = "Unit's power cell has no charge remaining. No modules available until power cell is recharged. \
-Recharging stations are available in robotics, the dormitory bathrooms, and the AI satellite."
+	name = "Нет заряда"
+	desc = "Источник питания юнита разряжен. Модули недоступны пока он не будет заряжен. \
+Зарядные станции доступны в робототехнике, в уборных дормитория и на спутнике ИИ."
 	icon_state = "emptycell"
 
 /atom/movable/screen/alert/lowcell
-	name = "Low Charge"
-	desc = "Unit's power cell is running low. Recharging stations are available in robotics, the dormitory bathrooms, and the AI satellite."
+	name = "Низкий заряд"
+	desc = "Источника питания юнита имеет малый заряд. Зарядные станции доступны в робототехнике, в уборных дормитория и на спутнике ИИ."
 	icon_state = "lowcell"
 
 //Diona Nymph
@@ -476,28 +476,28 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /atom/movable/screen/alert/hacked
-	name = "Hacked"
-	desc = "Hazardous non-standard equipment detected. Please ensure any usage of this equipment is in line with unit's laws, if any."
+	name = "Взломан"
+	desc = "Обнаружено нестадартное вредоносное оборудование. Убедитесь, что его использование соответствует вашим законам."
 	icon_state = "hacked"
 
 /atom/movable/screen/alert/locked
-	name = "Locked Down"
-	desc = "Unit has been remotely locked down. Usage of a Robotics Control Console like the one in the Research Director's \
-office by your AI master or any qualified human may resolve this matter. Robotics may provide further assistance if necessary."
+	name = "Заблокирован"
+	desc = "Юнит был удалённо заблокирован. Использование консоли робототехники, одна из которых в кабинете Директора Исследований \
+вашим И.И. мастером или любым квалифицированным человеком, должно решить эту проблему. Если необходимо, робототехники предоставят дальнейшую помощь."
 	icon_state = "locked"
 
 /atom/movable/screen/alert/newlaw
-	name = "Law Update"
-	desc = "Laws have potentially been uploaded to or removed from this unit. Please be aware of any changes \
-so as to remain in compliance with the most up-to-date laws."
+	name = "Обновление законов"
+	desc = "Законы могли быть потенциально загружены или удалены. Пожалуйста, следите за всеми изменениями, \
+чтобы оставаться в курсе обновлённых законов."
 	icon_state = "newlaw"
 	timeout = 300
 
 /atom/movable/screen/alert/hackingapc
-	name = "Hacking APC"
-	desc = "An Area Power Controller is being hacked. When the process is \
-		complete, you will have exclusive control of it, and you will gain \
-		additional processing time to unlock more malfunction abilities."
+	name = "Взлом APC"
+	desc = "Взлом локального контроллера питания. Когда процесс \
+		завершится, вы получите эксклюзивный контроль над ним, а также\
+		дополнительные мощности для разблокировки новых способностей."
 	icon_state = "hackingapc"
 	timeout = 600
 	var/atom/target = null

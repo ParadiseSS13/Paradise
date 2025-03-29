@@ -29,7 +29,10 @@
 
 	for(var/path in subtypesof(prototype))
 		var/datum/sprite_accessory/D = new path()
-
+		// SS220 EDIT - START
+		if(D.removed_from_loadout)
+			continue
+		// SS220 EDIT - END
 		if(D.name)
 			if(D.fluff)
 				full_list[D.name] = D
