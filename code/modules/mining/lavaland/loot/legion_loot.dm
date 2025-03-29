@@ -165,7 +165,7 @@
 		"<span class='danger'>A thunderbolt strikes [target]!</span>",
 		"<span class='danger'>A thundercrack fills the air!</span>"
 	)
-	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
+	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE, cause = name)
 
 
 /obj/effect/temp_visual/thunderbolt_targeting
