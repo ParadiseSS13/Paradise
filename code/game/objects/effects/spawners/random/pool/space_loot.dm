@@ -7,8 +7,6 @@
 	icon_state = "giftbox"
 	spawn_pool_id = "space_loot_spawn_pool"
 	record_spawn = TRUE
-	spawn_random_offset = TRUE // static things are boring!
-	spawn_random_offset_max_pixels = 8
 
 /obj/effect/spawner/random/pool/spaceloot/record_item(type_path_to_make)
 	if(ispath(type_path_to_make, /obj/effect))
@@ -17,7 +15,6 @@
 	SSblackbox.record_feedback("tally", "space_loot_spawns", 1, "[type_path_to_make]")
 
 /obj/effect/spawner/random/pool/spaceloot/dvorak_core_table
-	spawn_random_offset = FALSE
 	point_value = 100
 	guaranteed = TRUE
 	loot = list(
@@ -270,25 +267,34 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mob
 	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "syndicate_random"
-	spawn_random_offset = FALSE
-	point_value = 3
 	loot = list(
-		/mob/living/simple_animal/hostile/syndicate = 40,
-		/mob/living/simple_animal/hostile/syndicate/ranged = 30,
-		/mob/living/simple_animal/hostile/syndicate/shield = 10,
-		/mob/living/simple_animal/hostile/syndicate/modsuit = 10,
-		/mob/living/simple_animal/hostile/syndicate/modsuit/ranged = 10,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/common = 80,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit = 19,
 
 		// Let the massacre begin
-		/mob/living/simple_animal/hostile/syndicate/modsuit/elite, // ~1%
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/elite, // 1%
 	)
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/elite
+	point_value = 200 // Guaranteed armory-tier loot on death
+	loot = list(/mob/living/simple_animal/hostile/syndicate/modsuit/elite)
 
 // Used when we want our mob to be protected from environment pressure
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit
 	icon_state = "syndicate_random_mod"
+	point_value = 6 // Modsuit chance
 	loot = list(
 		/mob/living/simple_animal/hostile/syndicate/modsuit,
 		/mob/living/simple_animal/hostile/syndicate/modsuit/ranged,
+	)
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/common
+	icon_state = "syndicate"
+	point_value = 3
+	loot = list(
+		/mob/living/simple_animal/hostile/syndicate/ranged = 4,
+		/mob/living/simple_animal/hostile/syndicate = 3, // Melee is stronger than ranged variant most of the time
+		/mob/living/simple_animal/hostile/syndicate/shield,
 	)
 
 // Only two of these
@@ -338,6 +344,8 @@
 	guaranteed = TRUE
 	point_value = 20
 	spawn_all_loot = TRUE
+	spawn_random_offset = TRUE
+	spawn_random_offset_max_pixels = 8
 
 /obj/effect/spawner/random/pool/spaceloot/mechtransport/storage1
 	loot = list(

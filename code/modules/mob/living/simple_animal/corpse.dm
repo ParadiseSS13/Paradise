@@ -69,7 +69,7 @@
 		U.accessories += W
 		W.on_attached(U)
 
-// MARK: Syndicate modsuit
+// MARK: Syndicate mod
 /obj/effect/mob_spawn/human/corpse/syndicate/modsuit
 	name = "Syndicate Commando"
 	outfit = /datum/outfit/syndicatecorpse/modsuit
@@ -87,7 +87,7 @@
 	name = "Corpse of a Syndicate Commando"
 	modsuit = /obj/item/mod/control/pre_equipped/traitor
 
-// MARK: Syndicate elite modsuit
+// MARK: Syndicate elite mod
 /obj/effect/mob_spawn/human/corpse/syndicate/modsuit/elite
 	name = "Syndicate Overseer"
 	outfit = /datum/outfit/syndicatecorpse/modsuit/elite
