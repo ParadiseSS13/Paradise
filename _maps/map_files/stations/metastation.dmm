@@ -246,8 +246,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "adP" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
 /area/station/science/robotics/showroom)
 "adS" = (
 /turf/simulated/wall,
@@ -1612,13 +1615,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "aoi" = (
-/obj/structure/sign/securearea{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/wood,
 /area/station/hallway/primary/central/south)
 "aok" = (
 /obj/structure/cable,
@@ -2479,10 +2477,20 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "atl" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/structure/table/wood,
+/obj/structure/showcase/machinery{
+	desc = "A slightly battered looking TV. Various Nanotrasen infomercials play on a loop, accompanied by a jaunty tune.";
+	icon = 'icons/obj/computer.dmi';
+	icon_state = "television";
+	name = "\improper Nanotrasen corporate newsfeed";
+	pixel_x = 2;
+	pixel_y = 3
 	},
-/turf/simulated/floor/wood,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "ato" = (
 /obj/effect/turf_decal/stripes/line,
@@ -18723,21 +18731,13 @@
 	},
 /area/station/aisat)
 "bxp" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Command Hallway - Central";
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/hallway/secondary/bridge)
+/area/station/science/robotics/showroom)
 "bxq" = (
 /obj/structure/rack{
 	dir = 8;
@@ -23094,6 +23094,10 @@
 /turf/simulated/wall,
 /area/station/public/storage/emergency/port)
 "bNj" = (
+/obj/machinery/computer/guestpass{
+	pixel_y = -30;
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -23843,22 +23847,33 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "bQp" = (
-/obj/structure/chair{
-	dir = 1
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/hallway/secondary/bridge)
+/area/station/science/robotics/showroom)
 "bQr" = (
-/obj/structure/chair{
+/obj/machinery/camera{
+	c_tag = "Robotics Showroom";
+	dir = 9
+	},
+/obj/machinery/button/windowtint{
+	id = "SHOW";
+	pixel_x = 2;
+	pixel_y = 24
+	},
+/obj/machinery/light_switch{
+	name = "custom placement";
+	pixel_x = -6;
+	pixel_y = 24
+	},
+/obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/secondary/bridge)
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/station/science/robotics/showroom)
 "bQu" = (
 /obj/machinery/economy/slot_machine,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -24256,12 +24271,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/ai_monitored/storage/eva)
 "bRU" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/morgue{
+	dir = 2
 	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/medical/reception)
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/medical/morgue)
 "bRV" = (
 /obj/machinery/light{
 	dir = 1
@@ -24290,28 +24307,16 @@
 "bRZ" = (
 /obj/structure/window/reinforced,
 /obj/structure/showcase/machinery,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bSc" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/robotics/showroom)
 "bSd" = (
-/obj/structure/table/wood,
-/obj/item/clothing/shoes/laceup,
-/obj/item/clothing/under/suit/really_black,
-/obj/item/clothing/glasses/sunglasses,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = -6;
-	pixel_y = 24
-	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bSe" = (
@@ -24534,12 +24539,20 @@
 /area/station/hallway/primary/central/se)
 "bSX" = (
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
 "bSZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "C7"
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "bTd" = (
 /obj/machinery/light_switch{
@@ -24754,47 +24767,29 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "bTL" = (
-/obj/structure/table/wood,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/cigbutt/cigarbutt{
-	pixel_x = 5;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/drinks/mug{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
-/turf/simulated/floor/wood,
-/area/station/science/robotics/showroom)
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/bridge)
 "bTN" = (
-/obj/structure/sign/kiddieplaque/perfect_man{
-	pixel_y = 32
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
 	},
-/obj/structure/showcase/machinery{
-	desc = "A stand with a model of the perfect Nanotrasen Employee bolted to it. Signs indicate it is robustly genetically engineered, as well as being ruthlessly loyal.";
-	name = "'Perfect Man' employee exhibit"
-	},
-/obj/structure/window/reinforced,
-/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bTO" = (
 /obj/structure/window/reinforced,
+/obj/effect/decal/cleanable/cobweb2,
 /obj/structure/showcase/machinery{
 	desc = "A stand with a retired construction mech bolted to it. The clamps are rated at 9300PSI. It seems to be falling apart.";
 	icon = 'icons/mecha/mecha.dmi';
 	icon_state = "firefighter";
 	name = "construction mech exhibit"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bTP" = (
@@ -25032,11 +25027,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bUX" = (
-/obj/effect/decal/cleanable/blood/oil,
-/obj/structure/cable{
-	icon_state = "4-8"
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
-/turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bUY" = (
 /obj/structure/cable{
@@ -25069,13 +25063,10 @@
 	},
 /area/station/ai_monitored/storage/eva)
 "bVc" = (
+/obj/machinery/hologram/holopad,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bVe" = (
@@ -25274,17 +25265,16 @@
 	},
 /area/station/science/rnd)
 "bWb" = (
-/obj/machinery/light/small{
-	dir = 8
+/obj/item/storage/secure/briefcase{
+	desc = "A large briefcase with a digital locking system, and the Nanotrasen logo emblazoned on the sides.";
+	name = "\improper Nanotrasen-brand secure briefcase exhibit"
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bWd" = (
 /obj/structure/railing{
@@ -25392,17 +25382,16 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "bWw" = (
-/obj/item/cigbutt,
-/obj/machinery/light/small{
-	dir = 4
+/obj/structure/table/wood,
+/obj/item/paicard{
+	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
+	name = "\improper Nanotrasen-brand personal AI device exhibit"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/random/cobweb/right/rare,
+/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bWx" = (
 /obj/structure/chair/comfy/brown,
@@ -25489,7 +25478,6 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "bWG" = (
-/obj/structure/table/wood,
 /obj/item/robot_parts/chest{
 	pixel_x = -2;
 	pixel_y = 2
@@ -25498,10 +25486,13 @@
 	pixel_x = 3;
 	pixel_y = 2
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/obj/machinery/alarm/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bWH" = (
@@ -25513,25 +25504,46 @@
 /area/station/maintenance/apmaint)
 "bWI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/wood,
+/obj/machinery/alarm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
 /area/station/science/robotics/showroom)
 "bWJ" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/wood,
-/area/station/science/robotics/showroom)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/random/dirt/often,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/paramedic)
 "bWK" = (
-/obj/structure/table/wood,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/crap,
-/turf/simulated/floor/carpet,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "SHOW"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
 /area/station/science/robotics/showroom)
 "bWN" = (
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bWO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
+/obj/structure/noticeboard{
+	dir = 1;
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
 /area/station/science/robotics/showroom)
 "bWP" = (
 /obj/structure/disposalpipe/segment{
@@ -25550,22 +25562,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "bWQ" = (
-/obj/structure/table/wood,
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
-/obj/machinery/button/windowtint{
-	dir = 8;
-	id = "SHOW";
-	pixel_x = 24;
-	pixel_y = 11
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/beerkeg/nuke,
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
@@ -25891,66 +25895,66 @@
 /area/station/maintenance/apmaint)
 "bYb" = (
 /obj/structure/table/wood,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/item/folder/blue,
 /obj/item/clothing/head/collectable/hop,
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -27
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bYd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel,
 /area/station/science/robotics/showroom)
 "bYe" = (
-/obj/structure/table/wood,
-/obj/structure/showcase/machinery{
-	desc = "The famous Nanotrasen-brand microwave, the multi-purpose cooking appliance every station needs! This one appears to be drawn onto a cardboard box.";
-	icon = 'icons/obj/kitchen.dmi';
-	icon_state = "mw";
-	name = "\improper Nanotrasen-brand microwave";
-	pixel_y = 2
+/obj/machinery/door/window/classic/normal{
+	name = "Medical Reception";
+	dir = 8
 	},
-/obj/structure/noticeboard{
-	dir = 1;
-	pixel_y = -32
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general{
+	dir = 8
 	},
-/turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/folder/white,
+/obj/item/paper_bin{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/item/pen{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/station/medical/reception)
 "bYf" = (
-/obj/structure/table/wood,
-/obj/item/beach_ball{
-	desc = "The simple beach ball is one of Nanotrasen's most popular products. 'Why do we make beach balls? Because we can! (TM)' - Nanotrasen";
-	name = "\improper Nanotrasen-brand beach ball";
-	pixel_y = 7
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
 	},
-/turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/turf/simulated/floor/plating,
+/area/station/medical/medbay)
 "bYg" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/matches{
-	pixel_x = -2;
-	pixel_y = 3
+/obj/structure/chair{
+	dir = 1
 	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 4;
-	pixel_y = 1
-	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = -4;
-	pixel_y = 1
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba,
-/turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/turf/simulated/floor/wood,
+/area/station/hallway/primary/central/south)
 "bYh" = (
 /obj/machinery/power/turbine,
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -25967,19 +25971,16 @@
 /area/station/service/library)
 "bYj" = (
 /obj/structure/table/wood,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 5
 	},
 /obj/item/gun/projectile/revolver/capgun,
 /obj/item/restraints/handcuffs/toy,
 /obj/item/clothing/head/collectable/hos,
-/obj/machinery/firealarm/directional/east,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/window/reinforced{
+	dir = 8
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bYl" = (
@@ -26005,7 +26006,8 @@
 /area/station/command/office/ntrep)
 "bYn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plasteel,
 /area/station/science/robotics/showroom)
 "bYo" = (
 /obj/structure/closet/secure_closet/ntrep,
@@ -26087,12 +26089,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "bYJ" = (
-/obj/structure/table/wood,
-/obj/item/storage/secure/briefcase{
-	desc = "A large briefcase with a digital locking system, and the Nanotrasen logo emblazoned on the sides.";
-	name = "\improper Nanotrasen-brand secure briefcase exhibit"
+/obj/effect/spawner/random/dirt/often,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
-/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bYK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -26102,19 +26103,13 @@
 	},
 /area/station/service/chapel)
 "bYN" = (
-/obj/structure/table/wood,
-/obj/item/disk/tech_disk{
-	pixel_x = -2;
-	pixel_y = -3
+/obj/machinery/economy/vending/wallmed/directional/west,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
-/obj/item/disk/data{
-	pixel_x = 9;
-	pixel_y = -1
-	},
-/obj/item/disk/design_disk{
-	pixel_y = 6
-	},
-/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "bYQ" = (
 /obj/effect/turf_decal/delivery,
@@ -26403,17 +26398,25 @@
 	},
 /area/station/hallway/primary/central/south)
 "car" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "C3"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "cas" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/directional/north,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "C11"
+	dir = 4;
+	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/south)
 "cax" = (
@@ -26596,18 +26599,14 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "C12"
-	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "cbc" = (
 /obj/effect/spawner/random/fungus/maybe,
@@ -26761,9 +26760,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -26804,9 +26800,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "C8"
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "cbG" = (
 /obj/structure/cable{
@@ -26935,9 +26932,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "C6"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "cco" = (
 /obj/structure/cable{
@@ -26953,9 +26948,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "C10"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "ccp" = (
 /obj/machinery/computer/pandemic,
@@ -27172,6 +27165,13 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cds" = (
@@ -27384,6 +27384,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -27772,15 +27773,16 @@
 /area/station/hallway/primary/central/nw)
 "cfJ" = (
 /obj/structure/table/wood,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/item/beach_ball{
+	desc = "The simple beach ball is one of Nanotrasen's most popular products. 'Why do we make beach balls? Because we can! (TM)' - Nanotrasen";
+	name = "\improper Nanotrasen-brand beach ball";
+	pixel_y = 7
 	},
-/obj/structure/sign/singulo{
-	pixel_x = 1;
-	pixel_y = 31
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/turf/simulated/floor/wood,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "cfK" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -28276,6 +28278,9 @@
 /turf/simulated/wall,
 /area/station/medical/paramedic)
 "chN" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -28390,15 +28395,11 @@
 	},
 /area/station/medical/paramedic)
 "chW" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/assistant,
+/obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "whitebluefull"
 	},
-/area/station/medical/reception)
+/area/station/medical/medbay)
 "chX" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -29572,13 +29573,12 @@
 	},
 /area/station/hallway/primary/fore/north)
 "cnm" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/wood,
-/area/station/science/robotics/showroom)
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/bridge)
 "cnn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -29763,6 +29763,7 @@
 	pixel_x = -28
 	},
 /obj/structure/chair/wheelchair,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -29921,7 +29922,7 @@
 /obj/machinery/button/windowtint{
 	id = "CMO";
 	pixel_x = 24;
-	pixel_y = 2;
+	pixel_y = -2;
 	dir = 8;
 	req_access = list(40)
 	},
@@ -30040,6 +30041,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -30121,10 +30125,7 @@
 /area/station/command/bridge)
 "cpP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	desc = "";
-	icon_state = "C13"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "cpQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -30160,6 +30161,12 @@
 /area/station/maintenance/apmaint)
 "cpZ" = (
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -31155,6 +31162,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteyellow"
@@ -31677,13 +31685,10 @@
 	},
 /area/station/medical/medbay)
 "cwr" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "cww" = (
@@ -32438,12 +32443,8 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "czN" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel,
 /area/station/science/robotics/showroom)
 "czR" = (
 /obj/structure/chair{
@@ -32551,6 +32552,7 @@
 	dir = 4;
 	pixel_y = -40
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
@@ -33608,10 +33610,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "MedbayFoyerPort";
-	name = "Medbay Entrance"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/door/poddoor{
@@ -33621,10 +33619,14 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "medbayfoyerport";
+	name = "Medbay Entrance"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/medical/reception)
+/area/station/medical/medbay)
 "cEV" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/siding,
@@ -34336,6 +34338,10 @@
 	dir = 1;
 	pixel_y = -40
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -35106,12 +35112,23 @@
 	},
 /area/station/medical/cryo)
 "cKR" = (
-/obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/carpet,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "SHOW"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
 /area/station/science/robotics/showroom)
 "cKS" = (
 /obj/item/transfer_valve{
@@ -38030,10 +38047,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "cYL" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -38993,11 +39007,9 @@
 	},
 /area/station/medical/break_room)
 "dej" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
-/obj/machinery/computer/crew{
-	dir = 4
+/obj/effect/landmark/start/doctor,
+/obj/structure/chair/office/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -39253,6 +39265,21 @@
 /obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
+"dfv" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/south)
 "dfQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -39459,10 +39486,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
-/area/station/hallway/secondary/bridge)
+/turf/simulated/floor/wood,
+/area/station/science/robotics/showroom)
 "dhn" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -40138,7 +40166,13 @@
 /area/space/nearstation)
 "dvU" = (
 /obj/machinery/computer/med_data{
-	dir = 4
+	dir = 1
+	},
+/obj/machinery/door_control{
+	id = "medbayfoyerport";
+	name = "Medbay Doors Control";
+	normaldoorcontrol = 1;
+	pixel_y = -21
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -40829,27 +40863,18 @@
 	},
 /area/station/medical/medbay)
 "dMo" = (
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "MedbayFoyerPort";
-	name = "Medbay Entrance"
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/unres{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
+	icon_state = "dark"
 	},
-/area/station/medical/reception)
+/area/station/medical/medbay)
 "dMB" = (
 /obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
@@ -41837,10 +41862,6 @@
 	},
 /area/station/security/permabrig)
 "ejw" = (
-/obj/machinery/camera{
-	c_tag = "Medbay Main Hallway- CMO";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -41852,11 +41873,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "ejG" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "eki" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -41908,6 +41928,24 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
+"elV" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/showcase{
+	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_y = 4
+	},
+/obj/structure/window/reinforced,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/station/science/robotics/showroom)
 "emj" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -42195,6 +42233,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
+"esi" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/science/robotics/showroom)
 "esm" = (
 /obj/structure/lattice/catwalk,
 /obj/item/instrument/guitar,
@@ -42770,6 +42818,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -43151,18 +43202,11 @@
 	},
 /area/station/security/execution)
 "eQf" = (
-/obj/structure/table/wood,
-/obj/structure/sign/kiddieplaque/perfect_drone{
-	pixel_y = 32
+/obj/effect/spawner/random/dirt/often,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
 	},
-/obj/structure/showcase/machinery{
-	desc = "The hollowed out shell of an unlucky construction drone";
-	icon = 'icons/obj/objects.dmi';
-	icon_state = "drone";
-	name = "drone exhibit"
-	},
-/obj/structure/window/reinforced,
-/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "eQn" = (
 /obj/effect/spawner/random/oil/often,
@@ -44517,10 +44561,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "MedbayFoyerPort";
-	name = "Medbay Entrance"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/unres,
@@ -44531,10 +44571,14 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "medbayfoyerport";
+	name = "Medbay Entrance"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/medical/reception)
+/area/station/medical/medbay)
 "fre" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -47269,11 +47313,11 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/reception)
@@ -47357,22 +47401,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "gEi" = (
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
 	},
-/obj/structure/window/reinforced,
-/obj/structure/showcase/horrific_experiment{
-	desc = "Signs describe how cloning pods like these ensure that every Nanotrasen employee can carry out their contracts in full, even in the unlikely event of their catastrophic death. Hopefully they aren't all made of cardboard, like this one.";
-	icon_state = "pod_idle";
-	name = "cloning pod exhibit";
-	pixel_x = 2;
-	pixel_y = 1
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/area/station/medical/medbay)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
@@ -47518,11 +47554,28 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "gHh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/table/wood,
+/obj/structure/showcase/machinery{
+	desc = "The hollowed out shell of an unlucky construction drone";
+	icon = 'icons/obj/objects.dmi';
+	icon_state = "drone";
+	name = "drone exhibit"
 	},
-/turf/simulated/floor/plasteel/goonplaque/commission,
-/area/station/hallway/secondary/bridge)
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/sign/kiddieplaque/perfect_drone{
+	pixel_x = -32
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/carpet,
+/area/station/science/robotics/showroom)
 "gHm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -48470,9 +48523,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "hcL" = (
-/obj/structure/disposalpipe/junction{
-	dir = 8
-	},
 /obj/structure/table,
 /obj/item/storage/box/bodybags{
 	pixel_x = 3;
@@ -48646,11 +48696,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "hgu" = (
-/obj/structure/table/wood,
-/obj/item/toy/plushie/carpplushie{
-	name = "\improper Nanotrasen wildlife department space carp plushie"
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "SHOW"
 	},
-/turf/simulated/floor/carpet,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
 /area/station/science/robotics/showroom)
 "hgD" = (
 /obj/structure/disposalpipe/segment,
@@ -50597,17 +50650,12 @@
 	},
 /area/station/hallway/secondary/exit)
 "hYz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/machinery/camera{
+	c_tag = "Command Hallway - Central";
+	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/wood,
-/area/station/science/robotics/showroom)
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/bridge)
 "hYA" = (
 /obj/machinery/computer/rdconsole/core,
 /obj/machinery/camera{
@@ -51225,10 +51273,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "ilU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "C5"
+/obj/machinery/light/small{
+	dir = 1
 	},
-/area/station/hallway/primary/central/south)
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/station/science/robotics/showroom)
 "ima" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -51452,6 +51506,10 @@
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Medbay Main Hallway- CMO";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -51684,11 +51742,14 @@
 	},
 /area/station/security/processing)
 "iwv" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "SHOW"
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/obj/structure/cable,
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/airlock/command,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "iwW" = (
 /obj/machinery/door/airlock/medical{
@@ -51995,15 +52056,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "iCM" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/machinery/economy/merch{
+	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/medical/reception)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/station/science/robotics/showroom)
 "iCZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/greengrid,
@@ -52225,6 +52285,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -52389,6 +52450,12 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"iNH" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "blue"
+	},
+/area/station/hallway/primary/aft/north)
 "iNI" = (
 /obj/machinery/door/poddoor{
 	name = "Containment Pen";
@@ -52992,7 +53059,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/medical/reception)
+/area/station/medical/medbay)
 "jdP" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -53209,9 +53276,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "C4"
-	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "jkW" = (
 /obj/structure/disposalpipe/segment{
@@ -53884,6 +53950,9 @@
 	c_tag = "Central Primary Hallway - Aft-Port";
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -54194,13 +54263,19 @@
 	},
 /area/station/hallway/secondary/bridge)
 "jJW" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/structure/table/wood,
+/obj/structure/showcase/machinery{
+	desc = "The famous Nanotrasen-brand microwave, the multi-purpose cooking appliance every station needs! This one appears to be drawn onto a cardboard box.";
+	icon = 'icons/obj/kitchen.dmi';
+	icon_state = "mw";
+	name = "\improper Nanotrasen-brand microwave";
+	pixel_y = 2
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/turf/simulated/floor/wood,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "jKb" = (
 /turf/simulated/floor/plasteel{
@@ -54810,20 +54885,18 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "jUN" = (
-/obj/structure/disposalpipe/segment/corner,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "psychoffice"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/primary/central/south)
+/turf/simulated/floor/plating,
+/area/station/medical/psych)
 "jUQ" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
@@ -54937,14 +55010,27 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "jXC" = (
-/obj/structure/sign/securearea{
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/disk/tech_disk{
+	pixel_x = -2;
+	pixel_y = -3
+	},
+/obj/item/disk/design_disk{
+	pixel_y = 6
+	},
+/obj/item/disk/data{
+	pixel_x = 9;
+	pixel_y = -1
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/sign/mech{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/south)
+/turf/simulated/floor/carpet,
+/area/station/science/robotics/showroom)
 "jXR" = (
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
@@ -55509,6 +55595,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -56818,14 +56905,22 @@
 	},
 /area/station/security/permabrig)
 "kRA" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "SHOW"
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
+/obj/machinery/door/airlock/medical/glass{
+	name = "Medbay Staff Entrance"
 	},
-/turf/simulated/floor/plating,
-/area/station/science/robotics/showroom)
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/station/medical/medbay)
 "kRX" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -57901,9 +57996,12 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/security/permabrig)
 "lna" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/bridge)
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/science/robotics/showroom)
 "lnd" = (
 /obj/machinery/airlock_controller/air_cycler{
 	vent_link_id = "engine_vent";
@@ -59053,20 +59151,15 @@
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint/secondary)
 "lOK" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "SHOW"
+/obj/structure/chair{
+	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/robotics/showroom)
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood,
+/area/station/hallway/primary/central/south)
 "lOU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/effect/turf_decal/stripes/line{
@@ -59302,6 +59395,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
+"lTT" = (
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/aft/north)
 "lUv" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -60396,17 +60496,9 @@
 /area/station/turret_protected/ai)
 "mwo" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = -4;
-	pixel_y = -3
-	},
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/bottle/saline{
+/obj/item/reagent_containers/drinks/coffee{
 	pixel_x = 7;
-	pixel_y = -3
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -60476,10 +60568,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	desc = "";
-	icon_state = "C14"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "mxb" = (
 /obj/machinery/door/airlock/freezer,
@@ -61767,17 +61856,14 @@
 	},
 /area/station/science/research)
 "mYU" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
+/obj/structure/disposalpipe/junction{
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -62509,13 +62595,14 @@
 	},
 /area/station/command/office/rd)
 "nmc" = (
-/obj/structure/reagent_dispensers/beerkeg/nuke,
-/obj/structure/table/wood,
+/obj/structure/chair{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/turf/simulated/floor/wood,
+/area/station/hallway/primary/central/south)
 "nmd" = (
 /obj/structure/cable/green{
 	icon_state = "1-9"
@@ -63364,6 +63451,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
+"nFV" = (
+/obj/machinery/firealarm/directional/east,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/science/robotics/showroom)
 "nFZ" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "engine_door_ext";
@@ -63545,17 +63640,12 @@
 	},
 /area/station/aisat/service)
 "nKy" = (
-/obj/structure/table/wood,
-/obj/structure/showcase/machinery{
-	desc = "A slightly battered looking TV. Various Nanotrasen infomercials play on a loop, accompanied by a jaunty tune.";
-	icon = 'icons/obj/computer.dmi';
-	icon_state = "television";
-	name = "\improper Nanotrasen corporate newsfeed";
-	pixel_x = 2;
-	pixel_y = 3
+/obj/machinery/door/firedoor,
+/obj/machinery/light/small{
+	dir = 1
 	},
-/turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/turf/simulated/floor/wood,
+/area/station/hallway/primary/central/south)
 "nLN" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
@@ -63898,22 +63988,10 @@
 	},
 /area/station/science/robotics)
 "nUU" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Medical Reception"
-	},
-/obj/item/paper_bin{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/item/folder/white,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/item/pen{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -64065,6 +64143,7 @@
 	pixel_x = -24;
 	pixel_y = -6
 	},
+/obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -64466,6 +64545,7 @@
 /obj/machinery/computer/crew{
 	dir = 1
 	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -64478,17 +64558,18 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
 "ogq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -64613,6 +64694,12 @@
 "omr" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/greencross{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -64754,6 +64841,9 @@
 	},
 /area/station/science/research)
 "opu" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -64803,18 +64893,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "oqO" = (
-/obj/structure/disposalpipe/junction/y{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -65114,6 +65200,12 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/exam_room)
+"oBR" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/aft/north)
 "oBT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -65608,10 +65700,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "oNo" = (
-/obj/structure/chair/office/light{
-	dir = 8
+/obj/machinery/computer/crew{
+	dir = 1
 	},
-/obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -66397,22 +66488,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "pcN" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/obj/structure/showcase{
-	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_y = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/carpet,
-/area/station/science/robotics/showroom)
+/obj/structure/disposalpipe/segment/corner,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/south)
 "pcW" = (
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
@@ -66734,14 +66812,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "pkg" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "SHOW"
+/obj/effect/spawner/random/dirt/often,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/robotics/showroom)
+/area/station/medical/paramedic)
 "pko" = (
 /obj/machinery/airlock_controller/access_controller{
 	name = "Virology Lab Access Console";
@@ -67577,6 +67652,10 @@
 	icon_state = "dark"
 	},
 /area/station/science/misc_lab)
+"pDO" = (
+/obj/effect/landmark/start/assistant,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/aft/north)
 "pDW" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -70071,10 +70150,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "qIt" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "C9"
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
 	},
-/area/station/hallway/primary/central/south)
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/station/medical/medbay)
 "qIB" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -71080,6 +71162,13 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/chemistry,
 /obj/effect/mapping_helpers/airlock/access/any/medical/genetics,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72263,6 +72352,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
+"rFc" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/station/science/robotics/showroom)
 "rFe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -73525,6 +73621,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "sfS" = (
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowcorner"
@@ -74346,6 +74446,21 @@
 	icon_state = "bar"
 	},
 /area/station/service/bar)
+"sAV" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/south)
 "sBN" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -74682,18 +74797,20 @@
 	},
 /area/station/science/storage)
 "sIh" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	name = "Medical Reception"
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/item/reagent_containers/spray/cleaner,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
+/obj/structure/sign/kiddieplaque/perfect_man{
+	pixel_x = 32
 	},
-/area/station/medical/reception)
+/obj/structure/showcase/machinery{
+	desc = "A stand with a model of the perfect Nanotrasen Employee bolted to it. Signs indicate it is robustly genetically engineered, as well as being ruthlessly loyal.";
+	name = "'Perfect Man' employee exhibit"
+	},
+/obj/structure/window/reinforced,
+/obj/effect/spawner/random/cobweb/right/rare,
+/turf/simulated/floor/carpet,
+/area/station/science/robotics/showroom)
 "sIm" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -75194,18 +75311,11 @@
 	},
 /area/station/medical/chemistry)
 "sSE" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
@@ -75805,20 +75915,13 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
-	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "GeneticsDoor";
 	name = "Genetics"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75996,6 +76099,30 @@
 	},
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
+"tkj" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 30
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/saline{
+	pixel_x = 7;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/glass/bottle/epinephrine{
+	pixel_x = -4;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 8;
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/station/medical/medbay)
 "tkm" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/access_button{
@@ -76297,7 +76424,8 @@
 	},
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	dir = 8;
+	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/sw)
 "tqF" = (
@@ -78089,7 +78217,10 @@
 	},
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -78738,12 +78869,8 @@
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/entry/north)
 "uAj" = (
-/obj/structure/disposalpipe/segment/corner,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/primary/aft/north)
+/turf/simulated/wall,
+/area/station/medical/medbay)
 "uAA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -79578,9 +79705,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "C2"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "uUI" = (
 /obj/machinery/door/airlock/public/glass,
@@ -79942,14 +80067,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "uZP" = (
-/obj/structure/chair{
-	dir = 1
-	},
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "whitebluefull"
 	},
-/area/station/medical/reception)
+/area/station/medical/medbay)
 "vaw" = (
 /obj/structure/sign/chemistry{
 	pixel_x = -32
@@ -80140,6 +80262,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -80972,13 +81095,24 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/door/window/classic/reversed{
+	name = "Medical Reception";
+	dir = 8
 	},
-/obj/machinery/door/airlock/medical/glass,
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/machinery/door/firedoor,
+/obj/structure/table/reinforced,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general{
+	dir = 8
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -81037,9 +81171,6 @@
 "vAP" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -81229,10 +81360,9 @@
 /area/station/security/execution)
 "vGz" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
+	icon_state = "whitebluefull"
 	},
-/area/station/medical/reception)
+/area/station/medical/medbay)
 "vGR" = (
 /obj/item/seeds/berry,
 /turf/simulated/floor/wood,
@@ -81880,9 +82010,6 @@
 /area/station/command/bridge)
 "vXx" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -82228,12 +82355,17 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "wiz" = (
-/obj/machinery/economy/atm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
 	},
-/area/station/medical/reception)
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/station/medical/medbay)
 "wjf" = (
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
@@ -82310,6 +82442,16 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"wjT" = (
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/south)
 "wjV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -83250,18 +83392,21 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "wGd" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
 	},
-/area/station/medical/reception)
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/station/medical/medbay)
 "wGr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -83472,15 +83617,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "wMQ" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/machinery/economy/vending/wallmed/directional/west,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/hallway/secondary/bridge)
+/area/station/science/robotics/showroom)
 "wNL" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -83765,12 +83908,19 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "wVq" = (
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
+/obj/item/stock_parts/cell/crap,
+/obj/machinery/cell_charger,
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/area/station/medical/reception)
+/obj/machinery/door/firedoor,
+/obj/structure/sign/singulo{
+	pixel_x = 1;
+	pixel_y = 31
+	},
+/turf/simulated/floor/carpet,
+/area/station/science/robotics/showroom)
 "wVD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -84052,11 +84202,14 @@
 	c_tag = "Medbay Foyer";
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+/obj/structure/bed/roller,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
 	},
-/area/station/medical/reception)
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/station/medical/medbay)
 "xax" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -85048,6 +85201,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "xvh" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -85503,9 +85659,7 @@
 /area/station/medical/reception)
 "xFR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "C1"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "xGg" = (
 /obj/machinery/door/airlock/maintenance,
@@ -86452,13 +86606,23 @@
 	},
 /area/station/science/toxins/mixing)
 "ybT" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "SHOW"
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
+/obj/structure/showcase/horrific_experiment{
+	desc = "Signs describe how cloning pods like these ensure that every Nanotrasen employee can carry out their contracts in full, even in the unlikely event of their catastrophic death. Hopefully they aren't all made of cardboard, like this one.";
+	icon_state = "pod_idle";
+	name = "cloning pod exhibit";
+	pixel_x = 2;
+	pixel_y = 1
 	},
-/turf/simulated/floor/plating,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "ybX" = (
 /obj/structure/extinguisher_cabinet{
@@ -86651,18 +86815,15 @@
 	},
 /area/station/security/processing)
 "yhg" = (
+/obj/item/toy/plushie/carpplushie{
+	name = "\improper Nanotrasen wildlife department space carp plushie"
+	},
 /obj/structure/table/wood,
-/obj/item/paicard{
-	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
-	name = "\improper Nanotrasen-brand personal AI device exhibit"
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/obj/structure/sign/mech{
-	pixel_y = 32
-	},
-/obj/machinery/camera{
-	c_tag = "Robotics Showroom"
-	},
-/turf/simulated/floor/wood,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "yhF" = (
 /obj/structure/cable{
@@ -108015,7 +108176,7 @@ cCj
 chM
 kNJ
 iKb
-bTe
+bWJ
 bTe
 rqt
 fYE
@@ -108271,7 +108432,7 @@ ayc
 auC
 chM
 gIL
-oXS
+pkg
 cjz
 oXS
 eFF
@@ -110326,8 +110487,8 @@ bcK
 lKK
 iZh
 cRU
-cvh
-cvh
+jUN
+jUN
 cRU
 cRU
 cRU
@@ -110585,7 +110746,7 @@ cvU
 ciB
 dAq
 nht
-coo
+uAj
 cjx
 cUq
 ckI
@@ -110842,7 +111003,7 @@ cfi
 fGE
 fGE
 skP
-coo
+uAj
 fXo
 daP
 plq
@@ -111099,7 +111260,7 @@ cfi
 xFH
 kZm
 bVF
-cia
+bYf
 mwo
 daP
 daP
@@ -112121,15 +112282,15 @@ bQn
 bZw
 ebs
 tZp
-fSz
-bcX
+dfv
+car
 cpZ
 ogq
 oHy
 pLQ
 cEU
 opu
-cwq
+gEi
 chN
 bRb
 lhd
@@ -112382,12 +112543,12 @@ cbC
 mYU
 oHR
 vyL
-cCf
-cCf
+bYe
+cia
 coo
 dMo
-dMo
-dMo
+dZy
+dZy
 bRb
 fgn
 atg
@@ -112636,14 +112797,14 @@ bZl
 bZl
 caO
 jdP
-jUN
-iCM
+xvh
+cia
 oqO
 dej
 dvU
-cCf
-vGz
-fGE
+coo
+tkj
+qIt
 xat
 bRb
 cxA
@@ -112663,7 +112824,7 @@ utJ
 cGj
 cIm
 xaq
-clg
+bRU
 cPH
 cgk
 cEk
@@ -112881,26 +113042,26 @@ bDX
 byq
 bkW
 bLS
-bKT
-lna
-abq
-abq
-ybT
+cnj
+bSc
+elV
+rFc
+gHh
 bRZ
 bWb
 bWG
 bYb
-iwv
+bSc
 tZp
 jdP
 xvh
-cCf
+cia
 cpz
 vXx
 oNo
-sIh
+cCf
 vGz
-fGE
+vGz
 chW
 pri
 voO
@@ -113138,17 +113299,17 @@ uRT
 bFK
 bkW
 bLl
-cnj
-bFI
-lna
-lna
-bSc
-eQf
+bNd
+bYN
+bUX
+bUX
+bUX
+adP
 bUX
 adP
 bYJ
-bSc
-aoi
+esi
+bcX
 jdP
 jEN
 coo
@@ -113157,7 +113318,7 @@ vAP
 bNj
 nUU
 vGz
-fGE
+vGz
 uZP
 pri
 tqh
@@ -113395,13 +113556,13 @@ bNS
 bwi
 bkW
 bac
-bKT
+bNd
 wMQ
-bQr
-bQr
-ybT
-pcN
-jJW
+nFV
+ejG
+ejG
+ejG
+ejG
 bWO
 bYn
 czN
@@ -113414,7 +113575,7 @@ hcL
 cmq
 coo
 wiz
-fGE
+kRA
 wGd
 bRb
 cuf
@@ -113652,27 +113813,27 @@ bNS
 bFM
 vqS
 bJr
-bNd
-bOM
-bOM
-bQr
+cnm
 bSc
+bSc
+bSc
+wVq
 cfJ
-ejG
-bWJ
-bYe
+jJW
 bSc
-car
+nKy
+aoi
+cIA
 jkB
 cHA
 coo
 coo
-bRU
-cCf
+cia
+cia
 oHR
-wVq
-cfi
-cvU
+cfo
+iNH
+oBR
 aWQ
 bRb
 bRb
@@ -113910,29 +114071,29 @@ bFN
 mJv
 bJr
 bNd
-bNd
-bOM
-bQp
-bSc
 bTL
-atl
-bWK
-bYf
-kRA
+bSc
 ilU
+bWN
+bWN
+bSd
+bWK
+bYg
+bYg
+bNp
 ccn
-bcX
+pcN
 cdW
-cfo
-uAj
+cgw
+cgw
 cgw
 cjH
-coz
+pDO
 coz
 coz
 bcH
 ctQ
-bcH
+lTT
 sfS
 sZI
 sZI
@@ -114167,12 +114328,12 @@ bFO
 vXg
 bJq
 bay
-gHh
 nxu
+iwv
 dhm
 cwr
+bVc
 uPy
-hYz
 cKR
 nmc
 lOK
@@ -114424,16 +114585,16 @@ bFP
 sxN
 bJr
 bNd
-bNd
 bOM
-bQr
 bSc
+bQr
 bSd
-ejG
+bSd
+bWN
 hgu
 bYg
-pkg
-qIt
+bYg
+tZp
 cco
 bcX
 cPD
@@ -114680,16 +114841,16 @@ bwi
 bFQ
 jbl
 bJr
-bNd
-bOM
-bOM
-bQp
+hYz
 bSc
+bSc
+bSc
+jXC
 yhg
 atl
-adP
-nKy
 bSc
+nKy
+aoi
 cas
 caY
 cAy
@@ -114937,16 +115098,16 @@ bwi
 bwi
 bkW
 hEZ
-bLg
+bNd
 bxp
 bQp
-bQp
-ybT
-gEi
-bVc
+bUX
+adP
+bUX
+bUX
 bWI
 bYd
-cnm
+bYd
 cpP
 mwW
 cnB
@@ -115194,17 +115355,17 @@ boE
 bFS
 bkW
 bJt
-bLf
-bFI
+bNd
+wMQ
+ejG
 lna
-lna
-bSc
+eQf
 bTN
 ejG
-bWN
-bYN
-bSc
-jXC
+ejG
+ejG
+lna
+bcX
 jdP
 cef
 cft
@@ -115451,18 +115612,18 @@ bDX
 byq
 bkW
 bMm
-bLg
-lna
-abq
-abq
+bLf
+bSc
+sIh
+iCM
 ybT
 bTO
 bWw
 bWQ
 bYj
-iwv
-bNp
-jdP
+bSc
+wjT
+sAV
 cee
 cHM
 cgB
