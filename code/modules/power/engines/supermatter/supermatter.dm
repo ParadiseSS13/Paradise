@@ -418,7 +418,7 @@
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
-	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
+	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1, cause = "Exploding Supermatter")
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
