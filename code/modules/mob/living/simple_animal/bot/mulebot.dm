@@ -455,9 +455,12 @@
 	M.layer = initial(M.layer)
 	M.pixel_y = initial(M.pixel_y)
 
-// called to unload the bot
-// argument is optional direction to unload
-// if zero, unload at bot's location
+/**
+  * Drops any load or passengers the bot is carrying
+  *
+  * Arguments:
+  * * dirn - Optional direction to unload, if zero unload at bot's location
+  */
 /mob/living/simple_animal/bot/mulebot/proc/unload(dirn)
 	if(!load)
 		return
