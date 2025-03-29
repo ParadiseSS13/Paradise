@@ -2548,7 +2548,7 @@
 /area/station/security/prison/cell_block)
 "aAR" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -2740,9 +2740,9 @@
 /area/station/supply/qm)
 "aDv" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "aDx" = (
@@ -4521,7 +4521,7 @@
 /area/station/medical/medbay2)
 "aWx" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -5254,7 +5254,7 @@
 "bcg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "bch" = (
@@ -11526,7 +11526,7 @@
 "cmH" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "cmI" = (
@@ -14135,7 +14135,7 @@
 /area/station/engineering/smes)
 "cOx" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -15958,7 +15958,7 @@
 /area/station/service/hydroponics)
 "diy" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "diD" = (
@@ -16378,13 +16378,13 @@
 /area/station/maintenance/security/aft_starboard)
 "dmR" = (
 /obj/structure/closet/crate,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -21171,7 +21171,7 @@
 "eme" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "emi" = (
@@ -22944,12 +22944,12 @@
 /area/station/command/office/blueshield)
 "eEs" = (
 /obj/structure/closet/crate,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/starboard)
 "eEt" = (
@@ -24319,7 +24319,7 @@
 /area/station/maintenance/apmaint)
 "eTs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -25983,7 +25983,7 @@
 "fhT" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "fhY" = (
@@ -41754,7 +41754,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -42247,7 +42247,7 @@
 /area/station/security/armory/secure)
 "itZ" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/t_scanner,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -49914,7 +49914,7 @@
 "jRJ" = (
 /obj/machinery/alarm/directional/south,
 /obj/structure/closet/firecloset,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/security/aft_port)
 "jRK" = (
@@ -53622,7 +53622,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/trash,
 /obj/item/crowbar,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "kHv" = (
@@ -58449,10 +58449,10 @@
 /area/station/hallway/primary/starboard)
 "lEt" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -64814,6 +64814,17 @@
 /obj/machinery/shieldwallgen,
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
+"mWr" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/warden)
 "mWx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -64878,7 +64889,7 @@
 /area/station/public/fitness)
 "mWP" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "mWS" = (
@@ -67019,7 +67030,7 @@
 "nsf" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "nsh" = (
@@ -67105,7 +67116,7 @@
 /area/station/security/brig)
 "ntJ" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/paper_bin,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -67907,7 +67918,7 @@
 "nBJ" = (
 /obj/structure/table,
 /obj/item/decorations/sticky_decorations/flammable/ghost,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -70274,8 +70285,8 @@
 /area/station/maintenance/fsmaint2)
 "nYu" = (
 /obj/structure/closet/secure_closet/evidence,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/item/restraints/handcuffs/pinkcuffs,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
@@ -71008,7 +71019,7 @@
 "oeZ" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -78520,7 +78531,7 @@
 "pBT" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "pCt" = (
@@ -80501,7 +80512,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
@@ -81294,7 +81305,7 @@
 /area/station/engineering/equipmentstorage)
 "qey" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -83353,7 +83364,7 @@
 "qCB" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -92640,7 +92651,7 @@
 /area/station/hallway/primary/central/ne)
 "sqZ" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/stack/cable_coil,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -97637,7 +97648,7 @@
 /area/station/security/processing)
 "toU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "toV" = (
@@ -100218,7 +100229,7 @@
 "tRB" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "tRV" = (
@@ -109776,8 +109787,8 @@
 /area/station/engineering/control)
 "vLQ" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "vLS" = (
@@ -111144,9 +111155,9 @@
 "vZb" = (
 /obj/structure/closet,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -170261,7 +170272,7 @@ kWw
 wgz
 nHY
 xcQ
-vTq
+mWr
 aGg
 fWa
 qJu

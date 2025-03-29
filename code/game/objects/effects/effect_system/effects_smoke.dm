@@ -147,21 +147,16 @@
 	lifetime = 10 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
-/obj/effect/particle_effect/smoke/steam/smoke_mob(mob/living/breather)
+/obj/effect/particle_effect/smoke/steam/smoke_mob(mob/living/carbon/breather)
 	if(!istype(breather))
 		return
 	if(IS_MINDFLAYER(breather))
 		return // Mindflayers are fully immune to steam
-	if(!ishuman(breather))
-		breather.adjustFireLoss(8)
+	var/fire_armour = breather.get_thermal_protection()
+	if(fire_armour >= FIRE_SUIT_MAX_TEMP_PROTECT || HAS_TRAIT(breather, TRAIT_RESISTHEAT))
 		return
 
-	var/mob/living/carbon/human/human_crosser = breather
-	var/fire_armour = human_crosser.get_thermal_protection()
-	if(fire_armour >= FIRE_SUIT_MAX_TEMP_PROTECT || HAS_TRAIT(human_crosser, TRAIT_RESISTHEAT))
-		return
-
-	breather.adjustFireLoss(5)
+	breather.adjust_bodytemperature(80) // Enough to immediately take a small amount of damage, but people cool down quickly.
 	if(prob(20))
 		to_chat(breather, "<span class='warning'>You are being scalded by the hot steam!</span>")
 

@@ -414,6 +414,8 @@
 			to_chat(src, message)
 		GLOB.clientmessages.Remove(ckey)
 
+	acquire_dpi()
+
 	if(SSinput.initialized)
 		set_macros()
 
@@ -1326,6 +1328,15 @@
 	SEND_SOUND(usr, sound(null))
 	to_chat(src, "All sounds stopped.")
 	tgui_panel?.stop_music()
+
+/client/proc/acquire_dpi()
+	set waitfor = FALSE
+
+	// Remove with 516
+	if(byond_version < 516)
+		return
+
+	window_scaling = text2num(winget(src, null, "dpi"))
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
