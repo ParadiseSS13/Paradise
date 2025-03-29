@@ -3,7 +3,7 @@
 	desc = "A metal gauntlet with a piston-powered ram ontop for that extra 'ompfh' in your punch."
 	icon_state = "powerfist"
 	item_state = "powerfist"
-	flags = CONDUCT
+	flags = CONDUCT | SHIELD_PENETRATE
 	attack_verb = list("whacked", "fisted", "power-punched")
 	force = 12
 	throwforce = 10
