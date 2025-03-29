@@ -1111,11 +1111,11 @@
 /obj/item/toy/plushie/borgplushie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/borg/upgrade/reset))
 		return ..()
-	
+
 	if(!plushie_module_selected)
 		to_chat(user, "<span class='warning'>[src] is already in standard mode!</span>")
 		return ITEM_INTERACT_COMPLETE
-	
+
 	borg_plushie_overlay = "plushie_borgassist"
 	update_icon()
 	to_chat(user, "<span class='notice'>The fabric on [src] changes color, reverting it back to standard mode.</span>")
@@ -1232,7 +1232,7 @@
 	visible_message("<span class='danger'>[src] explodes!</span>")
 	if(grenade)
 		explosive_betrayal(grenade)
-	explosion(get_turf(src), -1, 0, 1, 1, flame_range = 1)
+	explosion(get_turf(src), -1, 0, 1, 1, flame_range = 1, cause = "Plasmaman plushie caught on fire")
 	if(!QDELETED(src))
 		qdel(src)
 

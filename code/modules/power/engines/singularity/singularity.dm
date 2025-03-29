@@ -511,7 +511,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2), 1)
-	explosion(loc, (dist), (dist * 2), (dist * 4))
+	explosion(loc, (dist), (dist * 2), (dist * 4), cause = "singularity on singularity violence")
 	qdel(src)
 	return(gain)
 
