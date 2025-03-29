@@ -36,18 +36,4 @@
 	new /obj/item/crowbar(src)
 	new /obj/item/crowbar(src)
 
-/obj/structure/closet/walllocker/emerglocker/north
-	pixel_y = 32
-	dir = SOUTH
-
-/obj/structure/closet/walllocker/emerglocker/south
-	pixel_y = -32
-	dir = NORTH
-
-/obj/structure/closet/walllocker/emerglocker/west
-	pixel_x = -32
-	dir = WEST
-
-/obj/structure/closet/walllocker/emerglocker/east
-	pixel_x = 32
-	dir = EAST
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker, 32, 32)

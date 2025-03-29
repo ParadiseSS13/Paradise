@@ -1541,6 +1541,7 @@
 #include "code\modules\admin\verbs\possess.dm"
 #include "code\modules\admin\verbs\pray.dm"
 #include "code\modules\admin\verbs\randomverbs.dm"
+#include "code\modules\admin\verbs\screenshot.dm"
 #include "code\modules\admin\verbs\serialization.dm"
 #include "code\modules\admin\verbs\space_transitions.dm"
 #include "code\modules\admin\verbs\striketeam_syndicate.dm"
