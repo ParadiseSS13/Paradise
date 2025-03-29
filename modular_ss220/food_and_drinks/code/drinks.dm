@@ -1,3 +1,6 @@
+/obj/item/reagent_containers/drinks/bottle
+	var/broken_bottle_icon = 'icons/obj/drinks.dmi'
+
 /obj/item/reagent_containers/drinks/drinkingglass
 	name = "drinking glass"
 
@@ -921,3 +924,117 @@
 	required_reagents = list("vodka" = 1, "bitter" = 1, "wine" = 1, "lager" = 1, "cola" = 1)
 	mix_message = "Красный свет из сосуда заполняет всё вокруг."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/ethanol/carotene
+	name = "Carotene"
+	id = "carotene"
+	description = "Коктейль из моркови, вина и винограда."
+	color = "#ffcb3b"
+	alcohol_perc = 0.4
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_icon = "carotene"
+	drink_name = "Carotene"
+	drink_desc = "Несмотря на название, таким коктейлем намного более вероятно убить печень, чем вылечить плохое зрение."
+	taste_description = "кислый виноград и морковь"
+
+/datum/chemical_reaction/carotene
+	name = "Carotene"
+	id = "carotene"
+	result = "carotene"
+	required_reagents = list("grapejuice" = 1, "carrotjuice" = 1, "sugar" = 1, "lemonjuice" = 1, "wine" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/drink/orangade
+	name = "Orangade"
+	id = "orangade"
+	description = "Освежающий напиток из апельсина и моркови."
+	color = "#ffa600"
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_icon = "orangade"
+	drink_name = "Orangade"
+	drink_desc = "Шипучая оранжевая радость, что заставляет улыбаться лишь при взгляде на неё!"
+	taste_description = "апельсин и морковь"
+
+/datum/chemical_reaction/orangade
+	name = "Orangade"
+	id = "orangade"
+	result = "orangade"
+	required_reagents = list("carrotjuice" = 2, "orangejuice" = 2, "sodawater" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/ethanol/carrotmary
+	name = "Carrot Mary"
+	id = "carrotmary"
+	description = "Густоватая смесь моркови и водки. Пахнет солёно."
+	color = "#e69e42"
+	alcohol_perc = 0.4
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_icon = "carrotmary"
+	drink_name = "Carrot Mary"
+	drink_desc = "Популярный неорусский коктейль, обычно приготавливаемый к новогоднему столу."
+	taste_description = "солёная морковь"
+
+/datum/chemical_reaction/carrotmary
+	name = "Carrot Mary"
+	id = "carrotmary"
+	result = "carrotmary"
+	required_reagents = list("vodka" = 2, "carrotjuice" = 2, "limejuice" = 1, "sodiumchloride" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/ethanol/pineapple_carrot_shrub
+	name = "Pineapple Carrot Shrub"
+	id = "pineapple_carrot_shrub"
+	description = "Коктейль из джина, ананаса и моркови."
+	color = "#e67e42"
+	alcohol_perc = 0.4
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_icon = "pineapple_carrot_shrub"
+	drink_name = "Pineapple Carrot Shrub"
+	drink_desc = "Коктейль, сочетающий в себе вкусы разных климатов. Выглядит сладко и освежающе."
+	taste_description = "джин со сладостью моркови и ананаса"
+
+/datum/chemical_reaction/pineapple_carrot_shrub
+	name = "Pineapple Carrot Shrub"
+	id = "pineapple_carrot_shrub"
+	result = "pineapple_carrot_shrub"
+	required_reagents = list("gin" = 2, "carrotjuice" = 1, "pineapplejuice" = 1, "sugar" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/ethanol/maiden_in_dungeon
+	name = "Maiden in Dungeon"
+	id = "maiden_in_dungeon"
+	description = "Эль с морковным соком и острым соусом."
+	color = "#e45238"
+	alcohol_perc = 0.4
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_icon = "maiden_in_dungeon"
+	drink_name = "Maiden in Dungeon"
+	drink_desc = "Напиток, что был придуман заядлыми игроками в DnD. Его запах почти что заставляет Вас чихать."
+	taste_description = "жгучее драконье дыхание"
+
+/datum/chemical_reaction/maiden_in_dungeon
+	name = "Maiden in Dungeon"
+	id = "maiden_in_dungeon"
+	result = "maiden_in_dungeon"
+	required_reagents = list("ale" = 1, "carrotjuice" = 2, "lemonjuice" = 1, "capsaicin" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/obj/item/reagent_containers/drinks/bottle/carrotjuice
+	name = "carrot juice"
+	desc = "Упаковка морковного сока. Полезен для зрения и, если верить некоторым слухам, для роста."
+	icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	icon_state = "carrotjuice_carton"
+	item_state = "carton"
+	is_glass = FALSE
+	gender = PLURAL
+	list_reagents = list("carrotjuice" = 50)
+	broken_bottle_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+
+/obj/machinery/economy/vending/boozeomat/Initialize(mapload)
+	products += list(/obj/item/reagent_containers/drinks/bottle/carrotjuice = 2)
+	return ..()
