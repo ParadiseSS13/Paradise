@@ -472,10 +472,7 @@
 		load.layer = initial(load.layer)
 		load.plane = initial(load.plane)
 		if(dirn)
-			var/turf/T = loc
-			var/turf/newT = get_step(T,dirn)
-			if(load.CanPass(load,newT)) //Can't get off onto anything that wouldn't let you pass normally
-				step(load, dirn)
+			load.Move(get_step(loc, dirn))
 		load = null
 
 	update_icon(UPDATE_OVERLAYS)
