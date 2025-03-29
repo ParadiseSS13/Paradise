@@ -39,7 +39,6 @@
 #pragma ImplicitNullType disabled
 #pragma LostTypeInfo disabled
 // END TYPEMAKER
-#pragma UnimplementedAccess error
 
 //3000-3999
 #pragma EmptyBlock error
