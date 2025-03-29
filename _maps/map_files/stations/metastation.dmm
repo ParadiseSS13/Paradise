@@ -32342,6 +32342,12 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/rack,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -37957,7 +37963,6 @@
 	desc = "An old NT branded sleeper, decommissioned after heavy usage. None of the functional machinery remains inside.";
 	name = "Decommissioned Sleeper"
 	},
-/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -59198,7 +59203,6 @@
 "lRY" = (
 /obj/effect/decal/cleanable/greenglow,
 /obj/structure/glowshroom,
-/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "lSa" = (
