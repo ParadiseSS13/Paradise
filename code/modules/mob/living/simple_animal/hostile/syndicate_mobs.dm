@@ -28,13 +28,13 @@
 #define VISOR_RAIDER "armor_booster"
 #define VISOR_JAEGER "elite_armor_booster"
 
-#define ESHIELD		(1 << 0) // Do we have an energy shield in our hands that will reflect any energy projectiles?
-#define SWORD		(1 << 1) // Whether we play activation/deactivation sound of e/dsword
-#define MODSUIT		(1 << 2) // Do we wear a modsuit?
+#define ESHIELD			(1 << 0) // Do we have an energy shield in our hands that will reflect any energy projectiles?
+#define SWORD			(1 << 1) // Whether we play activation/deactivation sound of e/dsword
+#define MODSUIT			(1 << 2) // Do we wear a modsuit?
 #define ARMOR_BOOSTER	(1 << 3) // If our armor booster currently active. Affects `damage_coeff` and overlay, used alongside `modsuit` only
-#define HEALING		(1 << 4) // Are we currently healing ourselves?
-#define CRITICAL	(1 << 5) // Are we in a critical condition?
-#define ADRENAL		(1 << 6) // Do we have an adrenal bio-chip?
+#define HEALING			(1 << 4) // Are we currently healing ourselves?
+#define CRITICAL		(1 << 5) // Are we in a critical condition?
+#define ADRENAL			(1 << 6) // Do we have an adrenal bio-chip?
 
 //////////////////////////////
 // MARK: SYNDICATE MOB
