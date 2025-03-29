@@ -143,15 +143,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
-"aQ" = (
-/obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave North 1";
-	network = list("SyndicateCaves");
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
 "bb" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -555,6 +546,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"dy" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
+"dz" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave North 1";
+	network = list("SyndicateCaves");
+	dir = 1
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/unpowered/syndicate_space_base/inner)
 "dA" = (
 /turf/template_noop,
 /area/ruin/unpowered/syndicate_space_base/inner)
@@ -879,6 +889,10 @@
 "fo" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave East 2";
+	network = list("SyndicateCaves")
+	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "fp" = (
@@ -1330,6 +1344,14 @@
 	icon_state = "darkred"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"hI" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave East 4";
+	network = list("SyndicateCaves");
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/cave)
 "hL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1936,6 +1958,14 @@
 /obj/machinery/alarm/syndicate/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"lj" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave East 3";
+	network = list("SyndicateCaves");
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "lo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2252,6 +2282,7 @@
 /obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 1
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "no" = (
@@ -2290,10 +2321,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -27
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2834,21 +2861,11 @@
 /area/ruin/unpowered/syndicate_space_base/cave)
 "qj" = (
 /obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave North 3";
-	network = list("SyndicateCaves");
-	dir = 1
-	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "qs" = (
 /obj/machinery/light,
 /obj/machinery/porta_turret/syndicate/exterior,
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave North 4";
-	network = list("SyndicateCaves");
-	dir = 1
-	},
 /turf/simulated/floor/vault,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "qv" = (
@@ -3274,10 +3291,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave East 1";
-	network = list("SyndicateCaves")
-	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "ts" = (
@@ -3481,6 +3494,21 @@
 /obj/structure/sign/chemistry,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"uL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/green{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "uM" = (
 /obj/item/storage/part_replacer,
 /obj/structure/rack{
@@ -3613,6 +3641,16 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"vn" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave North 4";
+	network = list("SyndicateCaves");
+	dir = 10
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/unpowered/syndicate_space_base/cave)
 "vo" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
@@ -3634,10 +3672,6 @@
 	},
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3945,15 +3979,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"wO" = (
-/obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave North 5";
-	network = list("SyndicateCaves");
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
 "wP" = (
 /obj/structure/table/reinforced,
 /obj/item/scalpel,
@@ -3966,9 +3991,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "wW" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/alarm/syndicate/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4210,6 +4232,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"yB" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave West 3";
+	network = list("SyndicateCaves");
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/cave)
 "yC" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'BOMB RANGE";
@@ -4695,6 +4725,7 @@
 /obj/structure/cable/green{
 	icon_state = "1-2"
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4950,6 +4981,10 @@
 /obj/item/storage/box/syringes,
 /obj/item/gun/syringe/syndicate,
 /obj/item/stock_parts/cell/high/plus,
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -5174,6 +5209,16 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"EM" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave North 3";
+	network = list("SyndicateCaves");
+	dir = 1
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/unpowered/syndicate_space_base/cave)
 "EN" = (
 /obj/machinery/sleeper/syndie{
 	dir = 4
@@ -5578,6 +5623,16 @@
 	icon_state = "darkpurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"GC" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave East 1";
+	network = list("SyndicateCaves");
+	dir = 6
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/unpowered/syndicate_space_base/cave)
 "GL" = (
 /turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
@@ -5694,13 +5749,8 @@
 /area/ruin/unpowered/syndicate_space_base/storage)
 "Hu" = (
 /obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave North 2";
-	network = list("SyndicateCaves");
-	dir = 1
-	},
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
+/area/ruin/unpowered/syndicate_space_base/inner)
 "HB" = (
 /obj/structure/rack{
 	dir = 8
@@ -5716,6 +5766,23 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
+"HH" = (
+/obj/machinery/economy/arcade/claw/syndi,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
+"HI" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave North 5";
+	network = list("SyndicateCaves");
+	dir = 10
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/cave)
 "HM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -6003,25 +6070,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/telecomms)
-"Jm" = (
-/obj/machinery/firealarm/directional/south,
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/green{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Jn" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers{
@@ -6083,10 +6131,6 @@
 /obj/item/analyzer{
 	pixel_x = -5;
 	pixel_y = 5
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
 	},
 /obj/item/analyzer{
 	pixel_x = -5;
@@ -6415,11 +6459,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave East 3";
-	network = list("SyndicateCaves");
-	dir = 4
-	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -6461,6 +6500,20 @@
 /obj/structure/sign/poster/contraband/lamarr,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"Md" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/cable/green{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Mf" = (
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -6862,19 +6915,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
-"OZ" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave East 4";
-	network = list("SyndicateCaves");
-	dir = 4
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/ruin/unpowered/syndicate_space_base/cave)
 "Pb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7016,7 +7056,6 @@
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "Qp" = (
 /obj/machinery/light,
-/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Qr" = (
@@ -7573,19 +7612,6 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
-"Tp" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave West 3";
-	network = list("SyndicateCaves");
-	dir = 8
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/ruin/unpowered/syndicate_space_base/cave)
 "Tr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -7612,9 +7638,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "Tv" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/light_switch{
 	dir = 8;
 	pixel_x = 24;
@@ -7740,9 +7763,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
 "Ut" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Syndicate Base Cave East 5";
 	network = list("SyndicateCaves");
@@ -7931,6 +7951,14 @@
 	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"Vx" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave North 2";
+	network = list("SyndicateCaves");
+	dir = 10
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "VB" = (
 /obj/structure/cable/green{
 	icon_state = "0-8"
@@ -8069,6 +8097,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"Wg" = (
+/obj/machinery/camera{
+	c_tag = "Syndicate Base Cave East 6";
+	network = list("SyndicateCaves");
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/cave)
 "Wi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -8160,10 +8196,6 @@
 "WT" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave East 2";
-	network = list("SyndicateCaves")
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -8384,17 +8416,6 @@
 "XR" = (
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
-"XW" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Syndicate Base Cave East 6";
-	network = list("SyndicateCaves");
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
 "XX" = (
 /obj/machinery/economy/vending/autodrobe/free,
 /turf/simulated/floor/plasteel{
@@ -9200,8 +9221,8 @@ kE
 kE
 AD
 AD
-Tp
-kE
+KN
+yB
 kE
 jL
 kE
@@ -9702,7 +9723,7 @@ Ri
 kE
 kE
 Mf
-kE
+HI
 xn
 pD
 iu
@@ -9775,7 +9796,7 @@ Ri
 Ri
 AD
 AD
-wO
+qj
 xn
 tJ
 xn
@@ -10146,7 +10167,7 @@ kE
 kE
 kE
 xn
-xM
+HH
 xQ
 vR
 nW
@@ -10215,9 +10236,9 @@ kE
 AD
 Mf
 AD
+Mf
 AD
-kE
-kE
+vn
 xn
 rX
 Tv
@@ -10402,7 +10423,7 @@ ZU
 zz
 mP
 np
-fP
+uL
 wu
 IX
 IX
@@ -10460,7 +10481,7 @@ tt
 tW
 am
 Fe
-am
+cK
 am
 Mw
 am
@@ -10920,7 +10941,7 @@ jH
 FP
 qB
 vO
-nw
+dy
 Vr
 IX
 AD
@@ -11164,7 +11185,7 @@ kE
 AD
 AD
 AD
-kE
+AD
 kE
 kE
 Dy
@@ -11238,8 +11259,8 @@ AD
 LE
 Mf
 AD
-kE
-kE
+AD
+EM
 Dy
 bO
 fb
@@ -11915,7 +11936,7 @@ Ij
 JL
 Gi
 Gi
-Jm
+UM
 PL
 hO
 hO
@@ -12111,7 +12132,7 @@ kE
 Ri
 LE
 Mf
-kE
+Vx
 az
 AY
 DL
@@ -12134,7 +12155,7 @@ xo
 mQ
 tB
 tB
-YF
+Md
 PL
 Ud
 ZT
@@ -12289,7 +12310,7 @@ hO
 Wm
 zc
 PL
-Mf
+GC
 Mf
 kE
 AD
@@ -12841,7 +12862,7 @@ Ri
 Ri
 AD
 AD
-kE
+dz
 az
 XE
 LR
@@ -12914,7 +12935,7 @@ Ri
 AD
 Mf
 Mf
-aQ
+qj
 az
 az
 az
@@ -12993,8 +13014,8 @@ kE
 kE
 kE
 kE
-AD
-XW
+Wg
+pT
 kE
 kE
 kE
@@ -13013,7 +13034,7 @@ kE
 pT
 kE
 kE
-kE
+lj
 LL
 kE
 AD
@@ -13074,14 +13095,14 @@ AD
 kE
 kE
 kE
-AD
+pT
 Ut
 kE
 kE
 kE
 kE
-OZ
-AD
+LL
+hI
 AD
 Mf
 Mf
