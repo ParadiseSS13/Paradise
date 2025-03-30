@@ -40,7 +40,7 @@
 	if(!imp_in)
 		return
 
-	explosion(src, heavy, medium, weak, weak, flame_range = weak)
+	explosion(src, heavy, medium, weak, weak, flame_range = weak, cause = name)
 
 	// In case something happens to the implantee between now and the
 	// self-destruct

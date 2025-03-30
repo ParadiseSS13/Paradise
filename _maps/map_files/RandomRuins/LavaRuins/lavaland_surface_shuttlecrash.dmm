@@ -197,7 +197,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "sx" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -624,7 +624,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/unpowered/misc_lavaruin)
 "Uw" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"

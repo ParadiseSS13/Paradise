@@ -49,10 +49,10 @@ jobs:
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
           python tools/ci/restrict_file_types.py
-          python tools/ci/check_map_sizes.py
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
           python tools/ci/check_icons.py
+          python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
 
@@ -69,7 +69,7 @@ jobs:
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.0
+        uses: actions/setup-dotnet@v4.3.1
         with:
           dotnet-version: 9.x
       - name: Run OD
