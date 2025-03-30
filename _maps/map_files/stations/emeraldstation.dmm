@@ -75164,10 +75164,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"oTQ" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/hallway/secondary/entry/west)
 "oTT" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/cleaner,
@@ -146309,8 +146305,8 @@ bqd
 uPm
 aZS
 jnP
-jnP
-oTQ
+aZS
+ixW
 uWo
 pDX
 bOD
@@ -146567,7 +146563,7 @@ uPm
 aZS
 aZS
 aZS
-oTQ
+ixW
 xkF
 pDX
 dnw

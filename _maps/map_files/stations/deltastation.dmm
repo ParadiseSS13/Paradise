@@ -78904,10 +78904,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
-"qyF" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "qzl" = (
 /obj/structure/sign/directions/engineering{
 	dir = 4;
@@ -95171,10 +95167,6 @@
 	icon_state = "red"
 	},
 /area/station/security/checkpoint/secondary)
-"yff" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/space/nearstation)
 "yfB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -116132,7 +116124,7 @@ cWm
 drn
 pcc
 abj
-qyF
+abj
 aaa
 aaa
 aaa
@@ -116388,8 +116380,8 @@ cNh
 dhG
 vZd
 cHA
-yff
-qyF
+cHA
+abj
 aaa
 aaa
 aaa
@@ -116645,7 +116637,7 @@ cIx
 cWn
 esC
 iaF
-yff
+cHA
 abj
 aaa
 sJA
@@ -116902,7 +116894,7 @@ cIx
 cWo
 jEd
 dSx
-yff
+cHA
 abj
 abj
 sJA
