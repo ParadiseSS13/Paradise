@@ -312,7 +312,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/generate_lavaland_zlevels()
 	log_startup_progress("Loading Lavaland...")
 	var/watch = start_watch()
-	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = CROSSLINKED, traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK))
+	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK))
 	GLOB.maploader.load_map(file("_maps/map_files/generic/Lavaland.dmm"), z_offset = lavaland_z_level)
 	CHECK_TICK
 	log_startup_progress("Added lavaland levels in [stop_watch(watch)]s")
