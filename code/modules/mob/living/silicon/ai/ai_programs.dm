@@ -325,7 +325,7 @@
 	action_icon_state = "smes-o"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
-	base_cooldown = 300 SECONDS
+	base_cooldown = 120 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 7
 	selection_activated_message = "<span class='notice'>You tap into the station's powernet...</span>"
@@ -380,7 +380,7 @@
 
 /datum/spell/ai_spell/ranged/power_shunt/on_purchase_upgrade()
 	power_sent = min(10000, 2500 + (spell_level * 2500))
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 60)), cooldown_min)
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 30)), cooldown_min)
 
 /// Repair Nanites - Uses large numbers of nanites to repair things
 /datum/ai_program/repair_nanites
@@ -399,9 +399,9 @@
 	action_icon_state = "tube"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
-	base_cooldown = 300 SECONDS
+	base_cooldown = 150 SECONDS
 	cooldown_min = 30 SECONDS
-	level_max = 10
+	level_max = 7
 	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to repair...</span>"
 	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
 
@@ -439,7 +439,7 @@
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 
 /datum/spell/ai_spell/ranged/repair_nanites/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 60)), cooldown_min)
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 30)), cooldown_min)
 
 /// Universal Adapter - Unlocks usage of repair nanites and power shunt for IPCs
 /datum/ai_program/universal_adapter
@@ -550,9 +550,9 @@
 	action_icon_state = "frozen_smoke_capsule"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
-	base_cooldown = 300 SECONDS
+	base_cooldown = 60 SECONDS
 	cooldown_min = 30 SECONDS
-	level_max = 7
+	level_max = 3
 	selection_activated_message = "<span class='notice'>You prepare to synthesize a nanofrost globule...</span>"
 	selection_deactivated_message = "<span class='notice'>You let the nanofrost dissipate.</span>"
 
@@ -579,7 +579,7 @@
 	addtimer(CALLBACK(nanofrost, TYPE_PROC_REF(/obj/effect/nanofrost_container, Smoke)), 5 SECONDS)
 
 /datum/spell/ai_spell/ranged/extinguishing_system/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 30 SECONDS)
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 15)), 30 SECONDS)
 
 /// Bluespace Miner Subsystem - Makes money for science, at the cost of extra power drain
 /datum/ai_program/bluespace_miner
@@ -708,9 +708,9 @@
 	action_icon_state = "scalpel_laser1_on"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
-	base_cooldown = 300 SECONDS
+	base_cooldown = 150 SECONDS
 	cooldown_min = 30 SECONDS
-	level_max = 8
+	level_max = 7
 	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to perform organic repairs...</span>"
 	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
 
@@ -742,7 +742,7 @@
 					E.fix_burn_wound()
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 60)), cooldown_min)
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 30)), cooldown_min)
 
 /// Enhanced Door Controls - Reduces delay in bolting and shocking doors
 /datum/ai_program/enhanced_doors
@@ -788,8 +788,8 @@
 	action_icon = 'icons/obj/machines/research.dmi'
 	action_icon_state = "tdoppler"
 	auto_use_uses = FALSE
-	base_cooldown = 900 SECONDS
-	cooldown_min = 600 SECONDS
+	base_cooldown = 600 SECONDS
+	cooldown_min = 300 SECONDS
 	starts_charged = FALSE
 	level_max = 10
 	selection_activated_message = "<span class='notice'>You spool up your research tools...</span>"
@@ -842,7 +842,7 @@
 		upgraded = TRUE
 
 /datum/spell/ai_spell/research_subsystem/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 600 SECONDS)
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), cooldown_min)
 
 // Emergency Sealant - Patches holes with metal foam
 /datum/ai_program/emergency_sealant
@@ -879,8 +879,8 @@
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 50
 	AI.play_sound_remote(target, 'sound/effects/bubbles2.ogg', 50)
-	new /obj/effect/temp_visual/single_user/ai_telegraph(target, user)
-	addtimer(CALLBACK(src, PROC_REF(do_metal_foam), user, target), 3 SECONDS)
+	new /obj/effect/temp_visual/single_user/ai_telegraph/sealant(target, user)
+	addtimer(CALLBACK(src, PROC_REF(do_metal_foam), user, target), 10 SECONDS)
 
 /datum/spell/ai_spell/ranged/emergency_sealant/proc/do_metal_foam(mob/user, target)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 15)
