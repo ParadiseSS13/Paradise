@@ -47,9 +47,9 @@
 /obj/machinery/airlock_controller/LateInitialize()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == int_door_link_id)
-			interior_doors += A.UID()
+			interior_doors |= A.UID()
 		if(A.id_tag == ext_door_link_id)
-			exterior_doors += A.UID()
+			exterior_doors |= A.UID()
 
 	if(!length(interior_doors))
 		stack_trace("[src] at [x],[y],[z] didnt setup any interior airlocks! Please double check the IDs!")
@@ -71,7 +71,6 @@
 		stack_trace("[src] at [x],[y],[z] didnt setup any interior buttons! Please double check the IDs!")
 	if(!eb_setup)
 		stack_trace("[src] at [x],[y],[z] didnt setup any exterior buttons! Please double check the IDs!")
-
 
 /obj/machinery/airlock_controller/attack_ghost(mob/user)
 	ui_interact(user)
@@ -409,3 +408,5 @@ send an additional command to open the door again.
 			begin_cycle_in()
 		if(MODE_EXTERIOR)
 			begin_cycle_out()
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/air_cycler, 25, 25)

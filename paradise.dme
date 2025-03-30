@@ -2164,6 +2164,8 @@
 #include "code\modules\lighting\lighting_turf.dm"
 #include "code\modules\mapping\access_helpers.dm"
 #include "code\modules\mapping\base_map_datum.dm"
+#include "code\modules\mapping\dynamic_airlock_linker.dm"
+#include "code\modules\mapping\dynamic_airlocks.dm"
 #include "code\modules\mapping\mapping_helpers.dm"
 #include "code\modules\mapping\merge_conflicts.dm"
 #include "code\modules\mapping\station_datums.dm"
