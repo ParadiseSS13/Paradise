@@ -2809,6 +2809,7 @@
 /obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -5154,6 +5155,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -6210,6 +6214,15 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/storage)
+"uT" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/west)
 "uW" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -23624,7 +23637,7 @@ du
 gw
 fC
 oG
-Jc
+uT
 gm
 zj
 IK
