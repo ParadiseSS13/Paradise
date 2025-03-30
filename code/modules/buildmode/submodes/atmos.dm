@@ -26,9 +26,9 @@
 	pressure = tgui_input_number(user, "Atmospheric Pressure", "Input", ONE_ATMOSPHERE, 100000, 0, round_value = FALSE)
 	temperature = tgui_input_number(user, "Temperature", "Input", T20C, 100000, round_value = FALSE)
 	oxygen = tgui_input_number(user, "Oxygen ratio", "Input", O2STANDARD, 100000, 0, round_value = FALSE )
-	nitrogen = tgui_input_number(user, "Nitrogen ratio", "Input", N2STANDARD, 100000, 0 round_value = FALSE)
+	nitrogen = tgui_input_number(user, "Nitrogen ratio", "Input", N2STANDARD, 100000, 0, round_value = FALSE)
 	plasma = tgui_input_number(user, "Plasma ratio", "Input", 0, 100000, 0, round_value = FALSE)
-	cdiox = tgui_input_number(user, "CO2 ratio", "Input", 0, 100000, 0 round_value = FALSE)
+	cdiox = tgui_input_number(user, "CO2 ratio", "Input", 0, 100000, 0, round_value = FALSE)
 	nitrox = tgui_input_number(user, "N2O ratio", "Input", 0, 100000, 0, round_value = FALSE)
 	agentbx = tgui_input_number(user, "Agent B ratio", "Input", 0, 100000, 0, round_value = FALSE)
 
