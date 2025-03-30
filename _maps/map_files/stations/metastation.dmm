@@ -25786,12 +25786,6 @@
 	},
 /area/station/supply/office)
 "bXF" = (
-/obj/machinery/door_control{
-	id = "mechbay";
-	name = "Mech Bay Shutters Control";
-	pixel_y = -24;
-	req_access = list(29)
-	},
 /obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -70483,13 +70477,6 @@
 	},
 /area/station/security/armory)
 "qKY" = (
-/obj/machinery/firealarm/directional/west,
-/obj/machinery/door_control{
-	id = "mechbay";
-	name = "Mech Bay Shutters Control";
-	pixel_y = 24;
-	req_access = list(29)
-	},
 /obj/machinery/computer/mech_bay_power_console,
 /obj/machinery/light{
 	dir = 8
@@ -70497,6 +70484,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/greengrid,
 /area/station/science/robotics/chargebay)
 "qLe" = (
@@ -83613,6 +83601,22 @@
 	icon_state = "whiteyellow"
 	},
 /area/station/medical/chemistry)
+"wDR" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "mechbay";
+	name = "Mech Bay Shutters"
+	},
+/obj/machinery/door_control{
+	id = "mechbay";
+	name = "Mech Bay Shutters Control";
+	pixel_y = 24;
+	req_access = list(29)
+	},
+/turf/simulated/floor/plasteel,
+/area/station/science/robotics/chargebay)
 "wDT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -115208,7 +115212,7 @@ cIx
 cIx
 cIu
 cIu
-gKo
+wDR
 tId
 gKo
 cIu
