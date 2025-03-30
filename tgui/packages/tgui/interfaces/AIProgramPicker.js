@@ -6,7 +6,7 @@ export const AIProgramPicker = (props, context) => {
   const { act, data } = useBackend(context);
   const { program_list, ai_info } = data;
   return (
-    <Window width={625} height={600}>
+    <Window width={450} height={600}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>
@@ -26,29 +26,31 @@ export const AIProgramPicker = (props, context) => {
                   mb={1}
                   buttons={
                     <Button icon="file" onClick={() => act('select', { uid: program.UID })}>
-                      Install
+                      {program.installed === 1 ? 'Update' : 'Install'}
                     </Button>
                   }
                 >
                   <LabeledList>
-                    <Stack horizontal>
-                      <Stack.Item>
+                    <Stack vertical>
+                      <Stack.Item mb={2}>
                         <LabeledList.Item label="Description">{program.description}</LabeledList.Item>
                       </Stack.Item>
-                      <Stack.Item>
-                        <LabeledList.Item label={program.installed === 1 ? 'Bandwidth Cost' : 'Memory Cost'}>
-                          {program.memory_cost}
-                        </LabeledList.Item>
-                        <LabeledList.Item label="Upgrade Level">{program.upgrade_level}</LabeledList.Item>
-                      </Stack.Item>
-                      <Stack.Item>
-                        <LabeledList.Item label="Installed">
-                          {program.installed === 1 ? 'True' : 'False'}
-                        </LabeledList.Item>
-                        <LabeledList.Item label="Passive">
-                          {program.is_passive === 1 ? 'True' : 'False'}
-                        </LabeledList.Item>
-                      </Stack.Item>
+                      <Stack>
+                        <Stack.Item horizontal>
+                          <LabeledList.Item label={program.installed === 1 ? 'Bandwidth Cost' : 'Memory Cost'}>
+                            {program.memory_cost}
+                          </LabeledList.Item>
+                          <LabeledList.Item label="Upgrade Level">{program.upgrade_level}</LabeledList.Item>
+                        </Stack.Item>
+                        <Stack.Item>
+                          <LabeledList.Item label="Installed">
+                            {program.installed === 1 ? 'True' : 'False'}
+                          </LabeledList.Item>
+                          <LabeledList.Item label="Passive">
+                            {program.is_passive === 1 ? 'True' : 'False'}
+                          </LabeledList.Item>
+                        </Stack.Item>
+                      </Stack>
                     </Stack>
                   </LabeledList>
                 </Section>
