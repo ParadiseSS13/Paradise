@@ -20079,6 +20079,9 @@
 	},
 /obj/structure/table/reinforced,
 /mob/living/simple_animal/bot/floorbot,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -20575,10 +20578,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "byt" = (
-/obj/structure/rack,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
+/obj/structure/engineeringcart/full{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"

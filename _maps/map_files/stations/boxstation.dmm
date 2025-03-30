@@ -40245,11 +40245,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/engineeringcart,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/structure/engineeringcart/full,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "cPQ" = (
