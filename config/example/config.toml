@@ -608,7 +608,7 @@ enable_space = true
 # Enable lavaland generation.
 enable_lavaland = true
 # Globally enable and disable placing of all ruins across lavaland and space.
-enable_ruins = false
+enable_ruins = true
 # Minimum number of extra space zlevels to generate
 minimum_space_zlevels = 2
 # Maximum number of extra space zlevels to generate
