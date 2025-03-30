@@ -375,7 +375,7 @@
 	desc = "A plasmaman containment helmet designed for central command officials."
 	icon_state = "centcom_envirohelm"
 	item_state = "centcom_envirohelm"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
 
 /obj/item/clothing/head/helmet/space/plasmaman/centcom/soo
 	desc = "A plasmaman containment helmet designed for central command officials. This one has been modified for use by special operations officers."
