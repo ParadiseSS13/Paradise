@@ -48,6 +48,14 @@
   - changed-files:
       - any-glob-to-any-file: ['SQL/**']
 
+':cd: Дефайны должностей':
+  - changed-files:
+      - any-glob-to-any-file: ['code/__DEFINES/job_defines.dm', 'modular_ss220/_defines220/code/job_defines.dm']
+
+':construction: UpdatePaths':
+  - changed-files:
+      - any-glob-to-any-file: ['tools/UpdatePaths/Scripts/**']
+
 ':feelsgood: Частичная модульность':
   - all:
       - changed-files:
