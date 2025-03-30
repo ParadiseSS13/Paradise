@@ -212,6 +212,8 @@
 			user.drop_item()
 			AC.loc = src
 			num_loaded++
+		else
+			to_chat(user, "<span class='notice'>You are unable to fit [AC] into \the [src].</span>")
 	if(num_loaded)
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
