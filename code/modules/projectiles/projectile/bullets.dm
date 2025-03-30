@@ -112,6 +112,9 @@
 	damage = 20
 	stamina = 45 // Three rounds from the c20r knocks unarmoured people down, four for people with bulletproof
 
+/obj/item/projectile/bullet/hummingbird
+	damage = 5
+
 /obj/item/projectile/bullet/midbullet_r
 	damage = 5
 	stamina = 75 //Still two rounds to knock people down
