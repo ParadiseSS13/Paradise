@@ -33746,7 +33746,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/turret_protected/ai_upload)
+/area/station/science/research)
 "cFt" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Test Lab"
@@ -48027,7 +48027,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/turret_protected/ai_upload)
+/area/station/science/research)
 "gQu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -64425,6 +64425,14 @@
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
+"nYJ" = (
+/obj/structure/rack,
+/obj/item/rpd,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/station/science/toxins/mixing)
 "nYP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -85466,7 +85474,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
 "xtx" = (
-/obj/machinery/atmospherics/binary/pump{
+/obj/machinery/atmospherics/binary/valve{
 	dir = 4;
 	name = "Hot Loop to Port"
 	},
@@ -121391,7 +121399,7 @@ rgX
 wtQ
 qwA
 eGn
-naq
+nYJ
 mgu
 naq
 naq
