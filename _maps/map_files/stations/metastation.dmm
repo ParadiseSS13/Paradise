@@ -43094,7 +43094,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass/no_creep,
-/area/station/science/break_room)
+/area/station/science/research)
 "eNR" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/blue/hollow,
@@ -47448,6 +47448,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Science Hallway - Port";
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -48102,7 +48106,7 @@
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass/no_creep,
-/area/station/science/break_room)
+/area/station/science/research)
 "gSa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -51113,19 +51117,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
-"ihF" = (
-/obj/structure/flora/ausbushes/fernybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Science Hallway - Port";
-	network = list("Research","SS13");
-	dir = 8
-	},
-/turf/simulated/floor/grass/no_creep,
-/area/station/science/research)
 "iil" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -60611,10 +60602,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Science Hallway - Port";
-	network = list("Research","SS13")
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -67164,7 +67151,7 @@
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass/no_creep,
-/area/station/science/break_room)
+/area/station/science/research)
 "pmE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -67756,7 +67743,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/science/break_room)
+/area/station/science/research)
 "pBl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -75424,11 +75411,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "sPr" = (
-/obj/machinery/camera{
-	c_tag = "Science Hallway - Port";
-	network = list("Research","SS13");
-	dir = 4
-	},
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -80007,10 +79989,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Science Hallway - Port";
-	network = list("Research","SS13")
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -80258,6 +80236,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/camera{
+	c_tag = "Science Hallway - Port";
+	network = list("Research","SS13");
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
@@ -86646,6 +86629,11 @@
 "xWQ" = (
 /obj/machinery/alarm/directional/south,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Science Hallway - Port";
+	network = list("Research","SS13");
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -118291,7 +118279,7 @@ cxP
 gRH
 eNI
 pmd
-lAX
+cfw
 uws
 ilu
 uHj
@@ -118304,7 +118292,7 @@ aOG
 aOG
 xbs
 hQB
-ihF
+xbs
 cfw
 qLe
 eoJ
