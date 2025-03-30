@@ -1,5 +1,5 @@
-# Updates DB from 64 to 65
-# Removes column species_subtype on the characters table
-
-ALTER TABLE `characters`
-DROP COLUMN `species_subtype`;
+# Updating DB from 64-65 ~Contrabang
+# Adds a new column to the notes table for public notes
+ALTER TABLE `notes`
+	ADD COLUMN `public` TINYINT NOT NULL DEFAULT 0 AFTER `deletedby`,
+	ADD INDEX `public` (`public`);
