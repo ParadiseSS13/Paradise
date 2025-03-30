@@ -5,67 +5,63 @@
 // Но так как они больше не планируют и выступают против добавления новых профессий, скорее всего ничего и не изменится.
 
 // JOBCAT_"отдел"_LAST - нужен для корректного вывода из БД, иначе чуда не будет.
-// Максимальный сдвиг (1<<22), Последний сдвиг (1<<23)
-// Он должен быть всегда как минимум на 1 больше последнего, по дефолту у ОФФов (1<<16)
 
 
 // ====================================
 //			JOBCAT_ENGSEC
 // Начинаются с JOB_INSTRUCTOR  (1<<15)
-#define JOB_TRAINEE				(1<<16)
-#define JOB_CADET				(1<<17)
+#define JOB_TRAINEE				(JOB_INSTRUCTOR<<1)
+#define JOB_CADET				(JOB_TRAINEE<<1)
 //#define JOB_PILOT				(1<<18)
 
-#define JOB_REPRESENTATIVE_TSF	(1<<18)
-#define JOB_REPRESENTATIVE_USSP	(1<<19)
-#define JOB_DEALER				(1<<20)
-#define JOB_VIP_GUEST			(1<<21)
-#define JOB_BANKER				(1<<22)
-#define JOB_SECURITY_CLOWN		(1<<23)
+#define JOB_REPRESENTATIVE_TSF	(JOB_CADET<<1)
+#define JOB_REPRESENTATIVE_USSP	(JOB_REPRESENTATIVE_TSF<<1)
+#define JOB_DEALER				(JOB_REPRESENTATIVE_USSP<<1)
+#define JOB_VIP_GUEST			(JOB_DEALER<<1)
+#define JOB_BANKER				(JOB_VIP_GUEST<<1)
+#define JOB_SECURITY_CLOWN		(JOB_BANKER<<1)
 
-#define JOBCAT_LAST_ENGSEC		(1<<23)
+#define JOBCAT_LAST_ENGSEC		JOB_SECURITY_CLOWN
 
 
 // ====================================
 //			JOBCAT_MEDSCI
 // Начинаются с JOB_CORONER		(1<<10)
-#define JOB_INTERN				(1<<11)
-#define JOB_STUDENT				(1<<12)
-#define JOB_MECHANIC			(1<<13)
+#define JOB_INTERN				(JOB_CORONER<<1)
+#define JOB_STUDENT				(JOB_INTERN<<1)
+#define JOB_MECHANIC			(JOB_STUDENT<<1)
 
-#define JOB_ADMINISTRATOR		(1<<14)
-#define JOB_TOURIST_TSF			(1<<15)
-#define JOB_TOURIST_USSP		(1<<16)
-#define JOB_MANAGER_JANITOR		(1<<17)
-#define JOB_ACTOR				(1<<18)
+#define JOB_ADMINISTRATOR		(JOB_MECHANIC<<1)
+#define JOB_TOURIST_TSF			(JOB_ADMINISTRATOR<<1)
+#define JOB_TOURIST_USSP		(JOB_TOURIST_TSF<<1)
+#define JOB_MANAGER_JANITOR		(JOB_TOURIST_USSP<<1)
+#define JOB_ACTOR				(JOB_MANAGER_JANITOR<<1)
 //#define JOB_APPRENTICE		(1<<18)
-#define JOB_GUARD				(1<<19)
-#define JOB_MIGRANT				(1<<20)
-#define JOB_UNCERTAIN			(1<<21)
-#define JOB_ADJUTANT			(1<<22)
+#define JOB_GUARD				(JOB_ACTOR<<1)
+#define JOB_MIGRANT				(JOB_GUARD<<1)
+#define JOB_UNCERTAIN			(JOB_MIGRANT<<1)
+#define JOB_ADJUTANT			(JOB_UNCERTAIN<<1)
 //#define JOB_MAID				(1<<23)
 //#define JOB_BUTLER			(1<<24)
 
-#define JOBCAT_LAST_MEDSCI		(1<<23)
+#define JOBCAT_LAST_MEDSCI		JOB_ADJUTANT
 
 
 // ====================================
 //			JOBCAT_SUPPORT
-// Начинаются с JOB_EXPLORER	(1<<14)
-#define JOB_PRISON				(1<<15)
-#define JOB_BARBER				(1<<16)
-#define JOB_BATH				(1<<17)
-#define JOB_CASINO				(1<<18)
-#define JOB_WAITER				(1<<19)
-#define JOB_ACOLYTE				(1<<20)
+// Начинаются с JOB_SMITH		(1<<15)
+#define JOB_PRISON				(JOB_SMITH<<1)
+#define JOB_BARBER				(JOB_PRISON<<1)
+#define JOB_BATH				(JOB_BARBER<<1)
+#define JOB_CASINO				(JOB_BATH<<1)
+#define JOB_WAITER				(JOB_CASINO<<1)
+#define JOB_ACOLYTE				(JOB_WAITER<<1)
 //#define JOB_DELIVERER			(1<<21)
-#define JOB_BOXER				(1<<21)
-#define JOB_MUSICIAN			(1<<22)
+#define JOB_BOXER				(JOB_ACOLYTE<<1)
+#define JOB_MUSICIAN			(JOB_BOXER<<1)
 //#define JOB_PAINTER			(1<<24)
 
-#define JOBCAT_LAST_SUPPORT		(1<<23)
-
-
+#define JOBCAT_LAST_SUPPORT		JOB_MUSICIAN
 
 
 
