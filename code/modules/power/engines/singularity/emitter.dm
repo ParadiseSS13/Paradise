@@ -51,6 +51,21 @@
 	sparks.attach(src)
 	sparks.set_up(5, 1, src)
 
+/obj/machinery/power/emitter/cherenkov
+	icon_state = "emitter_+a"
+	anchored = TRUE
+	state = EMITTER_WELDED
+
+/obj/machinery/power/emitter/cherenkov/Initialize(mapload)
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/emitter(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	RefreshParts()
+	active = TRUE
+	update_icon()
+
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
 	if(panel_open)
