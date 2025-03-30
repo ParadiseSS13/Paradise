@@ -1,0 +1,3 @@
+/turf/simulated/mineral/random : /turf/simulated/mineral/random/space{@OLD}
+/turf/simulated/mineral/random/high_chance : /turf/simulated/mineral/random/high_chance/space{@OLD}
+/turf/simulated/mineral/random/low_chance : /turf/simulated/mineral/random/low_chance/space{@OLD}

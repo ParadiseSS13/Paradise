@@ -69,8 +69,7 @@
 	dir = 2
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)

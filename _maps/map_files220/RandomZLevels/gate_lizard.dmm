@@ -1105,7 +1105,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "bwB" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
@@ -1582,7 +1582,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "cco" = (
 /obj/structure/stone_tile/block/cracked,
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "cdb" = (
@@ -2577,7 +2577,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "drq" = (
-/turf/simulated/mineral/random{
+/turf/simulated/mineral/random/space{
 	turf_type = /turf/simulated/floor/plating/asteroid/ancient;
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 	},
@@ -3139,7 +3139,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "ejI" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -4879,7 +4879,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "gBW" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -6080,7 +6080,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "ibh" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -7337,7 +7337,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "jCT" = (
-/obj/structure/bonfire{
+/obj/structure/lightable/bonfire{
 	layer = 2.9
 	},
 /turf/simulated/floor/plating/asteroid/ancient{
@@ -9981,7 +9981,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "mLY" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /obj/structure{
 	icon = 'icons/obj/decorations.dmi';
 	icon_state = "paper_cauldron";
@@ -12988,7 +12988,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "qNW" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -13034,7 +13034,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "qPA" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13800,7 +13800,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "rMi" = (
-/obj/structure/bonfire{
+/obj/structure/lightable/bonfire{
 	layer = 2.9
 	},
 /turf/simulated/floor/plating/asteroid/ancient{

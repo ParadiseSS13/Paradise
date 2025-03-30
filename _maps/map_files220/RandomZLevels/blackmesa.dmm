@@ -1446,7 +1446,7 @@
 /area/awaymission/black_mesa/security_outpost)
 "bNS" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -4188,7 +4188,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "fgh" = (
@@ -5530,10 +5531,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
-"gNo" = (
-/obj/item/book/manual/wiki/chef_recipes,
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/black_mesa)
 "gOd" = (
 /obj/effect/mob_spawn/human/corpse/scientist{
 	pickable_species = list("Human");
@@ -6198,9 +6195,7 @@
 	layer = 4.1
 	},
 /obj/effect/turf_decal/siding/blue,
-/obj/structure/window/reinforced{
-	layer = 4.2
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "hHT" = (
@@ -6893,9 +6888,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 10
 	},
-/obj/structure/window/reinforced{
-	layer = 4.2
-	},
+/obj/structure/window/reinforced,
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
@@ -11308,7 +11301,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "nSi" = (
@@ -12900,9 +12893,7 @@
 	layer = 4.1
 	},
 /obj/effect/turf_decal/siding/blue,
-/obj/structure/window/reinforced{
-	layer = 4.2
-	},
+/obj/structure/window/reinforced,
 /obj/effect/mob_spawn/human/corpse/doctor{
 	id = null;
 	pickable_species = list("Human")
@@ -13317,9 +13308,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 6
 	},
-/obj/structure/window/reinforced{
-	layer = 4.2
-	},
+/obj/structure/window/reinforced,
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
@@ -13444,7 +13433,7 @@
 /turf/simulated/floor/plating/xen,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "qvj" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /turf/simulated/floor/plating/dirt/xen_dirt,
 /area/awaymission/black_mesa/xen/vortigaunt_village)
 "qwo" = (
@@ -14370,7 +14359,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/black_mesa/employee_dorm_room)
 "rBp" = (
-/obj/structure/bonfire/lit,
+/obj/structure/lightable/bonfire/lit,
 /turf/simulated/floor/plating/dirt/xen_dirt,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "rBw" = (
@@ -18300,7 +18289,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -65531,7 +65520,7 @@ hQh
 hhE
 aCT
 kWk
-gNo
+hhE
 aPO
 uNL
 uNL

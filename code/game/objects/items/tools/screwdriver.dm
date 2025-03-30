@@ -29,6 +29,8 @@
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
 	RegisterSignal(src, COMSIG_ATTACK, PROC_REF(on_attack))
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
@@ -129,6 +131,11 @@
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
 	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.on_detached()
+		bit.forceMove(b_drill)
+		b_drill.attached_bits += bit
+		bit.on_attached(b_drill)
 	qdel(src)
 	user.put_in_active_hand(b_drill)
 

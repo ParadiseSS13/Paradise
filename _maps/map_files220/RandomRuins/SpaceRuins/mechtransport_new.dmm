@@ -493,7 +493,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "lF" = (
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -891,7 +891,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "uU" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "vc" = (
@@ -1246,7 +1246,7 @@
 "Cm" = (
 /obj/machinery/light_construct/directional/north,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Co" = (
@@ -1365,7 +1365,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "DJ" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Eb" = (
@@ -1489,7 +1489,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "FF" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)

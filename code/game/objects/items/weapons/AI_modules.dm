@@ -20,6 +20,7 @@ AI MODULES
 	throw_range = 15
 	origin_tech = "programming=3"
 	materials = list(MAT_GOLD=50)
+	new_attack_chain = TRUE
 	var/datum/ai_laws/laws = null
 
 /obj/item/ai_module/Initialize(mapload)
@@ -116,8 +117,10 @@ AI MODULES
 	icon_state = "light_blue_medium"
 	origin_tech = "programming=3;materials=3"
 
-/obj/item/ai_module/safeguard/attack_self__legacy__attackchain(mob/user as mob)
-	..()
+/obj/item/ai_module/safeguard/activate_self(mob/user)
+	if(..())
+		return
+
 	var/new_targetName = tgui_input_text(user, "Пожалуйста, введите имя человека для охраны.", "Кого охранять?", user.name)
 	if(!new_targetName)
 		return
@@ -145,8 +148,10 @@ AI MODULES
 	icon_state = "green_high"
 	origin_tech = "programming=4;materials=4"
 
-/obj/item/ai_module/one_crew_member/attack_self__legacy__attackchain(mob/user as mob)
-	..()
+/obj/item/ai_module/one_crew_member/activate_self(mob/user)
+	if(..())
+		return
+
 	var/new_targetName = tgui_input_text(usr, "Пожалуйста, введите имя члена экипажа.", "Кто?", user.real_name)
 	if(!new_targetName)
 		return
@@ -178,9 +183,6 @@ AI MODULES
 	icon_state = "red_high"
 	origin_tech = "programming=4;materials=4" //made of gold
 
-/obj/item/ai_module/protect_station/attack_self__legacy__attackchain(mob/user as mob)
-	..()
-
 /obj/item/ai_module/protect_station/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
 	var/law = "Защищайте космическую станцию от повреждений. Любой, кто вредит станции, больше не должен считаться членом экипажа, и становится угрозой для станции, которую необходимо нейтрализовать."
@@ -193,9 +195,6 @@ AI MODULES
 	desc = "Модуль ИИ 'Кисород токсичен для экипажа': 'Кислород очень токсичен для членов экипажа и должен быть удален со станции. Любым необходимым способом не допускайте распространения на станции этого токсичного газа. Сильная заморозка — самый эффективный метод лечения повреждений, наносимого кислородом члену экипажа..'"
 	icon_state = "light_blue_high"
 	origin_tech = "programming=4;biotech=2;materials=4"
-
-/obj/item/ai_module/oxygen/attack_self__legacy__attackchain(mob/user as mob)
-	..()
 
 /obj/item/ai_module/oxygen/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
@@ -213,8 +212,10 @@ AI MODULES
 	icon_state = "standard_high"
 	origin_tech = "programming=4;materials=4"
 
-/obj/item/ai_module/freeform/attack_self__legacy__attackchain(mob/user as mob)
-	..()
+/obj/item/ai_module/freeform/activate_self(mob/user)
+	if(..())
+		return
+
 	var/new_lawpos = tgui_input_number(user, "Введите приоритет вашему закону. Написанные законы могут иметь проритет только 15 и выше.", "Приоритет закона", lawpos, MAX_SUPPLIED_LAW_NUMBER, MIN_SUPPLIED_LAW_NUMBER)
 	if(isnull(new_lawpos))
 		return
@@ -424,8 +425,10 @@ AI MODULES
 	icon_state = "standard_high"
 	origin_tech = "programming=5;materials=4"
 
-/obj/item/ai_module/freeformcore/attack_self__legacy__attackchain(mob/user as mob)
-	..()
+/obj/item/ai_module/freeformcore/activate_self(mob/user)
+	if(..())
+		return
+
 	var/new_targetName = tgui_input_text(usr, "Пожалуйста, введите новый основной закон для ИИ.", "Форма ввода закона")
 	if(!new_targetName)
 		return
@@ -453,9 +456,11 @@ AI MODULES
 	icon_state = "syndicate"
 	origin_tech = "programming=5;materials=5;syndicate=2"
 
-/obj/item/ai_module/syndicate/attack_self__legacy__attackchain(mob/user as mob)
-	..()
-	var/new_targetName = tgui_input_text(usr, "Введите новый закон для ИИ.", "Форма ввода закона", max_length = MAX_MESSAGE_LEN)
+/obj/item/ai_module/syndicate/activate_self(mob/user)
+	if(..())
+		return
+
+	var/new_targetName = tgui_input_text(usr, "Пожалуйста, введите новый закон для ИИ.", "Форма ввода закона", max_length = MAX_MESSAGE_LEN)
 	if(!new_targetName)
 		return
 	newFreeFormLaw = new_targetName
@@ -493,7 +498,10 @@ AI MODULES
 	target.add_ion_law(ion_law)
 	return ion_law
 
-/obj/item/ai_module/toy_ai/attack_self__legacy__attackchain(mob/user)
+/obj/item/ai_module/toy_ai/activate_self(mob/user)
+	if(..())
+		return
+
 	ion_law = generate_ion_law()
 	to_chat(user, "<span class='notice'>Вы нажимаете кнопку на [src].</span>")
 	playsound(user, 'sound/machines/click.ogg', 20, TRUE)

@@ -27,8 +27,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.8
+	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
@@ -69,9 +68,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/window/reinforced{
-	layer = 2.8
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "m" = (

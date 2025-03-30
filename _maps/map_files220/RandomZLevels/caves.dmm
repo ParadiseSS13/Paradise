@@ -4608,7 +4608,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "za" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/effect/spawner/random/dirt/often,
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/wood/lavaland_air,
@@ -5780,7 +5780,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "FE" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/effect/spawner/random/blood/often,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/dirt/often,
@@ -8566,7 +8566,7 @@
 	},
 /area/awaymission/caves)
 "Vc" = (
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
@@ -9029,7 +9029,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "Xv" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /obj/structure{
 	icon = 'icons/obj/decorations.dmi';
 	icon_state = "paper_cauldron";

@@ -35,6 +35,10 @@
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	request_console_flags = RC_SUPPLY
 
+/area/station/supply/smith_office
+	name = "Smith's Office"
+	icon_state = "smith"
+
 /area/station/supply/qm
 	name = "Офис Квартирмейстера"
 	icon_state = "qm"

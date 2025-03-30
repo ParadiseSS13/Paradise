@@ -10,6 +10,9 @@
 /obj/machinery/mecha_part_fabricator/add_tts_component()
 	return
 
+/obj/machinery/autochef/add_tts_component()
+	return
+
 /obj/item/taperecorder/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/xenia, TTS_TRAIT_ROBOTIZE)
 

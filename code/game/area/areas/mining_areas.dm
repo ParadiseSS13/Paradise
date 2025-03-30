@@ -97,6 +97,10 @@
 	name = "Хранилище Шахтерского Аванпоста"
 	icon_state = "storage"
 
+/area/mine/outpost/smith_workshop
+	name = "Smith's Workshop"
+	icon_state = "smith"
+
 /area/mine/outpost/maintenance
 	name = "Технические Тоннели Шахтерского Аванпоста"
 	icon_state = "maintcentral"

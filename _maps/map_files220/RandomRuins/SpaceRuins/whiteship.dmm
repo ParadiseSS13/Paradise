@@ -7,9 +7,7 @@
 "af" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_y = -32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "aA" = (
@@ -60,7 +58,7 @@
 /area/shuttle/abandoned)
 "bT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"

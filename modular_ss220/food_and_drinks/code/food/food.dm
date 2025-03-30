@@ -325,15 +325,26 @@
 	filling_color = "#a55f3a"
 	tastes = list("мясо ящерицы" = 2, "курятина" = 1)
 
-/datum/deepfryer_special/unathi
-	input = /obj/item/organ/external
-	output = /obj/item/food/sliceable/lizard
+/datum/cooking/recipe_step/add_item/lizardslice
 
-/datum/deepfryer_special/unathi/validate(obj/item/I)
-	if(!..())
-		return FALSE
-	var/obj/item/organ/external/E = I
-	return istype(E.dna.species, /datum/species/unathi)
+/datum/cooking/recipe_step/add_item/lizardslice/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/unathi))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/lizardslice
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/lizardslice
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/lizardslice(),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
 
 // Tajaroni
 /obj/item/food/tajaroni
@@ -344,15 +355,26 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 2, "protein" = 2)
 	tastes = list("сухое мясо" = 3, "кошатина" = 2)
 
-/datum/deepfryer_special/tajaroni
-	input = /obj/item/organ/external
-	output = /obj/item/food/tajaroni
+/datum/cooking/recipe_step/add_item/tajaroni
 
-/datum/deepfryer_special/tajaroni/validate(obj/item/I)
-	if(!..())
-		return FALSE
-	var/obj/item/organ/external/E = I
-	return istype(E.dna.species, /datum/species/tajaran)
+/datum/cooking/recipe_step/add_item/tajaroni/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/tajaran))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/tajaroni
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/tajaroni
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/tajaroni(),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
 
 // Vulpixes
 /obj/item/food/vulpix

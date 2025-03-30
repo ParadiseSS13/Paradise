@@ -3,7 +3,7 @@
 /turf/space,
 /area/space)
 "ab" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/awaymission)
 "ac" = (
 /turf/simulated/floor/plating/asteroid/airless,
@@ -1551,8 +1551,7 @@
 /area/awaymission/bmp_ship/engines)
 "eN" = (
 /obj/structure/window/reinforced{
-	color = "yellow";
-	layer = 2.9
+	color = "yellow"
 	},
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
 	health = 150;
@@ -1590,8 +1589,7 @@
 /area/awaymission/bmp_ship/engines)
 "eQ" = (
 /obj/structure/window/reinforced{
-	color = "yellow";
-	layer = 2.9
+	color = "yellow"
 	},
 /obj/item/food/grown/wheat,
 /turf/simulated/floor/grass,
@@ -2408,7 +2406,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/bmp_ship/turrets_south)
 "hj" = (
-/turf/simulated/mineral/random,
+/turf/simulated/mineral/random/space,
 /area/awaymission)
 "hk" = (
 /obj/structure/cable{
@@ -2623,8 +2621,7 @@
 /area/awaymission/bmp_ship/buffer)
 "hZ" = (
 /obj/structure/window/reinforced{
-	color = "yellow";
-	layer = 2.9
+	color = "yellow"
 	},
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/grass,
@@ -4268,7 +4265,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/buffer)
 "uI" = (
@@ -4913,8 +4910,7 @@
 /area/awaymission/bmp_ship/armory)
 "AI" = (
 /obj/structure/window/reinforced{
-	color = "yellow";
-	layer = 2.9
+	color = "yellow"
 	},
 /obj/item/reagent_containers/glass/bucket/wooden,
 /turf/simulated/floor/grass,
@@ -5126,7 +5122,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/fore)
 "CJ" = (
-/turf/simulated/mineral/random,
+/turf/simulated/mineral/random/space,
 /area/awaymission/bmp_ship/buffer)
 "Dc" = (
 /obj/effect/decal/cleanable/blood/drip{
@@ -6271,7 +6267,7 @@
 /area/awaymission/bmp_ship/buffer)
 "PH" = (
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/awaymission)
 "PJ" = (
 /obj/structure/alien/weeds,

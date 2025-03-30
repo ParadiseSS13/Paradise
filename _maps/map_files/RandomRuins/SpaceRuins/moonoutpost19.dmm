@@ -378,6 +378,7 @@
 /obj/structure/chair/office/light{
 	dir = 1
 	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -982,19 +983,6 @@
 	icon_state = "black"
 	},
 /area/ruin/space/moonbase19)
-"cY" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/catwalk,
-/area/ruin/space/moonbase19)
 "da" = (
 /obj/structure/chair{
 	dir = 8
@@ -1173,9 +1161,7 @@
 	},
 /area/ruin/space/moonbase19)
 "dD" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "dE" = (
@@ -1504,9 +1490,6 @@
 	},
 /area/ruin/space/moonbase19)
 "eL" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -32
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1544,6 +1527,24 @@
 	dir = 8;
 	icon_state = "black"
 	},
+/area/ruin/space/moonbase19)
+"eT" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "eU" = (
 /turf/simulated/floor/plasteel{
@@ -1610,6 +1611,9 @@
 	dir = 8
 	},
 /obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "ff" = (
@@ -2147,6 +2151,9 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/random/maintenance,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -2553,19 +2560,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/moonbase19)
-"ic" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
-/obj/structure/closet/crate,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/catwalk,
-/area/ruin/space/moonbase19)
 "id" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel,
@@ -2580,6 +2574,10 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/machinery/iv_drip,
+/obj/machinery/camera{
+	c_tag = "Medical Ward";
+	network = list("MO19")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -3912,11 +3910,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "North Cafeteria";
-	dir = 4;
-	network = list("MO19")
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -4049,11 +4042,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Medical Ward";
-	dir = 4;
-	network = list("MO19")
-	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
@@ -4184,6 +4172,21 @@
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
+"nD" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/moonbase19)
 "nE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4226,6 +4229,9 @@
 "nK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -4976,8 +4982,18 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
+"qO" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "black"
+	},
+/area/ruin/space/moonbase19)
 "qQ" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -6232,6 +6248,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "wR" = (
@@ -6516,6 +6533,13 @@
 	icon_state = "white";
 	dir = 8
 	},
+/area/ruin/space/moonbase19)
+"yg" = (
+/obj/machinery/camera{
+	c_tag = "Dorms";
+	network = list("MO19")
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "yi" = (
 /obj/structure/rack,
@@ -6900,7 +6924,7 @@
 	},
 /area/ruin/space/moonbase19)
 "zM" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -7759,6 +7783,15 @@
 	icon_state = "caution"
 	},
 /area/ruin/space/moonbase19)
+"Dz" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull";
+	dir = 8
+	},
+/area/ruin/space/moonbase19)
 "DA" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
@@ -7812,9 +7845,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "DO" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/camera{
 	dir = 8;
 	network = list("MO19");
@@ -7923,7 +7953,6 @@
 /obj/structure/rack,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/machinery/light/small,
-/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -8439,6 +8468,10 @@
 	icon_state = "caution";
 	dir = 8
 	},
+/area/ruin/space/moonbase19)
+"GI" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "GJ" = (
 /obj/structure/railing{
@@ -9106,9 +9139,6 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -9158,15 +9188,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitecorner"
-	},
-/area/ruin/space/moonbase19)
-"Ki" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/ruin/space/moonbase19)
 "Km" = (
@@ -9300,9 +9321,6 @@
 	},
 /area/ruin/space/moonbase19)
 "KP" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair{
 	dir = 4;
@@ -9660,7 +9678,6 @@
 /area/ruin/space/moonbase19)
 "MF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster/directional/south,
 /obj/machinery/camera{
 	c_tag = "Hangar";
 	dir = 1;
@@ -9810,6 +9827,7 @@
 	name = "shutters control"
 	},
 /obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 5
@@ -10841,7 +10859,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "RH" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -11022,6 +11040,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -11197,6 +11216,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
+/area/ruin/space/moonbase19)
+"Ty" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "North Cafeteria";
+	network = list("MO19")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -12022,11 +12052,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Dorms";
-	dir = 4;
-	network = list("MO19")
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -12267,7 +12292,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -13213,7 +13237,7 @@ ru
 ag
 ag
 af
-Ll
+Ty
 ak
 NC
 cL
@@ -13263,7 +13287,7 @@ af
 af
 ag
 ag
-aA
+yg
 KG
 Ol
 ak
@@ -14304,7 +14328,7 @@ MT
 UO
 GD
 Fc
-mJ
+Dz
 oH
 qt
 sv
@@ -16471,7 +16495,7 @@ bv
 fl
 vY
 hS
-lp
+qO
 eL
 nt
 fC
@@ -16643,7 +16667,7 @@ ad
 ad
 ad
 ag
-ic
+eT
 is
 hO
 dh
@@ -16765,7 +16789,7 @@ Ib
 hI
 ad
 ag
-cY
+nD
 it
 hu
 dj
@@ -17048,8 +17072,8 @@ tX
 AP
 If
 Wd
-Ki
-fq
+ib
+GI
 DO
 Wd
 If

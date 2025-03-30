@@ -141,7 +141,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "hf" = (
-/turf/simulated/mineral/random,
+/turf/simulated/mineral/random/space,
 /area/lavaland/surface/outdoors)
 "ic" = (
 /obj/effect/decal/cleanable/blood/writing{

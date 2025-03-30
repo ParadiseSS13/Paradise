@@ -189,7 +189,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/ghost_bar/outdoor)
 "aJ" = (
-/obj/structure/bonfire/lit/dense,
+/obj/structure/lightable/bonfire/lit/dense,
 /turf/simulated/floor/grass,
 /area/ghost_bar/outdoor)
 "aK" = (
@@ -3654,7 +3654,8 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "mx" = (
-/obj/machinery/kitchen_machine/grill/upgraded,
+/obj/structure/table,
+/obj/machinery/cooking/grill/upgraded,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark/nitrogen{
 	icon_state = "darkpurple";
@@ -3973,7 +3974,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "nQ" = (
-/obj/machinery/kitchen_machine/oven/upgraded,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -4768,7 +4769,7 @@
 	},
 /area/shuttle/vox)
 "qJ" = (
-/obj/machinery/cooker/deepfryer/upgraded,
+/obj/machinery/cooking/deepfryer/upgraded,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark/nitrogen{
 	icon_state = "darkpurple";
@@ -8691,7 +8692,7 @@
 /turf/simulated/floor/indestructible/cobble,
 /area/ghost_bar/outdoor)
 "DF" = (
-/obj/structure/bonfire/lit/dense,
+/obj/structure/lightable/bonfire/lit/dense,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -9787,7 +9788,8 @@
 	},
 /area/trader_station/sol)
 "Ht" = (
-/obj/machinery/kitchen_machine/grill/upgraded,
+/obj/structure/table,
+/obj/machinery/cooking/grill/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -11237,7 +11239,7 @@
 /turf/simulated/floor/indestructible/cobble/side,
 /area/ghost_bar/outdoor)
 "Mv" = (
-/obj/machinery/kitchen_machine/oven/upgraded,
+/obj/machinery/cooking/oven/upgraded,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark/nitrogen{
 	icon_state = "darkpurple";
@@ -11526,7 +11528,7 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "NK" = (
-/obj/machinery/cooker/deepfryer/upgraded,
+/obj/machinery/cooking/deepfryer/upgraded,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "NL" = (
@@ -11778,8 +11780,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/chair/stool,
 /obj/item/clothing/under/misc/bluehawaiianshirt,
@@ -13115,7 +13116,7 @@
 	},
 /area/vox_base)
 "Td" = (
-/obj/machinery/cooker/deepfryer/upgraded,
+/obj/machinery/cooking/deepfryer/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -13853,7 +13854,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "VE" = (
-/obj/machinery/kitchen_machine/oven/upgraded,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "VF" = (
@@ -13950,7 +13951,8 @@
 /obj/structure/light_fake{
 	dir = 8
 	},
-/obj/machinery/kitchen_machine/grill/upgraded,
+/obj/structure/table,
+/obj/machinery/cooking/grill/upgraded,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "VR" = (

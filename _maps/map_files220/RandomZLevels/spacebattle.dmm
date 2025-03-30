@@ -3853,7 +3853,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway8)
 "mx" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/prhallway3)
 "my" = (
@@ -8659,7 +8659,7 @@
 	},
 /area/awaymission/space_battle/prhallway2)
 "CO" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "blueyellowfull"
 	},
@@ -10780,7 +10780,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "Ju" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 1
@@ -15108,7 +15108,7 @@
 	},
 /area/awaymission/space_battle/syndicate)
 "XA" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 1

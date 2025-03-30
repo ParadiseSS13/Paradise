@@ -4,7 +4,7 @@
 #define MED_AREAS list("Virology", "Chief Medical Officer's Desk", "Медицинский Отдел", "Psychiatrist", "Chemistry", "Paramedic", "Morgue")
 #define COM_AREAS list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge", "Офис Профессионального Тренера НТ")
 #define SCI_AREAS list("Robotics", "Science", "Research Director's Desk", "Genetics", "Xenobiology")
-#define SUPPLY_AREAS list("Cargo Bay", "Mining Dock", "Mining Outpost", "Quartermaster's Desk", "Mining", "Expedition")
+#define SUPPLY_AREAS list("Cargo Bay", "Mining Dock", "Mining Outpost", "Quartermaster's Desk", "Mining", "Expedition", "Smith's Office")
 #define OTHER_AREAS list("Arrival Shuttle", "Crew Quarters", "Tool Storage", "EVA", "Labor Camp", "AI")
 
 /datum/game_test/requests_console
@@ -23,11 +23,15 @@
 	expected_departments |= SUPPLY_AREAS
 	expected_departments |= OTHER_AREAS
 
+	var/list/fail_messages = list()
 	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
 		if(!(console.department in expected_departments))
-			var/message = "Requests console ([console.x]; [console.y]) has unknown department."
+			var/message = "Requests console ([console.x]; [console.y]; [console.z]) has unknown department."
 			message += "\nExpected: [jointext(expected_departments, ", ")]\nActual: [console.department]"
-			Fail(message)
+			fail_messages += message
+
+	if(length(fail_messages))
+		Fail(fail_messages.Join("\n"))
 
 #undef ENGI_AREAS
 #undef SEC_AREAS

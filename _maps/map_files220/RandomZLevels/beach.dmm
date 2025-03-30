@@ -394,7 +394,7 @@
 	},
 /area/awaymission/beach)
 "eE" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "eG" = (
@@ -828,11 +828,6 @@
 /obj/machinery/economy/vending/cola/red,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
-"kv" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/wiki/chef_recipes,
-/turf/simulated/floor/wood/fancy/cherry,
-/area/awaymission/beach)
 "kx" = (
 /obj/structure/sign/poster/official/fruit_bowl{
 	pixel_y = 32
@@ -959,7 +954,7 @@
 	},
 /area/awaymission/beach)
 "lP" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "lS" = (
@@ -1703,7 +1698,8 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "xg" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "xG" = (
@@ -2282,7 +2278,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "EY" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Fb" = (
@@ -2930,7 +2926,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Mt" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "Mu" = (
@@ -3486,7 +3482,7 @@
 	pixel_x = -12;
 	pixel_y = 3
 	},
-/obj/item/kitchen/sushimat{
+/obj/item/reagent_containers/cooking/sushimat{
 	pixel_x = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -13605,7 +13601,7 @@ UB
 DZ
 hv
 fD
-kv
+qk
 zF
 hv
 WS

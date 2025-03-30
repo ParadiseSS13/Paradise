@@ -392,7 +392,8 @@
 /area/ruin/space/spacehotelv1/centralhallway)
 "di" = (
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "dk" = (
@@ -3196,7 +3197,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/cargostorage)
 "yI" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "yN" = (
@@ -6453,7 +6454,7 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom6)
 "YK" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "YL" = (

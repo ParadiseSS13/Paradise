@@ -4595,7 +4595,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
 "cPQ" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -9442,7 +9442,8 @@
 	},
 /area/centcom/ss220/admin3)
 "fBZ" = (
-/obj/machinery/kitchen_machine/grill/upgraded,
+/obj/structure/table,
+/obj/machinery/cooking/grill/upgraded,
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
@@ -13169,8 +13170,7 @@
 /area/centcom/ss220/evac)
 "hNd" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/full{
@@ -16010,7 +16010,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/control)
 "jAn" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/item/food/rawcookies/chocochips{
 	pixel_x = -1;
 	pixel_y = 6
@@ -16902,7 +16902,7 @@
 	},
 /area/centcom/ss220/medbay)
 "kdG" = (
-/obj/machinery/kitchen_machine/candy_maker/upgraded,
+/obj/machinery/cooking/ice_cream_mixer/upgraded,
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
@@ -23364,7 +23364,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "nRk" = (
-/obj/machinery/kitchen_machine/oven/upgraded,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
@@ -24931,9 +24931,7 @@
 /area/centcom/ss220/supply)
 "oQT" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/machinery/kitchen_machine/oven{
-	pixel_y = 3
-	},
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
 	},
@@ -29942,7 +29940,7 @@
 	},
 /area/centcom/ss220/medbay)
 "rOv" = (
-/obj/machinery/cooker/deepfryer/upgraded,
+/obj/machinery/cooking/deepfryer/upgraded,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
 	},
@@ -31952,8 +31950,7 @@
 /area/centcom/ss220/court)
 "sWC" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -33211,8 +33208,7 @@
 /area/syndicate_mothership/outside)
 "tJG" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
