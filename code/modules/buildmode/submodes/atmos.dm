@@ -23,14 +23,14 @@
 // FIXME this is a little tedious, something where you don't have to fill in each field would be cooler
 // maybe some kind of stat panel thing?
 /datum/buildmode_mode/atmos/change_settings(mob/user)
-	pressure = tgui_input_number(user, "Atmospheric Pressure", "Input", ONE_ATMOSPHERE, 100000, 0 round_value = FALSE)
+	pressure = tgui_input_number(user, "Atmospheric Pressure", "Input", ONE_ATMOSPHERE, 100000, 0, round_value = FALSE)
 	temperature = tgui_input_number(user, "Temperature", "Input", T20C, 100000, round_value = FALSE)
-	oxygen = tgui_input_number(user, "Oxygen ratio", "Input", O2STANDARD, 100000, 0 round_value = FALSE )
+	oxygen = tgui_input_number(user, "Oxygen ratio", "Input", O2STANDARD, 100000, 0, round_value = FALSE )
 	nitrogen = tgui_input_number(user, "Nitrogen ratio", "Input", N2STANDARD, 100000, 0 round_value = FALSE)
-	plasma = tgui_input_number(user, "Plasma ratio", "Input", 0, 100000, 0 round_value = FALSE)
+	plasma = tgui_input_number(user, "Plasma ratio", "Input", 0, 100000, 0, round_value = FALSE)
 	cdiox = tgui_input_number(user, "CO2 ratio", "Input", 0, 100000, 0 round_value = FALSE)
-	nitrox = tgui_input_number(user, "N2O ratio", "Input", 0, 100000, 0 round_value = FALSE)
-	agentbx = tgui_input_number(user, "Agent B ratio", "Input", 0, 100000, 0 round_value = FALSE)
+	nitrox = tgui_input_number(user, "N2O ratio", "Input", 0, 100000, 0, round_value = FALSE)
+	agentbx = tgui_input_number(user, "Agent B ratio", "Input", 0, 100000, 0, round_value = FALSE)
 
 /datum/buildmode_mode/atmos/proc/ppratio_to_moles(ppratio)
 	// ideal gas equation: Pressure * Volume = Moles * r * Temperature
