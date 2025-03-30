@@ -12,5 +12,5 @@
 	icon_state = "centcom_envirosuit"
 	item_state = "centcom_envirosuit"
 	item_color = "centcom_envirosuit"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	displays_id = FALSE
