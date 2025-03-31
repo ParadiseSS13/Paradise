@@ -1,5 +1,6 @@
 use byondapi::value::ByondValue;
 use chrono::Utc;
+use eyre::Context;
 use std::{
     cell::RefCell,
     collections::hash_map::{Entry, HashMap},
@@ -24,14 +25,18 @@ fn log_write(path: ByondValue, data: ByondValue) -> eyre::Result<ByondValue> {
             Entry::Occupied(e) => e.into_mut(),
             Entry::Vacant(e) => e.insert(open(path)?),
         };
-        let data = data.get_string()?;
-        let mut iter = data.split('\n');
-        if let Some(line) = iter.next() {
+        // Byond will happily send over invalid bytes from unpurged text macros, which Rust does not like
+        // This circumvents ByondValue::get_string() to strip utf-8 before it can cause a panic
+        let data = data
+            .get_cstring()
+            .map(|cstring| cstring.to_string_lossy().into_owned())
+            .wrap_err(format!("UTF-8 decode error: {:#?}", data))?;
+        let iter = data.split('\n');
+
+        for line in iter {
             writeln!(file, "[{}] {}", Utc::now().format("%FT%T"), line)?;
         }
-        for line in iter {
-            writeln!(file, " - {line}")?;
-        }
+
         Ok(ByondValue::null())
     })
 }

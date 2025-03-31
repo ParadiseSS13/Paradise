@@ -20,7 +20,7 @@
 
 	var/list/lines = file2list(TEST_LOG_FILE)
 	TEST_ASSERT(lines[1] in valid_lines, \
-		"RUSTG log format is not valid 8601 format. Expected '[generate_test_log_message(world.timeofday)]', got '[lines[1]]'")
+		"Rustlibs log format is not valid 8601 format. Expected '[generate_test_log_message(world.timeofday)]', got '[lines[1]]'")
 
 #undef TEST_MESSAGE
 #undef TEST_LOG_FILE
