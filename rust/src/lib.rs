@@ -4,6 +4,7 @@ mod milla;
 mod redis_pubsub;
 mod rustlibs_dmi;
 mod rustlibs_file;
+mod rustlibs_json;
 mod rustlibs_logging;
 mod rustlibs_noisegen;
 mod rustlibs_toml;

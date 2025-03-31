@@ -150,6 +150,10 @@
 /proc/rustlibs_dmi_strip_metadata(fname) 
 	return RUSTLIB_CALL(dmi_strip_metadata, fname)
 
+// MARK: JSON
+/proc/rustlibs_json_is_valid(text) 
+	return (RUSTLIB_CALL(json_is_valid, text) == "true")
+
 
 // MARK: Grid Perlin Noise
 /**
