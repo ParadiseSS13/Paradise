@@ -56282,7 +56282,7 @@
 	},
 /area/station/medical/storage)
 "eCJ" = (
-/obj/machinery/computer/aiupload{
+/obj/machinery/computer/aiupload/hardened{
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid,
@@ -68240,7 +68240,7 @@
 	},
 /area/station/hallway/primary/central/west)
 "lbf" = (
-/obj/machinery/computer/borgupload{
+/obj/machinery/computer/borgupload/hardened{
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid,
@@ -79677,24 +79677,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore2)
-"qWt" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/item/radio/intercom/private{
-	pixel_y = -28
-	},
-/obj/machinery/computer/borgupload/hardened{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/space,
-/area/space)
 "qWx" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/newscaster/directional/north,
@@ -88722,25 +88704,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
-"uZq" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_y = -21
-	},
-/obj/machinery/computer/aiupload/hardened{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/space,
-/area/space)
 "uZx" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -134651,7 +134614,7 @@ aaa
 aaa
 aaa
 aaa
-uZq
+aaa
 aaa
 aaa
 uZx
@@ -135165,7 +135128,7 @@ aaa
 aaa
 aaa
 aaa
-qWt
+aaa
 aaa
 aaa
 lUN
