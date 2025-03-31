@@ -1263,7 +1263,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		'sound/weapons/gunshots/gunshot_shotgun.ogg',
 		'sound/weapons/laser.ogg',
 		'sound/weapons/ionrifle.ogg',
-		'sound/effects/supermatter.ogg',
+		'sound/effects/supermatter.ogg'
 	)
 
 	if(operating || welded || locked || emagged)
