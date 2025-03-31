@@ -250,6 +250,8 @@
 	if(isobserver(user))
 		show_to(user)
 		return
+	if(!try_opening(user))
+		return
 	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)
 
@@ -587,6 +589,9 @@
 	else
 		..()
 	add_fingerprint(user)
+
+/obj/item/storage/proc/try_opening(mob/user)
+	return TRUE
 
 /obj/item/storage/equipped(mob/user, slot, initial)
 	. = ..()
