@@ -309,18 +309,14 @@
 	id = /obj/item/card/id/chef
 	pda = /obj/item/pda/chef
 	backpack_contents = list(
-		/obj/item/eftpos=1,\
-		/obj/item/paper/chef=1,\
-		/obj/item/book/manual/wiki/chef_recipes=1)
+		/obj/item/eftpos = 1,
+	)
 
 /datum/outfit/job/chef/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H) // requires mind
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
-	ADD_TRAIT(H.mind, TRAIT_KNOWS_COOKING_RECIPES, ROUNDSTART_TRAIT)
-	if(H.mind)
-		H.mind.AddSpell(new /datum/spell/expert_chef)
 
 /datum/job/hydro
 	title = "Botanist"
@@ -382,6 +378,7 @@
 	name = "Clown"
 	jobtype = /datum/job/clown
 
+	belt = /obj/item/storage/belt/utility/ferrari
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat

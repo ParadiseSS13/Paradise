@@ -181,7 +181,7 @@
 		GLOB.apcs = sortAtom(GLOB.apcs)
 		return
 
-	electronics_state = APC_ELECTRONICS_SECURED
+	electronics_state = APC_ELECTRONICS_INSTALLED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
 		cell = new /obj/item/stock_parts/cell/upgraded(src)
@@ -328,6 +328,8 @@
 				electronics_state = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
 				to_chat(user, "<span class='notice'>You place [used] inside the frame.</span>")
+				stat &= ~MAINT
+				update_icon()
 				qdel(used)
 
 		return ITEM_INTERACT_COMPLETE
@@ -373,6 +375,8 @@
 
 /obj/machinery/power/apc/obj_break(damage_flag)
 	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			playsound(src.loc, 'sound/misc/apcdestroyed.ogg', 75)
 		set_broken()
 
 // attack with hand - remove cell (if cover open) or interact with the APC

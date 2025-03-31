@@ -142,6 +142,9 @@
 	..()
 	robocharge()
 
+/obj/item/gun/energy/disabler/cyborg/afd_edition
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg/afd_edition)
+
 //////////////////////////////
 // MARK: U-ION SILENCER
 //////////////////////////////

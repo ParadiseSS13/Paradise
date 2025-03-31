@@ -150,6 +150,12 @@
 	update_icon()
 	//much roomier now that we've managed to remove two tools
 
+/obj/item/storage/belt/utility/ferrari
+	name = "\improper Ferrari belt"
+
+/obj/item/storage/belt/utility/ferrari/populate_contents()
+	new /obj/item/screwdriver/power(src)
+
 /// A cool looking belt thats essentially a syndicate toolbox
 /obj/item/storage/belt/utility/syndi_researcher
 	desc = "A belt for holding tools, but with style."
@@ -667,7 +673,8 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/gun/energy/detective
+		/obj/item/gun/energy/detective,
+		/obj/item/gun/projectile/revolver/detective
 		)
 
 /obj/item/storage/belt/wands
@@ -1065,8 +1072,8 @@
 		/obj/item/kitchen/utensil,
 		/obj/item/kitchen/knife,
 		/obj/item/kitchen/rollingpin,
-		/obj/item/kitchen/mould,
-		/obj/item/kitchen/sushimat,
+		/obj/item/reagent_containers/cooking/mould,
+		/obj/item/reagent_containers/cooking/sushimat,
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,

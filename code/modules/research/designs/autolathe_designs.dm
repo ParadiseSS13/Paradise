@@ -858,6 +858,22 @@
 	build_path = /obj/item/ammo_box/b357
 	category = list("hacked", "Security")
 
+/datum/design/b38
+	name = "Ammo Box (.38)"
+	id = "b38"
+	build_type = AUTOLATHE
+	materials = list (MAT_METAL = 25000)
+	build_path = /obj/item/ammo_box/b38
+	category = list("hacked", "Security")
+
+/datum/design/rubber38
+	name = "Ammo Box (.38 Rubber)"
+	id = "rubber38"
+	build_type = AUTOLATHE
+	materials = list (MAT_METAL = 25000)
+	build_path = /obj/item/ammo_box/b38/rubber
+	category = list("initial", "Security")
+
 /datum/design/c10mm
 	name = "Ammo Box (10mm)"
 	id = "c10mm"
@@ -865,6 +881,14 @@
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/c10mm
 	category = list("hacked", "Security")
+
+/datum/design/afd27mm
+	name = "Ammo Box (2.7mm)"
+	id = "afd27mm"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000)
+	build_path = /obj/item/ammo_box/afd27mm
+	category = list("Security")
 
 /datum/design/c45
 	name = "Ammo Box (.45)"

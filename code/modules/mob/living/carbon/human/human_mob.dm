@@ -152,6 +152,10 @@
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
+	if(mapload)
+		return
+	if(prob(10))
+		addtimer(CALLBACK(src, PROC_REF(gorillize), prob(5)), 3 SECONDS) // OH SHIT
 
 /mob/living/carbon/human/farwa/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/tajaran)
@@ -2035,12 +2039,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(recipe.check_reagents_assoc_list(available_reagents) != INGREDIENT_CHECK_FAILURE && recipe.check_items_assoc_list(available_ingredients) != INGREDIENT_CHECK_FAILURE)
 			if(istype(recipe, /datum/recipe/microwave))
 				possible_recipes[recipe] = RECIPE_MICROWAVE
-			else if(istype(recipe, /datum/recipe/oven))
-				possible_recipes[recipe] = RECIPE_OVEN
-			else if(istype(recipe, /datum/recipe/grill))
-				possible_recipes[recipe] = RECIPE_GRILL
-			else if(istype(recipe, /datum/recipe/candy))
-				possible_recipes[recipe] = RECIPE_CANDY
 			else
 				possible_recipes[recipe] = "something? This shouldn't happen, make a bug report"
 

@@ -12,7 +12,60 @@
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
 	. += "[get_ammo(0, 0)] of those are live rounds."
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
+	. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> [src] to spin it's barrel.</span>"
+
+/obj/item/gun/projectile/revolver/detective
+	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
+	name = ".38 Mars Special"
+	icon_state = "detective"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
+	unique_reskin = TRUE
+	can_holster = TRUE
+	var/ghettomodded
+
+/obj/item/gun/projectile/revolver/detective/Initialize(mapload)
+	. = ..()
+	options["The Original"] = "detective"
+	options["Leopard Spots"] = "detective_leopard"
+	options["Black Panther"] = "detective_panther"
+	options["Gold Trim"] = "detective_gold"
+	options["The Peacemaker"] = "detective_peacemaker"
+
+/obj/item/gun/projectile/revolver/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if(ghettomodded)
+		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
+			to_chat(user, "<span class='danger'>[src] blows up in your face!</span>")
+			user.apply_damage(60, BURN, user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+			user.EyeBlurry(10 SECONDS)
+			user.flash_eyes(2, TRUE)
+			playsound(src, fire_sound, 100, TRUE)
+			user.drop_item_to_ground(src)
+			return
+	return ..()
+
+/obj/item/gun/projectile/revolver/detective/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='notice'>[user] begins to [ghettomodded ? "revert the modifications to" : "reinforce the barrel of"] [src]", \
+						"<span class='notice'> You begin to [ghettomodded ? "revert the modifications to" : "reinforce the barrel of"] [src]</span>")
+
+	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))
+		return
+
+	if(magazine.ammo_count())
+		process_fire(user, user, FALSE)
+		user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='danger'>[src] goes off in your face!</span>")
+		return
+
+	if(magazine.caliber == "38")
+		ghettomodded = TRUE
+		magazine.caliber = "357"
+		desc = "[initial(desc)] The barrel and chamber assembly seems to have been modified."
+		to_chat(user, "<span class='warning'>You reinforce the barrel of [src]! Now it will fire .357 rounds.</span>")
+	else
+		ghettomodded = FALSE
+		magazine.caliber = "38"
+		desc = initial(desc)
+		to_chat(user, "<span class='warning'>You remove the modifications on [src]! Now it will fire .38 rounds.</span>")
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = 1)
 	if(spin)
@@ -30,7 +83,7 @@
 
 /obj/item/gun/projectile/revolver/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	. = ..()
-	if(istype(A, /obj/item/ammo_box/b357))
+	if(istype(A, /obj/item/ammo_box/b357) || istype(A, /obj/item/ammo_box/b38))
 		return
 	if(.)
 		return
@@ -58,7 +111,7 @@
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
-/obj/item/gun/projectile/revolver/AltClick(mob/user)
+/obj/item/gun/projectile/revolver/CtrlShiftClick(mob/user, modifiers) // had to change this binding since it clashed with the reskin
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 

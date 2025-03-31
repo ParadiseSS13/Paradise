@@ -143,6 +143,8 @@
 		else
 			symbol = null
 
+	text = emoji_parse(text)
+
 	// Approximate text height
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
 	var/complete_text = "<span class='center maptext[size ? " [size]" : ""]' style='[italics ? "font-style: italic; " : ""]color: [output_color]'>[symbol][text]</span>"

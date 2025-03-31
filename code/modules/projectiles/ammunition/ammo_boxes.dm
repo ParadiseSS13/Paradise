@@ -16,6 +16,35 @@
 	multi_sprite_step = 1
 	icon_state = "357_box"
 
+// Change the icons
+/obj/item/ammo_box/a38
+	name = "speed loader (.38)"
+	desc = "A small device designed to quickly reload revolvers. Six round capacity."
+	caliber = "38"
+	materials = list()
+	ammo_type = /obj/item/ammo_casing/detective/a38
+	max_ammo = 6
+	multi_sprite_step = 1
+	icon_state = "38"
+
+/obj/item/ammo_box/a38/rubber
+	ammo_type = /obj/item/ammo_casing/detective/rubber38
+
+/obj/item/ammo_box/b38
+	name = "ammo box (.38)"
+	desc = "An ammunition box filled with .38 rounds, commonly used in police-issued revolvers."
+	caliber = "38"
+	w_class = WEIGHT_CLASS_NORMAL
+	ammo_type = /obj/item/ammo_casing/detective/a38
+	max_ammo = 6
+	multi_sprite_step = 1
+	icon_state = "38_box"
+
+/obj/item/ammo_box/b38/rubber
+	name = "ammo box (.38 Rubber)"
+	desc = "An ammunition box filled with .38 rubber rounds, commonly used in police-issued revolvers."
+	ammo_type = /obj/item/ammo_casing/detective/rubber38
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	desc = "An ammunition box filled with 9mm pistol cartridges, commonly used in handguns and submachine guns."
@@ -39,6 +68,14 @@
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
+
+/obj/item/ammo_box/afd27mm
+	name = "ammo box (2.7mm)"
+	desc = "An ammunition box filled with 2.7mm pistol cartridges, for tiny handguns."
+	icon_state = "10mmbox"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/afd27mm
+	max_ammo = 40
 
 /obj/item/ammo_box/rubber45
 	name = "ammo box (.45 rubber)"

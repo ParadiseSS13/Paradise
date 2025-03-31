@@ -524,6 +524,30 @@
 	if(B)
 		B.link_new_cell(unlink_cell)
 
+/obj/item/robot_module/security_afd_edition
+	name = "security robot module"
+	module_type = "Security"
+	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	basic_modules = list(
+		/obj/item/flash/cyborg,
+		/obj/item/crowbar/cyborg/red,
+		/obj/item/restraints/handcuffs/cable/zipties/cyborg, // I wanted to make these toys, but for some ungodly reason the breakout time is always 45 seconds even if I use a non-ziptie (I literally tried making a toy cuffs subtype and 45 seconds still magically appeared somehow. BYOND is cursed as fuck.), but oh well I guess they can have ONE thing.
+		/obj/item/melee/baton/loaded/afd_edition,
+		/obj/item/gun/energy/disabler/cyborg/afd_edition,
+		/obj/item/holosign_creator/security,
+		/obj/item/hailer/afd_edition
+	)
+	emag_override_modules = list(/obj/item/gun/energy/laser/cyborg/afd_edition)	// You emaggeded them, they can have a real gun. OR CAN THEY!?
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/disabler/cyborg/afd_edition,
+		/obj/item/gun/energy/laser/cyborg/afd_edition
+	)
+
+/obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
+	var/obj/item/melee/baton/B = locate(/obj/item/melee/baton/loaded) in modules
+	if(B)
+		B.link_new_cell(unlink_cell)
 // Janitor
 /obj/item/robot_module/janitor
 	name = "janitorial robot module"

@@ -182,6 +182,13 @@
 	max_ammo = 5
 	multiload = 1
 
+/obj/item/ammo_box/magazine/internal/cylinder/rev38
+	name = "d-tiv revolver cylinder"
+	desc = "Oh god, this shouldn't be here"
+	ammo_type = /obj/item/ammo_casing/detective/rubber38
+	caliber = "38"
+	max_ammo = 6
+
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	max_ammo =1
 	ammo_type = /obj/item/ammo_casing/a762/enchanted
@@ -233,6 +240,14 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 8
+	multi_sprite_step = 1
+
+/obj/item/ammo_box/magazine/hummingbird
+	name = "handgun magazine (2.7mm)"
+	icon_state = "9x19p"
+	ammo_type = /obj/item/ammo_casing/afd27mm
+	caliber = "27mm"
+	max_ammo = 7
 	multi_sprite_step = 1
 
 /obj/item/ammo_box/magazine/enforcer
@@ -465,6 +480,16 @@
 	name = "shotgun magazine (12g buckshot slugs)"
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+
+/obj/item/ammo_box/magazine/m12g/rubbershot
+	name = "shotgun magazine (12g rubbershot)"
+	icon_state = "m12gb"
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+
+/obj/item/ammo_box/magazine/m12g/rubbershot/give_round(obj/item/ammo_casing/R, replace_spent)
+	if(istype(R, /obj/item/ammo_casing/shotgun/frag12) || istype(R, /obj/item/ammo_casing/shotgun/buckshot))
+		return 0
+	return ..()
 
 /obj/item/ammo_box/magazine/m12g/stun
 	name = "shotgun magazine (12g taser slugs)"

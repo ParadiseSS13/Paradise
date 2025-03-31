@@ -140,8 +140,10 @@
 	var/explosion_power = 35
 	///Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
-	/// Refered to as eer on the moniter. This value effects gas output, heat, damage, and radiation.
+	/// Refered to as eer on the moniter. This value effects gas output, heat, and damage.
 	var/power = 0
+	/// This is the power between getting increased and reduced. It affects radiation.
+	var/pre_reduction_power = 0
 	/// A bonus to rad production equal to EER multiplied by the bonus given by each gas. The bonus gets higher the more gas there is in the chamber.
 	var/gas_coefficient = 0
 	///Determines the rate of positve change in gas comp values
@@ -565,6 +567,8 @@
 		if(power_changes)
 			power = max((removed.temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
+		pre_reduction_power = power
+
 		var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
 
 		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
@@ -708,7 +712,7 @@
 	investigate_log("Supermatter shard consumed by singularity.", "singulo")
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
-	var/supermatter_sound = sound('sound/effects/supermatter.ogg')
+	var/supermatter_sound = sound('sound/spookoween/scary_horn2.ogg')
 	for(var/M in GLOB.player_list)
 		if(atoms_share_level(M, src))
 			SEND_SOUND(M, supermatter_sound) //everyone goan know bout this
@@ -781,7 +785,7 @@
 		cause = "contact"
 	nom.visible_message(vis_msg, mob_msg, "<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
 	investigate_log("has been attacked ([cause]) by [key_name(nom)]", "supermatter")
-	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+	playsound(get_turf(src), 'sound/spookoween/scary_horn2.ogg', 50, TRUE)
 	Consume(nom)
 
 /obj/machinery/atmospherics/supermatter_crystal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -841,7 +845,7 @@
 
 	if(isliving(AM))
 		AM.visible_message("<span class='danger'>[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
-		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
+		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly honking. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
 	else if(isobj(AM) && !iseffect(AM))
 		AM.visible_message("<span class='danger'>[AM] smacks into [src] and rapidly flashes to ash.</span>", null,\
@@ -849,7 +853,7 @@
 	else
 		return
 
-	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+	playsound(get_turf(src), 'sound/spookoween/scary_horn2.ogg', 50, TRUE)
 	Consume(AM)
 
 /obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A)
@@ -1046,7 +1050,7 @@
 	icon_state = "darkmatter"
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_pull(turf/center, pull_range = 3)
-	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view, channel = CHANNEL_ENGINE)
+	playsound(center, 'sound/items/bikehorn.ogg', 100, TRUE, extrarange = pull_range - world.view, channel = CHANNEL_ENGINE)
 	for(var/atom/movable/P in orange(pull_range,center))
 		if((P.anchored || P.move_resist >= MOVE_FORCE_EXTREMELY_STRONG)) //move resist memes.
 			if(istype(P, /obj/structure/closet))

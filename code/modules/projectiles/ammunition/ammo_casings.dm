@@ -35,6 +35,18 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
+/obj/item/ammo_casing/detective/a38
+	name = ".38 round"
+	desc = "A .38 bullet casing."
+	caliber = "38"
+	projectile_type = /obj/item/projectile/bullet/a38
+
+/obj/item/ammo_casing/detective/rubber38
+	name = ".38 rubber round"
+	desc = "A .38 bullet casing. This one has a rubber tip for less-lethal takedowns."
+	caliber = "38"
+	projectile_type = /obj/item/projectile/bullet/rubber38
+
 /obj/item/ammo_casing/c38/invisible
 	projectile_type = /obj/item/projectile/bullet/mime
 	muzzle_flash_effect = null // invisible eh
@@ -136,6 +148,14 @@
 	projectile_type = /obj/item/projectile/bullet/midbullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/afd27mm
+	name = "2.7mm round"
+	desc = "A tiny 2.7mm round. Designed for tiny guns."
+	caliber = "27mm"
+	projectile_type = /obj/item/projectile/bullet/hummingbird
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 
 /obj/item/ammo_casing/c45/nostamina
 	projectile_type = /obj/item/projectile/bullet/midbullet3
