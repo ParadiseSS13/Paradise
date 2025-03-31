@@ -182,6 +182,13 @@
 	max_ammo = 5
 	multiload = 1
 
+/obj/item/ammo_box/magazine/internal/cylinder/rev38
+	name = "d-tiv revolver cylinder"
+	desc = "Oh god, this shouldn't be here"
+	ammo_type = /obj/item/ammo_casing/detective/rubber38
+	caliber = "38"
+	max_ammo = 6
+
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	max_ammo =1
 	ammo_type = /obj/item/ammo_casing/a762/enchanted
