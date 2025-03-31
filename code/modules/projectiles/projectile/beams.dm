@@ -105,6 +105,9 @@
 	armour_penetration_flat = -10
 	light_color = LIGHT_COLOR_BLUE
 
+/obj/item/projectile/beam/disabler/afd_edition
+	damage = 0
+
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
