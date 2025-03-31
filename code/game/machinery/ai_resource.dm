@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	anchored = TRUE
 	max_integrity = 100
 	idle_power_consumption = 5
-	active_power_consumption = 250
+	active_power_consumption = 750
 	var/icon_base
 	/// Is the machine active
 	var/active = FALSE
@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		return
 	active = !active
 	if(user)
-		to_chat(user, "<span class = 'notice'>You turn [src] [active ? "on" : "off"].</span>")
+		to_chat(user, "<span class='notice'>You turn [src] [active ? "on" : "off"].</span>")
 	if(active) // We're booting up
 		refresh_ai()
 	else // We're shutting down
@@ -138,6 +138,8 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		turn_off()
 	else // We have an AI
 		assigned_ai.program_picker.modify_resource(resource_key, resource_amount)
+		var/area/our_area = get_area(src)
+		to_chat(assigned_ai, "<span class='notice'>New server node connected at: [our_area.name].</span>")
 		change_power_mode(ACTIVE_POWER_USE)
 		update_icon(UPDATE_ICON_STATE)
 
@@ -145,6 +147,8 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	active = FALSE
 	if(assigned_ai)
 		assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
+		var/area/our_area = get_area(src)
+		to_chat(assigned_ai, "<span class='warning'>Server node disconnected at: [our_area.name]!</span>")
 		assigned_ai = null
 	change_power_mode(IDLE_POWER_USE)
 	update_icon(UPDATE_ICON_STATE)
@@ -176,9 +180,12 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		return
 	if(!istype(new_ai))
 		return
+	var/area/our_area = get_area(src)
 	assigned_ai.program_picker.modify_resource(resource_key, -resource_amount)
+	to_chat(assigned_ai, "<span class='warning'>Server node disconnected at: [our_area.name]!</span>")
 	assigned_ai = new_ai
 	assigned_ai.program_picker.modify_resource(resource_key, resource_amount)
+	to_chat(assigned_ai, "<span class='notice'>New server node connected at: [our_area.name].</span>")
 
 /datum/milla_safe/ai_node_process
 

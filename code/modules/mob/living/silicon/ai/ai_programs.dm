@@ -216,6 +216,7 @@
 	if(!upgrade_level <= 0)
 		uninstall(user)
 		return
+	to_chat(user, "<span class='warning'>Program update data lost: [src.program_name]!</span>")
 	user.program_picker.bandwidth++
 	if(!upgrade) // Passives need to be handled in their own procs
 		var/datum/spell/ai_spell/removed_spell = new power_type
@@ -234,6 +235,7 @@
 	user.program_picker.bandwidth += bandwidth_used
 	bandwidth_used = 0
 	user.program_picker.memory += cost
+	to_chat(user, "<span class='userdanger'>Program core data lost: [src.program_name]!</span>")
 	if(!upgrade) // Passives need to be handled in their own procs
 		var/datum/spell/ai_spell/removed_spell = new power_type
 		for(var/datum/spell/ai_spell/aspell in user.mob_spell_list)
@@ -710,7 +712,7 @@
 	auto_use_uses = FALSE
 	base_cooldown = 150 SECONDS
 	cooldown_min = 30 SECONDS
-	level_max = 7
+	level_max = 10
 	selection_activated_message = "<span class='notice'>You prepare to order your nanomachines to perform organic repairs...</span>"
 	selection_deactivated_message = "<span class='notice'>You rescind the order.</span>"
 
@@ -728,18 +730,20 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 75
 	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
-	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
+	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 5 SECONDS)
 	if(do_after_once(AI, 5 SECONDS, target = target, allow_moving = TRUE))
+		AI.program_picker.nanites -= 75
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		target.heal_overall_damage(damage_healed, damage_healed)
 		if(spell_level >= 5)
 			for(var/obj/item/organ/external/E in target.bodyparts)
-				if(prob(5 * spell_level))
+				if(prob(10 * spell_level))
 					E.mend_fracture()
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
+	else
+		revert_cast()
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 30)), cooldown_min)
@@ -1057,3 +1061,39 @@
 	if(GLOB.alarm_manager.trigger_alarm("Tracking", A, A.cameras, closest_camera))
 		// Cancel alert after 1 minute
 		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Tracking", A, closest_camera), 1 MINUTES)
+
+// Pointer - Lets you put down a holographic reticle to draw attention to things
+/datum/ai_program/pointer
+	program_name = "Holopointer"
+	program_id = "holopointer"
+	description = "Illuminate a hologram to notify or beckon crew."
+	cost = 1
+	nanite_cost = 5
+	power_type = /datum/spell/ai_spell/ranged/pointer
+	unlock_text = "Hologram emitters online."
+
+/datum/spell/ai_spell/ranged/pointer
+	name = "Holopointer"
+	desc = "Illuminate a hologram to notify or beckon crew."
+	action_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
+	action_icon_state = "target_circle"
+	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	auto_use_uses = FALSE
+	base_cooldown = 15 SECONDS
+	cooldown_min = 15 SECONDS
+	level_max = 1
+	selection_activated_message = "<span class='notice'>You prepare to illuminate a hologram...</span>"
+	selection_deactivated_message = "<span class='notice'>You spool down your projector.</span>"
+
+/datum/spell/ai_spell/ranged/pointer/cast(list/targets, mob/user)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No valid target!</span>")
+		revert_cast()
+		return
+	var/target = targets[1]
+	if(!check_camera_vision(user, target))
+		revert_cast()
+		return
+	var/mob/living/silicon/ai/AI = user
+	AI.program_picker.nanites -= 5
+	new /obj/effect/temp_visual/single_user/ai_telegraph/pointer(target, user)
