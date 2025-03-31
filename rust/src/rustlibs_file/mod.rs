@@ -42,5 +42,5 @@ fn write(data: &str, path: &str) -> eyre::Result<ByondValue> {
         .map_err(|e| std::io::Error::new(e.error().kind(), e.error().to_string()))?
         .sync_all()?;
 
-    Ok(written.try_into()?)
+    Ok(written.into())
 }
