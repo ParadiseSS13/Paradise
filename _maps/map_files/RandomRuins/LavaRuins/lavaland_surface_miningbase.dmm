@@ -446,7 +446,6 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -2415,6 +2414,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "tn" = (
 /obj/machinery/mineral/equipment_vendor,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -3094,6 +3094,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "yR" = (
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -3898,7 +3899,6 @@
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Fm" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - West Hallway";
 	dir = 1;
@@ -4001,6 +4001,7 @@
 /area/mine/outpost/maintenance/south)
 "Gb" = (
 /obj/machinery/economy/vending/cigarette,
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -4869,7 +4870,6 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -4972,9 +4972,6 @@
 	},
 /area/mine/outpost/smith_workshop)
 "Od" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/kirbyplants/large,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -5001,11 +4998,11 @@
 /area/mine/outpost/mechbay)
 "OC" = (
 /obj/structure/closet/cardboard,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -5548,7 +5545,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "RW" = (
-/obj/machinery/newscaster/directional/east,
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5821,6 +5818,16 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/storage)
+"UM" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/newscaster/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mine/outpost/cafeteria)
 "UR" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -5883,14 +5890,9 @@
 	},
 /area/mine/outpost/cafeteria)
 "VR" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/machinery/light/small,
 /obj/structure/closet,
 /obj/item/storage/bag/trash,
 /obj/machinery/alarm/directional/south,
@@ -5898,6 +5900,9 @@
 /obj/item/caution,
 /obj/item/caution,
 /obj/item/caution,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners"
 	},
@@ -6683,8 +6688,8 @@ bW
 bW
 bW
 bW
-aL
-aL
+bW
+bW
 aL
 aL
 aL
@@ -6734,7 +6739,7 @@ bW
 bW
 bW
 bW
-aL
+bW
 aL
 aL
 aL
@@ -8234,7 +8239,7 @@ pQ
 pQ
 aL
 aL
-aL
+bW
 bW
 bW
 bW
@@ -8257,7 +8262,7 @@ rt
 bW
 bW
 kB
-SB
+UM
 cv
 cW
 my
@@ -8307,7 +8312,7 @@ GP
 To
 Qf
 Ht
-Fw
+Ht
 Fw
 xv
 Ht
@@ -8384,7 +8389,7 @@ bW
 bW
 bW
 bW
-bW
+aL
 bW
 bW
 bW
@@ -8464,7 +8469,7 @@ wn
 wn
 wn
 xs
-Wk
+xs
 Wk
 pr
 xs
@@ -8725,12 +8730,12 @@ of
 qo
 of
 of
-bW
-bW
-bW
-bW
-bW
-bW
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
 bW
 bW
 bW
@@ -8772,15 +8777,15 @@ PR
 of
 of
 of
-bW
-bW
-bW
-bW
-bW
-bW
-bW
-bW
-bW
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
 bW
 bW
 bW
@@ -8818,23 +8823,23 @@ of
 of
 of
 of
-bW
+Ug
 of
-bW
+Ug
 of
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
 bW
 bW
 bW
 bW
-bW
-bW
-bW
-bW
-bW
-bW
-bW
-bW
-aL
 aL
 aL
 aL

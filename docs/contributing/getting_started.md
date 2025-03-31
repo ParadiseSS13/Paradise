@@ -93,9 +93,9 @@ some extra dependencies.
 1. Download the latest release from <https://github.com/ParadiseSS13/rust-g>
 2. Run the following command:
 
-    ```sh
-    apt-get install libssl-dev:i386 pkg-config:i386 zlib1g-dev:i386
-    ```
+   ```sh
+   apt-get install libssl-dev:i386 pkg-config:i386 zlib1g-dev:i386
+   ```
 
 3. After installing these packages, rust-g should be able to build and function
    as intended. Build instructions are on the rust-g GitHub. We assume that if
@@ -103,9 +103,9 @@ some extra dependencies.
 4. Once you've built rust-g, you can build MILLA similarly. Change into the
    `milla/` directory and run:
 
-    ```sh
-    cargo build --release --target=i686-unknown-linux-gnu
-    ```
+   ```sh
+   cargo build --release --target=i686-unknown-linux-gnu
+   ```
 
 ## Cloning the Repository
 
@@ -113,17 +113,17 @@ Cloning the Paradise repository only has to be done once.
 
 1. Visit the [repository][] and press the _Fork_ button in the upper right corner.
 
-    ![](./images/fork_repository.png)
+   ![](./images/fork_repository.png)
 
 [repository]: https://github.com/ParadiseSS13/Paradise
 
 2. Launch Visual Studio Code. Select the Source Control panel on the sidebar,
    and click _Clone Repository_.
 
-    ![](./images/vsc_clone_repository.png)
+   ![](./images/vsc_clone_repository.png)
 
-    If that’s not there, you can press `Ctrl`+`Shift`+`P` to open the command
-    palette, then type `Git: Clone` and then press `Enter`.
+   If that’s not there, you can press `Ctrl`+`Shift`+`P` to open the command
+   palette, then type `Git: Clone` and then press `Enter`.
 
 3. Paste the URL of the repository you created in the last step. It should look
    like this: `https://github.com/YOURNAME/Paradise`. Then, select a folder to
@@ -178,13 +178,13 @@ the output of blackbox entries.
    computer, so there's no need to worry about starting it manually.
 
 2. Open HeidiSQL (comes with MariaDB) and connect it to the database. Click on
-   *New* to create a new session, check *prompt for credentials* and leave the
+   _New_ to create a new session, check _prompt for credentials_ and leave the
    rest as default.
 
-3. Click *Save*, then click open and enter in `root` for the username and the
+3. Click _Save_, then click open and enter in `root` for the username and the
    password you set up during the installation.
 
-4. Select the database you just created and then select *File -> Load SQL File*,
+4. Select the database you just created and then select _File -> Load SQL File_,
    and open the `paradise_schema.sql` file found in the `SQL/` directory of the
    game.
 
@@ -194,16 +194,16 @@ the output of blackbox entries.
 6. Refresh the panel on the left by right clicking it and ensure there's a new
    database called `paradise_gamedb` created.
 
-7. Create a new user account for the server by going to *Tools -> User Manager*.
+7. Create a new user account for the server by going to _Tools -> User Manager_.
    'From Host' should be `127.0.0.1`, not `localhost` if hosted locally.
    Otherwise, use the IP of the game server. For permissions, do not give it any
-   global permissions. Instead click *Add Object*,  select the database you
-   created for the server, click *OK*, then give it `SELECT`, `DELETE`,
+   global permissions. Instead click _Add Object_, select the database you
+   created for the server, click _OK_, then give it `SELECT`, `DELETE`,
    `INSERT`, and `UPDATE` permissions on that database.
 
 8. You can click the arrow on the password field to get a randomly generated
    password of certain lengths. copy the password before saving as it will be
-   cleared the moment you hit *Save*.
+   cleared the moment you hit _Save_.
 
 9. Open the file `config/config.toml` in your text editor (such as VS Code)
    scroll down to the `[database_configuration]` section. You should've copied
@@ -211,20 +211,20 @@ the output of blackbox entries.
 
 10. Make sure that these settings are changed:
 
-      - `sql_enabled` is set to `true`.
-      - `sql_version` to the correct version. By starting the server with a
-        mismatched version here and all the other settings set up, the chat box
-        will tell you the current version in red text, between the messages for
-        all the subsystems initializing. Set this to the current version.
-      - `sql_address` is set to `"127.0.0.1"`. (Replace with the database server's
-        IP if not hosted locally)
-      - `sql_port` is set to whatever port was selected during the MariaDB
-        install, usually `3306`.
-      - `sql_database` is set to the name of your database, usually
-        `"paradise_gamedb"`.
-      - `sql_username` is set to the 'User name' of the user you created above.
-      - `sql_password` is set to the randomly generated 'Password' of the user you
-          created above.
+    - `sql_enabled` is set to `true`.
+    - `sql_version` to the correct version. By starting the server with a
+      mismatched version here and all the other settings set up, the chat box
+      will tell you the current version in red text, between the messages for
+      all the subsystems initializing. Set this to the current version.
+    - `sql_address` is set to `"127.0.0.1"`. (Replace with the database server's
+      IP if not hosted locally)
+    - `sql_port` is set to whatever port was selected during the MariaDB
+      install, usually `3306`.
+    - `sql_database` is set to the name of your database, usually
+      `"paradise_gamedb"`.
+    - `sql_username` is set to the 'User name' of the user you created above.
+    - `sql_password` is set to the randomly generated 'Password' of the user you
+      created above.
 
 The database is now set up for death logging, population logging, polls,
 library, privacy poll, connection logging and player logging. There are two more
@@ -246,16 +246,16 @@ the database.
 
 To enable database based administration:
 
--   Open `\config\config.toml` and scroll to the `[admin_configuration]`
-    section.
--   Set `use_database_admins` to `true`.
--   Add a database entry for the first administrator (likely yourself).
--   Done! Note that anyone set in the `admin_assignments` list will no
-    longer be counted.
--   If your database ever dies, your server will revert to the old admin
-    system, so it is a good idea to have `admin_assignments` and
-    `admin_ranks` set up with some admins too, just so that the loss of
-    the database doesn't completely destroy everything.
+- Open `\config\config.toml` and scroll to the `[admin_configuration]`
+  section.
+- Set `use_database_admins` to `true`.
+- Add a database entry for the first administrator (likely yourself).
+- Done! Note that anyone set in the `admin_assignments` list will no
+  longer be counted.
+- If your database ever dies, your server will revert to the old admin
+  system, so it is a good idea to have `admin_assignments` and
+  `admin_ranks` set up with some admins too, just so that the loss of
+  the database doesn't completely destroy everything.
 
 ## Working with `config.toml`
 
@@ -286,7 +286,8 @@ map altogether and save yourself some time starting the server by setting
 If you do not need to load Lavaland, any of its ruins, or any space ruins, you
 can change these settings under `ruin_configuration`:
 
-- `enable_lavaland`: whether to load the Lavaland z-level.
+- `enable_lavaland`: whether to load Lavaland.
+- `enable_space`: Whether to load space sectors.
 - `enable_space_ruins`: despite its name, this controls whether ruins are
   spawned for both space _and_ Lavaland.
 - `minimum_space_zlevels`/`maximum_space_zlevels` and

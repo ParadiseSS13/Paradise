@@ -26,6 +26,11 @@ SUBSYSTEM_DEF(mapping)
 	/// A mapping of environment names to MILLA environment IDs.
 	var/list/environments
 
+	/// Ruin placement manager for space levels.
+	var/datum/ruin_placer/space/space_ruins_placer
+	/// Ruin placement manager for lavaland levels.
+	var/datum/ruin_placer/lavaland/lavaland_ruins_placer
+
 	var/num_of_res_levels = 0
 	var/clearing_reserved_turfs = FALSE
 	var/list/datum/turf_reservations //list of turf reservations
@@ -96,10 +101,25 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
-	if(GLOB.configuration.ruins.enable_zlevels)
-		generate_zlevels()
+	if(GLOB.configuration.ruins.enable_space)
+		generate_space_zlevels()
+	if(GLOB.configuration.ruins.enable_lavaland)
+		generate_lavaland_zlevels()
+
+	// Setup the Z-level linkage
+	GLOB.space_manager.do_transition_setup()
+
+	// Seed space ruins
+	if(GLOB.configuration.ruins.enable_ruins)
+		place_lavaland_ruins()
+		place_space_ruins()
 	else
 		log_startup_progress("Skipping zlevel content...")
+
+	if(GLOB.configuration.ruins.enable_lavaland)
+		// Perform procedural generation for lavaland rivers and caves, which
+		// happens after ruin placement.
+		procgen_lavaland()
 
 	var/empty_z_traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY)
 #ifdef GAME_TESTS
@@ -182,7 +202,7 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.space_manager.do_transition_setup()
 
 	// Seed space ruins
-	if(GLOB.configuration.ruins.enable_space_ruins)
+	if(GLOB.configuration.ruins.enable_ruins)
 		place_lavaland_ruins()
 		place_space_ruins()
 	else
@@ -285,15 +305,15 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/place_lavaland_ruins()
 	log_startup_progress("Placing lavaland ruins...")
 	var/watch = start_watch()
-	var/datum/ruin_placer/lavaland/placer = new()
-	placer.place_ruins(levels_by_trait(ORE_LEVEL))
+	lavaland_ruins_placer = new()
+	lavaland_ruins_placer.place_ruins(levels_by_trait(ORE_LEVEL))
 	log_startup_progress("Placed lavaland ruins in [stop_watch(watch)]s.")
 
 /datum/controller/subsystem/mapping/proc/place_space_ruins()
 	log_startup_progress("Placing space ruins...")
 	var/watch = start_watch()
-	var/datum/ruin_placer/space/placer = new()
-	placer.place_ruins(levels_by_trait(SPAWN_RUINS))
+	space_ruins_placer = new()
+	space_ruins_placer.place_ruins(levels_by_trait(SPAWN_RUINS))
 	log_startup_progress("Placed space ruins in [stop_watch(watch)]s.")
 	seed_space_salvage(levels_by_trait(SPAWN_RUINS))
 

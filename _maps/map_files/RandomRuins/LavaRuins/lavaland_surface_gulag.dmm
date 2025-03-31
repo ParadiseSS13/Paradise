@@ -7,7 +7,6 @@
 /area/mine/laborcamp)
 "au" = (
 /obj/structure/flora/ash/stem_shroom,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "av" = (
@@ -48,6 +47,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 10
@@ -140,9 +140,6 @@
 	},
 /area/mine/laborcamp)
 "cs" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Central Wesst";
 	network = list("Labor Camp");
@@ -181,6 +178,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"dc" = (
+/obj/structure/flora/ash/tall_shroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/gulag_rock)
 "dD" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
@@ -455,9 +456,8 @@
 	dir = 4;
 	name = "scrubber outlet"
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/gulag_rock)
+/area/mine/laborcamp)
 "ig" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
@@ -519,7 +519,6 @@
 /area/mine/laborcamp)
 "jG" = (
 /obj/structure/glowshroom,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "jK" = (
@@ -527,7 +526,6 @@
 /obj/structure/sign/nanotrasen{
 	pixel_x = 32
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "jR" = (
@@ -822,7 +820,6 @@
 "pk" = (
 /obj/effect/decal/cleanable/ash,
 /obj/item/clothing/mask/gas/clown_hat,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "pl" = (
@@ -1058,10 +1055,6 @@
 /obj/structure/rack,
 /obj/item/screwdriver,
 /obj/item/storage/bag/trash,
-/obj/item/gps/ruin{
-	pixel_x = 32;
-	gpstag = "Nanotrasen Labor Camp"
-	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "rh" = (
@@ -1222,7 +1215,6 @@
 /area/mine/laborcamp)
 "tp" = (
 /obj/item/clothing/shoes/orange,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "tE" = (
@@ -1511,6 +1503,10 @@
 	icon_state = "darkredyellowfull"
 	},
 /area/mine/laborcamp)
+"zN" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/gulag_rock)
 "zO" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable,
@@ -1528,7 +1524,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "zV" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/flashlight/flare,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -1693,6 +1689,10 @@
 /area/mine/laborcamp)
 "CD" = (
 /obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/gulag_rock)
+"CF" = (
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "CI" = (
@@ -2159,7 +2159,6 @@
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "LN" = (
@@ -2226,7 +2225,6 @@
 /obj/structure/sign/nanotrasen{
 	pixel_x = 32
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "MR" = (
@@ -2252,7 +2250,6 @@
 "MV" = (
 /obj/item/card/id/prisoner/random,
 /obj/item/toy/figure/crew/syndie,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "Nd" = (
@@ -2823,7 +2820,6 @@
 /area/mine/laborcamp)
 "Zz" = (
 /obj/structure/flora/ash/cacti,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "ZC" = (
@@ -2853,9 +2849,8 @@
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/gulag_rock)
+/area/mine/laborcamp)
 "ZX" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 1
@@ -3657,10 +3652,10 @@ fD
 rk
 rk
 rk
-pB
+uP
 lR
 lR
-lR
+uP
 lR
 lR
 uP
@@ -3907,13 +3902,13 @@ lR
 lR
 lR
 pB
-mj
-pB
+Jo
+uP
 lR
 lR
 lR
-GM
-GM
+sb
+sb
 fD
 Qj
 gW
@@ -3923,12 +3918,12 @@ GF
 GD
 Tv
 Am
-pB
-GM
-GM
+uP
+sb
+sb
 lR
 lR
-lR
+uP
 lR
 uP
 lR
@@ -4041,12 +4036,12 @@ lR
 mj
 mj
 tp
-pB
-GM
+uP
+sb
 lR
-pB
-Po
-GM
+uP
+dc
+sb
 fD
 gH
 hq
@@ -4056,8 +4051,8 @@ cd
 GD
 uw
 Am
-pB
-GM
+uP
+sb
 lR
 lR
 lR
@@ -4174,12 +4169,12 @@ lR
 Qm
 MI
 MV
-wa
+CF
 lR
 lR
 MN
-pB
-pB
+uP
+uP
 rk
 rk
 tM
@@ -4189,7 +4184,7 @@ rk
 qo
 rk
 rk
-pB
+uP
 au
 lR
 lR
@@ -4307,9 +4302,9 @@ lR
 lR
 GM
 pk
-pB
+uP
 lR
-Sp
+zN
 bw
 bw
 bw
@@ -4327,7 +4322,7 @@ LG
 lR
 lR
 lR
-wa
+CF
 lR
 lR
 lR
@@ -4440,9 +4435,9 @@ lR
 lR
 GM
 jK
-pB
+uP
 lR
-pB
+uP
 bw
 Qh
 sy
@@ -4589,9 +4584,9 @@ UI
 Mo
 DP
 FX
-Sp
+zN
 lR
-GM
+sb
 lR
 lR
 lR
@@ -4722,11 +4717,11 @@ RV
 XO
 zj
 FX
-pB
+uP
 au
-pB
+uP
 lR
-pB
+uP
 lR
 lR
 lR
@@ -4856,7 +4851,7 @@ Lw
 yB
 FX
 if
-pB
+uP
 lR
 lR
 lR
@@ -4989,7 +4984,7 @@ na
 gD
 EH
 ZL
-pB
+uP
 lR
 lR
 lR
@@ -5258,7 +5253,7 @@ AI
 at
 Nh
 lR
-pB
+uP
 lR
 lR
 lR
@@ -5390,7 +5385,7 @@ yo
 aF
 Fm
 FX
-pB
+uP
 Zz
 lR
 lR
@@ -5523,8 +5518,8 @@ iW
 PR
 qa
 FX
-pB
-Sp
+uP
+zN
 pB
 lR
 lR
@@ -5656,8 +5651,8 @@ to
 ni
 AL
 FX
-pB
-pB
+uP
+uP
 pB
 lR
 lR

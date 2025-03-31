@@ -188,7 +188,6 @@
 	if(!areas_in_z["[z]"])
 		areas_in_z["[z]"] = list()
 	areas_in_z["[z]"] += src
-	log_chat_debug("[__PROC__]: [COORD(src)]")
 
 /area/proc/get_cameras()
 	var/list/cameras = list()

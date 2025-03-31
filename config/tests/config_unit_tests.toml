@@ -1,6 +1,7 @@
 [ruin_configuration]
 enable_lavaland = false
-enable_space_ruins = false
+enable_space = false
+enable_ruins = false
 minimum_space_zlevels = 0
 maximum_space_zlevels = 0
 minimum_lavaland_zlevels = 0

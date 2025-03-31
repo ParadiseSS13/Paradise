@@ -173,7 +173,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 64
+sql_version = 65
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -248,7 +248,7 @@ gamemode_probabilities = [
 	{ gamemode = "abduction", probability = 0 },
 	{ gamemode = "changeling", probability = 0 },
 	{ gamemode = "cult", probability = 0 },
-	{ gamemode = "extend-a-traitormongous", probability = 2 }, # Autotraitor
+	{ gamemode = "extend-a-traitormongous", probability = 0 }, # Autotraitor
 	{ gamemode = "extended", probability = 0 },
 	{ gamemode = "nuclear", probability = 2 },
 	{ gamemode = "raginmages", probability = 0 },
@@ -260,7 +260,7 @@ gamemode_probabilities = [
 	{ gamemode = "vampire", probability = 0 },
 	{ gamemode = "wizard", probability = 2 },
 	{ gamemode = "trifecta", probability = 0 },
-	{ gamemode = "dynamic", probability = 20 },
+	{ gamemode = "dynamic", probability = 22 },
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
@@ -603,10 +603,12 @@ redis_connstring = "redis://127.0.0.1/"
 [ruin_configuration]
 # This section contains configuration for all space ruins and lava ruins
 
-# Globally enable extra zlevels, including space and lavaland.
-enable_zlevels = true
-# Globally enable and disable placing of all ruins, including lavaland ruins and lavaland tendrils.
-enable_space_ruins = false
+# Enable space z-level generation.
+enable_space = true
+# Enable lavaland generation.
+enable_lavaland = true
+# Globally enable and disable placing of all ruins across lavaland and space.
+enable_ruins = true
 # Minimum number of extra space zlevels to generate
 minimum_space_zlevels = 2
 # Maximum number of extra space zlevels to generate
