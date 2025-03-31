@@ -147,7 +147,8 @@
 	return RUSTLIB_CALL(log_close_all)
 
 // MARK: DMI
-/proc/rustlibs_dmi_strip_metadata(fname) RUSTLIB_CALL(dmi_strip_metadata, fname)
+/proc/rustlibs_dmi_strip_metadata(fname) 
+	return RUSTLIB_CALL(dmi_strip_metadata, fname)
 
 
 // MARK: Grid Perlin Noise
