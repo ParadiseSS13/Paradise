@@ -52,7 +52,7 @@
 "ek" = (
 /obj/structure/flora/junglebush,
 /obj/structure/spacevine,
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "eP" = (
