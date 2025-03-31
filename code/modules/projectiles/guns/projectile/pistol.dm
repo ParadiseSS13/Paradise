@@ -28,6 +28,15 @@
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
 
+//AFD Hummingbird//
+/obj/item/gun/projectile/automatic/pistol/hummingbird
+	name = "\improper KP-01 Hummingbird"
+	desc = "A tiny, refurbished pistol chambered in 2.7mm."
+	icon_state = "hummingbird"
+	w_class = WEIGHT_CLASS_TINY
+	mag_type = /obj/item/ammo_box/magazine/hummingbird
+	can_suppress = FALSE
+
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
 	name = "\improper NF10 'Enforcer' pistol"

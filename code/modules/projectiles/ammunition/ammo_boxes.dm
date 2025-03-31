@@ -40,6 +40,14 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
 
+/obj/item/ammo_box/afd27mm
+	name = "ammo box (2.7mm)"
+	desc = "An ammunition box filled with 2.7mm pistol cartridges, for tiny handguns."
+	icon_state = "10mmbox"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/afd27mm
+	max_ammo = 40
+
 /obj/item/ammo_box/rubber45
 	name = "ammo box (.45 rubber)"
 	desc = "An ammunition box filled with .45 caliber rubber bullets for less-lethal actions."
