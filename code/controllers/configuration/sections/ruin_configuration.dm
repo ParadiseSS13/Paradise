@@ -23,9 +23,9 @@
 	/// Maximum budget for space ruins
 	var/space_ruin_budget_max = 1000
 	/// Minimum budget for lavaland ruins
-	var/lavaland_ruin_budget_min = 175
+	var/lavaland_ruin_budget_min = 350
 	/// Maximum budget for lavaland ruins
-	var/lavaland_ruin_budget_max = 325
+	var/lavaland_ruin_budget_max = 500
 
 /datum/configuration_section/ruin_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
