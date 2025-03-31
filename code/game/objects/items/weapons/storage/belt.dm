@@ -150,6 +150,12 @@
 	update_icon()
 	//much roomier now that we've managed to remove two tools
 
+/obj/item/storage/belt/utility/ferrari
+	name = "\improper Ferrari belt"
+
+/obj/item/storage/belt/utility/ferrari/populate_contents()
+	new /obj/item/screwdriver/power(src)
+
 /// A cool looking belt thats essentially a syndicate toolbox
 /obj/item/storage/belt/utility/syndi_researcher
 	desc = "A belt for holding tools, but with style."

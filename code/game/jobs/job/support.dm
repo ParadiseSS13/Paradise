@@ -378,6 +378,7 @@
 	name = "Clown"
 	jobtype = /datum/job/clown
 
+	belt = /obj/item/storage/belt/utility/ferrari
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
