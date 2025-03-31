@@ -1240,7 +1240,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 
 /obj/machinery/door/airlock/open(forced=0)
-	var/list/sound_pool = list(
+	var/static/list/sound_pool = list(
 		'sound/items/airhorn.ogg',
 		'sound/misc/sadtrombone.ogg',
 		'sound/misc/slip.ogg',
