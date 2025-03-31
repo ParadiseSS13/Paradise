@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 					"<span class='notice'>You turn on [src].</span>", \
 					"<span class='italics'>You hear heavy droning.</span>")
 				turn_on()
-				investigate_log("<font color='green'>activated</font> by [user.key].", "singulo")
+				investigate_log("<font color='green'>activated</font> by [user.key].", INVESTIGATE_SINGULO)
 
 				add_fingerprint(user)
 	else
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	else
 		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
-		investigate_log("ran out of energy and <font color='red'>deactivated</font>","singulo")
+		investigate_log("ran out of energy and <font color='red'>deactivated</font>",INVESTIGATE_SINGULO)
 		energy = 0
 		check_energy_level()
 		return FALSE
@@ -380,7 +380,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 				// [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)] works much better and actually works at all
 				// Oh and yes, this exact comment was pasted from the exact same thing I did to tcomms code. Dont at me.
 				message_admins("A singularity exists and a containment field has failed on the same Z-Level. Singulo location: [O ? "[get_location_name(O, TRUE)] [COORD(O)]" : "nonexistent location"] [ADMIN_JMP(O)] | Field generator location: [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]")
-				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.", "singulo")
+				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.", INVESTIGATE_SINGULO)
 		O.last_warning = world.time
 
 /obj/machinery/field/generator/shock_field(mob/living/user)
