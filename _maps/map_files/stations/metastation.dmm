@@ -18127,14 +18127,12 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bvq" = (
-/obj/item/flash,
 /obj/structure/table/wood,
 /obj/machinery/recharger{
 	pixel_y = 3
 	},
 /obj/item/flashlight/lamp/green{
-	pixel_x = -12;
-	pixel_y = 5
+	pixel_y = -25
 	},
 /obj/item/storage/secure/safe{
 	pixel_x = 32
@@ -18474,10 +18472,8 @@
 	},
 /area/station/aisat/service)
 "bwc" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
 /obj/machinery/newscaster/security_unit/directional/east,
+/obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bwd" = (
