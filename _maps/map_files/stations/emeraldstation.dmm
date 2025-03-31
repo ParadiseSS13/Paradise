@@ -2548,7 +2548,7 @@
 /area/station/security/prison/cell_block)
 "aAR" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -2740,9 +2740,9 @@
 /area/station/supply/qm)
 "aDv" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "aDx" = (
@@ -4521,7 +4521,7 @@
 /area/station/medical/medbay2)
 "aWx" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -5254,7 +5254,7 @@
 "bcg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "bch" = (
@@ -11526,7 +11526,7 @@
 "cmH" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "cmI" = (
@@ -14135,7 +14135,7 @@
 /area/station/engineering/smes)
 "cOx" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -15958,7 +15958,7 @@
 /area/station/service/hydroponics)
 "diy" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "diD" = (
@@ -16378,13 +16378,13 @@
 /area/station/maintenance/security/aft_starboard)
 "dmR" = (
 /obj/structure/closet/crate,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -17277,10 +17277,6 @@
 /area/station/medical/medbay2)
 "dvd" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Personnel's Office";
-	pixel_y = 4
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
@@ -21171,7 +21167,7 @@
 "eme" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "emi" = (
@@ -22944,12 +22940,12 @@
 /area/station/command/office/blueshield)
 "eEs" = (
 /obj/structure/closet/crate,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/starboard)
 "eEt" = (
@@ -24319,7 +24315,7 @@
 /area/station/maintenance/apmaint)
 "eTs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -25983,7 +25979,7 @@
 "fhT" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "fhY" = (
@@ -40452,8 +40448,22 @@
 	},
 /area/station/maintenance/apmaint)
 "iaX" = (
-/obj/machinery/computer/security/mining{
-	dir = 1
+/obj/structure/table/wood,
+/obj/item/folder/blue,
+/obj/item/pen/multi{
+	pixel_x = -4;
+	pixel_y = 5
+	},
+/obj/item/pen{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/machinery/door_control{
+	id = "hopofficedoor";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	req_access = list(57);
+	pixel_y = -24
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
@@ -41754,7 +41764,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -42247,7 +42257,7 @@
 /area/station/security/armory/secure)
 "itZ" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/t_scanner,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -42659,15 +42669,15 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "ixQ" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
-	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	name = "Research and Development Lab Shutters";
+	id_tag = "rndlab2"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
@@ -49914,7 +49924,7 @@
 "jRJ" = (
 /obj/machinery/alarm/directional/south,
 /obj/structure/closet/firecloset,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/security/aft_port)
 "jRK" = (
@@ -53622,7 +53632,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/trash,
 /obj/item/crowbar,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "kHv" = (
@@ -58449,10 +58459,10 @@
 /area/station/hallway/primary/starboard)
 "lEt" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -64814,6 +64824,17 @@
 /obj/machinery/shieldwallgen,
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
+"mWr" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/warden)
 "mWx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -64878,7 +64899,7 @@
 /area/station/public/fitness)
 "mWP" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "mWS" = (
@@ -67019,7 +67040,7 @@
 "nsf" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "nsh" = (
@@ -67105,7 +67126,7 @@
 /area/station/security/brig)
 "ntJ" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/paper_bin,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -67907,7 +67928,7 @@
 "nBJ" = (
 /obj/structure/table,
 /obj/item/decorations/sticky_decorations/flammable/ghost,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -70274,8 +70295,8 @@
 /area/station/maintenance/fsmaint2)
 "nYu" = (
 /obj/structure/closet/secure_closet/evidence,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/item/restraints/handcuffs/pinkcuffs,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
@@ -71008,7 +71029,7 @@
 "oeZ" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -72185,8 +72206,11 @@
 /area/station/engineering/atmos/storage)
 "opX" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp,
 /obj/machinery/alarm/directional/north,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Head of Personnel's Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
 "opY" = (
@@ -78520,7 +78544,7 @@
 "pBT" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "pCt" = (
@@ -80501,7 +80525,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
@@ -81294,7 +81318,7 @@
 /area/station/engineering/equipmentstorage)
 "qey" = (
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -83353,7 +83377,7 @@
 "qCB" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/structure/rack,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -92640,7 +92664,7 @@
 /area/station/hallway/primary/central/ne)
 "sqZ" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /obj/item/stack/cable_coil,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -97637,7 +97661,7 @@
 /area/station/security/processing)
 "toU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "toV" = (
@@ -100218,7 +100242,7 @@
 "tRB" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "tRV" = (
@@ -109607,14 +109631,14 @@
 /area/station/engineering/atmos/asteroid_filtering)
 "vKw" = (
 /obj/structure/table/wood,
-/obj/item/megaphone{
-	pixel_y = 7;
-	pixel_x = -3
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/newscaster/security_unit/directional/north,
+/obj/item/megaphone{
+	pixel_y = 7;
+	pixel_x = -3
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
 "vKy" = (
@@ -109776,8 +109800,8 @@
 /area/station/engineering/control)
 "vLQ" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "vLS" = (
@@ -111144,9 +111168,9 @@
 "vZb" = (
 /obj/structure/closet,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -112008,11 +112032,6 @@
 "wid" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
-	},
 /obj/item/desk_bell{
 	pixel_y = 8;
 	anchored = 1
@@ -112023,6 +112042,11 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	name = "Research and Development Lab Shutters";
+	id_tag = "rndlab2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
@@ -116515,22 +116539,7 @@
 /area/station/maintenance/electrical)
 "xgy" = (
 /obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/item/pen/multi{
-	pixel_x = -4;
-	pixel_y = 5
-	},
-/obj/machinery/door_control{
-	id = "hopofficedoor";
-	name = "Office Door";
-	normaldoorcontrol = 1;
-	pixel_x = -8;
-	req_access = list(57)
-	},
-/obj/item/pen{
-	pixel_x = -8;
-	pixel_y = 5
-	},
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
 "xgJ" = (
@@ -119026,7 +119035,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
+	id_tag = "rndlab2"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -170261,7 +170270,7 @@ kWw
 wgz
 nHY
 xcQ
-vTq
+mWr
 aGg
 fWa
 qJu
