@@ -151,7 +151,7 @@ window "mainwindow"
 		saved-params = "splitter"
 		left = "paramapwindow"
 		right = "rpane"
-		is-vert = true
+		is-vert = false
 	elem "asset_cache_browser"
 		type = BROWSER
 		size = 200x200
@@ -216,7 +216,7 @@ window "rpane"
 		saved-params = "splitter"
 		left = "infowindow"
 		right = "outputwindow"
-		is-vert = false
+		is-vert = true
 	elem "textb"
 		type = BUTTON
 		pos = 0,7
