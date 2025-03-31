@@ -63,7 +63,7 @@
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
-
+	l_pocket = /obj/item/gun/projectile/automatic/pistol/hummingbird
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 	backpack = /obj/item/storage/backpack/security
@@ -109,6 +109,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/warden
 	l_pocket = /obj/item/flash
+	r_pocket = /obj/item/gun/projectile/automatic/pistol/hummingbird
 	suit_store = /obj/item/gun/energy/disabler
 	pda = /obj/item/pda/warden
 	backpack_contents = list(
@@ -168,7 +169,8 @@
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
 		/obj/item/detective_scanner = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/classic_baton/telescopic = 1,
+		/obj/item/gun/projectile/automatic/pistol/hummingbird = 1
 	)
 
 	bio_chips = list(/obj/item/bio_chip/mindshield)
@@ -226,6 +228,7 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
+	r_pocket = /obj/item/gun/projectile/automatic/pistol/hummingbird
 	suit_store = /obj/item/gun/energy/disabler
 	pda = /obj/item/pda/security
 	backpack_contents = list(

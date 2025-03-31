@@ -242,6 +242,14 @@
 	max_ammo = 8
 	multi_sprite_step = 1
 
+/obj/item/ammo_box/magazine/hummingbird
+	name = "handgun magazine (2.7mm)"
+	icon_state = "9x19p"
+	ammo_type = /obj/item/ammo_casing/afd27mm
+	caliber = "27mm"
+	max_ammo = 7
+	multi_sprite_step = 1
+
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
 	icon_state = "enforcer"

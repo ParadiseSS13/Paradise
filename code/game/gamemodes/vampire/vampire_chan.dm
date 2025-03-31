@@ -2,7 +2,13 @@
 	name = "vampire_changeling"
 	config_tag = "vampchan"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Career Trainer", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General", "Research Director", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Quartermaster")
+	protected_jobs = list(
+		"Internal Affairs Agent",
+		"Nanotrasen Career Trainer",
+		"Nanotrasen Navy Officer",
+		"Special Operations Officer",
+		"Trans-Solar Federation General",
+	)
 	species_to_mindflayer = list("Machine")
 	required_players = 15
 	required_enemies = 1
