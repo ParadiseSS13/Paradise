@@ -1240,6 +1240,32 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 
 /obj/machinery/door/airlock/open(forced=0)
+	var/static/list/sound_pool = list(
+		'sound/items/airhorn.ogg',
+		'sound/misc/sadtrombone.ogg',
+		'sound/misc/slip.ogg',
+		'sound/weapons/chainsaw.ogg',
+		'sound/items/weeoo1.ogg',
+		'sound/machines/ding.ogg',
+		'sound/machines/honkbot_evil_laugh.ogg',
+		'sound/machines/terminal_alert.ogg',
+		'sound/effects/bamf.ogg',
+		'sound/effects/adminhelp.ogg',
+		'sound/effects/alert.ogg',
+		'sound/voice/sitcom_laugh.ogg',
+		'sound/voice/sitcom_laugh2.ogg',
+		'sound/voice/biamthelaw.ogg',
+		'sound/items/bikehorn.ogg',
+		'sound/weapons/gunshots/gunshot_silenced.ogg',
+		'sound/weapons/gunshots/gunshot.ogg',
+		'sound/weapons/cqchit2.ogg',
+		'sound/weapons/pulse3.ogg',
+		'sound/weapons/gunshots/gunshot_shotgun.ogg',
+		'sound/weapons/laser.ogg',
+		'sound/weapons/ionrifle.ogg',
+		'sound/effects/supermatter.ogg'
+	)
+
 	if(operating || welded || locked || emagged)
 		return 0
 	if(!forced)
@@ -1249,7 +1275,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(forced)
 		playsound(loc, 'sound/machines/airlockforcedopen.ogg', 30, TRUE)
 	else
-		playsound(loc, doorOpen, 30, 1)
+		playsound(loc, pick(sound_pool), 50, 1)
 	if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
 		closeOther.close()
 
