@@ -104,9 +104,7 @@
 /obj/machinery/computer/security{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -143,9 +141,7 @@
 /obj/machinery/computer/station_alert{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"

@@ -899,9 +899,7 @@
 	pixel_x = -11;
 	pixel_y = 5
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/random/directional/east,
 /obj/item/pen/multi{
 	pixel_x = -9;
 	pixel_y = -1
@@ -1099,9 +1097,7 @@
 /obj/machinery/conveyor{
 	id = "mining_internal"
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "dp" = (
@@ -2732,9 +2728,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/random/directional/north,
 /obj/machinery/light_switch{
 	pixel_x = 24;
 	name = "East Switch";
@@ -3139,9 +3133,7 @@
 /area/lavaland/surface/outdoors)
 "im" = (
 /obj/structure/grille/broken,
-/obj/structure/sign/poster/random{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/random/directional/west,
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -6145,9 +6137,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -6666,9 +6656,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 5
@@ -7906,9 +7894,7 @@
 /area/lavaland/surface/outdoors/targetable)
 "GM" = (
 /obj/machinery/mineral/equipment_vendor,
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -8189,9 +8175,7 @@
 /area/lavaland/surface/outdoors)
 "IE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/structure/sign/poster/official/help_others{
-	pixel_y = 31
-	},
+/obj/structure/sign/poster/official/help_others/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -9300,9 +9284,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "PD" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -9374,9 +9356,7 @@
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/structure/sign/poster/contraband/clown{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/clown/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredyellowfull"
 	},
@@ -9451,9 +9431,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/random/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -9687,9 +9665,7 @@
 	pixel_x = 2;
 	pixel_y = 5
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -11069,9 +11045,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "ZM" = (
