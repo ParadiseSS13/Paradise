@@ -38,9 +38,8 @@
 			user.apply_damage(60, BURN, user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			user.EyeBlurry(10 SECONDS)
 			user.flash_eyes(2, TRUE)
-			playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
+			playsound(src, fire_sound, 100, TRUE)
 			user.drop_item_to_ground(src)
-			qdel(src) // KABLAM
 			return
 	return ..()
 
