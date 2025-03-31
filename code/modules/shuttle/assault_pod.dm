@@ -4,6 +4,8 @@
 	dwidth = 3
 	width = 7
 	height = 7
+	preferred_direction = EAST
+	port_direction = EAST
 
 /obj/docking_port/mobile/assault_pod/request()
 	if(z == initial(src.z)) //No launching pods that have already launched

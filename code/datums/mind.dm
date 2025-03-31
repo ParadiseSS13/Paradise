@@ -530,7 +530,7 @@
 		//         ^ whoever left this comment is literally a grammar nazi. stalin better. in russia grammar correct you.
 
 /datum/mind/proc/edit_memory()
-	if(!SSticker || !SSticker.mode)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Not before round-start!", "Alert")
 		return
 
@@ -1513,7 +1513,7 @@
 					return
 				var/mob/living/silicon/ai/ai = current
 				for(var/mob/living/silicon/robot/R in ai.connected_robots)
-					R.unemag()
+					R.unemag(R)
 				log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
 				message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
 
@@ -1859,7 +1859,7 @@
 /mob/living/carbon/human/mind_initialize()
 	..()
 	if(!mind.assigned_role)
-		mind.assigned_role = "Assistant"	//defualt
+		mind.assigned_role = "Assistant"	//default
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)

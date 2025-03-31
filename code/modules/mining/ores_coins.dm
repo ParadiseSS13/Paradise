@@ -189,6 +189,47 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/platinum
+	name = "platinum ore"
+	desc = "Rock formation containing platinum."
+	icon_state = "platinum_ore"
+	item_state = "platinum_ore"
+	origin_tech = "materials=5"
+	singular_name = "platinum ore chunk"
+	points = 50
+	refined_type = /obj/item/stack/sheet/mineral/platinum
+	materials = list(MAT_PLATINUM = MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/ore/palladium
+	name = "palladium ore"
+	desc = "Rock formation containing palladium."
+	icon_state = "palladium_ore"
+	item_state = "palladium_ore"
+	origin_tech = "materials=5"
+	singular_name = "palladium ore chunk"
+	points = 50
+	refined_type = /obj/item/stack/sheet/mineral/palladium
+	materials = list(MAT_PALLADIUM = MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/ore/iridium
+	name = "iridium ore"
+	desc = "Rock formation containing iridium."
+	icon_state = "iridium_ore"
+	item_state = "iridium_ore"
+	origin_tech = "materials=5"
+	singular_name = "iridium ore chunk"
+	points = 50
+	refined_type = /obj/item/stack/sheet/mineral/iridium
+	materials = list(MAT_IRIDIUM = MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/ore/brass
+	name = "brass ore"
+	desc = "Rock formation containing brass. This ore is not naturally occurring - if you see this, let development know."
+	singular_name = "brass ore chunk"
+	points = 1
+	refined_type = /obj/item/stack/tile/brass
+	materials = list(MAT_BRASS = MINERAL_MATERIAL_AMOUNT)
+
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
 	desc = "HONK!"
@@ -320,11 +361,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		spawn(det_time)
 		if(primed)
 			if(quality == GIBTONITE_QUALITY_HIGH)
-				explosion(loc, 2, 4, 9, adminlog = notify_admins)
+				explosion(loc, 2, 4, 9, adminlog = notify_admins, cause = "Movable Gibtonite")
 			if(quality == GIBTONITE_QUALITY_MEDIUM)
-				explosion(loc, 1, 2, 5, adminlog = notify_admins)
+				explosion(loc, 1, 2, 5, adminlog = notify_admins, cause = "Movable Gibtonite")
 			if(quality == GIBTONITE_QUALITY_LOW)
-				explosion(loc, -1, 1, 3, adminlog = notify_admins)
+				explosion(loc, -1, 1, 3, adminlog = notify_admins, cause = "Movable Gibtonite")
 			qdel(src)
 
 
@@ -404,7 +445,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/turf/T = get_turf(src)
 	message_admins("Plasma coin ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
 	log_game("Plasma coin ignited by [key_name(user)] in [COORD(T)]")
-	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", INVESTIGATE_ATMOS)
 	user.create_log(MISC_LOG, "Plasma coin ignited using [I]", src)
 	fire_act()
 
@@ -419,14 +460,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_uranium_heads"
 	materials = list(MAT_URANIUM = 400)
 	credits = 160
-	COOLDOWN_DECLARE(radiation_cooldown)
 
-/obj/item/coin/uranium/attack_self__legacy__attackchain(mob/user)
-	..()
-	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
-		return
-	radiation_pulse(src, 50)
-	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
+/obj/item/coin/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /obj/item/coin/clown
 	cmineral = "bananium"

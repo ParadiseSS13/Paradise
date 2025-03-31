@@ -97,7 +97,7 @@
 				"<span class='userdanger'>\The [source] arc flashes and electrocutes you!</span>",
 				"<span class='italics'>You hear a lightning-like crack!</span>")
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
-			explosion(loc, -1, 0, 2, 2)
+			explosion(loc, -1, 0, 2, 2, cause = "Extreme Electrocution from [source]")
 	else
 		apply_damage(shock_damage, STAMINA)
 	visible_message(
@@ -320,7 +320,7 @@
 	return G
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 

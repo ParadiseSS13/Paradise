@@ -8,7 +8,7 @@
 /obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "gangtool-red"
+	icon_state = "declaration"
 	item_state = "walkietalkie"
 	desc = "Use to send a declaration of hostilities to the target, delaying your shuttle departure for 20 minutes while they prepare for your assault. \
 	Such a brazen move will attract the attention of powerful benefactors within the Syndicate, who will supply your team with a massive amount of bonus telecrystals. \

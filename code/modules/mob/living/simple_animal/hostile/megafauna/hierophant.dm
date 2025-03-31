@@ -809,29 +809,28 @@ Difficulty: Hard
 /obj/effect/hierophant/ex_act()
 	return
 
-/obj/effect/hierophant/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/hierophant_club))
-		var/obj/item/hierophant_club/H = I
-		if(H.timer > world.time)
-			return
-		if(H.beacon == src)
+/obj/effect/hierophant/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/hierophant_club))
+		var/obj/item/hierophant_club/club = used
+		if(club.timer > world.time)
+			return ITEM_INTERACT_COMPLETE
+		if(club.beacon == src)
 			to_chat(user, "<span class='notice'>You start removing your hierophant beacon...</span>")
-			H.timer = world.time + 51
-			INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
+			club.timer = world.time + 51
+			INVOKE_ASYNC(club, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
 			if(do_after(user, 50, target = src))
 				playsound(src,'sound/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
 				to_chat(user, "<span class='hierophant_warning'>You collect [src], reattaching it to the club!</span>")
-				H.beacon = null
+				club.beacon = null
 				user.update_action_buttons_icon()
 				qdel(src)
 			else
-				H.timer = world.time
-				INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
+				club.timer = world.time
+				INVOKE_ASYNC(club, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
 		else
 			to_chat(user, "<span class='hierophant_warning'>You touch the beacon with the club, but nothing happens.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/gps/internal/hierophant
 	icon_state = null

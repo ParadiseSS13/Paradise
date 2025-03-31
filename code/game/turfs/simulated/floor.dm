@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/current_overlay = null
 	var/floor_tile = null //tile that this floor drops
 	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
-
+	rad_insulation_alpha = RAD_NO_INSULATION
 	var/footstep = FOOTSTEP_FLOOR
 	var/barefootstep = FOOTSTEP_HARD_BAREFOOT
 	var/clawfootstep = FOOTSTEP_HARD_CLAW

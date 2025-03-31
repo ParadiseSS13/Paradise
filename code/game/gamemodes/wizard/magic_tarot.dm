@@ -611,12 +611,7 @@
 			funny_ruin_list += ruin_landmark
 
 	if(length(funny_ruin_list))
-		var/turf/T = get_turf(pick(funny_ruin_list))
-		target.forceMove(T)
-		to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
-		T.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
-		new /obj/item/pickaxe/emergency(T)
-		target.update_parallax_contents()
+		teleport(target, get_turf(pick(funny_ruin_list)))
 		return
 	//We did not find a ruin on the same level. Well. I hope you have a space suit, but we'll go space ruins as they are mostly sorta kinda safer.
 	for(var/I in GLOB.ruin_landmarks)
@@ -626,14 +621,16 @@
 
 	if(!length(funny_ruin_list))
 		to_chat(target, "<span class='warning'>Huh. No space ruins? Well, this card is RUINED!</span>")
+		return
 
-	var/turf/T = get_turf(pick(funny_ruin_list))
-	target.forceMove(T)
+	teleport(target, get_turf(pick(funny_ruin_list)))
+
+/datum/tarot/the_moon/proc/teleport(mob/living/target, turf/teleport_location)
+	teleport_location.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall or fall into lava/chasm, and a pickaxe to avoid being trapped in a wall
+	target.forceMove(teleport_location)
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
-	T.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
-	new /obj/item/pickaxe/emergency(T)
+	new /obj/item/pickaxe/emergency(teleport_location)
 	target.update_parallax_contents()
-	return
 
 /datum/tarot/the_sun
 	name = "XIX - The Sun"

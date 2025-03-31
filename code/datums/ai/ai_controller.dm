@@ -468,9 +468,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 #define TRACK_AI_DATUM_TARGET(tracked_datum, key) do { \
 	if(isdatum(tracked_datum)) { \
 		var/datum/_tracked_datum = tracked_datum; \
-		if(!HAS_TRAIT_FROM(_tracked_datum, TRAIT_AI_TRACKING, "[UID(src)]_[key]")) { \
+		if(!HAS_TRAIT_FROM(_tracked_datum, TRAIT_AI_TRACKING, "[UID()]_[key]")) { \
 			RegisterSignal(_tracked_datum, COMSIG_PARENT_QDELETING, PROC_REF(sig_remove_from_blackboard), override = TRUE); \
-			ADD_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[UID(src)]_[key]"); \
+			ADD_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[UID()]_[key]"); \
 		}; \
 	}; \
 } while(FALSE)
@@ -484,7 +484,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 #define CLEAR_AI_DATUM_TARGET(tracked_datum, key) do { \
 	if(isdatum(tracked_datum)) { \
 		var/datum/_tracked_datum = tracked_datum; \
-		REMOVE_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[UID(src)]_[key]"); \
+		REMOVE_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[UID()]_[key]"); \
 		if(!HAS_TRAIT(_tracked_datum, TRAIT_AI_TRACKING)) { \
 			UnregisterSignal(_tracked_datum, COMSIG_PARENT_QDELETING); \
 		}; \

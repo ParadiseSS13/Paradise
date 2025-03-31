@@ -921,7 +921,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return 2
 
 
-/mob/living/silicon/robot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/mob/living/silicon/robot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	// Check if the user is trying to insert another component like a radio, actuator, armor etc.
 	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
@@ -930,22 +930,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				continue
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 			var/obj/item/robot_parts/robot_component/WC = W
 			C.brute_damage = WC.brute
 			C.electronics_damage = WC.burn
 			C.install(WC)
 			to_chat(usr, "<span class='notice'>You install [W].</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(!getFireLoss(TRUE))
 			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
 		updatehealth()
@@ -976,13 +976,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 			module?.update_cells()
 			diag_hud_set_borgcell()
-
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
 		if(radio)//sanityyyyyy
 			radio.attackby__legacy__attackchain(W,user)//GTFO, you have your own procs
 		else
 			to_chat(user, "Unable to locate a radio.")
-
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
 		if(emagged)//still allow them to open the cover
 			to_chat(user, "The interface seems slightly damaged.")
@@ -996,7 +996,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_icons()
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
-
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
@@ -1006,18 +1006,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			if(U.action(user, src))
 				user.visible_message("<span class='notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
-
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(W, /obj/item/mmi_radio_upgrade))
 		if(!opened)
 			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(!mmi)
 			to_chat(user, "<span class='warning'>This cyborg does not have an MMI to augment!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(mmi.radio)
 			to_chat(user, "<span class='warning'>A radio upgrade is already installed in the MMI!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(user.drop_item())
 			to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
@@ -1133,13 +1133,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 
-/mob/living/silicon/robot/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
+/mob/living/silicon/robot/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
 		spark_system.start()
 	..()
 
 // Here so admins can unemag borgs.
-/mob/living/silicon/robot/unemag()
+/mob/living/silicon/robot/unemag(mob/user)
 	SetEmagged(FALSE)
 	if(!module)
 		return
@@ -1149,6 +1149,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module.unemag()
 	clear_supplied_laws()
 	laws = new /datum/ai_laws/crewsimov
+	var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
+	A.remove_hud_from(user)
 
 /mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
@@ -1217,6 +1219,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_module_icon()
 				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 			update_icons()
+			var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
+			A.add_hud_to(src)
 		return TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
@@ -1418,9 +1422,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
-		explosion(src.loc,1,2,4,flame_range = 2)
+		explosion(src.loc,1,2,4,flame_range = 2, cause = "Self-destruct emagged cyborg")
 	else
-		explosion(src.loc,-1,0,2)
+		explosion(src.loc,-1,0,2, cause = "Self-destruct cyborg")
 	gib()
 	return
 

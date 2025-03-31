@@ -60,7 +60,7 @@
 		toast() // mmmm toasty.
 	else
 		visible_message("<span class='warning'>[src] chews through [C].</span>")
-	investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
+	investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])",INVESTIGATE_WIRES)
 	C.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
@@ -141,6 +141,13 @@
 /mob/living/simple_animal/mouse/white
 	mouse_color = "white"
 	icon_state = "mouse_white"
+
+/mob/living/simple_animal/mouse/white/linter
+	name = "Linter"
+
+/mob/living/simple_animal/mouse/white/linter/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/mouse/gray
 	mouse_color = "gray"

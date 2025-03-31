@@ -10,8 +10,12 @@
 
 #ifdef GAME_TESTS
 #include "atmos\test_ventcrawl.dm"
+#include "attack_chain\test_attack_chain_borgs.dm"
 #include "attack_chain\test_attack_chain_cult_dagger.dm"
 #include "attack_chain\test_attack_chain_machinery.dm"
+#include "attack_chain\test_attack_chain_mobs.dm"
+#include "attack_chain\test_attack_chain_reagent_containers.dm"
+#include "attack_chain\test_attack_chain_stunbaton.dm"
 #include "attack_chain\test_attack_chain_turf.dm"
 #include "attack_chain\test_attack_chain_vehicles.dm"
 #include "games\test_cards.dm"
@@ -21,6 +25,7 @@
 #include "test_components.dm"
 #include "test_config_sanity.dm"
 #include "test_crafting_lists.dm"
+#include "test_dynamic_budget.dm"
 #include "test_elements.dm"
 #include "test_emotes.dm"
 #include "test_init_sanity.dm"

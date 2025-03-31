@@ -43,6 +43,18 @@
 	drop_type = /obj/item/stack/ore/diamond
 	scan_icon_state = "rock_Diamond"
 
+/datum/ore/platinum
+	drop_type = /obj/item/stack/ore/platinum
+	scan_icon_state = "rock_Platinum"
+
+/datum/ore/palladium
+	drop_type = /obj/item/stack/ore/palladium
+	scan_icon_state = "rock_Palladium"
+
+/datum/ore/iridium
+	drop_type = /obj/item/stack/ore/iridium
+	scan_icon_state = "rock_Iridium"
+
 /datum/ore/gold
 	drop_type = /obj/item/stack/ore/gold
 	spread_chance = 5
@@ -168,7 +180,7 @@
 	SIGNAL_HANDLER // COMSIG_ATTACK_BY
 
 	if(istype(attacker, /obj/item/mining_scanner) || istype(attacker, /obj/item/t_scanner/adv_mining_scanner) && stage == GIBTONITE_ACTIVE)
-		user.visible_message("<span class='notice'>[user] holds [attacker] to [src]...</span>", "<span class='notice'>You use [attacker] to locate where to cut off the chain reaction and attempt to stop it...</span>")
+		user.visible_message("<span class='notice'>[user] holds [attacker] to [source]...</span>", "<span class='notice'>You use [attacker] to locate where to cut off the chain reaction and attempt to stop it...</span>")
 		defuse(source)
 		return COMPONENT_SKIP_AFTERATTACK
 
@@ -181,7 +193,7 @@
 		deltimer(explosion_callback)
 
 	stage = GIBTONITE_DETONATE
-	explosion(source, 1, 3, 5, adminlog = notify_admins)
+	explosion(source, 1, 3, 5, adminlog = notify_admins, cause = "Gibtonite")
 
 	if(!istype(source))
 		return

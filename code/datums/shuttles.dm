@@ -136,6 +136,14 @@
 	Be careful to stay out of its path. Comes with a beacon to choose where it docks!"
 	admin_notes = "WARNING: This shuttle is designed to crash into the station. It has turrets, similar to the raven. Place down the beacon please. Once the shuttle is loaded, it cannot be unloaded."
 
+/datum/map_template/shuttle/emergency/cherenkov
+	suffix = "cherenkov"
+	name = "NXV Cherenkov"
+	description = "A vessel with a highly experimental supermatter-powered drive that enables it to travel much faster. \
+	To minimize crew exposure to radiation, the vessel's drive section is held far from the crew section by long struts. \
+	Personal Protective Equipment in the form of suits and meson goggles are available for use, and the medbay is equipped with anti-radiation treatment, and surgical equipment for removing any unwanted growths."
+	admin_notes = "The supermatter engine on this shuttle is not a prop, it is fully functional. It is pre-configured into a safe operating mode and should remain stable unless it is tampered with."
+
 /datum/map_template/shuttle/emergency/lance/preload()
 	message_admins("Preloading [name]!")
 	var/obj/docking_port/stationary/CCport
@@ -146,14 +154,6 @@
 	CCport.dheight = 0
 	CCport.width = 19
 	CCport.dwidth = 9
-	var/obj/docking_port/stationary/CCtransit
-	CCtransit = SSshuttle.getDock("emergency_transit")
-	CCtransit.setDir(2)
-	CCtransit.forceMove(locate(113, 68, 1))
-	CCtransit.height = 50
-	CCtransit.dheight = 0
-	CCtransit.width = 19
-	CCtransit.dwidth = 9
 	var/obj/docking_port/stationary/syndicate
 	syndicate = SSshuttle.getDock("emergency_syndicate")
 	syndicate.setDir(8)

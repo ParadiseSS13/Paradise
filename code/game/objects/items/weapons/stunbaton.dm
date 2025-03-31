@@ -12,6 +12,7 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 0, FIRE = 80, ACID = 80)
+	new_attack_chain = TRUE
 	/// How many seconds does the knockdown last for?
 	var/knockdown_duration = 10 SECONDS
 	/// how much stamina damage does this baton do?
@@ -51,10 +52,12 @@
 	if(unlink)
 		cell = null
 		return
+
 	if(isrobot(loc?.loc)) // First loc is the module
 		var/mob/living/silicon/robot/R = loc.loc
 		cell = R.cell
 		return
+
 	if(!cell)
 		var/powercell = /obj/item/stock_parts/cell/high
 		cell = new powercell(src)
@@ -110,37 +113,46 @@
 /obj/item/melee/baton/proc/deductcharge(amount)
 	if(!cell)
 		return
+
 	cell.use(amount)
 	if(cell.rigged)
 		cell = null
 		turned_on = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		return
+
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
 
-/obj/item/melee/baton/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = I
+/obj/item/melee/baton/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	if(istype(used, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = used
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(C.maxcharge < hitcost)
 			to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
-			return
-		if(!user.unequip(I))
-			return
-		I.forceMove(src)
-		cell = I
-		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.unequip(used))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		used.forceMove(src)
+		cell = used
+		to_chat(user, "<span class='notice'>You install [used] into [src].</span>")
 		update_icon(UPDATE_ICON_STATE)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
 		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
 		return
+
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 
@@ -151,7 +163,15 @@
 	turned_on = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/baton/attack_self__legacy__attackchain(mob/user)
+/obj/item/melee/baton/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
+	// Sometimes the borg baton spawns without linking to the cyborg's cell for reasons beyond my ken. That is VERY bad. This will fix it on the spot.
+	// They have to turn it on to use it, after all.
+	if(isrobot(loc) && !cell)
+		link_new_cell()
+
 	if(cell?.charge >= hitcost)
 		turned_on = !turned_on
 		to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
@@ -171,43 +191,67 @@
 	if(!. && turned_on && istype(hit_mob))
 		thrown_baton_stun(hit_mob)
 
-/obj/item/melee/baton/attack__legacy__attackchain(mob/M, mob/living/user)
+/obj/item/melee/baton/pre_attack(atom/A, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
-			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
-							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		return
+		// For those super edge cases where you clumsy baton yourself in quick succession.
+		if(baton_stun(user, user, skip_cooldown = TRUE))
+			user.visible_message(
+				"<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
+				"<span class='userdanger'>You accidentally hit yourself with [src]!</span>"
+				)
+		return FINISH_ATTACK
+
 	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user))
 		to_chat(user, user.mind.martial_art.no_baton_reason)
-		return
-	if(issilicon(M)) // Can't stunbaton borgs and AIs
-		return ..()
+		return FINISH_ATTACK
 
-	if(!isliving(M))
+	if(!ismob(A))
 		return
-	var/mob/living/L = M
+
+	user.changeNext_move(CLICK_CD_MELEE)
+	var/mob/living/target = A
 
 	if(user.a_intent == INTENT_HARM)
-		. = ..() // Whack them too if in harm intent
-		if(!isnull(.)) // Attack returns null when successful
-			return
-		if(turned_on)
-			baton_stun(L, user, ignore_shield_check = TRUE)
+		// Harmbaton!
 		return
 
 	if(!turned_on)
-		user.do_attack_animation(L)
-		L.visible_message("<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>",
-			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>")
-		return
+		user.do_attack_animation(target)
+		target.visible_message(
+			"<span class='warning'>[user] has prodded [target] with [src]. Luckily it was off.</span>",
+			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>"
+			)
+		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
+		return FINISH_ATTACK
 
-	if(baton_stun(L, user))
-		user.do_attack_animation(L)
+	// Only human mobs can be stunned.
+	if(!ishuman(target))
+		user.do_attack_animation(target)
+		target.visible_message(
+			"<span class='warning'>[user] has prodded [target] with [src]. It doesn't seem to have an effect.</span>",
+			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. It doesn't seem to have an effect.</span>"
+		)
+		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
+		return FINISH_ATTACK
+
+	if(baton_stun(target, user))
+		user.do_attack_animation(target)
+	return FINISH_ATTACK
+
+/obj/item/melee/baton/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(ishuman(target) && turned_on)
+		var/mob/living/carbon/human/H = target
+		baton_stun(H, user, ignore_shield_check = TRUE)
 
 /// returning false results in no baton attack animation, returning true results in an animation. If ignore_shield_check is true, the baton will not run check shields, and will hit if not on cooldown.
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE, ignore_shield_check = FALSE)
 	if(cooldown > world.time && !skip_cooldown)
 		return FALSE
+
 	var/user_UID = user.UID()
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
 		return FALSE
@@ -222,6 +266,7 @@
 		if(!ignore_shield_check && H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
+
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
 		H.apply_damage(stam_damage, STAMINA)
@@ -236,8 +281,10 @@
 	if(user)
 		L.lastattacker = user.real_name
 		L.lastattackerckey = user.ckey
-		L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>",
-			"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>")
+		L.visible_message(
+			"<span class='danger'>[user] has stunned [L] with [src]!</span>",
+			"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>"
+			)
 		add_attack_logs(user, L, "stunned")
 	play_hit_sound()
 	deductcharge(hitcost)
@@ -292,8 +339,10 @@
 	if(turned_on && cell?.charge)
 		flick("baton_active", source)
 		baton_stun(user, user, skip_cooldown = TRUE)
-		user.visible_message("<span class='warning'>[user] shocks [user.p_themselves()] while attempting to wash the active [src]!</span>",
-							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
+		user.visible_message(
+			"<span class='warning'>[user] shocks [user.p_themselves()] while attempting to wash the active [src]!</span>",
+			"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>"
+			)
 		return TRUE
 	..()
 
@@ -359,18 +408,13 @@
 
 /obj/item/melee/baton/flayerprod/Initialize(mapload) // We are not making a flayerprod without a cell
 	link_new_cell()
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 	return ..()
 
 /obj/item/melee/baton/flayerprod/update_icon_state()
 	return
 
-/obj/item/melee/baton/flayerprod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	return
-
 /obj/item/melee/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/I)
-	return
-
-/obj/item/melee/baton/flayerprod/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/melee/baton/flayerprod/play_hit_sound()

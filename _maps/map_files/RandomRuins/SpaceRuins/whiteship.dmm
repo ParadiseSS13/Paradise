@@ -234,14 +234,7 @@
 	id = "whiteship_away";
 	name = "Deep Space"
 	},
-/obj/docking_port/mobile{
-	dir = 8;
-	id = "whiteship";
-	name = "NEV Cherub";
-	dwidth = 6;
-	height = 19;
-	width = 12
-	},
+/obj/docking_port/mobile/whiteship,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "yF" = (

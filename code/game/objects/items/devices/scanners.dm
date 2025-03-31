@@ -750,7 +750,6 @@ SLIME SCANNER
 			volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
 			heat_capacity = air.heat_capacity()
 			thermal_energy = air.thermal_energy()
-
 			if(total_moles)
 				message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
 				if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
@@ -776,6 +775,8 @@ SLIME SCANNER
 
 	else// Sum mixtures then present
 		for(var/datum/gas_mixture/air as anything in airs)
+			if(isnull(air))
+				continue
 			total_moles += air.total_moles()
 			volume += air.return_volume()
 			heat_capacity += air.heat_capacity()

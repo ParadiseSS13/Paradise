@@ -168,6 +168,7 @@
 		H.put_in_hands(storedpda)
 
 	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
+	storedpda.update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	storedpda = null
 	update_icon()
 

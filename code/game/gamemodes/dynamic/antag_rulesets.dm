@@ -49,6 +49,7 @@
 
 	/// Rulesets that cannot be rolled while this ruleset is active. Used to prevent traitors from rolling while theres cultists, etc.
 	var/list/banned_mutual_rulesets = list(
+		/datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/team/cult,
 	)
 
@@ -170,7 +171,8 @@
 		var/datum/mind/antag = pick_n_take(possible_antags)
 		antag.add_antag_datum(antagonist_type)
 
-	log_dynamic("Latespawned [late_antag_amount] [name]s.")
+	log_dynamic("Latespawned [late_antag_amount] [name]\s.")
+	message_admins("Dynamic latespawned [late_antag_amount] [name]\s.")
 
 /datum/ruleset/proc/automatic_deduct(budget)
 	. = antag_cost * antag_amount
@@ -195,6 +197,22 @@
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), latespawn_time, TIMER_DELETE_ME)
 		antag.add_antag_datum(traitor_datum)
 
+/datum/ruleset/traitor/autotraitor
+	name = "Autotraitor"
+	ruleset_weight = 2
+	antag_cost = 10
+	banned_mutual_rulesets = list(
+		/datum/ruleset/traitor,
+		/datum/ruleset/vampire,
+		/datum/ruleset/changeling,
+		/datum/ruleset/team/cult
+	)
+
+/datum/ruleset/traitor/autotraitor/roundstart_post_setup(datum/game_mode/dynamic)
+	. = ..()
+	latespawn_time = null
+	addtimer(CALLBACK(src, PROC_REF(latespawn), dynamic), 5 MINUTES, TIMER_DELETE_ME|TIMER_LOOP)
+
 /datum/ruleset/vampire
 	name = "Vampire"
 	ruleset_weight = 12
@@ -215,12 +233,12 @@
 	banned_species = list("Machine")
 	implied_ruleset_type = /datum/ruleset/implied/mindflayer
 
-/datum/ruleset/changeling/ruleset_possible(ruleset_budget, rulesets)
+/datum/ruleset/changeling/ruleset_possible(ruleset_budget, rulesets, antag_budget)
 	// Theres already a ruleset, we're good to go
 	if(length(rulesets))
 		return ..()
 	// We're the first ruleset, but we can afford another ruleset
-	if((ruleset_budget >= /datum/ruleset/traitor::ruleset_cost) || (ruleset_budget >= /datum/ruleset/vampire::ruleset_cost))
+	if(ruleset_budget > 1)
 		return ..()
 	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
 
@@ -292,6 +310,7 @@
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
+		/datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/vampire,
 		/datum/ruleset/changeling
 	)

@@ -119,7 +119,7 @@
 					return
 				do_animate("deny")
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 	var/mob/living/M = AM
 	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))

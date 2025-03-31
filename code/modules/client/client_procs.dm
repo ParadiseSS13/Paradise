@@ -192,10 +192,12 @@
 
 		if("silenceSound")
 			usr.stop_sound_channel(CHANNEL_ADMIN)
+			tgui_panel?.stop_music()
 			return
 
 		if("muteAdmin")
 			usr.stop_sound_channel(CHANNEL_ADMIN)
+			tgui_panel?.stop_music()
 			prefs.admin_sound_ckey_ignore |= href_list["a"]
 			to_chat(usr, "You will no longer hear admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
 			prefs.save_preferences(src)
@@ -411,6 +413,8 @@
 		for(var/message in GLOB.clientmessages[ckey])
 			to_chat(src, message)
 		GLOB.clientmessages.Remove(ckey)
+
+	acquire_dpi()
 
 	if(SSinput.initialized)
 		set_macros()
@@ -1324,6 +1328,15 @@
 	SEND_SOUND(usr, sound(null))
 	to_chat(src, "All sounds stopped.")
 	tgui_panel?.stop_music()
+
+/client/proc/acquire_dpi()
+	set waitfor = FALSE
+
+	// Remove with 516
+	if(byond_version < 516)
+		return
+
+	window_scaling = text2num(winget(src, null, "dpi"))
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

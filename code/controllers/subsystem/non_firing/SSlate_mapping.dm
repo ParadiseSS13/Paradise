@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(late_mapping)
 			if(locate(/obj/structure/window) in F)
 				continue
 			maintenance_turfs.Add(F)
-	
+
 	if(!length(maintenance_turfs))
 		log_debug("No valid turfs has been found for mice.")
 		return
@@ -55,6 +55,9 @@ SUBSYSTEM_DEF(late_mapping)
 	var/mice_number = ceil(length(maintenance_turfs) / floor_tiles_per_one_mice)
 
 	for(var/i in 1 to mice_number)
-		new /mob/living/simple_animal/mouse(pick_n_take(maintenance_turfs))
+		if(prob(1))
+			new /mob/living/simple_animal/mouse/white/linter(pick_n_take(maintenance_turfs))
+		else
+			new /mob/living/simple_animal/mouse(pick_n_take(maintenance_turfs))
 
 	log_debug("Spawned [mice_number] mice over in [stop_watch(watch)]s")

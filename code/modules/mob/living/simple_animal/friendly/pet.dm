@@ -7,11 +7,12 @@
 	speed = 0 // same speed as a person.
 	hud_type = /datum/hud/corgi
 
-/mob/living/simple_animal/pet/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/mob/living/simple_animal/pet/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(!istype(O, /obj/item/newspaper))
 		return ..()
 	var/obj/item/newspaper/paper = O
 	if(stat != CONSCIOUS || !paper.rolled)
-		return
+		return ..()
 	user.visible_message("<span class='notice'>[user] baps [name] on the nose with the rolled up [O].</span>")
 	INVOKE_ASYNC(src, PROC_REF(spin), 7 DECISECONDS, 1)
+	return ITEM_INTERACT_COMPLETE

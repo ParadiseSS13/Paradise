@@ -221,7 +221,7 @@
 		if(8)
 			//Fueltank Explosion
 			T.visible_message("<span class='userdanger'>An explosion bursts into existence around [user]!</span>")
-			explosion(get_turf(user), -1, 0, 2, flame_range = 2)
+			explosion(get_turf(user), -1, 0, 2, flame_range = 2, cause = "Die of fate: fuel tank explosion")
 		if(9)
 			//Cold
 			var/datum/disease/D = new /datum/disease/cold()
@@ -406,7 +406,7 @@
 
 	var/turf/epicenter = get_turf(src)
 	var/area/A = get_area(epicenter)
-	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped)
+	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped, cause = "E20 explosion")
 	investigate_log("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
 	log_game("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]")
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)

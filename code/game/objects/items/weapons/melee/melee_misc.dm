@@ -351,9 +351,9 @@
 /obj/item/melee/spellblade/proc/add_enchantment(new_enchant, mob/living/user, intentional = TRUE)
 	var/datum/enchantment/E = new new_enchant
 	enchant = E
-	E.on_apply_to_blade(src)
 	E.on_gain(src, user)
 	E.power *= power
+	E.on_apply_to_blade(src)
 	if(intentional)
 		SSblackbox.record_feedback("nested tally", "spellblade_enchants", 1, list("[E.name]"))
 
@@ -377,15 +377,14 @@
 	var/power = 1
 	/// whether the enchant procs despite not being in proximity
 	var/ranged = FALSE
-	/// stores the world.time after which it can be used again, the `initial(cooldown)` is the cooldown between activations.
-	var/cooldown = -1
+	/// stores cooldown between activations.
+	var/cooldown = 0
 	/// If the spellblade has traits, has it applied them?
 	var/applied_traits = FALSE
-	/// A modifier that can be appled to the cooldown after the enchantment has been initialized. Used by the forcewall spellblade
-	var/cooldown_multiplier = 1
+	COOLDOWN_DECLARE(enchant_cooldown)
 
 /datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
-	if(world.time < cooldown)
+	if(!COOLDOWN_FINISHED(src, enchant_cooldown))
 		return FALSE
 	if(!istype(target))
 		return FALSE
@@ -393,7 +392,6 @@
 		return FALSE
 	if(!ranged && !proximity)
 		return FALSE
-	cooldown = world.time + (initial(cooldown) * cooldown_multiplier)
 	return TRUE
 
 /datum/enchantment/proc/on_gain(obj/item/melee/spellblade, mob/living/user)
@@ -423,9 +421,10 @@
 	. = ..()
 	if(.)
 		zap(target, user, list(user), power)
+		COOLDOWN_START(src, enchant_cooldown, cooldown)
 
 /datum/enchantment/lightning/toggle_traits(obj/item/I, mob/living/user)
-	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
+	var/enchant_ID = UID() // so it only removes the traits applied by this specific enchant.
 	if(applied_traits)
 		REMOVE_TRAIT(user, TRAIT_SHOCKIMMUNE, "[enchant_ID]")
 	else
@@ -462,7 +461,7 @@
 		toggle_traits(S, user)
 
 /datum/enchantment/fire/toggle_traits(obj/item/I, mob/living/user)
-	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
+	var/enchant_ID = UID() // so it only removes the traits applied by this specific enchant.
 	if(applied_traits)
 		REMOVE_TRAIT(user, TRAIT_NOFIRE, "[enchant_ID]")
 		REMOVE_TRAIT(user, TRAIT_RESISTHEAT, "[enchant_ID]")
@@ -476,6 +475,7 @@
 	. = ..()
 	if(.)
 		fireflash_s(target, 4, 8000 * power, 500)
+		COOLDOWN_START(src, enchant_cooldown, cooldown)
 
 /datum/enchantment/forcewall
 	name = "forcewall"
@@ -485,13 +485,13 @@
 	power = 2
 
 /datum/enchantment/forcewall/on_apply_to_blade(obj/item/melee/spellblade)
-	cooldown_multiplier /= power
+	cooldown /= power
 
 /datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	. = ..()
-	if(!.)
-		return
-	user.apply_status_effect(STATUS_EFFECT_FORCESHIELD)
+	if(.)
+		user.apply_status_effect(STATUS_EFFECT_FORCESHIELD)
+		COOLDOWN_START(src, enchant_cooldown, cooldown)
 
 /datum/enchantment/bluespace
 	name = "bluespace"
@@ -523,11 +523,15 @@
 	user.forceMove(target_turf)
 	S.melee_attack_chain(user, target)
 	target.Weaken(power)
+	COOLDOWN_START(src, enchant_cooldown, cooldown)
+
+/datum/enchantment/bluespace/on_apply_to_blade(obj/item/melee/spellblade/S)
+	cooldown /= S.power
 
 /datum/enchantment/time_slash
 	name = "temporal"
 	desc = "this blade will slice faster but weaker, and will curse the target, slashing them a few seconds after they have not been swinged at for each hit"
-	power = 15 // This should come out to 40 damage per hit. However, delayed.
+	power = 20 // This should come out to 32.5 damage per hit. However, delayed.
 
 /datum/enchantment/time_slash/on_apply_to_blade(obj/item/melee/spellblade)
 	spellblade.force /= 2
@@ -535,9 +539,8 @@
 /datum/enchantment/time_slash/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	user.changeNext_move(CLICK_CD_MELEE * 0.5)
 	. = ..()
-	if(!.)
-		return
-	target.apply_status_effect(STATUS_EFFECT_TEMPORAL_SLASH, power)
+	if(.)
+		target.apply_status_effect(STATUS_EFFECT_TEMPORAL_SLASH, power)
 
 /obj/effect/temp_visual/temporal_slash
 	name = "temporal slash"
@@ -574,10 +577,13 @@
 
 /obj/item/melee/spellblade/random/Initialize(mapload)
 	. = ..()
-	var/list/options = list(/datum/enchantment/lightning,
-							/datum/enchantment/fire,
-							/datum/enchantment/forcewall,
-							/datum/enchantment/bluespace,
-							/datum/enchantment/time_slash,)
+	var/list/options = list(
+		/datum/enchantment/lightning,
+		/datum/enchantment/fire,
+		/datum/enchantment/forcewall,
+		/datum/enchantment/bluespace,
+		/datum/enchantment/time_slash,
+	)
+
 	var/datum/enchantment/E = pick(options)
 	add_enchantment(E, intentional = FALSE)

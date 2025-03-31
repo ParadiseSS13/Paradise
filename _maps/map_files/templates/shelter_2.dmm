@@ -79,7 +79,8 @@
 /area/survivalpod)
 "o" = (
 /obj/structure/window/reinforced/survival_pod{
-	dir = 8
+	dir = 8;
+	pixel_y = -8
 	},
 /obj/machinery/door/window/survival_pod{
 	dir = 1
@@ -88,13 +89,8 @@
 /area/survivalpod)
 "p" = (
 /obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/black,
-/area/survivalpod)
-"q" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 9
+	dir = 8;
+	pixel_y = -8
 	},
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
@@ -120,7 +116,6 @@
 	dir = 1
 	},
 /obj/structure/displaycase{
-	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
 	pixel_y = -4;
 	start_showpiece_type = /obj/item/fakeartefact;
@@ -231,7 +226,7 @@ a
 n
 o
 p
-q
+r
 r
 a
 "}
