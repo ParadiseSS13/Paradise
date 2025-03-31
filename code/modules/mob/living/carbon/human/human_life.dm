@@ -303,7 +303,7 @@
 		if(V && !V.get_ability(/datum/vampire_passive/full) && stat != DEAD)
 			V.bloodusable = max(V.bloodusable - 5, 0)
 
-/mob/living/carbon/human/proc/get_thermal_protection()
+/mob/living/carbon/human/get_thermal_protection()
 	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
 		return FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
@@ -707,10 +707,12 @@
 		return TRUE
 	return FALSE
 
-/mob/living/carbon/human/shock_reduction()
+/mob/living/carbon/human/shock_reduction(allow_true_health_reagents = TRUE)
 	var/shock_reduction = 0
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
+			if(allow_true_health_reagents && R.view_true_health) // Checks if the call is for movement speed and if the reagent shouldn't muddy up the player's health HUD
+				continue
 			if(R.shock_reduction && can_metabolize(R))
 				shock_reduction += R.shock_reduction
 	return shock_reduction

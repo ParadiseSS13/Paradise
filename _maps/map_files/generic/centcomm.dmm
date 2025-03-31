@@ -309,6 +309,12 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"bk" = (
+/obj/machinery/smartfridge/food/chef,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/tdome/tdomeobserve)
 "bo" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -1923,15 +1929,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/obj/docking_port/mobile/admin{
-	dir = 2;
-	dwidth = 8;
-	height = 15;
-	id = "admin";
-	name = "administration shuttle";
-	timid = 1;
-	width = 18
-	},
+/obj/docking_port/mobile/admin,
 /obj/docking_port/stationary{
 	dir = 2;
 	dwidth = 9;
@@ -2157,7 +2155,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
 "ia" = (
-/obj/machinery/cooker/deepfryer/upgraded,
+/obj/machinery/cooking/deepfryer/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -3751,6 +3749,12 @@
 /obj/mecha/combat/phazon,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"nh" = (
+/obj/machinery/smartfridge/foodcart,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/tdome/tdomeobserve)
 "ni" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
@@ -4322,7 +4326,8 @@
 	},
 /area/centcom/gamma)
 "oX" = (
-/obj/machinery/kitchen_machine/grill/upgraded,
+/obj/structure/table,
+/obj/machinery/cooking/grill/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6242,7 +6247,7 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "vV" = (
-/obj/machinery/kitchen_machine/candy_maker/upgraded,
+/obj/machinery/cooking/ice_cream_mixer/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6626,7 +6631,7 @@
 /area/admin)
 "xf" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Mining Outpost","Labor Camp","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -6920,6 +6925,13 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"yR" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/stovetop,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/tdome/tdomeobserve)
 "yZ" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles,
 /obj/machinery/door/airlock/external{
@@ -7050,7 +7062,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "zB" = (
-/obj/machinery/kitchen_machine/oven/upgraded,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7791,7 +7803,7 @@
 /obj/machinery/barsign{
 	pixel_y = -32
 	},
-/obj/machinery/icemachine,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7969,7 +7981,7 @@
 	},
 /area/tdome/tdomeadmin)
 "Dk" = (
-/obj/machinery/kitchen_machine/oven/upgraded,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8852,8 +8864,7 @@
 /area/centcom/specops)
 "Gs" = (
 /obj/machinery/computer/security{
-	dir = 4;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost")
+	dir = 4
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -8956,8 +8967,7 @@
 /area/tdome/tdomeobserve)
 "GL" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -9974,7 +9984,7 @@
 "Kd" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Mining Outpost","Labor Camp","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -10249,7 +10259,7 @@
 "Lb" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Mining Outpost","Labor Camp","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -12664,6 +12674,12 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"TI" = (
+/obj/machinery/icemachine,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/tdome/tdomeobserve)
 "TK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -14032,7 +14048,7 @@
 "Yu" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Mining Outpost","Labor Camp","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -35758,9 +35774,9 @@ Yw
 Yw
 Yw
 Zr
-aN
-aN
-aN
+kg
+kg
+kg
 Ta
 Ox
 Ox
@@ -36015,9 +36031,9 @@ OY
 Yz
 qg
 Zr
-aN
-aN
-aN
+TI
+iJ
+nh
 Ta
 rQ
 rQ
@@ -36272,9 +36288,9 @@ VI
 Zr
 Zr
 Zr
-ZT
-ZT
-ZT
+bk
+iJ
+yR
 Ta
 rQ
 NA
@@ -36527,7 +36543,7 @@ ZT
 JB
 iJ
 oJ
-zB
+ia
 aM
 oX
 iJ
@@ -37045,7 +37061,7 @@ Cp
 iJ
 iJ
 iJ
-ia
+zB
 Ta
 rQ
 rQ
