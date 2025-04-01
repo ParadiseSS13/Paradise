@@ -13,7 +13,7 @@
 
 #define PLASMA_HEAT_PENALTY 30     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
 #define OXYGEN_HEAT_PENALTY 20
-#define CO2_HEAT_PENALTY 1.5
+#define CO2_HEAT_PENALTY 1
 #define NITROGEN_HEAT_PENALTY -1.5
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
@@ -45,7 +45,7 @@
 
 
 #define THERMAL_RELEASE_MODIFIER 10        //Higher == more heat released during reaction, not to be confused with the above values
-#define PLASMA_RELEASE_MODIFIER 600       //Higher == less plasma released by reaction
+#define PLASMA_RELEASE_MODIFIER 1000       //Higher == less plasma released by reaction
 #define OXYGEN_RELEASE_MODIFIER 300       //Higher == less oxygen released at high temperature/power
 
 #define REACTION_POWER_MODIFIER 1       //Higher == more overall power
@@ -536,7 +536,7 @@
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp - n2comp, 0), 1)
 
-		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY), 0.5)
+		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY), 0.25)
 		dynamic_heat_resistance = max(n2ocomp * N2O_HEAT_RESISTANCE, 1)
 
 		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
@@ -594,7 +594,7 @@
 			removed.set_oxygen(removed.oxygen() + max(((device_energy + temperature * dynamic_heat_modifier - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier + 10, 0))
 
 			// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
-			var/produced_joules = max(0, (((device_energy * dynamic_heat_modifier) ** 1.3) * THERMAL_RELEASE_MODIFIER) * heat_multiplier)
+			var/produced_joules = max(0, (((device_energy * dynamic_heat_modifier) ** 1.15) * THERMAL_RELEASE_MODIFIER) * heat_multiplier)
 			temperature = (heat_capacity * temperature + produced_joules) / heat_capacity
 
 			// Exchange heat with the air, combust once if possible then exchange heat again.
@@ -603,8 +603,6 @@
 				// Heat up the air. Also heating up the SM at this point would do nothing
 				removed.set_temperature(total_energy / (heat_capacity + removed.heat_capacity()))
 				// Combustion
-				removed.react()
-				removed.react()
 				removed.react()
 				// Recalculate energy and gas heat capacity after combustion
 				total_energy = temperature * heat_capacity + removed.thermal_energy()
