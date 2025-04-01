@@ -24,13 +24,12 @@
 /datum/browser/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, atom/atom = null)
 	if(ismob(nuser))
 		user = nuser
-	else
-		var/client/user_client = user
+	else if(isclient(nuser))
+		var/client/user_client = nuser
 		user = user_client.mob
 
 	if(!ismob(user))
 		user = null
-
 
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(user_deleted))
 	window_id = nwindow_id
