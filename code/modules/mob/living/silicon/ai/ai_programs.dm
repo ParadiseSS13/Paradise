@@ -883,7 +883,7 @@
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 50
 	AI.play_sound_remote(target, 'sound/effects/bubbles2.ogg', 50)
-	new /obj/effect/temp_visual/single_user/ai_telegraph/sealant(target, user)
+	new /obj/effect/temp_visual/ai_sealant(get_turf(target))
 	addtimer(CALLBACK(src, PROC_REF(do_metal_foam), user, target), 10 SECONDS)
 
 /datum/spell/ai_spell/ranged/emergency_sealant/proc/do_metal_foam(mob/user, target)
@@ -1096,4 +1096,4 @@
 		return
 	var/mob/living/silicon/ai/AI = user
 	AI.program_picker.nanites -= 5
-	new /obj/effect/temp_visual/single_user/ai_telegraph/pointer(target, user)
+	new /obj/effect/temp_visual/ai_pointer(get_turf(target))
