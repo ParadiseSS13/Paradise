@@ -320,6 +320,13 @@
 
 	var/atom/movable/thing = affected.droplimb(1, DROPLIMB_SHARP)
 
+	// Only slimes have slime hands
+	if(isslimeperson(target))
+		//if(affected in list(HAND_LEFT, HAND_RIGHT))
+		if(istype(affected, /obj/item/organ/external/hand))
+			new /obj/item/gun/magic/hook/slime_hand(get_turf(target))
+			qdel(thing)
+
 	if(istype(target) && target.can_feel_pain())
 		// okay if you can feel your arm getting chopped off you aren't gonna be singing
 		to_chat(target, "<span class='userdanger'>Your [affected] goes completely numb at the [affected.amputation_point]!</span>")
