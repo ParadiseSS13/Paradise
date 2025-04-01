@@ -183,7 +183,7 @@
 /obj/item/smithed_item
 	name = "Debug smithed item"
 	icon = 'icons/obj/smithing.dmi'
-	icon_state = "debug"
+	icon_state = "egun_frame_cast"
 	desc = "Debug smithed item. If you see this, notify the development team."
 	w_class = WEIGHT_CLASS_SMALL
 	/// The quality of the item
@@ -1226,6 +1226,7 @@
 /obj/item/smithed_item/component/egun_frame
 	name = "energy gun frame"
 	desc = "Smithed component of an energy gun."
+	icon_state = "egun_frame"
 	materials = list(MAT_TITANIUM = 10000, MAT_PLASMA = 10000)
 
 #undef PART_PRIMARY
