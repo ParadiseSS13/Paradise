@@ -47,11 +47,11 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 /obj/machinery/ai_node/process()
 	..()
-	if(stat & NOPOWER)
-		atom_say("ERROR: Insufficient power! Shutting down...")
-		turn_off()
-		return
 	if(active)
+		if(stat & NOPOWER)
+			atom_say("ERROR: Insufficient power! Shutting down...")
+			turn_off()
+			return
 		milla.invoke_async(src)
 
 /obj/machinery/ai_node/Destroy()
