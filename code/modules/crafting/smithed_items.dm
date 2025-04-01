@@ -1,3 +1,5 @@
+// MARK: Casts
+
 /obj/item/smithing_cast
 	name = "smithing cast"
 	icon = 'icons/obj/smithing.dmi'
@@ -43,6 +45,8 @@
 /obj/item/smithing_cast/proc/populate_products()
 	return
 
+// MARK: Sheet Cast
+
 /obj/item/smithing_cast/sheet
 	name = "sheet cast"
 	icon_state = "sheet_cast"
@@ -82,6 +86,8 @@
 	if(!Adjacent(user))
 		return
 	amount_to_make = tgui_input_number(user, "Select an amount (1-50)", src, 1, 50, 1)
+
+// MARK: Component Cast
 
 /obj/item/smithing_cast/component
 	name = "component cast"
@@ -159,6 +165,21 @@
 	desc = "A cast for creating trims."
 	product_type = /obj/item/smithed_item/component/trim
 
+// MARK: Misc casts
+
+/obj/item/smithing_cast/misc
+	name = "misc cast"
+	icon_state = "insert_frame_cast"
+	desc = "Debug cast. If you see this, notify the development team."
+
+/obj/item/smithing_cast/misc/gun_frame
+	name = "energy gun frame cast"
+	icon_state = "insert_frame_cast"
+	desc = "A cast for creating energy gun frames."
+	selected_product = /obj/item/smithed_item/component/egun_frame
+
+// MARK: Smithed Items
+
 /obj/item/smithed_item
 	name = "Debug smithed item"
 	icon = 'icons/obj/smithing.dmi'
@@ -197,7 +218,7 @@
 		return
 	name = "[quality.name] [material.name] [initial(name)]"
 
-// Inserts
+// MARK: Inserts
 
 /obj/item/smithed_item/insert
 	name = "debug insert"
@@ -352,7 +373,7 @@
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
 
-// Tool Bits
+// MARK: Tool Bits
 
 /obj/item/smithed_item/tool_bit
 	name = "Debug tool bit"
@@ -486,7 +507,7 @@
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
 
-// lenses
+// MARK: Lenses
 
 /obj/item/smithed_item/lens
 	name = "Debug lens"
@@ -626,7 +647,7 @@
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
 
-// Random Spawners
+// MARK: Random Spawners
 /obj/item/smithed_item/random
 	name = "random smithed item"
 	desc = "If you see me please contact development because I should not exist."
@@ -700,7 +721,7 @@
 		/obj/item/smithed_item/lens/efficiency
 	)
 
-// Components
+// MARK: Components
 
 #define PART_PRIMARY 1
 #define PART_SECONDARY 2
@@ -784,6 +805,8 @@
 	if(affecting.receive_damage(0, 10)) // 10 burn damage
 		H.UpdateDamageIcon()
 	H.updatehealth()
+
+// MARK: Insert Components
 
 /obj/item/smithed_item/component/insert_frame
 	name = "Debug insert frame"
@@ -917,6 +940,8 @@
 	materials = list(MAT_PALLADIUM = 2000)
 	finished_product = /obj/item/smithed_item/insert/mobility
 
+// MARK: Bit Components
+
 /obj/item/smithed_item/component/bit_mount
 	name = "Debug bit mount"
 	icon_state = "bit_mount"
@@ -1000,6 +1025,8 @@
 	desc = "This is the secondary component of an advanced bit."
 	materials = list(MAT_METAL = 4000, MAT_PLATINUM = 4000)
 	finished_product = /obj/item/smithed_item/tool_bit/advanced
+
+// MARK: Lens Compnents
 
 /obj/item/smithed_item/component/lens_frame
 	name = "Debug lens frame"
@@ -1097,6 +1124,8 @@
 	materials = list(MAT_PLASMA = 10000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
 	finished_product = /obj/item/smithed_item/lens/velocity
 
+// MARK: Trims
+
 /obj/item/smithed_item/component/trim
 	name = "Debug trim"
 	icon_state = "trim"
@@ -1192,6 +1221,12 @@
 	desc = "Smithed component of any smithing item. Made of brass."
 	materials = list(MAT_BRASS = 10000)
 	material = /datum/smith_material/brass
+
+// MARK: Energy Gun Frame
+/obj/item/smithed_item/component/egun_frame
+	name = "energy gun frame"
+	desc = "Smithed component of an energy gun."
+	materials = list(MAT_TITANIUM = 10000, MAT_PLASMA = 10000)
 
 #undef PART_PRIMARY
 #undef PART_SECONDARY

@@ -5,6 +5,8 @@
 #define OPERATION_SPEED_MULT_PER_RATING 0.075
 #define EFFICIENCY_MULT_ADD_PER_RATING 0.05
 
+// MARK: Smart Hopper
+
 /obj/machinery/mineral/smart_hopper
 	name = "smart hopper"
 	desc = "An electronic deposit bin that accepts raw ores and delivers them to an adjacent magma crucible."
@@ -220,6 +222,8 @@
 	addtimer(VARSET_CALLBACK(src, icon_state, "hopper"), time_to_animate)
 	linked_crucible.animate_transfer(time_to_animate)
 
+// MARK: Magma Crucible
+
 /obj/machinery/magma_crucible
 	name = "magma crucible"
 	desc = "A massive machine that smelts down raw ore into a fine slurry, then sorts it into respective tanks for storage and use."
@@ -355,6 +359,8 @@
 		msgs += "[M.name]: [floor(M.amount / MINERAL_MATERIAL_AMOUNT)] sheets."
 	to_chat(user, chat_box_regular(msgs.Join("<br>")))
 
+// MARK: Generic Smithing
+
 /obj/machinery/smithing
 	name = "smithing machine"
 	desc = "A large unknown smithing machine. If you see this, there's a problem and you should notify the development team."
@@ -487,6 +493,8 @@
 /obj/machinery/smithing/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
+
+// MARK: Casting Basin
 
 /obj/machinery/smithing/casting_basin
 	name = "casting basin"
@@ -685,9 +693,28 @@
 		produced_item.update_appearance(UPDATE_NAME)
 		produced_item.update_icon(UPDATE_ICON_STATE)
 		update_icon(UPDATE_OVERLAYS)
-		// Clean up temps
-		qdel(temp_product)
-		return FINISH_ATTACK
+
+	if(istype(cast, /obj/item/smithing_cast/misc))
+		var/list/used_mats = list()
+
+		// Check if there is enough materials to craft the item
+		for(MAT in temp_product.materials)
+			used_mats[MAT] = temp_product.materials[MAT] * efficiency
+
+		if(!materials.has_materials(used_mats, 1))
+			to_chat(user, "<span class='warning'>Not enough materials in the crucible to smelt [temp_product.name]!</span>")
+			qdel(temp_product)
+			return FINISH_ATTACK
+
+		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
+		// Use the materials and create the item.
+		materials.use_amount(used_mats)
+		linked_crucible.animate_pour(operation_time SECONDS)
+		produced_item = new cast.selected_product(src)
+		produced_item.set_worktime()
+		produced_item.update_appearance(UPDATE_NAME)
+		produced_item.update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(cast, /obj/item/smithing_cast/sheet))
 		// Get max amount of sheets (0-50)
@@ -718,15 +745,17 @@
 		new_stack.amount = amount
 		new_stack.update_icon(UPDATE_ICON_STATE)
 
-		// Clean up temps
-		qdel(temp_product)
-		return FINISH_ATTACK
+	// Clean up temps
+	qdel(temp_product)
+	return FINISH_ATTACK
 
 /obj/machinery/smithing/casting_basin/Destroy()
 	if(linked_crucible)
 		linked_crucible.linked_machines -= src
 		linked_crucible = null
 	return ..()
+
+// MARK: Power Hammer
 
 /obj/machinery/smithing/power_hammer
 	name = "power hammer"
@@ -823,6 +852,8 @@
 	add_attack_logs(user, target, "Hammered with [src]")
 	return TRUE
 
+// MARK: Lava Furnace
+
 /obj/machinery/smithing/lava_furnace
 	name = "lava furnace"
 	desc = "A furnace that uses the innate heat of lavaland to reheat metal that has not been fully reshaped."
@@ -908,6 +939,8 @@
 #define PART_SECONDARY 2
 #define PART_TRIM 3
 
+// MARK: Kinetic Assembler
+
 /obj/machinery/smithing/kinetic_assembler
 	name = "kinetic assembler"
 	desc = "A smart assembler that takes components and combines them at the strike of a hammer."
@@ -948,9 +981,9 @@
 	if(primary)
 		. += "<span class='notice'>There is a [primary] in the primary slot.</span>"
 	if(secondary)
-		. += "<span class='notice'>There is a [secondary] in the primary slot.</span>"
+		. += "<span class='notice'>There is a [secondary] in the secondary slot.</span>"
 	if(trim)
-		. += "<span class='notice'>There is a [trim] in the primary slot.</span>"
+		. += "<span class='notice'>There is a [trim] in the trim slot.</span>"
 	if(finished_product)
 		. += "<span class='notice'>There is a nearly-complete [finished_product] on the assembler. To complete the product, strike it with your hammer!</span>"
 
@@ -1124,6 +1157,148 @@
 	playsound(src, 'sound/magic/fellowship_armory.ogg', 50, TRUE)
 	finished_product.forceMove(src.loc)
 	finished_product = null
+
+// MARK: Scientific Assembler
+
+/obj/machinery/smithing/scientific_assembler
+	name = "scientific assembler"
+	desc = "A smart assembler that takes slime cores, energy cells, and a gun frame to produce energy guns."
+	icon = 'icons/obj/machines/smithing_machines.dmi'
+	icon_state = "assembler"
+	max_integrity = 100
+	pixel_x = 0	// 1x1
+	pixel_y = 0
+	bound_height = 32
+	bound_width = 32
+	bound_y = 0
+	operation_sound = 'sound/items/welder.ogg'
+	/// Slime extract for the egun
+	var/obj/item/slime_extract/slime_core
+	/// The gun frame
+	var/obj/item/smithed_item/component/egun_frame/frame
+	/// The battery
+	var/obj/item/stock_parts/cell/cell
+
+/obj/machinery/smithing/scientific_assembler/Initialize(mapload)
+	. = ..()
+	// Stock parts
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/kinetic_assembler(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
+/obj/machinery/smithing/scientific_assembler/examine(mob/user)
+	. = ..()
+	if(slime_core || frame || cell)
+		. += "<span class='notice'>You can activate the machine with your hand, or remove a component by alt-clicking.</span>"
+	if(slime_core)
+		. += "<span class='notice'>There is a [slime_core] in the core slot.</span>"
+	if(frame)
+		. += "<span class='notice'>There is a [frame] in the gun frame slot.</span>"
+	if(cell)
+		. += "<span class='notice'>There is a [cell] in the power cell slot.</span>"
+
+/obj/machinery/smithing/scientific_assembler/RefreshParts()
+	var/operation_mult = 0
+	for(var/obj/item/stock_parts/component in component_parts)
+		operation_mult += OPERATION_SPEED_MULT_PER_RATING * component.rating
+	// Update our values
+	operation_time = operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - operation_mult)), 2)
+
+/obj/machinery/smithing/scientific_assembler/update_icon_state()
+	. = ..()
+	if(panel_open)
+		icon_state = "assembler_wires"
+
+/obj/machinery/smithing/kinetic_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/smithing/scientific_assembler/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(panel_open)
+		icon_state = "assembler_wires"
+
+
+/obj/machinery/smithing/scientific_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(operating)
+		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/slime_extract))
+		if(slime_core)
+			to_chat(user, "<span class='notice'>You remove [slime_core] from the core component slot of [src].</span>")
+			slime_core.forceMove(src.loc)
+			slime_core = null
+		if(used.flags & NODROP || !user.transfer_item_to(used, src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You insert [used] into the core component slot of [src].</span>")
+		slime_core = used
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/smithed_item/component/egun_frame))
+		if(frame)
+			to_chat(user, "<span class='notice'>You remove [frame] from the frame component slot of [src].</span>")
+			frame.forceMove(src.loc)
+			frame = null
+		if(used.flags & NODROP || !user.transfer_item_to(used, src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/smithed_item/component/egun_frame/new_frame = used
+		if(new_frame.hammer_time)
+			to_chat(user, "<span class='warning'>[new_frame] is not complete yet!</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You insert [used] into the frame component slot of [src].</span>")
+		frame = used
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stock_parts/cell))
+		if(cell)
+			to_chat(user, "<span class='notice'>You remove [cell] from the power cell component slot of [src].</span>")
+			cell.forceMove(src.loc)
+			cell = null
+		if(used.flags & NODROP || !user.transfer_item_to(used, src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You insert [used] into the power cell component slot of [src].</span>")
+		cell = used
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
+	return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/smithing/scientific_assembler/attack_hand(mob/user)
+	if(!slime_core)
+		to_chat(user, "<span class='warning'>[src] lacks a slime core!</span>")
+		return FINISH_ATTACK
+
+	if(!frame)
+		to_chat(user, "<span class='warning'>[src] lacks an energy gun frame!</span>")
+		return FINISH_ATTACK
+
+	if(!cell)
+		to_chat(user, "<span class='warning'>[src] lacks a power cell!</span>")
+		return FINISH_ATTACK
+
+	operate(operation_time, user)
+	return FINISH_ATTACK
+
+/obj/machinery/smithing/scientific_assembler/operate(loops, mob/living/user)
+	..()
+	var/obj/item/gun/energy/finished_product = new slime_core.associated_gun_type(src)
+	finished_product.forceMove(src.loc)
+	qdel(slime_core)
+	qdel(frame)
+	qdel(cell)
+	slime_core = null
+	frame = null
+	cell = null
 
 #undef PART_PRIMARY
 #undef PART_SECONDARY

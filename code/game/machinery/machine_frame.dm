@@ -1086,6 +1086,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 3,
 							/obj/item/stack/sheet/glass = 1)
 
+/obj/item/circuitboard/scientific_assembler
+	board_name = "Scientific Assembler"
+	icon_state = "supply"
+	build_path = /obj/machinery/smithing/scientific_assembler
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=4"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 1,
+							/obj/item/stock_parts/manipulator = 3,
+							/obj/item/stack/sheet/glass = 1)
+
 /obj/item/circuitboard/ore_redemption
 	board_name = "Ore Redemption"
 	icon_state = "supply"
