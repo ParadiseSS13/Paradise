@@ -13,7 +13,7 @@
 
 #define PLASMA_HEAT_PENALTY 30     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
 #define OXYGEN_HEAT_PENALTY 20
-#define CO2_HEAT_PENALTY 1
+#define CO2_HEAT_PENALTY 2
 #define NITROGEN_HEAT_PENALTY -1.5
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
@@ -52,8 +52,8 @@
 
 #define MATTER_POWER_CONVERSION 10         //Crystal converts 1/this value of stored matter into energy.
 
-/// Heat capacity of the SM. equivalent to 100 moles of CO2
-#define SUPERMATTER_HEAT_CAPACITY 4000
+/// Heat capacity of the SM. equivalent to 10 moles of CO2
+#define SUPERMATTER_HEAT_CAPACITY 400
 
 //These would be what you would get at point blank, decreases with distance
 #define DETONATION_RADS 200
@@ -587,10 +587,10 @@
 		var/device_energy = power * REACTION_POWER_MODIFIER
 
 		if(has_been_powered)
-			//Calculate how much gas to release
-			//Varies based on power and gas content
-			removed.set_toxins(removed.toxins() + max((device_energy + temperature * dynamic_heat_modifier - T0C) / PLASMA_RELEASE_MODIFIER) * gas_multiplier + 5, 0)
-			//Varies based on power, gas content, and heat
+			// Calculate how much gas to release
+			// Varies based on power, gas content, and heat to a lesser extent
+			removed.set_toxins(removed.toxins() + max((device_energy + (temperature ** 0.5) * dynamic_heat_modifier - T0C) / PLASMA_RELEASE_MODIFIER) * gas_multiplier + 5, 0)
+			// Varies based on power, gas content, and heat
 			removed.set_oxygen(removed.oxygen() + max(((device_energy + temperature * dynamic_heat_modifier - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier + 10, 0))
 
 			// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
@@ -604,7 +604,7 @@
 				removed.set_temperature(total_energy / (heat_capacity + removed.heat_capacity()))
 				// Combustion
 				removed.react()
-				// Recalculate energy and gas heat capacity after combustion
+				// Recalculate energy after combustion
 				total_energy = temperature * heat_capacity + removed.thermal_energy()
 				// Exchange heat
 				temperature = total_energy / (heat_capacity + removed.heat_capacity())
