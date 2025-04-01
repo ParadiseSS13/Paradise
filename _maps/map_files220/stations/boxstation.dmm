@@ -33829,7 +33829,7 @@
 "cJo" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/multi_tile/engineering/glass{
-	id = "englobby"
+	id_tag = "englobby"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/poddoor{
@@ -46900,10 +46900,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -98635,6 +98632,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
