@@ -72,7 +72,7 @@
 /datum/status_effect/high_five/proc/wiz_effect(mob/living/carbon/user, mob/living/carbon/highfived)
 	user.status_flags |= GODMODE
 	highfived.status_flags |= GODMODE
-	explosion(get_turf(user), 5, 2, 1, 3, cause = id)
+	explosion(get_turf(user), 5, 2, 1, 3, cause = "Wizard high-five")
 	// explosions have a spawn so this makes sure that we don't get gibbed
 	addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, highfived), 0.3 SECONDS) // I want to be sure this lasts long enough, with lag.
 	add_attack_logs(user, highfived, "caused a wizard [id] explosion")

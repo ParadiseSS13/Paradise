@@ -936,7 +936,7 @@
 	zap_flags &= ~(ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE)
 	. = ..()
 	if(explosive)
-		explosion(src, 0, 0, 0, flame_range = 5, adminlog = FALSE)
+		explosion(src, 0, 0, 0, flame_range = 5, cause = "Exploding light")
 		qdel(src)
 
 // timed process
@@ -963,7 +963,7 @@
 
 /obj/machinery/light/proc/actually_explode()
 	var/turf/T = get_turf(loc)
-	explosion(T, 0, 0, 2, 2)
+	explosion(T, 0, 0, 2, 2, cause = "exploding light")
 	qdel(src)
 
 /obj/machinery/light/extinguish_light(force = FALSE)
