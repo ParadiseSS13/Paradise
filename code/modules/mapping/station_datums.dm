@@ -11,7 +11,6 @@
 	map_path = "_maps/map_files/stations/xobstation.dmm"
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/paradise/cyberiad/"
 	welcome_sound = 'sound/AI/welcome_xobstation.ogg'
-	voteable = FALSE
 
 /datum/map/metastation
 	fluff_name = "NSS Cerebron"
