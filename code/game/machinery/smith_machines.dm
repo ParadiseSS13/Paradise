@@ -1231,6 +1231,10 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/slime_extract))
+		var/obj/item/slime_extract/core = used
+		if(!core.associated_gun_type)
+			to_chat(user, "<span class='notice'>[core] is not capable of producing an energy gun!</span>")
+			return ITEM_INTERACT_COMPLETE
 		if(slime_core)
 			to_chat(user, "<span class='notice'>You remove [slime_core] from the core component slot of [src].</span>")
 			slime_core.forceMove(src.loc)
