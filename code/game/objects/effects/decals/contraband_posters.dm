@@ -1,8 +1,10 @@
 // This is synced up to the poster placing animation.
 #define PLACE_SPEED 30
 
-// The poster item
+// Any new `/obj/structure/sign/poster` is expected to also be added to `directional_posters.yml` which makes mappers' life easier. It's easy to do and .yml has plenty of examples inside
+// Also don't forget to call for `MAPPING_DIRECTIONAL_HELPERS()` when you add a new poster, you can see examples down below
 
+// The poster item
 /obj/item/poster
 	name = "rolled-up poster"
 	desc = "The poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
