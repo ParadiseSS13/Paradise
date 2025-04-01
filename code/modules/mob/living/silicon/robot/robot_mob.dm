@@ -1436,9 +1436,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
-		explosion(src.loc,1,2,4,flame_range = 2)
+		explosion(src.loc,1,2,4,flame_range = 2, cause = "Self-destruct emagged cyborg")
 	else
-		explosion(src.loc,-1,0,2)
+		explosion(src.loc,-1,0,2, cause = "Self-destruct cyborg")
 	gib()
 	return
 

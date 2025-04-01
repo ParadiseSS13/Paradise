@@ -45,7 +45,7 @@
 			num_of_prizes = rand(0,2)
 	for(var/i = num_of_prizes; i > 0; i--)
 		prizevend()
-	explosion(get_turf(src), -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes)
+	explosion(get_turf(src), -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes, cause = "EMP'd arcade machine")
 
 
 /obj/machinery/computer/arcade/battle
@@ -1012,7 +1012,7 @@
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 	sleep(3.6)
 	visible_message("<span class='userdanger'>[src] explodes!</span>")
-	explosion(src.loc, 1,2,4, flame_range = 3)
+	explosion(src.loc, 1,2,4, flame_range = 3, cause = "Orion Ship Minibomb")
 	qdel(src)
 
 
