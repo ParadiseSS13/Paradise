@@ -501,7 +501,7 @@
 
 /datum/spell/ai_spell/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0, 2, 3, 0)
+		explosion(get_turf(M), 0, 2, 3, 0, cause = "Malf AI: [name]")
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
