@@ -109,10 +109,10 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		// If our path is in the list use the list
 		if(makes_type in GLOB.pipe_path2type)
 			pipe_type = GLOB.pipe_path2type[makes_type] + is_bent
-		// If our path isn't exactly in the list(e.g /obj/machinery/atmospherics/binary/pump/on) try and find and ancestor there
+		// If our path isn't exactly in the list (e.g /obj/machinery/atmospherics/binary/pump/on) try and find an ancestor there
 		else
 			for(var/type_path in GLOB.pipe_path2type)
-				if(findtext("[makes_type]", "[type_path]"))
+				if(ispath(makes_type, type_path))
 					pipe_type = GLOB.pipe_path2type[type_path] + is_bent
 					break
 
