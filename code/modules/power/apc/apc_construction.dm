@@ -63,7 +63,7 @@
 						"<span class='notice'>[user] has discarded the shorted APC electronics from [src]!</span>",
 						"<span class='notice'>You discarded the shorted board.</span>",
 						"<span class='warning'>You hear metallic levering.</span>"
-						)
+					)
 					stat |= MAINT
 					update_icon()
 					return
@@ -80,7 +80,7 @@
 					update_icon()
 					return
 
-				user.visible_message(\
+				user.visible_message(
 					"<span class='notice'>[user] has removed the APC electronics from [src]!</span>",
 					"<span class='notice'>You remove the APC electronics.</span>",
 					"<span class='warning'>You hear metallic levering.</span>"

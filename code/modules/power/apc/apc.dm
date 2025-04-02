@@ -260,7 +260,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] inserts [used] into [src].</span>",
 			"<span class='notice'>You insert [used] into [src].</span>"
-			)
+		)
 		for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
 			demon.forceMove(src)
 			demon.current_power = src
@@ -304,7 +304,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] starts adding cables to [src]...</span>",
 			"<span class='notice'>You start adding cables to [src]...</span>"
-			)
+		)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 2 SECONDS, target = src))
 			if(C.get_amount() < 10 || !C)
@@ -341,7 +341,7 @@
 			user.visible_message(
 				"<span class='notice'>[user] installs [used] into [src]...</span>",
 				"<span class='notice'>You install [used] into [src]...</span>"
-				)
+			)
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 			electronics_state = APC_ELECTRONICS_INSTALLED
 			locked = FALSE
@@ -365,7 +365,7 @@
 			user.visible_message(
 				"<span class='notice'>[user] replaces the missing cover of [src].</span>",
 				"<span class='notice'>You replace the missing cover of [src].</span>"
-				)
+			)
 			qdel(used)
 			opened = APC_OPENED
 			update_icon()
@@ -378,7 +378,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] replaces the damaged frame of [src].</span>",
 			"<span class='notice'>You replace the damaged frame of [src].</span>"
-			)
+		)
 		qdel(used)
 		stat &= ~BROKEN
 		obj_integrity = max_integrity
