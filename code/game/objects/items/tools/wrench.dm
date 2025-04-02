@@ -1,6 +1,6 @@
 /obj/item/wrench
 	name = "wrench"
-	desc = "A wrench with common uses. Can be found in your hand."
+	desc = "A standard adjustable wrench made of forged steel. Can be used to fasten or remove bolts, and deconstruct objects."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "wrench"
 	belt_icon = "wrench"
@@ -20,6 +20,11 @@
 	tool_behaviour = TOOL_WRENCH
 
 	new_attack_chain = TRUE
+
+/obj/item/wrench/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/wrench/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is unsecuring [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -46,12 +51,12 @@
 
 /obj/item/wrench/cyborg
 	name = "automatic wrench"
-	desc = "An advanced robotic wrench. Can be found in construction cyborgs."
+	desc = "A powered industrial wrench commonly found in construction and engineering robots. More efficient than most manual wrenches."
 	toolspeed = 0.5
 
 /obj/item/wrench/brass
 	name = "brass wrench"
-	desc = "A brass wrench. It's faintly warm to the touch."
+	desc = "A brass adjustable wrench. It's faintly warm to the touch."
 	icon_state = "wrench_brass"
 	belt_icon = "wrench_brass"
 	toolspeed = 0.5
@@ -59,7 +64,7 @@
 
 /obj/item/wrench/power
 	name = "hand drill"
-	desc = "A simple powered drill with a bolt bit."
+	desc = "A powerful, hand-held drill fitted with a long-lasting battery. It has a bolt driver head attached."
 	icon_state = "drill_bolt"
 	item_state = "drill"
 	belt_icon = "hand_drill"
@@ -79,6 +84,11 @@
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
 	to_chat(user, "<span class='notice'>You attach the screwdriver bit to [src].</span>")
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.on_detached()
+		bit.forceMove(s_drill)
+		s_drill.attached_bits += bit
+		bit.on_attached(s_drill)
 	qdel(src)
 	user.put_in_active_hand(s_drill)
 
@@ -88,7 +98,7 @@
 
 /obj/item/wrench/medical
 	name = "medical wrench"
-	desc = "A medical wrench with common (medical?) uses. Can be found in your hand."
+	desc = "A standard adjustable wrench covered in medical iconography. Its outer surface is mostly covered in rubber, and it seems to be more efficient than a normal wrench."
 	icon_state = "wrench_medical"
 	force = 2 //MEDICAL
 	throwforce = 4

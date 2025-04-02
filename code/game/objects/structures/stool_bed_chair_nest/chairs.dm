@@ -506,6 +506,16 @@
 	buildstackamount = 2
 	buildstacktype = /obj/item/stack/sheet/bamboo
 
+/obj/structure/chair/stool/wood
+	name = "wooden chair"
+	desc = "A short wooden stool. Pull up a stump, won't you?"
+	icon_state = "wooden_stool"
+	resistance_flags = FLAMMABLE
+	max_integrity = 50
+	buildstackamount = 2
+	buildstacktype = /obj/item/stack/sheet/wood
+	item_chair = /obj/item/chair/stool/wood
+
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."
@@ -572,6 +582,13 @@
 	icon_state = "bamboo_stool_toppled"
 	item_state = "stool_bamboo"
 	origin_type = /obj/structure/chair/stool/bamboo
+
+/obj/item/chair/stool/wood
+	name = "wood stool"
+	desc = "The barfighter's choice of stool."
+	icon_state = "wooden_stool_toppled"
+	item_state = "stool_wood"
+	origin_type = /obj/structure/chair/stool/wood
 
 /obj/item/chair/AltClick(mob/user)
 	. = ..()

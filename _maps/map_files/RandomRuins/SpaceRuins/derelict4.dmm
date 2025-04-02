@@ -9,7 +9,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "d" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "e" = (
 /turf/simulated/wall/mineral/titanium,
@@ -36,7 +36,7 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/unpowered)
 "k" = (
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/unpowered)
 "l" = (
