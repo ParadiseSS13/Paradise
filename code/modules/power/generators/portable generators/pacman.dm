@@ -339,7 +339,7 @@
 /obj/machinery/power/port_gen/pacman/super/explode()
 	//a nice burst of radiation
 	radiation_pulse(get_turf(src), 2000, ALPHA_RAD)
-	explosion(loc, 3, 3, 5, 3)
+	explosion(loc, 3, 3, 5, 3, cause = "Exploding [name]")
 	qdel(src)
 
 /obj/machinery/power/port_gen/pacman/mrs
@@ -372,7 +372,7 @@
 
 /obj/machinery/power/port_gen/pacman/mrs/explode()
 	//no special effects, but the explosion is pretty big (same as a supermatter shard).
-	explosion(loc, 3, 6, 12, 16, 1)
+	explosion(loc, 3, 6, 12, 16, 1, cause = "Exploding [name]")
 	qdel(src)
 
 #undef SHEET_VOLUME

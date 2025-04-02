@@ -454,7 +454,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/obj/item/new_item = new being_built.build_path(src)
 				new_item.scatter_atom()
 				if(istype(new_item, /obj/item/storage/backpack/holding))
-					new_item.investigate_log("built by [key]","singulo")
+					new_item.investigate_log("built by [key]",INVESTIGATE_SINGULO)
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 					new_item.materials = efficient_mats.Copy()
 				if(being_built.locked)

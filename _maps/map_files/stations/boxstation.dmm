@@ -74058,7 +74058,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/kirbyplants/large,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -85958,9 +85957,7 @@
 /obj/machinery/keycard_auth{
 	pixel_x = 24
 	},
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "xrv" = (
