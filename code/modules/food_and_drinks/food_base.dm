@@ -180,9 +180,6 @@
 			return TRUE
 	return FALSE
 
-/obj/item/food/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
-	return ..()
-
 /obj/item/food/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
