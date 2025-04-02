@@ -19,7 +19,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
 	/mob/living/silicon/ai/proc/change_arrival_message,
-	/mob/living/silicon/ai/proc/arrivals_announcement
+	/mob/living/silicon/ai/proc/arrivals_announcement,
+	/mob/living/silicon/ai/proc/change_hologram_color
 ))
 
 //Not sure why this is necessary...
@@ -134,6 +135,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	/// The cached AI annoucement help menu.
 	var/ai_announcement_string_menu
+
+	var/hologram_color = rgb(125, 180, 225)
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	add_verb(src, GLOB.ai_verbs_default)
@@ -1007,7 +1010,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
-					holo_icon = getHologramIcon(icon(character_icon))
+					holo_icon = getHologramIcon(icon(character_icon), FALSE, hologram_color)
 			else
 				alert("No suitable records found. Aborting.")
 
@@ -1051,67 +1054,67 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				qdel(holo_icon)
 				switch(input)
 					if("Bear")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "bear"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "bear"), FALSE, hologram_color)
 					if("Carp")
-						holo_icon = getHologramIcon(icon('icons/mob/carp.dmi', "holocarp"))
+						holo_icon = getHologramIcon(icon('icons/mob/carp.dmi', "holocarp"), FALSE, hologram_color)
 					if("Chicken")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "chicken_brown"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "chicken_brown"), FALSE, hologram_color)
 					if("Corgi")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "corgi"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "corgi"), FALSE, hologram_color)
 					if("Cow")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "cow"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "cow"), FALSE, hologram_color)
 					if("Crab")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "crab"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "crab"), FALSE, hologram_color)
 					if("Deer")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "deer"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "deer"), FALSE, hologram_color)
 					if("Fox")
-						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "fox"))
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "fox"), FALSE, hologram_color)
 					if("Goat")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "goat"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "goat"), FALSE, hologram_color)
 					if("Goose")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "goose"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "goose"), FALSE, hologram_color)
 					if("Kitten")
-						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "cat"))
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "cat"), FALSE, hologram_color)
 					if("Kitten2")
-						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "cat2"))
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "cat2"), FALSE, hologram_color)
 					if("Pig")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "pig"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "pig"), FALSE, hologram_color)
 					if("Poly")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "parrot_fly"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "parrot_fly"), FALSE, hologram_color)
 					if("Pug")
-						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "pug"))
+						holo_icon = getHologramIcon(icon('icons/mob/pets.dmi', "pug"), FALSE, hologram_color)
 					if("Seal")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "seal"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "seal"), FALSE, hologram_color)
 					if("Spider")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "guard"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "guard"), FALSE, hologram_color)
 					if("Turkey")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "turkey"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "turkey"), FALSE, hologram_color)
 					if("Shantak")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "shantak"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "shantak"), FALSE, hologram_color)
 					if("Bunny")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "m_bunny"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "m_bunny"), FALSE, hologram_color)
 					if("Hellhound")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "hellhound"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "hellhound"), FALSE, hologram_color)
 					if("Lightgeist")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "lightgeist"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "lightgeist"), FALSE, hologram_color)
 					if("Cockroach")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "cockroach"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "cockroach"), FALSE, hologram_color)
 					if("Mecha-Cat")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "cat"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "cat"), FALSE, hologram_color)
 					if("Mecha-Fairy")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "fairy"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "fairy"), FALSE, hologram_color)
 					if("Mecha-Fox")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "fox"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "fox"), FALSE, hologram_color)
 					if("Mecha-Monkey")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "monkey"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "monkey"), FALSE, hologram_color)
 					if("Mecha-Mouse")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "mouse"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "mouse"), FALSE, hologram_color)
 					if("Mecha-Snake")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "snake"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "snake"), FALSE, hologram_color)
 					if("Roller-Mouse")
-						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk2"))
+						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk2"), FALSE, hologram_color)
 					if("Roller-Monkey")
-						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk3"))
+						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi', "mk3"), FALSE, hologram_color)
 
 		else
 			var/icon_list[] = list(
@@ -1138,45 +1141,56 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				qdel(holo_icon)
 				switch(input)
 					if("default")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo1"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo1"), FALSE, hologram_color)
 					if("floating face")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo2"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo2"), FALSE, hologram_color)
 					if("xeno queen")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo3"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo3"), FALSE, hologram_color)
 					if("eldritch")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo4"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo4"), FALSE, hologram_color)
 					if("angel")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-angel"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-angel"), FALSE, hologram_color)
 					if("borb")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-borb"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-borb"), FALSE, hologram_color)
 					if("biggest fan")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-biggestfan"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-biggestfan"), FALSE, hologram_color)
 					if("cloudkat")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-cloudkat"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-cloudkat"), FALSE, hologram_color)
 					if("donut")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-donut"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-donut"), FALSE, hologram_color)
 					if("frost phoenix")
-						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-frostphoenix"))
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo-frostphoenix"), FALSE, hologram_color)
 					if("engi bot")
-						holo_icon = getHologramIcon(icon('icons/mob/hivebot.dmi', "EngBot"))
+						holo_icon = getHologramIcon(icon('icons/mob/hivebot.dmi', "EngBot"), FALSE, hologram_color)
 					if("drone")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "drone0"))
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "drone0"), FALSE, hologram_color)
 					if("boxbot")
-						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "boxbot"))
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "boxbot"), FALSE, hologram_color)
 					if("ancient machine")
-						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
+						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"), FALSE, hologram_color)
 					if("custom")
 						if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi'))
-							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-ai-holo"))
+							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-ai-holo"), FALSE, hologram_color)
 						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic64.dmi'))
-							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"))
+							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"), FALSE, hologram_color)
 						else
-							holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo1"))
+							holo_icon = getHologramIcon(icon('icons/mob/ai.dmi', "holo1"), FALSE, hologram_color)
 
 	return
 
+/mob/living/silicon/ai/proc/change_hologram_color()
+	set name = "Change Hologram Color"
+	set desc = "Select a color for the AI's hologram."
+	set category = "AI Commands"
 
-//Toggles the luminosity and applies it by re-entereing the camera.
+	var/color = tgui_input_color(usr, "Please select a hologram color", "Hologram Color")
+	if(isnull(color))
+		return
+
+	hologram_color = color
+	holo_icon = getHologramIcon(icon(holo_icon), FALSE, hologram_color, 1)
+	to_chat(src, "Hologram color changed to [color].")
+
 /mob/living/silicon/ai/proc/toggle_camera_light()
 	set name = "Toggle Camera Lights"
 	set desc = "Toggles the lights on the cameras throughout the station."
