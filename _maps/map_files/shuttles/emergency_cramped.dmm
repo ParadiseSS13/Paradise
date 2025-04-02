@@ -55,14 +55,8 @@
 /area/shuttle/escape)
 "l" = (
 /obj/item/book/manual/wiki/security_space_law/black{
-	pixel_x = 7;
-	pixel_y = 4
-	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 19
-	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 37
+	pixel_x = 8;
+	pixel_y = 5
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 28
@@ -73,10 +67,16 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs{
-	pixel_x = -2;
-	pixel_y = -1
+	pixel_x = 3;
+	pixel_y = -3
 	},
-/obj/item/flash,
+/obj/item/flash{
+	pixel_x = 1
+	},
+/obj/machinery/recharger{
+	pixel_x = -8;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "m" = (
