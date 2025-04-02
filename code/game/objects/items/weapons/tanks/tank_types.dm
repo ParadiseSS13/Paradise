@@ -18,7 +18,6 @@
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	force = 10
 	dog_fashion = /datum/dog_fashion/back
-	volume = 20
 
 /obj/item/tank/internals/oxygen
 	name = "oxygen tank"
