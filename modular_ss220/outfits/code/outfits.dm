@@ -557,3 +557,9 @@
 	new /obj/item/ammo_box/magazine/skrell_magazine/skrell_magazine_elite(src)
 	new /obj/item/ammo_box/magazine/skrell_magazine/skrell_magazine_elite(src)
 	new /obj/item/restraints/legcuffs/bola/energy(src)
+
+// MARK: Jobs
+/datum/outfit/job/nct/New()
+	backpack_contents += list(
+		/obj/item/stamp/nct = 1
+	)

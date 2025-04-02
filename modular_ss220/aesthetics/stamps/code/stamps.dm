@@ -69,3 +69,10 @@
 	icon_state = "stamp-ussp"
 	item_color = "redcoat"
 	stampoverlay_custom_icon = 'modular_ss220/aesthetics/stamps/icons/stamps.dmi'
+
+/obj/item/stamp/nct
+	name = "Nanotrasen Career Trainer's rubber stamp"
+	icon = 'modular_ss220/aesthetics/stamps/icons/stamps.dmi'
+	icon_state = "stamp-nct"
+	item_color = "nct"
+	stampoverlay_custom_icon = 'modular_ss220/aesthetics/stamps/icons/stamps.dmi'

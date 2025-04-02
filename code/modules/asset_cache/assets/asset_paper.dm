@@ -27,5 +27,6 @@
 		"large_stamp-BIGdeny.png"	= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-BIGdeny.png',
 		"large_stamp-navcom.png"	= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-navcom.png',
 		"large_stamp-mime.png"     	= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-mime.png',
-		"large_stamp-ussp.png"		= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-ussp.png'
+		"large_stamp-ussp.png"		= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-ussp.png',
+		"large_stamp-nct.png"		= 'modular_ss220/aesthetics/stamps/icons/paper_icons/large_stamp-nct.png'
 	)
