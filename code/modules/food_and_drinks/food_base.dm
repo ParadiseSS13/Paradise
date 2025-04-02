@@ -181,7 +181,7 @@
 	return FALSE
 
 /obj/item/food/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
-	return
+	return ..()
 
 /obj/item/food/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
