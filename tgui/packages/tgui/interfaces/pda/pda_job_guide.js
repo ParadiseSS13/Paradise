@@ -13,52 +13,52 @@ export const pda_job_guide = (props, context) => {
 
   return (
     <Box>
-      <div className="JobGuide__left">
-        <Tabs>
-          {' '}
-          {categories.sort().map((category, i) => (
-            <Tabs.Tab key={i} onClick={() => act('set_category', { name: category, search_text: searchText })}>
-              {category}
-            </Tabs.Tab>
-          ))}
-        </Tabs>
-      </div>
-      <div className="JobGuide__right">
-        {current_category && (
-          <Section
-            title={current_category}
-            buttons={
-              <Input
-                width="200px"
-                placeholder={`Search ${current_category}`}
-                onInput={(e, value) => setSearchText(value)}
-                value={searchText}
-              />
-            }
+      <Tabs>
+        {' '}
+        {categories.sort().map((category, i) => (
+          <Tabs.Tab
+            key={i}
+            selected={category === current_category}
+            onClick={() => act('set_category', { name: category, search_text: searchText })}
           >
-            <Stack vertical>
-              {procedures
-                .filter(
-                  createSearch(searchText, (procedure) => {
-                    return procedure.name + '|' + procedure.instructions.toString();
-                  })
-                )
-                .sort((a, b) => a?.name.localeCompare(b?.name))
-                .map((procedure, i) => (
-                  <Stack.Item key={i}>
-                    <Section title={decodeHtmlEntities(procedure.name)}>
-                      <ol>
-                        {procedure.instructions.map((instruction, j) => (
-                          <li key={`${i}-${j}`}>{instruction}</li>
-                        ))}
-                      </ol>
-                    </Section>
-                  </Stack.Item>
-                ))}
-            </Stack>
-          </Section>
-        )}
-      </div>
+            {category}
+          </Tabs.Tab>
+        ))}
+      </Tabs>
+
+      {current_category && (
+        <Section
+          title={
+            <Input
+              width="200px"
+              placeholder={`Search ${current_category}`}
+              onInput={(e, value) => setSearchText(value)}
+              value={searchText}
+            />
+          }
+        >
+          <Stack vertical>
+            {procedures
+              .filter(
+                createSearch(searchText, (procedure) => {
+                  return procedure.name + '|' + procedure.instructions.toString();
+                })
+              )
+              .sort((a, b) => a?.name.localeCompare(b?.name))
+              .map((procedure, i) => (
+                <Stack.Item key={i}>
+                  <Section title={decodeHtmlEntities(procedure.name)}>
+                    <ol>
+                      {procedure.instructions.map((instruction, j) => (
+                        <li key={`${i}-${j}`}>{instruction}</li>
+                      ))}
+                    </ol>
+                  </Section>
+                </Stack.Item>
+              ))}
+          </Stack>
+        </Section>
+      )}
     </Box>
   );
 };
