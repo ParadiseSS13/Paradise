@@ -2692,6 +2692,7 @@
 #include "code\modules\pda\cookbook.dm"
 #include "code\modules\pda\core_apps.dm"
 #include "code\modules\pda\games.dm"
+#include "code\modules\pda\job_guide.dm"
 #include "code\modules\pda\messenger.dm"
 #include "code\modules\pda\messenger_plugins.dm"
 #include "code\modules\pda\nanobank.dm"
