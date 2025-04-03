@@ -36,7 +36,7 @@
 			procedure_list = isnull(current_category) ? list() : GLOB.procedure_by_job[job][current_category]
 			SStgui.update_uis(pda)
 
-/datum/data/pda/app/job_guide/chief_engineer
+/datum/data/pda/app/job_guide/ce
 	name = "Chief Engineer Guide"
 	title = "Chief Engineer Guide"
 	template = "pda_job_guide"
@@ -54,3 +54,14 @@
 	template = "pda_job_guide"
 	job = JOBGUIDE_ATMOS
 
+/datum/data/pda/app/job_guide/doctor
+	name = "Medical Doctor Guide"
+	title = "Medical Doctor Guide"
+	template = "pda_job_guide"
+	job = JOBGUIDE_DOCTOR
+
+/datum/data/pda/app/job_guide/chemist
+	name = "Chemist Guide"
+	title = "Chemist Guide"
+	template = "pda_job_guide"
+	job = JOBGUIDE_CHEMIST

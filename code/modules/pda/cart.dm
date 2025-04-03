@@ -35,7 +35,8 @@
 	icon_state = "cart-e"
 	programs = list(
 		new /datum/data/pda/app/power,
-		new /datum/data/pda/utility/scanmode/halogen
+		new /datum/data/pda/utility/scanmode/halogen,
+		new /datum/data/pda/app/job_guide/engineer
 	)
 
 /obj/item/cartridge/atmos
@@ -53,7 +54,8 @@
 	icon_state = "cart-m"
 	programs = list(
 		new /datum/data/pda/app/crew_records/medical,
-		new /datum/data/pda/utility/scanmode/medical
+		new /datum/data/pda/utility/scanmode/medical,
+		new /datum/data/pda/app/job_guide/doctor
 	)
 
 /obj/item/cartridge/chemistry
@@ -61,7 +63,8 @@
 	desc = "A data cartridge for portable microcomputers. Has a reagent scanner."
 	icon_state = "cart-chem"
 	programs = list(
-		new /datum/data/pda/utility/scanmode/reagent
+		new /datum/data/pda/utility/scanmode/reagent,
+		new /datum/data/pda/app/job_guide/chemist
 	)
 
 /obj/item/cartridge/security
@@ -205,7 +208,8 @@
 		new /datum/data/pda/app/power,
 		new /datum/data/pda/utility/scanmode/halogen,
 		new /datum/data/pda/utility/scanmode/gas,
-		new /datum/data/pda/app/status_display
+		new /datum/data/pda/app/status_display,
+		new /datum/data/pda/app/job_guide/ce
 	)
 
 /obj/item/cartridge/cmo
