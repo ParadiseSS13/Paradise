@@ -4990,7 +4990,6 @@
 /turf/simulated/floor/transparent/glass,
 /area/tdome/tdomeobserve)
 "rt" = (
-/obj/machinery/photocopier,
 /obj/machinery/door_control/no_emag{
 	id = "sec";
 	name = "CentCom Security Shutters";
@@ -5013,6 +5012,7 @@
 	pixel_y = 30;
 	req_access = list(109)
 	},
+/obj/machinery/computer/ai_resource,
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "ru" = (
