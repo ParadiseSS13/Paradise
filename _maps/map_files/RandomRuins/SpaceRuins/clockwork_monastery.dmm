@@ -26,7 +26,7 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "ch" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/unpowered)
 "cK" = (
 /obj/structure/table/reinforced/brass,
@@ -391,7 +391,7 @@
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "Ht" = (
-/turf/simulated/mineral/random/low_chance,
+/turf/simulated/mineral/random/low_chance/space,
 /area/ruin/unpowered)
 "HB" = (
 /obj/structure/chair/sofa/pew/clockwork/right{
