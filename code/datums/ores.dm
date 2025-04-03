@@ -193,7 +193,7 @@
 		deltimer(explosion_callback)
 
 	stage = GIBTONITE_DETONATE
-	explosion(source, 1, 3, 5, adminlog = notify_admins)
+	explosion(source, 1, 3, 5, adminlog = notify_admins, cause = "Gibtonite")
 
 	if(!istype(source))
 		return

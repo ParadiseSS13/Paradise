@@ -562,13 +562,7 @@
 		return FALSE
 	add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
-	if(!iscarbon(user))
-		target.LAssailant = null
-	else
-		target.LAssailant = user
-
-	target.lastattacker = user.real_name
-	target.lastattackerckey = user.ckey
+	target.store_last_attacker(user)
 
 	var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 	damage += attack.damage

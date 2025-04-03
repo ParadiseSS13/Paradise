@@ -2,9 +2,10 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_0, list(
 	list(
 		// Tools
 		/obj/effect/spawner/random/engineering/tools = 4,
-
 		// Materials
 		/obj/effect/spawner/random/engineering/materials = 4,
+		// Misc eng supplies
+		/obj/effect/spawner/random/engineering/misc = 1,
 		// Plushies
 		/obj/effect/spawner/random/plushies = 1,
 	) = 6,
