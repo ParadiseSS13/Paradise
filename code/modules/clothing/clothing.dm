@@ -772,6 +772,10 @@
 	var/insert_max = 1
 	/// Currently applied inserts
 	var/list/inserts = list()
+	/// Is there a mobility mesh inserted?
+	var/mobility_meshed = FALSE
+	/// What's the total slowdown from inserts?
+	var/insert_slowdown = 0
 
 
 /obj/item/clothing/suit/Initialize(mapload)

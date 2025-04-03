@@ -2153,7 +2153,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -2270,8 +2270,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "gK" = (
-/obj/machinery/processor,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2407,6 +2408,8 @@
 "hc" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/clothing/head/chefhat,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -3024,9 +3027,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/powered)
 "iD" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/firealarm/directional/west,
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -3163,6 +3163,7 @@
 /obj/item/stack/cable_coil{
 	amount = 2
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
 "jc" = (
@@ -3171,9 +3172,6 @@
 	},
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3503,7 +3501,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "ke" = (
@@ -3553,7 +3551,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "ko" = (
@@ -4371,6 +4369,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"pW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/oven,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "qd" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/computerframe{
@@ -4619,6 +4625,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"sY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/grill_grate,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "ta" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -4855,14 +4869,6 @@
 /obj/structure/sign/poster/official/nanomichi_ad,
 /turf/simulated/wall,
 /area/ruin/ancientstation/betanorth)
-"vV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/clothing/head/chefhat,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ruin/ancientstation/kitchen)
 "vY" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4942,6 +4948,13 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/ruin/ancientstation/comm)
+"wJ" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/stack/sheet/wood{
+	amount = 25
+	},
+/turf/simulated/floor/grass,
+/area/ruin/ancientstation/hydroponics)
 "xj" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -5078,7 +5091,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "zp" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -5598,6 +5612,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
+"EH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/processor,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "EK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5629,7 +5650,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "Ft" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -6942,6 +6963,7 @@
 "VR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -9243,7 +9265,7 @@ fO
 gs
 gt
 gG
-VR
+sY
 gG
 gG
 ia
@@ -9282,7 +9304,7 @@ bq
 bC
 bC
 cB
-cZ
+wJ
 dw
 XV
 Kn
@@ -9291,7 +9313,7 @@ fS
 gs
 zp
 kx
-vV
+gL
 gG
 gG
 hY
@@ -9339,7 +9361,7 @@ fR
 gs
 gK
 gG
-VR
+pW
 VM
 gG
 hZ
@@ -9434,7 +9456,7 @@ fd
 rC
 BU
 gs
-gL
+EH
 gG
 Tm
 gG

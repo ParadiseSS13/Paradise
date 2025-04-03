@@ -497,7 +497,7 @@
 	var/turf/corpse_turf = get_turf(target)
 	new /obj/effect/temp_visual/corpse_explosion(get_turf(target))
 	target.gib()
-	explosion(corpse_turf, 0, 0, 0, 0, silent = TRUE, breach = FALSE)
+	explosion(corpse_turf, 0, 0, 0, 0, silent = TRUE, cause = name, breach = FALSE)
 	for(var/mob/living/M in range(4, corpse_turf))
 		if(M == user)
 			continue

@@ -13,7 +13,7 @@
 
 /obj/item/grenade/frag/prime()
 	update_mob()
-	explosion(loc, 0, 1, DEFAULT_SHRAPNEL_RANGE, breach = FALSE)
+	explosion(loc, 0, 1, DEFAULT_SHRAPNEL_RANGE, cause = name, breach = FALSE)
 	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
 	qdel(src)
 
