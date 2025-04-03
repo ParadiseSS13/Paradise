@@ -21,7 +21,7 @@
 
 /obj/item/tank/internals/oxygen
 	name = "oxygen tank"
-	desc = "A tank of oxygen, this one is blue."
+	desc = "A tank of oxygen. This one is blue."
 
 /obj/item/tank/internals/oxygen/populate_gas()
 	air_contents.set_oxygen((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
