@@ -48,7 +48,7 @@
 	return TRUE
 
 /obj/structure/engineeringcart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	. = TRUE
+	. = ITEM_INTERACT_COMPLETE
 	var/fail_msg = "<span class='warning'>There is already one of those in [src]!</span>"
 	if(used.is_robot_module())
 		to_chat(usr, "<span class='warning'>You cannot interface your modules with [src]!</span>")
@@ -74,7 +74,7 @@
 		if(!put_in_cart(used, user))
 			return
 
-		my_metal=used
+		my_metal = used
 		update_icon(UPDATE_OVERLAYS)
 		return
 
@@ -86,7 +86,7 @@
 		if(!put_in_cart(used, user))
 			return
 
-		my_plasteel=used
+		my_plasteel = used
 		update_icon(UPDATE_OVERLAYS)
 		return
 
@@ -98,7 +98,7 @@
 		if(!put_in_cart(used, user))	
 			return
 
-		my_flashlight=used
+		my_flashlight = used
 		update_icon(UPDATE_OVERLAYS)
 		return
 
@@ -110,7 +110,7 @@
 		if(!put_in_cart(used, user))
 			return
 
-		my_blue_toolbox=used
+		my_blue_toolbox = used
 		update_icon(UPDATE_OVERLAYS)
 		return
 
@@ -122,7 +122,7 @@
 		if(!put_in_cart(used, user))
 			return
 
-		my_yellow_toolbox=used
+		my_yellow_toolbox = used
 		update_icon(UPDATE_OVERLAYS)
 		return
 
@@ -134,7 +134,7 @@
 		if(!put_in_cart(used, user))
 			return
 
-		my_red_toolbox=used
+		my_red_toolbox = used
 		update_icon(UPDATE_OVERLAYS)
 		return
 
