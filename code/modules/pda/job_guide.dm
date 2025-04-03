@@ -65,3 +65,27 @@
 	title = "Chemist Guide"
 	template = "pda_job_guide"
 	job = JOBGUIDE_CHEMIST
+
+/datum/data/pda/app/job_guide/secoff
+	name = "Security Officer Guide"
+	title = "Security Officer Guide"
+	template = "pda_job_guide"
+	job = JOBGUIDE_SECURITY_OFFICER
+
+/datum/data/pda/app/job_guide/detective
+	name = "Janitor Guide"
+	title = "Janitor Guide"
+	template = "pda_job_guide"
+	job = JOBGUIDE_DETECTIVE
+
+/datum/data/pda/app/job_guide/janitor
+	name = "Janitor Guide"
+	title = "Janitor Guide"
+	template = "pda_job_guide"
+	job = JOBGUIDE_JANITOR
+
+/datum/data/pda/app/job_guide/iaa
+	name = "IAA Guide"
+	title = "IAA Guide"
+	template = "pda_job_guide"
+	job = JOBGUIDE_IAA

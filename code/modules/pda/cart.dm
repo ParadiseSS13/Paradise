@@ -73,7 +73,8 @@
 	icon_state = "cart-s"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
-		new /datum/data/pda/app/secbot_control
+		new /datum/data/pda/app/secbot_control,
+		/datum/data/pda/app/job_guide/secoff
 	)
 
 /obj/item/cartridge/detective
@@ -83,7 +84,8 @@
 	programs = list(
 		new /datum/data/pda/app/crew_records/medical,
 		new /datum/data/pda/utility/scanmode/medical,
-		new /datum/data/pda/app/crew_records/security
+		new /datum/data/pda/app/crew_records/security,
+		new /datum/data/pda/app/job_guide/detective
 	)
 
 
@@ -92,7 +94,8 @@
 	desc = "A data cartridge for portable microcomputers. Tracks custodial equipment."
 	icon_state = "cart-j"
 	programs = list(
-		new /datum/data/pda/app/janitor
+		new /datum/data/pda/app/janitor,
+		new /datum/data/pda/app/job_guide/janitor
 	)
 
 /obj/item/cartridge/iaa
@@ -100,7 +103,8 @@
 	desc = "A data cartridge for portable microcomputers. Has security records."
 	icon_state = "cart-s"
 	programs = list(
-		new /datum/data/pda/app/crew_records/security
+		new /datum/data/pda/app/crew_records/security,
+		new /datum/data/pda/app/job_guide/iaa
 	)
 
 /obj/item/cartridge/clown

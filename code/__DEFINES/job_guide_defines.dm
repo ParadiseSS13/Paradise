@@ -23,10 +23,10 @@
 #define JOBGUIDE_HOS "hos"
 #define JOBGUIDE_WARDEN "warden"
 #define JOBGUIDE_SECURITY_OFFICER "security_officer"
-#define JOBGUIDE_DETECTIVE = "detective"
+#define JOBGUIDE_DETECTIVE "detective"
 
 // Service
-#define JOBGUIDE_HEAD_OF_STAFF "head_of_staff"
+#define JOBGUIDE_HOP "hop"
 #define JOBGUIDE_BARTENDER "bartender"
 #define JOBGUIDE_BOTANIST "botanist"
 #define JOBGUIDE_CLOWN "clown"
@@ -44,3 +44,7 @@
 #define JOBGUIDE_SCIENTIST "scientits"
 #define JOBGUIDE_ROBOTICIST "roboticist"
 #define JOBGUIDE_GENETICIST "geneticist"
+
+// Legal
+#define JOBGUIDE_IAA "iaa"
+#define JOBGUIDE_MAGISTRATE "magistrate"
