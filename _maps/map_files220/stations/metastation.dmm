@@ -14105,6 +14105,7 @@
 "bip" = (
 /obj/machinery/door/airlock/titanium,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "biq" = (
@@ -38530,6 +38531,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"cTd" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "emergency_home";
+	locked = 1
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/turf_decal/delivery,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "cTe" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/green,
@@ -46111,6 +46122,12 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
+"fIz" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry)
 "fIA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -63973,6 +63990,16 @@
 /obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
+"oAu" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "supply_home";
+	locked = 1
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/supply/storage)
 "oBh" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -73242,6 +73269,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "tkV" = (
@@ -93368,7 +93396,7 @@ myY
 cmu
 aZj
 vkL
-aZj
+fIz
 bip
 bkb
 blS
@@ -95167,7 +95195,7 @@ tjR
 cmu
 aZj
 vkL
-aZj
+fIz
 bip
 bkb
 mXy
@@ -99011,9 +99039,9 @@ abq
 abq
 hFe
 aPf
-aDA
+oAu
 qNI
-aDA
+oAu
 aVb
 hFe
 abq
@@ -107842,7 +107870,7 @@ fUR
 yjJ
 cXz
 cLn
-cXz
+cTd
 aaa
 aaa
 aaa
@@ -108356,7 +108384,7 @@ cGR
 cLn
 cXz
 cLn
-cXz
+cTd
 aaa
 aaa
 aaa
@@ -109898,7 +109926,7 @@ cOP
 cLn
 cXz
 cLn
-cXz
+cTd
 cZp
 aaa
 aaa
