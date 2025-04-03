@@ -44,6 +44,7 @@
 	icon_state = "cart-a"
 	programs = list(
 		new /datum/data/pda/utility/scanmode/gas
+		new /datum/data/pda/app/job_guide/atmos
 	)
 
 /obj/item/cartridge/medical

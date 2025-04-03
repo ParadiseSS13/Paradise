@@ -16,7 +16,7 @@
 
 /datum/data/pda/app/job_guide/update_ui(mob/user, list/data)
 	data["categories"] = list()
-	for(var/category in GLOB.pcwj_job_guide_lookup)
+	for(var/category in GLOB.procedure_by_job[job])
 		data["categories"] += category
 
 	data["procedures"] = procedure_list
@@ -35,3 +35,9 @@
 			search_text = params["search_text"]
 			procedure_list = isnull(current_category) ? list() : GLOB.procedure_by_job[job][current_category]
 			SStgui.update_uis(pda)
+
+/datum/data/pda/app/job_guide/atmos
+	name = "Atmospherics Technician Guide"
+	title = "Atmospherics Technician Guide"
+	template = "pda_job_guide"
+	job = "atmos_tech"
