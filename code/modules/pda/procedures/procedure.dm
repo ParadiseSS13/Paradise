@@ -25,14 +25,3 @@ GLOBAL_LIST_EMPTY(procedure_by_job)
 		// Put the procedure in every job where it is relevant
 		for(var/job in example_procedure.jobs)
 			LAZYORASSOCLIST(GLOB.procedure_by_job["[job]"], example_procedure.catalog_category, list(entry))
-
-/datum/procedure/engineering/something
-	name = "engineer something"
-	jobs = list("engineer", "ce", "atmos_tech")
-	steps = list("engineer something")
-
-/datum/procedure/engineering/otherthing
-	name = "tesloose"
-	catalog_category = "tesla"
-	jobs = list("engineer", "ce", "atmos_tech")
-	steps = list("cut wires", "remove emitters", "zero SMES")

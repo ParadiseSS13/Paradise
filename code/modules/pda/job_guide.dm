@@ -36,8 +36,21 @@
 			procedure_list = isnull(current_category) ? list() : GLOB.procedure_by_job[job][current_category]
 			SStgui.update_uis(pda)
 
+/datum/data/pda/app/job_guide/chief_engineer
+	name = "Chief Engineer Guide"
+	title = "Chief Engineer Guide"
+	template = "pda_job_guide"
+	job = JOBGUIDE_CE
+
+/datum/data/pda/app/job_guide/engineer
+	name = "Engineer Guide"
+	title = "Engineer Guide"
+	template = "pda_job_guide"
+	job = JOBGUIDE_ENGINEER
+
 /datum/data/pda/app/job_guide/atmos
 	name = "Atmospherics Technician Guide"
 	title = "Atmospherics Technician Guide"
 	template = "pda_job_guide"
-	job = "atmos_tech"
+	job = JOBGUIDE_ATMOS
+
