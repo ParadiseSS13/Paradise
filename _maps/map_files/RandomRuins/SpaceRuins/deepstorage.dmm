@@ -4220,6 +4220,14 @@
 /obj/item/paper/fluff/ruins/deepstorage/log2,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
+"zP" = (
+/obj/docking_port/stationary/whiteship{
+	name = "Designation Error";
+	dir = 8;
+	id = "whiteship_deep"
+	},
+/turf/template_noop,
+/area/template_noop)
 "zU" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8041,7 +8049,7 @@ qn
 qn
 qn
 qn
-qn
+zP
 qn
 qn
 qn
@@ -8107,10 +8115,10 @@ qn
 qn
 qn
 qn
-ab
 qn
 qn
-ab
+qn
+qn
 qn
 qn
 qn
@@ -8251,7 +8259,7 @@ qn
 qn
 qn
 qn
-ab
+qn
 qn
 qn
 qn
@@ -8324,7 +8332,7 @@ qn
 qn
 qn
 qn
-ab
+qn
 qn
 qn
 qn

@@ -687,6 +687,14 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"bX" = (
+/obj/docking_port/stationary/whiteship{
+	id = "whiteship_MO19";
+	name = "Sealed Outpost";
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
 "bY" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
@@ -12785,7 +12793,7 @@ aa
 aa
 aa
 aa
-aa
+bX
 "}
 (2,1,1) = {"
 aa

@@ -2190,6 +2190,14 @@
 	icon_state = "bar"
 	},
 /area/ruin/unpowered/bmp_ship/midship)
+"Eb" = (
+/obj/docking_port/stationary/whiteship{
+	id = "whiteship_kerberos";
+	name = "Disabled Vessel";
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
 "Ht" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -2854,7 +2862,7 @@ aa
 "}
 (13,1,1) = {"
 aa
-aa
+Eb
 aa
 aa
 aa
