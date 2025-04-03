@@ -2,9 +2,9 @@ import { useBackend, useLocalState } from '../../backend';
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
-import { Box, Button, Input, Section, Stack } from '../../components';
+import { Box, Button, Input, Section, Stack, Tabs } from '../../components';
 
-export const pda_cookbook = (props, context) => {
+export const pda_job_guide = (props, context) => {
   const { act, data } = useBackend(context);
   const { categories, current_category, procedures, search_text } = data;
 
@@ -14,12 +14,14 @@ export const pda_cookbook = (props, context) => {
   return (
     <Box>
       <div className="JobGuide__left">
-        {' '}
-        {categories.sort().map((category, i) => (
-          <Button key={i} onClick={() => act('set_category', { name: category, search_text: searchText })}>
-            {category}
-          </Button>
-        ))}
+        <Tabs>
+          {' '}
+          {categories.sort().map((category, i) => (
+            <Tabs.Tab key={i} onClick={() => act('set_category', { name: category, search_text: searchText })}>
+              {category}
+            </Tabs.Tab>
+          ))}
+        </Tabs>
       </div>
       <div className="JobGuide__right">
         {current_category && (
@@ -45,7 +47,6 @@ export const pda_cookbook = (props, context) => {
                 .map((procedure, i) => (
                   <Stack.Item key={i}>
                     <Section title={decodeHtmlEntities(procedure.name)}>
-                      {procedure.container}:
                       <ol>
                         {procedure.instructions.map((instruction, j) => (
                           <li key={`${i}-${j}`}>{instruction}</li>
