@@ -13491,14 +13491,10 @@
 	},
 /area/station/supply/lobby)
 "cHe" = (
-/obj/structure/table/glass,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen/rd,
-/obj/item/stamp/rd{
-	pixel_x = 5;
-	pixel_y = -2
-	},
 /obj/machinery/newscaster/directional/south,
+/obj/machinery/computer/ai_resource{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -17277,10 +17273,6 @@
 /area/station/medical/medbay2)
 "dvd" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Personnel's Office";
-	pixel_y = 4
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
@@ -40452,8 +40444,22 @@
 	},
 /area/station/maintenance/apmaint)
 "iaX" = (
-/obj/machinery/computer/security/mining{
-	dir = 1
+/obj/structure/table/wood,
+/obj/item/folder/blue,
+/obj/item/pen/multi{
+	pixel_x = -4;
+	pixel_y = 5
+	},
+/obj/item/pen{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/machinery/door_control{
+	id = "hopofficedoor";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	req_access = list(57);
+	pixel_y = -24
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
@@ -42659,15 +42665,15 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "ixQ" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
-	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	name = "Research and Development Lab Shutters";
+	id_tag = "rndlab2"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
@@ -72196,8 +72202,11 @@
 /area/station/engineering/atmos/storage)
 "opX" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp,
 /obj/machinery/alarm/directional/north,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Head of Personnel's Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
 "opY" = (
@@ -109618,14 +109627,14 @@
 /area/station/engineering/atmos/asteroid_filtering)
 "vKw" = (
 /obj/structure/table/wood,
-/obj/item/megaphone{
-	pixel_y = 7;
-	pixel_x = -3
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/newscaster/security_unit/directional/north,
+/obj/item/megaphone{
+	pixel_y = 7;
+	pixel_x = -3
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
 "vKy" = (
@@ -111330,7 +111339,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "waz" = (
-/obj/structure/rack,
 /obj/item/aicard,
 /obj/item/paicard{
 	pixel_x = 4
@@ -111340,6 +111348,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/requests_console/directional/south,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -112019,11 +112028,6 @@
 "wid" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
-	},
 /obj/item/desk_bell{
 	pixel_y = 8;
 	anchored = 1
@@ -112034,6 +112038,11 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	name = "Research and Development Lab Shutters";
+	id_tag = "rndlab2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
@@ -116526,22 +116535,7 @@
 /area/station/maintenance/electrical)
 "xgy" = (
 /obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/item/pen/multi{
-	pixel_x = -4;
-	pixel_y = 5
-	},
-/obj/machinery/door_control{
-	id = "hopofficedoor";
-	name = "Office Door";
-	normaldoorcontrol = 1;
-	pixel_x = -8;
-	req_access = list(57)
-	},
-/obj/item/pen{
-	pixel_x = -8;
-	pixel_y = 5
-	},
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
 "xgJ" = (
@@ -119037,7 +119031,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
+	id_tag = "rndlab2"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -121632,6 +121626,12 @@
 	pixel_x = 4
 	},
 /obj/item/paper/monitorkey,
+/obj/item/stamp/rd{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/obj/item/pen/rd,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"

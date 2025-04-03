@@ -48122,11 +48122,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/port2)
 "doJ" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/rd,
 /obj/machinery/requests_console/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/ai_resource{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -50177,6 +50177,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/toy/figure/crew/rd,
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -77346,7 +77348,8 @@
 /obj/machinery/door/airlock/mining/glass,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},

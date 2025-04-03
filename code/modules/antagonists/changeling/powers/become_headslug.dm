@@ -40,7 +40,7 @@
 	for(var/obj/item/organ/internal/I in organs)
 		I.remove(user, TRUE)
 
-	explosion(get_turf(user), 0, 0, 2, 0, silent = TRUE)
+	explosion(get_turf(user), 0, 0, 2, 0, silent = TRUE, cause = "Headslug explosion")
 	for(var/mob/living/carbon/human/H in range(2, user))
 		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
 		H.KnockDown(4 SECONDS)
