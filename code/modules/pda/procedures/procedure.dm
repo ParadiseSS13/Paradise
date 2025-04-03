@@ -17,13 +17,13 @@ GLOBAL_LIST_EMPTY(procedure_by_job)
 	for(var/path in procedure_paths)
 		var/datum/procedure/example_procedure = new path()
 		// No steps means no procedure. Probably an abstract
-		if(!length(example_procedure(steps)))
+		if(!length(example_procedure.steps))
 			continue
 		var/list/entry = list()
-		entry["name"] = procedure.name
-		entry["instructions"] = steps.Copy()
+		entry["name"] = example_procedure.name
+		entry["instructions"] = example_procedure.steps.Copy()
 		// Put the procedure in every job where it is relevant
-		for(var/job in procedure.jobs)
+		for(var/job in example_procedure.jobs)
 			LAZYORASSOCLIST(GLOB.procedure_by_job["[job]"], example_procedure.catalog_category, list(entry))
 
 /datum/procedure/engineering
