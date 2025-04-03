@@ -17,19 +17,26 @@
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot/centcomm
 	spawn_inside = null
+	spawn_loot_chance = 100
 	spawn_pool_id = "central_command_spawn_pool"
+	record_spawn = FALSE
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/rare/depot/centcomm
 	spawn_inside = null
+	spawn_loot_chance = 100
 	spawn_pool_id = "central_command_spawn_pool"
+	record_spawn = FALSE
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/officer/depot/centcomm
 	spawn_inside = null
+	spawn_loot_chance = 100
 	spawn_pool_id = "central_command_spawn_pool"
+	record_spawn = FALSE
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot/centcomm
 	spawn_inside = null
 	spawn_pool_id = "central_command_spawn_pool"
+	record_spawn = FALSE
 
 /obj/effect/spawner/random/pool/centcommloot/syndicate/mixed
 	loot = list(
