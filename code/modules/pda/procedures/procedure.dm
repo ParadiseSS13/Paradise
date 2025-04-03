@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(procedure_by_department)
+GLOBAL_LIST_EMPTY(procedure_by_job)
 
 // A procedure datum used by the procedure PDA app. Contains instructions on how to perform a part of a job.
 /datum/procedure
@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(procedure_by_department)
 	var/list/steps = list()
 
 /proc/initialize_procedures()
-	GLOB.procedure_by_department.Cut()
+	GLOB.procedure_by_job.Cut()
 	var/list/procedure_paths = subtypesof(/datum/procedure)
 	for(var/path in procedure_paths)
 		var/datum/procedure/example_procedure = new path()
