@@ -576,7 +576,7 @@
 		to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(istype(M, /obj/item/mmi/syndie)) //See PR #26020 - We basically do not want peoples to use syndi-MMIs as cheap mindslave implants
+	if(istype(M, /obj/item/mmi/syndie)) // We basically do not want peoples to use syndi-MMIs as cheap mindslave implants
 		to_chat(user, "<span class='danger'>[tool] cannot be installed into an organic body, as the hardware designed to operate the complex biology of one was repurposed to enslave the brain housed inside!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
