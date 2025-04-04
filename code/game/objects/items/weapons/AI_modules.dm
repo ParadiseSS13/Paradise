@@ -20,6 +20,7 @@ AI MODULES
 	throw_range = 15
 	origin_tech = "programming=3"
 	materials = list(MAT_GOLD=50)
+	new_attack_chain = TRUE
 	var/datum/ai_laws/laws = null
 
 /obj/item/ai_module/Initialize(mapload)
@@ -116,8 +117,10 @@ AI MODULES
 	icon_state = "light_blue_medium"
 	origin_tech = "programming=3;materials=3"
 
-/obj/item/ai_module/safeguard/attack_self__legacy__attackchain(mob/user as mob)
-	..()
+/obj/item/ai_module/safeguard/activate_self(mob/user)
+	if(..())
+		return
+
 	var/new_targetName = tgui_input_text(user, "Please enter the name of the person to safeguard.", "Safeguard who?", user.name)
 	if(!new_targetName)
 		return
@@ -145,8 +148,10 @@ AI MODULES
 	icon_state = "green_high"
 	origin_tech = "programming=4;materials=4"
 
-/obj/item/ai_module/one_crew_member/attack_self__legacy__attackchain(mob/user as mob)
-	..()
+/obj/item/ai_module/one_crew_member/activate_self(mob/user)
+	if(..())
+		return
+
 	var/new_targetName = tgui_input_text(usr, "Please enter the name of the person who is the only crew.", "Who?", user.real_name)
 	if(!new_targetName)
 		return
@@ -178,9 +183,6 @@ AI MODULES
 	icon_state = "red_high"
 	origin_tech = "programming=4;materials=4" //made of gold
 
-/obj/item/ai_module/protect_station/attack_self__legacy__attackchain(mob/user as mob)
-	..()
-
 /obj/item/ai_module/protect_station/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
 	var/law = "Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized."
@@ -193,9 +195,6 @@ AI MODULES
 	desc = "A 'Oxygen Is Toxic To Crew' AI module: 'Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member.'"
 	icon_state = "light_blue_high"
 	origin_tech = "programming=4;biotech=2;materials=4"
-
-/obj/item/ai_module/oxygen/attack_self__legacy__attackchain(mob/user as mob)
-	..()
 
 /obj/item/ai_module/oxygen/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
@@ -213,8 +212,10 @@ AI MODULES
 	icon_state = "standard_high"
 	origin_tech = "programming=4;materials=4"
 
-/obj/item/ai_module/freeform/attack_self__legacy__attackchain(mob/user as mob)
-	..()
+/obj/item/ai_module/freeform/activate_self(mob/user)
+	if(..())
+		return
+
 	var/new_lawpos = tgui_input_number(user, "Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority", lawpos, MAX_SUPPLIED_LAW_NUMBER, MIN_SUPPLIED_LAW_NUMBER)
 	if(isnull(new_lawpos))
 		return
@@ -424,8 +425,10 @@ AI MODULES
 	icon_state = "standard_high"
 	origin_tech = "programming=5;materials=4"
 
-/obj/item/ai_module/freeformcore/attack_self__legacy__attackchain(mob/user as mob)
-	..()
+/obj/item/ai_module/freeformcore/activate_self(mob/user)
+	if(..())
+		return
+
 	var/new_targetName = tgui_input_text(usr, "Please enter a new core law for the AI.", "Freeform Law Entry")
 	if(!new_targetName)
 		return
@@ -453,8 +456,10 @@ AI MODULES
 	icon_state = "syndicate"
 	origin_tech = "programming=5;materials=5;syndicate=2"
 
-/obj/item/ai_module/syndicate/attack_self__legacy__attackchain(mob/user as mob)
-	..()
+/obj/item/ai_module/syndicate/activate_self(mob/user)
+	if(..())
+		return
+
 	var/new_targetName = tgui_input_text(usr, "Please enter a new law for the AI.", "Freeform Law Entry", max_length = MAX_MESSAGE_LEN)
 	if(!new_targetName)
 		return
@@ -493,7 +498,10 @@ AI MODULES
 	target.add_ion_law(ion_law)
 	return ion_law
 
-/obj/item/ai_module/toy_ai/attack_self__legacy__attackchain(mob/user)
+/obj/item/ai_module/toy_ai/activate_self(mob/user)
+	if(..())
+		return
+
 	ion_law = generate_ion_law()
 	to_chat(user, "<span class='notice'>You press the button on [src].</span>")
 	playsound(user, 'sound/machines/click.ogg', 20, TRUE)

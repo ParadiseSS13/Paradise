@@ -250,7 +250,7 @@
 
 //		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
 
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cause = "Exploding tank rupture")
 		if(istype(loc,/obj/item/transfer_valve))
 			qdel(loc)
 		else

@@ -173,7 +173,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 64
+sql_version = 66
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -248,7 +248,7 @@ gamemode_probabilities = [
 	{ gamemode = "abduction", probability = 0 },
 	{ gamemode = "changeling", probability = 0 },
 	{ gamemode = "cult", probability = 0 },
-	{ gamemode = "extend-a-traitormongous", probability = 2 }, # Autotraitor
+	{ gamemode = "extend-a-traitormongous", probability = 0 }, # Autotraitor
 	{ gamemode = "extended", probability = 0 },
 	{ gamemode = "nuclear", probability = 2 },
 	{ gamemode = "raginmages", probability = 0 },
@@ -260,7 +260,7 @@ gamemode_probabilities = [
 	{ gamemode = "vampire", probability = 0 },
 	{ gamemode = "wizard", probability = 2 },
 	{ gamemode = "trifecta", probability = 0 },
-	{ gamemode = "dynamic", probability = 20 },
+	{ gamemode = "dynamic", probability = 22 },
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
@@ -603,14 +603,16 @@ redis_connstring = "redis://127.0.0.1/"
 [ruin_configuration]
 # This section contains configuration for all space ruins and lava ruins
 
-# Whether to load the lavaland Z-level.
+# Enable space z-level generation.
+enable_space = true
+# Enable lavaland generation.
 enable_lavaland = true
-# Globally enable and disable placing of all ruins, including lavaland ruins and lavaland tendrils.
-enable_space_ruins = false
-# Minimum number of extra zlevels to generate and fill with ruins
-minimum_zlevels = 2
-# Maximum number of extra zlevels to generate and fill with ruins
-maximum_zlevels = 4
+# Globally enable and disable placing of all ruins across lavaland and space.
+enable_ruins = true
+# Minimum number of extra space zlevels to generate
+minimum_space_zlevels = 2
+# Maximum number of extra space zlevels to generate
+maximum_space_zlevels = 4
 # Minimum space ruin budget.
 space_ruin_budget_min = 750
 # Maximum space ruin budget.
@@ -684,9 +686,11 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm", ##RESPAWN
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker1.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker_siege.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_golem_ship.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hermit.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm", ##SIN
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_eden.dmm", ##SIN
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_envy.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm", # Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",
@@ -698,6 +702,7 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm", ##MISC
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_excavation.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_minebot_factory.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",

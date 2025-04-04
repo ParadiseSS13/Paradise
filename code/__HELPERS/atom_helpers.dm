@@ -8,3 +8,11 @@
 		location = location.loc
 	if(our_turf && include_turf) // At this point, only the turf is left, provided it exists.
 		. += our_turf
+
+/// A datum storing information about attacks an atom has received.
+/// Only contains attacker name/ckey right now but could be expanded.
+/datum/attack_info
+	/// Name of the mob who performed the last attack.
+	var/last_attacker_name = null
+	/// Ckey of the player who performed the last attack.
+	var/last_attacker_ckey = null

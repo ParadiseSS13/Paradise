@@ -41,7 +41,7 @@
 /mob/living/simple_animal/spiderbot/Destroy()
 	if(emagged)
 		QDEL_NULL(mmi)
-		explosion(get_turf(src), -1, -1, 3, 5)
+		explosion(get_turf(src), -1, -1, 3, 5, cause = "Emagged spiderbot destruction")
 	else
 		eject_brain()
 	return ..()

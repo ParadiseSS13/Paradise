@@ -102,3 +102,16 @@
 /obj/effect/spawner/random/stock_parts/Initialize(mapload)
 	spawn_loot_count = rand(4, 7)
 	. = ..()
+
+/obj/effect/spawner/random/glowstick
+	name = "random glowstick spawner"
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "glowstick"
+	loot = list(
+		/obj/item/flashlight/flare/glowstick,
+		/obj/item/flashlight/flare/glowstick/red,
+		/obj/item/flashlight/flare/glowstick/blue,
+		/obj/item/flashlight/flare/glowstick/orange,
+		/obj/item/flashlight/flare/glowstick/yellow,
+		/obj/item/flashlight/flare/glowstick/pink,
+	)
