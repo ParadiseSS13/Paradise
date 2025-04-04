@@ -44,7 +44,7 @@
 		"The Head of Personnel may not give any personnel increased access without authorization from the relevant Head of Staff. This includes the Head of Personnel. In addition, the Head of Personnel may only give Captain-Level access to someone if they are the Acting Captain. This access is to be removed when a proper Captain arrives on the station",
 		"The Head of Personnel may not increase any Job Openings unless the relevant Head of Staff approves",
 		"The Head of Personnel may not fire any personnel without authorization from the relevant Head of Staff, unless other conditions apply (see Space Law and General Standard Operating Procedure)",
-		"The Head of Personnel may not promote anyone to the job of NanoTrasen Representative, Blueshield, Internal Affairs Agent, Magistrate or Nanotrasen Career Trainer",
+		"The Head of Personnel may not promote anyone to the job of Nanotrasen Representative, Blueshield, Internal Affairs Agent, Magistrate or Nanotrasen Career Trainer",
 		"The Head of Personnel is free to utilize paperwork at their discretion. However, during major station emergencies, expediency should take precedence over bureaucracy",
 		"The Head of Personnel may not leave their office unmanned if there are personnel waiting in line. Failure to respond to personnel with a legitimate request within ten (10) minutes, either via radio or in person is to be considered a breach of Standard Operating Procedure",
 		"The Head of Personnel is not permitted to perform Security duty. The Head of Personnel is permitted to carry a Miniature Energy Gun for self-defence only."
