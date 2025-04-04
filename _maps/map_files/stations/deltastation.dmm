@@ -72304,10 +72304,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"noz" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/fore)
 "noF" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -124598,7 +124594,7 @@ abj
 aaa
 aaa
 xDJ
-noz
+xDJ
 eyr
 tUC
 xDJ
