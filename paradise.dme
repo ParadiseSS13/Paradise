@@ -2706,6 +2706,7 @@
 #include "code\modules\pda\procedures\job_procedure.dm"
 #include "code\modules\pda\procedures\medical_procedures.dm"
 #include "code\modules\pda\procedures\science_procedures.dm"
+#include "code\modules\pda\procedures\security_procedures.dm"
 #include "code\modules\pda\procedures\service_procedures.dm"
 #include "code\modules\pda\procedures\supply_procedures.dm"
 #include "code\modules\persistence\persistence.dm"
