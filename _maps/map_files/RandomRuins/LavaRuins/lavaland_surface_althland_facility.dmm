@@ -346,9 +346,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/structure/sign/poster/official/air2{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/air2/directional/south,
 /obj/item/clothing/under/rank/cargo/miner,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/plasteel/lavaland_air,
@@ -623,12 +621,10 @@
 "vf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/air1{
-	pixel_x = 33
-	},
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/sign/poster/official/air1/directional/east,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "vl" = (
@@ -687,10 +683,7 @@
 "zp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/workboots/mining,
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
@@ -807,12 +800,9 @@
 "BX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/structure/sign/poster/contraband/syndicate_recruitment{
-	pixel_x = -3;
-	pixel_y = 31
-	},
 /obj/item/clothing/under/rank/cargo/miner,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/north,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "CF" = (
@@ -902,10 +892,7 @@
 /area/ruin/unpowered/althland_processing)
 "Fd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/item/tank/internals/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/lavaland_air,
@@ -1243,11 +1230,9 @@
 /obj/item/chair{
 	dir = 1
 	},
-/obj/structure/sign/poster/contraband/red_rum{
-	pixel_y = 31
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/sign/poster/contraband/red_rum/directional/north,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "Tn" = (
@@ -1481,10 +1466,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/white,
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 

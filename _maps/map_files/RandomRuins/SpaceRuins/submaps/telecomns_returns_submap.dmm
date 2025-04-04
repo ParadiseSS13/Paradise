@@ -38,6 +38,7 @@
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/kitchen/knife,
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "fM" = (
@@ -88,6 +89,10 @@
 "jV" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/engine,
+/area/template_noop)
+"kl" = (
+/obj/structure/sign/poster/contraband/random/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "lq" = (
 /obj/machinery/light{
@@ -187,10 +192,6 @@
 /obj/structure/table/glass/reinforced/plasma,
 /obj/item/stack/sheet/mineral/plasma/fifty,
 /turf/simulated/floor/engine,
-/area/template_noop)
-"wd" = (
-/obj/structure/sign/poster/contraband/smoke,
-/turf/template_noop,
 /area/template_noop)
 "wp" = (
 /obj/structure/marker_beacon/dock_marker/collision,
@@ -295,6 +296,10 @@
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/template_noop,
 /area/template_noop)
+"Gj" = (
+/obj/structure/sign/poster/contraband/smoke/directional/north,
+/turf/simulated/floor/engine,
+/area/template_noop)
 "Gx" = (
 /obj/machinery/computer/nonfunctional,
 /turf/template_noop,
@@ -371,10 +376,6 @@
 /obj/structure/table/glass/reinforced/plasma,
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/engine,
-/area/template_noop)
-"SE" = (
-/obj/structure/sign/poster/contraband,
-/turf/simulated/wall/indestructible/syndicate,
 /area/template_noop)
 "SS" = (
 /obj/structure/window/plasmareinforced{
@@ -1159,8 +1160,8 @@ qr
 "}
 (18,1,1) = {"
 qr
-SE
-SX
+yC
+kl
 OI
 OI
 OI
@@ -1247,7 +1248,7 @@ da
 yC
 yC
 yC
-SE
+yC
 yC
 da
 qr
@@ -1873,8 +1874,8 @@ qr
 "}
 (35,1,1) = {"
 qr
-wd
-qV
+qr
+Gj
 jV
 qV
 qV

@@ -366,11 +366,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/sign/poster/ripped{
-	pixel_y = 32;
-	name = "torn sign";
-	pixel_x = -1
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
@@ -1439,9 +1435,7 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/random/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 

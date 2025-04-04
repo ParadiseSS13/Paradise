@@ -86,9 +86,7 @@
 /turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "kO" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "nC" = (
@@ -138,9 +136,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "sk" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "sm" = (
@@ -335,9 +331,7 @@
 /area/shuttle/abandoned)
 "Pe" = (
 /obj/structure/chair/wood,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "Pi" = (

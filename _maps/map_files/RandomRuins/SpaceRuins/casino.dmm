@@ -773,9 +773,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/engine)
 "wb" = (
-/obj/structure/sign/poster/official/high_class_martini{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/high_class_martini/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "wg" = (
