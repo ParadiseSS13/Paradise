@@ -33,7 +33,8 @@
 	if(check_power_on())
 		active = TRUE
 	else
-		visible_message("<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
+		if(!mapload)
+			visible_message("<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
 	update_icon()
 	if(mapload && autolink_id)
 		return INITIALIZE_HINT_LATELOAD
