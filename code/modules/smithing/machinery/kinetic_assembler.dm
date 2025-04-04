@@ -38,9 +38,9 @@
 	if(primary)
 		. += "<span class='notice'>There is a [primary] in the primary slot.</span>"
 	if(secondary)
-		. += "<span class='notice'>There is a [secondary] in the primary slot.</span>"
+		. += "<span class='notice'>There is a [secondary] in the secondary slot.</span>"
 	if(trim)
-		. += "<span class='notice'>There is a [trim] in the primary slot.</span>"
+		. += "<span class='notice'>There is a [trim] in the trim slot.</span>"
 	if(finished_product)
 		. += "<span class='notice'>There is a nearly-complete [finished_product] on the assembler. To complete the product, strike it with your hammer!</span>"
 
