@@ -24,7 +24,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_produce)
 	if(!istype(added_item, /obj/item/food/grown))
 		return PCWJ_CHECK_INVALID
 	if(exact_path)
-		if(added_item == produce_type)
+		if(added_item.type == produce_type)
 			return PCWJ_CHECK_VALID
 	else
 		if(istype(added_item, produce_type))

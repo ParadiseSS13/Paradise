@@ -51,7 +51,7 @@
 	var/range_flash = 3
 
 /obj/effect/mine/explosive/mineEffect(mob/living/victim)
-	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
+	explosion(loc, range_devastation, range_heavy, range_light, range_flash, cause = name)
 
 /obj/effect/mine/stun
 	name = "stun mine"
@@ -68,7 +68,7 @@
 	var/area/syndicate_depot/core/depotarea = get_area(src)
 	if(istype(depotarea))
 		if(depotarea.mine_triggered(victim))
-			explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched
+			explosion(loc, 1, 0, 0, 1, cause = "depot sentry mine") // devastate the tile you are on, but leave everything else untouched
 
 /obj/effect/mine/dnascramble
 	name = "Radiation Mine"
