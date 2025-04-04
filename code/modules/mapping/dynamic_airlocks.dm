@@ -42,9 +42,8 @@
 /obj/effect/map_effect/dynamic_airlock/proc/collect_neighbor_helpers()
 	var/turf/center = get_turf(src)
 	for(var/turf/T as anything in RANGE_EDGE_TURFS(1, center))
-		for(var/atom/A as anything in T)
-			if(istype(A, /obj/effect/map_effect/dynamic_airlock))
-				LAZYOR(neighbor_helpers, A)
+		for(var/obj/effect/map_effect/dynamic_airlock/A as anything in T)
+			LAZYOR(neighbor_helpers, A)
 
 /// A helper used to indicate what doors are connected to an airlock zone. Comes
 /// in interior and exterior variants as subtypes.
@@ -61,7 +60,7 @@
 	airlock.req_one_access = linker.req_one_access
 
 /obj/effect/map_effect/dynamic_airlock/door/proc/assign_ids(btn_id, door_id)
-	for(var/obj/machinery/access_button/button in buttons)
+	for(var/obj/machinery/access_button/button as anything in buttons)
 		button.autolink_id = btn_id
 
 	airlock.id_tag = door_id

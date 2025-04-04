@@ -68,17 +68,17 @@ RESTRICT_TYPE(/datum/dynamic_airlock_linker)
 	extend_zone(origin_helper, visited_helpers)
 	var/id_to_link = UID()
 
-	for(var/obj/machinery/atmospherics/unary/vent_pump/high_volume/vent_pump in vent_pumps)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/high_volume/vent_pump as anything in vent_pumps)
 		vent_pump.autolink_id = VENT_ID(id_to_link)
 
-	for(var/obj/effect/map_effect/dynamic_airlock/door/door_helper in interior_helpers)
+	for(var/obj/effect/map_effect/dynamic_airlock/door/door_helper as anything in interior_helpers)
 		if(!door_helper.airlock)
 			stack_trace("dynamic airlock interior door helper without a door at [COORD(door_helper)]")
 
 		door_helper.assign_ids(INT_BTN_ID(id_to_link), INT_DOOR_ID(id_to_link))
 		door_helper.assign_access(src)
 		interior_airlocks |= door_helper.airlock.UID()
-	for(var/obj/effect/map_effect/dynamic_airlock/door/door_helper in exterior_helpers)
+	for(var/obj/effect/map_effect/dynamic_airlock/door/door_helper as anything in exterior_helpers)
 		if(!door_helper.airlock)
 			stack_trace("dynamic airlock exterior door helper without a door at [COORD(door_helper)]")
 
@@ -86,7 +86,7 @@ RESTRICT_TYPE(/datum/dynamic_airlock_linker)
 		door_helper.assign_access(src)
 		exterior_airlocks |= door_helper.airlock.UID()
 
-	for(var/obj/machinery/airlock_controller/controller in airlock_controllers)
+	for(var/obj/machinery/airlock_controller/controller as anything in airlock_controllers)
 		controller.vent_link_id = VENT_ID(id_to_link)
 
 		controller.int_door_link_id = INT_DOOR_ID(id_to_link)
@@ -121,9 +121,9 @@ RESTRICT_TYPE(/datum/dynamic_airlock_linker)
 /// this process are qdel'd so they don't attempt to assign access to anything
 /// else later.
 /datum/dynamic_airlock_linker/proc/consume_access_helpers(obj/effect/map_effect/dynamic_airlock/helper)
-	for(var/obj/effect/mapping_helpers/airlock/access/any/any_helper in get_turf(helper))
+	for(var/obj/effect/mapping_helpers/airlock/access/any/any_helper as anything in get_turf(helper))
 		req_one_access |= any_helper.access
 		qdel(any_helper)
-	for(var/obj/effect/mapping_helpers/airlock/access/all/all_helper in get_turf(helper))
+	for(var/obj/effect/mapping_helpers/airlock/access/all/all_helper as anything in get_turf(helper))
 		req_access |= all_helper.access
 		qdel(all_helper)
