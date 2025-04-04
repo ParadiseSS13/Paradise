@@ -2702,6 +2702,7 @@
 #include "code\modules\pda\pdas.dm"
 #include "code\modules\pda\utilities.dm"
 #include "code\modules\pda\games\minesweeper.dm"
+#include "code\modules\pda\procedures\command_procedures.dm"
 #include "code\modules\pda\procedures\engineering_procedures.dm"
 #include "code\modules\pda\procedures\job_procedure.dm"
 #include "code\modules\pda\procedures\legel_procedures.dm"

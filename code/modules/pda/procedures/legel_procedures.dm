@@ -32,4 +32,3 @@
 		"Internal Affairs Agents are to ensure that Standard Operating Procedure is being properly followed, when applicable, and to contact the relevant Head of Staff when it is not",
 		"Internal Affairs Agents are to attempt to resolve all Standard Operating Procedure issues locally before contacting Central Command. This should be done in tandem with Command and, if possible, personnel in the relevant Department. If a valid report is ignored by the relevant Head of Staff, the Captain is to be contacted. If the Captain ignores the report, then Central Command and/or the NanoTrasen Representative must be contacted."
 		)
-
