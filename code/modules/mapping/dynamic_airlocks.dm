@@ -41,8 +41,8 @@
 /// Look around us in a 1 tile range and aggregate all the adjacent helpers.
 /obj/effect/map_effect/dynamic_airlock/proc/collect_neighbor_helpers()
 	var/turf/center = get_turf(src)
-	for(var/turf/T in RANGE_EDGE_TURFS(1, center))
-		for(var/atom/A in T)
+	for(var/turf/T as anything in RANGE_EDGE_TURFS(1, center))
+		for(var/atom/A as anything in T)
 			if(istype(A, /obj/effect/map_effect/dynamic_airlock))
 				LAZYOR(neighbor_helpers, A)
 

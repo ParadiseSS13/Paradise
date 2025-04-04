@@ -39,8 +39,8 @@ RESTRICT_TYPE(/datum/dynamic_airlock_linker)
 
 	helper.collect_neighbor_helpers()
 
-	if(helper.sibling_items)
-		for(var/atom/sibling_item in helper.sibling_items)
+	if(length(helper.sibling_items))
+		for(var/atom/sibling_item as anything in helper.sibling_items)
 			if(istype(sibling_item, /obj/machinery/airlock_controller))
 				airlock_controllers |= sibling_item
 			if(istype(sibling_item, /obj/machinery/atmospherics/unary/vent_pump))
