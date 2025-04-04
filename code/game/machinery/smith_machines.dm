@@ -50,6 +50,10 @@
 		linked_crucible.linked_machines |= src
 		return
 
+/obj/machinery/mineral/smart_hopper/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>There are currently [points] claimable points. [points ? "Swipe your ID to claim them." : ""]</span>"
+
 /obj/machinery/mineral/smart_hopper/update_overlays()
 	. = ..()
 	overlays.Cut()
