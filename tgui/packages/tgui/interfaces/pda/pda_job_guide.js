@@ -2,19 +2,28 @@ import { useBackend, useLocalState } from '../../backend';
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
-import { Box, Button, Input, Section, Stack, Tabs } from '../../components';
+import { Box, Button, Input, Section, Stack, Tabs, Dropdown } from '../../components';
 
 export const pda_job_guide = (props, context) => {
   const { act, data } = useBackend(context);
-  const { categories, current_category, procedures, search_text } = data;
-
+  const { categories, current_category, procedures, search_text, job_list, job } = data;
   const [procedureList, setprocedureList] = useLocalState(context, 'procedureList', procedures);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', search_text);
 
   return (
     <Box>
+      <Dropdown
+        mt={0.6}
+        width="215px"
+        options={job_list}
+        selected={job}
+        onSelected={(val) =>
+          act('select_job', {
+            job: val,
+          })
+        }
+      />
       <Tabs>
-        {' '}
         {categories.sort().map((category, i) => (
           <Tabs.Tab
             key={i}

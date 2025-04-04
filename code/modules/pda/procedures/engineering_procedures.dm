@@ -1,21 +1,22 @@
-// Procedure relevant to the whole department
+// Procedure relevant to engineering as a whole
 /datum/procedure/engineering
 	jobs = list(JOBGUIDE_CE, JOBGUIDE_ATMOS, JOBGUIDE_ENGINEER)
 
-// Chief engineer procedures
+// Chief engineer procedure
 /datum/procedure/ce
 	jobs = list(JOBGUIDE_CE)
 
-// Engineer procedures
+// Engineer procedure
 /datum/procedure/engineer
 	jobs = list(JOBGUIDE_CE, JOBGUIDE_ENGINEER)
 
-// Atmos tech procedures
+// Atmos tech procedure
 /datum/procedure/atmos_tech
 	jobs = list(JOBGUIDE_CE, JOBGUIDE_ATMOS)
 
 // CE SoP
 /datum/procedure/ce/sop
+	name = "Chief Engineer SOP"
 	catalog_category = "SOP"
 	steps = list(
 		"The Chief Engineer must make sure that the Supermatter Engine and/or Solar Panels are fully set up and supplying power to the station before any further action is taken by themselves or their team",
@@ -28,6 +29,7 @@
 		"The Chief Engineer is permitted to grant Building Permits to crewmembers, but must keep the Station Blueprints in a safe location at all times",)
 
 /datum/procedure/engineer/sop
+	name = "Engineer SOP"
 	catalog_category = "SOP"
 	steps = list(
 		"Engineers must properly activate and wire the Supermatter Engine and/or Solar Panels at the start of the shift, before any other actions are undertaken",
@@ -43,6 +45,7 @@
 		)
 
 /datum/procedure/atmos_tech/sop
+	name = "Atmospherics Technician SOP"
 	catalog_category = "SOP"
 	steps = list(
 		"Atmospheric Technicians are permitted to completely repipe the Atmospherics Piping Setup, provided they do not pump harmful gases into anywhere except the Turbine",

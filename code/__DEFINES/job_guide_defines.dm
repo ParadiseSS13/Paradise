@@ -1,50 +1,50 @@
 // Job names for the jobguide app
 
 // Command
-#define JOBGUIDE_CAPTAIN "captain"
-#define JOBGUIDE_BLUESHIELD "blueshield"
-#define JOBGUIDE_NTR "ntr"
+#define JOBGUIDE_CAPTAIN "Captain"
+#define JOBGUIDE_BLUESHIELD "Blueshield"
+#define JOBGUIDE_NTR "Nanotrassen Repressentative"
 
 // Engineering
-#define JOBGUIDE_CE "ce"
-#define JOBGUIDE_ENGINEER "engineer"
-#define JOBGUIDE_ATMOS "atmos_tech"
+#define JOBGUIDE_CE "Chief Engineer"
+#define JOBGUIDE_ENGINEER "Engineer"
+#define JOBGUIDE_ATMOS "Atmospherics Technician"
 
 // Medical
-#define JOBGUIDE_CMO "cmo"
-#define JOBGUIDE_DOCTOR "medical_doctor"
-#define JOBGUIDE_PARAMED "paramedic"
-#define JOBGUIDE_CORONER "coroner"
-#define JOBGUIDE_CHEMIST "chemist"
-#define JOBGUIDE_VIROLOGIST "virologist"
-#define JOBGUIDE_PSYCHAIATRIST "psychaiatrist"
+#define JOBGUIDE_CMO "Chief Medical Officer"
+#define JOBGUIDE_DOCTOR "Medical Doctor"
+#define JOBGUIDE_PARAMED "Paramedic"
+#define JOBGUIDE_CORONER "Coroner"
+#define JOBGUIDE_CHEMIST "Chemist"
+#define JOBGUIDE_VIROLOGIST "Virologist"
+#define JOBGUIDE_PSYCHAIATRIST "Psychaiatrist"
 
 // Security
-#define JOBGUIDE_HOS "hos"
-#define JOBGUIDE_WARDEN "warden"
-#define JOBGUIDE_SECURITY_OFFICER "security_officer"
-#define JOBGUIDE_DETECTIVE "detective"
+#define JOBGUIDE_HOS "Head Of Security"
+#define JOBGUIDE_WARDEN "Warden"
+#define JOBGUIDE_SECURITY_OFFICER "Security Officer"
+#define JOBGUIDE_DETECTIVE "Detective"
 
 // Service
-#define JOBGUIDE_HOP "hop"
-#define JOBGUIDE_BARTENDER "bartender"
-#define JOBGUIDE_BOTANIST "botanist"
-#define JOBGUIDE_CLOWN "clown"
-#define JOBGUIDE_MIME "mime"
-#define JOBGUIDE_JANITOR "janitor"
+#define JOBGUIDE_HOP "Head Of Personal"
+#define JOBGUIDE_BARTENDER "Bartender"
+#define JOBGUIDE_BOTANIST "Botanist"
+#define JOBGUIDE_CLOWN "Clown"
+#define JOBGUIDE_MIME "Mime"
+#define JOBGUIDE_JANITOR "Janitor"
 
 // Supply
-#define JOBGUIDE_QM "qm"
-#define JOBGUIDE_CARGO_TECH "cargo_tech"
-#define JOBGUIDE_MINER "miner"
-#define JOBGUIDE_EXPLORER "explorer"
+#define JOBGUIDE_QM "Quartermaster"
+#define JOBGUIDE_CARGO_TECH "Cargo Technician"
+#define JOBGUIDE_MINER "Miner"
+#define JOBGUIDE_EXPLORER "Explorer"
 
 // Science
-#define JOBGUIDE_RD "rd"
-#define JOBGUIDE_SCIENTIST "scientits"
-#define JOBGUIDE_ROBOTICIST "roboticist"
-#define JOBGUIDE_GENETICIST "geneticist"
+#define JOBGUIDE_RD "Research Director"
+#define JOBGUIDE_SCIENTIST "Scientits"
+#define JOBGUIDE_ROBOTICIST "Roboticist"
+#define JOBGUIDE_GENETICIST "Geneticist"
 
 // Legal
-#define JOBGUIDE_IAA "iaa"
-#define JOBGUIDE_MAGISTRATE "magistrate"
+#define JOBGUIDE_IAA "Internal Affairs Agent"
+#define JOBGUIDE_MAGISTRATE "Magistrate"
