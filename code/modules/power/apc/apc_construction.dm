@@ -45,7 +45,7 @@
 			to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 			return
 
-		if(I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		if(I.use_tool(src, user, APC_ELECTRONICS_CROWBAR_TIME, volume = I.tool_volume))
 			if(has_electronics())
 				electronics_state = APC_ELECTRONICS_NONE
 				if(stat & BROKEN)
@@ -152,7 +152,7 @@
 		return
 
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 5 SECONDS, amount = 3, volume = I.tool_volume))
+	if(I.use_tool(src, user, APC_FRAME_WELDING_TIME, amount = 3, volume = I.tool_volume))
 		if((stat & BROKEN) || opened == APC_COVER_OFF)
 			new /obj/item/stack/sheet/metal(loc)
 			user.visible_message(\

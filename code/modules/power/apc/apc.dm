@@ -306,7 +306,7 @@
 			"<span class='notice'>You start adding cables to [src]...</span>"
 		)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 2 SECONDS, target = src))
+		if(do_after(user, APC_TERMINAL_WIRING_TIME, target = src))
 			if(C.get_amount() < 10 || !C)
 				return ITEM_INTERACT_COMPLETE
 
@@ -335,7 +335,7 @@
 
 		if(!has_electronics())
 			to_chat(user, "<span class='notice'>You start to add [used] to [src].</span>")
-			if(!do_after(user, 1 SECONDS, target = src))
+			if(!do_after(user, APC_ELECTRONICS_INSTALLATION_TIME, target = src))
 				return ITEM_INTERACT_COMPLETE
 
 			user.visible_message(
@@ -359,7 +359,7 @@
 		// Only cover is broken, no need to remove any components.
 		if(!(stat & BROKEN) && opened == APC_COVER_OFF)
 			to_chat(user, "<span class='notice'>You begin to replace the missing cover of [src].</span>")
-			if(!do_after(user, 2 SECONDS, target = src))
+			if(!do_after(user, APC_COVER_REPLACEMENT_TIME, target = src))
 				return ITEM_INTERACT_COMPLETE
 
 			user.visible_message(
@@ -373,6 +373,10 @@
 
 		if(has_electronics())
 			to_chat(user, "<span class='warning'>You cannot repair [src] until you remove the electronics!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, "<span class='notice'>You begin to replace the damaged APC frame...</span>")
+		if(!do_after(user, APC_FRAME_REPLACEMENT_TIME, target = src))
 			return ITEM_INTERACT_COMPLETE
 
 		user.visible_message(
