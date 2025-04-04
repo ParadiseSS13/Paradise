@@ -82,6 +82,12 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mining
 	uniform = /obj/item/clothing/under/plasmaman/mining
 
+/datum/outfit/plasmaman/smith
+	name = "Plasmaman Smith"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/smith
+	uniform = /obj/item/clothing/under/plasmaman/smith
+
 /datum/outfit/plasmaman/medical
 	name = "Plasmaman Medical"
 

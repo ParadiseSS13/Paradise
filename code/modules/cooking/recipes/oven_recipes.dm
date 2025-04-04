@@ -157,7 +157,7 @@
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
-		PCWJ_ADD_PRODUCE(/obj/item/food/grown/pumpkin/blumpkin),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/pumpkin/blumpkin, exact = TRUE),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 5),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
@@ -932,7 +932,7 @@
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
-		PCWJ_ADD_PRODUCE(/obj/item/food/grown/pumpkin),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/pumpkin, exact = TRUE),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 5),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),

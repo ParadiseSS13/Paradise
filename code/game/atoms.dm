@@ -137,6 +137,8 @@
 	var/receive_ricochet_damage_coeff = 0.33
 	/// AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
+	/// Information about attacks performed on this atom.
+	var/datum/attack_info/attack_info
 
 	/// Whether this atom is using the new attack chain.
 	var/new_attack_chain = FALSE
@@ -247,6 +249,8 @@
 		return TRUE
 
 /atom/Destroy()
+	QDEL_NULL(attack_info)
+
 	if(alternate_appearances)
 		for(var/aakey in alternate_appearances)
 			var/datum/alternate_appearance/AA = alternate_appearances[aakey]
@@ -1495,3 +1499,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	while(i < length(.))
 		var/atom/checked_atom = .[++i]
 		. += checked_atom.contents
+
+/atom/proc/store_last_attacker(mob/living/attacker, obj/item/weapon)
+	if(!attack_info)
+		attack_info = new
+	attack_info.last_attacker_name = attacker.real_name
+	attack_info.last_attacker_ckey = attacker.ckey
+	if(istype(weapon))
+		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"
