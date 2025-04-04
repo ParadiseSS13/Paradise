@@ -40,6 +40,7 @@
 	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
 	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
 		linked_crucible = crucible
+		linked_crucible.linked_machines |= src
 		return
 
 /obj/machinery/mineral/smart_hopper/update_overlays()
@@ -119,6 +120,7 @@
 			to_chat(user, "<span class='warning'>You cannot link [src] to [multi.buffer]!</span>")
 			return
 		linked_crucible = multi.buffer
+		linked_crucible.linked_machines |= src
 		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
 
 /obj/machinery/mineral/smart_hopper/crowbar_act(mob/user, obj/item/I)
@@ -141,6 +143,15 @@
 		return
 	input_dir = turn(input_dir, -90)
 	to_chat(user, "<span class='notice'>You change [src]'s input, moving the input to [dir2text(input_dir)].</span>")
+
+/obj/machinery/mineral/smart_hopper/Destroy()
+	if(linked_crucible)
+		linked_crucible.linked_machines -= src
+		linked_crucible = null
+	if(ore_buffer)
+		for(var/obj/item/ores in ore_buffer)
+			ores.forceMove(src.loc)
+	return ..()
 
 /obj/machinery/mineral/smart_hopper/proc/process_ores(list/obj/item/stack/ore/ore_list)
 	if(!linked_crucible)

@@ -19,6 +19,8 @@
 	var/adding_ore
 	/// State for if ore is being taken from it
 	var/pouring
+	/// List of linked machines
+	var/list/linked_machines = list()
 
 /obj/machinery/magma_crucible/Initialize(mapload)
 	. = ..()
@@ -73,9 +75,16 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/Destroy()
-	. = ..()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
+	for(var/obj/machinery/machine in linked_machines)
+		if(istype(machine, /obj/machinery/mineral/smart_hopper))
+			var/obj/machinery/mineral/smart_hopper/hopper = machine
+			hopper.linked_crucible = null
+		if(istype(machine, /obj/machinery/smithing/casting_basin))
+			var/obj/machinery/smithing/casting_basin/basin = machine
+			basin.linked_crucible = null
+	linked_machines.Cut()
 	return ..()
 
 /obj/machinery/magma_crucible/power_change()

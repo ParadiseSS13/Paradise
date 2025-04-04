@@ -30,6 +30,7 @@
 	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
 	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
 		linked_crucible = crucible
+		linked_crucible.linked_machines |= src
 		return
 
 /obj/machinery/smithing/casting_basin/examine(mob/user)
@@ -106,6 +107,7 @@
 			to_chat(user, "<span class='notice'>You cannot link [src] to [multi.buffer]!</span>")
 			return
 		linked_crucible = multi.buffer
+		linked_crucible.linked_machines |= src
 		to_chat(user, "<span class='notice'>You link [src] to [multi.buffer].</span>")
 
 /obj/machinery/smithing/casting_basin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -229,3 +231,9 @@
 		// Clean up temps
 		qdel(temp_product)
 		return FINISH_ATTACK
+
+/obj/machinery/smithing/casting_basin/Destroy()
+	if(linked_crucible)
+		linked_crucible.linked_machines -= src
+		linked_crucible = null
+	return ..()

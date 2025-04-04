@@ -12,8 +12,6 @@
 	var/explosive_armor = 0
 	/// Movement speed
 	var/movement_speed_mod = 0
-	/// Used in the mobility insert - does this negate slowdown
-	var/no_more_slowdown = FALSE
 	/// Heat insulation
 	var/heat_insulation = 0
 	/// Electrical insulation
@@ -39,18 +37,20 @@
 		return
 	attached_suit = target
 	attached_suit.armor = attached_suit.armor.attachArmor(armor)
-	attached_suit.slowdown -= movement_speed_mod
+	attached_suit.insert_slowdown -= movement_speed_mod
+	attached_suit.slowdown = initial(attached_suit.slowdown) + attached_suit.insert_slowdown
+	if(attached_suit.mobility_meshed)
+		attached_suit.slowdown = 0
 	attached_suit.siemens_coefficient -= siemens_coeff
 	attached_suit.min_cold_protection_temperature -= heat_insulation
 	attached_suit.max_heat_protection_temperature += heat_insulation
-	if(no_more_slowdown)
-		attached_suit.slowdown = 0
 
 /obj/item/smithed_item/insert/on_detached(mob/user)
 	attached_suit.armor = attached_suit.armor.detachArmor(armor)
-	if(no_more_slowdown)
-		attached_suit.slowdown = initial(attached_suit.slowdown)
-	attached_suit.slowdown += movement_speed_mod
+	attached_suit.insert_slowdown += movement_speed_mod
+	attached_suit.slowdown = initial(attached_suit.slowdown) + attached_suit.insert_slowdown
+	if(attached_suit.mobility_meshed)
+		attached_suit.slowdown = 0
 	attached_suit.siemens_coefficient += siemens_coeff
 	attached_suit.min_cold_protection_temperature += heat_insulation
 	attached_suit.max_heat_protection_temperature -= heat_insulation
@@ -136,7 +136,18 @@
 	burn_armor = -5
 	laser_armor = -5
 	heat_insulation = 10
-	no_more_slowdown = TRUE
+	/// Attached suit slowdown when the mobility mesh was applied
+	var/initial_slowdown = 0
+
+/obj/item/smithed_item/insert/mobility/on_attached(obj/item/clothing/suit/target)
+	. = ..()
+	attached_suit.mobility_meshed = TRUE
+	attached_suit.slowdown = 0
+
+/obj/item/smithed_item/insert/mobility/on_detached(mob/user)
+	attached_suit.mobility_meshed = FALSE
+	. = ..()
+
 
 /obj/item/smithed_item/insert/admin
 	name = "adminium mesh"
