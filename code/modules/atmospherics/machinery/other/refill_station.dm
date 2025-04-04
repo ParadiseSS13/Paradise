@@ -8,6 +8,9 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = NONE
+	idle_power_consumption = 1
+	active_power_consumption = 5
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	/// The desired pressure the refill station should be outputting into a holding tank.
 	target_pressure = MAX_TARGET_PRESSURE
 	can_unwrench_while_on = FALSE
@@ -57,6 +60,7 @@
 	holding_tank = new_tank
 	if(!(stat & NOPOWER))
 		on = TRUE
+		change_power_mode(ACTIVE_POWER_USE)
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
@@ -79,6 +83,7 @@
 			holding_tank = new_tank
 			if(!(stat & NOPOWER))
 				on = TRUE
+				change_power_mode(ACTIVE_POWER_USE)
 		update_icon(UPDATE_OVERLAYS)
 	return ITEM_INTERACT_COMPLETE
 
@@ -89,6 +94,7 @@
 	user.put_in_hands(holding_tank)
 	holding_tank = null
 	on = FALSE
+	change_power_mode(IDLE_POWER_USE)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/refill_station/process_atmos()
@@ -187,6 +193,7 @@
 			holding_tank = new_tank
 			if(!(stat & NOPOWER))
 				on = TRUE
+				change_power_mode(ACTIVE_POWER_USE)
 		update_icon(UPDATE_OVERLAYS)
 	return ITEM_INTERACT_COMPLETE
 
