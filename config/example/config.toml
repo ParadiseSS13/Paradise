@@ -173,7 +173,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 65
+sql_version = 66
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -695,9 +695,11 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm", ##RESPAWN
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker1.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker_siege.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_golem_ship.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hermit.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm", ##SIN
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_eden.dmm", ##SIN
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_envy.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm", # Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",
@@ -709,6 +711,7 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm", ##MISC
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_excavation.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_minebot_factory.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",

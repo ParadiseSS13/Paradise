@@ -287,7 +287,7 @@
 
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"
-	color = LIGHT_COLOR_PURE_RED
+	color = LIGHT_COLOR_RED
 
 /obj/item/flashlight/flare/glowstick/blue
 	name = "blue glowstick"
