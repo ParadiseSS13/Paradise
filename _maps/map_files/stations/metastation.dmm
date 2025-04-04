@@ -34161,13 +34161,12 @@
 	},
 /area/station/service/chapel)
 "cGF" = (
-/obj/structure/table,
-/obj/item/aicard,
-/obj/item/paicard,
-/obj/item/circuitboard/aicore,
 /obj/machinery/keycard_auth{
 	pixel_x = -5;
 	pixel_y = 26
+	},
+/obj/machinery/computer/ai_resource{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -61031,6 +61030,15 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
+"mEA" = (
+/obj/structure/table,
+/obj/item/circuitboard/aicore,
+/obj/item/paicard,
+/obj/item/aicard,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreycheck"
+	},
+/area/station/command/office/rd)
 "mFx" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -120447,7 +120455,7 @@ cte
 dcX
 cte
 cmB
-cNk
+mEA
 nFh
 aZr
 nlS
