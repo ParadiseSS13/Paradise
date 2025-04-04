@@ -8,6 +8,8 @@
 	var/datum/smith_quality/quality
 	/// The material of the item
 	var/datum/smith_material/material
+	/// Is this item valid for secondary goals?
+	var/secondary_goal_candidate = FALSE
 
 	new_attack_chain = TRUE
 
