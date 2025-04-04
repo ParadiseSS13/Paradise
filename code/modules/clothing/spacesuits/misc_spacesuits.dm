@@ -75,7 +75,7 @@
 	name = "officer beret"
 	desc = "An armored beret commonly used by special operations officers."
 	icon = 'icons/obj/clothing/head/beret.dmi'
-	icon_state = "beret_officer"
+	icon_state = "beret_soo"
 	item_state = 'icons/mob/clothing/head/beret.dmi'
 	icon_override = 'icons/mob/clothing/head/beret.dmi'
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL

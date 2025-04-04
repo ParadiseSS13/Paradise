@@ -683,31 +683,34 @@
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
 		if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY)
 			alarm()
-
-			//Oh shit it's bad, time to freak out
-			if(damage > emergency_point)
-				radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
-				lastwarning = REALTIMEOFDAY
-				if(!has_reached_emergency)
-					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_SUPERMATTER)
-					message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
-					has_reached_emergency = TRUE
-			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
-				lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
-
-			else                                                 // Phew, we're safe
+			if(damage < damage_archived) // We are gaining integrity. Just say that
 				radio.autosay("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
 				lastwarning = REALTIMEOFDAY
+			else // We are losing integrity, let's warn engineering.
+				if(damage > emergency_point) //Oh shit it's bad, time to freak out
+					radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
+					lastwarning = REALTIMEOFDAY
+					if(!has_reached_emergency)
+						investigate_log("has reached the emergency point for the first time.", "supermatter")
+						message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
+						has_reached_emergency = TRUE
+				else // The damage is still going up but not yet super high
+					radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
+					lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
-			if(power > POWER_PENALTY_THRESHOLD)
-				radio.autosay("<b>Warning: Hyperstructure has reached dangerous power level.</b>", name, "Engineering")
-				if(powerloss_inhibitor < 0.5)
-					radio.autosay("<b>DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.</b>", name, "Engineering")
+				// Warning for other engine statuses
+				// We are taking damage from power
+				if(power > POWER_PENALTY_THRESHOLD)
+					radio.autosay("<b>Warning: Hyperstructure has reached dangerous power level.</b>", name, "Engineering")
+					// The current gas mix allows EER to keep building up
+					if(powerloss_inhibitor < 0.01)
+						radio.autosay("<b>DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.</b>", name, "Engineering")
 
-			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
-				radio.autosay("<b>Warning: Critical coolant mass reached.</b>", name, "Engineering")
-		//Boom (Mind blown)
+				// We are taking mole damage
+				if(combined_gas > MOLE_PENALTY_THRESHOLD)
+					radio.autosay("<b>Warning: Critical coolant mass reached.</b>", name, "Engineering")
+
+			//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()
 	return 1
