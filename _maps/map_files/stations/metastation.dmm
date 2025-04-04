@@ -53016,11 +53016,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/west)
-"jgd" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft2)
 "jgq" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrival Airlock"
@@ -117674,7 +117669,7 @@ jDv
 jGm
 bsM
 cSY
-jgd
+lYB
 lYB
 rDg
 uuG
