@@ -26,6 +26,9 @@
 /datum/procedure/psychaiatrist
 	jobs = list(JOBGUIDE_CMO, JOBGUIDE_PSYCHAIATRIST)
 
+/datum/procedure/coroner
+	jobs = list(JOBGUIDE_CMO, JOBGUIDE_CORONER)
+
 /datum/procedure/cmo/sop
 	name = "Chief Medical Officer SOP"
 	catalog_category = "SOP"
