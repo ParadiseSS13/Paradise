@@ -122,3 +122,36 @@
 		"The Coroner must ensure Security-based DNR Notices (such as executed personnel, for instance) are respected.",
 		"The Coroner may treat suicide victims as DNR unless otherwise directed by the CMO. They are to be labelled clearly as suicides, so they are not mistaken with Security-based DNR Notices",
 		)
+
+/datum/procedure/medical/viral_outbreak_sop
+	name = "Viral Outbreak"
+	catalog_category = "SOP"
+	steps = list(
+		"Definition: A Viral Outbreak is defined as a situation where a Viral Pathogen has infected a significant portion of the crew (>10%)",
+		"All Medbay personnel are to contribute in fighting the outbreak if there are no other critical patients requiring assistance. Eliminating the Viral Threat becomes the number one priority",
+		"Personnel are to be informed of known symptoms, and directed to Medbay immediately if they are suffering from them",
+		"All infected personnel are to be confined to either an Isolated Room or Virology",
+		"A blood sample is to be taken from an infected person for study",
+		"If any infected personnel attempt to leave containment, Medbay Quarantine is to be initiated immediately, and only lifted when more patients need to be admitted or the Viral Outbreak is over",
+		"Once Antibodies are produced, they are to be diluted, then handed out to all infected personnel. In the event of a large enough crisis, directly injecting blood with the relevant Antibodies is permissible",
+		"Viral Pathogens should be cataloged and analyzed, in case any stray cases remained untreated",
+		"Cured personnel should have a sample of their blood removed for the purpose of creating antibodies, until there are no infected personnel left",
+		"In case the Viral Pathogen leads to fluid leakage, cleaning these fluids is to be considered a top priority",
+		"Once the Viral Outbreak is over, all personnel are to return to regular duties."
+		)
+
+/datum/procedure/medical/surgery
+	jobs = list(JOBGUIDE_CMO, JOBGUIDE_DOCTOR, JOBGUIDE_PARAMED)
+
+/datum/procedure/medical/surgery/sop
+	name = "Surgery SOP"
+	catalog_category = "SOP"
+	steps = list(
+		"Attending Surgeon must use Latex/Nitrile gloves in order to prevent infection. Though not mandatory, a Sterile Mask is recommended",
+		"Attending Surgeon is to keep the Operating Room in an hygienic condition at all times to prevent infection",
+		"Attending Surgeon is to wash his/her hands between different patients to prevent infections",
+		"Attending Surgeon is to use either Anesthetics or Sedatives (for species that cannot breathe Anesthetics) during Surgical Procedures. Exception is made if the patient requests otherwise",
+		"Attending Surgeon is not to remove any legal Implants (such as Chemical or Tracking Implants) from the patient, unless requested by Security",
+		"If a patient requests that a lost limb be replaced with an organic, rather than a mechanical substitute, said limb must be harvested from a compatible humanized Test Animal (such as Monkeys for Humans, or Farwas for Tajarans). Exception is made if the patient deliberately requests otherwise",
+		"Attending Surgeon is not to bring any of the Surgical Tools outside of their respective Operating Room, and must ensure the Operating Room maintains its proper inventory. This includes ensuring that the Anesthetics Equipment be kept inside the OR."
+		)

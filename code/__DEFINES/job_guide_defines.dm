@@ -29,15 +29,19 @@
 #define JOBGUIDE_HOP "Head Of Personal"
 #define JOBGUIDE_BARTENDER "Bartender"
 #define JOBGUIDE_BOTANIST "Botanist"
+#define JOBGUIDE_CHAPLAIN "Chaplain"
+#define JOBGUIDE_CHEF "Chef"
 #define JOBGUIDE_CLOWN "Clown"
 #define JOBGUIDE_MIME "Mime"
 #define JOBGUIDE_JANITOR "Janitor"
+#define JOBGUIDE_LIBRARIAN "Librarian"
 
 // Supply
 #define JOBGUIDE_QM "Quartermaster"
 #define JOBGUIDE_CARGO_TECH "Cargo Technician"
 #define JOBGUIDE_MINER "Miner"
 #define JOBGUIDE_EXPLORER "Explorer"
+#define JOBGUIDE_SMITH "Smith"
 
 // Science
 #define JOBGUIDE_RD "Research Director"
