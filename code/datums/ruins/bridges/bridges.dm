@@ -74,6 +74,15 @@
 	if(istype(A, /area/lavaland/surface/gulag_rock))
 		return FALSE
 
+	if(istype(A, /area/lavaland/surface/outdoors/outpost))
+		return FALSE
+
+	if(istype(A, /area/mine/outpost))
+		return FALSE
+
+	if(istype(A, /area/shuttle))
+		return FALSE
+
 	return TRUE
 
 /// Returns whether the passed in turf is a valid "passage". A valid passage is

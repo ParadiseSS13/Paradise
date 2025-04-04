@@ -49,6 +49,7 @@
 "ax" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "aA" = (
@@ -186,6 +187,7 @@
 /obj/structure/sign/nanotrasen{
 	pixel_x = 32
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "br" = (
@@ -213,6 +215,7 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "bC" = (
@@ -226,6 +229,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "bN" = (
@@ -272,6 +276,8 @@
 	dir = 8
 	},
 /obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "bW" = (
@@ -1554,6 +1560,7 @@
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "mu" = (
@@ -1579,10 +1586,12 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/dogbed/brad,
 /mob/living/simple_animal/cockroach/brad,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "mE" = (
 /obj/structure/flora/ash/rock/style_random,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/targetable)
 "mT" = (
@@ -1782,6 +1791,12 @@
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"nZ" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "of" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1795,6 +1810,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "op" = (
@@ -1843,6 +1859,7 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "oP" = (
@@ -2664,6 +2681,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "vp" = (
@@ -2792,6 +2810,7 @@
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "wE" = (
@@ -2800,6 +2819,10 @@
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
+"wF" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/targetable)
 "wG" = (
 /obj/structure/cable{
@@ -2951,6 +2974,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "xD" = (
@@ -3122,6 +3146,7 @@
 /area/shuttle/mining)
 "zc" = (
 /obj/effect/decal/remains/human,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/targetable)
 "zd" = (
@@ -3167,6 +3192,7 @@
 	dir = 9
 	},
 /obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "zJ" = (
@@ -3239,6 +3265,7 @@
 /obj/structure/railing{
 	dir = 10
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Av" = (
@@ -3329,6 +3356,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "AY" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors/targetable)
 "AZ" = (
@@ -3498,6 +3526,7 @@
 	dir = 8
 	},
 /obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Cx" = (
@@ -3609,6 +3638,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Dl" = (
@@ -3631,6 +3661,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Dr" = (
@@ -3824,6 +3855,7 @@
 /area/mine/outpost/comms)
 "Ew" = (
 /obj/structure/lavaland_billboard,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/targetable)
 "Ex" = (
@@ -4049,6 +4081,13 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
+"Gp" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "Gu" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/drinks/bottle/beer,
@@ -4504,6 +4543,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Kw" = (
@@ -4537,6 +4577,11 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
+"KM" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "KP" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -4810,6 +4855,7 @@
 /obj/structure/marker_beacon/dock_marker{
 	name = "beacon"
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "MH" = (
@@ -4863,6 +4909,7 @@
 /obj/structure/railing{
 	dir = 10
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Nk" = (
@@ -5131,6 +5178,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "PB" = (
@@ -5398,6 +5446,7 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "QZ" = (
@@ -5755,6 +5804,7 @@
 /area/mine/outpost/smith_workshop)
 "Uc" = (
 /obj/structure/flora/ash/stem_shroom,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/targetable)
 "Ud" = (
@@ -5812,6 +5862,12 @@
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"UF" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "UH" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5859,6 +5915,7 @@
 	dir = 1
 	},
 /obj/item/cigbutt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Vx" = (
@@ -5868,6 +5925,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"VB" = (
+/obj/structure/flora/ash/leaf_shroom,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/targetable)
 "VF" = (
 /obj/structure/table,
 /obj/item/lighter/random,
@@ -5881,6 +5943,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"VH" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "VM" = (
 /obj/machinery/light,
 /obj/machinery/economy/vending/cola,
@@ -6288,6 +6355,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "YK" = (
@@ -6578,7 +6646,7 @@ mE
 bW
 bW
 bW
-aL
+of
 bW
 bW
 aL
@@ -6618,15 +6686,15 @@ bW
 bW
 bW
 bW
-aL
+of
 bW
 bW
 bW
 bW
 bW
 bW
-aL
-Kb
+of
+wF
 bW
 bW
 bW
@@ -6778,11 +6846,11 @@ DS
 BT
 Qc
 jx
-Lq
+nZ
 bW
 bW
 bW
-Kb
+wF
 bW
 bW
 bW
@@ -6828,16 +6896,16 @@ lY
 ku
 dq
 zh
-Lq
+nZ
 bW
 bW
-aL
+of
 bW
 bW
 bW
 bW
-aL
-aL
+of
+of
 bW
 bW
 bW
@@ -6878,7 +6946,7 @@ yY
 ku
 dq
 zh
-Lq
+nZ
 bW
 bW
 bW
@@ -6887,8 +6955,8 @@ bW
 bW
 bW
 bW
-Kb
-aL
+wF
+of
 bW
 bW
 bW
@@ -6930,8 +6998,8 @@ dq
 jx
 ax
 bW
-Kb
-Kb
+wF
+wF
 bW
 bW
 bW
@@ -6964,7 +7032,7 @@ bW
 bW
 bW
 bW
-aL
+of
 bW
 bW
 xA
@@ -6978,12 +7046,12 @@ DS
 BT
 Qc
 jx
-Lq
+nZ
 bW
-aL
+of
 AY
-Kb
-UC
+wF
+VB
 bW
 bW
 bW
@@ -7011,8 +7079,8 @@ bW
 bW
 bW
 bW
-aL
-aL
+of
+of
 bW
 bW
 bW
@@ -7028,7 +7096,7 @@ El
 jd
 NU
 zh
-Lq
+nZ
 bW
 bW
 bW
@@ -7060,14 +7128,14 @@ bW
 bW
 bW
 bW
-pQ
+PR
 bW
 bW
 bW
 bW
 bW
-aL
-jx
+of
+KM
 jx
 jx
 nQ
@@ -7112,11 +7180,11 @@ bW
 bW
 bW
 bW
-pQ
-pQ
+PR
+PR
 bW
 bW
-aL
+of
 QX
 jx
 jx
@@ -7163,8 +7231,8 @@ bW
 bW
 bW
 bW
-pQ
-pQ
+PR
+PR
 bW
 bW
 vl
@@ -7185,8 +7253,8 @@ tZ
 tZ
 Yq
 Yq
-jx
-zh
+KM
+VH
 om
 MC
 bW
@@ -7213,9 +7281,9 @@ bW
 bW
 bW
 bW
-aL
-pQ
-aL
+of
+PR
+of
 bW
 oJ
 jx
@@ -7235,9 +7303,9 @@ Nz
 Nz
 hQ
 Yq
-jx
-zh
-jx
+KM
+VH
+KM
 bM
 Au
 bW
@@ -7285,10 +7353,10 @@ Oa
 Ro
 Mg
 Yq
-jx
-jx
-jx
-jx
+KM
+KM
+KM
+KM
 ax
 bW
 mE
@@ -7310,7 +7378,7 @@ bW
 bW
 bW
 bW
-pQ
+PR
 bW
 Do
 Su
@@ -7355,13 +7423,13 @@ bW
 bW
 bW
 bW
-pQ
+PR
 bW
-aL
-pQ
+of
+PR
 bW
 bW
-aL
+of
 Do
 Su
 dH
@@ -7390,7 +7458,7 @@ Yh
 hW
 lf
 wD
-aL
+of
 bW
 bW
 bW
@@ -7406,12 +7474,12 @@ bW
 bW
 bW
 bW
-pQ
-pQ
-pQ
-pQ
-pQ
-pQ
+PR
+PR
+PR
+PR
+PR
+PR
 Kp
 Su
 Lm
@@ -7455,14 +7523,14 @@ bW
 bW
 bW
 bW
-pQ
-pQ
-pQ
-pQ
-pQ
-pQ
+PR
+PR
+PR
+PR
+PR
+PR
 ri
-cX
+UF
 Su
 fx
 nu
@@ -7505,7 +7573,7 @@ bW
 bW
 bW
 bW
-aL
+of
 Ev
 Ev
 Ev
@@ -7539,7 +7607,7 @@ pv
 BF
 UX
 lf
-Lq
+nZ
 bW
 bW
 bW
@@ -7552,10 +7620,10 @@ aL
 bW
 bW
 bW
-pQ
+PR
 bW
-pQ
-pQ
+PR
+PR
 Ev
 Zt
 Zf
@@ -7589,7 +7657,7 @@ qh
 QD
 HU
 lf
-Lq
+nZ
 bW
 bW
 bW
@@ -7605,7 +7673,7 @@ Ug
 Ug
 PR
 bW
-pQ
+PR
 Ev
 aF
 zj
@@ -7639,7 +7707,7 @@ lf
 ZM
 lf
 nJ
-ax
+Gp
 mE
 bW
 bW
@@ -7654,8 +7722,8 @@ bW
 Ug
 PR
 Ug
-pQ
-pQ
+PR
+PR
 Ev
 Ev
 xi
@@ -7704,9 +7772,9 @@ bW
 PR
 Ug
 PR
-aL
-pQ
-pQ
+of
+PR
+PR
 AC
 ug
 Ph
@@ -7740,7 +7808,7 @@ PD
 Iq
 YM
 mD
-pQ
+PR
 bW
 bW
 bW
@@ -7756,7 +7824,7 @@ PR
 PR
 PR
 PR
-pQ
+PR
 cX
 IP
 Gg
@@ -7792,7 +7860,7 @@ rB
 rB
 mE
 bW
-aL
+of
 bW
 bW
 "}
@@ -7806,7 +7874,7 @@ Ug
 Ug
 PR
 PR
-pQ
+PR
 cX
 pQ
 pQ
@@ -7840,10 +7908,10 @@ CZ
 zQ
 Jr
 hG
-aL
+of
 bW
 bW
-aL
+of
 bW
 "}
 (28,1,1) = {"
@@ -7856,7 +7924,7 @@ Ug
 Ug
 PR
 PR
-pQ
+PR
 GQ
 pQ
 bW
@@ -7890,9 +7958,9 @@ uS
 Lc
 DG
 IE
-pQ
+PR
 bW
-aL
+of
 bW
 bW
 "}
@@ -7940,8 +8008,8 @@ Wj
 WY
 DK
 IE
-pQ
-aL
+PR
+of
 bW
 bW
 bW
@@ -7990,8 +8058,8 @@ bg
 Wf
 qg
 rB
-pQ
-aL
+PR
+of
 bW
 bW
 aL
@@ -8040,9 +8108,9 @@ Ax
 Mn
 PH
 rB
-pQ
-pQ
-aL
+PR
+PR
+of
 bW
 bW
 "}
@@ -8090,8 +8158,8 @@ IE
 IE
 rB
 rB
-pQ
-pQ
+PR
+PR
 bW
 bW
 bW
@@ -8135,14 +8203,14 @@ Ox
 hf
 VF
 dw
-pQ
-pQ
-pQ
-pQ
-pQ
-aL
+PR
+PR
+PR
+PR
+PR
+of
 bW
-pQ
+PR
 bW
 bW
 "}
@@ -8185,12 +8253,12 @@ iv
 rC
 jr
 dw
-pQ
-pQ
-pQ
-pQ
+PR
+PR
+PR
+PR
 mE
-aL
+of
 bW
 bW
 bW
@@ -8235,10 +8303,10 @@ iU
 hf
 Vx
 dw
-pQ
-pQ
-aL
-aL
+PR
+PR
+of
+of
 bW
 bW
 bW
@@ -8285,10 +8353,10 @@ iv
 hf
 fE
 TA
-pQ
-aL
+PR
+of
 bW
-aL
+of
 bW
 bW
 bW
@@ -8336,7 +8404,7 @@ hf
 nr
 bW
 mE
-aL
+of
 bW
 bW
 bW
@@ -8389,7 +8457,7 @@ bW
 bW
 bW
 bW
-aL
+of
 bW
 bW
 bW
