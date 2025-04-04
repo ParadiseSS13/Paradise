@@ -16,7 +16,7 @@
 
 /datum/engi_event/supermatter_event/start_event()
 	supermatter.event_active = src
-	supermatter.investigate_log("event [src] has been triggered", "supermatter")
+	supermatter.investigate_log("event [src] has been triggered", INVESTIGATE_SUPERMATTER)
 	. = ..()
 
 /datum/engi_event/supermatter_event/on_end()

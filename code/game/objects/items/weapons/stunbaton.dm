@@ -279,8 +279,7 @@
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
 	if(user)
-		L.lastattacker = user.real_name
-		L.lastattackerckey = user.ckey
+		L.store_last_attacker(user)
 		L.visible_message(
 			"<span class='danger'>[user] has stunned [L] with [src]!</span>",
 			"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>"
@@ -319,8 +318,7 @@
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
-	L.lastattacker = user.real_name
-	L.lastattackerckey = user.ckey
+	L.store_last_attacker(user)
 	L.visible_message("<span class='danger'>[src] stuns [L]!</span>")
 	add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)

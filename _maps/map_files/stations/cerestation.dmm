@@ -31843,16 +31843,13 @@
 	},
 /area/station/service/theatre)
 "faF" = (
-/obj/structure/rack,
-/obj/item/aicard,
-/obj/item/circuitboard/aicore{
-	pixel_x = -2;
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/machinery/alarm/directional/south,
+/obj/machinery/computer/ai_resource{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "faM" = (
@@ -40398,7 +40395,9 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/machinery/door/airlock/command/glass,
+/obj/machinery/door/airlock/command/glass{
+	id_tag = "ntrepofficedoor"
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "ntr"
@@ -43266,7 +43265,9 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/machinery/door/airlock/command/glass,
+/obj/machinery/door/airlock/command/glass{
+	id_tag = "blueshieldofficedoor"
+	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "bs"
 	},
@@ -84480,6 +84481,12 @@
 	pixel_x = 28;
 	name = "custom placement"
 	},
+/obj/structure/rack,
+/obj/item/circuitboard/aicore{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/aicard,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "rEx" = (
@@ -101048,7 +101055,6 @@
 	},
 /area/station/science/toxins/mixing)
 "vwB" = (
-/obj/structure/rack,
 /obj/item/paicard{
 	pixel_x = 4
 	},
@@ -101056,6 +101062,7 @@
 	pixel_x = -3
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "vwW" = (
