@@ -51,7 +51,7 @@
 	. = ITEM_INTERACT_COMPLETE
 	var/fail_msg = "<span class='warning'>There is already one of those in [src]!</span>"
 	if(used.is_robot_module())
-		to_chat(usr, "<span class='warning'>You cannot interface your modules with [src]!</span>")
+		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
 		return
 
 	if(istype(used, /obj/item/stack/sheet/glass))
@@ -147,7 +147,7 @@
 		anchored = FALSE
 		user.visible_message(
 			"<span class='notice'>[user] loosens [src]'s casters.</span>",
-			"<span class='notice'> You have loosened [src]'s casters.</span>",
+			"<span class='notice'>You have loosened [src]'s casters.</span>",
 			"<span class='notice'>You hear ratcheting.</span>"
 		)
 		return
