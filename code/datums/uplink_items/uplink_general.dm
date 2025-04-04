@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Chainsaw"
 	desc = "A high powered chainsaw for cutting up ...you know...."
 	reference = "CH"
-	item = /obj/item/butcher_chainsaw
+	item = /obj/item/melee/chainsaw/syndie
 	cost = 65
 	surplus = 0 // This has caused major problems with un-needed chainsaw massacres. Bwoink bait.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)

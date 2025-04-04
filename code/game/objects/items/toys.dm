@@ -1631,7 +1631,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
-	icon_state = "chainsaw0"
+	icon_state = "chainsaw"
 	base_icon_state = "chainsaw"
 	force = 0
 	throwforce = 0
@@ -1641,11 +1641,11 @@
 
 /obj/item/toy/chainsaw/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, wieldsound = 'sound/weapons/chainsawstart.ogg', icon_wielded = "[base_icon_state]1")
+	AddComponent(/datum/component/two_handed, wieldsound = 'sound/weapons/chainsawstart.ogg', icon_wielded = "[base_icon_state]_on")
 
 
 /obj/item/toy/chainsaw/update_icon_state()
-	icon_state = "[base_icon_state]0"
+	icon_state = base_icon_state
 
 /*
  * Cat Toy
