@@ -76,7 +76,7 @@
 		"Chemists in conjuction with Medical Doctors and/or Geneticists must make sure that Cloning is stocked with Biomass, Osseous Reagent and Sanguine Reagent",
 		"The Chemist must ensure that the Medical Fridge is stocked with at least enough medication to handle Brute, Burn, Respiratory, Toxic and Brain damage. Failure to follow this Guideline or attempting to follow this Guideline within thirty (30) minutes is to be considered a breach of Standard Operating Procedure",
 		"The Chemist is not allowed to leave Chemistry unattended if the Medical Fridge is devoid of Medication, except in such a case that Chemistry is unusable or if Fungus needs to be collected."
- 		)
+		)
 
 /datum/procedure/virologist/sop
 	name = "Virologist SOP"
@@ -106,4 +106,4 @@
 /datum/procedure/coroner/sop
 	name = "Coroner SOP"
 	catalog_category = "SOP"
-	steps = list()
+
