@@ -20,7 +20,8 @@
 /datum/procedure/chemist
 	jobs = list(JOBGUIDE_CMO, JOBGUIDE_CHEMIST)
 
-/datum/procedure/virologist	jobs = list(JOBGUIDE_CMO, JOBGUIDE_VIROLOGIST)
+/datum/procedure/virologist
+	jobs = list(JOBGUIDE_CMO, JOBGUIDE_VIROLOGIST)
 
 /datum/procedure/psychaiatrist
 	jobs = list(JOBGUIDE_CMO, JOBGUIDE_PSYCHAIATRIST)
@@ -106,4 +107,15 @@
 /datum/procedure/coroner/sop
 	name = "Coroner SOP"
 	catalog_category = "SOP"
-
+	steps = list(
+		"The Coroner must, along with the Chief Medical Officer, make sure that any cloneable corpses are cloned",
+		"The Coroner must contact the relevant Head of Staff to report on any deaths, reporting on any personnel that won't be returning to duty",
+		"The Coroner must safely store all non-cosmetic departmental materials, tools and clothes. Heads of Staff must then report to the Morgue to recover these items. All IDs must be returned to the Head of Personnel. The Coroner may not keep any of these items, under penalty of Petty Theft or Theft",
+		"If the Morgue becomes full, the deceased of lowest rank may be entrusted to the Chaplain for burial",
+		"For the sake of hygiene, the Coroner should wear a Sterile Mask when handling corpses",
+		"The Coroner must inject/apply Formaldehyde to all corpses, and place them in body bags",
+		"The Coroner must perform a full autopsy on all corpses, and keep a record of it, in written format. If foul play is suspected, Security must be contacted",
+		"The Coroner must correctly tag the Morgue Trays in order to identify the corpse within, as well as Cause of Death",
+		"The Coroner must ensure Security-based DNR Notices (such as executed personnel, for instance) are respected.",
+		"The Coroner may treat suicide victims as DNR unless otherwise directed by the CMO. They are to be labelled clearly as suicides, so they are not mistaken with Security-based DNR Notices",
+		)
