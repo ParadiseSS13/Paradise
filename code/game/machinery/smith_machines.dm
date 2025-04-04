@@ -772,7 +772,7 @@
 	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - operation_mult)), 2)
 
 /obj/machinery/smithing/power_hammer/operate(loops, mob/living/user)
-	if(!working_component.hot)
+	if(!working_component.heat)
 		to_chat(user, "<span class='notice'>[working_component] is too cold to properly shape.</span>")
 		return
 	if(working_component.hammer_time <= 0)
@@ -782,7 +782,7 @@
 	working_component.powerhammer()
 	do_sparks(5, TRUE, src)
 	// If the hammer is set to repeat mode, let it repeat operations automatically.
-	if(repeating && working_component.hot && working_component.hammer_time)
+	if(repeating && working_component.heat && working_component.hammer_time)
 		operate(loops, user)
 	// When an item is done, beep.
 	if(!working_component.hammer_time)
@@ -829,6 +829,8 @@
 	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "furnace_off"
 	operation_sound = 'sound/surgery/cautery1.ogg'
+	/// How much the device heats the component
+	var/heat_amount = 5
 
 /obj/machinery/smithing/lava_furnace/Initialize(mapload)
 	. = ..()
@@ -844,10 +846,14 @@
 
 /obj/machinery/smithing/lava_furnace/RefreshParts()
 	var/operation_mult = 0
+	var/heat_mult = 0
 	for(var/obj/item/stock_parts/component in component_parts)
 		operation_mult += OPERATION_SPEED_MULT_PER_RATING * component.rating
+		heat_mult += 0.25 * component.rating
 	// Update our values
 	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - operation_mult)), 2)
+	heat_amount = round(5 * heat_mult)
+
 
 /obj/machinery/smithing/lava_furnace/update_overlays()
 	. = ..()
@@ -867,14 +873,14 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smithing/lava_furnace/operate(loops, mob/living/user)
-	if(working_component.hot)
+	if(working_component.heat > 10)
 		to_chat(user, "<span class='notice'>[working_component] is already well heated.</span>")
 		return
 	if(working_component.hammer_time <= 0)
 		to_chat(user, "<span class='notice'>[working_component] is already fully shaped.</span>")
 		return
 	..()
-	working_component.heat_up()
+	working_component.heat_up(heat_amount)
 
 /obj/machinery/smithing/lava_furnace/attack_hand(mob/user)
 	. = ..()

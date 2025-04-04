@@ -726,27 +726,42 @@
 	var/part_type
 	/// What is this a part of
 	var/finished_product
-	/// Is this component currently hot
-	var/hot = TRUE
+	/// Heat stacks on the component
+	var/heat = 5
+	/// How often does a component lose heat stacks
+	var/cool_time = 10 SECONDS
 	/// How many times the component needs to be shaped to be considered ready
 	var/hammer_time = 3
 
+/obj/item/smithed_item/component/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(cool_off)), cool_time)
+
 /obj/item/smithed_item/component/update_icon_state()
 	. = ..()
-	if(hot)
+	if(heat)
 		icon_state = "[initial(icon_state)]_hot"
 	else
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/smithed_item/component/proc/powerhammer()
 	hammer_time--
-	if(prob(50) || hammer_time <= 0)
-		hot = FALSE
-		update_icon(UPDATE_ICON_STATE)
-
-/obj/item/smithed_item/component/proc/heat_up()
-	hot = TRUE
+	if(!hammer_time)
+		heat = 0
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/smithed_item/component/proc/heat_up(heat_to_add)
+	heat += heat_to_add
+	if(heat)
+		addtimer(CALLBACK(src, PROC_REF(cool_off)), cool_time)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/smithed_item/component/proc/cool_off()
+	heat--
+	if(heat)
+		addtimer(CALLBACK(src, PROC_REF(cool_off)), cool_time)
+	else
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/smithed_item/component/examine(mob/user)
 	. = ..()
@@ -754,11 +769,11 @@
 		. += "It is incomplete. It looks like it needs [hammer_time] more cycles in the power hammer."
 	else
 		. += "It is complete."
-	if(hot)
+	if(heat)
 		. +="<span class='warning'>It is glowing hot!</span>"
 
 /obj/item/smithed_item/component/attack_hand(mob/user)
-	if(!hot)
+	if(!heat)
 		return ..()
 	if(burn_check(user))
 		burn_user(user)
@@ -771,7 +786,7 @@
 	hammer_time = ROUND_UP(initial(hammer_time) * quality.work_mult)
 
 /obj/item/smithed_item/component/proc/burn_check(mob/user)
-	if(!hot)
+	if(!heat)
 		return FALSE
 	var/burn_me = TRUE
 	var/mob/living/carbon/human/H = user
