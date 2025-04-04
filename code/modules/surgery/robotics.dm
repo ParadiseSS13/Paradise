@@ -576,12 +576,12 @@
 		to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(istype(M, /obj/item/mmi/syndie)) //We do not want peoples to use syndi-MMIs as cheap mindslave implants
-		to_chat(user, "<span class='danger'>[tool] cannot be installed into an organic body, as the hardware designed to operate the complex biology of one was repurposed to enslave the brain housed inside!</span>")
-		return SURGERY_BEGINSTEP_SKIP
-
 	if(!target.dna.species)
 		to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(!ismachineperson(target) && istype(M, /obj/item/mmi/syndie)) //We do not want peoples to use syndi-MMIs as cheap mindslave implants
+		to_chat(user, "<span class='danger'>[tool] cannot be installed into an organic body, as the hardware designed to operate the complex biology of one was repurposed to enslave the brain housed inside!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(!ismachineperson(target) && IS_MINDFLAYER(M.brainmob))
