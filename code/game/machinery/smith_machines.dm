@@ -258,6 +258,10 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	RefreshParts()
 
+/obj/machinery/magma_crucible/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can check the contents of [src] using a multitool.</span>"
+
 /obj/machinery/magma_crucible/screwdriver_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
@@ -388,6 +392,7 @@
 	. = ..()
 	if(working_component)
 		. += "<span class='notice'>You can activate the machine with your hand, or remove the component by alt-clicking.</span>"
+		. += "<span class='notice'>There is currently a [working_component] in [src].</span>"
 
 /obj/machinery/smithing/power_change()
 	if(!..())
@@ -748,6 +753,11 @@
 	RefreshParts()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/smithing/power_hammer/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can set [src] to automatically continue hammering heated metal with a multitool.</span>"
+	. += "<span class='notice'>The autohammer light is currently [repeating ? "on" : "off"].</span>"
+
 /obj/machinery/smithing/power_hammer/update_overlays()
 	. = ..()
 	overlays.Cut()
@@ -948,9 +958,9 @@
 	if(primary)
 		. += "<span class='notice'>There is a [primary] in the primary slot.</span>"
 	if(secondary)
-		. += "<span class='notice'>There is a [secondary] in the primary slot.</span>"
+		. += "<span class='notice'>There is a [secondary] in the secondary slot.</span>"
 	if(trim)
-		. += "<span class='notice'>There is a [trim] in the primary slot.</span>"
+		. += "<span class='notice'>There is a [trim] in the trim slot.</span>"
 	if(finished_product)
 		. += "<span class='notice'>There is a nearly-complete [finished_product] on the assembler. To complete the product, strike it with your hammer!</span>"
 
