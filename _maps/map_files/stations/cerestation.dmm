@@ -31847,16 +31847,13 @@
 	},
 /area/station/service/theatre)
 "faF" = (
-/obj/structure/rack,
-/obj/item/aicard,
-/obj/item/circuitboard/aicore{
-	pixel_x = -2;
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/machinery/alarm/directional/south,
+/obj/machinery/computer/ai_resource{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "faM" = (
@@ -84570,6 +84567,12 @@
 	pixel_x = 28;
 	name = "custom placement"
 	},
+/obj/structure/rack,
+/obj/item/circuitboard/aicore{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/aicard,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "rEx" = (
@@ -101174,7 +101177,6 @@
 	},
 /area/station/science/toxins/mixing)
 "vwB" = (
-/obj/structure/rack,
 /obj/item/paicard{
 	pixel_x = 4
 	},
@@ -101182,6 +101184,7 @@
 	pixel_x = -3
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "vwW" = (
