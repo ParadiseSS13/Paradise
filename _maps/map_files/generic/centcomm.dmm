@@ -8170,10 +8170,7 @@
 /turf/simulated/floor/engine,
 /area/admin)
 "DS" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
-/obj/item/kirbyplants/large,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -10999,7 +10996,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Nz" = (
-/obj/structure/filingcabinet/security,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -12988,6 +12985,15 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"US" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -14401,6 +14407,13 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
+	},
+/area/centcom/specops)
+"ZE" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "ZF" = (
@@ -33703,7 +33716,7 @@ Ji
 Ra
 Xz
 RD
-Of
+ZE
 Ra
 Ra
 Ra
@@ -34994,7 +35007,7 @@ uX
 uX
 uX
 cC
-Xz
+US
 Zr
 NZ
 ic
