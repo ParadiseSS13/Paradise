@@ -4,6 +4,29 @@
 	. = ..()
 	opacity = FALSE
 
+// Голопроектор и улучшенные варианты //
+/obj/item/holosign_creator/atmos/robot
+	name = "Модульный ATMOS голопроектор"
+	desc = "Стандартный модуль ATMOS голопроектора, предназначенный для использования инженерными киборгами. Создаваемые голопроекции полностью блокируют перемещение газов.\
+		<br>Количество создаваемых голопроекций снижено относительно немодульного аналога в целях снижения энергопотребления."
+	max_signs = 1
+
+/obj/item/holosign_creator/atmos/robot/better
+	name = "Улучшенный модульный ATMOS голопроектор"
+	desc = "Улучшенный модуль ATMOS голопроектора, предназначенный для использования инженерными киборгами.\
+		<br>Количество создаваемых голопроекций увеличено до 3 за счёт применения улучшенных материалов."
+	icon = 'modular_ss220/silicons/icons/robot_tools.dmi'
+	icon_state = "atmos_holofan_better"
+	max_signs = 3
+
+/obj/item/holosign_creator/atmos/robot/best
+	name = "Продвинутый модульный ATMOS голопроектор"
+	desc = "Продвинутый модуль ATMOS голопроектора, предназначенный для использования инженерными киборгами.\
+		<br>Количество создаваемых голопроекций увеличено до 5 за счёт точечной оптимизации микросхем и применения редких материалов."
+	icon = 'modular_ss220/silicons/icons/robot_tools.dmi'
+	icon_state = "atmos_holofan_best"
+	max_signs = 5
+
 /* Medical */
 /obj/item/reagent_containers/borghypo/basic/Initialize(mapload)
 	. = ..()

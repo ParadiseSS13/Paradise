@@ -13,6 +13,7 @@
 		/obj/item/inflatable/cyborg,
 		/obj/item/inflatable/cyborg/door,
 		/obj/item/gps/cyborg,
+		/obj/item/holosign_creator/atmos/robot,
 		)
 
 /obj/item/robot_module/medical/Initialize(mapload)
@@ -55,7 +56,7 @@
 	. = ..()
 	basic_modules |= list(
 		/obj/item/gripper/engineering,
-		/obj/item/holosign_creator/atmos,
+		/obj/item/holosign_creator/atmos/robot/better,
 	)
 
 
