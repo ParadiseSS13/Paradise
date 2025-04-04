@@ -17523,9 +17523,6 @@
 	},
 /area/station/engineering/atmos)
 "boc" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -17535,9 +17532,6 @@
 	on = 1;
 	target_pressure = 101
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -17545,12 +17539,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -19102,14 +19096,8 @@
 	},
 /area/station/engineering/atmos/distribution)
 "btm" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/alarm/directional/west,
 /obj/machinery/suit_storage_unit/atmos/secure,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
@@ -48123,11 +48111,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/port2)
 "doJ" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/rd,
 /obj/machinery/requests_console/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/ai_resource{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -50178,6 +50166,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/toy/figure/crew/rd,
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
