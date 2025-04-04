@@ -1433,6 +1433,10 @@
 /area/wizard_station)
 "fy" = (
 /obj/machinery/sleeper,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -11681,6 +11685,9 @@
 /area/shuttle/escape)
 "OO" = (
 /obj/item/kirbyplants/large,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -11747,9 +11754,6 @@
 /obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -13217,10 +13221,6 @@
 "Ur" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
-	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
