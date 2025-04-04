@@ -116,5 +116,5 @@
 		"The Coroner must perform a full autopsy on all corpses, and keep a record of it, in written format. If foul play is suspected, Security must be contacted",
 		"The Coroner must correctly tag the Morgue Trays in order to identify the corpse within, as well as Cause of Death",
 		"The Coroner must ensure Security-based DNR Notices (such as executed personnel, for instance) are respected.",
-		"The Coroner may treat suicide victims as DNR unless otherwise directed by the CMO. They are to be labelled clearly as suicides, so they are not mistaken with Security-based DNR Notices."
+		"The Coroner may treat suicide victims as DNR unless otherwise directed by the CMO. They are to be labelled clearly as suicides, so they are not mistaken with Security-based DNR Notices.",
 		)
