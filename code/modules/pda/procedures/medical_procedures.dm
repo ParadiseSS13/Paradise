@@ -27,7 +27,7 @@
 
 /datum/procedure/cmo/sop
 	name = "Chief Medical Officer SOP"
-	category = "SOP"
+	catalog_category = "SOP"
 	steps = list(
 		"The Chief Medical Officer is permitted to carry a regular Defibrillator or a Compact Defibrillator on their person at all times",
 		"The Chief Medical Officer is permitted to carry a telescopic baton and a flash. In case Genetic Powers need to be forcefully removed, they are cleared to carry a Syringe Gun",
@@ -38,7 +38,7 @@
 
 /datum/procedure/doctor/sop
 	name = "Medical Doctor SOP"
-	category = "SOP"
+	catalog_category = "SOP"
 	steps = list(
 		"Though not mandatory, it is recommended that Doctors wear Sterile Masks and Latex/Nitrile gloves when handling patients. This Guideline becomes mandatory during Viral Outbreaks",
 		"Nurses should focus on helping Medical Doctors and Surgeons in whatever they require, and tending to patients that require light care. If necessary, they can stand in for regular Medical Doctor duties",
@@ -49,13 +49,13 @@
 		"Medical Doctors must work together with Geneticists and Chemists to make sure that Cloning is stocked with Biomass, Osseous Reagent and Sanguine Reagent. In addition, Medical Doctors must make sure that the Morgue does not contain cloneable corpses",
 		"Medical Doctors must certify that all cloned personnel are free from clone damage if not, they are to be put into a Cryotube. In addition, Medical Doctors must ensure cloned personnel are fully healed and any damage or missing organs are fixed before being released",
 		"Medical Doctors are not permitted to leave Medbay to perform recreational activities if there are unattended patients requiring treatment",
-		"Medical Doctors must stabilize patients before delivering them to Surgery. If the patient presents Internal Bleeding, they are to be taken to Surgery post haste.
+		"Medical Doctors must stabilize patients before delivering them to Surgery. If the patient presents Internal Bleeding, they are to be taken to Surgery post haste.",
 		"Medical Doctors are not obliged to treat patients who are actively and intentionally harming themselves. If treated, refer the patient to the on-station Psychologist."
 		)
 
 /datum/procedure/paramedic/sop
 	name = "Paramedic SOP"
-	category = "SOP"
+	catalog_category = "SOP"
 	steps = list(
 		"The Paramedic is not permitted to perform Field Surgery unless there are no available Medical Doctors or the Operating Rooms are unusable",
 		"The Paramedic is permitted to perform Surgical Procedures inside an Operating Room. However, Doctors/Surgeons should take precedence",
@@ -67,7 +67,7 @@
 
 /datum/procedure/chemist/sop
 	name = "Chemist SOP"
-	category = "SOP"
+	catalog_category = "SOP"
 	steps = list(
 		"The Chemist is not permitted to experiment with explosive mixtures",
 		"The Chemist is not permitted to experiment with poisonous mixtures and/or narcotics",
@@ -80,7 +80,7 @@
 
 /datum/procedure/virologist/sop
 	name = "Virologist SOP"
-	category = "SOP"
+	catalog_category = "SOP"
 	steps = list(
 		"The Virologist must always wear adequate protection (such as a Biosuit and Internals for Airborne Viruses) when handling infected personnel and Test Animals. Exception is made for IPC Virologists, for obvious reasons",
 		"The Virologist must only test viral samples on the provided Test Animals. Said Test Animals are to be maintained inside their pen, and disposed of via Virology's Disposals Chutes if dead, to prevent possible contamination. In addition, the Virologist is not permitted to leave Virology while infected by a Viral Pathogen that spreads by Contact or Airborne means, unless permitted by the Chief Medical Officer",
@@ -93,7 +93,7 @@
 
 /datum/procedure/psychaiatrist/sop
 	name = "Psychiatrist SOP"
-	category = "SOP"
+	catalog_category = "SOP"
 	steps = list(
 		"The Psychologist may perform a full psychological evaluation on anyone, along with any potential treatment, provided the person in question seeks them out",
 		"The Psychologist may not force someone to receive therapy if the person does not want it. Exception is made for violent criminals and only if the Head of Security, Magistrate or Captain orders it",
@@ -103,4 +103,18 @@
 		"The Psychologist may request to consult prisoners in Permanent Imprisonment. This must happen inside the Brig, preferably inside the Permabrig, and only with Warden and/or Head of Security authorization. This should be done under the supervision of a member of Security with Permabrig access."
 		)
 
-
+/datum/procedure/coroner/sop
+	name = "Coroner SOP"
+	catalog_category = "SOP"
+	steps = list(
+		"The Coroner must, along with the Chief Medical Officer, make sure that any cloneable corpses are cloned",
+		"The Coroner must contact the relevant Head of Staff to report on any deaths, reporting on any personnel that won't be returning to duty",
+		"The Coroner must safely store all non-cosmetic departmental materials, tools and clothes. Heads of Staff must then report to the Morgue to recover these items. All IDs must be returned to the Head of Personnel. The Coroner may not keep any of these items, under penalty of Petty Theft or Theft",
+		"If the Morgue becomes full, the deceased of lowest rank may be entrusted to the Chaplain for burial",
+		"For the sake of hygiene, the Coroner should wear a Sterile Mask when handling corpses",
+		"The Coroner must inject/apply Formaldehyde to all corpses, and place them in body bags",
+		"The Coroner must perform a full autopsy on all corpses, and keep a record of it, in written format. If foul play is suspected, Security must be contacted",
+		"The Coroner must correctly tag the Morgue Trays in order to identify the corpse within, as well as Cause of Death",
+		"The Coroner must ensure Security-based DNR Notices (such as executed personnel, for instance) are respected.",
+		"The Coroner may treat suicide victims as DNR unless otherwise directed by the CMO. They are to be labelled clearly as suicides, so they are not mistaken with Security-based DNR Notices."
+		)
