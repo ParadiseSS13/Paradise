@@ -855,7 +855,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "pa" = (
-/obj/machinery/tcomms/relay/mining,
+/obj/machinery/tcomms/relay/gulag,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "pd" = (
