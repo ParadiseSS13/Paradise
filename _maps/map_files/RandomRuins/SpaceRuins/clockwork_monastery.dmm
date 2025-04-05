@@ -249,9 +249,6 @@
 /obj/effect/spawner/random/food_or_drink/soup,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
-"yp" = (
-/turf/simulated/mineral/ancient/outer,
-/area/template_noop)
 "yy" = (
 /obj/structure/chair/brass{
 	dir = 1
@@ -2073,7 +2070,7 @@ gV
 gV
 gV
 gV
-yp
+dx
 Ht
 kC
 kC
@@ -2143,7 +2140,7 @@ gV
 gV
 gV
 gV
-yp
+dx
 Ht
 Ht
 kC

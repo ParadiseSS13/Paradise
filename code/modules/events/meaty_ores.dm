@@ -34,7 +34,7 @@
 		if(prob(45))
 			new /obj/item/food/meat(where)
 		else if(prob(10))
-			explosion(where, 0, pick(0,1), pick(2,3), 0)
+			explosion(where, 0, pick(0,1), pick(2,3), 0, cause = "Meaty space dust")
 	else
 		new /mob/living/basic/cow(where)
 
