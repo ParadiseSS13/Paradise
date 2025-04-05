@@ -84,12 +84,14 @@
 	base_speed_mod = -0.2
 	failure_rate = 5
 	base_efficiency_mod = 0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/tool_bit/efficiency
 	name = "efficient bit"
 	desc = "A tool bit optimized for efficiency, at the cost of speed."
 	base_speed_mod = 0.2
 	base_efficiency_mod = -0.25
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/tool_bit/balanced
 	name = "balanced bit"
@@ -97,6 +99,7 @@
 	base_speed_mod = -0.1
 	failure_rate = 2
 	base_efficiency_mod = -0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/tool_bit/heavy
 	name = "heavy duty bit"

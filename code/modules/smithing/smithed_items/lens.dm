@@ -81,6 +81,7 @@
 	desc = "A lens that accelerates energy beams to a higher velocity, using some of its own energy to propel it."
 	base_laser_speed_mult = 0.1
 	base_damage_mult = -0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/speed
 	name = "speed lens"
@@ -88,12 +89,14 @@
 	base_fire_rate_mult = 0.15
 	base_damage_mult = -0.1
 	durability = 30
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/amplifier
 	name = "amplifier lens"
 	desc = "A lens that increases the frequency of emitted beams, increasing their potency."
 	base_power_mult = 0.2
 	base_damage_mult = 0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/efficiency
 	name = "efficiency lens"
@@ -101,6 +104,7 @@
 	base_power_mult = -0.2
 	base_damage_mult = -0.1
 	durability = 80
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/rapid
 	name = "rapid lens"
