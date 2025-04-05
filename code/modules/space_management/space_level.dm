@@ -18,6 +18,11 @@
 	var/list/transit_east = list()
 	var/list/transit_west = list()
 
+	var/transition_border_north
+	var/transition_border_east
+	var/transition_border_south
+	var/transition_border_west
+
 	// Init deferral stuff
 	var/dirt_count = 0
 	var/list/init_list = list()
@@ -27,9 +32,18 @@
 	zpos = z
 	flags = traits
 	transition_tag = transition_tag_
+
+	set_transition_borders()
 	build_space_destination_arrays()
 	set_linkage(transition_type)
 	set_navbeacon()
+
+/datum/space_level/proc/set_transition_borders()
+	// can't set these in declaration because world.maxx/y are null for some reason
+	transition_border_north = TRANSITION_BORDER_NORTH
+	transition_border_east = TRANSITION_BORDER_EAST
+	transition_border_south = TRANSITION_BORDER_SOUTH
+	transition_border_west = TRANSITION_BORDER_WEST
 
 /datum/space_level/Destroy()
 	if(linkage == CROSSLINKED)
@@ -43,57 +57,57 @@
 /datum/space_level/proc/build_space_destination_arrays()
 	// We skip `add_to_transit` here because we want to skip the checks in order to save time
 	// Bottom border
-	for(var/turf/S in block(locate(1,1,zpos),locate(world.maxx,TRANSITION_BORDER_SOUTH,zpos)))
+	for(var/turf/S in block(locate(1,1,zpos),locate(world.maxx,transition_border_south,zpos)))
 		transit_south |= S
 
 	// Top border
-	for(var/turf/S in block(locate(1,world.maxy,zpos),locate(world.maxx,TRANSITION_BORDER_NORTH,zpos)))
+	for(var/turf/S in block(locate(1,world.maxy,zpos),locate(world.maxx,transition_border_north,zpos)))
 		transit_north |= S
 
 	// Left border
-	for(var/turf/S in block(locate(1,TRANSITION_BORDER_SOUTH + 1,zpos),locate(TRANSITION_BORDER_WEST,TRANSITION_BORDER_NORTH - 1,zpos)))
+	for(var/turf/S in block(locate(1, transition_border_south + 1, zpos), locate(transition_border_west, transition_border_north - 1, zpos)))
 		transit_west |= S
 
 	// Right border
-	for(var/turf/S in block(locate(TRANSITION_BORDER_EAST,TRANSITION_BORDER_SOUTH + 1,zpos),locate(world.maxx,TRANSITION_BORDER_NORTH - 1,zpos)))
+	for(var/turf/S in block(locate(transition_border_east, transition_border_south + 1, zpos),locate(world.maxx, transition_border_north - 1, zpos)))
 		transit_east |= S
 
 /datum/space_level/proc/add_to_transit(turf/S)
-	if(S.y <= TRANSITION_BORDER_SOUTH)
+	if(S.y <= transition_border_south)
 		transit_south |= S
 		return
 
 	// Top border
-	if(S.y >= TRANSITION_BORDER_NORTH)
+	if(S.y >= transition_border_north)
 		transit_north |= S
 		return
 
 	// Left border
-	if(S.x <= TRANSITION_BORDER_WEST)
+	if(S.x <= transition_border_west)
 		transit_west |= S
 		return
 
 	// Right border
-	if(S.x >= TRANSITION_BORDER_EAST)
+	if(S.x >= transition_border_east)
 		transit_east |= S
 
 /datum/space_level/proc/remove_from_transit(turf/S)
-	if(S.y <= TRANSITION_BORDER_SOUTH)
+	if(S.y <= transition_border_south)
 		transit_south -= S
 		return
 
 	// Top border
-	if(S.y >= TRANSITION_BORDER_NORTH)
+	if(S.y >= transition_border_north)
 		transit_north -= S
 		return
 
 	// Left border
-	if(S.x <= TRANSITION_BORDER_WEST)
+	if(S.x <= transition_border_west)
 		transit_west -= S
 		return
 
 	// Right border
-	if(S.x >= TRANSITION_BORDER_EAST)
+	if(S.x >= transition_border_east)
 		transit_east -= S
 
 /datum/space_level/proc/apply_transition(turf/S)
@@ -184,3 +198,11 @@ GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
 	SSmachines.setup_template_powernets(cables)
 	cables.Cut()
 	log_debug("Took [stop_watch(watch)]s")
+
+/datum/space_level/lavaland/set_transition_borders()
+	// really no reason why these need to be so large,
+	// especially since ruin placement is already constrained
+	transition_border_north = (world.maxy - 4)
+	transition_border_east = (world.maxx - 4)
+	transition_border_south = 3
+	transition_border_west = 3

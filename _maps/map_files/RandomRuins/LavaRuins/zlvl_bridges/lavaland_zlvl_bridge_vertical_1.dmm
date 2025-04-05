@@ -2,11 +2,13 @@
 "a" = (
 /turf/template_noop,
 /area/lavaland/surface/outdoors/unexplored/danger)
-"A" = (
+"h" = (
 /obj/effect/mapping_helpers/no_lava,
+/obj/structure/lightable/torch/lava_bridge,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored/danger)
-"E" = (
+"A" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "Q" = (
@@ -28,9 +30,13 @@ a
 a
 a
 a
+a
+a
 "}
 (2,1,1) = {"
-E
+a
+a
+A
 a
 a
 a
@@ -39,39 +45,45 @@ a
 a
 a
 a
+A
 a
 a
-E
 "}
 (3,1,1) = {"
-E
-E
+Q
 a
 a
 a
 a
 a
+A
+a
+A
+A
 a
 a
 a
-E
-E
+Q
 "}
 (4,1,1) = {"
+Q
+Q
 A
 A
-E
-E
-a
-E
-a
-a
-E
-a
 A
+h
+A
+A
+A
+h
+Q
+A
+Q
 Q
 "}
 (5,1,1) = {"
+A
+Q
 A
 Q
 A
@@ -86,50 +98,54 @@ Q
 Q
 "}
 (6,1,1) = {"
-A
+Q
 Q
 A
 A
 A
+h
 A
 A
 A
-A
+h
+Q
 A
 Q
 Q
 "}
 (7,1,1) = {"
-A
 Q
+a
+a
+a
 A
 A
 A
 A
-A
-A
-A
-A
-Q
+a
+a
+a
+a
+a
 Q
 "}
 (8,1,1) = {"
-A
+a
 A
 a
-E
-E
-a
-E
-a
-E
-E
 A
-Q
+a
+a
+a
+a
+a
+a
+A
+a
+a
+a
 "}
 (9,1,1) = {"
-E
-E
 a
 a
 a
@@ -138,45 +154,7 @@ a
 a
 a
 a
-E
-E
-"}
-(10,1,1) = {"
-E
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-E
-"}
-(11,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(12,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
+A
 a
 a
 a

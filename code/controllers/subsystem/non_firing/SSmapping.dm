@@ -296,7 +296,8 @@ SUBSYSTEM_DEF(mapping)
 			"LAVALAND[i]",
 			linkage = CROSSLINKED,
 			traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK),
-			transition_tag = TRANSITION_TAG_LAVALAND
+			transition_tag = TRANSITION_TAG_LAVALAND,
+			level_type = /datum/space_level/lavaland
 		)
 		GLOB.maploader.load_map(file("_maps/map_files/generic/lavaland_baselayer.dmm"), z_offset = lavaland_zlevel)
 		CHECK_TICK

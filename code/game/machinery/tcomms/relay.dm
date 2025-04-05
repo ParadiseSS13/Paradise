@@ -31,9 +31,10 @@
 	. = ..()
 	component_parts += new /obj/item/circuitboard/tcomms/relay(null)
 	if(check_power_on())
-		set_active(TRUE)
+		active = TRUE
 	else
 		visible_message("<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
+	update_icon()
 	if(mapload && autolink_id)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -95,17 +96,12 @@
 		// If another relay is active, return FALSE
 		if(R.active)
 			if(R.stat & NOPOWER)	// If another relay has no power but is supposed to be on, we shut it down so we can continue.
-				R.set_active(FALSE)	// Since only one active relay is allowed per z level, give priority to the one that's actually working.
+				R.active = FALSE	// Since only one active relay is allowed per z level, give priority to the one that's actually working.
+				R.update_icon()
 			else
 				return FALSE
 	// If we got here there isnt an active relay on this Z-level. So return TRUE
 	return TRUE
-
-/obj/machinery/tcomms/relay/proc/set_active(active_)
-	if(active == active_)
-		return
-	active = active_
-	update_icon()
 
 /**
   * Proc to link the relay to the core.
@@ -190,7 +186,8 @@
 	switch(action)
 		if("toggle_active")
 			if(check_power_on())
-				set_active(!active)
+				active = !active
+				update_icon()
 				if(linked_core)
 					linked_core.refresh_zlevels()
 			else

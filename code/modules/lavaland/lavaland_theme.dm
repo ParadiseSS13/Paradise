@@ -26,7 +26,7 @@
 	setup_multisector()
 
 /datum/lavaland_theme/proc/setup_multisector()
-	var/bridge_diameter = 12
+	var/bridge_diameter = 14
 	var/interval = 20
 	for(var/zlvl in levels_by_trait(ORE_LEVEL))
 		var/datum/space_level/level = GLOB.space_manager.get_zlev(zlvl)

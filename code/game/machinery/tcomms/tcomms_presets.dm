@@ -11,21 +11,6 @@
 	network_id = "MINING-RELAY"
 	autolink_id = "STATION-CORE"
 
-/obj/machinery/tcomms/relay/gulag
-	network_id = "LABOR-CAMP-RELAY"
-	autolink_id = "STATION-CORE"
-
-/obj/machinery/tcomms/relay/gulag/LateInitialize()
-	. = ..()
-	// If the mining station relay exists and is on the same z-level as us, we
-	// want to make sure that it is active and we're not (to emulate existing
-	// single-lavaland-sector behavior where an antag can easily disable tcomms
-	// on the mining station)
-	for(var/obj/machinery/tcomms/relay/mining/M in GLOB.tcomms_machines)
-		if(atoms_share_level(M, src))
-			set_active(FALSE)
-			M.set_active(TRUE)
-
 // ENGINEERING RELAY //
 /obj/machinery/tcomms/relay/engineering
 	network_id = "ENGINEERING-RELAY"
