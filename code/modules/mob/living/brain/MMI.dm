@@ -298,7 +298,7 @@
 
 /obj/item/mmi/syndie
 	name = "\improper Syndicate Man-Machine Interface"
-	desc = "The Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's inside. Cyborgs, mechs, spiderbots, or IRCs made with this MMI will be slaved to the owner. Does not fit into NT AI cores. \
+	desc = "The Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's inside. Cyborgs, mechs, spiderbots, or IRCs made with this MMI will be slaved to the owner. Does not fit into NT AI cores and is incompatible with organic bodies. \
 	Cyborgs will appear to be linked to an AI (if present). If someone attempts to detonate the cyborg, it will automatically block the attempt and then disconnect from the AI. No emagged equipment is provided."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = TRUE
