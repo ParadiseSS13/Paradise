@@ -80155,9 +80155,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/chair{
-	dir = 4
-	},
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "uaz" = (
@@ -140874,7 +140873,7 @@ uDR
 cgs
 qCZ
 cga
-eNn
+csL
 ciY
 csL
 fmn
