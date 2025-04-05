@@ -77534,8 +77534,9 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "sGr" = (
+/obj/structure/lattice,
 /obj/effect/spawner/random/barrier/grille_often,
-/turf/simulated/floor/plating/airless,
+/turf/space,
 /area/space/nearstation)
 "sGw" = (
 /obj/machinery/door/airlock/maintenance{
