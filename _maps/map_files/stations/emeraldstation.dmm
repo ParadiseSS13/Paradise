@@ -48901,7 +48901,7 @@
 	},
 /area/station/service/theatre)
 "jGJ" = (
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},

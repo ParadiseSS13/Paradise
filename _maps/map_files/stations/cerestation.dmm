@@ -108724,7 +108724,7 @@
 /area/station/maintenance/port)
 "xnz" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "xnA" = (
