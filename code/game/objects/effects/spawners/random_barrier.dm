@@ -8,8 +8,8 @@
 		/obj/machinery/door/airlock/welded,
 		/obj/structure/barricade/wooden,
 		/obj/structure/falsewall,
-		/turf/simulated/floor/plasteel,
 		/turf/simulated/wall,
+		"nothing",
 	)
 
 /obj/effect/spawner/random/barrier/wall_probably
@@ -45,7 +45,7 @@
 	loot = list(
 		/obj/structure/grille = 8,
 		/obj/structure/grille/broken = 4,
-		/turf/simulated/floor/plating = 2,
+		"nothing" = 2,
 	)
 
 /obj/effect/spawner/random/barrier/grille_maybe
@@ -54,5 +54,5 @@
 	loot = list(
 		/obj/structure/grille = 2,
 		/obj/structure/grille/broken = 2,
-		/turf/simulated/floor/plating = 5,
+		"nothing" = 5,
 	)
