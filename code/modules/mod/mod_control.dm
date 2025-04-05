@@ -702,7 +702,15 @@
 			overslotting_parts -= part
 			continue
 		overslotting_parts |= part
+	var/used_skin_modifiers = theme.skin_modifiers[new_skin]
+	apply_modifiers(used_skin_modifiers)
 	wearer?.regenerate_icons()
+
+/obj/item/mod/control/proc/apply_modifiers(modifiers)
+	if(modifiers & MAKE_SPACEPROOF)
+		min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+		for(var/obj/item/clothing/part in mod_parts)
+			part.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/mod/control/proc/on_exit(datum/source, atom/movable/part, direction)
 	SIGNAL_HANDLER

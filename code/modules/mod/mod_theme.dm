@@ -51,6 +51,8 @@
 	var/list/inbuilt_modules = list()
 	/// Allowed items in the chestplate's suit storage.
 	var/list/allowed_suit_storage = list()
+	/// List of modifiers that we apply after applying new skin
+	var/list/skin_modifiers = list()
 	/// List of skins with their appropriate clothing flags.
 	var/list/skins = list(
 		"standard" = list(
@@ -309,6 +311,9 @@
 		/obj/item/gun/energy/kinetic_accelerator,
 	)
 	inbuilt_modules = list(/obj/item/mod/module/ash_accretion, /obj/item/mod/module/sphere_transform)
+	skin_modifiers = list(
+		"asteroid" = MAKE_SPACEPROOF
+	)
 	skins = list(
 		"mining" = list(
 			HELMET_FLAGS = list(

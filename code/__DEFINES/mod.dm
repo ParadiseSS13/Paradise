@@ -37,6 +37,9 @@
 #define SEALED_COVER "sealed_cover"
 #define CAN_OVERSLOT "can_overslot"
 
+// Flags for skin modifiers
+#define MAKE_SPACEPROOF (1<<0)
+
 //Defines used to override MOD clothing's icon and worn icon files in the skin.
 #define MOD_ICON_OVERRIDE "mod_icon_override"
 
