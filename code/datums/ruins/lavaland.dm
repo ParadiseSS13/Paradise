@@ -238,19 +238,11 @@
 	suffix = "lavaland_surface_shuttlecrash.dmm"
 	allow_duplicates = FALSE
 
-/datum/map_template/ruin/lavaland/mining_base
-	name = "Mining Station"
-	id = "miningstation"
-	description = "Nanotrasen's sturdy planetside mining station."
-	suffix = "lavaland_surface_miningbase.dmm"
-	allow_duplicates = FALSE
-	always_place = TRUE
-
-/datum/map_template/ruin/lavaland/gulag
-	name = "Labor Camp"
+/datum/map_template/ruin/lavaland/nt
+	name = "Nanotrasen Mining Complex"
 	id = "gulag"
-	description = "Nanotrasen's sturdy planetside labor camp."
-	suffix = "lavaland_surface_gulag.dmm"
+	description = "Nanotrasen's sturdy planetside mining station and labor camp."
+	suffix = "lavaland_surface_nt.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
 

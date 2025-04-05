@@ -23,9 +23,9 @@
 	/// Maximum budget for space ruins
 	var/space_ruin_budget_max = 1000
 	/// Minimum budget for lavaland ruins
-	var/lavaland_ruin_budget_min = 350
+	var/lavaland_ruin_budget_min = 450
 	/// Maximum budget for lavaland ruins
-	var/lavaland_ruin_budget_max = 500
+	var/lavaland_ruin_budget_max = 600
 
 /datum/configuration_section/ruin_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -47,7 +47,6 @@
 	// TODO -- TEMPORARY FOR TM -- UNCOMMENT BEFORE MERGE
 
 	// TODO -- TEMPORARY FOR TM -- REMOVE BEFORE MERGE
-	active_lava_ruins += "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_miningbase.dmm"
-	active_lava_ruins += "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gulag.dmm"
+	active_lava_ruins += "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_nt.dmm"
 	active_lava_ruins += "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_legiongate.dmm"
 	// TODO -- TEMPORARY FOR TM -- REMOVE BEFORE MERGE
