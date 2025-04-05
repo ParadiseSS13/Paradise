@@ -37,7 +37,7 @@
 /area/survivalpod)
 "i" = (
 /obj/machinery/sleeper/survival_pod,
-/obj/machinery/economy/vending/wallmed/survival_pod/directional/west,
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "j" = (
