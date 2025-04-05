@@ -477,6 +477,15 @@
 		PCWJ_ADD_REAGENT("cherryjelly", 5),
 	)
 
+/datum/cooking/recipe/jellied_slime_toast
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/jelliedtoast/slime
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_REAGENT("slimejelly", 5),
+	)
+
 /datum/cooking/recipe/human_burger
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/human/burger
