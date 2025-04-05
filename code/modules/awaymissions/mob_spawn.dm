@@ -252,7 +252,7 @@
 		if(hair_style)
 			D.h_style = hair_style
 		else
-			D.h_style = random_hair_style(H.gender, D.dna.species.sprite_sheet_name)
+			D.h_style = random_hair_style(gender, D.dna.species.name)
 		if(hair_colour)
 			D.hair_colour = hair_colour
 			D.sec_hair_colour = hair_colour
@@ -262,7 +262,7 @@
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else
-			D.f_style = random_facial_hair_style(H.gender, D.dna.species.sprite_sheet_name)
+			D.f_style = random_facial_hair_style(gender, D.dna.species.name)
 		if(facial_hair_colour)
 			D.facial_colour = facial_hair_colour
 			D.sec_facial_colour = facial_hair_colour
@@ -418,6 +418,12 @@
 	name = "Abductor Corpse"
 	uniform = /obj/item/clothing/under/color/grey
 	shoes = /obj/item/clothing/shoes/combat
+
+/obj/effect/mob_spawn/human/corpse/ashwalker
+	name = "Ashwalker"
+	mob_name = "Ashwalker"
+	mob_species = /datum/species/unathi/ashwalker
+	outfit = /datum/outfit/ashwalker
 
 //Assistant Corpse
 /obj/effect/mob_spawn/human/corpse/assistant

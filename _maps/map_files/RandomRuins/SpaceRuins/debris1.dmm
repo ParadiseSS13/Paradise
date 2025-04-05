@@ -61,11 +61,11 @@
 /area/template_noop)
 "ay" = (
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin)
 "az" = (
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin)
 "aB" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal,
@@ -83,11 +83,11 @@
 /area/template_noop)
 "aF" = (
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin)
 "aG" = (
 /obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin)
 "aI" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -105,25 +105,25 @@
 /obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin)
 "aQ" = (
 /obj/effect/decal/cleanable/shreds{
 	pixel_x = 4;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin)
 "aT" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin)
 "aU" = (
 /obj/effect/spawner/random/barrier/wall_probably,
 /turf/template_noop,
-/area/template_noop)
+/area/ruin)
 "aV" = (
 /turf/simulated/wall,
-/area/template_noop)
+/area/ruin)
 "aW" = (
 /obj/structure/lattice,
 /mob/living/simple_animal/hostile/syndicate/depot/modsuit/backup,
@@ -132,7 +132,7 @@
 "aY" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin)
 "aZ" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
@@ -148,11 +148,11 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin)
 "QL" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/burnt/airless,
-/area/template_noop)
+/area/ruin)
 
 (1,1,1) = {"
 aa
