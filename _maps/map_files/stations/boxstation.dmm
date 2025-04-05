@@ -68176,9 +68176,6 @@
 /area/station/maintenance/apmaint)
 "nXN" = (
 /obj/item/target/alien,
-/obj/machinery/camera/toxins{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
