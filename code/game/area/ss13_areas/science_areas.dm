@@ -64,7 +64,6 @@
 	name = "\improper Toxins Test Area"
 	icon_state = "toxtest"
 	valid_territory = FALSE
-	requires_power = FALSE
 
 /area/station/science/toxins/mixing
 	name = "\improper Toxins Mixing Room"
