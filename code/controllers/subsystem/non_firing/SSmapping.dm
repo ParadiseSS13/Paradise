@@ -122,7 +122,7 @@ SUBSYSTEM_DEF(mapping)
 		procgen_lavaland()
 
 	var/empty_z_traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY)
-#ifdef GAME_TESTS
+#if defined(GAME_TESTS) || defined(MAP_TESTS)
 	preloadTemplates(path = "_maps/map_files/tests/")
 	empty_z_traits |= GAME_TEST_LEVEL
 #endif
