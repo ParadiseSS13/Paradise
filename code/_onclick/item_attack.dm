@@ -180,6 +180,10 @@
 
 	target.store_last_attacker(user)
 	user.do_attack_animation(target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		if(human_target.check_shields(src, force, "[user]'s [name]", MELEE_ATTACK, armour_penetration_flat, armour_penetration_percentage))
+			return FALSE
 	add_fingerprint(user)
 
 	return TRUE
