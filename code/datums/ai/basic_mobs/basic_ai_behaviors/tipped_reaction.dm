@@ -24,7 +24,7 @@
 	else
 		seen_message = "[controller.pawn] seems resigned to its fate."
 		self_message = "You resign yourself to your fate."
-	controller.pawn.visible_message("<span class='notice'>[seen_message]", "<span class='notice'>[self_message]</span>")
+	controller.pawn.visible_message("<span class='notice'>[seen_message]</span>", "<span class='notice'>[self_message]</span>")
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/tipped_reaction/finish_action(datum/ai_controller/controller, succeeded, tipper_key, reacting_key)
