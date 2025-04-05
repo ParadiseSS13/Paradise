@@ -82517,9 +82517,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 9;
-	pixel_y = 5
+/obj/item/screwdriver{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -86846,6 +86845,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
 	pixel_y = 4
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 9;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

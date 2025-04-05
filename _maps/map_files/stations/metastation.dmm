@@ -267,6 +267,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -28698,12 +28701,15 @@
 "ciT" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell,
 /obj/item/screwdriver{
 	pixel_x = -2;
 	pixel_y = 18
 	},
 /obj/machinery/newscaster/directional/west,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
+/obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
