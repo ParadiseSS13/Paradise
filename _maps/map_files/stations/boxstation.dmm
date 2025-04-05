@@ -3248,10 +3248,10 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "anw" = (
-/obj/machinery/light,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/item/target,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "anx" = (
@@ -34910,7 +34910,10 @@
 	},
 /area/station/science/toxins/mixing)
 "cvt" = (
-/turf/simulated/wall/indestructible/riveted,
+/obj/effect/turf_decal/caution{
+	dir = 4
+	},
+/turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "cvu" = (
 /obj/structure/table,
@@ -52957,9 +52960,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/chair{
-	dir = 8
-	},
+/obj/structure/bed/dogbed,
+/obj/item/toy/plushie/corgi,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "fXX" = (
@@ -55374,8 +55376,9 @@
 	dir = 10
 	},
 /obj/structure/chair{
-	dir = 1
+	dir = 4
 	},
+/obj/item/target,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "hkw" = (
@@ -57262,6 +57265,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/item/target,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "imr" = (
@@ -57445,7 +57449,7 @@
 "iqh" = (
 /obj/item/beacon,
 /obj/effect/turf_decal/stripes,
-/turf/simulated/floor/indestructible/airless,
+/turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "iqs" = (
 /obj/machinery/door/firedoor,
@@ -58055,7 +58059,7 @@
 /area/station/public/locker)
 "iJf" = (
 /obj/machinery/camera{
-	c_tag = "Research Toxins Mixing";
+	c_tag = "Research Toxins Mixing Port";
 	dir = 4;
 	network = list("Research","SS13")
 	},
@@ -63426,6 +63430,23 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = 8;
+	pixel_y = 1
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 1
+	},
+/obj/item/clothing/mask/cigarette/cigar{
+	pixel_x = 1;
+	pixel_y = 15
+	},
+/obj/item/storage/fancy/matches{
+	pixel_x = -7;
+	pixel_y = 2
+	},
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "ltR" = (
@@ -68176,10 +68197,15 @@
 /area/station/maintenance/apmaint)
 "nXN" = (
 /obj/item/target/alien,
+/obj/machinery/camera/toxins{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/turf/simulated/floor/engine/airless,
+/turf/simulated/floor/indestructible/airless{
+	icon_state = "engine"
+	},
 /area/station/science/toxins/test)
 "nYg" = (
 /obj/structure/statue/cyberiad/center,
@@ -69070,9 +69096,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "orJ" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
@@ -71135,11 +71158,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "pte" = (
-/obj/item/target/syndicate,
-/obj/machinery/camera/toxins{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/end,
+/obj/item/target/syndicate,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "ptK" = (
@@ -72957,6 +72977,27 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner,
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/cigarettes/cigpack_uplift{
+	pixel_y = 7;
+	pixel_x = 9
+	},
+/obj/item/clothing/mask/cigarette/menthol{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/deck/cards/black{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/lighter/random{
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/obj/item/ashtray/bronze{
+	pixel_x = -1;
+	pixel_y = 2
+	},
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "qpi" = (
@@ -76733,11 +76774,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "ska" = (
-/obj/machinery/camera{
-	c_tag = "Research Toxins Burn Chamber";
-	dir = 1;
-	network = list("Research","SS13")
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -78351,8 +78387,9 @@
 	dir = 6
 	},
 /obj/structure/chair{
-	dir = 1
+	dir = 8
 	},
+/obj/item/target/syndicate,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "tfv" = (
@@ -80239,7 +80276,18 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/chair,
+/obj/structure/table/reinforced,
+/obj/item/flashlight/lamp{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/obj/item/ashtray/bronze{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/item/food/salad/melonfruitbowl{
+	pixel_x = 8
+	},
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "udW" = (
@@ -82139,6 +82187,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/item/target,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "vmr" = (
@@ -82280,11 +82329,10 @@
 	},
 /area/station/medical/chemistry)
 "vpu" = (
-/obj/item/target/syndicate,
-/obj/machinery/camera/toxins,
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
+/obj/item/target/syndicate,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "vpC" = (
@@ -83558,7 +83606,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/chair,
+/obj/structure/table/reinforced,
+/obj/item/newspaper{
+	pixel_x = -3;
+	pixel_y = 7
+	},
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "vYD" = (
@@ -85499,6 +85551,11 @@
 /area/station/science/hallway)
 "xag" = (
 /obj/structure/dispenser,
+/obj/machinery/camera{
+	c_tag = "Research Toxins Mixing Starboard";
+	dir = 8;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -149289,7 +149346,7 @@ aaa
 aaa
 aaa
 wyT
-rbY
+ckb
 vpu
 lto
 kav
@@ -149297,7 +149354,7 @@ iqh
 hzM
 qoV
 pte
-rbY
+ckb
 wyT
 aaa
 aaa
