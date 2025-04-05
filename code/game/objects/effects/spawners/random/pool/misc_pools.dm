@@ -10,6 +10,6 @@
 	guaranteed = TRUE
 	point_value = 0
 	loot = list(
-		/obj/effect/spawner/random/space_pirate,
+		/mob/living/simple_animal/hostile/pirate,
 		/obj/effect/spawner/random/space_pirate,
 	)
