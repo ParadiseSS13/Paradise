@@ -82694,7 +82694,7 @@
 "vDY" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/shower{
-	pixel_y = 8
+	pixel_y = 16
 	},
 /turf/simulated/floor/noslip,
 /area/station/security/prisonlockers)
