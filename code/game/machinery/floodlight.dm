@@ -167,3 +167,9 @@
 
 /obj/machinery/floodlight/anchored
 	anchored = TRUE
+
+/obj/machinery/floodlight/anchored/darker_on
+	brightness_on = 4
+	light_power = 5
+	light_range = 5
+	on = TRUE
