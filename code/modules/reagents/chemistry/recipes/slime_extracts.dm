@@ -170,7 +170,6 @@
 		/obj/item/food/grown,
 		/obj/item/food/grown/shell,
 		/obj/item/food/grown/mushroom,
-		/obj/item/food/deepfryholder,
 		/obj/item/food/chinese,
 		/obj/item/food/human,
 		/obj/item/food/monstermeat,

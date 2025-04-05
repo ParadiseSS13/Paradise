@@ -377,11 +377,4 @@
 	icon_state = "cereal_box"
 	list_reagents = list("nutriment" = 3)
 
-/obj/item/food/deepfryholder
-	name = "Deep Fried Foods Holder Obj"
-	desc = "If you can see this description the code for the deep fryer fucked up."
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "deepfried_holder_icon"
-	list_reagents = list("nutriment" = 3)
-
 #undef MAX_WEIGHT_CLASS
