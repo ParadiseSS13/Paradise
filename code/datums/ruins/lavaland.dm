@@ -31,8 +31,9 @@
 /datum/map_template/ruin/lavaland/seed_vault_eden
 	name = "Garden of Eden"
 	id = "ruin-eden"
-	description = "Not all of the seed vaulters stay within their tiny sheltered grow rooms to toil with plants. Some desired to full extent of the wastes, \
-	to research and adapt their creations to the ashen wastes. Unfortunately, "
+	description = "Not all of the seed vaulters stay within their tiny sheltered grow rooms to toil with plants. Some desired to spread through the full extent of the wastes \
+	to research and adapt their creations to the conditions to the dead land. Unfortunately, most did not survive their forray. Even less managed \
+	to secure a foothold before they fell."
 	suffix = "lavaland_surface_eden.dmm"
 	allow_duplicates = FALSE
 
