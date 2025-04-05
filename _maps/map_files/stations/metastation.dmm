@@ -59457,6 +59457,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "lYI" = (
+/obj/structure/engineeringcart/full{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"

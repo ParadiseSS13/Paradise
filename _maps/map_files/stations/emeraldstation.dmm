@@ -55648,11 +55648,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "laM" = (
-/obj/structure/engineeringcart,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/north,
+/obj/structure/engineeringcart/full,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
