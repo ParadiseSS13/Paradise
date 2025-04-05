@@ -95,7 +95,7 @@
 
 			if(!spawn_loot_double)
 				loot_list.Remove(lootspawn)
-			if(lootspawn && lootspawn != "nothing")
+			if(ispath(lootspawn))
 				var/turf/spawn_loc = loc
 				if(spawn_scatter_radius > 0 && length(spawn_locations))
 					spawn_loc = pick(spawn_locations)
