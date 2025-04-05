@@ -8285,9 +8285,6 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/siberia)
-"Tx" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
 "TB" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/directional/south,
@@ -21928,7 +21925,7 @@ De
 De
 De
 De
-Tx
+De
 De
 De
 De
@@ -22242,11 +22239,11 @@ De
 De
 De
 De
-Tx
 De
 De
 De
-Tx
+De
+De
 De
 De
 De
@@ -22888,7 +22885,7 @@ De
 De
 De
 De
-Tx
+De
 De
 De
 De
