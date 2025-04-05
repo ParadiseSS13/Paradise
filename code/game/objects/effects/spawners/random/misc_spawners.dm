@@ -115,3 +115,10 @@
 		/obj/item/flashlight/flare/glowstick/yellow,
 		/obj/item/flashlight/flare/glowstick/pink,
 	)
+
+/obj/effect/spawner/random/space_pirate
+	name = "random space pirate spawner"
+	loot = list(
+		/mob/living/simple_animal/hostile/pirate,
+		/mob/living/simple_animal/hostile/pirate/ranged,
+	)

@@ -26,6 +26,7 @@
 	available_points -= points
 
 /datum/spawn_pool/proc/process_guaranteed_spawners()
+	shuffle_inplace(guaranteed_spawners)
 	while(length(guaranteed_spawners))
 		var/obj/effect/spawner/random/pool/spawner = guaranteed_spawners[length(guaranteed_spawners)]
 		guaranteed_spawners.len--
