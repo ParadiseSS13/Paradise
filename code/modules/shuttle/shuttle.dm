@@ -939,8 +939,8 @@
 	var/admin_controlled
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
-	/// Do we want to search for shuttle destinations as part of Initialize (fixed) or LateInitialize (variable)
-	var/find_destinations_in_late_init = FALSE
+	/// Do we want to search for shuttle destinations as part of Initialize (fixed) or when SSlate_mapping fires (variable)
+	var/find_destinations_in_late_mapping = FALSE
 
 /obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
 	..()
@@ -950,12 +950,9 @@
 
 /obj/machinery/computer/shuttle/Initialize(mapload)
 	. = ..()
-	if(find_destinations_in_late_init && mapload) // We only care about this in mapload, if its mid round its fine
-		return INITIALIZE_HINT_LATELOAD
+	if(find_destinations_in_late_mapping && mapload) // We only care about this in mapload, if its mid round its fine
+		return
 
-	connect()
-
-/obj/machinery/computer/shuttle/LateInitialize()
 	connect()
 
 /obj/machinery/computer/shuttle/proc/connect()
@@ -1094,7 +1091,7 @@
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = null // Set at runtime
-	find_destinations_in_late_init = TRUE
+	find_destinations_in_late_mapping = TRUE
 
 /obj/machinery/computer/shuttle/admin
 	name = "admin shuttle console"
