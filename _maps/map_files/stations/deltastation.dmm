@@ -56274,7 +56274,7 @@
 	},
 /area/station/medical/storage)
 "eCJ" = (
-/obj/machinery/computer/aiupload{
+/obj/machinery/computer/aiupload/hardened{
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid,
@@ -68231,7 +68231,7 @@
 	},
 /area/station/hallway/primary/central/west)
 "lbf" = (
-/obj/machinery/computer/borgupload{
+/obj/machinery/computer/borgupload/hardened{
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid,
