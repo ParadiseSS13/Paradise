@@ -742,7 +742,7 @@
 /area/template_noop)
 "CR" = (
 /obj/structure/chair/office/dark,
-/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob,
 /turf/simulated/floor/engine,
 /area/ruin/space/syndicakefactory)
 "CW" = (
@@ -803,7 +803,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "EH" = (
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/obj/effect/mob_spawn/human/corpse/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

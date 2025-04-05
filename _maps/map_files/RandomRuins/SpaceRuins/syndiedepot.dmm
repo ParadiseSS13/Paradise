@@ -511,7 +511,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bC" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
+/mob/living/simple_animal/hostile/syndicate/depot/officer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -883,7 +883,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory,
+/mob/living/simple_animal/hostile/syndicate/depot/modsuit/elite,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -925,7 +925,7 @@
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
+/mob/living/simple_animal/hostile/syndicate/depot/officer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
