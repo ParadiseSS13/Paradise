@@ -122,6 +122,7 @@
 /datum/ruleset/proc/roundstart_post_setup(datum/game_mode/dynamic)
 	for(var/datum/mind/antag as anything in pre_antags)
 		antag.add_antag_datum(antagonist_type)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
 
 /datum/ruleset/proc/refund(info)
 	// not enough antagonists signed up!!! idk what to do. The only real solution is to procedurally allocate budget, which will result in 1000x more get_players_for_role() calls. Which is not cheap.
@@ -170,6 +171,7 @@
 	for(var/i in 1 to late_antag_amount)
 		var/datum/mind/antag = pick_n_take(possible_antags)
 		antag.add_antag_datum(antagonist_type)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("latespawn", "[antagonist_type]"))
 
 	log_dynamic("Latespawned [late_antag_amount] [name]\s.")
 	message_admins("Dynamic latespawned [late_antag_amount] [name]\s.")
@@ -196,6 +198,7 @@
 			traitor_datum.delayed_objectives = TRUE
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), latespawn_time, TIMER_DELETE_ME)
 		antag.add_antag_datum(traitor_datum)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
 
 /datum/ruleset/traitor/autotraitor
 	name = "Autotraitor"
@@ -287,6 +290,7 @@
 
 /datum/ruleset/team/roundstart_post_setup(datum/game_mode/dynamic)
 	if(unique_team)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[team_type]"))
 		new team_type(pre_antags)
 		return
 	stack_trace("Undefined behavior for dynamic non-unique teams!")
