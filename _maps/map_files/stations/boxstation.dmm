@@ -77535,7 +77535,7 @@
 /area/station/hallway/secondary/exit)
 "sGr" = (
 /obj/structure/lattice,
-/obj/effect/spawner/random/barrier/grille_often,
+/obj/structure/grille,
 /turf/space,
 /area/space/nearstation)
 "sGw" = (
