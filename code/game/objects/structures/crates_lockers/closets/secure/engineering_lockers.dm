@@ -110,7 +110,7 @@
 	else
 		new /obj/item/storage/backpack/satchel_atmos(src)
 	new /obj/item/storage/backpack/duffel/atmos(src)
-	new /obj/item/extinguisher(src)
+	new /obj/item/extinguisher/atmospherics(src)
 	new /obj/item/grenade/gas/oxygen(src)
 	new /obj/item/grenade/gas/oxygen(src)
 	new /obj/item/clothing/suit/storage/hazardvest/staff(src)
