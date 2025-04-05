@@ -1,0 +1,173 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/lavaland/surface/outdoors/unexplored/danger)
+"b" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/lightable/torch/lava_bridge,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored/danger)
+"d" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored/danger)
+"Z" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored/danger)
+
+(1,1,1) = {"
+a
+a
+Z
+Z
+Z
+Z
+Z
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+Z
+Z
+Z
+a
+a
+a
+"}
+(3,1,1) = {"
+d
+a
+a
+d
+d
+d
+a
+a
+d
+"}
+(4,1,1) = {"
+a
+a
+a
+b
+d
+b
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+d
+d
+d
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+d
+d
+d
+d
+a
+a
+"}
+(7,1,1) = {"
+a
+a
+Z
+d
+d
+d
+Z
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+d
+d
+d
+a
+a
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+b
+d
+b
+d
+a
+a
+"}
+(10,1,1) = {"
+a
+a
+d
+d
+d
+d
+d
+a
+d
+"}
+(11,1,1) = {"
+a
+a
+a
+Z
+Z
+Z
+a
+a
+a
+"}
+(12,1,1) = {"
+a
+a
+a
+Z
+Z
+Z
+a
+a
+a
+"}
+(13,1,1) = {"
+d
+a
+a
+Z
+Z
+Z
+a
+a
+a
+"}
+(14,1,1) = {"
+a
+a
+Z
+Z
+Z
+Z
+Z
+a
+a
+"}

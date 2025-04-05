@@ -184,14 +184,14 @@
 			var/obj/O = A
 			if(dangerous)
 				O.fire_act(1000, 500)
-			else 
+			else
 				O.temperature_expose(exposed_temperature = 400)
 		else if(isliving(A))
 			var/mob/living/L = A
 			if(dangerous)
 				L.adjust_fire_stacks(fire_stack_strength)
 				L.IgniteMob()
-			else 
+			else
 				L.adjust_bodytemperature(10, 310)
 
 /obj/structure/lightable/process()
@@ -287,5 +287,15 @@
 	new /obj/item/stack/sheet/wood (get_turf(src), 5)
 	qdel(src)
 	..()
+
+/obj/structure/lightable/torch/lava_bridge
+	anchored = TRUE
+
+/obj/structure/lightable/torch/lava_bridge/Initialize(mapload)
+	. = ..()
+	StartBurning()
+
+/obj/structure/lightable/torch/lava_bridge/CheckOxygen()
+	return TRUE // these load before SSair sets up atmos on Lavaland
 
 #undef MIN_OXY_IGNITE

@@ -70,6 +70,19 @@
 	if(end.flags & LAVA_BRIDGE || !(ismineralturf(end) || istype(end, /turf/simulated/floor/plating/asteroid)))
 		return FALSE
 
+	var/area/A = get_area(end)
+	if(istype(A, /area/lavaland/surface/gulag_rock))
+		return FALSE
+
+	if(istype(A, /area/lavaland/surface/outdoors/outpost))
+		return FALSE
+
+	if(istype(A, /area/mine/outpost))
+		return FALSE
+
+	if(istype(A, /area/shuttle))
+		return FALSE
+
 	return TRUE
 
 /// Returns whether the passed in turf is a valid "passage". A valid passage is
@@ -84,6 +97,9 @@
 	if(!istype(get_step(T, side_to_side[1]), /turf/simulated/floor/lava/mapping_lava))
 		return FALSE
 	if(!istype(get_step(T, side_to_side[2]), /turf/simulated/floor/lava/mapping_lava))
+		return FALSE
+	var/area/A = get_area(T)
+	if(istype(A, /area/lavaland/surface/gulag_rock))
 		return FALSE
 
 	return TRUE
@@ -279,6 +295,26 @@
 		if(WEST)
 			return current_turf.x <= 2
 	return TRUE
+
+/datum/map_template/ruin/lavaland/zlvl_bridge
+	prefix = "_maps/map_files/RandomRuins/LavaRuins/zlvl_bridges/"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/vertical
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
+	name = "Vertical Bridge One"
+	suffix = "lavaland_zlvl_bridge_vertical_1.dmm"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
+	name = "Horizontal Bridge One"
+	suffix = "lavaland_zlvl_bridge_horizontal_1.dmm"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
 
 #undef LONG_BRIDGE_THEME_CULT
 #undef LONG_BRIDGE_THEME_HIERO

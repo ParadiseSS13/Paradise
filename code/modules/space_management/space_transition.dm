@@ -315,33 +315,45 @@
 // Separating this from initialization gives us time in which we can add more crosslink z levels
 // before we bake in all our connections
 /datum/zlev_manager/proc/route_linkage()
-	var/list/crosslinks = list()
+	var/list/linkage_networks = list()
+
 	var/datum/space_level/D
 	for(var/A in z_list)
 		D = z_list[A]
 		if(D.linkage == CROSSLINKED)
+			linkage_networks |= D.transition_tag
+
+	for(var/tag in linkage_networks)
+		var/list/crosslinks = list()
+		for(var/A in z_list)
+			D = z_list[A]
+			if(D.transition_tag != tag)
+				continue
 			crosslinks.Add(D)
 			D.reset_connections()
 
-	// We create an imaginary, square, grid, with dimensions that are
-	// twice the number of z levels, plus one, per side
+		// We create an imaginary, square, grid, with dimensions that are
+		// twice the number of z levels, plus one, per side
 
-	// This is big enough to hold a straight line from the center to any side
-	// `point_grid` is indexed as a 2 way matrix of these points
-	// `grid` is a flat list of these same above points
+		// This is big enough to hold a straight line from the center to any side
+		// `point_grid` is indexed as a 2 way matrix of these points
+		// `grid` is a flat list of these same above points
 
-	// Each point represents a possible z level position
-	if(linkage_map)
-		qdel(linkage_map)
-	linkage_map = new
+		// Each point represents a possible z level position
+		if(linkage_maps[tag])
+			qdel(linkage_maps[tag])
 
-	// Now, we pop entries in a random order from our list of space levels
-	// and assign its connections based on the grid
-	while(length(crosslinks))
-		D = pick(crosslinks)
-		crosslinks.Remove(D)
-		// Add it to our space grid
-		D.add_to_space_network(linkage_map)
+		var/datum/spacewalk_grid/new_grid = new
+
+		// Now, we pop entries in a random order from our list of space levels
+		// and assign its connections based on the grid
+		while(length(crosslinks))
+			D = pick(crosslinks)
+			crosslinks.Remove(D)
+			// Add it to our space grid
+			D.add_to_space_network(new_grid)
+
+		linkage_maps[tag] = new_grid
 
 // Used to loop through turfs in world, now just goes through each level's
 // transit turf cache
@@ -350,7 +362,7 @@
 	log_debug("Assigning space turf destinations...")
 	var/datum/space_level/D
 	var/datum/space_level/E
-	var/turf/space/S
+	var/turf/S
 	var/list/levels_to_rebuild = unbuilt_space_transitions
 
 	if(force_all_rebuilds)
@@ -392,6 +404,7 @@
 					S = B
 					E = D.get_connection(Z_LEVEL_NORTH)
 					S.set_transition_north(E.zpos)
+
 		unbuilt_space_transitions -= D
 
 	log_debug("Assigning space turf destinations complete. Took [stop_watch(timer)]s.")
@@ -402,10 +415,11 @@
 	setup_space_destinations(force_all_rebuilds = TRUE)
 
 // A debugging proc that expresses the map's shape as a bunch of turfs
-/datum/zlev_manager/proc/map_as_turfs(turf/center)
+/datum/zlev_manager/proc/map_as_turfs(turf/center, sector_type)
 	// size is odd
 	// -1, /2 to get distance from the center
 	// center - radius = bottom left coordinate
+	var/datum/spacewalk_grid/linkage_map = linkage_maps[sector_type]
 	var/datum/point/P
 	var/turf/our_spot
 	var/grid_desc = ""
@@ -415,8 +429,11 @@
 			our_spot = locate(center.x + i, center.y + j, center.z)
 			grid_desc = "([i],[j])"
 			if(!isnull(P))
-				our_spot = our_spot.ChangeTurf(/turf/simulated/floor/plating/snow)
-				grid_desc += ": Z level [P.spl.zpos]. "
+				if(P.spl.name == MAIN_STATION)
+					our_spot = our_spot.ChangeTurf(/turf/simulated/floor/engine)
+				else
+					our_spot = our_spot.ChangeTurf(/turf/simulated/floor/plating/snow)
+				grid_desc += ": Z level [P.spl.zpos]. Name: [P.spl.name] "
 				var/datum/space_level/up = P.spl.get_connection(Z_LEVEL_NORTH)
 				var/datum/space_level/down = P.spl.get_connection(Z_LEVEL_SOUTH)
 				var/datum/space_level/right = P.spl.get_connection(Z_LEVEL_EAST)

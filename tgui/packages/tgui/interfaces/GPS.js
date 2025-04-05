@@ -167,6 +167,12 @@ const Signals = (properties, context) => {
                     {Math.floor(signal.distance) + 'm'}
                   </Box>
                 )}
+                {signal.due !== undefined && (
+                  <Box>
+                    <Icon name={'arrow-up'} rotation={signal.due} />
+                    &nbsp;--
+                  </Box>
+                )}
               </Table.Cell>
               <Table.Cell verticalAlign="middle" pr="0.25rem" collapsing>
                 {vectorText(signal.position)}
