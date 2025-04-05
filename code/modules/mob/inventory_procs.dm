@@ -235,7 +235,7 @@
 		update_inv_l_hand()
 	else if(target in tkgrabbed_objects)
 		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[target]
-		unequip_to(tkgrab, destination, force, silent, drop_inventory, no_move)
+		return unequip_to(tkgrab, destination, force, silent, drop_inventory, no_move)
 
 	if(target)
 		if(client)
@@ -249,6 +249,7 @@
 				target.forceMove(destination)
 		target.dropped(src, silent)
 
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, target, destination, force, silent, drop_inventory, no_move)
 	return TRUE
 
 //Outdated but still in use apparently. This should at least be a human proc.
