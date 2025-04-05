@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		var/png_name = "[name]_[size_id].png"
 		var/file_directory = "data/spritesheets/[png_name]"
 		fcopy(size[SPRSZ_ICON], file_directory)
-		var/error = rustg_dmi_strip_metadata(file_directory)
+		var/error = rustlibs_dmi_strip_metadata(file_directory)
 		if(length(error))
 			stack_trace("Failed to strip [png_name]: [error]")
 		size[SPRSZ_STRIPPED] = icon(file_directory)

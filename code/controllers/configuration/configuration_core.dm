@@ -103,7 +103,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/config_file = "config/config.toml"
 	if(!fexists(config_file))
 		config_file = "config/example/config.toml" // Fallback to example if user hasnt setup config properly
-	raw_data = rustg_read_toml_file(config_file)
+	raw_data = rustlibs_read_toml_file(config_file)
 
 	// Now pass through all our stuff
 	load_all_sections()
@@ -147,7 +147,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	DIRECT_OUTPUT(world.log, "Override file [override_file] found. Loading.")
 	var/start = start_watch() // Time tracking
 
-	raw_data = rustg_read_toml_file(override_file)
+	raw_data = rustlibs_read_toml_file(override_file)
 
 	// Now safely load our overrides.
 	// Due to the nature of config wrappers, only vars that exist in the config file are applied to the config datums.
