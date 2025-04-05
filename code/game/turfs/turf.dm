@@ -838,6 +838,7 @@
 
 /turf/_clear_signal_refs()
 	return
+
 /turf/proc/set_transition_north(dest_z)
 	destination_x = x
 	destination_y = TRANSITION_BORDER_SOUTH + 1
@@ -865,3 +866,10 @@
 	if(destination_z)
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)
+
+/// Returns whether it is safe for an atom to move across this turf
+/// TODO: Things like lava will need to have more specialized code
+/// but that can wait for when we port basic mobs that may actually
+/// encounter lava
+/turf/proc/can_cross_safely(atom/movable/crossing)
+	return TRUE
