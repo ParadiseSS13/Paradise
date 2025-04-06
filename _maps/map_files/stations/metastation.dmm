@@ -52423,7 +52423,7 @@
 /area/station/maintenance/aft)
 "iRV" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = ss;
+	id_tag = "arrivalsmaint_door_ext";
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
