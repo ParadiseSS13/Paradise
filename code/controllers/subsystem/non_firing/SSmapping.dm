@@ -101,25 +101,7 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
-	if(GLOB.configuration.ruins.enable_space)
-		generate_space_zlevels()
-	if(GLOB.configuration.ruins.enable_lavaland)
-		generate_lavaland_zlevels()
-
-	// Setup the Z-level linkage
-	GLOB.space_manager.do_transition_setup()
-
-	// Seed space ruins
-	if(GLOB.configuration.ruins.enable_ruins)
-		place_lavaland_ruins()
-		place_space_ruins()
-	else
-		log_startup_progress("Skipping zlevel content...")
-
-	if(GLOB.configuration.ruins.enable_lavaland)
-		// Perform procedural generation for lavaland rivers and caves, which
-		// happens after ruin placement.
-		procgen_lavaland()
+	generate_zlevels()
 
 	var/empty_z_traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY)
 #ifdef GAME_TESTS
@@ -201,14 +183,15 @@ SUBSYSTEM_DEF(mapping)
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
 
-	// Seed space ruins
+	// Seed ruins
 	if(GLOB.configuration.ruins.enable_ruins)
 		place_lavaland_ruins()
 		place_space_ruins()
 	else
-		log_startup_progress("Skipping space ruins...")
+		log_startup_progress("Skipping z-level content...")
 
-	// Perform procedural generation for lavaland rivers and caves
+	// Perform procedural generation for lavaland rivers and caves, which
+	// happens after ruin placement.
 	procgen_lavaland()
 
 /datum/controller/subsystem/mapping/proc/seed_space_salvage(space_z_levels)
@@ -266,7 +249,7 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/generate_space_zlevels()
 	var/zlevel_count = rand(GLOB.configuration.ruins.minimum_space_zlevels, GLOB.configuration.ruins.maximum_space_zlevels)
-	if(zlevel_count == 0)
+	if(!GLOB.configuration.ruins.enable_space || zlevel_count == 0)
 		log_startup_progress("Skipping space levels...")
 		return
 
@@ -281,11 +264,11 @@ SUBSYSTEM_DEF(mapping)
 		)
 		CHECK_TICK
 
-	log_startup_progress("Added space levels in [stop_watch(watch)]s.")
+	log_startup_progress("Added [zlevel_count] space levels in [stop_watch(watch)]s.")
 
 /datum/controller/subsystem/mapping/proc/generate_lavaland_zlevels()
 	var/zlevel_count = rand(GLOB.configuration.ruins.minimum_lavaland_zlevels, GLOB.configuration.ruins.maximum_lavaland_zlevels)
-	if(zlevel_count == 0)
+	if(!GLOB.configuration.ruins.enable_lavaland || zlevel_count == 0)
 		log_startup_progress("Skipping lavaland levels...")
 		return
 
@@ -301,7 +284,7 @@ SUBSYSTEM_DEF(mapping)
 		)
 		GLOB.maploader.load_map(file("_maps/map_files/generic/lavaland_baselayer.dmm"), z_offset = lavaland_zlevel)
 		CHECK_TICK
-	log_startup_progress("Added lavaland levels in [stop_watch(watch)]s")
+	log_startup_progress("Added [zlevel_count] lavaland levels in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/mapping/proc/place_lavaland_ruins()
 	log_startup_progress("Placing lavaland ruins...")

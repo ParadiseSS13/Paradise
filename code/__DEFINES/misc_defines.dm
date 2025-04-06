@@ -742,6 +742,3 @@ do { \
 ///  Economy account defines
 #define BANK_PIN_MIN 10000
 #define BANK_PIN_MAX 99999
-
-#define WEATHER_PER_LEVEL 0 //! This weather will run independently on any z-levels with the specified trait.
-#define WEATHER_PER_ZONE 1 //! This weather will run simultaneously on all z-levels with the specified trait.
