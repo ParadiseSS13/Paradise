@@ -19290,6 +19290,9 @@
 	},
 /area/station/engineering/equipmentstorage)
 "bzQ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "bzW" = (
@@ -28075,6 +28078,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cdg" = (
@@ -28407,6 +28413,7 @@
 	id_tag = "Singularity";
 	name = "Singularity Blast Doors"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "ceW" = (
@@ -29105,6 +29112,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cie" = (
@@ -29616,11 +29624,15 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cjM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
@@ -29653,6 +29665,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cjQ" = (
@@ -29661,6 +29674,9 @@
 /obj/item/stack/cable_coil/yellow,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "cjS" = (
@@ -33117,6 +33133,9 @@
 /obj/item/stack/cable_coil/yellow,
 /obj/item/wirecutters,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "cuV" = (
@@ -34999,6 +35018,9 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -74728,6 +74750,15 @@
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
+"oxp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/control)
 "oxJ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -85706,6 +85737,14 @@
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
 /area/station/science/rnd)
+"thU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/control)
 "tik" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -120372,11 +120411,11 @@ noJ
 wkY
 cqN
 cwt
-clp
-cwt
-cuQ
 cwv
 clp
+cuQ
+clp
+cwt
 cwv
 cqN
 mDy
@@ -120630,9 +120669,9 @@ kxe
 kxe
 qFa
 cxG
-qFa
+cbb
 xpf
-cFL
+cbb
 cCg
 cFL
 kxe
@@ -122166,7 +122205,7 @@ bXY
 bZs
 wVM
 cde
-ceW
+oxp
 bzQ
 cjM
 cjQ
@@ -122180,7 +122219,7 @@ clr
 cuU
 cjM
 bzQ
-cAC
+thU
 cAD
 jTH
 cDE
