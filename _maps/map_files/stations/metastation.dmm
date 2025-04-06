@@ -5809,6 +5809,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/processing)
 "aHL" = (
+/obj/structure/table,
+/obj/item/storage/box/prisoner,
+/obj/machinery/firealarm/directional/west,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "custom placement";
@@ -5818,11 +5821,10 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/shower{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "red"
 	},
-/obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/noslip,
 /area/station/security/prisonlockers)
 "aHM" = (
 /turf/simulated/floor/plasteel{
@@ -6732,7 +6734,6 @@
 /obj/structure/table,
 /obj/item/clothing/gloves/color/orange,
 /obj/item/restraints/handcuffs,
-/obj/item/storage/box/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -8565,7 +8566,6 @@
 /area/station/hallway/secondary/entry/south)
 "aRx" = (
 /obj/structure/closet/wardrobe/orange,
-/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -40390,13 +40390,12 @@
 	},
 /area/station/science/robotics)
 "dQq" = (
-/obj/structure/shelf/security,
-/obj/item/clothing/head/helmet/space/plasmaman,
-/obj/item/clothing/head/helmet/space/plasmaman,
-/obj/item/clothing/head/helmet/space/plasmaman,
-/obj/item/clothing/under/plasmaman,
-/obj/item/clothing/under/plasmaman,
-/obj/item/clothing/under/plasmaman,
+/obj/structure/table,
+/obj/item/storage/box/bodybags{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/storage/box/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -41857,8 +41856,6 @@
 /area/station/maintenance/aft2)
 "evl" = (
 /obj/machinery/alarm/directional/north,
-/obj/structure/table,
-/obj/item/storage/box/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -70153,6 +70150,9 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "qvg" = (
@@ -83183,10 +83183,6 @@
 /obj/item/pen,
 /obj/item/folder/white{
 	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/storage/box/bodybags{
-	pixel_x = 4;
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -113243,7 +113239,7 @@ oqZ
 crm
 cDT
 eod
-ciz
+eod
 ciz
 eod
 cfc
