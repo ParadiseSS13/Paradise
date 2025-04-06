@@ -1,6 +1,6 @@
 /datum/game_test/test_apc_construction/Run()
 	var/datum/test_puppeteer/player = new(src)
-	var/turf/wall = player.change_turf_nearby(/turf/simulated/wall)
+	var/turf/wall = player.change_turf_nearby(/turf/simulated/wall, NORTH)
 	// First we build the APC
 	player.spawn_obj_in_hand(/obj/item/mounted/frame/apc_frame)
 	player.click_on(wall)
