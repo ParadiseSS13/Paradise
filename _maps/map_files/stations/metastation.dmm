@@ -12148,9 +12148,8 @@
 	},
 /area/station/hallway/secondary/entry/north)
 "bdR" = (
-/obj/machinery/door/airlock/external{
-	name = "Arrival Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "bdT" = (
@@ -13815,9 +13814,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "bip" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Arrivals Shuttle Airlock"
-	},
+/obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "biq" = (
@@ -22549,10 +22546,10 @@
 /turf/space,
 /area/space)
 "bKu" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "ferry_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "ferry_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "bKv" = (
@@ -25068,10 +25065,10 @@
 	},
 /area/station/ai_monitored/storage/eva)
 "bUO" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "specops_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "bUP" = (
@@ -52426,11 +52423,11 @@
 /area/station/maintenance/aft)
 "iRV" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = "arrivalsmaint_door_ext";
-	locked = 1;
+	id_tag = ss;
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "iRX" = (
@@ -52993,9 +52990,8 @@
 	},
 /area/station/hallway/primary/central/west)
 "jgq" = (
-/obj/machinery/door/airlock/external{
-	name = "Arrival Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
 "jgD" = (
@@ -69391,13 +69387,13 @@
 "qmv" = (
 /obj/machinery/door/airlock/external/glass{
 	id_tag = "arrivalsmaint_door_int";
-	locked = 1;
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "qmI" = (
@@ -71676,10 +71672,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "rnY" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "admin_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "roi" = (
@@ -72763,9 +72759,7 @@
 	},
 /area/station/hallway/primary/central/se)
 "rJJ" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Arrivals Shuttle Airlock"
-	},
+/obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "rJR" = (
