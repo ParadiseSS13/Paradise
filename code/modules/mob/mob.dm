@@ -1058,6 +1058,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
+		// Dumb duplicate code until we have no more simple mobs
+		for(var/mob/living/basic/B in GLOB.alive_mob_list)
+			if(!(is_station_level(B.z) || is_admin_level(B.z))) // Prevents players from spawning in space
+				continue
+			if(B.valid_respawn_target_for(src) && B.stat != DEAD && !B.key)
+				creatures += B
 		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
 		switch(picked)
 			if("Mouse")
@@ -1606,3 +1612,16 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/living/proc/remove_recent_magic_block()
 	REMOVE_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+
+/mob/living/proc/adjustHealth(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		return FALSE
+	var/oldbruteloss = bruteloss
+	bruteloss = clamp(bruteloss + amount, 0, maxHealth)
+	if(oldbruteloss == bruteloss)
+		updating_health = FALSE
+		. = STATUS_UPDATE_NONE
+	else
+		. = STATUS_UPDATE_HEALTH
+	if(updating_health)
+		updatehealth()

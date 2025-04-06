@@ -22658,7 +22658,10 @@
 "eAz" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell,
+/obj/item/stock_parts/cell/high,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -40466,7 +40469,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/station/turret_protected/aisat/interior)
 "iaw" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -48901,7 +48904,7 @@
 	},
 /area/station/service/theatre)
 "jGJ" = (
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -51890,7 +51893,7 @@
 "kmm" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/station/aisat/breakroom)
 "kmq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -55648,11 +55651,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "laM" = (
-/obj/structure/engineeringcart,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/north,
+/obj/structure/engineeringcart/full,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -64202,6 +64205,9 @@
 	icon_state = "neutralfull"
 	},
 /area/station/public/dorms)
+"mQs" = (
+/turf/simulated/floor/plating,
+/area/station/aisat/breakroom)
 "mQx" = (
 /obj/structure/chair/sofa/right{
 	dir = 1;
@@ -69740,6 +69746,9 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
+"nRf" = (
+/turf/simulated/floor/plating/airless,
+/area/station/aisat/hall)
 "nRg" = (
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -101909,6 +101918,9 @@
 "ugh" = (
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
+"ugi" = (
+/turf/simulated/floor/plating/airless,
+/area/station/turret_protected/aisat/interior)
 "ugj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -109619,15 +109631,13 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/portable/canister/air{
-	filled = 0.1
-	},
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -165167,7 +165177,7 @@ gzl
 aZS
 aZS
 gpu
-mFf
+nRf
 qNa
 jnP
 aZS
@@ -165924,8 +165934,8 @@ tHM
 tHM
 tHM
 iak
-rdB
-rdB
+ugi
+ugi
 cqU
 jcR
 nCP
@@ -166992,7 +167002,7 @@ qbx
 sOv
 wcz
 qVp
-amA
+mQs
 kmm
 ycO
 pYU
@@ -167248,9 +167258,9 @@ tcx
 hKF
 aTO
 uvj
-amA
-amA
-amA
+mQs
+mQs
+mQs
 amA
 rdB
 rdB
@@ -167506,8 +167516,8 @@ hBj
 wlP
 vJx
 sBE
-amA
-amA
+mQs
+mQs
 pLm
 jST
 jST
@@ -169279,7 +169289,7 @@ oyW
 jnP
 jnP
 gpu
-mFf
+nRf
 gpu
 jnP
 aZS
