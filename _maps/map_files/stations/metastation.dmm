@@ -28653,10 +28653,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
-"ciz" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/station/medical/storage/secondary)
 "ciB" = (
 /obj/structure/chair{
 	dir = 4
@@ -113240,7 +113236,7 @@ crm
 cDT
 eod
 eod
-ciz
+eod
 eod
 cfc
 kWT
