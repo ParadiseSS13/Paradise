@@ -23,7 +23,7 @@
 			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [singular_name]\s!</span>")
 		return TRUE
 
-	if(!iscarbon(M) && !isanimal(M))
+	if(!iscarbon(M) && !isanimal_or_basicmob(M))
 		to_chat(user, "<span class='danger'>[src] cannot be applied to [M]!</span>")
 		return TRUE
 
@@ -53,8 +53,8 @@
 				return TRUE
 		return
 
-	if(isanimal(M))
-		var/mob/living/simple_animal/critter = M
+	if(isanimal_or_basicmob(M))
+		var/mob/living/critter = M
 		if(!(critter.healable))
 			to_chat(user, "<span class='notice'>You cannot use [src] on [critter]!</span>")
 			return

@@ -8,7 +8,6 @@
 		/obj/machinery/door/airlock/welded,
 		/obj/structure/barricade/wooden,
 		/obj/structure/falsewall,
-		/turf/simulated/floor/plasteel,
 		/turf/simulated/wall,
 	)
 
@@ -42,17 +41,17 @@
 /obj/effect/spawner/random/barrier/grille_often
 	name = "grille often"
 	icon_state = "grille"
+	spawn_loot_chance = 85
 	loot = list(
-		/obj/structure/grille = 8,
-		/obj/structure/grille/broken = 4,
-		/turf/simulated/floor/plating = 2,
+		/obj/structure/grille = 2,
+		/obj/structure/grille/broken = 1,
 	)
 
 /obj/effect/spawner/random/barrier/grille_maybe
 	name = "grille maybe"
 	icon_state = "grille"
+	spawn_loot_chance = 45
 	loot = list(
-		/obj/structure/grille = 2,
-		/obj/structure/grille/broken = 2,
-		/turf/simulated/floor/plating = 5,
+		/obj/structure/grille,
+		/obj/structure/grille/broken,
 	)

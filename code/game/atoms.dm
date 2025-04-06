@@ -42,6 +42,9 @@
 	/// Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
 
+	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays.
+	var/list/managed_vis_overlays
+
 	// Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 	/// List of fibers that this atom has
@@ -134,12 +137,17 @@
 	var/receive_ricochet_damage_coeff = 0.33
 	/// AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
+	/// Information about attacks performed on this atom.
+	var/datum/attack_info/attack_info
 
 	/// Whether this atom is using the new attack chain.
 	var/new_attack_chain = FALSE
 
 	/// Do we care about temperature at all? Saves us a ton of proc calls during big fires.
 	var/cares_about_temperature = FALSE
+
+	// Should we ignore PROJECTILE_HIT_THRESHHOLD_LAYER to hit it? Allows us to hit things like floor, cables etc.
+	var/proj_ignores_layer = FALSE
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -241,6 +249,8 @@
 		return TRUE
 
 /atom/Destroy()
+	QDEL_NULL(attack_info)
+
 	if(alternate_appearances)
 		for(var/aakey in alternate_appearances)
 			var/datum/alternate_appearance/AA = alternate_appearances[aakey]
@@ -254,6 +264,9 @@
 	LAZYCLEARLIST(priority_overlays)
 
 	managed_overlays = null
+
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
 
 	QDEL_NULL(light)
 
@@ -593,6 +606,9 @@
 	return
 
 /atom/proc/welder_act(mob/living/user, obj/item/I)
+	return
+
+/atom/proc/hammer_act(mob/living/user, obj/item/I)
 	return
 
 /// This is when an atom is emagged. Should return false if it fails, or it has no emag_act defined.
@@ -1486,3 +1502,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	while(i < length(.))
 		var/atom/checked_atom = .[++i]
 		. += checked_atom.contents
+
+/atom/proc/store_last_attacker(mob/living/attacker, obj/item/weapon)
+	if(!attack_info)
+		attack_info = new
+	attack_info.last_attacker_name = attacker.real_name
+	attack_info.last_attacker_ckey = attacker.ckey
+	if(istype(weapon))
+		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"

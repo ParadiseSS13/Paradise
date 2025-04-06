@@ -28,7 +28,7 @@
 	var/mob/living/target = targets[1]
 	user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
 	to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
-	if(do_mob(user, target, 15 SECONDS))
+	if(do_mob(user, target, 15 SECONDS, hidden = TRUE))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
 			var/datum/spell_handler/vampire/V = custom_handler

@@ -100,16 +100,18 @@
 	..()
 	reached_target = 0
 
-/mob/living/simple_animal/bot/mulebot/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stock_parts/cell/C = I
 		C.forceMove(src)
 		cell = C
 		visible_message("[user] inserts a cell into [src].",
 						"<span class='notice'>You insert the new cell into [src].</span>")
 		update_controls()
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
@@ -117,11 +119,10 @@
 									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>")
 		else
 			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
-			..()
-	else
-		..()
-	update_icon()
-	return
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
 	if(!open || !cell)
@@ -454,9 +455,12 @@
 	M.layer = initial(M.layer)
 	M.pixel_y = initial(M.pixel_y)
 
-// called to unload the bot
-// argument is optional direction to unload
-// if zero, unload at bot's location
+/**
+  * Drops any load or passengers the bot is carrying
+  *
+  * Arguments:
+  * * dirn - Optional direction to unload, if zero unload at bot's location
+  */
 /mob/living/simple_animal/bot/mulebot/proc/unload(dirn)
 	if(!load)
 		return
@@ -471,10 +475,7 @@
 		load.layer = initial(load.layer)
 		load.plane = initial(load.plane)
 		if(dirn)
-			var/turf/T = loc
-			var/turf/newT = get_step(T,dirn)
-			if(load.CanPass(load,newT)) //Can't get off onto anything that wouldn't let you pass normally
-				step(load, dirn)
+			load.Move(get_step(loc, dirn))
 		load = null
 
 	update_icon(UPDATE_OVERLAYS)

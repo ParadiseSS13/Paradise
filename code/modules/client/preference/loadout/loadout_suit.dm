@@ -111,6 +111,11 @@
 	path = /obj/item/clothing/suit/jacket/bomber/expedition
 	allowed_roles = list("Quartermaster", "Explorer")
 
+/datum/gear/suit/bomber/job/smith
+	display_name = "Bomber jacket, smith"
+	path = /obj/item/clothing/suit/jacket/bomber/smith
+	allowed_roles = list("Quartermaster", "Smith")
+
 /datum/gear/suit/bomber/job/engi
 	display_name = "Bomber jacket, engineering"
 	path = /obj/item/clothing/suit/jacket/bomber/engi
