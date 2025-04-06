@@ -257,6 +257,9 @@
 //Just space
 #define SPACE_ICON_STATE	"[((x + y) ^ ~(x * y) + z) % 25]"
 
+//Random Spawners
+#define SPAWN_NOTHING "nothing"
+
 //used for maploader
 #define MAP_MINX 1
 #define MAP_MINY 2

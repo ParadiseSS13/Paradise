@@ -9,7 +9,7 @@
 		/obj/structure/barricade/wooden,
 		/obj/structure/falsewall,
 		/turf/simulated/wall,
-		"nothing",
+		SPAWN_NOTHING,
 	)
 
 /obj/effect/spawner/random/barrier/wall_probably
@@ -45,7 +45,7 @@
 	loot = list(
 		/obj/structure/grille = 8,
 		/obj/structure/grille/broken = 4,
-		"nothing" = 2,
+		SPAWN_NOTHING = 2,
 	)
 
 /obj/effect/spawner/random/barrier/grille_maybe
@@ -54,5 +54,5 @@
 	loot = list(
 		/obj/structure/grille = 2,
 		/obj/structure/grille/broken = 2,
-		"nothing" = 5,
+		SPAWN_NOTHING = 5,
 	)
