@@ -3122,6 +3122,7 @@
 #include "code\modules\world_topic\queue_status.dm"
 #include "code\modules\world_topic\status.dm"
 #include "code\tests\game_tests.dm"
+#include "code\tests\test_apc_construction.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
