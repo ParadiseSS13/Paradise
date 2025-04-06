@@ -16206,12 +16206,12 @@
 	},
 /area/station/hallway/spacebridge/scidock)
 "chk" = (
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Airlock";
 	id_tag = "emergency_home";
-	locked = 1;
-	name = "Escape Airlock"
+	hackProof = 1
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "cho" = (
@@ -32838,12 +32838,11 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/north)
 "fof" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_home";
-	locked = 1;
-	name = "External airlock"
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "specops_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "foi" = (
@@ -44606,12 +44605,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "ijl" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "trade_dock";
-	locked = 1;
-	name = "External airlock"
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "trade_dock"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
 "ijm" = (
@@ -48420,9 +48418,8 @@
 	},
 /area/station/supply/storage)
 "jcQ" = (
-/obj/machinery/door/airlock/external{
-	name = "Arrival Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "jcU" = (
@@ -58382,13 +58379,11 @@
 /area/station/hallway/primary/central/north)
 "lmS" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/external{
-	name = "External airlock"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/external/glass,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "lmX" = (
@@ -71823,12 +71818,11 @@
 	},
 /area/station/hallway/primary/fore/north)
 "oBx" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "ferry_home";
-	locked = 1;
-	name = "External airlock"
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "ferry_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "oBD" = (
@@ -112378,11 +112372,11 @@
 /turf/simulated/mineral/ancient/outer,
 /area/station/hallway/primary/central/west)
 "yiw" = (
-/obj/machinery/door/airlock/external{
-	name = "Arrival Airlock";
-	locked = 1
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "admin_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "yix" = (
