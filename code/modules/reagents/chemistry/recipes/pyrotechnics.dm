@@ -172,9 +172,9 @@
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
 	if(istype(holder.my_atom)) //ensures the explosion happens at the container, not where its primed at
-		explosion(holder.my_atom.loc, ex_severe, ex_heavy,ex_light, ex_flash, 1)
+		explosion(holder.my_atom.loc, ex_severe, ex_heavy,ex_light, ex_flash, 1, cause = "Blackpowder Explosion")
 	else
-		explosion(prime_location, ex_severe, ex_heavy,ex_light, ex_flash, 1)
+		explosion(prime_location, ex_severe, ex_heavy,ex_light, ex_flash, 1, cause = "Blackpowder Explosion")
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		qdel(holder.my_atom)
@@ -342,7 +342,7 @@
 
 /datum/chemical_reaction/azide/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, 0, 1, 4)
+	explosion(location, 0, 1, 4, cause = "Azide reaction")
 
 /datum/chemical_reaction/firefighting_foam
 	name = "firefighting_foam"
@@ -364,7 +364,7 @@
 
 /datum/chemical_reaction/clf3_firefighting/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, -1, 0, 2)
+	explosion(location, -1, 0, 2, cause = "CLF3 reaction")
 
 /datum/chemical_reaction/shock_explosion
 	name = "shock_explosion"
