@@ -522,6 +522,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "afc" = (
@@ -68703,6 +68704,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "lpX" = (
