@@ -18421,17 +18421,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
-"bwV" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/recharge_station,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
-	},
-/area/station/engineering/break_room)
 "bwW" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/cable_coil/random,
@@ -58477,7 +58466,6 @@
 "gLD" = (
 /obj/structure/table/glass,
 /obj/machinery/recharger,
-/obj/item/screwdriver,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -60105,6 +60093,23 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
+"hDD" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "stage"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/mob/living/basic/cow/betsy,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/wood,
+/area/station/service/theatre)
 "hDE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -69678,7 +69683,10 @@
 "mja" = (
 /obj/structure/table/glass,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell,
+/obj/item/stock_parts/cell/high,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -77946,6 +77954,23 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
+"pTi" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/engineeringcart/full{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/engineering/break_room)
 "pTt" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -81879,6 +81904,18 @@
 "rGF" = (
 /turf/simulated/floor/engine,
 /area/station/science/testrange)
+"rGM" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/storage)
 "rGZ" = (
 /obj/structure/chair{
 	dir = 4
@@ -92118,6 +92155,34 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/starboard/south)
+"vUx" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/recharge_station,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/sign/poster/official/help_others{
+	pixel_x = -32
+	},
+/obj/structure/table/reinforced,
+/mob/living/simple_animal/bot/floorbot,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/station/engineering/break_room)
 "vUX" = (
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
@@ -122656,8 +122721,8 @@ bzY
 rBy
 bBK
 rvv
-bwV
-bIA
+vUx
+pTi
 bIA
 bEV
 bDt
@@ -133685,7 +133750,7 @@ aLO
 aFA
 beT
 beT
-beT
+hDD
 iik
 beT
 beT
@@ -146346,7 +146411,7 @@ cMz
 hiZ
 hvf
 hvf
-fCT
+rGM
 cMz
 mzW
 mVE
