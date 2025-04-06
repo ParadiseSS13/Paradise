@@ -76552,12 +76552,12 @@
 	},
 /area/station/hallway/primary/central/se)
 "pfh" = (
-/obj/machinery/door/airlock/external{
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Airlock";
 	hackProof = 1;
-	id_tag = "emergency_home";
-	locked = 1;
-	name = "Escape Airlock"
+	id_tag = "emergency_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "pfo" = (
