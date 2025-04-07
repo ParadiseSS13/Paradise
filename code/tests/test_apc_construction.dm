@@ -37,7 +37,7 @@
 	apc_frame.cover_locked = FALSE
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You open the cover of [apc_frame].")
-	player.put_away(crowbar)
+	player.drop_item()
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You remove [the_cell].")
 	player.put_away(the_cell)
