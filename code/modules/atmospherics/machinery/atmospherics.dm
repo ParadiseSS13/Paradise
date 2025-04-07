@@ -76,6 +76,10 @@ Pipelines + Other Objects -> Pipe network
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
+/obj/machinery/atmospherics/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	. = ..()
+	update_underlays()
+
 /obj/machinery/atmospherics/Destroy()
 	SSair.atmos_machinery -= src
 	SSair.pipenets_to_build -= src

@@ -267,6 +267,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -5822,9 +5825,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/processing)
 "aHL" = (
-/obj/structure/table,
-/obj/item/storage/box/prisoner,
-/obj/machinery/firealarm/directional/west,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "custom placement";
@@ -5834,10 +5834,11 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/machinery/shower{
+	dir = 4
 	},
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/noslip,
 /area/station/security/prisonlockers)
 "aHM" = (
 /turf/simulated/floor/plasteel{
@@ -6749,6 +6750,7 @@
 /obj/structure/table,
 /obj/item/clothing/gloves/color/orange,
 /obj/item/restraints/handcuffs,
+/obj/item/storage/box/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -8558,6 +8560,7 @@
 /area/station/hallway/secondary/entry/south)
 "aRx" = (
 /obj/structure/closet/wardrobe/orange,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -28698,12 +28701,15 @@
 "ciT" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell,
 /obj/item/screwdriver{
 	pixel_x = -2;
 	pixel_y = 18
 	},
 /obj/machinery/newscaster/directional/west,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
+/obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -30253,6 +30259,12 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
+"cqj" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/service/chapel)
 "cqk" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/engine,
@@ -37710,6 +37722,15 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"cXX" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/station/service/chapel)
 "cXY" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/camera{
@@ -40700,12 +40721,13 @@
 	},
 /area/station/science/robotics)
 "dQq" = (
-/obj/structure/table,
-/obj/item/storage/box/bodybags{
-	pixel_x = 4;
-	pixel_y = 2
-	},
-/obj/item/storage/box/prisoner,
+/obj/structure/shelf/security,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -42084,6 +42106,8 @@
 /area/station/maintenance/aft2)
 "evl" = (
 /obj/machinery/alarm/directional/north,
+/obj/structure/table,
+/obj/item/storage/box/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -44565,6 +44589,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"fxB" = (
+/obj/machinery/light/small,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "custom placement";
+	pixel_x = 6;
+	pixel_y = -24
+	},
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "CHAP";
+	pixel_x = -6;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/station/service/chapel)
 "fxD" = (
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /obj/machinery/firealarm/directional/south,
@@ -50307,25 +50350,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
-"hVk" = (
-/obj/machinery/light/small,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "custom placement";
-	pixel_x = 6;
-	pixel_y = -24
-	},
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "CHAP";
-	pixel_x = -6;
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "hWf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -59457,6 +59481,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "lYI" = (
+/obj/structure/engineeringcart/full{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -73847,15 +73874,6 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
-"shF" = (
-/obj/structure/chair/comfy/black{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "sjx" = (
 /obj/structure/chair{
 	dir = 1
@@ -77993,12 +78011,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
-"ubm" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/service/chapel)
 "ubu" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -82446,6 +82458,10 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
+/obj/item/storage/box/bodybags{
+	pixel_x = 4;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -82578,7 +82594,7 @@
 	},
 /area/station/science/toxins/mixing)
 "wgT" = (
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -84691,12 +84707,6 @@
 	icon_state = "yellowfull"
 	},
 /area/station/hallway/primary/aft/north)
-"xdC" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "CHAP"
-	},
-/turf/simulated/floor/plating,
-/area/station/service/chapel)
 "xdT" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -86073,6 +86083,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/nw)
+"xKK" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CHAP"
+	},
+/turf/simulated/floor/plating,
+/area/station/service/chapel)
 "xKQ" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -109800,7 +109816,7 @@ gDK
 cFD
 bdq
 oiv
-xdC
+xKK
 aaa
 aaa
 aaa
@@ -110057,7 +110073,7 @@ cDc
 cFD
 cUX
 oiv
-xdC
+xKK
 aaa
 aaa
 aaa
@@ -110313,8 +110329,8 @@ fPa
 cJM
 cyN
 cUK
-ubm
-xdC
+cqj
+xKK
 aaa
 aaa
 aaa
@@ -110571,7 +110587,7 @@ csw
 cFD
 cUX
 oiv
-xdC
+xKK
 aaa
 aaa
 aaa
@@ -110828,7 +110844,7 @@ xJB
 cFD
 bdq
 oiv
-xdC
+xKK
 aaa
 aaa
 aaa
@@ -111084,7 +111100,7 @@ cVa
 cNM
 bYK
 cof
-hVk
+fxB
 cSO
 abq
 aaa
@@ -111341,7 +111357,7 @@ cVX
 cJn
 lMo
 iyv
-shF
+cXX
 cSO
 abq
 abq

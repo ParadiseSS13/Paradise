@@ -69,13 +69,13 @@
 		if("Botanist")
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer")
+		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative")
 			O = new /datum/outfit/plasmaman/bar
 
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Special Operations Officer")
+		if("Security Officer")
 			O = new /datum/outfit/plasmaman/security
 
 		if("Detective")
@@ -152,6 +152,12 @@
 
 		if("Nanotrasen Career Trainer")
 			O = new /datum/outfit/plasmaman/trainer
+
+		if("Nanotrasen Navy Officer")
+			O = new /datum/outfit/plasmaman/navyofficer
+
+		if("Special Operations Officer", "Trans-Solar Federation General")
+			O = new /datum/outfit/plasmaman/soo
 
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.r_hand
