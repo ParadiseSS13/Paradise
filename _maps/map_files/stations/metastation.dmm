@@ -619,9 +619,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -39182,9 +39179,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
 /area/station/hallway/secondary/exit)
 "dhw" = (
 /obj/structure/flora/ausbushes/fernybush,
@@ -39884,9 +39878,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
 "dvc" = (
@@ -46196,9 +46187,6 @@
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=10-Aft-To-Central";
 	location = "9.4-Escape-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -67288,9 +67276,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
 /area/station/hallway/secondary/exit)
 "psz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -72907,9 +72892,6 @@
 /obj/machinery/power/apc/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
@@ -83374,12 +83356,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -86651,9 +86627,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
