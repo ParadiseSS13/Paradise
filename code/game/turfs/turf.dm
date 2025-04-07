@@ -153,6 +153,7 @@
 	..()
 
 /turf/attack_hand(mob/user as mob)
+	. = ..()
 	user.Move_Pulled(src)
 
 /turf/attack_robot(mob/user)
@@ -193,7 +194,7 @@
 
 /turf/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/bullet/gyro))
-		explosion(src, -1, 0, 2)
+		explosion(src, -1, 0, 2, cause = "[Proj.type] fired by [key_name(Proj.firer)] (hit turf)")
 	..()
 	return FALSE
 
@@ -551,7 +552,7 @@
 	LAZYADD(blueprint_data, I)
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
+	if(SSticker.current_state == GAME_STATE_STARTUP || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type = /turf/space)
@@ -790,3 +791,10 @@
 
 /turf/_clear_signal_refs()
 	return
+
+/// Returns whether it is safe for an atom to move across this turf
+/// TODO: Things like lava will need to have more specialized code
+/// but that can wait for when we port basic mobs that may actually
+/// encounter lava
+/turf/proc/can_cross_safely(atom/movable/crossing)
+	return TRUE

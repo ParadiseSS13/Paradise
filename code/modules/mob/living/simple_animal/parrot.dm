@@ -177,19 +177,19 @@
 	return
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	..()
-	if(stat == CONSCIOUS && !client && !istype(O, /obj/item/stack/medical))
-		if(O.force)
-			if(parrot_state == PARROT_PERCH)
-				parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
+/mob/living/simple_animal/parrot/attacked_by(obj/item/O, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
 
-			parrot_interest = user
-			parrot_state = PARROT_SWOOP|PARROT_FLEE
-			icon_state = "parrot_fly"
-			ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
-			drop_held_item(FALSE)
-	return
+	if(O.force)
+		if(parrot_state == PARROT_PERCH)
+			parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
+
+		parrot_interest = user
+		parrot_state = PARROT_SWOOP|PARROT_FLEE
+		icon_state = "parrot_fly"
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+		drop_held_item(FALSE)
 
 //Bullets
 /mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/P)
@@ -682,6 +682,7 @@
 		"Check the crystal, you chucklefucks!",
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
+		"WHO TOOK THE DAMN MODSUITS?",
 		"WHO TOOK THE DAMN HARDSUITS?",
 		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
 		"Why are there so many atmos alerts?",
@@ -699,6 +700,42 @@
 		"Chief Engineers are the SM's natural diet.",
 		"Don't eat the forbidden nacho!",
 		"Is the engine meant to be making that noise?",
+		"THE TESLA IS LOOSE CALL THE SHUTTLE",
+		"Go fix the chewed wires, you lazy bums!",
+		"Go fix that breach, or we'll all suffocate!",
+		"Why is the engine failing?",
+		"Checked that everything is connected as it should be?",
+		"If you push the SM too far we'll have to abandon station!",
+		"SOS, save our supermatter!",
+		"Is that a spider in the SM?",
+		"Remember those mesons, or you'll be seeing spiders in the SM!",
+		"Check the air alarm is set properly!",
+		"Is the station goal done yet?",
+		"WHO TOOK THE DAMN MODSUITS?",
+		"Don't wire the Bluespace Harvester to the Grid, or the station will be powerless!",
+		"THE BSH IS SPAWNING HORRIFIC THINGS, YOU PUT IT TOO HIGH!",
+		"It's an excellent idea to aim the BSA at the shuttle.",
+		"Nitrogen is an awful gas if you need to power a BSH!",
+		"There's a hole in the shield coverage!",
+		"The shields aren't up and meteors are inbound!",
+		"The leading cause of death among engineers is due to deactivated magboots, whether that's due to unwrenching a pressurized pipe or being pulled into the embrace of the SM, it means turn on your magboots!",
+		"BORGS BAD",
+		"You're telling me a Kentucky fried this vox?",
+		"AI OPEN",
+		"BLUESHIELD TO ME!",
+		"ITS LOOSE",
+		"TESLA IN THE HALLS",
+		"I deep fried the nuke disc",
+		"SQUAWK!",
+		"Honk.",
+		"Bridge gone",
+		"Someone set up telecomms",
+		"TOXINS!",
+		"ONI SOMA!",
+		"GOLDEN BLAST",
+		"Is there supposed to be this much plasma in the chamber??",,
+		"Why are there so many borgs?",
+		"Why're your eyes glowing red?"
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN

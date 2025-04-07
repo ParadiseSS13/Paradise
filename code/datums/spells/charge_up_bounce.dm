@@ -3,7 +3,10 @@
  * Don't override cast and instead override apply_bounce_effect and the other procs
  */
 /datum/spell/charge_up/bounce
+	/// Sound we make when we hit a mob
 	var/bounce_hit_sound
+	/// How much time should be between each bounce?
+	var/bounce_time = 0 SECONDS
 
 /datum/spell/charge_up/bounce/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -60,12 +63,30 @@
 	playsound(get_turf(target), bounce_hit_sound, 50, TRUE, -1)
 
 	if(bounces >= 1)
-		var/list/possible_targets = list()
-		for(var/mob/living/M in view(targeting.range, target))
-			if(user == M || target == M && targeting.obstacle_check(target, M))
-				continue
-			possible_targets += M
-		if(!length(possible_targets))
-			return
-		var/mob/living/next = pick(possible_targets)
-		bounce(target, next, energy, bounces - 1, user)
+		if(bounce_time)
+			addtimer(CALLBACK(src, PROC_REF(continue_bounce), target, get_target(target, user), energy, bounces - 1, user), bounce_time, TIMER_DELETE_ME)
+		else
+			bounce(target, get_target(target, user), energy, bounces - 1, user)
+
+/datum/spell/charge_up/bounce/proc/continue_bounce(mob/origin, mob/target, energy, bounces, mob/user)
+	// We will only continue the chain if we exist
+	if(QDELETED(target))
+		return
+	// We fulfilled the conditions, get the next target
+	var/mob/living/carbon/to_beam_next = get_target(target, user)
+	if(isnull(to_beam_next)) // No target = no chain
+		return
+
+	// Chain again! Recursively
+	bounce(target, to_beam_next, energy, bounces - 1, user)
+
+/datum/spell/charge_up/bounce/proc/get_target(mob/origin, mob/user)
+	var/list/possible_targets = list()
+	for(var/mob/living/M in view(targeting.range, origin))
+		if(user == M || origin == M && targeting.obstacle_check(origin, M))
+			continue
+		possible_targets += M
+	if(!length(possible_targets))
+		return
+
+	return pick(possible_targets)

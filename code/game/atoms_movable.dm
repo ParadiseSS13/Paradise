@@ -431,6 +431,10 @@
 		if(!(puller.appearance_flags & LONG_GLIDE) && (appearance_flags & LONG_GLIDE))
 			new_glide_size /= sqrt(2)
 	set_glide_size(new_glide_size)
+	if(isliving(src))
+		var/mob/living/M = src
+		if(IS_HORIZONTAL(M) && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth))) // So once you reach 50 brute damage you hit 100% chance to leave a blood trail for every tile you're pulled
+			M.makeTrail(target_turf)
 	Move(target_turf, pull_dir)
 	moving_from_pull = null
 
@@ -1131,7 +1135,7 @@
 		throw_at(target, 1, 1, spin = FALSE)
 	if(rightable)
 		layer = ABOVE_MOB_LAYER
-		AddComponent(/datum/component/tilted, 14 SECONDS, block_interactions_until_righted, rot_angle)
+		AddComponent(/datum/component/tilted, 4 SECONDS, block_interactions_until_righted, rot_angle)
 
 /// Untilt a tilted object.
 /atom/movable/proc/untilt(mob/living/user, duration = 10 SECONDS)

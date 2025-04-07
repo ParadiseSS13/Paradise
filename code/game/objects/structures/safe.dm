@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(!drill_timer)
 		return
 	cut_overlay(progress_bar)
-	progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
+	progress_bar = image('icons/effects/progressbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
 	add_overlay(progress_bar)
 	if(prob(DRILL_SPARK_CHANCE))
 		drill.spark_system.start()

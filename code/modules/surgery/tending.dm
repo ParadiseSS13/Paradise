@@ -58,7 +58,7 @@
 	time = 2.5 SECONDS
 	repeatable = TRUE
 
-	// no sounds, since it would quickly get annoying
+	preop_sound = 'sound/surgery/retractor2.ogg'
 
 	var/shown_starting_message_already = FALSE
 

@@ -244,6 +244,30 @@
 
 	return zone
 
+/// Convert the impact zone of a projectile to a clothing zone we can do a contamination check on
+/proc/hit_zone_to_clothes_zone(zone)
+	switch(zone)
+		if("head")
+			return HEAD
+		if("chest")
+			return UPPER_TORSO
+		if("l_hand")
+			return HANDS
+		if("r_hand")
+			return HANDS
+		if("l_arm")
+			return ARMS
+		if("r_arm")
+			return ARMS
+		if("l_leg")
+			return LEGS
+		if("r_leg")
+			return LEGS
+		if("l_foot")
+			return FEET
+		if("r_foot")
+			return FEET
+
 /proc/above_neck(zone)
 	var/list/zones = list("head", "mouth", "eyes")
 	if(zones.Find(zone))
@@ -500,7 +524,7 @@
 	else
 		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
 
-	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE))
+	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE, hidden = TRUE))
 		return
 
 	if(resting)

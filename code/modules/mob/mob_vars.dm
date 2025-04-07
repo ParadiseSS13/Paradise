@@ -9,6 +9,8 @@
 	throwforce = 10
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	rad_insulation_beta = RAD_MOB_INSULATION
+	rad_insulation_gamma = RAD_MOB_INSULATION
 
 	/// Is this mob alive, unconscious or dead?
 	var/stat = CONSCIOUS // TODO: Move to /mob/living
@@ -36,8 +38,6 @@
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
-	var/lastattacker = null // real name of the person  doing the attacking
-	var/lastattackerckey = null // their ckey
 	var/list/attack_log_old = list()
 	var/list/debug_log = null
 
@@ -135,9 +135,6 @@
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()
-
-//The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
-	var/mob/living/carbon/LAssailant = null
 
 	var/list/mob_spell_list = list() //construct spells and mime spells. Spells that do not transfer from one mob to another and can not be lost in mindswap.
 
@@ -254,3 +251,5 @@
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
+
+	new_attack_chain = TRUE

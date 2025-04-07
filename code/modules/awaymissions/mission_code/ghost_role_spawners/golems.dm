@@ -166,16 +166,13 @@
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
 
-/obj/effect/mob_spawn/human/alive/golem/attackby__legacy__attackchain(obj/item/I, mob/living/carbon/user, params)
-	if(!istype(I, /obj/item/slimepotion/transference))
-		return ..()
-	if(iscarbon(user) && can_transfer)
+/obj/effect/mob_spawn/human/alive/golem/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/slimepotion/transference) && iscarbon(user) && can_transfer)
 		var/human_transfer_choice = tgui_alert(user, "Transfer your soul to [src]? (Warning, your old body will die!)", "Respawn", list("Yes", "No"))
-		if(human_transfer_choice != "Yes")
-			return
-		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))
-			return
-		handle_becoming_golem(I, user)
+		if(human_transfer_choice != "Yes" || QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(used))
+			return ITEM_INTERACT_COMPLETE
+		handle_becoming_golem(used, user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/mob_spawn/human/alive/golem/proc/handle_becoming_golem(obj/item/I, mob/living/carbon/user)
 	if(isgolem(user) && can_transfer)

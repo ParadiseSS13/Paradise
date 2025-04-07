@@ -402,6 +402,12 @@
 	build_path = /obj/machinery/computer/mech_bay_power_console
 	origin_tech = "programming=3;powerstorage=3"
 
+/obj/item/circuitboard/ai_resource_console
+	board_name = "AI Resource Management Console"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/ai_resource
+	origin_tech = "programming=4"
+
 /obj/item/circuitboard/ordercomp
 	board_name = "Supply Ordering Console"
 	icon_state = "supply"
@@ -563,7 +569,7 @@
 /obj/structure/computerframe
 	name = "computer frame"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "computer_frame"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 100

@@ -146,7 +146,7 @@
 	return turfs
 
 /// Recursively loops through the contents of this atom looking for mobs, optionally requiring them to have a client.
-/proc/collect_nested_mobs(atom/parent, list/mobs, recursion_limit = 3, client_check = TRUE)
+/proc/collect_nested_mobs(atom/parent, list/mobs, recursion_limit = 3, client_check = TRUE, ai_eyes = AI_EYE_EXCLUDE)
 	var/list/next_layer = list(parent)
 	for(var/depth in 1 to recursion_limit)
 		var/list/layer = next_layer
@@ -156,7 +156,16 @@
 				continue
 			var/mob/this_mob = thing
 			if(!client_check || this_mob.client)
-				mobs += this_mob
+				if(is_ai(this_mob))
+					// AIs can get messages from their eye as well as themselves, so use |= to make sure they don't get double messages.
+					mobs |= this_mob
+				else
+					// Everything else can only be visited once, so use += for efficiency.
+					mobs += this_mob
+			else if(ai_eyes != AI_EYE_EXCLUDE && is_ai_eye(this_mob))
+				var/mob/camera/eye/ai/eye = this_mob
+				if((ai_eyes == AI_EYE_INCLUDE || eye.relay_speech) && eye.ai && (!client_check || eye.ai.client))
+					mobs |= eye.ai
 			for(var/mob/dead/observer/ghost in this_mob.observers)
 				if(!client_check || ghost.client)
 					mobs += ghost
@@ -166,7 +175,7 @@
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
 
-/proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE)
+/proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE, ai_eyes = AI_EYE_EXCLUDE)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
 #ifdef GAME_TESTS
 	// kind of feels cleaner clobbering here than changing the loop?
@@ -181,7 +190,7 @@
 
 	for(var/atom/A in hear(R, T))
 		if(isobj(A) || ismob(A))
-			collect_nested_mobs(A, hear, 3, !include_clientless)
+			collect_nested_mobs(A, hear, 3, !include_clientless, ai_eyes)
 
 	return hear
 
@@ -302,7 +311,6 @@
 	return null
 
 /proc/get_candidates(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!length(candidates) && afk_bracket < 6000)
@@ -310,7 +318,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
+						if(!override_jobban || (!jobban_isbanned(G, be_special_type) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
@@ -318,7 +326,6 @@
 	return candidates
 
 /proc/get_candidate_ghosts(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!length(candidates) && afk_bracket < 6000)
@@ -326,7 +333,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
+						if(!override_jobban || (!jobban_isbanned(G, be_special_type) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt

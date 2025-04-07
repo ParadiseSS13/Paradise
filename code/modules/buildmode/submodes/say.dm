@@ -11,7 +11,7 @@
 	if(ismob(object))
 		var/mob/target = object
 		if(!isnull(target.ckey))
-			alert("This cannot be used on mobs with a ckey. Use Forcesay in player panel instead.")
+			tgui_alert(user, "This cannot be used on mobs with a ckey. Use Forcesay in player panel instead.")
 			return
 
 	var/list/pa = params2list(params)

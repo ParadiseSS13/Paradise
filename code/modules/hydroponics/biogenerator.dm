@@ -184,7 +184,7 @@
 		update_ui_product_list(user)
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='warning'>You cannot put [src] in [name]!</span>")
+	to_chat(user, "<span class='warning'>You cannot put [used] in [src]!</span>")
 	return ITEM_INTERACT_COMPLETE
 
 /**

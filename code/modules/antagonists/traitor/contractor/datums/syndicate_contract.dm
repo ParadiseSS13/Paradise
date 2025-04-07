@@ -253,7 +253,7 @@
 
 	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
 					"<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
-	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
+	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M, hidden = TRUE))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))

@@ -292,7 +292,8 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/grenade/barrier,
 		/obj/item/melee/energy/sword/saber,
-		/obj/item/shield/energy
+		/obj/item/shield/energy,
+		/obj/item/soap/ds
 	)
 
 	cybernetic_implants = list(

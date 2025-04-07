@@ -116,7 +116,7 @@
 
 	// Status panel
 	data["shuttles"] = list()
-	for(var/i in SSshuttle.mobile)
+	for(var/i in SSshuttle.mobile_docking_ports)
 		var/obj/docking_port/mobile/M = i
 		if(!M)
 			continue
@@ -159,14 +159,14 @@
 
 		if("jump_to")
 			if(params["type"] == "mobile")
-				for(var/i in SSshuttle.mobile)
+				for(var/i in SSshuttle.mobile_docking_ports)
 					var/obj/docking_port/mobile/M = i
 					if(M.id == params["id"])
 						usr.forceMove(get_turf(M))
 						break
 
 		if("fast_travel")
-			for(var/i in SSshuttle.mobile)
+			for(var/i in SSshuttle.mobile_docking_ports)
 				var/obj/docking_port/mobile/M = i
 				if(M.id == params["id"] && M.timer && M.timeLeft() >= 50)
 					M.setTimer(50)

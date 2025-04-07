@@ -124,7 +124,20 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(stat & BROKEN || !user || used.flags & ABSTRACT)
+	if(stat & BROKEN || !user)
+		return ITEM_INTERACT_COMPLETE
+
+	// Borg gripper check here because it is an `ABSTRACT` item.
+	if(istype(used, /obj/item/gripper))
+		var/obj/item/gripper/gripper = used
+		if(!gripper.gripped_item)
+			to_chat(user, "<span class='warning'>There's nothing in your gripper to throw away!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		// Gripper will cancel the attack and call `item_interaction()` with the held item.
+		return ..()
+
+	if(used.flags & ABSTRACT)
 		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent != INTENT_HELP)
@@ -153,22 +166,6 @@
 			S.update_icon() // For content-sensitive icons
 			update()
 			return ITEM_INTERACT_COMPLETE
-
-	// Borg using their gripper to throw stuff away.
-	if(istype(used, /obj/item/gripper))
-		var/obj/item/gripper/gripper = used
-		// Gripper is empty.
-		if(!gripper.gripped_item)
-			to_chat(user, "<span class='warning'>There's nothing in your gripper to throw away!</span>")
-			return ITEM_INTERACT_COMPLETE
-
-		gripper.gripped_item.forceMove(src)
-		user.visible_message(
-			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>",
-			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
-			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
-		)
-		return ITEM_INTERACT_COMPLETE
 
 	// Someone has a mob in a grab.
 	var/obj/item/grab/G = used
@@ -325,10 +322,6 @@
 			"<span class='warning'>You hear the sound of someone being stuffed into a disposal unit.</span>"
 		)
 
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = user
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
@@ -1300,6 +1293,11 @@
 		if(H2 && !H2.active)
 			H.merge(H2)
 		H.forceMove(P)
+		if(loc)
+			loc.color = initial(loc.color)
+		else
+			color = initial(color)
+
 	else			// if wasn't a pipe, then set loc to turf
 		H.forceMove(T)
 		return null
@@ -1386,7 +1384,7 @@
 /obj/structure/disposalpipe/trunk/Destroy()
 	if(istype(linked, /obj/structure/disposaloutlet))
 		var/obj/structure/disposaloutlet/O = linked
-		O.expel(animation = 0)
+		O.expel_all_contents_immediately()
 	else if(istype(linked, /obj/machinery/disposal))
 		var/obj/machinery/disposal/D = linked
 		if(D.trunk == src)
@@ -1459,7 +1457,6 @@
 			AM.forceMove(DO)
 		qdel(H)
 		H.vent_gas(loc)
-		DO.expel()
 	else if(istype(linked, /obj/machinery/disposal))
 		var/obj/machinery/disposal/D = linked
 		H.forceMove(D)
@@ -1512,49 +1509,79 @@
 	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
 	/// The last time a sound was played
 	var/last_sound
+	var/delay_large_object_expel_enabled = FALSE
+	COOLDOWN_DECLARE(large_object_expel_cooldown)
+	var/list/delayed_objects = list(
+		/obj/structure/closet,
+		/obj/structure/big_delivery,
+	)
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(setup)), 0) // Wait of 0, but this wont actually do anything until the MC is firing
-
 
 /obj/structure/disposaloutlet/proc/setup()
 	target = get_ranged_target_turf(src, dir, 10)
 	var/obj/structure/disposalpipe/trunk/T = locate() in get_turf(src)
 	if(T)
 		T.nicely_link_to_other_stuff(src)
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/disposaloutlet/multitool_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'>You [delay_large_object_expel_enabled ? "disable" : "enable"] the delay between large objects leaving the disposal outlet.</span>")
+	delay_large_object_expel_enabled = !delay_large_object_expel_enabled
+
+/obj/structure/disposaloutlet/process()
+	var/list/expelled_contents = list()
+	for(var/atom/movable/AM in contents)
+		if(delay_large_object_expel_enabled && is_type_in_list(AM, delayed_objects))
+			if(COOLDOWN_FINISHED(src, large_object_expel_cooldown))
+				COOLDOWN_START(src, large_object_expel_cooldown, 5 SECONDS)
+				expelled_contents += AM
+		else
+			expelled_contents += AM
+
+	if(length(expelled_contents))
+		play_animation()
+		for(var/atom/movable/AM in expelled_contents)
+			expel_atom(AM)
 
 /obj/structure/disposaloutlet/Destroy()
 	if(linkedtrunk)
 		linkedtrunk.remove_trunk_links()
-	expel(FALSE)
+	expel_all_contents_immediately()
 	return ..()
 
-
-// expel the contents of the outlet
-/obj/structure/disposaloutlet/proc/expel(animation = TRUE)
-	if(animation)
-		flick("outlet-open", src)
-		var/play_sound = FALSE
-		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-			play_sound = TRUE
-			last_sound = world.time
-		if(play_sound)
-			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, FALSE, FALSE)
-		sleep(20)	//wait until correct animation frame
-		if(play_sound)
-			playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
+/obj/structure/disposaloutlet/proc/expel_all_contents_immediately()
 	for(var/atom/movable/AM in contents)
-		AM.forceMove(loc)
-		AM.pipe_eject(dir)
-		if(QDELETED(AM))
+		expel_atom(AM)
+
+/obj/structure/disposaloutlet/proc/expel_atom(atom/movable/AM)
+	if(!(AM in contents))
+		return
+
+	AM.forceMove(loc)
+	AM.pipe_eject(dir)
+	if(QDELETED(AM))
+		return
+	if(isliving(AM))
+		var/mob/living/mob_to_immobilize = AM
+		if(isdrone(mob_to_immobilize) || istype(mob_to_immobilize, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 			return
-		if(isliving(AM))
-			var/mob/living/mob_to_immobilize = AM
-			if(isdrone(mob_to_immobilize) || istype(mob_to_immobilize, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
-				return
-			mob_to_immobilize.Immobilize(1 SECONDS)
-		AM.throw_at(target, 3, 1)
+		mob_to_immobilize.Immobilize(1 SECONDS)
+	AM.throw_at(target, 3, 1)
+
+/obj/structure/disposaloutlet/proc/play_animation()
+	flick("outlet-open", src)
+	var/play_sound = FALSE
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+		play_sound = TRUE
+		last_sound = world.time
+	if(play_sound)
+		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, FALSE, FALSE)
+	sleep(20)	//wait until correct animation frame
+	if(play_sound)
+		playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
 
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)
@@ -1603,6 +1630,9 @@
 	C.anchored = FALSE
 	C.density = TRUE
 	qdel(src)
+
+/obj/structure/disposaloutlet/cere
+	delay_large_object_expel_enabled = TRUE
 
 // called when movable is expelled from a disposal pipe or outlet
 // by default does nothing, override for special behaviour
