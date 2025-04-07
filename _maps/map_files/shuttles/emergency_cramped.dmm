@@ -1,7 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/space,
-/area/space)
 "b" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -10,12 +7,34 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "f" = (
-/obj/machinery/computer/emergency_shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"g" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"h" = (
+/turf/template_noop,
+/area/template_noop)
 "i" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/security_space_law/black,
+/obj/machinery/door/airlock/titanium/glass{
+	name = "Shuttle Hatch";
+	id_tag = "s_docking_airlock";
+	hackProof = 1;
+	aiControlDisabled = 1
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "j" = (
@@ -25,16 +44,38 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "k" = (
-/obj/structure/table,
-/obj/item/gps,
-/turf/simulated/floor/plating,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Brig"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "l" = (
-/obj/machinery/door/airlock/titanium{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
+/obj/item/book/manual/wiki/security_space_law/black{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 28
+	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/obj/structure/table/reinforced,
+/obj/item/restraints/handcuffs{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/flash{
+	pixel_x = 1
+	},
+/obj/machinery/recharger{
+	pixel_x = -8;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -42,46 +83,29 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "n" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
+/obj/machinery/computer/emergency_shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "o" = (
-/obj/machinery/door/window/classic/normal{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
-"p" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/closet/emcloset,
+/obj/structure/closet/crate,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "q" = (
-/obj/machinery/door/airlock/titanium{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
+/obj/machinery/door/airlock/titanium/glass{
+	name = "Cockpit"
 	},
-/obj/docking_port/mobile/emergency{
-	name = "Secure Transport Vessel 5";
-	timid = 1
-	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "r" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/spot{
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "s" = (
@@ -99,19 +123,34 @@
 "w" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"x" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle,
+/obj/structure/sign/poster/official/obey{
+	pixel_x = 32
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
 "y" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/firecloset/full,
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "z" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "B" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -125,49 +164,112 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"D" = (
+/obj/docking_port/mobile/emergency{
+	name = "Secure Transport Vessel 5";
+	timid = 1
+	},
+/obj/machinery/door/airlock/titanium/glass{
+	name = "Shuttle Hatch";
+	id_tag = "s_docking_airlock";
+	hackProof = 1;
+	aiControlDisabled = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"F" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"G" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
+"I" = (
+/obj/item/storage/firstaid/regular{
+	pixel_x = -5
+	},
+/obj/item/gps{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
+/obj/structure/table/reinforced,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"M" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/economy/vending/wallmed/directional/west,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"P" = (
+/obj/structure/closet/fireaxecabinet{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"U" = (
+/obj/structure/closet/firecloset/full,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 
 (1,1,1) = {"
-a
+h
 b
-b
-l
-b
-q
-b
+G
+G
+i
+G
+D
+G
 c
 c
 c
+G
+i
+G
+i
+G
+G
 b
-l
-b
-l
-b
-b
+h
 "}
 (2,1,1) = {"
 b
-b
-i
+G
+I
+P
 m
-n
+c
 m
+f
 s
 s
 s
-s
-s
+F
 m
-s
+f
 m
+M
+c
 z
 B
 "}
 (3,1,1) = {"
 c
-f
+n
 j
 m
-o
+m
+q
 m
 m
 m
@@ -177,42 +279,50 @@ m
 m
 m
 m
+m
+c
 z
 C
 "}
 (4,1,1) = {"
 b
-b
+G
+l
+x
 k
-m
-p
-r
+c
+U
 r
 u
+u
+o
 w
-w
-r
-r
-r
+u
+g
+o
 y
+c
 z
 C
 "}
 (5,1,1) = {"
-a
+h
 b
-b
-b
-b
-b
-b
+G
+G
+c
+G
+c
+G
 c
 c
 c
+G
+c
+G
+c
+G
+G
 b
-b
-b
-b
-b
-b
+h
 "}

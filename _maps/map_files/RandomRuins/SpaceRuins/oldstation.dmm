@@ -4098,7 +4098,7 @@
 "my" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
-/area/template_noop)
+/area/ruin/unpowered)
 "mB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
