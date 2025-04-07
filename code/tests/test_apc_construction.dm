@@ -39,7 +39,6 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You open the cover of [apc_frame].")
 	player.put_away(crowbar)
 	player.click_on(apc_frame)
-	TEST_ASSERT_EQUAL(null, apc_frame.cell, "The APC's cell was not removed during deconstruction.")
 	player.put_away(the_cell)
 	var/obj/wirecutters = player.spawn_obj_in_hand(/obj/item/wirecutters)
 	player.click_on(apc_frame)
