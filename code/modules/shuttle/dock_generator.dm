@@ -116,12 +116,7 @@
 		possible_destinations = S.possible_destinations
 
 	log_admin("[key_name(user)] created a whiteship dock named '[name]' at [COORD(port)].")
-
-	if(dock_count < max_docks)
-		to_chat(user, "<span class='notice'>Landing zone set.</span>")
-	else
-		to_chat(user, "<span class='notice'>Landing zone set. The signaller vanishes!</span>")
-		qdel(src)
+	to_chat(user, "<span class='notice'>Landing zone set.</span>")
 
 /obj/item/whiteship_port_generator/AltClick(mob/user, modifiers)
 	for(var/obj/machinery/computer/shuttle/white_ship/S in GLOB.machines)
