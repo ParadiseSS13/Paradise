@@ -159,9 +159,9 @@
 	name = "Reinforced Wall Assembly"
 	steps = list(
 		"Use metal in-hand",
-    	"Select \"wall girders\"",
-    	"Apply plasteel to girder",
-    	"Apply plasteel again",
+		"Select \"wall girders\"",
+		"Apply plasteel to girder",
+		"Apply plasteel again",
 		)
 
 /* MARK: Engineer

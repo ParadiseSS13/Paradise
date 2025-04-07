@@ -88,5 +88,5 @@ GLOBAL_LIST_INIT(job_guide_jobs, list(
 			SStgui.update_uis(pda)
 		if("select_job")
 			job = params["job"]
-			current_category = null
-			SStgui.update_uis(src)
+			current_category = ""
+			SStgui.update_uis(pda)

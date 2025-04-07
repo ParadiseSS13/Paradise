@@ -12,29 +12,26 @@ export const pda_job_guide = (props, context) => {
 
   return (
     <Box>
-      <Dropdown
-        mt={0.6}
-        width="215px"
-        options={job_list}
-        selected={job}
-        onSelected={(val) =>
-          act('select_job', {
-            job: val,
-          })
-        }
-      />
-      <Tabs>
-        {categories.sort().map((category, i) => (
-          <Tabs.Tab
-            key={i}
-            selected={category === current_category}
-            onClick={() => act('set_category', { name: category, search_text: searchText })}
-          >
-            {category}
-          </Tabs.Tab>
-        ))}
-      </Tabs>
-
+      <Stack horizontal>
+        Role:
+        <Dropdown
+          width="215px"
+          options={job_list}
+          selected={job}
+          onSelected={(val) =>
+            act('select_job', {
+              job: val,
+            })
+          }
+        />
+        Category:
+        <Dropdown
+          width="215px"
+          options={categories}
+          selected={current_category}
+          onSelected={(category) => act('set_category', { name: category, search_text: searchText })}
+        />
+      </Stack>
       {current_category && (
         <Section
           title={
