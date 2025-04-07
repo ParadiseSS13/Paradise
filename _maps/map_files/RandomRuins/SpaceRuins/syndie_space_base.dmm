@@ -2342,7 +2342,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "nt" = (
-/mob/living/simple_animal/cow{
+/mob/living/basic/cow{
 	faction = list("neutral","syndicate")
 	},
 /obj/structure/extinguisher_cabinet{

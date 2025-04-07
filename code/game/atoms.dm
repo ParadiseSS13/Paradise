@@ -265,6 +265,9 @@
 
 	managed_overlays = null
 
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+
 	QDEL_NULL(light)
 
 	return ..()
@@ -1500,8 +1503,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/atom/checked_atom = .[++i]
 		. += checked_atom.contents
 
-/atom/proc/store_last_attacker(mob/living/attacker)
+/atom/proc/store_last_attacker(mob/living/attacker, obj/item/weapon)
 	if(!attack_info)
 		attack_info = new
 	attack_info.last_attacker_name = attacker.real_name
 	attack_info.last_attacker_ckey = attacker.ckey
+	if(istype(weapon))
+		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"
