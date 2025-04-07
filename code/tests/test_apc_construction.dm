@@ -5,6 +5,10 @@
 	var/area/test_area = get_area(player.puppet)
 	test_area.requires_power = TRUE
 	// First we build the APC
+	var/obj/crowbar = player.spawn_obj_in_hand(/obj/item/crowbar)
+	var/player_floor = player.puppet.loc
+	player.click_on(player_floor)
+	player.put_away(crowbar)
 	player.spawn_obj_in_hand(/obj/item/mounted/frame/apc_frame)
 	player.click_on(wall)
 	var/obj/machinery/power/apc/apc_frame = player.find_nearby(/obj/machinery/power/apc)
@@ -25,7 +29,7 @@
 	var/obj/the_cell = player.spawn_obj_in_hand(/obj/item/stock_parts/cell)
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You insert [the_cell] into [apc_frame]")
-	var/obj/crowbar = player.spawn_obj_in_hand(/obj/item/crowbar)
+	player.retrieve(crowbar)
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You close the cover of [apc_frame].")
 
