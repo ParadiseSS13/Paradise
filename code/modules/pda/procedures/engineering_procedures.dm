@@ -56,3 +56,56 @@
 		"Atmospheric Technicians must periodically check on the Central Alarms Computer, in periods of, at most, thirty (30) minutes",
 		"Atmospheric Technicians must respond promptly to piping and station breaches. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Atmospheric Technicians to report, or an Engineer has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape or holobarriers, for the sake of everyone else.",
 		)
+
+/datum/procedure/engineering/supermatter_delam
+	catalog_category = "Supermatter Delamination"
+
+/datum/procedure/engineering/supermatter_delam/moles
+	name = "Coolant Critical Mass Procedure"
+	steps = list(
+		"Remove gas from the chamber until the console reads under 12000 moles per tile",
+		"If for whatever reason gas cannot be pumped out of the chamber use an RCD to remove a floor tile, then rebuild it."
+	)
+
+/datum/procedure/engineering/supermatter_delam/fire
+	name = "Chamber Fire Procedure"
+	steps = list(
+		"Prepare cold N2. As much as you can in a reasonable time, but no more than 100,000 moles",
+		"Scrub all gasses other than N2",
+		"Inject cold N2 into the engine while using a fire extinguisher",
+		"If unsuccessful, stop injecting N2, remove a floor tile with an RCD, then replace it and quickly inject cold N2",
+		"Alternatively to the previous step use a nanofrost particle launcher on the vent side of the chamber and unweld the vents once the fire has ceased"
+	)
+
+/datum/procedure/engineering/supermatter_delam/power
+	name = "Charge Inertia Chain Reaction Procedure"
+	steps = list(
+		"If the engine is also on fire, perform the chamber fire procedure",
+		"Reduce the portion of CO2 in the gas mix by injecting N2 or N2O, this will quickly drop EER",
+		"Alternatively, reduce the amount of CO2 in the chamber, this will more slowly drop EER"
+	)
+
+/datum/procedure/engineering/supermatter_delam/breach
+	name = "Chamber Breach Procedure"
+	steps = list(
+		"Prepare cold N2. As much as you can in a reasonable time, but no more than 100,000 moles",
+		"Fix the walls of the chamber before fixing the floor if it is breached",
+		"Fix the floor of the chamber and quickly inject the cold N2",
+		"If the loop is too broken to allow injecting gas and there is not enough time to repair it use a passive vent piped to a nitrogen caniser to refill the chamber instead"
+	)
+
+/datum/procedure/engineer/power
+	catalog_category = "Power"
+
+/datum/procedure/engineer/power/smes_shift_start
+	name = "Shift Start SMES Setup Procedure"
+	steps = list(
+		"Set the power input to maximum on all SMES",
+		"Set the power output to a total of 400KW across all SMES",
+		"If there is a power deficit and the SMES are empty, reduce the output so that all SMES receive the same amount of power"
+	)
+
+/datum/procedure/engineer/power/apc_repair
+	name = "Shorted APC Repair Procedure"
+
+/datum/procedure/engineering/
