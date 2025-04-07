@@ -320,9 +320,6 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bA" = (
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
 /obj/structure/chair/sofa/bamboo{
 	dir = 1
 	},
@@ -533,6 +530,9 @@
 /area/shuttle/escape)
 "cq" = (
 /obj/machinery/sleeper,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cr" = (
@@ -544,9 +544,6 @@
 "ct" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
-	},
-/obj/machinery/light/small{
-	dir = 4
 	},
 /obj/structure/flora/junglebush,
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
@@ -1303,7 +1300,7 @@ aa
 aa
 aa
 ab
-ab
+aD
 eP
 HY
 bM

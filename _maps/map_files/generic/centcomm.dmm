@@ -3,11 +3,21 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/space/centcomm)
 "ab" = (
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/obj/structure/marker_beacon/dock_marker,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "ac" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/outpost)
+"ad" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/obj/item/ashtray/glass,
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "ae" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/holding)
@@ -169,6 +179,12 @@
 /obj/item/storage/box/permits,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"aJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "aK" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
@@ -224,6 +240,11 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_emptycourt)
+"aS" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/book/manual/nuclear,
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "aU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -285,6 +306,10 @@
 	icon_state = "asteroid7"
 	},
 /area/holodeck/source_desert)
+"be" = (
+/obj/machinery/computer/arcade/orion_trail,
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "bf" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -299,6 +324,10 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"bh" = (
+/obj/machinery/computer/arcade/battle,
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "bi" = (
 /obj/machinery/economy/vending/autodrobe,
 /turf/simulated/floor/plasteel{
@@ -311,6 +340,11 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"bm" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "bo" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -499,8 +533,7 @@
 "cf" = (
 /obj/structure/table/abductor,
 /obj/item/paper/abductor,
-/obj/item/scalpel/alien,
-/obj/item/cautery/alien,
+/obj/item/scalpel/laser/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "cg" = (
@@ -746,6 +779,12 @@
 /obj/item/trash/tastybread,
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
+"cV" = (
+/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+	name = "Syndicate Base Blast Door"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "cX" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -780,6 +819,18 @@
 /obj/item/camera,
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
+"dd" = (
+/obj/item/electropack{
+	pixel_x = -5
+	},
+/obj/item/assembly/signaler{
+	code = 2;
+	frequency = 1449;
+	pixel_x = 8
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "df" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/outpost)
@@ -1225,13 +1276,9 @@
 "eQ" = (
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_boxingcourt)
-"eU" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'FOURTH WALL'.";
-	name = "\improper FOURTH WALL";
-	pixel_x = -32
-	},
-/turf/simulated/floor/plating/asteroid/snow/airless,
+"eS" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/pod/dark,
 /area/syndicate_mothership)
 "eW" = (
 /obj/structure/sink{
@@ -1344,6 +1391,10 @@
 /obj/machinery/light/small,
 /turf/space,
 /area/space/nearstation/centcom)
+"fs" = (
+/obj/item/disk/plantgene,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "ft" = (
 /obj/item/stack/sheet/metal,
 /obj/structure/table,
@@ -1378,6 +1429,10 @@
 /area/wizard_station)
 "fy" = (
 /obj/machinery/sleeper,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -1386,6 +1441,11 @@
 /mob/living/carbon/human/monkey/magic,
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"fA" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/storage/box/characters,
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -1501,6 +1561,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
+"fV" = (
+/obj/item/storage/backpack/satchel,
+/obj/item/storage/backpack/satchel,
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "fX" = (
 /obj/structure/table/wood,
 /obj/item/candle/eternal/wizard{
@@ -1703,7 +1769,7 @@
 /area/abductor_ship)
 "gP" = (
 /obj/structure/flora/tree/pine,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "gQ" = (
 /obj/machinery/light/spot{
@@ -2243,9 +2309,6 @@
 	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
-"is" = (
-/turf/space,
-/area/syndicate_mothership)
 "it" = (
 /obj/structure/railing/corner,
 /turf/simulated/floor/plasteel{
@@ -2297,11 +2360,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"iB" = (
-/obj/structure/table,
-/obj/item/storage/fancy/crayons,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
 "iC" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel/dark,
@@ -2311,7 +2369,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "iE" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door_control/no_emag{
 	id = "sit_ready";
 	name = "SIT Base Access";
@@ -2326,6 +2383,7 @@
 	pixel_y = 6;
 	req_access = list(153)
 	},
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "iF" = (
@@ -2345,7 +2403,6 @@
 	},
 /area/tdome/tdomeobserve)
 "iL" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door_control/no_emag{
 	id = "sst_armory";
 	name = "SST Extra Weapons";
@@ -2374,6 +2431,7 @@
 	pixel_y = -4;
 	req_access = list(153)
 	},
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "iM" = (
@@ -2426,7 +2484,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "iY" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/toolbox/syndicate{
 	pixel_x = 5
 	},
@@ -2434,12 +2491,23 @@
 	pixel_x = -9;
 	pixel_y = 10
 	},
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "iZ" = (
 /obj/mecha/combat/marauder/mauler/loaded,
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"ja" = (
+/obj/structure/table/wood,
+/obj/item/kitchen/knife/pizza_cutter{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
 /area/syndicate_mothership)
 "jb" = (
 /obj/structure/table/wood/fancy/royalblack,
@@ -2502,11 +2570,22 @@
 "jn" = (
 /obj/structure/table/wood,
 /obj/item/syndicatedetonator,
+/obj/item/ashtray/glass{
+	pixel_x = 11;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jo" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/drinkingglass/devilskiss,
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/lighter/zippo/engraved{
+	pixel_x = -4;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jp" = (
@@ -2514,8 +2593,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jq" = (
-/obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/obj/structure/flora/grass/both,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "jr" = (
 /obj/structure/table/wood,
@@ -2532,18 +2611,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
-"ju" = (
-/obj/machinery/airlock_controller/access_controller{
-	name = "Syndicate Jail Access Controller";
-	pixel_y = 24;
-	ext_door_link_id = "syndijail_door_ext";
-	int_door_link_id = "syndijail_door_int";
-	ext_button_link_id = "syndijail_btn_ext";
-	int_button_link_id = "syndijail_btn_int";
-	req_access = list(150)
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
 "jv" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -2584,6 +2651,9 @@
 	id = "commandcenter";
 	name = "Privacy Shutters";
 	req_access = list(153)
+	},
+/obj/item/reagent_containers/drinks/drinkingglass/devilskiss{
+	pixel_y = 14
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2644,7 +2714,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jP" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door_control/no_emag{
 	id = "nukeop_base";
 	name = "Nuclear Base Access";
@@ -2659,6 +2728,7 @@
 	pixel_y = 6;
 	req_access = list(153)
 	},
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jQ" = (
@@ -2675,7 +2745,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jT" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jU" = (
@@ -2692,8 +2762,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jW" = (
-/obj/structure/table/reinforced,
 /obj/item/syndicatedetonator,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jX" = (
@@ -2746,29 +2816,11 @@
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"kf" = (
-/obj/docking_port/stationary{
-	area_type = /area/syndicate_mothership;
-	dwidth = 16;
-	height = 21;
-	id = "emergency_syndicate";
-	name = "404 Not Found";
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
-	width = 41
-	},
-/turf/simulated/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "kg" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/tdome/tdomeobserve)
 "kh" = (
 /obj/machinery/pdapainter,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
-"kj" = (
-/obj/structure/table,
-/obj/item/storage/backpack/satchel,
-/obj/item/storage/backpack/satchel,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kk" = (
@@ -2822,9 +2874,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kt" = (
-/obj/structure/table,
 /obj/item/storage/backpack/industrial,
 /obj/item/storage/backpack/industrial,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kv" = (
@@ -2848,14 +2900,18 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kz" = (
-/obj/structure/table,
 /obj/item/storage/backpack/medic,
 /obj/item/storage/backpack/medic,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kA" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"kB" = (
+/obj/structure/fence/post,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "kC" = (
 /obj/docking_port/stationary{
@@ -2879,7 +2935,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kF" = (
-/obj/structure/table/reinforced,
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer{
 	pixel_y = 5
@@ -2891,24 +2946,18 @@
 /obj/item/healthupgrade{
 	pixel_x = 6
 	},
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"kG" = (
-/turf/simulated/wall/indestructible/syndicate,
-/area/syndicate_mothership/jail)
 "kI" = (
 /obj/item/toy/figure/crew/syndie,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "kJ" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/wood,
 /area/wizard_station)
-"kK" = (
-/obj/item/disk/plantgene,
-/turf/simulated/floor/plating/asteroid/snow/airless,
-/area/syndicate_mothership)
 "kL" = (
 /obj/structure/filingcabinet/medical,
 /turf/simulated/floor/plasteel{
@@ -2921,19 +2970,20 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kN" = (
-/obj/structure/table,
 /obj/item/storage/backpack/science,
 /obj/item/storage/backpack/science,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kO" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen/red,
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/paper_bin/syndicate,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kP" = (
 /obj/structure/bed,
+/obj/item/bedsheet/syndie,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kQ" = (
@@ -2947,7 +2997,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kR" = (
-/obj/structure/table/reinforced,
 /obj/item/beacon/syndicate/bomb{
 	pixel_y = 8
 	},
@@ -2955,10 +3004,10 @@
 	pixel_y = 4
 	},
 /obj/item/beacon/syndicate/bomb,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kS" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/toolbox/syndicate{
 	pixel_x = 5
 	},
@@ -2967,6 +3016,7 @@
 	pixel_y = -1
 	},
 /obj/item/multitool,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kT" = (
@@ -2974,20 +3024,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kU" = (
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
-"kV" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
-"kW" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/donkpockets,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
-"kX" = (
-/obj/structure/table/wood,
-/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "kY" = (
@@ -3005,12 +3041,6 @@
 /area/tdome/tdomeobserve)
 "kZ" = (
 /obj/structure/bed,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
-"la" = (
-/obj/structure/toilet{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "lb" = (
@@ -3034,8 +3064,9 @@
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership/jail)
 "lh" = (
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "nukeop_base"
+/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+	id_tag = "nukeop_base";
+	name = "Syndicate Base Docking Area Blast Door"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -3052,10 +3083,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"lm" = (
-/obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
 "ln" = (
 /obj/item/gun/energy/immolator/multi{
 	pixel_x = -4;
@@ -3077,26 +3104,6 @@
 	id_tag = "syndicate_jail_cell";
 	locked = 1;
 	name = "Syndicate Jail Cell"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
-"lp" = (
-/obj/structure/table/wood,
-/obj/machinery/door_control/no_emag{
-	id = "syndicate_jail_cell";
-	name = "Bolt Cell Doors";
-	normaldoorcontrol = 1;
-	pixel_x = 6;
-	specialfunctions = 4;
-	req_access = list(150)
-	},
-/obj/machinery/door_control/no_emag{
-	id = "syndicate_jail";
-	name = "Bolt Jail Door";
-	normaldoorcontrol = 1;
-	pixel_x = -5;
-	specialfunctions = 4;
-	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
@@ -3156,21 +3163,8 @@
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
-"lC" = (
-/obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/surgicaldrill{
-	pixel_y = 5
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
 "lD" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
-"lE" = (
-/obj/structure/kitchenspike,
-/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "lF" = (
@@ -3292,16 +3286,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "lU" = (
-/obj/machinery/door/airlock/hatch/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/syndicate_mothership)
-"lV" = (
-/obj/structure/table,
-/obj/item/kitchen/knife/butcher,
-/obj/item/melee/baseball_bat,
-/obj/item/clothing/mask/muzzle{
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/ashtray/bronze{
+	pixel_x = 5;
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -3443,40 +3430,10 @@
 /obj/mecha/combat/marauder/seraph/loaded,
 /turf/simulated/floor/plasteel,
 /area/admin)
-"mn" = (
-/obj/structure/table,
-/obj/item/storage/fancy/crayons,
-/obj/item/storage/fancy/crayons,
-/turf/simulated/floor/plasteel/freezer,
-/area/syndicate_mothership)
 "mo" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
-"mp" = (
-/obj/item/storage/fancy/crayons,
-/obj/structure/table,
-/obj/item/storage/fancy/crayons,
-/turf/simulated/floor/plasteel/freezer,
-/area/syndicate_mothership)
-"mq" = (
-/obj/structure/table,
-/obj/item/electropack{
-	pixel_x = -5
-	},
-/obj/item/assembly/signaler{
-	code = 2;
-	frequency = 1449;
-	pixel_x = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
-"mr" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
 "ms" = (
 /obj/mecha/combat/honker/loaded,
 /turf/simulated/floor/plasteel,
@@ -3639,8 +3596,13 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "mR" = (
-/obj/item/soap/syndie,
-/obj/structure/mopbucket,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/mopbucket/full{
+	dir = 4
+	},
+/obj/item/mop,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "mS" = (
@@ -3654,9 +3616,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Restroom"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "mU" = (
 /obj/structure/rack,
@@ -3707,15 +3667,6 @@
 /obj/item/storage/belt/champion/wrestling,
 /turf/simulated/floor/plasteel,
 /area/admin)
-"mZ" = (
-/obj/structure/noticeboard{
-	pixel_x = -32
-	},
-/obj/item/paper/syndimemo,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/syndicate_mothership)
 "na" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/spawner/syndie,
@@ -3751,16 +3702,6 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
-"nj" = (
-/obj/structure/mirror/magic/nuclear{
-	pixel_x = 28
-	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/syndicate_mothership)
 "nk" = (
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
@@ -3792,11 +3733,12 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
 "no" = (
-/obj/item/mop,
-/obj/structure/mirror/magic/nuclear{
-	pixel_x = 28
+/obj/machinery/door/window/reinforced/reversed{
+	name = "Tactical Toilet"
 	},
-/obj/item/kirbyplants/large,
+/obj/structure/toilet{
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "np" = (
@@ -3943,6 +3885,10 @@
 "nI" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/bottle/beer{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -2;
 	pixel_y = 5
 	},
@@ -3955,27 +3901,25 @@
 /area/admin)
 "nK" = (
 /obj/structure/table/wood,
-/obj/item/pizzabox,
-/obj/item/paicard/syndicate,
+/obj/item/deck/cards/syndicate{
+	pixel_x = -7;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
 "nL" = (
-/obj/structure/toilet{
+/obj/structure/window/plastitanium{
 	dir = 8
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/obj/machinery/door/window{
-	dir = 8;
-	name = "Tactical Toilet";
-	opacity = 1;
-	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
+"nM" = (
+/obj/machinery/kitchen_machine/microwave,
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "nN" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating/airless,
@@ -4033,6 +3977,18 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+"nV" = (
+/obj/docking_port/stationary{
+	area_type = /area/syndicate_mothership;
+	dwidth = 16;
+	height = 21;
+	id = "emergency_syndicate";
+	name = "404 Not Found";
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
+	width = 41
+	},
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "nW" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -4051,9 +4007,8 @@
 /area/centcom/suppy)
 "nY" = (
 /obj/structure/table/wood,
-/obj/item/food/sliced/mushroom_pizza{
-	pixel_x = -5;
-	pixel_y = 5
+/obj/item/pizzabox/mushroom{
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4066,14 +4021,7 @@
 /area/admin)
 "ob" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/bottle/beer{
-	pixel_x = 5;
-	pixel_y = -2
-	},
-/obj/item/deck/cards/syndicate{
-	pixel_x = -6;
-	pixel_y = 6
-	},
+/obj/item/paper/syndimemo,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4212,6 +4160,12 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
+"oH" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/storage/fancy/crayons,
+/obj/item/storage/fancy/crayons,
+/turf/simulated/floor/plasteel/freezer,
+/area/syndicate_mothership)
 "oI" = (
 /obj/effect/spawner/random/traders/civilian,
 /obj/structure/closet,
@@ -4345,6 +4299,10 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"pf" = (
+/obj/structure/lightable/bonfire,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "pg" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /obj/machinery/door/airlock/titanium/glass{
@@ -4356,12 +4314,27 @@
 "ph" = (
 /turf/simulated/wall/r_wall,
 /area/start)
+"pi" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/structure/mirror/magic/nuclear{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/syndicate_mothership)
 "pj" = (
 /obj/machinery/light/spot{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"pk" = (
+/obj/item/storage/box/donkpockets,
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "pl" = (
 /obj/structure/chair/stool/bar{
 	dir = 8
@@ -4414,12 +4387,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/syndicate_mothership)
-"pA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "pD" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -4689,6 +4656,10 @@
 	icon_state = "bar"
 	},
 /area/tdome/tdomeobserve)
+"qx" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "qB" = (
 /obj/machinery/cryopod/offstation/right,
 /turf/simulated/floor/wood,
@@ -4709,6 +4680,18 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"qE" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/obj/item/lighter/zippo{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/turf/simulated/floor/wood,
+/area/syndicate_mothership)
 "qF" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -4736,6 +4719,7 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "qK" = (
+/obj/item/kirbyplants/large,
 /obj/machinery/door_control/no_emag{
 	id = "nukeop_ready";
 	name = "Mission Launch Control";
@@ -4743,7 +4727,9 @@
 	pixel_y = -2;
 	req_access = list(151)
 	},
-/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4796,12 +4782,13 @@
 /area/centcom/control)
 "qT" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/drinks/bottle/rum,
+/obj/item/paper_bin,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "qU" = (
 /obj/structure/table/wood,
+/obj/item/paicard/syndicate,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "qV" = (
@@ -4851,6 +4838,10 @@
 "ra" = (
 /obj/structure/table/wood,
 /obj/item/syndicatedetonator,
+/obj/item/ashtray/glass{
+	pixel_x = 11;
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "rb" = (
@@ -4860,10 +4851,8 @@
 /area/syndicate_mothership)
 "rc" = (
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/pod/dark,
 /area/syndicate_mothership)
 "rd" = (
 /obj/structure/chair/stool/bar{
@@ -4871,6 +4860,12 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
+"re" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/pod/dark,
+/area/syndicate_mothership)
 "rf" = (
 /obj/structure/coatrack,
 /turf/simulated/floor/wood,
@@ -4979,7 +4974,6 @@
 /turf/simulated/floor/transparent/glass,
 /area/tdome/tdomeobserve)
 "rt" = (
-/obj/machinery/photocopier,
 /obj/machinery/door_control/no_emag{
 	id = "sec";
 	name = "CentCom Security Shutters";
@@ -5002,6 +4996,7 @@
 	pixel_y = 30;
 	req_access = list(109)
 	},
+/obj/machinery/computer/ai_resource,
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "ru" = (
@@ -5021,6 +5016,9 @@
 /obj/item/grenade/chem_grenade/large,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+"rw" = (
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "rx" = (
 /obj/item/kirbyplants/large,
 /obj/structure/railing,
@@ -5043,6 +5041,10 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
+"rA" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "rB" = (
 /obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
@@ -5192,6 +5194,7 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28
 	},
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "sa" = (
@@ -5427,6 +5430,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"sZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
+"ta" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "tb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -5469,9 +5486,15 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"ti" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "tj" = (
 /obj/structure/flora/bush,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "tl" = (
 /obj/structure/chair/office/dark{
@@ -5625,6 +5648,12 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"tN" = (
+/obj/machinery/door/window/classic/normal{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "tO" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -5650,15 +5679,15 @@
 /area/shuttle/syndicate)
 "tV" = (
 /obj/structure/flora/grass/brown,
-/turf/simulated/wall/indestructible/rock/snow,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "tW" = (
 /obj/structure/closet/syndicate/personal,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "tX" = (
-/obj/structure/table,
 /obj/item/gun/energy/ionrifle/carbine,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "tY" = (
@@ -5796,10 +5825,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "up" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
+/obj/structure/window/plastitanium{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -5839,6 +5865,9 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"uw" = (
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "ux" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
@@ -5876,6 +5905,10 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
+"uF" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "uH" = (
 /obj/structure/mirror{
 	pixel_x = 28
@@ -5896,7 +5929,7 @@
 /area/shuttle/syndicate)
 "uL" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
+/obj/structure/window/plastitanium{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -5960,7 +5993,7 @@
 /area/shuttle/syndicate)
 "uZ" = (
 /obj/structure/statue/uranium/nuke,
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "vb" = (
 /obj/effect/spawner/random/traders/engineering,
@@ -6086,14 +6119,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
-"vw" = (
-/obj/machinery/access_button{
-	pixel_y = -22;
-	pixel_x = 8;
-	autolink_id = "syndijail_btn_ext"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
 "vx" = (
 /obj/structure/railing,
 /obj/structure/table/wood,
@@ -6103,6 +6128,15 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"vz" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/syndie,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "vA" = (
 /obj/structure/railing,
 /obj/structure/table/wood,
@@ -6317,6 +6351,12 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
 /area/trader_station/sol)
+"wm" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "wn" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
@@ -6330,6 +6370,20 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/trader_station/sol)
+"wr" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/glass{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "ws" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/reedbush,
@@ -6623,10 +6677,33 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"xg" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/storage/bag/dice{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/paper_bin{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/pen/multi/syndicate{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "xi" = (
 /obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"xj" = (
+/obj/structure/flora/tree/pine{
+	pixel_x = 1
+	},
+/obj/structure/flora/grass/green,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "xl" = (
 /obj/structure/table,
 /obj/item/card/id/silver{
@@ -6703,6 +6780,12 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"xE" = (
+/obj/structure/fence/post{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "xF" = (
 /obj/machinery/access_button{
 	autolink_id = "syndishuttle_btn_int";
@@ -6785,6 +6868,10 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
+"xX" = (
+/obj/machinery/economy/vending/cola/free,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "xY" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
@@ -6853,6 +6940,14 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"ys" = (
+/obj/machinery/access_button{
+	pixel_y = -22;
+	pixel_x = 24;
+	autolink_id = "syndijail_btn_ext"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "yu" = (
 /obj/machinery/economy/vending/snack,
 /obj/effect/turf_decal/delivery/hollow,
@@ -6875,6 +6970,17 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
+"yC" = (
+/obj/structure/marker_beacon/dock_marker,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/centcom)
+"yE" = (
+/obj/structure/flora/tree/pine{
+	pixel_x = 1
+	},
+/obj/structure/flora/bush,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "yH" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -6907,6 +7013,12 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"yN" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/syndicate_mothership)
 "yO" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
@@ -6924,6 +7036,11 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"yX" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/crayons,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "yZ" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles,
 /obj/machinery/door/airlock/external{
@@ -6933,6 +7050,11 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
+"zf" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/pod/dark,
+/area/syndicate_mothership)
 "zg" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -7011,6 +7133,17 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
+"zs" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/structure/noticeboard{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "zu" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/gun/projectile/revolver,
@@ -7115,6 +7248,10 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
+"zS" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "zV" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
@@ -7164,6 +7301,10 @@
 /obj/item/pen,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Af" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Ag" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -7394,6 +7535,12 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"AW" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "AX" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
@@ -7602,12 +7749,20 @@
 /obj/structure/flora/tree/pine{
 	pixel_x = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/airless,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "BH" = (
 /obj/structure/musician/piano,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"BJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "BL" = (
 /obj/effect/turf_decal{
 	dir = 4
@@ -7644,15 +7799,6 @@
 	},
 /turf/simulated/floor/backrooms_carpet,
 /area/backrooms)
-"BV" = (
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/external{
-	id_tag = "syndicate_away"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/syndicate_mothership)
 "BX" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
@@ -7671,6 +7817,26 @@
 /obj/structure/flora/ausbushes/pointybush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"Cc" = (
+/obj/machinery/door_control/no_emag{
+	id = "syndicate_jail_cell";
+	name = "Bolt Cell Doors";
+	normaldoorcontrol = 1;
+	pixel_x = 6;
+	specialfunctions = 4;
+	req_access = list(150)
+	},
+/obj/machinery/door_control/no_emag{
+	id = "syndicate_jail";
+	name = "Bolt Jail Door";
+	normaldoorcontrol = 1;
+	pixel_x = -5;
+	specialfunctions = 4;
+	req_access = list(150)
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Cd" = (
 /obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/riveted,
@@ -7937,6 +8103,15 @@
 /obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
+"CX" = (
+/obj/item/kitchen/knife/butcher,
+/obj/item/melee/baseball_bat,
+/obj/item/clothing/mask/muzzle{
+	pixel_y = 8
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "CY" = (
 /obj/machinery/economy/vending/artvend{
 	name = "\improper WizArtVend"
@@ -8267,6 +8442,11 @@
 	icon_state = "vault"
 	},
 /area/shuttle/escape)
+"Eh" = (
+/obj/item/stack/rods/ten,
+/obj/item/wirecutters,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "Ei" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -8622,6 +8802,16 @@
 /obj/item/trash/candy,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"FA" = (
+/obj/structure/curtain/open/shower/security,
+/obj/item/soap/syndie,
+/obj/item/bikehorn/rubberducky/captainducky,
+/obj/machinery/shower{
+	dir = 1;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/syndicate_mothership)
 "FB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -8815,6 +9005,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"Gm" = (
+/obj/machinery/access_button{
+	pixel_x = -8;
+	pixel_y = 22;
+	autolink_id = "syndijail_btn_int"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Gn" = (
 /obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
@@ -8894,6 +9092,10 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"Gx" = (
+/obj/structure/fence/cut/large,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "Gy" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -9162,6 +9364,18 @@
 	icon_state = "darkyellow"
 	},
 /area/shuttle/escape)
+"Hu" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/obj/item/lighter/zippo/contractor{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Hv" = (
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
@@ -9169,6 +9383,15 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"Hx" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/syndie,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "Hy" = (
 /obj/structure/toilet{
 	dir = 8
@@ -9244,6 +9467,10 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_knightarena)
+"HK" = (
+/obj/structure/sign/drop,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/syndicate_mothership)
 "HL" = (
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/gun/nuclear,
@@ -9361,6 +9588,12 @@
 /obj/structure/flora/ausbushes/pointybush,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"Ie" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "If" = (
 /obj/structure/chair,
 /obj/effect/landmark/spawner/tdomeobserve,
@@ -9651,6 +9884,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
+"Jg" = (
+/obj/structure/chair/comfy/red{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "Jh" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/tdome/tdomeadmin)
@@ -9915,6 +10154,14 @@
 /obj/item/gun/medbeam,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
+"JS" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'FOURTH WALL'.";
+	name = "\improper FOURTH WALL";
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "JU" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -10004,6 +10251,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"Kj" = (
+/obj/structure/snowman,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "Km" = (
 /obj/machinery/kitchen_machine/microwave/upgraded,
 /obj/structure/table,
@@ -10214,6 +10465,14 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
+"KT" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "KU" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
@@ -10257,6 +10516,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"Lc" = (
+/obj/structure/toilet{
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Le" = (
 /obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
@@ -10321,6 +10586,12 @@
 "Ln" = (
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
+"Lo" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "Lp" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	autoclose = 0;
@@ -10334,6 +10605,10 @@
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
+"Lr" = (
+/obj/structure/flora/grass/green,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "Ls" = (
 /obj/machinery/door_control/no_emag{
 	id = "ASSAULT";
@@ -10726,6 +11001,9 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"MJ" = (
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/centcom)
 "ML" = (
 /obj/machinery/flasher{
 	id = "tdomeflash";
@@ -10806,10 +11084,6 @@
 /area/holodeck/source_desert)
 "MS" = (
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/external{
-	id_tag = "syndishuttle_door_ext";
-	name = "Ship External Access"
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -10836,6 +11110,10 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
 	width = 18
 	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "syndishuttle_door_ext";
+	name = "Ship External Airlock"
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "MU" = (
@@ -10848,6 +11126,10 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"MW" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation/centcom)
 "MX" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -11091,6 +11373,10 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/gamma)
+"NR" = (
+/obj/item/clothing/head/bearpelt/polar,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "NS" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
@@ -11394,6 +11680,9 @@
 /area/shuttle/escape)
 "OO" = (
 /obj/item/kirbyplants/large,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -11460,9 +11749,6 @@
 /obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -11575,6 +11861,13 @@
 	dir = 1
 	},
 /area/ghost_bar)
+"Pr" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "Ps" = (
 /obj/machinery/computer/communications{
 	dir = 1
@@ -11721,6 +12014,12 @@
 /obj/item/lighter,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"PT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "PU" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
@@ -11839,6 +12138,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"Qo" = (
+/obj/item/circular_saw,
+/obj/item/surgicaldrill{
+	pixel_y = 5
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Qr" = (
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/glass/fifty,
@@ -12311,6 +12618,9 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
+"RY" = (
+/turf/simulated/floor/pod/dark,
+/area/syndicate_mothership)
 "RZ" = (
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
@@ -12342,6 +12652,21 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/evac)
+"Sc" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/paper_bin,
+/obj/item/pen/multi/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Sd" = (
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/syndicate_mothership)
+"Se" = (
+/obj/item/storage/fancy/crayons,
+/obj/item/storage/fancy/crayons,
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/freezer,
+/area/syndicate_mothership)
 "Sf" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -12349,14 +12674,6 @@
 	icon_state = "red"
 	},
 /area/centcom/evac)
-"Sg" = (
-/obj/machinery/access_button{
-	pixel_x = -22;
-	pixel_y = -8;
-	autolink_id = "syndijail_btn_int"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
 "Sh" = (
 /obj/structure/table/wood,
 /obj/item/storage/bag/dice,
@@ -12552,6 +12869,18 @@
 	icon_state = "bar"
 	},
 /area/tdome/tdomeobserve)
+"Tg" = (
+/obj/machinery/airlock_controller/access_controller{
+	name = "Syndicate Jail Access Controller";
+	ext_door_link_id = "syndijail_door_ext";
+	int_door_link_id = "syndijail_door_int";
+	ext_button_link_id = "syndijail_btn_ext";
+	int_button_link_id = "syndijail_btn_int";
+	req_access = list(150);
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "Tj" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -12740,6 +13069,15 @@
 "TU" = (
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/evac)
+"TV" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "syndicate_away"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "TW" = (
 /obj/structure/sign/directions/engineering{
 	desc = "A sign that shows there are doors here. There are doors everywhere!";
@@ -12876,10 +13214,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -12972,12 +13306,6 @@
 "UO" = (
 /turf/simulated/wall/indestructible/opsglass/limited_smooth,
 /area/syndicate_mothership)
-"UP" = (
-/obj/machinery/door/window/classic/normal{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
 "UQ" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -13181,6 +13509,10 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"VK" = (
+/obj/structure/fence,
+/turf/simulated/floor/plating/asteroid/snow,
+/area/syndicate_mothership)
 "VL" = (
 /obj/structure/chair{
 	dir = 8
@@ -13330,6 +13662,10 @@
 	icon_state = "red"
 	},
 /area/centcom/evac)
+"Wm" = (
+/obj/structure/sign/drop,
+/turf/simulated/wall/indestructible/opsglass,
+/area/syndicate_mothership)
 "Wp" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
@@ -13379,6 +13715,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Ww" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin/syndicate,
+/obj/item/pen/multi/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "Wx" = (
 /obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel,
@@ -13974,6 +14316,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Yh" = (
+/obj/machinery/computer/arcade/recruiter,
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate_mothership)
 "Yi" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/syndicate_mothership)
@@ -14146,6 +14492,12 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"YQ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/syndicate_mothership)
 "YR" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -14154,14 +14506,14 @@
 /area/centcom/evac)
 "YS" = (
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/external{
-	id_tag = "syndishuttle_door_int";
-	locked = 1;
-	name = "Ship External Access"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "syndishuttle_door_int";
+	name = "Ship Internal Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "YT" = (
@@ -14277,6 +14629,9 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"Zk" = (
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/syndicate_mothership/jail)
 "Zl" = (
 /obj/item/kirbyplants/large,
 /obj/structure/mirror{
@@ -14301,6 +14656,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Zo" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Zp" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
@@ -14372,6 +14732,14 @@
 	icon_state = "white"
 	},
 /area/centcom/control)
+"Zy" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
 "ZA" = (
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_x = -30
@@ -54925,29 +55293,29 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+Nd
+Nd
+Nd
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+tL
+Nd
+Nd
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -55181,33 +55549,33 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+Nd
+uw
+uw
+Nd
+Nd
+Nd
+MJ
+MW
+MJ
+MJ
+MW
+MJ
+MJ
+MW
+MJ
+Nd
+Nd
+Nd
+Nd
+uw
+uw
+uw
+Nd
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -55438,34 +55806,34 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+uw
+ab
+uw
+uw
+ab
+Nd
+Nd
+MJ
+yC
+MJ
+MJ
+MJ
+yC
+MJ
+MJ
+Nd
+ab
+uw
+uw
+uw
+ab
+uw
+uw
+ab
+kB
+Nd
+Nd
 aN
 aN
 aN
@@ -55694,35 +56062,35 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+Nd
+Nd
+Nd
+MJ
+MJ
+MJ
+MJ
+Nd
+Nd
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+VK
+uw
+Nd
 aN
 aN
 aN
@@ -55951,36 +56319,36 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+jq
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Nd
+Nd
+Nd
+Nd
+Nd
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+kB
+Lr
+Nd
+Nd
 aN
 aN
 aN
@@ -56208,39 +56576,39 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+uw
+BG
+ab
+uw
+uw
+uw
+uw
+uw
+uw
+JS
+uw
+uw
+uw
+JS
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+ab
+VK
+BG
+uw
+Nd
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -56465,39 +56833,39 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+kB
+uw
+uw
+uw
+BG
+uw
+Nd
 aN
 aN
 aN
@@ -56721,41 +57089,41 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+VK
+uw
+BG
+uw
+uw
+uw
+Nd
+Nd
 aN
 aN
 aN
@@ -56978,43 +57346,43 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+uw
+uw
+jq
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+kB
+uw
+uw
+uw
+uw
+uw
+BG
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -57235,44 +57603,44 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+uw
+BG
+uw
+ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+ab
+Gx
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Nd
+Nd
 aN
 aN
 aN
@@ -57492,6 +57860,49 @@ aN
 aN
 aN
 aN
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+kB
+Eh
+jq
+uw
+uw
+BG
+uw
+uw
+tj
+uw
+Nd
+aN
+Nd
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -57501,52 +57912,9 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -57749,62 +58117,62 @@ aN
 aN
 aN
 aN
+Nd
+Nd
+uw
+uw
+BG
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+VK
+uw
+BG
+uw
+uw
+uw
+uw
+uw
+BG
+uw
+Nd
+Nd
+Nd
+uw
+uw
+Nd
+Nd
+Nd
 aN
 aN
 aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+Nd
+uw
+Nd
+Nd
 aN
 aN
 aN
@@ -58007,64 +58375,64 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+gd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+kB
+uw
+uw
+uw
+uw
+uw
+BG
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Nd
+Nd
+Nd
+Nd
+Nd
+Nd
+Nd
+Nd
+uw
+uw
+uw
+Nd
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -58263,65 +58631,65 @@ aN
 aN
 aN
 aN
-aN
-gd
 Nd
 Nd
+uw
+tV
+ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+ab
+VK
+BG
+uw
+tV
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+BG
+uw
+uw
+uw
+uw
+uw
+JS
+uw
+uw
+uw
+uw
+uw
+uw
+JS
+uw
+uw
+uw
+uw
+uw
+uw
 Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-aN
 aN
 aN
 aN
@@ -58519,67 +58887,67 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-BG
-ab
-ab
-jq
-ab
-ab
-ab
-ab
-ab
-jq
-ab
-ab
-eU
-BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
 Nd
-aN
-aN
+tj
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+kB
+uw
+tj
+uw
+uw
+uw
+ab
+uw
+jq
+uw
+uw
+uw
+uw
+uw
+tV
+uw
+uw
+uw
+ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+ab
+uw
+Nd
+Nd
 aN
 aN
 aN
@@ -58776,54 +59144,54 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
+uw
 BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+VK
+uw
+Yi
+BZ
+BZ
+Yi
+uw
+tV
+uw
+uw
 BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 iF
 KY
 KY
@@ -58833,10 +59201,10 @@ KY
 iF
 KY
 KY
-ab
+uw
+uw
+uw
 Nd
-aN
-aN
 aN
 aN
 aN
@@ -59033,48 +59401,48 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+Lr
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Yi
+BZ
+BZ
+Sd
+Zy
+KT
+BZ
+uw
 BG
-ab
-ab
+uw
+uw
+uw
+uw
 BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
 iF
 KY
 KY
@@ -59090,11 +59458,11 @@ KX
 uJ
 uL
 uU
-ab
+uw
+uw
+uw
 Nd
-aN
-aN
-aN
+Nd
 aN
 aN
 aN
@@ -59290,48 +59658,48 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
+Nd
+uw
+uw
+BG
 ab
-ab
-jq
-jq
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-jq
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+TV
+BY
+BY
+TV
+BY
+BY
+BZ
+uw
+uw
+uw
+Lr
+uw
+uw
+uw
+uw
 KY
 iX
 iX
@@ -59347,11 +59715,11 @@ KX
 uK
 uL
 uV
-ab
+uw
+uw
+uw
+uw
 Nd
-aN
-aN
-aN
 aN
 aN
 aN
@@ -59548,47 +59916,47 @@ aN
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-jq
-ab
-BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Sd
+BZ
+BZ
+Sd
+BY
+BY
+BZ
+tV
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 KY
 KX
 KX
@@ -59601,14 +59969,14 @@ KX
 KX
 um
 uH
-KX
+zS
 uL
 uY
-ab
+uw
+uw
+uw
+uw
 Nd
-aN
-aN
-aN
 aN
 aN
 aN
@@ -59805,47 +60173,47 @@ aN
 aN
 aN
 aN
-aN
 Nd
+uw
+uw
+jq
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-BG
-ab
-ab
-BG
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+nV
+TV
+BY
+BY
+TV
+BY
+BY
+BZ
+uw
 iF
 KY
 KY
 KY
 KY
-ab
-ab
+uw
+uw
 KY
 KX
 jz
@@ -59861,11 +60229,11 @@ tf
 KY
 KY
 nB
-ab
+uw
+uw
+uw
 Nd
-aN
-aN
-aN
+Nd
 aN
 aN
 aN
@@ -60062,47 +60430,47 @@ yl
 aN
 aN
 aN
-aN
 Nd
-ab
-jq
-ab
-BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Yi
+BZ
+BZ
+Sd
+BY
+BY
+BZ
+uw
 KY
 lP
 mk
 mF
 KY
 nv
-ab
+uw
 KY
 qI
 iI
@@ -60115,13 +60483,13 @@ KX
 KX
 uo
 KY
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
 Nd
-aN
-aN
 aN
 aN
 aN
@@ -60319,40 +60687,40 @@ yl
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+Nd
+uw
 BG
-ab
-jq
-ab
-BG
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+BZ
+BY
+BY
+BZ
+uw
 lA
 KX
 KX
@@ -60374,11 +60742,11 @@ tg
 KY
 KY
 KY
-ab
-ab
+uw
+uw
+uw
+uw
 Nd
-aN
-aN
 aN
 aN
 aN
@@ -60578,38 +60946,38 @@ aN
 aN
 aN
 Nd
-ab
-ab
-BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+kI
+BZ
+BY
+BY
+BZ
+uw
 lA
 lQ
 KX
@@ -60628,14 +60996,14 @@ tw
 KX
 KX
 up
-KX
+zS
 uL
 uU
-ab
-ab
+uw
+uw
+uw
 Nd
-aN
-aN
+Nd
 aN
 aN
 aN
@@ -60835,37 +61203,37 @@ aN
 aN
 aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
-Yi
-Yi
-Yi
+uw
+tV
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+fs
+BZ
+BY
+BY
+BZ
 ab
 lA
 lR
@@ -60888,10 +61256,10 @@ uq
 pF
 uL
 uV
+uw
 ab
-ab
+uw
 Nd
-aN
 aN
 aN
 aN
@@ -61092,38 +61460,38 @@ aN
 aN
 aN
 Nd
-ab
-ab
-ab
+uw
 BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 Yi
 BZ
 BZ
-Yi
+Sd
 BY
 BY
 BZ
-ab
+uw
 lA
 lS
 KX
@@ -61142,13 +61510,13 @@ KX
 KX
 KX
 up
-KX
+zS
 uL
 uY
-ab
-ab
+uw
+uw
+uw
 Nd
-aN
 aN
 aN
 aN
@@ -61347,40 +61715,40 @@ yl
 aN
 aN
 aN
-aN
 Nd
+Nd
+uw
+uw
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-BV
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+TV
 BY
 BY
-BV
+TV
 BY
 BY
 BZ
-ab
+uw
 lA
 lT
 KX
@@ -61402,10 +61770,10 @@ tg
 KY
 KY
 KY
-ab
-ab
+uw
+uw
+uw
 Nd
-aN
 aN
 aN
 aN
@@ -61604,40 +61972,40 @@ yl
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+uw
+uw
+uw
+jq
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Sd
 BZ
 BZ
-Yi
+Sd
 BY
 BY
 BZ
-ab
+uw
 KY
 lT
 KR
@@ -61657,12 +62025,12 @@ KX
 KX
 ur
 KY
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
 Nd
-aN
 aN
 aN
 aN
@@ -61861,49 +62229,49 @@ yl
 aN
 aN
 aN
-aN
 Nd
+uw
+uw
+uw
 ab
-ab
-jq
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-kf
-BV
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+TV
 BY
 BY
-BV
+TV
 BY
 BY
 BZ
-ab
+uw
 lB
 KY
 KY
 KY
 KY
-ab
+uw
 BZ
 BY
-BV
+TV
 MS
 xB
 sn
@@ -61917,10 +62285,10 @@ tf
 KY
 KY
 nv
-ab
+uw
+uw
 Nd
-aN
-aN
+Nd
 aN
 aN
 aN
@@ -62118,46 +62486,46 @@ yl
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+Nd
+uw
+uw
+BG
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 Yi
 BZ
 BZ
-Yi
+Sd
 BY
 BY
 BZ
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+Lr
 BZ
 hG
 UO
@@ -62174,10 +62542,10 @@ KX
 uM
 uL
 uU
-ab
+uw
+uw
+uw
 Nd
-aN
-aN
 aN
 aN
 aN
@@ -62377,44 +62745,44 @@ aN
 aN
 aN
 Nd
-ab
-ab
-BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+tj
 BZ
 BY
 BY
 BZ
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+tV
+uw
+uw
+uw
+uw
+uw
 BZ
 BY
 UO
@@ -62431,10 +62799,10 @@ KX
 uN
 uL
 uV
-ab
+uw
+uw
+uw
 Nd
-aN
-aN
 aN
 aN
 aN
@@ -62634,51 +63002,51 @@ aN
 aN
 aN
 Nd
-ab
-ab
-ab
+tV
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 jq
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-kI
+uw
 BZ
 BY
 BY
 BZ
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+jq
+uw
+BG
+uw
 BZ
 BY
 BZ
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
 KY
 tz
 tU
@@ -62688,10 +63056,10 @@ KX
 uT
 uL
 uY
-ab
+uw
+uw
+uw
 Nd
-aN
-aN
 aN
 aN
 aN
@@ -62889,53 +63257,53 @@ yl
 aN
 aN
 aN
-aN
 Nd
-jq
+Nd
+uw
+BG
 ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-kK
+uw
+uw
 BZ
 BY
 BY
 BZ
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+Kj
+uw
+uw
+uw
+uw
+uw
 BZ
 BY
 BZ
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
 lB
 KY
 KY
@@ -62945,10 +63313,10 @@ KY
 lB
 KY
 KY
-ab
+uw
+uw
+uw
 Nd
-aN
-aN
 aN
 aN
 aN
@@ -63146,67 +63514,67 @@ yl
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+BG
+tV
 BZ
-BZ
-Yi
 BY
 BY
 BZ
 ab
-ab
-jq
-ab
-ab
-ab
-ab
+uw
+tV
+uw
+uw
+uw
+Lr
 BZ
-oG
+sZ
 BZ
+uw
+uw
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
 tj
+uw
+uw
+uw
+uw
 ab
-ab
-ab
-ab
-ab
+uw
+uw
 Nd
-aN
-aN
-aN
+Nd
 aN
 aN
 aN
@@ -63402,68 +63770,68 @@ UJ
 yl
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
+Nd
+uw
+uw
 BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-BV
-BY
-BY
-BV
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+BZ
 BY
 BY
 BZ
-ab
-ab
-ab
+uw
+uw
+uw
 Yi
+BZ
+BZ
+BZ
+Sd
+oG
+Sd
+Sd
+Sd
 Yi
-Yi
-Yi
-Yi
-BY
-Yi
-Yi
-Yi
-Yi
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
 BG
-ab
-ab
-ab
+uw
+uw
+uw
 kI
-ab
+uw
+uw
+uw
+uw
 Nd
-aN
-aN
-aN
 aN
 aN
 aN
@@ -63659,68 +64027,68 @@ UJ
 yl
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 BZ
-BZ
-Yi
 BY
 BY
+Sd
 BZ
-ab
-ab
-Yi
-Yi
+BZ
+Sd
+Sd
 mK
-mZ
 BY
-nW
 BY
+zs
+BJ
 qK
 qT
 rZ
+Sd
 Yi
-Yi
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 kI
 uZ
 kI
+uw
+uw
+uw
 Nd
-aN
-aN
-aN
 aN
 aN
 aN
@@ -63916,68 +64284,68 @@ UJ
 yl
 aN
 aN
-aN
-aN
 Nd
+jq
+uw
+uw
+uw
 ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-BV
-BY
-BY
-BV
-BY
-BY
+Lr
+uw
 BZ
-ab
-ab
-Yi
-mn
 BY
 BY
-na
-na
+Pr
+BY
+BY
+BY
+BY
+BY
+BY
+vz
+vz
 oR
 qO
 qU
 sa
 sy
-Yi
-ab
+Sd
+uw
 jq
 tj
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
 kI
-ab
+uw
+uw
+uw
+uw
 Nd
-aN
-aN
-aN
 aN
 aN
 aN
@@ -64173,68 +64541,68 @@ UJ
 yl
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+Nd
+uw
+BG
+jq
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+BG
 BZ
-BZ
-Yi
 BY
 BY
-BZ
-ab
-ab
-BZ
+Sd
 mo
+BY
+BY
+BY
 BY
 na
 nI
-nY
+wr
 BY
 qO
 ra
 sb
 sB
-Yi
-ab
-ab
+Sd
+uw
+uw
 gP
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 Nd
 Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-aN
-aN
-aN
 aN
 aN
 aN
@@ -64431,66 +64799,66 @@ yl
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-jq
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-BG
-Yi
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+BZ
 BY
 BY
-Yi
-Yi
-Yi
-Yi
-mp
+Sd
+oH
 BY
-na
+BY
+BY
+BY
+ta
 nK
 ob
 BY
 qO
-qU
+qE
 sa
 sC
-Yi
+Sd
 tj
-ab
+uw
 tV
+uw
+uw
 Nd
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+uw
+uw
+uw
+uw
+uw
+uw
+Nd
 aN
 aN
 aN
@@ -64687,67 +65055,67 @@ UJ
 yl
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+Nd
+uw
+uw
+tj
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+jq
+uw
+BZ
 BY
 BY
+Sd
+Se
 BY
-BY
-BY
-lU
 BY
 BY
 ne
 na
-na
+nY
+ja
 BY
 nW
 rb
 zW
 sD
-Yi
-ab
-ab
+Sd
+uw
+uw
+uw
+uw
 Nd
-is
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+Nd
+uw
+uw
+uw
+uw
+Nd
+Nd
 aN
 aN
 aN
@@ -64944,66 +65312,66 @@ UJ
 yl
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-jq
-ab
-Yi
+uw
+uw
+uw
+uw
+BG
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+BZ
 BY
 BY
-Yi
-Yi
-Yi
-Yi
-Yi
+Sd
+BZ
+BZ
+bm
+Sd
 mM
 BY
+Hx
+Hx
 BY
 BY
 BY
 BY
-BY
-BY
-Yi
-Yi
-Yi
+Sd
+Sd
+Sd
 BZ
-Yi
-Yi
+Sd
+Sd
+Nd
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Nd
+Nd
+uw
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -65201,44 +65569,44 @@ UJ
 yl
 aN
 aN
-aN
-aN
 Nd
+uw
+tV
+uw
+uw
 ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 ab
-BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+uw
+uw
+BZ
 BY
 BY
-Yi
-aN
-aN
-aN
-Yi
+Sd
+bh
+rw
+rw
+Sd
 mN
 BY
 BY
@@ -65252,13 +65620,13 @@ sK
 XJ
 XJ
 tW
-Yi
+Sd
+Nd
 aN
 aN
-aN
-aN
-aN
-aN
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -65458,44 +65826,44 @@ UJ
 yl
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-jq
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+Nd
+Nd
+uw
+xj
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+yE
+BZ
 BY
 BY
-Yi
-aN
-aN
-aN
-Yi
+Sd
+Yh
+rw
+rw
+Sd
 mO
 BY
 BY
@@ -65509,7 +65877,7 @@ dt
 XJ
 XJ
 tW
-Yi
+Sd
 aN
 aN
 aN
@@ -65714,59 +66082,59 @@ UJ
 UJ
 yl
 aN
-aN
-aN
-aN
 Nd
-ab
-ab
-ab
-BG
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-BG
-Yi
+Nd
+uw
+Nd
+uw
+uw
+tV
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+BZ
 BY
 BY
-Yi
-aN
-aN
-aN
-Yi
-Yi
+Sd
+be
+rw
+rw
+Sd
+Sd
 Yi
 mT
-Yi
-Yi
-BZ
+Sd
+Sd
+HK
 rc
-BZ
-Yi
+HK
+Sd
 sL
 XJ
 XJ
 tW
-Yi
+Sd
 aN
 aN
 aN
@@ -65971,59 +66339,59 @@ UJ
 UJ
 yl
 aN
-aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+uw
+uw
+uw
+tV
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+tV
+uw
+uw
+BZ
 BY
 BY
-Yi
-aN
-aN
-aN
-aN
-Yi
+Sd
+fA
+rw
+rw
+Jg
+Sd
 mP
 nl
-nl
-Yi
-BZ
-BY
-BZ
-Yi
+FA
+Sd
+eS
+RY
+eS
+Sd
 sM
 XJ
 XJ
 tW
-Yi
+Sd
 aN
 aN
 aN
@@ -66228,59 +66596,59 @@ UJ
 UJ
 yl
 aN
-aN
-aN
-aN
 Nd
+uF
+pf
+uw
+uw
+uw
 ab
+uw
+uw
 ab
-jq
+uw
+uw
+uw
 ab
+uw
+uw
+uw
 ab
+uw
+uw
+uw
 ab
+uw
+uw
+uw
 ab
+uw
+uw
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-jq
-ab
-ab
-Yi
+uw
+uw
+BZ
 BY
 BY
-Yi
-aN
-aN
-aN
-aN
-Yi
+Sd
+xg
+rw
+ad
+aS
+Sd
 mR
 nl
 nL
-Yi
-BZ
-BY
-BZ
-Yi
+Sd
+zf
+RY
+RY
+Sd
 sQ
 XJ
 XJ
 tW
-Yi
+Sd
 aN
 aN
 aN
@@ -66485,59 +66853,59 @@ UJ
 yl
 yl
 aN
-aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+NR
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+tj
+uw
+uw
+uw
+uw
+uw
+Lr
+uw
+uw
+uw
+uw
+uw
+uw
+tj
+uw
+uw
+uw
+uw
 Yi
-BY
-BY
-Yi
-aN
-aN
-aN
-aN
-Yi
+Sd
+sZ
+sZ
+Sd
+rA
+rw
+Lo
+ti
+Sd
 no
-nj
-Yi
-Yi
-BZ
-BY
-BZ
-Yi
+nl
+pi
+Sd
+zf
+RY
+RY
+Sd
 sR
 XJ
 kD
 tX
-Yi
+Sd
 aN
 aN
 aN
@@ -66742,59 +67110,59 @@ yl
 yl
 aN
 aN
-aN
-aN
-aN
 Nd
-ab
+Nd
+Nd
+Nd
+uw
 Yi
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
 Yi
+uw
 Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-ab
-Yi
-Yi
-Yi
+Sd
+Sd
 BZ
 BZ
 BZ
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+XJ
 lh
-lh
-Yi
-aN
-aN
-aN
-aN
-Yi
-Yi
-Yi
-Yi
-Yi
-BZ
-BY
-BZ
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+zf
+RY
+RY
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
 aN
 aN
 aN
@@ -67000,11 +67368,11 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-Yi
+Nd
+Nd
+xE
+Sd
 gk
 gk
 gk
@@ -67016,9 +67384,9 @@ gk
 gk
 gk
 gk
-Yi
+Sd
 BZ
-Yi
+Sd
 iz
 jf
 jk
@@ -67026,30 +67394,30 @@ jk
 jk
 jU
 jk
-kh
 ks
 ky
 kM
-Yi
-XJ
-XJ
-Yi
+xX
+Sd
+PT
+PT
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
-ih
+Sd
 ih
 ih
 BZ
-BY
+re
+YQ
+yN
 BZ
 ih
 ih
-ih
-Yi
+Sd
 aN
 aN
 aN
@@ -67256,12 +67624,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
 Nd
-ab
-Yi
+Nd
+uw
+uw
+tj
+Sd
 gl
 gy
 gD
@@ -67273,9 +67641,9 @@ hi
 hD
 hQ
 gk
-Yi
+Sd
 XJ
-Yi
+Sd
 iz
 XJ
 XJ
@@ -67287,26 +67655,26 @@ XJ
 XJ
 XJ
 XJ
-Yi
+Sd
 XJ
 XJ
-Yi
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
+Sd
 ih
 nN
-pA
 BZ
+Wm
 rc
+Wm
 BZ
-pA
 sS
 ih
-Yi
+Sd
 aN
 aN
 aN
@@ -67513,12 +67881,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
 Nd
-ab
-Yi
+uw
+tV
+uw
+uw
+Sd
 gn
 gy
 gG
@@ -67530,13 +67898,13 @@ gD
 gD
 gD
 hY
-Yi
+Sd
 XJ
 iw
 XJ
 XJ
 XJ
-jr
+yX
 jr
 XJ
 XJ
@@ -67547,13 +67915,13 @@ XJ
 Hr
 XJ
 XJ
-Yi
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
+Sd
 nN
 ot
 ou
@@ -67563,7 +67931,7 @@ ov
 ou
 tb
 sS
-Yi
+Sd
 aN
 aN
 aN
@@ -67770,12 +68138,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
 Nd
-ab
-Yi
+Nd
+uw
+BG
+jq
+Sd
 gp
 gy
 gD
@@ -67787,30 +68155,30 @@ gD
 hD
 hV
 gk
-Yi
+Sd
 XJ
-Yi
-iB
+Sd
+iN
 XJ
 XJ
-jr
+Ww
 jM
 XJ
 XJ
 XJ
 XJ
 XJ
+fV
+Sd
 XJ
-Yi
 XJ
-XJ
-Yi
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
+Sd
 nO
 ou
 ov
@@ -67820,7 +68188,7 @@ pR
 ov
 ou
 tp
-Yi
+Sd
 aN
 aN
 aN
@@ -68028,11 +68396,11 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-Yi
+Nd
+uw
+uw
+Sd
 gk
 gk
 gk
@@ -68044,9 +68412,9 @@ hl
 gk
 gk
 gk
-Yi
+Sd
 XJ
-Yi
+Sd
 iC
 XJ
 XJ
@@ -68054,20 +68422,20 @@ XJ
 id
 jV
 XJ
-kj
+kh
 kt
 kz
 kN
-Yi
+Sd
 XJ
 XJ
-Yi
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
+Sd
 nO
 ov
 pR
@@ -68077,7 +68445,7 @@ qo
 pR
 ov
 tp
-Yi
+Sd
 aN
 aN
 aN
@@ -68286,45 +68654,45 @@ aN
 aN
 aN
 aN
-aN
 Nd
-ab
+uw
+uw
 Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
 hq
-Yi
-Yi
-Yi
+Sd
+Sd
+Sd
 Yi
 XJ
-Yi
-Yi
+Sd
+Sd
 jg
 jl
 jg
-Yi
-Yi
+Sd
+Sd
 jY
-Yi
-Yi
-Yi
-Yi
-Yi
+Sd
+Sd
+Sd
+Sd
+Sd
 XJ
 XJ
-Yi
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
+Sd
 nO
 oz
 qo
@@ -68334,7 +68702,7 @@ sg
 qo
 tc
 tp
-Yi
+Sd
 aN
 aN
 aN
@@ -68543,45 +68911,45 @@ aN
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Sd
 hv
 hF
 XJ
 XJ
 XJ
 XJ
-Yi
+Sd
 iD
 jh
 XJ
 js
 jO
-Yi
+Sd
 XJ
 XJ
 Am
 kA
 kO
-Yi
+Sd
 XJ
 XJ
-Yi
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
+Sd
 nO
 ov
 qs
@@ -68591,7 +68959,7 @@ qo
 qs
 ov
 tp
-Yi
+Sd
 aN
 aN
 aN
@@ -68800,45 +69168,45 @@ aN
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
 BG
-ab
-ab
-Yi
+uw
+uw
+Sd
 hw
 XJ
 XJ
 id
 XJ
 XJ
-Yi
+Sd
 iE
 XJ
 XJ
 XJ
 jP
-Yi
+Sd
 jZ
 kk
 kv
-kD
+AW
 kP
-Yi
+Sd
 XJ
 XJ
-Yi
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
+Sd
 nO
 ou
 ov
@@ -68848,7 +69216,7 @@ qs
 ov
 ou
 tp
-Yi
+Sd
 aN
 aN
 aN
@@ -69056,46 +69424,46 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+BG
 Yi
 BZ
 BZ
 BZ
-Yi
-Yi
+Sd
+Sd
 in
-Yi
+Sd
+iN
 XJ
 XJ
 XJ
 XJ
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Yi
 XJ
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
 XJ
-XJ
-Yi
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
+Sd
 nS
 oA
 ou
@@ -69105,7 +69473,7 @@ ov
 ou
 td
 te
-Yi
+Sd
 aN
 aN
 aN
@@ -69313,22 +69681,22 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+tV
+uw
+uw
+uw
+uw
+uw
+tV
+uw
 jq
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+Sd
 ij
 Rl
 ix
@@ -69337,7 +69705,7 @@ XJ
 jm
 jB
 XJ
-Yi
+Sd
 iN
 XJ
 XJ
@@ -69346,13 +69714,13 @@ XJ
 XJ
 XJ
 XJ
-Yi
+Sd
 aN
 aN
 aN
 aN
 aN
-Yi
+Sd
 ih
 nS
 qv
@@ -69362,7 +69730,7 @@ qv
 qv
 te
 ih
-Yi
+Sd
 aN
 aN
 aN
@@ -69570,22 +69938,22 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
 BG
-ab
-ab
-ab
+uw
+tj
+uw
 BG
-ab
-Yi
+uw
+Sd
 ik
 XJ
 iy
@@ -69603,25 +69971,25 @@ XJ
 XJ
 XJ
 XJ
-Yi
+Sd
 aN
 aN
-aN
-aN
-aN
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-aN
-aN
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
 aN
 aN
 aN
@@ -69827,22 +70195,22 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Lr
+uw
+Sd
 il
 OM
 ix
@@ -69851,7 +70219,7 @@ XJ
 jo
 jD
 XJ
-Yi
+Sd
 iN
 XJ
 XJ
@@ -69860,25 +70228,25 @@ XJ
 XJ
 XJ
 XJ
-Yi
+Sd
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Zk
+dd
+kU
+wm
+lf
+lW
+Zk
+Lc
+kZ
+Zk
+Lc
+kZ
+Zk
+Lc
+kZ
+Zk
 aN
 aN
 aN
@@ -70085,57 +70453,57 @@ aN
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-jq
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+tV
+uw
+uw
 Yi
 BZ
 BZ
 BZ
-Yi
-Yi
+Sd
+Sd
 iq
-Yi
+Sd
+iN
 XJ
 XJ
 XJ
 XJ
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Yi
 XJ
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
 XJ
-XJ
-Yi
+Sd
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Zk
+CX
+lf
+kU
+kU
+Zo
+Zk
+le
+kU
+lg
+lX
+kU
+lg
+le
+kU
+Zk
 aN
 aN
 aN
@@ -70340,59 +70708,59 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
 Nd
-ab
-ab
-ab
-jq
-ab
-ab
-ab
-ab
-Yi
+Nd
+Nd
+uw
+uw
+uw
+uw
+tV
+uw
+uw
+uw
+uw
+Sd
 hv
 XJ
 XJ
 ie
 XJ
 XJ
-Yi
+Sd
 iL
 XJ
 XJ
 XJ
 jQ
-Yi
+Sd
 ka
 kn
 kw
 kE
 kQ
-Yi
+Sd
 XJ
 XJ
-Yi
+Sd
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Zk
+Qo
+kU
+kU
+lD
+kZ
+Zk
+lg
+lo
+lg
+lg
+lo
+lg
+lg
+lo
+Zk
 aN
 aN
 aN
@@ -70596,60 +70964,60 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
 Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-Yi
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Sd
 hw
 hN
 XJ
 XJ
 XJ
 XJ
-Yi
+Sd
 iM
 jh
 XJ
 XJ
 jR
-Yi
+Sd
 XJ
 XJ
 XJ
 XJ
 XJ
-Yi
+Sd
 XJ
 XJ
-Yi
+Sd
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Zk
+Zk
+Zk
+lw
+Zk
+Zk
+Zk
+Af
+kU
+kU
+kU
+kU
+kU
+kU
+kU
+Zk
 aN
 aN
 aN
@@ -70853,60 +71221,60 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
 Nd
-ab
+uw
+uw
+uw
+uw
+uw
 Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
 hA
-Yi
-Yi
-Yi
+Sd
+Sd
+Sd
 Yi
 XJ
-Yi
-Yi
+Sd
+Sd
 ji
 iy
 ji
-Yi
-Yi
+Sd
+Sd
 kb
-Yi
-Yi
-Yi
-Yi
-Yi
+Sd
+Sd
+Sd
+Sd
+Sd
 XJ
 XJ
-Yi
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Sd
+Sd
+Sd
+Zk
+Af
+kU
+kU
+kU
+kU
+lt
+kU
+kU
+kU
+kU
+kU
+kU
+kU
+lv
+Zk
 aN
 aN
 aN
@@ -71110,13 +71478,13 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
 Nd
-ab
-Yi
+uw
+uw
+uw
+uw
+uw
+Sd
 gq
 gq
 gq
@@ -71128,9 +71496,9 @@ hB
 gq
 gq
 ih
-Yi
+Sd
 XJ
-Yi
+Sd
 iN
 XJ
 XJ
@@ -71142,28 +71510,28 @@ sR
 ks
 ky
 kM
-Yi
+Sd
 XJ
 XJ
-Yi
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Lp
+XJ
+XJ
+fk
+kU
+kU
+kU
+kU
+kU
+Zk
+Af
+kU
+kU
+kU
+kU
+kU
+lf
+kU
+Zk
 aN
 aN
 aN
@@ -71367,13 +71735,13 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
 Nd
-ab
-Yi
+Nd
+uw
+Nd
+uw
+uw
+Sd
 gt
 gA
 gH
@@ -71385,9 +71753,9 @@ hC
 hO
 gq
 gq
-Yi
+Sd
 XJ
-Yi
+Sd
 XJ
 XJ
 XJ
@@ -71399,28 +71767,28 @@ XJ
 XJ
 XJ
 XJ
-Yi
+Sd
 XJ
+ys
+Lp
 XJ
-Yi
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Tg
+fk
+kU
+kU
+Sc
+lU
+Cc
+Zk
+lg
+lo
+lg
+lg
+lo
+lg
+lg
+lo
+Zk
 aN
 aN
 aN
@@ -71625,12 +71993,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
 Nd
-ab
-Yi
+Nd
+Nd
+uw
+uw
+Sd
 gv
 gA
 gJ
@@ -71642,7 +72010,7 @@ gJ
 gJ
 hX
 ii
-Yi
+Sd
 XJ
 iw
 XJ
@@ -71659,25 +72027,25 @@ XJ
 lb
 XJ
 XJ
-Yi
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Sd
+Sd
+Sd
+Zk
+Gm
+kU
+Hu
+Ie
+kU
+Zk
+le
+lf
+lg
+le
+kU
+lg
+le
+kU
+Zk
 aN
 aN
 aN
@@ -71883,11 +72251,11 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-Yi
+uw
+uw
+uw
+Sd
 gw
 gA
 gL
@@ -71899,9 +72267,9 @@ hC
 hP
 gq
 gq
-Yi
+Sd
 XJ
-Yi
+Sd
 XJ
 XJ
 XJ
@@ -71913,28 +72281,28 @@ XJ
 XJ
 XJ
 kR
-Yi
-XJ
-XJ
-Yi
+Sd
+aJ
+aJ
+Sd
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Zk
+kU
+kU
+tN
+kU
+kU
+Zk
+Lc
+kZ
+Zk
+Lc
+kZ
+Zk
+Lc
+kZ
+Zk
 aN
 aN
 aN
@@ -72140,11 +72508,11 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
-Yi
+uw
+uw
+uw
+Sd
 gq
 gq
 gq
@@ -72156,9 +72524,9 @@ gq
 gq
 gq
 ih
-Yi
+Sd
 BZ
-Yi
+Sd
 iQ
 iQ
 jp
@@ -72170,28 +72538,28 @@ jp
 jp
 kF
 kS
-Yi
+Sd
 XJ
-XJ
-Yi
+cV
+Sd
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Zk
+Af
+ls
+qx
+pk
+nM
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
 aN
 aN
 aN
@@ -72397,49 +72765,49 @@ aN
 aN
 aN
 aN
-aN
-aN
 Nd
-ab
+Nd
+uw
+uw
 Yi
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
 Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-ab
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
+uw
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
 jX
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-XJ
-XJ
-Yi
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
+Zk
 aN
 aN
 aN
@@ -72655,24 +73023,24 @@ aN
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-ab
-jq
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-jq
-ab
-Yi
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+tV
+uw
+Sd
 iY
 XJ
 XJ
@@ -72684,10 +73052,10 @@ XJ
 XJ
 XJ
 kT
-Yi
-XJ
-XJ
-Yi
+Sd
+aN
+aN
+aN
 aN
 aN
 aN
@@ -72912,24 +73280,24 @@ aN
 aN
 aN
 aN
-aN
 Nd
-ab
-ab
-ab
-ab
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+tV
+uw
+uw
+uw
+uw
 gP
-ab
-ab
-ab
-jq
-ab
-ab
-ab
-ab
-gP
-ab
-Yi
+uw
+Sd
 iZ
 XJ
 iZ
@@ -72941,10 +73309,10 @@ XJ
 ke
 XJ
 ke
-Yi
-XJ
-vw
-Yi
+Sd
+aN
+aN
+aN
 aN
 aN
 aN
@@ -73169,39 +73537,39 @@ aN
 aN
 aN
 aN
+Nd
+Nd
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+Nd
+Nd
+Nd
+uw
+tV
+Nd
+Nd
+Sd
+je
+XJ
+je
+XJ
+je
+XJ
+je
+XJ
+je
+XJ
+je
+Sd
 aN
-Nd
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-jq
-Nd
-Nd
-Yi
-je
-XJ
-je
-XJ
-je
-XJ
-je
-XJ
-je
-XJ
-je
-Yi
-Lp
-Lp
-Yi
+aN
+aN
 aN
 aN
 aN
@@ -73429,36 +73797,36 @@ aN
 aN
 Nd
 Nd
+uw
+uw
+uw
+uw
 Nd
 Nd
 Nd
 Nd
+aN
 Nd
 Nd
 Nd
 Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-is
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-Yi
-XJ
-XJ
-Yi
+aN
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+aN
+aN
+aN
 aN
 aN
 aN
@@ -73685,6 +74053,12 @@ aN
 aN
 aN
 aN
+Nd
+Nd
+Nd
+Nd
+Nd
+Nd
 aN
 aN
 aN
@@ -73710,12 +74084,6 @@ aN
 aN
 aN
 aN
-aN
-aN
-Yi
-ju
-XJ
-Yi
 aN
 aN
 aN
@@ -73967,17 +74335,17 @@ aN
 aN
 aN
 aN
-kG
-kG
-kG
-fk
-fk
-kG
-kG
-kG
-kG
-kG
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -74224,17 +74592,17 @@ aN
 aN
 aN
 aN
-kG
-kU
-Sg
-kU
-kU
-ls
-kG
-lC
-lV
-mq
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -74481,17 +74849,17 @@ aN
 aN
 aN
 aN
-kG
-kU
-kU
-kU
-kU
-kU
-kG
-kU
-lf
-kU
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -74738,17 +75106,17 @@ aN
 aN
 aN
 aN
-kG
-kV
-UP
-kV
-kV
-kU
-lw
-kU
-kU
-mr
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -74995,17 +75363,17 @@ aN
 aN
 aN
 aN
-kG
-kW
-kU
-lm
-kV
-kU
-kG
-lD
-kU
-lf
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -75252,17 +75620,17 @@ aN
 aN
 aN
 aN
-kG
-kX
-kU
-kU
-lp
-kU
-kG
-lE
-lW
-kZ
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -75509,17 +75877,17 @@ aN
 aN
 aN
 aN
-kG
-kG
-kG
-kG
-kG
-lt
-kG
-kG
-kG
-kG
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -75766,17 +76134,17 @@ aN
 aN
 aN
 aN
-kG
-kZ
-le
-lo
-kU
-kU
-kU
-lo
-le
-kZ
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -76023,17 +76391,17 @@ aN
 aN
 aN
 aN
-kG
-la
-lf
-lg
-kU
-kU
-kU
-lg
-kU
-la
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -76280,17 +76648,17 @@ aN
 aN
 aN
 aN
-kG
-kG
-lg
-lg
-kU
-kU
-kU
-lg
-lg
-kG
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -76537,17 +76905,17 @@ aN
 aN
 aN
 aN
-kG
-kZ
-le
-lo
-kU
-kU
-kU
-lo
-lX
-kZ
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -76794,17 +77162,17 @@ aN
 aN
 aN
 aN
-kG
-la
-kU
-lg
-kU
-kU
-kU
-lg
-kU
-la
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -77051,17 +77419,17 @@ aN
 aN
 aN
 aN
-kG
-kG
-lg
-lg
-kU
-kU
-kU
-lg
-lg
-kG
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -77308,17 +77676,17 @@ aN
 aN
 aN
 aN
-kG
-kZ
-le
-lo
-lf
-kU
-kU
-lo
-le
-kZ
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -77565,17 +77933,17 @@ aN
 aN
 aN
 aN
-kG
-la
-kU
-lg
-kU
-lv
-kU
-lg
-kU
-la
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -77822,17 +78190,17 @@ aN
 aN
 aN
 aN
-kG
-kG
-kG
-kG
-kG
-kG
-kG
-kG
-kG
-kG
-kG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
