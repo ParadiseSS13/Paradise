@@ -122,7 +122,7 @@
 /datum/procedure/engineering/disassembly/wall
 	name = "Wall Disassembly"
 	steps = list(
-		"Apply welder on harm intent (2 metal returned)"
+		"Apply welder on harm intent (2 metal returned)",
 		"Apply wrench (2 metal returned)"
 		)
 
