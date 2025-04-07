@@ -18,7 +18,7 @@
 	mask = /obj/item/clothing/mask/gas
 	head = /obj/item/clothing/head/helmet/swat
 	back = /obj/item/storage/backpack
-	id = /obj/item/card/id
+	id = /obj/item/card/id/syndicate_fake
 
 
 /obj/effect/mob_spawn/human/corpse/syndicatecommando
@@ -39,7 +39,7 @@
 	mask = /obj/item/clothing/mask/gas/syndicate
 	back = /obj/item/mod/control/pre_equipped/traitor
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
-	id = /obj/item/card/id
+	id = /obj/item/card/id/syndicate_fake
 
 /obj/effect/mob_spawn/human/corpse/syndicatequartermaster
 	name = "Syndicate Quartermaster"
@@ -58,7 +58,7 @@
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/syndicate
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
-	id = /obj/item/card/id
+	id = /obj/item/card/id/syndicate_fake
 
 /obj/effect/mob_spawn/human/corpse/clown/corpse
 	roundstart = TRUE

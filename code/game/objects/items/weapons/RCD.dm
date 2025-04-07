@@ -702,7 +702,7 @@
  * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
  */
 /obj/item/rcd/proc/detonate_pulse_explode()
-	explosion(src, 0, 0, 3, 1, flame_range = 1)
+	explosion(src, 0, 0, 3, 1, flame_range = 1, cause = "RCD Explosion")
 	qdel(src)
 
 /obj/item/rcd/preloaded
