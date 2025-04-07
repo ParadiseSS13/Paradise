@@ -862,7 +862,6 @@
 	trainee = I.registered_name
 	icon_state = "nct_chip_active"
 
-// I know that this will be added in #28640, I won't open this PR before 28640 to prevent any issues.
 /obj/item/card/id/syndicate_fake // Syndicate ID drip with none of the access theft or anti-tracking.
 	name = "\improper Syndicate ID card"
 	desc = "An evil-looking ID issued to members of the Syndicate."
