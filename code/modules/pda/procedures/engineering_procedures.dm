@@ -14,7 +14,7 @@
 /datum/procedure/atmos_tech
 	jobs = list(JOBGUIDE_CE, JOBGUIDE_ATMOS)
 
-// CE SoP
+// MARK: SOP
 /datum/procedure/ce/sop
 	name = "Chief Engineer SOP"
 	catalog_category = "SOP"
@@ -56,7 +56,14 @@
 		"Atmospheric Technicians must periodically check on the Central Alarms Computer, in periods of, at most, thirty (30) minutes",
 		"Atmospheric Technicians must respond promptly to piping and station breaches. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Atmospheric Technicians to report, or an Engineer has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape or holobarriers, for the sake of everyone else.",
 		)
-
+/* MARK: Engineering
+*
+*
+*
+*
+*
+* MARK: SM Delam
+*/
 /datum/procedure/engineering/supermatter_delam
 	catalog_category = "Supermatter Delamination"
 
@@ -93,6 +100,78 @@
 		"Fix the floor of the chamber and quickly inject the cold N2",
 		"If the loop is too broken to allow injecting gas and there is not enough time to repair it use a passive vent piped to a nitrogen caniser to refill the chamber instead"
 		)
+// MARK: SM operation
+
+/datum/procedure/engineering/supermatter_operation
+	catalog_category = "Supermatter Operation"
+
+/datum/procedure/engineering/supermatter_operation/basic_setup
+	name = "Basic Setup"
+	steps = list(
+		"Replace all pumps aside from the one connecting the input and output sides with pipes",
+		"Turn on the pumps on the two N2 tanks, or pump in N2 from atmos",
+		"Turn on all filters and set them to maximum, making sure at least one filters N2",
+		"Go to the air alarm and set all vents to 0Kpa on internal pressure target",
+		"Set all scrubbers to extended and scrub all gasses(Don't use siphon, just set each gas individually)"
+		)
+
+// MARK: Disassembly
+
+/datum/procedure/engineering/disassembly
+	catalog_category = "Disassembly"
+
+/datum/procedure/engineering/disassembly/wall
+	name = "Wall Disassembly"
+	steps = list(
+		"Apply welder on harm intent (2 sheets of the wall material returned)",
+		"Apply wrench to girder (2 metal returned)"
+		)
+
+/datum/procedure/engineering/disassembly/r_wall
+	name = "Reinforced Wall Disassembly"
+	steps = list(
+		"Apply wirecutters",
+		"Apply screwdriver",
+		"Apply active welder",
+		"Apply crowbar",
+		"Apply wrench",
+		"active welder",
+		"Apply crowbar (1 plasteel returned)",
+		"Apply screwdriver",
+		"Apply wirecutters",
+		"Apply wrench (1 plasteel, 2 metal returned)",
+		)
+
+// MARK: Assembly
+
+/datum/procedure/engineering/assembly
+	catalog_category = "Assembly"
+
+/datum/procedure/engineering/assembly/wall
+	name = "Wall Assembly"
+	steps = list(
+		"Use metal in-hand",
+		"Select \"wall girders\"",
+		"Apply wall material to girder",
+		)
+
+/datum/procedure/engineering/assembly/r_wall
+	name = "Reinforced Wall Assembly"
+	steps = list(
+		"Use metal in-hand",
+    	"Select \"wall girders\"",
+    	"Apply plasteel to girder",
+    	"Apply plasteel again",
+		)
+
+/* MARK: Engineer
+*
+*
+*
+*
+*
+* MARK: Power
+*/
 
 /datum/procedure/engineer/power
 	catalog_category = "Power"
@@ -116,27 +195,22 @@
 		"Lock the APC with your ID"
 		)
 
-/datum/procedure/engineering/disassembly
-	catalog_category = "Disassembly"
+/* MARK: Atmos Tech
+*
+*
+*
+*
+*
+* MARK: Atmospherics
+*/
 
-/datum/procedure/engineering/disassembly/wall
-	name = "Wall Disassembly"
-	steps = list(
-		"Apply welder on harm intent (2 metal returned)",
-		"Apply wrench (2 metal returned)"
-		)
+/datum/procedure/atmos_tech/atmospherics
+	catalog_category = "Atmospherics"
 
-/datum/procedure/engineering/disassembly/r_wall
-	name = "Reinforced Wall Disassembly"
+/datum/procedure/atmos_tech/atmospherics/shift_start_setup
+	name = "Shift Start Setup"
 	steps = list(
-		"Apply wirecutters",
-		"Apply screwdriver",
-		"Apply active welder",
-		"Apply crowbar",
-		"Apply wrench",
-		"active welder",
-		"Apply crowbar (1 plasteel returned)",
-		"Apply screwdriver",
-		"Apply wirecutters",
-		"Apply wrench (1 plasteel, 2 metal returned)",
+		"Set all filters to maximum pressure",
+		"Replace the volume pump going into distro with either a pipe or a pressure pump",
+		"Build heat exchanging pipes in space and connect them to the line going to the Supermatter"
 		)
