@@ -2,7 +2,7 @@
 	var/datum/test_puppeteer/player = new(src)
 	var/turf/wall = player.change_turf_nearby(/turf/simulated/wall, NORTH)
 	// Allow APC construction.
-	var/area/test_area = get_area(player)
+	var/area/test_area = get_area(player.puppet)
 	test_area.requires_power = TRUE
 	// First we build the APC
 	player.spawn_obj_in_hand(/obj/item/mounted/frame/apc_frame)
@@ -48,3 +48,4 @@
 	player.spawn_obj_in_hand(/obj/item/weldingtool)
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You cut the APC frame from the wall.")
+	test_area.requires_power = FALSE
