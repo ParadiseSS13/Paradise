@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/ripped/directional/south,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -96,10 +93,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "cs" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/item/conveyor_construct{
 	pixel_y = -9;
 	pixel_x = -2
@@ -1088,10 +1082,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "zc" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/ripped/directional/south,
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1504,10 +1495,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "Ks" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/ripped/directional/south,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "KD" = (
@@ -1786,10 +1774,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "Ro" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light_construct/small{
@@ -1918,10 +1903,7 @@
 /area/ruin/unpowered/althland_factory)
 "Uy" = (
 /obj/structure/table_frame,
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/ripped/directional/south,
 /obj/item/robotanalyzer,
 /obj/item/clothing/head/welding,
 /obj/effect/decal/cleanable/dirt,
@@ -2041,9 +2023,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Xq" = (
-/obj/structure/sign/poster/official/state_laws{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/state_laws/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor/west{
 	layer = 1.9;
@@ -2091,10 +2071,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Ys" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/item/rack_parts,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,

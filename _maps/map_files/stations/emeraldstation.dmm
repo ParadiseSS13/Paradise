@@ -66463,9 +66463,7 @@
 /turf/simulated/floor/engine/cult,
 /area/station/maintenance/apmaint)
 "npy" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/random/directional/west,
 /obj/machinery/shower{
 	dir = 4
 	},

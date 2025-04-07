@@ -1,4 +1,4 @@
-help: "Use the specific directional subtypes for this poster."
+help: "Use the specific directional subtypes for this poster. Run 28861_directional_posters.txt to fix this."
 /obj/structure/sign/poster:
   banned_variables:
    - pixel_x
