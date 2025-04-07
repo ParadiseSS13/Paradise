@@ -37,9 +37,9 @@
 	apc_frame.cover_locked = FALSE
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You open the cover of [apc_frame].")
-	player.drop_item()
+	player.put_away(crowbar)
 	player.click_on(apc_frame)
-	TEST_ASSERT_LAST_CHATLOG(player, "You remove [the_cell].")
+	TEST_ASSERT_EQUAL(FALSE, apc_frame.cell, "The APC's cell was not removed during deconstruction.")
 	player.put_away(the_cell)
 	var/obj/wirecutters = player.spawn_obj_in_hand(/obj/item/wirecutters)
 	player.click_on(apc_frame)
