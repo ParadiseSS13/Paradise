@@ -177,6 +177,8 @@
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
+/// from mob/living/*/UnarmedAttack(): (mob/living/source, atom/target, proximity, modifiers)
+#define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
 ///from base of mob/living/Write_Memory()
 #define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
@@ -197,6 +199,16 @@
 
 // Sent when a mob spawner is attacked directly or via projectile.
 #define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
+
+/// From /datum/element/basic_eating/try_eating()
+#define COMSIG_MOB_PRE_EAT "mob_pre_eat"
+	///cancel eating attempt
+	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+
+/// From /datum/element/basic_eating/finish_eating()
+#define COMSIG_MOB_ATE "mob_ate"
+	///cancel post eating
+	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
 
 // ghost signals
 

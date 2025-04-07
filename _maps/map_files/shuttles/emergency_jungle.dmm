@@ -63,8 +63,7 @@
 /area/shuttle/escape)
 "ar" = (
 /obj/machinery/computer/security{
-	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	dir = 4
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -163,7 +162,7 @@
 	},
 /area/shuttle/escape)
 "aL" = (
-/obj/structure/bonfire/lit/dense,
+/obj/structure/lightable/bonfire/lit/dense,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aN" = (
@@ -325,9 +324,6 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bA" = (
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
 /obj/structure/chair/sofa/bamboo{
 	dir = 1
 	},
@@ -538,6 +534,9 @@
 /area/shuttle/escape)
 "cq" = (
 /obj/machinery/sleeper,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cr" = (
@@ -549,9 +548,6 @@
 "ct" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
-	},
-/obj/machinery/light/small{
-	dir = 4
 	},
 /obj/structure/flora/junglebush,
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
@@ -731,7 +727,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "tc" = (
-/obj/structure/bonfire/lit/dense,
+/obj/structure/lightable/bonfire/lit/dense,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -1308,7 +1304,7 @@ aa
 aa
 aa
 ab
-ab
+aD
 eP
 HY
 bM

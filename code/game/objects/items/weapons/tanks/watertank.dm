@@ -125,6 +125,7 @@
 		return INITIALIZE_HINT_QDEL
 	tank = loc
 	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 	return ..()
 
 /obj/item/reagent_containers/spray/mister/Destroy()
@@ -138,9 +139,6 @@
 	tank.on = FALSE
 	loc = tank
 
-/obj/item/reagent_containers/spray/mister/attack_self__legacy__attackchain()
-	return
-
 /proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
 	if(!parent_tank || (!istype(parent_tank, /obj/item/watertank) && !istype(parent_tank, /obj/item/mod/module/firefighting_tank)))	//To avoid weird issues from admin spawns
 		return FALSE
@@ -152,10 +150,11 @@
 	if(loc != tank.loc)
 		loc = tank.loc
 
-/obj/item/reagent_containers/spray/mister/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
-	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
-		return
-	..()
+/obj/item/reagent_containers/spray/mister/normal_act(atom/target, mob/living/user)
+	if(target.loc == loc || target == tank)
+		return FALSE
+
+	return ..()
 
 //Janitor tank
 /obj/item/watertank/janitor
@@ -182,7 +181,10 @@
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
-/obj/item/reagent_containers/spray/mister/janitor/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/spray/mister/janitor/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
 	spray_currentrange = (spray_currentrange == 2 ? spray_maxrange : 2)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")

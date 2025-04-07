@@ -33,11 +33,19 @@
 	/// The current time count for clearing old data from the lists
 	var/rad_time_counter = 0
 
+/obj/machinery/power/rad_collector/pre_activated
+	anchored = TRUE
+
+/obj/machinery/power/rad_collector/pre_activated/Initialize(mapload)
+	. = ..()
+	loaded_tank = new /obj/item/tank/internals/plasma(src)
+	toggle_power()
+
 /obj/machinery/power/rad_collector/process()
 	if(!loaded_tank)
 		return
 	if(!loaded_tank.air_contents.toxins())
-		investigate_log("<font color='red'>out of fuel</font>.", "singulo")
+		investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_SINGULO)
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		eject()
 	else
@@ -68,7 +76,7 @@
 		if(!locked)
 			toggle_power()
 			user.visible_message("[user.name] turns the [name] [active ? "on" : "off"].", "You turn the [name] [active ? "on" : "off"].")
-			investigate_log("turned [active ? "<font color='green'>on</font>" : "<font color='red'>off</font>"] by [user.key]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins() / 0.29)]%" : "<font color='red'>It is empty</font>"].", "singulo")
+			investigate_log("turned [active ? "<font color='green'>on</font>" : "<font color='red'>off</font>"] by [user.key]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins() / 0.29)]%" : "<font color='red'>It is empty</font>"].", INVESTIGATE_SINGULO)
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 

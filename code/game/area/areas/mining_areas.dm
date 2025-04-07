@@ -97,6 +97,10 @@
 	name = "Mining Station Storage"
 	icon_state = "storage"
 
+/area/mine/outpost/smith_workshop
+	name = "Smith's Workshop"
+	icon_state = "smith"
+
 /area/mine/outpost/maintenance
 	name = "Mining Station Maintenance"
 	icon_state = "maintcentral"

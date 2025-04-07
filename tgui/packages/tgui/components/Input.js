@@ -156,6 +156,7 @@ export class Input extends Component {
           <input
             ref={this.inputRef}
             className="Input__input"
+            type="search"
             placeholder={placeholder}
             onInput={this.handleInput}
             onFocus={this.handleFocus}

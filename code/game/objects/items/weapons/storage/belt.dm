@@ -96,7 +96,8 @@
 		/obj/item/holosign_creator,
 		/obj/item/stack/nanopaste,
 		/obj/item/robotanalyzer,
-		/obj/item/rpd/bluespace
+		/obj/item/rpd/bluespace,
+		/obj/item/hammer
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -1064,8 +1065,8 @@
 		/obj/item/kitchen/utensil,
 		/obj/item/kitchen/knife,
 		/obj/item/kitchen/rollingpin,
-		/obj/item/kitchen/mould,
-		/obj/item/kitchen/sushimat,
+		/obj/item/reagent_containers/cooking/mould,
+		/obj/item/reagent_containers/cooking/sushimat,
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,

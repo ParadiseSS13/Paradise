@@ -217,7 +217,7 @@
 		return TRUE
 
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/I)
-	explosion(holder.loc, 0, 0, severity, 0, 0)
+	explosion(holder.loc, 0, 0, severity, 0, 0, cause = "Explosive Spacevines")
 
 /datum/spacevine_mutation/fire_proof
 	name = "fire proof"

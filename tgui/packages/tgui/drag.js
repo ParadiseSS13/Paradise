@@ -102,6 +102,7 @@ export const recallWindowGeometry = async (options = {}) => {
     size = [Math.min(areaAvailable[0], size[0]), Math.min(areaAvailable[1], size[1])];
     setWindowSize(size);
   }
+  window.document.body.style['zoom'] = `${100 / window.devicePixelRatio}%`;
   // Set window position
   if (pos) {
     // Constraint window position if monitor lock was set in preferences.

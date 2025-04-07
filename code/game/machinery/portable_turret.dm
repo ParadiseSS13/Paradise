@@ -633,7 +633,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(iscuffed(L)) // If the target is handcuffed, leave it alone
 		return TURRET_NOT_TARGET
 
-	if(isanimal(L) || issmall(L)) // Animals are not so dangerous
+	if(isanimal_or_basicmob(L) || issmall(L)) // Animals are not so dangerous
 		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 
 	if(isalien(L)) // Xenos are dangerous
@@ -1149,6 +1149,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
 	projectile = /obj/item/projectile/bullet
 	eprojectile = /obj/item/projectile/bullet
+
+/obj/machinery/porta_turret/syndicate/turret_outpost
+	name = "machine gun turret (5.56x45mm)"
+	desc = "Syndicate exterior defense turret chambered for 5.56x45mm rounds. Designed to down intruders with rifle caliber bullets."
+	projectile = /obj/item/projectile/bullet/heavybullet2
+	eprojectile = /obj/item/projectile/bullet/heavybullet2
 
 /obj/machinery/porta_turret/syndicate/grenade
 	name = "mounted grenade launcher (40mm)"

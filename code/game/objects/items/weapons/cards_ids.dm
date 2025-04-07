@@ -558,11 +558,17 @@
 	icon_state = "cargo"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/smith
+	name = "Smith ID"
+	registered_name = "Smith"
+	icon_state = "smith"
+	access = list(ACCESS_CARGO_BAY, ACCESS_CARGO, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_SMITH)
+
 /obj/item/card/id/quartermaster
 	name = "Quartermaster ID"
 	registered_name = "Quartermaster"
 	icon_state = "quartermaster"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_SMITH)
 
 /obj/item/card/id/shaftminer
 	name = "Shaftminer ID"
@@ -855,6 +861,11 @@
 						ACCESS_CHANGE_IDS, ACCESS_MINISAT)
 	trainee = I.registered_name
 	icon_state = "nct_chip_active"
+
+/obj/item/card/id/syndicate_fake // Syndicate ID drip with none of the access theft or anti-tracking.
+	name = "\improper Syndicate ID card"
+	desc = "An evil-looking ID issued to members of the Syndicate."
+	icon_state = "syndie"
 
 // Decals
 /obj/item/id_decal

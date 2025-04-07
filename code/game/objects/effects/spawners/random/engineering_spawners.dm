@@ -3,6 +3,17 @@
 	icon_state = "wrench"
 	record_spawn = TRUE
 
+/obj/effect/spawner/random/engineering/misc
+	name = "miscellaneous engineering supplies spawner"
+	loot = list(
+		/obj/item/airlock_electronics,
+		/obj/item/firelock_electronics,
+		/obj/item/firealarm_electronics,
+		/obj/item/apc_electronics,
+		/obj/item/airalarm_electronics,
+		/obj/item/camera_assembly,
+	)
+
 /obj/effect/spawner/random/engineering/tools
 	name = "Tool spawner"
 	loot = list(

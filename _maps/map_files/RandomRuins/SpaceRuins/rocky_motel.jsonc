@@ -10,5 +10,4 @@
 		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel/drunk_accident",
 		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
 	}
-
 ]
