@@ -65,7 +65,7 @@
 	steps = list(
 		"Remove gas from the chamber until the console reads under 12000 moles per tile",
 		"If for whatever reason gas cannot be pumped out of the chamber use an RCD to remove a floor tile, then rebuild it."
-	)
+		)
 
 /datum/procedure/engineering/supermatter_delam/fire
 	name = "Chamber Fire Procedure"
@@ -75,7 +75,7 @@
 		"Inject cold N2 into the engine while using a fire extinguisher",
 		"If unsuccessful, stop injecting N2, remove a floor tile with an RCD, then replace it and quickly inject cold N2",
 		"Alternatively to the previous step use a nanofrost particle launcher on the vent side of the chamber and unweld the vents once the fire has ceased"
-	)
+		)
 
 /datum/procedure/engineering/supermatter_delam/power
 	name = "Charge Inertia Chain Reaction Procedure"
@@ -83,7 +83,7 @@
 		"If the engine is also on fire, perform the chamber fire procedure",
 		"Reduce the portion of CO2 in the gas mix by injecting N2 or N2O, this will quickly drop EER",
 		"Alternatively, reduce the amount of CO2 in the chamber, this will more slowly drop EER"
-	)
+		)
 
 /datum/procedure/engineering/supermatter_delam/breach
 	name = "Chamber Breach Procedure"
@@ -92,7 +92,7 @@
 		"Fix the walls of the chamber before fixing the floor if it is breached",
 		"Fix the floor of the chamber and quickly inject the cold N2",
 		"If the loop is too broken to allow injecting gas and there is not enough time to repair it use a passive vent piped to a nitrogen caniser to refill the chamber instead"
-	)
+		)
 
 /datum/procedure/engineer/power
 	catalog_category = "Power"
@@ -103,9 +103,40 @@
 		"Set the power input to maximum on all SMES",
 		"Set the power output to a total of 400KW across all SMES",
 		"If there is a power deficit and the SMES are empty, reduce the output so that all SMES receive the same amount of power"
-	)
+		)
 
 /datum/procedure/engineer/power/apc_repair
 	name = "Shorted APC Repair Procedure"
+	steps = list(
+		"Open the APC with a screwdriver",
+		"Use wirecutter to mend the damaged wires",
+		"Close the APC with a screwdriver",
+		"Unlock the APC with your ID",
+		"Set the breaker to On",
+		"Lock the APC with your ID"
+		)
 
-/datum/procedure/engineering/
+/datum/procedure/engineering/disassembly
+	catalog_category = "Disassembly"
+
+/datum/procedure/engineering/disassembly/wall
+	name = "Wall Disassembly"
+	steps = list(
+		"Apply welder on harm intent (2 metal returned)"
+		"Apply wrench (2 metal returned)"
+		)
+
+/datum/procedure/engineering/disassembly/r_wall
+	name = "Reinforced Wall Disassembly"
+	steps = list(
+		"Apply wirecutters",
+		"Apply screwdriver",
+		"Apply active welder",
+		"Apply crowbar",
+		"Apply wrench",
+		"active welder",
+		"Apply crowbar (1 plasteel returned)",
+		"Apply screwdriver",
+		"Apply wirecutters",
+		"Apply wrench (1 plasteel, 2 metal returned)",
+		)
