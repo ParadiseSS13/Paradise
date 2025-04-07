@@ -25,3 +25,6 @@
 /obj/machinery/door/airlock/multi_tile/glass{dir=4} : /obj/machinery/door/airlock/multi_tile/glass/directional/east{@OLD;dir=@SKIP}
 /obj/machinery/door/airlock/multi_tile/glass{dir=8} : /obj/machinery/door/airlock/multi_tile/glass/directional/west{@OLD;dir=@SKIP}
 /obj/machinery/door/airlock/multi_tile/glass : /obj/machinery/door/airlock/multi_tile/glass/directional/east{@OLD;dir=@SKIP}
+
+/obj/machinery/door/poddoor/multi_tile : /obj/machinery/door/poddoor/multi_tile/directional/south{@OLD;dir=@SKIP}
+/obj/machinery/door/poddoor/multi_tile/impassable : /obj/machinery/door/poddoor/multi_tile/impassable/directional/south{@OLD;dir=@SKIP}

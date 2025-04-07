@@ -1520,7 +1520,7 @@
 "hW" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Tram"
 	},
 /turf/simulated/floor/plating,
@@ -4306,7 +4306,7 @@
 /obj/machinery/door/airlock/vault{
 	name = "Auxiliary Power Room"
 	},
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Engineering"
 	},
 /turf/simulated/floor/catwalk,
@@ -6908,7 +6908,7 @@
 "TK" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity,
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Storage"
 	},
 /turf/simulated/floor/plasteel{
@@ -6985,7 +6985,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity,
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Storage"
 	},
 /turf/simulated/floor/plasteel{

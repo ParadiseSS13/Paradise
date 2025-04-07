@@ -92,6 +92,8 @@
 	layer = CLOSED_DOOR_LAYER
 	closingLayer = CLOSED_DOOR_LAYER
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/poddoor/multi_tile, 0, 0)
+
 /obj/machinery/door/poddoor/multi_tile/double
 	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
 	width = 2
@@ -114,6 +116,8 @@ MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/qua
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/poddoor/multi_tile/impassable, 0, 0)
 
 /obj/machinery/door/poddoor/multi_tile/impassable/hostile_lockdown()
 	return
