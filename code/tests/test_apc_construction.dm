@@ -38,6 +38,7 @@
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You open the cover of [apc_frame].")
 	player.put_away(crowbar)
+	sleep(2 SECONDS) // The puppet isn't grabbing the cell for some reason. This is a longshot but it might work.
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You remove [the_cell].")
 	player.put_away(the_cell)
