@@ -38610,7 +38610,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -74280,7 +74280,7 @@
 "oll" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/multi_tile/glass{
+/obj/machinery/door/airlock/multi_tile/glass/directional/east{
 	name = "Cryogenic Dormitories"
 	},
 /obj/structure/cable{

@@ -53,6 +53,8 @@
 
 	/// How much this door reduces superconductivity to when closed.
 	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
+	/// So explosion doesn't deal extra damage for multitile airlocks
+	COOLDOWN_DECLARE(explosion_cooldown)
 
 
 /obj/machinery/door/Initialize(mapload)
@@ -87,6 +89,13 @@
 	if(!..())
 		return
 	update_icon()
+
+/obj/machinery/door/ex_act()
+	if(width > 1 && fillers)
+		if(!COOLDOWN_FINISHED(src, explosion_cooldown))
+			return
+		COOLDOWN_START(src, explosion_cooldown, 1 SECONDS)
+	return ..()
 
 /obj/machinery/door/Destroy()
 	density = FALSE
@@ -425,33 +434,42 @@
 	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(safe)
-		CheckForMobs()
+		check_for_mobs()
 	else
 		crush()
 	return TRUE
 
-/obj/machinery/door/proc/CheckForMobs()
-	if(locate(/mob/living) in get_turf(src))
-		sleep(1)
-		open()
+/obj/machinery/door/proc/get_airlock_turfs()
+	var/list/airlock_turfs = list(get_turf(src))
+	if(width > 1 && fillers)
+		for(var/obj/F in fillers)
+			airlock_turfs |= list(get_turf(F))
+	return airlock_turfs
+
+/obj/machinery/door/proc/check_for_mobs()
+	for(var/turf/T in get_airlock_turfs())
+		if(locate(/mob/living) in T)
+			sleep(1)
+			open()
+			break
 
 /obj/machinery/door/proc/crush()
-	for(var/mob/living/L in get_turf(src))
-		L.visible_message("<span class='warning'>[src] closes on [L], crushing [L.p_them()]!</span>", "<span class='userdanger'>[src] closes on you and crushes you!</span>")
-		if(isalien(L))  //For xenos
-			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
-			L.emote("roar")
-		else if(ishuman(L)) //For humans
-			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			if(L.stat == CONSCIOUS)
-				L.emote("scream")
-			L.Weaken(10 SECONDS)
-		else //for simple_animals & borgs
-			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-		var/turf/location = get_turf(src)
-		L.add_splatter_floor(location)
-	for(var/obj/mecha/M in get_turf(src))
-		M.take_damage(DOOR_CRUSH_DAMAGE)
+	for(var/turf/T in get_airlock_turfs())
+		for(var/mob/living/L in T)
+			L.visible_message("<span class='warning'>[src] closes on [L], crushing [L.p_them()]!</span>", "<span class='userdanger'>[src] closes on you and crushes you!</span>")
+			if(isalien(L))  //For xenos
+				L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
+				L.emote("roar")
+			else if(ishuman(L)) //For humans
+				L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+				if(L.stat == CONSCIOUS)
+					L.emote("scream")
+				L.Weaken(10 SECONDS)
+			else //for simple_animals & borgs
+				L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+			L.add_splatter_floor(T)
+		for(var/obj/mecha/M in T)
+			M.take_damage(DOOR_CRUSH_DAMAGE)
 
 /obj/machinery/door/proc/requiresID()
 	return 1
@@ -529,11 +547,6 @@
  * Checks which way the airlock is facing and adjusts the direction accordingly.
  * For use with multi-tile airlocks.
  */
-/obj/machinery/door/proc/get_adjusted_dir(dir)
-	if(dir in list(EAST, WEST))
-		return EAST
-	else
-		return NORTH
 
 /**
  * Sets the bounds of the airlock. For use with multi-tile airlocks.
@@ -550,13 +563,29 @@
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
+		bound_y = 0
+		pixel_y = 0
+		if(dir == WEST)
+			bound_x = -(width - 1) * world.icon_size
+			pixel_x = -(width - 1) * world.icon_size
+		else
+			bound_x = 0
+			pixel_x = 0
+
 	else
 		bound_width = world.icon_size
 		bound_height = width * world.icon_size
+		bound_x = 0
+		pixel_x = 0
+		if(dir == SOUTH)
+			bound_y = -(width - 1) * world.icon_size
+			pixel_y = -(width - 1) * world.icon_size
+		else
+			bound_y = 0
+			pixel_y = 0
 
 	LAZYINITLIST(fillers)
 
-	var/adjusted_dir = get_adjusted_dir(dir)
 	var/obj/last_filler = src
 	for(var/i = 1, i < width, i++)
 		var/obj/airlock_filler_object/filler
@@ -568,7 +597,7 @@
 		else
 			filler = fillers[i]
 
-		filler.loc = get_step(last_filler, adjusted_dir)
+		filler.loc = get_step(last_filler, dir)
 		filler.density = density
 		filler.set_opacity(opacity)
 

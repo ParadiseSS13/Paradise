@@ -784,7 +784,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "cV" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
 	name = "Syndicate Base Blast Door"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -3068,7 +3068,7 @@
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership/jail)
 "lh" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
 	id_tag = "nukeop_base";
 	name = "Syndicate Base Docking Area Blast Door"
 	},
@@ -4239,7 +4239,7 @@
 	},
 /area/centcom/specops)
 "oQ" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/north{
 	name = "Trading Satellite Central Access"
 	},
 /turf/simulated/floor/plating/airless,
@@ -5357,7 +5357,7 @@
 /area/syndicate_mothership)
 "sE" = (
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/multi_tile/glass{
+/obj/machinery/door/airlock/multi_tile/glass/directional/east{
 	name = "Equipment Room"
 	},
 /turf/simulated/floor/plasteel{
@@ -7907,7 +7907,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Ck" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
@@ -10216,7 +10216,7 @@
 /area/ghost_bar)
 "Kb" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "sec";
 	name = "CentCom Security"
 	},
@@ -10256,7 +10256,7 @@
 /area/centcom/specops)
 "Ki" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "CC";
 	name = "Thunderdome Access"
 	},
@@ -11594,7 +11594,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "OB" = (
-/obj/machinery/door/airlock/multi_tile/glass{
+/obj/machinery/door/airlock/multi_tile/glass/directional/east{
 	name = "Badmin's Bar"
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -12108,7 +12108,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Qh" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/east{
 	name = "Special Operations Engineering Storage";
 	id_tag = "SpecopsEngineering"
 	},
@@ -12162,7 +12162,7 @@
 /area/centcom/specops)
 "Qs" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
 	id_tag = "CCTELE";
 	name = "Specops Teleporter"
 	},
@@ -12610,7 +12610,7 @@
 	},
 /area/centcom/control)
 "RW" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "specopsoffice";
 	name = "Privacy Shield"
 	},
@@ -13484,7 +13484,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "VD" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/east{
 	id_tag = "CCDOCK2";
 	name = "Special Operations Secondary Dock"
 	},
@@ -14024,7 +14024,7 @@
 	},
 /area/centcom/evac)
 "Xh" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
 	id_tag = "specopsoffice";
 	name = "Privacy Shield"
 	},
@@ -14034,7 +14034,7 @@
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
 "Xk" = (
-/obj/machinery/door/airlock/multi_tile/glass{
+/obj/machinery/door/airlock/multi_tile/glass/directional/east{
 	name = "Badmin's Bar"
 	},
 /turf/simulated/floor/wood,
@@ -14052,7 +14052,7 @@
 /area/shuttle/escape)
 "Xn" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
 	id_tag = "SpecopsFerry";
 	name = "Special Operations Ferry Hangar"
 	},
@@ -14774,7 +14774,7 @@
 /area/centcom/specops)
 "ZF" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/north{
 	id_tag = "ASSAULT";
 	name = "Assault Armor"
 	},

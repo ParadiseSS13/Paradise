@@ -3909,7 +3909,7 @@
 "yb" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
 	id_tag = "DS_BossStorage";
 	name = "warehouse valuables storage blast door"
 	},
@@ -4388,7 +4388,7 @@
 	},
 /area/ruin/space/deepstorage)
 "AN" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
 	id_tag = "DS_FrontGate"
 	},
 /turf/simulated/floor/catwalk/airless,
@@ -5880,7 +5880,7 @@
 "LJ" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "DS_BossStorage";
 	name = "warehouse blast doors"
 	},

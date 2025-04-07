@@ -15,3 +15,18 @@
 	dir = WEST; \
 	pixel_x = -offset_x; \
 }
+
+#define MAPPING_DIRECTIONAL_HELPERS_MULTITILE(path, offset) ##path/directional/north {\
+	dir = NORTH; \
+} \
+##path/directional/south {\
+	dir = SOUTH; \
+	pixel_y = -offset; \
+} \
+##path/directional/east {\
+	dir = EAST; \
+} \
+##path/directional/west {\
+	dir = WEST; \
+	pixel_x = -offset; \
+}

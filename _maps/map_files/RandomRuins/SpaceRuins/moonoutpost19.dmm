@@ -395,13 +395,13 @@
 /area/ruin/space/moonbase19)
 "ba" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/moonbase19)
 "bb" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -2601,7 +2601,7 @@
 /area/ruin/space/moonbase19)
 "ij" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/north{
 	id_tag = "awaycargogate"
 	},
 /turf/simulated/floor/catwalk,
@@ -10841,7 +10841,7 @@
 /area/ruin/space/moonbase19)
 "RD" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
