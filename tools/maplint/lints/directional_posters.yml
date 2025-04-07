@@ -1,8 +1,9 @@
 help: "Use the specific directional subtypes for this poster."
 /obj/structure/sign/poster:
   banned_variables:
-    pixel_x:
-    pixel_y:
+   - pixel_x
+   - pixel_y
+   - dir
 =/obj/structure/sign/poster:
   banned: TRUE
 =/obj/structure/sign/poster/ripped:

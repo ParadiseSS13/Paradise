@@ -113,6 +113,7 @@
 	var/obj/structure/sign/poster/ripped/R = new(loc)
 	R.pixel_y = pixel_y
 	R.pixel_x = pixel_x
+	R.dir = dir
 	R.add_fingerprint(user)
 	qdel(src)
 
