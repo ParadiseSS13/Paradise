@@ -443,7 +443,7 @@
 	var/list/airlock_turfs = list(get_turf(src))
 	if(width > 1 && fillers)
 		for(var/obj/F in fillers)
-			airlock_turfs |= list(get_turf(F))
+			airlock_turfs |= get_turf(F)
 	return airlock_turfs
 
 /obj/machinery/door/proc/check_for_mobs()
@@ -587,11 +587,11 @@
 	LAZYINITLIST(fillers)
 
 	var/obj/last_filler = src
-	for(var/i = 1, i < width, i++)
+	for(var/i in 1 to width)
 		var/obj/airlock_filler_object/filler
 
 		if(length(fillers) < i)
-			filler = new
+			filler = new(src)
 			filler.pair_airlock(src)
 			fillers.Add(filler)
 		else

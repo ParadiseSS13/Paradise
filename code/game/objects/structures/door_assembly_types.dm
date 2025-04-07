@@ -153,14 +153,14 @@
 /obj/structure/door_assembly/multi_tile/start_pulling(atom/movable/AM, state, force, show_message)
 	. = ..()
 	if(fillers)
-		for(var/i = 1; i < width; i++)
+		for(var/i in 1 to width)
 			var/obj/airlock_filler_object/filler = fillers[i]
 			filler.density = FALSE
 
 /obj/structure/door_assembly/multi_tile/stop_pulling()
 	. = ..()
 	if(fillers)
-		for(var/i = 1; i < width; i++)
+		for(var/i in 1 to width)
 			var/obj/airlock_filler_object/filler = fillers[i]
 			filler.density = TRUE
 
@@ -196,18 +196,17 @@
 	LAZYINITLIST(fillers)
 
 	var/obj/last_filler = src
-	for(var/i = 1, i < width, i++)
+	for(var/i in 1 to width)
 		var/obj/airlock_filler_object/filler
 
 		if(length(fillers) < i)
-			filler = new
+			filler = new(src)
 			filler.pair_assembly(src)
-			fillers.Add(filler)
+			fillers += filler
 		else
 			filler = fillers[i]
 
 		filler.loc = get_step(last_filler, dir)
-		filler.density = FALSE // otherwise it causes "some" issues
 		filler.set_opacity(opacity)
 
 		last_filler = filler
