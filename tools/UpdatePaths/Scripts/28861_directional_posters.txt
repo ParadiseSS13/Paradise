@@ -211,7 +211,7 @@
 
 /obj/structure/sign/poster/official/build{pixel_x=32} : /obj/structure/sign/poster/official/build/directional/east
 /obj/structure/sign/poster/official/build{pixel_x=-32} : /obj/structure/sign/poster/official/build/directional/west
-/obj/structure/sign/poster/official/rabuildndom{pixel_y=32} : /obj/structure/sign/poster/official/build/directional/north
+/obj/structure/sign/poster/official/build{pixel_y=32} : /obj/structure/sign/poster/official/build/directional/north
 /obj/structure/sign/poster/official/build{pixel_y=-32} : /obj/structure/sign/poster/official/build/directional/south
 
 /obj/structure/sign/poster/official/bless_this_spess{pixel_x=32} : /obj/structure/sign/poster/official/bless_this_spess/directional/east
