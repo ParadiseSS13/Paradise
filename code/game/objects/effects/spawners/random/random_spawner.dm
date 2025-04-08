@@ -17,10 +17,12 @@
 	var/spawn_loot_count = 1
 	/// If the same item can be spawned twice
 	var/spawn_loot_double = TRUE
-	/// Whether the items should be distributed to offsets 0,1,-1,2,-2,3,-3.. This overrides pixel_x/y on the spawner itself
+	/// Whether the items should be staggered visually on their location.
 	var/spawn_loot_split = FALSE
-	/// The pixel x/y divider offsets for spawn_loot_split (spaced 1 pixel apart by default)
+	/// The pixel x/y divider offsets for spawn_loot_split (spaced 2 pixels apart by default)
 	var/spawn_loot_split_pixel_offsets = 2
+	/// The placer for loot when `spawn_loot_split` is enabled
+	var/datum/spawner_pixel_placer/pixel_placer
 	/// Whether the spawner should spawn all the loot in the list
 	var/spawn_all_loot = FALSE
 	/// The chance for the spawner to create loot (ignores spawn_loot_count)
@@ -50,6 +52,10 @@
 	initialized = TRUE
 	spawn_loot()
 	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/random/Destroy()
+	. = ..()
+	qdel(pixel_placer)
 
 /obj/effect/spawner/random/proc/generate_loot_list()
 	if(loot_type_path)
@@ -82,9 +88,11 @@
 	var/list/loot_list = generate_loot_list()
 	var/safe_failure_count = 0
 
+	if(spawn_loot_split)
+		pixel_placer = new(spawn_loot_split_pixel_offsets, spawn_random_offset_max_pixels)
+
 	if(length(loot_list))
 		var/loot_spawned = 0
-		var/pixel_divider = FLOOR(spawn_random_offset_max_pixels / spawn_loot_split_pixel_offsets, 1)
 		while((spawn_loot_count-loot_spawned) && length(loot_list) && safe_failure_count <= 10)
 			loot_spawned++
 			var/lootspawn = pick_weight_recursive(loot_list)
@@ -122,15 +130,11 @@
 				else if(spawn_random_offset)
 					spawned_loot.pixel_x = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
 					spawned_loot.pixel_y = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
-				else if(spawn_loot_split)
-					if(loot_spawned)
-						var/column = FLOOR(loot_spawned / pixel_divider, 1)
-						spawned_loot.pixel_x = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider) + (column * spawn_loot_split_pixel_offsets)
-						spawned_loot.pixel_y = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider)
+				else if(spawn_loot_split && loot_spawned)
+					pixel_placer.place(spawned_loot, loot_spawned)
 
 				if(container)
 					spawned_loot.forceMove(container)
-
 
 /**
  *  Makes the actual item related to our spawner. If `record_spawn` is `TRUE`,
