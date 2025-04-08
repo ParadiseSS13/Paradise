@@ -215,7 +215,7 @@
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 1)
+	explosion(target, -1, 0, 1, cause = "frag 12 fired by [key_name(firer)]")
 	return TRUE
 
 /obj/item/projectile/bullet/confetti

@@ -78,5 +78,5 @@
 	stat &= ~EMPED
 
 /obj/machinery/power/port_gen/proc/explode()
-	explosion(loc, -1, 3, 5, -1)
+	explosion(loc, -1, 3, 5, -1, cause = "Exploding [name]")
 	qdel(src)
