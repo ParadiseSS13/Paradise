@@ -142,6 +142,29 @@
 		"Apply wrench (1 plasteel, 2 metal returned)",
 		)
 
+/datum/procedure/engineering/disassembly/general_machinery
+	name = "General Machine Disassembly"
+	steps = list(
+		"Apply screwdriver",
+		"Apply crowbar",
+		"Apply wirecutter to mahcine frame",
+		"Apply wrench to machine frame(5 metal sheets returned)",
+		)
+
+/datum/procedure/engineering/disassembly/airlock
+	name = "Airlock Disassembly"
+	steps = list(
+		"Make sure Wire Panel is screwed closed",
+		"Weld airlock closed with active welding tool on harm intent",
+		"Apply screwdriver",
+		"Make sure the bolts are up (Airlock Unbolted)",
+		"Apply wirecutters/multitool, cut/pulse the test wire",
+		"Apply crowbar (airlock electronics returned)",
+		"Apply wirecutters to airlock assembly(cable returned)",
+		"Apply wrench to airlock assembly",
+		"Apply active welder to airlock assembly(4 metal or mineral returned)",
+		)
+
 // MARK: Assembly
 
 /datum/procedure/engineering/assembly
@@ -163,6 +186,34 @@
 		"Apply plasteel to girder",
 		"Apply plasteel again",
 		)
+
+/datum/procedure/engineering/assembly/general_machinery
+	name = "General Machine Assembly"
+	steps = list(
+		"Use metal in-hand",
+		"Select \"machine frame\"",
+		"Apply wires to frame",
+		"Insert the circuitboard into the frame",
+		"Insert parts into the frame",
+		"Apply screwdriver to the frame"
+		)
+
+/datum/procedure/engineering/assembly/airlock
+	name = "Airlock Assembly"
+	steps = list(
+		"Use metal or mineral in-hand",
+		"Select \"airlock assemblies\"",
+		"Select desired sub-type",
+		"Apply wrench",
+		"Apply cable coil",
+		"Apply glass (optional)",
+		"Use airlock electronics in-hand to set access",
+		"Insert airlock electronics",
+		"(optional) use a multiltool to enable the electrochromic function",
+		"(optional)Use pen to rename",
+		"Apply screwdriver"
+		)
+
 
 /* MARK: Engineer
 *
