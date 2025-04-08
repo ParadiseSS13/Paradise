@@ -1752,6 +1752,7 @@
 #include "code\modules\awaymissions\mission_code\ruins\nian_freighter.dm"
 #include "code\modules\awaymissions\mission_code\ruins\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\processing_facility.dm"
+#include "code\modules\awaymissions\mission_code\ruins\sieged_lab.dm"
 #include "code\modules\awaymissions\mission_code\ruins\snowbiodome.dm"
 #include "code\modules\awaymissions\mission_code\ruins\syndiecakesfactory.dm"
 #include "code\modules\awaymissions\mission_code\ruins\telecomns.dm"

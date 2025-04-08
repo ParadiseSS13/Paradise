@@ -61,6 +61,7 @@ Difficulty: Medium
 							/datum/action/innate/megafauna_attack/transform_weapon)
 
 	initial_traits = list() // Don't want to inherit flight from parent type /megafauna/
+	var/death_simplemob_representation = /obj/effect/temp_visual/dir_setting/miner_death
 
 /obj/item/gps/internal/miner
 	icon_state = null
@@ -140,7 +141,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death()
 	if(health > 0)
 		return
-	new /obj/effect/temp_visual/dir_setting/miner_death(loc, dir)
+	new death_simplemob_representation(loc, dir)
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc)
@@ -157,6 +158,16 @@ Difficulty: Medium
 	transform_stop_attack = FALSE
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/butcher(mob/living/L)
+	visible_message("<span class='danger'>[src] butchers [L]!</span>",
+	"<span class='userdanger'>You butcher [L], restoring your health!</span>")
+	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
+		if(guidance)
+			adjustHealth(-L.maxHealth)
+		else
+			adjustHealth(-(L.maxHealth * 0.5))
+	L.gib()
+
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/AttackingTarget()
 	if(client)
 		transform_stop_attack = FALSE
@@ -166,14 +177,7 @@ Difficulty: Medium
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			visible_message("<span class='danger'>[src] butchers [L]!</span>",
-			"<span class='userdanger'>You butcher [L], restoring your health!</span>")
-			if(!is_station_level(z) || client) //NPC monsters won't heal while on station
-				if(guidance)
-					adjustHealth(-L.maxHealth)
-				else
-					adjustHealth(-(L.maxHealth * 0.5))
-			L.gib()
+			butcher(L)
 			return TRUE
 	changeNext_move(CLICK_CD_MELEE)
 	miner_saw.melee_attack_chain(src, target)
