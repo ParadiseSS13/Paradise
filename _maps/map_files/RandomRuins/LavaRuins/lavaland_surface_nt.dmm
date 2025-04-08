@@ -1589,9 +1589,7 @@
 /area/mine/outpost/smith_workshop)
 "iW" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/structure/sign/poster/official/help_others{
-	pixel_y = 31
-	},
+/obj/structure/sign/poster/official/help_others/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
