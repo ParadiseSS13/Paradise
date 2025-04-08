@@ -613,14 +613,18 @@ enable_ruins = true
 minimum_space_zlevels = 2
 # Maximum number of extra space zlevels to generate
 maximum_space_zlevels = 4
+# Minimum number of extra lavaland zlevels to generate
+minimum_lavaland_zlevels = 2
+# Maximum number of extra lavaland zlevels to generate
+maximum_lavaland_zlevels = 2
 # Minimum space ruin budget.
 space_ruin_budget_min = 750
 # Maximum space ruin budget.
 space_ruin_budget_max = 1000
 # Minimum lavaland ruin budget.
-lavaland_ruin_budget_min = 175
+lavaland_ruin_budget_min = 350
 # Maximum lavaland ruin budget.
-lavaland_ruin_budget_max = 325
+lavaland_ruin_budget_max = 500
 # List of all space ruins that can generate in the world
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_space_ruins = [
@@ -682,24 +686,34 @@ active_space_ruins = [
 # List of all ruins that can generate on lavaland
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_lava_ruins = [
-  ##BIODOMES
+  ## Core Gameplay Ruins
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_nt.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_legiongate.dmm",
+
+  ## BIODOMES
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm", ##RESPAWN
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm",
+  ## RESPAWN
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker1.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ash_walker_siege.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_golem_ship.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hermit.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_seed_vault.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_eden.dmm", ##SIN
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_eden.dmm",
+  ## SIN
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_envy.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm", # Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_gluttony.dmm",
+  # Greed blacklisted on production because its reward (dice) has a 1/20 chance of making you a wizard
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_greed.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pride.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_sloth.dmm", ##MEGAFAUNA
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_sloth.dmm",
+  ## MEGAFAUNA
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk1.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk2.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm", # Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm", ##MISC
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm",
+  # Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
+  ## MISC
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_excavation.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_minebot_factory.dmm",
