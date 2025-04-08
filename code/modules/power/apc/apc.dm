@@ -19,6 +19,15 @@
 	damage_deflection = 10
 	move_resist = INFINITY
 
+	/*** APC construction vars***/
+	// These exist here and not as defines in `apc_defines.dm` so they can be modified for `test_apc_construction.dm`. I hate that these timers exist at all.
+	var/apc_cover_replacement_time = 2 SECONDS
+	var/apc_frame_replacement_time = 5 SECONDS
+	var/apc_frame_welding_time = 5 SECONDS
+	var/apc_electronics_installation_time = 1 SECONDS
+	var/apc_electronics_crowbar_time = 5 SECONDS
+	var/apc_terminal_wiring_time = 2 SECONDS
+
 	// set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
 	powernet = 0
 
@@ -74,7 +83,7 @@
 	/// The current setting for the environment channel
 	var/environment_channel = APC_CHANNEL_SETTING_AUTO_ON
 	/// Is the APC cover locked? i.e cannot be opened?
-	var/coverlocked = TRUE
+	var/cover_locked = TRUE
 	/// Is the APC User Interface locked (prevents interaction)? Will not prevent silicons or admin observers from interacting
 	var/locked = TRUE
 	/// If TRUE, the APC will automatically draw power from connect terminal, if FALSE it will not charge
@@ -257,7 +266,10 @@
 
 		used.forceMove(src)
 		cell = used
-
+		user.visible_message(
+			"<span class='notice'>[user] inserts [used] into [src].</span>",
+			"<span class='notice'>You insert [used] into [src].</span>"
+		)
 		for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
 			demon.forceMove(src)
 			demon.current_power = src
@@ -265,11 +277,6 @@
 				demon.try_hijack_apc(src)
 		if(being_hijacked)
 			cell.rigged = FALSE // Do not explode the demon.
-
-		user.visible_message(
-			"<span class='notice'>[user] inserts [used] into [src].</span>",
-			"<span class='notice'>You insert [used] into [src].</span>"
-			)
 		chargecount = 0
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
@@ -306,9 +313,9 @@
 		user.visible_message(
 			"<span class='notice'>[user] starts adding cables to [src]...</span>",
 			"<span class='notice'>You start adding cables to [src]...</span>"
-			)
+		)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 2 SECONDS, target = src))
+		if(do_after(user, apc_terminal_wiring_time, target = src))
 			if(C.get_amount() < 10 || !C)
 				return ITEM_INTERACT_COMPLETE
 
@@ -336,20 +343,23 @@
 			return ITEM_INTERACT_COMPLETE
 
 		if(!has_electronics())
+			to_chat(user, "<span class='notice'>You start to add [used] to [src].</span>")
+			if(!do_after(user, apc_electronics_installation_time, target = src))
+				return ITEM_INTERACT_COMPLETE
+
 			user.visible_message(
-				"<span class='notice'>[user] installs [used] into [src]...</span>",
-				"<span class='notice'>You install [used] into [src]...</span>"
-				)
+				"<span class='notice'>[user] installs [used] into [src].</span>",
+				"<span class='notice'>You install [used] into [src].</span>"
+			)
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 			electronics_state = APC_ELECTRONICS_INSTALLED
 			locked = FALSE
 			stat &= ~MAINT
 			update_icon()
 			qdel(used)
-
 		return ITEM_INTERACT_COMPLETE
 
-	// APC frame repair. Takes no time, the trade-off is you sacrifice the metal used to build the replacement frame vs. being able to recover it from the old one.
+	// APC frame repair.
 	if(istype(used, /obj/item/mounted/frame/apc_frame) && opened)
 		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity))
 			to_chat(user, "<span class='warning'>[src] has no damage to fix!</span>")
@@ -357,10 +367,14 @@
 
 		// Only cover is broken, no need to remove any components.
 		if(!(stat & BROKEN) && opened == APC_COVER_OFF)
+			to_chat(user, "<span class='notice'>You begin to replace the missing cover of [src].</span>")
+			if(!do_after(user, apc_cover_replacement_time, target = src))
+				return ITEM_INTERACT_COMPLETE
+
 			user.visible_message(
 				"<span class='notice'>[user] replaces the missing cover of [src].</span>",
 				"<span class='notice'>You replace the missing cover of [src].</span>"
-				)
+			)
 			qdel(used)
 			opened = APC_OPENED
 			update_icon()
@@ -370,10 +384,14 @@
 			to_chat(user, "<span class='warning'>You cannot repair [src] until you remove the electronics!</span>")
 			return ITEM_INTERACT_COMPLETE
 
+		to_chat(user, "<span class='notice'>You begin to replace the damaged APC frame...</span>")
+		if(!do_after(user, apc_frame_replacement_time, target = src))
+			return ITEM_INTERACT_COMPLETE
+
 		user.visible_message(
 			"<span class='notice'>[user] replaces the damaged frame of [src].</span>",
 			"<span class='notice'>You replace the damaged frame of [src].</span>"
-			)
+		)
 		qdel(used)
 		stat &= ~BROKEN
 		obj_integrity = max_integrity
@@ -401,11 +419,14 @@
 /obj/machinery/power/apc/attack_hand(mob/user)
 	if(!user)
 		return
-	add_fingerprint(user)
 
-	if(usr == user && opened && !issilicon(user))
+	add_fingerprint(user)
+	if(opened && !issilicon(user))
 		if(cell)
-			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "<span class='notice'>You remove [cell].</span>")
+			user.visible_message(
+				"<span class='notice'>[user] removes [cell] from [src].",
+				"<span class='notice'>You remove [cell].</span>"
+				)
 			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
 			cell.update_icon(UPDATE_OVERLAYS)
@@ -413,6 +434,7 @@
 			charging = APC_NOT_CHARGING
 			update_icon()
 		return
+
 	if(stat & (BROKEN|MAINT))
 		return
 
@@ -451,7 +473,7 @@
 	data["chargeMode"] = chargemode
 	data["chargingStatus"] = charging
 	data["totalLoad"] = round(last_used_equipment + last_used_lighting + last_used_environment)
-	data["coverLocked"] = coverlocked
+	data["coverLocked"] = cover_locked
 	data["siliconUser"] = issilicon(user)
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
@@ -578,7 +600,7 @@
 				to_chat(user, "<span class='warning'>Access Denied!</span>")
 				return FALSE
 		if("cover")
-			coverlocked = !coverlocked
+			cover_locked = !cover_locked
 		if("breaker")
 			toggle_breaker(user)
 		if("toggle_nightshift")

@@ -9,7 +9,7 @@
 			set_broken()
 		if(opened != APC_COVER_OFF)
 			opened = APC_COVER_OFF
-			coverlocked = FALSE
+			cover_locked = FALSE
 			visible_message(
 				"<span class='warning'>The cover falls off [src]!</span>",
 				"<span class='warning'>You hear a small flat object falling to the floor!</span>"
@@ -26,7 +26,7 @@
 		if(cell)
 			if(opened == APC_OPENED) // Do not magically create a new cover if it broke off.
 				opened = APC_CLOSED
-				coverlocked = TRUE //closing cover relocks it
+				cover_locked = TRUE //closing cover relocks it
 				update_icon()
 				user.visible_message(
 					"<span class='notice'>[user] closes the cover of [src].</span>",
@@ -45,7 +45,7 @@
 			to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 			return
 
-		if(I.use_tool(src, user, FALSE, volume = I.tool_volume))
+		if(I.use_tool(src, user, apc_electronics_crowbar_time, volume = I.tool_volume))
 			if(has_electronics())
 				electronics_state = APC_ELECTRONICS_NONE
 				if(stat & BROKEN)
@@ -63,7 +63,7 @@
 						"<span class='notice'>[user] has discarded the shorted APC electronics from [src]!</span>",
 						"<span class='notice'>You discarded the shorted board.</span>",
 						"<span class='warning'>You hear metallic levering.</span>"
-						)
+					)
 					stat |= MAINT
 					update_icon()
 					return
@@ -80,7 +80,7 @@
 					update_icon()
 					return
 
-				user.visible_message(\
+				user.visible_message(
 					"<span class='notice'>[user] has removed the APC electronics from [src]!</span>",
 					"<span class='notice'>You remove the APC electronics.</span>",
 					"<span class='warning'>You hear metallic levering.</span>"
@@ -96,10 +96,11 @@
 			to_chat(user, "<span class='warning'>Exposed wiring prevents you from opening [src]!</span>")
 			return
 
-		if(coverlocked && !(stat & MAINT)) // locked...
+		if(cover_locked && !(stat & MAINT)) // locked...
 			to_chat(user, "<span class='warning'>The cover of [src] is locked!</span>")
 			return
 
+		to_chat(user, "<span class='notice'>You open the cover of [src].</span>")
 		opened = APC_OPENED
 		update_icon()
 
@@ -121,7 +122,7 @@
 	. = TRUE
 
 	if(opened)
-		to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery!
+		to_chat(user, "<span class='warning'>Close the APC first!</span>")
 		return
 
 	if(emagged)
@@ -166,7 +167,7 @@
 		return
 
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 5 SECONDS, amount = 3, volume = I.tool_volume))
+	if(I.use_tool(src, user, apc_frame_welding_time, amount = 3, volume = I.tool_volume))
 		if((stat & BROKEN) || opened == APC_COVER_OFF)
 			new /obj/item/stack/sheet/metal(loc)
 			user.visible_message(\

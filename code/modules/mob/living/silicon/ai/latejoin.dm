@@ -38,6 +38,15 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 		ghostize(FALSE)
 	else
 		ghostize(TRUE)
+
+	in_storage = TRUE
+	// Clean up AI programs, reassign nodes
+	for(var/obj/machinery/ai_node/node as anything in GLOB.ai_nodes)
+		if(!istype(node))
+			continue
+		if(node.assigned_ai != src)
+			continue
+		node.refresh_ai()
 	// Delete the old AI shell
 	qdel(src)
 
