@@ -62,14 +62,16 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 	while(num_spawned < nodes && length(possible_locs))
 		// Random chance of pulling a pre-mapped river waypoint instead.
 		if(length(GLOB.river_waypoint_presets) && prob(50))
-			var/obj/effect/landmark/river_waypoint/waypoint = pick_n_take(GLOB.river_waypoint_presets)
-			river_nodes += waypoint
-			num_spawned++
+			var/obj/effect/landmark/river_waypoint/waypoint = pick(GLOB.river_waypoint_presets)
+			if(waypoint.z == target_z)
+				river_nodes += waypoint
+				num_spawned++
+				GLOB.river_waypoint_presets -= waypoint
 		else
-			var/turf/T = pick(possible_locs)
+			var/turf/T = pick_n_take(possible_locs)
 			var/area/A = get_area(T)
 			if(!istype(A, whitelist_area_type) || (T.flags & NO_LAVA_GEN))
-				possible_locs -= T
+				continue
 			else
 				river_nodes += new /obj/effect/landmark/river_waypoint(T)
 				num_spawned++
