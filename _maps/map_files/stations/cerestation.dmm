@@ -82332,8 +82332,8 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
-/obj/machinery/requests_console/directional/south,
 /obj/structure/closet/secure_closet/smith,
+/obj/machinery/requests_console/smith/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
