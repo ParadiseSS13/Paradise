@@ -797,7 +797,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/dat = list()
 	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
-		if(!(cat in alarms_listend_for))
+		if(!(cat in alarms_listened_for))
 			continue
 		dat += "<B>[cat]</B><BR>\n"
 		var/list/list/L = temp_alarm_list[cat].Copy()
@@ -884,7 +884,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return low_power_mode
 
 /mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
-	if(!(class in alarms_listend_for))
+	if(!(class in alarms_listened_for))
 		return
 	if(alarmsource.z != z)
 		return
@@ -894,7 +894,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	if(cleared)
-		if(!(class in alarms_listend_for))
+		if(!(class in alarms_listened_for))
 			return
 		if(origin.z != z)
 			return
@@ -1422,9 +1422,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
-		explosion(src.loc,1,2,4,flame_range = 2)
+		explosion(src.loc,1,2,4,flame_range = 2, cause = "Self-destruct emagged cyborg")
 	else
-		explosion(src.loc,-1,0,2)
+		explosion(src.loc,-1,0,2, cause = "Self-destruct cyborg")
 	gib()
 	return
 

@@ -164,7 +164,7 @@
 	},
 /area/mine/laborcamp)
 "aI" = (
-/obj/machinery/newscaster/directional/east,
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -195,9 +195,6 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "aN" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/kirbyplants/large,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -1420,7 +1417,6 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -1663,6 +1659,7 @@
 /area/mine/outpost/cafeteria)
 "es" = (
 /obj/machinery/economy/vending/cigarette,
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3429,7 +3426,8 @@
 	},
 /area/mine/laborcamp)
 "jJ" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -5269,11 +5267,11 @@
 /area/mine/laborcamp)
 "sL" = (
 /obj/structure/closet/cardboard,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/glowstick,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
@@ -6580,7 +6578,7 @@
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "zm" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/flashlight/flare,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -6661,6 +6659,7 @@
 /area/mine/laborcamp)
 "zN" = (
 /obj/machinery/mineral/equipment_vendor,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -6728,7 +6727,6 @@
 	},
 /area/mine/laborcamp)
 "Ai" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - West Hallway";
 	dir = 1;
@@ -6925,9 +6923,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "Bi" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Central Wesst";
 	network = list("Labor Camp");
@@ -8343,6 +8338,16 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
+"Je" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/newscaster/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mine/outpost/cafeteria)
 "Jg" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -8920,7 +8925,6 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -9208,14 +9212,9 @@
 	},
 /area/mine/outpost/lockers)
 "OO" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/machinery/light/small,
 /obj/structure/closet,
 /obj/item/storage/bag/trash,
 /obj/machinery/alarm/directional/south,
@@ -9223,6 +9222,9 @@
 /obj/item/caution,
 /obj/item/caution,
 /obj/item/caution,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners"
 	},
@@ -9399,6 +9401,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "PQ" = (
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -9453,6 +9456,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 10
@@ -26549,7 +26553,7 @@ LS
 iF
 iF
 bJ
-cE
+Je
 bN
 FE
 Cw
@@ -26806,7 +26810,7 @@ cr
 cU
 cw
 dy
-cF
+dy
 cF
 VD
 dy
@@ -27584,7 +27588,7 @@ IC
 IC
 IC
 vh
-CT
+vh
 CT
 fr
 vh

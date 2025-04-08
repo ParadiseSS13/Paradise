@@ -1,0 +1,945 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ac" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/item/organ/internal/liver/unathi,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"cN" = (
+/obj/structure/mecha_wreckage/ripley,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"eC" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"fj" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"fv" = (
+/obj/effect/mob_spawn/human/corpse/miner,
+/obj/item/rcd,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"fF" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"gp" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"gz" = (
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine";
+	icon_state = "laser-0"
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"hd" = (
+/obj/structure/table/wood,
+/obj/item/storage/belt/utility,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"hG" = (
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine";
+	icon_state = "laser-0"
+	},
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"hK" = (
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"ik" = (
+/obj/structure/necropolis_gate,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"iu" = (
+/obj/structure/headspear{
+	pixel_y = 16
+	},
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine";
+	icon_state = "laser-0"
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ka" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"kO" = (
+/turf/simulated/wall/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"lw" = (
+/obj/item/seeds/tower,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"lz" = (
+/obj/item/stack/medical/ointment/aloe,
+/obj/item/stack/medical/bruise_pack/comfrey{
+	pixel_x = 7
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"mk" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"ms" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/item/organ/internal/liver/vulpkanin,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"nj" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"nr" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"nI" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
+"nK" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/mob_spawn/human/corpse/ashwalker,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"qg" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"rL" = (
+/obj/item/gun/energy/kinetic_accelerator,
+/obj/effect/mob_spawn/human/corpse/miner,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"sm" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"sw" = (
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
+"us" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"uz" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/item/organ/internal/lungs/tajaran,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"vi" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wu" = (
+/obj/item/stack/sheet/mineral/sandstone,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wv" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/item/clothing/suit/unathi/robe,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"wx" = (
+/turf/template_noop,
+/area/template_noop)
+"wK" = (
+/obj/item/spear/bonespear,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ye" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"yh" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/item/organ/internal/kidneys/grey,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"zq" = (
+/obj/structure/headspear{
+	pixel_y = 16
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"zT" = (
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"AA" = (
+/obj/structure/table_frame/wood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"AJ" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"AY" = (
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine";
+	icon_state = "laser-0"
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Ba" = (
+/obj/item/seeds/glowshroom,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"BT" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/item/food/meat,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"Cc" = (
+/obj/structure/stone_tile/block,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Dw" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"ES" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/item/organ/internal/kidneys/unathi,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"Ge" = (
+/obj/effect/mob_spawn/human/corpse/miner,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Gn" = (
+/obj/effect/spawner/random/blood/maybe,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Gq" = (
+/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"GF" = (
+/obj/structure/table/wood,
+/obj/item/spear,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Hn" = (
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine";
+	icon_state = "laser-0"
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Hr" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"HU" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"IC" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/item/organ/internal/liver/kidan,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"JS" = (
+/turf/simulated/wall,
+/area/lavaland/surface/outdoors)
+"KT" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"Md" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/item/food/meat,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"Ms" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Mv" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"MQ" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"NM" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"Pv" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Px" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/hatchet/unathiknife,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"PF" = (
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Qz" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/item/stack/sheet/mineral/sandstone,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"Ri" = (
+/obj/structure/sink/puddle,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Si" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"So" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/item/stack/ore/diamond,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+"Uy" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"UR" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"VN" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Wv" = (
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"Wz" = (
+/obj/structure/lightable/bonfire,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"WK" = (
+/obj/item/cultivator/rake,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Xu" = (
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine";
+	icon_state = "laser-0"
+	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ZG" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/item/stack/ore/bluespace_crystal{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/misc_lavaruin)
+
+(1,1,1) = {"
+wx
+wx
+wx
+wx
+wx
+ye
+ye
+ye
+zT
+zT
+zT
+zT
+zT
+zT
+zT
+zT
+zT
+wx
+wx
+wx
+wx
+wx
+"}
+(2,1,1) = {"
+wx
+wx
+wx
+ye
+ye
+ye
+ye
+sw
+sw
+sw
+sw
+sw
+sw
+sw
+sw
+sw
+zT
+wx
+wx
+wx
+wx
+wx
+"}
+(3,1,1) = {"
+wx
+ye
+ye
+ye
+ye
+ye
+ye
+sw
+MQ
+lw
+WK
+MQ
+Gn
+JS
+fv
+sw
+zT
+wx
+wx
+wx
+wx
+wx
+"}
+(4,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+sw
+MQ
+Gq
+vi
+MQ
+vi
+JS
+eC
+sw
+zT
+zT
+wx
+wx
+wx
+wx
+"}
+(5,1,1) = {"
+ye
+kO
+kO
+kO
+kO
+kO
+kO
+NM
+sw
+Ri
+Ba
+rL
+Pv
+vi
+vi
+sw
+zT
+zT
+zT
+wx
+wx
+wx
+"}
+(6,1,1) = {"
+ye
+kO
+ZG
+ms
+BT
+gp
+yh
+kO
+vi
+vi
+vi
+Mv
+Pv
+vi
+sw
+sw
+sw
+sw
+sw
+zq
+vi
+vi
+"}
+(7,1,1) = {"
+ye
+kO
+UR
+qg
+nj
+us
+wv
+kO
+lz
+Px
+Pv
+Mv
+Mv
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+"}
+(8,1,1) = {"
+ye
+kO
+sm
+Wv
+Dw
+uz
+Si
+ik
+nK
+Mv
+PF
+Mv
+vi
+gz
+vi
+vi
+AY
+vi
+gz
+vi
+vi
+vi
+"}
+(9,1,1) = {"
+ye
+kO
+fF
+nr
+Hr
+mk
+ac
+kO
+wK
+vi
+Pv
+eC
+vi
+eC
+Hn
+Mv
+Mv
+Xu
+Ge
+vi
+vi
+vi
+"}
+(10,1,1) = {"
+ye
+kO
+Md
+ES
+So
+KT
+IC
+kO
+eC
+vi
+Pv
+Mv
+hG
+vi
+sw
+sw
+sw
+sw
+sw
+iu
+vi
+vi
+"}
+(11,1,1) = {"
+ye
+kO
+kO
+kO
+kO
+kO
+kO
+kO
+sw
+fj
+vi
+Pv
+Pv
+vi
+Uy
+sw
+zT
+zT
+zT
+wx
+wx
+wx
+"}
+(12,1,1) = {"
+ye
+ye
+ye
+ye
+ye
+ye
+ye
+sw
+Cc
+Wz
+ka
+Pv
+wu
+vi
+AA
+sw
+zT
+zT
+wx
+wx
+wx
+wx
+"}
+(13,1,1) = {"
+wx
+ye
+ye
+ye
+ye
+ye
+ye
+sw
+vi
+VN
+cN
+AJ
+vi
+GF
+hd
+sw
+zT
+wx
+wx
+wx
+wx
+wx
+"}
+(14,1,1) = {"
+wx
+wx
+wx
+ye
+ye
+ye
+ye
+sw
+sw
+sw
+nI
+Ge
+nI
+sw
+sw
+sw
+zT
+wx
+wx
+wx
+wx
+wx
+"}
+(15,1,1) = {"
+wx
+wx
+wx
+wx
+wx
+ye
+ye
+ye
+zT
+zT
+hK
+Qz
+HU
+zT
+zT
+zT
+zT
+wx
+wx
+wx
+wx
+wx
+"}
+(16,1,1) = {"
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+Ms
+Ms
+Ms
+Ms
+Ms
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+wx
+"}

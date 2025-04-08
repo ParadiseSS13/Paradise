@@ -160,7 +160,7 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(isanimal(O) || issilicon(O)) //animals and robutts dont fit
+	if(isanimal_or_basicmob(O) || issilicon(O)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
