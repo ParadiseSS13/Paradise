@@ -10570,7 +10570,7 @@
 /turf/simulated/floor/carpet,
 /area/station/service/theatre)
 "aPX" = (
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "aQb" = (
@@ -12761,13 +12761,12 @@
 /turf/space,
 /area/station/maintenance/incinerator)
 "aWW" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/machinery/shower{
+	dir = 4
 	},
+/turf/simulated/floor/noslip,
 /area/station/security/prisonlockers)
 "aXa" = (
 /turf/simulated/floor/engine/co2,
@@ -15822,6 +15821,7 @@
 	pixel_y = 3
 	},
 /obj/item/stack/sheet/metal/ten,
+/obj/machinery/requests_console/smith/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -17531,9 +17531,6 @@
 	},
 /area/station/engineering/atmos)
 "boc" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -17543,9 +17540,6 @@
 	on = 1;
 	target_pressure = 101
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -17553,12 +17547,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -19110,14 +19104,8 @@
 	},
 /area/station/engineering/atmos/distribution)
 "btm" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/alarm/directional/west,
 /obj/machinery/suit_storage_unit/atmos/secure,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
@@ -20088,6 +20076,9 @@
 	},
 /obj/structure/table/reinforced,
 /mob/living/simple_animal/bot/floorbot,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -20584,10 +20575,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "byt" = (
-/obj/structure/rack,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
+/obj/structure/engineeringcart/full{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -60307,7 +60297,6 @@
 "gLD" = (
 /obj/structure/table/glass,
 /obj/machinery/recharger,
-/obj/item/screwdriver,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -70279,7 +70268,10 @@
 "mja" = (
 /obj/structure/table/glass,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell,
+/obj/item/stock_parts/cell/high,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -81245,6 +81237,18 @@
 "rGF" = (
 /turf/simulated/floor/engine,
 /area/station/science/testrange)
+"rGM" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/screwdriver{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/storage)
 "rGZ" = (
 /obj/structure/chair{
 	dir = 4
@@ -92780,12 +92784,17 @@
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "wYE" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/power/apc/important/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/delivery/red/hollow,
+/obj/structure/shelf/security,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -144165,7 +144174,7 @@ cMz
 hiZ
 hvf
 hvf
-fCT
+rGM
 cMz
 mzW
 mVE

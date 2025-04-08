@@ -203,3 +203,15 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/trainer
 	uniform = /obj/item/clothing/under/plasmaman/trainer
+
+/datum/outfit/plasmaman/navyofficer
+	name = "Plasmaman Navy Officer"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/centcom
+	uniform = /obj/item/clothing/under/plasmaman/centcom
+
+/datum/outfit/plasmaman/soo
+	name = "Plasmaman Special Operations Officer"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/centcom/soo
+	uniform = /obj/item/clothing/under/plasmaman/centcom
