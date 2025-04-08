@@ -84771,7 +84771,7 @@
 "wIt" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/camera{
-	c_tag = "Virology Lobby";
+	c_tag = "Aft Primary Hallway 1";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
