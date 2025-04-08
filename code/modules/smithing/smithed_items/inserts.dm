@@ -63,6 +63,7 @@
 	brute_armor = 10
 	explosive_armor = 10
 	heat_insulation = -10
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/thermal
 	name = "thermal plate"
@@ -70,6 +71,7 @@
 	brute_armor = -10
 	burn_armor = 10
 	heat_insulation = 10
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/fireproofing
 	name = "fireproofing plate"
@@ -77,6 +79,7 @@
 	burn_armor = 10
 	movement_speed_mod = -0.2
 	heat_insulation = 20
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/reflective
 	name = "reflective plate"
@@ -84,18 +87,21 @@
 	burn_armor = -10
 	laser_armor = 10
 	siemens_coeff = -0.2
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/rad_hazard
 	name = "radiation hazard plate"
 	desc = "A dense plate that can reduce a wearer's radiation exposure."
 	heat_insulation = -10
 	radiation_armor = 20
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/rubberized
 	name = "rubberized plate"
 	desc = "A flexible plate that is resistant to electrical shocks."
 	brute_armor = -10
 	siemens_coeff = 0.2
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/insert/advanced
 	name = "advanced armor mesh"

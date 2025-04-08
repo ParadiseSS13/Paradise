@@ -23312,7 +23312,7 @@
 	},
 /area/station/science/rnd)
 "bBf" = (
-/obj/machinery/requests_console/directional/south,
+/obj/machinery/requests_console/smith/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -84569,7 +84569,7 @@
 "wIt" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/camera{
-	c_tag = "Virology Lobby";
+	c_tag = "Aft Primary Hallway 1";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
