@@ -421,7 +421,7 @@
 		return
 
 	add_fingerprint(user)
-	if(usr == user && opened && !issilicon(user))
+	if(opened && !issilicon(user))
 		if(cell)
 			user.visible_message(
 				"<span class='notice'>[user] removes [cell] from [src].",
