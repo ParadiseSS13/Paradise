@@ -16,6 +16,7 @@
 
 /datum/ruin_placement/proc/try_to_place(zlist_or_zlevel, area_whitelist)
 	var/list/z_levels = islist(zlist_or_zlevel) ? zlist_or_zlevel : list(zlist_or_zlevel)
+	shuffle_inplace(z_levels)
 
 	// Our goal is to maximize padding, so we'll perform some number of attempts
 	// on one z-level, then the next, until we reach some limit, then reduce the
@@ -28,6 +29,8 @@
 		for(var/z_level in z_levels)
 			var/placement_tries = PLACEMENT_TRIES
 			while(placement_tries > 0)
+				CHECK_TICK
+
 				placement_tries--
 
 				var/turf/central_turf = locate(
@@ -72,7 +75,9 @@
 					for(var/obj/structure/flora/ash/plant in T)
 						qdel(plant)
 
-				ruin.load(central_turf, centered = TRUE)
+				var/loaded = ruin.load(central_turf, centered = TRUE)
+				if(!loaded)
+					stack_trace("ruin [ruin.suffix] failed to load at [COORD(central_turf)] after valid bounds check")
 				for(var/turf/T in ruin.get_affected_turfs(central_turf, centered = TRUE)) // Just flag the actual ruin turfs!
 					T.flags |= NO_RUINS
 				new /obj/effect/landmark/ruin(central_turf, ruin)
@@ -116,66 +121,62 @@
 
 	var/list/ruins = templates.Copy()
 
-	var/list/forced_ruins = list()		//These go first on the z level associated (same random one by default)
-	var/list/ruins_availible = list()	//we can try these in the current pass
-	var/forced_z	//If set we won't pick z level and use this one instead.
+	var/list/forced_ruins = list() // ruins we are required to place
+	var/list/ruins_available = list() // ruins we will attempt to place based on budget
 
-	//Set up the starting ruin list
+	// Set up the starting ruin lists
 	for(var/key in ruins)
 		var/datum/map_template/ruin/R = ruins[key]
-		if(R.get_cost() > ruin_budget) //Why would you do that
-			continue
 		if(R.always_place)
-			forced_ruins[R] = -1
+			forced_ruins += R
+			continue
 		if(R.unpickable)
 			continue
-		ruins_availible[R] = R.placement_weight
+		if(R.get_cost() > ruin_budget) // Why would you do that
+			continue
+		ruins_available[R] = R.placement_weight
 
-	while(ruin_budget > 0 && (length(ruins_availible) || length(forced_ruins)))
-		var/datum/map_template/ruin/current_pick
-		var/forced = FALSE
-		if(length(forced_ruins)) //We have something we need to load right now, so just pick it
-			for(var/ruin in forced_ruins)
-				current_pick = ruin
-				if(forced_ruins[ruin] > 0) //Load into designated z
-					forced_z = forced_ruins[ruin]
-				forced = TRUE
-				break
-		else //Otherwise just pick random one
-			current_pick = pickweight(ruins_availible)
+	while(length(forced_ruins))
+		var/datum/map_template/ruin/ruin = forced_ruins[length(forced_ruins)]
+		var/datum/ruin_placement/placement = new(ruin, base_padding_ = base_padding)
+		var/placement_success = placement.try_to_place(z_levels, area_whitelist)
+		if(placement_success)
+			// this may push us into the negative but always_place means always_place
+			ruin_budget -= ruin.get_cost()
+		else
+			stack_trace("failed to place required ruin [ruin.suffix]")
 
+		forced_ruins.len--
+		CHECK_TICK
+
+	while(ruin_budget > 0 && length(ruins_available))
+		var/datum/map_template/ruin/current_pick = pickweight(ruins_available)
 		var/datum/ruin_placement/placement = new(current_pick, base_padding_ = base_padding)
-		var/placement_success = placement.try_to_place(forced_z ? forced_z : z_levels, area_whitelist)
-
-		//That's done remove from priority even if it failed
-		if(forced)
-			//TODO : handle forced ruins with multiple variants
-			forced_ruins -= current_pick
-			forced = FALSE
+		var/placement_success = placement.try_to_place(z_levels, area_whitelist)
 
 		if(placement_success)
 			ruin_budget -= current_pick.get_cost()
 			if(!current_pick.allow_duplicates)
-				for(var/datum/map_template/ruin/R in ruins_availible)
+				for(var/datum/map_template/ruin/R in ruins_available)
 					if(R.id == current_pick.id)
-						ruins_availible -= R
+						ruins_available -= R
 			if(current_pick.never_spawn_with)
 				for(var/blacklisted_type in current_pick.never_spawn_with)
-					for(var/possible_exclusion in ruins_availible)
+					for(var/possible_exclusion in ruins_available)
 						if(istype(possible_exclusion,blacklisted_type))
-							ruins_availible -= possible_exclusion
+							ruins_available -= possible_exclusion
 		else
-			for(var/datum/map_template/ruin/R in ruins_availible)
+			for(var/datum/map_template/ruin/R in ruins_available)
 				if(R.id == current_pick.id)
-					ruins_availible -= R
-			log_world("Failed to place [current_pick.name] ruin.")
+					ruins_available -= R
+			stack_trace("failed to place ruin [current_pick.suffix]")
 
-		forced_z = 0
-
-		//Update the availible list
-		for(var/datum/map_template/ruin/R in ruins_availible)
+		//Update the available list
+		for(var/datum/map_template/ruin/R in ruins_available)
 			if(R.get_cost() > ruin_budget)
-				ruins_availible -= R
+				ruins_available -= R
+
+		CHECK_TICK
 
 	log_world("Ruin loader finished with [ruin_budget] left to spend.")
 
