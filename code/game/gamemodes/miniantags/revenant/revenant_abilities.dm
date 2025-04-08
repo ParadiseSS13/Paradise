@@ -527,6 +527,8 @@
 
 /turf/simulated/floor/defile()
 	..()
+	if(locate(/mob/living/silicon/ai) in src) // Revs don't need a 1-button kill switch on AI cores
+		return
 	if(prob(15))
 		if(intact && floor_tile)
 			new floor_tile(src)
