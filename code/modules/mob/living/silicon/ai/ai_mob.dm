@@ -1224,17 +1224,17 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return
 
 /mob/living/silicon/ai/proc/change_hologram_color()
-	set name = "Change Hologram Color"
-	set desc = "Select a color for the AI's hologram."
-	set category = "AI Commands"
+	set name = "Изменить цвет голограммы"
+	set desc = "Выберите цвет для голограммы ИИ."
+	set category = "Команды ИИ"
 
-	var/color = tgui_input_color(usr, "Please select a hologram color", "Hologram Color")
+	var/color = tgui_input_color(usr, "Выберите цвет для голограммы", "Цвет голограммы")
 	if(isnull(color))
 		return
 
 	hologram_color = color
 	holo_icon = getHologramIcon(icon(holo_icon), FALSE, hologram_color, 1)
-	to_chat(src, "Hologram color changed to [color].")
+	to_chat(src, "Цвет голограммы изменён на [color].")
 
 /mob/living/silicon/ai/proc/toggle_camera_light()
 	set name = "Переключение света в камерах"
