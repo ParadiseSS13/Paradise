@@ -248,7 +248,7 @@
 	radio.listening = FALSE
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
-	investigate_log("has been created.", "supermatter")
+	investigate_log("has been created.", INVESTIGATE_SUPERMATTER)
 	if(is_main_engine)
 		GLOB.main_supermatter_engine = src
 	soundloop = new(list(src), TRUE)
@@ -257,7 +257,7 @@
 	if(warp)
 		vis_contents -= warp
 		QDEL_NULL(warp)
-	investigate_log("has been destroyed.", "supermatter")
+	investigate_log("has been destroyed.", INVESTIGATE_SUPERMATTER)
 	SSair.atmos_machinery -= src
 	QDEL_NULL(radio)
 	GLOB.poi_list -= src
@@ -395,14 +395,14 @@
 				to_chat(M, "<span class='boldannounceic'>You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe.</span>")
 
 	if(max(combined_gas, forced_combined_gas) > MOLE_CRUNCH_THRESHOLD)
-		investigate_log("has collapsed into a singularity.", "supermatter")
+		investigate_log("has collapsed into a singularity.", INVESTIGATE_SUPERMATTER)
 		if(T)
 			var/obj/singularity/S = new(T)
 			S.energy = 800
 			S.consume(src)
 			return //No boom for me sir
 	else if(max(power, forced_power) > POWER_PENALTY_THRESHOLD)
-		investigate_log("has spawned additional energy balls.", "supermatter")
+		investigate_log("has spawned additional energy balls.", INVESTIGATE_SUPERMATTER)
 		if(T)
 			var/obj/singularity/energy_ball/E = new(T)
 			E.energy = 200 //Gets us about 9 balls
@@ -410,7 +410,7 @@
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
-	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
+	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1, cause = "Exploding Supermatter")
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
@@ -663,31 +663,34 @@
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
 		if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY)
 			alarm()
-
-			//Oh shit it's bad, time to freak out
-			if(damage > emergency_point)
-				radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
-				lastwarning = REALTIMEOFDAY
-				if(!has_reached_emergency)
-					investigate_log("has reached the emergency point for the first time.", "supermatter")
-					message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
-					has_reached_emergency = TRUE
-			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
-				lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
-
-			else                                                 // Phew, we're safe
+			if(damage < damage_archived) // We are gaining integrity. Just say that
 				radio.autosay("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
 				lastwarning = REALTIMEOFDAY
+			else // We are losing integrity, let's warn engineering.
+				if(damage > emergency_point) //Oh shit it's bad, time to freak out
+					radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
+					lastwarning = REALTIMEOFDAY
+					if(!has_reached_emergency)
+						investigate_log("has reached the emergency point for the first time.", "supermatter")
+						message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
+						has_reached_emergency = TRUE
+				else // The damage is still going up but not yet super high
+					radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
+					lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
-			if(power > POWER_PENALTY_THRESHOLD)
-				radio.autosay("<b>Warning: Hyperstructure has reached dangerous power level.</b>", name, "Engineering")
-				if(powerloss_inhibitor < 0.5)
-					radio.autosay("<b>DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.</b>", name, "Engineering")
+				// Warning for other engine statuses
+				// We are taking damage from power
+				if(power > POWER_PENALTY_THRESHOLD)
+					radio.autosay("<b>Warning: Hyperstructure has reached dangerous power level.</b>", name, "Engineering")
+					// The current gas mix allows EER to keep building up
+					if(powerloss_inhibitor < 0.01)
+						radio.autosay("<b>DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.</b>", name, "Engineering")
 
-			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
-				radio.autosay("<b>Warning: Critical coolant mass reached.</b>", name, "Engineering")
-		//Boom (Mind blown)
+				// We are taking mole damage
+				if(combined_gas > MOLE_PENALTY_THRESHOLD)
+					radio.autosay("<b>Warning: Critical coolant mass reached.</b>", name, "Engineering")
+
+			//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()
 	return 1
@@ -697,7 +700,7 @@
 	if(!istype(L))
 		return FALSE
 	if(!istype(proj, /obj/item/projectile/beam/emitter/hitscan) && power_changes)
-		investigate_log("has been hit by [proj] fired by [key_name(proj.firer)]", "supermatter")
+		investigate_log("has been hit by [proj] fired by [key_name(proj.firer)]", INVESTIGATE_SUPERMATTER)
 	if(proj.flag != BULLET)
 		if(power_changes) //This needs to be here I swear
 			power += proj.damage * bullet_energy
@@ -709,7 +712,7 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/singularity_act()
 	var/gain = 100
-	investigate_log("Supermatter shard consumed by singularity.", "singulo")
+	investigate_log("Supermatter shard consumed by singularity.", INVESTIGATE_SINGULO)
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	var/supermatter_sound = sound('sound/effects/supermatter.ogg')
@@ -737,7 +740,7 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/C = user
-	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "supermatter")
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", INVESTIGATE_SUPERMATTER)
 	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
 		"<span class='userdanger'>As you mentally focus on the supermatter you feel the contents of your skull start melting away. That was a really dense idea.</span>")
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
@@ -784,7 +787,7 @@
 	if(!cause)
 		cause = "contact"
 	nom.visible_message(vis_msg, mob_msg, "<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
-	investigate_log("has been attacked ([cause]) by [key_name(nom)]", "supermatter")
+	investigate_log("has been attacked ([cause]) by [key_name(nom)]", INVESTIGATE_SUPERMATTER)
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(nom)
 
@@ -832,7 +835,7 @@
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [used], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [used], and everything suddenly goes silent.</span>\n<span class='notice'>[used] flashes into dust as you flinch away from [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
-		investigate_log("has been attacked ([used]) by [key_name(user)]", "supermatter")
+		investigate_log("has been attacked ([used]) by [key_name(user)]", INVESTIGATE_SUPERMATTER)
 		Consume(used)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
@@ -867,7 +870,7 @@
 		if(user.status_flags & GODMODE)
 			return
 		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
-		investigate_log("has consumed [key_name(user)].", "supermatter")
+		investigate_log("has consumed [key_name(user)].", INVESTIGATE_SUPERMATTER)
 		user.dust()
 		if(power_changes)
 			matter_power += 200
@@ -879,7 +882,7 @@
 			if(AM.fingerprintslast)
 				suspicion = "last touched by [AM.fingerprintslast]"
 			message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
-			investigate_log("has consumed [AM] - [suspicion].", "supermatter")
+			investigate_log("has consumed [AM] - [suspicion].", INVESTIGATE_SUPERMATTER)
 			if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
 				power += 5000//releases A LOT of power
 				matter_power += 500000
@@ -893,7 +896,7 @@
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
 	radiation_pulse(src, 12000, GAMMA_RAD, TRUE)
 	for(var/mob/living/L in range(10))
-		investigate_log("has irradiated [key_name(L)] after consuming [AM].", "supermatter")
+		investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_SUPERMATTER)
 		if(L in view())
 			L.show_message("<span class='danger'>As [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
@@ -1261,7 +1264,7 @@
 	event.start_event()
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/enable_for_the_first_time()
-	investigate_log("has been powered for the first time.", "supermatter")
+	investigate_log("has been powered for the first time.", INVESTIGATE_SUPERMATTER)
 	message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
 	has_been_powered = TRUE
 	make_next_event_time()
