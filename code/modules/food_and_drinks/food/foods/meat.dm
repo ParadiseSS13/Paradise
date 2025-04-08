@@ -269,10 +269,14 @@
 	bitesize = 3
 	list_reagents = list("protein" = 2)
 
+/obj/item/food/meat/patty_raw/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
+
 /obj/item/food/meat/patty_raw/attack_self__legacy__attackchain(mob/user)
 	user.visible_message(
-		"<span class='notice'>[user] shapes [src] into a ball.</span>",
-		"<span class='notice'>You shape [src] into a ball.</span>"
+		"<span class='notice'>[user] shapes [src] into a raw meatball.</span>",
+		"<span class='notice'>You shape [src] into a raw meatball.</span>"
 	)
 	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
 	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
@@ -289,6 +293,11 @@
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
 	tastes = list("raw meat" = 1)
+
+/obj/item/food/ground_meat/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
+	. += "<span class='notice'>Use it in hand again to flatten it into a raw patty.</span>"
 
 /obj/item/food/ground_meat/attack_self__legacy__attackchain(mob/living/user)
 	user.visible_message(
@@ -310,6 +319,10 @@
 	filling_color = "#DB4444"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
 	tastes = list("raw meat" = 1)
+
+/obj/item/food/meat/raw_meatball/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use it in hand to flatten it into a raw patty.</span>"
 
 /obj/item/food/meat/raw_meatball/attack_self__legacy__attackchain(mob/user)
 	user.visible_message(

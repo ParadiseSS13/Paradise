@@ -10,6 +10,7 @@
 	name = "mapmanip marker, extract submap"
 	icon = 'icons/effects/map_effects_96x96.dmi'
 	icon_state = "mapmanip_extract"
+	color = "#ff00cc"
 	pixel_x = -32
 	pixel_y = -32
 
@@ -19,6 +20,7 @@
 	name = "mapmanip marker, insert submap"
 	icon = 'icons/effects/map_effects_96x96.dmi'
 	icon_state = "mapmanip_insert"
+	color = "#ff00cc"
 	pixel_x = -32
 	pixel_y = -32
 
@@ -34,6 +36,7 @@
 	name = "mapmanip marker helper, submap edge"
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = "mapmanip_submap_edge"
+	color = "#ff00cc"
 
 // Farragus mapmanips
 /obj/effect/map_effect/marker/mapmanip/submap/extract/station/cerestation/engineering_science
