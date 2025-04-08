@@ -412,18 +412,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(user.a_intent == INTENT_HELP)
 		return ..()
 
-	// otherwise, if the turret was attacked with the intention of harming it:
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_item_attack_animation()
+/obj/machinery/porta_turret/attacked_by(obj/item/attacker, mob/living/user)
+	. = ..()
+	// TODO: move to play_attack_sound when we actually use obj_integrity
 	playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
 
 	//if the force of impact dealt at least 1 damage, the turret gets pissed off
-	if(used.force * 0.5 > 1)
+	if(attacker.force * 0.5 > 1)
 		if(!attacked && !emagged)
 			attacked = TRUE
 			addtimer(VARSET_CALLBACK(src, attacked, FALSE), 6 SECONDS)
-
-	return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
 /obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
