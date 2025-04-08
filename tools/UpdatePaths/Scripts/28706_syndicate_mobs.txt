@@ -1,0 +1,14 @@
+/obj/item/storage/box/survival_syndi : /obj/item/storage/box/survival_syndie{@OLD}
+/mob/living/simple_animal/hostile/syndicate/melee : /mob/living/simple_animal/hostile/syndicate{@OLD}
+/mob/living/simple_animal/hostile/syndicate/melee/autogib : /mob/living/simple_animal/hostile/syndicate{@OLD}
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot : /mob/living/simple_animal/hostile/syndicate/depot{@OLD}
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer : /mob/living/simple_animal/hostile/syndicate/depot/officer{@OLD}
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory : /mob/living/simple_animal/hostile/syndicate/depot/modsuit/elite{@OLD}
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space : /mob/living/simple_animal/hostile/syndicate/depot/modsuit/backup
+/mob/living/simple_animal/hostile/syndicate/melee/space : /mob/living/simple_animal/hostile/syndicate/modsuit{@OLD}
+/mob/living/simple_animal/hostile/syndicate/ranged/space/@SUBTYPES : /mob/living/simple_animal/hostile/syndicate/modsuit/ranged{@OLD}
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie : /obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit{@OLD}
+/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/corpse : /obj/effect/mob_spawn/human/corpse/syndicate/modsuit{@OLD}
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier : /obj/effect/mob_spawn/human/corpse/syndicate{@OLD}
+/obj/effect/mob_spawn/human/corpse/syndicatecommando : /obj/effect/mob_spawn/human/corpse/syndicate/modsuit{@OLD}
+/obj/effect/mob_spawn/human/corpse/syndicatequartermaster : /obj/effect/mob_spawn/human/corpse/syndicate/modsuit/elite{@OLD}

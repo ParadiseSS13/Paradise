@@ -28,7 +28,7 @@
 	l_ear = /obj/item/radio/headset/syndicate/alt/syndteam
 	pda = /obj/item/pinpointer/advpinpointer
 	id = /obj/item/card/id/syndicate/command
-	box = /obj/item/storage/box/survival_syndi
+	box = /obj/item/storage/box/survival_syndie
 	backpack_contents = list(
 		/obj/item/flashlight = 1,
 		/obj/item/ammo_box/magazine/m50 = 2,
