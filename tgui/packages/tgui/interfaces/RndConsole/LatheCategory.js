@@ -13,7 +13,7 @@ export const LatheCategory = (properties, context) => {
   const action = lathe ? 'build' : 'imprint';
 
   return (
-    <Section title={category}>
+    <Section fill scrollable height={36} title={category}>
       <LatheMaterials />
       <Table className="RndConsole__LatheCategory__MatchingDesigns">
         {matching_designs.map(({ id, name, can_build, materials }) => {
