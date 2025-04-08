@@ -164,7 +164,7 @@
 /datum/weather/volcano/area_act()
 	if(prob(1) && !generated_river)
 		generated_river = TRUE
-		var/datum/river_spawner/new_river = new /datum/river_spawner(3)
+		var/datum/river_spawner/new_river = new /datum/river_spawner(pick(levels_by_trait(ORE_LEVEL)))
 		new_river.generate(nodes = 4, ignore_bridges = TRUE, warning = TRUE)
 	if(world.time >= next_rubble)
 		next_rubble = world.time + rand(5 DECISECONDS, 3 SECONDS)
