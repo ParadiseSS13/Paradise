@@ -1,6 +1,5 @@
 /// How many Z levels we allow before being suspicious that the wrong number was sent.
-pub(crate) const MAX_Z_LEVELS: i32 = 15;
-
+pub(crate) const MAX_Z_LEVELS: i32 = 19; // SS220 EDIT - upstream value +4
 /// How big is the map? Assumed square.
 pub(crate) const MAP_SIZE: usize = 255;
 

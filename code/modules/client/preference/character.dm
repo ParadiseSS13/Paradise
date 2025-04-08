@@ -202,7 +202,8 @@
 					runechat_color=:runechat_color,
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type,
-					pda_ringtone=:pda_ringtone
+					pda_ringtone=:pda_ringtone,
+					tts_seed=:tts_seed
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -266,6 +267,7 @@
 						"runechat_color" = runechat_color,
 						"cyborg_brain_type" = cyborg_brain_type,
 						"pda_ringtone" = pda_ringtone,
+						"tts_seed" = tts_seed, // SS220 EDIT ADDITION - TTS220
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -306,7 +308,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, tts_seed)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -333,7 +335,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :tts_seed)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -397,7 +399,8 @@
 		"custom_emotes" = json_encode(custom_emotes),
 		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type,
-		"pda_ringtone" = pda_ringtone
+		"pda_ringtone" = pda_ringtone,
+		"tts_seed" = tts_seed // SS220 EDIT ADDITION - TTS220
 	))
 
 	if(!query.warn_execute())
@@ -493,6 +496,8 @@
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
 
+	tts_seed = query.item[62] // SS220 EDIT ADDITION - TTS220
+
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
 	if(!SP)
@@ -554,15 +559,15 @@
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
-	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
-	job_support_med = sanitize_integer(job_support_med, 0, 65535, initial(job_support_med))
-	job_support_low = sanitize_integer(job_support_low, 0, 65535, initial(job_support_low))
-	job_medsci_high = sanitize_integer(job_medsci_high, 0, 65535, initial(job_medsci_high))
-	job_medsci_med = sanitize_integer(job_medsci_med, 0, 65535, initial(job_medsci_med))
-	job_medsci_low = sanitize_integer(job_medsci_low, 0, 65535, initial(job_medsci_low))
-	job_engsec_high = sanitize_integer(job_engsec_high, 0, 65535, initial(job_engsec_high))
-	job_engsec_med = sanitize_integer(job_engsec_med, 0, 65535, initial(job_engsec_med))
-	job_engsec_low = sanitize_integer(job_engsec_low, 0, 65535, initial(job_engsec_low))
+	job_support_high = sanitize_integer(job_support_high, 0, get_datum_last_support(), initial(job_support_high)) // SS220 EDIT - EXTRA JOBS
+	job_support_med = sanitize_integer(job_support_med, 0, get_datum_last_support(), initial(job_support_med)) // SS220 EDIT - EXTRA JOBS
+	job_support_low = sanitize_integer(job_support_low, 0, get_datum_last_support(), initial(job_support_low)) // SS220 EDIT - EXTRA JOBS
+	job_medsci_high = sanitize_integer(job_medsci_high, 0, get_datum_last_medsci(), initial(job_medsci_high)) // SS220 EDIT - EXTRA JOBS
+	job_medsci_med = sanitize_integer(job_medsci_med, 0, get_datum_last_medsci(), initial(job_medsci_med)) // SS220 EDIT - EXTRA JOBS
+	job_medsci_low = sanitize_integer(job_medsci_low, 0, get_datum_last_medsci(), initial(job_medsci_low)) // SS220 EDIT - EXTRA JOBS
+	job_engsec_high = sanitize_integer(job_engsec_high, 0, get_datum_last_engsec(), initial(job_engsec_high)) // SS220 EDIT - EXTRA JOBS
+	job_engsec_med = sanitize_integer(job_engsec_med, 0, get_datum_last_engsec(), initial(job_engsec_med)) // SS220 EDIT - EXTRA JOBS
+	job_engsec_low = sanitize_integer(job_engsec_low, 0, get_datum_last_engsec(), initial(job_engsec_low)) // SS220 EDIT - EXTRA JOBS
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
 
 	socks			= sanitize_text(socks, initial(socks))
@@ -2047,6 +2052,15 @@
 		html += "<tt><center>"
 		html += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
 		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
+
+		// ===== SS220 ADD - NEW JOBS ======
+		// ============= START =============
+		if(check_available_extra_job_prefs(user.client))
+			html += "<center><u><b><a href='byond://?_src_=prefs;preference=job;task=extra_job'>Показать [extra_jobs_check ? "основные" : "дополнительные"] работы</a></b></u></center><br>"
+		if(extra_jobs_check)
+			splitJobs = get_split_extra_jobs()
+		// ============== END ==============
+
 		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
 		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
@@ -2069,6 +2083,15 @@
 			if(job.mentor_only)
 				if(!check_rights(R_MENTOR | R_ADMIN, FALSE, user))
 					continue
+
+			// ===== SS220 ADD - NEW JOBS ======
+			// ============= START =============
+			if(!job.is_donor_allowed(user.client))
+				continue
+
+			if(extra_jobs_check != job.is_extra_job)
+				continue
+			// ============== END ==============
 
 			index += 1
 			if((index >= limit) || (job.title in splitJobs))
@@ -2097,6 +2120,11 @@
 			if(restrictions)
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td></tr>"
 				continue
+			// SS220 EDIT START - RACE/JOB BANS
+			if(job.species_ban(user.client))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[SPECIES BLOCK\]</b></td></tr>"
+				continue
+			// SS220 EDIT END - RACE/JOB BANS
 			if(job.barred_by_disability(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
 				continue

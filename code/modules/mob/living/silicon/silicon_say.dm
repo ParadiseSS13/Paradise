@@ -9,7 +9,7 @@
 	if(message_mode)
 		used_radios += radio
 		if(!is_component_functioning("radio"))
-			to_chat(src, "<span class='warning'>Your radio isn't functional at this time.</span>")
+			to_chat(src, "<span class='warning'>Ваше радио не работает сейчас.</span>")
 			return 0
 		if(message_mode == "general")
 			message_mode = null
@@ -24,7 +24,7 @@
 	else if(message_mode)
 		used_radios += aiRadio
 		if(aiRadio.disabledAi || aiRestorePowerRoutine || stat)
-			to_chat(src, "<span class='danger'>System Error - Transceiver Disabled.</span>")
+			to_chat(src, "<span class='danger'>Системная ошибка - Передатчик отключен.</span>")
 			return 0
 		if(message_mode == "general")
 			message_mode = null
@@ -81,9 +81,9 @@
 			create_chat_message(H, message)
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
 			M.hear_holopad_talk(message_pieces, verb, src, H)
-		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [combine_message(message_pieces, verb, src)]</span></i>")
+		to_chat(src, "<i><span class='game say'>Переданная речь, <span class='name'>[real_name]</span> [combine_message(message_pieces, verb, src)]</span></i>")
 	else
-		to_chat(src, "No holopad connected.")
+		to_chat(src, "Нет подключённого голопада.")
 		return
 	return 1
 
@@ -96,14 +96,14 @@
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])
 		var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[message]</span></span>"
-		to_chat(src, "<i><span class='game say'>Holopad action relayed, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>")
+		to_chat(src, "<i><span class='game say'>Переданное действие, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>")
 
 		for(var/mob/M in viewers(T.loc))
 			M.show_message(rendered, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		log_emote("(HPAD) [message]", src)
 	else //This shouldn't occur, but better safe then sorry.
-		to_chat(src, "No holopad connected.")
+		to_chat(src, "Нет подключённого голопада.")
 		return
 	return 1
 

@@ -194,8 +194,8 @@ SUBSYSTEM_DEF(mapping)
 	// happens after ruin placement.
 	procgen_lavaland()
 
-/datum/controller/subsystem/mapping/proc/seed_space_salvage(space_z_levels)
-	log_startup_progress("Seeding space salvage...")
+/datum/controller/subsystem/mapping/proc/seed_space_salvage(space_z_levels, space = TRUE) // SS220 EDIT
+	log_startup_progress("Seeding [space ? "space" : "away mission"] salvage...") // SS220 EDIT
 	var/space_salvage_timer = start_watch()
 	var/seeded_salvage_surfaces = list()
 	var/seeded_salvage_closets = list()
@@ -214,7 +214,7 @@ SUBSYSTEM_DEF(mapping)
 		for(var/z_level_turf in z_level_turfs)
 			var/turf/T = z_level_turf
 			var/area/A = get_area(T)
-			if(istype(A, /area/ruin/space))
+			if((istype(A, /area/ruin/space) && space) || (istype(A, /area/awaymission) && !space)) // SS220 EDIT
 							// cardboard boxes are blacklisted otherwise deepstorage.dmm ends up hogging all the loot
 				var/list/closet_blacklist = list(/obj/structure/closet/cardboard, /obj/structure/closet/fireaxecabinet, /obj/structure/closet/walllocker/emerglocker, /obj/structure/closet/crate/can, /obj/structure/closet/body_bag, /obj/structure/closet/coffin)
 				for(var/obj/structure/closet/closet in T)
@@ -228,6 +228,8 @@ SUBSYSTEM_DEF(mapping)
 					if(table.flipped)
 						continue // Looks very silly
 					seeded_salvage_surfaces |= table
+				for(var/obj/structure/rack/rack in T) // SS220 EDIT
+					seeded_salvage_surfaces |= rack // SS220 EDIT
 
 	var/max_salvage_attempts = rand(10, 15)
 	while(max_salvage_attempts > 0 && length(seeded_salvage_closets) > 0)
@@ -245,7 +247,7 @@ SUBSYSTEM_DEF(mapping)
 		salvage_item.scatter_atom()
 		max_salvage_attempts -= 1
 
-	log_startup_progress("Successfully seeded space salvage in [stop_watch(space_salvage_timer)]s.")
+	log_startup_progress("Successfully seeded [space ? "space" : "away mission"] salvage in [stop_watch(space_salvage_timer)]s.") // SS220 EDIT
 
 /datum/controller/subsystem/mapping/proc/generate_space_zlevels()
 	var/zlevel_count = rand(GLOB.configuration.ruins.minimum_space_zlevels, GLOB.configuration.ruins.maximum_space_zlevels)

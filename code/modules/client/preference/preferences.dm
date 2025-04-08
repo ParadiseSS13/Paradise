@@ -171,11 +171,11 @@ GLOBAL_LIST_INIT(special_role_times, list(
 
 	var/list/dat = list()
 	dat += "<center>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_CHAR]' 	[current_tab == TAB_CHAR 	? "class='linkOn'" : ""]>Character Settings</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]' 	[current_tab == TAB_GAME 	? "class='linkOn'" : ""]>Game Preferences</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_ANTAG]' 	[current_tab == TAB_ANTAG 	? "class='linkOn'" : ""]>Antagonists and Maps</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_KEYS]' 	[current_tab == TAB_KEYS 	? "class='linkOn'" : ""]>Key Bindings</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>General Preferences</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_CHAR]' 	[current_tab == TAB_CHAR 	? "class='linkOn'" : ""]>Настройки персонажа</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]' 	[current_tab == TAB_GAME 	? "class='linkOn'" : ""]>Игровые настройки</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_ANTAG]' 	[current_tab == TAB_ANTAG 	? "class='linkOn'" : ""]>Антагонисты and Maps</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_KEYS]' 	[current_tab == TAB_KEYS 	? "class='linkOn'" : ""]>Привязка клавиш</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>Общие настройки</a>"
 	dat += "</center>"
 	dat += "<hr>"
 
@@ -189,39 +189,39 @@ GLOBAL_LIST_INIT(special_role_times, list(
 
 			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
-			dat += "<b>Name: </b>"
+			dat += "<b>Имя: </b>"
 			dat += "<a href='byond://?_src_=prefs;preference=name;task=input'><b>[active_character.real_name]</b></a>"
-			dat += "<a href='byond://?_src_=prefs;preference=name;task=random'>(Randomize)</a>"
-			dat += "<a href='byond://?_src_=prefs;preference=name'><span class='[active_character.be_random_name ? "good" : "bad"]'>(Always Randomize)</span></a><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=name;task=random'>(Случайное имя)</a>"
+			dat += "<a href='byond://?_src_=prefs;preference=name'><span class='[active_character.be_random_name ? "good" : "bad"]'>(Всегда случайное имя)</span></a><br>"
 			dat += "</td><td width='405px' height='25px' valign='left'>"
 			dat += "<center>"
-			dat += "Slot <b>[default_slot][active_character.from_db ? "" : " (empty)"]</b><br>"
-			dat += "<a href=\"byond://?_src_=prefs;preference=open_load_dialog\">Load slot</a> - "
-			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Save slot</a>"
+			dat += "Персонаж <b>[default_slot][active_character.from_db ? "" : " (пусто)"]</b><br>"
+			dat += "<a href=\"byond://?_src_=prefs;preference=open_load_dialog\">Загрузить</a> - "
+			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Сохранить</a>"
 			if(active_character.from_db)
-				dat += "- <a href=\"byond://?_src_=prefs;preference=clear\"><span class='bad'>Clear slot</span></a>"
+				dat += "- <a href=\"byond://?_src_=prefs;preference=clear\"><span class='bad'>Удалить</span></a>"
 			dat += "</center>"
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
-			dat += "<h2>Identity</h2>"
-			dat += "<b>Age:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
-			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(Randomize)</a><br>"
-			dat += "<b>Species:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
-			dat += "<b>Gender:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
-			dat += "<b>Body Type:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
+			dat += "<h2>Персонаж</h2>"
+			dat += "<b>Возраст:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
+			dat += "<b>Тело:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(Случайно)</a><br>"
+			dat += "<b>Раса:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
+			dat += "<b>Пол:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
+			dat += "<b>Тип тела:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
 			dat += "<br>"
 			dat += "<b>Runechat Color:</b> "
 			dat += "<a href='byond://?_src_=prefs;preference=runechat_color;task=input'>Color</a> [color_square(active_character.runechat_color)]<br>"
 			if(active_character.species == "Vox") // Purge these bastards
-				dat += "<b>N2 Tank:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+				dat += "<b>Баллон с N2:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			if(active_character.species == "Plasmaman")
-				dat += "<b>Plasma Tank:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large Plasma Tank" : "Specialized Plasma Tank"]</a><br>"
+				dat += "<b>Баллон с плазмой:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large Plasma Tank" : "Specialized Plasma Tank"]</a><br>"
 			if(active_character.species == "Grey")
-				dat += "<b>Wingdings:</b> Set in disabilities<br>"
-				dat += "<b>Voice Translator:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Yes" : "No"]</a><br>"
-			dat += "<b>Secondary Language:</b> <a href='byond://?_src_=prefs;preference=language;task=input'>[active_character.language]</a><br>"
+				dat += "<b>Инопланетная речь:</b> Устанавливается в увечьях<br>"
+				dat += "<b>Голосовой переводчик:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Yes" : "No"]</a><br>"
+			dat += "<b>Второй язык:</b> <a href='byond://?_src_=prefs;preference=language;task=input'>[active_character.language]</a><br>"
 			if(S.autohiss_basic_map)
-				dat += "<b>Auto-accent:</b> <a href='byond://?_src_=prefs;preference=autohiss_mode;task=input'>[active_character.autohiss_mode == AUTOHISS_FULL ? "Full" : (active_character.autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
+				dat += "<b>Автоматический акцент:</b> <a href='byond://?_src_=prefs;preference=autohiss_mode;task=input'>[active_character.autohiss_mode == AUTOHISS_FULL ? "Full" : (active_character.autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
 			if(NO_BLOOD in S.species_traits) // unique blood type for species with no_blood/unique_blood
 				active_character.b_type = "None"
 			else
@@ -230,16 +230,16 @@ GLOBAL_LIST_INIT(special_role_times, list(
 				else
 					if(active_character.b_type == "None" || active_character.b_type == "Slime Jelly")
 						active_character.b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
-					dat += "<b>Blood Type:</b> <a href='byond://?_src_=prefs;preference=b_type;task=input'>[active_character.b_type]</a><br>"
+					dat += "<b>Тип крови:</b> <a href='byond://?_src_=prefs;preference=b_type;task=input'>[active_character.b_type]</a><br>"
 			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
-				dat += "<b>Skin Tone:</b> <a href='byond://?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[active_character.s_tone]" : "[-active_character.s_tone + 35]/220"]</a><br>"
-			dat += "<b>Disabilities:</b> <a href='byond://?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
-			dat += "<b>Nanotrasen Relation:</b> <a href='byond://?_src_=prefs;preference=nt_relation;task=input'>[active_character.nanotrasen_relation]</a><br>"
-			dat += "<b>Physique:</b> <a href='byond://?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
-			dat += "<b>Height:</b> <a href='byond://?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
+				dat += "<b>Цвет кожи:</b> <a href='byond://?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[active_character.s_tone]" : "[-active_character.s_tone + 35]/220"]</a><br>"
+			dat += "<b>Особенности:</b> <a href='byond://?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
+			dat += "<b>Отношение к НТ:</b> <a href='byond://?_src_=prefs;preference=nt_relation;task=input'>[active_character.nanotrasen_relation]</a><br>"
+			dat += "<b>Телосложение:</b> <a href='byond://?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
+			dat += "<b>Рост:</b> <a href='byond://?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
 			dat += "<b>Cyborg Brain Type:</b> <a href='byond://?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><br>"
 			dat += "<b>PDA Ringtone:</b> <a href='byond://?_src_=prefs;preference=pda_ringtone;task=input'>[active_character.pda_ringtone]</a><br>"
-			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Описание персонажа</a><br>"
 			if(length(active_character.flavor_text) <= 40)
 				if(!length(active_character.flavor_text))
 					dat += "\[...\]<br>"
@@ -247,85 +247,93 @@ GLOBAL_LIST_INIT(special_role_times, list(
 					dat += "[active_character.flavor_text]<br>"
 			else dat += "[TextPreview(active_character.flavor_text)]...<br>"
 
-			dat += "<h2>Hair & Accessories</h2>"
+			dat += "<h2>Внешний вид</h2>"
 
 			if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
-				var/headaccessoryname = "Head Accessory: "
+				var/headaccessoryname = "Кастомизация головы: "
 				if(active_character.species == "Unathi")
-					headaccessoryname = "Horns: "
+					headaccessoryname = "Рога: "
 				dat += "<b>[headaccessoryname]</b>"
 				dat += "<a href='byond://?_src_=prefs;preference=ha_style;task=input'>[active_character.ha_style]</a> "
-				dat += "<a href='byond://?_src_=prefs;preference=headaccessory;task=input'>Color</a> [color_square(active_character.hacc_colour)]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=headaccessory;task=input'>Цвет</a> [color_square(active_character.hacc_colour)]<br>"
 
 			if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-				dat += "<b>Head Markings:</b> "
+				dat += "<b>Раскраска головы:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=m_style_head;task=input'>[active_character.m_styles["head"]]</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=m_head_colour;task=input'>Color</a> [color_square(active_character.m_colours["head"])]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=m_head_colour;task=input'>Цвет</a> [color_square(active_character.m_colours["head"])]<br>"
 			if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-				dat += "<b>Body Markings:</b> "
+				dat += "<b>Раскраска тела:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=m_style_body;task=input'>[active_character.m_styles["body"]]</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=m_body_colour;task=input'>Color</a> [color_square(active_character.m_colours["body"])]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=m_body_colour;task=input'>Цвет</a> [color_square(active_character.m_colours["body"])]<br>"
 			if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-				dat += "<b>Tail Markings:</b> "
+				dat += "<b>Раскраска хвоста:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=m_style_tail;task=input'>[active_character.m_styles["tail"]]</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=m_tail_colour;task=input'>Color</a> [color_square(active_character.m_colours["tail"])]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=m_tail_colour;task=input'>Цвет</a> [color_square(active_character.m_colours["tail"])]<br>"
 			if(!(S.bodyflags & BALD))
-				dat += "<b>Hair:</b> "
+				dat += "<b>Прическа:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=h_style;task=input'>[active_character.h_style]</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(active_character.h_colour)]"
+				dat += "<a href='byond://?_src_=prefs;preference=hair;task=input'>Цвет</a> [color_square(active_character.h_colour)]"
 				var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[active_character.h_style]
 				if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
-					dat += " <a href='byond://?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(active_character.h_sec_colour)]"
+					dat += " <a href='byond://?_src_=prefs;preference=secondary_hair;task=input'>Цвет #2</a> [color_square(active_character.h_sec_colour)]"
 				// Hair gradient
 				dat += "<br>"
-				dat += "- <b>Gradient:</b>"
+				dat += "- <b>Градиент:</b>"
 				dat += " <a href='byond://?_src_=prefs;preference=h_grad_style;task=input'>[active_character.h_grad_style]</a>"
-				dat += " <a href='byond://?_src_=prefs;preference=h_grad_colour;task=input'>Color</a> [color_square(active_character.h_grad_colour)]"
+				dat += " <a href='byond://?_src_=prefs;preference=h_grad_colour;task=input'>Цвет</a> [color_square(active_character.h_grad_colour)]"
 				dat += " <a href='byond://?_src_=prefs;preference=h_grad_alpha;task=input'>[active_character.h_grad_alpha]</a>"
 				dat += "<br>"
-				dat += "- <b>Gradient Offset:</b> <a href='byond://?_src_=prefs;preference=h_grad_offset;task=input'>[active_character.h_grad_offset_x],[active_character.h_grad_offset_y]</a>"
+				dat += "- <b>Градиентный отступ:</b> <a href='byond://?_src_=prefs;preference=h_grad_offset;task=input'>[active_character.h_grad_offset_x],[active_character.h_grad_offset_y]</a>"
 				dat += "<br>"
 			else
 				active_character.h_style = "Bald"
 			if(!(S.bodyflags & SHAVED))
-				dat += "<b>Facial Hair:</b> "
+				dat += "<b>Волосы на лице:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=f_style;task=input'>[active_character.f_style ? "[active_character.f_style]" : "Shaved"]</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(active_character.f_colour)]"
+				dat += "<a href='byond://?_src_=prefs;preference=facial;task=input'>Цвет</a> [color_square(active_character.f_colour)]"
 				var/datum/sprite_accessory/temp_facial_hair_style = GLOB.facial_hair_styles_list[active_character.f_style]
 				if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
-					dat += " <a href='byond://?_src_=prefs;preference=secondary_facial;task=input'>Color #2</a> [color_square(active_character.f_sec_colour)]"
+					dat += " <a href='byond://?_src_=prefs;preference=secondary_facial;task=input'>Цвет #2</a> [color_square(active_character.f_sec_colour)]"
 				dat += "<br>"
 			else
 				active_character.f_style = "Shaved"
 
 
 			if(!(S.bodyflags & ALL_RPARTS) && (S.eyes != "blank_eyes") && !(S.bodyflags & NO_EYES))
-				dat += "<b>Eyes:</b> "
-				dat += "<a href='byond://?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(active_character.e_colour)]<br>"
+				dat += "<b>Глаза:</b> "
+				dat += "<a href='byond://?_src_=prefs;preference=eyes;task=input'>Цвет</a> [color_square(active_character.e_colour)]<br>"
 
 			if((S.bodyflags & HAS_SKIN_COLOR) || ((S.bodyflags & HAS_BODYACC_COLOR) && GLOB.body_accessory_by_species[active_character.species]) || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
-				dat += "<b>Body Color:</b> "
-				dat += "<a href='byond://?_src_=prefs;preference=skin;task=input'>Color</a> [color_square(active_character.s_colour)]<br>"
+				dat += "<b>Цвет тела:</b> "
+				dat += "<a href='byond://?_src_=prefs;preference=skin;task=input'>Цвет</a> [color_square(active_character.s_colour)]<br>"
 
 			if(GLOB.body_accessory_by_species[active_character.species] || check_rights(R_ADMIN, 0, user))
-				dat += "<b>Body Accessory:</b> "
+				dat += "<b>Кастомизация тела:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=body_accessory;task=input'>[active_character.body_accessory ? "[active_character.body_accessory]" : "None"]</a><br>"
 
 			dat += "</td><td width='405px' height='200px' valign='top'>"
-			dat += "<h2>Occupation Choices</h2>"
-			dat += "<a href='byond://?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br>"
+			dat += "<h2>Настройка роли</h2>"
+			dat += "<a href='byond://?_src_=prefs;preference=job;task=menu'>Выбрать роль</a><br>"
 			if(jobban_isbanned(user, ROLEBAN_RECORDS))
-				dat += "<b>You are banned from using character records.</b><br>"
+				dat += "<b>Вам запрещено настраивать личное дело.</b><br>"
 			else
-				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Character Records</a><br>"
+				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Личное дело</a><br>"
 
-			dat += "<h2>Limbs</h2>"
+			// SS220 ADDITION START - TTS220
+			if(GLOB.configuration.tts.tts_enabled)
+				dat += {"
+				<h2>Text-to-Speech</h2>
+				<b>Выбор голоса:</b> <a href='byond://?_src_=prefs;preference=tts_seed;task=input'>Эксплорер TTS голосов</a><br>
+				"}
+			// SS220 ADDITION END
+
+			dat += "<h2>Конечности</h2>"
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
-				dat += "<b>Alternate Head:</b> "
+				dat += "<b>Альтернативная голова:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=alt_head;task=input'>[active_character.alt_head]</a><br>"
-			dat += "<b>Limbs and Parts:</b> <a href='byond://?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
+			dat += "<b>Конечности и части тела:</b> <a href='byond://?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
 			if(active_character.species != "Slime People" && active_character.species != "Machine")
-				dat += "<b>Internal Organs:</b> <a href='byond://?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
+				dat += "<b>Внутренние органы:</b> <a href='byond://?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
 
 			//display limbs below
 			var/ind = 0
@@ -387,20 +395,20 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			if(!ind)	dat += "\[...\]<br>"
 			else		dat += "<br>"
 
-			dat += "<h2>Clothing</h2>"
+			dat += "<h2>Одежда</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
-				dat += "<b>Underwear:</b> <a href='byond://?_src_=prefs;preference=underwear;task=input'>[active_character.underwear]</a><BR>"
+				dat += "<b>Нижнее белье:</b> <a href='byond://?_src_=prefs;preference=underwear;task=input'>[active_character.underwear]</a><BR>"
 			if(S.clothing_flags & HAS_UNDERSHIRT)
-				dat += "<b>Undershirt:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[active_character.undershirt]</a><BR>"
+				dat += "<b>Майка:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[active_character.undershirt]</a><BR>"
 			if(S.clothing_flags & HAS_SOCKS)
-				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
-			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br><br>"
-			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Open Loadout</a><br>"
+				dat += "<b>Носки:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
+			dat += "<b>Рюкзак:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br><br>"
+			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Стартовые предметы</a><br>"
 
 			var/datum/species/myspecies = GLOB.all_species[active_character.species]
 			if(!isnull(myspecies))
-				dat += "<h2>Species Information</h2>"
-				dat += "<br><b>Species Description:</b> [myspecies.blurb]<br>"
+				dat += "<h2>Информация о расе</h2>"
+				dat += "<br><b>Описание расы:</b> [myspecies.blurb]<br>"
 
 			dat += "</td></tr></table>"
 
@@ -425,7 +433,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Ghost Radio:</b> <a href='byond://?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
 			dat += "<b>Ghost Sight:</b> <a href='byond://?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost PDA:</b> <a href='byond://?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
-			if(check_rights(R_ADMIN,0))
+			if(check_rights(R_EVENT,0)) // SS220 Addition
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(GLOB.configuration.general.allow_character_metadata)
 				dat += "<b>OOC Notes:</b> <a href='byond://?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
@@ -613,6 +621,10 @@ GLOBAL_LIST_INIT(special_role_times, list(
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
 						if(PREFTOGGLE_TOGGLE2)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+						// SS220 ADDITION - START
+						if(PREFTOGGLE_TOGGLE220)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles220 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+						// SS220 ADDITION - END
 						if(PREFTOGGLE_SOUND)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
 						if(PREFTOGGLE_LIGHT)
@@ -623,13 +635,13 @@ GLOBAL_LIST_INIT(special_role_times, list(
 
 	dat += "<hr><center>"
 	if(!IsGuestKey(user.key))
-		dat += "<a href='byond://?_src_=prefs;preference=load'>Undo</a> - "
-		dat += "<a href='byond://?_src_=prefs;preference=save'>Save Setup</a> - "
+		dat += "<a href='byond://?_src_=prefs;preference=load'>Отменить</a> - "
+		dat += "<a href='byond://?_src_=prefs;preference=save'>Сохранить</a> - "
 
-	dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Reset Setup</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Сбросить</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 810)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Настройка персонажа</div>", 820, 810)
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 

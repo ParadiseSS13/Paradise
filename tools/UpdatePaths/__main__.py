@@ -111,11 +111,14 @@ def update_path(dmm_data, replacement_string, verbose=False):
                 if verbose:
                     print("Deleting match : {0}".format(match.group(0)))
                 return [None]
-            elif new_path.endswith("/@SUBTYPES"):
-                path_start = new_path[:-len("/@SUBTYPES")]
-                out = path_start + match.group('subtype')
             else:
-                out = new_path
+                replacement_pos = new_path.find("/@SUBTYPES")
+                if replacement_pos >= 0:
+                    path_start = new_path[:replacement_pos]
+                    path_end = new_path[replacement_pos + len("/@SUBTYPES"):]
+                    out = path_start + match.group('subtype') + path_end
+                else:
+                    out = new_path
 
             out_props = dict()
             for prop_name, prop_text in new_props.items():

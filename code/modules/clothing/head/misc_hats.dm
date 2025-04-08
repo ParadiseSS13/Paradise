@@ -444,7 +444,7 @@
 
 /obj/item/clothing/head/cone
 	name = "warning cone"
-	desc = "This cone is trying to warn you of something!"
+	desc = "Этот конус пытается вас о чём-то предупредить!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cone"
 	item_state = "cone"

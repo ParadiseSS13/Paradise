@@ -5,13 +5,13 @@
 	var/list/obj/machinery/economy/vending/vendingMachines = list()
 	var/list/obj/machinery/economy/vending/infectedMachines = list()
 	var/obj/machinery/economy/vending/originMachine
-	var/list/rampant_speeches = list("Try our aggressive new marketing strategies!", \
-									"You should buy products to feed your lifestyle obsession!", \
-									"Consume!", \
-									"Your money can buy happiness!", \
-									"Engage direct marketing!", \
-									"Advertising is legalized lying! But don't let that put you off our great deals!", \
-									"You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
+	var/list/rampant_speeches = list("Попробуйте нашу новую АГРЕССИВНУЮ стратегию маркетинга!", \
+									"Вам стоит что-нибудь купить, дабы утолить ваши ПОТРЕБНОСТИ!", \
+									"Потребляй!", \
+									"За ваши деньги можно купить счастье!", \
+									"Методика ПРЯМОГО маркетинга!", \
+									"Реклама узаконила ложь! Но не позвольте ей отвлечь вас от наших замечательных предложений!", \
+									"Не хочешь платить? Я твоей мамке тоже платить не хотел.")
 
 /datum/event/brand_intelligence/announce(false_alarm)
 	var/alarm_source = originMachine
@@ -24,7 +24,7 @@
 		kill()
 		return
 
-	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [alarm_source] vendor.", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
+	GLOB.minor_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [alarm_source] торгового автомата.", "ВНИМАНИЕ: Обнаружен цифровой вирус.", 'sound/AI/brand_intelligence.ogg')
 
 /datum/event/brand_intelligence/start()
 	var/list/obj/machinery/economy/vending/leaderables = list()

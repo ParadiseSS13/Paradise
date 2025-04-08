@@ -1,0 +1,5 @@
+/obj/item/spellbook/oneuse/random/necropolis/initialize()
+	var/static/list/banned_spells = typesof(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/emp, /obj/item/spellbook/oneuse/mindswap)
+	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
+	new real_type(loc)
+	qdel(src)

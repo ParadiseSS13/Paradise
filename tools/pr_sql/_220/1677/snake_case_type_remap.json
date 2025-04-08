@@ -1,0 +1,179 @@
+[
+	{
+		"original": "/area/awaymission/BMPship",
+		"replace": "/area/awaymission/bm_pship",
+		"override": "/area/awaymission/bmp_ship"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Armory",
+		"replace": "/area/awaymission/bm_pship/armory",
+		"override": "/area/awaymission/bmp_ship/armory"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Bath",
+		"replace": "/area/awaymission/bm_pship/bath",
+		"override": "/area/awaymission/bmp_ship/bath"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Buffer",
+		"replace": "/area/awaymission/bm_pship/buffer",
+		"override": "/area/awaymission/bmp_ship/buffer"
+	},
+	{
+		"original": "/area/awaymission/BMPship/ChemLab",
+		"replace": "/area/awaymission/bm_pship/chem_lab",
+		"override": "/area/awaymission/bmp_ship/chem_lab"
+	},
+	{
+		"original": "/area/awaymission/BMPship/CommonArea",
+		"replace": "/area/awaymission/bm_pship/common_area",
+		"override": "/area/awaymission/bmp_ship/common"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Containment",
+		"replace": "/area/awaymission/bm_pship/containment",
+		"override": "/area/awaymission/bmp_ship/containment"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Dormitories",
+		"replace": "/area/awaymission/bm_pship/dormitories",
+		"override": "/area/awaymission/bmp_ship/dormitories"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Engines",
+		"replace": "/area/awaymission/bm_pship/engines",
+		"override": "/area/awaymission/bmp_ship/engines"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Fore",
+		"replace": "/area/awaymission/bm_pship/fore",
+		"override": "/area/awaymission/bmp_ship/fore"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Gate",
+		"replace": "/area/awaymission/bm_pship/gate",
+		"override": "/area/awaymission/bmp_ship/gate"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Kitchen",
+		"replace": "/area/awaymission/bm_pship/kitchen",
+		"override": "/area/awaymission/bmp_ship/kitchen"
+	},
+	{
+		"original": "/area/awaymission/BMPship/MedBay",
+		"replace": "/area/awaymission/bm_pship/med_bay",
+		"override": "/area/awaymission/bmp_ship/medbay"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Mining",
+		"replace": "/area/awaymission/bm_pship/mining",
+		"override": "/area/awaymission/bmp_ship/mining"
+	},
+	{
+		"original": "/area/awaymission/BMPship/Shelter",
+		"replace": "/area/awaymission/bm_pship/shelter",
+		"override": "/area/awaymission/bmp_ship/shelter"
+	},
+	{
+		"original": "/area/awaymission/BMPship/TraderShuttle",
+		"replace": "/area/awaymission/bm_pship/trader_shuttle",
+		"override": "/area/awaymission/bmp_ship/trader_shuttle"
+	},
+	{
+		"original": "/area/awaymission/BMPship/TurretsNorth",
+		"replace": "/area/awaymission/bm_pship/turrets_north",
+		"override": "/area/awaymission/bmp_ship/turrets_north"
+	},
+	{
+		"original": "/area/awaymission/BMPship/TurretsSouth",
+		"replace": "/area/awaymission/bm_pship/turrets_south",
+		"override": "/area/awaymission/bmp_ship/turrets_south"
+	},
+	{ "original": "/mob/living/simple_animal/chicken/Wife", "replace": "/mob/living/simple_animal/chicken/wife" },
+	{ "original": "/mob/living/simple_animal/cock/Clucky", "replace": "/mob/living/simple_animal/cock/clucky" },
+	{ "original": "/mob/living/simple_animal/frog/Wednesday", "replace": "/mob/living/simple_animal/frog/wednesday" },
+	{ "original": "/mob/living/simple_animal/goose/Scientist", "replace": "/mob/living/simple_animal/goose/scientist" },
+	{
+		"original": "/mob/living/simple_animal/hostile/lizard/croco/Gena",
+		"replace": "/mob/living/simple_animal/hostile/lizard/croco/gena"
+	},
+	{ "original": "/mob/living/simple_animal/mouse/brown/Tom", "replace": "/mob/living/simple_animal/mouse/brown/tom" },
+	{
+		"original": "/mob/living/simple_animal/mouse/hamster/Representative",
+		"replace": "/mob/living/simple_animal/mouse/hamster/representative"
+	},
+	{
+		"original": "/mob/living/simple_animal/mouse/rat/Ratatui",
+		"replace": "/mob/living/simple_animal/mouse/rat/ratatui"
+	},
+	{
+		"original": "/mob/living/simple_animal/mouse/rat/irish/Remi",
+		"replace": "/mob/living/simple_animal/mouse/rat/irish/remi"
+	},
+	{
+		"original": "/mob/living/simple_animal/mouse/rat/white/Brain",
+		"replace": "/mob/living/simple_animal/mouse/rat/white/brain"
+	},
+	{ "original": "/mob/living/simple_animal/parrot/Poly", "replace": "/mob/living/simple_animal/parrot/poly" },
+	{ "original": "/mob/living/simple_animal/pet/cat/Floppa", "replace": "/mob/living/simple_animal/pet/cat/floppa" },
+	{ "original": "/mob/living/simple_animal/pet/cat/Runtime", "replace": "/mob/living/simple_animal/pet/cat/runtime" },
+	{
+		"original": "/mob/living/simple_animal/pet/cat/birman/Crusher",
+		"replace": "/mob/living/simple_animal/pet/cat/birman/crusher"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/cat/black/Salem",
+		"replace": "/mob/living/simple_animal/pet/cat/black/salem"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/cat/fat/Iriska",
+		"replace": "/mob/living/simple_animal/pet/cat/fat/iriska"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/cat/spacecat/Musya",
+		"replace": "/mob/living/simple_animal/pet/cat/spacecat/musya"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/cat/white/Penny",
+		"replace": "/mob/living/simple_animal/pet/cat/white/penny"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/dog/brittany/Psycho",
+		"replace": "/mob/living/simple_animal/pet/dog/brittany/psycho"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/dog/bullterrier/Genn",
+		"replace": "/mob/living/simple_animal/pet/dog/bullterrier/genn"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/dog/corgi/Lisa",
+		"replace": "/mob/living/simple_animal/pet/dog/corgi/lisa"
+	},
+	{
+		"original": "/mob/living/simple_animal/pet/dog/pug/Frank",
+		"replace": "/mob/living/simple_animal/pet/dog/pug/frank"
+	},
+	{ "original": "/mob/living/simple_animal/pig/Sanya", "replace": "/mob/living/simple_animal/pig/sanya" },
+	{ "original": "/mob/living/simple_animal/possum/Poppy", "replace": "/mob/living/simple_animal/possum/poppy" },
+	{ "original": "/obj/effect/decal/remains/mouse/Pinkie", "replace": "/obj/effect/decal/remains/mouse/pinkie" },
+	{
+		"original": "/obj/effect/spawner/random/CCfood",
+		"replace": "/obj/effect/spawner/random/c_cfood",
+		"override": "/obj/effect/spawner/random/ccfood"
+	},
+	{
+		"original": "/obj/item/clothing/head/HoS",
+		"replace": "/obj/item/clothing/head/ho_s",
+		"override": "/obj/item/clothing/head/hos"
+	},
+	{
+		"original": "/obj/item/clothing/head/helmet/skull/Yorick",
+		"replace": "/obj/item/clothing/head/helmet/skull/yorick"
+	},
+	{ "original": "/obj/item/paintkit/firefighter_Hauler", "replace": "/obj/item/paintkit/firefighter_hauler" },
+	{ "original": "/obj/item/paintkit/firefighter_Reaper", "replace": "/obj/item/paintkit/firefighter_reaper" },
+	{ "original": "/obj/structure/billboard/Phone_booth", "replace": "/obj/structure/billboard/phone_booth" },
+	{ "original": "/datum/gear/donor/Wallet_NT", "replace": "/datum/gear/donor/wallet_nt" },
+	{ "original": "/datum/gear/donor/Wallet_USSP", "replace": "/datum/gear/donor/wallet_ussp" },
+	{ "original": "/datum/gear/donor/Wallet_WYCI", "replace": "/datum/gear/donor/wallet_wyci" }
+]

@@ -155,7 +155,7 @@
 		if(!(A in summon_areas)) // Check again to make sure they didn't move
 			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
 			return
-		GLOB.major_announcement.Announce("Figments from an eldritch god are being summoned into the [A.map_name] from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space Law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/cult_summon.ogg')
+		GLOB.major_announcement.Announce("Образы древнего богоподобного существа соединяются воединно в [A.map_name] из неизвестного измерения. Прервите ритуал любой ценой, пока станция не была уничтожена! Действие космических законов и стандартных рабочих процедур приостановлено. Всему экипажу - ликвидировать культистов на месте.", "Отдел по делам Высших Измерений", 'sound/AI/cult_summon.ogg')
 		for(var/I in spiral_range_turfs(1, user, 1))
 			var/turf/T = I
 			var/obj/machinery/shield/cult/narsie/N = new(T)

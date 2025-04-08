@@ -190,7 +190,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 /client/proc/create_deathsquad_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
-	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
+	var/commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
 	var/commando_name = pick(GLOB.deathsquad_names)
 	var/obj/item/organ/external/head/head_organ = new_commando.get_organ("head") // This appearance code is brought to you by ert.dm, basically the same code. If you change something here change somethere there too.
 
