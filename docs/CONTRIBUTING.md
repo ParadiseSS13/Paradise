@@ -201,7 +201,7 @@ included in this role are:
 
 - [Burzah](https://github.com/Burzah)
 - [Contrabang](https://github.com/Contrabang)
-- [farie82](https://github.com/farie82)
+- [Warriorstar](https://github.com/warriorstar-orion)
 
 ---
 
@@ -216,6 +216,7 @@ PRs. People included in this role are:
 - [lewcc](https://github.com/lewcc)
 - [S34N](https://github.com/S34NW)
 - [SteelSlayer](https://github.com/SteelSlayer)
+- [Warriorstar](https://github.com/warriorstar-orion)
 
 ---
 

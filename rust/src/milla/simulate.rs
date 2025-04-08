@@ -566,10 +566,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         my_next_tile
             .gases
             .set_agent_b(my_next_tile.gases.agent_b() - co2_converted * 0.05);
-        // Recalculate existing thermal energy to account for the change in heat capacity.
+        // Recalculate heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
-        thermal_energy = cached_temperature * cached_heat_capacity;
-        // THEN we can add in the new thermal energy.
+        // Add in the new thermal energy.
         thermal_energy += AGENT_B_CONVERSION_ENERGY * co2_converted;
         // Recalculate temperature for any subsequent reactions.
         cached_temperature = thermal_energy / cached_heat_capacity;
@@ -594,10 +593,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             .gases
             .set_oxygen(my_next_tile.gases.oxygen() + nitrous_decomposed / 2.0);
 
-        // Recalculate existing thermal energy to account for the change in heat capacity.
+        // Recalculate heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
-        thermal_energy = cached_temperature * cached_heat_capacity;
-        // THEN we can add in the new thermal energy.
+        // Add in the new thermal energy.
         thermal_energy += NITROUS_BREAKDOWN_ENERGY * nitrous_decomposed;
         // Recalculate temperature for any subsequent reactions.
         cached_temperature = thermal_energy / cached_heat_capacity;
@@ -643,9 +641,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 			.gases
 			.set_water_vapor(my_next_tile.gases.water_vapor() + plasma_burnt * WATER_VAPOR_PER_PLASMA_BURNT);
 
-        // Recalculate existing thermal energy to account for the change in heat capacity.
+        // Recalculate heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
-        thermal_energy = cached_temperature * cached_heat_capacity;
         // THEN we can add in the new thermal energy.
         thermal_energy += PLASMA_BURN_ENERGY * plasma_burnt;
 

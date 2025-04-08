@@ -361,11 +361,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		spawn(det_time)
 		if(primed)
 			if(quality == GIBTONITE_QUALITY_HIGH)
-				explosion(loc, 2, 4, 9, adminlog = notify_admins)
+				explosion(loc, 2, 4, 9, adminlog = notify_admins, cause = "Movable Gibtonite")
 			if(quality == GIBTONITE_QUALITY_MEDIUM)
-				explosion(loc, 1, 2, 5, adminlog = notify_admins)
+				explosion(loc, 1, 2, 5, adminlog = notify_admins, cause = "Movable Gibtonite")
 			if(quality == GIBTONITE_QUALITY_LOW)
-				explosion(loc, -1, 1, 3, adminlog = notify_admins)
+				explosion(loc, -1, 1, 3, adminlog = notify_admins, cause = "Movable Gibtonite")
 			qdel(src)
 
 
@@ -445,7 +445,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/turf/T = get_turf(src)
 	message_admins("Plasma coin ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
 	log_game("Plasma coin ignited by [key_name(user)] in [COORD(T)]")
-	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", INVESTIGATE_ATMOS)
 	user.create_log(MISC_LOG, "Plasma coin ignited using [I]", src)
 	fire_act()
 

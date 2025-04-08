@@ -628,16 +628,20 @@ What are the archived variables for?
 /datum/gas_mixture/proc/react(atom/dump_location)
 	var/reacting = FALSE //set to TRUE if a notable reaction occured (used by pipe_network)
 
-	if((private_agent_b > MINIMUM_MOLE_COUNT) && private_temperature > 900)
+	if((private_agent_b > MINIMUM_MOLE_COUNT) && private_temperature > AGENT_B_CONVERSION_MIN_TEMP)
 		if(private_toxins > MINIMUM_HEAT_CAPACITY && private_carbon_dioxide > MINIMUM_HEAT_CAPACITY)
 			var/reaction_rate = min(private_carbon_dioxide * 0.75, private_toxins * 0.25, private_agent_b * 0.05)
+			var/old_heat_capacity = heat_capacity()
+			var/energy_released = reaction_rate * AGENT_B_CONVERSION_ENERGY_RELEASED
 
 			private_carbon_dioxide -= reaction_rate
 			private_oxygen += reaction_rate
 
 			private_agent_b -= reaction_rate * 0.05
 
-			private_temperature += (reaction_rate * 20000) / heat_capacity()
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
 
 			reacting = TRUE
 

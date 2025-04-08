@@ -16,7 +16,7 @@
 
 /datum/engi_event/supermatter_event/start_event()
 	supermatter.event_active = src
-	supermatter.investigate_log("event [src] has been triggered", "supermatter")
+	supermatter.investigate_log("event [src] has been triggered", INVESTIGATE_SUPERMATTER)
 	. = ..()
 
 /datum/engi_event/supermatter_event/on_end()
@@ -179,7 +179,8 @@
 /datum/engi_event/supermatter_event/alpha_tier/air_siphon/on_start()
 	var/area/current_area = get_area(supermatter)
 	for(var/obj/machinery/alarm/A in current_area)
-		A.apply_mode(AALARM_MODE_OFF)
+		A.mode = AALARM_MODE_OFF
+		A.apply_mode()
 
 /datum/engi_event/supermatter_event/alpha_tier/gas_multiplier
 	name = "A-3"
