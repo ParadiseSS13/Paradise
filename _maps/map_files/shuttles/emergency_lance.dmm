@@ -630,18 +630,13 @@
 	},
 /area/shuttle/escape)
 "AK" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery/blue/partial{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/blue/partial{
 	dir = 8
 	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "AS" = (
