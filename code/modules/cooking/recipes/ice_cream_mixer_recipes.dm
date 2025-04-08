@@ -851,6 +851,15 @@
 		PCWJ_USE_ICE_CREAM_MIXER(10 SECONDS),
 	)
 
+/datum/cooking/recipe/mint
+	container_type = /obj/item/reagent_containers/cooking/icecream_bowl
+	product_type = /obj/item/food/mint
+	catalog_category = COOKBOOK_CATEGORY_CANDY
+	steps = list(
+		PCWJ_ADD_REAGENT("toxin", 5),
+		PCWJ_USE_ICE_CREAM_MIXER(10 SECONDS),
+	)
+
 /datum/cooking/recipe/mint_2
 	container_type = /obj/item/reagent_containers/cooking/icecream_bowl
 	product_type = /obj/item/food/mint
