@@ -85827,10 +85827,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
-"tqN" = (
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint2,
-/area/station/maintenance/asmaint2)
 "tqW" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -144105,7 +144101,7 @@ ceK
 clg
 crj
 clW
-tqN
+bGG
 coA
 cjA
 clg
