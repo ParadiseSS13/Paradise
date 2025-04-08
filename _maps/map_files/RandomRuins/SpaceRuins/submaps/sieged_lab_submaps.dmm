@@ -888,7 +888,7 @@
 /area/template_noop)
 "sI" = (
 /obj/machinery/iv_drip,
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
