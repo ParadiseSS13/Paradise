@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/loot
 	name = "random loot spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "loot"
 
 /obj/effect/spawner/random/loot/contraband_posters
@@ -77,7 +76,6 @@
 
 /obj/effect/spawner/random/loot_crate
 	name = "lootcrate spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "crate_secure"
 	spawn_inside = /obj/structure/closet/crate/secure/loot
 	loot = list(
