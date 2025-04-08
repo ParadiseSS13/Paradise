@@ -443,6 +443,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "cZ" = (
 /obj/machinery/radar,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "da" = (
@@ -1515,6 +1516,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "iA" = (
@@ -1610,6 +1612,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "jc" = (
@@ -1823,6 +1826,7 @@
 	dir = 4
 	},
 /obj/item/screwdriver,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "ku" = (
@@ -4543,6 +4547,7 @@
 /obj/structure/railing{
 	dir = 5
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "zp" = (
@@ -4600,6 +4605,7 @@
 	dir = 1
 	},
 /obj/effect/baseturf_helper/lava_land,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "zB" = (
@@ -5006,6 +5012,7 @@
 /area/mine/laborcamp)
 "BB" = (
 /obj/effect/spawner/random/trash,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "BE" = (
@@ -5305,6 +5312,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Dj" = (
@@ -6891,6 +6899,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "LK" = (
@@ -8781,6 +8790,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Wq" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/engine/lavaland_air,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Ws" = (
