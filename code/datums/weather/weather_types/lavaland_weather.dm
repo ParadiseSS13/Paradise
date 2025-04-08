@@ -268,7 +268,7 @@
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
-	probability = 15
+	probability = 99999
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// how long do you get before it melts a hole?

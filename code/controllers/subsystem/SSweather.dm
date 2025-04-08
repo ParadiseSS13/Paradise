@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(weather)
 	eligible_traits[trait] = possible_weathers
 	for(var/zlevel in levels_by_trait(trait))
 		next_hit_by_zlevel["[zlevel]"] = null
-		next_weather_by_zlevel["[z]"] = null
+		next_weather_by_zlevel["[zlevel]"] = null
 
 /datum/controller/subsystem/weather/proc/get_weather(z, area/active_area)
 	var/datum/weather/A
