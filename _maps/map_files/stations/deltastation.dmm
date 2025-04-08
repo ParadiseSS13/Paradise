@@ -34216,6 +34216,7 @@
 /area/station/public/toilet/lockerroom)
 "cyE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/port2)
 "cyF" = (
@@ -42125,8 +42126,6 @@
 	dir = 1
 	},
 /obj/item/clipboard,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
-/obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -42424,6 +42423,12 @@
 "dda" = (
 /obj/item/flashlight/lamp,
 /obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "maint_rnd_shutters";
+	name = "Abandoned RnD Shutter Control";
+	pixel_y = 24;
+	req_access = list(29)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -42930,16 +42935,10 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"deL" = (
-/obj/structure/chair/office/light{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port2)
 "deM" = (
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/structure/table/reinforced,
+/obj/structure/chair/office/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -43213,12 +43212,6 @@
 /area/station/maintenance/port2)
 "dfW" = (
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/port2)
-"dfX" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/electrical,
-/obj/item/multitool,
-/turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "dfZ" = (
 /obj/structure/cable{
@@ -44174,10 +44167,11 @@
 "dkp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
-/obj/effect/spawner/random/maintenance,
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -44256,11 +44250,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/port2)
-"dkB" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
 /area/station/maintenance/port2)
 "dkC" = (
 /obj/item/clothing/suit/fire/firefighter,
@@ -44792,6 +44781,8 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -44801,26 +44792,30 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/table/reinforced,
+/obj/item/robot_parts/robot_component/radio,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "dmT" = (
-/obj/item/stack/sheet/metal/fifty{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 6;
-	pixel_y = 3
-	},
 /obj/structure/shelf/science,
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/robot_parts/robot_component/camera,
+/obj/item/robot_parts/robot_component/armour,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = -2;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -45155,10 +45150,11 @@
 /area/station/science/robotics/chargebay)
 "doz" = (
 /obj/structure/table/reinforced,
+/obj/machinery/firealarm/directional/east,
+/obj/item/folder/white,
 /obj/item/circular_saw{
 	pixel_y = 8
 	},
-/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -45858,8 +45854,7 @@
 /area/station/maintenance/starboard)
 "dsn" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/robot_parts/robot_component/diagnosis_unit,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -46175,7 +46170,8 @@
 	pixel_x = -28
 	},
 /obj/structure/table/reinforced,
-/obj/item/assembly/prox_sensor,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -46425,7 +46421,7 @@
 /area/station/engineering/control)
 "duQ" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/white,
+/obj/item/robot_parts/robot_component/binary_communication_device,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -46443,6 +46439,7 @@
 	amount = 8
 	},
 /obj/item/stack/cable_coil/random,
+/obj/item/assembly/prox_sensor,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -68800,6 +68797,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/east)
+"lOd" = (
+/obj/structure/table/reinforced,
+/obj/item/multitool,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/maintenance/port2)
 "lOm" = (
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -73352,6 +73356,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
+"nSM" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/electrical,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/maintenance/port2)
 "nSQ" = (
 /obj/structure/closet/crate/hydroponics/prespawned,
 /obj/effect/turf_decal/delivery/hollow,
@@ -84246,6 +84257,14 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/apmaint)
+"sAI" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "maint_rnd_shutters";
+	name = "Abandoned RnD Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/port2)
 "sAR" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -87999,6 +88018,25 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/research)
+"udh" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/normal{
+	dir = 8;
+	name = "Abandoned RnD Desk"
+	},
+/obj/item/desk_bell{
+	pixel_y = 9;
+	pixel_x = -4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "maint_rnd_shutters";
+	name = "Abandoned RnD Shutters"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/maintenance/port2)
 "udE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -90406,6 +90444,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"vfz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/beaker/sulphuric,
+/obj/item/reagent_containers/dropper,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/maintenance/port2)
 "vfD" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -123357,7 +123404,7 @@ cyc
 cyc
 cxM
 cAK
-lXc
+vfz
 bDp
 cwq
 dYA
@@ -124385,7 +124432,7 @@ iBP
 sZn
 dkz
 dhF
-dkB
+lXc
 bDp
 dmT
 iAt
@@ -124895,11 +124942,11 @@ dlM
 daq
 bDp
 dkp
-deL
+deJ
 cAZ
 cyE
 djg
-lXc
+nSM
 bDp
 dmW
 jTi
@@ -125150,13 +125197,13 @@ cNm
 dmq
 vkv
 daq
-dbM
+bDp
 dda
 deM
-dfX
+deJ
 wyM
 ohQ
-deJ
+lOd
 bDp
 dmX
 iyF
@@ -125407,9 +125454,9 @@ gnB
 dmq
 cWn
 daq
-bDp
-bDp
-bDp
+dbM
+sAI
+udh
 bDp
 dhE
 ohQ
