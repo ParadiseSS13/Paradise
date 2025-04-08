@@ -20,6 +20,8 @@
 	var/obj/item/tank/holding_tank
 	/// The maximum pressure of the device
 	var/maximum_pressure = 10 * ONE_ATMOSPHERE
+	/// Type of atmos refilled. Used in examines
+	var/refill_type = "oxygen"
 
 /obj/machinery/atmospherics/refill_station/Initialize(mapload)
 	. = ..()
@@ -29,9 +31,9 @@
 
 /obj/machinery/atmospherics/refill_station/examine(mob/user)
 	. = ..()
-	. += "The Nanotrasen standard [src] is a vital piece of equipment for \
-	ensuring a multi-species crew. By providing an easy-to-access source of refillable air of \
-	various mixes, Nanotrasen aims to ensure worker productivity through the provision of breathable \
+	. += "The Nanotrasen standard refill station is a vital piece of equipment for \
+	ensuring a multi-species crew. By providing an easy-to-access source of refillable [refill_type], \
+	Nanotrasen aims to ensure worker productivity through the provision of breathable \
 	atmospherics to their crew."
 	if(holding_tank)
 		. += ""
@@ -137,6 +139,7 @@
 /obj/machinery/atmospherics/refill_station/nitrogen
 	name = "nitrogen refill station"
 	icon_state = "filler_nitro"
+	refill_type = "nitrogen"
 
 /obj/machinery/atmospherics/refill_station/nitrogen/Initialize(mapload)
 	. = ..()
@@ -157,10 +160,14 @@
 /obj/machinery/atmospherics/refill_station/plasma
 	name = "plasma refill station"
 	icon_state = "filler_plasma"
+	refill_type = "plasma"
+	/// What types of tanks can the plasma refill station accept?
+	var/list/accepted_types = list(/obj/item/tank/internals/emergency_oxygen/plasma, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/plasmaman/belt)
 
 /obj/machinery/atmospherics/refill_station/plasma/Initialize(mapload)
 	. = ..()
 	air_contents.set_toxins(maximum_pressure * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+	accepted_types = typecacheof(accepted_types)
 
 /obj/machinery/atmospherics/refill_station/plasma/update_overlays()
 	overlays.Cut()
@@ -177,7 +184,7 @@
 /obj/machinery/atmospherics/refill_station/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/analyzer))
 		return ..()
-	if(!istype(used, /obj/item/tank/internals/plasmaman))
+	if(!is_type_in_typecache(used, accepted_types))
 		to_chat(user, "<span class='warning'>[used] does not fit in [src]'s tank slot.</span>")
 		return ITEM_INTERACT_COMPLETE
 	if(!(stat & BROKEN))
