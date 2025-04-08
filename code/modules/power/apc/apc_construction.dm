@@ -45,7 +45,7 @@
 			to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 			return
 
-		if(I.use_tool(src, user, apc_electronics_crowbar_time, volume = I.tool_volume))
+		if(I.use_tool(src, user, FALSE, volume = I.tool_volume))
 			if(has_electronics())
 				electronics_state = APC_ELECTRONICS_NONE
 				if(stat & BROKEN)
