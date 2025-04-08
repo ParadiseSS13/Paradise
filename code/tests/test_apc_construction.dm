@@ -50,7 +50,8 @@
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You remove the APC electronics.")
 	player.put_away(crowbar)
-	player.spawn_obj_in_hand(/obj/item/weldingtool)
+	var/obj/welder = player.spawn_obj_in_hand(/obj/item/weldingtool)
+	player.click_on(welder)
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You cut the APC frame from the wall.")
 	test_area.requires_power = FALSE
