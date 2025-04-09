@@ -2104,7 +2104,6 @@
 "aqc" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/mapping_helpers/airlock/unres,
@@ -14388,9 +14387,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/maintcentral)
 "bjf" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -27609,9 +27605,6 @@
 	},
 /area/station/medical/morgue)
 "cbK" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
@@ -27909,9 +27902,6 @@
 /turf/space,
 /area/station/engineering/solar/fore)
 "ccW" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -29424,7 +29414,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "chZ" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -36504,7 +36494,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cJR" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -43948,6 +43938,9 @@
 /obj/item/clothing/mask/muzzle,
 /obj/machinery/light/directional/north,
 /obj/effect/landmark/lightsout,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -44676,7 +44669,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -48256,19 +48249,6 @@
 	icon_state = "caution"
 	},
 /area/station/hallway/primary/starboard)
-"gND" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard2)
 "gNG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -48493,6 +48473,9 @@
 	level = 1.4
 	},
 /obj/structure/curtain/open,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -51743,12 +51726,6 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ivn" = (
@@ -52186,6 +52163,13 @@
 	icon_state = "whitehall"
 	},
 /area/station/science/lobby)
+"iFn" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "iGf" = (
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/power/apc/directional/south,
@@ -58006,9 +57990,6 @@
 /turf/simulated/wall,
 /area/station/science/break_room)
 "lBu" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -62336,9 +62317,6 @@
 "nzW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=8-Central-to-Aft";
@@ -76152,7 +76130,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/directional/east,
-/obj/structure/cable,
+/obj/structure/cable/yellow,
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
 "uRX" = (
@@ -77854,7 +77832,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -79661,16 +79639,15 @@
 	},
 /area/station/science/storage)
 "wNA" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "wNL" = (
@@ -81417,7 +81394,7 @@
 	id_tag = "qm_warehouse";
 	name = "Warehouse Shutters"
 	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -81792,7 +81769,7 @@
 /obj/effect/landmark/start/cargo_technician,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/directional/east,
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -82379,6 +82356,9 @@
 	level = 1.4
 	},
 /obj/structure/curtain/open,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -117598,7 +117578,7 @@ cjZ
 cte
 csg
 cte
-gND
+dru
 cte
 cte
 kqi
@@ -127795,13 +127775,13 @@ aaa
 aaa
 cCP
 cCP
-aee
+iFn
 cCP
 cCP
 aaa
 cCP
 cCP
-aee
+iFn
 cCP
 cCP
 aaa
@@ -129337,13 +129317,13 @@ aaa
 aaa
 cCP
 cCP
-aee
+iFn
 cCP
 cCP
 aaa
 cCP
 cCP
-aee
+iFn
 cCP
 cCP
 aaa

@@ -3,7 +3,7 @@
 	var/obj/docking_port/stationary/CCport
 	CCport = SSshuttle.getDock("emergency_away")
 	CCport.setDir(4)
-	CCport.forceMove(locate(117, 83, 1))
+	CCport.forceMove(locate(105, 83, 1))
 	CCport.height = 50
 	CCport.dheight = 0
 	CCport.width = 19

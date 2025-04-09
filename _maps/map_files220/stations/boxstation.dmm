@@ -9716,6 +9716,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aMj" = (
@@ -12105,9 +12108,6 @@
 "aVI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -17380,11 +17380,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bql" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -19966,9 +19963,6 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -20745,9 +20739,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -25859,9 +25850,6 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/conveyor/east{
 	id = "packageExternal"
 	},
@@ -25880,9 +25868,6 @@
 /area/station/supply/sorting)
 "ccZ" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/conveyor/east{
 	id = "packageExternal"
 	},
@@ -31970,9 +31955,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/spawner/xeno,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/incinerator)
 "cCC" = (
@@ -53460,9 +53442,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "hiL" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/delivery/partial,
 /obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plasteel,
@@ -56659,10 +56638,7 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -57319,7 +57295,7 @@
 /area/station/science/toxins/mixing)
 "iJg" = (
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -58549,16 +58525,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"jjK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "jjX" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -63679,9 +63645,6 @@
 	id_tag = "departues_door_ext"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /obj/machinery/access_button/west{
 	autolink_id = "departues_btn_ext";
@@ -63890,10 +63853,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
-"lmy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port)
 "lmM" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -68329,10 +68288,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -69014,16 +68973,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"niJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "niP" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71241,10 +71190,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/station/security/permabrig)
-"nZI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/wall,
-/area/station/maintenance/apmaint)
 "nZN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -71463,9 +71408,6 @@
 	id_tag = "departues_door_int"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -77397,9 +77339,6 @@
 	},
 /area/station/medical/sleeper)
 "qjZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -79744,9 +79683,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -83977,9 +83913,6 @@
 	pixel_y = 27;
 	req_access = list(13);
 	vent_link_id = "departues_vent"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plating,
@@ -92440,10 +92373,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"vNT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/turf/simulated/wall,
-/area/station/maintenance/aft)
 "vNX" = (
 /obj/machinery/cryopod/robot,
 /obj/structure/extinguisher_cabinet/directional/north,
@@ -96969,7 +96898,7 @@
 	c_tag = "Teleporter Room"
 	},
 /obj/machinery/alarm/directional/north,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -118675,7 +118604,7 @@ vZX
 auX
 jWV
 vjY
-nZI
+cgQ
 coL
 coL
 cPu
@@ -119917,7 +119846,7 @@ blR
 blR
 blR
 bsc
-bql
+rXH
 svp
 qCk
 wAO
@@ -120431,7 +120360,7 @@ brz
 bnz
 bui
 blR
-jjK
+svp
 bnK
 bxc
 ulv
@@ -120688,7 +120617,7 @@ nhO
 ijw
 iYO
 blR
-bql
+bnK
 bst
 wAO
 byv
@@ -120945,7 +120874,7 @@ iFm
 bsQ
 cEJ
 blR
-niJ
+bnw
 bCj
 wAO
 ulv
@@ -122224,7 +122153,7 @@ cYH
 dim
 bgz
 mVB
-lmy
+bgz
 blW
 tjc
 bpl
@@ -133838,7 +133767,7 @@ cqN
 cqN
 cyJ
 cyJ
-vNT
+chf
 cYj
 cyJ
 lZI

@@ -14,7 +14,7 @@
 		origin_test.Fail("unexpected puppeteer carbon type [carbon_type]", __FILE__, __LINE__)
 
 	if(!initial_location)
-		initial_location = locate(20, 210, 2) // Center of admin testing area // SS220 EDIT - center of admin testing area at Admin_Zone.dmm
+		initial_location = locate(236, 171, 1) // Center of admin testing area // SS220 EDIT - center of admin testing area at Admin_Zone.dmm
 	origin_test = origin_test_
 	puppet = origin_test.allocate(carbon_type, initial_location)
 	var/datum/mind/new_mind = new("interaction_test_[puppet.UID()]")
