@@ -27,7 +27,7 @@
 			"description" = module.desc,
 			"module_type" = module.module_type,
 			"module_active" = module.active,
-			"pinned" = module.pinned_to[UID(user)], //might just want user here
+			"pinned" = module.pinned_to[user.UID()], //might just want user here
 			"idle_power" = module.idle_power_cost,
 			"active_power" = module.active_power_cost,
 			"use_power" = module.use_power_cost,

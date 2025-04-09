@@ -422,7 +422,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	type_butt = /obj/item/cigbutt/cigarbutt
 	smoketime = 300
-	chem_volume = 120
+	chem_volume = 140
 	list_reagents = list("nicotine" = 120)
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
@@ -439,7 +439,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
 	smoketime = 450
-	chem_volume = 180
+	chem_volume = 200
 	list_reagents = list("nicotine" = 180)
 
 /obj/item/cigbutt/cigarbutt
@@ -527,7 +527,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_off = "pipeoff"
 	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	smoketime = 500
-	chem_volume = 200
+	chem_volume = 220
 	list_reagents = list("nicotine" = 200)
 
 /obj/item/clothing/mask/cigarette/pipe/die()

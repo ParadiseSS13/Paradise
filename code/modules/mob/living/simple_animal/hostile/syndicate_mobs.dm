@@ -7,6 +7,7 @@
 	icon_dead = "syndicate_dead" // Does not actually exist. del_on_death.
 	icon_gib = "syndicate_gib" // Does not actually exist. del_on_death.
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0)
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -21,6 +22,7 @@
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
+	stat_attack = UNCONSCIOUS
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
 	check_friendly_fire = TRUE
@@ -60,36 +62,23 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(O.force)
-		if(prob(melee_block_chance))
-			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield!</span>")
-		else
-			var/damage = O.force
-			if(O.damtype == STAMINA)
-				damage = 0
-			if(force_threshold && damage < force_threshold)
-				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
-				return
-			adjustHealth(damage)
-			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user].</span>")
-		playsound(loc, O.hitsound, 25, TRUE, -1)
-	else
-		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>")
+/mob/living/simple_animal/hostile/syndicate/melee/attack_by(obj/item/O, mob/living/user, params)
+	if(prob(melee_block_chance))
+		visible_message("<span class='boldwarning'>[src] blocks [O] with its shield!</span>")
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
+		return FINISH_ATTACK
 
+	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
 		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
-	else
-		if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
-			adjustHealth(Proj.damage)
-	return 0
+		return
+
+	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
@@ -103,7 +92,6 @@
 	name = "Syndicate Operative"
 	force_threshold = 6 // Prevents people using punches to bypass eshield
 	robust_searching = TRUE // Together with stat_attack, ensures dionae/etc that regen are killed properly
-	stat_attack = UNCONSCIOUS
 	universal_speak = TRUE
 	icon_state = "syndicate_swordonly"
 	icon_living = "syndicate_swordonly"
@@ -129,7 +117,6 @@
 	name = "[name] [pick(GLOB.last_names)]"
 	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
-
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/ListTargetsLazy()
 	// The normal ListTargetsLazy ignores walls, which is very bad in the case of depot mobs. So we override it.
@@ -244,7 +231,6 @@
 			return 1
 	return ..()
 
-
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer
 	name = "Syndicate Officer"
 	icon_state = "syndicate_sword"
@@ -321,7 +307,6 @@
 		depotarea.unlock_lockers()
 	return ..()
 
-
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space
 	name = "Syndicate Backup"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -340,7 +325,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/death()
 	visible_message("<span class='warning'>[src] explodes!</span>")
 	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
-	explosion(src, 0, 4, 4, flame_range = 2, adminlog = FALSE)
+	explosion(src, 0, 4, 4, flame_range = 2, adminlog = FALSE, cause = "[name] autogib")
 	qdel(src)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space
@@ -369,6 +354,7 @@
 	icon_living = "syndicate_smg"
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/c45
+
 /mob/living/simple_animal/hostile/syndicate/ranged/space
 	icon_state = "syndicate_space_smg"
 	icon_living = "syndicate_space_smg"
@@ -382,7 +368,6 @@
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
-
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
@@ -419,7 +404,6 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = TRUE
 	deathmessage = "is smashed into pieces!"
-
 	initial_traits = list(TRAIT_FLYING)
 
 /mob/living/simple_animal/hostile/viscerator/Initialize(mapload)

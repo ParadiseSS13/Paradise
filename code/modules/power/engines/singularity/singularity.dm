@@ -98,7 +98,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/C = user
-	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", INVESTIGATE_SINGULO)
 	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
 		"<span class='userdanger'>As you concentrate on the singularity, your understanding of the cosmos expands exponentially. An immense wealth of raw information is at your fingertips, and you're determined not to squander a single morsel. Within mere microseconds, you absorb a staggering amount of information—more than any AI could ever hope to access—and you can't help but feel a godlike sense of power. However, the gravity of this situation swiftly sinks in. As you sense your skull starting to collapse under pressure, you can't help but admit to yourself: That was a really dense idea, wasn't it?</span>")
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
@@ -117,7 +117,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	switch(severity)
 		if(1)
 			if(current_size <= STAGE_TWO)
-				investigate_log("has been destroyed by a heavy explosion.", "singulo")
+				investigate_log("has been destroyed by a heavy explosion.", INVESTIGATE_SINGULO)
 				qdel(src)
 				return
 			else
@@ -151,7 +151,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, (energy * 4.5) + 1000, RAD_DISTANCE_COEFFICIENT, source_radius = consume_range + 1)
+		radiation_pulse(src, (energy * 90) + 8000, GAMMA_RAD)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
@@ -171,7 +171,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
 	if(!count)
 		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-	investigate_log("was created. [count ? "" : "<font color='red'>No containment fields were active</font>"]", "singulo")
+	investigate_log("was created. [count ? "" : "<font color='red'>No containment fields were active</font>"]", INVESTIGATE_SINGULO)
 
 /obj/singularity/proc/do_dissipate()
 	if(!dissipate)
@@ -267,7 +267,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	if(current_size >= STAGE_FIVE)
 		notify_dead()
 	if(current_size == allowed_size)
-		investigate_log("<font color='red'>grew to size [current_size]</font>", "singulo")
+		investigate_log("<font color='red'>grew to size [current_size]</font>", INVESTIGATE_SINGULO)
 		return 1
 	else if(current_size < (--temp_allowed_size))
 		expand(temp_allowed_size)
@@ -277,7 +277,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 
 /obj/singularity/proc/check_energy()
 	if(energy <= 0)
-		investigate_log("collapsed.", "singulo")
+		investigate_log("collapsed.", INVESTIGATE_SINGULO)
 		qdel(src)
 		return 0
 	switch(energy)//Some of these numbers might need to be changed up later -Mport
@@ -329,7 +329,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 			qdel(A)
 		else
 			visible_message("<span class='userdanger'>[GET_CULT_DATA(entity_name, A.name)] strikes down [src]!</span>")
-			investigate_log("has been destroyed by Nar'Sie", "singulo")
+			investigate_log("has been destroyed by Nar'Sie", INVESTIGATE_SINGULO)
 			qdel(src)
 
 	return
@@ -511,7 +511,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2), 1)
-	explosion(loc, (dist), (dist * 2), (dist * 4))
+	explosion(loc, (dist), (dist * 2), (dist * 4), cause = "singularity on singularity violence")
 	qdel(src)
 	return(gain)
 

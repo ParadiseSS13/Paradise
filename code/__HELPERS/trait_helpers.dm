@@ -256,6 +256,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
+/// Trait given when a mob has been tipped
+#define TRAIT_MOB_TIPPED "mob_tipped"
+/// Trait given to mobs that have the basic eating element
+#define TRAIT_MOB_EATER "mob_eater"
+#define TRAIT_XENOBIO_SPAWNED "xenobio_spawned"
 
 /// Trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "trait_ai_paused"
@@ -279,7 +284,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
 
 //***** ITEM TRAITS *****//
-#define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
 /// An item that is being wielded.
 #define TRAIT_WIELDED "wielded"
@@ -386,6 +390,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define PULSEDEMON_TRAIT "pulse_demon"
 /// Mentor observing
 #define MENTOR_OBSERVING "mobserving"
+#define TIPPED_OVER "tipped_over"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

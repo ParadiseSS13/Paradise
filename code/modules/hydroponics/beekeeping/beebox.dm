@@ -165,9 +165,8 @@
 			return
 
 		var/obj/item/queen_bee/qb = I
-		if(!user.drop_item_to_ground(qb))
+		if(!user.transfer_item_to(qb, src))
 			return
-		qb.queen.forceMove(src)
 		bees += qb.queen
 		queen_bee = qb.queen
 		qb.queen = null

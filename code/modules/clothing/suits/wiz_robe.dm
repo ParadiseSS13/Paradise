@@ -202,13 +202,13 @@
 
 /obj/item/clothing/suit/space/hardsuit/wizard/equipped(mob/user, slot)
 	. = ..()
-	ADD_TRAIT(user, TRAIT_ANTIMAGIC, "[UID(src)]")
-	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC, "[UID()]")
+	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID()]")
 
 /obj/item/clothing/suit/space/hardsuit/wizard/dropped(mob/user)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC, "[UID(src)]")
-	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC, "[UID()]")
+	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID()]")
 
 
 /obj/item/clothing/suit/space/hardsuit/wizard/arch

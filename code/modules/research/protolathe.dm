@@ -57,7 +57,9 @@ Note: Must be placed west/left of and R&D console to function.
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
+	reagents.maximum_volume = 0
 	for(var/obj/item/reagent_containers/glass/G in component_parts)
+		reagents.maximum_volume += G.reagents.maximum_volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
@@ -89,9 +91,6 @@ Note: Must be placed west/left of and R&D console to function.
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
 		return ITEM_INTERACT_COMPLETE
-
-	if(used.is_open_container())
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
 	return ..()
 

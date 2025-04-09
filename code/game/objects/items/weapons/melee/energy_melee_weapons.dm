@@ -355,6 +355,7 @@
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
 	origin_tech = "combat=3;magnets=4"
+	item_color = "red"
 
 //////////////////////////////
 // MARK: HARDLIGHT BLADE

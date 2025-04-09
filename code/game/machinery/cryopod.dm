@@ -136,7 +136,7 @@
 	item["name"] = I.name
 
 	frozen_items += list(item)
-	if(preserve_status == CRYO_OBJECTIVE)
+	if(preserve_status == CRYO_OBJECTIVE || istype(I, /obj/item/card/id/captains_spare))
 		objective_items += I
 	I.forceMove(src)
 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(item_got_removed))

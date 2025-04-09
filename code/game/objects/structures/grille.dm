@@ -14,6 +14,7 @@
 	max_integrity = 50
 	integrity_failure = 20
 	cares_about_temperature = TRUE
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = 1

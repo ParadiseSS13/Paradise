@@ -61,8 +61,10 @@
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"
 ///from base of atom/emag_act(): (/mob/user)
 #define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
-///from base of atom/rad_act(intensity)
+///from base of atom/rad_act(intensity, emission_type)
 #define COMSIG_ATOM_RAD_ACT "atom_rad_act"
+///from base of turf/irradiate(/datum/radiation_wave)
+#define COMSIG_TURF_IRRADIATE
 ///from base of atom/singularity_pull(): (S, current_size)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"
 ///from base of atom/set_light(): (l_range, l_power, l_color)
@@ -140,3 +142,10 @@
 /// On a ranged attack: base of mob/living/carbon/human/RangedAttack (/mob/living/carbon/human)
 #define COMSIG_ATOM_RANGED_ATTACKED "atom_range_attacked"
 
+// Smithing signals
+/// When using a bit on an item that can accept a bit
+#define COMSIG_BIT_ATTACH "bit_attach"
+/// When using a lens on an item that can accept a lens
+#define COMSIG_LENS_ATTACH "lens_attach"
+/// When using an insert on an item that can accept an insert
+#define COMSIG_INSERT_ATTACH "insert_attach"

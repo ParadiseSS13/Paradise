@@ -70,6 +70,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 	var/can_idle = TRUE
 	/// What distance should we be checking for interesting things when considering idling/deidling? Defaults to AI_DEFAULT_INTERESTING_DIST
 	var/interesting_dist = AI_DEFAULT_INTERESTING_DIST
+	/// are we currently on failed planning timeout?
+	var/on_failed_planning_timeout = FALSE
+
 
 /datum/ai_controller/New(atom/new_pawn)
 	change_ai_movement_type(ai_movement)
@@ -186,7 +189,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(!pawn_turf)
 		CRASH("AI controller [src] controlling pawn ([pawn]) is not on a turf.")
 #endif
-	if(!length(SSmobs.clients_by_zlevel[pawn_turf.z]))
+	if(!SSmobs.clients_by_zlevel || !length(SSmobs.clients_by_zlevel[pawn_turf.z]) || on_failed_planning_timeout)
 		. = AI_STATUS_OFF
 
 /// Called when the AI controller pawn changes z levels.
@@ -238,9 +241,38 @@ RESTRICT_TYPE(/datum/ai_controller)
 		return FALSE
 	return TRUE
 
+/datum/ai_controller/proc/ai_can_interact()
+	SHOULD_CALL_PARENT(TRUE)
+	return !QDELETED(pawn)
+
+///Interact with objects
+/datum/ai_controller/proc/ai_interact(target, intent, list/modifiers)
+	if(!ai_can_interact())
+		return FALSE
+
+	var/atom/final_target = isdatum(target) ? target : blackboard[target] //incase we got a blackboard key instead
+
+	if(QDELETED(final_target))
+		return FALSE
+	var/params = list2params(modifiers)
+	var/mob/living/living_pawn = pawn
+	if(isnull(intent))
+		living_pawn.ClickOn(final_target, params)
+		return TRUE
+
+	var/old_intent = living_pawn.a_intent
+	living_pawn.a_intent = intent
+	living_pawn.ClickOn(final_target, params)
+	living_pawn.a_intent = old_intent
+	return TRUE
 
 /// Runs any actions that are currently running
 /datum/ai_controller/process(seconds_per_tick)
+	// AI controllers were implemented on /tg/ after the deltatime conversion:
+	// https://github.com/tgstation/tgstation/pull/52981
+	// The practical side-effect of this is that the values we call "seconds_per_tick"
+	// in the AI controller implementation are actually the managing subsystem's `wait`.
+	seconds_per_tick /= (1 SECONDS)
 
 	if(!able_to_run())
 		GLOB.move_manager.stop_looping(pawn) //stop moving
@@ -450,6 +482,15 @@ RESTRICT_TYPE(/datum/ai_controller)
 			minimum_distance = iter_behavior.required_distance
 	return minimum_distance
 
+/datum/ai_controller/proc/planning_failed()
+	on_failed_planning_timeout = TRUE
+	set_ai_status(get_expected_ai_status())
+	addtimer(CALLBACK(src, PROC_REF(resume_planning)), AI_FAILED_PLANNING_COOLDOWN)
+
+/datum/ai_controller/proc/resume_planning()
+	on_failed_planning_timeout = FALSE
+	set_ai_status(get_expected_ai_status())
+
 /// Returns true if we have a blackboard key with the provided key and it is not qdeleting.
 /datum/ai_controller/proc/blackboard_key_exists(key)
 	var/datum/key_value = blackboard[key]
@@ -468,9 +509,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 #define TRACK_AI_DATUM_TARGET(tracked_datum, key) do { \
 	if(isdatum(tracked_datum)) { \
 		var/datum/_tracked_datum = tracked_datum; \
-		if(!HAS_TRAIT_FROM(_tracked_datum, TRAIT_AI_TRACKING, "[UID(src)]_[key]")) { \
+		if(!HAS_TRAIT_FROM(_tracked_datum, TRAIT_AI_TRACKING, "[UID()]_[key]")) { \
 			RegisterSignal(_tracked_datum, COMSIG_PARENT_QDELETING, PROC_REF(sig_remove_from_blackboard), override = TRUE); \
-			ADD_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[UID(src)]_[key]"); \
+			ADD_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[UID()]_[key]"); \
 		}; \
 	}; \
 } while(FALSE)
@@ -484,7 +525,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 #define CLEAR_AI_DATUM_TARGET(tracked_datum, key) do { \
 	if(isdatum(tracked_datum)) { \
 		var/datum/_tracked_datum = tracked_datum; \
-		REMOVE_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[UID(src)]_[key]"); \
+		REMOVE_TRAIT(_tracked_datum, TRAIT_AI_TRACKING, "[UID()]_[key]"); \
 		if(!HAS_TRAIT(_tracked_datum, TRAIT_AI_TRACKING)) { \
 			UnregisterSignal(_tracked_datum, COMSIG_PARENT_QDELETING); \
 		}; \

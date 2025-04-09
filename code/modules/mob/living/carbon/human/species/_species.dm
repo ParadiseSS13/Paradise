@@ -3,11 +3,6 @@
 	var/name
 	/// Pluralized name (since "[name]s" is not always valid)
 	var/name_plural
-	/// Sub-type of the species. Used for when slimes imitate a species or when an IPC has augments that look like another species. This will affect sprite_sheet_name
-	var/species_subtype = "None"
-	/// List of available sub-types for the species to imitate / morph into (Machine / Slime)
-	var/allowed_species_subtypes = list()
-	/// The corresponding key for spritesheets
 	var/sprite_sheet_name
 	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
 	/// Because it's unathi's turn to be special snowflakes.
@@ -205,9 +200,7 @@
 
 /datum/species/New()
 	unarmed = new unarmed_type()
-	if(!isnull(species_subtype) && species_subtype != "None")
-		sprite_sheet_name = species_subtype
-	else if(!sprite_sheet_name)
+	if(!sprite_sheet_name)
 		sprite_sheet_name = name
 
 /datum/species/proc/get_random_name(gender)
@@ -349,10 +342,8 @@
 	leftover -= .
 
 	var/health_deficiency = max(H.maxHealth - H.health, H.getStaminaLoss())
-	if(H.reagents)
-		for(var/datum/reagent/R in H.reagents.reagent_list)
-			if(R.shock_reduction)
-				health_deficiency -= R.shock_reduction
+	health_deficiency -= H.shock_reduction(FALSE)
+
 	if(HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
 		return
 	if(health_deficiency >= 40 - (40 * leftover * SLOWDOWN_MULTIPLIER)) //If we have 0.25 slowdown, or halfway to the threshold of 0.5, we reduce the health threshold by that 50%
@@ -408,18 +399,6 @@
 			H.faction -= i
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
-	return
-
-/** Handles changing icobase for species that can imitate/morph into other species
- * 	Arguments:
- * 	- H: The human of which was are updating.
- * 	- new_subtype: Our imitate species, by datum reference.
- * 	- owner_sensitive: Always leave at TRUE, this is for updating our icon. (change_icobase)
- * 	- reset_styles: If true, resets styles, hair, and other appearance styles.
- * 	- forced: If true, will set the subspecies type even if it is the same as the current species.
- */
-///
-/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE, forced = FALSE)
 	return
 
 // Do species-specific reagent handling here
@@ -527,9 +506,6 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
-		return FALSE
 	if(!attacker_style && target.buckled)
 		target.buckled.user_unbuckle_mob(target, user)
 		return TRUE
@@ -553,9 +529,6 @@
 		add_attack_logs(user, target, "flayerdrain")
 		return
 	//End Mind Flayer Code
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
-		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
@@ -570,13 +543,7 @@
 		return FALSE
 	add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
-	if(!iscarbon(user))
-		target.LAssailant = null
-	else
-		target.LAssailant = user
-
-	target.lastattacker = user.real_name
-	target.lastattackerckey = user.ckey
+	target.store_last_attacker(user)
 
 	var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 	damage += attack.damage
@@ -602,9 +569,6 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
-		return FALSE
-	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
@@ -926,9 +890,6 @@
 			return TRUE
 
 	return FALSE //Unsupported slot
-
-/datum/species/proc/update_health_hud(mob/living/carbon/human/H)
-	return FALSE
 
 /datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))

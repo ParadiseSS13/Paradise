@@ -54,9 +54,8 @@
 
 /obj/item/clothing/suit/armor/vest/security/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory/holobadge))
-		if(user.drop_item_to_ground(I))
+		if(user.transfer_item_to(I, src))
 			add_fingerprint(user)
-			I.forceMove(src)
 			attached_badge = I
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)
@@ -157,6 +156,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	strip_delay = 80
+	insert_max = 2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -215,6 +215,7 @@
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
 	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/fancy/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/gun/energy, /obj/item/gun/projectile)
+	insert_max = 3
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -407,6 +408,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
+	insert_max = 2
 	/// The cell reactive armor uses.
 	var/obj/item/stock_parts/cell/emproof/reactive/cell
 	/// Cost multiplier for armor. "Stronger" armors use 200 charge, other armors use 120.
@@ -710,6 +712,7 @@
 	sprite_sheets = null
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
 	flags_2 = RAD_PROTECT_CONTENTS_2
+	insert_max = 5
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"

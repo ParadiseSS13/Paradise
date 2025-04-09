@@ -90,6 +90,12 @@
 	var/list/milla_data = null
 
 	new_attack_chain = TRUE
+	/// The destination x-coordinate that atoms entering this turf will be automatically moved to.
+	var/destination_x
+	/// The destination y-coordinate that atoms entering this turf will be automatically moved to.
+	var/destination_y
+	/// The destination z-level that atoms entering this turf will be automatically moved to.
+	var/destination_z
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -153,6 +159,7 @@
 	..()
 
 /turf/attack_hand(mob/user as mob)
+	. = ..()
 	user.Move_Pulled(src)
 
 /turf/attack_robot(mob/user)
@@ -193,7 +200,7 @@
 
 /turf/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/bullet/gyro))
-		explosion(src, -1, 0, 2)
+		explosion(src, -1, 0, 2, cause = "[Proj.type] fired by [key_name(Proj.firer)] (hit turf)")
 	..()
 	return FALSE
 
@@ -225,17 +232,58 @@
 		return FALSE
 	return TRUE
 
-/turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
+/turf/Entered(atom/movable/A, atom/OL, ignoreRest = FALSE)
 	..()
-	if(ismob(M))
-		var/mob/O = M
+	if(ismob(A))
+		var/mob/O = A
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
 
 	// If an opaque movable atom moves around we need to potentially update visibility.
-	if(M.opacity)
+	if(A.opacity)
 		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
 		reconsider_lights()
+
+	if((!(A) || !(src in A.locs)))
+		return
+
+	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING) && !HAS_TRAIT(A, TRAIT_NO_EDGE_TRANSITIONS))
+		var/tx = destination_x
+		var/ty = destination_y
+		var/turf/DT = locate(tx, ty, destination_z)
+		var/itercount = 0
+		while(DT.density || istype(DT.loc, /area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
+			if(itercount++ >= 100)
+				stack_trace("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [A] within 100 iterations.")
+				break
+			if(tx < 128)
+				tx++
+			else
+				tx--
+			if(ty < 128)
+				ty++
+			else
+				ty--
+			DT = locate(tx, ty, destination_z)
+
+		ADD_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT) // roundstart because its robust and won't be removed by someone being an idiot
+		A.forceMove(DT)
+		REMOVE_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
+
+		itercount = 0
+		var/atom/movable/current_pull = A.pulling
+		while(current_pull)
+			if(itercount > 100)
+				stack_trace("SPACE Z-TRANSIT ERROR: [A] encountered a possible infinite loop while traveling through z-levels.")
+				break
+			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
+			ADD_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
+			current_pull.forceMove(target_turf)
+			REMOVE_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
+			current_pull = current_pull.pulling
+			itercount++
+
+	return TRUE
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
@@ -551,7 +599,7 @@
 	LAZYADD(blueprint_data, I)
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
+	if(SSticker.current_state == GAME_STATE_STARTUP || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type = /turf/space)
@@ -790,3 +838,38 @@
 
 /turf/_clear_signal_refs()
 	return
+
+/turf/proc/set_transition_north(dest_z)
+	destination_x = x
+	destination_y = TRANSITION_BORDER_SOUTH + 1
+	destination_z = dest_z
+
+/turf/proc/set_transition_south(dest_z)
+	destination_x = x
+	destination_y = TRANSITION_BORDER_NORTH - 1
+	destination_z = dest_z
+
+/turf/proc/set_transition_east(dest_z)
+	destination_x = TRANSITION_BORDER_WEST + 1
+	destination_y = y
+	destination_z = dest_z
+
+/turf/proc/set_transition_west(dest_z)
+	destination_x = TRANSITION_BORDER_EAST - 1
+	destination_y = y
+	destination_z = dest_z
+
+/turf/proc/remove_transitions()
+	destination_z = initial(destination_z)
+
+/turf/attack_ghost(mob/dead/observer/user)
+	if(destination_z)
+		var/turf/T = locate(destination_x, destination_y, destination_z)
+		user.forceMove(T)
+
+/// Returns whether it is safe for an atom to move across this turf
+/// TODO: Things like lava will need to have more specialized code
+/// but that can wait for when we port basic mobs that may actually
+/// encounter lava
+/turf/proc/can_cross_safely(atom/movable/crossing)
+	return TRUE

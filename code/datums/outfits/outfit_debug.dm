@@ -97,6 +97,7 @@
 	name = "AVD-CNED glasses"
 	desc = "Diagnostic, Hydroponic, Medical, Security, and Skills HUD. Built-in advanced reagent scanner. Alt-click to toggle X-ray vision."
 	icon_state = "nvgmeson"
+	hud_debug = TRUE
 	flags_cover = GLASSESCOVERSEYES
 	flash_protect = FLASH_PROTECTION_WELDER
 	scan_reagents_advanced = TRUE
@@ -104,7 +105,6 @@
 	prescription_upgradable = FALSE
 
 	hud_types = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED, DATA_HUD_HYDROPONIC)
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS)
 
 	var/xray = FALSE
 

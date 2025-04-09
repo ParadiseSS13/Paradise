@@ -160,16 +160,14 @@
 	paintable = FALSE
 	var/last_event = 0
 
-/obj/machinery/door/airlock/uranium/process()
-	if(world.time > last_event + 20)
-		if(prob(50))
-			radiate()
-		last_event = world.time
-	..()
+/obj/machinery/door/airlock/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
-/obj/machinery/door/airlock/uranium/proc/radiate()
-	radiation_pulse(get_turf(src), 150)
 
+/obj/machinery/door/airlock/uranium/attack_hand(mob/user)
+	. = ..()
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE
@@ -204,7 +202,7 @@
 	if(used.get_heat() > 300)
 		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		log_game("Plasma airlock ignited by [key_name(user)] in ([x],[y],[z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
 		ignite(used.get_heat())
 		return ITEM_INTERACT_COMPLETE
 

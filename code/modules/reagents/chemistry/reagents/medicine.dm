@@ -248,12 +248,12 @@
 
 	for(var/X in organs_list)
 		var/obj/item/organ/O = X
-		if(O.germ_level < INFECTION_LEVEL_ONE)
+		if(O.germ_level < INFECTION_LEVEL_ONE - 50)
 			O.germ_level = 0	//cure instantly
 		else if(O.germ_level < INFECTION_LEVEL_TWO)
-			O.germ_level = max(M.germ_level - 25, 0)	//at germ_level == 500, this should cure the infection in 34 seconds
+			O.germ_level = max(M.germ_level - 15, 0)	//at germ_level == 500, this should cure the infection in 60 seconds
 		else
-			O.germ_level = max(M.germ_level - 10, 0)	// at germ_level == 1000, this will cure the infection in 1 minutes, 14 seconds
+			O.germ_level = max(M.germ_level - 5, 0)	// at germ_level == 1000, this will cure the infection in 4 minutes 20 seconds
 
 	organs_list.Cut()
 	M.germ_level = max(M.germ_level - 20, 0) // Reduces the mobs germ level, too
@@ -1330,7 +1330,7 @@
 	color = "#FFDCFF"
 	taste_description = "stability"
 	harmless = FALSE
-	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone")
+	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone", "pump_up")
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
@@ -1589,7 +1589,7 @@
 	harmless = FALSE
 	taste_description = "2 minutes of suffering"
 	process_flags = ORGANIC | SYNTHETIC
-	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "mephedrone", "ultralube", "surge", "surge_plus", "combatlube")
+	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "mephedrone", "ultralube", "surge", "surge_plus", "combatlube", "pump_up")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
