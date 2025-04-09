@@ -94,7 +94,6 @@
 #define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
 #define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"
 
-
 /obj/machinery/atmospherics/supermatter_crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -483,41 +482,33 @@
 	damage_archived = damage
 	if(!removed || removed.total_moles() <= 0 || isspaceturf(T)) //we're in space or there is no gas to process
 		if(takes_damage)
-			damage += max((power / 1000) * DAMAGE_INCREASE_MULTIPLIER, 0.1) // always does at least some damage
+			damage += min(((power + 2000) * 0.002) * DAMAGE_INCREASE_MULTIPLIER, DAMAGE_HARDCAP * explosion_point) // always does at least some damage
 	else
 		if(takes_damage)
 			//causing damage
 			//Due to DAMAGE_INCREASE_MULTIPLIER, we only deal one 4th of the damage the statements otherwise would cause
 
-			//((((some value between 0.5 and 1 * temp - ((273.15 + 40) * some values between 1 and 10)) * some number between 0.25 and knock your socks off / 150) * 0.25
+			//((((some value between 0.5 and 1 * (temp - ((273.15 + 40) * some values between 1 and 10))) * some number between 0.25 and knock your socks off / 150) * 0.25
 			//Heat and mols account for each other, a lot of hot mols are more damaging then a few
-			//Mols start to have a positive effect on damage after 350
-			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * temperature - ((T0C + heat_penalty_threshold)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
-			//Power only starts affecting damage when it is above 5000
+			// Reduced heat damage below 200 Mols
+			damage = max(damage + (max(max(removed.total_moles() / MOLE_PENALTY_THRESHOLD, 0.5) * (removed.temperature() - ((T0C + heat_penalty_threshold) * dynamic_heat_resistance)), 0) * mole_heat_penalty / 50 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+			// Power only starts affecting damage when it is above 5000
 			damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
-			//Molar count only starts affecting damage when it is above 1800
-			damage = max(damage + (max(combined_gas - MOLE_PENALTY_THRESHOLD, 0)/80) * DAMAGE_INCREASE_MULTIPLIER, 0)
+			// Molar count only starts affecting damage when it is above 1800
+			damage = max(damage + (max(combined_gas - MOLE_PENALTY_THRESHOLD, 0) / 80) * DAMAGE_INCREASE_MULTIPLIER, 0)
 
 			//There might be a way to integrate healing and hurting via heat
 			//healing damage
 			if(combined_gas < MOLE_PENALTY_THRESHOLD)
-				//Only has a net positive effect when the temp is below 313.15, heals up to 2 damage. Psycologists increase this temp min by up to 45
-				damage = max(damage + (min(temperature - (T0C + heat_penalty_threshold), 0) / 150 ), 0)
+				//Only has a net positive effect when the temp is below the damage point. Heals up to 2 damage without N2O, going up to 12 with full N2O
+				damage = max(damage + (min(removed.temperature() - (T0C + heat_penalty_threshold) * dynamic_heat_resistance, 0) / 150 ), 0)
 
-			//Check for holes in the SM inner chamber
+			//Check for holes in the SM inner chamber.
 			var/turf/here = get_turf(src)
 			for(var/turf/neighbor in here.GetAtmosAdjacentTurfs(alldir = TRUE))
 				if(!isspaceturf(neighbor))
 					continue
-				var/integrity = get_integrity()
-				if(integrity < 10)
-					damage += clamp((power * 0.0005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-				else if(integrity < 25)
-					damage += clamp((power * 0.0009) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-				else if(integrity < 45)
-					damage += clamp((power * 0.005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-				else if(integrity < 75)
-					damage += clamp((power * 0.002) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
+				damage += (power + 2000) * 0.002 * DAMAGE_INCREASE_MULTIPLIER
 				break
 			//caps damage rate
 
@@ -542,7 +533,7 @@
 		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
 
 		//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
-		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 0.25)
+		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 1)
 
 		if(combined_gas > POWERLOSS_INHIBITION_MOLE_THRESHOLD && co2comp > POWERLOSS_INHIBITION_GAS_THRESHOLD)
 			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling + clamp(co2comp - powerloss_dynamic_scaling, -0.02, 0.02), 0, 1)
