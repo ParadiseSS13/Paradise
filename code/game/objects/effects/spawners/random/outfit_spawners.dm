@@ -1,7 +1,6 @@
 /obj/effect/spawner/random/loot/outfit
 	name = "outfit spawner"
 	spawn_all_loot = TRUE
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "suit"
 
 /obj/effect/spawner/random/loot/outfit/clown

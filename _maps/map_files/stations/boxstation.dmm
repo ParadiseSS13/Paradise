@@ -76797,6 +76797,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
+"stM" = (
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/station/security/permabrig)
 "stX" = (
 /obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
@@ -104863,7 +104870,7 @@ abN
 qXR
 qQy
 yiL
-vSi
+stM
 lXd
 vSi
 esV
