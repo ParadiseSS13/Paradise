@@ -360,25 +360,22 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return TRUE
 
-/obj/machinery/porta_turret/tool_act(mob/living/user, obj/item/I, tool_type)
-	if(user.a_intent != INTENT_HELP)
-		return ..()
-	if(syndicate)
-		to_chat(user, "<span class='danger'>[src] is sealed tightly, tools won't help here.</span>")
-		return TRUE
-
-	if(!(stat & BROKEN))
-		to_chat(user, "<span class='notice'>[src] is in fine condition, you'd need to rough it up a bit if you wanted to disassemble it.</span>")
-		return TRUE
-	return ..()
-
 /obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!(stat & BROKEN) || syndicate) // No disasembling active turrets or syndicate ones
+
+	if(user.a_intent != INTENT_HELP)
+		return FALSE
+
+	if(syndicate)
+		to_chat(user, "<span class='danger'>[src] is sealed tightly, tools won't help here.</span>")
 		return
+	if(!(stat & BROKEN))
+		to_chat(user, "<span class='notice'>[src] is in fine condition, you'd need to rough it up a bit if you wanted to disassemble it.</span>")
+		return
+
 	to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
 	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
-		return FALSE
+		return
 	if(prob(70))
 		to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 		if(installation)
