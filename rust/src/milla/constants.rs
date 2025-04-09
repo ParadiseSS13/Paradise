@@ -175,7 +175,7 @@ pub(crate) const WATER_VAPOR_BREAKDOWN_ENERGY: f32 = 200.0;
 pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
 
 /// How much thermal energy is produced, in joules per mole of hydrogen
-pub(crate) const HYDROGEN_BURN_ENERGY: f32 = 243_000_000.0;
+pub(crate) const HYDROGEN_BURN_ENERGY: f32 = 2_430_000.0;
 
 /// We allow small deviations in tests as our spring chain solution is not exact.
 #[cfg(test)]
