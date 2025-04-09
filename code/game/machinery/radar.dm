@@ -17,23 +17,23 @@
 	pixel_x = -32
 	armor = list(MELEE = 80, BULLET = 10, LASER = 30, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	// Time between callouts
+	/// Time between callouts
 	var/check_time
-	// Internal radio to handle announcements over supply
+	/// Internal radio to handle announcements over supply
 	var/obj/item/radio/radio
-	// for checking what was the last weather stage an alert was sent out
+	/// For checking what was the last weather stage an alert was sent out
 	var/last_stage
-	// How accurate are we based off parts?
+	/// How accurate are we based off parts?
 	var/accuracy_coeff
-	// Base Inaccuracy
+	/// Base Inaccuracy
 	var/inaccuracy = 5 MINUTES
-	// What is our current prediction?
+	/// What is our current prediction?
 	var/prediction
-	// dont want constant updates
+	/// Don't want constant updates
 	var/dont_announce = TRUE
-	// for fakeout calls
+	/// For fakeout calls
 	var/correct_prediction
-	// are we broken?
+	/// Are we broken?
 	var/construction_state = RADAR_NEEDS_WELDING
 	luminosity = 1
 
@@ -115,7 +115,7 @@
 					dont_announce = FALSE
 					return
 
-	if(dont_announce == TRUE)
+	if(dont_announce)
 		return
 
 	var/datum/weather/next_weather = SSweather.next_weather_by_zlevel["3"]

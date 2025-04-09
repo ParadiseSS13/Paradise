@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 		else if(istype(T, whitelist_turf_type) && !istype(T, start_turf.type))
 			T.ChangeTurf(shoreline_turf_type, ignore_air = TRUE)
 
-// handles changing the lava turfs, and if it should delay it and place warnings
+/// handles changing the lava turfs, and if it should delay it and place warnings
 /datum/river_spawner/proc/handle_change(warning, ignore_bridges)
 	var/lava_counter = 0
 	for(var/turf/listed_turf in collected_turfs)
@@ -170,7 +170,8 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 			convert_turf(affected_turf, ignore_bridges)
 
 	collected_turfs.Cut()
-// actually convert the turf
+
+/// actually convert the turf
 /datum/river_spawner/proc/convert_turf(turf/cur_turf, ignore_bridges)
 	var/turf/river_turf = cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
 	spread_turf(river_turf, spread_prob, spread_prob_loss, whitelist_area_type, ignore_bridges)
