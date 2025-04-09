@@ -210,7 +210,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 				"}
 
 			//Simple Animals
-			if(isanimal(M))
+			if(isanimal_or_basicmob(M))
 				body += "<A href='byond://?_src_=holder;makeanimal=[M.UID()]'>Re-Animalize</A> | "
 			else
 				body += "<A href='byond://?_src_=holder;makeanimal=[M.UID()]'>Animalize</A> | "

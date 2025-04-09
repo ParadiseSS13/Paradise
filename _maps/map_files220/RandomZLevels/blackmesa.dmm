@@ -5371,7 +5371,7 @@
 /area/awaymission/black_mesa/deep_sci_feesh)
 "gBb" = (
 /obj/structure/table,
-/obj/item/scalpel/alien,
+/obj/item/scalpel/laser/alien,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
 	},
@@ -6783,7 +6783,7 @@
 "ivZ" = (
 /obj/structure/table,
 /obj/item/retractor/alien,
-/obj/item/cautery/alien,
+/obj/item/scalpel/laser/alien,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
 	},

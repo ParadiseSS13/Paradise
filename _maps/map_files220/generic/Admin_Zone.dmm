@@ -496,7 +496,7 @@
 "bS" = (
 /obj/structure/table/abductor,
 /obj/item/hemostat/alien,
-/obj/item/scalpel/alien,
+/obj/item/scalpel/laser/alien,
 /obj/item/circular_saw/alien,
 /obj/item/retractor/alien,
 /turf/simulated/floor/plasteel/dark,
@@ -636,8 +636,7 @@
 "cv" = (
 /obj/structure/table/abductor,
 /obj/item/paper/abductor,
-/obj/item/scalpel/alien,
-/obj/item/cautery/alien,
+/obj/item/scalpel/laser/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "cw" = (
@@ -1431,7 +1430,7 @@
 	},
 /area/ninja/holding)
 "eT" = (
-/mob/living/simple_animal/cow,
+/mob/living/basic/cow,
 /turf/simulated/floor/grass,
 /area/ghost_bar/outdoor)
 "eU" = (
@@ -5895,7 +5894,7 @@
 /obj/structure/light_fake,
 /obj/item/surgical_drapes,
 /obj/item/surgicaldrill/alien,
-/obj/item/cautery/alien,
+/obj/item/scalpel/laser/alien,
 /obj/item/bonesetter,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar/indoor)

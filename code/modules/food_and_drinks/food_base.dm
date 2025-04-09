@@ -180,9 +180,6 @@
 			return TRUE
 	return FALSE
 
-/obj/item/food/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
-	return
-
 /obj/item/food/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
@@ -381,13 +378,6 @@
 	desc = "A box of cereal."
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "cereal_box"
-	list_reagents = list("nutriment" = 3)
-
-/obj/item/food/deepfryholder
-	name = "Deep Fried Foods Holder Obj"
-	desc = "If you can see this description the code for the deep fryer fucked up."
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "deepfried_holder_icon"
 	list_reagents = list("nutriment" = 3)
 
 #undef MAX_WEIGHT_CLASS

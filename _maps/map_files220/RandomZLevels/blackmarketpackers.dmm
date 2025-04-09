@@ -3379,7 +3379,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/fore)
 "mI" = (
-/mob/living/simple_animal/cow{
+/mob/living/basic/cow{
 	name = "Space cow Betsy"
 	},
 /turf/simulated/floor/grass,

@@ -104,10 +104,10 @@
 
 		if(H.dna.species)
 			if(exclusive)
-				if(!(H.dna.species.sprite_sheet_name in species_restricted))
+				if(!(H.dna.species.name in species_restricted))
 					wearable = TRUE
 			else
-				if(H.dna.species.sprite_sheet_name in species_restricted)
+				if(H.dna.species.name in species_restricted)
 					wearable = TRUE
 
 			if(!wearable)
@@ -772,6 +772,10 @@
 	var/insert_max = 1
 	/// Currently applied inserts
 	var/list/inserts = list()
+	/// Is there a mobility mesh inserted?
+	var/mobility_meshed = FALSE
+	/// What's the total slowdown from inserts?
+	var/insert_slowdown = 0
 
 
 /obj/item/clothing/suit/Initialize(mapload)

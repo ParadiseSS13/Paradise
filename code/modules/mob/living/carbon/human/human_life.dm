@@ -353,7 +353,7 @@
 		if(V && !V.get_ability(/datum/vampire_passive/full) && stat != DEAD)
 			V.bloodusable = max(V.bloodusable - 5, 0)
 
-/mob/living/carbon/human/proc/get_thermal_protection()
+/mob/living/carbon/human/get_thermal_protection()
 	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
 		return FIRE_IMMUNITY_MAX_TEMP_PROTECT
 

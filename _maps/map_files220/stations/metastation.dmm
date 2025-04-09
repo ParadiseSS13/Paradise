@@ -8673,7 +8673,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "aRx" = (
-/obj/structure/closet/wardrobe/orange,
+/obj/structure/shelf/security,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -18377,7 +18383,6 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bvq" = (
-/obj/item/flash,
 /obj/structure/table/wood,
 /obj/machinery/recharger{
 	pixel_y = 3
@@ -18751,10 +18756,9 @@
 	},
 /area/station/aisat/service)
 "bwc" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
 /obj/machinery/newscaster/security_unit/directional/east,
+/obj/structure/table/wood,
+/obj/item/flash,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bwd" = (
@@ -29125,6 +29129,11 @@
 	pixel_x = -24;
 	req_access = list(30)
 	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	pixel_y = 4;
+	department = "Research Director's Office"
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -32699,7 +32708,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cvH" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/computer/ai_resource{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -33040,8 +33051,8 @@
 /area/station/science/research)
 "cwW" = (
 /obj/machinery/firealarm/directional/west,
-/obj/item/kirbyplants/small/small3,
 /obj/machinery/light/directional/west,
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -59067,6 +59078,7 @@
 	},
 /area/station/supply/office)
 "lYI" = (
+/obj/structure/engineeringcart/full,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -74670,11 +74682,7 @@
 "uck" = (
 /obj/machinery/light/directional/west,
 /obj/machinery/light_switch/west,
-/obj/structure/table,
-/obj/machinery/photocopier/faxmachine/longrange{
-	pixel_y = 4;
-	department = "Research Director's Office"
-	},
+/obj/item/kirbyplants/small/small3,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},

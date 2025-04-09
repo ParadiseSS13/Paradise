@@ -32,7 +32,7 @@
 
 	if(explosive)
 		spawn(10) // REEEEEEEE
-			explosion(src.loc, 3, 6, 12, 15)
+			explosion(src.loc, 3, 6, 12, 15, cause = "Adminbus explosive AI")
 
 	for(var/obj/machinery/ai_status_display/O as anything in GLOB.ai_displays) //change status
 		O.mode = AI_DISPLAY_MODE_BSOD

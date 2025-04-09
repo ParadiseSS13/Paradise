@@ -14,6 +14,10 @@ SUBSYSTEM_DEF(late_mapping)
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
+	for(var/obj/machinery/computer/shuttle/console in GLOB.machines)
+		if(console.find_destinations_in_late_mapping)
+			console.connect()
+
 	if(length(maze_generators))
 		var/watch = start_watch()
 		log_startup_progress("Generating mazes...")

@@ -6,7 +6,6 @@ tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 "./_maps/map_files
 tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 "./_maps/map_files220/stations/metastation.dmm"
 # tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 "./_maps/map_files/stations/cerestation.dmm"
 # tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 "./_maps/map_files/stations/emeraldstation.dmm"
-tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 "./_maps/map_files220/generic/Lavaland.dmm"
 # Move and rename files so the game understands them
 cd "data/nanomaps"
 mv "boxstation_nanomap_z1.png" "BoxStation220_nanomap_z1.png"
@@ -20,4 +19,3 @@ cp "data/nanomaps/DeltaStation220_nanomap_z1.png" "icons/_nanomaps"
 cp "data/nanomaps/MetaStation220_nanomap_z1.png" "icons/_nanomaps"
 # cp "data/nanomaps/CereStation_nanomap_z1.png" "icons/_nanomaps"
 # cp "data/nanomaps/EmeraldStation_nanomap_z1.png" "icons/_nanomaps"
-cp "data/nanomaps/Lavaland_nanomap_z1.png" "icons/_nanomaps"

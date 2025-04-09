@@ -230,7 +230,7 @@
 		var/turf/T = get_turf(loc)
 		if(T)
 			T.hotspot_expose(700, 125)
-			explosion(T, -1, -1, 2, 3)
+			explosion(T, -1, -1, 2, 3, cause = "Repeated Sentience Potion")
 		qdel(src)
 		return
 	var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")

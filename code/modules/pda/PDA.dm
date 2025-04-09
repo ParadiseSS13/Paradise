@@ -359,7 +359,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(T)
 		T.hotspot_expose(700,125)
 
-		explosion(T, -1, -1, 2, 3)
+		explosion(T, -1, -1, 2, 3, cause = "Exploding PDA")
 	qdel(src)
 	return
 

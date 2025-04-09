@@ -26379,10 +26379,6 @@
 	pixel_x = 6;
 	pixel_y = 2
 	},
-/obj/item/toy/figure/crew/hop{
-	pixel_x = 6;
-	pixel_y = 2
-	},
 /turf/simulated/floor/wood/oak,
 /area/station/command/office/hop)
 "cdI" = (
@@ -50252,7 +50248,10 @@
 /turf/simulated/floor/plating,
 /area/station/legal/lawoffice)
 "eLJ" = (
-/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/ai_resource{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurple"
@@ -62498,6 +62497,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurple"
@@ -68739,10 +68739,13 @@
 	},
 /area/station/maintenance/port)
 "kFm" = (
-/obj/machinery/computer/area_atmos/area{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery/hollow,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -69027,6 +69030,7 @@
 "kIs" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/item/radio/intercom/directional/south,
+/obj/structure/engineeringcart/full,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hallway)
 "kIt" = (
@@ -77200,11 +77204,6 @@
 "npk" = (
 /turf/simulated/wall,
 /area/station/public/sleep_female)
-"npl" = (
-/obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/rd)
 "npn" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
@@ -93809,7 +93808,7 @@
 /area/station/maintenance/apmaint)
 "srJ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "srQ" = (
@@ -98207,8 +98206,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "tIJ" = (
-/obj/machinery/computer/security/mining{
-	dir = 4
+/obj/structure/table/wood,
+/obj/item/toy/figure/crew/hop{
+	pixel_x = 6;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
@@ -112255,6 +112256,13 @@
 	icon_state = "dark"
 	},
 /area/station/service/theatre)
+"yjv" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkpurple"
+	},
+/area/station/command/office/rd)
 "ykb" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -142329,7 +142337,7 @@ dda
 dff
 dfV
 gtA
-npl
+ueI
 eeA
 dwj
 dwi
@@ -142586,7 +142594,7 @@ vwk
 lwr
 iJB
 ueI
-eeA
+yjv
 gtA
 fkz
 wZX

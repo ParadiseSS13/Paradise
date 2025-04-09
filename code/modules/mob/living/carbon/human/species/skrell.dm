@@ -2,7 +2,7 @@
 	name = "Skrell"
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
-	language = "Skrellian"
+	language = "Qurvolious"
 	primitive_form = /datum/species/monkey/skrell
 
 	blurb = "Скреллы - вид амфибий, родом с Кверрбалака, влажной тропической планеты, полной болот и архипелагов. \

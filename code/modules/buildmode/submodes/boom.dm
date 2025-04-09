@@ -24,10 +24,10 @@
 	flash = tgui_input_number(user, "Range of Flash", "Flash", -1, min_value = -1)
 	flames = tgui_input_number(user, "Range of Flames", "Flames", -1, min_value = -1)
 
-/datum/buildmode_mode/boom/handle_click(user, params, obj/object)
+/datum/buildmode_mode/boom/handle_click(mob/user, params, obj/object)
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 
 	if(left_click)
 		log_admin("Build Mode: [key_name(user)] created an explosion at ([object.x],[object.y],[object.z])")
-		explosion(object, devastation, heavy, light, flash, null, TRUE, flames)
+		explosion(object, devastation, heavy, light, flash, null, TRUE, flames, cause = "[user.ckey]: Buildmode boom")

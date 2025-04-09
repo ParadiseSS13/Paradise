@@ -487,7 +487,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 	items_to_replace = list(
-		/obj/item/scalpel/laser/laser1 = /obj/item/scalpel/laser/laser3, // No abductor laser scalpel, so next best thing.
+		/obj/item/scalpel/laser/laser1 = /obj/item/scalpel/laser/alien,
 		/obj/item/hemostat = /obj/item/hemostat/alien,
 		/obj/item/retractor = /obj/item/retractor/alien,
 		/obj/item/bonegel = /obj/item/bonegel/alien,

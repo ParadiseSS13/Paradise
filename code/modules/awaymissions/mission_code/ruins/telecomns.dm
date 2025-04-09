@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	var/your_doom = get_turf(src)
 	new /obj/item/grenade/frag(your_doom)
 	internal_tank.forceMove(your_doom)
-	explosion(your_doom, 1, 0, 0, 6, FALSE, 6)
+	explosion(your_doom, 1, 0, 0, 6, FALSE, 6, cause = "DVORAK Doomba")
 	qdel(decorative_eye)
 	qdel(src)
 
@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	explode()
 
 /obj/structure/telecomms_trap_tank/proc/explode()
-	explosion(loc, 1, 4, 6, flame_range = 6)
+	explosion(loc, 1, 4, 6, flame_range = 6, cause = "Telecomms trap tank")
 	qdel(src)
 
 /obj/structure/telecomms_doomsday_device
@@ -286,7 +286,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		loc.invisibility = 90
 	for(var/turf/simulated/wall/indestructible/riveted/R in urange(25, get_turf(src)))
 		R.ChangeTurf(/turf/space)
-	explosion(get_turf(src), 30, 40, 50, 60, 1, 1, 65, 0)
+	explosion(get_turf(src), 30, 40, 50, 60, 1, 1, 65, 0, cause = "DVORAK Doomsday Device")
 	sleep(3 SECONDS)
 	var/obj/singularity/S = new /obj/singularity(get_turf(src))
 	S.consumedSupermatter = TRUE // woe large supermatter to eat the remains apon thee
@@ -426,7 +426,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		addtimer(CALLBACK(src, PROC_REF(prime)), 5 SECONDS)
 
 /obj/item/remote_ai_upload/proc/prime()
-		explosion(loc, -1, -1, 2, 4, flame_range = 4)
+		explosion(loc, -1, -1, 2, 4, flame_range = 4, cause = "Remote AI Upload explosion")
 		qdel(src)
 
 /obj/effect/spawner/random/telecomms_core_table

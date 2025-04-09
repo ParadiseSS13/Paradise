@@ -27759,8 +27759,9 @@
 	dir = 4
 	},
 /obj/machinery/light/directional/west,
+/obj/machinery/light_switch/west,
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 8;
 	icon_state = "darkpurple"
 	},
 /area/station/command/office/rd)
@@ -35694,7 +35695,7 @@
 "cQU" = (
 /obj/machinery/light/directional/north,
 /obj/machinery/status_display/directional/north,
-/obj/structure/engineeringcart,
+/obj/structure/engineeringcart/full,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "cQW" = (
@@ -55948,11 +55949,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/interrogation)
-"ifT" = (
-/obj/structure/table/wood,
-/obj/machinery/bottler,
-/turf/simulated/floor/wood/oak,
-/area/station/maintenance/asmaint2)
 "ifV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/drinks/bottle/wine,
@@ -56242,6 +56238,13 @@
 	icon_state = "dark"
 	},
 /area/station/medical/surgery/secondary)
+"imT" = (
+/obj/structure/closet/secure_closet/rd,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkpurple"
+	},
+/area/station/command/office/rd)
 "inc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
@@ -66170,6 +66173,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
+"mcH" = (
+/obj/item/storage/box/prisoner,
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/station/security/prisonlockers)
 "mcK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -83293,7 +83303,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "svK" = (
-/mob/living/simple_animal/cow/betsy,
+/mob/living/basic/cow/betsy,
 /obj/effect/turf_decal/siding/white{
 	dir = 10
 	},
@@ -84708,6 +84718,12 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
+"sUS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/machinery/bottler,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint2)
 "sUZ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -85114,8 +85130,7 @@
 /area/station/command/office/captain)
 "ten" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurplecorners"
+	icon_state = "dark"
 	},
 /area/station/command/office/rd)
 "tep" = (
@@ -91449,11 +91464,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "vwC" = (
-/obj/structure/closet/secure_closet/rd,
-/obj/machinery/light_switch/west,
 /obj/machinery/keycard_auth/south,
+/obj/machinery/computer/ai_resource{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkpurple"
 	},
 /area/station/command/office/rd)
@@ -93995,9 +94010,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "wsY" = (
-/obj/structure/table,
-/obj/item/storage/box/prisoner,
 /obj/item/radio/intercom/directional/south,
+/obj/structure/shelf/security,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -124732,7 +124752,7 @@ akZ
 xVM
 rwo
 ydz
-jDf
+mcH
 jbR
 ago
 grH
@@ -124989,7 +125009,7 @@ jbR
 lgS
 xRT
 ydz
-hLh
+jDf
 xVF
 ago
 iwJ
@@ -143825,7 +143845,7 @@ cuQ
 chU
 clX
 cnv
-dlD
+sUS
 lqd
 crj
 huo
@@ -144338,7 +144358,7 @@ bYj
 bYj
 bYj
 bYj
-ifT
+bYj
 cbd
 cbd
 cbd
@@ -144594,8 +144614,8 @@ bIa
 tGg
 cjN
 clq
-bYj
-bYj
+mMB
+imT
 cbd
 cmV
 yjv
@@ -144851,7 +144871,7 @@ wwZ
 iDL
 fPy
 ten
-mMB
+clY
 vwC
 cbd
 vIO
