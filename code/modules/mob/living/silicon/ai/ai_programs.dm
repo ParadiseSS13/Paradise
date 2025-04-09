@@ -245,6 +245,9 @@
 
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
 	. = ..()
+	if(istype(user.loc, /obj/machinery/power/apc))
+		to_chat(user, "<span class='warning'>Error: APCs do not have enough processing power to handle programs!</span>")
+		return
 	user.program_picker.ui_interact(user)
 
 /// RGB Lighting - Recolors Lights

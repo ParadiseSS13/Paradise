@@ -201,6 +201,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		holding_tank = null
 
 	T.blind_release_air(expelled_gas)
+	if(attack_info)
+		investigate_log("canister destroyed, last attacked by [attack_info.last_attacker_html()][attack_info.last_weapon()]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/canister/proc/sync_pressure_appearance()
 	var/new_pressure_appearance = pressure_to_appearance(air_contents.return_pressure())
@@ -406,6 +408,14 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/atmospherics/portable/canister/atmos_init()
 	. = ..()
 	update_icon()
+
+/obj/machinery/atmospherics/portable/canister/attacked_by(obj/item/attacker, mob/living/user)
+	. = ..()
+	store_last_attacker(user, attacker)
+
+/obj/machinery/atmospherics/portable/canister/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	store_last_attacker(M)
 
 /obj/machinery/atmospherics/portable/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
