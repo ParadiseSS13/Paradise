@@ -27778,7 +27778,9 @@
 	},
 /area/station/medical/medbay)
 "cfq" = (
-/obj/effect/spawner/window/reinforced/polarized,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Morgue"
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/morgue)
 "cfr" = (
@@ -27928,6 +27930,9 @@
 	pixel_x = -28
 	},
 /obj/structure/filingcabinet/chestdrawer,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "cfY" = (
@@ -29204,11 +29209,11 @@
 /area/station/engineering/atmos)
 "clf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/disaster_counter/chemistry{
-	pixel_x = 32
-	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/status_display{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -57234,12 +57239,12 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/structure/disaster_counter/chemistry{
-	pixel_x = -32
-	},
 /obj/item/screwdriver{
 	pixel_x = -2;
 	pixel_y = 14
+	},
+/obj/structure/disaster_counter/chemistry{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -59841,6 +59846,9 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Morgue"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74923,7 +74931,8 @@
 /obj/machinery/button/windowtint{
 	pixel_y = -24;
 	dir = 1;
-	pixel_x = -4
+	pixel_x = -4;
+	id = "Morgue"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -78574,9 +78583,6 @@
 /area/station/maintenance/starboard)
 "ubT" = (
 /obj/machinery/alarm/directional/west,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/structure/table/wood,
 /obj/item/paper_bin{
 	pixel_y = 5
@@ -84721,8 +84727,8 @@
 /obj/machinery/computer/med_data/laptop{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
