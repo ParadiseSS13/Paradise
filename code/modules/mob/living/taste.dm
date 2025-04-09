@@ -4,7 +4,8 @@
 /mob/living/carbon/human/get_taste_sensitivity()
 	if(dna.species)
 		return dna.species.taste_sensitivity
-	return TASTE_SENSITIVITY_NORMAL
+	else
+		return TASTE_SENSITIVITY_NORMAL
 
 // non destructively tastes a reagent container
 /mob/living/proc/taste(datum/reagents/from)
