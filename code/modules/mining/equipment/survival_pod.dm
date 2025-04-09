@@ -194,7 +194,7 @@
 				/obj/item/stack/medical/ointment = 1,
 				/obj/item/reagent_containers/syringe/charcoal = 1,
 				/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 2,
-)
+	)
 	contraband = list()
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod, 32, 32)
