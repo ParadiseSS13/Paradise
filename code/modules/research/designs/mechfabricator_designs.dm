@@ -1135,7 +1135,7 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-//Cyborg Upgrades
+// Cyborg Upgrades
 
 /datum/design/borg_upgrade_reset
 	name = "Cyborg Upgrade Module (Module Reset)"
