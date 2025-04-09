@@ -11,6 +11,19 @@
 		/turf/simulated/wall,
 	)
 
+/obj/effect/spawner/random/barrier/temporary
+	name = "random temporary barrier spawner"
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "barrier"
+	loot = list(
+		/obj/structure/barricade/wooden,
+		/obj/structure/grille,
+		/obj/structure/grille/broken,
+		/obj/structure/girder,
+		/obj/structure/barricade/security,
+		/obj/structure/barricade/sandbags,
+	)
+
 /obj/effect/spawner/random/barrier/wall_probably
 	name = "probably a wall"
 	icon_state = "wall"
