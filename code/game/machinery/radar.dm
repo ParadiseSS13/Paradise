@@ -71,11 +71,6 @@
 		. += "chicken"
 		. += "screen"
 
-// You aren't allowed to move.
-/obj/machinery/radar/Move()
-	. = ..()
-	qdel(src)
-
 /obj/machinery/radar/process()
 	if(stat & BROKEN)
 		return
@@ -85,7 +80,7 @@
 	for(var/datum/weather/W in SSweather.processing)
 		if(!W)
 			break
-		if(W.barometer_predictable && W.area_type == /area/lavaland/surface/outdoors)
+		if(W.barometer_predictable && ispath(W.area_type, /area/lavaland/surface/outdoors))
 			switch(W.stage)
 				if(WEATHER_STARTUP_STAGE)
 					if(last_stage == WEATHER_STARTUP_STAGE)
@@ -219,6 +214,7 @@
 // We dont want them to rebuild this in random places. but if it does somehow delete, we should log it
 /obj/machinery/radar/Destroy()
 	investigate_log("was destroyed!", "radar")
+	qdel(radio)
 	component_parts -= /obj/item/circuitboard/machine/radar // dont let them get the board
 	new /obj/item/circuitboard/machine/radar/broken(src)
 	. = ..()
