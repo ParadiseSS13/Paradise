@@ -420,6 +420,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stack/sheet/glass = 1)
 
+/obj/item/circuitboard/space_heater
+	board_name = "Space Heater"
+	icon_state = "engineering"
+	build_path = /obj/machinery/space_heater
+	board_type = "machine"
+	origin_tech = "programming=3;plasmatech=3"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/cell = 1)
+
 /obj/item/circuitboard/electrolyzer
 	board_name = "Electrolyzer"
 	icon_state = "engineering"

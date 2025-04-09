@@ -13,7 +13,6 @@
 	spawn_loot_count = rand(1, 2)
 
 /obj/effect/spawner/random/bureaucracy
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "folder"
 	name = "bureaucracy spawner"
 	loot = list(
@@ -32,7 +31,6 @@
 	record_spawn = TRUE
 
 /obj/effect/spawner/random/book
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "book"
 	name = "book spawner"
 	loot = list(
@@ -82,7 +80,6 @@
 	record_spawn = TRUE
 
 /obj/effect/spawner/random/jani_supplies
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "mopbucket"
 	name = "janitorial supplies spawner"
 	loot = list(
@@ -95,7 +92,6 @@
 
 /obj/effect/spawner/random/stock_parts
 	name = "stock parts spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "stock_parts"
 	loot_subtype_path = /obj/item/stock_parts
 
@@ -105,7 +101,6 @@
 
 /obj/effect/spawner/random/glowstick
 	name = "random glowstick spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "glowstick"
 	loot = list(
 		/obj/item/flashlight/flare/glowstick,
@@ -118,7 +113,6 @@
 
 /obj/effect/spawner/random/smithed_item
 	name = "random smithed item"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "metal"
 	record_spawn = TRUE
 
@@ -198,3 +192,9 @@
 		/mob/living/simple_animal/hostile/pirate,
 		/mob/living/simple_animal/hostile/pirate/ranged,
 	)
+
+/obj/effect/spawner/random/fancy_table
+	name = "fancy table spawner"
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "fancy_table"
+	loot_type_path = /obj/structure/table/wood/fancy
