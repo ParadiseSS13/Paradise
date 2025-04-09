@@ -1,8 +1,3 @@
-#define BASE_POINT_MULT 0.90
-#define BASE_SHEET_MULT 0.90
-#define POINT_MULT_ADD_PER_RATING 0.10
-#define SHEET_MULT_ADD_PER_RATING 0.10
-
 /**
   * # Ore Redemption Machine
   *
@@ -516,8 +511,3 @@
 /obj/machinery/mineral/ore_redemption/proc/on_material_insert(inserted_type, last_inserted_id, inserted)
 	give_points(inserted_type, inserted)
 	SStgui.update_uis(src)
-
-#undef BASE_POINT_MULT
-#undef BASE_SHEET_MULT
-#undef POINT_MULT_ADD_PER_RATING
-#undef SHEET_MULT_ADD_PER_RATING
