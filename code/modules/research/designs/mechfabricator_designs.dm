@@ -1381,17 +1381,6 @@
 
 // IPC Upgrades
 
-/datum/design/culinary_processing_implant
-	name = "Culinary Processing Implant"
-	desc = "This implant emulates the functions of a gastrointestinal system, allowing IPCs to eat and experience taste."
-	id = "ci-culinary_implant"
-	req_tech = list("materials" = 3, "powerstorage" = 4, "biotech" = 3)
-	build_type = MECHFAB
-	construction_time = 60
-	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
-	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_food
-	category = list("IPC Upgrades")
-
 /datum/design/raiden_implant
 	name = "Reactive Repair Implant"
 	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
