@@ -1717,18 +1717,18 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return TRUE
 
 /mob/living/carbon/human/can_eat(flags = 255)
-	return dna.species && ((dna.species.dietflags & flags) || HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
+	return dna.species && (dna.species.dietflags & flags)
 
 /mob/living/carbon/human/selfFeed(obj/item/food/toEat, fullness)
 	if(!check_has_mouth())
-		if(!ismachineperson(src) || (ismachineperson(src) && !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT)))
+		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put [toEat]? You don't have a mouth!")
 			return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!ismachineperson(src) || !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
+		if(!ismachineperson(src))
 			if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
 				to_chat(user, "Where do you intend to put [toEat]? \The [src] doesn't have a mouth!")
 				return FALSE

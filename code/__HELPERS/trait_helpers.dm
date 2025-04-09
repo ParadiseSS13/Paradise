@@ -223,7 +223,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
 #define TRAIT_BADASS "trait_badass"
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
-#define TRAIT_IPC_CAN_EAT "ipc_can_eat" // IPC can eat food
 #define TRAIT_IPC_JOINTS_MAG "ipc_joints_mag" // IPC has weaker limbs but can re-attach them with ease
 #define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
