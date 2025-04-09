@@ -47,6 +47,7 @@
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
 	item_state = "an_tank"
+	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/internals/anesthetic/populate_gas()
 	air_contents.set_oxygen((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD)
@@ -92,7 +93,6 @@
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasma_fr"
 	item_state = "plasma_fr"
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/plasmaman/populate_gas()
 	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -136,7 +136,6 @@
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	volume = 1 // Roughly 4m 15s of air
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
