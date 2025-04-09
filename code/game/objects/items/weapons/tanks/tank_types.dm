@@ -17,11 +17,12 @@
 	icon_state = "generic"
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	force = 10
-	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/oxygen
 	name = "oxygen tank"
 	desc = "A tank of oxygen. This one is blue."
+	icon_state = "oxygen"
+	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/oxygen/populate_gas()
 	air_contents.set_oxygen((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -29,12 +30,10 @@
 /obj/item/tank/internals/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
 	icon_state = "oxygen_f"
-	dog_fashion = null
 
 /obj/item/tank/internals/oxygen/red
 	desc = "A tank of oxygen, this one is red."
 	icon_state = "oxygen_fr"
-	dog_fashion = null
 
 /obj/item/tank/internals/oxygen/empty/populate_gas()
 	return
