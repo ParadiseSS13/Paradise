@@ -32,7 +32,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, TRUE)
 		swirlie.visible_message("<span class='danger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='userdanger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='italics'>You hear reverberating porcelain.</span>")
-		swirlie.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
+		swirlie.apply_damage(5, BRUTE, BODY_ZONE_HEAD, swirlie.run_armor_check(BODY_ZONE_HEAD, MELEE))
 		return
 
 	if(cistern && !open)
@@ -110,9 +110,11 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 					else
 						playsound(src.loc, 'sound/effects/bang.ogg', 25, TRUE)
 						target.visible_message("<span class='danger'>[user] slams [target.name]'s head into [src]!</span>", "<span class='userdanger'>[user] slams [target.name]'s head into [src]!</span>")
-						target.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
+						target.apply_damage(5, BRUTE, BODY_ZONE_HEAD, target.run_armor_check(BODY_ZONE_HEAD, MELEE))
+				return ITEM_INTERACT_COMPLETE
 			else
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
+			return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/flamethrower))
 		var/obj/item/flamethrower/big_lighter = used
@@ -228,22 +230,23 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
 		if(!G.confirm())
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(isliving(G.affecting))
 			var/mob/living/target = G.affecting
 			if(G.state >= GRAB_AGGRESSIVE)
 				if(target.loc != get_turf(src))
 					to_chat(user, "<span class='notice'>[target.name] needs to be on [src].</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				user.changeNext_move(CLICK_CD_MELEE)
 				playsound(src.loc, 'sound/effects/bang.ogg', 25, TRUE)
 				user.visible_message("<span class='danger'>[user] slams [target]'s head into [src]!</span>", "<span class='danger'>You slam [target]'s head into [src]!</span>")
-				target.apply_damage(8, BRUTE, BODY_ZONE_HEAD)
+				target.apply_damage(8, BRUTE, BODY_ZONE_HEAD, target.run_armor_check(BODY_ZONE_HEAD, MELEE))
 			else
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
+			return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/urinal/wrench_act(mob/living/user, obj/item/I)
