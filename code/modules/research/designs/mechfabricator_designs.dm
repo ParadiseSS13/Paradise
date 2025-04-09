@@ -1379,7 +1379,7 @@
 	construction_time = 20 SECONDS
 	category = list("IPC")
 
-//IPC Upgrades
+// IPC Upgrades
 
 /datum/design/culinary_processing_implant
 	name = "Culinary Processing Implant"
@@ -1436,7 +1436,7 @@
 	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification
 	category = list("IPC Upgrades")
 
-//Misc
+// Misc
 /datum/design/mecha_tracking
 	name = "Exosuit Tracking Beacon"
 	id = "mecha_tracking"

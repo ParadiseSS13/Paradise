@@ -1722,7 +1722,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/selfFeed(obj/item/food/toEat, fullness)
 	if(!check_has_mouth())
 		if(!ismachineperson(src) || (ismachineperson(src) && !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT)))
-			to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
+			to_chat(src, "Where do you intend to put [toEat]? You don't have a mouth!")
 			return FALSE
 	return ..()
 
@@ -1730,7 +1730,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!check_has_mouth())
 		if(!ismachineperson(src) || !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
 			if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
-				to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
+				to_chat(user, "Where do you intend to put [toEat]? \The [src] doesn't have a mouth!")
 				return FALSE
 	return ..()
 
