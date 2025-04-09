@@ -1979,9 +1979,7 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "Qa" = (
-/obj/structure/sink{
-	pixel_y = 19
-	},
+/obj/structure/sink/directional/north,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 1;

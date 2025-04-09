@@ -17,11 +17,7 @@
 	},
 /area/ruin/space/powered)
 "cM" = (
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/item/soap,
 /turf/simulated/floor/plasteel{
@@ -35,9 +31,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "cT" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -116,9 +110,7 @@
 	},
 /area/ruin/space/powered)
 "kp" = (
-/obj/structure/sink{
-	pixel_y = 25
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -549,10 +541,7 @@
 	},
 /area/ruin/space/powered)
 "Zs" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

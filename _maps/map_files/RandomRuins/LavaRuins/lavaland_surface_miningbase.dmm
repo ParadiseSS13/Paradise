@@ -784,9 +784,7 @@
 /turf/simulated/wall,
 /area/mine/outpost/production)
 "hL" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -3092,9 +3090,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "yH" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 24
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -3836,9 +3832,7 @@
 /area/mine/outpost/hallway/west)
 "Eu" = (
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Main Airlock";
 	network = list("Mining Outpost");

@@ -689,11 +689,7 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
@@ -718,9 +714,7 @@
 	},
 /area/ruin/space/djstation)
 "bT" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /obj/structure/window/reinforced,
 /obj/item/soap/deluxe/laundry,
@@ -966,9 +960,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "MM" = (
-/obj/structure/toilet{
-	pixel_y = 11
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

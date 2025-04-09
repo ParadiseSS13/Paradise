@@ -285,10 +285,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "jk" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 5
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -1084,9 +1081,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "LL" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -1226,10 +1221,7 @@
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
 "QJ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -1435,10 +1427,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "ZS" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
