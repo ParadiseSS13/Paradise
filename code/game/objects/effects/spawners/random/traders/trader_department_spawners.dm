@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/traders
 	name = "trader item spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "loot"
 	spawn_loot_count = 6
 
