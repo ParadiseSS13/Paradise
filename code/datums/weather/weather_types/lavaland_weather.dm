@@ -340,7 +340,6 @@
 		var/area/turf_area = get_area(nearby_turf)
 		if(prob(50) && turf_area.type == /area/survivalpod)
 			new_area.contents.Add(nearby_turf)
-			to_chat(world, "DEBUG: nearby_turf type is: [nearby_turf.type]")
 			if(isfloorturf(nearby_turf))
 				nearby_turf.break_tile()
 			if(iswallturf(nearby_turf))
