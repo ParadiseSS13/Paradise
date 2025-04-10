@@ -238,3 +238,19 @@
 	description = "A passenger shuttle crashsite of indeterminate origin."
 	suffix = "lavaland_surface_shuttlecrash.dmm"
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/nt
+	name = "Nanotrasen Mining Complex"
+	id = "gulag"
+	description = "Nanotrasen's sturdy planetside mining station and labor camp."
+	suffix = "lavaland_surface_nt.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
+
+/datum/map_template/ruin/lavaland/legiongate
+	name = "Necropolis Gate"
+	id = "legiongate"
+	description = "At the heart of the city of the dead is a horror, so vile, and so powerful, that not even death can claim it."
+	suffix = "lavaland_surface_legiongate.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE

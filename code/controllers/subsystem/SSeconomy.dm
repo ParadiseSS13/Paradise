@@ -73,6 +73,9 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_variety_food_goal = 450
 	var/credits_per_ripley_goal = 600
 	var/credits_per_kudzu_goal = 600
+	var/credits_per_easy_smith_goal = 150
+	var/credits_per_normal_smith_goal = 225
+	var/credits_per_hard_smith_goal = 300
 	/// credits lost for sending unsecured cargo
 	var/fine_for_loose_cargo = -100
 	/// credits lost for sending a messy shuttle
