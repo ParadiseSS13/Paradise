@@ -77,7 +77,7 @@
 	name = "fireproofing plate"
 	desc = "A heavy plate of asbestos designed to fireproof a user. A firefighter's godsend."
 	burn_armor = 10
-	movement_speed_mod = -0.2
+	movement_speed_mod = -0.5
 	heat_insulation = 20
 	secondary_goal_candidate = TRUE
 
@@ -111,7 +111,7 @@
 	laser_armor = 10
 	explosive_armor = 10
 	radiation_armor = 10
-	movement_speed_mod = -0.2
+	movement_speed_mod = -0.5
 
 /obj/item/smithed_item/insert/engineering
 	name = "engineering mesh"
@@ -122,7 +122,7 @@
 	heat_insulation = 10
 	explosive_armor = 10
 	siemens_coeff = 0.4
-	movement_speed_mod = -0.2
+	movement_speed_mod = -0.5
 
 /obj/item/smithed_item/insert/heavy
 	name = "heavy duty plate"
@@ -133,7 +133,7 @@
 	explosive_armor = 10
 	heat_insulation = 10
 	siemens_coeff = -0.4
-	movement_speed_mod = -0.4
+	movement_speed_mod = -1
 
 /obj/item/smithed_item/insert/mobility
 	name = "mobility mesh"
