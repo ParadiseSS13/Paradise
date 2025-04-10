@@ -22,7 +22,7 @@
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
 	immunity_type = "ash"
-	probability = 150
+	probability = 25
 	barometer_predictable = TRUE
 
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
@@ -100,7 +100,7 @@
 	weather_duration_lower = 800
 	weather_duration_upper = 1600
 
-	probability = 30
+	probability = 10
 
 /datum/weather/ash_storm/heavy/is_human_ash_immune(mob/living/carbon/human/H)
 	var/thermal_protection = H.get_thermal_protection()
@@ -125,7 +125,7 @@
 	end_sound = null
 
 	aesthetic = TRUE
-	probability = 20
+	probability = 25
 
 /// MARK: Volcano
 /datum/weather/volcano
@@ -147,7 +147,7 @@
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
-	probability = 10
+	probability = 5
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// The time until the next rock falls from the sky
@@ -268,7 +268,7 @@
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
-	probability = 20
+	probability = 10
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// how long do you get before it melts a hole?
@@ -312,7 +312,7 @@
 			sound_wi.stop()
 
 /datum/weather/acid/area_act()
-	if(prob(1))
+	if(prob(2))
 		var/list/turf_list = list()
 		for(var/turf/turf in get_area_turfs(/area/survivalpod))
 			if(istype(get_area(turf), /area/survivalpod/luxurypod))
@@ -386,7 +386,7 @@
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
-	probability = 15
+	probability = 25
 	barometer_predictable = TRUE
 	var/wind_dir
 	var/next_dir_change
