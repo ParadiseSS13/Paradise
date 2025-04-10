@@ -85,7 +85,7 @@
 				if(WEATHER_STARTUP_STAGE)
 					if(last_stage == WEATHER_STARTUP_STAGE)
 						return
-					if(W.name == "emberfall")
+					if(W.aesthetic)
 						if(correct_prediction) // unupgraded machines should still scare the poor bastards
 							radio.autosay("<b>[W.name] detected settling over the sector. No further action required.</b>", name, "Supply")
 						else

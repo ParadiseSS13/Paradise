@@ -93,7 +93,7 @@
 /// MARK: Heavy Ash Storm
 // Radar needed to detect the difference, but shouldnt matter much
 /datum/weather/ash_storm/heavy
-	name = "heavy ash storm"
+	name = "Heavy ash storm"
 	desc = "An even more intense atmospheric storm lifts ash off of the planet's surface and billows it down across the area, dealing intense fire damage to the unprotected."
 
 	//lasts longer
@@ -115,7 +115,7 @@
 /// MARK: Emberfall
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
 /datum/weather/ash_storm/emberfall
-	name = "emberfall"
+	name = "Emberfall"
 	desc = "A passing ash storm blankets the area in harmless embers."
 
 	weather_message = "<span class='notice'>Gentle embers waft down around you like grotesque snow. The storm seems to have passed you by...</span>"
@@ -129,7 +129,7 @@
 
 /// MARK: Volcano
 /datum/weather/volcano
-	name = "volcanic activity"
+	name = "Volcanic activity"
 	desc = "The shifting tectonic forces on the unstable planet have caused volcanic activity in the area. New rivers/chasms will form and chunks of rock will rain from the sky."
 
 	telegraph_message = "<span class='boldwarning'><i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i></span>"
@@ -268,7 +268,7 @@
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
-	probability = 10
+	probability = 999999
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// how long do you get before it melts a hole?
@@ -312,18 +312,18 @@
 			sound_wi.stop()
 
 /datum/weather/acid/area_act()
-	if(prob(2))
-		var/list/turf_list = list()
-		for(var/turf/turf in get_area_turfs(/area/survivalpod))
-			if(istype(get_area(turf), /area/survivalpod/luxurypod))
-				continue
-			if(is_mining_level(turf.z)) //dont want to melt pods on other Z levels
-				turf_list += turf
-		if(!length(turf_list)) // dont continue if we havnt made pods yet or we'll runtime
-			return
-		var/turf/melt_this = pick(turf_list)
-		melt_this.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
-		addtimer(CALLBACK(src, PROC_REF(melt_pod), melt_this), melt_delay)
+	if(!length(GLOB.all_shelter_pods)) // don't need to act if there's nothing in the list so we don't runtime
+		log_debug("found no shelters")
+		return
+	for(var/turf/current_turf in GLOB.all_shelter_pods)
+		log_debug("affecting [current_turf.x] X, [current_turf.y] Y, [current_turf.z] Z")
+		if(!is_mining_level(current_turf.z)) // dont want to melt pods on other Z levels
+			continue
+		if(istype(get_area(current_turf), /area/survivalpod/luxurypod)) // luxury pods are immune to the storm
+			continue
+		if(prob(2))
+			current_turf.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
+			addtimer(CALLBACK(src, PROC_REF(melt_pod), current_turf), melt_delay)
 
 /datum/weather/acid/on_shelter_placed(datum/source, turf/center)
 	. = ..()
@@ -336,9 +336,9 @@
 // lets make some holes!
 /datum/weather/acid/proc/melt_pod(turf/melt_this)
 	var/area/new_area = GLOB.all_unique_areas[/area/lavaland/surface/outdoors] || new /area/lavaland/surface/outdoors
-	for(var/turf/simulated/nearby_turf in RANGE_TURFS(2, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
+	for(var/turf/simulated/nearby_turf in RANGE_TURFS(3, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
 		var/area/turf_area = get_area(nearby_turf)
-		if(prob(50) && turf_area.type == /area/survivalpod)
+		if(prob(75) && turf_area.type == /area/survivalpod)
 			new_area.contents.Add(nearby_turf)
 			if(isfloorturf(nearby_turf))
 				nearby_turf.break_tile()
@@ -368,7 +368,7 @@
 
 /// MARK: Wind Storm
 /datum/weather/wind
-	name = "high-velocity wind"
+	name = "High-velocity wind"
 	desc = "High-pressure barometrics in the area have caused a radical change in air pressure, resulting in high-speed winds in the immediate vicinity."
 
 	telegraph_message = "<span class='boldwarning'><i>The wind begins to pick up, whipping against your body with an ominous intensity. Seek shelter.</i></span>"

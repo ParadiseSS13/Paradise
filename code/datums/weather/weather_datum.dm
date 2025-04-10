@@ -1,5 +1,7 @@
 //The effects of weather occur across an entire z-level. For instance, lavaland has periodic ash storms that scorch most unprotected creatures.
 
+GLOBAL_LIST(all_shelter_pods)
+
 /datum/weather
 	var/name = "space wind"
 	var/desc = "Heavy gusts of wind blanket the area, periodically knocking down anyone caught in the open."
@@ -54,8 +56,9 @@
 	impacted_z_levels = z_levels
 	RegisterSignal(SSdcs, COMSIG_GLOB_SHELTER_PLACED, PROC_REF(on_shelter_placed))
 
-/datum/weather/proc/on_shelter_placed(turf/center)
+/datum/weather/proc/on_shelter_placed(datum/source, turf/center)
 	SIGNAL_HANDLER // COMSIG_GLOB_SHELTER_PLACED
+	GLOB.all_shelter_pods += center
 	return
 
 /datum/weather/proc/generate_area_list()
