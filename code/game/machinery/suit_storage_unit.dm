@@ -237,6 +237,11 @@
 /obj/machinery/suit_storage_unit/syndicate/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/syndicate/empty
+	mask_type = null
+	suit_type = null
+	state_open = TRUE
+
 /obj/machinery/suit_storage_unit/radsuit
 	name = "radiation suit storage unit"
 	suit_type = /obj/item/clothing/suit/radiation
