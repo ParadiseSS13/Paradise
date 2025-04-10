@@ -116,6 +116,4 @@
 // #include "crit_rework/_crit_rework.dme"
 
 // --- TESTING --- //
-#ifdef GAME_TESTS
 #include "unit_tests/_unit_tests.dme"
-#endif

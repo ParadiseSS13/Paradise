@@ -85,6 +85,12 @@
 	icon_state = "atmos"
 	request_console_name = "Atmospherics"
 
+/area/mine/outpost/smith_workshop
+	request_console_name = "Smith"
+
+/area/station/supply/smith_office
+	request_console_name = "Smith"
+
 /area/station/supply/abandoned_boxroom
 	name = "Заброшенное Складское Помещение"
 	icon_state = "cargobay"

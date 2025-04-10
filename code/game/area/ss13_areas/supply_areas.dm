@@ -36,11 +36,11 @@
 	request_console_flags = RC_SUPPLY
 
 /area/station/supply/smith_office
-	name = "Smith's Office"
+	name = "Кабинет Кузнеца"
 	icon_state = "smith"
 
 /area/station/supply/qm
-	name = "Офис Квартирмейстера"
+	name = "Кабинет Квартирмейстера"
 	icon_state = "qm"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Quartermaster's Desk"

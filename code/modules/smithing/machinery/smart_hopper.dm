@@ -22,7 +22,7 @@
 	var/anyone_claim = FALSE
 	/// What consoles get alerted when this is filled
 	var/list/supply_consoles = list(
-		"Smith's Office",
+		"Smith",
 		"Quartermaster's Desk"
 	)
 

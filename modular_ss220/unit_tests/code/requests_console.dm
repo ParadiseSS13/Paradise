@@ -4,7 +4,7 @@
 #define MED_AREAS list("Virology", "Chief Medical Officer's Desk", "Медицинский Отдел", "Psychiatrist", "Chemistry", "Paramedic", "Morgue")
 #define COM_AREAS list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge", "Офис Профессионального Тренера НТ")
 #define SCI_AREAS list("Robotics", "Science", "Research Director's Desk", "Genetics", "Xenobiology")
-#define SUPPLY_AREAS list("Cargo Bay", "Mining Dock", "Mining Outpost", "Quartermaster's Desk", "Mining", "Expedition", "Smith's Office")
+#define SUPPLY_AREAS list("Cargo Bay", "Mining Dock", "Mining Outpost", "Quartermaster's Desk", "Mining", "Expedition", "Smith")
 #define OTHER_AREAS list("Arrival Shuttle", "Crew Quarters", "Tool Storage", "EVA", "Labor Camp", "AI")
 
 /datum/game_test/requests_console

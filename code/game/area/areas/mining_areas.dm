@@ -98,7 +98,7 @@
 	icon_state = "storage"
 
 /area/mine/outpost/smith_workshop
-	name = "Smith's Workshop"
+	name = "Мастерская Кузнеца"
 	icon_state = "smith"
 
 /area/mine/outpost/maintenance
@@ -126,7 +126,7 @@
 	icon_state = "mining_production"
 
 /area/mine/outpost/quartermaster
-	name = "Офис Квартирмейстера Шахтерского Аванпоста"
+	name = "Кабинет Квартирмейстера Шахтерского Аванпоста"
 	icon_state = "qm"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Quartermaster's Desk"
