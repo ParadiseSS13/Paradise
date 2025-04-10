@@ -312,18 +312,16 @@
 			sound_wi.stop()
 
 /datum/weather/acid/area_act()
-	if(prob(2))
-		var/list/turf_list = list()
-		for(var/turf/turf in get_area_turfs(/area/survivalpod))
-			if(istype(get_area(turf), /area/survivalpod/luxurypod))
-				continue
-			if(is_mining_level(turf.z)) //dont want to melt pods on other Z levels
-				turf_list += turf
-		if(!length(turf_list)) // dont continue if we havnt made pods yet or we'll runtime
-			return
-		var/turf/melt_this = pick(turf_list)
-		melt_this.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
-		addtimer(CALLBACK(src, PROC_REF(melt_pod), melt_this), melt_delay)
+	if(!length(GLOB.all_shelter_pods)) // don't need to act if there's nothing in the list so we don't runtime
+		return
+	for(var/turf/current_turf in GLOB.all_shelter_pods)
+		if(!is_mining_level(current_turf.z)) // dont want to melt pods on other Z levels
+			continue
+		if(istype(get_area(current_turf), /area/survivalpod/luxurypod)) // luxury pods are immune to the storm
+			continue
+		if(prob(1))
+			current_turf.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
+			addtimer(CALLBACK(src, PROC_REF(melt_pod), current_turf), melt_delay)
 
 /datum/weather/acid/on_shelter_placed(datum/source, turf/center)
 	. = ..()
