@@ -12752,13 +12752,12 @@
 /turf/space,
 /area/station/maintenance/incinerator)
 "aWW" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/alarm/directional/south,
 /obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
+/obj/machinery/shower{
+	dir = 4
 	},
+/turf/simulated/floor/noslip,
 /area/station/security/prisonlockers)
 "aXa" = (
 /turf/simulated/floor/engine/co2,
@@ -15813,6 +15812,7 @@
 	pixel_y = 3
 	},
 /obj/item/stack/sheet/metal/ten,
+/obj/machinery/requests_console/smith/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -92778,12 +92778,17 @@
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "wYE" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/power/apc/important/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/delivery/red/hollow,
+/obj/structure/shelf/security,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"

@@ -255,7 +255,7 @@
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/egg),
-		PCWJ_ADD_PRODUCE(/obj/item/grown/nettle/basic),
+		PCWJ_ADD_ITEM(/obj/item/grown/nettle/basic),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
 		PCWJ_ADD_REAGENT("water", 10),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
