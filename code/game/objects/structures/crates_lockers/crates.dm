@@ -6,6 +6,7 @@
 	icon_opened = "crate_open"
 	icon_closed = "crate"
 	climbable = TRUE
+	enable_door_overlay = FALSE
 	var/rigged = FALSE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
@@ -203,7 +204,7 @@
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
-	explosion(get_turf(src), 0, 1, 5, 5)
+	explosion(get_turf(src), 0, 1, 5, 5, cause = "Tamper-proof secure crate")
 	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()

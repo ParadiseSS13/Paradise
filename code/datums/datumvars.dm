@@ -255,6 +255,7 @@
 		<meta charset="UTF-8">
 		<title>[title]</title>
 		<link rel="stylesheet" type="text/css" href="[SSassets.transport.get_asset_url("view_variables.css")]">
+		[window_scaling ? "<style>body {zoom: [100 / window_scaling]%;}</style>" : ""]
 	</head>
 	<body onload='selectTextField(); updateSearch()' onkeydown='return checkreload()' onkeyup='updateSearch()'>
 		<script type="text/javascript">
@@ -453,7 +454,9 @@
 
 	if(istype(D, /datum))
 		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
-	usr << browse(html, "window=variables[refid];size=475x650")
+
+	var/size_string = window_scaling ? "size=[475 * window_scaling]x[650 * window_scaling]" : "size=[475]x[650]"
+	usr << browse(html, "window=variables[refid];[size_string]")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
 /proc/debug_variable(name, value, level, datum/owner, sanitize = TRUE)

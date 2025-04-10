@@ -360,7 +360,9 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	inactive = TRUE
 	menu_open = FALSE
 
-	sleep(5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(post_activate)), 5 SECONDS)
+
+/obj/item/wormhole_jaunter/wormhole_weaver/proc/post_activate()
 	if(emp_inflicted)
 		return
 

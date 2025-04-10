@@ -86,7 +86,7 @@
 	. = ..()
 
 	var/turf/T = get_turf(src)
-	if(istype(T) && T.z == level_name_to_num(MINING))
+	if(istype(T) && (T.z in levels_by_trait(ORE_LEVEL)))
 		var/obj/effect/landmark/river_waypoint/waypoint = new(T)
 		GLOB.river_waypoint_presets += waypoint
 

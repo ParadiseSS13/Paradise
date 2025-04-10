@@ -680,6 +680,9 @@
 	for(var/obj/item/organ/O in contents)
 		organs_list += list(list("name" = O.name, "ref" = O.UID()))
 
+	for(var/obj/item/robot_parts/RP in contents)
+		organs_list += list(list("name" = RP.name, "ref" = RP.UID()))
+
 	data["organs"] = organs_list
 	data["currently_cloning"] = currently_cloning
 

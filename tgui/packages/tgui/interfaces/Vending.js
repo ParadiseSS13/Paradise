@@ -11,7 +11,7 @@ const VendingRow = (props, context) => {
   if (locked && bypass_lock) {
     buttonText = 'FREE (' + product.price + ')';
     rowIcon = 'arrow-circle-down';
-  } else if (!locked) {
+  } else if (!locked || product.price === 0) {
     buttonText = 'FREE';
     rowIcon = 'arrow-circle-down';
   } else {

@@ -1424,3 +1424,6 @@ so that different stomachs can handle things in different ways VB*/
 	if(wear_suit && wear_suit.UID() == thing.UID())
 		return FALSE
 	return TRUE
+
+/mob/living/carbon/proc/get_thermal_protection() // Xenos got nothin
+	return 0

@@ -1,4 +1,5 @@
-#Updates the DB from 65 to 66
-#Adds a column to the characters table that stores quirks in a JSON format
+# Updates DB from 64 to 65 ~Burzah
+# Removes column species_subtype on the characters table
+
 ALTER TABLE `characters`
-	ADD column `quirks` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL AFTER `species_subtype`;
+DROP COLUMN `species_subtype`;
