@@ -16,7 +16,6 @@
 	name = "\improper Abandoned Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
-	there_can_be_many = TRUE
 
 /area/ruin/space/unpowered/no_grav/way_home
 	name = "\improper Salvation"
@@ -72,7 +71,6 @@
 /area/ruin/space/methlab
 	name = "\improper Abandoned Drug Lab"
 	icon_state = "green"
-	there_can_be_many = TRUE
 
 // Space Bar
 /area/ruin/space/powered/bar
@@ -294,3 +292,11 @@
 	there_can_be_many = FALSE
 	requires_power = FALSE
 	ambientsounds = list("sound/ambience/reebe_ambience_1.ogg", "sound/ambience/reebe_ambience_2.ogg", "sound/ambience/reebe_ambience_3.ogg")
+
+/area/ruin/space/rocky_motel
+	name = "\improper Rocky Motel"
+	icon_state = "rocky_motel"
+	there_can_be_many = FALSE
+
+/area/ruin/space/rocky_motel/asteroid
+	icon_state = "away"
