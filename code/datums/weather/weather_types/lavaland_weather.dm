@@ -268,7 +268,7 @@
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
-	probability = 999999
+	probability = 10
 	barometer_predictable = TRUE
 	area_act = TRUE
 	// how long do you get before it melts a hole?
@@ -312,18 +312,18 @@
 			sound_wi.stop()
 
 /datum/weather/acid/area_act()
-	if(!length(GLOB.all_shelter_pods)) // don't need to act if there's nothing in the list so we don't runtime
-		log_debug("found no shelters")
-		return
-	for(var/turf/current_turf in GLOB.all_shelter_pods)
-		log_debug("affecting [current_turf.x] X, [current_turf.y] Y, [current_turf.z] Z")
-		if(!is_mining_level(current_turf.z)) // dont want to melt pods on other Z levels
-			continue
-		if(istype(get_area(current_turf), /area/survivalpod/luxurypod)) // luxury pods are immune to the storm
-			continue
-		if(prob(2))
-			current_turf.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
-			addtimer(CALLBACK(src, PROC_REF(melt_pod), current_turf), melt_delay)
+	if(prob(2))
+		var/list/turf_list = list()
+		for(var/turf/turf in get_area_turfs(/area/survivalpod))
+			if(istype(get_area(turf), /area/survivalpod/luxurypod))
+				continue
+			if(is_mining_level(turf.z)) //dont want to melt pods on other Z levels
+				turf_list += turf
+		if(!length(turf_list)) // dont continue if we havnt made pods yet or we'll runtime
+			return
+		var/turf/melt_this = pick(turf_list)
+		melt_this.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
+		addtimer(CALLBACK(src, PROC_REF(melt_pod), melt_this), melt_delay)
 
 /datum/weather/acid/on_shelter_placed(datum/source, turf/center)
 	. = ..()
@@ -336,9 +336,9 @@
 // lets make some holes!
 /datum/weather/acid/proc/melt_pod(turf/melt_this)
 	var/area/new_area = GLOB.all_unique_areas[/area/lavaland/surface/outdoors] || new /area/lavaland/surface/outdoors
-	for(var/turf/simulated/nearby_turf in RANGE_TURFS(3, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
+	for(var/turf/simulated/nearby_turf in RANGE_TURFS(2, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
 		var/area/turf_area = get_area(nearby_turf)
-		if(prob(75) && turf_area.type == /area/survivalpod)
+		if(prob(50) && turf_area.type == /area/survivalpod)
 			new_area.contents.Add(nearby_turf)
 			if(isfloorturf(nearby_turf))
 				nearby_turf.break_tile()
