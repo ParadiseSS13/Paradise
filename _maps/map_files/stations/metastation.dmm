@@ -4590,13 +4590,10 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "aHr" = (
-/obj/machinery/door/window/classic/reversed{
-	dir = 8;
-	name = "Library Desk Door"
+/obj/structure/window/reinforced{
+	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/library{
-	dir = 8
-	},
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "aHy" = (
@@ -7880,10 +7877,6 @@
 /obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
-"aWt" = (
-/obj/machinery/economy/vending/cigarette,
-/turf/simulated/floor/carpet/grimey,
-/area/station/hallway/secondary/entry/lounge)
 "aWv" = (
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
@@ -8847,10 +8840,12 @@
 /turf/simulated/floor/carpet,
 /area/station/service/library)
 "bbn" = (
-/obj/item/kirbyplants/medium/medium8,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8858,9 +8853,6 @@
 	},
 /area/station/hallway/primary/central/north)
 "bbo" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -19301,12 +19293,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
-"bTt" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood,
-/area/station/service/library)
 "bTA" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/photocopier,
@@ -33575,6 +33561,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"dnq" = (
+/obj/structure/sign/double/map/right{
+	desc = "A framed picture of the station. Clockwise from security in red at the top, you see engineering in yellow, science in purple, escape in checkered red-and-white, medbay in green, arrivals in checkered red-and-blue, and then cargo in brown.";
+	icon_state = "map-right-MS";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/station/hallway/primary/fore/east)
 "dnH" = (
 /obj/machinery/mass_driver{
 	id_tag = "toxinsdriver"
@@ -41661,6 +41658,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"gyN" = (
+/obj/machinery/economy/vending/coffee,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/entry/west)
 "gzt" = (
 /obj/structure/lattice,
 /obj/machinery/camera{
@@ -45924,8 +45928,7 @@
 	layer = 4;
 	pixel_y = -32
 	},
-/obj/machinery/light,
-/turf/simulated/floor/wood,
+/turf/simulated/wall,
 /area/station/service/library)
 "iiC" = (
 /obj/machinery/light{
@@ -57623,6 +57626,10 @@
 	icon_state = "greenblue"
 	},
 /area/station/service/hydroponics)
+"mQL" = (
+/obj/machinery/light,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "mRj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -57872,9 +57879,15 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "mWD" = (
-/obj/structure/table/wood,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/library{
+	dir = 8
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 8;
+	name = "Library Desk Door"
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -74172,6 +74185,17 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/equipmentstorage)
+"tvb" = (
+/obj/structure/sign/double/map/left{
+	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
+	icon_state = "map-left-MS";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/station/hallway/primary/fore/east)
 "tvd" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine{
@@ -76122,6 +76146,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -81844,6 +81869,14 @@
 	icon_state = "browncorner"
 	},
 /area/station/hallway/supply/fore)
+"wOS" = (
+/obj/machinery/alarm/directional/north,
+/obj/item/kirbyplants/medium/medium8,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "neutral"
+	},
+/area/station/hallway/primary/central/north)
 "wOZ" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Science Chemistry";
@@ -81939,13 +81972,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/execution)
-"wQJ" = (
-/obj/machinery/alarm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/north)
 "wRd" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -96020,7 +96046,7 @@ heV
 ekm
 oUe
 uni
-oUe
+gyN
 aHk
 qGL
 aML
@@ -100398,7 +100424,7 @@ lMU
 nuG
 aJv
 bgX
-eKz
+tvb
 lrp
 aOB
 ibj
@@ -100648,14 +100674,14 @@ bvB
 bvB
 rJp
 bvB
-aWt
+btp
 aAA
 hiI
 gSQ
 arK
 aAA
 aAA
-eKz
+dnq
 lrp
 aOB
 aOB
@@ -111455,7 +111481,7 @@ bBQ
 bcI
 bOs
 wxr
-bTt
+dyt
 iis
 bzK
 nuz
@@ -111712,10 +111738,10 @@ bFw
 bFw
 bBP
 aTW
-dyt
+mQL
 bzK
-bzK
-wQJ
+wOS
+nGC
 xuG
 jmL
 jMy
