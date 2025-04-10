@@ -194,6 +194,7 @@
 				/obj/item/stack/medical/ointment = 1,
 				/obj/item/reagent_containers/syringe/charcoal = 1,
 				/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 2,
+				/obj/item/stack/medical/splint = 1,
 	)
 	contraband = list()
 
