@@ -2206,6 +2206,12 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
+"arm" = (
+/obj/machinery/newscaster/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreenfull"
+	},
+/area/station/service/hydroponics)
 "ars" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -16468,6 +16474,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/east)
+"cji" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreenfull"
+	},
+/area/station/service/hydroponics)
 "cjk" = (
 /obj/machinery/firealarm/directional/east,
 /obj/effect/spawner/random/cobweb/right/rare,
@@ -17804,10 +17818,10 @@
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
 "cuk" = (
-/obj/machinery/newscaster/directional/west,
+/obj/machinery/requests_console/directional/north,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
@@ -46612,12 +46626,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
-"iIm" = (
-/obj/effect/landmark/start/botanist,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/service/hydroponics)
 "iIo" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -82187,6 +82195,21 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
+"qYw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark/start/botanist,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/hydroponics)
 "qYA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -96273,7 +96296,6 @@
 /obj/machinery/camera/autoname{
 	dir = 6
 	},
-/obj/machinery/requests_console/directional/north,
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
@@ -111918,10 +111940,7 @@
 	},
 /area/station/maintenance/port)
 "yah" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/hydroponics/constructable,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -131199,7 +131218,7 @@ dWi
 sWT
 baF
 cuk
-prN
+arm
 mcu
 pcu
 jeu
@@ -131456,10 +131475,10 @@ mrt
 mrt
 reZ
 prN
-biB
 cBs
 cBs
-hPf
+cBs
+qYw
 cBs
 cBs
 biB
@@ -131713,7 +131732,7 @@ mrt
 mrt
 fOh
 prN
-biB
+cBs
 cBs
 cBs
 hPf
@@ -131974,7 +131993,7 @@ biB
 biB
 biB
 tzg
-iIm
+biB
 biB
 biB
 xNP
@@ -132226,7 +132245,7 @@ ceJ
 mrt
 hpJ
 baF
-bld
+cji
 biB
 biB
 biB
