@@ -1,22 +1,22 @@
 /datum/procedure/science
 	jobs = list(
-		JOBGUIDE_RD,
-		JOBGUIDE_SCIENTIST,
-		JOBGUIDE_ROBOTICIST,
-		JOBGUIDE_GENETICIST
+		NTPM_RD,
+		NTPM_SCIENTIST,
+		NTPM_ROBOTICIST,
+		NTPM_GENETICIST
 		)
 
 /datum/procedure/rd
-	jobs = list(JOBGUIDE_RD)
+	jobs = list(NTPM_RD)
 
 /datum/procedure/scientist
-	jobs = list(JOBGUIDE_RD, JOBGUIDE_SCIENTIST)
+	jobs = list(NTPM_RD, NTPM_SCIENTIST)
 
 /datum/procedure/roboticist
-	jobs = list(JOBGUIDE_RD, JOBGUIDE_ROBOTICIST)
+	jobs = list(NTPM_RD, NTPM_ROBOTICIST)
 
 /datum/procedure/geneticist
-	jobs = list(JOBGUIDE_RD, JOBGUIDE_GENETICIST)
+	jobs = list(NTPM_RD, NTPM_GENETICIST)
 
 /datum/procedure/rd/sop_green
 	name = "Research Director SOP 1(code green)"

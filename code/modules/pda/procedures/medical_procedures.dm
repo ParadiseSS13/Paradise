@@ -1,33 +1,33 @@
 /datum/procedure/medical
 	jobs = list(
-		JOBGUIDE_CMO,
-		JOBGUIDE_DOCTOR,
-		JOBGUIDE_PARAMED,
-		JOBGUIDE_CORONER,
-		JOBGUIDE_CHEMIST,
-		JOBGUIDE_VIROLOGIST,
-		JOBGUIDE_PSYCHAIATRIST)
+		NTPM_CMO,
+		NTPM_DOCTOR,
+		NTPM_PARAMED,
+		NTPM_CORONER,
+		NTPM_CHEMIST,
+		NTPM_VIROLOGIST,
+		NTPM_PSYCHAIATRIST)
 
 /datum/procedure/cmo
-	jobs = list(JOBGUIDE_CMO)
+	jobs = list(NTPM_CMO)
 
 /datum/procedure/doctor
-	jobs = list(JOBGUIDE_CMO, JOBGUIDE_DOCTOR)
+	jobs = list(NTPM_CMO, NTPM_DOCTOR)
 
 /datum/procedure/paramedic
-	jobs = list(JOBGUIDE_CMO, JOBGUIDE_PARAMED)
+	jobs = list(NTPM_CMO, NTPM_PARAMED)
 
 /datum/procedure/chemist
-	jobs = list(JOBGUIDE_CMO, JOBGUIDE_CHEMIST)
+	jobs = list(NTPM_CMO, NTPM_CHEMIST)
 
 /datum/procedure/virologist
-	jobs = list(JOBGUIDE_CMO, JOBGUIDE_VIROLOGIST)
+	jobs = list(NTPM_CMO, NTPM_VIROLOGIST)
 
 /datum/procedure/psychaiatrist
-	jobs = list(JOBGUIDE_CMO, JOBGUIDE_PSYCHAIATRIST)
+	jobs = list(NTPM_CMO, NTPM_PSYCHAIATRIST)
 
 /datum/procedure/coroner
-	jobs = list(JOBGUIDE_CMO, JOBGUIDE_CORONER)
+	jobs = list(NTPM_CMO, NTPM_CORONER)
 
 /datum/procedure/cmo/sop
 	name = "Chief Medical Officer SOP"
@@ -141,7 +141,7 @@
 		)
 
 /datum/procedure/medical/surgery
-	jobs = list(JOBGUIDE_CMO, JOBGUIDE_DOCTOR, JOBGUIDE_PARAMED)
+	jobs = list(NTPM_CMO, NTPM_DOCTOR, NTPM_PARAMED)
 
 /datum/procedure/medical/surgery/sop
 	name = "Surgery SOP"

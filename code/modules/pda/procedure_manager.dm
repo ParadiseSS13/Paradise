@@ -1,54 +1,54 @@
-GLOBAL_LIST_INIT(job_guide_jobs, list(
-		JOBGUIDE_CAPTAIN,
-		JOBGUIDE_BLUESHIELD,
-		JOBGUIDE_NTR,
+GLOBAL_LIST_INIT(procedure_manager_jobs, list(
+		NTPM_CAPTAIN,
+		NTPM_BLUESHIELD,
+		NTPM_NTR,
 
-		JOBGUIDE_CE,
-		JOBGUIDE_ENGINEER,
-		JOBGUIDE_ATMOS,
+		NTPM_CE,
+		NTPM_ENGINEER,
+		NTPM_ATMOS,
 
-		JOBGUIDE_CMO,
-		JOBGUIDE_DOCTOR,
-		JOBGUIDE_PARAMED,
-		JOBGUIDE_CORONER,
-		JOBGUIDE_CHEMIST,
-		JOBGUIDE_VIROLOGIST,
-		JOBGUIDE_PSYCHAIATRIST,
+		NTPM_CMO,
+		NTPM_DOCTOR,
+		NTPM_PARAMED,
+		NTPM_CORONER,
+		NTPM_CHEMIST,
+		NTPM_VIROLOGIST,
+		NTPM_PSYCHAIATRIST,
 
-		JOBGUIDE_HOS,
-		JOBGUIDE_WARDEN,
-		JOBGUIDE_SECURITY_OFFICER,
-		JOBGUIDE_DETECTIVE,
+		NTPM_HOS,
+		NTPM_WARDEN,
+		NTPM_SECURITY_OFFICER,
+		NTPM_DETECTIVE,
 
-		JOBGUIDE_HOP,
-		JOBGUIDE_BARTENDER,
-		JOBGUIDE_BOTANIST,
-		JOBGUIDE_CHAPLAIN,
-		JOBGUIDE_CHEF,
-		JOBGUIDE_CLOWN,
-		JOBGUIDE_MIME,
-		JOBGUIDE_JANITOR,
-		JOBGUIDE_LIBRARIAN,
+		NTPM_HOP,
+		NTPM_BARTENDER,
+		NTPM_BOTANIST,
+		NTPM_CHAPLAIN,
+		NTPM_CHEF,
+		NTPM_CLOWN,
+		NTPM_MIME,
+		NTPM_JANITOR,
+		NTPM_LIBRARIAN,
 
-		JOBGUIDE_QM,
-		JOBGUIDE_CARGO_TECH,
-		JOBGUIDE_MINER,
-		JOBGUIDE_EXPLORER,
-		JOBGUIDE_SMITH,
+		NTPM_QM,
+		NTPM_CARGO_TECH,
+		NTPM_MINER,
+		NTPM_EXPLORER,
+		NTPM_SMITH,
 
-		JOBGUIDE_RD,
-		JOBGUIDE_SCIENTIST,
-		JOBGUIDE_ROBOTICIST,
-		JOBGUIDE_GENETICIST,
+		NTPM_RD,
+		NTPM_SCIENTIST,
+		NTPM_ROBOTICIST,
+		NTPM_GENETICIST,
 
-		JOBGUIDE_IAA,
-		JOBGUIDE_MAGISTRATE,
+		NTPM_IAA,
+		NTPM_MAGISTRATE,
 		))
 
-/datum/data/pda/app/job_guide
+/datum/data/pda/app/procedure_manager
 	name = "Procedure Manager"
 	title = "Nanotrassen Procedure Manager"
-	template = "pda_job_guide"
+	template = "pda_procedure_manager"
 	// Almost positive this is never used anywhere but sure
 	update = PDA_APP_NOUPDATE
 	/// Which job we have selected
@@ -60,23 +60,23 @@ GLOBAL_LIST_INIT(job_guide_jobs, list(
 	/// The text we are searching for within the selected category's procedure list
 	var/search_text = ""
 
-/datum/data/pda/app/job_guide/ui_interact(mob/user, datum/tgui/ui)
+/datum/data/pda/app/procedure_manager/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	ui.set_autoupdate(FALSE)
 
-/datum/data/pda/app/job_guide/update_ui(mob/user, list/data)
+/datum/data/pda/app/procedure_manager/update_ui(mob/user, list/data)
 	data["categories"] = list()
 	for(var/category in GLOB.procedure_by_job[job])
 		data["categories"] += category
 	data["job"] = job
-	data["job_list"] = GLOB.job_guide_jobs
+	data["job_list"] = GLOB.procedure_manager_jobs
 	data["procedures"] = procedure_list
 	data["current_category"] = current_category
 	data["search_text"] = search_text
 
 	return data
 
-/datum/data/pda/app/job_guide/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/data/pda/app/procedure_manager/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 

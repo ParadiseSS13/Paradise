@@ -4,7 +4,7 @@ import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { Box, Button, Input, Section, Stack, Tabs, Dropdown } from '../../components';
 
-export const pda_job_guide = (props, context) => {
+export const pda_procedure_manager = (props, context) => {
   const { act, data } = useBackend(context);
   const { categories, current_category, procedures, search_text, job_list, job } = data;
   const [procedureList, setprocedureList] = useLocalState(context, 'procedureList', procedures);

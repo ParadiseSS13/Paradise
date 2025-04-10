@@ -1,14 +1,14 @@
 /datum/procedure/command
-	jobs = list(JOBGUIDE_CAPTAIN, JOBGUIDE_BLUESHIELD, JOBGUIDE_CE, JOBGUIDE_CMO, JOBGUIDE_HOP, JOBGUIDE_HOS, JOBGUIDE_NTR, JOBGUIDE_QM, JOBGUIDE_CMO)
+	jobs = list(NTPM_CAPTAIN, NTPM_BLUESHIELD, NTPM_CE, NTPM_CMO, NTPM_HOP, NTPM_HOS, NTPM_NTR, NTPM_QM, NTPM_CMO)
 
 /datum/procedure/captain
-	jobs = list(JOBGUIDE_CAPTAIN)
+	jobs = list(NTPM_CAPTAIN)
 
 /datum/procedure/blueshield
-	jobs = list(JOBGUIDE_BLUESHIELD)
+	jobs = list(NTPM_BLUESHIELD)
 
 /datum/procedure/ntr
-	jobs = list(JOBGUIDE_NTR)
+	jobs = list(NTPM_NTR)
 
 /datum/procedure/captain/sop
 	name = "Captain SOP"

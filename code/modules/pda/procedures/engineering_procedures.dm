@@ -1,18 +1,18 @@
 // Procedure relevant to engineering as a whole
 /datum/procedure/engineering
-	jobs = list(JOBGUIDE_CE, JOBGUIDE_ATMOS, JOBGUIDE_ENGINEER)
+	jobs = list(NTPM_CE, NTPM_ATMOS, NTPM_ENGINEER)
 
 // Chief engineer procedure
 /datum/procedure/ce
-	jobs = list(JOBGUIDE_CE)
+	jobs = list(NTPM_CE)
 
 // Engineer procedure
 /datum/procedure/engineer
-	jobs = list(JOBGUIDE_CE, JOBGUIDE_ENGINEER)
+	jobs = list(NTPM_CE, NTPM_ENGINEER)
 
 // Atmos tech procedure
 /datum/procedure/atmos_tech
-	jobs = list(JOBGUIDE_CE, JOBGUIDE_ATMOS)
+	jobs = list(NTPM_CE, NTPM_ATMOS)
 
 // MARK: SOP
 /datum/procedure/ce/sop

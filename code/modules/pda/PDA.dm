@@ -44,7 +44,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		new/datum/data/pda/app/nanobank,
 		new/datum/data/pda/app/atmos_scanner,
 		new/datum/data/pda/utility/flashlight,
-		new /datum/data/pda/app/job_guide,
+		new /datum/data/pda/app/procedure_manager,
 		new/datum/data/pda/app/games,
 		// Here our games go
 		new/datum/data/pda/app/game/minesweeper)

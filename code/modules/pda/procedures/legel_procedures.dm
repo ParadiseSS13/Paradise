@@ -1,11 +1,11 @@
 /datum/procedure/legal
-	jobs = list(JOBGUIDE_MAGISTRATE, JOBGUIDE_IAA)
+	jobs = list(NTPM_MAGISTRATE, NTPM_IAA)
 
 /datum/procedure/magistrate
-	jobs = list(JOBGUIDE_MAGISTRATE)
+	jobs = list(NTPM_MAGISTRATE)
 
 /datum/procedure/iaa
-	jobs = list(JOBGUIDE_IAA)
+	jobs = list(NTPM_IAA)
 
 /datum/procedure/magistrate/sop
 	name = "Magistrate SOP"

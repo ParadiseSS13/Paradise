@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(procedure_by_job)
 	var/name = ""
 	/// List of jobs this procedure is relevant to
 	var/list/jobs = list()
-	/// The category of the procedure for the jobguide PDA app.
+	/// The category of the procedure for the NTPM PDA app.
 	var/catalog_category = "Miscellaneous"
 	/// List of steps in text form
 	var/list/steps = list()

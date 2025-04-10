@@ -1,40 +1,40 @@
 /datum/procedure/service
 	jobs = list(
-		JOBGUIDE_HOP,
-		JOBGUIDE_BARTENDER,
-		JOBGUIDE_BOTANIST,
-		JOBGUIDE_CLOWN,
-		JOBGUIDE_MIME,
-		JOBGUIDE_JANITOR,
-		JOBGUIDE_LIBRARIAN,
+		NTPM_HOP,
+		NTPM_BARTENDER,
+		NTPM_BOTANIST,
+		NTPM_CLOWN,
+		NTPM_MIME,
+		NTPM_JANITOR,
+		NTPM_LIBRARIAN,
 		)
 
 /datum/procedure/hop
-	jobs = list(JOBGUIDE_HOP)
+	jobs = list(NTPM_HOP)
 
 /datum/procedure/bartender
-	jobs = list(JOBGUIDE_HOP, JOBGUIDE_BARTENDER)
+	jobs = list(NTPM_HOP, NTPM_BARTENDER)
 
 /datum/procedure/botanist
-	jobs = list(JOBGUIDE_HOP, JOBGUIDE_BOTANIST)
+	jobs = list(NTPM_HOP, NTPM_BOTANIST)
 
 /datum/procedure/chaplain
-	jobs = list(JOBGUIDE_HOP,JOBGUIDE_CHAPLAIN)
+	jobs = list(NTPM_HOP,NTPM_CHAPLAIN)
 
 /datum/procedure/chef
-	jobs = list(JOBGUIDE_HOP,JOBGUIDE_CHEF)
+	jobs = list(NTPM_HOP,NTPM_CHEF)
 
 /datum/procedure/clown
-	jobs = list(JOBGUIDE_HOP,JOBGUIDE_CLOWN)
+	jobs = list(NTPM_HOP,NTPM_CLOWN)
 
 /datum/procedure/mime
-	jobs = list(JOBGUIDE_HOP, JOBGUIDE_MIME)
+	jobs = list(NTPM_HOP, NTPM_MIME)
 
 /datum/procedure/janitor
-	jobs = list(JOBGUIDE_HOP, JOBGUIDE_JANITOR)
+	jobs = list(NTPM_HOP, NTPM_JANITOR)
 
 /datum/procedure/librarian
-	jobs = list(JOBGUIDE_HOP, JOBGUIDE_LIBRARIAN)
+	jobs = list(NTPM_HOP, NTPM_LIBRARIAN)
 
 /datum/procedure/hop/sop
 	name = "Head Of Personnel SOP"

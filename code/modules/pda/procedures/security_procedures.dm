@@ -1,22 +1,22 @@
 /datum/procedure/security
 	jobs = list(
-		JOBGUIDE_HOS,
-		JOBGUIDE_WARDEN,
-		JOBGUIDE_SECURITY_OFFICER,
-		JOBGUIDE_DETECTIVE,
+		NTPM_HOS,
+		NTPM_WARDEN,
+		NTPM_SECURITY_OFFICER,
+		NTPM_DETECTIVE,
 		)
 
 /datum/procedure/hos
-	jobs = list(JOBGUIDE_HOS)
+	jobs = list(NTPM_HOS)
 
 /datum/procedure/secoff
-	jobs = list(JOBGUIDE_HOS ,JOBGUIDE_SECURITY_OFFICER)
+	jobs = list(NTPM_HOS ,NTPM_SECURITY_OFFICER)
 
 /datum/procedure/warden
-	jobs = list(JOBGUIDE_HOS ,JOBGUIDE_WARDEN)
+	jobs = list(NTPM_HOS ,NTPM_WARDEN)
 
 /datum/procedure/detective
-	jobs = list(JOBGUIDE_HOS ,JOBGUIDE_DETECTIVE)
+	jobs = list(NTPM_HOS ,NTPM_DETECTIVE)
 
 /datum/procedure/hos/sop_green
 	name = "Head Of Security SOP 1(Code Green)"

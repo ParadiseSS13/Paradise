@@ -1,26 +1,26 @@
 /datum/procedure/supply
 	jobs = list(
-		JOBGUIDE_QM,
-		JOBGUIDE_CARGO_TECH,
-		JOBGUIDE_MINER,
-		JOBGUIDE_EXPLORER,
-		JOBGUIDE_SMITH
+		NTPM_QM,
+		NTPM_CARGO_TECH,
+		NTPM_MINER,
+		NTPM_EXPLORER,
+		NTPM_SMITH
 		)
 
 /datum/procedure/qm
-	jobs = list(JOBGUIDE_QM)
+	jobs = list(NTPM_QM)
 
 /datum/procedure/cargo_tech
-	jobs = list(JOBGUIDE_QM, JOBGUIDE_CARGO_TECH)
+	jobs = list(NTPM_QM, NTPM_CARGO_TECH)
 
 /datum/procedure/miner
-	jobs = list(JOBGUIDE_QM, JOBGUIDE_MINER)
+	jobs = list(NTPM_QM, NTPM_MINER)
 
 /datum/procedure/explorer
-	jobs = list(JOBGUIDE_QM, JOBGUIDE_EXPLORER)
+	jobs = list(NTPM_QM, NTPM_EXPLORER)
 
 /datum/procedure/smith
-	jobs = list(JOBGUIDE_QM, JOBGUIDE_SMITH)
+	jobs = list(NTPM_QM, NTPM_SMITH)
 
 /datum/procedure/qm/sop
 	name = "Quartermaster SOP"
