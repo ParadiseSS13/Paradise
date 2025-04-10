@@ -250,7 +250,7 @@
 
 /// MARK: Acid Rain
 /datum/weather/acid
-	name = "acidic rain"
+	name = "Acidic rain"
 	desc = "Emissions of sulfur and carbon into the atmosphere results in the formation of acid particulate in the ashen clouds. Eventually, enough collects that it will fall back down as sulfuric acid rain. NT brand shelter pods capsules are not rated for this level of acid."
 
 	telegraph_message = "<span class='boldwarning'><i>The sound of tiny drops begins to splatter against the ground, sizzling against the ash and stone. Seek shelter.</i></span>"
