@@ -4,7 +4,7 @@
 		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
 		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1
 		)
-	mid_length = 80
+	mid_length = 65
 	start_sound = 'sound/weather/ashstorm/outside/active_start.ogg'
 	start_length = 130
 	end_sound = 'sound/weather/ashstorm/outside/active_end.ogg'
