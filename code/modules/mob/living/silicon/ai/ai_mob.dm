@@ -1413,6 +1413,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		create_chat_message(locateUID(M.runechat_msg_location), message_clean)
 	show_message(rendered, 2)
 
+/mob/living/silicon/ai/proc/reset_programs()
+	if(!program_picker)
+		return
+	program_picker.reset_programs()
+	to_chat(src, "<span class='notice'>Your storage has been reset to factory settings.</span>")
+
 /mob/living/silicon/ai/proc/add_program_picker()
 	view_core() // A BYOND bug requires you to be viewing your core before your verbs update
 	program_picker = new /datum/program_picker(src)
