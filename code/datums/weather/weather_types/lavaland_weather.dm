@@ -319,7 +319,7 @@
 			continue
 		if(istype(get_area(current_turf), /area/survivalpod/luxurypod)) // luxury pods are immune to the storm
 			continue
-		if(prob(1))
+		if(prob(2))
 			current_turf.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
 			addtimer(CALLBACK(src, PROC_REF(melt_pod), current_turf), melt_delay)
 
@@ -336,12 +336,15 @@
 	var/area/new_area = GLOB.all_unique_areas[/area/lavaland/surface/outdoors] || new /area/lavaland/surface/outdoors
 	for(var/turf/simulated/nearby_turf in RANGE_TURFS(3, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
 		var/area/turf_area = get_area(nearby_turf)
-		if(prob(75) && turf_area.type == /area/survivalpod)
+		if(prob(70) && turf_area.type == /area/survivalpod)
 			new_area.contents.Add(nearby_turf)
 			if(isfloorturf(nearby_turf))
 				nearby_turf.break_tile()
 			if(iswallturf(nearby_turf))
 				nearby_turf.dismantle_wall()
+			for(var/obj/machinery/sleeper/survival_pod/pod in nearby_turf.contents)
+				pod.visible_message("<span class = 'danger'>The sleeper melts away into a useless heap of junk!</span>", "<span class = 'danger'>You hear something nearby collapse from the acidic rain!</span>")
+				pod.Destroy()
 
 	impacted_areas.Cut()
 	generate_area_list()
