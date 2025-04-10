@@ -3,7 +3,6 @@
 	available_points = 0
 
 /obj/effect/spawner/random/pool/whiteship_mob
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "giftbox"
 	spawn_pool_id = "whiteship_mobs_spawn_pool"
 	unique_picks = TRUE
