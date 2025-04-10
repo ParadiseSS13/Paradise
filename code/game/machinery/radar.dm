@@ -80,7 +80,7 @@
 	for(var/datum/weather/W in SSweather.processing)
 		if(!W)
 			break
-		if(W.barometer_predictable && ispath(W.area_type, /area/lavaland/surface/outdoors))
+		if(W.barometer_predictable && is_path_in_list(/area/lavaland/surface/outdoors, W.area_types))
 			switch(W.stage)
 				if(WEATHER_STARTUP_STAGE)
 					if(last_stage == WEATHER_STARTUP_STAGE)

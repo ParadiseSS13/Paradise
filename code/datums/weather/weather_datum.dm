@@ -22,7 +22,7 @@
 	var/end_sound
 	var/end_overlay
 
-	var/area_type = /area/space //Types of area to affect
+	var/area_types = list(/area/space) //Types of area to affect
 	var/list/impacted_areas = list() //Areas to be affected by the weather, calculated when the weather begins
 	var/list/protected_areas = list()//Areas that are protected and excluded from the affected areas.
 	var/impacted_z_levels // The list of z-levels that this weather is actively affecting
@@ -60,8 +60,9 @@
 
 /datum/weather/proc/generate_area_list()
 	var/list/affectareas = list()
-	for(var/V in get_areas(area_type))
-		affectareas += V
+	for(var/area_type in area_types)
+		for(var/V in get_areas(area_type))
+			affectareas += V
 	for(var/V in protected_areas)
 		affectareas -= get_areas(V)
 	for(var/V in affectareas)
@@ -174,7 +175,8 @@
 
 /datum/weather/proc/update_eligible_areas()
 	for(var/z in impacted_z_levels)
-		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
+		for(var/area/A in GLOB.space_manager.areas_in_z["[z]"])
+			eligible_areas |= A
 
 	// Don't play storm audio to shuttles that are not at lavaland
 	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
@@ -192,9 +194,9 @@
 	for(var/i in 1 to length(eligible_areas))
 		var/area/place = eligible_areas[i]
 		if(place.outdoors)
-			outside_areas += place
+			outside_areas |= place
 		else
-			inside_areas += place
+			inside_areas |= place
 
 /datum/weather/proc/is_shuttle_docked(shuttleId, dockId)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
