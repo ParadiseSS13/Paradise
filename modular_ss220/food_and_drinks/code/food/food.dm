@@ -29,9 +29,15 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("гречка" = 1)
 
-/datum/recipe/microwave/boiledbuckwheat
-	reagents = list("water" = 5, "buckwheat" = 10)
-	result = /obj/item/food/boiledbuckwheat
+/datum/cooking/recipe/boiledbuckwheat
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/boiledbuckwheat
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_REAGENT("water", 5),
+		PCWJ_ADD_REAGENT("buckwheat", 10),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
 
 // Merchant Buckwheat
 /obj/item/food/buckwheat_merchant
@@ -44,13 +50,18 @@
 	list_reagents = list("nutriment" = 5, "protein" = 2, "vitamin" = 3)
 	tastes = list("гречка" = 2, "мясо" = 2, "томатный соус" = 1)
 
-/datum/recipe/microwave/buckwheat_merchant
-	reagents = list("water" = 5, "buckwheat" = 10)
-	items = list(
-		/obj/item/food/grown/tomato,
-		/obj/item/food/grown/carrot,
-		/obj/item/food/meat)
-	result = /obj/item/food/buckwheat_merchant
+/datum/cooking/recipe/buckwheat_merchant
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/buckwheat_merchant
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_REAGENT("water", 5),
+		PCWJ_ADD_REAGENT("buckwheat", 10),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
 
 // Olivier Salad
 /obj/item/food/oliviersalad
@@ -64,15 +75,19 @@
 	list_reagents = list("nutriment" = 6, "kelotane" = 2, "vitamin" = 2)
 	tastes = list("варёная картошка" = 1, "огурец" = 1, "морковка" = 1, "яйцо" = 1, "Новый Год" = 1)
 
-/datum/recipe/microwave/oliviersalad
-	reagents = list("cream" = 10, "sodiumchloride" = 5)
-	items = list(
-		/obj/item/food/pickles,
-		/obj/item/food/boiledegg,
-		/obj/item/food/grown/potato,
-		/obj/item/food/grown/carrot,
-		/obj/item/food/sausage)
-	result = /obj/item/food/oliviersalad
+/datum/cooking/recipe/oliviersalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/oliviersalad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/pickles),
+		PCWJ_ADD_ITEM(/obj/item/food/boiledegg),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_ITEM(/obj/item/food/sausage),
+		PCWJ_ADD_REAGENT("cream", 10),
+		PCWJ_ADD_REAGENT("sodiumchloride", 5),
+	)
 
 // Weird Olivier Salad
 /obj/item/food/weirdoliviersalad
@@ -83,19 +98,24 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "kelotane" = 2, "vitamin" = 3)
-	tastes = list("варёная картошка" = 1, "огурец" = 1, "морковка" = 1, "яйца" = 1, "странно" = 1, "Новый Год" = 1)
+	list_reagents = list("nutriment" = 6, "kelotane" = 2, "vitamin" = 2)
+	tastes = list("варёная картошка" = 1, "огурец" = 1, "морковка" = 1, "яйцо" = 1, "Новый Год" = 1)
 
-/datum/recipe/microwave/weirdoliviersalad
-	reagents = list("cream" = 10, "sodiumchloride" = 5)
-	items = list(
-		/obj/item/food/pickles,
-		/obj/item/food/boiledegg,
-		/obj/item/food/grown/potato,
-		/obj/item/food/grown/carrot,
-		/obj/item/food/sausage,
-		/obj/item/food/grown/apple)
-	result = /obj/item/food/weirdoliviersalad
+
+/datum/cooking/recipe/weirdoliviersalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/weirdoliviersalad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/pickles),
+		PCWJ_ADD_ITEM(/obj/item/food/boiledegg),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_ITEM(/obj/item/food/sausage),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
+		PCWJ_ADD_REAGENT("cream", 10),
+		PCWJ_ADD_REAGENT("sodiumchloride", 5),
+	)
 
 // Vegetable Salad
 /obj/item/food/vegisalad
@@ -109,12 +129,16 @@
 	list_reagents = list("nutriment" = 4, "kelotane" = 1, "vitamin" = 1)
 	tastes = list("томат" = 2, "маринованные огурцы" = 2, "сметана" = 2)
 
-/datum/recipe/microwave/vegisalad
-	reagents = list("cream" = 10, "sodiumchloride" = 5)
-	items = list(
-		/obj/item/food/grown/cucumber,
-		/obj/item/food/grown/tomato)
-	result = /obj/item/food/vegisalad
+/datum/cooking/recipe/vegisalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/vegisalad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cucumber),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_REAGENT("cream", 10),
+		PCWJ_ADD_REAGENT("sodiumchloride", 5),
+	)
 
 // Pickles
 /obj/item/food/pickles
@@ -160,12 +184,17 @@
 	list_reagents = list("nutriment" = 4, "kelotane" = 1, "vitamin" = 2)
 	tastes = list("картошка" = 1, "огурцы" = 1, "рис" = 1)
 
-/datum/recipe/microwave/rassolnik
-	reagents = list("water" = 10, "rice" = 5)
-	items = list(
-		/obj/item/food/grown/potato,
-		/obj/item/food/grown/cucumber)
-	result = /obj/item/food/soup/rassolnik
+/datum/cooking/recipe/rassolnik
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/soup/rassolnik
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cucumber),
+		PCWJ_ADD_REAGENT("water", 10),
+		PCWJ_ADD_REAGENT("rice", 5),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
 
 // Doner
 /obj/item/food/shawarma
@@ -177,17 +206,22 @@
 	list_reagents = list("protein" = 4, "nutriment" = 4, "vitamin" = 2, "tomatojuice" = 4)
 	tastes = list("счастье" = 3, "мясо" = 2, "овощи" = 1)
 
-/datum/recipe/microwave/shawarma
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
-	items = list(
-		/obj/item/food/meatsteak,
-		/obj/item/food/meatsteak,
-		/obj/item/food/grown/cabbage,
-		/obj/item/food/sliced/onion_slice,
-		/obj/item/food/grown/tomato,
-		/obj/item/food/grown/carrot,
-		/obj/item/food/sliceable/flatdough)
-	result = /obj/item/food/shawarma
+/datum/cooking/recipe/shawarma
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/shawarma
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/meatsteak),
+		PCWJ_ADD_ITEM(/obj/item/food/meatsteak),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
 
 // Doner - Cheese
 /obj/item/food/doner_cheese
@@ -199,17 +233,22 @@
 	list_reagents = list("protein" = 4, "nutriment" = 6, "vitamin" = 2, "tomatojuice" = 4)
 	tastes = list("счастье" = 3, "сыр" = 2, "мясо" = 2, "овощи" = 1)
 
-/datum/recipe/microwave/doner_cheese
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
-	items = list(
-		/obj/item/food/meatsteak,
-		/obj/item/food/meatsteak,
-		/obj/item/food/sliced/cheesewedge,
-		/obj/item/food/sliced/cheesewedge,
-		/obj/item/food/grown/cabbage,
-		/obj/item/food/grown/tomato,
-		/obj/item/food/sliceable/flatdough)
-	result = /obj/item/food/doner_cheese
+/datum/cooking/recipe/doner_cheese
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/doner_cheese
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/meatsteak),
+		PCWJ_ADD_ITEM(/obj/item/food/meatsteak),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
 
 // Doner - Mushroom
 /obj/item/food/doner_mushroom
@@ -221,19 +260,24 @@
 	list_reagents = list("protein" = 4, "nutriment" = 4, "plantmatter" = 2, "vitamin" = 2, "tomatojuice" = 4)
 	tastes = list("счастье" = 3, "мясо" = 2, "овощи" = 2, "томат" = 1)
 
-/datum/recipe/microwave/doner_mushroom
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
-	items = list(
-		/obj/item/food/meatsteak,
-		/obj/item/food/grown/mushroom,
-		/obj/item/food/grown/mushroom,
-		/obj/item/food/grown/mushroom,
-		/obj/item/food/grown/cabbage,
-		/obj/item/food/sliced/onion_slice,
-		/obj/item/food/grown/tomato,
-		/obj/item/food/grown/carrot,
-		/obj/item/food/sliceable/flatdough)
-	result = /obj/item/food/doner_mushroom
+/datum/cooking/recipe/doner_mushroom
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/doner_mushroom
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/meatsteak),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
 
 // Doner - Vegetable
 /obj/item/food/doner_vegan
@@ -245,18 +289,23 @@
 	list_reagents = list("nutriment" = 4, "plantmatter" = 4, "vitamin" = 4, "tomatojuice" = 8)
 	tastes = list("овощи" = 2, "томат" = 1, "перец" = 1)
 
-/datum/recipe/microwave/doner_vegan
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
-	items = list(
-		/obj/item/food/grown/cabbage,
-		/obj/item/food/sliced/onion_slice,
-		/obj/item/food/sliced/onion_slice,
-		/obj/item/food/grown/tomato,
-		/obj/item/food/grown/tomato,
-		/obj/item/food/grown/carrot,
-		/obj/item/food/grown/carrot,
-		/obj/item/food/sliceable/flatdough)
-	result = /obj/item/food/doner_vegan
+/datum/cooking/recipe/doner_vegan
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/doner_vegan
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
 
 // Slime Pie
 /obj/item/food/sliceable/slimepie
@@ -280,10 +329,17 @@
 	filling_color = "#00d9ff"
 	tastes = list("слизь" = 5, "сладость" = 1, "желе" = 1)
 
-/datum/recipe/oven/slimepie
-	reagents = list("custard" = 1, "milk" = 5, "sugar" = 15)
-	items = list(/obj/item/organ/internal/brain/slime)
-	result = /obj/item/food/sliceable/slimepie
+/datum/cooking/recipe/slimepie
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/slimepie
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/organ/internal/brain/slime),
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("sugar", 15),
+		PCWJ_ADD_REAGENT("custard", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Kidan Ragu
 /obj/item/food/kidanragu
@@ -294,16 +350,21 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 2, "protein" = 4)
 	tastes = list("насекомое" = 3, "овощи" = 2)
 
-/datum/recipe/microwave/kidan_ragu
-	reagents = list("water" = 10, "sodiumchloride" = 1)
-	items = list(
-		/obj/item/organ/internal/heart/kidan,
-		/obj/item/food/grown/potato,
-		/obj/item/food/grown/potato,
-		/obj/item/food/grown/carrot,
-		/obj/item/food/grown/tomato,
-		/obj/item/food/grown/chili)
-	result = /obj/item/food/kidanragu
+/datum/cooking/recipe/kidan_ragu
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/kidanragu
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/organ/internal/heart/kidan),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
+		PCWJ_ADD_REAGENT("water", 10),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_USE_STOVE(J_LO, 30 SECONDS),
+	)
 
 // Fried Unathi Meat
 /obj/item/food/sliceable/lizard
@@ -385,13 +446,21 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 2, "protein" = 4)
 	tastes = list("тесто" = 2, "собачатина" = 3)
 
-/datum/recipe/oven/vuplix
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "tomato_sauce" = 1, "cream" = 5)
-	items = list(
-		/obj/item/food/dough,
-		/obj/item/food/meat,
-		/obj/item/organ/internal/liver/vulpkanin)
-	result = /obj/item/food/vulpix
+/datum/cooking/recipe/vulpix
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/vulpix
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_ITEM(/obj/item/organ/internal/liver/vulpkanin),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("herbsmix", 1),
+		PCWJ_ADD_REAGENT("tomato_sauce", 1),
+		PCWJ_ADD_REAGENT("cream", 5),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
 
 // Cheese Vulpixes
 /obj/item/food/vulpix/cheese
@@ -402,14 +471,22 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 2, "protein" = 4)
 	tastes = list("тесто" = 2, "собачатина" = 3, "сыр" = 2)
 
-/datum/recipe/oven/vulpixcheese
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "cheese_sauce" = 1, "cream" = 5)
-	items = list(
-		/obj/item/food/dough,
-		/obj/item/food/meat,
-		/obj/item/organ/internal/liver/vulpkanin,
-		/obj/item/food/sliced/cheesewedge)
-	result = /obj/item/food/vulpix/cheese
+/datum/cooking/recipe/vulpixcheese
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/vulpix/cheese
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_ITEM(/obj/item/organ/internal/liver/vulpkanin),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("herbsmix", 1),
+		PCWJ_ADD_REAGENT("cheese_sauce", 1),
+		PCWJ_ADD_REAGENT("cream", 5),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
 
 // Bacon Vulpixes
 /obj/item/food/vulpix/bacon
@@ -420,15 +497,23 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 2, "protein" = 4)
 	tastes = list("тесто" = 2, "собачатина" = 3, "бекон" = 2, "грибы" = 2)
 
-/datum/recipe/oven/vulpixbacon
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "mushroom_sauce" = 1, "cream" = 5)
-	items = list(
-		/obj/item/food/dough,
-		/obj/item/food/meat,
-		/obj/item/organ/internal/liver/vulpkanin,
-		/obj/item/food/raw_bacon,
-		/obj/item/food/grown/mushroom)
-	result = /obj/item/food/vulpix/bacon
+/datum/cooking/recipe/vulpixbacon
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/vulpix/bacon
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_ITEM(/obj/item/organ/internal/liver/vulpkanin),
+		PCWJ_ADD_ITEM(/obj/item/food/raw_bacon),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("herbsmix", 1),
+		PCWJ_ADD_REAGENT("mushroom_sauce", 1),
+		PCWJ_ADD_REAGENT("cream", 5),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
 
 // Chilli Vulpixes
 /obj/item/food/vulpix/chilli
@@ -439,14 +524,22 @@
 	list_reagents = list("nutriment" = 4, "vitamin" = 2, "protein" = 4)
 	tastes = list("тесто" = 2, "собачатина" = 3, "чилли" = 2)
 
-/datum/recipe/oven/vulpixchilli
-	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "diablo_sauce" = 1, "cream" = 5)
-	items = list(
-		/obj/item/food/dough,
-		/obj/item/food/meat,
-		/obj/item/organ/internal/liver/vulpkanin,
-		/obj/item/food/grown/chili)
-	result = /obj/item/food/vulpix/chilli
+/datum/cooking/recipe/vulpixchilli
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/vulpix/chilli
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_ITEM(/obj/item/organ/internal/liver/vulpkanin),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("herbsmix", 1),
+		PCWJ_ADD_REAGENT("diablo_sauce", 1),
+		PCWJ_ADD_REAGENT("cream", 5),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
 
 // Seafood Pizza
 /obj/item/food/sliceable/pizza/seafood
@@ -467,16 +560,21 @@
 	filling_color = "#ffe45d"
 	tastes = list("чеснок" = 1, "сыр" = 2, "морепродукты" = 1, "кислинка" = 1)
 
-/datum/recipe/oven/seapizza
-	reagents = list("herbsmix" = 1, "garlic_sauce" = 1)
-	items = list(
-		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/sliced/cheesewedge,
-		/obj/item/food/salmonmeat,
-		/obj/item/food/salmonmeat,
-		/obj/item/food/boiled_shrimp,
-		/obj/item/food/grown/citrus/lemon)
-	result = /obj/item/food/sliceable/pizza/seafood
+/datum/cooking/recipe/seapizza
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/pizza/seafood
+	catalog_category = COOKBOOK_CATEGORY_PIZZAS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_ADD_ITEM(/obj/item/food/boiled_shrimp),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lemon),
+		PCWJ_ADD_REAGENT("herbsmix", 1),
+		PCWJ_ADD_REAGENT("garlic_sauce", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Bacon Pizza
 /obj/item/food/sliceable/pizza/bacon
@@ -497,16 +595,20 @@
 	filling_color = "#ffe45d"
 	tastes = list("грибы" = 1, "сыр" = 2, "бекон" = 1)
 
-/datum/recipe/oven/baconpizza
-	reagents = list("mushroom_sauce" = 1)
-	items = list(
-		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/sliced/cheesewedge,
-		/obj/item/food/grown/mushroom,
-		/obj/item/food/grown/mushroom,
-		/obj/item/food/raw_bacon,
-		/obj/item/food/raw_bacon)
-	result = /obj/item/food/sliceable/pizza/bacon
+/datum/cooking/recipe/baconpizza
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/pizza/bacon
+	catalog_category = COOKBOOK_CATEGORY_PIZZAS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom),
+		PCWJ_ADD_ITEM(/obj/item/food/raw_bacon),
+		PCWJ_ADD_ITEM(/obj/item/food/raw_bacon),
+		PCWJ_ADD_REAGENT("mushroom_sauce", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Pizza Tajaroni
 /obj/item/food/sliceable/pizza/tajaroni
@@ -527,15 +629,21 @@
 	filling_color = "#ffe45d"
 	tastes = list("томат" = 1, "сыр" = 2, "таярони" = 1, "оливки" = 1)
 
-/datum/recipe/oven/tajarpizza
-	reagents = list("herbsmix" = 1, "tomato_sauce" = 1, "blackpepper" = 1)
-	items = list(
-		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/sliced/cheesewedge,
-		/obj/item/food/sliced/cheesewedge,
-		/obj/item/food/tajaroni,
-		/obj/item/food/grown/olive,)
-	result = /obj/item/food/sliceable/pizza/tajaroni
+/datum/cooking/recipe/tajarpizza
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/pizza/tajaroni
+	catalog_category = COOKBOOK_CATEGORY_PIZZAS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/tajaroni),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/olive),
+		PCWJ_ADD_REAGENT("herbsmix", 1),
+		PCWJ_ADD_REAGENT("tomato_sauce", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Diablo Pizza
 /obj/item/food/sliceable/pizza/diablo
@@ -556,16 +664,21 @@
 	filling_color = "#ffe45d"
 	tastes = list("остроту" = 1, "сыр" = 2, "мясо" = 1, "специи" = 1)
 
-/datum/recipe/oven/diablopizza
-	reagents = list("herbsmix" = 1, "diablo_sauce" = 1)
-	items = list(
-		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/sliced/cheesewedge,
-		/obj/item/food/grown/tomato,
-		/obj/item/food/grown/chili,
-		/obj/item/food/meatball,
-		/obj/item/food/meatball)
-	result = /obj/item/food/sliceable/pizza/diablo
+/datum/cooking/recipe/diablopizza
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/pizza/diablo
+	catalog_category = COOKBOOK_CATEGORY_PIZZAS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
+		PCWJ_ADD_ITEM(/obj/item/food/meatball),
+		PCWJ_ADD_ITEM(/obj/item/food/meatball),
+		PCWJ_ADD_REAGENT("herbsmix", 1),
+		PCWJ_ADD_REAGENT("diablo_sauce", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Chocolate Cake
 /obj/item/food/sliceable/choccherrycake
@@ -588,16 +701,21 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#5e1706"
 
-/datum/recipe/oven/choccherrycake
-	reagents = list("milk" = 5, "flour" = 15)
-	items = list(
-		/obj/item/food/egg,
-		/obj/item/food/egg,
-		/obj/item/food/egg,
-		/obj/item/food/chocolatebar,
-		/obj/item/food/chocolatebar,
-		/obj/item/food/grown/cherries)
-	result = /obj/item/food/sliceable/choccherrycake
+/datum/cooking/recipe/choccherrycake
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/choccherrycake
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
+		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cherries),
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("flour", 15),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Noel
 /obj/item/food/sliceable/noel
@@ -621,16 +739,22 @@
 	filling_color = "#5e1706"
 	bitesize = 2
 
-/datum/recipe/oven/noel
-	reagents = list("flour" = 15, "cream" = 10, "milk" = 5)
-	items = list(
-		/obj/item/food/egg,
-		/obj/item/food/egg,
-		/obj/item/food/chocolatebar,
-		/obj/item/food/chocolatebar,
-		/obj/item/food/grown/berries,
-		/obj/item/food/grown/berries)
-	result = /obj/item/food/sliceable/noel
+/datum/cooking/recipe/noel
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/noel
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
+		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/berries),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/berries),
+		PCWJ_ADD_REAGENT("flour", 15),
+		PCWJ_ADD_REAGENT("cream", 10),
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Sundae
 /obj/item/food/sundae
@@ -643,13 +767,17 @@
 	tastes = list("банан" = 1, "вишня" = 1, "крем" = 1)
 	bitesize = 5
 
-/datum/recipe/oven/sundae
-	reagents = list("cream" = 10)
-	items = list(
-		/obj/item/food/grown/cherries,
-		/obj/item/food/grown/banana,
-		/obj/item/food/sliced/dough)
-	result = /obj/item/food/sundae
+/datum/cooking/recipe/sundae
+	container_type = /obj/item/reagent_containers/cooking/icecream_bowl
+	product_type = /obj/item/food/sundae
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cherries),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/dough),
+		PCWJ_ADD_REAGENT("cream", 10),
+		PCWJ_USE_ICE_CREAM_MIXER(10 SECONDS),
+	)
 
 // Bun-Bun
 /obj/item/food/bunbun
@@ -661,11 +789,15 @@
 	tastes = list("тесто" = 2)
 	bitesize = 2
 
-/datum/recipe/oven/bunbun
-	items = list(
-		/obj/item/food/bun,
-		/obj/item/food/bun)
-	result = /obj/item/food/bunbun
+/datum/cooking/recipe/bunbun
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/bunbun
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/bun),
+		PCWJ_ADD_ITEM(/obj/item/food/bun),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Tortilla
 /obj/item/food/tortilla
@@ -679,10 +811,15 @@
 	tastes = list("кукуруза" = 2)
 	bitesize = 2
 
-/datum/recipe/microwave/tortilla
-	reagents = list("flour" = 10)
-	items = list(/obj/item/food/grown/corn)
-	result = /obj/item/food/tortilla
+/datum/cooking/recipe/tortilla
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/tortilla
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/corn),
+		PCWJ_ADD_REAGENT("flour", 10),
+		PCWJ_USE_GRILL(J_MED, 5 SECONDS),
+	)
 
 // Nachos
 /obj/item/food/nachos
@@ -696,10 +833,15 @@
 	tastes = list("кукуруза" = 2)
 	bitesize = 3
 
-/datum/recipe/microwave/nachos
-	reagents = list("sodiumchloride" = 1)
-	items = list(/obj/item/food/tortilla)
-	result = /obj/item/food/nachos
+/datum/cooking/recipe/nachos
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/nachos
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/tortilla),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Cheese Nachos
 /obj/item/food/cheesenachos
@@ -713,12 +855,16 @@
 	tastes = list("кукуруза" = 1, "сыр" = 2)
 	bitesize = 4
 
-/datum/recipe/microwave/cheesenachos
-	reagents = list("sodiumchloride" = 1)
-	items = list(
-		/obj/item/food/tortilla,
-		/obj/item/food/sliced/cheesewedge)
-	result = /obj/item/food/cheesenachos
+/datum/cooking/recipe/cheesenachos
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/cheesenachos
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/tortilla),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Cuban Nachos
 /obj/item/food/cubannachos
@@ -732,12 +878,16 @@
 	tastes = list("кукуруза" = 1, "чили" = 2)
 	bitesize = 4
 
-/datum/recipe/microwave/cubannachos
-	items = list(
-		/obj/item/food/tortilla,
-		/obj/item/food/grown/chili,
-		/obj/item/food/grown/chili)
-	result = /obj/item/food/cubannachos
+/datum/cooking/recipe/cubannachos
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/cubannachos
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/tortilla),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Carne Buritto
 /obj/item/food/carneburrito
@@ -750,13 +900,17 @@
 	tastes = list("кукуруза" = 1, "мясо" = 2, "бобы" = 1)
 	bitesize = 4
 
-/datum/recipe/microwave/carneburrito
-	items = list(
-		/obj/item/food/tortilla,
-		/obj/item/food/grown/soybeans,
-		/obj/item/food/cutlet,
-		/obj/item/food/cutlet)
-	result = /obj/item/food/carneburrito
+/datum/cooking/recipe/carneburrito
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/carneburrito
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/tortilla),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/soybeans),
+		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
+		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
 
 // Cheese Buritto
 /obj/item/food/cheeseburrito
@@ -769,12 +923,16 @@
 	tastes = list("кукуруза" = 1, "бобы" = 1, "сыр" = 2)
 	bitesize = 4
 
-/datum/recipe/microwave/cheeseburrito
-	items = list(
-		/obj/item/food/tortilla,
-		/obj/item/food/sliced/cheesewedge,
-		/obj/item/food/sliced/cheesewedge)
-	result = /obj/item/food/cheeseburrito
+/datum/cooking/recipe/cheeseburrito
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/cheeseburrito
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/tortilla),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
 
 // Plasma Buritto
 /obj/item/food/plasmaburrito
@@ -787,13 +945,17 @@
 	tastes = list("кукуруза" = 1, "бобы" = 1, "чили" = 2)
 	bitesize = 4
 
-/datum/recipe/microwave/plasmaburrito
-	items = list(
-		/obj/item/food/tortilla,
-		/obj/item/food/grown/soybeans,
-		/obj/item/food/grown/chili,
-		/obj/item/food/grown/chili)
-	result = /obj/item/food/plasmaburrito
+/datum/cooking/recipe/plasmaburrito
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/plasmaburrito
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/tortilla),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/soybeans),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
 
 // Pelmeni
 /obj/item/food/pelmeni
@@ -826,10 +988,15 @@
 	bitesize = 3
 	tastes = list("мясо" = 2, "тесто" = 2)
 
-/datum/recipe/microwave/pelmeni
-	reagents = list("water" = 5)
-	items = list(/obj/item/food/pelmeni)
-	result = /obj/item/food/boiledpelmeni
+/datum/cooking/recipe/pelmeni
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/boiledpelmeni
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/pelmeni),
+		PCWJ_ADD_REAGENT("water", 5),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
 
 // Smoked Sausage
 /obj/item/food/smokedsausage
@@ -840,11 +1007,16 @@
 	list_reagents = list("protein" = 12)
 	tastes = list("мясо" = 3)
 
-/datum/recipe/oven/smokedsausage
-	reagents = list("sodiumchloride" = 5, "blackpepper" = 5)
-	items = list(/obj/item/food/sausage)
-	result = /obj/item/food/smokedsausage
-
+/datum/cooking/recipe/smokedsausage
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/smokedsausage
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sausage),
+		PCWJ_ADD_REAGENT("sodiumchloride", 5),
+		PCWJ_ADD_REAGENT("blackpepper", 5),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 // Salami
 /obj/item/food/sliceable/salami
 	name = "салями"
@@ -863,10 +1035,15 @@
 	icon_state = "salami_s"
 	bitesize = 2
 
-/datum/recipe/oven/salami
-	reagents = list("garlic_sauce" = 5)
-	items = list(/obj/item/food/smokedsausage)
-	result = /obj/item/food/sliceable/salami
+/datum/cooking/recipe/salami
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/salami
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/smokedsausage),
+		PCWJ_ADD_REAGENT("garlic_sauce", 5),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
 
 // Fruit Cup
 /obj/item/food/fruitcup
@@ -879,15 +1056,18 @@
 	tastes = list("яблоко" = 2, "банан" = 2, "арбуз" = 2, "лимон" = 1, "амброзия" = 1)
 	bitesize = 4
 
-/datum/recipe/microwave/fruitcup
-	items = list(
-		/obj/item/food/grown/apple,
-		/obj/item/food/grown/citrus/orange,
-		/obj/item/food/grown/ambrosia,
-		/obj/item/food/grown/banana,
-		/obj/item/food/grown/citrus/lemon,
-		/obj/item/food/grown/watermelon)
-	result = /obj/item/food/fruitcup
+/datum/cooking/recipe/fruitcup
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/fruitcup
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/orange),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lemon),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/watermelon),
+	)
 
 // Jungle Salad
 /obj/item/food/junglesalad
@@ -899,13 +1079,16 @@
 	list_reagents = list("nutriment" = 6, "watermelonjuice" = 3, "vitamin" = 4)
 	tastes = list("яблоко" = 1, "банан" = 2, "арбуз" = 1)
 
-/datum/recipe/microwave/junglesalad
-	items = list(
-		/obj/item/food/grown/apple,
-		/obj/item/food/grown/banana,
-		/obj/item/food/grown/banana,
-		/obj/item/food/grown/watermelon)
-	result = /obj/item/food/junglesalad
+/datum/cooking/recipe/junglesalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/junglesalad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/watermelon),
+	)
 
 // Delight Salad
 /obj/item/food/delightsalad
@@ -919,12 +1102,15 @@
 	tastes = list("лимон" = 1, "лайм" = 2, "апельсин" = 1)
 	bitesize = 4
 
-/datum/recipe/microwave/delightsalad
-	items = list(
-		/obj/item/food/grown/citrus/lemon,
-		/obj/item/food/grown/citrus/orange,
-		/obj/item/food/grown/citrus/lime)
-	result = /obj/item/food/delightsalad
+/datum/cooking/recipe/delightsalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/delightsalad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lemon),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/orange),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lime),
+	)
 
 // Chowmein
 /obj/item/food/chowmein
@@ -937,13 +1123,17 @@
 	tastes = list("лапша" = 1, "морковка" = 1, "капуста" = 1, "мясо" = 1)
 	bitesize = 3
 
-/datum/recipe/microwave/chowmein
-	items = list(
-		/obj/item/food/boiledspaghetti,
-		/obj/item/food/cutlet,
-		/obj/item/food/grown/cabbage,
-		/obj/item/food/grown/carrot)
-	result = /obj/item/food/chowmein
+/datum/cooking/recipe/chowmein
+	container_type = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/chowmein
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/boiledspaghetti),
+		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_USE_STOVE(J_HI, 10 SECONDS),
+	)
 
 // Beef Noodles
 /obj/item/food/beefnoodles
@@ -956,13 +1146,17 @@
 	tastes = list("лапша" = 1, "капуста" = 1, "мясо" = 2)
 	bitesize = 2
 
-/datum/recipe/microwave/beefnoodles
-	items = list(
-		/obj/item/food/boiledspaghetti,
-		/obj/item/food/cutlet,
-		/obj/item/food/cutlet,
-		/obj/item/food/grown/cabbage)
-	result = /obj/item/food/beefnoodles
+/datum/cooking/recipe/beefnoodles
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/beefnoodles
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/boiledspaghetti),
+		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
+		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
 
 // Father's Soup
 /obj/item/food/fathersoup
@@ -976,16 +1170,21 @@
 	tastes = list("перец" = 4, "чеснок" = 2, "томат" = 2)
 	bitesize = 5
 
-/datum/recipe/oven/fathersoup
-	reagents = list("flour" = 10, "blackpepper" = 5)
-	items = list(
-		/obj/item/food/soup/tomatosoup,
-		/obj/item/food/grown/garlic,
-		/obj/item/food/grown/onion,
-		/obj/item/food/grown/ghost_chili,
-		/obj/item/food/grown/ghost_chili,
-		/obj/item/food/grown/tomato)
-	result = /obj/item/food/fathersoup
+/datum/cooking/recipe/fathersoup
+	container_type = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/fathersoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/soup/tomatosoup),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ghost_chili),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ghost_chili),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_REAGENT("flour", 10),
+		PCWJ_ADD_REAGENT("blackpepper", 5),
+		PCWJ_USE_STOVE(J_HI, 20 SECONDS), // жарим до дыма //
+	)
 
 /obj/item/food/fathersoup/On_Consume(mob/M, mob/user)
 	. = ..()
@@ -1014,10 +1213,15 @@
 	tastes = list("опилки" = 1)
 	goal_difficulty = FOOD_GOAL_SKIP
 
-/datum/recipe/microwave/sawdust_soup
-	reagents = list("water" = 20)
-	items = list(/obj/item/stack/sheet/wood = 1)
-	result = /obj/item/food/soup/sawdust_soup
+/datum/cooking/recipe/sawdust_soup
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/soup/sawdust_soup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/stack/sheet/wood),
+		PCWJ_ADD_REAGENT("water", 20),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
 
 /obj/item/food/soup/sawdust_soup/On_Consume(mob/M, mob/user)
 	. = ..()
@@ -1072,17 +1276,20 @@
 	list_reagents = list("nutriment" = 5, "blackpepper" = 1, "vitamin" = 1, "plantmatter" = 3)
 	tastes = list("рис" = 3, "мясо" = 1, "морковка" = 1, "изюм" = 1)
 
-/datum/recipe/oven/plov
-	reagents = list("blackpepper" = 1)
-	items = list(
-		/obj/item/food/boiledrice,
-		/obj/item/food/boiledrice,
-		/obj/item/food/grown/carrot,
-		/obj/item/food/meat,
-		/obj/item/food/meat,
-		/obj/item/food/grown/berries,
+/datum/cooking/recipe/plov
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/plov
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
+		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/berries),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
-	result = /obj/item/food/plov
 
 // MARK: Vulpix Pizza
 /obj/item/pizzabox/vulpix
