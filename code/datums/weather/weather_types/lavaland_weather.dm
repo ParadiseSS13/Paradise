@@ -19,7 +19,7 @@
 	end_duration = 300
 	end_overlay = "light_ash"
 
-	area_type = /area/lavaland/surface/outdoors
+	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
 	immunity_type = "ash"
 	probability = 150
@@ -145,7 +145,7 @@
 	end_duration = 300
 	end_message = ""
 
-	area_type = /area/lavaland/surface/outdoors
+	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
 	probability = 10
 	barometer_predictable = TRUE
@@ -266,7 +266,7 @@
 	end_duration = 300
 	end_overlay = "light_ash"
 
-	area_type = /area/lavaland/surface/outdoors
+	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
 	probability = 20
 	barometer_predictable = TRUE
@@ -384,7 +384,7 @@
 	end_duration = 300
 	end_overlay = "light_ash"
 
-	area_type = /area/lavaland/surface/outdoors
+	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
 	target_trait = ORE_LEVEL
 	probability = 15
 	barometer_predictable = TRUE
