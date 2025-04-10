@@ -36158,20 +36158,9 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "czV" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/hand_labeler,
-/obj/structure/table,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/table,
 /obj/item/storage/box/prisoner,
-/obj/item/hand_labeler,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
