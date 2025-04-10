@@ -20,7 +20,7 @@
 
 /datum/procedure/hos/sop_green
 	name = "Head Of Security SOP 1(Code Green)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Head of Security is permitted to carry out arrests under the same conditions as their Security Officers",
 		"The Head of Security is permitted to carry a standard disabler, a flash, a telescopic baton, a flashbang, a standard energy gun, and a can of pepperspray. While permitted to carry their unique Energy Gun, they are discouraged from doing so for safety concerns, and should keep it on Stun/Disable",
@@ -37,7 +37,7 @@
 
 /datum/procedure/hos/sop_blue
 	name = "Head Of Security SOP 2(Code Blue)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Head of Security is permitted to carry out arrests under the same conditions as their Security Officers",
 		"The Head of Security is permitted to carry a standard disabler, a flash, a telescopic baton, a flashbang, a standard energy gun, and a can of pepperspray.",
@@ -55,7 +55,7 @@
 
 /datum/procedure/hos/sop_red
 	name = "Head Of Security SOP 3(Code Red)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Head of Security is permitted to carry out arrests under the same conditions as their Security Officers",
 		"The Head of Security is not obligated to provide a trial, but is encouraged to allow legal representation should the suspect request it. This only applies to Capital Crimes",
@@ -72,7 +72,7 @@
 
 /datum/procedure/secoff/sop_green
 	name = "Security Officer SOP 1(Code Green)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Security Officers are required to state the reasons behind an arrest before any further action is taken. Exception is made if the suspect refuses to stop",
 		"Security Officers must attempt to bring all suspects or witnesses to the Brig without handcuffing or incapacitating them. Should the suspect not cooperate, the officer may proceed as usual",
@@ -86,7 +86,7 @@
 
 /datum/procedure/secoff/sop_blue
 	name = "Security Officer SOP 2(Code Blue)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Security Officers are required to state the reasons behind an arrest before any further action is taken. Exception is made if the suspect refuses to stop",
 		"Security Officers must attempt to bring all suspects or witnesses to the Brig without handcuffing or incapacitating them. Should the suspect not cooperate, the officer may proceed as usual",
@@ -102,7 +102,7 @@
 
 /datum/procedure/secoff/sop_red
 	name = "Security Officer SOP 3(Code Red)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Security Officers are required to wear at least one (1) identifiable and visible piece of security equipment on their person at all times. Acceptable items are: any security jumpsuit, any security armor, any security jacket or security winter coat, any security helmet or headwear.",
 		"Security Officers are permitted to carry around any weapons or equipment available in the Armory, at the Warden's discretion, but never more than one at a time. Exception is made for severe emergencies, such as Blob Organisms or Nuclear Operatives",
@@ -117,7 +117,7 @@
 
 /datum/procedure/warden/sop_green
 	name = "Warden SOP 1(Code Green)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Warden may not perform arrests if there are Security Officers active",
 		"The Warden must conduct a thorough search of every prisoner’s belongings, including pockets, PDA slots, any coat pockets and suit storage slots",
@@ -133,7 +133,7 @@
 
 /datum/procedure/warden/sop_blue
 	name = "Warden SOP 2(Code Blue)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Warden may not perform arrests if there are Security Officers active",
 		"The Warden must conduct a thorough search of every prisoner’s belongings, including pockets, PDA slots, any coat pockets and suit storage slots",
@@ -148,7 +148,7 @@
 
 /datum/procedure/warden/sop_red
 	name = "Warden SOP 3(Code Red)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Warden must conduct a thorough search of every prisoner’s belongings, including pockets, PDA slots, any coat pockets and suit storage slots",
 		"The Warden is not obligated to provide a trial, but is encouraged to allow legal representation should the suspect request it. This only applies to Capital Crimes",
@@ -163,7 +163,7 @@
 
 /datum/procedure/detective/sop_green
 	name = "Detective SOP 1(Code Green)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Detective is permitted to assist Security Officers with all Patrol Duties. This includes stops, searches, and arrests as per the current Alert Code. They should, however, prioritize investigations and the collection of forensic evidence",
 		"The Detective is to follow all Standard Operating Procedures as outlined by the Security Officer SoP in regards to stops, searches and arrests as per the current Alert Code",
@@ -177,7 +177,7 @@
 
 /datum/procedure/detective/sop_blue
 	name = "Detective SOP 2(Code Blue)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Detective is permitted to assist Security Officers with all Patrol Duties. This includes stops, searches, and arrests as per the current Alert Code. They should, however, prioritize investigations and the collection of forensic evidence",
 		"The Detective is to follow all Standard Operating Procedures as outlined by the Security Officer SoP in regards to stops, searches and arrests as per the current Alert Code",
@@ -193,7 +193,7 @@
 
 /datum/procedure/detective/sop_red
 	name = "Detective SOP 3(Code Red)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Detective is permitted to assist Security Officers with all Patrol Duties. This includes stops, searches, and arrests as per the current Alert Code. They should, however, prioritize investigations and the collection of forensic evidence",
 		"The Detective is to follow all Standard Operating Procedures as outlined by the Security Officer SoP in regards to stops, searches and arrests as per the current Alert Code",

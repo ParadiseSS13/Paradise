@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(procedure_by_job)
 	/// List of jobs this procedure is relevant to
 	var/list/jobs = list()
 	/// The category of the procedure for the NTPM PDA app.
-	var/catalog_category = "Miscellaneous"
+	var/procedure_categories = list("Miscellaneous")
 	/// List of steps in text form
 	var/list/steps = list()
 
@@ -24,4 +24,5 @@ GLOBAL_LIST_EMPTY(procedure_by_job)
 		entry["instructions"] = example_procedure.steps.Copy()
 		// Put the procedure in every job where it is relevant
 		for(var/job in example_procedure.jobs)
-			LAZYORASSOCLIST(GLOB.procedure_by_job["[job]"], example_procedure.catalog_category, list(entry))
+			for(var/category in example_procedure.procedure_categories)
+				LAZYORASSOCLIST(GLOB.procedure_by_job["[job]"], category, list(entry))

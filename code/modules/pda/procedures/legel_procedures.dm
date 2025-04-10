@@ -9,7 +9,7 @@
 
 /datum/procedure/magistrate/sop
 	name = "Magistrate SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Magistrates are to ensure that Space Law is applied correctly. If it is not, they are to make it so",
 		"Magistrates have the final say on whether or not Trials take place, and should ensure they should only occur for Capital Sentences. Similarly, Magistrates are to ensure that Trials do not happen for Defendants that are self-evidently guilty",
@@ -23,7 +23,7 @@
 
 /datum/procedure/iaa/sop
 	name = "Internal Afairs Agent SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Internal Affairs Agents are only to provide legal representation for personnel facing a Capital Sentence. They should, however, ensure that their timed sentence is applied correctly, and alert Security if it is not. In addition, Internal Affairs Agents are permitted to provide legal advice for Security and prisoners, as well as investigating whether or not arrests were done properly",
 		"Internal Affairs Agents must request permission from any potential client before serving as their legal representative, as said client may choose to either represent themselves, or request someone else",

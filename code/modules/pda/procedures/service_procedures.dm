@@ -38,7 +38,7 @@
 
 /datum/procedure/hop/sop
 	name = "Head Of Personnel SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Head of Personnel may not transfer any personnel to another Department without authorization from the relevant Head of Staff. If no Head of Staff is available, the Head of Personnel may make a judgement call. This does not apply to Security, which always requires authorization from the Head of Security, or Genetics, which requires both Chief Medical Officer and Research Director approval. If there is no Head of Security active, no transfers are allowed to Security without authorization from the Captain",
 		"The Head of Personnel may not give any personnel increased access without authorization from the relevant Head of Staff. This includes the Head of Personnel. In addition, the Head of Personnel may only give Captain-Level access to someone if they are the Acting Captain. This access is to be removed when a proper Captain arrives on the station",
@@ -52,7 +52,7 @@
 
 /datum/procedure/bartender/sop
 	name = "Bartender SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Bartender is not permitted to carry their shotgun outside the bar. However, they may obtain permission from the Head of Security to shorten the barrel for easier transportation. Shortening the barrel without authorization is grounds for confiscation of the Bartender's shotgun",
 		"The Bartender is permitted to use their shotgun on unruly bar patrons in order to throw them out if they are being disruptive. They are not, however, permitted to apply lethal, or near-lethal force",
@@ -64,7 +64,7 @@
 
 /datum/procedure/botanist/sop
 	name = "Botanist SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Botanists are permitted to grow experimental plants, presuming they do not distribute it without the express permission of the HOP.",
 		"Botanists must provide the Chef with adequate Botanical Supplies, per the Chef’s request, free of charge.",
@@ -78,7 +78,7 @@
 
 /datum/procedure/chef/sop
 	name = "Chef SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Chef is not permitted to use the corpses of deceased personnel for meat unless given specific permission from the Chief Medical Officer. Exception is made for changelings and any other executed personnel not slated for Borgifications",
 		"The Chef is permitted to use Ambrosia and other such light narcotics in the production of food",
@@ -90,7 +90,7 @@
 
 /datum/procedure/clown/sop
 	name = "Head Of Personnel SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Clown is permitted to, and freely exempt from any consequences of, slipping literally anyone, assuming it does not interfere with active Security duty, or in any way endangers other personnel (such as slipping a Paramedic who’s dragging a wounded person to Medbay)",
 		"The Clown is not permitted to remove their Clown Shoes or Clown Mask. Exception is made if removing them is truly necessary for the sake of their clowning performance (such as being a satire of bad clowns)",
@@ -102,7 +102,7 @@
 
 /datum/procedure/mime/sop
 	name = "Mime SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Mime is not permitted to talk, under any circumstance whatsoever. A Mime who breaks the Vow of Silence is to be stripped of their rank post haste",
 		"The Mime is permitted to use written words to communicate, either via paper or PDA, but are discouraged from automatically resorting to it when miming will suffice",
@@ -111,7 +111,7 @@
 
 /datum/procedure/chaplain/sop
 	name = "Chaplain SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Chaplain is not permitted to execute Bible Healing without consent, unless the person in question is in Critical Condition and there are no doctors, as doing so incurs the risk of causing brain damage",
 		"The Chaplain may not draw the Null Rod or any of its variants on any personnel. Using these items on any personnel is grounds to have these items confiscated, unless there is a clear and present danger to their life. Using any permanently attached Null Rod variants on any personnel outside of these conditions is grounds to have the relevant arm removed and replaced with a robotic prosthetic",
@@ -122,7 +122,7 @@
 
 /datum/procedure/janitor/sop
 	name = "Janitor SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Janitor must promptly respond to any call from the crew for them to clean. Failure to respond within fifteen (15) minutes is to be considered a breach of Standard Operating Procedure",
 		"The Janitor is only to use their Janitorial Keyring to assist in the cleaning of the Station. Any uses beyond this intent may lead to the confiscation of your Keyring by Security as well as Brig time for Trespass.",
@@ -134,7 +134,7 @@
 
 /datum/procedure/librarian/sop
 	name = "Librarian SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Librarian is to keep at least one (1) shelf stocked with books for the station's personnel",
 		"The Librarian is permitted to conduct journalism on any part of the station. However, they are not entitled to participation in trials, and must receive authorization from the Head of Security or Magistrate."

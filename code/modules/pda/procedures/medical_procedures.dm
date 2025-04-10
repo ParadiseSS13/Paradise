@@ -31,7 +31,7 @@
 
 /datum/procedure/cmo/sop
 	name = "Chief Medical Officer SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Chief Medical Officer is permitted to carry a regular Defibrillator or a Compact Defibrillator on their person at all times",
 		"The Chief Medical Officer is permitted to carry a telescopic baton and a flash. In case Genetic Powers need to be forcefully removed, they are cleared to carry a Syringe Gun",
@@ -42,7 +42,7 @@
 
 /datum/procedure/doctor/sop
 	name = "Medical Doctor SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Though not mandatory, it is recommended that Doctors wear Sterile Masks and Latex/Nitrile gloves when handling patients. This Guideline becomes mandatory during Viral Outbreaks",
 		"Nurses should focus on helping Medical Doctors and Surgeons in whatever they require, and tending to patients that require light care. If necessary, they can stand in for regular Medical Doctor duties",
@@ -59,7 +59,7 @@
 
 /datum/procedure/paramedic/sop
 	name = "Paramedic SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Paramedic is not permitted to perform Field Surgery unless there are no available Medical Doctors or the Operating Rooms are unusable",
 		"The Paramedic is permitted to perform Surgical Procedures inside an Operating Room. However, Doctors/Surgeons should take precedence",
@@ -71,7 +71,7 @@
 
 /datum/procedure/chemist/sop
 	name = "Chemist SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Chemist is not permitted to experiment with explosive mixtures",
 		"The Chemist is not permitted to experiment with poisonous mixtures and/or narcotics",
@@ -84,7 +84,7 @@
 
 /datum/procedure/virologist/sop
 	name = "Virologist SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Virologist must always wear adequate protection (such as a Biosuit and Internals for Airborne Viruses) when handling infected personnel and Test Animals. Exception is made for IPC Virologists, for obvious reasons",
 		"The Virologist must only test viral samples on the provided Test Animals. Said Test Animals are to be maintained inside their pen, and disposed of via Virology's Disposals Chutes if dead, to prevent possible contamination. In addition, the Virologist is not permitted to leave Virology while infected by a Viral Pathogen that spreads by Contact or Airborne means, unless permitted by the Chief Medical Officer",
@@ -97,7 +97,7 @@
 
 /datum/procedure/psychaiatrist/sop
 	name = "Psychiatrist SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Psychologist may perform a full psychological evaluation on anyone, along with any potential treatment, provided the person in question seeks them out",
 		"The Psychologist may not force someone to receive therapy if the person does not want it. Exception is made for violent criminals and only if the Head of Security, Magistrate or Captain orders it",
@@ -109,7 +109,7 @@
 
 /datum/procedure/coroner/sop
 	name = "Coroner SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Coroner must, along with the Chief Medical Officer, make sure that any cloneable corpses are cloned",
 		"The Coroner must contact the relevant Head of Staff to report on any deaths, reporting on any personnel that won't be returning to duty",
@@ -125,7 +125,7 @@
 
 /datum/procedure/medical/viral_outbreak_sop
 	name = "Viral Outbreak"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Definition: A Viral Outbreak is defined as a situation where a Viral Pathogen has infected a significant portion of the crew (>10%)",
 		"All Medbay personnel are to contribute in fighting the outbreak if there are no other critical patients requiring assistance. Eliminating the Viral Threat becomes the number one priority",
@@ -145,7 +145,7 @@
 
 /datum/procedure/medical/surgery/sop
 	name = "Surgery SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Attending Surgeon must use Latex/Nitrile gloves in order to prevent infection. Though not mandatory, a Sterile Mask is recommended",
 		"Attending Surgeon is to keep the Operating Room in an hygienic condition at all times to prevent infection",

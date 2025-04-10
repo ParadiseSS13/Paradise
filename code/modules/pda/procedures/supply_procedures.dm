@@ -24,7 +24,7 @@
 
 /datum/procedure/qm/sop
 	name = "Quartermaster SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Quartermaster must ensure that every approved order is delivered within 15 minutes of having been placed and approved",
 		"In the event of a major crisis, such as Nuclear Operatives or a Blob Organism, expediency is to be favored over paperwork, as excessive bureaucracy may be detrimental to the well-being of the station",
@@ -37,7 +37,7 @@
 
 /datum/procedure/cargo_tech/sop
 	name = "Cargo Tech SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Quartermaster must ensure that every approved order is delivered within 15 minutes of having been placed and approved",
 		"In the event of a major crisis, such as Nuclear Operatives or a Blob Organism, expediency is to be favored over paperwork, as excessive bureaucracy may be detrimental to the well-being of the station",
@@ -51,7 +51,7 @@
 
 /datum/procedure/miner/sop
 	name = "Miner SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Shaft Miners are not permitted to bring Gibtonite aboard the station",
 		"Shaft Miners must deliver at least 1000 Points of mined material to the Ore Redemption Machine within one (1) hour",
@@ -64,7 +64,7 @@
 
 /datum/procedure/explorer/sop
 	name = "Explorer SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Explorers must bring any contraband found in space to Security immediately upon return to the station",
 		"Explorers are not to make use of any weaponry found in space without a permit, and must bring any found to Security immediately upon return to the station",
@@ -78,7 +78,7 @@
 
 /datum/procedure/smith/sop
 	name = "Smith SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"SOP missing"
 	)

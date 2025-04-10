@@ -17,7 +17,7 @@
 // MARK: SOP
 /datum/procedure/ce/sop
 	name = "Chief Engineer SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Chief Engineer must make sure that the Supermatter Engine and/or Solar Panels are fully set up and supplying power to the station before any further action is taken by themselves or their team",
 		"The Chief Engineer, along with the Research Director, is responsible for maintaining the integrity of Telecommunications. The Chief Engineer must not hinder the proper functionality of Telecommunications, and must diagnose and repair any issues that arise",
@@ -30,7 +30,7 @@
 
 /datum/procedure/engineer/sop
 	name = "Engineer SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Engineers must properly activate and wire the Supermatter Engine and/or Solar Panels at the start of the shift, before any other actions are undertaken",
 		"Engineers are responsible for maintaining the integrity of the engines. Neglecting this duty is grounds for termination should an engine malfunction",
@@ -46,7 +46,7 @@
 
 /datum/procedure/atmos_tech/sop
 	name = "Atmospherics Technician SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Atmospheric Technicians are permitted to completely repipe the Atmospherics Piping Setup, provided they do not pump harmful gases into anywhere except the Turbine",
 		"Atmospheric Technicians are not permitted to create volatile mixes using Plasma and Oxygen, nor are they permitted to create any potentially harmful mixes with Carbon Dioxide and/or Nitrous Oxide. An exception is made when working with the Turbine",
@@ -65,7 +65,7 @@
 * MARK: SM Delam
 */
 /datum/procedure/engineering/supermatter_delam
-	catalog_category = "Supermatter Delamination"
+	procedure_categories = list("Supermatter Delamination")
 
 /datum/procedure/engineering/supermatter_delam/moles
 	name = "Coolant Critical Mass Procedure"
@@ -103,7 +103,7 @@
 // MARK: SM operation
 
 /datum/procedure/engineering/supermatter_operation
-	catalog_category = "Supermatter Operation"
+	procedure_categories = list("Supermatter Operation")
 
 /datum/procedure/engineering/supermatter_operation/basic_setup
 	name = "Basic Setup"
@@ -118,7 +118,7 @@
 // MARK: Disassembly
 
 /datum/procedure/engineering/disassembly
-	catalog_category = "Disassembly"
+	procedure_categories = list("Disassembly")
 
 /datum/procedure/engineering/disassembly/wall
 	name = "Wall Disassembly"
@@ -168,7 +168,7 @@
 // MARK: Assembly
 
 /datum/procedure/engineering/assembly
-	catalog_category = "Assembly"
+	procedure_categories = list("Assembly")
 
 /datum/procedure/engineering/assembly/wall
 	name = "Wall Assembly"
@@ -225,7 +225,7 @@
 */
 
 /datum/procedure/engineer/power
-	catalog_category = "Power"
+	procedure_categories = list("Power")
 
 /datum/procedure/engineer/power/smes_shift_start
 	name = "Shift Start SMES Setup Procedure"
@@ -256,7 +256,7 @@
 */
 
 /datum/procedure/atmos_tech/atmospherics
-	catalog_category = "Atmospherics"
+	procedure_categories = list("Atmospherics")
 
 /datum/procedure/atmos_tech/atmospherics/shift_start_setup
 	name = "Shift Start Setup"

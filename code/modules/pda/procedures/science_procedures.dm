@@ -20,7 +20,7 @@
 
 /datum/procedure/rd/sop_green
 	name = "Research Director SOP 1(code green)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Research Director must make sure Research is being done. Research must be completed by the end of the shift, assuming Science is provided the materials for it by Supply",
 		"The Research Director is permitted to carry a telescopic baton and a flash",
@@ -34,14 +34,14 @@
 
 /datum/procedure/rd/sop_blue
 	name = "Research Director SOP 2(code blue)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"All Guidelines carry over from Code Green."
 		)
 
 /datum/procedure/rd/sop_red
 	name = "Research Director SOP 3(code red)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Guidelines 1, 4, 5, 6, 7, 8 and 9 carry over from Code Green",
 		"In addition to the a telescopic baton and flash, the Research Director is permitted to carry a single weapon created in the Protolathe, provided they receive authorization from the Head of Security. Exception is made during extreme emergencies, such as Nuclear Operatives or Blob Organisms.",
@@ -50,7 +50,7 @@
 
 /datum/procedure/scientist/sop
 	name = "Scientist SOP 1(code green)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Scientists are not permitted to bring grenades outside of Science",
 		"Scientists are not permitted to bring harmful chemicals outside of Science",
@@ -63,7 +63,7 @@
 
 /datum/procedure/scientist/sop_blue
 	name = "Scientist SOP 2(code blue)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Guidelines 2, 4, 5, 6, and 7 carry over from Code Green",
 		"Scientists are permitted to bring Grenades outside of Science, but only for delivery to the Armory",
@@ -72,7 +72,7 @@
 
 /datum/procedure/scientist/sop_red
 	name = "Scientist SOP 3(code red)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Guidelines 4, 5, 6, and 7 carry over from Code Green",
 		"All Guidelines carry over from Code Blue."
@@ -80,7 +80,7 @@
 
 /datum/procedure/roboticist/sop_green
 	name = "Roboticist SOP 1(code green)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Roboticist is not permitted to construct Combat Mechs without express permission from the Captain and/or Head of Security. This refers to the Durand, Gygax and Phazon. If permitted, the Mechs is to be delivered to the Armory for storage. The Research Director is placed under the same restrictions",
 		"The Roboticist is freely permitted to construct Utility Mechs, along with any assorted Utility Equipment. This refers to Ripleys (to be handed to Mining), Firefighting Ripleys (to be handed to Atmospherics) and the Odysseus Medical Mech (to be handed to Medical). The HONK Mech or Reticence is not to be constructed without full approval by the Research Director and Captain",
@@ -94,7 +94,7 @@
 
 /datum/procedure/roboticist/sop_blue
 	name = "Roboticist SOP 2(code blue)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Guidelines 2, 3, 4, 5, 6, 7 and 8 carry over from Code Green",
 		"The Roboticist is permitted to construct Combat Mechs without prior consent, but must deliver them to the Armory for storage. Failure to comply will result in the Combat Mech being destroyed. Exception is made for extreme emergencies, such as a Blob Organism or Nuclear Operatives, where the Roboticist may pilot the Mech themselves. However, even in these circumstances, the Mech must be delivered to the Armory after the emergency is over. The Research Director is placed under the same restrictions."
@@ -102,7 +102,7 @@
 
 /datum/procedure/roboticist/sop_red
 	name = "Roboticist SOP 3(code red)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Guidelines 3, 4, 5, 6, 7, and 8 carry over from Code Green",
 		"All Guidelines carry over from Code Blue."
@@ -110,7 +110,7 @@
 
 /datum/procedure/geneticist/sop_green
 	name = "Geneticist SOP 1(code green)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Geneticist is not permitted to ignore Cloning, and must provide Clean SE Injectors when required, as well as humanized animals if required for Surgery. In addition, the Geneticist must make sure that Cloning is stocked with Biomass",
 		"The Geneticist is permitted to test Genetic Powers on themselves. However, they are not to utilize these powers on any crewmembers, nor abuse them to obtain items/personnel outside their access",
@@ -124,14 +124,14 @@
 
 /datum/procedure/geneticist/sop_blue
 	name = "Geneticist SOP 2(code blue)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"All Guidelines carry over from Code Green."
 		)
 
 /datum/procedure/geneticist/sop_red
 	name = "Geneticist SOP 3(code red)"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"All Guidelines carry over from Code Green. In regards to Guideline 4, the Geneticist is now permitted to grant Powers to Security personnel, under the same conditions as detailed in Guideline"
 		)

@@ -12,7 +12,7 @@
 
 /datum/procedure/captain/sop
 	name = "Captain SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Captain is not permitted to perform regular Security Duty. However, they may still assist Security if they are understaffed, or if they see a crime being committed. However, the Captain is not permitted to take items from the Armory under normal circumstances, unless authorized by the Head of Security. In addition, the Captain may not requisition weaponry for themselves from Cargo and/or Science, unless there's an immediate threat to station and/or crew",
 		"If a Department lacks a Head of Staff, the Captain should make reasonable efforts to appoint an Acting Head of Staff, if there are available personnel to fill the position",
@@ -29,7 +29,7 @@
 
 /datum/procedure/blueshield/sop
 	name = "Blueshield SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Blueshield may not conduct arrests under the same conditions as Security. However, they may apprehend any personnel that trespass on a Head of Staff Office or Command Area, any personnel that steal from those locations, or any personnel that steal from and/or injure any Head of Staff or Central Command VIP. However, all apprehended personnel are to be processed by Security personnel",
 		"The Blueshield is to put the lives of Command over those of any other personnel, the Blueshield included. Their continued well-being is the Blueshield's top priority. This includes applying basic first aid and making sure they are revived if killed",
@@ -39,7 +39,7 @@
 
 /datum/procedure/ntr/sop
 	name = "Nanotrasen Repressentative SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"The Nanotrasen Representative is to ensure that every Department is following Standard Operating Procedure, up to and including the respective Head of Staff. If a Head of Staff is not available for a Department, the Nanotrasen Representative must ensure that the Captain appoints an Acting Head of Staff for said Department",
 		"The Nanotrasen Representative must attempt to resolve any breach of Standard Operating Procedure locally before contacting Central Command. This is an imperative: Standard Operating Procedure should always be followed unless there is a very good reason not to",
@@ -50,7 +50,7 @@
 
 /datum/procedure/command/ai_maintenance
 	name = "AI maintenance SOP"
-	catalog_category = "SOP"
+	procedure_categories = list("SOP")
 	steps = list(
 		"Only the Captain or Research Director may enter the AI Upload to perform Law Changes (see below), and only the Captain, Research Director or Chief Engineer may enter the AI Core to perform a Carding (see below)",
 		"No Law Changes are to be performed without approval from the Captain and Research Director. The only Lawsets to be used are those provided by Nanotrasen. Failure to legally perform a Law Change is to be considered Sabotage. Command must be informed prior to the Law Change, and all objections must be taken into consideration. If the number of Command personnel opposing the Law Change is greater than the number of Command personnel in favour, the Law Change is not to be done. If the Law Change is performed, the crew is to be immediately informed of the new Law(s)",
