@@ -20,8 +20,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "cigarette"
 	desc = "A roll of tobacco and nicotine."
 	icon = 'icons/obj/clothing/smoking.dmi'
-	icon_state = "cig_off"
-	item_state = "cig_off"
+	icon_state = "cig"
 	throw_speed = 0.5
 	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
@@ -30,10 +29,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	container_type = INJECTABLE
 	/// Is the cigarette lit?
 	var/lit = FALSE
-	/// Lit cigarette sprite.
-	var/icon_on = "cig_on"  //Note - these are in smoking.dmi not in cigarette.dmi
-	/// Unlit cigarette sprite.
-	var/icon_off = "cig_off"
 	/// Do we require special items to be lit?
 	var/list/fancy_lighters = list()
 	/// What trash item the cigarette makes when it burns out.
@@ -55,11 +50,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/Initialize(mapload)
 	. = ..()
-	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
+	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 60
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 	smoketime = reagents.total_volume * 2.5
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/clothing/mask/cigarette/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][lit ? "_on" : ""]"
+	item_state = icon_state
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
@@ -234,8 +235,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
-	icon_state = icon_on
-	item_state = icon_on
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc
 		if(C.wear_mask == src) // Don't update if it's just in their hand
@@ -347,18 +346,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/syndicate
 	name = "suspicious cigarette"
 	desc = "An evil-looking cigarette. It smells of donk pockets."
-	icon_state = "syndie_cig_off"
-	icon_off = "syndie_cig_off"
-	icon_on = "sindie_cig_on"
+	icon_state = "syndie_cig"
 	butt_type = /obj/item/cigbutt/syndie
 	list_reagents = list("nicotine" = 40, "omnizine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
 	name = "medical marijuana cigarette"
 	desc = "A cigarette containing cannabis that has been engineered to only contain CBD, for medical use. The lack of THC makes it legal under Space Law."
-	icon_state = "medical_weed_cig_off"
-	icon_off = "medical_weed_cig_off"
-	icon_on = "medical_weed_cig_on"
+	icon_state = "medical_weed_cig"
 	list_reagents = list("cbd" = 60)
 
 /obj/item/clothing/mask/cigarette/robustgold
@@ -371,19 +366,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
-	desc = "A roll of dried plant matter wrapped in thin paper."
-	icon_state = "spliff_off"
-	icon_off = "spliff_off"
-	icon_on = "spliff_on"
+	desc = "A roll of dried plant matter wrapped in thin paper. It carries the unmistakable smell of cannabis."
+	icon_state = "spliff"
 	butt_type = /obj/item/cigbutt/roach
-	throw_speed = 0.5
-	item_state = "spliff_off"
+	item_state = "spliff"
 	list_reagents = list("thc" = 40, "cbd" = 20)
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
 	. = ..()
 	scatter_atom()
 /obj/item/clothing/mask/cigarette/rollie/custom
+	desc = "A roll of dried plant matter wrapped in thin paper."
 	list_reagents = list()
 
 /obj/item/cigbutt
@@ -392,7 +385,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon = 'icons/obj/clothing/smoking.dmi'
 	icon_state = "cig_butt"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 1
 	scatter_distance = 10
 
 /obj/item/cigbutt/syndie
@@ -465,11 +457,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/cigar
 	name = "\improper Nano Cigar"
 	desc = "A huge, brown roll of dried and fermented tobacco, manufactured by Nanotrasen's Robust Tobacco subsidiary."
-	icon_state = "cigar_off"
-	item_state = "cigar_off"
-	icon_on = "cigar_on"
-	icon_off = "cigar_off"
-	throw_speed = 0.5
+	icon_state = "cigar"
+	throw_speed = 1
 	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	butt_type = /obj/item/cigbutt/cigarbutt
 	smoketime = 300
@@ -485,10 +474,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "\improper Cohiba Robusto Cigar"
 	desc = "A premium brand of cigar widely exported and enjoyed across the Orion Sector. There's little more that you could want from a cigar"
-
-	icon_state = "gold_cigar_off"
-	icon_on = "gold_cigar_on"
-	icon_off = "gold_cigar_off"
+	icon_state = "gold_cigar"
+	butt_type = /obj/item/cigbutt/cigarbutt/gold
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba/examine_more(mob/user)
 	..()
@@ -499,12 +486,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/cigar/havana
 	name = "\improper Premium Havanian Cigar"
 	desc = "A luxury cigar only fit for the best of the best."
-	icon_state = "gold_cigar_off"
-	icon_on = "gold_cigar_on"
-	icon_off = "gold_cigar_off"
+	icon_state = "gold_cigar"
 	smoketime = 450
 	chem_volume = 180
 	list_reagents = list("nicotine" = 180)
+	butt_type = /obj/item/cigbutt/cigarbutt/gold
 
 /obj/item/clothing/mask/cigarette/cigar/havana/examine_more(mob/user)
 	..()
@@ -521,12 +507,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A manky old cigar butt."
 	icon_state = "cigar_butt"
 
+/obj/item/cigbutt/cigarbutt/gold
+	icon_state = "gold_cigar_butt"
+
 //////////////////////////////
 // MARK: HOLO-CIGAR
 //////////////////////////////
 /obj/item/clothing/mask/holo_cigar
 	name = "Holo-Cigar"
 	desc = "A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it..."
+	icon = 'icons/obj/clothing/smoking.dmi'
 	icon_state = "holo_cigar_on"
 	/// Is the holo-cigar lit?
 	var/enabled = FALSE
@@ -595,10 +585,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe
 	name = "smoking pipe"
 	desc = "A pipe, for smoking. Probably made of meershaum or something."
-	icon_state = "pipe_off"
-	item_state = "pipe_off"
-	icon_on = "pipe_on"  //Note - these are in masks.dmi
-	icon_off = "pipe_off"
+	icon_state = "pipe"
 	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	smoketime = 500
 	chem_volume = 200
@@ -611,8 +598,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!lit)
 		lit = TRUE
 		damtype = "fire"
-		icon_state = icon_on
-		item_state = icon_on
+		update_appearance(UPDATE_ICON_STATE)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
@@ -624,8 +610,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			var/mob/living/M = loc
 			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
 			lit = FALSE
-			icon_state = icon_off
-			item_state = icon_off
+			update_appearance(UPDATE_ICON_STATE)
 			M.update_inv_wear_mask()
 		STOP_PROCESSING(SSobj, src)
 		return
@@ -639,8 +624,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		)
 		lit = FALSE
 		first_puff = TRUE
-		icon_state = icon_off
-		item_state = icon_off
+		update_appearance(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 		return
 
@@ -665,10 +649,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
 	name = "corn cob pipe"
 	desc = "A nicotine delivery system popularized by folksy backwoodsmen and kept popular in the modern age and beyond by space hipsters."
-	icon_state = "cob_pipe_off"
-	item_state = "cob_pipe_off"
-	icon_on = "cob_pipe_on" 
-	icon_off = "cob_pipe_off"
+	icon_state = "cob_pipe"
 	smoketime = 0 //there is nothing to smoke initially
 	chem_volume = 160
 	list_reagents = list()
