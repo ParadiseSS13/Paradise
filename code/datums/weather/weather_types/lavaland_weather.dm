@@ -336,9 +336,9 @@
 // lets make some holes!
 /datum/weather/acid/proc/melt_pod(turf/melt_this)
 	var/area/new_area = GLOB.all_unique_areas[/area/lavaland/surface/outdoors] || new /area/lavaland/surface/outdoors
-	for(var/turf/simulated/nearby_turf in RANGE_TURFS(2, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
+	for(var/turf/simulated/nearby_turf in RANGE_TURFS(3, melt_this)) // danger, but probably wont make the whole pod unusable unless you're VERY unlucky
 		var/area/turf_area = get_area(nearby_turf)
-		if(prob(50) && turf_area.type == /area/survivalpod)
+		if(prob(75) && turf_area.type == /area/survivalpod)
 			new_area.contents.Add(nearby_turf)
 			if(isfloorturf(nearby_turf))
 				nearby_turf.break_tile()
