@@ -72,6 +72,7 @@ SUBSYSTEM_DEF(weather)
 	var/list/zlevels = levels_by_trait(weather_datum_type::target_trait)
 	var/datum/weather/W = new weather_datum_type(zlevels)
 	W.telegraph()
+	SSblackbox.record_feedback("tally", "weather_event", 1, "[weather_datum_type]")
 
 /datum/controller/subsystem/weather/proc/make_eligible(trait, list/possible_weathers)
 	eligible_traits[trait] = possible_weathers
