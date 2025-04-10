@@ -1336,6 +1336,31 @@
 	new /obj/item/clothing/under/plasmaman/tacticool(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/tacticool(src)
 
+/obj/item/storage/box/autochef
+	name = "autochef starter kit"
+	desc = "Contains everything you need to build and use an autochef."
+
+/obj/item/storage/box/autochef/populate_contents()
+	new /obj/item/circuitboard/autochef(src)
+	new /obj/item/stack/sheet/metal(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/micro_laser(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/autochef_remote(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/paper/autochef_quickstart(src)
+
+/obj/item/storage/box/kitchen_utensils/populate_contents()
+	new /obj/item/kitchen/utensil/fork(src)
+	new /obj/item/kitchen/utensil/fork(src)
+	new /obj/item/kitchen/utensil/spoon(src)
+	new /obj/item/kitchen/utensil/spoon(src)
+	new /obj/item/kitchen/knife(src)
+	new /obj/item/kitchen/knife/cheese(src)
+	new /obj/item/kitchen/knife/pizza_cutter(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

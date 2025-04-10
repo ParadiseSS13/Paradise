@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return returns
 
 
-/mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, automatic = FALSE)
+/mob/living/say(message, verb = null, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, automatic = FALSE)
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -166,7 +166,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return TRUE
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
-	verb = say_quote(message, first_piece.speaking)
+	if(isnull(verb))
+		verb = say_quote(message, first_piece.speaking)
 
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask

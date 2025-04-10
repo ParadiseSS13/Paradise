@@ -1,8 +1,5 @@
 /// A random spawner managed by a [/datum/spawn_pool].
 /obj/effect/spawner/random/pool
-	icon = 'icons/effects/random_spawners.dmi'
-	icon_state = "loot"
-
 	/// How much this spawner will subtract from the available budget if it
 	/// spawns. A value of `-1` (i.e., not setting the value on a subtype)
 	/// does not attempt to subtract from the budget. This is useful for

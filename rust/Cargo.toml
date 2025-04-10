@@ -11,7 +11,7 @@ crate-type = ["cdylib"]
 [dependencies]
 atomic_float = "1.0.0"
 bitflags = "2.5.0"
-byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.4.7" }
+byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.5.14", default-features = false }
 eyre = "0.6.12"
 rand = { version = "0.8.5", features = ["small_rng"] }
 scc = "2.1.1"
@@ -19,6 +19,7 @@ thread-priority = "1.1.0"
 
 # spacemandmm, also used by strongmandmm
 dmmtools = { git = "https://github.com/SpaceManiac/SpacemanDMM", rev = "6c5a751516ae0e8add4b2aa4388a1e84e96e7082", package = "dmm-tools" }
+dreammaker = { git = "https://github.com/SpaceManiac/SpacemanDMM", rev = "6c5a751516ae0e8add4b2aa4388a1e84e96e7082", package = "dreammaker" }
 # diffs between two strings/texts/files, used in tests
 diff = "0.1"
 # general utility lib for iterator operations
@@ -35,3 +36,11 @@ walkdir = "2.5.0"
 regex = "1.10.5"
 png = "0.17.16"
 chrono = "0.4.39"
+# redis - DO NOT CHANGE FROM 0.21.4 - also dont touch flume either please k thx. if you mess with these you make redis unstable
+redis = { version = "0.21.4" }
+flume = { version = "0.10" }
+
+[features]
+default = ["byond-515"]
+byond-515 = ["byondapi/byond-515-1621"]
+byond-516 = ["byondapi/byond-516-1651"]

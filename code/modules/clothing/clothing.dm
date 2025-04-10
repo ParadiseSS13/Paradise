@@ -104,10 +104,10 @@
 
 		if(H.dna.species)
 			if(exclusive)
-				if(!(H.dna.species.sprite_sheet_name in species_restricted))
+				if(!(H.dna.species.name in species_restricted))
 					wearable = TRUE
 			else
-				if(H.dna.species.sprite_sheet_name in species_restricted)
+				if(H.dna.species.name in species_restricted)
 					wearable = TRUE
 
 			if(!wearable)
@@ -669,7 +669,7 @@
 			M.matchignite()
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 			return
-		if(M.lit && !M.burnt)
+		if(M.lit && !M.burnt && M.w_class <= WEIGHT_CLASS_SMALL)
 			user.visible_message("<span class='warning'>[user] crushes [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush [M] into the bottom of [src], extinguishing it.</span>")
 			M.dropped()
 		return
@@ -768,11 +768,21 @@
 	var/max_suit_w = WEIGHT_CLASS_BULKY
 	///How long to break out of the suits
 	var/breakouttime
+	/// How many inserts can you put into the suit
+	var/insert_max = 1
+	/// Currently applied inserts
+	var/list/inserts = list()
+	/// Is there a mobility mesh inserted?
+	var/mobility_meshed = FALSE
+	/// What's the total slowdown from inserts?
+	var/insert_slowdown = 0
 
 
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
 	setup_shielding()
+	RegisterSignal(src, COMSIG_INSERT_ATTACH, PROC_REF(attach_insert))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(detach_insert))
 
 /**
  * Wrapper proc to apply shielding through AddComponent().
@@ -782,6 +792,12 @@
  **/
 /obj/item/clothing/suit/proc/setup_shielding()
 	return
+
+/obj/item/clothing/suit/examine(mob/user)
+	. = ..()
+	if(length(inserts))
+		. += "<span class='notice'>Has [length(inserts)] inserts attached.</span>"
+		. += "<span class='notice'>Inserts can be removed with Alt-Click.</span>"
 
 ///Hierophant card shielding. Saves me time.
 /obj/item/clothing/suit/proc/setup_hierophant_shielding()
@@ -869,6 +885,46 @@
 /obj/item/clothing/suit/proc/special_overlays() // Does it have special overlays when worn?
 	return FALSE
 
+/obj/item/clothing/suit/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+	..()
+	if(istype(I, /obj/item/smithed_item/insert))
+		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, I, user)
+
+/obj/item/clothing/suit/proc/detach_insert(atom/source, mob/user)
+	SIGNAL_HANDLER // COMSIG_CLICK_ALT
+	if(!Adjacent(user))
+		return
+	if(!length(inserts))
+		to_chat(user, "<span class='notice'>Your suit has no inserts to remove.</span>")
+		return
+	INVOKE_ASYNC(src, PROC_REF(finish_detach_insert), user)
+
+/obj/item/clothing/suit/proc/finish_detach_insert(mob/user)
+	var/obj/item/smithed_item/insert/old_insert
+	if(length(inserts) == 1)
+		old_insert = inserts[1]
+	else
+		old_insert = tgui_input_list(user, "Select an insert", src, inserts)
+	if(!istype(old_insert, /obj/item/smithed_item/insert))
+		return
+	old_insert.on_detached()
+	user.put_in_hands(old_insert)
+
+/obj/item/clothing/suit/proc/attach_insert(obj/source_item, obj/item/smithed_item/insert/new_insert, mob/user)
+	SIGNAL_HANDLER // COMSIG_INSERT_ATTACH
+	if(!Adjacent(user))
+		return
+	if(!istype(new_insert))
+		return
+	if(length(inserts) == insert_max)
+		to_chat(user, "<span class='notice'>Your suit has no slots to add an insert.</span>")
+		return
+	if(new_insert.flags & NODROP || !user.transfer_item_to(new_insert, src))
+		to_chat(user, "<span class='warning'>[new_insert] is stuck to your hand!</span>")
+		return
+	inserts += new_insert
+	new_insert.on_attached(src)
+
 /obj/item/clothing/suit/proc/resist_restraints(mob/living/carbon/user, break_restraints)
 	var/effective_breakout_time = breakouttime
 	if(break_restraints)
@@ -945,6 +1001,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
+	insert_max = 0 // No inserts for space suits
 
 //////////////////////////////
 // MARK: UNDER CLOTHES

@@ -1144,7 +1144,7 @@
 		if(do_after_once(user, 4 SECONDS, target = src))
 			visible_message("<span class='danger'>[src] suddenly combust!</span>")
 			to_chat(user, "<span class='warning'>You combust [src] with your mind!</span>")
-			explosion(get_turf(src), light_impact_range = 2, flash_range = 2)
+			explosion(get_turf(src), light_impact_range = 2, flash_range = 2, cause = "[user.ckey]: blows up pancakes with mind")
 			add_attack_logs(user, src, "blew up [src] with TK", ATKLOG_ALL)
 			qdel(src)
 			return
@@ -1183,7 +1183,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/berry_muffin
-	name = "berry_muffin"
+	name = "berry muffin"
 	desc = "A delicious and spongy little cake, with berries."
 	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "berry_muffin"

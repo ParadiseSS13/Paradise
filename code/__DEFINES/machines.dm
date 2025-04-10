@@ -109,3 +109,9 @@
 #define RC_SUPPLY (1<<1)
 /// [/obj/machinery/requests_console] can relay anonymous information.
 #define RC_INFO   (1<<2)
+
+/// ORM / Smart hopper point defines
+#define BASE_POINT_MULT 0.90
+#define BASE_SHEET_MULT 0.90
+#define POINT_MULT_ADD_PER_RATING 0.10
+#define SHEET_MULT_ADD_PER_RATING 0.10

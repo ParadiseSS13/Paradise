@@ -881,15 +881,6 @@
 	title = "Cyborgs for Dummies"
 	wiki_article_title = "Guide_to_Robotics"
 
-/obj/item/book/manual/wiki/chef_recipes
-	name = "Chef Recipes"
-	desc = "Knives, Ovens, and You: A guide to cooking."
-	summary = "A comprehensive guide to the production of all manner of foods and drinks."
-	icon_state = "cook_book"
-	author = "Nanotrasen"
-	title = "Chef Recipes"
-	wiki_article_title = "Guide_to_Food_and_Drinks#Food"
-
 /obj/item/book/manual/wiki/engineering_construction
 	name = "Station Repairs and Construction"
 	desc = "A guide on how to fix things without duct tape."

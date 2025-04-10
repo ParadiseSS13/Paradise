@@ -4,7 +4,7 @@
 
 	Otherwise pretty standard.
 */
-/mob/living/carbon/human/UnarmedAttack(atom/A, proximity)
+/mob/living/carbon/human/UnarmedAttack(atom/A, proximity, params)
 	// Special glove functions:
 	// If the gloves do anything, have them return 1 to stop
 	// normal attack_hand() here.
@@ -25,9 +25,9 @@
 	if(SEND_SIGNAL(A, COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
 
-	A.attack_hand(src)
+	A.attack_hand(src, params)
 
-/atom/proc/attack_hand(mob/user as mob)
+/atom/proc/attack_hand(mob/user as mob, params)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
@@ -59,8 +59,14 @@
 /*
 	Animals & All Unspecified
 */
-/mob/living/UnarmedAttack(atom/A)
-	A.attack_animal(src)
+/mob/living/UnarmedAttack(atom/target, proximity_flag, modifiers)
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target, proximity_flag, modifiers)
+	if(sigreturn & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(sigreturn & COMPONENT_SKIP_ATTACK)
+		return FALSE
+
+	target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/UnarmedAttack(atom/A)
 	target = A
