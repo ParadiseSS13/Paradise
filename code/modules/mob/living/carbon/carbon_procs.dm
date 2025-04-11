@@ -1235,7 +1235,7 @@ so that different stomachs can handle things in different ways VB*/
 		. |= LH.GetAccess()
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(internal == null)
+	if(isnull(internal)) // no internals - breath from environment
 		return TRUE
 
 	if(wear_mask?.flags & BLOCK_GAS_SMOKE_EFFECT || head?.flags & BLOCK_GAS_SMOKE_EFFECT)
