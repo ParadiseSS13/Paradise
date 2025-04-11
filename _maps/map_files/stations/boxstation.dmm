@@ -78871,23 +78871,10 @@
 /turf/simulated/floor/carpet/green,
 /area/station/command/bridge)
 "tCD" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/light,
 /obj/machinery/atmospherics/portable/canister,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/machinery/light,
-/obj/structure/sign/poster/official/random/directional/south,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
