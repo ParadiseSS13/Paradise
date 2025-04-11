@@ -162,7 +162,6 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 				lavaland_caves_spawn_mob(changed, new_scan_range, new_scan_range)
 			else if(prob(10))
 				lavaland_caves_spawn_flora(changed)
-
 			oasis_turfs |= NT
 
 	if(prob(50))
