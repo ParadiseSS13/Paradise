@@ -22,16 +22,6 @@
 	build_path = /obj/item/circuitboard/aifixer
 	category = list("Computer Boards")
 
-/datum/design/aiupload
-	name = "Console Board (AI Upload)"
-	desc = "Allows for the construction of circuit boards used to build an AI Upload Console."
-	id = "aiupload"
-	req_tech = list("programming" = 5, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/aiupload
-	category = list("Computer Boards")
-
 /datum/design/air_management
 	name = "Console Board (Air Sensor Monitor)"
 	desc = "Allows for the construction of circuit boards used to build an Air Sensor Monitor."
@@ -90,16 +80,6 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/crew
-	category = list("Computer Boards")
-
-/datum/design/borgupload
-	name = "Console Board (Cyborg Upload)"
-	desc = "Allows for the construction of circuit boards used to build a Cyborg Upload Console."
-	id = "borgupload"
-	req_tech = list("programming" = 5, "engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/borgupload
 	category = list("Computer Boards")
 
 /datum/design/scan_console
