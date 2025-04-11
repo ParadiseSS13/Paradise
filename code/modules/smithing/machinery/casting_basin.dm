@@ -219,7 +219,7 @@
 			return FINISH_ATTACK
 
 		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
-		playsound(src, 'sound/machines/recycler.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/recycler.ogg', 50, FALSE)
 		// Use the materials and create the item.
 		materials.use_amount(temp_product.materials, amount)
 		linked_crucible.animate_pour(operation_time SECONDS)

@@ -56,7 +56,7 @@
 		operate(loops, user)
 	// When an item is done, beep.
 	if(!working_component.hammer_time)
-		playsound(src, 'sound/machines/boop.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/boop.ogg', 50, FALSE)
 
 /obj/machinery/smithing/power_hammer/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
