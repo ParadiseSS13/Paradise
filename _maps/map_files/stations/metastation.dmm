@@ -638,10 +638,13 @@
 	layer = 3.1;
 	autolink_id = "turbine_btn_int";
 	name = "Gas Turbine Airlock Control";
-	pixel_x = -5;
-	pixel_y = -23
+	pixel_x = -10;
+	pixel_y = -21
 	},
 /obj/machinery/atmospherics/binary/pump/on,
+/obj/structure/sign/magboots{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "aii" = (
@@ -30204,12 +30207,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
-"cqj" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/service/chapel)
 "cqk" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/engine,
@@ -37651,15 +37648,6 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
-"cXX" = (
-/obj/structure/chair/comfy/black{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "cXY" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/camera{
@@ -44502,25 +44490,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"fxB" = (
-/obj/machinery/light/small,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "custom placement";
-	pixel_x = 6;
-	pixel_y = -24
-	},
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "CHAP";
-	pixel_x = -6;
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
-	},
-/area/station/service/chapel)
 "fxD" = (
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /obj/machinery/firealarm/directional/south,
@@ -50255,6 +50224,25 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
+"hVk" = (
+/obj/machinery/light/small,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "custom placement";
+	pixel_x = 6;
+	pixel_y = -24
+	},
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "CHAP";
+	pixel_x = -6;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/station/service/chapel)
 "hWf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -52262,11 +52250,14 @@
 /obj/machinery/access_button{
 	autolink_id = "turbine_btn_ext";
 	name = "Gas Turbine Airlock Control";
-	pixel_x = 5;
-	pixel_y = 23
+	pixel_x = 10;
+	pixel_y = 21
 	},
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
+	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
@@ -73742,6 +73733,15 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
+"shF" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/station/service/chapel)
 "sjx" = (
 /obj/structure/chair{
 	dir = 1
@@ -77875,6 +77875,12 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"ubm" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/service/chapel)
 "ubu" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -84555,6 +84561,12 @@
 	icon_state = "yellowfull"
 	},
 /area/station/hallway/primary/aft/north)
+"xdC" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CHAP"
+	},
+/turf/simulated/floor/plating,
+/area/station/service/chapel)
 "xdT" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -85929,12 +85941,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/nw)
-"xKK" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "CHAP"
-	},
-/turf/simulated/floor/plating,
-/area/station/service/chapel)
 "xKQ" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -109660,7 +109666,7 @@ gDK
 cFD
 bdq
 oiv
-xKK
+xdC
 aaa
 aaa
 aaa
@@ -109917,7 +109923,7 @@ cDc
 cFD
 cUX
 oiv
-xKK
+xdC
 aaa
 aaa
 aaa
@@ -110173,8 +110179,8 @@ fPa
 cJM
 cyN
 cUK
-cqj
-xKK
+ubm
+xdC
 aaa
 aaa
 aaa
@@ -110431,7 +110437,7 @@ csw
 cFD
 cUX
 oiv
-xKK
+xdC
 aaa
 aaa
 aaa
@@ -110688,7 +110694,7 @@ xJB
 cFD
 bdq
 oiv
-xKK
+xdC
 aaa
 aaa
 aaa
@@ -110944,7 +110950,7 @@ cVa
 cNM
 bYK
 cof
-fxB
+hVk
 cSO
 abq
 aaa
@@ -111201,7 +111207,7 @@ cVX
 cJn
 lMo
 iyv
-cXX
+shF
 cSO
 abq
 abq
