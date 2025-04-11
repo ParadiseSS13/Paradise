@@ -58,8 +58,8 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/dvorak/turret_room
 	name = "DVORAK turret room"
 
-/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel/drunk_accident
-	name = "Drunken Wreck"
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel
+	name = "Rocky motel submap"
 
-/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/rocky_motel/drunk_accident
-	name = "Drunken Wreck"
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/rocky_motel
+	name = "Rocky motel submap"
