@@ -437,7 +437,7 @@
 #define INVESTIGATE_WIRES "wires"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 66
+#define SQL_VERSION 67
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
