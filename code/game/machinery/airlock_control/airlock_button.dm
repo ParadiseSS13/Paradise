@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	icon_state = "access_button_standby"
 	name = "airlock access button"
 	desc = "Controls an airlock controller, requesting the doors open on this side."
-	layer = ABOVE_WINDOW_LAYER
+	layer = ON_EDGED_TURF_LAYER
 	anchored = TRUE
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	power_state = IDLE_POWER_USE
