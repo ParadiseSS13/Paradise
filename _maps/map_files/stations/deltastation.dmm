@@ -61863,10 +61863,6 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fore)
-"iyA" = (
-/obj/structure/sign/poster/official/safety_internals,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/controlroom)
 "iyF" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
@@ -64880,6 +64876,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
+"jTT" = (
+/obj/structure/sign/poster/official/safety_internals/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/controlroom)
 "jUb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -90062,6 +90062,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"uYE" = (
+/obj/structure/sign/poster/official/safety_eye_protection/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/controlroom)
 "uYN" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
@@ -120106,7 +120110,7 @@ rvc
 btJ
 aaa
 atd
-aub
+uYE
 aub
 fYb
 xNZ
@@ -122675,8 +122679,8 @@ btJ
 rvc
 btJ
 aaa
-iyA
-aub
+atd
+jTT
 aub
 szN
 xNZ
