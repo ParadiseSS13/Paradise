@@ -3,7 +3,7 @@
 
 /datum/spawn_pool/tendrils/New()
 	. = ..()
-	available_points = roll("4d6")
+	available_points = roll("5d4") + roll("1d6")
 
 /obj/effect/spawner/random/pool/tendril_spawner
 	spawn_pool_id = "lavaland_tendril_spawn_pool"
