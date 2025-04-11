@@ -147,6 +147,9 @@
 	// Set up PCWJ recipes
 	initialize_cooking_recipes()
 
+	// Set up Job Guide procedures
+	initialize_procedures()
+
 	// Keybindings
 	for(var/path in subtypesof(/datum/keybinding))
 		var/datum/keybinding/D = path
