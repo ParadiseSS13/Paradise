@@ -33079,9 +33079,7 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/large/plant8,
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreencorners"
@@ -35007,9 +35005,6 @@
 /obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
-"cLw" = (
-/turf/simulated/wall/r_wall,
-/area/station/medical/coldroom)
 "cLy" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -52853,9 +52848,7 @@
 /area/station/hallway/secondary/entry/east)
 "jgD" = (
 /obj/item/shard,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/grass/no_creep,
 /area/station/maintenance/medmaint)
 "jgJ" = (
@@ -60541,10 +60534,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "muA" = (
-/obj/structure/sign/poster/official/help_others{
-	pixel_x = -32
-	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/structure/sign/poster/official/help_others/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -73810,9 +73801,7 @@
 /area/station/service/hydroponics)
 "rXl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -80876,9 +80865,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "vde" = (
@@ -83495,9 +83482,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/sign/poster/official/get_your_legs{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/get_your_legs/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -83721,9 +83706,7 @@
 	dir = 8;
 	network = list("Research","SS13")
 	},
-/obj/structure/sign/poster/official/air1{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/air1/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -84476,9 +84459,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/research)
 "wLX" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "wMb" = (
@@ -106873,7 +106854,7 @@ vob
 pJv
 glk
 cIv
-cLw
+ctP
 cDh
 dxa
 czu
