@@ -18,6 +18,11 @@
 	RefreshParts()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/smithing/power_hammer/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can set [src] to automatically continue hammering heated metal with a multitool.</span>"
+	. += "<span class='notice'>The autohammer light is currently [repeating ? "on" : "off"].</span>"
+
 /obj/machinery/smithing/power_hammer/update_overlays()
 	. = ..()
 	overlays.Cut()

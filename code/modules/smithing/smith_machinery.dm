@@ -31,6 +31,7 @@
 	. = ..()
 	if(working_component)
 		. += "<span class='notice'>You can activate the machine with your hand, or remove the component by alt-clicking.</span>"
+		. += "<span class='notice'>There is currently a [working_component] in [src].</span>"
 
 /obj/machinery/smithing/power_change()
 	if(!..())
