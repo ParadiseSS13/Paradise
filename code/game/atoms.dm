@@ -265,6 +265,9 @@
 
 	managed_overlays = null
 
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+
 	QDEL_NULL(light)
 
 	return ..()

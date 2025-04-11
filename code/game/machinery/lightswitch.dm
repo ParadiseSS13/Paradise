@@ -109,6 +109,8 @@
 
 /obj/machinery/light_switch/proc/set_area_lightswitch(new_state)
 	var/area/A = get_area(src)
+	if(A.lightswitch == new_state)
+		return
 	A.lightswitch = new_state
 	// Sends an area signal to all lightswitches in our area to update their icons and overlays
 	A.update_icon(UPDATE_ICON_STATE)
@@ -119,3 +121,7 @@
 /obj/machinery/light_switch/proc/lightswitch_cancel_autoswitch()
 	SIGNAL_HANDLER // COMSIG_AREA_LIGHTSWITCH_DELETING
 	return COMSIG_AREA_LIGHTSWITCH_CANCEL
+
+/obj/machinery/light_switch/off/Initialize(mapload, build_dir)
+	. = ..()
+	set_area_lightswitch(FALSE)

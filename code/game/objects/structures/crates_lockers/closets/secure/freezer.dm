@@ -67,6 +67,15 @@
 	req_access = null
 	locked = FALSE
 
+/obj/structure/closet/secure_closet/freezer/fridge/mixed/populate_contents()
+	for(var/i in 1 to 2)
+		new /obj/item/reagent_containers/condiment/milk(src)
+		new /obj/item/reagent_containers/condiment/soymilk(src)
+	for(var/i in 1 to 2)
+		new /obj/item/storage/fancy/egg_box(src)
+	for(var/i in 1 to 4)
+		new /obj/item/food/meat/monkey(src)
+
 /obj/structure/closet/secure_closet/freezer/money
 	name = "freezer"
 	icon_state = "freezer"
