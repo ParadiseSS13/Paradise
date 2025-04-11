@@ -1069,3 +1069,10 @@
 /obj/item/paper/instruction/pacman_generator
 	name = "Instructions for P.A.C.M.A.N. Generator series"
 	info = "P.A.C.M.A.N. are commonly used as 'Emergency' power generators, with its upgraded version being capable of utilizing uranium and plasma sheets to function. Simply anchor on the power cable node, insert the plasma sheet, select the level and turn it ON to generate power, just make sure to not overheat it or it will explode."
+
+/obj/item/paper/rocky_motel
+	name = "strange note"
+	info = "Nancy, dear, could you <i>please</i> stop hiding my beer in the safe? I'm telling you, it's alcohol-free and safe to drink. Just quit making me mad, for fuck's sake!"
+
+/obj/item/paper/rocky_motel/syndie
+	info = "Don't forget to grab the gold from safe tomorrow, I'm not going to stay there for another year, this place sucks."
