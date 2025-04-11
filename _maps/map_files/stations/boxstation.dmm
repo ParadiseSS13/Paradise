@@ -71949,11 +71949,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
-"pQC" = (
-/obj/machinery/ai_node/processing_node,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/abandonedservers)
 "pRg" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -73667,6 +73662,9 @@
 /obj/item/stack/cable_coil/random,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
 /obj/effect/spawner/random/maintenance,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedservers)
 "qDJ" = (
@@ -75508,7 +75506,10 @@
 /area/station/command/office/hos)
 "rAI" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/obj/machinery/ai_node/processing_node,
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedservers)
 "rAR" = (
@@ -136288,7 +136289,7 @@ bUx
 jMY
 drx
 qDr
-pQC
+rAI
 heK
 lwi
 rDb

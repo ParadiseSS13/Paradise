@@ -8801,10 +8801,13 @@
 	},
 /area/station/medical/sleeper)
 "bKT" = (
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "bKW" = (
@@ -69934,10 +69937,13 @@
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
 "nSm" = (
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "nSu" = (
@@ -77027,6 +77033,9 @@
 /obj/structure/table,
 /obj/item/stack/cable_coil/random,
 /obj/effect/spawner/random/maintenance,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "pif" = (

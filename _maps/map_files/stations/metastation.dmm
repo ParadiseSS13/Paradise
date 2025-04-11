@@ -63337,10 +63337,13 @@
 	},
 /area/station/medical/medbay)
 "nDk" = (
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "nDu" = (
@@ -72134,6 +72137,9 @@
 "rvJ" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil/random,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "rvX" = (
@@ -83973,10 +83979,13 @@
 /area/station/science/research)
 "wLz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "wMb" = (

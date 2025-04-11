@@ -16273,8 +16273,11 @@
 	},
 /area/station/hallway/primary/fore/west)
 "chD" = (
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "chG" = (
@@ -27630,6 +27633,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
 /obj/item/stack/cable_coil/random,
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "dXz" = (
@@ -112219,10 +112223,13 @@
 /turf/simulated/floor/wood,
 /area/station/legal/magistrate)
 "yek" = (
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "yeo" = (

@@ -65115,6 +65115,9 @@
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
 /obj/item/stack/cable_coil/random,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "jnk" = (
@@ -65524,10 +65527,13 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "jCa" = (
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "jCt" = (
@@ -70056,8 +70062,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedbar)
 "lXV" = (
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "lYp" = (
