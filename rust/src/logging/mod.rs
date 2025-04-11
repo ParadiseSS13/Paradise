@@ -2,7 +2,6 @@ use byondapi::global_call::call_global;
 use byondapi::prelude::ByondValue;
 use byondapi::threadsync::thread_sync;
 use chrono::prelude::Utc;
-use eyre;
 
 /// Call stack trace dm method with message.
 pub(crate) fn dm_call_stack_trace(msg: String) -> eyre::Result<()> {
@@ -21,12 +20,22 @@ pub(crate) fn setup_panic_handler() {
             || -> ByondValue {
                 if let Err(error) = dm_call_stack_trace(msg_copy) {
                     let second_msg = format!("BYOND error \n {:#?}", error);
-                    let _ = std::fs::write(Utc::now().format("data/rustlibs_dm_trace_failed_%Y%m%d_%H%M%S.txt").to_string(), second_msg.clone());
+                    let _ = std::fs::write(
+                        Utc::now()
+                            .format("data/rustlibs_dm_trace_failed_%Y%m%d_%H%M%S.txt")
+                            .to_string(),
+                        second_msg.clone(),
+                    );
                 }
                 Default::default()
             },
             true,
         );
-        let _ = std::fs::write(Utc::now().format("data/rustlibs_panic_%Y%m%d_%H%M%S.txt").to_string(), msg.clone());
+        let _ = std::fs::write(
+            Utc::now()
+                .format("data/rustlibs_panic_%Y%m%d_%H%M%S.txt")
+                .to_string(),
+            msg.clone(),
+        );
     }))
 }
