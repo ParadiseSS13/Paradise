@@ -15452,18 +15452,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
-"bkM" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/control)
 "bkN" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	name = "Portable Scrubber Connector"
@@ -76061,6 +76049,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"pfe" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/control)
 "pfg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -90376,6 +90376,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
+/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "vhF" = (
@@ -123237,7 +123238,7 @@ rvv
 btv
 btv
 lTx
-bkM
+pfe
 aXo
 buw
 kmY
