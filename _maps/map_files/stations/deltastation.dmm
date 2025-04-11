@@ -438,7 +438,9 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
 "aeM" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod Airlock"
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
 "aeN" = (
@@ -513,13 +515,14 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_4)
 "afb" = (
-/obj/machinery/door/airlock/external,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "afc" = (
@@ -937,10 +940,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "admin_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "ahh" = (
@@ -1109,7 +1112,7 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "aiE" = (
-/obj/machinery/door/airlock/titanium{
+/obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -44948,10 +44951,10 @@
 /turf/simulated/wall,
 /area/station/maintenance/port2)
 "dbN" = (
-/obj/machinery/door/airlock/titanium{
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "dbR" = (
@@ -59580,10 +59583,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "admin_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "gua" = (
@@ -60008,19 +60011,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
-"gHk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	locked = 1;
-	id_tag = "ferry_home"
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry/north)
 "gHB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/oil/maybe,
@@ -60558,16 +60548,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "gWD" = (
-/obj/machinery/door/airlock/external{
-	locked = 1;
-	id_tag = "ferry_home"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "ferry_home"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "gXQ" = (
@@ -68581,13 +68571,14 @@
 /turf/simulated/wall,
 /area/station/medical/paramedic)
 "lpL" = (
-/obj/machinery/door/airlock/external,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "lpX" = (
@@ -79964,10 +79955,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "specops_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
 "rfw" = (
@@ -92792,7 +92783,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "xcL" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod Airlock"
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
 "xcR" = (
@@ -129254,7 +129247,7 @@ aaa
 aaa
 aaa
 xgt
-gHk
+gWD
 mUk
 gWD
 ueF
