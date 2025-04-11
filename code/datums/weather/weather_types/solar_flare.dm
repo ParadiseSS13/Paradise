@@ -14,7 +14,7 @@
 
 	end_duration = 10 // wind_down() does not do anything for this event, so we just trigger end() semi-immediately
 	end_message = null
-	area_type = /area // read generate_area_list() as well below
+	area_types = list(/area) // read generate_area_list() as well below
 	protected_areas = list(/area/shuttle/arrival/station)
 	target_trait = REACHABLE_SPACE_ONLY
 	immunity_type = "burn"
