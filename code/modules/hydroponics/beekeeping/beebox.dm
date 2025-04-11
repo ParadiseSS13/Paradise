@@ -167,6 +167,7 @@
 		var/obj/item/queen_bee/qb = I
 		if(!user.transfer_item_to(qb, src))
 			return
+		qb.queen.forceMove(src)
 		bees += qb.queen
 		queen_bee = qb.queen
 		qb.queen = null
