@@ -52014,15 +52014,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dKQ" = (
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	locked = 1;
-	name = "Escape Airlock"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "emergency_home";
+	name = "Escape Airlock";
+	hackProof = 1
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dKW" = (
