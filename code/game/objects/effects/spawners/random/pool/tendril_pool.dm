@@ -20,3 +20,12 @@
 		return
 
 	SSblackbox.record_feedback("tally", "lavaland_mob_spawns", 1, "[type_path_to_make]")
+
+/obj/effect/spawner/random/pool/tendril_spawner/check_safe(type_path_to_make)
+	var/turf/T = get_turf(src)
+	for(var/thing in urange(10, T))
+		// prevents tendrils spawning in each other's collapse range
+		if(istype(thing, /obj/structure/spawner/lavaland) && get_dist(T, thing) <= LAVALAND_TENDRIL_COLLAPSE_RANGE)
+			return FALSE
+
+	return ..()

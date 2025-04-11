@@ -23,6 +23,8 @@ GLOBAL_LIST_INIT(caves_default_mob_spawns, list(
 	/obj/effect/landmark/mob_spawner/legion = 30,
 	/obj/effect/landmark/mob_spawner/watcher = 40,
 
+	/obj/effect/spawner/random/pool/tendril_spawner = 25,
+
 	SPAWN_MEGAFAUNA = 6,
 ))
 
@@ -52,9 +54,6 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 			return
 		// if the random is a standard mob, avoid spawning if there's another one within the scan range
 		if(ispath(mob_spawn, /obj/effect/landmark/mob_spawner) && istype(thing, /obj/effect/landmark/mob_spawner))
-			return
-		// prevents tendrils spawning in each other's collapse range
-		if((ispath(mob_spawn, /obj/structure/spawner/lavaland) && istype(thing, /obj/structure/spawner/lavaland)) && get_dist(T, thing) <= LAVALAND_TENDRIL_COLLAPSE_RANGE)
 			return
 
 	// there can be only one bubblegum, so don't waste spawns on it
@@ -107,9 +106,6 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 		lavaland_caves_spawn_flora(T)
 	else if(prob(1))
 		lavaland_caves_spawn_mob(T)
-
-	if(prob(10))
-		new /obj/effect/spawner/random/pool/tendril_spawner(T)
 
 /datum/caves_theme/proc/safe_replace(turf/T)
 	if(T.flags & NO_LAVA_GEN)
@@ -166,8 +162,6 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 				lavaland_caves_spawn_mob(changed, new_scan_range, new_scan_range)
 			else if(prob(10))
 				lavaland_caves_spawn_flora(changed)
-			else
-				new /obj/effect/spawner/random/pool/tendril_spawner(changed)
 
 			oasis_turfs |= NT
 
@@ -182,7 +176,7 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 				oasis_turfs -= oasis
 
 		// Move tendrils out of the oasis
-		for(var/obj/structure/spawner/lavaland/O in circlerange(T, tempradius))
+		for(var/obj/effect/spawner/random/pool/tendril_spawner/O in circlerange(T, tempradius))
 			O.forceMove(pick_n_take(oasis_turfs))
 
 	return T
