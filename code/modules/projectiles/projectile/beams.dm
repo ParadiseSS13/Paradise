@@ -113,6 +113,7 @@
 
 /obj/item/projectile/beam/disabler/pellet
 	name = "split disabler beam"
+	icon_state = "scatterdisabler"
 	damage = 10
 	light_color = LIGHT_COLOR_BLUE
 	range = 8
