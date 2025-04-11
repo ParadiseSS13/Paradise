@@ -111,7 +111,7 @@ As a Botanist, you can hack the MegaSeed Vendor to get access to more exotic see
 As a Botanist, you can mutate the plants growing in your hydroponics trays with unstable mutagen or, as an alternative, crude radioactives from chemistry to get special variations.
 As a Botanist, you should look into increasing the potency of your plants. This increases the size, amount of chemicals, points gained from grinding them in the biogenerator, and lets people know you are a proficient botanist.
 As a Botanist, you can combine production trait chemicals just like a Chemist. Chlorine and plasma (blumpkin) + radium (glowshrooms) equals unstable mutagen!
-As the Chef, you can create a very wide variety of food with the crafting menu. You can find it by looking for the hammer icon near your intents.
+As the Chef, you can create a very wide variety of food. Most recipes are listed in the cookbook app in your PDA.
 As the Chef, you can rename your custom made food with a pen.
 As the Chef, if you are low on ingredients, consider making something that has several servings to last longer among the crew.
 As the Bartender, you can use a circular saw on your shotgun to make it easier to store. Remember to unload it first!
