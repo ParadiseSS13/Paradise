@@ -68,6 +68,11 @@
 		while(program.upgrade_level > 0 && bandwidth < 0)
 			program.downgrade(assigned_ai)
 
+/datum/program_picker/proc/reset_programs()
+	var/list/programs = get_installed_programs()
+	for(var/datum/ai_program/program in programs)
+		program.uninstall(assigned_ai)
+
 /datum/program_picker/ui_host()
 	return assigned_ai ? assigned_ai : src
 
