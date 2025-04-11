@@ -23,8 +23,6 @@ GLOBAL_LIST_INIT(caves_default_mob_spawns, list(
 	/obj/effect/landmark/mob_spawner/legion = 30,
 	/obj/effect/landmark/mob_spawner/watcher = 40,
 
-	/obj/effect/spawner/random/pool/tendril_spawner = 4,
-
 	SPAWN_MEGAFAUNA = 6,
 ))
 
@@ -110,6 +108,9 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	else if(prob(1))
 		lavaland_caves_spawn_mob(T)
 
+	if(prob(10))
+		new /obj/effect/spawner/random/pool/tendril_spawner(T)
+
 /datum/caves_theme/proc/safe_replace(turf/T)
 	if(T.flags & NO_LAVA_GEN)
 		return FALSE
@@ -165,6 +166,9 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 				lavaland_caves_spawn_mob(changed, new_scan_range, new_scan_range)
 			else if(prob(10))
 				lavaland_caves_spawn_flora(changed)
+			else
+				new /obj/effect/spawner/random/pool/tendril_spawner(changed)
+
 			oasis_turfs |= NT
 
 	if(prob(50))
