@@ -200,3 +200,11 @@
 		/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/matter_bin = 2,
 	)
+
+/obj/machinery/cooking/grill/loaded/Initialize(mapload)
+	. = ..()
+	for(var/i in 1 to length(surfaces))
+		var/datum/cooking_surface/surface = surfaces[i]
+		surface.container = new /obj/item/reagent_containers/cooking/grill_grate(src)
+	stored_wood = 30
+	update_appearance()

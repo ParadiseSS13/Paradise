@@ -119,6 +119,7 @@
 					return FALSE
 				memory -= program.cost
 				program.installed = TRUE
+				SSblackbox.record_feedback("tally", "ai_program_install", 1, "[program.type]")
 
 			// Active programs
 			if(!program.upgrade)
@@ -160,6 +161,7 @@
 					to_chat(A, "<span class='warning'>You cannot afford this upgrade!</span>")
 					return FALSE
 				program.upgrade(A)
+				SSblackbox.record_feedback("tally", "ai_program_upgrade", 1, "[program.type]")
 			to_chat(A, program.unlock_text)
 			A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
 			return TRUE
@@ -245,6 +247,9 @@
 
 /datum/spell/ai_spell/choose_program/cast(list/targets, mob/living/silicon/ai/user)
 	. = ..()
+	if(istype(user.loc, /obj/machinery/power/apc))
+		to_chat(user, "<span class='warning'>Error: APCs do not have enough processing power to handle programs!</span>")
+		return
 	user.program_picker.ui_interact(user)
 
 /// RGB Lighting - Recolors Lights
