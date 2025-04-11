@@ -684,7 +684,7 @@
 /area/ruin/space/derelict/bridge)
 "bR" = (
 /obj/structure/curtain/open,
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -817,9 +817,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "ck" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -914,10 +912,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "cy" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	dir = 4;
 	pixel_x = -32
@@ -1050,10 +1045,7 @@
 /area/ruin/space/derelict/arrival)
 "cO" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 5
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -2490,9 +2482,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -2843,11 +2833,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "hw" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -2969,11 +2955,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "hN" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -4917,9 +4899,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
 "ne" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5007,9 +4987,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "ns" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -5080,11 +5058,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "nC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)

@@ -986,16 +986,12 @@
 	},
 /area/holodeck/source_basketball)
 "dH" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/centcom)
 "dI" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/centcom)
 "dJ" = (
@@ -1069,9 +1065,7 @@
 /area/holodeck/source_basketball)
 "eb" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/centcom)
 "ec" = (
@@ -1285,10 +1279,7 @@
 /turf/simulated/floor/pod/dark,
 /area/syndicate_mothership)
 "eW" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -3744,9 +3735,7 @@
 /obj/machinery/door/window/reinforced/reversed{
 	name = "Tactical Toilet"
 	},
-/obj/structure/toilet{
-	pixel_y = 13
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "np" = (
@@ -4323,10 +4312,7 @@
 /turf/simulated/wall/r_wall,
 /area/start)
 "pi" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
@@ -5925,10 +5911,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "uJ" = (
@@ -6471,10 +6454,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "wE" = (
@@ -6518,9 +6498,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "wI" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/door/window{
 	dir = 8;
@@ -6643,9 +6621,7 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "xa" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
@@ -6996,10 +6972,7 @@
 	},
 /area/centcom/evac)
 "yI" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -7162,10 +7135,7 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "zw" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -7929,10 +7899,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Cp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7956,9 +7923,7 @@
 /area/admin)
 "Ct" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Cu" = (
@@ -8360,9 +8325,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/machinery/door/window{
 	dir = 8;
 	name = "Toilet";
@@ -8810,10 +8773,7 @@
 /obj/structure/curtain/open/shower/security,
 /obj/item/soap/syndie,
 /obj/item/bikehorn/rubberducky/captainducky,
-/obj/machinery/shower{
-	dir = 1;
-	pixel_y = -2
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "FB" = (
@@ -9400,9 +9360,7 @@
 	},
 /area/syndicate_mothership)
 "Hy" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Hz" = (
@@ -9437,10 +9395,7 @@
 	},
 /area/ghost_bar)
 "HE" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = -2
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
@@ -10523,9 +10478,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "Lc" = (
-/obj/structure/toilet{
-	pixel_y = 13
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "Le" = (
@@ -10692,9 +10645,7 @@
 	},
 /area/ghost_bar)
 "LG" = (
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -11658,10 +11609,7 @@
 /area/space/nearstation/centcom)
 "OL" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 1;
-	pixel_y = -2
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/window/basic{
 	dir = 1
 	},
@@ -12339,9 +12287,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "QZ" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},

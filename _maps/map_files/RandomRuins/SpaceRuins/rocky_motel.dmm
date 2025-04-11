@@ -27,10 +27,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/rocky_motel)
 "cT" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -378,9 +375,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/rocky_motel/asteroid)
 "Fc" = (
-/obj/structure/sink{
-	pixel_y = 25
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/vault,
 /area/ruin/space/rocky_motel)
 "Ff" = (
@@ -629,11 +624,7 @@
 "Ub" = (
 /obj/structure/curtain/open/shower,
 /obj/item/soap,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = -4;
-	pixel_x = 4
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -766,9 +757,7 @@
 /turf/simulated/wall,
 /area/ruin/space/rocky_motel)
 "Zz" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

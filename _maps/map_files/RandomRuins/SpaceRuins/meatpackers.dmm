@@ -470,9 +470,7 @@
 	},
 /area/ruin/unpowered/bmp_ship/midship)
 "bW" = (
-/obj/structure/sink{
-	pixel_y = 12
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -2057,9 +2055,7 @@
 	},
 /area/ruin/unpowered/bmp_ship/aft)
 "hg" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2084,11 +2080,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/bmp_ship/aft)
 "hk" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
