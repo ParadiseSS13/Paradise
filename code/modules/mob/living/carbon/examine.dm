@@ -308,6 +308,9 @@
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
 
+	if(HAS_TRAIT(src, TRAIT_PLAGUE_ZOMBIE)) //to tell plague zombies easier through clothing
+		msg += "[p_they(TRUE)] smell[p_s()] like rot and death!\n"
+
 	// add in anything else we want at the end of this block
 	msg += examine_extra_damage_flavor()
 
