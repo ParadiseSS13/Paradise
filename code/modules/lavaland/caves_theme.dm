@@ -23,9 +23,7 @@ GLOBAL_LIST_INIT(caves_default_mob_spawns, list(
 	/obj/effect/landmark/mob_spawner/legion = 30,
 	/obj/effect/landmark/mob_spawner/watcher = 40,
 
-	/obj/structure/spawner/lavaland = 2,
-	/obj/structure/spawner/lavaland/goliath = 3,
-	/obj/structure/spawner/lavaland/legion = 3,
+	/obj/effect/spawner/random/pool/tendril_spawner = 4,
 
 	SPAWN_MEGAFAUNA = 6,
 ))

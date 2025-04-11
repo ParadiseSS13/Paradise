@@ -1115,6 +1115,7 @@
 #include "code\game\objects\effects\spawners\random\pool\pool_spawner.dm"
 #include "code\game\objects\effects\spawners\random\pool\space_loot.dm"
 #include "code\game\objects\effects\spawners\random\pool\spawn_pool.dm"
+#include "code\game\objects\effects\spawners\random\pool\tendril_pool.dm"
 #include "code\game\objects\effects\spawners\random\pool\spawn_pool_manager.dm"
 #include "code\game\objects\effects\spawners\random\traders\trader_department_spawners.dm"
 #include "code\game\objects\effects\spawners\random\traders\trader_organization_spawners.dm"
