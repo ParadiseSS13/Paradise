@@ -135,9 +135,7 @@
 	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle,
-/obj/structure/sign/poster/official/obey{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/obey/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "y" = (

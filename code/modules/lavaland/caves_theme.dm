@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	seed = rand(1, 999999)
 
 /datum/caves_theme/proc/setup()
-	var/result = rustg_dbp_generate("[seed]", "[perlin_accuracy]", "[perlin_stamp_size]", "[world.maxx]", "[perlin_lower_range]", "[perlin_upper_range]")
+	var/result = rustlibs_dbp_generate("[seed]", "[perlin_accuracy]", "[perlin_stamp_size]", "[world.maxx]", "[perlin_lower_range]", "[perlin_upper_range]")
 	for(var/zlvl in levels_by_trait(ORE_LEVEL))
 		for(var/turf/T in block(1, 1, zlvl, world.maxx, world.maxy, zlvl))
 			if(!istype(get_area(T), /area/lavaland/surface/outdoors/unexplored))
