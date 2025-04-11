@@ -24,6 +24,7 @@ Bonus
 	transmittable = -4
 	level = 6
 	severity = 5
+	treatments = list("frostoil")
 
 /datum/symptom/fire/Activate(datum/disease/advance/A)
 	..()
