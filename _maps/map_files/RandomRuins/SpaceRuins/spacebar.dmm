@@ -218,7 +218,7 @@
 	},
 /area/ruin/space/powered/bar)
 "aX" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "black"
@@ -238,9 +238,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ba" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1
-	},
+/obj/machinery/door/airlock/multi_tile/glass/directional/north,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	dir = 10;

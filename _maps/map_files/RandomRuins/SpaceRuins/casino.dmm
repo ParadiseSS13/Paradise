@@ -512,7 +512,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "mP" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "mW" = (

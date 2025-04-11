@@ -63,7 +63,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "jM" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "freighterblastdoor1"
 	},
 /obj/structure/fans/tiny,
@@ -456,9 +456,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Je" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1
-	},
+/obj/machinery/door/airlock/multi_tile/glass/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
