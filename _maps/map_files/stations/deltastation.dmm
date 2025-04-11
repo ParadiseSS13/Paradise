@@ -54881,9 +54881,6 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "fjp" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/structure/sign/poster/official/safety_eye_protection/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
