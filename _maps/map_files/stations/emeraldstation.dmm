@@ -13205,8 +13205,8 @@
 /turf/simulated/floor/wood,
 /area/station/public/fitness)
 "cFP" = (
-/obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "cFS" = (
@@ -20838,10 +20838,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "ejB" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "ferry_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "ferry_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
 "ejD" = (
@@ -56577,10 +56577,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "loH" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "admin_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "loI" = (
@@ -64515,10 +64515,10 @@
 	},
 /area/station/science/testrange)
 "mVF" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "specops_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
 "mVK" = (
@@ -70575,8 +70575,8 @@
 	},
 /area/station/medical/virology)
 "ocI" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
@@ -91230,8 +91230,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "sgc" = (
-/obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "sgd" = (
@@ -96773,10 +96773,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "tls" = (
-/obj/machinery/door/airlock/external{
-	name = "Arrival Airlock"
-	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "tlt" = (
