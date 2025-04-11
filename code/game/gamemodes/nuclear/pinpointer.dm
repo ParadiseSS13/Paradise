@@ -537,10 +537,13 @@
 		return FALSE
 
 /obj/item/pinpointer/tendril/proc/scan_for_tendrils()
+	var/turf/our_turf = get_turf(src)
 	if(mode == MODE_TENDRIL)
 		target = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
 		for(var/obj/structure/spawner/lavaland/T in GLOB.tendrils)
+			if(T.z != our_turf.z)
+				continue
 			var/temp_distance = get_dist(T, get_turf(src))
 			if(temp_distance < closest_distance)
 				target = T
