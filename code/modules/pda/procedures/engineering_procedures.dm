@@ -65,17 +65,17 @@
 * MARK: SM Delam
 */
 /datum/procedure/engineering/supermatter_delam
-	procedure_categories = list("Supermatter Delamination")
+	procedure_categories = list("Supermatter", "Emergency")
 
 /datum/procedure/engineering/supermatter_delam/moles
-	name = "Coolant Critical Mass Procedure"
+	name = "Supermatter Coolant Critical Mass Procedure"
 	steps = list(
 		"Remove gas from the chamber until the console reads under 12000 moles per tile",
 		"If for whatever reason gas cannot be pumped out of the chamber use an RCD to remove a floor tile, then rebuild it."
 		)
 
 /datum/procedure/engineering/supermatter_delam/fire
-	name = "Chamber Fire Procedure"
+	name = "Supermatter Chamber Fire Procedure"
 	steps = list(
 		"Prepare cold N2. As much as you can in a reasonable time, but no more than 100,000 moles",
 		"Scrub all gasses other than N2",
@@ -85,7 +85,7 @@
 		)
 
 /datum/procedure/engineering/supermatter_delam/power
-	name = "Charge Inertia Chain Reaction Procedure"
+	name = "Supermatter Charge Inertia Chain Reaction Procedure"
 	steps = list(
 		"If the engine is also on fire, perform the chamber fire procedure",
 		"Reduce the portion of CO2 in the gas mix by injecting N2 or N2O, this will quickly drop EER",
@@ -93,7 +93,7 @@
 		)
 
 /datum/procedure/engineering/supermatter_delam/breach
-	name = "Chamber Breach Procedure"
+	name = "Supermatter Chamber Breach Procedure"
 	steps = list(
 		"Prepare cold N2. As much as you can in a reasonable time, but no more than 100,000 moles",
 		"Fix the walls of the chamber before fixing the floor if it is breached",
@@ -102,11 +102,11 @@
 		)
 // MARK: SM operation
 
-/datum/procedure/engineering/supermatter_operation
-	procedure_categories = list("Supermatter Operation")
+/datum/procedure/engineering/supermatter_setup
+	procedure_categories = list("Supermatter", "Setup")
 
-/datum/procedure/engineering/supermatter_operation/basic_setup
-	name = "Basic Setup"
+/datum/procedure/engineering/supermatter_setup/setup
+	name = "Supermatter Basic Setup"
 	steps = list(
 		"Replace all pumps aside from the one connecting the input and output sides with pipes",
 		"Turn on the pumps on the two N2 tanks, or pump in N2 from atmos",
@@ -224,19 +224,44 @@
 * MARK: Power
 */
 
-/datum/procedure/engineer/power
-	procedure_categories = list("Power")
 
-/datum/procedure/engineer/power/smes_shift_start
-	name = "Shift Start SMES Setup Procedure"
+/datum/procedure/engineer/smes_setup
+	name = "SMES Setup Procedure"
+	procedure_categories = list("Power", "Setup")
 	steps = list(
 		"Set the power input to maximum on all SMES",
 		"Set the power output to a total of 400KW across all SMES",
 		"If there is a power deficit and the SMES are empty, reduce the output so that all SMES receive the same amount of power"
 		)
 
-/datum/procedure/engineer/power/apc_repair
+/datum/procedure/engineer/solars_setup
+	name = "Solars Setup"
+	procedure_categories = list("Power", "Setup", "Solars")
+	steps = list(
+		"If the array is missing panels take parts from secure storage and build them",
+		"Wire all the sollar panels and the sun tracker to the console and SMES",
+		"Set the panels to track the sun automatically on the console"
+	)
+
+/datum/procedure/engineer/solar_panel_assembly
+	name = "Solar Panel Construction"
+	procedure_categories = list("Solars", "Assembly")
+	steps = list(
+		"Apply wrench to solar panel assembly",
+		"Apply 2 sheets of glass to solar panel assembly"
+	)
+
+/datum/procedure/engineer/solar_panel_disassembly
+	name = "Solar Panel Construction"
+	procedure_categories = list("Solars", "Disassembly")
+	steps = list(
+		"Apply wrench to solar panel assembly",
+		"Apply 2 sheets of glass to solar panel assembly"
+	)
+
+/datum/procedure/engineer/apc_repair
 	name = "Shorted APC Repair Procedure"
+	procedure_categories = list("Power", "Repair")
 	steps = list(
 		"Open the APC with a screwdriver",
 		"Use wirecutter to mend the damaged wires",
@@ -255,13 +280,42 @@
 * MARK: Atmospherics
 */
 
-/datum/procedure/atmos_tech/atmospherics
-	procedure_categories = list("Atmospherics")
-
-/datum/procedure/atmos_tech/atmospherics/shift_start_setup
+/datum/procedure/atmos_tech/atmospherics_setup
 	name = "Shift Start Setup"
+	procedure_categories = list("Atmospherics", "Setup")
 	steps = list(
 		"Set all filters to maximum pressure",
 		"Replace the volume pump going into distro with either a pipe or a pressure pump",
 		"Build heat exchanging pipes in space and connect them to the line going to the Supermatter"
+		)
+
+/datum/procedure/atmos_tech/ideal_gas_law
+	name = "Ideal Gas Law"
+	procedure_categories = list("Atmospherics")
+	steps = list(
+		"The ideal gas law is: PV = nRT where:",
+		"P is the pressure in kPa",
+		"V is the volume in litres",
+		"n is the number of moles of gas",
+		"T is the temperature in Kelvin",
+		"R is a constant equal to 8.31"
+		)
+
+/datum/procedure/atmos_tech/turbine_setup
+	name = "Turbine Setup"
+	procedure_categories = list("Atmospherics", "Power", "Turbine", "Setup")
+	steps = list(
+		"Pump oxygen and plasma to a gas mixer",
+		"Create a fuel mix (83/17 plasma/oxygen is common)",
+		"Pump the gas mixer output to the mix tank",
+		"Pump the mix from the mix tank to the turbine",
+		"You can alternatively pump your gasses to the turbine area directly and mix them there",
+		"Open the turbine compressor's panel with a screwdriver",
+		"Use a multitool on the compressor to record its ID",
+		"Use the multitool on the console to link it to the compressor",
+		"Turn on the Turbine",
+		"Replace the inlet pumps with straight pipes",
+		"Either open the door behind the turbine using the buttons near the chamber entry, or the vent or scrubber there to scrub or siphon the output",
+		"Turn on the inlet vent via the air alarm",
+		"Turn on the igniter",
 		)
