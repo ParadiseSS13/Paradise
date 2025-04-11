@@ -788,9 +788,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/random/directional/north,
 /obj/machinery/light_switch{
 	pixel_x = 24;
 	name = "East Switch";
@@ -1491,9 +1489,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "mc" = (
@@ -1765,9 +1761,7 @@
 	pixel_x = -11;
 	pixel_y = 5
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/random/directional/east,
 /obj/item/pen/multi{
 	pixel_x = -9;
 	pixel_y = -1
@@ -3109,9 +3103,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "yL" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3287,9 +3279,7 @@
 /obj/machinery/conveyor{
 	id = "mining_internal"
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "AC" = (
@@ -3430,9 +3420,7 @@
 /area/mine/outpost/hallway/west)
 "Bz" = (
 /obj/machinery/mineral/equipment_vendor,
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -3590,9 +3578,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/random/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -4722,9 +4708,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -4886,9 +4870,7 @@
 /area/mine/outpost/smith_workshop)
 "MW" = (
 /obj/structure/grille/broken,
-/obj/structure/sign/poster/random{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/random/directional/west,
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
