@@ -216,9 +216,9 @@
 /datum/spell/pulse_demon/overload/proc/detonate(mob/living/simple_animal/demon/pulse_demon/user, obj/machinery/target)
 	if(!QDELETED(target))
 		if(spell_level == level_max)
-			explosion(get_turf(target), 0, 1, 2, 2, smoke = TRUE)
+			explosion(get_turf(target), 0, 1, 2, 2, smoke = TRUE, cause = "Pulse Demon: [name]")
 		else
-			explosion(get_turf(target), 0, 0, 2, 2, smoke = TRUE)
+			explosion(get_turf(target), 0, 0, 2, 2, smoke = TRUE, cause = "Pulse Demon: [name]")
 		if(!QDELETED(target))
 			qdel(target)
 

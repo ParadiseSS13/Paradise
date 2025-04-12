@@ -13,7 +13,6 @@
 	spawn_loot_count = rand(1, 2)
 
 /obj/effect/spawner/random/bureaucracy
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "folder"
 	name = "bureaucracy spawner"
 	loot = list(
@@ -32,7 +31,6 @@
 	record_spawn = TRUE
 
 /obj/effect/spawner/random/book
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "book"
 	name = "book spawner"
 	loot = list(
@@ -48,7 +46,6 @@
 		/obj/item/book/manual/ripley_build_and_repair,
 		/obj/item/book/manual/supermatter_engine,
 		/obj/item/book/manual/wiki/botanist,
-		/obj/item/book/manual/wiki/chef_recipes,
 		/obj/item/book/manual/wiki/engineering_construction,
 		/obj/item/book/manual/wiki/engineering_guide,
 		/obj/item/book/manual/wiki/faxes,
@@ -83,7 +80,6 @@
 	record_spawn = TRUE
 
 /obj/effect/spawner/random/jani_supplies
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "mopbucket"
 	name = "janitorial supplies spawner"
 	loot = list(
@@ -96,10 +92,109 @@
 
 /obj/effect/spawner/random/stock_parts
 	name = "stock parts spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "stock_parts"
 	loot_subtype_path = /obj/item/stock_parts
 
 /obj/effect/spawner/random/stock_parts/Initialize(mapload)
 	spawn_loot_count = rand(4, 7)
 	. = ..()
+
+/obj/effect/spawner/random/glowstick
+	name = "random glowstick spawner"
+	icon_state = "glowstick"
+	loot = list(
+		/obj/item/flashlight/flare/glowstick,
+		/obj/item/flashlight/flare/glowstick/red,
+		/obj/item/flashlight/flare/glowstick/blue,
+		/obj/item/flashlight/flare/glowstick/orange,
+		/obj/item/flashlight/flare/glowstick/yellow,
+		/obj/item/flashlight/flare/glowstick/pink,
+	)
+
+/obj/effect/spawner/random/smithed_item
+	name = "random smithed item"
+	icon_state = "metal"
+	record_spawn = TRUE
+
+	/// Weighted list of possible item qualities
+	var/static/list/smithed_item_qualities = list(
+		/datum/smith_quality = 9,
+		/datum/smith_quality/improved = 1
+	)
+	/// Weighted list of possible item materials
+	var/static/list/smithed_item_materials = list(
+		/datum/smith_material/metal = 40,
+		/datum/smith_material/silver = 10,
+		/datum/smith_material/gold = 5,
+		/datum/smith_material/plasma = 10,
+		/datum/smith_material/titanium = 5,
+		/datum/smith_material/uranium = 3,
+		/datum/smith_material/brass = 15
+	)
+
+/obj/effect/spawner/random/smithed_item/make_item(spawn_loc, type_path_to_make)
+	var/obj/item/smithed_item/new_item = ..()
+	new_item.quality = pickweight(smithed_item_qualities)
+	new_item.material = pickweight(smithed_item_materials)
+	new_item.set_stats()
+	new_item.update_appearance(UPDATE_NAME)
+
+	return new_item
+
+/obj/effect/spawner/random/smithed_item/any
+	loot = list(
+		/obj/item/smithed_item/insert/ballistic,
+		/obj/item/smithed_item/insert/thermal,
+		/obj/item/smithed_item/insert/fireproofing,
+		/obj/item/smithed_item/insert/reflective,
+		/obj/item/smithed_item/insert/rad_hazard,
+		/obj/item/smithed_item/insert/rubberized,
+		/obj/item/smithed_item/tool_bit/speed,
+		/obj/item/smithed_item/tool_bit/balanced,
+		/obj/item/smithed_item/tool_bit/efficiency,
+		/obj/item/smithed_item/lens/accelerator,
+		/obj/item/smithed_item/lens/speed,
+		/obj/item/smithed_item/lens/amplifier,
+		/obj/item/smithed_item/lens/efficiency
+	)
+
+/obj/effect/spawner/random/smithed_item/insert
+	name = "random smithed insert"
+	loot = list(
+		/obj/item/smithed_item/insert/ballistic,
+		/obj/item/smithed_item/insert/thermal,
+		/obj/item/smithed_item/insert/fireproofing,
+		/obj/item/smithed_item/insert/reflective,
+		/obj/item/smithed_item/insert/rad_hazard,
+		/obj/item/smithed_item/insert/rubberized
+	)
+
+/obj/effect/spawner/random/smithed_item/bit
+	name = "random smithed tool bit"
+	loot = list(
+		/obj/item/smithed_item/tool_bit/speed,
+		/obj/item/smithed_item/tool_bit/balanced,
+		/obj/item/smithed_item/tool_bit/efficiency
+	)
+
+/obj/effect/spawner/random/smithed_item/lens
+	name = "random smithed lens"
+	loot = list(
+		/obj/item/smithed_item/lens/accelerator,
+		/obj/item/smithed_item/lens/speed,
+		/obj/item/smithed_item/lens/amplifier,
+		/obj/item/smithed_item/lens/efficiency
+	)
+
+/obj/effect/spawner/random/space_pirate
+	name = "random space pirate spawner"
+	loot = list(
+		/mob/living/simple_animal/hostile/pirate,
+		/mob/living/simple_animal/hostile/pirate/ranged,
+	)
+
+/obj/effect/spawner/random/fancy_table
+	name = "fancy table spawner"
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "fancy_table"
+	loot_type_path = /obj/structure/table/wood/fancy

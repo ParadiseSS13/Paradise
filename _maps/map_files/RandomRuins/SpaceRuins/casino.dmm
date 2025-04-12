@@ -59,7 +59,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/ruin/space/powered/casino/engine)
 "bq" = (
 /obj/structure/rack,
 /obj/item/radio{
@@ -571,7 +571,8 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/space/powered/casino/docked_ships)
 "op" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -625,7 +626,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "ql" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -736,7 +737,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/ruin/space/powered/casino/engine)
 "vb" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 4
@@ -772,9 +773,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/engine)
 "wb" = (
-/obj/structure/sign/poster/official/high_class_martini{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/high_class_martini/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "wg" = (
@@ -993,7 +992,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/ruin/space/powered/casino/engine)
 "BC" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1450,7 +1449,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

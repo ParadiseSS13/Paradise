@@ -203,7 +203,7 @@
 	if(location)
 		if(shaped && aim_dir)
 			location = get_step(get_step(location, aim_dir), aim_dir) //Move the explosion location two steps away from the target when using a shaped c4
-		explosion(location, ex_devastate, ex_heavy, ex_light, breach = ex_breach)
+		explosion(location, ex_devastate, ex_heavy, ex_light, breach = ex_breach, cause = name)
 
 	qdel(src)
 

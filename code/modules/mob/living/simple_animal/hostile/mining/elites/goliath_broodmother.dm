@@ -209,7 +209,7 @@
 	if(!QDELETED(mother))
 		mother.children_list -= src
 	visible_message("<span class='warning'>[src] explodes!</span>")
-	explosion(src, flame_range = 3, adminlog = FALSE)
+	explosion(src, flame_range = 3, adminlog = FALSE, cause = "[name] death")
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
 	qdel(src)

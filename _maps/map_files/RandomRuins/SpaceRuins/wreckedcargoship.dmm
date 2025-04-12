@@ -1,10 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ae" = (
 /obj/machinery/light/small,
-/obj/structure/closet/walllocker/emerglocker{
-	dir = 8;
-	pixel_x = -32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/wreck_cargoship)
@@ -299,9 +296,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/tools{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/tools/directional/north,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
@@ -410,7 +405,6 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "nH" = (
-/obj/machinery/light/small,
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
@@ -457,9 +451,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "pD" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -623,10 +615,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "yF" = (
-/obj/structure/closet/walllocker/emerglocker{
-	dir = 4;
-	pixel_x = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4
@@ -679,9 +668,7 @@
 /area/ruin/space/wreck_cargoship)
 "AP" = (
 /obj/structure/rack,
-/obj/structure/sign/poster/contraband/smoke{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/smoke/directional/west,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1096,6 +1083,7 @@
 "Sj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "SI" = (
@@ -1108,9 +1096,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "SJ" = (
-/obj/structure/sign/poster/official/here_for_your_safety{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/here_for_your_safety/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4
