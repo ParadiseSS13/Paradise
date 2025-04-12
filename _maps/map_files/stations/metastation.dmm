@@ -42909,7 +42909,7 @@
 	},
 /area/station/maintenance/starboard)
 "eRp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -67996,11 +67996,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "pKo" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 8
-	},
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedservers)
 "pKs" = (
@@ -72631,8 +72632,9 @@
 	},
 /area/station/medical/surgery/secondary)
 "rHG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 4
+/obj/machinery/alarm/directional/south,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
@@ -80669,6 +80671,9 @@
 /area/station/medical/medbay)
 "vjh" = (
 /obj/item/mounted/frame/apc_frame,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "vjy" = (

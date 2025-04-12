@@ -48461,6 +48461,7 @@
 /area/station/command/office/rd)
 "jEE" = (
 /obj/structure/machine_frame,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "jER" = (
@@ -96157,6 +96158,10 @@
 /area/station/public/fitness)
 "tec" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "tei" = (

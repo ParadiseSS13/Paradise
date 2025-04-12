@@ -27565,6 +27565,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/item/stack/cable_coil/random,
 /obj/machinery/light/small,
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "dXz" = (
@@ -38035,14 +38036,14 @@
 	},
 /area/station/medical/virology)
 "gHG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -49786,6 +49787,16 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/starboard)
+"jtd" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/cable/orange{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "jth" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -62180,6 +62191,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "mgu" = (
@@ -75426,6 +75438,9 @@
 	icon_state = "whiteblue"
 	},
 /area/station/maintenance/port)
+"pup" = (
+/turf/simulated/wall,
+/area/station/maintenance/abandonedservers)
 "pus" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -96289,10 +96304,10 @@
 	},
 /area/station/hallway/primary/port/north)
 "urI" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 8
-	},
 /obj/item/mounted/frame/apc_frame,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "usd" = (
@@ -167743,7 +167758,7 @@ rNK
 lCC
 alc
 alc
-alc
+pup
 lCC
 mKo
 okQ
@@ -168254,7 +168269,7 @@ rNK
 rNK
 rNK
 lCC
-alc
+pup
 mgh
 dMn
 urI
@@ -168511,8 +168526,8 @@ rNK
 rNK
 rNK
 lCC
-alc
-mgh
+pup
+jtd
 hLO
 gHG
 boh

@@ -47582,22 +47582,12 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "dvc" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/sign/poster/contraband/random/directional/west,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "dvv" = (
@@ -52812,6 +52802,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedservers)
 "fXp" = (
@@ -63392,7 +63383,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "lwt" = (
 /obj/machinery/computer/operating{
@@ -79974,12 +79965,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
+/obj/item/mounted/frame/apc_frame,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "0-8"
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "tYP" = (
 /obj/structure/sign/poster/official/random/directional/east,
@@ -83347,7 +83337,7 @@
 	},
 /area/station/supply/expedition)
 "vVV" = (
-/obj/item/mounted/frame/apc_frame,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "vWe" = (
@@ -86946,9 +86936,6 @@
 "xPM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
