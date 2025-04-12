@@ -826,8 +826,7 @@
 /area/station/security/warden)
 "aeV" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /obj/item/radio/intercom/custom{
 	dir = 8;
@@ -3247,8 +3246,7 @@
 /area/station/security/warden)
 "apk" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3727,8 +3725,7 @@
 /area/station/security/lobby)
 "arl" = (
 /obj/machinery/computer/security{
-	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12167,9 +12164,7 @@
 /area/station/security/checkpoint/secondary)
 "aWf" = (
 /obj/structure/reagent_dispensers/peppertank/north,
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -17540,10 +17535,8 @@
 /obj/machinery/camera{
 	c_tag = "Bridge West"
 	},
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
 /obj/machinery/computer/security/telescreen/entertainment/directional/north,
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},

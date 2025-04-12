@@ -14150,9 +14150,7 @@
 /area/station/security/checkpoint/secondary)
 "bix" = (
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -28493,9 +28491,7 @@
 	},
 /area/station/security/checkpoint/secondary)
 "cfh" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -53930,8 +53926,7 @@
 /area/station/security/detective)
 "jIs" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -69554,8 +69549,7 @@
 /area/station/security/main)
 "rsR" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
