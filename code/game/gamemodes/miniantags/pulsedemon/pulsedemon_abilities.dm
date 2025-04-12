@@ -132,7 +132,7 @@
 	desc = "Jump to another cable in view."
 	action_icon_state = "pd_cablehop"
 	unlock_cost = 4
-	cast_cost = 100 KJ
+	cast_cost = 200 KJ
 	upgrade_cost = 2
 	revealing = TRUE
 	reveal_time = 5 SECONDS
@@ -178,7 +178,7 @@
 	desc = "Creates an EMP where you click. Be careful not to use it on yourself!"
 	action_icon_state = "pd_emp"
 	unlock_cost = 4
-	cast_cost = 200 KJ
+	cast_cost = 500 KJ
 	upgrade_cost = 2
 	requires_area = TRUE
 	revealing = TRUE
@@ -190,14 +190,16 @@
 
 /datum/spell/pulse_demon/overload
 	name = "Overload Machine"
-	desc = "Overloads a machine, causing it to explode."
+	desc = "Overloads a machine, causing it to explode. Becomes powerful enough to breach when fully upgraded."
 	action_icon_state = "pd_overload"
-	unlock_cost = 6
-	cast_cost = 400 KJ
-	upgrade_cost = 2
+	unlock_cost = 8
+	cast_cost = 1000 KJ
+	upgrade_cost = 4
+	level_max = 4
 	requires_area = TRUE
 	revealing = TRUE
-	reveal_time = 15 SECONDS
+	base_cooldown = 1 MINUTE
+	reveal_time = 20 SECONDS
 
 /datum/spell/pulse_demon/overload/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	var/obj/machinery/M = target
@@ -208,12 +210,15 @@
 		to_chat(user, "<span class='warning'>That machine cannot be overloaded.</span>")
 		return FALSE
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(src, PROC_REF(detonate), M), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(detonate), user, M), 5 SECONDS)
 	return TRUE
 
-/datum/spell/pulse_demon/overload/proc/detonate(obj/machinery/target)
+/datum/spell/pulse_demon/overload/proc/detonate(mob/living/simple_animal/demon/pulse_demon/user, obj/machinery/target)
 	if(!QDELETED(target))
-		explosion(get_turf(target), 0, 1, 1, 0)
+		if(spell_level == level_max)
+			explosion(get_turf(target), 0, 1, 2, 2, smoke = TRUE)
+		else
+			explosion(get_turf(target), 0, 0, 2, 2, smoke = TRUE)
 		if(!QDELETED(target))
 			qdel(target)
 
@@ -222,7 +227,7 @@
 	desc = "Remotely hijacks an APC."
 	action_icon_state = "pd_remotehack"
 	unlock_cost = 2
-	cast_cost = 50 KJ
+	cast_cost = 200 KJ
 	level_max = 0
 	base_cooldown = 3 SECONDS // you have to wait for the regular hijack time anyway
 
@@ -371,10 +376,11 @@
 
 /datum/spell/pulse_demon/toggle/penetrating_shock
 	name = "Toggle Intense Shocks"
-	desc = "Toggle whether to use 50 KJ of energy to bypass electric-resistant victims immunity when attacking."
+	desc = "Toggle whether to use 200 KJ of energy to bypass electric-resistant victims immunity when attacking."
 	base_message = "use strong shocks when attacking."
 	action_icon_state = "pd_strong_shocks"
-	locked = FALSE
+	locked = TRUE
+	unlock_cost = 4
 	cast_cost = 0
 	level_max = 0
 
@@ -421,7 +427,7 @@
 		if(PD_UPGRADE_HIJACK_SPEED)
 			if(user.hijack_time <= 6 SECONDS)
 				return -1
-			if(user.hijack_time > 10 SECONDS)
+			if(user.hijack_time > 12 SECONDS)
 				cost = 1
 			else
 				cost = 2
@@ -430,14 +436,14 @@
 				return -1
 			cost = 1
 		if(PD_UPGRADE_MAX_HEALTH)
-			if(user.maxHealth >= 300)
+			if(user.maxHealth >= 200)
 				return -1
 			if(user.maxHealth <= 100)
 				cost = 1
 			else
 				cost = 2
 		if(PD_UPGRADE_HEALTH_REGEN)
-			if(user.health_regen_rate >= 100)
+			if(user.health_regen_rate >= 10)
 				return -1
 			cost = 1
 		if(PD_UPGRADE_HEALTH_LOSS)
@@ -448,7 +454,7 @@
 			else
 				cost = 2
 		if(PD_UPGRADE_HEALTH_COST)
-			if(user.power_per_regen <= 1)
+			if(user.power_per_regen <= 1 KJ)
 				return -1
 			cost = 1
 		if(PD_UPGRADE_MAX_CHARGE)
@@ -496,19 +502,19 @@
 	user.apcs_remaining -= cost
 	switch(choice)
 		if(PD_UPGRADE_HIJACK_SPEED)
-			user.hijack_time = max(round(user.hijack_time / 1.5), 6 SECONDS)
+			user.hijack_time = max(round(user.hijack_time - 3 SECONDS), 6 SECONDS)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [user.hijack_time / (1 SECONDS)] second\s to hijack APCs.</span>")
 		if(PD_UPGRADE_DRAIN_SPEED)
 			var/old = user.max_drain_rate
-			user.max_drain_rate = user.max_drain_rate + 20000
+			user.max_drain_rate = user.max_drain_rate + 20 KJ
 			if(user.power_drain_rate == old)
 				user.power_drain_rate = user.max_drain_rate
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you can now drain [format_si_suffix(user.max_drain_rate)]W.</span>")
 		if(PD_UPGRADE_MAX_HEALTH)
-			user.maxHealth = min(round(user.maxHealth * 1.5), 300)
+			user.maxHealth = min(round(user.maxHealth * 1.5), 200)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], your max health is now [user.maxHealth].</span>")
 		if(PD_UPGRADE_HEALTH_REGEN)
-			user.health_regen_rate = min(round(user.health_regen_rate * 2), 100)
+			user.health_regen_rate = min(round(user.health_regen_rate + 2), 10)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now regenerate [user.health_regen_rate] health per cycle when powered.</span>")
 		if(PD_UPGRADE_HEALTH_LOSS)
 			user.health_loss_rate = max(round(user.health_loss_rate - 1), 0)
@@ -521,7 +527,7 @@
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [format_si_suffix(user.power_per_regen)]W of power to regenerate health.</span>")
 			to_chat(user, "<span class='notice'>Additionally, if you enable draining while on a cable, any excess power that would've been used regenerating will be added to your charge.</span>")
 		if(PD_UPGRADE_MAX_CHARGE)
-			user.maxcharge = user.maxcharge + 100000
+			user.maxcharge = user.maxcharge + 50 KJ
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you can now store [format_si_suffix(user.maxcharge)]J of energy.</span>")
 		else
 			return FALSE

@@ -35,7 +35,7 @@
 
 	maxHealth = 50
 	health = 50
-	speed = -0.5
+	speed = -0.3
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
 	del_on_death = TRUE
@@ -73,11 +73,11 @@
 	var/max_drain_rate = 100 KJ
 
 	/// Amount of power (Watts) required to regenerate health.
-	var/power_per_regen = 100 KJ
+	var/power_per_regen = 200 KJ
 	/// Amount of health lost per Life tick when the power requirement was not met.
 	var/health_loss_rate = 5
 	/// Amount of health regenerated per Life tick when the power requirement was met.
-	var/health_regen_rate = 3
+	var/health_regen_rate = 2
 	/// Lock health regeneration while this is not 0, decreases by 1 every Life tick.
 	var/regen_lock = 0
 	/// Tracking to prevent multiple EMPs in the same tick from instakilling a demon.
@@ -86,7 +86,7 @@
 	/// Controls whether the demon can move outside of cables. Toggled by a spell.
 	var/can_exit_cable = FALSE
 	/// Speed used while moving inside cables.
-	var/inside_cable_speed = -0.5
+	var/inside_cable_speed = -0.3
 	/// Speed used while moving outside cables. Can be upgraded.
 	var/outside_cable_speed = 5
 
@@ -454,13 +454,13 @@
 	return realdelta
 
 // linear scale for glow strength, see table:
-	// 1.5 <= 150000 ()
-	// 2   at 200000
-	// 2.5 at 250000
-	// 3   at 300000 etc
+	// 1.5 <= 300000 ()
+	// 2   at 400000
+	// 2.5 at 50000
+	// 3   at 600000 etc
 
 /mob/living/simple_animal/demon/pulse_demon/proc/update_glow()
-	var/range = charge / 100000
+	var/range = charge / 200000
 	range = clamp(range, 1.5, 5)
 	set_light(range, 2, glow_color)
 
@@ -701,8 +701,8 @@
 	if(dealt > 0)
 		do_sparks(rand(2, 4), FALSE, src)
 	if(dealt == 0 && strong_shocks)
-		if(charge >= 50 KJ)
-			charge -= 50 KJ
+		if(charge >= 200 KJ)
+			charge -= 200 KJ
 			do_sparks(rand(2, 4), FALSE, src)
 			dealt = L.electrocute_act(30, src, siemens_coeff = 1, flags = SHOCK_NOGLOVES) //bypass that nasty shock resistance
 		else
@@ -761,10 +761,10 @@
 	switch(severity)
 		if(EMP_LIGHT)
 			adjustHealth(round(max(initial(health) / 4, round(maxHealth / 8))))
-			regen_lock = 3
+			regen_lock = 5
 		if(EMP_HEAVY)
 			adjustHealth(round(max(initial(health) / 3, round(maxHealth / 6))))
-			regen_lock = 5
+			regen_lock = 8
 	emp_debounce = TRUE
 	addtimer(VARSET_CALLBACK(src, emp_debounce, FALSE), 0.1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
