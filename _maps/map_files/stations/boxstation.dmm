@@ -80946,9 +80946,7 @@
 /obj/machinery/atmospherics/trinary/mixer{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
