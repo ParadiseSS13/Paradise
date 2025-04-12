@@ -167,13 +167,13 @@
 		var/datum/river_spawner/new_river = new /datum/river_spawner(pick(levels_by_trait(ORE_LEVEL)))
 		new_river.generate(nodes = 4, ignore_bridges = TRUE, warning = TRUE)
 	if(world.time >= next_rubble)
-		next_rubble = world.time + rand(5 DECISECONDS, 3 SECONDS)
+		next_rubble = world.time + rand(3 DECISECONDS, 2 SECONDS)
 		var/hits = 0
 		var/target
 		for(var/turf/T in get_area_turfs(/area/lavaland/surface/outdoors))
 			if(istype(T, /turf/simulated/floor/)) // dont waste our time hitting walls
 				valid_targets += T
-		while(hits <= 60) //sling a bunch of rocks around the map
+		while(hits <= 150) //sling a bunch of rocks around the map
 			if(!valid_targets) // god forbid we run out of spots to sling rocks
 				break
 			target = pick(valid_targets)
