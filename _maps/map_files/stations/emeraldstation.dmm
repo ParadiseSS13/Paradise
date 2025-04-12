@@ -6818,7 +6818,7 @@
 /area/station/ai_monitored/storage/eva)
 "btk" = (
 /obj/machinery/newscaster/directional/south,
-/obj/machinery/atmospherics/refill_station/oxygen,
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -45131,24 +45131,12 @@
 	},
 /area/station/science/server)
 "iVI" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
 /obj/structure/table,
 /obj/item/storage/bag/dice,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/sign/poster/official/random/directional/south,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "iVU" = (
@@ -117648,9 +117636,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "xtO" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -117659,28 +117644,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
 	},
 /obj/structure/sign/poster/official/random/directional/north,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
