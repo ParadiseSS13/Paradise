@@ -1417,7 +1417,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!program_picker)
 		return
 	program_picker.reset_programs()
-	to_chat(src, "<span class='notice'>Your storage has been reset to factory settings.</span>")
+	to_chat(src, "<span class='notice'>Your programs have been reset to factory settings!</span>")
+	src.throw_alert("programsreset", /atom/movable/screen/alert/programs_reset)
 
 /mob/living/silicon/ai/proc/add_program_picker()
 	view_core() // A BYOND bug requires you to be viewing your core before your verbs update
