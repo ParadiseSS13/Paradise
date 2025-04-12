@@ -17825,9 +17825,8 @@
 "bsn" = (
 /obj/structure/closet/secure_closet/explorer,
 /obj/machinery/camera{
-	c_tag = "AI Satellite Atmospherics";
-	dir = 4;
-	network = list("SS13","MiniSat")
+	c_tag = "Expedition Access";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -69625,9 +69624,8 @@
 /area/station/science/hallway)
 "nrD" = (
 /obj/machinery/camera{
-	c_tag = "AI Satellite Atmospherics";
-	dir = 4;
-	network = list("SS13","MiniSat")
+	c_tag = "Smith's Office";
+	dir = 4
 	},
 /obj/item/radio/intercom/directional/west,
 /obj/structure/closet/secure_closet/smith,

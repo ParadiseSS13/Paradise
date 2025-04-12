@@ -106974,7 +106974,7 @@
 /area/station/security/permabrig)
 "wGq" = (
 /obj/machinery/camera{
-	c_tag = "Mining Access"
+	c_tag = "Smith's Office"
 	},
 /obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{

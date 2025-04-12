@@ -7394,9 +7394,6 @@
 	},
 /area/station/supply/storage)
 "aMH" = (
-/obj/machinery/camera{
-	c_tag = "Cargo Bay Storage"
-	},
 /obj/structure/closet/secure_closet/smith,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8281,6 +8278,9 @@
 	name = "custom placement";
 	pixel_x = -24;
 	pixel_y = -8
+	},
+/obj/machinery/camera{
+	c_tag = "Cargo Bay Storage"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
@@ -77448,6 +77448,9 @@
 /obj/item/hammer,
 /obj/item/hammer,
 /obj/item/storage/belt/utility,
+/obj/machinery/camera{
+	c_tag = "Smith's Office"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
