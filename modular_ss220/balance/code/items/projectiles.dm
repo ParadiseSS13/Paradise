@@ -1,6 +1,6 @@
 /obj/item/projectile
 	///If TRUE, hit mobs even if they're on the floor and not our target
-	var/hit_prone_targets = FALSE
+	var/hit_prone_targets = TRUE
 
 /atom/handle_ricochet(obj/item/projectile/ricocheting_projectile)
 	. = ..()
