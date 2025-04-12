@@ -57638,10 +57638,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/surgery/observation)
-"iAm" = (
-/obj/structure/lattice,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "iAE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -75418,10 +75414,6 @@
 	icon_state = "red"
 	},
 /area/station/security/prisonershuttle)
-"rDb" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/station/maintenance/abandonedservers)
 "rDI" = (
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -136069,7 +136061,7 @@ qDr
 rAI
 heK
 lwi
-rDb
+ftA
 aab
 aab
 aab
@@ -136581,7 +136573,7 @@ aaa
 alv
 alv
 aab
-iAm
+aab
 alv
 alv
 alv

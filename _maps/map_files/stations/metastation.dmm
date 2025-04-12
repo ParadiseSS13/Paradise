@@ -62854,6 +62854,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"nwE" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/station/maintenance/asmaint)
 "nwQ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
@@ -64531,10 +64537,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
-"ois" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/abandonedservers)
 "oiv" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -123675,7 +123677,7 @@ vbW
 cPc
 cPc
 cHY
-cPc
+nwE
 cPc
 xGF
 pMx
@@ -124714,7 +124716,7 @@ xDO
 xDO
 vjh
 qdM
-ois
+rxc
 aaa
 aaa
 bNI
