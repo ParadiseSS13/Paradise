@@ -92087,13 +92087,7 @@
 	},
 /area/station/science/toxins/mixing)
 "vOO" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/alarm/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -127089,7 +127083,7 @@ brV
 kye
 brV
 vOO
-brV
+bGR
 nFz
 kiW
 bfG

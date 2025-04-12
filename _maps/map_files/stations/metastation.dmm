@@ -73330,9 +73330,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/air1{
-	pixel_x = 31
-	},
+/obj/structure/sign/poster/official/air1/directional/east,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "rWy" = (
@@ -82690,24 +82688,11 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "wkM" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/sign/poster/official/random/directional/west,
 /obj/item/kirbyplants/large/plant14,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/sign/poster/official/random/directional/west,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},

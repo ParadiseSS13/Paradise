@@ -80241,9 +80241,7 @@
 /area/station/science/test_chamber)
 "qBr" = (
 /obj/machinery/atmospherics/refill_station/nitrogen,
-/obj/structure/sign/poster/official/air1{
-	pixel_y = -29
-	},
+/obj/structure/sign/poster/official/air1/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

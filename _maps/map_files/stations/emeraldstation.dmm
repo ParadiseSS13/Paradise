@@ -39965,9 +39965,7 @@
 /area/station/hallway/primary/central/se)
 "hWy" = (
 /obj/machinery/atmospherics/refill_station/oxygen,
-/obj/structure/sign/poster/official/air1{
-	pixel_x = 31
-	},
+/obj/structure/sign/poster/official/air1/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
