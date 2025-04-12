@@ -206,7 +206,7 @@
 		return
 	upgrade_level++
 	if(!first_install)
-		SSblackbox.record_feedback("tally", "ai_program_upgrade", 1, "[program.type]")
+		SSblackbox.record_feedback("tally", "ai_program_upgrade", 1, "[src.type]")
 		bandwidth_used++
 		user.program_picker.bandwidth--
 
