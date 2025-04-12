@@ -160,7 +160,6 @@
 					to_chat(A, "<span class='warning'>You cannot afford this upgrade!</span>")
 					return FALSE
 				program.upgrade(A)
-				SSblackbox.record_feedback("tally", "ai_program_upgrade", 1, "[program.type]")
 			to_chat(A, program.unlock_text)
 			A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
 			return TRUE
