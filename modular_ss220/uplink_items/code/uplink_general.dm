@@ -6,3 +6,6 @@
 	reference = "SHAD"
 	item = /obj/item/flashlight/shadowlight
 	cost = 20
+
+/datum/uplink_item/dangerous/chainsaw
+	excludefrom = list()

@@ -15,7 +15,7 @@
 	deflect_chance = 20
 	leg_overload_coeff = 100
 	max_temperature = 35000
-	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, rad = 20, fire = 100, acid = 100)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 50, ENERGY = 35, BOMB = 20, RAD = 20, FIRE = INFINITY, ACID = INFINITY)
 	operation_req_access = list(ERT_TYPE_AMBER)
 	max_equip = 5
 	wreckage = /obj/structure/mecha_wreckage/gygax/gygax_nt
@@ -53,8 +53,8 @@
 
 // NT Special Gygax wreckage
 /obj/structure/mecha_wreckage/gygax/gygax_nt
-	name = "\improper Обломки Специального Гигакса НТ"
-	desc = "Видимо козырь был плохим..."
+	name = "обломки Специального Гигакса НТ"
+	desc = "Видимо, козырь был плохим..."
 	icon = 'modular_ss220/objects/icons/mecha.dmi'
 	icon_state = "ntgygax-broken"
 
@@ -63,14 +63,18 @@
 /// Rover
 /obj/mecha/combat/durand/rover
 	name = "Ровер"
-	desc = "Боевой мех, разработанный Синдикатом на основе Durand Mk. II путем удаления ненужных вещей и добавления некоторых своих технологий. Гораздо лучше защищен от любых опасностей, связанных с Нанотрейзен."
+	desc = "Боевой мех, разработанный Синдикатом на основе Durand Mk. II путем удаления ненужных вещей и добавления некоторых своих технологий. \
+		Гораздо лучше защищен от любых опасностей, связанных с Нанотрейзен. Ценой за такую защиту стала сильно пострадавшая мобильность."
 	icon = 'modular_ss220/objects/icons/mecha.dmi'
 	icon_state = "darkdurand"
 	initial_icon = "darkdurand"
-	armor = list(melee = 30, bullet = 40, laser = 50, energy = 50, bomb = 20, rad = 50, fire = 100, acid = 100)
+	armor = list(MELEE = 50, BULLET = 75, LASER = 25, ENERGY = 25, BOMB = 20, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	operation_req_access = list(ACCESS_SYNDICATE)
-	max_equip = 4
-	internal_damage_threshold = 35
+	step_in = 6 // slowest mech in game
+	max_equip = 5
+	max_integrity = 425
+	max_temperature = 40000
+	internal_damage_threshold = 25
 	wreckage = /obj/structure/mecha_wreckage/durand/rover
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 	destruction_sleep_duration = 2 SECONDS
@@ -87,11 +91,13 @@
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion/syndie
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
+	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
+	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
 /obj/mecha/combat/durand/rover/loaded/add_cell()
@@ -99,7 +105,7 @@
 
 // Rover's wreckage
 /obj/structure/mecha_wreckage/durand/rover
-	name = "\improper Обломки Ровера"
+	name = "обломки Ровера"
 	desc = "И как такой гигант пал?"
 	icon = 'modular_ss220/objects/icons/mecha.dmi'
 	icon_state = "darkdurand-broken"

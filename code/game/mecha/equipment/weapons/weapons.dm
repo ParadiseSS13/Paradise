@@ -11,6 +11,7 @@
 	var/projectile_delay = 0
 	var/projectiles
 	var/projectile_energy_cost
+	var/suppressed // SS220 EDIT
 
 /obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/combat/M as obj)
 	if(..())
@@ -58,7 +59,12 @@
 		chassis.use_power(energy_drain)
 		projectiles--
 		A.fire()
-		playsound(chassis, fire_sound, 50, 1)
+		// SS220 EDIT START
+		if(suppressed)
+			playsound(chassis, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+		else
+			playsound(chassis, fire_sound, 50, 1)
+		// SS220 EDIT END
 
 		sleep(max(0, projectile_delay))
 	set_ready_state(0)

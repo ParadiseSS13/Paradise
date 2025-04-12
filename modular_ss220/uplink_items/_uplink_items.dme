@@ -1,2 +1,3 @@
 #include "_uplink_items.dm"
 #include "code/uplink_general.dm"
+#include "code/uplink_nuclear.dm"

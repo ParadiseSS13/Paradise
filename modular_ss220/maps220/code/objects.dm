@@ -141,12 +141,22 @@
 
 // Mecha equipment
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi
-	name = "\improper AC 2 \"Special\""
-	desc = "C-20r inside!"
-	equip_cooldown = 8
-	projectile = /obj/item/projectile/bullet/midbullet2
-	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	name = "\improper SA-9 \"Tacit\""
+	equip_cooldown = 0.75 SECONDS
+	projectile = /obj/item/projectile/bullet/midbullet
+	projectiles_per_shot = 2
+	projectile_delay = 1.2
 	projectile_energy_cost = 14
+	suppressed = TRUE
+	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion/syndie
+	name = "SA ISR \"Interitus\""
+	equip_cooldown = 8 SECONDS // greater cooldown for high damage
+	energy_drain = 500 // 2000 total
+	projectile = /obj/item/projectile/ion
+	projectiles_per_shot = 4
+	variance = 20 // kinda accurate
 
 /* Caves awaymission */
 /obj/item/clothing/gloves/ring/immortality_ring
