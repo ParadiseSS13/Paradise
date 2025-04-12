@@ -28,6 +28,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	attack_verb = null
 	container_type = INJECTABLE
 	new_attack_chain = TRUE
+	/// Is this a single-use smokable?
+	var/disposable = TRUE
 	/// Is the cigarette lit?
 	var/lit = FALSE
 	/// Lit cigarette sprite.
@@ -131,21 +133,21 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	// If the target has no cig, try to give them the cig.
 	var/mob/living/carbon_target = A
-		if(user.zone_selected == "mouth" && !carbon_target.wear_mask && user.a_intent == INTENT_HELP)
-			user.drop_item_to_ground(src, force = TRUE)
-			carbon_target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
-			if(target != user)
-				user.visible_message(
-					"<span class='notice'>[user] slips \a [name] into the mouth of [carbon_target].</span>",
-					"<span class='notice'>You slip [src] into the mouth of [carbon_target].</span>"
-				)
-			else
-				to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
-			return FINISH_ATTACK
+	if(user.zone_selected == "mouth" && !carbon_target.wear_mask && user.a_intent == INTENT_HELP)
+		user.drop_item_to_ground(src, force = TRUE)
+		carbon_target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
+		if(target != user)
+			user.visible_message(
+				"<span class='notice'>[user] slips \a [name] into the mouth of [carbon_target].</span>",
+				"<span class='notice'>You slip [src] into the mouth of [carbon_target].</span>"
+			)
+		else
+			to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
+		return FINISH_ATTACK
 
-		// If they DO have a cig, try to light it with your own cig.
-		if(cigarette_lighter_act(user, carbon_target))
-			return FINISH_ATTACK
+	// If they DO have a cig, try to light it with your own cig.
+	if(cigarette_lighter_act(user, carbon_target))
+		return FINISH_ATTACK
 
 	return ..()
 
@@ -154,12 +156,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 
 	if(lit)
-		user.visible_message(
-			"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>",
-			"<span class='notice'>You calmly drop and tread on [src], putting it out instantly.</span>",
-			"<span class='notice'>You hear a foot being brought down on something, and the tiny fizzling of an ember going out.</span>"
-		)
-		die()
+		extinguish_cigarette(user)
+
+/obj/item/clothing/mask/cigarette/proc/extinguish_cigarette(mob/user)
+	user.visible_message(
+		"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>",
+		"<span class='notice'>You calmly drop and tread on [src], putting it out instantly.</span>",
+		"<span class='notice'>You hear a foot being brought down on something, and the tiny fizzling of an ember going out.</span>"
+	)
+	die()
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -540,6 +545,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 500
 	chem_volume = 220
 	list_reagents = list("nicotine" = 200)
+	disposable = FALSE
 
 /obj/item/clothing/mask/cigarette/pipe/die()
 	return
@@ -573,32 +579,36 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 
 	if(lit)
-		user.visible_message(
-			"<span class='notice'>[user] puts out [src].</span>",
-			"<span class='notice'>You put out [src].</span>"
-		)
-		lit = FALSE
-		first_puff = TRUE
-		icon_state = icon_off
-		item_state = icon_off
-		STOP_PROCESSING(SSobj, src)
+		extinguish_cigarette(user)
+
+/obj/item/clothing/mask/cigarette/pipe/extinguish_cigarette(mob/user)
+	user.visible_message(
+		"<span class='notice'>[user] puts out [src].</span>",
+		"<span class='notice'>You put out [src].</span>"
+	)
+	lit = FALSE
+	first_puff = TRUE
+	icon_state = icon_off
+	item_state = icon_off
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!istype(I, /obj/item/food/grown))
+	if(!istype(used, /obj/item/food/grown))
 		return ..()
 
-	var/obj/item/food/grown/O = I
-	if(O.dry)
-		if(reagents.total_volume == reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
-			return ITEM_INTERACT_COMPLETE
-
-		O.reagents.trans_to(src, chem_volume)
-		to_chat(user, "<span class='notice'>You stuff the [O.name] into the pipe.</span>")
-		smoketime = max(reagents.total_volume * REAGENT_TIME_RATIO, smoketime)
-		qdel(O)
-	else
+	var/obj/item/food/grown/filler = used
+	if(!filler.dry)
 		to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(reagents.total_volume == reagents.maximum_volume)
+		to_chat(user, "<span class='warning'>[src] is full!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	filler.reagents.trans_to(src, chem_volume)
+	to_chat(user, "<span class='notice'>You stuff the [filler.name] into the pipe.</span>")
+	smoketime = max(reagents.total_volume * REAGENT_TIME_RATIO, smoketime)
+	qdel(filler)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/cigarette/pipe/cobpipe
