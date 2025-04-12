@@ -1,21 +1,9 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, Stack, Tabs, Input } from '../components';
+import { Box, Button, Section, Stack, Tabs, Input, LabeledList } from '../components';
 import { Window } from '../layouts';
 import { ButtonCheckbox } from '../components/Button';
 
 export const QuirkMenu = (props, context) => {
-  return (
-    <Window width={1125} height={600}>
-      <Window.Content>
-        <Stack fill horizontal>
-          <Quirks context={context} />
-        </Stack>
-      </Window.Content>
-    </Window>
-  );
-};
-
-const Quirks = ({ context }) => {
   const { act, data } = useBackend(context);
   const { quirk_balance, selected_quirks, all_quirks } = data;
 
@@ -30,34 +18,48 @@ const Quirks = ({ context }) => {
   const RenderQuirk = (quirk) => {
     const alreadyChosen = HasChosenQuirk(quirk);
     const canPick = BalanceCheck(quirk);
+
     return (
-      <div>
-        <Stack horizontal align="center">
+      <Section
+        key={quirk.name}
+        title={quirk.name}
+        mb={1}
+        buttons={
           <ButtonCheckbox
             checked={alreadyChosen}
             disabled={(canPick && !alreadyChosen) || (alreadyChosen && quirk_balance - quirk.cost > 0)}
             onClick={() => act(alreadyChosen ? 'remove_quirk' : 'add_quirk', { path: quirk.path })}
             mr="10px"
           />
-          <Stack horizontal align="center" justify="start" style={{ width: '100%' }}>
-            <Stack.Item mr="35px">
-              {quirk.name}: {quirk.cost}
+        }
+      >
+        <LabeledList>
+          <Stack vertical>
+            <Stack.Item mb={0}>
+              <LabeledList.Item label="Cost">{quirk.cost}</LabeledList.Item>
             </Stack.Item>
-            <Stack.Item mr="10px">{quirk.desc}</Stack.Item>
+            <Stack.Item>
+              <LabeledList.Item label="Description">{quirk.desc}</LabeledList.Item>
+            </Stack.Item>
           </Stack>
-        </Stack>
-        <hr />
-      </div>
+        </LabeledList>
+      </Section>
     );
   };
 
+  const sortedQuirks = all_quirks.sort((a, b) => a.cost - b.cost);
   return (
-    <Section textAlign="center">
-      <b>Current quirk balance: {quirk_balance}</b>
-      <hr />
-      <Stack fill vertical>
-        {all_quirks.map(RenderQuirk)}
-      </Stack>
-    </Section>
+    <Window width={500} height={600}>
+      <Window.Content scrollable>
+        <Stack fill vertical>
+          <Stack.Item>
+            <Section title="Current Quirk Balance" mb={2}>
+              <b>{quirk_balance}</b>
+            </Section>
+          </Stack.Item>
+          <Stack.Item grow>{sortedQuirks.map(RenderQuirk)}</Stack.Item>
+        </Stack>
+      </Window.Content>
+    </Window>
   );
 };
