@@ -198,7 +198,7 @@
 	level_max = 4
 	requires_area = TRUE
 	revealing = TRUE
-	base_cooldown = 1 MINUTE
+	base_cooldown = 60 SECONDS
 	reveal_time = 20 SECONDS
 
 /datum/spell/pulse_demon/overload/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
