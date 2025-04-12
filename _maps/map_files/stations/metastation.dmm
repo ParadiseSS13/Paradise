@@ -36075,14 +36075,9 @@
 	},
 /area/station/medical/medbay)
 "cPp" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/reagent_dispensers/fueltank,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "cPq" = (
@@ -39786,9 +39781,7 @@
 /area/station/turret_protected/ai)
 "duF" = (
 /obj/machinery/atmospherics/refill_station/nitrogen,
-/obj/structure/sign/poster/official/air1{
-	pixel_y = 28
-	},
+/obj/structure/sign/poster/official/air1/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -69425,24 +69418,6 @@
 	icon_state = "cautioncorner"
 	},
 /area/station/hallway/primary/starboard/east)
-"qql" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/poster/contraband/random/directional/north,
-/obj/structure/reagent_dispensers/fueltank,
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "qqC" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/green{
 	dir = 4
@@ -75625,9 +75600,7 @@
 /area/station/hallway/primary/central/nw)
 "sWZ" = (
 /obj/machinery/atmospherics/refill_station/nitrogen,
-/obj/structure/sign/poster/official/air1{
-	pixel_x = -31
-	},
+/obj/structure/sign/poster/official/air1/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -82723,9 +82696,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/random/directional/west,
 /obj/item/kirbyplants/large/plant14,
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: ---"
@@ -103362,7 +103333,7 @@ crG
 qSg
 bZP
 cPp
-qql
+crG
 crG
 bZP
 aaa

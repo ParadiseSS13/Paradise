@@ -55,9 +55,7 @@
 /area/station/command/office/ce)
 "aaV" = (
 /obj/machinery/atmospherics/refill_station/oxygen,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -13086,9 +13084,7 @@
 /area/station/maintenance/aft)
 "cEq" = (
 /obj/machinery/atmospherics/refill_station/nitrogen,
-/obj/structure/sign/poster/official/air2{
-	pixel_x = -31
-	},
+/obj/structure/sign/poster/official/air2/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -26349,21 +26345,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
 "fme" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
 /obj/structure/chair/sofa/bench/right,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/chair/sofa/bench,
 /obj/structure/sign/poster/official/random/directional/north,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "fmu" = (
@@ -45131,9 +45114,7 @@
 	},
 /area/station/science/server)
 "iVI" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /obj/structure/table,
 /obj/item/storage/bag/dice,
 /obj/structure/sign/poster/official/random/directional/south,
@@ -66280,22 +66261,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"nmR" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/poster/official/random/directional/west,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/sw)
 "nmS" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -144546,7 +144511,7 @@ snX
 vhh
 snX
 iaF
-nmR
+hLy
 hLy
 qEZ
 owl
