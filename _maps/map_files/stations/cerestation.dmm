@@ -70974,7 +70974,8 @@
 	pixel_y = 28
 	},
 /obj/item/desk_bell{
-	pixel_y = 5
+	pixel_y = 5;
+	anchored = 1
 	},
 /obj/machinery/door/window/classic/reversed{
 	name = "Cargo Desk";
@@ -72919,7 +72920,8 @@
 "oRo" = (
 /obj/structure/table,
 /obj/item/desk_bell{
-	pixel_y = 5
+	pixel_y = 5;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
