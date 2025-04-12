@@ -143,7 +143,6 @@
 							return TRUE
 
 				// No same active program found, install the new active power.
-				SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
 				program.upgrade(A, first_install = TRUE) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
 				A.AddSpell(new_spell)
 				to_chat(A, program.unlock_text)
@@ -208,6 +207,7 @@
 		return
 	upgrade_level++
 	if(!first_install)
+		SSblackbox.record_feedback("tally", "ai_program_upgrade", 1, "[program.type]")
 		bandwidth_used++
 		user.program_picker.bandwidth--
 
