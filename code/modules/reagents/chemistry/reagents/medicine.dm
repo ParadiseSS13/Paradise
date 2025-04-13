@@ -264,7 +264,7 @@
 	id = "salglu_solution"
 	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#cbc6ce"
 	penetrates_skin = TRUE
 	metabolization_rate = 0.15
 	taste_description = "salt"
@@ -1141,7 +1141,7 @@
 	name = "Stimulants"
 	id = "stimulants"
 	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
-	color = "#C8A5DC"
+	color = "#a12c3c"
 	harmless = FALSE
 	taste_description = "<span class='userdanger'>an unstoppable force</span>"
 
@@ -1184,7 +1184,7 @@
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
-	color = "#C8A5DC"
+	color = "#96210de3"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	harmless = FALSE
