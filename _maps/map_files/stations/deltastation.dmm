@@ -55878,38 +55878,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
-"fGU" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/binary/pump{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/access_button{
-	autolink_id = "turbine_btn_int";
-	name = "Gas Turbine Access Button";
-	pixel_x = 26;
-	pixel_y = -8
-	},
-/obj/structure/sign/turbine{
-	pixel_x = -32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "fGW" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -59592,23 +59560,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
-"hwp" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "hwE" = (
 /obj/structure/sink/kitchen{
 	dir = 1;
@@ -83431,33 +83382,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cloning)
-"sng" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/binary/pump{
-	dir = 8
-	},
-/obj/machinery/light/small,
-/obj/machinery/access_button{
-	autolink_id = "turbine_btn_ext";
-	name = "Gas Turbine Access Button";
-	pixel_x = -21;
-	pixel_y = 10
-	},
-/obj/structure/sign/magboots{
-	pixel_x = -32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "snm" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/light_switch{
@@ -118930,7 +118854,7 @@ uFo
 aPF
 aSI
 aVO
-hwp
+ban
 bam
 ban
 ban
@@ -119185,9 +119109,9 @@ aPH
 aQW
 uFo
 iYX
-fGU
+aVF
 ban
-sng
+ban
 tNx
 lth
 fgF
