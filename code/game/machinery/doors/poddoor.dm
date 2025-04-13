@@ -89,8 +89,8 @@
  // Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
-	layer = CLOSED_DOOR_LAYER
-	closingLayer = CLOSED_DOOR_LAYER
+	layer = CLOSED_BLASTDOOR_LAYER
+	closingLayer = CLOSED_BLASTDOOR_LAYER
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/poddoor/multi_tile, 0, 0)
 

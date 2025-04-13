@@ -92,19 +92,19 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	seed = rand(1, 999999)
 
 /datum/caves_theme/proc/setup()
-	var/result = rustg_dbp_generate("[seed]", "[perlin_accuracy]", "[perlin_stamp_size]", "[world.maxx]", "[perlin_lower_range]", "[perlin_upper_range]")
-	var/z = level_name_to_num(MINING)
-	for(var/turf/T in block(1, 1, z, world.maxx, world.maxy, z))
-		if(!istype(get_area(T), /area/lavaland/surface/outdoors/unexplored))
-			continue
-		if(!istype(T, /turf/simulated/mineral))
-			continue
-		var/c = result[world.maxx * (T.y - 1) + T.x]
-		if(c == "1")
-			T.ChangeTurf(/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-			on_change(T)
+	var/result = rustlibs_dbp_generate("[seed]", "[perlin_accuracy]", "[perlin_stamp_size]", "[world.maxx]", "[perlin_lower_range]", "[perlin_upper_range]")
+	for(var/zlvl in levels_by_trait(ORE_LEVEL))
+		for(var/turf/T in block(1, 1, zlvl, world.maxx, world.maxy, zlvl))
+			if(!istype(get_area(T), /area/lavaland/surface/outdoors/unexplored))
+				continue
+			if(!istype(T, /turf/simulated/mineral))
+				continue
+			var/c = result[world.maxx * (T.y - 1) + T.x]
+			if(c == "1")
+				T.ChangeTurf(/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+				on_change(T)
 
-		CHECK_TICK
+			CHECK_TICK
 
 /datum/caves_theme/proc/on_change(turf/T)
 	if(prob(2))
@@ -115,6 +115,8 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 /datum/caves_theme/proc/safe_replace(turf/T)
 	if(T.flags & NO_LAVA_GEN)
 		return FALSE
+	if(istype(T, /turf/template_noop))
+		return TRUE
 	if(!istype(get_area(T), /area/lavaland/surface/outdoors/unexplored))
 		return FALSE
 	if(istype(T, /turf/simulated/floor/chasm))
