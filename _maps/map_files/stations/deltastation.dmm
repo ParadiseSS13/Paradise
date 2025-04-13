@@ -52698,9 +52698,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown/secret)
 "enq" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -53288,6 +53285,9 @@
 "exI" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
