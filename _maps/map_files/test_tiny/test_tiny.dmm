@@ -11,53 +11,16 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"f" = (
-/obj/item/reagent_containers/glass/beaker/waterbottle/large,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"g" = (
-/obj/item/storage/fancy/cigarettes,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"q" = (
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"s" = (
-/obj/machinery/smartfridge/drying_rack,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"t" = (
-/obj/item/clothing/mask/holo_cigar,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "u" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
-"w" = (
-/obj/item/clothing/mask/cigarette/pipe/cobpipe,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "x" = (
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"D" = (
-/obj/item/food/grown/tobacco,
-/obj/item/food/grown/tobacco,
-/obj/item/food/grown/tobacco,
-/obj/item/food/grown/tobacco,
-/obj/item/food/grown/tobacco,
-/obj/item/food/grown/tobacco,
-/obj/item/food/grown/tobacco,
-/obj/item/food/grown/tobacco,
-/obj/item/food/grown/tobacco,
-/obj/item/food/grown/tobacco,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "F" = (
@@ -68,14 +31,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"L" = (
-/obj/item/lighter/zippo,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"N" = (
-/obj/item/clothing/mask/cigarette/pipe,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "U" = (
@@ -32080,8 +32035,8 @@ u
 p
 x
 x
-s
-g
+x
+x
 x
 x
 x
@@ -32337,8 +32292,8 @@ u
 x
 x
 x
-D
-g
+x
+x
 x
 x
 x
@@ -32594,8 +32549,8 @@ u
 x
 x
 x
-N
-L
+x
+x
 b
 x
 x
@@ -32851,8 +32806,8 @@ u
 x
 x
 x
-w
-f
+x
+x
 x
 x
 x
@@ -33108,8 +33063,8 @@ u
 p
 x
 x
-t
-q
+x
+x
 x
 x
 x
