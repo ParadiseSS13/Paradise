@@ -33,6 +33,7 @@
 #include "piano\code\piano.dm"
 #include "racks\code\racks.dm"
 #include "railings\code\railings.dm"
+#include "dispensers\code\dispensers.dm"
 #include "rollerbed\code\rollerbed.dm"
 #include "safe\code\safe.dm"
 #include "satchels\code\satchels.dm"
