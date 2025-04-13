@@ -81,3 +81,6 @@ site
 
 # mapmanip-generated DMM files
 _maps/map_files/**/*.mapmanipout.dmm
+
+# byond version manager tracking file
+.byondversion

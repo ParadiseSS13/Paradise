@@ -111,7 +111,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 			. += "<span class='notice'>The cover screws are loose.</span>"
 
 /obj/machinery/gravity_generator/main/Destroy() // If we somehow get deleted, remove all of our other parts.
-	investigate_log("was destroyed!", "gravity")
+	investigate_log("was destroyed!", INVESTIGATE_GRAVITY)
 	on = FALSE
 	update_gen_list()
 	for(var/area/A in world)
@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	breaker_on = FALSE
 	update_icon()
 	set_gravity(FALSE)
-	investigate_log("has broken down.", "gravity")
+	investigate_log("has broken down.", INVESTIGATE_GRAVITY)
 
 /obj/machinery/gravity_generator/main/set_fix()
 	..()
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = TRUE
 	if(action == "breaker")
 		breaker_on = !breaker_on
-		investigate_log("was toggled [breaker_on ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [usr.key].", "gravity")
+		investigate_log("was toggled [breaker_on ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [usr.key].", INVESTIGATE_GRAVITY)
 		set_power()
 
 // Power and Icon States
@@ -235,7 +235,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main/power_change()
 	if(!..())
 		return
-	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", "gravity")
+	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", INVESTIGATE_GRAVITY)
 	set_power()
 
 /obj/machinery/gravity_generator/main/get_status()
@@ -264,7 +264,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	else if(breaker_on)
 		charging_state = GRAV_POWER_UP
 
-	investigate_log("is now [charging_state == GRAV_POWER_UP ? "charging" : "discharging"].", "gravity")
+	investigate_log("is now [charging_state == GRAV_POWER_UP ? "charging" : "discharging"].", INVESTIGATE_GRAVITY)
 	update_icon()
 
 /**
@@ -281,7 +281,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	if(gravity) // If we turned on
 		if(generators_in_area() == 0) // And there's no other gravity generators on this z level
 			alert = TRUE
-			investigate_log("was brought online and is now producing gravity for this level.", "gravity")
+			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
 			message_admins("The gravity generator was brought online. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 			for(var/area/A in world)
 				if((A.type in areas) && A.z == z)
@@ -289,7 +289,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 	else if(generators_in_area() == 1) // Turned off, and there is only one gravity generator on the Z level
 		alert = TRUE
-		investigate_log("was brought offline and there is now no gravity for this level.", "gravity")
+		investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
 		message_admins("The gravity generator was brought offline with no backup generator. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 		for(var/area/A in world)
 			if((A.type in areas) && A.z == z)

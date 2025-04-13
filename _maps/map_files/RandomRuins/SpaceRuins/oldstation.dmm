@@ -63,8 +63,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -218,8 +216,6 @@
 /area/ruin/ancientstation/thetacorridor)
 "aL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -273,20 +269,12 @@
 /obj/item/airlock_electronics,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
-"aS" = (
-/obj/structure/sign/poster/contraband/random,
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall,
-/area/ruin/ancientstation)
 "aT" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/ancientstation/comm)
 "aU" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -451,8 +439,6 @@
 "bt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/chair{
@@ -483,8 +469,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -520,8 +504,6 @@
 /area/ruin/ancientstation)
 "bE" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -629,8 +611,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -643,8 +623,6 @@
 /area/ruin/ancientstation/thetacorridor)
 "ca" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -663,8 +641,6 @@
 /area/ruin/ancientstation/betanorth)
 "cd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -693,8 +669,6 @@
 /area/ruin/ancientstation)
 "ch" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -718,8 +692,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -826,7 +798,6 @@
 /area/ruin/ancientstation/hydroponics)
 "cC" = (
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar,
@@ -836,7 +807,6 @@
 /area/space/nearstation)
 "cD" = (
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar,
@@ -882,6 +852,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/science/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "cK" = (
@@ -935,8 +906,6 @@
 /area/ruin/ancientstation/betanorth)
 "cS" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -964,8 +933,6 @@
 "cY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -990,8 +957,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -1003,8 +968,6 @@
 	name = "Theta prototype lab blast door"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1039,8 +1002,6 @@
 /area/ruin/ancientstation/proto)
 "di" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -1059,8 +1020,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -1080,7 +1039,6 @@
 "dp" = (
 /obj/machinery/power/solar,
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1144,8 +1102,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1217,8 +1173,6 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1277,7 +1231,6 @@
 /area/ruin/ancientstation/thetacorridor)
 "dR" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1301,8 +1254,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/template_noop,
@@ -1398,16 +1349,12 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
 "en" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1429,8 +1376,6 @@
 /area/ruin/ancientstation/kitchen)
 "eq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -1509,7 +1454,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/cobweb/left/frequent,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/west,
@@ -1536,7 +1480,6 @@
 /area/ruin/ancientstation/rnd)
 "eE" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
@@ -1557,12 +1500,11 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/work_for_a_future{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/work_for_a_future/directional/north,
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 5
 	},
+/obj/structure/sign/poster/official/science/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "eH" = (
@@ -1655,8 +1597,6 @@
 /area/ruin/ancientstation/thetacorridor)
 "eY" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1669,8 +1609,6 @@
 /area/ruin/ancientstation/engi)
 "eZ" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
@@ -1683,7 +1621,6 @@
 /area/ruin/ancientstation/engi)
 "fb" = (
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -1712,9 +1649,7 @@
 "fe" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "ff" = (
@@ -1769,8 +1704,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1828,8 +1761,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -1895,13 +1826,9 @@
 /area/ruin/ancientstation/engi)
 "fE" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1930,8 +1857,6 @@
 /area/ruin/ancientstation/engi)
 "fH" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1939,8 +1864,6 @@
 /area/ruin/ancientstation/engi)
 "fI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1965,8 +1888,6 @@
 /area/ruin/ancientstation/comm)
 "fL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1984,8 +1905,6 @@
 /area/ruin/ancientstation/thetacorridor)
 "fO" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2012,12 +1931,9 @@
 "fR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
@@ -2028,8 +1944,6 @@
 /area/ruin/ancientstation/kitchen)
 "fS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2088,8 +2002,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -2125,8 +2037,6 @@
 /area/ruin/ancientstation/rnd)
 "gh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2189,8 +2099,6 @@
 /area/ruin/ancientstation)
 "go" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -2202,8 +2110,6 @@
 /area/ruin/ancientstation/betanorth)
 "gp" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2214,16 +2120,12 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -2243,7 +2145,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -2254,8 +2156,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -2335,7 +2235,6 @@
 	},
 /area/ruin/ancientstation/kitchen)
 "gF" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/all_access/directional/north{
 	report_danger_level = 0
@@ -2356,14 +2255,13 @@
 	dir = 4
 	},
 /obj/structure/showcase/machinery/oldpod,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "gK" = (
-/obj/machinery/processor,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2371,9 +2269,6 @@
 "gL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_y = 10
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2461,8 +2356,6 @@
 /area/ruin/ancientstation/thetacorridor)
 "gV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2501,6 +2394,8 @@
 "hc" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/clothing/head/chefhat,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2513,8 +2408,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2653,8 +2546,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2698,6 +2589,8 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2714,8 +2607,6 @@
 /area/ruin/ancientstation/rnd)
 "hC" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2763,8 +2654,6 @@
 /area/ruin/ancientstation/engi)
 "hH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
@@ -2784,8 +2673,6 @@
 "hJ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/template_noop,
@@ -2924,7 +2811,6 @@
 "ic" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2933,8 +2819,6 @@
 "id" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -2947,8 +2831,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2961,8 +2843,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2980,8 +2860,6 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3040,20 +2918,12 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
-"iq" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/safety_internals,
-/turf/simulated/wall,
-/area/ruin/ancientstation/kitchen)
 "ir" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
@@ -3125,11 +2995,9 @@
 	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -3142,9 +3010,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/powered)
 "iD" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/firealarm/directional/west,
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -3158,7 +3023,6 @@
 "iF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -3170,8 +3034,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3188,8 +3050,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -3251,8 +3111,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3288,6 +3146,7 @@
 /obj/item/stack/cable_coil{
 	amount = 2
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
 "jc" = (
@@ -3296,9 +3155,6 @@
 	},
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3313,8 +3169,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -3356,11 +3210,9 @@
 	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3382,8 +3234,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3428,8 +3278,6 @@
 "jy" = (
 /obj/machinery/atmospherics/meter,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3505,8 +3353,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3542,8 +3388,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -3640,7 +3484,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "ke" = (
@@ -3679,8 +3523,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -3692,7 +3534,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar,
-/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/spawner/random/glowstick,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "ko" = (
@@ -3712,14 +3554,10 @@
 /area/ruin/ancientstation/atmo)
 "kt" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -3750,8 +3588,6 @@
 /area/ruin/ancientstation/kitchen)
 "kA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3766,11 +3602,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
-"kD" = (
-/obj/structure/sign/poster/official/cleanliness,
-/obj/effect/mapping_helpers/turfs/rust,
-/turf/simulated/wall,
-/area/ruin/ancientstation)
 "kF" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -3793,7 +3624,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "kH" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/unpowered)
 "kI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3846,8 +3677,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3926,13 +3755,9 @@
 /area/ruin/ancientstation/hivebot)
 "ld" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3943,8 +3768,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -3990,8 +3813,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4021,8 +3842,6 @@
 /area/ruin/ancientstation)
 "lq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4069,8 +3888,6 @@
 /area/ruin/ancientstation/sec)
 "lw" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /mob/living/simple_animal/hostile/hivebot,
@@ -4079,8 +3896,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -4175,6 +3990,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/flash,
+/obj/structure/sign/poster/contraband/donut_corp/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -4261,14 +4077,12 @@
 "my" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
-/area/template_noop)
+/area/ruin/unpowered)
 "mB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -4288,8 +4102,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4302,8 +4114,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -4311,7 +4121,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -4336,8 +4145,6 @@
 "nh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -4357,8 +4164,6 @@
 /area/ruin/ancientstation/atmo)
 "nw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4372,8 +4177,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -4383,8 +4186,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor{
@@ -4423,14 +4224,10 @@
 "op" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -4465,8 +4262,6 @@
 /area/ruin/ancientstation/thetacorridor)
 "oK" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -4485,8 +4280,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -4496,8 +4289,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4521,14 +4312,10 @@
 /area/ruin/ancientstation/comm)
 "pr" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/template_noop,
@@ -4539,8 +4326,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -4555,8 +4340,6 @@
 /area/ruin/ancientstation/atmo)
 "pO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/alarm/all_access/directional/west{
@@ -4565,6 +4348,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"pW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/oven,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
+"pZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/help_others/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/betanorth)
 "qd" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/computerframe{
@@ -4583,8 +4379,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /mob/living/simple_animal/hostile/hivebot,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4616,19 +4410,13 @@
 /area/ruin/ancientstation)
 "qv" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -4646,8 +4434,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4671,12 +4457,9 @@
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4694,8 +4477,6 @@
 /area/ruin/ancientstation/hydroponics)
 "rC" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4753,6 +4534,7 @@
 	pixel_y = 28;
 	pixel_x = 4
 	},
+/obj/structure/sign/poster/official/safety_report/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -4788,8 +4570,6 @@
 /area/ruin/ancientstation/atmo)
 "sx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4804,7 +4584,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4831,14 +4610,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"sY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "ta" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4876,8 +4660,6 @@
 "tI" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/template_noop,
@@ -4887,8 +4669,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -4977,6 +4757,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/science/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "vg" = (
@@ -4989,13 +4770,9 @@
 "vn" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -5066,27 +4843,12 @@
 "vN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
-"vQ" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/nanomichi_ad,
-/turf/simulated/wall,
-/area/ruin/ancientstation/betanorth)
-"vV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/clothing/head/chefhat,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ruin/ancientstation/kitchen)
 "vY" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5102,8 +4864,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5122,8 +4882,6 @@
 /area/ruin/ancientstation/betanorth)
 "wm" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/ruins/theta,
@@ -5158,12 +4916,9 @@
 "wE" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -5173,24 +4928,26 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall,
 /area/ruin/ancientstation/comm)
+"wJ" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/stack/sheet/wood{
+	amount = 25
+	},
+/turf/simulated/floor/grass,
+/area/ruin/ancientstation/hydroponics)
 "xj" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -5236,16 +4993,12 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
 "ya" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5298,29 +5051,25 @@
 /area/ruin/ancientstation/proto)
 "zg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/air2{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/air2/directional/north,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "zi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/work_for_a_future{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/work_for_a_future/directional/north,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/structure/sign/poster/official/science/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "zp" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -5329,13 +5078,9 @@
 "zC" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -5364,8 +5109,6 @@
 /obj/machinery/door/airlock/science,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5376,6 +5119,7 @@
 "zR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/large/dead,
+/obj/structure/sign/poster/official/nanomichi_ad/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
 "zT" = (
@@ -5405,8 +5149,6 @@
 "Ak" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -5430,13 +5172,9 @@
 "AI" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -5456,8 +5194,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor/closed,
@@ -5482,8 +5218,6 @@
 	name = "Prototype Laboratory"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5504,6 +5238,17 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/powered)
+"AZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/safety_internals/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "Bb" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -5511,12 +5256,9 @@
 "Bh" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -5524,7 +5266,6 @@
 "Bk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/template_noop,
@@ -5535,8 +5276,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -5577,8 +5316,6 @@
 "BU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5641,8 +5378,6 @@
 "Ci" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/template_noop,
@@ -5699,17 +5434,10 @@
 /obj/machinery/power/tesla_coil,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
-"CK" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/help_others,
-/turf/simulated/wall,
-/area/ruin/ancientstation/betanorth)
 "CN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /mob/living/simple_animal/hostile/hivebot,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -5760,7 +5488,6 @@
 /area/ruin/ancientstation/proto)
 "Di" = (
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5798,8 +5525,6 @@
 "DK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5819,8 +5544,6 @@
 /area/space/nearstation)
 "Eg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5834,8 +5557,6 @@
 /area/ruin/unpowered)
 "Em" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5875,6 +5596,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
+"EH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/processor,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "EK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5891,13 +5619,9 @@
 "Fg" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/template_noop,
@@ -5910,7 +5634,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
 "Ft" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -5935,13 +5659,9 @@
 /area/ruin/ancientstation/rnd)
 "FP" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -5975,8 +5695,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6010,8 +5728,6 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6021,8 +5737,6 @@
 /area/ruin/ancientstation/thetacorridor)
 "GT" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6062,8 +5776,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -6071,13 +5783,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/template_noop,
@@ -6093,8 +5801,6 @@
 "Ii" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/firealarm/directional/north,
@@ -6117,16 +5823,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "Im" = (
 /obj/structure/lattice/catwalk,
 /obj/item/solar_assembly,
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/template_noop,
@@ -6159,8 +5862,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/security{
@@ -6214,8 +5915,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6286,11 +5985,6 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
-"Kj" = (
-/obj/structure/sign/poster/official/science,
-/obj/effect/mapping_helpers/turfs/rust,
-/turf/simulated/wall,
-/area/ruin/ancientstation/thetacorridor)
 "Kl" = (
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/hydroponics/soil,
@@ -6310,7 +6004,6 @@
 /area/ruin/ancientstation/thetacorridor)
 "KA" = (
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6358,8 +6051,6 @@
 "Lm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -6394,18 +6085,12 @@
 "Lz" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -6414,8 +6099,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /mob/living/simple_animal/hostile/hivebot,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -6458,13 +6141,9 @@
 "LO" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/template_noop,
@@ -6504,8 +6183,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -6561,6 +6238,12 @@
 	icon_state = "red"
 	},
 /area/ruin/ancientstation/sec)
+"Nt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants/large/dead,
+/obj/structure/sign/poster/official/cleanliness/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "Nw" = (
 /obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
@@ -6592,13 +6275,9 @@
 "Oc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -6614,7 +6293,6 @@
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -6622,18 +6300,12 @@
 "Os" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/template_noop,
@@ -6654,8 +6326,6 @@
 	name = "Backup Generator Room"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -6698,8 +6368,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6734,7 +6402,6 @@
 "PE" = (
 /obj/machinery/power/solar,
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6753,13 +6420,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -6767,8 +6430,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/template_noop,
@@ -6794,8 +6455,6 @@
 /area/ruin/ancientstation/rnd)
 "PX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6820,8 +6479,6 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6868,8 +6525,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -6896,11 +6551,6 @@
 	icon_state = "whitepurplefull"
 	},
 /area/ruin/ancientstation/comm)
-"Rj" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/safety_report,
-/turf/simulated/wall,
-/area/ruin/ancientstation/sec)
 "Ru" = (
 /mob/living/simple_animal/hostile/hivebot,
 /obj/effect/decal/cleanable/dirt,
@@ -6928,8 +6578,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6938,6 +6586,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
+"RQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/shelf,
+/obj/item/reagent_containers/cooking/deep_basket{
+	pixel_x = 1;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/cooking/pan{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/cooking/grill_grate{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "RR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -6945,8 +6612,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7006,8 +6671,6 @@
 /area/ruin/ancientstation/comm)
 "SC" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
@@ -7046,7 +6709,6 @@
 "SR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
@@ -7069,6 +6731,12 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/ancientstation/betanorth)
+"Th" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/sign/poster/official/pda_ad/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "Tm" = (
@@ -7121,21 +6789,15 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "TO" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -7168,8 +6830,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -7245,8 +6905,6 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7257,8 +6915,6 @@
 "Vj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random/dirt/maybe,
@@ -7275,13 +6931,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7307,6 +6959,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7314,6 +6970,9 @@
 "VR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/item/reagent_containers/cooking/pot{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7329,8 +6988,6 @@
 /mob/living/simple_animal/hostile/hivebot,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7352,8 +7009,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7370,9 +7025,7 @@
 /area/ruin/ancientstation/sec)
 "Wp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "Wt" = (
@@ -7447,8 +7100,6 @@
 "XB" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7467,7 +7118,6 @@
 "XS" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -7508,13 +7158,9 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -7552,8 +7198,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7570,16 +7214,9 @@
 	icon_state = "green"
 	},
 /area/ruin/ancientstation/hydroponics)
-"YX" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/pda_ad,
-/turf/simulated/wall,
-/area/ruin/ancientstation/betanorth)
 "Zg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "Zh" = (
@@ -7587,12 +7224,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
-"Zi" = (
-/obj/structure/sign/poster/contraband/donut_corp,
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall,
-/area/ruin/ancientstation/sec)
 "Zn" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7600,6 +7231,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
+"Zr" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/random/directional/west,
+/turf/simulated/floor/plating,
+/area/ruin/ancientstation)
 "Zx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -7614,8 +7253,6 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/oil,
@@ -7841,8 +7478,8 @@ bf
 bf
 bf
 Hw
-CK
-Qi
+bf
+pZ
 LC
 Hw
 dS
@@ -7986,14 +7623,14 @@ kH
 kH
 kH
 bf
-vQ
+bf
 bU
 bf
 bf
 bf
 bf
 bf
-YX
+bf
 HQ
 YP
 Wc
@@ -8041,7 +7678,7 @@ bf
 Iu
 be
 wp
-bR
+Th
 bR
 go
 Zh
@@ -9277,7 +8914,7 @@ aa
 aa
 az
 az
-aS
+qu
 aR
 aX
 bg
@@ -9325,7 +8962,7 @@ aa
 aa
 az
 dR
-aL
+Zr
 aL
 aL
 aL
@@ -9394,8 +9031,8 @@ ha
 hV
 ha
 gs
-iq
-Ac
+gs
+AZ
 je
 az
 az
@@ -9438,7 +9075,7 @@ cS
 fL
 gs
 gE
-gG
+sY
 eo
 gG
 vJ
@@ -9582,8 +9219,8 @@ rn
 gs
 Iw
 gG
-VR
 gG
+VR
 gG
 hZ
 ha
@@ -9630,7 +9267,7 @@ fO
 gs
 gt
 gG
-VR
+gG
 gG
 gG
 ia
@@ -9669,7 +9306,7 @@ bq
 bC
 bC
 cB
-cZ
+wJ
 dw
 XV
 Kn
@@ -9678,8 +9315,8 @@ fS
 gs
 zp
 kx
-vV
 gG
+gL
 gG
 hY
 ha
@@ -9726,7 +9363,7 @@ fR
 gs
 gK
 gG
-VR
+pW
 VM
 gG
 hZ
@@ -9821,8 +9458,8 @@ fd
 rC
 BU
 gs
-gL
-gG
+EH
+RQ
 Tm
 gG
 Cg
@@ -9953,8 +9590,8 @@ aQ
 Hn
 bb
 bm
-kD
-jg
+az
+Nt
 bC
 hm
 lN
@@ -10009,7 +9646,7 @@ dg
 dg
 dg
 MS
-Rj
+dg
 UV
 nF
 UV
@@ -10208,7 +9845,7 @@ eQ
 eQ
 eQ
 lH
-Zi
+MS
 dg
 aa
 VT
@@ -10674,9 +10311,9 @@ uQ
 eJ
 aa
 dC
-Kj
+dC
 fM
-Kj
+dC
 dC
 dC
 dC
@@ -10690,9 +10327,9 @@ dC
 dC
 dC
 dC
-Kj
+dC
 fM
-Kj
+dC
 dC
 dC
 dC

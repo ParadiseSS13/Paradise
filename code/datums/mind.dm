@@ -1764,6 +1764,11 @@
 				return G
 			break
 
+/datum/mind/proc/check_ghost_client()
+	var/mob/dead/observer/G = get_ghost()
+	if(G.client)
+		return TRUE
+
 /datum/mind/proc/grab_ghost(force)
 	var/mob/dead/observer/G = get_ghost(even_if_they_cant_reenter = force)
 	. = G
@@ -1859,7 +1864,7 @@
 /mob/living/carbon/human/mind_initialize()
 	..()
 	if(!mind.assigned_role)
-		mind.assigned_role = "Assistant"	//defualt
+		mind.assigned_role = "Assistant"	//default
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)

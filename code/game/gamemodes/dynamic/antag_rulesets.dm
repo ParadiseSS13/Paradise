@@ -49,6 +49,7 @@
 
 	/// Rulesets that cannot be rolled while this ruleset is active. Used to prevent traitors from rolling while theres cultists, etc.
 	var/list/banned_mutual_rulesets = list(
+		/datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/team/cult,
 	)
 
@@ -121,6 +122,7 @@
 /datum/ruleset/proc/roundstart_post_setup(datum/game_mode/dynamic)
 	for(var/datum/mind/antag as anything in pre_antags)
 		antag.add_antag_datum(antagonist_type)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
 
 /datum/ruleset/proc/refund(info)
 	// not enough antagonists signed up!!! idk what to do. The only real solution is to procedurally allocate budget, which will result in 1000x more get_players_for_role() calls. Which is not cheap.
@@ -169,8 +171,10 @@
 	for(var/i in 1 to late_antag_amount)
 		var/datum/mind/antag = pick_n_take(possible_antags)
 		antag.add_antag_datum(antagonist_type)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("latespawn", "[antagonist_type]"))
 
-	log_dynamic("Latespawned [late_antag_amount] [name]s.")
+	log_dynamic("Latespawned [late_antag_amount] [name]\s.")
+	message_admins("Dynamic latespawned [late_antag_amount] [name]\s.")
 
 /datum/ruleset/proc/automatic_deduct(budget)
 	. = antag_cost * antag_amount
@@ -194,6 +198,23 @@
 			traitor_datum.delayed_objectives = TRUE
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), latespawn_time, TIMER_DELETE_ME)
 		antag.add_antag_datum(traitor_datum)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
+
+/datum/ruleset/traitor/autotraitor
+	name = "Autotraitor"
+	ruleset_weight = 2
+	antag_cost = 10
+	banned_mutual_rulesets = list(
+		/datum/ruleset/traitor,
+		/datum/ruleset/vampire,
+		/datum/ruleset/changeling,
+		/datum/ruleset/team/cult
+	)
+
+/datum/ruleset/traitor/autotraitor/roundstart_post_setup(datum/game_mode/dynamic)
+	. = ..()
+	latespawn_time = null
+	addtimer(CALLBACK(src, PROC_REF(latespawn), dynamic), 5 MINUTES, TIMER_DELETE_ME|TIMER_LOOP)
 
 /datum/ruleset/vampire
 	name = "Vampire"
@@ -269,6 +290,7 @@
 
 /datum/ruleset/team/roundstart_post_setup(datum/game_mode/dynamic)
 	if(unique_team)
+		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[team_type]"))
 		new team_type(pre_antags)
 		return
 	stack_trace("Undefined behavior for dynamic non-unique teams!")
@@ -292,6 +314,7 @@
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
+		/datum/ruleset/traitor/autotraitor,
 		/datum/ruleset/vampire,
 		/datum/ruleset/changeling
 	)

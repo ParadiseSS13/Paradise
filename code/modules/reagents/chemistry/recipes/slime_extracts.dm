@@ -170,7 +170,6 @@
 		/obj/item/food/grown,
 		/obj/item/food/grown/shell,
 		/obj/item/food/grown/mushroom,
-		/obj/item/food/deepfryholder,
 		/obj/item/food/chinese,
 		/obj/item/food/human,
 		/obj/item/food/monstermeat,
@@ -536,7 +535,7 @@
 	var/turf/extract_turf = get_turf(extract)
 	message_admins("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
-	explosion(extract_turf, 1, 3, 6)
+	explosion(extract_turf, 1, 3, 6, cause = "Oil Slime explosion")
 
 /datum/chemical_reaction/oil_slick
 	name = "Oil Potion"
