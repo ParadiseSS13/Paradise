@@ -9819,6 +9819,9 @@
 	dir = 6;
 	level = 1
 	},
+/obj/structure/sign/turbine{
+	pixel_x = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "aNV" = (
@@ -10463,6 +10466,9 @@
 "aQM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/structure/sign/magboots{
+	pixel_x = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
