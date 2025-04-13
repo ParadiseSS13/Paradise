@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/ripped/directional/south,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -96,10 +93,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "cs" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/item/conveyor_construct{
 	pixel_y = -9;
 	pixel_x = -2
@@ -279,9 +273,7 @@
 /area/ruin/unpowered/althland_factory)
 "ge" = (
 /obj/structure/shelf/supply,
-/obj/structure/sign/poster/ripped{
-	pixel_x = 31
-	},
+/obj/structure/sign/poster/ripped/directional/east,
 /obj/effect/spawner/random/loot,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light/lavaland_air{
@@ -444,9 +436,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "kg" = (
-/obj/structure/sign/poster/official/air2{
-	pixel_y = 28
-	},
+/obj/structure/sign/poster/official/air2/directional/north,
 /obj/effect/turf_decal/box/white,
 /obj/effect/decal/cleanable/blood/gibs/robot/gib,
 /obj/item/slimepotion/sentience/mining,
@@ -527,9 +517,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "ln" = (
-/obj/structure/sign/poster/official/walk{
-	pixel_y = -29
-	},
+/obj/structure/sign/poster/official/walk/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
@@ -742,9 +730,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "rq" = (
-/obj/structure/sign/poster/official/pda_ad{
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/official/pda_ad/directional/north,
 /obj/item/conveyor_construct{
 	pixel_y = -1;
 	pixel_x = 1
@@ -900,9 +886,7 @@
 /obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/red_rum{
-	pixel_y = 31
-	},
+/obj/structure/sign/poster/contraband/red_rum/directional/north,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -967,9 +951,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "xb" = (
-/obj/structure/sign/poster/official/air1{
-	pixel_y = 28
-	},
+/obj/structure/sign/poster/official/air1/directional/north,
 /obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light/lavaland_air{
@@ -1041,9 +1023,7 @@
 /area/lavaland/surface/outdoors)
 "yF" = (
 /obj/effect/turf_decal,
-/obj/structure/sign/poster/official/air1{
-	pixel_x = -31
-	},
+/obj/structure/sign/poster/official/air1/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
@@ -1057,9 +1037,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "yJ" = (
-/obj/structure/sign/poster/official/soft_cap_pop_art{
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/official/soft_cap_pop_art/directional/north,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -1088,10 +1066,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "zc" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/ripped/directional/south,
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1504,10 +1479,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "Ks" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/ripped/directional/south,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "KD" = (
@@ -1547,9 +1519,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "LF" = (
-/obj/structure/sign/poster/official/space_cops{
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/official/space_cops/directional/north,
 /obj/structure/table,
 /obj/item/mounted/frame/apc_frame,
 /obj/effect/decal/cleanable/dirt,
@@ -1600,9 +1570,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Mv" = (
-/obj/structure/sign/poster/official/cohiba_robusto_ad{
-	pixel_x = 28
-	},
+/obj/structure/sign/poster/official/cohiba_robusto_ad/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
@@ -1751,9 +1719,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Qj" = (
-/obj/structure/sign/poster/official/get_your_legs{
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/official/get_your_legs/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
@@ -1786,10 +1752,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "Ro" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light_construct/small{
@@ -1918,10 +1881,7 @@
 /area/ruin/unpowered/althland_factory)
 "Uy" = (
 /obj/structure/table_frame,
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/ripped/directional/south,
 /obj/item/robotanalyzer,
 /obj/item/clothing/head/welding,
 /obj/effect/decal/cleanable/dirt,
@@ -2041,9 +2001,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Xq" = (
-/obj/structure/sign/poster/official/state_laws{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/state_laws/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor/west{
 	layer = 1.9;
@@ -2091,10 +2049,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Ys" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = -1;
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/item/rack_parts,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
