@@ -8,6 +8,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
+	sleep(100)
+	world.log << "Running"
+	world.log << HTTPGet("https://icanhazip.com")
 
 	SSmetrics.world_init_time = REALTIMEOFDAY
 
@@ -295,7 +298,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	F << GLOB.log_directory
 
 /world/Del()
-	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
+	rustlibs_http_shutdown_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	disable_auxtools_debugger() // Disables the debugger if running. See above comment
 
 	if(SSredis.connected)
