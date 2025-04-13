@@ -46383,10 +46383,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "jkX" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/sign/poster/official/cleanliness/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -66374,9 +66371,7 @@
 /area/station/maintenance/apmaint)
 "npy" = (
 /obj/structure/sign/poster/official/random/directional/west,
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/noslip,
 /area/station/security/prisonlockers)
@@ -72603,11 +72598,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "oyk" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/sign/poster/official/cleanliness/directional/west,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -78230,11 +78221,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "pCJ" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)

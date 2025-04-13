@@ -1423,10 +1423,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "ZS" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/sign/poster/random/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)

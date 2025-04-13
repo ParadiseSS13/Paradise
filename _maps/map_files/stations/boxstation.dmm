@@ -72884,9 +72884,7 @@
 /area/station/maintenance/storage)
 "qyf" = (
 /obj/structure/sign/poster/official/random/directional/east,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 4;

@@ -7781,10 +7781,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/incinerator)
 "aHb" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
 "aHc" = (
@@ -15001,10 +14998,7 @@
 	},
 /area/station/service/hydroponics)
 "bje" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -17976,9 +17970,7 @@
 	},
 /area/station/service/hydroponics)
 "buX" = (
-/obj/machinery/shower{
-	pixel_y = 22
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/noslip,
 /area/station/engineering/equipmentstorage)
 "buY" = (
@@ -59487,10 +59479,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "hwE" = (
-/obj/structure/sink/kitchen{
-	dir = 1;
-	pixel_y = -5
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -60034,9 +60023,7 @@
 /turf/simulated/floor/plasteel/stairs,
 /area/station/science/lobby)
 "hJS" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/noslip,
 /area/station/maintenance/fore)
 "hJY" = (
@@ -64593,9 +64580,7 @@
 /area/station/security/storage)
 "jRi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	pixel_y = 25
-	},
+/obj/structure/sink/kitchen/directional/north,
 /obj/item/clothing/suit/chef/classic,
 /obj/item/clothing/head/chefhat,
 /turf/simulated/floor/plasteel{
@@ -64840,9 +64825,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jVd" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 25
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -69092,9 +69075,7 @@
 "lZr" = (
 /obj/item/soap/nanotrasen,
 /obj/item/bikehorn/rubberducky,
-/obj/machinery/shower{
-	pixel_y = 22
-	},
+/obj/machinery/shower/directional/north,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -77644,10 +77625,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -85257,9 +85235,7 @@
 	},
 /area/station/medical/sleeper)
 "tbO" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -88619,9 +88595,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "uvp" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 25
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

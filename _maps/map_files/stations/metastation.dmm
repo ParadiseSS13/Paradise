@@ -69752,9 +69752,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "qAh" = (
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/sign/poster/official/cleanliness/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -75349,10 +75347,7 @@
 /obj/structure/mirror{
 	pixel_y = -34
 	},
-/obj/structure/sink/kitchen/old{
-	pixel_y = -8;
-	dir = 1
-	},
+/obj/structure/sink/kitchen/old/directional/south,
 /obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
