@@ -228,17 +228,24 @@
 	playsound(T,'sound/magic/fleshtostone.ogg', 100, TRUE)
 	new /obj/effect/temp_visual/rockfall(T)
 	sleep(duration)
+	T = get_turf(src)
+	var/turf_area = get_area(T)
+	if(ispath(turf_area, /area/shuttle)) //prevent hitting the shuttle when it moves
+		log_debug("we hit a shuttle area. breaking rock")
+		qdel(src)
+		return
 	playsound(T, 'sound/effects/break_stone.ogg', 80, TRUE)
 	playsound(T, get_sfx("explosion"), 80, TRUE)
 	for(var/mob/living/carbon/human/H in range(10, T))
 		shake_camera(H, 3, 8)
-	for(var/mob/living/L in T.contents) // dont want to be crushing the hazards
-		if(ismegafauna(L))
-			L.visible_message("[L.name] easily withstands the hit of the massive rock!")
-			return
-		else
-			L.visible_message("<span class='danger'>[L.name] is crushed under the massive impact of the boulder!</span>", "<span class='userdanger'>You are crushed as a massive weight suddenly descends upon you!</span>", "<span class='danger'>You hear wet splatters as something is hit with a massive object!</span>")
-			L.gib()
+	if(T.contents)
+		for(var/mob/living/L in T.contents) // dont want to be crushing the hazards
+			if(ismegafauna(L))
+				L.visible_message("[L.name] easily withstands the hit of the massive rock!")
+				return
+			else
+				L.visible_message("<span class='danger'>[L.name] is crushed under the massive impact of the boulder!</span>", "<span class='userdanger'>You are crushed as a massive weight suddenly descends upon you!</span>", "<span class='danger'>You hear wet splatters as something is hit with a massive object!</span>")
+				L.gib()
 	if(!islava(T) && !istype(T, /turf/simulated/floor/chasm)) // Splash harmlessly into the lava pools
 		for(var/obj/structure/thing in T.contents) // dont cover the tendrils
 			if(thing.name == "necropolis tendril")

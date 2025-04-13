@@ -85,6 +85,8 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 		var/turf/cur_turf = get_turf(W)
 		if(istype(get_area(cur_turf), whitelist_area_type) && !(cur_turf.flags & NO_LAVA_GEN))
 			collected_turfs += cur_turf
+		else if(ignore_bridges && (cur_turf.flags & LAVA_BRIDGE))
+			collected_turfs += cur_turf
 		var/turf/target_turf = get_turf(pick(river_nodes - W))
 		if(!target_turf)
 			break
@@ -136,7 +138,9 @@ GLOBAL_LIST_EMPTY(river_waypoint_presets)
 	for(var/F in RANGE_TURFS(1, start_turf) - start_turf)
 		var/turf/T = F
 		var/area/new_area = get_area(T)
-		if(!T || (T.density && !istype(T, whitelist_turf_type)) || istype(T, /turf/simulated/floor/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.flags & NO_LAVA_GEN))
+		if(!ignore_bridges && (T.flags & LAVA_BRIDGE))
+			continue
+		else if(!T || (T.density && !istype(T, whitelist_turf_type)) || istype(T, /turf/simulated/floor/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.flags & NO_LAVA_GEN))
 			continue
 
 		if(get_dir(start_turf, F) in GLOB.cardinal)
