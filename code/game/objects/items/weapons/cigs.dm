@@ -131,6 +131,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/attack_self__legacy__attackchain(mob/user)
 	if(lit)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.visible_message(
 			"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>",
 			"<span class='notice'>You calmly drop and tread on [src], putting it out instantly.</span>",
