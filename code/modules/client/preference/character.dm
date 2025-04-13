@@ -2032,7 +2032,7 @@
 	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low)
 
 
-/datum/character_save/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Quartermaster"), widthPerColumn = 400, height = 700)
+/datum/character_save/proc/SetChoices(mob/user, limit = 18, list/splitJobs = list("Head of Security", "Quartermaster"), widthPerColumn = 500, height = 700) // SS220 EDIT - tweak limit and widthPerColumn
 	if(!SSjobs)
 		return
 

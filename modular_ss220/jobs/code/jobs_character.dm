@@ -25,10 +25,6 @@
 /datum/character_save
 	var/extra_jobs_check = FALSE
 
-// OFFICIAL parameters: 17 / HOS, Bart / 400 / 700
-/datum/character_save/SetChoices(mob/user, limit = 18, list/splitJobs = list("Head of Security", "Bartender"), widthPerColumn = 450, height = 700)
-	. = ..()
-
 /datum/character_save/proc/get_split_extra_jobs()
 	return list("Administrator", "Adjutant", "VIP Corporate Guest")
 
