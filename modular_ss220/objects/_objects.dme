@@ -63,3 +63,4 @@
 #include "code/animalhide.dm"
 #include "code/intercom.dm"
 #include "code/radio.dm"
+#include "code/kvassbarrel.dm"
