@@ -868,6 +868,8 @@
 	if(destination_z)
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)
+		return TRUE
+	return ..()
 
 /// Returns whether it is safe for an atom to move across this turf
 /// TODO: Things like lava will need to have more specialized code
