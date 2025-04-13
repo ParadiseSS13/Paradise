@@ -121,6 +121,24 @@
 
 #undef AIUPLOAD_EMAG_COOLDOWN
 
+//for the AI upload
+/obj/machinery/computer/aiupload/hardened
+	name = "hardened AI upload console"
+	desc = "Used to upload laws to the AI. This one has been reinforced and is bolted to the floor."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/machinery/computer/aiupload/hardened/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(emagged)
+		if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+			return
+		circuit = /obj/item/circuitboard/aiupload
+		emagged = FALSE
+		to_chat(user, "<span class='notice'>You fix the broken circuitry on the [src].</span>")
+
+/obj/machinery/computer/aiupload/hardened/emp_act()
+	return
+
 // Why is this not a subtype
 /obj/machinery/computer/borgupload
 	name = "cyborg upload console"
@@ -162,3 +180,15 @@
 
 /obj/machinery/computer/borgupload/attack_ghost(user)
 	return TRUE
+
+//for the AI upload
+/obj/machinery/computer/borgupload/hardened
+	name = "hardened cyborg upload console"
+	desc = "Used to upload laws to Cyborgs. This one has been reinforced and is bolted to the floor."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/machinery/computer/borgupload/hardened/screwdriver_act(mob/user)
+	return
+
+/obj/machinery/computer/borgupload/hardened/emp_act()
+	return
