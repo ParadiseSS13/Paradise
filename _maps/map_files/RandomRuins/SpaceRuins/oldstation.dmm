@@ -2235,7 +2235,6 @@
 	},
 /area/ruin/ancientstation/kitchen)
 "gF" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/all_access/directional/north{
 	report_danger_level = 0
@@ -2270,9 +2269,6 @@
 "gL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_y = 10
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2593,6 +2589,8 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -4614,8 +4612,7 @@
 /area/ruin/ancientstation)
 "sY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/reagent_containers/cooking/grill_grate,
+/obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6589,6 +6586,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
+"RQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/shelf,
+/obj/item/reagent_containers/cooking/deep_basket{
+	pixel_x = 1;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/cooking/pan{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/cooking/grill_grate{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "RR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -6943,6 +6959,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6950,7 +6970,9 @@
 "VR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/cooking/board,
+/obj/item/reagent_containers/cooking/pot{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -9053,7 +9075,7 @@ cS
 fL
 gs
 gE
-gG
+sY
 eo
 gG
 vJ
@@ -9197,8 +9219,8 @@ rn
 gs
 Iw
 gG
-VR
 gG
+VR
 gG
 hZ
 ha
@@ -9245,7 +9267,7 @@ fO
 gs
 gt
 gG
-sY
+gG
 gG
 gG
 ia
@@ -9293,8 +9315,8 @@ fS
 gs
 zp
 kx
-gL
 gG
+gL
 gG
 hY
 ha
@@ -9437,7 +9459,7 @@ rC
 BU
 gs
 EH
-gG
+RQ
 Tm
 gG
 Cg
