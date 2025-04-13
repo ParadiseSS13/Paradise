@@ -10080,12 +10080,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/expedition)
-"bfK" = (
-/obj/machinery/economy/atm/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/north)
 "bfN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -12422,14 +12416,6 @@
 	icon_state = "darkgreen"
 	},
 /area/station/procedure/trainer_office)
-"boy" = (
-/obj/item/storage/box/lights/mixed,
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
-"boz" = (
-/obj/item/clothing/mask/gas,
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
 "boB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -12754,6 +12740,7 @@
 /obj/structure/cable,
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/power/apc/directional/east,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "bpV" = (
@@ -12802,7 +12789,7 @@
 	},
 /area/station/command/bridge)
 "bqe" = (
-/obj/item/extinguisher,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "bqf" = (
@@ -13175,10 +13162,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
-"brT" = (
-/obj/machinery/atmospherics/portable/canister/air,
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
 "brW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/binary/valve,
@@ -13471,10 +13454,6 @@
 /obj/effect/landmark/start/head_of_personnel,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
-"btP" = (
-/obj/item/tank/internals/oxygen,
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
 "btQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -13802,7 +13781,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "buB" = (
-/obj/item/radio/off,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -45323,6 +45301,12 @@
 /obj/structure/sign/pods,
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/east)
+"hXX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/item/food/berry_muffin,
+/turf/simulated/floor/wood,
+/area/station/service/cafeteria)
 "hYj" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Fore-Starboard Atmospherics Maintenance"
@@ -46150,10 +46134,6 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/drinkingglass,
-/obj/item/reagent_containers/drinks/drinkingglass,
-/obj/item/reagent_containers/drinks/drinkingglass,
 /turf/simulated/floor/wood,
 /area/station/service/cafeteria)
 "ipz" = (
@@ -48178,14 +48158,6 @@
 	icon_state = "red"
 	},
 /area/station/security/checkpoint/secondary)
-"jeZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/chem_dispenser/soda{
-	dir = 8
-	},
-/obj/structure/table/wood,
-/turf/simulated/floor/wood,
-/area/station/service/cafeteria)
 "jfk" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -48461,11 +48433,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
-"jnO" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/drinkingglass/soda,
-/turf/simulated/floor/wood,
-/area/station/service/cafeteria)
 "jnZ" = (
 /obj/item/kirbyplants/large/plant14,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -54100,7 +54067,6 @@
 /area/station/maintenance/aft2)
 "lwd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -58644,6 +58610,17 @@
 "nkt" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
+"nkF" = (
+/obj/structure/shelf/command,
+/obj/item/radio/off,
+/obj/item/storage/box/lights/mixed,
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/tank/internals/oxygen,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "nkU" = (
 /mob/living/simple_animal/pet/dog/corgi/borgi,
 /obj/structure/cable{
@@ -64813,10 +64790,6 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "pKS" = (
-/obj/item/flashlight{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -65138,6 +65111,10 @@
 	icon_state = "whiteblue"
 	},
 /area/station/command/office/cmo)
+"pSs" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/wood,
+/area/station/service/cafeteria)
 "pSM" = (
 /obj/machinery/camera{
 	c_tag = "Head of Security's Office"
@@ -80867,11 +80844,8 @@
 /area/station/engineering/atmos)
 "wum" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/windoor/autoname{
-	dir = 8
-	},
-/obj/machinery/door/window/classic/normal{
-	dir = 8
+/obj/structure/chair/stool{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/service/cafeteria)
@@ -80906,12 +80880,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/science/testrange)
-"wuZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/drinkingglass/cola,
-/turf/simulated/floor/wood,
-/area/station/service/cafeteria)
 "wvo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -81186,6 +81154,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"wAg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/chem_dispenser/soda{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/station/service/cafeteria)
 "wAn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -108292,7 +108268,7 @@ xMj
 oiC
 qpZ
 bzK
-rEF
+bvK
 xuG
 jmL
 ibQ
@@ -108808,12 +108784,12 @@ bzK
 bzK
 bMC
 xuG
-bfK
+jmL
 ral
-biY
+pSs
 boN
 biY
-bsE
+wAg
 bqc
 bvp
 btM
@@ -109069,7 +109045,7 @@ jmL
 bhr
 biZ
 aEQ
-wuZ
+bsE
 wum
 bqc
 cfj
@@ -109326,8 +109302,8 @@ hiC
 ral
 bja
 lwd
-jnO
-bsE
+biY
+hXX
 bqc
 bvq
 bwc
@@ -109584,7 +109560,7 @@ ral
 bhK
 biY
 ipn
-jeZ
+bht
 bje
 bje
 bje
@@ -109841,9 +109817,9 @@ ral
 ral
 jLc
 ral
-ral
 bht
 brS
+nkF
 bje
 bya
 bym
@@ -110098,9 +110074,9 @@ bht
 bjc
 bmF
 bmF
-boy
-btP
-brT
+bqe
+bmF
+bmF
 bje
 byu
 bym
@@ -110355,7 +110331,7 @@ bhu
 clO
 pKS
 bpU
-boz
+bqe
 bqe
 buB
 bje
