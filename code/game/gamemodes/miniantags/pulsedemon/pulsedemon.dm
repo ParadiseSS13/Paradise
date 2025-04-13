@@ -127,6 +127,17 @@
 	/// Reference to the APC currently being hijacked.
 	var/obj/machinery/power/apc/apc_being_hijacked
 
+/mob/living/simple_animal/demon/pulse_demon/wizard
+	name = "Empowered Pulse Demon"
+	real_name = "Empowered Pulse Demon"
+	desc = "A strange electrical apparition that lives in wires. This one appears more charged than usual."
+
+/mob/living/simple_animal/demon/pulse_demon/wizard/Initialize(mapload)
+	. = ..()
+	src.apcs_remaining = 20
+	src.maxcharge = 500 KJ
+	src.charge = 100 KJ
+
 /mob/living/simple_animal/demon/pulse_demon/Initialize(mapload)
 	. = ..()
 	if(!mapload)

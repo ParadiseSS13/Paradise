@@ -401,7 +401,7 @@
 	var/shatter_msg = "<span class='notice'>You shatter the bulb, no turning back now!</span>"
 	var/veil_msg = "<span class='warning'>The creature sparks energetically and zips away...</span>"
 	var/objective_verb = "Electrocute"
-	var/mob/living/demon_type = /mob/living/simple_animal/demon/pulse_demon
+	var/mob/living/demon_type = /mob/living/simple_animal/demon/pulse_demon/wizard
 
 /obj/item/antag_spawner/pulse_demon/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z))
