@@ -57078,9 +57078,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "kZG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -57092,6 +57089,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/sortjunction/reversed{
+	dir = 8;
+	sort_type_txt = "17"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -58220,10 +58221,6 @@
 	},
 /area/station/medical/medbay)
 "lzQ" = (
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 8;
-	sort_type_txt = "17"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -58232,6 +58229,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -85935,6 +85935,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
+"xKN" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft)
 "xKQ" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -108105,7 +108113,7 @@ lpJ
 bZU
 chy
 kZG
-oVj
+xKN
 cPv
 ocC
 cxQ
