@@ -205,9 +205,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/sieged_lab)
 "mU" = (
-/obj/structure/sign/poster/official/build{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/build/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -634,9 +632,7 @@
 	},
 /area/ruin/space/sieged_lab)
 "DB" = (
-/obj/structure/sign/poster/official/work_for_a_future{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/work_for_a_future/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -798,9 +794,7 @@
 /area/ruin/space/sieged_lab)
 "MU" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/structure/sign/poster/official/cleanliness{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/cleanliness/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -974,9 +968,7 @@
 	},
 /area/ruin/space/sieged_lab)
 "VQ" = (
-/obj/structure/sign/poster/official/science{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/science/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},

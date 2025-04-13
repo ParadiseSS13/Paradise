@@ -52,10 +52,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
-"an" = (
-/obj/structure/sign/poster/contraband/syndicate_pistol,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/storage)
 "ap" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1659,10 +1655,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
-"iZ" = (
-/obj/structure/sign/poster/contraband/syndicate_recruitment,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/arrivals)
 "je" = (
 /obj/structure/closet/crate/secure/gear{
 	req_access = list(150)
@@ -1806,6 +1798,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/costume/random,
+/obj/structure/sign/poster/contraband/lamarr/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2783,10 +2776,13 @@
 /obj/machinery/power/apc/syndicate/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
-"pM" = (
-/obj/structure/sign/poster/official/state_laws,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/chemistry)
+"pJ" = (
+/obj/machinery/door/firedoor,
+/obj/structure/sign/poster/contraband/missing_gloves/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "pN" = (
 /obj/item/flag/syndi,
 /obj/machinery/light{
@@ -3359,10 +3355,6 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/virology)
-"tO" = (
-/obj/structure/sign/poster/official/high_class_martini,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/service)
 "tP" = (
 /obj/machinery/light{
 	dir = 1
@@ -3450,6 +3442,7 @@
 /area/ruin/unpowered/syndicate_space_base/storage)
 "uy" = (
 /obj/item/clothing/neck/stethoscope,
+/obj/structure/sign/poster/official/obey/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -3572,9 +3565,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "uZ" = (
-/obj/structure/sign/poster/official/here_for_your_safety{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/here_for_your_safety/directional/east,
 /obj/structure/cable/green{
 	icon_state = "0-8"
 	},
@@ -4194,6 +4185,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "ym" = (
 /obj/machinery/economy/vending/cigarette/syndicate/free,
+/obj/structure/sign/poster/official/high_class_martini/directional/south,
 /turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "yq" = (
@@ -4981,6 +4973,12 @@
 	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
+"Dd" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "Dg" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -5026,10 +5024,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
-"DI" = (
-/obj/structure/sign/poster/official/obey,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/storage)
 "DL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -6029,6 +6023,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/structure/sign/poster/contraband/syndicate_pistol/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -6202,10 +6197,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/service)
-"JL" = (
-/obj/structure/sign/poster/contraband/missing_gloves,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/storage)
 "JR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -6487,10 +6478,6 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
-"LS" = (
-/obj/structure/sign/poster/contraband/lamarr,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/arrivals)
 "Md" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -8653,6 +8640,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"ZC" = (
+/obj/structure/sign/poster/official/state_laws/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "ZH" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'CHEMICAL TESTING ZONsE";
@@ -9578,7 +9571,7 @@ xn
 Ln
 xn
 xn
-LS
+xn
 xn
 EH
 xn
@@ -9931,8 +9924,8 @@ Ri
 kE
 Mf
 kE
-iZ
-xQ
+xn
+Dd
 xQ
 Ab
 xn
@@ -10896,7 +10889,7 @@ Rm
 oP
 GL
 ym
-tO
+Dy
 fA
 BW
 IJ
@@ -11199,8 +11192,8 @@ IJ
 IJ
 PK
 IJ
-pM
-am
+IJ
+ZC
 Mw
 Gg
 II
@@ -11921,8 +11914,8 @@ am
 cK
 am
 Ij
-JL
-Gi
+OR
+pJ
 Gi
 UM
 PL
@@ -12575,7 +12568,7 @@ OR
 OR
 OR
 ES
-an
+OR
 OR
 OR
 OR
@@ -12866,7 +12859,7 @@ OR
 pf
 OR
 OR
-DI
+OR
 OR
 OR
 pf

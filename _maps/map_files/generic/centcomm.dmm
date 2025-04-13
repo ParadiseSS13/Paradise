@@ -245,10 +245,6 @@
 /obj/item/book/manual/nuclear,
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership)
-"aT" = (
-/obj/structure/sign/poster/official/random,
-/turf/simulated/wall/indestructible/riveted,
-/area/ghost_bar)
 "aU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -3478,10 +3474,6 @@
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
-"mA" = (
-/obj/structure/sign/poster/official/fruit_bowl,
-/turf/simulated/wall/indestructible/riveted,
-/area/ghost_bar)
 "mB" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/magboots/syndie{
@@ -4561,10 +4553,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel/freezer,
-/area/ghost_bar)
-"qf" = (
-/obj/structure/sign/poster/official/space_cops,
-/turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
 "qg" = (
 /obj/item/kirbyplants/large,
@@ -6681,6 +6669,10 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership)
+"xi" = (
+/obj/structure/sign/poster/official/random/directional/north,
+/turf/simulated/floor/wood,
+/area/ghost_bar)
 "xj" = (
 /obj/structure/flora/tree/pine{
 	pixel_x = 1
@@ -7177,6 +7169,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"zE" = (
+/obj/structure/sign/poster/official/random/directional/east,
+/turf/simulated/floor/carpet/black,
+/area/ghost_bar)
 "zF" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
@@ -9004,6 +9000,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "Gq" = (
@@ -9024,9 +9021,7 @@
 /obj/machinery/computer/security{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -9112,9 +9107,7 @@
 /obj/machinery/computer/station_alert{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -9666,10 +9659,6 @@
 /obj/structure/railing,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"IB" = (
-/obj/structure/sign/poster/contraband/syndicate_pistol,
-/turf/simulated/wall/indestructible/riveted,
-/area/ghost_bar)
 "IC" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Access"
@@ -10264,6 +10253,11 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"Ks" = (
+/obj/structure/chair/stool/bar,
+/obj/structure/sign/poster/official/high_class_martini/directional/east,
+/turf/simulated/floor/wood,
+/area/centcom/evac)
 "Ku" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -10972,6 +10966,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/sign/poster/contraband/syndicate_pistol/directional/north,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ghost_bar)
 "MN" = (
@@ -11803,6 +11798,7 @@
 	dir = 8;
 	opacity = 1
 	},
+/obj/structure/sign/poster/official/space_cops/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "Pq" = (
@@ -12683,10 +12679,6 @@
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/wood,
 /area/centcom/control)
-"Sw" = (
-/obj/structure/sign/poster/official/high_class_martini,
-/turf/simulated/wall/indestructible/riveted,
-/area/centcom/evac)
 "Sx" = (
 /obj/machinery/sleeper/upgraded{
 	dir = 4
@@ -13219,6 +13211,10 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"UB" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/north,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ghost_bar)
 "UE" = (
 /obj/machinery/computer/operating,
 /turf/simulated/floor/plasteel/freezer,
@@ -13379,10 +13375,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"Vr" = (
-/obj/structure/sign/poster/contraband/syndicate_recruitment,
-/turf/simulated/wall/indestructible/riveted,
-/area/ghost_bar)
 "Vs" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/cans/badminbrew,
@@ -14169,6 +14161,7 @@
 /area/shuttle/specops)
 "XR" = (
 /obj/machinery/processor,
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -47377,7 +47370,7 @@ Ng
 OE
 Qc
 Ng
-So
+Ks
 VH
 Qe
 Xx
@@ -47634,7 +47627,7 @@ Nl
 Hg
 Qe
 QE
-Sw
+Hg
 Hg
 Hg
 Xx
@@ -70287,7 +70280,7 @@ Me
 Me
 Me
 Me
-IB
+Me
 MM
 sx
 sx
@@ -70538,8 +70531,8 @@ QZ
 DT
 wI
 Lq
-Vr
-NX
+Me
+UB
 tC
 tC
 tC
@@ -72844,7 +72837,7 @@ UH
 ym
 JX
 yO
-qf
+Me
 Pp
 Bj
 Bj
@@ -74136,8 +74129,8 @@ Oj
 zj
 fF
 rq
-aT
-Jy
+Me
+xi
 ip
 Jy
 Hz
@@ -74399,7 +74392,7 @@ ol
 ol
 Hz
 lj
-qH
+zE
 Gp
 qH
 Me
@@ -74643,7 +74636,7 @@ io
 ZK
 Sh
 Bc
-mA
+Me
 XR
 wN
 Dk
@@ -74656,8 +74649,8 @@ rG
 hU
 LM
 Me
-aT
-aT
+Me
+Me
 Me
 Me
 ps

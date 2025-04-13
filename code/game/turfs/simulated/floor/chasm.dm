@@ -50,6 +50,10 @@
 	SIGNAL_HANDLER // COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON
 	drop_stuff(created)
 
+/turf/simulated/floor/chasm/ChangeTurf(turf/simulated/floor/T, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
+	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
+	. = ..()
+
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
 	START_PROCESSING(SSprocessing, src)
