@@ -28,6 +28,12 @@
 	materials = list(MAT_TITANIUM = 8000, MAT_PLASMA = 8000)
 	finished_product = /obj/item/smithed_item/tool_bit/heavy
 
+/obj/item/smithed_item/component/bit_mount/productivity
+	name = "productivity bit mount"
+	desc = "This is the primary component of a productivity bit."
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000)
+	finished_product = /obj/item/smithed_item/tool_bit/productivity
+
 /obj/item/smithed_item/component/bit_mount/economical
 	name = "economical bit mount"
 	desc = "This is the primary component of an economical bit."
@@ -69,6 +75,12 @@
 	desc = "This is the secondary component of a heavy duty bit."
 	materials = list(MAT_METAL = 8000, MAT_PLASMA = 8000)
 	finished_product = /obj/item/smithed_item/tool_bit/heavy
+
+/obj/item/smithed_item/component/bit_head/productivity
+	name = "productivity bit mount"
+	desc = "This is the secondary component of a productivity bit."
+	materials = list(MAT_BLUESPACE = 2000)
+	finished_product = /obj/item/smithed_item/tool_bit/productivity
 
 /obj/item/smithed_item/component/bit_head/economical
 	name = "economical bit head"
