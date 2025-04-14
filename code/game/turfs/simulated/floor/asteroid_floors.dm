@@ -24,8 +24,8 @@
 	if(prob(floor_variance))
 		icon_state = "[environment_type][rand(0,12)]"
 
-/turf/simulated/floor/plating/asteroid/proc/getDug()
-	new digResult(src, 5)
+/turf/simulated/floor/plating/asteroid/proc/getDug(productivity_mod = 1)
+	new digResult(src, 5 * productivity_mod)
 	icon_plating = "[environment_type]_dug"
 	icon_state = "[environment_type]_dug"
 	dug = TRUE
@@ -85,7 +85,7 @@
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")
-			getDug()
+			getDug(used.bit_productivity_mod)
 			return TRUE
 
 	else if(istype(used, /obj/item/storage/bag/ore))
