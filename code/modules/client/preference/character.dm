@@ -206,7 +206,7 @@
 					runechat_color=:runechat_color,
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type,
-					pda_ringtone=:pda_ringtone
+					pda_ringtone=:pda_ringtone,
 					quirks=:quirks
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
