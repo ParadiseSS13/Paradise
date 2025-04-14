@@ -79,7 +79,7 @@
 /obj/item/smithed_item/component/bit_head/productivity
 	name = "productivity bit mount"
 	desc = "This is the secondary component of a productivity bit."
-	materials = list(MAT_BLUESPACE = 2000)
+	materials = list(MAT_GOLD = 2000, MAT_SILVER = 2000)
 	finished_product = /obj/item/smithed_item/tool_bit/productivity
 
 /obj/item/smithed_item/component/bit_head/economical
