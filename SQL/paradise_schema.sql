@@ -83,7 +83,7 @@ CREATE TABLE `characters` (
   `runechat_color` VARCHAR(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#FFFFFF',
   `cyborg_brain_type` ENUM('MMI', 'Robobrain', 'Positronic') NOT NULL DEFAULT 'MMI',
   `pda_ringtone` VARCHAR(16) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
-  `quirks` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `pda_ringtone`,
+  `quirks` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
