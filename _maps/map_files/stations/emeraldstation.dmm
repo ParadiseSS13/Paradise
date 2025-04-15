@@ -26061,6 +26061,7 @@
 "fjx" = (
 /obj/structure/table/reinforced,
 /obj/machinery/requests_console/directional/west,
+/obj/item/ai_upgrade/ai_program_reset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -120297,7 +120298,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "xYw" = (
-/mob/living/simple_animal/pig,
+/mob/living/basic/pig,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "xYF" = (

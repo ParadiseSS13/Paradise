@@ -48,7 +48,7 @@
 	content_mob = pick(/mob/living/simple_animal/pet/dog/corgi,
 	/mob/living/simple_animal/pet/dog/corgi/lisa,
 	/mob/living/basic/cow,
-	/mob/living/simple_animal/pig,
+	/mob/living/basic/pig,
 	/mob/living/simple_animal/hostile/retaliate/goat,
 	/mob/living/simple_animal/turkey,
 	/mob/living/simple_animal/chick,
@@ -72,7 +72,7 @@
 
 /obj/structure/closet/critter/pig
 	name = "pig crate"
-	content_mob = /mob/living/simple_animal/pig
+	content_mob = /mob/living/basic/pig
 
 /obj/structure/closet/critter/goat
 	name = "goat crate"
