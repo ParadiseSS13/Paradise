@@ -52306,9 +52306,9 @@
 /area/station/hallway/supply/fore)
 "kGr" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/maintenance/external,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "kGw" = (
@@ -63905,11 +63905,11 @@
 "oZr" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/maintenance,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/maintenance/external,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "oZv" = (
@@ -72333,11 +72333,11 @@
 	},
 /area/station/security/permabrig)
 "smP" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/door/airlock/maintenance/external,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "snf" = (
@@ -75579,10 +75579,10 @@
 "tCC" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
+/obj/machinery/door/airlock/maintenance/external,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "tCE" = (
@@ -77761,6 +77761,12 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"uBa" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/maintenance/external,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "uBe" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -108596,7 +108602,7 @@ aaa
 aaa
 lIM
 lIM
-wBc
+uBa
 lIM
 lIM
 lIM
