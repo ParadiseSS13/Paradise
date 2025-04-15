@@ -129,7 +129,7 @@
 	var/list_length = length(turf_list) - 1
 	for(var/i in 1 to list_length)
 		var/turf/current_turf = turf_list[i]
-		var/turf/next_turf = turf_list[i+1]
+		var/turf/next_turf = turf_list[i + 1]
 		var/direction_to_turf = get_dir(current_turf, next_turf)
 		if(!IS_DIR_DIAGONAL(direction_to_turf))
 			continue
