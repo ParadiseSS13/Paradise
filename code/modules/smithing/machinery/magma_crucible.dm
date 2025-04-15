@@ -36,6 +36,10 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	RefreshParts()
 
+/obj/machinery/magma_crucible/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can check the contents of [src] using a multitool.</span>"
+
 /obj/machinery/magma_crucible/screwdriver_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
