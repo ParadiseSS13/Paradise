@@ -22022,6 +22022,9 @@
 	layer = 2.9
 	},
 /obj/effect/spawner/random/tech_storage/robotics,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
