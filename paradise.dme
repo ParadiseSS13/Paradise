@@ -1111,6 +1111,7 @@
 #include "code\game\objects\effects\spawners\random\random_spawner.dm"
 #include "code\game\objects\effects\spawners\random\toy_spawners.dm"
 #include "code\game\objects\effects\spawners\random\trash_spawners.dm"
+#include "code\game\objects\effects\spawners\random\pool\lavaland_pools.dm"
 #include "code\game\objects\effects\spawners\random\pool\misc_pools.dm"
 #include "code\game\objects\effects\spawners\random\pool\pool_spawner.dm"
 #include "code\game\objects\effects\spawners\random\pool\space_loot.dm"
