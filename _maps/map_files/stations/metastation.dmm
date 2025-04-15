@@ -33958,7 +33958,6 @@
 	pixel_y = -4
 	},
 /obj/item/stamp/qm,
-/obj/structure/table/wood,
 /obj/item/paper,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
@@ -41145,8 +41144,6 @@
 	},
 /area/station/security/main)
 "gqF" = (
-/obj/machinery/door/airlock/public/glass,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -41157,15 +41154,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "gqK" = (
@@ -45967,10 +45957,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/exam_room)
-"ing" = (
-/obj/structure/grille/broken,
-/turf/space,
-/area/space)
 "inq" = (
 /obj/structure/sink{
 	dir = 4;
@@ -80108,7 +80094,10 @@
 /area/station/service/janitor)
 "vEB" = (
 /obj/effect/landmark/lightsout,
-/obj/machinery/firealarm/directional/south,
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -82949,9 +82938,6 @@
 	},
 /area/station/maintenance/medmaint)
 "wTi" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/shelf/supply,
 /obj/machinery/light{
 	dir = 1
@@ -93673,7 +93659,7 @@ aaa
 aaa
 aaa
 aaa
-ing
+aaa
 arB
 arB
 arB
@@ -94701,7 +94687,7 @@ aaa
 aaa
 aaa
 aaa
-ing
+aaa
 arB
 arB
 aup
