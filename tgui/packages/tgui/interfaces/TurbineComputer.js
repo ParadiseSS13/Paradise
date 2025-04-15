@@ -1,12 +1,21 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, ProgressBar, Knob } from '../components';
+import { Button, LabeledList, Section, ProgressBar, Knob, Stack } from '../components';
 import { formatPower } from '../format';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
 export const TurbineComputer = (props, context) => {
   const { act, data } = useBackend(context);
-  const { compressor, compressor_broken, turbine, turbine_broken, online, throttle, preBurnTemperature } = data;
+  const {
+    compressor,
+    compressor_broken,
+    turbine,
+    turbine_broken,
+    online,
+    throttle,
+    preBurnTemperature,
+    bearingDamage,
+  } = data;
   const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken);
   return (
     <Window width={400} height={380}>
@@ -28,26 +37,35 @@ export const TurbineComputer = (props, context) => {
         >
           {operational ? <TurbineWorking /> : <TurbineBroken />}
         </Section>
-        <Section title="Throttle">
-          {operational ? (
-            <Knob
-              size={3}
-              value={throttle}
-              unit="%"
-              minValue={0}
-              maxValue={100}
-              step={1}
-              stepPixelSize={1}
-              onDrag={(e, value) =>
-                act('set_throttle', {
-                  throttle: value,
-                })
-              }
-            />
-          ) : (
-            ''
-          )}
-        </Section>
+
+        {bearingDamage >= 100 ? (
+          <Stack mb="30px" fontsize="256px">
+            <Stack.Item bold color="red" fontsize="256px" textAlign="center">
+              Bearings Inoperable, Repair Required
+            </Stack.Item>
+          </Stack>
+        ) : (
+          <Section title="Throttle">
+            {operational ? (
+              <Knob
+                size={3}
+                value={throttle}
+                unit="%"
+                minValue={0}
+                maxValue={100}
+                step={1}
+                stepPixelSize={1}
+                onDrag={(e, value) =>
+                  act('set_throttle', {
+                    throttle: value,
+                  })
+                }
+              />
+            ) : (
+              ''
+            )}
+          </Section>
+        )}
       </Window.Content>
     </Window>
   );
