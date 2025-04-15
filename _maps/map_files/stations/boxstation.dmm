@@ -64175,6 +64175,7 @@
 /area/station/maintenance/fore)
 "lQS" = (
 /obj/effect/spawner/random/barrier/possibly_welded_airlock,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "lRi" = (
