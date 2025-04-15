@@ -51,9 +51,9 @@
 		return TRUE
 
 /obj/machinery/magma_crucible/RefreshParts()
-	var/sheet_mult = BASE_SHEET_MULT
+	var/sheet_mult = SMITHING_BASE_SHEET_MULT
 	for(var/obj/item/stock_parts/micro_laser/component in component_parts)
-		sheet_mult += SHEET_MULT_ADD_PER_RATING * component.rating
+		sheet_mult += SMITHING_SHEET_MULT_ADD_PER_RATING * component.rating
 	// Update our values
 	sheet_per_ore = sheet_mult
 
