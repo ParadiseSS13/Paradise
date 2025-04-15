@@ -48937,6 +48937,7 @@
 	pixel_y = -24;
 	req_access = list(24)
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75151,6 +75152,10 @@
 	icon_state = "cautioncorner"
 	},
 /area/station/maintenance/asmaint2)
+"ruE" = (
+/obj/structure/sign/poster/official/soul/directional/west,
+/turf/simulated/floor/plating,
+/area/station/maintenance/storage)
 "ruR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -119899,7 +119904,7 @@ ddr
 ddr
 dcq
 dgi
-ddr
+ruE
 aQu
 upS
 dgq
