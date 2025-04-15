@@ -114,10 +114,10 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 		if(safe_replace(NT) && prob(min(probmodifer / distance, 100)))
 			var/turf/changed = NT.ChangeTurf(/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
 			if(prob(5))
-				new /obj/effect/spawner/random/lavaland_fauna(T)
+				new /obj/effect/spawner/random/lavaland_fauna(changed)
 			else if(prob(10))
 				lavaland_caves_spawn_flora(changed)
-			oasis_turfs |= NT
+			oasis_turfs |= changed
 
 	if(prob(50))
 		tempradius = round(tempradius / 3)
