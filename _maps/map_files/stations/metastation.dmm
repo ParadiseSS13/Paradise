@@ -54275,11 +54275,6 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
-"ltE" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "ltH" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -66423,9 +66418,6 @@
 /obj/structure/disposaloutlet{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "qfs" = (
@@ -72476,9 +72468,6 @@
 	name = "Fore Port Solar Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -94166,16 +94155,16 @@ agM
 agM
 agM
 agM
+agM
+wAU
+wAU
+wAU
+wAU
+wAU
+wAU
+wAU
+wAU
 lDC
-wAU
-wAU
-wAU
-wAU
-wAU
-wAU
-wAU
-wAU
-gRX
 gRX
 gRX
 kMe
@@ -94909,7 +94898,7 @@ aaa
 aaa
 aaa
 abq
-ltE
+abq
 rbQ
 arA
 arA
