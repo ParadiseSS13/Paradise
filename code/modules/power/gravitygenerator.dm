@@ -67,7 +67,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	parent_area_type = machine_area.get_top_parent_type()
 	if(parent_area_type)
 		areas = typesof(parent_area_type)
-
+	if(findtext("station","[parent_area_type]"))
+		areas |= typesof(/area/holodeck/)
 	update_gen_list()
 	set_power()
 
