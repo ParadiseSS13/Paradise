@@ -16757,14 +16757,11 @@
 /area/station/turret_protected/ai)
 "bra" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/blue{
-	pixel_x = 5
-	},
-/obj/item/pen/multi,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/machinery/newscaster/security_unit/directional/east,
+/obj/item/ai_upgrade/ai_program_reset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

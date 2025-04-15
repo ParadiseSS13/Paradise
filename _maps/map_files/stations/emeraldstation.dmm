@@ -26064,6 +26064,7 @@
 "fjx" = (
 /obj/structure/table/reinforced,
 /obj/machinery/requests_console/directional/west,
+/obj/item/ai_upgrade/ai_program_reset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

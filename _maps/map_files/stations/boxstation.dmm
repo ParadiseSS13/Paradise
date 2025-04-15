@@ -47008,6 +47008,7 @@
 	pixel_x = 27
 	},
 /obj/structure/table/reinforced,
+/obj/item/ai_upgrade/ai_program_reset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
