@@ -18,7 +18,7 @@ export const TurbineComputer = (props, context) => {
   } = data;
   const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken);
   return (
-    <Window width={400} height={380}>
+    <Window width={400} height={395}>
       <Window.Content>
         <Section
           title="Status"
@@ -90,7 +90,16 @@ const TurbineBroken = (props, context) => {
 // Element Tree for if the turbine is working
 const TurbineWorking = (props, context) => {
   const { data } = useBackend(context);
-  const { rpm, temperature, power, bearingDamage, preBurnTemperature, thermalEfficiency, compressionRatio } = data;
+  const {
+    rpm,
+    temperature,
+    power,
+    bearingDamage,
+    preBurnTemperature,
+    thermalEfficiency,
+    compressionRatio,
+    gasThroughput,
+  } = data;
   return (
     <LabeledList>
       <LabeledList.Item label="Turbine Speed">{rpm} RPM</LabeledList.Item>
@@ -98,6 +107,7 @@ const TurbineWorking = (props, context) => {
       <LabeledList.Item label="Pre Burn Temp">{preBurnTemperature} K</LabeledList.Item>
       <LabeledList.Item label="Internal Temp">{temperature} K</LabeledList.Item>
       <LabeledList.Item label="Thermal Efficiency">{thermalEfficiency * 100} %</LabeledList.Item>
+      <LabeledList.Item label="Gas Throughput">{gasThroughput / 2} mol/s</LabeledList.Item>
       <LabeledList.Item label="Generated Power">{formatPower(power)}</LabeledList.Item>
       <LabeledList.Item label="Bearing Damage">
         <ProgressBar

@@ -29,7 +29,7 @@
 /// Compressors heat capacity in J / K
 #define COMPRESSOR_HEAT_CAPACITY 50000
 /// Changes the scaling of thermal efficiency with temperature
-#define THERMAL_EFF_TEMP_CURVE 6000
+#define THERMAL_EFF_TEMP_CURVE 5000
 /// The portion of the kinetic energy converted to electrical
 #define KINETIC_TO_ELECTRIC 0.005
 /// The maximum compression ratio of the turbine
@@ -102,6 +102,8 @@
 	var/thermal_efficiency = 0
 	/// By how much the intake gas is getting compressed
 	var/compression_ratio = 1
+	/// Intaked gas in mol/tick. tick is 2 seconds
+	var/gas_throughput = 0
 	/// List of things that would get sucked into the compressor if it spins fast enough
 	var/list/to_suck_in = list()
 
@@ -335,6 +337,8 @@
 	var/transfer_moles = environment.total_moles() * (compressor.compression_ratio / 50) * compressor.throttle
 	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 	compressor.gas_contained.merge(removed)
+	// Record how much gas we took in for the UI
+	compressor.gas_throughput = compressor.gas_contained.total_moles()
 
 	// Lose kinetic energy to compressing the gas.
 	compressor.kinetic_energy -= min(compressor.kinetic_energy, compressor.compression_ratio * (compressor.gas_contained.return_pressure() - environment.return_pressure()))
@@ -480,9 +484,9 @@
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBPOWER and TURBCURVESHAPE values
 
-	// Lost 1% kinetic energy and convert up to 1% of kinetic energy to electrical power depending on efficiecy
-	turbine.lastgen = turbine.compressor.kinetic_energy * 0.01 * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
-	turbine.compressor.kinetic_energy -= 0.01 * turbine.compressor.kinetic_energy
+	// Lose 0.5% kinetic energy and convert up to 0.5% of kinetic energy to electrical power depending on efficiecy
+	turbine.lastgen = WATT_TICK_TO_JOULE * turbine.compressor.kinetic_energy * 0.05 * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
+	turbine.compressor.kinetic_energy -= 0.05 * turbine.compressor.kinetic_energy
 
 	turbine.produce_direct_power(turbine.lastgen)
 
@@ -617,6 +621,7 @@
 		data["bearingDamage"] = clamp((compressor.bearing_damage / BEARING_DAMAGE_MAX) * 100, 0, 100)
 		data["preBurnTemperature"] = compressor.pre_burn_temp
 		data["thermalEfficiency"] = compressor.thermal_efficiency
+		data["gasThroughput"] = compressor.gas_throughput
 
 	return data
 
