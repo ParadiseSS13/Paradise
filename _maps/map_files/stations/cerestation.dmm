@@ -34931,7 +34931,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "fPp" = (
-/mob/living/simple_animal/pig,
+/mob/living/basic/pig,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "fPv" = (

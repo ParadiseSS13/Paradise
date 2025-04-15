@@ -80496,7 +80496,7 @@
 	},
 /area/station/science/xenobiology)
 "uXs" = (
-/mob/living/simple_animal/pig,
+/mob/living/basic/pig,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "uXA" = (

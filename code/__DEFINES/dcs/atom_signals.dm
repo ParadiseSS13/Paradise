@@ -98,6 +98,15 @@
 #define COMSIG_ATOM_PREHIT "atom_prehit"
 	#define ATOM_PREHIT_SUCCESS (1<<0)
 	#define ATOM_PREHIT_FAILURE (1<<1)
+///from relay_attackers element: (atom/attacker, attack_flags)
+#define COMSIG_ATOM_ATTACK_ANIMAL "atom_attack_animal"
+#define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
+	///The damage type of the weapon projectile is non-lethal stamina
+	#define ATTACKER_STAMINA_ATTACK (1<<0)
+	///the attacker is shoving the source
+	#define ATTACKER_SHOVING (1<<1)
+	/// The attack is a damaging-type attack
+	#define ATTACKER_DAMAGING_ATTACK (1<<2)
 
 /// Called from atom/Initialize() of target: (atom/target)
 #define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"

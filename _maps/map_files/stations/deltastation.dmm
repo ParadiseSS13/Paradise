@@ -78439,7 +78439,7 @@
 	},
 /area/station/legal/courtroom/gallery)
 "qjc" = (
-/mob/living/simple_animal/pig,
+/mob/living/basic/pig,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "qjH" = (

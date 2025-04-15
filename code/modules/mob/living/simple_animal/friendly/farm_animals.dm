@@ -305,32 +305,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /mob/living/simple_animal/chicken/featherbottom/npc_safe(mob/user)
 	return FALSE
 
-/mob/living/simple_animal/pig
-	name = "pig"
-	desc = "Oink oink."
-	icon_state = "pig"
-	icon_living = "pig"
-	icon_dead = "pig_dead"
-	speak = list("oink?","oink","OINK")
-	speak_emote = list("oinks")
-//	emote_hear = list("brays")
-	emote_see = list("rolls around")
-	speak_chance = 1
-	turns_per_move = 5
-	see_in_dark = 6
-	butcher_results = list(/obj/item/food/meat/ham = 6)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	attacktext = "kicks"
-	health = 50
-	maxHealth = 50
-	can_collar = TRUE
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
-	footstep_type = FOOTSTEP_MOB_SHOE
-
 /mob/living/simple_animal/turkey
 	name = "turkey"
 	desc = "Benjamin Franklin would be proud."
