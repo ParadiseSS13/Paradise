@@ -162,8 +162,6 @@
 /obj/structure/chair/wood/narsie_act()
 	return
 
-/obj/structure/chair/Bump()
-
 /obj/structure/chair/wood/wings
 	icon_state = "wooden_chair_wings"
 	item_chair = /obj/item/chair/wood/wings
