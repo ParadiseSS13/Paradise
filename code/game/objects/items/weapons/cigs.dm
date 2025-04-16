@@ -131,7 +131,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/attack_self__legacy__attackchain(mob/user)
 	if(lit)
-		user.drop_item_to_ground(src, force = TRUE)
 		user.visible_message(
 			"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>",
 			"<span class='notice'>You calmly drop and tread on [src], putting it out instantly.</span>",
@@ -290,10 +289,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
-		M.drop_item_to_ground(src, force = TRUE)		//Force the un-equip so the overlays update
-		butt.slot_flags |= ITEM_SLOT_MASK // Temporarily allow it to go on masks
-		M.equip_to_slot_if_possible(butt, ITEM_SLOT_MASK)
-		butt.slot_flags &= ~ITEM_SLOT_MASK
+		// Only put the butt in the user's mouth if there's already a cig there.
+		if(M.wear_mask == src)
+			to_chat(M, "<span class='userdanger'>Butt in your mouth!</span>")
+			M.drop_item_to_ground(src, force = TRUE) //Force the un-equip so the overlays update
+			butt.slot_flags |= ITEM_SLOT_MASK // Temporarily allow it to go on masks
+			M.equip_to_slot_if_possible(butt, ITEM_SLOT_MASK)
+			butt.slot_flags &= ~ITEM_SLOT_MASK
+		else
+			M.drop_item_to_ground(src, force = TRUE)
 
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
