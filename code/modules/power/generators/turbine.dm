@@ -369,7 +369,7 @@
 	((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4)) * \
 	(compressor.gas_contained.temperature() / (compressor.gas_contained.temperature() + THERMAL_EFF_TEMP_CURVE)) * \
 	(compressor.gas_contained.return_pressure() / (compressor.gas_contained.return_pressure() + output_side.return_pressure())) * \
-	((BEARING_DAMAGE_MAX - compressor.bearing_damage) / BEARING_DAMAGE_MAX)
+	(1 - compressor.bearing_damage / BEARING_DAMAGE_MAX)
 
 	var/kinetic_energy_gain = compressor.gas_contained.thermal_energy() * compressor.thermal_efficiency
 
@@ -393,7 +393,7 @@
 	compressor.temperature = total_heat_energy / (compressor.heat_capacity + gas_heat_capacity)
 
 	// Calculate the temperature threshold for taking bearing damage. Damaged bearings get more damaged more easily
-	var/bearing_damage_threshold = BEARING_DAMAGE_BASE_THRESHOLD * (1 - 0.1 * ((BEARING_DAMAGE_MAX - compressor.bearing_damage) / BEARING_DAMAGE_MAX))
+	var/bearing_damage_threshold = BEARING_DAMAGE_BASE_THRESHOLD * (1 - 0.1 * compressor.bearing_damage / BEARING_DAMAGE_MAX)
 	// Damage bearings if overheated
 	if(compressor.temperature > bearing_damage_threshold)
 		compressor.bearing_damage = min(compressor.bearing_damage + max(0, (compressor.temperature - bearing_damage_threshold) * compressor.rpm / BEARING_DAMAGE_SCALING), BEARING_DAMAGE_MAX)
