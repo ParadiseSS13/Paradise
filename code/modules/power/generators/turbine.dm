@@ -53,8 +53,8 @@
 #define BEARING_DAMAGE_MAX 2000
 /// The temperature at which the bearings start taking damage
 #define BEARING_DAMAGE_THRESHOLD 3e4
-/// Scales the damage taking by the bearings. Higher value means less damage.
-#define BEARING_DAMAGE_SCALING 1e6
+/// Scales the damage taken by the bearings. Higher value means less damage.
+#define BEARING_DAMAGE_SCALING 5e5
 /// Friction from bearing damage
 #define BEARING_DAMAGE_FRICTION 120
 /// Message send upon catastrphic failure
