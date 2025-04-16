@@ -826,9 +826,6 @@
 	return
 
 /mob/living/singularity_act()
-	// Incorporeal mobs have no mass
-	if(incorporeal_move)
-		return
 	investigate_log("([key_name(src)]) has been consumed by the singularity.",INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
 	gib()
 	return 20
