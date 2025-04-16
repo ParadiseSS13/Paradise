@@ -484,9 +484,9 @@
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBPOWER and TURBCURVESHAPE values
 
-	// Lose 0.5% kinetic energy and convert up to 0.5% of kinetic energy to electrical power depending on efficiecy
-	turbine.lastgen = WATT_TICK_TO_JOULE * turbine.compressor.kinetic_energy * 0.05 * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
-	turbine.compressor.kinetic_energy -= 0.05 * turbine.compressor.kinetic_energy
+	// Lose 0.2% kinetic energy and convert up to 0.2% of kinetic energy to electrical energy depending on efficiecy
+	turbine.lastgen = (turbine.compressor.kinetic_energy * 0.2 / WATT_TICK_TO_JOULE) * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
+	turbine.compressor.kinetic_energy -= 0.2 * turbine.compressor.kinetic_energy
 
 	turbine.produce_direct_power(turbine.lastgen)
 
