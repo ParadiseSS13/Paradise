@@ -103,7 +103,6 @@
 		rotate()
 
 /obj/structure/chair/proc/handle_rotation()
-	SIGNAL_HANDLER //COMSIG_ATOM_DIR_CHANGE
 	handle_layer()
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
