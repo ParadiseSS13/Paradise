@@ -54,7 +54,7 @@
 /// Amount of damage at which the turbine catastrophically fails
 #define BEARING_DAMAGE_MAX 2000
 /// The temperature at which the bearings start taking damage
-#define BEARING_DAMAGE_THRESHOLD 3e4
+#define BEARING_DAMAGE_BASE_THRESHOLD 3e4
 /// Scales the damage taken by the bearings. Higher value means less damage.
 #define BEARING_DAMAGE_SCALING 5e5
 /// Friction from bearing damage
@@ -368,7 +368,8 @@
 	((compressor.compression_ratio / COMPRESSION_RATIO_MAX) ** THERMAL_EFF_COMPRESSION_CURVE) * \
 	((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4)) * \
 	(compressor.gas_contained.temperature() / (compressor.gas_contained.temperature() + THERMAL_EFF_TEMP_CURVE)) * \
-	(compressor.gas_contained.return_pressure() / (compressor.gas_contained.return_pressure() + output_side.return_pressure()))
+	(compressor.gas_contained.return_pressure() / (compressor.gas_contained.return_pressure() + output_side.return_pressure())) * \
+	((BEARING_DAMAGE_MAX - compressor.bearing_damage) / BEARING_DAMAGE_MAX)
 
 	var/kinetic_energy_gain = compressor.gas_contained.thermal_energy() * compressor.thermal_efficiency
 
@@ -391,9 +392,11 @@
 	compressor.gas_contained.set_temperature(total_heat_energy / (compressor.heat_capacity + gas_heat_capacity))
 	compressor.temperature = total_heat_energy / (compressor.heat_capacity + gas_heat_capacity)
 
+	// Calculate the temperature threshold for taking bearing damage. Damaged bearings get more damaged more easily
+	var/bearing_damage_threshold = BEARING_DAMAGE_BASE_THRESHOLD * (1 - 0.1 * ((BEARING_DAMAGE_MAX - compressor.bearing_damage) / BEARING_DAMAGE_MAX))
 	// Damage bearings if overheated
-	if(compressor.temperature > BEARING_DAMAGE_THRESHOLD)
-		compressor.bearing_damage += (compressor.temperature - BEARING_DAMAGE_THRESHOLD) * compressor.rpm / BEARING_DAMAGE_SCALING
+	if(compressor.temperature > bearing_damage_threshold)
+		compressor.bearing_damage = min(compressor.bearing_damage + (compressor.temperature - BEARING_DAMAGE_BASE_THRESHOLD) * compressor.rpm / BEARING_DAMAGE_SCALING, BEARING_DAMAGE_MAX)
 
 	if(compressor.rpm > 1000)
 		compressor.suck_in()
@@ -487,8 +490,8 @@
 	// the TURBPOWER and TURBCURVESHAPE values
 
 	// Lose 15% kinetic energy and convert up to 15% of kinetic energy to electrical energy depending on efficiecy
-	turbine.lastgen = (turbine.compressor.kinetic_energy * 0.05 / WATT_TICK_TO_JOULE) * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
-	turbine.compressor.kinetic_energy -= 0.05 * turbine.compressor.kinetic_energy
+	turbine.lastgen = (turbine.compressor.kinetic_energy * 0.04 / WATT_TICK_TO_JOULE) * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
+	turbine.compressor.kinetic_energy -= 0.04 * turbine.compressor.kinetic_energy
 
 	turbine.produce_direct_power(turbine.lastgen)
 
@@ -653,7 +656,7 @@
 #undef VERY_FAST
 #undef FAST
 #undef SLOW
-#undef BEARING_DAMAGE_THRESHOLD
+#undef BEARING_DAMAGE_BASE_THRESHOLD
 #undef OVERHEAT_TIME
 #undef BEARING_DAMAGE_MAX
 #undef FAILURE_MESSAGE
