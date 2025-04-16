@@ -46,6 +46,7 @@
 #include "test_subsystem_init.dm"
 #include "test_subsystem_metric_sanity.dm"
 #include "test_timer_sanity.dm"
+#include "test_wears_collar.dm"
 #endif
 
 #ifdef MAP_TESTS

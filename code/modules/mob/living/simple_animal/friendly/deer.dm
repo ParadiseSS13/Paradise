@@ -15,6 +15,9 @@
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
-	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
+
+/mob/living/simple_animal/deer/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
