@@ -105,7 +105,6 @@
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	RegisterSignal(parent, COMSIG_ACTIVATE_SELF, PROC_REF(on_attack_self))
-	//RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
@@ -322,12 +321,6 @@
 /datum/component/two_handed/proc/check_unwielded()
 	SIGNAL_HANDLER // COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT
 	return wielded ? FALSE : TRUE;
-
-/**
- * on_attack triggers on attack with the parent item
- * /datum/component/two_handed/proc/on_attack(obj/item/source, mob/living/target, mob/living/user)
- * 		SIGNAL_HANDLER  // COMSIG_ATTACK
- */
 
 /**
  * on_update_icon triggers on call to update parent items icon
