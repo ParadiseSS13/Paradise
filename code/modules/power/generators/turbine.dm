@@ -28,8 +28,10 @@
 #define RPM_TO_RAD_PER_SECOND 0.1047
 /// Compressors heat capacity in J / K
 #define COMPRESSOR_HEAT_CAPACITY 50000
-/// Changes the scaling of thermal efficiency with temperature
-#define THERMAL_EFF_TEMP_CURVE 5000
+/// Changes the scaling of thermal efficiency with temperature. Lower value means faster scaling
+#define THERMAL_EFF_TEMP_CURVE 7500
+/// Changes the scaling of compression ratio with RPM. Lower value means faster scaling
+#define COMPRESSION_RPM_CURVE 7500
 /// The portion of the kinetic energy converted to electrical
 #define KINETIC_TO_ELECTRIC 0.005
 /// The maximum compression ratio of the turbine
@@ -318,7 +320,7 @@
 	var/friction_energy_loss = 0
 	// Rotational kinetic energy turned to heat by friction
 	if(compressor.rpm)
-		friction_energy_loss = ((compressor.bearing_damage / BEARING_DAMAGE_MAX) * BEARING_DAMAGE_FRICTION + COMPFRICTION) * (compressor.rpm ** 1.5)  / ((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4))
+		friction_energy_loss = ((compressor.bearing_damage / BEARING_DAMAGE_MAX) * BEARING_DAMAGE_FRICTION + COMPFRICTION) * (compressor.rpm ** 1.45)  / ((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4))
 
 	if(!compressor.turbine)
 		compressor.stat = BROKEN
@@ -329,7 +331,7 @@
 		return
 
 	// By how much we compress the gas going into the turbine
-	compressor.compression_ratio = 1 + (COMPRESSION_RATIO_MAX - 1) * (compressor.rpm /(compressor.rpm + 15000))
+	compressor.compression_ratio = 1 + (COMPRESSION_RATIO_MAX - 1) * (compressor.rpm /(compressor.rpm + COMPRESSION_RPM_CURVE))
 
 	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
 	var/datum/gas_mixture/output_side = get_turf_air(get_step(compressor.turbine.loc, compressor.turbine.loc.dir))
@@ -484,9 +486,9 @@
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBPOWER and TURBCURVESHAPE values
 
-	// Lose 0.2% kinetic energy and convert up to 0.2% of kinetic energy to electrical energy depending on efficiecy
-	turbine.lastgen = (turbine.compressor.kinetic_energy * 0.2 / WATT_TICK_TO_JOULE) * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
-	turbine.compressor.kinetic_energy -= 0.2 * turbine.compressor.kinetic_energy
+	// Lose 15% kinetic energy and convert up to 15% of kinetic energy to electrical energy depending on efficiecy
+	turbine.lastgen = (turbine.compressor.kinetic_energy * 0.05 / WATT_TICK_TO_JOULE) * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
+	turbine.compressor.kinetic_energy -= 0.05 * turbine.compressor.kinetic_energy
 
 	turbine.produce_direct_power(turbine.lastgen)
 
@@ -663,6 +665,7 @@
 #undef RPM_TO_RAD_PER_SECOND
 #undef COMPRESSOR_HEAT_CAPACITY
 #undef THERMAL_EFF_TEMP_CURVE
+#undef COMPRESSION_RPM_CURVE
 #undef KINETIC_TO_ELECTRIC
 #undef COMPRESSION_RATIO_MAX
 #undef THERMAL_EFF_COMPRESSION_CURVE
