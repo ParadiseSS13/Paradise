@@ -1,8 +1,3 @@
-#define BASE_POINT_MULT 0.90
-#define BASE_SHEET_MULT 0.90
-#define POINT_MULT_ADD_PER_RATING 0.10
-#define SHEET_MULT_ADD_PER_RATING 0.10
-
 /**
   * # Ore Redemption Machine
   *
@@ -132,12 +127,12 @@
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
-	var/P = BASE_POINT_MULT
-	var/S = BASE_SHEET_MULT
+	var/P = ORM_BASE_POINT_MULT
+	var/S = ORM_BASE_SHEET_MULT
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		P += POINT_MULT_ADD_PER_RATING * M.rating
+		P += ORM_POINT_MULT_ADD_PER_RATING * M.rating
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		S += SHEET_MULT_ADD_PER_RATING * M.rating
+		S += ORM_SHEET_MULT_ADD_PER_RATING * M.rating
 		// Manipulators do nothing
 	// Update our values
 	point_upgrade = P
@@ -516,8 +511,3 @@
 /obj/machinery/mineral/ore_redemption/proc/on_material_insert(inserted_type, last_inserted_id, inserted)
 	give_points(inserted_type, inserted)
 	SStgui.update_uis(src)
-
-#undef BASE_POINT_MULT
-#undef BASE_SHEET_MULT
-#undef POINT_MULT_ADD_PER_RATING
-#undef SHEET_MULT_ADD_PER_RATING

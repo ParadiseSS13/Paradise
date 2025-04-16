@@ -496,9 +496,12 @@
 	M.layer = initial(M.layer)
 	M.pixel_y = initial(M.pixel_y)
 
-// called to unload the bot
-// argument is optional direction to unload
-// if zero, unload at bot's location
+/**
+  * Drops any load or passengers the bot is carrying
+  *
+  * Arguments:
+  * * dirn - Optional direction to unload, if zero unload at bot's location
+  */
 /mob/living/simple_animal/bot/mulebot/proc/unload(dirn)
 	if(!load)
 		return
@@ -513,10 +516,7 @@
 		load.layer = initial(load.layer)
 		load.plane = initial(load.plane)
 		if(dirn)
-			var/turf/T = loc
-			var/turf/newT = get_step(T,dirn)
-			if(load.CanPass(load,newT)) //Can't get off onto anything that wouldn't let you pass normally
-				step(load, dirn)
+			load.Move(get_step(loc, dirn))
 		load = null
 
 	update_icon(UPDATE_OVERLAYS)
