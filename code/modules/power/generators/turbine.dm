@@ -396,7 +396,7 @@
 	var/bearing_damage_threshold = BEARING_DAMAGE_BASE_THRESHOLD * (1 - 0.1 * ((BEARING_DAMAGE_MAX - compressor.bearing_damage) / BEARING_DAMAGE_MAX))
 	// Damage bearings if overheated
 	if(compressor.temperature > bearing_damage_threshold)
-		compressor.bearing_damage = min(compressor.bearing_damage + (compressor.temperature - BEARING_DAMAGE_BASE_THRESHOLD) * compressor.rpm / BEARING_DAMAGE_SCALING, BEARING_DAMAGE_MAX)
+		compressor.bearing_damage = min(compressor.bearing_damage + max(0, (compressor.temperature - bearing_damage_threshold) * compressor.rpm / BEARING_DAMAGE_SCALING), BEARING_DAMAGE_MAX)
 
 	if(compressor.rpm > 1000)
 		compressor.suck_in()
