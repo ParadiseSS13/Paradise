@@ -106,85 +106,6 @@
 	desc = "Pete, the Chef's pet goat from the Caribbean. Not known for their pleasant disposition."
 	unique_pet = TRUE
 
-//cow
-/mob/living/simple_animal/cow
-	name = "cow"
-	desc = "Known for their milk, just don't tip them over."
-	icon_state = "cow"
-	icon_living = "cow"
-	icon_dead = "cow_dead"
-	icon_gib = "cow_gib"
-	speak = list("Moo?","Moo","MOOOOOO")
-	speak_emote = list("moos","moos hauntingly")
-	emote_hear = list("brays")
-	emote_see = list("shakes its head")
-	speak_chance = 1
-	turns_per_move = 5
-	see_in_dark = 6
-	butcher_results = list(/obj/item/food/meat/slab = 6)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	attacktext = "kicks"
-	attack_sound = 'sound/weapons/punch1.ogg'
-	health = 50
-	maxHealth = 50
-	can_collar = TRUE
-	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
-	var/obj/item/udder/cow/udder = null
-	gender = FEMALE
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	footstep_type = FOOTSTEP_MOB_SHOE
-
-/mob/living/simple_animal/cow/Initialize(mapload)
-	udder = new()
-	. = ..()
-
-/mob/living/simple_animal/cow/Destroy()
-	QDEL_NULL(udder)
-	return ..()
-
-/mob/living/simple_animal/cow/item_interaction(mob/living/user, obj/item/O, list/modifiers)
-	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
-		udder.milkAnimal(O, user)
-		return ITEM_INTERACT_COMPLETE
-
-/mob/living/simple_animal/cow/Life(seconds, times_fired)
-	. = ..()
-	if(stat == CONSCIOUS)
-		udder.generateMilk()
-
-/mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
-	if(stat == CONSCIOUS && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		M.visible_message("<span class='warning'>[M] tips over [src].</span>","<span class='notice'>You tip over [src].</span>")
-		Weaken(60 SECONDS)
-		icon_state = icon_dead
-		spawn(rand(20,50))
-			if(stat == CONSCIOUS && M)
-				icon_state = icon_living
-				var/list/responses = list(
-					"[src] looks at you imploringly.",
-					"[src] looks at you pleadingly",
-					"[src] looks at you with a resigned expression.",
-					"[src] seems resigned to its fate."
-				)
-				to_chat(M, pick(responses))
-	else
-		..()
-
-
-/mob/living/simple_animal/cow/npc_safe(mob/user)
-	return TRUE
-
-/mob/living/simple_animal/cow/betsy
-	name = "Betsy"
-	real_name = "Betsy"
-	unique_pet = TRUE
-
-/mob/living/simple_animal/cow/betsy/npc_safe(mob/user) // depriving the chef of his animals is not cool
-	return FALSE
-
 /mob/living/simple_animal/chick
 	name = "chick"
 	desc = "Adorable! They make such a racket though."
@@ -383,32 +304,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/chicken/featherbottom/npc_safe(mob/user)
 	return FALSE
-
-/mob/living/simple_animal/pig
-	name = "pig"
-	desc = "Oink oink."
-	icon_state = "pig"
-	icon_living = "pig"
-	icon_dead = "pig_dead"
-	speak = list("oink?","oink","OINK")
-	speak_emote = list("oinks")
-//	emote_hear = list("brays")
-	emote_see = list("rolls around")
-	speak_chance = 1
-	turns_per_move = 5
-	see_in_dark = 6
-	butcher_results = list(/obj/item/food/meat/ham = 6)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "kicks"
-	attacktext = "kicks"
-	health = 50
-	maxHealth = 50
-	can_collar = TRUE
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
-	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/turkey
 	name = "turkey"

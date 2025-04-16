@@ -45,7 +45,7 @@
 
 /obj/item/reagent_containers/cooking/Initialize(mapload)
 	. = ..()
-	flags |= REAGENT_NOREACT
+	reagents.set_reacting(FALSE)
 	update_lip_effect()
 	clear_cooking_data()
 

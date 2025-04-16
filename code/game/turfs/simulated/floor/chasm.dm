@@ -42,6 +42,18 @@
 	var/drop_y = 1
 	var/drop_z = 2 // so that it doesn't send you to CC if something fucks up.
 
+/turf/simulated/floor/chasm/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_new_atom_at_loc))
+
+/turf/simulated/floor/chasm/proc/on_new_atom_at_loc(turf/location, atom/created, init_flags)
+	SIGNAL_HANDLER // COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON
+	drop_stuff(created)
+
+/turf/simulated/floor/chasm/ChangeTurf(turf/simulated/floor/T, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
+	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
+	. = ..()
+
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
 	START_PROCESSING(SSprocessing, src)
@@ -304,13 +316,6 @@
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, border_dir)
 	return TRUE
-
-/turf/simulated/floor/chasm/pride/Initialize(mapload)
-	. = ..()
-	drop_x = x
-	drop_y = y
-	var/list/target_z = levels_by_trait(SPAWN_RUINS)
-	drop_z = pick(target_z)
 
 /turf/simulated/floor/chasm/space_ruin
 	/// Used to keep count of how many times we checked if our target turf was valid.

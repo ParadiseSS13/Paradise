@@ -27,7 +27,7 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	var/atom/master = contamination.parent
 	SSblackbox.record_feedback("tally", "contaminated", 1, master.type)
 	var/msg = "has become contaminated with enough radiation to emit radiation waves || Source: [contamination.source] || Strength: [contamination.alpha_strength + contamination.beta_strength + contamination.gamma_strength]"
-	master.investigate_log(msg, "radiation")
+	master.investigate_log(msg, INVESTIGATE_RADIATION)
 
 /datum/controller/subsystem/processing/radiation/fire(resumed)
 	if(world.time > last_rad_cache_update + rad_cache_update_interval)

@@ -1027,7 +1027,7 @@
 
 /obj/item/spellbook/oneuse/fireball/recoil(mob/user as mob)
 	..()
-	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, cause = "[user]: Self-fireball from oneuse [name]")
 	qdel(src)
 
 /obj/item/spellbook/oneuse/smoke

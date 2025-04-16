@@ -312,17 +312,6 @@
 	fuel_lower = 30
 	fuel_upp = 90
 
-/obj/item/flashlight/flare/glowstick/random
-	name = "random colored glowstick"
-	icon_state = "random_glowstick"
-	color = null
-
-/obj/item/flashlight/flare/glowstick/random/Initialize(mapload)
-	. = ..()
-	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
-	new T(loc)
-	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
-
 /obj/item/flashlight/flare/extinguish_light(force = FALSE)
 	if(force)
 		fuel = 0
