@@ -34644,6 +34644,7 @@
 /area/station/science/xenobiology)
 "cKi" = (
 /obj/structure/closet/firecloset,
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -40737,6 +40738,9 @@
 "eaG" = (
 /obj/machinery/computer/aiupload{
 	dir = 8
+	},
+/obj/item/radio/intercom/private{
+	pixel_x = 28
 	},
 /turf/simulated/floor/greengrid,
 /area/station/turret_protected/ai_upload)
@@ -52101,6 +52105,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"iNO" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/turretid/stun{
+	control_area = "\improper AI Upload Chamber";
+	name = "AI Upload Turret Control";
+	pixel_x = 28;
+	req_access = list(75)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/station/science/research)
 "iOf" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -56870,7 +56887,6 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
 	dir = 8
@@ -65685,9 +65701,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
-	},
-/obj/item/radio/intercom/private{
-	pixel_y = -28
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
 /obj/machinery/door/airlock/vault{
@@ -118602,7 +118615,7 @@ iKk
 uSJ
 dYb
 lEw
-fTs
+iNO
 mai
 fTs
 fTs
