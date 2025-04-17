@@ -45810,6 +45810,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply/fore)
 "ifM" = (
@@ -51870,6 +51871,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "kxI" = (
@@ -63307,6 +63309,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/supply/break_room)
 "oOU" = (
@@ -65462,6 +65465,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "pHq" = (
@@ -65867,6 +65871,10 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
 /area/station/security/brig)
+"pPP" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/station/supply/warehouse)
 "pPV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -73376,6 +73384,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "sKf" = (
@@ -86109,6 +86118,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "xPh" = (
@@ -105866,7 +105876,7 @@ ckR
 aJY
 wBn
 hVt
-cjo
+pPP
 ufI
 daq
 crG
@@ -106889,7 +106899,7 @@ gvW
 bZP
 csv
 ueu
-crG
+bfS
 dZU
 dZU
 dZU
