@@ -688,6 +688,7 @@ What are the archived variables for?
 				private_toxins = QUANTIZE(private_toxins - plasma_burn_rate)
 				private_oxygen = QUANTIZE(private_oxygen - (plasma_burn_rate * private_oxygen_burn_rate))
 				private_carbon_dioxide += plasma_burn_rate
+				private_water_vapor += plasma_burn_rate * WATER_VAPOR_PER_PLASMA_BURNT
 
 				energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
@@ -700,6 +701,26 @@ What are the archived variables for?
 
 		if(fuel_burnt)
 			reacting = TRUE
+	// handles hydrogen burning
+	if((private_hydrogen >= 0) && (private_oxygen >= 0) && private_temperature > 0)
+		var/energy_released = WATER_VAPOR_REACTION_ENERGY
+
+        // Calculate the reaction rate based on temperature
+		var/reaction_rate = 1
+		var/burned_hydrogen = min(reaction_rate * private_hydrogen, H2_NEEDED_FOR_H2O)
+		var/burned_oxygen = min(reaction_rate * private_oxygen, O2_NEEDED_FOR_H2O)
+		var/produced_water_vapor = (burned_hydrogen / H2_NEEDED_FOR_H2O)
+
+		private_hydrogen -= burned_hydrogen
+		private_oxygen -= burned_oxygen
+		private_water_vapor += produced_water_vapor
+
+		var/old_heat_capacity = heat_capacity()
+		var/new_heat_capacity = heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+
+		reacting = TRUE
 
 	set_dirty()
 	return reacting

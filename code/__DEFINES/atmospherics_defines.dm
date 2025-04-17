@@ -75,6 +75,12 @@
 // Hydrogen defines
 #define HYDROGEN_BURN_ENERGY 				286000
 
+// Water Vapor defines
+#define WATER_VAPOR_PER_PLASMA_BURNT        4
+#define WATER_VAPOR_REACTION_ENERGY         200
+#define H2_NEEDED_FOR_H2O					2
+#define O2_NEEDED_FOR_H2O					1
+
 //GASES
 #define MIN_TOXIC_GAS_DAMAGE				1
 #define MAX_TOXIC_GAS_DAMAGE				10
