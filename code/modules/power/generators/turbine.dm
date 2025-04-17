@@ -154,6 +154,7 @@
 	gas_contained.volume = 50
 	inturf = get_step(src, dir)
 	locate_machinery()
+	recalculate_atmos_connectivity()
 
 	//Radio for screaming about overheats
 	radio = new(src)
@@ -468,9 +469,6 @@
 		stat &= ~BROKEN
 	else
 		stat |= BROKEN
-
-///obj/machinery/power/turbine/CanAtmosPass(turf/T)
-//	return !density
 
 /obj/machinery/power/turbine/process()
 	var/datum/milla_safe/turbine_process/milla = new()
