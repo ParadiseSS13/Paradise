@@ -18,7 +18,7 @@ export const TurbineComputer = (props, context) => {
   } = data;
   const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken);
   return (
-    <Window width={400} height={395}>
+    <Window width={400} height={415}>
       <Window.Content>
         <Section
           title="Status"
@@ -96,6 +96,7 @@ const TurbineWorking = (props, context) => {
     power,
     bearingDamage,
     preBurnTemperature,
+    postBurnTemperature,
     thermalEfficiency,
     compressionRatio,
     gasThroughput,
@@ -104,8 +105,9 @@ const TurbineWorking = (props, context) => {
     <LabeledList>
       <LabeledList.Item label="Turbine Speed">{rpm} RPM</LabeledList.Item>
       <LabeledList.Item label="Effective Compression Ratio">{compressionRatio}:1</LabeledList.Item>
-      <LabeledList.Item label="Pre Burn Temp">{preBurnTemperature} K</LabeledList.Item>
-      <LabeledList.Item label="Internal Temp">{temperature} K</LabeledList.Item>
+      <LabeledList.Item label="Gasmix Pre Burn Temp">{preBurnTemperature} K</LabeledList.Item>
+      <LabeledList.Item label="Gasmix Post Burn Temp">{postBurnTemperature} K</LabeledList.Item>
+      <LabeledList.Item label="Compressor Temp">{temperature} K</LabeledList.Item>
       <LabeledList.Item label="Thermal Efficiency">{thermalEfficiency * 100} %</LabeledList.Item>
       <LabeledList.Item label="Gas Throughput">{gasThroughput / 2} mol/s</LabeledList.Item>
       <LabeledList.Item label="Generated Power">{formatPower(power)}</LabeledList.Item>

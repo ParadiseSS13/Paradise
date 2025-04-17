@@ -100,6 +100,8 @@
 	var/throttle = 1
 	/// The temperature of the gas in the compressor before the burn
 	var/pre_burn_temp = 0
+	/// The temperature of the gas in the compressor after the burn
+	var/post_burn_temp = 0
 	/// The portion of the gas' thermal energy that is converted to kinetic energy
 	var/thermal_efficiency = 0
 	/// By how much the intake gas is getting compressed
@@ -359,6 +361,9 @@
 	// Burn the gas mix
 	for(var/i = 0, i < 10 + (compressor.compression_ratio / 2), i++)
 		compressor.gas_contained.react()
+
+	// Record the post burn temp. This is for the UI
+	compressor.post_burn_temp = compressor.gas_contained.temperature()
 
 	// We just changed our composition
 	gas_heat_capacity = compressor.gas_contained.heat_capacity()
@@ -624,6 +629,7 @@
 		data["temperature"] = compressor.gas_contained.temperature()
 		data["bearingDamage"] = clamp((compressor.bearing_damage / BEARING_DAMAGE_MAX) * 100, 0, 100)
 		data["preBurnTemperature"] = compressor.pre_burn_temp
+		data["postBurnTemperature"] = compressor.post_burn_temp
 		data["thermalEfficiency"] = compressor.thermal_efficiency
 		data["gasThroughput"] = compressor.gas_throughput
 
