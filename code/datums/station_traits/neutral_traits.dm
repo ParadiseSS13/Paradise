@@ -91,7 +91,7 @@
 
 /datum/station_trait/rave/on_round_start()
 	. = ..()
-	for(var/obj/machinery/light/light in GLOB.machines)
+	for(var/obj/machinery/light/light in SSmachines.get_by_type(/obj/machinery/light))
 		var/turf/our_turf = get_turf(light)
 		var/area/our_area = get_area(light)
 		if(is_station_level(our_turf.z) || istype(our_area, /area/mine/outpost) || istype(our_area, /area/mine/laborcamp))
