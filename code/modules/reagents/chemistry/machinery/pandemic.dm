@@ -1,3 +1,7 @@
+/// list of known advanced disease ids. If an advanced disease isn't here it will display as unknown disease on scanners
+/// Initialized with the id of the flu and cold samples from the virologist's fridge in the pandemic's init
+GLOBAL_LIST_EMPTY(known_advanced_diseases)
+
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
 	desc = "Used to work with viruses."
@@ -8,6 +12,22 @@
 	circuit = /obj/item/circuitboard/pandemic
 	idle_power_consumption = 20
 	resistance_flags = ACID_PROOF
+	/// Amount of time it would take to analyze the current disease. -1 means either no disease or that it doesn't require analysis
+	var/analysis_time_delta = -1
+	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis
+	var/analysis_time
+	/// Amount of time to add to the analysis time. resets upon successful analysis of a disease or by calibrating.
+	var/static/accumulated_error = list()
+	/// List of virus strains and stages already used for calibration.
+	var/static/list/used_calibration = list()
+	/// Whether the machine is calibrating
+	var/calibrating = FALSE
+	/// Whether the PANDEMIC is currently analyzing an advanced disease
+	var/analyzing = FALSE
+	/// ID of the disease being analyzed
+	var/analyzed_ID = ""
+	/// List of all symptoms. Gets filled in Initialize().
+	var/symptomlist = list()
 	var/temp_html = ""
 	var/printing = null
 	var/wait = null
@@ -17,6 +37,19 @@
 /obj/machinery/computer/pandemic/Initialize(mapload)
 	. = ..()
 	GLOB.pandemics |= src
+	var/datum/symptom/S
+	symptomlist += list("No Prediction")
+	for(var/i in GLOB.list_symptoms)
+		// I don't know a way to access the name of something with only the path without creating an instance.
+		S = new i()
+		symptomlist += list(S.name)
+		qdel(S)
+	// We init the list for the Z level here so that we can know it is loaded when we do.
+	if(!(z in GLOB.known_advanced_diseases))
+		GLOB.known_advanced_diseases += list("[z]" = list("4:origin", "24:origin"))
+	if(!(z in accumulated_error))
+		accumulated_error += list("[z]" = 0)
+
 	update_icon()
 
 /obj/machinery/computer/pandemic/Destroy()
@@ -87,6 +120,97 @@
 	B.name = "[name] [bottle_type] bottle"
 	return B
 
+/obj/machinery/computer/pandemic/proc/find_analysis_time_delta(datum/reagent/R)
+	var/strains = 0
+	var/stage_amount = 0
+	var/list/stages = list()
+	var/current_strain = ""
+	var/stealth_init = FALSE
+	var/stealth = 0
+	for(var/datum/disease/advance/to_analyze in R.data["viruses"])
+		// Automatically analyze if the tracker stores the ID of an analyzed disease
+		if(to_analyze.tracker && (to_analyze.tracker in GLOB.known_advanced_diseases["[z]"]))
+			if(!(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]))
+				GLOB.known_advanced_diseases["[z]"] += list(to_analyze.GetDiseaseID())
+		if(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
+			return
+		if(to_analyze.strain != current_strain || current_strain == "")
+			strains++
+			if(strains > 1)
+				analysis_time_delta = - 2
+				SStgui.update_uis(src, TRUE)
+				return
+			current_strain = to_analyze.strain
+
+		if(!stealth_init)
+			for(var/datum/symptom/S in to_analyze.symptoms)
+				stealth += S.stealth
+			stealth += to_analyze.base_properties["stealth"]
+			stealth_init = TRUE
+
+		if(!(to_analyze.stage in stages))
+			stage_amount++
+			stages += to_analyze.stage
+	stealth = max(stealth, 0)
+	analysis_time_delta = max((6 * (stealth ** 0.7)) + 1.1 - stage_amount ** 2 , 0) * 10 MINUTES
+	SStgui.update_uis(src, TRUE)
+
+/obj/machinery/computer/pandemic/proc/stop_analysis()
+	analysis_time_delta = -1
+	analyzing = FALSE
+	analyzed_ID = ""
+
+/obj/machinery/computer/pandemic/proc/analyze(disease_ID, symptoms)
+	analyzing = TRUE
+	analyzed_ID = disease_ID
+	var/names = list()
+	var/guesses = list()
+	for(var/i in symptoms)
+		names += list(i["name"])
+		guesses += list(i["guess"])
+	for(var/i in guesses)
+		if(!i || i == "No Prediction")
+			continue
+		if(i in names)
+			analysis_time_delta = max(0, analysis_time_delta - 20 MINUTES)
+		else
+			accumulated_error["[z]"] += 20 MINUTES
+	analysis_time = analysis_time_delta + world.time
+	return
+
+/obj/machinery/computer/pandemic/proc/calibrate()
+	if(!accumulated_error["[z]"])
+		return
+	var/error_reduction
+	for(var/datum/disease/advance/virus in GetViruses())
+		// We can't calibrate using the same strain and stage combination twice
+		if(!(used_calibration["[virus.strain]_[virus.stage]"]))
+			used_calibration += list("[virus.strain]_[virus.stage]" = TRUE)
+			error_reduction += max(accumulated_error["[z]"] / 5, 20 MINUTES)
+	if(error_reduction)
+		calibrating = TRUE
+		SStgui.update_uis(src)
+		spawn(10 SECONDS)
+			accumulated_error["[z]"] = max(accumulated_error["[z]"] - error_reduction, 0)
+			calibrating = FALSE
+			SStgui.update_uis(src)
+	// Reset the list of used viruses if we are fully calibrated
+	if(!accumulated_error["[z]"])
+		used_calibration = list()
+
+/obj/machinery/computer/pandemic/process()
+	. = ..()
+	if(analyzing)
+		if(analysis_time_delta < 0)
+			analyzing = FALSE
+			return
+
+		if(analysis_time + accumulated_error["[z]"] < world.time)
+			GLOB.known_advanced_diseases["[z]"] += analyzed_ID
+			analyzing = FALSE
+			analysis_time_delta = -1
+			SStgui.update_uis(src, TRUE)
+
 /obj/machinery/computer/pandemic/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
@@ -115,7 +239,7 @@
 			if(!ispath(type))
 				var/datum/disease/advance/A = GLOB.archive_diseases[type]
 				if(A)
-					D = new A.type(0, A)
+					D = virus.Copy()
 			else if(type)
 				if(type in GLOB.diseases) // Make sure this is a disease
 					D = new type(0, null)
@@ -160,7 +284,14 @@
 
 			var/obj/item/reagent_containers/glass/bottle/B = create_culture(vaccine_name, "vaccine", 200)
 			B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
+		if("remove_from_database")
+			if(params["strain_id"] in GLOB.known_advanced_diseases["[z]"])
+				GLOB.known_advanced_diseases["[z]"] -= params["strain_id"]
+				SStgui.update_uis(src, TRUE)
+		if("calibrate")
+			calibrate()
 		if("eject_beaker")
+			stop_analysis()
 			eject_beaker()
 			update_static_data(ui.user)
 		if("destroy_eject_beaker")
@@ -214,6 +345,8 @@
 				atom_say("Unable to find requested strain.")
 				return
 			selected_strain_index = strain_index;
+		if("analyze_strain")
+			analyze(params["strain_id"], params["symptoms"])
 		else
 			return FALSE
 
@@ -234,13 +367,26 @@
 			if(B)
 				Blood = B
 				break
+	var/can_calibrate = FALSE
+	if(Blood && accumulated_error["[z]"] > 0)
+		if(Blood.data && Blood.data["viruses"])
+			for(var/datum/disease/advance/virus in Blood.data["viruses"])
+				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]) && !used_calibration["[virus.strain]-[virus.stage]"])
+					can_calibrate = TRUE
+					break
 
 	var/list/data = list(
 		"synthesisCooldown" = wait ? TRUE : FALSE,
 		"beakerLoaded" = beaker ? TRUE : FALSE,
 		"beakerContainsBlood" = Blood ? TRUE : FALSE,
 		"beakerContainsVirus" = length(Blood?.data["viruses"]) != 0,
+		"calibrating" = calibrating,
+		"canCalibrate" = can_calibrate,
 		"selectedStrainIndex" = selected_strain_index,
+		"analysisTime" = (analysis_time + accumulated_error["[z]"]) > world.time ? analysis_time + accumulated_error["[z]"] - world.time : 0,
+		"analysisTimeDelta" = analysis_time_delta,
+		"analyzing" = analyzing,
+		"sympton_names" = symptomlist,
 	)
 
 	return data
@@ -258,50 +404,72 @@
 				break
 
 	var/list/strains = list()
-	for(var/datum/disease/D in GetViruses())
-		if(D.visibility_flags & HIDDEN_PANDEMIC)
+	for(var/datum/disease/blood_disease in GetViruses())
+		var/known = FALSE
+		if(blood_disease.visibility_flags & HIDDEN_PANDEMIC)
 			continue
 
 		var/list/symptoms = list()
-		if(istype(D, /datum/disease/advance))
-			var/datum/disease/advance/A = D
-			D = GLOB.archive_diseases[A.GetDiseaseID()]
-			if(!D)
+		var/list/base_stats = list()
+		var/datum/disease/advance/advanced_disease = blood_disease
+		if(istype(blood_disease, /datum/disease/advance))
+			known = (advanced_disease.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
+			blood_disease = GLOB.archive_diseases[advanced_disease.GetDiseaseID()]
+			if(!blood_disease)
 				CRASH("We weren't able to get the advance disease from the archive.")
-			for(var/datum/symptom/S in A.symptoms)
+			for(var/datum/symptom/virus_symptom in advanced_disease.symptoms)
 				symptoms += list(list(
-					"name" = S.name,
-					"stealth" = S.stealth,
-					"resistance" = S.resistance,
-					"stageSpeed" = S.stage_speed,
-					"transmissibility" = S.transmittable,
-					"complexity" = S.level,
+					"name" = virus_symptom.name,
+					"stealth" = known ? virus_symptom.stealth : "UNKNOWN",
+					"resistance" = known ? virus_symptom.resistance : "UNKNOWN",
+					"stagevirus_symptompeed" = known ? virus_symptom.stage_speed : "UNKNOWN",
+					"transmissibility" = known ? virus_symptom.transmittable : "UNKNOWN",
+					"complexity" = known ? virus_symptom.level : "UNKNOWN",
 				))
 
+			base_stats["stealth"] = advanced_disease.base_properties["stealth"]
+			base_stats["resistance"] = advanced_disease.base_properties["resistance"]
+			base_stats["stageSpeed"] = advanced_disease.base_properties["stage rate"]
+			base_stats["transmissibility"] = advanced_disease.base_properties["transmittable"]
+			base_stats["severity"] = advanced_disease.base_properties["severity"]
+		else
+			known = TRUE
+			base_stats["stealth"] = 0
+			base_stats["resistance"] = 0
+			base_stats["stageSpeed"] = 0
+			base_stats["transmissibility"] = 0
+			base_stats["severity"] = 0
 		strains += list(list(
-			"commonName" = D.name,
-			"description" = D.desc,
+			"commonName" = known ? blood_disease.name : "Unknown strain",
+			"description" = known ? blood_disease.desc : "Unknown strain",
+			"strainID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.strain : blood_disease.name,
+			"strainFullID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.GetDiseaseID() : blood_disease.name,
+			"diseaseID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.id : blood_disease.name,
+			"sample_stage" = blood_disease.stage,
+			"known" = known,
 			"bloodDNA" = Blood.data["blood_DNA"],
 			"bloodType" = Blood.data["blood_type"],
-			"diseaseAgent" = D.agent,
-			"possibleTreatments" = D.cure_text,
-			"transmissionRoute" = D.spread_text,
+			"diseaseAgent" = blood_disease.agent,
+			"possibleTreatments" = known ? blood_disease.cure_text : "Unknown strain",
+			"transmissionRoute" = known ? blood_disease.spread_text : "Unknown strain",
 			"symptoms" = symptoms,
-			"isAdvanced" = istype(D, /datum/disease/advance),
+			"baseStats" = base_stats,
+			"isAdvanced" = istype(blood_disease, /datum/disease/advance),
 		))
 	data["strains"] = strains
 
 	var/list/resistances = list()
 	for(var/resistance in GetResistances())
 		if(!ispath(resistance))
-			var/datum/disease/D = GLOB.archive_diseases[resistance]
-			if(D)
-				resistances += list(D.name)
+			var/datum/disease/resisted_disease = GLOB.archive_diseases[resistance]
+			if(resisted_disease)
+				resistances += list(resisted_disease.name)
 		else if(resistance)
-			var/datum/disease/D = new resistance(0, null)
-			if(D)
-				resistances += list(D.name)
+			var/datum/disease/resistance_disease = new resistance(0, null)
+			if(resistance_disease)
+				resistances += list(resistance_disease.name)
 	data["resistances"] = resistances
+	data["analysis_time_delta"] = analysis_time_delta
 
 /obj/machinery/computer/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
@@ -401,6 +569,11 @@
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		SStgui.update_uis(src, TRUE)
 		icon_state = "pandemic1"
+		for(var/datum/reagent/R in beaker.reagents.reagent_list)
+			if(R.id == "blood")
+				find_analysis_time_delta(R)
+				SStgui.update_uis(src, TRUE)
+				break
 
 		return ITEM_INTERACT_COMPLETE
 	else
