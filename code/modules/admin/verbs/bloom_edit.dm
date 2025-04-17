@@ -62,7 +62,7 @@
 			GLOB.configuration.lighting_effects.exposure_contrast_base = initial(GLOB.configuration.lighting_effects.exposure_contrast_base)
 			GLOB.configuration.lighting_effects.exposure_contrast_power = initial(GLOB.configuration.lighting_effects.exposure_contrast_power)
 		if("update_lamps")
-			for(var/obj/machinery/light/L in GLOB.machines)
+			for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 				if(L.glow_overlay || L.exposure_overlay)
 					L.update_bloom()
 	return TRUE

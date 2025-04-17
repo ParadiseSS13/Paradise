@@ -10,10 +10,7 @@ export const AtmosTankControl = (props, context) => {
   let sensors_list = data.sensors || {};
 
   return (
-    <Window
-      width={400}
-      height={120 + 100 * data.inlets.length + 126 * data.vent_outlets.length + 150 * data.scrubber_outlets.length}
-    >
+    <Window width={400} height={435}>
       <Window.Content scrollable>
         {Object.keys(sensors_list).map((s) => (
           <Section key={s} title={s}>
