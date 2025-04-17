@@ -85405,7 +85405,7 @@
 /area/station/command/office/cmo)
 "xyi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
@@ -85580,6 +85580,10 @@
 "xCz" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "xCB" = (
