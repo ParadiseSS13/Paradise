@@ -36683,6 +36683,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "QM"
+	},
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
 "eEC" = (
