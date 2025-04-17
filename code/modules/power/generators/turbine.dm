@@ -21,7 +21,7 @@
 //   |      |        V - Suction vent (Like the ones in atmos)
 
 /// Multiplies the friction of the compressor
-#define COMPFRICTION 60
+#define COMPFRICTION 440
 /// Compressor's moment of inertia in kg * m^2
 #define COMP_MOMENT_OF_INERTIA 300
 /// Convert RPM to radians per second(SI angular velocity units)
@@ -31,15 +31,15 @@
 /// Changes the scaling of thermal efficiency with temperature. Lower value means faster scaling
 #define THERMAL_EFF_TEMP_CURVE 7500
 /// Changes the scaling of compression ratio with RPM. Lower value means faster scaling
-#define COMPRESSION_RPM_CURVE 7500
+#define COMPRESSION_RPM_CURVE 12000
 /// The portion of the kinetic energy converted to electrical
 #define KINETIC_TO_ELECTRIC 0.005
 /// The maximum compression ratio of the turbine
 #define COMPRESSION_RATIO_MAX 50
 /// Scales the effect of compresion ratio on thermal efficiency
-#define THERMAL_EFF_COMPRESSION_CURVE 0.7
+#define THERMAL_EFF_COMPRESSION_CURVE 0.9
 /// The base value we add values dervied from componenet ratings to for thermal efficiency scaling. higher value means lesser effect of parts
-#define THERMAL_EFF_PART_BASE 4
+#define THERMAL_EFF_PART_BASE 8
 /// The base value we add values dervied from componenet ratings to for power efficiency. higher value means lesser effect of parts
 #define POWER_EFF_PART_BASE 4
 /// Maximum possible thermal efficiency
@@ -58,7 +58,7 @@
 /// Scales the damage taken by the bearings. Higher value means less damage.
 #define BEARING_DAMAGE_SCALING 5e5
 /// Friction from bearing damage
-#define BEARING_DAMAGE_FRICTION 120
+#define BEARING_DAMAGE_FRICTION 960
 /// Message send upon catastrphic failure
 #define FAILURE_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
 /// RPM at which the turbine explodes upon failing
@@ -320,7 +320,7 @@
 	var/friction_energy_loss = 0
 	// Rotational kinetic energy turned to heat by friction
 	if(compressor.rpm)
-		friction_energy_loss = ((compressor.bearing_damage / BEARING_DAMAGE_MAX) * BEARING_DAMAGE_FRICTION + COMPFRICTION) * (compressor.rpm ** 1.45)  / ((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4))
+		friction_energy_loss = ((compressor.bearing_damage / BEARING_DAMAGE_MAX) * BEARING_DAMAGE_FRICTION + COMPFRICTION) * (compressor.rpm ** 1.27)  / ((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4))
 
 	if(!compressor.turbine)
 		compressor.stat = BROKEN
@@ -369,7 +369,7 @@
 	((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4)) * \
 	(compressor.gas_contained.temperature() / (compressor.gas_contained.temperature() + THERMAL_EFF_TEMP_CURVE)) * \
 	(compressor.gas_contained.return_pressure() / (compressor.gas_contained.return_pressure() + output_side.return_pressure())) * \
-	(1 - compressor.bearing_damage / BEARING_DAMAGE_MAX)
+	((1 - compressor.bearing_damage / BEARING_DAMAGE_MAX) ** 2)
 
 	var/kinetic_energy_gain = compressor.gas_contained.thermal_energy() * compressor.thermal_efficiency
 
@@ -393,7 +393,7 @@
 	compressor.temperature = total_heat_energy / (compressor.heat_capacity + gas_heat_capacity)
 
 	// Calculate the temperature threshold for taking bearing damage. Damaged bearings get more damaged more easily
-	var/bearing_damage_threshold = BEARING_DAMAGE_BASE_THRESHOLD * (1 - 0.1 * compressor.bearing_damage / BEARING_DAMAGE_MAX)
+	var/bearing_damage_threshold = BEARING_DAMAGE_BASE_THRESHOLD * (1 - 0.4 * compressor.bearing_damage / BEARING_DAMAGE_MAX)
 	// Damage bearings if overheated
 	if(compressor.temperature > bearing_damage_threshold)
 		compressor.bearing_damage = min(compressor.bearing_damage + max(0, (compressor.temperature - bearing_damage_threshold) * compressor.rpm / BEARING_DAMAGE_SCALING), BEARING_DAMAGE_MAX)
@@ -489,9 +489,9 @@
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBPOWER and TURBCURVESHAPE values
 
-	// Lose 15% kinetic energy and convert up to 15% of kinetic energy to electrical energy depending on efficiecy
-	turbine.lastgen = (turbine.compressor.kinetic_energy * 0.04 / WATT_TICK_TO_JOULE) * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
-	turbine.compressor.kinetic_energy -= 0.04 * turbine.compressor.kinetic_energy
+	// Lose 4% kinetic energy and convert up to 4% of kinetic energy to electrical energy depending on efficiecy
+	turbine.lastgen = (turbine.compressor.kinetic_energy * 0.1 / WATT_TICK_TO_JOULE) * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
+	turbine.compressor.kinetic_energy -= 0.1 * turbine.compressor.kinetic_energy
 
 	turbine.produce_direct_power(turbine.lastgen)
 
