@@ -62791,6 +62791,11 @@
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
+"oFm" = (
+/obj/machinery/fishtank/tank,
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/wood,
+/area/station/maintenance/fpmaint)
 "oFn" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -63550,6 +63555,12 @@
 	icon_state = "white"
 	},
 /area/station/science/research)
+"oTA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/fpmaint)
 "oTB" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/effect/turf_decal/stripes/line,
@@ -68077,6 +68088,12 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"qGn" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/fpmaint)
 "qGo" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -80104,6 +80121,14 @@
 	icon_state = "brown"
 	},
 /area/station/supply/expedition)
+"vtm" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint)
 "vtx" = (
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -86238,6 +86263,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"xRY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint)
 "xSg" = (
 /obj/machinery/economy/vending/security,
 /turf/simulated/floor/plasteel{
@@ -98093,9 +98124,9 @@ elW
 iDd
 aOB
 ofb
-dEj
+qGn
 ttz
-dSl
+oFm
 aOB
 aaa
 aaa
@@ -98350,7 +98381,7 @@ wJA
 yhF
 yhF
 ieX
-dEj
+oTA
 ttz
 dSl
 aOB
@@ -98607,7 +98638,7 @@ adY
 nGk
 yhF
 yhF
-uaH
+vtm
 aOB
 aOB
 aOB
@@ -98864,7 +98895,7 @@ ufx
 ufx
 nLf
 uXJ
-adY
+xRY
 ufx
 oBd
 ufx
