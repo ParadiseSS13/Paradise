@@ -110,7 +110,7 @@
 	port.id = "whiteship_custom_[dock_count]"
 	port.register()
 
-	for(var/obj/machinery/computer/shuttle/white_ship/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle/white_ship/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle/white_ship))
 		S.possible_destinations = null
 		S.connect()
 		possible_destinations = S.possible_destinations
@@ -119,7 +119,7 @@
 	to_chat(user, "<span class='notice'>Landing zone set.</span>")
 
 /obj/item/whiteship_port_generator/AltClick(mob/user, modifiers)
-	for(var/obj/machinery/computer/shuttle/white_ship/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle/white_ship/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle/white_ship))
 		possible_destinations = S.possible_destinations
 		break
 

@@ -146,7 +146,7 @@
 
 /datum/game_mode/wizard/raginmages/proc/populate_magivends()
 	// Makes magivends PLENTIFUL
-	for(var/obj/machinery/economy/vending/magivend/magic in GLOB.machines)
+	for(var/obj/machinery/economy/vending/magivend/magic in SSmachines.get_by_type(/obj/machinery/economy/vending/magivend))
 		for(var/key in magic.products)
 			magic.products[key] = 20 // and so, there was prosperity for ragin mages everywhere
 		magic.product_records.Cut()
