@@ -60,7 +60,7 @@
 	icon_state = "foamdart_riot"
 	damage = 25
 	damage_type = STAMINA
-	nodamage = 0
+	nodamage = FALSE
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	log_override = FALSE
 
