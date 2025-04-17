@@ -58,8 +58,10 @@
 /obj/item/projectile/bullet/reusable/foam_dart/riot
 	name = "riot foam dart"
 	icon_state = "foamdart_riot"
+	damage = 25
+	damage_type = STAMINA
+	nodamage = 0
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	stamina = 25
 	log_override = FALSE
 
 /obj/item/projectile/bullet/reusable/foam_dart/sniper
