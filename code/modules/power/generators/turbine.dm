@@ -154,9 +154,6 @@
 	gas_contained.volume = 50
 	inturf = get_step(src, dir)
 	locate_machinery()
-	if(!turbine)
-		stat |= BROKEN
-
 
 	//Radio for screaming about overheats
 	radio = new(src)
@@ -174,6 +171,9 @@
 	turbine = locate() in get_step(src, get_dir(inturf, src))
 	if(turbine)
 		turbine.locate_machinery()
+		stat &= ~BROKEN
+	else
+		stat |= BROKEN
 
 /obj/machinery/power/compressor/RefreshParts()
 	var/E = 0
@@ -369,7 +369,7 @@
 	((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4)) * \
 	(compressor.gas_contained.temperature() / (compressor.gas_contained.temperature() + THERMAL_EFF_TEMP_CURVE)) * \
 	(compressor.gas_contained.return_pressure() / (compressor.gas_contained.return_pressure() + output_side.return_pressure())) * \
-	((1 - compressor.bearing_damage / BEARING_DAMAGE_MAX) ** 2)
+	((1 - compressor.bearing_damage / BEARING_DAMAGE_MAX) ** 3)
 
 	var/kinetic_energy_gain = compressor.gas_contained.thermal_energy() * compressor.thermal_efficiency
 
@@ -452,8 +452,6 @@
 
 	outturf = loc
 	locate_machinery()
-	if(!compressor)
-		stat |= BROKEN
 
 /obj/machinery/power/turbine/RefreshParts()
 	var/P = 0
@@ -467,6 +465,9 @@
 	compressor = locate() in get_step(src, ((dir & 5) << 1) | ((dir & 10) >> 1))
 	if(compressor)
 		compressor.locate_machinery()
+		stat &= ~BROKEN
+	else
+		stat |= BROKEN
 
 ///obj/machinery/power/turbine/CanAtmosPass(turf/T)
 //	return !density
