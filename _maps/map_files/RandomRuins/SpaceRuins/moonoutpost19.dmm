@@ -1440,9 +1440,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/sign/poster/official/dig{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/dig/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "eA" = (
@@ -1581,9 +1579,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/safety_eye_protection{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/safety_eye_protection/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1838,9 +1834,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel/stairs{
 	dir = 1
 	},
@@ -4308,9 +4302,7 @@
 	},
 /area/ruin/space/moonbase19)
 "oh" = (
-/obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph/directional/north,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table,
 /obj/item/salvage/ruin/nanotrasen,
@@ -6121,9 +6113,7 @@
 /area/ruin/space/moonbase19)
 "we" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/structure/sign/poster/contraband/donut_corp{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/donut_corp/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6782,9 +6772,7 @@
 	dir = 1;
 	network = list("MO19")
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -7929,9 +7917,7 @@
 /area/ruin/space/moonbase19)
 "Eo" = (
 /obj/structure/filingcabinet,
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /obj/item/paper/fluff/ruins/moonoutpost19/rdnote,
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
@@ -8776,9 +8762,7 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/bench/right,
-/obj/structure/sign/poster/official/help_others{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/help_others/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -9107,9 +9091,7 @@
 /area/ruin/space/moonbase19)
 "JR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "JS" = (
@@ -9160,9 +9142,7 @@
 	pixel_y = -3
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/sign/poster/official/ion_rifle{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/ion_rifle/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Kb" = (
@@ -9864,9 +9844,7 @@
 /obj/structure/chair/sofa/bench{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -10114,9 +10092,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -11352,9 +11328,7 @@
 /area/ruin/space/moonbase19)
 "Ub" = (
 /obj/structure/filingcabinet,
-/obj/structure/sign/poster/contraband/fun_police{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/fun_police/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 1
@@ -12414,9 +12388,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/spiders{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/spiders/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -12472,9 +12444,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/here_for_your_safety{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/here_for_your_safety/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8

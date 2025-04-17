@@ -56,7 +56,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	GLOB.singularities += src
-	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
+	for(var/obj/machinery/power/singularity_beacon/singubeacon in SSmachines.get_by_type(/obj/machinery/power/singularity_beacon))
 		if(singubeacon.active)
 			beacon_target = singubeacon
 			break
