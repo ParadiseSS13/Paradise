@@ -73593,7 +73593,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "qIz" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
