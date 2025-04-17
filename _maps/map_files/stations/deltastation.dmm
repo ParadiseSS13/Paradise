@@ -18018,11 +18018,9 @@
 	dir = 1
 	},
 /obj/structure/closet/crate,
-/obj/item/coin/silver,
-/obj/item/coin/silver,
-/obj/item/coin/silver,
-/obj/item/coin/silver,
-/obj/item/coin/silver,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -19469,6 +19467,7 @@
 /obj/machinery/light/small,
 /obj/structure/closet/crate,
 /obj/item/storage/belt/champion,
+/obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plasteel{
