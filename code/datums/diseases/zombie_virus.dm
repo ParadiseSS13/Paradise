@@ -183,3 +183,7 @@
 		spread_flags = NON_CONTAGIOUS
 		spread_text = "Non Contagious"
 		cure_text = "Anti-magic"
+
+// this should not be curable. Prevents things like rez wands from un-zombifying your zombs.
+/datum/disease/zombie/wizard/cure()
+	return

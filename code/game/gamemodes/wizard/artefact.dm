@@ -692,13 +692,16 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(!istype(victim) || !istype(necromancer))
 		return ..()
 
-
 	if(victim.stat != DEAD)
 		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
 
 	if((!victim.mind || !victim.client) && !victim.grab_ghost())
 		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
+		return
+
+	if(victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy/plague_zombie))
+		to_chat(necromancer, "<span class='warning'>This one is already under another artefact's influence!</span>")
 		return
 
 	if(!check_skeletons()) //If above the cap, there is a cooldown on additional skeletons
@@ -894,9 +897,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 	necromancer.add_language("Zombie", TRUE) // make sure necromancer can speak to the bois
 
+	playsound(victim, 'sound/magic/mutate.ogg', 50)
 	addtimer(CALLBACK(src, PROC_REF(finish_convert), victim, necromancer, chosen_plague), 5 SECONDS)
-
-	qdel(src) // talismans are single use
 
 /obj/item/plague_talisman/proc/finish_convert(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer, datum/disease/chosen_plague)
 	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
@@ -911,6 +913,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	victim.med_hud_set_status()
 	victim.update_hands_hud()
 	victim.update_body()
+	qdel(src) // talismans are single use
 
 //choose what disease this zombie will get
 /obj/item/plague_talisman/proc/pick_disease()
