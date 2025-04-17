@@ -174,8 +174,8 @@ SUBSYSTEM_DEF(air)
 
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	setup_turfs()
-	setup_atmos_machinery(GLOB.machines)
-	setup_pipenets(GLOB.machines)
+	setup_atmos_machinery(SSmachines.get_by_type(/obj/machinery/atmospherics))
+	setup_pipenets(SSmachines.get_by_type(/obj/machinery/atmospherics))
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
 		A.initialize_atmos_network()
 

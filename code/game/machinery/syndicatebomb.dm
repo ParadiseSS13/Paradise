@@ -663,7 +663,7 @@
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return
 
-	for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+	for(var/obj/machinery/syndicatebomb/B in SSmachines.get_by_type(/obj/machinery/syndicatebomb))
 		if(B.active)
 			B.detonation_timer = world.time + BUTTON_DELAY
 			detonated++
