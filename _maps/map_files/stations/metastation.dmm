@@ -36682,6 +36682,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
 "eEC" = (
