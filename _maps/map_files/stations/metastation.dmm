@@ -47435,6 +47435,10 @@
 	pixel_y = 24;
 	range = 4
 	},
+/obj/machinery/keycard_auth{
+	pixel_y = 38;
+	pixel_x = -6
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
 "iJg" = (
