@@ -46310,6 +46310,11 @@
 	name = "east bump";
 	pixel_x = 27
 	},
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/wood,
 /area/station/service/cafeteria)
 "ipz" = (
@@ -73201,6 +73206,11 @@
 "sEh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "sEt" = (
