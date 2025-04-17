@@ -43,6 +43,10 @@
 		linked_crucible.linked_machines |= src
 		return
 
+/obj/machinery/mineral/smart_hopper/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>There are currently [points] claimable points. [points ? "Swipe your ID to claim them." : ""]</span>"
+
 /obj/machinery/mineral/smart_hopper/update_overlays()
 	. = ..()
 	overlays.Cut()
@@ -54,9 +58,9 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/mineral/smart_hopper/RefreshParts()
-	var/point_mult = BASE_POINT_MULT
+	var/point_mult = SMITHING_BASE_POINT_MULT
 	for(var/obj/item/stock_parts/component in component_parts)
-		point_mult += POINT_MULT_ADD_PER_RATING * component.rating
+		point_mult += SMITHING_POINT_MULT_ADD_PER_RATING * component.rating
 	// Update our values
 	point_upgrade = point_mult
 	SStgui.update_uis(src)

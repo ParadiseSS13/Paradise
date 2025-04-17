@@ -52686,9 +52686,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown/secret)
 "enq" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -53276,6 +53273,9 @@
 "exI" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
@@ -78439,7 +78439,7 @@
 	},
 /area/station/legal/courtroom/gallery)
 "qjc" = (
-/mob/living/simple_animal/pig,
+/mob/living/basic/pig,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "qjH" = (
@@ -90223,6 +90223,11 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/east)
+"vdG" = (
+/obj/structure/table/reinforced,
+/obj/item/ai_upgrade/ai_program_reset,
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai)
 "vdI" = (
 /obj/machinery/keycard_auth{
 	pixel_y = 26
@@ -107833,7 +107838,7 @@ bDa
 btd
 bGq
 bIo
-bzw
+vdG
 btd
 bNM
 bPN
