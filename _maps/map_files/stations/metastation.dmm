@@ -804,6 +804,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/station/supply/sorting)
 "ajR" = (
@@ -2302,6 +2303,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/structure/closet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -7963,6 +7965,12 @@
 /area/station/command/office/captain/bedroom)
 "aWF" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24;
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aWG" = (
@@ -22807,6 +22815,13 @@
 /obj/effect/landmark/start/engineer,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
+"ciZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "browncorner"
+	},
+/area/station/hallway/supply/aft)
 "cjc" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/recharge_station,
@@ -34186,6 +34201,11 @@
 /area/station/hallway/primary/central/west)
 "dKC" = (
 /obj/item/kirbyplants/large,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -36701,6 +36721,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "QM"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
@@ -40739,6 +40762,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/east)
+"gek" = (
+/obj/machinery/economy/vending/wallmed/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "browncorner"
+	},
+/area/station/hallway/supply/aft)
 "geq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -44071,6 +44101,11 @@
 	pixel_y = -4
 	},
 /obj/item/weldingtool,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "hvK" = (
@@ -44248,6 +44283,7 @@
 	dir = 8;
 	location = "QM #4"
 	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -45510,6 +45546,13 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay)
+"hZU" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "QM"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "hZX" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -47362,25 +47405,29 @@
 	autolink_id = "portmaint_btn_ext";
 	name = "Open External Bridge Button";
 	pixel_x = -8;
-	pixel_y = 30
+	pixel_y = 30;
+	req_access = list(41)
 	},
 /obj/machinery/access_button{
 	autolink_id = "portmaint_btn_int";
 	name = "Close External Bridge Button";
 	pixel_x = -8;
-	pixel_y = 24
+	pixel_y = 24;
+	req_access = list(41)
 	},
 /obj/machinery/access_button{
 	autolink_id = "cargo_btn_int";
 	name = "Close Cargo Bridge Button";
 	pixel_x = 8;
-	pixel_y = 24
+	pixel_y = 24;
+	req_access = list(41)
 	},
 /obj/machinery/access_button{
 	autolink_id = "cargo_btn_ext";
 	name = "Open Cargo Bridge Button";
 	pixel_x = 8;
-	pixel_y = 30
+	pixel_y = 30;
+	req_access = list(41)
 	},
 /obj/machinery/button/windowtint{
 	id = "QM";
@@ -49535,6 +49582,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"jGG" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "QM"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "jGI" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -50011,12 +50068,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "jNC" = (
-/obj/machinery/light,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
@@ -60617,6 +60678,16 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"nLJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/supply/aft)
 "nLN" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
@@ -66345,14 +66416,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/transmission_laser)
-"pWw" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
-	},
-/area/station/maintenance/apmaint)
 "pWM" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -66713,6 +66776,7 @@
 /obj/item/storage/bag/mail,
 /obj/item/storage/bag/mail,
 /obj/item/storage/bag/mail,
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -67237,8 +67301,11 @@
 	},
 /area/station/maintenance/aft)
 "qoL" = (
-/obj/machinery/alarm/directional/north,
 /obj/item/kirbyplants/large,
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -74564,6 +74631,11 @@
 	c_tag = "Quartermaster's Office"
 	},
 /obj/structure/filingcabinet,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
 "tfl" = (
@@ -75769,6 +75841,8 @@
 "tFb" = (
 /obj/structure/closet/secure_closet/quartermaster,
 /obj/item/gps/mining,
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
 "tFm" = (
@@ -80644,12 +80718,6 @@
 "vDG" = (
 /turf/simulated/wall,
 /area/station/security/interrogation)
-"vDM" = (
-/obj/machinery/economy/vending/wallmed/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "browncorner"
-	},
-/area/station/hallway/supply/aft)
 "vDQ" = (
 /obj/machinery/door/poddoor/preopen{
 	name = "Biohazard Shutter";
@@ -83570,6 +83638,11 @@
 	dir = 1
 	},
 /obj/item/storage/belt,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -83675,7 +83748,11 @@
 	c_tag = "Cargo Bay Port";
 	dir = 5
 	},
-/obj/machinery/alarm/directional/west,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -84838,11 +84915,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/cryo)
-"xnT" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable,
-/turf/simulated/floor/wood,
-/area/station/supply/qm)
 "xoa" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -85786,16 +85858,6 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
-"xIo" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/apmaint)
 "xIt" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible/yellow,
 /turf/simulated/floor/plasteel,
@@ -86556,6 +86618,11 @@
 "xXY" = (
 /obj/structure/closet/secure_closet/explorer,
 /obj/machinery/requests_console/directional/east,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -102821,7 +102888,7 @@ bES
 tfh
 swv
 wsj
-xnT
+aiG
 tFb
 bES
 veP
@@ -103077,8 +103144,8 @@ lsJ
 bES
 bES
 eEt
-bES
-bES
+jGG
+hZU
 bES
 bES
 lxJ
@@ -103334,10 +103401,10 @@ gSa
 oCc
 aAY
 iuw
-pJR
+xsV
+ciZ
 bZP
 cjj
-crG
 qWL
 cQz
 ceu
@@ -103592,9 +103659,9 @@ jLk
 iti
 kYs
 ewb
+nLJ
 nVx
 mlw
-xIo
 oTK
 crG
 opg
@@ -103848,10 +103915,10 @@ pHG
 oCc
 sfZ
 iuw
-vDM
+mwc
+gek
 bZP
 sPC
-pWw
 aun
 gFL
 mER
