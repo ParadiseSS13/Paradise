@@ -1123,6 +1123,8 @@
 #include "code\game\objects\effects\spawners\random\outfit_spawners.dm"
 #include "code\game\objects\effects\spawners\random\plushie_spawners.dm"
 #include "code\game\objects\effects\spawners\random\random_spawner.dm"
+#include "code\game\objects\effects\spawners\random\spawner_pixel_placer.dm"
+#include "code\game\objects\effects\spawners\random\tech_storage_spawners.dm"
 #include "code\game\objects\effects\spawners\random\toy_spawners.dm"
 #include "code\game\objects\effects\spawners\random\trash_spawners.dm"
 #include "code\game\objects\effects\spawners\random\pool\lavaland_pools.dm"
