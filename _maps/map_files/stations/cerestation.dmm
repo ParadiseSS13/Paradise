@@ -59564,6 +59564,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"lCN" = (
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "lCO" = (
 /obj/structure/rack{
 	dir = 8;
@@ -134062,7 +134068,7 @@ cGd
 cGd
 wNA
 qKO
-yiP
+lCN
 xIa
 xIa
 xIa

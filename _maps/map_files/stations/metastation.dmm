@@ -43183,6 +43183,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
+"fbq" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/xenobiology)
 "fbr" = (
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -130423,7 +130430,7 @@ gZe
 deu
 sFX
 pNz
-kjo
+fbq
 fvN
 aaa
 aaa
