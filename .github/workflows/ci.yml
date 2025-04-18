@@ -86,12 +86,13 @@ jobs:
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
+      # We test PARADISE_PRODUCTION_HARDWARE here because we dont in station_mapload_tests
       - name: Compile All Maps
         run: |
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          DreamMaker -DMULTIINSTANCE -DCIMAP paradise.dme
+          DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
   station_mapload_tests:
     name: Station Tests
