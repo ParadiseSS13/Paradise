@@ -29111,7 +29111,7 @@
 /obj/machinery/computer/general_air_control/large_tank_control{
 	autolink_sensors = list("cstm_sensor");
 	inlet_injector_autolink_ids = list("cstm_in");
-	outlet_autolink_ids = list("waste_outlet_scrubber");
+	outlet_autolink_ids = list(cstm_outlet_scrubber");
 	name = "Custom Gas Mix Tank Control"
 	},
 /turf/simulated/floor/plasteel,
