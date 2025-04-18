@@ -21823,7 +21823,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVn" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -23445,7 +23445,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "dgQ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,

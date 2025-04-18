@@ -45956,7 +45956,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "dmy" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -73593,7 +73593,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "qIz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
 /turf/simulated/floor/engine,

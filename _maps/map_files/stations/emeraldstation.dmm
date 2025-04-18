@@ -77092,7 +77092,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "poI" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -113267,7 +113267,7 @@
 	},
 /area/station/service/theatre)
 "wAF" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
 /turf/simulated/floor/engine,

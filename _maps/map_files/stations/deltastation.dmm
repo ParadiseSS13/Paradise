@@ -10464,11 +10464,11 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "aQM" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/structure/sign/magboots{
 	pixel_x = -32
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
@@ -92965,7 +92965,7 @@
 	},
 /area/station/maintenance/fore)
 "wok" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4
 	},
 /turf/simulated/floor/engine,

@@ -31261,7 +31261,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -70671,7 +70671,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "qMg" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
