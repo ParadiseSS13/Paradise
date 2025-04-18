@@ -14181,6 +14181,7 @@
 "bUk" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
+	autolink_id = "air_in"
 	},
 /turf/simulated/floor/engine{
 	name = "air floor";

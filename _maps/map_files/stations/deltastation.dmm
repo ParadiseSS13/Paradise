@@ -73738,7 +73738,8 @@
 	dir = 8;
 	icon_state = "on";
 	on = 1;
-	volume_rate = 200
+	volume_rate = 200;
+	autolink_id = "air_in"
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)

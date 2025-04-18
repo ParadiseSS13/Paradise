@@ -34662,6 +34662,7 @@
 /area/station/maintenance/security/fore)
 "gUA" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
+	autolink_id = "air_in"
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -105129,7 +105130,7 @@
 /area/station/maintenance/security/aft_port)
 "uTB" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
