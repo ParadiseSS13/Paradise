@@ -73735,7 +73735,6 @@
 /area/station/security/interrogation)
 "oeB" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
-	autolink_id = "air_in";
 	dir = 8;
 	icon_state = "on";
 	on = 1;

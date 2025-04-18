@@ -105130,7 +105130,6 @@
 "uTB" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
-	autolink_id = "air_in"
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
