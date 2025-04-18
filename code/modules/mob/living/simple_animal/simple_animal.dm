@@ -9,6 +9,7 @@
 	universal_understand = TRUE
 	universal_speak = FALSE
 	status_flags = CANPUSH
+	healable = TRUE
 
 	var/icon_living = ""
 	var/icon_dead = ""
@@ -53,9 +54,6 @@
 	var/can_be_on_fire = FALSE
 	/// Damage the mob will take if it is on fire
 	var/fire_damage = 2
-
-	/// Healable by medical stacks? Defaults to yes.
-	var/healable = TRUE
 
 	/// Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
@@ -104,8 +102,6 @@
 	var/current_offspring = 0
 	var/max_offspring = DEFAULT_MAX_OFFSPRING
 
-	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
-	var/xenobiology_spawned = FALSE
 	/// If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
 	var/gold_core_spawnable = NO_SPAWN
 	/// Holding var for determining who own/controls a sentient simple animal (for sentience potions).
@@ -378,7 +374,7 @@
 			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
 		else if(!del_on_death)
 			visible_message("<span class='danger'>\The [src] stops moving...</span>")
-	if(xenobiology_spawned)
+	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such
