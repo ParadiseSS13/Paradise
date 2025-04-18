@@ -34662,7 +34662,6 @@
 /area/station/maintenance/security/fore)
 "gUA" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	autolink_id = "air_in"
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -75950,7 +75949,6 @@
 /area/station/hallway/primary/aft)
 "pdg" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	autolink_id = "air_in";
 	dir = 8
 	},
 /turf/simulated/floor/engine/airless/nodecay,
@@ -96448,7 +96446,6 @@
 /area/station/security/armory/secure)
 "thS" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
-	autolink_id = "air_in";
 	on = 1
 	},
 /turf/simulated/floor/engine,

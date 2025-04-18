@@ -56641,7 +56641,6 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 8;
-	autolink_id = "air_in";
 	on = 1
 	},
 /turf/space,
@@ -83720,7 +83719,6 @@
 "wwI" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
-	autolink_id = "air_in"
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
