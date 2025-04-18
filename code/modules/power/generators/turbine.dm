@@ -64,6 +64,11 @@
 /// RPM at which the turbine explodes upon failing
 #define FAIILRE_RPM_EXPLOSION_THRESHOLD 15000
 
+/// The maximum portion of the compressor's kinetic energy the turbine can harvest each tick
+#define MAX_ENERGY_PORTION 0.125
+#define ENERGY_PORTION_CURVE 10000
+#define ENERGY_PORTION_CURVE_POWER 1.5
+
 /obj/machinery/power/compressor
 	name = "gas turbine compressor"
 	desc = "The compressor stage of a gas turbine generator. A data panel for linking with a to a computer can be accessed with a screwdriver."
@@ -168,15 +173,19 @@
 	RegisterSignal(inturf, COMSIG_ATOM_ENTERED, PROC_REF(enter_inlet_turf))
 	RegisterSignal(inturf, COMSIG_ATOM_EXIT, PROC_REF(leave_inlet_turf))
 
+/obj/machinery/power/compressor/proc/check_broken()
+	if(turbine && bearing_damage < BEARING_DAMAGE_MAX)
+		stat &= ~BROKEN
+	else
+		stat |= BROKEN
+
 /obj/machinery/power/compressor/locate_machinery()
 	if(turbine)
 		return
 	turbine = locate() in get_step(src, get_dir(inturf, src))
 	if(turbine)
 		turbine.locate_machinery()
-		stat &= ~BROKEN
-	else
-		stat |= BROKEN
+	check_broken()
 
 /obj/machinery/power/compressor/RefreshParts()
 	var/E = 0
@@ -191,10 +200,9 @@
 		locate_machinery()
 		if(turbine)
 			to_chat(user, "<span class='notice'>Turbine connected.</span>")
-			stat &= ~BROKEN
 		else
 			to_chat(user, "<span class='alert'>Turbine not connected.</span>")
-			stat |= BROKEN
+		check_broken()
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -214,7 +222,7 @@
 			return FALSE
 		to_chat(user, "<span class='notice'>You fix [src]'s bearings</span>")
 		bearing_damage = 0
-		stat &= ~BROKEN
+		check_broken()
 		return TRUE
 	else
 		to_chat(user,"<span class='warning'>You need to open the panel first</span>")
@@ -246,7 +254,7 @@
 	else
 		radio.autosay(FAILURE_MESSAGE, name, "Engineering")
 		playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
-		stat |= BROKEN
+		check_broken()
 		starter = FALSE
 
 /obj/machinery/power/compressor/proc/time_until_overheat_done()
@@ -325,8 +333,7 @@
 	if(compressor.rpm)
 		friction_energy_loss = ((compressor.bearing_damage / BEARING_DAMAGE_MAX) * BEARING_DAMAGE_FRICTION + COMPFRICTION) * (compressor.rpm ** 1.27)  / ((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4))
 
-	if(!compressor.turbine)
-		compressor.stat = BROKEN
+	compressor.check_broken()
 	// If the compressor cannot function only lose kinetic energy to friction
 	if(compressor.stat & BROKEN || compressor.panel_open || !compressor.starter)
 		compressor.kinetic_energy = max(compressor.kinetic_energy - friction_energy_loss, 0)
@@ -491,11 +498,12 @@
 		return
 
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
-	// the TURBPOWER and TURBCURVESHAPE values
 
-	// Lose 4% kinetic energy and convert up to 4% of kinetic energy to electrical energy depending on efficiecy
-	turbine.lastgen = (turbine.compressor.kinetic_energy * 0.1 / WATT_TICK_TO_JOULE) * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
-	turbine.compressor.kinetic_energy -= 0.1 * turbine.compressor.kinetic_energy
+	// Calculate the portion of the compressor's kinetic energy the turbine will harvest this tick
+	var/energy_portion = MAX_ENERGY_PORTION * (turbine.compressor.rpm / (turbine.compressor.rpm + ENERGY_PORTION_CURVE)) ** ENERGY_PORTION_CURVE_POWER
+	// Lose the calculated portion kinetic energy and convert it to electrical energy with the amount depending on the efficiency
+	turbine.lastgen = (turbine.compressor.kinetic_energy * energy_portion / WATT_TICK_TO_JOULE) * ((POWER_EFF_PART_BASE + turbine.productivity) / (POWER_EFF_PART_BASE + 4))
+	turbine.compressor.kinetic_energy -= energy_portion * turbine.compressor.kinetic_energy
 
 	turbine.produce_direct_power(turbine.lastgen)
 
@@ -683,3 +691,6 @@
 #undef BEARING_DAMAGE_SCALING
 #undef BEARING_DAMAGE_FRICTION
 #undef FAIILRE_RPM_EXPLOSION_THRESHOLD
+#undef MAX_ENERGY_PORTION
+#undef ENERGY_PORTION_CURVE
+#undef ENERGY_PORTION_CURVE_POWER
