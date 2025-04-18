@@ -133,7 +133,7 @@
 /obj/item/slime_extract/cerulean
 	name = "cerulean slime extract"
 	icon_state = "cerulean slime extract"
-	associated_gun_type = /obj/item/gun/energy/laser
+	associated_gun_type = /obj/item/gun/energy/gun/shotgun
 
 /obj/item/slime_extract/sepia
 	name = "sepia slime extract"

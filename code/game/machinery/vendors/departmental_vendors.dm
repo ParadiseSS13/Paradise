@@ -367,7 +367,7 @@
 					/obj/item/smithing_cast/component/lens_focus = 3,
 					/obj/item/smithing_cast/component/lens_frame = 3,
 					/obj/item/smithing_cast/component/trim = 3,
-					/obj/item/smithing_cast/misc/gun_frame = 3,
+					/obj/item/smithing_cast/misc/egun_parts = 3,
 					/obj/item/storage/box/crewvend = 1)
 
 	refill_canister = /obj/item/vending_refill/smith

@@ -2976,6 +2976,7 @@
 #include "code\modules\smithing\machinery\smart_hopper.dm"
 #include "code\modules\smithing\smithed_items\inserts.dm"
 #include "code\modules\smithing\smithed_items\lens.dm"
+#include "code\modules\smithing\smithed_items\misc_smithed.dm"
 #include "code\modules\smithing\smithed_items\tool_bits.dm"
 #include "code\modules\space_management\level_check.dm"
 #include "code\modules\space_management\level_traits.dm"
