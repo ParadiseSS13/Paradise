@@ -67,7 +67,7 @@
 /// The maximum portion of the compressor's kinetic energy the turbine can harvest each tick
 #define MAX_ENERGY_PORTION 0.125
 #define ENERGY_PORTION_CURVE 10000
-#define ENERGY_PORTION_CURVE_POWER 1.5
+#define ENERGY_PORTION_CURVE_POWER 1.2
 
 /obj/machinery/power/compressor
 	name = "gas turbine compressor"
