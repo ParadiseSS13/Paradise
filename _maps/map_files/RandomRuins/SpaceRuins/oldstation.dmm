@@ -2579,7 +2579,7 @@
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	autolink_id = "theta_air_in"
+	autolink_id = "theta_n2_in"
 	},
 /turf/simulated/floor/engine/air,
 /area/ruin/ancientstation/atmo)
