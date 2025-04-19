@@ -75950,7 +75950,6 @@
 /area/station/hallway/primary/aft)
 "pdg" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	autolink_id = "air_in";
 	dir = 8
 	},
 /turf/simulated/floor/engine/airless/nodecay,
@@ -96448,7 +96447,6 @@
 /area/station/security/armory/secure)
 "thS" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
-	autolink_id = "air_in";
 	on = 1
 	},
 /turf/simulated/floor/engine,
@@ -105132,8 +105130,7 @@
 /area/station/maintenance/security/aft_port)
 "uTB" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
-	autolink_id = "air_in"
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
