@@ -67733,9 +67733,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "nTk" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	
-	},
+/obj/machinery/atmospherics/unary/outlet_injector/on,
 /obj/machinery/sparker{
 	id = "toxinsigniter";
 	pixel_x = -20
@@ -73415,8 +73413,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
