@@ -521,20 +521,22 @@
 	var/jobtext = ""
 	if(ply.assigned_role)
 		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and"
+	var/text = "<br><b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and "
 	if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += " <span class='redtext'>died</span>"
+			text += "<span class='bold'>died!</span>"
 		else
-			text += " <span class='greentext'>survived</span>"
+			text += "<span class='bold'>survived</span>"
 		if(fleecheck)
 			var/turf/T = get_turf(ply.current)
 			if(!T || !is_station_level(T.z))
-				text += " while <span class='redtext'>fleeing the station</span>"
+				text += " while <span class='bold'>fleeing the station</span>"
 		if(ply.current.real_name != ply.name)
-			text += " as <b>[ply.current.real_name]</b>"
+			text += "as <b>[ply.current.real_name]</b>"
+		else
+			text += "!"
 	else
-		text += " <span class='redtext'>had [ply.p_their()] body destroyed</span>"
+		text += "<span class='bold'>had [ply.p_their()] body destroyed</span>"
 	return text
 
 /proc/printeventplayer(datum/mind/ply)

@@ -62,12 +62,6 @@
 	return ..()
 
 /datum/game_mode/abduction/declare_completion()
-	for(var/datum/team/abductor/team in actual_abductor_teams)
-		var/obj/machinery/abductor/console/console = get_team_console(team.team_number)
-		if(console.experiment.points >= team.experiment_objective.target_amount)
-			to_chat(world, "<span class='greenannounce'>[team.name] team fulfilled its mission!</span>")
-		else
-			to_chat(world, "<span class='boldannounceic'>[team.name] team failed its mission.</span>")
 	..()
 	return 1
 
@@ -78,14 +72,10 @@
 		for(var/datum/mind/abductor_mind in abductors)
 			text += printplayer(abductor_mind)
 			text += "<br>"
-			text += printobjectives(abductor_mind)
-			text += "<br>"
 		if(length(abductees))
 			text += "<br><span class='big'><b>The abductees were:</b></span><br>"
 			for(var/datum/mind/abductee_mind in abductees)
 				text += printplayer(abductee_mind)
-				text += "<br>"
-				text += printobjectives(abductee_mind)
 				text += "<br>"
 		return text.Join("")
 
