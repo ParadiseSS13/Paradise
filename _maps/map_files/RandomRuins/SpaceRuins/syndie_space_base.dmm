@@ -3181,9 +3181,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
 "sA" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	autolink_id = "syndiebase_mix_out";
-	dir = 8
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	autolink_id = "syndiebase_mix_out"
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/atmos)
@@ -4450,9 +4450,10 @@
 	pixel_y = 6
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
-	inlet_injector_autolink_id = "syndiebase_mix_in";
-	outlet_vent_autolink_id = "syndiebase_mix_out";
-	autolink_sensors = list("syndiebase_mix_sensor" = "Burn Mix");
+	inlet_injector_autolink_ids = list"syndiebase_mix_in");
+	outlet_autolink_ids = list("syndiebase_mix_out");
+	autolink_sensors = list("syndiebase_mix_sensor");
+	name = "Toxins Mix Chamber";
 	dir = 8
 	},
 /turf/simulated/floor/plating,
