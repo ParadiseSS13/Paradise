@@ -8,13 +8,9 @@
 	origin_tech = "materials=4;biotech=7;abductor=3"
 	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery) // alien glands are immune to stopping, and provide power to IPCs
 	tough = TRUE //not easily broken by combat damage
+	has_ongoing_effect = TRUE
 
-	var/cooldown_low = 300
-	var/cooldown_high = 300
-	var/next_activation = 0
 	var/uses // -1 For inifinite
-	var/human_only = FALSE
-	var/active = FALSE
 
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
@@ -22,17 +18,6 @@
 
 /obj/item/organ/internal/heart/gland/update_icon_state()
 	return
-
-/obj/item/organ/internal/heart/gland/proc/ownerCheck()
-	if(ishuman(owner))
-		return TRUE
-	if(!human_only && iscarbon(owner))
-		return TRUE
-	return FALSE
-
-/obj/item/organ/internal/heart/gland/proc/Start()
-	active = TRUE
-	next_activation = world.time + rand(cooldown_low,cooldown_high)
 
 /obj/item/organ/internal/heart/gland/proc/update_gland_hud()
 	if(!owner)
@@ -46,7 +31,7 @@
 		holder.icon_state = "hudgland_spent"
 
 /obj/item/organ/internal/heart/gland/proc/mind_control(command, mob/living/user)
-	if(!ownerCheck() || !mind_control_uses || active_mind_control)
+	if(!owner_check() || !mind_control_uses || active_mind_control)
 		return
 	mind_control_uses--
 	to_chat(owner, "<span class='userdanger'>You suddenly feel an irresistible compulsion to follow an order...</span>")
@@ -61,14 +46,13 @@
 	addtimer(CALLBACK(src, PROC_REF(clear_mind_control)), mind_control_duration)
 
 /obj/item/organ/internal/heart/gland/proc/clear_mind_control()
-	if(!ownerCheck() || !active_mind_control)
+	if(!owner_check() || !active_mind_control)
 		return
 	to_chat(owner, "<span class='userdanger'>You feel the compulsion fade, and you completely forget about your previous orders.</span>")
 	active_mind_control = FALSE
 	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/remove(mob/living/carbon/M, special = 0)
-	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
@@ -85,20 +69,16 @@
 	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/on_life()
-	if(!active)
-		return
-	if(!ownerCheck())
-		active = FALSE
-		return
-	if(next_activation <= world.time)
-		activate()
-		uses--
-		next_activation  = world.time + rand(cooldown_low,cooldown_high)
-	if(!uses)
-		active = FALSE
-
-/obj/item/organ/internal/heart/gland/proc/activate()
-	return
+	if(has_ongoing_effect && processing)
+		if(!owner_check())
+			processing = FALSE
+			return
+		if(next_activation <= world.time)
+			trigger()
+			uses--
+			next_activation  = world.time + rand(cooldown_low,cooldown_high)
+		if(!uses)
+			processing = FALSE
 
 /obj/item/organ/internal/heart/gland/heals
 	cooldown_low = 200
@@ -108,7 +88,7 @@
 	mind_control_uses = 3
 	mind_control_duration = 3000
 
-/obj/item/organ/internal/heart/gland/heals/activate()
+/obj/item/organ/internal/heart/gland/heals/trigger()
 	if(!(owner.mob_biotypes & MOB_ORGANIC))
 		return
 	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
@@ -130,7 +110,7 @@
 	owner.faction |= "slime"
 	owner.add_language("Bubblish")
 
-/obj/item/organ/internal/heart/gland/slime/activate()
+/obj/item/organ/internal/heart/gland/slime/trigger()
 	to_chat(owner, "<span class='warning'>You feel nauseous!</span>")
 	owner.vomit(20)
 
@@ -145,7 +125,7 @@
 	mind_control_uses = 1
 	mind_control_duration = 6000
 
-/obj/item/organ/internal/heart/gland/mindshock/activate()
+/obj/item/organ/internal/heart/gland/mindshock/trigger()
 	to_chat(owner, "<span class='notice'>You get a headache.</span>")
 
 	var/turf/T = get_turf(owner)
@@ -167,12 +147,11 @@
 	cooldown_low = 900
 	cooldown_high = 1800
 	uses = -1
-	human_only = TRUE
 	icon_state = "species"
 	mind_control_uses = 5
 	mind_control_duration = 3000
 
-/obj/item/organ/internal/heart/gland/pop/activate()
+/obj/item/organ/internal/heart/gland/pop/trigger()
 	to_chat(owner, "<span class='notice'>You feel unlike yourself.</span>")
 	var/species = pick(/datum/species/unathi, /datum/species/skrell, /datum/species/diona, /datum/species/tajaran, /datum/species/vulpkanin, /datum/species/kidan, /datum/species/grey)
 	owner.set_species(species, keep_missing_bodyparts = TRUE)
@@ -186,7 +165,7 @@
 	mind_control_uses = 4
 	mind_control_duration = 1800
 
-/obj/item/organ/internal/heart/gland/ventcrawling/activate()
+/obj/item/organ/internal/heart/gland/ventcrawling/trigger()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
 	owner.ventcrawler = VENTCRAWLER_ALWAYS
 
@@ -199,7 +178,7 @@
 	mind_control_uses = 1
 	mind_control_duration = 1800
 
-/obj/item/organ/internal/heart/gland/viral/activate()
+/obj/item/organ/internal/heart/gland/viral/trigger()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
 	var/datum/disease/advance/A = random_virus(pick(2, 6), 6)
 	A.carrier = TRUE
@@ -236,7 +215,7 @@
 	mind_control_uses = 3
 	mind_control_duration = 1800
 
-/obj/item/organ/internal/heart/gland/emp/activate()
+/obj/item/organ/internal/heart/gland/emp/trigger()
 	to_chat(owner, "<span class='warning'>You feel a spike of pain in your head.</span>")
 	empulse(get_turf(owner), 2, 5, 1)
 
@@ -248,7 +227,7 @@
 	mind_control_uses = 2
 	mind_control_duration = 2400
 
-/obj/item/organ/internal/heart/gland/spiderman/activate()
+/obj/item/organ/internal/heart/gland/spiderman/trigger()
 	to_chat(owner, "<span class='warning'>You feel something crawling in your skin.</span>")
 	owner.faction |= "spiders"
 	var/obj/structure/spider/spiderling/S = new(owner.loc)
@@ -262,7 +241,7 @@
 	mind_control_uses = 2
 	mind_control_duration = 1800
 
-/obj/item/organ/internal/heart/gland/egg/activate()
+/obj/item/organ/internal/heart/gland/egg/trigger()
 	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
 	new /obj/item/food/egg/gland(get_turf(owner))
 
@@ -287,7 +266,7 @@
 		singlemutcheck(owner, GLOB.shockimmunityblock, MUTCHK_FORCED)
 	return ..()
 
-/obj/item/organ/internal/heart/gland/electric/activate()
+/obj/item/organ/internal/heart/gland/electric/trigger()
 	owner.visible_message("<span class='danger'>[owner]'s skin starts emitting electric arcs!</span>",\
 	"<span class='warning'>You feel electric energy building up inside you!</span>")
 	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -304,7 +283,7 @@
 	mind_control_uses = 3
 	mind_control_duration = 1200
 
-/obj/item/organ/internal/heart/gland/chem/activate()
+/obj/item/organ/internal/heart/gland/chem/trigger()
 	owner.reagents.add_reagent(get_random_reagent_id(), 2)
 	owner.adjustToxLoss(-2)
 	..()
@@ -314,7 +293,7 @@
 	cooldown_high = 400
 	uses = -1
 
-/obj/item/organ/internal/heart/gland/bloody/activate()
+/obj/item/organ/internal/heart/gland/bloody/trigger()
 	owner.blood_volume = max(owner.blood_volume - 20, 0)
 	owner.visible_message("<span class='danger'>[owner]'s skin erupts with blood!</span>",\
 	"<span class='userdanger'>Blood pours from your skin!</span>")
@@ -333,7 +312,7 @@
 	mind_control_uses = 1
 	mind_control_duration = 800
 
-/obj/item/organ/internal/heart/gland/plasma/activate()
+/obj/item/organ/internal/heart/gland/plasma/trigger()
 	spawn(0)
 		to_chat(owner, "<span class='warning'>You feel bloated.</span>")
 		sleep(150)

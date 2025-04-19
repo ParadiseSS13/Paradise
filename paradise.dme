@@ -2924,6 +2924,7 @@
 #include "code\modules\research\designs\weapon_designs.dm"
 #include "code\modules\research\xenobiology\xenobio_camera.dm"
 #include "code\modules\research\xenobiology\xenobiology.dm"
+#include "code\modules\research\xenobiology\xenobiology_dissections.dm"
 #include "code\modules\response_team\ert.dm"
 #include "code\modules\response_team\ert_outfits.dm"
 #include "code\modules\ruins\ghost_bar.dm"

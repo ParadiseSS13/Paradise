@@ -9,6 +9,11 @@
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 	/// An associated list of organ datums that this organ has.
 	var/list/datum/organ/organ_datums
+	var/has_ongoing_effect = FALSE
+	var/processing = FALSE
+	var/cooldown_low = 300
+	var/cooldown_high = 300
+	var/next_activation = 0
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
@@ -82,6 +87,7 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
 		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
+	processing = FALSE
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN)
 	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
@@ -168,7 +174,13 @@
 	return
 
 /obj/item/organ/internal/proc/on_life()
-	return
+	if(has_ongoing_effect && processing)
+		if(!owner_check())
+			processing = FALSE
+			return
+		if(next_activation <= world.time)
+			trigger()
+			next_activation  = world.time + rand(cooldown_low,cooldown_high)
 
 /obj/item/organ/internal/proc/dead_process()
 	return
@@ -394,3 +406,15 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
+
+/obj/item/organ/internal/proc/Start()
+	processing = TRUE
+	next_activation = world.time + rand(cooldown_low,cooldown_high)
+
+/obj/item/organ/internal/proc/trigger()
+	return
+
+/obj/item/organ/internal/proc/owner_check()
+	if(ishuman(owner) || iscarbon(owner))
+		return TRUE
+	return FALSE
