@@ -2523,15 +2523,14 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "ht" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	dir = 8;
-	inlet_injector_autolink_id = "theta_air_in";
-	name = "Mixed Air Supply Control";
-	outlet_vent_autolink_id = "theta_air_out";
-	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor"="Tank")
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	name = "Mixed Air Supply Control";
+	autolink_sensors = list("air_sensor"="Tank");
+	outlet_autolink_ids = list("theta_air_out");
+	inlet_injector_autolink_ids = list("theta_air_in");
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "hu" = (
@@ -2580,7 +2579,7 @@
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	autolink_id = "theta_n2_in"
+	autolink_id = "theta_air_in"
 	},
 /turf/simulated/floor/engine/air,
 /area/ruin/ancientstation/atmo)
@@ -6266,7 +6265,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 8;
 	external_pressure_bound = 0;
-	autolink_id = "co2_out";
+	autolink_id = "theta_air_out";
 	internal_pressure_bound = 4000;
 	pressure_checks = 2
 	},
