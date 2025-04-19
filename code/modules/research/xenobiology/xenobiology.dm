@@ -123,7 +123,7 @@
 /obj/item/slime_extract/bluespace
 	name = "bluespace slime extract"
 	icon_state = "bluespace slime extract"
-	associated_gun_type = /obj/item/gun/energy/laser/retro
+	associated_gun_type = /obj/item/gun/energy/sparker
 
 /obj/item/slime_extract/pyrite
 	name = "pyrite slime extract"
@@ -138,7 +138,7 @@
 /obj/item/slime_extract/sepia
 	name = "sepia slime extract"
 	icon_state = "sepia slime extract"
-	associated_gun_type = /obj/item/gun/energy/sparker
+	associated_gun_type = /obj/item/gun/energy/laser/retro
 
 /obj/item/slime_extract/rainbow
 	name = "rainbow slime extract"
