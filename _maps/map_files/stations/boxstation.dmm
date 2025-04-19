@@ -67734,7 +67734,7 @@
 /area/station/maintenance/aft)
 "nTk" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	autolink_id = "air_in"
+	
 	},
 /obj/machinery/sparker{
 	id = "toxinsigniter";
@@ -69275,7 +69275,6 @@
 "oEK" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 1;
-	autolink_id = "air_in";
 	on = 1
 	},
 /turf/simulated/floor/engine,
@@ -73417,7 +73416,7 @@
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	autolink_id = "air_in"
+	
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
