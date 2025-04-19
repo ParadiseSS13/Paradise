@@ -1989,6 +1989,7 @@
 #include "code\modules\events\camera_failure.dm"
 #include "code\modules\events\carp_migration.dm"
 #include "code\modules\events\communications_blackout.dm"
+#include "code\modules\events\demon_incursion.dm"
 #include "code\modules\events\disease_outbreak.dm"
 #include "code\modules\events\door_runtime.dm"
 #include "code\modules\events\dust.dm"

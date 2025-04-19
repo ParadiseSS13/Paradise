@@ -1,0 +1,115 @@
+/datum/event/demon_incursion
+	name = "demon incursion"
+	announceWhen = 15
+	endWhen = 45
+	/// The name of the notification for dchat
+	var/notify_title = "Demonic Incursion"
+	/// The icon of the notification
+	var/notify_image = "nether"
+	/// The current number of portals
+	var/portals = 0
+	/// The target number of portals
+	var/target_portals = 100
+
+/datum/event/demon_incursion/setup()
+	impact_area = findEventArea()
+
+/datum/event/demon_incursion/start()
+	if(isnull(impact_area))
+		log_debug("No valid event areas could be generated for demonic incursion.")
+	var/initial_portals = length(GLOB.clients) / 5
+	var/list/area_turfs = get_area_turfs(impact_area)
+	while(length(area_turfs) && initial_portals > 0)
+		var/turf/T = pick_n_take(area_turfs)
+		if(is_blocked_turf(T))
+			continue
+
+		// Give ghosts some time to jump there before it begins.
+		var/image/alert_overlay = image('icons/mob/nest.dmi', notify_image)
+		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
+		addtimer(CALLBACK(src, PROC_REF(spawn_portal), T), 4 SECONDS)
+
+		// Energy overload; we mess with machines as an early warning and for extra spookiness.
+		for(var/obj/machinery/M in range(8, T))
+			INVOKE_ASYNC(M, TYPE_PROC_REF(/atom, get_spooked))
+
+		initial_portals--
+
+	log_debug("demonic incursion failed to find a valid turf in [impact_area]")
+
+/datum/event/demon_incursion/proc/spawn_portal(location)
+	var/obj/structure/spawner/nether/demon_incursion/new_portal = new /obj/structure/spawner/nether/demon_incursion(location)
+	new_portal.linked_incursion = src
+	portals++
+
+/datum/event/demon_incursion/announce(false_alarm)
+	var/area/target_area = impact_area
+	if(!target_area)
+		if(false_alarm)
+			target_area = findEventArea()
+			if(isnull(target_area))
+				log_debug("Tried to announce a false-alarm tear without a valid area!")
+				kill()
+		else
+			log_debug("Tried to announce a tear without a valid area!")
+			kill()
+			return
+
+	GLOB.major_announcement.Announce("Bluespace energy spike detected. Demonic incursion inbound. Expected location: [target_area.name].", "Demonic Incursion Alert", 'sound/AI/anomaly.ogg')
+
+/obj/structure/spawner/nether/demon_incursion
+	name = "demonic portal"
+	spawn_time = 60 SECONDS
+	max_mobs = 15 // We want a lot of mobs, but not too many
+	max_integrity = 250
+	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo,
+					/mob/living/simple_animal/hostile/netherworld,
+					/mob/living/simple_animal/hostile/netherworld/blankbody,
+					/mob/living/simple_animal/hostile/hellhound,
+					/mob/living/simple_animal/hostile/skeleton,
+					/mob/living/simple_animal/hostile/faithless)
+	/// The event that spawned this portal
+	var/datum/event/demon_incursion/linked_incursion
+	/// The delay before it spawns another portal
+	var/expansion_delay = 1 MINUTES
+	/// How many mobs are spawned immediately when a portal opens?
+	var/initial_mobs = 3
+
+/obj/structure/spawner/nether/demon_incursion/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(spread)), expansion_delay)
+	addtimer(CALLBACK(src, PROC_REF(spawn_initial_mobs)), 2 SECONDS)
+
+/obj/structure/spawner/nether/demon_incursion/deconstruct(disassembled)
+	var/reward_type = pick(/obj/item/stack/ore/bluespace_crystal, /obj/item/stack/ore/palladium, /obj/item/stack/ore/platinum, /obj/item/stack/ore/iridium, /obj/item/stack/ore/diamond)
+	new reward_type(loc)
+	return ..()
+
+/obj/structure/spawner/nether/demon_incursion/Destroy()
+	. = ..()
+	if(linked_incursion)
+		linked_incursion.portals--
+		if(!linked_incursion.portals)
+			new /obj/item/wrench(loc) // Final reward for beating the incursion. TODO the actual reward
+
+/obj/structure/spawner/nether/demon_incursion/proc/spread()
+	var/list/spawnable_turfs = list()
+	for(var/turf/simulated/floor/possible_loc in orange(8, src.loc))
+		if(!istype(possible_loc))
+			continue
+		if(is_blocked_turf(possible_loc))
+			continue
+		if(locate(/obj/structure/spawner/nether/demon_incursion) in possible_loc)
+			continue
+		spawnable_turfs += possible_loc
+	var/turf/spawn_loc = pick_n_take(spawnable_turfs)
+	linked_incursion.spawn_portal(spawn_loc)
+	addtimer(CALLBACK(src, PROC_REF(spread)), expansion_delay)
+	return
+
+/obj/structure/spawner/nether/demon_incursion/proc/spawn_initial_mobs()
+	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
+	spawn_comp.try_spawn_mob()
+	initial_mobs--
+	if(initial_mobs)
+		addtimer(CALLBACK(src, PROC_REF(spawn_initial_mobs)), 5 SECONDS)
