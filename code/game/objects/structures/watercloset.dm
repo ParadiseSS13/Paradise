@@ -742,9 +742,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink/kitchen/old, 18, -4, 0, 0
 	if(!T)
 		to_chat(user, "<span class='warning'>You can't build that here!</span>")
 		return
-	if(result in T.contents)
-		to_chat(user, "<span class='warning'>There's already \an [result_name] here.</span>")
-		return
 	user.visible_message("<span class='notice'>[user] begins assembling a new [result_name].</span>",
 						"<span class='notice'>You begin assembling a new [result_name].</span>")
 	if(do_after(user, 3 SECONDS, target = user))
