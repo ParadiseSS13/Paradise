@@ -26,11 +26,15 @@
 	. = ..()
 	if(!possible_products)
 		return
+	if(!length(possible_products))
+		return
 	var/list/product_names = list()
 	var/product
 	for(product in possible_products)
 		var/obj/item/possible_product = product
 		product_names[possible_product.name] = possible_product
+	if(!length(product_names))
+		return
 	var/new_product = tgui_input_list(user, "Select a product", src, product_names)
 	if(!new_product)
 		selected_product = possible_products[1]
@@ -158,3 +162,20 @@
 	icon_state = "trim_cast"
 	desc = "A cast for creating trims."
 	product_type = /obj/item/smithed_item/component/trim
+
+/obj/item/smithing_cast/misc
+	name = "misc cast"
+	icon_state = "insert_frame_cast"
+	desc = "Debug cast. If you see this, notify the development team."
+
+/obj/item/smithing_cast/misc/AltClick(mob/user, modifiers)
+	return
+
+/obj/item/smithing_cast/misc/examine(mob/user)
+	. = desc
+
+/obj/item/smithing_cast/misc/egun_parts
+	name = "energy gun parts cast"
+	icon_state = "egun_parts_cast"
+	desc = "A cast for creating energy gun frames."
+	selected_product = /obj/item/smithed_item/component/egun_parts
