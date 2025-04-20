@@ -1,0 +1,108 @@
+/datum/game_test/attack_chain_shower/Run()
+	var/datum/test_puppeteer/player = new(src)
+	player.puppet.name = "Player"
+
+	var/obj/machinery/shower = player.spawn_obj_nearby(/obj/machinery/shower, EAST)
+	player.click_on(shower)
+	TEST_ASSERT_LAST_CHATLOG(player, "You turn")
+
+	var/obj/item/wrench = player.spawn_obj_in_hand(/obj/item/wrench)
+	player.click_on(shower)
+	TEST_ASSERT_LAST_CHATLOG(player, "You adjust")
+
+	player.put_away(wrench)
+	player.spawn_obj_in_hand(/obj/item/analyzer)
+	player.click_on(shower)
+	TEST_ASSERT_LAST_CHATLOG(player, "The water temperature")
+
+	player.puppet.swap_hand()
+
+	var/obj/item/welder = player.spawn_obj_in_hand(/obj/item/weldingtool)
+	player.click_on(welder)
+	player.click_on(shower)
+	TEST_ASSERT_LAST_CHATLOG(player, "Turn")
+	player.put_away(welder)
+	player.click_on(shower)
+	TEST_ASSERT_LAST_CHATLOG(player, "You turn")
+	player.retrieve(welder)
+	player.click_on(shower)
+	TEST_ASSERT_LAST_CHATLOG(player, "You cut")
+	player.put_away(welder)
+
+/datum/game_test/attack_chain_toilet/Run()
+	var/datum/test_puppeteer/player = new(src)
+	player.puppet.name = "Player"
+
+	var/obj/structure/toilet/toilet = player.spawn_obj_nearby(/obj/structure/toilet, EAST)
+	toilet.open = TRUE
+	var/obj/item/reagent_containers/glass/beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker)
+	player.click_on(beaker)
+	player.click_on(toilet)
+	TEST_ASSERT_NOT_CHATLOG(player, "You fill")
+	player.click_on(beaker)
+	player.click_on(toilet)
+	TEST_ASSERT_LAST_CHATLOG(player, "You fill")
+	player.put_away(beaker)
+
+	var/datum/test_puppeteer/victim = player.spawn_puppet_nearby()
+	victim.puppet.name = "Victim"
+	player.set_intent(INTENT_GRAB)
+	player.click_on(victim)
+	sleep(4 SECONDS) // dunno, should be enough
+	var/obj/item/grab = player.puppet.get_active_hand()
+	player.click_on(grab)
+	sleep(4 SECONDS)
+	player.click_on(toilet)
+	TEST_ASSERT_LAST_CHATLOG(player, "Victim needs to")
+	player.puppet.forceMove(get_step(player.puppet, EAST))
+	player.click_on(toilet)
+	TEST_ASSERT_LAST_CHATLOG(player, "You need a tighter")
+	player.click_on(grab)
+	TEST_ASSERT_LAST_CHATLOG(player, "You start to")
+	player.puppet.swap_hand()
+	player.click_on(toilet)
+	TEST_ASSERT_LAST_CHATLOG(player, "You slam")
+	qdel(victim)
+
+	var/obj/item/flamethrower = player.spawn_obj_in_hand(/obj/item/flamethrower/full/tank)
+	player.click_on(flamethrower)
+	player.click_on(toilet)
+	TEST_ASSERT_LAST_CHATLOG(player, "You torch")
+	player.click_on(flamethrower)
+	player.put_away(flamethrower)
+
+	player.spawn_obj_in_hand(/obj/item/crowbar)
+	player.click_on(toilet)
+	sleep(3 SECONDS)
+	player.puppet.swap_hand()
+	player.click_on(toilet)
+	TEST_ASSERT_LAST_CHATLOG(player, "The cistern is empty")
+	player.retrieve(flamethrower)
+	player.click_on(toilet)
+	TEST_ASSERT_LAST_CHATLOG(player, "You carefully")
+	player.click_on(toilet)
+	TEST_ASSERT_LAST_CHATLOG(player, "You find")
+	qdel(flamethrower)
+
+/datum/game_test/attack_chain_sink/Run()
+	var/datum/test_puppeteer/player = new(src)
+	player.puppet.name = "Player"
+
+	var/obj/structure/sink = player.spawn_obj_nearby(/obj/structure/sink, SOUTH)
+	sink.anchored = FALSE
+	player.click_on(sink)
+	TEST_ASSERT_LAST_CHATLOG(player, "The sink isn't")
+	sink.anchored = TRUE
+	player.click_on(sink)
+	TEST_ASSERT_LAST_CHATLOG(player, "You wash your")
+	player.spawn_obj_in_hand(/obj/item/crowbar)
+	player.click_on(sink)
+	TEST_ASSERT_LAST_CHATLOG(player, "You wash the")
+	player.puppet.swap_hand()
+
+	var/obj/item/parts = player.spawn_obj_in_hand(/obj/item/bathroom_parts)
+	player.click_on(parts)
+	TEST_ASSERT_LAST_CHATLOG(player, "There's already")
+	player.puppet.forceMove(get_step(player.puppet, WEST))
+	player.click_on(parts)
+	TEST_ASSERT_LAST_CHATLOG(player, "You finish")

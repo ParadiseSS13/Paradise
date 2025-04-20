@@ -54,23 +54,9 @@
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod/luxurypod)
-"al" = (
-/obj/structure/sink/kitchen{
-	dir = 4;
-	pixel_x = -11
-	},
-/turf/simulated/floor/carpet/black,
-/area/survivalpod/luxurypod)
 "am" = (
 /obj/structure/sign/mining/survival,
 /turf/simulated/wall/mineral/titanium/survival,
-/area/survivalpod/luxurypod)
-"an" = (
-/obj/structure/curtain/black,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
-/turf/simulated/floor/pod,
 /area/survivalpod/luxurypod)
 "ao" = (
 /obj/structure/window/reinforced/survival_pod{
@@ -131,12 +117,6 @@
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod/luxurypod)
-"ay" = (
-/obj/structure/toilet/secret{
-	pixel_y = 12
-	},
-/turf/simulated/floor/pod,
-/area/survivalpod/luxurypod)
 "az" = (
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
@@ -184,6 +164,19 @@
 /obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/pod,
 /area/survivalpod/luxurypod)
+"aL" = (
+/obj/structure/sink/kitchen/directional/west,
+/turf/simulated/floor/carpet/black,
+/area/survivalpod/luxurypod)
+"hp" = (
+/obj/structure/toilet/directional/north,
+/turf/simulated/floor/pod,
+/area/survivalpod/luxurypod)
+"pv" = (
+/obj/structure/curtain/black,
+/obj/machinery/shower/directional/north,
+/turf/simulated/floor/pod,
+/area/survivalpod/luxurypod)
 
 (1,1,1) = {"
 aa
@@ -200,7 +193,7 @@ ah
 aF
 aj
 ak
-al
+aL
 am
 "}
 (3,1,1) = {"
@@ -223,7 +216,7 @@ aw
 "}
 (5,1,1) = {"
 aa
-an
+pv
 ao
 aq
 ar
@@ -232,7 +225,7 @@ aa
 "}
 (6,1,1) = {"
 ag
-ay
+hp
 az
 aA
 aB

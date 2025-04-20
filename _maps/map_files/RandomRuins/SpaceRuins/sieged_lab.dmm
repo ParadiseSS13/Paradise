@@ -164,9 +164,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "kA" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -654,10 +652,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/sieged_lab)
 "Eo" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 28
 	},

@@ -313,7 +313,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "zG" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/unpowered/misc_lavaruin)
 "zM" = (
@@ -342,10 +342,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered/misc_lavaruin)
 "AC" = (
-/obj/structure/sink{
-	pixel_x = 12;
-	dir = 4
-	},
+/obj/structure/sink/directional/east,
 /obj/item/mounted/mirror{
 	icon_state = "mirror_broke";
 	pixel_y = -32

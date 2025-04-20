@@ -1,0 +1,36 @@
+help: "Use the specific directional subtypes for this watercloset equipment."
+/obj/structure/toilet:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+  - dir
+=/obj/structure/toilet:
+  banned: true
+=/obj/structure/toilet/directional:
+  banned: true
+/obj/machinery/shower:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+  - dir
+=/obj/machinery/shower:
+  banned: true
+=/obj/machinery/shower/directional:
+  banned: true
+/obj/structure/sink:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+  - dir
+=/obj/structure/sink:
+  banned: true
+=/obj/structure/sink/directional:
+  banned: true
+=/obj/structure/sink/kitchen:
+  banned: true
+=/obj/structure/sink/kitchen/directional:
+  banned: true
+=/obj/structure/sink/kitchen/old:
+  banned: true
+=/obj/structure/sink/kitchen/old/directional:
+  banned: true

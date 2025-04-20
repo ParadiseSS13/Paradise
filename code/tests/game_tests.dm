@@ -18,6 +18,7 @@
 #include "attack_chain\test_attack_chain_stunbaton.dm"
 #include "attack_chain\test_attack_chain_turf.dm"
 #include "attack_chain\test_attack_chain_vehicles.dm"
+#include "attack_chain\test_attack_chain_watercloset.dm"
 #include "games\test_cards.dm"
 #include "jobs\test_job_globals.dm"
 #include "test_aicard_icons.dm"
