@@ -113,8 +113,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(!..())
 		return FALSE
 	if(prob(evolution_chance))
-		var/min = rand(1,6)
-		var/max = rand(min,6)
+		var/min = rand(1, 6)
+		var/max = rand(min, 6)
 		var/lastStrain = strain
 		if(prob(95))
 			Evolve(min, max)
@@ -484,7 +484,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	symptoms += GLOB.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in symptoms
+			var/symptom = tgui_input_list(user, "Choose a Symptom", "Choose a symptom to add ([i] remaining)", symptoms)
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))

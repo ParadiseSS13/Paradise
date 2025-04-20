@@ -756,10 +756,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
 	var/datum/disease/given_disease = null
-	if((input("Would you like to create your own disease?") as null|anything in list("Yes","No")) == "Yes")
+
+	if(tgui_input_list(usr, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
 		given_disease = AdminCreateVirus(usr)
 	else
-		given_disease = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
+		given_disease = tgui_input_list(usr, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
 
 	if(!given_disease) return
 
@@ -775,11 +776,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "Disease Outbreak"
 	set desc = "Creates a disease and infects a random player with it"
 	var/datum/disease/given_disease = null
-	//var/create = input("Would you like to create your own disease?") in list("Yes","No")
-	if((input("Would you like to create your own disease?") as null|anything in list("Yes","No")) == "Yes")
+	if(tgui_input_list(usr, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
 		given_disease = AdminCreateVirus(usr)
 	else
-		given_disease = input("Choose a disease for the outbreak", "ACHOO") as null|anything in GLOB.diseases
+		given_disease = tgui_input_list(usr, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
 	if(!given_disease)
 		return
 

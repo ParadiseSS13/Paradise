@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 			stage_amount++
 			stages += to_analyze.stage
 	stealth = max(stealth, 0)
-	analysis_time_delta = max((6 * (stealth ** 0.7)) + 1.1 - stage_amount ** 2 , 0) * 10 MINUTES
+	analysis_time_delta = max((6 * (stealth ** 0.7)) + 1.1 - stage_amount ** 2, 0) * 10 MINUTES
 	SStgui.update_uis(src, TRUE)
 
 /obj/machinery/computer/pandemic/proc/stop_analysis()

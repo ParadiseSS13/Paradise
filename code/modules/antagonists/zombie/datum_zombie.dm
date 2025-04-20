@@ -61,7 +61,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 
 	if(!L.HasDisease(/datum/disease/zombie))
 		var/datum/disease/zombie/zomb = new /datum/disease/zombie()
-		L.AddDisease(zomb,FALSE,7)
+		L.AddDisease(zomb, FALSE, 7)
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
