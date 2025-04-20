@@ -632,10 +632,13 @@
 	layer = 3.1;
 	autolink_id = "turbine_btn_int";
 	name = "Gas Turbine Airlock Control";
-	pixel_x = -5;
-	pixel_y = -23
+	pixel_x = -10;
+	pixel_y = -21
 	},
 /obj/machinery/atmospherics/binary/pump/on,
+/obj/structure/sign/magboots{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "aii" = (
@@ -31121,7 +31124,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -52063,11 +52066,14 @@
 /obj/machinery/access_button{
 	autolink_id = "turbine_btn_ext";
 	name = "Gas Turbine Airlock Control";
-	pixel_x = 5;
-	pixel_y = 23
+	pixel_x = 10;
+	pixel_y = 21
 	},
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
+	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
@@ -70558,7 +70564,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "qMg" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
