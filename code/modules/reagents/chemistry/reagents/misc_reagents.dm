@@ -125,7 +125,7 @@
 	id = "iron"
 	description = "Pure iron is a metal."
 	reagent_state = SOLID
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#525152" // rgb: 200, 165, 220
 	taste_description = "metal"
 
 /datum/reagent/iron/on_mob_life(mob/living/M)

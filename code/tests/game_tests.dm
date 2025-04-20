@@ -29,6 +29,7 @@
 #include "test_dynamic_budget.dm"
 #include "test_elements.dm"
 #include "test_emotes.dm"
+#include "test_ensure_subtree_operational_datum.dm"
 #include "test_init_sanity.dm"
 #include "test_log_format.dm"
 #include "test_map_templates.dm"

@@ -317,13 +317,6 @@
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, border_dir)
 	return TRUE
 
-/turf/simulated/floor/chasm/pride/Initialize(mapload)
-	. = ..()
-	drop_x = x
-	drop_y = y
-	var/list/target_z = levels_by_trait(SPAWN_RUINS)
-	drop_z = pick(target_z)
-
 /turf/simulated/floor/chasm/space_ruin
 	/// Used to keep count of how many times we checked if our target turf was valid.
 	var/times_turfs_checked = 0
