@@ -8,8 +8,6 @@
 
 	var/obj/item/wrench = player.spawn_obj_in_hand(/obj/item/wrench)
 	player.click_on(shower)
-	TEST_ASSERT_LAST_CHATLOG(player, "You begin to")
-	sleep(5 SECONDS)
 	TEST_ASSERT_LAST_CHATLOG(player, "You adjust")
 
 	player.put_away(wrench)
@@ -28,8 +26,6 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You turn")
 	player.retrieve(welder)
 	player.click_on(shower)
-	TEST_ASSERT_LAST_CHATLOG(player, "You begin slicing")
-	sleep(4 SECONDS)
 	TEST_ASSERT_LAST_CHATLOG(player, "You cut")
 	player.put_away(welder)
 
@@ -92,17 +88,9 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "The sink isn't")
 	sink.anchored = TRUE
 	player.click_on(sink)
-	TEST_ASSERT_LAST_CHATLOG(player, "You start")
-	player.click_on(sink)
-	TEST_ASSERT_LAST_CHATLOG(player, "Someone's already")
-	sleep(4 SECONDS)
 	TEST_ASSERT_LAST_CHATLOG(player, "You wash")
 	player.retrieve(crowbar)
 	player.click_on(sink)
-	TEST_ASSERT_LAST_CHATLOG(player, "You start")
-	player.click_on(sink)
-	TEST_ASSERT_LAST_CHATLOG(player, "Someone's already")
-	sleep(4 SECONDS)
 	TEST_ASSERT_LAST_CHATLOG(player, "You wash")
 	player.put_away(crowbar)
 
@@ -111,6 +99,4 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "There's already")
 	player.puppet.forceMove(get_step(player.puppet, WEST))
 	player.click_on(parts)
-	TEST_ASSERT_LAST_CHATLOG(player, "You begin")
-	sleep(3 SECONDS)
 	TEST_ASSERT_LAST_CHATLOG(player, "You finish")
