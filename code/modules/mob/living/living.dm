@@ -212,7 +212,9 @@
 		stop_pulling()
 	var/current_dir
 	if(isliving(AM))
-		current_dir = AM.dir
+		var/mob/living/living_mob = AM
+		if(!living_mob.buckled)
+			current_dir = AM.dir
 	if(AM.Move(get_step(AM.loc, t), t, glide_size))
 		Move(get_step(loc, t), t)
 	if(current_dir)
