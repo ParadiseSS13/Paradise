@@ -67,3 +67,4 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	controller_uid = C.UID()
 	assigned_command = mode
 
+BUTTON_HELPERS(/obj/machinery/access_button, 25, 7)
