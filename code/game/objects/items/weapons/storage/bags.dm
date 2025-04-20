@@ -532,6 +532,22 @@
 	resistance_flags = FLAMMABLE
 
 ////////////////////////////////////////
+// MARK:	Smith bag
+////////////////////////////////////////
+/obj/item/storage/bag/smith
+	name = "smith's bag"
+	desc = "A fireproof bag for storing modifications, casts, and modification components."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "smith_bag"
+	item_state = "smith_bag"
+	storage_slots = 30
+	max_combined_w_class = 60
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/smithed_item, /obj/item/smithing_cast)
+	resistance_flags = FIRE_PROOF
+
+////////////////////////////////////////
 // MARK:	Treasure bag
 ////////////////////////////////////////
 
