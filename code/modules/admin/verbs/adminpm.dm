@@ -139,6 +139,14 @@
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
+	// Limit msg length
+	if(check_rights(R_ADMIN, FALSE))
+		msg = copytext_char(msg, 1, 8192)
+	else if(check_rights(R_MENTOR, 0))
+		msg = copytext_char(msg, 1, 4096)
+	else
+		msg = copytext_char(msg, 1, 2048)
+
 	// Let high-rank admins use advanced pencode.
 	if(check_rights(R_SERVER|R_DEBUG, 0))
 		msg = admin_pencode_to_html(msg)
