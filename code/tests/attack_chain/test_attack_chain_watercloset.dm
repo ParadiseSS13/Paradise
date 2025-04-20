@@ -1,4 +1,4 @@
-/datum/game_test/attack_chain_watercloset/Run()
+/datum/game_test/attack_chain_shower/Run()
 	var/datum/test_puppeteer/player = new(src)
 	player.puppet.name = "Player"
 
@@ -11,7 +11,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You adjust")
 
 	player.put_away(wrench)
-	var/obj/item/analyzer = player.spawn_obj_in_hand(/obj/item/analyzer)
+	player.spawn_obj_in_hand(/obj/item/analyzer)
 	player.click_on(shower)
 	TEST_ASSERT_LAST_CHATLOG(player, "The water temperature")
 
@@ -29,15 +29,19 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You cut")
 	player.put_away(welder)
 
+/datum/game_test/attack_chain_toilet/Run()
+	var/datum/test_puppeteer/player = new(src)
+	player.puppet.name = "Player"
 
 	var/obj/structure/toilet/toilet = player.spawn_obj_nearby(/obj/structure/toilet, EAST)
 	toilet.open = TRUE
 	var/obj/item/reagent_containers/glass/beaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/beaker)
-	player.click_on(toilet)
-	TEST_ASSERT_LAST_CHATLOG(player, "You fill")
 	player.click_on(beaker)
 	player.click_on(toilet)
 	TEST_ASSERT_NOT_CHATLOG(player, "You fill")
+	player.click_on(beaker)
+	player.click_on(toilet)
+	TEST_ASSERT_LAST_CHATLOG(player, "You fill")
 	player.put_away(beaker)
 
 	var/datum/test_puppeteer/victim = player.spawn_puppet_nearby()
@@ -56,7 +60,6 @@
 	player.click_on(grab)
 	TEST_ASSERT_LAST_CHATLOG(player, "You start to")
 	player.puppet.swap_hand()
-	player.put_away(analyzer)
 	player.click_on(toilet)
 	TEST_ASSERT_LAST_CHATLOG(player, "You slam")
 	qdel(victim)
@@ -68,7 +71,7 @@
 	player.click_on(flamethrower)
 	player.put_away(flamethrower)
 
-	var/obj/item/crowbar = player.spawn_obj_in_hand(/obj/item/crowbar)
+	player.spawn_obj_in_hand(/obj/item/crowbar)
 	player.click_on(toilet)
 	sleep(3 SECONDS)
 	player.puppet.swap_hand()
@@ -81,6 +84,9 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You find")
 	qdel(flamethrower)
 
+/datum/game_test/attack_chain_sink/Run()
+	var/datum/test_puppeteer/player = new(src)
+	player.puppet.name = "Player"
 
 	var/obj/structure/sink = player.spawn_obj_nearby(/obj/structure/sink, SOUTH)
 	sink.anchored = FALSE
@@ -88,11 +94,11 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "The sink isn't")
 	sink.anchored = TRUE
 	player.click_on(sink)
-	TEST_ASSERT_LAST_CHATLOG(player, "You wash")
-	player.retrieve(crowbar)
+	TEST_ASSERT_LAST_CHATLOG(player, "You wash your")
+	player.spawn_obj_in_hand(/obj/item/crowbar)
 	player.click_on(sink)
-	TEST_ASSERT_LAST_CHATLOG(player, "You wash")
-	player.put_away(crowbar)
+	TEST_ASSERT_LAST_CHATLOG(player, "You wash the")
+	player.puppet.swap_hand()
 
 	var/obj/item/parts = player.spawn_obj_in_hand(/obj/item/bathroom_parts)
 	player.click_on(parts)
