@@ -14172,6 +14172,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"bfE" = (
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/north)
 "bfF" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
@@ -19730,6 +19733,17 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/atmos/control)
+"bBO" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/port/north)
 "bBR" = (
 /obj/structure/rack{
 	dir = 8;
@@ -52711,9 +52725,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown/secret)
 "enq" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -53308,6 +53319,9 @@
 "exI" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
@@ -54989,9 +55003,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room)
-"flM" = (
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/north)
 "fmg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -66156,14 +66167,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
-"kye" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/port/north)
 "kyr" = (
 /obj/structure/closet/secure_closet/medical1,
 /turf/simulated/floor/plasteel{
@@ -74363,17 +74366,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"opz" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/port/north)
 "opR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -78597,7 +78589,7 @@
 	},
 /area/station/legal/courtroom/gallery)
 "qjc" = (
-/mob/living/simple_animal/pig,
+/mob/living/basic/pig,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "qjH" = (
@@ -81335,14 +81327,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore)
-"ruP" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/port/north)
 "rvb" = (
 /obj/machinery/alarm/directional/east,
 /obj/structure/disposalpipe/segment,
@@ -85808,6 +85792,14 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
+"thl" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/port/north)
 "thz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -88310,6 +88302,14 @@
 	dir = 8
 	},
 /area/station/security/brig)
+"ufM" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/port/north)
 "ugj" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -90424,6 +90424,11 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/east)
+"vdG" = (
+/obj/structure/table/reinforced,
+/obj/item/ai_upgrade/ai_program_reset,
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai)
 "vdI" = (
 /obj/machinery/keycard_auth{
 	pixel_y = 26
@@ -108066,7 +108071,7 @@ bDa
 btd
 bGq
 bIo
-bzw
+vdG
 btd
 bNM
 bPN
@@ -125013,7 +125018,7 @@ abj
 abj
 bcP
 osF
-flM
+bfE
 boc
 pJI
 uyv
@@ -126565,8 +126570,8 @@ akN
 akN
 byF
 vIY
-flM
-ruP
+bfE
+thl
 bty
 bGO
 bWz
@@ -126822,7 +126827,7 @@ fSH
 bxf
 byG
 rFk
-opz
+bBO
 iFa
 bDC
 bGQ
@@ -127080,7 +127085,7 @@ bGR
 byH
 brV
 brV
-kye
+ufM
 brV
 vOO
 bGR

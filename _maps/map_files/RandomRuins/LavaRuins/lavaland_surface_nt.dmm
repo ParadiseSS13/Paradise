@@ -25,14 +25,6 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
-"am" = (
-/obj/effect/spawner/random/dirt/maybe,
-/obj/item/gps/ruin{
-	pixel_x = 32;
-	gpstag = "Nanotrasen Mining Outpost"
-	},
-/turf/simulated/floor/plating,
-/area/mine/outpost/maintenance/east)
 "ar" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -9128,6 +9120,9 @@
 "Yk" = (
 /obj/structure/reagent_dispensers/oil,
 /obj/item/reagent_containers/drinks/oilcan,
+/obj/item/gps/ruin/mining_base{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Yl" = (
@@ -19817,7 +19812,7 @@ IE
 xT
 jZ
 wP
-am
+hA
 OI
 OJ
 BL

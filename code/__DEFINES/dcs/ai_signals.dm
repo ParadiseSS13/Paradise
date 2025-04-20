@@ -12,6 +12,7 @@
 
 //from base of atom/attack_basic_mob(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"
+	#define COMPONENT_BASIC_ATTACK_CANCEL_CHAIN (1<<0)
 
 ///sent from ai controllers when they possess a pawn: (datum/ai_controller/source_controller)
 #define COMSIG_AI_CONTROLLER_POSSESSED_PAWN "ai_controller_possessed_pawn"
