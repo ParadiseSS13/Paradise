@@ -50,8 +50,6 @@
 	player.use_item_in_hand()
 	player.click_on(toilet)
 	TEST_ASSERT_LAST_CHATLOG(player, "You give [victim.puppet] a swirlie")
-	qdel(player)
-	qdel(victim)
 
 /datum/game_test/attack_chain_shower/Run()
 	var/datum/test_puppeteer/player = new(src)
