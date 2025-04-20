@@ -50,6 +50,14 @@
 	aug_message = "You see the diagnostic information of the synthetics around you..."
 	HUD_type = DATA_HUD_DIAGNOSTIC_ADVANCED
 
+/obj/item/organ/internal/cyberimp/eyes/hud/skill
+	name = "Employment HUD implant"
+	desc = "These cybernetic eye implants will display an employment HUD over everything you see."
+	icon_state = "eye_implant_skill"
+	origin_tech = "materials=4;programming=4;biotech=3"
+	aug_message = "Employment records pop up next to everyone. So many cases of surgical malpractice..."
+	HUD_type = DATA_HUD_SECURITY_BASIC
+
 /obj/item/organ/internal/cyberimp/eyes/hud/security
 	name = "Security HUD implant"
 	desc = "These cybernetic eye implants will display a security HUD over everything you see."
