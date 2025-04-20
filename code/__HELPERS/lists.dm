@@ -167,6 +167,14 @@
 			return TRUE
 	return FALSE
 
+/proc/is_path_in_list(P, list/L)
+	if(!L || !length(L) || !P)
+		return FALSE
+	for(var/type in L)
+		if(ispath(P, type))
+			return TRUE
+	return FALSE
+
 //Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
 /proc/is_type_in_typecache(atom/A, list/L)
 	if(!L || !length(L) || !A)
