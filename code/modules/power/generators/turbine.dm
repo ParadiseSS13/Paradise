@@ -334,10 +334,24 @@
 		friction_energy_loss = ((compressor.bearing_damage / BEARING_DAMAGE_MAX) * BEARING_DAMAGE_FRICTION + COMPFRICTION) * (compressor.rpm ** 1.27)  / ((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4))
 
 	compressor.check_broken()
-	// If the compressor cannot function only lose kinetic energy to friction
+	// If the compressor cannot function only lose kinetic energy to friction and damage the bearings if over temp
 	if(compressor.stat & BROKEN || compressor.panel_open || !compressor.starter)
+		// Update values that show up on the UI
+		compressor.compression_ratio = 0
+		compressor.pre_burn_temp = 0
+		compressor.post_burn_temp = 0
+		compressor.thermal_efficiency = 0
+		compressor.gas_throughput = 0
+		// Lose kinetic energy to friction
 		compressor.kinetic_energy = max(compressor.kinetic_energy - friction_energy_loss, 0)
+		compressor.temperature += friction_energy_loss / compressor.heat_capacity
 		compressor.rpm = max(0, sqrtor0(2 * compressor.kinetic_energy / compressor.moment_of_inertia) / RPM_TO_RAD_PER_SECOND)
+
+		// Calculate the temperature threshold for taking bearing damage. Damaged bearings get more damaged more easily
+		var/bearing_damage_threshold = BEARING_DAMAGE_BASE_THRESHOLD * (1 - 0.4 * compressor.bearing_damage / BEARING_DAMAGE_MAX)
+		// Damage bearings if overheated
+		if(compressor.temperature > bearing_damage_threshold)
+			compressor.bearing_damage = min(compressor.bearing_damage + max(0, (compressor.temperature - bearing_damage_threshold) * compressor.rpm / BEARING_DAMAGE_SCALING), BEARING_DAMAGE_MAX)
 		return
 
 	// By how much we compress the gas going into the turbine
@@ -492,9 +506,8 @@
 	if(!turbine.compressor)
 		turbine.stat = BROKEN
 
-	if((turbine.stat & BROKEN) || turbine.panel_open)
-		return
-	if(!turbine.compressor.starter)
+	if((turbine.stat & BROKEN) || turbine.panel_open || !turbine.compressor.starter)
+		turbine.lastgen = 0
 		return
 
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
@@ -634,7 +647,7 @@
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
 		data["compressionRatio"] = compressor.compression_ratio
-		data["temperature"] = compressor.gas_contained.temperature()
+		data["temperature"] = compressor.temperature
 		data["bearingDamage"] = clamp((compressor.bearing_damage / BEARING_DAMAGE_MAX) * 100, 0, 100)
 		data["preBurnTemperature"] = compressor.pre_burn_temp
 		data["postBurnTemperature"] = compressor.post_burn_temp
