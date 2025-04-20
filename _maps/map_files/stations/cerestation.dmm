@@ -21760,6 +21760,9 @@
 /obj/structure/sign/fire{
 	pixel_x = -32
 	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cVi" = (
@@ -21781,6 +21784,16 @@
 /obj/effect/decal/cleanable/cobweb{
 	icon_state = "cobweb2"
 	},
+/obj/structure/sign/magboots{
+	pixel_y = -32
+	},
+/obj/machinery/access_button{
+	layer = 3.1;
+	autolink_id = "turbine_btn_ext";
+	name = "Gas Turbine Airlock Control";
+	pixel_x = -10;
+	pixel_y = -21
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cVk" = (
@@ -21800,12 +21813,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/access_button{
-	layer = 3.1;
-	autolink_id = "turbine_btn_ext";
-	name = "Gas Turbine Airlock Control";
-	pixel_x = -24
-	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cVm" = (
@@ -21816,7 +21823,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVn" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -21828,11 +21835,14 @@
 /obj/machinery/igniter{
 	id = "gasturbine"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVp" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
@@ -21851,6 +21861,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVs" = (
@@ -21858,6 +21869,7 @@
 	luminosity = 2
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVt" = (
@@ -23432,6 +23444,12 @@
 "dgP" = (
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
+"dgQ" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/maintenance/turbine)
 "dgW" = (
 /obj/machinery/economy/vending/autodrobe{
 	desc = "A vending machine for costumes. The machine seems blessed by some higher power, allowing it to function without power. HONK!";
@@ -142366,8 +142384,8 @@ cVk
 cVk
 cVk
 cVk
+cVk
 cVt
-rNK
 qJG
 qJG
 mjm
@@ -142624,7 +142642,7 @@ cVm
 fOR
 qJG
 qJG
-rNK
+qJG
 lzH
 lzH
 oEJ
@@ -142880,8 +142898,8 @@ cVd
 cVn
 fOR
 fOR
+fOR
 cVu
-rNK
 rNK
 lRR
 lRR
@@ -143137,8 +143155,8 @@ cVl
 cVo
 cVr
 cVs
+dgQ
 cVv
-rNK
 rNK
 lRR
 lRR
@@ -143394,8 +143412,8 @@ cVf
 cVp
 fOR
 fOR
+fOR
 cVu
-rNK
 rNK
 rNK
 rNK
@@ -143652,7 +143670,7 @@ fOR
 fOR
 qJG
 qJG
-rNK
+qJG
 rNK
 rNK
 rNK
