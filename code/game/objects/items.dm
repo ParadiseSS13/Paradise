@@ -182,6 +182,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/bit_failure_rate = 0
 	/// Efficiency modifier for tools that use energy or fuel
 	var/bit_efficiency_mod = 1
+	/// Productivity modifier for tools
+	var/bit_productivity_mod = 1
 
 	///////////////////////////
 	// MARK: item hover FX
