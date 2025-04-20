@@ -91,6 +91,7 @@
 	drop_type = /obj/item/stack/ore/tranquillite
 	drop_min = 3
 	drop_max = 3
+	scan_icon_state = "rock_Tranquillite"
 
 /datum/ore/ancient_basalt
 	drop_type = /obj/item/stack/ore/glass/basalt/ancient
