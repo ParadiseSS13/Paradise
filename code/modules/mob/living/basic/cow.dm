@@ -1,7 +1,30 @@
+/datum/ai_planning_subtree/random_speech/cow
+	speech_chance = 2
+	speak = list("Moo?", "Moo", "MOOOOOO")
+	speak_verbs = list("moos", "moos hauntingly")
+	sound = list('sound/creatures/cow.ogg')
+	emote_hear = list("brays.")
+	emote_see = list("shakes her head.")
+
+/datum/ai_controller/basic_controller/cow
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_BASIC_MOB_TIP_REACTING = FALSE,
+		BB_BASIC_MOB_TIPPER = null,
+	)
+
+	ai_traits = AI_FLAG_STOP_MOVING_WHEN_PULLED
+	ai_movement = /datum/ai_movement/basic_avoidance
+	idle_behavior = /datum/idle_behavior/idle_random_walk
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/tip_reaction,
+		/datum/ai_planning_subtree/find_food,
+		/datum/ai_planning_subtree/random_speech/cow,
+	)
+
 /mob/living/basic/cow
 	name = "cow"
 	desc = "Known for their milk, just don't tip them over."
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "cow"
 	icon_living = "cow"
 	icon_dead = "cow_dead"

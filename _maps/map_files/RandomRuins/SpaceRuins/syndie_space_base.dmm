@@ -6842,7 +6842,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "OI" = (
-/mob/living/simple_animal/pig{
+/mob/living/basic/pig{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/grass,

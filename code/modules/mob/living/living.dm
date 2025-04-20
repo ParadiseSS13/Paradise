@@ -350,6 +350,8 @@
 
 /mob/living/acid_act(acidpwr, acid_volume)
 	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
+	to_chat(src, "<span class='userdanger'>The acid burns you!</span>")
+	playsound(src, 'sound/weapons/sear.ogg', 50, TRUE)
 	return 1
 
 /mob/living/welder_act(mob/user, obj/item/I)
