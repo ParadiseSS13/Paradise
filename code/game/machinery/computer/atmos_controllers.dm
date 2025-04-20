@@ -285,9 +285,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	// Map set vars
 	/// Autolink ID of the chamber inlet injector
-	var/inlet_injector_autolink_id
+	var/list/inlet_injector_autolink_ids = list()
 	/// Autolink ID of the chamber outlet vent
-	var/outlet_vent_autolink_id
+	var/list/outlet_autolink_ids = list()
 
 	// Instanced vars. These are /tmp/ to avoid mappers trying to set them
 	/// The runtime UID of the inlet injector
@@ -311,9 +311,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	..()
 
 	// Setup inlet
-	if(inlet_injector_autolink_id)
+	if(length(inlet_injector_autolink_ids))
 		for(var/obj/machinery/atmospherics/unary/outlet_injector/inlet_injector as anything in GLOB.air_injectors)
-			if(inlet_injector.autolink_id == inlet_injector_autolink_id)
+			if(inlet_injector.autolink_id in inlet_injector_autolink_ids)
 				inlet_uids += inlet_injector.UID() // inlet_injector!
 				// Setup some defaults
 				inlet_injector.on = TRUE
@@ -324,9 +324,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				break
 
 	// Setup outlet
-	if(outlet_vent_autolink_id)
+	if(length(outlet_autolink_ids))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/outlet_vent as anything in GLOB.all_vent_pumps)
-			if(outlet_vent.autolink_id == outlet_vent_autolink_id)
+			if(outlet_vent.autolink_id in outlet_autolink_ids)
 				outlet_uids += outlet_vent.UID()
 				var/area/our_area = get_area(src)
 				our_area.vents -= outlet_vent
@@ -337,22 +337,25 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				outlet_vent_data += list("[outlet_vent.UID()]" = list("name" =outlet_vent.name, "on" = outlet_vent.on, "checks" = outlet_vent.pressure_checks, "rate" = outlet_vent.pressure_checks == 1 ? outlet_vent.external_pressure_bound : outlet_vent.internal_pressure_bound, "uid" = outlet_vent.UID()))
 				refresh_outlets()
 				return
-		var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = locateUID(outlet_vent_autolink_id)
-		if(!QDELETED(scrubber))
-			scrubber.on = TRUE
-			scrubber.scrubbing = FALSE
+		for(var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber in GLOB.all_scrubbers)
+			if(scrubber.autolink_id in outlet_autolink_ids)
+				outlet_uids += scrubber.UID()
+				var/area/our_area = get_area(src)
+				our_area.scrubbers -= scrubber
+				scrubber.on = TRUE
+				scrubber.scrubbing = FALSE
+				outlet_scrubber_data += list("[scrubber.UID()]" = list(
+				"id_tag" = scrubber.UID(),
+				"name" = scrubber.name,
+				"power" = scrubber.on,
+				"scrubbing" = scrubber.scrubbing,
+				"widenet" = scrubber.widenet,
+				"filter_o2" = scrubber.scrub_O2,
+				"filter_n2" = scrubber.scrub_N2,
+				"filter_co2" = scrubber.scrub_CO2,
+				"filter_toxins" = scrubber.scrub_Toxins,
+				"filter_n2o" = scrubber.scrub_N2O))
 
-			outlet_scrubber_data += list("[scrubber.UID()]" = list(
-			"id_tag" = scrubber.UID(),
-			"name" = scrubber.name,
-			"power" = scrubber.on,
-			"scrubbing" = scrubber.scrubbing,
-			"widenet" = scrubber.widenet,
-			"filter_o2" = scrubber.scrub_O2,
-			"filter_n2" = scrubber.scrub_N2,
-			"filter_co2" = scrubber.scrub_CO2,
-			"filter_toxins" = scrubber.scrub_Toxins,
-			"filter_n2o" = scrubber.scrub_N2O))
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/I)
 	if(!ismultitool(I)) // Should never happen
