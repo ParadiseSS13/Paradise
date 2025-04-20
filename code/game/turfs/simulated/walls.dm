@@ -325,6 +325,12 @@
 	add_fingerprint(user)
 	return ..()
 
+/turf/simulated/wall/attack_robot(mob/user)
+	if(!Adjacent(user))
+		return ..()
+	
+	attack_hand(user)
+
 /turf/simulated/wall/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
 		return FINISH_ATTACK

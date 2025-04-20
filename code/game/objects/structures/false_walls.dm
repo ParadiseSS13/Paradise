@@ -67,6 +67,11 @@
 	. = ..()
 	toggle(user)
 
+/obj/structure/falsewall/attack_robot(mob/living/user)
+	. = ..()
+	if(Adjacent(user))
+		toggle(user)
+
 /obj/structure/falsewall/proc/toggle(mob/user)
 	if(opening)
 		return
