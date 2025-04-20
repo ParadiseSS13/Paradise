@@ -60,39 +60,34 @@
 /datum/game_mode/proc/auto_declare_completion_wizard()
 	if(!length(wizards))
 		return
-	var/list/text = list("<br><font size=3><b>the wizards/witches were:</b></font>")
+	var/list/text = list("<br><font size=3><b>The wizards/witches were:</b></font>")
 
 	for(var/datum/mind/wizard in wizards)
 
-		text += "<br><b>[wizard.get_display_key()]</b> was <b>[wizard.name]</b> ("
+		text += "<br><b>[wizard.get_display_key()]</b> was <b>[wizard.name]</b> and "
 		if(wizard.current)
 			if(wizard.current.stat == DEAD)
-				text += "died"
+				text += "<span class='bold'>died!</span>"
 			else
-				text += "survived"
+				text += "<span class='bold'>survived</span>"
 			if(wizard.current.real_name != wizard.name)
 				text += " as <b>[wizard.current.real_name]</b>"
+			else
+				text += "!"
 		else
-			text += "body destroyed"
-		text += ")"
+			text += "<span class='bold'>had their body destroyed</span>!"
 
-		var/count = 1
 		var/wizardwin = 1
 		for(var/datum/objective/objective in wizard.get_all_objectives(include_team = FALSE))
 			if(objective.check_completion())
-				text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 				SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))
 			else
-				text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 				SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "FAIL"))
 				wizardwin = 0
-			count++
 
 		if(wizard.current && wizard.current.stat != DEAD && wizardwin)
-			text += "<br><font color='green'><B>The wizard was successful!</B></font>"
 			SSblackbox.record_feedback("tally", "wizard_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>The wizard has failed!</B></font>"
 			SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 		if(wizard.spell_list)
 			text += "<br><B>[wizard.name] used the following spells: </B>"
