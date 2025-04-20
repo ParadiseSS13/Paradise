@@ -18,6 +18,13 @@
 	var/obj/item/smithed_item/component/trim
 	/// Finished product
 	var/obj/item/smithed_item/finished_product
+	/// Products that are produced in batches
+	var/list/batched_item_types = list(
+		/obj/item/smithed_item/lens,
+		/obj/item/smithed_item/tool_bit
+	)
+	/// Amount of extra items made in batches
+	var/batch_extras = 2
 
 /obj/machinery/smithing/kinetic_assembler/Initialize(mapload)
 	. = ..()
@@ -29,6 +36,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
+	batched_item_types = typecacheof(batched_item_types)
 	RefreshParts()
 
 /obj/machinery/smithing/kinetic_assembler/examine(mob/user)
@@ -38,9 +46,9 @@
 	if(primary)
 		. += "<span class='notice'>There is a [primary] in the primary slot.</span>"
 	if(secondary)
-		. += "<span class='notice'>There is a [secondary] in the primary slot.</span>"
+		. += "<span class='notice'>There is a [secondary] in the secondary slot.</span>"
 	if(trim)
-		. += "<span class='notice'>There is a [trim] in the primary slot.</span>"
+		. += "<span class='notice'>There is a [trim] in the trim slot.</span>"
 	if(finished_product)
 		. += "<span class='notice'>There is a nearly-complete [finished_product] on the assembler. To complete the product, strike it with your hammer!</span>"
 
@@ -213,4 +221,13 @@
 		return
 	playsound(src, 'sound/magic/fellowship_armory.ogg', 50, TRUE)
 	finished_product.forceMove(src.loc)
+	SSblackbox.record_feedback("tally", "smith_assembler_production", 1, "[finished_product.type]")
+	if(is_type_in_typecache(finished_product, batched_item_types))
+		for(var/iterator in 1 to batch_extras)
+			var/obj/item/smithed_item/extra_product = new finished_product.type(src.loc)
+			extra_product.quality = finished_product.quality
+			extra_product.material = finished_product.material
+			extra_product.set_stats()
+			extra_product.update_appearance(UPDATE_NAME)
+			extra_product.scatter_atom()
 	finished_product = null

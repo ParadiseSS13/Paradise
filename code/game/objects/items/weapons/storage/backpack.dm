@@ -789,7 +789,7 @@
 	name = "drop of immortality"
 	desc = "Drinking this will make you immortal. For a moment or two, at least."
 	icon_state = "holyflask"
-	color = "#C8A5DC"
+	color = "#437fb8"
 	volume = 5
 	list_reagents = list("adminordrazine" = 5)
 
