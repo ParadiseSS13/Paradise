@@ -388,13 +388,11 @@
 	icon_state = "explosives2"
 
 /obj/structure/sign/magboots
-
 	name = "\improper MAG BOOTS"
 	desc = "A warning sign which reads MAGBOOTS"
 	icon_state = "magboots"
 
 /obj/structure/sign/turbine
-
 	name = "\improper TURBINE"
 	desc = "A warning which reads TURBINE"
 	icon_state = "turbine"

@@ -243,7 +243,7 @@
 
 /// Prevents heat leakage through the compressor
 /obj/machinery/power/compressor/get_superconductivity(direction)
-	return 0
+	return ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/machinery/power/compressor/proc/catastrophic_failure()
 	var/rpm_delta = rpm - FAIILRE_RPM_EXPLOSION_THRESHOLD
@@ -262,7 +262,7 @@
 
 
 /obj/machinery/power/compressor/proc/enter_inlet_turf(turf/source, atom/movable/entered)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
 
 	var/static/list/compressor_ignored_things = typecacheof(list(
 		/mob/dead,
@@ -278,7 +278,7 @@
 		suck_in()
 
 /obj/machinery/power/compressor/proc/leave_inlet_turf(turf/source, atom/movable/entered)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  //COMSIG_ATOM_EXIT
 
 	var/list/things = list(entered)
 	while(length(things))
@@ -380,7 +380,7 @@
 	compressor.pre_burn_temp = compressor.gas_contained.temperature()
 
 	// Burn the gas mix
-	for(var/i = 0, i < 10 + (compressor.compression_ratio / 2), i++)
+	for(var/i in 1 to (10 + (compressor.compression_ratio / 2)))
 		compressor.gas_contained.react()
 
 	// Record the post burn temp. This is for the UI
