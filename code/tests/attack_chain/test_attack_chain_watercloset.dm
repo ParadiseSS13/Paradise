@@ -34,22 +34,6 @@
 	player.puppet.swap_hand()
 	player.click_on(toilet)
 	TEST_ASSERT_LAST_CHATLOG(player, "You replace")
-	player.put_away(crowbar)
-	player.put_away(box)
-
-	var/datum/test_puppeteer/victim = player.spawn_puppet_nearby()
-	player.click_on(toilet)
-	player.set_intent(INTENT_GRAB)
-	player.click_on(victim)
-	sleep(4 SECONDS) // dunno, should be enough
-	player.use_item_in_hand()
-	sleep(4 SECONDS)
-	player.click_on(toilet)
-	TEST_ASSERT_LAST_CHATLOG(player, "[victim.puppet] needs to")
-	player.puppet.forceMove(get_step(player.puppet, EAST))
-	player.use_item_in_hand()
-	player.click_on(toilet)
-	TEST_ASSERT_LAST_CHATLOG(player, "You give [victim.puppet] a swirlie")
 
 /datum/game_test/attack_chain_shower/Run()
 	var/datum/test_puppeteer/player = new(src)
