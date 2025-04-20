@@ -576,7 +576,7 @@
 "uH" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "cargoshipblastdoor1"
 	},
 /turf/simulated/floor/plating,
