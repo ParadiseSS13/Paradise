@@ -171,3 +171,6 @@
 	if(. == -1)
 		if(D.viable_mobtypes.Find(/mob/living/carbon/human))
 			return 1 //this is stupid as fuck but because monkeys are only half the time actually subtypes of humans they need this
+
+/mob/compressor_grind()
+	gib()
