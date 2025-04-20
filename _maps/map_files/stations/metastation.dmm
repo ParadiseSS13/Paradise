@@ -46994,11 +46994,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/grass/no_creep,
 /area/station/maintenance/medmaint)
 "gIJ" = (
@@ -48838,10 +48834,7 @@
 /area/station/medical/surgery/primary)
 "hzV" = (
 /obj/machinery/alarm/directional/east,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
@@ -58937,10 +58930,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/alarm/directional/east,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellow"
@@ -70116,10 +70106,7 @@
 /area/station/hallway/primary/central/south)
 "qCm" = (
 /obj/structure/flora/ausbushes/fernybush,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
@@ -71571,10 +71558,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "rkU" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -86994,9 +86978,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/turf_decal/siding{
 	dir = 9
 	},
