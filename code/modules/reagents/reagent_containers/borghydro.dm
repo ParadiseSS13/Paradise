@@ -9,16 +9,19 @@
 	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 	volume = 50
 	var/charge_cost = 50
-	/// Used for delay with the recharge time, each charge tick is worth 2 seconds of real time
+	/// Delay in ticks we apply before refilling our hypo
+	var/refill_delay = 2
+	/// Tracking for how long we didn't make a refill. Refills on every (charge_tick > refill_delay) tick
 	var/charge_tick = 0
-	/// How many SSobj ticks it takes for the reagents to recharge by 10 units
-	var/recharge_time = 3
 	/// Can the autohypo inject through thick materials?
 	var/penetrate_thick = FALSE
 	/// if true - will play a sound on use
 	var/play_sound = TRUE
+	/// reagent that we will transfer on hypo use
 	var/reagent_selected = "salglu_solution"
+	/// reagents that we are able to dispense
 	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol")
+	/// reagents that we will be able to dispense when someone emaggs us
 	var/list/reagent_ids_emagged = list("tirizene")
 	var/static/list/reagent_icons = list("salglu_solution" = image(icon = 'icons/goonstation/objects/iv.dmi', icon_state = "ivbag"),
 							"epinephrine" = image(icon = 'icons/obj/hypo.dmi', icon_state = "autoinjector"),
@@ -47,12 +50,12 @@
 	if(!should_refill()) // no need to refill
 		STOP_PROCESSING(SSobj, src)
 		return
-	if(!recharge_time) // no need to count ticks, just refill it every single one
+	if(!refill_delay) // no delay, refill it now
 		refill_hypo(loc)
 		return
-	if(charge_tick < recharge_time) // i believe it improves performance
+	if(charge_tick < refill_delay) // not ready to refill
 		charge_tick++
-	if(charge_tick >= recharge_time) // ready to refill
+	else // ready to refill
 		refill_hypo(loc)
 
 // Use this to add more chemicals for the borghypo to produce.
@@ -146,7 +149,7 @@
 	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and hydrocodone, for field surgery and pain relief."
 	icon_state = "borghypo_s"
 	penetrate_thick = TRUE
-	recharge_time = FALSE // recharges each tick
+	refill_delay = FALSE // recharges each tick
 	play_sound = FALSE
 	volume = 30
 	charge_cost = 20
