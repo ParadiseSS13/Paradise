@@ -458,4 +458,4 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 		to_chat(L, "<span class='notice'>While our current form may be lifeless, this is not the end for us as we can still regenerate!</span>")
 
 /datum/antagonist/changeling/custom_blurb()
-	return "We awaken on the [station_name()], [get_area_name(owner.current, TRUE)]...\nWe have our tasks to attend to..."
+	return "Мы пробуждаемся на [station_name()], [get_area_name(owner.current, TRUE)]...\nИ у нас есть задачи, которые нужно выполнить..."

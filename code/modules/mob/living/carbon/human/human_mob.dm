@@ -1,5 +1,6 @@
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
-	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
+	if(new_species != /datum/species/human_doll) //SS220 EDIT - EVENT DOLL
+		icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	create_dna()
 
 	. = ..()
@@ -1400,7 +1401,7 @@
 		if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
-			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
+			eyes_icon = new(dna.species.eyes_icon, dna.species.eyes) // SS220 EDIT
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon

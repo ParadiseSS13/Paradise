@@ -38,10 +38,10 @@
 	faction = list("neutral", "jungle")
 
 	var/list/clean_speak = list(
-		"Hi",
-		"Hello!",
-		"Cracker?",
-		"BAWWWWK george mellons griffing me"
+		"Хай",
+		"Привет!",
+		"Крекер?",
+		"БВАААК повар хочет жареного попугая!"
 	)
 	speak_emote = list("squawks", "says", "yells")
 	emote_hear = list("squawks", "bawks")
@@ -675,67 +675,78 @@
  * Sub-types
  */
 /mob/living/simple_animal/parrot/poly
-	name = "Poly"
-	desc = "Poly the Parrot. An expert on quantum cracker theory."
+	name = "Поли"
+	desc = "Попугай Поли. Эксперт по квантовой теории крекеров."
 	clean_speak = list(
-		"Poly wanna cracker!",
-		"Check the crystal, you chucklefucks!",
-		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
-		"Wire the solars, you lazy bums!",
+		"Поли хочет крекер!",
+		"Проверьте СМ, долбоёбы!",
+		"ВЫ ДОПУСТИЛИ ПОТЕРЮ ДОРОГОСТОЯЩЕГО ОБМУНДИРОВАНИЯ!",
+		"Подключите соляры, идиоты!",
 		"WHO TOOK THE DAMN MODSUITS?",
-		"WHO TOOK THE DAMN HARDSUITS?",
-		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
-		"Why are there so many atmos alerts?",
-		"OH GOD WHY WOULD YOU PUT PLASMA IN THE SM?",
-		"Remember to lock the emitters!",
-		"Stop goofing off and repair the goddam station!",
-		"The supermatter is not your friend!",
-		"What were the wires again?",
-		"Goddam emaggers!",
-		"Why is nobody watching the engine?",
-		"Maybe the SM would produce more power if we fed it some clowns.",
-		"Everyone else dusted when they touched the SM, but I am sure you will be different.",
-		"I asked the mime if they turned off the scrubbers, but they didn't say a word.",
-		"This engine setup meets all safety requirements.",
-		"Chief Engineers are the SM's natural diet.",
-		"Don't eat the forbidden nacho!",
-		"Is the engine meant to be making that noise?",
-		"THE TESLA IS LOOSE CALL THE SHUTTLE",
-		"Go fix the chewed wires, you lazy bums!",
-		"Go fix that breach, or we'll all suffocate!",
-		"Why is the engine failing?",
-		"Checked that everything is connected as it should be?",
-		"If you push the SM too far we'll have to abandon station!",
-		"SOS, save our supermatter!",
-		"Is that a spider in the SM?",
-		"Remember those mesons, or you'll be seeing spiders in the SM!",
-		"Check the air alarm is set properly!",
-		"Is the station goal done yet?",
-		"WHO TOOK THE DAMN MODSUITS?",
-		"Don't wire the Bluespace Harvester to the Grid, or the station will be powerless!",
-		"THE BSH IS SPAWNING HORRIFIC THINGS, YOU PUT IT TOO HIGH!",
-		"It's an excellent idea to aim the BSA at the shuttle.",
-		"Nitrogen is an awful gas if you need to power a BSH!",
-		"There's a hole in the shield coverage!",
-		"The shields aren't up and meteors are inbound!",
-		"The leading cause of death among engineers is due to deactivated magboots, whether that's due to unwrenching a pressurized pipe or being pulled into the embrace of the SM, it means turn on your magboots!",
-		"BORGS BAD",
-		"You're telling me a Kentucky fried this vox?",
-		"AI OPEN",
-		"BLUESHIELD TO ME!",
-		"ITS LOOSE",
-		"TESLA IN THE HALLS",
-		"I deep fried the nuke disc",
-		"SQUAWK!",
-		"Honk.",
-		"Bridge gone",
-		"Someone set up telecomms",
-		"TOXINS!",
+		"КТО ВЗЯЛ ЧЁРТОВЫ МОДЫ?",
+		"ОХ БЛЯТЬ, ОН ДЕСТАБИЛИЗИРУЕТСЯ, ВЫЗЫВАЙТЕ ШАТТЛ!",
+		"Почему у нас так много атмосферных тревог?",
+		"ОХ БЛЯТЬ, КТО ПУСТИЛ ПЛАЗМУ В СМ?",
+		"Не забудьте заблокировать эммитеры картой",
+		"Хватит дурачиться и идите уже чинить грёбаную станцию!",
+		"Суперматерия - не твой друг",
+		"Куда вы опять дели провода?",
+		"Грёбаные емагеры!",
+		"Почему никто не смотрит за двигателем?",
+		"Возможно СМ будет вырабатывать больше энергии, если мы скормим ему пару клоунов",
+		"Все кто прикасался к СМу превращались в пыль, но я уверен что с тобой будет иначе",
+		"Я спрашивал у мима, выключили ли они скрабберы, но он ничего не сказал",
+		"Данная сборка СМа соответствует всем нормам безопасности",
+		"СЕ - диета суперматерии",
+		"Не ешь запретный начо!",
+		"Движок так и должен шуметь?",
+		"ТЕСЛА ВЫШЛА ВЫЗЫВАЙТЕ ШАТТЛ!",
+		"Идите чинить погрызенные провода, дормоеды!",
+		"Идите чинить эту разгерму, или мы задохнёмся!",
+		"Почему движок опять крякнул?",
+		"Вы точно все правильно подключили?",
+		"Если вы слишком разгоните СМ, нам придется расстаться!",
+		"СМ! Да поможет нам крекер...",
+		"Это че паук в СМе?",
+		"Носите мезоны или увидите пауков в СМе!",
+		"Проверьте контроллер атмосферы!",
+		"Ну че там по цели?",
+		"Не вздумайте подключать харвестер к общей сети - все потухнет!",
+		"ОХ БЛЯТЬ КАКАЯ ЖУТКАЯ ХЕРНЯ! СНИЗЬТЕ МОЩНОСТЬ ХАРВЕСТЕРА!",
+		"Направлять БСА на станцию звучит как отличная идея!",
+		"Азот - худший выбор для питания харвестера",
+		"Проверьте покрытие щитов!",
+		"Щиты не подняты, а метеоры уже ебут!",
+		"Основная причина смерти инженеров - выключенные магбутсы. То трубу под давлением раскрутят, то вокруг СМа танцуют. Короче, врубите магбутсы!",
+		"БОРГИ ЗЛО",
+		"Говоришь, этого вокса зажарил какой-то Кентуки?",
+		"ИИ ОТКРОЙ",
+		"СИНИЙ ЩИТ КО МНЕ!",
+		"ЩАС ВыЙДЕТ",
+		"ТЕСЛА В КОРИДОРЕ",
+		"Уэл дан!",
+		"СКРИК!",
+		"Хонк.",
+		"Пиздец мостику",
+		"Кто-то включите телекоммы!",
+		"ПЛАЗМА!",
 		"ONI SOMA!",
 		"GOLDEN BLAST",
-		"Is there supposed to be this much plasma in the chamber??",,
-		"Why are there so many borgs?",
-		"Why're your eyes glowing red?"
+		"В камере точно должно быть столько плазмы??",
+		"Почему так много боргов?",
+		"А че у вас глаза красные и светятся?",
+
+		// SS220 Exclusive
+		"СМ наполовину целый!",
+		"Привыкни к аппарату!",
+		"Принято. Хотелось бы порекомендовать северную часть станции, чтобы проход к орудию был только у сотрудников службы безопасности. Но вы в праве решать сами, СЕ",
+		"Этот отдел всегда работает слаженно! Они и на этот раз слажают",
+		"Руки из жопы",
+		"Ебанёт?",
+		"Почините камеру на спутнике? На ветскрелл залью",
+		"Хули я тут один?",
+		"Кто на ВРИО?",
+		"ИИ, открой кабинет СЕ на секундочку",
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -745,7 +756,7 @@
 	. = ..()
 
 	ears = new /obj/item/radio/headset/headset_eng(src)
-	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
+	clean_speak += "Опасность! Нарушение целостности гиперструктуры кристалла! Целостность: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
 
 /mob/living/simple_animal/parrot/poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
 	return FALSE

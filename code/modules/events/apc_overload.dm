@@ -21,7 +21,7 @@
 		SEND_SOUND(M, S)
 
 /datum/event/apc_overload/announce()
-	GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please check all underfloor APC terminals.", "Critical Power Failure", 'sound/AI/power_overload.ogg')
+	GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.", "ВНИМАНИЕ: Критический сбой системы питания.", 'sound/AI/power_overload.ogg')
 
 /datum/event/apc_overload/end()
 	return TRUE
@@ -33,7 +33,7 @@
 		/area/station/turret_protected/ai)
 
 	if(announce)
-		GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please check all underfloor APC terminals.", "Critical Power Failure", 'sound/AI/power_overload.ogg')
+		GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.", "ВНИМАНИЕ: Критический сбой системы питания.", 'sound/AI/power_overload.ogg')
 
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0

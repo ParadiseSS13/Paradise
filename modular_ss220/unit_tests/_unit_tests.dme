@@ -1,0 +1,9 @@
+#include "_unit_tests.dm"
+
+#ifdef GAME_TESTS
+#include "code/job_defines.dm"
+#endif
+
+#ifdef MAP_TESTS
+#include "code/requests_console.dm"
+#endif

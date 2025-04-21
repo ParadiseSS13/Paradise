@@ -378,7 +378,7 @@
 		var/timer = input("Enter new shuttle duration (minutes):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft(600)) as num
 		SSshuttle.emergency.setTimer(timer MINUTES)
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] minutes")
-		GLOB.minor_announcement.Announce("The emergency shuttle will reach its destination in [round(SSshuttle.emergency.timeLeft(600))] minutes.")
+		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [round(SSshuttle.emergency.timeLeft(600))] [declension_ru(round(SSshuttle.emergency.timeLeft(600)), "минуту", "минуты", "минут")].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] minutes</span>")
 		href_list["secrets"] = "check_antagonist"
 
@@ -2445,7 +2445,7 @@
 			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
 			if(announce_to_crew)
-				GLOB.major_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[reason]", "ERT Unavailable")
+				GLOB.major_announcement.Announce("[station_name()], к сожалению, в данный момент мы не можем направить вам отряд быстрого реагирования. Ваш запрос был отклонен по следующим причинам:\n[reason]", "ВНИМАНИЕ: ОБР недоступен.")
 				return
 
 			if(H.stat != CONSCIOUS)
@@ -2520,7 +2520,10 @@
 		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.", null,"Nanotrasen","Syndicate", "No")
 		switch(use_letterheard)
 			if("Nanotrasen")
-				P = new /obj/item/paper/central_command(null)
+				// SS220 EDIT START Переопределил конструктор бумажки, чтобы была нужная форма для нашего цк
+				var/sign_name = tgui_input_text(usr, "Введите, от чьего лица отправить факс. Оставьте пустым, чтобы использовать стандартное имя.", "Выбор имени отправителя факса", max_length = MAX_NAME_LEN)
+				P = new /obj/item/paper/central_command(sign_name || null)
+				// SS220 EDIT END
 			if("Syndicate")
 				P = new /obj/item/paper/syndicate(null)
 			if("No")
@@ -2968,11 +2971,11 @@
 				if(GLOB.gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity on.</span>", 1)
-					GLOB.minor_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
+					GLOB.minor_announcement.Announce("Генератор гравитации снова работает в штатном режиме. Приносим извинения за неудобства.")
 				else
 					log_admin("[key_name(usr)] toggled gravity off.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity off.</span>", 1)
-					GLOB.minor_announcement.Announce("Feedback surge detected in mass-distributions systems. Artificial gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					GLOB.minor_announcement.Announce("Обнаружен всплеск обратной энергии в системах распределения масс. Искусственная гравитация отключена на время повторной инициализации системы. Дальнейшие сбои могут привести к гравитационному коллапсу и образованию черных дыр. Желаем вам хорошего дня.")
 
 			if("power")
 				switch(alert("What Would You Like to Do?", "Make All Areas Powered", "Power all APCs", "Repair all APCs", "Repair and Power APCs")) //Alert notification in this code for standarization purposes
@@ -3181,7 +3184,7 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/station/command/bridge) && !istype(get_area(W), /area/station/public) && !istype(get_area(W), /area/station/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				GLOB.minor_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
+				GLOB.minor_announcement.Announce("Активирована система управления шлюзами Центральным Командованием. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return

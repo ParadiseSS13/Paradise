@@ -281,7 +281,7 @@
 	R.add_language("Sol Common", 1)
 	R.add_language("Tradeband", 1)
 	R.add_language("Gutter", 0)
-	R.add_language("Zvezhan", 0)
+	R.add_language("Neo-Russkiya", 0) // SS220 EDIT - Zvezhan -> Neo-Russkiya
 	R.add_language("Sinta'unathi", 0)
 	R.add_language("Siik'tajr", 0)
 	R.add_language("Canilunzt", 0)
@@ -688,7 +688,7 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
-	R.add_language("Zvezhan", 1)
+	R.add_language("Neo-Russkiya", 1) // SS220 EDIT - Zvezhan -> Neo-Russkiya
 	R.add_language("Tkachi", 1)
 
 // Mining

@@ -197,7 +197,7 @@
 		return
 	if(!istype(user))
 		return
-	if(ishuman(AM))
+	if(ishuman(AM) && !is_species(AM, /datum/species/serpentid)) // SS220 EDIT - SERPENTIDS
 		var/mob/living/carbon/human/H = AM
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name

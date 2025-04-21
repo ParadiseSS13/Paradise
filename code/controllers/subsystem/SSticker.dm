@@ -358,7 +358,10 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
-			N.new_player_panel_proc()
+			// SS220 EDIT START - TITLE SCREEN REPLACEMENT
+			// N.new_player_panel_proc() // Old New Player panel
+			SStitle.show_title_screen_to(N.client) // New Title Screen
+			// SS220 EDIT END
 
 	if(GLOB.configuration.general.enable_night_shifts)
 		SSnightshift.check_nightshift(TRUE)
@@ -628,6 +631,8 @@ SUBSYSTEM_DEF(ticker)
 	// Save the data before end of the round griefing
 	SSpersistent_data.save()
 	to_chat(world, end_of_round_info.Join("<br>"))
+
+	SScredits.play_credits_cinematic()
 
 	// Display the scoreboard window
 	score.scoreboard()

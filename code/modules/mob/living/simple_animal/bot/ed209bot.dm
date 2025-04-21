@@ -383,7 +383,7 @@
 
 		target = C
 		oldtarget_name = C.name
-		speak("Level [threatlevel] infraction alert!")
+		speak("Внимание, обнаружена угроза уровня [threatlevel]!")
 		playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
 		visible_message("<b>[src]</b> points at [C.name]!")
 		set_mode(BOT_HUNT)
@@ -570,7 +570,7 @@
 	addtimer(VARSET_CALLBACK(src, icon_state, "[lasercolor]ed209[on]"), 2)
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[no_handcuffs ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		speak("Внимание, проводится [no_handcuffs ? "задержание" : "арест"] преступного отродья <b>[C]</b> с уровнем угрозы [threat] в [location]!", radio_channel)
 
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	set_mode(BOT_ARREST)

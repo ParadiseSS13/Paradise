@@ -95,7 +95,7 @@
 			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 				SSshuttle.emergency.mode = SHUTTLE_DOCKED
 				SSshuttle.emergency.timer = world.time
-				GLOB.major_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/eshuttle_dock.ogg')
+				GLOB.major_announcement.Announce("Враждебное окружение нейтрализовано. У вас есть 3 минуты, чтобы прибыть на борт эвакуационного шаттла.", null, 'sound/AI/eshuttle_dock.ogg')
 		return ..()
 	if(finished)
 		return TRUE

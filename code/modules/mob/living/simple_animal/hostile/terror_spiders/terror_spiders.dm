@@ -1,6 +1,7 @@
 
 GLOBAL_LIST_EMPTY(ts_ckey_blacklist)
 GLOBAL_VAR_INIT(ts_count_dead, 0)
+GLOBAL_VAR_INIT(ts_count_alive_awaymission, 0) // SS220 EDIT - ADDITION
 GLOBAL_VAR_INIT(ts_count_alive_station, 0)
 GLOBAL_VAR_INIT(ts_death_last, 0)
 GLOBAL_VAR_INIT(ts_death_window, 9000) // 15 minutes

@@ -103,10 +103,10 @@
 	..()
 
 /mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
-	if(istype(AM, /obj/item/food/sliced/cheesewedge))
+	if(isfood(AM)) // SS220 EDIT - Mouse pulling
 		return ..() // Get dem
 	if(show_message)
-		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
+		to_chat(src, "<span class='warning'>Ты слишком крохотный, чтобы тянуть что-то кроме еды.</span>") // SS220 EDIT - Mouse pulling
 	return
 
 /mob/living/simple_animal/mouse/proc/on_atom_entered(datum/source, atom/movable/entered)

@@ -10,7 +10,7 @@
   */
 /obj/machinery/mecha_part_fabricator
 	name = "exosuit fabricator"
-	desc = "Nothing is being built."
+	desc = "На данный момент ничего не печатает."
 	icon = 'icons/obj/robotics.dmi'
 	icon_state = "fab-idle"
 	density = TRUE
@@ -122,7 +122,7 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	output_dir = turn(output_dir, -90)
-	to_chat(user, "<span class='notice'>You change [src] to output to the [dir2text(output_dir)].</span>")
+	to_chat(user, "<span class='notice'>Вы поворачиваете выход [declent_ru(GENITIVE)] на [dir2text(output_dir)].</span>")
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
 	var/coef_mats = 0
@@ -200,24 +200,24 @@
 
 	var/datum/research/files = get_files()
 	if(!files)
-		atom_say("Error - No research network linked.")
+		atom_say("Ошибка - исследовательская сеть не подключена.")
 		return
 
 	if(!files.known_designs[D.id] || !(D.build_type & allowed_design_types))
 		return
 	if(being_built)
-		atom_say("Error: Something is already being built!")
+		atom_say("Ошибка: Что-то уже печатается!")
 		return
 	if(!can_afford_design(D))
-		atom_say("Error: Insufficient materials to build [D.name]!")
+		atom_say("Ошибка: Недостаточно материалов для печати [D.name]!")
 		return
 	if(stat & NOPOWER)
-		atom_say("Error: Insufficient power!")
+		atom_say("Ошибка: Недостаточно энергии!")
 		return
 
 	var/turf_to_print_on = get_step(src, output_dir)
 	if(iswallturf(turf_to_print_on))
-		atom_say("Error: Output blocked by a wall!")
+		atom_say("Ошибка: Выход заблокирован стеной!")
 		return
 
 	// Subtract the materials from the holder
@@ -261,7 +261,7 @@
 			var/list/lockbox_access
 			for(var/access in L.req_access)
 				lockbox_access += "[get_access_desc(access)] "
-				L.desc = "A locked box. It is locked to [lockbox_access]access."
+				L.desc = "Запертая коробка. Закрыта на [lockbox_access]доступ"
 
 	// Clean up
 	being_built = null
@@ -270,7 +270,7 @@
 	desc = initial(desc)
 	change_power_mode(IDLE_POWER_USE)
 	cut_overlays()
-	atom_say("[A] is complete.")
+	atom_say("Печать [A.declent_ru(GENITIVE)] завершена.")
 
 	// Keep the queue processing going if it's on
 	process_queue()
@@ -303,10 +303,10 @@
   */
 /obj/machinery/mecha_part_fabricator/proc/can_insert_materials(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>[src] cannot be loaded with new materials while opened!</span>")
+		to_chat(user, "<span class='warning'>В [declent_ru(ACCUSATIVE)] не могут быть загружены новые материалы, пока панель открыта!</span>")
 		return FALSE
 	if(being_built)
-		to_chat(user, "<span class='warning'>[src] is currently building a part! Please wait until completion.</span>")
+		to_chat(user, "<span class='warning'>[capitalize(declent_ru(NOMINATIVE))] в данный момент печатает деталь! Пожалуйста, дождитесь завершения.</span>")
 		return FALSE
 	return TRUE
 
@@ -326,7 +326,7 @@
 	if(..())
 		return
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, "<span class='warning'>Доступ запрещён.</span>")
 		return
 	ui_interact(user)
 
@@ -441,8 +441,8 @@
 		if("unlink")
 			if(!network_manager_uid)
 				return
-			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this fabricator?\nYou wont be able to re-link without the network manager password", "Unlink", list("Yes", "No"))
-			if(choice == "Yes")
+			var/choice = tgui_alert(usr, "Вы УВЕРЕНЫ, что хотите отсоединить этот фабрикатор от исследовательской сети? Вы не сможете повторно соединить его без пароля к сети.", "Unlink", list("Да", "Нет"))
+			if(choice == "Да")
 				unlink()
 
 			return TRUE
@@ -453,23 +453,23 @@
 				return
 			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
 			if(istype(C, /obj/machinery/computer/rnd_network_controller))
-				var/user_pass = tgui_input_text(usr, "Please enter network password", "Password Entry")
+				var/user_pass = tgui_input_text(usr, "Пожалуйста, введите пароль сети.", "Введите пароль.")
 				// Check the password
 				if(user_pass == C.network_password)
 					C.mechfabs += UID()
 					network_manager_uid = C.UID()
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+					to_chat(usr, "<span class='notice'>Успешно подключено к <b>[C.network_name]</b>.</span>")
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, "<span class='alert'><b>ОШИБКА:</b> Неправильный пароль.</span>")
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+				to_chat(usr, "<span class='alert'><b>ОШИБКА:</b> Контроллер не найден. Пожалуйста, отправьте отчет о проблеме.</span>")
 
 			return TRUE
 
 
 	var/datum/research/files = get_files()
 	if(!files)
-		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
+		to_chat(usr, "<span class='danger'>Ошибка: нет соединения с исследовательской сетью</span>")
 		return
 
 	. = TRUE
@@ -530,7 +530,7 @@
 			var/datum/material/M = materials.materials[id]
 			if(!M || !M.amount)
 				return
-			var/num_sheets = tgui_input_number(usr, "How many sheets do you want to withdraw?", "Withdrawing [M.name]", max_value = round(M.amount / 2000))
+			var/num_sheets = tgui_input_number(usr, "Сколько листов вы хотите выгрузить?", "Выгрузка [M.name]", max_value = round(M.amount / 2000))
 			if(isnull(num_sheets) || num_sheets <= 0)
 				return
 			materials.retrieve_sheets(num_sheets, id)

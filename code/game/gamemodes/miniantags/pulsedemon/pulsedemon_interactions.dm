@@ -217,7 +217,7 @@
 	if(Adjacent(A))
 		UnarmedAttack(A)
 	else if(iscarbon(A))
-		speak("Level 10 infraction alert!")
+		speak("Внимание, обнаружена угроза уровня 10!")
 		playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50)
 		visible_message("<b>[src]</b> points at [A.name]!")
 

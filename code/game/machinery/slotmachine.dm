@@ -85,33 +85,33 @@
 /obj/machinery/economy/slot_machine/proc/spin_slots(userName)
 	switch(rand(1, 5000))
 		if(1)
-			atom_say("JACKPOT! [userName] has won two thousand credits!")
-			GLOB.minor_announcement.Announce("Congratulations to [userName] on winning the Jackpot of TWO THOUSAND CREDITS!", "Jackpot Winner")
-			result = "JACKPOT! You win two thousand credits!"
+			atom_say("ДЖЕКПОТ! [userName] выиграл ДВЕ ТЫСЯЧИ КРЕДИТОВ!")
+			GLOB.minor_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в ДВЕ ТЫСЯЧИ КРЕДИТОВ!", "Обладатель джекпота!")
+			result = "ДЖЕКПОТ! Вы выиграли ДВЕ ТЫСЯЧИ КРЕДИТОВ!"
 			resultlvl = "teal"
 			win_money(2000, 'sound/goonstation/misc/airraid_loop.ogg')
 		if(2 to 20)
-			atom_say("Big Winner! [userName] has won two hundred credits!")
-			result = "You win a two hundred credits!"
+			atom_say("Большой Победитель! [userName] выиграл двести кредитов!")
+			result = "Вы выиграли двести кредитов!"
 			resultlvl = "green"
 			win_money(200, 'sound/goonstation/misc/klaxon.ogg')
 		if(21 to 100)
-			atom_say("Winner! [userName] has won a hundred credits!")
-			result = "You win a hundred credits!"
+			atom_say("Победитель! [userName] выиграл сто кредитов!")
+			result = "Вы выиграли сто кредитов!"
 			resultlvl = "green"
 			win_money(100, 'sound/goonstation/misc/bell.ogg')
 		if(101 to 500)
-			atom_say("Winner! [userName] has won forty credits!")
-			result = "You win forty credits!"
+			atom_say("Победитель! [userName] выиграл сорок кредитов!")
+			result = "Вы выиграли сорок кредитов!"
 			resultlvl = "green"
 			win_money(40)
 		if(501 to 1000)
-			atom_say("Winner! [userName] has won ten credits!")
-			result = "You win ten credits!"
+			atom_say("Победитель! [userName] выиграл десять кредитов!")
+			result = "Вы выиграли десять кредитов!"
 			resultlvl = "green"
 			win_money(10)
 		else
-			result = "No luck!"
+			result = "Не повезло!"
 			resultlvl = "orange"
 	working = FALSE
 	icon_state = "slots-off"

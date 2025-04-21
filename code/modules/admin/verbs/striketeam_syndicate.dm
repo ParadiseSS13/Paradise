@@ -96,8 +96,8 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 /client/proc/create_syndicate_death_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
-	var/syndicate_commando_leader_rank = pick("Lieutenant", "Captain", "Major")
-	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
+	var/syndicate_commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
+	var/syndicate_commando_rank = pick("Капрал", "Сержант", "Старший Сержант", "Сержант 1-го Класса", "Мастер-Сержант", "Сержант-Майор")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 
 	var/datum/character_save/S = new //Randomize appearance for the commando.
