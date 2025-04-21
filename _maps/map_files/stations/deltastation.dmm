@@ -42950,9 +42950,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -49843,6 +49840,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "dQb" = (
@@ -58538,6 +58538,12 @@
 	icon_state = "green"
 	},
 /area/station/maintenance/fore)
+"gVZ" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "gWt" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/matches,
@@ -60023,6 +60029,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -70243,6 +70252,9 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "mtL" = (
@@ -80232,16 +80244,6 @@
 	icon_state = "darkgreen"
 	},
 /area/station/medical/virology)
-"qSk" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/station/maintenance/apmaint)
 "qSu" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -95754,6 +95756,13 @@
 	icon_state = "redfull"
 	},
 /area/station/legal/courtroom)
+"xfX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/apmaint)
 "xgt" = (
 /obj/docking_port/stationary{
 	dwidth = 2;
@@ -96990,6 +96999,13 @@
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
+"xFY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/apmaint)
 "xFZ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -126673,7 +126689,7 @@ dlT
 pWS
 ddy
 iGh
-dCU
+xfX
 fLC
 ddy
 aaa
@@ -126930,7 +126946,7 @@ dCU
 dUW
 dPZ
 xAz
-dCU
+xfX
 nES
 ddy
 aaa
@@ -127186,8 +127202,8 @@ dGf
 dOO
 thm
 dQa
-dCU
-dOO
+xFY
+gVZ
 iAr
 ddy
 aaa
@@ -131033,7 +131049,7 @@ dOO
 wIw
 ddy
 dcA
-qSk
+ddv
 hIQ
 ddv
 ddv
