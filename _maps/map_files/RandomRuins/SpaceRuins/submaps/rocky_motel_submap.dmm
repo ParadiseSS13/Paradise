@@ -196,9 +196,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/mineral/plastitanium,
 /area/template_noop)
 "uS" = (
@@ -287,9 +285,7 @@
 /turf/template_noop,
 /area/template_noop)
 "El" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/carpet/green,
 /area/template_noop)
 "Fu" = (

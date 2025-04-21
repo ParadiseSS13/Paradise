@@ -242,6 +242,7 @@
 	item_state = null
 	origin_tech = "combat=5;magnets=5"
 	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
 	slot_flags = ITEM_SLOT_BACK
 	var/fail_tick = 0
 	ammo_x_offset = 1
