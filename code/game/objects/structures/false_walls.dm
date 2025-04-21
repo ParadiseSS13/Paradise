@@ -69,7 +69,7 @@
 
 /obj/structure/falsewall/attack_robot(mob/living/user)
 	. = ..()
-	if(Adjacent(user))
+	if(Adjacent(user) && !isdrone(user))
 		toggle(user)
 
 /obj/structure/falsewall/proc/toggle(mob/user)

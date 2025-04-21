@@ -326,7 +326,7 @@
 	return ..()
 
 /turf/simulated/wall/attack_robot(mob/user)
-	if(!Adjacent(user))
+	if(!Adjacent(user) || isdrone(user))
 		return ..()
 	
 	attack_hand(user)
