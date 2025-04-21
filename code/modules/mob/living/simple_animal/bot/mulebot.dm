@@ -264,7 +264,6 @@
 	data["destination"] = new_destination
 	data["bot_suffix"] = suffix
 	data["set_home"] = home_destination
-//	data[""] =
 	return data
 
 /mob/living/simple_animal/bot/mulebot/ui_static_data(mob/user)
@@ -335,11 +334,8 @@
 		if("refresh")
 			update_static_data(ui.user)
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// TODO: remove this; PDAs currently depend on it
+//MARK: 
+// TODO: remove this -PDA Check
 /mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
 	var/ai = issilicon(user)
 	var/dat
@@ -403,8 +399,6 @@
 			dat += "<div class='notice'>The bot is in maintenance mode and cannot be controlled.</div><BR>"
 
 	return dat
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // returns true if the bot has power
 /mob/living/simple_animal/bot/mulebot/proc/has_power()
@@ -475,7 +469,6 @@
 	load = AM
 	set_mode(BOT_IDLE)
 	update_icon()
-
 
 /mob/living/simple_animal/bot/mulebot/proc/load_mob(mob/living/M)
 	can_buckle = TRUE
