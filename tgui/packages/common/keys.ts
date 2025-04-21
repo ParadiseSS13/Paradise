@@ -22,7 +22,7 @@ export enum KEY {
   Backspace = 'Backspace',
   Control = 'Control',
   Delete = 'Delete',
-  Down = 'Down',
+  Down = 'ArrowDown',
   End = 'End',
   Enter = 'Enter',
   Esc = 'Esc',
@@ -36,7 +36,7 @@ export enum KEY {
   Shift = 'Shift',
   Space = ' ',
   Tab = 'Tab',
-  Up = 'Up',
+  Up = 'ArrowUp',
 }
 
 /**
