@@ -51,6 +51,7 @@ interface PanDEMICData {
   resistances?: string[];
   analysisTimeDelta: number;
   analysisTime: number;
+  accumulatedError: number;
   analyzing: BooleanLike;
   sympton_names: string[];
 }
@@ -69,7 +70,7 @@ export const PanDEMIC = (props, context) => {
   }
 
   return (
-    <Window width={575} height={510}>
+    <Window width={700} height={510}>
       <Window.Content>
         <Stack fill vertical>
           <Operating operating={calibrating} name="PanD.E.M.I.C" />
@@ -108,7 +109,7 @@ const CommonCultureActions = (props, context) => {
 
 const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { beakerContainsVirus, analysisTime, analysisTimeDelta, analyzing } = data;
+  const { beakerContainsVirus, analysisTime, analysisTimeDelta, accumulatedError, analyzing } = data;
   const {
     commonName,
     description,
@@ -223,6 +224,14 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
                 : 'Multiple Strains Detected. Analysis Impossible'}
         </LabeledList.Item>
       }
+      <LabeledList.Item label="Time From Accumulated Error">
+        {(accumulatedError < 6000 ? '0' : '') +
+          Math.floor(accumulatedError / 600) +
+          ':' +
+          (Math.floor((accumulatedError / 10) % 60) < 10 ? '0' : '') +
+          Math.floor((accumulatedError / 10) % 60)}
+      </LabeledList.Item>
+
       {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
       <LabeledList.Item label="Strain ID">{strainID}</LabeledList.Item>
       <LabeledList.Item label="Sample Stage">{sample_stage}</LabeledList.Item>

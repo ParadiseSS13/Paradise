@@ -209,6 +209,7 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 			GLOB.known_advanced_diseases["[z]"] += analyzed_ID
 			analyzing = FALSE
 			analysis_time_delta = -1
+			accumulated_error["[z]"] = 0
 			SStgui.update_uis(src, TRUE)
 
 /obj/machinery/computer/pandemic/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
@@ -371,7 +372,7 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 	if(Blood && accumulated_error["[z]"] > 0)
 		if(Blood.data && Blood.data["viruses"])
 			for(var/datum/disease/advance/virus in Blood.data["viruses"])
-				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]) && !used_calibration["[virus.strain]-[virus.stage]"])
+				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]) && !used_calibration["[virus.strain]_[virus.stage]"])
 					can_calibrate = TRUE
 					break
 
@@ -384,7 +385,8 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 		"canCalibrate" = can_calibrate,
 		"selectedStrainIndex" = selected_strain_index,
 		"analysisTime" = (analysis_time + accumulated_error["[z]"]) > world.time ? analysis_time + accumulated_error["[z]"] - world.time : 0,
-		"analysisTimeDelta" = analysis_time_delta,
+		"accumulatedError" = accumulated_error["[z]"],
+		"analysisTimeDelta" = analysis_time_delta + accumulated_error["[z]"],
 		"analyzing" = analyzing,
 		"sympton_names" = symptomlist,
 	)
