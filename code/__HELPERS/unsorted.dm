@@ -404,6 +404,8 @@
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)
 		moblist.Add(M)
+	for(var/mob/living/basic/M in sortmob)
+		moblist.Add(M)
 	return moblist
 
 // Format a power value in W, kW, MW, or GW.
@@ -1987,7 +1989,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(CHANNEL_FIREALARM)
 			return "Fire Alarms"
 		if(CHANNEL_ASH_STORM)
-			return "Ash Storms"
+			return "Weather"
 		if(CHANNEL_RADIO_NOISE)
 			return "Radio Noise"
 		if(CHANNEL_BOSS_MUSIC)
