@@ -52,7 +52,7 @@
 		return
 	if(charge_tick < recharge_time) // i believe it improves performance
 		charge_tick++
-	if(charge_tick >= recharge_time) // not ready to refill
+	if(charge_tick >= recharge_time) // ready to refill
 		refill_hypo(loc)
 
 // Use this to add more chemicals for the borghypo to produce.
