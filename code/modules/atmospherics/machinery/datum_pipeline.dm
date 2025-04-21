@@ -190,7 +190,7 @@
 	// Radiate heat to space
 	else if(isspaceturf(target))
 		// Just radiate a portion of stored energy
-		var/radiated_heat = max((pipeline.air.temperature() - TCMB) * partial_heat_capacity * thermal_conductivity * 5, 0)
+		var/radiated_heat = max((pipeline.air.temperature() - (TCMB + 19)) * partial_heat_capacity * thermal_conductivity * 5, 0)
 		pipeline.air.set_temperature(pipeline.air.temperature() - radiated_heat / pipeline.air.heat_capacity())
 	else
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
