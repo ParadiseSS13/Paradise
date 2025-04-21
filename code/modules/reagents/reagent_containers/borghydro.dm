@@ -37,7 +37,6 @@
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	. = ..()
-	START_PROCESSING(SSobj, src)
 	refill_hypo(loc, TRUE) // start with a full hypo
 
 /obj/item/reagent_containers/borghypo/Destroy()
@@ -45,30 +44,40 @@
 	return ..()
 
 /obj/item/reagent_containers/borghypo/process()
-	if(reagent_ids[reagent_selected] >= volume) // no need to refill
-		if(charge_tick)
-			charge_tick = 0
+	if(!should_refill()) // no need to refill
+		STOP_PROCESSING(SSobj, src)
 		return
-	if(!recharge_time)
+	if(!recharge_time) // no need to count ticks, just refill it every single one
 		refill_hypo(loc)
 		return
-	charge_tick++
-	if(charge_tick < recharge_time) // not ready to refill
-		return
-	charge_tick = 0
-	refill_hypo(loc)
+	if(charge_tick < recharge_time) // i believe it improves performance
+		charge_tick++
+	if(charge_tick >= recharge_time) // not ready to refill
+		refill_hypo(loc)
 
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/reagent_containers/borghypo/proc/refill_hypo(mob/living/silicon/robot/user, quick = FALSE)
-	if(quick)
+	if(quick) // keep it above istype() since initialize/new are too slow to send a proper `user`
 		for(var/reagent as anything in reagent_ids)
-			reagent_ids[reagent] = volume
+			if(reagent_ids[reagent] < volume)
+				reagent_ids[reagent] = volume
 		return
-	if(!istype(user) || !user.cell)
-		return
-	if(user.cell.use(charge_cost))
-		var/reagents_to_add = min(volume - reagent_ids[reagent_selected], BORGHYPO_REFILL_VALUE)
-		reagent_ids[reagent_selected] = (reagent_ids[reagent_selected] || 0) + reagents_to_add // in case if it's null somehow, set it to 0
+	if(user?.cell?.use(charge_cost)) // we are a robot, we have a cell and enough charge? let's refill now
+		if(charge_tick)
+			charge_tick = 0
+		for(var/reagent as anything in reagent_ids)
+			if(reagent_ids[reagent] < volume)
+				var/reagents_to_add = min(volume - reagent_ids[reagent], BORGHYPO_REFILL_VALUE)
+				reagent_ids[reagent] = (reagent_ids[reagent] || 0) + reagents_to_add // in case if it's null somehow, set it to 0
+
+// whether our hypo's reagents are at max volume or not
+/obj/item/reagent_containers/borghypo/proc/should_refill()
+	var/refill = FALSE
+	for(var/reagent as anything in reagent_ids)
+		if(reagent_ids[reagent] < volume)
+			refill = TRUE
+			break
+	return refill
 
 /obj/item/reagent_containers/borghypo/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(ishuman(target))
@@ -79,12 +88,13 @@
 		if(!mob.can_inject(user, TRUE, user.zone_selected, penetrate_thick))
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='notice'>You inject [mob] with the injector.</span>")
+		to_chat(user, "<span class='notice'>You inject [mob] with [src].</span>")
 		to_chat(mob, "<span class='notice'>You feel a tiny prick!</span>")
 		var/reagents_to_transfer = min(amount_per_transfer_from_this, reagent_ids[reagent_selected])
 		mob.reagents.add_reagent(reagent_selected, reagents_to_transfer)
 		reagent_ids[reagent_selected] -= reagents_to_transfer
 		user.changeNext_move(CLICK_CD_MELEE)
+		START_PROCESSING(SSobj, src) // start processing so we can refill hypo
 		if(play_sound)
 			playsound(loc, 'sound/goonstation/items/hypo.ogg', 80, FALSE)
 		if(mob.reagents)
@@ -108,9 +118,8 @@
 	var/selected_reagent = show_radial_menu(user, src, get_radial_contents(), radius = 48)
 	if(!selected_reagent)
 		return
-	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = GLOB.chemical_reagents_list[selected_reagent]
-	to_chat(user, "<span class='notice'>Synthesizer is now producing [R.name].</span>")
+	to_chat(user, "<span class='notice'>Synthesizer is now dispensing [R.name].</span>")
 	reagent_selected = selected_reagent
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
