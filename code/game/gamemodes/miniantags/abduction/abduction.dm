@@ -46,7 +46,7 @@
 	return ..()
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.team == team_number)
 			return C
 
@@ -127,7 +127,7 @@
 		var/mob/living/carbon/human/H = M.current
 		var/datum/species/abductor/S = H.dna.species
 		ab_team = S.team
-	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
+	for(var/obj/machinery/abductor/experiment/E in SSmachines.get_by_type(/obj/machinery/abductor/experiment))
 		if(E.team == ab_team)
 			if(E.points >= target_amount)
 				return TRUE

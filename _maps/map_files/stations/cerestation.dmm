@@ -2200,6 +2200,12 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
+"arm" = (
+/obj/machinery/newscaster/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreenfull"
+	},
+/area/station/service/hydroponics)
 "ars" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -16420,6 +16426,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/east)
+"cji" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreenfull"
+	},
+/area/station/service/hydroponics)
 "cjk" = (
 /obj/machinery/firealarm/directional/east,
 /obj/effect/spawner/random/cobweb/right/rare,
@@ -17754,10 +17768,10 @@
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
 "cuk" = (
-/obj/machinery/newscaster/directional/west,
+/obj/machinery/requests_console/directional/north,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
@@ -21746,6 +21760,9 @@
 /obj/structure/sign/fire{
 	pixel_x = -32
 	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cVi" = (
@@ -21767,6 +21784,16 @@
 /obj/effect/decal/cleanable/cobweb{
 	icon_state = "cobweb2"
 	},
+/obj/structure/sign/magboots{
+	pixel_y = -32
+	},
+/obj/machinery/access_button{
+	layer = 3.1;
+	autolink_id = "turbine_btn_ext";
+	name = "Gas Turbine Airlock Control";
+	pixel_x = -10;
+	pixel_y = -21
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cVk" = (
@@ -21786,12 +21813,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/access_button{
-	layer = 3.1;
-	autolink_id = "turbine_btn_ext";
-	name = "Gas Turbine Airlock Control";
-	pixel_x = -24
-	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cVm" = (
@@ -21802,7 +21823,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVn" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -21814,11 +21835,14 @@
 /obj/machinery/igniter{
 	id = "gasturbine"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVp" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
@@ -21837,6 +21861,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVs" = (
@@ -21844,6 +21869,7 @@
 	luminosity = 2
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVt" = (
@@ -23418,6 +23444,12 @@
 "dgP" = (
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
+"dgQ" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/maintenance/turbine)
 "dgW" = (
 /obj/machinery/economy/vending/autodrobe{
 	desc = "A vending machine for costumes. The machine seems blessed by some higher power, allowing it to function without power. HONK!";
@@ -34931,7 +34963,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "fPp" = (
-/mob/living/simple_animal/pig,
+/mob/living/basic/pig,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "fPv" = (
@@ -42074,18 +42106,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/circuitboard/borgupload{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/circuitboard/aiupload{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/circuitboard/aicore{
-	pixel_x = 5;
-	pixel_y = -5
-	},
+/obj/effect/spawner/random/tech_storage/silicon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43814,17 +43835,10 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/autolathe{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/circuitboard/ore_redemption{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/spawner/random/tech_storage/supply,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "iaW" = (
@@ -46493,12 +46507,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
-"iIm" = (
-/obj/effect/landmark/start/botanist,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/service/hydroponics)
 "iIo" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -49766,19 +49774,12 @@
 	icon_state = "4-8"
 	},
 /obj/structure/rack,
-/obj/item/circuitboard/card{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/circuitboard/communications{
-	pixel_x = 5;
-	pixel_y = -5
-	},
 /obj/machinery/camera{
 	c_tag = "Secure Tech Storage";
 	dir = 8;
 	network = list("SS13","CE")
 	},
+/obj/effect/spawner/random/tech_storage/comms,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50668,8 +50669,7 @@
 "jCF" = (
 /obj/structure/sign/poster/official/state_laws/directional/south,
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/ai_upgrade/ai_program_reset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52221,19 +52221,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/cyborgrecharger{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/mech_bay_power_console,
-/obj/item/circuitboard/mech_recharger{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/mechfab{
-	pixel_y = -6;
-	pixel_x = 6
-	},
+/obj/effect/spawner/random/tech_storage/robotics,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "jTr" = (
@@ -57679,29 +57667,12 @@
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "liI" = (
-/obj/item/coin/silver{
-	pixel_x = 7;
-	pixel_y = 12
-	},
-/obj/item/coin/silver{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/coin/silver{
-	pixel_x = 4;
-	pixel_y = 8
-	},
-/obj/item/coin/silver{
-	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/coin/silver{
-	pixel_x = 5;
-	pixel_y = -8
-	},
 /obj/structure/closet/crate{
 	name = "Silver Crate"
 	},
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcircuit"
 	},
@@ -58205,13 +58176,9 @@
 	name = "Silver Crate"
 	},
 /obj/item/storage/belt/champion,
-/obj/item/stack/sheet/mineral/gold{
-	pixel_y = 2
-	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_x = -1;
-	pixel_y = 5
-	},
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcircuit"
 	},
@@ -59562,19 +59529,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/powermonitor{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/stationalert,
-/obj/item/circuitboard/atmos_alert{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/smes{
-	pixel_x = 6;
-	pixel_y = -6
-	},
+/obj/effect/spawner/random/tech_storage/engineering,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "lCQ" = (
@@ -65782,16 +65737,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/circuitboard/robotics{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/circuitboard/mecha_control{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/circuitboard/rnd_backup_console,
-/obj/item/circuitboard/rnd_network_controller,
+/obj/effect/spawner/random/tech_storage/rnd,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70974,7 +70920,8 @@
 	pixel_y = 28
 	},
 /obj/item/desk_bell{
-	pixel_y = 5
+	pixel_y = 5;
+	anchored = 1
 	},
 /obj/machinery/door/window/classic/reversed{
 	name = "Cargo Desk";
@@ -72265,34 +72212,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/cloning{
-	pixel_y = 8;
-	pixel_x = -8
-	},
-/obj/item/circuitboard/clonescanner{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/circuitboard/clonepod{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/circuitboard/cryo_tube{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/circuitboard/pandemic{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/bodyscanner{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/item/circuitboard/sleeper{
-	pixel_x = 9;
-	pixel_y = -9
-	},
+/obj/effect/spawner/random/tech_storage/medical,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "oJn" = (
@@ -72919,7 +72839,8 @@
 "oRo" = (
 /obj/structure/table,
 /obj/item/desk_bell{
-	pixel_y = 5
+	pixel_y = 5;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
@@ -81969,6 +81890,21 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
+"qYw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark/start/botanist,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/hydroponics)
 "qYA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -92378,22 +92314,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/rdconsole{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/circuitboard/rdserver{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/protolathe{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/circuit_imprinter{
-	pixel_y = -6;
-	pixel_x = 6
-	},
+/obj/effect/spawner/random/tech_storage/research,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "twC" = (
@@ -96022,7 +95943,6 @@
 /obj/machinery/camera/autoname{
 	dir = 6
 	},
-/obj/machinery/requests_console/directional/north,
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
@@ -102533,24 +102453,8 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/message_monitor{
-	pixel_y = 6;
-	pixel_x = -6
-	},
-/obj/item/circuitboard/aifixer{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/teleporter,
-/obj/item/circuitboard/teleporter_hub{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/teleporter_station{
-	pixel_x = 6;
-	pixel_y = -6
-	},
 /obj/machinery/firealarm/directional/east,
+/obj/effect/spawner/random/tech_storage/teleporter,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "vRb" = (
@@ -105051,21 +104955,10 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/secure_data{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/circuitboard/camera{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/circuitboard/prisoner{
-	pixel_x = 5;
-	pixel_y = -5
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/spawner/random/tech_storage/security,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "wvB" = (
@@ -111634,10 +111527,7 @@
 	},
 /area/station/maintenance/port)
 "yah" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/hydroponics/constructable,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -130911,7 +130801,7 @@ dWi
 sWT
 baF
 cuk
-prN
+arm
 mcu
 pcu
 jeu
@@ -131168,10 +131058,10 @@ mrt
 mrt
 reZ
 prN
-biB
 cBs
 cBs
-hPf
+cBs
+qYw
 cBs
 cBs
 biB
@@ -131425,7 +131315,7 @@ mrt
 mrt
 fOh
 prN
-biB
+cBs
 cBs
 cBs
 hPf
@@ -131686,7 +131576,7 @@ biB
 biB
 biB
 tzg
-iIm
+biB
 biB
 biB
 xNP
@@ -131938,7 +131828,7 @@ ceJ
 mrt
 hpJ
 baF
-bld
+cji
 biB
 biB
 biB
@@ -142494,8 +142384,8 @@ cVk
 cVk
 cVk
 cVk
+cVk
 cVt
-rNK
 qJG
 qJG
 mjm
@@ -142752,7 +142642,7 @@ cVm
 fOR
 qJG
 qJG
-rNK
+qJG
 lzH
 lzH
 oEJ
@@ -143008,8 +142898,8 @@ cVd
 cVn
 fOR
 fOR
+fOR
 cVu
-rNK
 rNK
 lRR
 lRR
@@ -143265,8 +143155,8 @@ cVl
 cVo
 cVr
 cVs
+dgQ
 cVv
-rNK
 rNK
 lRR
 lRR
@@ -143522,8 +143412,8 @@ cVf
 cVp
 fOR
 fOR
+fOR
 cVu
-rNK
 rNK
 rNK
 rNK
@@ -143780,7 +143670,7 @@ fOR
 fOR
 qJG
 qJG
-rNK
+qJG
 rNK
 rNK
 rNK
