@@ -265,6 +265,14 @@
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
 	M.AdjustKnockDown(-2 SECONDS)
+	// SS220 EDIT START
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
+		if(datum_heart)
+			var/obj/item/organ/internal/heart/mob_heart = datum_heart.linked_organ
+			mob_heart.receive_damage(calculate_heart_damage(), TRUE)
+	// SS220 EDIT END
 	return ..() | update_flags
 
 /datum/reagent/pump_up/overdose_process(mob/living/M, severity)
