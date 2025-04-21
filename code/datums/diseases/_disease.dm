@@ -171,6 +171,11 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		affected_mob.create_log(MISC_LOG, "has been cured from the virus \"[src]\"")
 	qdel(src)
 
+// Gives the received mob a resistance to this disease. Does not cure it if they are already infected
+/datum/disease/proc/make_resistant(mob/living/target)
+	if(target && disease_flags & CAN_RESIST && !(type in target.resistances))
+		target.resistances += type
+
 /datum/disease/proc/IsSame(datum/disease/D)
 	if(ispath(D))
 		return istype(src, D)

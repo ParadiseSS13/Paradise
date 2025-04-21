@@ -166,6 +166,13 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		remove_virus()
 	qdel(src)	//delete the datum to stop it processing
 
+// Gives the mob a resistance to this disease. Does not cure it if they are already infected
+/datum/disease/advance/make_resistant(mob/living/target)
+	if(target)
+		var/id = "[GetDiseaseID()]"
+		if(!(id in target.resistances))
+			target.resistances[id] = id
+
 // Returns the advance disease with a different reference memory.
 /datum/disease/advance/Copy(process = 0)
 	return new /datum/disease/advance(process, src, 1)

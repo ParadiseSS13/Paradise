@@ -220,7 +220,7 @@
 		for(var/thing in M.viruses)
 			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
-				D.cure()
+				D.make_resistant(M)
 		M.resistances |= data
 
 /datum/reagent/vaccine/on_merge(list/incoming_data)
