@@ -6924,7 +6924,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -10889,8 +10889,8 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aWI" = (
@@ -13164,7 +13164,7 @@
 	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "bgU" = (
@@ -13502,7 +13502,6 @@
 "bio" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /obj/machinery/door/airlock/mining/glass,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -13513,6 +13512,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "brownfull"
 	},
@@ -27689,7 +27689,7 @@
 "ciU" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/command/teleporter,
+/obj/effect/mapping_helpers/airlock/access/any/command/captain,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "ciV" = (
@@ -57342,8 +57342,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "hgg" = (
@@ -81798,7 +81798,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -90949,8 +90949,7 @@
 /obj/machinery/door/airlock/mining/glass,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
-/obj/effect/mapping_helpers/airlock/access/any/supply/expedition,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "brownfull"
 	},
@@ -94615,9 +94614,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
 	name = "Smith's Desk";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith{
@@ -105884,6 +105880,9 @@
 	name = "Ore Redemption Window"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mineral_storage{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "wnI" = (
@@ -112027,7 +112026,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},

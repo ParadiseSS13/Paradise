@@ -6630,7 +6630,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/multi_tile/supply/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aKf" = (
@@ -7293,7 +7293,7 @@
 	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aMr" = (
@@ -7988,7 +7988,7 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aOX" = (
@@ -70119,7 +70119,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "rGJ" = (
@@ -71328,6 +71328,13 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/window/classic/normal{
+	dir = 4;
+	name = "Ore Redemption Window"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mineral_storage{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "sol" = (
@@ -81255,7 +81262,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "xCF" = (
@@ -82234,7 +82241,7 @@
 /obj/machinery/door_control/shutter/west{
 	id = "teleshutter";
 	name = "Teleporter Shutters Access Control";
-	req_access = list(62)
+	req_access = list(17)
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel,

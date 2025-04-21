@@ -1,10 +1,15 @@
 /datum/job/cargo_tech/New()
 	. = ..()
-	access |= list(ACCESS_MINING)
+	access |= list(ACCESS_MINING_STATION)
 
 /datum/job/mining/New()
 	. = ..()
 	access |= list(ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_MAILSORTING)
+
+/datum/job/explorer/New()
+	. = ..()
+	access -= list(ACCESS_TELEPORTER)
+	access |= list(ACCESS_MAILSORTING)
 
 /datum/job/bartender/New()
 	. = ..()

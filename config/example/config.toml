@@ -715,7 +715,7 @@ active_space_ruins = [
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_lava_ruins = [
   ## Core Gameplay Ruins
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_nt.dmm",
+  "_maps/map_files220/RandomRuins/LavaRuins/lavaland_surface_nt.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_legiongate.dmm",
 
   ## BIODOMES
