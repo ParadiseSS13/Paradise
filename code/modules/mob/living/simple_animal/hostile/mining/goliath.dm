@@ -34,6 +34,8 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 	footstep_type = FOOTSTEP_MOB_HEAVY
+	contains_xeno_organ = TRUE
+	xeno_organ_results = list(/obj/item/organ/internal/liver/xenobiology/toxic)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	. = ..()

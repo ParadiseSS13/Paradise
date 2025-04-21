@@ -545,6 +545,7 @@
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
+	current_dissection_step = 1
 	if(buckled) //Unbuckle the mob and clear the alerts.
 		unbuckle(force = TRUE)
 
@@ -904,6 +905,45 @@
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
+
+
+
+// lets try and remove some organs
+/mob/living/proc/attempt_dissection(obj/item/I, mob/user)
+	if(user.a_intent == INTENT_HELP && stat == DEAD && contains_xeno_organ)
+		//we shouldnt allow dissections if it has open surgeries to prevent overlap
+		if(length(surgeries))
+			to_chat(user, "<span class = 'warning'>You cannot dissect [src] while it has ongoing surgeries!</span>")
+		// we should know if the creature has already been harvested
+		if(!xeno_organ_results && ispath(I.type, /obj/item/dissector))
+			to_chat(user, "There are no available organs to remove from [src]!")
+			return TRUE
+		var/datum/surgery_step/current_step = dissection_tool_step[current_dissection_step]
+		current_step = new current_step
+		if(xeno_organ_results && current_step.is_valid_tool(user, I))
+			to_chat(user, dissection_text[current_dissection_step])
+			playsound(src, current_step.preop_sound, 50, TRUE, -1)
+			if(do_mob(user, src, current_step.time) && Adjacent(I))
+				current_dissection_step += 1
+				playsound(src,  current_step.success_sound, 50, TRUE, -1)
+				if(current_dissection_step > max_dissection_steps)
+					var/turf = get_turf(src)
+					var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(turf)
+					new_organ.true_organ = pick(xeno_organ_results)
+					xeno_organ_results = null
+			return TRUE
+
+/mob/living/examine(mob/user)
+	. = ..()
+	if(stat != DEAD)
+		return
+	if(current_dissection_step > 1)
+		. += "<span class='warning'>[src] has an ongoing dissection!</span>"
+	else
+		return
+
+	var/obj/item/step_name = dissection_tool_step[current_dissection_step]
+	. += "<span class='warning'>You feel the next disection step will be: [step_name]</span>"
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
 	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?

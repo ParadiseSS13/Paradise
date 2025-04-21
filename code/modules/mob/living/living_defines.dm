@@ -119,3 +119,32 @@
 	var/last_taste_text
 	///If a creature gets to be super special and have extra range on their chat messages
 	var/extra_message_range = 0
+
+	/*
+	Xenobiology Dissection Vars
+	*/
+	/// Does this creature contain a xeno organ we can harvest?
+	var/contains_xeno_organ = FALSE
+	/// How far in the dissection process are we
+	var/current_dissection_step = 1
+	/// How many dissection steps does this creature have?
+	var/max_dissection_steps = 5
+	/// What possible xeno organs does this creature hold? None by default
+	var/list/xeno_organ_results = list()
+	/// Contains the list for which paths are needed at each dissection step.
+	var/list/dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/dissect
+	)
+	/// Contains specialty text for each dissection step.
+	var/list/dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
+	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
+	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
+

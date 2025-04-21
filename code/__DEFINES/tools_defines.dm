@@ -26,6 +26,7 @@ GLOBAL_LIST_INIT(construction_tool_behaviors, list(
 #define TOOL_BONESET "bone setter"
 #define TOOL_BONEGEL "bone gel"
 #define TOOL_FIXOVEIN "fix-o-vein"
+#define TOOL_DISSECTOR "dissector"
 
 GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 	TOOL_RETRACTOR,
@@ -36,7 +37,8 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 	TOOL_SAW,
 	TOOL_BONESET,
 	TOOL_BONEGEL,
-	TOOL_FIXOVEIN
+	TOOL_FIXOVEIN,
+	TOOL_DISSECTOR
 ))
 
 #define MIN_TOOL_SOUND_DELAY 20

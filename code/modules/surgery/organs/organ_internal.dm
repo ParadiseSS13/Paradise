@@ -9,7 +9,9 @@
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 	/// An associated list of organ datums that this organ has.
 	var/list/datum/organ/organ_datums
+	/// Does this organ have ongoing effects
 	var/has_ongoing_effect = FALSE
+	/// Is this organ currently processing its ongoing effects
 	var/processing = FALSE
 	var/cooldown_low = 300
 	var/cooldown_high = 300
