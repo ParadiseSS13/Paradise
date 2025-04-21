@@ -67,7 +67,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	parent_area_type = machine_area.get_top_parent_type()
 	if(parent_area_type)
 		areas = typesof(parent_area_type)
-
+		// Holodecks have thier own areas and we don't have a way of knowing if we have one.
+		// This means the grav gen will affect all holodeck areas in the Z-level, regardless of where in it they are.
+		areas |= typesof(/area/holodeck)
 	update_gen_list()
 	set_power()
 
