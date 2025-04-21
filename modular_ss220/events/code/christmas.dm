@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 /datum/holiday/xmas/celebrate()
 	// Новогоднее освещение
-	for(var/obj/machinery/light/lights in GLOB.machines)
+	for(var/obj/machinery/light/lights in SSmachines.get_by_type(/obj/machinery/light))
 		lights.brightness_color = light_color
 		lights.nightshift_light_color = nightshift_light_color
 

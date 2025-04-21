@@ -2,68 +2,139 @@
 /obj/structure/sign/poster/contraband/lady{pixel_x=-32} : /obj/structure/sign/poster/contraband/lady/directional/west
 /obj/structure/sign/poster/contraband/lady{pixel_y=32} : /obj/structure/sign/poster/contraband/lady/directional/north
 /obj/structure/sign/poster/contraband/lady{pixel_y=-32} : /obj/structure/sign/poster/contraband/lady/directional/south
+/obj/structure/sign/poster/contraband/lady/east : /obj/structure/sign/poster/contraband/lady/directional/east
+/obj/structure/sign/poster/contraband/lady/west : /obj/structure/sign/poster/contraband/lady/directional/west
+/obj/structure/sign/poster/contraband/lady/north : /obj/structure/sign/poster/contraband/lady/directional/north
+/obj/structure/sign/poster/contraband/lady/south : /obj/structure/sign/poster/contraband/lady/directional/south
 
 /obj/structure/sign/poster/contraband/very_robust{pixel_x=32} : /obj/structure/sign/poster/contraband/very_robust/directional/east
 /obj/structure/sign/poster/contraband/very_robust{pixel_x=-32} : /obj/structure/sign/poster/contraband/very_robust/directional/west
 /obj/structure/sign/poster/contraband/very_robust{pixel_y=32} : /obj/structure/sign/poster/contraband/very_robust/directional/north
 /obj/structure/sign/poster/contraband/very_robust{pixel_y=-32} : /obj/structure/sign/poster/contraband/very_robust/directional/south
+/obj/structure/sign/poster/contraband/very_robust/east : /obj/structure/sign/poster/contraband/very_robust/directional/east
+/obj/structure/sign/poster/contraband/very_robust/west : /obj/structure/sign/poster/contraband/very_robust/directional/west
+/obj/structure/sign/poster/contraband/very_robust/north : /obj/structure/sign/poster/contraband/very_robust/directional/north
+/obj/structure/sign/poster/contraband/very_robust/south : /obj/structure/sign/poster/contraband/very_robust/directional/south
 
 /obj/structure/sign/poster/contraband/vodka{pixel_x=32} : /obj/structure/sign/poster/contraband/vodka/directional/east
 /obj/structure/sign/poster/contraband/vodka{pixel_x=-32} : /obj/structure/sign/poster/contraband/vodka/directional/west
 /obj/structure/sign/poster/contraband/vodka{pixel_y=32} : /obj/structure/sign/poster/contraband/vodka/directional/north
 /obj/structure/sign/poster/contraband/vodka{pixel_y=-32} : /obj/structure/sign/poster/contraband/vodka/directional/south
+/obj/structure/sign/poster/contraband/vodka/east : /obj/structure/sign/poster/contraband/vodka/directional/east
+/obj/structure/sign/poster/contraband/vodka/west : /obj/structure/sign/poster/contraband/vodka/directional/west
+/obj/structure/sign/poster/contraband/vodka/north : /obj/structure/sign/poster/contraband/vodka/directional/north
+/obj/structure/sign/poster/contraband/vodka/south : /obj/structure/sign/poster/contraband/vodka/directional/south
 
 /obj/structure/sign/poster/contraband/wanted{pixel_x=32} : /obj/structure/sign/poster/contraband/wanted/directional/east
 /obj/structure/sign/poster/contraband/wanted{pixel_x=-32} : /obj/structure/sign/poster/contraband/wanted/directional/west
 /obj/structure/sign/poster/contraband/wanted{pixel_y=32} : /obj/structure/sign/poster/contraband/wanted/directional/north
 /obj/structure/sign/poster/contraband/wanted{pixel_y=-32} : /obj/structure/sign/poster/contraband/wanted/directional/south
+/obj/structure/sign/poster/contraband/wanted/east : /obj/structure/sign/poster/contraband/wanted/directional/east
+/obj/structure/sign/poster/contraband/wanted/west : /obj/structure/sign/poster/contraband/wanted/directional/west
+/obj/structure/sign/poster/contraband/wanted/north : /obj/structure/sign/poster/contraband/wanted/directional/north
+/obj/structure/sign/poster/contraband/wanted/south : /obj/structure/sign/poster/contraband/wanted/directional/south
 
 /obj/structure/sign/poster/contraband/soulless_figures{pixel_x=32} : /obj/structure/sign/poster/contraband/soulless_figures/directional/east
 /obj/structure/sign/poster/contraband/soulless_figures{pixel_x=-32} : /obj/structure/sign/poster/contraband/soulless_figures/directional/west
 /obj/structure/sign/poster/contraband/soulless_figures{pixel_y=32} : /obj/structure/sign/poster/contraband/soulless_figures/directional/north
 /obj/structure/sign/poster/contraband/soulless_figures{pixel_y=-32} : /obj/structure/sign/poster/contraband/soulless_figures/directional/south
+/obj/structure/sign/poster/contraband/soulless_figures/east : /obj/structure/sign/poster/contraband/soulless_figures/directional/east
+/obj/structure/sign/poster/contraband/soulless_figures/west : /obj/structure/sign/poster/contraband/soulless_figures/directional/west
+/obj/structure/sign/poster/contraband/soulless_figures/north : /obj/structure/sign/poster/contraband/soulless_figures/directional/north
+/obj/structure/sign/poster/contraband/soulless_figures/south : /obj/structure/sign/poster/contraband/soulless_figures/directional/south
 
 /obj/structure/sign/poster/contraband/your_fate{pixel_x=32} : /obj/structure/sign/poster/contraband/your_fate/directional/east
 /obj/structure/sign/poster/contraband/your_fate{pixel_x=-32} : /obj/structure/sign/poster/contraband/your_fate/directional/west
 /obj/structure/sign/poster/contraband/your_fate{pixel_y=32} : /obj/structure/sign/poster/contraband/your_fate/directional/north
 /obj/structure/sign/poster/contraband/your_fate{pixel_y=-32} : /obj/structure/sign/poster/contraband/your_fate/directional/south
+/obj/structure/sign/poster/contraband/your_fate/east : /obj/structure/sign/poster/contraband/your_fate/directional/east
+/obj/structure/sign/poster/contraband/your_fate/west : /obj/structure/sign/poster/contraband/your_fate/directional/west
+/obj/structure/sign/poster/contraband/your_fate/north : /obj/structure/sign/poster/contraband/your_fate/directional/north
+/obj/structure/sign/poster/contraband/your_fate/south : /obj/structure/sign/poster/contraband/your_fate/directional/south
 
 /obj/structure/sign/poster/contraband/watching_eye{pixel_x=32} : /obj/structure/sign/poster/contraband/watching_eye/directional/east
 /obj/structure/sign/poster/contraband/watching_eye{pixel_x=-32} : /obj/structure/sign/poster/contraband/watching_eye/directional/west
 /obj/structure/sign/poster/contraband/watching_eye{pixel_y=32} : /obj/structure/sign/poster/contraband/watching_eye/directional/north
 /obj/structure/sign/poster/contraband/watching_eye{pixel_y=-32} : /obj/structure/sign/poster/contraband/watching_eye/directional/south
+/obj/structure/sign/poster/contraband/watching_eye/east : /obj/structure/sign/poster/contraband/watching_eye/directional/east
+/obj/structure/sign/poster/contraband/watching_eye/west : /obj/structure/sign/poster/contraband/watching_eye/directional/west
+/obj/structure/sign/poster/contraband/watching_eye/north : /obj/structure/sign/poster/contraband/watching_eye/directional/north
+/obj/structure/sign/poster/contraband/watching_eye/south : /obj/structure/sign/poster/contraband/watching_eye/directional/south
 
 /obj/structure/sign/poster/contraband/argonian{pixel_x=32} : /obj/structure/sign/poster/contraband/argonian/directional/east
 /obj/structure/sign/poster/contraband/argonian{pixel_x=-32} : /obj/structure/sign/poster/contraband/argonian/directional/west
 /obj/structure/sign/poster/contraband/argonian{pixel_y=32} : /obj/structure/sign/poster/contraband/argonian/directional/north
 /obj/structure/sign/poster/contraband/argonian{pixel_y=-32} : /obj/structure/sign/poster/contraband/argonian/directional/south
+/obj/structure/sign/poster/contraband/argonian/east : /obj/structure/sign/poster/contraband/argonian/directional/east
+/obj/structure/sign/poster/contraband/argonian/west : /obj/structure/sign/poster/contraband/argonian/directional/west
+/obj/structure/sign/poster/contraband/argonian/north : /obj/structure/sign/poster/contraband/argonian/directional/north
+/obj/structure/sign/poster/contraband/argonian/south : /obj/structure/sign/poster/contraband/argonian/directional/south
 
 /obj/structure/sign/poster/official/mars{pixel_x=32} : /obj/structure/sign/poster/official/mars/directional/east
 /obj/structure/sign/poster/official/mars{pixel_x=-32} : /obj/structure/sign/poster/official/mars/directional/west
 /obj/structure/sign/poster/official/mars{pixel_y=32} : /obj/structure/sign/poster/official/mars/directional/north
 /obj/structure/sign/poster/official/mars{pixel_y=-32} : /obj/structure/sign/poster/official/mars/directional/south
+/obj/structure/sign/poster/official/mars/east : /obj/structure/sign/poster/official/mars/directional/east
+/obj/structure/sign/poster/official/mars/west : /obj/structure/sign/poster/official/mars/directional/west
+/obj/structure/sign/poster/official/mars/north : /obj/structure/sign/poster/official/mars/directional/north
+/obj/structure/sign/poster/official/mars/south : /obj/structure/sign/poster/official/mars/directional/south
 
 /obj/structure/sign/poster/official/wild_west{pixel_x=32} : /obj/structure/sign/poster/official/wild_west/directional/east
 /obj/structure/sign/poster/official/wild_west{pixel_x=-32} : /obj/structure/sign/poster/official/wild_west/directional/west
 /obj/structure/sign/poster/official/wild_west{pixel_y=32} : /obj/structure/sign/poster/official/wild_west/directional/north
 /obj/structure/sign/poster/official/wild_west{pixel_y=-32} : /obj/structure/sign/poster/official/wild_west/directional/south
+/obj/structure/sign/poster/official/wild_west/east : /obj/structure/sign/poster/official/wild_west/directional/east
+/obj/structure/sign/poster/official/wild_west/west : /obj/structure/sign/poster/official/wild_west/directional/west
+/obj/structure/sign/poster/official/wild_west/north : /obj/structure/sign/poster/official/wild_west/directional/north
+/obj/structure/sign/poster/official/wild_west/south : /obj/structure/sign/poster/official/wild_west/directional/south
 
 /obj/structure/sign/poster/official/razumause{pixel_x=32} : /obj/structure/sign/poster/official/razumause/directional/east
 /obj/structure/sign/poster/official/razumause{pixel_x=-32} : /obj/structure/sign/poster/official/razumause/directional/west
 /obj/structure/sign/poster/official/razumause{pixel_y=32} : /obj/structure/sign/poster/official/razumause/directional/north
 /obj/structure/sign/poster/official/razumause{pixel_y=-32} : /obj/structure/sign/poster/official/razumause/directional/south
+/obj/structure/sign/poster/official/razumause/east : /obj/structure/sign/poster/official/razumause/directional/east
+/obj/structure/sign/poster/official/razumause/west : /obj/structure/sign/poster/official/razumause/directional/west
+/obj/structure/sign/poster/official/razumause/north : /obj/structure/sign/poster/official/razumause/directional/north
+/obj/structure/sign/poster/official/razumause/south : /obj/structure/sign/poster/official/razumause/directional/south
 
 /obj/structure/sign/poster/official/assist_pride{pixel_x=32} : /obj/structure/sign/poster/official/assist_pride/directional/east
 /obj/structure/sign/poster/official/assist_pride{pixel_x=-32} : /obj/structure/sign/poster/official/assist_pride/directional/west
 /obj/structure/sign/poster/official/assist_pride{pixel_y=32} : /obj/structure/sign/poster/official/assist_pride/directional/north
 /obj/structure/sign/poster/official/assist_pride{pixel_y=-32} : /obj/structure/sign/poster/official/assist_pride/directional/south
+/obj/structure/sign/poster/official/assist_pride/east : /obj/structure/sign/poster/official/assist_pride/directional/east
+/obj/structure/sign/poster/official/assist_pride/west : /obj/structure/sign/poster/official/assist_pride/directional/west
+/obj/structure/sign/poster/official/assist_pride/north : /obj/structure/sign/poster/official/assist_pride/directional/north
+/obj/structure/sign/poster/official/assist_pride/south : /obj/structure/sign/poster/official/assist_pride/directional/south
 
 /obj/structure/sign/poster/official/taa{pixel_x=32} : /obj/structure/sign/poster/official/taa/directional/east
 /obj/structure/sign/poster/official/taa{pixel_x=-32} : /obj/structure/sign/poster/official/taa/directional/west
 /obj/structure/sign/poster/official/taa{pixel_y=32} : /obj/structure/sign/poster/official/taa/directional/north
 /obj/structure/sign/poster/official/taa{pixel_y=-32} : /obj/structure/sign/poster/official/taa/directional/south
+/obj/structure/sign/poster/official/taa/east : /obj/structure/sign/poster/official/taa/directional/east
+/obj/structure/sign/poster/official/taa/west : /obj/structure/sign/poster/official/taa/directional/west
+/obj/structure/sign/poster/official/taa/north : /obj/structure/sign/poster/official/taa/directional/north
+/obj/structure/sign/poster/official/taa/south : /obj/structure/sign/poster/official/taa/directional/south
 
 /obj/structure/sign/poster/official/mac_vulpix{pixel_x=32} : /obj/structure/sign/poster/official/mac_vulpix/directional/east
 /obj/structure/sign/poster/official/mac_vulpix{pixel_x=-32} : /obj/structure/sign/poster/official/mac_vulpix/directional/west
 /obj/structure/sign/poster/official/mac_vulpix{pixel_y=32} : /obj/structure/sign/poster/official/mac_vulpix/directional/north
 /obj/structure/sign/poster/official/mac_vulpix{pixel_y=-32} : /obj/structure/sign/poster/official/mac_vulpix/directional/south
+/obj/structure/sign/poster/official/mac_vulpix/east : /obj/structure/sign/poster/official/mac_vulpix/directional/east
+/obj/structure/sign/poster/official/mac_vulpix/west : /obj/structure/sign/poster/official/mac_vulpix/directional/west
+/obj/structure/sign/poster/official/mac_vulpix/north : /obj/structure/sign/poster/official/mac_vulpix/directional/north
+/obj/structure/sign/poster/official/mac_vulpix/south : /obj/structure/sign/poster/official/mac_vulpix/directional/south
+
+/obj/structure/sign/poster/contraband/random/east : /obj/structure/sign/poster/contraband/random/directional/east
+/obj/structure/sign/poster/contraband/random/west : /obj/structure/sign/poster/contraband/random/directional/west
+/obj/structure/sign/poster/contraband/random/north : /obj/structure/sign/poster/contraband/random/directional/north
+/obj/structure/sign/poster/contraband/random/south : /obj/structure/sign/poster/contraband/random/directional/south
+
+/obj/structure/sign/poster/official/random/east : /obj/structure/sign/poster/official/random/directional/east
+/obj/structure/sign/poster/official/random/west : /obj/structure/sign/poster/official/random/directional/west
+/obj/structure/sign/poster/official/random/north : /obj/structure/sign/poster/official/random/directional/north
+/obj/structure/sign/poster/official/random/south : /obj/structure/sign/poster/official/random/directional/south
+
+/obj/structure/sign/poster/random/east : /obj/structure/sign/poster/random/directional/east
+/obj/structure/sign/poster/random/west : /obj/structure/sign/poster/random/directional/west
+/obj/structure/sign/poster/random/north : /obj/structure/sign/poster/random/directional/north
+/obj/structure/sign/poster/random/south : /obj/structure/sign/poster/random/directional/south

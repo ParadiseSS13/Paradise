@@ -2,12 +2,6 @@
 	attacktext = "бодает"
 	death_sound = 'modular_ss220/mobs/sound/creatures/goat_death.ogg'
 
-/mob/living/simple_animal/cow
-	attacktext = "бодает"
-	death_sound = 'modular_ss220/mobs/sound/creatures/cow_death.ogg'
-	damaged_sound = list('modular_ss220/mobs/sound/creatures/cow_damaged.ogg')
-	talk_sound = list('modular_ss220/mobs/sound/creatures/cow_talk1.ogg', 'modular_ss220/mobs/sound/creatures/cow_talk2.ogg')
-
 /mob/living/simple_animal/chicken
 	name = "курица"
 	desc = "Гордая несушка. Яички должны быть хороши!"
@@ -69,16 +63,6 @@
 	holder_type = /obj/item/holder/cock
 
 /mob/living/simple_animal/cock/npc_safe(mob/user)
-	return TRUE
-
-/mob/living/simple_animal/pig
-	name = "свинья"
-	attacktext = "лягает"
-	death_sound = 'modular_ss220/mobs/sound/creatures/pig_death.ogg'
-	talk_sound = list('modular_ss220/mobs/sound/creatures/pig_talk1.ogg', 'modular_ss220/mobs/sound/creatures/pig_talk2.ogg')
-	damaged_sound = list()
-
-/mob/living/simple_animal/pig/npc_safe(mob/user)
 	return TRUE
 
 /mob/living/simple_animal/turkey

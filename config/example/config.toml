@@ -714,7 +714,7 @@ active_space_ruins = [
   # The following is the white ship ruin. Its force-spawned and is required to stop SSshuttle runtiming on startup
   # Its also important incase a white-ship console is ever built midround
   # DO NOT DISABLE THIS UNLESS YOU HAVE A GOOD REASON
-  "_maps/map_files/RandomRuins/SpaceRuins/whiteship.dmm",
+  "_maps/map_files220/RandomRuins/SpaceRuins/whiteship.dmm",
 
   # The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
   # Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.

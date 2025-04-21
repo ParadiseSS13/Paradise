@@ -4513,7 +4513,7 @@
 	},
 /area/awaymission/black_mesa/xen/acid_lake_hallway)
 "fAH" = (
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -9392,7 +9392,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/lambda_hallway)
 "lAx" = (
-/obj/structure/sign/poster/official/random/south,
+/obj/structure/sign/poster/official/random/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
@@ -10288,7 +10288,7 @@
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "mJy" = (
 /obj/machinery/economy/vending/coffee/free,
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -10557,7 +10557,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_room)
 "mXp" = (
-/obj/structure/sign/poster/official/random/south,
+/obj/structure/sign/poster/official/random/directional/south,
 /obj/item/flag/species/human,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel/dark,
@@ -15137,7 +15137,7 @@
 	pixel_y = 8;
 	list_reagents = list("coffee" = 0)
 	},
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

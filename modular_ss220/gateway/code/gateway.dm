@@ -58,7 +58,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/gateway/centerstation/LateInitialize()
-	awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
+	awaygate = locate(/obj/machinery/gateway/centeraway) in SSmachines.get_by_type(/obj/machinery/gateway)
 
 /obj/machinery/gateway/centerstation/update_density_from_dir()
 	return
@@ -109,7 +109,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!has_power())
 		return
 	if(!awaygate)
-		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
+		awaygate = locate(/obj/machinery/gateway/centeraway) in SSmachines.get_by_type(/obj/machinery/gateway)
 		if(!awaygate)
 			to_chat(user, span_notice("Error: No destination found."))
 			return
@@ -188,7 +188,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centeraway/Initialize(mapload)
 	..()
 	update_icon(UPDATE_ICON_STATE)
-	stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
+	stationgate = locate(/obj/machinery/gateway/centerstation) in SSmachines.get_by_type(/obj/machinery/gateway)
 
 
 /obj/machinery/gateway/centeraway/update_density_from_dir()
@@ -224,7 +224,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(length(linked) != 8)
 		return
 	if(!stationgate)
-		stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
+		stationgate = locate(/obj/machinery/gateway/centerstation) in SSmachines.get_by_type(/obj/machinery/gateway)
 		if(!stationgate)
 			to_chat(user, span_notice("Error: No destination found."))
 			return

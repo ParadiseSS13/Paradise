@@ -87,6 +87,9 @@
 	icon = 'modular_ss220/aesthetics/airlocks/icons/station/corporate.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_lawyer
 
+/obj/machinery/door/airlock/bloody
+	icon = 'icons/obj/doors/airlocks/station/public.dmi'
+
 // Station airlocks glass
 /obj/machinery/door/airlock/command/cap/glass
 	opacity = 0

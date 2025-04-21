@@ -146,7 +146,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/effect/decal/cleanable/blood/gibs/xeno/body,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
@@ -195,7 +195,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
 /obj/item/stack/cable_coil{
@@ -240,7 +240,7 @@
 /area/template_noop)
 "gg" = (
 /obj/item/trash/can,
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_left"
@@ -387,7 +387,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "jl" = (
-/obj/structure/sign/poster/contraband/random/south,
+/obj/structure/sign/poster/contraband/random/directional/south,
 /obj/effect/decal/cleanable/blood/drip{
 	icon_state = "5"
 	},
@@ -535,7 +535,7 @@
 "lP" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/effect/decal/cleanable/blood/gibs/xeno,
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "mS" = (
@@ -1251,7 +1251,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "JK" = (
@@ -1279,7 +1279,7 @@
 "KH" = (
 /obj/item/trash/spentcasing/bullet,
 /obj/item/trash/spentcasing/bullet,
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Ln" = (
@@ -1381,7 +1381,7 @@
 /area/ruin/space/powered/requires_power_space)
 "OA" = (
 /obj/effect/spawner/random/dirt/often,
-/obj/structure/sign/poster/contraband/random/south,
+/obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "OL" = (
@@ -1665,7 +1665,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/structure/sign/poster/contraband/random/south,
+/obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "YG" = (

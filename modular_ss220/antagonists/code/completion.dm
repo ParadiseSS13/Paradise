@@ -16,7 +16,7 @@
 		return
 
 	var/list/text = list("<br><font size=3><b>Прогресс Вокс'ов:</b></font>")
-	var/obj/machinery/vox_trader/trader = locate() in GLOB.machines
+	var/obj/machinery/vox_trader/trader = locate() in SSmachines.get_by_type(/obj/machinery/vox_trader)
 	if(!trader)
 		text += "<br>"
 		return text.Join("")

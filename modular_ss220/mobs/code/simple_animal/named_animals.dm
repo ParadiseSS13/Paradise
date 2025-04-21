@@ -1,4 +1,4 @@
-/mob/living/simple_animal/pig/sanya
+/mob/living/basic/pig/sanya
 	name = "Саня"
 	desc = "Старый добрый хряк с сединой. Слегка подслеповат, но нюх и харизма по прежнему с ним. Чудом не пущен на мясо и дожил до почтенного возраста."
 	icon = 'modular_ss220/mobs/icons/mob/animal.dmi'
@@ -6,20 +6,16 @@
 	icon_living = "pig_old"
 	icon_dead = "pig_old_dead"
 	butcher_results = list(/obj/item/food/meat/ham/old = 10)
-	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	maxHealth = 80
 	health = 80
-
-/mob/living/simple_animal/pig/sanya/npc_safe(mob/user) // depriving the chef of his animals is not cool
-	return FALSE
 
 /mob/living/simple_animal/hostile/retaliate/goat/chef
 	name = "Боря"
 	desc = "Этот козёл - парнокопытное гурме шефа, в его мрачных глазах-бусинках так и читается амибициозный нрав! Он не твой друг, ведь за каждым игривым прыжком может скрываться неожиданный выпад."
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/cow/betsy
+/mob/living/basic/cow/betsy
 	name = "Бетси"
 	desc = "Старая добрая старушка. Нескончаемый источник природного молока без ГМО. Ну почти без ГМО..."
 	gold_core_spawnable = NO_SPAWN

@@ -61,7 +61,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/muradin)
 
-/mob/living/simple_animal/cow/add_tts_component()
+/mob/living/basic/cow/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/cairne)
 
 /mob/living/simple_animal/chicken/add_tts_component()
@@ -73,7 +73,7 @@
 /mob/living/simple_animal/cock/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/pantheon)
 
-/mob/living/simple_animal/pig/add_tts_component()
+/mob/living/basic/pig/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/anubarak)
 
 /mob/living/simple_animal/seal/add_tts_component()

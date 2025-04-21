@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(ru_emote_messages)
 	var/toml_path = "[PATH_TO_TRANSLATE_DATA]/ru_verbs.toml"
 	if(!fexists(file(toml_path)))
 		return
-	var/list/verbs_toml_list = rustg_read_toml_file(toml_path)
+	var/list/verbs_toml_list = rustlibs_read_toml_file(toml_path)
 
 	var/list/attack_verbs = verbs_toml_list["attack_verbs"]
 	for(var/attack_key in attack_verbs)
@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(ru_emote_messages)
 	var/emote_path = "[PATH_TO_TRANSLATE_DATA]/ru_emotes.toml"
 	if(!fexists(file(emote_path)))
 		return
-	var/list/emotes_toml_list = rustg_read_toml_file(emote_path)
+	var/list/emotes_toml_list = rustlibs_read_toml_file(emote_path)
 
 	var/list/emote_messages = emotes_toml_list["emote_messages"]
 	for(var/emote_message_key in emote_messages)

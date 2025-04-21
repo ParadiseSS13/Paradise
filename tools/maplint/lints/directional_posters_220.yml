@@ -1,0 +1,57 @@
+help: 'Use the specific directional subtypes for this poster. Run 1912_directional_posters.txt to fix this.'
+=/obj/structure/sign/poster/contraband/lady:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/lady/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/very_robust:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/very_robust/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/vodka:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/vodka/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/wanted:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/wanted/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/soulless_figures:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/soulless_figures/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/your_fate:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/your_fate/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/watching_eye:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/watching_eye/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/argonian:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/argonian/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/mars:
+  banned: TRUE
+=/obj/structure/sign/poster/official/mars/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/wild_west:
+  banned: TRUE
+=/obj/structure/sign/poster/official/wild_west/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/razumause:
+  banned: TRUE
+=/obj/structure/sign/poster/official/razumause/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/assist_pride:
+  banned: TRUE
+=/obj/structure/sign/poster/official/assist_pride/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/taa:
+  banned: TRUE
+=/obj/structure/sign/poster/official/taa/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/mac_vulpix:
+  banned: TRUE
+=/obj/structure/sign/poster/official/mac_vulpix/directional:
+  banned: TRUE
