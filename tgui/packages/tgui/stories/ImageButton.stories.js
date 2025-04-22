@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
+import { useState } from 'react';
 import { Button, LabeledList, ImageButton, Input, Slider, Section, Stack } from '../components';
 
 export const meta = {
@@ -31,16 +31,16 @@ const COLORS_SPECTRUM = [
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
 const Story = (props) => {
-  const [fluid1, setFluid1] = useLocalState('fluid1', true);
-  const [fluid2, setFluid2] = useLocalState('fluid2', false);
-  const [fluid3, setFluid3] = useLocalState('fluid3', false);
-  const [disabled, setDisabled] = useLocalState('disabled', false);
-  const [selected, setSelected] = useLocalState('selected', false);
-  const [addImage, setAddImage] = useLocalState('addImage', false);
-  const [base64, setbase64] = useLocalState('base64', '');
-  const [title, setTitle] = useLocalState('title', 'Image Button');
-  const [content, setContent] = useLocalState('content', 'You can put anything in there');
-  const [imageSize, setImageSize] = useLocalState('imageSize', 64);
+  const [fluid1, setFluid1] = useState(true);
+  const [fluid2, setFluid2] = useState(false);
+  const [fluid3, setFluid3] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [addImage, setAddImage] = useState(false);
+  const [base64, setbase64] = useState('');
+  const [title, setTitle] = useState('Image Button');
+  const [content, setContent] = useState('You can put anything in there');
+  const [imageSize, setImageSize] = useState(64);
 
   const buttons = (
     <Button

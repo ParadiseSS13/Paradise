@@ -1,5 +1,6 @@
 import { classes } from 'common/react';
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Button, Input, Section } from '../components';
 import { Window } from '../layouts';
 
@@ -14,7 +15,7 @@ type Emoji = {
 export const Emojipedia = (props) => {
   const { data } = useBackend<Data>();
   const { emoji_list } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
   const filteredEmoji = emoji_list.filter((emoji) => emoji.name.toLowerCase().includes(searchText.toLowerCase()));
 
   return (

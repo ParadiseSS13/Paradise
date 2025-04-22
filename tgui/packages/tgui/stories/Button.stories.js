@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
+import { useState } from 'react';
 import { Box, Button, Section } from '../components';
 
 export const meta = {
@@ -31,7 +31,7 @@ const COLORS_SPECTRUM = [
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
 const Story = (props) => {
-  const [translucent, setTranslucent] = useLocalState('translucent', false);
+  const [translucent, setTranslucent] = useState(false);
 
   return (
     <>

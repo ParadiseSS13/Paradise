@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
+import { useState } from 'react';
 import { Box, Button, ByondUi, Section } from '../components';
 import { logger } from '../logging';
 
@@ -14,10 +14,7 @@ export const meta = {
 };
 
 const Story = (props) => {
-  const [code, setCode] = useLocalState(
-    'byondUiEvalCode',
-    `Byond.winset('${Byond.windowId}', {\n 'is-visible': true,\n})`
-  );
+  const [code, setCode] = useState(`Byond.winset('${Byond.windowId}', {\n 'is-visible': true,\n})`);
   return (
     <>
       <Section title="Button">

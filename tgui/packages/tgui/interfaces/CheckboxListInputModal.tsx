@@ -1,7 +1,8 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Section, Stack } from '../components';
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { createLogger } from '../logging';
 import { BooleanLike } from 'common/react';
@@ -21,7 +22,7 @@ interface CheckboxData {
 export const CheckboxListInputModal = (props) => {
   const { act, data } = useBackend<ListInputData>();
   const { items = [], message = '', init_value, timeout, title } = data;
-  const [edittedItems, setEdittedItems] = useLocalState<CheckboxData[]>('edittedItems', items);
+  const [edittedItems, setEdittedItems] = useState<CheckboxData[]>(items);
 
   const windowHeight = 330 + Math.ceil(message.length / 3);
 

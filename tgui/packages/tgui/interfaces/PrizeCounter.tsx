@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Button, Section, Stack, ImageButton, Input, Icon } from '../components';
 import { Window } from '../layouts';
 
@@ -19,8 +20,8 @@ type PrizeData = {
 export const PrizeCounter = (props) => {
   const { act, data } = useBackend<PrizeData>();
   const { tickets, prizes = [] } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [toggleSearch, setToggleSearch] = useLocalState('toggleSearch', false);
+  const [searchText, setSearchText] = useState('');
+  const [toggleSearch, setToggleSearch] = useState(false);
   const filteredPrizes = prizes.filter((prize) => prize.name.toLowerCase().includes(searchText.toLowerCase()));
   return (
     <Window width={450} height={585} title="Arcade Ticket Exchange">

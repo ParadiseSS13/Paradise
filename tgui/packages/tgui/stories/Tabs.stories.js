@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
+import { useState } from 'react';
 import { Button, Section, Tabs } from '../components';
 
 export const meta = {
@@ -15,8 +15,8 @@ export const meta = {
 const TAB_RANGE = ['Tab #1', 'Tab #2', 'Tab #3', 'Tab #4'];
 
 const Story = (props) => {
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
-  const [tabProps, setTabProps] = useLocalState('tabProps', {});
+  const [tabIndex, setTabIndex] = useState(0);
+  const [tabProps, setTabProps] = useState({});
   return (
     <>
       <Section>

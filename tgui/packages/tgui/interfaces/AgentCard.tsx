@@ -1,5 +1,6 @@
 import { BooleanLike } from 'common/react';
-import { useBackend, useLocalState, useSharedState } from '../backend';
+import { useState } from 'react';
+import { useBackend, useSharedState } from '../backend';
 import { Button, LabeledList, Section, Tabs, Icon, Stack, Box, Slider, ImageButton, DmIcon } from '../components';
 import { Window } from '../layouts';
 
@@ -49,7 +50,7 @@ const InfoInput = ({ label, value, onCommit, onClick, onRClick, tooltip }) => (
 );
 
 export const AgentCard = (props) => {
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index) => {
     switch (index) {
       case 0:

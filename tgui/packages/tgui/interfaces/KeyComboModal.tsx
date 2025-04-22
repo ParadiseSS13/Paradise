@@ -1,6 +1,7 @@
 import { isEscape, KEY } from 'common/keys';
 
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Autofocus, Box, Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { InputButtons } from './common/InputButtons';
@@ -69,8 +70,8 @@ const formatKeyboardEvent = (event): string => {
 export const KeyComboModal = (props) => {
   const { act, data } = useBackend<KeyInputData>();
   const { init_value, large_buttons, message = '', title, timeout } = data;
-  const [input, setInput] = useLocalState('input', init_value);
-  const [binding, setBinding] = useLocalState('binding', true);
+  const [input, setInput] = useState(init_value);
+  const [binding, setBinding] = useState(true);
 
   const handleKeyPress = (event) => {
     if (!binding) {

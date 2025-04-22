@@ -1,5 +1,6 @@
 import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Dimmer,
@@ -48,10 +49,10 @@ const sortTypes = {
 
 export const Loadout = (props) => {
   const { act, data } = useBackend<Data>();
-  const [search, setSearch] = useLocalState('search', false);
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [category, setCategory] = useLocalState('category', Object.keys(data.gears)[0]);
-  const [tweakedGear, setTweakedGear] = useLocalState('tweakedGear', '');
+  const [search, setSearch] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [category, setCategory] = useState(Object.keys(data.gears)[0]);
+  const [tweakedGear, setTweakedGear] = useState('');
 
   return (
     <Window width={1105} height={650}>
@@ -109,8 +110,8 @@ const LoadoutGears = (props) => {
   const { user_tier, gear_slots, max_gear_slots } = data;
   const { category, search, setSearch, searchText, setSearchText } = props;
 
-  const [sortType, setSortType] = useLocalState('sortType', 'Default');
-  const [sortReverse, setsortReverse] = useLocalState('sortReverse', false);
+  const [sortType, setSortType] = useState('Default');
+  const [sortReverse, setsortReverse] = useState(false);
   const testSearch = createSearch<Gear>(searchText, (gear) => gear.name);
 
   let contents;

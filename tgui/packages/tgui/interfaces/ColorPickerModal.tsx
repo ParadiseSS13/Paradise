@@ -1,4 +1,3 @@
- 
 /**
  * @file
  * @copyright 2023 itsmeow
@@ -6,14 +5,14 @@
  */
 
 import { Loader } from './common/Loader';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import { Autofocus, Box, Flex, Section, Stack, Pointer, NumberInput, Tooltip } from '../components';
 import { Window } from '../layouts';
 import { clamp } from 'common/math';
 import { hexToHsva, HsvaColor, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
 import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { classes } from 'common/react';
-import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
+import { useState, Component, FocusEvent, FormEvent, ReactNode } from 'react';
 import { logger } from 'tgui/logging';
 import { InputButtons } from './common/InputButtons';
 
@@ -31,7 +30,7 @@ type ColorPickerData = {
 export const ColorPickerModal = (_) => {
   const { data } = useBackend<ColorPickerData>();
   const { timeout, message, title, autofocus, default_color = '#000000' } = data;
-  let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>('color_picker_choice', hexToHsva(default_color));
+  let [selectedColor, setSelectedColor] = useState<HsvaColor>('color_picker_choice', hexToHsva(default_color));
 
   return (
     <Window height={400} title={title} width={600} theme="generic">
