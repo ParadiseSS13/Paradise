@@ -137,6 +137,7 @@
 		return FALSE
 	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
 	UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
+	summoner.remove_guardian_actions()
 	summoner.death()
 
 
@@ -182,8 +183,10 @@
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
+		summoner.remove_guardian_actions()
 		to_chat(summoner, "<span class='danger'>Your [src] was blown up!</span>")
 		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
+	UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
 	ghostize()
 	qdel(src)
 
