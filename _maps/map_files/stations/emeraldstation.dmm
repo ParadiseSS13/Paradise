@@ -14005,14 +14005,11 @@
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
 	},
-/obj/machinery/access_button{
-	autolink_id = "turbine_btn_ext";
-	name = "Gas Turbine Airlock Control";
-	pixel_x = 5;
-	pixel_y = -23
-	},
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
@@ -29686,34 +29683,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/security/aft_port)
 "fSX" = (
-/obj/item/coin/silver{
-	pixel_x = 7;
-	pixel_y = 12
-	},
-/obj/item/coin/silver{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/coin/silver{
-	pixel_x = 4;
-	pixel_y = 8
-	},
-/obj/item/coin/silver{
-	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/coin/silver{
-	pixel_x = 5;
-	pixel_y = -8
-	},
-/obj/structure/closet/crate{
-	name = "Silver Crate"
-	},
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/closet/crate{
+	name = "Silver Crate"
+	},
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "fTd" = (
@@ -77000,7 +76980,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "poI" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -96443,6 +96423,15 @@
 	pixel_x = -8;
 	pixel_y = 24
 	},
+/obj/structure/sign/magboots{
+	pixel_y = -32
+	},
+/obj/machinery/access_button{
+	autolink_id = "turbine_btn_ext";
+	name = "Gas Turbine Airlock Control";
+	pixel_x = -10;
+	pixel_y = -21
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
 "tiW" = (
@@ -113139,7 +113128,7 @@
 	},
 /area/station/service/theatre)
 "wAF" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -113644,21 +113633,13 @@
 /obj/structure/closet/crate{
 	name = "Gold Crate"
 	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_x = -1;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_y = 2
-	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_x = 1;
-	pixel_y = -2
-	},
 /obj/item/storage/belt/champion,
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "wHO" = (

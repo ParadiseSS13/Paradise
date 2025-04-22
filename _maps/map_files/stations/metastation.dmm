@@ -632,10 +632,13 @@
 	layer = 3.1;
 	autolink_id = "turbine_btn_int";
 	name = "Gas Turbine Airlock Control";
-	pixel_x = -5;
-	pixel_y = -23
+	pixel_x = -10;
+	pixel_y = -21
 	},
 /obj/machinery/atmospherics/binary/pump/on,
+/obj/structure/sign/magboots{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "aii" = (
@@ -5233,22 +5236,20 @@
 /obj/structure/closet/crate{
 	name = "Gold Crate"
 	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_x = -1;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_y = 2
-	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_x = 1;
-	pixel_y = -2
-	},
 /obj/item/storage/belt/champion,
 /obj/effect/turf_decal/delivery/white/hollow/right,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/item/stack/sheet/mineral/gold{
+	pixel_y = 2
+	},
+/obj/item/stack/sheet/mineral/gold{
+	pixel_y = 2
+	},
+/obj/item/stack/sheet/mineral/gold{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -5261,30 +5262,13 @@
 	},
 /area/station/command/vault)
 "aFb" = (
-/obj/item/coin/silver{
-	pixel_x = 7;
-	pixel_y = 12
-	},
-/obj/item/coin/silver{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/coin/silver{
-	pixel_x = 4;
-	pixel_y = 8
-	},
-/obj/item/coin/silver{
-	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/coin/silver{
-	pixel_x = 5;
-	pixel_y = -8
-	},
+/obj/effect/turf_decal/delivery/white/hollow/left,
 /obj/structure/closet/crate{
 	name = "Silver Crate"
 	},
-/obj/effect/turf_decal/delivery/white/hollow/left,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -31122,7 +31106,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -52064,11 +52048,14 @@
 /obj/machinery/access_button{
 	autolink_id = "turbine_btn_ext";
 	name = "Gas Turbine Airlock Control";
-	pixel_x = 5;
-	pixel_y = 23
+	pixel_x = 10;
+	pixel_y = 21
 	},
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
+	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
@@ -70559,7 +70546,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "qMg" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
