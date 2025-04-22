@@ -602,7 +602,7 @@
 /turf/simulated/wall/mineral/wood,
 /area/awaymission/jungle_planet/outside/cave)
 "aUN" = (
-/obj/structure/sign/poster/official/random/east,
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "aVe" = (
@@ -2942,7 +2942,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "dWp" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "dWC" = (
@@ -6502,9 +6502,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "iBX" = (
 /obj/structure/railing,
-/obj/structure/sign/poster/official/walk{
-	pixel_x = 30
-	},
+/obj/structure/sign/poster/official/walk/directional/east,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "iDD" = (
@@ -9855,7 +9853,7 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "mFZ" = (
-/obj/structure/sign/poster/official/random/south,
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -9871,9 +9869,7 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "mHQ" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /obj/item/camera_assembly,
 /obj/item/stack/cable_coil{
 	amount = 2
@@ -10329,7 +10325,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random/east,
+/obj/structure/sign/poster/official/random/directional/east,
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
@@ -10888,7 +10884,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "nZd" = (
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
@@ -11410,7 +11406,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "oHE" = (
 /obj/effect/decal/cleanable/blood/writing,
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /obj/machinery/light_construct/directional/west,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
@@ -12134,7 +12130,7 @@
 /obj/structure/closet{
 	opened = 1
 	},
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /obj/effect/spawner/random/pool/spaceloot/mining_tool/gateway,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12207,9 +12203,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "pLT" = (
-/obj/structure/sign/poster/official/walk{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/walk/directional/south,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
@@ -12538,9 +12532,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "qma" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -13734,9 +13726,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/walk{
-	pixel_y = 33
-	},
+/obj/structure/sign/poster/official/walk/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "rJp" = (
@@ -14351,7 +14341,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "ssu" = (
-/obj/structure/sign/poster/official/random/east,
+/obj/structure/sign/poster/official/random/directional/east,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
@@ -14795,7 +14785,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "sWi" = (
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/rack_parts,
 /obj/effect/spawner/random/maintenance,
@@ -16040,9 +16030,7 @@
 	density = 1
 	},
 /obj/structure/cable,
-/obj/structure/sign/poster/ripped{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/ripped/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -16476,7 +16464,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "val" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/sign/poster/contraband/random/west,
+/obj/structure/sign/poster/contraband/random/directional/west,
 /obj/effect/spawner/random/engineering/tools,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,

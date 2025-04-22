@@ -79,7 +79,7 @@
 	if(allowed(usr) || user.can_advanced_admin_interact())
 		icon_state = "doorctrl1"
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
-		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
+		for(var/obj/machinery/ticket_machine/M in SSmachines.get_by_type(/obj/machinery/ticket_machine))
 			if(M.id == id)
 				if(cooldown)
 					return

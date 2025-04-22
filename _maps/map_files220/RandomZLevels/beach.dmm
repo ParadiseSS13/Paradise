@@ -829,9 +829,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "kx" = (
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /turf/simulated/floor/carpet,
 /area/awaymission/beach)
 "ky" = (
@@ -2131,7 +2129,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "CW" = (
-/obj/structure/sign/poster/contraband/random/west,
+/obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/carpet/arcade,
 /area/awaymission/beach)
 "Dg" = (
@@ -2288,7 +2286,7 @@
 "Fh" = (
 /obj/structure/dresser,
 /obj/machinery/light/directional/north,
-/obj/structure/sign/poster/random/east,
+/obj/structure/sign/poster/random/directional/east,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "Fl" = (
@@ -3002,7 +3000,7 @@
 /area/awaymission/beach)
 "Nq" = (
 /obj/structure/dresser,
-/obj/structure/sign/poster/random/east,
+/obj/structure/sign/poster/random/directional/east,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "Nr" = (
@@ -3324,7 +3322,7 @@
 /area/awaymission/beach)
 "Sl" = (
 /obj/structure/dresser,
-/obj/structure/sign/poster/random/north,
+/obj/structure/sign/poster/random/directional/north,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "Sq" = (

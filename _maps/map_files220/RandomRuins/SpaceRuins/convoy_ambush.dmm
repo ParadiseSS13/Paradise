@@ -757,9 +757,7 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/mask/gas,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "darkbluealtstrip";
 	dir = 6

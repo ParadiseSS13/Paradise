@@ -8,7 +8,7 @@
 
 /datum/station_trait/darkness/on_round_start()
 	. = ..()
-	for(var/obj/machinery/light_switch/light_switch in GLOB.machines)
+	for(var/obj/machinery/light_switch/light_switch in SSmachines.get_by_type(/obj/machinery/light_switch))
 		var/turf/our_turf = get_turf(light_switch)
 		if(!is_station_level(our_turf.z))
 			continue

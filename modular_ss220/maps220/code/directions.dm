@@ -448,43 +448,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate, 24, 24)
 	pixel_x = 11
 	dir = 8
 
-/* Posters */
-/obj/structure/sign/poster/random/south
-	pixel_y = -32
-
-/obj/structure/sign/poster/random/north
-	pixel_y = 32
-
-/obj/structure/sign/poster/random/west
-	pixel_x = -32
-
-/obj/structure/sign/poster/random/east
-	pixel_x = 32
-
-/obj/structure/sign/poster/contraband/random/south
-	pixel_y = -32
-
-/obj/structure/sign/poster/contraband/random/north
-	pixel_y = 32
-
-/obj/structure/sign/poster/contraband/random/west
-	pixel_x = -32
-
-/obj/structure/sign/poster/contraband/random/east
-	pixel_x = 32
-
-/obj/structure/sign/poster/official/random/south
-	pixel_y = -32
-
-/obj/structure/sign/poster/official/random/north
-	pixel_y = 32
-
-/obj/structure/sign/poster/official/random/west
-	pixel_x = -32
-
-/obj/structure/sign/poster/official/random/east
-	pixel_x = 32
-
 /* Displays */
 /obj/machinery/status_display/directional
 	name = "\improper status display"

@@ -34,7 +34,7 @@
 /obj/effect/turf_decal/plaque{
 	layer = 3
 	},
-/obj/structure/sign/poster/contraband/random/east,
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/redgrid,
 /area/syndicate_mothership)
 "abl" = (
@@ -104,9 +104,7 @@
 	},
 /area/syndicate_mothership/jail)
 "acA" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -30
-	},
+/obj/structure/sign/poster/contraband/random/directional/south,
 /obj/machinery/cryopod/offstation{
 	icon_state = "sleeper_s";
 	occupied_icon_state = "sleeper_s";
@@ -159,9 +157,7 @@
 /obj/machinery/computer/card/centcom{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "afq" = (
@@ -1161,9 +1157,7 @@
 "aDj" = (
 /obj/structure/rack/holorack,
 /obj/effect/turf_decal/box/white,
-/obj/structure/sign/poster/contraband/hacking_guide{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/hacking_guide/directional/north,
 /obj/structure/light_fake{
 	dir = 1
 	},
@@ -3105,9 +3099,7 @@
 /turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "buZ" = (
-/obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/closet/crate/trashcart{
 	desc = "A heavy, metal laundrycart with wheels.";
@@ -3459,10 +3451,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/general)
-"bFq" = (
-/obj/structure/sign/poster/official/nanotrasen_logo,
-/turf/simulated/wall/indestructible/riveted,
-/area/centcom/ss220/admin2)
 "bFv" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
@@ -3582,9 +3570,7 @@
 /obj/machinery/sleeper/upgraded{
 	dir = 2
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -4764,7 +4750,7 @@
 /obj/structure/light_fake{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "darkblue"
@@ -5163,7 +5149,7 @@
 /area/centcom/ss220/evac)
 "clO" = (
 /obj/structure/light_fake/small,
-/obj/structure/sign/poster/contraband/random/south,
+/obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -5432,9 +5418,7 @@
 /obj/machinery/chem_dispenser/soda/upgraded{
 	pixel_y = 8
 	},
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /turf/simulated/floor/wood/parquet/tile,
 /area/ghost_bar/indoor)
 "crx" = (
@@ -5840,9 +5824,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "cDl" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/effect/spawner/random/maintenance,
 /obj/structure/light_fake/small{
 	dir = 1
@@ -5934,9 +5916,7 @@
 /obj/item/handheld_defibrillator{
 	pixel_x = 3
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -6459,9 +6439,7 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "cRs" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/structure/light_fake/small{
 	dir = 1
 	},
@@ -6528,9 +6506,7 @@
 /obj/structure/light_fake/spot{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/dark{
 	dir = 1;
 	icon_state = "darkbluealt"
@@ -7302,9 +7278,7 @@
 /area/centcom/ss220/admin3)
 "djm" = (
 /obj/machinery/computer/secure_data,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/court)
 "djr" = (
@@ -8013,9 +7987,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "dzR" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -30
-	},
+/obj/structure/sign/poster/contraband/random/directional/west,
 /obj/structure/light_fake/small{
 	dir = 8
 	},
@@ -9702,9 +9674,7 @@
 /turf/simulated/floor/grass,
 /area/ghost_bar/outdoor)
 "emB" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "emI" = (
@@ -10861,9 +10831,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "eJp" = (
-/obj/structure/sign/poster/official/kill_syndicate{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/kill_syndicate/directional/south,
 /obj/machinery/power/treadmill{
 	dir = 1
 	},
@@ -11416,9 +11384,7 @@
 /obj/item/organ/internal/cyberimp/arm/toolset,
 /obj/item/organ/internal/cyberimp/arm/janitorial,
 /obj/effect/turf_decal/box/white,
-/obj/structure/sign/poster/contraband/revolver{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/revolver/directional/north,
 /obj/item/organ/internal/cyberimp/arm/combat/centcom{
 	color = "#aa9999";
 	desc = "An extremely powerful cybernetic implant that contains combat and utility modules not used by NT special forces, i swear";
@@ -11737,9 +11703,7 @@
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "faJ" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -30
-	},
+/obj/structure/sign/poster/contraband/random/directional/west,
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "SST_armory_main";
 	name = "SST Armory"
@@ -12159,9 +12123,7 @@
 /obj/machinery/sleeper/upgraded{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -12592,9 +12554,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin1)
 "fpZ" = (
@@ -12622,7 +12582,7 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/spawner/random/ccfood/alcohol,
 /obj/structure/light_fake,
-/obj/structure/sign/poster/official/random/south,
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/bar)
 "fqT" = (
@@ -12681,9 +12641,7 @@
 /obj/structure/light_fake{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/razumause{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/razumause/directional/west,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "frR" = (
@@ -13999,6 +13957,11 @@
 	icon_state = "darkneutralfull"
 	},
 /area/syndicate_mothership)
+"fVU" = (
+/obj/structure/light_fake/spot,
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
+/turf/simulated/floor/carpet/black,
+/area/centcom/ss220/admin2)
 "fWk" = (
 /obj/structure/curtain/black{
 	pixel_y = -32;
@@ -14155,7 +14118,7 @@
 	dir = 4;
 	anchored = 1
 	},
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "darkblue"
@@ -14443,7 +14406,7 @@
 /turf/simulated/floor/carpet,
 /area/ghost_bar/indoor)
 "gjQ" = (
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/carpet/green,
 /area/centcom/ss220/bar)
 "gka" = (
@@ -14457,9 +14420,7 @@
 /area/shuttle/syndicate)
 "gkd" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/structure/sign/poster/official/space_cops{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/space_cops/directional/north,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredfull"
 	},
@@ -15173,9 +15134,7 @@
 	dir = 8
 	},
 /obj/item/kirbyplants/large,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "gAP" = (
@@ -15840,7 +15799,7 @@
 /area/vox_base)
 "gNW" = (
 /obj/structure/light_fake/small,
-/obj/structure/sign/poster/contraband/random/south,
+/obj/structure/sign/poster/contraband/random/directional/south,
 /obj/structure/chair/sofa/bench{
 	dir = 1
 	},
@@ -15876,9 +15835,7 @@
 /obj/structure/chair/sofa{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/love_ian{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/love_ian/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
 "gQK" = (
@@ -16798,7 +16755,7 @@
 	},
 /area/ninja/holding)
 "hiI" = (
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "darkblue"
@@ -17338,7 +17295,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "huM" = (
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/park)
 "huN" = (
@@ -17766,9 +17723,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/sign/poster/contraband/c20r{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/c20r/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "hGa" = (
@@ -18101,7 +18056,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/centcom/ss220/park)
 "hKS" = (
-/obj/structure/sign/poster/official/random/east,
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/carpet/green,
 /area/centcom/ss220/bar)
 "hLd" = (
@@ -18981,9 +18936,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/general)
 "ieB" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "ieC" = (
@@ -19896,7 +19849,7 @@
 /obj/structure/light_fake{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/random/west,
+/obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "ivA" = (
@@ -20172,10 +20125,8 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -30
-	},
 /obj/effect/landmark/spawner/syndie,
+/obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "iBa" = (
@@ -20871,9 +20822,7 @@
 /area/shuttle/syndicate)
 "iRb" = (
 /obj/machinery/economy/vending/nt_food/free,
-/obj/structure/sign/poster/official/high_class_martini{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/high_class_martini/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
 "iRB" = (
@@ -21685,10 +21634,8 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "jmk" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -30
-	},
 /obj/effect/turf_decal/siding/wood/oak,
+/obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -22002,9 +21949,7 @@
 /obj/machinery/computer/station_alert{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -23769,9 +23714,7 @@
 /turf/simulated/floor/carpet/red,
 /area/syndicate_mothership/control)
 "kjY" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 30
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "SST_armory_main";
 	name = "SST Armory"
@@ -24388,9 +24331,7 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/condiment/enzyme,
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/fruit_bowl/directional/south,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "kxZ" = (
@@ -24940,9 +24881,7 @@
 /obj/machinery/computer/med_data{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -24998,9 +24937,7 @@
 	color = "#444444"
 	},
 /obj/item/storage/fancy/donut_box,
-/obj/structure/sign/poster/official/religious{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/religious/directional/south,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredfull"
 	},
@@ -25391,7 +25328,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood/fancy/purple,
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /obj/effect/spawner/random/ccfood/alcohol,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
@@ -25829,9 +25766,7 @@
 	},
 /area/centcom/ss220/command)
 "laA" = (
-/obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph/directional/north,
 /obj/effect/decal/cleanable/blood/slime,
 /obj/structure/light_fake/small{
 	dir = 8
@@ -26712,9 +26647,7 @@
 /area/syndicate_mothership/elite_squad)
 "ltU" = (
 /obj/item/storage/box/drinkingglasses,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/structure/table/wood{
 	color = "#996633"
 	},
@@ -27060,9 +26993,7 @@
 /area/centcom/ss220/supply)
 "lzM" = (
 /obj/structure/table/wood,
-/obj/structure/sign/poster/contraband/red_rum{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/red_rum/directional/north,
 /obj/machinery/chem_dispenser/beer/upgraded{
 	pixel_y = 8
 	},
@@ -27239,9 +27170,7 @@
 /obj/structure/light_fake/small{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/syndicate_recruitment{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/east,
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo12"
 	},
@@ -28216,9 +28145,7 @@
 /obj/effect/decal/cleanable/blood,
 /obj/structure/light_fake/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -30
-	},
+/obj/structure/sign/poster/contraband/random/directional/south,
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
@@ -28484,9 +28411,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "mhV" = (
-/obj/structure/sign/poster/official/razumause{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/razumause/directional/east,
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel/dark{
 	dir = 5;
@@ -28987,7 +28912,7 @@
 /obj/structure/light_fake/small{
 	dir = 1
 	},
-/mob/living/simple_animal/pig,
+/mob/living/basic/pig,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar/indoor)
 "mtH" = (
@@ -29516,6 +29441,12 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/ss220/bar)
+"mDN" = (
+/obj/structure/sign/poster/official/religious/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/centcom/ss220/park)
 "mEa" = (
 /obj/structure/table/reinforced/brass,
 /obj/machinery/chem_dispenser/soda/upgraded,
@@ -29544,7 +29475,7 @@
 	dir = 8;
 	anchored = 1
 	},
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "darkblue"
@@ -29599,7 +29530,7 @@
 /area/centcom/ss220/bar)
 "mHa" = (
 /obj/structure/dresser,
-/obj/structure/sign/poster/official/random/east,
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/park)
 "mHq" = (
@@ -30382,6 +30313,12 @@
 /obj/machinery/status_display/supply_display,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/ss220/supply)
+"nbC" = (
+/obj/structure/sign/poster/official/walk/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/centcom/ss220/park)
 "nbL" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/escape)
@@ -30964,9 +30901,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin1)
 "noT" = (
@@ -32231,6 +32166,7 @@
 /area/syndicate_mothership)
 "nRY" = (
 /obj/structure/light_fake/spot,
+/obj/structure/sign/poster/official/kill_syndicate/directional/south,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkyellow"
 	},
@@ -32282,9 +32218,7 @@
 /obj/structure/light_fake/small{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -30
-	},
+/obj/structure/sign/poster/contraband/random/directional/west,
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo9"
 	},
@@ -33926,9 +33860,7 @@
 	},
 /area/centcom/ss220/admin3)
 "oJn" = (
-/obj/structure/sign/poster/official/enlist{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/enlist/directional/south,
 /turf/simulated/floor/plasteel/dark{
 	dir = 10;
 	icon_state = "darkbluealt"
@@ -34140,9 +34072,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "oOI" = (
-/obj/structure/sign/poster/official/cohiba_robusto_ad{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/cohiba_robusto_ad/directional/east,
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel/dark{
 	dir = 6;
@@ -34501,9 +34431,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/ss220/evac)
 "oVH" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
 "oVW" = (
@@ -34520,7 +34448,7 @@
 /obj/structure/light_fake{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/bar)
 "oWo" = (
@@ -34967,9 +34895,7 @@
 	},
 /area/holodeck/source_knightarena)
 "peo" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /obj/structure/light_fake{
 	dir = 1
 	},
@@ -35058,6 +34984,10 @@
 	icon_state = "white"
 	},
 /area/shuttle/escape)
+"phc" = (
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
+/turf/simulated/floor/carpet/black,
+/area/centcom/ss220/admin2)
 "phh" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
@@ -35497,9 +35427,7 @@
 	},
 /area/centcom/ss220/admin3)
 "psM" = (
-/obj/structure/sign/poster/official/enlist{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/enlist/directional/north,
 /turf/simulated/floor/plasteel/dark{
 	dir = 9;
 	icon_state = "darkbluealt"
@@ -35580,9 +35508,7 @@
 	},
 /area/shuttle/syndicate)
 "pvn" = (
-/obj/structure/sign/poster/official/space_cops{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/space_cops/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "pvB" = (
@@ -36219,7 +36145,7 @@
 	dir = 4;
 	pixel_x = -5
 	},
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/admin2)
 "pML" = (
@@ -36352,9 +36278,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -30
-	},
+/obj/structure/sign/poster/contraband/random/directional/south,
 /obj/item/pizzabox/pepperoni,
 /obj/item/pizzabox/margherita,
 /obj/item/kitchen/knife,
@@ -37082,7 +37006,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
 "qfq" = (
-/mob/living/simple_animal/pig,
+/mob/living/basic/pig,
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/control)
 "qfv" = (
@@ -37418,7 +37342,7 @@
 	dir = 4;
 	pixel_x = -5
 	},
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/admin2)
 "qpF" = (
@@ -37531,7 +37455,7 @@
 /area/centcom/ss220/court)
 "qrs" = (
 /obj/machinery/computer/arcade,
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/ss220/bar)
 "qrz" = (
@@ -38120,7 +38044,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random/east,
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/park)
 "qFS" = (
@@ -38455,9 +38379,7 @@
 /obj/structure/light_fake/small{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/c20r{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/c20r/directional/west,
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo9"
 	},
@@ -39052,9 +38974,7 @@
 	},
 /area/syndicate_mothership/jail)
 "qZV" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -39142,7 +39062,7 @@
 /area/centcom/ss220/evac)
 "rbw" = (
 /obj/structure/dresser,
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/park)
 "rbJ" = (
@@ -39577,9 +39497,7 @@
 /area/centcom/ss220/admin2)
 "rlb" = (
 /obj/item/kirbyplants/large,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "rlk" = (
@@ -39685,9 +39603,7 @@
 /area/syndicate_mothership)
 "ros" = (
 /obj/item/flag/syndi,
-/obj/structure/sign/poster/contraband/syndicate_recruitment{
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "roE" = (
@@ -39696,9 +39612,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "roH" = (
-/obj/structure/sign/poster/official/enlist{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/enlist/directional/north,
 /obj/machinery/power/treadmill,
 /obj/structure/railing{
 	dir = 4
@@ -40217,6 +40131,13 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/ss220/admin3)
+"rwk" = (
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
+/turf/simulated/floor/plasteel/dark{
+	dir = 1;
+	icon_state = "darkbluealt"
+	},
+/area/centcom/ss220/admin1)
 "rwr" = (
 /obj/structure/rack,
 /obj/item/melee/classic_baton/telescopic{
@@ -40793,9 +40714,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_y = 31
-	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/spawner/vox_raider,
 /obj/effect/decal/cleanable/blood/slime,
@@ -41323,7 +41242,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "rTO" = (
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/structure/chair/sofa/bench,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown";
@@ -41539,9 +41458,7 @@
 /obj/vehicle/bike{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 30
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "rYI" = (
@@ -41663,10 +41580,6 @@
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredfull"
 	},
-/area/centcom/ss220/admin3)
-"sae" = (
-/obj/structure/sign/poster/official/nanotrasen_logo,
-/turf/simulated/wall/indestructible/riveted,
 /area/centcom/ss220/admin3)
 "sah" = (
 /obj/structure/window/reinforced{
@@ -42026,9 +41939,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
 "sii" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
 "sit" = (
@@ -42872,9 +42783,7 @@
 	dir = 4;
 	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost")
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -42901,9 +42810,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/evac)
 "sDq" = (
-/obj/structure/sign/poster/contraband/smoke{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/smoke/directional/west,
 /obj/structure/light_fake/small{
 	dir = 8
 	},
@@ -43087,6 +42994,7 @@
 "sIe" = (
 /obj/machinery/cooking/deepfryer/upgraded,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /turf/simulated/floor/plasteel/dark/nitrogen{
 	icon_state = "darkpurple";
 	nitrogen = 103.984
@@ -43109,7 +43017,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
 "sIC" = (
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 1
@@ -43579,10 +43487,6 @@
 	icon_state = "dark_herringbone"
 	},
 /area/centcom/ss220/command)
-"sQk" = (
-/obj/structure/sign/poster/official/religious,
-/turf/simulated/wall/indestructible/riveted,
-/area/centcom/ss220/park)
 "sQr" = (
 /obj/item/restraints/handcuffs/cable/pink{
 	pixel_x = -7;
@@ -44189,9 +44093,7 @@
 /obj/structure/light_fake{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/high_class_martini{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/high_class_martini/directional/north,
 /turf/simulated/floor/wood/cherry,
 /area/ghost_bar/indoor)
 "tdw" = (
@@ -44201,10 +44103,6 @@
 	water_overlay_image = null
 	},
 /area/syndicate_mothership/outside)
-"tdy" = (
-/obj/structure/sign/poster/official/kill_syndicate,
-/turf/simulated/wall/indestructible/riveted,
-/area/centcom/ss220/admin3)
 "tdF" = (
 /obj/structure/closet/walllocker/firelocker/north,
 /obj/effect/turf_decal/box/red,
@@ -44972,7 +44870,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "tzB" = (
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "darkbluealt"
@@ -45197,7 +45095,7 @@
 "tEp" = (
 /obj/structure/table/wood,
 /obj/item/book/random,
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/park)
 "tEM" = (
@@ -45410,12 +45308,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
-"tIz" = (
-/obj/structure/sign/poster/official/fruit_bowl,
-/turf/simulated/wall/indestructible/syndicate{
-	smoothing_flags = 2
-	},
-/area/vox_base)
 "tIK" = (
 /obj/structure/holohoop{
 	dir = 4
@@ -45941,7 +45833,7 @@
 /obj/structure/light_fake/small{
 	dir = 1
 	},
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/structure/statue/sandstone/assistant{
 	anchored = 1;
 	desc = "Он точно не спит на посту";
@@ -46509,9 +46401,7 @@
 "uln" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -30
-	},
+/obj/structure/sign/poster/contraband/random/directional/south,
 /obj/machinery/cryopod/offstation{
 	icon_state = "sleeper_s";
 	occupied_icon_state = "sleeper_s";
@@ -47750,7 +47640,7 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/random/east,
+/obj/structure/sign/poster/contraband/random/directional/east,
 /obj/effect/landmark/spawner/prisonsecuritywarp,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
@@ -47790,9 +47680,7 @@
 /obj/structure/light_fake/small{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/syndicate_pistol{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/syndicate_pistol/directional/east,
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo12"
 	},
@@ -49402,9 +49290,7 @@
 "vwn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 30
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
@@ -49615,9 +49501,7 @@
 /area/ghost_bar/indoor)
 "vzK" = (
 /obj/machinery/computer/med_data,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/court)
 "vzZ" = (
@@ -49638,10 +49522,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"vAv" = (
-/obj/structure/sign/poster/official/walk,
-/turf/simulated/wall/indestructible/riveted,
-/area/centcom/ss220/park)
 "vAx" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin{
@@ -50224,9 +50104,7 @@
 	},
 /area/syndicate_mothership/jail)
 "vMP" = (
-/obj/structure/sign/poster/contraband/syndicate_pistol{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/syndicate_pistol/directional/north,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -50449,9 +50327,7 @@
 	},
 /area/centcom/ss220/medbay)
 "vTO" = (
-/obj/structure/sign/poster/contraband/syndicate_recruitment{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -50781,7 +50657,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
 "wdy" = (
@@ -51006,7 +50882,7 @@
 /obj/structure/table/reinforced{
 	color = "#996633"
 	},
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/carpet/lone,
 /area/centcom/ss220/bar)
 "whc" = (
@@ -51164,9 +51040,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/general)
 "wkj" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -30
-	},
+/obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "wkk" = (
@@ -52278,7 +52152,7 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "wHD" = (
-/obj/structure/sign/poster/official/random/east,
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/plasteel/dark{
 	dir = 4;
 	icon_state = "darkblue"
@@ -52473,7 +52347,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/park)
 "wLM" = (
@@ -52924,9 +52798,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
 "wXs" = (
-/obj/structure/sign/poster/contraband/c20r{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/c20r/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "wXx" = (
@@ -53877,9 +53749,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/sign/poster/contraband/syndicate_pistol{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/syndicate_pistol/directional/north,
 /obj/structure/light_fake{
 	dir = 1
 	},
@@ -54078,9 +53948,7 @@
 	},
 /area/ghost_bar/indoor)
 "xvN" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -30
-	},
+/obj/structure/sign/poster/contraband/random/directional/south,
 /obj/structure/light_fake/small,
 /obj/effect/turf_decal/siding/brown,
 /turf/simulated/floor/wood/oak,
@@ -64553,8 +64421,8 @@ utP
 utP
 bAK
 gUm
-bFq
-vIu
+ciP
+phc
 vIu
 vIu
 vIu
@@ -65329,8 +65197,8 @@ pNq
 aUl
 leS
 vIu
-tQU
-bFq
+fVU
+ciP
 ciP
 ciP
 ciP
@@ -66352,8 +66220,8 @@ avS
 bGg
 bAK
 hWn
-bFq
-vIu
+ciP
+phc
 vIu
 vIu
 vIu
@@ -73215,8 +73083,8 @@ bkU
 vCF
 bVP
 apR
-exD
-vAv
+nbC
+qBQ
 nAj
 oUn
 nyl
@@ -73986,8 +73854,8 @@ buT
 vCF
 bVP
 apR
-exD
-sQk
+mDN
+qBQ
 qql
 amP
 qeY
@@ -76635,8 +76503,8 @@ dds
 dds
 dds
 rlR
-sae
-dYf
+nPO
+rwk
 tTm
 nmP
 nPO
@@ -77174,7 +77042,7 @@ lJY
 lJY
 lJY
 nRY
-tdy
+nPO
 adJ
 adJ
 adJ
@@ -77663,8 +77531,8 @@ dds
 dds
 dds
 rlR
-sae
-dYf
+nPO
+rwk
 tTm
 nmP
 nPO
@@ -108121,7 +107989,7 @@ adJ
 vxN
 vxN
 vxN
-tIz
+hhJ
 sIe
 akD
 qOr

@@ -193,12 +193,6 @@
 ///from /mob/living/simple_animal/handle_environment()
 #define COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT "simpleanimal_handle_environment"
 
-// /mob/living/simple_animal/hostile signals
-#define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
-//Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
-#define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
-
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"
 

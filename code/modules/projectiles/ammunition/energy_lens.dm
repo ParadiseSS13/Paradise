@@ -41,6 +41,13 @@
 	variance = 25
 	select_name = "scatter"
 
+/obj/item/ammo_casing/energy/laser/eshotgun
+	projectile_type = /obj/item/projectile/beam/scatter/eshotgun
+	pellets = 6
+	variance = 25
+	select_name = "kill"
+	delay = 1 SECONDS
+
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/item/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"
@@ -184,6 +191,17 @@
 	variance = 15
 	randomspread = 1
 	delay = 0
+
+/obj/item/ammo_casing/energy/disabler/eshotgun
+	projectile_type = /obj/item/projectile/beam/disabler/pellet
+	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	select_name  = "disable"
+	e_cost = 75
+	fire_sound = 'sound/weapons/taser2.ogg'
+	harmful = FALSE
+	delay = 1 SECONDS
+	pellets = 6
+	variance = 25
 
 /// seperate balancing for cyborg, again
 /obj/item/ammo_casing/energy/disabler/cyborg

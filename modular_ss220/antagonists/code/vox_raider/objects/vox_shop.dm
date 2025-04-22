@@ -25,7 +25,7 @@
 
 /obj/machinery/vox_shop/proc/generate_pack_items()
 	var/list/shop_items = list()
-	var/obj/machinery/vox_trader/trader = locate() in GLOB.machines
+	var/obj/machinery/vox_trader/trader = locate() in SSmachines.get_by_type(/obj/machinery/vox_trader)
 	for(var/path in subtypesof(/datum/vox_pack))
 		var/datum/vox_pack/pack = new path
 		if(pack.cost < 0)

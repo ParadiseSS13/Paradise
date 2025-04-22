@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(ru_names)
 		var/toml_path = "[PATH_TO_TRANSLATE_DATA]/ru_names.toml"
 		if(!fexists(file(toml_path)))
 			return .
-		GLOB.ru_names = rustg_read_toml_file("[PATH_TO_TRANSLATE_DATA]/ru_names.toml")
+		GLOB.ru_names = rustlibs_read_toml_file("[PATH_TO_TRANSLATE_DATA]/ru_names.toml")
 	if(GLOB.ru_names[formatted_name])
 		var/base = override_base || "[prefix][name][suffix]"
 		var/nominative_form = GLOB.ru_names[formatted_name]["nominative"] || name

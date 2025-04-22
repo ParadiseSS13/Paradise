@@ -502,6 +502,12 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	timeout = 600
 	var/atom/target = null
 
+/atom/movable/screen/alert/programs_reset
+	name = "Programs Reset"
+	desc = "Your programs have been reset by a Program Reset Disk!"
+	icon_state = "silicon_generic_alert"
+	timeout = 30 SECONDS
+
 /atom/movable/screen/alert/hackingapc/Destroy()
 	target = null
 	return ..()

@@ -679,7 +679,7 @@
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
-	for(var/obj/machinery/cryopod/P in GLOB.machines)
+	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
 		if(P.occupant)
 			continue
 		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))

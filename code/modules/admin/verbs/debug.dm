@@ -511,31 +511,31 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		else
 			areas_with_multiple_air_alarms |= A.type
 
-	for(var/obj/machinery/requests_console/RC in GLOB.machines)
+	for(var/obj/machinery/requests_console/RC in SSmachines.get_by_type(/obj/machinery/requests_console))
 		var/area/A = get_area(RC)
 		if(!A)
 			continue
 		areas_with_RC |= A.type
 
-	for(var/obj/machinery/light/L in GLOB.machines)
+	for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 		var/area/A = get_area(L)
 		if(!A)
 			continue
 		areas_with_light |= A.type
 
-	for(var/obj/machinery/light_switch/LS in GLOB.machines)
+	for(var/obj/machinery/light_switch/LS in SSmachines.get_by_type(/obj/machinery/light_switch))
 		var/area/A = get_area(LS)
 		if(!A)
 			continue
 		areas_with_LS |= A.type
 
-	for(var/obj/item/radio/intercom/I in GLOB.global_radios)
+	for(var/obj/item/radio/intercom/I in SSmachines.get_by_type(/obj/item/radio/intercom))
 		var/area/A = get_area(I)
 		if(!A)
 			continue
 		areas_with_intercom |= A.type
 
-	for(var/obj/machinery/camera/C in GLOB.machines)
+	for(var/obj/machinery/camera/C in SSmachines.get_by_type(/obj/machinery/camera))
 		var/area/A = get_area(C)
 		if(!A)
 			continue
@@ -693,11 +693,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!", null,"Yes","No") != "Yes")
 		return
 
-	for(var/obj/machinery/power/emitter/E in GLOB.machines)
+	for(var/obj/machinery/power/emitter/E in SSmachines.get_by_type(/obj/machinery/power/emitter))
 		if(E.anchored)
 			E.active = TRUE
 
-	for(var/obj/machinery/field/generator/F in GLOB.machines)
+	for(var/obj/machinery/field/generator/F in SSmachines.get_by_type(/obj/machinery/field/generator))
 		if(!F.active)
 			F.active = TRUE
 			F.state = 2
@@ -708,13 +708,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			F.update_icon()
 
 	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in GLOB.machines)
+		for(var/obj/machinery/the_singularitygen/G in SSmachines.get_by_type(/obj/machinery/the_singularitygen))
 			if(G.anchored)
 				var/obj/singularity/S = new /obj/singularity(get_turf(G))
 				S.energy = 800
 				break
 
-	for(var/obj/machinery/power/rad_collector/Rad in GLOB.machines)
+	for(var/obj/machinery/power/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/rad_collector))
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
@@ -726,7 +726,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in GLOB.machines)
+	for(var/obj/machinery/power/smes/SMES in SSmachines.get_by_type(/obj/machinery/power/smes))
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 

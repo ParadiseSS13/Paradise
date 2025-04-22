@@ -1132,7 +1132,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "kV" = (
 /obj/effect/mine/dnascramble,
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroid9"
 	},
@@ -2011,7 +2011,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "sZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/random/west,
+/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "th" = (
@@ -2388,7 +2388,7 @@
 	},
 /area/awaymission/wildwest/wildwest_mines)
 "xf" = (
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "xj" = (
@@ -2898,7 +2898,7 @@
 /obj/item/reagent_containers/drinks/drinkingglass/soda{
 	pixel_x = 11
 	},
-/obj/structure/sign/poster/official/random/south,
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Cx" = (
@@ -2992,7 +2992,7 @@
 	},
 /area/awaymission/wildwest/wildwest_refine)
 "Do" = (
-/obj/structure/sign/poster/contraband/random/south,
+/obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
 "Du" = (
@@ -4052,7 +4052,7 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
 "NH" = (
-/obj/structure/sign/poster/official/random/south,
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/wildwest/wildwest_mines)
 "NJ" = (
@@ -4778,7 +4778,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/sign/poster/contraband/random/south,
+/obj/structure/sign/poster/contraband/random/directional/south,
 /obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
@@ -4852,7 +4852,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/wildwest/wildwest_mines)
 "VU" = (
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
@@ -4876,7 +4876,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Wa" = (
 /obj/item/kirbyplants/large/dead,
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/carpet/green,
 /area/awaymission/wildwest/wildwest_mines)
 "Wc" = (
@@ -4931,7 +4931,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small/directional/east,
-/obj/structure/sign/poster/official/random/east,
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "WM" = (
@@ -4956,7 +4956,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Xn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/random/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Xr" = (
@@ -5081,7 +5081,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "YK" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /obj/structure/toilet{
 	dir = 8
 	},

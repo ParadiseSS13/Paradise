@@ -58,7 +58,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/powered)
 "j" = (
-/obj/structure/sign/poster/contraband/random/east,
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/ruin/space/powered)
 "k" = (
@@ -193,7 +193,7 @@
 /area/ruin/space/powered)
 "K" = (
 /obj/machinery/light/small/directional/north,
-/obj/structure/sign/poster/contraband/random/north,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/ruin/space/powered)
 "L" = (

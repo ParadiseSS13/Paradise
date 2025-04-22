@@ -470,7 +470,7 @@
 			precious_data["value"] = max(precious_data["value"], object_value)
 
 /obj/machinery/vox_trader/proc/synchronize_traders_stats()
-	for(var/obj/machinery/vox_trader/trader in GLOB.machines)
+	for(var/obj/machinery/vox_trader/trader in SSmachines.get_by_type(/obj/machinery/vox_trader))
 		if(trader == src)
 			continue
 
@@ -551,14 +551,14 @@
 	return TRUE
 
 /obj/machinery/vox_trader/proc/update_shops()
-	for(var/obj/machinery/vox_shop/shop in GLOB.machines)
+	for(var/obj/machinery/vox_shop/shop in SSmachines.get_by_type(/obj/machinery/vox_shop))
 		shop.generate_pack_items()
 		shop.generate_pack_lists()
 
 /obj/machinery/vox_trader/proc/try_update_blacklist()
 	if(length(blacklist_objects))
 		return
-	var/obj/machinery/vox_shop/shop = locate() in GLOB.machines
+	var/obj/machinery/vox_shop/shop = locate() in SSmachines.get_by_type(/obj/machinery/vox_shop)
 	if(!shop)
 		return
 

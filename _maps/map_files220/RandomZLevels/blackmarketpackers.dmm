@@ -609,9 +609,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/buffer)
 "ce" = (
-/obj/structure/sign/poster/contraband/syndicate_pistol{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/syndicate_pistol/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/engine,
@@ -666,9 +664,7 @@
 	dir = 4
 	},
 /obj/item/reagent_containers/pill/methamphetamine,
-/obj/structure/sign/poster/contraband/d_day_promo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/d_day_promo/directional/west,
 /turf/simulated/floor/carpet,
 /area/awaymission/bmp_ship/dormitories)
 "cp" = (
@@ -914,9 +910,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/sign/poster/contraband/energy_swords{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/energy_swords/directional/north,
 /obj/machinery/light_construct/small/east,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
@@ -953,9 +947,7 @@
 	layer = 3.2
 	},
 /obj/effect/decal/remains/human,
-/obj/structure/sign/poster/contraband/tools{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/tools/directional/west,
 /obj/item/reagent_containers/pill/charcoal{
 	layer = 2.9
 	},
@@ -976,9 +968,7 @@
 /obj/item/bedsheet/captain{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/revolver{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/revolver/directional/west,
 /turf/simulated/floor/carpet,
 /area/awaymission/bmp_ship/dormitories)
 "dh" = (
@@ -1725,9 +1715,7 @@
 /area/awaymission)
 "fj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/ripped{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/ripped/directional/north,
 /obj/structure/table,
 /obj/item/ashtray/bronze,
 /obj/item/cigbutt,
@@ -3306,9 +3294,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/structure/sign/poster/contraband/eat{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/eat/directional/north,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
@@ -3724,9 +3710,7 @@
 /obj/structure/bed{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/red_rum{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/red_rum/directional/west,
 /obj/item/toy/sword{
 	pixel_x = 8
 	},
@@ -4032,9 +4016,7 @@
 	dir = 4
 	},
 /obj/item/clothing/head/corgi,
-/obj/structure/sign/poster/contraband/syndicate_recruitment{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/west,
 /obj/item/reagent_containers/pill/charcoal,
 /turf/simulated/floor/carpet,
 /area/awaymission/bmp_ship/dormitories)
@@ -4923,9 +4905,7 @@
 /obj/item/reagent_containers/pill/methamphetamine{
 	layer = 2.9
 	},
-/obj/structure/sign/poster/contraband/have_a_puff{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/have_a_puff/directional/west,
 /mob/living/simple_animal/cockroach,
 /obj/item/reagent_containers/pill/charcoal{
 	layer = 2.9
@@ -5412,9 +5392,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/bmp_ship/dormitories)
 "Fz" = (
-/obj/structure/sign/poster/contraband/syndicate_recruitment{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/south,
 /obj/item/shard{
 	icon_state = "medium"
 	},
@@ -6918,9 +6896,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
 "WS" = (
-/obj/structure/sign/poster/contraband/c20r{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/c20r/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine,
@@ -7113,9 +7089,7 @@
 /obj/item/reagent_containers/pill/methamphetamine{
 	layer = 2.9
 	},
-/obj/structure/sign/poster/contraband/grey_tide{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/grey_tide/directional/west,
 /turf/simulated/floor/carpet,
 /area/awaymission/bmp_ship/dormitories)
 "YR" = (

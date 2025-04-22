@@ -10,7 +10,7 @@
 
 /datum/event/vent_clog/setup()
 	endWhen = rand(25, 100)
-	for(var/obj/machinery/atmospherics/unary/vent_scrubber/temp_vent in GLOB.machines)
+	for(var/obj/machinery/atmospherics/unary/vent_scrubber/temp_vent in SSmachines.get_by_type(/obj/machinery/atmospherics/unary/vent_scrubber))
 		if(is_station_level(temp_vent.loc.z))
 			if(length(temp_vent.parent.other_atmosmch) > 50)
 				vents += temp_vent

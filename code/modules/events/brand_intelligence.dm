@@ -28,7 +28,7 @@
 
 /datum/event/brand_intelligence/start()
 	var/list/obj/machinery/economy/vending/leaderables = list()
-	for(var/obj/machinery/economy/vending/candidate in GLOB.machines)
+	for(var/obj/machinery/economy/vending/candidate in SSmachines.get_by_type(/obj/machinery/economy/vending))
 		if(!is_station_level(candidate.z))
 			continue
 		RegisterSignal(candidate, COMSIG_PARENT_QDELETING, PROC_REF(vendor_destroyed))

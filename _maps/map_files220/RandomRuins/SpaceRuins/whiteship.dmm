@@ -25,9 +25,7 @@
 /obj/machinery/atmospherics/unary/passive_vent,
 /obj/structure/filingcabinet/chestdrawer/autopsy,
 /obj/machinery/light/directional/west,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -91,9 +89,7 @@
 /obj/structure/closet/crate/can,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,
 /obj/item/trash/pistachios,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -205,9 +201,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -444,6 +438,7 @@
 "jt" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -475,6 +470,7 @@
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -669,10 +665,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/shuttle/abandoned)
-"pG" = (
-/obj/structure/sign/poster/official/nanotrasen_logo,
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/abandoned)
 "qi" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -716,9 +708,7 @@
 	scrub_Toxins = 1
 	},
 /obj/item/retractor,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -997,9 +987,7 @@
 /obj/item/clothing/under/rank/medical/paramedic,
 /obj/item/clothing/shoes/black,
 /obj/item/surgical_drapes,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -1601,9 +1589,7 @@
 /area/shuttle/abandoned)
 "PU" = (
 /obj/machinery/light/directional/south,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
 /obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
@@ -1621,12 +1607,10 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
 /obj/item/storage/firstaid/surgery{
 	pixel_y = 8
 	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -2363,7 +2347,7 @@ Bm
 (13,1,1) = {"
 Bm
 Bm
-pG
+Ts
 jt
 Mz
 qE
@@ -2375,7 +2359,7 @@ Qz
 dy
 sZ
 kn
-pG
+Ts
 Bm
 Bm
 "}
