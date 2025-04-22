@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Button, Stack, Section, Divider } from '../components';
 import { Window } from '../layouts';
 
-export const SpecMenu = (props, context) => {
+export const SpecMenu = (props) => {
   return (
     <Window width={1100} height={600} theme="nologo">
       <Window.Content>
@@ -17,8 +17,8 @@ export const SpecMenu = (props, context) => {
   );
 };
 
-const HemoMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const HemoMenu = (props) => {
+  const { act, data } = useBackend();
   const { subclasses } = data;
   return (
     <Stack.Item grow basis="25%">
@@ -62,8 +62,8 @@ const HemoMenu = (props, context) => {
   );
 };
 
-const UmbrMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const UmbrMenu = (props) => {
+  const { act, data } = useBackend();
   const { subclasses } = data;
   return (
     <Stack.Item grow basis="25%">
@@ -106,8 +106,8 @@ const UmbrMenu = (props, context) => {
   );
 };
 
-const GarMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const GarMenu = (props) => {
+  const { act, data } = useBackend();
   const { subclasses } = data;
   return (
     <Stack.Item grow basis="25%">
@@ -153,8 +153,8 @@ const GarMenu = (props, context) => {
   );
 };
 
-const DantMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const DantMenu = (props) => {
+  const { act, data } = useBackend();
   const { subclasses } = data;
   return (
     <Stack.Item grow basis="25%">

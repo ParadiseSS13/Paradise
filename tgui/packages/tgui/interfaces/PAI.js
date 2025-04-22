@@ -24,8 +24,8 @@ const GetApp = (name) => {
   return Component;
 };
 
-export const PAI = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PAI = (props) => {
+  const { act, data } = useBackend();
   const { app_template, app_icon, app_title } = data;
 
   const App = GetApp(app_template);

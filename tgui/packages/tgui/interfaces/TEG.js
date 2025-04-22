@@ -6,8 +6,8 @@ const addcommas = (x) => {
   return x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 };
 
-export const TEG = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TEG = (props) => {
+  const { act, data } = useBackend();
   if (data.error) {
     return (
       <Window width={500} height={400}>

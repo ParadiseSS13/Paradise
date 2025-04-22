@@ -49,8 +49,8 @@ const pathCodeMap = new Map([
   ],
 ]);
 
-export const MagnetController = (props, context) => {
-  const { act, data } = useBackend(context);
+export const MagnetController = (props) => {
+  const { act, data } = useBackend();
   const {
     autolink,
     code,
@@ -129,7 +129,7 @@ export const MagnetController = (props, context) => {
                 float="right"
                 tooltip="Manually input path"
                 tooltipPosition="left"
-                onClick={() => modalOpen(context, 'path_custom_input')}
+                onClick={() => modalOpen('path_custom_input')}
               />
               <BlockQuote>
                 {path.map((code, i) => {

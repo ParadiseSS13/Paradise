@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const BlueSpaceArtilleryControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BlueSpaceArtilleryControl = (props) => {
+  const { act, data } = useBackend();
   let alertStatus;
   if (data.ready) {
     alertStatus = (

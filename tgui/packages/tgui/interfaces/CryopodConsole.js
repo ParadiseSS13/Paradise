@@ -3,8 +3,8 @@ import { Button, Section, NoticeBox, LabeledList, Collapsible } from '../compone
 import { Window } from '../layouts';
 import { toTitleCase } from 'common/string';
 
-export const CryopodConsole = (props, context) => {
-  const { data } = useBackend(context);
+export const CryopodConsole = (props) => {
+  const { data } = useBackend();
   const { account_name, allow_items } = data;
 
   return (
@@ -20,8 +20,8 @@ export const CryopodConsole = (props, context) => {
   );
 };
 
-const CrewList = (props, context) => {
-  const { data } = useBackend(context);
+const CrewList = (props) => {
+  const { data } = useBackend();
   const { frozen_crew } = data;
 
   return (
@@ -43,8 +43,8 @@ const CrewList = (props, context) => {
   );
 };
 
-const ItemList = (props, context) => {
-  const { act, data } = useBackend(context);
+const ItemList = (props) => {
+  const { act, data } = useBackend();
   const { frozen_items } = data;
 
   const replaceItemName = (item) => {

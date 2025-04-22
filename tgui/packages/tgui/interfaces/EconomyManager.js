@@ -3,7 +3,7 @@ import { Box, Button, Icon, LabeledList, Section, NoticeBox } from '../component
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 
-export const EconomyManager = (props, context) => {
+export const EconomyManager = (props) => {
   return (
     <Window width={600} height={325}>
       <ComplexModal />
@@ -14,8 +14,8 @@ export const EconomyManager = (props, context) => {
   );
 };
 
-const EconomyButtons = (properties, context) => {
-  const { act, data } = useBackend(context);
+const EconomyButtons = (properties) => {
+  const { act, data } = useBackend();
 
   const { next_payroll_time } = data;
 

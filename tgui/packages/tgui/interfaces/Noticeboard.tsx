@@ -13,8 +13,8 @@ type Paper = {
   ref: string;
 };
 
-export const Noticeboard = (props, context) => {
-  const { act, data } = useBackend<NoticeData>(context);
+export const Noticeboard = (props) => {
+  const { act, data } = useBackend<NoticeData>();
   const { papers } = data;
   return (
     <Window width={600} height={300} theme={'noticeboard'}>

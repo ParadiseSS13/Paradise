@@ -2,8 +2,8 @@
 import { useBackend } from '../../backend';
 import { Button, LabeledList, NoticeBox, Section, Box } from '../../components';
 
-export const BotStatus = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BotStatus = (props) => {
+  const { act, data } = useBackend();
   const { locked, noaccess, maintpanel, on, autopatrol, canhack, emagged, remote_disabled } = data;
   return (
     <>

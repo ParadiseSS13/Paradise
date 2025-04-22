@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Section, Button, NumberInput, Stack, NoticeBox, Icon } from '../components';
 import { Window } from '../layouts';
 
-export const Smartfridge = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Smartfridge = (props) => {
+  const { act, data } = useBackend();
   const {
     secure, // secure fridge notice
     can_dry, // dry section

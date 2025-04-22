@@ -3,8 +3,8 @@ import { Button, Divider, Flex, Section } from '../../components';
 import { LatheMaterials } from './LatheMaterials';
 import { LatheSearch } from './LatheSearch';
 
-export const LatheMainMenu = (properties, context) => {
-  const { data, act } = useBackend(context);
+export const LatheMainMenu = (properties) => {
+  const { data, act } = useBackend();
 
   const { menu, categories } = data;
 

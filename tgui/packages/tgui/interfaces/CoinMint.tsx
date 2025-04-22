@@ -22,8 +22,8 @@ type MintMaterial = {
   id: string;
 };
 
-export const CoinMint = (props, context) => {
-  const { act, data } = useBackend<MintData>(context);
+export const CoinMint = (props) => {
+  const { act, data } = useBackend<MintData>();
   const { materials, moneyBag, moneyBagContent, moneyBagMaxContent } = data;
   const dynamicHeight = (moneyBag ? 210 : 138) + Math.ceil(materials.length / 4) * 64;
   return (

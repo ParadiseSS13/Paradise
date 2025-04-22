@@ -18,7 +18,7 @@ type ChameleonSkin = {
   icon_state: string;
 };
 
-export const Chameleon = (props, context) => {
+export const Chameleon = (props) => {
   return (
     <Window width={431} height={500} theme="syndicate">
       <Window.Content>
@@ -38,9 +38,9 @@ const selectSkins = (skins, searchText = '') => {
   ])(skins);
 };
 
-export const ChameleonAppearances = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+export const ChameleonAppearances = (props) => {
+  const { act, data } = useBackend<Data>();
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   const chameleon_skins = selectSkins(data.chameleon_skins, searchText);
   const { selected_appearance } = data;
   return (

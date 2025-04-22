@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const AirlockAccessController = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AirlockAccessController = (props) => {
+  const { act, data } = useBackend();
   const { exterior_status, interior_status, processing } = data;
   let exteriorbutton;
   let interiorbutton;

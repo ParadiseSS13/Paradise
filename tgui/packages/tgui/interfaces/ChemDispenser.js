@@ -6,8 +6,8 @@ import { Window } from '../layouts';
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 const removeAmounts = [1, 5, 10];
 
-export const ChemDispenser = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ChemDispenser = (props) => {
+  const { act, data } = useBackend();
   const { chemicals } = data;
   return (
     <Window width={400} height={400 + chemicals.length * 8}>
@@ -22,8 +22,8 @@ export const ChemDispenser = (props, context) => {
   );
 };
 
-const ChemDispenserSettings = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemDispenserSettings = (properties) => {
+  const { act, data } = useBackend();
   const { amount, energy, maxEnergy } = data;
   return (
     <Stack.Item>
@@ -68,8 +68,8 @@ const ChemDispenserSettings = (properties, context) => {
   );
 };
 
-const ChemDispenserChemicals = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemDispenserChemicals = (properties) => {
+  const { act, data } = useBackend();
   const { chemicals = [] } = data;
   const flexFillers = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {
@@ -103,8 +103,8 @@ const ChemDispenserChemicals = (properties, context) => {
   );
 };
 
-const ChemDispenserBeaker = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemDispenserBeaker = (properties) => {
+  const { act, data } = useBackend();
   const { isBeakerLoaded, beakerCurrentVolume, beakerMaxVolume, beakerContents = [] } = data;
   return (
     <Stack.Item height={16}>

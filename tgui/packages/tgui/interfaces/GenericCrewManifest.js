@@ -2,7 +2,7 @@ import { Section } from '../components';
 import { Window } from '../layouts';
 import { CrewManifest } from './common/CrewManifest';
 
-export const GenericCrewManifest = (props, context) => {
+export const GenericCrewManifest = (props) => {
   return (
     <Window theme="nologo" width={588} height={510}>
       <Window.Content scrollable>

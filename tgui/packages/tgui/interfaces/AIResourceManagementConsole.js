@@ -3,8 +3,8 @@ import { Box, Button, LabeledList, NoticeBox, Section, Stack, Tabs } from '../co
 import { capitalize } from 'common/string';
 import { Window } from '../layouts';
 
-const AIResourceManagementConsoleBody = (props, context) => {
-  const { data } = useBackend(context);
+const AIResourceManagementConsoleBody = (props) => {
+  const { data } = useBackend();
   const { screen } = data;
   let body;
 
@@ -16,8 +16,8 @@ const AIResourceManagementConsoleBody = (props, context) => {
   return body;
 };
 
-export const AIResourceManagementConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AIResourceManagementConsole = (props) => {
+  const { act, data } = useBackend();
   const { auth, ai_list, nodes_list, screen } = data;
 
   return (
@@ -45,8 +45,8 @@ export const AIResourceManagementConsole = (props, context) => {
   );
 };
 
-const AllocatedResources = (props, context) => {
-  const { act, data } = useBackend(context);
+const AllocatedResources = (props) => {
+  const { act, data } = useBackend();
   const { screen, ai_list, nodes_list } = data;
   return (
     <Box>
@@ -66,8 +66,8 @@ const AllocatedResources = (props, context) => {
   );
 };
 
-const OnlineNodes = (props, context) => {
-  const { act, data } = useBackend(context);
+const OnlineNodes = (props) => {
+  const { act, data } = useBackend();
   const { screen, ai_list, nodes_list } = data;
   return (
     <Box>

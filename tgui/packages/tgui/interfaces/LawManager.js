@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section, NoticeBox, Table } from '../components';
 import { Window } from '../layouts';
 
-export const LawManager = (props, context) => {
-  const { act, data } = useBackend(context);
+export const LawManager = (props) => {
+  const { act, data } = useBackend();
   const { isAdmin, isSlaved, isMalf, isAIMalf, view } = data;
 
   return (
@@ -23,8 +23,8 @@ export const LawManager = (props, context) => {
   );
 };
 
-const LawManagementView = (props, context) => {
-  const { act, data } = useBackend(context);
+const LawManagementView = (props) => {
+  const { act, data } = useBackend();
   const {
     has_zeroth_laws,
     zeroth_laws,
@@ -127,8 +127,8 @@ const LawManagementView = (props, context) => {
   );
 };
 
-const LawsetsView = (props, context) => {
-  const { act, data } = useBackend(context);
+const LawsetsView = (props) => {
+  const { act, data } = useBackend();
   const { law_sets } = data;
   return (
     <Box>
@@ -176,7 +176,7 @@ const LawsetsView = (props, context) => {
   );
 };
 
-const LawTable = (props, context) => {
+const LawTable = (props) => {
   const { act, data } = useBackend(props.ctx);
   const { isMalf } = data;
   return (

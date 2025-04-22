@@ -2,9 +2,9 @@ import { Window } from '../layouts';
 import { TimeDisplay, Button, Section, Stack, Table } from '../components';
 import { useBackend } from '../backend';
 
-const BrigCellsTableRow = (properties, context) => {
+const BrigCellsTableRow = (properties) => {
   const { cell } = properties;
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   const { cell_id, occupant, crimes, brigged_by, time_left_seconds, time_set_seconds, ref } = cell;
 
   let className = '';
@@ -54,8 +54,8 @@ const BrigCellsTable = ({ cells }) => (
   </Table>
 );
 
-export const BrigCells = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const BrigCells = (properties) => {
+  const { act, data } = useBackend();
   const { cells } = data;
 
   return (

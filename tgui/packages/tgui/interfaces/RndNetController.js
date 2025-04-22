@@ -4,10 +4,10 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, Box, Section, NoticeBox, Tabs, Icon, Table, Input } from '../components';
 import { Window } from '../layouts';
 
-export const RndNetController = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RndNetController = (props) => {
+  const { act, data } = useBackend();
   const { ion } = data;
-  const [tabIndex, setTabIndex] = useLocalState(context, 'mainTabIndex', 0);
+  const [tabIndex, setTabIndex] = useLocalState('mainTabIndex', 0);
 
   const PickTab = (index) => {
     switch (index) {
@@ -37,10 +37,10 @@ export const RndNetController = (props, context) => {
   );
 };
 
-const NetworkPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const NetworkPage = (_properties) => {
+  const { act, data } = useBackend();
 
-  const [filterType, setFilterType] = useLocalState(context, 'filterType', 'ALL');
+  const [filterType, setFilterType] = useLocalState('filterType', 'ALL');
 
   const { network_password, network_name, devices } = data;
 
@@ -141,10 +141,10 @@ const NetworkPage = (_properties, context) => {
   );
 };
 
-const DesignPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const DesignPage = (_properties) => {
+  const { act, data } = useBackend();
   const { designs } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   return (
     <Section title="Design Management">

@@ -3,8 +3,8 @@ import { Button, LabeledList, Section, Stack, Tabs, Icon } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 
-export const GuestPass = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GuestPass = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={500} height={690}>
       <Window.Content>

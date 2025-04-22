@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { LabeledList, Button } from '../components';
 import { Window } from '../layouts';
 
-export const AppearanceChanger = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AppearanceChanger = (props) => {
+  const { act, data } = useBackend();
   const {
     change_race,
     species,
@@ -220,8 +220,8 @@ export const AppearanceChanger = (props, context) => {
   );
 };
 
-const ColorContent = (props, context) => {
-  const { act, data } = useBackend(context);
+const ColorContent = (props) => {
+  const { act, data } = useBackend();
 
   const colorOptions = [
     { key: 'change_eye_color', text: 'Change eye color', action: 'eye_color' },

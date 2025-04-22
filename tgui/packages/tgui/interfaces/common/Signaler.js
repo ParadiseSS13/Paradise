@@ -2,8 +2,8 @@ import { toFixed } from 'common/math';
 import { useBackend } from '../../backend';
 import { Button, LabeledList, NumberInput, Section } from '../../components';
 
-export const Signaler = (props, context) => {
-  const { act } = useBackend(context);
+export const Signaler = (props) => {
+  const { act } = useBackend();
   const { code, frequency, minFrequency, maxFrequency } = props.data;
   return (
     <Section>

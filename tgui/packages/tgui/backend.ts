@@ -14,11 +14,18 @@
 import { perf } from 'common/perf';
 import { createAction } from 'common/redux';
 import { setupDrag } from './drag';
+import { globalEvents } from './events';
 import { focusMap } from './focus';
 import { createLogger } from './logging';
 import { resumeRenderer, suspendRenderer } from './renderer';
 
 const logger = createLogger('backend');
+
+export let globalStore;
+
+export const setGlobalStore = (store) => {
+  globalStore = store;
+};
 
 export const backendUpdate = createAction('backend/update');
 export const backendSetSharedState = createAction('backend/setSharedState');
@@ -153,7 +160,7 @@ export const backendMiddleware = (store) => {
       Byond.winset(Byond.windowId, {
         'is-visible': false,
       });
-      setTimeout(() => focusMap());
+      setImmediate(() => focusMap());
     }
 
     if (type === 'backend/update') {
@@ -183,7 +190,7 @@ export const backendMiddleware = (store) => {
       setupDrag();
       // We schedule this for the next tick here because resizing and unhiding
       // during the same tick will flash with a white background.
-      setTimeout(() => {
+      setImmediate(() => {
         perf.mark('resume/start');
         // Doublecheck if we are not re-suspended.
         const { suspended } = selectBackend(store.getState());
@@ -224,6 +231,7 @@ type BackendState<TData> = {
     status: number;
     interface: string;
     refreshing: boolean;
+    map: string;
     window: {
       key: string;
       size: [number, number];
@@ -244,6 +252,10 @@ type BackendState<TData> = {
   shared: Record<string, any>;
   suspending: boolean;
   suspended: boolean;
+  debug?: {
+    debugLayout: boolean;
+    kitchenSink: boolean;
+  };
 };
 
 /**
@@ -252,16 +264,13 @@ type BackendState<TData> = {
 export const selectBackend = <TData>(state: any): BackendState<TData> => state.backend || {};
 
 /**
- * A React hook (sort of) for getting tgui state and related functions.
+ * Get data from tgui backend.
  *
- * This is supposed to be replaced with a real React Hook, which can only
- * be used in functional components.
- *
- * You can make
+ * Includes the `act` function for performing DM actions.
  */
-export const useBackend = <TData>(context: any) => {
-  const { store } = context;
-  const state = selectBackend<TData>(store.getState());
+export const useBackend = <TData>() => {
+  const state: BackendState<TData> = globalStore?.getState()?.backend;
+
   return {
     ...state,
     act: sendAct,
@@ -286,15 +295,14 @@ type StateWithSetter<T> = [T, (nextState: T) => void];
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  */
-export const useLocalState = <T>(context: any, key: string, initialState: T): StateWithSetter<T> => {
-  const { store } = context;
-  const state = selectBackend(store.getState());
-  const sharedStates = state.shared ?? {};
+export const useLocalState = <T>(key: string, initialState: T): StateWithSetter<T> => {
+  const state = globalStore?.getState()?.backend;
+  const sharedStates = state?.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
     (nextState) => {
-      store.dispatch(
+      globalStore.dispatch(
         backendSetSharedState({
           key,
           nextState: typeof nextState === 'function' ? nextState(sharedState) : nextState,
@@ -318,10 +326,9 @@ export const useLocalState = <T>(context: any, key: string, initialState: T): St
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  */
-export const useSharedState = <T>(context: any, key: string, initialState: T): StateWithSetter<T> => {
-  const { store } = context;
-  const state = selectBackend(store.getState());
-  const sharedStates = state.shared ?? {};
+export const useSharedState = <T>(key: string, initialState: T): StateWithSetter<T> => {
+  const state = globalStore?.getState()?.backend;
+  const sharedStates = state?.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,

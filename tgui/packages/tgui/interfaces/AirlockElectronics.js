@@ -9,7 +9,7 @@ const SOUTH = 2;
 const EAST = 4;
 const WEST = 8;
 
-export const AirlockElectronics = (props, context) => {
+export const AirlockElectronics = (props) => {
   return (
     <Window width={450} height={565}>
       <Window.Content>
@@ -22,8 +22,8 @@ export const AirlockElectronics = (props, context) => {
   );
 };
 
-const UnrestrictedAccess = (props, context) => {
-  const { act, data } = useBackend(context);
+const UnrestrictedAccess = (props) => {
+  const { act, data } = useBackend();
   const { unrestricted_dir } = data;
   return (
     <Section title="Access Control">
@@ -95,8 +95,8 @@ const UnrestrictedAccess = (props, context) => {
   );
 };
 
-const ChooseAccess = (props, context) => {
-  const { act, data } = useBackend(context);
+const ChooseAccess = (props) => {
+  const { act, data } = useBackend();
   const { selected_accesses, one_access, regions } = data;
   return (
     <AccessList

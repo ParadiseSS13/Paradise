@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, ProgressBar, Section, Box, Stack, Icon, NumberInput } from '../components';
 import { Window } from '../layouts';
 
-export const CloningPod = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CloningPod = (props) => {
+  const { act, data } = useBackend();
   const { biomass, biomass_storage_capacity, sanguine_reagent, osseous_reagent, organs, currently_cloning } = data;
   return (
     <Window width={500} height={500}>

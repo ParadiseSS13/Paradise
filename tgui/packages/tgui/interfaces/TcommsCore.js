@@ -2,10 +2,10 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, Box, Section, NoticeBox, Tabs, Table } from '../components';
 import { Window } from '../layouts';
 
-export const TcommsCore = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TcommsCore = (props) => {
+  const { act, data } = useBackend();
   const { ion } = data;
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
 
   const PickTab = (index) => {
     switch (index) {
@@ -52,8 +52,8 @@ const IonBanner = () => {
   );
 };
 
-const ConfigPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ConfigPage = (_properties) => {
+  const { act, data } = useBackend();
   const {
     active,
     sectors_available,
@@ -155,8 +155,8 @@ const ConfigPage = (_properties, context) => {
   );
 };
 
-const LinkagePage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const LinkagePage = (_properties) => {
+  const { act, data } = useBackend();
   const { link_password, relay_entries } = data;
   return (
     <Section title="Device Linkage">
@@ -203,8 +203,8 @@ const LinkagePage = (_properties, context) => {
   );
 };
 
-const FilteringPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const FilteringPage = (_properties) => {
+  const { act, data } = useBackend();
   const { filtered_users } = data;
   return (
     <Section

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Grid, LabeledList, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const DnaVault = (props, context) => {
-  const { act, data } = useBackend(context);
+export const DnaVault = (props) => {
+  const { act, data } = useBackend();
   const { completed } = data;
   return (
     <Window width={350} height={270}>
@@ -17,8 +17,8 @@ export const DnaVault = (props, context) => {
   );
 };
 
-const DnaVaultDataBase = (props, context) => {
-  const { act, data } = useBackend(context);
+const DnaVaultDataBase = (props) => {
+  const { act, data } = useBackend();
   const { dna, dna_max, plants, plants_max, animals, animals_max } = data;
   const average_progress = 0.66;
   const bad_progress = 0.33;
@@ -68,8 +68,8 @@ const DnaVaultDataBase = (props, context) => {
   );
 };
 
-const GeneTherapySelection = (props, context) => {
-  const { act, data } = useBackend(context);
+const GeneTherapySelection = (props) => {
+  const { act, data } = useBackend();
   const { choiceA, choiceB, used } = data;
   return (
     <Stack.Item>

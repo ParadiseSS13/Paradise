@@ -3,8 +3,8 @@ import { Button, LabeledList, NoticeBox, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 
-export const PortableTurret = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PortableTurret = (props) => {
+  const { act, data } = useBackend();
   const {
     locked,
     on,

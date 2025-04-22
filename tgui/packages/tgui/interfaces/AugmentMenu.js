@@ -3,7 +3,7 @@ import { Stack, Button, Section, Tabs, Input } from '../components';
 import { Window } from '../layouts';
 import { capitalize } from 'common/string';
 
-export const AugmentMenu = (props, context) => {
+export const AugmentMenu = (props) => {
   return (
     <Window width={700} height={660} theme="malfunction">
       <Window.Content>
@@ -16,10 +16,10 @@ export const AugmentMenu = (props, context) => {
 };
 
 const Abilities = ({ context }) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   const { usable_swarms, ability_tabs, known_abilities } = data;
-  const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [selectedTab, setSelectedTab] = useLocalState('selectedTab', ability_tabs[0]);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   const getFilteredAbilities = () => {
     const currentTab = ability_tabs.find((tab) => tab.category_name === selectedTab.category_name);

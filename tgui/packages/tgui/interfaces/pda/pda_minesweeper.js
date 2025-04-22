@@ -1,10 +1,10 @@
 import { useBackend, useLocalState } from '../../backend';
 import { Box, Button, Stack, Section, Table, Icon } from '../../components';
 
-export const pda_minesweeper = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_minesweeper = (props) => {
+  const { act, data } = useBackend();
 
-  const [currentWindow, setWindow] = useLocalState(context, 'window', 'Game');
+  const [currentWindow, setWindow] = useLocalState('window', 'Game');
 
   const AltWindow = {
     'Game': 'Leaderboard',
@@ -30,8 +30,8 @@ export const pda_minesweeper = (props, context) => {
   );
 };
 
-export const MineSweeperGame = (props, context) => {
-  const { act, data } = useBackend(context);
+export const MineSweeperGame = (props) => {
+  const { act, data } = useBackend();
   const { matrix, flags, bombs } = data;
 
   const NumColor = {
@@ -114,11 +114,11 @@ export const MineSweeperGame = (props, context) => {
   );
 };
 
-export const MineSweeperLeaderboard = (props, context) => {
-  const { act, data } = useBackend(context);
+export const MineSweeperLeaderboard = (props) => {
+  const { act, data } = useBackend();
   const { leaderboard } = data;
-  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'time');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', false);
+  const [sortId, _setSortId] = useLocalState('sortId', 'time');
+  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', false);
 
   return (
     <Table className="Minesweeper__list">
@@ -142,9 +142,9 @@ export const MineSweeperLeaderboard = (props, context) => {
   );
 };
 
-const SortButton = (properties, context) => {
-  const [sortId, setSortId] = useLocalState(context, 'sortId', 'time');
-  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', false);
+const SortButton = (properties) => {
+  const [sortId, setSortId] = useLocalState('sortId', 'time');
+  const [sortOrder, setSortOrder] = useLocalState('sortOrder', false);
   const { id, children } = properties;
   return (
     <Table.Cell>

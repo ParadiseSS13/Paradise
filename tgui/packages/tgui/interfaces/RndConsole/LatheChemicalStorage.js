@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { Button, LabeledList, Section } from '../../components';
 
-export const LatheChemicalStorage = (properties, context) => {
-  const { data, act } = useBackend(context);
+export const LatheChemicalStorage = (properties) => {
+  const { data, act } = useBackend();
 
   const { loaded_chemicals } = data;
 

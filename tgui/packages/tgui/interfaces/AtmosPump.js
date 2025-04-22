@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section, NumberInput, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const AtmosPump = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AtmosPump = (props) => {
+  const { act, data } = useBackend();
   const { on, rate, max_rate, gas_unit, step } = data;
 
   return (

@@ -44,15 +44,15 @@ const decideTab = (tab) => {
   }
 };
 
-const ConsoleTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const ConsoleTab = (props) => {
+  const { act, data } = useBackend();
   const { menu: currentMenu } = data;
   const { menu, ...rest } = props;
   return <Tab selected={currentMenu === menu} onClick={() => act('nav', { menu })} {...rest} />;
 };
 
-export const RndConsole = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const RndConsole = (properties) => {
+  const { act, data } = useBackend();
 
   if (!data.linked) {
     return <LinkMenu />;
@@ -98,8 +98,8 @@ export const RndConsole = (properties, context) => {
   );
 };
 
-const WaitNotice = (props, context) => {
-  const { data } = useBackend(context);
+const WaitNotice = (props) => {
+  const { data } = useBackend();
   const { wait_message } = data;
   if (!wait_message) {
     return null;
@@ -114,8 +114,8 @@ const WaitNotice = (props, context) => {
   );
 };
 
-const MainMenu = (props, context) => {
-  const { data } = useBackend(context);
+const MainMenu = (props) => {
+  const { data } = useBackend();
 
   const { tech_levels } = data;
 

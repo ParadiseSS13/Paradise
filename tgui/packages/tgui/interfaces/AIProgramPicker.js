@@ -2,8 +2,8 @@ import { useBackend, useSharedState } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const AIProgramPicker = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AIProgramPicker = (props) => {
+  const { act, data } = useBackend();
   const { program_list, ai_info } = data;
   return (
     <Window width={450} height={600}>

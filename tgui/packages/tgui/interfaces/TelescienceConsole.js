@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, NumberInput, Button, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const TelescienceConsole = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const TelescienceConsole = (properties) => {
+  const { act, data } = useBackend();
   const {
     last_msg,
     linked_pad,
@@ -18,7 +18,7 @@ export const TelescienceConsole = (properties, context) => {
     working,
     max_z,
   } = data;
-  const [dummyRot, setDummyRot] = useLocalState(context, 'dummyrot', current_bearing);
+  const [dummyRot, setDummyRot] = useLocalState('dummyrot', current_bearing);
 
   return (
     <Window width={400} height={500}>

@@ -12,10 +12,10 @@ type ListInputData = {
   title: string;
 };
 
-export const RankedListInputModal = (props, context) => {
-  const { act, data } = useBackend<ListInputData>(context);
+export const RankedListInputModal = (props) => {
+  const { act, data } = useBackend<ListInputData>();
   const { items = [], message = '', timeout, title } = data;
-  const [edittedItems, setEdittedItems] = useLocalState<string[]>(context, 'edittedItems', items);
+  const [edittedItems, setEdittedItems] = useLocalState<string[]>('edittedItems', items);
 
   // Dynamically changes the window height based on the message.
   const windowHeight = 330 + Math.ceil(message.length / 3);
@@ -43,9 +43,9 @@ export const RankedListInputModal = (props, context) => {
  * Displays the list of selectable items.
  * If a search query is provided, filters the items.
  */
-const ListDisplay = (props, context) => {
+const ListDisplay = (props) => {
   const { filteredItems, setEdittedItems } = props;
-  const [draggedItemIndex, setDraggedItemIndex] = useLocalState<number | null>(context, 'draggedItemIndex', null);
+  const [draggedItemIndex, setDraggedItemIndex] = useLocalState<number | null>('draggedItemIndex', null);
 
   // Handle the drag start event
   const handleDragStart = (index: number) => {

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section, Dimmer, Icon } from '../components';
 import { Window } from '../layouts';
 
-export const PersonalCrafting = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PersonalCrafting = (props) => {
+  const { act, data } = useBackend();
   const {
     busy,
     category,
@@ -60,8 +60,8 @@ export const PersonalCrafting = (props, context) => {
   );
 };
 
-const CompactView = (props, context) => {
-  const { act, data } = useBackend(context);
+const CompactView = (props) => {
+  const { act, data } = useBackend();
   const { display_craftable_only, can_craft, cant_craft } = data;
   return (
     <Box mt={1}>
@@ -88,8 +88,8 @@ const CompactView = (props, context) => {
   );
 };
 
-const ExpandedView = (props, context) => {
-  const { act, data } = useBackend(context);
+const ExpandedView = (props) => {
+  const { act, data } = useBackend();
   const { display_craftable_only, can_craft, cant_craft } = data;
   return (
     <Box mt={1}>

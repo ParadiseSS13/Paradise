@@ -2,8 +2,8 @@ import { useBackend, useSharedState } from '../backend';
 import { Box, Button, LabeledList, ProgressBar, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const RoboticsControlConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RoboticsControlConsole = (props) => {
+  const { act, data } = useBackend();
   const { can_hack, safety, show_lock_all, cyborgs = [] } = data;
   return (
     <Window width={500} height={460}>
@@ -31,9 +31,9 @@ export const RoboticsControlConsole = (props, context) => {
   );
 };
 
-const Cyborgs = (props, context) => {
+const Cyborgs = (props) => {
   const { cyborgs, can_hack } = props;
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   let detonateText = 'Detonate';
   if (data.detonate_cooldown > 0) {
     detonateText += ' (' + data.detonate_cooldown + 's)';

@@ -3,8 +3,8 @@ import { Button, Section, Box, Stack, Icon, Collapsible, NumberInput, ProgressBa
 import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
 
-export const Biogenerator = (props, context) => {
-  const { data, config } = useBackend(context);
+export const Biogenerator = (props) => {
+  const { data, config } = useBackend();
   const { container, processing } = data;
   const { title } = config;
   return (
@@ -21,7 +21,7 @@ export const Biogenerator = (props, context) => {
   );
 };
 
-const MissingContainer = (props, context) => {
+const MissingContainer = (props) => {
   return (
     <Section fill scrollable>
       <Stack fill>
@@ -35,8 +35,8 @@ const MissingContainer = (props, context) => {
   );
 };
 
-const Storage = (props, context) => {
-  const { act, data } = useBackend(context);
+const Storage = (props) => {
+  const { act, data } = useBackend();
   const { biomass, container, container_curr_reagents, container_max_reagents } = data;
 
   return (
@@ -64,8 +64,8 @@ const Storage = (props, context) => {
   );
 };
 
-const Controls = (props, context) => {
-  const { act, data } = useBackend(context);
+const Controls = (props) => {
+  const { act, data } = useBackend();
   const { has_plants, container } = data;
 
   return (
@@ -112,11 +112,11 @@ const Controls = (props, context) => {
   );
 };
 
-const Products = (props, context) => {
-  const { act, data } = useBackend(context);
+const Products = (props) => {
+  const { act, data } = useBackend();
   const { biomass, product_list } = data;
 
-  let [vendAmount, setVendAmount] = useSharedState(context, 'vendAmount', 1);
+  let [vendAmount, setVendAmount] = useSharedState('vendAmount', 1);
 
   let content = Object.entries(product_list).map((kv, _i) => {
     let category_items = Object.entries(kv[1]).map((kv2) => {

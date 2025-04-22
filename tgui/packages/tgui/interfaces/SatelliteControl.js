@@ -2,9 +2,9 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, NanoMap, ProgressBar, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const SatelliteControl = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndexInternal] = useLocalState(context, 'tabIndex', data.tabIndex);
+export const SatelliteControl = (props) => {
+  const { act, data } = useBackend();
+  const [tabIndex, setTabIndexInternal] = useLocalState('tabIndex', data.tabIndex);
   const setTabIndex = (index) => {
     setTabIndexInternal(index);
     act('set_tab_index', { tab_index: index });
@@ -42,8 +42,8 @@ export const SatelliteControl = (props, context) => {
   );
 };
 
-export const SatelliteControlSatellitesList = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SatelliteControlSatellitesList = (props) => {
+  const { act, data } = useBackend();
   const { satellites } = data;
   return (
     <Section title="Satellite Network Control">
@@ -63,8 +63,8 @@ export const SatelliteControlSatellitesList = (props, context) => {
   );
 };
 
-export const SatelliteControlMapView = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SatelliteControlMapView = (props) => {
+  const { act, data } = useBackend();
   const { satellites, has_goal, defended, collisions, fake_meteors, zoom, offsetX, offsetY } = data;
   let i = 0;
   return (
@@ -123,8 +123,8 @@ export const SatelliteControlMapView = (props, context) => {
   );
 };
 
-export const SatelliteControlFooter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SatelliteControlFooter = (props) => {
+  const { act, data } = useBackend();
   const { notice, notice_color, has_goal, coverage, coverage_goal, testing } = data;
 
   return (

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, ProgressBar, Box, LabeledList, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 
-export const AIFixer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AIFixer = (props) => {
+  const { act, data } = useBackend();
   if (data.occupant === null) {
     return (
       <Window width={550} height={500}>

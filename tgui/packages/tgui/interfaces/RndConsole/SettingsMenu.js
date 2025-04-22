@@ -1,15 +1,15 @@
 import { useBackend } from '../../backend';
 import { Box, Button, Flex, LabeledList, Section } from '../../components';
 
-export const SettingsMenu = (props, context) => (
+export const SettingsMenu = (props) => (
   <Box>
     <MainSettings />
     <DeviceSettings />
   </Box>
 );
 
-const MainSettings = (props, context) => {
-  const { act, data } = useBackend(context);
+const MainSettings = (props) => {
+  const { act, data } = useBackend();
   const { sync, admin } = data;
 
   return (
@@ -36,8 +36,8 @@ const MainSettings = (props, context) => {
   );
 };
 
-const DeviceSettings = (props, context) => {
-  const { data, act } = useBackend(context);
+const DeviceSettings = (props) => {
+  const { data, act } = useBackend();
   const { linked_analyzer, linked_lathe, linked_imprinter } = data;
 
   return (

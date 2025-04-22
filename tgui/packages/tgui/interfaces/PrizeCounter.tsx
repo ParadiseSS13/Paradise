@@ -16,11 +16,11 @@ type PrizeData = {
   prizes: Prize[];
 };
 
-export const PrizeCounter = (props, context) => {
-  const { act, data } = useBackend<PrizeData>(context);
+export const PrizeCounter = (props) => {
+  const { act, data } = useBackend<PrizeData>();
   const { tickets, prizes = [] } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [toggleSearch, setToggleSearch] = useLocalState(context, 'toggleSearch', false);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [toggleSearch, setToggleSearch] = useLocalState('toggleSearch', false);
   const filteredPrizes = prizes.filter((prize) => prize.name.toLowerCase().includes(searchText.toLowerCase()));
   return (
     <Window width={450} height={585} title="Arcade Ticket Exchange">

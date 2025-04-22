@@ -2,8 +2,8 @@ import { useBackend } from '../../backend';
 import { Box, Button, ImageButton, Section } from '../../components';
 import { Icon, IconStack } from '../../components/Icon';
 
-export const pda_games = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_games = (props) => {
+  const { act, data } = useBackend();
   const { games } = data;
 
   const GetAppImage = (AppName) => {

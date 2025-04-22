@@ -48,11 +48,11 @@ const PickTab = (index) => {
   }
 };
 
-export const AdminAntagMenu = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const AdminAntagMenu = (properties) => {
+  const { act, data } = useBackend();
   const { loginState, currentPage } = data;
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   return (
     <Window width={800} height={600}>
       <Window.Content scrollable>
@@ -129,12 +129,12 @@ export const AdminAntagMenu = (properties, context) => {
   );
 };
 
-const AntagList = (properties, context) => {
-  const { act, data } = useBackend(context);
+const AntagList = (properties) => {
+  const { act, data } = useBackend();
   const { antagonists } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'antag_name');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [sortId, _setSortId] = useLocalState('sortId', 'antag_name');
+  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
   if (!antagonists.length) {
     return 'No Antagonists!';
   }
@@ -232,12 +232,12 @@ const AntagList = (properties, context) => {
   );
 };
 
-const Objectives = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Objectives = (properties) => {
+  const { act, data } = useBackend();
   const { objectives } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId2', 'target_name');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [sortId, _setSortId] = useLocalState('sortId2', 'target_name');
+  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
   if (!objectives.length) {
     return 'No Objectives!';
   }
@@ -337,12 +337,12 @@ const Objectives = (properties, context) => {
   );
 };
 
-const Security = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Security = (properties) => {
+  const { act, data } = useBackend();
   const { security } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId3', 'health');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [sortId, _setSortId] = useLocalState('sortId3', 'health');
+  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
 
   const getColor = (officer) => {
     if (officer.status === 2) {
@@ -499,12 +499,12 @@ const Security = (properties, context) => {
   );
 };
 
-const HighValueItems = (properties, context) => {
-  const { act, data } = useBackend(context);
+const HighValueItems = (properties) => {
+  const { act, data } = useBackend();
   const { high_value_items } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId4', 'person');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [sortId, _setSortId] = useLocalState('sortId4', 'person');
+  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
   if (!high_value_items.length) {
     return 'No High Value Items!';
   }
@@ -584,10 +584,10 @@ const HighValueItems = (properties, context) => {
   );
 };
 
-const SortButton = (properties, context) => {
+const SortButton = (properties) => {
   const { id, sort_group = 'sortId', default_sort = 'antag_name', children } = properties;
-  const [sortId, setSortId] = useLocalState(context, sort_group, default_sort);
-  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [sortId, setSortId] = useLocalState(sort_group, default_sort);
+  const [sortOrder, setSortOrder] = useLocalState('sortOrder', true);
   return (
     <Table.Cell>
       <Button

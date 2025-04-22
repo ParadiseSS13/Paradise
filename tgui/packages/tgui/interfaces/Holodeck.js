@@ -2,10 +2,10 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, Section, Stack, Dimmer, Icon } from '../components';
 import { Window } from '../layouts';
 
-export const Holodeck = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [currentDeck, setCurrentDeck] = useLocalState(context, 'currentDeck', '');
-  const [showReload, setShowReload] = useLocalState(context, 'showReload', false);
+export const Holodeck = (props) => {
+  const { act, data } = useBackend();
+  const [currentDeck, setCurrentDeck] = useLocalState('currentDeck', '');
+  const [showReload, setShowReload] = useLocalState('showReload', false);
   const { decks, ai_override, emagged } = data;
 
   const handleSelectDeck = (deck) => {
@@ -77,7 +77,7 @@ export const Holodeck = (props, context) => {
   );
 };
 
-const HolodeckReload = (props, context) => {
+const HolodeckReload = (props) => {
   return (
     <Dimmer textAlign="center">
       <Icon name="spinner" size="5" spin />

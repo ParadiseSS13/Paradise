@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { LabeledList, Button, ProgressBar, Box } from '../../components';
 
-export const pai_doorjack = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_doorjack = (props) => {
+  const { act, data } = useBackend();
   const { cable, machine, inprogress, progress, aborted } = data.app_data;
 
   let cableContent;

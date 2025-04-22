@@ -4,7 +4,7 @@ import { Box, Button, Dropdown, Stack, Icon, LabeledList, Section, Table, Tabs, 
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 
-export const LibraryComputer = (props, context) => {
+export const LibraryComputer = (props) => {
   return (
     <Window width={1050} height={600}>
       <ComplexModal />
@@ -18,8 +18,8 @@ export const LibraryComputer = (props, context) => {
   );
 };
 
-const expandModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
+const expandModalBodyOverride = (modal) => {
+  const { act, data } = useBackend();
   const expandinfo = modal.args;
 
   const { user_ckey } = data;
@@ -59,7 +59,7 @@ const expandModalBodyOverride = (modal, context) => {
         color="red"
         disabled={expandinfo.isProgrammatic}
         onClick={() =>
-          modalOpen(context, 'report_book', {
+          modalOpen('report_book', {
             bookid: expandinfo.id,
           })
         }
@@ -70,7 +70,7 @@ const expandModalBodyOverride = (modal, context) => {
         color="caution"
         disabled={expandinfo.isProgrammatic}
         onClick={() =>
-          modalOpen(context, 'rate_info', {
+          modalOpen('rate_info', {
             bookid: expandinfo.id,
           })
         }
@@ -79,8 +79,8 @@ const expandModalBodyOverride = (modal, context) => {
   );
 };
 
-const reportModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
+const reportModalBodyOverride = (modal) => {
+  const { act, data } = useBackend();
   const report_content = modal.args;
   const { selected_report, report_categories, user_ckey } = data;
 
@@ -122,8 +122,8 @@ const reportModalBodyOverride = (modal, context) => {
   );
 };
 
-const RatingTools = (properties, context) => {
-  const { act, data } = useBackend(context);
+const RatingTools = (properties) => {
+  const { act, data } = useBackend();
 
   const { selected_rating } = data;
 
@@ -154,8 +154,8 @@ const RatingTools = (properties, context) => {
   );
 };
 
-const rateModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
+const rateModalBodyOverride = (modal) => {
+  const { act, data } = useBackend();
   const rate_content = modal.args;
 
   const { user_ckey } = data;
@@ -189,9 +189,9 @@ const rateModalBodyOverride = (modal, context) => {
   );
 };
 
-const LibraryComputerNavigation = (properties, context) => {
-  const { data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+const LibraryComputerNavigation = (properties) => {
+  const { data } = useBackend();
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
   const { login_state } = data;
   return (
     <Stack.Item mb={1}>
@@ -218,8 +218,8 @@ const LibraryComputerNavigation = (properties, context) => {
   );
 };
 
-const LibraryPageContent = (props, context) => {
-  const [tabIndex] = useLocalState(context, 'tabIndex', 0);
+const LibraryPageContent = (props) => {
+  const [tabIndex] = useLocalState('tabIndex', 0);
   switch (tabIndex) {
     case 0:
       return <LibraryBooksList />;
@@ -236,8 +236,8 @@ const LibraryPageContent = (props, context) => {
   }
 };
 
-const SearchTools = (properties, context) => {
-  const { act, data } = useBackend(context);
+const SearchTools = (properties) => {
+  const { act, data } = useBackend();
 
   const { searchcontent, book_categories, user_ckey } = data;
 
@@ -260,7 +260,7 @@ const SearchTools = (properties, context) => {
               icon="pen"
               width={20}
               content={searchcontent.title || 'Input Title'}
-              onClick={() => modalOpen(context, 'edit_search_title')}
+              onClick={() => modalOpen('edit_search_title')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Author">
@@ -269,7 +269,7 @@ const SearchTools = (properties, context) => {
               icon="pen"
               width={20}
               content={searchcontent.author || 'Input Author'}
-              onClick={() => modalOpen(context, 'edit_search_author')}
+              onClick={() => modalOpen('edit_search_author')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Ratings">
@@ -279,7 +279,7 @@ const SearchTools = (properties, context) => {
                   mr={1}
                   width="min-content"
                   content={searchcontent.ratingmin}
-                  onClick={() => modalOpen(context, 'edit_search_ratingmin')}
+                  onClick={() => modalOpen('edit_search_ratingmin')}
                 />
               </Stack.Item>
               <Stack.Item>To</Stack.Item>
@@ -288,7 +288,7 @@ const SearchTools = (properties, context) => {
                   ml={1}
                   width="min-content"
                   content={searchcontent.ratingmax}
-                  onClick={() => modalOpen(context, 'edit_search_ratingmax')}
+                  onClick={() => modalOpen('edit_search_ratingmax')}
                 />
               </Stack.Item>
             </Stack>
@@ -363,8 +363,8 @@ const SearchTools = (properties, context) => {
   );
 };
 
-const LibraryBooksList = (properties, context) => {
-  const { act, data } = useBackend(context);
+const LibraryBooksList = (properties) => {
+  const { act, data } = useBackend();
 
   const { external_booklist, archive_pagenumber, num_pages, login_state } = data;
 
@@ -381,7 +381,7 @@ const LibraryBooksList = (properties, context) => {
             onClick={() => act('deincrementpagemax')}
           />
           <Button icon="chevron-left" disabled={archive_pagenumber === 1} onClick={() => act('deincrementpage')} />
-          <Button bold content={archive_pagenumber} onClick={() => modalOpen(context, 'setpagenumber')} />
+          <Button bold content={archive_pagenumber} onClick={() => modalOpen('setpagenumber')} />
           <Button
             icon="chevron-right"
             disabled={archive_pagenumber === num_pages}
@@ -440,7 +440,7 @@ const LibraryBooksList = (properties, context) => {
               <Button
                 content="More..."
                 onClick={() =>
-                  modalOpen(context, 'expand_info', {
+                  modalOpen('expand_info', {
                     bookid: external_booklist.id,
                   })
                 }
@@ -453,8 +453,8 @@ const LibraryBooksList = (properties, context) => {
   );
 };
 
-const ProgramatticBooks = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ProgramatticBooks = (properties) => {
+  const { act, data } = useBackend();
 
   const { programmatic_booklist, login_state } = data;
 
@@ -490,7 +490,7 @@ const ProgramatticBooks = (properties, context) => {
               <Button
                 content="More..."
                 onClick={() =>
-                  modalOpen(context, 'expand_info', {
+                  modalOpen('expand_info', {
                     bookid: programmatic_booklist.id,
                   })
                 }
@@ -503,8 +503,8 @@ const ProgramatticBooks = (properties, context) => {
   );
 };
 
-const UploadBooks = (properties, context) => {
-  const { act, data } = useBackend(context);
+const UploadBooks = (properties) => {
+  const { act, data } = useBackend();
   const { selectedbook, book_categories, user_ckey } = data;
 
   let categoryMap = [];
@@ -551,7 +551,7 @@ const UploadBooks = (properties, context) => {
                 icon="pen"
                 disabled={selectedbook.copyright}
                 content={selectedbook.title}
-                onClick={() => modalOpen(context, 'edit_selected_title')}
+                onClick={() => modalOpen('edit_selected_title')}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Author">
@@ -561,7 +561,7 @@ const UploadBooks = (properties, context) => {
                 icon="pen"
                 disabled={selectedbook.copyright}
                 content={selectedbook.author}
-                onClick={() => modalOpen(context, 'edit_selected_author')}
+                onClick={() => modalOpen('edit_selected_author')}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Select Categories">
@@ -604,7 +604,7 @@ const UploadBooks = (properties, context) => {
                 width="auto"
                 disabled={selectedbook.copyright}
                 content="Edit Summary"
-                onClick={() => modalOpen(context, 'edit_selected_summary')}
+                onClick={() => modalOpen('edit_selected_summary')}
               />
             </LabeledList.Item>
             <LabeledList.Item>{selectedbook.summary}</LabeledList.Item>
@@ -615,8 +615,8 @@ const UploadBooks = (properties, context) => {
   );
 };
 
-const PatronManager = (properties, context) => {
-  const { act, data } = useBackend(context);
+const PatronManager = (properties) => {
+  const { act, data } = useBackend();
 
   const { checkout_data } = data;
 
@@ -657,8 +657,8 @@ const PatronManager = (properties, context) => {
   );
 };
 
-const Inventory = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Inventory = (properties) => {
+  const { act, data } = useBackend();
 
   const { inventory_list } = data;
 

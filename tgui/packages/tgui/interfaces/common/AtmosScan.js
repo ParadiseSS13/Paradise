@@ -15,7 +15,7 @@ const getItemColor = (value, min2, min1, max1, max2) => {
   return 'good';
 };
 
-export const AtmosScan = (props, context) => {
+export const AtmosScan = (props) => {
   const { aircontents } = props.data;
 
   return (

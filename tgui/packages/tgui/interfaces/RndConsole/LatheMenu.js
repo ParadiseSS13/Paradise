@@ -8,8 +8,8 @@ import { LatheChemicalStorage } from './LatheChemicalStorage';
 
 const Tab = Tabs.Tab;
 
-const PrinterTab = (props, context) => {
-  const { act, data } = useBackend(context);
+const PrinterTab = (props) => {
+  const { act, data } = useBackend();
   const [act_id, currentMenu] =
     data.menu === MENU.LATHE ? ['nav_protolathe', data.submenu_protolathe] : ['nav_imprinter', data.submenu_imprinter];
   const { menu, ...rest } = props;
@@ -29,8 +29,8 @@ const decideTab = (tab) => {
   }
 };
 
-export const LatheMenu = (properties, context) => {
-  const { data } = useBackend(context);
+export const LatheMenu = (properties) => {
+  const { data } = useBackend();
 
   const { menu, linked_lathe, linked_imprinter } = data;
 

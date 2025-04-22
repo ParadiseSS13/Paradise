@@ -19,12 +19,12 @@ const PickTab = (index) => {
   }
 };
 
-export const Uplink = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Uplink = (props) => {
+  const { act, data } = useBackend();
   const { cart } = data;
 
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   return (
     <Window width={900} height={600} theme="syndicate">
@@ -83,13 +83,13 @@ export const Uplink = (props, context) => {
   );
 };
 
-const ItemsPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ItemsPage = (_properties) => {
+  const { act, data } = useBackend();
   const { crystals, cats } = data;
   // Default to first
-  const [uplinkItems, setUplinkItems] = useLocalState(context, 'uplinkItems', cats[0].items);
+  const [uplinkItems, setUplinkItems] = useLocalState('uplinkItems', cats[0].items);
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   const SelectEquipment = (cat, searchText = '') => {
     const EquipmentSearch = createSearch(searchText, (item) => {
       let is_hijack = item.hijack_only === 1 ? '|' + 'hijack' : '';
@@ -109,7 +109,7 @@ const ItemsPage = (_properties, context) => {
     setUplinkItems(SelectEquipment(cats.map((category) => category.items).flat(), value));
   };
 
-  const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 1);
+  const [showDesc, setShowDesc] = useLocalState('showDesc', 1);
 
   return (
     <Stack fill vertical>
@@ -175,11 +175,11 @@ const ItemsPage = (_properties, context) => {
   );
 };
 
-const CartPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const CartPage = (_properties) => {
+  const { act, data } = useBackend();
   const { cart, crystals, cart_price } = data;
 
-  const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 0);
+  const [showDesc, setShowDesc] = useLocalState('showDesc', 0);
 
   return (
     <Stack fill vertical>
@@ -218,8 +218,8 @@ const CartPage = (_properties, context) => {
     </Stack>
   );
 };
-const Advert = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const Advert = (_properties) => {
+  const { act, data } = useBackend();
   const { cats, lucky_numbers } = data;
 
   return (
@@ -245,7 +245,7 @@ const Advert = (_properties, context) => {
   );
 };
 
-const UplinkItem = (props, context) => {
+const UplinkItem = (props) => {
   const { i, showDecription = 1, buttons = <UplinkItemButtons i={i} /> } = props;
 
   return (
@@ -255,8 +255,8 @@ const UplinkItem = (props, context) => {
   );
 };
 
-const UplinkItemButtons = (props, context) => {
-  const { act, data } = useBackend(context);
+const UplinkItemButtons = (props) => {
+  const { act, data } = useBackend();
   const { i } = props;
   const { crystals } = data;
 
@@ -291,8 +291,8 @@ const UplinkItemButtons = (props, context) => {
   );
 };
 
-const CartButtons = (props, context) => {
-  const { act, data } = useBackend(context);
+const CartButtons = (props) => {
+  const { act, data } = useBackend();
   const { i } = props;
   const { exploitable } = data;
 
@@ -351,12 +351,12 @@ const CartButtons = (props, context) => {
   );
 };
 
-const ExploitableInfoPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ExploitableInfoPage = (_properties) => {
+  const { act, data } = useBackend();
   const { exploitable, selected_record } = data;
   // Default to first
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   // Search for peeps
   const SelectMembers = (people, searchText = '') => {

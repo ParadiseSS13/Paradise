@@ -17,8 +17,8 @@ import {
 import { Window } from '../layouts';
 import { formatPower } from '../format';
 
-export const Incursion = (props, context) => {
-  const { data } = useBackend(context);
+export const Incursion = (props) => {
+  const { data } = useBackend();
   const { portaling } = data;
   if (portaling) {
     return (
@@ -41,8 +41,8 @@ export const Incursion = (props, context) => {
   }
 };
 
-export const BluespaceTap = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BluespaceTap = (props) => {
+  const { act, data } = useBackend();
   const product = data.product || [];
   const {
     desiredMiningPower,
@@ -192,8 +192,8 @@ export const BluespaceTap = (props, context) => {
   );
 };
 
-export const Alerts = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Alerts = (props) => {
+  const { act, data } = useBackend();
   const product = data.product || [];
   const { miningPower, stabilizerPower, emagged, safeLevels, autoShutown, stabilizers, overhead } = data;
   return (

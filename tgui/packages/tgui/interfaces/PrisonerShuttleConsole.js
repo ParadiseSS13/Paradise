@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, ProgressBar, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const PrisonerShuttleConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PrisonerShuttleConsole = (props) => {
+  const { act, data } = useBackend();
   const { can_go_home, emagged, id_inserted, id_name, id_points, id_goal } = data;
   const bad_progress = emagged ? 0 : 1;
   let completionStatus = can_go_home ? 'Completed!' : 'Insufficient';

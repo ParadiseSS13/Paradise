@@ -4,14 +4,13 @@
  * @license MIT
  */
 
-import { selectBackend } from './backend';
-import { Icon, Stack } from './components';
-import { selectDebug } from './debug/selectors';
 import { Window } from './layouts';
+import { useBackend } from './backend';
+import { Stack, Icon } from './components';
 
 const requireInterface = require.context('./interfaces');
 
-const routingError = (type, name) => () => {
+const routingError = (type: 'notFound' | 'missingExport', name: string) => () => {
   return (
     <Window>
       <Window.Content scrollable>
@@ -30,6 +29,7 @@ const routingError = (type, name) => () => {
   );
 };
 
+// Displays an empty Window with scrollable content
 const SuspendedWindow = () => {
   return (
     <Window>
@@ -38,6 +38,7 @@ const SuspendedWindow = () => {
   );
 };
 
+// Displays a loading screen with a spinning icon
 const RefreshingWindow = () => {
   return (
     <Window height={130} title="Loading" width={150}>
@@ -53,32 +54,33 @@ const RefreshingWindow = () => {
   );
 };
 
-export const getRoutedComponent = (store) => {
-  const state = store.getState();
-  const { suspended, config } = selectBackend(state);
+// Get the component for the current route
+export const getRoutedComponent = () => {
+  const { suspended, config, debug } = useBackend();
   if (suspended) {
     return SuspendedWindow;
   }
-  if (config.refreshing) {
+  if (config?.refreshing) {
     return RefreshingWindow;
   }
   if (process.env.NODE_ENV !== 'production') {
-    const debug = selectDebug(state);
     // Show a kitchen sink
-    if (debug.kitchenSink) {
+    if (debug?.kitchenSink) {
       return require('./debug').KitchenSink;
     }
   }
   const name = config?.interface;
   const interfacePathBuilders = [
-    (name) => `./${name}.tsx`,
-    (name) => `./${name}.js`,
-    (name) => `./${name}/index.tsx`,
-    (name) => `./${name}/index.js`,
+    (name: string) => `./${name}.tsx`,
+    (name: string) => `./${name}.jsx`,
+    (name: string) => `./${name}.js`,
+    (name: string) => `./${name}/index.tsx`,
+    (name: string) => `./${name}/index.jsx`,
+    (name: string) => `./${name}/index.js`,
   ];
   let esModule;
   while (!esModule && interfacePathBuilders.length > 0) {
-    const interfacePathBuilder = interfacePathBuilders.shift();
+    const interfacePathBuilder = interfacePathBuilders.shift()!;
     const interfacePath = interfacePathBuilder(name);
     try {
       esModule = requireInterface(interfacePath);

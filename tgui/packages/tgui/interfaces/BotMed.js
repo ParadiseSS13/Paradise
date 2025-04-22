@@ -3,8 +3,8 @@ import { Button, Stack, LabeledList, ProgressBar, Section, Slider } from '../com
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
-export const BotMed = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BotMed = (props) => {
+  const { act, data } = useBackend();
   const {
     locked,
     noaccess,

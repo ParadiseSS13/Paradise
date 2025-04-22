@@ -22,14 +22,14 @@ const medStatusStyles = {
   'Disabled': 'disabled',
 };
 
-const doEdit = (context, field) => {
-  modalOpen(context, 'edit', {
+const doEdit = (field) => {
+  modalOpen('edit', {
     field: field.edit,
     value: field.value,
   });
 };
 
-const virusModalBodyOverride = (modal, context) => {
+const virusModalBodyOverride = (modal) => {
   const virus = modal.args;
   return (
     <Section m="-1rem" pb="1.5rem" title={virus.name || 'Virus'}>
@@ -48,8 +48,8 @@ const virusModalBodyOverride = (modal, context) => {
   );
 };
 
-export const MedicalRecords = (_properties, context) => {
-  const { data } = useBackend(context);
+export const MedicalRecords = (_properties) => {
+  const { data } = useBackend();
   const { loginState, screen } = data;
   if (!loginState.logged_in) {
     return (
@@ -97,12 +97,12 @@ export const MedicalRecords = (_properties, context) => {
   );
 };
 
-const MedicalRecordsList = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MedicalRecordsList = (_properties) => {
+  const { act, data } = useBackend();
   const { records } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [sortId, _setSortId] = useLocalState('sortId', 'name');
+  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
   return (
     <>
       <Stack.Item>
@@ -161,8 +161,8 @@ const MedicalRecordsList = (_properties, context) => {
   );
 };
 
-const MedicalRecordsMaintenance = (_properties, context) => {
-  const { act } = useBackend(context);
+const MedicalRecordsMaintenance = (_properties) => {
+  const { act } = useBackend();
   return (
     <Stack.Item grow textAlign="center">
       <Section fill>
@@ -187,8 +187,8 @@ const MedicalRecordsMaintenance = (_properties, context) => {
   );
 };
 
-const MedicalRecordsView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MedicalRecordsView = (_properties) => {
+  const { act, data } = useBackend();
   const { medical, printing } = data;
   return (
     <>
@@ -256,8 +256,8 @@ const MedicalRecordsView = (_properties, context) => {
   );
 };
 
-const MedicalRecordsViewGeneral = (_properties, context) => {
-  const { data } = useBackend(context);
+const MedicalRecordsViewGeneral = (_properties) => {
+  const { data } = useBackend();
   const { general } = data;
   if (!general || !general.fields) {
     return (
@@ -277,7 +277,7 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
               <Box height="20px" inline>
                 {field.value}
               </Box>
-              {!!field.edit && <Button icon="pen" ml="0.5rem" onClick={() => doEdit(context, field)} />}
+              {!!field.edit && <Button icon="pen" ml="0.5rem" onClick={() => doEdit(field)} />}
             </LabeledList.Item>
           ))}
         </LabeledList>
@@ -303,8 +303,8 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
   );
 };
 
-const MedicalRecordsViewMedical = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MedicalRecordsViewMedical = (_properties) => {
+  const { act, data } = useBackend();
   const { medical } = data;
   if (!medical || !medical.fields) {
     return (
@@ -327,7 +327,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
                   icon="pen"
                   ml="0.5rem"
                   mb={field.line_break ? '1rem' : 'initial'}
-                  onClick={() => doEdit(context, field)}
+                  onClick={() => doEdit(field)}
                 />
               )}
             </LabeledList.Item>
@@ -338,8 +338,8 @@ const MedicalRecordsViewMedical = (_properties, context) => {
   );
 };
 
-const MedicalRecordsViewComments = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MedicalRecordsViewComments = (_properties) => {
+  const { act, data } = useBackend();
   const { medical } = data;
   return (
     <Stack.Item height="150px">
@@ -347,7 +347,7 @@ const MedicalRecordsViewComments = (_properties, context) => {
         fill
         scrollable
         title="Comments/Log"
-        buttons={<Button icon="comment" content="Add Entry" onClick={() => modalOpen(context, 'add_comment')} />}
+        buttons={<Button icon="comment" content="Add Entry" onClick={() => modalOpen('add_comment')} />}
       >
         {medical.comments.length === 0 ? (
           <Box color="label">No comments found.</Box>
@@ -373,12 +373,12 @@ const MedicalRecordsViewComments = (_properties, context) => {
   );
 };
 
-const MedicalRecordsViruses = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MedicalRecordsViruses = (_properties) => {
+  const { act, data } = useBackend();
   const { virus } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId2, _setSortId2] = useLocalState(context, 'sortId2', 'name');
-  const [sortOrder2, _setSortOrder2] = useLocalState(context, 'sortOrder2', true);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [sortId2, _setSortId2] = useLocalState('sortId2', 'name');
+  const [sortOrder2, _setSortOrder2] = useLocalState('sortOrder2', true);
   return (
     <>
       <Stack.Item grow>
@@ -429,8 +429,8 @@ const MedicalRecordsViruses = (_properties, context) => {
   );
 };
 
-const MedicalRecordsGoals = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MedicalRecordsGoals = (_properties) => {
+  const { act, data } = useBackend();
   const { goals } = data;
   return (
     <Section title="Virology Goals" fill>
@@ -472,8 +472,8 @@ const MedicalRecordsGoals = (_properties, context) => {
   );
 };
 
-const MedicalRecordsMedbots = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MedicalRecordsMedbots = (_properties) => {
+  const { act, data } = useBackend();
   const { medbots } = data;
   if (medbots.length === 0) {
     return (
@@ -525,9 +525,9 @@ const MedicalRecordsMedbots = (_properties, context) => {
   );
 };
 
-const SortButton = (properties, context) => {
-  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+const SortButton = (properties) => {
+  const [sortId, setSortId] = useLocalState('sortId', 'name');
+  const [sortOrder, setSortOrder] = useLocalState('sortOrder', true);
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -550,9 +550,9 @@ const SortButton = (properties, context) => {
   );
 };
 
-const SortButton2 = (properties, context) => {
-  const [sortId2, setSortId2] = useLocalState(context, 'sortId2', 'name');
-  const [sortOrder2, setSortOrder2] = useLocalState(context, 'sortOrder2', true);
+const SortButton2 = (properties) => {
+  const [sortId2, setSortId2] = useLocalState('sortId2', 'name');
+  const [sortOrder2, setSortOrder2] = useLocalState('sortOrder2', true);
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -575,8 +575,8 @@ const SortButton2 = (properties, context) => {
   );
 };
 
-const MedicalRecordsNavigation = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MedicalRecordsNavigation = (_properties) => {
+  const { act, data } = useBackend();
   const { screen, general } = data;
   return (
     <Stack.Item m={0}>

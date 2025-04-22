@@ -15,13 +15,13 @@ export const StackCraft = () => {
   );
 };
 
-const Recipes = (props, context) => {
-  const { data } = useBackend(context);
+const Recipes = (props) => {
+  const { data } = useBackend();
   const { amount, recipes } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   const filteredRecipes = filterRecipeList(recipes, createSearch(searchText));
-  const [searchActive, setSearchActive] = useLocalState(context, '', false);
+  const [searchActive, setSearchActive] = useLocalState('', false);
 
   return (
     <Section
@@ -112,8 +112,8 @@ const calculateMultiplier = (recipe, amount) => {
   return Math.floor(amount / recipe.required_amount);
 };
 
-const Multipliers = (props, context) => {
-  const { act } = useBackend(context);
+const Multipliers = (props) => {
+  const { act } = useBackend();
 
   const { recipe, max_possible_multiplier } = props;
 
@@ -167,7 +167,7 @@ const Multipliers = (props, context) => {
   return <>{finalResult.map((x) => x)}</>;
 };
 
-const RecipeListBox = (props, context) => {
+const RecipeListBox = (props) => {
   const { recipes } = props;
 
   return Object.entries(recipes).map((entry) => {
@@ -196,8 +196,8 @@ const RecipeListBox = (props, context) => {
   });
 };
 
-const RecipeBox = (props, context) => {
-  const { act, data } = useBackend(context);
+const RecipeBox = (props) => {
+  const { act, data } = useBackend();
   const { amount } = data;
   const { title, recipe } = props;
   const { result_amount, required_amount, max_result_amount, uid, icon, icon_state, image } = recipe;

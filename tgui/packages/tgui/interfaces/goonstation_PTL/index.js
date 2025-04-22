@@ -10,8 +10,8 @@ import { Box, Button, Knob, LabeledList, NoticeBox, NumberInput, ProgressBar, Se
 import { formatMoney, formatSiUnit, formatPower } from '../../format';
 import { Window } from '../../layouts';
 
-export const goonstation_PTL = (props, context) => {
-  const { data } = useBackend(context);
+export const goonstation_PTL = (props) => {
+  const { data } = useBackend();
   const { total_earnings, total_energy, name = 'Power Transmission Laser' } = data;
   return (
     <Window title="Power Transmission Laser" width="310" height="485">
@@ -26,8 +26,8 @@ export const goonstation_PTL = (props, context) => {
   );
 };
 
-const Status = (props, context) => {
-  const { data } = useBackend(context);
+const Status = (props) => {
+  const { data } = useBackend();
   const { max_capacity, held_power, input_total, max_grid_load } = data;
 
   return (
@@ -63,8 +63,8 @@ const Status = (props, context) => {
   );
 };
 
-const InputControls = (props, context) => {
-  const { act, data } = useBackend(context);
+const InputControls = (props) => {
+  const { act, data } = useBackend();
   const { input_total, accepting_power, sucking_power, input_number, power_format } = data;
 
   return (
@@ -114,8 +114,8 @@ const InputControls = (props, context) => {
   );
 };
 
-const OutputControls = (props, context) => {
-  const { act, data } = useBackend(context);
+const OutputControls = (props) => {
+  const { act, data } = useBackend();
   const { output_total, firing, accepting_power, output_number, output_multiplier, target, held_power } = data;
 
   return (

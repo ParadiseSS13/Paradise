@@ -30,17 +30,17 @@ const COLORS_SPECTRUM = [
 
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
-const Story = (props, context) => {
-  const [fluid1, setFluid1] = useLocalState(context, 'fluid1', true);
-  const [fluid2, setFluid2] = useLocalState(context, 'fluid2', false);
-  const [fluid3, setFluid3] = useLocalState(context, 'fluid3', false);
-  const [disabled, setDisabled] = useLocalState(context, 'disabled', false);
-  const [selected, setSelected] = useLocalState(context, 'selected', false);
-  const [addImage, setAddImage] = useLocalState(context, 'addImage', false);
-  const [base64, setbase64] = useLocalState(context, 'base64', '');
-  const [title, setTitle] = useLocalState(context, 'title', 'Image Button');
-  const [content, setContent] = useLocalState(context, 'content', 'You can put anything in there');
-  const [imageSize, setImageSize] = useLocalState(context, 'imageSize', 64);
+const Story = (props) => {
+  const [fluid1, setFluid1] = useLocalState('fluid1', true);
+  const [fluid2, setFluid2] = useLocalState('fluid2', false);
+  const [fluid3, setFluid3] = useLocalState('fluid3', false);
+  const [disabled, setDisabled] = useLocalState('disabled', false);
+  const [selected, setSelected] = useLocalState('selected', false);
+  const [addImage, setAddImage] = useLocalState('addImage', false);
+  const [base64, setbase64] = useLocalState('base64', '');
+  const [title, setTitle] = useLocalState('title', 'Image Button');
+  const [content, setContent] = useLocalState('content', 'You can put anything in there');
+  const [imageSize, setImageSize] = useLocalState('imageSize', 64);
 
   return (
     <>

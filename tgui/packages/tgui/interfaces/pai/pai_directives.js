@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { Box, LabeledList, Button } from '../../components';
 
-export const pai_directives = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_directives = (props) => {
+  const { act, data } = useBackend();
   const { master, dna, prime, supplemental } = data.app_data;
 
   return (

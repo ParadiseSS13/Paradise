@@ -18,15 +18,15 @@ const statusStyles = {
   'Monitor': 'monitor',
 };
 
-const doEdit = (context, field) => {
-  modalOpen(context, 'edit', {
+const doEdit = (field) => {
+  modalOpen('edit', {
     field: field.edit,
     value: field.value,
   });
 };
 
-export const SecurityRecords = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const SecurityRecords = (properties) => {
+  const { act, data } = useBackend();
   const { loginState, currentPage } = data;
 
   let body;
@@ -61,8 +61,8 @@ export const SecurityRecords = (properties, context) => {
   );
 };
 
-const SecurityRecordsNavigation = (properties, context) => {
-  const { act, data } = useBackend(context);
+const SecurityRecordsNavigation = (properties) => {
+  const { act, data } = useBackend();
   const { currentPage, general } = data;
   return (
     <Stack.Item m={0}>
@@ -80,12 +80,12 @@ const SecurityRecordsNavigation = (properties, context) => {
   );
 };
 
-const SecurityRecordsPageList = (properties, context) => {
-  const { act, data } = useBackend(context);
+const SecurityRecordsPageList = (properties) => {
+  const { act, data } = useBackend();
   const { records } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [sortId, _setSortId] = useLocalState('sortId', 'name');
+  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
   return (
     <>
       <Stack.Item>
@@ -140,9 +140,9 @@ const SecurityRecordsPageList = (properties, context) => {
   );
 };
 
-const SortButton = (properties, context) => {
-  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+const SortButton = (properties) => {
+  const [sortId, setSortId] = useLocalState('sortId', 'name');
+  const [sortOrder, setSortOrder] = useLocalState('sortOrder', true);
   const { id, children } = properties;
   return (
     <Stack.Item grow>
@@ -167,10 +167,10 @@ const SortButton = (properties, context) => {
   );
 };
 
-const SecurityRecordsActions = (properties, context) => {
-  const { act, data } = useBackend(context);
+const SecurityRecordsActions = (properties) => {
+  const { act, data } = useBackend();
   const { isPrinting } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   return (
     <Stack fill>
       <Stack.Item>
@@ -182,7 +182,7 @@ const SecurityRecordsActions = (properties, context) => {
           icon={isPrinting ? 'spinner' : 'print'}
           iconSpin={!!isPrinting}
           content="Print Cell Log"
-          onClick={() => modalOpen(context, 'print_cell_log')}
+          onClick={() => modalOpen('print_cell_log')}
         />
       </Stack.Item>
       <Stack.Item grow>
@@ -196,8 +196,8 @@ const SecurityRecordsActions = (properties, context) => {
   );
 };
 
-const SecurityRecordsPageView = (properties, context) => {
-  const { act, data } = useBackend(context);
+const SecurityRecordsPageView = (properties) => {
+  const { act, data } = useBackend();
   const { isPrinting, general, security } = data;
   if (!general || !general.fields) {
     return <Box color="bad">General records lost!</Box>;
@@ -279,7 +279,7 @@ const SecurityRecordsPageView = (properties, context) => {
                           icon="pen"
                           ml="0.5rem"
                           mb={field.line_break ? '1rem' : 'initial'}
-                          onClick={() => doEdit(context, field)}
+                          onClick={() => doEdit(field)}
                         />
                       )}
                     </LabeledList.Item>
@@ -295,8 +295,8 @@ const SecurityRecordsPageView = (properties, context) => {
   );
 };
 
-const SecurityRecordsViewGeneral = (_properties, context) => {
-  const { data } = useBackend(context);
+const SecurityRecordsViewGeneral = (_properties) => {
+  const { data } = useBackend();
   const { general } = data;
   if (!general || !general.fields) {
     return (
@@ -319,7 +319,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
                   icon="pen"
                   ml="0.5rem"
                   mb={field.line_break ? '1rem' : 'initial'}
-                  onClick={() => doEdit(context, field)}
+                  onClick={() => doEdit(field)}
                 />
               )}
             </LabeledList.Item>
@@ -347,8 +347,8 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
   );
 };
 
-const SecurityRecordsViewSecurity = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const SecurityRecordsViewSecurity = (_properties) => {
+  const { act, data } = useBackend();
   const { security } = data;
   return (
     <Stack.Item height="150px">
@@ -356,7 +356,7 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
         fill
         scrollable
         title="Comments/Log"
-        buttons={<Button icon="comment" content="Add Entry" onClick={() => modalOpen(context, 'comment_add')} />}
+        buttons={<Button icon="comment" content="Add Entry" onClick={() => modalOpen('comment_add')} />}
       >
         {security.comments.length === 0 ? (
           <Box color="label">No comments found.</Box>

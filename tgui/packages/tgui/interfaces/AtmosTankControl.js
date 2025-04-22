@@ -4,8 +4,8 @@ import { toFixed } from 'common/math';
 import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
 
-export const AtmosTankControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AtmosTankControl = (props) => {
+  const { act, data } = useBackend();
 
   let sensors_list = data.sensors || {};
 
@@ -132,8 +132,8 @@ export const AtmosTankControl = (props, context) => {
   );
 };
 
-const TankControlScrubbersView = (props, context) => {
-  const { act, data } = useBackend(context);
+const TankControlScrubbersView = (props) => {
+  const { act, data } = useBackend();
   return data.scrubber_outlets.map((s) => (
     <Section title={'Outlet: ' + s.name} key={s.name}>
       <LabeledList>

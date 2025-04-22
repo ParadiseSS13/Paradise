@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Stack, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Photocopier = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Photocopier = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={400} height={440}>
       <Window.Content scrollable>
@@ -58,8 +58,8 @@ export const Photocopier = (props, context) => {
   );
 };
 
-const Actions = (props, context) => {
-  const { act, data } = useBackend(context);
+const Actions = (props) => {
+  const { act, data } = useBackend();
   const { issilicon } = data;
   return (
     <>
@@ -98,8 +98,8 @@ const Actions = (props, context) => {
   );
 };
 
-const Files = (props, context) => {
-  const { act, data } = useBackend(context);
+const Files = (props) => {
+  const { act, data } = useBackend();
   return (
     <Section fill scrollable title="Scanned Files">
       {data.files.map((file) => (

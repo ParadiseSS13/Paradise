@@ -3,8 +3,8 @@ import { Button, LabeledList, Box, Section } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
-export const BotFloor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BotFloor = (props) => {
+  const { act, data } = useBackend();
   const { noaccess, painame, hullplating, replace, eat, make, fixfloor, nag_empty, magnet, tiles_amount } = data;
   return (
     <Window width={500} height={510}>

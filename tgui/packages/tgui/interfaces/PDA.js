@@ -24,8 +24,8 @@ const GetApp = (name) => {
   return Component;
 };
 
-export const PDA = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PDA = (props) => {
+  const { act, data } = useBackend();
   const { app, owner } = data;
   if (!owner) {
     return (
@@ -71,8 +71,8 @@ export const PDA = (props, context) => {
   );
 };
 
-const PDAHeader = (props, context) => {
-  const { act, data } = useBackend(context);
+const PDAHeader = (props) => {
+  const { act, data } = useBackend();
   const { idInserted, idLink, stationTime, cartridge_name } = data;
 
   return (
@@ -100,8 +100,8 @@ const PDAHeader = (props, context) => {
   );
 };
 
-const PDAFooter = (props, context) => {
-  const { act, data } = useBackend(context);
+const PDAFooter = (props) => {
+  const { act, data } = useBackend();
 
   const { app } = data;
 

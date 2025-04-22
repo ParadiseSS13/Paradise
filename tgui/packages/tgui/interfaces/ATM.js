@@ -9,8 +9,8 @@ import { Window } from '../layouts';
 #define VIEW_TRANSACTION_LOGS 3
 */
 
-export const ATM = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ATM = (props) => {
+  const { act, data } = useBackend();
   const { view_screen, authenticated_account, ticks_left_locked_down, linked_db } = data;
   let body;
   if (ticks_left_locked_down > 0) {
@@ -54,8 +54,8 @@ export const ATM = (props, context) => {
   );
 };
 
-const IntroductionAndCard = (props, context) => {
-  const { act, data } = useBackend(context);
+const IntroductionAndCard = (props) => {
+  const { act, data } = useBackend();
   const { machine_id, held_card_name } = data;
   return (
     <Section title="Nanotrasen Automatic Teller Machine">
@@ -70,8 +70,8 @@ const IntroductionAndCard = (props, context) => {
   );
 };
 
-const ChangeSecurityLevel = (props, context) => {
-  const { act, data } = useBackend(context);
+const ChangeSecurityLevel = (props) => {
+  const { act, data } = useBackend();
   const { security_level } = data;
   return (
     <Section title="Select a new security level for this account">
@@ -107,11 +107,11 @@ const ChangeSecurityLevel = (props, context) => {
   );
 };
 
-const TransferFunds = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [targetAccNumber, setTargetAccNumber] = useLocalState(context, 'targetAccNumber', 0);
-  const [fundsAmount, setFundsAmount] = useLocalState(context, 'fundsAmount', 0);
-  const [purpose, setPurpose] = useLocalState(context, 'purpose', 0);
+const TransferFunds = (props) => {
+  const { act, data } = useBackend();
+  const [targetAccNumber, setTargetAccNumber] = useLocalState('targetAccNumber', 0);
+  const [fundsAmount, setFundsAmount] = useLocalState('fundsAmount', 0);
+  const [purpose, setPurpose] = useLocalState('purpose', 0);
   const { money } = data;
   return (
     <Section title="Transfer Fund">
@@ -145,9 +145,9 @@ const TransferFunds = (props, context) => {
   );
 };
 
-const DefaultScreen = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [fundsAmount, setFundsAmount] = useLocalState(context, 'fundsAmount', 0);
+const DefaultScreen = (props) => {
+  const { act, data } = useBackend();
+  const [fundsAmount, setFundsAmount] = useLocalState('fundsAmount', 0);
   const { owner_name, money } = data;
   return (
     <>
@@ -191,10 +191,10 @@ const DefaultScreen = (props, context) => {
   );
 };
 
-const LoginScreen = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [accountID, setAccountID] = useLocalState(context, 'accountID', null);
-  const [accountPin, setAccountPin] = useLocalState(context, 'accountPin', null);
+const LoginScreen = (props) => {
+  const { act, data } = useBackend();
+  const [accountID, setAccountID] = useLocalState('accountID', null);
+  const [accountPin, setAccountPin] = useLocalState('accountPin', null);
   const { machine_id, held_card_name } = data;
   return (
     <Section title="Insert card or enter ID and pin to login">
@@ -222,8 +222,8 @@ const LoginScreen = (props, context) => {
   );
 };
 
-const ViewTransactionLogs = (props, context) => {
-  const { act, data } = useBackend(context);
+const ViewTransactionLogs = (props) => {
+  const { act, data } = useBackend();
   const { transaction_log } = data;
   return (
     <Section title="Transactions">
@@ -249,7 +249,7 @@ const ViewTransactionLogs = (props, context) => {
   );
 };
 
-const BackButton = (props, context) => {
-  const { act, data } = useBackend(context);
+const BackButton = (props) => {
+  const { act, data } = useBackend();
   return <Button content="Back" icon="sign-out-alt" onClick={() => act('view_screen', { view_screen: 0 })} />;
 };

@@ -26,8 +26,8 @@ const iconNameOverrides = {
   tranquillite: 'mime',
 };
 
-export const ExosuitFabricator = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const ExosuitFabricator = (properties) => {
+  const { act, data } = useBackend();
   const { building, linked } = data;
 
   if (!linked) {
@@ -67,8 +67,8 @@ export const ExosuitFabricator = (properties, context) => {
   );
 };
 
-const Materials = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Materials = (properties) => {
+  const { act, data } = useBackend();
   const { materials, capacity } = data;
   const totalMats = Object.values(materials).reduce((a, b) => a + b, 0);
   return (
@@ -113,15 +113,15 @@ const Materials = (properties, context) => {
   );
 };
 
-const Designs = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Designs = (properties) => {
+  const { act, data } = useBackend();
   const { curCategory, categories, designs, syncing } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   const searcher = createSearch(searchText, (design) => {
     return design.name;
   });
   const filteredDesigns = designs.filter(searcher);
-  const [showLevelsModal, setShowLevelsModal] = useLocalState(context, 'levelsModal', false);
+  const [showLevelsModal, setShowLevelsModal] = useLocalState('levelsModal', false);
   return (
     <Section
       fill
@@ -157,8 +157,8 @@ const Designs = (properties, context) => {
   );
 };
 
-const Building = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Building = (properties) => {
+  const { act, data } = useBackend();
   const { building, buildStart, buildEnd, worldTime } = data;
   return (
     <Section className="Exofab__building" stretchContents>
@@ -178,8 +178,8 @@ const Building = (properties, context) => {
   );
 };
 
-const Queue = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Queue = (properties) => {
+  const { act, data } = useBackend();
   const { queue, processingQueue } = data;
   const queueDeficit = Object.entries(data.queueDeficit).filter((a) => a[1] < 0);
   const queueTime = queue.reduce((a, b) => a + b.time, 0);
@@ -272,8 +272,8 @@ const Queue = (properties, context) => {
   );
 };
 
-const MaterialCount = (properties, context) => {
-  const { act, data } = useBackend(context);
+const MaterialCount = (properties) => {
+  const { act, data } = useBackend();
   const { id, amount, lineDisplay, onClick, ...rest } = properties;
   const storedAmount = data.materials[id] || 0;
   const curAmount = amount || storedAmount;
@@ -310,8 +310,8 @@ const MaterialCount = (properties, context) => {
   );
 };
 
-const Design = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Design = (properties) => {
+  const { act, data } = useBackend();
   const design = properties.design;
   return (
     <Box className="Exofab__design">
@@ -350,8 +350,8 @@ const Design = (properties, context) => {
   );
 };
 
-const LinkMenu = (properties, context) => {
-  const { act, data } = useBackend(context);
+const LinkMenu = (properties) => {
+  const { act, data } = useBackend();
 
   const { controllers } = data;
 
@@ -389,11 +389,11 @@ const LinkMenu = (properties, context) => {
   );
 };
 
-const LevelsModal = (properties, context) => {
-  const { act, data } = useBackend(context);
+const LevelsModal = (properties) => {
+  const { act, data } = useBackend();
   const { tech_levels } = data;
 
-  const [showLevelsModal, setShowLevelsModal] = useLocalState(context, 'levelsModal', false);
+  const [showLevelsModal, setShowLevelsModal] = useLocalState('levelsModal', false);
 
   if (showLevelsModal) {
     return (

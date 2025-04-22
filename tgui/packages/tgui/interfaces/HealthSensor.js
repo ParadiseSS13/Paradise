@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, NumberInput, Section, AnimatedNumber, Box } from '../components';
 import { Window } from '../layouts';
 
-export const HealthSensor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const HealthSensor = (props) => {
+  const { act, data } = useBackend();
 
   const { on, user_health, minHealth, maxHealth, alarm_health } = data;
 

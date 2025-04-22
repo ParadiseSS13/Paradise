@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Section, Button, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 
-export const FilingCabinet = (props, context) => {
-  const { act, data, config } = useBackend(context);
+export const FilingCabinet = (props) => {
+  const { act, data, config } = useBackend();
   const { contents } = data;
   const { title } = config;
   return (

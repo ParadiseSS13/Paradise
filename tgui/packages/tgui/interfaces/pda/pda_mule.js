@@ -1,16 +1,16 @@
 import { useBackend } from '../../backend';
 import { Box, Button, LabeledList, Section } from '../../components';
 
-export const pda_mule = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_mule = (props) => {
+  const { act, data } = useBackend();
   const { mulebot } = data;
   const { active } = mulebot;
 
   return <Box>{active ? <BotStatus /> : <BotList />}</Box>;
 };
 
-const BotList = (props, context) => {
-  const { act, data } = useBackend(context);
+const BotList = (props) => {
+  const { act, data } = useBackend();
   const { mulebot } = data;
   const { bots } = mulebot;
 
@@ -21,8 +21,8 @@ const BotList = (props, context) => {
   ));
 };
 
-const BotStatus = (props, context) => {
-  const { act, data } = useBackend(context);
+const BotStatus = (props) => {
+  const { act, data } = useBackend();
   // Why are these things like 3 layers deep
   const { mulebot } = data;
   const { botstatus, active } = mulebot;

@@ -17,8 +17,8 @@ export const ChemHeater = (_props, _context) => {
   );
 };
 
-const ChemHeaterSettings = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemHeaterSettings = (_properties) => {
+  const { act, data } = useBackend();
   const { targetTemp, targetTempReached, autoEject, isActive, currentTemp, isBeakerLoaded } = data;
   return (
     <Stack.Item>
@@ -70,8 +70,8 @@ const ChemHeaterSettings = (_properties, context) => {
   );
 };
 
-const ChemHeaterBeaker = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemHeaterBeaker = (_properties) => {
+  const { act, data } = useBackend();
   const { isBeakerLoaded, beakerCurrentVolume, beakerMaxVolume, beakerContents } = data;
   return (
     <Stack.Item grow>

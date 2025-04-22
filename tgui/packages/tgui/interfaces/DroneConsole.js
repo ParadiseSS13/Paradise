@@ -15,7 +15,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const DroneConsole = (props, context) => {
+export const DroneConsole = (props) => {
   return (
     <Window width={420} height={500}>
       <Window.Content scrollable>
@@ -26,8 +26,8 @@ export const DroneConsole = (props, context) => {
   );
 };
 
-const Fabricator = (props, context) => {
-  const { act, data } = useBackend(context);
+const Fabricator = (props) => {
+  const { act, data } = useBackend();
   const { drone_fab, fab_power, drone_prod, drone_progress } = data;
 
   let FabDetected = () => {
@@ -80,8 +80,8 @@ const Fabricator = (props, context) => {
   );
 };
 
-const DroneList = (props, context) => {
-  const { act, data } = useBackend(context);
+const DroneList = (props) => {
+  const { act, data } = useBackend();
   const { drones, area_list, selected_area, ping_cd } = data;
 
   let status = (stat, client) => {

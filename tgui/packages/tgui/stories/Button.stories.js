@@ -30,8 +30,8 @@ const COLORS_SPECTRUM = [
 
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
-const Story = (props, context) => {
-  const [translucent, setTranslucent] = useLocalState(context, 'translucent', false);
+const Story = (props) => {
+  const [translucent, setTranslucent] = useLocalState('translucent', false);
 
   return (
     <>

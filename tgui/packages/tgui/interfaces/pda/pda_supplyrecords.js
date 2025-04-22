@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { LabeledList, Section, Box } from '../../components';
 
-export const pda_supplyrecords = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_supplyrecords = (props) => {
+  const { act, data } = useBackend();
   const { supply } = data;
   const { shuttle_loc, shuttle_time, shuttle_moving, approved, approved_count, requests, requests_count } = supply;
 

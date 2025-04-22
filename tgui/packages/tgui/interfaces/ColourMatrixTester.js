@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { NumberInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const ColourMatrixTester = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ColourMatrixTester = (props) => {
+  const { act, data } = useBackend();
   const { colour_data } = data;
 
   const matrixEntries = [

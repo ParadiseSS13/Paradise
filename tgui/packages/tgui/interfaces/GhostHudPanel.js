@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section, Flex, Divider } from '../components';
 import { Window } from '../layouts';
 
-export const GhostHudPanel = (props, context) => {
-  const { data } = useBackend(context);
+export const GhostHudPanel = (props) => {
+  const { data } = useBackend();
   const { security, medical, diagnostic, pressure, radioactivity, ahud } = data;
   return (
     <Window width={250} height={217} theme="nologo">
@@ -29,8 +29,8 @@ export const GhostHudPanel = (props, context) => {
   );
 };
 
-const HudEntry = (props, context) => {
-  const { act } = useBackend(context);
+const HudEntry = (props) => {
+  const { act } = useBackend();
   const { label, type = null, is_active, act_on = 'hud_on', act_off = 'hud_off' } = props;
   return (
     <Flex pt={0.3} color="label">

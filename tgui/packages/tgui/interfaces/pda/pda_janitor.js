@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { LabeledList, Box } from '../../components';
 
-export const pda_janitor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_janitor = (props) => {
+  const { act, data } = useBackend();
   const { janitor } = data;
 
   const { user_loc, mops, buckets, cleanbots, carts, janicarts } = janitor;

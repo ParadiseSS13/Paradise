@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Section, Table, Tabs, Stack } from '../components';
 import { Window } from '../layouts';
 
-const VendingRow = (props, context) => {
-  const { act, data } = useBackend(context);
+const VendingRow = (props) => {
+  const { act, data } = useBackend();
   const { product, productImage, productCategory } = props;
   const { user_money } = data;
 
@@ -39,9 +39,9 @@ const VendingRow = (props, context) => {
   );
 };
 
-const MerchProducts = (props, context) => {
-  const { data } = useBackend(context);
-  const [tabIndex] = useLocalState(context, 'tabIndex', 1);
+const MerchProducts = (props) => {
+  const { data } = useBackend();
+  const [tabIndex] = useLocalState('tabIndex', 1);
   const { products, imagelist } = data;
 
   const categories = ['apparel', 'toy', 'decoration'];
@@ -60,8 +60,8 @@ const MerchProducts = (props, context) => {
   );
 };
 
-export const MerchVendor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const MerchVendor = (props) => {
+  const { act, data } = useBackend();
   const { user_cash, inserted_cash } = data;
 
   return (
@@ -109,9 +109,9 @@ export const MerchVendor = (props, context) => {
   );
 };
 
-const MerchVendorNavigation = (properties, context) => {
-  const { data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 1);
+const MerchVendorNavigation = (properties) => {
+  const { data } = useBackend();
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 1);
   const { login_state } = data;
 
   return (

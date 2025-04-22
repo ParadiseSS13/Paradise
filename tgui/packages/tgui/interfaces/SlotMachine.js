@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Box, AnimatedNumber, Section } from '../components';
 import { Window } from '../layouts';
 
-export const SlotMachine = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SlotMachine = (props) => {
+  const { act, data } = useBackend();
   if (data.money === null) {
     return (
       <Window width={350} height={90}>

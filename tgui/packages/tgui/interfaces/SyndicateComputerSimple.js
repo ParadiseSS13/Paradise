@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section, Box, Table, ProgressBar } from '../components';
 import { Window } from '../layouts';
 
-export const SyndicateComputerSimple = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SyndicateComputerSimple = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window theme="syndicate" width={400} height={400}>
       <Window.Content>

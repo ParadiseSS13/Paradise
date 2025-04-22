@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, Box, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const ShuttleManipulator = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+export const ShuttleManipulator = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -39,8 +39,8 @@ export const ShuttleManipulator = (props, context) => {
   );
 };
 
-const StatusView = (props, context) => {
-  const { act, data } = useBackend(context);
+const StatusView = (props) => {
+  const { act, data } = useBackend();
 
   const { shuttles } = data;
 
@@ -68,8 +68,8 @@ const StatusView = (props, context) => {
   );
 };
 
-const TemplatesView = (props, context) => {
-  const { act, data } = useBackend(context);
+const TemplatesView = (props) => {
+  const { act, data } = useBackend();
 
   const { templates_tabs, existing_shuttle, templates } = data;
 
@@ -107,8 +107,8 @@ const TemplatesView = (props, context) => {
   );
 };
 
-const ModificationView = (props, context) => {
-  const { act, data } = useBackend(context);
+const ModificationView = (props) => {
+  const { act, data } = useBackend();
 
   const { existing_shuttle, selected } = data;
 
