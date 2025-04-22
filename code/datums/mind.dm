@@ -1774,7 +1774,7 @@
 
 /datum/mind/proc/check_ghost_client()
 	var/mob/dead/observer/G = get_ghost()
-	if(G.client)
+	if(G?.client)
 		return TRUE
 
 /datum/mind/proc/grab_ghost(force)

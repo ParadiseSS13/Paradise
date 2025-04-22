@@ -450,7 +450,7 @@
 
 
 // Pencode
-/proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT, no_font = FALSE)
+/proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT, no_font = FALSE, name = TRUE)
 	text = replacetext(text, "\[b\]",		"<B>")
 	text = replacetext(text, "\[/b\]",		"</B>")
 	text = replacetext(text, "\[i\]",		"<I>")
@@ -471,6 +471,8 @@
 			text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[chameleon_pen.forge_name ? chameleon_pen.forge_name : "No name was provided"]</i></font>")
 		else
 			text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
+	if(name)
+		text = replacetext(text, "\[name\]",	"[user ? user.real_name : "Anonymous"]")
 	if(fields)
 		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
 	if(format)
