@@ -1,6 +1,6 @@
 /// Evoltion chance each cycle in percents.
 /// a value of 0.004% corresponds to a 23 in 1000 chance of new strain every 600 cycles or 20 minutes.
-#define EVOLUTION_CHANCE (0.004)
+#define EVOLUTION_CHANCE (0.0006)
 
 /*
 
