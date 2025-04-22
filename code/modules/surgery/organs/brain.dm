@@ -61,7 +61,7 @@
 		. += "You can feel a bright spark of life in this one!"
 		return
 	if(brainmob?.mind)
-		if(brainmob.get_ghost())
+		if(brainmob.check_ghost_client())
 			. += "You can feel the small spark of life still left in this one."
 			return
 

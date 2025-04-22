@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 			to_chat(world, "<span class='boldannounceooc'>Rebooting world immediately due to host request</span>")
-		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+		rustlibs_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
 		if(GLOB.configuration.system.shutdown_on_reboot)
 			sleep(0)
@@ -174,12 +174,12 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				C << link("byond://[GLOB.configuration.url.server_url]")
 
 	// And begin the real shutdown
-	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+	rustlibs_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	if(GLOB.configuration.system.shutdown_on_reboot)
 		sleep(0)
 		if(GLOB.configuration.system.shutdown_shell_command)
 			shell(GLOB.configuration.system.shutdown_shell_command)
-		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+		rustlibs_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		del(world)
 		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 		return
@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	disable_auxtools_debugger() // Disables the debugger if running. See above comment
 
 	if(SSredis.connected)
-		rustg_redis_disconnect() // Disconnects the redis connection. See above.
+		rustlibs_redis_disconnect() // Disconnects the redis connection. See above.
 
 	#ifdef ENABLE_BYOND_TRACY
 	CALL_EXT("prof.dll", "destroy")() // Setup Tracy integration

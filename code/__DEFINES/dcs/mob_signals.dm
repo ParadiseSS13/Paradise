@@ -184,6 +184,8 @@
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
+/// from mob/living/*/UnarmedAttack(): (mob/living/source, atom/target, proximity, modifiers)
+#define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
 ///from base of mob/living/Write_Memory()
 #define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
@@ -193,17 +195,21 @@
 ///from /mob/living/simple_animal/handle_environment()
 #define COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT "simpleanimal_handle_environment"
 
-// /mob/living/simple_animal/hostile signals
-#define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
-//Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
-#define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
-
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"
 
 // Sent when a mob spawner is attacked directly or via projectile.
 #define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
+
+/// From /datum/element/basic_eating/try_eating()
+#define COMSIG_MOB_PRE_EAT "mob_pre_eat"
+	///cancel eating attempt
+	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+
+/// From /datum/element/basic_eating/finish_eating()
+#define COMSIG_MOB_ATE "mob_ate"
+	///cancel post eating
+	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
 
 // ghost signals
 

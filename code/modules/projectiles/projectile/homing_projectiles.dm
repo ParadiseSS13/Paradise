@@ -68,6 +68,6 @@
 
 /obj/item/projectile/homing/magic/homing_fireball/on_hit(mob/living/target)
 	. = ..()
-	explosion(get_turf(target), explosion_devastate, explosion_heavy, explosion_light, explosion_flash, 0, flame_range = explosion_fire)
+	explosion(get_turf(target), explosion_devastate, explosion_heavy, explosion_light, explosion_flash, 0, flame_range = explosion_fire, cause = "Homing Fireball")
 	if(istype(target)) //multiple flavors of pain
 		target.adjustFireLoss(10) // does 20 brute, and 10 burn + explosion. Pretty brutal.

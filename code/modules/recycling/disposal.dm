@@ -322,10 +322,6 @@
 			"<span class='warning'>You hear the sound of someone being stuffed into a disposal unit.</span>"
 		)
 
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = user
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
@@ -841,7 +837,7 @@
 	damage_deflection = 10
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	plane = FLOOR_PLANE
-	layer = CLOSED_TURF_LAYER				// slightly lower than wires and other pipes
+	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	base_icon_state	// initial icon state on map
 	/// The last time a sound was played from this
 	var/last_sound

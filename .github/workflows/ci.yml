@@ -49,10 +49,10 @@ jobs:
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
           python tools/ci/restrict_file_types.py
-          python tools/ci/check_map_sizes.py
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
           python tools/ci/check_icons.py
+          python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
 
@@ -86,12 +86,13 @@ jobs:
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
+      # We test PARADISE_PRODUCTION_HARDWARE here because we dont in station_mapload_tests
       - name: Compile All Maps
         run: |
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          DreamMaker -DMULTIINSTANCE -DCIMAP paradise.dme
+          DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
   station_mapload_tests:
     name: Station Tests

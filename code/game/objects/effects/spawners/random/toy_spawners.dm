@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/toy
 	name = "random toy spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "toy"
 
 /obj/effect/spawner/random/toy/mech_figure
