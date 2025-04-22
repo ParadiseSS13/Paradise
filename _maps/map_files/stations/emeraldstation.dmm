@@ -3191,6 +3191,12 @@
 	},
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -17993,13 +17999,8 @@
 	},
 /area/station/public/shops)
 "dDu" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/machinery/camera{
-	c_tag = "Xenobiology Control";
-	dir = 9;
-	network = list("Research","SS13")
-	},
 /obj/machinery/newscaster/directional/east,
+/obj/machinery/organ_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -23129,6 +23130,11 @@
 	dir = 4
 	},
 /obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/camera{
+	c_tag = "Xenobiology Control";
+	dir = 1;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -35579,11 +35585,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "hdD" = (
-/obj/structure/rack,
-/obj/item/storage/box/syringes,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
+/obj/machinery/computer/operating{
+	dir = 2;
+	name = "dissection computer"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -48713,20 +48717,19 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "jHf" = (
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /obj/structure/table,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/syringes,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -85682,6 +85685,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -98193,10 +98197,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "tzh" = (
-/obj/structure/sink{
-	pixel_y = 22
-	},
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/optable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -108672,19 +108674,18 @@
 /turf/simulated/floor/grass,
 /area/station/public/park)
 "vFk" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5
-	},
 /obj/machinery/requests_console/directional/east,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24;
 	pixel_x = 10
 	},
+/obj/structure/table,
+/obj/item/clothing/glasses/science{
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -115839,9 +115840,6 @@
 /obj/machinery/computer/camera_advanced/xenobio{
 	dir = 8
 	},
-/obj/machinery/ai_status_display{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -117313,12 +117311,15 @@
 	},
 /area/station/security/prison/cell_block)
 "xrN" = (
-/obj/structure/table,
-/obj/item/clothing/glasses/science{
-	pixel_y = 4
-	},
-/obj/item/clothing/glasses/science,
 /obj/machinery/alarm/directional/west,
+/obj/structure/table/glass,
+/obj/item/storage/surgical_tray,
+/obj/item/dissector,
+/obj/machinery/camera{
+	c_tag = "Xenobiology Control";
+	dir = 6;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"

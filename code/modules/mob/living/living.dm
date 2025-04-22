@@ -910,7 +910,7 @@
 
 // lets try and remove some organs
 /mob/living/proc/attempt_dissection(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && current_dissection_step > 1 && ispath(I.type, /obj/item/dissector))
+	if(user.a_intent == INTENT_HARM && stat == DEAD && current_dissection_step > 1 && istype(I.type, /obj/item/dissector))
 		to_chat(user, "<span class='danger'>You begin to close the current dissection site!</span>")
 		playsound(src, 'sound/surgery/cautery1.ogg', 50, TRUE, -1)
 		if(do_mob(user, src, 5 SECONDS) && Adjacent(I))
@@ -925,7 +925,7 @@
 		if(length(surgeries))
 			to_chat(user, "<span class = 'warning'>You cannot dissect [src] while it has ongoing surgeries!</span>")
 		// we should know if the creature has already been harvested
-		if(!xeno_organ_results && ispath(I.type, /obj/item/dissector))
+		if(!xeno_organ_results && istype(I.type, /obj/item/dissector))
 			to_chat(user, "There are no available organs to remove from [src]!")
 			return TRUE
 		var/datum/surgery_step/current_step = dissection_tool_step[current_dissection_step]
@@ -949,11 +949,14 @@
 		return
 	if(current_dissection_step > 1)
 		. += "<span class='warning'>[src] has an ongoing dissection!</span>"
+		if(current_dissection_step <= max_dissection_steps)
+			var/obj/item/step_name = dissection_tool_step[current_dissection_step]
+			. += "<span class='warning'>You feel the next disection step will be: [step_name.name]</span>"
+		else
+			. += "<span class='warning'>[src] looks like they have had their organs dissected!</span>"
 	else
 		return
 
-	var/obj/item/step_name = dissection_tool_step[current_dissection_step]
-	. += "<span class='warning'>You feel the next disection step will be: [step_name.name]</span>"
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
 	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?

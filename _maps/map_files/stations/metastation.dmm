@@ -38166,25 +38166,14 @@
 /area/station/maintenance/asmaint)
 "ddz" = (
 /obj/machinery/alarm/directional/east,
-/obj/structure/rack,
-/obj/item/storage/box/beakers{
-	pixel_x = 6;
-	pixel_y = 10
-	},
-/obj/item/storage/box/syringes{
-	pixel_x = -4;
-	pixel_y = 5
-	},
-/obj/item/scalpel{
-	pixel_y = -2
-	},
-/obj/item/hemostat{
-	pixel_x = 10
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/machinery/requests_console/directional/north,
+/obj/machinery/computer/operating{
+	dir = 2;
+	name = "dissection computer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -42443,10 +42432,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "eMG" = (
-/obj/structure/closet/l3closet/scientist,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/organ_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -56243,6 +56232,15 @@
 	icon_state = "redfull"
 	},
 /area/station/security/permabrig)
+"kFZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/optable,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/xenobiology)
 "kGf" = (
 /obj/machinery/light_construct{
 	dir = 8
@@ -57343,6 +57341,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -62408,9 +62407,13 @@
 /area/station/engineering/control)
 "nfR" = (
 /obj/structure/table/glass,
-/obj/item/clothing/gloves/color/latex,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/item/storage/surgical_tray,
+/obj/item/dissector,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde{
+	pixel_x = -15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -80290,6 +80293,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"uUn" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 6;
+	pixel_y = 10
+	},
+/obj/item/storage/box/syringes{
+	pixel_x = -4;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/xenobiology)
 "uUq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -83509,10 +83527,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "wsf" = (
-/obj/item/kirbyplants/large/plant12,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -130417,13 +130435,13 @@ abf
 aaa
 aaa
 fvN
-iUe
+kFZ
 cEA
 gZe
 deu
 sFX
 pNz
-kjo
+uUn
 fvN
 aaa
 aaa

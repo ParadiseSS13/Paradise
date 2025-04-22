@@ -17241,7 +17241,8 @@
 	dir = 10
 	},
 /obj/structure/table/glass,
-/obj/item/extinguisher,
+/obj/item/storage/surgical_tray,
+/obj/item/dissector,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -28931,8 +28932,10 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
-/obj/structure/table/glass,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/machinery/computer/operating{
+	dir = 2;
+	name = "dissection computer"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -46697,6 +46700,12 @@
 "iKf" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/requests_console/directional/west,
+/obj/structure/table/glass,
+/obj/item/clothing/glasses/science{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -54491,9 +54500,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "kvq" = (
-/obj/structure/chair/office/light{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -55835,6 +55841,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
+"kKm" = (
+/obj/structure/rack,
+/obj/item/extinguisher{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/extinguisher,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "kKq" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -82120,6 +82137,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -92349,16 +92368,11 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/fore)
 "tvP" = (
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/clothing/glasses/science,
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
+/obj/machinery/optable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -92446,6 +92460,11 @@
 "twG" = (
 /obj/structure/table/glass,
 /obj/item/book/manual/wiki/sop_science,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -97091,10 +97110,7 @@
 /area/station/maintenance/fore)
 "uBC" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24;
-	name = "custom placement"
-	},
+/obj/machinery/organ_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -134062,7 +134078,7 @@ cGd
 cGd
 wNA
 qKO
-yiP
+kKm
 xIa
 xIa
 xIa

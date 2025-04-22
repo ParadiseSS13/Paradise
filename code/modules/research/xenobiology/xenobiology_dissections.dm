@@ -29,27 +29,94 @@
 	desc = "This unusual clump of flesh, though now still, holds great potential. It will require revitalization via slime therapy to get any use out of."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
-	origin_tech = "biotech=1"
+	origin_tech = null
 	// What does this object turn into when analyzed?
 	var/true_organ = /obj/item/organ/internal/liver/xenobiology/toxic
+
 	var/unknown_quality = ORGAN_NORMAL
 
 /obj/item/xeno_organ/Initialize()
 	. = ..()
 	icon_state = "organ[rand(1, 18)]"
 
+// A list of parent objects, to inherent the functions of where they are placed.
 /obj/item/organ/internal/liver/xenobiology
 	name = "Unidentified Mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
 	dead_icon = null
-	origin_tech = "biotech=1"
+	origin_tech = null
+	tough = TRUE
+
+/obj/item/organ/internal/heart/xenobiology
+	name = "Unidentified Mass"
+	desc = "This is a parent object and should not appear. Contact a developer."
+	icon = 'icons/obj/xeno_organs.dmi'
+	icon_state = "organ4"
+	dead_icon = null
+	origin_tech = null
+	tough = TRUE
+
+/obj/item/organ/internal/lungs/xenobiology
+	name = "Unidentified Mass"
+	desc = "This is a parent object and should not appear. Contact a developer."
+	icon = 'icons/obj/xeno_organs.dmi'
+	icon_state = "organ4"
+	dead_icon = null
+	origin_tech = null
+	tough = TRUE
+
+/obj/item/organ/internal/kidneys/xenobiology
+	name = "Unidentified Mass"
+	desc = "This is a parent object and should not appear. Contact a developer."
+	icon = 'icons/obj/xeno_organs.dmi'
+	icon_state = "organ4"
+	dead_icon = null
+	origin_tech = null
+	tough = TRUE
+
+/obj/item/organ/internal/appendix/xenobiology
+	name = "Unidentified Mass"
+	desc = "This is a parent object and should not appear. Contact a developer."
+	icon = 'icons/obj/xeno_organs.dmi'
+	icon_state = "organ4"
+	dead_icon = null
+	origin_tech = null
+	tough = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/xenobiology
+	name = "Unidentified Mass"
+	desc = "This is a parent object and should not appear. Contact a developer."
+	icon = 'icons/obj/xeno_organs.dmi'
+	icon_state = "organ4"
+	dead_icon = null
+	origin_tech = null
+	tough = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/xenobiology
+	name = "Unidentified Mass"
+	desc = "This is a parent object and should not appear. Contact a developer."
+	icon = 'icons/obj/xeno_organs.dmi'
+	icon_state = "organ4"
+	dead_icon = null
+	origin_tech = null
+	tough = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/xenobiology
+	name = "Unidentified Mass"
+	desc = "This is a parent object and should not appear. Contact a developer."
+	icon = 'icons/obj/xeno_organs.dmi'
+	icon_state = "organ4"
+	dead_icon = null
+	origin_tech = null
 	tough = TRUE
 
 /obj/item/organ/internal/liver/xenobiology/toxic
 	name = "Toxic Glands"
 	desc = "These fleshy glands' alien chemistry are incompatable with most humanoid life."
+	hidden_origin_tech = TECH_TOXINS
+	hidden_tech_level = 6
 
 /obj/item/organ/internal/liver/xenobiology/toxic/trigger()
 	if(!(owner.mob_biotypes & MOB_ORGANIC))

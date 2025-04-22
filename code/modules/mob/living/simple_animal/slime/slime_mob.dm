@@ -413,12 +413,12 @@
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, "<span class='danger'>[I] passes right through [src]!</span>")
 			return ITEM_INTERACT_COMPLETE
-		if(trained && prob(20)) // trained slimes are more resistant to losing discipline
-			trained = 0
-			src.visible_message("<span class='warning'>[src] becomes spooked and cowers from [user]!</span>")
 		if(Discipline && prob(50) && !trained) // wow, buddy, why am I getting attacked??
 			Discipline = 0
 			return ITEM_INTERACT_COMPLETE
+		if(trained && prob(20)) // trained slimes are more resistant to losing discipline
+			trained = 0
+			src.visible_message("<span class='warning'>[src] becomes spooked and cowers from [user]!</span>")
 
 /mob/living/simple_animal/slime/attacked_by(obj/item/I, mob/living/user)
 	if(..())

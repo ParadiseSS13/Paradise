@@ -742,3 +742,17 @@ do { \
 ///  Economy account defines
 #define BANK_PIN_MIN 10000
 #define BANK_PIN_MAX 99999
+
+/// Defines for hidden organ techs
+#define TECH_MATERIAL "material"
+#define TECH_ENGINEERING "engineering"
+#define TECH_PLASMA "plasma"
+#define TECH_POWER "power"
+#define TECH_BLUESPACE "bluespace"
+#define TECH_BIO "biotech"
+#define TECH_COMBAT "combat"
+#define TECH_MAGNETS "magnets"
+#define TECH_PROGRAM "programming"
+#define TECH_TOXINS "toxins"
+#define TECH_SYNDICATE "syndicate"
+#define TECH_ABDUCTOR "abductor"

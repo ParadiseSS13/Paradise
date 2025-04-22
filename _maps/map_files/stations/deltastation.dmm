@@ -38885,6 +38885,8 @@
 "cOO" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/folder/white,
+/obj/item/pen,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cOP" = (
@@ -40589,12 +40591,12 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/folder/white,
-/obj/item/pen,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/item/storage/surgical_tray,
+/obj/item/dissector,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "cVs" = (
@@ -40934,18 +40936,21 @@
 	},
 /area/station/science/xenobiology)
 "cWV" = (
-/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/operating{
+	dir = 1;
+	name = "dissection computer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
 "cWW" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/optable,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -41433,6 +41438,9 @@
 /obj/machinery/reagentgrinder,
 /obj/machinery/requests_console/directional/east,
 /obj/effect/turf_decal/delivery,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde{
+	pixel_x = -15
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "cZF" = (
@@ -62700,6 +62708,13 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fsmaint)
+"iSG" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "iTb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -72490,6 +72505,13 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"nyR" = (
+/obj/machinery/organ_analyzer,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "nyX" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -130232,7 +130254,7 @@ eGq
 exC
 mek
 tjH
-cQP
+nyR
 cVf
 cVf
 cSc
@@ -130489,7 +130511,7 @@ eGq
 rkt
 oRX
 cIL
-cQP
+iSG
 cPe
 cTO
 cSg

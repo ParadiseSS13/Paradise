@@ -13,6 +13,12 @@
 	var/has_ongoing_effect = FALSE
 	/// Is this organ currently processing its ongoing effects
 	var/processing = FALSE
+	/// This contains the hidden RnD levels of an organ to prevent rnd from using it.
+	var/hidden_origin_tech
+	/// What is the level of tech for the hidden tech type?
+	var/hidden_tech_level = 1
+	/// How much is this organ worth in the xenobiology organ analyzer?
+	var/analyzer_price = 10
 	var/cooldown_low = 300
 	var/cooldown_high = 300
 	var/next_activation = 0
