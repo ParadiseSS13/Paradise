@@ -570,14 +570,13 @@
 	mobile_port.loc = S1.loc
 	mobile_port.dir = S1.dir
 
-	//update mining and labor shuttle ash storm audio
+	//update mining and labor shuttle weather audio
 	if(mobile_port.id in list("mining", "laborcamp"))
 		for(var/zlvl in levels_by_trait(ORE_LEVEL))
-			var/datum/weather/ash_storm/W = SSweather.get_weather(zlvl, /area/lavaland/surface/outdoors)
+			var/datum/weather/W = SSweather.get_weather(zlvl, /area/lavaland/surface/outdoors)
 			if(W)
 				W.update_eligible_areas()
 				W.update_audio()
-
 	mobile_port.unlockPortDoors(S1)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
