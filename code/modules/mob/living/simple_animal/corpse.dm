@@ -20,8 +20,8 @@
 	brute_damage = rand(0, 200)
 	var/hcolor = pick("#000000", "#8B4513", "#FFD700")
 	var/ecolor = pick("#000000", "#8B4513", "#1E90FF")
-	hair_colour = hcolor
-	facial_hair_colour = hcolor
+	hair_color = hcolor
+	facial_hair_color = hcolor
 	eyes_color = ecolor
 	skin_tone = pick(-50, -30, -10, 0, 0, 0, 10)
 	return ..()
