@@ -28,8 +28,8 @@ const getStatusColor = (val) => {
   return statusColor;
 };
 
-export const ExternalAirlockController = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ExternalAirlockController = (props) => {
+  const { act, data } = useBackend();
   const { chamber_pressure, exterior_status, interior_status, processing } = data;
   return (
     <Window width={330} height={205}>

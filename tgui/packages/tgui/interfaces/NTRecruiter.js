@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const NTRecruiter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NTRecruiter = (props) => {
+  const { act, data } = useBackend();
   const {
     gamestatus,
     cand_name,

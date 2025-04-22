@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, DmIcon, Section, Stack, Table, Icon } from '../components';
 import { Window } from '../layouts';
 
-const VendingRow = (props, context) => {
-  const { act, data } = useBackend(context);
+const VendingRow = (props) => {
+  const { act, data } = useBackend();
   const { product, productStock, productIcon, productIconState } = props;
   const { locked, bypass_lock, user, usermoney, inserted_cash, vend_ready, inserted_item_name } = data;
   let buttonText = 'ERROR!';
@@ -56,8 +56,8 @@ const VendingRow = (props, context) => {
   );
 };
 
-export const Vending = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Vending = (props) => {
+  const { act, data } = useBackend();
   const {
     user,
     usermoney,

@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const GravityGen = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GravityGen = (props) => {
+  const { act, data } = useBackend();
   const { charging_state, charge_count, breaker, ext_power } = data;
 
   let chargeStatus = (state) => {

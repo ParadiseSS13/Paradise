@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const FaxMachine = (props, context) => {
-  const { act, data } = useBackend(context);
+export const FaxMachine = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={540} height={295}>
       <Window.Content>

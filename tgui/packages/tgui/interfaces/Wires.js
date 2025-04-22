@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const Wires = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Wires = (props) => {
+  const { act, data } = useBackend();
 
   const wires = data.wires || [];
   const statuses = data.status || [];

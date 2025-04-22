@@ -14,8 +14,8 @@ const getDamageColor = (damage, maxDamage) => {
   }
 };
 
-export const RobotSelfDiagnosis = (props, context) => {
-  const { data } = useBackend(context);
+export const RobotSelfDiagnosis = (props) => {
+  const { data } = useBackend();
   const { component_data } = data;
   return (
     <Window width={280} height={480}>

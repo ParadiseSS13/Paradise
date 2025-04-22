@@ -2,8 +2,8 @@ import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
 import { Section, Table, Button } from '../../components';
 
-export const LinkMenu = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const LinkMenu = (properties) => {
+  const { act, data } = useBackend();
 
   const { controllers } = data;
 

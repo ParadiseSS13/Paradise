@@ -4,8 +4,8 @@ import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { FlexItem } from '../components/Flex';
 
-export const BookBinder = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BookBinder = (props) => {
+  const { act, data } = useBackend();
   const { selectedbook, book_categories } = data;
 
   let categoryMap = [];
@@ -36,7 +36,7 @@ export const BookBinder = (props, context) => {
                       icon="pen"
                       width="auto"
                       content={selectedbook.title}
-                      onClick={() => modalOpen(context, 'edit_selected_title')}
+                      onClick={() => modalOpen('edit_selected_title')}
                     />
                   </LabeledList.Item>
                   <LabeledList.Item label="Author">
@@ -45,7 +45,7 @@ export const BookBinder = (props, context) => {
                       icon="pen"
                       width="auto"
                       content={selectedbook.author}
-                      onClick={() => modalOpen(context, 'edit_selected_author')}
+                      onClick={() => modalOpen('edit_selected_author')}
                     />
                   </LabeledList.Item>
                   <LabeledList.Item label="Select Categories">
@@ -66,7 +66,7 @@ export const BookBinder = (props, context) => {
                       icon="pen"
                       width="auto"
                       content="Edit Summary"
-                      onClick={() => modalOpen(context, 'edit_selected_summary')}
+                      onClick={() => modalOpen('edit_selected_summary')}
                     />
                   </LabeledList.Item>
                   <LabeledList.Item>{selectedbook.summary}</LabeledList.Item>

@@ -28,14 +28,10 @@ type ColorPickerData = {
   default_color: string;
 };
 
-export const ColorPickerModal = (_, context) => {
-  const { data } = useBackend<ColorPickerData>(context);
+export const ColorPickerModal = (_) => {
+  const { data } = useBackend<ColorPickerData>();
   const { timeout, message, title, autofocus, default_color = '#000000' } = data;
-  let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>(
-    context,
-    'color_picker_choice',
-    hexToHsva(default_color)
-  );
+  let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>('color_picker_choice', hexToHsva(default_color));
 
   return (
     <Window height={400} title={title} width={600} theme="generic">

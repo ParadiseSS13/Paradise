@@ -2,8 +2,8 @@ import { classes } from 'common/react';
 import { useBackend } from '../../backend';
 import { Button, Icon, LabeledList, Section, Table } from '../../components';
 
-export const AnalyzerMenu = (props, context) => {
-  const { data, act } = useBackend(context);
+export const AnalyzerMenu = (props) => {
+  const { data, act } = useBackend();
 
   const { tech_levels, loaded_item, linked_analyzer, can_discover } = data;
 
@@ -69,7 +69,7 @@ export const AnalyzerMenu = (props, context) => {
   );
 };
 
-const TechnologyRow = (props, context) => {
+const TechnologyRow = (props) => {
   const {
     techLevel: { name, desc, level, object_level, ui_icon },
   } = props;

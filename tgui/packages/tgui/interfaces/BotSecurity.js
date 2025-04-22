@@ -3,8 +3,8 @@ import { Button, Section } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
-export const BotSecurity = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BotSecurity = (props) => {
+  const { act, data } = useBackend();
   const { noaccess, painame, check_id, check_weapons, check_warrant, arrest_mode, arrest_declare } = data;
   return (
     <Window width={500} height={445}>

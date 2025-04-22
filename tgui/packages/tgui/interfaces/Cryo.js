@@ -27,7 +27,7 @@ const statNames = [
   ['bad', 'DEAD'],
 ];
 
-export const Cryo = (props, context) => {
+export const Cryo = (props) => {
   return (
     <Window width={520} height={500}>
       <Window.Content>
@@ -39,8 +39,8 @@ export const Cryo = (props, context) => {
   );
 };
 
-const CryoContent = (props, context) => {
-  const { act, data } = useBackend(context);
+const CryoContent = (props) => {
+  const { act, data } = useBackend();
   const {
     isOperating,
     hasOccupant,
@@ -168,8 +168,8 @@ const CryoContent = (props, context) => {
   );
 };
 
-const CryoBeaker = (props, context) => {
-  const { act, data } = useBackend(context);
+const CryoBeaker = (props) => {
+  const { act, data } = useBackend();
   const { isBeakerLoaded, beakerLabel, beakerVolume } = data;
   if (isBeakerLoaded) {
     return (

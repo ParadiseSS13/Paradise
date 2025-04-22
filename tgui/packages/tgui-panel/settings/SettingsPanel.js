@@ -75,7 +75,7 @@ export const SettingsPanel = (props, context) => {
 export const SettingsGeneral = (props, context) => {
   const { theme, fontFamily, fontSize, lineHeight } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
-  const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
+  const [freeFont, setFreeFont] = useLocalState('freeFont', false);
   return (
     <Section fill>
       <Stack fill vertical>

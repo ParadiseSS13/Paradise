@@ -8,8 +8,8 @@ import { Button, NoticeBox, Stack } from '../../components';
  * @param {object} _properties
  * @param {object} context
  */
-export const LoginInfo = (_properties, context) => {
-  const { act, data } = useBackend(context);
+export const LoginInfo = (_properties) => {
+  const { act, data } = useBackend();
   const { loginState } = data;
   if (!data) {
     return;

@@ -11,10 +11,10 @@ type Emoji = {
   name: string;
 };
 
-export const Emojipedia = (props, context) => {
-  const { data } = useBackend<Data>(context);
+export const Emojipedia = (props) => {
+  const { data } = useBackend<Data>();
   const { emoji_list } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   const filteredEmoji = emoji_list.filter((emoji) => emoji.name.toLowerCase().includes(searchText.toLowerCase()));
 
   return (

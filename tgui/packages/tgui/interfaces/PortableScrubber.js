@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section, LabeledList, Slider, Box, ProgressBar, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const PortableScrubber = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PortableScrubber = (props) => {
+  const { act, data } = useBackend();
   const { has_holding_tank } = data;
 
   return (
@@ -27,8 +27,8 @@ export const PortableScrubber = (props, context) => {
   );
 };
 
-const PumpSettings = (props, context) => {
-  const { act, data } = useBackend(context);
+const PumpSettings = (props) => {
+  const { act, data } = useBackend();
   const { on, port_connected } = data;
 
   return (
@@ -55,8 +55,8 @@ const PumpSettings = (props, context) => {
   );
 };
 
-const PressureSettings = (props, context) => {
-  const { act, data } = useBackend(context);
+const PressureSettings = (props) => {
+  const { act, data } = useBackend();
   const { tank_pressure, rate, max_rate } = data;
 
   const average_pressure = max_rate * 0.7;
@@ -142,8 +142,8 @@ const PressureSettings = (props, context) => {
   );
 };
 
-const HoldingTank = (props, context) => {
-  const { act, data } = useBackend(context);
+const HoldingTank = (props) => {
+  const { act, data } = useBackend();
   const { holding_tank, max_rate } = data;
 
   const average_pressure = max_rate * 0.7;

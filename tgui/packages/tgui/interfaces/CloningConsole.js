@@ -7,8 +7,8 @@ const brokenFlag = 1 << 0;
 const internalBleedingFlag = 1 << 5;
 const burnWoundFlag = 1 << 7;
 
-export const CloningConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CloningConsole = (props) => {
+  const { act, data } = useBackend();
   const { tab, has_scanner, pod_amount } = data;
   return (
     <Window width={640} height={520}>
@@ -35,8 +35,8 @@ export const CloningConsole = (props, context) => {
   );
 };
 
-const CloningConsoleBody = (props, context) => {
-  const { data } = useBackend(context);
+const CloningConsoleBody = (props) => {
+  const { data } = useBackend();
   const { tab } = data;
   let body;
   if (tab === 1) {
@@ -47,8 +47,8 @@ const CloningConsoleBody = (props, context) => {
   return body;
 };
 
-const CloningConsoleMain = (props, context) => {
-  const { act, data } = useBackend(context);
+const CloningConsoleMain = (props) => {
+  const { act, data } = useBackend();
   const { pods, pod_amount, selected_pod_UID } = data;
   return (
     <Box>
@@ -109,8 +109,8 @@ const CloningConsoleMain = (props, context) => {
   );
 };
 
-const CloningConsoleDamage = (props, context) => {
-  const { act, data } = useBackend(context);
+const CloningConsoleDamage = (props) => {
+  const { act, data } = useBackend();
   const {
     selected_pod_data,
     has_scanned,
@@ -243,8 +243,8 @@ const CloningConsoleDamage = (props, context) => {
   );
 };
 
-const LimbsMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const LimbsMenu = (props) => {
+  const { act, data } = useBackend();
   const { patient_limb_data, limb_list, desired_limb_data } = data;
   return (
     <Collapsible title="Limbs">
@@ -332,8 +332,8 @@ const LimbsMenu = (props, context) => {
   );
 };
 
-const OrgansMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const OrgansMenu = (props) => {
+  const { act, data } = useBackend();
   const { patient_organ_data, organ_list, desired_organ_data } = data;
   return (
     <Collapsible title="Organs">

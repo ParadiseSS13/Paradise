@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Icon, Section, Stack, Slider } from '../components';
 import { Window } from '../layouts';
 
-export const VolumeMixer = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const VolumeMixer = (properties) => {
+  const { act, data } = useBackend();
   const { channels } = data;
   return (
     <Window width={350} height={Math.min(95 + channels.length * 50, 565)}>

@@ -3,8 +3,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, Section, Input, Dropdown } from '../components';
 import { Window } from '../layouts';
 
-export const EFTPOS = (props, context) => {
-  const { act, data } = useBackend(context);
+export const EFTPOS = (props) => {
+  const { act, data } = useBackend();
   const { transaction_locked, machine_name } = data;
   return (
     <Window width={500} height={250}>
@@ -35,8 +35,8 @@ export const EFTPOS = (props, context) => {
   );
 };
 
-const LockedView = (props, context) => {
-  const { act, data } = useBackend(context);
+const LockedView = (props) => {
+  const { act, data } = useBackend();
   const { transaction_amount, transaction_paid, can_offer } = data;
   return (
     <>
@@ -66,9 +66,9 @@ const LockedView = (props, context) => {
   );
 };
 
-const UnlockedView = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+const UnlockedView = (props) => {
+  const { act, data } = useBackend();
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   const { transaction_purpose, transaction_amount, linked_account, available_accounts, can_offer } = data;
 
   let accountMap = [];

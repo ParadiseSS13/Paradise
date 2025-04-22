@@ -20,8 +20,8 @@ const distanceToPoint = (from, to) => {
   return { angle: rad2deg(angle), distance: dist };
 };
 
-export const GPS = (properties, context) => {
-  const { data } = useBackend(context);
+export const GPS = (properties) => {
+  const { data } = useBackend();
   const { emped, active, area, position, saved } = data;
   return (
     <Window width={400} height={600}>
@@ -61,7 +61,7 @@ export const GPS = (properties, context) => {
   );
 };
 
-const TurnedOff = ({ emp }, context) => {
+const TurnedOff = ({ emp }) => {
   return (
     <Section fill>
       <Box width="100%" height="100%" color="label" textAlign="center">
@@ -77,10 +77,10 @@ const TurnedOff = ({ emp }, context) => {
   );
 };
 
-const Settings = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Settings = (properties) => {
+  const { act, data } = useBackend();
   const { active, tag, same_z } = data;
-  const [newTag, setNewTag] = useLocalState(context, 'newTag', tag);
+  const [newTag, setNewTag] = useLocalState('newTag', tag);
   return (
     <Section
       title="Settings"
@@ -124,7 +124,7 @@ const Settings = (properties, context) => {
   );
 };
 
-const Position = ({ title, area, position }, context) => {
+const Position = ({ title, area, position }) => {
   return (
     <Section title={title || 'Position'}>
       <Box fontSize="1.5rem">
@@ -140,8 +140,8 @@ const Position = ({ title, area, position }, context) => {
   );
 };
 
-const Signals = (properties, context) => {
-  const { data } = useBackend(context);
+const Signals = (properties) => {
+  const { data } = useBackend();
   const { position, signals } = data;
   return (
     <Section fill scrollable title="Signals" {...properties}>

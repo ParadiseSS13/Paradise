@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { Box, Button, LabeledList } from '../../components';
 
-export const pda_status_display = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_status_display = (props) => {
+  const { act, data } = useBackend();
 
   const { records } = data;
 

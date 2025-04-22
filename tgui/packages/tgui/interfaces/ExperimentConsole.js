@@ -14,8 +14,8 @@ const experimentInfoMap = new Map([
   [2, { label: 'Analyze', icon: 'search' }],
 ]);
 
-export const ExperimentConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ExperimentConsole = (props) => {
+  const { act, data } = useBackend();
   const { open, feedback, occupant, occupant_name, occupant_status } = data;
 
   const renderScannerSection = () => {

@@ -56,13 +56,13 @@ const ManifestTable = (group) => {
   );
 };
 
-export const CrewManifest = (props, context) => {
-  const { act } = useBackend(context);
+export const CrewManifest = (props) => {
+  const { act } = useBackend();
   let finalData;
   if (props.data) {
     finalData = props.data;
   } else {
-    let { data } = useBackend(context);
+    let { data } = useBackend();
     finalData = data;
   }
   // HOW TO USE THIS THING

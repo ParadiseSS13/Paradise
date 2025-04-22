@@ -2,8 +2,8 @@ import { useBackend } from '../../backend';
 import { toFixed } from 'common/math';
 import { LabeledList, NumberInput, Button } from '../../components';
 
-export const pai_radio = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_radio = (props) => {
+  const { act, data } = useBackend();
 
   const { minFrequency, maxFrequency, frequency, broadcasting } = data.app_data;
 

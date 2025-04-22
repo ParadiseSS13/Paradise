@@ -37,9 +37,9 @@ const getStatColor = (cm, critThreshold) => {
   return 'green';
 };
 
-export const CrewMonitor = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndexInternal] = useLocalState(context, 'tabIndex', data.tabIndex);
+export const CrewMonitor = (props) => {
+  const { act, data } = useBackend();
+  const [tabIndex, setTabIndexInternal] = useLocalState('tabIndex', data.tabIndex);
   const setTabIndex = (index) => {
     setTabIndexInternal(index);
     act('set_tab_index', { tab_index: index });
@@ -76,14 +76,14 @@ export const CrewMonitor = (props, context) => {
   );
 };
 
-const CrewMonitorDataView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const CrewMonitorDataView = (_properties) => {
+  const { act, data } = useBackend();
   const { possible_levels, viewing_current_z_level, is_advanced, highlightedNames } = data;
   const crew = sortBy(
     (cm) => !highlightedNames.includes(cm.name),
     (cm) => cm.name
   )(data.crewmembers || []);
-  const [search, setSearch] = useLocalState(context, 'search', '');
+  const [search, setSearch] = useLocalState('search', '');
   const searcher = createSearch(search, (cm) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
   });
@@ -190,7 +190,7 @@ const CrewMonitorDataView = (_properties, context) => {
   );
 };
 
-const HighlightedMarker = (props, context) => {
+const HighlightedMarker = (props) => {
   const { color, ...rest } = props;
   return (
     <NanoMap.Marker {...rest}>
@@ -199,8 +199,8 @@ const HighlightedMarker = (props, context) => {
   );
 };
 
-const CrewMonitorMapView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const CrewMonitorMapView = (_properties) => {
+  const { act, data } = useBackend();
   const { highlightedNames } = data;
   return (
     <Box height="100vh" mb="0.5rem" overflow="hidden">

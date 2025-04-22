@@ -15,8 +15,8 @@ import {
 import { formatSiUnit } from '../format';
 import { Window } from '../layouts';
 
-export const Canister = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Canister = (props) => {
+  const { act, data } = useBackend();
   const {
     portConnected,
     tankPressure,

@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { LabeledList, Box, Button } from '../../components';
 
-export const pai_main_menu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_main_menu = (props) => {
+  const { act, data } = useBackend();
   const {
     available_software,
     installed_software,

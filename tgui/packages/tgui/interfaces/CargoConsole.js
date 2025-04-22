@@ -5,7 +5,7 @@ import { Button, LabeledList, Box, Section, Dropdown, Input, Table, Modal, Stack
 import { Window } from '../layouts';
 import { createSearch } from 'common/string';
 
-export const CargoConsole = (props, context) => {
+export const CargoConsole = (props) => {
   return (
     <Window width={900} height={800}>
       <Window.Content>
@@ -21,10 +21,10 @@ export const CargoConsole = (props, context) => {
   );
 };
 
-const ContentsModal = (_properties, context) => {
-  const [contentsModal, setContentsModal] = useLocalState(context, 'contentsModal', null);
+const ContentsModal = (_properties) => {
+  const [contentsModal, setContentsModal] = useLocalState('contentsModal', null);
 
-  const [contentsModalTitle, setContentsModalTitle] = useLocalState(context, 'contentsModalTitle', null);
+  const [contentsModalTitle, setContentsModalTitle] = useLocalState('contentsModalTitle', null);
   if (contentsModal !== null && contentsModalTitle !== null) {
     return (
       <Modal maxWidth="75%" width={window.innerWidth + 'px'} maxHeight={window.innerHeight * 0.75 + 'px'} mx="auto">
@@ -53,8 +53,8 @@ const ContentsModal = (_properties, context) => {
   }
 };
 
-const StatusPane = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const StatusPane = (_properties) => {
+  const { act, data } = useBackend();
   const { is_public, timeleft, moving, at_station } = data;
 
   // Shuttle status text
@@ -93,10 +93,10 @@ const StatusPane = (_properties, context) => {
   );
 };
 
-const PaymentPane = (properties, context) => {
-  const { act, data } = useBackend(context);
+const PaymentPane = (properties) => {
+  const { act, data } = useBackend();
   const { accounts } = data;
-  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
+  const [selectedAccount, setSelectedAccount] = useLocalState('selectedAccount');
 
   let accountMap = [];
   accounts.map((account) => (accountMap[account.name] = account.account_UID));
@@ -127,20 +127,20 @@ const PaymentPane = (properties, context) => {
   );
 };
 
-const CataloguePane = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const CataloguePane = (_properties) => {
+  const { act, data } = useBackend();
   const { requests, categories, supply_packs } = data;
 
-  const [category, setCategory] = useSharedState(context, 'category', 'Emergency');
+  const [category, setCategory] = useSharedState('category', 'Emergency');
 
-  const [searchText, setSearchText] = useSharedState(context, 'search_text', '');
+  const [searchText, setSearchText] = useSharedState('search_text', '');
 
-  const [contentsModal, setContentsModal] = useLocalState(context, 'contentsModal', null);
+  const [contentsModal, setContentsModal] = useLocalState('contentsModal', null);
 
-  const [contentsModalTitle, setContentsModalTitle] = useLocalState(context, 'contentsModalTitle', null);
+  const [contentsModalTitle, setContentsModalTitle] = useLocalState('contentsModalTitle', null);
 
   const packSearch = createSearch(searchText, (crate) => crate.name);
-  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
+  const [selectedAccount, setSelectedAccount] = useLocalState('selectedAccount');
 
   const cratesToShow = flow([
     filter((pack) => pack.cat === categories.filter((c) => c.name === category)[0].category || searchText),
@@ -218,7 +218,7 @@ const CataloguePane = (_properties, context) => {
   );
 };
 
-const GetRequestNotice = (_properties, context) => {
+const GetRequestNotice = (_properties) => {
   const { request } = _properties;
 
   let head_color;
@@ -286,8 +286,8 @@ const GetRequestNotice = (_properties, context) => {
   );
 };
 
-const DetailsPane = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const DetailsPane = (_properties) => {
+  const { act, data } = useBackend();
   const { requests, orders, shipments } = data;
   return (
     <Section fill scrollable title="Orders">

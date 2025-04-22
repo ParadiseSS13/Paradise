@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section } from '../components';
 import { Window } from '../layouts';
 
-export const AtmosAlertConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AtmosAlertConsole = (props) => {
+  const { act, data } = useBackend();
   const priorityAlerts = data.priority || [];
   const minorAlerts = data.minor || [];
   const areaModes = data.mode || {};

@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { Box, Table } from '../../components';
 
-export const LatheMaterials = (properties, context) => {
-  const { data } = useBackend(context);
+export const LatheMaterials = (properties) => {
+  const { data } = useBackend();
 
   const { total_materials, max_materials, max_chemicals, total_chemicals } = data;
 

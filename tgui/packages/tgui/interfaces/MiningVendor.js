@@ -9,8 +9,8 @@ const sortTypes = {
   'Price': (a, b) => a.price - b.price,
 };
 
-export const MiningVendor = (_properties, _context) => {
-  const [gridLayout, setGridLayout] = useLocalState(_context, 'gridLayout', false);
+export const MiningVendor = (_properties) => {
+  const [gridLayout, setGridLayout] = useLocalState('gridLayout', false);
   return (
     <Window width={400} height={525}>
       <Window.Content>
@@ -24,8 +24,8 @@ export const MiningVendor = (_properties, _context) => {
   );
 };
 
-const MiningVendorUser = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MiningVendorUser = (_properties) => {
+  const { act, data } = useBackend();
   const { has_id, id } = data;
   return (
     <NoticeBox success={has_id}>
@@ -62,14 +62,14 @@ const MiningVendorUser = (_properties, context) => {
   );
 };
 
-const MiningVendorItems = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MiningVendorItems = (_properties) => {
+  const { act, data } = useBackend();
   const { has_id, id, items } = data;
   const { gridLayout } = _properties;
   // Search thingies
-  const [searchText, _setSearchText] = useLocalState(context, 'search', '');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sort', 'Alphabetical');
-  const [descending, _setDescending] = useLocalState(context, 'descending', false);
+  const [searchText, _setSearchText] = useLocalState('search', '');
+  const [sortOrder, _setSortOrder] = useLocalState('sort', 'Alphabetical');
+  const [descending, _setDescending] = useLocalState('descending', false);
   const searcher = createSearch(searchText, (item) => {
     return item[0];
   });
@@ -102,11 +102,11 @@ const MiningVendorItems = (_properties, context) => {
   );
 };
 
-const MiningVendorSearch = (_properties, context) => {
+const MiningVendorSearch = (_properties) => {
   const { gridLayout, setGridLayout } = _properties;
-  const [_searchText, setSearchText] = useLocalState(context, 'search', '');
-  const [_sortOrder, setSortOrder] = useLocalState(context, 'sort', '');
-  const [descending, setDescending] = useLocalState(context, 'descending', false);
+  const [_searchText, setSearchText] = useLocalState('search', '');
+  const [_sortOrder, setSortOrder] = useLocalState('sort', '');
+  const [descending, setDescending] = useLocalState('descending', false);
   return (
     <Box>
       <Stack fill>
@@ -149,8 +149,8 @@ const MiningVendorSearch = (_properties, context) => {
   );
 };
 
-const MiningVendorItemsCategory = (properties, context) => {
-  const { act, data } = useBackend(context);
+const MiningVendorItemsCategory = (properties) => {
+  const { act, data } = useBackend();
   const { title, items, gridLayout, ...rest } = properties;
   return (
     <Collapsible open title={title} {...rest}>

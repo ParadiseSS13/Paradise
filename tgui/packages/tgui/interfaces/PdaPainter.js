@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Icon, Section, Table, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const PdaPainter = (props, context) => {
-  const { data } = useBackend(context);
+export const PdaPainter = (props) => {
+  const { data } = useBackend();
   const { has_pda } = data;
   return (
     <Window width={510} height={505}>
@@ -12,8 +12,8 @@ export const PdaPainter = (props, context) => {
   );
 };
 
-const PdaInsert = (props, context) => {
-  const { act } = useBackend(context);
+const PdaInsert = (props) => {
+  const { act } = useBackend();
   return (
     <Section fill>
       <Stack fill>
@@ -27,8 +27,8 @@ const PdaInsert = (props, context) => {
   );
 };
 
-const PdaMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const PdaMenu = (props) => {
+  const { act, data } = useBackend();
   const { pda_colors } = data;
   return (
     <Stack fill horizontal>
@@ -63,8 +63,8 @@ const PdaMenu = (props, context) => {
   );
 };
 
-const PdaImage = (props, context) => {
-  const { act, data } = useBackend(context);
+const PdaImage = (props) => {
+  const { act, data } = useBackend();
   const { current_appearance, preview_appearance } = data;
   return (
     <Stack.Item>

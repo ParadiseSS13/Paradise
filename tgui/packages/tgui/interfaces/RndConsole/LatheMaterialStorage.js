@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { Button, Section, Table } from '../../components';
 
-export const LatheMaterialStorage = (properties, context) => {
-  const { data, act } = useBackend(context);
+export const LatheMaterialStorage = (properties) => {
+  const { data, act } = useBackend();
   const { loaded_materials } = data;
   return (
     <Section className="RndConsole__LatheMaterialStorage" title="Material Storage">

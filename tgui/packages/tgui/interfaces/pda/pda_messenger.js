@@ -2,8 +2,8 @@ import { filter } from 'common/collections';
 import { useBackend, useLocalState } from '../../backend';
 import { Box, Button, Dropdown, Icon, Input, LabeledList, Section, Stack } from '../../components';
 
-export const pda_messenger = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_messenger = (props) => {
+  const { act, data } = useBackend();
   const { active_convo } = data;
 
   if (active_convo) {
@@ -12,13 +12,13 @@ export const pda_messenger = (props, context) => {
   return <MessengerList data={data} />;
 };
 
-export const ActiveConversation = (props, context) => {
-  const { act } = useBackend(context);
+export const ActiveConversation = (props) => {
+  const { act } = useBackend();
   const data = props.data;
 
   const { convo_name, convo_job, messages, active_convo } = data;
 
-  const [clipboardMode, setClipboardMode] = useLocalState(context, 'clipboardMode', false);
+  const [clipboardMode, setClipboardMode] = useLocalState('clipboardMode', false);
 
   let body = (
     <Section
@@ -127,14 +127,14 @@ export const ActiveConversation = (props, context) => {
   );
 };
 
-export const MessengerList = (props, context) => {
-  const { act } = useBackend(context);
+export const MessengerList = (props) => {
+  const { act } = useBackend();
 
   const data = props.data;
 
   const { convopdas, pdas, charges, silent, toff, ringtone_list, ringtone } = data;
 
-  const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
+  const [searchTerm, setSearchTerm] = useLocalState('searchTerm', '');
 
   return (
     <Stack fill vertical>
@@ -197,8 +197,8 @@ export const MessengerList = (props, context) => {
   );
 };
 
-const PDAList = (props, context) => {
-  const { act } = useBackend(context);
+const PDAList = (props) => {
+  const { act } = useBackend();
   const data = props.data;
 
   const { pdas, title, msgAct, searchTerm } = props;

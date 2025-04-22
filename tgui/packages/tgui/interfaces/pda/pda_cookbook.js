@@ -4,12 +4,12 @@ import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { Box, Button, Input, Section, Stack } from '../../components';
 
-export const pda_cookbook = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_cookbook = (props) => {
+  const { act, data } = useBackend();
   const { categories, current_category, recipes, search_text } = data;
 
-  const [recipeList, setRecipeList] = useLocalState(context, 'recipeList', recipes);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', search_text);
+  const [recipeList, setRecipeList] = useLocalState('recipeList', recipes);
+  const [searchText, setSearchText] = useLocalState('searchText', search_text);
 
   return (
     <Box>

@@ -3,7 +3,7 @@ import { Box, Button, Icon, Section, Table } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 
-export const LibraryManager = (props, context) => {
+export const LibraryManager = (props) => {
   return (
     <Window width={600} height={600}>
       <ComplexModal />
@@ -14,8 +14,8 @@ export const LibraryManager = (props, context) => {
   );
 };
 
-const PageContent = (props, context) => {
-  const { act, data } = useBackend(context);
+const PageContent = (props) => {
+  const { act, data } = useBackend();
 
   const { pagestate } = data;
   switch (pagestate) {
@@ -30,8 +30,8 @@ const PageContent = (props, context) => {
   }
 };
 
-const MainMenu = (properties, context) => {
-  const { act, data } = useBackend(context);
+const MainMenu = (properties) => {
+  const { act, data } = useBackend();
 
   return (
     <Section>
@@ -45,29 +45,29 @@ const MainMenu = (properties, context) => {
         width="auto"
         color="danger"
         content="Delete Book by SSID"
-        onClick={() => modalOpen(context, 'specify_ssid_delete')}
+        onClick={() => modalOpen('specify_ssid_delete')}
       />
       <Button
         icon="user-slash"
         width="auto"
         color="danger"
         content="Delete All Books By CKEY"
-        onClick={() => modalOpen(context, 'specify_ckey_delete')}
+        onClick={() => modalOpen('specify_ckey_delete')}
       />
       <br />
       <Button
         icon="search"
         width="auto"
         content="View All Books By CKEY"
-        onClick={() => modalOpen(context, 'specify_ckey_search')}
+        onClick={() => modalOpen('specify_ckey_search')}
       />
       <Button icon="search" width="auto" content="View All Reported Books" onClick={() => act('view_reported_books')} />
     </Section>
   );
 };
 
-const ReportsMenu = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ReportsMenu = (properties) => {
+  const { act, data } = useBackend();
 
   const { reports } = data;
 
@@ -137,8 +137,8 @@ const ReportsMenu = (properties, context) => {
   );
 };
 
-const BooksByCkeyMenu = (properties, context) => {
-  const { act, data } = useBackend(context);
+const BooksByCkeyMenu = (properties) => {
+  const { act, data } = useBackend();
 
   const { ckey, booklist } = data;
 

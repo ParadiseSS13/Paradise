@@ -2,8 +2,8 @@ import { useBackend, useSharedState } from '../backend';
 import { Button, Section, Box, Stack, NumberInput, ProgressBar, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const CompostBin = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CompostBin = (props) => {
+  const { act, data } = useBackend();
   const {
     biomass,
     compost,
@@ -15,7 +15,7 @@ export const CompostBin = (props, context) => {
     potash_capacity,
   } = data;
 
-  let [vendAmount, setVendAmount] = useSharedState(context, 'vendAmount', 1);
+  let [vendAmount, setVendAmount] = useSharedState('vendAmount', 1);
 
   return (
     <Window width={360} height={250}>

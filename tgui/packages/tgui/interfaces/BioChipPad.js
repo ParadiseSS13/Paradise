@@ -2,10 +2,10 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, Section, Box, LabeledList, Input, Icon } from '../components';
 import { Window } from '../layouts';
 
-export const BioChipPad = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BioChipPad = (props) => {
+  const { act, data } = useBackend();
   const { implant, contains_case, gps, tag } = data;
-  const [newTag, setNewTag] = useLocalState(context, 'newTag', tag);
+  const [newTag, setNewTag] = useLocalState('newTag', tag);
 
   return (
     <Window width={410} height={325}>

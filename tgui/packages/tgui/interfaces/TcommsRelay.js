@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, Box, AnimatedNumber, Section, NoticeBox, Tabs, Icon, Table } from '../components';
 import { Window } from '../layouts';
 
-export const TcommsRelay = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TcommsRelay = (props) => {
+  const { act, data } = useBackend();
   const { linked, active, network_id } = data;
 
   return (
@@ -38,8 +38,8 @@ export const TcommsRelay = (props, context) => {
   );
 };
 
-const LinkedView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const LinkedView = (_properties) => {
+  const { act, data } = useBackend();
   const { linked_core_id, linked_core_addr, hidden_link } = data;
   return (
     <Section title="Link Status">
@@ -62,8 +62,8 @@ const LinkedView = (_properties, context) => {
   );
 };
 
-const UnlinkedView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const UnlinkedView = (_properties) => {
+  const { act, data } = useBackend();
   const { cores } = data;
   return (
     <Section title="Detected Cores">

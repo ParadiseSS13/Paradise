@@ -4,8 +4,8 @@ import { Window } from '../layouts';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Operating } from '../interfaces/common/Operating';
 
-export const ReagentGrinder = (props, context) => {
-  const { act, data, config } = useBackend(context);
+export const ReagentGrinder = (props) => {
+  const { act, data, config } = useBackend();
   const { operating } = data;
   const { title } = config;
   return (
@@ -22,8 +22,8 @@ export const ReagentGrinder = (props, context) => {
   );
 };
 
-const GrinderControls = (props, context) => {
-  const { act, data } = useBackend(context);
+const GrinderControls = (props) => {
+  const { act, data } = useBackend();
   const { inactive } = data;
 
   return (
@@ -58,8 +58,8 @@ const GrinderControls = (props, context) => {
   );
 };
 
-const GrinderContents = (props, context) => {
-  const { act, data } = useBackend(context);
+const GrinderContents = (props) => {
+  const { act, data } = useBackend();
   const { contents, limit, count, inactive } = data;
 
   return (
@@ -100,8 +100,8 @@ const GrinderContents = (props, context) => {
   );
 };
 
-const GrinderReagents = (props, context) => {
-  const { act, data } = useBackend(context);
+const GrinderReagents = (props) => {
+  const { act, data } = useBackend();
   const { beaker_loaded, beaker_current_volume, beaker_max_volume, beaker_contents } = data;
 
   return (

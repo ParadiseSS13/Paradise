@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 import { TableCell, TableRow } from '../components/Table';
 import { KEY_BACKSPACE, KEY_ENTER, KEY_ESCAPE, KEY_0, KEY_9, KEY_NUMPAD_0, KEY_NUMPAD_9 } from 'common/keycodes';
 
-export const SecureStorage = (props, context) => {
+export const SecureStorage = (props) => {
   return (
     <Window theme="securestorage" height={500} width={280}>
       <Window.Content>
@@ -19,8 +19,8 @@ export const SecureStorage = (props, context) => {
   );
 };
 
-const handleKeyCodeEvent = (e, context) => {
-  const { act } = useBackend(context);
+const handleKeyCodeEvent = (e) => {
+  const { act } = useBackend();
   const keyCode = window.event ? e.which : e.keyCode;
 
   if (keyCode === KEY_ENTER) {
@@ -50,8 +50,8 @@ const handleKeyCodeEvent = (e, context) => {
   }
 };
 
-const MainPage = (props, context) => {
-  const { act, data } = useBackend(context);
+const MainPage = (props) => {
+  const { act, data } = useBackend();
   const { locked, no_passcode, emagged, user_entered_code } = data;
 
   const keypadKeys = [
@@ -64,7 +64,7 @@ const MainPage = (props, context) => {
   const status = no_passcode ? '' : locked ? 'bad' : 'good';
 
   return (
-    <Section fill onKeyDown={(e) => handleKeyCodeEvent(e, context)}>
+    <Section fill onKeyDown={(e) => handleKeyCodeEvent(e)}>
       <Stack.Item height={7.3}>
         <Box className={classes(['SecureStorage__displayBox', 'SecureStorage__displayBox--' + status])} height="100%">
           {emagged ? 'ERROR' : user_entered_code}
@@ -85,8 +85,8 @@ const MainPage = (props, context) => {
   );
 };
 
-const NumberButton = (props, context) => {
-  const { act, data } = useBackend(context);
+const NumberButton = (props) => {
+  const { act, data } = useBackend();
   const { number } = props;
 
   return (

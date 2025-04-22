@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 const removeAmounts = [1, 5, 10];
 
-export const HandheldChemDispenser = (props, context) => {
+export const HandheldChemDispenser = (props) => {
   return (
     <Window width={390} height={430}>
       <Window.Content>
@@ -18,8 +18,8 @@ export const HandheldChemDispenser = (props, context) => {
   );
 };
 
-const HandheldChemDispenserSettings = (properties, context) => {
-  const { act, data } = useBackend(context);
+const HandheldChemDispenserSettings = (properties) => {
+  const { act, data } = useBackend();
   const { amount, energy, maxEnergy, mode } = data;
   return (
     <Stack.Item>
@@ -104,8 +104,8 @@ const HandheldChemDispenserSettings = (properties, context) => {
   );
 };
 
-const HandheldChemDispenserChemicals = (properties, context) => {
-  const { act, data } = useBackend(context);
+const HandheldChemDispenserChemicals = (properties) => {
+  const { act, data } = useBackend();
   const { chemicals = [], current_reagent } = data;
   const flexFillers = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {

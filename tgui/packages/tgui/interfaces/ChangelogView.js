@@ -2,9 +2,9 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, Section, Box, Icon } from '../components';
 import { Window } from '../layouts';
 
-export const ChangelogView = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [onlyRecent, showOnlyRecent] = useLocalState(context, 'onlyRecent', 0);
+export const ChangelogView = (props) => {
+  const { act, data } = useBackend();
+  const [onlyRecent, showOnlyRecent] = useLocalState('onlyRecent', 0);
   const { cl_data, last_cl } = data;
 
   const iconMap = {

@@ -7,8 +7,8 @@ const RQ_LOWPRIORITY = 1;
 const RQ_NORMALPRIORITY = 2;
 const RQ_HIGHPRIORITY = 3;
 
-export const RequestConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RequestConsole = (props) => {
+  const { act, data } = useBackend();
   const { screen, announcementConsole } = data;
 
   const pickPage = (index) => {
@@ -53,8 +53,8 @@ export const RequestConsole = (props, context) => {
   );
 };
 
-const MainMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const MainMenu = (props) => {
+  const { act, data } = useBackend();
   const { newmessagepriority, announcementConsole, silent } = data;
   let messageInfo;
   if (newmessagepriority === RQ_HIGHPRIORITY) {
@@ -178,8 +178,8 @@ const MainMenu = (props, context) => {
   );
 };
 
-const DepartmentList = (props, context) => {
-  const { act, data } = useBackend(context);
+const DepartmentList = (props) => {
+  const { act, data } = useBackend();
   const { department } = data;
 
   let list2iterate = [];
@@ -229,8 +229,8 @@ const DepartmentList = (props, context) => {
   );
 };
 
-const MessageResponse = (props, context) => {
-  const { act, data } = useBackend(context);
+const MessageResponse = (props) => {
+  const { act, data } = useBackend();
 
   let sectionTitle;
   switch (props.type) {
@@ -251,8 +251,8 @@ const MessageResponse = (props, context) => {
   );
 };
 
-const MessageLog = (props, context) => {
-  const { act, data } = useBackend(context);
+const MessageLog = (props) => {
+  const { act, data } = useBackend();
 
   let list2iterate;
   let sectionTitle;
@@ -289,8 +289,8 @@ const MessageLog = (props, context) => {
   );
 };
 
-const MessageAuth = (props, context) => {
-  const { act, data } = useBackend(context);
+const MessageAuth = (props) => {
+  const { act, data } = useBackend();
   const { recipient, message, msgVerified, msgStamped } = data;
 
   return (
@@ -329,8 +329,8 @@ const MessageAuth = (props, context) => {
   );
 };
 
-const StationAnnouncement = (props, context) => {
-  const { act, data } = useBackend(context);
+const StationAnnouncement = (props) => {
+  const { act, data } = useBackend();
   const { message, announceAuth } = data;
 
   return (
@@ -376,8 +376,8 @@ const StationAnnouncement = (props, context) => {
   );
 };
 
-const PrintShippingLabel = (props, context) => {
-  const { act, data } = useBackend(context);
+const PrintShippingLabel = (props) => {
+  const { act, data } = useBackend();
   const { shipDest, msgVerified, ship_dept } = data;
 
   return (
@@ -421,8 +421,8 @@ const PrintShippingLabel = (props, context) => {
   );
 };
 
-const SecondaryGoal = (props, context) => {
-  const { act, data } = useBackend(context);
+const SecondaryGoal = (props) => {
+  const { act, data } = useBackend();
   const { secondaryGoalAuth, secondaryGoalEnabled } = data;
 
   return (

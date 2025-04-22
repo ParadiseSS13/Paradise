@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section, NumberInput, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const AtmosFilter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AtmosFilter = (props) => {
+  const { act, data } = useBackend();
   const { on, pressure, max_pressure, filter_type, filter_type_list } = data;
 
   return (

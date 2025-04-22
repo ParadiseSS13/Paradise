@@ -48,8 +48,8 @@ const InfoInput = ({ label, value, onCommit, onClick, onRClick, tooltip }) => (
   </LabeledList.Item>
 );
 
-export const AgentCard = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+export const AgentCard = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -82,8 +82,8 @@ export const AgentCard = (props, context) => {
   );
 };
 
-export const AgentCardInfo = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const AgentCardInfo = (props) => {
+  const { act, data } = useBackend<Data>();
   const {
     registered_name,
     sex,
@@ -281,9 +281,9 @@ export const AgentCardInfo = (props, context) => {
   );
 };
 
-export const AgentCardAppearances = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const [selectedAppearance, setSelectedAppearance] = useSharedState(context, 'selectedAppearance', null);
+export const AgentCardAppearances = (props) => {
+  const { act, data } = useBackend<Data>();
+  const [selectedAppearance, setSelectedAppearance] = useSharedState('selectedAppearance', null);
   const { appearances, id_icon } = data;
   return (
     <Stack.Item grow>

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const KeycardAuth = (props, context) => {
-  const { act, data } = useBackend(context);
+export const KeycardAuth = (props) => {
+  const { act, data } = useBackend();
   let infoBox = (
     <Section title="Keycard Authentication Device">
       <Box>

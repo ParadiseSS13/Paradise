@@ -95,26 +95,3 @@ export const Panel = (props, context) => {
     </Pane>
   );
 };
-
-const HoboPanel = (props, context) => {
-  const settings = useSettings(context);
-  return (
-    <Pane theme={settings.theme}>
-      <Pane.Content>
-        <Button
-          style={{
-            position: 'fixed',
-            top: '1em',
-            right: '2em',
-            'z-index': 1000,
-          }}
-          selected={settings.visible}
-          onClick={() => settings.toggle()}
-        >
-          Settings
-        </Button>
-        {(settings.visible && <SettingsPanel />) || <ChatPanel lineHeight={settings.lineHeight} />}
-      </Pane.Content>
-    </Pane>
-  );
-};

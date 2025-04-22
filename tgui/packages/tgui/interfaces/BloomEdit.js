@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const BloomEdit = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BloomEdit = (props) => {
+  const { act, data } = useBackend();
 
   const {
     glow_brightness_base,

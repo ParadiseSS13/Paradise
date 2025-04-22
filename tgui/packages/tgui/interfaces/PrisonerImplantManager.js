@@ -6,8 +6,8 @@ import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { Window } from '../layouts';
 
-export const PrisonerImplantManager = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PrisonerImplantManager = (props) => {
+  const { act, data } = useBackend();
   const { loginState, prisonerInfo, chemicalInfo, trackingInfo } = data;
 
   let body;
@@ -58,7 +58,7 @@ export const PrisonerImplantManager = (props, context) => {
                     icon="pen"
                     disabled={prisonerInfo.goal === null}
                     content="Edit"
-                    onClick={() => modalOpen(context, 'set_points')}
+                    onClick={() => modalOpen('set_points')}
                   />
                 </LabeledList.Item>
                 <LabeledList.Item>
@@ -97,7 +97,7 @@ export const PrisonerImplantManager = (props, context) => {
                             content="Warn"
                             tooltip="Broadcast a message to this poor sod"
                             onClick={() =>
-                              modalOpen(context, 'warn', {
+                              modalOpen('warn', {
                                 uid: implant.uid,
                               })
                             }

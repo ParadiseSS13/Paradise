@@ -8,7 +8,7 @@ import { Box, Button, Chart, ColorBox, Flex, Icon, LabeledList, ProgressBar, Sec
 import { Window } from '../layouts';
 const PEAK_DRAW = 600000;
 
-export const PowerMonitor = (props, context) => {
+export const PowerMonitor = (props) => {
   return (
     <Window width={600} height={650}>
       <Window.Content scrollable>
@@ -20,8 +20,8 @@ export const PowerMonitor = (props, context) => {
 
 // This constant is so it can be thrown
 // into PDAs with minimal effort
-export const PowerMonitorMainContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PowerMonitorMainContent = (props) => {
+  const { act, data } = useBackend();
   const { powermonitor, select_monitor } = data;
   return (
     <Box m={0}>
@@ -31,8 +31,8 @@ export const PowerMonitorMainContent = (props, context) => {
   );
 };
 
-const SelectionView = (props, context) => {
-  const { act, data } = useBackend(context);
+const SelectionView = (props) => {
+  const { act, data } = useBackend();
   const { powermonitors } = data;
 
   return (
@@ -54,8 +54,8 @@ const SelectionView = (props, context) => {
   );
 };
 
-const DataView = (props, context) => {
-  const { act, data } = useBackend(context);
+const DataView = (props) => {
+  const { act, data } = useBackend();
   const { powermonitor, history, apcs, select_monitor, no_powernet } = data;
 
   let body;
@@ -68,7 +68,7 @@ const DataView = (props, context) => {
       </Box>
     );
   } else {
-    const [sortByField, setSortByField] = useLocalState(context, 'sortByField', null);
+    const [sortByField, setSortByField] = useLocalState('sortByField', null);
     const supply = history.supply[history.supply.length - 1] || 0;
     const demand = history.demand[history.demand.length - 1] || 0;
     const supplyData = history.supply.map((value, i) => [i, value]);

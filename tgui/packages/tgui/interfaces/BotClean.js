@@ -3,8 +3,8 @@ import { Button, Section, Box, LabeledList } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
-export const BotClean = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BotClean = (props) => {
+  const { act, data } = useBackend();
   const { locked, noaccess, maintpanel, on, autopatrol, canhack, emagged, remote_disabled, painame, cleanblood, area } =
     data;
   return (

@@ -46,11 +46,11 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     this.setState({ searchText: target.value });
   };
 
-  override render(props: {}, state: ReagentsEditorState, context: unknown) {
+  override render(props: {}, state: ReagentsEditorState) {
     const {
       act,
       data: { reagentsInformation, reagents: reagentsInContainer },
-    } = useBackend<ReagentsEditorData>(this.context);
+    } = useBackend<ReagentsEditorData>();
 
     let reagents = Object.entries(reagentsInContainer)
       .map(
@@ -120,7 +120,7 @@ const PresentReagentRow = (
   { reagent: { id: reagentID, name, uid, volume } }: { reagent: FilteredReagentInformation },
   context: unknown
 ) => {
-  const { act } = useBackend<ReagentsEditorData>(context);
+  const { act } = useBackend<ReagentsEditorData>();
   return (
     <Table.Row className="reagent-row">
       <Table.Cell className="volume-cell">
@@ -166,7 +166,7 @@ const AbsentReagentRow = (
   { reagent: { id: reagentID, name } }: { reagent: FilteredReagentInformation },
   context: unknown
 ) => {
-  const { act } = useBackend<ReagentsEditorData>(context);
+  const { act } = useBackend<ReagentsEditorData>();
   return (
     <Table.Row className="reagent-row absent-row">
       <Table.Cell className="volume-cell">

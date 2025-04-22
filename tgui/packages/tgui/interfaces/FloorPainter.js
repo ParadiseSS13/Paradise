@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, Section, Table, Dropdown, Flex, Icon, Box, DmIcon, Stack } from '../components';
 import { Window } from '../layouts';
 
-const SelectableTile = (props, context) => {
-  const { act, data } = useBackend(context);
+const SelectableTile = (props) => {
+  const { act, data } = useBackend();
   const { icon_state, direction, isSelected, onSelect } = props;
 
   return (
@@ -29,8 +29,8 @@ const Dir = {
   WEST: 8,
 };
 
-export const FloorPainter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const FloorPainter = (props) => {
+  const { act, data } = useBackend();
   const { availableStyles, selectedStyle, selectedDir, wideMode } = data;
   return (
     <Window width={405} height={475}>

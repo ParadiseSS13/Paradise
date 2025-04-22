@@ -3,8 +3,8 @@ import { Button, Section, Table } from '../../components';
 import { LatheMaterials } from './LatheMaterials';
 
 // Also handles search results
-export const LatheCategory = (properties, context) => {
-  const { data, act } = useBackend(context);
+export const LatheCategory = (properties) => {
+  const { data, act } = useBackend();
 
   const { category, matching_designs, menu } = data;
 

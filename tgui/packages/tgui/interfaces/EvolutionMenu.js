@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 
-export const EvolutionMenu = (props, context) => {
+export const EvolutionMenu = (props) => {
   return (
     <Window width={480} height={580} theme="changeling">
       <Window.Content>
@@ -18,8 +18,8 @@ export const EvolutionMenu = (props, context) => {
   );
 };
 
-const EvolutionPoints = (props, context) => {
-  const { act, data } = useBackend(context);
+const EvolutionPoints = (props) => {
+  const { act, data } = useBackend();
   const { evo_points, can_respec } = data;
   return (
     <Stack.Item>
@@ -46,12 +46,12 @@ const EvolutionPoints = (props, context) => {
   );
 };
 
-const Abilities = (props, context) => {
-  const { act, data } = useBackend(context);
+const Abilities = (props) => {
+  const { act, data } = useBackend();
   const { evo_points, ability_tabs, purchased_abilities, view_mode } = data;
-  const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [abilities, setAbilities] = useLocalState(context, 'ability_tabs', ability_tabs[0].abilities);
+  const [selectedTab, setSelectedTab] = useLocalState('selectedTab', ability_tabs[0]);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [abilities, setAbilities] = useLocalState('ability_tabs', ability_tabs[0].abilities);
 
   const selectAbilities = (abilities, searchText = '') => {
     if (!abilities || abilities.length === 0) {

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section } from '../components';
 import { Window } from '../layouts';
 
-export const GlandDispenser = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GlandDispenser = (props) => {
+  const { act, data } = useBackend();
   const { glands = [] } = data;
   return (
     <Window width={300} height={338} theme="abductor">

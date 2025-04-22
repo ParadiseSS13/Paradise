@@ -18,7 +18,7 @@ export const SettingsStatPanel = (props, context) => {
     </NoticeBox>
   );
 
-  const [freeStatFont, setFreeStatFont] = useLocalState(context, 'freeStatFont', false);
+  const [freeStatFont, setFreeStatFont] = useLocalState('freeStatFont', false);
 
   return (
     <Section fill>

@@ -25,8 +25,8 @@ import { Box, Button, Flex, Icon, Section } from '../../components';
  * @param {object} _properties
  * @param {object} context
  */
-export const LoginScreen = (_properties, context) => {
-  const { act, data } = useBackend(context);
+export const LoginScreen = (_properties) => {
+  const { act, data } = useBackend();
   const { loginState, isAI, isRobot, isAdmin } = data;
   return (
     <Section title="Welcome" fill stretchContents>

@@ -7,8 +7,8 @@ import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
 import { TableRow, TableCell } from '../components/Table';
 
-export const SupermatterMonitor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SupermatterMonitor = (props) => {
+  const { act, data } = useBackend();
   if (data.active === 0) {
     return <SupermatterMonitorListView />;
   } else {
@@ -18,8 +18,8 @@ export const SupermatterMonitor = (props, context) => {
 
 const logScale = (value) => Math.log2(16 + Math.max(0, value)) - 4;
 
-const SupermatterMonitorListView = (props, context) => {
-  const { act, data } = useBackend(context);
+const SupermatterMonitorListView = (props) => {
+  const { act, data } = useBackend();
   const { supermatters = [] } = data;
   return (
     <Window width={450} height={250}>
@@ -65,8 +65,8 @@ const SupermatterMonitorListView = (props, context) => {
   );
 };
 
-const SupermatterMonitorDataView = (props, context) => {
-  const { act, data } = useBackend(context);
+const SupermatterMonitorDataView = (props) => {
+  const { act, data } = useBackend();
   const {
     active,
     SM_integrity,

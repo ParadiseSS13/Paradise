@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Section, Dropdown, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const Teleporter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Teleporter = (props) => {
+  const { act, data } = useBackend();
   let targetsTeleport = data.targetsTeleport ? data.targetsTeleport : {};
   const REGIME_TELEPORT = 0;
   const REGIME_GATE = 1;

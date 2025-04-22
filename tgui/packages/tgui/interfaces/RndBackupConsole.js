@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section, Table } from '../components';
 import { Window } from '../layouts';
 
-export const RndBackupConsole = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const RndBackupConsole = (properties) => {
+  const { act, data } = useBackend();
   const { network_name, has_disk, disk_name, linked, techs, last_timestamp } = data;
 
   return (
@@ -81,8 +81,8 @@ export const RndBackupConsole = (properties, context) => {
   );
 };
 
-export const LinkMenu = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const LinkMenu = (properties) => {
+  const { act, data } = useBackend();
 
   const { controllers } = data;
 

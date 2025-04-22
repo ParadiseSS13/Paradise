@@ -41,8 +41,8 @@ const dir2text = (dir) => {
   return '';
 };
 
-export const ParticleAccelerator = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ParticleAccelerator = (props) => {
+  const { act, data } = useBackend();
   const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
   return (
     <Window width={395} height={assembled ? 160 : orientation === 'north' || orientation === 'south' ? 540 : 465}>
@@ -105,8 +105,8 @@ export const ParticleAccelerator = (props, context) => {
   );
 };
 
-const LayoutHorizontal = (props, context) => {
-  const { act, data } = useBackend(context);
+const LayoutHorizontal = (props) => {
+  const { act, data } = useBackend();
   const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
   return (
     <Table>
@@ -195,8 +195,8 @@ const LayoutHorizontal = (props, context) => {
   );
 };
 
-const LayoutVertical = (props, context) => {
-  const { act, data } = useBackend(context);
+const LayoutVertical = (props) => {
+  const { act, data } = useBackend();
   const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
   return (
     <Grid>

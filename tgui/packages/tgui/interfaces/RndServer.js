@@ -3,8 +3,8 @@ import { toFixed } from 'common/math';
 import { Button, LabeledList, Box, AnimatedNumber, Section, Table } from '../components';
 import { Window } from '../layouts';
 
-export const RndServer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RndServer = (props) => {
+  const { act, data } = useBackend();
   const { active, network_name } = data;
 
   return (
@@ -31,8 +31,8 @@ export const RndServer = (props, context) => {
   );
 };
 
-const LinkedView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const LinkedView = (_properties) => {
+  const { act, data } = useBackend();
   const { network_name } = data;
   return (
     <Section title="Network Info">
@@ -46,8 +46,8 @@ const LinkedView = (_properties, context) => {
   );
 };
 
-const UnlinkedView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const UnlinkedView = (_properties) => {
+  const { act, data } = useBackend();
   const { controllers } = data;
   return (
     <Section title="Detected Cores">

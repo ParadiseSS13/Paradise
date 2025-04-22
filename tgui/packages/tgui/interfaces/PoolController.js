@@ -20,13 +20,13 @@ const TEMPS = {
   },
 };
 
-const TempButton = (properties, context) => {
+const TempButton = (properties) => {
   const { tempKey, ...buttonProps } = properties;
   const temp = TEMPS[tempKey];
   if (!temp) {
     return null;
   }
-  const { data, act } = useBackend(context);
+  const { data, act } = useBackend();
   const { currentTemp } = data;
   const { label, icon } = temp;
   const selected = tempKey === currentTemp;
@@ -41,8 +41,8 @@ const TempButton = (properties, context) => {
   );
 };
 
-export const PoolController = (properties, context) => {
-  const { data } = useBackend(context);
+export const PoolController = (properties) => {
+  const { data } = useBackend();
   const { emagged, currentTemp } = data;
   const { label: currentLabel, color: currentColor } = TEMPS[currentTemp] || TEMPS.normal;
 

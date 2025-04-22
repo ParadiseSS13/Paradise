@@ -3,8 +3,8 @@ import { Button, Section, Table, Stack, Icon, Dimmer } from '../components';
 import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
 
-export const KitchenMachine = (props, context) => {
-  const { data, config } = useBackend(context);
+export const KitchenMachine = (props) => {
+  const { data, config } = useBackend();
   const { ingredients, operating } = data;
   const { title } = config;
 
@@ -40,8 +40,8 @@ export const KitchenMachine = (props, context) => {
   );
 };
 
-const KitchenTop = (props, context) => {
-  const { act, data } = useBackend(context);
+const KitchenTop = (props) => {
+  const { act, data } = useBackend();
   const { inactive, tooltip } = data;
 
   return (

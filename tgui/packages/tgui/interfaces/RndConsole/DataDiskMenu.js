@@ -4,8 +4,8 @@ import { Button, LabeledList, Section, Box } from '../../components';
 const DISK_TYPE_DESIGN = 'design';
 const DISK_TYPE_TECH = 'tech';
 
-const TechSummary = (props, context) => {
-  const { data, act } = useBackend(context);
+const TechSummary = (props) => {
+  const { data, act } = useBackend();
   const { disk_data } = data;
 
   if (!disk_data) {
@@ -27,8 +27,8 @@ const TechSummary = (props, context) => {
 };
 
 // summarize a design disk contents from d_disk
-const LatheSummary = (props, context) => {
-  const { data, act } = useBackend(context);
+const LatheSummary = (props) => {
+  const { data, act } = useBackend();
   const { disk_data } = data;
   if (!disk_data) {
     return null;
@@ -64,8 +64,8 @@ const LatheSummary = (props, context) => {
   );
 };
 
-const DiskSection = (props, context) => {
-  const { act, data } = useBackend(context);
+const DiskSection = (props) => {
+  const { act, data } = useBackend();
   const { disk_data } = data;
   return (
     <Section
@@ -86,8 +86,8 @@ const DiskSection = (props, context) => {
   );
 };
 
-const CopySubmenu = (props, context) => {
-  const { data, act } = useBackend(context);
+const CopySubmenu = (props) => {
+  const { data, act } = useBackend();
   const { disk_type, to_copy } = data;
   const { title } = props;
 
@@ -118,8 +118,8 @@ const CopySubmenu = (props, context) => {
   );
 };
 
-export const DataDiskMenu = (props, context) => {
-  const { data } = useBackend(context);
+export const DataDiskMenu = (props) => {
+  const { data } = useBackend();
   const { disk_type, disk_data } = data;
 
   if (!disk_type) {

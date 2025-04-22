@@ -5,17 +5,16 @@
  */
 
 import { classes } from 'common/react';
-import { useDispatch } from 'common/redux';
 import { decodeHtmlEntities, toTitleCase } from 'common/string';
 import { Component } from 'inferno';
 import { backendSuspendStart, useBackend } from '../backend';
 import { Icon } from '../components';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../constants';
-import { useDebug } from '../debug';
 import { toggleKitchenSink } from '../debug/actions';
 import { dragStartHandler, recallWindowGeometry, resizeStartHandler, setWindowKey } from '../drag';
 import { createLogger } from '../logging';
 import { Layout } from './Layout';
+import { globalStore } from '../backend';
 
 const logger = createLogger('Window');
 
@@ -23,7 +22,7 @@ const DEFAULT_SIZE = [400, 600];
 
 export class Window extends Component {
   componentDidMount() {
-    const { suspended } = useBackend(this.context);
+    const { suspended } = useBackend();
     if (suspended) {
       return;
     }
@@ -39,7 +38,7 @@ export class Window extends Component {
   }
 
   updateGeometry() {
-    const { config } = useBackend(this.context);
+    const { config } = useBackend();
     const options = {
       size: DEFAULT_SIZE,
       ...config.window,
@@ -55,9 +54,14 @@ export class Window extends Component {
 
   render() {
     const { theme, title, children } = this.props;
-    const { config, suspended } = useBackend(this.context);
-    const { debugLayout } = useDebug(this.context);
-    const dispatch = useDispatch(this.context);
+    const { config, suspended, debug } = useBackend();
+
+    let debugLayout = false;
+    if (debug) {
+      debugLayout = debug.debugLayout;
+    }
+
+    const dispatch = globalStore.dispatch;
     const fancy = config.window?.fancy;
     // Determine when to show dimmer
     const showDimmer =
@@ -81,9 +85,9 @@ export class Window extends Component {
         </div>
         {fancy && (
           <>
-            <div className="Window__resizeHandle__e" onMousedown={resizeStartHandler(1, 0)} />
-            <div className="Window__resizeHandle__s" onMousedown={resizeStartHandler(0, 1)} />
-            <div className="Window__resizeHandle__se" onMousedown={resizeStartHandler(1, 1)} />
+            <div className="Window__resizeHandle__e" onMouseDown={resizeStartHandler(1, 0)} />
+            <div className="Window__resizeHandle__s" onMouseDown={resizeStartHandler(0, 1)} />
+            <div className="Window__resizeHandle__se" onMouseDown={resizeStartHandler(1, 1)} />
           </>
         )}
       </Layout>
@@ -114,9 +118,9 @@ const statusToColor = (status) => {
   }
 };
 
-const TitleBar = (props, context) => {
+const TitleBar = (props) => {
   const { className, title, status, fancy, onDragStart, onClose } = props;
-  const dispatch = useDispatch(context);
+  const dispatch = globalStore.dispatch;
   return (
     <div className={classes(['TitleBar', className])}>
       {(status === undefined && <Icon className="TitleBar__statusIcon" name="tools" opacity={0.5} />) || (
@@ -125,7 +129,7 @@ const TitleBar = (props, context) => {
       <div className="TitleBar__title">
         {(typeof title === 'string' && title === title.toLowerCase() && toTitleCase(title)) || title}
       </div>
-      <div className="TitleBar__dragZone" onMousedown={(e) => fancy && onDragStart(e)} />
+      <div className="TitleBar__dragZone" onMouseDown={(e) => fancy && onDragStart(e)} />
       {process.env.NODE_ENV !== 'production' && (
         <div className="TitleBar__devBuildIndicator" onClick={() => dispatch(toggleKitchenSink())}>
           <Icon name="bug" />

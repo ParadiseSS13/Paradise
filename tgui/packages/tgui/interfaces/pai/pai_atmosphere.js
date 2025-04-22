@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { AtmosScan } from '../common/AtmosScan';
 
-export const pai_atmosphere = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_atmosphere = (props) => {
+  const { act, data } = useBackend();
 
   return <AtmosScan data={data.app_data} />;
 };

@@ -14,8 +14,8 @@ import { Button, NoticeBox, Stack } from '../../components';
  * @param {object} _properties
  * @param {object} context
  */
-export const TemporaryNotice = (_properties, context) => {
-  const { act, data } = useBackend(context);
+export const TemporaryNotice = (_properties) => {
+  const { act, data } = useBackend();
   const { temp } = data;
   if (!temp) {
     return;

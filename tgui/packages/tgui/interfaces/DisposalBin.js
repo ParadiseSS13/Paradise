@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section, ProgressBar } from '../components';
 import { Window } from '../layouts';
 
-export const DisposalBin = (props, context) => {
-  const { act, data } = useBackend(context);
+export const DisposalBin = (props) => {
+  const { act, data } = useBackend();
   let stateColor;
   let stateText;
   if (data.mode === 2) {

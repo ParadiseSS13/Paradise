@@ -34,8 +34,8 @@ interface PanDEMICData {
   resistances?: string[];
 }
 
-export const PanDEMIC = (props, context) => {
-  const { data } = useBackend<PanDEMICData>(context);
+export const PanDEMIC = (props) => {
+  const { data } = useBackend<PanDEMICData>();
   const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, resistances = [] } = data;
 
   let emptyPlaceholder;
@@ -65,8 +65,8 @@ export const PanDEMIC = (props, context) => {
   );
 };
 
-const CommonCultureActions = (props, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const CommonCultureActions = (props) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { beakerLoaded } = data;
   return (
     <>
@@ -83,8 +83,8 @@ const CommonCultureActions = (props, context) => {
   );
 };
 
-const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { beakerContainsVirus } = data;
   const {
     commonName,
@@ -171,7 +171,7 @@ const StrainInformationSection = (
   },
   context
 ) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+  const { act, data } = useBackend<PanDEMICData>();
   let synthesisCooldown = !!data.synthesisCooldown;
   const appliedSectionButtons = (
     <>
@@ -195,8 +195,8 @@ const StrainInformationSection = (
   );
 };
 
-const CultureInformationSection = (props, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const CultureInformationSection = (props) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { selectedStrainIndex, strains } = data;
   const selectedStrain = strains[selectedStrainIndex - 1];
 
@@ -289,8 +289,8 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
 
 const VaccineSynthesisIcons = ['flask', 'vial', 'eye-dropper'];
 
-const ResistancesSection = (props, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const ResistancesSection = (props) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { synthesisCooldown, beakerContainsVirus, resistances } = data;
   return (
     <Stack.Item>

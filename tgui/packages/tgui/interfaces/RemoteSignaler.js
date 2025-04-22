@@ -3,8 +3,8 @@ import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 import { Signaler } from './common/Signaler';
 
-export const RemoteSignaler = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RemoteSignaler = (props) => {
+  const { act, data } = useBackend();
 
   const { on } = data;
 

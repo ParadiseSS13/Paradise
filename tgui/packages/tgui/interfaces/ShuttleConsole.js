@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Fragment, Section, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
-export const ShuttleConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ShuttleConsole = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={350} height={150}>
       <Window.Content>

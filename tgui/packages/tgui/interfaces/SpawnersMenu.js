@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
 
-export const SpawnersMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SpawnersMenu = (props) => {
+  const { act, data } = useBackend();
   const spawners = data.spawners || [];
   return (
     <Window width={700} height={600}>

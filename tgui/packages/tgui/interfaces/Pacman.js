@@ -3,8 +3,8 @@ import { Button, Box, Section, ProgressBar, LabeledList, Knob, NumberInput, Flex
 import { Window } from '../layouts';
 import { formatPower } from '../format';
 
-export const Pacman = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Pacman = (props) => {
+  const { act, data } = useBackend();
   const {
     active,
     anchored,

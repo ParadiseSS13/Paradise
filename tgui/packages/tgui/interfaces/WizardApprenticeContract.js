@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Box, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const WizardApprenticeContract = (props, context) => {
-  const { act, data } = useBackend(context);
+export const WizardApprenticeContract = (props) => {
+  const { act, data } = useBackend();
   const { used } = data;
   return (
     <Window width={500} height={555}>

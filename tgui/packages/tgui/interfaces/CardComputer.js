@@ -51,8 +51,8 @@ export const CardComputerNoRecords = () => (
   </Section>
 );
 
-export const CardComputer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CardComputer = (props) => {
+  const { act, data } = useBackend();
 
   let menuBlock = (
     <Tabs>

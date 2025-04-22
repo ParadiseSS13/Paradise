@@ -93,7 +93,7 @@ export const ChatPageSettings = (props, context) => {
         </Stack.Item>
       </Stack>
       <Divider />
-      <Section title="Messages to display" level={2}>
+      <Section title="Messages to display">
         {MESSAGE_TYPES.filter((typeDef) => !typeDef.important && !typeDef.admin).map((typeDef) => (
           <Button.Checkbox
             key={typeDef.type}

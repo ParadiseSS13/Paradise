@@ -35,8 +35,8 @@ const terminalMessages = [
   'WELCOME, AGENT',
 ];
 
-export const Contractor = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const Contractor = (properties) => {
+  const { act, data } = useBackend();
   let body;
   if (data.unauthorized) {
     body = (
@@ -75,7 +75,7 @@ export const Contractor = (properties, context) => {
       </>
     );
   }
-  const [viewingPhoto, _setViewingPhoto] = useLocalState(context, 'viewingPhoto', '');
+  const [viewingPhoto, _setViewingPhoto] = useLocalState('viewingPhoto', '');
   return (
     <Window theme="syndicate" width={500} height={600}>
       {viewingPhoto && <PhotoZoom />}
@@ -88,8 +88,8 @@ export const Contractor = (properties, context) => {
   );
 };
 
-const Summary = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Summary = (properties) => {
+  const { act, data } = useBackend();
   const { tc_available, tc_paid_out, completed_contracts, rep } = data;
   return (
     <Section
@@ -137,8 +137,8 @@ const Summary = (properties, context) => {
   );
 };
 
-const Navigation = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Navigation = (properties) => {
+  const { act, data } = useBackend();
   const { page } = data;
   return (
     <Tabs {...properties}>
@@ -168,12 +168,12 @@ const Navigation = (properties, context) => {
   );
 };
 
-const Contracts = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Contracts = (properties) => {
+  const { act, data } = useBackend();
   const { contracts, contract_active, can_extract } = data;
   const activeContract = !!contract_active && contracts.filter((c) => c.status === 1)[0];
   const extractionCooldown = activeContract && activeContract.time_left > 0;
-  const [_viewingPhoto, setViewingPhoto] = useLocalState(context, 'viewingPhoto', '');
+  const [_viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
   return (
     <Section
       title="Available Contracts"
@@ -324,8 +324,8 @@ const areaArrow = (contract) => {
   }
 };
 
-const Hub = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Hub = (properties) => {
+  const { act, data } = useBackend();
   const { rep, buyables } = data;
   return (
     <Section title="Available Purchases" overflow="auto" {...properties}>
@@ -405,8 +405,8 @@ class FakeTerminal extends Component {
   }
 }
 
-const PhotoZoom = (properties, context) => {
-  const [viewingPhoto, setViewingPhoto] = useLocalState(context, 'viewingPhoto', '');
+const PhotoZoom = (properties) => {
+  const [viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
   return (
     <Modal className="Contractor__photoZoom">
       <Box as="img" src={viewingPhoto} />

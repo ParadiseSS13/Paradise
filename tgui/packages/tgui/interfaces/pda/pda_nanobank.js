@@ -14,8 +14,8 @@ import {
   Stack,
 } from '../../components';
 
-export const pda_nanobank = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_nanobank = (props) => {
+  const { act, data } = useBackend();
   const { logged_in, owner_name, money } = data;
 
   if (!logged_in) {
@@ -38,10 +38,10 @@ export const pda_nanobank = (props, context) => {
   );
 };
 
-const NanoBankNavigation = (properties, context) => {
-  const { data } = useBackend(context);
+const NanoBankNavigation = (properties) => {
+  const { data } = useBackend();
   const { is_premium } = data;
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 1);
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 1);
 
   return (
     <Tabs mt={2}>
@@ -67,9 +67,9 @@ const NanoBankNavigation = (properties, context) => {
   );
 };
 
-const NanoBankTabContent = (props, context) => {
-  const [tabIndex] = useLocalState(context, 'tabIndex', 1);
-  const { data } = useBackend(context);
+const NanoBankTabContent = (props) => {
+  const [tabIndex] = useLocalState('tabIndex', 1);
+  const { data } = useBackend();
   const { db_status } = data;
 
   if (!db_status) {
@@ -90,13 +90,13 @@ const NanoBankTabContent = (props, context) => {
   }
 };
 
-const Transfer = (props, context) => {
-  const { act, data } = useBackend(context);
+const Transfer = (props) => {
+  const { act, data } = useBackend();
 
   const { requests, available_accounts, money } = data;
-  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
-  const [transferAmount, setTransferAmount] = useLocalState(context, 'transferAmount');
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [selectedAccount, setSelectedAccount] = useLocalState('selectedAccount');
+  const [transferAmount, setTransferAmount] = useLocalState('transferAmount');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   let accountMap = [];
   available_accounts.map((account) => (accountMap[account.name] = account.UID));
@@ -191,8 +191,8 @@ const Transfer = (props, context) => {
   );
 };
 
-const AccountActions = (props, context) => {
-  const { act, data } = useBackend(context);
+const AccountActions = (props) => {
+  const { act, data } = useBackend();
   const { security_level, department_members, auto_approve, auto_approve_amount, is_department_account, is_premium } =
     data;
 
@@ -292,8 +292,8 @@ const AccountActions = (props, context) => {
   );
 };
 
-const Transactions = (props, context) => {
-  const { act, data } = useBackend(context);
+const Transactions = (props) => {
+  const { act, data } = useBackend();
   const { transaction_log } = data;
 
   return (
@@ -316,10 +316,10 @@ const Transactions = (props, context) => {
   );
 };
 
-const LoginScreen = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [accountID, setAccountID] = useLocalState(context, 'accountID', null);
-  const [accountPin, setAccountPin] = useLocalState(context, 'accountPin', null);
+const LoginScreen = (props) => {
+  const { act, data } = useBackend();
+  const [accountID, setAccountID] = useLocalState('accountID', null);
+  const [accountPin, setAccountPin] = useLocalState('accountPin', null);
   const { card_account_num } = data;
   let account_num = accountID ? accountID : card_account_num;
   return (
@@ -347,7 +347,7 @@ const LoginScreen = (props, context) => {
   );
 };
 
-const GetRequestNotice = (_properties, context) => {
+const GetRequestNotice = (_properties) => {
   const { request } = _properties;
 
   let head_color;
@@ -419,8 +419,8 @@ const GetRequestNotice = (_properties, context) => {
   );
 };
 
-const SupplyOrders = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const SupplyOrders = (_properties) => {
+  const { act, data } = useBackend();
   const { supply_requests } = data;
   return (
     <>

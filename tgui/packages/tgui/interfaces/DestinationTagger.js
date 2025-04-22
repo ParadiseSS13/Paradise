@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section, Box, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const DestinationTagger = (props, context) => {
-  const { act, data } = useBackend(context);
+export const DestinationTagger = (props) => {
+  const { act, data } = useBackend();
   const { destinations, selected_destination_id } = data;
 
   let selected_destination = destinations[selected_destination_id - 1];

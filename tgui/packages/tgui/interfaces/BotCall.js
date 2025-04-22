@@ -25,9 +25,9 @@ const BotStatus = (mode) => {
   return <Box color={matchedStatus.color}> {matchedStatus.label} </Box>;
 };
 
-export const BotCall = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+export const BotCall = (props) => {
+  const { act, data } = useBackend();
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
   const botNames = {
     0: 'Security',
     1: 'Medibot',
@@ -64,8 +64,8 @@ export const BotCall = (props, context) => {
   );
 };
 
-const BotExists = (props, context) => {
-  const { act, data } = useBackend(context);
+const BotExists = (props) => {
+  const { act, data } = useBackend();
   const { bots } = data;
   if (bots[props.model] !== undefined) {
     return <MapBot model={[props.model]} />;
@@ -74,8 +74,8 @@ const BotExists = (props, context) => {
   }
 };
 
-const NoBot = (props, context) => {
-  const { act, data } = useBackend(context);
+const NoBot = (props) => {
+  const { act, data } = useBackend();
   return (
     <Stack justify="center" align="center" fill vertical>
       <Box bold={1} color="bad">
@@ -85,8 +85,8 @@ const NoBot = (props, context) => {
   );
 };
 
-const MapBot = (props, context) => {
-  const { act, data } = useBackend(context);
+const MapBot = (props) => {
+  const { act, data } = useBackend();
   const { bots } = data;
 
   return (

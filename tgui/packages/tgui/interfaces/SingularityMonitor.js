@@ -7,8 +7,8 @@ import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
 import { TableRow, TableCell } from '../components/Table';
 
-export const SingularityMonitor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SingularityMonitor = (props) => {
+  const { act, data } = useBackend();
   if (data.active === 0) {
     return <SingularityMonitorListView />;
   } else {
@@ -18,8 +18,8 @@ export const SingularityMonitor = (props, context) => {
 
 const logScale = (value) => Math.log2(16 + Math.max(0, value)) - 4;
 
-const SingularityMonitorListView = (props, context) => {
-  const { act, data } = useBackend(context);
+const SingularityMonitorListView = (props) => {
+  const { act, data } = useBackend();
   const { singularities = [] } = data;
   return (
     <Window width={450} height={185}>
@@ -69,8 +69,8 @@ const SingularityMonitorListView = (props, context) => {
   );
 };
 
-const SingularityMonitorDataView = (props, context) => {
-  const { act, data } = useBackend(context);
+const SingularityMonitorDataView = (props) => {
+  const { act, data } = useBackend();
   const {
     active,
     singulo_stage,
