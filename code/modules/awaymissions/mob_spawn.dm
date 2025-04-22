@@ -236,7 +236,7 @@
 	if(mob_species)
 		H.set_species(mob_species)
 	if(random)
-		H.real_name = random_name(H.gender, H.dna.species)
+		H.real_name = random_name(H.gender, H.dna.species.name)
 
 	if(husk)
 		H.Drain()
@@ -325,6 +325,11 @@
 /obj/effect/mob_spawn/human/corpse
 	roundstart = FALSE
 	instant = TRUE
+
+/obj/effect/mob_spawn/human/corpse/create(ckey, flavour, name, mob/user)
+	var/mob/corpse = ..()
+	corpse.faction |= "spawned_corpse"
+	return corpse
 
 /obj/effect/mob_spawn/human/corpse/damaged
 	brute_damage = 1000
@@ -427,6 +432,12 @@
 
 //Assistant Corpse
 /obj/effect/mob_spawn/human/corpse/assistant
+	name = "Assistant"
+	mob_name = "Assistant"
+	id_job = "Assistant"
+	outfit = /datum/outfit/job/assistant
+
+/obj/effect/mob_spawn/human/corpse/random_species/assistant
 	name = "Assistant"
 	mob_name = "Assistant"
 	id_job = "Assistant"
@@ -567,12 +578,37 @@
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
+/obj/effect/mob_spawn/human/corpse/random_species/doctor
+	name = "Doctor"
+	mob_name = "Medical Doctor"
+	id_job = "Medical Doctor"
+	outfit = /datum/outfit/job/doctor
+
 //Engineer corpse.
 /obj/effect/mob_spawn/human/corpse/engineer
 	name = "Engineer"
 	mob_name = "Engineer"
 	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
+
+/obj/effect/mob_spawn/human/corpse/random_species/engineer
+	name = "Engineer"
+	mob_name = "Engineer"
+	id_job = "Engineer"
+	outfit = /datum/outfit/job/engineer
+
+/datum/outfit/job/officer/nerfed
+	suit_store = null
+	bio_chips = null
+	l_pocket = null
+	l_ear = null
+	id = null
+
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer
+	name = "Security Officer"
+	mob_name = "Security Officer"
+	id_job = "Security Officer"
+	outfit = /datum/outfit/job/officer/nerfed
 
 //Mime corpse.
 /obj/effect/mob_spawn/human/corpse/mime
@@ -609,6 +645,12 @@
 
 //Scientist corpse.
 /obj/effect/mob_spawn/human/corpse/scientist
+	name = "Scientist"
+	mob_name = "Scientist"
+	id_job = "Scientist"
+	outfit = /datum/outfit/job/scientist
+
+/obj/effect/mob_spawn/human/corpse/random_species/scientist
 	name = "Scientist"
 	mob_name = "Scientist"
 	id_job = "Scientist"
@@ -658,6 +700,7 @@
 		/datum/species/grey,
 		/datum/species/diona,
 	)
+	del_types |= /obj/item/card/id
 
 	return ..()
 

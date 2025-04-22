@@ -38,14 +38,22 @@
 		return
 	attached_gun = target
 	attached_gun.fire_delay = attached_gun.fire_delay / fire_rate_mult
+	if(attached_gun.GetComponent(/datum/component/automatic_fire))
+		var/datum/component/automatic_fire/auto_comp = attached_gun.GetComponent(/datum/component/automatic_fire)
+		auto_comp.autofire_shot_delay = auto_comp.autofire_shot_delay / fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
+		casing.delay = casing.delay / fire_rate_mult
 		casing.e_cost = casing.e_cost * power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier * damage_mult
 		casing.lens_speed_multiplier = casing.lens_speed_multiplier / laser_speed_mult
 
 /obj/item/smithed_item/lens/on_detached()
 	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
+	if(attached_gun.GetComponent(/datum/component/automatic_fire))
+		var/datum/component/automatic_fire/auto_comp = attached_gun.GetComponent(/datum/component/automatic_fire)
+		auto_comp.autofire_shot_delay = auto_comp.autofire_shot_delay * fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
+		casing.delay = casing.delay * fire_rate_mult
 		casing.e_cost = casing.e_cost / power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier / damage_mult
 		casing.lens_speed_multiplier = casing.lens_speed_multiplier * laser_speed_mult
@@ -81,6 +89,7 @@
 	desc = "A lens that accelerates energy beams to a higher velocity, using some of its own energy to propel it."
 	base_laser_speed_mult = 0.1
 	base_damage_mult = -0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/speed
 	name = "speed lens"
@@ -88,12 +97,14 @@
 	base_fire_rate_mult = 0.15
 	base_damage_mult = -0.1
 	durability = 30
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/amplifier
 	name = "amplifier lens"
 	desc = "A lens that increases the frequency of emitted beams, increasing their potency."
 	base_power_mult = 0.2
 	base_damage_mult = 0.1
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/efficiency
 	name = "efficiency lens"
@@ -101,6 +112,7 @@
 	base_power_mult = -0.2
 	base_damage_mult = -0.1
 	durability = 80
+	secondary_goal_candidate = TRUE
 
 /obj/item/smithed_item/lens/rapid
 	name = "rapid lens"

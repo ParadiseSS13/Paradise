@@ -157,7 +157,9 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	if(!resource_key)
 		return
 	for(var/mob/living/silicon/ai/new_ai as anything in GLOB.ai_list)
-		if(new_ai.stat || new_ai.in_storage)
+		if(new_ai.stat || new_ai.in_storage || new_ai.shunted)
+			continue
+		if(istype(new_ai.loc, /obj/machinery/power/apc))
 			continue
 		if(!assigned_ai) // Not found
 			assigned_ai = new_ai // Assign to the first AI in the list to start
@@ -197,6 +199,9 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	var/transfer_moles = 0.25 * env.total_moles()
 	var/datum/gas_mixture/removed = env.remove(transfer_moles)
 	if(!removed)
+		node.overheat_counter++
+		if(node.overheat_counter >= 5)
+			node.overheat()
 		return
 	var/heat_capacity = removed.heat_capacity()
 	if(heat_capacity)
@@ -309,6 +314,10 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	data["ai_list"] = list()
 	data["nodes_list"] = list()
 	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
+		if(istype(A.loc, /obj/machinery/power/apc)) // AIs in APCs as malf should be hidden
+			continue
+		if(A.shunted)
+			continue
 		var/list/ai_data = list(
 			"name" = A.name,
 			"uid" = A.UID(),
@@ -352,7 +361,14 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 		if("reassign")
 			if(!length(GLOB.ai_list))
 				return FALSE
-			var/new_ai = tgui_input_list(usr, "Pick a new AI", "AI Selector", GLOB.ai_list)
+			var/list/ais = list()
+			for(var/mob/living/silicon/ai/new_ai as anything in GLOB.ai_list)
+				if(new_ai.stat || new_ai.in_storage || new_ai.shunted)
+					continue
+				if(istype(new_ai.loc, /obj/machinery/power/apc))
+					continue
+				ais += new_ai
+			var/new_ai = tgui_input_list(usr, "Pick a new AI", "AI Selector", ais)
 			if(!new_ai)
 				return FALSE
 			var/obj/machinery/ai_node/selected_node = locateUID(params["uid"])

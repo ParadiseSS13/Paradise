@@ -1371,6 +1371,15 @@
 	new /obj/item/screwdriver(src)
 	new /obj/item/paper/autochef_quickstart(src)
 
+/obj/item/storage/box/kitchen_utensils/populate_contents()
+	new /obj/item/kitchen/utensil/fork(src)
+	new /obj/item/kitchen/utensil/fork(src)
+	new /obj/item/kitchen/utensil/spoon(src)
+	new /obj/item/kitchen/utensil/spoon(src)
+	new /obj/item/kitchen/knife(src)
+	new /obj/item/kitchen/knife/cheese(src)
+	new /obj/item/kitchen/knife/pizza_cutter(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

@@ -14,8 +14,17 @@
 		return
 	if(issmall(H))
 		return
+
+	var/list/implants = list()
+
+	for(var/obj/item/organ/external/body_part in H.bodyparts)
+		implants += body_part.hidden
+		for(var/obj/item/I in body_part.contents)
+			if(!istype(I, /obj/item/organ))
+				implants += I
+
 	for(var/obj/item/W in H)
-		if(istype(W, /obj/item/bio_chip))
+		if(istype(W, /obj/item/bio_chip) || (W in implants))
 			continue
 		H.drop_item_to_ground(W)
 
@@ -46,10 +55,19 @@
 		return
 	if(!issmall(H))
 		return
+
+	var/list/implants = list()
+
+	for(var/obj/item/organ/external/body_part in H.bodyparts)
+		implants += body_part.hidden
+		for(var/obj/item/I in body_part.contents)
+			if(!istype(I, /obj/item/organ))
+				implants += I
+
 	for(var/obj/item/W in H)
 		if(W == H.w_uniform) // will be torn
 			continue
-		if(istype(W, /obj/item/bio_chip))
+		if(istype(W, /obj/item/bio_chip) || (W in implants))
 			continue
 		H.drop_item_to_ground(W)
 	H.regenerate_icons()

@@ -9,9 +9,9 @@
 			set_broken()
 		if(opened != APC_COVER_OFF)
 			opened = APC_COVER_OFF
-			coverlocked = FALSE
+			cover_locked = FALSE
 			visible_message(
-				"<span class='warning'>The APC cover falls off!</span>",
+				"<span class='warning'>The cover falls off [src]!</span>",
 				"<span class='warning'>You hear a small flat object falling to the floor!</span>"
 				)
 			update_icon()
@@ -21,88 +21,115 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 
-	if(opened) // a) on open apc
-		if(electronics_state == APC_ELECTRONICS_INSTALLED)
-			if(terminal)
-				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
+	// 1. Opened APC
+	if(opened)
+		if(cell)
+			if(opened == APC_OPENED) // Do not magically create a new cover if it broke off.
+				opened = APC_CLOSED
+				cover_locked = TRUE //closing cover relocks it
+				update_icon()
+				user.visible_message(
+					"<span class='notice'>[user] closes the cover of [src].</span>",
+					"<span class='notice'>You close the cover of [src].</span>")
 				return
 
-			to_chat(user, "<span class='notice'>You start trying to remove the APC electronics...</span>" )
-			if(I.use_tool(src, user, 50, volume = I.tool_volume))
-				if(has_electronics())
-					electronics_state = APC_ELECTRONICS_NONE
-					if(stat & BROKEN)
-						user.visible_message(
-							"<span class='notice'>[user.name] rips out the broken the APC electronics inside [name]!</span>",
-							"<span class='notice'>You break the charred APC electronics and remove the remains.</span>",
-							"<span class='warning'>You hear metallic levering and a crack.</span>")
-						stat |= MAINT
-						update_icon()
-						return
+			else
+				to_chat(user, "<span class='warning'>Remove the cell first!</span>")
+				return
 
-						//SSticker.mode:apcs-- //XSI said no and I agreed. -rastaf0
-					if(emagged) // We emag board, not APC's frame
-						emagged = FALSE
-						user.visible_message(
-							"<span class='notice'>[user.name] has discarded the shorted APC electronics from [name]!</span>",
-							"<span class='notice'>You discarded the shorted board.</span>",
-							"<span class='warning'>You hear metallic levering.</span>"
-							)
-						stat |= MAINT
-						update_icon()
-						return
+		if(electronics_state == APC_ELECTRONICS_NONE)
+			to_chat(user, "<span class='warning'>There's nothing inside!</span>")
+			return
 
-					if(malfhack) // AI hacks board, not APC's frame
-						user.visible_message(\
-							"<span class='notice'>[user.name] has discarded the strangely programmed APC electronics from [name]!</span>",
-							"<span class='notice'>You discarded the strangely programmed board.</span>",
-							"<span class='warning'>You hear metallic levering.</span>"
-							)
-						malfai = null
-						malfhack = FALSE
-						stat |= MAINT
-						update_icon()
-						return
+		if(terminal)
+			to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
+			return
 
-					user.visible_message(\
-						"<span class='notice'>[user.name] has removed the APC electronics from [name]!</span>",
-						"<span class='notice'>You remove the APC electronics.</span>",
-						"<span class='warning'>You hear metallic levering.</span>"
-						)
-					new /obj/item/apc_electronics(loc)
+		if(I.use_tool(src, user, FALSE, volume = I.tool_volume))
+			if(has_electronics())
+				electronics_state = APC_ELECTRONICS_NONE
+				if(stat & BROKEN)
+					user.visible_message(
+						"<span class='notice'>[user] rips out the broken the APC electronics inside [src]!</span>",
+						"<span class='notice'>You break the charred APC electronics and remove the remains.</span>",
+						"<span class='warning'>You hear metallic levering and a crack.</span>")
 					stat |= MAINT
 					update_icon()
 					return
 
-		if(opened != APC_COVER_OFF) //cover isn't removed
-			opened = APC_CLOSED
-			coverlocked = TRUE //closing cover relocks it
-			update_icon()
-			return
+				if(emagged) // We emag board, not APC's frame
+					emagged = FALSE
+					user.visible_message(
+						"<span class='notice'>[user] has discarded the shorted APC electronics from [src]!</span>",
+						"<span class='notice'>You discarded the shorted board.</span>",
+						"<span class='warning'>You hear metallic levering.</span>"
+					)
+					stat |= MAINT
+					update_icon()
+					return
 
-	if(!(stat & BROKEN)) // b) on closed and not broken APC
-		if(coverlocked && !(stat & MAINT)) // locked...
-			to_chat(user, "<span class='warning'>The cover is locked and cannot be opened!</span>")
-			return
+				if(malfhack) // AI hacks board, not APC's frame
+					user.visible_message(\
+						"<span class='notice'>[name] has discarded the strangely programmed APC electronics from [src]!</span>",
+						"<span class='notice'>You discarded the strangely programmed board.</span>",
+						"<span class='warning'>You hear metallic levering.</span>"
+						)
+					malfai = null
+					malfhack = FALSE
+					stat |= MAINT
+					update_icon()
+					return
 
+				user.visible_message(
+					"<span class='notice'>[user] has removed the APC electronics from [src]!</span>",
+					"<span class='notice'>You remove the APC electronics.</span>",
+					"<span class='warning'>You hear metallic levering.</span>"
+					)
+				new /obj/item/apc_electronics(loc)
+				stat |= MAINT
+				update_icon()
+				return
+
+	// 2. Closed APC
+	if(!(stat & BROKEN))
 		if(panel_open) // wires are exposed
-			to_chat(user, "<span class='warning'>Exposed wires prevents you from opening it!</span>")
+			to_chat(user, "<span class='warning'>Exposed wiring prevents you from opening [src]!</span>")
 			return
 
+		if(cover_locked && !(stat & MAINT)) // locked...
+			to_chat(user, "<span class='warning'>The cover of [src] is locked!</span>")
+			return
+
+		to_chat(user, "<span class='notice'>You open the cover of [src].</span>")
 		opened = APC_OPENED
+		update_icon()
+
+	// 3. Broken, closed APC
+	if((stat & BROKEN) && opened == APC_CLOSED)
+		if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
+			return
+
+		user.visible_message(
+			"<span class='notice'>[user] rips the cover off [src].</span>",
+			"<span class='notice'>You rip the cover off [src].</span>",
+			"<span class='warning'>You hear metallic levering and a small flat object falling to the floor!</span>"
+			)
+		panel_open = FALSE // Avoid wacky behavour with wires.
+		opened = APC_COVER_OFF
 		update_icon()
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
 
 	if(opened)
-		to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery!
+		to_chat(user, "<span class='warning'>Close the APC first!</span>")
 		return
 
 	if(emagged)
 		to_chat(user, "<span class='warning'>The interface is broken!</span>")
+		return
+
+	if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
 		return
 
 	panel_open = !panel_open
@@ -111,20 +138,24 @@
 
 /obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+
+	if(terminal && opened)
+		if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
+			return
+		terminal.dismantle(user, I)
 		return
 
 	if(panel_open && !opened)
+		if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
+			return
 		wires.Interact(user)
-	else if(terminal && opened)
-		terminal.dismantle(user, I)
 
 /obj/machinery/power/apc/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
 
 	if(panel_open && !opened)
+		if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
+			return
 		wires.Interact(user)
 
 /obj/machinery/power/apc/welder_act(mob/user, obj/item/I)
@@ -136,18 +167,18 @@
 		return
 
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, amount = 3, volume = I.tool_volume))
+	if(I.use_tool(src, user, apc_frame_welding_time, amount = 3, volume = I.tool_volume))
 		if((stat & BROKEN) || opened == APC_COVER_OFF)
 			new /obj/item/stack/sheet/metal(loc)
 			user.visible_message(\
-				"<span class='notice'>[user.name] has cut [src] apart with [I].</span>",
+				"<span class='notice'>[user] has cut [src] apart with [I].</span>",
 				"<span class='notice'>You disassembled the broken APC frame.</span>",
 				"<span class='warning'>You hear welding.</span>"
 				)
 		else
 			new /obj/item/mounted/frame/apc_frame(loc)
 			user.visible_message(\
-				"<span class='notice'>[user.name] has cut [src] from the wall with [I].</span>",
+				"<span class='notice'>[user] has cut [src] from the wall with [I].</span>",
 				"<span class='notice'>You cut the APC frame from the wall.</span>",
 				"<span class='warning'>You hear welding.</span>"
 				)
