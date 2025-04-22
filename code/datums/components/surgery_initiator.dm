@@ -80,6 +80,8 @@
 		return
 	if(user.a_intent != INTENT_HELP)
 		return
+	if(L.current_dissection_step > 1)
+		to_chat(user, "<span class = 'warning'>You cannot begin surgery on a patient with an open dissection site!</span>")
 	if(!IS_HORIZONTAL(L) && !can_start_on_stander)
 		return
 	if(IS_HORIZONTAL(L) && !on_operable_surface(L))

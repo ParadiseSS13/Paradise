@@ -26,12 +26,13 @@
 // We dont want to keep the unidentified organ as an implantable version to skip the research phase
 /obj/item/xeno_organ
 	name = "Unidentified Mass"
-	desc = "This unusual clump of flesh, though now still, holds great potential."
+	desc = "This unusual clump of flesh, though now still, holds great potential. It will require revitalization via slime therapy to get any use out of."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
 	origin_tech = "biotech=1"
 	// What does this object turn into when analyzed?
 	var/true_organ = /obj/item/organ/internal/liver/xenobiology/toxic
+	var/unknown_quality = ORGAN_NORMAL
 
 /obj/item/xeno_organ/Initialize()
 	. = ..()
@@ -48,6 +49,7 @@
 
 /obj/item/organ/internal/liver/xenobiology/toxic
 	name = "Toxic Glands"
+	desc = "These fleshy glands' alien chemistry are incompatable with most humanoid life."
 
 /obj/item/organ/internal/liver/xenobiology/toxic/trigger()
 	if(!(owner.mob_biotypes & MOB_ORGANIC))

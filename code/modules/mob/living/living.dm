@@ -910,6 +910,16 @@
 
 // lets try and remove some organs
 /mob/living/proc/attempt_dissection(obj/item/I, mob/user)
+	if(user.a_intent == INTENT_HARM && stat == DEAD && current_dissection_step > 1 && ispath(I.type, /obj/item/dissector))
+		to_chat(user, "<span class='danger'>You begin to close the current dissection site!</span>")
+		playsound(src, 'sound/surgery/cautery1.ogg', 50, TRUE, -1)
+		if(do_mob(user, src, 5 SECONDS) && Adjacent(I))
+			playsound(src, 'sound/surgery/cautery2.ogg', 50, TRUE, -1)
+			to_chat(user, "<span class='warning'>You successfully seal up and repair the current dissection site.</span>")
+			current_dissection_step = 1
+			return TRUE
+		return TRUE
+	// only dead creatures with possible organs should be considered
 	if(user.a_intent == INTENT_HELP && stat == DEAD && contains_xeno_organ)
 		//we shouldnt allow dissections if it has open surgeries to prevent overlap
 		if(length(surgeries))
@@ -943,7 +953,7 @@
 		return
 
 	var/obj/item/step_name = dissection_tool_step[current_dissection_step]
-	. += "<span class='warning'>You feel the next disection step will be: [step_name]</span>"
+	. += "<span class='warning'>You feel the next disection step will be: [step_name.name]</span>"
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
 	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?

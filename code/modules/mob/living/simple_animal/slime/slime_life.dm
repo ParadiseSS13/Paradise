@@ -7,6 +7,7 @@
 			handle_feeding()
 		if(stat == CONSCIOUS) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 			handle_nutrition()
+			handle_organs()
 			if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
 				return
 			reagents.remove_all(0.5 * REAGENTS_METABOLISM * length(reagents.reagent_list)) //Slimes are such snowflakes
@@ -269,7 +270,7 @@
 			if(prob(60))
 				rabid = FALSE
 
-		if(prob(10))
+		if(prob(10) && !trained)
 			Discipline--
 
 	if(!client && !stop_automated_movement)
@@ -361,6 +362,8 @@
 		newmood = ":3"
 	else if(Target)
 		newmood = "mischievous"
+	else if(trained)
+		newmood = ":33"
 
 	if(!newmood)
 		if(Discipline && prob(25))
@@ -476,3 +479,15 @@
 	if(hunger == 2 || rabid || attacked)
 		return TRUE
 	return TRUE
+
+/mob/living/simple_animal/slime/proc/handle_organs()
+	if(holding_organ)
+		if(organ_progress < 100)
+			organ_progress += 1
+		else
+			organ_progress = 1
+			say("All done!", speak_emote)
+			var/obj/item/organ/finished_organ = new holding_organ.true_organ(src.loc)
+			finished_organ.organ_quality = holding_organ.unknown_quality
+			holding_organ = null
+
