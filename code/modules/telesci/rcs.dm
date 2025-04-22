@@ -58,7 +58,7 @@
 
 	var/list/L = list() // List of avaliable telepads
 	var/list/areaindex = list() // Telepad area location
-	for(var/obj/machinery/telepad_cargo/R in GLOB.machines)
+	for(var/obj/machinery/telepad_cargo/R in SSmachines.get_by_type(/obj/machinery/telepad_cargo))
 		if(R.stage)
 			continue
 		var/turf/T = get_turf(R)
