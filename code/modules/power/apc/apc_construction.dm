@@ -45,7 +45,7 @@
 			to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 			return
 
-		if(I.use_tool(src, user, apc_electronics_crowbar_time, volume = I.tool_volume))
+		if(I.use_tool(src, user, FALSE, volume = I.tool_volume))
 			if(has_electronics())
 				electronics_state = APC_ELECTRONICS_NONE
 				if(stat & BROKEN)
@@ -102,6 +102,20 @@
 
 		to_chat(user, "<span class='notice'>You open the cover of [src].</span>")
 		opened = APC_OPENED
+		update_icon()
+
+	// 3. Broken, closed APC
+	if((stat & BROKEN) && opened == APC_CLOSED)
+		if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
+			return
+
+		user.visible_message(
+			"<span class='notice'>[user] rips the cover off [src].</span>",
+			"<span class='notice'>You rip the cover off [src].</span>",
+			"<span class='warning'>You hear metallic levering and a small flat object falling to the floor!</span>"
+			)
+		panel_open = FALSE // Avoid wacky behavour with wires.
+		opened = APC_COVER_OFF
 		update_icon()
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
