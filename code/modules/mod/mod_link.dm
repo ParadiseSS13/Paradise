@@ -8,7 +8,6 @@
 	mod_link.visual_overlays = user.overlays
 	link_visual.add_overlay(mod_link.visual_overlays)
 	mod_link.visual = link_visual
-	// mod_link.holder.become_hearing_sensitive(REF(mod_link))
 	mod_link.holder.RegisterSignals(user, list(COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY), proc_path)
 	return link_visual
 
