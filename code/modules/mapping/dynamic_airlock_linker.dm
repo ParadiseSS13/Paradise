@@ -13,9 +13,11 @@ RESTRICT_TYPE(/datum/dynamic_airlock_linker)
 	var/list/interior_helpers = list()
 	/// A list of [/obj/effect/map_effect/dynamic_airlock/door/exterior]s to integrate into the airlock.
 	var/list/exterior_helpers = list()
-	/// A collection of "all" access defines collated from any [/obj/effect/map_effect/dynamic_airlock/access] helpers present in the airlock.
+	/// A collection of "all" access defines collated from any
+	/// [/obj/effect/map_effect/dynamic_airlock/access] helpers present in the airlock.
 	var/list/req_access = list()
-	/// A collection of "any" access defines collated from any [/obj/effect/map_effect/dynamic_airlock/access] helpers present in the airlock.
+	/// A collection of "any" access defines collated from any
+	/// [/obj/effect/map_effect/dynamic_airlock/access] helpers present in the airlock.
 	var/list/req_one_access = list()
 	/// A list of all [/obj/machinery/airlock_controller]s found in the airlock zone.
 	var/list/airlock_controllers = list()
