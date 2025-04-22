@@ -29,11 +29,11 @@ module.exports = (env = {}, argv) => {
   const config = {
     mode,
     context: path.resolve(__dirname),
-    target: ['web', 'es5', 'browserslist:ie 11'],
+    target: ['web', 'browserslist:edge >= 123'],
     entry: {
-      'tgui': ['./packages/tgui-polyfill', './packages/tgui'],
-      'tgui-panel': ['./packages/tgui-polyfill', './packages/tgui-panel'],
-      'tgui-say': ['./packages/tgui-polyfill', './packages/tgui-say'],
+      'tgui': ['./packages/tgui'],
+      'tgui-panel': ['./packages/tgui-panel'],
+      'tgui-say': ['./packages/tgui-say'],
     },
     output: {
       path: argv.useTmpFolder ? path.resolve(__dirname, './public/.tmp') : path.resolve(__dirname, './public'),

@@ -13,10 +13,9 @@ const VendingRow = (props) => {
         <img
           src={`data:image/jpeg;base64,${productImage}`}
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
             width: '32px',
             margin: '0px',
-            'margin-left': '0px',
           }}
         />
       </Table.Cell>

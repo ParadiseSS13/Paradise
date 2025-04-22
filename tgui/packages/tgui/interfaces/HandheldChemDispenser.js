@@ -123,7 +123,7 @@ const HandheldChemDispenserChemicals = (properties) => {
             textOverflow="ellipsis"
             selected={current_reagent === c.id}
             content={c.title}
-            style={{ 'margin-left': '2px' }}
+            style={{ marginLeft: '2px' }}
             onClick={() =>
               act('dispense', {
                 reagent: c.id,

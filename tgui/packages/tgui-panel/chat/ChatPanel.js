@@ -5,7 +5,7 @@
  */
 
 import { shallowDiffers } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { Button } from 'tgui/components';
 import { chatRenderer } from './renderer';
 
@@ -41,8 +41,8 @@ export class ChatPanel extends Component {
       chatRenderer.assignStyle({
         'width': '100%',
         'white-space': 'pre-wrap',
-        'font-size': this.props.fontSize,
-        'line-height': this.props.lineHeight,
+        fontSize: this.props.fontSize,
+        lineHeight: this.props.lineHeight,
       });
     }
   }

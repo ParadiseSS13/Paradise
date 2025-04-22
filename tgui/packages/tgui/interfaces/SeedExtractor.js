@@ -156,10 +156,9 @@ const SeedList = (properties) => {
                       <img
                         src={`data:image/jpeg;base64,${icons[seed.image]}`}
                         style={{
-                          'vertical-align': 'middle',
+                          verticalAlign: 'middle',
                           width: '32px',
                           margin: '0px',
-                          'margin-left': '0px',
                         }}
                       />
                       {seed.name}

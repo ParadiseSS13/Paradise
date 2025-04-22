@@ -19,12 +19,13 @@ const createBabelConfig = (options) => {
         {
           modules: 'commonjs',
           useBuiltIns: 'entry',
-          corejs: '3',
+          corejs: '3.3.2',
           spec: false,
           loose: true,
           targets: [],
         },
       ],
+      [require.resolve('@babel/preset-react'), { runtime: 'automatic' }],
       ...presets,
     ],
     plugins: [
@@ -35,7 +36,6 @@ const createBabelConfig = (options) => {
         },
       ],
       require.resolve('@babel/plugin-transform-jscript'),
-      require.resolve('babel-plugin-inferno'),
       require.resolve('babel-plugin-transform-remove-console'),
       require.resolve('common/string.babel-plugin.cjs'),
       ...plugins,

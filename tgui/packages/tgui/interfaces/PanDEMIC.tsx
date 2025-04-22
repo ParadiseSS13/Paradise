@@ -1,5 +1,5 @@
 import { BooleanLike } from '../../common/react';
-import { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
 import { useBackend } from '../backend';
 import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
@@ -100,7 +100,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   const bloodInformation = (
     <>
       <LabeledList.Item label="Blood DNA">
-        {!bloodDNA ? 'Undetectable' : <span style={{ 'font-family': "'Courier New', monospace" }}>{bloodDNA}</span>}
+        {!bloodDNA ? 'Undetectable' : <span style={{ fontFamily: "'Courier New', monospace" }}>{bloodDNA}</span>}
       </LabeledList.Item>
       <LabeledList.Item label="Blood Type">
         {
@@ -130,7 +130,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
               strain_index: props.strainIndex,
             })
           }
-          style={{ 'margin-left': 'auto' }}
+          style={{ marginLeft: 'auto' }}
         />
       );
     } else {
@@ -139,7 +139,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
           icon="pen"
           content="Name Disease"
           onClick={() => act('name_strain', { strain_index: props.strainIndex })}
-          style={{ 'margin-left': 'auto' }}
+          style={{ marginLeft: 'auto' }}
         />
       );
     }
@@ -167,7 +167,7 @@ const StrainInformationSection = (
     strain: PathogenStrain;
     strainIndex: number;
     sectionTitle?: string;
-    sectionButtons?: InfernoNode | InfernoNode[];
+    sectionButtons?: ReactNode;
   },
   context
 ) => {
@@ -222,7 +222,7 @@ const CultureInformationSection = (props) => {
   return (
     <Stack.Item grow>
       <Section title="Culture Information" fill buttons={sectionButtons}>
-        <Flex direction="column" style={{ 'height': '100%' }}>
+        <Flex direction="column" style={{ height: '100%' }}>
           <Flex.Item>
             <Tabs>
               {strains.map((strain, i) => (
@@ -275,7 +275,7 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
           ))}
           <Table.Row className="table-spacer" />
           <Table.Row>
-            <Table.Cell style={{ 'font-weight': 'bold' }}>Total</Table.Cell>
+            <Table.Cell style={{ fontWeight: 'bold' }}>Total</Table.Cell>
             <Table.Cell>{sum(symptoms.map((s) => s.stealth))}</Table.Cell>
             <Table.Cell>{sum(symptoms.map((s) => s.resistance))}</Table.Cell>
             <Table.Cell>{sum(symptoms.map((s) => s.stageSpeed))}</Table.Cell>

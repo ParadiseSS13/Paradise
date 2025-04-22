@@ -1,8 +1,6 @@
-import { Component } from 'inferno';
-import { Box, Button, Flex, Icon, Tooltip } from '.';
+import { Component } from 'react';
 import { useBackend } from '../backend';
-import { LabeledList } from './LabeledList';
-import { Slider } from './Slider';
+import { Box, Button, Flex, Icon, Tooltip, Slider, LabeledList } from './';
 import { resolveAsset } from '../assets';
 
 const MAP_SIZE = 510;
@@ -121,17 +119,17 @@ export class NanoMap extends Component {
     const newStyle = {
       width: mapSize,
       height: mapSize,
-      'margin-top': offsetY * zoom + 'px',
-      'margin-left': offsetX * zoom + 'px',
-      'overflow': 'hidden',
-      'position': 'relative',
+      marginTop: offsetY * zoom + 'px',
+      marginLeft: offsetX * zoom + 'px',
+      overflow: 'hidden',
+      position: 'relative',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      'background-size': 'cover',
-      'background-repeat': 'no-repeat',
-      'text-align': 'center',
-      'cursor': dragging ? 'move' : 'auto',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      textAlign: 'center',
+      cursor: dragging ? 'move' : 'auto',
     };
     const mapStyle = {
       width: '100%',
@@ -140,8 +138,7 @@ export class NanoMap extends Component {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-      'image-rendering': 'pixelated',
+      imageRendering: 'pixelated',
     };
 
     return (
@@ -216,7 +213,7 @@ const NanoMapZoomer = (props) => {
   return (
     <Box className="NanoMap__zoomer">
       <LabeledList>
-        <LabeledList.Item label="Zoom" labelStyle={{ 'vertical-align': 'middle' }}>
+        <LabeledList.Item label="Zoom" labelStyle={{ 'verticalAlign': 'middle' }}>
           <Flex direction="row">
             <Slider
               minValue={1}

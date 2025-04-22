@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { Box } from './Box';
 
 export class Countdown extends Component {

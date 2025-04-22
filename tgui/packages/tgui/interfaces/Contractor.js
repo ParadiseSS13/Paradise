@@ -1,5 +1,5 @@
 import { rad2deg } from 'common/math';
-import { Component, Fragment } from 'inferno';
+import { Component, Fragment } from 'react';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Icon, LabeledList, Modal, Section, Tabs } from '../components';
 import { Countdown } from '../components/Countdown';

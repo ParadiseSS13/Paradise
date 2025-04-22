@@ -4,73 +4,70 @@
  * @license MIT
  */
 
-import { canRender, classes } from 'common/react';
-import { Component, createRef, InfernoNode, RefObject } from 'inferno';
-import { addScrollableNode, removeScrollableNode } from '../events';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { ReactNode, RefObject, createRef, useEffect } from 'react';
+import { addScrollableNode, removeScrollableNode } from '../events';
+import { canRender, classes } from 'common/react';
 
-interface SectionProps extends BoxProps {
-  className?: string;
-  title?: string;
-  buttons?: InfernoNode;
-  fill?: boolean;
-  fitted?: boolean;
-  scrollable?: boolean;
-  /** @deprecated This property no longer works, please remove it. */
-  level?: boolean;
-  /** @deprecated Please use `scrollable` property */
-  overflowY?: any;
-}
-
-export class Section extends Component<SectionProps> {
-  scrollableRef: RefObject<HTMLDivElement>;
+export type SectionProps = Partial<{
+  buttons: ReactNode;
+  fill: boolean;
+  fitted: boolean;
   scrollable: boolean;
+  scrollableHorizontal: boolean;
+  title: ReactNode;
+  /** @member Allows external control of scrolling. */
+  scrollableRef: RefObject<HTMLDivElement>;
+  /** @member Callback function for the `scroll` event */
+  onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+}> &
+  BoxProps;
 
-  constructor(props) {
-    super(props);
-    this.scrollableRef = createRef();
-    this.scrollable = props.scrollable;
-  }
+export const Section = (props: SectionProps) => {
+  const { className, title, buttons, fill, fitted, scrollable, scrollableHorizontal, children, onScroll, ...rest } =
+    props;
 
-  componentDidMount() {
-    if (this.scrollable) {
-      addScrollableNode(this.scrollableRef.current);
+  const scrollableRef = props.scrollableRef || createRef();
+  const hasTitle = canRender(title) || canRender(buttons);
+
+  useEffect(() => {
+    if (scrollable || scrollableHorizontal) {
+      addScrollableNode(scrollableRef.current as HTMLElement);
+      if (onScroll && scrollableRef.current) {
+        scrollableRef.current.onscroll = onScroll;
+      }
     }
-  }
+    return () => {
+      if (scrollable || scrollableHorizontal) {
+        removeScrollableNode(scrollableRef.current as HTMLElement);
+      }
+    };
+  }, []);
 
-  componentWillUnmount() {
-    if (this.scrollable) {
-      removeScrollableNode(this.scrollableRef.current);
-    }
-  }
-
-  render() {
-    const { className, title, buttons, fill, fitted, scrollable, children, ...rest } = this.props;
-    const hasTitle = canRender(title) || canRender(buttons);
-    return (
-      <div
-        className={classes([
-          'Section',
-          fill && 'Section--fill',
-          fitted && 'Section--fitted',
-          scrollable && 'Section--scrollable',
-          className,
-          computeBoxClassName(rest),
-        ])}
-        {...computeBoxProps(rest)}
-      >
-        {hasTitle && (
-          <div className="Section__title">
-            <span className="Section__titleText">{title}</span>
-            <div className="Section__buttons">{buttons}</div>
-          </div>
-        )}
-        <div className="Section__rest">
-          <div ref={this.scrollableRef} className="Section__content">
-            {children}
-          </div>
+  return (
+    <div
+      className={classes([
+        'Section',
+        fill && 'Section--fill',
+        fitted && 'Section--fitted',
+        scrollable && 'Section--scrollable',
+        scrollableHorizontal && 'Section--scrollableHorizontal',
+        className,
+        computeBoxClassName(rest),
+      ])}
+      {...computeBoxProps(rest)}
+    >
+      {hasTitle && (
+        <div className="Section__title">
+          <span className="Section__titleText">{title}</span>
+          <div className="Section__buttons">{buttons}</div>
+        </div>
+      )}
+      <div className="Section__rest">
+        <div onScroll={onScroll as any} className="Section__content">
+          {children}
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};

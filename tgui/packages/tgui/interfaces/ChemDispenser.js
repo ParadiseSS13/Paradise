@@ -87,7 +87,7 @@ const ChemDispenserChemicals = (properties) => {
             overflow="hidden"
             textOverflow="ellipsis"
             content={c.title}
-            style={{ 'margin-left': '2px' }}
+            style={{ marginLeft: '2px' }}
             onClick={() =>
               act('dispense', {
                 reagent: c.id,

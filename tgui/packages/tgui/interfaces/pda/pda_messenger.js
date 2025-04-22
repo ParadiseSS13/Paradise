@@ -48,8 +48,8 @@ export const ActiveConversation = (props) => {
             right={im.sent ? '0px' : null}
             bottom="-4px"
             style={{
-              'z-index': '0',
-              'transform': im.sent ? 'scale(-1, 1)' : null,
+              zIndex: '0',
+              transform: im.sent ? 'scale(-1, 1)' : null,
             }}
             name="comment"
           />
@@ -61,9 +61,9 @@ export const ActiveConversation = (props) => {
             position="relative"
             textAlign={im.sent ? 'left' : 'right'}
             style={{
-              'z-index': '1',
-              'border-radius': '10px',
-              'word-break': 'normal',
+              zIndex: '1',
+              borderRadius: '10px',
+              wordBreak: 'normal',
             }}
           >
             {im.sent ? 'You:' : 'Them:'} {im.message}
@@ -97,7 +97,7 @@ export const ActiveConversation = (props) => {
             key={i}
             color={im.sent ? '#4d9121' : '#cd7a0d'}
             style={{
-              'word-break': 'normal',
+              wordBreak: 'normal',
             }}
           >
             {im.sent ? 'You:' : 'Them:'} <Box inline>{im.message}</Box>

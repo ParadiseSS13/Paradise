@@ -42,6 +42,19 @@ const Story = (props) => {
   const [content, setContent] = useLocalState('content', 'You can put anything in there');
   const [imageSize, setImageSize] = useLocalState('imageSize', 64);
 
+  const buttons = (
+    <Button
+      fluid
+      translucent={fluid1}
+      compact={!fluid1}
+      color={!fluid1 && 'transparent'}
+      selected={addImage}
+      onClick={() => setAddImage(!addImage)}
+    >
+      Add Image
+    </Button>
+  );
+
   return (
     <>
       <Section>
@@ -104,19 +117,8 @@ const Story = (props) => {
             tooltip={!fluid1 && content}
             disabled={disabled}
             selected={selected}
-            buttonsAlt={fluid1}
-            buttons={
-              <Button
-                fluid
-                translucent={fluid1}
-                compact={!fluid1}
-                color={!fluid1 && 'transparent'}
-                selected={addImage}
-                onClick={() => setAddImage(!addImage)}
-              >
-                Add Image
-              </Button>
-            }
+            buttonsAlt={fluid1 && buttons}
+            buttons={!fluid1 && buttons}
           >
             {content}
           </ImageButton>

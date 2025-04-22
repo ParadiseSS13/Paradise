@@ -8,7 +8,6 @@ import { clamp01, keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
-import { NumberInput } from './NumberInput';
 
 export const Slider = (props) => {
   const {
@@ -69,8 +68,6 @@ export const Slider = (props) => {
               className,
               computeBoxClassName(rest),
             ])}
-            // Added for the sake of backward compatibility.
-            // Inferno ignores clicks inside elements marked with disabled
             disabled={disabled}
             {...computeBoxProps(rest)}
             onMouseDown={handleDragStart}

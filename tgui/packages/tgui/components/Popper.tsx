@@ -1,21 +1,23 @@
-import { createPopper, OptionsGeneric } from '@popperjs/core';
-import { Component, findDOMFromVNode, InfernoNode, render } from 'inferno';
-import type * as CSS from 'csstype';
+import { createPopper } from '@popperjs/core';
+import { ArgumentsOf } from 'common/types';
+import { Component, CSSProperties, JSXElementConstructor, PropsWithChildren, ReactElement, RefObject } from 'react';
+import { findDOMNode, render } from 'react-dom';
 
 type PopperProps = {
-  popperContent: InfernoNode;
-  options?: Partial<OptionsGeneric<unknown>>;
-  additionalStyles?: CSS.Properties;
-};
+  popperContent: ReactElement<any, string | JSXElementConstructor<any>>;
+  options?: ArgumentsOf<typeof createPopper>[2];
+  additionalStyles?: CSSProperties;
+} & PropsWithChildren;
 
 export class Popper extends Component<PopperProps> {
   static id: number = 0;
+  popperRef: RefObject<HTMLDivElement>;
 
   renderedContent: HTMLDivElement;
   popperInstance: ReturnType<typeof createPopper>;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     Popper.id += 1;
   }
@@ -24,6 +26,7 @@ export class Popper extends Component<PopperProps> {
     const { additionalStyles, options } = this.props;
 
     this.renderedContent = document.createElement('div');
+
     if (additionalStyles) {
       for (const [attribute, value] of Object.entries(additionalStyles)) {
         this.renderedContent.style[attribute] = value;
@@ -33,20 +36,22 @@ export class Popper extends Component<PopperProps> {
     this.renderPopperContent(() => {
       document.body.appendChild(this.renderedContent);
 
-      this.popperInstance = createPopper(
-        // HACK: We don't want to create a wrapper, as it could break the layout
-        // of consumers, so we do the inferno equivalent of `findDOMNode(this)`.
-        // This is usually bad as refs are usually better, but refs did
-        // not work in this case, as they weren't propagating correctly.
-        // A previous attempt was made as a render prop that passed an ID,
-        // but this made consuming use too unwieldly.
-        // This code is copied from `findDOMNode` in inferno-extras.
-        // Because this component is written in TypeScript, we will know
-        // immediately if this internal variable is removed.
-        findDOMFromVNode(this.$LI, true),
-        this.renderedContent,
-        options
-      );
+      // HACK: We don't want to create a wrapper, as it could break the layout
+      // of consumers, so we use findDOMNode.
+      // This is usually bad as refs are usually better, but refs did
+      // not work in this case, as they weren't propagating correctly.
+      // A previous attempt was made as a render prop that passed an ID,
+      // but this made consuming use too unwieldly.
+      // Because this component is written in TypeScript, we will know
+      // immediately if this internal variable is removed.
+      //
+      // eslint-disable-next-line react/no-find-dom-node
+      const domNode = findDOMNode(this) as Element;
+      if (!domNode) {
+        return;
+      }
+
+      this.popperInstance = createPopper(domNode, this.renderedContent, options);
     });
   }
 
@@ -56,13 +61,15 @@ export class Popper extends Component<PopperProps> {
 
   componentWillUnmount() {
     this.popperInstance?.destroy();
-    render(null, this.renderedContent, () => {
+    render(<> </>, this.renderedContent, () => {
       this.renderedContent.remove();
     });
   }
 
   renderPopperContent(callback: () => void) {
-    render(this.props.popperContent, this.renderedContent, callback);
+    // `render` errors when given false, so we convert it to `null`,
+    // which is supported.
+    render(this.props.popperContent || null, this.renderedContent, callback);
   }
 
   render() {

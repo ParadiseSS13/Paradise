@@ -1,15 +1,14 @@
 import { capitalize } from 'common/string';
 import { toFixed } from 'common/math';
-import { useLocalState } from 'tgui/backend';
-import { useDispatch, useSelector } from 'common/redux';
+import { useLocalState, useDispatch, useSelector } from 'tgui/backend';
 import { Button, Input, LabeledList, NoticeBox, Section, Stack, Slider, Collapsible } from 'tgui/components';
 import { updateSettings } from './actions';
 import { FONTS } from './constants';
 import { selectSettings } from './selectors';
 
-export const SettingsStatPanel = (props, context) => {
-  const { statLinked, statFontSize, statFontFamily, statTabsStyle } = useSelector(context, selectSettings);
-  const dispatch = useDispatch(context);
+export const SettingsStatPanel = (props) => {
+  const { statLinked, statFontSize, statFontFamily, statTabsStyle } = useSelector(selectSettings);
+  const dispatch = useDispatch();
 
   const TabsViews = ['default', 'classic', 'scrollable'];
   const LinkedToChat = () => (

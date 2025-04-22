@@ -6,7 +6,7 @@
 
 import { Placement } from '@popperjs/core';
 
-import { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
 import { BooleanLike, classes } from 'common/react';
 import { BoxProps, computeBoxProps } from './Box';
 import { Icon } from './Icon';
@@ -26,14 +26,14 @@ type Props = Partial<{
    * Has some special stylings!
    * Example: `buttons={<Button>Send</Button>}`
    */
-  buttons: InfernoNode;
+  buttons: ReactNode;
   /**
    * Same as buttons, but. Have disabled pointer-events on content inside if non-fluid.
    * Fluid version have humburger layout.
    */
-  buttonsAlt: InfernoNode;
+  buttonsAlt: ReactNode;
   /** Content under image. Or on the right if fluid. */
-  children: InfernoNode;
+  children: ReactNode;
   /** Applies a CSS class to the element. */
   className: string;
   /** Color of the button. See [Button](#button) but without `transparent`. */
@@ -41,7 +41,7 @@ type Props = Partial<{
   /** Makes button disabled and dark red if true. Also disables onClick. */
   disabled: BooleanLike;
   /** Optional. Adds a "stub" when loading DmIcon. */
-  dmFallback: InfernoNode;
+  dmFallback: ReactNode;
   /** Parameter `icon` of component `DmIcon`. */
   dmIcon: string | null;
   /** Parameter `icon_state` of component `DmIcon`. */
@@ -66,7 +66,7 @@ type Props = Partial<{
   /** Requires `fluid` for work. Bold text with divider betwen content. */
   title: string;
   /** A fancy, boxy tooltip, which appears when hovering over the button */
-  tooltip: InfernoNode;
+  tooltip: ReactNode;
   /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
   tooltipPosition: Placement;
 }> &
@@ -102,7 +102,7 @@ export const ImageButton = (props: Props) => {
     return (
       <Stack height={`${imageSize}px`} width={`${imageSize}px`}>
         <Stack.Item grow textAlign="center" align="center">
-          <Icon spin={iconSpin} name={iconName} color="gray" style={{ 'font-size': `calc(${imageSize}px * 0.75)` }} />
+          <Icon spin={iconSpin} name={iconName} color="gray" style={{ fontSize: `calc(${imageSize}px * 0.75)` }} />
         </Stack.Item>
       </Stack>
     );
@@ -214,7 +214,7 @@ export const ImageButton = (props: Props) => {
           ])}
           style={{
             width: `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)`,
-            'max-width': !fluid && `calc(${imageSize}px +  0.5em)`,
+            maxWidth: !fluid && `calc(${imageSize}px +  0.5em)`,
           }}
         >
           {buttonsAlt}

@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section, Table } from '../components';
 import { Window } from '../layouts';
@@ -22,7 +21,7 @@ export const RndBackupConsole = (properties) => {
               </LabeledList.Item>
               <LabeledList.Item label="Loaded Disk">
                 {has_disk ? (
-                  <Fragment>
+                  <>
                     <Button
                       content={disk_name + ' (Last backup: ' + last_timestamp + ')'}
                       icon="save"
@@ -31,7 +30,7 @@ export const RndBackupConsole = (properties) => {
                     />
                     <Button icon="sign-in-alt" content="Save all" onClick={() => act('saveall2disk')} />
                     <Button icon="sign-out-alt" content="Load all" onClick={() => act('saveall2network')} />
-                  </Fragment>
+                  </>
                 ) : (
                   'None'
                 )}

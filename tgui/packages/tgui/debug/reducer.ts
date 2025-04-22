@@ -4,9 +4,15 @@
  * @license MIT
  */
 
-export const debugReducer = (state = {}, action) => {
-  const { type, payload } = action;
+type DebugState = {
+  kitchenSink: boolean;
+  debugLayout: boolean;
+};
+
+export function debugReducer(state = {} as DebugState, action) {
+  const { type } = action;
   if (type === 'debug/toggleKitchenSink') {
+    console.log('Gotcha');
     return {
       ...state,
       kitchenSink: !state.kitchenSink,
@@ -19,4 +25,4 @@ export const debugReducer = (state = {}, action) => {
     };
   }
   return state;
-};
+}

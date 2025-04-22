@@ -44,12 +44,10 @@ const PdaMenu = (props) => {
                   <img
                     src={`data:image/png;base64,${pda_colors[sprite_name][0]}`}
                     style={{
-                      'vertical-align': 'middle',
+                      verticalAlign: 'middle',
                       width: '32px',
                       margin: '0px',
-                      'margin-left': '0px',
-                      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                      'image-rendering': 'pixelated',
+                      imageRendering: 'pixelated',
                     }}
                   />
                 </Table.Cell>
@@ -72,12 +70,10 @@ const PdaImage = (props) => {
         <img
           src={`data:image/jpeg;base64,${current_appearance}`}
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
             width: '160px',
             margin: '0px',
-            'margin-left': '0px',
-            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-            'image-rendering': 'pixelated',
+            imageRendering: 'pixelated',
           }}
         />
         <Button fluid textAlign="center" icon="eject" content="Eject" color="green" onClick={() => act('eject_pda')} />
@@ -87,12 +83,10 @@ const PdaImage = (props) => {
         <img
           src={`data:image/jpeg;base64,${preview_appearance}`}
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
             width: '160px',
             margin: '0px',
-            'margin-left': '0px',
-            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-            'image-rendering': 'pixelated',
+            imageRendering: 'pixelated',
           }}
         />
       </Section>

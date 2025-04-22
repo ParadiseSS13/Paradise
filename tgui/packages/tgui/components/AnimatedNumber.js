@@ -5,7 +5,7 @@
  */
 
 import { clamp, toFixed } from 'common/math';
-import { Component } from 'inferno';
+import { Component } from 'react';
 
 const FPS = 20;
 const Q = 0.5;

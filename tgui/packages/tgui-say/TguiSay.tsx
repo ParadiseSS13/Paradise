@@ -1,6 +1,6 @@
 import { Channel, ChannelIterator } from './ChannelIterator';
 import { ChatHistory } from './ChatHistory';
-import { Component, createRef, InfernoKeyboardEvent, RefObject } from 'inferno';
+import { Component, createRef, RefObject } from 'react';
 import { LINE_LENGTHS, RADIO_PREFIXES, WINDOW_SIZES } from './constants';
 import { byondMessages } from './timers';
 import { dragStartHandler } from 'tgui/drag';
@@ -40,7 +40,7 @@ export class TguiSay extends Component<{}, State> {
   private lightMode: boolean;
   private maxLength: number;
   private messages: typeof byondMessages;
-  // eslint-disable-next-line react/state-in-constructor
+   
   state: State;
 
   constructor(props: never) {
@@ -165,7 +165,7 @@ export class TguiSay extends Component<{}, State> {
 
   handleIncrementChannel() {
     // Binary talk is a special case, tell byond to show thinking indicators
-    if (this.channelIterator.isSay() && this.currentPrefix === (':b ' || '.b ' || '#b ')) {
+    if (this.channelIterator.isSay() && this.currentPrefix === ':b ') {
       this.messages.channelIncrementMsg(true);
     }
 
@@ -195,7 +195,7 @@ export class TguiSay extends Component<{}, State> {
     const typed = this.innerRef.current?.value;
 
     // If we're typing, send the message
-    if (this.channelIterator.isVisible() && this.currentPrefix !== (':b ' || '.b ' || '#b ')) {
+    if (this.channelIterator.isVisible() && this.currentPrefix !== ':b ') {
       this.messages.typingMsg(this.channelIterator.isMe());
     }
 
@@ -226,7 +226,7 @@ export class TguiSay extends Component<{}, State> {
     }
 
     // If we're in binary, hide the thinking indicator
-    if (prefix === (':b ' || '.b ' || '#b ')) {
+    if (prefix === ':b ') {
       Byond.sendMessage('thinking', { visible: false });
     }
 
@@ -236,7 +236,7 @@ export class TguiSay extends Component<{}, State> {
     this.setValue(typed.slice(3));
   }
 
-  handleKeyDown(event: InfernoKeyboardEvent<HTMLTextAreaElement>) {
+  handleKeyDown(event) {
     switch (event.key) {
       case KEY.Up:
       case KEY.Down:
@@ -327,11 +327,11 @@ export class TguiSay extends Component<{}, State> {
       this.channelIterator.current();
 
     return (
-      <div className={`window window-${theme} window-${this.state.size}`} $HasKeyedChildren>
+      <div className={`window window-${theme} window-${this.state.size}`}>
         <Dragzone position="top" theme={theme} />
-        <div className="center" $HasKeyedChildren>
+        <div className="center">
           <Dragzone position="left" theme={theme} />
-          <div className="input" $HasKeyedChildren>
+          <div className="input">
             <button
               className={`button button-${theme}`}
               onClick={() =>
@@ -365,6 +365,6 @@ const Dragzone = ({ theme, position }: { theme: string; position: string }) => {
   const location = position === 'left' || position === 'right' ? 'vertical' : 'horizontal';
 
   return (
-    <div className={`dragzone-${location} dragzone-${position} dragzone-${theme}`} onmousedown={dragStartHandler} />
+    <div className={`dragzone-${location} dragzone-${position} dragzone-${theme}`} onMouseDown={dragStartHandler} />
   );
 };

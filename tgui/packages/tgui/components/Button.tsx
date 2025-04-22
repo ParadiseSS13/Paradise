@@ -4,16 +4,13 @@
  * @license MIT
  */
 
-import { BooleanLike, classes, pureComponentHooks } from 'common/react';
-import { Component, InfernoNode, RefObject, createRef } from 'inferno';
+import { BooleanLike, classes } from 'common/react';
+import { Component, ReactNode, RefObject, createRef } from 'react';
 import { KEY_ENTER, KEY_ESCAPE, KEY_SPACE } from 'common/keycodes';
-import { createLogger } from '../logging';
 import { Box, BoxProps } from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
 import { Placement } from '@popperjs/core';
-
-const logger = createLogger('Button');
 
 export type ButtonProps = BoxProps & {
   fluid?: boolean;
@@ -23,7 +20,7 @@ export type ButtonProps = BoxProps & {
   iconSpin?: BooleanLike;
   disabled?: BooleanLike;
   selected?: BooleanLike;
-  tooltip?: InfernoNode;
+  tooltip?: ReactNode;
   tooltipPosition?: Placement;
   ellipsis?: BooleanLike;
   compact?: BooleanLike;
@@ -32,9 +29,9 @@ export type ButtonProps = BoxProps & {
   iconColor?: string;
   iconStyle?: any;
   multiLine?: BooleanLike;
-  children?: InfernoNode;
+  children?: ReactNode;
   /** @deprecated Use children. */
-  content?: InfernoNode;
+  content?: ReactNode;
   onClick?: (e: UIEvent) => void;
   onclick?: ButtonProps['onClick'];
 };
@@ -67,15 +64,6 @@ export const Button = (props: ButtonProps) => {
     ...rest
   } = props;
   const hasContent = !!(content || children);
-  // A warning about the lowercase onclick
-  if (onclick) {
-    logger.warn(
-      `Lowercase 'onclick' is not supported on Button and lowercase` +
-        ` prop names are discouraged in general. Please use a camelCase` +
-        `'onClick' instead and read: ` +
-        `https://infernojs.org/docs/guides/event-handling`
-    );
-  }
   rest.onClick = (e) => {
     if (!disabled && onClick) {
       onClick(e);
@@ -141,8 +129,6 @@ export const Button = (props: ButtonProps) => {
   return buttonContent;
 };
 
-Button.defaultHooks = pureComponentHooks;
-
 export const ButtonCheckbox = (props: ButtonProps & { checked?: BooleanLike }) => {
   const { checked, ...rest } = props;
   return <Button color="transparent" icon={checked ? 'check-square-o' : 'square-o'} selected={checked} {...rest} />;
@@ -161,8 +147,8 @@ type ButtonConfirmState = {
 };
 
 export class ButtonConfirm extends Component<ButtonConfirmProps, ButtonConfirmState> {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       clickedOnce: false,
     };
@@ -213,7 +199,7 @@ Button.Confirm = ButtonConfirm;
 export type ButtonInputProps = ButtonProps & {
   currentValue?: string;
   defaultValue?: string;
-  onCommit?: (e: UIEvent, value: string) => void;
+  onCommit?: (e, value: string) => void;
 };
 
 type ButtonInputState = {
@@ -223,8 +209,8 @@ type ButtonInputState = {
 export class ButtonInput extends Component<ButtonInputProps, ButtonInputState> {
   inputRef: RefObject<HTMLInputElement>;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.inputRef = createRef();
     this.state = {
       inInput: false,
@@ -251,7 +237,7 @@ export class ButtonInput extends Component<ButtonInputProps, ButtonInputState> {
     }
   }
 
-  commitResult(e: UIEvent) {
+  commitResult(e) {
     if (this.inputRef) {
       const input = this.inputRef.current;
       const hasValue = input.value !== '';
@@ -300,8 +286,8 @@ export class ButtonInput extends Component<ButtonInputProps, ButtonInputState> {
           ref={this.inputRef}
           className="NumberInput__input"
           style={{
-            'display': !this.state.inInput ? 'none' : undefined,
-            'text-align': 'left',
+            display: !this.state.inInput ? 'none' : undefined,
+            textAlign: 'left',
           }}
           onBlur={(e) => {
             if (!this.state.inInput) {

@@ -1,32 +1,25 @@
-import prettier from "eslint-plugin-prettier";
-import react from "eslint-plugin-react";
-import { fixupPluginRules } from "@eslint/compat";
-import globals from "globals";
-import tsParser from "@typescript-eslint/parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import prettier from 'eslint-plugin-prettier';
+import react from 'eslint-plugin-react';
+import { fixupPluginRules } from '@eslint/compat';
+import globals from 'globals';
+import tsParser from '@typescript-eslint/parser';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import js from '@eslint/js';
+import { FlatCompat } from '@eslint/eslintrc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
 });
 
 export default [
   ...compat.extends('prettier'),
   {
-    ignores: [
-      '**/.yarn/**',
-      '**/node_modules',
-      '**/*.bundle.*',
-      '**/*.chunk.*',
-      '**/*.hot-update.*',
-      '**/packages/inferno/**',
-    ],
+    ignores: ['**/.yarn/**', '**/node_modules', '**/*.bundle.*', '**/*.chunk.*', '**/*.hot-update.*'],
     plugins: {
       prettier,
       react: fixupPluginRules(react),
@@ -116,7 +109,7 @@ export default [
       'no-shadow-restricted-names': 'error',
       'no-undef': 'error',
       'no-undef-init': 'error',
-      'func-style': ['error', 'expression'],
+      // 'func-style': ['error', 'expression'],
       'spaced-comment': ['error', 'always'],
       'no-class-assign': 'error',
       'no-const-assign': 'error',
@@ -152,7 +145,7 @@ export default [
       'react/prefer-stateless-function': 'error',
       'react/require-render-return': 'error',
       'react/self-closing-comp': 'error',
-      'react/state-in-constructor': 'error',
+      // 'react/state-in-constructor': 'error',
       'react/style-prop-object': 'error',
       'react/void-dom-elements-no-children': 'error',
       'react/jsx-boolean-value': 'error',

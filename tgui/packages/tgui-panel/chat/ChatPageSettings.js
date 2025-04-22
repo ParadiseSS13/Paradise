@@ -4,15 +4,15 @@
  * @license MIT
  */
 
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import { Button, Collapsible, Divider, Input, Section, Stack } from 'tgui/components';
 import { moveChatPageLeft, moveChatPageRight, removeChatPage, toggleAcceptedType, updateChatPage } from './actions';
 import { MESSAGE_TYPES } from './constants';
 import { selectCurrentChatPage } from './selectors';
 
-export const ChatPageSettings = (props, context) => {
-  const page = useSelector(context, selectCurrentChatPage);
-  const dispatch = useDispatch(context);
+export const ChatPageSettings = (props) => {
+  const page = useSelector(selectCurrentChatPage);
+  const dispatch = useDispatch();
   return (
     <Section fill>
       <Stack align="center">
@@ -93,7 +93,7 @@ export const ChatPageSettings = (props, context) => {
         </Stack.Item>
       </Stack>
       <Divider />
-      <Section title="Messages to display">
+      <Section title="Messages to display" level={2}>
         {MESSAGE_TYPES.filter((typeDef) => !typeDef.important && !typeDef.admin).map((typeDef) => (
           <Button.Checkbox
             key={typeDef.type}

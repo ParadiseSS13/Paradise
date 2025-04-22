@@ -116,7 +116,7 @@ export const Vending = (props) => {
                       <Button
                         fluid
                         icon="eject"
-                        content={<span style={{ 'text-transform': 'capitalize' }}>{inserted_item_name}</span>}
+                        content={<span style={{ textTransform: 'capitalize' }}>{inserted_item_name}</span>}
                         onClick={() => act('eject_item', {})}
                       />
                     )}

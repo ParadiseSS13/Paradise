@@ -38,6 +38,7 @@ $shadow-color: rgba(0, 0, 0, 0.1) !default;
 }
 
 .TitleBar__title {
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 46px;

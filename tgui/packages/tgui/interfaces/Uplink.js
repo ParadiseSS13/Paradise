@@ -410,10 +410,9 @@ const ExploitableInfoPage = (_properties) => {
                     src={p}
                     style={{
                       width: '96px',
-                      'margin-top': '1rem',
-                      'margin-bottom': '0.5rem',
-                      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                      'image-rendering': 'pixelated',
+                      marginTop: '1rem',
+                      marginBottom: '0.5rem',
+                      imageRendering: 'pixelated',
                     }}
                   />
                   <br />

@@ -89,7 +89,7 @@ export const applyMiddleware = (...middlewares: Middleware[]): StoreEnhancer => 
     return (reducer, ...args): Store => {
       const store = createStoreFunction(reducer, ...args);
 
-      let dispatch: Dispatch = () => {
+      let dispatch: Dispatch = (action, ...args) => {
         throw new Error('Dispatching while constructing your middleware is not allowed.');
       };
 
@@ -150,7 +150,7 @@ export const combineReducers = (reducersObj: Record<string, Reducer>): Reducer =
  * @param {string} type The action type to use for created actions.
  * @param {any} prepare (optional) a method that takes any number of arguments
  * and returns { payload } or { payload, meta }. If this is given, the
- * resulting action creator will pass it's arguments to this method to
+ * resulting action creator will pass its arguments to this method to
  * calculate payload & meta.
  *
  * @public
@@ -177,24 +177,4 @@ export const createAction = <TAction extends string>(type: TAction, prepare?: (.
   actionCreator.match = (action) => action.type === type;
 
   return actionCreator;
-};
-
-// Implementation specific
-// --------------------------------------------------------
-
-export const useDispatch = <TAction extends Action = AnyAction>(context: {
-  store: Store<unknown, TAction>;
-}): Dispatch<TAction> => {
-  return context?.store?.dispatch;
-};
-
-export const useSelector = <State, Selected>(
-  context: { store: Store<State, Action> },
-  selector: (state: State) => Selected
-): Selected => {
-  if (!context) {
-    return {} as Selected;
-  }
-
-  return selector(context?.store?.getState());
 };

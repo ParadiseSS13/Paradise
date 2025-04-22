@@ -4,14 +4,15 @@
  * @license MIT
  */
 
-import { KEY_BACKSPACE, KEY_F10, KEY_F11, KEY_F12 } from 'common/keycodes';
 import { globalEvents } from '../events';
 import { acquireHotKey } from '../hotkeys';
+import { KEY_BACKSPACE, KEY_F10, KEY_F11, KEY_F12 } from 'common/keycodes';
+
 import { openExternalBrowser, toggleDebugLayout, toggleKitchenSink } from './actions';
 
 const relayedTypes = ['backend/update', 'chat/message'];
 
-export const debugMiddleware = (store) => {
+export function debugMiddleware(store) {
   acquireHotKey(KEY_F11);
   acquireHotKey(KEY_F12);
   globalEvents.on('keydown', (key) => {
@@ -34,9 +35,9 @@ export const debugMiddleware = (store) => {
     }
   });
   return (next) => (action) => next(action);
-};
+}
 
-export const relayMiddleware = (store) => {
+export function relayMiddleware(store) {
   const devServer = require('tgui-dev-server/link/client.cjs');
   const externalBrowser = location.search === '?external';
   if (externalBrowser) {
@@ -58,7 +59,7 @@ export const relayMiddleware = (store) => {
     });
   }
   return (next) => (action) => {
-    const { type, payload, relayed } = action;
+    const { type, relayed } = action;
     if (type === openExternalBrowser.type) {
       window.open(location.href + '?external', '_blank');
       return;
@@ -74,4 +75,4 @@ export const relayMiddleware = (store) => {
     }
     return next(action);
   };
-};
+}

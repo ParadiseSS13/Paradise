@@ -22,12 +22,9 @@ start with our [practical tutorial](docs/tutorial-and-examples.md).
 
 ### Guides
 
-This project uses **Inferno** - a very fast UI rendering engine with a similar
-API to React. Take your time to read these guides:
+This project uses React. Take your time to read the guide:
 
 - [React guide](https://react.dev/learn)
-- [Inferno documentation](https://infernojs.org/docs/guides/components) -
-highlights differences with React.
 
 If you were already familiar with an older, Ractive-based tgui, and want
 to translate concepts between old and new tgui, read this
@@ -90,7 +87,6 @@ doing development on IE8).
 - `bin/tgui --test` - Run tests.
 - `bin/tgui --analyze` - Run a bundle analyzer.
 - `bin/tgui --clean` - Clean up project repo.
-- `bin/tgui --tgui-polyfill` - Build polyfills. You need to run it when updating any of the static (numbered) polyfills.
 - `bin/tgui [webpack options]` - Build the project with custom webpack
 options.
 

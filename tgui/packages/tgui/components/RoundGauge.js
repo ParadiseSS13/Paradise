@@ -33,7 +33,7 @@ export const RoundGauge = (props) => {
         className={classes(['RoundGauge', className, computeBoxClassName(rest)])}
         {...computeBoxProps({
           style: {
-            'font-size': size + 'em',
+            fontSize: size + 'em',
             ...style,
           },
           ...rest,

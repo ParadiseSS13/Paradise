@@ -127,9 +127,9 @@ const LayoutHorizontal = (props) => {
                 dmIconState={item.icon_state}
                 dmDirection={item.dir}
                 style={{
-                  'border-style': 'solid',
-                  'border-width': '2px',
-                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  borderStyle: 'solid',
+                  borderWidth: '2px',
+                  borderColor: item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
                   padding: '2px',
                 }}
               />
@@ -154,9 +154,9 @@ const LayoutHorizontal = (props) => {
                 dmIconState={item.icon_state}
                 dmDirection={item.dir}
                 style={{
-                  'border-style': 'solid',
-                  'border-width': '2px',
-                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  borderStyle: 'solid',
+                  borderWidth: '2px',
+                  borderColor: item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
                   padding: '2px',
                 }}
               />
@@ -181,9 +181,9 @@ const LayoutHorizontal = (props) => {
                 dmIconState={item.icon_state}
                 dmDirection={item.dir}
                 style={{
-                  'border-style': 'solid',
-                  'border-width': '2px',
-                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  borderStyle: 'solid',
+                  borderWidth: '2px',
+                  borderColor: item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
                   padding: '2px',
                 }}
               />
@@ -217,9 +217,9 @@ const LayoutVertical = (props) => {
                 dmIconState={item.icon_state}
                 dmDirection={item.dir}
                 style={{
-                  'border-style': 'solid',
-                  'border-width': '2px',
-                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  borderStyle: 'solid',
+                  borderWidth: '2px',
+                  borderColor: item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
                   padding: '2px',
                 }}
               />
@@ -244,9 +244,9 @@ const LayoutVertical = (props) => {
                 dmIconState={item.icon_state}
                 dmDirection={item.dir}
                 style={{
-                  'border-style': 'solid',
-                  'border-width': '2px',
-                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  borderStyle: 'solid',
+                  borderWidth: '2px',
+                  borderColor: item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
                   padding: '2px',
                 }}
               />
@@ -271,9 +271,9 @@ const LayoutVertical = (props) => {
                 dmIconState={item.icon_state}
                 dmDirection={item.dir}
                 style={{
-                  'border-style': 'solid',
-                  'border-width': '2px',
-                  'border-color': item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
+                  borderStyle: 'solid',
+                  borderWidth: '2px',
+                  borderColor: item.status === 'good' ? 'green' : item.status === 'Incomplete' ? 'orange' : 'red',
                   padding: '2px',
                 }}
               />

@@ -95,7 +95,7 @@ export const BluespaceTap = (props) => {
               />
               <LabeledList>
                 <LabeledList.Item label="Desired Mining Power">{formatPower(desiredMiningPower)}</LabeledList.Item>
-                <LabeledList.Item labelStyle={{ 'vertical-align': 'top' }} label="Set Desired Mining Power">
+                <LabeledList.Item labelStyle={{ verticalAlign: 'top' }} label="Set Desired Mining Power">
                   <Stack width="100%">
                     <Stack.Item>
                       <Button
