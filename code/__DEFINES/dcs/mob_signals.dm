@@ -163,7 +163,6 @@
 /// Called from remove_overlay(cache_index, overlay)
 #define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
 
-
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 // none of these are called as of right now, as there is nothing listening for them.
 ///from base of mob/living/Stun() (amount, ignore_canstun)

@@ -17,7 +17,7 @@
 /// The degree of the opacity is optional, based off the opacity arg (0 -> 1)
 /atom/proc/makeHologram(opacity = 0.5)
 	// First, we'll make things blue (roughly) and sorta transparent
-	add_filter("HOLO: Color and Transparent", 1, color_matrix_filter(rgb(125,180,225, opacity * 255)))
+	add_filter("HOLO: Color and Transparent", 1, color_matrix_filter(rgb(125, 180, 225, opacity * 255)))
 	// Now we're gonna do a scanline effect
 	// Gonna take this atom and give it a render target, then use it as a source for a filter
 	// (We use an atom because it seems as if setting render_target on an MA is just invalid. I hate this engine)
@@ -41,7 +41,7 @@
 
 /proc/get_link_visual_generic(datum/mod_link/mod_link, atom/movable/visuals, proc_path)
 	var/mob/living/user = mod_link.get_user_callback.Invoke()
-	playsound(mod_link.holder, 'sound/machines/terminal_processing.ogg', 50, vary = TRUE)
+	playsound(mod_link.holder, 'sound/machines/terminal_processing.ogg', 50, TRUE)
 	visuals.add_overlay(mutable_appearance('icons/effects/effects.dmi', "static_base", ABOVE_NORMAL_TURF_LAYER))
 	visuals.add_overlay(mutable_appearance('icons/effects/effects.dmi', "modlink", ABOVE_ALL_MOB_LAYER))
 	visuals.add_filter("crop_square", 1, alpha_mask_filter(icon = icon('icons/effects/effects.dmi', "modlink_filter")))
@@ -56,7 +56,7 @@
 
 /proc/delete_link_visual_generic(datum/mod_link/mod_link)
 	var/mob/living/user = mod_link.get_user_callback.Invoke()
-	playsound(mod_link.get_other().holder, 'sound/machines/terminal_processing.ogg', 50, vary = TRUE, frequency = -1)
+	playsound(mod_link.get_other().holder, 'sound/machines/terminal_processing.ogg', 50, TRUE, -1)
 	mod_link.holder.UnregisterSignal(user, list(COMSIG_CARBON_APPLY_OVERLAY, COMSIG_CARBON_REMOVE_OVERLAY, COMSIG_ATOM_DIR_CHANGE))
 	QDEL_NULL(mod_link.visual)
 
@@ -380,7 +380,7 @@
 			digits_to_make++
 		id = ""
 		for(var/i in 1 to digits_to_make)
-			id += num2text(rand(0,9))
+			id += num2text(rand(0, 9))
 		attempts++
 	while(GLOB.mod_link_ids[id])
 	GLOB.mod_link_ids[id] = src
@@ -431,7 +431,7 @@
 	if(!can_call_callback.Invoke() || !called.can_call_callback.Invoke())
 		to_chat(user, "<span class='warning'>You are unable to call at this time!</span>")
 		return
-	link_target.playsound_local(get_turf(called.holder), 'sound/weapons/ring.ogg', 15, vary = TRUE)
+	link_target.playsound_local(get_turf(called.holder), 'sound/weapons/ring.ogg', 15, TRUE)
 	var/atom/movable/screen/alert/modlink_call/alert = link_target.throw_alert("[UID()]_modlink", /atom/movable/screen/alert/modlink_call)
 	alert.desc = "[holder] ([id]) is calling you! Left-click this to accept the call. Right-click to deny it."
 	alert.link_caller_uid = UID()
