@@ -440,7 +440,7 @@
 	var/datum/mind/player_mind = new /datum/mind(C.key)
 	player_mind.active = TRUE
 
-	var/mob/living/simple_animal/demon/pulse_demon/demon = new(T)
+	var/mob/living/simple_animal/demon/pulse_demon/wizard/demon = new(T)
 	player_mind.transfer_to(demon)
 	player_mind.assigned_role = SPECIAL_ROLE_DEMON
 	player_mind.special_role = SPECIAL_ROLE_DEMON
