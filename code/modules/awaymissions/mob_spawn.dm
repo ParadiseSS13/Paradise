@@ -258,7 +258,7 @@
 			D.sec_hair_colour = hair_color
 		else
 			D.hair_colour = rand_hex_color()
-			D.sec_hair_colour = D.hair_color
+			D.sec_hair_colour = D.hair_colour
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else
