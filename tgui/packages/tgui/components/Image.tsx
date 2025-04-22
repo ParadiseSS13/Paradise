@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { BoxProps, computeBoxProps } from './Box';
 
 type Props = Partial<{
@@ -47,9 +47,8 @@ export class Image extends Component<Props> {
     /* Remove -ms-interpolation-mode with Byond 516 */
     const computedProps = computeBoxProps({
       style: {
-        '-ms-interpolation-mode': `${fixBlur ? 'nearest-neighbor' : 'auto'}`,
-        'image-rendering': `${fixBlur ? 'pixelated' : 'auto'}`,
-        'object-fit': `${objectFit}`,
+        imageRendering: `${fixBlur ? 'pixelated' : 'auto'}`,
+        objectFit: `${objectFit}`,
       },
       ...rest,
     });

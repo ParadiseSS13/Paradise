@@ -1,33 +1,36 @@
 import { createPopper, VirtualElement } from '@popperjs/core';
 import { classes } from 'common/react';
-import { Component, findDOMFromVNode, InfernoNode, render } from 'inferno';
+import { Component, ReactNode } from 'react';
+import { findDOMNode, render } from 'react-dom';
 import { Box, BoxProps } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Stack } from './Stack';
 
 export interface DropdownEntry {
-  displayText: string | number | InfernoNode;
+  displayText: string | number | ReactNode;
   value: string | number | Enumerator;
 }
 
-type DropdownUniqueProps = {
-  options: string[] | DropdownEntry[];
-  icon?: string;
-  iconRotation?: number;
-  clipSelectedText?: boolean;
-  width?: string;
-  menuWidth?: string;
-  over?: boolean;
-  color?: string;
-  nochevron?: boolean;
-  displayText?: string | number | InfernoNode;
-  onClick?: (event) => void;
+type DropdownUniqueProps = { options: string[] | DropdownEntry[] } & Partial<{
+  buttons: boolean;
+  clipSelectedText: boolean;
+  color: string;
+  disabled: boolean;
+  displayText: string | number | ReactNode;
+  dropdownStyle: any;
+  icon: string;
+  iconRotation: number;
+  iconSpin: boolean;
+  menuWidth: string;
+  nochevron: boolean;
+  onClick: (event) => void;
+  onSelected: (selected: any) => void;
+  over: boolean;
   // you freaks really are just doing anything with this shit
-  selected?: any;
-  onSelected?: (selected: any) => void;
-  buttons?: boolean;
-};
+  selected: any;
+  width: string;
+}>;
 
 export type DropdownProps = BoxProps & DropdownUniqueProps;
 
@@ -68,14 +71,10 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     getBoundingClientRect: () => Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
-  constructor(props: DropdownProps) {
-    super(props);
-    this.state = {
-      open: false,
-      selected: this.props.selected,
-    };
-    this.menuContents = null;
-  }
+  state: DropdownState = {
+    open: false,
+    selected: this.props.selected,
+  };
 
   handleClick = () => {
     if (this.state.open) {
@@ -84,7 +83,8 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
   };
 
   getDOMNode() {
-    return findDOMFromVNode(this.$LI, true);
+    // eslint-disable-next-line react/no-find-dom-node
+    return findDOMNode(this) as Element;
   }
 
   componentDidMount() {
@@ -108,11 +108,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     Dropdown.currentOpenMenu = domNode;
 
     renderedMenu.scrollTop = 0;
-    renderedMenu.style.width =
-      this.props.menuWidth ||
-      // Hack, but domNode should *always* be the parent control meaning it will have width
-      // @ts-ignore
-      `${domNode.offsetWidth}px`;
+    renderedMenu.style.width = this.props.menuWidth || '10rem';
     renderedMenu.style.opacity = '1';
     renderedMenu.style.pointerEvents = 'auto';
 
@@ -304,8 +300,8 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     const adjustedOpen = over ? !this.state.open : this.state.open;
 
     return (
-      <Stack inline fill width={width}>
-        <Stack.Item grow>
+      <Stack fill>
+        <Stack.Item width={width}>
           <Box
             width={'100%'}
             className={classes([

@@ -8,7 +8,6 @@ import { keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
-import { NumberInput } from './NumberInput';
 
 export const Knob = (props) => {
   const {
@@ -70,7 +69,7 @@ export const Knob = (props) => {
             ])}
             {...computeBoxProps({
               style: {
-                'font-size': size + 'em',
+                fontSize: size + 'em',
                 ...style,
               },
               ...rest,
@@ -99,7 +98,7 @@ export const Knob = (props) => {
               <circle
                 className="Knob__ringFill"
                 style={{
-                  'stroke-dashoffset': ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) * Math.PI * 50,
+                  strokeDashoffset: ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) * Math.PI * 50,
                 }}
                 cx="50"
                 cy="50"

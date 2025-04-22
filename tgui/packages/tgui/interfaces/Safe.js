@@ -25,8 +25,8 @@ export const Safe = (properties) => {
               className="Safe--dial"
               src="safe_dial.png"
               style={{
-                'transform': 'rotate(-' + 3.6 * dial + 'deg)',
-                'z-index': 0,
+                transform: 'rotate(-' + 3.6 * dial + 'deg)',
+                zIndex: 0,
               }}
             />
           )}
@@ -53,7 +53,7 @@ const Dialer = (properties) => {
           })
         }
         style={{
-          'z-index': 10,
+          zIndex: 10,
         }}
       />
     );

@@ -178,11 +178,11 @@ const RecipeListBox = (props) => {
           key={title}
           title={title}
           contentStyle={{
-            'margin-top': '0',
-            'padding-bottom': '0.5em',
-            'background-color': 'rgba(62, 97, 137, 0.15)',
+            marginTop: '0',
+            paddingBottom: '0.5em',
+            backgroundColor: 'rgba(62, 97, 137, 0.15)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
-            'border-top': 'none',
+            borderTop: 'none',
           }}
         >
           <Box p={1} pb={0.25}>

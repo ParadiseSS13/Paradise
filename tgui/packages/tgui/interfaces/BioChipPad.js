@@ -27,7 +27,7 @@ export const BioChipPad = (props) => {
                   ml={0}
                   mr={2}
                   style={{
-                    'vertical-align': 'middle',
+                    verticalAlign: 'middle',
                     width: '32px',
                   }}
                 />

@@ -118,10 +118,10 @@ snippet (make sure component name matches the file name):
 
 ```jsx
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
-export const SampleInterface = (props) => {
+export const SampleInterface = (props, context) => {
   const { act, data } = useBackend();
   // Extract `health` and `color` variables from the `data` object.
   const {
@@ -250,10 +250,10 @@ JSX code, and wrap it into a second, smaller React component:
 
 ```jsx
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
-export const SampleInterface = (props) => {
+export const SampleInterface = (props, context) => {
   return (
     <Window resizable>
       <Window.Content scrollable>
@@ -263,7 +263,7 @@ export const SampleInterface = (props) => {
   );
 };
 
-const HealthStatus = (props) => {
+const HealthStatus = (props, context) => {
   const { act, data } = useBackend();
   const {
     user,
@@ -321,10 +321,10 @@ And the template:
 
 ```jsx
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
-export const SampleInterface = (props) => {
+export const SampleInterface = (props, context) => {
   const { act, data } = useBackend();
   // Extract `health` and `color` variables from the `data` object.
   const {

@@ -1,4 +1,4 @@
-import { Component, InfernoNode } from 'inferno';
+import { Component, ReactNode } from 'react';
 import { useBackend } from '../backend';
 import { Box, Button, Icon, Input, LabeledList, Section, Stack, Slider, Tabs } from '../components';
 import { Window } from '../layouts';
@@ -152,8 +152,8 @@ const ChemMasterBeaker = (props: {}) => {
           <BeakerContents
             beakerLoaded
             beakerContents={beaker_reagents}
-            buttons={(chemical, i) => (
-              <Box mb={i < beaker_reagents.length - 1 && '2px'}>
+            buttons={beaker_reagents.map((chemical, i) => (
+              <Box key={i} mb={i < beaker_reagents.length - 1 && '2px'}>
                 <Button
                   content="Analyze"
                   mb="0"
@@ -197,7 +197,7 @@ const ChemMasterBeaker = (props: {}) => {
                   }
                 />
               </Box>
-            )}
+            ))}
           />
         ) : (
           <Box color="label">No beaker loaded.</Box>
@@ -232,8 +232,8 @@ const ChemMasterBuffer = (props: {}) => {
           <BeakerContents
             beakerLoaded
             beakerContents={buffer_reagents}
-            buttons={(chemical, i) => (
-              <Box mb={i < buffer_reagents.length - 1 && '2px'}>
+            buttons={buffer_reagents.map((chemical, i) => (
+              <Box key={i} mb={i < buffer_reagents.length - 1 && '2px'}>
                 <Button
                   content="Analyze"
                   mb="0"
@@ -277,7 +277,7 @@ const ChemMasterBuffer = (props: {}) => {
                   }
                 />
               </Box>
-            )}
+            ))}
           />
         ) : (
           <Box color="label">Buffer is empty.</Box>
@@ -359,8 +359,8 @@ interface ChemMasterNameInputProps {
 }
 
 class ChemMasterNameInput extends Component<ChemMasterNameInputProps & BoxProps> {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   handleMouseUp = (e: MouseEvent) => {
@@ -386,13 +386,7 @@ class ChemMasterNameInput extends Component<ChemMasterNameInputProps & BoxProps>
   }
 }
 
-const ChemMasterProductionCommon = (
-  props: {
-    children: InfernoNode | InfernoNode[];
-    productionData: ProductionData;
-  },
-  context
-) => {
+const ChemMasterProductionCommon = (props: { children: ReactNode; productionData: ProductionData }) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { children, productionData } = props;
   const { buffer_reagents = [] } = data;
@@ -444,7 +438,7 @@ const ChemMasterProductionCommon = (
 const SpriteStyleButton = (props: { icon: string } & BoxProps) => {
   const { icon, ...restProps } = props;
   return (
-    <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
+    <Button style={{ padding: 0, lineHeight: 0 }} {...restProps}>
       <Box className={classes(['chem_master32x32', icon])} />
     </Button>
   );
@@ -509,7 +503,7 @@ const ChemMasterCustomization = (props: {}) => {
             padding: 0,
             width: style_button_size.width,
             height: style_button_size.height,
-            'background-color': color,
+            backgroundColor: color,
             opacity: 0.6,
             filter: 'alpha(opacity=60)',
           }}

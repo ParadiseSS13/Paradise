@@ -67,10 +67,10 @@ const Storage = (props) => {
         <img
           src={`data:image/jpeg;base64,${seed.image}`}
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
             width: '32px',
             margin: '-1px',
-            'margin-left': '-11px',
+            marginLeft: '-11px',
           }}
         />
         <Button content={seed.name} onClick={() => act('eject_seed')} />

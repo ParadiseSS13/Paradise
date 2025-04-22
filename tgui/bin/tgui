@@ -76,11 +76,6 @@ task-prettier() {
   npx prettier --check packages "${@}"
 }
 
-task-polyfill() {
-  cd "${base_dir}"
-  yarn tgui-polyfill:build
-}
-
 ## Mr. Proper
 task-clean() {
   cd "${base_dir}"
@@ -225,14 +220,6 @@ fi
 if [[ ${1} == '--prettier' ]]; then
   shift 1
   task-prettier --write "${@}"
-  exit 0
-fi
-
-## Run prettier
-if [[ ${1} == '--tgui-polyfill' ]]; then
-  shift 1
-  task-install
-  task-polyfill "${@}"
   exit 0
 fi
 

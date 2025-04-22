@@ -87,13 +87,13 @@ const LoadoutCategories = (props) => {
   const { act, data } = useBackend<Data>();
   const { category, setCategory } = props;
   return (
-    <Tabs fluid textAlign="center" style={{ 'flex-wrap': 'wrap-reverse' }}>
+    <Tabs fluid textAlign="center" style={{ flexWrap: 'wrap-reverse' }}>
       {Object.keys(data.gears).map((cat) => (
         <Tabs.Tab
           key={cat}
           selected={cat === category}
           style={{
-            'white-space': 'nowrap',
+            whiteSpace: 'nowrap',
           }}
           onClick={() => setCategory(cat)}
         >
@@ -229,8 +229,8 @@ const LoadoutGears = (props) => {
         );
 
         const textInfo = (
-          <Box class="Loadout-InfoBox">
-            <Box style={{ 'flex-grow': 1 }} fontSize={1} color="gold" opacity={0.75}>
+          <Box className="Loadout-InfoBox">
+            <Box style={{ flexGrow: 1 }} fontSize={1} color="gold" opacity={0.75}>
               {gear.gear_tier > 0 && `Tier ${gear.gear_tier}`}
             </Box>
             <Box fontSize={0.75} opacity={0.66}>
@@ -384,7 +384,7 @@ const GearTweak = (props) => {
                       width={1}
                       height={1}
                       verticalAlign={'middle'}
-                      style={{ 'background-color': `${tweakInfo}` }}
+                      style={{ backgroundColor: `${tweakInfo}` }}
                     />
                   </LabeledList.Item>
                 );

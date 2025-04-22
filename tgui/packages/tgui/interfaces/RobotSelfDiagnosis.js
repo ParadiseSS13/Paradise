@@ -28,7 +28,7 @@ export const RobotSelfDiagnosis = (props) => {
                 height={3.5}
                 color="red"
                 style={{
-                  'font-style': 'normal',
+                  fontStyle: 'normal',
                 }}
               >
                 <Flex height="100%">

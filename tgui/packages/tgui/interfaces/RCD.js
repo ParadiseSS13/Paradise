@@ -252,11 +252,11 @@ const AirlockTypeList = (props) => {
                   <img
                     src={`data:image/jpeg;base64,${entry.image}`}
                     style={{
-                      'vertical-align': 'middle',
+                      verticalAlign: 'middle',
                       width: '32px',
                       margin: '3px',
-                      'margin-right': '6px',
-                      'margin-left': '-3px',
+                      marginRight: '6px',
+                      marginLeft: '-3px',
                     }}
                   />
                   {entry.name}

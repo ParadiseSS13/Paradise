@@ -22,8 +22,8 @@ export const LatheMainMenu = (properties) => {
           <Flex
             key={cat}
             style={{
-              'flex-basis': '50%',
-              'margin-bottom': '6px',
+              flexBasis: '50%',
+              marginBottom: '6px',
             }}
           >
             <Button

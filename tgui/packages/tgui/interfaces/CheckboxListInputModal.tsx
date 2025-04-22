@@ -70,8 +70,8 @@ const ListDisplay = (props) => {
             onClick={() => onClick(item)}
             checked={item.checked}
             style={{
-              'animation': 'none',
-              'transition': 'none',
+              animation: 'none',
+              transition: 'none',
             }}
           >
             {item.key.replace(/^\w/, (c) => c.toUpperCase())}

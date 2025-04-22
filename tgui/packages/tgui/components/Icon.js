@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { classes, pureComponentHooks } from 'common/react';
+import { classes } from 'common/react';
 import { Box } from './Box';
 
 const FA_OUTLINE_REGEX = /-o$/;
@@ -28,8 +28,6 @@ export const Icon = (props) => {
     />
   );
 };
-
-Icon.defaultHooks = pureComponentHooks;
 
 export const IconStack = (props) => {
   const { className, style = {}, children, ...rest } = props;
