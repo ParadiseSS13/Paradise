@@ -1,4 +1,4 @@
-import { Component, forwardRef } from 'inferno';
+import { Component, forwardRef } from 'react';
 import { Box, Popper } from '../components';
 
 export const meta = {

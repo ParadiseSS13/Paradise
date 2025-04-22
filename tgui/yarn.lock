@@ -3664,13 +3664,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.37.1":
-  version: 3.41.0
-  resolution: "core-js@npm:3.41.0"
-  checksum: 10/a06ebae2264dd24c8e4b331a68412f7d0730557c41901f80fa910a9398dbef4670482d9ef5a41fef7efd41307c612d3d4051df7640ac4c01ff6feda45f8b92be
-  languageName: node
-  linkType: hard
-
 "create-jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "create-jest@npm:29.7.0"
@@ -3765,7 +3758,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.0.2, csstype@npm:^3.1.2, csstype@npm:^3.1.3":
+"csstype@npm:^3.0.2, csstype@npm:^3.1.3":
   version: 3.1.3
   resolution: "csstype@npm:3.1.3"
   checksum: 10/f593cce41ff5ade23f44e77521e3a1bcc2c64107041e1bf6c3c32adc5187d0d60983292fda326154d20b01079e24931aa5b08e4467cc488b60bb1e7f6d478ade
@@ -5315,24 +5308,6 @@ __metadata:
   version: 0.1.4
   resolution: "imurmurhash@npm:0.1.4"
   checksum: 10/2d30b157a91fe1c1d7c6f653cbf263f039be6c5bfa959245a16d4ee191fc0f2af86c08545b6e6beeb041c56b574d2d5b9f95343d378ab49c0f37394d541e7fc8
-  languageName: node
-  linkType: hard
-
-"inferno-vnode-flags@npm:8.2.3":
-  version: 8.2.3
-  resolution: "inferno-vnode-flags@npm:8.2.3"
-  checksum: 10/4618a7598b5471ec71bb4972a8ff57dd6718d55624d9c1ae6336416f8d3c47002b2d8b088b0e976ef07bd239a057f87f16ad1238ae7dafd1c5c4d6644f1dabbc
-  languageName: node
-  linkType: hard
-
-"inferno@npm:^8.2.3":
-  version: 8.2.3
-  resolution: "inferno@npm:8.2.3"
-  dependencies:
-    csstype: "npm:^3.1.2"
-    inferno-vnode-flags: "npm:8.2.3"
-    opencollective-postinstall: "npm:^2.0.3"
-  checksum: 10/87245ed89ce70689386d15c7af5ef1bbb6b3d8845fb430edf2ee2b3688713572c757b7e53838ac632716df356e3e8554867eaea60a423f1125e6dbb0608bdb58
   languageName: node
   linkType: hard
 
@@ -7008,15 +6983,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"opencollective-postinstall@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "opencollective-postinstall@npm:2.0.3"
-  bin:
-    opencollective-postinstall: index.js
-  checksum: 10/69d63778087cd10c9d707d9ed360556780cfdd0cd6241ded0e26632f467f1d5a064f4a9aec19a30c187770c17adba034d988f7684b226f3a73e79f44e73fab0e
-  languageName: node
-  linkType: hard
-
 "opener@npm:^1.5.2":
   version: 1.5.2
   resolution: "opener@npm:1.5.2"
@@ -7512,7 +7478,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.14.0, regenerator-runtime@npm:^0.14.1":
+"regenerator-runtime@npm:^0.14.0":
   version: 0.14.1
   resolution: "regenerator-runtime@npm:0.14.1"
   checksum: 10/5db3161abb311eef8c45bcf6565f4f378f785900ed3945acf740a9888c792f75b98ecb77f0775f3bf95502ff423529d23e94f41d80c8256e8fa05ed4b07cf471
@@ -8391,7 +8357,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.31.1, terser@npm:^5.31.3":
+"terser@npm:^5.31.1":
   version: 5.39.0
   resolution: "terser@npm:5.39.0"
   dependencies:
@@ -8443,25 +8409,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"tgui-polyfill@workspace:*, tgui-polyfill@workspace:packages/tgui-polyfill":
-  version: 0.0.0-use.local
-  resolution: "tgui-polyfill@workspace:packages/tgui-polyfill"
-  dependencies:
-    core-js: "npm:^3.37.1"
-    regenerator-runtime: "npm:^0.14.1"
-    terser: "npm:^5.31.3"
-    unfetch: "npm:^5.0.0"
-  languageName: unknown
-  linkType: soft
-
 "tgui-say@workspace:packages/tgui-say":
   version: 0.0.0-use.local
   resolution: "tgui-say@workspace:packages/tgui-say"
   dependencies:
     common: "workspace:*"
-    inferno: "npm:^8.2.3"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
     tgui: "workspace:*"
-    tgui-polyfill: "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -8740,13 +8695,6 @@ __metadata:
   version: 6.21.0
   resolution: "undici-types@npm:6.21.0"
   checksum: 10/ec8f41aa4359d50f9b59fa61fe3efce3477cc681908c8f84354d8567bb3701fafdddf36ef6bff307024d3feb42c837cf6f670314ba37fc8145e219560e473d14
-  languageName: node
-  linkType: hard
-
-"unfetch@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "unfetch@npm:5.0.0"
-  checksum: 10/8a59f9d910f179ef588aa30885849de7b4c895a85b3679ab4da7305be3751b85a4811d9164d87960fef1a388b9a7afdc23ab2154f517db040b27171578fa9e8b
   languageName: node
   linkType: hard
 

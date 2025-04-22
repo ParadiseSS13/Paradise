@@ -68,8 +68,6 @@ export const Slider = (props) => {
               className,
               computeBoxClassName(rest),
             ])}
-            // Added for the sake of backward compatibility.
-            // Inferno ignores clicks inside elements marked with disabled
             disabled={disabled}
             {...computeBoxProps(rest)}
             onMouseDown={handleDragStart}

@@ -1,5 +1,5 @@
 import { BooleanLike } from '../../common/react';
-import { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
 import { useBackend } from '../backend';
 import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
@@ -167,7 +167,7 @@ const StrainInformationSection = (
     strain: PathogenStrain;
     strainIndex: number;
     sectionTitle?: string;
-    sectionButtons?: InfernoNode | InfernoNode[];
+    sectionButtons?: ReactNode;
   },
   context
 ) => {

@@ -1,6 +1,6 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { useBackend } from '../backend';
-import { Button, Icon, Input, Section, Stack, Table } from '../components';
+import { Button, Input, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 import { createSearch } from 'common/string';
 
@@ -32,7 +32,6 @@ type ReagentsEditorState = {
 };
 
 // The linter is raising false-positives for unused state
-/* eslint-disable react/no-unused-state */
 export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
   constructor(props: {}) {
     super(props);
@@ -46,7 +45,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     this.setState({ searchText: target.value });
   };
 
-  override render(props: {}, state: ReagentsEditorState) {
+  override render() {
     const {
       act,
       data: { reagentsInformation, reagents: reagentsInContainer },
@@ -61,7 +60,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
         })
       )
       .sort((a, b) => a.name.localeCompare(b.name));
-    if (state.searchText !== '') {
+    if (this.state.searchText !== '') {
       reagents = reagents.concat(
         Object.entries(reagentsInformation)
           .filter(([reagentID, _]) => reagentsInContainer[reagentID] === undefined)
@@ -76,7 +75,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     }
 
     const reagentsRows = reagents
-      .filter(({ id: reagentID, name }) => createSearch(state.searchText, () => `${reagentID}|${name}`)({}))
+      .filter(({ id: reagentID, name }) => createSearch(this.state.searchText, () => `${reagentID}|${name}`)({}))
       .map((reagent) => {
         const { volume, uid } = reagent;
         return volume === undefined ? (
@@ -94,7 +93,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
               <Stack.Item>
                 <Stack fill horizontal>
                   <Stack.Item grow>
-                    <Input fluid value={state.searchText} onChange={this.handleSearchChange} />
+                    <Input fluid value={this.state.searchText} onChange={this.handleSearchChange} />
                   </Stack.Item>
                   <Stack.Item>
                     <Button icon="sync" tooltip="Update Reagent Amounts" onClick={() => act('update_total')} />
