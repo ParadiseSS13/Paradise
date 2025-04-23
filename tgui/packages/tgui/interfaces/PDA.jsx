@@ -2,13 +2,14 @@ import { useBackend } from '../backend';
 import { Button, Box, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 import { routes } from './tgui';
+import { routingError } from '../routes';
 
-const RequirePDAInterface = require.context('./pda', false, /\.js$/);
+const RequirePDAInterface = require.context('./pda', false, /\.jsx$/);
 
 const GetApp = (name) => {
   let appModule;
   try {
-    appModule = RequirePDAInterface(`./${name}.js`);
+    appModule = RequirePDAInterface(`./${name}.jsx`);
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       return routingError('notFound', name);
