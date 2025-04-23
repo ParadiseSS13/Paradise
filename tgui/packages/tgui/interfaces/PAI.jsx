@@ -2,6 +2,7 @@ import { useBackend } from '../backend';
 import { Button, Box, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 import { routes } from './tgui';
+import { routingError } from '../routes';
 
 const RequirePAIInterface = require.context('./pai', false, /\.js$/);
 
