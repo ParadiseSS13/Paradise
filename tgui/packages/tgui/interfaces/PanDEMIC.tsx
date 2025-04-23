@@ -10,7 +10,6 @@ interface BaseStats {
   resistance: number;
   stageSpeed: number;
   transmissibility: number;
-  severity: number;
 }
 interface PathogenSymptom {
   name: string;

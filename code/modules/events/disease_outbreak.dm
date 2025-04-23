@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
 	var/datum/disease/advance/A = new /datum/disease/advance
 	// Give a random stat boost equal to severity
-	var/list/properties_to_buff = A.base_properties.Copy() - "severity"
+	var/list/properties_to_buff = A.base_properties.Copy()
 	for(var/i = 0, i < max_severity, i++)
 		A.base_properties[pick(properties_to_buff)]++
 	A.base_properties["stealth"] += max_severity // Stealth gets an additional bonus since most symptoms reduce it a fair bit.

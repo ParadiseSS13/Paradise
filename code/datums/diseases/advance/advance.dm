@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	// NEW VARS
 
 	/// The base properties of the virus. retained between strains
-	var/list/base_properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
+	var/list/base_properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1)
 	/// Can the virus spotaneously evolve?
 	var/evolution_chance = EVOLUTION_CHANCE
 	/// The symptoms of the disease.
@@ -475,7 +475,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 	var/datum/disease/advance/admin_disease = new(0, null)
 
-	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
+	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1)
 
 	for(var/prop in base_props)
 		var/current_prop = input(user, "Enter base [prop]", "Base Stats", null)

@@ -1,3 +1,5 @@
+#define ANALYSIS_TIME_BASE (90 MINUTES)
+
 /// list of known advanced disease ids. If an advanced disease isn't here it will display as unknown disease on scanners
 /// Initialized with the id of the flu and cold samples from the virologist's fridge in the pandemic's init
 GLOBAL_LIST_EMPTY(known_advanced_diseases)
@@ -12,9 +14,9 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 	circuit = /obj/item/circuitboard/pandemic
 	idle_power_consumption = 20
 	resistance_flags = ACID_PROOF
-	/// Amount of time it would take to analyze the current disease. -1 means either no disease or that it doesn't require analysis
+	/// Amount of time it would take to analyze the current disease, before guessing symptoms. -1 means either no disease or that it doesn't require analysis.
 	var/analysis_time_delta = -1
-	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis
+	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis using analysis_time_delta and symptoms guesses.
 	var/analysis_time
 	/// Amount of time to add to the analysis time. resets upon successful analysis of a disease or by calibrating.
 	var/static/accumulated_error = list()
@@ -120,6 +122,7 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 	B.name = "[name] [bottle_type] bottle"
 	return B
 
+/// Find the time it would take to analyze the current disease before any symptom guesses are made
 /obj/machinery/computer/pandemic/proc/find_analysis_time_delta(datum/reagent/R)
 	var/strains = 0
 	var/stage_amount = 0
@@ -127,13 +130,17 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 	var/current_strain = ""
 	var/stealth_init = FALSE
 	var/stealth = 0
+	var/resistance = 0
+	var/max_stages = 0
 	for(var/datum/disease/advance/to_analyze in R.data["viruses"])
 		// Automatically analyze if the tracker stores the ID of an analyzed disease
 		if(to_analyze.tracker && (to_analyze.tracker in GLOB.known_advanced_diseases["[z]"]))
 			if(!(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]))
 				GLOB.known_advanced_diseases["[z]"] += list(to_analyze.GetDiseaseID())
+		// If we know this disease there's no need to keep going.
 		if(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
 			return
+		// If we somehow got multiple strains we can't do analysis.
 		if(to_analyze.strain != current_strain || current_strain == "")
 			strains++
 			if(strains > 1)
@@ -141,18 +148,22 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 				SStgui.update_uis(src, TRUE)
 				return
 			current_strain = to_analyze.strain
-
+		// Figure out the stealth value. We only need to do this once
 		if(!stealth_init)
 			for(var/datum/symptom/S in to_analyze.symptoms)
 				stealth += S.stealth
+				resistance += S.resistance
 			stealth += to_analyze.base_properties["stealth"]
+			resistance +=  to_analyze.base_properties["resistance"]
+			max_stages = to_analyze.max_stages
 			stealth_init = TRUE
-
+		// If we found a unique stage count it
 		if(!(to_analyze.stage in stages))
 			stage_amount++
 			stages += to_analyze.stage
-	stealth = max(stealth, 0)
-	analysis_time_delta = max((6 * (stealth ** 0.7)) + 1.1 - stage_amount ** 2, 0) * 10 MINUTES
+
+	var/power_level = max(stealth + resistance, 0)
+	analysis_time_delta = ANALYSIS_TIME_BASE * (1 - stage_amount / (stage_amount + clamp(power_level, 1, max_stages)))
 	SStgui.update_uis(src, TRUE)
 
 /obj/machinery/computer/pandemic/proc/stop_analysis()
@@ -165,6 +176,7 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 	analyzed_ID = disease_ID
 	var/names = list()
 	var/guesses = list()
+	var/correct_count = 0
 	for(var/i in symptoms)
 		names += list(i["name"])
 		guesses += list(i["guess"])
@@ -172,10 +184,11 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 		if(!i || i == "No Prediction")
 			continue
 		if(i in names)
-			analysis_time_delta = max(0, analysis_time_delta - 20 MINUTES)
+			correct_count++
 		else
-			accumulated_error["[z]"] += 20 MINUTES
-	analysis_time = analysis_time_delta + world.time
+			accumulated_error["[z]"] += 3 MINUTES
+	// Correct symptom guesses reduce the final analysis time by up to half of the base time.
+	analysis_time = max(0, analysis_time_delta - ANALYSIS_TIME_BASE * correct_count / (2 * length(symptoms))) + world.time
 	return
 
 /obj/machinery/computer/pandemic/proc/calibrate()
@@ -186,7 +199,7 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 		// We can't calibrate using the same strain and stage combination twice
 		if(!(used_calibration["[virus.strain]_[virus.stage]"]))
 			used_calibration += list("[virus.strain]_[virus.stage]" = TRUE)
-			error_reduction += max(accumulated_error["[z]"] / 5, 20 MINUTES)
+			error_reduction += max(accumulated_error["[z]"] / 5, 3 MINUTES)
 	if(error_reduction)
 		calibrating = TRUE
 		SStgui.update_uis(src)
@@ -424,7 +437,7 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 					"name" = virus_symptom.name,
 					"stealth" = known ? virus_symptom.stealth : "UNKNOWN",
 					"resistance" = known ? virus_symptom.resistance : "UNKNOWN",
-					"stagevirus_symptompeed" = known ? virus_symptom.stage_speed : "UNKNOWN",
+					"stageSpeed" = known ? virus_symptom.stage_speed : "UNKNOWN",
 					"transmissibility" = known ? virus_symptom.transmittable : "UNKNOWN",
 					"complexity" = known ? virus_symptom.level : "UNKNOWN",
 				))
@@ -433,14 +446,12 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 			base_stats["resistance"] = advanced_disease.base_properties["resistance"]
 			base_stats["stageSpeed"] = advanced_disease.base_properties["stage rate"]
 			base_stats["transmissibility"] = advanced_disease.base_properties["transmittable"]
-			base_stats["severity"] = advanced_disease.base_properties["severity"]
 		else
 			known = TRUE
 			base_stats["stealth"] = 0
 			base_stats["resistance"] = 0
 			base_stats["stageSpeed"] = 0
 			base_stats["transmissibility"] = 0
-			base_stats["severity"] = 0
 		strains += list(list(
 			"commonName" = known ? blood_disease.name : "Unknown strain",
 			"description" = known ? blood_disease.desc : "Unknown strain",
@@ -586,3 +597,5 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 		eject_beaker()
 		return TRUE
 	return ..()
+
+#undef ANALYSIS_TIME_BASE
