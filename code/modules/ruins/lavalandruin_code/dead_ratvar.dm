@@ -310,16 +310,16 @@
 /obj/item/spear/ratvarian_spear_new
 	name = "ratvarian spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
-	icon = 'icons/obj/clockwork_objects.dmi'
-	base_icon_state = "ratvarian_spear" //wielded or not wielded?
-	icon_state = "ratvarian_spear"
-	item_state = "ratvarian_spear"
-	force = 11
-	force_unwielded = 11
+	//icon = 'icons/obj/clockwork_objects.dmi'
+	base_icon_state = "ratvarian_spear"
+	icon_state = "ratvarian_spear0"
+	//item_state = "ratvarian_spear"
+	force = 12
+	force_unwielded = 12
 	force_wielded = 22
-	throwforce = 30
+	throwforce = 25
 	armour_penetration_percentage = 15
-	embed_chance = 0 //would suck to lose this after one throw
+	embed_chance = 0	// would suck to lose this after one throw
 	var/bonus_burn = 5
 
 ///obj/item/spear/ratvarian_spear_new/attack__legacy__attackchain(mob/living/target, mob/living/user)
@@ -334,23 +334,25 @@
 
 	//ADD_TRAIT(user, TRAIT_GOTTAGOFAST, id)
 
-/obj/item/spear/ratvarian_spear_new/throw_impact(atom/A, mob/user)
+/*/obj/item/spear/ratvarian_spear_new/throw_impact(atom/A, mob/user)
 	. = ..()
 	var/obj/item/guardian_bomb/ratvar_bomb/B = new /obj/item/guardian_bomb/ratvar_bomb(get_turf(src))
 	B.disguise(src)
 
 
-/obj/item/guardian_bomb/ratvar_bomb
+/obj/item/guardian_bomb/ratvar_bomb*/
 
 
-/obj/item/guardian_bomb/ratvar_bomb/detonate(mob/living/user)
+/*/obj/item/guardian_bomb/ratvar_bomb/detonate(mob/living/user)
 	stored_obj.forceMove(get_turf(loc))
 
 	user.adjustFireLoss(20)
 	user.Stun(2 SECONDS)
 	user.KnockDown(2 SECONDS)
 	user.Jitter(2 SECONDS)
+	var/atom/throw_target = get_edge_target_turf(user, get_dir(src, get_step_away(user, src)))
+	user.throw_at(throw_target, 3, 1)
 
-	to_chat(user, "<span class='danger'>As you touch the [src] it triggers a schorching hot shockwave, knocking you to the ground!</span>")
+	to_chat(user, "<span class='danger'>The moment you touch the [src], it emits a scorching shockwave, hurling you to the ground!</span>")
 
-	qdel(src)
+	qdel(src)*/
