@@ -908,7 +908,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	// Cant very well have your new minions dead for so long
 	victim.heal_overall_damage(1000, 1000)
+	victim.setToxLoss(0)
+	victim.setOxyLoss(0)
 	victim.ExtinguishMob()
+	victim.fire_stacks = 0
+	victim.on_fire = 0
+	victim.bodytemperature = 310
 	victim.med_hud_set_health()
 	victim.med_hud_set_status()
 	victim.update_hands_hud()

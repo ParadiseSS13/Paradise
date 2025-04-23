@@ -25,7 +25,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 		var/datum/spell/zombie_claws/plague_claws/plague_claws = new /datum/spell/zombie_claws/plague_claws
 		plague_claws.disease = chosen_disease
 		owner.AddSpell(plague_claws)
-
+		owner.AddSpell(new /datum/spell/zombie_leap)
 	else
 		owner.AddSpell(new /datum/spell/zombie_claws)
 	claw_attack = new /datum/unarmed_attack/claws()
@@ -37,6 +37,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 /datum/antagonist/zombie/detach_from_owner()
 	if(HAS_TRAIT(owner, TRAIT_PLAGUE_ZOMBIE))
 		owner.RemoveSpell(new /datum/spell/zombie_claws/plague_claws)
+		owner.RemoveSpell(new /datum/spell/zombie_leap)
 	else
 		owner.RemoveSpell(new /datum/spell/zombie_claws)
 	return ..()
@@ -76,9 +77,6 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 		L.extinguish_light() // zombies prefer darkness
 	for(var/trait in zombie_traits)
 		ADD_TRAIT(L, trait, ZOMBIE_TRAIT)
-	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
-		REMOVE_TRAIT(L, TRAIT_GOTTAGOSLOW, ZOMBIE_TRAIT) // Not as numerous, and must keep up to protect wiz
-
 	if(!L.HasDisease(/datum/disease/zombie))
 		var/datum/disease/zombie/zomb = new /datum/disease/zombie()
 		zomb.stage = 7

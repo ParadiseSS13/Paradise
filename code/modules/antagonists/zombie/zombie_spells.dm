@@ -107,11 +107,12 @@
 	if(!ishuman(target) || ismachineperson(target))
 		return
 	var/mob/living/carbon/human/attack_target = target
+
 	if(HAS_TRAIT(user, TRAIT_PLAGUE_ZOMBIE))
 		try_virus_infect(attack_target, user, claw_disease)
 		return
-
-	try_infect(attack_target, user)
+	else
+		try_infect(attack_target, user)
 
 	var/obj/item/organ/internal/brain/eat_brain = attack_target.get_organ_slot("brain")
 	if(!eat_brain)
@@ -179,8 +180,8 @@
 /obj/item/zombie_claw/plague_claw
 	name = "Plague Claws"
 	desc = "Claws extend from your rotting hands, oozing a putrid ichor. Perfect for rending bone and flesh for your master."
-	armour_penetration_percentage = 20
-	force = 26
+	armour_penetration_flat = 10
+	force = 8
 	attack_effect_override = ATTACK_EFFECT_CLAW
 
 /obj/item/zombie_claw/plague_claw/Initialize(mapload, new_parent_spell, disease)
@@ -210,4 +211,31 @@
 			if(D.type == claw_disease && D.stage < D.max_stages)
 				D.stage += 1
 	target.bleed_rate = max(5, target.bleed_rate + 1) // Very sharp, ouch!
+
+/datum/spell/zombie_leap
+	name = "Frenzied Leap"
+	desc = "Momentarily remove the limiters on your muscles to leap a great distance towards your targe."
+	action_icon_state = "mutate"
+	action_background_icon_state = "bg_vampire"
+	human_req = TRUE
+	clothes_req = FALSE
+	antimagic_flags = NONE
+	base_cooldown = 60 SECONDS
+
+/datum/spell/zombie_leap/create_new_targeting()
+	return new /datum/spell_targeting/clicked_atom
+
+/datum/spell/zombie_leap/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/L = user
+	if(IS_HORIZONTAL(L))
+		return FALSE
+	return ..()
+
+/datum/spell/zombie_leap/cast(list/targets, mob/user)
+	var/target = targets[1]
+	if(isliving(user))
+		playsound(user, 'sound/voice/zombie_leap.ogg', 80, FALSE)
+		var/mob/living/L = user
+		L.apply_status_effect(STATUS_EFFECT_CHARGING)
+		L.throw_at(target, 5, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
 
