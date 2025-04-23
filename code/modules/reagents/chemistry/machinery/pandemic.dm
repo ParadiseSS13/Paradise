@@ -3,6 +3,7 @@
 /// list of known advanced disease ids. If an advanced disease isn't here it will display as unknown disease on scanners
 /// Initialized with the id of the flu and cold samples from the virologist's fridge in the pandemic's init
 GLOBAL_LIST_EMPTY(known_advanced_diseases)
+GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
@@ -421,6 +422,8 @@ GLOBAL_LIST_EMPTY(known_advanced_diseases)
 	var/list/strains = list()
 	for(var/datum/disease/blood_disease in GetViruses())
 		var/known = FALSE
+		if(!(blood_disease.GetDiseaseID() in GLOB.detected_advanced_diseases["[z]"]))
+			GLOB.detected_advanced_diseases["[z]"] += list(blood_disease.GetDiseaseID())
 		if(blood_disease.visibility_flags & HIDDEN_PANDEMIC)
 			continue
 

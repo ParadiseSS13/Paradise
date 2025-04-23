@@ -277,7 +277,7 @@ SLIME SCANNER
 
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
-		if(D.visibility_flags & HIDDEN_SCANNER)
+		if(D.visibility_flags & HIDDEN_SCANNER && !(D.GetDiseaseID() in GLOB.detected_advanced_diseases["[user.z]"]))
 			continue
 		// Snowflaking heart problems, because they are special (and common).
 		if(istype(D, /datum/disease/critical))
@@ -286,8 +286,10 @@ SLIME SCANNER
 		if(istype(D, /datum/disease/advance))
 			var/datum/disease/advance/A = D
 			if(!(A.id in GLOB.known_advanced_diseases[num2text(user.z)]))
-				msgs += "<span class='notice'><font color='red'><b>Warning: Unknown viral strain detected</b>\nStage: [D.stage]</span>"
-				continue
+				msgs += "<span class='notice'><font color='red'><b>Warning: Unknown viral strain detected</b>\nStrain:[A.strain]\nStage: [A.stage]</span>"
+			else
+				msgs += "<span class='notice'><font color='red'><b>Warning: [A.form] detected</b>\nName: [A.name].\nStrain:[A.strain]\nType: [A.spread_text].\nStage: [A.stage]/[A.max_stages].\nPossible Cure: [A.cure_text]</font></span>"
+			continue
 		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 
 	if(H.undergoing_cardiac_arrest())
