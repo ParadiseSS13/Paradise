@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, Section, Stack, Tabs } from '../components';
 import { capitalize } from 'common/string';

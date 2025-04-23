@@ -327,7 +327,6 @@ export const useLocalState = <T>(key: string, initialState: T): StateWithSetter<
  * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
- * @deprecated Use useState and useEffect when you can. Pass the state as a prop.
  */
 export const useSharedState = <T>(key: string, initialState: T): StateWithSetter<T> => {
   const state = globalStore?.getState()?.backend;

@@ -116,7 +116,7 @@ const Products = (props) => {
   const { act, data } = useBackend();
   const { biomass, product_list } = data;
 
-  let [vendAmount, setVendAmount] = useShareState('vendAmount', 1);
+  let [vendAmount, setVendAmount] = useSharedState('vendAmount', 1);
 
   let content = Object.entries(product_list).map((kv, _i) => {
     let category_items = Object.entries(kv[1]).map((kv2) => {
