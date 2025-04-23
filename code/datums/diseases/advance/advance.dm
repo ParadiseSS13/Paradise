@@ -65,6 +65,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	var/processing = FALSE
 	/// A unique ID for the strain. Uses the unique_datum_id of the first virus datum that is of that strain.
 	var/strain = ""
+	/// Is this an event virus?
+	var/event
 
 /*
 
@@ -72,10 +74,11 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
  */
 
-/datum/disease/advance/New(process = 1, datum/disease/advance/to_copy)
+/datum/disease/advance/New(process = 1, datum/disease/advance/to_copy, _event = FALSE)
 	if(!istype(to_copy))
 		to_copy = null
 	strain = "origin"
+	event = _event
 	// whether to generate a new cure or not
 	var/new_cure = TRUE
 	// Generate symptoms if we weren't given any.
@@ -95,6 +98,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			cures += r
 		cure_text = to_copy.cure_text
 		strain = to_copy.strain
+		event = to_copy.event
 		new_cure = FALSE
 
 	Refresh(FALSE, FALSE , new_cure, FALSE)
@@ -473,7 +477,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(!user)
 		return
 
-	var/datum/disease/advance/admin_disease = new(0, null)
+	var/datum/disease/advance/admin_disease = new(0, null, _event = TRUE)
 
 	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1)
 
