@@ -1,5 +1,6 @@
 import { Loader } from './common/Loader';
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { KEY_ENTER, KEY_ESCAPE, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_TAB } from '../../common/keycodes';
 import { Autofocus, Box, Button, Flex, Section, Stack } from '../components';
 import { Window } from '../layouts';
@@ -20,7 +21,7 @@ const KEY_INCREMENT = 1;
 export const AlertModal = (props) => {
   const { act, data } = useBackend<AlertModalData>();
   const { autofocus, buttons = [], large_buttons, message = '', timeout, title } = data;
-  const [selected, setSelected] = useLocalState<number>('selected', 0);
+  const [selected, setSelected] = useState<number>(0);
   // Dynamically sets window dimensions
   const windowHeight =
     110 + (message.length > 30 ? Math.ceil(message.length / 4) : 0) + (message.length && large_buttons ? 5 : 0);

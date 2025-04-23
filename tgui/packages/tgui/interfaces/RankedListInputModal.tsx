@@ -1,7 +1,8 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Section, Stack, Table } from '../components';
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { TableRow } from '../components/Table';
 
@@ -15,7 +16,7 @@ type ListInputData = {
 export const RankedListInputModal = (props) => {
   const { act, data } = useBackend<ListInputData>();
   const { items = [], message = '', timeout, title } = data;
-  const [edittedItems, setEdittedItems] = useLocalState<string[]>('edittedItems', items);
+  const [edittedItems, setEdittedItems] = useState<string[]>(items);
 
   // Dynamically changes the window height based on the message.
   const windowHeight = 330 + Math.ceil(message.length / 3);
@@ -45,7 +46,7 @@ export const RankedListInputModal = (props) => {
  */
 const ListDisplay = (props) => {
   const { filteredItems, setEdittedItems } = props;
-  const [draggedItemIndex, setDraggedItemIndex] = useLocalState<number | null>('draggedItemIndex', null);
+  const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
 
   // Handle the drag start event
   const handleDragStart = (index: number) => {

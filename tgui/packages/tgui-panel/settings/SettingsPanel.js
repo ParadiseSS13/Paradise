@@ -4,9 +4,10 @@
  * @license MIT
  */
 
+import { useState } from 'react';
 import { capitalize } from 'common/string';
 import { toFixed } from 'common/math';
-import { useLocalState, useDispatch, useSelector } from 'tgui/backend';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Box,
   Button,
@@ -74,7 +75,7 @@ export const SettingsPanel = (props) => {
 export const SettingsGeneral = (props) => {
   const { theme, fontFamily, fontSize, lineHeight } = useSelector(selectSettings);
   const dispatch = useDispatch();
-  const [freeFont, setFreeFont] = useLocalState('freeFont', false);
+  const [freeFont, setFreeFont] = useState(false);
   return (
     <Section fill>
       <Stack fill vertical>

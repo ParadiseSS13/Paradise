@@ -1,7 +1,8 @@
 import { createSearch } from 'common/string';
 import { flow } from 'common/fp';
 import { filter } from 'common/collections';
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Section, Stack, ImageButton, Input } from '../components';
 import { Window } from '../layouts';
 
@@ -40,7 +41,7 @@ const selectSkins = (skins, searchText = '') => {
 
 export const ChameleonAppearances = (props) => {
   const { act, data } = useBackend<Data>();
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
   const chameleon_skins = selectSkins(data.chameleon_skins, searchText);
   const { selected_appearance } = data;
   return (

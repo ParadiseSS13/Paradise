@@ -1,6 +1,7 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { KEY_ENTER, KEY_ESCAPE } from '../../common/keycodes';
 import { Box, Section, Stack, TextArea } from '../components';
 import { Window } from '../layouts';
@@ -26,7 +27,7 @@ export const removeAllSkiplines = (toSanitize: string) => {
 export const TextInputModal = (props) => {
   const { act, data } = useBackend<TextInputData>();
   const { max_length, message = '', multiline, placeholder, timeout, title } = data;
-  const [input, setInput] = useLocalState<string>('input', placeholder || '');
+  const [input, setInput] = useState<string>(placeholder || '');
   const onChange = (value: string) => {
     if (value === input) {
       return;

@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
+import { useState } from 'react';
 import { Box, Button, ProgressBar, Section } from '../components';
 
 export const meta = {
@@ -13,7 +13,7 @@ export const meta = {
 };
 
 const Story = (props) => {
-  const [progress, setProgress] = useLocalState('progress', 0.5);
+  const [progress, setProgress] = useState(0.5);
   return (
     <Section>
       <ProgressBar
