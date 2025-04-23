@@ -581,7 +581,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			return ITEM_INTERACT_COMPLETE
 
 		beaker = used
-		beaker.loc = src
+		beaker.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		SStgui.update_uis(src, TRUE)
 		icon_state = "pandemic1"
