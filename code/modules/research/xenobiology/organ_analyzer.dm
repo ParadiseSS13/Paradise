@@ -137,7 +137,12 @@
 
 	var/account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
 	var/datum/money_account_database/main_station/station_db = GLOB.station_money_database
-	station_db.credit_account(account, contains_organ.analyzer_price * reward_coeff, "Organ Analyzation Subsidy", "Xenobiology Organ Analyzer", FALSE)
+	var/quality_modifier = 1
+	if(contains_organ.organ_quality == ORGAN_PRISTINE)
+		quality_modifier = 2
+	if(contains_organ.organ_quality == ORGAN_DAMAGED)
+		quality_modifier = 0.5
+	station_db.credit_account(account, round((contains_organ.analyzer_price * reward_coeff) * quality_modifier), "Organ Analyzation Subsidy", "Xenobiology Organ Analyzer", FALSE)
 
 	qdel(contains_organ)
 	contains_organ = null

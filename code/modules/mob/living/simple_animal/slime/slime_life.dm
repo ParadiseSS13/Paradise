@@ -490,7 +490,8 @@
 			var/obj/item/organ/internal/finished_organ = new holding_organ.true_organ(src.loc)
 			finished_organ.organ_quality = holding_organ.unknown_quality
 			finished_organ.icon_state = holding_organ.icon_state
-			finished_organ.name = "[finished_organ.quality] [finished_organ.name]"
+			if(finished_organ.organ_quality != ORGAN_NORMAL)
+				finished_organ.name = "[finished_organ.organ_quality] [finished_organ.name]"
 			qdel(holding_organ)
 			holding_organ = null
 

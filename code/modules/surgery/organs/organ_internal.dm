@@ -11,19 +11,17 @@
 	var/list/datum/organ/organ_datums
 	/// Does this organ have ongoing effects
 	var/has_ongoing_effect = FALSE
-	/// Is this organ currently processing its ongoing effects
-	var/processing = FALSE
 	/// This contains the hidden RnD levels of an organ to prevent rnd from using it.
 	var/hidden_origin_tech
 	/// What is the level of tech for the hidden tech type?
 	var/hidden_tech_level = 1
 	/// How much is this organ worth in the xenobiology organ analyzer?
 	var/analyzer_price = 10
-	/// What quality organ is this organ? only affects xeno organs
-	var/quality = ORGAN_NORMAL
+		/// what quality is this organ? Only useful for xeno organs
+	var/organ_quality = ORGAN_NORMAL
 	var/cooldown_low = 300
 	var/cooldown_high = 300
-	var/next_activation = 0
+	var/next_activation
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
@@ -97,7 +95,6 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
 		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
-	processing = FALSE
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN)
 	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
@@ -184,13 +181,7 @@
 	return
 
 /obj/item/organ/internal/proc/on_life()
-	if(has_ongoing_effect && processing)
-		if(!owner_check())
-			processing = FALSE
-			return
-		if(next_activation <= world.time)
-			trigger()
-			next_activation  = world.time + rand(cooldown_low,cooldown_high)
+	return
 
 /obj/item/organ/internal/proc/dead_process()
 	return
@@ -418,8 +409,14 @@
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
 
 /obj/item/organ/internal/proc/Start()
-	processing = TRUE
-	next_activation = world.time + rand(cooldown_low,cooldown_high)
+	return
+
+/obj/item/organ/internal/proc/try_trigger()
+	if(!next_activation)
+		trigger()
+	else if(next_activation <= world.time)
+		trigger()
+		next_activation = world.time = rand(cooldown_low,cooldown_high)
 
 /obj/item/organ/internal/proc/trigger()
 	return

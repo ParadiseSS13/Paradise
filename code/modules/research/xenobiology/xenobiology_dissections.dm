@@ -127,12 +127,59 @@
 /obj/item/organ/internal/liver/xenobiology/toxic
 	name = "Toxic Glands"
 	desc = "These fleshy glands' alien chemistry are incompatable with most humanoid life."
-	hidden_origin_tech = TECH_TOXINS
-	hidden_tech_level = 6
+	has_ongoing_effect = TRUE
+
+/obj/item/organ/internal/liver/xenobiology/toxic/pristine
+	name = "Pristine Toxic Glands"
+	organ_quality = ORGAN_PRISTINE
 
 /obj/item/organ/internal/liver/xenobiology/toxic/trigger()
+	log_debug("triggering toxic liver!")
 	if(!(owner.mob_biotypes & MOB_ORGANIC))
 		return
 	to_chat(owner, "<span class='notice'>You feel nausious as your insides feel like they're disintegrating!</span>")
-	owner.adjustToxLoss(5)
-	log_debug("injecting someone with toxin")
+	switch(organ_quality)
+		if(ORGAN_DAMAGED)
+			owner.adjustToxLoss(1)
+		if(ORGAN_NORMAL)
+			owner.adjustToxLoss(2)
+		if(ORGAN_PRISTINE)
+			owner.adjustToxLoss(5)
+			if(prob(5))
+				owner.add_vomit_floor(toxvomit = TRUE)
+				owner.AdjustConfused(rand(4 SECONDS, 6 SECONDS))
+
+/obj/item/organ/internal/liver/xenobiology/detox
+	name = "Chemical Neutralizers"
+	desc = "These glands seem to absorb any liquid they come in contact with, neutralizing any unnatural substances."
+	analyzer_price = 25
+	has_ongoing_effect = TRUE
+
+/obj/item/organ/internal/liver/xenobiology/detox/pristine
+	name = "Pristine Chemical Neutralizers"
+	organ_quality = ORGAN_PRISTINE
+
+/obj/item/organ/internal/liver/xenobiology/detox/trigger()
+	if(!(owner.mob_biotypes & MOB_ORGANIC))
+		return
+	switch(organ_quality)
+		if(ORGAN_DAMAGED)
+			owner.adjustToxLoss(-1)
+		if(ORGAN_NORMAL)
+			owner.adjustToxLoss(-2)
+		if(ORGAN_PRISTINE) // careful, it removes good shit too
+			owner.adjustToxLoss(-3)
+			for(var/datum/reagent/R in owner.reagents.reagent_list)
+				if(R != src)
+					owner.reagents.remove_reagent(R.id,4)
+
+/obj/item/organ/internal/heart/xenobiology/vestigial
+	name = "Vestigial Organ"
+	desc = "Whether this has ever had any function is a mystery. It certainly doesnt work in its current state."
+	has_ongoing_effect = TRUE
+
+/obj/item/organ/internal/heart/xenobiology/vestigial/trigger()
+	if(!owner.undergoing_cardiac_arrest())
+		owner.set_heartattack(TRUE) // what did you expect?
+
+

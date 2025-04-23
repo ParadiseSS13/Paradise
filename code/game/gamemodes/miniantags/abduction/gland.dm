@@ -9,6 +9,7 @@
 	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery) // alien glands are immune to stopping, and provide power to IPCs
 	tough = TRUE //not easily broken by combat damage
 	has_ongoing_effect = TRUE
+	var/processing
 
 	var/uses // -1 For inifinite
 

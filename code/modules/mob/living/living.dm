@@ -947,16 +947,18 @@
 
 
 /mob/living/proc/pick_quality(obj/item/I, datum/surgery_step/current_step)
+	if(istype(I, /obj/item/dissector/alien))
+		return ORGAN_PRISTINE
 	var/quality_chance = current_step.allowed_tools[I]
 	var/inverted_chance = 100 - quality_chance
 	quality_chance = quality_chance + ((inverted_chance * 0.66) * -(I.bit_efficiency_mod))
 	if(prob(quality_chance / 2))
-		SSblackbox.record_feedback("tally", "organ_quality", 1, "Pristine")
+		SSblackbox.record_feedback("tally", "organ_quality", 1, ORGAN_PRISTINE)
 		return ORGAN_PRISTINE
 	if(prob(quality_chance))
-		SSblackbox.record_feedback("tally", "organ_quality", 1, "Normal")
+		SSblackbox.record_feedback("tally", "organ_quality", 1, ORGAN_NORMAL)
 		return ORGAN_NORMAL
-	SSblackbox.record_feedback("tally", "organ_quality", 1, "Damaged")
+	SSblackbox.record_feedback("tally", "organ_quality", 1, ORGAN_DAMAGED)
 	return ORGAN_DAMAGED
 
 /mob/living/examine(mob/user)
