@@ -1,9 +1,7 @@
 import { useBackend } from '../backend';
 import { Button, Box, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
-
-/* This is all basically stolen from routes.js. */
-import { routingError } from '../routes';
+import { routes } from './tgui';
 
 const RequirePAIInterface = require.context('./pai', false, /\.js$/);
 

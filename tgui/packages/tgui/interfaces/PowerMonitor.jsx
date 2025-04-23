@@ -1,7 +1,6 @@
 import { map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
-import { pureComponentHooks } from 'common/react';
 import { decodeHtmlEntities } from 'common/string';
 import { useState } from 'react';
 import { useBackend } from '../backend';
@@ -224,8 +223,6 @@ const AreaCharge = (props) => {
   );
 };
 
-AreaCharge.defaultHooks = pureComponentHooks;
-
 const AreaStatusColorBox = (props) => {
   let auto;
   let active;
@@ -251,5 +248,3 @@ const AreaStatusColorBox = (props) => {
   const tooltipText = (active ? 'On' : 'Off') + ` [${auto ? 'auto' : 'manual'}]`;
   return <ColorBox color={active ? 'good' : 'bad'} content={auto ? undefined : 'M'} title={tooltipText} />;
 };
-
-AreaStatusColorBox.defaultHooks = pureComponentHooks;

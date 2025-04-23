@@ -42,7 +42,7 @@ module.exports = (env = {}, argv) => {
       hashFunction: 'xxhash64',
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
+      extensions: ['.tsx', '.ts', '.js', '.jsx'],
       alias: {},
     },
     module: {
@@ -122,7 +122,7 @@ module.exports = (env = {}, argv) => {
     const { EsbuildPlugin } = require('esbuild-loader');
     config.optimization.minimizer = [
       new EsbuildPlugin({
-        target: 'ie11',
+        target: 'edge123',
         css: true,
       }),
     ];

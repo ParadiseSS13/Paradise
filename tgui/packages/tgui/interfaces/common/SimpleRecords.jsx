@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useBackend } from '../backend';
+import { useBackend } from '../../backend';
 import { createSearch } from 'common/string';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
