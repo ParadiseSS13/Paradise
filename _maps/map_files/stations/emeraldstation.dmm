@@ -43222,11 +43222,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "iEW" = (
-/obj/structure/table/glass,
-/obj/item/storage/belt/utility,
-/obj/item/wrench,
 /obj/machinery/requests_console/directional/east,
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/telepad_cargo,
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -69222,6 +69221,8 @@
 /obj/structure/table/glass,
 /obj/item/weldingtool/research,
 /obj/item/stack/cable_coil,
+/obj/item/wrench,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"

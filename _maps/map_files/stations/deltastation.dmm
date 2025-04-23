@@ -41686,7 +41686,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "daM" = (
-/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/box,
+/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},

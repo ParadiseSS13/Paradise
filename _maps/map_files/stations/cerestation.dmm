@@ -3427,6 +3427,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/telepad_cargo,
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"

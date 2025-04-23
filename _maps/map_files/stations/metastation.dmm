@@ -86470,11 +86470,12 @@
 	},
 /area/station/security/permabrig)
 "xIS" = (
-/obj/structure/rack,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/newscaster/directional/west,
+/obj/machinery/telepad_cargo,
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
