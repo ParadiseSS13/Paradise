@@ -19,6 +19,8 @@
 	var/hidden_tech_level = 1
 	/// How much is this organ worth in the xenobiology organ analyzer?
 	var/analyzer_price = 10
+	/// What quality organ is this organ? only affects xeno organs
+	var/quality = ORGAN_NORMAL
 	var/cooldown_low = 300
 	var/cooldown_high = 300
 	var/next_activation = 0

@@ -9,13 +9,25 @@
 	w_class = WEIGHT_CLASS_SMALL
 	tool_behaviour = TOOL_DISSECTOR
 
+/obj/item/dissector/upgraded
+	name = "Improved Dissection Manager"
+	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs. This one has had several improvements applied to it."
+	icon_state = "dissector_upgrade"
+
+/obj/item/dissector/alien
+	name = "Alien Dissection Manager"
+	desc = "A tool of alien origin, capable of near impossible levels of precision during dissections."
+	icon_state = "dissector"
+
 /datum/surgery_step/generic/dissect
 	name = "dissect"
 	allowed_tools = list(
-		TOOL_DISSECTOR = 100,
-		/obj/item/scalpel/laser/manager = 60,
-		/obj/item/wirecutters = 15,
-		/obj/item/kitchen/utensil/fork = 10
+		/obj/item/dissector/alien = 100,
+		/obj/item/dissector/upgraded = 70,
+		TOOL_DISSECTOR = 40,
+		/obj/item/scalpel/laser/manager = 10,
+		/obj/item/wirecutters = 5,
+		/obj/item/kitchen/utensil/fork = 1
 	)
 
 	preop_sound = 'sound/surgery/organ1.ogg'
@@ -32,10 +44,10 @@
 	origin_tech = null
 	// What does this object turn into when analyzed?
 	var/true_organ = /obj/item/organ/internal/liver/xenobiology/toxic
-
+	//What quality will be hidden from us?
 	var/unknown_quality = ORGAN_NORMAL
 
-/obj/item/xeno_organ/Initialize()
+/obj/item/xeno_organ/Initialize(mapload)
 	. = ..()
 	icon_state = "organ[rand(1, 18)]"
 

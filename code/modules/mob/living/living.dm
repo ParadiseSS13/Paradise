@@ -930,6 +930,7 @@
 			return TRUE
 		var/datum/surgery_step/current_step = dissection_tool_step[current_dissection_step]
 		current_step = new current_step
+		// actually perform the dissection
 		if(xeno_organ_results && current_step.is_valid_tool(user, I))
 			to_chat(user, dissection_text[current_dissection_step])
 			playsound(src, current_step.preop_sound, 50, TRUE, -1)
@@ -937,11 +938,26 @@
 				current_dissection_step += 1
 				playsound(src,  current_step.success_sound, 50, TRUE, -1)
 				if(current_dissection_step > max_dissection_steps)
-					var/turf = get_turf(src)
-					var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(turf)
+					var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(src.loc)
 					new_organ.true_organ = pick(xeno_organ_results)
+					new_organ.unknown_quality = pick_quality(I, current_step)
 					xeno_organ_results = null
+					SSblackbox.record_feedback("tally", "xeno_organ_type", 1, new_organ.true_organ)
 			return TRUE
+
+
+/mob/living/proc/pick_quality(obj/item/I, datum/surgery_step/current_step)
+	var/quality_chance = current_step.allowed_tools[I]
+	var/inverted_chance = 100 - quality_chance
+	quality_chance = quality_chance + ((inverted_chance * 0.66) * -(I.bit_efficiency_mod))
+	if(prob(quality_chance / 2))
+		SSblackbox.record_feedback("tally", "organ_quality", 1, "Pristine")
+		return ORGAN_PRISTINE
+	if(prob(quality_chance))
+		SSblackbox.record_feedback("tally", "organ_quality", 1, "Normal")
+		return ORGAN_NORMAL
+	SSblackbox.record_feedback("tally", "organ_quality", 1, "Damaged")
+	return ORGAN_DAMAGED
 
 /mob/living/examine(mob/user)
 	. = ..()

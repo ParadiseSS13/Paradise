@@ -397,10 +397,13 @@
 			to_chat(user, "<span class='notice'>The rebellious slime refuses the organ! It needs to be trained first.</span>")
 			return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && stat == CONSCIOUS) //Let's you feed slimes plasma.
-		new /obj/effect/temp_visual/heart(src.loc)
-		to_chat(user, "<span class='notice'>You feed the slime a sheet of plasma. It chirps happily!</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
-		S.use(1)
+		if(S.amount < 5)
+			to_chat(user, "<span class='notice'>You need at least five sheets of plasma to feed the slime!</span>")
+			return ITEM_INTERACT_COMPLETE
+		new /obj/effect/temp_visual/heart(src.loc)
+		src.visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
+		S.use(5)
 		if(Discipline)
 			trained = TRUE
 		else
@@ -435,6 +438,13 @@
 	. = ..()
 	var/water_damage = rand(10, 15) * volume
 	adjustBruteLoss(water_damage)
+	// Extinguishers just piss them off more
+	if(!client && !Target && istype(source, /obj/effect/particle_effect/water))
+		adjustBruteLoss(5) // extra potent
+		if(trained && prob(25))
+			src.say("Ow!!! Why!?")
+			trained = FALSE
+			rabid = TRUE
 	if(!client && Target && volume >= 3) // Like cats
 		Target = null
 		++Discipline
