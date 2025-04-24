@@ -1,53 +1,35 @@
-# Используем базовый образ Ubuntu
-FROM ubuntu:20.04
+FROM node:slim
 
 ENV TZ=Europe/Moscow
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Устанавливаем зависимости
 RUN apt-get update && apt-get install -y \
-    wget \
-    tar \
-    build-essential \
+    curl \
+    git \
+    unzip \
+    make \
     python3 \
     python3-pip \
-    git \
-    nodejs \
-    npm \
-    default-jre \
-    mariadb-client \
+    rustc \
+    cargo \
     && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем unzip для распаковки архивов
-RUN apt-get update && apt-get install -y unzip
+COPY tools/ci/install_byond.sh /usr/local/bin/install_byond.sh
+COPY _build_dependencies.sh /usr/local/bin/_build_dependencies.sh
+COPY Dockerfile.env /usr/local/bin/Dockerfile.env
 
-# Устанавливаем BYOND и используем DreamMaker для компиляции
-RUN wget https://www.byond.com/download/build/514/514.1588_byond_linux.zip \
-    && unzip 514.1588_byond_linux.zip -d /tmp/byond \
-    && mv /tmp/byond/byond /opt/byond \
-    && rm -rf /tmp/byond 514.1588_byond_linux.zip
+RUN chmod +x /usr/local/bin/install_byond.sh && \
+	. /usr/local/bin/Dockerfile.env && \
+	/usr/local/bin/install_byond.sh
 
-# Добавляем BYOND в PATH
-ENV PATH="/opt/byond/bin:$PATH"
-
-# Устанавливаем рабочую директорию
 WORKDIR /server
-
-# Копируем файлы проекта
 COPY . /server
 
-# Устанавливаем yarn для управления зависимостями
-RUN npm install -g yarn
+ENV PATH="/opt/byond/bin:$PATH"
+RUN npm install yarn
+RUN ./tgui/bin/tgui --ci
 
-# Используем встроенный скрипт для сборки TGUI в режиме CI
-WORKDIR /server/tgui
-RUN ./bin/tgui --ci
+RUN source $HOME/BYOND/byond/bin/byondsetup && \
+    DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
-# Возвращаемся в корневую директорию
-WORKDIR /server
-
-# Компилируем проект с использованием DreamMaker
-RUN DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
-
-# Указываем команду для запуска сервера
 CMD ["DreamDaemon", "paradise.dmb", "-port", "1337", "-trusted"]
