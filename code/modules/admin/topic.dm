@@ -2048,7 +2048,7 @@
 			if("Heal Over Time")
 				H.reagents.add_reagent("salglu_solution", 30)
 				H.reagents.add_reagent("salbutamol", 20)
-				H.reagents.add_reagent("spaceacillin", 20)
+				H.reagents.add_reagent("penicillin", 20)
 				logmsg = "a heal over time."
 			if("Permanent Regeneration")
 				H.dna.SetSEState(GLOB.regenerateblock, 1)

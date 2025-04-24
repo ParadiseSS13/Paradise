@@ -367,7 +367,7 @@
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
+	var/treatment_virus = "penicillin"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/firstaid_arm_assembly/New(loc, new_skin)

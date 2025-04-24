@@ -3,8 +3,8 @@
 	max_stages = 3
 	spread_text = "Airborne"
 	spread_flags = AIRBORNE
-	cure_text = "Rest & Spaceacillin"
-	cures = list("spaceacillin")
+	cure_text = "Rest & Penicillin"
+	cures = list("penicillin")
 	agent = "XY-rhinovirus"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
 	permeability_mod = 0.5

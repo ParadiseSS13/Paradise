@@ -19,7 +19,7 @@
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
+	var/treatment_virus = "penicillin"
 	var/med_bot_skin = null
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction

@@ -535,7 +535,7 @@
 	var/obj/item/reagent_containers/C = tool
 	var/datum/reagents/R = C.reagents
 	var/ethanol = 0 //how much alcohol is in the thing
-	var/spaceacillin = 0 //how much actual antibiotic is in the thing
+	var/penicillin = 0 //how much actual antibiotic is in the thing
 	var/mito_tot = 0 // same for mito, thanks farie
 
 	if(length(R.reagent_list))
@@ -544,7 +544,7 @@
 		ethanol /= length(R.reagent_list)
 
 		mito_tot = R.get_reagent_amount("mitocholide")
-		spaceacillin = R.get_reagent_amount("spaceacillin")
+		penicillin = R.get_reagent_amount("penicillin")
 
 
 	for(var/obj/item/organ/internal/I in organs)
@@ -553,14 +553,14 @@
 		if(I.germ_level < INFECTION_LEVEL_ONE / 2 && !(I.status & ORGAN_DEAD))  // not dead, don't need to inject mito either
 			to_chat(user, "[I] does not appear to need chemical treatment.")
 			continue
-		if(!spaceacillin && !ethanol && !mito_tot)
+		if(!penicillin && !ethanol && !mito_tot)
 			to_chat(user, "<span class='warning'>[C] doesn't have anything in it that would be worth applying!</span>")
 			break
 		var/success = FALSE
 		if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
 			// spacecillin completely cures infections if there is enough, ethanol just reduces the infection strength by the amount used.
-			if(spaceacillin || ethanol)
-				if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
+			if(penicillin || ethanol)
+				if(penicillin >= GHETTO_DISINFECT_AMOUNT)
 					I.germ_level = 0
 				else
 					I.germ_level = max(I.germ_level-ethanol, 0)

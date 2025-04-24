@@ -136,7 +136,7 @@
 		return
 	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
 		return FALSE
-	if(target.reagents.has_reagent("zombiecure1") || target.reagents.has_reagent("spaceacillin"))
+	if(target.reagents.has_reagent("zombiecure1") || target.reagents.has_reagent("penicillin"))
 		return
 	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected) // Head, or Chest.
 	if(affecting.is_robotic())

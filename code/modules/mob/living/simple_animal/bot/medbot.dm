@@ -80,7 +80,7 @@
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
+	var/treatment_virus = "penicillin"
 	var/treat_virus = TRUE //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = FALSE //self explanatory :)
 	var/syndicate_aligned = FALSE // Will it only treat operatives?

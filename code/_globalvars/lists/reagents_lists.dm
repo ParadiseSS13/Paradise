@@ -3,7 +3,7 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 								"mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
 								"salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol",
 								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder","happiness",
-								"methamphetamine","spaceacillin","carpotoxin","lsd","ethanol","ammonia",
+								"methamphetamine","penicillin","carpotoxin","lsd","ethanol","ammonia",
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
 								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin"))
 // Rare medicines
