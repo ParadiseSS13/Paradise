@@ -1,6 +1,11 @@
 version: '3.8'
 
 services:
+  base-dependencies:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+
   tgui-builder:
     build:
       context: .

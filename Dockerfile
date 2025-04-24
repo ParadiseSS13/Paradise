@@ -1,46 +1,11 @@
-FROM node:slim
+FROM base-dependencies:latest
 
 ENV TZ=Europe/Moscow
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN dpkg --add-architecture i386 && \
-    apt-get update && apt-get install -y \
-    curl \
-	wget \
-    git \
-    unzip \
-    make \
-    python3 \
-    python3-pip \
-    rustc \
-    cargo \
-    libc6:i386 \
-    libstdc++6:i386 \
-    libgcc1:i386 \
-    zlib1g:i386 \
-    libncurses5:i386 \
-    apt-transport-https \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel LTS && \
-    ln -s /root/.dotnet/dotnet ./tools/ci/dotnet
-
 WORKDIR /server
 
-ENV STABLE_BYOND_MAJOR="514" \
-	STABLE_BYOND_MINOR="1588" \
-	BETA_BYOND_MAJOR="515" \
-	BETA_BYOND_MINOR="1600"
-
-COPY tools/ci/ ./tools/ci/
-COPY _build_dependencies.sh ./tools/ci/_build_dependencies.sh
-
-RUN ./tools/ci/install_byond.sh && \
-	PATH="/root/BYOND/byond/bin:${PATH}"
-RUN ./tools/ci/setup_od.sh
-
 COPY . .
-
 
 RUN ./tools/ci/run_od.sh
 
