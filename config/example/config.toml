@@ -294,7 +294,7 @@ lobby_time = 240
 # Default timeout for world reboot (Seconds)
 restart_timeout = 75
 # Forbid people without a BYOND account joining the server
-guest_ban = false
+guest_ban = true
 # Allow players to use antagHUD?
 allow_antag_hud = true
 # Forbid players from rejoining if they use antag hud
@@ -433,7 +433,7 @@ enable_exp_admin_bypass = true
 allow_ai = true
 # Prevent guests (people without BYOND accounts) from playing following positions
 # Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, AI
-guest_job_ban = false
+guest_job_ban = true
 # Should assistants have maint access?
 assistant_maint_access = true
 # Should the amount of assistants be limited?
