@@ -943,7 +943,7 @@
 					new_organ.unknown_quality = pick_quality(I, current_step)
 					xeno_organ_results = null
 					SSblackbox.record_feedback("tally", "xeno_organ_type", 1, new_organ.true_organ)
-					SSblackbox.record_feedback("tally", "organ_quality", 1, organ_quality)
+					SSblackbox.record_feedback("tally", "organ_quality", 1, new_organ.unknown_quality)
 			return TRUE
 
 

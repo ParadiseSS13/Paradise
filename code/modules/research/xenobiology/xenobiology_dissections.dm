@@ -264,17 +264,101 @@
 	name = "Sinewous Bands"
 	desc = "Long, strands of durable fibers that seem to grow at astonishing speeds."
 
-/obj/item/organ/internal/lungs/xenobiology/flame_sack/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/kidneys/xenobiology/sinew/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
+	var/datum/spell/create_sinew/sinew_spell = new /datum/spell/create_sinew
+	sinew_spell.quality = organ_quality
+	M.AddSpell(sinew_spell)
 
-
-/obj/item/organ/internal/lungs/xenobiology/flame_sack/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/kidneys/xenobiology/sinew/remove(mob/living/carbon/M, special = 0)
 	. = ..()
+	M.RemoveSpell(/datum/spell/create_sinew)
 
+/datum/spell/create_sinew
+	name = "Create Sinew Bands"
+	desc = "Detatch some of your sinewous bands to create a durable restraint"
+	action_icon = 'icons/obj/mining.dmi'
+	action_icon_state = "sinewcuff"
+	invocation_type = "none"
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	base_cooldown = 10 MINUTES
+	var/quality = ORGAN_NORMAL
+	var/cooldown = 0
 
+/datum/spell/create_sinew/create_new_targeting()
+	return new /datum/spell_targeting/self
 
+/datum/spell/create_sinew/cast(list/targets, mob/living/user)
+	. = ..()
+	var/obj/item/restraints/handcuffs/sinew_cuffs = new /obj/item/restraints/handcuffs/sinew
+	switch(quality)
+		if(ORGAN_DAMAGED)
+			user.adjustBruteLoss(10)
+			to_chat(user, "<span class='warning'>The bands refuse to detach cleanly, ripping some flesh away with them!</span>")
+			user.put_in_hands(sinew_cuffs)
+		if(ORGAN_NORMAL)
+			user.put_in_hands(sinew_cuffs)
+		if(ORGAN_PRISTINE)
+			sinew_cuffs.name = "Strong sinew cuffs"
+			sinew_cuffs.breakouttime = 45 SECONDS
+			user.put_in_hands(sinew_cuffs)
 
+/obj/item/organ/internal/heart/xenobiology/hyperactive
+	name = "Hyperactive Organ"
+	desc = "This organ replaces it's own cells so quickly, that it appears to spread this effect to other cells around it."
 
+/obj/item/organ/internal/heart/xenobiology/hyperactive/on_life()
+	. = ..()
+	switch(organ_quality)
+		if(ORGAN_DAMAGED)
+			if(prob(20)) // about saline level
+				owner.adjustBruteLoss(-2)
+				owner.adjustFireLoss(-2)
+			if(owner.getBruteLoss() > 10 || owner.getFireLoss() > 10) // this shits exhausting!
+				if(prob(10))
+					owner.setStaminaLoss(30)
+		if(ORGAN_NORMAL)
+			if(owner.getBruteLoss() > 10 || owner.getFireLoss() > 10) // this shits exhausting!
+				if(prob(10))
+					owner.setStaminaLoss(30)
+			owner.adjustBruteLoss(-1)
+			owner.adjustFireLoss(-1)
+		if(ORGAN_PRISTINE)
+			owner.adjustBruteLoss(-1)
+			owner.adjustFireLoss(-1)
+
+/obj/item/organ/internal/kidneys/xenobiology/metallic
+	name = "Metallic Processor"
+	desc = "A dense, metallic organ that enables the consumption of precious metals as food. No guarentee for taste, though"
+
+/obj/item/organ/internal/kidneys/xenobiology/metallic/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	ADD_TRAIT(M, TRAIT_MINERAL_EATER, ORGAN_TRAIT)
+	switch(organ_quality)
+		if(ORGAN_DAMAGED)
+			ADD_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
+		if(ORGAN_NORMAL)
+			ADD_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
+			ADD_TRAIT(M, TRAIT_GOLD_EATER, ORGAN_TRAIT)
+		if(ORGAN_PRISTINE)
+			ADD_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
+			ADD_TRAIT(M, TRAIT_GOLD_EATER, ORGAN_TRAIT)
+			ADD_TRAIT(M, TRAIT_DIAMOND_EATER, ORGAN_TRAIT)
+
+/obj/item/organ/internal/kidneys/xenobiology/metallic/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_MINERAL_EATER, ORGAN_TRAIT)
+	switch(organ_quality)
+		if(ORGAN_DAMAGED)
+			REMOVE_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
+		if(ORGAN_NORMAL)
+			REMOVE_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
+			REMOVE_TRAIT(M, TRAIT_GOLD_EATER, ORGAN_TRAIT)
+		if(ORGAN_PRISTINE)
+			REMOVE_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
+			REMOVE_TRAIT(M, TRAIT_GOLD_EATER, ORGAN_TRAIT)
+			REMOVE_TRAIT(M, TRAIT_DIAMOND_EATER, ORGAN_TRAIT)
 
 
 

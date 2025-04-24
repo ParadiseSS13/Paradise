@@ -336,6 +336,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
 #define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
 
+/// Trait for if someone may eat metal
+#define TRAIT_MINERAL_EATER "metal_eater"
+
+/// Trait for eating gold
+#define TRAIT_GOLD_EATER "gold_eater"
+
+/// Trait for eating silver
+#define TRAIT_SILVER_EATER "silver_eater"
+
+/// Trait for eating diamonds
+#define TRAIT_DIAMOND_EATER "diamond_eater"
+
 //****** OBJ TRAITS *****//
 
 ///An /obj that should not increase the "depth" of the search for adjacency,
@@ -374,6 +386,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define EYES_OF_GOD "eyes_of_god"
 #define GHOSTED		"isghost"
 #define GHOST_ROLE	"ghost_role"
+#define ORGAN_TRAIT "organ"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
