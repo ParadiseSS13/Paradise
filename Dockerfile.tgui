@@ -1,6 +1,7 @@
 FROM node:slim
 
 WORKDIR /server
+VOLUME ["/server"]
 RUN npm install yarn
 
 COPY tgui ./tgui

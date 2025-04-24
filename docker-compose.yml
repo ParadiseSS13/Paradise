@@ -1,35 +1,36 @@
-version: '3.8'
-
 services:
   dependencies:
     build:
-      context: .
       dockerfile: Dockerfile.dependencies
-
+    volumes:
+      - server-volume
   tgui-builder:
     build:
-      context: .
       dockerfile: Dockerfile.tgui
     volumes:
-      - server-volume:/server
-
+      - server-volume
+  od:
+    build:
+      dockerfile: Dockerfile.od
+    volumes:
+      - server-volume
   server:
     build:
-      context: .
       dockerfile: Dockerfile.server
     depends_on:
       - tgui-builder
       - dependencies
       - od
+    ports:
+      - "5000:5000"
+    command: ./tools/ci/run_server.sh
     volumes:
-      - server-volume:/server
-
-  od:
-    build:
-      context: .
-      dockerfile: Dockerfile.od
-    volumes:
-      - server-volume:/server
+      - server-volume
 
 volumes:
   server-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: /Users/andrew/stuff/server/Paradise
+      o: bind

@@ -1,8 +1,5 @@
 FROM debian:11-slim
 
-ENV TZ=Europe/Moscow
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 RUN dpkg --add-architecture i386 && \
     apt-get update && apt-get install -y \
     curl \
@@ -28,6 +25,7 @@ ENV STABLE_BYOND_MAJOR="514" \
 	BETA_BYOND_MINOR="1600"
 
 WORKDIR /server
+VOLUME ["/server"]
 
 COPY _build_dependencies.sh .
 COPY tools/ci/ ./tools/ci/
