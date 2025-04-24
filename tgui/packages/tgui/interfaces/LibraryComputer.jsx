@@ -5,13 +5,14 @@ import { Window } from '../layouts';
 import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 
 export const LibraryComputer = (props) => {
+  const [tabIndex, setTabIndex] = useState(0);
   return (
     <Window width={1050} height={600}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
-          <LibraryComputerNavigation />
-          <LibraryPageContent />
+          <LibraryComputerNavigation tabIndex={tabIndex} setTabIndex={setTabIndex} />
+          <LibraryPageContent tabIndex={tabIndex} />
         </Stack>
       </Window.Content>
     </Window>
@@ -189,9 +190,9 @@ const rateModalBodyOverride = (modal) => {
   );
 };
 
-const LibraryComputerNavigation = (properties) => {
+const LibraryComputerNavigation = (props) => {
   const { data } = useBackend();
-  const [tabIndex, setTabIndex] = useState(0);
+  const { tabIndex, setTabIndex } = props;
   const { login_state } = data;
   return (
     <Stack.Item mb={1}>
@@ -219,7 +220,8 @@ const LibraryComputerNavigation = (properties) => {
 };
 
 const LibraryPageContent = (props) => {
-  const [tabIndex] = useState(0);
+  const { tabIndex } = props;
+
   switch (tabIndex) {
     case 0:
       return <LibraryBooksList />;
