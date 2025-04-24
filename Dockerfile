@@ -3,8 +3,10 @@ FROM node:slim
 ENV TZ=Europe/Moscow
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update && apt-get install -y \
+RUN dpkg --add-architecture i386 && \
+    apt-get update && apt-get install -y \
     curl \
+	wget \
     git \
     unzip \
     make \
@@ -12,27 +14,37 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     rustc \
     cargo \
+    libc6:i386 \
+    libstdc++6:i386 \
+    libgcc1:i386 \
+    zlib1g:i386 \
+    libncurses5:i386 \
+    apt-transport-https \
     && rm -rf /var/lib/apt/lists/*
 
-RUN dpkg --add-architecture i386 && \
-    apt-get update && apt-get install -y \
-    libc6:i386 libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386 \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY Dockerfile.env /usr/local/bin/Dockerfile.env
-RUN . /usr/local/bin/Dockerfile.env
-
-COPY tools/ci/ /usr/local/bin/
-COPY _build_dependencies.sh /usr/local/bin/_build_dependencies.sh
-RUN /usr/local/bin/install_byond.sh
+RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel LTS && \
+    ln -s /root/.dotnet/dotnet ./tools/ci/dotnet
 
 WORKDIR /server
-COPY . /server
 
-RUN . $HOME/BYOND/byond/bin/byondsetup
+ENV STABLE_BYOND_MAJOR="514" \
+	STABLE_BYOND_MINOR="1588" \
+	BETA_BYOND_MAJOR="515" \
+	BETA_BYOND_MINOR="1600"
+
+COPY tools/ci/ ./tools/ci/
+COPY _build_dependencies.sh ./tools/ci/_build_dependencies.sh
+
+RUN ./tools/ci/install_byond.sh && \
+	PATH="/root/BYOND/byond/bin:${PATH}"
+RUN ./tools/ci/setup_od.sh
+
+COPY . .
+
 RUN npm install yarn
-RUN ./tgui/bin/tgui --ci
+RUN ./tgui/bin/tgui
 
-RUN DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
-CMD ["/usr/local/bin/run_server.sh"]
+RUN ./tools/ci/run_od.sh
+
+CMD ["./tools/ci/run_server.sh"]
