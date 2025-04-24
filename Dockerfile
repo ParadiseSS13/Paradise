@@ -25,11 +25,11 @@ RUN chmod +x /usr/local/bin/install_byond.sh && \
 WORKDIR /server
 COPY . /server
 
-ENV PATH="/opt/byond/bin:$PATH"
+RUN . $HOME/BYOND/byond/bin/byondsetup
 RUN npm install yarn
 RUN ./tgui/bin/tgui --ci
+run echo $PATH
 
-RUN source $HOME/BYOND/byond/bin/byondsetup && \
-    DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
+RUN DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
 CMD ["DreamDaemon", "paradise.dmb", "-port", "1337", "-trusted"]
