@@ -11906,20 +11906,14 @@
 	},
 /area/station/service/chapel)
 "bds" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/robotics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/engineering/tech_storage)
 "bdt" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11939,10 +11933,7 @@
 	},
 /area/station/turret_protected/ai)
 "bdv" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/machinery/requests_console/directional/north,
 /obj/effect/spawner/random/tech_storage/engineering,
 /turf/simulated/floor/plasteel{
@@ -12992,10 +12983,7 @@
 	},
 /area/station/hallway/primary/fore/east)
 "bgm" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/silicon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13026,20 +13014,14 @@
 	},
 /area/station/engineering/tech_storage)
 "bgq" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/engineering/tech_storage)
 "bgr" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/teleporter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13056,7 +13038,25 @@
 /area/station/engineering/tech_storage)
 "bgt" = (
 /obj/structure/table,
-/obj/item/analyzer,
+/obj/item/analyzer{
+	pixel_y = -5
+	},
+/obj/item/flash{
+	pixel_x = -2;
+	pixel_y = 16
+	},
+/obj/item/flashlight{
+	pixel_x = 2;
+	pixel_y = 17
+	},
+/obj/item/flash{
+	pixel_x = -6;
+	pixel_y = 13
+	},
+/obj/item/flashlight{
+	pixel_x = 2;
+	pixel_y = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13191,10 +13191,7 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "bgO" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/machinery/ai_status_display{
 	pixel_y = 31
 	},
@@ -13266,24 +13263,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "bhd" = (
-/obj/structure/table,
-/obj/item/flashlight{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/flashlight{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/flash,
-/obj/item/flash,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13485,10 +13473,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "bhI" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -14127,10 +14112,7 @@
 	},
 /area/station/supply/storage)
 "bjv" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/rnd,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -14165,10 +14147,7 @@
 	},
 /area/station/engineering/tech_storage)
 "bjz" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
 	pixel_y = -1
@@ -15483,10 +15462,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
 "bnJ" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
 	pixel_y = -1
@@ -70367,10 +70343,7 @@
 	},
 /area/station/security/main)
 "qJI" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},

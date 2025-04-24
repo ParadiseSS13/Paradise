@@ -119,10 +119,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "abO" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/medical,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -13771,10 +13768,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cLj" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/supply,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -16995,10 +16989,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "dtL" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/robotics,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -27311,10 +27302,7 @@
 	},
 /area/station/security/permabrig)
 "fvp" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
 	pixel_y = -1
@@ -53778,10 +53766,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
 "kLn" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/teleporter,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -74151,10 +74136,7 @@
 	},
 /area/station/maintenance/apmaint)
 "oNo" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -94084,6 +94066,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
+"sKG" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/service,
+/turf/simulated/floor/plating,
+/area/station/engineering/tech_storage)
 "sKI" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /obj/effect/decal/cleanable/dirt,
@@ -97676,10 +97663,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "ttM" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
 	pixel_y = -1
@@ -111566,10 +111550,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/prisonershuttle)
 "wiP" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -113835,10 +113816,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "wKf" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/research,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -142449,7 +142427,7 @@ kHZ
 tXi
 dtL
 vpm
-iET
+sKG
 iET
 wYo
 dGm

@@ -34729,9 +34729,8 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/station/science/toxins/test)
 "cvu" = (
-/obj/structure/table,
-/obj/item/analyzer,
-/obj/item/healthanalyzer,
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/service,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cvv" = (
@@ -34767,10 +34766,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/machinery/power/apc/directional/north,
 /obj/effect/spawner/random/tech_storage/robotics,
 /turf/simulated/floor/plating,
@@ -34785,6 +34781,8 @@
 "cvA" = (
 /obj/structure/table,
 /obj/item/plant_analyzer,
+/obj/item/healthanalyzer,
+/obj/item/analyzer,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cvB" = (
@@ -35473,10 +35471,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "cyt" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/silicon,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
@@ -35490,10 +35485,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "cyy" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/teleporter,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -35507,10 +35499,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "cyA" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/supply,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -35969,10 +35958,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "czT" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/comms,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
@@ -36370,34 +36356,22 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "cBr" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/rnd,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "cBs" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/medical,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cBt" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/engineering,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cBu" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/security,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -70514,10 +70488,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "ppl" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
