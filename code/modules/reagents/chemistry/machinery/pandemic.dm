@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		GLOB.known_advanced_diseases += list("[z]" = list("4:origin", "24:origin"))
 	if(!(z in accumulated_error))
 		accumulated_error += list("[z]" = 0)
-
+		used_calibration += list("[z]" = list())
 	update_icon()
 
 /obj/machinery/computer/pandemic/Destroy()
@@ -198,8 +198,8 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/error_reduction
 	for(var/datum/disease/advance/virus in GetViruses())
 		// We can't calibrate using the same strain and stage combination twice
-		if(!(used_calibration["[virus.strain]_[virus.stage]"]))
-			used_calibration += list("[virus.strain]_[virus.stage]" = TRUE)
+		if(!(used_calibration["[z]"]["[virus.strain]_[virus.stage]"]))
+			used_calibration["[z]"] += list("[virus.strain]_[virus.stage]" = TRUE)
 			error_reduction += max(accumulated_error["[z]"] / 5, 3 MINUTES)
 	if(error_reduction)
 		calibrating = TRUE
@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			SStgui.update_uis(src)
 	// Reset the list of used viruses if we are fully calibrated
 	if(!accumulated_error["[z]"])
-		used_calibration = list()
+		used_calibration["[z]"] = list()
 
 /obj/machinery/computer/pandemic/process()
 	. = ..()
@@ -386,7 +386,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	if(Blood && accumulated_error["[z]"] > 0)
 		if(Blood.data && Blood.data["viruses"])
 			for(var/datum/disease/advance/virus in Blood.data["viruses"])
-				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]) && !used_calibration["[virus.strain]_[virus.stage]"])
+				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]) && !used_calibration["[z]"]["[virus.strain]_[virus.stage]"])
 					can_calibrate = TRUE
 					break
 
@@ -461,7 +461,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			"strainID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.strain : blood_disease.name,
 			"strainFullID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.GetDiseaseID() : blood_disease.name,
 			"diseaseID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.id : blood_disease.name,
-			"sample_stage" = blood_disease.stage,
+			"sample_stage" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.stage : blood_disease.stage,
 			"known" = known,
 			"bloodDNA" = Blood.data["blood_DNA"],
 			"bloodType" = Blood.data["blood_type"],

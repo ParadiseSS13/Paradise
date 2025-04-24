@@ -354,7 +354,7 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
                 <Table.Cell>{symptom.stealth}</Table.Cell>
               ) : (
                 <Dropdown
-                  options={sympton_names}
+                  options={sympton_names.sort((a, b) => a.localeCompare(b))}
                   width="180px"
                   selected={'No Prediction'}
                   disabled={analyzing || analysisTimeDelta === -2}

@@ -1,5 +1,9 @@
 GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak
+	// We only want the announcement to happen after the virus has spawned on station
+	announceWhen = -1
+	// Keep the event running until we announce it
+	noAutoEnd = TRUE
 	/// The type of disease that patient zero will be infected with.
 	var/datum/disease/chosen_disease
 
@@ -32,13 +36,21 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	chosen_disease.carrier = TRUE
 
 /datum/event/disease_outbreak/start()
-	GLOB.current_pending_diseases += chosen_disease
+	GLOB.current_pending_diseases += list(list("disease" = chosen_disease, "event" = src))
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
 		if(istype(chosen_disease, /datum/disease/advance))
 			var/datum/disease/advance/temp_disease = chosen_disease.Copy()
 			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms: [english_list(temp_disease.symptoms)] and the following base stats:[english_map(temp_disease.base_properties)]</span>")
 		else
 			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!</span>")
+
+/datum/event/disease_outbreak/announce()
+	if(severity >= EVENT_LEVEL_MAJOR)
+		GLOB.major_announcement.Announce("Confirmed outbreak of level 7 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak7.ogg')
+	else
+		GLOB.minor_announcement.Announce("Confirmed outbreak of level [severity * 2 - 1] biohazard aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Biohazard Alert")
+	// We did our announcement, the event no longer needs to run
+	kill()
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
