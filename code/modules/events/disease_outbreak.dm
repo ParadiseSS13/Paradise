@@ -45,10 +45,13 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!</span>")
 
 /datum/event/disease_outbreak/announce()
-	if(severity >= EVENT_LEVEL_MAJOR)
-		GLOB.major_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak5.ogg')
-	else
-		GLOB.minor_announcement.Announce("Confirmed outbreak of level [8 - severity] biohazard aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Biohazard Alert")
+	switch(severity)
+		if(EVENT_LEVEL_MAJOR)
+			GLOB.major_announcement.Announce("Deadly contagion detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak5.ogg')
+		if(EVENT_LEVEL_MODERATE)
+			GLOB.minor_announcement.Announce("Moderate contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
+		if(EVENT_LEVEL_MUNDANE)
+			GLOB.minor_announcement.Announce("Minor contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
 	// We did our announcement, the event no longer needs to run
 	kill()
 
