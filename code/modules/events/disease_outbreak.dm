@@ -15,15 +15,19 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	if(isemptylist(transmissable_symptoms))
 		populate_symptoms()
 	var/datum/disease/virus
-	if(prob(50) && severity < EVENT_LEVEL_MAJOR)
-		switch(severity)
-			if(EVENT_LEVEL_MUNDANE)
-				virus = pick(diseases_minor)
-			if(EVENT_LEVEL_MODERATE)
+	// Either choose a type to create a normal disease from or create an advanced disease
+	switch(severity)
+		if(EVENT_LEVEL_MUNDANE)
+			virus = pick(diseases_minor)
+		if(EVENT_LEVEL_MODERATE)
+			if(prob(75))
 				virus = pick(diseases_moderate_major)
-		chosen_disease = new virus()
-	else
-		chosen_disease = create_virus(severity * 2)
+			else
+				chosen_disease = create_virus(severity)
+		if(EVENT_LEVEL_MAJOR)
+			chosen_disease = create_virus(severity * 2)
+	if(virus)
+		chosen_disease = new virus
 
 	chosen_disease.carrier = TRUE
 
@@ -44,7 +48,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	for(var/i = 0, i < max_severity, i++)
 		A.base_properties[pick(properties_to_buff)]++
 	A.base_properties["stealth"] += max_severity // Stealth gets an additional bonus since most symptoms reduce it a fair bit.
-	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 2) // Choose "Payload" symptoms. Longevity is excluded
+	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 2, list(/datum/symptom/heal/longevity)) // Choose "Payload" symptoms. Longevity is excluded
 	A.AssignProperties(A.GenerateProperties())
 	var/list/symptoms_to_try = transmissable_symptoms.Copy()
 	while(length(symptoms_to_try))

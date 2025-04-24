@@ -1,6 +1,6 @@
 /// Evoltion chance each cycle in percents.
-/// a value of 0.004% corresponds to a 0.35% chance of new strain every 600 cycles or 20 minutes.
-#define EVOLUTION_CHANCE (0.0006)
+/// The base chance in % that a virus will mutate as it spreads. Further modified by stage speed and the viral evolutionary acceleration trait
+#define EVOLUTION_CHANCE (3)
 
 /*
 
@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 	/// The base properties of the virus. retained between strains
 	var/list/base_properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1)
-	/// Can the virus spotaneously evolve?
+	/// Chance of the virus evolving on spread
 	var/evolution_chance = EVOLUTION_CHANCE
 	/// The symptoms of the disease.
 	var/list/symptoms = list()
@@ -112,14 +112,13 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			S.End(src)
 	return ..()
 
-// Randomly pick a symptom to activate.
-/datum/disease/advance/stage_act()
-	if(!..())
-		return FALSE
+/// Randomly mutate the disease
+/datum/disease/advance/after_infect()
 	if(prob(evolution_chance))
 		var/min = rand(1, 6)
 		var/max = rand(min, 6)
 		var/lastStrain = strain
+		// In most cases we try to gain a symptom, rarely we lose one
 		if(prob(95))
 			Evolve(min, max)
 		else
@@ -127,6 +126,11 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		// Create a new strain even if we didn't gain or lose symptoms
 		if(lastStrain == strain)
 			Refresh()
+
+// Randomly pick a symptom to activate.
+/datum/disease/advance/stage_act()
+	if(!..())
+		return FALSE
 	if(symptoms && length(symptoms))
 		var/list/mob_reagents = list()
 		for(var/datum/reagent/chem in affected_mob.reagents.reagent_list)

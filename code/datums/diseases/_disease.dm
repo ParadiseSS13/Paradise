@@ -152,8 +152,11 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 			var/turf/current = get_turf(C)
 			if(current)
 				while(TRUE)
+					// Found a path from target to source that isn't atmos blocked. Try to give them the disease
 					if(current == target)
-						C.ContractDisease(src)
+						if(C.ContractDisease(src))
+							var/datum/disease/contracted = locate(type) in C.viruses
+							contracted.after_infect()
 						break
 					var/direction = get_dir(current, target)
 					var/turf/next = get_step(current, direction)
@@ -161,6 +164,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 						break
 					current = next
 
+/datum/disease/proc/after_infect()
+	return
 
 /datum/disease/proc/cure()
 	if(affected_mob)
