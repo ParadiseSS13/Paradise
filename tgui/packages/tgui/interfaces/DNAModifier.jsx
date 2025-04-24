@@ -2,7 +2,6 @@ import { useBackend } from '../backend';
 import { Box, Button, Dimmer, Flex, Stack, Icon, Knob, LabeledList, ProgressBar, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
-
 const stats = [
   ['good', 'Alive'],
   ['average', 'Critical'],

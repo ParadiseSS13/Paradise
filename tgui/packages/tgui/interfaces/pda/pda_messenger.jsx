@@ -1,6 +1,6 @@
 import { filter } from 'common/collections';
 import { useState } from 'react';
-import { useBackend } from '../backend';
+import { useBackend } from '../../backend';
 import { Box, Button, Dropdown, Icon, Input, LabeledList, Section, Stack } from '../../components';
 
 export const pda_messenger = (props) => {

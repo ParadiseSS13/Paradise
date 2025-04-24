@@ -1,6 +1,6 @@
 import { createSearch } from 'common/string';
 import { useState } from 'react';
-import { useBackend } from '../backend';
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -18,6 +18,7 @@ import {
 export const pda_nanobank = (props) => {
   const { act, data } = useBackend();
   const { logged_in, owner_name, money } = data;
+  const [tabIndex, setTabIndex] = useState(1);
 
   if (!logged_in) {
     return <LoginScreen />;
@@ -32,17 +33,17 @@ export const pda_nanobank = (props) => {
         </LabeledList>
       </Box>
       <Box>
-        <NanoBankNavigation />
-        <NanoBankTabContent />
+        <NanoBankNavigation tabIndex={tabIndex} setTabIndex={setTabIndex} />
+        <NanoBankTabContent tabIndex={tabIndex} />
       </Box>
     </>
   );
 };
 
-const NanoBankNavigation = (properties) => {
+const NanoBankNavigation = (props) => {
   const { data } = useBackend();
   const { is_premium } = data;
-  const [tabIndex, setTabIndex] = useState(1);
+  const { tabIndex, setTabIndex } = props;
 
   return (
     <Tabs mt={2}>
@@ -69,9 +70,9 @@ const NanoBankNavigation = (properties) => {
 };
 
 const NanoBankTabContent = (props) => {
-  const [tabIndex] = useState(1);
   const { data } = useBackend();
   const { db_status } = data;
+  const { tabIndex } = props;
 
   if (!db_status) {
     return <Box>Account Database Connection Severed</Box>;

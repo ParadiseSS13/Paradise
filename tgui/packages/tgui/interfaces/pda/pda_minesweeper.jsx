@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useBackend } from '../backend';
+import { useBackend } from '../../backend';
 import { Box, Button, Stack, Section, Table, Icon } from '../../components';
 
 export const pda_minesweeper = (props) => {
