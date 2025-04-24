@@ -210,7 +210,6 @@
 	for(var/thing in internal_organs)
 		var/obj/item/organ/internal/O = thing
 		O.on_life()
-		O.try_trigger()
 	for(var/organ_tag in internal_organ_datums)
 		var/datum/organ/datum_organ_var_name_idk = internal_organ_datums[organ_tag]
 		datum_organ_var_name_idk.on_life()

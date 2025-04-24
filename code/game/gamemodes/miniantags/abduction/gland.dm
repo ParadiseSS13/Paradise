@@ -8,7 +8,7 @@
 	origin_tech = "materials=4;biotech=7;abductor=3"
 	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery) // alien glands are immune to stopping, and provide power to IPCs
 	tough = TRUE //not easily broken by combat damage
-	has_ongoing_effect = TRUE
+	var/has_ongoing_effect = TRUE
 	var/processing
 
 	var/uses // -1 For inifinite
@@ -80,6 +80,9 @@
 			next_activation  = world.time + rand(cooldown_low,cooldown_high)
 		if(!uses)
 			processing = FALSE
+
+/obj/item/organ/internal/heart/gland/proc/trigger()
+	return
 
 /obj/item/organ/internal/heart/gland/heals
 	cooldown_low = 200

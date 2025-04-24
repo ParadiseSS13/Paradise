@@ -943,6 +943,7 @@
 					new_organ.unknown_quality = pick_quality(I, current_step)
 					xeno_organ_results = null
 					SSblackbox.record_feedback("tally", "xeno_organ_type", 1, new_organ.true_organ)
+					SSblackbox.record_feedback("tally", "organ_quality", 1, organ_quality)
 			return TRUE
 
 
@@ -953,12 +954,9 @@
 	var/inverted_chance = 100 - quality_chance
 	quality_chance = quality_chance + ((inverted_chance * 0.66) * -(I.bit_efficiency_mod))
 	if(prob(quality_chance / 2))
-		SSblackbox.record_feedback("tally", "organ_quality", 1, ORGAN_PRISTINE)
 		return ORGAN_PRISTINE
 	if(prob(quality_chance))
-		SSblackbox.record_feedback("tally", "organ_quality", 1, ORGAN_NORMAL)
 		return ORGAN_NORMAL
-	SSblackbox.record_feedback("tally", "organ_quality", 1, ORGAN_DAMAGED)
 	return ORGAN_DAMAGED
 
 /mob/living/examine(mob/user)

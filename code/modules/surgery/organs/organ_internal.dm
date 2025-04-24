@@ -9,8 +9,6 @@
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 	/// An associated list of organ datums that this organ has.
 	var/list/datum/organ/organ_datums
-	/// Does this organ have ongoing effects
-	var/has_ongoing_effect = FALSE
 	/// This contains the hidden RnD levels of an organ to prevent rnd from using it.
 	var/hidden_origin_tech
 	/// What is the level of tech for the hidden tech type?
@@ -409,16 +407,6 @@
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
 
 /obj/item/organ/internal/proc/Start()
-	return
-
-/obj/item/organ/internal/proc/try_trigger()
-	if(!next_activation)
-		trigger()
-	else if(next_activation <= world.time)
-		trigger()
-		next_activation = world.time = rand(cooldown_low,cooldown_high)
-
-/obj/item/organ/internal/proc/trigger()
 	return
 
 /obj/item/organ/internal/proc/owner_check()
