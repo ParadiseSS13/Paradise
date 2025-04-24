@@ -1777,6 +1777,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"fw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/pot{
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "fx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2262,13 +2272,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/cooking/stovetop,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ruin/ancientstation/kitchen)
-"gL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6889,10 +6892,18 @@
 /area/ruin/ancientstation/powered)
 "UW" = (
 /obj/structure/table/reinforced,
-/obj/item/paper/fluff/ruins/oldstation/protosuit,
+/obj/item/paper/fluff/ruins/oldstation/protosuit{
+	pixel_x = -12
+	},
 /obj/machinery/door/window/reinforced/normal{
 	name = "prototype display case";
 	req_access = list(301)
+	},
+/obj/item/clothing/neck/link_scryer/loaded/theta{
+	pixel_x = -1
+	},
+/obj/item/clothing/neck/link_scryer/loaded/theta{
+	pixel_x = 12
 	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
@@ -6970,9 +6981,6 @@
 "VR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/cooking/pot{
-	pixel_y = 3
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -9220,7 +9228,7 @@ gs
 Iw
 gG
 gG
-VR
+fw
 gG
 hZ
 ha
@@ -9316,7 +9324,7 @@ gs
 zp
 kx
 gG
-gL
+VR
 gG
 hY
 ha

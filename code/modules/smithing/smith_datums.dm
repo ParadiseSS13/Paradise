@@ -59,7 +59,7 @@
 	/// Explosive armor multiplier
 	var/explosive_armor_mult = 1.0
 	/// Movement speed modifier
-	var/movement_speed_mod = 0
+	var/movement_speed_mod = 1.0
 	/// Heat insulation multiplier
 	var/heat_insulation_mult = 1.0
 	/// Electrical insulation multiplier
