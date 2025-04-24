@@ -119,38 +119,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "abO" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/circuitboard/cloning{
-	pixel_y = 8;
-	pixel_x = -8
-	},
-/obj/item/circuitboard/clonescanner{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/circuitboard/clonepod{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/circuitboard/cryo_tube{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/circuitboard/pandemic{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/bodyscanner{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/obj/item/circuitboard/sleeper{
-	pixel_x = 9;
-	pixel_y = -9
-	},
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/medical,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "acd" = (
@@ -4749,18 +4719,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/rnd_network_controller{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/circuitboard/robotics{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/circuitboard/mecha_control{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/effect/spawner/random/tech_storage/rnd,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "aYw" = (
@@ -11397,17 +11356,10 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/communications{
-	pixel_y = 1;
-	pixel_x = -1
-	},
-/obj/item/circuitboard/card{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/random/tech_storage/comms,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "cmt" = (
@@ -13816,18 +13768,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cLj" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/circuitboard/autolathe{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/circuitboard/ore_redemption{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/supply,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cLk" = (
@@ -14057,14 +13999,11 @@
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
 	},
-/obj/machinery/access_button{
-	autolink_id = "turbine_btn_ext";
-	name = "Gas Turbine Airlock Control";
-	pixel_x = 5;
-	pixel_y = -23
-	},
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/sign/turbine{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
@@ -17050,23 +16989,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "dtL" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/circuitboard/cyborgrecharger{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/mech_bay_power_console,
-/obj/item/circuitboard/mech_recharger{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/mechfab{
-	pixel_y = -6;
-	pixel_x = 6
-	},
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/robotics,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "dtO" = (
@@ -27378,10 +27302,7 @@
 	},
 /area/station/security/permabrig)
 "fvp" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
 	pixel_y = -1
@@ -29750,34 +29671,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/security/aft_port)
 "fSX" = (
-/obj/item/coin/silver{
-	pixel_x = 7;
-	pixel_y = 12
-	},
-/obj/item/coin/silver{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/coin/silver{
-	pixel_x = 4;
-	pixel_y = 8
-	},
-/obj/item/coin/silver{
-	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/coin/silver{
-	pixel_x = 5;
-	pixel_y = -8
-	},
-/obj/structure/closet/crate{
-	name = "Silver Crate"
-	},
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/closet/crate{
+	name = "Silver Crate"
+	},
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "fTd" = (
@@ -53862,19 +53766,8 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
 "kLn" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/circuitboard/teleporter,
-/obj/item/circuitboard/teleporter_hub{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/teleporter_station{
-	pixel_x = 6;
-	pixel_y = -6
-	},
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/teleporter,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "kLu" = (
@@ -65038,18 +64931,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/borgupload{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/circuitboard/aiupload{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/circuitboard/aicore{
-	pixel_x = 5;
-	pixel_y = -5
-	},
+/obj/effect/spawner/random/tech_storage/silicon,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "nak" = (
@@ -74254,26 +74136,11 @@
 	},
 /area/station/maintenance/apmaint)
 "oNo" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/circuitboard/powermonitor{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/stationalert,
-/obj/item/circuitboard/atmos_alert{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/smes{
-	pixel_x = 6;
-	pixel_y = -6
-	},
+/obj/structure/rack,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/random/tech_storage/engineering,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "oNq" = (
@@ -77095,7 +76962,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "poI" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -94199,6 +94066,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
+"sKG" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/service,
+/turf/simulated/floor/plating,
+/area/station/engineering/tech_storage)
 "sKI" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /obj/effect/decal/cleanable/dirt,
@@ -96538,6 +96410,15 @@
 	pixel_x = -8;
 	pixel_y = 24
 	},
+/obj/structure/sign/magboots{
+	pixel_y = -32
+	},
+/obj/machinery/access_button{
+	autolink_id = "turbine_btn_ext";
+	name = "Gas Turbine Airlock Control";
+	pixel_x = -10;
+	pixel_y = -21
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
 "tiW" = (
@@ -97782,10 +97663,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "ttM" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
 	pixel_y = -1
@@ -106814,22 +106692,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
-"vml" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/circuitboard/aifixer{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/message_monitor,
-/obj/item/circuitboard/rnd_backup_console{
-	pixel_y = -3;
-	pixel_x = 3
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/tech_storage)
 "vmm" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
@@ -111688,25 +111550,11 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/prisonershuttle)
 "wiP" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/circuitboard/secure_data{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/circuitboard/camera{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/circuitboard/prisoner{
-	pixel_x = 5;
-	pixel_y = -5
-	},
+/obj/structure/rack,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/spawner/random/tech_storage/security,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "wiU" = (
@@ -113261,7 +113109,7 @@
 	},
 /area/station/service/theatre)
 "wAF" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -113766,21 +113614,13 @@
 /obj/structure/closet/crate{
 	name = "Gold Crate"
 	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_x = -1;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_y = 2
-	},
-/obj/item/stack/sheet/mineral/gold{
-	pixel_x = 1;
-	pixel_y = -2
-	},
 /obj/item/storage/belt/champion,
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "wHO" = (
@@ -113976,27 +113816,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "wKf" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/circuitboard/rdconsole{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/circuitboard/rdserver{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/scientific_analyzer,
-/obj/item/circuitboard/protolathe{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/circuitboard/circuit_imprinter{
-	pixel_y = -6;
-	pixel_x = 6
-	},
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/research,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "wKg" = (
@@ -142606,7 +142427,7 @@ kHZ
 tXi
 dtL
 vpm
-vml
+sKG
 iET
 wYo
 dGm

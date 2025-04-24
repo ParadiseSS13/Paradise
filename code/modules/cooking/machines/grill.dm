@@ -195,6 +195,7 @@
 	board_name = "Charcoal Grill"
 	build_path = /obj/machinery/cooking/grill
 	board_type = "machine"
+	icon_state = "service"
 	origin_tech = list(TECH_BIO = 1)
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,

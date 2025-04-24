@@ -642,7 +642,6 @@
 /datum/ai_program/multimarket_analyser/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
 	..()
 	SSeconomy.pack_price_modifier = original_price_mod * (0.95 - (0.05 * upgrade_level))
-	upgrade_level++
 	installed = TRUE
 
 /datum/ai_program/multimarket_analyser/downgrade(mob/living/silicon/ai/user)
