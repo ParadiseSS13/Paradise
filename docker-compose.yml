@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  tgui-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile.tgui
+    volumes:
+      - server-volume:/server
+    command: ["./tgui/bin/tgui"]
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - server-volume:/server
+    command: ["./tools/ci/run_server.sh"]
+
+volumes:
+  server-volume:

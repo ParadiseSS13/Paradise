@@ -41,9 +41,6 @@ RUN ./tools/ci/setup_od.sh
 
 COPY . .
 
-RUN npm install yarn
-RUN ./tgui/bin/tgui
-
 
 RUN ./tools/ci/run_od.sh
 
