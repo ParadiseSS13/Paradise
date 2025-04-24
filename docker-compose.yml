@@ -1,10 +1,10 @@
 version: '3.8'
 
 services:
-  base-dependencies:
+  dependencies:
     build:
       context: .
-      dockerfile: Dockerfile.base
+      dockerfile: Dockerfile.dependencies
 
   tgui-builder:
     build:
@@ -12,15 +12,24 @@ services:
       dockerfile: Dockerfile.tgui
     volumes:
       - server-volume:/server
-    command: ["./tgui/bin/tgui"]
 
   server:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.server
+    depends_on:
+      - tgui-builder
+      - dependencies
+      - od
     volumes:
       - server-volume:/server
-    command: ["./tools/ci/run_server.sh"]
+
+  od:
+    build:
+      context: .
+      dockerfile: Dockerfile.od
+    volumes:
+      - server-volume:/server
 
 volumes:
   server-volume:

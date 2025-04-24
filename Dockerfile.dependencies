@@ -1,5 +1,8 @@
 FROM node:slim
 
+ENV TZ=Europe/Moscow
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN dpkg --add-architecture i386 && \
     apt-get update && apt-get install -y \
     curl \
@@ -24,13 +27,12 @@ RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel L
 
 WORKDIR /server
 
-
 ENV STABLE_BYOND_MAJOR="514" \
 	STABLE_BYOND_MINOR="1588" \
 	BETA_BYOND_MAJOR="515" \
 	BETA_BYOND_MINOR="1600"
 
-COPY _build_dependencies.sh ./tools/ci/_build_dependencies.sh
+COPY _build_dependencies.sh .
 COPY tools/ci/ ./tools/ci/
 
 RUN ./tools/ci/install_byond.sh && \

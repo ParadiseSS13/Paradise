@@ -1,0 +1,9 @@
+FROM bitnami/dotnet
+
+WORKDIR /server
+
+COPY . .
+
+RUN ./tools/ci/run_od.sh
+
+CMD ["./tools/ci/run_server.sh"]
