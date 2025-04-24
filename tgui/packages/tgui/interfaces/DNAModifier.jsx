@@ -20,8 +20,7 @@ const rejuvenatorsDoses = [5, 10, 20, 30, 50];
 export const DNAModifier = (props) => {
   const { act, data } = useBackend();
   const { irradiating, dnaBlockSize, occupant } = data;
-  context.dnaBlockSize = dnaBlockSize;
-  context.isDNAInvalid = !occupant.isViableSubject || !occupant.uniqueIdentity || !occupant.structuralEnzymes;
+  let isDNAInvalid = !occupant.isViableSubject || !occupant.uniqueIdentity || !occupant.structuralEnzymes;
   let radiatingModal;
   if (irradiating) {
     radiatingModal = <DNAModifierIrradiating duration={irradiating} />;
@@ -33,10 +32,10 @@ export const DNAModifier = (props) => {
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
-            <DNAModifierOccupant />
+            <DNAModifierOccupant isDNAInvalid={isDNAInvalid} />
           </Stack.Item>
           <Stack.Item grow>
-            <DNAModifierMain />
+            <DNAModifierMain dnaBlockSize={dnaBlockSize} />
           </Stack.Item>
         </Stack>
       </Window.Content>
@@ -47,6 +46,7 @@ export const DNAModifier = (props) => {
 const DNAModifierOccupant = (props) => {
   const { act, data } = useBackend();
   const { locked, hasOccupant, occupant } = data;
+  const { isDNAInvalid } = props;
   return (
     <Section
       title="Occupant"
@@ -94,7 +94,7 @@ const DNAModifierOccupant = (props) => {
               <LabeledList.Divider />
             </LabeledList>
           </Box>
-          {context.isDNAInvalid ? (
+          {isDNAInvalid ? (
             <Box color="bad">
               <Icon name="exclamation-circle" />
               &nbsp; The occupant&apos;s DNA structure is ruined beyond recognition, please insert a subject with an
@@ -128,6 +128,8 @@ const DNAModifierOccupant = (props) => {
 const DNAModifierMain = (props) => {
   const { act, data } = useBackend();
   const { selectedMenuKey, hasOccupant, occupant } = data;
+  const { dnaBlockSize, isDNAInvalid } = props;
+
   if (!hasOccupant) {
     return (
       <Section fill>
@@ -140,7 +142,7 @@ const DNAModifierMain = (props) => {
         </Stack>
       </Section>
     );
-  } else if (context.isDNAInvalid) {
+  } else if (isDNAInvalid) {
     return (
       <Section fill>
         <Stack fill>
@@ -157,14 +159,14 @@ const DNAModifierMain = (props) => {
   if (selectedMenuKey === 'ui') {
     body = (
       <>
-        <DNAModifierMainUI />
+        <DNAModifierMainUI dnaBlockSize={dnaBlockSize} />
         <DNAModifierMainRadiationEmitter />
       </>
     );
   } else if (selectedMenuKey === 'se') {
     body = (
       <>
-        <DNAModifierMainSE />
+        <DNAModifierMainSE dnaBlockSize={dnaBlockSize} />
         <DNAModifierMainRadiationEmitter />
       </>
     );
@@ -195,13 +197,14 @@ const DNAModifierMain = (props) => {
 const DNAModifierMainUI = (props) => {
   const { act, data } = useBackend();
   const { selectedUIBlock, selectedUISubBlock, selectedUITarget, occupant } = data;
+  const { dnaBlockSize } = props;
   return (
     <Section title="Modify Unique Identifier">
       <DNAModifierBlocks
         dnaString={occupant.uniqueIdentity}
         selectedBlock={selectedUIBlock}
         selectedSubblock={selectedUISubBlock}
-        blockSize={context.dnaBlockSize}
+        blockSize={dnaBlockSize}
         action="selectUIBlock"
       />
       <LabeledList>
@@ -225,13 +228,14 @@ const DNAModifierMainUI = (props) => {
 const DNAModifierMainSE = (props) => {
   const { act, data } = useBackend();
   const { selectedSEBlock, selectedSESubBlock, occupant } = data;
+  const { dnaBlockSize } = props;
   return (
     <Section title="Modify Structural Enzymes">
       <DNAModifierBlocks
         dnaString={occupant.structuralEnzymes}
         selectedBlock={selectedSEBlock}
         selectedSubblock={selectedSESubBlock}
-        blockSize={context.dnaBlockSize}
+        blockSize={dnaBlockSize}
         action="selectSEBlock"
       />
       <Button icon="radiation" content="Irradiate Block" onClick={() => act('pulseSERadiation')} />
