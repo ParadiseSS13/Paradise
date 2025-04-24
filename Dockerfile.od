@@ -3,4 +3,4 @@ FROM bitnami/dotnet
 WORKDIR /server
 COPY . .
 RUN ./tools/ci/setup_od.sh
-CMD ["./tools/ci/run_od.sh"]
+RUN ./tools/ci/run_od.sh

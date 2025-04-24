@@ -1,15 +1,7 @@
-node_modules
-*.log
-*.tmp
-*.cache
 .DS_Store
-
-build/
-dist/
-
-*.iso
-*.tar
 *.zip
 
 .git
 .vscode
+
+Dockerfile.*
