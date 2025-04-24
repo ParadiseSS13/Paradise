@@ -107,7 +107,7 @@
 	return ..()
 
 /obj/item/gun/energy/disabler/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to shirk [user.p_their()] responsibilities!</span>")
+	user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth. It looks like [user.p_theyre()] trying to shirk [user.p_their()] responsibilities!</span>")
 	sleep(25)
 	if(user.is_holding(src))
 		if(can_shoot())
