@@ -14,13 +14,17 @@ RUN apt-get update && apt-get install -y \
     cargo \
     && rm -rf /var/lib/apt/lists/*
 
-COPY tools/ci/install_byond.sh /usr/local/bin/install_byond.sh
-COPY _build_dependencies.sh /usr/local/bin/_build_dependencies.sh
-COPY Dockerfile.env /usr/local/bin/Dockerfile.env
+RUN dpkg --add-architecture i386 && \
+    apt-get update && apt-get install -y \
+    libc6:i386 libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386 \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN chmod +x /usr/local/bin/install_byond.sh && \
-	. /usr/local/bin/Dockerfile.env && \
-	/usr/local/bin/install_byond.sh
+COPY Dockerfile.env /usr/local/bin/Dockerfile.env
+RUN . /usr/local/bin/Dockerfile.env
+
+COPY tools/ci/ /usr/local/bin/
+COPY _build_dependencies.sh /usr/local/bin/_build_dependencies.sh
+RUN /usr/local/bin/install_byond.sh
 
 WORKDIR /server
 COPY . /server
@@ -28,8 +32,7 @@ COPY . /server
 RUN . $HOME/BYOND/byond/bin/byondsetup
 RUN npm install yarn
 RUN ./tgui/bin/tgui --ci
-run echo $PATH
 
 RUN DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
-CMD ["DreamDaemon", "paradise.dmb", "-port", "1337", "-trusted"]
+CMD ["/usr/local/bin/run_server.sh"]
