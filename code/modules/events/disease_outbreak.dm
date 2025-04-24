@@ -46,9 +46,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 
 /datum/event/disease_outbreak/announce()
 	if(severity >= EVENT_LEVEL_MAJOR)
-		GLOB.major_announcement.Announce("Confirmed outbreak of level 7 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak7.ogg')
+		GLOB.major_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak5.ogg')
 	else
-		GLOB.minor_announcement.Announce("Confirmed outbreak of level [severity * 2 - 1] biohazard aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Biohazard Alert")
+		GLOB.minor_announcement.Announce("Confirmed outbreak of level [8 - severity] biohazard aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Biohazard Alert")
 	// We did our announcement, the event no longer needs to run
 	kill()
 
