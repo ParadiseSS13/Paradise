@@ -43,7 +43,7 @@
 /obj/item/slime_extract/gold
 	name = "gold slime extract"
 	icon_state = "gold slime extract"
-	associated_gun_type = /obj/item/gun/energy/laser/scatter
+	associated_gun_type = /obj/item/gun/energy/gun/shotgun
 
 /obj/item/slime_extract/silver
 	name = "silver slime extract"
