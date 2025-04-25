@@ -25848,18 +25848,6 @@
 "dCV" = (
 /turf/simulated/wall,
 /area/station/maintenance/disposal/west)
-"dCX" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/t_scanner,
-/obj/item/multitool,
-/obj/machinery/requests_console/directional/west,
-/turf/simulated/floor/plating,
-/area/station/engineering/tech_storage)
 "dDe" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -43233,6 +43221,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
+"hUq" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/tech_storage/service,
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plating,
+/area/station/engineering/tech_storage)
 "hUw" = (
 /obj/structure/chair/comfy/beige{
 	dir = 4
@@ -43831,10 +43825,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
 "iaV" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -52217,10 +52208,7 @@
 	},
 /area/station/hallway/primary/aft/west)
 "jTo" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/robotics,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -59525,10 +59513,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "lCO" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/engineering,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -63058,10 +63043,13 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "mux" = (
-/obj/structure/table,
-/obj/machinery/cell_charger{
-	pixel_y = 5
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = -1
 	},
+/obj/item/multitool,
+/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "muF" = (
@@ -72208,11 +72196,9 @@
 	},
 /area/station/science/toxins/mixing)
 "oJk" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/medical,
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "oJn" = (
@@ -86832,17 +86818,6 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
-"shZ" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/multitool,
-/obj/item/clothing/glasses/meson,
-/obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plating,
-/area/station/engineering/tech_storage)
 "sif" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -88026,6 +88001,9 @@
 "swI" = (
 /obj/structure/table,
 /obj/item/multitool,
+/obj/machinery/cell_charger{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "swL" = (
@@ -92310,10 +92288,7 @@
 	},
 /area/station/maintenance/apmaint)
 "twu" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/research,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -102449,10 +102424,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "vQV" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/machinery/firealarm/directional/east,
 /obj/effect/spawner/random/tech_storage/teleporter,
 /turf/simulated/floor/plating,
@@ -104305,6 +104277,17 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/ai_upload)
+"wpd" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = -1
+	},
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/t_scanner,
+/obj/item/multitool,
+/turf/simulated/floor/plating,
+/area/station/engineering/tech_storage)
 "wph" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -104951,10 +104934,7 @@
 	},
 /area/station/command/bridge)
 "wvy" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -148229,7 +148209,7 @@ eDx
 swI
 dkQ
 drq
-baR
+jTo
 oJk
 wvy
 lCO
@@ -148486,7 +148466,7 @@ aDv
 dqp
 dqp
 dqp
-dCX
+dqp
 dqp
 dqp
 kok
@@ -148740,7 +148720,7 @@ aXD
 xbO
 xbO
 aDv
-jTo
+wpd
 dqF
 drr
 rji
@@ -149000,7 +148980,7 @@ aDv
 mux
 dqI
 nKD
-shZ
+dqp
 dqp
 dqp
 dqp
@@ -149257,7 +149237,7 @@ eDx
 cSf
 dqI
 dyM
-baR
+hUq
 twu
 iaV
 vQV
