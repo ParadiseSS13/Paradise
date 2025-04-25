@@ -487,7 +487,7 @@
 		else
 			organ_progress = 1
 			say("All done!", speak_emote)
-			var/obj/item/organ/internal/finished_organ = new holding_organ.true_organ(src.loc)
+			var/obj/item/organ/internal/finished_organ = new holding_organ.true_organ_type(src.loc)
 			finished_organ.organ_quality = holding_organ.unknown_quality
 			finished_organ.icon_state = holding_organ.icon_state
 			if(finished_organ.organ_quality != ORGAN_NORMAL)

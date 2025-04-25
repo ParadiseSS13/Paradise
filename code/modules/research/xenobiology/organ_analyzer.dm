@@ -142,8 +142,9 @@
 		quality_modifier = 2
 	if(contains_organ.organ_quality == ORGAN_DAMAGED)
 		quality_modifier = 0.5
-	station_db.credit_account(account, round((contains_organ.analyzer_price * reward_coeff) * quality_modifier), "Organ Analyzation Subsidy", "Xenobiology Organ Analyzer", FALSE)
-
+	var/final_value = round((contains_organ.analyzer_price * reward_coeff) * quality_modifier)
+	station_db.credit_account(account, final_value, "Organ Analyzation Subsidy", "Xenobiology Organ Analyzer", FALSE)
+	SSblackbox.record_feedback("amount", "Organ_Analyzer_Revenue", final_value)
 	qdel(contains_organ)
 	contains_organ = null
 	update_appearance(UPDATE_OVERLAYS)

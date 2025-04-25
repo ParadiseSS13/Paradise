@@ -939,11 +939,10 @@
 				playsound(src,  current_step.success_sound, 50, TRUE, -1)
 				if(current_dissection_step > max_dissection_steps)
 					var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(src.loc)
-					new_organ.true_organ = pick(xeno_organ_results)
+					new_organ.true_organ_type = pick(xeno_organ_results)
 					new_organ.unknown_quality = pick_quality(I, current_step)
 					xeno_organ_results = null
-					SSblackbox.record_feedback("tally", "xeno_organ_type", 1, new_organ.true_organ)
-					SSblackbox.record_feedback("tally", "organ_quality", 1, new_organ.unknown_quality)
+					SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[new_organ.true_organ_type]", new_organ.unknown_quality))
 			return TRUE
 
 

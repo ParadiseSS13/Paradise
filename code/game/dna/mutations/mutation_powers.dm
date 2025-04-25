@@ -364,6 +364,18 @@
 	..()
 	block = GLOB.eatblock
 
+// if they have a hungry organ, GONE! CURED!
+/datum/mutation/grant_spell/mattereater/deactivate(mob/living/M)
+	. = ..()
+	if(ishuman(M))
+	var/mob/living/carbon/human/H = M
+	var/obj/item/organ/internal/liver/xenobiology/hungry/O = H.get_int_organ(/obj/item/organ/internal/liver/xenobiology/hungry)
+	if(O)
+		O.remove(H)
+		qdel(O)
+		var/obj/item/organ/internal/liver/L = new /obj/item/organ/internal/liver
+		L.insert(H)
+
 /datum/spell/eat
 	name = "Eat"
 	desc = "Eat just about anything!"

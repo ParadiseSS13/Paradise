@@ -142,7 +142,10 @@
 			output_color = "#b826b3"
 		else
 			symbol = null
-
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(HAS_TRAIT(H, TRAIT_LOUD))
+			size = "big"
 	// Approximate text height
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
 	var/complete_text = "<span class='center maptext[size ? " [size]" : ""]' style='[italics ? "font-style: italic; " : ""]color: [output_color]'>[symbol][text]</span>"

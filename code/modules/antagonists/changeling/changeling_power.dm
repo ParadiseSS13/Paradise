@@ -54,7 +54,8 @@
 		return
 	if(sting_action(user, target))
 		sting_feedback(user, target)
-		take_chemical_cost()
+		if(chemical_cost)
+			take_chemical_cost()
 
 /datum/action/changeling/proc/sting_action(mob/user, mob/target)
 	return FALSE
@@ -71,18 +72,19 @@
 	if(req_human && (!ishuman(user) || issmall(user)))
 		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
 		return FALSE
-	if(cling.chem_charges < chemical_cost)
-		to_chat(user, "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>")
-		return FALSE
-	if(cling.absorbed_count < req_dna)
-		to_chat(user, "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>")
-		return FALSE
 	if(req_stat < user.stat)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return FALSE
+	if(/datum/antagonist/changeling in user.mind.antag_datums)
+		if(cling.chem_charges < chemical_cost)
+			to_chat(user, "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>")
+			return FALSE
+		if(cling.absorbed_count < req_dna)
+			to_chat(user, "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>")
+			return FALSE
 	return TRUE
 
 // Transform the target to the chosen dna. Used in transform.dm and tiny_prick.dm (handy for changes since it's the same thing done twice)
