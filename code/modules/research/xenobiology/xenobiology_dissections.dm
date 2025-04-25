@@ -468,7 +468,6 @@
 /datum/spell/absorb_blood
 	name = "Call to Blood"
 	desc = "Draw upon dark energies to absorb nearby blood, healing you in the process."
-	base_cooldown = 3 MINUTES
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
@@ -524,13 +523,79 @@
 	. = ..()
 	if(/datum/mutation/grant_spell/mattereater in M.active_mutations)
 		return
+	else
+		M.AddSpell(new /datum/spell/eat)
+
 
 /obj/item/organ/internal/liver/xenobiology/hungry/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(/datum/mutation/grant_spell/mattereater in M.active_mutations)
 		return
+	else
+		M.RemoveSpell(/datum/spell/eat)
 
+/obj/item/organ/internal/appendix/xenobiology/tendril
+	name = "Writhing Tendrils"
+	desc = "This organ squirming and writhes "
+	analyzer_price = 20
 
+/obj/item/organ/internal/appendix/xenobiology/tendril/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	var/datum/spell/tendril_grab/spell = new /datum/spell/tendril_grab
+	spell.quality = organ_quality
+	if(organ_quality == ORGAN_DAMAGED)
+		spell.base_cooldown = 45 SECONDS
+	M.AddSpell(spell)
 
+/obj/item/organ/internal/appendix/xenobiology/tendril/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	M.RemoveSpell(/datum/spell/tendril_grab)
 
+/datum/spell/tendril_grab
+	name = "Prehensile Tendril"
+	desc = "Extend out your prehensile appendage to grab at an item."
+	base_cooldown = 30 SECONDS
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
+	action_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	action_icon_state = "Goliath_tentacle_stationary"
+	action_background_icon_state = "bg_default"
+	sound = null
+	active = FALSE
+	var/quality
 
+/datum/spell/tendril_grab/create_new_targeting(list/targets, mob/living/user)
+	. = ..()
+	var/datum/spell_targeting/clicked_atom/external/C = new()
+	C.range = 20
+	return C
+
+/datum/spell/tendril_grab/cast(list/targets, mob/user)
+	. = ..()
+	var/atom/target = targets[1] //There is only ever one target
+	new /obj/effect/temp_visual/goliath_flick(target, quality, user)
+
+/obj/effect/temp_visual/goliath_flick
+	name = "Writhing Tendril"
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "Goliath_tentacle_spawn"
+	layer = BELOW_MOB_LAYER
+	var/quality = ORGAN_NORMAL
+
+/obj/effect/temp_visual/goliath_flick/Initialize(mapload, atom/target, organ_quality, mob/user)
+	. = ..()
+	quality = organ_quality
+	timerid = addtimer(CALLBACK(src, PROC_REF(retract), target, user), 7)
+
+/obj/effect/temp_visual/goliath_flick/proc/retract(atom/target, mob/user)
+	icon_state = "Goliath_tentacle_retract"
+	timerid = QDEL_IN(src, 7)
+	if(target.loc == src.loc)
+		if(isliving(target) && quality == ORGAN_PRISTINE)
+			var/mob/living/M = target
+			M.adjustBruteLoss(10)
+		else if(istype(target, /atom/movable))
+			var/atom/movable/T = target
+			var/dist = get_dist(user.loc, target.loc)
+			T.throw_at(user, dist - 1, 1, user, spin = FALSE)
