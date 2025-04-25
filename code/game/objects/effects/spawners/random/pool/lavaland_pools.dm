@@ -90,15 +90,18 @@
 	if(!okay_area || !okay_turf)
 		return FALSE
 
-	for(var/thing in urange(fauna_scan_range, T))
+	for(var/thing in urange(fauna_scan_range, T, areas = TRUE))
 		// avoid spawning a megafauna if there's another one within the scan range
 		if(ismegafauna(thing) && get_dist(T, thing) <= megafauna_scan_range)
 			return FALSE
-
-	for(var/area/E in urange(ghost_ruin_scan_range, T, areas = TRUE))
 		// avoid spawning a megafauna if it's too close to a ghost spawn
-		if(istype(E, /area/ruin/powered/safe) || istype(E, /area/shuttle/freegolem))
+		if(istype(thing, /area/ruin/powered/safe) || istype(thing, /area/shuttle/freegolem))
 			return FALSE
+
+	// for(var/area/E in urange(ghost_ruin_scan_range, T, areas = TRUE))
+	// 	// avoid spawning a megafauna if it's too close to a ghost spawn
+	// 	if(istype(E, /area/ruin/powered/safe) || istype(E, /area/shuttle/freegolem))
+	// 		return FALSE
 
 	return ..()
 
