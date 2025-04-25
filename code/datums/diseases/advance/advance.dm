@@ -115,6 +115,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /// Randomly mutate the disease
 /datum/disease/advance/after_infect()
 	if(prob(evolution_chance))
+		if(src.affected_mob.client)
+			SSblackbox.record_feedback("tally", "Advanced Disease", 1, "Spontanous Evolution")
 		var/min = rand(1, 6)
 		var/max = rand(min, 6)
 		var/lastStrain = strain
