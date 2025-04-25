@@ -55,6 +55,7 @@
 		/obj/item/gun/energy/immolator = 5,
 		/obj/item/gun/projectile/automatic/lasercarbine = 5,
 		/obj/item/ammo_box/magazine/laser/ert = 10,
+		/obj/item/gun/energy/gun/shotgun = 5,
 		/obj/item/gun/projectile/automatic/wt550 = 5,
 		/obj/item/ammo_box/magazine/wt550m9 = 10,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 5,
