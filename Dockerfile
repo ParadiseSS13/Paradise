@@ -1,37 +1,21 @@
-FROM ubuntu:latest AS base
-WORKDIR /server
-COPY . .
-
 FROM node:slim AS tgui
-WORKDIR /server/tgui
-COPY --from=base /server/tgui /server/tgui
+WORKDIR /tgui
+COPY /tgui /tgui
 RUN bin/tgui
 
 FROM bitnami/dotnet AS dme
 WORKDIR /server
-COPY --from=base /server /server
+COPY . /server
 RUN wget https://github.com/OpenDreamProject/OpenDream/releases/download/latest/DMCompiler_linux-x64.tar.gz && \
 	tar -xf DMCompiler_linux-x64.tar.gz
 RUN dotnet DMCompiler_linux-x64/DMCompiler.dll --suppress-unimplemented --version=515.1633 paradise.dme
 
-FROM debian:11-slim AS byond
-RUN dpkg --add-architecture i386 && \
-	apt-get update && apt-get install -y \
+FROM ubuntu:latest AS byond
+RUN apt-get update && apt-get install -y \
 	curl \
 	wget \
-	git \
 	unzip \
 	make \
-	python3 \
-	python3-pip \
-	rustc \
-	cargo \
-	libc6:i386 \
-	libstdc++6:i386 \
-	libgcc1:i386 \
-	zlib1g:i386 \
-	libncurses5:i386 \
-	apt-transport-https \
 	&& rm -rf /var/lib/apt/lists/*
 ENV TARGET_MAJOR="515" \
 	TARGET_MINOR="1633" \
@@ -39,21 +23,29 @@ ENV TARGET_MAJOR="515" \
 	NODE_VERSION="20" \
 	PYTHON_VERSION="3.11.6" \
 	RUSTG_VERSION="v3.4.0-P"
-WORKDIR /server/byond
+WORKDIR /byond
 RUN curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${TARGET_MINOR}_byond_linux.zip" -o byond.zip && \
 	unzip byond.zip && \
 	mv byond/* . && \
 	rmdir byond && \
 	rm byond.zip
 RUN make here && \
-	. bin/byondsetup && \
 	echo "$TARGET_MAJOR.$TARGET_MINOR" > "version.txt"
 
 FROM ubuntu:latest
+RUN dpkg --add-architecture i386 && \
+	apt-get update && apt-get install -y \
+	libc6:i386 \
+	libstdc++6:i386 \
+	libgcc1:i386 \
+	zlib1g:i386 \
+	libncurses5:i386 \
+	apt-transport-https \
+	&& rm -rf /var/lib/apt/lists/*
 WORKDIR /server
-COPY --from=base /server /server
-COPY --from=tgui /server/tgui /server/tgui
-COPY --from=byond /server/byond /server/byond
-COPY --from=dme /server/paradise.dme /server/paradise.dme
+COPY --from=dme /server /server
+COPY --from=byond /byond /server/byond
+COPY --from=tgui /tgui /server/tgui
 RUN . byond/bin/byondsetup
+RUN DreamDaemon paradise.dmb -close -trusted -verbose
 EXPOSE 8975
