@@ -153,7 +153,7 @@ RESTRICT_TYPE(/datum/job_selector)
 		if(!job)
 			continue
 		var/list/candidates = find_job_candidates(job, level)
-		if(!candidates.len)
+		if(!length(candidates))
 			continue
 		var/datum/job_candidate/candidate = pick(candidates)
 		assign_role(candidate, job)
@@ -171,7 +171,7 @@ RESTRICT_TYPE(/datum/job_selector)
 		for(var/level = 1 to 3)
 			var/list/candidates = list()
 			candidates = find_job_candidates(job, level)
-			if(candidates.len)
+			if(length(candidates))
 				var/mob/new_player/candidate = pick(candidates)
 				if(assign_role(candidate, "AI"))
 					ai_selected++
@@ -308,7 +308,8 @@ RESTRICT_TYPE(/datum/job_selector)
 				medium++
 			else if(candidate.wants_job(job, 3))
 				low++
-			else never++ //not selected
+			else 
+				never++ //not selected
 
 		SSblackbox.record_feedback("nested tally", "job_preferences", high, list("[job.title]", "high"))
 		SSblackbox.record_feedback("nested tally", "job_preferences", medium, list("[job.title]", "medium"))

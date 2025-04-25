@@ -51,7 +51,7 @@ RESTRICT_TYPE(/datum/job_candidate)
 /datum/job_candidate/Destroy(force, ...)
 	active_character = null
 	jbh = null
-	. = ..()
+	return ..()
 
 /datum/job_candidate/proc/to_string()
 	return real_ckey ? real_ckey : "(simulated) [active_character.real_name]"
