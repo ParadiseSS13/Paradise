@@ -8,30 +8,38 @@
 	var/material_mult = 1.0
 	/// How much extra work is needed to produce this quality?
 	var/work_mult = 1.0
+	/// Is this quality valid for secondary goals?
+	var/secondary_goal_candidate = TRUE
+	/// How much is this secondary goal worth?
+	var/secondary_goal_difficulty = SMITH_GOAL_EASY
 
 /datum/smith_quality/improved
 	name = "improved"
 	stat_mult = 1.25
 	material_mult = 1.5
 	work_mult = 2.0
+	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
 
 /datum/smith_quality/enhanced
 	name = "enhanced"
 	stat_mult = 1.5
 	material_mult = 2.0
 	work_mult = 3.0
+	secondary_goal_difficulty = SMITH_GOAL_HARD
 
 /datum/smith_quality/superior
 	name = "superior"
 	stat_mult = 1.75
 	material_mult = 3.0
 	work_mult = 4.5
+	secondary_goal_candidate = FALSE
 
 /datum/smith_quality/masterwork
 	name = "masterwork"
 	stat_mult = 2.0
 	material_mult = 4.0
 	work_mult = 6.0
+	secondary_goal_candidate = FALSE
 
 // Materials
 
@@ -51,7 +59,7 @@
 	/// Explosive armor multiplier
 	var/explosive_armor_mult = 1.0
 	/// Movement speed modifier
-	var/movement_speed_mod = 0
+	var/movement_speed_mod = 1.0
 	/// Heat insulation multiplier
 	var/heat_insulation_mult = 1.0
 	/// Electrical insulation multiplier
@@ -74,6 +82,10 @@
 	var/fire_rate_multiplier = 1.0
 	/// Multiplier for tool uses and lens uses.
 	var/durability_mult = 1.0
+	/// Is this material valid for secondary goals?
+	var/secondary_goal_candidate = FALSE
+	/// How much is this secondary goal worth?
+	var/secondary_goal_difficulty
 
 /datum/smith_material/metal
 	name = "metal"
@@ -85,6 +97,8 @@
 	tool_failure_mult = MINOR_MATERIAL_BUFF
 	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
 	durability_mult = MINOR_MATERIAL_BUFF
+	secondary_goal_candidate = TRUE
+	secondary_goal_difficulty = SMITH_GOAL_EASY
 
 /datum/smith_material/silver
 	name = "silver"
@@ -94,6 +108,8 @@
 	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	power_draw_mult = MINOR_MATERIAL_DEBUFF
 	projectile_damage_multiplier = MINOR_MATERIAL_DEBUFF
+	secondary_goal_candidate = TRUE
+	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
 
 /datum/smith_material/gold
 	name = "gold"
@@ -107,6 +123,8 @@
 	size_mod = 1
 	fire_rate_multiplier = MINOR_MATERIAL_BUFF
 	durability_mult = MINOR_MATERIAL_DEBUFF
+	secondary_goal_candidate = TRUE
+	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
 
 /datum/smith_material/plasma
 	name = "plasma"
@@ -116,6 +134,8 @@
 	tool_speed_mult = MINOR_MATERIAL_BUFF
 	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
 	durability_mult = MINOR_MATERIAL_DEBUFF
+	secondary_goal_candidate = TRUE
+	secondary_goal_difficulty = SMITH_GOAL_EASY
 
 /datum/smith_material/titanium
 	name = "titanium"
@@ -128,6 +148,8 @@
 	projectile_speed_mult = MINOR_MATERIAL_BUFF
 	power_draw_mult = MINOR_MATERIAL_DEBUFF
 	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
+	secondary_goal_candidate = TRUE
+	secondary_goal_difficulty = SMITH_GOAL_EASY
 
 /datum/smith_material/uranium
 	name = "uranium"
@@ -144,6 +166,8 @@
 	power_draw_mult = MINOR_MATERIAL_DEBUFF
 	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
 	durability_mult = MINOR_MATERIAL_BUFF
+	secondary_goal_candidate = TRUE
+	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
 	/// Radioactive, woah
 	var/radiation_amount = 15
 
@@ -182,6 +206,8 @@
 	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
 	fire_rate_multiplier = MINOR_MATERIAL_BUFF
 	durability_mult = MAJOR_MATERIAL_BUFF
+	secondary_goal_candidate = TRUE
+	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
 
 /datum/smith_material/plastitanium
 	name = "plastitanium"
@@ -198,6 +224,8 @@
 	power_draw_mult = MAJOR_MATERIAL_BUFF
 	fire_rate_multiplier = MINOR_MATERIAL_BUFF
 	durability_mult = MAJOR_MATERIAL_BUFF
+	secondary_goal_candidate = TRUE
+	secondary_goal_difficulty = SMITH_GOAL_HARD
 
 /datum/smith_material/iridium
 	name = "iridium"
@@ -260,6 +288,8 @@
 	power_draw_mult = MAJOR_MATERIAL_DEBUFF
 	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
 	durability_mult = MINOR_MATERIAL_DEBUFF
+	secondary_goal_candidate = TRUE
+	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
 
 #undef MAJOR_MATERIAL_BUFF
 #undef MINOR_MATERIAL_BUFF

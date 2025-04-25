@@ -252,9 +252,11 @@
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
 		if(!just_sleeping)
-			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
-			if(get_int_organ(/obj/item/organ/internal/brain) && !key)
-				if(!get_ghost())
+			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive"
+			if(get_int_organ(/obj/item/organ/internal/brain) && !client) // body has no online player inside - let's look for ghost
+				if(!check_ghost_client()) // our ghost is offline or no ghost attached to body
+					msg += "; there are no signs of life"
+				if(!get_ghost() && !key) // no ghost attached to body
 					msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
 

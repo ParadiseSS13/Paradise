@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/storage
 	name = "storage furniture spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "shelf"
 	layer = BELOW_OBJ_LAYER
 	loot = list(
