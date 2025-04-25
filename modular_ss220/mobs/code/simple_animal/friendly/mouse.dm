@@ -184,7 +184,7 @@
 
 	if(istype(F, /obj/item/food/sliced/cheesewedge) || istype(F, /obj/item/food/sliceable/cheesewheel))
 		Druggy(2 SECONDS)
-		emote(pick("дёргается","быстро вертит хвостиком","издаёт продолжительный писк"))
+		custom_emote(EMOTE_VISIBLE, pick("дёргается.", "быстро вертит хвостиком.", "издаёт продолжительный писк."))
 
 	if(nutriment > bitesize)
 		F.reagents.remove_reagent("nutriment", bitesize, TRUE)
