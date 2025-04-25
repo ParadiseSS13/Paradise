@@ -1,0 +1,38 @@
+FROM debian:11-slim
+
+RUN dpkg --add-architecture i386 && \
+    apt-get update && apt-get install -y \
+    curl \
+	wget \
+    git \
+    unzip \
+    make \
+    python3 \
+    python3-pip \
+    rustc \
+    cargo \
+    libc6:i386 \
+    libstdc++6:i386 \
+    libgcc1:i386 \
+    zlib1g:i386 \
+    libncurses5:i386 \
+    apt-transport-https \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV TARGET_MAJOR="515" \
+	TARGET_MINOR="1633" \
+	SPACEMANDMM_TAG="suite-1.9" \
+	NODE_VERSION="20" \
+	PYTHON_VERSION="3.11.6" \
+	RUSTG_VERSION="v3.4.0-P"
+
+WORKDIR /server/byond
+
+RUN curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${TARGET_MINOR}_byond_linux.zip" -o byond.zip && \
+	unzip byond.zip && \
+	mv byond/* . && \
+	rmdir byond && \
+	rm byond.zip
+RUN make here && \
+	. bin/byondsetup && \
+	echo "$TARGET_MAJOR.$TARGET_MINOR" > "version.txt"

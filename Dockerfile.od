@@ -1,7 +1,0 @@
-FROM bitnami/dotnet
-
-WORKDIR /server
-COPY . .
-VOLUME ["/server"]
-RUN ./tools/ci/setup_od.sh
-RUN ./tools/ci/run_od.sh

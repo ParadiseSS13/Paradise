@@ -1,10 +1,7 @@
 FROM node:slim
 
-WORKDIR /server
-VOLUME ["/server"]
-RUN npm install yarn
+WORKDIR /server/builded_tgui
 
-COPY tgui ./tgui
-RUN ./tgui/bin/tgui
-
-CMD ["true"]
+COPY tgui .
+# RUN npm install yarn
+# RUN bin/tgui

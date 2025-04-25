@@ -1,36 +1,39 @@
 services:
-  dependencies:
+  byond:
     build:
-      dockerfile: Dockerfile.dependencies
+      dockerfile: Dockerfile.byond
     volumes:
-      - server-volume
-  tgui-builder:
+      - server:/server
+  tgui:
     build:
       dockerfile: Dockerfile.tgui
     volumes:
-      - server-volume
-  od:
+      - server:/server
+  dme:
     build:
-      dockerfile: Dockerfile.od
+      dockerfile: Dockerfile.dme
     volumes:
-      - server-volume
+      - server:/server
+    depends_on:
+      - byond
   server:
     build:
       dockerfile: Dockerfile.server
     depends_on:
-      - tgui-builder
-      - dependencies
-      - od
+      # - tgui
+      - byond
+      - dme
     ports:
-      - "5000:5000"
-    command: ./tools/ci/run_server.sh
+      - "8975:8975"
+    command: sleep 100000
+    # command: DreamDaemon paradise.dmb -close -trusted -verbose
     volumes:
-      - server-volume
+      - server:/server
 
 volumes:
-  server-volume:
+  server:
     driver: local
     driver_opts:
       type: none
-      device: /Users/andrew/stuff/server/Paradise
+      device: /Users/andrew/stuff/server/Paradise/tmp/server
       o: bind
