@@ -27,6 +27,7 @@
 
 	var/fauna_scan_range = 12
 	var/megafauna_scan_range = 12
+	var/ghost_ruin_scan_range = 12
 	var/turf/mining_base_gps
 
 	loot = list(
@@ -92,6 +93,11 @@
 	for(var/thing in urange(fauna_scan_range, T))
 		// avoid spawning a megafauna if there's another one within the scan range
 		if(ismegafauna(thing) && get_dist(T, thing) <= megafauna_scan_range)
+			return FALSE
+
+	for(var/area/E in urange(ghost_ruin_scan_range, T, areas = TRUE))
+		// avoid spawning a megafauna if it's too close to a ghost spawn
+		if(istype(E, /area/ruin/powered/safe) || istype(E, /area/shuttle/freegolem))
 			return FALSE
 
 	return ..()

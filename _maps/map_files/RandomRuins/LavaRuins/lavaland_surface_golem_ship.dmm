@@ -116,7 +116,7 @@
 "A" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/golem_ship)
+/area/ruin/powered/safe/golem_ship)
 "B" = (
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
@@ -266,7 +266,7 @@
 /obj/machinery/computer/shuttle/golem_ship/recall,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/golem_ship)
+/area/ruin/powered/safe/golem_ship)
 
 (1,1,1) = {"
 a
