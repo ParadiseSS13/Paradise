@@ -482,6 +482,17 @@
 	image_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
 	image_icon_state = "target_box"
 
+/obj/effect/temp_visual/ai_pointer
+	duration = 4 SECONDS
+	randomdir = FALSE
+	icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
+	icon_state = "target_circle"
+
+/obj/effect/temp_visual/ai_sealant
+	duration = 10 SECONDS
+	randomdir = FALSE
+	icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
+	icon_state = "target_box"
 
 /obj/effect/temp_visual/obliteration
 	duration = 2 SECONDS

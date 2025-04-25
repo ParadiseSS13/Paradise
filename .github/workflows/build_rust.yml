@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: create_token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
@@ -65,7 +65,6 @@ jobs:
           git pull origin "$PR_BRANCH" --depth=$((ahead_by + 1))
           git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
           git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
-          cd rust
 
           # Get dependencies.
           rustup target add i686-unknown-linux-gnu
@@ -74,18 +73,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install zlib1g-dev:i386 lib32gcc-13-dev mingw-w64 mingw-w64-i686-dev
 
-          # Build it.
-          cargo build --release --target i686-unknown-linux-gnu
-          cargo build --release --target i686-pc-windows-gnu
+          # Run the build
+          tools/ci/build_all_rustlibs.sh
 
-          # Copy the built targets to their checked-in locations.
-          cp target/i686-unknown-linux-gnu/release/librustlibs.so ../tools/ci/librustlibs_ci.so
-          cp target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs.dll
-
-          # Build the para-specific version
-          RUSTFLAGS='-C target-cpu=znver5' cargo build --release --target=i686-pc-windows-gnu
-          cp target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs_prod.dll
-
+          # And commit
           git commit -a -m "Build Rust library" --allow-empty
           git push origin
 

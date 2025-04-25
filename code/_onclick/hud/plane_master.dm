@@ -142,6 +142,7 @@
 
 /atom/movable/screen/plane_master/exposure/backdrop(mob/mymob)
 	remove_filter("blur_exposure")
+	alpha = 0
 	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
 		return
 	var/enabled = mymob?.client?.prefs?.light & LIGHT_EXPOSURE
@@ -149,8 +150,6 @@
 	if(enabled)
 		alpha = 255
 		add_filter("blur_exposure", 1, gauss_blur_filter(size = 20)) // by refs such blur is heavy, but tests were okay and this allow us more flexibility with setup. Possible point for improvements
-	else
-		alpha = 0
 
 /atom/movable/screen/plane_master/lamps_selfglow
 	name = "lamps selfglow plane master"

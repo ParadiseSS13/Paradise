@@ -33,7 +33,7 @@
 
 // Simple animals
 
-#define issimple_animal(A) (istype(A, /mob/living/simple_animal))
+#define isanimal(A) (istype(A, /mob/living/simple_animal))
 
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
@@ -46,6 +46,14 @@
 #define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
 
 #define isshadowdemon(A) (istype(A, /mob/living/simple_animal/demon/shadow))
+
+// Basic mobs
+
+#define isbasicmob(A) (istype(A, /mob/living/basic))
+
+// Simple animal -> basic mob migration helpers
+
+#define isanimal_or_basicmob(A) (isanimal(A) || isbasicmob(A))
 
 // Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs

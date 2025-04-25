@@ -486,7 +486,7 @@
 	id = "corn_starch"
 	description = "The powdered starch of maize, derived from the kernel's endosperm. Used as a thickener for gravies and puddings."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#ffeb91"
 	taste_description = "flour"
 
 /datum/reagent/consumable/corn_syrup
@@ -494,7 +494,7 @@
 	id = "corn_syrup"
 	description = "A sweet syrup derived from corn starch that has had its starches converted into maltose and other sugars."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#ada537"
 	taste_description = "cheap sugar substitute"
 
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/M)
@@ -506,7 +506,7 @@
 	id = "vhfcs"
 	description = "An incredibly sweet syrup, created from corn syrup treated with enzymes to convert its sugars into fructose."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#484917"
 	taste_description = "diabetes"
 
 /datum/reagent/consumable/vhfcs/on_mob_life(mob/living/M)
@@ -916,7 +916,8 @@
 
 /datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		var/spooky_eat = pick("Ugh, why did you eat that? Your mouth feels haunted. Haunted with bad flavors.", "Ugh, why did you eat that? It has the texture of ham aspic.  From the 1950s.  Left out in the sun.", "Ugh, why did you eat that? It tastes like a ghost fart.", "Ugh, why did you eat that? It tastes like flavor died.")
+		M.reagents.add_reagent("sodiumchloride", rand(10, 20))	// The salt!
+		var/spooky_eat = pick("A wave of seething anger briefly passes over you!", "This is all bullshit!", "You internally seethe and mald.", "You briefly see a dense halo of spirits taunting you!")
 		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)

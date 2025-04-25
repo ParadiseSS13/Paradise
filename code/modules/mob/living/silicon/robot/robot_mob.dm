@@ -797,7 +797,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/dat = list()
 	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
-		if(!(cat in alarms_listend_for))
+		if(!(cat in alarms_listened_for))
 			continue
 		dat += "<B>[cat]</B><BR>\n"
 		var/list/list/L = temp_alarm_list[cat].Copy()
@@ -884,7 +884,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return low_power_mode
 
 /mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
-	if(!(class in alarms_listend_for))
+	if(!(class in alarms_listened_for))
 		return
 	if(alarmsource.z != z)
 		return
@@ -894,7 +894,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	if(cleared)
-		if(!(class in alarms_listend_for))
+		if(!(class in alarms_listened_for))
 			return
 		if(origin.z != z)
 			return
@@ -921,7 +921,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return 2
 
 
-/mob/living/silicon/robot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/mob/living/silicon/robot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	// Check if the user is trying to insert another component like a radio, actuator, armor etc.
 	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
@@ -930,22 +930,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				continue
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 			var/obj/item/robot_parts/robot_component/WC = W
 			C.brute_damage = WC.brute
 			C.electronics_damage = WC.burn
 			C.install(WC)
 			to_chat(usr, "<span class='notice'>You install [W].</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(!getFireLoss(TRUE))
 			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
 		updatehealth()
@@ -976,13 +976,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 			module?.update_cells()
 			diag_hud_set_borgcell()
-
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
 		if(radio)//sanityyyyyy
 			radio.attackby__legacy__attackchain(W,user)//GTFO, you have your own procs
 		else
 			to_chat(user, "Unable to locate a radio.")
-
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
 		if(emagged)//still allow them to open the cover
 			to_chat(user, "The interface seems slightly damaged.")
@@ -996,7 +996,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_icons()
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
-
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
@@ -1006,18 +1006,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			if(U.action(user, src))
 				user.visible_message("<span class='notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
-
+		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(W, /obj/item/mmi_radio_upgrade))
 		if(!opened)
 			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(!mmi)
 			to_chat(user, "<span class='warning'>This cyborg does not have an MMI to augment!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(mmi.radio)
 			to_chat(user, "<span class='warning'>A radio upgrade is already installed in the MMI!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(user.drop_item())
 			to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
@@ -1133,7 +1133,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 
-/mob/living/silicon/robot/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
+/mob/living/silicon/robot/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
 		spark_system.start()
 	..()
@@ -1422,9 +1422,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
-		explosion(src.loc,1,2,4,flame_range = 2)
+		explosion(src.loc,1,2,4,flame_range = 2, cause = "Self-destruct emagged cyborg")
 	else
-		explosion(src.loc,-1,0,2)
+		explosion(src.loc,-1,0,2, cause = "Self-destruct cyborg")
 	gib()
 	return
 

@@ -88,7 +88,7 @@
 	text_dehack = "[name]'s software has been reset!"
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
-/mob/living/simple_animal/bot/cleanbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/cleanbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
@@ -100,8 +100,10 @@
 				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
 			else
 				to_chat(user, "<span class='notice'>\The [src] doesn't seem to respect your authority.</span>")
-	else
-		return ..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
 	..()
@@ -155,19 +157,21 @@
 		target = null
 
 	if(target)
+		var/target_uid = target.UID() // target can become null while path is calculated, so we need to store UID
 		if(!length(path)) //No path, need a new one
 			set_mode(BOT_PATHING)
 			path = get_path_to(src, target, 30, access = access_card.access)
 			if(!bot_move(target))
-				ignore_job -= target.UID()
+				ignore_job -= target_uid
 				add_to_ignore(target)
 				target = null
 				path = list()
+				set_mode(BOT_IDLE)
 				return
 			set_mode(BOT_MOVING)
 
 		else if(!bot_move(target))
-			ignore_job -= target.UID()
+			ignore_job -= target_uid
 			target = null
 			set_mode(BOT_IDLE)
 			return

@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
-/turf/simulated/mineral/random/low_chance,
+/turf/simulated/mineral/random/low_chance/space,
 /area/ruin/space/unpowered)
 "ac" = (
 /obj/structure/chair{
@@ -1488,9 +1488,7 @@
 "hK" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/structure/sign/poster/contraband/power{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/power/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -1660,7 +1658,7 @@
 	},
 /area/ruin/space/deepstorage)
 "iZ" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "ja" = (
 /obj/machinery/light/small,
@@ -1750,9 +1748,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/sign/poster/contraband/missing_gloves{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/missing_gloves/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -4002,7 +3998,7 @@
 /area/ruin/space/deepstorage)
 "yB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -5766,9 +5762,7 @@
 	},
 /area/ruin/space/deepstorage)
 "KS" = (
-/obj/structure/sign/poster/official/safety_internals{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/safety_internals/directional/east,
 /obj/item/chair/stool{
 	pixel_y = -7;
 	dir = 8
@@ -6833,7 +6827,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 10;

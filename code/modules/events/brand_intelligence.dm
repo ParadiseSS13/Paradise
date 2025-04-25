@@ -28,7 +28,7 @@
 
 /datum/event/brand_intelligence/start()
 	var/list/obj/machinery/economy/vending/leaderables = list()
-	for(var/obj/machinery/economy/vending/candidate in GLOB.machines)
+	for(var/obj/machinery/economy/vending/candidate in SSmachines.get_by_type(/obj/machinery/economy/vending))
 		if(!is_station_level(candidate.z))
 			continue
 		RegisterSignal(candidate, COMSIG_PARENT_QDELETING, PROC_REF(vendor_destroyed))
@@ -63,7 +63,7 @@
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 15
 			else
-				explosion(upriser.loc, -1, 1, 2, 4, 0)
+				explosion(upriser.loc, -1, 1, 2, 4, 0, cause = "Brand Intelligence Uprising")
 				qdel(upriser)
 
 		log_debug("Brand intelligence: The last vendor has been infected.")
