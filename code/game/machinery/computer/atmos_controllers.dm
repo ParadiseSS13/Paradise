@@ -532,7 +532,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		if(QDELETED(inlet_injector))
 			inlet_data -= uid
 			inlet_uids -= uid
-			return
+			continue
 		inlet_data[uid]["name"] = inlet_injector.name
 		inlet_data[uid]["on"] = inlet_injector.on
 		inlet_data[uid]["rate"] = inlet_injector.volume_rate
@@ -547,7 +547,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				outlet_scrubber_data -= uid
 				outlet_vent_data -= uid
 				outlet_uids -= uid
-				return
+				continue
 			outlet_vent_data[uid]["name"] = vent.name
 			outlet_vent_data[uid]["on"] = vent.on
 			outlet_vent_data[uid]["checks"] = vent.pressure_checks
@@ -558,7 +558,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				outlet_scrubber_data -= uid
 				outlet_vent_data -= uid
 				outlet_uids -= uid
-				return
+				continue
 			outlet_scrubber_data[uid]["id_tag"] = scrubber.UID()
 			outlet_scrubber_data[uid]["name"] = scrubber.name
 			outlet_scrubber_data[uid]["power"] = scrubber.on
