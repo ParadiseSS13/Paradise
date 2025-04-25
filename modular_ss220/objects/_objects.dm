@@ -22,3 +22,7 @@
 	GLOB.plastic_recipes += list(
 		new /datum/stack_recipe("пластиковый стул", /obj/structure/chair/plastic, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)
+
+	GLOB.cardboard_recipes += list(
+		new /datum/stack_recipe("cigarette packet", /obj/item/storage/fancy/cigarettes/cigpack_diy/empty)
+	)
