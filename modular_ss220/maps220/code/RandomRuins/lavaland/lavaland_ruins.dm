@@ -54,3 +54,9 @@
 
 /datum/map_template/ruin/lavaland/legiongate/get_cost()
 	return 0
+
+/datum/map_template/ruin/lavaland/hierophant
+	always_place = FALSE
+
+/datum/map_template/ruin/lavaland/tumor
+	always_place = FALSE
