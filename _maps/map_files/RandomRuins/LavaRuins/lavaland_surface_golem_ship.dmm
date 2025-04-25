@@ -121,7 +121,7 @@
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
-	area_type = /area/ruin/powered/golem_ship;
+	area_type = /area/ruin/powered/safe/golem_ship;
 	dir = 8;
 	dwidth = 8;
 	height = 20;
