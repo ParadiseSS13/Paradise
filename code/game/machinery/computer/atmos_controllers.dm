@@ -394,7 +394,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			inlet_uids += linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
 			var/obj/machinery/atmospherics/unary/outlet_injector/inlet_injector = linked_datum
 			// Setup some defaults
-			inlet_injector.on = TRUE
+			inlet_injector.on = FALSE
 			inlet_injector.volume_rate = inlet_setting
 			inlet_injector.update_icon()
 			inlet_data += list("[linked_datum.UID()]" = list("name" = inlet_injector.name, "on" = inlet_injector.on, "rate" = inlet_injector.volume_rate, "uid" = inlet_injector.UID()))
@@ -454,7 +454,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				// Setup some defaults
 				var/area/our_area = get_area(src)
 				our_area.vents -= outlet_vent
-				outlet_vent.on = TRUE
+				outlet_vent.on = FALSE
 				outlet_vent.releasing = FALSE
 				outlet_vent.internal_pressure_bound = outlet_setting
 				outlet_vent.update_icon()
@@ -468,7 +468,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				// Setup some defaults
 				var/area/our_area = get_area(src)
 				our_area.scrubbers -= scrubber
-				scrubber.on = TRUE
+				scrubber.on = FALSE
 				scrubber.scrubbing = FALSE
 				scrubber.update_icon()
 				outlet_scrubber_data += list("[scrubber.UID()]" = list(
