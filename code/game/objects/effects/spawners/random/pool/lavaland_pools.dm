@@ -98,11 +98,6 @@
 		if(istype(thing, /area/ruin/powered/safe) || istype(thing, /area/shuttle/freegolem))
 			return FALSE
 
-	// for(var/area/E in urange(ghost_ruin_scan_range, T, areas = TRUE))
-	// 	// avoid spawning a megafauna if it's too close to a ghost spawn
-	// 	if(istype(E, /area/ruin/powered/safe) || istype(E, /area/shuttle/freegolem))
-	// 		return FALSE
-
 	return ..()
 
 /obj/effect/spawner/random/pool/lavaland_fauna/megafauna/unique
