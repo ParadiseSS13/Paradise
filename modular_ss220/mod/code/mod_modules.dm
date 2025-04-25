@@ -1,4 +1,4 @@
-/obj/item/mod/module/insignia/red
+/obj/item/mod/module/insignia
 	overlay_icon_file = 'modular_ss220/mod/icons/mob/mod_modules.dmi'
 
 /obj/item/mod/module/insignia/red/commander

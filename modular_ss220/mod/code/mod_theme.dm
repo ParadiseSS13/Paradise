@@ -139,21 +139,23 @@
 /obj/item/mod/armor/mod_theme_skrell_sardaukars
 	armor = list(MELEE = 120, BULLET = 120, LASER = 100, ENERGY = 50, BOMB = 100, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
-//MARK: Corporate MODsuit
+// MARK: Corporate MODsuit
 /datum/mod_theme/corporate/New()
 	. = ..()
 	skins["corporate"][MOD_ICON_OVERRIDE] = 'modular_ss220/mod/icons/object/mod_clothing.dmi'
 
-//MARK: ERT Red MODsuit
-/datum/mod_theme/responsory/red
-	name = "\improper 'Rhino' responsory"
-	desc = "Высокотехнологичный боевой MODsuit 'Носорог', разработанный и произведенный Нанотрейзен. Хорошо бронированный, герметичный и оснащенный всевозможными полезными приспособлениями. \
-		Лучшее корпоративное оборудование для обеспечения безопасности."
-	extended_desc = "Костюм быстрого реагирования NS-20 'Носорог' - один из самых лучших в категории 'цена и качество' из всех боевых костюмов на рынке. \
-		Внутри NS-20 установлена система NTOS-11, что позволяет использовать несравненные возможности настройки в сочетании с \
-		необычайно щедрыми техническими характеристиками 'Носорога'. NS-20 можно встретить только в отряде быстрого реагирования Нанотрейзен."
-	default_skin = "rhino"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory/red
+// MARK: ERT MODsuit
+// Gamma
+/datum/mod_theme/responsory
+	name = "\improper 'Paladin' responsory"
+	desc = "Комплекс брони-экзоскелета \"Паладин\", парадоксально сочетающий в себе невероятные показатели защищенности, мобильности и надежности.\
+Используется бойцами ОБР в исключительных случаях, зачастую - только на стратегически важных объектах Корпорации. "
+	extended_desc = "Экспериментальная тяжелая броня NS-83 \"Паладин\" - новая веха в истории развития оборонной промышленности Компании Нанотрейзен. Данный образец является прямым наследником защитных костюмов на основе системы МОД, однако инженеры и ученые концерна SecTech напрочь отказались от прежней философии компактной архитектуры и методов развертывания частей костюма в угоду повышенной защиты и сепарации бойцов ОБР от постоянной необходимости в источниках зарядки.\
+NS-83, в виду специфики своего применения, делает упор на монолитный экзоскелет с дополнительными слоем пластитановых пластин, что вкупе с развертывающимися поверх модулями \"умной\" брони создает эффект композитной защиты от любого типа враждебного воздействия.\
+Этот факт позволяет использовать его боевые свойства даже без участия интегративных процессорных систем NTOS-11, представленных в виде привычного наспинного блока, дающего в активном состоянии полный симбиоз со всеми системами личного снаряжения бойца. "
+	default_skin = "paladin"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory
+
 	resistance_flags = FIRE_PROOF
 	flag_2_flags = RAD_PROTECT_CONTENTS_2
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -171,7 +173,7 @@
 	)
 	species_allowed = list("Human")
 	skins = list(
-		"rhino" = list(
+		"paladin" = list(
 			MOD_ICON_OVERRIDE = 'modular_ss220/mod/icons/object/mod_clothing.dmi',
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
@@ -204,6 +206,64 @@
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE | BLOCK_GAS_SMOKE_EFFECT | BLOCKHAIR,
 				UNSEALED_INVISIBILITY = HIDEFACE | HIDEMASK | HIDEEARS | HIDEEYES,
 				UNSEALED_COVER = HEADCOVERSMOUTH | HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT | HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_responsory
+	armor = list(MELEE = 70, BULLET = 60, LASER = 45, ENERGY = 25, BOMB = 80, RAD = INFINITY, FIRE = 200, ACID = 200)
+
+// Red
+/datum/mod_theme/responsory/red
+	name = "\improper 'Rhino' responsory"
+	desc = "Высокотехнологичный боевой MODsuit 'Носорог', разработанный и произведенный Нанотрейзен. Хорошо бронированный, герметичный и оснащенный всевозможными полезными приспособлениями. \
+		Лучшее корпоративное оборудование для обеспечения безопасности."
+	extended_desc = "Костюм быстрого реагирования NS-20 'Носорог' - один из самых лучших в категории 'цена и качество' из всех боевых костюмов на рынке. \
+		Внутри NS-20 установлена система NTOS-11, что позволяет использовать несравненные возможности настройки в сочетании с \
+		необычайно щедрыми техническими характеристиками 'Носорога'. NS-20 можно встретить только в отряде быстрого реагирования Нанотрейзен."
+	default_skin = "rhino"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory/red
+	resistance_flags = FIRE_PROOF
+	flag_2_flags = RAD_PROTECT_CONTENTS_2
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	slowdown_inactive = 0.75
+	slowdown_active = 0.25
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
+	allowed_suit_storage = list(
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/melee/baton,
+		/obj/item/gun,
+	)
+	species_allowed = list("Human")
+	skins = list(
+		"rhino" = list(
+			MOD_ICON_OVERRIDE = 'modular_ss220/mod/icons/object/mod_clothing.dmi',
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL | STOPSPRESSUREDMAGE | BLOCK_GAS_SMOKE_EFFECT | BLOCKHAIR,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK | HIDEEYES | HIDEEARS | HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH | HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,

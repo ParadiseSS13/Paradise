@@ -76,15 +76,15 @@
 /obj/item/mod/control/pre_equipped/corporate/build_shoes()
 	return new /obj/item/clothing/shoes/mod/exclusive(src)
 
-//MARK: ERT Red
-/obj/item/mod/control/pre_equipped/responsory/red/build_head()
+//MARK: ERT
+/obj/item/mod/control/pre_equipped/responsory/build_head()
 	return new /obj/item/clothing/head/mod/exclusive(src)
 
-/obj/item/mod/control/pre_equipped/responsory/red/build_suit()
+/obj/item/mod/control/pre_equipped/responsory/build_suit()
 	return new /obj/item/clothing/suit/mod/exclusive(src)
 
-/obj/item/mod/control/pre_equipped/responsory/red/build_gloves()
+/obj/item/mod/control/pre_equipped/responsory/build_gloves()
 	return new /obj/item/clothing/gloves/mod/exclusive(src)
 
-/obj/item/mod/control/pre_equipped/responsory/red/build_shoes()
+/obj/item/mod/control/pre_equipped/responsory/build_shoes()
 	return new /obj/item/clothing/shoes/mod/exclusive(src)
