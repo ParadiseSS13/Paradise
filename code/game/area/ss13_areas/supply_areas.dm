@@ -22,11 +22,11 @@
 	request_console_name = "Cargo Bay"
 
 /area/station/supply/warehouse
-	name = "\improper Cargo Warehouse"
+	name = "Склад Карго"
 	icon_state = "cargowarehouse"
 
 /area/station/supply/break_room
-	name = "\improper Cargo Breakroom"
+	name = "Комната Отдыха Карго"
 	icon_state = "cargobreak"
 
 /area/station/supply/storage

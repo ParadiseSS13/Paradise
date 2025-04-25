@@ -19,28 +19,28 @@
 	max_ambience_cooldown = 220 SECONDS
 
 /area/mine/unexplored/cere/ai
-	name = "AI Asteroid"
+	name = "Астероид Спутника ИИ"
 
 /area/mine/unexplored/cere/cargo
-	name = "Cargo Asteroid"
+	name = "Астероид Карго"
 
 /area/mine/unexplored/cere/civilian
-	name = "Civilian Asteroid"
+	name = "Астероид Сервисного Отдела"
 
 /area/mine/unexplored/cere/command
-	name = "Command Asteroid"
+	name = "Астероид Командного Отдела"
 
 /area/mine/unexplored/cere/engineering
-	name = "Engineering Asteroid"
+	name = "Астероид Инженерного Отдела"
 
 /area/mine/unexplored/cere/medical
-	name = "Medical Asteroid"
+	name = "Астероид Медицинского Отдела"
 
 /area/mine/unexplored/cere/research
-	name = "Research Asteroid"
+	name = "Астероид Исследовательского Отдела"
 
 /area/mine/unexplored/cere/orbiting
-	name = "Near Station Asteroids"
+	name = "Околостанционные Астероиды"
 
 /**********************Outpost areas**************************/
 
@@ -161,7 +161,7 @@
 	max_ambience_cooldown = 220 SECONDS
 
 /area/lavaland/surface/gulag_rock
-	name = "Lavaland Wastes"
+	name = "Пустоши Лаваленда"
 	outdoors = TRUE
 
 /area/lavaland/surface/outdoors
@@ -169,7 +169,7 @@
 	outdoors = TRUE
 
 /area/lavaland/surface/outdoors/legion_arena
-	name = "Legion Arena"
+	name = "Арена Легиона"
 
 /// monsters and ruins spawn here
 /area/lavaland/surface/outdoors/unexplored

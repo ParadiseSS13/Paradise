@@ -46459,10 +46459,9 @@
 	},
 /area/station/service/chapel)
 "dUR" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Funeral Parlour"
-	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/funeral)
 "dUS" = (

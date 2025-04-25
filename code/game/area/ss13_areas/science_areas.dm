@@ -23,7 +23,7 @@
 	icon_state = "sci"
 
 /area/station/science/testrange
-	name = "Research Test Range"
+	name = "Отдел Исследовательских Испытаний"
 	icon_state = "sci"
 
 /area/station/science/break_room

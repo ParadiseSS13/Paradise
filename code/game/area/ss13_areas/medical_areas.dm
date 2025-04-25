@@ -42,17 +42,17 @@
 	icon_state = "medbaybreak"
 
 /area/station/medical/patients_rooms
-	name = "Палаты Пациентов"
+	name = "Психиатрические Палаты"
 	icon_state = "patients"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/station/medical/patients_rooms1
-	name = "\improper Patient Room"
+	name = "Палаты Пациентов"
 	icon_state = "patients"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/station/medical/patients_rooms_secondary
-	name = "\improper Patient Room Secondary"
+	name = "Вспомогательные Палаты Пациентов"
 	icon_state = "patients"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 

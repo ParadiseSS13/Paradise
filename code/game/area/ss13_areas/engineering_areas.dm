@@ -15,26 +15,26 @@
 	icon_state = "atmos"
 
 /area/station/engineering/atmos/storage
-	name = "Atmospherics Hardsuit Storage"
+	name = "Атмосферный Склад ВКД"
 	icon_state = "atmos_suits"
 
 /area/station/engineering/atmos/transit
-	name = "Atmospherics Transit Tube"
+	name = "Транзитная Труба Атмосферного Отдела"
 	icon_state = "atmos_transit"
 
 /area/station/engineering/atmos/asteroid
-	name = "Asteroid"
+	name = "Астероид"
 	icon_state = "asteroid"
 	sound_environment = SOUND_AREA_SPACE
 	apc_starts_off = TRUE
 
 /area/station/engineering/atmos/asteroid_filtering
-	name = "Asteroid Filtering"
+	name = "Атмосферный Отсек Астероида"
 	icon_state = "asteroid_atmos"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/engineering/atmos/asteroid_core
-	name = "Asteroid Molten Core"
+	name = "Расплавленное Ядро Астероида"
 	icon_state = "asteroid_core"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	sound_environment = SOUND_AREA_ASTEROID
@@ -86,7 +86,7 @@
 	icon_state = "gravgen"
 
 /area/station/engineering/transmission_laser
-	name = "\improper Power Transmission Laser"
+	name = "Лазер Энергопередачи"
 	icon_state = "engi"
 
 /area/station/engineering/ai_transit_tube
@@ -95,7 +95,7 @@
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/engineering/engine_foyer
-	name = "Engine foyer"
+	name = "Фойе Двигателя"
 	icon_state = "engine_hallway"
 
 // engine areas
@@ -111,7 +111,7 @@
 //Solars
 
 /area/station/engineering/solar
-	name = "\improper Solar Array"
+	name = "Солнечные Панели"
 	icon_state = "general_solars"
 	requires_power = FALSE
 	valid_territory = FALSE
@@ -120,35 +120,35 @@
 	sound_environment = SOUND_AREA_SPACE
 
 /area/station/engineering/solar/fore
-	name = "\improper Fore Solar Array"
+	name = "Северные Солнечные Панели"
 	icon_state = "fore_solars"
 
 /area/station/engineering/solar/fore_starboard
-	name = "\improper Fore-Starboard Solar Array"
+	name = "Северо-Восточные Солнечные Панели"
 	icon_state = "fore_starboard_solars"
 
 /area/station/engineering/solar/fore_port
-	name = "\improper Fore-Port Solar Array"
+	name = "Северо-Западные Солнечные Панели"
 	icon_state = "fore_port_solars"
 
 /area/station/engineering/solar/aft
-	name = "\improper Aft Solar Array"
+	name = "Южные Солнечные Панели"
 	icon_state = "aft_solars"
 
 /area/station/engineering/solar/aft_starboard
-	name = "\improper Aft-Starboard Solar Array"
+	name = "Юго-Восточные Солнечные Панели"
 	icon_state = "aft_starboard_solars"
 
 /area/station/engineering/solar/aft_port
-	name = "\improper Aft-Port Solar Array"
+	name = "Юго-Западные Солнечные Панели"
 	icon_state = "aft_port_solars"
 
 /area/station/engineering/solar/starboard
-	name = "\improper Starboard Solar Array"
+	name = "Восточные Солнечные Панели"
 	icon_state = "starboard_solars"
 
 /area/station/engineering/solar/port
-	name = "\improper Port Solar Array"
+	name = "Западные Солнечные Панели"
 	icon_state = "port_solars"
 
 // Other

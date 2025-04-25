@@ -36,7 +36,7 @@
 	request_console_flags = RC_SUPPLY
 
 /area/station/service/chapel/funeral
-	name = "\improper Funeral Services"
+	name = "Похоронные Службы"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	valid_territory = TRUE
 

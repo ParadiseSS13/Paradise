@@ -119,7 +119,7 @@
 	icon_state = "firingrange"
 
 /area/station/security/defusal
-	name = "\improper Defusal Workshop"
+	name = "Учебный Сапёрный Пункт"
 	icon_state = "defusal"
 
 // Checkpoints

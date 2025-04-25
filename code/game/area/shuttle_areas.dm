@@ -21,113 +21,113 @@
 	icon_state = "shuttle"
 
 /area/shuttle/escape
-	name = "\improper Emergency Shuttle"
+	name = "Эвакуационный Шаттл"
 	icon_state = "shuttle2"
 	nad_allowed = TRUE
 
 /area/shuttle/pod_1
-	name = "\improper Escape Pod One"
+	name = "Эвакуационная Капсула Один"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 
 /area/shuttle/pod_2
-	name = "\improper Escape Pod Two"
+	name = "Эвакуационная Капсула Два"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 
 /area/shuttle/pod_3
-	name = "\improper Escape Pod Three"
+	name = "Эвакуационная Капсула Три"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 	parallax_move_direction = EAST
 
 /area/shuttle/pod_4
-	name = "\improper Escape Pod Four"
+	name = "Эвакуационная Капсула Четыре"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 	parallax_move_direction = EAST
 
 /area/shuttle/mining
-	name = "\improper Mining Shuttle"
+	name = "Шахтерский Шаттл"
 	icon_state = "shuttle"
 
 /area/shuttle/transport
 	icon_state = "shuttle"
-	name = "\improper Transport Shuttle"
+	name = "Транспортный Шаттл"
 	parallax_move_direction = EAST
 
 /area/shuttle/gamma/space
 	icon_state = "shuttle"
-	name = "\improper Gamma Armory"
+	name = "Гамма-Оружейная"
 
 /area/shuttle/gamma/station
 	icon_state = "shuttle"
-	name = "\improper Gamma Armory Station"
+	name = "Станционная Гамма-Оружейная"
 
 /area/shuttle/siberia
-	name = "\improper Labor Camp Shuttle"
+	name = "Шаттл Трудового Лагеря"
 	icon_state = "shuttle"
 
 /area/shuttle/specops
-	name = "\improper Special Ops Shuttle"
+	name = "Шаттл Специальных Операций"
 	icon_state = "shuttlered"
 	parallax_move_direction = EAST
 
 /area/shuttle/syndicate_elite
-	name = "\improper Syndicate Elite Shuttle"
+	name = "Элитный Шаттл Синдиката"
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
 	parallax_move_direction = SOUTH
 
 /area/shuttle/syndicate_sit
-	name = "\improper Syndicate SIT Shuttle"
+	name = "Шаттл Внедрения Синдиката"
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
 	parallax_move_direction = SOUTH
 
 /area/shuttle/assault_pod
-	name = "Steel Rain"
+	name = "Свинцовый Шторм"
 	icon_state = "shuttle"
 
 /area/shuttle/administration
-	name = "\improper Nanotrasen Vessel"
+	name = "Корпоративное Судно НТ"
 	icon_state = "shuttlered"
 	parallax_move_direction = EAST
 
 /area/shuttle/administration/centcom
-	name = "\improper Nanotrasen Vessel Centcom"
+	name = "Корпоративное Судно ЦК НТ"
 	icon_state = "shuttlered"
 
 /area/shuttle/administration/station
-	name = "\improper Nanotrasen Vessel"
+	name = "Корпоративное Судно НТ"
 	icon_state = "shuttlered2"
 
 // === Trying to remove these areas:
 
 /area/shuttle/supply
-	name = "Supply Shuttle"
+	name = "Шаттл Карго"
 	icon_state = "shuttle3"
 
 /area/shuttle/abandoned
-	name = "Abandoned Ship"
+	name = "Заброшенный Корабль"
 	icon_state = "shuttle"
 	parallax_move_direction = WEST
 
 /area/shuttle/syndicate
-	name = "Syndicate Nuclear Team Shuttle"
+	name = "Шаттл Ядерных Оперативников"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 
 /area/shuttle/trade
-	name = "Trade Shuttle"
+	name = "Торговый Шаттл"
 	icon_state = "shuttle"
 
 /area/shuttle/trade/sol
-	name = "Sol Freighter"
+	name = "Фрегат ТСФ"
 	parallax_move_direction = EAST
 
 /area/shuttle/freegolem
-	name = "Free Golem Ship"
+	name = "Корабль Свободных Големов"
 	icon_state = "purple"
 	xenobiology_compatible = TRUE
 	parallax_move_direction = WEST
