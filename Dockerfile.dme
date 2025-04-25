@@ -1,8 +1,0 @@
-FROM bitnami/dotnet
-
-WORKDIR /server
-COPY . .
-RUN wget https://github.com/OpenDreamProject/OpenDream/releases/download/latest/DMCompiler_linux-x64.tar.gz && \
-	tar -xf DMCompiler_linux-x64.tar.gz
-
-RUN dotnet DMCompiler_linux-x64/DMCompiler.dll --suppress-unimplemented --version=515.1633 paradise.dme

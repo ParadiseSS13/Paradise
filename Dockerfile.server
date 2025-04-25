@@ -1,6 +1,0 @@
-FROM ubuntu:latest
-
-WORKDIR /server
-# RUN rm -rf tgui && mv builded_tgui tgui
-RUN . byond/bin/byondsetup
-EXPOSE 8975

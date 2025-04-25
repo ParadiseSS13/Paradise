@@ -1,7 +1,0 @@
-FROM node:slim
-
-WORKDIR /server/builded_tgui
-
-COPY tgui .
-# RUN npm install yarn
-# RUN bin/tgui
