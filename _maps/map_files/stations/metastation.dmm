@@ -65617,12 +65617,13 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
-/obj/machinery/door/airlock/vault{
-	locked = 1
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "AI Upload"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
