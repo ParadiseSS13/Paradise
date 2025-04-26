@@ -36080,10 +36080,13 @@
 	},
 /area/station/hallway/secondary/exit)
 "cRQ" = (
-/obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/unary/thermomachine/freezer,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
 "cRS" = (
@@ -39714,14 +39717,6 @@
 	icon_state = "C9"
 	},
 /area/station/hallway/primary/central/north)
-"dER" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/science/toxins/mixing)
 "dFf" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -40052,6 +40047,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -40752,7 +40748,8 @@
 "eeI" = (
 /obj/machinery/atmospherics/unary/thermomachine/heater,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
 "efd" = (
@@ -42045,10 +42042,10 @@
 /area/station/maintenance/aft)
 "eGn" = (
 /obj/structure/window/reinforced,
-/obj/structure/rack,
 /obj/item/extinguisher,
 /obj/item/clothing/mask/gas,
 /obj/item/grenade/chem_grenade/firefighting,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -43054,9 +43051,11 @@
 /turf/simulated/floor/plating,
 /area/station/security/brig)
 "fbL" = (
-/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/atmospherics/trinary/mixer{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 1;
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
@@ -43742,6 +43741,9 @@
 /area/station/maintenance/fsmaint)
 "fpl" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -49914,6 +49916,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/brig)
+"hUJ" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkpurple"
+	},
+/area/station/science/toxins/mixing)
 "hUK" = (
 /obj/structure/table,
 /obj/item/hatchet,
@@ -52077,11 +52089,10 @@
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "iPW" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
 "iQm" = (
@@ -52328,9 +52339,12 @@
 	},
 /area/station/security/interrogation)
 "iVX" = (
-/obj/machinery/requests_console/directional/north,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
 "iWb" = (
@@ -56822,6 +56836,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"kUU" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/station/science/toxins/mixing)
 "kVn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/door_assembly/door_assembly_fre{
@@ -59639,6 +59662,17 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"mdT" = (
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 27
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
+/area/station/science/toxins/mixing)
 "mdZ" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -59794,6 +59828,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -61039,14 +61076,13 @@
 "mJt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitepurplecorner"
 	},
 /area/station/science/toxins/mixing)
 "mJv" = (
@@ -64248,8 +64284,8 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "nYJ" = (
-/obj/structure/rack,
-/obj/item/rpd,
+/obj/machinery/computer/area_atmos,
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -64950,6 +64986,9 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -66405,6 +66444,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -66937,6 +66979,9 @@
 "piJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -68075,6 +68120,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -68861,12 +68909,10 @@
 	},
 /area/station/hallway/secondary/exit)
 "pZE" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/machinery/disposal,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
 "qal" = (
@@ -69942,6 +69988,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/rack,
+/obj/item/rpd,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -70281,6 +70329,16 @@
 	icon_state = "red"
 	},
 /area/station/security/main)
+"qEI" = (
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/station/science/toxins/mixing)
 "qEX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -75944,6 +76002,16 @@
 	icon_state = "dark"
 	},
 /area/station/legal/courtroom/gallery)
+"sYv" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
+/area/station/science/toxins/mixing)
 "sYJ" = (
 /obj/effect/landmark/start/botanist,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -80299,6 +80367,19 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/research)
+"uVm" = (
+/obj/machinery/camera{
+	c_tag = "Science Toxins Mixing - Aft Starboard";
+	dir = 8;
+	network = list("Research","SS13")
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/disposalpipe/segment/corner,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/station/science/toxins/mixing)
 "uVp" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -80777,6 +80858,9 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -82779,17 +82863,6 @@
 /obj/item/flag/syndi,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"waQ" = (
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/obj/machinery/atmospherics/trinary/mixer,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
 "waX" = (
 /obj/effect/decal/cleanable/blood/writing,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -82990,10 +83063,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "wgF" = (
-/obj/machinery/economy/vending/plasmaresearch,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/economy/vending/plasmaresearch,
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "darkpurple"
 	},
 /area/station/science/toxins/mixing)
@@ -84211,9 +84283,6 @@
 	dir = 1
 	},
 /obj/machinery/alarm/directional/east,
-/obj/machinery/computer/area_atmos{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -85350,16 +85419,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
-"xhE" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkpurple"
-	},
-/area/station/science/toxins/mixing)
 "xhF" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -87426,22 +87485,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
-"ybP" = (
-/obj/machinery/camera{
-	c_tag = "Science Toxins Mixing - Aft Starboard";
-	dir = 8;
-	network = list("Research","SS13")
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/portable/canister,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
 "ybT" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -121920,7 +121963,7 @@ qwA
 eGn
 nYJ
 mgu
-naq
+kUU
 naq
 naq
 wZi
@@ -123210,7 +123253,7 @@ tDw
 tDw
 bXG
 iVX
-dER
+kgx
 fpl
 pIF
 qRR
@@ -123467,11 +123510,11 @@ tDw
 tDw
 bXG
 fbL
-waQ
-ybP
-xhE
+tvT
+fpl
+pIF
 wgF
-rOZ
+cEK
 abq
 aaa
 aaa
@@ -123723,12 +123766,12 @@ bXG
 bXG
 bXG
 bXG
+sYv
+qEI
+uVm
+mdT
+hUJ
 cEK
-cEK
-cEK
-cEK
-cEK
-rOZ
 abq
 aaa
 aaa
@@ -123979,13 +124022,13 @@ aaa
 aaa
 abq
 aef
-abq
-aaa
-aaa
-aaa
-aaa
-aaa
-abq
+cEK
+cEK
+cEK
+cEK
+cEK
+cEK
+cEK
 aef
 abq
 aaa
