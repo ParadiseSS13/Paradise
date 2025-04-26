@@ -59,10 +59,10 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak/process()
 	if(activeFor == force_disease_time)
 		for(var/list/disease_event in GLOB.current_pending_diseases)
-			if(chosen_disease in disease_event)
+			if(chosen_disease == disease_event["disease"])
 				GLOB.current_pending_diseases -= disease_event
 				for(var/mob/living/carbon/human/player in GLOB.player_list)
-					if(player.ForceContractDisease(chosen_disease))
+					if(player.ForceContractDisease(chosen_disease, TRUE, TRUE))
 						break
 				announceWhen = activeFor + 240
 				break
