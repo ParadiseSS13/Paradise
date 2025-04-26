@@ -31655,10 +31655,10 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "cxA" = (
-/obj/machinery/chem_dispenser,
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_y = 32
 	},
+/obj/machinery/chem_master,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteyellow"
@@ -43234,7 +43234,6 @@
 	},
 /area/station/engineering/atmos)
 "fgn" = (
-/obj/machinery/chem_heater,
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 30
 	},
@@ -48342,15 +48341,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
-"hnR" = (
-/obj/structure/chair/office/light{
-	dir = 1
-	},
-/obj/effect/landmark/start/chemist,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/medical/chemistry)
 "hok" = (
 /obj/machinery/atmospherics/trinary/filter/flipped{
 	dir = 1;
@@ -57410,10 +57400,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
-"lhd" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/medical/chemistry)
 "lho" = (
 /obj/machinery/light_switch{
 	dir = 8;
@@ -76763,7 +76749,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/a)
 "tqh" = (
-/obj/structure/closet/secure_closet/reagents,
 /obj/machinery/door_control{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "imnotmakingyoulubepissoff";
@@ -76772,6 +76757,7 @@
 	pixel_y = 24;
 	req_access = list(33)
 	},
+/obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteyellow"
@@ -81298,7 +81284,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "voO" = (
-/obj/machinery/chem_master,
+/obj/machinery/chem_dispenser,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteyellow"
@@ -84489,6 +84475,7 @@
 	name = "east bump";
 	pixel_x = 27
 	},
+/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteyellow"
@@ -85195,6 +85182,29 @@
 	icon_state = "dark"
 	},
 /area/station/aisat)
+"xeA" = (
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/antitheft/normal{
+	dir = 8;
+	name = "Anti-Theft Shield"
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteyellowfull"
+	},
+/area/station/medical/chemistry)
 "xeC" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -86185,6 +86195,15 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos/control)
+"xBh" = (
+/obj/effect/landmark/start/chemist,
+/obj/structure/chair/office/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/chemistry)
 "xBl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -113070,8 +113089,8 @@ opu
 cwq
 cwY
 bRb
-lhd
 eRZ
+xeA
 bRb
 tHA
 cpQ
@@ -113585,7 +113604,7 @@ mYj
 xat
 bRb
 cxA
-hnR
+lkN
 lkN
 eNR
 uLx
@@ -113842,7 +113861,7 @@ mYj
 chW
 pri
 voO
-lkN
+xBh
 lkN
 nFf
 pwg
