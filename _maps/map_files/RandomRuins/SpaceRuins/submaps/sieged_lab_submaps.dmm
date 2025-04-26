@@ -17,7 +17,7 @@
 /area/template_noop)
 "ax" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate,
 /turf/template_noop,
 /area/template_noop)
 "aK" = (
@@ -1625,7 +1625,7 @@
 /turf/template_noop,
 /area/template_noop)
 "GI" = (
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1660,7 +1660,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Hq" = (
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "HF" = (
@@ -2146,7 +2146,7 @@
 	},
 /area/template_noop)
 "Uq" = (
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate,
 /turf/template_noop,
 /area/template_noop)
 "UH" = (

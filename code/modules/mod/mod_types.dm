@@ -270,8 +270,7 @@
 
 /obj/item/mod/control/pre_equipped/traitor/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/mask/gas/syndicate(bag)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
+	new /obj/item/storage/box/survival_syndie/traitor(bag)
 
 /obj/item/mod/control/pre_equipped/traitor_elite
 	starting_frequency = MODLINK_FREQ_SYNDICATE
@@ -292,8 +291,7 @@
 
 /obj/item/mod/control/pre_equipped/traitor_elite/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/mask/gas/syndicate(bag)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
+	new /obj/item/storage/box/survival_syndie/traitor(bag)
 
 /obj/item/mod/control/pre_equipped/nuclear
 	starting_frequency = MODLINK_FREQ_SYNDICATE
