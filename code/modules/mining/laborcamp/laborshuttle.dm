@@ -46,20 +46,21 @@
 	QDEL_NULL(announcer)
 	return ..()
 
-/obj/machinery/mineral/labor_prisoner_shuttle_console/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id/prisoner))
+/obj/machinery/mineral/labor_prisoner_shuttle_console/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id/prisoner))
 		if(inserted_id_uid)
 			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		if(!user.unEquip(I))
-			return
+		if(!user.drop_item_to_ground(used))
+			return ITEM_INTERACT_COMPLETE
 
-		I.forceMove(src)
-		inserted_id_uid = I.UID()
-		to_chat(user, "<span class='notice'>You insert [I].</span>")
+		used.forceMove(src)
+		inserted_id_uid = used.UID()
+		to_chat(user, "<span class='notice'>You insert [used].</span>")
 		SStgui.update_uis(src)
-		return
+
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -108,7 +109,7 @@
 
 			var/obj/item/I = ui.user.get_active_hand()
 			if(istype(I, /obj/item/card/id/prisoner))
-				if(!ui.user.unEquip(I))
+				if(!ui.user.drop_item_to_ground(I))
 					return
 				I.forceMove(src)
 				inserted_id_uid = I.UID()
@@ -172,18 +173,19 @@
 		return
 	user.examinate(src)
 
-/obj/machinery/mineral/labor_points_checker/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id/prisoner))
-		var/obj/item/card/id/prisoner/prisoner_id = I
+/obj/machinery/mineral/labor_points_checker/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id/prisoner))
+		var/obj/item/card/id/prisoner/prisoner_id = used
 		if(!prisoner_id.goal)
 			to_chat(user, "<span class='warning'>Error: No point quota assigned by security, exiting.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'><b>ID: [prisoner_id.registered_name]</b></span>")
 		to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
 		to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
 		to_chat(user, "<span class='notice'>Collect points by bringing ore to the labor camp ore redemption machine. Reach your quota to earn your release.</span>")
-		return
-	if(istype(I, /obj/item/card/id))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id))
 		to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()

@@ -3,6 +3,9 @@
 	//Other vampires and thralls aren't affected
 	if(mind?.has_antag_datum(/datum/antagonist/vampire) || mind?.has_antag_datum(/datum/antagonist/mindslave/thrall))
 		return FALSE
+	/// Chaplains with their nullrod can block a full power vampire, but a chaplain by themselfs or a crew with a null rod can not.
+	if(can_block_magic(MAGIC_RESISTANCE_HOLY) && HAS_MIND_TRAIT(src, TRAIT_HOLY))
+		return FALSE
 	//Vampires who have reached their full potential can affect nearly everything
 	var/datum/antagonist/vampire/V = user?.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V?.get_ability(/datum/vampire_passive/full))
@@ -10,12 +13,15 @@
 	//Holy characters are resistant to vampire powers
 	if(HAS_MIND_TRAIT(src, TRAIT_HOLY))
 		return FALSE
+	if(can_block_magic(MAGIC_RESISTANCE_HOLY))
+		return FALSE
 	return TRUE
 
 /datum/spell/vampire
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
 	clothes_req = FALSE
+	antimagic_flags = MAGIC_RESISTANCE_HOLY
 	/// How much blood this ability costs to use
 	var/required_blood
 	var/deduct_blood_on_cast = TRUE
@@ -52,6 +58,7 @@
 	action_icon_state = "vampire_rejuvinate"
 	base_cooldown = 20 SECONDS
 	stat_allowed = UNCONSCIOUS
+	antimagic_flags = NONE // So. If you have a null rod on your person, you can't cast vampire spells. I would rather not have officers abuse this by putting a nullrod in their pocket or something to block rejuvinate.
 
 /datum/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
 	var/mob/living/U = user

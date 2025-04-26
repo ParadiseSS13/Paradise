@@ -10,5 +10,10 @@ pub(crate) static BUFFERS: OnceLock<Buffers> = OnceLock::new();
 /// We only write this once per tick, and only read it on user input.
 pub(crate) static INTERESTING_TILES: Mutex<Vec<InterestingTile>> = Mutex::new(Vec::new());
 
+/// The current set of tiles BYOND wants the pressure of.
+/// Written to via BYOND call.
+/// Read from and cleared via BYOND call.
+pub(crate) static TRACKED_PRESSURE_TILES: Mutex<Vec<(i32, i32, usize)>> = Mutex::new(Vec::new());
+
 /// How long the last tick took, in milliseconds.
 pub(crate) static TICK_TIME: AtomicUsize = AtomicUsize::new(0);

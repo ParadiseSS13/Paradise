@@ -18,6 +18,7 @@
 	if(resize != RESIZE_DEFAULT_SIZE)
 		changed++
 		ntransform.Scale(resize)
+		ntransform.Translate(0, (resize - 1) * 16) // Pixel Y shift: 1.25 = 4, 1.5 = 8, 2 -> 16, 3 -> 32, 4 -> 48, 5 -> 64
 		resize = RESIZE_DEFAULT_SIZE
 
 	if(changed)
@@ -62,8 +63,9 @@
 		update_observer_view(l_hand)
 
 /mob/living/carbon/update_inv_wear_mask()
-	if(istype(wear_mask, /obj/item/clothing/mask))
-		update_hud_wear_mask(wear_mask)
+	if(!wear_mask)
+		return
+	update_hud_wear_mask(wear_mask)
 
 /mob/living/carbon/update_inv_back()
 	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)])

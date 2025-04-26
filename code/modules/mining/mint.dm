@@ -122,18 +122,19 @@
 		if("ejectBag")
 			eject_bag(usr)
 
-/obj/machinery/mineral/mint/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/bag/money))
+/obj/machinery/mineral/mint/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/bag/money))
 		if(money_bag)
 			to_chat(user, "<span class='notice'>There is already a [money_bag.name] inside!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return
-		to_chat(user, "<span class='notice'>You put a [I.name] into a [src].</span>")
-		I.forceMove(src)
-		money_bag = I
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You put a [used.name] into a [src].</span>")
+		used.forceMove(src)
+		money_bag = used
 		SStgui.update_uis(src)
-		return
+
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

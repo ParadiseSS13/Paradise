@@ -73,7 +73,7 @@
 	icon_grow = "spacemanstrumpet-grow"
 	icon_dead = "spacemanstrumpet-dead"
 	mutatelist = null
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
+	reagents_add = list("nutriment" = 0.05)
 
 /obj/item/food/grown/trumpet
 	seed = /obj/item/seeds/poppy/lily/trumpet
@@ -244,7 +244,6 @@
 		force -= rand(1, (force / 3) + 1)
 	else
 		to_chat(usr, "<span class='warning'>All the petals have fallen off [src] from violent whacking!</span>")
-		usr.unEquip(src)
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)

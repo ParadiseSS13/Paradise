@@ -4,7 +4,7 @@
 
 	Otherwise pretty standard.
 */
-/mob/living/carbon/human/UnarmedAttack(atom/A, proximity)
+/mob/living/carbon/human/UnarmedAttack(atom/A, proximity, params)
 	// Special glove functions:
 	// If the gloves do anything, have them return 1 to stop
 	// normal attack_hand() here.
@@ -25,9 +25,9 @@
 	if(SEND_SIGNAL(A, COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
 
-	A.attack_hand(src)
+	A.attack_hand(src, params)
 
-/atom/proc/attack_hand(mob/user as mob)
+/atom/proc/attack_hand(mob/user as mob, params)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
@@ -59,15 +59,36 @@
 /*
 	Animals & All Unspecified
 */
-/mob/living/UnarmedAttack(atom/A)
-	A.attack_animal(src)
+/mob/living/UnarmedAttack(atom/target, proximity_flag, modifiers)
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target, proximity_flag, modifiers)
+	if(sigreturn & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(sigreturn & COMPONENT_SKIP_ATTACK)
+		return FALSE
+
+	resolve_unarmed_attack(target, modifiers)
 
 /mob/living/simple_animal/hostile/UnarmedAttack(atom/A)
 	target = A
 	AttackingTarget()
 
+/mob/living/proc/resolve_unarmed_attack(atom/attack_target, list/modifiers)
+	attack_target.attack_animal(src, modifiers)
+
 /atom/proc/attack_animal(mob/user)
-	return
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_ANIMAL, user)
+
+///When a basic mob attacks something, either by AI or user.
+/atom/proc/attack_basic_mob(mob/user, list/modifiers)
+	SHOULD_CALL_PARENT(TRUE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_BASIC_MOB, user) & COMPONENT_BASIC_ATTACK_CANCEL_CHAIN)
+		return
+	return handle_basic_attack(user, modifiers) //return value of attack animal, this is how much damage was dealt to the attacked thing
+
+///This exists so stuff can override the default call of attack_animal for attack_basic_mob
+///Remove this when simple animals are removed and everything can be handled on attack basic mob.
+/atom/proc/handle_basic_attack(user, modifiers)
+	return attack_animal(user, modifiers)
 
 /mob/living/RestrainedClickOn(atom/A)
 	return

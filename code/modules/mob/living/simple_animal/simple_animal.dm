@@ -9,6 +9,7 @@
 	universal_understand = TRUE
 	universal_speak = FALSE
 	status_flags = CANPUSH
+	healable = TRUE
 
 	var/icon_living = ""
 	var/icon_dead = ""
@@ -53,9 +54,6 @@
 	var/can_be_on_fire = FALSE
 	/// Damage the mob will take if it is on fire
 	var/fire_damage = 2
-
-	/// Healable by medical stacks? Defaults to yes.
-	var/healable = TRUE
 
 	/// Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
@@ -104,8 +102,6 @@
 	var/current_offspring = 0
 	var/max_offspring = DEFAULT_MAX_OFFSPRING
 
-	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
-	var/xenobiology_spawned = FALSE
 	/// If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
 	var/gold_core_spawnable = NO_SPAWN
 	/// Holding var for determining who own/controls a sentient simple animal (for sentience potions).
@@ -167,7 +163,7 @@
 
 /mob/living/simple_animal/Destroy()
 	/// We need to clear the reference to where we're walking to properly GC
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	QDEL_NULL(pcollar)
 	for(var/datum/action/innate/hide/hide in actions)
 		hide.Remove(src)
@@ -378,7 +374,7 @@
 			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
 		else if(!del_on_death)
 			visible_message("<span class='danger'>\The [src] stops moving...</span>")
-	if(xenobiology_spawned)
+	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such
@@ -504,12 +500,12 @@
 		if(ITEM_SLOT_COLLAR)
 			add_collar(W)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/simple_animal/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	. = ..()
-	if(!. || !I)
+	if(!. || !target)
 		return
 
-	if(I == pcollar)
+	if(target == pcollar)
 		pcollar = null
 		regenerate_icons()
 
@@ -593,7 +589,7 @@
 /mob/living/simple_animal/proc/add_collar(obj/item/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
 		return
-	if(user && !user.unEquip(P))
+	if(user && !user.drop_item_to_ground(P))
 		return
 	P.forceMove(src)
 	P.equipped(src)
@@ -611,7 +607,7 @@
 
 	var/obj/old_collar = pcollar
 
-	unEquip(pcollar)
+	drop_item_to_ground(pcollar)
 
 	if(user)
 		user.put_in_hands(old_collar)
@@ -627,7 +623,7 @@
 
 /mob/living/simple_animal/Login()
 	..()
-	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 
 /mob/living/simple_animal/proc/npc_safe(mob/user)
 	return FALSE

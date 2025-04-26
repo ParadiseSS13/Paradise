@@ -119,11 +119,19 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(powernet && (powernet.available_power > 0))		// is it powered?
-		to_chat(user, chat_box_examine("<span class='notice'>Total power: [DisplayPower(powernet.available_power)]\nLoad: [DisplayPower(powernet.power_demand)]\nExcess power: [DisplayPower(get_surplus())]</span>"))
-	else
-		to_chat(user, "<span class='warning'>The cable is not powered.</span>")
+	to_chat(user, generate_power_message())
 	shock(user, 5, 0.2)
+
+/obj/structure/cable/proc/generate_power_message()
+	if(powernet && (powernet.available_power > 0))
+		return chat_box_examine("<span class='notice'>Total power: [DisplayPower(powernet.available_power)]\nLoad: [DisplayPower(powernet.power_demand)]\nExcess power: [DisplayPower(get_surplus())]</span>")
+	else
+		return "<span class='warning'>The cable is not powered.</span>"
+
+/obj/structure/cable/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		. += generate_power_message()
 
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -136,7 +144,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(shock(user, 50))
 		return
 	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
-	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])",INVESTIGATE_WIRES)
 	deconstruct()
 
 /obj/structure/cable/proc/cable_color(colorC)
@@ -154,12 +162,12 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
 	if(usr)
-		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])",INVESTIGATE_WIRES)
 	if(!(flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 2, color)
 		else
-			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 1, color)
 	qdel(src)
 
 /* ===POWERNET PROCS=== */

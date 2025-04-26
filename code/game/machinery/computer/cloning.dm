@@ -47,42 +47,41 @@
 			P.console = null
 	return ..()
 
-/obj/machinery/computer/cloning/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-
-	if(!ismultitool(I))
+/obj/machinery/computer/cloning/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!ismultitool(used))
 		return ..()
 
-	var/obj/item/multitool/M = I
+	var/obj/item/multitool/M = used
 	if(!M.buffer)
 		to_chat(user, "<span class='warning'>[M]'[M.p_s()] buffer is empty!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(M.buffer, /obj/machinery/clonepod))
 		var/obj/machinery/clonepod/buffer_pod = M.buffer
 		if(buffer_pod.console == src)
 			to_chat(user, "<span class='warning'>[M.buffer] is already linked!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		pods += M.buffer
 		buffer_pod.console = src
 		to_chat(user, "<span class='notice'>[M.buffer] was successfully added to the cloning pod array.</span>")
 		if(!selected_pod)
 			selected_pod = buffer_pod
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(M.buffer, /obj/machinery/clonescanner))
 		var/obj/machinery/clonescanner/buffer_scanner = M.buffer
 		if(scanner)
 			to_chat(user, "<span class='warning'>There's already a linked scanner!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		scanner = buffer_scanner
 		buffer_scanner.console = src
 		to_chat(user, "<span class='notice'>[M.buffer] was successfully linked.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, "<span class='warning'>[M.buffer] cannot be linked to [src].</span>")
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/computer/cloning/attack_ai(mob/user)
 	return attack_hand(user)

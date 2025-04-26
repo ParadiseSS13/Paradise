@@ -112,9 +112,16 @@
 				occupantData["temperatureSuitability"] = -3
 			else if(silly.bodytemperature > silly.maxbodytemp)
 				occupantData["temperatureSuitability"] = 3
+		else if(isbasicmob(occupant))
+			var/mob/living/basic/basicmob = occupant
+			if(basicmob.bodytemperature < basicmob.minimum_survivable_temperature)
+				occupantData["temperatureSuitability"] = -3
+			else if(basicmob.bodytemperature > basicmob.maximum_survivable_temperature)
+				occupantData["temperatureSuitability"] = 3
 		// Blast you, imperial measurement system
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
+		occupantData["activeSurgeries"] = list()
 
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
 			var/mob/living/carbon/human/H = occupant
@@ -127,15 +134,20 @@
 			occupantData["bloodType"] = occupant.dna.blood_type
 		if(length(occupant.surgeries))
 			occupantData["inSurgery"] = 1
+
 			for(var/datum/surgery/procedure in occupant.surgeries)
-				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
 				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				var/surgery_desc = "[capitalize(surgery_step.get_step_information(procedure))]"
+				var/surgery_desc = "[capitalize(surgery_step.get_step_information(procedure, TRUE))]"
 				if(surgery_step.repeatable)
 					var/datum/surgery_step/next = procedure.get_surgery_next_step()
 					if(next)
-						surgery_desc += " or [capitalize(next.get_step_information(procedure))]"
-				occupantData["stepName"] = surgery_desc
+						surgery_desc += " or [capitalize(next.get_step_information(procedure, TRUE))]"
+
+				occupantData["activeSurgeries"] += list(list(
+					"name" = "[capitalize(procedure.name)]",
+					"step" = surgery_desc,
+					"location" = capitalize(parse_zone(procedure.location)),
+				))
 
 	data["occupant"] = occupantData
 	data["verbose"] = verbose
@@ -228,5 +240,10 @@
 		if(table.patient.stat != patientStatusHolder)
 			atom_say("Patient is now [patientStatus]")
 			patientStatusHolder = table.patient.stat
+
+/obj/machinery/computer/operating/clockwork
+	name = "brass operating computer"
+	desc = "Staring at this causes your head to fill with static."
+	icon_state = "computer_clockwork"
 
 #undef OP_COMPUTER_COOLDOWN

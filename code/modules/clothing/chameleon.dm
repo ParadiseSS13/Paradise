@@ -72,7 +72,7 @@
 /datum/action/item_action/chameleon_change/New(Target)
 	. = ..()
 	holder = Target
-	
+
 
 /datum/action/item_action/chameleon_change/Grant(mob/M)
 	if(M && (owner != M))
@@ -374,7 +374,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/hud/security/chameleon
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	hud_access_override = TRUE
 	flash_protect = FLASH_PROTECTION_FLASH
 
 	var/datum/action/item_action/chameleon_change/chameleon_action
@@ -709,6 +709,35 @@
 	return ..()
 
 /obj/item/stamp/chameleon/broken/Initialize(mapload)
+	. = ..()
+	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/neck/chameleon
+	name = "black tie"
+	desc = "A neosilk clip-on tie."
+	icon = 'icons/obj/clothing/neck.dmi'
+	icon_state = "blacktie"
+	resistance_flags = NONE
+
+	var/datum/action/item_action/chameleon_change/chameleon_action
+
+/obj/item/clothing/neck/chameleon/Initialize(mapload)
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/clothing/neck
+	chameleon_action.chameleon_name = "Tie"
+	chameleon_action.chameleon_blacklist = list()
+	chameleon_action.initialize_disguises()
+
+/obj/item/clothing/neck/chameleon/Destroy()
+	QDEL_NULL(chameleon_action)
+	return ..()
+
+/obj/item/clothing/neck/chameleon/emp_act(severity)
+	. = ..()
+	chameleon_action.emp_randomise()
+
+/obj/item/clothing/neck/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 

@@ -43,6 +43,7 @@
 	style = new()
 
 /obj/item/storage/belt/judobelt/equipped(mob/user, slot)
+	. = ..()
 	if(!ishuman(user))
 		return
 	if(slot == ITEM_SLOT_BELT)

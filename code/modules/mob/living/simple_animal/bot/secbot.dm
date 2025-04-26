@@ -120,7 +120,7 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 
@@ -189,15 +189,17 @@
 	threatlevel += 6
 	if(threatlevel >= 4)
 		target = H
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/secbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM || H.a_intent == INTENT_DISARM)
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
+/mob/living/simple_animal/bot/secbot/attacked_by(obj/item/W, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(W.force && !target && W.damtype != STAMINA)
 		retaliate(user)
 
@@ -245,7 +247,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
-	mode = BOT_ARREST
+	set_mode(BOT_ARREST)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
@@ -267,7 +269,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = harmbaton ? INTENT_HARM : INTENT_HELP
-	baton.attack__legacy__attackchain(C, src)
+	baton.pre_attack(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
@@ -315,18 +317,18 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			if(find_new_target())	// see if any criminals are in range
 				return
 			if(!mode && auto_patrol)	// still idle, and set to patrol
-				mode = BOT_START_PATROL	// switch to patrol mode
+				set_mode(BOT_START_PATROL)	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
 				playsound(loc, 'sound/machines/buzz-two.ogg', 25, FALSE)
-				walk_to(src, 0)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -341,7 +343,7 @@
 
 			if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
 				stun_attack(target)
-				mode = BOT_PREP_ARREST
+				set_mode(BOT_PREP_ARREST)
 				anchored = TRUE
 				target_lastloc = target.loc
 				return
@@ -380,7 +382,7 @@
 				back_to_hunt()
 				return
 			//Try arresting again if the target escapes.
-			mode = BOT_PREP_ARREST
+			set_mode(BOT_PREP_ARREST)
 			anchored = FALSE
 
 		if(BOT_START_PATROL)
@@ -397,7 +399,7 @@
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	target = null
 	last_found = world.time
 	frustration = 0
@@ -406,7 +408,7 @@
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 // look for a criminal in view of the bot
 
@@ -429,7 +431,7 @@
 		speak("Level [threatlevel] infraction alert!")
 		playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
 		visible_message("<b>[src]</b> points at [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
@@ -441,7 +443,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/explode()
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
@@ -460,7 +462,7 @@
 	..()
 	if(!isalien(target))
 		target = user
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/secbot/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(ismob(entered) && target)

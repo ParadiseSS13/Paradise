@@ -13,6 +13,7 @@
 	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 70, ACID = 100)
 	glass = TRUE // Used by polarized helpers. Windoors are always glass.
 	superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
+	cares_about_temperature = TRUE
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = FALSE
@@ -118,7 +119,7 @@
 					return
 				do_animate("deny")
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 	var/mob/living/M = AM
 	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
@@ -204,6 +205,7 @@
 			return 0
 	if(!operating) //in case of emag
 		operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	do_animate("opening")
 	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
@@ -235,11 +237,11 @@
 	density = TRUE
 	if(polarized_on)
 		set_opacity(TRUE)
-	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	sleep(10)
 
 	operating = NONE
+	recalculate_atmos_connectivity()
 	return 1
 
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -267,7 +269,7 @@
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
 
-/obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/window/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
@@ -312,10 +314,10 @@
 	operating = NONE
 	return TRUE
 
-/obj/machinery/door/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	add_fingerprint(user)
 	return ..()
@@ -385,6 +387,7 @@
 					ae = electronics
 					electronics = null
 					ae.forceMove(loc)
+				ae.is_installed = FALSE
 
 				qdel(src)
 	else

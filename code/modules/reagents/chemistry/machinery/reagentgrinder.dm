@@ -70,7 +70,7 @@
 		/obj/item/food/grown/citrus/orange = list("orangejuice" = 0),
 		/obj/item/food/grown/citrus/lime = list("limejuice" = 0),
 		/obj/item/food/grown/watermelon = list("watermelonjuice" = 0),
-		/obj/item/food/watermelonslice = list("watermelonjuice" = 0),
+		/obj/item/food/sliced/watermelon = list("watermelonjuice" = 0),
 		/obj/item/food/grown/berries/poison = list("poisonberryjuice" = 0),
 		/obj/item/food/grown/pumpkin/blumpkin = list("blumpkinjuice" = 0), // Order is important here as blumpkin is a subtype of pumpkin, if switched blumpkins will produce pumpkin juice
 		/obj/item/food/grown/pumpkin = list("pumpkinjuice" = 0),
@@ -157,44 +157,44 @@
 		return
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/reagentgrinder/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/part_replacer))
-		..()
+/obj/machinery/reagentgrinder/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		. = ..()
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if((istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
+	if((istype(used, /obj/item/reagent_containers) && (used.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(beaker)
 			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
 		else if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
 			if(!user.drop_item())
-				return FALSE
+				return ITEM_INTERACT_COMPLETE
 
-			beaker =  I
+			beaker =  used
 			beaker.loc = src
 			update_icon(UPDATE_ICON_STATE)
 			SStgui.update_uis(src)
-		return TRUE // No afterattack
+		return ITEM_INTERACT_COMPLETE
 
-	if(is_type_in_list(I, dried_items))
-		if(istype(I, /obj/item/food/grown))
-			var/obj/item/food/grown/G = I
+	if(is_type_in_list(used, dried_items))
+		if(istype(used, /obj/item/food/grown))
+			var/obj/item/food/grown/G = used
 			if(!G.dry)
 				to_chat(user, "<span class='warning'>You must dry that first!</span>")
-				return FALSE
+				return ITEM_INTERACT_COMPLETE
 
 	if(length(holdingitems) >= limit)
 		to_chat(usr, "The machine cannot hold anymore items.")
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	// Fill machine with a bag!
-	if(istype(I, /obj/item/storage/bag))
-		var/obj/item/storage/bag/B = I
+	if(istype(used, /obj/item/storage/bag))
+		var/obj/item/storage/bag/B = used
 		if(!length(B.contents))
 			to_chat(user, "<span class='warning'>[B] is empty.</span>")
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 
 		var/original_contents_len = length(B.contents)
 
@@ -208,7 +208,7 @@
 
 		if(length(B.contents) == original_contents_len)
 			to_chat(user, "<span class='warning'>Nothing in [B] can be put into the All-In-One grinder.</span>")
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 
 		else if(!length(B.contents))
 			to_chat(user, "<span class='notice'>You empty all of [B]'s contents into the All-In-One grinder.</span>")
@@ -216,20 +216,22 @@
 			to_chat(user, "<span class='notice'>You empty some of [B]'s contents into the All-In-One grinder.</span>")
 
 		SStgui.update_uis(src)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	if(!is_type_in_list(I, blend_items) && !is_type_in_list(I, juice_items))
+	if(!is_type_in_list(used, blend_items) && !is_type_in_list(used, juice_items))
 		if(user.a_intent == INTENT_HARM)
 			return ..()
 		else
 			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 
 	if(user.drop_item())
-		I.loc = src
-		holdingitems += I
+		used.loc = src
+		holdingitems += used
 		SStgui.update_uis(src)
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
 	return FALSE

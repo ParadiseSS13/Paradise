@@ -1,0 +1,176 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"G" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/game_test)
+"R" = (
+/obj/effect/landmark/game_test/bottom_left_corner,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Y" = (
+/obj/effect/landmark/game_test/top_right_corner,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+
+(1,1,1) = {"
+G
+G
+G
+G
+G
+G
+G
+G
+"}
+(2,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(3,1,1) = {"
+G
+a
+a
+a
+a
+R
+a
+G
+"}
+(4,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(5,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(6,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(7,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(8,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(9,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(10,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(11,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(12,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(13,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(14,1,1) = {"
+G
+a
+Y
+a
+a
+a
+a
+G
+"}
+(15,1,1) = {"
+G
+a
+a
+a
+a
+a
+a
+G
+"}
+(16,1,1) = {"
+G
+G
+G
+G
+G
+G
+G
+G
+"}

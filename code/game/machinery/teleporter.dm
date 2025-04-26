@@ -47,18 +47,18 @@
 	power_station = locate(/obj/machinery/teleport/station, orange(1, src))
 	return power_station
 
-/obj/machinery/computer/teleporter/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/gps))
-		var/obj/item/gps/L = I
+/obj/machinery/computer/teleporter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/gps))
+		var/obj/item/gps/L = used
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			if(!user.unEquip(L))
-				to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in [src]</span>")
-				return
-			L.forceMove(src)
+			if(!user.transfer_item_to(L, src))
+				to_chat(user, "<span class='warning'>[used] is stuck to your hand, you cannot put it in [src]</span>")
+				return ITEM_INTERACT_COMPLETE
 			locked = L
 			to_chat(user, "<span class='caution'>You insert the GPS device into [src]'s slot.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/computer/teleporter/emag_act(mob/user)
 	if(!emagged)
@@ -335,8 +335,8 @@
 	Prevents AI from using the teleporter, prints out failure messages for clarity
 */
 /obj/machinery/teleport/proc/blockAI(atom/A)
-	if(isAI(A) || istype(A, /obj/structure/ai_core))
-		if(isAI(A))
+	if(is_ai(A) || istype(A, /obj/structure/ai_core))
+		if(is_ai(A))
 			var/mob/living/silicon/ai/T = A
 			if(T.allow_teleporter)
 				return FALSE
@@ -642,16 +642,16 @@
 		teleporter_console = null
 	return ..()
 
-/obj/machinery/teleport/station/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+/obj/machinery/teleport/station/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(panel_open && istype(used, /obj/item/circuitboard/teleporter_perma))
 		if(!teleporter_console)
 			to_chat(user, "<span class='caution'>[src] is not linked to a teleporter console.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/circuitboard/teleporter_perma/C = I
+		var/obj/item/circuitboard/teleporter_perma/C = used
 		C.target = teleporter_console.target
 		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C].</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

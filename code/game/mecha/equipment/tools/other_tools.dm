@@ -163,7 +163,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/attach(obj/mecha/M)
 	..()
-	droid_overlay = new(icon, icon_state = "repair_droid")
+	droid_overlay = new(icon, icon_state = "repair_droid_icon")
 	M.overlays += droid_overlay
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach()
@@ -434,11 +434,11 @@
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 150
 	power_per_cycle = 250
-	var/rad_per_cycle = 30
+	var/rad_per_cycle = 120
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
-		radiation_pulse(get_turf(src), rad_per_cycle)
+		radiation_pulse(get_turf(src), rad_per_cycle, BETA_RAD)
 
 /obj/item/mecha_parts/mecha_equipment/thrusters
 	name = "exosuit ion thrusters"

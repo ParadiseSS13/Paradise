@@ -226,7 +226,7 @@
 	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
-	item_state = "electropack" //spelling, a coders worst enemy. This part gave me trouble for a while.
+	item_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	can_overcharge = FALSE

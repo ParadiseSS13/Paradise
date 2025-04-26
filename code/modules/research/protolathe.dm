@@ -57,7 +57,9 @@ Note: Must be placed west/left of and R&D console to function.
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
+	reagents.maximum_volume = 0
 	for(var/obj/item/reagent_containers/glass/G in component_parts)
+		reagents.maximum_volume += G.reagents.maximum_volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
@@ -76,22 +78,19 @@ Note: Must be placed west/left of and R&D console to function.
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-/obj/machinery/r_n_d/protolathe/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/storage/part_replacer))
+/obj/machinery/r_n_d/protolathe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
-	if(default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
+	if(default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", used))
 		if(linked_console)
 			linked_console.linked_lathe = null
 			linked_console = null
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
-		return TRUE
-
-	if(O.is_open_container())
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

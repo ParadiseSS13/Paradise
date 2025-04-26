@@ -402,6 +402,12 @@
 	build_path = /obj/machinery/computer/mech_bay_power_console
 	origin_tech = "programming=3;powerstorage=3"
 
+/obj/item/circuitboard/ai_resource_console
+	board_name = "AI Resource Management Console"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/ai_resource
+	origin_tech = "programming=4"
+
 /obj/item/circuitboard/ordercomp
 	board_name = "Supply Ordering Console"
 	icon_state = "supply"
@@ -562,13 +568,17 @@
 
 /obj/structure/computerframe
 	name = "computer frame"
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "comp_frame_1"
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "computer_frame"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 100
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
+
+/obj/structure/computerframe/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/computerframe/examine(mob/user)
 	. = ..()
@@ -618,8 +628,9 @@
 	if(state == STATE_GLASS)
 		new /obj/item/stack/sheet/glass(location, 2)
 
-/obj/structure/computerframe/update_icon_state()
-	icon_state = "comp_frame_[state]"
+/obj/structure/computerframe/update_overlays()
+	..()
+	. += "comp_frame_[state]"
 
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)
 	if(state != STATE_EMPTY)

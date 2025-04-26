@@ -28,13 +28,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 
-/obj/item/stack/cable_coil/New(location, length, paramcolor)
+/obj/item/stack/cable_coil/Initialize(mapload, length, paramcolor)
 	. = ..()
 	if(paramcolor)
 		color = paramcolor
-
-/obj/item/stack/cable_coil/Initialize(mapload)
-	. = ..()
 	update_icon()
 	recipes = GLOB.cable_coil_recipes
 	update_wclass()
@@ -210,7 +207,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
-			new /obj/item/stack/cable_coil(get_turf(C), 1, paramcolor = C.color)
+			new /obj/item/stack/cable_coil(get_turf(C), 1, C.color)
 			C.deconstruct()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
@@ -378,9 +375,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/white
 	color = COLOR_WHITE
 
-/obj/item/stack/cable_coil/random/New()
+/obj/item/stack/cable_coil/random/Initialize(mapload)
+	. = ..()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
-	..()
 
 /obj/item/stack/cable_coil/cut
 	item_state = "coil2"

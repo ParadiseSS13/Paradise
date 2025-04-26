@@ -40,6 +40,11 @@
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
+/mob/living/silicon/robot/syndicate/air_push(direction, strength)
+	// Syndicate borgs ignore airflow, because they're bloody expensive.
+	// This should probably be revisited later, as part of a broader move_resist/move_force/pull_force rework.
+	return
+
 /mob/living/silicon/robot/syndicate/medical
 	base_icon = "syndi-medi"
 	icon_state = "syndi-medi"
@@ -113,10 +118,10 @@
 			return
 	cham_proj.attack_self__legacy__attackchain(src)
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby__legacy__attackchain()
+/mob/living/silicon/robot/syndicate/saboteur/attack_by(obj/item/attacking, mob/living/user, params)
+	. = ..()
 	if(cham_proj)
 		cham_proj.disrupt(src)
-	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/attack_hand()
 	if(cham_proj)

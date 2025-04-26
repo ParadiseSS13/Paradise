@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return returns
 
 
-/mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/say(message, verb = null, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, automatic = FALSE)
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -166,7 +166,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return TRUE
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
-	verb = say_quote(message, first_piece.speaking)
+	if(isnull(verb))
+		verb = say_quote(message, first_piece.speaking)
 
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
@@ -190,7 +191,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	// Do this so it gets logged for all types of communication
 	var/log_message = "[message_mode ? "([message_mode])" : ""] '[message]'"
-	create_log(SAY_LOG, log_message)
+	create_log(SAY_LOG, log_message, automatic = TRUE)
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
@@ -199,7 +200,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	// Log of what we've said, plain message, no spans or junk
 	// handle_message_mode should have logged this already if it handled it
 	say_log += log_message
-	log_say(log_message, src)
+	log_say(log_message, src, automatic = TRUE)
 
 	var/list/handle_v = handle_speech_sound()
 	var/sound/speech_sound = handle_v[1]

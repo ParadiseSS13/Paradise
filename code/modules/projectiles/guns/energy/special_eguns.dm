@@ -357,7 +357,7 @@
 	P.precision = 0
 	P.failchance = 0
 	P.can_multitool_to_remove = 1
-	if(W.name == "bluespace beam")
+	if(W.name == "wormhole beam")
 		qdel(blue)
 		blue = P
 	else
@@ -700,11 +700,11 @@
 
 /obj/item/gun/energy/bsg/equipped(mob/user, slot, initial)
 	. = ..()
-	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
 
 /obj/item/gun/energy/bsg/dropped(mob/user, silent)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
@@ -1050,7 +1050,7 @@
 		user.flash_eyes(2, TRUE)
 		do_sparks(rand(5, 9), FALSE, src)
 		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		cell.charge = 0 //ha ha you lose
 		update_icon()
 		return

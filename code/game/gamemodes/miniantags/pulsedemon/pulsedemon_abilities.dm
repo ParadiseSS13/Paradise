@@ -10,6 +10,7 @@
 
 /datum/spell/pulse_demon
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	action_background_icon_state = "bg_pulsedemon"
 	var/locked = TRUE
 	var/unlock_cost = 1 KJ
@@ -197,7 +198,7 @@
 
 /datum/spell/pulse_demon/overload/proc/detonate(obj/machinery/target)
 	if(!QDELETED(target))
-		explosion(get_turf(target), 0, 1, 1, 0)
+		explosion(get_turf(target), 0, 1, 1, 0, cause = "Pulse Demon: [name]")
 		if(!QDELETED(target))
 			qdel(target)
 

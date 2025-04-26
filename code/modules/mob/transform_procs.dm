@@ -11,7 +11,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_to_ground(W)
 	notransform = TRUE
 	icon = null
 	invisibility = 101
@@ -56,7 +56,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_to_ground(W)
 
 	notransform = TRUE
 	icon = null
@@ -124,7 +124,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_to_ground(W)
 	regenerate_icons()
 	notransform = TRUE
 	icon = null
@@ -154,7 +154,7 @@
 		return
 	notransform = TRUE
 	for(var/obj/item/I in src)
-		unEquip(I)
+		drop_item_to_ground(I)
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
@@ -185,7 +185,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_to_ground(W)
 	regenerate_icons()
 	notransform = TRUE
 	icon = null
@@ -211,7 +211,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_to_ground(W)
 
 	regenerate_icons()
 	notransform = TRUE
@@ -232,6 +232,7 @@
 /mob/proc/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
+	mobtypes |= subtypesof(/mob/living/basic)
 	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a Type", mobtypes)
 
 	if(!mobpath)
@@ -250,7 +251,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		unEquip(W)
+		drop_item_to_ground(W)
 	regenerate_icons()
 	notransform = TRUE
 	icon = null
@@ -279,7 +280,7 @@
 		return
 
 	for(var/obj/item/W in get_all_slots())
-		unEquip(W)
+		drop_item_to_ground(W)
 
 	regenerate_icons()
 	notransform = TRUE

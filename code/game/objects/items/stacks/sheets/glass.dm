@@ -61,9 +61,9 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 /obj/item/stack/sheet/glass/cyborg/drone
 	energy_type = /datum/robot_storage/energy/glass
 
-/obj/item/stack/sheet/glass/New(loc, amount)
+/obj/item/stack/sheet/glass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.glass_recipes
-	..()
 
 /obj/item/stack/sheet/glass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -128,9 +128,9 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 /obj/item/stack/sheet/rglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/rglass/New(loc, amount)
+/obj/item/stack/sheet/rglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.reinforced_glass_recipes
-	..()
 
 GLOBAL_LIST_INIT(pglass_recipes, list (
 	new /datum/stack_recipe("plasma shard", /obj/item/shard/plasma, time = 0 SECONDS),
@@ -183,9 +183,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 /obj/item/stack/sheet/plasmaglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/plasmaglass/New(loc, amount)
+/obj/item/stack/sheet/plasmaglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.pglass_recipes
-	..()
 
 /obj/item/stack/sheet/plasmaglass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	..()
@@ -241,9 +241,9 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 /obj/item/stack/sheet/plasmarglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/plasmarglass/New(loc, amount)
+/obj/item/stack/sheet/plasmarglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.prglass_recipes
-	..()
 
 GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	new /datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
@@ -274,12 +274,14 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 /obj/item/stack/sheet/titaniumglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/titaniumglass/New(loc, amount)
+/obj/item/stack/sheet/titaniumglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.titaniumglass_recipes
-	..()
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
-	new /datum/stack_recipe/window("plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE)
+	new /datum/stack_recipe("plastitanium shard", /obj/item/shard/plastitanium, time = 0 SECONDS),
+	new /datum/stack_recipe/window("directional plastitanium window", /obj/structure/window/plastitanium, 1, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	))
 
 //////////////////////////////
@@ -295,6 +297,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 100)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
+	created_window = /obj/structure/window/plastitanium
 	full_window = /obj/structure/window/full/plastitanium
 	table_type = /obj/structure/table/glass/reinforced/plastitanium
 
@@ -308,7 +311,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 /obj/item/stack/sheet/plastitaniumglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/plastitaniumglass/New(loc, amount)
+/obj/item/stack/sheet/plastitaniumglass/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.plastitaniumglass_recipes
-	..()
 

@@ -25,6 +25,14 @@
 		var/obj/item/stack/R = new res(src)
 		R.amount = rand(10, 15) //ash drakes drop 5, this is perfectly fine
 
+	var/list/exquisite_ore = list(
+		/obj/item/stack/ore/platinum, // The vetus can have some, as a treat
+		/obj/item/stack/ore/iridium,
+		/obj/item/stack/ore/palladium
+	)
+
+	for(var/ore in exquisite_ore)
+		new ore(src, rand(5, 10)) // Don't want mining to step too much on explorer's toes.
 
 /obj/structure/closet/crate/necropolis/ancient/ex_act(severity)
 	return

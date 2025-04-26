@@ -53,7 +53,7 @@
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 	var/list/L = list()
-	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
+	for(var/obj/machinery/computer/teleporter/com in SSmachines.get_by_type(/obj/machinery/computer/teleporter))
 		if(com.target)
 			if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
 				L["[com.id] (Active)"] = com.target
@@ -72,6 +72,7 @@
 		turfs += T
 	if(length(turfs))
 		L["None (Dangerous)"] = pick(turfs)
+	flick("hand_tele_activated", src)
 	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
 	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
 		return

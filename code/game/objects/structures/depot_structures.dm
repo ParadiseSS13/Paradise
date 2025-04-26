@@ -44,7 +44,7 @@
 	if(prob(50))
 		empulse(src, 4, 10)
 	else
-		radiation_pulse(get_turf(src), 500, 2)
+		radiation_pulse(get_turf(src), 2000, BETA_RAD)
 
 /obj/structure/fusionreactor/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -113,7 +113,7 @@
 		M.gib()
 	for(var/obj/mecha/E in range(30, T))
 		E.take_damage(E.max_integrity)
-	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0)
+	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, cause = "Depot Explosion")
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 

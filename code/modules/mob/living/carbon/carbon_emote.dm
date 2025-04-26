@@ -154,7 +154,7 @@
 	. = ..()
 	if(. && isliving(user))
 		var/mob/living/L = user
-		L.SetSleeping(2 SECONDS)
+		L.Paralyse(2 SECONDS)
 
 /datum/emote/living/carbon/twirl
 	key = "twirl"

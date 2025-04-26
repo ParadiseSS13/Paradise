@@ -1,6 +1,6 @@
 /obj/item/clothing/head/helmet
 	name = "helmet"
-	desc = "Standard Security gear. Protects the head from impacts."
+	desc = "A mass-produced protective helmet used by security personnel across the sector. Provides light protection against most sources of damage."
 	icon_state = "helmetmaterials"
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = HEADBANGPROTECT
@@ -80,7 +80,7 @@
 
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"
-	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
+	desc = "A durable combat helmet reinforced with strike plates and cushioning to protect against high-velocity kinetic impacts and the concussive force of explosions. Does little to stop energy weapons or melee hits."
 	icon_state = "bulletproof"
 	item_state = "bulletproof"
 	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 45, RAD = 0, FIRE = 50, ACID = 50)
@@ -88,7 +88,7 @@
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
-	desc = "It's a helmet specifically designed to protect against close range attacks."
+	desc = "A large, bulky helmet reinforced with impact plates and shock-absorbing gel to protect against melee attacks. The helmet is treated with a fire and acid-resistant surface coating, and the attached plexiglass visor should prevent things from jumping on your face."
 	icon_state = "riot"
 	item_state = "helmet"
 	armor = list(MELEE = 50, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
@@ -99,7 +99,7 @@
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
-	desc = "A classic metal helmet."
+	desc = "A majestic knightly helm made of steel. Protects well against melee attacks, but don't try taking a bullet with it."
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	flags = BLOCKHAIR
@@ -108,10 +108,10 @@
 
 /obj/item/clothing/head/helmet/justice
 	name = "helmet of justice"
-	desc = "WEEEEOOO. WEEEEEOOO. WEEEEOOOO."
+	desc = "A standard Security helmet with a pair of police lights crudely screwed to the sides. Any hearing loss caused by this contraption is not service related."
 	icon_state = "justice"
-	toggle_message = "You turn off the lights on"
-	alt_toggle_message = "You turn on the lights on"
+	toggle_message = "You turn off the lights"
+	alt_toggle_message = "You turn on the lights"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	can_toggle = 1
 	toggle_cooldown = 20
@@ -122,13 +122,13 @@
 	name = "alarm helmet"
 	desc = "WEEEEOOO. WEEEEEOOO. STOP THAT MONKEY. WEEEOOOO."
 	icon_state = "justice2"
-	toggle_message = "You turn off the light on"
-	alt_toggle_message = "You turn on the light on"
+	toggle_message = "You turn off the light"
+	alt_toggle_message = "You turn on the light"
 
 
 /obj/item/clothing/head/helmet/swat
 	name = "\improper SWAT helmet"
-	desc = "They're often used by highly trained Swat Members."
+	desc = "A menacing black combat helmet used by police assault units. Provides moderate protection against all threats."
 	icon_state = "swat"
 	item_state = "swat"
 
@@ -165,8 +165,8 @@
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/roman
-	name = "roman helmet"
-	desc = "An ancient helmet made of bronze and leather."
+	name = "legionnaire helmet"
+	desc = "A lovingly-crafted helmet based off examples used by Roman legionnaires. Provides light protection against melee and laser impacts. It's also completely fireproof!"
 	flags = null
 	armor = list(MELEE = 15, BULLET = 0, LASER = 15, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = INFINITY, ACID = 50)
 	resistance_flags = FIRE_PROOF
@@ -176,17 +176,17 @@
 	dog_fashion = /datum/dog_fashion/head/roman
 
 /obj/item/clothing/head/helmet/roman/fake
-	desc = "An ancient helmet made of plastic and leather."
+	desc = "A shoddily-crafted cosplay helmet made of plastic. Protects against jack and shit, if you're lucky."
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/head/helmet/roman/legionaire
-	name = "roman legionaire helmet"
-	desc = "An ancient helmet made of bronze and leather. Has a red crest on top of it."
+	name = "centurion helmet"
+	desc = "A lovingly-crafted helmet based off those used by Roman centurions. Provides light protection against melee and laser impacts, is completely fireproof, and has a fancy crest on top!"
 	icon_state = "roman_c"
 	item_state = "roman_c"
 
 /obj/item/clothing/head/helmet/roman/legionaire/fake
-	desc = "An ancient helmet made of plastic and leather. Has a red crest on top of it."
+	desc = "A shoddily-crafted cosplay helmet made of plastic. This particular specimen has what appears to be the head of a broom crudely taped to the top."
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/head/helmet/gladiator
@@ -252,7 +252,7 @@
 
 /obj/item/clothing/head/helmet/riot/knight/templar
 	name = "crusader helmet"
-	desc = "Deus Vult."
+	desc = "A cheap metal helmet that looks straight out of a poorly-funded documentary about the crusades. Might stop a crude melee weapon. The asbestos-lined padding <b>does</b> provide great protection from fire and acid, however..."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 200, ACID = 200)

@@ -114,45 +114,49 @@
 		return
 	update_icon()
 
-/obj/machinery/chem_master/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/part_replacer))
+/obj/machinery/chem_master/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
+	if((istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
-			return
+			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			return ITEM_INTERACT_COMPLETE
 
-		I.forceMove(src)
+		used.forceMove(src)
 		if(beaker)
-			to_chat(usr, "<span class='notice'>You swap [I] with [beaker] inside.</span>")
+			to_chat(usr, "<span class='notice'>You swap [used] with [beaker] inside.</span>")
 			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
 				user.put_in_hands(beaker)
 			else
 				beaker.forceMove(loc)
 		else
-			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
-		beaker = I
+			to_chat(user, "<span class='notice'>You add [used] to the machine.</span>")
+		beaker = used
 		SStgui.update_uis(src)
 		update_icon()
 
-	else if(istype(I, /obj/item/storage/pill_bottle))
+		return ITEM_INTERACT_COMPLETE
+
+	else if(istype(used, /obj/item/storage/pill_bottle))
 		if(loaded_pill_bottle)
 			to_chat(user, "<span class='warning'>A [loaded_pill_bottle] is already loaded into the machine.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
-			return
+			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			return ITEM_INTERACT_COMPLETE
 
-		loaded_pill_bottle = I
-		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You add [I] into the dispenser slot!</span>")
+		loaded_pill_bottle = used
+		used.forceMove(src)
+		to_chat(user, "<span class='notice'>You add [used] into the dispenser slot!</span>")
 		SStgui.update_uis(src)
+		return ITEM_INTERACT_COMPLETE
+
 	else
 		return ..()
 
@@ -571,8 +575,7 @@
 		var/obj/item/reagent_containers/P = new item_type(location)
 		if(!isnull(medicine_name))
 			P.name = "[medicine_name][name_suffix]"
-		P.pixel_x = rand(-7, 7) // Random position
-		P.pixel_y = rand(-7, 7)
+		P.scatter_atom()
 		configure_item(data, reagents, P)
 		reagents.trans_to(P, amount_per_item)
 

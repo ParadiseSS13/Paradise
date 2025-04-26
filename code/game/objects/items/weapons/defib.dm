@@ -157,15 +157,21 @@
 		remove_paddles(user)
 
 	update_icon(UPDATE_OVERLAYS)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()
 	if(slot != ITEM_SLOT_BACK)
 		remove_paddles(user)
 		update_icon(UPDATE_OVERLAYS)
+
+/obj/item/defibrillator/on_mob_move(dir, mob/user)
+	if(paddles_on_defib)
+		return
+
+	if(paddles.loc != user)
+		remove_paddles(paddles.loc)
+
 
 /obj/item/defibrillator/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_BACK)
@@ -174,7 +180,7 @@
 /obj/item/defibrillator/proc/remove_paddles(mob/user) // from your hands
 	var/mob/living/carbon/human/M = user
 	if(paddles in get_both_hands(M))
-		M.unEquip(paddles)
+		M.drop_item_to_ground(paddles)
 		paddles_on_defib = TRUE
 	update_icon(UPDATE_OVERLAYS)
 	return
@@ -373,6 +379,25 @@
 		defib.update_icon(UPDATE_OVERLAYS)
 		update_icon(UPDATE_ICON_STATE)
 
+/obj/item/shockpaddles/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+
+	// This should be True, because action give calls drop() before this proc
+	if(defib.paddles_on_defib)
+		//Detach the paddles into the user's hands
+		defib.paddles.forceMove(receiver)
+		defib.paddles_on_defib = FALSE
+	else if(receiver.is_in_active_hand(defib.paddles))
+		//Remove from their hands and back onto the defib unit
+		defib.remove_paddles(receiver)
+
+	defib.update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE)
+
+	// We call this to check if the receiver is outside the defib range
+	// Otherwise, it can be placed anywhere on the map
+	on_mob_move(null, receiver)
+
+
 /obj/item/shockpaddles/on_mob_move(dir, mob/user)
 	if(defib)
 		if(!isturf(user.loc))
@@ -387,7 +412,7 @@
 
 /obj/item/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/human/M, obj/O)
 	if(!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
-		M?.unEquip(O)
+		M?.unequip(O)
 		qdel(O)
 		return FALSE
 	else

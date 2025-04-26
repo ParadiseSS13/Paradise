@@ -279,8 +279,6 @@
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"
-			user.unEquip(W)
-			user.unEquip(src)
 			qdel(W)
 			qdel(src)
 			user.put_in_hands(newSaber)
@@ -357,6 +355,7 @@
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
 	origin_tech = "combat=3;magnets=4"
+	item_color = "red"
 
 //////////////////////////////
 // MARK: HARDLIGHT BLADE

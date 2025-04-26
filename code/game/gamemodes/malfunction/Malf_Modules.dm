@@ -13,6 +13,7 @@
 	base_cooldown = 0
 	var/uses //If we have multiple uses of the same power
 	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
+	antimagic_flags = NONE
 
 /datum/spell/ai_spell/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -31,6 +32,26 @@
 	if(auto_use_uses)
 		adjust_uses(-1, user)
 
+/datum/spell/ai_spell/proc/find_nearest_camera(atom/target)
+	var/area/A = get_area(target)
+	if(!istype(A))
+		return
+	var/closest_camera = null
+	for(var/obj/machinery/camera/C in A)
+		if(isnull(closest_camera))
+			closest_camera = C
+			continue
+		if(get_dist(closest_camera, target) > get_dist(C, target))
+			closest_camera = C
+			continue
+	return closest_camera
+
+/datum/spell/ai_spell/proc/camera_beam(target, icon_state, icon, time)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = icon_state, icon = icon, time = time)
+
 /datum/spell/ai_spell/proc/adjust_uses(amt, mob/living/silicon/ai/owner, silent)
 	uses += amt
 	if(!silent && uses)
@@ -43,6 +64,14 @@
 		return
 	desc = "[initial(desc)] It has [uses] use\s remaining."
 	UpdateButtons()
+
+/datum/spell/ai_spell/proc/check_camera_vision(mob/user, atom/target)
+	var/turf/target_turf = get_turf(target)
+	var/datum/camerachunk/C = GLOB.cameranet.get_camera_chunk(target_turf.x, target_turf.y, target_turf.z)
+	if(!C.visible_turfs[target_turf])
+		to_chat(user, "<span class='warning'>You don't have camera vision of this location!</span>")
+		return FALSE
+	return TRUE
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/spell/ai_spell/ranged
@@ -125,7 +154,7 @@
 /datum/module_picker/Topic(href, href_list)
 	..()
 
-	if(!isAI(usr))
+	if(!is_ai(usr))
 		return
 	var/mob/living/silicon/ai/A = usr
 
@@ -313,7 +342,7 @@
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/ai_module/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
-	for(var/obj/machinery/porta_turret/ai_turret/turret in GLOB.machines)
+	for(var/obj/machinery/porta_turret/ai_turret/turret in SSmachines.get_by_type(/obj/machinery/porta_turret/ai_turret))
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
 			turret.health += 30
@@ -402,7 +431,7 @@
 	uses = 1
 
 /datum/spell/ai_spell/break_fire_alarms/cast(list/targets, mob/user)
-	for(var/obj/machinery/firealarm/F in GLOB.machines)
+	for(var/obj/machinery/firealarm/F in SSmachines.get_by_type(/obj/machinery/firealarm))
 		if(!is_station_level(F.z))
 			continue
 		F.emagged = TRUE
@@ -427,7 +456,7 @@
 	uses = 1
 
 /datum/spell/ai_spell/break_air_alarms/cast(list/targets, mob/user)
-	for(var/obj/machinery/alarm/AA in GLOB.machines)
+	for(var/obj/machinery/alarm/AA in SSmachines.get_by_type(/obj/machinery/alarm))
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = TRUE
@@ -472,7 +501,7 @@
 
 /datum/spell/ai_spell/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0, 2, 3, 0)
+		explosion(get_turf(M), 0, 2, 3, 0, cause = "Malf AI: [name]")
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
@@ -572,8 +601,8 @@
 		var/turf/T = turfs[n]
 		if(!isfloorturf(T))
 			success = FALSE
-		var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(T.x, T.y, T.z)
-		if(!C.visibleTurfs[T])
+		var/datum/camerachunk/C = GLOB.cameranet.get_camera_chunk(T.x, T.y, T.z)
+		if(!C.visible_turfs[T])
 			alert_msg = "You don't have camera vision of this location!"
 			success = FALSE
 		for(var/atom/movable/AM in T.contents)
@@ -672,12 +701,12 @@
 	I.loc = deploylocation
 	client.images += I
 	I.icon_state = "redOverlay"
-	var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(deploylocation.x, deploylocation.y, deploylocation.z)
+	var/datum/camerachunk/C = GLOB.cameranet.get_camera_chunk(deploylocation.x, deploylocation.y, deploylocation.z)
 
 	if(!istype(deploylocation))
 		to_chat(src, "<span class='warning'>There isn't enough room! Make sure you are placing the machine in a clear area and on a floor.</span>")
 		return FALSE
-	if(!C.visibleTurfs[deploylocation])
+	if(!C.visible_turfs[deploylocation])
 		to_chat(src, "<span class='warning'>You don't have camera vision of this location!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
@@ -864,7 +893,7 @@
 	user.playsound_local(user, "sparks", 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1, user)
 	robot_target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [robot_target]!</span>")
-	if(!do_mob(user, robot_target, 10 SECONDS))
+	if(!do_mob(user, robot_target, 10 SECONDS, hidden = TRUE))
 		is_active = FALSE
 		return
 	is_active = FALSE

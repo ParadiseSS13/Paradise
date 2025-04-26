@@ -9,6 +9,7 @@
 	selection_activated_message = "<span class='notice'>You prepare to transfer your mind. Click on a target to cast the spell.</span>"
 	selection_deactivated_message = "<span class='notice'>You decide that your current form is good enough.</span>"
 	cooldown_min = 200 //100 deciseconds reduction per rank
+	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 	var/list/protected_roles = list(SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_CHANGELING, SPECIAL_ROLE_CULTIST) //which roles are immune to the spell
 	var/paralysis_amount_caster = 40 SECONDS //how much the caster is paralysed for after the spell
 	var/paralysis_amount_victim = 40 SECONDS //how much the victim is paralysed for after the spell
@@ -46,6 +47,9 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 	if(issilicon(target))
 		to_chat(user, "<span class='warning'>You feel this enslaved being is just as dead as its cold, hard exoskeleton.</span>")
+		return
+	if(target.can_block_magic(antimagic_flags))
+		to_chat(user, "<span class='danger'>Their mind is resisting your spell.</span>")
 		return
 
 	var/mob/living/victim = target//The target of the spell whos body will be transferred to.

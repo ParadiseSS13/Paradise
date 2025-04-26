@@ -100,3 +100,4 @@ nav:
       - 'Tick Order': './references/tick_order.md'
       - 'Movement Signals': './references/movement_signals.md'
       - 'Attack Chain': './references/attack_chain.md'
+      - 'AI Controllers': './references/ai_controllers.md'

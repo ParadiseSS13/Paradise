@@ -116,7 +116,7 @@
 	return ..()
 
 /datum/action/item_action/mod/pinned_module/Grant(mob/user)
-	var/user_uid = UID(user)
+	var/user_uid = user.UID()
 	if(!pinner_uid)
 		pinner_uid = user_uid
 		module.pinned_to[pinner_uid] = src

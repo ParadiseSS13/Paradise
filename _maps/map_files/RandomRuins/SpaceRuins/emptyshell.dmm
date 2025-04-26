@@ -13,7 +13,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "e" = (
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "f" = (
@@ -38,6 +38,10 @@
 /area/ruin/space/unpowered)
 "p" = (
 /mob/living/simple_animal/hostile/asteroid/hivelord,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"t" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "T" = (
@@ -301,7 +305,7 @@ c
 c
 d
 d
-d
+t
 d
 d
 d

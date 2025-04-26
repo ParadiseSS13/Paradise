@@ -62,8 +62,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
-/obj/item/gps/AltClick(mob/user)
-	if(ui_status(user, GLOB.inventory_state) != UI_INTERACTIVE)
+/obj/item/gps/AltClick(mob/user, state)
+	if(ui_status(user, state) != UI_INTERACTIVE)
 		return //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
@@ -78,6 +78,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	SStgui.update_uis(src)
 
 /obj/item/gps/ui_data(mob/user)
+	var/list/mining_zlevels = levels_by_trait(ORE_LEVEL)
 	var/list/data = list()
 	if(emped)
 		data["emped"] = TRUE
@@ -106,13 +107,24 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		var/turf/GT = get_turf(G)
 		if(isnull(GT) || !G.tracking || G == src)
 			continue
-		if((G.local || same_z) && (GT.z != T.z))
+
+		// If both signals are on lavaland, we don't skip them, because we want
+		// to have some indication of where lavaland sector bridges are, which
+		// we do by providing a directional arrow, without distance, in the GPS UI.
+		var/both_lavaland = (T.z in mining_zlevels) && (G.z in mining_zlevels)
+		if((!both_lavaland) && (G.local || same_z) && (GT.z != T.z))
 			continue
 
 		var/list/signal = list("tag" = G.gpstag, "area" = null, "position" = null)
 		if(!G.emped)
 			signal["area"] = get_area_name(G, TRUE)
 			signal["position"] = ATOM_COORDS(GT)
+
+			if(both_lavaland && T.z != GT.z)
+				var/bridge_direction = SSmapping.lavaland_theme.get_bridge_direction(GT.z, T.z)
+				if(bridge_direction)
+					signal["due"] = dir2angle(text2num(bridge_direction))
+
 		signals += list(signal)
 	data["signals"] = signals
 
@@ -130,7 +142,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		ui = new(user, src, "GPS", "GPS")
 		ui.open()
 
-/obj/item/gps/ui_act(action, list/params)
+/obj/item/gps/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
@@ -144,7 +156,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			gpstag = newtag
 			name = "global positioning system ([gpstag])"
 		if("toggle")
-			AltClick(usr)
+			AltClick(usr, state)
 			return FALSE
 		if("same_z")
 			same_z = !same_z
@@ -181,7 +193,10 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-m"
 	gpstag = "MOD0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
-	flags = NODROP
+	tracking = FALSE
+
+/obj/item/gps/mod/ui_state()
+	return GLOB.deep_inventory_state
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"

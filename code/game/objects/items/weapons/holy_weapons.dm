@@ -21,9 +21,12 @@
 	var/list/fluff_transformations = list()
 	/// Extra 'Holy' burn damage for ERT null rods
 	var/sanctify_force = 0
+	/// The antimagic type the nullrod has.
+	var/antimagic_type = MAGIC_RESISTANCE_HOLY
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/anti_magic, antimagic_type)
 	if(!length(variant_names))
 		for(var/I in typesof(/obj/item/nullrod))
 			var/obj/item/nullrod/rod = I
@@ -37,11 +40,6 @@
 
 /obj/item/nullrod/attack__legacy__attackchain(mob/M, mob/living/carbon/user)
 	..()
-	var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && V && HAS_MIND_TRAIT(M, TRAIT_HOLY))
-		if(!V.get_ability(/datum/vampire_passive/full))
-			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-			V.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
 	if(!sanctify_force)
 		return
 	if(isliving(M))
@@ -55,7 +53,7 @@
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
 			user.Weaken(10 SECONDS)
-			user.unEquip(src, 1)
+			user.drop_item_to_ground(src, force = TRUE)
 			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
 			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
@@ -592,6 +590,16 @@
 	else
 		to_chat(user, "<span class='notice'>Your prayer to [SSticker.Bible_deity_name] was interrupted.</span>")
 		praying = FALSE
+
+
+/obj/item/nullrod/nazar
+	name = "nazar"
+	icon_state = "nazar"
+	item_state = null
+	desc = "A set of glass beads and amulet, which has been forged to provide powerful magic protection to the wielder."
+	force = 0
+	throwforce = 0
+	antimagic_type = ALL
 
 /obj/item/nullrod/salt
 	name = "Holy Salt"

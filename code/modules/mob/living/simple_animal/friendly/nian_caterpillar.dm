@@ -99,7 +99,7 @@
 		adult.real_name = adult.dna.species.get_random_name()
 		adult.name = adult.real_name
 	for(var/obj/item/W in contents)
-		unEquip(W)
+		drop_item_to_ground(W)
 
 	qdel(src)
 	return TRUE
@@ -124,11 +124,11 @@
 	else
 		get_scooped(M)
 
-/mob/living/simple_animal/nian_caterpillar/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
+/mob/living/simple_animal/nian_caterpillar/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		gib() // Commit die.
-	else
-		..()
 
 /datum/action/innate/nian_caterpillar_emerge
 	name = "Evolve"

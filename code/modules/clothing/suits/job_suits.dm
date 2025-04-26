@@ -29,12 +29,23 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/suit/mantle/armor/captain
-	name = "captain's mantle"
-	desc = "An armor-plated piece of fashion for the ruling elite. Protect your upper half in style."
-	icon_state = "capmantle"
-	item_state = "capmantle"
-	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+// Smith
+/obj/item/clothing/suit/apron/smith
+	name = "smith's apron"
+	desc = "A black, heat-treated apron for use while smelting."
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	icon_state = "smith_apron"
+	item_state = "smith_apron"
+	icon_override = 'icons/mob/clothing/suits/utility.dmi'
+	allowed = list(/obj/item/hammer, /obj/item/smithing_cast, /obj/item/smithed_item, /obj/item/stack/sheet, /obj/item/stack/tile/brass)
+	resistance_flags = FIRE_PROOF
+	insert_max = 3
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi'
+	)
 
 //Chaplain
 /obj/item/clothing/suit/hooded/chaplain_hoodie
@@ -115,21 +126,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list(/obj/item/kitchen/knife)
 
-//Chief Engineer
-/obj/item/clothing/suit/mantle/chief_engineer
-	name = "chief engineer's mantle"
-	desc = "A slick, authoritative cloak designed for the Chief Engineer."
-	icon_state = "cemantle"
-	item_state = "cemantle"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
-
-//Chief Medical Officer
-/obj/item/clothing/suit/mantle/labcoat/chief_medical_officer
-	name = "chief medical officer's mantle"
-	desc = "An absorbent, clean cover found on the shoulders of the Chief Medical Officer."
-	icon_state = "cmomantle"
-	item_state = "cmomantle"
-
 //Detective
 /obj/item/clothing/suit/storage/det_suit
 	name = "coat"
@@ -186,6 +182,7 @@
 	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 0, ACID = 40)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	insert_max = 2
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -266,29 +263,7 @@
 	icon_state = "suitjacket_purple"
 	item_state = "suitjacket_purple"
 
-//Head of Security
-/obj/item/clothing/suit/mantle/armor
-	name = "armored shawl"
-	desc = "A reinforced shawl, worn by the Head of Security. Do you dare take up their mantle?"
-	icon_state = "hosmantle"
-	item_state = "hosmantle"
-	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	heat_protection = UPPER_TORSO|ARMS
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	strip_delay = 60
-	put_on_delay = 40
-	resistance_flags = NONE
-
 //Head of Personnel
-/obj/item/clothing/suit/mantle/armor/hop
-	name = "head of personnel's shawl"
-	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
-	icon_state = "hopmantle"
-	item_state = "hopmantle"
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
-
 /obj/item/clothing/suit/hopcoat
 	name = "head of personnel's coat"
 	desc = "A big coat for the Head of Personnel who wants to make a fashion statement. Has armour woven within the fabric."
@@ -296,6 +271,7 @@
 	item_state = "hopcoat"
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	insert_max = 2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -304,14 +280,6 @@
 	)
 
 //Quartermaster
-/obj/item/clothing/suit/mantle/qm
-	name = "quartermaster's mantle"
-	desc = "An armored shawl for the quartermaster. Keeps the breeze from the vents away from your neck."
-	icon_state = "qmmantle"
-	item_state = "qmmantle"
-	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
-
 /obj/item/clothing/suit/qmcoat
 	name = "quartermaster's coat"
 	desc = "A brown trenchcoat to show the station you mean business. Has armor woven within the fabric."
@@ -319,6 +287,7 @@
 	item_state = "qmcoat"
 	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	insert_max = 2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -337,6 +306,7 @@
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+	insert_max = 2
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -353,6 +323,7 @@
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS
 	allowed = list(/obj/item/storage/fancy/cigarettes, /obj/item/stack/spacecash, /obj/item/flash, /obj/item/gavelhammer)
 	flags_inv = HIDEJUMPSUIT
+	insert_max = 2
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -402,11 +373,18 @@
 	item_state = "surgical"
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
 
-//Research Director
-/obj/item/clothing/suit/mantle/labcoat
-	name = "research director's mantle"
-	desc = "A tweed mantle, worn by the Research Director. Smells like science."
-	icon_state = "rdmantle"
-	item_state = "rdmantle"
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+//NT Career Trainer
+/obj/item/clothing/suit/storage/nct
+	name = "\improper NT Career Trainer's jacket"
+	desc = "A sharp black coat with beige trim around the cuffs and collar, offering a mix of professionalism and approachability."
+	icon_state = "trainercoat"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|ARMS
+	ignore_suitadjust = TRUE
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+	)

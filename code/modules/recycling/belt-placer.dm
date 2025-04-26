@@ -17,7 +17,7 @@
 
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
-	desc = "This device facilitates the rapid deployment of conveyor belts. It utilises bluespace in order to hold many more belts than its regular counterpart."
+	desc = "This device facilitates the rapid deployment of conveyor belts via the incorporation of experimental Bluespace technology."
 	icon_state = "bluespace_belt_placer"
 	item_state = "bluespace_belt_placer"
 	w_class = WEIGHT_CLASS_NORMAL

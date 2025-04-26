@@ -16,7 +16,14 @@
 		to_chat(user, "<span class='warning'>You cannot use this ability if you're outside a blade!</span>")
 		return
 	var/obj/item/nullrod/scythe/talking/user_sword = user.loc
-	var/mob/living/carbon/holder = user_sword.loc
-	if(istype(holder))
-		holder.unEquip(user_sword)
+	if(ishuman(user_sword.loc))
+		var/mob/living/carbon/holder = user_sword.loc
+		holder.drop_item_to_ground(user_sword)
+	else if(isstorage(user_sword.loc))
+		if(prob(50))
+			to_chat(user, "<span class='warning'>You fail to break out of [user_sword.loc]!</span>")
+			return
+		var/turf/our_turf = get_turf(user_sword.loc)
+		our_turf.visible_message("<span class='danger'>[user_sword] leaps out of [user_sword.loc]!</span>")
+		user_sword.forceMove(our_turf)
 	user_sword.throw_at(targets[1], 10, 3, user)

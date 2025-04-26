@@ -142,11 +142,11 @@
 	name = "arbitrary spent casing item"
 	desc = "If you can see this and didn't spawn it, make an issue report on GitHub."
 	icon_state = "gshell"
+	scatter_distance = 10
 
 /obj/item/trash/spentcasing/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+	scatter_atom()
 	transform = turn(transform, rand(0, 360))
 
 /obj/item/trash/spentcasing/shotgun

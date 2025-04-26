@@ -438,7 +438,7 @@
 	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
-	desc = "A very large bluespace engine used to propel very large ships."
+	desc = "A very large sublight engine used to propel very large ships."
 	bound_width = 64
 	bound_height = 64
 	appearance_flags = LONG_GLIDE

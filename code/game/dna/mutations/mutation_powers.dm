@@ -301,6 +301,7 @@
 
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
+	antimagic_flags = NONE
 
 	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
@@ -372,6 +373,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = NONE
 
 	action_icon_state = "genetic_eat"
 
@@ -382,14 +384,22 @@
 	. = ..()
 	if(!.)
 		return
-	var/can_eat = TRUE
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.up))
-			if(show_message)
-				to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
-			can_eat = FALSE
-	return can_eat
+
+	if(!iscarbon(user))
+		return TRUE
+
+	var/mob/living/carbon/C = user
+	if(!(C.head?.flags_cover & HEADCOVERSMOUTH))
+		if(!ismask(C.wear_mask))
+			return TRUE
+
+		var/obj/item/clothing/mask/worn_mask = C.wear_mask
+		if(!(worn_mask.flags_cover & MASKCOVERSMOUTH) || worn_mask.up)
+			return TRUE
+
+	if(show_message)
+		to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+	return FALSE
 
 /datum/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
@@ -470,7 +480,7 @@
 	if(ismob(the_item.loc) && isitem(the_item))
 		var/obj/item/eaten = the_item
 		var/mob/the_owner = the_item.loc
-		if(!the_owner.unEquip(eaten, FALSE, TRUE))
+		if(!the_owner.drop_item_to_ground(eaten, silent = TRUE))
 			to_chat(user, "<span class='warning'>You can't eat [the_item], it won't go down your throat!</span>")
 			return
 	user.visible_message("<span class='danger'>[user] eats [the_item].</span>")
@@ -511,6 +521,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = NONE
 
 	action_icon_state = "genetic_jump"
 	var/leap_distance = 10
@@ -636,6 +647,7 @@
 	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
 
 	invocation_type = "none"
+	antimagic_flags = NONE
 
 	action_icon_state = "genetic_poly"
 
@@ -684,6 +696,7 @@
 	human_req = TRUE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = MAGIC_RESISTANCE_MIND
 
 	action_icon_state = "genetic_empath"
 
@@ -793,6 +806,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = NONE
 
 	action_icon_state = "genetic_morph"
 
@@ -983,6 +997,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = MAGIC_RESISTANCE_MIND
 
 	action_icon_state = "genetic_project"
 
@@ -1017,6 +1032,7 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
+	antimagic_flags = MAGIC_RESISTANCE_MIND
 	invocation_type = "none"
 	action_icon_state = "genetic_mindscan"
 	var/list/expanded_minds = list()
@@ -1105,6 +1121,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
+	antimagic_flags = MAGIC_RESISTANCE_MIND
 
 	action_icon_state = "genetic_view"
 

@@ -41,7 +41,7 @@
 	if(case)
 		to_chat(user, "<span class='warning'>There's already a bio-chip in the pad!</span>")
 		return
-	user.unEquip(C)
+	user.unequip(C)
 	C.forceMove(src)
 	case = C
 	update_icon(UPDATE_ICON_STATE)

@@ -121,13 +121,6 @@
 
 	return ..()
 
-/obj/vehicle/janicart/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
-	if(..() && floorbuffer)
-		floorbuffer = FALSE
-		vehicle_move_delay -= buffer_delay
-
-	return TRUE
-
 /obj/vehicle/janicart/update_overlays()
 	. = ..()
 	if(mybag)

@@ -29,6 +29,8 @@
 	var/canister_burn_duration = 10 SECONDS
 	/// How many firestacks will our reagent apply
 	var/canister_fire_applications = 1
+	/// Does our chemical have any special color?
+	var/canister_fire_color
 	/// How much ammo do we use per tile?
 	var/ammo_usage = 1
 	/// Is this a syndicate flamethrower
@@ -80,25 +82,24 @@
 		to_chat(user, "<span class='notice'>[src] is already full!</span>")
 		return
 
-	if(!user.unEquip(I))
-		return
-
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
-	canisters += I
-	I.forceMove(src)
-	update_canister_stats()
+	if(user.transfer_item_to(I, src))
+		canisters += I
+		to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+		update_canister_stats()
 
 /obj/item/chemical_flamethrower/proc/update_canister_stats()
 	if(!length(canisters))
 		canister_burn_temp = null
 		canister_burn_duration = null
 		canister_fire_applications = null
+		canister_fire_color = null
 		return
 
 	var/burn_temp
 	var/burn_duration
 	var/fire_applications
 	var/how_many_canisters = length(canisters)
+	var/list/colors = list()
 
 	for(var/obj/item/chemical_canister/canister as anything in canisters)
 		if(!canister.ammo)
@@ -106,10 +107,13 @@
 		burn_temp += canister.chem_burn_temp
 		burn_duration += canister.chem_burn_duration
 		fire_applications += canister.fire_applications
+		colors += canister.chem_color
 
 	canister_burn_temp = round(burn_temp / how_many_canisters, 1)
 	canister_burn_duration = round(burn_duration / how_many_canisters, 1)
 	canister_fire_applications = round(fire_applications / how_many_canisters, 1)
+	if(length(colors))
+		canister_fire_color = pick(colors)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/chemical_flamethrower/afterattack__legacy__attackchain(atom/target, mob/user, flag)
@@ -162,7 +166,8 @@
 		previousturf = T
 
 /obj/item/chemical_flamethrower/proc/make_flame(turf/spawn_turf)
-	new /obj/effect/fire(spawn_turf, canister_burn_temp, (canister_burn_duration + rand(1, 3) SECONDS), canister_fire_applications) // For that spicy randomness (and to save your ears from all fires extinguishing at the same time)
+	// For that spicy randomness (and to save your ears from all fires extinguishing at the same time)
+	new /obj/effect/fire(spawn_turf, canister_burn_temp, (canister_burn_duration + rand(1, 3) SECONDS), canister_fire_applications, canister_fire_color)
 
 /*
   * Uses `amount` ammo from the flamethrower.
@@ -235,6 +240,8 @@
 	var/first_time_silent = FALSE // The reason for this is so we can have canisters that spawn with reagents but don't announce it on `Initialize()`
 	/// What chemical do we have? This will be the chemical ID, so a string
 	var/stored_chemical
+	/// What color will our fire burn
+	var/chem_color
 
 /obj/item/chemical_canister/Initialize(mapload)
 	. = ..()
@@ -276,6 +283,8 @@
 		chem_burn_duration = reagent_to_burn.burn_duration
 		chem_burn_temp = reagent_to_burn.burn_temperature
 		fire_applications = reagent_to_burn.fire_stack_applications
+		if(reagent_to_burn.burn_color)
+			chem_color = reagent_to_burn.burn_color
 		ammo = initial(ammo)
 		has_filled_reagent = TRUE
 		reagents.clear_reagents()

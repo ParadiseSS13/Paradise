@@ -36,8 +36,7 @@
 	else if(seed)
 		seed = new seed
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 	if(dried_type == -1)
 		dried_type = type
@@ -92,8 +91,7 @@
 			for(var/i = 1 to (slices_num - slices_lost))
 				var/obj/slice = new slice_path (loc)
 				reagents.trans_to(slice, reagents_per_slice)
-				slice.pixel_x = rand(-7, 7)
-				slice.pixel_y = rand(-7, 7)
+				slice.scatter_atom()
 			qdel(src)
 			return ..()
 
@@ -177,7 +175,7 @@
 /obj/item/food/grown/shell/attack_self__legacy__attackchain(mob/user)
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
-	user.unEquip(src)
+	user.unequip(src)
 	if(trash)
 		var/obj/item/T = generate_trash()
 		user.put_in_hands(T)

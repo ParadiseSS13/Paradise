@@ -43,22 +43,25 @@
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
-#ifdef GAME_TESTS // DO NOT EAT MY CABLES DURING UNIT TESTS
+#if defined(GAME_TESTS) || defined(MAP_TESTS) // DO NOT EAT MY CABLES DURING TESTS
 	return
 #endif
-	if(prob(chew_probability) && isturf(loc))
-		var/turf/simulated/floor/F = get_turf(src)
-		if(istype(F) && !F.intact)
-			var/obj/structure/cable/C = locate() in F
-			if(C && prob(15))
-				if(C.get_available_power() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
-					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
-					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
-					toast() // mmmm toasty.
-				else
-					visible_message("<span class='warning'>[src] chews through [C].</span>")
-				investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
-				C.deconstruct()
+	if(!prob(chew_probability) || !isfloorturf(loc))
+		return
+	var/turf/simulated/floor/F = get_turf(src)
+	if(F.intact || F.transparent_floor)
+		return
+	var/obj/structure/cable/C = locate() in F
+	if(!C || !prob(15))
+		return
+	if(C.get_available_power() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
+		visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
+		playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
+		toast() // mmmm toasty.
+	else
+		visible_message("<span class='warning'>[src] chews through [C].</span>")
+	investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])",INVESTIGATE_WIRES)
+	C.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -100,7 +103,7 @@
 	..()
 
 /mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
-	if(istype(AM, /obj/item/food/cheesewedge))
+	if(istype(AM, /obj/item/food/sliced/cheesewedge))
 		return ..() // Get dem
 	if(show_message)
 		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
@@ -138,6 +141,13 @@
 /mob/living/simple_animal/mouse/white
 	mouse_color = "white"
 	icon_state = "mouse_white"
+
+/mob/living/simple_animal/mouse/white/linter
+	name = "Linter"
+
+/mob/living/simple_animal/mouse/white/linter/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/mouse/gray
 	mouse_color = "gray"

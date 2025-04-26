@@ -39,11 +39,11 @@
 	user.visible_message("<span class='hierophant_warning'>[user] fades out, leaving [user.p_their()] belongings behind!</span>")
 	for(var/obj/item/I in user)
 		if(I != src)
-			user.unEquip(I)
+			user.drop_item_to_ground(I)
 	for(var/turf/T in RANGE_TURFS(1, user))
 		var/obj/effect/temp_visual/hierophant/blast/B = new(T, user, TRUE)
 		B.damage = 0
-	user.unEquip(src) //Drop us last, so it goes on top of their stuff
+	user.drop_item_to_ground(src) //Drop us last, so it goes on top of their stuff
 	qdel(user)
 	return OBLITERATION
 

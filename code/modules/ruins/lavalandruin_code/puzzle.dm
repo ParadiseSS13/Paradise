@@ -104,7 +104,7 @@
 			if(current_ordering[j] < checked_value)
 				swap_tally++
 
-	return swap_tally % 2 == 0
+	return ISEVEN(swap_tally)
 
 //swap two tiles in same row
 /obj/effect/sliding_puzzle/proc/make_solvable()

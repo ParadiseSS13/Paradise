@@ -17,6 +17,8 @@
 
 /obj/effect/forcefield/wizard
 	var/mob/wizard
+	/// Flags for what antimagic can just ignore our forcefields
+	var/antimagic_flags = MAGIC_RESISTANCE
 
 /obj/effect/forcefield/wizard/Initialize(mapload, mob/summoner)
 	. = ..()
@@ -25,6 +27,10 @@
 /obj/effect/forcefield/wizard/CanPass(atom/movable/mover, border_dir)
 	if(mover == wizard)
 		return TRUE
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		if(living_mover.can_block_magic(antimagic_flags, charge_cost = 0))
+			return TRUE
 	return FALSE
 
 ///////////Mimewalls///////////

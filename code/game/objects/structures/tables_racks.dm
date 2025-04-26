@@ -360,7 +360,7 @@
 /obj/structure/table/proc/get_flip_speed(mob/living/flipper)
 	if(!istype(flipper))
 		return 0 SECONDS // sure
-	if(!issimple_animal(flipper))
+	if(!isanimal_or_basicmob(flipper))
 		return 0 SECONDS
 	if(istype(flipper, /mob/living/simple_animal/revenant))
 		return 0 SECONDS  // funny ghost table
@@ -818,7 +818,7 @@
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/table/tray
-	name = "surgical tray"
+	name = "surgical instrument table"
 	desc = "A small metal tray with wheels."
 	anchored = FALSE
 	smoothing_flags = NONE
@@ -909,6 +909,8 @@
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 	max_integrity = 20
+	var/deconstruction_item = /obj/item/rack_parts
+	var/deconstruction_quantity = 1
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
@@ -1001,8 +1003,11 @@
 /obj/structure/rack/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		density = FALSE
-		var/obj/item/rack_parts/newparts = new(loc)
-		transfer_fingerprints_to(newparts)
+		if(deconstruction_quantity)
+			new deconstruction_item(loc, deconstruction_quantity)
+		else
+			var/decon_parts = new deconstruction_item(get_turf(src))
+			transfer_fingerprints_to(decon_parts)
 	qdel(src)
 
 /*

@@ -257,7 +257,7 @@
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
 		stop_automated_movement = TRUE
-		walk(src,0)
+		GLOB.move_manager.stop_looping(src)
 		if(do_after(src, 40, target = cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)

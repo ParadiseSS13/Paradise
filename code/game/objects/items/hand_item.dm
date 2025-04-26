@@ -70,9 +70,13 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (4 / 3) SECONDS) //75% uptime
 	if(isliving(loc))
 		var/mob/owner = loc
-		RegisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP, TYPE_PROC_REF(/datum, signal_qdel), override = TRUE)
-		RegisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS, TYPE_PROC_REF(/datum, signal_qdel), override = TRUE)
+		RegisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dropkey), override = TRUE)
+		RegisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(dropkey), override = TRUE)
 	return ..()
+
+/obj/item/slapper/parry/proc/dropkey(mob/user)
+	if(user?.get_active_hand() == src)
+		qdel(src)
 
 /obj/item/slapper/parry/Destroy()
 	if(isliving(loc))

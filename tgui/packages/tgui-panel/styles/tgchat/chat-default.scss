@@ -15,6 +15,7 @@ img {
 img.icon {
   height: 1em;
   min-height: 16px;
+  min-width: 16px;
   width: auto;
   vertical-align: bottom;
 }
@@ -349,6 +350,12 @@ h2.alert {
 .boldnotice {
   color: #6685f5;
   font-weight: bold;
+}
+
+.subtle {
+  color: #8a72c5;
+  font-style: italic;
+  font-size: 85%;
 }
 
 .suicide {

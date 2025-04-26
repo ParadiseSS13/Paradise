@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aN" = (
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
@@ -65,7 +65,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "jz" = (
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "kb" = (
@@ -81,6 +81,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"lE" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "mn" = (
@@ -124,7 +128,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "qF" = (
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel,
@@ -150,7 +154,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "sd" = (
-/obj/item/kirbyplants/dead,
+/obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "vg" = (
@@ -172,7 +176,7 @@
 /area/ruin/space/unpowered)
 "xQ" = (
 /obj/structure/table,
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/toy/russian_revolver,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "yq" = (
@@ -214,7 +218,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Dt" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "Gx" = (
 /obj/effect/decal/cleanable/blood,
@@ -241,6 +245,7 @@
 /area/ruin/space/unpowered)
 "LA" = (
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "LD" = (
@@ -1324,7 +1329,7 @@ Qx
 Qx
 Qx
 Qx
-zN
+lE
 vE
 hG
 bO

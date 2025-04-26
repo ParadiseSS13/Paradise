@@ -6,10 +6,9 @@
 	player.click_on(janicart)
 	TEST_ASSERT_EQUAL(janicart.inserted_key, janicart_key, "did not find janicart key in vehicle")
 
-	var/move_delay = janicart.vehicle_move_delay
 	player.spawn_obj_in_hand(/obj/item/borg/upgrade/vtec)
 	player.click_on(janicart)
-	TEST_ASSERT(janicart.vehicle_move_delay < move_delay, "VTEC upgrade not applied properly")
+	TEST_ASSERT(player.last_chatlog_has_text("You upgrade the janicart"), "VTEC upgrade not applied properly")
 
 	TEST_ASSERT_NULL(janicart.mybag, "unexpected trash bag on janicart")
 	var/obj/item/storage/bag/trash/bag = player.spawn_obj_in_hand(/obj/item/storage/bag/trash)

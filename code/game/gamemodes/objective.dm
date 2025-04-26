@@ -771,7 +771,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return TRUE
 
 /datum/objective/destroy/post_target_cryo(list/owners)
-	holder.replace_objective(src, /datum/objective/assassinate)
+	holder.replace_objective(src, new /datum/objective/assassinate(null, team, owner))
 
 /datum/objective/steal_five_of_type
 	name = "Steal Five Items"

@@ -220,8 +220,8 @@
 // Garbage Magnet
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet
 	name = "\improper WA1E Garbage Magnet"
-	desc = "Bluespace technology integrated with an oversized garbage bag and heavy duty magnets allows this device to pick up all manner of litter. \
-	The complex technology prevents users from directly looking inside the bag."
+	desc = "An industrial vaccuum cleaner integrated with an oversized garbage bag and heavy duty magnets allows this device to pick up all manner of litter. \
+	The device's safety systems prevent users from directly looking inside the bag."
 	icon_state = "mecha_trash_magnet"
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 5

@@ -736,6 +736,16 @@
 	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_medical_beamgun
+	name = "Exosuit Medical Equipment (Medical Beamgun)"
+	id = "mech_medi_beam"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
+	req_tech = list("combat" = 5, "materials" = 7, "powerstorage" = 7, "biotech" = 7)
+	materials = list(MAT_METAL=15000,MAT_GLASS=8000,MAT_PLASMA=3000,MAT_GOLD=8000,MAT_DIAMOND=2000)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_mop
 	name = "Exosuit Janitorial Equipment (Mega Mop)"
 	id = "mech_mop"

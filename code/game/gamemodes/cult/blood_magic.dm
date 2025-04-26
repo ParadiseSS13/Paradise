@@ -385,6 +385,7 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
+	var/antimagic_flags = MAGIC_RESISTANCE_HOLY
 
 /obj/item/melee/blood_magic/Initialize(mapload, spell)
 	. = ..()
@@ -418,8 +419,13 @@
 		uses = 0
 		qdel(src)
 		return
+	if(M.can_block_magic(MAGIC_RESISTANCE_HOLY))
+		to_chat(user, "<span class='danger'>[M] absorbs your spell!</span>")
+		uses = 0
+		qdel(src)
+		return
 	add_attack_logs(user, M, "used a cult spell ([src]) on")
-	M.lastattacker = user.real_name
+	M.store_last_attacker(user)
 
 /obj/item/melee/blood_magic/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	. = ..()

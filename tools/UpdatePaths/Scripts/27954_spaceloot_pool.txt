@@ -1,0 +1,4 @@
+/obj/effect/spawner/random/syndicate/loot/stetchkin : /obj/effect/spawner/random/syndicate/stetchkin
+/obj/effect/spawner/random/syndicate/loot/@SUBTYPES : /obj/effect/spawner/random/pool/spaceloot/syndicate/@SUBTYPES/depot
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib : /obj/effect/spawner/random/pool/spaceloot/modsuit_syndie
+/obj/effect/spawner/random/deepstorage_reward/main : /obj/effect/spawner/random/pool/spaceloot/deepstorage/main

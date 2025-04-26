@@ -29,6 +29,8 @@
 		for(var/obj/item/organ/limb as anything in H.bodyparts)
 			if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
 				limb.necrotize(TRUE, TRUE)
+			if(!HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
+				ADD_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 
 	if(!..())
 		return FALSE
@@ -105,11 +107,15 @@
 	for(var/obj/item/organ/limb as anything in H.bodyparts)
 		if(!(limb.status & ORGAN_DEAD) && !limb.vital && !limb.is_robotic())
 			limb.necrotize()
+		if(!HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
+			ADD_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 			return FALSE
 
 	for(var/obj/item/organ/limb as anything in H.bodyparts)
 		if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
 			limb.necrotize(FALSE, TRUE)
+		if(!HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
+			ADD_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 			return FALSE
 
 	if(!HAS_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS))
@@ -148,6 +154,10 @@
 /datum/disease/zombie/cure()
 	affected_mob.mind?.remove_antag_datum(/datum/antagonist/zombie)
 	REMOVE_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
+	var/mob/living/carbon/human/H = affected_mob
+	for(var/obj/item/organ/limb as anything in H.bodyparts)
+		if(HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
+			REMOVE_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 	affected_mob.DeleteComponent(/datum/component/zombie_regen)
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()

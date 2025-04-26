@@ -12,6 +12,8 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	see_in_dark = 2
 	mob_biotypes = NONE
 	a_intent = INTENT_HARM
 	can_change_intents = FALSE
@@ -135,6 +137,7 @@
 		return FALSE
 	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
 	UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
+	summoner.remove_guardian_actions()
 	summoner.death()
 
 
@@ -180,12 +183,14 @@
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
+		summoner.remove_guardian_actions()
 		to_chat(summoner, "<span class='danger'>Your [src] was blown up!</span>")
 		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
+	UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
 	ghostize()
 	qdel(src)
 
-/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//Works better in zero G, and not useless in space
 
 //Manifest, Recall, Communicate

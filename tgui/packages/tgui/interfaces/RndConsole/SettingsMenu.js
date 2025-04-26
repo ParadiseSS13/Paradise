@@ -23,6 +23,14 @@ const MainSettings = (props, context) => {
             act('unlink');
           }}
         />
+        {admin === 1 ? (
+          <Button
+            icon="gears"
+            color="red"
+            content="[ADMIN] Maximize research levels"
+            onClick={() => act('maxresearch')}
+          />
+        ) : null}
       </Flex>
     </Section>
   );

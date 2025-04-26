@@ -94,6 +94,10 @@
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/station/engineering/engine_foyer
+	name = "Engine foyer"
+	icon_state = "engine_hallway"
+
 // engine areas
 
 /area/station/engineering/engine

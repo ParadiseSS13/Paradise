@@ -214,7 +214,7 @@
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "aF" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "aG" = (
@@ -573,9 +573,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bD" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /obj/item/cigbutt{
 	pixel_x = 5;
 	pixel_y = 16
@@ -736,7 +734,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "bZ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -970,9 +968,7 @@
 "cE" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_y = 31
-	},
+/obj/structure/sign/poster/contraband/communist_state/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "cF" = (
@@ -1000,9 +996,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "cH" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1116,7 +1110,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "cW" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1167,7 +1161,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "dd" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1284,6 +1278,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -1423,9 +1418,7 @@
 "dK" = (
 /obj/structure/table/reinforced,
 /obj/structure/bedsheetbin,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dL" = (
@@ -1600,7 +1593,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -1652,9 +1645,7 @@
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/red_rum{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/red_rum/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -1749,9 +1740,7 @@
 "eB" = (
 /obj/structure/table/wood,
 /obj/item/food/grown/peanuts,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eC" = (
@@ -1771,10 +1760,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/structure/sign/poster/contraband/rebels_unite{
-	pixel_x = -1;
-	pixel_y = 30
-	},
+/obj/structure/sign/poster/contraband/rebels_unite/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eG" = (
@@ -2376,9 +2362,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -2402,10 +2386,6 @@
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/ruin/space/derelict/hallway/primary)
-"gk" = (
-/obj/structure/sign/poster/contraband/random,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "gl" = (
 /obj/structure/chair/wood,
@@ -2541,6 +2521,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -2692,7 +2673,7 @@
 	},
 /area/ruin/space/derelict/solar_control)
 "ha" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -2777,7 +2758,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hm" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "hn" = (
@@ -2788,9 +2769,7 @@
 "ho" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/drinkingglasses,
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/derelict/crew_quarters)
 "hq" = (
@@ -3059,9 +3038,7 @@
 /area/ruin/space/derelict/arrival)
 "ia" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -3136,14 +3113,11 @@
 	icon_state = "caution"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"il" = (
-/obj/structure/sign/poster/contraband/communist_state,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/crew_quarters)
 "im" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/sign/poster/contraband/communist_state/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -3245,9 +3219,7 @@
 /obj/item/reagent_containers/dropper{
 	pixel_y = 8
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
@@ -3271,6 +3243,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "iI" = (
 /obj/structure/closet/firecloset,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -3335,9 +3308,7 @@
 "iS" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/communist_state/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -3506,7 +3477,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -4438,9 +4409,7 @@
 /area/ruin/space/derelict/arrival)
 "lK" = (
 /obj/structure/dispenser/oxygen,
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/communist_state/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -4879,7 +4848,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitered"
@@ -4893,6 +4862,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -4939,6 +4909,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "nh" = (
 /obj/structure/closet/athletic_mixed,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -5031,9 +5002,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "nv" = (
 /obj/structure/closet/boxinggloves,
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -5169,16 +5138,12 @@
 /area/ruin/space/derelict/hallway/primary)
 "nP" = (
 /obj/structure/chair/comfy/brown,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nQ" = (
 /obj/item/ashtray/plastic,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nR" = (
 /obj/machinery/light/small{
@@ -5189,9 +5154,7 @@
 	pixel_y = 8
 	},
 /obj/item/pen/red,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "nS" = (
 /obj/structure/table/wood,
@@ -5204,7 +5167,8 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -5283,17 +5247,13 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "of" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "og" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "oh" = (
 /obj/structure/cable{
@@ -5387,17 +5347,13 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "ov" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "ow" = (
 /obj/structure/cable{
@@ -5524,9 +5480,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet/grimey,
 /area/ruin/space/derelict/hallway/primary)
 "oO" = (
 /obj/machinery/door/airlock/public/glass{
@@ -5636,9 +5590,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "pc" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "orange"
@@ -5693,10 +5645,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
-"pm" = (
-/obj/structure/sign/poster/contraband/random,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/crew_quarters)
 "pn" = (
 /obj/machinery/door/airlock/hatch{
 	locked = 1;
@@ -5732,6 +5680,8 @@
 /area/ruin/space/derelict/hallway/primary)
 "pt" = (
 /obj/structure/closet/jcloset,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "pu" = (
@@ -5909,8 +5859,7 @@
 /area/ruin/space/derelict/arrival)
 "pU" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -5922,8 +5871,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "pV" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/crate/freezer,
 /obj/item/food/grown/potato,
@@ -5937,8 +5885,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "pW" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/plasteel{
@@ -5950,8 +5897,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/plasteel{
@@ -6314,9 +6260,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "qY" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/random/directional/south,
 /obj/item/rack_parts,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -6429,7 +6373,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rm" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -6459,8 +6403,7 @@
 	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -6473,8 +6416,7 @@
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
@@ -6485,8 +6427,7 @@
 	},
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -6508,7 +6449,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rw" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -6641,8 +6582,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -6650,16 +6590,14 @@
 /area/ruin/space/derelict/arrival)
 "rL" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
 "rM" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -6669,9 +6607,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/derelict/arrival)
 "rN" = (
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/communist_state/directional/south,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
@@ -6745,9 +6681,7 @@
 /area/ruin/space/derelict/arrival)
 "rT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/contraband/communist_state/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -6757,8 +6691,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/leafybush,
@@ -6766,8 +6699,7 @@
 /area/ruin/space/derelict/arrival)
 "rV" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
@@ -6777,8 +6709,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
@@ -6966,6 +6897,10 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"Ae" = (
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/crew_quarters)
 "Bx" = (
 /obj/machinery/door_control{
 	id = "ruslock";
@@ -7044,6 +6979,13 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
+/area/ruin/space/derelict/arrival)
+"Za" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/derelict/arrival)
 
 (1,1,1) = {"
@@ -7280,7 +7222,7 @@ ac
 ir
 iP
 ji
-jQ
+Za
 jQ
 lt
 lI
@@ -11782,7 +11724,7 @@ ac
 ac
 ac
 dW
-gk
+eg
 gD
 eP
 eP
@@ -12466,9 +12408,9 @@ ac
 ac
 ac
 aV
-pm
+bm
 pt
-hU
+Ae
 pM
 pY
 db
@@ -12752,7 +12694,7 @@ pn
 pw
 pw
 db
-db
+qA
 db
 Mi
 aV
@@ -13010,7 +12952,7 @@ eD
 hm
 bm
 bm
-il
+bm
 bm
 bm
 je
