@@ -360,7 +360,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && length(properties))
-		var/res = clamp((properties["resistance"] - length(symptoms) / 2) / 2 , 1 , length(GLOB.advanced_cures))
+		var/res = properties["resistance"] - length(symptoms) / 3
 		cures = list()
 		cure_text = ""
 		cures += pick(GLOB.standard_cures)
