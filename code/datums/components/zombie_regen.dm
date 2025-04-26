@@ -17,14 +17,15 @@
 	var/turf/current_turf = get_turf(zomboid)
 	var/healing_factor = max(1, 6 * (1 - current_turf.get_lumcount()))
 	if(HAS_TRAIT(zomboid, TRAIT_PLAGUE_ZOMBIE))
-		healing_factor = healing_factor * 3 // plague zombies have more health, and should heal faster
+		healing_factor = healing_factor * 4 // plague zombies have more health, and should heal faster
 	if(zomboid.reagents.has_reagent("zombiecure3"))
 		healing_factor /= 3
 	if(zomboid.stat == DEAD)
 		healing_factor *= 2
 	for(var/obj/item/organ/external/e in zomboid.bodyparts)
 		if(e.status & ORGAN_BURNT) // lets slowly remove any crit burns
-			e.status -= ORGAN_BURNT
+			if(prob(20))
+				e.status -= ORGAN_BURNT
 			break
 	zomboid.heal_overall_damage(healing_factor, healing_factor)
 	zomboid.adjustBrainLoss(-healing_factor)
