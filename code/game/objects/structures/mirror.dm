@@ -11,6 +11,8 @@
 	var/list/ui_users = list()
 	var/broken_icon_state = "mirror_broke"
 
+/obj/structure/mirror/organ
+
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
 	if(building)
@@ -52,6 +54,11 @@
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
 		GLOB.mirrors -= src
+
+/obj/structure/mirror/organ/obj_break(damage_flag, mapload)
+	playsound(src, "shatter", 70, TRUE)
+	GLOB.mirrors -= src
+	qdel(src)
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

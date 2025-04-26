@@ -50,7 +50,7 @@
 		to_chat(user, "<span class='warning'>We're too tired and sore to contort again so soon!</span>")
 		return TRUE
 	if(organ_quality == ORGAN_DAMAGED)
-		if(prob(100))
+		if(prob(10))
 			var/obj/item/organ/external/limb_to_break = pick(user.bodyparts)
 			limb_to_break.fracture()
 	var/duration = 30 SECONDS

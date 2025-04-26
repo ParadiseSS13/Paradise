@@ -97,7 +97,7 @@
 	origin_tech = null
 	tough = TRUE
 
-/obj/item/organ/internal/cyberimp/arm/xenobiology
+/obj/item/organ/internal/eyes/xenobiology
 	name = "Unidentified Mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
@@ -106,25 +106,7 @@
 	origin_tech = null
 	tough = TRUE
 
-/obj/item/organ/internal/cyberimp/chest/xenobiology
-	name = "Unidentified Mass"
-	desc = "This is a parent object and should not appear. Contact a developer."
-	icon = 'icons/obj/xeno_organs.dmi'
-	icon_state = "organ4"
-	dead_icon = null
-	origin_tech = null
-	tough = TRUE
-
-/obj/item/organ/internal/cyberimp/brain/xenobiology
-	name = "Unidentified Mass"
-	desc = "This is a parent object and should not appear. Contact a developer."
-	icon = 'icons/obj/xeno_organs.dmi'
-	icon_state = "organ4"
-	dead_icon = null
-	origin_tech = null
-	tough = TRUE
-
-/obj/item/organ/internal/cyberimp/mouth/xenobiology
+/obj/item/organ/internal/ears/xenobiology
 	name = "Unidentified Mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
@@ -374,15 +356,18 @@
 	REMOVE_TRAIT(M, TRAIT_LOUD, ORGAN_TRAIT)
 
 /obj/item/organ/internal/appendix/xenobiology/toxin_stinger
-	name = "Vocal Coord Remnants"
-	desc = "The remnants of a great beast's vocal coords. While only a fraction of the true organ's power, these could probably still get decently loud."
+	name = "Hidden Stinger"
+	desc = "This organ holds a deceptive stinger tucked inside of itself, dripping with venom."
 	analyzer_price = 35
+
 
 /obj/item/organ/internal/appendix/xenobiology/toxin_stinger/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
 	var/datum/spell/organ_sting/spell = new /datum/spell/organ_sting
 	if(organ_quality == ORGAN_DAMAGED)
 		spell.base_cooldown = 8 MINUTES
+	if(istype(src, /obj/item/organ/internal/appendix/xenobiology/toxin_stinger/terror))
+		spell.terror = TRUE
 	M.AddSpell(spell)
 
 /obj/item/organ/internal/appendix/xenobiology/toxin_stinger/remove(mob/living/carbon/M, special = 0)
@@ -400,6 +385,7 @@
 	base_cooldown = 5 MINUTES
 	var/quality = ORGAN_NORMAL
 	var/cooldown = 0
+	var/terror = FALSE
 
 	selection_activated_message = "<span class='notice'>unfold your stinger from your body, ready to sting someone.</span>"
 	selection_deactivated_message = "<span class='notice'>You retract your stinger for now.</span>"
@@ -421,9 +407,15 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(quality == ORGAN_PRISTINE)
-			H.reagents.add_reagent("venom", 10)
+			if(terror)
+				H.reagents.add_reagent("terror_black_toxin", 10)
+			else
+				H.reagents.add_reagent("venom", 10)
 		else
-			H.reagents.add_reagent("toxin", 10)
+			if(terror)
+				H.reagents.add_reagent("venom", 10)
+			else
+				H.reagents.add_reagent("toxin", 10)
 	else
 		to_chat(user, "<span class='warning'>We shouldnt get much use out of stinging that.</span>")
 		revert_cast()
@@ -574,28 +566,270 @@
 /datum/spell/tendril_grab/cast(list/targets, mob/user)
 	. = ..()
 	var/atom/target = targets[1] //There is only ever one target
-	new /obj/effect/temp_visual/goliath_flick(target, quality, user)
+	var/turf/target_loc
+	if(!isturf(target))
+		target_loc = target.loc
+	else
+		target_loc = target
+	new /obj/effect/temp_visual/goliath_flick(target_loc, target, quality, user)
 
 /obj/effect/temp_visual/goliath_flick
 	name = "Writhing Tendril"
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath_tentacle_spawn"
 	layer = BELOW_MOB_LAYER
-	var/quality = ORGAN_NORMAL
 
 /obj/effect/temp_visual/goliath_flick/Initialize(mapload, atom/target, organ_quality, mob/user)
 	. = ..()
-	quality = organ_quality
-	timerid = addtimer(CALLBACK(src, PROC_REF(retract), target, user), 7)
+	timerid = addtimer(CALLBACK(src, PROC_REF(retract), target, organ_quality, user), 7)
 
-/obj/effect/temp_visual/goliath_flick/proc/retract(atom/target, mob/user)
+/obj/effect/temp_visual/goliath_flick/proc/retract(atom/target, organ_quality, mob/user)
 	icon_state = "Goliath_tentacle_retract"
 	timerid = QDEL_IN(src, 7)
 	if(target.loc == src.loc)
-		if(isliving(target) && quality == ORGAN_PRISTINE)
+		if(isliving(target))
 			var/mob/living/M = target
-			M.adjustBruteLoss(10)
+			playsound(M, 'sound/weapons/slap.ogg', 50, TRUE, -1, falloff_exponent = 4) // let it travel a little further
+			if(organ_quality == ORGAN_PRISTINE)
+				M.adjustBruteLoss(10)
 		else if(istype(target, /atom/movable))
 			var/atom/movable/T = target
-			var/dist = get_dist(user.loc, target.loc)
-			T.throw_at(user, dist - 1, 1, user, spin = FALSE)
+			if(!T.anchored)
+				var/dist = get_dist(user.loc, target.loc)
+				T.throw_at(user, dist - 1, 1, user, spin = TRUE)
+			else
+				T.visible_message("<span class='warning'>[T] refuses to budge!</span>")
+
+/obj/item/organ/internal/eyes/xenobiology/glowing
+	name = "Glowing Core"
+	desc = "This organ glows with a strange energy from its depths. Is it even appropiate to call this an organ?"
+	analyzer_price = 40
+
+/obj/item/organ/internal/eyes/xenobiology/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	var/datum/spell/turf_teleport/organ_teleport/spell = new /datum/spell/turf_teleport/organ_teleport
+	spell.quality = organ_quality
+	if(organ_quality == ORGAN_PRISTINE)
+		spell.base_cooldown = 90 SECONDS
+	M.AddSpell(spell)
+
+/obj/item/organ/internal/eyes/xenobiology/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	M.RemoveSpell(/datum/spell/turf_teleport/organ_teleport)
+
+/datum/spell/turf_teleport/organ_teleport
+	name = "Unstable blink"
+	desc = "Touch someone to destabilize their location in bluespace for a moment."
+	base_cooldown = 3 MINUTES
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
+	action_icon_state = "spell_teleport"
+	sound = null
+	active = FALSE
+	sound1 = 'sound/magic/blink.ogg'
+	sound2 = 'sound/magic/blink.ogg'
+	var/quality
+
+/datum/spell/turf_teleport/organ_teleport/create_new_targeting()
+	var/datum/spell_targeting/clicked_atom/external/C = new()
+	C.range = 20
+	return C
+
+/datum/spell/turf_teleport/organ_teleport/cast(list/targets, mob/living/user)
+	var/atom/target = targets[1]
+	if(!isliving(target))
+		to_chat(user, "<span class = 'warning'>We can only teleport living things!</span>")
+		return
+	if(target == user)
+		to_chat(user, "<span class = 'warning'>We are unable to teleport ourself!</span>")
+		revert_cast()
+		return
+	if(get_dist(target.loc, user.loc) > 2)
+		to_chat(user, "<span class = 'warning'>They're too far away!</span>")
+		revert_cast()
+	if(quality == ORGAN_BROKEN)
+		if(prob(25))
+			targets += user
+			user.adjustBruteLoss(10)
+			user.adjustFireLoss(10)
+			to_chat(user, "<span class = 'danger'>You get dragged along into bluespace, your flesh searing from the unstable energies!</span>")
+		else
+			to_chat(user, "<span class = 'danger'>Drawing upon the unstable energy really stings!</span>")
+			user.adjustFireLoss(8)
+	user.mob_light(LIGHT_COLOR_PURPLE, 3, _duration = 3)
+	new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(target))
+	. = ..()
+
+/obj/item/organ/internal/kidneys/xenobiology/shivering
+	name = "Shivering Organ"
+	desc = "It constantly shivers, seeking to warm itself from its environment."
+	analyzer_price = 30
+
+/obj/item/organ/internal/kidneys/xenobiology/shivering/on_life()
+	. = ..()
+	if(owner.get_temperature() < owner.dna.species.cold_level_1 + 40)
+		switch(organ_quality)
+			if(ORGAN_DAMAGED)
+				owner.bodytemperature += 2
+			if(ORGAN_NORMAL)
+				owner.bodytemperature += 4
+			if(ORGAN_PRISTINE)
+				owner.bodytemperature += 6
+
+/obj/item/organ/internal/kidneys/xenobiology/sweating
+	name = "Sweaty Organ"
+	desc = "It constantly sweats, seeking to cool itself off from its environment."
+	analyzer_price = 30
+
+/obj/item/organ/internal/kidneys/xenobiology/shivering/on_life()
+	. = ..()
+	if(owner.get_temperature() > owner.dna.species.heat_level_1 - 40)
+		switch(organ_quality)
+			if(ORGAN_DAMAGED)
+				owner.bodytemperature -= 2
+			if(ORGAN_NORMAL)
+				owner.bodytemperature -= 4
+			if(ORGAN_PRISTINE)
+				owner.bodytemperature -= 6
+
+/obj/item/organ/internal/liver/xenobiology/soupy
+	name = "Soupy Organ"
+	desc = "This organ seems to barely keep its own form together. It also reeks of tomato sauce."
+	analyzer_price = 15
+	var/original_name
+	var/original_own_species_blood
+	var/original_exotic_blood
+	var/original_blood_color
+	var/original_blood_type
+
+/obj/item/organ/internal/liver/xenobiology/soupy/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	original_name = M.dna.species.name
+	original_own_species_blood = M.dna.species.own_species_blood
+	original_exotic_blood = M.dna.species.exotic_blood
+	original_blood_color = M.dna.species.blood_color
+	original_blood_type = M.dna.blood_type
+
+	M.dna.species.name = "Tomato Hybrid"
+	M.dna.species.own_species_blood = TRUE
+	M.dna.species.exotic_blood = "tomatojuice"
+	M.dna.species.blood_color = "#e25821"
+	M.dna.blood_type = "Tomato"
+	to_chat(owner, "<span class='userdanger'>You feel unnaturally soupy</span>")
+
+/obj/item/organ/internal/liver/xenobiology/soupy/remove(mob/living/carbon/human/M, special = 0)
+	. = ..()
+	M.dna.species.name = original_name
+	M.dna.species.own_species_blood = original_own_species_blood
+	M.dna.species.exotic_blood = original_exotic_blood
+	M.dna.species.blood_color = original_blood_color
+	M.dna.blood_type = original_blood_type
+	to_chat(owner, "<span class='userdanger'>You no longer constantly taste ketchup.</span>")
+
+/obj/item/organ/internal/appendix/xenobiology/toxin_stinger/terror
+	name = "Hidden Terror Stinger"
+	desc = "This organ holds a deceptive stinger tucked inside of itself, dripping with potent venom."
+	analyzer_price = 60
+
+/obj/item/organ/internal/lungs/xenobiology/mirror
+	name = "Hidden Terror Stinger"
+	desc = "This organ holds a deceptive stinger tucked inside of itself, dripping with potent venom."
+	analyzer_price = 30
+
+/obj/item/organ/internal/lungs/xenobiology/mirror/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	var/datum/spell/create_mirror/spell = new /datum/spell/create_mirror
+	spell.quality = organ_quality
+	M.AddSpell(spell)
+
+/obj/item/organ/internal/lungs/xenobiology/mirror/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	M.RemoveSpell(/datum/spell/create_mirror)
+
+/datum/spell/create_mirror
+	name = "Create Mirror"
+	desc = "Regurgitate a slick, mirrored surface where you are standing. Disgusting."
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
+	action_icon = 'icons/mob/actions/actions_elites.dmi'
+	action_icon_state = "herald_mirror"
+	action_background_icon_state = "bg_default"
+	sound = 'sound/effects/splat.ogg'
+	active = FALSE
+	base_cooldown = 3 MINUTES
+	var/quality
+
+/datum/spell/create_mirror/create_new_targeting()
+	. = ..()
+	return new /datum/spell_targeting/self
+
+/datum/spell/create_mirror/cast(list/targets, mob/user)
+	. = ..()
+	var/turf/T = get_turf(user)
+	var/obj/M = new /obj/structure/mirror/organ(T)
+	M.anchored = FALSE
+	if(quality == ORGAN_PRISTINE)
+		M.icon = 'icons/mob/lavaland/lavaland_elites.dmi'
+		M.icon_state = "herald_mirror"
+
+/obj/item/organ/internal/heart/xenobiology/squirming
+	name = "Squirming Organ"
+	desc = "This organ refuses to sit still, constantly moving about however it can."
+	analyzer_price = 75
+
+/obj/item/organ/internal/heart/xenobiology/squirming/on_life()
+	. = ..()
+	if(owner.getStaminaLoss() > 10)
+		if(prob(10)) // dont wear yourself out
+			src.receive_damage(10, 0)
+		switch(organ_quality)
+			if(ORGAN_DAMAGED) // also damages other organs. oops!
+				for(var/obj/item/organ/internal/organ in owner.internal_organs)
+					if(organ == src)
+						continue
+					if(prob(10))
+						organ.receive_damage(10, 0)
+				owner.adjustStaminaLoss(-3)
+			if(ORGAN_NORMAL)
+				owner.adjustStaminaLoss(-5)
+			if(ORGAN_PRISTINE)
+				owner.adjustStaminaLoss(-10)
+
+/obj/item/organ/internal/appendix/xenobiology/electro_strands
+	name = "Electromagnetic Strands"
+	desc = "A large number of electrically sensitive strands all bundled up together. Its lost most of its potential."
+	analyzer_price = 30
+
+/obj/item/organ/internal/appendix/xenobiology/electro_strands/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	var/datum/spell/aoe/flicker_lights/spell = new /datum/spell/aoe/flicker_lights
+	spell.from_organ = TRUE
+	M.AddSpell(spell)
+
+/obj/item/organ/internal/appendix/xenobiology/electro_strands/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	M.RemoveSpell(/datum/spell/aoe/flicker_lights)
+
+
+/obj/item/organ/internal/liver/xenobiology/sharp
+	name = "Sharp organ"
+	desc = "This organ sprouts several sharp points out of itself, which you cant imagine feel good to get implanted."
+	analyzer_price = 30
+	var/original_unarmed
+
+
+/obj/item/organ/internal/liver/xenobiology/sharp/electro_strands/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	original_unarmed = owner.dna.species.unarmed_type
+	if(original_unarmed != /datum/unarmed_attack/claws)
+		var/datum/unarmed_attack/claws/claws new /datum/unarmed_attack/claws
+		if(organ_quality == ORGAN_PRISTINE)
+			claws.has_been_sharpened = TRUE
+		owner.dna.species.unarmed_type = claws
+
+/obj/item/organ/internal/liver/xenobiology/sharp/electro_strands/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	if(original_unarmed != /datum/unarmed_attack/claws)
+		owner.dna.species.unarmed_type = original_unarmed

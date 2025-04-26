@@ -193,11 +193,9 @@
 		return TRUE
 	if(istype(used, /obj/item/organ/internal/appendix/xenobiology))
 		return TRUE
-	if(istype(used, /obj/item/organ/internal/cyberimp/arm/xenobiology))
+	if(istype(used, /obj/item/organ/internal/eyes/xenobiology))
 		return TRUE
-	if(istype(used, /obj/item/organ/internal/cyberimp/brain/xenobiology))
-		return TRUE
-	if(istype(used, /obj/item/organ/internal/cyberimp/chest/xenobiology))
+	if(istype(used, /obj/item/organ/internal/ears/xenobiology))
 		return TRUE
 	return FALSE
 

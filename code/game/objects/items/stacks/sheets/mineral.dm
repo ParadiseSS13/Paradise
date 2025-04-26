@@ -170,14 +170,14 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 		var/mob/living/carbon/human/H = user
 		var/obj/item/stack/sheet/mineral/mineral = src
 		if(HAS_TRAIT(H, TRAIT_MINERAL_EATER) && H.a_intent == INTENT_HELP)
-			if(HAS_TRAIT(H, TRAIT_SILVER_EATER) && istype(src, /obj/item/stack/sheet/mineral/silver))
+			if(HAS_TRAIT(H, TRAIT_SILVER_EATER) && istype(mineral, /obj/item/stack/sheet/mineral/silver))
 				eat_mineral(H, mineral)
 				return FINISH_ATTACK
-			if(HAS_TRAIT(H, TRAIT_GOLD_EATER) && istype(src, /obj/item/stack/sheet/mineral/gold))
+			if(HAS_TRAIT(H, TRAIT_GOLD_EATER) && istype(mineral, /obj/item/stack/sheet/mineral/gold))
 				eat_mineral(H, mineral)
 				H.reagents.add_reagent("salglu_solution", 5)
 				return FINISH_ATTACK
-			if(HAS_TRAIT(H, TRAIT_DIAMOND_EATER) && istype(src, /obj/item/stack/sheet/mineral/diamond))
+			if(HAS_TRAIT(H, TRAIT_DIAMOND_EATER) && istype(mineral, /obj/item/stack/sheet/mineral/diamond))
 				H.reagents.add_reagent("kelotane", 3) // moderately good heals. Not much uses this either and very little downside even from OD
 				H.reagents.add_reagent("bicaridine", 3)
 				eat_mineral(H, mineral)
