@@ -37,7 +37,6 @@
 				. |= "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
 
-
 /obj/item/gun/energy/kinetic_accelerator/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
 		var/obj/item/borg/upgrade/modkit/MK = I
