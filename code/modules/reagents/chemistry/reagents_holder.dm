@@ -195,7 +195,7 @@
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
-			if(length(trans_data["viruses"]))
+			if(trans_data && length(trans_data["viruses"]))
 				if(isobj(target))
 					var/obj/thing = target
 					thing.AddComponent(/datum/component/viral_contamination, trans_data["viruses"])
@@ -224,7 +224,7 @@
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
-			if(length(trans_data["viruses"]))
+			if(trans_data && length(trans_data["viruses"]))
 				target.AddComponent(/datum/component/viral_contamination, trans_data["viruses"])
 
 		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data)
@@ -297,7 +297,7 @@
 		if(current_reagent.id == reagent)
 			if(preserve_data)
 				trans_data = copy_data(current_reagent)
-				if(length(trans_data["viruses"]))
+				if(trans_data && length(trans_data["viruses"]))
 					target.AddComponent(/datum/component/viral_contamination, trans_data["viruses"])
 			R.add_reagent(current_reagent.id, amount, trans_data, chem_temp)
 			remove_reagent(current_reagent.id, amount, TRUE)
