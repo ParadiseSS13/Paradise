@@ -449,6 +449,7 @@
 	desc = "Special engraved runes, used to raise the dead into plague-ridden, animated corpses."
 	item_path = /obj/item/storage/belt/plague_talisman
 	category = "Artefacts"
+	cost = 1
 
 /datum/spellbook_entry/item/plague_talisman/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()

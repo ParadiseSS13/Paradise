@@ -911,7 +911,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 		[chosen_plague.name]!</span>"
 	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
 
-	// Cant very well have your new minions dead for so long
+	// Cant very well have your new minions dead for so long. Make em stronk!
+	victim.maxHealth = 200
+	victim.health = 200
 	victim.rejuvenate()
 	qdel(src) // talismans are single use
 

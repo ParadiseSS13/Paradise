@@ -180,8 +180,8 @@
 /obj/item/zombie_claw/plague_claw
 	name = "Plague Claws"
 	desc = "Claws extend from your rotting hands, oozing a putrid ichor. Perfect for rending bone and flesh for your master."
-	armour_penetration_flat = 10
-	force = 8
+	armour_penetration_flat = 15
+	force = 13
 	attack_effect_override = ATTACK_EFFECT_CLAW
 
 /obj/item/zombie_claw/plague_claw/Initialize(mapload, new_parent_spell, disease)
@@ -197,12 +197,6 @@
 	qdel(src) // drops if "used" in hand
 
 /obj/item/zombie_claw/proc/try_virus_infect(mob/living/carbon/human/target, mob/living/user)
-	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
-		return FALSE
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
-	if(affecting.is_robotic())
-		return // We don't want people to be infected via plague claws if they're augmented or have robotic limbs.
-
 	if(!target.HasDisease(claw_disease))
 		var/datum/disease/plague = new claw_disease
 		target.ContractDisease(plague)
