@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 					if(player.ForceContractDisease(chosen_disease))
 						break
 				announceWhen = activeFor + 240
-				break\
+				break
 	. = ..()
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
