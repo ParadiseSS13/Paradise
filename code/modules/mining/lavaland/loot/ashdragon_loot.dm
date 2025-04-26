@@ -167,7 +167,7 @@
 	force = 0
 	var/ghost_counter = length(orbs)
 
-	force = clamp((ghost_counter * 4), 0, 50)
+	force = clamp((ghost_counter * 3), 0, 50)
 	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirit\s!</span>")
 	..()
 
