@@ -76,6 +76,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	for(var/i = 0, i < max_severity, i++)
 		A.base_properties[pick(properties_to_buff)]++
 	A.base_properties["stealth"] += max_severity // Stealth gets an additional bonus since most symptoms reduce it a fair bit.
+	A.base_properties["resistance"] += round(max_severity / 3) // Resistance gets a small extra buff
 	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 2, list(/datum/symptom/heal/longevity)) // Choose "Payload" symptoms. Longevity is excluded
 	A.AssignProperties(A.GenerateProperties())
 	var/list/symptoms_to_try = transmissable_symptoms.Copy()

@@ -527,30 +527,29 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		return admin_disease
 
 
-
 /datum/disease/advance/proc/totalStageSpeed()
-	var/total_stage_speed = 0
+	var/total_stage_speed = base_properties["stage rate"]
 	for(var/i in symptoms)
 		var/datum/symptom/S = i
 		total_stage_speed += S.stage_speed
 	return total_stage_speed
 
 /datum/disease/advance/proc/totalStealth()
-	var/total_stealth = 0
+	var/total_stealth = base_properties["stealth"]
 	for(var/i in symptoms)
 		var/datum/symptom/S = i
 		total_stealth += S.stealth
 	return total_stealth
 
 /datum/disease/advance/proc/totalResistance()
-	var/total_resistance = 0
+	var/total_resistance = base_properties["resistance"]
 	for(var/i in symptoms)
 		var/datum/symptom/S = i
 		total_resistance += S.resistance
 	return total_resistance
 
 /datum/disease/advance/proc/totalTransmittable()
-	var/total_transmittable = 0
+	var/total_transmittable = base_properties["transmittable"]
 	for(var/i in symptoms)
 		var/datum/symptom/S = i
 		total_transmittable += S.transmittable
