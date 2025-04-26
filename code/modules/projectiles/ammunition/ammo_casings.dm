@@ -138,7 +138,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c45/nostamina
-	projectile_type = /obj/item/projectile/bullet/midbullet3
+	projectile_type = /obj/item/projectile/bullet/weakbullet3
 
 /obj/item/ammo_casing/n762
 	name = "7.62x38mmR round"
