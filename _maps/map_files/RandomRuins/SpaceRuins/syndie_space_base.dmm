@@ -245,9 +245,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
 "bO" = (
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/wood,
@@ -1195,10 +1193,7 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel{
@@ -1616,6 +1611,10 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"iM" = (
+/obj/machinery/atmospherics/refill_station/oxygen,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "iQ" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -1835,6 +1834,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"kz" = (
+/obj/machinery/atmospherics/refill_station/plasma,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "kB" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 1
@@ -2859,6 +2862,10 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
+"qr" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "qs" = (
 /obj/machinery/light,
 /obj/machinery/porta_turret/syndicate/exterior,
@@ -3842,11 +3849,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "wf" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/wood,
@@ -7130,10 +7133,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "QO" = (
 /obj/item/storage/box/monkeycubes/syndicate,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/light_switch{
 	dir = 8;
 	pixel_x = 24;
@@ -9910,7 +9910,7 @@ OQ
 BZ
 qF
 PA
-qF
+qr
 Ao
 tG
 kE
@@ -10193,7 +10193,7 @@ iW
 eW
 iW
 tG
-qF
+kz
 Fl
 nE
 Mp
@@ -10347,7 +10347,7 @@ tG
 tG
 tG
 XH
-qF
+iM
 qF
 LF
 tG
