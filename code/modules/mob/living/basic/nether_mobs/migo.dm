@@ -20,7 +20,7 @@
 	)
 
 /datum/ai_planning_subtree/random_speech/migo
-	speech_chance = 10
+	speech_chance = 25
 	sound = list(
 		'sound/items/bubblewrap.ogg',
 		'sound/items/change_jaws.ogg',

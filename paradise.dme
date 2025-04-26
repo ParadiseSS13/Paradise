@@ -2345,6 +2345,8 @@
 #include "code\modules\mob\living\basic\cow.dm"
 #include "code\modules\mob\living\basic\hell_demons\migo.dm"
 #include "code\modules\mob\living\basic\hell_demons\nether_mobs.dm"
+#include "code\modules\mob\living\basic\nether_mobs\migo.dm"
+#include "code\modules\mob\living\basic\nether_mobs\nether_mobs.dm"
 #include "code\modules\mob\living\brain\brain_death.dm"
 #include "code\modules\mob\living\brain\brain_emote.dm"
 #include "code\modules\mob\living\brain\brain_life.dm"
