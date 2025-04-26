@@ -12,6 +12,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/static/list/transmissable_symptoms = list()
 	var/static/list/diseases_minor = list()
 	var/static/list/diseases_moderate_major = list()
+	var/force_disease_time = 300
 
 /datum/event/disease_outbreak/setup()
 	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate_major))
@@ -24,7 +25,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		if(EVENT_LEVEL_MUNDANE)
 			virus = pick(diseases_minor)
 		if(EVENT_LEVEL_MODERATE)
-			if(prob(75))
+			if(prob(50))
 				virus = pick(diseases_moderate_major)
 			else
 				chosen_disease = create_virus(severity)
@@ -54,6 +55,18 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 			GLOB.minor_announcement.Announce("Minor contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
 	// We did our announcement, the event no longer needs to run
 	kill()
+
+/datum/event/disease_outbreak/process()
+	if(activeFor == force_disease_time)
+		for(var/list/disease_event in GLOB.current_pending_diseases)
+			if(chosen_disease in disease_event)
+				GLOB.current_pending_diseases -= disease_event
+				for(var/mob/living/carbon/human/player in GLOB.player_list)
+					if(player.ForceContractDisease(chosen_disease))
+						break
+				announceWhen = activeFor + 240
+				break\
+	. = ..()
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)

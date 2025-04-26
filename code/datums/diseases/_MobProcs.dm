@@ -167,7 +167,7 @@ MARK: Helpers
 /// Directly adds a disease to a mob.
 /mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE, start_stage = 1)
 	if(src.client)
-		SSblackbox.record_feedback("tally", "Advanced Disease", 1, "Spontanous Evolution")
+		SSblackbox.record_feedback("tally", "Advanced Disease", 1, "Infection")
 	var/datum/disease/DD = new D.type(1, D, 0)
 	DD.stage = start_stage
 	viruses += DD
