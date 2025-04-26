@@ -1119,7 +1119,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 				V.reagents.add_reagent(vomit_reagent, 5)
 				return
 
-		var/obj/effect/decal/cleanable/vomit/this = new type(src)
+		var/obj/effect/decal/cleanable/vomit/this = new type(get_turf(src))
 		if(!this.gravity_check)
 			this.newtonian_move(dir)
 
