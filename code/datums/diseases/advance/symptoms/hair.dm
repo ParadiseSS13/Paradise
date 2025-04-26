@@ -16,10 +16,10 @@ BONUS
 
 /datum/symptom/hair
 	name = "Cranial Hypertrichosis"
-	stealth = -3
+	stealth = -1
 	resistance = -1
-	stage_speed = -3
-	transmittable = -1
+	stage_speed = 1
+	transmittable = 1
 	level = 4
 	severity = 1
 

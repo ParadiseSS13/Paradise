@@ -24,19 +24,24 @@ Bonus
 	name = "Vomiting"
 	stealth = -2
 	resistance = -1
-	stage_speed = 0
+	stage_speed = -2
 	transmittable = 1
 	level = 3
-	severity = 4
+	severity = 3
 	treatments = list("calomel" , "charcoal", "pen_acid")
 
 /datum/symptom/vomit/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB / 2))
+	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
-			if(1, 2, 3, 4)
+			if(1, 2, 3)
 				to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
+			if(4)
+				if(prob(50))
+					Vomit(M)
+				else
+					to_chat(M, "<span class='warning'>[pick("You feel extremely nauseous!", "You barely manage to not throw up!")]</span>")
 			else
 				Vomit(M)
 
@@ -76,7 +81,7 @@ Bonus
 	severity = 5
 
 /datum/symptom/vomit/blood/Vomit(mob/living/carbon/M)
-	M.vomit(0, 1)
+	M.vomit(35, TRUE, TRUE, distance = 1)
 
 
 /*
@@ -101,7 +106,11 @@ Bonus
 
 	name = "Projectile Vomiting"
 	stealth = -2
-	level = 4
+	resistance = -2
+	stage_speed = -4
+	transmittable = 1
+	level = 5
+	severity = 4
 
 /datum/symptom/vomit/projectile/Vomit(mob/living/carbon/M)
-	M.vomit(6,0,FALSE,5,1)
+	M.vomit(10, FALSE, TRUE, 6, 1)

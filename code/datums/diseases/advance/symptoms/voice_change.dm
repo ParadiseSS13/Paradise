@@ -18,10 +18,10 @@ Bonus
 /datum/symptom/voice_change
 
 	name = "Voice Change"
-	stealth = -2
+	stealth = 2
 	resistance = -3
-	stage_speed = -3
-	transmittable = -1
+	stage_speed = 3
+	transmittable = -2
 	level = 6
 	severity = 2
 	treatments = list("honey", "lemonjuice" , "orangejuice")

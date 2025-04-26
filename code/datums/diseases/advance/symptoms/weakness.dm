@@ -21,9 +21,9 @@ Bonus
 	stealth = -1
 	resistance = -1
 	stage_speed = -2
-	transmittable = -2
+	transmittable = -1
 	level = 3
-	severity = 3
+	severity = 4
 
 /datum/symptom/weakness/Activate(datum/disease/advance/A)
 	..()

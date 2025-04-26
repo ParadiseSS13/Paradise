@@ -18,9 +18,9 @@ Bonus
 /datum/symptom/visionloss
 
 	name = "Hyphema"
-	stealth = -1
-	resistance = -4
-	stage_speed = -4
+	stealth = 2
+	resistance = -3
+	stage_speed = -1
 	transmittable = -3
 	level = 5
 	severity = 4

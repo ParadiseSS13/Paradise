@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 			if(prob(50))
 				virus = pick(diseases_moderate_major)
 			else
-				chosen_disease = create_virus(severity)
+				chosen_disease = create_virus(severity * 2)
 		if(EVENT_LEVEL_MAJOR)
 			chosen_disease = create_virus(severity * 2)
 	if(virus)
@@ -71,17 +71,25 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
 	var/datum/disease/advance/A = new /datum/disease/advance(_event = TRUE)
-	// Give a random stat boost equal to severity
+	// Base properties get buffs depending on severity
 	var/list/properties_to_buff = A.base_properties.Copy()
-	for(var/i = 0, i < max_severity, i++)
+	for(var/i = 0, i < max_severity / 2, i++)
 		A.base_properties[pick(properties_to_buff)]++
+	A.base_properties["transmittable"] += round(max_severity / 2)
 	A.base_properties["stealth"] += max_severity // Stealth gets an additional bonus since most symptoms reduce it a fair bit.
 	A.base_properties["resistance"] += round(max_severity / 3) // Resistance gets a small extra buff
-	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 2, list(/datum/symptom/heal/longevity)) // Choose "Payload" symptoms. Longevity is excluded
+	 // Choose "Payload" symptoms. With one guaranteed to be close to max severity
+	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 2, max_severity, 2)
+	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 1)
 	A.AssignProperties(A.GenerateProperties())
 	var/list/symptoms_to_try = transmissable_symptoms.Copy()
+	var/spread_threhsold = CONTACT_GENERAL
+	// Chance for it to be extra spready, scales quadratically with severity
+	if(prob((max_severity ** 2) * 1.5))
+		spread_threhsold = AIRBORNE
+		A.base_properties["transmittable"]++
 	while(length(symptoms_to_try))
-		if(A.spread_text != "Blood")
+		if(A.spread_flags & spread_threhsold)
 			break
 		if(length(A.symptoms) < VIRUS_SYMPTOM_LIMIT)	//Ensure the virus is spreadable by adding symptoms that boost transmission
 			var/datum/symptom/TS = pick_n_take(symptoms_to_try)

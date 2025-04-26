@@ -19,9 +19,9 @@ Bonus
 
 	name = "Hallucigen"
 	stealth = -2
-	resistance = -3
-	stage_speed = -3
-	transmittable = -1
+	resistance = -1
+	stage_speed = -2
+	transmittable = 0
 	level = 5
 	severity = 3
 	treatments = list("synaptazine" , "ephedrine")

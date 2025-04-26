@@ -19,11 +19,11 @@ Bonus
 
 	name = "Spontaneous Combustion"
 	stealth = -2
-	resistance = -1
+	resistance = -2
 	stage_speed = 1
 	transmittable = -4
 	level = 6
-	severity = 5
+	severity = 6
 	treatments = list("frostoil")
 
 /datum/symptom/fire/Activate(datum/disease/advance/A)

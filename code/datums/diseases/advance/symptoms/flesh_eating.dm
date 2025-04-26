@@ -21,9 +21,9 @@ Bonus
 	stealth = -3
 	resistance = -3
 	stage_speed = 0
-	transmittable = -3
+	transmittable = -2
 	level = 6
-	severity = 5
+	severity = 6
 
 /datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
 	..()

@@ -123,6 +123,7 @@
 		if(blood)
 			if(T)
 				add_splatter_floor(T)
+			blood_volume = max(blood_volume - lost_nutrition, 0)
 			if(should_confuse)
 				adjustBruteLoss(3)
 		else
@@ -131,6 +132,11 @@
 			adjust_nutrition(-lost_nutrition)
 			if(should_confuse)
 				adjustToxLoss(-3)
+
+		// Try to infect the people we hit with our viruses
+		for(var/mob/living/carbon/to_infect in T.contents)
+			for(var/datum/disease/illness in viruses)
+				to_infect.ContractDisease(illness)
 
 		T = get_step(T, dir)
 		if(is_blocked_turf(T))
