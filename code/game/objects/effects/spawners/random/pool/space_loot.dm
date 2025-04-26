@@ -85,7 +85,7 @@
 	)
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/stetchkin
-	name = "syndicate depot loot, 20% stetchkin"
+	name = "syndicate depot loot, 80% stetchkin"
 	icon_state = "stetchkin"
 	spawn_loot_chance = 80
 	point_value = 25
@@ -208,7 +208,6 @@
 		/obj/item/mod/module/stealth,
 	)
 
-
 /obj/effect/spawner/random/pool/spaceloot/syndicate/armory
 	name = "syndicate depot loot, armory"
 	// Combat orientated items that could give the player an advantage if an antag messes with them.
@@ -229,6 +228,10 @@
 		// officer -> armory tier for ruins
 		/obj/item/mod/module/stealth,
 	)
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/elite/Initialize(mapload)
+	loot ^= list(/obj/item/mod/control/pre_equipped/traitor_elite)
+	. = ..()
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot
 	guaranteed = TRUE
@@ -251,13 +254,45 @@
 		/obj/item/cqc_manual,
 	)
 
-
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed
 	loot = list(
 		/obj/effect/spawner/random/pool/spaceloot/syndicate/common = 30,
 		/obj/effect/spawner/random/pool/spaceloot/syndicate/rare = 20,
 		/obj/effect/spawner/random/pool/spaceloot/syndicate/officer = 5,
 		/obj/effect/spawner/random/pool/spaceloot/syndicate/armory = 1,
+	)
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "syndicate_random"
+	loot = list(
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/common = 80,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit = 19,
+
+		// Let the massacre begin
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/elite, // 1%
+	)
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/elite
+	point_value = 200 // Guaranteed armory-tier loot on death
+	loot = list(/mob/living/simple_animal/hostile/syndicate/modsuit/elite)
+
+// Used when we want our mob to be protected from environment pressure
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit
+	icon_state = "syndicate_random_mod"
+	point_value = 6 // Modsuit chance
+	loot = list(
+		/mob/living/simple_animal/hostile/syndicate/modsuit,
+		/mob/living/simple_animal/hostile/syndicate/modsuit/ranged,
+	)
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/common
+	icon_state = "syndicate"
+	point_value = 3
+	loot = list(
+		/mob/living/simple_animal/hostile/syndicate/ranged = 4,
+		/mob/living/simple_animal/hostile/syndicate = 3, // Melee is stronger than ranged variant most of the time
+		/mob/living/simple_animal/hostile/syndicate/shield,
 	)
 
 // Only two of these
@@ -269,11 +304,6 @@
 		/obj/item/gun/energy/floragun,
 		/obj/item/gun/energy/temperature,
 	)
-
-/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie
-	point_value = 100
-	spawn_loot_chance = 50
-	loot = list(/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib)
 
 /obj/effect/spawner/random/pool/spaceloot/moonoutpost19
 	name = "moon outpost 19 loot spawner"
@@ -314,7 +344,6 @@
 	spawn_all_loot = TRUE
 	spawn_random_offset = TRUE
 	spawn_random_offset_max_pixels = 8
-
 
 /obj/effect/spawner/random/pool/spaceloot/mechtransport/storage1
 	loot = list(
