@@ -783,7 +783,7 @@
 	ask_verb = "groans"
 	exclaim_verbs = list("yells")
 	colour = "zombie"
-	key = "zz" //doesn't matter, this is their default and only language
+	key = "w"
 	flags = RESTRICTED | NOLIBRARIAN
 	syllables = list("Brains", "Brainssss", "Flesh", "Grrr", "Hnng", "Braaaains", "Braaiiiins")
 	english_names = TRUE

@@ -866,6 +866,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
 
+	if(ismachineperson(victim))
+		to_chat(necromancer, "<span class='warning'>This one isn't vulnerable to this form of plague magic.</span>")
+		return
+
 	if((!victim.mind || !victim.client) && !victim.grab_ghost())
 		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
 		return
@@ -881,6 +885,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	var/datum/disease/chosen_plague = pick_disease() //what disease to give them
 
+	victim.grab_ghost() // to attempt to hold their ghost still while we do our thing
 	victim.visible_message("<span class='danger'>[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!</span>")
 
 	var/static/list/plague_traits = list(TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
@@ -907,17 +912,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
 
 	// Cant very well have your new minions dead for so long
-	victim.heal_overall_damage(1000, 1000)
-	victim.setToxLoss(0)
-	victim.setOxyLoss(0)
-	victim.ExtinguishMob()
-	victim.fire_stacks = 0
-	victim.on_fire = 0
-	victim.bodytemperature = 310
-	victim.med_hud_set_health()
-	victim.med_hud_set_status()
-	victim.update_hands_hud()
-	victim.update_body()
+	victim.rejuvenate()
 	qdel(src) // talismans are single use
 
 //choose what disease this zombie will get

@@ -36,6 +36,8 @@
 		return
 	if(zomboid.client || isLivingSSD(zomboid))
 		return
+	if(HAS_TRAIT(zomboid, TRAIT_PLAGUE_ZOMBIE)) // dont want plague zombie NPCs
+		return
 	if((zomboid.last_known_ckey || HAS_TRAIT(zomboid, TRAIT_NPC_ZOMBIE)) && !zomboid.key) // make sure they were player inhabited and not admin ghosted
 		mindless_hunger()
 
