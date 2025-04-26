@@ -425,10 +425,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/turreted_outpost)
 "Kd" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -473,7 +470,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/turreted_outpost)
 "Oc" = (
@@ -498,9 +495,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/turreted_outpost)
 "OU" = (
-/obj/machinery/shower{
-	pixel_y = 24
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower/security,
 /obj/item/soap/syndie,
 /obj/item/bikehorn/rubberducky,

@@ -683,9 +683,7 @@
 	},
 /area/mine/laborcamp)
 "ep" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3140,10 +3138,7 @@
 	},
 /area/mine/outpost/cafeteria)
 "qZ" = (
-/obj/structure/sink/kitchen/old{
-	pixel_y = -10;
-	dir = 1
-	},
+/obj/structure/sink/kitchen/old/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredyellowfull"
@@ -4449,9 +4444,7 @@
 /area/mine/laborcamp)
 "yr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
@@ -5721,9 +5714,7 @@
 /area/mine/laborcamp)
 "FF" = (
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Main Airlock";
 	network = list("Mining Outpost");
@@ -7996,9 +7987,7 @@
 	},
 /area/mine/outpost/airlock)
 "RG" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 24
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -8231,9 +8220,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "SR" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/sign/poster/official/random/directional/north,
 /obj/machinery/light_switch{

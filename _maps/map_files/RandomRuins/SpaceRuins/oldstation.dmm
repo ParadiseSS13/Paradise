@@ -199,9 +199,7 @@
 /area/ruin/ancientstation)
 "aJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	pixel_y = 12
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation)
 "aK" = (
@@ -254,10 +252,7 @@
 	name = "dusty mirror";
 	pixel_x = 26
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation)
 "aR" = (
@@ -314,9 +309,7 @@
 /area/ruin/ancientstation/comm)
 "bb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},
@@ -389,9 +382,7 @@
 "bm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/soap/nanotrasen,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
@@ -1664,9 +1655,7 @@
 /area/ruin/ancientstation)
 "fg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -2372,9 +2361,7 @@
 /area/ruin/ancientstation/comm)
 "gX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
@@ -5884,9 +5871,7 @@
 /area/ruin/ancientstation/rnd)
 "IP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	pixel_y = 25
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
