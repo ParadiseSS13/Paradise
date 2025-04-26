@@ -410,7 +410,7 @@
 
 /obj/item/gun/energy/laser/instakill/examine(mob/user)
 	. = ..()
-	. += "This gun gibs anyone it hits. Was the name not obvious?"
+	. += "This gun gibs anyone it hits and destroys objects."
 
 /obj/item/gun/energy/laser/instakill/examine_more(mob/user)
 	. = ..()
