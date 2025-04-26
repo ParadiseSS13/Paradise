@@ -58,8 +58,29 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/dvorak/turret_room
 	name = "DVORAK turret room"
 
+// Rocky Motel mapanips
+
 /obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/rocky_motel
 	name = "Rocky motel submap"
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/rocky_motel
 	name = "Rocky motel submap"
+
+// White ship mapmanips
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/medbay
+	name = "white_ship medbay"
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/medbay
+	name = "white_ship medbay"
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/storage
+	name = "white_ship storage"
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/storage
+	name = "white_ship storage"
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/gun_room
+	name = "white_ship gun room"
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/gun_room
+	name = "white_ship gun room"

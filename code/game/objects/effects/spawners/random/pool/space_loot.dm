@@ -336,3 +336,42 @@
 /obj/effect/spawner/random/pool/spaceloot/mechtransport/storage4
 	loot = list(/obj/item/mecha_parts/core)
 
+/obj/effect/spawner/random/pool/spaceloot/whiteship_robotics
+	name = "whiteship robotics implant"
+	guaranteed = TRUE
+	point_value = 15
+	spawn_random_offset = TRUE
+	spawn_random_offset_max_pixels = 8
+
+	loot = list(
+		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/brain/wire_interface,
+		/obj/item/organ/internal/cyberimp/arm/toolset,
+		/obj/item/organ/internal/eyes/cybernetic/meson,
+	)
+
+
+/obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_shotgun_ammo
+	name = "whiteship shotgun ammo"
+	guaranteed = TRUE
+	spawn_loot_chance = 33
+	point_value = 10 // Do you have a shotgun?
+
+	loot = list(
+		/obj/item/storage/fancy/shell/confetti,
+		/obj/item/storage/fancy/shell/ion,
+		/obj/item/storage/fancy/shell/incindiary,
+		/obj/item/storage/fancy/shell/dragonsbreath,
+		/obj/item/storage/fancy/shell/rubbershot,
+	)
+
+/obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_c_foam
+	name = "whiteship c_foam"
+	icon_state = "stetchkin"
+	guaranteed = TRUE
+	spawn_loot_chance = 20 // 1/5 chance after a 1/3 chance for this layout.
+	point_value = 40
+
+	loot = list(
+		/obj/item/gun/projectile/c_foam_launcher
+	)
