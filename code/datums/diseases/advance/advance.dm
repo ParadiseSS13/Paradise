@@ -366,7 +366,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		cures += pick(GLOB.standard_cures)
 		if(res > 1)
 			cures += prob(50) ? CurePick(GLOB.advanced_cures) : CurePick(GLOB.plant_cures)
-		if(res > 2)
+		if(res > 3)
 			cures += prob(50) ? CurePick(GLOB.plant_cures) : CurePick(GLOB.drinks)
 		for(var/cure in cures)
 			// Get the cure name from the cure_id
