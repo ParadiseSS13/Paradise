@@ -64,11 +64,20 @@
 				add_attack_logs(user, target, "Fed with [name] containing [contained]", !!target.ckey ? null : ATKLOG_ALL)
 			else
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
-
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(target, REAGENT_INGEST, fraction)
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
 			playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
+			// Add viruses where needed
+			if(length(target.viruses))
+				AddComponent(/datum/component/viral_contamination, target.viruses)
+			// Infect contained blood as well for splash reactions
+			var/datum/reagent/blood/blood_contained = locate() in reagents.reagent_list
+			if(blood_contained?.data["viruses"])
+				var/list/blood_viruses = blood_contained.data["viruses"]
+				blood_viruses |= target.viruses.Copy()
+				blood_contained.data["viruses"] = blood_viruses
+			SEND_SIGNAL(src, COMSIG_MOB_REAGENT_EXCHANGE, target)
 
 /obj/item/reagent_containers/glass/normal_act(atom/target, mob/living/user)
 	if(!check_allowed_items(target, target_self = TRUE) || !is_open_container() || !reagents)

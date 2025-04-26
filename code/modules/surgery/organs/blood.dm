@@ -153,6 +153,8 @@
 
 	blood_volume -= amount
 
+	SEND_SIGNAL(AM, COMSIG_MOB_REAGENT_EXCHANGE, src)
+
 	var/list/blood_data = get_blood_data(blood_id)
 
 	if(iscarbon(AM))

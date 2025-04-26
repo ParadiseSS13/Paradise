@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	A.base_properties["transmittable"] += round(max_severity / 2)
 	A.base_properties["stealth"] += max_severity // Stealth gets an additional bonus since most symptoms reduce it a fair bit.
 	A.base_properties["resistance"] += round(max_severity / 3) // Resistance gets a small extra buff
-	 // Choose "Payload" symptoms. With one guaranteed to be close to max severity
+	// Choose "Payload" symptoms. With one guaranteed to be close to max severity
 	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 2, max_severity, 2)
 	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 1)
 	A.AssignProperties(A.GenerateProperties())

@@ -121,6 +121,13 @@
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 	..()
 
+/datum/reagent/blood/reaction_temperature(exposed_temperature, exposed_volume)
+	// If the blood goes above 60C kill all viruses
+	if(exposed_temperature > DISINFECTION_TEMP)
+		data["viruses"] = list()
+	..()
+
+
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
 		SetViruses(src, data)

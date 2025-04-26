@@ -148,6 +148,16 @@
 /obj/item/food/proc/On_Consume(mob/M, mob/user)
 	if(!user)
 		return
+	// Add viruses where needed
+	if(length(M.viruses))
+		AddComponent(/datum/component/viral_contamination, M.viruses)
+	var/datum/reagent/blood/blood_contained = locate() in reagents.reagent_list
+	// Infect contained blood as well for splash reactions
+	if(blood_contained?.data["viruses"])
+		var/list/blood_viruses = blood_contained.data["viruses"]
+		blood_viruses |= M.viruses.Copy()
+		blood_contained.data["viruses"] = blood_viruses
+	SEND_SIGNAL(src, COMSIG_MOB_REAGENT_EXCHANGE, M)
 	if(!reagents.total_volume)
 		if(M == user)
 			to_chat(user, "<span class='notice'>You finish eating [src].</span>")
