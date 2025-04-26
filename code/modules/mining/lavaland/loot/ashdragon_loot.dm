@@ -167,16 +167,9 @@
 	force = 0
 	var/ghost_counter = length(orbs)
 
-	force = clamp((ghost_counter * 4), 0, 75)
+	force = clamp((ghost_counter * 4), 0, 50)
 	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirit\s!</span>")
 	..()
-
-/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/ghost_counter = length(orbs)
-	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghost\s!</span>")
-	return ..()
-
 
 /obj/effect/wisp/ghost
 	name = "mischievous wisp"
