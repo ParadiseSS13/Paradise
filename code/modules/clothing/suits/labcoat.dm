@@ -1,8 +1,10 @@
 /obj/item/clothing/suit/storage/labcoat
 	name = "labcoat"
 	desc = "A suit that protects against minor chemical spills."
+	icon = 'icons/obj/clothing/suits/labcoat.dmi'
 	icon_state = "labcoat_open"
-	item_state = "labcoat_open"
+	item_state = 'icons/mob/clothing/suits/labcoat.dmi'
+	icon_override = 'icons/mob/clothing/suits/labcoat.dmi'
 	ignore_suitadjust = 0
 	suit_adjusted = 1
 	blood_overlay_type = "coat"
