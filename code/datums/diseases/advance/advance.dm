@@ -49,6 +49,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	max_stages = 5
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human)
+	incubation = 90
 
 	// NEW VARS
 

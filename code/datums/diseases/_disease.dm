@@ -73,6 +73,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/list/strain_data = list() //dna_spread special bullshit
 	/// Allow the virus to infect and process while the affected_mob is dead
 	var/allow_dead = FALSE
+	/// How many cycles we should incubate
+	var/incubation = 0
 
 /datum/disease/Destroy()
 	affected_mob = null
@@ -80,10 +82,19 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	return ..()
 
 /datum/disease/proc/stage_act()
+	// Still incubating, do nothing
+	if(incubation)
+		if(is_species(affected_mob, /datum/species/monkey))
+			incubation = 0
+		else
+			incubation--
+		return FALSE
+	// We have no host
 	if(!affected_mob)
 		return FALSE
 	var/cure = has_cure()
 
+	// This is patient 0 and we aren't curing them. Do nothing
 	if(carrier && !cure)
 		return FALSE
 

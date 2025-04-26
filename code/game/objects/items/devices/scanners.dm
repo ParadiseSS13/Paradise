@@ -277,7 +277,8 @@ SLIME SCANNER
 
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
-		if(D.visibility_flags & HIDDEN_SCANNER && !(D.GetDiseaseID() in GLOB.detected_advanced_diseases["[user.z]"]))
+		// If the disease is incubating, or if it's stealthy and hasn't been put into a pandemic yet the scanner won't see it
+		if(D.incubation || (D.visibility_flags & HIDDEN_SCANNER && !(D.GetDiseaseID() in GLOB.detected_advanced_diseases["[user.z]"])))
 			continue
 		// Snowflaking heart problems, because they are special (and common).
 		if(istype(D, /datum/disease/critical))
