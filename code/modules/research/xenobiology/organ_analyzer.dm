@@ -91,18 +91,17 @@
 			update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/organ_analyzer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(is_valid_organ(used))
-		log_debug("Organ is valid")
-		if(panel_open)
-			to_chat(user, "<span class='warning'>You cant interact with the machine while the panel is open!</span>")
-			return ITEM_INTERACT_COMPLETE
-		contains_organ = used
-		user.transfer_item_to(used, src)
+	if(!istype(used, /obj/item/organ/internal))
+		to_chat(user, "<span class='warning'>The machines rejects the item. It finds no possible potential in it.</span>")
+	if(panel_open)
+		to_chat(user, "<span class='warning'>You cant interact with the machine while the panel is open!</span>")
+		return ITEM_INTERACT_COMPLETE
+	var/obj/item/organ/internal/organ = used
+	if(organ.is_xeno_organ)
+		contains_organ = organ
+		user.transfer_item_to(organ, src)
 		update_appearance(UPDATE_OVERLAYS)
 		return ITEM_INTERACT_COMPLETE
-	else
-		log_debug("Organ is not valid")
-
 	return ..()
 
 /obj/machinery/organ_analyzer/AltClick(mob/user)
@@ -181,21 +180,3 @@
 
 	tech.level = contains_organ.hidden_tech_level
 	disk.load_tech(tech)
-
-/obj/machinery/organ_analyzer/proc/is_valid_organ(obj/item/used)
-	if(istype(used, /obj/item/organ/internal/liver/xenobiology))
-		return TRUE
-	if(istype(used, /obj/item/organ/internal/heart/xenobiology))
-		return TRUE
-	if(istype(used, /obj/item/organ/internal/lungs/xenobiology))
-		return TRUE
-	if(istype(used, /obj/item/organ/internal/kidneys/xenobiology))
-		return TRUE
-	if(istype(used, /obj/item/organ/internal/appendix/xenobiology))
-		return TRUE
-	if(istype(used, /obj/item/organ/internal/eyes/xenobiology))
-		return TRUE
-	if(istype(used, /obj/item/organ/internal/ears/xenobiology))
-		return TRUE
-	return FALSE
-

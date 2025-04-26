@@ -481,17 +481,18 @@
 	return TRUE
 
 /mob/living/simple_animal/slime/proc/handle_organs()
-	if(holding_organ)
-		if(organ_progress < 100)
-			organ_progress += 1
-		else
-			organ_progress = 1
-			say("All done!", speak_emote)
-			var/obj/item/organ/internal/finished_organ = new holding_organ.true_organ_type(src.loc)
-			finished_organ.organ_quality = holding_organ.unknown_quality
-			finished_organ.icon_state = holding_organ.icon_state
-			if(finished_organ.organ_quality != ORGAN_NORMAL)
-				finished_organ.name = "[finished_organ.organ_quality] [finished_organ.name]"
-			qdel(holding_organ)
-			holding_organ = null
+	if(!holding_organ)
+		return
+	if(organ_progress < 100)
+		organ_progress += 1
+		return
+	organ_progress = 1
+	say("All done!", speak_emote)
+	var/obj/item/organ/internal/finished_organ = new holding_organ.true_organ_type(src.loc)
+	finished_organ.organ_quality = holding_organ.unknown_quality
+	finished_organ.icon_state = holding_organ.icon_state
+	if(finished_organ.organ_quality != ORGAN_NORMAL)
+		finished_organ.name = "[finished_organ.organ_quality == ORGAN_PRISTINE ? "Pristine" : finished_organ.organ_quality == ORGAN_NORMAL ? "Standard" : "Damaged"] [finished_organ.name]"
+	qdel(holding_organ)
+	holding_organ = null
 

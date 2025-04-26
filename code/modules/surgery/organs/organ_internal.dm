@@ -15,8 +15,10 @@
 	var/hidden_tech_level = 1
 	/// How much is this organ worth in the xenobiology organ analyzer?
 	var/analyzer_price = 10
-		/// what quality is this organ? Only useful for xeno organs
+	/// what quality is this organ? Only useful for xeno organs
 	var/organ_quality = ORGAN_NORMAL
+	/// Does this organ originate from the xenobiology dissection loop?
+	var/is_xeno_organ = FALSE
 	var/cooldown_low = 300
 	var/cooldown_high = 300
 	var/next_activation
