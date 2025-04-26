@@ -54,7 +54,7 @@
 
 /obj/item/clothing/suit/storage/labcoat/virologist
 	name = "virologist labcoat"
-	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has gren medical markings."
+	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has green medical markings."
 	icon_state = "labcoat_viro_open"
 	item_state = "labcoat_viro_open"
 
