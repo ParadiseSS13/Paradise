@@ -414,6 +414,7 @@
 
 /obj/item/gun/energy/laser/instakill/examine_more(mob/user)
 	. = ..()
+	. = list()
 	. += "Utilizing top-shelf Shellguard batteries, a sleek off-white chassis, and a dense enough lense to make an optometrist cry, this rifle can fires bolts that can violently disassemble nearly anyone it hits. You're still not sure when it would be useful, though."
 	. += ""
 	. += "Once quested for in days of old, this rifle and other treasures of the gods were sealed away in their palace in the sky. The once-open door was not simply locked, but taken away."
