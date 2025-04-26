@@ -10,6 +10,8 @@ RESTRICT_TYPE(/datum/cooking/recipe_step)
 
 /datum/cooking/recipe_step/proc/check_conditions_met(obj/used_item, datum/cooking/recipe_tracker/tracker)
 	SHOULD_CALL_PARENT(FALSE)
+	SHOULD_BE_PURE(TRUE)
+
 	return PCWJ_CHECK_VALID
 
 /// Attempt to satisfy the requirements of this step with the object *used_item*

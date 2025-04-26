@@ -1047,7 +1047,7 @@
 	auto_use_uses = FALSE
 	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
-	level_max = 0
+	level_max = 8
 
 /datum/spell/ai_spell/enhanced_tracker/cast(list/targets, mob/living/silicon/ai/user)
 	if(!istype(user))
