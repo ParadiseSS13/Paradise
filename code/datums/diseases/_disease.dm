@@ -226,3 +226,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 /datum/disease/proc/remove_virus()
 	affected_mob.viruses -= src		//remove the datum from the list
 	affected_mob.med_hud_set_status()
+
+/// Not interested in normal diseases right now
+/datum/disease/proc/record_infection()
+	return

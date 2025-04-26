@@ -188,6 +188,9 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/Copy(process = 0)
 	return new /datum/disease/advance(process, src, 1)
 
+/datum/disease/advance/record_infection()
+	SSblackbox.record_feedback("tally", "Advanced Disease", 1, "[name]_[strain] Infection")
+
 /*
 
 	NEW PROCS
