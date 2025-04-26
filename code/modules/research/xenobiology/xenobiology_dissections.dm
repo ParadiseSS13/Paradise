@@ -314,34 +314,54 @@
 	name = "Metallic Processor"
 	desc = "A dense, metallic organ that enables the consumption of precious metals as food. No guarentee for taste, though"
 	analyzer_price = 20
+	///Component that handles the ability to eat precious metals
+	var/datum/component/special_tastes/special_tastes
 
-/obj/item/organ/internal/kidneys/xenobiology/metallic/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/kidneys/xenobiology/metallic/insert(mob/living/carbon/organ_owner, special = FALSE, dont_remove_slot = FALSE)
 	. = ..()
-	ADD_TRAIT(M, TRAIT_MINERAL_EATER, ORGAN_TRAIT)
-	switch(organ_quality)
-		if(ORGAN_DAMAGED)
-			ADD_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
-		if(ORGAN_NORMAL)
-			ADD_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
-			ADD_TRAIT(M, TRAIT_GOLD_EATER, ORGAN_TRAIT)
-		if(ORGAN_PRISTINE)
-			ADD_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
-			ADD_TRAIT(M, TRAIT_GOLD_EATER, ORGAN_TRAIT)
-			ADD_TRAIT(M, TRAIT_DIAMOND_EATER, ORGAN_TRAIT)
+	var/list/edible_minerals = list(
+		/obj/item/stack/sheet/mineral/silver = list(
+			"reagents" = list(
+				"nutriment" = 5,
+				"vitamin" = 1,
+			),
+			"tastes" = list(
+				"metal and blood" = 1,
+			),
+		)
+	)
+	if(organ_quality >= ORGAN_NORMAL)
+		edible_minerals += list(
+			/obj/item/stack/sheet/mineral/gold = list(
+				"reagents" = list(
+					"salglu_solution" = 5,
+					"nutriment" = 5,
+					"vitamin" = 1,
+				),
+				"tastes" = list(
+					"metal and blood" = 1,
+				),
+			)
+		)
+	if(organ_quality >= ORGAN_PRISTINE)
+		edible_minerals += list(
+			/obj/item/stack/sheet/mineral/diamond = list(
+				"reagents" = list(
+					"nutriment" = 5,
+					"bicaridine" = 3,
+					"kelotane" = 3,
+					"vitamin" = 1,
+				),
+				"tastes" = list(
+					"metal and blood" = 1,
+				),
+			)
+		)
+	special_tastes = organ_owner.AddComponent(/datum/component/special_tastes, edible_minerals)
 
-/obj/item/organ/internal/kidneys/xenobiology/metallic/remove(mob/living/carbon/M, special = 0)
-	. = ..()
-	REMOVE_TRAIT(M, TRAIT_MINERAL_EATER, ORGAN_TRAIT)
-	switch(organ_quality)
-		if(ORGAN_DAMAGED)
-			REMOVE_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
-		if(ORGAN_NORMAL)
-			REMOVE_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
-			REMOVE_TRAIT(M, TRAIT_GOLD_EATER, ORGAN_TRAIT)
-		if(ORGAN_PRISTINE)
-			REMOVE_TRAIT(M, TRAIT_SILVER_EATER, ORGAN_TRAIT)
-			REMOVE_TRAIT(M, TRAIT_GOLD_EATER, ORGAN_TRAIT)
-			REMOVE_TRAIT(M, TRAIT_DIAMOND_EATER, ORGAN_TRAIT)
+/obj/item/organ/internal/kidneys/xenobiology/metallic/remove(mob/living/carbon/organ_owner, special = FALSE)
+	special_tastes.RemoveComponent()
+	return ..()
 
 /obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants
 	name = "Vocal Coord Remnants"
@@ -824,7 +844,7 @@
 	. = ..()
 	original_unarmed = owner.dna.species.unarmed_type
 	if(original_unarmed != /datum/unarmed_attack/claws)
-		var/datum/unarmed_attack/claws/claws new /datum/unarmed_attack/claws
+		var/datum/unarmed_attack/claws/claws = new
 		if(organ_quality == ORGAN_PRISTINE)
 			claws.has_been_sharpened = TRUE
 		owner.dna.species.unarmed_type = claws

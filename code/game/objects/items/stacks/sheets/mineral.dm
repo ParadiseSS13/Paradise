@@ -152,49 +152,6 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	. = ..()
 	scatter_atom()
 
-
-/obj/item/stack/sheet/mineral/proc/prepare_eat()
-	var/obj/item/food/mineral/M = new
-	M.name = name
-	M.desc = desc
-	M.icon = icon
-	M.icon_state = icon_state
-	M.origin_tech = origin_tech
-	M.w_class = w_class
-
-	return M
-
-/obj/item/stack/sheet/mineral/pre_attack(atom/target, mob/living/user, params)
-	. = ..()
-	if(target == user && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/stack/sheet/mineral/mineral = src
-		if(HAS_TRAIT(H, TRAIT_MINERAL_EATER) && H.a_intent == INTENT_HELP)
-			if(HAS_TRAIT(H, TRAIT_SILVER_EATER) && istype(mineral, /obj/item/stack/sheet/mineral/silver))
-				eat_mineral(H, mineral)
-				return FINISH_ATTACK
-			if(HAS_TRAIT(H, TRAIT_GOLD_EATER) && istype(mineral, /obj/item/stack/sheet/mineral/gold))
-				eat_mineral(H, mineral)
-				H.reagents.add_reagent("salglu_solution", 5)
-				return FINISH_ATTACK
-			if(HAS_TRAIT(H, TRAIT_DIAMOND_EATER) && istype(mineral, /obj/item/stack/sheet/mineral/diamond))
-				H.reagents.add_reagent("kelotane", 3) // moderately good heals. Not much uses this either and very little downside even from OD
-				H.reagents.add_reagent("bicaridine", 3)
-				eat_mineral(H, mineral)
-				return FINISH_ATTACK
-	return CONTINUE_ATTACK
-
-/obj/item/stack/sheet/mineral/proc/eat_mineral(mob/living/carbon/human/H, obj/item/stack/sheet/mineral/mineral)
-	if(mineral.amount > 1)
-		to_chat(H, "<span class='warning'>You cant eat that much at once!</span>")
-		return FINISH_ATTACK
-	var/obj/item/food/M = prepare_eat()
-	if(M)
-		H.drop_item()
-		H.put_in_active_hand(M)
-		M.attack__legacy__attackchain(H, H) // god knows why i can only get this to work on legacy
-		qdel(src)
-
 /obj/item/stack/sheet/mineral/scatter_atom(offset_x, offset_y)
 	pixel_x = rand(-4,0) + offset_x
 	pixel_y = rand(-4,0) + offset_y
