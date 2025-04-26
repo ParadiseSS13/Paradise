@@ -511,6 +511,7 @@
 #include "code\datums\components\shielded.dm"
 #include "code\datums\components\slippery.dm"
 #include "code\datums\components\spawner.dm"
+#include "code\datums\components\special_tastes.dm"
 #include "code\datums\components\spooky.dm"
 #include "code\datums\components\squeak.dm"
 #include "code\datums\components\squish.dm"

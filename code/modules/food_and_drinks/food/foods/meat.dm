@@ -673,16 +673,6 @@
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
 
-/obj/item/food/mineral
-	name = "mineral"
-	desc = "its probably excessively crunchy."
-	icon = 'icons/obj/stacks/minerals.dmi'
-	tastes = list("metal and blood" = 1)
-	icon_state = "sheet-diamond"
-	filling_color = "#91e3ee"
-	list_reagents = list("vitamin" = 1)
-	bitesize = 1
-
 /obj/item/food/organ/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent("nutriment", 5)

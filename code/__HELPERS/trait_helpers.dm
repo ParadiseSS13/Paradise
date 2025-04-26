@@ -338,14 +338,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //****** ORGAN TRAITS *****//
 
-/// Trait for if someone may eat metal
-#define TRAIT_MINERAL_EATER "metal_eater"
-/// Trait for eating gold
-#define TRAIT_GOLD_EATER "gold_eater"
-/// Trait for eating silver
-#define TRAIT_SILVER_EATER "silver_eater"
-/// Trait for eating diamonds
-#define TRAIT_DIAMOND_EATER "diamond_eater"
 /// Does this person produce loud runechat
 #define TRAIT_LOUD "loud"
 
