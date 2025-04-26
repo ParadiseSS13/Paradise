@@ -4,17 +4,19 @@
 	var/obj/structure/table/table = null
 	var/setup_complete = FALSE
 
-/datum/milla_safe/ventcrawl_test_setup
+/datum/milla_safe_must_sleep/ventcrawl_test_setup
 
-/datum/milla_safe/ventcrawl_test_setup/on_run(datum/game_test/ventcrawl/test)
+/datum/milla_safe_must_sleep/ventcrawl_test_setup/on_run(datum/game_test/ventcrawl/test)
+	// I'm sure get_area_turfs is totally deterministic and this will never go wrong
+	var/turf/run_loc_bottom_left = test.available_turfs[1]
 	// This setup creates turfs that initialize themselves in MILLA on creation, which is why we need to be MILLA-safe.
 	var/datum/map_template/template = GLOB.map_templates["test_ventcrawl.dmm"]
-	if(!template.load(test.run_loc_bottom_left))
+	if(!template.load(run_loc_bottom_left))
 		test.Fail("Failed to load 'test_ventcrawl.dmm'")
 
-	test.slime = new /mob/living/simple_animal/slime/unit_test_dummy(test.run_loc_bottom_left)
-	test.vent = test.find_spawned_test_object(test.run_loc_bottom_left, /obj/machinery/atmospherics/unary/vent_pump)
-	test.table = test.find_spawned_test_object(get_step(test.run_loc_bottom_left, EAST), /obj/structure/table)
+	test.slime = new /mob/living/simple_animal/slime/unit_test_dummy(run_loc_bottom_left)
+	test.vent = test.find_spawned_test_object(run_loc_bottom_left, /obj/machinery/atmospherics/unary/vent_pump)
+	test.table = test.find_spawned_test_object(get_step(run_loc_bottom_left, EAST), /obj/structure/table)
 	test.setup_complete = TRUE
 
 /datum/game_test/ventcrawl/proc/find_spawned_test_object(turf/location as turf, test_object_type)
@@ -24,7 +26,7 @@
 	TEST_FAIL("Couldn't find spawned test object of type: [test_object_type].")
 
 /datum/game_test/ventcrawl/Run()
-	var/datum/milla_safe/ventcrawl_test_setup/milla = new()
+	var/datum/milla_safe_must_sleep/ventcrawl_test_setup/milla = new()
 	milla.invoke_async(src)
 	while(!setup_complete)
 		sleep(world.tick_lag)

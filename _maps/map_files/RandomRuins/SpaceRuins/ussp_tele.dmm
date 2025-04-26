@@ -114,9 +114,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/communist_state/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -218,7 +216,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/teleporter)
 "uD" = (
-/obj/item/kirbyplants/dead{
+/obj/item/kirbyplants/large/dead{
 	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
 	item_state = "plant-dead"
 	},
@@ -230,6 +228,7 @@
 /area/ruin/space/derelict/teleporter)
 "vr" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"

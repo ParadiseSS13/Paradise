@@ -5,6 +5,7 @@
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 200
+	cares_about_temperature = TRUE
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	/// String value. Used in user chat messages
@@ -309,7 +310,7 @@
 				new /obj/item/shard(T)
 	qdel(src)
 
-/obj/structure/door_assembly/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/door_assembly/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)

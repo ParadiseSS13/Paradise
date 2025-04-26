@@ -9,6 +9,7 @@
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
 	can_flashlight = TRUE
+	can_be_lensed = FALSE
 	flight_x_offset = 15
 	flight_y_offset = 9
 	var/overheat_time = 16
@@ -77,7 +78,6 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	max_mod_capacity = 80
 	icon_state = "kineticgun_b"
 
 /obj/item/gun/energy/kinetic_accelerator/cyborg/malf
@@ -344,7 +344,7 @@
 		if(.)
 			to_chat(user, "<span class='notice'>You install the modkit.</span>")
 			playsound(loc, usesound, 100, 1)
-			user.unEquip(src)
+			user.unequip(src)
 			forceMove(KA)
 			KA.modkits += src
 		else

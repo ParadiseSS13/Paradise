@@ -56,3 +56,23 @@
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has uploaded a map template ([map]). Took [stop_watch(timer)]s.</span>")
 	else
 		to_chat(usr, "Map template '[map]' failed to load properly")
+
+/client/proc/map_template_load_lazy()
+	set category = "Debug"
+	set name = "Map template - Lazy Load"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	var/map = input(usr, "Choose a Map Template to place on the lazy load map level.","Place Map Template") as null|anything in GLOB.map_templates
+	if(!map)
+		return
+	var/datum/map_template/template = GLOB.map_templates[map]
+
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] is lazyloading the map template ([template.name]).</span>")
+	var/datum/turf_reservation/reserve = SSmapping.lazy_load_template(template)
+	if(!istype(reserve))
+		message_admins("<span class='danger'>Lazyloading [template.name] failed! You should report this as a bug.</span>")
+		return
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] has lazyloaded the map template ([template.name]) at [ADMIN_JMP(reserve.bottom_left_turf)]</span>")
+

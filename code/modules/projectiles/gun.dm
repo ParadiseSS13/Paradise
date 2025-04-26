@@ -333,7 +333,7 @@
 /obj/item/gun/attack__legacy__attackchain(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
 		if(bayonet)
-			M.attackby__legacy__attackchain(bayonet, user)
+			M.attack_by(bayonet, user)
 		else
 			return ..()
 
@@ -349,14 +349,13 @@
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!gun_light)
-				if(!user.unEquip(I))
+				if(!user.transfer_item_to(I, src))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 				if(S.on)
 					set_light(0)
 				gun_light = S
-				I.loc = src
 				update_icon()
 				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
@@ -429,9 +428,7 @@
 	else
 		set_light(0)
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)

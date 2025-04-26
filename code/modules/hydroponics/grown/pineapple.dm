@@ -25,7 +25,7 @@
 	attack_verb = list("stung", "pined")
 	throw_speed = 1
 	throw_range = 5
-	slice_path = /obj/item/food/pineappleslice
+	slice_path = /obj/item/food/sliced/pineapple
 	slices_num = 3
 	filling_color = "#F6CB0B"
 	w_class = WEIGHT_CLASS_NORMAL

@@ -67,7 +67,7 @@
 	if(last_hovered)
 		last_hovered.MouseExited(over_location, over_control, params)
 		closeToolTip(usr)
-	last_hovered_ref = UID(over_object)
+	last_hovered_ref = over_object?.UID()
 	if(!isnull(over_object))
 		over_object.MouseEntered(over_location, over_control, params)
 

@@ -344,9 +344,12 @@ Difficulty: Hard
 	if(P.damage)
 		disable_shield()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!body_shield_enabled)
-		return ..()
+		return
 	do_sparks(2, 1, src)
 	visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attack!</span>")
 	if(I.force)
@@ -491,7 +494,7 @@ Difficulty: Hard
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
-	explosion(get_turf(src), -1, 7, 15, 20)
+	explosion(get_turf(src), -1, 7, 15, 20, cause = "[name] death")
 	health = 0
 	death(allowed = TRUE)
 
@@ -596,7 +599,7 @@ Difficulty: Hard
 					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
 					hotspot.temperature = 1000
 					hotspot.recolor()
-					T.hotspot_expose(700,50,1)
+					T.hotspot_expose(700, 50)
 			if(mode == VORTEX)
 				var/turf/T = get_turf(src)
 				for(var/atom/A in T)

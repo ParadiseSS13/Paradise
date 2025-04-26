@@ -76,6 +76,10 @@ Pipelines + Other Objects -> Pipe network
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
+/obj/machinery/atmospherics/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	. = ..()
+	update_underlays()
+
 /obj/machinery/atmospherics/Destroy()
 	SSair.atmos_machinery -= src
 	SSair.pipenets_to_build -= src
@@ -239,7 +243,7 @@ Pipelines + Other Objects -> Pipe network
 		"<span class='notice'>You have unfastened [src].</span>",
 		"<span class='italics'>You hear ratcheting.</span>"
 	)
-	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 	if(unsafe_wrenching)
@@ -256,11 +260,12 @@ Pipelines + Other Objects -> Pipe network
 	return FALSE
 
 //(De)construction
-/obj/machinery/atmospherics/attackby__legacy__attackchain(obj/item/W, mob/user)
+/obj/machinery/atmospherics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference

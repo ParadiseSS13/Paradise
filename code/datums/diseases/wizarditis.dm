@@ -82,7 +82,7 @@
 	var/chosen_slot_ID = pick(eligible_slot_IDs)
 	var/chosen_fashion = magic_fashion[num2text(chosen_slot_ID)]
 
-	H.unEquip(H.get_item_by_slot(chosen_slot_ID))
+	H.drop_item_to_ground(H.get_item_by_slot(chosen_slot_ID))
 	var/obj/item/magic_attire = new chosen_fashion
 	magic_attire.flags |= DROPDEL
 	H.equip_to_slot_or_del(magic_attire, chosen_slot_ID)

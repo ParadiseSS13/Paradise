@@ -28,7 +28,7 @@
 
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/forces_doors_open)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (10 / 3) SECONDS, _requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
 	AddComponent(/datum/component/two_handed, force_unwielded = force_unwielded, force_wielded = force_wielded, icon_wielded = "[base_icon_state]1")
 
@@ -99,6 +99,7 @@
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	hitsound = "swing_hit"
 	icon_state = "dualsaber0"
 	force = 3
 	throwforce = 5
@@ -128,8 +129,21 @@
 	. = ..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force_unwielded, wieldsound = wieldsound, unwieldsound = unwieldsound, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded = TRUE)
+	AddComponent(/datum/component/parry, \
+		_stamina_constant = 2, \
+		_stamina_coefficient = 0.25, \
+		_parryable_attack_types = ALL_ATTACK_TYPES, \
+		_parry_cooldown = (4 / 3) SECONDS, /* 0.33 seconds of cooldown for 75% uptime */ \
+		_requires_two_hands = TRUE)
+	AddComponent(/datum/component/two_handed, \
+		force_wielded = force_wielded, \
+		force_unwielded = force_unwielded, \
+		wieldsound = wieldsound, \
+		unwieldsound = unwieldsound, \
+		attacksound = 'sound/weapons/blade1.ogg', \
+		wield_callback = CALLBACK(src, PROC_REF(on_wield)), \
+		unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), \
+		only_sharp_when_wielded = TRUE)
 
 /obj/item/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -146,7 +160,7 @@
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
-			user.unEquip(src)
+			user.drop_item_to_ground(src)
 			return
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40) && force)
@@ -226,18 +240,13 @@
 /obj/item/dualsaber/blue
 	blade_color = "blue"
 
-
 /obj/item/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(user && HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You lack the grace to wield this!</span>")
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
-
-	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
-
 /obj/item/dualsaber/proc/on_unwield()
-	hitsound = "swing_hit"
 	w_class = initial(w_class)
 
 /obj/item/dualsaber/IsReflect()
@@ -385,7 +394,7 @@
 //Putting heads on spears
 /obj/item/spear/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/organ/external/head))
-		if(user.unEquip(src) && user.drop_item())
+		if(user.unequip(src) && user.drop_item())
 			to_chat(user, "<span class='notice'>You stick [I] onto the spear and stand it upright on the ground.</span>")
 			var/obj/structure/headspear/HS = new /obj/structure/headspear(get_turf(src))
 			var/matrix/M = matrix()
@@ -471,9 +480,7 @@
 	if(src == user.get_active_hand()) //update inhands
 		user.update_inv_l_hand()
 		user.update_inv_r_hand()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/chainsaw/attack_hand(mob/user)
 	. = ..()
@@ -523,7 +530,7 @@
 
 /obj/item/butcher_chainsaw/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
+	AddElement(/datum/element/butchers_humans)
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 40, \
 		force_unwielded = force, \
@@ -864,7 +871,7 @@
 	if(on_cooldown)
 		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
 		return
-	if(!user.drop_l_hand() || !user.drop_r_hand())
+	if((user.l_hand && !user.drop_l_hand()) || (user.r_hand && !user.drop_r_hand()))
 		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
 		return
 	var/obj/item/W = new /obj/item/pyro_claws
@@ -954,7 +961,7 @@
 	for(var/obj/item/garbage in current_item_loc.contents)
 		if(garbage.anchored)
 			continue
-		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.mybag
+		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.my_bag
 		var/obj/trashed_into
 		if(bag?.can_be_inserted(garbage, TRUE))
 			bag.handle_item_insertion(garbage, user, TRUE)
@@ -1070,8 +1077,8 @@
 
 /obj/item/supermatter_halberd/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT) //so it can't be dusted by the SM
+	AddComponent(/datum/component/forces_doors_open)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, force_wielded = 40, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 

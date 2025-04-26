@@ -35,9 +35,9 @@
 		shock_field(user)
 		return 1
 
-/obj/machinery/field/containment/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/machinery/field/containment/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	shock(user)
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/field/containment/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

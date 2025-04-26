@@ -326,10 +326,10 @@ SUBSYSTEM_DEF(blackbox)
 	// Empty string is important here!
 	var/laname = ""
 	var/lakey = ""
-	if(L.lastattacker)
-		laname = L.lastattacker
-	if(L.lastattackerckey)
-		lakey = L.lastattackerckey
+	if(L.attack_info?.last_attacker_name)
+		laname = L.attack_info.last_attacker_name
+	if(L.attack_info?.last_attacker_ckey)
+		lakey = L.attack_info.last_attacker_ckey
 
 	var/datum/db_query/deathquery = SSdbcore.NewQuery({"
 		INSERT INTO death (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord, server_id, death_rid, last_words)

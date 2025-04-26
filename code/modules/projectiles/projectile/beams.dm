@@ -52,7 +52,7 @@
 	impact_light_color_override = LIGHT_COLOR_DARKRED
 
 /obj/item/projectile/beam/laser/ai_turret/prehit(atom/target)
-	if(isAI(target))
+	if(is_ai(target))
 		damage = 0 //cheater cheater I don't want AI to die to stupid placement eater
 		nodamage = 1
 	if(isliving(target))
@@ -76,6 +76,12 @@
 	name = "laser pellet"
 	icon_state = "scatterlaser"
 	damage = 5
+
+/obj/item/projectile/beam/scatter/eshotgun
+	damage = 6
+	tile_dropoff = 0.5
+	tile_dropoff_s = 0.5
+	range = 8
 
 /obj/item/projectile/beam/xray
 	name = "xray beam"
@@ -104,6 +110,13 @@
 	damage = 15
 	armour_penetration_flat = -10
 	light_color = LIGHT_COLOR_BLUE
+
+/obj/item/projectile/beam/disabler/pellet
+	name = "split disabler beam"
+	icon_state = "scatterdisabler"
+	damage = 10
+	light_color = LIGHT_COLOR_BLUE
+	range = 8
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"

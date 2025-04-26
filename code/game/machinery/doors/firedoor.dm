@@ -24,6 +24,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 95, ACID = 70)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	cares_about_temperature = TRUE
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -122,13 +123,14 @@
 		user.visible_message(
 			"<span class='notice'>[user] opens [src].</span>",
 			"<span class='notice'>You open [src].</span>")
-		open(auto_close = FALSE)
+		open()
 
-/obj/machinery/door/firedoor/attackby__legacy__attackchain(obj/item/C, mob/user, params)
+/obj/machinery/door/firedoor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
 
 	if(operating)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/door/firedoor/try_to_activate_door(mob/user)
@@ -185,6 +187,12 @@
 		WELDER_WELD_SUCCESS_MESSAGE
 	welded = !welded
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/door/firedoor/emag_act(mob/user)
+	if(!density)
+		return
+	autoclose = FALSE
+	return ..()
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
@@ -244,15 +252,13 @@
 	adjust_light()
 	update_icon()
 
-/obj/machinery/door/firedoor/open(auto_close = TRUE)
+/obj/machinery/door/firedoor/open()
 	if(welded)
 		return
 	. = ..()
-	latetoggle(auto_close)
+	latetoggle()
 	if(active_alarm)
 		layer = closingLayer // Active firedoors take precedence and remain visible over closed airlocks.
-	if(auto_close)
-		autoclose = TRUE
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
@@ -262,20 +268,20 @@
 	if(active_alarm)
 		. = ..()
 
-/obj/machinery/door/firedoor/proc/latetoggle(auto_close = TRUE)
+/obj/machinery/door/firedoor/proc/latetoggle()
 	if(operating || !hasPower() || !nextstate)
 		return
 	if(nextstate == FD_OPEN)
-		INVOKE_ASYNC(src, PROC_REF(open), auto_close)
+		INVOKE_ASYNC(src, PROC_REF(open))
 	if(nextstate == FD_CLOSED)
 		INVOKE_ASYNC(src, PROC_REF(close))
 	nextstate = null
 
-/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
+/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE)
 	if(!magic && (operating || !hasPower()))
 		return
 	if(density)
-		open(auto_close)
+		open()
 	else
 		close()
 
@@ -345,7 +351,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/door/firedoor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/firedoor/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
@@ -377,6 +383,7 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
+	cares_about_temperature = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/heat_resistance = 1000
@@ -541,7 +548,7 @@
 		new /obj/machinery/door/firedoor(get_turf(src))
 	qdel(src)
 
-/obj/structure/firelock_frame/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/firelock_frame/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)

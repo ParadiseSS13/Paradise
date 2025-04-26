@@ -47,7 +47,7 @@
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = TRUE
-	walk_away(src, loc, rand(1,4))
+	GLOB.move_manager.move_away(src, loc, rand(1,4))
 	spawn(rand(15,60))
 		prime()
 
@@ -69,7 +69,7 @@
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P, /obj/item/grenade))
 			P.active = TRUE
-		walk_away(P,loc,rand(1,4))
+		GLOB.move_manager.move_away(P,loc,rand(1,4))
 
 		spawn(rand(15,60))
 			if(!QDELETED(P))
@@ -173,20 +173,15 @@
 	desc = "No matter what, do not EVER use this."
 	payload = /obj/singularity
 
-/obj/item/grenade/clusterbuster/tools
-	name = "\improper Engineering Deployment Platfom"
-	desc = "For the that time when gearing up was just too hard."
-	payload = /obj/random/tech_supply
-
-/obj/item/grenade/clusterbuster/tide
-	name = "\improper Quick Repair Grenade"
-	desc = "An assistant's every dream."
-	payload = /obj/random/tool
-
 /obj/item/grenade/clusterbuster/toys
 	name = "\improper Toy Delivery System"
 	desc = "Who needs skill at arcades anyway?"
 	payload = /obj/item/toy/random
+
+/obj/item/grenade/clusterbuster/random_toys
+	name = "\improper Toy Delivery System"
+	desc = "Who needs skill at arcades anyway?"
+	payload = /obj/effect/spawner/random/toy/clusterbuster
 
 /obj/item/grenade/clusterbuster/banquet
 	name = "\improper Bork Bork Bonanza"

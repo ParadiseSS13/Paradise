@@ -181,6 +181,9 @@ SUBSYSTEM_DEF(jobs)
 		if(job.admin_only) // No admin positions either.
 			continue
 
+		if(job.mentor_only) // Neither for mentor positions
+			continue
+
 		if(jobban_isbanned(player, job.title))
 			Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 			continue
@@ -488,6 +491,16 @@ SUBSYSTEM_DEF(jobs)
 
 	to_chat(H, chat_box_green(L.Join("<br>")))
 
+	// If the job has objectives, announce those too
+	if(length(H.mind.job_objectives))
+		var/list/objectives_message = list()
+		var/counter = 1
+		for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
+			objectives_message.Add("<b>Objective #[counter]: [objective.objective_name]</b>")
+			objectives_message.Add("[objective.description]<br>")
+			counter++
+		to_chat(H, chat_box_notice(objectives_message.Join("<br>")))
+
 	return H
 
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
@@ -558,7 +571,7 @@ SUBSYSTEM_DEF(jobs)
 					H.update_nearsighted_effects()
 
 	if(joined_late || job.admin_only)
-		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].", force_no_usr_check=TRUE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 		return H
 	if(late_arrivals_spawning)
@@ -573,7 +586,7 @@ SUBSYSTEM_DEF(jobs)
 			liver_multiplier = 5
 		H.Sleeping(5 SECONDS)
 		H.Drunk((2 / liver_multiplier) MINUTES)
-	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].")
+	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].", force_no_usr_check=TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 	return H
 

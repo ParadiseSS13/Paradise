@@ -126,7 +126,7 @@
 
 /datum/spell/vampire/blood_tendrils
 	name = "Blood Tendrils (10)"
-	desc = "You summon blood tendrils from bluespace after a delay to ensnare people in an area, slowing them down."
+	desc = "You summon a small field of horrific blood tendrils after a delay to ensnare people in an area, slowing them down."
 	gain_desc = "You have gained the ability to summon blood tendrils to slow people down in an area that you target."
 	required_blood = 10
 
@@ -135,7 +135,7 @@
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
-	selection_activated_message = "<span class='notice'>You channel blood magics to weaken the bluespace veil. <b>Left-click to cast at a target area!</b></span>"
+	selection_activated_message = "<span class='notice'>You prepare to summon a set of blood tendrils. <b>Left-click to cast at a target area!</b></span>"
 	selection_deactivated_message = "<span class='notice'>Your magics subside.</span>"
 
 /datum/spell/vampire/blood_tendrils/create_new_targeting()

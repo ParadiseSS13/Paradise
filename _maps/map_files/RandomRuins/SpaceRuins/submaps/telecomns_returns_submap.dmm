@@ -38,6 +38,7 @@
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/kitchen/knife,
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "fM" = (
@@ -48,13 +49,11 @@
 /obj/structure/chair{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/template_noop,
 /area/template_noop)
 "hf" = (
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "ia" = (
@@ -69,7 +68,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /obj/machinery/status_display{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/template_noop,
@@ -91,6 +89,10 @@
 "jV" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/engine,
+/area/template_noop)
+"kl" = (
+/obj/structure/sign/poster/contraband/random/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "lq" = (
 /obj/machinery/light{
@@ -122,6 +124,12 @@
 /obj/structure/bed/nest,
 /turf/template_noop,
 /area/template_noop)
+"nC" = (
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/turf/template_noop,
+/area/template_noop)
 "ok" = (
 /obj/machinery/light{
 	dir = 1
@@ -130,7 +138,6 @@
 /area/template_noop)
 "oT" = (
 /obj/item/cigbutt,
-/obj/machinery/light,
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
@@ -138,7 +145,6 @@
 /area/template_noop)
 "oU" = (
 /obj/machinery/status_display{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
@@ -186,10 +192,6 @@
 /obj/structure/table/glass/reinforced/plasma,
 /obj/item/stack/sheet/mineral/plasma/fifty,
 /turf/simulated/floor/engine,
-/area/template_noop)
-"wd" = (
-/obj/structure/sign/poster/contraband/smoke,
-/turf/template_noop,
 /area/template_noop)
 "wp" = (
 /obj/structure/marker_beacon/dock_marker/collision,
@@ -249,7 +251,6 @@
 /area/template_noop)
 "Dm" = (
 /obj/machinery/status_display{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/effect/spawner/random/telecomms_doomba_one_in_twenty,
@@ -280,9 +281,7 @@
 "FD" = (
 /obj/machinery/economy/vending/snack/trapped,
 /obj/item/radio/intercom{
-	name = "station intercom (General)";
 	pixel_x = -28;
-	pixel_y = 0;
 	broadcasting = 1
 	},
 /obj/structure/environmental_storytelling_holopad/vendor,
@@ -296,6 +295,10 @@
 "Gh" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/template_noop,
+/area/template_noop)
+"Gj" = (
+/obj/structure/sign/poster/contraband/smoke/directional/north,
+/turf/simulated/floor/engine,
 /area/template_noop)
 "Gx" = (
 /obj/machinery/computer/nonfunctional,
@@ -317,12 +320,11 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"Jo" = (
-/obj/machinery/light/small,
+"Lx" = (
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
-/turf/template_noop,
+/turf/simulated/floor/engine,
 /area/template_noop)
 "LC" = (
 /obj/machinery/light{
@@ -333,6 +335,12 @@
 "LV" = (
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
 /turf/template_noop,
+/area/template_noop)
+"NS" = (
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "NZ" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -369,10 +377,6 @@
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/engine,
 /area/template_noop)
-"SE" = (
-/obj/structure/sign/poster/contraband,
-/turf/simulated/wall/indestructible/syndicate,
-/area/template_noop)
 "SS" = (
 /obj/structure/window/plasmareinforced{
 	dir = 4
@@ -389,9 +393,7 @@
 "Vd" = (
 /obj/machinery/economy/vending/snack/trapped,
 /obj/item/radio/intercom{
-	name = "station intercom (General)";
 	pixel_x = -28;
-	pixel_y = 0;
 	broadcasting = 1
 	},
 /obj/structure/environmental_storytelling_holopad/vendor,
@@ -437,9 +439,6 @@
 /area/template_noop)
 "Zf" = (
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
 /obj/item/grenade/frag,
 /obj/structure/table/glass/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -670,7 +669,7 @@ qr
 qr
 yI
 qr
-qr
+nC
 qr
 qr
 qr
@@ -712,7 +711,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -1040,7 +1039,7 @@ fm
 SX
 SX
 SX
-SX
+NS
 yC
 qr
 qr
@@ -1090,7 +1089,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -1132,7 +1131,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -1161,8 +1160,8 @@ qr
 "}
 (18,1,1) = {"
 qr
-SE
-SX
+yC
+kl
 OI
 OI
 OI
@@ -1249,7 +1248,7 @@ da
 yC
 yC
 yC
-SE
+yC
 yC
 da
 qr
@@ -1552,7 +1551,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -1594,7 +1593,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -1796,7 +1795,7 @@ ok
 nb
 mE
 qV
-qV
+Lx
 qr
 qr
 qr
@@ -1875,8 +1874,8 @@ qr
 "}
 (35,1,1) = {"
 qr
-wd
-qV
+qr
+Gj
 jV
 qV
 qV
@@ -1972,7 +1971,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -2014,7 +2013,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -2392,7 +2391,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -2434,7 +2433,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr

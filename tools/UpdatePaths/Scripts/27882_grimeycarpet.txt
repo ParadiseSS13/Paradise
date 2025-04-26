@@ -1,0 +1,1 @@
+/turf/simulated/floor/plasteel{icon_state ="grimy"} : /turf/simulated/floor/carpet/grimey {@OLD;icon_state=@SKIP;dir=@SKIP}

@@ -304,6 +304,8 @@
 
 /datum/action/item_action/clear_records
 	name = "Clear Scanner Records"
+	button_overlay_icon_state = "scanner_clear"
+	use_itemicon = FALSE
 
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"
@@ -579,6 +581,10 @@
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
 	G.dash(usr)
 
+/datum/action/item_action/toogle_camera_flash
+	name = "Toggle camera flash"
+	desc = "Toggles the camera's flash, which will fully light up the photo. Turn this off if you want the ambient light."
+
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS
@@ -640,7 +646,8 @@
 /datum/action/item_action/accessory/storage
 	name = "View Storage"
 
-
+/datum/action/item_action/call_link
+	name = "Call MODlink"
 
 //Preset for spells
 /datum/action/spell_action

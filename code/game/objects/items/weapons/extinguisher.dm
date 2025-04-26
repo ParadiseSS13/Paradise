@@ -17,12 +17,16 @@
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
+	new_attack_chain = TRUE
 	var/max_water = 50
-	var/safety = TRUE
-	var/refilling = FALSE
-	/// FALSE by default, turfs picked from a spray are random, set to TRUE to make it always have at least one water effect per row
+	/// If `TRUE`, using in hand will toggle the extinguisher's safety. This must be set to `FALSE` for extinguishers with different firing modes (i.e. backpacks).
+	var/has_safety = TRUE
+	/// If `TRUE`, the extinguisher will not fire.
+	var/safety_active = TRUE
+	/// When `FALSE`, turfs picked from a spray are random. When `TRUE`, it always has at least one water effect per row.
 	var/precision = FALSE
-	var/cooling_power = 2 //Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled
+	/// Sets the `cooling_temperature` of the water reagent datum inside of the extinguisher when it is refilled.
+	var/cooling_power = 2
 	COOLDOWN_DECLARE(last_use)
 
 /obj/item/extinguisher/mini
@@ -31,8 +35,8 @@
 	icon_state = "miniFE0"
 	item_state = "miniFE"
 	base_icon_state = "miniFE"
-	hitsound = null	//it is much lighter, after all.
-	flags = null //doesn't CONDUCT
+	hitsound = null	// It is much lighter, after all.
+	flags = null // Non-conductive, not made of metal.
 	throwforce = 2
 	w_class = WEIGHT_CLASS_SMALL
 	force = 3
@@ -42,8 +46,8 @@
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The safety is [safety ? "on" : "off"].</span>"
-
+	if(has_safety)
+		. += "<span class='notice'>The safety is [safety_active ? "on" : "off"].</span>"
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
@@ -52,72 +56,81 @@
 		reagents.add_reagent("water", max_water)
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
-/obj/item/extinguisher/attack_self__legacy__attackchain(mob/user as mob)
-	safety = !safety
-	icon_state = "[base_icon_state][!safety]"
-	to_chat(user, "<span class='notice'>You [safety ? "enable" : "disable"] [src]'s safety.</span>")
+/obj/item/extinguisher/activate_self(mob/user)
+	if(..())
+		return
 
-/obj/item/extinguisher/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
-	if(AttemptRefill(O, user))
-		refilling = TRUE
-		return FALSE
-	else
-		return ..()
+	// Backpack extinguishers have no safety mechanism.
+	if(!has_safety)
+		return
 
-/obj/item/extinguisher/proc/AttemptRefill(atom/target, mob/user)
+	safety_active = !safety_active
+	icon_state = "[base_icon_state][!safety_active]"
+	to_chat(user, "<span class='notice'>You [safety_active ? "enable" : "disable"] [src]'s safety.</span>")
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/extinguisher/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	if(attempt_refill(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+	if(extinguisher_spray(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/extinguisher/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)	
+	if(extinguisher_spray(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/extinguisher/proc/attempt_refill(atom/target, mob/user)
 	if(!istype(target, /obj/structure/reagent_dispensers/watertank) || !target.Adjacent(user))
 		return FALSE
-	var/old_safety = safety
-	safety = TRUE
+
 	if(reagents.total_volume == reagents.maximum_volume)
-		to_chat(user, "<span class='notice'>\The [src] is already full!</span>")
-		safety = old_safety
+		to_chat(user, "<span class='notice'>[src] is already full.</span>")
 		return TRUE
+
 	var/obj/structure/reagent_dispensers/watertank/W = target
 	var/transferred = W.reagents.trans_to(src, max_water)
-	if(transferred > 0)
-		to_chat(user, "<span class='notice'>\The [src] has been refilled by [transferred] units.</span>")
-		playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
-		for(var/datum/reagent/water/R in reagents.reagent_list)
-			R.cooling_temperature = cooling_power
-	else
+	if(!transferred)
 		to_chat(user, "<span class='notice'>\The [W] is empty!</span>")
-	safety = old_safety
+		return TRUE
+
+	to_chat(user, "<span class='notice'>[src] has been refilled with [transferred] units.</span>")
+	playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
+	for(var/datum/reagent/water/R in reagents.reagent_list)
+		R.cooling_temperature = cooling_power
 	return TRUE
 
-/obj/item/extinguisher/afterattack__legacy__attackchain(atom/target, mob/user, flag)
-	. = ..()
-	//TODO; Add support for reagents in water.
-	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
-		return
+/obj/item/extinguisher/proc/extinguisher_spray(atom/A, mob/living/user)
+	. = TRUE
 
-	if(refilling)
-		refilling = FALSE
-		return
-
-	if(safety)
-		return ..()
-	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='danger'>[src] is empty.</span>")
-		return
+	// Violence, please!
+	if(safety_active)
+		return FALSE
 
 	if(!COOLDOWN_FINISHED(src, last_use))
 		return
 
-	COOLDOWN_START(src, last_use, 2 SECONDS)
+	if(reagents.total_volume < 1)
+		to_chat(user, "<span class='danger'>[src] is empty.</span>")
+		return
 
+	if(A.loc == user)
+		return
+
+	COOLDOWN_START(src, last_use, 2 SECONDS)
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
-		add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
+		add_attack_logs(user, A, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
 	playsound(loc, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
 
-	var/direction = get_dir(src, target)
+	var/direction = get_dir(src, A)
 
 	if(isobj(user.buckled) && !user.buckled.anchored && !istype(user.buckled, /obj/vehicle))
 		INVOKE_ASYNC(src, PROC_REF(buckled_speed_move), user.buckled, direction)
 	else
 		user.newtonian_move(turn(direction, 180))
 
-	var/turf/T = get_turf(target)
+	var/turf/T = get_turf(A)
 	var/turf/T1 = get_step(T, turn(direction, 90))
 	var/turf/T2 = get_step(T, turn(direction, -90))
 	var/list/the_targets = list(T, T1, T2)

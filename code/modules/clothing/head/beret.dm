@@ -178,6 +178,39 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
 		)
 
+/obj/item/clothing/head/beret/smith
+	name = "smith's beret"
+	desc = "A brown beret with a black insignia emblazoned on it. Won't help you against the atmosphere of the planet, but will look stylish."
+	icon_state = "beret_smith"
+	item_color = "beret_smith"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+//NT Career Trainer
+/obj/item/clothing/head/beret/nct/black
+	name = "\improper NT Career Trainer's beret"
+	desc = "A beret worn by the mentors and trainers of the Career Training Team. This one is black!"
+	icon_state = "beret_trainerblack"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/nct/green
+	name = "\improper NT Career Trainer's beret"
+	desc = "A beret worn by the mentors and trainers of the Career Training Team. This one is green!"
+	icon_state = "beret_trainergreen"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 //Special Roles
 /obj/item/clothing/head/beret/solgov

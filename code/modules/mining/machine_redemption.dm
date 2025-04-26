@@ -1,8 +1,3 @@
-#define BASE_POINT_MULT 0.65
-#define BASE_SHEET_MULT 0.65
-#define POINT_MULT_ADD_PER_RATING 0.35
-#define SHEET_MULT_ADD_PER_RATING 0.35
-
 /**
   * # Ore Redemption Machine
   *
@@ -56,7 +51,7 @@
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLATINUM, MAT_IRIDIUM, MAT_PALLADIUM), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
 	ore_buffer = list()
 	files = new /datum/research/smelter(src)
 	// Stock parts
@@ -132,12 +127,12 @@
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
-	var/P = BASE_POINT_MULT
-	var/S = BASE_SHEET_MULT
+	var/P = ORM_BASE_POINT_MULT
+	var/S = ORM_BASE_SHEET_MULT
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		P += POINT_MULT_ADD_PER_RATING * M.rating
+		P += ORM_POINT_MULT_ADD_PER_RATING * M.rating
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		S += SHEET_MULT_ADD_PER_RATING * M.rating
+		S += ORM_SHEET_MULT_ADD_PER_RATING * M.rating
 		// Manipulators do nothing
 	// Update our values
 	point_upgrade = P
@@ -180,18 +175,18 @@
 		message_sent = TRUE
 
 // Interactions
-/obj/machinery/mineral/ore_redemption/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/part_replacer))
+/obj/machinery/mineral/ore_redemption/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
 	if(!has_power())
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/ID = I
+	if(istype(used, /obj/item/card/id))
+		var/obj/item/card/id/ID = used
 		if(!points)
 			to_chat(usr, "<span class='warning'>There are no points to claim.</span>");
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(anyone_claim || (req_access_claim in ID.access))
 			ID.mining_points += points
 			ID.total_mining_points += points
@@ -201,25 +196,25 @@
 		else
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
 		add_fingerprint(usr)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/disk/design_disk))
+	if(istype(used, /obj/item/disk/design_disk))
 		if(!user.drop_item())
-			return
-		I.forceMove(src)
-		inserted_disk = I
+			return ITEM_INTERACT_COMPLETE
+		used.forceMove(src)
+		inserted_disk = used
 		SStgui.update_uis(src)
 		interact(user)
 		user.visible_message(
-			"<span class='notice'>[user] inserts [I] into [src].</span>",
-			"<span class='notice'>You insert [I] into [src].</span>"
+			"<span class='notice'>[user] inserts [used] into [src].</span>",
+			"<span class='notice'>You insert [used] into [src].</span>"
 		)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/gripper))
+	if(istype(used, /obj/item/gripper))
 		if(!try_refill_storage(user))
 			to_chat(user, "<span class='notice'>You fail to retrieve any sheets from [src].</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -516,8 +511,3 @@
 /obj/machinery/mineral/ore_redemption/proc/on_material_insert(inserted_type, last_inserted_id, inserted)
 	give_points(inserted_type, inserted)
 	SStgui.update_uis(src)
-
-#undef BASE_POINT_MULT
-#undef BASE_SHEET_MULT
-#undef POINT_MULT_ADD_PER_RATING
-#undef SHEET_MULT_ADD_PER_RATING

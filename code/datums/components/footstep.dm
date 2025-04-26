@@ -61,7 +61,7 @@
 	if(steps >= 6)
 		steps = 0
 
-	if(steps % 2)
+	if(ISODD(steps))
 		return
 
 	if(steps != 0 && !has_gravity(LM, T)) // don't need to step as often when you hop around

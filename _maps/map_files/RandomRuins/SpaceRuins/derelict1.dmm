@@ -94,6 +94,12 @@
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
+"I" = (
+/obj/structure/alien/weeds,
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 "S" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -609,8 +615,8 @@ f
 G
 f
 c
-m
-m
+I
+I
 f
 c
 b

@@ -77,7 +77,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
-	ignore_list.Cut() //Allows the bot to clean targets it previously ignored due to being unreachable.
+	clear_ignore_list()
 	target = null
 	oldloc = null
 	area_locked = null
@@ -88,7 +88,7 @@
 	text_dehack = "[name]'s software has been reset!"
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
-/mob/living/simple_animal/bot/cleanbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/cleanbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
@@ -100,8 +100,10 @@
 				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
 			else
 				to_chat(user, "<span class='notice'>\The [src] doesn't seem to respect your authority.</span>")
-	else
-		return ..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
 	..()
@@ -155,20 +157,23 @@
 		target = null
 
 	if(target)
-		if(!path || !length(path)) //No path, need a new one
-			//Try to produce a path to the target, and ignore airlocks to which it has access.
+		var/target_uid = target.UID() // target can become null while path is calculated, so we need to store UID
+		if(!length(path)) //No path, need a new one
+			set_mode(BOT_PATHING)
 			path = get_path_to(src, target, 30, access = access_card.access)
 			if(!bot_move(target))
-				ignore_job -= target.UID()
+				ignore_job -= target_uid
 				add_to_ignore(target)
 				target = null
 				path = list()
+				set_mode(BOT_IDLE)
 				return
-			mode = BOT_MOVING
+			set_mode(BOT_MOVING)
+
 		else if(!bot_move(target))
-			ignore_job -= target.UID()
+			ignore_job -= target_uid
 			target = null
-			mode = BOT_IDLE
+			set_mode(BOT_IDLE)
 			return
 
 	oldloc = loc
@@ -184,7 +189,7 @@
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
-	mode = BOT_CLEANING
+	set_mode(BOT_CLEANING)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
 
@@ -193,7 +198,7 @@
 		ignore_job -= target.UID()
 		QDEL_NULL(target)
 		anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/cleanbot/explode()

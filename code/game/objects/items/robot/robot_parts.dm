@@ -151,7 +151,7 @@
 		to_chat(user, "You armed the robot frame")
 		M.use(1)
 		if(user.get_inactive_hand()==src)
-			user.unEquip(src)
+			user.unequip(src)
 			user.put_in_inactive_hand(B)
 		qdel(src)
 	if(istype(W, /obj/item/robot_parts/l_leg))

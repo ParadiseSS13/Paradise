@@ -10,7 +10,7 @@
 
 	var/turf/T = get_turf(src)
 	if(stat != CONSCIOUS) //ai's fucked
-		cameraFollow = null
+		camera_follow = null
 		reset_perspective(null)
 		unset_machine()
 
@@ -25,6 +25,15 @@
 	// Do holopad AI checks
 	if(istype(machine, /obj/machinery/hologram))
 		check_holopad_eye()
+
+	// Enhanced Tracking
+	if(enhanced_tracking && tracked_mob)
+		if(can_see(tracked_mob))
+			var/area/A = get_area(tracked_mob)
+			if(A)
+				addtimer(CALLBACK(src, PROC_REF(raise_tracking_alert), A, tracked_mob), enhanced_tracking_delay)
+				// To prevent spam, immediately unset tracking.
+				tracked_mob = null
 
 	if(malfhack && malfhack.aidisabled)
 		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")

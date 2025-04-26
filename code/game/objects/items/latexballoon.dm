@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 7
+	cares_about_temperature = TRUE
 	var/state
 	var/datum/gas_mixture/air_contents = null
 
@@ -52,7 +53,7 @@
 		burst()
 	return ..()
 
-/obj/item/latexballon/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/item/latexballon/temperature_expose(temperature, volume)
 	..()
 	if(temperature > T0C+100)
 		burst()

@@ -144,11 +144,17 @@
 #define PASSTAKE    	(1<<9)
 #define PASSBARRICADE	(1<<10)
 
-//turf-only flags
+//turf-only flags, under the flags variable
 #define BLESSED_TILE	(1<<0)
 #define NO_LAVA_GEN	    (1<<1) //Blocks lava rivers being generated on the turf
 #define NO_RUINS     	(1<<2)
 #define LAVA_BRIDGE		(1<<3)	//! This turf has already been reserved for a lavaland bridge placement.
+
+// turf flags, under the turf_flags variable
+/// If a turf is an unused reservation turf awaiting assignment
+#define UNUSED_RESERVATION_TURF (1<<4)
+/// If a turf is a reserved turf
+#define RESERVATION_TURF (1<<5)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1

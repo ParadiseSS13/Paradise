@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/Process_Spacemove(movement_dir = 0)
+/mob/living/silicon/robot/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(ionpulse())
 		return TRUE
 	if(..())
@@ -14,7 +14,7 @@
 	// Counteract magboot slow in 0G.
 	if(!has_gravity(src) && HAS_TRAIT(src, TRAIT_MAGPULSE))
 		. -= 2	// The slowdown value on the borg magpulse.
-	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
+	if(selected_item && istype(selected_item, /obj/item/borg/destroyer/mobility))
 		. -= 3
 	. = min(., slowdown_cap)
 
@@ -25,5 +25,6 @@
 	return ..() || mob_negates_gravity()
 
 /mob/living/silicon/robot/experience_pressure_difference(flow_x, flow_y)
-	if(!HAS_TRAIT(src, TRAIT_MAGPULSE))
-		return ..()
+	if(HAS_TRAIT(src, TRAIT_MAGPULSE))
+		return
+	..()

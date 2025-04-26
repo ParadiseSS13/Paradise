@@ -11,6 +11,7 @@
 	/// The color of the agent outside of containers.
 	var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 	var/shock_reduction = 0
+	var/view_true_health = FALSE // Determines if a painkiller messes with someone seeing their actual health on the health doll or not
 	var/heart_rate_increase = 0
 	var/heart_rate_decrease = 0
 	var/heart_rate_stop = 0
@@ -51,6 +52,8 @@
 	var/burn_duration = 30 SECONDS
 	/// How many firestacks will the reagent apply when it is burning? Currently only used for chemical flamethrowers
 	var/fire_stack_applications = 1
+	/// If we burn in a fire, what color do we have?
+	var/burn_color
 
 /datum/reagent/Destroy()
 	. = ..()

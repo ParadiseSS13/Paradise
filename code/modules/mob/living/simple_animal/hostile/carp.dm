@@ -36,6 +36,7 @@
 	faction = list("carp", "mining")
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
+	density = FALSE
 
 	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
 
@@ -66,6 +67,7 @@
 	. = ..()
 	carp_randomify(rarechance)
 	update_icons()
+	AddComponent(/datum/component/swarming)
 
 /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
 	if(random_color)
@@ -92,7 +94,7 @@
 	base_dead_overlay.appearance_flags = RESET_COLOR
 	add_overlay(base_dead_overlay)
 
-/mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//No drifting in space for space carp!	//original comments do not steal
 
 /mob/living/simple_animal/hostile/carp/AttackingTarget()
@@ -119,6 +121,16 @@
 		add_carp_overlay()
 	else
 		add_dead_carp_overlay()
+
+// We do not want mobs moving through space carp, we as such we block it if the mob is not dense
+/mob/living/simple_animal/hostile/carp/CanPass(atom/movable/mover, border_dir)
+	if(isliving(mover) && !istype(mover, /mob/living/simple_animal/hostile/carp) && mover.density == TRUE && stat != DEAD)
+		return FALSE
+	return ..()
+
+// Since it's not dense we let it always hit
+/mob/living/simple_animal/hostile/carp/projectile_hit_check(obj/item/projectile/P)
+	return stat == DEAD
 
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"

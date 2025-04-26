@@ -5,7 +5,7 @@
 "b" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating/damaged/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "c" = (
 /obj/structure/girder/displaced,
 /turf/template_noop,
@@ -36,7 +36,7 @@
 /turf/template_noop,
 /area/template_noop)
 "k" = (
-/obj/random/plushie,
+/obj/effect/spawner/random/plushies,
 /turf/template_noop,
 /area/template_noop)
 "l" = (
@@ -45,7 +45,7 @@
 /area/template_noop)
 "m" = (
 /turf/simulated/wall,
-/area/template_noop)
+/area/ruin/unpowered)
 "n" = (
 /obj/item/trash/popcorn,
 /turf/template_noop,
@@ -62,7 +62,7 @@
 "t" = (
 /obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "u" = (
 /obj/item/poster/random_official,
 /turf/template_noop,
@@ -78,12 +78,12 @@
 "x" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plating/damaged/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "z" = (
 /turf/simulated/floor/plating/damaged/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "A" = (
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/template_noop,
 /area/template_noop)
 "B" = (
@@ -95,9 +95,9 @@
 /turf/template_noop,
 /area/template_noop)
 "F" = (
-/obj/random/tool,
+/obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plating/damaged/airless,
-/area/template_noop)
+/area/ruin/unpowered)
 "G" = (
 /obj/item/stack/sheet/glass,
 /turf/template_noop,
@@ -128,6 +128,10 @@
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
 /area/template_noop)
+"P" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/unpowered)
 "Q" = (
 /obj/structure/girder,
 /turf/template_noop,
@@ -529,7 +533,7 @@ U
 v
 a
 O
-z
+P
 z
 a
 a

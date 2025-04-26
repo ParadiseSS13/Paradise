@@ -15,7 +15,6 @@
 	var/pushed_over = FALSE
 	/// If the cutout actually appears as what it portray and not a discolored version
 	var/deceptive = FALSE
-	var/lastattacker = null
 
 /obj/item/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)

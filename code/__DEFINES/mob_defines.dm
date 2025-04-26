@@ -241,7 +241,6 @@
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
-#define isanimal(A)			(istype((A), /mob/living/simple_animal))
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)			(istype((A), /mob/living/simple_animal/mouse))
@@ -259,7 +258,7 @@
 #define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
-#define isAI(A)			(istype((A), /mob/living/silicon/ai))
+#define is_ai(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
@@ -273,11 +272,8 @@
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
 #define iscameramob(A)	(istype((A), /mob/camera))
-#define isAIEye(A)		(istype((A), /mob/camera/ai_eye))
+#define is_ai_eye(A)		(istype((A), /mob/camera/eye/ai))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
-
-#define isSpirit(A)		(istype((A), /mob/spirit))
-#define ismask(A)		(istype((A), /mob/spirit/mask))
 
 #define isobserver(A)	(istype((A), /mob/dead/observer))
 
@@ -383,3 +379,12 @@
 #define BRAIN_DAMAGE_RATIO_MODERATE 6 / 12
 #define BRAIN_DAMAGE_RATIO_SEVERE 	8 / 12
 #define BRAIN_DAMAGE_RATIO_CRITICAL 10 / 12
+
+#define GRAB_PIXEL_SHIFT_PASSIVE 6
+#define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
+#define GRAB_PIXEL_SHIFT_NECK 16
+
+/// Default minimum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MIN_TEMP 250
+/// Default maximum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MAX_TEMP 350

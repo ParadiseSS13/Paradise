@@ -90,9 +90,11 @@
 		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
 		return
 	if(!welding_fuel_used || user.reagents.has_reagent("fuel", welding_fuel_used))
-		if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
-			to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
-			return
+		if(ismask(user.wear_mask))
+			var/obj/item/clothing/mask/worn_mask = user.wear_mask
+			if((user.head?.flags_cover & HEADCOVERSMOUTH) || (worn_mask.flags_cover & MASKCOVERSMOUTH) && !worn_mask.up)
+				to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
+				return
 		var/obj/item/match/unathi/fire = new(user.loc, src)
 		if(user.put_in_hands(fire))
 			to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")

@@ -33,7 +33,6 @@
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 60)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSEYES
 	can_toggle = TRUE
 	visor_flags_inv = HIDEEYES
@@ -56,7 +55,6 @@
 	desc = "A military-grade gas mask that can be connected to an air supply."
 	icon_state = "gas_mining"
 	actions_types = list(/datum/action/item_action/adjust)
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 35)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
@@ -96,17 +94,11 @@
 
 
 //Bane gas mask
-/obj/item/clothing/mask/banemask
+/obj/item/clothing/mask/gas/banemask
 	name = "bane mask"
 	desc = "Only when the station is in flames, do you have my permission to robust."
 	icon_state = "bane_mask"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	w_class = WEIGHT_CLASS_NORMAL
-	item_state = "bane_mask"
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
+	item_state = "sechailer"
 
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
@@ -258,6 +250,7 @@
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
 	item_state = "sechailer"
+	flags_inv = HIDEEYES|HIDEFACE
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
@@ -284,41 +277,30 @@
 								"super"			= "Face the wrath of the golden bolt.",
 								"dredd"			= "I am, the LAW!"
 								)
-/obj/item/clothing/mask/gas/sechailer/hos
-	name = "head of security's SWAT mask"
-	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
-	icon_state = "hosmask"
-	can_toggle = FALSE
-	aggressiveness = 3
-	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
-
-/obj/item/clothing/mask/gas/sechailer/warden
-	name = "warden's SWAT mask"
-	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
-	icon_state = "wardenmask"
-	can_toggle = FALSE
-	aggressiveness = 3
-	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
-
 
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	icon_state = "officermask"
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	aggressiveness = 3
 	phrase = 12
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
-/obj/item/clothing/mask/gas/sechailer/blue
+/obj/item/clothing/mask/gas/sechailer/swat/hos
+	name = "head of security's SWAT mask"
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
+	icon_state = "hosmask"
+
+/obj/item/clothing/mask/gas/sechailer/swat/warden
+	name = "warden's SWAT mask"
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
+	icon_state = "wardenmask"
+
+/obj/item/clothing/mask/gas/sechailer/swat/blue
 	name = "blue SWAT mask"
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
 	icon_state = "blue_sechailer"
-	item_state = "blue_sechailer"
-	aggressiveness = 3
-	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
 	name = "security hailer"

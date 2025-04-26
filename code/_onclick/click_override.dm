@@ -45,14 +45,12 @@
 /datum/middle_click_override/shock_implant
 
 /datum/middle_click_override/shock_implant/onClick(atom/A, mob/living/carbon/human/user)
-	if(A == user || user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
-		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated() || A == user)
 		return FALSE
 	var/obj/item/bio_chip/shock/P = locate() in user
 	if(!P)
 		return
-	if(world.time < P.last_shocked + P.shock_delay)
+	if(!COOLDOWN_FINISHED(P, last_shocked))
 		to_chat(user, "<span class='warning'>The powerchip is still recharging.</span>")
 		return FALSE
 	var/turf/T = get_turf(user)
@@ -65,7 +63,7 @@
 	if(get_dist(T, target_turf) > P.shock_range)
 		to_chat(user, "<span class='warning'>The target is too far away.</span>")
 		return FALSE
-	target_turf.hotspot_expose(2000, 400)
+	target_turf.hotspot_expose(2000, 1)
 	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, 1)
 
 	var/atom/beam_from = user
@@ -76,7 +74,7 @@
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
 			var/powergrid = C.get_available_power() //We want available power, so the station being conservative doesn't mess with the power biochip / dark bundle users
-			if(user.a_intent == INTENT_DISARM)
+			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_HELP)
 				add_attack_logs(user, L, "shocked with power bio-chip.")
 				L.apply_damage(60, STAMINA)
 				L.Jitter(10 SECONDS)
@@ -110,7 +108,7 @@
 		A = target_atom
 		next_shocked.Cut()
 
-	P.last_shocked = world.time
+	COOLDOWN_START(P, last_shocked, P.shock_delay)
 	return TRUE
 
 /**

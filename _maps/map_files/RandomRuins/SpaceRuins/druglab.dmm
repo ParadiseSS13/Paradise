@@ -13,6 +13,7 @@
 /area/ruin/space/methlab)
 "d" = (
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "e" = (
@@ -124,7 +125,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "K" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/methlab)
 
 (1,1,1) = {"

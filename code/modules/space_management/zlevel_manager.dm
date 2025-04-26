@@ -9,7 +9,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	// Levels that need their transitions rebuilt
 	var/list/unbuilt_space_transitions = list()
 
-	var/datum/spacewalk_grid/linkage_map
+	var/list/linkage_maps = list()
 	var/initialized = 0
 
 	var/list/areas_in_z = list()
@@ -108,14 +108,15 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 
 // Increments the max z-level by one
 // For convenience's sake returns the z-level added
-/datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
+/datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT), transition_tag, level_type = /datum/space_level)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	if(name in levels_by_name)
 		throw EXCEPTION("Name already in use: [name]")
 	world.maxz++
+	SSai_controllers.on_max_z_changed()
 	var/our_z = world.maxz
 	milla_init_z(our_z)
-	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
+	var/datum/space_level/S = new level_type(our_z, name, transition_type = linkage, traits = traits, transition_tag_ = transition_tag)
 	levels_by_name[name] = S
 	z_list["[our_z]"] = S
 	return our_z
@@ -134,42 +135,3 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	z_list.Remove(S)
 	qdel(S)
 	world.maxz--
-
-
-// An internally-used proc used for heap-zlevel management
-/datum/zlev_manager/proc/add_new_heap()
-	world.maxz++
-	var/our_z = world.maxz
-	var/datum/space_level/yup = new /datum/space_level/heap(our_z, traits = list(BLOCK_TELEPORT, ADMIN_LEVEL))
-	z_list["[our_z]"] = yup
-	return yup
-
-// This is what you can call to allocate a section of space
-// Later, I'll add an argument to let you define the flags on the region
-/datum/zlev_manager/proc/allocate_space(width, height)
-	if(width > world.maxx || height > world.maxy)
-		throw EXCEPTION("Too much space requested! \[[width],[height]\]")
-	if(!length(heaps))
-		heaps.len++
-		heaps[length(heaps)] = add_new_heap()
-	var/datum/space_level/heap/our_heap
-	var/weve_got_vacancy = 0
-	for(our_heap in heaps)
-		weve_got_vacancy = our_heap.request(width, height)
-		if(weve_got_vacancy)
-			break // We're sticking with the present value of `our_heap` - it's got room
-		// This loop will also run out if no vacancies are found
-
-	if(!weve_got_vacancy)
-		heaps.len++
-		our_heap = add_new_heap()
-		heaps[length(heaps)] = our_heap
-	return our_heap.allocate(width, height)
-
-/datum/zlev_manager/proc/free_space(datum/space_chunk/C)
-	if(!istype(C))
-		return
-	var/datum/space_level/heap/heap = z_list["[C.zpos]"]
-	if(!istype(heap))
-		throw EXCEPTION("Attempted to free chunk at invalid z-level ([C.x],[C.y],[C.zpos]) [C.width]x[C.height]")
-	heap.free(C)

@@ -50,7 +50,7 @@
 				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
 			if(alarmed)
 				alarmed = 0
-			user.remove_from_mob(AM)
+			user.unequip(AM)
 			magazine = AM
 			magazine.loc = src
 			chamber_round()
@@ -75,9 +75,7 @@
 
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/gun/projectile/automatic/can_shoot()
 	return get_ammo()
@@ -351,6 +349,10 @@
 /obj/item/gun/projectile/automatic/shotgun/bulldog/afterattack__legacy__attackchain(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()
 	empty_alarm()
+
+// Standard traitor uplink variant
+/obj/item/gun/projectile/automatic/shotgun/bulldog/traitor
+	mag_type = /obj/item/ammo_box/magazine/m12g/rubbershot
 
 //////////////////////////////
 // MARK: IK-M2 LASER CARBINE

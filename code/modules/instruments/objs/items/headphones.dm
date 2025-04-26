@@ -26,9 +26,7 @@
 	else if(actiontype == /datum/action/item_action/toggle_music_notes)
 		toggle_visual_notes(user)
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/ears/headphones/proc/toggle_visual_notes(mob/user)
 	on = !on

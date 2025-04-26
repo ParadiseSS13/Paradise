@@ -25,7 +25,7 @@
 //Cyborgs
 /datum/job_objective/make_cyborg
 	objective_name = "Construct Additional Cyborgs"
-	description = "Construct at least one cyborg for the station to increase workplace productivity"
+	description = "Construct at least one cyborg for the station to increase workplace productivity."
 	gives_payout = TRUE
 	completion_payment = 100
 

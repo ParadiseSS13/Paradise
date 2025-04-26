@@ -112,7 +112,7 @@
 		to_chat(usr, "<span class='warning'>You are banned from playing drones, and cannot spawn as one.</span>")
 		return
 
-	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(src, "<span class='warning'>You can't join as a drone before the game starts!</span>")
 		return
 
@@ -155,7 +155,7 @@
 	if(tgui_alert(usr, "Are you sure you want to respawn as a drone?", "Are you sure?", list("Yes", "No")) != "Yes")
 		return
 
-	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
+	for(var/obj/machinery/drone_fabricator/DF in SSmachines.get_by_type(/obj/machinery/drone_fabricator))
 		if(DF.stat & NOPOWER || !DF.produce_drones)
 			continue
 

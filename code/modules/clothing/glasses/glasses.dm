@@ -3,6 +3,9 @@
 	if(prescription_upgradable && prescription)
 		upgrade_prescription()
 
+	if(hide_examine)
+		ADD_TRAIT(src, TRAIT_HIDE_EXAMINE, INNATE_TRAIT)
+
 /obj/item/clothing/glasses/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(!prescription_upgradable || user.stat || user.restrained() || !ishuman(user))
 		return ..()
@@ -13,7 +16,7 @@
 		if(prescription)
 			to_chat(H, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
 			return
-		H.unEquip(I)
+		H.drop_item_to_ground(I)
 		upgrade_prescription(I)
 		to_chat(H, "<span class='notice'>You fit [src] with lenses from [I].</span>")
 
@@ -125,6 +128,7 @@
 	icon_state = "sunhudmeson"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
+	hide_examine = TRUE
 
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
@@ -343,6 +347,8 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
+
+	hide_examine = TRUE
 
 /obj/item/clothing/glasses/sunglasses_fake
 	name = "cheap sunglasses"

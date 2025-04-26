@@ -1,13 +1,10 @@
 /// A random spawner managed by a [/datum/spawn_pool].
 /obj/effect/spawner/random/pool
-	icon = 'icons/effects/random_spawners.dmi'
-	icon_state = "loot"
-
 	/// How much this spawner will subtract from the available budget if it
-	/// spawns. A value of `INFINITY` (i.e., not setting the value on a subtype)
+	/// spawns. A value of `-1` (i.e., not setting the value on a subtype)
 	/// does not attempt to subtract from the budget. This is useful for
 	/// spawners which themselves spawn other spawners.
-	var/point_value = INFINITY
+	var/point_value = -1
 	/// Whether non-spawner items should be removed from the shared loot pool
 	/// after spawning.
 	var/unique_picks = FALSE
@@ -79,7 +76,7 @@
 		deduct_points = FALSE
 
 	// If we don't have a sane point value, don't deduct points
-	if(point_value == INFINITY)
+	if(point_value == -1)
 		deduct_points = FALSE
 
 	// If we deduct points, we need to check affordability

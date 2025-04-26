@@ -37,18 +37,18 @@
 
 	if(over_object == M)
 		if(!remove_item_from_storage(M))
-			M.unEquip(src)
+			M.drop_item_to_ground(src)
 		M.put_in_hands(src)
 
 	else if(is_screen_atom(over_object))
 		switch(over_object.name)
 			if("r_hand")
 				if(!remove_item_from_storage(M))
-					M.unEquip(src)
+					M.drop_item_to_ground(src)
 				M.put_in_r_hand(src)
 			if("l_hand")
 				if(!remove_item_from_storage(M))
-					M.unEquip(src)
+					M.drop_item_to_ground(src)
 				M.put_in_l_hand(src)
 
 	add_fingerprint(M)
@@ -96,8 +96,7 @@
 		P.loc = user.loc
 		user.put_in_hands(P)
 		P.add_fingerprint(user)
-		P.pixel_x = rand(-9, 9) // Random position
-		P.pixel_y = rand(-8, 8)
+		P.scatter_atom()
 		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")

@@ -23,7 +23,7 @@
 #define WIRE_BOLT_LIGHT "Bolt Lights"
 
 // Air alarm
-#define WIRE_SYPHON "Siphon"
+#define WIRE_SIPHON "Siphon"
 #define WIRE_AALARM "Atmospherics Alarm"
 
 // Camera

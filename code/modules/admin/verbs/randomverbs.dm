@@ -9,7 +9,7 @@
 		return
 
 	for(var/obj/item/W in M)
-		M.unEquip(W)
+		M.drop_item_to_ground(W)
 
 	log_admin("[key_name(usr)] made [key_name(M)] drop everything!")
 	message_admins("[key_name_admin(usr)] made [key_name_admin(M)] drop everything!", 1)
@@ -23,12 +23,12 @@
 		return
 
 	if(ismob(M))
-		if(isAI(M))
+		if(is_ai(M))
 			alert("The AI can't be sent to prison you jerk!", null, null, null, null, null)
 			return
 		//strip their stuff before they teleport into a cell :downs:
 		for(var/obj/item/W in M)
-			M.unEquip(W)
+			M.drop_item_to_ground(W)
 		//teleport person to cell
 		if(isliving(M))
 			var/mob/living/L = M
@@ -78,27 +78,38 @@
 	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
 		return
 
-	var/age = alert(src, "Age check", "Show accounts yonger then _____ days","7", "30" , "All")
-
-	if(age == "All")
-		age = 9999999
-	else
-		age = text2num(age)
+	var/age = input(src, "Show accounts younger then ____ days", "Age check") as num|null
+	var/playtime_hours = input(src, "Show accounts with less than ____ hours", "Playtime check") as num|null
+	if(isnull(age))
+		age = -1
+	if(isnull(playtime_hours))
+		playtime_hours = -1
+	if(age <= 0 && playtime_hours <= 0)
+		return
 
 	var/missing_ages = 0
 	var/msg = ""
+	var/is_admin = check_rights(R_ADMIN, 0)
 	for(var/client/C in GLOB.clients)
 		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
 			continue // Skip those in stealth mode if an admin isnt viewing the panel
 
-		if(C.player_age == "Requires database")
+		if(!isnum(C.player_age))
 			missing_ages = 1
 			continue
 		if(C.player_age < age)
-			if(check_rights(R_ADMIN, 0))
+			if(is_admin)
 				msg += "[key_name_admin(C.mob)]: [C.player_age] days old<br>"
 			else
 				msg += "[key_name_mentor(C.mob)]: [C.player_age] days old<br>"
+
+		var/client_hours = C.get_exp_type_num(EXP_TYPE_LIVING) + C.get_exp_type_num(EXP_TYPE_GHOST)
+		client_hours /= 60 // minutes to hours
+		if(client_hours < playtime_hours)
+			if(is_admin)
+				msg += "[key_name_admin(C.mob)]: [client_hours] living + ghost hours<br>"
+			else
+				msg += "[key_name_mentor(C.mob)]: [client_hours] living + ghost hours<br>"
 
 	if(missing_ages)
 		to_chat(src, "Some accounts did not have proper ages set in their clients.  This function requires database to be present")
@@ -726,7 +737,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
 				return
 
-		explosion(O, devastation, heavy, light, flash, null, null,flames)
+		explosion(O, devastation, heavy, light, flash, null, null,flames, cause = "[ckey]: Explosion command")
 		log_admin("[key_name(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
 		message_admins("[key_name_admin(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "EXPL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -887,7 +898,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Toggle Deny Shuttle"
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		alert("The game hasn't started yet!")
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -1123,7 +1135,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!input)
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 
 	SSticker.selected_tip = input
@@ -1148,7 +1160,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	holder.modify_goals()
 
 /datum/admins/proc/modify_goals()
-	if(!SSticker || !SSticker.mode)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
 		return
 

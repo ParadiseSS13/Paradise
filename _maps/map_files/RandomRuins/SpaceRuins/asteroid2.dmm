@@ -9,10 +9,14 @@
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
 "d" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "t" = (
 /obj/structure/spawner/mining/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"C" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "R" = (
@@ -220,7 +224,7 @@ c
 d
 c
 c
-c
+C
 c
 c
 c
@@ -337,7 +341,7 @@ c
 c
 c
 c
-c
+C
 c
 c
 c

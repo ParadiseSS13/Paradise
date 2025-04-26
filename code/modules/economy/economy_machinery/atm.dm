@@ -33,6 +33,8 @@
 /obj/machinery/economy/atm/Initialize(mapload)
 	. = ..()
 	update_icon()
+	if(mapload)
+		new /obj/effect/turf_decal/delivery/green/hollow(loc)
 
 /obj/machinery/economy/atm/update_icon_state()
 	. = ..()
@@ -77,17 +79,15 @@
 /obj/machinery/economy/atm/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/economy/atm/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id))
+/obj/machinery/economy/atm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id))
 		if(has_power())
-			handle_id_insert(I, user)
-			return TRUE
+			handle_id_insert(used, user)
+			return ITEM_INTERACT_COMPLETE
 	else if(authenticated_account)
-		if(istype(I, /obj/item/stack/spacecash))
-			if(!has_power())
-				return
-			insert_cash(I, user)
-			return TRUE
+		if(istype(used, /obj/item/stack/spacecash) && has_power())
+			insert_cash(used, user)
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

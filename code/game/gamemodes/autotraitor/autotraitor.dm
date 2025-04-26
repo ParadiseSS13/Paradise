@@ -72,7 +72,7 @@
 			if(player.mind.has_antag_datum(/datum/antagonist/traitor))
 				traitor_count += 1
 				continue
-			if(ishuman(player) || isAI(player))
+			if(ishuman(player) || is_ai(player))
 				if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
 					possible_traitors += player.mind
 	for(var/datum/mind/player in possible_traitors)
@@ -98,8 +98,10 @@
 	if(traitor_count < max_traitors)
 		if(prob(traitor_prob))
 			message_admins("Making a new Traitor.")
+			log_game("Making a new Traitor.")
 			if(!length(possible_traitors))
 				message_admins("No potential traitors. Cancelling new traitor.")
+				log_game("No potential traitors. Cancelling new traitor.")
 				addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 				return
 			var/datum/mind/new_traitor_mind = pick(possible_traitors)
@@ -107,6 +109,8 @@
 
 			to_chat(new_traitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 			new_traitor.mind.add_antag_datum(/datum/antagonist/traitor)
+			message_admins("[key_name(new_traitor)] was added in as a traitor!")
+			log_game("[key_name(new_traitor)] was added in as a traitor.")
 
 	addtimer(CALLBACK(src, PROC_REF(traitor_check_loop)), 15 MINUTES)
 
@@ -138,4 +142,8 @@
 
 			if(prob(traitor_prob))
 				message_admins("New traitor roll passed. Making a new Traitor.")
+				log_game("New traitor roll passed. Making a new Traitor.")
 				character.mind.make_Traitor()
+
+/datum/game_mode/traitor/autotraitor/on_mob_cryo(mob/sleepy_mob, obj/machinery/cryopod/cryopod)
+	possible_traitors.Remove(sleepy_mob)

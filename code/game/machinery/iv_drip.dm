@@ -40,7 +40,9 @@
 			. += filling
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
-	var/mob/user = usr
+	drag_drop_onto(target, usr)
+
+/obj/machinery/iv_drip/proc/drag_drop_onto(mob/living/target, mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!ishuman(user))
@@ -50,7 +52,7 @@
 		if(!bag)
 			to_chat(user, "<span class='warning'>There's no IV bag connected to [src]!</span>")
 			return
-		bag.afterattack__legacy__attackchain(target, usr, TRUE)
+		bag.mob_act(target, user)
 		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
@@ -60,25 +62,27 @@
 		bag = null
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/iv_drip/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/iv_bag))
+/obj/machinery/iv_drip/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/iv_bag))
 		if(bag)
 			to_chat(user, "<span class='warning'>[src] already has an IV bag!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		I.forceMove(src)
-		bag = I
-		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
+		used.forceMove(src)
+		bag = used
+		to_chat(user, "<span class='notice'>You attach [used] to [src].</span>")
 		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
-	else if(bag && istype(I, /obj/item/reagent_containers))
-		bag.attackby__legacy__attackchain(I)
-		I.afterattack__legacy__attackchain(bag, usr, TRUE)
+		return ITEM_INTERACT_COMPLETE
+	else if(bag && istype(used, /obj/item/reagent_containers))
+		var/obj/item/reagent_containers/container = used
+		container.normal_act(bag, user)
 		update_icon(UPDATE_OVERLAYS)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/iv_drip/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

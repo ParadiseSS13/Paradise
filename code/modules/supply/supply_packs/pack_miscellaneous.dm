@@ -351,7 +351,11 @@
 	name = "Collectable Plushies Crate"
 	cost = 1000
 	containername = "collectable plushies crate! Brought to you by Bass.inc!"
-	contains = list(/obj/random/plushie, /obj/random/plushie, /obj/random/plushie/explosive)
+	contains = list(
+		/obj/effect/spawner/random/plushies,
+		/obj/effect/spawner/random/plushies,
+		/obj/effect/spawner/random/plushies/explosive,
+	)
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"
@@ -430,9 +434,9 @@
 					/obj/item/clothing/under/rank/procedure/iaa,
 					/obj/item/clothing/suit/storage/iaa/blackjacket,
 					/obj/item/clothing/accessory/waistcoat,
-					/obj/item/clothing/accessory/blue,
-					/obj/item/clothing/accessory/red,
-					/obj/item/clothing/accessory/black,
+					/obj/item/clothing/neck/tie/blue,
+					/obj/item/clothing/neck/tie/red,
+					/obj/item/clothing/neck/tie/black,
 					/obj/item/clothing/head/bowlerhat,
 					/obj/item/clothing/head/fedora,
 					/obj/item/clothing/head/flatcap,
@@ -581,9 +585,10 @@
 	containername = "dna samplers crate"
 
 /datum/supply_packs/misc/station_goal/shield_sat
-	name = "Shield Generator Satellite"
-	cost = 250
+	name = "Shield Generator Satellites"
+	cost = 100
 	contains = list(
+					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield
@@ -617,3 +622,24 @@
 					)
 	special = TRUE
 	department_restrictions = list(DEPARTMENT_COMMAND)
+
+/datum/supply_packs/misc/cookware_crate
+	name = "Kitchen Cookware Crate"
+	cost = 250
+	contains = list(
+		/obj/item/reagent_containers/cooking/board,
+		/obj/item/reagent_containers/cooking/bowl,
+		/obj/item/reagent_containers/cooking/bowl,
+		/obj/item/reagent_containers/cooking/deep_basket,
+		/obj/item/reagent_containers/cooking/deep_basket,
+		/obj/item/reagent_containers/cooking/grill_grate,
+		/obj/item/reagent_containers/cooking/grill_grate,
+		/obj/item/reagent_containers/cooking/icecream_bowl,
+		/obj/item/reagent_containers/cooking/oven,
+		/obj/item/reagent_containers/cooking/pan,
+		/obj/item/reagent_containers/cooking/pan,
+		/obj/item/reagent_containers/cooking/pot,
+		/obj/item/reagent_containers/cooking/pot,
+	)
+	containertype = /obj/structure/closet/crate/cookware
+	containername = "cookware crate"

@@ -28,12 +28,13 @@
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 
+	scatter_distance = 10
+
 /obj/item/ammo_casing/New()
 	..()
 	if(projectile_type)
 		BB = new projectile_type(src)
-	pixel_x = rand(-10.0, 10)
-	pixel_y = rand(-10.0, 10)
+	scatter_atom()
 	dir = pick(GLOB.alldirs)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
@@ -211,6 +212,8 @@
 			user.drop_item()
 			AC.loc = src
 			num_loaded++
+		else
+			to_chat(user, "<span class='notice'>You are unable to fit [AC] into \the [src].</span>")
 	if(num_loaded)
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")

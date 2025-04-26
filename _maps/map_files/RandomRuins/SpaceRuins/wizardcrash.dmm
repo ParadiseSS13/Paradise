@@ -315,6 +315,7 @@
 /area/ruin/space/powered)
 "bk" = (
 /obj/structure/rack,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
@@ -396,6 +397,7 @@
 /area/ruin/space/powered)
 "bz" = (
 /mob/living/simple_animal/hostile/mimic/crate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bA" = (
@@ -437,8 +439,7 @@
 "bF" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
@@ -486,6 +487,10 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
 /obj/structure/table,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"EZ" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "YM" = (
@@ -577,7 +582,7 @@ aa
 bH
 ae
 aY
-aS
+EZ
 bl
 bq
 ae

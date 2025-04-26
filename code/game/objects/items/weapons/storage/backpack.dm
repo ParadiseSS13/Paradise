@@ -50,7 +50,7 @@
 
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Bluespace."
+	desc = "A bleeding-edge backpack that uses bluespace technology to create a localized dimensional pocket for storage."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
@@ -76,7 +76,7 @@
 
 					return
 
-				investigate_log("has become a singularity. Caused by [user.key]","singulo")
+				investigate_log("has become a singularity. Caused by [user.key]",INVESTIGATE_SINGULO)
 				user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='danger'> You hear the sound of scientific evil brewing!</span>")
 				qdel(W)
 				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
@@ -91,7 +91,7 @@
 
 /obj/item/storage/backpack/holding/singularity_act(current_size)
 	var/dist = max((current_size - 2), 1)
-	explosion(loc, dist, (dist * 2), (dist * 4))
+	explosion(loc, dist, (dist * 2), (dist * 4), cause = "Bag of Holding (singularity_act)")
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
@@ -789,7 +789,7 @@
 	name = "drop of immortality"
 	desc = "Drinking this will make you immortal. For a moment or two, at least."
 	icon_state = "holyflask"
-	color = "#C8A5DC"
+	color = "#437fb8"
 	volume = 5
 	list_reagents = list("adminordrazine" = 5)
 

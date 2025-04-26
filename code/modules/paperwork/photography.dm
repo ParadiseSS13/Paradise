@@ -35,6 +35,7 @@
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
 	var/photo_size = 3
+	scatter_distance = 8
 
 /obj/item/photo/attack_self__legacy__attackchain(mob/user as mob)
 	user.examinate(src)
@@ -73,7 +74,7 @@
 	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 
 	if(user.is_in_inactive_hand(src))
-		user.unEquip(src)
+		user.unequip(src)
 
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
@@ -148,10 +149,10 @@
 		if((!M.restrained() && !M.stat && M.back == src))
 			switch(over_object.name)
 				if("r_hand")
-					M.unEquip(src)
+					M.unequip(src)
 					M.put_in_r_hand(src)
 				if("l_hand")
-					M.unEquip(src)
+					M.unequip(src)
 					M.put_in_l_hand(src)
 			add_fingerprint(usr)
 			return
@@ -170,9 +171,9 @@
 	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera."
 	icon_state = "camera"
-	item_state = "electropack"
+	item_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = ITEM_SLOT_BELT
+	slot_flags = ITEM_SLOT_NECK
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	// cameras historically were varedited to start with 30 shots despite
@@ -186,8 +187,13 @@
 	var/icon_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = FALSE //for the spoop of it
+	/// Cult portals and unconcealed runes have a minor form of invisibility
+	var/see_cult = TRUE
 	var/current_photo_num = 1
 	var/digital = FALSE
+	/// Should camera light up the scene
+	var/flashing_light = TRUE
+	actions_types = list(/datum/action/item_action/toogle_camera_flash)
 
 /obj/item/camera/autopsy
 	name = "autopsy camera"
@@ -223,6 +229,17 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 
 	change_size(user)
+
+/obj/item/camera/ui_action_click(mob/user, actiontype)
+	toggle_flash(user)
+
+/obj/item/camera/proc/toggle_flash(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	flashing_light = !flashing_light
+
+	to_chat(user, "<span class='notice'>You turn [src]'s flash [flashing_light ? "on" : "off"].</span>")
 
 /obj/item/camera/proc/change_size(mob/user)
 	var/nsize = tgui_input_list(user, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
@@ -272,6 +289,14 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		atoms.Add(the_turf)
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
+			if(istype(A, /atom/movable/lighting_object)) //Add lighting to make image look nice
+				atoms.Add(A)
+				continue
+
+			// AI can't see unconcealed runes or cult portals
+			if(A.invisibility == INVISIBILITY_RUNES && see_cult)
+				atoms.Add(A)
+				continue
 			if(A.invisibility)
 				if(see_ghosts && isobserver(A))
 					var/mob/dead/observer/O = A
@@ -297,10 +322,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 
 	// Sort the atoms into their layers
-	var/list/sorted = sort_atoms_by_layer(atoms)
+	var/list/sorted = sort_atoms(atoms)
 	var/center_offset = (size-1)/2 * 32 + 1
 	for(var/i; i <= length(sorted); i++)
 		var/atom/A = sorted[i]
+		if(istype(A, /atom/movable/lighting_object))
+			continue //Lighting objects render last, need to be above all atoms and turfs displayed
+
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
 			if(istype(A, /obj/item/areaeditor/blueprints/ce))
@@ -320,6 +348,11 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				if(istype(A,/atom/movable))
 					xoff+=A:step_x
 					yoff+=A:step_y
+				else
+					// In case of an issue where icon size of a turf is different from 32x32 (grass, alien weeds, etc.)
+					xoff += (32 - img.Width()) / 2
+					yoff += (32 - img.Height()) / 2
+
 				res.Blend(img, blendMode2iconMode(A.blend_mode),  A.pixel_x + xoff, A.pixel_y + yoff)
 
 	// Lastly, render any contained effects on top.
@@ -328,6 +361,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		var/xoff = (the_turf.x - center.x) * 32 + center_offset
 		var/yoff = (the_turf.y - center.y) * 32 + center_offset
 		res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),xoff,yoff)
+
+	// Render lighting objects to make picture look nice.
+	for(var/atom/movable/lighting_object/light in sorted)
+		var/xoff = (light.x - center.x) * 32 + center_offset
+		var/yoff = (light.y - center.y) * 32 + center_offset
+		res.Blend(getFlatIcon(light), blendMode2iconMode(BLEND_MULTIPLY),  light.pixel_x + xoff, light.pixel_y + yoff)
+
 	return res
 
 
@@ -367,11 +407,14 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	if(!on || !pictures_left || ismob(target.loc))
 		return
-	captureimage(target, user, flag)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
-	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	if(flashing_light)
+		set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
+		sleep(0.2 SECONDS) //Allow lights to update before capturing image
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.1 SECONDS)
+
+	captureimage(target, user, flag)
 	pictures_left--
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
@@ -561,6 +604,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /**************
 *video camera *
 ***************/
+/// The amount of time after being turned off that the camera is too hot to turn back on.
 #define CAMERA_STATE_COOLDOWN 2 SECONDS
 
 /obj/item/videocam
@@ -571,11 +615,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
-	var/video_cooldown = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
+
+	COOLDOWN_DECLARE(video_cooldown)
 
 /obj/item/videocam/proc/camera_state(mob/living/carbon/user)
 	if(!on)
@@ -588,27 +633,22 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		on = FALSE
 		icon_state = icon_off
 		camera.c_tag = null
+		camera.turn_off(null, 0)
 		QDEL_NULL(camera)
 	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
-	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.telescreens)
 		if(on)
 			TV.feeds_on++
 		else
 			TV.feeds_on--
 		TV.update_icon(UPDATE_OVERLAYS)
-	video_cooldown = world.time + CAMERA_STATE_COOLDOWN
+	COOLDOWN_START(src, video_cooldown, CAMERA_STATE_COOLDOWN)
 
 /obj/item/videocam/attack_self__legacy__attackchain(mob/user)
-	if(world.time < video_cooldown)
+	if(!COOLDOWN_FINISHED(src, video_cooldown))
 		to_chat(user, "<span class='warning'>[src] is overheating, give it some time.</span>")
 		return
 	camera_state(user)
-
-/obj/item/videocam/dropped()
-	. = ..()
-	if(!on)
-		return
-	camera_state()
 
 /obj/item/videocam/examine(mob/user)
 	. = ..()
@@ -620,15 +660,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
-		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
-			if(T.watchers[M] == camera)
-				T.atom_say(msg)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.telescreens)
+			if(usr && (usr.unique_datum_id in T.watchers))
+				T.atom_say("[M.name]: [msg]")  // Uses appearance for identifying speaker, not voice
 
 /obj/item/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
-		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
-			if(T.watchers[M] == camera)
-				T.atom_say(msg)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.telescreens)
+			if(usr && (usr.unique_datum_id in T.watchers))
+				T.atom_say("*[M.name] [msg]")  // Uses appearance for identifying speaker, not voice
 
 /obj/item/videocam/advanced
 	name = "advanced video camera"
@@ -659,21 +699,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		composite.Blend(icon(I.icon, I.icon_state, I.dir, 1), ICON_OVERLAY)
 	return composite
 
-/obj/item/camera/proc/sort_atoms_by_layer(list/atoms)
-	// Comb sort icons based on levels
-	var/list/result = atoms.Copy()
-	var/gap = length(result)
-	var/swapped = 1
-	while(gap > 1 || swapped)
-		swapped = 0
-		if(gap > 1)
-			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient
-		if(gap < 1)
-			gap = 1
-		for(var/i = 1; gap + i <= length(result); i++)
-			var/atom/l = result[i]		//Fucking hate
-			var/atom/r = result[gap+i]	//how lists work here
-			if(l.layer > r.layer)		//no "result[i].layer" for me
-				result.Swap(i, gap + i)
-				swapped = 1
-	return result
+///Sorts atoms firstly by plane, then by layer on each plane
+/obj/item/camera/proc/sort_atoms(list/atoms)
+	var/list/sorted_atoms = sortTim(atoms, GLOBAL_PROC_REF(cmp_atom_layer_asc))
+	return sorted_atoms

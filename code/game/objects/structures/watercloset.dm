@@ -346,9 +346,11 @@
 		if(istype(T) && !T.density)
 			T.MakeSlippery(TURF_WET_WATER, 5 SECONDS)
 
-/obj/machinery/shower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.type == /obj/item/analyzer)
+/obj/machinery/shower/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>The water temperature seems to be [current_temperature].</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/shower/wrench_act(mob/user, obj/item/I)
@@ -682,8 +684,6 @@
 	//overriding this because we don't care about other items on the wall, but still need to do adjacent checks
 	if(!on_wall || !user)
 		return
-	if(proximity_flag != 1) //if we aren't next to the wall
-		return
 	if(!(get_dir(on_wall, user) in GLOB.cardinal))
 		to_chat(user, "<span class='warning'>You need to be standing next to a wall to place \the [src].</span>")
 		return
@@ -733,7 +733,7 @@
 		S.anchored = FALSE
 		S.dir = user.dir
 		S.update_icon()
-		user.unEquip(src, 1)
+		user.unequip(src, force = TRUE)
 		qdel(src)
 		if(prob(50))
 			new /obj/item/stack/sheet/cardboard(T)

@@ -50,9 +50,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon(updates=ALL)
 	. = ..()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!up)
@@ -201,6 +199,12 @@
 	item_state = "expedition_envirohelm"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
 
+/obj/item/clothing/head/helmet/space/plasmaman/smith
+	name = "smithing plasma envirosuit helmet"
+	desc = "A plasmaman helmet design for smiths."
+	icon_state = "smith_envirohelm"
+	item_state = "smith_envirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit helmet"
 	desc = "An envirohelmet specially designed for only the most pious of plasmamen."
@@ -308,7 +312,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
 	. = ..()
 	if(!reskinned)
-		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it when held.</span>"
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
 	..()
@@ -359,3 +363,28 @@
 	if(!H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	return TRUE
+
+/obj/item/clothing/head/helmet/space/plasmaman/trainer
+	name = "\improper NT Career Trainer envirosuit helmet"
+	desc = "A plasmaman envirohelm designed for the nanotrasen career trainer."
+	icon_state = "trainer_envirohelm"
+	item_state = "trainer_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/centcom
+	name = "centeral command envirosuit helmet"
+	desc = "A plasmaman containment helmet designed for central command officials."
+	icon_state = "centcom_envirohelm"
+	item_state = "centcom_envirohelm"
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
+
+/obj/item/clothing/head/helmet/space/plasmaman/centcom/soo
+	desc = "A plasmaman containment helmet designed for central command officials. This one has been modified for use by special operations officers."
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
+	flags_2 = RAD_PROTECT_CONTENTS_2
+	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	HUDType = MEDHUD
+	see_in_dark = 8
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)

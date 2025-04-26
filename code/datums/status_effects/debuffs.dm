@@ -696,6 +696,18 @@
 	if(isnum(_slowdown_value))
 		slowdown_value = _slowdown_value
 
+// Directional slow - Like slowed, but only if you're moving in a certain direction.
+/datum/status_effect/incapacitating/directional_slow
+	id = "directional_slow"
+	var/direction
+	var/slowdown_value = 10 // defaults to this value if none is specified
+
+/datum/status_effect/incapacitating/directional_slow/on_creation(mob/living/new_owner, set_duration, _direction, _slowdown_value)
+	. = ..()
+	direction = _direction
+	if(isnum(_slowdown_value))
+		slowdown_value = _slowdown_value
+
 /datum/status_effect/transient/silence
 	id = "silenced"
 
@@ -1355,6 +1367,18 @@
 	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
 	qdel(src)
 
+/// The mob has been pushed by airflow recently, and won't automatically grab nearby objects to stop drifting.
+/datum/status_effect/unbalanced
+	id = "unbalanced"
+	duration = 1 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/unbalanced
+
+/atom/movable/screen/alert/status_effect/unbalanced
+	name = "Unbalanced"
+	desc = "You're being shoved around by airflow! You can resist this by moving, but moving against the wind will be slow."
+	icon_state = "unbalanced"
+
 /datum/status_effect/c_foamed
 	id = "c_foamed up"
 	duration = 1 MINUTES
@@ -1406,6 +1430,23 @@
 	duration = 5 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/rust_corruption
+	alert_type = null
+	id = "rust_turf_effects"
+	tick_interval = 2 SECONDS
+
+/datum/status_effect/rust_corruption/tick()
+	. = ..()
+	if(issilicon(owner))
+		owner.adjustBruteLoss(10)
+		return
+	//We don't have disgust, so...
+	if(ishuman(owner))
+		owner.adjustBrainLoss(2.5)
+		owner.reagents?.remove_all(0.75)
+	else
+		owner.adjustBruteLoss(3) //Weaker than borgs but still constant.
 
 /// This is the threshold where the attack will stun on the last hit. Why? Because it is cool, that's why.
 #define FINISHER_THRESHOLD 7

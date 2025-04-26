@@ -42,7 +42,6 @@
 	if(W.sharp)
 		to_chat(user, "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>")
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
-		user.unEquip(src)
 		qdel(src)
 		return
 	else

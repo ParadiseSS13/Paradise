@@ -134,7 +134,7 @@
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
 		if("newalertlevel")
-			if(isAI(ui.user) || isrobot(ui.user))
+			if(is_ai(ui.user) || isrobot(ui.user))
 				to_chat(ui.user, "<span class='warning'>Firewalls prevent you from changing the alert level.</span>")
 				return
 			else if(ADMIN_CHECK(ui.user))
@@ -184,7 +184,7 @@
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
 		if("cancelshuttle")
-			if(isAI(ui.user) || isrobot(ui.user))
+			if(is_ai(ui.user) || isrobot(ui.user))
 				to_chat(ui.user, "<span class='warning'>Firewalls prevent you from recalling the shuttle.</span>")
 				return
 			var/response = tgui_alert(usr, "Are you sure you wish to recall the shuttle?", "Confirm", list("Yes", "No"))
@@ -418,7 +418,7 @@
 
 /obj/machinery/computer/communications/ui_data(mob/user)
 	var/list/data = list()
-	data["is_ai"]         = isAI(user) || isrobot(user)
+	data["is_ai"]         = is_ai(user) || isrobot(user)
 	data["noauthbutton"]  = !ishuman(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
 	data["emagged"]       = emagged
@@ -515,19 +515,19 @@
 	return data
 
 /obj/machinery/computer/communications/proc/setCurrentMessage(mob/user, value)
-	if(isAI(user) || isrobot(user))
+	if(is_ai(user) || isrobot(user))
 		aicurrmsg = value
 	else
 		currmsg = value
 
 /obj/machinery/computer/communications/proc/getCurrentMessage(mob/user)
-	if(isAI(user) || isrobot(user))
+	if(is_ai(user) || isrobot(user))
 		return aicurrmsg
 	else
 		return currmsg
 
 /obj/machinery/computer/communications/proc/setMenuState(mob/user, value)
-	if(isAI(user) || isrobot(user))
+	if(is_ai(user) || isrobot(user))
 		ai_menu_state=value
 	else
 		menu_state=value

@@ -502,6 +502,12 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 600
 	var/atom/target = null
 
+/atom/movable/screen/alert/programs_reset
+	name = "Programs Reset"
+	desc = "Your programs have been reset by a Program Reset Disk!"
+	icon_state = "silicon_generic_alert"
+	timeout = 30 SECONDS
+
 /atom/movable/screen/alert/hackingapc/Destroy()
 	target = null
 	return ..()
@@ -514,7 +520,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/living/silicon/ai/AI = usr
 	var/turf/T = get_turf(target)
 	if(T)
-		AI.eyeobj.setLoc(T)
+		AI.eyeobj.set_loc(T)
 
 //MECHS
 /atom/movable/screen/alert/low_mech_integrity

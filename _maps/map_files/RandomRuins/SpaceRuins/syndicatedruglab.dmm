@@ -1,6 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "cq" = (
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "dL" = (
@@ -128,7 +129,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "rJ" = (
@@ -223,7 +224,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "yI" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/syndicate_druglab/asteroid)
 "yV" = (
 /obj/structure/machine_frame,
@@ -267,7 +268,7 @@
 /area/ruin/space/syndicate_druglab)
 "Fq" = (
 /obj/structure/closet/cabinet,
-/obj/item/soap/syndie,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/syndicate_druglab)
 "Fx" = (

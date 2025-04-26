@@ -13,7 +13,7 @@
 /datum/buildmode_mode/mapgen/change_settings(mob/user)
 	var/list/gen_paths = subtypesof(/datum/map_generator)
 
-	var/type = input(user,"Select Generator Type","Type") as null|anything in gen_paths
+	var/type = tgui_input_list(user, "Select Generator Type", "Type", gen_paths)
 	if(!type) return
 
 	generator_path = type
@@ -35,6 +35,6 @@
 			var/datum/map_generator/G = new generator_path
 			G.defineRegion(cornerA, cornerB, 1)
 			highlight_region(G.map)
-			var/confirm = alert("Are you sure you want run the map generator?", "Run generator", "Yes", "No")
+			var/confirm = tgui_alert(user, "Are you sure you want run the map generator?", "Run generator", list("Yes", "No"))
 			if(confirm == "Yes")
 				G.generate()

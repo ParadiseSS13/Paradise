@@ -202,7 +202,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.has_left_hand() && !H.has_right_hand())
-			if(H.get_num_legs() != 0)
+			if(H.get_num_legs() != 0 && !HAS_TRAIT(H, TRAIT_PARAPLEGIC))
 				message_param = "tries to point at %t with a leg."
 			else
 				// nugget

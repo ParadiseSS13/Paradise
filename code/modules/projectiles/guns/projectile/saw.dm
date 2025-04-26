@@ -1,12 +1,12 @@
 /obj/item/gun/projectile/automatic/l6_saw
 	name = "\improper L6 SAW"
-	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
+	desc = "A next-generation medium machine gun designed by Aussec Armory for CQB use aboard ships and stations. Chambered in 7.62x51mm Federal."
 	icon_state = "l6closed100"
 	item_state = "l6closedmag"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=3;syndicate=6"
-	mag_type = /obj/item/ammo_box/magazine/mm556x45
+	mag_type = /obj/item/ammo_box/magazine/mm762x51
 	weapon_weight = WEAPON_HEAVY
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
@@ -101,68 +101,68 @@
 		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
 		hotspot.temperature = 1000
 		hotspot.recolor()
-		location.hotspot_expose(700, 50, 1)
+		location.hotspot_expose(700, 50)
 
 //magazines//
 
-/obj/item/ammo_box/magazine/mm556x45
-	name = "box magazine (5.56x45mm)"
+/obj/item/ammo_box/magazine/mm762x51
+	name = "box magazine (7.62x51mm FMJ)"
 	icon_state = "a762"
 	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/mm556x45
-	caliber = "mm55645"
+	ammo_type = /obj/item/ammo_casing/mm762x51
+	caliber = "mm762x51"
 	max_ammo = 50
 	multi_sprite_step = 10
 
-/obj/item/ammo_box/magazine/mm556x45/bleeding
-	name = "box magazine (Bleeding 5.56x45mm)"
+/obj/item/ammo_box/magazine/mm762x51/bleeding
+	name = "box magazine (7.62x51mm Shredder)"
 	origin_tech = "combat=3"
-	ammo_type = /obj/item/ammo_casing/mm556x45/bleeding
+	ammo_type = /obj/item/ammo_casing/mm762x51/bleeding
 
-/obj/item/ammo_box/magazine/mm556x45/hollow
-	name = "box magazine (Hollow-Point 5.56x45mm)"
+/obj/item/ammo_box/magazine/mm762x51/hollow
+	name = "box magazine (7.62x51mm Hollowpoint)"
 	origin_tech = "combat=3"
-	ammo_type = /obj/item/ammo_casing/mm556x45/hollow
+	ammo_type = /obj/item/ammo_casing/mm762x51/hollow
 
-/obj/item/ammo_box/magazine/mm556x45/ap
-	name = "box magazine (Armor Penetrating 5.56x45mm)"
+/obj/item/ammo_box/magazine/mm762x51/ap
+	name = "box magazine (7.62x51mm Armor-Piercing)"
 	origin_tech = "combat=4"
-	ammo_type = /obj/item/ammo_casing/mm556x45/ap
+	ammo_type = /obj/item/ammo_casing/mm762x51/ap
 
-/obj/item/ammo_box/magazine/mm556x45/incen
-	name = "box magazine (Incendiary 5.56x45mm)"
+/obj/item/ammo_box/magazine/mm762x51/incen
+	name = "box magazine (7.62x51mm Incendiary)"
 	origin_tech = "combat=4"
-	ammo_type = /obj/item/ammo_casing/mm556x45/incen
+	ammo_type = /obj/item/ammo_casing/mm762x51/incen
 
 //casings//
 
-/obj/item/ammo_casing/mm556x45
-	name = "5.56x45mm round"
-	desc = "A 5.56x45mm rifle cartridge, commonly used in light machine guns."
+/obj/item/ammo_casing/mm762x51
+	name = "7.62x51mm round"
+	desc = "A 7.62x51mm full-metal jacket rifle cartridge, commonly used in general-purpose machine guns."
 	icon_state = "762-casing"
-	caliber = "mm55645"
+	caliber = "mm762x51"
 	projectile_type = /obj/item/projectile/bullet/saw
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-/obj/item/ammo_casing/mm556x45/bleeding
-	name = "5.56x45mm 'Shredder' round"
-	desc = "A 5.56x45mm 'Shredder' cartridge, with a heavily serrated tip intended to cause massive bleeding."
+/obj/item/ammo_casing/mm762x51/bleeding
+	name = "7.62x51mm 'Shredder' round"
+	desc = "A 7.62x51mm 'Shredder' cartridge, with a heavily serrated tip intended to cause massive bleeding."
 	icon_state = "762-casing"
 	projectile_type = /obj/item/projectile/bullet/saw/bleeding
 
-/obj/item/ammo_casing/mm556x45/hollow
-	name = "5.56x45mm hollow point round"
-	desc = "A 5.56x45mm rifle cartridge designed to cause more damage to unarmored targets."
+/obj/item/ammo_casing/mm762x51/hollow
+	name = "7.62x51mm hollow point round"
+	desc = "A 7.62x51mm rifle cartridge designed to cause more damage to unarmored targets."
 	projectile_type = /obj/item/projectile/bullet/saw/hollow
 
-/obj/item/ammo_casing/mm556x45/ap
-	name = "5.56x45mm armor piercing round"
-	desc = "A 5.56x45mm rifle cartridge with a hardened tungsten core to increase armor penetration."
+/obj/item/ammo_casing/mm762x51/ap
+	name = "7.62x51mm armor-piercing round"
+	desc = "A 7.62x51mm rifle cartridge with a hardened tungsten core to increase armor penetration."
 	projectile_type = /obj/item/projectile/bullet/saw/ap
 
-/obj/item/ammo_casing/mm556x45/incen
-	name = "5.56x45mm incendiary round"
-	desc = "A 5.56x45mm rifle cartridge with an incendiary chemical payload."
+/obj/item/ammo_casing/mm762x51/incen
+	name = "7.62x51mm incendiary round"
+	desc = "A 7.62x51mm rifle cartridge with an incendiary chemical payload."
 	projectile_type = /obj/item/projectile/bullet/saw/incen
 	muzzle_flash_color = LIGHT_COLOR_FIRE

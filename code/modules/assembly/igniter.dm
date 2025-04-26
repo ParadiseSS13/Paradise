@@ -27,7 +27,7 @@
 
 	var/turf/location = get_turf(loc)
 	if(location)
-		location.hotspot_expose(1000, 1000)
+		location.hotspot_expose(1000, 1)
 	visible_message(
 		"<span class='notice'>Sparks shoot out of [src].</span>",
 		"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"

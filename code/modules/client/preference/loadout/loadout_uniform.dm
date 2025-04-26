@@ -190,6 +190,18 @@
 	display_name = "Kilt"
 	path = /obj/item/clothing/under/costume/kilt
 
+/datum/gear/uniform/suit/executive
+	display_name = "Executive Suit"
+	path = /obj/item/clothing/under/suit/really_black
+
+/datum/gear/uniform/suit/navyblue
+	display_name = "Navy Suit"
+	path = /obj/item/clothing/under/suit/navy
+
+/datum/gear/uniform/suit/checkered
+	display_name = "Checkered Suit"
+	path = /obj/item/clothing/under/suit/checkered
+
 /datum/gear/uniform/skirt
 	main_typepath = /datum/gear/uniform/skirt
 
@@ -378,12 +390,12 @@
 /datum/gear/uniform/sec/secorporate
 	display_name = "Security uniform, corporate"
 	path = /obj/item/clothing/under/rank/security/officer/corporate
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/uniform/sec/dispatch
 	display_name = "Security uniform, dispatch"
 	path = /obj/item/clothing/under/rank/security/officer/dispatch
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/uniform/sec/casual
 	display_name = "Security uniform, casual"

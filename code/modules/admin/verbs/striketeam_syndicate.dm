@@ -9,7 +9,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 	if(GLOB.sent_syndicate_strike_team == 1)
@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	// Find the nuclear auth code
 	var/nuke_code
 	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/N in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 		temp_code = text2num(N.r_code)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code
@@ -153,7 +153,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		equip_to_slot_or_del(new /obj/item/tank/internals/oxygen/red(src), ITEM_SLOT_SUIT_STORE)
 		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/elite(src), ITEM_SLOT_SHOES)
 		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), ITEM_SLOT_RIGHT_HAND)
-		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), ITEM_SLOT_IN_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm762x51(src), ITEM_SLOT_IN_BACKPACK)
 
 	var/obj/item/bio_chip/dust/D = new /obj/item/bio_chip/dust(src)
 	D.implant(src)

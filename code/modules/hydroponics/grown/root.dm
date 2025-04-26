@@ -36,7 +36,7 @@
 		to_chat(user, "<span class='notice'>You sharpen the carrot into a shiv with [I].</span>")
 		var/obj/item/kitchen/knife/shiv/carrot/Shiv = new ()
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
+			user.unequip(src)
 		user.put_in_hands(Shiv)
 		qdel(src)
 	else

@@ -72,11 +72,12 @@ CONTENTS:
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = ABDUCTOR_VEST_STEALTH
 	var/stealth_active = 0
-	var/combat_cooldown = 10
+	var/combat_cooldown = 10 SECONDS
 	var/datum/icon_snapshot/disguise
 	var/stealth_armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 450, ACID = 450)
 	sprite_sheets = null
+	COOLDOWN_DECLARE(abductor_adrenaline)
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
 	. = ..()
@@ -102,9 +103,7 @@ CONTENTS:
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
@@ -158,27 +157,21 @@ CONTENTS:
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
 	if(ishuman(loc))
-		if(combat_cooldown != initial(combat_cooldown))
-			to_chat(loc, "<span class='warning'>Combat injection is still recharging.</span>")
+		if(!COOLDOWN_FINISHED(src, abductor_adrenaline))
+			to_chat(loc, "<span class='warning'>Combat injection is still recharging. Please wait [round(COOLDOWN_TIMELEFT(src, abductor_adrenaline), 1 SECONDS) / 10] seconds.</span>")
 			return
 		var/mob/living/carbon/human/M = loc
+		to_chat(loc, "<span class='notice'>You feel a series of pricks down your back, followed by a surge of energy!</span>")
 		M.adjustStaminaLoss(-75)
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
 		M.SetKnockDown(0)
 		M.stand_up(TRUE)
-		combat_cooldown = 0
-		START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/suit/armor/abductor/vest/process()
-	combat_cooldown++
-	if(combat_cooldown==initial(combat_cooldown))
-		STOP_PROCESSING(SSobj, src)
+		COOLDOWN_START(src, abductor_adrenaline, combat_cooldown)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.vest == src)
 			C.vest = null
 			break
@@ -265,9 +258,7 @@ CONTENTS:
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
 	update_icon(UPDATE_ICON_STATE)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/abductor_baton/update_icon_state()
 	switch(mode)
@@ -324,8 +315,7 @@ CONTENTS:
 		H.update_inv_r_hand()
 
 /obj/item/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
-	L.lastattacker = user.real_name
-	L.lastattackerckey = user.ckey
+	L.store_last_attacker(user)
 
 	L.KnockDown(7 SECONDS)
 	L.apply_damage(80, STAMINA)
@@ -600,16 +590,16 @@ CONTENTS:
 <br>
  1.Acquire fresh specimen.<br>
  2.Put the specimen on operating table.<br>
- 3.Apply scalpel to the chest, preparing for experimental dissection.<br>
- 4.Apply scalpel to specimen's torso.<br>
+ 3.Apply a scalpel to the chest, preparing for experimental dissection.<br>
+ 4.Make incision on specimen's torso with a scalpel.<br>
  5.Clamp bleeders on specimen's torso with a hemostat.<br>
  6.Retract skin of specimen's torso with a retractor.<br>
  7.Saw through the specimen's torso with a saw.<br>
  8.Apply retractor again to specimen's torso.<br>
  9.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
  10.Insert replacement gland (Retrieve one from gland storage).<br>
- 11.Cauterize the patient's torso with a cautery.<br>
- 12.Consider dressing the specimen back to not disturb the habitat. <br>
+ 11.Cauterize the patient's torso. Your scalpel also functions as a cautery for this purpose.<br>
+ 12.Consider dressing the specimen back to not disturb the habitat.<br>
  13.Put the specimen in the experiment machinery.<br>
  14.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
  15.You will receive one supply credit, and the subject will be counted towards your quota.<br>
@@ -717,10 +707,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /////////////////////////////////////////
 /////////// MEDICAL TOOLS ///////////////
 /////////////////////////////////////////
-/obj/item/scalpel/alien
+/obj/item/scalpel/laser/alien
 	name = "alien scalpel"
-	desc = "It's a gleaming sharp knife made out of silvery-green metal."
+	desc = "A translucent blade attached to a handle of strange silvery metal. When held still against broken flesh, the blade becomes extremely hot."
 	icon = 'icons/obj/abductor.dmi'
+	icon_state = "scalpel"
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
@@ -748,13 +739,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/surgicaldrill/alien
 	name = "alien drill"
 	desc = "Maybe alien surgeons have finally found a use for the drill."
-	icon = 'icons/obj/abductor.dmi'
-	origin_tech = "materials=2;biotech=2;abductor=2"
-	toolspeed = 0.25
-
-/obj/item/cautery/alien
-	name = "alien cautery"
-	desc = "Why would bloodless aliens have a tool to stop bleeding? Unless..."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25

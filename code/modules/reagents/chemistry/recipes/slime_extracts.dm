@@ -150,27 +150,26 @@
 
 	var/list/blocked = list(
 		/obj/item/food,
-		/obj/item/food/breadslice,
+		/obj/item/food/sliced/bread,
 		/obj/item/food/sliceable,
 		/obj/item/food/sliceable/pizza,
-		/obj/item/food/margheritapizzaslice,
-		/obj/item/food/meatpizzaslice,
-		/obj/item/food/mushroompizzaslice,
-		/obj/item/food/vegetablepizzaslice,
-		/obj/item/food/cheesepizzaslice,
-		/obj/item/food/garlicpizzaslice,
-		/obj/item/food/donkpocketpizzaslice,
-		/obj/item/food/dankpizzaslice,
-		/obj/item/food/macpizzaslice,
-		/obj/item/food/firecrackerpizzaslice,
-		/obj/item/food/pestopizzaslice,
-		/obj/item/food/pepperonipizzaslice,
+		/obj/item/food/sliced/margherita_pizza,
+		/obj/item/food/sliced/meat_pizza,
+		/obj/item/food/sliced/mushroom_pizza,
+		/obj/item/food/sliced/vegetable_pizza,
+		/obj/item/food/sliced/cheese_pizza,
+		/obj/item/food/sliced/garlic_pizza,
+		/obj/item/food/sliced/donk_pocket_pizza,
+		/obj/item/food/sliced/dank_pizza,
+		/obj/item/food/sliced/mac_pizza,
+		/obj/item/food/sliced/fire_cracker_pizza,
+		/obj/item/food/sliced/pesto_pizza,
+		/obj/item/food/sliced/pepperoni_pizza,
 		/obj/item/food/meat,
 		/obj/item/food/meat/slab,
 		/obj/item/food/grown,
 		/obj/item/food/grown/shell,
 		/obj/item/food/grown/mushroom,
-		/obj/item/food/deepfryholder,
 		/obj/item/food/chinese,
 		/obj/item/food/human,
 		/obj/item/food/monstermeat,
@@ -536,7 +535,7 @@
 	var/turf/extract_turf = get_turf(extract)
 	message_admins("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
-	explosion(extract_turf, 1, 3, 6)
+	explosion(extract_turf, 1, 3, 6, cause = "Oil Slime explosion")
 
 /datum/chemical_reaction/oil_slick
 	name = "Oil Potion"
