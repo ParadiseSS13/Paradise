@@ -77,20 +77,20 @@ GLOBAL_LIST_INIT(special_role_times, list(
 
 	/// Volume mixer, indexed by channel as TEXT (numerical indexes will not work). Volume goes from 0 to 100.
 	var/list/volume_mixer = list(
-		"1012" = 20, // CHANNEL_GENERAL	//Note: This should stay on top because order in this list defines order of sliders in mixer's interface.
-		"1024" = 0, // CHANNEL_LOBBYMUSIC
-		"1023" = 0, // CHANNEL_ADMIN
-		"1022" = 0, // CHANNEL_VOX
-		"1021" = 0, // CHANNEL_JUKEBOX
-		"1020" = 0, // CHANNEL_HEARTBEAT
-		"1019" = 0, // CHANNEL_BUZZ
-		"1018" = 0, // CHANNEL_AMBIENCE
-		"1017" = 0, // CHANNEL_ENGINE
-		"1016" = 10, // CHANNEL_FIREALARM
-		"1015" = 10, // CHANNEL_ASH_STORM
-		"1014" = 0, // CHANNEL_RADIO_NOISE
-		"1013" = 0, // CHANNEL_BOSS_MUSIC
-		"1011" = 10 // CHANNEL_SURGERY_SOUNDS
+		"1012" = 100, // CHANNEL_GENERAL	//Note: This should stay on top because order in this list defines order of sliders in mixer's interface.
+		"1024" = 100, // CHANNEL_LOBBYMUSIC
+		"1023" = 100, // CHANNEL_ADMIN
+		"1022" = 100, // CHANNEL_VOX
+		"1021" = 100, // CHANNEL_JUKEBOX
+		"1020" = 100, // CHANNEL_HEARTBEAT
+		"1019" = 100, // CHANNEL_BUZZ
+		"1018" = 100, // CHANNEL_AMBIENCE
+		"1017" = 100, // CHANNEL_ENGINE
+		"1016" = 100, // CHANNEL_FIREALARM
+		"1015" = 100, // CHANNEL_ASH_STORM
+		"1014" = 100, // CHANNEL_RADIO_NOISE
+		"1013" = 100, // CHANNEL_BOSS_MUSIC
+		"1011" = 100 // CHANNEL_SURGERY_SOUNDS
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
