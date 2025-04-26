@@ -469,7 +469,12 @@
 /area/template_noop)
 "BP" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine{
+	pixel_x = -6
+	},
+/obj/item/stack/nanopaste{
+	pixel_x = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -574,6 +579,12 @@
 "Gj" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet,
+/turf/template_noop,
+/area/template_noop)
+"Hm" = (
+/obj/item/stack/nanopaste{
+	pixel_x = 8
+	},
 /turf/template_noop,
 /area/template_noop)
 "Hs" = (
@@ -2239,7 +2250,7 @@ qr
 qr
 "}
 (35,1,1) = {"
-qr
+Hm
 qr
 qr
 qr
@@ -2368,7 +2379,7 @@ qr
 qr
 qr
 qr
-qr
+Hm
 qr
 qr
 qr
