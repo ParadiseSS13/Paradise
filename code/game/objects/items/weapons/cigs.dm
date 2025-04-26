@@ -67,8 +67,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(lit)
 		extinguish_cigarette(user)
-	
+
 /obj/item/clothing/mask/cigarette/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/syringe))
+		return ..()
+
 	if(used.cigarette_lighter_act(user, user, src))
 		return ITEM_INTERACT_COMPLETE
 
