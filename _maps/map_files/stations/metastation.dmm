@@ -6556,28 +6556,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/east)
-"aKl" = (
-/obj/structure/table/reinforced,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith{
-	dir = 1
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Smith's Desk";
-	dir = 1
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "smithdesk";
-	name = "Smith's Desk Shutters";
-	dir = 5
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "smithdesk";
-	name = "Smith's Desk Shutters";
-	dir = 5
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
-/area/station/supply/smith_office)
 "aKq" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -59092,7 +59070,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "smithdesk";
 	name = "Smith's Desk Shutters";
-	dir = 5
+	dir = 2
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -108601,7 +108579,7 @@ hHa
 tXo
 ebX
 qaF
-aKl
+lSi
 jPT
 hDK
 msj
