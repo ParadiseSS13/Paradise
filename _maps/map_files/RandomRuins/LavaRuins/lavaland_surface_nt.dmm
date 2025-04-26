@@ -294,6 +294,7 @@
 /area/mine/laborcamp)
 "co" = (
 /obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "cp" = (
@@ -1072,9 +1073,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
-"gt" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors/targetable)
 "gu" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/stripes/line{
@@ -1161,6 +1159,7 @@
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "gQ" = (
@@ -1626,10 +1625,6 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
-"jk" = (
-/obj/structure/flora/ash/leaf_shroom,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/targetable)
 "jn" = (
 /obj/machinery/light{
 	dir = 4
@@ -2205,6 +2200,7 @@
 "my" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "mA" = (
@@ -2329,6 +2325,7 @@
 /obj/item/trash/liquidfood,
 /obj/item/trash/tastybread,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "nh" = (
@@ -2651,6 +2648,7 @@
 /area/mine/outpost/lockers)
 "oL" = (
 /obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/targetable)
 "oM" = (
@@ -3289,6 +3287,7 @@
 "rS" = (
 /obj/effect/spawner/random/fungus/maybe,
 /obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "rT" = (
@@ -3687,6 +3686,7 @@
 /area/mine/outpost/cafeteria)
 "um" = (
 /obj/structure/glowshroom,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "uq" = (
@@ -4257,6 +4257,7 @@
 	pixel_x = -32
 	},
 /obj/effect/spawner/random/cobweb/left/rare,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "xu" = (
@@ -4951,6 +4952,7 @@
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Bm" = (
@@ -5154,6 +5156,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
+"Ct" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "Cv" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -5517,12 +5523,14 @@
 /obj/structure/cable/cyan{
 	icon_state = "2-8"
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Ey" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/glowshroom,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "EF" = (
@@ -6235,6 +6243,7 @@
 /turf/simulated/wall,
 /area/mine/outpost/production)
 "If" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/mine/outpost/hallway/east)
 "Ij" = (
@@ -6265,12 +6274,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
-"In" = (
-/obj/structure/sign/nanotrasen{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/targetable)
 "Iq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7603,11 +7606,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"PH" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "PK" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -7869,6 +7867,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Ra" = (
@@ -8573,6 +8572,7 @@
 "UR" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /obj/effect/spawner/random/fungus/maybe,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "US" = (
@@ -8642,6 +8642,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Vz" = (
@@ -8777,6 +8778,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "Wn" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Wq" = (
@@ -9102,6 +9104,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "XW" = (
@@ -16620,8 +16623,8 @@ Hv
 hb
 NW
 Kl
-of
-PH
+Ct
+oP
 WH
 LE
 oM
@@ -16782,7 +16785,7 @@ Kl
 Zh
 Kl
 Kl
-of
+Ct
 Bj
 WH
 EM
@@ -17102,11 +17105,11 @@ re
 re
 Yr
 Yr
-PH
+oP
 um
 co
-gt
-gt
+Yr
+Yr
 rS
 WH
 dB
@@ -17265,10 +17268,10 @@ LJ
 LJ
 zA
 gP
-gt
-gt
-gt
-oO
+Yr
+Yr
+Yr
+Yh
 Wj
 oj
 oj
@@ -17427,10 +17430,10 @@ Wq
 Wq
 Wq
 Ol
-gt
-oO
-oO
-zP
+Yr
+Yh
+Yh
+IJ
 oj
 fj
 CN
@@ -17589,9 +17592,9 @@ Wq
 cZ
 BB
 wX
-oO
-oO
-In
+Yh
+Yh
+LV
 oj
 oj
 RG
@@ -17751,9 +17754,9 @@ iy
 kf
 iy
 kC
-oO
-oO
-zP
+Yh
+Yh
+IJ
 tB
 zs
 hf
@@ -17911,11 +17914,11 @@ Yh
 Yh
 IJ
 IJ
-oO
+Yh
 VM
-oO
-oO
-oO
+Yh
+Yh
+Yh
 tB
 uh
 Gb
@@ -18073,11 +18076,11 @@ Yh
 Bv
 Yh
 Yh
-oO
+Yh
 dd
-zP
-oO
-oO
+IJ
+Yh
+Yh
 tB
 VH
 Gb
@@ -18235,11 +18238,11 @@ Yh
 Yh
 Yh
 Yh
-oO
+Yh
 dx
-zP
-oO
-oO
+IJ
+Yh
+Yh
 oj
 qt
 Ox
@@ -18397,11 +18400,11 @@ Yh
 Yh
 aI
 Yh
-oO
+Yh
 dd
-oO
-jk
-oO
+Yh
+fw
+Yh
 tB
 yL
 Sl
@@ -18559,11 +18562,11 @@ Yh
 Yh
 Yh
 Yh
-oO
+Yh
 VM
-oO
-oO
-zP
+Yh
+Yh
+IJ
 xS
 uh
 gU
@@ -18724,8 +18727,8 @@ Yh
 Cv
 Qu
 Mi
-oO
-oO
+Yh
+Yh
 tB
 vi
 Gb
@@ -19554,7 +19557,7 @@ mw
 NF
 kT
 If
-of
+Ct
 hI
 pG
 Tc
@@ -19876,9 +19879,9 @@ OJ
 kT
 NF
 kT
-gt
-gt
-zP
+Yr
+Yr
+IJ
 oO
 oO
 oO
@@ -20036,10 +20039,10 @@ oD
 OJ
 OJ
 Wn
-gt
-gt
+Yr
+Yr
 oL
-gt
+Yr
 oO
 oO
 oO
