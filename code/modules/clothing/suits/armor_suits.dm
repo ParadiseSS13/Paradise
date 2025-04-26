@@ -111,9 +111,9 @@
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/press
-	name = "press armor vest"
-	desc = ""
-	icon_state = "armor"
+	name = "press vest"
+	desc = "A sturdy vest that should keep you protected from the dangers of the station."
+	icon_state = "press_vest"
 	item_state = "armor"
 
 /obj/item/clothing/suit/armor/vest/press/equipped(mob/living/carbon/human/user, slot)
