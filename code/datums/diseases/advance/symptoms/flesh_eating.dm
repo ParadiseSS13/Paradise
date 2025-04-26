@@ -24,6 +24,7 @@ Bonus
 	transmittable = -2
 	level = 6
 	severity = 6
+	treatments = list("synthflesh", "lazarus_reagent")
 
 /datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
 	..()
