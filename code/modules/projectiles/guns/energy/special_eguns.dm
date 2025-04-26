@@ -408,13 +408,18 @@
 	origin_tech = "combat=7;magnets=6"
 	execution_speed = 2 SECONDS
 
+/obj/item/gun/energy/laser/instakill/examine(mob/user)
+	. = ..()
+	. += "This gun gibs anyone it hits. Was the name not obvious?"
+
 /obj/item/gun/energy/laser/instakill/examine_more(mob/user)
- . = list()
- . += "Utilizing top-shelf Shellguard batteries, a sleek off-white chassis, and a dense enough lense to make an optometrist cry, this rifle can fires bolts that can violently disassemble nearly anyone it hits. You're still not sure when it would be useful, though."
- . += ""
- . += "Once quested for in days of old, this rifle and other treasures of the gods were sealed away in their palace in the sky. The once-open door was not simply locked, but taken away."
- . += ""
- . += "Who are we kidding, this is an admin-only weapon that instakills people. Go nuts."
+	. = ..()
+	. += "Utilizing top-shelf Shellguard batteries, a sleek off-white chassis, and a dense enough lense to make an optometrist cry, this rifle can fires bolts that can violently disassemble nearly anyone it hits. You're still not sure when it would be useful, though."
+	. += ""
+	. += "Once quested for in days of old, this rifle and other treasures of the gods were sealed away in their palace in the sky. The once-open door was not simply locked, but taken away."
+	. += ""
+	. += "Who are we kidding, this is an admin-only weapon that instakills people. Go nuts. Have fun."
+
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
