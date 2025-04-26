@@ -3116,7 +3116,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/kirbyplants/large,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3193,8 +3193,8 @@
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "rn" = (
-/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 10
@@ -3465,10 +3465,10 @@
 	},
 /area/mine/outpost/hallway/west)
 "sU" = (
-/obj/item/kirbyplants/large,
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
 	},
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -3649,7 +3649,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
 "tU" = (
-/obj/machinery/newscaster/directional/north,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -5946,6 +5946,7 @@
 /area/mine/laborcamp)
 "GJ" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowsiding"
@@ -5955,6 +5956,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -7591,6 +7593,14 @@
 	dir = 9
 	},
 /turf/simulated/floor/catwalk,
+/area/mine/laborcamp)
+"PC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 8
+	},
 /area/mine/laborcamp)
 "PG" = (
 /obj/structure/lattice/catwalk/mining,
@@ -12399,7 +12409,7 @@ Td
 EH
 us
 HQ
-nl
+PC
 hn
 Nh
 lT
