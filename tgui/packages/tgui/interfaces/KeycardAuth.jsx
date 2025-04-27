@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 export const KeycardAuth = (props) => {

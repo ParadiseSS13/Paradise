@@ -1,6 +1,17 @@
 import { useState } from 'react';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  Icon,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Table,
+  Tabs,
+} from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, AnimatedNumber, Section, ProgressBar, Icon, Tabs, Table } from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 

@@ -1,7 +1,8 @@
-import { classes } from 'common/react';
 import { useState } from 'react';
+import { Button, Input, Section } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Button, Input, Section } from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -28,7 +29,7 @@ export const Emojipedia = (props) => {
           title={'Emojipedia v1.0.1'}
           buttons={
             <>
-              <Input placeholder="Search by name" value={searchText} onInput={(e, value) => setSearchText(value)} />
+              <Input placeholder="Search by name" value={searchText} onChange={(value) => setSearchText(value)} />
               <Button tooltip={'Click on an emoji to copy its tag!'} tooltipPosition="bottom" icon="circle-question" />
             </>
           }

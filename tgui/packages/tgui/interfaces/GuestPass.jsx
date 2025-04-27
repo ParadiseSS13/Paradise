@@ -1,5 +1,6 @@
+import { Button, Icon, LabeledList, Section, Stack, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Stack, Tabs, Icon } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 

@@ -1,5 +1,6 @@
+import { Box, Button, Flex, Icon, Section } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, Button, Flex, Icon, Section } from '../../components';
 
 /**
  * Displays a login screen that users can interact with

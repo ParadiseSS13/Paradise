@@ -1,9 +1,9 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useState } from 'react';
+import { Button, Icon, Input, Section, Stack, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Input, LabeledList, Section, Stack, Tabs, Table } from '../components';
 import { Window } from '../layouts';
-import { ComplexModal, modalOpen } from './common/ComplexModal';
+import { ComplexModal } from './common/ComplexModal';
 
 export const SeedExtractor = (properties) => {
   const { act, data } = useBackend();
@@ -217,12 +217,12 @@ const SeedExtractorActions = (properties) => {
         <Input
           placeholder="Search by name, variant, potency:70+, production:3-, ..."
           fluid
-          onInput={(e, value) => setSearchText(value)}
+          onChange={(value) => setSearchText(value)}
         />
       </Stack.Item>
       <Stack.Item>
         Vend amount:
-        <Input placeholder="1" onInput={(e, value) => setVendAmount(Number(value) >= 1 ? Number(value) : 1)} />
+        <Input placeholder="1" onChange={(value) => setVendAmount(Number(value) >= 1 ? Number(value) : 1)} />
       </Stack.Item>
     </Stack>
   );

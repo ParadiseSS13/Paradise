@@ -1,5 +1,6 @@
+import { Button, LabeledList } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { LabeledList, Button } from '../components';
 import { Window } from '../layouts';
 
 export const AppearanceChanger = (props) => {

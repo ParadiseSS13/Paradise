@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { Box, Button, Icon, Input, LabeledList, Section, Stack, Tabs } from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, Stack, Tabs, Input, Icon } from '../components';
 import { Window } from '../layouts';
-import { decodeHtmlEntities } from 'common/string';
 
 const PickTab = (index) => {
   switch (index) {

@@ -1,5 +1,6 @@
+import { Box, Button, DmIcon, Icon, Section, Stack, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, DmIcon, Section, Stack, Table, Icon } from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props) => {
@@ -91,7 +92,7 @@ export const Vending = (props) => {
           {(!locked || !!bypass_lock) && (
             <Stack.Item>
               <Section title="Configuration">
-                <Stack horizontal>
+                <Stack>
                   <Stack.Item>
                     <Button icon="pen-to-square" content="Rename Vendor" onClick={() => act('rename', {})} />
                   </Stack.Item>

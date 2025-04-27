@@ -1,10 +1,11 @@
+import { Box, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, Tabs } from '../../components';
 import { MENU, PRINTER_MENU } from '.';
-import { LatheMainMenu } from './LatheMainMenu';
 import { LatheCategory } from './LatheCategory';
-import { LatheMaterialStorage } from './LatheMaterialStorage';
 import { LatheChemicalStorage } from './LatheChemicalStorage';
+import { LatheMainMenu } from './LatheMainMenu';
+import { LatheMaterialStorage } from './LatheMaterialStorage';
 
 const Tab = Tabs.Tab;
 

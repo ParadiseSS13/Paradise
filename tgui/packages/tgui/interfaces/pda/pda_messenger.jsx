@@ -1,7 +1,8 @@
 import { filter } from 'common/collections';
 import { useState } from 'react';
+import { Box, Button, Dropdown, Icon, Input, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Icon, Input, LabeledList, Section, Stack } from '../../components';
 
 export const pda_messenger = (props) => {
   const { act, data } = useBackend();
@@ -35,7 +36,7 @@ export const ActiveConversation = (props) => {
             tooltipPosition="bottom-start"
             onClick={() => setClipboardMode(!clipboardMode)}
           />
-          <Button icon="comment" onClick={() => act('Message', { 'target': active_convo })} content="Reply" />
+          <Button icon="comment" onClick={() => act('Message', { target: active_convo })} content="Reply" />
         </>
       }
     >
@@ -89,7 +90,7 @@ export const ActiveConversation = (props) => {
               tooltipPosition="bottom-start"
               onClick={() => setClipboardMode(!clipboardMode)}
             />
-            <Button icon="comment" onClick={() => act('Message', { 'target': active_convo })} content="Reply" />
+            <Button icon="comment" onClick={() => act('Message', { target: active_convo })} content="Reply" />
           </>
         }
       >
@@ -177,7 +178,7 @@ export const MessengerList = (props) => {
                 <Input
                   mt={0.5}
                   value={searchTerm}
-                  onInput={(e, value) => {
+                  onChange={(value) => {
                     setSearchTerm(value);
                   }}
                 />

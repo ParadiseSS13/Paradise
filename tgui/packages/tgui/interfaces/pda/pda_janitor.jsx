@@ -1,5 +1,6 @@
+import { Box, LabeledList } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { LabeledList, Box } from '../../components';
 
 export const pda_janitor = (props) => {
   const { act, data } = useBackend();

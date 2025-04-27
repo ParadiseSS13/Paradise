@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Box, Button, Icon, Input, LabeledList, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section, Box, LabeledList, Input, Icon } from '../components';
 import { Window } from '../layouts';
 
 export const BioChipPad = (props) => {
@@ -44,7 +45,7 @@ export const BioChipPad = (props) => {
                       width="5.5rem"
                       value={tag}
                       onEnter={() => act('tag', { newtag: newTag })}
-                      onInput={(e, value) => setNewTag(value)}
+                      onChange={(value) => setNewTag(value)}
                     />
                     <Button
                       disabled={tag === newTag}

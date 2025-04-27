@@ -1,5 +1,6 @@
+import { Box, LabeledList, ProgressBar } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, LabeledList, ProgressBar } from '../../components';
 
 export const pai_bioscan = (props) => {
   const { act, data } = useBackend();

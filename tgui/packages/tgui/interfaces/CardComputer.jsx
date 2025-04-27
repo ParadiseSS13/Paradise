@@ -1,8 +1,9 @@
+import { Box, Button, Icon, LabeledList, Section, Stack, Table, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, Table, Tabs, Stack, Icon } from '../components';
+import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
-import { COLORS } from '../constants';
 
 const deptCols = COLORS.department;
 

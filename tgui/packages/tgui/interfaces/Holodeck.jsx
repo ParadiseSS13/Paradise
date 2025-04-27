@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Box, Button, Dimmer, Icon, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Stack, Dimmer, Icon } from '../components';
 import { Window } from '../layouts';
 
 export const Holodeck = (props) => {

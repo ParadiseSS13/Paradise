@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { useBackend } from '../../backend';
-import { createSearch } from 'common/string';
-import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
-import { Box, Input, Button, Section, LabeledList } from '../../components';
+import { useState } from 'react';
+import { Box, Button, Input, LabeledList, Section } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+
+import { useBackend } from '../../backend';
 
 export const SimpleRecords = (props) => {
   const { records } = props.data;
@@ -38,7 +39,7 @@ const SelectionView = (props) => {
 
   return (
     <Box>
-      <Input fluid mb={1} placeholder="Search records..." onInput={(e, value) => setSearchText(value)} />
+      <Input fluid mb={1} placeholder="Search records..." onChange={(value) => setSearchText(value)} />
       {formattedRecords.map((r) => (
         <Box key={r}>
           <Button mb={0.5} content={r.Name} icon="user" onClick={() => act('Records', { target: r.uid })} />

@@ -1,5 +1,6 @@
+import { Button, LabeledList, ProgressBar } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, ProgressBar, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const PrisonerShuttleConsole = (props) => {

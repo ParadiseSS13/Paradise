@@ -1,10 +1,11 @@
-import { Loader } from './common/Loader';
-import { InputButtons } from './common/InputButtons';
-import { Button, Input, Section, Stack } from '../components';
 import { useState } from 'react';
+import { Button, Input, Section, Stack } from 'tgui-core/components';
+import { KEY_A, KEY_DOWN, KEY_ENTER, KEY_ESCAPE, KEY_UP, KEY_Z } from 'tgui-core/keycodes';
+
 import { useBackend } from '../backend';
-import { KEY_A, KEY_DOWN, KEY_ESCAPE, KEY_ENTER, KEY_UP, KEY_Z } from '../../common/keycodes';
 import { Window } from '../layouts';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type ListInputData = {
   init_value: string;
@@ -170,7 +171,7 @@ const ListDisplay = (props) => {
   const { filteredItems, onClick, onFocusSearch, searchBarVisible, selected } = props;
 
   return (
-    <Section fill scrollable tabIndex={0}>
+    <Section fill scrollable>
       {filteredItems.map((item, index) => {
         return (
           <Button
@@ -179,9 +180,11 @@ const ListDisplay = (props) => {
             id={index}
             key={index}
             onClick={() => onClick(index)}
-            onDblClick={(event) => {
-              event.preventDefault();
-              act('submit', { entry: filteredItems[selected] });
+            onMouseDown={(event) => {
+              if (event.detail === 2) {
+                event.preventDefault();
+                act('submit', { entry: filteredItems[selected] });
+              }
             }}
             onKeyDown={(event) => {
               const keyCode = window.event ? event.which : event.keyCode;
@@ -217,11 +220,10 @@ const SearchBar = (props) => {
       width="100%"
       autoFocus
       autoSelect
-      onEnter={(event) => {
-        event.preventDefault();
+      onEnter={() => {
         act('submit', { entry: filteredItems[selected] });
       }}
-      onInput={(_, value) => onSearch(value)}
+      onChange={onSearch}
       placeholder="Search..."
       value={searchQuery}
     />

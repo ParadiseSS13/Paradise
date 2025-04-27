@@ -1,6 +1,6 @@
-import { round } from 'common/math';
+import { Button, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, Button, Stack, LabeledList, Section } from '../../components';
 
 export const pda_main_menu = (props) => {
   const { act, data } = useBackend();

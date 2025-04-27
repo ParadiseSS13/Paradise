@@ -1,8 +1,8 @@
-import { round } from 'common/math';
+import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section } from 'tgui-core/components';
+import { decodeHtmlEntities, toTitleCase } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, Modal, LabeledList, ProgressBar, Section, NoticeBox } from '../components';
 import { Window } from '../layouts';
-import { toTitleCase, decodeHtmlEntities } from 'common/string';
 
 export const MechaControlConsole = (props) => {
   const { act, data } = useBackend();

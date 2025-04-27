@@ -1,23 +1,9 @@
+import { Box, Button, ImageButton, LabeledList, Section, Stack, Table, Tooltip } from 'tgui-core/components';
+import { capitalize } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Grid,
-  LabeledList,
-  Section,
-  Stack,
-  ImageButton,
-  Flex,
-  Table,
-  Tooltip,
-  DmIcon,
-} from '../components';
-import { capitalize } from 'common/string';
-import { GridColumn } from '../components/Grid';
-import { TableRow } from '../components/Table';
+import { Grid } from '../components';
 import { Window } from '../layouts';
-import { classes } from 'common/react';
-import { StationAlertConsole } from './StationAlertConsole';
 
 const dir2text = (dir) => {
   switch (dir) {
@@ -110,7 +96,7 @@ const LayoutHorizontal = (props) => {
   const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
   return (
     <Table>
-      <TableRow width="40px">
+      <Table.Row width="40px">
         {(orientation === 'east' ? layout_1 : layout_3).slice().map((item) => (
           <Table.Cell key={item.name}>
             <Tooltip
@@ -136,8 +122,8 @@ const LayoutHorizontal = (props) => {
             </Tooltip>
           </Table.Cell>
         ))}
-      </TableRow>
-      <TableRow width="40px">
+      </Table.Row>
+      <Table.Row width="40px">
         {layout_2.slice().map((item) => (
           <Table.Cell key={item.name}>
             <Tooltip
@@ -163,8 +149,8 @@ const LayoutHorizontal = (props) => {
             </Tooltip>
           </Table.Cell>
         ))}
-      </TableRow>
-      <TableRow width="40px">
+      </Table.Row>
+      <Table.Row width="40px">
         {(orientation === 'east' ? layout_3 : layout_1).slice().map((item) => (
           <Table.Cell key={item.name}>
             <Tooltip
@@ -190,7 +176,7 @@ const LayoutHorizontal = (props) => {
             </Tooltip>
           </Table.Cell>
         ))}
-      </TableRow>
+      </Table.Row>
     </Table>
   );
 };
@@ -200,7 +186,7 @@ const LayoutVertical = (props) => {
   const { assembled, power, strength, max_strength, icon, layout_1, layout_2, layout_3, orientation } = data;
   return (
     <Grid>
-      <GridColumn width="40px">
+      <Grid.Column width="40px">
         {(orientation === 'north' ? layout_1 : layout_3).slice().map((item) => (
           <Stack.Item grow key={item.name}>
             <Tooltip
@@ -226,8 +212,8 @@ const LayoutVertical = (props) => {
             </Tooltip>
           </Stack.Item>
         ))}
-      </GridColumn>
-      <GridColumn>
+      </Grid.Column>
+      <Grid.Column>
         {layout_2.slice().map((item) => (
           <Stack.Item grow key={item.name}>
             <Tooltip
@@ -253,8 +239,8 @@ const LayoutVertical = (props) => {
             </Tooltip>
           </Stack.Item>
         ))}
-      </GridColumn>
-      <GridColumn width="40px">
+      </Grid.Column>
+      <Grid.Column width="40px">
         {(orientation === 'north' ? layout_3 : layout_1).slice().map((item) => (
           <Stack.Item grow key={item.name} tooltip={item.status}>
             <Tooltip
@@ -280,7 +266,7 @@ const LayoutVertical = (props) => {
             </Tooltip>
           </Stack.Item>
         ))}
-      </GridColumn>
+      </Grid.Column>
     </Grid>
   );
 };

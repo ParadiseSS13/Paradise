@@ -1,6 +1,7 @@
+import { Box, Button, LabeledList, NoticeBox, Section, Stack, Tabs } from 'tgui-core/components';
+import { capitalize } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, Section, Stack, Tabs } from '../components';
-import { capitalize } from 'common/string';
 import { Window } from '../layouts';
 
 const AIResourceManagementConsoleBody = (props) => {

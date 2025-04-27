@@ -1,7 +1,3 @@
-@use '../base.scss';
-@use '../colors.scss';
-@use '../functions.scss' as *;
-
 .Library__Booklist {
   tr > td {
     text-align: center;
@@ -10,17 +6,18 @@
   tr:not(:first-child) {
     height: 24px;
     line-height: 24px;
+    transition: background-color var(--transition-time-fast);
 
-    transition: background-color 50ms;
     &:hover,
     &:focus {
-      background-color: rgba(base.$color-bg, 1);
+      background-color: var(--color-base);
     }
   }
 }
 
 .Library__SearchContainer {
-  background-color: rgba(base.$color-bg, 0.5);
+  background-color: hsl(from var(--color-base) h s l / 0.5);
+
   tr {
     td:first-child {
       width: 60%;

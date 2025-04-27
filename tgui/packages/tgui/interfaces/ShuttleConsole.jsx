@@ -1,5 +1,6 @@
+import { Button, Fragment, LabeledList, NoticeBox, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Fragment, Section, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
 export const ShuttleConsole = (props) => {

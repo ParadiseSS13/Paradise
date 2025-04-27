@@ -1,5 +1,7 @@
+import { Box, Button, LabeledList, NumberInput, ProgressBar, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Grid, LabeledList, NumberInput, ProgressBar, Section } from '../components';
+import { Grid } from '../components';
 import { Window } from '../layouts';
 
 export const SolarControl = (props) => {

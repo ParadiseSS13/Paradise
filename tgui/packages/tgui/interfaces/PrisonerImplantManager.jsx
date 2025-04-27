@@ -1,10 +1,10 @@
+import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section, Box, Stack } from '../components';
-import { LabeledList } from '../components/LabeledList';
+import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
-import { Window } from '../layouts';
 
 export const PrisonerImplantManager = (props) => {
   const { act, data } = useBackend();

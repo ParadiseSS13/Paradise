@@ -1,5 +1,6 @@
+import { Box, Button, Icon, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, ProgressBar, Box, LabeledList, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 
 export const AIFixer = (props) => {

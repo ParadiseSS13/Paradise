@@ -1,7 +1,8 @@
-import { createSearch } from 'common/string';
 import { useState } from 'react';
+import { Button, Input, LabeledList, Section, Table, Tabs } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, NoticeBox, Tabs, Icon, Table, Input } from '../components';
 import { Window } from '../layouts';
 
 export const RndNetController = (props) => {
@@ -148,7 +149,7 @@ const DesignPage = (_properties) => {
 
   return (
     <Section title="Design Management">
-      <Input fluid placeholder="Search for designs" mb={2} onInput={(e, value) => setSearchText(value)} />
+      <Input fluid placeholder="Search for designs" mb={2} onChange={(value) => setSearchText(value)} />
       {designs
         .filter(
           createSearch(searchText, (entry) => {

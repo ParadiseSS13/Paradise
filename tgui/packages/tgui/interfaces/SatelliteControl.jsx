@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { Box, Button, LabeledList, ProgressBar, Section, Stack, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NanoMap, ProgressBar, Section, Stack, Tabs } from '../components';
+import { NanoMap } from '../components';
 import { Window } from '../layouts';
 
 export const SatelliteControl = (props) => {
@@ -133,7 +135,7 @@ export const SatelliteControlFooter = (props) => {
       {has_goal && (
         <Stack.Item>
           <Section title="Station Shield Coverage">
-            <Stack fill horizontal>
+            <Stack fill>
               <Stack.Item grow={1}>
                 <ProgressBar color={coverage >= coverage_goal ? 'good' : 'average'} value={coverage} maxValue={100}>
                   {coverage}%

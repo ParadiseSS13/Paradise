@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Box, Button, Section, Stack, Table, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table, Tabs, Stack } from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props) => {

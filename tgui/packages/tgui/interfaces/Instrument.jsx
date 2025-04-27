@@ -1,6 +1,7 @@
-import { round } from 'common/math';
+import { Box, Button, Collapsible, Dropdown, LabeledList, Modal, Section, Slider, Stack } from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+
 import { useBackend } from '../backend';
-import { Box, Button, Collapsible, Dropdown, LabeledList, Modal, Section, Slider, Stack } from '../components';
 import { Window } from '../layouts';
 export const Instrument = (properties) => {
   const { act, data } = useBackend();

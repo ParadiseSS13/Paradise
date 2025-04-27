@@ -1,5 +1,6 @@
+import { Box, Table } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, Table } from '../../components';
 
 export const LatheMaterials = (properties) => {
   const { data } = useBackend();

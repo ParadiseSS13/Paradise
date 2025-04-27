@@ -1,8 +1,9 @@
+import { Button, Icon, ProgressBar, Section, Stack, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section, ProgressBar, Stack, Tabs, Icon } from '../components';
 import { Window } from '../layouts';
-import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { AccessList } from './common/AccessList';
+import { ComplexModal, modalOpen } from './common/ComplexModal';
 
 export const RCD = (props) => {
   return (
@@ -245,7 +246,6 @@ const AirlockTypeList = (props) => {
           <Stack.Item grow>
             <Button
               fluid
-              translucent
               selected={door_type === entry.type}
               content={
                 <>

@@ -1,5 +1,6 @@
+import { Blink, Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, Stack, Blink } from '../components';
 import { Window } from '../layouts';
 
 const RQ_NONEW_MESSAGES = 0;
@@ -98,7 +99,6 @@ const MainMenu = (props) => {
         <Stack.Item>
           <Button
             fluid
-            translucent
             lineHeight={3}
             content="View Messages"
             icon={newmessagepriority > RQ_NONEW_MESSAGES ? 'envelope-open-text' : 'envelope'}
@@ -108,7 +108,6 @@ const MainMenu = (props) => {
         <Stack.Item mt={1}>
           <Button
             fluid
-            translucent
             lineHeight={3}
             content="Request Assistance"
             icon="hand-paper"
@@ -117,7 +116,6 @@ const MainMenu = (props) => {
           <Stack.Item>
             <Button
               fluid
-              translucent
               lineHeight={3}
               content="Request Supplies"
               icon="box"
@@ -125,7 +123,6 @@ const MainMenu = (props) => {
             />
             <Button
               fluid
-              translucent
               lineHeight={3}
               content="Request Secondary Goal"
               icon="clipboard-list"
@@ -133,7 +130,6 @@ const MainMenu = (props) => {
             />
             <Button
               fluid
-              translucent
               lineHeight={3}
               content="Relay Anonymous Information"
               icon="comment"
@@ -145,7 +141,6 @@ const MainMenu = (props) => {
           <Stack.Item>
             <Button
               fluid
-              translucent
               lineHeight={3}
               content="Print Shipping Label"
               icon="tag"
@@ -153,7 +148,6 @@ const MainMenu = (props) => {
             />
             <Button
               fluid
-              translucent
               lineHeight={3}
               content="View Shipping Logs"
               icon="clipboard-list"
@@ -165,7 +159,6 @@ const MainMenu = (props) => {
           <Stack.Item mt={1}>
             <Button
               fluid
-              translucent
               lineHeight={3}
               content="Send Station-Wide Announcement"
               icon="bullhorn"

@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Button, Icon, ImageButton, Input, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section, Stack, ImageButton, Input, Icon } from '../components';
 import { Window } from '../layouts';
 
 type Prize = {
@@ -41,12 +42,12 @@ export const PrizeCounter = (props) => {
                         width={12.5}
                         placeholder="Search for a prize"
                         value={searchText}
-                        onInput={(e, value) => setSearchText(value)}
+                        onChange={(value) => setSearchText(value)}
                       />
                     </Stack.Item>
                   )}
                   <Stack.Item>
-                    <Button fluid iconRight icon="ticket" disabled={!tickets} onClick={() => act('eject')}>
+                    <Button fluid iconPosition="right" icon="ticket" disabled={!tickets} onClick={() => act('eject')}>
                       Tickets: <b>{tickets}</b>
                     </Button>
                   </Stack.Item>
@@ -74,7 +75,6 @@ export const PrizeCounter = (props) => {
                     buttonsAlt={
                       <Button
                         bold
-                        translucent
                         fontSize={1.5}
                         tooltip={disabled && 'Not enough tickets'}
                         disabled={disabled}

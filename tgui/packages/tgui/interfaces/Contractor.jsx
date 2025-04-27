@@ -1,9 +1,10 @@
 import { rad2deg } from 'common/math';
 import { Component, Fragment } from 'react';
 import { useState } from 'react';
+import { Box, Button, Flex, Icon, LabeledList, Modal, Section, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, LabeledList, Modal, Section, Tabs } from '../components';
-import { Countdown } from '../components/Countdown';
+import { Countdown } from '../components';
 import { Window } from '../layouts';
 
 const contractStatuses = {
@@ -180,17 +181,10 @@ const Contracts = (properties) => {
       title="Available Contracts"
       overflow="auto"
       buttons={
-        <Button
-          disabled={!can_extract || extractionCooldown}
-          icon="parachute-box"
-          content={[
-            'Call Extraction',
-            extractionCooldown && (
-              <Countdown timeLeft={activeContract.time_left} format={(v, f) => ' (' + f.substr(3) + ')'} />
-            ),
-          ]}
-          onClick={() => act('extract')}
-        />
+        <Button disabled={!can_extract || extractionCooldown} icon="parachute-box" onClick={() => act('extract')}>
+          Call Extraction{' '}
+          {extractionCooldown && <Countdown timeEnd={activeContract.time_left} format={(v, f) => f.substr(3)} />}
+        </Button>
       }
       {...properties}
     >

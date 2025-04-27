@@ -1,7 +1,8 @@
-import { createSearch } from 'common/string';
 import { useState } from 'react';
+import { Box, Button, Dropdown, Input, LabeledList, Section } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Input, Dropdown } from '../components';
 import { Window } from '../layouts';
 
 export const EFTPOS = (props) => {
@@ -88,7 +89,7 @@ const UnlockedView = (props) => {
       </LabeledList.Item>
       <LabeledList.Item label="Linked Account">
         <Box mb={0.5}>{linked_account.name}</Box>
-        <Input width="190px" placeholder="Search by name" onInput={(e, value) => setSearchText(value)} />
+        <Input width="190px" placeholder="Search by name" onChange={(value) => setSearchText(value)} />
         <Dropdown
           mt={0.6}
           width="190px"

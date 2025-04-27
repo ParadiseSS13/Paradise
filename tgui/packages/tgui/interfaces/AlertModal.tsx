@@ -1,9 +1,10 @@
-import { Loader } from './common/Loader';
 import { useState } from 'react';
+import { Autofocus, Box, Button, Flex, Section, Stack } from 'tgui-core/components';
+import { KEY_ENTER, KEY_ESCAPE, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_TAB } from 'tgui-core/keycodes';
+
 import { useBackend } from '../backend';
-import { KEY_ENTER, KEY_ESCAPE, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_TAB } from '../../common/keycodes';
-import { Autofocus, Box, Button, Flex, Section, Stack } from '../components';
 import { Window } from '../layouts';
+import { Loader } from './common/Loader';
 
 type AlertModalData = {
   autofocus: boolean;

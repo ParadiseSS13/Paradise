@@ -1,5 +1,18 @@
+import {
+  Box,
+  Button,
+  Dimmer,
+  Flex,
+  Icon,
+  Knob,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Dimmer, Flex, Stack, Icon, Knob, LabeledList, ProgressBar, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 const stats = [

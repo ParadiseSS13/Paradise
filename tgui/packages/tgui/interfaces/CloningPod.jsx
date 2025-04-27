@@ -1,5 +1,6 @@
+import { Box, Button, Icon, NumberInput, ProgressBar, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, ProgressBar, Section, Box, Stack, Icon, NumberInput } from '../components';
 import { Window } from '../layouts';
 
 export const CloningPod = (props) => {

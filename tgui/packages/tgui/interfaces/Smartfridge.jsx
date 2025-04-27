@@ -1,5 +1,6 @@
+import { Button, Icon, NoticeBox, NumberInput, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Section, Button, NumberInput, Stack, NoticeBox, Icon } from '../components';
 import { Window } from '../layouts';
 
 export const Smartfridge = (props) => {

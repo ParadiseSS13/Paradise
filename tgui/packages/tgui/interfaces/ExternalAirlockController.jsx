@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList, ProgressBar, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, ProgressBar, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 // The minimum and maximum value on the progress bar before it overflow.

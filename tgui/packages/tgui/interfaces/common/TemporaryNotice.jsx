@@ -1,5 +1,6 @@
+import { Button, NoticeBox, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Button, NoticeBox, Stack } from '../../components';
 
 /**
  * Displays a notice box with text and style dictated by the

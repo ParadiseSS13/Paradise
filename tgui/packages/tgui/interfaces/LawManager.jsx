@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList, NoticeBox, Section, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, NoticeBox, Table } from '../components';
 import { Window } from '../layouts';
 
 export const LawManager = (props) => {

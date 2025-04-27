@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Box, Button, LabeledList, Section, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const ShuttleManipulator = (props) => {

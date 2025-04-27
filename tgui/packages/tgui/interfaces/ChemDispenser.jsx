@@ -1,7 +1,8 @@
+import { Box, Button, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Stack, LabeledList, ProgressBar, Section } from '../components';
-import { BeakerContents } from './common/BeakerContents';
 import { Window } from '../layouts';
+import { BeakerContents } from './common/BeakerContents';
 
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 const removeAmounts = [1, 5, 10];

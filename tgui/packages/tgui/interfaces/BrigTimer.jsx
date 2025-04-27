@@ -1,5 +1,6 @@
+import { Box, Button, Dropdown, LabeledList, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Dropdown, Box, Section } from '../components';
 import { Window } from '../layouts';
 
 export const BrigTimer = (props) => {

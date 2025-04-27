@@ -1,9 +1,10 @@
-import { classes } from 'common/react';
+import { KEY_NUMPAD_0, KEY_NUMPAD_9 } from 'common/keycodes';
+import { Box, Button, Section, Stack, Table } from 'tgui-core/components';
+import { KEY_0, KEY_9, KEY_BACKSPACE, KEY_ENTER, KEY_ESCAPE } from 'tgui-core/keycodes';
+import { classes } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Box, Button, Stack, Section, Table } from '../components';
 import { Window } from '../layouts';
-import { TableCell, TableRow } from '../components/Table';
-import { KEY_BACKSPACE, KEY_ENTER, KEY_ESCAPE, KEY_0, KEY_9, KEY_NUMPAD_0, KEY_NUMPAD_9 } from 'common/keycodes';
 
 export const SecureStorage = (props) => {
   return (
@@ -64,23 +65,27 @@ const MainPage = (props) => {
   const status = no_passcode ? '' : locked ? 'bad' : 'good';
 
   return (
-    <Section fill onKeyDown={(e) => handleKeyCodeEvent(e)}>
-      <Stack.Item height={7.3}>
-        <Box className={classes(['SecureStorage__displayBox', 'SecureStorage__displayBox--' + status])} height="100%">
-          {emagged ? 'ERROR' : user_entered_code}
-        </Box>
-      </Stack.Item>
-      <Table>
-        {keypadKeys.map((keyColumn) => (
-          <TableRow key={keyColumn[0]}>
-            {keyColumn.map((key) => (
-              <TableCell key={key}>
-                <NumberButton number={key} />
-              </TableCell>
+    <Section fill className="SecureStorage" onKeyDown={(e) => handleKeyCodeEvent(e)}>
+      <Stack fill vertical>
+        <Stack.Item height={7.3}>
+          <Box className={classes(['SecureStorage__displayBox', 'SecureStorage__displayBox--' + status])} height="100%">
+            {emagged ? 'ERROR' : user_entered_code}
+          </Box>
+        </Stack.Item>
+        <Stack.Item align="center">
+          <Table collapsing>
+            {keypadKeys.map((keyColumn) => (
+              <Table.Row key={keyColumn[0]}>
+                {keyColumn.map((key) => (
+                  <Table.Cell key={key}>
+                    <NumberButton number={key} />
+                  </Table.Cell>
+                ))}
+              </Table.Row>
             ))}
-          </TableRow>
-        ))}
-      </Table>
+          </Table>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -91,12 +96,10 @@ const NumberButton = (props) => {
 
   return (
     <Button
-      fluid
       bold
-      mb="6px"
-      content={number}
+      fluid
       textAlign="center"
-      fontSize="60px"
+      fontSize="55px"
       lineHeight={1.25}
       width="80px"
       className={classes([
@@ -105,6 +108,8 @@ const NumberButton = (props) => {
         'SecureStorage__Button--' + number,
       ])}
       onClick={() => act('keypad', { digit: number })}
-    />
+    >
+      {number}
+    </Button>
   );
 };

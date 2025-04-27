@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Box, Button, Stack, Table, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
 const BotStatus = (mode) => {

@@ -1,7 +1,8 @@
+import { Flex, LabeledList, NoticeBox, Section } from 'tgui-core/components';
+import { capitalize } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { NoticeBox, Flex, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
-import { capitalize } from 'common/string';
 
 const getDamageColor = (damage, maxDamage) => {
   let damageRatio = damage / maxDamage;

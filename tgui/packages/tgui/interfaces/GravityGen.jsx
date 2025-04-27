@@ -1,6 +1,7 @@
 // code\modules\power\gravitygenerator.dm
+import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const GravityGen = (props) => {

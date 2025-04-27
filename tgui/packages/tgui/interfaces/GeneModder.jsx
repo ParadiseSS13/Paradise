@@ -1,7 +1,8 @@
+import { Button, Collapsible, Icon, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section, Stack, Icon, Collapsible, LabeledList } from '../components';
-import { ComplexModal } from './common/ComplexModal';
 import { Window } from '../layouts';
+import { ComplexModal } from './common/ComplexModal';
 
 export const GeneModder = (props) => {
   const { data } = useBackend();

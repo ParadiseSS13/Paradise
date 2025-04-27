@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList, Section, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, AnimatedNumber, Section, NoticeBox, Tabs, Icon, Table } from '../components';
 import { Window } from '../layouts';
 
 export const TcommsRelay = (props) => {

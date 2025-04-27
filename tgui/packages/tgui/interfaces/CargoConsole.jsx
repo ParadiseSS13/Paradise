@@ -1,10 +1,11 @@
-import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { useState } from 'react';
+import { Box, Button, Dropdown, Input, LabeledList, Modal, Section, Stack, Table } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend, useSharedState } from '../backend';
-import { Button, LabeledList, Box, Section, Dropdown, Input, Table, Modal, Stack } from '../components';
 import { Window } from '../layouts';
-import { createSearch } from 'common/string';
 
 export const CargoConsole = (props) => {
   return (
@@ -168,7 +169,7 @@ const CataloguePane = (_properties) => {
           />
         }
       >
-        <Input fluid placeholder="Search for..." onInput={(e, v) => setSearchText(v)} mb={1} />
+        <Input fluid placeholder="Search for..." onChange={(v) => setSearchText(v)} mb={1} />
         <Box maxHeight={25} overflowY="auto" overflowX="hidden">
           <Table m="0.5rem">
             {cratesToShow.map((c) => (

@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Box, Button, Icon, Stack, Table } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, Button, Stack, Section, Table, Icon } from '../../components';
 
 export const pda_minesweeper = (props) => {
   const { act, data } = useBackend();
@@ -8,8 +9,8 @@ export const pda_minesweeper = (props) => {
   const [currentWindow, setWindow] = useState('Game');
 
   const AltWindow = {
-    'Game': 'Leaderboard',
-    'Leaderboard': 'Game',
+    Game: 'Leaderboard',
+    Leaderboard: 'Game',
   };
 
   return (
@@ -48,9 +49,9 @@ export const MineSweeperGame = (props) => {
 
   const handleClick = (row, cell, mode) => {
     act('Square', {
-      'X': row,
-      'Y': cell,
-      'mode': mode,
+      X: row,
+      Y: cell,
+      mode: mode,
     });
   };
 

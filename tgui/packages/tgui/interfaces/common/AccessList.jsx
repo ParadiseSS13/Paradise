@@ -1,6 +1,6 @@
 import { sortBy } from 'common/collections';
 import { useState } from 'react';
-import { Box, Button, Stack, LabeledList, Section, Tabs, Divider } from '../../components';
+import { Box, Button, Divider, LabeledList, Section, Stack, Tabs } from 'tgui-core/components';
 
 const diffMap = {
   0: {

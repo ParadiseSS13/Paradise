@@ -1,7 +1,8 @@
+import { Box, Button, Icon, LabeledList, NoticeBox, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Icon, LabeledList, Section, NoticeBox } from '../components';
 import { Window } from '../layouts';
-import { ComplexModal, modalOpen } from './common/ComplexModal';
+import { ComplexModal } from './common/ComplexModal';
 
 export const EconomyManager = (props) => {
   return (

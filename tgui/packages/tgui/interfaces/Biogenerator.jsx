@@ -1,5 +1,6 @@
+import { Box, Button, Collapsible, Icon, NumberInput, ProgressBar, Section, Stack } from 'tgui-core/components';
+
 import { useBackend, useSharedState } from '../backend';
-import { Button, Section, Box, Stack, Icon, Collapsible, NumberInput, ProgressBar } from '../components';
 import { Window } from '../layouts';
 import { Operating } from './common/Operating';
 

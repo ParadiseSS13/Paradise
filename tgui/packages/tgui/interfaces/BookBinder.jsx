@@ -1,8 +1,8 @@
+import { Box, Button, Dropdown, Icon, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Stack, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
-import { FlexItem } from '../components/Flex';
 
 export const BookBinder = (props) => {
   const { act, data } = useBackend();

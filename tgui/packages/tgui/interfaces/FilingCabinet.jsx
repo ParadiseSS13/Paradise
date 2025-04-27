@@ -1,5 +1,6 @@
+import { Button, Icon, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Section, Button, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 
 export const FilingCabinet = (props) => {

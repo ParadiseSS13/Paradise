@@ -1,11 +1,8 @@
-import { sortBy } from 'common/collections';
-import { flow } from 'common/fp';
-import { toFixed } from 'common/math';
+import { Button, LabeledList, ProgressBar, Section, Stack, Table } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+
 import { useBackend } from '../backend';
-import { Section, Box, Button, Stack, Table, LabeledList, ProgressBar } from '../components';
-import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
-import { TableRow, TableCell } from '../components/Table';
 
 export const SingularityMonitor = (props) => {
   const { act, data } = useBackend();

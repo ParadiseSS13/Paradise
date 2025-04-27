@@ -1,7 +1,8 @@
-import { capitalize } from 'common/string';
-import { toFixed } from 'common/math';
-import { useLocalState, useDispatch, useSelector } from 'tgui/backend';
-import { Button, Input, LabeledList, NoticeBox, Section, Stack, Slider, Collapsible } from 'tgui/components';
+import { useDispatch, useLocalState, useSelector } from 'tgui/backend';
+import { Button, Collapsible, Input, LabeledList, NoticeBox, Section, Slider, Stack } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import { capitalize } from 'tgui-core/string';
+
 import { updateSettings } from './actions';
 import { FONTS } from './constants';
 import { selectSettings } from './selectors';

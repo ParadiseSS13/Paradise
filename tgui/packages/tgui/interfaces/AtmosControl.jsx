@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { Box, Button, Icon, Table, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Icon, NanoMap, Table, Tabs } from '../components';
-import { TableCell } from '../components/Table';
+import { NanoMap } from '../components';
 import { Window } from '../layouts';
 
 const getStatus = (level) => {
@@ -82,9 +83,9 @@ const AtmosControlDataView = (_properties) => {
         </Table.Row>
         {alarms.map((a) => (
           <Table.Row key={a.name}>
-            <TableCell>{a.name}</TableCell>
-            <TableCell>{getStatus(a.danger)}</TableCell>
-            <TableCell>
+            <Table.Cell>{a.name}</Table.Cell>
+            <Table.Cell>{getStatus(a.danger)}</Table.Cell>
+            <Table.Cell>
               <Button
                 icon="cog"
                 content="Access"
@@ -94,7 +95,7 @@ const AtmosControlDataView = (_properties) => {
                   })
                 }
               />
-            </TableCell>
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table>

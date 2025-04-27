@@ -1,19 +1,20 @@
-import { createSearch } from 'common/string';
 import { useState } from 'react';
-import { useBackend } from '../../backend';
 import {
   Box,
   Button,
+  Divider,
   Dropdown,
   Icon,
   Input,
   LabeledList,
   Section,
-  Tabs,
-  Table,
-  Divider,
   Stack,
-} from '../../components';
+  Table,
+  Tabs,
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
+import { useBackend } from '../../backend';
 
 export const pda_nanobank = (props) => {
   const { act, data } = useBackend();
@@ -107,7 +108,7 @@ const Transfer = (props) => {
     <>
       <LabeledList>
         <LabeledList.Item label="Account">
-          <Input placeholder="Search by account name" onInput={(e, value) => setSearchText(value)} />
+          <Input placeholder="Search by account name" onChange={(value) => setSearchText(value)} />
           <Dropdown
             mt={0.6}
             width="190px"
@@ -123,7 +124,7 @@ const Transfer = (props) => {
           />
         </LabeledList.Item>
         <LabeledList.Item label="Amount">
-          <Input placeholder="Up to 5000" onInput={(e, value) => setTransferAmount(value)} />
+          <Input placeholder="Up to 5000" onChange={(value) => setTransferAmount(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Actions">
           <Button.Confirm
@@ -255,7 +256,7 @@ const AccountActions = (props) => {
               <Input
                 placeholder="# Credits"
                 value={auto_approve_amount}
-                onInput={(e, value) =>
+                onChange={(value) =>
                   act('set_approve_amount', {
                     approve_amount: value,
                   })
@@ -327,10 +328,10 @@ const LoginScreen = (props) => {
   return (
     <LabeledList>
       <LabeledList.Item label="Account ID">
-        <Input placeholder="Account ID" onInput={(e, value) => setAccountID(value)} />
+        <Input placeholder="Account ID" onChange={(value) => setAccountID(value)} />
       </LabeledList.Item>
       <LabeledList.Item label="Pin">
-        <Input placeholder="Account Pin" onInput={(e, value) => setAccountPin(value)} />
+        <Input placeholder="Account Pin" onChange={(value) => setAccountPin(value)} />
       </LabeledList.Item>
       <LabeledList.Item>
         <Button

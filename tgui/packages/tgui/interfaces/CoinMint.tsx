@@ -1,7 +1,8 @@
-import { classes } from '../../common/react';
-import { BooleanLike } from 'common/react';
+import { Button, NoticeBox, ProgressBar, Section, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Button, Section, ProgressBar, Stack, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
 type MintData = {
@@ -66,7 +67,6 @@ export const CoinMint = (props) => {
                       key={material.id}
                       bold
                       inline
-                      translucent
                       m={0.2}
                       textAlign={'center'}
                       selected={material.id === data.chosenMaterial}

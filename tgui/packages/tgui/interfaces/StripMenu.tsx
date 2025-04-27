@@ -1,10 +1,11 @@
 import { range } from 'common/collections';
-import { BooleanLike } from 'common/react';
+import { ReactNode } from 'react';
+import { Box, Button, Icon, Image, Stack } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Stack } from '../components';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
 
 const ROWS = 5;
 const COLUMNS = 9;
@@ -499,8 +500,7 @@ export const StripMenu = (props) => {
                     tooltip = slot.displayName;
                   } else if ('name' in item) {
                     content = (
-                      <Box
-                        as="img"
+                      <Image
                         src={`data:image/jpeg;base64,${item.icon}`}
                         height="100%"
                         width="100%"
@@ -561,7 +561,6 @@ export const StripMenu = (props) => {
                             });
                           }}
                           fluid
-                          translucent={get_button_transparency(item)}
                           color={get_button_color(item)}
                           tooltip={tooltip}
                           style={{
@@ -573,8 +572,7 @@ export const StripMenu = (props) => {
                           }}
                         >
                           {slot.image && (
-                            <Box
-                              as="img"
+                            <Image
                               src={resolveAsset(slot.image)}
                               opacity={0.7}
                               style={{

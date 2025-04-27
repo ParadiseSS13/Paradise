@@ -12,7 +12,6 @@ type DebugState = {
 export function debugReducer(state = {} as DebugState, action) {
   const { type } = action;
   if (type === 'debug/toggleKitchenSink') {
-    console.log('Gotcha');
     return {
       ...state,
       kitchenSink: !state.kitchenSink,

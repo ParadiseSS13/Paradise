@@ -1,7 +1,8 @@
-import { useBackend } from '../backend';
-import { Button, LabeledList, ProgressBar, Section, Box, Tabs, Stack, Collapsible, Icon } from '../components';
-import { Window } from '../layouts';
+import { Box, Button, Collapsible, Icon, LabeledList, ProgressBar, Section, Stack, Tabs } from 'tgui-core/components';
+
 import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 
 const brokenFlag = 1 << 0;
 const internalBleedingFlag = 1 << 5;

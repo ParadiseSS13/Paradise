@@ -1,7 +1,8 @@
-import { BooleanLike } from '../../common/react';
 import { ReactNode } from 'react';
+import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
 interface PathogenSymptom {
@@ -20,7 +21,7 @@ interface PathogenStrain {
   diseaseAgent: string;
   possibleTreatments?: string;
   transmissionRoute?: string;
-  symptoms?: PathogenSymptom[];
+  symptoms: PathogenSymptom[];
   isAdvanced: BooleanLike;
 }
 
@@ -30,8 +31,8 @@ interface PanDEMICData {
   beakerContainsBlood: BooleanLike;
   beakerContainsVirus: BooleanLike;
   selectedStrainIndex: number;
-  strains?: PathogenStrain[];
-  resistances?: string[];
+  strains: PathogenStrain[];
+  resistances: string[];
 }
 
 export const PanDEMIC = (props) => {
@@ -148,7 +149,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   return (
     <LabeledList>
       <LabeledList.Item label="Common Name" className="common-name-label">
-        <Stack horizontal align="center">
+        <Stack align="center">
           {commonName ?? 'Unknown'}
           {nameButtons}
         </Stack>
@@ -162,15 +163,12 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   );
 };
 
-const StrainInformationSection = (
-  props: {
-    strain: PathogenStrain;
-    strainIndex: number;
-    sectionTitle?: string;
-    sectionButtons?: ReactNode;
-  },
-  context
-) => {
+const StrainInformationSection = (props: {
+  strain: PathogenStrain;
+  strainIndex: number;
+  sectionTitle?: string;
+  sectionButtons?: ReactNode;
+}) => {
   const { act, data } = useBackend<PanDEMICData>();
   let synthesisCooldown = !!data.synthesisCooldown;
   const appliedSectionButtons = (
@@ -295,7 +293,7 @@ const ResistancesSection = (props) => {
   return (
     <Stack.Item>
       <Section title="Antibodies" fill>
-        <Stack horizontal wrap>
+        <Stack wrap>
           {resistances.map((r, i) => (
             <Stack.Item key={i}>
               <Button

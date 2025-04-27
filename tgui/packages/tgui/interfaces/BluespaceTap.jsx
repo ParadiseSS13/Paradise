@@ -1,21 +1,20 @@
-import { useBackend } from '../backend';
 import {
+  Blink,
+  Box,
   Button,
   Collapsible,
-  Stack,
+  Dimmer,
+  Icon,
   LabeledList,
   NoticeBox,
-  Section,
-  Slider,
-  Box,
   NumberInput,
-  Dimmer,
-  Flex,
-  Icon,
-  Blink,
-} from '../components';
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { formatPower } from '../format';
 
 export const Incursion = (props) => {
   const { data } = useBackend();

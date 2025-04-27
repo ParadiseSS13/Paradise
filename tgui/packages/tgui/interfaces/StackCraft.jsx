@@ -1,10 +1,11 @@
+import { filter, map, reduce, sortBy } from 'common/collections';
 import { useState } from 'react';
+import { Box, Button, Collapsible, ImageButton, Input, NoticeBox, Section } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { filter, sortBy, map, reduce } from 'common/collections';
-import { flow } from 'common/fp';
-import { createSearch } from 'common/string';
 import { Window } from '../layouts';
-import { Box, Section, NoticeBox, Collapsible, Input, ImageButton, Button } from '../components';
 
 export const StackCraft = () => {
   return (
@@ -36,7 +37,7 @@ const Recipes = (props) => {
               width={12.5}
               value={searchText}
               placeholder={'Find recipe'}
-              onInput={(e, value) => setSearchText(value)}
+              onChange={(value) => setSearchText(value)}
             />
           )}
           <Button
@@ -132,7 +133,6 @@ const Multipliers = (props) => {
       finalResult.push(
         <Button
           bold
-          translucent
           fontSize={0.85}
           width={'32px'}
           content={multiplier * recipe.result_amount + 'x'}
@@ -151,7 +151,6 @@ const Multipliers = (props) => {
     finalResult.push(
       <Button
         bold
-        translucent
         fontSize={0.85}
         width={'32px'}
         content={max_available_multiplier * recipe.result_amount + 'x'}

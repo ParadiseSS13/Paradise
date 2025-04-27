@@ -5,7 +5,17 @@
  */
 
 import { useState } from 'react';
-import { Box, DraggableControl, Icon, Input, Knob, LabeledList, NumberInput, Section, Slider } from '../components';
+import {
+  Box,
+  DraggableControl,
+  Icon,
+  Input,
+  Knob,
+  LabeledList,
+  NumberInput,
+  Section,
+  Slider,
+} from 'tgui-core/components';
 
 export const meta = {
   title: 'Input',
@@ -22,7 +32,7 @@ const Story = (props) => {
           <Input value={text} onChange={(e, value) => setText(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Input (onInput)">
-          <Input value={text} onInput={(e, value) => setText(value)} />
+          <Input value={text} onChange={(value) => setText(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="NumberInput (onChange)">
           <NumberInput

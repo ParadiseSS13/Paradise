@@ -1,5 +1,6 @@
+import { Box, Input } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, Input } from '../../components';
 
 export const LatheSearch = (properties) => {
   const { act } = useBackend();

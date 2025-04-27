@@ -1,7 +1,8 @@
-import { classes } from 'common/react';
 import { useState } from 'react';
+import { Box, Button, Divider, Dropdown, Icon, Input, LabeledList, Modal, Section, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Box, Button, Divider, Dropdown, Icon, Input, LabeledList, Modal, Section, Stack } from '../components';
 import { timeAgo } from '../constants';
 import { Window } from '../layouts';
 import { ComplexModal, modalAnswer, modalClose, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
@@ -140,7 +141,8 @@ const MenuButton = (properties) => {
   const { act } = useBackend();
   const { icon = '', iconSpin, selected = false, security = false, onClick, title, children, ...rest } = properties;
   return (
-    <Box
+    <Stack
+      align="center"
       className={classes([
         'Newscaster__menuButton',
         selected && 'Newscaster__menuButton--selected',
@@ -149,11 +151,13 @@ const MenuButton = (properties) => {
       onClick={onClick}
       {...rest}
     >
-      {selected && <Box className="Newscaster__menuButton--selectedBar" />}
-      <Icon name={icon} spin={iconSpin} size="2" />
-      <Box className="Newscaster__menuButton--title">{title}</Box>
+      <Stack.Item>
+        {selected && <Box className="Newscaster__menuButton--selectedBar" />}
+        <Icon name={icon} spin={iconSpin} size="2" />
+      </Stack.Item>
+      <Stack.Item className="Newscaster__menuButton--title">{title}</Stack.Item>
       {children}
-    </Box>
+    </Stack>
   );
 };
 
@@ -259,6 +263,7 @@ const NewscasterJobs = (properties) => {
       <Section
         fill
         scrollable
+        m={0}
         title={
           <>
             <Icon name="briefcase" mr="0.5rem" />

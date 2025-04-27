@@ -1,5 +1,6 @@
+import { NumberInput, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { NumberInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const ColourMatrixTester = (props) => {

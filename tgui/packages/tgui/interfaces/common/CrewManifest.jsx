@@ -1,6 +1,7 @@
+import { Box, Section, Table } from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
+
 import { useBackend } from '../../backend';
-import { Box, Section, Table } from '../../components';
-import { decodeHtmlEntities } from 'common/string';
 import { COLORS } from '../../constants';
 
 const deptCols = COLORS.department;

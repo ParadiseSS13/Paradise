@@ -1,5 +1,6 @@
+import { Box, Button, Dropdown, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Section, Dropdown, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const Teleporter = (props) => {

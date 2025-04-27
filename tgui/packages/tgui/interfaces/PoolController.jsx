@@ -1,5 +1,6 @@
+import { Box, Button, Icon, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Stack, LabeledList, Section, Box, Icon } from '../components';
 import { Window } from '../layouts';
 
 const TEMPS = {

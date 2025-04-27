@@ -1,9 +1,8 @@
 import { useState } from 'react';
+import { Box, Button, Input, Section, Stack } from 'tgui-core/components';
+import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
+
 import { useBackend } from '../../backend';
-import { createSearch, decodeHtmlEntities } from 'common/string';
-import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
-import { Box, Button, Input, Section, Stack } from '../../components';
 
 export const pda_cookbook = (props) => {
   const { act, data } = useBackend();
@@ -26,7 +25,7 @@ export const pda_cookbook = (props) => {
             <Input
               width="200px"
               placeholder={`Search ${current_category}`}
-              onInput={(e, value) => setSearchText(value)}
+              onChange={(value) => setSearchText(value)}
               value={searchText}
             />
           }

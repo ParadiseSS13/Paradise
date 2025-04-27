@@ -1,5 +1,6 @@
+import { Button, Section, Table } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Button, Section, Table } from '../../components';
 
 export const LatheMaterialStorage = (properties) => {
   const { data, act } = useBackend();

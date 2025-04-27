@@ -5,9 +5,10 @@
  * @license ISC
  */
 
+import { Box, Button, LabeledList, NoticeBox, NumberInput, ProgressBar, Section, Stack } from 'tgui-core/components';
+import { formatMoney, formatPower, formatSiUnit } from 'tgui-core/format';
+
 import { useBackend } from '../../backend';
-import { Box, Button, Knob, LabeledList, NoticeBox, NumberInput, ProgressBar, Section, Stack } from '../../components';
-import { formatMoney, formatSiUnit, formatPower } from '../../format';
 import { Window } from '../../layouts';
 
 export const goonstation_PTL = (props) => {
@@ -124,7 +125,7 @@ const OutputControls = (props) => {
         <LabeledList.Item
           label="Laser Circuit"
           buttons={
-            <Stack Horizontal>
+            <Stack>
               <Button icon="crosshairs" color={target === '' ? 'green' : 'red'} onClick={() => act('target')}>
                 {target}
               </Button>

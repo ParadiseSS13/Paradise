@@ -1,12 +1,12 @@
 import { sortBy } from 'common/collections';
-import { createSearch } from 'common/string';
 import { useState } from 'react';
+import { Box, Button, Dropdown, Input, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Input, NanoMap, Section, Stack, Table, Tabs } from '../components';
-import { TableCell } from '../components/Table';
+import { NanoMap } from '../components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
-import { ButtonCheckbox } from '../components/Button';
 
 const getStatText = (cm, critThreshold) => {
   if (cm.dead) {
@@ -123,19 +123,19 @@ const CrewMonitorDataView = (_properties) => {
           const highlighted = highlightedNames.includes(cm.name);
           return (
             <Table.Row key={index} bold={!!cm.is_command}>
-              <TableCell>
-                <ButtonCheckbox
+              <Table.Cell>
+                <Button.Checkbox
                   checked={highlighted}
                   tooltip="Mark on map"
                   onClick={() =>
                     act(highlighted ? 'remove_highlighted_name' : 'add_highlighted_name', { name: cm.name })
                   }
                 />
-              </TableCell>
-              <TableCell>
+              </Table.Cell>
+              <Table.Cell>
                 {cm.name} ({cm.assignment})
-              </TableCell>
-              <TableCell>
+              </Table.Cell>
+              <Table.Cell>
                 <Box inline color={getStatColor(cm, data.critThreshold)}>
                   {getStatText(cm, data.critThreshold)}
                 </Box>
@@ -160,8 +160,8 @@ const CrewMonitorDataView = (_properties) => {
                     {')'}
                   </Box>
                 ) : null}
-              </TableCell>
-              <TableCell>
+              </Table.Cell>
+              <Table.Cell>
                 {cm.sensor_type === 3 || data.ignoreSensors ? (
                   data.isAI || data.isObserver ? (
                     <Button
@@ -182,7 +182,7 @@ const CrewMonitorDataView = (_properties) => {
                     Not Available
                   </Box>
                 )}
-              </TableCell>
+              </Table.Cell>
             </Table.Row>
           );
         })}

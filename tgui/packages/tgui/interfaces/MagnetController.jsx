@@ -1,6 +1,7 @@
-import { toFixed } from 'common/math';
+import { BlockQuote, Button, LabeledList, Section, Slider } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+
 import { useBackend } from '../backend';
-import { BlockQuote, Button, LabeledList, Section, Slider } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 

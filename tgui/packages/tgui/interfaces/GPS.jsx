@@ -1,7 +1,8 @@
 import { rad2deg } from 'common/math';
 import { useState } from 'react';
+import { Box, Button, Icon, Input, LabeledList, Section, Stack, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Stack, Icon, Input, LabeledList, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 const vectorText = (vector) => (vector ? '(' + vector.join(', ') + ')' : 'ERROR');
@@ -100,7 +101,7 @@ const Settings = (properties) => {
             width="5rem"
             value={tag}
             onEnter={() => act('tag', { newtag: newTag })}
-            onInput={(e, value) => setNewTag(value)}
+            onChange={(value) => setNewTag(value)}
           />
           <Button
             disabled={tag === newTag}

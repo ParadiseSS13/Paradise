@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Box } from '../components';
 import { Window } from '../layouts';
 
 const addcommas = (x) => {

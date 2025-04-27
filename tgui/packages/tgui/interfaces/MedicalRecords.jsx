@@ -1,9 +1,10 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useState } from 'react';
+import { Box, Button, Icon, Input, LabeledList, ProgressBar, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Input, LabeledList, ProgressBar, Section, Stack, Tabs, Table } from '../components';
-import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 import { Window } from '../layouts';
+import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
@@ -115,7 +116,7 @@ const MedicalRecordsList = (_properties) => {
             <Input
               fluid
               placeholder="Search by Name, ID, Physical Status, or Mental Status"
-              onInput={(e, value) => setSearchText(value)}
+              onChange={(value) => setSearchText(value)}
             />
           </Stack.Item>
         </Stack>
@@ -168,15 +169,14 @@ const MedicalRecordsMaintenance = (_properties) => {
     <Stack.Item grow textAlign="center">
       <Section fill>
         <Stack.Item grow>
-          <Button fluid translucent lineHeight={3} icon="download" content="Backup to Disk" disabled />
+          <Button fluid lineHeight={3} icon="download" content="Backup to Disk" disabled />
         </Stack.Item>
         <Stack.Item grow>
-          <Button fluid translucent lineHeight={3} icon="upload" content="Upload from Disk" my="0.5rem" disabled />{' '}
+          <Button fluid lineHeight={3} icon="upload" content="Upload from Disk" my="0.5rem" disabled />{' '}
         </Stack.Item>
         <Stack.Item grow>
           <Button.Confirm
             fluid
-            translucent
             lineHeight={3}
             icon="trash"
             content="Delete All Medical Records"
@@ -386,7 +386,7 @@ const MedicalRecordsViruses = (_properties) => {
           ml="0.25rem"
           fluid
           placeholder="Search by Name, Max Stages, or Severity"
-          onInput={(e, value) => setSearchText(value)}
+          onChange={(value) => setSearchText(value)}
         />
       </Stack.Item>
       <Stack fill vertical mt={0.5}>

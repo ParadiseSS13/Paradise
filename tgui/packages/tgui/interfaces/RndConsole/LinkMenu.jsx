@@ -1,6 +1,7 @@
+import { Button, Section, Table } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import { Section, Table, Button } from '../../components';
 
 export const LinkMenu = (properties) => {
   const { act, data } = useBackend();

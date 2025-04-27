@@ -1,7 +1,8 @@
 import { Component } from 'react';
-import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, Tooltip, Slider, LabeledList } from './';
+import { Box, Button, Flex, Icon, LabeledList, Slider, Tooltip } from 'tgui-core/components';
+
 import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
 
 const MAP_SIZE = 510;
 /** At zoom = 1 */

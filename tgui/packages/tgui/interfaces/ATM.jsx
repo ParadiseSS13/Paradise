@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Box, Button, Divider, Icon, Input, LabeledList, Section, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Table, Icon, Input, Divider, Box, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 /*
@@ -119,13 +120,13 @@ const TransferFunds = (props) => {
       <LabeledList>
         <LabeledList.Item label="Account Balance">${money}</LabeledList.Item>
         <LabeledList.Item label="Target Account Number">
-          <Input placeholder="7 Digit Number" onInput={(e, value) => setTargetAccNumber(value)} />
+          <Input placeholder="7 Digit Number" onChange={(value) => setTargetAccNumber(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Funds to Transfer">
-          <Input onInput={(e, value) => setFundsAmount(value)} />
+          <Input onChange={(value) => setFundsAmount(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Transaction Purpose">
-          <Input fluid onInput={(e, value) => setPurpose(value)} />
+          <Input fluid onChange={(value) => setPurpose(value)} />
         </LabeledList.Item>
       </LabeledList>
       <Divider />
@@ -159,7 +160,7 @@ const DefaultScreen = (props) => {
         <LabeledList>
           <LabeledList.Item label="Account Balance">${money}</LabeledList.Item>
           <LabeledList.Item label="Withdrawal Amount">
-            <Input onInput={(e, value) => setFundsAmount(value)} />
+            <Input onChange={(value) => setFundsAmount(value)} />
           </LabeledList.Item>
           <LabeledList.Item>
             <Button
@@ -201,10 +202,10 @@ const LoginScreen = (props) => {
     <Section title="Insert card or enter ID and pin to login">
       <LabeledList>
         <LabeledList.Item label="Account ID">
-          <Input placeholder="6 Digit Number" onInput={(e, value) => setAccountID(value)} />
+          <Input placeholder="6 Digit Number" onChange={(value) => setAccountID(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Pin">
-          <Input placeholder="6 Digit Number" onInput={(e, value) => setAccountPin(value)} />
+          <Input placeholder="6 Digit Number" onChange={(value) => setAccountPin(value)} />
         </LabeledList.Item>
         <LabeledList.Item>
           <Button

@@ -1,5 +1,6 @@
+import { Button, LabeledList, ProgressBar } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { LabeledList, Button, ProgressBar, Box } from '../../components';
 
 export const pai_doorjack = (props) => {
   const { act, data } = useBackend();

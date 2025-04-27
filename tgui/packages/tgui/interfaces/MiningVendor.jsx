@@ -1,7 +1,18 @@
-import { createSearch } from 'common/string';
 import { useState } from 'react';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Dropdown,
+  ImageButton,
+  Input,
+  NoticeBox,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Box, Button, Collapsible, Dropdown, Stack, Input, ImageButton, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 const sortTypes = {
@@ -185,7 +196,6 @@ const MiningVendorItemsCategory = (properties) => {
             dmIconState={item.icon_state}
             buttons={
               <Button
-                translucent
                 width={3.75}
                 disabled={!data.has_id || data.id.points < item.price}
                 onClick={() =>

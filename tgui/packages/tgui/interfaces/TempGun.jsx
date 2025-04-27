@@ -1,8 +1,9 @@
-import { toFixed } from 'common/math';
+import { AnimatedNumber, Box, LabeledList, NumberInput, Section } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import { round } from 'tgui-core/math';
+
 import { useBackend } from '../backend';
-import { LabeledList, NumberInput, Section, AnimatedNumber, Box } from '../components';
 import { Window } from '../layouts';
-import { round } from 'common/math';
 
 export const TempGun = (props) => {
   const { act, data } = useBackend();

@@ -1,5 +1,6 @@
+import { Box, Button, Dimmer, Icon, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Dimmer, Stack, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const SuitStorage = (props) => {

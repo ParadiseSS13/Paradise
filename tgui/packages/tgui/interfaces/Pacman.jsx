@@ -1,7 +1,9 @@
+import { Box, Button, Flex, LabeledList, NumberInput, ProgressBar, Section } from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+
 import { useBackend } from '../backend';
-import { Button, Box, Section, ProgressBar, LabeledList, Knob, NumberInput, Flex, Grid } from '../components';
+import { Grid } from '../components';
 import { Window } from '../layouts';
-import { formatPower } from '../format';
 
 export const Pacman = (props) => {
   const { act, data } = useBackend();

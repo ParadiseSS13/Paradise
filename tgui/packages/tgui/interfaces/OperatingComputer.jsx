@@ -1,7 +1,8 @@
-import { round } from 'common/math';
+import { Box, Button, Icon, Knob, LabeledList, ProgressBar, Section, Stack, Tabs } from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Box, Button, Stack, Icon, Knob, LabeledList, Section, Tabs, ProgressBar } from '../components';
 
 const stats = [
   ['good', 'Conscious'],

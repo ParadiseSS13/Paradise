@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Box, Button, LabeledList, NoticeBox, Section, Table, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, NoticeBox, Tabs, Table } from '../components';
 import { Window } from '../layouts';
 
 export const TcommsCore = (props) => {

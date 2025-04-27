@@ -1,9 +1,11 @@
-import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
+import { Box, Button, Input, LabeledList, Section, Stack } from 'tgui-core/components';
+import { Dropdown } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch, toTitleCase } from 'tgui-core/string';
+
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, Input, LabeledList, Section, Stack, Dropdown } from '../components';
 import { Window } from '../layouts';
-import { createSearch, toTitleCase } from 'common/string';
 
 const canBeMade = (recipe, mavail, gavail, multi) => {
   if (recipe.requirements === null) {
@@ -84,7 +86,7 @@ export const Autolathe = (props) => {
   return (
     <Window width={750} height={525}>
       <Window.Content scrollable>
-        <Stack fill horizontal>
+        <Stack fill>
           <Stack.Item width="70%">
             <Section
               fill
@@ -99,7 +101,7 @@ export const Autolathe = (props) => {
                 />
               }
             >
-              <Input fluid placeholder="Search for..." onInput={(e, v) => setSearchText(v)} mb={1} />
+              <Input fluid placeholder="Search for..." onChange={(v) => setSearchText(v)} mb={1} />
               {recipesToShow.map((recipe) => (
                 <Stack.Item grow key={recipe.ref}>
                   <img

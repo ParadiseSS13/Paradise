@@ -1,6 +1,6 @@
+import { Box, Button, Icon } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, Button, ImageButton, Section } from '../../components';
-import { Icon, IconStack } from '../../components/Icon';
 
 export const pda_games = (props) => {
   const { act, data } = useBackend();
@@ -10,10 +10,10 @@ export const pda_games = (props) => {
     switch (AppName) {
       case 'Minesweeper':
         return (
-          <IconStack>
+          <Icon.Stack>
             <Icon ml="0" mt="10px" name="flag" size="6" color="gray" rotation={30} />
             <Icon ml="9px" mt="23px" name="bomb" size="3" color="black" />
-          </IconStack>
+          </Icon.Stack>
         );
       default:
         return <Icon ml="16px" mt="10px" name="gamepad" size="6" />;

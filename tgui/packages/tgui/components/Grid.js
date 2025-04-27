@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { Table } from './Table';
+import { Table } from 'tgui-core/components';
 
 /** @deprecated */
 export const Grid = (props) => {

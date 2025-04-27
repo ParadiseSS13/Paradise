@@ -1,5 +1,6 @@
+import { Button, Icon, Section, Stack, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Icon, Section, Table, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const PdaPainter = (props) => {
@@ -31,7 +32,7 @@ const PdaMenu = (props) => {
   const { act, data } = useBackend();
   const { pda_colors } = data;
   return (
-    <Stack fill horizontal>
+    <Stack fill>
       <Stack.Item>
         <PdaImage />
       </Stack.Item>

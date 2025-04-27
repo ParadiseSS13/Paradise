@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { LabeledList, Box, Button } from '../../components';
 
 export const pai_main_menu = (props) => {
   const { act, data } = useBackend();

@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Button, LabeledList, Section, Box } from '../../components';
 
 const DISK_TYPE_DESIGN = 'design';
 const DISK_TYPE_TECH = 'tech';

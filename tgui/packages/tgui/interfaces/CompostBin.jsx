@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { Box, Button, LabeledList, NumberInput, ProgressBar, Section, Stack } from 'tgui-core/components';
+
 import { useBackend, useSharedState } from '../backend';
-import { Button, Section, Box, Stack, NumberInput, ProgressBar, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 export const CompostBin = (props) => {

@@ -5,35 +5,36 @@
  */
 
 import { useState } from 'react';
-import { capitalize } from 'common/string';
-import { toFixed } from 'common/math';
 import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Box,
   Button,
+  Collapsible,
   ColorBox,
   Divider,
   Input,
   LabeledList,
-  Slider,
   Section,
+  Slider,
   Stack,
   Tabs,
   TextArea,
-  Collapsible,
-} from 'tgui/components';
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import { capitalize } from 'tgui-core/string';
+
 import { ChatPageSettings } from '../chat';
 import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import {
-  changeSettingsTab,
-  updateSettings,
   addHighlightSetting,
+  changeSettingsTab,
   removeHighlightSetting,
   updateHighlightSetting,
+  updateSettings,
 } from './actions';
-import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
-import { selectActiveTab, selectSettings, selectHighlightSettings, selectHighlightSettingById } from './selectors';
+import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
+import { selectActiveTab, selectHighlightSettingById, selectHighlightSettings, selectSettings } from './selectors';
 import { SettingsStatPanel } from './SettingsStatPanel';
 
 export const SettingsPanel = (props) => {
@@ -329,7 +330,7 @@ const TextHighlightSetting = (props) => {
             monospace
             placeholder="#ffffff"
             value={highlightColor}
-            onInput={(e, value) =>
+            onChange={(value) =>
               dispatch(
                 updateHighlightSetting({
                   id: id,
@@ -341,10 +342,11 @@ const TextHighlightSetting = (props) => {
         </Stack.Item>
       </Stack>
       <TextArea
+        fluid
         height="3em"
         value={highlightText}
         placeholder="Put terms to highlight here. Separate terms with commas or vertical bars, i.e. (term1 | term2) or (term1, term2). Regex syntax is /[regex]/"
-        onChange={(e, value) =>
+        onChange={(value) =>
           dispatch(
             updateHighlightSetting({
               id: id,

@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList, ProgressBar, Section, Slider, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section, LabeledList, Slider, Box, ProgressBar, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const PortablePump = (props) => {

@@ -1,5 +1,6 @@
+import { AnimatedNumber, Box, Button, Icon, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, Stack, Icon, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 const damageTypes = [

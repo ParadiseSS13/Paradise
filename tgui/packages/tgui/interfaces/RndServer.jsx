@@ -1,6 +1,6 @@
+import { Box, Button, LabeledList, Section, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { toFixed } from 'common/math';
-import { Button, LabeledList, Box, AnimatedNumber, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 export const RndServer = (props) => {

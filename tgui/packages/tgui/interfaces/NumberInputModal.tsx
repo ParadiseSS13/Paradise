@@ -1,17 +1,18 @@
-import { Loader } from './common/Loader';
-import { InputButtons } from './common/InputButtons';
-import { KEY_ENTER, KEY_ESCAPE } from '../../common/keycodes';
 import { useState } from 'react';
+import { Box, Button, RestrictedInput, Section, Stack } from 'tgui-core/components';
+import { KEY_ENTER, KEY_ESCAPE } from 'tgui-core/keycodes';
+
 import { useBackend } from '../backend';
-import { Box, Button, RestrictedInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type NumberInputData = {
   init_value: number;
   large_buttons: boolean;
-  max_value: number | null;
+  max_value: number;
   message: string;
-  min_value: number | null;
+  min_value: number;
   timeout: number;
   title: string;
   round_value: boolean;
@@ -93,8 +94,8 @@ const InputArea = (props) => {
           allowFloats={!round_value}
           minValue={min_value}
           maxValue={max_value}
-          onChange={(_, value) => onChange(value)}
-          onEnter={(_, value) => act('submit', { entry: value })}
+          onChange={onChange}
+          onEnter={(value) => act('submit', { entry: value })}
           value={input}
         />
       </Stack.Item>

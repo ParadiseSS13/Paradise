@@ -1,5 +1,6 @@
+import { Button, LabeledList, ProgressBar, Section, Slider, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Stack, LabeledList, ProgressBar, Section, Slider } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 

@@ -1,9 +1,8 @@
-import { createSearch } from 'common/string';
-import { flow } from 'common/fp';
-import { filter } from 'common/collections';
 import { useState } from 'react';
+import { ImageButton, Input, Section, Stack } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Section, Stack, ImageButton, Input } from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -31,12 +30,7 @@ export const Chameleon = (props) => {
 
 const selectSkins = (skins, searchText = '') => {
   const testSearch = createSearch(searchText, (skin: ChameleonSkin) => skin.name);
-  return flow([
-    // Null filter
-    filter((skin) => skin?.name),
-    // Optional search term
-    searchText && filter(testSearch),
-  ])(skins);
+  return skins;
 };
 
 export const ChameleonAppearances = (props) => {
@@ -47,7 +41,7 @@ export const ChameleonAppearances = (props) => {
   return (
     <Stack fill vertical>
       <Stack.Item>
-        <Input fluid placeholder="Search for an appearance" onInput={(e, value) => setSearchText(value)} />
+        <Input fluid placeholder="Search for an appearance" onChange={(value) => setSearchText(value)} />
       </Stack.Item>
       <Stack.Item grow>
         <Section fill scrollable title={'Item Appearance'}>
@@ -59,7 +53,6 @@ export const ChameleonAppearances = (props) => {
                 dmIconState={chameleon_skin.icon_state}
                 imageSize={64}
                 m={0.5}
-                compact
                 key={skin_name}
                 selected={skin_name === selected_appearance}
                 tooltip={chameleon_skin.name}

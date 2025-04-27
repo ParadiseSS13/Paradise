@@ -1,8 +1,9 @@
-import { round, toFixed } from 'common/math';
+import { AnimatedNumber, Box, Button, LabeledList, NumberInput, Section, Stack } from 'tgui-core/components';
+import { round, toFixed } from 'tgui-core/math';
+
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, LabeledList, NumberInput, Section, Stack } from '../components';
-import { BeakerContents } from './common/BeakerContents';
 import { Window } from '../layouts';
+import { BeakerContents } from './common/BeakerContents';
 
 export const ChemHeater = (_props, _context) => {
   return (

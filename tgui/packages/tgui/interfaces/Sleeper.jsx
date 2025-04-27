@@ -1,6 +1,7 @@
-import { round } from 'common/math';
+import { Box, Button, Icon, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+
 import { useBackend } from '../backend';
-import { Box, Button, Icon, LabeledList, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 const stats = [

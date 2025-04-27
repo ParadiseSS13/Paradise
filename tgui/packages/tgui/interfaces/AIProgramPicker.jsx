@@ -1,5 +1,6 @@
+import { Button, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const AIProgramPicker = (props) => {
@@ -36,7 +37,7 @@ export const AIProgramPicker = (props) => {
                         <LabeledList.Item label="Description">{program.description}</LabeledList.Item>
                       </Stack.Item>
                       <Stack>
-                        <Stack.Item horizontal>
+                        <Stack.Item>
                           <LabeledList.Item label={program.installed === 1 ? 'Bandwidth Cost' : 'Memory Cost'}>
                             {program.memory_cost}
                           </LabeledList.Item>

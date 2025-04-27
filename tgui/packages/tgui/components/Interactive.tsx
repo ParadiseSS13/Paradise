@@ -12,10 +12,11 @@
  * SOFTWARE.
  */
 
-import { clamp } from 'common/math';
-import { type ReactNode, type CSSProperties, useRef, useMemo, useEffect, memo } from 'react';
+import { type CSSProperties, memo, type ReactNode, useEffect, useMemo, useRef } from 'react';
+import { clamp } from 'tgui-core/math';
 
-const useEventCallback = <T,>(handler?: (value: T) => void) => {
+// prettier-ignore
+const useEventCallback = <T, >(handler?: (value: T) => void) => {
   const callbackRef = useRef(handler);
   const fn = useRef((value: T) => {
     callbackRef.current && callbackRef.current(value);

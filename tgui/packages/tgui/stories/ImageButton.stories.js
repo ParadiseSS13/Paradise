@@ -5,7 +5,7 @@
  */
 
 import { useState } from 'react';
-import { Button, LabeledList, ImageButton, Input, Slider, Section, Stack } from '../components';
+import { Button, ImageButton, Input, LabeledList, Section, Slider, Stack } from 'tgui-core/components';
 
 export const meta = {
   title: 'ImageButton',
@@ -63,15 +63,15 @@ const Story = (props) => {
             <LabeledList>
               {addImage ? (
                 <LabeledList.Item label="base64">
-                  <Input value={base64} onInput={(e, value) => setbase64(value)} />
+                  <Input value={base64} onChange={(value) => setbase64(value)} />
                 </LabeledList.Item>
               ) : (
                 <>
                   <LabeledList.Item label="Title">
-                    <Input value={title} onInput={(e, value) => setTitle(value)} />
+                    <Input value={title} onChange={(value) => setTitle(value)} />
                   </LabeledList.Item>
                   <LabeledList.Item label="Content">
-                    <Input value={content} onInput={(e, value) => setContent(value)} />
+                    <Input value={content} onChange={(value) => setContent(value)} />
                   </LabeledList.Item>
                   <LabeledList.Item label="Image Size">
                     <Slider

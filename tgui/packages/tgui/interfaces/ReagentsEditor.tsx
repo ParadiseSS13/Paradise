@@ -1,8 +1,9 @@
 import { Component } from 'react';
+import { Button, Input, Section, Stack, Table } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Button, Input, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
-import { createSearch } from 'common/string';
 
 type StaticReagentInformation = {
   name: string;
@@ -91,9 +92,9 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
           <Section fill>
             <Stack fill vertical>
               <Stack.Item>
-                <Stack fill horizontal>
+                <Stack fill>
                   <Stack.Item grow>
-                    <Input fluid value={this.state.searchText} onChange={this.handleSearchChange} />
+                    <Input fluid value={this.state.searchText} onChange={(e) => this.handleSearchChange} />
                   </Stack.Item>
                   <Stack.Item>
                     <Button icon="sync" tooltip="Update Reagent Amounts" onClick={() => act('update_total')} />
@@ -115,10 +116,11 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
 }
 
 // Row for a reagent with non-zero volume
-const PresentReagentRow = (
-  { reagent: { id: reagentID, name, uid, volume } }: { reagent: FilteredReagentInformation },
-  context: unknown
-) => {
+const PresentReagentRow = ({
+  reagent: { id: reagentID, name, uid, volume },
+}: {
+  reagent: FilteredReagentInformation;
+}) => {
   const { act } = useBackend<ReagentsEditorData>();
   return (
     <Table.Row className="reagent-row">
@@ -161,10 +163,7 @@ const PresentReagentRow = (
 };
 
 // Row for a reagent with zero volume
-const AbsentReagentRow = (
-  { reagent: { id: reagentID, name } }: { reagent: FilteredReagentInformation },
-  context: unknown
-) => {
+const AbsentReagentRow = ({ reagent: { id: reagentID, name } }: { reagent: FilteredReagentInformation }) => {
   const { act } = useBackend<ReagentsEditorData>();
   return (
     <Table.Row className="reagent-row absent-row">

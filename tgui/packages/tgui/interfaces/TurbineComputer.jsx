@@ -1,8 +1,9 @@
+import { Button, Knob, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, ProgressBar, Knob, Stack } from '../components';
-import { formatPower } from '../format';
 import { Window } from '../layouts';
-import { toFixed } from 'common/math';
 
 export const TurbineComputer = (props) => {
   const { act, data } = useBackend();

@@ -1,6 +1,7 @@
 // code\game\machinery\doors\airlock_electronics.dm
+import { Button, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 

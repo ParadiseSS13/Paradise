@@ -4,9 +4,9 @@
  * @license MIT
  */
 
-import { globalEvents } from '../events';
-import { acquireHotKey } from '../hotkeys';
-import { KEY_BACKSPACE, KEY_F10, KEY_F11, KEY_F12 } from 'common/keycodes';
+import { globalEvents } from 'tgui-core/events';
+import { acquireHotKey } from 'tgui-core/hotkeys';
+import { KEY_BACKSPACE, KEY_F10, KEY_F11, KEY_F12 } from 'tgui-core/keycodes';
 
 import { openExternalBrowser, toggleDebugLayout, toggleKitchenSink } from './actions';
 
@@ -38,7 +38,7 @@ export function debugMiddleware(store) {
 }
 
 export function relayMiddleware(store) {
-  const devServer = require('tgui-dev-server/link/client.cjs');
+  const devServer = require('tgui-dev-server/link/client.mjs');
   const externalBrowser = location.search === '?external';
   if (externalBrowser) {
     devServer.subscribe((msg) => {

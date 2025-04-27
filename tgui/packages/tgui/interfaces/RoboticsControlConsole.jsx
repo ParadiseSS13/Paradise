@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const RoboticsControlConsole = (props) => {

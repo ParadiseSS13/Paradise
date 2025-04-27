@@ -1,5 +1,6 @@
+import { Button, LabeledList, NumberInput, ProgressBar, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, NumberInput, ProgressBar, Section, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 export const Tank = (props) => {

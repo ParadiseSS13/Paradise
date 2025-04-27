@@ -5,8 +5,9 @@
  */
 
 import { useState } from 'react';
-import { Section, Stack, Tabs } from '../components';
+import { Section, Stack, Tabs } from 'tgui-core/components';
 
+import { useLocalState } from '../backend';
 import { Pane, Window } from '../layouts';
 
 const r = require.context('../stories', false, /\.stories\.js$/);
@@ -26,6 +27,7 @@ function getStories() {
 export function KitchenSink(props) {
   const { panel } = props;
 
+  const [theme] = useLocalState('kitchenSinkTheme', '');
   const [pageIndex, setPageIndex] = useState(0);
 
   const stories = getStories();
@@ -33,7 +35,7 @@ export function KitchenSink(props) {
   const Layout = panel ? Pane : Window;
 
   return (
-    <Layout title="Kitchen Sink" width={600} height={500}>
+    <Layout title="Kitchen Sink" width={600} height={500} theme={theme}>
       <Layout.Content>
         <Stack fill>
           <Stack.Item>

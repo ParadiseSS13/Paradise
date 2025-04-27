@@ -1,5 +1,6 @@
+import { Button, Section, Stack, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section, Table, Stack, Icon, Dimmer } from '../components';
 import { Window } from '../layouts';
 import { Operating } from './common/Operating';
 
@@ -47,7 +48,7 @@ const KitchenTop = (props) => {
   return (
     <Section title="Controls">
       <Stack>
-        <Stack.Item width="50%">
+        <Stack.Item grow>
           <Button
             fluid
             textAlign="center"
@@ -59,7 +60,7 @@ const KitchenTop = (props) => {
             onClick={() => act('cook')}
           />
         </Stack.Item>
-        <Stack.Item width="50%">
+        <Stack.Item grow>
           <Button
             fluid
             textAlign="center"

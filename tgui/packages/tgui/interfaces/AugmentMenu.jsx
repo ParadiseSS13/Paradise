@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { Button, Input, Section, Stack, Tabs } from 'tgui-core/components';
+import { capitalize } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Stack, Button, Section, Tabs, Input } from '../components';
 import { Window } from '../layouts';
-import { capitalize } from 'common/string';
 
 export const AugmentMenu = (props) => {
   return (
@@ -101,7 +102,7 @@ const Abilities = ({ context }) => {
             <Input
               width="200px"
               placeholder="Search Abilities"
-              onInput={(e, value) => setSearchText(value)}
+              onChange={(value) => setSearchText(value)}
               value={searchText}
             />
           </div>

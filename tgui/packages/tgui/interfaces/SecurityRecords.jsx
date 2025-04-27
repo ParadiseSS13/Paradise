@@ -1,7 +1,8 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useState } from 'react';
+import { Box, Button, Icon, Input, LabeledList, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Input, LabeledList, Section, Stack, Tabs, Table } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
@@ -190,7 +191,7 @@ const SecurityRecordsActions = (properties) => {
         <Input
           placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
           fluid
-          onInput={(e, value) => setSearchText(value)}
+          onChange={(value) => setSearchText(value)}
         />
       </Stack.Item>
     </Stack>

@@ -1,5 +1,6 @@
+import { Box, Button, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, ProgressBar, LabeledList, Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const AICard = (props) => {

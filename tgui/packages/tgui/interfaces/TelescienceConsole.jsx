@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Box, Button, Icon, LabeledList, NumberInput, Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, NumberInput, Button, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const TelescienceConsole = (properties) => {

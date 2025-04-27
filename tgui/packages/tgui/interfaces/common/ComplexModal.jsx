@@ -1,5 +1,6 @@
+import { Box, Button, Dropdown, Input, Modal, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Stack, Input, Modal } from '../../components';
 
 let bodyOverrides = {};
 
@@ -75,7 +76,9 @@ export const ComplexModal = (props) => {
 
   let modalOnEnter;
   let modalHeader = (
-    <Button className="Button--modal" icon="arrow-left" content="Cancel" onClick={() => modalClose()} />
+    <Button mt={-1.25} icon="arrow-left" style={{ float: 'right', zIndex: 1 }} onClick={() => modalClose()}>
+      Cancel
+    </Button>
   );
   let modalBody;
   let modalFooter;
@@ -102,15 +105,10 @@ export const ComplexModal = (props) => {
     modalFooter = (
       <Box mt="0.5rem">
         <Button icon="arrow-left" content="Cancel" color="grey" onClick={() => modalClose()} />
-        <Button
-          icon="check"
-          content={'Confirm'}
-          color="good"
-          float="right"
-          m="0"
-          onClick={() => modalAnswer(id, curValue)}
-        />
-        <Box clear="both" />
+        <Button icon="check" color="good" m="0" style={{ float: 'right' }} onClick={() => modalAnswer(id, curValue)}>
+          Confirm
+        </Button>
+        <Box style={{ clear: 'both' }} />
       </Box>
     );
   } else if (type === 'choice') {
@@ -140,23 +138,13 @@ export const ComplexModal = (props) => {
   } else if (type === 'boolean') {
     modalFooter = (
       <Box mt="0.5rem">
-        <Button
-          icon="times"
-          content={data.modal.no_text}
-          color="bad"
-          float="left"
-          mb="0"
-          onClick={() => modalAnswer(id, 0)}
-        />
-        <Button
-          icon="check"
-          content={data.modal.yes_text}
-          color="good"
-          float="right"
-          m="0"
-          onClick={() => modalAnswer(id, 1)}
-        />
-        <Box clear="both" />
+        <Button icon="times" color="bad" style={{ float: 'left' }} mb="0">
+          {data.modal.no_text}
+        </Button>
+        <Button icon="check" color="good" style={{ float: 'right' }} m="0" onClick={() => modalAnswer(id, 1)}>
+          {data.modal.yes_text}
+        </Button>
+        <Box style={{ clear: 'both' }} />
       </Box>
     );
   }

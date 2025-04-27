@@ -12,7 +12,7 @@
  * SOFTWARE.
  */
 
-import { classes } from 'common/react';
+import { classes } from 'tgui-core/react';
 
 interface PointerProps {
   className?: string;

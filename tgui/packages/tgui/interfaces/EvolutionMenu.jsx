@@ -1,10 +1,11 @@
-import { createSearch } from 'common/string';
-import { useState } from 'react';
-import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Tabs, Input } from '../components';
-import { Window } from '../layouts';
-import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
+import { useState } from 'react';
+import { Box, Button, Input, Section, Stack, Tabs } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 
 export const EvolutionMenu = (props) => {
   return (
@@ -94,7 +95,7 @@ const Abilities = (props) => {
             <Input
               width="200px"
               placeholder="Search Abilities"
-              onInput={(e, value) => {
+              onChange={(value) => {
                 handleSearch(value);
               }}
               value={searchText}

@@ -1,12 +1,12 @@
+import { Box, Button, Icon, NoticeBox, Section, Table, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import { Box, Button, Icon, LabeledList, NoticeBox, Section, Table, Tabs } from '../../components';
-import { classes } from 'common/react';
+import { AnalyzerMenu } from './AnalyzerMenu';
 import { DataDiskMenu } from './DataDiskMenu';
 import { LatheMenu } from './LatheMenu';
 import { LinkMenu } from './LinkMenu';
 import { SettingsMenu } from './SettingsMenu';
-import { AnalyzerMenu } from './AnalyzerMenu';
 
 const Tab = Tabs.Tab;
 

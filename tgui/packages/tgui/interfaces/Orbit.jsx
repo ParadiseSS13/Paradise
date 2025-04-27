@@ -1,9 +1,10 @@
-import { createSearch } from 'common/string';
 import { useState } from 'react';
+import { Box, Button, Divider, Icon, Input, Section, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Box, Button, Divider, Icon, Input, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { classes } from 'common/react';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
 

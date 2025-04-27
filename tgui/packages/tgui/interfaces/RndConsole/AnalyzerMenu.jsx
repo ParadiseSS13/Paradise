@@ -1,6 +1,7 @@
-import { classes } from 'common/react';
+import { Button, Icon, LabeledList, Section, Table } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+
 import { useBackend } from '../../backend';
-import { Button, Icon, LabeledList, Section, Table } from '../../components';
 
 export const AnalyzerMenu = (props) => {
   const { data, act } = useBackend();

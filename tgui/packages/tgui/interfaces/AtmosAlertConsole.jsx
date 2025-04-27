@@ -1,5 +1,6 @@
+import { Section } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Section } from '../components';
 import { Window } from '../layouts';
 
 export const AtmosAlertConsole = (props) => {

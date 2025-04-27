@@ -1,7 +1,8 @@
-import { BooleanLike } from 'common/react';
 import { useState } from 'react';
+import { Button, DmIcon, Icon, ImageButton, LabeledList, Section, Slider, Stack, Tabs } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
 import { useBackend, useSharedState } from '../backend';
-import { Button, LabeledList, Section, Tabs, Icon, Stack, Box, Slider, ImageButton, DmIcon } from '../components';
 import { Window } from '../layouts';
 
 const GENDERS = [
@@ -153,7 +154,7 @@ export const AgentCardInfo = (props) => {
             </LabeledList.Item>
             <LabeledList.Item label="Age">
               <Slider
-                fluid
+                width="100%"
                 minValue={17}
                 value={age || 0}
                 maxValue={300}
@@ -174,7 +175,6 @@ export const AgentCardInfo = (props) => {
                     onClick={() => act('change_occupation', { option: 'Primary' })}
                   >
                     <DmIcon
-                      fill
                       icon={'icons/mob/hud/job_assets.dmi'}
                       icon_state={job_icon}
                       verticalAlign="bottom"
@@ -284,7 +284,7 @@ export const AgentCardInfo = (props) => {
 
 export const AgentCardAppearances = (props) => {
   const { act, data } = useBackend<Data>();
-  const [selectedAppearance, setSelectedAppearance] = useSharedState('selectedAppearance', null);
+  const [selectedAppearance, setSelectedAppearance] = useSharedState('selectedAppearance', '');
   const { appearances, id_icon } = data;
   return (
     <Stack.Item grow>
@@ -295,7 +295,6 @@ export const AgentCardAppearances = (props) => {
             dmIcon={id_icon}
             dmIconState={appearance}
             imageSize={64}
-            compact
             selected={appearance === selectedAppearance}
             tooltip={appearance}
             style={{

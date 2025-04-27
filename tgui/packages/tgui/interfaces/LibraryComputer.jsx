@@ -1,6 +1,7 @@
-import { useState, Fragment } from 'react';
+import { Fragment, useState } from 'react';
+import { Box, Button, Dropdown, Icon, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Stack, Icon, LabeledList, Section, Table, Tabs, NoticeBox } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 

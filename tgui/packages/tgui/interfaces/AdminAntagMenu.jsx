@@ -1,23 +1,9 @@
-import { createSearch } from 'common/string';
 import { useState } from 'react';
+import { Box, Button, Icon, Input, NoticeBox, ProgressBar, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Icon,
-  Input,
-  LabeledList,
-  NoticeBox,
-  ProgressBar,
-  Section,
-  Stack,
-  Table,
-  Tabs,
-} from '../components';
-import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
-import { LoginInfo } from './common/LoginInfo';
-import { LoginScreen } from './common/LoginScreen';
 
 const PickTitle = (index) => {
   switch (index) {
@@ -114,7 +100,7 @@ export const AdminAntagMenu = (properties) => {
               scrollable
               buttons={
                 <Stack fill>
-                  <Input placeholder="Search..." width="300px" onInput={(e, value) => setSearchText(value)} />
+                  <Input placeholder="Search..." width="300px" onChange={(value) => setSearchText(value)} />
                   <Button icon="sync" onClick={() => act('refresh')}>
                     Refresh
                   </Button>
@@ -438,7 +424,6 @@ const Security = (properties) => {
               {officer.antag ? (
                 <Button
                   textColor="red"
-                  translucent
                   onClick={() => {
                     act('tp', {
                       mind_uid: officer.mind_uid,
@@ -549,7 +534,6 @@ const HighValueItems = (properties) => {
             <Table.Cell>
               <Button
                 tooltip={item.obj_desc}
-                translucent={item.admin_z}
                 onClick={() =>
                   act('vv', {
                     uid: item.uid,

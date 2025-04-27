@@ -1,8 +1,8 @@
-import { createSearch } from 'common/string';
 import { useState } from 'react';
+import { Button, Icon, Input, LabeledList, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Button, Icon, Input, LabeledList, Section, Stack, Table, Tabs } from '../components';
-import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
@@ -143,10 +143,10 @@ const DepartmentAccountsList = (properties) => {
         <Section>
           <Table className="AccountsUplinkTerminal__list">
             <Table.Row bold>
-              <TableCell>Department Name</TableCell>
-              <TableCell>Account Number</TableCell>
-              <TableCell>Account Status</TableCell>
-              <TableCell>Account Balance</TableCell>
+              <Table.Cell>Department Name</Table.Cell>
+              <Table.Cell>Account Number</Table.Cell>
+              <Table.Cell>Account Status</Table.Cell>
+              <Table.Cell>Account Balance</Table.Cell>
             </Table.Row>
             {department_accounts.map((account) => (
               <Table.Row
@@ -211,7 +211,7 @@ const AccountsActions = (properties) => {
         <Input
           placeholder="Search by account holder, number, status"
           width="100%"
-          onInput={(e, value) => setSearchText(value)}
+          onChange={(value) => setSearchText(value)}
         />
       </Stack.Item>
     </Stack>

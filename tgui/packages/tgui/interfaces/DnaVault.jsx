@@ -1,5 +1,7 @@
+import { Box, Button, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Grid, LabeledList, ProgressBar, Section, Stack } from '../components';
+import { Grid } from '../components';
 import { Window } from '../layouts';
 
 export const DnaVault = (props) => {

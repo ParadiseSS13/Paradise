@@ -1,5 +1,6 @@
+import { Button, Flex, LabeledList, Section, Slider } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Slider, Button, Section, NumberInput, LabeledList, Flex } from '../components';
 import { Window } from '../layouts';
 
 export const ConveyorSwitch = (props) => {

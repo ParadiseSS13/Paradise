@@ -1,5 +1,6 @@
+import { Box, Button, DmIcon, Dropdown, Flex, Icon, LabeledList, Section, Stack, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Table, Dropdown, Flex, Icon, Box, DmIcon, Stack } from '../components';
 import { Window } from '../layouts';
 
 const SelectableTile = (props) => {

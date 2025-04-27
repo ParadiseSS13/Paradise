@@ -1,5 +1,3 @@
-import { toFixed } from 'common/math';
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -11,8 +9,11 @@ import {
   LabeledList,
   Section,
   Tooltip,
-} from '../components';
-import { formatSiUnit } from '../format';
+} from 'tgui-core/components';
+import { formatSiUnit } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const Canister = (props) => {

@@ -1,7 +1,4 @@
-import { classes } from 'common/react';
-import { createSearch } from 'common/string';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -9,14 +6,17 @@ import {
   Dropdown,
   Icon,
   Input,
-  ProgressBar,
+  LabeledList,
+  Modal,
   Section,
   Stack,
   Table,
-  Modal,
-  LabeledList,
-} from '../components';
-import { Countdown } from '../components/Countdown';
+} from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+
+import { useBackend } from '../backend';
+import { Countdown } from '../components';
 import { Window } from '../layouts';
 
 // __DEFINES/construction.dm, L73
@@ -129,24 +129,30 @@ const Designs = (properties) => {
       scrollable
       className="Exofab__designs"
       title={
-        <Dropdown
-          width="19rem"
-          className="Exofab__dropdown"
-          selected={curCategory}
-          options={categories}
-          onSelected={(cat) =>
-            act('category', {
-              cat: cat,
-            })
-          }
-        />
-      }
-      buttons={
-        <Box mt="2px">
-          <Button icon="plus" content="Queue all" onClick={() => act('queueall')} />
-          <Button icon="info" content="Show current tech levels" onClick={() => setShowLevelsModal(true)} />
-          <Button icon="unlink" color="red" tooltip="Disconnect from R&D network" onClick={() => act('unlink')} />
-        </Box>
+        <Stack fill fontSize={1} align="center">
+          <Stack.Item>
+            <Dropdown
+              width={19}
+              selected={curCategory}
+              options={categories}
+              onSelected={(cat) =>
+                act('category', {
+                  cat: cat,
+                })
+              }
+            />
+          </Stack.Item>
+          <Stack.Item grow />
+          <Stack.Item>
+            <Button icon="plus" content="Queue all" onClick={() => act('queueall')} />
+          </Stack.Item>
+          <Stack.Item>
+            <Button icon="info" content="Show current tech levels" onClick={() => setShowLevelsModal(true)} />
+          </Stack.Item>
+          <Stack.Item>
+            <Button icon="unlink" color="red" tooltip="Disconnect from R&D network" onClick={() => act('unlink')} />
+          </Stack.Item>
+        </Stack>
       }
     >
       <Input placeholder="Search by name..." mb="0.5rem" width="100%" onInput={(_e, value) => setSearchText(value)} />
@@ -158,26 +164,23 @@ const Designs = (properties) => {
   );
 };
 
-const Building = (properties) => {
+function Building() {
   const { act, data } = useBackend();
-  const { building, buildStart, buildEnd, worldTime } = data;
+  const { building, buildStart, buildEnd } = data;
+
   return (
     <Section className="Exofab__building" stretchContents>
-      <ProgressBar.Countdown start={buildStart} current={worldTime} end={buildEnd}>
-        <Stack>
-          <Stack.Item>
-            <Icon name="cog" spin />
+      <Countdown progressBar timeStart={buildStart} timeEnd={buildEnd} format={(v, f) => f.substr(3)}>
+        <Stack fill>
+          <Stack.Item grow>
+            <Icon spin name="cog" /> Building
           </Stack.Item>
-          <Stack.Item>
-            Building {building}
-            &nbsp;(
-            <Countdown current={worldTime} timeLeft={buildEnd - worldTime} format={(v, f) => f.substr(3)} />)
-          </Stack.Item>
+          <Stack.Item>{building}</Stack.Item>
         </Stack>
-      </ProgressBar.Countdown>
+      </Countdown>
     </Section>
   );
-};
+}
 
 const Queue = (properties) => {
   const { act, data } = useBackend();

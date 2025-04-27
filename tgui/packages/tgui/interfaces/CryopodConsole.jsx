@@ -1,7 +1,8 @@
+import { Button, Collapsible, LabeledList, NoticeBox, Section } from 'tgui-core/components';
+import { toTitleCase } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Button, Section, NoticeBox, LabeledList, Collapsible } from '../components';
 import { Window } from '../layouts';
-import { toTitleCase } from 'common/string';
 
 export const CryopodConsole = (props) => {
   const { data } = useBackend();

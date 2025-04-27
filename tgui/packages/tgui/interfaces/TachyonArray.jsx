@@ -1,5 +1,6 @@
+import { Button, Flex, LabeledList, NoticeBox, Section, Table } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Flex, Table, NoticeBox, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 export const TachyonArray = (props) => {

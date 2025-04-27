@@ -1,4 +1,5 @@
-import { Section } from '../components';
+import { Section } from 'tgui-core/components';
+
 import { Window } from '../layouts';
 import { CrewManifest } from './common/CrewManifest';
 
