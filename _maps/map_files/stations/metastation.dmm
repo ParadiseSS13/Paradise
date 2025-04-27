@@ -74301,11 +74301,12 @@
 /area/station/maintenance/port2)
 "smj" = (
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
-/obj/machinery/door/airlock/research,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research{
+	name = "Robotics Operating Room"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "sml" = (
@@ -82072,8 +82073,9 @@
 /area/station/security/processing)
 "vFj" = (
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/research,
+/obj/machinery/door/airlock/research{
+	name = "Robotics Operating Room"
+	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
