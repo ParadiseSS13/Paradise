@@ -52,7 +52,7 @@
 	register_signals(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	GLOB.poi_list |= src
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (7 / 3) SECONDS)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (10 / 3) SECONDS)
 
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in ghosts)
