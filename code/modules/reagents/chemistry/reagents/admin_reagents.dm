@@ -4,7 +4,7 @@
 	id = "adminordrazine"
 	description = "It's magic. We don't have to explain it."
 	reagent_state = LIQUID
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#600694"
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	taste_description = "admin abuse"
 

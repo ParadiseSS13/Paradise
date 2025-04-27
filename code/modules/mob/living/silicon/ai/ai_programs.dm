@@ -68,6 +68,11 @@
 		while(program.upgrade_level > 0 && bandwidth < 0)
 			program.downgrade(assigned_ai)
 
+/datum/program_picker/proc/reset_programs()
+	var/list/programs = get_installed_programs()
+	for(var/datum/ai_program/program in programs)
+		program.uninstall(assigned_ai)
+
 /datum/program_picker/ui_host()
 	return assigned_ai ? assigned_ai : src
 
@@ -143,7 +148,6 @@
 							return TRUE
 
 				// No same active program found, install the new active power.
-				SSblackbox.record_feedback("tally", "ai_program_installed", 1, new_spell.name)
 				program.upgrade(A, first_install = TRUE) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
 				A.AddSpell(new_spell)
 				to_chat(A, program.unlock_text)
@@ -161,7 +165,6 @@
 					to_chat(A, "<span class='warning'>You cannot afford this upgrade!</span>")
 					return FALSE
 				program.upgrade(A)
-				SSblackbox.record_feedback("tally", "ai_program_upgrade", 1, "[program.type]")
 			to_chat(A, program.unlock_text)
 			A.playsound_local(A, program.unlock_sound, 50, FALSE, use_reverb = FALSE)
 			return TRUE
@@ -208,6 +211,7 @@
 		return
 	upgrade_level++
 	if(!first_install)
+		SSblackbox.record_feedback("tally", "ai_program_upgrade", 1, "[src.type]")
 		bandwidth_used++
 		user.program_picker.bandwidth--
 
@@ -638,7 +642,6 @@
 /datum/ai_program/multimarket_analyser/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
 	..()
 	SSeconomy.pack_price_modifier = original_price_mod * (0.95 - (0.05 * upgrade_level))
-	upgrade_level++
 	installed = TRUE
 
 /datum/ai_program/multimarket_analyser/downgrade(mob/living/silicon/ai/user)
@@ -1044,7 +1047,7 @@
 	auto_use_uses = FALSE
 	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
-	level_max = 0
+	level_max = 8
 
 /datum/spell/ai_spell/enhanced_tracker/cast(list/targets, mob/living/silicon/ai/user)
 	if(!istype(user))

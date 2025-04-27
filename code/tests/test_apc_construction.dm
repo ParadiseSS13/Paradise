@@ -13,11 +13,7 @@
 	player.click_on(wall)
 	var/obj/machinery/power/apc/apc_frame = player.find_nearby(/obj/machinery/power/apc)
 	// Make this not take 5 billion years.
-	apc_frame.apc_cover_replacement_time = 0
-	apc_frame.apc_frame_replacement_time = 0
 	apc_frame.apc_frame_welding_time = 0
-	apc_frame.apc_electronics_installation_time = 0
-	apc_frame.apc_electronics_crowbar_time = 0
 	apc_frame.apc_terminal_wiring_time = 0
 
 	var/obj/the_electronics = player.spawn_obj_in_hand(/obj/item/apc_electronics/)
