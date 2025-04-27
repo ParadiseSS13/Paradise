@@ -44,6 +44,7 @@
 	var/list/obj/effect/wisp/ghost/orbs
 	/// List of ghosts currently orbiting us.
 	var/list/mob/dead/observer/ghosts
+	var/datum/component/parry/parry_comp
 
 /obj/item/melee/ghost_sword/Initialize(mapload)
 	. = ..()
@@ -52,7 +53,14 @@
 	register_signals(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	GLOB.poi_list |= src
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (10 / 3) SECONDS)
+	parry_comp = AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (10 / 3) SECONDS)
+
+/obj/item/melee/ghost_sword/proc/update_parry(orbs)
+	var/counter = length(orbs)
+	// scaling stamina coeff. 0 ghosts being 1, 20 being 0.5
+	parry_comp.stamina_coefficient = 1 - clamp(counter * 0.025, 0, 0.5)
+	// scaling uptime. 0 ghosts being 30%, 20 ghosts being 70%
+	parry_comp.parry_cooldown = ((10 / 3) - clamp(counter * 0.095, 0, 1.9)) SECONDS
 
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in ghosts)
@@ -109,6 +117,7 @@
 	ghosts[ghost] = orb
 	orbs.Add(orb)
 
+	update_parry(orbs)
 	// if a ghost gets deleted, the orb cleans itself up
 	// which then passes the torch to us to clean ourselves up
 	RegisterSignal(orb, COMSIG_PARENT_QDELETING, PROC_REF(on_orb_qdel))
@@ -158,6 +167,7 @@
 /obj/item/melee/ghost_sword/proc/on_orb_qdel(obj/effect/wisp/ghost/orb)
 	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
 	orbs -= orb
+	update_parry(orbs)
 	for(var/ghost in ghosts)
 		if(ghosts[ghost] == orb)
 			ghosts -= ghost
