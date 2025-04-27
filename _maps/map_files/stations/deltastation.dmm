@@ -54237,16 +54237,9 @@
 	},
 /area/station/security/armory/secure)
 "eXU" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	autolink_id = "o2_out";
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
-	external_pressure_bound = 0;
-	icon_state = "in";
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+	autolink_id = "o2_outlet_scrubber"
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
@@ -54497,16 +54490,9 @@
 	},
 /area/station/medical/surgery/secondary)
 "ffd" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	autolink_id = "n2_out";
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
-	external_pressure_bound = 0;
-	icon_state = "in";
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+	autolink_id = "n2_outlet_scrubber"
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -56051,14 +56037,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("n2o_sensor"="Tank");
-	dir = 4;
-	inlet_injector_autolink_id = "n2o_in";
-	name = "Nitrous Oxide Supply Control";
-	outlet_vent_autolink_id = "n2o_out"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 4;
+	autolink_sensors = list("n2o_sensor");
+	inlet_injector_autolink_ids = list("n2o_in");
+	outlet_autolink_ids = list("n2o_outlet_scrubber");
+	name = "Nitrous Oxide Supply Control"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -59606,16 +59592,15 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("air_sensor"="Tank");
-	dir = 8;
-	inlet_injector_autolink_id = "air_in";
-	name = "Mixed Air Supply Control";
-	outlet_setting = 2000;
-	outlet_vent_autolink_id = "air_out"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 10
+	},
+/obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 8;
+	autolink_sensors = list("air_sensor");
+	inlet_injector_autolink_ids = list("air_in");
+	outlet_autolink_ids = list("air_outlet_scrubber");
+	name = "Air Supply Control"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -60938,15 +60923,9 @@
 	},
 /area/station/science/toxins/mixing)
 "ihK" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "air_out";
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
-	external_pressure_bound = 0;
-	icon_state = "in";
-	internal_pressure_bound = 2000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+	autolink_id = "air_outlet_scrubber"
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -64111,16 +64090,16 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("n2_sensor"="Tank");
-	dir = 8;
-	inlet_injector_autolink_id = "n2_in";
-	name = "Nitrogen Supply Control";
-	outlet_vent_autolink_id = "n2_out"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
+	},
+/obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 8;
+	autolink_sensors = list("n2_sensor");
+	inlet_injector_autolink_ids = list("n2_in");
+	outlet_autolink_ids = list("n2_outlet_scrubber");
+	name = "Nitrogen Supply Control"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -71302,14 +71281,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("tox_sensor"="Tank");
-	dir = 4;
-	inlet_injector_autolink_id = "tox_in";
-	name = "Toxin Supply Control";
-	outlet_vent_autolink_id = "tox_out"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 4;
+	autolink_sensors = list("tox_sensor");
+	inlet_injector_autolink_ids = list("tox_in");
+	outlet_autolink_ids = list("tox_outlet_scrubber");
+	name = "Plasma Supply Control"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -73922,14 +73901,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "olZ" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("waste_sensor"="Tank");
-	dir = 4;
-	inlet_injector_autolink_id = "waste_in";
-	name = "Gas Mix Tank Control";
-	outlet_vent_autolink_id = "waste_out"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 4;
+	autolink_sensors = list("waste_sensor");
+	inlet_injector_autolink_ids = list("waste_in");
+	outlet_autolink_ids = list("waste_outlet_scrubber");
+	name = "Gas Mix Tank Control"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -78065,14 +78044,14 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("o2_sensor"="Tank");
-	dir = 8;
-	inlet_injector_autolink_id = "o2_in";
-	name = "Oxygen Supply Control";
-	outlet_vent_autolink_id = "o2_out"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 8;
+	autolink_sensors = list("o2_sensor");
+	inlet_injector_autolink_ids = list("o2_in");
+	outlet_autolink_ids = list("o2_outlet_scrubber");
+	name = "Oxygen Supply Control"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -78669,16 +78648,9 @@
 	},
 /area/station/science/robotics/chargebay)
 "qtC" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	autolink_id = "co2_out";
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
-	external_pressure_bound = 0;
-	icon_state = "in";
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+	autolink_id = "co2_outlet_scrubber"
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -82559,14 +82531,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/computer/general_air_control/large_tank_control{
-	autolink_sensors = list("co2_sensor"="Tank");
-	dir = 4;
-	inlet_injector_autolink_id = "co2_in";
-	name = "Carbon Dioxide Supply Control";
-	outlet_vent_autolink_id = "co2_out"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	dir = 4;
+	autolink_sensors = list("co2_sensor");
+	inlet_injector_autolink_ids = list("co2_in");
+	outlet_autolink_ids = list("co2_outlet_scrubber");
+	name = "Carbon Dioxide Supply Control"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "rZy" = (
@@ -88146,16 +88118,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
 "uit" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	autolink_id = "tox_out";
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
-	external_pressure_bound = 0;
-	icon_state = "in";
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+	autolink_id = "tox_outlet_scrubber"
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
@@ -89288,16 +89253,9 @@
 	},
 /area/station/supply/sorting)
 "uJH" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	autolink_id = "n2o_out";
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
-	external_pressure_bound = 0;
-	icon_state = "in";
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+	autolink_id = "n2o_outlet_scrubber"
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -95957,16 +95915,9 @@
 /turf/simulated/floor/grass,
 /area/station/science/lobby)
 "xBO" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	autolink_id = "waste_out";
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
-	external_pressure_bound = 0;
-	icon_state = "in";
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+	autolink_id = "waste_outlet_scrubber"
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/engineering/atmos)
