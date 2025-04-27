@@ -1,16 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  ButtonCheckbox,
-  LabeledList,
-  Box,
-  Section,
-  Tabs,
-  Stack,
-  NoticeBox,
-  Icon,
-  IconStack,
-} from '../components';
+import { Button, ButtonCheckbox, Box, Section, Tabs, Stack, Icon, IconStack } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
