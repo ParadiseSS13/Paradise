@@ -516,7 +516,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(SSticker.current_state < GAME_STATE_PREGAME)
+	if(SSticker.current_state < GAME_STATE_STARTUP)
 		alert("Unable to start the game as it is not set up.")
 		return
 
