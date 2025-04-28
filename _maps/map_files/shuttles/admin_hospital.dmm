@@ -278,11 +278,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bt" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bv" = (
@@ -362,10 +358,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bJ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bL" = (
