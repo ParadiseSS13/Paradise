@@ -229,7 +229,8 @@
 	else
 		..()
 
-/obj/item/organ/internal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+// this has 500 things to organ internal and a rework into new attack change seems out of scope.
+/obj/item/organ/internal/attack__legacy__attackchain(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/regen_mesh) && is_xeno_organ)
 		if(organ_quality < ORGAN_PRISTINE)
 			organ_quality = ORGAN_PRISTINE
