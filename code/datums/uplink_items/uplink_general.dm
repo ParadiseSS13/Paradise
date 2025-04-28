@@ -244,6 +244,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 65
 	surplus = 0 // This has caused major problems with un-needed chainsaw massacres. Bwoink bait.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+	can_discount = FALSE // Too gamer.
 
 /datum/uplink_item/dangerous/universal_gun_kit
 	name = "Universal Self Assembling Gun Kit"
