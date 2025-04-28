@@ -56,7 +56,7 @@
 	var/gathered_food = 20 // Start with a bit to use abilities
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/vestigial,
+		/obj/item/organ/internal/heart/xenobiology/vestigial,
 		/obj/item/organ/internal/ears/xenobiology/colorful,
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
 		/obj/item/organ/internal/liver/xenobiology/hungry

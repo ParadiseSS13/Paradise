@@ -31,6 +31,27 @@
 	var/datum/mind/origin
 	var/egg_layed = FALSE
 	sentience_type = SENTIENCE_OTHER
+	contains_xeno_organ = TRUE
+	max_dissection_steps = 3
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
+		/obj/item/organ/internal/heart/xenobiology/vestigial,
+		/obj/item/organ/internal/heart/xenobiology/hyperactive
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/dissect
+	)
+	/// Contains specialty text for each dissection step.
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You make a tiny incision in the diminutive creature.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
