@@ -68,6 +68,11 @@
 		while(program.upgrade_level > 0 && bandwidth < 0)
 			program.downgrade(assigned_ai)
 
+/datum/program_picker/proc/reset_programs()
+	var/list/programs = get_installed_programs()
+	for(var/datum/ai_program/program in programs)
+		program.uninstall(assigned_ai)
+
 /datum/program_picker/ui_host()
 	return assigned_ai ? assigned_ai : src
 
@@ -637,7 +642,6 @@
 /datum/ai_program/multimarket_analyser/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
 	..()
 	SSeconomy.pack_price_modifier = original_price_mod * (0.95 - (0.05 * upgrade_level))
-	upgrade_level++
 	installed = TRUE
 
 /datum/ai_program/multimarket_analyser/downgrade(mob/living/silicon/ai/user)
@@ -1043,7 +1047,7 @@
 	auto_use_uses = FALSE
 	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
-	level_max = 0
+	level_max = 8
 
 /datum/spell/ai_spell/enhanced_tracker/cast(list/targets, mob/living/silicon/ai/user)
 	if(!istype(user))

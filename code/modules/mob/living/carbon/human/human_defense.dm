@@ -407,6 +407,8 @@ emp_act
 	//DAMAGE//
 	for(var/obj/item/organ/external/affecting in damaged)
 		affecting.receive_damage(acidity, 2 * acidity)
+		to_chat(src, "<span class='userdanger'>The acid burns you!</span>")
+		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE)
 
 		if(istype(affecting, /obj/item/organ/external/head))
 			var/obj/item/organ/external/head/head_organ = affecting
@@ -716,6 +718,21 @@ emp_act
 		var/armor = run_armor_check(affecting, MELEE, armour_penetration_flat = M.armour_penetration_flat, armour_penetration_percentage = M.armour_penetration_percentage)
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
+
+/mob/living/carbon/human/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+		if(check_shields(attacker, damage, "[attacker.name]", MELEE_ATTACK, attacker.armour_penetration_flat, attacker.armour_penetration_percentage))
+			return FALSE
+		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		if(!affecting)
+			affecting = get_organ("chest")
+		affecting.add_autopsy_data(attacker.name, damage) // Add the mob's name to the autopsy data
+		var/armor = run_armor_check(affecting, MELEE, armour_penetration_flat = attacker.armour_penetration_flat, armour_penetration_percentage = attacker.armour_penetration_percentage)
+		apply_damage(damage, attacker.melee_damage_type, affecting, armor)
+		updatehealth("basicmob attack")
 
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
