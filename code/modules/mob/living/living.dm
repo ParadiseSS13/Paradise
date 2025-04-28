@@ -212,7 +212,9 @@
 		stop_pulling()
 	var/current_dir
 	if(isliving(AM))
-		current_dir = AM.dir
+		var/mob/living/living_mob = AM
+		if(!living_mob.buckled)
+			current_dir = AM.dir
 	if(AM.Move(get_step(AM.loc, t), t, glide_size))
 		Move(get_step(loc, t), t)
 	if(current_dir)
@@ -350,6 +352,8 @@
 
 /mob/living/acid_act(acidpwr, acid_volume)
 	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
+	to_chat(src, "<span class='userdanger'>The acid burns you!</span>")
+	playsound(src, 'sound/weapons/sear.ogg', 50, TRUE)
 	return 1
 
 /mob/living/welder_act(mob/user, obj/item/I)

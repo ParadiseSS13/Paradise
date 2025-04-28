@@ -124,6 +124,7 @@
 /obj/item/circuitboard/cooking/deep_fryer
 	board_name = "Deep Fryer"
 	build_path = /obj/machinery/cooking/deepfryer
+	icon_state = "service"
 	board_type = "machine"
 	origin_tech = list(TECH_BIO = 1)
 	req_components = list(
