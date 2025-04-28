@@ -1,0 +1,3 @@
+help: 'This chair is a generic type. Use either its subtypes or parent.'
+=/obj/structure/chair/office:
+  banned: true

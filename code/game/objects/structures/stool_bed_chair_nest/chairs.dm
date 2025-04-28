@@ -303,8 +303,6 @@
 	else
 		cut_overlay(armrest)
 
-
-
 /obj/structure/chair/barber
 	icon_state = "barber_chair"
 	buildstackamount = 1

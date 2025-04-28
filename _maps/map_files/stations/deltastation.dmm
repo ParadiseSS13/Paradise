@@ -1805,7 +1805,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "amY" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -17620,7 +17620,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint)
 "bsL" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/camera{
 	c_tag = "Courtroom Gallery";
 	dir = 8
@@ -26094,7 +26094,7 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "bXj" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -26945,7 +26945,7 @@
 	},
 /area/station/hallway/primary/central/east)
 "caw" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
 "cax" = (
@@ -32462,7 +32462,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /obj/machinery/power/apc/directional/north,
@@ -58308,7 +58308,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical)
 "gRI" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -59520,7 +59520,7 @@
 	},
 /area/station/service/hydroponics)
 "hzD" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -69501,7 +69501,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "mlY" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
@@ -77960,7 +77960,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "pYm" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -79293,7 +79293,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "qJc" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -86463,7 +86463,7 @@
 /turf/space,
 /area/space/nearstation)
 "tCE" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -86608,7 +86608,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "tGd" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
