@@ -967,14 +967,14 @@
 	var/list/acceptable_hearts = list()
 
 /obj/item/organ/internal/heart/xenobiology/paradox/insert(mob/living/carbon/human/M, special, dont_remove_slot)
-    for(var/obj/item/organ/internal/heart/xenobiology/temp_organ as anything in subtypesof(/obj/item/organ/internal/heart/xenobiology))
-        if(temp_organ::can_paradox)
-            acceptable_hearts += temp_organ
-    var/obj/item/organ/internal/heart/new_organ = pick(acceptable_hearts)
-    new_organ = new new_organ
-    new_organ.organ_quality = organ_quality
-    new_organ.insert(M)
-    qdel(src)
+	for(var/obj/item/organ/internal/heart/xenobiology/temp_organ as anything in subtypesof(/obj/item/organ/internal/heart/xenobiology))
+		if(temp_organ::can_paradox)
+			acceptable_hearts += temp_organ
+	var/obj/item/organ/internal/heart/new_organ = pick(acceptable_hearts)
+	new_organ = new new_organ
+	new_organ.organ_quality = organ_quality
+	new_organ.insert(M)
+	qdel(src)
 
 /obj/item/organ/internal/heart/xenobiology/bananium
 	name = "Bananium Laced Heart"
