@@ -348,7 +348,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 				return
 			A.AssignName(new_name)
 			for(var/datum/disease/advance/AD in GLOB.active_diseases)
-				AD.Refresh(new_cure = FALSE, new_strain = FALSE)
+				AD.Refresh(FALSE, FALSE, FALSE, FALSE)
 			update_static_data(ui.user)
 		if("switch_strain")
 			var/strain_index = text2num(params["strain_index"])

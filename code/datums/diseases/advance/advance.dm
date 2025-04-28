@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	max_stages = 5
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human)
-	incubation = 90
+	incubation = 30
 
 	// NEW VARS
 
@@ -68,6 +68,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	var/strain = ""
 	/// Is this an event virus?
 	var/event
+	/// How far along the disease has progressed? This is tied with stage but is separate to give more granularity to symptom effects
+	var/progress = 0
 
 /*
 
@@ -155,6 +157,14 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		CRASH("We do not have any symptoms during stage_act()!")
 	return TRUE
 
+/datum/disease/advance/handle_stage_advance(has_cure = FALSE)
+	if(!has_cure && prob(stage_prob))
+		progress = min(progress + 6 , 100)
+		stage = min(ceil(progress / 20), max_stages)
+		if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
+			discovered = TRUE
+			affected_mob.med_hud_set_status()
+
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
 	if(ispath(D))
@@ -167,6 +177,11 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		return FALSE
 
 	return TRUE
+
+/datum/disease/advance/handle_cure_testing(has_cure = FALSE)
+	. = ..()
+	if(has_cure)
+		progress = min(progress, stage * 20)
 
 // To add special resistances.
 /datum/disease/advance/cure(resistance=1)
@@ -310,7 +325,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		SetSpread(clamp(2 ** (properties["transmittable"] - length(symptoms)), BLOOD, AIRBORNE))
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
-		stage_prob = max(properties["stage rate"], 2)
+		// 9 stage rate is twice as fast as 0 stage rate, -9 stage rate is half as fast as 0.
+		stage_prob = 4 * (1.08 ** properties["stage rate"])
 		SetSeverity(properties["severity"])
 		evolution_chance *= (1 + sqrtor0(properties["stage rate"]) / 3)
 		if(new_cure)
@@ -523,7 +539,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		if(!new_name)
 			return
 		admin_disease.AssignName(new_name)
-		admin_disease.Refresh()
+		admin_disease.Refresh(FALSE, TRUE, TRUE, TRUE)
 		return admin_disease
 
 

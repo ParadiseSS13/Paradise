@@ -40,15 +40,15 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	GLOB.current_pending_diseases += list(list("disease" = chosen_disease, "event" = src))
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
 		if(istype(chosen_disease, /datum/disease/advance))
-			var/datum/disease/advance/temp_disease = chosen_disease.Copy()
-			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms: [english_list(temp_disease.symptoms)] and the following base stats:[english_map(temp_disease.base_properties)]</span>")
+			var/datum/disease/advance/temp_disease = chosen_disease
+			to_chat(M, chat_box_examine("<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms:\n[english_list(temp_disease.symptoms)]\nand the following stats:\n[english_map(temp_disease.GenerateProperties())]</span>"))
 		else
-			to_chat(M, "<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!</span>")
+			to_chat(M, chat_box_examine("<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!</span>"))
 
 /datum/event/disease_outbreak/announce()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.major_announcement.Announce("Deadly contagion detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak5.ogg')
+			GLOB.major_announcement.Announce("Lethal viral pathogen detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak5.ogg')
 		if(EVENT_LEVEL_MODERATE)
 			GLOB.minor_announcement.Announce("Moderate contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
 		if(EVENT_LEVEL_MUNDANE)
@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 				for(var/mob/living/carbon/human/player in GLOB.player_list)
 					if(player.ForceContractDisease(chosen_disease, TRUE, TRUE))
 						break
-				announceWhen = activeFor + 240
+				announceWhen = activeFor + 150
 				break
 	. = ..()
 
@@ -95,9 +95,15 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 			var/datum/symptom/TS = pick_n_take(symptoms_to_try)
 			A.AddSymptom(new TS)
 		else
-			popleft(A.symptoms)	//We have a full symptom list but are still not transmittable. Try removing one of the "payloads"
+			var/datum/symptom/removed = popleft(A.symptoms)	//We have a full symptom list but are still not transmittable. Try removing one of the "payloads"
+			if(removed.transmittable > 0)
+				symptoms_to_try |= removed.type
 
 		A.AssignProperties(A.GenerateProperties())
+		// If we ended up losing too much of the payload add another payload
+		if(A.GenerateProperties()["severity"] < max_severity - 1)
+			A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 1)
+
 	A.name = pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick("v", "V", "-" + num2text(GLOB.game_year), "")
 	A.Refresh()
 	return A
@@ -118,5 +124,5 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/list/candidate_list = subtypesof(/datum/symptom) - /datum/symptom/heal/longevity
 	for(var/candidate in candidate_list)
 		var/datum/symptom/CS = candidate
-		if(initial(CS.transmittable) > 1)
+		if(initial(CS.transmittable) > 0)
 			transmissable_symptoms += candidate
