@@ -66,6 +66,8 @@ Difficulty: Hard
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
 	contains_xeno_organ = TRUE
 
+	custom_organ_states = list("hiero1", "hiero2")
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
 							/datum/action/innate/megafauna_attack/chaser_swarm,
 							/datum/action/innate/megafauna_attack/cross_blasts,

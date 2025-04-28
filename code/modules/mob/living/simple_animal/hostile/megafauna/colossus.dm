@@ -59,6 +59,8 @@ Difficulty: Very Hard
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
 
+	custom_organ_states = list("colossus1", "colossus2", "colossus3", "colossus4")
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							/datum/action/innate/megafauna_attack/aoe_attack,
 							/datum/action/innate/megafauna_attack/shotgun,

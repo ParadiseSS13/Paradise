@@ -17,7 +17,7 @@
 /obj/item/dissector/alien
 	name = "Alien Dissection Manager"
 	desc = "A tool of alien origin, capable of near impossible levels of precision during dissections."
-	icon_state = "dissector"
+	icon_state = "dissector_alien"
 
 /datum/surgery_step/generic/dissect
 	name = "dissect"

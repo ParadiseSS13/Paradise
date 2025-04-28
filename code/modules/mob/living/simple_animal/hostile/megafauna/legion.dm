@@ -52,8 +52,8 @@ Difficulty: Medium
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 	appearance_flags = 512
 	max_dissection_steps = 7
-
 	contains_xeno_organ = TRUE
+	custom_organ_states = list("legion1", "legion2")
 
 	xeno_organ_results = list(
 		/obj/item/organ/internal/liver/xenobiology/detox,

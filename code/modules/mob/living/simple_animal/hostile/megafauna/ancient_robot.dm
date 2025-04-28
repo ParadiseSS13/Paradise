@@ -78,6 +78,7 @@ Difficulty: Hard
 	deathmessage = "explodes into a shower of alloys"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
+	contains_xeno_organ = TRUE
 
 	var/charging = FALSE
 	var/revving_charge = FALSE
@@ -87,7 +88,7 @@ Difficulty: Hard
 	var/mode = 0 //This variable controls the special attacks of the robot, one for each anomaly core.
 	var/exploding = FALSE
 
-	contains_xeno_organ = TRUE
+	custom_organ_states = list("vetus1", "vetus2")
 
 	xeno_organ_results = list(
 		/obj/item/organ/internal/liver/xenobiology/detox,

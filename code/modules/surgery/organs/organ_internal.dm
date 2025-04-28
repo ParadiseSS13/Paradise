@@ -3,7 +3,6 @@
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
-	new_attack_chain = TRUE
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0
@@ -218,7 +217,7 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
+/obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/food/S = prepare_eat()

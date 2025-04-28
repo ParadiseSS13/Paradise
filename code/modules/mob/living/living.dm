@@ -941,6 +941,8 @@
 				playsound(src,  current_step.success_sound, 50, TRUE, -1)
 				if(current_dissection_step > max_dissection_steps)
 					var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(src.loc)
+					if(custom_organ_states)
+						new_organ.icon_state = pick(custom_organ_states)
 					new_organ.true_organ_type = pick(xeno_organ_results)
 					new_organ.unknown_quality = pick_quality(I, current_step)
 					xeno_organ_results = null

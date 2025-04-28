@@ -131,6 +131,8 @@
 	var/max_dissection_steps = 5
 	/// What possible xeno organs does this creature hold? None by default
 	var/list/xeno_organ_results = list()
+	/// Does this creature have any special organ sprites?
+	var/list/custom_organ_states = list()
 	/// Contains the list for which paths are needed at each dissection step.
 	var/list/dissection_tool_step = list(
 	/datum/surgery_step/generic/dissect,

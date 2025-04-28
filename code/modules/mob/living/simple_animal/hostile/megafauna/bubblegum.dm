@@ -73,6 +73,8 @@ Difficulty: Hard
 	contains_xeno_organ = TRUE
 	max_dissection_steps = 6
 
+	custom_organ_states = list("bubblegum1", "bubblegum2", "bubblegum3", "bubblegum4")
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/triple_charge,
 							/datum/action/innate/megafauna_attack/hallucination_charge,
 							/datum/action/innate/megafauna_attack/hallucination_surround,
