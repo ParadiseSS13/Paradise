@@ -39460,7 +39460,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/effect/landmark/start/scientist,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -39470,6 +39469,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cRX" = (
@@ -39551,7 +39551,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -40413,7 +40413,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -42319,7 +42319,8 @@
 /obj/machinery/button/windowtint{
 	id = "rnd";
 	pixel_x = 24;
-	dir = 8
+	dir = 8;
+	req_access = list(7)
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -42411,13 +42412,15 @@
 	id = "researchdesk1";
 	name = "Research and Development Front Desk Shutters";
 	pixel_x = -8;
-	pixel_y = -26
+	pixel_y = -26;
+	req_access = list(7)
 	},
 /obj/machinery/door_control{
 	id = "researchdesk2";
 	name = "Research and Development Lab Shutters";
 	pixel_x = 8;
-	pixel_y = -26
+	pixel_y = -26;
+	req_access = list(7)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -52412,7 +52415,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/tox,
+/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/obj/effect/mapping_helpers/airlock/access/any/science/tox,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/misc_lab)
 "eky" = (
@@ -72310,7 +72314,6 @@
 	pixel_x = -6;
 	pixel_y = 3
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "rnd"
 	},
@@ -72322,6 +72325,7 @@
 	id_tag = "researchdesk1";
 	name = "Research and Development Front Desk Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "nys" = (

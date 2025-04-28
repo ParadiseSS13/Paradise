@@ -710,3 +710,13 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/autochef
 	category = list("Misc. Machinery")
+
+/datum/design/organ_analyzer
+	name = "Machine Design (Organ Analyzer)"
+	desc = "The circuit board for an organ analyzer."
+	id = "organ_analyzer"
+	req_tech = list("programming" = 3, "bluespace" = 3, "materials" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/organ_analyzer
+	category = list("Research Machinery")

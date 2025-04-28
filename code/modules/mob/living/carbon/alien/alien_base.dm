@@ -24,6 +24,7 @@
 	var/death_sound = 'sound/voice/hiss6.ogg'
 	contains_xeno_organ = TRUE
 	max_dissection_steps = 5
+	custom_organ_states = list("plasma", "neurotox", "acid", "hivenode")
 	xeno_organ_results = list(
 		/obj/item/organ/internal/alien/plasmavessel,
 		/obj/item/organ/internal/alien/hivenode,

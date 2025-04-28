@@ -12,7 +12,7 @@
 	alien_disarm_damage = 60 //Queens do higher disarm stamina damage than normal aliens
 	alien_slash_damage = 30 //Queens do higher slashing damage to people
 	alien_movement_delay = 1 //This represents a movement delay of 1, or roughly 80% the movement speed of a normal carbon mob
-
+	custom_organ_states = list("plasma_large", "eggsac", "hivenode")
 	xeno_organ_results = list(
 		/obj/item/organ/internal/alien/plasmavessel/queen,
 		/obj/item/organ/internal/alien/acidgland,

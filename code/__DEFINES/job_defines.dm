@@ -57,3 +57,4 @@
 #define JOB_ASSISTANT			(1<<13)
 #define JOB_EXPLORER			(1<<14)
 #define JOB_SMITH				(1<<15)
+#define JOB_XENOBIOLOGIST		(1<<15)

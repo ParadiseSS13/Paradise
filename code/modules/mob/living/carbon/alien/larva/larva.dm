@@ -16,6 +16,7 @@
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
 	hud_type = /datum/hud/larva
+	custom_organ_states = list("plasma_tiny", "neurotox", "acid", "hivenode")
 
 	xeno_organ_results = list(
 		/obj/item/organ/internal/alien/plasmavessel/larva,

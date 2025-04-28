@@ -21,7 +21,7 @@
 	var/is_xeno_organ = FALSE
 	var/cooldown_low = 300
 	var/cooldown_high = 300
-	var/next_activation
+	var/next_activation = 0
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()

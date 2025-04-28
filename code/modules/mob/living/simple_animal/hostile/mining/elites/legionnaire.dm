@@ -40,11 +40,34 @@
 	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
 	var/datum/effect_system/smoke_spread/bad/smoke
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
+	contains_xeno_organ = TRUE
+	max_dissection_steps = 4
+	custom_organ_states = list("legion1", "legion2")
 
 	attack_action_types = list(/datum/action/innate/elite_attack/legionnaire_charge,
 								/datum/action/innate/elite_attack/head_detach,
 								/datum/action/innate/elite_attack/bonfire_teleport,
 								/datum/action/innate/elite_attack/spew_smoke)
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/alien/plasmavessel,
+		/obj/item/organ/internal/alien/hivenode,
+		/obj/item/organ/internal/alien/resinspinner
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/amputate,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You begin sawing through the dense bone obstructions.</span>",
+	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/myhead = null
 	var/obj/structure/legionnaire_bonfire/mypile = null

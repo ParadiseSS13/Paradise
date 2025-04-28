@@ -8,7 +8,7 @@
 	var/leap_on_click = FALSE
 	/// Are we on leap cooldown?
 	var/on_leap_cooldown = FALSE
-
+	custom_organ_states = list("plasma_small", "neurotox", "acid", "hivenode")
 	xeno_organ_results = list(
 		/obj/item/organ/internal/alien/plasmavessel/hunter,
 		/obj/item/organ/internal/alien/hivenode,
