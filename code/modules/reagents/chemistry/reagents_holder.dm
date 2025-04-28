@@ -63,9 +63,10 @@
 			var/datum/chemical_reaction/D = new path()
 			var/list/reaction_ids = list()
 
-			if(D && length(D.required_reagents))
-				for(var/reaction in D.required_reagents)
-					reaction_ids += reaction
+			if(D && (length(D.required_reagents) || length(D.required_catalysts)))
+				var/list/all_requirements = D.required_reagents + D.required_catalysts
+				for(var/reagent_id in all_requirements)
+					reaction_ids += reagent_id
 
 			// Create filters based on each reagent id in the required reagents list
 			for(var/id in reaction_ids)
@@ -191,14 +192,9 @@
 	var/trans_data = null
 	for(var/A in reagent_list)
 		var/datum/reagent/current_reagent = A
-
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
-			if(trans_data && length(trans_data["viruses"]))
-				if(isobj(target))
-					var/obj/thing = target
-					thing.AddComponent(/datum/component/viral_contamination, trans_data["viruses"])
 
 		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, chem_temp, no_react = TRUE)
 		remove_reagent(current_reagent.id, current_reagent_transfer)
@@ -208,6 +204,8 @@
 	if(!no_react)
 		R.handle_reactions()
 		handle_reactions()
+		R.temperature_react()
+		temperature_react()
 	return amount
 
 /datum/reagents/proc/copy_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, safety = FALSE)
@@ -224,8 +222,6 @@
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
-			if(trans_data && length(trans_data["viruses"]))
-				target.AddComponent(/datum/component/viral_contamination, trans_data["viruses"])
 
 		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data)
 
@@ -233,6 +229,8 @@
 	R.update_total()
 	R.handle_reactions()
 	handle_reactions()
+	R.temperature_react()
+	temperature_react()
 	return amount
 
 /datum/reagents/proc/set_reagent_temp(new_temp = T0C, react = TRUE)
@@ -297,8 +295,6 @@
 		if(current_reagent.id == reagent)
 			if(preserve_data)
 				trans_data = copy_data(current_reagent)
-				if(trans_data && length(trans_data["viruses"]))
-					target.AddComponent(/datum/component/viral_contamination, trans_data["viruses"])
 			R.add_reagent(current_reagent.id, amount, trans_data, chem_temp)
 			remove_reagent(current_reagent.id, amount, TRUE)
 			break
@@ -306,6 +302,7 @@
 	update_total()
 	R.update_total()
 	R.handle_reactions()
+	R.temperature_react()
 	return amount
 
 
@@ -708,7 +705,7 @@
 	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
 	if(amount <= 0)
 		return FALSE
-	// Infect with viruses if the reagent has any
+	// Contaminate the container with viruses if the reagent has any. We do this here rather than a reaction because it only depends on the data, and not necessarily the reagent.
 	if(data && length(data["viruses"]) && isobj(my_atom))
 		my_atom.AddComponent(/datum/component/viral_contamination, data["viruses"])
 	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) //equalize with new chems

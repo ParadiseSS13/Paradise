@@ -45,9 +45,18 @@
 
 /datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
 	O.germ_level -= min(volume*20, O.germ_level)
+	SEND_SIGNAL(O, COMSIG_ATOM_DISINFECTED)
 
 /datum/reagent/medicine/sterilizine/reaction_turf(turf/T, volume)
 	T.germ_level -= min(volume*20, T.germ_level)
+
+/datum/reagent/medicine/sterilizine/reaction_temperature(exposed_temperature, exposed_volume)
+	// Sterilize the container
+	for(var/datum/reagent/to_disinfect in holder.reagent_list)
+		if(to_disinfect.data && to_disinfect.data["viruses"])
+			to_disinfect?.data["viruses"] = list()
+	if(isobj(holder.my_atom))
+		SEND_SIGNAL(holder.my_atom, COMSIG_ATOM_DISINFECTED)
 
 /datum/reagent/medicine/synaptizine
 	name = "Synaptizine"
