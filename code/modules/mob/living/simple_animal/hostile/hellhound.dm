@@ -34,6 +34,14 @@
 	var/smoke_lastuse = 0
 	var/smoke_freq = 300 // 30 seconds
 	footstep_type = FOOTSTEP_MOB_CLAW
+	contains_xeno_organ = TRUE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/appendix/xenobiology/feverish,
+		/obj/item/organ/internal/kidneys/xenobiology/sweating
+	)
 
 /mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()

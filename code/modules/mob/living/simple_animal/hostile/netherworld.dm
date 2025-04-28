@@ -16,6 +16,14 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("nether")
+	contains_xeno_organ = TRUE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/ears/xenobiology/vestigial,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/appendix/xenobiology/noisemaker
+	)
 
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"
@@ -29,6 +37,13 @@
 	var/static/list/migo_sounds
 	deathmessage = "wails as its form turns into a pulpy mush."
 	death_sound = 'sound/voice/hiss6.ogg'
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/ears/xenobiology/vestigial,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/liver/xenobiology/sharp
+	)
 
 /mob/living/simple_animal/hostile/netherworld/migo/Initialize(mapload)
 	. = ..()

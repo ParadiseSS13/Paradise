@@ -34,7 +34,7 @@ Difficulty: Very Hard
 	attack_sound = 'sound/magic/ratvar_attack.ogg'
 	icon_state = "eva"
 	icon_living = "eva"
-	icon_dead = ""
+	icon_dead = "eva_dead"
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
@@ -45,7 +45,6 @@ Difficulty: Very Hard
 	move_to_delay = 10
 	ranged = TRUE
 	pixel_x = -32
-	del_on_death = TRUE
 	universal_speak = TRUE
 	internal_gps = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
@@ -55,12 +54,40 @@ Difficulty: Very Hard
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
+	contains_xeno_organ = TRUE
+	max_dissection_steps = 6
+	/// Have we used our final attack yet?
+	var/final_available = TRUE
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							/datum/action/innate/megafauna_attack/aoe_attack,
 							/datum/action/innate/megafauna_attack/shotgun,
 							/datum/action/innate/megafauna_attack/alternating_cardinals)
-	/// Have we used our final attack yet?
-	var/final_available = TRUE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/detox,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
+	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
+	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You carefully sever the metal sections from that of flesh.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
 	. = ..()

@@ -43,6 +43,7 @@ Difficulty: Hard
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "hierophant"
 	icon_living = "hierophant"
+	icon_living ="hierophant_dead"
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list("boss") //asteroid mobs? get that shit out of my beautiful square house
@@ -61,13 +62,37 @@ Difficulty: Hard
 	internal_gps = /obj/item/gps/internal/hierophant
 	medal_type = BOSS_MEDAL_HIEROPHANT
 	score_type = HIEROPHANT_SCORE
-	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
+	contains_xeno_organ = TRUE
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
 							/datum/action/innate/megafauna_attack/chaser_swarm,
 							/datum/action/innate/megafauna_attack/cross_blasts,
 							/datum/action/innate/megafauna_attack/blink_spam)
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/appendix/xenobiology/freezing,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/datum/spell/turf_teleport/organ_teleport
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/robotics/external/unscrew_hatch,
+	/datum/surgery_step/robotics/external/open_hatch,
+	/datum/surgery_step/robotics/manipulate_robotic_organs/extract,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You begin to unscrew the coverings.</span>",
+	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
+	"<span class='notice'>You carefully begin to disconnect any active systems.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams

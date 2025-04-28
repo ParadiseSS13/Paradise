@@ -22,6 +22,29 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
+	contains_xeno_organ = TRUE
+	max_dissection_steps = 5
+	xeno_organ_results = list(
+		/obj/item/organ/internal/alien/plasmavessel,
+		/obj/item/organ/internal/alien/hivenode,
+		/obj/item/organ/internal/alien/resinspinner
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/amputate,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You begin sawing through the chitinout outer layer.</span>",
+	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
+	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()

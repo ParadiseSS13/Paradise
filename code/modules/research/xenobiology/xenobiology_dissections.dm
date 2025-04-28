@@ -133,9 +133,19 @@
 	tough = TRUE
 	is_xeno_organ = TRUE
 
+/obj/item/organ/internal/cyberimp/mouth/xenobiology
+	name = "Unidentified Electronic"
+	desc = "This is a parent object and should not appear. Contact a developer."
+	icon = 'icons/obj/xeno_organs.dmi'
+	icon_state = "organ4"
+	dead_icon = null
+	origin_tech = null
+	tough = TRUE
+	is_xeno_organ = TRUE
+
 /obj/item/organ/internal/liver/xenobiology/toxic
 	name = "Toxic Glands"
-	desc = "These fleshy glands' alien chemistry are incompatable with most humanoid life."
+	desc = "These fleshy glands' alien chemistry are incompatible with most humanoid life."
 
 /obj/item/organ/internal/liver/xenobiology/toxic/on_life()
 	. = ..()
@@ -184,8 +194,8 @@
 		owner.set_heartattack(TRUE) // what did you expect?
 
 /obj/item/organ/internal/heart/xenobiology/incompatible
-	name = "Incompatable Organ"
-	desc = "This organ is largely incompatable with humanoid physiology. It will probablywork, but will cause a host of other issues."
+	name = "Incompatible Organ"
+	desc = "This organ is largely incompatible with humanoid physiology. It will probablywork, but will cause a host of other issues."
 	can_paradox = TRUE
 
 /obj/item/organ/internal/heart/xenobiology/incompatible/on_life()
@@ -205,7 +215,7 @@
 /obj/item/organ/internal/lungs/xenobiology/flame_sack/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
 	if(!isunathi(M))
-		var/datum/action/innate/unathi_ignite/fire = new()
+		var/datum/action/innate/unathi_ignite/fire = new
 		fire.Grant(M)
 	if(organ_quality == ORGAN_PRISTINE) // grants a 3-range ash drake breath
 		M.AddSpell(new /datum/spell/drake_breath)
@@ -267,7 +277,7 @@
 
 /obj/item/organ/internal/kidneys/xenobiology/sinew/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
-	var/datum/spell/create_sinew/sinew_spell = new /datum/spell/create_sinew
+	var/datum/spell/create_sinew/sinew_spell = new
 	sinew_spell.quality = organ_quality
 	M.AddSpell(sinew_spell)
 
@@ -343,11 +353,21 @@
 	var/list/edible_minerals = list(
 		/obj/item/stack/sheet/mineral/silver = list(
 			"reagents" = list(
-				"nutriment" = 5,
+				"nutriment" = 1,
 				"vitamin" = 1,
 			),
 			"tastes" = list(
 				"metal and blood" = 1,
+			),
+		),
+		/obj/item/stack/sheet/mineral/uranium = list(
+			"reagents" = list(
+				"nutriment" = 1,
+				"uranium" = 1,
+			),
+			"tastes" = list(
+				"metal and blood. ow" = 1,
+				"bad ideas" = 1,
 			),
 		)
 	)
@@ -356,11 +376,11 @@
 			/obj/item/stack/sheet/mineral/gold = list(
 				"reagents" = list(
 					"salglu_solution" = 5,
-					"nutriment" = 5,
+					"nutriment" = 1,
 					"vitamin" = 1,
 				),
 				"tastes" = list(
-					"metal and blood" = 1,
+					"metal and blood. ow" = 1,
 				),
 			)
 		)
@@ -368,13 +388,13 @@
 		edible_minerals += list(
 			/obj/item/stack/sheet/mineral/diamond = list(
 				"reagents" = list(
-					"nutriment" = 5,
+					"nutriment" = 1,
 					"bicaridine" = 3,
 					"kelotane" = 3,
 					"vitamin" = 1,
 				),
 				"tastes" = list(
-					"metal and blood" = 1,
+					"metal and blood. ow" = 1,
 				),
 			)
 		)
@@ -405,7 +425,7 @@
 
 /obj/item/organ/internal/appendix/xenobiology/toxin_stinger/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
-	var/datum/spell/organ_sting/spell = new /datum/spell/organ_sting
+	var/datum/spell/organ_sting/spell = new
 	if(organ_quality == ORGAN_DAMAGED)
 		spell.base_cooldown = 8 MINUTES
 	if(terror)
@@ -472,7 +492,7 @@
 	. = ..()
 	if(/datum/antagonist/changeling in M.mind.antag_datums)
 		return // we shouldnt be giving free abilities to lings who have them
-	var/datum/action/changeling/contort_body/xenobiology/spell = new /datum/action/changeling/contort_body/xenobiology
+	var/datum/action/changeling/contort_body/xenobiology/spell = new
 	if(organ_quality == ORGAN_DAMAGED)
 		spell.cooldown = 8 MINUTES
 	spell.organ_quality = organ_quality
@@ -493,7 +513,7 @@
 
 /obj/item/organ/internal/heart/xenobiology/bloody_sack/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
-	var/datum/spell/absorb_blood/spell = new /datum/spell/absorb_blood
+	var/datum/spell/absorb_blood/spell = new
 	spell.quality = organ_quality
 	M.AddSpell(spell)
 
@@ -577,7 +597,7 @@
 
 /obj/item/organ/internal/appendix/xenobiology/tendril/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
-	var/datum/spell/tendril_grab/spell = new /datum/spell/tendril_grab
+	var/datum/spell/tendril_grab/spell = new
 	spell.quality = organ_quality
 	if(organ_quality == ORGAN_DAMAGED)
 		spell.base_cooldown = 45 SECONDS
@@ -651,7 +671,7 @@
 
 /obj/item/organ/internal/eyes/xenobiology/glowing/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
-	var/datum/spell/turf_teleport/organ_teleport/spell = new /datum/spell/turf_teleport/organ_teleport
+	var/datum/spell/turf_teleport/organ_teleport/spell = new
 	spell.quality = organ_quality
 	if(organ_quality == ORGAN_PRISTINE)
 		spell.base_cooldown = 90 SECONDS
@@ -715,11 +735,11 @@
 	if(owner.get_temperature() < owner.dna.species.cold_level_1 + 40)
 		switch(organ_quality)
 			if(ORGAN_DAMAGED)
-				owner.bodytemperature += 2
+				owner.bodytemperature += 15
 			if(ORGAN_NORMAL)
-				owner.bodytemperature += 4
+				owner.bodytemperature += 20
 			if(ORGAN_PRISTINE)
-				owner.bodytemperature += 6
+				owner.bodytemperature += 30
 
 /obj/item/organ/internal/kidneys/xenobiology/sweating
 	name = "Sweaty Organ"
@@ -731,11 +751,11 @@
 	if(owner.get_temperature() > owner.dna.species.heat_level_1 - 40)
 		switch(organ_quality)
 			if(ORGAN_DAMAGED)
-				owner.bodytemperature -= 2
+				owner.bodytemperature -= 15
 			if(ORGAN_NORMAL)
-				owner.bodytemperature -= 4
+				owner.bodytemperature -= 20
 			if(ORGAN_PRISTINE)
-				owner.bodytemperature -= 6
+				owner.bodytemperature -= 30
 
 /obj/item/organ/internal/liver/xenobiology/soupy
 	name = "Soupy Organ"
@@ -784,7 +804,7 @@
 
 /obj/item/organ/internal/lungs/xenobiology/mirror/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
-	var/datum/spell/create_mirror/spell = new /datum/spell/create_mirror
+	var/datum/spell/create_mirror/spell = new
 	spell.quality = organ_quality
 	M.AddSpell(spell)
 
@@ -850,7 +870,7 @@
 
 /obj/item/organ/internal/appendix/xenobiology/electro_strands/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
-	var/datum/spell/aoe/flicker_lights/spell = new /datum/spell/aoe/flicker_lights
+	var/datum/spell/aoe/flicker_lights/spell = new
 	spell.from_organ = TRUE
 	M.AddSpell(spell)
 
@@ -949,7 +969,6 @@
 /obj/item/organ/internal/heart/xenobiology/paradox/insert(mob/living/carbon/human/M, special, dont_remove_slot)
     for(var/obj/item/organ/internal/heart/xenobiology/temp_organ as anything in subtypesof(/obj/item/organ/internal/heart/xenobiology))
         if(temp_organ::can_paradox)
-            log_debug("Didnt find can_paradox")
             acceptable_hearts += temp_organ
     var/obj/item/organ/internal/heart/new_organ = pick(acceptable_hearts)
     new_organ = new new_organ
@@ -961,6 +980,7 @@
 	name = "Bananium Laced Heart"
 	desc = "Squeak squeak squeak sqonk honk honk snorf"
 	analyzer_price = 5
+	can_paradox = TRUE
 
 /obj/item/organ/internal/heart/xenobiology/bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)
 	. = ..()
@@ -1034,8 +1054,15 @@
 	unremovable = TRUE
 	var/attempts = 1
 	layer = ABOVE_MOB_LAYER // front and center baybee
+	var/list/clown_noises = list(
+		"HONK!",
+		"SQUEAK!",
+		"TEEHEE!",
+		"HONK HONK HONK HONK HONK!!!",
+		"THEY MUST ALL BE HONKED!"
+	)
 
-/obj/item/organ/internal/heart/xenobiology/cursed_bananium
+/obj/item/organ/internal/heart/xenobiology/cursed_bananium/admin
 	attempts = 3
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)
@@ -1050,8 +1077,10 @@
 		src.forceMove(M.loc)
 		return
 	if(M.mind.assigned_role == "Clown")
-		addtimer(CALLBACK(src, PROC_REF(glorious_death), M), 20 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(glorious_death), M), 5 MINUTES)
+		to_chat(owner, "<span class='userdanger'>YOU FEEL THE PURE, UNFILTERED JOY OF THE HONKMOTHER!!!</span>")
 		playsound(M, 'sound/magic/magic_block_holy.ogg', 60)
+		ADD_TRAIT(M, TRAIT_GOTTAGOFAST, ORGAN_TRAIT)
 		M.color = rgb(255, 251, 0)
 		M.set_light(2, 5, rgb(255, 251, 0))
 		M.AddComponent(/datum/component/squeak)
@@ -1062,7 +1091,7 @@
 	. = ..()
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/proc/glorious_death(mob/living/carbon/human/M)
-	playsound(M.loc, 'sound/magic/magic_block_holy.ogg', 60, extrarange = 10, falloff_exponent = 2, ignore_walls = TRUE, pressure_affected = FALSE)
+	playsound(M.loc, 'sound/effects/pray.ogg', 60, extrarange = 10, falloff_exponent = 2, ignore_walls = TRUE, pressure_affected = FALSE)
 	M.color = rgb(255, 252, 82)
 	M.set_light(10, 25, rgb(255, 252, 82))
 	M.add_filter("sacrifice_glow", 2, list("type" = "outline", "color" = "#fbff00d2", "size" = 2))
@@ -1073,6 +1102,7 @@
 	M.dir = 2
 	animate(M, pixel_y = 64, time = 2 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(finalize_death), M), 2 SECONDS)
+	to_chat(owner, "<span class='userdanger'>THE JOY! THE POWER! YOU CAN FEEL THE HONKMOTHERS SMILE! YOU CAN FEEL- oh no</span>")
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/proc/finalize_death(mob/living/carbon/human/M)
 	explosion(get_turf(M),0,2,4,4, smoke = TRUE, cause = owner)
@@ -1082,27 +1112,340 @@
 	. = ..()
 	if(owner.mind) // I AM A GOD!!!!
 		if(owner.mind.assigned_role == "Clown")
-			owner.adjustBruteLoss(-10)
-			owner.adjustFireLoss(-10)
-			owner.adjustOxyLoss(-10)
-			owner.adjustToxLoss(-10)
-			owner.SetJitter(20 SECONDS)
+			owner.adjustBruteLoss(-15)
+			owner.adjustFireLoss(-15)
+			owner.adjustOxyLoss(-15)
+			owner.adjustToxLoss(-15)
+			owner.adjustStaminaLoss(-30)
+			owner.SetJitter(500 SECONDS) //High numbers for violent convulsions
+			if(prob(10))
+				to_chat(owner, "<span class='userdanger'>[pick(clown_noises)]</span>")
 
 /obj/item/organ/internal/cell/xenobiology/supercharged
 	name = "Supercharged Core"
 	desc = "This specialized core thrumms with potental and energy. It desperately seeks release."
 	analyzer_price = 80
 
+/obj/item/organ/internal/cell/xenobiology/supercharged/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	var/datum/spell/charge_up/explode/spell = new
+	spell.quality = organ_quality
+	M.AddSpell(spell)
+
+/obj/item/organ/internal/cell/xenobiology/supercharged/remove(mob/living/carbon/human/M, special = 0)
+	. = ..()
+	M.RemoveSpell(/datum/spell/charge_up/explode)
+
+/datum/spell/charge_up/explode
+	name = "Detonate"
+	desc = "Build up energy in your core, allowing for a fiery detonation!"
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
+	action_icon_state = "genetic_incendiary"
+	action_background_icon_state = "bg_flayer"
+	max_charge_time = 10 SECONDS
+	base_cooldown = 10 MINUTES
+	charge_sound = new /sound('sound/magic/lightning_chargeup.ogg', channel = 7)
+	stop_charging_text = "You cool your core before it goes critical."
+	start_charging_text = "You begin to overload your core!"
+	stop_charging_fail_text = "You try to stop your cores charge but it's too late!"
+	var/quality
+
+/datum/spell/charge_up/explode/New()
+	..()
+	charge_up_overlay = image(icon = 'icons/effects/effects.dmi', icon_state = "purplesparkles", layer = EFFECTS_LAYER)
+
+/datum/spell/charge_up/explode/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/datum/spell/charge_up/explode/Click()
+	if(cast_check(TRUE, FALSE, usr))
+		if(!start_time)
+			INVOKE_ASYNC(src, PROC_REF(StartChargeup), usr)
+		else
+			if(!try_stop_buildup(usr))
+				return // Don't remove the click intercept
+
+/datum/spell/charge_up/explode/Discharge(mob/user)
+	. = ..()
+	explosion(user.loc, 0, 2, 3, 3, cause = user)
+	if(quality == ORGAN_PRISTINE)
+		user.status_flags |= GODMODE
+		addtimer(CALLBACK(src, PROC_REF(cleanup), user), 0.3 SECONDS) // juuust long enough to survive
+
+/datum/spell/charge_up/explode/proc/cleanup(mob/living/carbon/human/user)
+	user.status_flags &= ~GODMODE
+	if(user.nutrition > 140)
+		user.nutrition = 140
+	for(var/obj/item/organ/internal/cell/C in user.internal_organs)
+		C.damage += 60 // ouch. Maybe dont blow up
+
+/obj/item/organ/internal/heart/xenobiology/megacarp
+	name = "Rancid Clump"
+	desc = "It reeks of fish and... soy sauce?"
+	analyzer_price = 40
+	can_paradox = TRUE
+
+/obj/item/organ/internal/heart/xenobiology/megacarp/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+	if(!M.mind)
+		M.visible_message("The organ doesnt look like its going to fit right now! It refuses.")
+		return
+	var/datum/spell/shapeshift/megacarp/spell = new
+	spell.quality = organ_quality
+	M.mind.AddSpell(spell)
+	. = ..()
+
+/obj/item/organ/internal/heart/xenobiology/megacarp/remove(mob/living/carbon/human/M, special)
+	. = ..()
+	if(!M.mind)
+		return
+	owner.mind.RemoveSpell(/datum/spell/shapeshift/megacarp)
+
+/datum/spell/shapeshift/megacarp
+	name = "Fish Form"
+	desc = "Take on the shape of a massive fish after a short delay."
+	invocation = "*scream"
+	var/quality
+
+/datum/spell/shapeshift/megacarp/New()
+	. = ..()
+	if(quality == ORGAN_PRISTINE)
+		shapeshift_type = /mob/living/simple_animal/hostile/carp/megacarp/xeno_organ
+		current_shapes = list(/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ)
+		current_casters = list()
+		possible_shapes = list(/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ)
+	else
+		shapeshift_type = /mob/living/simple_animal/hostile/carp/xeno_organ
+		current_shapes = list(/mob/living/simple_animal/hostile/carp/xeno_organ)
+		current_casters = list()
+		possible_shapes = list(/mob/living/simple_animal/hostile/carp/xeno_organ)
+
+/datum/spell/shapeshift/megacarp/Shapeshift(mob/living/carbon/human/M)
+	M.visible_message("<span class='danger'>[M] screams in agony as scales and fins erupt out of their flesh!</span>",
+		"<span class='dangeruser'>You begin channeling the transformation. There is no going backfrom this</span>")
+	if(!do_after(M, 5 SECONDS, FALSE, M))
+		to_chat(M, "<span class='warning'>You lose concentration of the spell!</span>")
+		return
+	. = ..()
+
+/mob/living/simple_animal/hostile/carp/xeno_organ
+	maxHealth = 100
+	health = 100
+	gold_core_spawnable = NO_SPAWN
+	universal_speak = TRUE
+	universal_understand = TRUE
+	pass_flags = PASSTABLE
+
+/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ
+	maxHealth = 175
+	health = 175
+	gold_core_spawnable = NO_SPAWN
+	universal_speak = TRUE
+	universal_understand = TRUE
+	pass_flags = PASSTABLE
+
+/obj/item/organ/internal/appendix/xenobiology/feverish
+	name = "Feverish Organ"
+	desc = "This organ is warm, and looks sickly. Yet by all means, there doesnt appear to be any infections."
+	analyzer_price = 15
 
 
+/obj/item/organ/internal/appendix/xenobiology/feverish/on_life()
+	. = ..()
+	if(owner.bodytemperature > 600)
+		return
+	switch(organ_quality)
+		if(ORGAN_DAMAGED)
+			owner.bodytemperature += 15
+		if(ORGAN_NORMAL)
+			owner.bodytemperature += 20
+		if(ORGAN_PRISTINE)
+			owner.bodytemperature += 30
 
+/obj/item/organ/internal/appendix/xenobiology/freezing
+	name = "Freezing Organ"
+	desc = "This organ is cold to the touch, despite seeming to be very active."
+	analyzer_price = 15
 
+/obj/item/organ/internal/appendix/xenobiology/freezing/on_life()
+	. = ..()
+	if(owner.bodytemperature < 30)
+		return
+	switch(organ_quality)
+		if(ORGAN_DAMAGED)
+			owner.bodytemperature -= 15
+		if(ORGAN_NORMAL)
+			owner.bodytemperature -= 20
+		if(ORGAN_PRISTINE)
+			owner.bodytemperature -= 30
 
+/obj/item/organ/internal/kidneys/xenobiology/lethargic
+	name = "Lethargic Organ"
+	desc = "This organ barely seems to do anything, only being just active enough to keep itself alive. However, it seems exceptionally hardy."
+	analyzer_price = 20
 
+/obj/item/organ/internal/kidneys/xenobiology/lethargic/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	ADD_TRAIT(M, TRAIT_GOTTAGOSLOW, ORGAN_TRAIT)
+	if(organ_quality == ORGAN_DAMAGED)
+		M.maxHealth += 10
+	if(organ_quality == ORGAN_NORMAL)
+		M.maxHealth += 25
+	if(organ_quality == ORGAN_PRISTINE)
+		M.maxHealth += 50
 
+/obj/item/organ/internal/kidneys/xenobiology/lethargic/remove(mob/living/carbon/M, special)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOSLOW, ORGAN_TRAIT)
+	if(organ_quality == ORGAN_DAMAGED)
+		M.maxHealth -= 10
+	if(organ_quality == ORGAN_NORMAL)
+		M.maxHealth -= 25
+	if(organ_quality == ORGAN_PRISTINE)
+		M.maxHealth -= 50
 
+/obj/item/organ/internal/ears/xenobiology/colorful
+	name = "Colorful Organ"
+	desc = "This organ seems to constantly color and mold the other flesh around it. Thankfully, the changes are only aesthetic."
+	analyzer_price = 20
+	var/next_change = 1
 
+/obj/item/organ/internal/ears/xenobiology/colorful/on_life()
+	. = ..()
+	if(next_change > world.time)
+		return
+	next_change = world.time + 1 MINUTES
+	scramble(1, owner, 100)
 
+/obj/item/organ/internal/ears/xenobiology/sinister
+	name = "Sinister Organ"
+	desc = "This organ is brimming with foul aura. Small buds seem to be growing out of it"
+	analyzer_price = 60
+
+/obj/item/organ/internal/ears/xenobiology/sinister/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	var/datum/spell/head_attack/spell = new
+	spell.quality = organ_quality
+	if(organ_quality == ORGAN_PRISTINE)
+		spell.base_cooldown = 3 MINUTES
+	M.AddSpell(spell)
+
+/obj/item/organ/internal/ears/xenobiology/sinister/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	M.RemoveSpell(/datum/spell/head_attack)
+
+/datum/spell/head_attack
+	name = "Aggressive Budding"
+	desc = "Grow and detach a new head from yourself to send towards your enemies. Cast again to destroy any existing heads."
+	base_cooldown = 5 MINUTES
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "*scream"
+	action_icon = 'icons/mob/actions/actions_elites.dmi'
+	action_icon_state = "head_detach"
+	action_background_icon_state = "bg_default"
+	sound = 'sound/effects/blood1.ogg'
+	sound = null
+	active = FALSE
+	var/quality
+	var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/newhead
+
+/datum/spell/head_attack/create_new_targeting(list/targets, mob/living/user)
+	. = ..()
+	var/datum/spell_targeting/clicked_atom/external/C = new()
+	C.range = 20
+	return C
+
+/datum/spell/head_attack/Click(mob/user)
+	. = ..()
+	if(newhead)
+		to_chat(user, "<span class='notice'>We disperse the summoned head.</span>")
+		on_head_death()
+		return
+
+/datum/spell/head_attack/cast(list/targets, mob/living/carbon/human/user)
+	. = ..()
+	if(!isliving(targets[1]))
+		to_chat(user, "<span class='warning'>We can only select living targets!</span>")
+		revert_cast()
+		return
+	var/mob/living/target = targets[1] // only ever one target
+	if(!user.get_organ("head"))
+		to_chat(user, "<span class='warning'>We cant use this without a head!</span>")
+		revert_cast()
+		return
+	if(target == user)
+		to_chat(user, "<span class='warning'>It would be a bad idea to target ourself.</span>")
+		revert_cast()
+		return
+	if(target.stat == DEAD)
+		to_chat(user, "<span class='warning'>Our new head wont attack corpses</span>")
+		revert_cast()
+		return
+	if(!newhead)
+		if(quality == ORGAN_DAMAGED && prob(30))
+			user.adjustBruteLoss(15) // ouch!
+		user.visible_message("<span class='warning'>[src] produces a new head!</span>", "<span class='warning'>You produce a new head and send it to your target!</span>")
+		newhead = new /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology(user.loc)
+		newhead.GiveTarget(target)
+		newhead.faction = user.faction.Copy()
+		newhead.icon = null
+		newhead.name = "[user]'s head"
+		newhead.parent_spell = src
+		newhead.faction = list(user)
+		newhead.permanent_target = target
+		var/obj/item/user_head = user.get_organ("head")
+		var/obj/item/dupe_head = DuplicateObject(user_head, perfectcopy=1, sameloc=0, newloc=newhead.contents)
+		newhead.mounted_head = dupe_head
+		var/matrix/M = matrix()
+		dupe_head.transform = M
+		var/image/IM = image(dupe_head.icon, dupe_head.icon_state)
+		IM.pixel_y -= 6
+		IM.overlays = dupe_head.overlays.Copy()
+		newhead.overlays += IM
+		qdel(dupe_head)
+		revert_cast()
+
+/datum/spell/head_attack/proc/on_head_death()
+	cooldown_handler.start_recharge()
+	QDEL_NULL(newhead)
+
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology
+	desc = "The floating head of a crew member, sent to destroy their enemies."
+	maxHealth = 50
+	health = 50
+	density = FALSE
+	melee_damage_lower = 5
+	melee_damage_upper = 5
+	var/datum/spell/head_attack/parent_spell
+	var/mob/living/permanent_target
+	var/obj/item/organ/external/head/mounted_head
+	var/time_to_live
+
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/Initialize(mapload)
+	. = ..()
+	time_to_live = world.time + 30 SECONDS
+
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/death()
+	if(parent_spell)
+		parent_spell.on_head_death()
+	. = ..()
+
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/Life(seconds, times_fired)
+	if(target != permanent_target)
+		src.visible_message("<span class ='notice'>With no valid targets, the head crumbles into a pile of flesh</span>")
+		parent_spell.on_head_death()
+	if(time_to_live <= world.time)
+		src.visible_message("<span class ='notice'>The head loses energy, and crumbles into a pile of flesh</span>")
+		parent_spell.on_head_death()
+	. = ..()
+
+/obj/item/regen_mesh
+	name = "Regenerative Organ Mesh"
+	desc = "A specialized mesh carved from a fleshling that can improve the quality of any organ its used on."
+	icon = 'icons/obj/lavaland/ash_flora.dmi'
+	icon_state = "mushroom_leaf_p" // its unused and looks fine soooo whatever lol
 
 
 

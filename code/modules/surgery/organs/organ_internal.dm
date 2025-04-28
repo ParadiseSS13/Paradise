@@ -3,6 +3,7 @@
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
+	new_attack_chain = TRUE
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0
@@ -217,7 +218,7 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-/obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
+/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/food/S = prepare_eat()
@@ -228,6 +229,21 @@
 			qdel(src)
 	else
 		..()
+
+/obj/item/organ/internal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/regen_mesh) && is_xeno_organ)
+		if(organ_quality < ORGAN_PRISTINE)
+			organ_quality = ORGAN_PRISTINE
+			to_chat(user, "<span class='info'>You apply the regenerative mesh to the organ. It now looks pristine!</span>")
+			name = "Pristine [name]"
+			qdel(used)
+			return ITEM_INTERACT_COMPLETE
+		else
+			to_chat(user, "<span class='warnin'>This organ is already pristine!</span>")
+			return ITEM_INTERACT_COMPLETE
+	. = ..()
+
+
 
 /****************************************************
 				INTERNAL ORGANS DEFINES

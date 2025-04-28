@@ -31,6 +31,18 @@
 	cold_damage_per_tick = 10	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 	unsuitable_atmos_damage = 10
 	footstep_type = FOOTSTEP_MOB_SHOE
+	contains_xeno_organ = TRUE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/heart/xenobiology/vestigial,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/heart/xenobiology/bananium,
+		/obj/item/organ/internal/heart/xenobiology/cursed_bananium
+	)
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin
 	icon = 'icons/mob/animal.dmi'

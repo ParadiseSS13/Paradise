@@ -31,8 +31,38 @@
 	aggro_vision_range = 9
 	turns_per_move = 5
 	gold_core_spawnable = HOSTILE_SPAWN
+	max_dissection_steps = 7
+	contains_xeno_organ = TRUE
+
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/appendix/xenobiology/freezing,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/kidneys/xenobiology/sweating
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/drill,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You begin to drill into the crystalline structure.</span>",
+	"<span class='notice'>You begin removing the pieces of obstructive material.</span>",
+	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
+	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
+	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
@@ -86,6 +116,29 @@
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 	initial_traits = list(TRAIT_FLYING)
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/appendix/xenobiology/freezing,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/kidneys/xenobiology/sinew
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
+	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
+	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"

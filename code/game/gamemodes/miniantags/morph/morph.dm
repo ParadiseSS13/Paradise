@@ -35,6 +35,7 @@
 	attacktext = "glomps"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/food/meat/slab = 2)
+	contains_xeno_organ = TRUE
 
 	/// If the morph is disguised or not
 	var/morphed = FALSE
@@ -53,6 +54,13 @@
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/vestigial,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/liver/xenobiology/hungry
+	)
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()

@@ -62,3 +62,6 @@ GLOBAL_VAR_INIT(sparks_active, 0)
 #define GLOBAL_SMOKE_LIMIT 200
 ///Counter for the current amount of smoke
 GLOBAL_VAR_INIT(smokes_active, 0)
+
+/// what xeno organs have been scanned today?
+GLOBAL_LIST_EMPTY(scanned_organs)

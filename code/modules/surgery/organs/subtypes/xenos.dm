@@ -9,6 +9,7 @@
 	var/cargo_profit = 250
 	/// Has this organ been hijacked? Can hijack via a hemostat
 	var/hijacked = FALSE
+	is_xeno_organ = TRUE
 
 /// This adds and removes alien spells upon addition, if a noncarbon tries to do this well... I blame adminbus
 /obj/item/organ/internal/alien/insert(mob/living/carbon/M, special = 0)
@@ -21,6 +22,8 @@
 			M.AddSpell(new powers_to_add)
 
 /obj/item/organ/internal/alien/remove(mob/living/carbon/M, special = 0)
+	if(isalien(M))
+		qdel(src) // we dont want this getting out of aliens via non-dissection. Yes even gibbing.
 	if(!hijacked)
 		for(var/powers_to_remove in alien_powers)
 			M.RemoveSpell(new powers_to_remove)
@@ -144,14 +147,10 @@
 /obj/item/organ/internal/alien/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.faction |= "alien"
-	M.add_language("Hivemind")
-	M.add_language("Xenomorph")
 	ADD_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
 
 /obj/item/organ/internal/alien/hivenode/remove(mob/living/carbon/M, special = 0)
 	M.faction -= "alien"
-	M.remove_language("Hivemind")
-	M.remove_language("Xenomorph")
 	REMOVE_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
 	. = ..()
 

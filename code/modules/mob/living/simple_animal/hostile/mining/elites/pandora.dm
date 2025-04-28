@@ -41,6 +41,7 @@
 	death_sound = 'sound/magic/repulse.ogg'
 	deathmessage = "'s lights flicker, before its top part falls down."
 	loot_drop = /obj/item/clothing/accessory/pandora_hope
+	contains_xeno_organ = TRUE
 
 	attack_action_types = list(/datum/action/innate/elite_attack/chaser_burst,
 								/datum/action/innate/elite_attack/magic_box,
@@ -51,6 +52,29 @@
 	var/cooldown_time = 2 SECONDS
 	var/chaser_speed = 3
 	var/recalculation_speed = 4 //How many times chasers moves before recalculating
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/detox,
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/heart/xenobiology/paradox
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/robotics/external/unscrew_hatch,
+	/datum/surgery_step/robotics/external/open_hatch,
+	/datum/surgery_step/robotics/manipulate_robotic_organs/extract,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You begin to unscrew the coverings.</span>",
+	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
+	"<span class='notice'>You carefully begin power down any remaining systems.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Chaser Burst"

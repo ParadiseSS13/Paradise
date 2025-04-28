@@ -37,7 +37,7 @@ Difficulty: Hard
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	icon_state = "bubblegum"
 	icon_living = "bubblegum"
-	icon_dead = ""
+	icon_dead = "bubblegum_dead"
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
@@ -52,7 +52,6 @@ Difficulty: Hard
 	melee_queue_distance = 20 // as far as possible really, need this because of blood warp
 	ranged = TRUE
 	pixel_x = -32
-	del_on_death = TRUE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
@@ -71,10 +70,38 @@ Difficulty: Hard
 	score_type = BUBBLEGUM_SCORE
 	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
+	contains_xeno_organ = TRUE
+	max_dissection_steps = 6
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/triple_charge,
 							/datum/action/innate/megafauna_attack/hallucination_charge,
 							/datum/action/innate/megafauna_attack/hallucination_surround,
 							/datum/action/innate/megafauna_attack/blood_warp)
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/detox,
+		/obj/item/organ/internal/appendix/xenobiology/feverish,
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/heart/xenobiology/bloody_sack
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You begin removing the spikes and shards of bone from the mass.</span>",
+	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
+	"<span class='notice'>You clamp the mass amount of leaking arteries in the surgical site.</span>",
+	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 /obj/item/gps/internal/bubblegum
 	icon_state = null
@@ -156,6 +183,8 @@ Difficulty: Hard
 		for(var/mob/M in A)
 			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
 		new /obj/effect/bubblegum_exit(get_turf(src))
+	name = "Fleshy Pile"
+	desc = "Upon closer inspection it doesnt actually look like it comes from bubblegum, but some other kind of foreign entity."
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)

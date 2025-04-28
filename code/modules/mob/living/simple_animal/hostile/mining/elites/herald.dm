@@ -41,6 +41,7 @@
 	death_sound = 'sound/misc/demon_dies.ogg'
 	deathmessage = "begins to shudder as it becomes transparent..."
 	loot_drop = /obj/item/clothing/neck/cloak/herald_cloak
+	contains_xeno_organ = TRUE
 
 
 	attack_action_types = list(/datum/action/innate/elite_attack/herald_trishot,
@@ -50,6 +51,13 @@
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/my_mirror = null
 	var/is_mirror = FALSE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/detox,
+		/obj/item/organ/internal/appendix/xenobiology/freezing,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/ears/xenobiology/sinister
+	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/death()
 	. = ..()

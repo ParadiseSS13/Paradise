@@ -9,6 +9,12 @@
 	/// Are we on leap cooldown?
 	var/on_leap_cooldown = FALSE
 
+	xeno_organ_results = list(
+		/obj/item/organ/internal/alien/plasmavessel/hunter,
+		/obj/item/organ/internal/alien/hivenode,
+		/obj/item/organ/internal/alien/resinspinner
+	)
+
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
 	. = ..()
 	name = "alien hunter ([rand(1, 1000)])"

@@ -37,6 +37,8 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	initial_traits = list(TRAIT_FLYING)
+	contains_xeno_organ = TRUE
+	max_dissection_steps = 3
 
 	/// The revenant's idle icon
 	var/icon_idle = "revenant_idle"
@@ -73,6 +75,25 @@
 	var/list/drained_mobs = list()
 	///How many perfect, regen-cap increasing souls the revenant has.
 	var/perfectsouls = 0
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/heart/xenobiology/vestigial,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/appendix/xenobiology/electro_strands
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You begin to easily open up a surgical site from the ashen mound.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	)
 
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
 	..()

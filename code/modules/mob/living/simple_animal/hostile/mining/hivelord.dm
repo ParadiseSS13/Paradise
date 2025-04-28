@@ -32,6 +32,14 @@
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
+	contains_xeno_organ = TRUE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
+		/obj/item/organ/internal/heart/xenobiology/vestigial,
+		/obj/item/organ/internal/heart/xenobiology/hyperactive
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -178,6 +186,7 @@
 	robust_searching = TRUE
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
+	contains_xeno_organ = FALSE
 
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf

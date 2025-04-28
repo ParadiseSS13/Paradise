@@ -26,11 +26,19 @@
 	deathmessage = "spits up the contents of its stomach before dying!"
 	status_flags = CANPUSH
 	search_objects = 1
+	contains_xeno_organ = TRUE
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
 						/obj/item/stack/ore/uranium)
 
 	var/chase_time = 100
 	var/will_burrow = TRUE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
+		/obj/item/organ/internal/appendix/xenobiology/feverish,
+		/obj/item/organ/internal/heart/xenobiology/vestigial,
+		/obj/item/organ/internal/kidneys/xenobiology/metallic
+	)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
 	. = ..()

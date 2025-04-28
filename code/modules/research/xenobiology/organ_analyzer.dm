@@ -98,6 +98,14 @@
 		return ITEM_INTERACT_COMPLETE
 	var/obj/item/organ/internal/organ = used
 	if(organ.is_xeno_organ)
+		if(organ.type in GLOB.scanned_organs)
+			if(GLOB.scanned_organs[organ.type] >= 3) // No more than
+				to_chat(user, "<span class='warning'>The analyzer rejects the organ. It's gotten as much data as it can from this type of organ.</span>")
+				return ITEM_INTERACT_COMPLETE
+			else
+				GLOB.scanned_organs[organ.type]++
+		else
+			GLOB.scanned_organs += list(organ.type = 1)
 		contains_organ = organ
 		user.transfer_item_to(organ, src)
 		update_appearance(UPDATE_OVERLAYS)
@@ -144,6 +152,7 @@
 	var/final_value = round((contains_organ.analyzer_price * reward_coeff) * quality_modifier)
 	station_db.credit_account(account, final_value, "Organ Analyzation Subsidy", "Xenobiology Organ Analyzer", FALSE)
 	SSblackbox.record_feedback("amount", "Organ_Analyzer_Revenue", final_value)
+	atom_say("Analysis complete. Depositing [final_value] credits into the science account.")
 	qdel(contains_organ)
 	contains_organ = null
 	update_appearance(UPDATE_OVERLAYS)

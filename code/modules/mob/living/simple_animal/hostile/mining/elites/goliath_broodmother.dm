@@ -39,6 +39,14 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "explodes into gore!"
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
+	contains_xeno_organ = TRUE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/appendix/xenobiology/freezing,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/appendix/xenobiology/tendril
+	)
 
 	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
 								/datum/action/innate/elite_attack/spawn_children,

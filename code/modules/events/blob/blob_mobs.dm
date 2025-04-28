@@ -199,6 +199,36 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
 	a_intent = INTENT_HARM
+	contains_xeno_organ = TRUE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/appendix/xenobiology/feverish,
+		/obj/item/organ/internal/eyes/xenobiology/receptors
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/dissect
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You easily pry apart the semi-liquid corpse.</span>",
+	"<span class='notice'>You begin closing off one of the many leaking fluid sacks in the corpse.</span>",
+	"<span class='notice'>Your work area closed up. You begin to re-open it.</span>",
+	"<span class='notice'>You close off more leaking sacks and fluid veins.</span>",
+	"<span class='notice'>This damned dissection site <b>WONT STOP CLOSING!</b></span>",
+	"<span class='notice'>You finally get the leaking under control.</span>",
+	"<span class='notice'>You at last begin to remove something from the cadaver...</span>",
+	)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
 	. = ..()

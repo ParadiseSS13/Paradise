@@ -13,6 +13,13 @@
 	alien_slash_damage = 30 //Queens do higher slashing damage to people
 	alien_movement_delay = 1 //This represents a movement delay of 1, or roughly 80% the movement speed of a normal carbon mob
 
+	xeno_organ_results = list(
+		/obj/item/organ/internal/alien/plasmavessel/queen,
+		/obj/item/organ/internal/alien/acidgland,
+		/obj/item/organ/internal/alien/eggsac,
+		/obj/item/organ/internal/alien/neurotoxin
+	)
+
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCE_DOORS, UNIQUE_TRAIT_SOURCE(src))
