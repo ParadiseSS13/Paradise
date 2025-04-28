@@ -53,14 +53,14 @@
 	register_signals(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	GLOB.poi_list |= src
-	parry_comp = AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (7 / 3) SECONDS)
+	parry_comp = AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (10 / 3) SECONDS)
 
 /obj/item/melee/ghost_sword/proc/update_parry(orbs)
 	var/counter = length(orbs)
 	// scaling stamina coeff. 0 ghosts being 1, 20 being 0.5
 	parry_comp.stamina_coefficient = 1 - clamp(counter * 0.025, 0, 0.5)
 	// scaling uptime. 0 ghosts being 30%, 20 ghosts being 70%
-	parry_comp.parry_cooldown = ((7 / 3) - clamp(counter * 0.0715, 0, 1.43)) SECONDS
+	parry_comp.parry_cooldown = ((10 / 3) - clamp(counter * 0.095, 0, 1.9)) SECONDS
 
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in ghosts)
