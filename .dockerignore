@@ -6,5 +6,6 @@
 .vscode
 docks
 tmp
+byond
 
 Dockerfile.*

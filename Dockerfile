@@ -13,7 +13,6 @@ RUN dotnet DMCompiler_linux-x64/DMCompiler.dll --suppress-unimplemented --versio
 FROM ubuntu:latest AS byond
 RUN apt-get update && apt-get install -y \
 	curl \
-	wget \
 	unzip \
 	make \
 	&& rm -rf /var/lib/apt/lists/*
@@ -33,19 +32,14 @@ RUN make here && \
 	echo "$TARGET_MAJOR.$TARGET_MINOR" > "version.txt"
 
 FROM ubuntu:latest
-RUN dpkg --add-architecture i386 && \
-	apt-get update && apt-get install -y \
-	libc6:i386 \
-	libstdc++6:i386 \
-	libgcc1:i386 \
-	zlib1g:i386 \
-	libncurses5:i386 \
-	apt-transport-https \
-	&& rm -rf /var/lib/apt/lists/*
+WORKDIR /byond
+COPY --from=byond /byond /byond
+ENV BYOND_SYSTEM=/byond \
+	PATH=/byond/bin:$PATH \
+	LD_LIBRARY_PATH=/byond/bin \
+	MANPATH=/byond/man
 WORKDIR /server
 COPY --from=dme /server /server
-COPY --from=byond /byond /server/byond
 COPY --from=tgui /tgui /server/tgui
-RUN . byond/bin/byondsetup
-RUN DreamDaemon paradise.dmb -close -trusted -verbose
+RUN DreamDaemon 8975 paradise.dmb -close -trusted -verbose
 EXPOSE 8975
