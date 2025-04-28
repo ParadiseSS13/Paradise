@@ -36,6 +36,7 @@
 	new /obj/item/bonesetter(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/surgical_drapes(src)
 
 /obj/item/storage/surgical_tray/update_icon_state()
 	if(!length(contents))

@@ -38,14 +38,22 @@
 		return
 	attached_gun = target
 	attached_gun.fire_delay = attached_gun.fire_delay / fire_rate_mult
+	if(attached_gun.GetComponent(/datum/component/automatic_fire))
+		var/datum/component/automatic_fire/auto_comp = attached_gun.GetComponent(/datum/component/automatic_fire)
+		auto_comp.autofire_shot_delay = auto_comp.autofire_shot_delay / fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
+		casing.delay = casing.delay / fire_rate_mult
 		casing.e_cost = casing.e_cost * power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier * damage_mult
 		casing.lens_speed_multiplier = casing.lens_speed_multiplier / laser_speed_mult
 
 /obj/item/smithed_item/lens/on_detached()
 	attached_gun.fire_delay = attached_gun.fire_delay * fire_rate_mult
+	if(attached_gun.GetComponent(/datum/component/automatic_fire))
+		var/datum/component/automatic_fire/auto_comp = attached_gun.GetComponent(/datum/component/automatic_fire)
+		auto_comp.autofire_shot_delay = auto_comp.autofire_shot_delay * fire_rate_mult
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
+		casing.delay = casing.delay * fire_rate_mult
 		casing.e_cost = casing.e_cost / power_mult
 		casing.lens_damage_multiplier = casing.lens_damage_multiplier / damage_mult
 		casing.lens_speed_multiplier = casing.lens_speed_multiplier * laser_speed_mult

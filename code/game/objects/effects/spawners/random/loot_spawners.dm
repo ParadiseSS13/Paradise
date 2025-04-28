@@ -134,3 +134,12 @@
 		/obj/effect/spawner/random/bluespace_tap/food_uncommon = 3,
 		/obj/effect/spawner/random/bluespace_tap/food_rare,
 	)
+
+/obj/effect/spawner/random/syndie_mob_loot
+	loot = list(
+		/obj/item/reagent_containers/patch/styptic,
+		/obj/item/reagent_containers/patch/silver_sulf,
+		/obj/item/food/syndicake,
+		/obj/item/food/donkpocket,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+	)
