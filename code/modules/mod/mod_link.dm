@@ -109,7 +109,7 @@
 		if(H.voice != M.real_name)
 			mod_link.visual.name = H.voice
 		else
-			mod_link.visual.name = M.name
+			mod_link.visual.name = H.name
 	else
 		mod_link.visual.name = M.name
 	mod_link.visual.atom_say(capitalize(multilingual_to_message(message_pieces)))
