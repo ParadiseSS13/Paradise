@@ -287,7 +287,7 @@
 				turn_off()
 			else if(cell && !open)
 				if(turn_on())
-					visible_message("[usr] switches [on ? "on" : "off"] [src].")
+					visible_message("<span class='notice'>[usr] switches [on ? "on" : "off"] [src].</span>")
 				else
 					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
 		if("hack")
