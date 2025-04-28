@@ -34495,10 +34495,7 @@
 	},
 /area/station/supply/smith_office)
 "dTp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/grass/no_creep,
 /area/station/maintenance/fpmaint)
 "dTt" = (
@@ -54325,12 +54322,6 @@
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/carpet/purple,
 /area/station/service/library)
-"loO" = (
-/obj/machinery/atmospherics/refill_station/oxygen,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/space)
 "loQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/barrier/grille_often,
@@ -64559,12 +64550,6 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/secondary/exit)
-"pjY" = (
-/obj/machinery/atmospherics/refill_station/plasma,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/space)
 "pkf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -79801,12 +79786,6 @@
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
-"vfY" = (
-/obj/machinery/atmospherics/refill_station/nitrogen,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/space)
 "vge" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -99056,9 +99035,9 @@ aaa
 aaa
 aaa
 aaa
-loO
-vfY
-pjY
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
