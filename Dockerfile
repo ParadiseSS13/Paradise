@@ -31,7 +31,13 @@ RUN curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${
 RUN make here && \
 	echo "$TARGET_MAJOR.$TARGET_MINOR" > "version.txt"
 
-FROM ubuntu:latest
+FROM debian:11-slim
+RUN dpkg --add-architecture i386 && \
+	apt-get update && apt-get install -y \
+	libc6:i386 \
+	libstdc++6:i386 \
+	zlib1g:i386 \
+	&& rm -rf /var/lib/apt/lists/*
 WORKDIR /byond
 COPY --from=byond /byond /byond
 ENV BYOND_SYSTEM=/byond \
@@ -41,5 +47,4 @@ ENV BYOND_SYSTEM=/byond \
 WORKDIR /server
 COPY --from=dme /server /server
 COPY --from=tgui /tgui /server/tgui
-RUN DreamDaemon 8975 paradise.dmb -close -trusted -verbose
 EXPOSE 8975
