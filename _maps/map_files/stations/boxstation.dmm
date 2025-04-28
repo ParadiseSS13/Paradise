@@ -28568,22 +28568,6 @@
 /obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
-"bWZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/toilet/directional/east,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/space,
-/area/space)
 "bXd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -54894,13 +54878,10 @@
 	},
 /area/station/science/toxins/mixing)
 "hhE" = (
-/obj/structure/sink/kitchen/old{
-	dir = 4;
-	pixel_x = -12
-	},
 /obj/structure/mirror{
 	pixel_x = -28
 	},
+/obj/structure/sink/kitchen/old/directional/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "hhF" = (
@@ -59906,10 +59887,8 @@
 /area/station/maintenance/fpmaint2)
 "jRr" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
 /obj/item/bikehorn/rubberducky,
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "jRx" = (
@@ -63448,20 +63427,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"lDg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/shower/directional/east,
-/obj/structure/curtain/open/shower,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/space,
-/area/space)
 "lDi" = (
 /obj/structure/sink/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -71800,9 +71765,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "pSs" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "pSY" = (
@@ -73474,22 +73437,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"qDR" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sink/kitchen/old/directional/north,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "qEg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -127060,7 +127007,7 @@ auq
 auq
 auq
 rRm
-qDR
+pLr
 nDF
 asf
 avq
@@ -127574,8 +127521,8 @@ aaa
 aaa
 aaa
 aaa
-lDg
-bWZ
+aaa
+aaa
 atG
 atG
 avq
