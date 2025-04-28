@@ -371,7 +371,7 @@
 	},
 /area/ruin/space/moonbase19)
 "aY" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/machinery/newscaster/directional/south,

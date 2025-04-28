@@ -23719,7 +23719,7 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "bDf" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/chemist,
@@ -26236,7 +26236,7 @@
 	},
 /area/station/science/robotics)
 "bNm" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/roboticist,
@@ -26326,7 +26326,7 @@
 	},
 /area/station/medical/reception)
 "bNA" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/doctor,
@@ -32321,7 +32321,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cmd" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/machinery/door_control{
@@ -37205,7 +37205,7 @@
 	},
 /area/station/security/permabrig)
 "cFb" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/scientist,
@@ -37774,7 +37774,7 @@
 	},
 /area/station/science/misc_lab)
 "cHq" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -37788,7 +37788,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "cHs" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/scientist,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
@@ -40443,7 +40443,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/chief_engineer,
@@ -42539,7 +42539,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
 "cZT" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -50820,7 +50820,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "feR" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/research_director,
@@ -68222,7 +68222,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/medical/chemistry)
 "ogJ" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/chief_medical_officer,
@@ -76381,7 +76381,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint2)
 "snj" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/geneticist,
@@ -85224,7 +85224,7 @@
 	},
 /area/station/science/hallway)
 "xdY" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/machinery/light_switch{
