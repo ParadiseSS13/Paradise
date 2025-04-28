@@ -53524,11 +53524,8 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "eJy" = (
@@ -70257,24 +70254,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/public/fitness)
-"muy" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sink/directional/west,
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
-	},
-/area/station/maintenance/apmaint)
 "muI" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/railing,
@@ -93963,18 +93942,8 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "wtU" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sink/directional/north,
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/cobweb,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "wuc" = (
@@ -132635,7 +132604,7 @@ dbw
 dbw
 dbw
 dbw
-muy
+nij
 jil
 dOO
 pxI
