@@ -589,6 +589,8 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			if(R.id == "blood")
 				find_analysis_time_delta(R)
 				SStgui.update_uis(src, TRUE)
+				for(var/datum/disease/advance/virus in R.data["viruses"])
+					log_admin("[key_name(user)] inserted disease [virus] of strain [virus.strain] with the following symptoms: [english_list(virus.symptoms)] into [src] at these coords x: [x] y: [y] z: [z]")
 				break
 
 		return ITEM_INTERACT_COMPLETE
