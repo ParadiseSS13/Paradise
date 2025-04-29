@@ -1,4 +1,4 @@
-#define MAX_EFTPOS_CHARGE 250
+#define MAX_EFTPOS_CHARGE 1000
 
 /obj/item/eftpos
 	name = "EFTPOS scanner"

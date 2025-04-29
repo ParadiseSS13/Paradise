@@ -71,7 +71,7 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..()
-	else if(isanimal(loc) || is_ai(loc))
+	else if(isanimal_or_basicmob(loc) || is_ai(loc))
 		return ..()
 
 	return FALSE
@@ -107,6 +107,12 @@
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	origin_tech = "syndicate=3"
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+
+/obj/item/radio/headset/syndicate_fake
+	name = "syndicate headset"
+	desc = "A syndicate headset to set on your head."
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 

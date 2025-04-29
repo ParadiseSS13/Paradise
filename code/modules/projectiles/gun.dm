@@ -335,7 +335,7 @@
 /obj/item/gun/attack__legacy__attackchain(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
 		if(bayonet)
-			M.attackby__legacy__attackchain(bayonet, user)
+			M.attack_by(bayonet, user)
 		else
 			return ..()
 

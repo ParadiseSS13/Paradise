@@ -1,9 +1,7 @@
-/mob/living/simple_animal/attackby__legacy__attackchain(obj/item/O, mob/living/user)
+/mob/living/simple_animal/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(can_collar && istype(O, /obj/item/petcollar) && !pcollar)
 		add_collar(O, user)
-		return
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	..()

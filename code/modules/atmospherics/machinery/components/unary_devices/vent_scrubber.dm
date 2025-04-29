@@ -49,7 +49,12 @@
 	icon = null
 	initial_loc = get_area(loc)
 	initial_loc.scrubbers += src
+	GLOB.all_scrubbers += src
 	name = "[initial_loc.name] Air Scrubber #[length(initial_loc.scrubbers)]"
+
+/obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
+	. = ..()
+	GLOB.all_scrubbers -= src
 
 /obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
 	. = ..()
@@ -262,3 +267,11 @@
 			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
 		update_icon()
+
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/living/user, obj/item/I)
+	if(!ismultitool(I))
+		return
+
+	var/obj/item/multitool/M = I
+	M.buffer_uid = UID()
+	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer.</span>")

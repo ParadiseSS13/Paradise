@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "x" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "H" = (
 /turf/simulated/floor/plating/asteroid/airless,

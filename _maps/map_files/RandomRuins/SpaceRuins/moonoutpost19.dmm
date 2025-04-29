@@ -93,9 +93,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ap" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/noslip,
@@ -198,9 +196,7 @@
 	},
 /area/ruin/space/moonbase19)
 "aD" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
@@ -378,6 +374,7 @@
 /obj/structure/chair/office/light{
 	dir = 1
 	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -982,19 +979,6 @@
 	icon_state = "black"
 	},
 /area/ruin/space/moonbase19)
-"cY" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/catwalk,
-/area/ruin/space/moonbase19)
 "da" = (
 /obj/structure/chair{
 	dir = 8
@@ -1173,9 +1157,7 @@
 	},
 /area/ruin/space/moonbase19)
 "dD" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "dE" = (
@@ -1454,9 +1436,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/sign/poster/official/dig{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/dig/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "eA" = (
@@ -1504,9 +1484,6 @@
 	},
 /area/ruin/space/moonbase19)
 "eL" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -32
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1526,10 +1503,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1544,6 +1518,21 @@
 	dir = 8;
 	icon_state = "black"
 	},
+/area/ruin/space/moonbase19)
+"eT" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "eU" = (
 /turf/simulated/floor/plasteel{
@@ -1583,9 +1572,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/safety_eye_protection{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/safety_eye_protection/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1610,6 +1597,9 @@
 	dir = 8
 	},
 /obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "ff" = (
@@ -1837,9 +1827,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel/stairs{
 	dir = 1
 	},
@@ -2087,9 +2075,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gM" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -2147,6 +2133,9 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/random/maintenance,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -2553,19 +2542,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/moonbase19)
-"ic" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
-/obj/structure/closet/crate,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/catwalk,
-/area/ruin/space/moonbase19)
 "id" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel,
@@ -2580,6 +2556,10 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/machinery/iv_drip,
+/obj/machinery/camera{
+	c_tag = "Medical Ward";
+	network = list("MO19")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -3912,11 +3892,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "North Cafeteria";
-	dir = 4;
-	network = list("MO19")
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -4049,11 +4024,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Medical Ward";
-	dir = 4;
-	network = list("MO19")
-	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
@@ -4184,6 +4154,21 @@
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
+"nD" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/moonbase19)
 "nE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4226,6 +4211,9 @@
 "nK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -4305,9 +4293,7 @@
 	},
 /area/ruin/space/moonbase19)
 "oh" = (
-/obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph/directional/north,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table,
 /obj/item/salvage/ruin/nanotrasen,
@@ -4976,8 +4962,18 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
+"qO" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "black"
+	},
+/area/ruin/space/moonbase19)
 "qQ" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -5056,11 +5052,7 @@
 	},
 /area/ruin/space/moonbase19)
 "rl" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 4
@@ -5639,7 +5631,7 @@
 	},
 /area/ruin/space/moonbase19)
 "tE" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
@@ -6108,9 +6100,7 @@
 /area/ruin/space/moonbase19)
 "we" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/structure/sign/poster/contraband/donut_corp{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/donut_corp/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6232,6 +6222,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "wR" = (
@@ -6517,6 +6508,13 @@
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
+"yg" = (
+/obj/machinery/camera{
+	c_tag = "Dorms";
+	network = list("MO19")
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
 "yi" = (
 /obj/structure/rack,
 /obj/item/pickaxe,
@@ -6761,9 +6759,7 @@
 	dir = 1;
 	network = list("MO19")
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -6891,16 +6887,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/moonbase19)
 "zM" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -7759,6 +7753,15 @@
 	icon_state = "caution"
 	},
 /area/ruin/space/moonbase19)
+"Dz" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull";
+	dir = 8
+	},
+/area/ruin/space/moonbase19)
 "DA" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
@@ -7812,9 +7815,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "DO" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/camera{
 	dir = 8;
 	network = list("MO19");
@@ -7902,9 +7902,7 @@
 /area/ruin/space/moonbase19)
 "Eo" = (
 /obj/structure/filingcabinet,
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /obj/item/paper/fluff/ruins/moonoutpost19/rdnote,
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
@@ -7923,7 +7921,6 @@
 /obj/structure/rack,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/machinery/light/small,
-/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -7975,9 +7972,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Ey" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/noslip,
 /area/ruin/space/moonbase19)
@@ -8152,10 +8147,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "Fp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -8314,7 +8306,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "Ge" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Gg" = (
@@ -8439,6 +8431,10 @@
 	icon_state = "caution";
 	dir = 8
 	},
+/area/ruin/space/moonbase19)
+"GI" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "GJ" = (
 /obj/structure/railing{
@@ -8746,9 +8742,7 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/bench/right,
-/obj/structure/sign/poster/official/help_others{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/help_others/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -9077,9 +9071,7 @@
 /area/ruin/space/moonbase19)
 "JR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "JS" = (
@@ -9106,9 +9098,6 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -9133,9 +9122,7 @@
 	pixel_y = -3
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/sign/poster/official/ion_rifle{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/ion_rifle/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Kb" = (
@@ -9158,15 +9145,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitecorner"
-	},
-/area/ruin/space/moonbase19)
-"Ki" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/ruin/space/moonbase19)
 "Km" = (
@@ -9300,9 +9278,6 @@
 	},
 /area/ruin/space/moonbase19)
 "KP" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair{
 	dir = 4;
@@ -9660,7 +9635,6 @@
 /area/ruin/space/moonbase19)
 "MF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster/directional/south,
 /obj/machinery/camera{
 	c_tag = "Hangar";
 	dir = 1;
@@ -9810,6 +9784,7 @@
 	name = "shutters control"
 	},
 /obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 5
@@ -9849,9 +9824,7 @@
 /obj/structure/chair/sofa/bench{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -10099,9 +10072,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -10841,7 +10812,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "RH" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -11022,6 +10993,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -11202,6 +11174,17 @@
 	icon_state = "escape"
 	},
 /area/ruin/space/moonbase19)
+"Ty" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "North Cafeteria";
+	network = list("MO19")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
+/area/ruin/space/moonbase19)
 "Tz" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
@@ -11325,9 +11308,7 @@
 /area/ruin/space/moonbase19)
 "Ub" = (
 /obj/structure/filingcabinet,
-/obj/structure/sign/poster/contraband/fun_police{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/fun_police/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 1
@@ -11727,7 +11708,7 @@
 /area/ruin/space/moonbase19)
 "VT" = (
 /obj/structure/bed,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "VU" = (
@@ -11754,9 +11735,7 @@
 	},
 /area/ruin/space/moonbase19)
 "VX" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light/small{
@@ -12022,11 +12001,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Dorms";
-	dir = 4;
-	network = list("MO19")
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -12267,7 +12241,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -12293,10 +12266,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12315,9 +12285,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Yu" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/vomit/green,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plasteel{
@@ -12393,9 +12361,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/spiders{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/spiders/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -12451,9 +12417,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/here_for_your_safety{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/here_for_your_safety/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -13213,7 +13177,7 @@ ru
 ag
 ag
 af
-Ll
+Ty
 ak
 NC
 cL
@@ -13263,7 +13227,7 @@ af
 af
 ag
 ag
-aA
+yg
 KG
 Ol
 ak
@@ -14304,7 +14268,7 @@ MT
 UO
 GD
 Fc
-mJ
+Dz
 oH
 qt
 sv
@@ -16471,7 +16435,7 @@ bv
 fl
 vY
 hS
-lp
+qO
 eL
 nt
 fC
@@ -16643,7 +16607,7 @@ ad
 ad
 ad
 ag
-ic
+eT
 is
 hO
 dh
@@ -16765,7 +16729,7 @@ Ib
 hI
 ad
 ag
-cY
+nD
 it
 hu
 dj
@@ -17048,8 +17012,8 @@ tX
 AP
 If
 Wd
-Ki
-fq
+ib
+GI
 DO
 Wd
 If

@@ -367,7 +367,9 @@ GLOBAL_LIST_EMPTY(holopads)
 		var/obj/machinery/hologram/holopad/another = pad
 		if(another == src)
 			continue
-		if(another.validate_location(T))
+		if(T.loc != get_area(another))
+			continue
+		if(another.validate_location(T, holo_owner))
 			var/obj/effect/overlay/holo_pad_hologram/h = masters[holo_owner]
 			unset_holo(holo_owner)
 			another.set_holo(holo_owner, h)
@@ -385,9 +387,10 @@ GLOBAL_LIST_EMPTY(holopads)
 	return TRUE
 
 //Can we display holos there
-//Area check instead of line of sight check because this is a called a lot if AI wants to move around.
-/obj/machinery/hologram/holopad/proc/validate_location(turf/T)
-	if(T.z == z && (get_dist(T, src) <= holo_range) && T.loc == get_area(src))
+/obj/machinery/hologram/holopad/proc/validate_location(turf/T, mob/living/user)
+	if(!is_ai(user) && T.loc != get_area(src)) //For AI, the area check is done on trying to find another holopad instead
+		return FALSE
+	if(T.z == z && (get_dist(T, src) <= holo_range))
 		return TRUE
 	return FALSE
 
@@ -396,7 +399,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 		var/transfered = FALSE
-		if(!validate_location(new_turf))
+		if(!validate_location(new_turf, user))
 			if(!transfer_to_nearby_pad(new_turf,user))
 				clear_holo(user)
 				return FALSE
@@ -487,11 +490,21 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		return
 	else if(ringing)
 		icon_state = "holopad_ringing"
-	else if(total_users)
-		icon_state = "holopad1"
-	else
+	else if(total_users) {
 		icon_state = "holopad0"
-
+		var/icon/overlay_icon = new('icons/obj/stationobjs.dmi', "holopad1_lightmask")
+		var/mob/living/silicon/ai/AI
+		for(var/mob/living/user in masters)
+			if(is_ai(user))
+				AI = user
+				break
+		if(AI)
+			overlay_icon.ColorTone(AI.hologram_color)
+		overlays += overlay_icon
+	} else {
+		icon_state = "holopad0"
+		overlays.Cut()
+	}
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
 	eye = user.remote_control
@@ -501,6 +514,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
 		AI.current = src
+		var/obj/effect/overlay/holoray = holorays[user]
+		holoray.icon = getHologramIcon(icon('icons/effects/96x96.dmi', "holoray"), FALSE, AI.hologram_color, 1)
 	SetLightsAndPower()
 	update_holoray(user, get_turf(loc))
 	return TRUE
@@ -550,6 +565,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/effect/overlay/holo_pad_hologram
 	var/mob/living/Impersonation
 	var/datum/holocall/HC
+	flags_2 = HOLOGRAM_2
 
 /obj/effect/overlay/holo_pad_hologram/Destroy()
 	Impersonation = null

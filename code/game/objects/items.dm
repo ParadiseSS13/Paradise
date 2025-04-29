@@ -173,6 +173,18 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	var/tip_timer = 0
 
+	// Smithing vars
+	/// List of attached tool bits
+	var/list/attached_bits = list()
+	/// Maximum number of bits
+	var/max_bits = 1
+	/// Failure rate of using this tool. Without a bit, defaults to 0 for no failure chance
+	var/bit_failure_rate = 0
+	/// Efficiency modifier for tools that use energy or fuel
+	var/bit_efficiency_mod = 1
+	/// Productivity modifier for tools
+	var/bit_productivity_mod = 1
+
 	///////////////////////////
 	// MARK: item hover FX
 	///////////////////////////
@@ -285,8 +297,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		msg += "*--------*"
 		. += msg
 
-	if(HAS_TRAIT(src, TRAIT_BUTCHERS_HUMANS))
-		. += "<span class='warning'>Can be used to butcher dead people into meat while on harm intent.</span>"
+	if(length(attached_bits))
+		. += "<span class='notice'>Has [length(attached_bits)] bits attached.</span>"
+		. += "<span class='notice'>Bits can be removed with Alt-Click.</span>"
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -443,6 +456,42 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(hit_reaction_chance >= 0) // Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
 	return signal_result
+
+/// Used to add a bit through a signal
+/obj/item/proc/add_bit(atom/source, obj/item/smithed_item/tool_bit/bit, mob/user)
+	SIGNAL_HANDLER // COMSIG_BIT_ATTACH
+	if(length(attached_bits) >= max_bits)
+		to_chat(user, "<span class='notice'>Your tool already has the maximum number of bits!</span>")
+		return
+	if(bit.flags & NODROP || !user.transfer_item_to(bit, src))
+		to_chat(user, "<span class='warning'>[bit] is stuck to your hand!</span>")
+		return
+	attached_bits += bit
+	bit.on_attached(src)
+
+/// Used to remove a bit through a signal
+/obj/item/proc/remove_bit(atom/source, mob/user)
+	SIGNAL_HANDLER // COMSIG_CLICK_ALT
+	if(!Adjacent(user))
+		return
+	if(!length(attached_bits))
+		to_chat(user, "<span class='notice'>Your [src] has no tool bits to remove.</span>")
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(finish_remove_bit), user)
+
+/obj/item/proc/finish_remove_bit(mob/user)
+	if(!Adjacent(user))
+		return
+	var/obj/item/smithed_item/tool_bit/old_bit
+	if(length(attached_bits) == 1)
+		old_bit = attached_bits[1]
+	else
+		old_bit = tgui_input_list(user, "Select a tool bit", src, attached_bits)
+	if(!istype(old_bit, /obj/item/smithed_item/tool_bit))
+		return
+	old_bit.on_detached()
+	user.put_in_hands(old_bit)
 
 /// Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc. Returns TRUE on success, FALSE on failure.
 /obj/item/proc/use(used)
@@ -614,11 +663,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
 		return
 
-	if(!iscarbon(user))
-		M.LAssailant = null
-	else
-		M.LAssailant = user
-
 	src.add_fingerprint(user)
 
 	playsound(loc, src.hitsound, 30, TRUE, -1)
@@ -626,10 +670,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	user.do_attack_animation(M)
 
 	if(H.check_shields(src, force, "the [name]", MELEE_ATTACK, armour_penetration_flat, armour_penetration_percentage))
-		return FALSE
-
-	if(H.check_block())
-		visible_message("<span class='warning'>[H] blocks [src]!</span>")
 		return FALSE
 
 	if(M != user)

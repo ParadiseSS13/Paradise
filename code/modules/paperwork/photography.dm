@@ -633,6 +633,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		on = FALSE
 		icon_state = icon_off
 		camera.c_tag = null
+		camera.turn_off(null, 0)
 		QDEL_NULL(camera)
 	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
 	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.telescreens)
@@ -649,12 +650,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 	camera_state(user)
 
-/obj/item/videocam/dropped()
-	. = ..()
-	if(!on)
-		return
-	camera_state()
-
 /obj/item/videocam/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
@@ -665,15 +660,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
-		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
-			if(T.watchers[M] == camera)
-				T.atom_say(msg)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.telescreens)
+			if(usr && (usr.unique_datum_id in T.watchers))
+				T.atom_say("[M.name]: [msg]")  // Uses appearance for identifying speaker, not voice
 
 /obj/item/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
-		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
-			if(T.watchers[M] == camera)
-				T.atom_say(msg)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.telescreens)
+			if(usr && (usr.unique_datum_id in T.watchers))
+				T.atom_say("*[M.name] [msg]")  // Uses appearance for identifying speaker, not voice
 
 /obj/item/videocam/advanced
 	name = "advanced video camera"

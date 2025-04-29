@@ -155,6 +155,7 @@
 	if(prob(30) && stat == CONSCIOUS)
 		adjustBruteLoss(-1)
 
+// This is where slime feeding is handled.
 /mob/living/simple_animal/slime/proc/handle_feeding()
 	if(!ismob(buckled))
 		return
@@ -174,6 +175,7 @@
 		Feedstop()
 		return
 
+	// This is where damage dealt by slime feeding is handled.
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.adjustCloneLoss(rand(2, 4))
@@ -203,8 +205,13 @@
 		Feedstop(0, 0)
 		return
 
-	add_nutrition(rand(7, 15))
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.dna.species.tox_mod && !H.dna.species.clone_mod)
+			Feedstop(0, 0)
+			return
 
+	add_nutrition(rand(7, 15))
 	//Heal yourself.
 	adjustBruteLoss(-3)
 

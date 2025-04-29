@@ -14,7 +14,7 @@
 	density = TRUE
 	blocks_air = TRUE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
 	color = COLOR_ROCK
@@ -95,24 +95,24 @@
 		if(do_after(user, mine_time * P.toolspeed, target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
-				gets_drilled(user)
+				gets_drilled(user, productivity_mult = P.bit_productivity_mod)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 
 		return FINISH_ATTACK
 	else
 		return attack_hand(user)
 
-/turf/simulated/mineral/proc/mine_ore(mob/user, triggered_by_explosion)
+/turf/simulated/mineral/proc/mine_ore(mob/user, triggered_by_explosion, productivity_mult = 1)
 	if(!ore)
 		return MINERAL_ALLOW_DIG
 
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 
-	return ore.on_mine(src, user, triggered_by_explosion)
+	return ore.on_mine(src, user, triggered_by_explosion, productivity_mult)
 
-/turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE)
-	if(mine_ore(user, triggered_by_explosion) == MINERAL_PREVENT_DIG)
+/turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, productivity_mult = 1)
+	if(mine_ore(user, triggered_by_explosion, productivity_mult) == MINERAL_PREVENT_DIG)
 		return
 
 	ChangeTurf(turf_type, defer_change)
@@ -189,6 +189,22 @@
 	if(prob(mineralChance))
 		var/new_ore_type = pickweight(mineralSpawnChanceList)
 		set_ore(new_ore_type)
+
+/turf/simulated/mineral/random/space
+	mineralSpawnChanceList = list(
+		/datum/ore/iron = 40,
+		/datum/ore/plasma = 20,
+		/datum/ore/silver = 12,
+		/datum/ore/titanium = 11,
+		/datum/ore/gold = 10,
+		/datum/ore/uranium = 5,
+		/datum/ore/gibtonite = 4,
+		/datum/ore/bluespace = 1,
+		/datum/ore/diamond = 1,
+		/datum/ore/platinum = 3,
+		/datum/ore/palladium = 3,
+		/datum/ore/iridium = 3
+	)
 
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
@@ -286,6 +302,22 @@
 		/datum/ore/bluespace = 20,
 	)
 
+/turf/simulated/mineral/random/high_chance/space
+	color = COLOR_YELLOW
+	mineralChance = 25
+	mineralSpawnChanceList = list(
+		/datum/ore/silver = 50,
+		/datum/ore/plasma = 50,
+		/datum/ore/gold = 45,
+		/datum/ore/titanium = 45,
+		/datum/ore/uranium = 35,
+		/datum/ore/diamond = 30,
+		/datum/ore/bluespace = 20,
+		/datum/ore/platinum = 25,
+		/datum/ore/palladium = 25,
+		/datum/ore/iridium = 25
+	)
+
 /turf/simulated/mineral/random/high_chance/clown
 	mineralChance = 40
 	mineralSpawnChanceList = list(
@@ -332,6 +364,24 @@
 		/datum/ore/uranium = 2,
 		/datum/ore/diamond = 1,
 		/datum/ore/bluespace = 1,
+	)
+
+/turf/simulated/mineral/random/low_chance/space
+	color = COLOR_VIOLET
+	mineralChance = 6
+	mineralSpawnChanceList = list(
+		/datum/ore/iron = 40,
+		/datum/ore/plasma = 15,
+		/datum/ore/silver = 6,
+		/datum/ore/gold = 4,
+		/datum/ore/titanium = 4,
+		/datum/ore/gibtonite = 2,
+		/datum/ore/uranium = 2,
+		/datum/ore/diamond = 1,
+		/datum/ore/bluespace = 1,
+		/datum/ore/platinum = 1,
+		/datum/ore/palladium = 1,
+		/datum/ore/iridium = 1
 	)
 
 /turf/simulated/mineral/random/volcanic

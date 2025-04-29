@@ -22,6 +22,8 @@
 /datum/tgui_panel/proc/play_music(url, extra_data)
 	if(!is_ready())
 		return
+	if(!findtext(url, GLOB.is_http_protocol))
+		return
 	var/list/payload = list()
 	if(length(extra_data) > 0)
 		for(var/key in extra_data)

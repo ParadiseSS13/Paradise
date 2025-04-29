@@ -151,3 +151,5 @@
 	generate_cordon()
 	return TRUE
 
+/datum/turf_reservation/transit
+	turf_type = /turf/space/transit

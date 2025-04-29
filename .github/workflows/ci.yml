@@ -49,18 +49,12 @@ jobs:
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
           python tools/ci/restrict_file_types.py
-          python tools/ci/check_map_sizes.py
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
-          python -m tools.ci.check_icon_conflicts
-          python -m tools.ci.check_icon_dupenames
+          python tools/ci/check_icons.py
+          python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
-
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.0
-        with:
-          dotnet-version: 9.x
 
       - name: Run DreamChecker
         shell: bash
@@ -75,7 +69,7 @@ jobs:
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.0
+        uses: actions/setup-dotnet@v4.3.1
         with:
           dotnet-version: 9.x
       - name: Run OD
@@ -92,12 +86,13 @@ jobs:
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
+      # We test PARADISE_PRODUCTION_HARDWARE here because we dont in station_mapload_tests
       - name: Compile All Maps
         run: |
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          DreamMaker -DMULTIINSTANCE -DCIMAP paradise.dme
+          DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
   station_mapload_tests:
     name: Station Tests
@@ -105,8 +100,7 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        station:
-          ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
+        station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
         byondtype: ['STABLE', 'BETA']
     steps:
       - uses: actions/checkout@v4
@@ -136,14 +130,6 @@ jobs:
       fail-fast: false
       matrix:
         byondtype: ['STABLE', 'BETA']
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306
-        options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache

@@ -549,7 +549,7 @@
 
 /datum/crafting_recipe/sushimat
 	name = "Sushi Mat"
-	result = list(/obj/item/kitchen/sushimat)
+	result = list(/obj/item/reagent_containers/cooking/sushimat)
 	time = 10
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/cable_coil = 2)
@@ -687,15 +687,6 @@
 	time = 20
 	reqs = list(/obj/item/stack/tile/carpet/blue = 10,
 				/obj/item/stack/sheet/mineral/gold = 1)
-	category = CAT_MISC
-
-/datum/crafting_recipe/showercurtain
-	name = "Shower Curtains"
-	result = list(/obj/structure/curtain)
-	time = 20
-	reqs = list(/obj/item/stack/sheet/cloth = 2,
-				/obj/item/stack/sheet/plastic = 2,
-				/obj/item/stack/rods = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/chemical_payload
@@ -851,7 +842,7 @@
 	name = "Bonfire"
 	time = 60
 	reqs = list(/obj/item/grown/log = 5)
-	result = list(/obj/structure/bonfire)
+	result = list(/obj/structure/lightable/bonfire)
 	category = CAT_PRIMAL
 	alert_admins_on_craft = TRUE
 

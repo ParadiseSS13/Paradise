@@ -15,7 +15,7 @@ pub(crate) fn dm_call_stack_trace(msg: String) -> eyre::Result<()> {
 /// Writes panic info to a text file, and calls dm stack trace proc as well.
 pub(crate) fn setup_panic_handler() {
     std::panic::set_hook(Box::new(|info| {
-        let msg = format!("Panic \n {:#?}", info);
+        let msg = format!("Panic! {info}");
         let msg_copy = msg.clone();
         let _ = thread_sync(
             || -> ByondValue {

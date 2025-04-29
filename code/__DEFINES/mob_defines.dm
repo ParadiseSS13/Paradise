@@ -241,7 +241,6 @@
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
-#define isanimal(A)			(istype((A), /mob/living/simple_animal))
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)			(istype((A), /mob/living/simple_animal/mouse))
@@ -273,7 +272,7 @@
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
 #define iscameramob(A)	(istype((A), /mob/camera))
-#define is_ai_eye(A)		(istype((A), /mob/camera/eye))
+#define is_ai_eye(A)		(istype((A), /mob/camera/eye/ai))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
 #define isobserver(A)	(istype((A), /mob/dead/observer))
@@ -384,3 +383,8 @@
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
+
+/// Default minimum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MIN_TEMP 250
+/// Default maximum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MAX_TEMP 350

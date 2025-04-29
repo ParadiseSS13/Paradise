@@ -562,7 +562,7 @@
 
 /obj/machinery/clonepod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(used.is_open_container())
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+		return ..()
 
 	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(!allowed(user))
@@ -677,6 +677,9 @@
 	var/list/organs_list
 	for(var/obj/item/organ/O in contents)
 		organs_list += list(list("name" = O.name, "ref" = O.UID()))
+
+	for(var/obj/item/robot_parts/RP in contents)
+		organs_list += list(list("name" = RP.name, "ref" = RP.UID()))
 
 	data["organs"] = organs_list
 	data["currently_cloning"] = currently_cloning

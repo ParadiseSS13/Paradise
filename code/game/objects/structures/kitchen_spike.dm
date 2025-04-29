@@ -89,7 +89,7 @@
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
 	if(!user.Adjacent(src) || !user.Adjacent(victim) || is_ai(user) || !ismob(victim))
 		return
-	if(isanimal(user) && victim != user)
+	if(isanimal_or_basicmob(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
 	add_fingerprint(user)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure/kitchenspike, start_spike), victim, user)
@@ -154,7 +154,7 @@
 			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
-			if(!do_after(M, 2 MINUTES, target = src))
+			if(!do_after(M, 2 MINUTES, target = src, hidden = TRUE))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
 				return

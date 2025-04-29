@@ -61,6 +61,16 @@
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
 
+/obj/item/grenade/plastic/hear_talk(mob/living/M as mob, list/message_pieces)
+	if(istype(nadeassembly, /obj/item/assembly/voice))
+		var/obj/item/assembly/voice/voice_analyzer = nadeassembly
+		voice_analyzer.hear_input(M, multilingual_to_message(message_pieces), 0)
+
+/obj/item/grenade/plastic/hear_message(mob/living/M as mob, msg)
+	if(istype(nadeassembly, /obj/item/assembly/voice))
+		var/obj/item/assembly/voice/voice_analyzer = nadeassembly
+		voice_analyzer.hear_input(M, msg, 1)
+
 /obj/item/grenade/plastic/attack_self__legacy__attackchain(mob/user)
 	if(nadeassembly)
 		nadeassembly.attack_self__legacy__attackchain(user)
@@ -193,7 +203,7 @@
 	if(location)
 		if(shaped && aim_dir)
 			location = get_step(get_step(location, aim_dir), aim_dir) //Move the explosion location two steps away from the target when using a shaped c4
-		explosion(location, ex_devastate, ex_heavy, ex_light, breach = ex_breach)
+		explosion(location, ex_devastate, ex_heavy, ex_light, breach = ex_breach, cause = name)
 
 	qdel(src)
 

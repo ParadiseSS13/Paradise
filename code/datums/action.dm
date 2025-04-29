@@ -304,6 +304,8 @@
 
 /datum/action/item_action/clear_records
 	name = "Clear Scanner Records"
+	button_overlay_icon_state = "scanner_clear"
+	use_itemicon = FALSE
 
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"
@@ -644,7 +646,8 @@
 /datum/action/item_action/accessory/storage
 	name = "View Storage"
 
-
+/datum/action/item_action/call_link
+	name = "Call MODlink"
 
 //Preset for spells
 /datum/action/spell_action

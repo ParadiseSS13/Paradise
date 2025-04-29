@@ -95,6 +95,16 @@ even whole layouts, making it so a map looks different every time it is visited.
 
     ![](./images/mapmanip_results.png)
 
+    Mapmanip can also generate permutations of your map at the command line, by
+    running:
+
+    ```sh
+    .\tools\rustlib_tools\mapmanip.ps1
+    ```
+
+    This will create a version of every map that has submaps and save them with
+    the suffix `mapmanipout.dmm`, wherever the original map is located.
+
 ## Areas and Turfs
 
 Areas and turfs, and specifically their "noop" types, have special meaning in
@@ -180,7 +190,7 @@ If a map manipulation fails, it should do both these things:
   are in different places every round.
 - The sky is the limit, literally.
 
-# Submaps Design Guidelines
+## Submaps Design Guidelines
 
 1. Currently, while they do not have to be exactly rectangular, submaps cannot
    be larger than 24x24 tiles. This is in order to prevent them from being too
@@ -190,7 +200,7 @@ If a map manipulation fails, it should do both these things:
    about a map. If you have issues with the balance or design of a map, those
    issues should be addressed with ordinary remap PRs.
 
-## Stations
+### Stations
 
 1. For the time being, submaps on stations may only be used in maintenance
    tunnels, and only one submap per area (i.e. fore, aft) is permitted.
@@ -218,15 +228,15 @@ If a map manipulation fails, it should do both these things:
    being hidden with walls or no longer accessible via their pre-existing
    primary paths through maintenance.
 
-6. All pre-existing balance guidelines regarding mapping apply to submaps:
-   https://devdocs.paradisestation.org/mapping/design/#balance-guidelines
-
-   Loot counts must remain consistent. Walls should only be reinforced in
+6. All [pre-existing balance guidelines][guidelines] regarding mapping apply to
+   submaps. Loot counts must remain consistent. Walls should only be reinforced in
    appropriate places. There should be no "treasure troves" or hoards only
    accessible with detailed map knowledge. AI cameras cannot be placed in maints
    submaps. Antag/sec balance, tactical flexibility, and navigability must be
    considered. Dead ends are to be avoided. Department maintenance airlocks may
    not be moved or removed.
+
+   [guidelines]: https://devdocs.paradisestation.org/mapping/design/#balance-guidelines
 
 7. One submap must be an exact duplicate of the original area's contents. A
    submap will never not be chosen, and so it's necessary there be a submap of
@@ -242,7 +252,7 @@ If a map manipulation fails, it should do both these things:
    prototype this, they are welcome to, but there is no guarantee it will be
    accepted. A PR of this kind is not subject to the 24x24 size constraint rule.
 
-## Ruins
+### Ruins
 
 1. Submaps on ruins are allowed to be more flexible. There's currently no limit
    on how many submaps may be used on a given ruin, however the 24x24 tile limit

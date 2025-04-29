@@ -214,6 +214,14 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
+/datum/supply_packs/security/armory/eshotguns
+	name = "Energy Shotguns Crate"
+	contains = list(/obj/item/gun/energy/gun/shotgun,
+					/obj/item/gun/energy/gun/shotgun)
+	cost = 500
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "energy shotgun crate"
+
 /// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
 /datum/supply_packs/security/armory/epistol
 	name = "Energy Pistol Crate"

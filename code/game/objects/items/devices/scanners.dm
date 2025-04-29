@@ -199,7 +199,7 @@ SLIME SCANNER
 	if(HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(10) && IS_HORIZONTAL(M))
 		probably_dead = TRUE
 
-	if(issimple_animal(M))
+	if(isanimal_or_basicmob(M))
 		// No box here, keep it simple.
 		if(probably_dead)
 			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: <font color='red'>Dead</font></span>")
@@ -653,7 +653,7 @@ SLIME SCANNER
 
 		for(var/V in SSweather.processing)
 			var/datum/weather/W = V
-			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == WEATHER_END_STAGE))
+			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && is_type_in_list(user_area, W.area_types) && !(W.stage == WEATHER_END_STAGE))
 				ongoing_weather = W
 				break
 
@@ -750,7 +750,6 @@ SLIME SCANNER
 			volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
 			heat_capacity = air.heat_capacity()
 			thermal_energy = air.thermal_energy()
-
 			if(total_moles)
 				message += "<span class='notice'>Total: [round(total_moles, 0.01)] moles</span>"
 				if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
@@ -776,6 +775,8 @@ SLIME SCANNER
 
 	else// Sum mixtures then present
 		for(var/datum/gas_mixture/air as anything in airs)
+			if(isnull(air))
+				continue
 			total_moles += air.total_moles()
 			volume += air.return_volume()
 			heat_capacity += air.heat_capacity()

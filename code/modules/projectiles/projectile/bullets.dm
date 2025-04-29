@@ -58,6 +58,8 @@
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX
+	color = COLOR_GREEN
+
 
 /obj/item/projectile/bullet/incendiary
 	immolate = 1
@@ -144,6 +146,9 @@
 
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
+
+/obj/item/projectile/bullet/heavybullet2
+	damage = 40
 
 /// taser slugs for shotguns, nothing special
 /obj/item/projectile/bullet/stunshot
