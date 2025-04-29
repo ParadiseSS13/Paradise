@@ -29,7 +29,7 @@
 
 /obj/item/smithed_item/proc/set_stats()
 	if((material == /datum/smith_material/uranium || istype(material, /datum/smith_material/uranium)) && quality)
-		var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 100 * quality.stat_mult, 5 * quality.stat_mult, 0, 1.5)
+		var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 100 * quality.stat_mult, 0, 0, 1.5)
 		START_PROCESSING(SSradiation, radioactivity)
 	return
 
