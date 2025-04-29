@@ -2253,6 +2253,7 @@
 #include "code\modules\maze_generation\loot_modules\_loot_module_base.dm"
 #include "code\modules\maze_generation\loot_modules\turf_painter.dm"
 #include "code\modules\mining\abandonedcrates.dm"
+#include "code\modules\mining\bridge_capsule.dm"
 #include "code\modules\mining\fulton.dm"
 #include "code\modules\mining\machine_processing.dm"
 #include "code\modules\mining\machine_redemption.dm"
