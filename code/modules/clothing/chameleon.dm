@@ -194,6 +194,7 @@
 		I.color = initial(picked_item.color)
 
 		I.icon_override = initial(picked_item.icon_override)
+		// lists can't be copied that easy, we need to instantiate the picked item.
 		var/obj/item/P = new picked_item(null)
 		I.sprite_sheets = P.sprite_sheets ? P.sprite_sheets.Copy() : null
 		qdel(P)
