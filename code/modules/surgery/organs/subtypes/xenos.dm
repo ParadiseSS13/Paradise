@@ -3,6 +3,7 @@
 	icon_state = null
 	var/list/alien_powers = list()
 	var/list/human_powers = list()
+	icon = "icon/obj/xeno_organs.dm"
 	tough = TRUE
 	sterile = TRUE
 	/// Amount of credits that will be received by selling this in the cargo shuttle

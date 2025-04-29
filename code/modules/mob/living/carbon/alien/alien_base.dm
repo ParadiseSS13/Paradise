@@ -3,7 +3,7 @@
 	voice_name = "alien"
 	speak_emote = list("hisses")
 	bubble_icon = "alien"
-	icon = 'icons/obj/xeno_organs.dmi'
+	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	faction = list("alien")
 
