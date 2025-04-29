@@ -45,7 +45,7 @@
 
 /obj/item/reagent_containers/cooking/Initialize(mapload)
 	. = ..()
-	flags |= REAGENT_NOREACT
+	reagents.set_reacting(FALSE)
 	update_lip_effect()
 	clear_cooking_data()
 
@@ -136,7 +136,15 @@
 		return
 
 	if(reaction_status == PCWJ_NO_STEPS && !tracker.recipe_started)
-		to_chat(user, "<span class='notice'>You don't know what you'd begin to make with this.</span>")
+		if(!ismob(user))
+			return
+
+		if(tracker.step_reaction_message)
+			to_chat(user, "<span class='notice'>[tracker.step_reaction_message]</span>")
+			tracker.step_reaction_message = null
+		else
+			to_chat(user, "<span class='notice'>You don't know what you'd begin to make with this.</span>")
+
 		return
 
 	switch(reaction_status)

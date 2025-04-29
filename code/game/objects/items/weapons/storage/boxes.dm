@@ -112,16 +112,35 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
-/obj/item/storage/box/survival_syndi
-	icon_state = "syndi_box"
+/obj/item/storage/box/survival_syndie
+	icon_state = "syndie_box"
+	desc = "A sleek, sturdy box."
 
-/obj/item/storage/box/survival_syndi/populate_contents()
+/obj/item/storage/box/survival_syndie/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/survival_syndie/traitor/populate_contents()
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+	new /obj/item/crowbar/small(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/survival_syndie/traitor/loot/populate_contents()
+	new /obj/item/crowbar/small(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/syndie_kit/loot/populate_contents()
+	new /obj/effect/spawner/random/syndie_mob_loot(src)
+
+/obj/item/storage/box/syndie_kit/loot/elite/populate_contents()
+	new /obj/effect/spawner/random/pool/spaceloot/syndicate/armory/elite(src)
 
 //////////////////
 /* Common Boxes */
@@ -1351,6 +1370,15 @@
 	new /obj/item/autochef_remote(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/paper/autochef_quickstart(src)
+
+/obj/item/storage/box/kitchen_utensils/populate_contents()
+	new /obj/item/kitchen/utensil/fork(src)
+	new /obj/item/kitchen/utensil/fork(src)
+	new /obj/item/kitchen/utensil/spoon(src)
+	new /obj/item/kitchen/utensil/spoon(src)
+	new /obj/item/kitchen/knife(src)
+	new /obj/item/kitchen/knife/cheese(src)
+	new /obj/item/kitchen/knife/pizza_cutter(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

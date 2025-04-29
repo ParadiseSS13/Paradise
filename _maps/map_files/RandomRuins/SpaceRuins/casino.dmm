@@ -98,10 +98,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "cy" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = -6
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = -32
 	},
@@ -773,9 +770,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/engine)
 "wb" = (
-/obj/structure/sign/poster/official/high_class_martini{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/high_class_martini/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "wg" = (
@@ -801,9 +796,7 @@
 /turf/template_noop,
 /area/template_noop)
 "wn" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1189,9 +1182,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "Hq" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},

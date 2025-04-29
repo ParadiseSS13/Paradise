@@ -19,6 +19,7 @@ RESTRICT_TYPE(/mob/living/basic)
 	name = "basic mob"
 	desc = "If you can see this, make an issue report on GitHub."
 	healable = TRUE
+	icon = 'icons/mob/animal.dmi'
 
 	var/basic_mob_flags
 
@@ -110,6 +111,9 @@ RESTRICT_TYPE(/mob/living/basic)
 
 	// Attack related vars.
 	// Unclear how much of this should either be componentized or pulled to /mob/living
+	/// Sound played when the critter attacks.
+	var/attack_sound = 'sound/weapons/punch1.ogg'
+	/// Sound played when the critter is attacked.
 	var/attacked_sound = 'sound/weapons/punch1.ogg'
 	/// The amount of damage done to the mob when hand-attacked on harm intent.
 	var/harm_intent_damage = 3
@@ -117,6 +121,20 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, STAMINA = 0, OXY = 1)
 	/// Minimum force required to deal any damage
 	var/force_threshold = 0
+	/// Lower bound of damage done by unarmed melee attacks.
+	var/melee_damage_lower = 0
+	/// Upper bound of damage done by unarmed melee attacks.
+	var/melee_damage_upper = 0
+	/// How much damage this simple animal does to objects, if any
+	var/obj_damage = 0
+	/// Flat armour reduction, occurs after percentage armour penetration.
+	var/armour_penetration_flat = 0
+	/// Percentage armour reduction, happens before flat armour reduction.
+	var/armour_penetration_percentage = 0
+	/// Damage type of a simple mob's melee attack, should it do damage.
+	var/melee_damage_type = BRUTE
+	/// How often can you melee attack?
+	var/melee_attack_cooldown = 2 SECONDS
 
 /mob/living/basic/Initialize(mapload)
 	. = ..()
@@ -163,6 +181,31 @@ RESTRICT_TYPE(/mob/living/basic)
 /// Return whether or not ghosts can take over this mob via "Respawn as NPC"
 /mob/living/basic/proc/valid_respawn_target_for(mob/user)
 	return FALSE
+
+/mob/living/basic/resolve_unarmed_attack(atom/attack_target, list/modifiers)
+	melee_attack(attack_target, modifiers)
+
+/mob/living/basic/proc/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
+	if(!early_melee_attack(target, modifiers, ignore_cooldown))
+		return FALSE
+
+	var/result = target.attack_basic_mob(src, modifiers)
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
+	return result
+
+/mob/living/basic/proc/early_melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
+	face_atom(target)
+	if(!ignore_cooldown)
+		changeNext_move(melee_attack_cooldown)
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target, Adjacent(target), modifiers) & COMPONENT_HOSTILE_NO_ATTACK)
+		return FALSE
+	return TRUE
+
+/mob/living/basic/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(.)
+		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		return attack_threshold_check(damage, M.melee_damage_type)
 
 /mob/living/basic/handle_environment(datum/gas_mixture/readonly_environment)
 	SEND_SIGNAL(src, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
