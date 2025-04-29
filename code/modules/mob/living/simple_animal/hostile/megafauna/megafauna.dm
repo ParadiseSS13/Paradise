@@ -177,7 +177,7 @@
 			adjustBruteLoss(50)
 
 /mob/living/simple_animal/hostile/megafauna/proc/SetRecoveryTime(buffer_time)
-	recovery_time = world.time + buffer_time
+	recovery_time = world.time + 2.5 DECISECONDS
 	ranged_cooldown = world.time + buffer_time
 
 /// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.

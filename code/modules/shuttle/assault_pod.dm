@@ -55,7 +55,7 @@
 	landing_zone.dir = lz_dir
 	landing_zone.register() //new docking ports must be registered
 
-	for(var/obj/machinery/computer/shuttle/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle))
 		if(S.shuttleId == shuttle_id)
 			S.possible_destinations = "[landing_zone.id]"
 

@@ -56,9 +56,7 @@
 /turf/simulated/floor/wood,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -461,9 +459,7 @@
 /obj/machinery/computer/secure_data{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/cohiba_robusto_ad{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/cohiba_robusto_ad/directional/west,
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/carpet/red,
 /area/shuttle/escape)
@@ -619,9 +615,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "wk" = (
-/obj/structure/sign/poster/contraband/borg_fancy_2{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/borg_fancy_2/directional/west,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -928,9 +922,7 @@
 	dir = 1
 	},
 /obj/item/soap/deluxe,
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -948,9 +940,7 @@
 /obj/structure/mirror{
 	pixel_y = 35
 	},
-/obj/structure/sink{
-	pixel_y = 14
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1059,9 +1049,7 @@
 "SW" = (
 /obj/structure/curtain/open/shower,
 /obj/item/bikehorn/rubberducky,
-/obj/machinery/shower{
-	pixel_y = 22
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1070,9 +1058,7 @@
 /obj/machinery/computer/med_data{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/high_class_martini{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/high_class_martini/directional/east,
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/escape)

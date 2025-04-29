@@ -1166,10 +1166,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "fD" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = -4
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
@@ -1488,9 +1485,7 @@
 "hK" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/structure/sign/poster/contraband/power{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/power/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -1703,11 +1698,7 @@
 	},
 /area/ruin/space/deepstorage)
 "jo" = (
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/item/soap,
 /obj/effect/decal/cleanable/dirt,
@@ -1750,9 +1741,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/sign/poster/contraband/missing_gloves{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/missing_gloves/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -4865,11 +4854,7 @@
 /area/ruin/space/deepstorage)
 "Dx" = (
 /obj/structure/window/reinforced/tinted,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4990,11 +4975,7 @@
 /area/ruin/space/deepstorage)
 "Eu" = (
 /obj/structure/window/reinforced/tinted,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
@@ -5637,9 +5618,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Kg" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -5691,9 +5670,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Kx" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -5766,9 +5743,7 @@
 	},
 /area/ruin/space/deepstorage)
 "KS" = (
-/obj/structure/sign/poster/official/safety_internals{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/safety_internals/directional/east,
 /obj/item/chair/stool{
 	pixel_y = -7;
 	dir = 8
@@ -7029,10 +7004,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Uv" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = -4
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = -28
 	},

@@ -141,6 +141,9 @@
 /atom/movable/proc/get_cell()
 	return
 
+/atom/movable/proc/compressor_grind()
+	ex_act(EXPLODE_DEVASTATE)
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
@@ -385,6 +388,7 @@
 		set_glide_size(glide_size_override)
 
 	last_move = direct
+	l_move_time = world.time
 
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override)) //movement failed due to buckled mob
 		. = FALSE

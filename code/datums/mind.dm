@@ -406,7 +406,7 @@
 		. += "<b><font color='red'>OPERATIVE</b></font>|<a href='byond://?src=[UID()];nuclear=clear'>no</a>"
 		. += "<br><a href='byond://?src=[UID()];nuclear=lair'>To shuttle</a>, <a href='byond://?src=[UID()];common=undress'>undress</a>, <a href='byond://?src=[UID()];nuclear=dressup'>dress up</a>."
 		var/code
-		for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
+		for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 			if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 				code = bombue.r_code
 				break
@@ -1190,7 +1190,7 @@
 
 			if("tellcode")
 				var/code
-				for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
+				for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 					if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 						code = bombue.r_code
 						break
@@ -1763,6 +1763,11 @@
 			if(G.can_reenter_corpse || even_if_they_cant_reenter)
 				return G
 			break
+
+/datum/mind/proc/check_ghost_client()
+	var/mob/dead/observer/G = get_ghost()
+	if(G?.client)
+		return TRUE
 
 /datum/mind/proc/grab_ghost(force)
 	var/mob/dead/observer/G = get_ghost(even_if_they_cant_reenter = force)
