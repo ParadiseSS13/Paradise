@@ -197,6 +197,9 @@
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
+/obj/item/clothing/mask/surgical/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ANTI_VIRAL, "inherent")
 
 /obj/item/clothing/mask/surgical/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)

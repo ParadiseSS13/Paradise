@@ -111,9 +111,11 @@ MARK: Helpers
 		// Check for eye protection
 		var/eye_check = !((wear_mask?.flags_cover & MASKCOVERSEYES) || (head?.flags_cover & HEADCOVERSEYES) || (glasses?.flags_cover & GLASSESCOVERSEYES))
 		// Masks and hoods protect our mouth from sneezes, but not truely airborn viruses
-		var/mouth_check = ((D.spread_flags & AIRBORNE) && prob(100 * D.permeability_mod)) || ((prob((wear_mask?.permeability_coefficient*100) - 1) || !(wear_mask?.flags_cover & MASKCOVERSMOUTH)) && (prob((head?.permeability_coefficient*100) - 1) || !(head?.flags_cover & HEADCOVERSMOUTH)))
+		var/mouth_check = ((prob((wear_mask?.permeability_coefficient*100) - 1) || !(wear_mask?.flags_cover & MASKCOVERSMOUTH)) && (prob((head?.permeability_coefficient*100) - 1) || !(head?.flags_cover & HEADCOVERSMOUTH)))
+		// A further check on the mask against airborne diseases
+		var/breath_check = !internal && (D.spread_flags & AIRBORNE) && prob(100 * D.permeability_mod) && !((wear_mask?.flags_cover & MASKCOVERSMOUTH && HAS_TRAIT(wear_mask, TRAIT_ANTI_VIRAL)) || (head?.flags_cover & MASKCOVERSMOUTH && HAS_TRAIT(head, TRAIT_ANTI_VIRAL)))
 		// If anything gets penetrated we contract the disease.
-		passed = eye_check || (mouth_check && !internal)
+		passed = eye_check || mouth_check || breath_check
 
 	return passed
 
