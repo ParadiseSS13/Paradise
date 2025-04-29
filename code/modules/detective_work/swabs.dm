@@ -3,13 +3,18 @@
 	gunshot_residue = null
 
 /obj/item/forensics/swab
-	name = "\improper sample collection kit"
+	name = "sample collection kit"
 	desc = "Sterile cotton swab and test tube for collecting samples."
 	icon_state = "swab"
+	///currently in machine
 	var/dispenser = FALSE
+	///gunshot residue data
 	var/gsr = FALSE
+	///DNA samble data
 	var/list/dna
+	///boolean, used or not
 	var/used
+	///limits to one sample per item
 	var/inuse = FALSE
 
 /obj/item/forensics/swab/proc/is_used()
@@ -47,7 +52,7 @@
 			return
 		var/target_dna
 		var/target_gsr
-		if(user.zone_selected == "mouth")
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 			if(!H.has_organ("head"))
 				to_chat(user, "<span class='warning'>[H] has no head.</span>")
 				inuse = FALSE
@@ -56,7 +61,7 @@
 				to_chat(user, "<span class='warning'>[H] has no mouth.</span>")
 				inuse = FALSE
 				return
-			user.visible_message("<span class='notice'>[user] swabs [H]'s mouth with a swab.</span>")
+			user.visible_message("<span class='notice'>[user] swabs [H]'s mouth with \a [name].</span>")
 			target_dna = list(H.dna.unique_enzymes)
 			sample_type = "DNA"
 
@@ -118,11 +123,11 @@
 			choices |= "Gunpowder particles"
 
 		var/choice
-		if(!choices.len)
+		if(!length(choices))
 			to_chat(user, "<span class='warning'>There is no evidence on [A].</span>")
 			inuse = FALSE
 			return
-		else if(choices.len == 1)
+		else if(length(choices) == 1)
 			choice = choices[1]
 		else
 			choice = tgui_input_list(user, "What evidence are you looking for?", "Collection of evidence", choices)
@@ -135,7 +140,7 @@
 		var/target_dna
 		var/target_gsr
 		if(choice == "Blood")
-			if(!A.blood_DNA || !A.blood_DNA.len)
+			if(!length(A.blood_DNA))
 				inuse = FALSE
 				return
 			target_dna = A.blood_DNA.Copy()

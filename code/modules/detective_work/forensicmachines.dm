@@ -7,7 +7,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/dnaforensics
-	category = list ("Misc. Machinery")
+	category = list("Misc. Machinery")
 
 /obj/item/circuitboard/dnaforensics
 	name = "circuit board (DNA analyzer)"
@@ -16,7 +16,7 @@
 	origin_tech = "programming=2;combat=2"
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/manipulator = 1,)
+		/obj/item/stock_parts/manipulator = 1)
 
 /datum/design/microscope
 	name = "Machine Design (Forensic Microscope)"
@@ -26,7 +26,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/microscope
-	category = list ("Misc. Machinery")
+	category = list("Misc. Machinery")
 
 /obj/item/circuitboard/microscope
 	name = "circuit board (Microscope)"
@@ -48,7 +48,9 @@
 	density = TRUE
 
 	var/obj/item/forensics/swab = null
+	///is currently scanning
 	var/scanning = FALSE
+	///Global number of reports ran from that machine type
 	var/report_num = FALSE
 
 /obj/machinery/dnaforensics/Initialize(mapload)
@@ -71,7 +73,7 @@
 		return
 
 	if(istype(W, /obj/item/forensics/swab))
-		to_chat(user, "<span class='notice'>You insert [W] into the DNA analyzer.</span>")
+		to_chat(user, "<span class='notice'>You insert [W] into [src].</span>")
 		user.unequip(W)
 		W.forceMove(src)
 		swab = W
@@ -89,9 +91,9 @@
 		return
 	scanning = TRUE
 	update_icon()
-	to_chat(user, "<span class='notice'>The scanner begins to hum and analyze the contents of the tube [swab].</span>")
+	to_chat(user, "<span class='notice'>The scanner begins to hum and analyze the contents of the tube containing [swab].</span>")
 
-	if(!do_after(user, 25, src) || !swab)
+	if(!do_after(user, 2.5 SECONDS, src) || !swab)
 		to_chat(user, "<span class='notice'>You have stopped analyzing [swab]</span>")
 		scanning = FALSE
 		update_icon()
@@ -109,7 +111,7 @@
 		report.name = ("DNA scanner report no.[++report_num]: [bloodswab.name]")
 		//dna data itself
 		var/data = "No analysis data available."
-		if(bloodswab.dna != null)
+		if(!isnull(bloodswab.dna))
 			data = "Spectrometric analysis on the provided sample determined the presence of DNA strands in the amount [bloodswab.dna.len].<br><br>"
 			for(var/blood in bloodswab.dna)
 				data += "<span class='notice'>Blood type: [bloodswab.dna[blood]]<br>\nDNA: [blood]<br><br></span>"
@@ -121,13 +123,12 @@
 		report.update_icon()
 		scanning = FALSE
 		update_icon()
-	return
 
 /obj/machinery/dnaforensics/proc/remove_sample(mob/living/remover)
 	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
 		return
 	if(!swab)
-		to_chat(remover, "<span class='warning'>There is no sample inside the scanner!.</span>")
+		to_chat(remover, "<span class='warning'>There is no sample inside the scanner!</span>")
 		return
 	to_chat(remover, "<span class='notice'>you removed out [swab] from the scanner.</span>")
 	swab.forceMove(get_turf(src))
@@ -172,7 +173,7 @@
 // the print must be there for it to be complete.  (Prints are 32 digits)
 /obj/machinery/microscope
 	name = "\improper Microscope"
-	desc = "microscope capable of magnifying images up to 3000 times"
+	desc = "A microscope capable of magnifying images up to 3000 times."
 	icon = 'icons/obj/forensics/forensics.dmi'
 	icon_state = "microscope"
 	anchored = TRUE

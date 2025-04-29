@@ -279,11 +279,10 @@
 		stored_ammo -= ammo
 
 /obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
-	if(!H)
+	if(!istype(H))
 		return
+	if(H.gloves)
+		var/obj/item/clothing/G = H.gloves
+		G.gunshot_residue = caliber
 	else
-		if(H.gloves)
-			var/obj/item/clothing/G = H.gloves
-			G.gunshot_residue = caliber
-		else
-			H.gunshot_residue = caliber
+		H.gunshot_residue = caliber
