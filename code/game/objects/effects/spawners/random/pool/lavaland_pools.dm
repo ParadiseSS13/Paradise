@@ -90,13 +90,19 @@
 	if(!okay_area || !okay_turf)
 		return FALSE
 
-	for(var/thing in urange(fauna_scan_range, T, areas = TRUE))
+	for(var/thing in urange(fauna_scan_range, T))
 		// avoid spawning a megafauna if there's another one within the scan range
 		if(ismegafauna(thing) && get_dist(T, thing) <= megafauna_scan_range)
 			return FALSE
-		// avoid spawning a megafauna if it's too close to a ghost spawn
-		if(istype(thing, /area/ruin/powered/safe) || istype(thing, /area/shuttle/freegolem))
-			return FALSE
+
+	for(var/obj/effect/landmark/ruin/ruin_landmark in GLOB.ruin_landmarks)
+		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
+		// avoid spawning a megafauna if it's too close to a ghost spawn ruin
+		if(template.safe)
+			// largest axis halved + the ruin scan range
+			var/exclusion_distance = (template.width > template.height ? template.width : template.height * 0.5) + ghost_ruin_scan_range
+			if(get_dist(T, ruin_landmark) < exclusion_distance)
+				return FALSE
 
 	return ..()
 
