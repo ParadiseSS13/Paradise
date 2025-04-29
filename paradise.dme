@@ -2264,7 +2264,6 @@
 #include "code\modules\mining\laborcamp\laborshuttle.dm"
 #include "code\modules\mining\lavaland\ash_flora.dm"
 #include "code\modules\mining\lavaland\necropolis_chests.dm"
-#include "code\modules\mining\lavaland\loot\ancient_loot.dm"
 #include "code\modules\mining\lavaland\loot\ashdragon_loot.dm"
 #include "code\modules\mining\lavaland\loot\bubblegum_loot.dm"
 #include "code\modules\mining\lavaland\loot\colossus_loot.dm"

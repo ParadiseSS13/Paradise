@@ -1,28 +1,3 @@
-/obj/structure/closet/crate/necropolis/dragon
-	name = "dragon chest"
-
-/obj/structure/closet/crate/necropolis/dragon/populate_contents()
-	var/loot = rand(1,4)
-	switch(loot)
-		if(1)
-			new /obj/item/melee/ghost_sword(src)
-		if(2)
-			new /obj/item/lava_staff(src)
-		if(3)
-			new /obj/item/spellbook/oneuse/sacredflame(src)
-			new /obj/item/gun/magic/wand/fireball(src)
-		if(4)
-			new /obj/item/dragons_blood(src)
-
-
-/obj/structure/closet/crate/necropolis/dragon/crusher
-	name = "firey dragon chest"
-
-/obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
-	. = ..()
-	new /obj/item/crusher_trophy/tail_spike(src)
-
-
 // Spectral Blade
 
 /obj/item/melee/ghost_sword
