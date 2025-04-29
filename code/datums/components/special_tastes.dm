@@ -1,7 +1,7 @@
 ///allows humanoids to eat arbitrary items
 /datum/component/special_tastes
-	///associated list of item to reagents and tastes
-	var/list/obj/item/edible_items = list() //Typepath = (list(reagents = list(reagents), tastes = list(tastes)); Ex: list(/obj/item/stack/sheet/mineral/silver = list("reagents" = list("nutriment" = 5, "vitamin" = 1), "tastes" = list("metal and blood" = 1)))
+	/// associated list of item to reagents and tastes
+	var/list/obj/item/edible_items = list() // Typepath = (list(reagents = list(reagents), tastes = list(tastes)); Ex: list(/obj/item/stack/sheet/mineral/silver = list("reagents" = list("nutriment" = 5, "vitamin" = 1), "tastes" = list("metal and blood" = 1)))
 
 /datum/component/special_tastes/Initialize(list/edible_items)
 	if(!length(edible_items))
@@ -9,15 +9,15 @@
 	if(!ishuman(parent))
 		return COMPONENT_INCOMPATIBLE
 	for(var/obj/item/current_item as anything in edible_items)
-		if(!islist(edible_items[current_item])) //if not a list of reagents
+		if(!islist(edible_items[current_item])) // if not a list of reagents
 			return COMPONENT_INCOMPATIBLE
 	src.edible_items = edible_items
 	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(attempt_ingest))
 
-///check if item is in the list of potential food
+/// check if item is in the list of potential food
 /datum/component/special_tastes/proc/attempt_ingest(source, obj/item/attacking_item, mob/living/carbon/human/attacker)
 	SIGNAL_HANDLER
-	if(parent != attacker) //only if they attack themselves with it
+	if(parent != attacker) // only if they attack themselves with it
 		return
 	var/is_edible = FALSE
 	var/obj/item/similar_to
@@ -44,11 +44,11 @@
 	var/fullness = user.nutrition + 10
 	for(var/datum/reagent/consumable/chem in food.reagents.reagent_list)
 		fullness += chem.nutriment_factor * chem.volume / (chem.metabolization_rate * user.metabolism_efficiency)
-	if(!(fullness > (600 * (1 + user.overeatduration / 2000)))) //need to work around the sleep()'s in eat()
+	if(!(fullness > (600 * (1 + user.overeatduration / 2000)))) // need to work around the sleep()'s in eat()
 		user.consume(food)
 		food.On_Consume(user, user)
 		qdel(attacking_item)
-		return //couldnt eat it, undo
+		return // couldnt eat it, undo
 	to_chat(user, "<span class='notice'>You are too full to eat [attacking_item].</span>")
 	user.drop_item_to_ground(food, TRUE, TRUE)
 	user.put_in_active_hand(attacking_item)
