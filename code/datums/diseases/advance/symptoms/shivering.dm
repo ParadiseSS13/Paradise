@@ -18,10 +18,10 @@ Bonus
 /datum/symptom/shivering
 
 	name = "Shivering"
-	stealth = 0
-	resistance = 2
+	stealth = 1
+	resistance = 0
 	stage_speed = 2
-	transmittable = 2
+	transmittable = 3
 	level = 2
 	severity = 2
 

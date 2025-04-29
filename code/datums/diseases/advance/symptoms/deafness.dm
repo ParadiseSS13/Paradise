@@ -17,8 +17,8 @@ Bonus
 
 /datum/symptom/deafness
 	name = "Deafness"
-	stealth = -1
-	resistance = -2
+	stealth = 1
+	resistance = 0
 	stage_speed = -1
 	transmittable = -3
 	level = 4

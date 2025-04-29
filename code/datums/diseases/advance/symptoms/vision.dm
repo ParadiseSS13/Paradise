@@ -19,9 +19,9 @@ Bonus
 
 	name = "Hyphema"
 	stealth = 2
-	resistance = -3
+	resistance = 1
 	stage_speed = -1
-	transmittable = -3
+	transmittable = -4
 	level = 5
 	severity = 4
 

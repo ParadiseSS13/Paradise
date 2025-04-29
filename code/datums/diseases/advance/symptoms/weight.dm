@@ -20,9 +20,9 @@ Bonus
 
 	name = "Weight Loss"
 	stealth = -2
-	resistance = 0
+	resistance = 1
 	stage_speed = -2
-	transmittable = -2
+	transmittable = -3
 	level = 3
 	severity = 4
 	treatments = list("frostoil")

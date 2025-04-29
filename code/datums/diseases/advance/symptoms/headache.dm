@@ -19,10 +19,10 @@ BONUS
 /datum/symptom/headache
 
 	name = "Headache"
-	stealth = -1
-	resistance = 4
-	stage_speed = 2
-	transmittable = 0
+	stealth = 2
+	resistance = 0
+	stage_speed = 0
+	transmittable = 3
 	level = 1
 	severity = 1
 	treatments = list("hydrocodone", "morphine", "sal_acid")

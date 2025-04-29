@@ -20,9 +20,9 @@ Bonus
 
 	name = "Sneezing"
 	stealth = -2
-	resistance = 3
-	stage_speed = 0
-	transmittable = 4
+	resistance = 0
+	stage_speed = 2
+	transmittable = 5
 	level = 1
 	severity = 1
 	treatments = list("perfluorodecalin")

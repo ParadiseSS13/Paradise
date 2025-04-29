@@ -18,9 +18,9 @@ BONUS
 
 	name = "Vitiligo"
 	stealth = -3
-	resistance = 1
+	resistance = 0
 	stage_speed = 1
-	transmittable = 1
+	transmittable = 2
 	level = 4
 	severity = 1
 	treatments = list("synthflesh")

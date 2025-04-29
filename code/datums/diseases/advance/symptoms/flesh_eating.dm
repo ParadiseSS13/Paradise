@@ -18,10 +18,10 @@ Bonus
 /datum/symptom/flesh_eating
 
 	name = "Necrotizing Fasciitis"
-	stealth = -3
-	resistance = -3
+	stealth = -4
+	resistance = 3
 	stage_speed = 0
-	transmittable = -2
+	transmittable = -3
 	level = 6
 	severity = 6
 	treatments = list("synthflesh", "lazarus_reagent")

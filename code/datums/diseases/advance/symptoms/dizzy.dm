@@ -20,8 +20,8 @@ Bonus
 
 	name = "Dizziness"
 	stealth = 2
-	resistance = -2
-	stage_speed = -3
+	resistance = 0
+	stage_speed = -1
 	transmittable = -1
 	level = 4
 	severity = 2

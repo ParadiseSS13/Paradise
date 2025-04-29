@@ -18,8 +18,8 @@ Bonus
 /datum/symptom/fire
 
 	name = "Spontaneous Combustion"
-	stealth = -2
-	resistance = -2
+	stealth = -3
+	resistance = 3
 	stage_speed = 1
 	transmittable = -4
 	level = 6

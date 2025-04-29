@@ -19,8 +19,8 @@ BONUS
 /datum/symptom/itching
 
 	name = "Itching"
-	stealth = 0
-	resistance = 3
+	stealth = 2
+	resistance = -1
 	stage_speed = 3
 	transmittable = 1
 	level = 1

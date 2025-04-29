@@ -77,14 +77,16 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		A.base_properties[pick(properties_to_buff)]++
 	A.base_properties["transmittable"] += round(max_severity / 2)
 	A.base_properties["stealth"] += max_severity // Stealth gets an additional bonus since most symptoms reduce it a fair bit.
-	A.base_properties["resistance"] += round(max_severity / 3) // Resistance gets a small extra buff
-	// Choose "Payload" symptoms. With one guaranteed to be close to max severity
-	A.symptoms = A.GenerateSymptomsBySeverity(max_severity - 2, max_severity, 2)
+	// Generate a 6 symptom disease, with some guaranteed to be close to the maximum severity
+	A.symptoms += A.GenerateSymptomsBySeverity(1, max_severity, 3)
+	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 2, max_severity, 2)
 	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 1)
 	A.AssignProperties(A.GenerateProperties())
 	var/list/symptoms_to_try = transmissable_symptoms.Copy()
-	var/spread_threhsold = CONTACT_GENERAL
+	var/spread_threhsold = CONTACT_HANDS
 	// Chance for it to be extra spready, scales quadratically with severity
+	if(prob(max_severity ** 2) * 3)
+		spread_threhsold = CONTACT_GENERAL
 	if(prob((max_severity ** 2) * 1.5))
 		spread_threhsold = AIRBORNE
 		A.base_properties["transmittable"]++

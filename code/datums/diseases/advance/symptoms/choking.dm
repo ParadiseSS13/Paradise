@@ -19,7 +19,7 @@ Bonus
 
 	name = "Choking"
 	stealth = -3
-	resistance = -2
+	resistance = 0
 	stage_speed = -2
 	transmittable = -4
 	level = 3

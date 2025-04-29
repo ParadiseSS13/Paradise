@@ -22,8 +22,8 @@ Bonus
 /datum/symptom/vomit
 
 	name = "Vomiting"
-	stealth = -2
-	resistance = -1
+	stealth = -3
+	resistance = 0
 	stage_speed = -2
 	transmittable = 1
 	level = 3
@@ -71,9 +71,9 @@ Bonus
 
 	name = "Blood Vomiting"
 	stealth = -2
-	resistance = -1
-	stage_speed = -1
-	transmittable = 1
+	resistance = 2
+	stage_speed = -3
+	transmittable = 0
 	level = 4
 	severity = 5
 
@@ -103,9 +103,9 @@ Bonus
 
 	name = "Projectile Vomiting"
 	stealth = -2
-	resistance = -2
-	stage_speed = -4
-	transmittable = 1
+	resistance = 1
+	stage_speed = -2
+	transmittable = 0
 	level = 5
 	severity = 4
 
