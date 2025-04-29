@@ -194,11 +194,9 @@
 		I.color = initial(picked_item.color)
 
 		I.icon_override = initial(picked_item.icon_override)
-		if(initial(picked_item.sprite_sheets))
-			// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
-			var/obj/item/P = new picked_item(null)
-			I.sprite_sheets = P.sprite_sheets
-			qdel(P)
+		var/obj/item/P = new picked_item(null)
+		I.sprite_sheets = P.sprite_sheets ? P.sprite_sheets.Copy() : null
+		qdel(P)
 
 		if(isclothing(I) && isclothing(picked_item))
 			var/obj/item/clothing/CL = I
