@@ -653,7 +653,7 @@
 
 /obj/item/nullrod/rosary/bread/process()
 	var/mob/living/carbon/human/holder = loc
-	//would like to make the holder mime if they have it in on their person in general
+	// would like to make the holder mime if they have it in on their person in general
 	for(var/mob/living/carbon/human/H in range(5, loc))
 		if(!H.mind)
 			continue
