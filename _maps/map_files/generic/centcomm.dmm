@@ -350,6 +350,13 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"bj" = (
+/obj/effect/turf_decal/arrows/red{
+	dir = 1;
+	pixel_y = -16
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ghost_bar)
 "bk" = (
 /obj/machinery/smartfridge/food/chef,
 /turf/simulated/floor/plasteel{
@@ -4785,10 +4792,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
-"pQ" = (
-/obj/machinery/teleport/station,
-/turf/simulated/floor/plasteel/dark,
-/area/ghost_bar)
 "pR" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -8777,10 +8780,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/ghost_bar)
-"Dl" = (
-/obj/machinery/teleport/hub,
-/turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "Dm" = (
 /obj/structure/chair/office/dark{
@@ -14298,9 +14297,8 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ghost_bar)
 "UD" = (
-/obj/machinery/computer/teleporter{
-	dir = 1
-	},
+/obj/effect/landmark/spawner/antag_extract_warp,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "UE" = (
@@ -71012,7 +71010,7 @@ BS
 Td
 la
 rU
-rU
+bj
 UD
 Td
 PE
@@ -71269,8 +71267,8 @@ BS
 Td
 Ca
 rU
-rU
-pQ
+bj
+UD
 Td
 PE
 PE
@@ -71526,8 +71524,8 @@ BS
 Td
 Ph
 RQ
-rU
-Dl
+bj
+UD
 Td
 PE
 PE

@@ -200,6 +200,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	spawner_list = GLOB.syndieprisonwarp
 	return ..()
 
+/obj/effect/landmark/spawner/antag_extract_warp
+	name = "antagextractwarp"
+
+/obj/effect/landmark/spawner/antag_extract_warp/Initialize(mapload)
+	spawner_list = GLOB.antagextractwarp
+	return ..()
+
 /obj/effect/landmark/spawner/prisonwarp
 	name = "prisonwarp"
 
