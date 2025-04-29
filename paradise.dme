@@ -1740,6 +1740,7 @@
 #include "code\modules\atmospherics\machinery\components\unary_devices\vent_scrubber.dm"
 #include "code\modules\atmospherics\machinery\other\area_atmos_computer.dm"
 #include "code\modules\atmospherics\machinery\other\meter.dm"
+#include "code\modules\atmospherics\machinery\other\refill_station.dm"
 #include "code\modules\atmospherics\machinery\pipes\cap.dm"
 #include "code\modules\atmospherics\machinery\pipes\manifold.dm"
 #include "code\modules\atmospherics\machinery\pipes\manifold4w.dm"
