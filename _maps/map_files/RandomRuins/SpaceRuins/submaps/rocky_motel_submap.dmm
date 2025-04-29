@@ -196,9 +196,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/mineral/plastitanium,
 /area/template_noop)
 "uS" = (
@@ -287,9 +285,7 @@
 /turf/template_noop,
 /area/template_noop)
 "El" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/carpet/green,
 /area/template_noop)
 "Fu" = (
@@ -331,11 +327,7 @@
 /area/template_noop)
 "Kr" = (
 /obj/item/soap/syndie,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = -4;
-	pixel_x = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

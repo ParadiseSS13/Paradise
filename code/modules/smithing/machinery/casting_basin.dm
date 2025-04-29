@@ -115,13 +115,14 @@
 		to_chat(user, "<span class='warning'>[used] does not fit in [src]'s cast slot.</span>")
 		return
 
-	if(cast)
-		to_chat(user, "<span class='warning'>[src] already has a cast inserted.</span>")
-		return
-
 	if(used.flags & NODROP || !user.transfer_item_to(used, src))
 		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
 		return ITEM_INTERACT_COMPLETE
+	if(cast)
+		user.put_in_active_hand(cast)
+		to_chat(user, "<span class='notice'>You swap [used] with [cast] in [src].</span>")
+	else
+		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 	cast = used
 	update_icon(UPDATE_OVERLAYS)
 	return ITEM_INTERACT_COMPLETE
@@ -219,7 +220,7 @@
 			return FINISH_ATTACK
 
 		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
-		playsound(src, 'sound/machines/recycler.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/recycler.ogg', 50, FALSE)
 		// Use the materials and create the item.
 		materials.use_amount(temp_product.materials, amount)
 		linked_crucible.animate_pour(operation_time SECONDS)

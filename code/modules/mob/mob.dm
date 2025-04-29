@@ -1108,6 +1108,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(mind)
 		return mind.get_ghost(even_if_they_cant_reenter)
 
+/mob/proc/check_ghost_client()
+	if(mind)
+		return mind.check_ghost_client()
+
 /mob/proc/grab_ghost(force)
 	if(mind)
 		return mind.grab_ghost(force = force)
