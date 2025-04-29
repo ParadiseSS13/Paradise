@@ -31,7 +31,7 @@
 	attempt_to_eat(attacker, attacking_item, similar_to)
 	return COMPONENT_SKIP_AFTERATTACK
 
-///handle the
+///handle eating and nutrition gain from eating minerals
 /datum/component/special_tastes/proc/attempt_to_eat(mob/living/carbon/human/user, obj/item/attacking_item, obj/item/similar_to)
 	if(istype(attacking_item, /obj/item/stack))
 		var/obj/item/stack/stacked_item = attacking_item
@@ -54,7 +54,7 @@
 	user.put_in_active_hand(attacking_item)
 	qdel(food)
 
-///turn the item into food, can only be eaten in 1 bite to prevent
+///turn the item into food, can only be eaten in 1 bite to prevent the creation of ghost items with no nutrition or use as a mineral.
 /datum/component/special_tastes/proc/turn_into_food(obj/item/future_food, obj/item/similar_to)
 	var/obj/item/food/food = new
 	food.name = future_food.name
