@@ -19,7 +19,7 @@
 	name = "Alien Dissection Manager"
 	desc = "A tool of alien origin, capable of near impossible levels of precision during dissections."
 	icon_state = "dissector_alien"
-	origin_tech = "abductor = 3"
+	origin_tech = "abductor=3"
 
 /obj/item/dissector/Initialize(mapload)
 	. = ..()
