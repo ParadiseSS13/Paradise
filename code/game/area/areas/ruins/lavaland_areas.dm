@@ -17,7 +17,7 @@
 /area/ruin/powered/gluttony
 	icon_state = "yellow"
 
-/area/ruin/powered/safe/golem_ship
+/area/ruin/powered/golem_ship
 	name = "Free Golem Ship"
 	icon_state = "yellow"
 
@@ -43,7 +43,7 @@
 /area/ruin/powered/pride
 	icon_state = "yellow"
 
-/area/ruin/powered/safe/seedvault
+/area/ruin/powered/seedvault
 	icon_state = "yellow"
 
 
