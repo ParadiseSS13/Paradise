@@ -1126,6 +1126,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "all" = (
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -4740,6 +4741,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Engineering";
+	name = "Engineering Security Doors"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
 "aDi" = (
@@ -5638,6 +5643,7 @@
 	name = "Secure Storage Blast Doors"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/secure_storage)
 "aHh" = (
@@ -7828,7 +7834,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/maintenance/turbine)
 "aON" = (
 /obj/machinery/cryopod,
 /obj/machinery/firealarm/directional/east,
@@ -14586,7 +14592,6 @@
 	},
 /area/station/engineering/tech_storage)
 "blr" = (
-/obj/machinery/firealarm/directional/north,
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14620,10 +14625,6 @@
 "bly" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
-	},
-/obj/machinery/camera{
-	c_tag = "Engineering - AI Minisat Transit Tube Access";
-	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -15050,7 +15051,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "bmu" = (
-/obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
@@ -15058,6 +15058,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15223,6 +15224,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
 /obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "bnd" = (
@@ -15553,11 +15555,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21282,7 +21284,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/maintenance/turbine)
 "bGE" = (
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold4w/visible/yellow,
@@ -23924,7 +23926,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bRk" = (
-/obj/machinery/atmospherics/portable/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "bRl" = (
@@ -25505,6 +25509,7 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "bXt" = (
@@ -25533,7 +25538,9 @@
 	},
 /area/station/service/library)
 "bXA" = (
-/obj/machinery/atmospherics/portable/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
 "bXB" = (
@@ -26702,7 +26709,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "cci" = (
-/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "ccj" = (
@@ -39092,6 +39101,10 @@
 "dtg" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "dtC" = (
@@ -39969,6 +39982,10 @@
 /area/station/security/permabrig)
 "dRt" = (
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "dRN" = (
@@ -40944,6 +40961,10 @@
 "elQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "elV" = (
@@ -41394,6 +41415,10 @@
 /area/station/service/janitor)
 "euB" = (
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "euU" = (
@@ -44721,11 +44746,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "fIO" = (
-/obj/structure/dispenser,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "caution"
+/obj/machinery/shower/directional/east{
+	name = "emergency shower"
 	},
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/noslip,
 /area/station/engineering/atmos/control)
 "fJd" = (
 /obj/machinery/door/airlock/security/glass{
@@ -48446,6 +48471,7 @@
 /area/station/turret_protected/ai_upload)
 "hqJ" = (
 /obj/machinery/alarm/directional/north,
+/obj/structure/dispenser,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -48748,7 +48774,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/maintenance/turbine)
 "hyD" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -49236,6 +49262,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 9
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
@@ -50008,6 +50038,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 10
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
@@ -51455,6 +51489,10 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "iFi" = (
@@ -55387,12 +55425,12 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "knq" = (
-/obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
 	},
 /obj/machinery/economy/vending/wallmed/directional/north,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55757,6 +55795,10 @@
 "kxI" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "kyo" = (
@@ -57797,6 +57839,10 @@
 "lkP" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/closet/emcloset,
+/obj/machinery/camera{
+	c_tag = "Engineering - Escape Pod";
+	network = list("SS13","Engineering")
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
 "lkW" = (
@@ -58566,12 +58612,6 @@
 	icon_state = "C11"
 	},
 /area/station/hallway/primary/central/north)
-"lDq" = (
-/obj/machinery/shower/directional/east{
-	name = "emergency shower"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "lDu" = (
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
@@ -59279,7 +59319,7 @@
 	},
 /obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/maintenance/turbine)
 "lSa" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -59354,6 +59394,10 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "lSG" = (
@@ -60139,6 +60183,10 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Engineering";
+	name = "Engineering Security Doors"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "mjM" = (
@@ -62356,12 +62404,15 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "ncA" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/camera{
+	c_tag = "Engineering - AI Minisat Transit Tube Access";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62587,6 +62638,10 @@
 "ngh" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "ngG" = (
@@ -65678,6 +65733,10 @@
 /area/station/maintenance/asmaint)
 "oCX" = (
 /obj/structure/closet/secure_closet/atmos_personal,
+/obj/machinery/camera{
+	c_tag = "Atmospherics - Lockers";
+	network = list("SS13","Engineering")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -66258,6 +66317,10 @@
 "oOK" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "oOU" = (
@@ -69612,6 +69675,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -70810,6 +70874,10 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "qLo" = (
@@ -71161,7 +71229,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics - Desk";
-	dir = 1;
+	dir = 10;
 	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/plasteel{
@@ -71921,6 +71989,7 @@
 	name = "Secure Storage Blast Doors"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/secure_storage)
 "riN" = (
@@ -72629,6 +72698,10 @@
 	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "rxV" = (
@@ -72884,6 +72957,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/sign/securearea{
 	pixel_y = 32
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "transittube";
+	name = "Transit Tube Blast Door"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/ai_transit_tube)
@@ -83175,6 +83252,10 @@
 /area/station/medical/morgue)
 "vWH" = (
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "transittube";
+	name = "Transit Tube Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/ai_transit_tube)
 "vWR" = (
@@ -83561,7 +83642,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/maintenance/turbine)
 "wgT" = (
 /mob/living/basic/cow/betsy,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -86165,6 +86246,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmospherics Blast Door"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "xjJ" = (
@@ -130896,7 +130981,7 @@ fWW
 fWW
 fWW
 fWW
-lDq
+fWW
 ptm
 vPx
 tCE
@@ -131655,8 +131740,8 @@ kkI
 tLY
 iRu
 iRu
-bvk
-bvk
+iRu
+iRu
 bvk
 eoD
 aLa
