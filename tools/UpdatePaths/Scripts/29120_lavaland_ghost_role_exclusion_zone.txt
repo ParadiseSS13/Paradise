@@ -1,2 +1,0 @@
-/area/ruin/powered/seedvault : /area/ruin/powered/safe/seedvault
-/area/ruin/powered/golem_ship : /area/ruin/powered/safe/golem_ship
