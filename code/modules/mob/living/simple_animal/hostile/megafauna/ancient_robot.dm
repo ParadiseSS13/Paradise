@@ -147,6 +147,7 @@ Difficulty: Hard
 		/obj/item/stack/ore/palladium
 	)
 
+	new /obj/item/stack/sheet/mineral/abductor (spawn_location, roll("4d8")) // This is the amount of the other rare ores spawned
 	for(var/ore in exquisite_ore)
 		new ore(spawn_location, rand(5, 10)) // Don't want mining to step too much on explorer's toes.
 
@@ -189,10 +190,10 @@ Difficulty: Hard
 			core_type = /obj/item/assembly/signaler/anomaly/cryo
 	loot += core_type
 
-	if(!enraged)
-		return
-	for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
-		if(M.client)
+	if(enraged)
+		for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
+			if(!M.client)
+				return
 			loot += /obj/item/disk/fauna_research/vetus
 	..()
 

@@ -82,7 +82,7 @@
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	GLOB.alive_megafauna_list -= UID()
 	// this happens before the parent call because `del_on_death` may be set
-	if(can_die()) // && !admin_spawned) DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	if(can_die() && !admin_spawned)
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
