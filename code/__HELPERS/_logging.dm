@@ -145,7 +145,7 @@ GLOBAL_PROTECT(log_end)
 /proc/log_staffsay(text, mob/speaker)
 	if(GLOB.configuration.logging.adminchat_logging)
 		var/message = "STAFFSAY: [speaker.simple_info_line()]: [html_decode(text)]"
-		rustg_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
 		log_if_mismatch(speaker, message)
 
 /proc/log_ghostsay(text, mob/speaker)
