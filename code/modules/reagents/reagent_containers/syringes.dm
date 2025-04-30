@@ -51,7 +51,7 @@
 	update_icon()
 
 /obj/item/reagent_containers/syringe/proc/mob_inject(mob/living/L, mob/living/user)
-	. = TRUE
+	. = FALSE
 
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
@@ -73,8 +73,6 @@
 									"<span class='userdanger'>[user] is trying to inject you!</span>")
 			if(!do_mob(user, L))
 				return
-			if(!reagents.total_volume)
-				return
 			if(L.reagents.total_volume >= L.reagents.maximum_volume)
 				return
 			L.visible_message("<span class='danger'>[user] injects [L] with the syringe!", \
@@ -87,9 +85,10 @@
 
 		add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
-/obj/item/reagent_containers/syringe/proc/mob_draw(mob/living/L, mob/living/user)
-	. = TRUE
+	return TRUE
 
+/obj/item/reagent_containers/syringe/proc/mob_draw(mob/living/L, mob/living/user)
+	. = FALSE
 	var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 	if(L != user)
 		L.visible_message("<span class='danger'>[user] is trying to take a blood sample from [L]!</span>", \
@@ -110,8 +109,10 @@
 		mode = !mode
 		update_icon()
 
+	return TRUE
+
 /obj/item/reagent_containers/syringe/proc/normal_draw(atom/target, mob/living/user)
-	. = TRUE
+	. = FALSE
 	if(!target.reagents.total_volume)
 		to_chat(user, "<span class='warning'>[target] is empty!</span>")
 		return
@@ -127,8 +128,14 @@
 		mode = !mode
 		update_icon()
 
+	return TRUE
+
 /obj/item/reagent_containers/syringe/proc/normal_inject(atom/target, mob/living/user)
-	. = TRUE
+	. = FALSE
+
+	if(!reagents.total_volume)
+		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		return
 
 	if(isfood(target))
 		var/list/chemicals = list()
@@ -137,9 +144,11 @@
 		var/contained_chemicals = english_list(chemicals)
 		add_attack_logs(user, target, "Injected [amount_per_transfer_from_this]u [contained_chemicals] into food item")
 		finish_injection(target, user)
+		return
+
+	return TRUE
 
 /obj/item/reagent_containers/syringe/normal_act(atom/target, mob/living/user)
-	. = TRUE
 	if(!target.reagents)
 		return FALSE
 
@@ -152,7 +161,7 @@
 				finish_injection(target, user)
 
 /obj/item/reagent_containers/syringe/mob_act(mob/target, mob/living/user)
-	. = TRUE
+	. = FALSE
 	if(!target.reagents)
 		return
 
