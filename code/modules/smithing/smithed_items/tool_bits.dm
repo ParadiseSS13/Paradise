@@ -6,6 +6,10 @@
 	var/base_speed_mod = 0
 	/// Base Efficiency modifier
 	var/base_efficiency_mod = 0
+	/// Base productivity modifier
+	var/base_productivity_mod = 0
+	/// Productivity mod
+	var/productivity_mod = 1.0
 	/// Speed modifier
 	var/speed_mod = 1.0
 	/// Efficiency modifier
@@ -34,6 +38,7 @@
 	speed_mod = 1 + (base_speed_mod * quality.stat_mult * material.tool_speed_mult)
 	failure_rate = initial(failure_rate) * quality.stat_mult * material.tool_failure_mult
 	efficiency_mod = 1 + (base_efficiency_mod * quality.stat_mult * material.power_draw_mult)
+	productivity_mod = 1 + (base_productivity_mod * quality.stat_mult * material.tool_productivity_mult)
 
 /obj/item/smithed_item/tool_bit/on_attached(obj/item/target)
 	if(!istype(target))
@@ -43,12 +48,14 @@
 	attached_tool.toolspeed = attached_tool.toolspeed * speed_mod
 	attached_tool.bit_failure_rate += failure_rate
 	attached_tool.bit_efficiency_mod = attached_tool.bit_efficiency_mod * efficiency_mod
+	attached_tool.bit_productivity_mod = attached_tool.bit_productivity_mod * productivity_mod
 
 /obj/item/smithed_item/tool_bit/on_detached()
 	attached_tool.toolspeed = attached_tool.toolspeed / speed_mod
 	attached_tool.w_class -= size_mod
 	attached_tool.bit_failure_rate -= failure_rate
 	attached_tool.bit_efficiency_mod = attached_tool.bit_efficiency_mod / efficiency_mod
+	attached_tool.bit_productivity_mod = attached_tool.bit_productivity_mod / productivity_mod
 	attached_tool.attached_bits -= src
 	attached_tool = null
 
@@ -98,6 +105,7 @@
 	desc = "A tool bit that's fairly balanced in all aspects."
 	base_speed_mod = -0.1
 	failure_rate = 2
+	base_productivity_mod = 0.5
 	base_efficiency_mod = -0.1
 	secondary_goal_candidate = TRUE
 
@@ -110,6 +118,13 @@
 	size_mod = 1
 	durability = 120
 
+/obj/item/smithed_item/tool_bit/productivity
+	name = "productivity bit"
+	desc = "A tool bit that minimizes waste."
+	base_speed_mod = -0.1
+	base_productivity_mod = 2
+	durability = 50
+
 /obj/item/smithed_item/tool_bit/economical
 	name = "economical bit"
 	desc = "An advanced tool bit that maximises efficiency."
@@ -121,6 +136,7 @@
 	name = "advanced bit"
 	desc = "An advanced tool bit that's fairly balanced in all aspects."
 	base_speed_mod = -0.25
+	base_productivity_mod = 1
 	failure_rate = 2
 	base_efficiency_mod = -0.3
 

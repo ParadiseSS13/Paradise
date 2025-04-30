@@ -80,6 +80,7 @@
 	board_name = "Ice Cream Mixer"
 	build_path = /obj/machinery/cooking/ice_cream_mixer
 	board_type = "machine"
+	icon_state = "service"
 	origin_tech = list(TECH_BIO = 1)
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,
