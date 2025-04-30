@@ -47,6 +47,11 @@
 	QDEL_LIST_ASSOC_VAL(organ_datums) // The removal from internal_organ_datums should be handled when the organ is removed
 	. = ..()
 
+/obj/item/organ/internal/examine(mob/user)
+	. = ..()
+	if(is_xeno_organ)
+		. += "<span class='info'>It looks like it would replace the [slot]."
+
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return

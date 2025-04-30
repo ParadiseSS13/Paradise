@@ -93,6 +93,7 @@
 /obj/machinery/organ_analyzer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/organ/internal))
 		to_chat(user, "<span class='warning'>The machines rejects the item. It finds no possible potential in it.</span>")
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You cant interact with the machine while the panel is open!</span>")
 		return ITEM_INTERACT_COMPLETE

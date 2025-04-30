@@ -347,12 +347,12 @@
 				owner.adjustBruteLoss(-2)
 				owner.adjustFireLoss(-2)
 			if(owner.getBruteLoss() > 10 || owner.getFireLoss() > 10) // this shits exhausting!
-				if(prob(15))
-					owner.setStaminaLoss(30)
+				if(prob(30))
+					owner.setStaminaLoss(15)
 		if(ORGAN_NORMAL)
 			if(owner.getBruteLoss() > 10 || owner.getFireLoss() > 10) // this shits exhausting!
-				if(prob(5))
-					owner.setStaminaLoss(30)
+				if(prob(20))
+					owner.setStaminaLoss(15)
 			owner.adjustBruteLoss(-1)
 			owner.adjustFireLoss(-1)
 		if(ORGAN_PRISTINE)
@@ -1118,7 +1118,6 @@
 	desc = "This organ is wreathed in foul energy from cursed bananium. There may be great power here, but only the truest of souls could bring it forward."
 	analyzer_price = 50
 	unremovable = TRUE
-	var/attempts = 1
 	layer = ABOVE_MOB_LAYER // front and center baybee
 	hidden_origin_tech = TECH_SYNDICATE
 	hidden_tech_level = 3
@@ -1130,19 +1129,8 @@
 		"THEY MUST ALL BE HONKED!"
 	)
 
-/obj/item/organ/internal/heart/xenobiology/cursed_bananium/admin
-	attempts = 3
-
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)
-	if(attempts == 1)
-		M.visible_message("<span class='danger'>This seems like a horrible idea. Perhaps everyone should reconsider?</span>","<span class='danger'>You feel someone attempting to insert something <b>INCREDIBLY DANGEROUS</b> into your chest!</span>")
-		attempts = 2
-		src.forceMove(M.loc)
-		return
-	if(attempts == 2)
-		M.visible_message("<span class='userdanger'>Are you sure? there is no going back from this.</span>","<span class='userdanger'>You should probably stop this!</span>")
-		attempts = 3
-		src.forceMove(M.loc)
+	if(tgui_alert(src, "This is a permanent action, guarenteeing this person will be removed from the round. Are you sure?", "Insert Cursed Bananium Heart", list("Yes", "No")) != "Yes")
 		return
 	if(M.mind.assigned_role == "Clown")
 		addtimer(CALLBACK(src, PROC_REF(glorious_death), M), 5 MINUTES)
@@ -1275,10 +1263,10 @@
 	. = ..()
 
 /obj/item/organ/internal/heart/xenobiology/megacarp/remove(mob/living/carbon/human/M, special)
-	. = ..()
 	if(!M.mind)
 		return
-	owner.mind.RemoveSpell(/datum/spell/shapeshift/megacarp)
+	M.mind.RemoveSpell(/datum/spell/shapeshift/megacarp)
+	. = ..()
 
 /datum/spell/shapeshift/megacarp
 	name = "Fish Form"
@@ -1301,7 +1289,7 @@
 
 /datum/spell/shapeshift/megacarp/Shapeshift(mob/living/carbon/human/M)
 	M.visible_message("<span class='danger'>[M] screams in agony as scales and fins erupt out of their flesh!</span>",
-		"<span class='dangeruser'>You begin channeling the transformation. There is no going backfrom this</span>")
+		"<span class='dangeruser'>You begin channeling the painful transformation.</span>")
 	if(!do_after(M, 5 SECONDS, FALSE, M))
 		to_chat(M, "<span class='warning'>You lose concentration of the spell!</span>")
 		return

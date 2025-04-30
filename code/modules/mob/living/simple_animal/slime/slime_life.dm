@@ -483,6 +483,8 @@
 /mob/living/simple_animal/slime/proc/handle_organs()
 	if(!holding_organ)
 		return
+	if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
+		return // no processing while in the computer
 	if(organ_progress < 100)
 		organ_progress += 1
 		return
@@ -493,6 +495,7 @@
 	finished_organ.icon_state = holding_organ.icon_state
 	if(finished_organ.organ_quality != ORGAN_NORMAL)
 		finished_organ.name = "[finished_organ.organ_quality == ORGAN_PRISTINE ? "Pristine" : finished_organ.organ_quality == ORGAN_NORMAL ? "Standard" : "Damaged"] [finished_organ.name]"
+	underlays.Cut()
 	qdel(holding_organ)
 	holding_organ = null
 

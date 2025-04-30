@@ -169,8 +169,9 @@
 				return //no you cannot split while you're in the matrix (this prevents GC issues and slimes disappearing)
 
 			var/cur_turf = get_turf(src)
-			holding_organ.forceMove(cur_turf)
-			src.visible_message("<span class='notice'>[src] drops the [holding_organ.name] as it splits!</span>")
+			if(holding_organ)
+				holding_organ.forceMove(cur_turf)
+				src.visible_message("<span class='notice'>[src] drops the [holding_organ.name] as it splits!</span>")
 			var/list/babies = list()
 			var/new_nutrition = round(nutrition * 0.9)
 			var/new_powerlevel = round(powerlevel / 4)
