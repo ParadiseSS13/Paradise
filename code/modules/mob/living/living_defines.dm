@@ -109,10 +109,10 @@
 
 	/// List of traits that should be applied on Initialize
 	var/list/initial_traits = list()
-  
-  /// Sets our icon to `null` when `gib()` is used
+
+	/// Sets our icon to `null` when `gib()` is used
 	var/gib_nullifies_icon = TRUE
-  
+
 	/*
 	Taste Vars
 	*/
