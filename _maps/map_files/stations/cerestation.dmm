@@ -89261,6 +89261,7 @@
 	pixel_y = -2
 	},
 /obj/item/storage/box/handcuffs,
+/obj/item/storage/box/stingers,
 /obj/item/storage/box/teargas{
 	pixel_x = -3;
 	pixel_y = -3
