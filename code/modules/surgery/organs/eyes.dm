@@ -6,8 +6,8 @@
 	parent_organ = "head"
 	slot = "eyes"
 	var/eye_color = "#000000" // Should never be null
-	var/list/colourmatrix = null
-	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
+	var/list/colormatrix = null
+	var/list/colorblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
 	var/list/replace_colours = GREYSCALE_COLOR_REPLACE
 	var/dependent_disabilities = list() //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/weld_proof = FALSE //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
@@ -18,6 +18,8 @@
 	var/flash_protect = FLASH_PROTECTION_NONE
 	var/see_invisible = SEE_INVISIBLE_LIVING
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	/// If someone with the colorblind trait who has these eyes will actually be colorblind
+	var/can_be_colorblind = TRUE
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
@@ -31,11 +33,11 @@
 
 	return eyes_icon
 
-/obj/item/organ/internal/eyes/proc/get_colourmatrix() //Returns a special colour matrix if the eyes are organic and the mob is colourblind, otherwise it uses the current one.
-	if(!is_robotic() && HAS_TRAIT(owner, TRAIT_COLORBLIND))
-		return colourblind_matrix
+/obj/item/organ/internal/eyes/proc/get_colormatrix() //Returns a special colour matrix if the eyes are organic and the mob is colourblind, otherwise it uses the current one.
+	if(can_be_colorblind && HAS_TRAIT(owner, TRAIT_COLORBLIND))
+		return colorblind_matrix
 	else
-		return colourmatrix
+		return colormatrix
 
 /obj/item/organ/internal/eyes/proc/shine()
 	if(is_robotic() || (see_in_dark > EYE_SHINE_THRESHOLD))
@@ -101,7 +103,7 @@
 	icon_state = "burning_eyes"
 
 /obj/item/organ/internal/eyes/robotize(make_tough)
-	colourmatrix = null
+	colormatrix = null
 	..() //Make sure the organ's got the robotic status indicators before updating the client colour.
 	if(owner)
 		owner.update_client_colour(0) //Since mechanical eyes give see_in_dark of 2 and full colour vision atm, just having this here is fine.
@@ -112,6 +114,7 @@
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	can_be_colorblind = FALSE // I PRINTED 400 PAIRS OF NEW EYES TO CURE COLORBLIND KIDS! -Space Beast
 	var/flash_intensity = 1
 
 /obj/item/organ/internal/eyes/cybernetic/emp_act(severity)
@@ -362,7 +365,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	flash_protect = FLASH_PROTECTION_VERYVUNERABLE //Flashing is it's weakness. I don't care how many protections you have up
 	owner?.client?.color = LIGHT_COLOR_PURE_CYAN
-	colourmatrix = list(0, 0, 0,\
+	colormatrix = list(0, 0, 0,\
 						0, 1, 0,\
 						0, 0, 1)
 	owner.update_sight()
@@ -376,7 +379,7 @@
 	lighting_alpha = initial(lighting_alpha)
 	flash_protect = initial(flash_protect)
 	owner?.client?.color = null
-	colourmatrix = null
+	colormatrix = null
 	owner.update_sight()
 	owner.update_eyes_overlay_layer()
 
