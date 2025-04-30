@@ -4155,21 +4155,21 @@
 	},
 /area/station/public/dorms)
 "aAI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
+	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "aAJ" = (
@@ -61861,13 +61861,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/aft/south)
-"mPo" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/obj/machinery/atmospherics/portable/canister/nitrogen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/atmos/control)
 "mPq" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
@@ -74367,7 +74360,19 @@
 "rZx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/directional/north,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "rZA" = (
 /obj/structure/filingcabinet/security{
@@ -76951,6 +76956,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "tfl" = (
@@ -77734,6 +77740,9 @@
 	name = "east bump";
 	pixel_x = 27
 	},
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
@@ -129481,7 +129490,7 @@ hqJ
 gyK
 sUy
 kEy
-mPo
+ibu
 ibu
 lsh
 axh
@@ -140259,7 +140268,7 @@ aaa
 aaa
 aaa
 aUV
-efR
+lph
 efR
 koo
 woN
