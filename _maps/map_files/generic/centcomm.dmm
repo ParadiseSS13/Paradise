@@ -6213,7 +6213,7 @@
 "vM" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
-/obj/item/organ/internal/heart/xenobiology/cursed_bananium/admin,
+/obj/item/organ/internal/heart/xenobiology/cursed_bananium,
 /obj/item/organ/internal/heart/xenobiology/bananium,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
