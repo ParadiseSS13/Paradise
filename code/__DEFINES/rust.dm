@@ -39,8 +39,8 @@
 		return __rustlib = "librustlibs[RUSTLIBS_SUFFIX].so"
 	else
 		// First check if it's built in the usual place.
-		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
-			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
+		if(fexists("./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"))
+			return __rustlib = "./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"
 		// Then check in the current directory.
 		if(fexists("./rustlibs_[version_suffix][RUSTLIBS_SUFFIX].dll"))
 			return __rustlib = "./rustlibs_[version_suffix][RUSTLIBS_SUFFIX].dll"
@@ -140,18 +140,18 @@
 		CRASH(output["content"])
 
 // MARK: Logging
-/proc/rustlibs_log_write(fname, text) 
+/proc/rustlibs_log_write(fname, text)
 	return RUSTLIB_CALL(log_write, fname, text)
 
-/proc/rustlibs_log_close_all() 
+/proc/rustlibs_log_close_all()
 	return RUSTLIB_CALL(log_close_all)
 
 // MARK: DMI
-/proc/rustlibs_dmi_strip_metadata(fname) 
+/proc/rustlibs_dmi_strip_metadata(fname)
 	return RUSTLIB_CALL(dmi_strip_metadata, fname)
 
 // MARK: JSON
-/proc/rustlibs_json_is_valid(text) 
+/proc/rustlibs_json_is_valid(text)
 	return (RUSTLIB_CALL(json_is_valid, text) == "true")
 
 
@@ -189,6 +189,32 @@
 
 /proc/rustlibs_redis_publish(channel, message)
 	return RUSTLIB_CALL(redis_publish, channel, message)
+
+
+// MARK: HTTP
+#define RUSTLIBS_HTTP_METHOD_GET "get"
+#define RUSTLIBS_HTTP_METHOD_PUT "put"
+#define RUSTLIBS_HTTP_METHOD_DELETE "delete"
+#define RUSTLIBS_HTTP_METHOD_PATCH "patch"
+#define RUSTLIBS_HTTP_METHOD_HEAD "head"
+#define RUSTLIBS_HTTP_METHOD_POST "post"
+
+/proc/rustlibs_http_send_request(datum/http_request/request)
+	return RUSTLIB_CALL(http_submit_async_request, request)
+
+/proc/rustlibs_http_check_request(datum/http_request/request)
+	return RUSTLIB_CALL(http_check_job, request)
+
+/proc/rustlibs_http_start_client(datum/http_request)
+	return RUSTLIB_CALL(http_start_client)
+
+/proc/rustlibs_http_shutdown_client(datum/http_request)
+	return RUSTLIB_CALL(http_shutdown_client)
+
+// MARK: Jobs
+#define RUSTLIBS_JOB_NO_RESULTS_YET "NO RESULTS YET"
+#define RUSTLIBS_JOB_NO_SUCH_JOB "NO SUCH JOB"
+#define RUSTLIBS_JOB_ERROR "JOB PANICKED"
 
 #undef RUSTLIB
 #undef RUSTLIB_CALL
