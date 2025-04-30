@@ -106,7 +106,7 @@
 		var/datum/reagent/injected = GLOB.chemical_reagents_list[choosen_reagent]
 		var/contained = injected.name
 		add_attack_logs(user, mob, "Injected with [name] containing [contained], transfered [5] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-		to_chat(user, "<span class='notice'>[5] units injected. [total_reagents] units remaining.</span>")
+		to_chat(user, "<span class='notice'>5 units injected. [total_reagents] units remaining.</span>")
 
 /obj/item/reagent_containers/borghypo/proc/get_radial_contents()
 	return reagent_icons & reagent_ids
