@@ -67,7 +67,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(lit)
 		extinguish_cigarette(user)
-	
+
 /obj/item/clothing/mask/cigarette/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(used.cigarette_lighter_act(user, user, src))
 		return ITEM_INTERACT_COMPLETE
@@ -306,7 +306,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
 		// Only put the butt in the user's mouth if there's already a cig there.
 		if(M.wear_mask == src)
-			to_chat(M, "<span class='userdanger'>Butt in your mouth!</span>")
 			M.drop_item_to_ground(src, force = TRUE) //Force the un-equip so the overlays update
 			butt.slot_flags |= ITEM_SLOT_MASK // Temporarily allow it to go on masks
 			M.equip_to_slot_if_possible(butt, ITEM_SLOT_MASK)

@@ -140,18 +140,18 @@
 		CRASH(output["content"])
 
 // MARK: Logging
-/proc/rustlibs_log_write(fname, text) 
+/proc/rustlibs_log_write(fname, text)
 	return RUSTLIB_CALL(log_write, fname, text)
 
-/proc/rustlibs_log_close_all() 
+/proc/rustlibs_log_close_all()
 	return RUSTLIB_CALL(log_close_all)
 
 // MARK: DMI
-/proc/rustlibs_dmi_strip_metadata(fname) 
+/proc/rustlibs_dmi_strip_metadata(fname)
 	return RUSTLIB_CALL(dmi_strip_metadata, fname)
 
 // MARK: JSON
-/proc/rustlibs_json_is_valid(text) 
+/proc/rustlibs_json_is_valid(text)
 	return (RUSTLIB_CALL(json_is_valid, text) == "true")
 
 
@@ -190,7 +190,6 @@
 /proc/rustlibs_redis_publish(channel, message)
 	return RUSTLIB_CALL(redis_publish, channel, message)
 
-#undef RUSTLIB
 #undef RUSTLIB_CALL
 
 // Indexes for Tiles and InterestingTiles
