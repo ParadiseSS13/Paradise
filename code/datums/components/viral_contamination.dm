@@ -37,7 +37,8 @@
 		return
 	for(var/disease_id in viruses)
 		var/datum/disease/virus = viruses[disease_id]
-		target.ForceContractDisease(virus, FALSE)
+		if(virus)
+			target.ForceContractDisease(virus, FALSE)
 
 /datum/component/viral_contamination/proc/disinfect(atom/source)
 	SIGNAL_HANDLER // COMSIG_ATOM_DISINFECTED

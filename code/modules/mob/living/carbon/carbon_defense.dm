@@ -36,13 +36,14 @@
 
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			user.ContractDisease(D)
+		if(D.spread_flags >= CONTACT_GENERAL)
+			can_spread_disease(D, CONTACT_GENERAL) && user.ContractDisease(D, CONTACT_HANDS)
 
 	for(var/thing in user.viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			ContractDisease(D)
+		var/spread_method = min(D.spread_flags, CONTACT_GENERAL)
+		if(spread_method >= CONTACT_HANDS)
+			user.can_spread_disease(D, CONTACT_HANDS) && ContractDisease(D, spread_method)
 
 	if(IS_HORIZONTAL(src) && length(surgeries))
 		if(user.a_intent == INTENT_HELP)
