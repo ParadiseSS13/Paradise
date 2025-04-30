@@ -4,7 +4,7 @@
 /obj/machinery/atmospherics/refill_station
 	name = "refill station"
 	icon = 'icons/obj/atmos.dmi'
-	icon_state = "filler_oxy"
+	icon_state = "filler_oxygen"
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = NONE
@@ -22,6 +22,10 @@
 	var/maximum_pressure = 10 * ONE_ATMOSPHERE
 	/// Type of atmos refilled. Used in examines
 	var/refill_type = "oxygen"
+	/// Color of the station's environmental lighting
+	var/light_color_on
+	/// Light power of the station's environmental lighting
+	var/light_power_on = 1.4
 
 /obj/machinery/atmospherics/refill_station/Initialize(mapload)
 	. = ..()
@@ -40,16 +44,30 @@
 		. += "<span class='notice'>The pressure gauge on the inserted tank displays [round(holding_tank.air_contents.return_pressure())] kPa.</span>"
 
 /obj/machinery/atmospherics/refill_station/update_overlays()
-	overlays.Cut()
+	. = ..()
+	if(stat & (NOPOWER|BROKEN))
+		return
+
 	if(holding_tank)
-		overlays += "tank_oxy"
+		. += "tank_[refill_type]"
 		var/pressure = holding_tank.air_contents.return_pressure()
-		if(stat & (NOPOWER|BROKEN))
-			return
 		if(pressure < 1000)
-			overlays += "filling_oxy"
+			. += "filling_[refill_type]"
+			. += emissive_appearance(icon, "filling_meter_lightmask")
 		else
-			overlays += "filled_oxy"
+			. += "filled_[refill_type]"
+			. += emissive_appearance(icon, "filled_meter_lightmask")
+
+	. += emissive_appearance(icon, "filler_[refill_type]_lightmask")
+
+/obj/machinery/atmospherics/refill_station/power_change()
+	. = ..()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(MINIMUM_USEFUL_LIGHT_RANGE, light_power_on, light_color_on)
+
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/refill_station/return_analyzable_air()
 	return air_contents
@@ -131,6 +149,8 @@
 
 /obj/machinery/atmospherics/refill_station/oxygen
 	name = "oxygen refill station"
+	light_color_on = "#587ad0"
+	light_power_on = 2 // slightly stronger because blue is a little less intense
 
 /obj/machinery/atmospherics/refill_station/oxygen/Initialize(mapload)
 	. = ..()
@@ -138,29 +158,19 @@
 
 /obj/machinery/atmospherics/refill_station/nitrogen
 	name = "nitrogen refill station"
-	icon_state = "filler_nitro"
+	icon_state = "filler_nitrogen"
 	refill_type = "nitrogen"
+	light_color_on = "#e57252"
 
 /obj/machinery/atmospherics/refill_station/nitrogen/Initialize(mapload)
 	. = ..()
 	air_contents.set_nitrogen(maximum_pressure * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
-/obj/machinery/atmospherics/refill_station/nitrogen/update_overlays()
-	overlays.Cut()
-	if(holding_tank)
-		overlays += "tank_nitro"
-		var/pressure = holding_tank.air_contents.return_pressure()
-		if(stat & (NOPOWER|BROKEN))
-			return
-		if(pressure < 1000)
-			overlays += "filling_nitro"
-		else
-			overlays += "filled_nitro"
-
 /obj/machinery/atmospherics/refill_station/plasma
 	name = "plasma refill station"
 	icon_state = "filler_plasma"
 	refill_type = "plasma"
+	light_color_on = "#b985cd"
 	/// What types of tanks can the plasma refill station accept?
 	var/list/accepted_types = list(/obj/item/tank/internals/emergency_oxygen/plasma, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/plasmaman/belt)
 
@@ -168,18 +178,6 @@
 	. = ..()
 	air_contents.set_toxins(maximum_pressure * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	accepted_types = typecacheof(accepted_types)
-
-/obj/machinery/atmospherics/refill_station/plasma/update_overlays()
-	overlays.Cut()
-	if(holding_tank)
-		overlays += "tank_plasma"
-		var/pressure = holding_tank.air_contents.return_pressure()
-		if(stat & (NOPOWER|BROKEN))
-			return
-		if(pressure < 1000)
-			overlays += "filling_plasma"
-		else
-			overlays += "filled_plasma"
 
 /obj/machinery/atmospherics/refill_station/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/analyzer))
