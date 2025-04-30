@@ -493,7 +493,7 @@
 		return
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		to_chat(target, "<span class='warning'>You feel a sharp prick in your side!")
+		to_chat(target, "<span class='warning'>You feel a sharp prick in your side!</span>")
 		if(quality == ORGAN_PRISTINE)
 			if(terror)
 				H.reagents.add_reagent("terror_black_toxin", 10)
