@@ -70,6 +70,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	var/event
 	/// How far along the disease has progressed? This is tied with stage but is separate to give more granularity to symptom effects
 	var/progress = 0
+	/// The time at which the disease last advanced
+	var/last_advancement = 0
 
 /*
 
@@ -77,11 +79,12 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
  */
 
-/datum/disease/advance/New(process = 1, datum/disease/advance/to_copy, _event = FALSE)
+/datum/disease/advance/New(process = 1, datum/disease/advance/to_copy, _event = FALSE, copy_stage = FALSE)
 	if(!istype(to_copy))
 		to_copy = null
 	strain = "origin"
 	event = _event
+	last_advancement = world.time
 	// whether to generate a new cure or not
 	var/new_cure = TRUE
 	// Generate symptoms if we weren't given any.
@@ -94,13 +97,14 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	// Copy cure, evolution ability and strain if we are copying an existing disease
 	if(to_copy)
 		base_properties = to_copy.base_properties.Copy()
-		stage = to_copy.stage
 		evolution_chance = to_copy.evolution_chance
 		tracker = to_copy.tracker
 		for(var/r in to_copy.cures)
 			cures += r
 		cure_text = to_copy.cure_text
 		strain = to_copy.strain
+		if(copy_stage)
+			stage = to_copy.stage
 		event = to_copy.event
 		new_cure = FALSE
 
@@ -158,7 +162,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	return TRUE
 
 /datum/disease/advance/handle_stage_advance(has_cure = FALSE)
-	if(!has_cure && prob(stage_prob))
+	if(!has_cure && (prob(stage_prob) || world.time > last_advancement + 1000))
+		last_advancement = world.time
 		progress = min(progress + 6 , 100)
 		stage = min(ceil(progress / 20), max_stages)
 		if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
@@ -200,8 +205,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			target.resistances[id] = id
 
 // Returns the advance disease with a different reference memory.
-/datum/disease/advance/Copy(process = 0)
-	return new /datum/disease/advance(process, src, 1)
+/datum/disease/advance/Copy(process = 0, copy_stage = FALSE)
+	return new /datum/disease/advance(process, src, 1, copy_stage)
 
 /datum/disease/advance/record_infection()
 	SSblackbox.record_feedback("tally", "Advanced Disease", 1, "[name]_[strain] Infection")

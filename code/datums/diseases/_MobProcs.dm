@@ -177,7 +177,7 @@ MARK: Helpers
 	GLOB.active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
 
 	//Copy properties over. This is so edited diseases persist.
-	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed", "unique_datum_id")
+	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed", "unique_datum_id", "incubation")
 	if(respect_carrier)
 		skipped -= "carrier"
 	for(var/V in DD.vars)
