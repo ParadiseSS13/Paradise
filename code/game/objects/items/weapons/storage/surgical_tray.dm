@@ -20,7 +20,7 @@
 		/obj/item/stack/medical/bruise_pack,
 		/obj/item/stack/medical/ointment,
 		/obj/item/surgical_drapes,
-		/obj/item/dissector
+		/obj/item/dissector,
 	)
 
 /obj/item/storage/surgical_tray/Initialize(mapload)

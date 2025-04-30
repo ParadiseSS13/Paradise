@@ -84,7 +84,7 @@ Difficulty: Hard
 		/obj/item/organ/internal/liver/xenobiology/detox,
 		/obj/item/organ/internal/appendix/xenobiology/feverish,
 		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/heart/xenobiology/bloody_sack
+		/obj/item/organ/internal/heart/xenobiology/bloody_sack,
 	)
 
 	dissection_tool_step = list(
@@ -93,7 +93,7 @@ Difficulty: Hard
 	/datum/surgery_step/generic/cut_open,
 	/datum/surgery_step/generic/clamp_bleeders,
 	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
@@ -102,7 +102,7 @@ Difficulty: Hard
 	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
 	"<span class='notice'>You clamp the mass amount of leaking arteries in the surgical site.</span>",
 	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 /obj/item/gps/internal/bubblegum

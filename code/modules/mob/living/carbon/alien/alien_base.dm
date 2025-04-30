@@ -28,7 +28,7 @@
 	xeno_organ_results = list(
 		/obj/item/organ/internal/alien/plasmavessel,
 		/obj/item/organ/internal/alien/hivenode,
-		/obj/item/organ/internal/alien/resinspinner
+		/obj/item/organ/internal/alien/resinspinner,
 	)
 
 	dissection_tool_step = list(
@@ -36,7 +36,7 @@
 	/datum/surgery_step/generic/amputate,
 	/datum/surgery_step/generic/clamp_bleeders,
 	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
@@ -44,7 +44,7 @@
 	"<span class='notice'>You begin sawing through the chitinout outer layer.</span>",
 	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
 	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 /mob/living/carbon/alien/Initialize(mapload)

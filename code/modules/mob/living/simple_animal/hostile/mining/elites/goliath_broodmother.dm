@@ -45,7 +45,7 @@
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/appendix/xenobiology/freezing,
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/appendix/xenobiology/tendril
+		/obj/item/organ/internal/appendix/xenobiology/tendril,
 	)
 
 	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,

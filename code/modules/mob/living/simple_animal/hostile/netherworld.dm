@@ -22,7 +22,7 @@
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/heart/xenobiology/vestigial,
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/appendix/xenobiology/noisemaker
+		/obj/item/organ/internal/appendix/xenobiology/noisemaker,
 	)
 
 /mob/living/simple_animal/hostile/netherworld/migo

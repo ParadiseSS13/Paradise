@@ -205,7 +205,7 @@
 		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/appendix/xenobiology/feverish,
-		/obj/item/organ/internal/eyes/xenobiology/receptors
+		/obj/item/organ/internal/eyes/xenobiology/receptors,
 	)
 
 	dissection_tool_step = list(
@@ -216,7 +216,7 @@
 	/datum/surgery_step/generic/clamp_bleeders,
 	/datum/surgery_step/generic/retract_skin,
 	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(

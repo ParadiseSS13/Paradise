@@ -58,7 +58,7 @@
 		/obj/item/organ/internal/liver/xenobiology/detox,
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/heart/xenobiology/paradox
+		/obj/item/organ/internal/heart/xenobiology/paradox,
 	)
 
 	dissection_tool_step = list(
@@ -66,7 +66,7 @@
 	/datum/surgery_step/robotics/external/unscrew_hatch,
 	/datum/surgery_step/robotics/external/open_hatch,
 	/datum/surgery_step/robotics/manipulate_robotic_organs/extract,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
@@ -74,7 +74,7 @@
 	"<span class='notice'>You begin to unscrew the coverings.</span>",
 	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
 	"<span class='notice'>You carefully begin power down any remaining systems.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 /datum/action/innate/elite_attack/chaser_burst

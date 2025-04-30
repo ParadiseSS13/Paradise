@@ -40,7 +40,7 @@
 		/obj/item/organ/internal/ears/xenobiology/colorful,
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/appendix/xenobiology/feverish,
-		/obj/item/organ/internal/kidneys/xenobiology/sweating
+		/obj/item/organ/internal/kidneys/xenobiology/sweating,
 	)
 
 /mob/living/simple_animal/hostile/hellhound/Initialize(mapload)

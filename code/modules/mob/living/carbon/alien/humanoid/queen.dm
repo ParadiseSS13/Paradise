@@ -17,7 +17,7 @@
 		/obj/item/organ/internal/alien/plasmavessel/queen,
 		/obj/item/organ/internal/alien/acidgland,
 		/obj/item/organ/internal/alien/eggsac,
-		/obj/item/organ/internal/alien/neurotoxin
+		/obj/item/organ/internal/alien/neurotoxin,
 	)
 
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)

@@ -40,7 +40,7 @@
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/appendix/xenobiology/freezing,
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/appendix/xenobiology/tendril
+		/obj/item/organ/internal/appendix/xenobiology/tendril,
 	)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()

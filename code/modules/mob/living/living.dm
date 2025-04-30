@@ -970,7 +970,7 @@
 		. += "<span class='warning'>[src] has an ongoing dissection!</span>"
 		if(current_dissection_step <= max_dissection_steps)
 			var/obj/item/step_name = dissection_tool_step[current_dissection_step]
-			. += "<span class='warning'>You feel the next disection step will be: [step_name.name]</span>"
+			. += "<span class='notice'>You feel the next dissection step will be: [step_name.name]</span>"
 		else
 			. += "<span class='warning'>[src] looks like they have had their organs dissected!</span>"
 	else

@@ -12,7 +12,7 @@
 	xeno_organ_results = list(
 		/obj/item/organ/internal/alien/plasmavessel/hunter,
 		/obj/item/organ/internal/alien/hivenode,
-		/obj/item/organ/internal/alien/resinspinner
+		/obj/item/organ/internal/alien/resinspinner,
 	)
 
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
