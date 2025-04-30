@@ -50,6 +50,7 @@
 			if(isnull(target_area))
 				log_debug("Tried to announce a false-alarm tear without a valid area!")
 				kill()
+				return
 		else
 			log_debug("Tried to announce a tear without a valid area!")
 			kill()
