@@ -109,7 +109,10 @@
 
 	/// List of traits that should be applied on Initialize
 	var/list/initial_traits = list()
-
+  
+  /// Sets our icon to `null` when `gib()` is used
+	var/gib_nullifies_icon = TRUE
+  
 	/*
 	Taste Vars
 	*/
@@ -149,4 +152,3 @@
 	"<span class='notice'>You force the dissection cavity open.</span>",
 	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
 	)
-
