@@ -295,14 +295,6 @@
 	name = "brown fedora"
 	icon_state = "bfedora"
 
-/obj/item/clothing/head/fedora/binary
-	name = "binary fedora"
-	desc = "The brim of the hat is as sharp as the division between 0 and 1. It makes a mighty throwing weapon."
-	force = 0
-	throw_speed = 4
-	throw_range = 7
-	throwforce = 25 // Yes, this is high, since you can typically only use it once in a fight.
-
 /obj/item/clothing/head/fez
 	name = "fez"
 	icon_state = "fez"
