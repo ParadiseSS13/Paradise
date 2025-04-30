@@ -100,3 +100,32 @@
 			light.color = new_color
 			light.brightness_color = new_color
 			light.update(FALSE, TRUE, FALSE)
+
+/datum/station_trait/scryers
+	name = "Scryers"
+	trait_type = STATION_TRAIT_NEUTRAL
+	weight = 5
+	show_in_report = TRUE
+	report_message = "Nanotrasen has chosen your station for an experiment - everyone has free scryers! Use these to talk to other people easily and privately."
+
+/datum/station_trait/scryers/New()
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+
+/datum/station_trait/scryers/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
+	SIGNAL_HANDLER // COMSIG_GLOB_JOB_AFTER_SPAWN
+	if(!ishuman(spawned))
+		return
+	var/mob/living/carbon/human/humanspawned = spawned
+	// Put their silly little scarf or necktie somewhere else
+	var/obj/item/silly_little_scarf = humanspawned.neck
+	if(silly_little_scarf)
+		humanspawned.unequip(silly_little_scarf)
+		silly_little_scarf.forceMove(get_turf(humanspawned))
+		humanspawned.equip_in_one_of_slots(silly_little_scarf, ITEM_SLOT_IN_BACKPACK, ITEM_SLOT_LEFT_POCKET, ITEM_SLOT_RIGHT_POCKET)
+
+	var/obj/item/clothing/neck/link_scryer/loaded/new_scryer = new(spawned)
+	new_scryer.label = spawned.name
+	new_scryer.update_appearance(UPDATE_NAME)
+
+	spawned.equip_to_slot_or_del(new_scryer, ITEM_SLOT_NECK, initial = FALSE)

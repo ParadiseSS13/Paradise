@@ -254,7 +254,7 @@
 				var/obj/effect/landmark/L = thing
 				if(prob(50))
 					if(L.name == "syndi_depot_backup")
-						var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
+						var/mob/living/simple_animal/hostile/syndicate/depot/modsuit/backup/S = new /mob/living/simple_animal/hostile/syndicate/depot/modsuit/backup(get_turf(L))
 						S.name = "Syndicate Backup " + "([rand(1, 1000)])"
 						S.depotarea = src
 						list_add(S, guard_list)
