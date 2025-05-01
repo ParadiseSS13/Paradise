@@ -114,6 +114,7 @@ impl TileGrid {
             .map(|(i, t)| (self.index_to_coord(i), t))
     }
 
+    #[allow(dead_code)]
     pub fn keys(&self) -> impl Iterator<Item = Coord3> + '_ {
         self.grid
             .iter()
@@ -136,14 +137,16 @@ impl TileGrid {
 /// It is not memory efficient, but it allows for much greater flexibility of manipulation.
 #[derive(Clone, Debug)]
 pub struct GridMap {
-    ///
+    /// The x, y, and z dimensions of the map.
     pub size: dmm::Coord3,
-    ///
+    /// The key-value data of the map in TileGrid format.
     pub grid: crate::mapmanip::core::TileGrid,
 }
 
 impl GridMap {
     pub fn from_file(path: &std::path::Path) -> eyre::Result<GridMap> {
-        Ok(to_grid_map(&dmm::Map::from_file(&path).wrap_err(format!("failure to read from dmm parser"))?))
+        Ok(to_grid_map(
+            &dmm::Map::from_file(path).wrap_err("failure to read from dmm parser")?,
+        ))
     }
 }
