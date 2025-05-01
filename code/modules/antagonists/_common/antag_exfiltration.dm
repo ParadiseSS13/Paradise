@@ -403,7 +403,7 @@
 			O.on_target_cryo()
 
 	if(extractor.mind && extractor.mind.assigned_role)
-		//Handle job slot/tater cleanup.
+		// Handle job slot
 		var/job = extractor.mind.assigned_role
 
 		SSjobs.FreeRole(job)
