@@ -166,6 +166,7 @@
 #include "code\__DEFINES\dcs\dcs_flags.dm"
 #include "code\__DEFINES\dcs\dcs_helpers.dm"
 #include "code\__DEFINES\dcs\dept_signals.dm"
+#include "code\__DEFINES\dcs\disease_signals.dm"
 #include "code\__DEFINES\dcs\global_signals.dm"
 #include "code\__DEFINES\dcs\item_signals.dm"
 #include "code\__DEFINES\dcs\machinery_signals.dm"
