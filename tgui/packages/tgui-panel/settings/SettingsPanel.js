@@ -77,9 +77,15 @@ export const SettingsGeneral = (props, context) => {
   const { theme, fontFamily, fontSize, lineHeight } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
-  const [chatSaving, setChatSaving] = useLocalState(context, 'chat-saving-enabled', false);
+  // Initialize the local state from storage
+  const storedChatSaving = storage.get('chat-saving-enabled');
+  const [chatSaving, setChatSaving] = useLocalState(
+    context,
+    'chatSaving',
+    storedChatSaving !== undefined ? storedChatSaving : false
+  );
 
-  // Update storage when chatSaving changes
+  // Update both local state and storage when the value changes
   const updateChatSaving = (value) => {
     setChatSaving(value);
     storage.set('chat-saving-enabled', value);
