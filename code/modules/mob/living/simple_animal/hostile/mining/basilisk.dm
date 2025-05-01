@@ -41,7 +41,7 @@
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/appendix/xenobiology/freezing,
 		/obj/item/organ/internal/ears/xenobiology/colorful,
-		/obj/item/organ/internal/kidneys/xenobiology/sweating
+		/obj/item/organ/internal/kidneys/xenobiology/sweating,
 	)
 
 	dissection_tool_step = list(
@@ -51,7 +51,7 @@
 	/datum/surgery_step/generic/cut_open,
 	/datum/surgery_step/generic/clamp_bleeders,
 	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
@@ -61,7 +61,7 @@
 	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
 	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
 	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 /obj/item/projectile/temp/basilisk
@@ -121,7 +121,7 @@
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/appendix/xenobiology/freezing,
 		/obj/item/organ/internal/ears/xenobiology/colorful,
-		/obj/item/organ/internal/kidneys/xenobiology/sinew
+		/obj/item/organ/internal/kidneys/xenobiology/sinew,
 	)
 
 	dissection_tool_step = list(
@@ -129,7 +129,7 @@
 	/datum/surgery_step/generic/cut_open,
 	/datum/surgery_step/generic/clamp_bleeders,
 	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
@@ -137,7 +137,7 @@
 	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
 	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
 	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing

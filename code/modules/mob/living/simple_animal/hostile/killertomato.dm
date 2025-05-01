@@ -31,6 +31,6 @@
 		/obj/item/organ/internal/ears/xenobiology/colorful,
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/appendix/xenobiology/feverish,
-		/obj/item/organ/internal/liver/xenobiology/soupy
+		/obj/item/organ/internal/liver/xenobiology/soupy,
 	)
 

@@ -38,7 +38,7 @@
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
 		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
 		/obj/item/organ/internal/heart/xenobiology/vestigial,
-		/obj/item/organ/internal/heart/xenobiology/hyperactive
+		/obj/item/organ/internal/heart/xenobiology/hyperactive,
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)

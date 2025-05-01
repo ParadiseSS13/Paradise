@@ -394,7 +394,7 @@
 				update_appearance(UPDATE_OVERLAYS)
 				return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='notice'>The rebellious slime refuses the organ! It needs to be trained first.</span>")
+			to_chat(user, "<span class='notice'>The slime seems puzzled at what you want it to do with the organ! It needs to be trained first.</span>")
 			return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && stat == CONSCIOUS) //Let's you feed slimes plasma.
 		var/obj/item/stack/sheet/mineral/plasma/S = I

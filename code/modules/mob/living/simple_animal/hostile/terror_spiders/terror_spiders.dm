@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 		/obj/item/organ/internal/liver/xenobiology/detox,
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/appendix/xenobiology/freezing,
-		/obj/item/organ/internal/appendix/xenobiology/toxin_stinger/terror
+		/obj/item/organ/internal/appendix/xenobiology/toxin_stinger/terror,
 	)
 
 	dissection_tool_step = list(
@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	/datum/surgery_step/generic/amputate,
 	/datum/surgery_step/generic/clamp_bleeders,
 	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	"<span class='notice'>You begin sawing through the chitinout outer layer.</span>",
 	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
 	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 	// Icons

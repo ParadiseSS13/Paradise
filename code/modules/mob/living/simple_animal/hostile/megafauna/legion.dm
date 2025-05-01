@@ -59,7 +59,7 @@ Difficulty: Medium
 		/obj/item/organ/internal/liver/xenobiology/detox,
 		/obj/item/organ/internal/appendix/xenobiology/freezing,
 		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/heart/xenobiology/squirming
+		/obj/item/organ/internal/heart/xenobiology/squirming,
 	)
 
 	dissection_tool_step = list(
@@ -69,7 +69,7 @@ Difficulty: Medium
 	/datum/surgery_step/generic/cut_open,
 	/datum/surgery_step/generic/retract_skin,
 	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(

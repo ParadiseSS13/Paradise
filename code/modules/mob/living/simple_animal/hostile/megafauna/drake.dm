@@ -73,7 +73,7 @@ Difficulty: Medium
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/appendix/xenobiology/feverish,
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/lungs/xenobiology/flame_sack
+		/obj/item/organ/internal/lungs/xenobiology/flame_sack,
 	)
 
 	dissection_tool_step = list(
@@ -83,17 +83,17 @@ Difficulty: Medium
 	/datum/surgery_step/generic/cut_open,
 	/datum/surgery_step/generic/clamp_bleeders,
 	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
 	"<span class='notice'>You begin to prep the subject for dissection...</span>",
 	"<span class='notice'>You begin sawing through the hardened scales of the drake.</span>",
-	"<span class='notice'>You carefully begin removing the scales away from the corpse</span>",
+	"<span class='notice'>You carefully begin removing the scales from the corpse</span>",
 	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
 	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
 	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 

@@ -37,7 +37,7 @@
 		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
 		/obj/item/organ/internal/appendix/xenobiology/feverish,
 		/obj/item/organ/internal/heart/xenobiology/vestigial,
-		/obj/item/organ/internal/kidneys/xenobiology/metallic
+		/obj/item/organ/internal/kidneys/xenobiology/metallic,
 	)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)

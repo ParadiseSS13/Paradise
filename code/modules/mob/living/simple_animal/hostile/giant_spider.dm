@@ -38,7 +38,7 @@
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
 		/obj/item/organ/internal/heart/xenobiology/vestigial,
-		/obj/item/organ/internal/appendix/xenobiology/toxin_stinger
+		/obj/item/organ/internal/appendix/xenobiology/toxin_stinger,
 	)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)

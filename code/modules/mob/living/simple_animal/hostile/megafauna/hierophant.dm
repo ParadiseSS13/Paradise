@@ -77,7 +77,7 @@ Difficulty: Hard
 		/obj/item/organ/internal/appendix/xenobiology/freezing,
 		/obj/item/organ/internal/ears/xenobiology/colorful,
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/datum/spell/turf_teleport/organ_teleport
+		/datum/spell/turf_teleport/organ_teleport,
 	)
 
 	dissection_tool_step = list(
@@ -85,7 +85,7 @@ Difficulty: Hard
 	/datum/surgery_step/robotics/external/unscrew_hatch,
 	/datum/surgery_step/robotics/external/open_hatch,
 	/datum/surgery_step/robotics/manipulate_robotic_organs/extract,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
@@ -93,7 +93,7 @@ Difficulty: Hard
 	"<span class='notice'>You begin to unscrew the coverings.</span>",
 	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
 	"<span class='notice'>You carefully begin to disconnect any active systems.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 	var/burst_range = 3 //range on burst aoe

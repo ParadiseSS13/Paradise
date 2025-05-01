@@ -22,7 +22,7 @@
 		/obj/item/organ/internal/alien/plasmavessel/larva,
 		/obj/item/organ/internal/alien/acidgland,
 		/obj/item/organ/internal/alien/neurotoxin,
-		/obj/item/organ/internal/alien/hivenode
+		/obj/item/organ/internal/alien/hivenode,
 	)
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated

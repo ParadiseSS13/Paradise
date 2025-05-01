@@ -41,7 +41,7 @@
 		/obj/item/organ/internal/ears/xenobiology/colorful,
 		/obj/item/organ/internal/ears/xenobiology/colorful,
 		/obj/item/organ/internal/heart/xenobiology/bananium,
-		/obj/item/organ/internal/heart/xenobiology/cursed_bananium
+		/obj/item/organ/internal/heart/xenobiology/cursed_bananium,
 	)
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin

@@ -52,14 +52,14 @@
 	xeno_organ_results = list(
 		/obj/item/organ/internal/alien/plasmavessel,
 		/obj/item/organ/internal/alien/hivenode,
-		/obj/item/organ/internal/alien/resinspinner
+		/obj/item/organ/internal/alien/resinspinner,
 	)
 
 	dissection_tool_step = list(
 	/datum/surgery_step/generic/dissect,
 	/datum/surgery_step/generic/amputate,
 	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(

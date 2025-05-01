@@ -9,7 +9,7 @@
 		/obj/item/organ/internal/alien/plasmavessel,
 		/obj/item/organ/internal/alien/acidgland,
 		/obj/item/organ/internal/alien/neurotoxin,
-		/obj/item/organ/internal/alien/hivenode
+		/obj/item/organ/internal/alien/hivenode,
 	)
 
 /mob/living/carbon/alien/humanoid/sentinel/large

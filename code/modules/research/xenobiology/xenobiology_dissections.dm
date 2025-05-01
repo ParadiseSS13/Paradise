@@ -35,7 +35,7 @@
 		TOOL_DISSECTOR = 40,
 		/obj/item/scalpel/laser/manager = 10,
 		/obj/item/wirecutters = 5,
-		/obj/item/kitchen/utensil/fork = 1
+		/obj/item/kitchen/utensil/fork = 1,
 	)
 
 	preop_sound = 'sound/surgery/organ1.ogg'
@@ -209,7 +209,7 @@
 
 /obj/item/organ/internal/heart/xenobiology/incompatible
 	name = "Incompatible Organ"
-	desc = "This organ is largely incompatible with humanoid physiology. It will probablywork, but will cause a host of other issues."
+	desc = "This organ is largely incompatible with humanoid physiology. you might be able to get it to work, but will likely cause a host of other issues."
 	can_paradox = TRUE
 
 /obj/item/organ/internal/heart/xenobiology/incompatible/on_life()
@@ -324,7 +324,7 @@
 	switch(quality)
 		if(ORGAN_DAMAGED)
 			user.adjustBruteLoss(10)
-			to_chat(user, "<span class='warning'>The bands refuse to detach cleanly, ripping some flesh away with them!</span>")
+			to_chat(user, "<span class='warning'>The bands don't detach cleanly, ripping some flesh away with it!</span>")
 			user.put_in_hands(sinew_cuffs)
 		if(ORGAN_NORMAL)
 			user.put_in_hands(sinew_cuffs)
@@ -377,7 +377,7 @@
 				"vitamin" = 1,
 			),
 			"tastes" = list(
-				"metal and blood" = 1,
+				"metal and blood. ow" = 1,
 			),
 		),
 		/obj/item/stack/sheet/mineral/uranium = list(
@@ -414,7 +414,7 @@
 					"vitamin" = 1,
 				),
 				"tastes" = list(
-					"metal and blood. ow" = 1,
+					"like your teeth. owch" = 1,
 				),
 			)
 		)
@@ -515,7 +515,7 @@
 			else
 				H.reagents.add_reagent("toxin", 10)
 	else
-		to_chat(user, "<span class='warning'>We shouldnt get much use out of stinging that.</span>")
+		to_chat(user, "<span class='warning'>We wouldn't get much use out of stinging that.</span>")
 		revert_cast()
 
 /obj/item/organ/internal/heart/xenobiology/contortion
@@ -634,7 +634,7 @@
 
 /obj/item/organ/internal/appendix/xenobiology/tendril
 	name = "Writhing Tendrils"
-	desc = "This organ squirming and writhes "
+	desc = "This organ is constantly squirming and writhing around. Yuck."
 	analyzer_price = 20
 	hidden_origin_tech = TECH_BIO
 	hidden_tech_level = 5
@@ -653,7 +653,7 @@
 
 /datum/spell/tendril_grab
 	name = "Prehensile Tendril"
-	desc = "Extend out your prehensile appendage to grab at an item."
+	desc = "Dig a tendril though the floor to grab at an item, throwing it towards you."
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
@@ -769,7 +769,7 @@
 			user.adjustFireLoss(10)
 			to_chat(user, "<span class = 'danger'>You get dragged along into bluespace, your flesh searing from the unstable energies!</span>")
 		else
-			to_chat(user, "<span class = 'danger'>Drawing upon the unstable energy really stings!</span>")
+			to_chat(user, "<span class = 'danger'>Drawing upon unstable energy singes your flesh!</span>")
 			user.adjustFireLoss(8)
 	user.mob_light(LIGHT_COLOR_PURPLE, 3, _duration = 3)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(target))
@@ -854,8 +854,8 @@
 	hidden_tech_level = 7
 
 /obj/item/organ/internal/lungs/xenobiology/mirror
-	name = "Hidden Terror Stinger"
-	desc = "This organ holds a deceptive stinger tucked inside of itself, dripping with potent venom."
+	name = "Silvered Organ"
+	desc = "This organ is dazzlingly reflective."
 	analyzer_price = 30
 	hidden_origin_tech = TECH_MATERIAL
 	hidden_tech_level = 7
@@ -947,7 +947,7 @@
 
 /obj/item/organ/internal/liver/xenobiology/sharp
 	name = "Sharp organ"
-	desc = "This organ sprouts several sharp points out of itself, which you cant imagine feel good to get implanted."
+	desc = "This organ sprouts several sharp points out of itself, which you can't imagine would feel good to get implanted."
 	analyzer_price = 30
 	var/original_unarmed
 	hidden_origin_tech = TECH_COMBAT
@@ -1034,7 +1034,7 @@
 
 /obj/item/organ/internal/heart/xenobiology/paradox
 	name = "Paradoxical Organ"
-	desc = "The organ constantly shifts and morphs in a way thats painful to looks at."
+	desc = "The organ is constantly shifting and morphing, each time you look away its something new."
 	analyzer_price = 40
 	var/list/acceptable_hearts = list()
 
@@ -1106,7 +1106,8 @@
 			"You feel like <em>SHOUTING</em>!",
 			"Sinister laughter echoes in your ears.",
 			"Your legs feel like jelly.",
-			"You feel like telling a pun.")
+			"You feel like telling a pun.",
+			)
 			to_chat(owner, "<span class='warning'>[pick(clown_message)]</span>")
 
 
@@ -1135,7 +1136,7 @@
 		"SQUEAK!",
 		"TEEHEE!",
 		"HONK HONK HONK HONK HONK!!!",
-		"THEY MUST ALL BE HONKED!"
+		"THEY MUST ALL BE HONKED!",
 	)
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)

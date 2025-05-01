@@ -79,7 +79,7 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_RESEARCH,
 		ACCESS_TOX_STORAGE,
-		ACCESS_TOX
+		ACCESS_TOX,
 	)
 	alt_titles = list("Anomalist", "Plasma Researcher", "Chemical Researcher")
 	minimal_player_age = 3
@@ -124,14 +124,14 @@
 		ACCESS_EVA,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
-		ACCESS_EXTERNAL_AIRLOCKS
+		ACCESS_EXTERNAL_AIRLOCKS,
 	)
 	alt_titles = list("Xenoarcheologist", "Slime Cultivator", "Slime Rancher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
-		/datum/job_objective/scan_organs
+		/datum/job_objective/scan_organs,
 	)
 
 	outfit = /datum/outfit/job/xenobiologist
@@ -155,7 +155,7 @@
 	backpack_contents = list(
 		/obj/item/healthanalyzer = 1,
 		/obj/item/storage/box/bodybags = 1,
-		/obj/item/clipboard = 1
+		/obj/item/clipboard = 1,
 	)
 
 /datum/job/roboticist

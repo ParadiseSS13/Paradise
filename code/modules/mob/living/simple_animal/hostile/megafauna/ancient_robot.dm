@@ -94,7 +94,7 @@ Difficulty: Hard
 		/obj/item/organ/internal/liver/xenobiology/detox,
 		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/cell/xenobiology/supercharged
+		/obj/item/organ/internal/cell/xenobiology/supercharged,
 	)
 
 	dissection_tool_step = list(
@@ -102,7 +102,7 @@ Difficulty: Hard
 	/datum/surgery_step/robotics/external/unscrew_hatch,
 	/datum/surgery_step/robotics/external/open_hatch,
 	/datum/surgery_step/robotics/manipulate_robotic_organs/extract,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
@@ -110,7 +110,7 @@ Difficulty: Hard
 	"<span class='notice'>You begin to unscrew the coverings.</span>",
 	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
 	"<span class='notice'>You carefully begin to disconnect the core from the machinery without setting off any secondary explosions.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 /// Legs and the connector for the legs

@@ -70,7 +70,7 @@ Difficulty: Very Hard
 		/obj/item/organ/internal/liver/xenobiology/detox,
 		/obj/item/organ/internal/ears/xenobiology/colorful,
 		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants
+		/obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants,
 	)
 
 	dissection_tool_step = list(
@@ -79,7 +79,7 @@ Difficulty: Very Hard
 	/datum/surgery_step/generic/clamp_bleeders,
 	/datum/surgery_step/generic/retract_skin,
 	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/dissect
+	/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
@@ -87,8 +87,8 @@ Difficulty: Very Hard
 	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
 	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
 	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You carefully sever the metal sections from that of flesh.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+	"<span class='notice'>You carefully sever the metal sections from the surrounding flesh.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
