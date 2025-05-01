@@ -77,18 +77,14 @@ export const SettingsGeneral = (props, context) => {
   const { theme, fontFamily, fontSize, lineHeight } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
-  // Initialize the local state from storage
-  const storedChatSaving = storage.get('chat-saving-enabled');
-  const [chatSaving, setChatSaving] = useLocalState(
-    context,
-    'chatSaving',
-    storedChatSaving !== undefined ? storedChatSaving : false
-  );
+  const storedValue = storage.get('chat-saving-enabled');
+  const initialValue = storedValue === true;
+  const [chatSaving, setChatSaving] = useLocalState(context, 'chatSaving', initialValue);
 
-  // Update both local state and storage when the value changes
   const updateChatSaving = (value) => {
-    setChatSaving(value);
-    storage.set('chat-saving-enabled', value);
+    const boolValue = value === true;
+    setChatSaving(boolValue);
+    storage.set('chat-saving-enabled', boolValue);
   };
 
   return (
@@ -211,7 +207,7 @@ export const SettingsGeneral = (props, context) => {
         <Stack>
           <Stack.Item>
             <Button.Checkbox
-              checked={chatSaving}
+              checked={chatSaving === true}
               content="Persistent Chat"
               tooltip="Enable chat persistence"
               onClick={() => updateChatSaving(!chatSaving)}
