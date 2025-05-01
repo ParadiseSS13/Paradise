@@ -9,9 +9,9 @@
 	cures = list()
 	agent = ""
 	viable_mobtypes = list(/mob/living/carbon/human)
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 	allow_dead = TRUE
-	disease_flags = CAN_CARRY
+	disease_flags = VIRUS_CAN_CARRY
 	virus_heal_resistant = TRUE
 	stage_prob = 100 // It isn't actually 100%, but is instead based on a timer
 	cure_chance = 80

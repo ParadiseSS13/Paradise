@@ -8,9 +8,9 @@
 	agent = "Shitty Appendix"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "If left untreated the subject will become very weak, and may vomit often."
-	severity = MINOR
-	disease_flags = CAN_CARRY|CAN_RESIST
-	visibility_flags = HIDDEN_PANDEMIC
+	severity = VIRUS_MINOR
+	disease_flags = VIRUS_CAN_CARRY|VIRUS_CAN_RESIST
+	visibility_flags = VIRUS_HIDDEN_PANDEMIC
 	required_organs = list(/obj/item/organ/internal/appendix)
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE

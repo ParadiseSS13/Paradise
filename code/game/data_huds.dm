@@ -107,7 +107,7 @@
 		var/datum/disease/D = thing
 		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
 			continue
-		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
+		if((!(D.visibility_flags & VIRUS_HIDDEN_SCANNER)) && (D.severity != VIRUS_NONTHREAT))
 			return TRUE
 	return FALSE
 

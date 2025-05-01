@@ -8,7 +8,7 @@
 	cure_chance = 15 // Higher chance to cure, since two reagents are required
 	agent = "Gravitokinetic Bipotential SADS+"
 	viable_mobtypes = list(/mob/living/carbon/human)
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 
 /datum/disease/gbs/stage_act()
 	if(!..())
@@ -46,4 +46,4 @@
 	cures = list("cryoxadone")
 	cure_chance = 10
 	agent = "gibbis"
-	disease_flags = CURABLE
+	disease_flags = VIRUS_CURABLE

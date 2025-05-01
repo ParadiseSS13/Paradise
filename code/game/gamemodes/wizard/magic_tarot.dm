@@ -541,7 +541,7 @@
 	H.apply_status_effect(STATUS_EFFECT_PANACEA)
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
-		if(D.severity == NONTHREAT)
+		if(D.severity == VIRUS_NONTHREAT)
 			continue
 		D.cure()
 

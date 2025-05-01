@@ -9,8 +9,8 @@
 	agent = "Prions"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "Uncontrollable laughing."
-	severity = BIOHAZARD
-	disease_flags = CAN_CARRY
+	severity = VIRUS_BIOHAZARD
+	disease_flags = VIRUS_CAN_CARRY
 	bypasses_immunity = TRUE // Kuru is a prion disorder, not a virus
 	virus_heal_resistant = TRUE
 

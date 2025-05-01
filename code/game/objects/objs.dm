@@ -210,7 +210,7 @@
 	. = ..()
 	extinguish()
 	acid_level = 0
-	if(temperature > DISINFECTION_TEMP)
+	if(temperature > VIRUS_DISINFECTION_TEMP)
 		SEND_SIGNAL(src, COMSIG_ATOM_DISINFECTED)
 
 /obj/singularity_pull(S, current_size)

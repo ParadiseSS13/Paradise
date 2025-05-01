@@ -116,9 +116,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		if(is_type_in_list(CD, disease_blacklist))
 			continue
 		switch(CD.severity)
-			if(NONTHREAT, MINOR)
+			if(VIRUS_NONTHREAT, VIRUS_MINOR)
 				diseases_minor += candidate
-			if(MEDIUM, HARMFUL, DANGEROUS, BIOHAZARD)
+			if(VIRUS_MEDIUM, VIRUS_HARMFUL, VIRUS_DANGEROUS, VIRUS_BIOHAZARD)
 				diseases_moderate_major += candidate
 
 /datum/event/disease_outbreak/proc/populate_symptoms()

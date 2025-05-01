@@ -5,7 +5,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 /datum/disease
 	//Flags
 	var/visibility_flags = 0
-	var/disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
+	var/disease_flags = VIRUS_CURABLE|VIRUS_CAN_CARRY|VIRUS_CAN_RESIST
 	var/spread_flags = SPREAD_AIRBORNE
 
 	//Fluff
@@ -30,14 +30,14 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	//Other
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
 	var/mob/living/carbon/affected_mob
-	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
+	var/list/cures = list() //list of cures if the disease has the VIRUS_CURABLE flag, these are reagent ids
 	var/infectivity = 65
 	var/cure_chance = 8
 	var/carrier = FALSE //If our host is only a carrier
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
 	var/virus_heal_resistant = FALSE // Some things aren't technically viruses/traditional diseases and should be immune to edge case cure methods, like healing viruses.
 	var/permeability_mod = 1
-	var/severity = NONTHREAT
+	var/severity = VIRUS_NONTHREAT
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
@@ -85,14 +85,14 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(has_cure && prob(cure_chance))
 		stage = max(stage - 1, 1)
 
-	if(disease_flags & CURABLE)
+	if(disease_flags & VIRUS_CURABLE)
 		if(has_cure && prob(cure_chance))
 			cure()
 			return FALSE
 	return TRUE
 
 /datum/disease/proc/has_cure()
-	if(!(disease_flags & CURABLE))
+	if(!(disease_flags & VIRUS_CURABLE))
 		return 0
 
 	var/cures_found = 0
@@ -159,7 +159,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease/proc/cure()
 	if(affected_mob)
-		if(disease_flags & CAN_RESIST)
+		if(disease_flags & VIRUS_CAN_RESIST)
 			if(!(type in affected_mob.resistances))
 				affected_mob.resistances += type
 		remove_virus()
@@ -168,7 +168,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 // Gives the received mob a resistance to this disease. Does not cure it if they are already infected
 /datum/disease/proc/make_resistant(mob/living/target)
-	if(target && disease_flags & CAN_RESIST && !(type in target.resistances))
+	if(target && disease_flags & VIRUS_CAN_RESIST && !(type in target.resistances))
 		target.resistances += type
 
 /datum/disease/proc/IsSame(datum/disease/D)

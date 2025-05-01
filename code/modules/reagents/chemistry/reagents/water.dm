@@ -123,7 +123,7 @@
 
 /datum/reagent/blood/reaction_temperature(exposed_temperature, exposed_volume)
 	// If the blood goes above 60C kill all viruses
-	if(exposed_temperature > DISINFECTION_TEMP)
+	if(exposed_temperature > VIRUS_DISINFECTION_TEMP)
 		data["viruses"] = list()
 	..()
 

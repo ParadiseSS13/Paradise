@@ -424,7 +424,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		var/known = FALSE
 		if(!(blood_disease.GetDiseaseID() in GLOB.detected_advanced_diseases["[z]"]))
 			GLOB.detected_advanced_diseases["[z]"] += list(blood_disease.GetDiseaseID())
-		if(blood_disease.visibility_flags & HIDDEN_PANDEMIC)
+		if(blood_disease.visibility_flags & VIRUS_HIDDEN_PANDEMIC)
 			continue
 
 		var/list/symptoms = list()

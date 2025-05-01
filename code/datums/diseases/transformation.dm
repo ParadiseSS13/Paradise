@@ -6,9 +6,9 @@
 	cure_text = "A coder's love (theoretical)."
 	agent = "Shenanigans"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 	stage_prob = 10
-	disease_flags = CURABLE
+	disease_flags = VIRUS_CURABLE
 	var/list/stage1 = list("You feel unremarkable.")
 	var/list/stage2 = list("You feel boring.")
 	var/list/stage3 = list("You feel utterly plain.")

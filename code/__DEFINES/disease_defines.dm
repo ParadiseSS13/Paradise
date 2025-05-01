@@ -1,5 +1,5 @@
 /// Temperature at which objects contaminated by viruses are disinfected
-#define DISINFECTION_TEMP T0C + 60
+#define VIRUS_DISINFECTION_TEMP T0C + 60
 /// Sent when the conditions to disinfect an atom are met
 #define COMSIG_ATOM_DISINFECTED "atom_disinfected"
 /// Sent when something is eaten or drunk by a mob
@@ -9,13 +9,13 @@
 #define VIRUS_SYMPTOM_LIMIT	6
 
 //Visibility Flags
-#define HIDDEN_SCANNER	(1<<0)
-#define HIDDEN_PANDEMIC	(1<<1)
+#define VIRUS_HIDDEN_SCANNER	(1<<0)
+#define VIRUS_HIDDEN_PANDEMIC	(1<<1)
 
 //Disease Flags
-#define CURABLE		(1<<0)
-#define CAN_CARRY	(1<<1)
-#define CAN_RESIST	(1<<2)
+#define VIRUS_CURABLE		(1<<0)
+#define VIRUS_CAN_CARRY	(1<<1)
+#define VIRUS_CAN_RESIST	(1<<2)
 
 //Spread Flags
 #define SPREAD_SPECIAL  (1<<0)
@@ -28,9 +28,9 @@
 
 
 //Severity Defines
-#define NONTHREAT	"No threat"
-#define MINOR		"Minor"
-#define MEDIUM		"Medium"
-#define HARMFUL		"Harmful"
-#define DANGEROUS 	"Dangerous!"
-#define BIOHAZARD	"BIOHAZARD THREAT!"
+#define VIRUS_NONTHREAT	"No threat"
+#define VIRUS_MINOR		"Minor"
+#define VIRUS_MEDIUM		"Medium"
+#define VIRUS_HARMFUL		"Harmful"
+#define VIRUS_DANGEROUS 	"Dangerous!"
+#define VIRUS_BIOHAZARD	"VIRUS_BIOHAZARD THREAT!"

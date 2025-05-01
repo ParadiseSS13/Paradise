@@ -10,7 +10,7 @@
 	cure_chance = 15
 	desc = "This disease destroys the braincells, causing brain fever, brain necrosis and general intoxication."
 	required_organs = list(/obj/item/organ/internal/brain)
-	severity = HARMFUL
+	severity = VIRUS_HARMFUL
 
 /datum/disease/brainrot/stage_act()
 	if(!..())

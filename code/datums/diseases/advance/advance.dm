@@ -321,7 +321,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			if(0 to 2)
 				visibility_flags = 0
 			if(2 to INFINITY)
-				visibility_flags = HIDDEN_SCANNER
+				visibility_flags = VIRUS_HIDDEN_SCANNER
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
 		SetSpread(clamp(2 ** (properties["transmittable"] - length(symptoms)), SPREAD_BLOOD, SPREAD_AIRBORNE))
@@ -356,17 +356,17 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	switch(level_sev)
 
 		if(-INFINITY to 0)
-			severity = NONTHREAT
+			severity = VIRUS_NONTHREAT
 		if(1)
-			severity = MINOR
+			severity = VIRUS_MINOR
 		if(2)
-			severity = MEDIUM
+			severity = VIRUS_MEDIUM
 		if(3)
-			severity = HARMFUL
+			severity = VIRUS_HARMFUL
 		if(4)
-			severity = DANGEROUS
+			severity = VIRUS_DANGEROUS
 		if(5 to INFINITY)
-			severity = BIOHAZARD
+			severity = VIRUS_BIOHAZARD
 		else
 			severity = "Unknown"
 

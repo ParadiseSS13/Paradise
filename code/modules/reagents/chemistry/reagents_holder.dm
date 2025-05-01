@@ -240,7 +240,7 @@
 		handle_reactions()
 
 /datum/reagents/proc/temperature_react() //Calls the temperature reaction procs without changing the temp.
-	if(chem_temp > DISINFECTION_TEMP && isobj(my_atom))
+	if(chem_temp > VIRUS_DISINFECTION_TEMP && isobj(my_atom))
 		SEND_SIGNAL(my_atom, COMSIG_ATOM_DISINFECTED)
 	for(var/A in reagent_list)
 		var/datum/reagent/current_reagent = A

@@ -10,8 +10,8 @@
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "Nausea, sickness, and vomitting."
-	severity = MINOR
-	disease_flags = CURABLE
+	severity = VIRUS_MINOR
+	disease_flags = VIRUS_CURABLE
 	virus_heal_resistant = TRUE
 
 /datum/disease/food_poisoning/stage_act()
