@@ -212,7 +212,7 @@
 /obj/structure/rack,
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28;
-	dir = 8
+	dir = 4
 	},
 /obj/item/kitchen/knife/shiv/carrot,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -1558,7 +1558,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "aNn" = (
-/obj/machinery/gibber,
+/obj/machinery/gibber/upgraded,
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
@@ -1929,6 +1929,11 @@
 /obj/item/food/grown/geranium,
 /turf/simulated/floor/carpet/green,
 /area/centcom/ss220/park)
+"aWH" = (
+/obj/structure/rack,
+/obj/item/storage/part_replacer/bluespace/tier4,
+/turf/simulated/floor/plasteel/freezer,
+/area/ghost_bar/indoor)
 "aWI" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on,
 /turf/simulated/floor/plasteel{
@@ -2065,10 +2070,8 @@
 /area/admin)
 "aZj" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave/upgraded{
-	pixel_x = -1;
-	pixel_y = 7
-	},
+/obj/machinery/cooking/grill/upgraded,
+/obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
 	},
@@ -5415,10 +5418,10 @@
 /area/syndicate_mothership/control)
 "crw" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/soda/upgraded{
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
+/obj/machinery/chem_dispenser/soda{
 	pixel_y = 8
 	},
-/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /turf/simulated/floor/wood/parquet/tile,
 /area/ghost_bar/indoor)
 "crx" = (
@@ -6385,7 +6388,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
 "cPQ" = (
-/obj/machinery/cooking/ice_cream_mixer,
+/obj/machinery/cooking/ice_cream_mixer/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -6405,7 +6408,8 @@
 	},
 /area/vox_base)
 "cQh" = (
-/obj/machinery/cooking/deepfryer/upgraded,
+/obj/structure/table,
+/obj/machinery/cooking/stovetop/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -7221,8 +7225,7 @@
 /obj/structure/light_fake{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/machinery/cooking/grill/upgraded,
+/obj/structure/sink/kitchen/west,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "diA" = (
@@ -7419,7 +7422,8 @@
 	},
 /area/vox_base)
 "dmY" = (
-/obj/structure/sink/kitchen/west,
+/obj/structure/table,
+/obj/machinery/cooking/stovetop/loaded,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "dnj" = (
@@ -11030,12 +11034,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/ss220/park)
-"eNh" = (
-/turf/simulated/floor/plasteel/dark{
-	dir = 8;
-	icon_state = "darkbluealt"
-	},
-/area/centcom/ss220/bar)
 "eNB" = (
 /obj/effect/spawner/window/shuttle/survival_pod,
 /obj/machinery/door/poddoor/shutters{
@@ -11220,14 +11218,8 @@
 	},
 /area/centcom/ss220/admin3)
 "eQZ" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_y = 3
-	},
+/obj/effect/turf_decal/delivery/white,
+/obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
 	},
@@ -11559,9 +11551,9 @@
 /area/centcom/ss220/supply)
 "eYk" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/soda/upgraded{
-	pixel_y = 6;
-	dir = 1
+/obj/machinery/chem_dispenser/soda{
+	dir = 1;
+	pixel_y = 6
 	},
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
@@ -12568,10 +12560,8 @@
 	},
 /area/centcom/ss220/supply)
 "fqd" = (
-/obj/structure/closet/secure_closet/freezer/meat/open,
-/turf/simulated/floor/plasteel{
-	icon_state = "tranquillite"
-	},
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/plating/dirt,
 /area/ghost_bar/indoor)
 "fqn" = (
 /turf/simulated/floor/carpet,
@@ -16620,12 +16610,6 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/indestructible/rock,
 /area/ghost_bar/outdoor)
-"hfn" = (
-/turf/simulated/floor/plasteel/dark{
-	dir = 9;
-	icon_state = "darkbluealt"
-	},
-/area/centcom/ss220/bar)
 "hfq" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
@@ -17682,9 +17666,8 @@
 /area/ghost_bar/outdoor)
 "hFn" = (
 /obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -1;
-	pixel_y = 7
+/obj/machinery/kitchen_machine/microwave/upgraded{
+	pixel_y = 5
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
@@ -19112,6 +19095,15 @@
 "igS" = (
 /turf/simulated/floor/carpet/arcade,
 /area/trader_station/sol)
+"ihA" = (
+/obj/structure/table,
+/obj/item/kirbyplants/medium{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkbluefull"
+	},
+/area/centcom/ss220/bar)
 "ihB" = (
 /obj/structure/chair/sofa/corp/corner{
 	dir = 8
@@ -20843,7 +20835,7 @@
 /obj/item/robot_parts/r_leg,
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28;
-	dir = 8
+	dir = 4
 	},
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /turf/simulated/floor/mineral/titanium,
@@ -21272,6 +21264,13 @@
 	water_overlay_image = null
 	},
 /area/centcom/ss220/admin1)
+"jbX" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ghost_bar/outdoor/beach)
 "jcc" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -21618,7 +21617,7 @@
 /area/centcom/ss220/admin1)
 "jkn" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/beer/upgraded{
+/obj/machinery/chem_dispenser/beer{
 	pixel_y = 8
 	},
 /turf/simulated/floor/wood,
@@ -21921,7 +21920,8 @@
 	},
 /area/admin)
 "jqV" = (
-/obj/machinery/processor,
+/obj/structure/table,
+/obj/machinery/cooking/grill/loaded,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "jrf" = (
@@ -24025,7 +24025,6 @@
 /obj/structure/table,
 /obj/machinery/reagentgrinder{
 	desc = "Used to grind things up into raw materials and liquids.";
-	pixel_x = -5;
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -24362,12 +24361,9 @@
 /turf/simulated/floor/plasteel/goonplaque/nosey,
 /area/wizard_station)
 "kxN" = (
-/obj/structure/table,
 /obj/structure/light_fake,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/condiment/enzyme,
 /obj/structure/sign/poster/official/fruit_bowl/directional/south,
+/obj/machinery/processor,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "kxZ" = (
@@ -25265,7 +25261,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/assault_pod/nanotrasen)
 "kOI" = (
-/obj/machinery/cooking/oven/upgraded,
+/obj/machinery/cooking/oven/loaded,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "kOR" = (
@@ -25487,12 +25483,12 @@
 /area/ghost_bar/indoor)
 "kUd" = (
 /obj/structure/table/reinforced,
-/obj/machinery/processor{
-	pixel_y = 10;
-	dir = 8
-	},
 /obj/structure/light_fake{
 	dir = 4
+	},
+/obj/machinery/processor/upgraded{
+	dir = 8;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
@@ -25742,11 +25738,11 @@
 /area/centcom/ss220/supply)
 "kZs" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/soda/upgraded{
-	pixel_y = 8
-	},
 /obj/structure/light_fake{
 	dir = 1
+	},
+/obj/machinery/chem_dispenser/soda{
+	pixel_y = 8
 	},
 /turf/simulated/floor/wood/cherry,
 /area/ghost_bar/indoor)
@@ -26027,7 +26023,7 @@
 "lgu" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28;
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -26377,11 +26373,7 @@
 	},
 /area/syndicate_mothership/jail)
 "loT" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_y = 8;
-	pixel_x = 6
-	},
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "lpw" = (
@@ -27026,7 +27018,7 @@
 "lzM" = (
 /obj/structure/table/wood,
 /obj/structure/sign/poster/contraband/red_rum/directional/north,
-/obj/machinery/chem_dispenser/beer/upgraded{
+/obj/machinery/chem_dispenser/beer{
 	pixel_y = 8
 	},
 /turf/simulated/floor/wood/cherry,
@@ -27730,8 +27722,8 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/ninja/holding)
 "lQA" = (
-/obj/machinery/hydroponics/constructable,
 /obj/structure/light_fake,
+/obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plating/dirt,
 /area/ghost_bar/indoor)
 "lQF" = (
@@ -28693,10 +28685,10 @@
 	},
 /area/syndicate_mothership)
 "mmX" = (
-/obj/machinery/gibber,
 /obj/structure/light_fake{
 	dir = 1
 	},
+/obj/machinery/cooking/deepfryer/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -31194,9 +31186,29 @@
 	},
 /area/syndicate_mothership)
 "nwt" = (
-/obj/machinery/hydroponics/constructable,
-/turf/simulated/floor/plating/dirt,
-/area/ghost_bar/indoor)
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/effect/turf_decal/delivery/white,
+/obj/item/food/meat,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/meat,
+/obj/item/food/meat,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkbluefull"
+	},
+/area/centcom/ss220/bar)
 "nwK" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -32038,7 +32050,7 @@
 /area/syndicate_mothership/outside)
 "nPL" = (
 /obj/structure/table,
-/obj/machinery/cooking/grill/upgraded,
+/obj/machinery/cooking/grill/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -32743,7 +32755,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "oiV" = (
-/obj/machinery/cooking/deepfryer/upgraded,
+/obj/machinery/cooking/deepfryer/loaded,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
 "oja" = (
@@ -33184,6 +33196,18 @@
 	name = "Holodeck Projector Floor"
 	},
 /area/holodeck/source_wildlife)
+"osQ" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder/upgraded{
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkbluefull"
+	},
+/area/centcom/ss220/bar)
 "osV" = (
 /obj/item/pickaxe,
 /obj/effect/decal/cleanable/dirt,
@@ -34198,7 +34222,7 @@
 /area/admin)
 "oQT" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/machinery/cooking/oven,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
 	},
@@ -35782,9 +35806,11 @@
 	},
 /area/centcom/ss220/medbay)
 "pBx" = (
-/obj/machinery/processor,
 /obj/structure/light_fake{
 	dir = 8
+	},
+/obj/machinery/processor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
@@ -35879,15 +35905,15 @@
 /turf/simulated/floor/wood/parquet,
 /area/ghost_bar/indoor)
 "pEL" = (
-/obj/structure/kitchenspike,
+/obj/machinery/gibber,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar/indoor)
 "pEP" = (
 /obj/structure/table/reinforced{
 	color = "#996633"
 	},
-/obj/machinery/reagentgrinder{
-	pixel_y = 9
+/obj/machinery/reagentgrinder/upgraded{
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -38820,6 +38846,14 @@
 	},
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"qXc" = (
+/obj/structure/table,
+/obj/effect/turf_decal/delivery/white,
+/obj/machinery/cooking/stovetop/upgraded,
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkbluefull"
+	},
+/area/centcom/ss220/bar)
 "qXi" = (
 /obj/structure/table/wood,
 /obj/item/dnainjector/blindmut,
@@ -39279,12 +39313,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/admin)
-"rgS" = (
-/turf/simulated/floor/plasteel/dark{
-	dir = 1;
-	icon_state = "darkbluealtstrip"
-	},
-/area/centcom/ss220/bar)
 "rgV" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic,
@@ -39787,7 +39815,7 @@
 /area/syndicate_mothership)
 "rrh" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/beer/upgraded{
+/obj/machinery/chem_dispenser/beer{
 	pixel_y = 8
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -39804,10 +39832,11 @@
 /area/vox_base)
 "rro" = (
 /obj/structure/table/wood,
-/obj/machinery/reagentgrinder{
-	pixel_y = 8
-	},
 /obj/item/reagent_containers/glass/beaker/large,
+/obj/machinery/reagentgrinder{
+	desc = "Used to grind things up into raw materials and liquids.";
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar/indoor)
 "rrp" = (
@@ -40989,6 +41018,7 @@
 /area/centcom/ss220/medbay)
 "rOv" = (
 /obj/machinery/cooking/deepfryer/upgraded,
+/obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
 	},
@@ -41293,7 +41323,7 @@
 /area/syndicate_mothership/jail)
 "rTR" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/beer/upgraded{
+/obj/machinery/chem_dispenser/beer{
 	dir = 1;
 	pixel_y = 6
 	},
@@ -42408,12 +42438,17 @@
 /area/ninja/holding)
 "spE" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_y = 6
-	},
 /obj/item/reagent_containers/condiment/rice,
 /obj/item/reagent_containers/condiment/rice,
 /obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = 7;
+	pixel_y = 17
+	},
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	pixel_x = -6;
+	pixel_y = 11
+	},
 /obj/item/reagent_containers/condiment/flour,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
@@ -42644,7 +42679,8 @@
 	},
 /area/syndicate_mothership/infteam)
 "sxi" = (
-/obj/machinery/economy/vending/dinnerware,
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/closet/crate/cookware,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
 	},
@@ -42665,6 +42701,16 @@
 /obj/item/gun/projectile/automatic/tommygun,
 /turf/simulated/floor/wood/oak,
 /area/admin)
+"sya" = (
+/obj/structure/rack,
+/obj/item/storage/part_replacer/bluespace/tier4{
+	pixel_y = -3
+	},
+/obj/item/storage/part_replacer/bluespace/tier4{
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel/smooth,
+/area/ghost_bar/indoor)
 "syd" = (
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/admin3)
@@ -42777,10 +42823,10 @@
 	},
 /area/syndicate_mothership/cargo)
 "sBa" = (
-/obj/machinery/hydroponics/constructable,
 /obj/structure/light_fake{
 	dir = 1
 	},
+/obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plating/dirt,
 /area/ghost_bar/indoor)
 "sBm" = (
@@ -45928,7 +45974,7 @@
 /area/ghost_bar/indoor)
 "tWp" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/soda/upgraded{
+/obj/machinery/chem_dispenser/soda{
 	pixel_y = 8
 	},
 /turf/simulated/floor/wood,
@@ -46382,10 +46428,10 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "ujg" = (
-/obj/structure/janitorialcart{
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/structure/janitorialcart/full{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -46640,28 +46686,10 @@
 /turf/simulated/floor/plating,
 /area/centcom/ss220/admin3)
 "ups" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
-/obj/effect/turf_decal/delivery/white,
-/obj/item/food/meat,
-/obj/item/food/meat,
-/obj/item/food/meat,
 /obj/structure/light_fake/spot{
 	dir = 1
 	},
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
-/obj/item/food/pelmeni,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
 	},
@@ -49187,9 +49215,8 @@
 /area/centcom/ss220/admin1)
 "vuz" = (
 /obj/structure/table/reinforced,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 9
+/obj/machinery/reagentgrinder/upgraded{
+	pixel_y = 10
 	},
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
@@ -51715,6 +51742,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
+"wxD" = (
+/obj/machinery/cooking/ice_cream_mixer/upgraded,
+/obj/effect/turf_decal/delivery/white,
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkbluefull"
+	},
+/area/centcom/ss220/bar)
 "wxU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -51785,7 +51819,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "wzF" = (
-/obj/machinery/cooking/oven/upgraded,
+/obj/machinery/cooking/oven/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -52768,7 +52802,8 @@
 "wUs" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder{
-	pixel_y = 8
+	desc = "Used to grind things up into raw materials and liquids.";
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood/fancy/birch,
 /area/ghost_bar/outdoor/beach)
@@ -53067,12 +53102,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
-"xcy" = (
-/turf/simulated/floor/plasteel/dark{
-	dir = 1;
-	icon_state = "darkbluecornersalt"
-	},
-/area/centcom/ss220/bar)
 "xcD" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/aps,
@@ -55587,7 +55616,8 @@
 "yhF" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder{
-	pixel_y = 8
+	desc = "Used to grind things up into raw materials and liquids.";
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood/cherry,
 /area/ghost_bar/indoor)
@@ -74487,7 +74517,7 @@ nfj
 nfj
 hqL
 hqL
-hqL
+nfj
 nfj
 nfj
 nfj
@@ -74995,10 +75025,10 @@ tTm
 nmP
 osb
 ups
-sxi
-qws
-gTb
-hfn
+nwt
+eQZ
+usQ
+osQ
 kQR
 kQR
 prf
@@ -75251,11 +75281,11 @@ mmG
 tTm
 lvt
 osb
+sxi
 sIl
 sIl
 sIl
 uXl
-eRY
 xYo
 isT
 olw
@@ -75508,11 +75538,11 @@ dYf
 tTm
 nmP
 osb
-usQ
+wxD
 sIl
+aZj
 sIl
 sbf
-eRY
 xYo
 isT
 mWo
@@ -75767,9 +75797,9 @@ nmP
 osb
 oQT
 sIl
+qXc
 sIl
-aZj
-eRY
+qws
 xYo
 isT
 xtW
@@ -76025,8 +76055,8 @@ osb
 rOv
 sIl
 sIl
+sIl
 hpQ
-rgS
 xYo
 pWT
 xtW
@@ -76279,11 +76309,11 @@ dYf
 tTm
 nmP
 osb
-qrN
+ihA
 xSZ
 ueF
-eQZ
-eRY
+gTb
+qrN
 xYo
 shF
 mni
@@ -76536,11 +76566,11 @@ dYf
 tTm
 nmP
 osb
-hfn
-eNh
-eNh
-eNh
-xcy
+eRY
+xYo
+xYo
+xYo
+xYo
 xYo
 sKI
 jXb
@@ -101949,7 +101979,7 @@ xgE
 kpo
 daG
 pBx
-wjY
+yhV
 goa
 nPM
 uwE
@@ -102463,7 +102493,7 @@ mrx
 jSo
 kpf
 mrx
-fqd
+mrx
 jZh
 hrL
 cQl
@@ -102977,7 +103007,7 @@ mrx
 mrx
 mrx
 mrx
-yhV
+wjY
 jZh
 xHy
 uwE
@@ -103737,12 +103767,12 @@ tXi
 tXi
 tXi
 goa
-nwt
+fqd
 oVW
 oNq
 oNq
 mlc
-nwt
+fqd
 goa
 peG
 yeK
@@ -104250,13 +104280,13 @@ adJ
 tXi
 goa
 goa
-nwt
-nwt
+fqd
+fqd
 fdm
 wVl
 bFy
 fdm
-nwt
+fqd
 goa
 yhF
 yeK
@@ -104513,7 +104543,7 @@ iGA
 kYd
 kPU
 fdm
-nwt
+fqd
 goa
 vDw
 yeK
@@ -104770,7 +104800,7 @@ ckg
 ltq
 ltq
 vfe
-nwt
+fqd
 goa
 tpZ
 yeK
@@ -105021,13 +105051,13 @@ adJ
 tXi
 goa
 goa
-nwt
-nwt
+fqd
+fqd
 fdm
 xyh
 agu
 fdm
-nwt
+fqd
 goa
 kZs
 yeK
@@ -105536,12 +105566,12 @@ tXi
 tXi
 tXi
 goa
-nwt
+fqd
 jnU
 rlr
 rlr
 vsI
-nwt
+fqd
 goa
 gym
 iNd
@@ -106826,7 +106856,7 @@ goa
 fWs
 cSj
 cUg
-vkc
+sya
 rZi
 kaM
 goa
@@ -116390,7 +116420,7 @@ tXi
 tXi
 tXi
 tXi
-adJ
+tXi
 adJ
 adJ
 adJ
@@ -116646,8 +116676,8 @@ pvB
 pvB
 pvB
 pvB
+pvB
 tXi
-adJ
 adJ
 adJ
 adJ
@@ -116894,17 +116924,17 @@ qti
 qBw
 kna
 qLz
-kOI
+jqV
 dmY
 dhQ
-jqV
+kOI
 oiV
 pvB
 hbZ
 xoG
+god
 pvB
 tXi
-adJ
 adJ
 adJ
 adJ
@@ -117150,7 +117180,7 @@ nAM
 mGr
 qti
 jNC
-lQF
+wUs
 vYn
 vYn
 vYn
@@ -117159,9 +117189,9 @@ vYn
 eAA
 vRD
 vRD
+vRD
 pvB
 tXi
-adJ
 adJ
 adJ
 adJ
@@ -117414,11 +117444,11 @@ spE
 dXL
 kuL
 pvB
-god
+vRD
+vRD
 wvr
 pvB
 tXi
-adJ
 adJ
 adJ
 adJ
@@ -117671,11 +117701,11 @@ vYn
 vYn
 kxN
 pvB
-jAO
+vRD
+vRD
 vRD
 pvB
 tXi
-adJ
 adJ
 adJ
 adJ
@@ -117929,10 +117959,10 @@ vYn
 loT
 pvB
 qmj
-vRD
+jAO
+aWH
 pvB
 tXi
-adJ
 adJ
 adJ
 adJ
@@ -118181,15 +118211,15 @@ gvE
 qLz
 qLz
 xiV
-lQF
+jbX
 vYn
 qLz
 pvB
 pvB
 pvB
 pvB
+pvB
 tXi
-adJ
 adJ
 adJ
 adJ
@@ -118446,7 +118476,7 @@ vYn
 ami
 qLz
 tXi
-adJ
+tXi
 adJ
 adJ
 adJ
