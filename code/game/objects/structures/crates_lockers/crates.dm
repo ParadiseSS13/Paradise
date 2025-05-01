@@ -687,7 +687,9 @@
 	for(var/item in bought_items)
 		var/obj/purchased = new item(src)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
-	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
+	var/item_list = jointext(sortList(itemlog), ", ")
+	log_game("[key_name(user)] purchased a surplus crate with [item_list]")
+	user.create_log(MISC_LOG, "Surplus crate purchase with spawned items [item_list]")
 
 /obj/structure/closet/crate/surplus/proc/generate_refund(amount)
 	var/changing_amount = amount

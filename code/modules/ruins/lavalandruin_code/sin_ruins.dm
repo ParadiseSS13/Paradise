@@ -190,15 +190,14 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	new_attack_chain = TRUE
 
-/obj/item/kitchen/knife/envy/afterattack__legacy__attackchain(atom/movable/AM, mob/living/carbon/human/user, proximity)
+/obj/item/kitchen/knife/envy/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity)
+	if(!ishuman(user))
 		return
-	if(!istype(user))
-		return
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name
 			H.dna.transfer_identity(user)

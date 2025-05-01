@@ -163,7 +163,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/attach(obj/mecha/M)
 	..()
-	droid_overlay = new(icon, icon_state = "repair_droid")
+	droid_overlay = new(icon, icon_state = "repair_droid_icon")
 	M.overlays += droid_overlay
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach()
