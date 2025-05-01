@@ -8,7 +8,7 @@
 		return COMPONENT_INCOMPATIBLE
 	for(var/datum/disease/virus in _viruses)
 		// If we don't have a copy of this virus, put one it
-		if(virus.spread_flags >= (1<<2) && !(virus.GetDiseaseID() in viruses))
+		if(virus.spread_flags >= SPREAD_BLOOD && !(virus.GetDiseaseID() in viruses))
 			viruses += list("[virus.GetDiseaseID()]" = virus.Copy())
 	RegisterSignal(parent, COMSIG_MOB_REAGENT_EXCHANGE, PROC_REF(infect_target))
 	RegisterSignal(parent, COMSIG_ATOM_DISINFECTED, PROC_REF(disinfect))
@@ -28,7 +28,7 @@
 		virus_list = _viruses
 		// Add a copy of each virus to our list if we don't already have on
 		for(var/datum/disease/virus in virus_list)
-			if(virus.spread_flags >= (1<<2) && !(virus.GetDiseaseID() in viruses))
+			if(virus.spread_flags >= SPREAD_BLOOD && !(virus.GetDiseaseID() in viruses))
 				viruses += list(list("[virus.GetDiseaseID()]" = virus.Copy()))
 
 /datum/component/viral_contamination/proc/infect_target(atom/source, mob/target)
@@ -37,7 +37,7 @@
 		return
 	for(var/disease_id in viruses)
 		var/datum/disease/virus = viruses[disease_id]
-		if(virus)
+		if(istype(virus))
 			target.ForceContractDisease(virus, FALSE)
 
 /datum/component/viral_contamination/proc/disinfect(atom/source)
