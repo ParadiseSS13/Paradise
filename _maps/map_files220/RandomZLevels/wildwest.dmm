@@ -630,9 +630,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "go" = (
-/obj/structure/reagent_dispensers/fueltank/chem{
-	pixel_y = -30
-	},
+/obj/structure/reagent_dispensers/fueltank/chem/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellowfull"
@@ -879,7 +877,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light_construct/small/east,
+/obj/machinery/light_construct/small/directional/east,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "iG" = (
@@ -2467,9 +2465,8 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "xM" = (
-/obj/machinery/door/airlock/vault{
-	locked = 1
-	},
+/obj/machinery/door/airlock/vault,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor{
 	icon_state = "necro1"
 	},
@@ -2920,9 +2917,8 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "CE" = (
-/obj/machinery/door/airlock/vault{
-	locked = 1
-	},
+/obj/machinery/door/airlock/vault,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor{
 	icon_state = "cult"
 	},

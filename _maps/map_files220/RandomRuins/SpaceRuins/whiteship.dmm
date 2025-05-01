@@ -17,10 +17,7 @@
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned)
 "aI" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/passive_vent,
 /obj/structure/filingcabinet/chestdrawer/autopsy,
@@ -343,10 +340,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -4;
-	pixel_y = 32
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -870,7 +864,7 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -1051,7 +1045,7 @@
 	},
 /obj/structure/curtain/open,
 /obj/machinery/atmospherics/unary/passive_vent,
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /obj/machinery/door_control/shutter/east{
 	id = "whiteshiproom1";
 	name = "Room 1 Shutters Control";
@@ -1127,7 +1121,7 @@
 /area/shuttle/abandoned)
 "DH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -1169,7 +1163,7 @@
 "Fw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/wood,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -1260,7 +1254,7 @@
 	},
 /obj/structure/curtain/open,
 /obj/machinery/atmospherics/unary/passive_vent,
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /obj/machinery/door_control/shutter/east{
 	id = "whiteshiproom2";
 	name = "Room 2 Shutters Control";
@@ -1440,7 +1434,7 @@
 /area/shuttle/abandoned)
 "Mx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "Mz" = (
@@ -1514,9 +1508,9 @@
 	},
 /obj/machinery/door/airlock/command{
 	id_tag = "whiteshipbridgeairlock";
-	locked = 1;
 	name = "Medical Shuttle Bridge airlock"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -1573,10 +1567,7 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 5;
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/door_control/bolt_control/north{
 	id = "whiteshipinnerairlock2";
 	in_use = 1;
@@ -1759,9 +1750,7 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/south,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1883,7 +1872,7 @@
 	},
 /area/shuttle/abandoned)
 "Vj" = (
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/structure/toilet{
 	dir = 4
 	},

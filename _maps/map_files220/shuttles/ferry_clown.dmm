@@ -31,9 +31,7 @@
 	},
 /obj/item/bedsheet/clown,
 /obj/structure/bed,
-/obj/machinery/light/spot{
-	dir = 1
-	},
+/obj/machinery/light/spot/directional/north,
 /turf/simulated/floor/noslip,
 /area/shuttle/transport)
 "l" = (
@@ -81,7 +79,7 @@
 "Z" = (
 /obj/item/bedsheet/clown,
 /obj/structure/bed,
-/obj/machinery/light/spot,
+/obj/machinery/light/spot/directional/south,
 /turf/simulated/floor/noslip,
 /area/shuttle/transport)
 

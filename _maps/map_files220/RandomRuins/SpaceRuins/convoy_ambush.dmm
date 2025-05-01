@@ -6,8 +6,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "bb" = (
-/obj/item/radio/intercom{
-	dir = 4;
+/obj/item/radio/intercom/directional/west{
 	pixel_x = -27;
 	name = "intercom"
 	},
@@ -82,7 +81,7 @@
 /turf/template_noop,
 /area/template_noop)
 "dq" = (
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /obj/structure/closet,
 /obj/structure/sign/nosmoking_1{
 	pixel_x = -32
@@ -175,9 +174,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "hg" = (
-/obj/machinery/light/spot{
-	dir = 8
-	},
+/obj/machinery/light/spot/directional/west,
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
@@ -287,8 +284,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "nd" = (
-/obj/item/radio/intercom{
-	dir = 4;
+/obj/item/radio/intercom/directional/west{
 	pixel_x = -27;
 	name = "intercom"
 	},
@@ -372,9 +368,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "rp" = (
-/obj/machinery/light/spot{
-	dir = 4
-	},
+/obj/machinery/light/spot/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -543,9 +537,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "xn" = (
-/obj/machinery/light/spot{
-	dir = 4
-	},
+/obj/machinery/light/spot/directional/east,
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)

@@ -636,7 +636,7 @@
 /area/awaymission/black_mesa/employee_dorm_room)
 "aTL" = (
 /obj/machinery/chem_dispenser,
-/obj/structure/reagent_dispensers/fueltank/chem/north,
+/obj/structure/reagent_dispensers/fueltank/chem/directional/north,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
 	},
@@ -1797,7 +1797,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/black_mesa/xen/vortigaunt_village_nihilanth)
 "ckl" = (
-/obj/machinery/access_button/north,
+/obj/machinery/access_button/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/black_mesa/black_ops_entrance)
 "ckq" = (
@@ -4213,7 +4213,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_chem)
 "fgI" = (
-/obj/machinery/access_button/west{
+/obj/machinery/access_button/directional/west{
 	name = "Elevator Button"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -9026,9 +9026,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "leY" = (
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
+/obj/machinery/status_display/directional/north,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_hallway)
 "lgH" = (
@@ -9342,7 +9340,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_infirmary)
 "lxB" = (
-/obj/machinery/light/small/built/east,
+/obj/machinery/light/small/built/directional/east,
 /obj/structure/largecrate,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/entrance_tunnel)
@@ -10047,7 +10045,7 @@
 /area/awaymission/black_mesa/xen/freeman_hallway)
 "mpX" = (
 /obj/machinery/chem_master,
-/obj/structure/reagent_dispensers/fueltank/chem/north,
+/obj/structure/reagent_dispensers/fueltank/chem/directional/north,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_chem)
 "mqa" = (
@@ -13050,7 +13048,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/black_ops_armory)
 "pUT" = (
-/obj/machinery/access_button/west{
+/obj/machinery/access_button/directional/west{
 	name = "Elevator Button"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -17760,7 +17758,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "vPi" = (
-/obj/machinery/light/small/built/west,
+/obj/machinery/light/small/built/directional/west,
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/entrance_tunnel)
 "vPl" = (
@@ -17921,7 +17919,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_large_office)
 "wap" = (
-/obj/machinery/access_button/north,
+/obj/machinery/access_button/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/black_mesa/black_ops_downstairs_atrium)
 "waR" = (

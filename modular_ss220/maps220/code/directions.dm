@@ -1,46 +1,14 @@
 /* Intercom */
-/obj/item/radio/intercom/directional
-	name = "\improper station intercom"
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom, 28, 28)
 
-/obj/item/radio/intercom/directional/south
-	pixel_y = -28
-	dir = 1
-
-/obj/item/radio/intercom/directional/north
-	pixel_y = 28
-
-/obj/item/radio/intercom/directional/west
-	pixel_x = -28
-	dir = 4
-
-/obj/item/radio/intercom/directional/east
-	pixel_x = 28
-	dir = 8
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/prison, 28, 28)
 
 /* Nanotrasen WallMed */
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/emergency_ntmed, 32, 32)
 
 /* Fire Alarm */
-// TODO: Cringe dirs, should be fixed in .dmi
-/obj/machinery/firealarm/directional/south
-	dir = 1
-
-/obj/machinery/firealarm/directional/north
-	dir = 2
-
-/obj/machinery/firealarm/no_alarm/directional/south
-	dir = 1
-
-/obj/machinery/firealarm/no_alarm/directional/north
-	dir = 2
-
-/obj/machinery/firealarm/syndicate/directional/south
-	dir = 1
-
-/obj/machinery/firealarm/syndicate/directional/north
-	dir = 2
-
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/no_alarm, 24, 24)
+
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate, 24, 24)
 
 /* Light Switch */
@@ -81,23 +49,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate, 24, 24)
 	dir = 8
 
 /* Keycard Authentication Device */
-/obj/machinery/keycard_auth
-	name = "\improper Keycard Authentication Device"
-
-/obj/machinery/keycard_auth/south
-	pixel_y = -24
-	dir = 1
-
-/obj/machinery/keycard_auth/north
-	pixel_y = 24
-
-/obj/machinery/keycard_auth/west
-	pixel_x = -24
-	dir = 4
-
-/obj/machinery/keycard_auth/east
-	pixel_x = 24
-	dir = 8
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 24, 24)
 
 /* Buttons */
 /obj/machinery/door_control/bolt_control
@@ -194,225 +146,45 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate, 24, 24)
 	dir = 8
 
 /* Light Fixtures */
-/obj/machinery/light/directional
-	name = "\improper light fixture"
-
-/obj/machinery/light/directional/north
-	dir = 1
-
-/obj/machinery/light/directional/south
-
-/obj/machinery/light/directional/east
-	dir = 4
-
-/obj/machinery/light/directional/west
-	dir = 8
-
 /obj/machinery/light/nightshifted
-	name = "\improper light fixture"
 	nightshift_allowed = FALSE
 	nightshift_enabled = TRUE
 
-/obj/machinery/light/nightshifted/north
-	dir = 1
-
-/obj/machinery/light/nightshifted/south
-
-/obj/machinery/light/nightshifted/east
-	dir = 4
-
-/obj/machinery/light/nightshifted/west
-	dir = 8
-
-/obj/machinery/light/built
-	name = "\improper light fixture"
-
-/obj/machinery/light/built/north
-	dir = 1
-
-/obj/machinery/light/built/south
-
-/obj/machinery/light/built/east
-	dir = 4
-
-/obj/machinery/light/built/west
-	dir = 8
-
-/obj/machinery/light/small/directional
-	name = "\improper light fixture"
-
-/obj/machinery/light/small/directional/north
-	dir = 1
-
-/obj/machinery/light/small/directional/south
-
-/obj/machinery/light/small/directional/east
-	dir = 4
-
-/obj/machinery/light/small/directional/west
-	dir = 8
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/nightshifted, 0, 0)
 
 /obj/machinery/light/small/nightshifted
-	name = "\improper light fixture"
 	nightshift_allowed = FALSE
 	nightshift_enabled = TRUE
 
-/obj/machinery/light/small/nightshifted/north
-	dir = 1
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small/nightshifted, 0, 0)
 
-/obj/machinery/light/small/nightshifted/south
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light, 0, 0)
 
-/obj/machinery/light/small/nightshifted/east
-	dir = 4
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/spot, 0, 0)
 
-/obj/machinery/light/small/nightshifted/west
-	dir = 8
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/built, 0, 0)
 
-/obj/machinery/light/small/built
-	name = "\improper light fixture"
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 
-/obj/machinery/light/small/built/north
-	dir = 1
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small/built, 0, 0)
 
-/obj/machinery/light/small/built/south
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_construct, 0, 0)
 
-/obj/machinery/light/small/built/east
-	dir = 4
-
-/obj/machinery/light/small/built/west
-	dir = 8
-
-/obj/machinery/light_construct/directional
-	name = "\improper light fixture frame"
-
-/obj/machinery/light_construct/directional/north
-	dir = 1
-
-/obj/machinery/light_construct/directional/south
-
-/obj/machinery/light_construct/directional/east
-	dir = 4
-
-/obj/machinery/light_construct/directional/west
-	dir = 8
-
-/obj/machinery/light_construct/small/north
-	dir = 1
-
-/obj/machinery/light_construct/small/south
-
-/obj/machinery/light_construct/small/east
-	dir = 4
-
-/obj/machinery/light_construct/small/west
-	dir = 8
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_construct/small, 0, 0)
 
 /* Extinguisher */
-/obj/structure/extinguisher_cabinet/directional
-	name = "\improper extinguisher cabinet"
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 32, 32)
 
-/obj/structure/extinguisher_cabinet/directional/south
-	pixel_y = -32
-	dir = 1
-
-/obj/structure/extinguisher_cabinet/directional/north
-	pixel_y = 32
-
-/obj/structure/extinguisher_cabinet/directional/west
-	pixel_x = -24
-	dir = 4
-
-/obj/structure/extinguisher_cabinet/directional/east
-	pixel_x = 24
-	dir = 8
-
-/obj/structure/extinguisher_cabinet/empty/south
-	pixel_y = -32
-	dir = 1
-
-/obj/structure/extinguisher_cabinet/empty/north
-	pixel_y = 32
-
-/obj/structure/extinguisher_cabinet/empty/west
-	pixel_x = -24
-	dir = 4
-
-/obj/structure/extinguisher_cabinet/empty/east
-	pixel_x = 24
-	dir = 8
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet/empty, 32, 32)
 
 /* Wall Tanks */
-/obj/structure/reagent_dispensers/fueltank/chem
-	name = "\improper fuel tank"
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/fueltank/chem, 32, 32)
 
-/obj/structure/reagent_dispensers/fueltank/chem/south
-	pixel_y = -32
-	dir = 1
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/virusfood, 32, 32)
 
-/obj/structure/reagent_dispensers/fueltank/chem/north
-	pixel_y = 32
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/spacecleanertank, 32, 32)
 
-/obj/structure/reagent_dispensers/fueltank/chem/west
-	pixel_x = -32
-	dir = 4
-
-/obj/structure/reagent_dispensers/fueltank/chem/east
-	pixel_x = 32
-	dir = 8
-
-/obj/structure/reagent_dispensers/virusfood
-	name = "\improper virus food dispenser"
-
-/obj/structure/reagent_dispensers/virusfood/south
-	pixel_y = -32
-	dir = 1
-
-/obj/structure/reagent_dispensers/virusfood/north
-	pixel_y = 32
-
-/obj/structure/reagent_dispensers/virusfood/west
-	pixel_x = -32
-	dir = 4
-
-/obj/structure/reagent_dispensers/virusfood/east
-	pixel_x = 32
-	dir = 8
-
-/obj/structure/reagent_dispensers/spacecleanertank
-	name = "\improper space cleaner refiller"
-
-/obj/structure/reagent_dispensers/spacecleanertank/south
-	pixel_y = -32
-	dir = 1
-
-/obj/structure/reagent_dispensers/spacecleanertank/north
-	pixel_y = 32
-
-/obj/structure/reagent_dispensers/spacecleanertank/west
-	pixel_x = -32
-	dir = 4
-
-/obj/structure/reagent_dispensers/spacecleanertank/east
-	pixel_x = 32
-	dir = 8
-
-/obj/structure/reagent_dispensers/peppertank
-	name = "\improper pepper spray refiller"
-
-/obj/structure/reagent_dispensers/peppertank/south
-	pixel_y = -32
-	dir = 1
-
-/obj/structure/reagent_dispensers/peppertank/north
-	pixel_y = 32
-
-/obj/structure/reagent_dispensers/peppertank/west
-	pixel_x = -32
-	dir = 4
-
-/obj/structure/reagent_dispensers/peppertank/east
-	pixel_x = 32
-	dir = 8
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/peppertank, 32, 32)
 
 /* Sinks */
 /obj/structure/sink/directional
@@ -449,74 +221,22 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate, 24, 24)
 	dir = 8
 
 /* Displays */
-/obj/machinery/status_display/directional
-	name = "\improper status display"
+/obj/machinery/status_display
 	layer = ABOVE_WINDOW_LAYER
 
-/obj/machinery/status_display/directional/south
-	pixel_y = -32
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display, 32, 32)
 
-/obj/machinery/status_display/directional/north
-	pixel_y = 32
-
-/obj/machinery/status_display/directional/west
-	pixel_x = -32
-
-/obj/machinery/status_display/directional/east
-	pixel_x = 32
-
-/obj/machinery/status_display/supply_display/south
-	pixel_y = -32
-
-/obj/machinery/status_display/supply_display/north
-	pixel_y = 32
-
-/obj/machinery/status_display/supply_display/west
-	pixel_x = -32
-
-/obj/machinery/status_display/supply_display/east
-	pixel_x = 32
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/supply_display, 32, 32)
 
 /obj/machinery/ai_status_display
 	layer = ABOVE_WINDOW_LAYER
 
-/obj/machinery/ai_status_display/south
-	pixel_y = -32
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/ai_status_display, 32, 32)
 
-/obj/machinery/ai_status_display/north
-	pixel_y = 32
-
-/obj/machinery/ai_status_display/west
-	pixel_x = -32
-
-/obj/machinery/ai_status_display/east
-	pixel_x = 32
-
-/obj/machinery/computer/security/telescreen/entertainment/directional
-	name = "\improper entertainment monitor"
+/obj/machinery/computer/security/telescreen/entertainment
 	layer = ABOVE_WINDOW_LAYER
 
-/obj/machinery/computer/security/telescreen/entertainment/directional/south
-	pixel_y = -32
-
-/obj/machinery/computer/security/telescreen/entertainment/directional/north
-	pixel_y = 32
-
-/obj/machinery/computer/security/telescreen/entertainment/directional/west
-	pixel_x = -32
-
-/obj/machinery/computer/security/telescreen/entertainment/directional/east
-	pixel_x = 32
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/security/telescreen/entertainment, 32, 32)
 
 /* Airlock Cycle Button */
-/obj/machinery/access_button/south
-	pixel_y = -24
-
-/obj/machinery/access_button/north
-	pixel_y = 24
-
-/obj/machinery/access_button/west
-	pixel_x = -24
-
-/obj/machinery/access_button/east
-	pixel_x = 24
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/access_button, 24, 24)

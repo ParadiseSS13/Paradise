@@ -129,7 +129,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/gate)
 "aC" = (
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/bmp_ship/turrets_south)
 "aD" = (
@@ -161,7 +161,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/engines)
 "aG" = (
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/structure/alien/weeds,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/oak,
@@ -442,9 +442,8 @@
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/armory)
 "bI" = (
-/obj/machinery/door/airlock/external{
-	locked = 1
-	},
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/buffer)
 "bJ" = (
@@ -573,9 +572,8 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/medbay)
 "cb" = (
-/obj/machinery/door/airlock/titanium{
-	locked = 1
-	},
+/obj/machinery/door/airlock/titanium,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -615,9 +613,8 @@
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/armory)
 "cg" = (
-/obj/machinery/door/airlock/titanium{
-	locked = 1
-	},
+/obj/machinery/door/airlock/titanium,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/poddoor{
 	layer = 2.8;
 	id_tag = "packerCaptain";
@@ -806,7 +803,7 @@
 /area/awaymission/bmp_ship/turrets_south)
 "cH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/item/food/meat,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
@@ -874,7 +871,7 @@
 /area/awaymission/bmp_ship/common)
 "cR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/item/food/meat,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
@@ -911,7 +908,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/sign/poster/contraband/energy_swords/directional/north,
-/obj/machinery/light_construct/small/east,
+/obj/machinery/light_construct/small/directional/east,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/engine,
@@ -1521,7 +1518,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/bmp_ship/bath)
 "eI" = (
-/obj/machinery/light_construct/small/east,
+/obj/machinery/light_construct/small/directional/east,
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/bmp_ship/buffer)
 "eJ" = (
@@ -1855,9 +1852,8 @@
 	id_tag = "packerCargo";
 	closingLayer = 3.11
 	},
-/obj/machinery/door/airlock/silver{
-	locked = 1
-	},
+/obj/machinery/door/airlock/silver,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/gate)
 "fB" = (
@@ -1903,7 +1899,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/armory)
 "fH" = (
@@ -1942,7 +1938,7 @@
 "fM" = (
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
@@ -2073,9 +2069,8 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/fore)
 "gh" = (
-/obj/machinery/door/airlock/titanium{
-	locked = 1
-	},
+/obj/machinery/door/airlock/titanium,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/fore)
@@ -2083,9 +2078,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/titanium{
-	locked = 1
-	},
+/obj/machinery/door/airlock/titanium,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/fore)
@@ -2103,9 +2097,9 @@
 /area/awaymission/bmp_ship/engines)
 "gl" = (
 /obj/machinery/door/airlock/titanium{
-	id = "packerToilet";
-	locked = 1
+	id = "packerToilet"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/awaymission/bmp_ship/bath)
@@ -2237,7 +2231,7 @@
 "gH" = (
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/item/kirbyplants/large/dead,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
@@ -2457,9 +2451,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/silver{
-	locked = 1
-	},
+/obj/machinery/door/airlock/silver,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/alien/weeds,
 /obj/machinery/door/firedoor/closed{
 	opacity = 0;
@@ -2477,7 +2470,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
 "hB" = (
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/fore)
@@ -2489,7 +2482,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/buffer)
 "hE" = (
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/structure/rack,
 /obj/item/tank/internals/emergency_oxygen/empty,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -2508,7 +2501,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/bmp_ship/kitchen)
 "hJ" = (
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/mining)
@@ -2523,7 +2516,7 @@
 /area/awaymission/bmp_ship/mining)
 "hM" = (
 /obj/structure/ore_box,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/mining)
 "hN" = (
@@ -2950,7 +2943,7 @@
 /area/awaymission/bmp_ship/common)
 "jq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
 "jr" = (
@@ -2985,9 +2978,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/security{
-	locked = 1
-	},
+/obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/firedoor/closed{
 	opacity = 0;
 	layer = 2.8
@@ -3037,13 +3029,12 @@
 /obj/effect/decal/cleanable/blood/gibs/xeno,
 /obj/structure/alien/weeds,
 /obj/item/food/meat,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
 "jI" = (
-/obj/machinery/door/airlock/security{
-	locked = 1
-	},
+/obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -3273,7 +3264,7 @@
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/cell/high,
 /obj/item/stock_parts/cell/high,
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/turrets_north)
 "lR" = (
@@ -3298,7 +3289,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/armory)
 "lW" = (
@@ -3332,7 +3323,7 @@
 /area/awaymission/bmp_ship/bath)
 "mh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/armory)
 "mi" = (
@@ -3355,7 +3346,7 @@
 "mA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/large/dead,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -3391,7 +3382,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/bmp_ship/common)
 "mY" = (
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -3466,7 +3457,7 @@
 /area/space/nearstation)
 "nO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/item/kirbyplants/large/dead,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -3702,7 +3693,7 @@
 /turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/bmp_ship/common)
 "pt" = (
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /mob/living/simple_animal/cockroach,
 /turf/simulated/floor/carpet,
 /area/awaymission/bmp_ship/dormitories)
@@ -3789,7 +3780,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
 "pW" = (
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /turf/simulated/floor/carpet,
 /area/awaymission/bmp_ship/dormitories)
 "pZ" = (
@@ -4210,9 +4201,8 @@
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/bmp_ship/buffer)
 "ur" = (
-/obj/machinery/door/airlock/titanium{
-	locked = 1
-	},
+/obj/machinery/door/airlock/titanium,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
 /area/awaymission/bmp_ship/bath)
 "ut" = (
@@ -4318,9 +4308,9 @@
 "vi" = (
 /obj/machinery/door/airlock/vault{
 	req_access = list(111);
-	hackProof = 1;
-	locked = 1
+	hackProof = 1
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/mine/stun{
 	faction = list("alien");
 	layer = 2.6
@@ -4381,9 +4371,8 @@
 	},
 /area/awaymission/bmp_ship/common)
 "vV" = (
-/obj/machinery/door/airlock/titanium{
-	locked = 1
-	},
+/obj/machinery/door/airlock/titanium,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -4409,7 +4398,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
 "wd" = (
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -4669,7 +4658,7 @@
 "yu" = (
 /obj/item/food/meat,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
@@ -4928,7 +4917,7 @@
 "AZ" = (
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/effect/mob_spawn/human/corpse/damaged,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
@@ -4960,9 +4949,8 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/fore)
 "Bx" = (
-/obj/machinery/door/airlock/silver{
-	locked = 1
-	},
+/obj/machinery/door/airlock/silver,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/alien/weeds,
 /obj/machinery/door/firedoor/closed{
 	opacity = 0;
@@ -5041,9 +5029,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
 "BZ" = (
-/obj/machinery/door/airlock/silver{
-	locked = 1
-	},
+/obj/machinery/door/airlock/silver,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -5656,9 +5643,8 @@
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/armory)
 "HH" = (
-/obj/machinery/door/airlock/titanium{
-	locked = 1
-	},
+/obj/machinery/door/airlock/titanium,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/holosign/surgery{
 	id = "surgery1";
 	icon_state = "sign_on"
@@ -6286,7 +6272,7 @@
 "PQ" = (
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/effect/mob_spawn/human/corpse/tacticool,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
@@ -6532,7 +6518,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/engines)
 "Sy" = (
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/bmp_ship/armory)
@@ -6598,7 +6584,7 @@
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/cell/high,
 /obj/item/stock_parts/cell/high,
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/turrets_north)
 "TI" = (
@@ -6977,7 +6963,7 @@
 "XP" = (
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/item/kirbyplants/large/dead,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -7026,7 +7012,7 @@
 /area/awaymission/bmp_ship/kitchen)
 "Yh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/item/food/meat,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
@@ -7058,11 +7044,11 @@
 /area/awaymission/bmp_ship/containment)
 "Yz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
 "YA" = (
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},

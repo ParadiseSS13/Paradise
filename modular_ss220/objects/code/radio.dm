@@ -69,7 +69,7 @@
 /obj/item/radio/hear_talk(mob/M, list/message_pieces, verb)
 	. = ..()
 	if(!isnull(overlay_speaker_active))
-		flick_overlay_view(image(icon, src, overlay_speaker_active), src, 5 SECONDS)
+		flick_overlay_view(image(icon, src, overlay_speaker_active, BELOW_MOB_LAYER), src, 1 SECONDS)
 
 /obj/item/radio/talk_into(mob/living/M, list/message_pieces, channel, verbage)
 	. = ..()

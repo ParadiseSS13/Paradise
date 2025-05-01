@@ -1,5 +1,6 @@
 /obj/item/radio/intercom
 	icon = 'modular_ss220/objects/icons/intercom.dmi'
+	dir = NORTH
 
 	max_hear_range = 5
 	has_fixed_hear_range = FALSE
@@ -43,7 +44,6 @@
 
 /obj/item/mounted/frame/intercom/do_build(turf/on_wall, mob/user)
 	var/obj/item/radio/intercom/new_intercom = new(get_turf(src), get_dir(user, on_wall), 0)
-	new_intercom.dir = REVERSE_DIR(new_intercom.dir)
 	new_intercom.circuitry_installed = FALSE
 	new_intercom.update_icon()
 	qdel(src)

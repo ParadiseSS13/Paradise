@@ -4710,7 +4710,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/hallway3)
 "px" = (
-/obj/machinery/access_button/north{
+/obj/machinery/access_button/directional/north{
 	autolink_id = "SB1"
 	},
 /obj/structure/lattice/catwalk,
@@ -6467,9 +6467,7 @@
 	},
 /area/awaymission/space_battle/engine)
 "vA" = (
-/obj/machinery/light/directional/north{
-	dir = 2
-	},
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate4)
 "vB" = (
@@ -6969,9 +6967,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "xh" = (
-/obj/machinery/light/directional/north{
-	dir = 2
-	},
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate3)
 "xj" = (
@@ -8131,7 +8127,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "Bj" = (
-/obj/machinery/access_button/south{
+/obj/machinery/access_button/directional/south{
 	autolink_id = "SB2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{

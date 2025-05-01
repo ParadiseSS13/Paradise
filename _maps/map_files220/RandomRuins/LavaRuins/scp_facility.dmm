@@ -376,7 +376,7 @@
 /area/ruin/powered/scpfacility)
 "si" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/light/built/east,
+/obj/machinery/light/built/directional/east,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 8
@@ -440,7 +440,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "vv" = (
-/obj/machinery/status_display,
 /obj/structure/table/glass/plasma,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "cmo"
@@ -573,7 +572,7 @@
 /area/ruin/powered/scpfacility)
 "AT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/built/west,
+/obj/machinery/light/built/directional/west,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "Bd" = (
@@ -1061,6 +1060,14 @@
 "SV" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/lavaland_air,
+/area/ruin/powered/scpfacility)
+"SY" = (
+/obj/structure/table/glass/plasma,
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/status_display/directional/north,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "cmo"
+	},
 /area/ruin/powered/scpfacility)
 "SZ" = (
 /turf/simulated/floor/engine/cult/lavaland_air,
@@ -2055,7 +2062,7 @@ XW
 Ng
 aK
 vv
-BX
+SY
 XW
 ZE
 pm

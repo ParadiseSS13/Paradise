@@ -1584,9 +1584,9 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "mR" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "ext_eva_door2";
-	locked = 1
+	id_tag = "ext_eva_door2"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -2340,9 +2340,9 @@
 /area/ruin/space/spacehotelv1/reception)
 "tc" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "ext_shuttle_door";
-	locked = 1
+	id_tag = "ext_shuttle_door"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3854,9 +3854,9 @@
 /area/ruin/space/spacehotelv1/guestroom5)
 "Eh" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "ext_eva_door";
-	locked = 1
+	id_tag = "ext_eva_door"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/fans/tiny,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
@@ -5214,7 +5214,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/structure/reagent_dispensers/spacecleanertank/west,
+/obj/structure/reagent_dispensers/spacecleanertank/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/janitor)
 "OF" = (

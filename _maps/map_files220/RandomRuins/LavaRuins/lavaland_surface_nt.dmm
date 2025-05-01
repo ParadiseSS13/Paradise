@@ -267,9 +267,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
 	},
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 22
-	},
+/obj/item/radio/intercom/locked/prison/directional/north,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "cf" = (
@@ -1344,7 +1342,7 @@
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
 	},
-/obj/machinery/ai_status_display/east,
+/obj/machinery/ai_status_display/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -1382,7 +1380,7 @@
 /obj/structure/platform/reinforced/corner{
 	anchored = 1
 	},
-/turf/simulated/floor/lava/mapping_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "je" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1667,9 +1665,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 22
-	},
+/obj/item/radio/intercom/locked/prison/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -1755,10 +1751,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 22
-	},
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/item/radio/intercom/locked/prison/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "lH" = (
@@ -2184,9 +2178,7 @@
 "ok" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/atmospherics/portable/canister/air,
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 22
-	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "ol" = (
@@ -2486,6 +2478,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/machinery/computer/security/telescreen/entertainment/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2786,9 +2779,7 @@
 /area/mine/outpost/quartermaster)
 "rM" = (
 /obj/machinery/mineral/equipment_vendor,
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
+/obj/machinery/status_display/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -3260,10 +3251,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 22
-	},
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/item/radio/intercom/locked/prison/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "uI" = (
@@ -4477,10 +4466,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = -22;
-	dir = 1
-	},
+/obj/item/radio/intercom/locked/prison/directional/south,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Cs" = (
@@ -4543,7 +4529,7 @@
 	dir = 8;
 	anchored = 1
 	},
-/turf/simulated/floor/lava/mapping_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
 "CE" = (
 /obj/structure/lattice/catwalk/mining,
@@ -4619,7 +4605,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/ai_status_display/west,
+/obj/machinery/ai_status_display/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner";
 	dir = 8
@@ -5059,9 +5045,7 @@
 /obj/item/lighter/random{
 	pixel_x = 2
 	},
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 22
-	},
+/obj/item/radio/intercom/locked/prison/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredyellowfull"
 	},
@@ -5456,9 +5440,6 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/mine/outpost/hallway/east)
 "Ij" = (
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = 22
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -5466,6 +5447,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/radio/intercom/locked/prison/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -6439,10 +6421,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"NS" = (
-/obj/machinery/computer/security/telescreen/entertainment,
-/turf/simulated/wall,
-/area/mine/outpost/hallway/west)
 "NW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -6526,7 +6504,7 @@
 /turf/simulated/wall,
 /area/mine/outpost/medbay)
 "OK" = (
-/obj/structure/reagent_dispensers/fueltank/chem/west,
+/obj/structure/reagent_dispensers/fueltank/chem/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner";
 	dir = 8
@@ -7126,13 +7104,6 @@
 	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
-"Sp" = (
-/obj/structure/platform/reinforced{
-	dir = 4;
-	anchored = 1
-	},
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/gulag_rock)
 "Sr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -8220,10 +8191,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "YI" = (
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = -22;
-	dir = 1
-	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -8864,17 +8832,17 @@ lR
 lR
 lR
 iZ
-Sp
-Sp
-Sp
 rk
-Sp
-Sp
-Sp
-Sp
+rk
+rk
+rk
+rk
+rk
+rk
+rk
 VS
 rk
-Sp
+rk
 CD
 lR
 lR
@@ -16189,7 +16157,7 @@ Lf
 xa
 xa
 Lf
-NS
+Lf
 Lf
 wq
 zB

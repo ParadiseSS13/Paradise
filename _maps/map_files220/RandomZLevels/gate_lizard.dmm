@@ -50,7 +50,7 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "adt" = (
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -570,11 +570,11 @@
 /area/awaymission/jungle_planet/inside/complex)
 "aRy" = (
 /obj/machinery/door/airlock/mining{
-	locked = 1;
 	name = "main Hangar";
 	req_access = list(301);
 	id_tag = "commanddoor"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -2141,10 +2141,10 @@
 	amount = 2
 	},
 /obj/machinery/door/airlock/engineering{
-	locked = 1;
 	name = "engineering";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "cLG" = (
@@ -2971,7 +2971,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "dXw" = (
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -3399,7 +3399,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "eAh" = (
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -3435,7 +3435,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "eDe" = (
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/hostile_fauna/spider,
 /turf/simulated/floor/plating,
@@ -4225,9 +4225,7 @@
 "fFa" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/drinks/oilcan,
-/obj/structure/reagent_dispensers/fueltank/chem{
-	pixel_y = 30
-	},
+/obj/structure/reagent_dispensers/fueltank/chem/directional/north,
 /obj/item/clothing/glasses/welding,
 /obj/item/weldingtool,
 /turf/simulated/floor/plasteel,
@@ -4820,7 +4818,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "gys" = (
-/obj/machinery/light_construct/small/east,
+/obj/machinery/light_construct/small/directional/east,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -5124,10 +5122,10 @@
 "gUi" = (
 /obj/machinery/door/airlock/mining{
 	name = "second hangar";
-	locked = 1;
 	req_access = list(301);
 	id_tag = "hang2in"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Cargo in"
@@ -5283,9 +5281,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "heb" = (
-/obj/structure/extinguisher_cabinet{
-	name = "north extinguisher cabinet";
-	pixel_y = 30
+/obj/structure/extinguisher_cabinet/directional/north{
+	name = "north extinguisher cabinet"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -5742,9 +5739,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "hFi" = (
 /obj/effect/decal/cleanable/generic,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -5937,9 +5932,7 @@
 	pixel_y = 10;
 	amount = 2
 	},
-/obj/structure/extinguisher_cabinet/empty{
-	pixel_y = 31
-	},
+/obj/structure/extinguisher_cabinet/empty/directional/north,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
 "hUi" = (
@@ -6130,10 +6123,10 @@
 "iek" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
-	locked = 1;
 	name = "security";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	interact_offline = 1
@@ -6201,10 +6194,10 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/mining{
-	locked = 1;
 	name = "main hangar";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Hang in";
@@ -8793,9 +8786,9 @@
 /area/awaymission/jungle_planet/inside/complex)
 "lmK" = (
 /obj/machinery/door/airlock/research{
-	locked = 1;
 	name = "robotech"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/firedoor/closed,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -8983,9 +8976,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "lCT" = (
-/obj/structure/reagent_dispensers/fueltank/chem{
-	pixel_y = 30
-	},
+/obj/structure/reagent_dispensers/fueltank/chem/directional/north,
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
@@ -9466,10 +9457,10 @@
 "mky" = (
 /obj/machinery/door/airlock/mining{
 	name = "second hangar";
-	locked = 1;
 	req_access = list(301);
 	id_tag = "hang2in"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -9485,10 +9476,10 @@
 /area/awaymission/jungle_planet/inside/complex)
 "mkI" = (
 /obj/machinery/door/airlock/security{
-	locked = 1;
 	name = "security";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -9774,9 +9765,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "mAT" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/structure/reagent_dispensers/fueltank/chem{
-	pixel_y = 30
-	},
+/obj/structure/reagent_dispensers/fueltank/chem/directional/north,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -10228,9 +10217,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "mZK" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -10572,9 +10559,7 @@
 /obj/item/clothing/head/helmet/old,
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/firealarm/directional/south,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10730,9 +10715,8 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "nOE" = (
-/obj/structure/extinguisher_cabinet{
-	name = "south extinguisher cabinet";
-	pixel_y = -30
+/obj/structure/extinguisher_cabinet/directional/south{
+	name = "south extinguisher cabinet"
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
@@ -11083,7 +11067,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/directional/south,
 /obj/effect/spawner/random/hostile_fauna/spider,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -11682,10 +11666,10 @@
 /area/awaymission/jungle_planet/inside/complex)
 "oZK" = (
 /obj/machinery/door/airlock/command{
-	locked = 1;
 	name = "command";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -12805,10 +12789,10 @@
 "qzh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
-	locked = 1;
 	name = "main hangar";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Hang in";
@@ -15227,10 +15211,10 @@
 "tzH" = (
 /obj/machinery/door/airlock/mining{
 	name = "second hangar";
-	locked = 1;
 	req_access = list(301);
 	id_tag = "hang2in"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4
 	},
@@ -15264,7 +15248,7 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "tAY" = (
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/directional/north,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -15565,10 +15549,10 @@
 	interact_offline = 1
 	},
 /obj/machinery/door/airlock/mining{
-	locked = 1;
 	name = "main hangar";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -16367,10 +16351,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "uRs" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 6;
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -16692,7 +16673,7 @@
 /obj/effect/decal/remains/human,
 /obj/item/ammo_casing/caseless/arrow,
 /obj/effect/spawner/random/blood/often,
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -17084,10 +17065,10 @@
 	interact_offline = 1
 	},
 /obj/machinery/door/airlock/security{
-	locked = 1;
 	name = "security";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -17316,7 +17297,7 @@
 /obj/item/scalpel{
 	pixel_y = -1
 	},
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /obj/effect/spawner/random/dirt/maybe,
 /obj/effect/turf_decal/grass{
 	icon_state = "grass_edge_medium";
@@ -18008,7 +17989,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
-/obj/machinery/light_construct/small/west,
+/obj/machinery/light_construct/small/directional/west,
 /mob/living/simple_animal/hostile/poison_snake{
 	wander = 0
 	},
@@ -18150,11 +18131,11 @@
 /area/awaymission/jungle_planet/inside/complex)
 "xbo" = (
 /obj/machinery/door/airlock/command{
-	locked = 1;
 	name = "command";
 	req_access = list(301);
 	id_tag = "commanddoor"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/firedoor/closed,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
@@ -18171,10 +18152,10 @@
 	interact_offline = 1
 	},
 /obj/machinery/door/airlock/security{
-	locked = 1;
 	name = "security";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -18822,10 +18803,10 @@
 	interact_offline = 1
 	},
 /obj/machinery/door/airlock/security{
-	locked = 1;
 	name = "security";
 	req_access = list(301)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xUu" = (

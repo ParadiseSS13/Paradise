@@ -1,0 +1,48 @@
+help: 'Use the specific directional subtypes for this lighting fixture.'
+/obj/machinery/light:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/machinery/light:
+  banned: true
+=/obj/machinery/light/directional:
+  banned: true
+=/obj/machinery/light/built:
+  banned: true
+=/obj/machinery/light/built/directional:
+  banned: true
+=/obj/machinery/light/nightshifted:
+  banned: true
+=/obj/machinery/light/nightshifted/directional:
+  banned: true
+=/obj/machinery/light/spot:
+  banned: true
+=/obj/machinery/light/spot/directional:
+  banned: true
+=/obj/machinery/light/small:
+  banned: true
+=/obj/machinery/light/small/directional:
+  banned: true
+=/obj/machinery/light/small/built:
+  banned: true
+=/obj/machinery/light/small/built/directional:
+  banned: true
+=/obj/machinery/light/small/nightshifted:
+  banned: true
+=/obj/machinery/light/small/nightshifted/directional:
+  banned: true
+
+/obj/machinery/light_construct:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/machinery/light_construct:
+  banned: true
+=/obj/machinery/light_construct/directional:
+  banned: true
+=/obj/machinery/light_construct/small:
+  banned: true
+=/obj/machinery/light_construct/small/directional:
+  banned: true

@@ -45,9 +45,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "bk" = (
-/obj/machinery/door/airlock/freezer{
-	locked = 1
-	},
+/obj/machinery/door/airlock/freezer,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "bo" = (
@@ -424,15 +423,13 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "kg" = (
-/obj/machinery/door/airlock/hatch{
-	welded = 1
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/welded,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "km" = (
-/obj/machinery/door/airlock/highsecurity{
-	welded = 1
-	},
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/welded,
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
@@ -480,9 +477,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "lj" = (
-/obj/structure/extinguisher_cabinet/empty{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/empty/directional/north,
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
@@ -755,10 +750,9 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "sg" = (
-/obj/machinery/door/airlock/hatch{
-	welded = 1;
-	locked = 1
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/welded,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "sj" = (
@@ -1179,9 +1173,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "HV" = (
-/obj/structure/extinguisher_cabinet/empty{
-	pixel_x = 30
-	},
+/obj/structure/extinguisher_cabinet/empty/directional/east,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -1531,9 +1523,8 @@
 /area/ruin/space/powered/requires_power_space)
 "UK" = (
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/external{
-	locked = 1
-	},
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)

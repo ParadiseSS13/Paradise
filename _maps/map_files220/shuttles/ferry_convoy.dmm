@@ -84,7 +84,7 @@
 "r" = (
 /obj/machinery/economy/vending/security,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/light/spot,
+/obj/machinery/light/spot/directional/south,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "s" = (
@@ -97,9 +97,7 @@
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/light/spot{
-	dir = 1
-	},
+/obj/machinery/light/spot/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "t" = (
