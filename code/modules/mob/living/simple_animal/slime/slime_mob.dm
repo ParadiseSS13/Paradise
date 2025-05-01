@@ -383,9 +383,12 @@
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
 					return ITEM_INTERACT_COMPLETE
-	if(istype(I, /obj/item/xeno_organ) && stat == CONSCIOUS && !holding_organ)
+	if(istype(I, /obj/item/xeno_organ) && stat == CONSCIOUS)
 		if(!is_adult)
 			to_chat(user, "<span class='notice'>The slime is not old enough yet to process organs!</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(holding_organ)
+			to_chat(user, "<span class='warning'>The slime is already processing an organ!</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(trained)
 			if(user.transfer_item_to(I, src, force = TRUE))

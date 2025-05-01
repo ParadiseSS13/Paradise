@@ -937,6 +937,8 @@
 			to_chat(user, dissection_text[current_dissection_step])
 			playsound(src, current_step.preop_sound, 50, TRUE, -1)
 			if(do_mob(user, src, current_step.time) && Adjacent(I))
+				if(prob(current_step.allowed_tools[I.type]))
+					to_chat(user, "<span class='warning>You struggle to perform the dissection properly, and will have to start the last step over!")
 				current_dissection_step += 1
 				playsound(src,  current_step.success_sound, 50, TRUE, -1)
 				if(current_dissection_step > max_dissection_steps)

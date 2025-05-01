@@ -86,6 +86,7 @@
 	if(contains_organ)
 		if(processing_organ)
 			to_chat(user, "<span class='warning'>The machine is already analyzing the organ!</span>")
+			return
 		else
 			COOLDOWN_START(src, process_organ, time_to_complete)
 			processing_organ = TRUE
@@ -130,10 +131,9 @@
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		processing_organ = FALSE
-		COOLDOWN_FINISHED(src, organ_processing)
 		update_appearance(UPDATE_OVERLAYS)
 		return
-	if(processing_organ && COOLDOWN_FINISHED(src, recharge_time))
+	if(processing_organ && COOLDOWN_FINISHED(src, process_organ))
 		complete_analysis()
 
 /obj/machinery/organ_analyzer/proc/complete_analysis()
