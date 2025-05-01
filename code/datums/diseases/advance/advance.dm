@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
  */
 
-/datum/disease/advance/New(process = 1, datum/disease/advance/to_copy, _event = FALSE, copy_stage = FALSE)
+/datum/disease/advance/New(datum/disease/advance/to_copy, _event = FALSE, copy_stage = FALSE)
 	if(!istype(to_copy))
 		to_copy = null
 	strain = "origin"
@@ -110,7 +110,6 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 	Refresh(FALSE, FALSE , new_cure, FALSE)
 
-	..(process, to_copy)
 	return
 
 /datum/disease/advance/Destroy()
@@ -205,8 +204,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			target.resistances[id] = id
 
 // Returns the advance disease with a different reference memory.
-/datum/disease/advance/Copy(process = 0, copy_stage = FALSE)
-	return new /datum/disease/advance(process, src, 1, copy_stage)
+/datum/disease/advance/Copy(copy_stage = FALSE)
+	return new /datum/disease/advance(src, 0, copy_stage)
 
 /datum/disease/advance/record_infection()
 	SSblackbox.record_feedback("tally", "Advanced Disease", 1, "[name]_[strain] Infection")
@@ -278,11 +277,12 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 	return generated
 
+/// Called after changes are made to a disease to apply them properly
 /datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE, new_cure = TRUE, new_strain = TRUE)
 	if(new_strain)
 		strain = "adv_[num2text(GLOB.next_unique_strain++, 8)]"
 		evolution_chance = EVOLUTION_CHANCE
-
+	// Reset evolution chance to the base value, unless zeroed by stabilizing agar
 	if(evolution_chance)
 		evolution_chance = EVOLUTION_CHANCE
 	var/list/properties = GenerateProperties()
@@ -293,22 +293,19 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		if(new_name)
 			AssignName()
 		GLOB.archive_diseases[GetDiseaseID()] = src // So we don't infinite loop
-		GLOB.archive_diseases[GetDiseaseID()] = new /datum/disease/advance(0, src, 1)
+		GLOB.archive_diseases[GetDiseaseID()] = new /datum/disease/advance(src)
 
 	var/datum/disease/advance/A = GLOB.archive_diseases[GetDiseaseID()]
 	AssignName(A.name)
 
-//Generate disease properties based on the effects. Returns an associated list.
+/// Generate disease properties based on the symptoms and base properties. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
 
 	if(!symptoms || !length(symptoms))
 		CRASH("We did not have any symptoms before generating properties.")
 
 	var/list/properties = base_properties.Copy()
-
 	for(var/datum/symptom/S in symptoms)
-		if(istype(S, /datum/symptom/viralevolution))
-			evolution_chance *= 1.5
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
 		properties["stage rate"] += S.stage_speed
@@ -317,7 +314,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 	return properties
 
-// Assign the properties that are in the list.
+/// Set the characteristics of the disease depending on the received properties
 /datum/disease/advance/proc/AssignProperties(list/properties = list(), new_cure = TRUE)
 	if(properties && length(properties))
 		switch(properties["stealth"])
@@ -333,7 +330,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		// 9 stage rate is twice as fast as 0 stage rate, -9 stage rate is half as fast as 0.
 		stage_prob = 4 * (1.08 ** properties["stage rate"])
 		SetSeverity(properties["severity"])
-		evolution_chance *= (1 + sqrtor0(properties["stage rate"]) / 3)
+		evolution_chance = EVOLUTION_CHANCE * (1 + sqrtor0(properties["stage rate"]) / 6)
 		if(new_cure)
 			GenerateCure(properties)
 	else
@@ -508,7 +505,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(!user)
 		return
 
-	var/datum/disease/advance/admin_disease = new(0, null, _event = TRUE)
+	var/datum/disease/advance/admin_disease = new(_event = TRUE)
 
 	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1)
 

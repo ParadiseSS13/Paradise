@@ -163,6 +163,8 @@ MARK: Helpers
 	if(notify_ghosts)
 		for(var/mob/ghost as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
 			to_chat(ghost, "<span class='deadsay'><b>Disease outbreak: </b>[src] ([ghost_follow_link(src, ghost)]) [D.carrier ? "is now a carrier of" : "has contracted"] [D]!</span>")
+		message_admins("[key_name(src)] [D.carrier ? "is now a carrier of" : "has contracted"] [D]!")
+		log_admin("[key_name(src)] [D.carrier ? "is now a carrier of" : "has contracted"] [D]!")
 	AddDisease(D, respect_carrier)
 	return TRUE
 
@@ -170,24 +172,14 @@ MARK: Helpers
 /mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE, start_stage = 1)
 	if(src.client)
 		D.record_infection()
-	var/datum/disease/DD = new D.type(1, D, 0)
+	var/datum/disease/DD = new D.type(D, 0)
 	DD.stage = start_stage
 	viruses += DD
 	DD.affected_mob = src
 	GLOB.active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
 
-	//Copy properties over. This is so edited diseases persist.
-	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed", "unique_datum_id", "incubation")
 	if(respect_carrier)
-		skipped -= "carrier"
-	for(var/V in DD.vars)
-		if(V in skipped)
-			continue
-		if(istype(DD.vars[V],/list))
-			var/list/L = D.vars[V]
-			DD.vars[V] = L.Copy()
-		else
-			DD.vars[V] = D.vars[V]
+		DD.carrier -= D.carrier
 
 	create_log(MISC_LOG, "has contacted the virus \"[DD]\"")
 	DD.affected_mob.med_hud_set_status()

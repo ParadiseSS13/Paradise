@@ -54,6 +54,10 @@ BONUS
 	transmittable = 3
 	level = 3
 
+/datum/symptom/viralevolution/Start(datum/disease/advance/A)
+	. = ..()
+	A.evolution_chance *= 1.5
+
 /datum/symptom/viralevolution/Activate(datum/disease/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
