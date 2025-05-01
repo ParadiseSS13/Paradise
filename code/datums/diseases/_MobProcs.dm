@@ -54,7 +54,7 @@ MARK: Helpers
 
 	if(spread_method & (SPREAD_CONTACT_FEET | SPREAD_CONTACT_HANDS | SPREAD_CONTACT_GENERAL))
 		passed = TRUE
-		var/obj/item/clothing/Cl = null
+		var/obj/item/clothing/covering_garment = null
 
 		var/head_ch = 100
 		var/body_ch = 100
@@ -77,34 +77,34 @@ MARK: Helpers
 		switch(target_zone)
 			if(1)
 				if(isobj(head) && !istype(head, /obj/item/paper))
-					Cl = head
-					passed = prob((Cl.permeability_coefficient*100) - 1)
+					covering_garment = head
+					passed = prob((covering_garment.permeability_coefficient*100) - 1)
 				if(passed && isobj(wear_mask))
-					Cl = wear_mask
-					passed = prob((Cl.permeability_coefficient*100) - 1)
+					covering_garment = wear_mask
+					passed = prob((covering_garment.permeability_coefficient*100) - 1)
 			if(2)
 				if(isobj(wear_suit))
-					Cl = wear_suit
-					passed = prob((Cl.permeability_coefficient*100) - 1)
+					covering_garment = wear_suit
+					passed = prob((covering_garment.permeability_coefficient*100) - 1)
 				if(passed && isobj(w_uniform))
-					Cl = w_uniform
-					passed = prob((Cl.permeability_coefficient*100) - 1)
+					covering_garment = w_uniform
+					passed = prob((covering_garment.permeability_coefficient*100) - 1)
 			if(3)
 				if(isobj(wear_suit) && wear_suit.body_parts_covered&HANDS)
-					Cl = wear_suit
-					passed = prob((Cl.permeability_coefficient*100) - 1)
+					covering_garment = wear_suit
+					passed = prob((covering_garment.permeability_coefficient*100) - 1)
 
 				if(passed && isobj(gloves))
-					Cl = gloves
-					passed = prob((Cl.permeability_coefficient*100) - 1)
+					covering_garment = gloves
+					passed = prob((covering_garment.permeability_coefficient*100) - 1)
 			if(4)
 				if(isobj(wear_suit) && wear_suit.body_parts_covered&FEET)
-					Cl = wear_suit
-					passed = prob((Cl.permeability_coefficient*100) - 1)
+					covering_garment = wear_suit
+					passed = prob((covering_garment.permeability_coefficient*100) - 1)
 
 				if(passed && isobj(shoes))
-					Cl = shoes
-					passed = prob((Cl.permeability_coefficient*100) - 1)
+					covering_garment = shoes
+					passed = prob((covering_garment.permeability_coefficient*100) - 1)
 
 	// If spreading by air we need to get through the mask and helmet.
 	if(!passed && (spread_method & SPREAD_AIRBORNE))
@@ -127,8 +127,7 @@ MARK: Helpers
 
 /// Returns whether or not the mob has the disease
 /mob/proc/HasDisease(datum/disease/D)
-	for(var/thing in viruses)
-		var/datum/disease/DD = thing
+	for(var/datum/disease/DD in viruses)
 		if(DD.IsSame(D))
 			return TRUE
 	return FALSE
@@ -143,7 +142,7 @@ MARK: Helpers
 // Attempt contracting a diseas
 /mob/proc/ContractDisease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	if(!can_contract_disease(D, spread_method))
-		return 0
+		return FALSE
 	AddDisease(D)
 	return TRUE
 
@@ -170,7 +169,7 @@ MARK: Helpers
 
 /// Directly adds a disease to a mob.
 /mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE, start_stage = 1)
-	if(src.client)
+	if(client)
 		D.record_infection()
 	var/datum/disease/DD = new D.type(D, 0)
 	DD.stage = start_stage

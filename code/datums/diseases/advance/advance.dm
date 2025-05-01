@@ -99,8 +99,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		base_properties = to_copy.base_properties.Copy()
 		evolution_chance = to_copy.evolution_chance
 		tracker = to_copy.tracker
-		for(var/r in to_copy.cures)
-			cures += r
+		for(var/cure_reagent in to_copy.cures)
+			cures += cure_reagent
 		cure_text = to_copy.cure_text
 		strain = to_copy.strain
 		if(copy_stage)
@@ -121,18 +121,18 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /// Randomly mutate the disease
 /datum/disease/advance/after_infect()
 	if(prob(evolution_chance))
-		if(src.affected_mob.client)
+		if(affected_mob.client)
 			SSblackbox.record_feedback("tally", "Advanced Disease", 1, "Spontanous Evolution")
 		var/min = rand(1, 6)
 		var/max = rand(min, 6)
-		var/lastStrain = strain
+		var/last_strain = strain
 		// In most cases we try to gain a symptom, rarely we lose one
 		if(prob(95))
 			Evolve(min, max)
 		else
 			Devolve()
 		// Create a new strain even if we didn't gain or lose symptoms
-		if(lastStrain == strain)
+		if(last_strain == strain)
 			Refresh()
 
 // Randomly pick a symptom to activate.

@@ -42,9 +42,9 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	GLOB.pandemics |= src
 	var/datum/symptom/S
 	symptomlist += list("No Prediction")
-	for(var/i in GLOB.list_symptoms)
+	for(var/symptom_path in GLOB.list_symptoms)
 		// I don't know a way to access the name of something with only the path without creating an instance.
-		S = new i()
+		S = new symptom_path()
 		symptomlist += list(S.name)
 		qdel(S)
 	// We init the list for the Z level here so that we can know it is loaded when we do.

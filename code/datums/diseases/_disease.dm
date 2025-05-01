@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(spread_flags & SPREAD_AIRBORNE)
 		spread_range++
 
-	var/spread_method = 0
+	var/spread_method = NONE
 	// If we do an airborne spread we will do that as well as other spreads
 	if((spread_flags & SPREAD_AIRBORNE) || spread_range > 1)
 		spread_method |= SPREAD_AIRBORNE
