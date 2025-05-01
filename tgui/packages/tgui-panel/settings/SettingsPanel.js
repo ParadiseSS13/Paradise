@@ -74,16 +74,17 @@ export const SettingsPanel = (props, context) => {
 };
 
 export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, fontSize, lineHeight } = useSelector(context, selectSettings);
+  const { theme, fontFamily, fontSize, lineHeight, chatSaving } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
-  const storedValue = storage.get('chat-saving-enabled');
-  const initialValue = storedValue === true;
-  const [chatSaving, setChatSaving] = useLocalState(context, 'chatSaving', initialValue);
 
   const updateChatSaving = (value) => {
     const boolValue = value === true;
-    setChatSaving(boolValue);
+    dispatch(
+      updateSettings({
+        chatSaving: boolValue,
+      })
+    );
     storage.set('chat-saving-enabled', boolValue);
   };
 
