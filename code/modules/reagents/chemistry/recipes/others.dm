@@ -522,7 +522,7 @@
 	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
 	if(B && B.data)
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
+		if(istype(D))
 			D.evolution_chance = 0
 
 /datum/chemical_reaction/mix_virus/track_virus

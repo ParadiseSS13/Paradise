@@ -762,7 +762,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	else
 		given_disease = tgui_input_list(usr, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
 
-	if(!given_disease) return
+	if(!given_disease)
+		return
 
 	if(!istype(given_disease, /datum/disease/advance))
 		given_disease = new given_disease

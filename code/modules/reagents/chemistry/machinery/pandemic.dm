@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	resistance_flags = ACID_PROOF
 	/// Amount of time it would take to analyze the current disease, before guessing symptoms. -1 means either no disease or that it doesn't require analysis.
 	var/analysis_time_delta = -1
-	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis using analysis_time_delta and symptoms guesses.
+	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis using analysis_time_delta and symptoms symptom_guesses.
 	var/analysis_time
 	/// Amount of time to add to the analysis time. resets upon successful analysis of a disease or by calibrating.
 	var/static/accumulated_error = list()
@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	/// ID of the disease being analyzed
 	var/analyzed_ID = ""
 	/// List of all symptoms. Gets filled in Initialize().
-	var/symptomlist = list()
+	var/symptom_list = list()
 	var/temp_html = ""
 	var/printing = null
 	var/wait = null
@@ -41,11 +41,11 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	. = ..()
 	GLOB.pandemics |= src
 	var/datum/symptom/S
-	symptomlist += list("No Prediction")
+	symptom_list += list("No Prediction")
 	for(var/symptom_path in GLOB.list_symptoms)
 		// I don't know a way to access the name of something with only the path without creating an instance.
 		S = new symptom_path()
-		symptomlist += list(S.name)
+		symptom_list += list(S.name)
 		qdel(S)
 	// We init the list for the Z level here so that we can know it is loaded when we do.
 	if(!(z in GLOB.known_advanced_diseases))
@@ -123,7 +123,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	B.name = "[name] [bottle_type] bottle"
 	return B
 
-/// Find the time it would take to analyze the current disease before any symptom guesses are made
+/// Find the time it would take to analyze the current disease before any symptom symptom_guesses are made
 /obj/machinery/computer/pandemic/proc/find_analysis_time_delta(datum/reagent/R)
 	var/strains = 0
 	var/stage_amount = 0
@@ -175,21 +175,21 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 /obj/machinery/computer/pandemic/proc/analyze(disease_ID, symptoms)
 	analyzing = TRUE
 	analyzed_ID = disease_ID
-	var/names = list()
-	var/guesses = list()
-	var/correct_count = 0
-	for(var/i in symptoms)
-		names += list(i["name"])
-		guesses += list(i["guess"])
-	for(var/i in guesses)
-		if(!i || i == "No Prediction")
+	var/symptom_names = list()
+	var/symptom_guesses = list()
+	var/correct_prediction_count = 0
+	for(var/symptom in symptoms)
+		symptom_names += list(symptom["name"])
+		symptom_guesses += list(symptom["guess"])
+	for(var/name in symptom_guesses)
+		if(!name || name == "No Prediction")
 			continue
-		if(i in names)
-			correct_count++
+		if(name in symptom_names)
+			correct_prediction_count++
 		else
 			accumulated_error["[z]"] += 3 MINUTES
-	// Correct symptom guesses reduce the final analysis time by up to half of the base time.
-	analysis_time = max(0, analysis_time_delta - ANALYSIS_TIME_BASE * correct_count / (2 * length(symptoms))) + world.time
+	// Correct symptom symptom_guesses reduce the final analysis time by up to half of the base time.
+	analysis_time = max(0, analysis_time_delta - ANALYSIS_TIME_BASE * correct_prediction_count / (2 * length(symptoms))) + world.time
 	return
 
 /obj/machinery/computer/pandemic/proc/calibrate()
@@ -252,8 +252,8 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 				return
 			var/type = virus.GetDiseaseID()
 			if(!ispath(type))
-				var/datum/disease/advance/A = GLOB.archive_diseases[type]
-				if(A)
+				var/datum/disease/advance/A = virus
+				if(istype(A))
 					D = A.Copy(copy_stage = TRUE)
 			else if(type)
 				if(type in GLOB.diseases) // Make sure this is a disease
@@ -402,7 +402,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		"accumulatedError" = accumulated_error["[z]"],
 		"analysisTimeDelta" = analysis_time_delta + accumulated_error["[z]"],
 		"analyzing" = analyzing,
-		"sympton_names" = symptomlist,
+		"symptom_names" = symptom_list,
 	)
 
 	return data

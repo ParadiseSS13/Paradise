@@ -31,7 +31,7 @@ MARK: Helpers
 
 /mob/living/carbon/proc/check_contraction_carbon(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	// positive satiety makes it harder to contract the disease.
-	return (spread_method & SPREAD_BLOOD) || !((satiety > 0 && prob(satiety/10))|| (prob(15/D.permeability_mod)))
+	return (spread_method & SPREAD_BLOOD) || !((satiety > 0 && prob(satiety/10)) || (prob(15/D.permeability_mod)))
 
 /mob/living/carbon/human/proc/check_contraction_human(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	if(HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity)
@@ -190,12 +190,6 @@ MARK: Helpers
 
 /mob/living/carbon/can_contract_disease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	return ..() && check_contraction_carbon(D)
-
-/mob/living/carbon/ContractDisease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
-	if(!can_contract_disease(D, spread_method))
-		return 0
-	AddDisease(D)
-	return TRUE
 
 //MARK: Human
 /mob/living/carbon/human/can_spread_disease(D, spread_method = SPREAD_CONTACT_GENERAL)
