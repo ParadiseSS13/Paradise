@@ -393,3 +393,18 @@
 	// Apply traits
 	ADD_TRAIT(extractor, TRAIT_PACIFISM, GHOST_ROLE)
 	ADD_TRAIT(extractor, TRAIT_RESPAWNABLE, GHOST_ROLE)
+	// Re-add job slot, reroll objectives if they were a target
+	if(extractor.mind)
+		if(extractor.mind.initial_account)
+			GLOB.station_money_database.delete_user_account(extractor.mind.initial_account.account_number, "NAS Trurl Financial Services", FALSE)
+		for(var/datum/objective/O in GLOB.all_objectives)
+			if(O.target != extractor.mind)
+				continue
+			O.on_target_cryo()
+
+	if(extractor.mind && extractor.mind.assigned_role)
+		//Handle job slot/tater cleanup.
+		var/job = extractor.mind.assigned_role
+
+		SSjobs.FreeRole(job)
+
