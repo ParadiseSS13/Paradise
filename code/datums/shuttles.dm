@@ -144,16 +144,14 @@
 
 /datum/map_template/shuttle/emergency/lance/preload()
 	message_admins("Preloading [name]!")
-	var/obj/docking_port/stationary/CCport
-	CCport = SSshuttle.getDock("emergency_away")
+	var/obj/docking_port/stationary/CCport = SSshuttle.getDock("emergency_away")
 	CCport.setDir(4)
 	CCport.forceMove(locate(136, 107, 1))
 	CCport.height = 50
 	CCport.dheight = 0
 	CCport.width = 19
 	CCport.dwidth = 9
-	var/obj/docking_port/stationary/syndicate
-	syndicate = SSshuttle.getDock("emergency_syndicate")
+	var/obj/docking_port/stationary/syndicate = SSshuttle.getDock("emergency_syndicate")
 	syndicate.setDir(8)
 	syndicate.forceMove(locate(202, 199, 1))
 	syndicate.height = 50
