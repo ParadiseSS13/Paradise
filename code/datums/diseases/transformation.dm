@@ -2,7 +2,7 @@
 	name = "Transformation"
 	max_stages = 5
 	spread_text = "Acute"
-	spread_flags = SPECIAL
+	spread_flags = SPREAD_SPECIAL
 	cure_text = "A coder's love (theoretical)."
 	agent = "Shenanigans"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)

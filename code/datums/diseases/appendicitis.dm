@@ -3,7 +3,7 @@
 	name = "Appendicitis"
 	max_stages = 3
 	spread_text = "Non-contagious"
-	spread_flags = NON_CONTAGIOUS
+	spread_flags = SPREAD_NON_CONTAGIOUS
 	cure_text = "Surgery"
 	agent = "Shitty Appendix"
 	viable_mobtypes = list(/mob/living/carbon/human)

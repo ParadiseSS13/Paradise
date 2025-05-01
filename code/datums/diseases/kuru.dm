@@ -4,7 +4,7 @@
 	max_stages = 4
 	stage_prob = 5
 	spread_text = "Non-contagious"
-	spread_flags = NON_CONTAGIOUS
+	spread_flags = SPREAD_NON_CONTAGIOUS
 	cure_text = "Incurable"
 	agent = "Prions"
 	viable_mobtypes = list(/mob/living/carbon/human)

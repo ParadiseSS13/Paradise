@@ -36,14 +36,14 @@
 
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
-		if(D.spread_flags >= CONTACT_GENERAL)
-			can_spread_disease(D, CONTACT_GENERAL) && user.ContractDisease(D, CONTACT_HANDS)
+		if(D.spread_flags >= SPREAD_CONTACT_GENERAL)
+			can_spread_disease(D, SPREAD_CONTACT_GENERAL) && user.ContractDisease(D, SPREAD_CONTACT_HANDS)
 
 	for(var/thing in user.viruses)
 		var/datum/disease/D = thing
-		var/spread_method = min(D.spread_flags, CONTACT_GENERAL)
-		if(spread_method >= CONTACT_HANDS)
-			user.can_spread_disease(D, CONTACT_HANDS) && ContractDisease(D, spread_method)
+		var/spread_method = min(D.spread_flags, SPREAD_CONTACT_GENERAL)
+		if(spread_method >= SPREAD_CONTACT_HANDS)
+			user.can_spread_disease(D, SPREAD_CONTACT_HANDS) && ContractDisease(D, spread_method)
 
 	if(IS_HORIZONTAL(src) && length(surgeries))
 		if(user.a_intent == INTENT_HELP)

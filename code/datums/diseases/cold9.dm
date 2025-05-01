@@ -3,7 +3,7 @@
 	medical_name = "ICE9 Cold"
 	max_stages = 3
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Spaceacillin"
 	cures = list("spaceacillin")
 	agent = "ICE9-rhinovirus"

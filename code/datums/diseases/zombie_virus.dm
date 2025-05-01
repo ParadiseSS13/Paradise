@@ -4,7 +4,7 @@
 	desc = "This virus infects humanoids and drives them insane with a hunger for flesh, along with possessing regenerative abilities."
 	max_stages = 7
 	spread_text = "Blood and Saliva"
-	spread_flags = BLOOD
+	spread_flags = SPREAD_BLOOD
 	cure_text = "Anti-plague viral solutions"
 	cures = list()
 	agent = ""

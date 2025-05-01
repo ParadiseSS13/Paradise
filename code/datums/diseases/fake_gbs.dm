@@ -2,7 +2,7 @@
 	name = "GBS"
 	max_stages = 5
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Diphenhydramine & Sulfur"
 	cures = list("diphenhydramine","sulfur")
 	agent = "Gravitokinetic Bipotential SADS-"

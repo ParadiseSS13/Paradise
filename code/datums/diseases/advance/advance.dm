@@ -324,7 +324,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 				visibility_flags = HIDDEN_SCANNER
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
-		SetSpread(clamp(2 ** (properties["transmittable"] - length(symptoms)), BLOOD, AIRBORNE))
+		SetSpread(clamp(2 ** (properties["transmittable"] - length(symptoms)), SPREAD_BLOOD, SPREAD_AIRBORNE))
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		// 9 stage rate is twice as fast as 0 stage rate, -9 stage rate is half as fast as 0.
@@ -340,13 +340,13 @@ GLOBAL_LIST_INIT(plant_cures,list(
 // Assign the spread type and give it the correct description.
 /datum/disease/advance/proc/SetSpread(spread_id)
 	switch(spread_id)
-		if(NON_CONTAGIOUS, SPECIAL)
+		if(SPREAD_NON_CONTAGIOUS, SPREAD_SPECIAL)
 			spread_text = "Non-contagious"
-		if(CONTACT_GENERAL, CONTACT_HANDS, CONTACT_FEET)
+		if(SPREAD_CONTACT_GENERAL, SPREAD_CONTACT_HANDS, SPREAD_CONTACT_FEET)
 			spread_text = "On contact"
-		if(AIRBORNE)
+		if(SPREAD_AIRBORNE)
 			spread_text = "Airborne"
-		if(BLOOD)
+		if(SPREAD_BLOOD)
 			spread_text = "Blood"
 
 	spread_flags = spread_id

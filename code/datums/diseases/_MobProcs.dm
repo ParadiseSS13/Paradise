@@ -8,7 +8,7 @@ MARK: Contraction
 MARK: Helpers
 */
 
-/mob/proc/check_contraction_mob(datum/disease/D, spread_method = CONTACT_GENERAL)
+/mob/proc/check_contraction_mob(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	if(stat == DEAD && !D.allow_dead)
 		return FALSE
 
@@ -29,11 +29,11 @@ MARK: Helpers
 
 	return TRUE
 
-/mob/living/carbon/proc/check_contraction_carbon(datum/disease/D, spread_method = CONTACT_GENERAL)
+/mob/living/carbon/proc/check_contraction_carbon(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	// positive satiety makes it harder to contract the disease.
-	return (spread_method & BLOOD) || !((satiety > 0 && prob(satiety/10))|| (prob(15/D.permeability_mod)))
+	return (spread_method & SPREAD_BLOOD) || !((satiety > 0 && prob(satiety/10))|| (prob(15/D.permeability_mod)))
 
-/mob/living/carbon/human/proc/check_contraction_human(datum/disease/D, spread_method = CONTACT_GENERAL)
+/mob/living/carbon/human/proc/check_contraction_human(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	if(HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity)
 		return FALSE
 
@@ -47,12 +47,12 @@ MARK: Helpers
 		return FALSE
 
 	// We transfer to the blood directly
-	if(spread_method == BLOOD)
+	if(spread_method == SPREAD_BLOOD)
 		return TRUE
 
 	var/passed = FALSE
 
-	if(spread_method & (CONTACT_FEET | CONTACT_HANDS | CONTACT_GENERAL))
+	if(spread_method & (SPREAD_CONTACT_FEET | SPREAD_CONTACT_HANDS | SPREAD_CONTACT_GENERAL))
 		passed = TRUE
 		var/obj/item/clothing/Cl = null
 
@@ -61,12 +61,12 @@ MARK: Helpers
 		var/hands_ch = 25
 		var/feet_ch = 25
 
-		if(D.spread_flags & CONTACT_HANDS)
+		if(D.spread_flags & SPREAD_CONTACT_HANDS)
 			head_ch = 0
 			body_ch = 0
 			hands_ch = 100
 			feet_ch = 0
-		if(D.spread_flags & CONTACT_FEET)
+		if(D.spread_flags & SPREAD_CONTACT_FEET)
 			head_ch = 0
 			body_ch = 0
 			hands_ch = 0
@@ -107,13 +107,13 @@ MARK: Helpers
 					passed = prob((Cl.permeability_coefficient*100) - 1)
 
 	// If spreading by air we need to get through the mask and helmet.
-	if(!passed && (spread_method & AIRBORNE))
+	if(!passed && (spread_method & SPREAD_AIRBORNE))
 		// Check for eye protection
 		var/eye_check = !((wear_mask?.flags_cover & MASKCOVERSEYES) || (head?.flags_cover & HEADCOVERSEYES) || (glasses?.flags_cover & GLASSESCOVERSEYES))
 		// Masks and hoods protect our mouth from sneezes, but not truely airborn viruses
 		var/mouth_check = ((prob((wear_mask?.permeability_coefficient*100) - 1) || !(wear_mask?.flags_cover & MASKCOVERSMOUTH)) && (prob((head?.permeability_coefficient*100) - 1) || !(head?.flags_cover & HEADCOVERSMOUTH)))
 		// A further check on the mask against airborne diseases
-		var/breath_check = !internal && (D.spread_flags & AIRBORNE) && prob(100 * D.permeability_mod) && !((wear_mask?.flags_cover & MASKCOVERSMOUTH && HAS_TRAIT(wear_mask, TRAIT_ANTI_VIRAL)) || (head?.flags_cover & MASKCOVERSMOUTH && HAS_TRAIT(head, TRAIT_ANTI_VIRAL)))
+		var/breath_check = !internal && (D.spread_flags & SPREAD_AIRBORNE) && prob(100 * D.permeability_mod) && !((wear_mask?.flags_cover & MASKCOVERSMOUTH && HAS_TRAIT(wear_mask, TRAIT_ANTI_VIRAL)) || (head?.flags_cover & MASKCOVERSMOUTH && HAS_TRAIT(head, TRAIT_ANTI_VIRAL)))
 		// If anything gets penetrated we contract the disease.
 		passed = eye_check || mouth_check || breath_check
 
@@ -134,14 +134,14 @@ MARK: Helpers
 	return FALSE
 
 /// Checks if a mob can contract the disease
-/mob/proc/can_contract_disease(datum/disease/D, spread_method = CONTACT_GENERAL)
+/mob/proc/can_contract_disease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	return check_contraction_mob(D, spread_method)
 
-/mob/proc/can_spread_disease(D, spread_method = CONTACT_GENERAL)
+/mob/proc/can_spread_disease(D, spread_method = SPREAD_CONTACT_GENERAL)
 	return TRUE
 
 // Attempt contracting a diseas
-/mob/proc/ContractDisease(datum/disease/D, spread_method = CONTACT_GENERAL)
+/mob/proc/ContractDisease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	if(!can_contract_disease(D, spread_method))
 		return 0
 	AddDisease(D)
@@ -158,7 +158,7 @@ MARK: Helpers
  */
 //Same as ContractDisease, except it ignores the clothes check
 /mob/proc/ForceContractDisease(datum/disease/D, respect_carrier, notify_ghosts = FALSE)
-	if(!can_contract_disease(D, BLOOD))
+	if(!can_contract_disease(D, SPREAD_BLOOD))
 		return FALSE
 	if(notify_ghosts)
 		for(var/mob/ghost as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
@@ -186,26 +186,26 @@ MARK: Helpers
 	DD.after_infect()
 
 // MARK: Carbon
-/mob/living/carbon/can_spread_disease(D, spread_method = CONTACT_GENERAL)
+/mob/living/carbon/can_spread_disease(D, spread_method = SPREAD_CONTACT_GENERAL)
 	return check_contraction_carbon(D, spread_method)
 
-/mob/living/carbon/can_contract_disease(datum/disease/D, spread_method = CONTACT_GENERAL)
+/mob/living/carbon/can_contract_disease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	return ..() && check_contraction_carbon(D)
 
-/mob/living/carbon/ContractDisease(datum/disease/D, spread_method = CONTACT_GENERAL)
+/mob/living/carbon/ContractDisease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	if(!can_contract_disease(D, spread_method))
 		return 0
 	AddDisease(D)
 	return TRUE
 
 //MARK: Human
-/mob/living/carbon/human/can_spread_disease(D, spread_method = CONTACT_GENERAL)
+/mob/living/carbon/human/can_spread_disease(D, spread_method = SPREAD_CONTACT_GENERAL)
 	return check_contraction_human(D, spread_method)
 
-/mob/living/carbon/human/can_contract_disease(datum/disease/D, spread_method = CONTACT_GENERAL)
+/mob/living/carbon/human/can_contract_disease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	return check_contraction_human(D, spread_method) && ..()
 
-/mob/living/carbon/human/monkey/can_contract_disease(datum/disease/D, spread_method = CONTACT_GENERAL)
+/mob/living/carbon/human/monkey/can_contract_disease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
 	. = ..()
 	if(. == -1)
 		if(D.viable_mobtypes.Find(/mob/living/carbon/human))

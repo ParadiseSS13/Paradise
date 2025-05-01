@@ -1,7 +1,7 @@
 /datum/disease/critical
 	form = "Medical Emergency"
 	max_stages = 3
-	spread_flags = SPECIAL
+	spread_flags = SPREAD_SPECIAL
 	viable_mobtypes = list(/mob/living/carbon/human)
 	severity = MINOR
 	disease_flags = CURABLE

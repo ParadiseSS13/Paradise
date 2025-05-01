@@ -3,7 +3,7 @@
 	max_stages = 2
 	stage_prob = 5
 	spread_text = "Non-contagious"
-	spread_flags = NON_CONTAGIOUS
+	spread_flags = SPREAD_NON_CONTAGIOUS
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
 	agent = "Jagged Crystals"

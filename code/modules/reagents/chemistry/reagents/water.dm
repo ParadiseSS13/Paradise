@@ -106,7 +106,7 @@
 		for(var/thing in data["viruses"])
 			var/datum/disease/D = thing
 
-			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
+			if(D.spread_flags & SPREAD_SPECIAL || D.spread_flags & SPREAD_NON_CONTAGIOUS)
 				continue
 
 			if(method == REAGENT_TOUCH)

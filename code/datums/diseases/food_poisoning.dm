@@ -3,7 +3,7 @@
 	max_stages = 3
 	stage_prob = 5
 	spread_text = "Non-contagious"
-	spread_flags = NON_CONTAGIOUS
+	spread_flags = SPREAD_NON_CONTAGIOUS
 	cure_text = "Sleep"
 	agent = "Salmonella"
 	cures = list("chicken_soup")

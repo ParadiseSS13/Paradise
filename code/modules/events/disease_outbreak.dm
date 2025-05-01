@@ -83,12 +83,12 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 1)
 	A.AssignProperties(A.GenerateProperties())
 	var/list/symptoms_to_try = transmissable_symptoms.Copy()
-	var/spread_threhsold = CONTACT_HANDS
+	var/spread_threhsold = SPREAD_CONTACT_HANDS
 	// Chance for it to be extra spready, scales quadratically with severity
 	if(prob(max_severity ** 2) * 3)
-		spread_threhsold = CONTACT_GENERAL
+		spread_threhsold = SPREAD_CONTACT_GENERAL
 	if(prob((max_severity ** 2) * 1.5))
-		spread_threhsold = AIRBORNE
+		spread_threhsold = SPREAD_AIRBORNE
 		A.base_properties["transmittable"]++
 	while(length(symptoms_to_try))
 		if(A.spread_flags & spread_threhsold)

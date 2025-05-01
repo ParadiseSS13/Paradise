@@ -10,7 +10,7 @@ Sneezing
 	Low Level.
 
 Bonus
-	Forces a spread type of AIRBORNE
+	Forces a spread type of SPREAD_AIRBORNE
 	with extra range!
 
 //////////////////////////////////////

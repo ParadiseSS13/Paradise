@@ -3,7 +3,7 @@
 	form = "Infection"
 	max_stages = 4
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Ethanol"
 	cures = list("ethanol")
 	agent = "Excess Snuggles"

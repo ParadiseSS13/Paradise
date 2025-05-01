@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	//Flags
 	var/visibility_flags = 0
 	var/disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
-	var/spread_flags = AIRBORNE
+	var/spread_flags = SPREAD_AIRBORNE
 
 	//Fluff
 	/// Used for identification of viruses in the Medical Records Virus Database
@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(!affected_mob)
 		return
 
-	if((spread_flags & SPECIAL || spread_flags & NON_CONTAGIOUS || spread_flags & BLOOD) && !force_spread)
+	if((spread_flags & SPREAD_SPECIAL || spread_flags & SPREAD_NON_CONTAGIOUS || spread_flags & SPREAD_BLOOD) && !force_spread)
 		return
 
 	if(affected_mob.reagents.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
@@ -124,19 +124,19 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(force_spread)
 		spread_range = force_spread
 
-	if(spread_flags & AIRBORNE)
+	if(spread_flags & SPREAD_AIRBORNE)
 		spread_range++
 
 	var/spread_method = 0
 	// If we do an airborne spread we will do that as well as other spreads
-	if((spread_flags & AIRBORNE) || spread_range > 1)
-		spread_method |= AIRBORNE
+	if((spread_flags & SPREAD_AIRBORNE) || spread_range > 1)
+		spread_method |= SPREAD_AIRBORNE
 
 	var/turf/target = affected_mob.loc
 	if(istype(target))
 		for(var/mob/living/carbon/C in oview(spread_range, affected_mob))
 			// Assume we are touching
-			spread_method |= (CONTACT_GENERAL | CONTACT_FEET | CONTACT_HANDS)
+			spread_method |= (SPREAD_CONTACT_GENERAL | SPREAD_CONTACT_FEET | SPREAD_CONTACT_HANDS)
 			var/turf/current = get_turf(C)
 			if(current)
 				while(TRUE)
@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 					if(current == target)
 						// If we are further than 1 tile we aren't touching
 						if(get_dist(target, C) > 1)
-							spread_method &= ~(CONTACT_GENERAL | CONTACT_FEET | CONTACT_HANDS)
+							spread_method &= ~(SPREAD_CONTACT_GENERAL | SPREAD_CONTACT_FEET | SPREAD_CONTACT_HANDS)
 						// We also want to test our own mob's permeability so people in hardsuits with internals won't just infect others with sneezes or touch
 						affected_mob.can_spread_disease(src, spread_method) && C.ContractDisease(src, spread_method)
 						break
@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	return type
 
 /datum/disease/proc/IsSpreadByTouch()
-	if(spread_flags & CONTACT_FEET || spread_flags & CONTACT_HANDS || spread_flags & CONTACT_GENERAL)
+	if(spread_flags & SPREAD_CONTACT_FEET || spread_flags & SPREAD_CONTACT_HANDS || spread_flags & SPREAD_CONTACT_GENERAL)
 		return 1
 	return 0
 
