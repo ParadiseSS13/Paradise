@@ -1,3 +1,6 @@
+/// Temperature at which objects contaminated by viruses are disinfected
+#define VIRUS_DISINFECTION_TEMP (T0C + 60)
+
 /// The maximum amount of symptoms a virus can have
 #define VIRUS_SYMPTOM_LIMIT	6
 
