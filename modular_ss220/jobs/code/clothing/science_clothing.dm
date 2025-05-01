@@ -6,7 +6,7 @@
 	//righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	icon_state = "student_s"
 	item_color = "student"
-	sprite_sheets = null
+	sprite_sheets = list("Human" = 'modular_ss220/jobs/icons/clothing/mob/uniform.dmi')
 
 /obj/item/clothing/under/rank/rnd/scientist/student/skirt
 	name = "scientist student jumpskirt"

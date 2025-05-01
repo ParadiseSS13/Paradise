@@ -3,7 +3,7 @@
 	icon_override = 'modular_ss220/jobs/icons/clothing/mob/uniform.dmi'
 	//lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	//righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	sprite_sheets = null
+	sprite_sheets = list("Human" = 'modular_ss220/jobs/icons/clothing/mob/uniform.dmi')
 
 	name = "intern jumpsuit"
 	icon_state = "intern_s"
@@ -33,7 +33,7 @@
 	icon_override = 'modular_ss220/jobs/icons/clothing/mob/uniform.dmi'
 	icon_state = "scrubsgreen"
 	item_color = "scrubsgreen"
-	sprite_sheets = null
+	sprite_sheets = list("Human" = 'modular_ss220/jobs/icons/clothing/mob/uniform.dmi')
 
 /obj/item/clothing/head/surgery/green/light
 	name = "light green surgical cap"

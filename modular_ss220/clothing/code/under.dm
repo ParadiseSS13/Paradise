@@ -7,7 +7,7 @@
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	item_color = "katarina_cybersuit"
-	sprite_sheets = null
+	sprite_sheets = list("Human" = 'modular_ss220/clothing/icons/mob/under.dmi')
 
 /obj/item/clothing/under/costume/katarina_suit
 	name = "костюм Катарины"
@@ -18,7 +18,7 @@
 	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
 	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
 	item_color = "katarina_suit"
-	sprite_sheets = null
+	sprite_sheets = list("Human" = 'modular_ss220/clothing/icons/mob/under.dmi')
 
 /obj/item/clothing/under/rank/civilian/chef/red
 	name = "chef's red uniform"
