@@ -133,7 +133,7 @@
 
 	// Check if you're the target of any other antags. If you are, using the beacon will find it jammed and turned to ash.
 	for(var/datum/objective/O in GLOB.all_objectives)
-		if(O.target != user.mind)
+		if(O.target != user.mind || istype(O, /datum/objective/protect))
 			continue
 		denied = TRUE
 		is_target = TRUE
@@ -156,6 +156,8 @@
 		to_chat(user, "<span class='warning'>Someone or something has jammed your extraction beacon, forcing it to disintegrate early!</span>")
 		if(!has_target_objective)
 			user.mind.add_mind_objective(/datum/objective/potentially_backstabbed, "Someone or something has jammed your extraction! Survive!")
+			var/list/messages = user.mind.prepare_announce_objectives(FALSE)
+			to_chat(user, chat_box_red(messages.Join("<br>")))
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
 		return
@@ -387,6 +389,16 @@
 	for(var/datum/antagonist/antag in extractor_mind.antag_datums)
 		if(istype(antag, /datum/antagonist/traitor))
 			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
+			// Remove mindslaves
+			var/list/mindslaves = SSticker.mode.implanted
+			for(var/datum/mind/possible_slave in mindslaves)
+				for(var/datum/antagonist/slavetag in possible_slave.antag_datums)
+					if(!istype(slavetag, /datum/antagonist/mindslave))
+						continue
+					var/datum/antagonist/mindslave/slave = slavetag
+					if(slave.master == extractor.mind)
+						possible_slave.remove_antag_datum(/datum/antagonist/mindslave/implant)
+
 			radio.autosay("<b>--ZZZT!- Good work, $@gent [extractor.real_name]. Return to -^%&!-ZZT!-</b>", "Syndicate Operations", "Security")
 			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Traitor")
 			return
@@ -394,6 +406,17 @@
 		if(istype(antag, /datum/antagonist/vampire))
 			var/datum/antagonist/vampire/bloodsucker = antag
 			bloodsucker.remove_all_powers()
+			// Remove thralls
+			if(istype(bloodsucker.subclass, SUBCLASS_DANTALION))
+				var/list/thralls = SSticker.mode.vampire_enthralled
+				for(var/datum/mind/possible_thrall in thralls)
+					for(var/datum/antagonist/slavetag in possible_thrall.antag_datums)
+						if(!istype(slavetag, /datum/antagonist/mindslave))
+							continue
+						var/datum/antagonist/mindslave/slave = slavetag
+						if(slave.master == extractor.mind)
+							possible_thrall.remove_antag_datum(/datum/antagonist/mindslave/thrall)
+
 			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire)
 			radio.autosay("<b>--ZZZT!- Wonderfully done, [extractor.real_name]. Welcome to -^%&!-ZZT!-</b>", "Ancient Vampire", "Security")
 			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Vampire")
@@ -425,7 +448,6 @@
 	if(extractor.mind)
 		if(extractor.mind.initial_account)
 			GLOB.station_money_database.delete_user_account(extractor.mind.initial_account.account_number, "NAS Trurl Financial Services", FALSE)
-
 	if(extractor.mind && extractor.mind.assigned_role)
 		// Handle job slot
 		var/job = extractor.mind.assigned_role
