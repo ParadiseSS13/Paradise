@@ -188,7 +188,20 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	set_light(8, l_color = "#FFD165")
 
 /obj/effect/temp_visual/getaway_flare/exfiltration
+	name = "extraction flare"
 	duration = 90.1 SECONDS
+
+/obj/effect/temp_visual/getaway_flare/exfiltration/changeling
+	name = "writhing mass"
+
+/obj/effect/temp_visual/getaway_flare/exfiltration/vampire
+	name = "bloody portal"
+
+/obj/effect/temp_visual/getaway_flare/exfiltration/mindflayer
+	name = "nanite telepad"
+
+/obj/effect/temp_visual/getaway_flare/exfiltration/admin
+	duration = 5.1 SECONDS
 
 /obj/item/grenade/jaunter_grenade
 	name = "chasm jaunter recovery grenade"

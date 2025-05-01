@@ -254,3 +254,42 @@
 		borg.module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 	borg.update_icons()
 	return TRUE
+
+/datum/spell/flayer/self/extraction
+	name = "Nanite Portal Generator"
+	desc = "Allows us to use our nanites to create an extraction portal."
+	action_icon_state = "magnet" // Uhhhhhhhhhhhhhhhhhhhhhhhhhhh
+	power_type = FLAYER_PURCHASABLE_POWER
+	category = FLAYER_CATEGORY_GENERAL
+	base_cooldown = 2 SECONDS // The cast time is going to be the main limiting factor, not cooldown
+	base_cost = 25
+	stage = 1
+
+/datum/spell/flayer/self/extraction/cast(list/targets, mob/user)
+	var/datum/antagonist/mindflayer/flayer = user.mind.has_antag_datum(/datum/antagonist/mindflayer)
+	// No extraction for certian steals/hijack
+	var/denied = FALSE
+	var/objectives = user.mind.get_all_objectives()
+	for(var/datum/objective/goal in objectives)
+		if(istype(goal, /datum/objective/steal))
+			var/datum/objective/steal/theft = goal
+			if(istype(theft.steal_target, /datum/theft_objective/nukedisc) || istype(theft.steal_target, /datum/theft_objective/plutonium_core))
+				denied = TRUE
+				break
+		if(istype(goal, /datum/objective/hijack))
+			denied = TRUE
+			break
+	if(denied)
+		to_chat(user, "<span class='warning'>The master mindflayer has deemed your objectives too delicate for an early extraction.</span>")
+		flayer.remove_ability(src)
+		return
+
+	if(world.time < 60 MINUTES) // 60 minutes of no exfil
+		to_chat(user, "<span class='warning'>The master mindflayer is still assembling an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		return
+	var/mob/living/L = user
+	if(!istype(L))
+		return
+	var/obj/item/wormhole_jaunter/extraction/mindflayer/extractor = new /obj/item/wormhole_jaunter/extraction/mindflayer()
+	L.put_in_active_hand(extractor)
+	flayer.remove_ability(src)

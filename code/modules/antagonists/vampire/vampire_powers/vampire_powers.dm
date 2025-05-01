@@ -108,6 +108,41 @@
 
 	return TRUE
 
+/datum/spell/vampire/self/exfiltrate
+	name = "Conjure Extraction Portal"
+	desc = "Congeal blood into a construct that will generate a portal away from the station."
+	gain_desc = "You can now decide to leave the station."
+	base_cooldown = 2 SECONDS
+	action_icon_state = "select_class"
+
+/datum/spell/vampire/self/exfiltrate/cast(mob/user)
+	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	// No extraction for certian steals/hijack
+	var/denied = FALSE
+	var/objectives = user.mind.get_all_objectives()
+	for(var/datum/objective/goal in objectives)
+		if(istype(goal, /datum/objective/steal))
+			var/datum/objective/steal/theft = goal
+			if(istype(theft.steal_target, /datum/theft_objective/nukedisc) || istype(theft.steal_target, /datum/theft_objective/plutonium_core))
+				denied = TRUE
+				break
+		if(istype(goal, /datum/objective/hijack))
+			denied = TRUE
+			break
+	if(denied)
+		to_chat(user, "<span class='warning'>The master vampire has deemed your objectives too delicate for an early extraction.</span>")
+		vamp.remove_ability(src)
+		return
+
+	if(world.time < 60 MINUTES) // 60 minutes of no exfil
+		to_chat(user, "<span class='warning'>The master vampire is still conjuring an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		return
+	var/mob/living/L = user
+	if(!istype(L))
+		return
+	var/obj/item/wormhole_jaunter/extraction/vampire/extractor = new /obj/item/wormhole_jaunter/extraction/vampire()
+	L.put_in_active_hand(extractor)
+	vamp.remove_ability(src)
 
 /datum/spell/vampire/self/specialize
 	name = "Choose Specialization"

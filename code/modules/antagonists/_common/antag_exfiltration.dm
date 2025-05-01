@@ -7,6 +7,14 @@
 	item_state = "flare"
 	/// What areas can be extracted from?
 	var/list/extractable_areas = list()
+	/// Is there a roundstart delay?
+	var/delayed_extraction = TRUE
+	/// How long does the extraction take?
+	var/extraction_time = 90 SECONDS
+	/// Type of setup once a flare is lit
+	var/setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration
+	/// Type of portal spawned
+	var/portal_type = /obj/effect/portal/advanced/exfiltration
 
 /obj/item/wormhole_jaunter/extraction/Initialize(mapload)
 	. = ..()
@@ -116,16 +124,33 @@
 /obj/item/wormhole_jaunter/extraction/activate(mob/user)
 	if(!turf_check(user))
 		return
-	// UNCOMMENT THIS BEFORE MERGE
-	//if(world.time < 60 MINUTES) // 60 minutes of no exfil
-		//to_chat(user, "The exfiltration teleporter is calibrating. Please wait another [round((60 MINUTES - world.time) / 60 SECONDS)] minutes before trying again.")
-		//return
-	var/obj/effect/temp_visual/getaway_flare/exfiltration/F = new(get_turf(src))
+	// No extraction for certian steals/hijack
+	var/denied = FALSE
+	var/objectives = user.mind.get_all_objectives()
+	for(var/datum/objective/goal in objectives)
+		if(istype(goal, /datum/objective/steal))
+			var/datum/objective/steal/theft = goal
+			if(istype(theft.steal_target, /datum/theft_objective/nukedisc) || istype(theft.steal_target, /datum/theft_objective/plutonium_core))
+				denied = TRUE
+				break
+		if(istype(goal, /datum/objective/hijack))
+			denied = TRUE
+			break
+	if(denied)
+		to_chat(user, "<span class='warning'>The syndicate has deemed your objectives too delicate for an early extraction.</span>")
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
+		return
+
+	if(world.time < 60 MINUTES && delayed_extraction) // 60 minutes of no exfil
+		to_chat(user, "<span class='warning'>The exfiltration teleporter is calibrating. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		return
+	var/obj/effect/temp_visual/getaway_flare/exfiltration/F = new setup_type(get_turf(src))
 	user.visible_message("<span class='notice'>[user] pulls out a black and gold flare and lights it.</span>",\
 						"<span class='notice'>You light an extraction flare, initiating the extraction process.</span>")
 	user.drop_item()
 	forceMove(F)
-	addtimer(CALLBACK(src, PROC_REF(create_portal), user), 90 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(create_portal), user), extraction_time)
 
 /obj/item/wormhole_jaunter/extraction/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
@@ -143,7 +168,7 @@
 
 /obj/item/wormhole_jaunter/extraction/proc/create_portal(mob/user)
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
-	var/obj/effect/portal/advanced/exfiltration/P = new(get_turf(src), pick(GLOB.antagextractwarp), src, 30 SECONDS, user)
+	var/obj/effect/portal/advanced/exfiltration/P = new portal_type(get_turf(src), pick(GLOB.antagextractwarp), src, 30 SECONDS, user)
 	P.antag_mind = user.mind
 	qdel(src)
 
@@ -160,6 +185,7 @@
 	desc = "An unholy construct that will create a single-use portal that will let you escape the station. One way trip."
 	icon_state = "flare-contractor"
 	item_state = "flare"
+	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/vampire
 
 // Changeling Mass
 /obj/item/wormhole_jaunter/extraction/changeling
@@ -168,18 +194,29 @@
 	desc = "A mass of writhing flesh that will create a single-use portal that will let you escape the station. One way trip."
 	icon_state = "flare-contractor"
 	item_state = "flare"
+	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/changeling
 
 // Mindflayer Swarm
 /obj/item/wormhole_jaunter/extraction/mindflayer
-	name = "nanite swarm"
+	name = "nanite telepad"
 	icon = 'icons/obj/lighting.dmi'
-	desc = "A swarm of mindflayer nanites that will create a single-use portal that will let you escape the station. One way trip."
+	desc = "A swarm of mindflayer nanites in the shape of a telepad that will create a single-use portal that will let you escape the station. One way trip."
 	icon_state = "flare-contractor"
 	item_state = "flare"
+	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/mindflayer
 
+// Debug/Admin
+/obj/item/wormhole_jaunter/extraction/admin
+	name = "advanced extraction flare"
+	icon = 'icons/obj/lighting.dmi'
+	desc = "An advanced single-use extraction flare that will let you escape the station. One way trip."
+	icon_state = "flare-contractor"
+	item_state = "flare"
+	delayed_extraction = FALSE
+	extraction_time = 5 SECONDS
+	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/admin
 
 // Extraction Portal
-
 /obj/effect/portal/advanced/exfiltration
 	name = "exfiltration portal"
 	icon_state = "portal-syndicate"
@@ -187,6 +224,15 @@
 	one_use = TRUE
 	/// The mind of the exfiltrating antag.
 	var/datum/mind/antag_mind = null
+	/// Radio for handling extraction taunts
+	var/obj/item/radio/radio
+
+/obj/effect/portal/advanced/exfiltration/Initialize(mapload)
+	. = ..()
+	radio = new(src)
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Security" = 0))
 
 /obj/effect/portal/advanced/exfiltration/can_teleport(atom/movable/A)
 	var/mob/living/M = A
@@ -290,6 +336,60 @@
 		for(var/datum/objective/objective in all_objectives)
 			objective.completed = objective.check_completion()
 	// Handle syndicate barification
+	prepare_ghosting(M)
 
+/obj/effect/portal/advanced/exfiltration/proc/prepare_ghosting(mob/living/carbon/human/extractor)
+	if(!istype(extractor))
+		return
+	// Remove all clothing
+	for(var/obj/item/I in extractor)
+		if(istype(I, /obj/item/bio_chip))
+			continue
+		qdel(I)
 
+	// Remove implants
+	for(var/obj/item/organ/internal/cyberimp/I in extractor.internal_organs)
+		// Greys get to keep their implant
+		if(isgrey(extractor) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
+			continue
+		// IPCs keep their implant
+		if(ismachineperson(extractor) && istype(I, /obj/item/organ/internal/cyberimp/arm/power_cord))
+			continue
+		// Try removing it
+		I = I.remove(extractor)
 
+	// Equip outfits and remove spells
+	var/datum/mind/extractor_mind = extractor.mind
+	for(var/datum/antagonist/antag in extractor_mind.antag_datums)
+		if(istype(antag, /datum/antagonist/traitor))
+			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
+			radio.autosay("<b>--ZZZT!- Good work, $@gent [extractor.real_name]. Return to -^%&!-ZZT!-</b>", "Syndicate Operations", "Security")
+			return
+
+		if(istype(antag, /datum/antagonist/vampire))
+			var/datum/antagonist/vampire/bloodsucker = antag
+			bloodsucker.remove_all_powers()
+			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire)
+			radio.autosay("<b>--ZZZT!- Wonderfully done, [extractor.real_name]. Welcome to -^%&!-ZZT!-</b>", "Ancient Vampire", "Security")
+			return
+
+		if(istype(antag, /datum/antagonist/mindflayer))
+			var/datum/antagonist/mindflayer/brainsucker = antag
+			brainsucker.remove_all_abilities()
+			brainsucker.remove_all_passives()
+			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/mindflayer)
+			radio.autosay("<b>--ZZZT!- Excellent job, [extractor.real_name]. Proceed to -^%&!-ZZT!-</b>", "Master Flayer", "Security")
+			return
+
+		if(istype(antag, /datum/antagonist/changeling))
+			var/datum/antagonist/changeling/ling = antag
+			ling.remove_changeling_powers(FALSE)
+			var/datum/action/changeling/power = new /datum/action/changeling/transform
+			power.Grant(extractor)
+			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling)
+			radio.autosay("<b>--ZZZT!- Welcome home, [extractor.real_name]. -ZZT!-</b>", "Changeling Hive", "Security")
+			return
+
+	// Apply traits
+	ADD_TRAIT(extractor, TRAIT_PACIFISM, GHOST_ROLE)
+	ADD_TRAIT(extractor, TRAIT_RESPAWNABLE, GHOST_ROLE)

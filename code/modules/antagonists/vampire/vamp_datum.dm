@@ -24,6 +24,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 									/datum/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
 									/datum/spell/vampire/self/specialize = 150,
+									/datum/spell/vampire/self/exfiltrate = 150,
 									/datum/vampire_passive/regen = 200,
 									/datum/vampire_passive/vision/advanced = 500)
 
