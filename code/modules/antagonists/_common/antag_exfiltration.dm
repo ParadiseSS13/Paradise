@@ -124,24 +124,48 @@
 /obj/item/wormhole_jaunter/extraction/activate(mob/user)
 	if(!turf_check(user))
 		return
-	// No extraction for certian steals/hijack
+
+	// Objective checks
 	var/denied = FALSE
+	var/is_target = FALSE
+	var/has_target_objective = FALSE
 	var/objectives = user.mind.get_all_objectives()
+
+	// Check if you're the target of any other antags. If you are, using the beacon will find it jammed and turned to ash.
+	for(var/datum/objective/O in GLOB.all_objectives)
+		if(O.target != user.mind)
+			continue
+		denied = TRUE
+		is_target = TRUE
+		break
+
+	// No extraction for NAD, Plutonium core theft, or Hijack
 	for(var/datum/objective/goal in objectives)
 		if(istype(goal, /datum/objective/steal))
 			var/datum/objective/steal/theft = goal
 			if(istype(theft.steal_target, /datum/theft_objective/nukedisc) || istype(theft.steal_target, /datum/theft_objective/plutonium_core))
 				denied = TRUE
-				break
+
 		if(istype(goal, /datum/objective/hijack))
 			denied = TRUE
-			break
-	if(denied)
-		to_chat(user, "<span class='warning'>The syndicate has deemed your objectives too delicate for an early extraction.</span>")
+
+		if(istype(goal, /datum/objective/potentially_backstabbed))
+			has_target_objective = TRUE
+
+	if(denied && is_target)
+		to_chat(user, "<span class='warning'>Someone or something has jammed your extraction beacon, forcing it to disintegrate early!</span>")
+		if(!has_target_objective)
+			user.mind.add_mind_objective(/datum/objective/potentially_backstabbed, "Someone or something has jammed your extraction! Survive!")
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
+		return
+	else if(denied)
+		to_chat(user, "<span class='warning'>Your objectives are too delicate for an early extraction.</span>")
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
 		return
 
+	// Delay extractions
 	if(world.time < 60 MINUTES && delayed_extraction) // 60 minutes of no exfil
 		to_chat(user, "<span class='warning'>The exfiltration teleporter is calibrating. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
 		return
@@ -364,6 +388,7 @@
 		if(istype(antag, /datum/antagonist/traitor))
 			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
 			radio.autosay("<b>--ZZZT!- Good work, $@gent [extractor.real_name]. Return to -^%&!-ZZT!-</b>", "Syndicate Operations", "Security")
+			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Traitor")
 			return
 
 		if(istype(antag, /datum/antagonist/vampire))
@@ -371,6 +396,7 @@
 			bloodsucker.remove_all_powers()
 			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire)
 			radio.autosay("<b>--ZZZT!- Wonderfully done, [extractor.real_name]. Welcome to -^%&!-ZZT!-</b>", "Ancient Vampire", "Security")
+			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Vampire")
 			return
 
 		if(istype(antag, /datum/antagonist/mindflayer))
@@ -379,6 +405,7 @@
 			brainsucker.remove_all_passives()
 			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/mindflayer)
 			radio.autosay("<b>--ZZZT!- Excellent job, [extractor.real_name]. Proceed to -^%&!-ZZT!-</b>", "Master Flayer", "Security")
+			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Mindflayer")
 			return
 
 		if(istype(antag, /datum/antagonist/changeling))
@@ -388,19 +415,16 @@
 			power.Grant(extractor)
 			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling)
 			radio.autosay("<b>--ZZZT!- Welcome home, [extractor.real_name]. -ZZT!-</b>", "Changeling Hive", "Security")
+			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Changeling")
 			return
 
 	// Apply traits
 	ADD_TRAIT(extractor, TRAIT_PACIFISM, GHOST_ROLE)
 	ADD_TRAIT(extractor, TRAIT_RESPAWNABLE, GHOST_ROLE)
-	// Re-add job slot, reroll objectives if they were a target
+
 	if(extractor.mind)
 		if(extractor.mind.initial_account)
 			GLOB.station_money_database.delete_user_account(extractor.mind.initial_account.account_number, "NAS Trurl Financial Services", FALSE)
-		for(var/datum/objective/O in GLOB.all_objectives)
-			if(O.target != extractor.mind)
-				continue
-			O.on_target_cryo()
 
 	if(extractor.mind && extractor.mind.assigned_role)
 		// Handle job slot
