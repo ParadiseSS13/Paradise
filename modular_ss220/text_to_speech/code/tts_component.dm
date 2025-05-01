@@ -34,6 +34,7 @@
 
 /datum/component/tts_component/proc/return_tts_seed()
 	SIGNAL_HANDLER
+
 	return tts_seed
 
 /datum/component/tts_component/proc/select_tts_seed(mob/chooser, silent_target = FALSE, override = FALSE, fancy_voice_input_tgui = FALSE, list/new_traits = null)
@@ -92,16 +93,21 @@
 
 /datum/component/tts_component/proc/tts_seed_change(atom/being_changed, mob/chooser, override = FALSE, fancy_voice_input_tgui = FALSE, list/new_traits = null)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, PROC_REF(set_tts_seed), being_changed, chooser, override, fancy_voice_input_tgui, new_traits)
 
-/datum/component/tts_component/proc/set_tts_seed(atom/being_changed, mob/chooser, override = FALSE, fancy_voice_input_tgui = FALSE, list/new_traits = null)
+	INVOKE_ASYNC(src, PROC_REF(handle_tts_seed), being_changed, chooser, override, fancy_voice_input_tgui, new_traits)
+
+/datum/component/tts_component/proc/handle_tts_seed(atom/being_changed, mob/chooser, override = FALSE, fancy_voice_input_tgui = FALSE, list/new_traits = null)
 	var/datum/tts_seed/new_tts_seed = select_tts_seed(chooser = chooser, override = override, fancy_voice_input_tgui = fancy_voice_input_tgui, new_traits = new_traits)
 	if(!new_tts_seed)
 		return null
+	set_tts_seed(new_tts_seed, being_changed)
+
+/datum/component/tts_component/proc/set_tts_seed(datum/tts_seed/new_tts_seed, mob/living/carbon/user)
+	if(!istype(new_tts_seed))
+		return
 	tts_seed = new_tts_seed
-	if(iscarbon(being_changed))
-		var/mob/living/carbon/carbon = being_changed
-		carbon.dna?.tts_seed_dna = tts_seed
+	if(istype(user))
+		user.dna?.tts_seed_dna = tts_seed
 
 /datum/component/tts_component/proc/get_random_tts_seed_by_gender()
 	var/tts_gender = get_converted_tts_seed_gender()
@@ -169,7 +175,7 @@
 		if(piece == "")
 			continue
 
-		if(say_piece.speaking?.flags & INNATE) // TTS should not read emotes like "laughts"
+		if(say_piece.speaking?.flags & INNATE) // TTS should not read emotes like "laughs"
 			return ""
 
 		if(iteration_count == 1)
@@ -202,17 +208,20 @@
 
 /datum/component/tts_component/proc/atom_pre_tts_cast_mob(atom, listener, message, location, is_local, effect, traits, preSFX, postSFX)
 	SIGNAL_HANDLER
+
 	for(var/datum/multilingual_say_piece/phrase in message)
 		if(phrase.speaking?.no_tts)
 			return COMPONENT_TTS_INTERRUPT
 	return FALSE
 
 // Component usage
-
 /client/create_response_team_part_1(new_gender, new_species, role, turf/spawn_location)
 	. = ..()
 	var/mob/living/ert_member = .
-	ert_member.change_tts_seed(src.mob)
+	var/datum/component/tts_component/tts_component = ert_member?.GetComponent(/datum/component/tts_component)
+	if(tts_component)
+		var/datum/tts_seed/new_tts_seed = tts_component.get_random_tts_seed_by_gender()
+		tts_component.set_tts_seed(new_tts_seed, ert_member)
 
 /mob/living/silicon/verb/synth_change_voice()
 	set name = "Смена голоса"
