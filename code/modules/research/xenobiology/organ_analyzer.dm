@@ -25,9 +25,11 @@
 	// Are we actively taking apart an organ?
 	var/processing_organ = FALSE
 	// How long until the machine finishes?
-	var/time_to_complete
+	var/time_to_complete = 15 SECONDS
 	// How good is the machine at giving credits for our work?
 	var/reward_coeff
+
+	COOLDOWN_DECLARE(process_organ)
 
 /obj/machinery/organ_analyzer/Initialize(mapload)
 	. = ..()
@@ -85,7 +87,7 @@
 		if(processing_organ)
 			to_chat(user, "<span class='warning'>The machine is already analyzing the organ!</span>")
 		else
-			time_to_complete = world.time + 15 SECONDS
+			COOLDOWN_START(src, process_organ, time_to_complete)
 			processing_organ = TRUE
 			playsound(src, 'sound/machines/organ_analyzer.ogg', 60, FALSE)
 			update_appearance(UPDATE_OVERLAYS)
@@ -128,17 +130,15 @@
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		processing_organ = FALSE
-		time_to_complete = null
+		COOLDOWN_FINISHED(src, organ_processing)
 		update_appearance(UPDATE_OVERLAYS)
 		return
-	if(processing_organ && time_to_complete)
-		if(time_to_complete <= world.time)
-			complete_analysis()
+	if(processing_organ && COOLDOWN_FINISHED(src, recharge_time))
+		complete_analysis()
 
 /obj/machinery/organ_analyzer/proc/complete_analysis()
 	playsound(src, 'sound/machines/ping.ogg', 50, FALSE)
 	processing_organ = FALSE
-	time_to_complete = null
 
 	if(contains_organ.hidden_origin_tech)
 		handle_disk()

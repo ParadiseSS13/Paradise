@@ -12,7 +12,7 @@
 	desc = "We contort our body, allowing us to fit in and under things we normally wouldn't be able to."
 	chemical_cost = 0
 	var/cooldown = 5 MINUTES
-	var/next_activation = 0
+	COOLDOWN_DECLARE(organ_cooldown)
 
 /datum/action/changeling/contort_body/Remove(mob/M)
 	deactivate()
@@ -46,7 +46,7 @@
 	if(HAS_TRAIT(user, TRAIT_CONTORTED_BODY))
 		deactivate(user)
 		return TRUE
-	if(next_activation >= world.time)
+	if(!COOLDOWN_FINISHED(src, organ_cooldown))
 		to_chat(user, "<span class='warning'>We're too tired and sore to contort again so soon!</span>")
 		return TRUE
 	if(organ_quality == ORGAN_DAMAGED)
@@ -56,7 +56,7 @@
 	var/duration = 30 SECONDS
 	if(organ_quality == ORGAN_PRISTINE)
 		duration = 1 MINUTES
-	next_activation = world.time + cooldown
+	COOLDOWN_START(src, organ_cooldown, cooldown)
 	addtimer(CALLBACK(src, PROC_REF(deactivate), user), duration)
 	. = ..()
 

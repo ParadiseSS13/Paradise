@@ -51,7 +51,7 @@ Difficulty: Very Hard
 	score_type = COLOSSUS_SCORE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
-	deathmessage = "disintegrates, leaving a glowing core in its wake."
+	deathmessage = "flakes away into innumerable pieces with the wind. Its metallic arm graft thuds onto the surface."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
 	contains_xeno_organ = TRUE

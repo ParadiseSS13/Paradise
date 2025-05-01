@@ -213,13 +213,15 @@
 	can_paradox = TRUE
 
 /obj/item/organ/internal/heart/xenobiology/incompatible/on_life()
-	if(!next_activation || next_activation <= world.time)
-		if(prob(1))
+		if(prob(0.5))
 			if(!owner.undergoing_cardiac_arrest())
 				owner.set_heartattack(TRUE) // yeah probably shouldnt use this
-		owner.AdjustConfused(5 SECONDS)
-		owner.vomit(20)
-		next_activation = world.time + 20 SECONDS
+		if(prob(20))
+			owner.AdjustConfused(5 SECONDS)
+		if(prob(20))
+			owern.AdjustJitter(5 SECONDS)
+		if(prob(20))
+			owner.vomit(20)
 
 /obj/item/organ/internal/lungs/xenobiology/flame_sack
 	name = "Flame Sack"
@@ -487,10 +489,18 @@
 	. = ..()
 	var/atom/target = targets[1] //There is only ever one target
 	var/dist = get_dist(user.loc, target.loc)
-	if(target.z != user.z || dist > 2)
-		to_chat(user, "<span class='warning'>Thats too far away!</span>")
+	if(dist > 2) // Too far, don't bother pathfinding
+		to_chat(user, "<span class='warning'>Our target is too far for our sting!</span>")
+		revert_cast()
+		return FALSE
+	if(!length(get_path_to(user, target, max_distance = cling.sting_range, simulated_only = FALSE, skip_first = FALSE)))
+		to_chat(user, "<span class='warning'>Our sting is blocked from reaching our target!</span>")
 		revert_cast()
 		return
+	if(ismachineperson(target))
+		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
+		revert_cast()
+		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		to_chat(target, "<span class='warning'>You feel a sharp prick in your side!</span>")
@@ -1053,8 +1063,7 @@
 	. = ..()
 	if(M.mind)
 		if(M.mind.assigned_role == "Clown")
-			M.AddComponent(/datum/component/squeak)
-			owner.move_speed = -0.2
+			M.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 			to_chat(M, "<span class='userdanger'>You feel great!</span>")
 			return
 		else if(M.mind.assigned_role == "Mime")
@@ -1106,7 +1115,6 @@
 	if(M.mind)
 		if(M.mind.assigned_role == "Clown")
 			M.DeleteComponent(/datum/component/squeak)
-			M.move_speed = 0
 			to_chat(M, "<span class='userdanger'>You feel great!</span>")
 		else
 			M.RemoveElement(/datum/element/waddling)
