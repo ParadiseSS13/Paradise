@@ -173,9 +173,7 @@
 		for(var/turf/T in get_area_turfs(/area/lavaland/surface/outdoors))
 			if(istype(T, /turf/simulated/floor/)) // dont waste our time hitting walls
 				valid_targets += T
-		while(hits <= 150) //sling a bunch of rocks around the map
-			if(!valid_targets) // god forbid we run out of spots to sling rocks
-				break
+		while(hits <= 150 && length(valid_targets)) //sling a bunch of rocks around the map
 			target = pick(valid_targets)
 			new /obj/effect/temp_visual/rock_target(target)
 			hits++
