@@ -58,7 +58,7 @@ RESTRICT_TYPE(/datum/job_selector)
 
 /datum/job_selector/proc/find_job_candidates(datum/job/job, level, flag)
 	var/list/job_candidates = list()
-	for(var/datum/job_candidate/candidate in candidates)
+	for(var/datum/job_candidate/candidate as anything in candidates)
 		var/eligible = candidate.get_job_eligibility(job)
 		if(!eligible)
 			continue
@@ -78,7 +78,7 @@ RESTRICT_TYPE(/datum/job_selector)
 
 /datum/job_selector/proc/assign_random_job(datum/job_candidate/candidate)
 	Debug("assign_random_job, player: [candidate.to_string()]")
-	for(var/datum/job/job in shuffle(SSjobs.occupations))
+	for(var/datum/job/job as anything in shuffle(SSjobs.occupations))
 		if(!job)
 			continue
 
@@ -127,7 +127,7 @@ RESTRICT_TYPE(/datum/job_selector)
 
 			var/list/filtered_candidates = list()
 
-			for(var/datum/job_candidate/candidate in job_candidates)
+			for(var/datum/job_candidate/candidate as anything in job_candidates)
 				var/mob/new_player/real_player = candidates[candidate]
 				if(real_player && !real_player.client)
 					// Log-out during round-start?
@@ -191,7 +191,7 @@ RESTRICT_TYPE(/datum/job_selector)
 
 	//Holder for Triumvirate is stored in the ticker, this just processes it
 	if(SSticker)
-		for(var/datum/job/ai/A in SSjobs.occupations)
+		for(var/datum/job/ai/A as anything in SSjobs.occupations)
 			if(SSticker.triai)
 				A.spawn_positions = 3
 
@@ -210,7 +210,7 @@ RESTRICT_TYPE(/datum/job_selector)
 	// People who want to be assistants, sure, go on.
 	var/datum/job/ast = SSjobs.GetJob("Assistant")
 	var/list/assistant_candidates = find_job_candidates(ast, 3)
-	for(var/datum/job_candidate/candidate in assistant_candidates)
+	for(var/datum/job_candidate/candidate as anything in assistant_candidates)
 		assign_role(candidate, ast)
 
 	fill_head_position()
@@ -227,9 +227,9 @@ RESTRICT_TYPE(/datum/job_selector)
 		check_command_positions(level)
 
 		// Loop through all unassigned players
-		for(var/datum/job_candidate/candidate in candidates)
+		for(var/datum/job_candidate/candidate as anything in candidates)
 			// Loop through all jobs
-			for(var/datum/job/job in shuffledoccupations) // SHUFFLE ME BABY
+			for(var/datum/job/job as anything in shuffledoccupations) // SHUFFLE ME BABY
 				if(!candidate.get_job_eligibility(job))
 					continue
 
@@ -253,12 +253,12 @@ RESTRICT_TYPE(/datum/job_selector)
 
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
-	for(var/datum/job_candidate/candidate in candidates)
+	for(var/datum/job_candidate/candidate as anything in candidates)
 		if(candidate.alternate_spawn_option() == GET_RANDOM_JOB)
 			assign_random_job(candidate)
 
 	// Antags, who have to get in, come first
-	for(var/datum/job_candidate/candidate in candidates)
+	for(var/datum/job_candidate/candidate as anything in candidates)
 		if(candidate.has_special_role())
 			if(candidate.alternate_spawn_option() != BE_ASSISTANT)
 				assign_random_job(candidate)
@@ -271,7 +271,7 @@ RESTRICT_TYPE(/datum/job_selector)
 			message_admins("A player ([key_name_admin(candidate.to_string())]) is likely an antagonist, but may have failed to spawn in! Please report this to coders.")
 
 	// Then we assign what we can to everyone else.
-	for(var/datum/job_candidate/candidate in candidates)
+	for(var/datum/job_candidate/candidate as anything in candidates)
 		if(candidate.alternate_spawn_option() == BE_ASSISTANT)
 			assign_role(candidate, ast)
 		else if(candidate.alternate_spawn_option() == RETURN_TO_LOBBY)
@@ -281,7 +281,7 @@ RESTRICT_TYPE(/datum/job_selector)
 	return TRUE
 
 /datum/job_selector/proc/handle_feedback_gathering()
-	for(var/datum/job/job in SSjobs.occupations)
+	for(var/datum/job/job as anything in SSjobs.occupations)
 		var/high = 0
 		var/medium = 0
 		var/low = 0
@@ -289,7 +289,7 @@ RESTRICT_TYPE(/datum/job_selector)
 		var/banned = 0
 		var/young = 0 //account too young
 		var/disabled = FALSE //has disability rendering them ineligible
-		for(var/datum/job_candidate/candidate in candidates)
+		for(var/datum/job_candidate/candidate as anything in candidates)
 			if(candidate.is_jobbanned(job))
 				banned++
 				continue
@@ -308,7 +308,7 @@ RESTRICT_TYPE(/datum/job_selector)
 				medium++
 			else if(candidate.wants_job(job, 3))
 				low++
-			else 
+			else
 				never++ //not selected
 
 		SSblackbox.record_feedback("nested tally", "job_preferences", high, list("[job.title]", "high"))
