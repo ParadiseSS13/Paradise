@@ -43,6 +43,8 @@ RESTRICT_TYPE(/datum/job_candidate)
 	/// What, if any, special/antag role has been assigned to the candidate
 	/// ahead of job selection.
 	VAR_PRIVATE/special_role
+	/// Whether this candidate failed a head roll as an antag.
+	VAR_PRIVATE/failed_head_antag_roll_
 
 /datum/job_candidate/New()
 	active_character = new()
@@ -102,6 +104,12 @@ RESTRICT_TYPE(/datum/job_candidate)
 
 /datum/job_candidate/proc/has_special(flag)
 	return flag in be_special
+
+/datum/job_candidate/proc/failed_head_antag_roll()
+	return failed_head_antag_roll_
+
+/datum/job_candidate/proc/fail_head_antag_roll()
+	failed_head_antag_roll_ = TRUE
 
 /datum/job_candidate/proc/load_from_player(mob/new_player/player)
 	if(!istype(player))

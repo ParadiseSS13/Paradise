@@ -68,8 +68,10 @@ RESTRICT_TYPE(/datum/job_selector)
 			continue
 		if(candidate.restricted_from(job))
 			continue
-		if(job.title in SSticker.mode.single_antag_positions)
-			if(!prob(probability_of_antag_role_restriction))
+		if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
+			if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
+				Debug("find_job_candidates: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
+				candidate.fail_head_antag_roll()
 				continue
 			else
 				probability_of_antag_role_restriction /= 10
@@ -101,8 +103,10 @@ RESTRICT_TYPE(/datum/job_selector)
 		if(candidate.restricted_from(job))
 			continue
 
-		if(job.title in SSticker.mode.single_antag_positions)
-			if(!prob(probability_of_antag_role_restriction))
+		if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
+			if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
+				Debug("assign_random_job: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
+				candidate.fail_head_antag_roll()
 				continue
 			else
 				probability_of_antag_role_restriction /= 10
@@ -211,7 +215,7 @@ RESTRICT_TYPE(/datum/job_selector)
 	var/datum/job/ast = SSjobs.GetJob("Assistant")
 	var/list/assistant_candidates = find_job_candidates(ast, 3)
 	for(var/datum/job_candidate/candidate as anything in assistant_candidates)
-		assign_role(candidate, ast, step = "assign_all_roles")
+		assign_role(candidate, ast, step = "assign_all_roles/assistants")
 
 	fill_head_position()
 	fill_ai_position()
@@ -234,11 +238,12 @@ RESTRICT_TYPE(/datum/job_selector)
 					continue
 
 				if(candidate.is_incompatible_role(job))
-					Debug("assign_all_roles: incompatible with antagonist role, candidate=[candidate.UID()] job=[job]")
+					Debug("assign_all_roles: candidate=[candidate.UID()] job=[job] incompatible with antagonist role")
 					continue
-				if(job.title in SSticker.mode.single_antag_positions)
-					if(!prob(probability_of_antag_role_restriction))
-						Debug("assign_all_roles: Failed probability of getting a second antagonist position in this job, candidate=[candidate.UID()] job=[job]")
+				if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
+					if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
+						candidate.fail_head_antag_roll()
+						Debug("assign_all_roles: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
 						continue
 					else
 						probability_of_antag_role_restriction /= 10
@@ -261,9 +266,9 @@ RESTRICT_TYPE(/datum/job_selector)
 			if(candidate.alternate_spawn_option() != BE_ASSISTANT)
 				assign_random_job(candidate)
 				if(!candidate.is_assigned())
-					assign_role(candidate, ast)
+					assign_role(candidate, ast, step = "assign_all_roles/special")
 			else
-				assign_role(candidate, ast)
+				assign_role(candidate, ast, step = "assign_all_roles/antag")
 		else if(candidate.has_restricted_roles())
 			stack_trace("A player with `restricted_roles` had no `special_role`. They are likely an antagonist, but failed to spawn in.") // this can be fixed by assigning a special_role in pre_setup of the gamemode
 			message_admins("A player ([key_name_admin(candidate.get_ckey())]) is likely an antagonist, but may have failed to spawn in! Please report this to coders.")
@@ -271,7 +276,7 @@ RESTRICT_TYPE(/datum/job_selector)
 	// Then we assign what we can to everyone else.
 	for(var/datum/job_candidate/candidate as anything in candidates)
 		if(candidate.alternate_spawn_option() == BE_ASSISTANT)
-			assign_role(candidate, ast, step = "assign_all_roles")
+			assign_role(candidate, ast, step = "assign_all_roles/assistant")
 		else if(candidate.alternate_spawn_option() == RETURN_TO_LOBBY)
 			return_to_lobby(candidate)
 

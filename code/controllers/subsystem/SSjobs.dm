@@ -25,8 +25,6 @@ SUBSYSTEM_DEF(jobs)
 	var/late_arrivals_spawning = FALSE
 	/// Do we spawn people drunkenly due to the party last night?
 	var/drunken_spawning = FALSE
-	/// A list of minds that have failed to roll antagonist. Cleared when job selection finishes.
-	var/list/failed_head_antag_roll = list()
 	/// Job selector, used for roundstart and late join job assignment
 	var/datum/job_selector/job_selector
 
