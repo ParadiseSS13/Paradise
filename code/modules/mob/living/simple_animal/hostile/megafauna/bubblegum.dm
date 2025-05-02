@@ -164,9 +164,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/drop_loot()
 	if(enraged && !second_life)
 		return //The jebait chest already drops
-	. = ..()
-
-
+	return ..()
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)
 	if(second_life)
 		Shoot(A)

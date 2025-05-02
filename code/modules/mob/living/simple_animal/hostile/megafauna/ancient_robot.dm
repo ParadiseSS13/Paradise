@@ -147,7 +147,7 @@ Difficulty: Hard
 		/obj/item/stack/ore/palladium
 	)
 
-	new /obj/item/stack/sheet/mineral/abductor (spawn_location, roll("4d8")) // This is the amount of the other rare ores spawned
+	new /obj/item/stack/sheet/mineral/abductor(spawn_location, roll("4d8")) // This is the amount of the other rare ores spawned
 	for(var/ore in exquisite_ore)
 		new ore(spawn_location, rand(5, 10)) // Don't want mining to step too much on explorer's toes.
 
