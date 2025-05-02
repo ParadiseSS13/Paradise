@@ -5,13 +5,6 @@ RESTRICT_TYPE(/datum/job_selector)
 	var/list/assigned_candidates = list()
 	var/probability_of_antag_role_restriction = 100
 
-/datum/job_selector/proc/Debug(text)
-#ifdef GAME_TESTS
-	log_chat_debug(text)
-#else
-	SSjobs.Debug(text)
-#endif
-
 /datum/job_selector/proc/add_candidate(mob/new_player/player = null)
 	var/datum/job_candidate/candidate = new()
 	if(player)
@@ -32,10 +25,10 @@ RESTRICT_TYPE(/datum/job_selector)
 		candidates -= candidate
 		job.current_positions++
 		SSblackbox.record_feedback("nested tally", "manifest", 1, list(job.title, (latejoin ? "latejoin" : "roundstart")))
-		Debug("[step] candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] assigned")
+		log_chat_debug("[step] candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] assigned")
 		return TRUE
 
-	Debug("[step] candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] ineligible or unavailable")
+	log_chat_debug("[step] candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] ineligible or unavailable")
 	return FALSE
 
 /// Convenience proc for handling a single latejoin player
@@ -70,7 +63,7 @@ RESTRICT_TYPE(/datum/job_selector)
 			continue
 		if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
 			if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
-				Debug("find_job_candidates: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
+				log_chat_debug("find_job_candidates: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
 				candidate.fail_head_antag_roll()
 				continue
 			else
@@ -105,7 +98,7 @@ RESTRICT_TYPE(/datum/job_selector)
 
 		if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
 			if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
-				Debug("assign_random_job: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
+				log_chat_debug("assign_random_job: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
 				candidate.fail_head_antag_roll()
 				continue
 			else
@@ -114,7 +107,7 @@ RESTRICT_TYPE(/datum/job_selector)
 			assign_role(candidate, job, step = "assign_random_job")
 			return
 
-	Debug("assign_random_job candidate=[candidate.UID()] could not assign")
+	log_chat_debug("assign_random_job candidate=[candidate.UID()] could not assign")
 
 /// This proc is called before the level loop of assign_all_roles() and will try
 /// to select a head, ignoring ALL non-head preferences for every level until it
@@ -238,12 +231,12 @@ RESTRICT_TYPE(/datum/job_selector)
 					continue
 
 				if(candidate.is_incompatible_role(job))
-					Debug("assign_all_roles: candidate=[candidate.UID()] job=[job] incompatible with antagonist role")
+					log_chat_debug("assign_all_roles: candidate=[candidate.UID()] job=[job] incompatible with antagonist role")
 					continue
 				if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
 					if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
 						candidate.fail_head_antag_roll()
-						Debug("assign_all_roles: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
+						log_chat_debug("assign_all_roles: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
 						continue
 					else
 						probability_of_antag_role_restriction /= 10
@@ -280,7 +273,7 @@ RESTRICT_TYPE(/datum/job_selector)
 		else if(candidate.alternate_spawn_option() == RETURN_TO_LOBBY)
 			return_to_lobby(candidate)
 
-	log_debug("assign_all_roles completed in [stop_watch(watch)]s")
+	log_chat_debug("assign_all_roles completed in [stop_watch(watch)]s")
 	return TRUE
 
 /datum/job_selector/proc/handle_feedback_gathering()

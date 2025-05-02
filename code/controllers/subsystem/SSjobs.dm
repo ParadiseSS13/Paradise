@@ -14,10 +14,6 @@ SUBSYSTEM_DEF(jobs)
 	var/list/id_change_records = list() // List of all job transfer records
 	var/probability_of_antag_role_restriction = 100 // Dict probability of a job rolling an antagonist role
 	var/id_change_counter = 1
-	//Players who need jobs
-	var/list/unassigned = list()
-	//Debug info
-	var/list/job_debug = list()
 
 	///list of station departments and their associated roles and economy payments
 	var/list/station_departments = list()
@@ -58,10 +54,6 @@ SUBSYSTEM_DEF(jobs)
 
 	return 1
 
-
-/datum/controller/subsystem/jobs/proc/Debug(text)
-	job_debug.Add(text)
-
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
 	if(!length(occupations))
 		SetupOccupations()
@@ -96,7 +88,6 @@ SUBSYSTEM_DEF(jobs)
 			player.mind.special_role = null
 	occupations.Cut()
 	SetupOccupations()
-	unassigned = list()
 	return
 
 /datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)
