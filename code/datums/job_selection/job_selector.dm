@@ -54,12 +54,17 @@ RESTRICT_TYPE(/datum/job_selector)
 /datum/job_selector/proc/find_job_candidates(datum/job/job, level, flag)
 	var/list/job_candidates = list()
 	for(var/datum/job_candidate/candidate as anything in candidates)
-		var/eligible = candidate.get_job_eligibility(job)
-		if(!eligible)
+		// If the candidate doesn't want the job don't bother checking further, duh
+		if(!candidate.wants_job(job, level))
+			continue
+		if(!candidate.get_job_eligibility(job))
+			log_chat_debug("find_job_candidates: candidate=[candidate.UID()] job=[job] level=[level] ineligible")
 			continue
 		if(flag && !candidate.has_special(flag))
+			log_chat_debug("find_job_candidates: candidate=[candidate.UID()] job=[job] level=[level] missing flag=[flag]")
 			continue
 		if(candidate.restricted_from(job))
+			log_chat_debug("find_job_candidates: candidate=[candidate.UID()] job=[job] level=[level] restricted")
 			continue
 		if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
 			if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
@@ -68,9 +73,10 @@ RESTRICT_TYPE(/datum/job_selector)
 				continue
 			else
 				probability_of_antag_role_restriction /= 10
-		if(candidate.wants_job(job, level))
-			job_candidates += candidate
 
+		job_candidates += candidate
+
+	log_chat_debug("find_job_candidates: job=[job] level=[level] flag=[flag] returned [length(job_candidates)] candidates")
 	return job_candidates
 
 /datum/job_selector/proc/assign_random_job(datum/job_candidate/candidate)
@@ -118,6 +124,8 @@ RESTRICT_TYPE(/datum/job_selector)
 			var/datum/job/job = SSjobs.GetJob(command_position)
 			if(!job)
 				continue
+			if(!job.is_spawn_position_available())
+				continue
 			var/list/job_candidates = find_job_candidates(job, level)
 			if(!length(job_candidates))
 				continue
@@ -148,6 +156,8 @@ RESTRICT_TYPE(/datum/job_selector)
 	for(var/command_position in GLOB.command_positions)
 		var/datum/job/job = SSjobs.GetJob(command_position)
 		if(!job)
+			continue
+		if(!job.is_spawn_position_available())
 			continue
 		var/list/candidates = find_job_candidates(job, level)
 		if(!length(candidates))
