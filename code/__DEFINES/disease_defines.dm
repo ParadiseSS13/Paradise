@@ -29,4 +29,4 @@
 #define VIRUS_MEDIUM		"Medium"
 #define VIRUS_HARMFUL		"Harmful"
 #define VIRUS_DANGEROUS 	"Dangerous!"
-#define VIRUS_BIOHAZARD	"VIRUS_BIOHAZARD THREAT!"
+#define VIRUS_BIOHAZARD	"BIOHAZARD THREAT!"
