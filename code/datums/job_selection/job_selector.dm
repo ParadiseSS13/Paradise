@@ -159,10 +159,10 @@ RESTRICT_TYPE(/datum/job_selector)
 			continue
 		if(!job.is_spawn_position_available())
 			continue
-		var/list/candidates = find_job_candidates(job, level)
-		if(!length(candidates))
+		var/list/job_candidates = find_job_candidates(job, level)
+		if(!length(job_candidates))
 			continue
-		var/datum/job_candidate/candidate = pick(candidates)
+		var/datum/job_candidate/candidate = pick(job_candidates)
 		assign_role(candidate, job, step = "check_command_positions")
 
 /datum/job_selector/proc/fill_ai_position()
@@ -176,10 +176,10 @@ RESTRICT_TYPE(/datum/job_selector)
 
 	for(var/i = job.total_positions, i > 0, i--)
 		for(var/level = 1 to 3)
-			var/list/candidates = list()
-			candidates = find_job_candidates(job, level)
-			if(length(candidates))
-				var/mob/new_player/candidate = pick(candidates)
+			var/list/job_candidates = list()
+			job_candidates = find_job_candidates(job, level)
+			if(length(job_candidates))
+				var/mob/new_player/candidate = pick(job_candidates)
 				if(assign_role(candidate, "AI", step = "fill_ai_position"))
 					ai_selected++
 					break
@@ -228,15 +228,15 @@ RESTRICT_TYPE(/datum/job_selector)
 	// Hopefully this will add more randomness and fairness to job giving.
 
 	// Loop through all levels from high to low
-	var/list/shuffledoccupations = shuffle(SSjobs.occupations)
 	for(var/level = 1 to 3)
 		//Check the head jobs first each level
 		check_command_positions(level)
 
 		// Loop through all unassigned players
 		for(var/datum/job_candidate/candidate as anything in candidates)
-			// Loop through all jobs
-			for(var/datum/job/job as anything in shuffledoccupations) // SHUFFLE ME BABY
+			var/list/shuffledoccupations = shuffle(SSjobs.occupations)
+
+			for(var/datum/job/job as anything in shuffledoccupations)
 				if(!job.is_spawn_position_available())
 					continue
 
@@ -245,11 +245,13 @@ RESTRICT_TYPE(/datum/job_selector)
 					continue
 
 				if(!candidate.get_job_eligibility(job))
+					log_chat_debug("assign_all_roles: candidate=[candidate.UID()] job=[job] wanted but ineligible")
 					continue
 
 				if(candidate.restricted_from(job))
 					log_chat_debug("assign_all_roles: candidate=[candidate.UID()] job=[job] incompatible with antagonist role")
 					continue
+
 				if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
 					if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
 						candidate.fail_head_antag_roll()
