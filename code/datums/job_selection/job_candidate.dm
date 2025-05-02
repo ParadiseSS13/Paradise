@@ -87,9 +87,6 @@ RESTRICT_TYPE(/datum/job_candidate)
 		var/datum/job_ban/ban = jbh.job_bans[job.title]
 		return ban.reason
 
-/datum/job_candidate/proc/is_incompatible_role(datum/job/job)
-	return job.title in restricted_roles
-
 /datum/job_candidate/proc/wants_job(datum/job/job, level)
 	return active_character.GetJobDepartment(job, level) & job.flag
 

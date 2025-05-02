@@ -230,7 +230,7 @@ RESTRICT_TYPE(/datum/job_selector)
 				if(!candidate.get_job_eligibility(job))
 					continue
 
-				if(candidate.is_incompatible_role(job))
+				if(candidate.restricted_from(job))
 					log_chat_debug("assign_all_roles: candidate=[candidate.UID()] job=[job] incompatible with antagonist role")
 					continue
 				if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
