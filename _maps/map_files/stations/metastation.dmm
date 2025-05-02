@@ -31215,8 +31215,6 @@
 "cve" = (
 /obj/structure/safe/floor,
 /obj/item/stack/spacecash/c200,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel,
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/asmaint)
 "cvg" = (
@@ -40193,10 +40191,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
-"dTz" = (
-/turf/simulated/wall,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "dTW" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter{
@@ -41746,7 +41740,6 @@
 /area/station/security/permabrig)
 "eAv" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "eAL" = (
@@ -48850,11 +48843,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/surgery/primary)
-"hzI" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/turf/simulated/floor/wood,
-/area/station/maintenance/asmaint)
 "hzV" = (
 /obj/machinery/alarm/directional/east,
 /obj/structure/sink/directional/east,
@@ -50108,11 +50096,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"iaf" = (
-/obj/effect/spawner/window/reinforced/tinted/grilled,
-/obj/effect/spawner/random/fungus/probably,
-/turf/simulated/wall,
-/area/station/maintenance/asmaint)
 "iag" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -61006,7 +60989,6 @@
 /turf/space,
 /area/space/nearstation)
 "mHS" = (
-/turf/simulated/floor/plasteel,
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/asmaint)
 "mIo" = (
@@ -62888,11 +62870,6 @@
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fore)
-"nsL" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/turf/simulated/wall,
-/area/station/maintenance/asmaint)
 "ntU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -62934,9 +62911,6 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -63910,10 +63884,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
-"nQd" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/wall,
-/area/station/maintenance/asmaint)
 "nQg" = (
 /obj/machinery/photocopier,
 /obj/machinery/firealarm/directional/west,
@@ -65761,9 +65731,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "oJS" = (
-/obj/item/circuitboard/processing_node,
-/obj/item/stack/sheet/mineral/silver,
-/obj/item/stack/sheet/mineral/gold,
 /obj/structure/closet/cabinet,
 /obj/effect/spawner/random/cobweb/left/frequent,
 /obj/effect/spawner/random/maintenance,
@@ -66680,10 +66647,6 @@
 	icon_state = "white"
 	},
 /area/station/security/permabrig)
-"pco" = (
-/turf/simulated/floor/plating,
-/turf/simulated/wall,
-/area/station/maintenance/asmaint)
 "pcy" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
@@ -67528,7 +67491,6 @@
 /obj/structure/bed/dogbed/runtime{
 	name = "Var's bed"
 	},
-/turf/simulated/floor/plasteel,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "pwg" = (
@@ -70437,7 +70399,6 @@
 	},
 /area/station/science/toxins/mixing)
 "qIa" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
 /obj/item/crowbar/red{
 	pixel_y = -4;
@@ -70446,7 +70407,6 @@
 	},
 /obj/item/bedsheet/black,
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/turf/simulated/floor/plasteel,
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/asmaint)
 "qIg" = (
@@ -79560,7 +79520,6 @@
 /obj/structure/sign/poster/official/random/directional/west,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/kirbyplants/large/plant14,
-/turf/simulated/floor/plating,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "uEz" = (
@@ -79654,7 +79613,6 @@
 /area/station/science/xenobiology)
 "uFO" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "uFZ" = (
@@ -81426,9 +81384,7 @@
 /area/station/medical/storage)
 "voe" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/mineral_door/wood{
-	name = "Abandoned Bar"
-	},
+/obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden/crude,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
@@ -82148,12 +82104,10 @@
 	},
 /area/station/security/execution)
 "vGB" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/flashlight/lamp/green,
 /obj/structure/table/wood,
 /obj/effect/spawner/random/cobweb/right/rare,
 /obj/structure/sign/poster/official/work_for_a_future/directional/north,
-/turf/simulated/floor/plasteel,
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/asmaint)
 "vGR" = (
@@ -83106,10 +83060,6 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/central/east)
-"wgo" = (
-/obj/effect/spawner/window/reinforced/tinted/grilled,
-/turf/simulated/wall,
-/area/station/maintenance/asmaint)
 "wgz" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -124119,7 +124069,7 @@ cBQ
 bNG
 aZi
 oUb
-wgo
+cPc
 oJS
 pvT
 uEh
@@ -124376,11 +124326,11 @@ pMx
 bME
 emj
 kXT
-iaf
+xGF
 sWN
 uFO
 eAv
-dTz
+cPc
 aaa
 aaa
 aaa
@@ -124634,10 +124584,10 @@ iKT
 bME
 emj
 voe
-hzI
+uFO
 cve
 mHS
-dTz
+cPc
 aaa
 aaa
 aaa
@@ -124889,12 +124839,12 @@ bME
 wCN
 csW
 bME
-nQd
+cPc
 cPc
 qUW
 vGB
 qIa
-pco
+cPc
 aaa
 aaa
 bNI
@@ -125148,9 +125098,9 @@ nut
 aoz
 cPc
 ubL
-pco
-nsL
-pco
+cPc
+cPc
+cPc
 cPc
 aaa
 aaa
