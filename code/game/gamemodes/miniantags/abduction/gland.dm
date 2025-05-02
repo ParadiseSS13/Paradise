@@ -8,9 +8,18 @@
 	origin_tech = "materials=4;biotech=7;abductor=3"
 	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery) // alien glands are immune to stopping, and provide power to IPCs
 	tough = TRUE //not easily broken by combat damage
-	var/has_ongoing_effect = TRUE
-	var/processing
 
+	/// Do these organs have an repeatbale ongoing effects?
+	var/has_ongoing_effect = TRUE
+	/// Is this organs effect currently active
+	var/active
+	/// the low-end of random cooldown times between activations
+	var/cooldown_low = 300
+	/// the high-end of random cooldown times between activations
+	var/cooldown_high = 300
+	/// what time will the organ activate next
+	var/next_activation = 0
+	/// How many uses of this organ remain before it goes dormant
 	var/uses // -1 For inifinite
 
 	var/mind_control_uses = 1
@@ -70,16 +79,16 @@
 	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/on_life()
-	if(has_ongoing_effect && processing)
+	if(has_ongoing_effect && active)
 		if(!owner_check())
-			processing = FALSE
+			active = FALSE
 			return
 		if(next_activation <= world.time)
 			trigger()
 			uses--
 			next_activation  = world.time + rand(cooldown_low, cooldown_high)
 		if(!uses)
-			processing = FALSE
+			active = FALSE
 
 /obj/item/organ/internal/heart/gland/proc/trigger()
 	return

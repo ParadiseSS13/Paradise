@@ -655,7 +655,7 @@
 
 /obj/item/organ/internal/liver/xenobiology/hungry/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
-	if(/datum/mutation/grant_spell/mattereater in M.active_mutations)
+	if(is_type_in_list(/datum/mutation/grant_spell/mattereater, M.active_mutations))
 		return
 	else
 		M.AddSpell(new /datum/spell/eat)
@@ -663,7 +663,7 @@
 
 /obj/item/organ/internal/liver/xenobiology/hungry/remove(mob/living/carbon/M, special = 0)
 	. = ..()
-	if(/datum/mutation/grant_spell/mattereater in M.active_mutations)
+	if(is_type_in_list(/datum/mutation/grant_spell/mattereater, M.active_mutations))
 		return
 	else
 		M.RemoveSpell(/datum/spell/eat)
@@ -722,10 +722,12 @@
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath_tentacle_spawn"
 	layer = BELOW_MOB_LAYER
+	/// how long will it take for the tendril to enter "retract" phase
+	var/time_to_return = 0.7 SECONDS
 
 /obj/effect/temp_visual/goliath_flick/Initialize(mapload, atom/target, organ_quality, mob/user)
 	. = ..()
-	timerid = addtimer(CALLBACK(src, PROC_REF(retract), target, organ_quality, user), 7)
+	timerid = addtimer(CALLBACK(src, PROC_REF(retract), target, organ_quality, user), time_to_return)
 
 /obj/effect/temp_visual/goliath_flick/proc/retract(atom/target, organ_quality, mob/user)
 	icon_state = "Goliath_tentacle_retract"
@@ -736,7 +738,7 @@
 			playsound(M, 'sound/weapons/slap.ogg', 50, TRUE, -1, falloff_exponent = 4) // let it travel a little further
 			if(organ_quality == ORGAN_PRISTINE)
 				M.adjustBruteLoss(10)
-		else if(ismovable(target)
+		else if(ismovable(target))
 			var/atom/movable/T = target
 			if(!T.anchored)
 				var/dist = get_dist(user.loc, target.loc)
@@ -813,7 +815,7 @@
 			user.adjustFireLoss(8)
 	user.mob_light(LIGHT_COLOR_PURPLE, 3, _duration = 3)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(target))
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/kidneys/xenobiology/shivering
 	name = "Shivering Organ"
@@ -864,22 +866,19 @@
 /obj/item/organ/internal/liver/xenobiology/soupy/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
 	original_name = M.dna.species.name
-	original_own_species_blood = M.dna.species.own_species_blood
 	original_exotic_blood = M.dna.species.exotic_blood
 	original_blood_color = M.dna.species.blood_color
 	original_blood_type = M.dna.blood_type
 
 	M.dna.species.name = "Tomato Hybrid"
-	M.dna.species.own_species_blood = TRUE
 	M.dna.species.exotic_blood = "tomatojuice"
 	M.dna.species.blood_color = "#e25821"
 	M.dna.blood_type = "Tomato"
-	to_chat(owner, "<span class='userdanger'>You feel unnaturally soupy</span>")
+	to_chat(owner, "<span class='userdanger'>You feel unnaturally soupy...</span>")
 
 /obj/item/organ/internal/liver/xenobiology/soupy/remove(mob/living/carbon/human/M, special = 0)
 	. = ..()
 	M.dna.species.name = original_name
-	M.dna.species.own_species_blood = original_own_species_blood
 	M.dna.species.exotic_blood = original_exotic_blood
 	M.dna.species.blood_color = original_blood_color
 	M.dna.blood_type = original_blood_type
@@ -931,7 +930,7 @@
 /datum/spell/create_mirror/cast(list/targets, mob/user)
 	. = ..()
 	var/turf/T = get_turf(user)
-	var/obj/M = new /obj/structure/mirror/organ(T)
+	var/obj/M = new /obj/structure/mirror(T)
 	M.anchored = FALSE
 	if(quality == ORGAN_PRISTINE)
 		M.icon = 'icons/mob/lavaland/lavaland_elites.dmi'
@@ -1192,7 +1191,7 @@
 		M.emote("scream")
 		M.SetJitter(20 SECONDS)
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, makeCluwne)), 5 SECONDS)
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/proc/glorious_death(mob/living/carbon/human/M)
 	playsound(M.loc, 'sound/effects/pray.ogg', 60, extrarange = 10, falloff_exponent = 2, ignore_walls = TRUE, pressure_affected = FALSE)
@@ -1309,13 +1308,13 @@
 	var/datum/spell/shapeshift/megacarp/spell = new
 	spell.quality = organ_quality
 	M.mind.AddSpell(spell)
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/heart/xenobiology/megacarp/remove(mob/living/carbon/human/M, special)
 	if(!M.mind)
 		return
 	M.mind.RemoveSpell(/datum/spell/shapeshift/megacarp)
-	. = ..()
+	return ..()
 
 /datum/spell/shapeshift/megacarp
 	name = "Fish Form"
@@ -1342,7 +1341,7 @@
 	if(!do_after(M, 5 SECONDS, FALSE, M))
 		to_chat(M, "<span class='warning'>You lose concentration of the spell!</span>")
 		return
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/carp/xeno_organ
 	maxHealth = 100
@@ -1457,6 +1456,8 @@
 
 /obj/item/organ/internal/ears/xenobiology/sinister/remove(mob/living/carbon/M, special = 0)
 	. = ..()
+	if(!M)
+		return
 	M.RemoveSpell(/datum/spell/head_attack)
 
 /datum/spell/head_attack
@@ -1511,28 +1512,14 @@
 		if(quality == ORGAN_DAMAGED && prob(30))
 			user.adjustBruteLoss(15) // ouch!
 		user.visible_message("<span class='warning'>[src] produces a new head!</span>", "<span class='warning'>You produce a new head and send it to your target!</span>")
-		newhead = new /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology(user.loc)
-		newhead.GiveTarget(target)
-		newhead.faction = user.faction.Copy()
-		newhead.icon = null
-		newhead.name = "[user]'s head"
-		newhead.parent_spell = src
-		newhead.faction = list(user)
-		newhead.permanent_target = target
-		var/obj/item/user_head = user.get_organ("head")
-		var/obj/item/dupe_head = DuplicateObject(user_head, perfectcopy=1, sameloc=0, newloc=newhead.contents)
-		newhead.mounted_head = dupe_head
-		var/matrix/M = matrix()
-		dupe_head.transform = M
-		var/image/IM = image(dupe_head.icon, dupe_head.icon_state)
-		IM.pixel_y -= 6
-		IM.overlays = dupe_head.overlays.Copy()
-		newhead.overlays += IM
-		qdel(dupe_head)
+		newhead = new /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology(user.loc, user, target)
+		RegisterSignal(newhead, COMSIG_MOB_DEATH, PROC_REF(on_head_death))
 		revert_cast()
 
 /datum/spell/head_attack/proc/on_head_death()
+	SIGNAL_HANDLER // COMSIG_MOB_DEATH
 	cooldown_handler.start_recharge()
+	UnregisterSignal(newhead, COMSIG_MOB_DEATH)
 	QDEL_NULL(newhead)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology
@@ -1541,27 +1528,40 @@
 	health = 50
 	density = FALSE
 	melee_damage_lower = 5
-	melee_damage_upper = 5
-	var/datum/spell/head_attack/parent_spell
+	melee_damage_upper = 8
 	var/mob/living/permanent_target
-	var/obj/item/organ/external/head/mounted_head
+	var/obj/item/organ/external/head/dupe_head
 
 	COOLDOWN_DECLARE(time_to_live)
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/Initialize(mapload)
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/Initialize(mapload, mob/living/carbon/human/user, mob/living/target)
 	. = ..()
+	GiveTarget(target)
+	faction = user.faction.Copy()
+	icon = null
+	name = "[user]'s head"
+	faction = list(user)
+	permanent_target = target
+	var/obj/item/user_head = user.get_organ("head")
+	dupe_head = DuplicateObject(user_head, perfectcopy=1, sameloc=0, newloc=src.contents)
+	var/matrix/M = matrix()
+	dupe_head.transform = M
+	var/image/IM = image(dupe_head.icon, dupe_head.icon_state)
+	IM.pixel_y -= 6
+	IM.overlays = dupe_head.overlays.Copy()
+	overlays += IM
+	QDEL_NULL(dupe_head)
 	COOLDOWN_START(src, time_to_live, 30 SECONDS)
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/death()
-	if(parent_spell)
-		parent_spell.on_head_death()
-	. = ..()
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/Destroy()
+	permanent_target = null
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/Life(seconds, times_fired)
 	if(target != permanent_target)
 		src.visible_message("<span class ='notice'>With no valid targets, the head crumbles into a pile of flesh</span>")
-		parent_spell.on_head_death()
+		death()
 	if(COOLDOWN_FINISHED(src, time_to_live))
 		src.visible_message("<span class ='notice'>The head loses energy, and crumbles into a pile of flesh</span>")
-		parent_spell.on_head_death()
-	. = ..()
+		death()
+	return ..()

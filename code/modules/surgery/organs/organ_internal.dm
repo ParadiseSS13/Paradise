@@ -19,9 +19,6 @@
 	var/organ_quality = ORGAN_NORMAL
 	/// Does this organ originate from the xenobiology dissection loop?
 	var/is_xeno_organ = FALSE
-	var/cooldown_low = 300
-	var/cooldown_high = 300
-	var/next_activation = 0
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
@@ -428,9 +425,6 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
-
-/obj/item/organ/internal/proc/Start()
-	return
 
 /obj/item/organ/internal/proc/owner_check()
 	if(ishuman(owner) || iscarbon(owner))
