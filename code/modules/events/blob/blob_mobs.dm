@@ -225,7 +225,7 @@
 	"<span class='notice'>You begin closing off one of the many leaking fluid sacks in the corpse.</span>",
 	"<span class='notice'>Your work area closed up. You begin to re-open it.</span>",
 	"<span class='notice'>You close off more leaking sacks and fluid veins.</span>",
-	"<span class='notice'>This damned dissection site <b>WONT STOP CLOSING!</b></span>",
+	"<span class='notice'>This damned dissection site <b>WON'T STOP CLOSING!</b></span>",
 	"<span class='notice'>You finally get the leaking under control.</span>",
 	"<span class='notice'>You at last begin to remove something from the cadaver...</span>",
 	)

@@ -81,10 +81,10 @@
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(L.current_dissection_step > 1)
-		to_chat(user, "<span class = 'warning'>You cannot begin surgery on a patient with an open dissection site!</span>")
+		to_chat(user, "<span class='warning'>You cannot begin surgery on a patient with an open dissection site!</span>")
 		return
 	if(isalien(L)) // god why do xeno organs have to be fundamental to how they live. This is easier.
-		to_chat(user, "<span class = 'warning'>You're going to have to do a proper dissection to get anything useful from this.</span>")
+		to_chat(user, "<span class='warning'>You're going to have to do a proper dissection to get anything useful from this.</span>")
 		return
 	if(!IS_HORIZONTAL(L) && !can_start_on_stander)
 		return

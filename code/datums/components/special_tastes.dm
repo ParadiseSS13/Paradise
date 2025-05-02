@@ -1,7 +1,8 @@
 ///allows humanoids to eat arbitrary items
 /datum/component/special_tastes
 	/// associated list of item to reagents and tastes
-	var/list/obj/item/edible_items = list() // Typepath = (list(reagents = list(reagents), tastes = list(tastes)); Ex: list(/obj/item/stack/sheet/mineral/silver = list("reagents" = list("nutriment" = 5, "vitamin" = 1), "tastes" = list("metal and blood" = 1)))
+	/// Typepath = (list(reagents = list(reagents), tastes = list(tastes)); Ex: list(/obj/item/stack/sheet/mineral/silver = list("reagents" = list("nutriment" = 5, "vitamin" = 1), "tastes" = list("metal and blood" = 1)))
+	var/list/obj/item/edible_items = list() 
 
 /datum/component/special_tastes/Initialize(list/edible_items)
 	if(!length(edible_items))
@@ -16,7 +17,7 @@
 
 /// check if item is in the list of potential food
 /datum/component/special_tastes/proc/attempt_ingest(source, obj/item/attacking_item, mob/living/carbon/human/attacker)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_ATTACK_BY
 	if(parent != attacker) // only if they attack themselves with it
 		return
 	var/is_edible = FALSE

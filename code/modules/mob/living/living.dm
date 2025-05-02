@@ -925,9 +925,9 @@
 	if(user.a_intent == INTENT_HELP && stat == DEAD && contains_xeno_organ)
 		//we shouldnt allow dissections if it has open surgeries to prevent overlap
 		if(length(surgeries))
-			to_chat(user, "<span class = 'warning'>You cannot dissect [src] while it has ongoing surgeries!</span>")
+			to_chat(user, "<span class='warning'>You cannot dissect [src] while it has ongoing surgeries!</span>")
 		// we should know if the creature has already been harvested
-		if(!xeno_organ_results && istype(I.type, /obj/item/dissector))
+		if(!xeno_organ_results && istype(I, /obj/item/dissector))
 			to_chat(user, "There are no available organs to remove from [src]!")
 			return TRUE
 		var/datum/surgery_step/current_step = dissection_tool_step[current_dissection_step]
@@ -938,7 +938,7 @@
 			playsound(src, current_step.preop_sound, 50, TRUE, -1)
 			if(do_mob(user, src, current_step.time) && Adjacent(I))
 				if(prob(current_step.allowed_tools[I.type]))
-					to_chat(user, "<span class='warning>You struggle to perform the dissection properly, and will have to start the last step over!")
+					to_chat(user, "<span class='warning'>You struggle to perform the dissection properly, and will have to start the last step over!</span>")
 				current_dissection_step += 1
 				playsound(src,  current_step.success_sound, 50, TRUE, -1)
 				if(current_dissection_step > max_dissection_steps)
@@ -957,7 +957,7 @@
 		return ORGAN_PRISTINE
 	var/quality_chance = current_step.allowed_tools[I]
 	var/inverted_chance = 100 - quality_chance
-	quality_chance = quality_chance + ((inverted_chance * 0.66) * -(I.bit_efficiency_mod))
+	quality_chance += ((inverted_chance * 0.66) * -(I.bit_efficiency_mod))
 	if(prob(quality_chance / 2))
 		return ORGAN_PRISTINE
 	if(prob(quality_chance))
@@ -975,8 +975,6 @@
 			. += "<span class='notice'>You feel the next dissection step will be: [step_name.name]</span>"
 		else
 			. += "<span class='warning'>[src] looks like they have had their organs dissected!</span>"
-	else
-		return
 
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)

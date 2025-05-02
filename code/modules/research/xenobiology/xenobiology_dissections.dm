@@ -52,13 +52,13 @@
 // We dont want to keep the unidentified organ as an implantable version to skip the research phase
 /obj/item/xeno_organ
 	name = "Unidentified Mass"
-	desc = "This unusual clump of flesh, though now still, holds great potential. It will require revitalization via slime therapy to get any use out of."
+	desc = "This unusual clump of flesh, though now still, holds great potential. It will require revitalization via slime therapy to get any use out of it."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
 	origin_tech = null
-	// What does this object turn into when analyzed?
+	/// What type of object will this object turn into when analyzed?
 	var/true_organ_type = /obj/item/organ/internal/liver/xenobiology/toxic
-	//What quality will be hidden from us?
+	/// What quality will be hidden from us?
 	var/unknown_quality = ORGAN_NORMAL
 
 /obj/item/xeno_organ/Initialize(mapload)
@@ -195,11 +195,11 @@
 			owner.adjustToxLoss(-3)
 			for(var/datum/reagent/R in owner.reagents.reagent_list)
 				if(R != src)
-					owner.reagents.remove_reagent(R.id,4)
+					owner.reagents.remove_reagent(R.id, 4)
 
 /obj/item/organ/internal/heart/xenobiology/vestigial
 	name = "Vestigial Organ"
-	desc = "Whether this has ever had any function is a mystery. It certainly doesnt work in its current state."
+	desc = "Whether this has ever had any function is a mystery. It certainly doesn't work in its current state."
 	can_paradox = TRUE
 
 /obj/item/organ/internal/heart/xenobiology/vestigial/on_life()
@@ -209,7 +209,7 @@
 
 /obj/item/organ/internal/heart/xenobiology/incompatible
 	name = "Incompatible Organ"
-	desc = "This organ is largely incompatible with humanoid physiology. you might be able to get it to work, but will likely cause a host of other issues."
+	desc = "This organ is largely incompatible with humanoid physiology. You might be able to get it to work, but will likely cause a host of other issues."
 	can_paradox = TRUE
 
 /obj/item/organ/internal/heart/xenobiology/incompatible/on_life()
@@ -305,7 +305,7 @@
 
 /datum/spell/create_sinew
 	name = "Create Sinew Bands"
-	desc = "Detatch some of your sinewous bands to create a durable restraint"
+	desc = "Detach some of your sinew-ous bands to create a durable restraint"
 	action_icon = 'icons/obj/mining.dmi'
 	action_icon_state = "sinewcuff"
 	invocation_type = "none"
@@ -329,13 +329,13 @@
 		if(ORGAN_NORMAL)
 			user.put_in_hands(sinew_cuffs)
 		if(ORGAN_PRISTINE)
-			sinew_cuffs.name = "Strong sinew cuffs"
+			sinew_cuffs.name = "strong [sinew_cuffs.name]"
 			sinew_cuffs.breakouttime = 45 SECONDS
 			user.put_in_hands(sinew_cuffs)
 
 /obj/item/organ/internal/heart/xenobiology/hyperactive
 	name = "Hyperactive Organ"
-	desc = "This organ replaces it's own cells so quickly, that it appears to spread this effect to other cells around it in a rather exhaustive process."
+	desc = "This organ replaces its own cells so quickly, that it appears to spread this effect to other cells around it in a rather exhaustive process."
 	analyzer_price = 25
 	can_paradox = TRUE
 	hidden_origin_tech = TECH_BIO
@@ -370,7 +370,7 @@
 
 /obj/item/organ/internal/kidneys/xenobiology/metallic/insert(mob/living/carbon/organ_owner, special = FALSE, dont_remove_slot = FALSE)
 	. = ..()
-	var/list/edible_minerals = list(
+	var/static/list/edible_minerals = list(
 		/obj/item/stack/sheet/mineral/silver = list(
 			"reagents" = list(
 				"nutriment" = 1,
@@ -438,6 +438,7 @@
 /obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
 	ADD_TRAIT(M, TRAIT_LOUD, ORGAN_TRAIT)
+
 /obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	REMOVE_TRAIT(M, TRAIT_LOUD, ORGAN_TRAIT)
@@ -452,7 +453,7 @@
 
 /obj/item/organ/internal/appendix/xenobiology/toxin_stinger/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
-	var/datum/spell/organ_sting/spell = new
+	var/datum/spell/organ_sting/spell = new()
 	if(organ_quality == ORGAN_DAMAGED)
 		spell.base_cooldown = 8 MINUTES
 	if(terror)
@@ -476,8 +477,8 @@
 	var/cooldown = 0
 	var/terror = FALSE
 
-	selection_activated_message = "<span class='notice'>unfold your stinger from your body, ready to sting someone.</span>"
-	selection_deactivated_message = "<span class='notice'>You retract your stinger for now.</span>"
+	selection_activated_message = "<span class='notice'>We unfold our stinger from our body, ready to sting someone.</span>"
+	selection_deactivated_message = "<span class='notice'>We retract our stinger for now.</span>"
 
 /datum/spell/organ_sting/create_new_targeting(list/targets, mob/living/user)
 	. = ..()
@@ -700,7 +701,7 @@
 			playsound(M, 'sound/weapons/slap.ogg', 50, TRUE, -1, falloff_exponent = 4) // let it travel a little further
 			if(organ_quality == ORGAN_PRISTINE)
 				M.adjustBruteLoss(10)
-		else if(istype(target, /atom/movable))
+		else if(ismovable(target)
 			var/atom/movable/T = target
 			if(!T.anchored)
 				var/dist = get_dist(user.loc, target.loc)
@@ -804,7 +805,7 @@
 
 /obj/item/organ/internal/kidneys/xenobiology/shivering/on_life()
 	. = ..()
-	if(owner.get_temperature() > owner.dna.species.heat_level_1 - 40)
+	if(owner.get_temperature() > owner.dna?.species.heat_level_1 - 40)
 		switch(organ_quality)
 			if(ORGAN_DAMAGED)
 				owner.bodytemperature -= 15
@@ -817,13 +818,13 @@
 	name = "Soupy Organ"
 	desc = "This organ seems to barely keep its own form together. It also reeks of tomato sauce."
 	analyzer_price = 15
+	hidden_origin_tech = TECH_BIO
+	hidden_tech_level = 6
 	var/original_name
 	var/original_own_species_blood
 	var/original_exotic_blood
 	var/original_blood_color
 	var/original_blood_type
-	hidden_origin_tech = TECH_BIO
-	hidden_tech_level = 6
 
 /obj/item/organ/internal/liver/xenobiology/soupy/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -1013,7 +1014,7 @@
 /datum/action/innate/migo_noise/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(!COOLDOWN_FINISHED(src, migo_cooldown))
-		to_chat(user, "<span class='warning'>You cant get your noisy organ to speak again so soon!</span>")
+		to_chat(user, "<span class='warning'>You can't get your noisy organ to speak again so soon!</span>")
 		return
 	var/chosen_sound = pick(migo_sounds)
 	playsound(owner.loc, chosen_sound, 50, TRUE)
@@ -1021,7 +1022,7 @@
 
 /obj/item/organ/internal/eyes/xenobiology/receptors
 	name = "Photosensitive Receptors"
-	desc = "A set of organs receptive to light in the spectrum of- hey wait a second. Arn't these just eyes?"
+	desc = "A set of organs receptive to light in the spectrum of -- hey, wait a second. Aren't these just eyes?"
 	analyzer_price = 40
 	hidden_origin_tech = TECH_BIO
 	hidden_tech_level = 7
@@ -1035,17 +1036,18 @@
 		if(ORGAN_PRISTINE)
 			see_in_dark = 8
 			vision_flags = SEE_OBJS | SEE_TURFS // slightly better mesons
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/heart/xenobiology/paradox
 	name = "Paradoxical Organ"
-	desc = "The organ is constantly shifting and morphing, each time you look away its something new."
+	desc = "The organ is constantly shifting and morphing; each time you look away it's something new."
 	analyzer_price = 40
 	var/list/acceptable_hearts = list()
 
 /obj/item/organ/internal/heart/xenobiology/paradox/Initialize(mapload)
 	. = ..()
 	icon_state = pick("hiero1", "hiero2")
+
 /obj/item/organ/internal/heart/xenobiology/paradox/insert(mob/living/carbon/human/M, special, dont_remove_slot)
 	for(var/obj/item/organ/internal/heart/xenobiology/temp_organ as anything in subtypesof(/obj/item/organ/internal/heart/xenobiology))
 		if(temp_organ::can_paradox)
@@ -1145,7 +1147,7 @@
 	)
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)
-	if(tgui_alert(src, "This is a permanent action, guarenteeing this person will be removed from the round. Are you sure?", "Insert Cursed Bananium Heart", list("Yes", "No")) != "Yes")
+	if(tgui_alert(src, "This is a permanent action, guaranteeing this person will be removed from the round. Are you sure?", "Insert Cursed Bananium Heart", list("Yes", "No")) != "Yes")
 		return
 	if(M.mind.assigned_role == "Clown")
 		addtimer(CALLBACK(src, PROC_REF(glorious_death), M), 5 MINUTES)
@@ -1198,6 +1200,7 @@
 	analyzer_price = 80
 	hidden_origin_tech = TECH_TOXINS
 	hidden_tech_level = 7
+
 /obj/item/organ/internal/cell/xenobiology/supercharged/Initialize(mapload)
 	. = ..()
 	icon_state = pick("vetus1", "vetus2")
@@ -1270,7 +1273,7 @@
 
 /obj/item/organ/internal/heart/xenobiology/megacarp/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	if(!M.mind)
-		M.visible_message("The organ doesnt look like its going to fit right now! It refuses.")
+		M.visible_message("[src] doesn't look like it's going to fit right now! It...refuses?")
 		return
 	var/datum/spell/shapeshift/megacarp/spell = new
 	spell.quality = organ_quality
@@ -1303,8 +1306,8 @@
 		possible_shapes = list(/mob/living/simple_animal/hostile/carp/xeno_organ)
 
 /datum/spell/shapeshift/megacarp/Shapeshift(mob/living/carbon/human/M)
-	M.visible_message("<span class='danger'>[M] screams in agony as scales and fins erupt out of their flesh!</span>",
-		"<span class='dangeruser'>You begin channeling the painful transformation.</span>")
+	M.visible_message("<span class='danger'>[M] screams in agony as scales and fins erupt out of [M.p_their()] flesh!</span>",
+		"<span class='userdanger'>You begin channeling the painful transformation.</span>")
 	if(!do_after(M, 5 SECONDS, FALSE, M))
 		to_chat(M, "<span class='warning'>You lose concentration of the spell!</span>")
 		return
@@ -1466,7 +1469,7 @@
 		revert_cast()
 		return
 	if(target == user)
-		to_chat(user, "<span class='warning'>It would be a bad idea to target ourself.</span>")
+		to_chat(user, "<span class='warning'>It would be a bad idea to target ourselves.</span>")
 		revert_cast()
 		return
 	if(target.stat == DEAD)

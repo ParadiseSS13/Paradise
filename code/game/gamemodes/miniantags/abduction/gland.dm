@@ -77,7 +77,7 @@
 		if(next_activation <= world.time)
 			trigger()
 			uses--
-			next_activation  = world.time + rand(cooldown_low,cooldown_high)
+			next_activation  = world.time + rand(cooldown_low, cooldown_high)
 		if(!uses)
 			processing = FALSE
 

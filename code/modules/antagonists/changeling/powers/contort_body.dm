@@ -58,5 +58,5 @@
 		duration = 1 MINUTES
 	COOLDOWN_START(src, organ_cooldown, cooldown)
 	addtimer(CALLBACK(src, PROC_REF(deactivate), user), duration)
-	. = ..()
+	return ..()
 
