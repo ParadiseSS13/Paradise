@@ -12,7 +12,7 @@ RESTRICT_TYPE(/datum/job_selector)
 
 	candidates[candidate] = player
 
-/datum/job_selector/proc/assign_role(datum/job_candidate/candidate, datum/job/job, latejoin = FALSE, step = "Unknown")
+/datum/job_selector/proc/assign_role(datum/job_candidate/candidate, datum/job/job, latejoin = FALSE, step = "unknown_step")
 	if(!job)
 		return FALSE
 
@@ -25,10 +25,10 @@ RESTRICT_TYPE(/datum/job_selector)
 		candidates -= candidate
 		job.current_positions++
 		SSblackbox.record_feedback("nested tally", "manifest", 1, list(job.title, (latejoin ? "latejoin" : "roundstart")))
-		log_chat_debug("[step]: candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] assigned")
+		log_chat_debug("jobs/[step]: candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] assigned")
 		return TRUE
 
-	log_chat_debug("[step]: candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] ineligible or unavailable")
+	log_chat_debug("jobs/[step]: candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] ineligible or unavailable")
 	return FALSE
 
 /// Convenience proc for handling a single latejoin player
@@ -58,17 +58,17 @@ RESTRICT_TYPE(/datum/job_selector)
 		if(!candidate.wants_job(job, level))
 			continue
 		if(!candidate.get_job_eligibility(job))
-			log_chat_debug("find_job_candidates: candidate=[candidate.UID()] job=[job] level=[level] ineligible")
+			log_chat_debug("jobs/find_job_candidates: candidate=[candidate.UID()] job=[job] level=[level] ineligible")
 			continue
 		if(flag && !candidate.has_special(flag))
-			log_chat_debug("find_job_candidates: candidate=[candidate.UID()] job=[job] level=[level] missing flag=[flag]")
+			log_chat_debug("jobs/find_job_candidates: candidate=[candidate.UID()] job=[job] level=[level] missing flag=[flag]")
 			continue
 		if(candidate.restricted_from(job))
-			log_chat_debug("find_job_candidates: candidate=[candidate.UID()] job=[job] level=[level] restricted")
+			log_chat_debug("jobs/find_job_candidates: candidate=[candidate.UID()] job=[job] level=[level] restricted")
 			continue
 		if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
 			if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
-				log_chat_debug("find_job_candidates: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
+				log_chat_debug("jobs/find_job_candidates: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
 				candidate.fail_head_antag_roll()
 				continue
 			else
@@ -76,24 +76,18 @@ RESTRICT_TYPE(/datum/job_selector)
 
 		job_candidates += candidate
 
-	log_chat_debug("find_job_candidates: job=[job] level=[level] flag=[flag] returned [length(job_candidates)] candidates")
+	log_chat_debug("jobs/find_job_candidates: job=[job] level=[level] flag=[flag] returned [length(job_candidates)] candidates")
 	return job_candidates
 
 /datum/job_selector/proc/assign_random_job(datum/job_candidate/candidate)
 	for(var/datum/job/job as anything in shuffle(SSjobs.occupations))
-		if(!job)
+		if(istype(job, /datum/job/assistant)) // We don't want to give him assistant, that's boring!
 			continue
 
-		if(istype(job, SSjobs.GetJob("Assistant"))) // We don't want to give him assistant, that's boring!
+		if(job.is_command_position()) // If you want a command position, select it!
 			continue
 
-		if(job.title in GLOB.command_positions) //If you want a command position, select it!
-			continue
-
-		if(job.admin_only) // No admin positions either.
-			continue
-
-		if(job.mentor_only)
+		if(job.admin_only || job.mentor_only) // No admin/mentor-only positions either.
 			continue
 
 		if(!candidate.get_job_eligibility(job))
@@ -104,7 +98,7 @@ RESTRICT_TYPE(/datum/job_selector)
 
 		if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
 			if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
-				log_chat_debug("assign_random_job: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
+				log_chat_debug("jobs/assign_random_job: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
 				candidate.fail_head_antag_roll()
 				continue
 			else
@@ -113,7 +107,7 @@ RESTRICT_TYPE(/datum/job_selector)
 			assign_role(candidate, job, step = "assign_random_job")
 			return
 
-	log_chat_debug("assign_random_job candidate=[candidate.UID()] could not assign")
+	log_chat_debug("jobs/assign_random_job candidate=[candidate.UID()] could not assign")
 
 /// This proc is called before the level loop of assign_all_roles() and will try
 /// to select a head, ignoring ALL non-head preferences for every level until it
@@ -140,7 +134,7 @@ RESTRICT_TYPE(/datum/job_selector)
 					continue
 				filtered_candidates += candidate
 
-			if(!filtered_candidates.len)
+			if(!length(filtered_candidates))
 				continue
 
 			var/datum/job_candidate/candidate = pick(filtered_candidates)
@@ -245,17 +239,17 @@ RESTRICT_TYPE(/datum/job_selector)
 					continue
 
 				if(!candidate.get_job_eligibility(job))
-					log_chat_debug("assign_all_roles: candidate=[candidate.UID()] job=[job] wanted but ineligible")
+					log_chat_debug("jobs/assign_all_roles: candidate=[candidate.UID()] job=[job] wanted but ineligible")
 					continue
 
 				if(candidate.restricted_from(job))
-					log_chat_debug("assign_all_roles: candidate=[candidate.UID()] job=[job] incompatible with antagonist role")
+					log_chat_debug("jobs/assign_all_roles: candidate=[candidate.UID()] job=[job] incompatible with antagonist role")
 					continue
 
 				if(candidate.has_special_role() && (job.title in SSticker.mode.single_antag_positions))
 					if(candidate.failed_head_antag_roll() || !prob(probability_of_antag_role_restriction))
 						candidate.fail_head_antag_roll()
-						log_chat_debug("assign_all_roles: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
+						log_chat_debug("jobs/assign_all_roles: candidate=[candidate.UID()] job=[job] special_role=[candidate.has_special_role()] failed head antag roll")
 						continue
 					else
 						probability_of_antag_role_restriction /= 10
@@ -289,7 +283,7 @@ RESTRICT_TYPE(/datum/job_selector)
 		else if(candidate.alternate_spawn_option() == RETURN_TO_LOBBY)
 			return_to_lobby(candidate)
 
-	log_chat_debug("assign_all_roles completed in [stop_watch(watch)]s")
+	log_chat_debug("jobs/assign_all_roles completed in [stop_watch(watch)]s")
 	return TRUE
 
 /datum/job_selector/proc/handle_feedback_gathering()
