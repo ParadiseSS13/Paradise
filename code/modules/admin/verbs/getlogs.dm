@@ -4,6 +4,9 @@
 	set desc = "View/retrieve logfiles."
 	set category = "Admin"
 
+	if(!check_rights(R_ADMIN))
+		return
+
 	access_file_by_browsing_path(usr, "data/logs/")
 
 /// This proc allows download of past server logs saved within the data/logs/ folder by specifying a specific round ID.
@@ -11,6 +14,9 @@
 	set name = "Get Round Logs"
 	set desc = "View/retrieve logfiles for a given round."
 	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
 
 	var/round_id = input(usr, "Enter a round ID.", "Enter Round ID", "[GLOB.round_id]") as null|text
 	if(isnull(round_id))
