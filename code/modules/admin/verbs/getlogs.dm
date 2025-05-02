@@ -13,7 +13,7 @@
 	set category = "Admin"
 
 	var/round_id = input(usr, "Enter a round ID.", "Enter Round ID", "[GLOB.round_id]") as null|text
-	if(!round_id)
+	if(isnull(round_id))
 		return
 
 	var/round_path = "[GLOB.log_directory]/"
