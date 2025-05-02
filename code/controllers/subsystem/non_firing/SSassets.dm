@@ -37,3 +37,32 @@ SUBSYSTEM_DEF(assets)
 			continue
 
 		load_asset_datum(type)
+
+
+
+// Debug shite
+/client/proc/dump_all_assets()
+	set name = "Upload All Assets"
+	set category = "Debug"
+
+	if(ckey != "affectedarc07")
+		to_chat(usr, "This is only for the host - its a temporary verb lol")
+		return
+
+	var/datum/asset_transport/webroot/wat = new() // this stands for webroot asset transport not my confusion I swear
+
+
+	var/assets_to_process = length(SSassets.cache)
+	var/done = 0
+
+	to_chat(usr, "Starting mass asset dump - [assets_to_process] to do")
+	var/watch = start_watch()
+	for(var/key in SSassets.cache)
+		if(TICK_CHECK)
+			to_chat(usr, "Sleeping for 1 tick - [done]/[assets_to_process] done")
+			CHECK_TICK
+		var/datum/asset/A = SSassets.cache[key]
+		wat.save_asset_to_webroot(A)
+		done++
+
+	to_chat(usr, "Done within [stop_watch(watch)]s")
