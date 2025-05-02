@@ -495,7 +495,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		var/list/preserve = list()
 		if(istype(data) && data["viruses"])
 			for(var/datum/disease/A in data["viruses"])
-				preserve += A.Copy()
+				preserve += A.Copy(TRUE)
 			R.data = data.Copy()
 		if(length(preserve))
 			R.data["viruses"] = preserve
