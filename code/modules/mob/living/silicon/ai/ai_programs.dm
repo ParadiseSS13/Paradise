@@ -436,7 +436,7 @@
 		return
 	if(ismecha(target)|| isapc(target))
 		var/obj/T = target
-		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level))))
+		T.obj_integrity = min(T.max_integrity, T.obj_integrity + (T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level)))))
 	if(isrobot(target))
 		var/mob/living/silicon/robot/T = target
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
