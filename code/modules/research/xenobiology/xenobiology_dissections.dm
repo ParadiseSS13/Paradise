@@ -1078,6 +1078,7 @@
 	. = ..()
 	icon_state = pick("hiero1", "hiero2")
 
+
 /obj/item/organ/internal/heart/xenobiology/paradox/insert(mob/living/carbon/human/M, special, dont_remove_slot)
 	for(var/obj/item/organ/internal/heart/xenobiology/temp_organ as anything in subtypesof(/obj/item/organ/internal/heart/xenobiology))
 		if(temp_organ::can_paradox)
@@ -1230,6 +1231,7 @@
 	analyzer_price = 80
 	hidden_origin_tech = TECH_TOXINS
 	hidden_tech_level = 7
+
 
 /obj/item/organ/internal/cell/xenobiology/supercharged/Initialize(mapload)
 	. = ..()
