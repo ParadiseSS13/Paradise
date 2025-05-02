@@ -67,7 +67,7 @@
 /obj/machinery/organ_analyzer/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(processing_organ || contains_organ)
-		to_chat(user, "<span class='warning'>The machine cannot be opened while holding and organ!</span>")
+		to_chat(user, "<span class='warning'>The machine cannot be opened while holding an organ! Remove it first.</span>")
 		return TRUE
 	default_deconstruction_screwdriver(user, "organ_analyzer1", "organ_analyzer0", I)
 
@@ -79,7 +79,7 @@
 
 /obj/machinery/organ_analyzer/attack_hand(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You cant interact with the machine while the panel is open!</span>")
+		to_chat(user, "<span class='warning'>You can't interact with the machine while the panel is open!</span>")
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -95,10 +95,10 @@
 
 /obj/machinery/organ_analyzer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/organ/internal))
-		to_chat(user, "<span class='warning'>The machines rejects the item. It finds no possible potential in it.</span>")
+		to_chat(user, "<span class='warning'>The machines rejects [used]; it finds no possible potential in it.</span>")
 		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You cant interact with the machine while the panel is open!</span>")
+		to_chat(user, "<span class='warning'>You can't interact with the machine while the panel is open!</span>")
 		return ITEM_INTERACT_COMPLETE
 	var/obj/item/organ/internal/organ = used
 	if(organ.is_xeno_organ)
@@ -118,7 +118,7 @@
 
 /obj/machinery/organ_analyzer/AltClick(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You cant interact with the machine while the panel is open!</span>")
+		to_chat(user, "<span class='warning'>You can't interact with the machine while the panel is open!</span>")
 		return
 	if(processing_organ)
 		to_chat(user, "<span class='warning'>You cannot remove an organ currently being processed!</span>")

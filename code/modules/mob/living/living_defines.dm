@@ -138,11 +138,11 @@
 	var/list/custom_organ_states = list()
 	/// Contains the list for which paths are needed at each dissection step.
 	var/list/dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/dissect,
 	)
 	/// Contains specialty text for each dissection step.
 	var/list/dissection_text = list(

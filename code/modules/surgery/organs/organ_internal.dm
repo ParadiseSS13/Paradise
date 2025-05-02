@@ -50,7 +50,7 @@
 /obj/item/organ/internal/examine(mob/user)
 	. = ..()
 	if(is_xeno_organ)
-		. += "<span class='info'>It looks like it would replace the [slot]."
+		. += "<span class='info'>It looks like it would replace \the [slot]."
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
@@ -240,11 +240,11 @@
 		if(organ_quality < ORGAN_PRISTINE)
 			organ_quality = ORGAN_PRISTINE
 			to_chat(user, "<span class='info'>You apply the regenerative mesh to the organ. It now looks pristine!</span>")
-			name = "Pristine [name]"
+			name = "pristine [name]"
 			qdel(used)
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warnin'>This organ is already pristine!</span>")
+			to_chat(user, "<span class='warning'>This organ is already in pristine condition!</span>")
 			return ITEM_INTERACT_COMPLETE
 	. = ..()
 

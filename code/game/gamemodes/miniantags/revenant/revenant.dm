@@ -84,9 +84,9 @@
 	)
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(

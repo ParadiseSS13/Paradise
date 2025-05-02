@@ -123,7 +123,7 @@
 	var/cur_turf = get_turf(src)
 	holding_organ.forceMove(cur_turf)
 	underlays.Cut()
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/slime/update_overlays()
 	. = ..()
@@ -424,7 +424,7 @@
 			return ITEM_INTERACT_COMPLETE
 		if(trained && prob(20)) // trained slimes are more resistant to losing discipline
 			trained = 0
-			src.visible_message("<span class='warning'>[src] becomes spooked and cowers from [user]!</span>")
+			visible_message("<span class='warning'>[src] becomes spooked and cowers from [user]!</span>")
 
 /mob/living/simple_animal/slime/attacked_by(obj/item/I, mob/living/user)
 	if(..())
