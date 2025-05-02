@@ -191,7 +191,7 @@ RESTRICT_TYPE(/datum/job_selector)
 
 	//Holder for Triumvirate is stored in the ticker, this just processes it
 	if(SSticker)
-		for(var/datum/job/ai/A as anything in SSjobs.occupations)
+		for(var/datum/job/ai/A in SSjobs.occupations)
 			if(SSticker.triai)
 				A.spawn_positions = 3
 
