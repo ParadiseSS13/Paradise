@@ -62,7 +62,7 @@ RESTRICT_TYPE(/datum/job_selector)
 		var/eligible = candidate.get_job_eligibility(job)
 		if(!eligible)
 			continue
-		if(flag && !(candidate.has_special(flag)))
+		if(flag && !candidate.has_special(flag))
 			continue
 		if(candidate.restricted_from(job))
 			continue
