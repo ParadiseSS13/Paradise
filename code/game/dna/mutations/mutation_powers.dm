@@ -365,6 +365,7 @@
 	..()
 	block = GLOB.eatblock
 
+// checks with those with the hungry organ from adding/removing matter eater
 /datum/mutation/grant_spell/mattereater/activate(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -373,7 +374,6 @@
 			return
 	return 	..()
 
-// if they have a hungry organ, GONE! CURED!
 /datum/mutation/grant_spell/mattereater/deactivate(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M

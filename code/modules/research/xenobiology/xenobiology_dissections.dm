@@ -645,7 +645,7 @@
 	else
 		user.playsound_local(T, 'sound/effects/heartbeat.ogg', 50, FALSE)
 
-// If you decative a matter eater gene with this in, itll "cure" your organs hunger. doesnt work in reverse though.
+
 /obj/item/organ/internal/liver/xenobiology/hungry
 	name = "Hungry Organ"
 	desc = "This organ seems to actively attempt to dissolve and absorb anything it touches."
@@ -653,13 +653,13 @@
 	hidden_origin_tech = TECH_BIO
 	hidden_tech_level = 7
 
+// checks with those with the eat gene from adding/removing matter eater
 /obj/item/organ/internal/liver/xenobiology/hungry/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
 	if(is_type_in_list(/datum/mutation/grant_spell/mattereater, M.active_mutations))
 		return
 	else
 		M.AddSpell(new /datum/spell/eat)
-
 
 /obj/item/organ/internal/liver/xenobiology/hungry/remove(mob/living/carbon/M, special = 0)
 	. = ..()
