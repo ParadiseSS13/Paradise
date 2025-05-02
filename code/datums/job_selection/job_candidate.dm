@@ -70,9 +70,6 @@ RESTRICT_TYPE(/datum/job_candidate)
 /datum/job_candidate/proc/restricted_from(datum/job/job)
 	return job.title in restricted_roles
 
-/datum/job_candidate/proc/matches_job_priority(datum/job/job, level)
-	return (active_character.GetJobDepartment(job, level) & job.flag)
-
 /datum/job_candidate/proc/has_special_role()
 	return special_role
 

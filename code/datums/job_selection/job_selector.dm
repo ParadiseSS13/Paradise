@@ -68,7 +68,7 @@ RESTRICT_TYPE(/datum/job_selector)
 				continue
 			else
 				probability_of_antag_role_restriction /= 10
-		if(candidate.matches_job_priority(job, level))
+		if(candidate.wants_job(job, level))
 			job_candidates += candidate
 
 	return job_candidates
