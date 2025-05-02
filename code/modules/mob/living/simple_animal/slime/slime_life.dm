@@ -480,6 +480,7 @@
 		return TRUE
 	return TRUE
 
+// Handles xeno organ processing, and turns the unidentified organs into the true organ type.
 /mob/living/simple_animal/slime/proc/handle_organs()
 	if(!holding_organ)
 		return
@@ -493,8 +494,7 @@
 	var/obj/item/organ/internal/finished_organ = new holding_organ.true_organ_type(src.loc)
 	finished_organ.organ_quality = holding_organ.unknown_quality
 	finished_organ.icon_state = holding_organ.icon_state
-	if(finished_organ.organ_quality != ORGAN_NORMAL)
-		finished_organ.name = "[finished_organ.organ_quality == ORGAN_PRISTINE ? "Pristine" : finished_organ.organ_quality == ORGAN_NORMAL ? "Standard" : "Damaged"] [finished_organ.name]"
+	finished_organ.name = "[quality_to_string(finished_organ.organ_quality, FALSE)] [finished_organ.name]"
 	underlays.Cut()
 	qdel(holding_organ)
 	holding_organ = null

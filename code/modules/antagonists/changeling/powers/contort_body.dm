@@ -6,13 +6,6 @@
 	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility
-	var/organ_quality = ORGAN_NORMAL
-
-/datum/action/changeling/contort_body/xenobiology
-	desc = "We contort our body, allowing us to fit in and under things we normally wouldn't be able to."
-	chemical_cost = 0
-	var/cooldown = 5 MINUTES
-	COOLDOWN_DECLARE(organ_cooldown)
 
 /datum/action/changeling/contort_body/Remove(mob/M)
 	deactivate()
@@ -33,30 +26,9 @@
 	return TRUE
 
 /datum/action/changeling/contort_body/proc/deactivate(mob/living/user)
-	if(!HAS_TRAIT(user, TRAIT_CONTORTED_BODY))
-		return
 	REMOVE_TRAIT(user, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT)
 	UnregisterSignal(user, COMSIG_MOB_DEATH)
 	if(IS_HORIZONTAL(user))
 		user.layer = initial(user.layer)
 	to_chat(user, "<span class='notice'>Our body stiffens and returns to form.</span>")
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-
-/datum/action/changeling/contort_body/xenobiology/sting_action(mob/living/carbon/human/user)
-	if(HAS_TRAIT(user, TRAIT_CONTORTED_BODY))
-		deactivate(user)
-		return TRUE
-	if(!COOLDOWN_FINISHED(src, organ_cooldown))
-		to_chat(user, "<span class='warning'>We're too tired and sore to contort again so soon!</span>")
-		return TRUE
-	if(organ_quality == ORGAN_DAMAGED)
-		if(prob(10))
-			var/obj/item/organ/external/limb_to_break = pick(user.bodyparts)
-			limb_to_break.fracture()
-	var/duration = 30 SECONDS
-	if(organ_quality == ORGAN_PRISTINE)
-		duration = 1 MINUTES
-	COOLDOWN_START(src, organ_cooldown, cooldown)
-	addtimer(CALLBACK(src, PROC_REF(deactivate), user), duration)
-	. = ..()
-

@@ -968,6 +968,8 @@
 	. = ..()
 	if(stat != DEAD)
 		return
+	if(!user.reagent_vision())
+		return
 	if(current_dissection_step > 1)
 		. += "<span class='warning'>[src] has an ongoing dissection!</span>"
 		if(current_dissection_step <= max_dissection_steps)
