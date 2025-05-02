@@ -19,7 +19,7 @@ RESTRICT_TYPE(/datum/job_selector)
 
 	candidates[candidate] = player
 
-/datum/job_selector/proc/assign_role(datum/job_candidate/candidate, datum/job/job, latejoin = FALSE)
+/datum/job_selector/proc/assign_role(datum/job_candidate/candidate, datum/job/job, latejoin = FALSE, step = "Unknown")
 	if(!job)
 		return FALSE
 
@@ -32,8 +32,10 @@ RESTRICT_TYPE(/datum/job_selector)
 		candidates -= candidate
 		job.current_positions++
 		SSblackbox.record_feedback("nested tally", "manifest", 1, list(job.title, (latejoin ? "latejoin" : "roundstart")))
+		Debug("[step] candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] assigned")
 		return TRUE
 
+	Debug("[step] candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] ineligible or unavailable")
 	return FALSE
 
 /// Convenience proc for handling a single latejoin player
@@ -77,7 +79,6 @@ RESTRICT_TYPE(/datum/job_selector)
 	return job_candidates
 
 /datum/job_selector/proc/assign_random_job(datum/job_candidate/candidate)
-	Debug("assign_random_job, player: [candidate.to_string()]")
 	for(var/datum/job/job as anything in shuffle(SSjobs.occupations))
 		if(!job)
 			continue
@@ -106,11 +107,10 @@ RESTRICT_TYPE(/datum/job_selector)
 			else
 				probability_of_antag_role_restriction /= 10
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
-			Debug("assign_random_job given, Player: [candidate.to_string()], Job: [job]")
-			assign_role(candidate, job)
+			assign_role(candidate, job, step = "assign_random_job")
 			return
 
-	Debug("assign_random_job unavailable, Player: [candidate.to_string()]")
+	Debug("assign_random_job candidate=[candidate.UID()] could not assign")
 
 /// This proc is called before the level loop of assign_all_roles() and will try
 /// to select a head, ignoring ALL non-head preferences for every level until it
@@ -139,7 +139,7 @@ RESTRICT_TYPE(/datum/job_selector)
 				continue
 
 			var/datum/job_candidate/candidate = pick(filtered_candidates)
-			if(assign_role(candidate, job))
+			if(assign_role(candidate, job, step = "fill_head_position"))
 				return TRUE
 
 	return FALSE
@@ -156,7 +156,7 @@ RESTRICT_TYPE(/datum/job_selector)
 		if(!length(candidates))
 			continue
 		var/datum/job_candidate/candidate = pick(candidates)
-		assign_role(candidate, job)
+		assign_role(candidate, job, step = "check_command_positions")
 
 /datum/job_selector/proc/fill_ai_position()
 	if(!GLOB.configuration.jobs.allow_ai)
@@ -173,7 +173,7 @@ RESTRICT_TYPE(/datum/job_selector)
 			candidates = find_job_candidates(job, level)
 			if(length(candidates))
 				var/mob/new_player/candidate = pick(candidates)
-				if(assign_role(candidate, "AI"))
+				if(assign_role(candidate, "AI", step = "fill_ai_position"))
 					ai_selected++
 					break
 
@@ -211,7 +211,7 @@ RESTRICT_TYPE(/datum/job_selector)
 	var/datum/job/ast = SSjobs.GetJob("Assistant")
 	var/list/assistant_candidates = find_job_candidates(ast, 3)
 	for(var/datum/job_candidate/candidate as anything in assistant_candidates)
-		assign_role(candidate, ast)
+		assign_role(candidate, ast, step = "assign_all_roles")
 
 	fill_head_position()
 	fill_ai_position()
@@ -234,11 +234,11 @@ RESTRICT_TYPE(/datum/job_selector)
 					continue
 
 				if(candidate.is_incompatible_role(job))
-					Debug("assign_all_roles: incompatible with antagonist role, Player: [candidate.to_string()], Job: [job]")
+					Debug("assign_all_roles: incompatible with antagonist role, candidate=[candidate.UID()] job=[job]")
 					continue
 				if(job.title in SSticker.mode.single_antag_positions)
 					if(!prob(probability_of_antag_role_restriction))
-						Debug("assign_all_roles: Failed probability of getting a second antagonist position in this job, Player: [candidate.to_string()], Job: [job]")
+						Debug("assign_all_roles: Failed probability of getting a second antagonist position in this job, candidate=[candidate.UID()] job=[job]")
 						continue
 					else
 						probability_of_antag_role_restriction /= 10
@@ -246,9 +246,7 @@ RESTRICT_TYPE(/datum/job_selector)
 				if(candidate.wants_job(job, level))
 					// If the job isn't filled
 					if(job.is_spawn_position_available())
-						Debug("assign_all_roles: Player: [candidate.to_string()] Level: [level] Job: [job]")
-						Debug(" - Job Flag: [job.flag] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
-						assign_role(candidate, job)
+						assign_role(candidate, job, step = "assign_all_roles")
 						break
 
 	// Hand out random jobs to the people who didn't get any in the last check
@@ -268,12 +266,12 @@ RESTRICT_TYPE(/datum/job_selector)
 				assign_role(candidate, ast)
 		else if(candidate.has_restricted_roles())
 			stack_trace("A player with `restricted_roles` had no `special_role`. They are likely an antagonist, but failed to spawn in.") // this can be fixed by assigning a special_role in pre_setup of the gamemode
-			message_admins("A player ([key_name_admin(candidate.to_string())]) is likely an antagonist, but may have failed to spawn in! Please report this to coders.")
+			message_admins("A player ([key_name_admin(candidate.get_ckey())]) is likely an antagonist, but may have failed to spawn in! Please report this to coders.")
 
 	// Then we assign what we can to everyone else.
 	for(var/datum/job_candidate/candidate as anything in candidates)
 		if(candidate.alternate_spawn_option() == BE_ASSISTANT)
-			assign_role(candidate, ast)
+			assign_role(candidate, ast, step = "assign_all_roles")
 		else if(candidate.alternate_spawn_option() == RETURN_TO_LOBBY)
 			return_to_lobby(candidate)
 

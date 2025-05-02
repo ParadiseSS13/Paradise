@@ -53,8 +53,8 @@ RESTRICT_TYPE(/datum/job_candidate)
 	jbh = null
 	return ..()
 
-/datum/job_candidate/proc/to_string()
-	return real_ckey ? real_ckey : "(simulated) [active_character.real_name]"
+/datum/job_candidate/proc/get_ckey()
+	return real_ckey ? real_ckey : "(simulated) CKEY"
 
 /datum/job_candidate/proc/is_assigned()
 	return assigned_job_title != null

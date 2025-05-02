@@ -17,6 +17,8 @@
 		list(/datum/job/blueshield, /datum/job/nanotrasenrep),
 		list(/datum/job/clown, /datum/job/chaplain, /datum/job/officer),
 		list(/datum/job/chief_engineer, /datum/job/captain, /datum/job/hop),
+		list(/datum/job/qm, /datum/job/virologist, /datum/job/atmos),
+		list(/datum/job/qm, /datum/job/janitor, /datum/job/iaa),
 	)
 
 	var/high_job_preferences_per_candidate = list(
@@ -59,4 +61,4 @@
 	for(var/i = 1 to length(selector.assigned_candidates))
 		var/datum/job_candidate/candidate = selector.assigned_candidates[i]
 		var/special_role = candidate.special_role ? "(special role `[candidate.special_role]`)" : ""
-		log_chat_debug("test_job_selection: player=[i] `[candidate.to_string()]` [special_role] assigned `[candidate.assigned_job_title]`")
+		log_chat_debug("test_job_selection: player=[i] `[candidate.UID()]` [special_role] assigned `[candidate.assigned_job_title]`")
