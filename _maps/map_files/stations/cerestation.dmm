@@ -13280,11 +13280,11 @@
 	},
 /area/station/engineering/atmos/distribution)
 "bVC" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 8
-	},
 /obj/machinery/status_display{
 	pixel_x = 32
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -13458,7 +13458,7 @@
 	},
 /area/station/engineering/atmos/distribution)
 "bWf" = (
-/obj/machinery/atmospherics/unary/thermomachine/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -14802,12 +14802,6 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/processing)
-"cgF" = (
-/obj/machinery/atmospherics/pipe/manifold4w/visible,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/atmos)
 "cgK" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -22877,6 +22871,17 @@
 /obj/structure/cable,
 /turf/space,
 /area/station/engineering/solar/fore_port)
+"dtR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/atmos)
 "duc" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -24396,14 +24401,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
-"dKc" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/purple{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/atmos)
 "dKd" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating{
@@ -26582,6 +26579,7 @@
 /area/station/engineering/control)
 "elP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 8
@@ -36499,6 +36497,12 @@
 	icon_state = "darkbrownfull"
 	},
 /area/station/maintenance/starboard)
+"gKG" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/purple,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/atmos)
 "gKL" = (
 /obj/machinery/camera{
 	c_tag = "Brig Cell Block A East"
@@ -40535,6 +40539,14 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"hIL" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/atmos)
 "hIM" = (
 /obj/structure/table/wood,
 /obj/item/poster/random_contraband,
@@ -43252,6 +43264,21 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
+"inK" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/break_room/secondary)
 "inM" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -46201,6 +46228,14 @@
 "iWh" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/cere/cargo)
+"iWk" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/atmos)
 "iWm" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -49162,7 +49197,6 @@
 	},
 /area/station/turret_protected/ai)
 "jCI" = (
-/obj/machinery/economy/vending/coffee,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 9
 	},
@@ -61627,6 +61661,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellow"
@@ -62245,6 +62280,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"mwP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow";
+	dir = 8
+	},
+/area/station/engineering/break_room/secondary)
 "mwS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -66427,14 +66470,6 @@
 /obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
-"nAg" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/atmos)
 "nAt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -71606,11 +71641,11 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/starboard/south)
 "oNB" = (
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	dir = 10
-	},
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible/purple{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -73239,7 +73274,9 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80655,6 +80692,14 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
+"qSW" = (
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/atmos)
 "qTc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -91730,6 +91775,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -92534,6 +92582,7 @@
 	},
 /area/station/command/teleporter)
 "tHE" = (
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -141737,7 +141786,7 @@ lLg
 lLg
 lLg
 lLg
-lLg
+qSW
 bIi
 bUV
 bVx
@@ -141988,10 +142037,10 @@ bIi
 bIi
 lHk
 bIi
-bIi
-bNq
-nAg
-cgF
+iWk
+mZA
+dej
+dej
 qsw
 dej
 dej
@@ -142232,8 +142281,8 @@ ikt
 rYT
 lvZ
 oFk
-elP
-elP
+mwP
+mwP
 elP
 mpX
 bDR
@@ -142245,11 +142294,11 @@ rRD
 jWC
 gjQ
 rRD
-rRD
-tuC
-mZA
-gpk
+gKG
 bIi
+bIi
+bIi
+bNq
 bIi
 bIi
 vfP
@@ -142501,9 +142550,9 @@ bIn
 lZy
 oLH
 pgr
-bQs
-qMA
-dKc
+bIi
+hIL
+tuC
 mZA
 ddW
 obu
@@ -142757,9 +142806,9 @@ jps
 cOZ
 bDR
 orW
-dUB
-bIi
-bVW
+dtR
+bQs
+qMA
 lHk
 bIi
 raI
@@ -143003,9 +143052,9 @@ hki
 oyQ
 eIQ
 bDb
-bDb
-nss
-bDb
+oYd
+inK
+eTE
 irh
 bFC
 bFg
