@@ -72522,6 +72522,9 @@
 	dir = 10
 	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "rBn" = (
