@@ -429,7 +429,7 @@ SUBSYSTEM_DEF(jobs)
 
 	// Step 1: Get us a list of clients to process
 	var/list/client/clients_to_process = GLOB.clients.Copy() // This is copied so that clients joining in the middle of this dont break things
-	Debug("Starting EXP update for [length(clients_to_process)] clients. (Adding [minutes] minutes)")
+	log_debug("Starting EXP update for [length(clients_to_process)] clients. (Adding [minutes] minutes)")
 
 	var/list/datum/db_query/select_queries = list() // List of SELECT queries to mass grab EXP.
 
@@ -575,4 +575,4 @@ SUBSYSTEM_DEF(jobs)
 	SSdbcore.MassExecute(player_update_queries, TRUE, TRUE, FALSE, FALSE) // Batch execute so we can take advantage of async magic
 	SSdbcore.MassExecute(playtime_history_update_queries, TRUE, TRUE, FALSE, FALSE)
 
-	Debug("Successfully updated all EXP data in [stop_watch(start_time)]s")
+	log_debug("Successfully updated all EXP data in [stop_watch(start_time)]s")
