@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak/announce()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.major_announcement.Announce("Lethal viral pathogen detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak5.ogg')
+			GLOB.major_announcement.Announce("Lethal viral pathogen detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak_virus.ogg')
 		if(EVENT_LEVEL_MODERATE)
 			GLOB.minor_announcement.Announce("Moderate contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
 		if(EVENT_LEVEL_MUNDANE)
@@ -60,9 +60,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	if(activeFor == force_disease_time)
 		for(var/list/disease_event in GLOB.current_pending_diseases)
 			if(chosen_disease == disease_event["disease"])
-				GLOB.current_pending_diseases -= disease_event
 				for(var/mob/living/carbon/human/player in GLOB.player_list)
 					if(player.ForceContractDisease(chosen_disease, TRUE, TRUE))
+						GLOB.current_pending_diseases -= list(disease_event)
 						break
 				announceWhen = activeFor + 150
 				break
