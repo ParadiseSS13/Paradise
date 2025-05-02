@@ -29,6 +29,10 @@
 /obj/item/organ/internal/heart/gland/update_icon_state()
 	return
 
+/obj/item/organ/internal/heart/gland/proc/Start()
+	active = TRUE
+	next_activation = world.time + rand(cooldown_low,cooldown_high)
+
 /obj/item/organ/internal/heart/gland/proc/update_gland_hud()
 	if(!owner)
 		return
