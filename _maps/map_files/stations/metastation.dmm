@@ -56979,7 +56979,7 @@
 /area/station/aisat)
 "kXv" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 4
+	dir = 8
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
@@ -63682,7 +63682,7 @@
 "nLN" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 4
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
@@ -81122,10 +81122,6 @@
 /obj/item/reagent_containers/glass/bottle/ammonia,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"vkj" = (
-/turf/simulated/wall,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/solar_maintenance/aft_starboard)
 "vkF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -125355,7 +125351,7 @@ cQW
 cQW
 cQW
 xDO
-vkj
+xDO
 aaa
 aaa
 aaa
