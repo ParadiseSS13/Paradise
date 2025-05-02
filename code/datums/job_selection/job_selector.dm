@@ -25,10 +25,10 @@ RESTRICT_TYPE(/datum/job_selector)
 		candidates -= candidate
 		job.current_positions++
 		SSblackbox.record_feedback("nested tally", "manifest", 1, list(job.title, (latejoin ? "latejoin" : "roundstart")))
-		log_chat_debug("[step] candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] assigned")
+		log_chat_debug("[step]: candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] assigned")
 		return TRUE
 
-	log_chat_debug("[step] candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] ineligible or unavailable")
+	log_chat_debug("[step]: candidate=[candidate.UID()] job=[job] [latejoin ? "latejoin" : "roundstart"] ineligible or unavailable")
 	return FALSE
 
 /// Convenience proc for handling a single latejoin player
@@ -237,6 +237,13 @@ RESTRICT_TYPE(/datum/job_selector)
 		for(var/datum/job_candidate/candidate as anything in candidates)
 			// Loop through all jobs
 			for(var/datum/job/job as anything in shuffledoccupations) // SHUFFLE ME BABY
+				if(!job.is_spawn_position_available())
+					continue
+
+				// If the player wants that job on this level, then try give it to him.
+				if(!candidate.wants_job(job, level))
+					continue
+
 				if(!candidate.get_job_eligibility(job))
 					continue
 
@@ -250,12 +257,9 @@ RESTRICT_TYPE(/datum/job_selector)
 						continue
 					else
 						probability_of_antag_role_restriction /= 10
-				// If the player wants that job on this level, then try give it to him.
-				if(candidate.wants_job(job, level))
-					// If the job isn't filled
-					if(job.is_spawn_position_available())
-						assign_role(candidate, job, step = "assign_all_roles")
-						break
+
+				assign_role(candidate, job, step = "assign_all_roles")
+				break
 
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct

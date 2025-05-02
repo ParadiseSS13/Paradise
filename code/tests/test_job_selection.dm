@@ -19,6 +19,12 @@
 		list(/datum/job/chief_engineer, /datum/job/captain, /datum/job/hop),
 		list(/datum/job/qm, /datum/job/virologist, /datum/job/atmos),
 		list(/datum/job/qm, /datum/job/janitor, /datum/job/iaa),
+		list(/datum/job/judge, /datum/job/janitor),
+		list(/datum/job/officer, /datum/job/paramedic),
+		list(/datum/job/psychiatrist, /datum/job/explorer, /datum/job/cyborg),
+		list(/datum/job/nanotrasenrep, /datum/job/blueshield, /datum/job/cargo_tech),
+		list(/datum/job/iaa, /datum/job/warden, /datum/job/roboticist),
+
 	)
 
 	var/high_job_preferences_per_candidate = list(
