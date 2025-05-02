@@ -52,7 +52,7 @@ interface PanDEMICData {
   analysisTime: number;
   accumulatedError: number;
   analyzing: BooleanLike;
-  sympton_names: string[];
+  symptom_names: string[];
 }
 
 export const PanDEMIC = (props, context) => {
@@ -333,7 +333,7 @@ const sum = (values: number[]) => {
 
 const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { sympton_names, analyzing, analysisTimeDelta } = data;
+  const { symptom_names, analyzing, analysisTimeDelta } = data;
   const { baseStats, symptoms, known } = props.strain;
 
   return (
@@ -354,7 +354,7 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
                 <Table.Cell>{symptom.stealth}</Table.Cell>
               ) : (
                 <Dropdown
-                  options={sympton_names.sort((a, b) => a.localeCompare(b))}
+                  options={symptom_names.sort((a, b) => a.localeCompare(b))}
                   width="180px"
                   selected={'No Prediction'}
                   disabled={analyzing || analysisTimeDelta === -2}
