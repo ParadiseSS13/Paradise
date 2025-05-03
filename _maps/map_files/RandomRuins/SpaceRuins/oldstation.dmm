@@ -112,14 +112,12 @@
 /area/ruin/ancientstation/comm)
 "av" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/nonfunctional,
-/obj/item/paper/fluff/ruins/oldstation/damagereport,
+/obj/machinery/computer/loreconsole/oldstation/damage_report,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "aw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/nonfunctional,
-/obj/item/paper/fluff/ruins/oldstation/report,
+/obj/machinery/computer/loreconsole/oldstation/report,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "ax" = (
@@ -3502,7 +3500,7 @@
 /area/ruin/ancientstation)
 "kk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/nonfunctional{
+/obj/machinery/computer/loreconsole/oldstation/crew_awakening_report{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -3528,11 +3526,7 @@
 /area/ruin/ancientstation)
 "ko" = (
 /obj/structure/table,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/paper/fluff/ruins/oldstation,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "ks" = (
@@ -5605,6 +5599,13 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"ET" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/loreconsole{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/powered)
 "Fg" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -6252,7 +6253,6 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 8;
-	external_pressure_bound = 0;
 	autolink_id = "theta_air_out";
 	internal_pressure_bound = 4000;
 	pressure_checks = 2
@@ -9463,7 +9463,7 @@ az
 fe
 kk
 ko
-kk
+ET
 bC
 qu
 az

@@ -1039,6 +1039,7 @@
 #include "code\game\machinery\computer\depot_consoles.dm"
 #include "code\game\machinery\computer\HolodeckControl.dm"
 #include "code\game\machinery\computer\law.dm"
+#include "code\game\machinery\computer\loreconsole.dm"
 #include "code\game\machinery\computer\medical_records.dm"
 #include "code\game\machinery\computer\message_monitor.dm"
 #include "code\game\machinery\computer\Operating.dm"
