@@ -46,6 +46,7 @@
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
+	new_attack_chain = FALSE
 
 	var/obj/item/forensics/swab = null
 	///is currently scanning
@@ -178,6 +179,7 @@
 	icon_state = "microscope"
 	anchored = TRUE
 	density = TRUE
+	new_attack_chain = FALSE
 
 	var/obj/item/sample = null
 	var/report_num = FALSE
