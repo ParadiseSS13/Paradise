@@ -33006,15 +33006,19 @@
 /area/station/maintenance/medmaint)
 "cDY" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/morphine{
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/hud/health,
 /obj/machinery/camera{
 	dir = 9;
 	c_tag = "Chief Medical Officer's Office"
 	},
 /obj/machinery/newscaster/directional/east,
+/obj/item/storage/box/monkeycubes{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/glass/bottle/morphine{
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -75850,6 +75854,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/food/monkeycube,
 /turf/simulated/floor/grass/no_creep,
 /area/station/maintenance/medmaint)
 "sXZ" = (
