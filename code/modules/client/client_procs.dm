@@ -981,7 +981,7 @@
 /client/proc/generate_clickcatcher()
 	if(!void)
 		void = new()
-		screen += void
+	screen += void
 
 /client/proc/apply_clickcatcher()
 	generate_clickcatcher()
