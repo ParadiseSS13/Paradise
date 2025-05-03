@@ -8,6 +8,9 @@
 	icon_state = "borghypo"
 	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 	volume = 50
+	/// Cyborg that our module is attached to
+	var/mob/living/silicon/robot/cyborg
+	/// Amount of charge that we will deduct from cell on each successfull `refill_hypo()`
 	var/charge_cost = 50
 	/// Delay in ticks we apply before refilling our hypo
 	var/refill_delay = 2
@@ -40,10 +43,12 @@
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	. = ..()
-	refill_hypo(loc, TRUE) // start with a full hypo
+	cyborg = loc.loc // yeah..
+	refill_hypo(quick = TRUE) // start with a full hypo
 
 /obj/item/reagent_containers/borghypo/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	cyborg = null
 	return ..()
 
 /obj/item/reagent_containers/borghypo/process()
@@ -51,21 +56,21 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	if(!refill_delay) // no delay, refill it now
-		refill_hypo(loc)
+		refill_hypo(cyborg)
 		return
 	if(charge_tick < refill_delay) // not ready to refill
 		charge_tick++
 	else // ready to refill
-		refill_hypo(loc)
+		refill_hypo(cyborg)
 
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/reagent_containers/borghypo/proc/refill_hypo(mob/living/silicon/robot/user, quick = FALSE)
-	if(quick) // keep it above istype() since initialize/new are too slow to send a proper `user`
+	if(quick) // gives us a hypo full of reagents no matter what
 		for(var/reagent as anything in reagent_ids)
 			if(reagent_ids[reagent] < volume)
 				reagent_ids[reagent] = volume
 		return
-	if(user?.cell?.use(charge_cost)) // we are a robot, we have a cell and enough charge? let's refill now
+	if(istype(user) && user.cell && user.cell.use(charge_cost)) // we are a robot, we have a cell and enough charge? let's refill now
 		if(charge_tick)
 			charge_tick = 0
 		for(var/reagent as anything in reagent_ids)
@@ -75,12 +80,10 @@
 
 // whether our hypo's reagents are at max volume or not
 /obj/item/reagent_containers/borghypo/proc/should_refill()
-	var/refill = FALSE
 	for(var/reagent as anything in reagent_ids)
 		if(reagent_ids[reagent] < volume)
-			refill = TRUE
-			break
-	return refill
+			return TRUE
+	return FALSE
 
 /obj/item/reagent_containers/borghypo/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(ishuman(target))
@@ -136,13 +139,13 @@
 		penetrate_thick = TRUE
 		play_sound = FALSE
 		reagent_ids += reagent_ids_emagged
-		refill_hypo(loc, TRUE)
+		refill_hypo(quick = TRUE)
 		return
 	emagged = FALSE
 	penetrate_thick = FALSE
 	play_sound = initial(play_sound)
 	reagent_ids -= reagent_ids_emagged
-	refill_hypo(loc, TRUE)
+	refill_hypo(quick = TRUE)
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
