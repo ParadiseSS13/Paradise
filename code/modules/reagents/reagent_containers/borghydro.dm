@@ -28,7 +28,7 @@
 							"spaceacillin" = image(icon = 'icons/obj/decals.dmi', icon_state = "bio"),
 							"charcoal" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill17"),
 							"hydrocodone" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bottle19"),
-							"styptic_powder" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bandaid_brute"),
+							"styptic_powder" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bandaid2"),
 							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
 							"sal_acid" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill4"),
 							"syndicate_nanites" = image(icon = 'icons/obj/decals.dmi', icon_state = "greencross"),

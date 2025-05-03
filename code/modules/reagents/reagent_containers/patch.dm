@@ -2,8 +2,8 @@
 	name = "chemical patch"
 	desc = "A chemical patch for touch based applications."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bandaid"
-	item_state = "bandaid"
+	icon_state = "bandaid1"
+	item_state = "bandaid1"
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
 	volume = 30
@@ -56,47 +56,48 @@
 /obj/item/reagent_containers/patch/styptic
 	name = "brute patch"
 	desc = "Helps with brute injuries."
-	icon_state = "bandaid_brute"
+	icon_state = "bandaid2"
 	instant_application = TRUE
 	list_reagents = list("styptic_powder" = 30)
 
 /obj/item/reagent_containers/patch/styptic/small
 	name = "brute mini-patch"
-	icon_state = "bandaid_brute_small"
+	icon_state = "bandaid3"
 	list_reagents = list("styptic_powder" = 15)
 
 /obj/item/reagent_containers/patch/silver_sulf
 	name = "burn patch"
 	desc = "Helps with burn injuries."
-	icon_state = "bandaid_burn"
+	icon_state = "bandaid4"
 	instant_application = TRUE
 	list_reagents = list("silver_sulfadiazine" = 30)
 
 /obj/item/reagent_containers/patch/silver_sulf/small
 	name = "burn mini-patch"
-	icon_state = "bandaid_burn_small"
+	icon_state = "bandaid5"
 	list_reagents = list("silver_sulfadiazine" = 15)
 
 /obj/item/reagent_containers/patch/synthflesh
 	name = "synthflesh patch"
 	desc = "Helps with brute and burn injuries."
-	icon_state = "bandaid_med"
+	icon_state = "bandaid20"
 	instant_application = TRUE
 	list_reagents = list("synthflesh" = 10)
 
 /obj/item/reagent_containers/patch/nicotine
 	name = "nicotine patch"
 	desc = "Helps temporarily curb the cravings of nicotine dependency."
+	icon_state = "bandaid15"
 	list_reagents = list("nicotine" = 10)
 
 /obj/item/reagent_containers/patch/jestosterone
 	name = "jestosterone patch"
 	desc = "Helps with brute injuries if the affected person is a clown, otherwise inflicts various annoying effects."
-	icon_state = "bandaid_clown"
+	icon_state = "bandaid21"
 	list_reagents = list("jestosterone" = 20)
 
 /obj/item/reagent_containers/patch/perfluorodecalin
 	name = "perfluorodecalin patch"
 	desc = "Incredibly potent respiratory aid drug, may cause shortness of breath if used in large amounts."
-	icon_state = "bandaid_med"
+	icon_state = "bandaid12"
 	list_reagents = list("perfluorodecalin" = 10)
