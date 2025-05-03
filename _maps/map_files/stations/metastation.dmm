@@ -1766,8 +1766,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/structure/cable/green{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2208,17 +2208,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "arw" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/chair/office/light{
 	dir = 4
+	},
+/obj/structure/cable/green{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2440,14 +2437,8 @@
 /area/station/maintenance/starboard)
 "asK" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/structure/cable/green{
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/gravitygenerator)
@@ -3190,8 +3181,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/structure/cable/green{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
@@ -3261,9 +3252,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "awn" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -26856,6 +26844,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/cable/green{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32204,6 +32195,9 @@
 "cAI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable/green{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -39753,7 +39747,7 @@
 	network = list("SS13","Engineering")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -40594,7 +40588,7 @@
 /area/station/security/storage)
 "edy" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -52893,10 +52887,10 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/yellow,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/cable/green,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -58907,6 +58901,15 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/cable/green{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/green{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/green{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -61687,7 +61690,7 @@
 /obj/structure/table,
 /obj/item/paper/gravity_gen,
 /obj/item/pen/blue,
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -63191,10 +63194,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "nnI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/alarm/directional/south,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -63974,11 +63978,11 @@
 /area/station/hallway/primary/central/north)
 "nHi" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
+/obj/structure/cable/green{
+	icon_state = "0-4"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
+/obj/structure/cable/green{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/gravitygenerator)
@@ -70151,10 +70155,10 @@
 /area/station/engineering/equipmentstorage)
 "qqj" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable/yellow{
+/obj/effect/turf_decal/stripes/end,
+/obj/structure/cable/green{
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/plating,
 /area/station/engineering/gravitygenerator)
 "qqk" = (
@@ -73444,7 +73448,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "rHV" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -73708,9 +73712,6 @@
 /obj/effect/turf_decal/stripes/end,
 /obj/machinery/power/terminal{
 	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/gravitygenerator)
@@ -75630,6 +75631,16 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/warden)
+"sEv" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/green{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/green{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/gravitygenerator)
 "sEL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83365,7 +83376,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -84236,9 +84247,6 @@
 "wmE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
 	},
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
@@ -88213,7 +88221,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/cable/yellow{
+/obj/structure/cable/green{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -131751,7 +131759,7 @@ ann
 aoJ
 anl
 cAI
-edy
+sEv
 vTm
 iNA
 nnI
