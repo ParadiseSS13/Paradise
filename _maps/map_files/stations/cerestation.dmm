@@ -5904,7 +5904,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "aYt" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -17770,7 +17770,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "cFe" = (
 /obj/item/ashtray/glass,
 /obj/structure/table/reinforced{
@@ -39817,7 +39817,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "huw" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -39939,7 +39939,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "hvI" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes,
@@ -52582,7 +52582,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "kij" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -64305,7 +64305,7 @@
 /area/station/security/storage)
 "mMX" = (
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "mNg" = (
 /obj/structure/sign/directions/medical{
 	dir = 4;
@@ -67067,7 +67067,7 @@
 	pixel_y = 17
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "nwN" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -68931,7 +68931,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "nVx" = (
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/cigar,
@@ -70400,7 +70400,7 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "onO" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/wall,
@@ -80324,7 +80324,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "qDs" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -92743,7 +92743,7 @@
 	},
 /obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "ttB" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
@@ -102673,7 +102673,7 @@
 "vGk" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "vGl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -111694,7 +111694,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/mine/unexplored/cere/engineering)
+/area/station/hallway/primary/central/north)
 "xJf" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -145182,12 +145182,12 @@ rNK
 rNK
 xbO
 aXR
-vds
+wuZ
 vGk
 mMX
 onD
 nwJ
-vds
+wuZ
 dcl
 yhb
 bgf
@@ -145439,7 +145439,7 @@ rNK
 rNK
 xbO
 aXR
-vds
+wuZ
 aYq
 nVl
 kih
@@ -145696,7 +145696,7 @@ rNK
 rNK
 xbO
 aXR
-vds
+wuZ
 hus
 hvE
 xJe
@@ -145953,7 +145953,7 @@ rNK
 rNK
 xbO
 xbO
-vds
+wuZ
 ttr
 qDn
 mMX
@@ -146210,10 +146210,10 @@ rNK
 rNK
 aXD
 xbO
-vds
-vds
-vds
-vds
+wuZ
+wuZ
+wuZ
+wuZ
 wuZ
 wuZ
 uxO
