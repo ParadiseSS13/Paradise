@@ -72,6 +72,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	var/progress = 0
 	/// The time at which the disease last advanced
 	var/last_advancement = 0
+	/// The number of cures from the cure list required to cure a patient
+	var/cures_required = 1
 
 /*
 
@@ -323,7 +325,9 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
 		SetSpread(clamp(2 ** (properties["transmittable"] - length(symptoms)), SPREAD_BLOOD, SPREAD_AIRBORNE))
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
-		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
+		cure_chance = 20 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
+		// The amount of cures needed to cure the disease. clamped between 1 and 6 because we generate 6 possible cures
+		cures_required = clamp(round(max(properties["resistance"], 0) ** 0.64), 1, 6)
 		// 9 stage rate is twice as fast as 0 stage rate, -9 stage rate is half as fast as 0.
 		stage_prob = 4 * (1.08 ** properties["stage rate"])
 		SetSeverity(properties["severity"])
@@ -369,22 +373,37 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		else
 			severity = "Unknown"
 
+/datum/disease/advance/has_cure()
+	if(!(disease_flags & VIRUS_CURABLE))
+		return 0
 
-/datum/disease/advance/proc/CurePick(list/curelist = list())
+	var/cures_found = 0
+	for(var/C_id in cures)
+		if(C_id == "ethanol")
+			for(var/datum/reagent/consumable/ethanol/booze in affected_mob.reagents.reagent_list)
+				cures_found++
+				break
+		else if(affected_mob.reagents.has_reagent(C_id))
+			cures_found++
+
+	return cures_found >= cures_required
+
+/datum/disease/advance/proc/cure_pick(list/curelist = list())
 	var/list/options = curelist - cures
 	return pick(options)
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && length(properties))
-		var/res = properties["resistance"] - length(symptoms) / 3
 		cures = list()
 		cure_text = ""
 		cures += pick(GLOB.standard_cures)
-		if(res > 1)
-			cures += prob(50) ? CurePick(GLOB.advanced_cures) : CurePick(GLOB.plant_cures)
-		if(res > 3)
-			cures += prob(50) ? CurePick(GLOB.advanced_cures) : CurePick(GLOB.plant_cures)
+		for(var/i in 1 to 5)
+			switch(rand(1, 2))
+				if(1)
+					cures += cure_pick(GLOB.advanced_cures)
+				if(2)
+					cures += cure_pick(GLOB.plant_cures)
 		for(var/cure in cures)
 			// Get the cure name from the cure_id
 			var/datum/reagent/D = GLOB.chemical_reagents_list[cure]
