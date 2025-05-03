@@ -10,7 +10,7 @@
 	volume = 50
 	/// Cyborg that our module is attached to
 	var/mob/living/silicon/robot/cyborg
-	/// Amount of charge that we will deduct from cell on each successfull `refill_hypo()`
+	/// Amount of charge that we will deduct from cell on each successful `refill_hypo()`
 	var/charge_cost = 50
 	/// Delay in ticks we apply before refilling our hypo
 	var/refill_delay = 2
