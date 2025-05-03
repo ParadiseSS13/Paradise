@@ -173,6 +173,9 @@
 /obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
 	if(!chambered && can_shoot())
 		process_chamber()
+	return ..()
+
+/obj/item/gun/energy/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()
 	if(current_lens)
 		current_lens.damage_lens()
