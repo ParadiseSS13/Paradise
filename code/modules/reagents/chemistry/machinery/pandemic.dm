@@ -5,16 +5,17 @@
 GLOBAL_LIST_EMPTY(known_advanced_diseases)
 GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
-/obj/machinery/computer/pandemic
+/obj/machinery/pandemic
 	name = "PanD.E.M.I.C 2200"
 	desc = "Used to work with viruses."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pandemic0"
-	circuit = /obj/item/circuitboard/pandemic
 	idle_power_consumption = 20
 	resistance_flags = ACID_PROOF
+	/// The base analysis time which is later modified by samples of uniqute stages and symptom prediction
+	var/base_analaysis_time = ANALYSIS_TIME_BASE
 	/// Amount of time it would take to analyze the current disease, before guessing symptoms. -1 means either no disease or that it doesn't require analysis.
 	var/analysis_time_delta = -1
 	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis using analysis_time_delta and symptoms symptom_guesses.
@@ -37,8 +38,14 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/selected_strain_index = 1
 	var/obj/item/reagent_containers/beaker = null
 
-/obj/machinery/computer/pandemic/Initialize(mapload)
+/obj/machinery/pandemic/Initialize(mapload)
 	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/pandemic(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	RefreshParts()
+
 	GLOB.pandemics |= src
 	var/datum/symptom/S
 	symptom_list += list("No Prediction")
@@ -55,15 +62,21 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		used_calibration += list("[z]" = list())
 	update_icon()
 
-/obj/machinery/computer/pandemic/Destroy()
+/obj/machinery/pandemic/RefreshParts()
+	var/total_rating = 0
+	for(var/obj/item/stock_parts/manipulator/manip in component_parts)
+		total_rating += manip.rating
+	base_analaysis_time = ANALYSIS_TIME_BASE * (10 / (total_rating + 8))
+
+/obj/machinery/pandemic/Destroy()
 	GLOB.pandemics -= src
 	return ..()
 
-/obj/machinery/computer/pandemic/set_broken()
+/obj/machinery/pandemic/proc/set_broken()
 	stat |= BROKEN
 	update_icon()
 
-/obj/machinery/computer/pandemic/proc/GetViruses()
+/obj/machinery/pandemic/proc/GetViruses()
 	if(beaker && beaker.reagents)
 		if(length(beaker.reagents.reagent_list))
 			var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
@@ -72,12 +85,12 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 					var/list/viruses = BL.data["viruses"]
 					return viruses
 
-/obj/machinery/computer/pandemic/proc/GetVirusByIndex(index)
+/obj/machinery/pandemic/proc/GetVirusByIndex(index)
 	var/list/viruses = GetViruses()
 	if(viruses && index > 0 && index <= length(viruses))
 		return viruses[index]
 
-/obj/machinery/computer/pandemic/proc/GetResistances()
+/obj/machinery/pandemic/proc/GetResistances()
 	if(beaker && beaker.reagents)
 		if(length(beaker.reagents.reagent_list))
 			var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
@@ -86,17 +99,17 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 					var/list/resistances = BL.data["resistances"]
 					return resistances
 
-/obj/machinery/computer/pandemic/proc/GetResistancesByIndex(index)
+/obj/machinery/pandemic/proc/GetResistancesByIndex(index)
 	var/list/resistances = GetResistances()
 	if(resistances && index > 0 && index <= length(resistances))
 		return resistances[index]
 
-/obj/machinery/computer/pandemic/proc/GetVirusTypeByIndex(index)
+/obj/machinery/pandemic/proc/GetVirusTypeByIndex(index)
 	var/datum/disease/D = GetVirusByIndex(index)
 	if(D)
 		return D.GetDiseaseID()
 
-/obj/machinery/computer/pandemic/proc/replicator_cooldown(waittime)
+/obj/machinery/pandemic/proc/replicator_cooldown(waittime)
 	wait = 1
 	update_icon()
 	spawn(waittime)
@@ -104,18 +117,18 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		update_icon()
 		playsound(loc, 'sound/machines/ping.ogg', 30, 1)
 
-/obj/machinery/computer/pandemic/update_icon_state()
+/obj/machinery/pandemic/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = (beaker ? "pandemic1_b" : "pandemic0_b")
 		return
 	icon_state = "pandemic[(beaker)?"1":"0"][(has_power()) ? "" : "_nopower"]"
 
-/obj/machinery/computer/pandemic/update_overlays()
+/obj/machinery/pandemic/update_overlays()
 	. = list()
 	if(!wait)
 		. += "waitlight"
 
-/obj/machinery/computer/pandemic/proc/create_culture(name, bottle_type = "culture", cooldown = 50)
+/obj/machinery/pandemic/proc/create_culture(name, bottle_type = "culture", cooldown = 50)
 	var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
 	B.icon_state = "bottle"
 	B.scatter_atom()
@@ -124,7 +137,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	return B
 
 /// Find the time it would take to analyze the current disease before any symptom symptom_guesses are made
-/obj/machinery/computer/pandemic/proc/find_analysis_time_delta(datum/reagent/R)
+/obj/machinery/pandemic/proc/find_analysis_time_delta(datum/reagent/R)
 	var/strains = 0
 	var/stage_amount = 0
 	var/list/stages = list()
@@ -164,15 +177,19 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			stages += to_analyze.stage
 
 	var/power_level = max(stealth + resistance, 0)
-	analysis_time_delta = ANALYSIS_TIME_BASE * (1 - stage_amount / (stage_amount + clamp(power_level, 1, max_stages)))
+	// Make sure we don't runtime if empty
+	if(max_stages)
+		analysis_time_delta = base_analaysis_time * (1 - stage_amount / (stage_amount + clamp(power_level, 1, max_stages)))
+	else
+		analysis_time_delta = base_analaysis_time
 	SStgui.update_uis(src, TRUE)
 
-/obj/machinery/computer/pandemic/proc/stop_analysis()
+/obj/machinery/pandemic/proc/stop_analysis()
 	analysis_time_delta = -1
 	analyzing = FALSE
 	analyzed_ID = ""
 
-/obj/machinery/computer/pandemic/proc/analyze(disease_ID, symptoms)
+/obj/machinery/pandemic/proc/analyze(disease_ID, symptoms)
 	analyzing = TRUE
 	analyzed_ID = disease_ID
 	var/symptom_names = list()
@@ -189,10 +206,10 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		else
 			accumulated_error["[z]"] += 3 MINUTES
 	// Correct symptom symptom_guesses reduce the final analysis time by up to half of the base time.
-	analysis_time = max(0, analysis_time_delta - ANALYSIS_TIME_BASE * correct_prediction_count / (2 * length(symptoms))) + world.time
+	analysis_time = max(0, analysis_time_delta - base_analaysis_time * correct_prediction_count / (2 * length(symptoms))) + world.time
 	return
 
-/obj/machinery/computer/pandemic/proc/calibrate()
+/obj/machinery/pandemic/proc/calibrate()
 	if(!accumulated_error["[z]"])
 		return
 	var/error_reduction
@@ -212,7 +229,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	if(!accumulated_error["[z]"])
 		used_calibration["[z]"] = list()
 
-/obj/machinery/computer/pandemic/process()
+/obj/machinery/pandemic/process()
 	. = ..()
 	if(analyzing)
 		if(analysis_time_delta < 0)
@@ -226,7 +243,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			accumulated_error["[z]"] = 0
 			SStgui.update_uis(src, TRUE)
 
-/obj/machinery/computer/pandemic/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
+/obj/machinery/pandemic/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(inoperable())
@@ -365,16 +382,16 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		else
 			return FALSE
 
-/obj/machinery/computer/pandemic/ui_state(mob/user)
+/obj/machinery/pandemic/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/pandemic/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/pandemic/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PanDEMIC", name)
 		ui.open()
 
-/obj/machinery/computer/pandemic/ui_data(mob/user)
+/obj/machinery/pandemic/ui_data(mob/user)
 	var/datum/reagent/blood/Blood = null
 	if(beaker)
 		var/datum/reagents/R = beaker.reagents
@@ -407,7 +424,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 	return data
 
-/obj/machinery/computer/pandemic/ui_static_data(mob/user)
+/obj/machinery/pandemic/ui_static_data(mob/user)
 	var/list/data = list()
 	. = data
 
@@ -487,14 +504,14 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	data["resistances"] = resistances
 	data["analysis_time_delta"] = analysis_time_delta
 
-/obj/machinery/computer/pandemic/proc/eject_beaker()
+/obj/machinery/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
 	beaker = null
 	icon_state = "pandemic0"
 	selected_strain_index = 1
 
 //Prints a nice virus release form. Props to Urbanliner for the layout
-/obj/machinery/computer/pandemic/proc/print_form(datum/disease/advance/D, mob/living/user)
+/obj/machinery/pandemic/proc/print_form(datum/disease/advance/D, mob/living/user)
 	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
 		var/reason = tgui_input_text(user,"Enter a reason for the release", "Write", multiline = TRUE)
@@ -536,7 +553,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		P.name = "Releasing Virus - [D.name]"
 		printing = null
 
-/obj/machinery/computer/pandemic/proc/print_goal_orders()
+/obj/machinery/pandemic/proc/print_goal_orders()
 	if(stat & (BROKEN|NOPOWER))
 		return
 
@@ -556,18 +573,18 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	P.info = info_text.Join("")
 	P.update_icon()
 
-/obj/machinery/computer/pandemic/attack_ai(mob/user)
+/obj/machinery/pandemic/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/computer/pandemic/attack_hand(mob/user)
+/obj/machinery/pandemic/attack_hand(mob/user)
 	if(..())
 		return
 	ui_interact(user)
 
-/obj/machinery/computer/pandemic/attack_ghost(mob/user)
+/obj/machinery/pandemic/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/pandemic/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/machinery/pandemic/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
 		power_change()
 		return
@@ -597,10 +614,14 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	else
 		return ..()
 
-/obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/pandemic/screwdriver_act(mob/living/user, obj/item/I)
+	if(!default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+		return FALSE
 	if(beaker)
 		eject_beaker()
-		return TRUE
-	return ..()
+	return TRUE
+
+/obj/machinery/pandemic/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
 
 #undef ANALYSIS_TIME_BASE

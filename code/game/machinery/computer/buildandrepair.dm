@@ -185,12 +185,6 @@
 	build_path = /obj/machinery/computer/med_data
 	origin_tech = "programming=2;biotech=2"
 
-/obj/item/circuitboard/pandemic
-	board_name = "PanD.E.M.I.C. 2200"
-	icon_state = "medical"
-	build_path = /obj/machinery/computer/pandemic
-	origin_tech = "programming=2;biotech=2"
-
 /obj/item/circuitboard/scan_consolenew
 	board_name = "DNA Machine"
 	icon_state = "medical"

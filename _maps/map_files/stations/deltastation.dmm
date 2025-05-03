@@ -94582,7 +94582,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "wWX" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel{
 	dir = 8;

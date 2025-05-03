@@ -75036,7 +75036,7 @@
 	},
 /area/station/supply/break_room)
 "ptq" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

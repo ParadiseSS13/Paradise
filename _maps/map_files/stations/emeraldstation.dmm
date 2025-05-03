@@ -8600,7 +8600,7 @@
 /area/station/maintenance/dorms/port)
 "bJK" = (
 /obj/machinery/newscaster/directional/east,
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"

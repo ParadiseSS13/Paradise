@@ -994,6 +994,14 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 4)
 
+/obj/item/circuitboard/pandemic
+	board_name = "PanD.E.M.I.C. 2200"
+	icon_state = "medical"
+	board_type = "machine"
+	build_path = /obj/machinery/pandemic
+	req_components = list(/obj/item/stock_parts/manipulator = 2)
+	origin_tech = "programming=2;biotech=2"
+
 /obj/item/circuitboard/cell_charger
 	board_name = "Cell Charger"
 	icon_state = "engineering"
