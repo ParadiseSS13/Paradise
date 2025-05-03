@@ -29,9 +29,9 @@ GLOBAL_LIST_INIT(advanced_cures, list(
 ))
 
 GLOBAL_LIST_INIT(plant_cures,list(
-									"bicaridine", "kelotane", "omnizine",
-									"synaptizine", "weak_omnizine", "morphine",
-									"cbd", "thc", "nicotine" , "psilocybin"
+								"bicaridine", "kelotane", "omnizine",
+								"synaptizine", "weak_omnizine", "morphine",
+								"cbd", "thc", "nicotine" , "psilocybin"
 ))
 
 /*
@@ -384,7 +384,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		if(res > 1)
 			cures += prob(50) ? CurePick(GLOB.advanced_cures) : CurePick(GLOB.plant_cures)
 		if(res > 3)
-			cures += prob(50) ? CurePick(GLOB.plant_cures) : CurePick(GLOB.drinks)
+			cures += prob(50) ? CurePick(GLOB.advanced_cures) : CurePick(GLOB.plant_cures)
 		for(var/cure in cures)
 			// Get the cure name from the cure_id
 			var/datum/reagent/D = GLOB.chemical_reagents_list[cure]
