@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/total_rating = 0
 	for(var/obj/item/stock_parts/manipulator/manip in component_parts)
 		total_rating += manip.rating
-	base_analaysis_time = ANALYSIS_TIME_BASE * (10 / (total_rating + 8))
+	base_analaysis_time = ANALYSIS_TIME_BASE * (6 / (total_rating + 4))
 
 /obj/machinery/pandemic/Destroy()
 	GLOB.pandemics -= src
