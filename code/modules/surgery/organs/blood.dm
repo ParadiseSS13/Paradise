@@ -190,7 +190,7 @@
 
 		for(var/thing in viruses)
 			var/datum/disease/D = thing
-			blood_data["viruses"] += D.Copy(TRUE)
+			blood_data["viruses"] += D.Copy()
 
 		blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
 		if(resistances && length(resistances))

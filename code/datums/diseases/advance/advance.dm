@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
  */
 
-/datum/disease/advance/New(datum/disease/advance/to_copy, _event = FALSE, copy_stage = FALSE)
+/datum/disease/advance/New(datum/disease/advance/to_copy, _event = FALSE, copy_stage = TRUE)
 	if(!istype(to_copy))
 		to_copy = null
 	strain = "origin"
@@ -204,7 +204,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			target.resistances[id] = id
 
 // Returns the advance disease with a different reference memory.
-/datum/disease/advance/Copy(copy_stage = FALSE)
+/datum/disease/advance/Copy(copy_stage = TRUE)
 	return new /datum/disease/advance(src, 0, copy_stage)
 
 /datum/disease/advance/record_infection()
@@ -494,7 +494,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		var/list/preserve = list()
 		if(istype(data) && data["viruses"])
 			for(var/datum/disease/A in data["viruses"])
-				preserve += A.Copy(TRUE)
+				preserve += A.Copy()
 			R.data = data.Copy()
 		if(length(preserve))
 			R.data["viruses"] = preserve

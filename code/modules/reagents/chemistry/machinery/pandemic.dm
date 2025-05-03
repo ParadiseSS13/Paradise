@@ -254,7 +254,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			if(!ispath(type))
 				var/datum/disease/advance/A = virus
 				if(istype(A))
-					D = A.Copy(copy_stage = TRUE)
+					D = A.Copy()
 			else if(type)
 				if(type in GLOB.diseases) // Make sure this is a disease
 					D = new type(0, null)
