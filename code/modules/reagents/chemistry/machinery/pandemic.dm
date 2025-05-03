@@ -230,7 +230,6 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		used_calibration["[z]"] = list()
 
 /obj/machinery/pandemic/process()
-	. = ..()
 	if(analyzing)
 		if(analysis_time_delta < 0)
 			analyzing = FALSE
