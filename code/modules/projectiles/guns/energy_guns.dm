@@ -173,9 +173,9 @@
 /obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
 	if(!chambered && can_shoot())
 		process_chamber()
+	..()
 	if(current_lens)
 		current_lens.damage_lens()
-	return ..()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	select++
