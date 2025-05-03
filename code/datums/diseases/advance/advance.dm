@@ -282,9 +282,6 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(new_strain)
 		strain = "adv_[num2text(GLOB.next_unique_strain++, 8)]"
 		evolution_chance = EVOLUTION_CHANCE
-	// Reset evolution chance to the base value, unless zeroed by stabilizing agar
-	if(evolution_chance)
-		evolution_chance = EVOLUTION_CHANCE
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties, new_cure)
 	id = null
@@ -330,7 +327,9 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		// 9 stage rate is twice as fast as 0 stage rate, -9 stage rate is half as fast as 0.
 		stage_prob = 4 * (1.08 ** properties["stage rate"])
 		SetSeverity(properties["severity"])
-		evolution_chance = EVOLUTION_CHANCE * (1 + sqrtor0(properties["stage rate"]) / 6)
+		// Calculate evolution chance, unless stabilized with stabilizing agar
+		if(evolution_chance)
+			evolution_chance = EVOLUTION_CHANCE * (1 + sqrtor0(properties["stage rate"]) / 6)
 		if(new_cure)
 			GenerateCure(properties)
 	else
