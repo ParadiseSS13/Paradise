@@ -145,7 +145,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid
 	name = "repair droid"
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
-	icon_state = "repair_droid"
+	icon_state = "repair_droid_item"
 	origin_tech ="magnets=3;programming=3;engineering=4"
 	equip_cooldown = 20
 	energy_drain = 50
@@ -163,7 +163,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/attach(obj/mecha/M)
 	..()
-	droid_overlay = new(icon, icon_state = "repair_droid_icon")
+	droid_overlay = new(icon, icon_state = "repair_droid_off")
 	M.overlays += droid_overlay
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach()
@@ -183,12 +183,12 @@
 		chassis.overlays -= droid_overlay
 		if(equip_ready)
 			START_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid_a")
+			droid_overlay = new(icon, icon_state = "repair_droid_on")
 			log_message("Activated.")
 			set_ready_state(0)
 		else
 			STOP_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid")
+			droid_overlay = new(icon, icon_state = "repair_droid_off")
 			log_message("Deactivated.")
 			set_ready_state(1)
 		chassis.overlays += droid_overlay
@@ -223,7 +223,7 @@
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(1)
 		chassis.overlays -= droid_overlay
-		droid_overlay = new(icon, icon_state = "repair_droid")
+		droid_overlay = new(icon, icon_state = "repair_droid_off")
 		chassis.overlays += droid_overlay
 
 /////////////////////////////////// TESLA ENERGY RELAY ////////////////////////////////////////////////
