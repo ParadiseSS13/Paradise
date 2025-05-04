@@ -162,6 +162,10 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		CRASH("We do not have any symptoms during stage_act()!")
 	return TRUE
 
+/datum/disease/advance/spread(force_spread)
+	if(carrier || force_spread || prob(40 + progress))
+		return ..()
+
 /datum/disease/advance/handle_stage_advance(has_cure = FALSE)
 	if(!has_cure && (prob(stage_prob) || world.time > last_advancement + 1000))
 		last_advancement = world.time
