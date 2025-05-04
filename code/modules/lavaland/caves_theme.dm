@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	var/perlin_upper_range = 0.3
 
 	var/fauna_scan_range = 12
-	var/megafauna_scan_range =7
+	var/megafauna_scan_range = 16
 
 /datum/caves_theme/New()
 	seed = rand(1, 999999)
@@ -84,11 +84,6 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	perlin_lower_range = 0
 	perlin_upper_range = 0.3
 
-/datum/caves_theme/burrows/New()
-	. = ..()
-	fauna_scan_range = rand(4, 7)
-	megafauna_scan_range = rand(4, 7)
-
 /datum/caves_theme/burrows/on_change(turf/T)
 	if(prob(7))
 		new /obj/structure/flora/ash/rock/style_random(T)
@@ -96,6 +91,11 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 		lavaland_caves_spawn_flora(T)
 	else if(prob(1))
 		new /obj/effect/spawner/random/lavaland_fauna(T)
+
+/datum/caves_theme/deeprock/New()
+	. = ..()
+	fauna_scan_range = rand(4, 7)
+	megafauna_scan_range = rand(8, 16)
 
 /datum/caves_theme/deeprock/proc/maybe_make_room(turf/T)
 	if(rand(1, 150) != 1)
