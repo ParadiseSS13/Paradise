@@ -98,7 +98,7 @@
 	for(var/obj/effect/landmark/ruin/ruin_landmark in GLOB.ruin_landmarks)
 		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
 		// avoid spawning a megafauna if it's too close to a ghost spawn ruin
-		if(template.safe)
+		if(template.megafauna_safe_range)
 			// largest axis halved + the ruin scan range
 			var/exclusion_distance = (template.width > template.height ? template.width : template.height * 0.5) + ghost_ruin_scan_range
 			if(get_dist(T, ruin_landmark) < exclusion_distance)
