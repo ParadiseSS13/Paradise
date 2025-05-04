@@ -30,6 +30,9 @@ const hotKeysAcquired = [
 // State of passed-through keys.
 const keyState: Record<string, boolean> = {};
 
+// Custom listeners for key events
+const keyListeners: ((key: KeyEvent) => void)[] = [];
+
 /**
  * Converts a browser keycode to BYOND keycode.
  */
@@ -177,7 +180,20 @@ export const setupHotKeys = () => {
   globalEvents.on('window-blur', () => {
     releaseHeldKeys();
   });
-  globalEvents.on('key', (key: KeyEvent) => {
-    handlePassthrough(key);
-  });
+  startKeyPassthrough();
+};
+
+export const startKeyPassthrough = () => {
+  globalEvents.on('key', keyEvent);
+};
+
+export const stopKeyPassthrough = () => {
+  globalEvents.off('key', keyEvent);
+};
+
+const keyEvent = (key: KeyEvent) => {
+  for (const keyListener of keyListeners) {
+    keyListener(key);
+  }
+  handlePassthrough(key);
 };
