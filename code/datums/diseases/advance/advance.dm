@@ -1,6 +1,6 @@
 /// Evoltion chance each cycle in percents.
 /// The base chance in % that a virus will mutate as it spreads. Further modified by stage speed and the viral evolutionary acceleration trait
-#define EVOLUTION_CHANCE (3)
+#define EVOLUTION_CHANCE (2)
 
 /*
 
@@ -221,7 +221,12 @@ GLOBAL_LIST_INIT(plant_cures,list(
 // Mix the symptoms of two diseases (the src and the argument)
 /datum/disease/advance/proc/Mix(datum/disease/advance/D)
 	if(!(IsSame(D)))
-		var/list/possible_symptoms = shuffle(D.symptoms)
+		var/list/possible_symptoms = list()
+		// Wild viruses are less predictable when mixed
+		if(D.event || event)
+			possible_symptoms = shuffle(D.symptoms + D.GenerateSymptoms(1, 6, 3))
+		else
+			possible_symptoms = shuffle(D.symptoms)
 		for(var/datum/symptom/S in possible_symptoms)
 			AddSymptom(new S.type)
 
