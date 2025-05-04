@@ -31,6 +31,7 @@
 	. = ..()
 	if(working_component)
 		. += "<span class='notice'>You can activate the machine with your hand, or remove the component by alt-clicking.</span>"
+		. += "<span class='notice'>There is currently a [working_component] in [src].</span>"
 
 /obj/machinery/smithing/power_change()
 	if(!..())
@@ -51,13 +52,15 @@
 		return FINISH_ATTACK
 
 	if(istype(used, /obj/item/smithed_item/component))
-		if(working_component)
-			to_chat(user, "<span class='warning'>There is already a component in the machine!</span>")
-			return ITEM_INTERACT_COMPLETE
-
 		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
 			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
 			return ITEM_INTERACT_COMPLETE
+
+		if(working_component)
+			user.put_in_active_hand(working_component)
+			to_chat(user, "<span class='notice'>You swap [used] with [working_component] in [src].</span>")
+		else
+			to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 
 		working_component = used
 		return ITEM_INTERACT_COMPLETE

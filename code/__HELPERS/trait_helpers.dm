@@ -130,6 +130,9 @@
 #define HAS_MIND_TRAIT(target, trait) (istype(target, /datum/mind) ? HAS_TRAIT(target, trait) : (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
 /// Gives a unique trait source for any given datum
 #define UNIQUE_TRAIT_SOURCE(target) "unique_source_[target.UID()]"
+/// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
+/// You should not be using this
+#define GET_TRAIT_SOURCES(target, trait) (target.status_traits?[trait] || list())
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
@@ -256,6 +259,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
+
+/// Whether or not the user is in a MODlink call, prevents making more calls
+#define TRAIT_IN_CALL "in_call"
+
 /// Trait given when a mob has been tipped
 #define TRAIT_MOB_TIPPED "mob_tipped"
 /// Trait given to mobs that have the basic eating element
@@ -327,6 +334,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// A general trait for tracking whether a zombie owned the organ or limb
 #define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ"
+
+/// Trait given by /datum/element/relay_attacker
+#define TRAIT_RELAYING_ATTACKER "relaying_attacker"
+
+/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
+
 //****** OBJ TRAITS *****//
 
 ///An /obj that should not increase the "depth" of the search for adjacency,

@@ -102,9 +102,7 @@
 /area/ruin/space/mech_transport)
 "hm" = (
 /obj/structure/table,
-/obj/structure/sign/poster/contraband/tools{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/tools/directional/north,
 /obj/effect/spawner/random/pool/spaceloot/mechtransport/storage4,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
@@ -202,9 +200,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "qs" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/ripped/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "qE" = (
@@ -225,9 +221,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "rx" = (
-/obj/structure/sign/poster/official/safety_eye_protection{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/safety_eye_protection/directional/west,
 /obj/machinery/light/built{
 	dir = 8
 	},
@@ -685,7 +679,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "Vp" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "mechtransport_ext"
 	},
 /turf/simulated/floor/plasteel/dark,

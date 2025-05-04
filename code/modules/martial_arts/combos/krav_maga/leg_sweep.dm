@@ -3,7 +3,7 @@
 	explaination_text = "Trips the victim, rendering them prone for a short time."
 
 /datum/martial_combo/krav_maga/leg_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(target.stat || target.IsWeakened())
+	if(target.stat || target.IsWeakened() || user.a_intent == INTENT_HELP)
 		return FALSE
 	if(!user.get_num_legs())
 		to_chat(user, "<span class='warning'>You suddenly notice you have no legs with which to sweep - how did that happen?!</span>")

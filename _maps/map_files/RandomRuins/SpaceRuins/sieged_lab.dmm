@@ -164,9 +164,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sieged_lab)
 "kA" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -207,9 +205,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/sieged_lab)
 "mU" = (
-/obj/structure/sign/poster/official/build{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/build/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -496,7 +492,7 @@
 "xV" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/east{
 	id_tag = "SL_EndRoom"
 	},
 /turf/simulated/floor/plasteel{
@@ -636,9 +632,7 @@
 	},
 /area/ruin/space/sieged_lab)
 "DB" = (
-/obj/structure/sign/poster/official/work_for_a_future{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/work_for_a_future/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -658,10 +652,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/sieged_lab)
 "Eo" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -786,7 +777,7 @@
 	},
 /area/ruin/space/sieged_lab)
 "La" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -803,9 +794,7 @@
 /area/ruin/space/sieged_lab)
 "MU" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/structure/sign/poster/official/cleanliness{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/cleanliness/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -979,9 +968,7 @@
 	},
 /area/ruin/space/sieged_lab)
 "VQ" = (
-/obj/structure/sign/poster/official/science{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/science/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -1067,7 +1054,7 @@
 	name = "Executive Suite"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
 	id_tag = "SL_EndRoom"
 	},
 /turf/simulated/floor/plasteel,

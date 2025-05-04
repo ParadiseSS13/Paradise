@@ -296,9 +296,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/tools{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/tools/directional/north,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
@@ -578,7 +576,7 @@
 "uH" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "cargoshipblastdoor1"
 	},
 /turf/simulated/floor/plating,
@@ -670,9 +668,7 @@
 /area/ruin/space/wreck_cargoship)
 "AP" = (
 /obj/structure/rack,
-/obj/structure/sign/poster/contraband/smoke{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/smoke/directional/west,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1100,9 +1096,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "SJ" = (
-/obj/structure/sign/poster/official/here_for_your_safety{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/here_for_your_safety/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4

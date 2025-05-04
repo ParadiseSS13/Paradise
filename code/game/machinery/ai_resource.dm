@@ -199,6 +199,9 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 	var/transfer_moles = 0.25 * env.total_moles()
 	var/datum/gas_mixture/removed = env.remove(transfer_moles)
 	if(!removed)
+		node.overheat_counter++
+		if(node.overheat_counter >= 5)
+			node.overheat()
 		return
 	var/heat_capacity = removed.heat_capacity()
 	if(heat_capacity)

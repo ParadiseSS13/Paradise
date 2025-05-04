@@ -50,6 +50,7 @@
 	RegisterSignal(M, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_to_linked_implant))
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
+	UnregisterSignal(M, COMSIG_MOB_WILLINGLY_DROP)
 	Retract()
 	. = ..()
 

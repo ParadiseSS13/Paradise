@@ -622,9 +622,9 @@ space_ruin_budget_min = 750
 # Maximum space ruin budget.
 space_ruin_budget_max = 1000
 # Minimum lavaland ruin budget.
-lavaland_ruin_budget_min = 350
+lavaland_ruin_budget_min = 500
 # Maximum lavaland ruin budget.
-lavaland_ruin_budget_max = 500
+lavaland_ruin_budget_max = 650
 # List of all space ruins that can generate in the world
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_space_ruins = [
