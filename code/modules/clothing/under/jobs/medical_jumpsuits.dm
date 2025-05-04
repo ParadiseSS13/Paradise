@@ -94,6 +94,7 @@
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in baby blue."
 	icon_state = "scrubsblue"
 	item_color = "scrubsblue"
+	permeability_coefficient = 0.1
 
 /obj/item/clothing/under/rank/medical/scrubs/green
 	name = "green medical scrubs"

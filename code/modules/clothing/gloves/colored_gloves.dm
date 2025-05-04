@@ -7,7 +7,7 @@
 	icon_state = "yellow"
 	item_state = "ygloves"
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
+	permeability_coefficient = 0.01
 	item_color = "yellow"
 	resistance_flags = NONE
 	dyeable = TRUE
@@ -22,7 +22,7 @@
 	icon_state = "yellow"
 	item_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
-	permeability_coefficient = 0.05
+	permeability_coefficient = 0.01
 	item_color="yellow"
 	resistance_flags = NONE
 
@@ -56,6 +56,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
 		)
+	permeability_coefficient = 0.1
 
 /obj/item/clothing/gloves/color/black/thief
 	pickpocket = 1
@@ -99,7 +100,7 @@
 	name = "insulated gloves"
 	desc = "A pair of rubber-lined industrial gloves. They'll protect the wearer from electrical shocks."
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
+	permeability_coefficient = 0.01
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/rainbow
@@ -194,7 +195,7 @@
 	item_state = "captain"
 	item_color = "captain"
 	siemens_coefficient = 0
-	permeability_coefficient = 0.05
+	permeability_coefficient = 0.01
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS

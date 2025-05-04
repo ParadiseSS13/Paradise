@@ -16,6 +16,7 @@
 		)
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+	permeability_coefficient = 0.35
 
 /obj/item/clothing/suit/storage/labcoat/cmo
 	name = "chief medical officer's labcoat"
@@ -23,6 +24,7 @@
 	icon_state = "labcoat_cmo_open"
 	item_state = "labcoat_cmo_open"
 	insert_max = 2
+	permeability_coefficient = 0.2
 
 /obj/item/clothing/suit/storage/labcoat/mad
 	name = "mad scientist's labcoat"
@@ -46,6 +48,7 @@
 	name = "virologist labcoat"
 	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has a green stripe on the shoulder."
 	icon_state = "labcoat_vir_open"
+	permeability_coefficient = 0.2
 
 /obj/item/clothing/suit/storage/labcoat/science
 	name = "scientist labcoat"

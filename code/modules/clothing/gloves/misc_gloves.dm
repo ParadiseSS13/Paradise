@@ -7,6 +7,7 @@
 	transfer_prints = TRUE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	permeability_coefficient = 1
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = TRUE

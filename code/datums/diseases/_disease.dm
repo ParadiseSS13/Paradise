@@ -146,7 +146,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 						if(get_dist(target, C) > 1)
 							spread_method &= ~(SPREAD_CONTACT_GENERAL | SPREAD_CONTACT_FEET | SPREAD_CONTACT_HANDS)
 						// We also want to test our own mob's permeability so people in hardsuits with internals won't just infect others with sneezes or touch
-						affected_mob.can_spread_disease(src, spread_method) && C.ContractDisease(src, spread_method)
+						if(affected_mob.can_spread_disease(src, spread_method) && C.ContractDisease(src, spread_method))
+							to_chat(world, "[C] was infected with [src]")
 						break
 					var/direction = get_dir(current, target)
 					var/turf/next = get_step(current, direction)
