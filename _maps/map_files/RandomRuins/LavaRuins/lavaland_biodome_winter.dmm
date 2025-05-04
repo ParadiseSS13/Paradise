@@ -40,11 +40,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ai" = (
-/obj/machinery/shower,
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "aj" = (
-/obj/structure/sink,
+/obj/structure/sink/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -65,9 +65,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "an" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ao" = (
@@ -180,7 +178,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aO" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
@@ -343,7 +341,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "vf" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_cabin)
@@ -383,7 +381,7 @@
 /area/ruin/powered/snow_biodome)
 "Ez" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "FP" = (

@@ -313,7 +313,7 @@
 	},
 /area/syndicate_depot/core)
 "aZ" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_hor,
+/obj/machinery/door/poddoor/multi_tile/double/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -481,7 +481,7 @@
 	},
 /area/syndicate_depot/core)
 "bC" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
+/mob/living/simple_animal/hostile/syndicate/depot/officer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -771,10 +771,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cr" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cs" = (
@@ -838,7 +835,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory,
+/mob/living/simple_animal/hostile/syndicate/depot/modsuit/elite,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -879,15 +876,13 @@
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
+/mob/living/simple_animal/hostile/syndicate/depot/officer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "cE" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cF" = (
