@@ -5878,14 +5878,6 @@
 /obj/structure/cable/green{
 	icon_state = "2-4"
 	},
-/obj/structure/table,
-/obj/item/geiger_counter,
-/obj/machinery/button/windowtint{
-	id = "gravity";
-	pixel_x = -8;
-	pixel_y = 24;
-	name = "radiation shielding control"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -34900,6 +34892,15 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
+"gkG" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/west)
 "gkK" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -47020,10 +47021,8 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/stripes/end,
+/turf/simulated/floor/plating,
 /area/station/engineering/gravitygenerator)
 "iZu" = (
 /obj/effect/turf_decal/delivery,
@@ -47801,6 +47800,7 @@
 	dir = 1;
 	color = "#954535"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -56889,6 +56889,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "lfX" = (
@@ -65423,6 +65424,15 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/station/engineering/break_room/secondary)
+"nbo" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/west)
 "nbB" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -70489,7 +70499,6 @@
 /obj/structure/cable/green{
 	icon_state = "1-8"
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "ooG" = (
@@ -88464,6 +88473,9 @@
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored/cere/civilian)
 "suN" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -90333,8 +90345,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "0-4"
 	},
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "sPm" = (
@@ -92629,6 +92642,15 @@
 	icon_state = "white"
 	},
 /area/station/medical/patients_rooms1)
+"trw" = (
+/obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/west)
 "try" = (
 /obj/effect/turf_decal/stripes/red/line,
 /obj/machinery/hologram/holopad,
@@ -97804,6 +97826,8 @@
 	},
 /area/station/hallway/primary/port/south)
 "uAW" = (
+/obj/structure/table,
+/obj/item/geiger_counter,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -108918,6 +108942,18 @@
 /obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
+"xbd" = (
+/obj/machinery/button/windowtint{
+	id = "gravity";
+	pixel_x = 24;
+	name = "radiation shielding control";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/station/engineering/gravitygenerator)
 "xbh" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -141859,9 +141895,9 @@ aZK
 anO
 bCd
 rhl
-anO
-anO
-anO
+nbo
+trw
+gkG
 anO
 anO
 pSR
@@ -144672,7 +144708,7 @@ gzv
 aYp
 aZJ
 aYG
-aZJ
+xbd
 cRU
 gzv
 uxO
@@ -151890,8 +151926,8 @@ jwI
 muS
 bfy
 xJf
-mkk
-sXj
+neI
+neI
 neI
 neI
 neI
@@ -152147,10 +152183,10 @@ exy
 muS
 bfy
 mJM
-mkk
-mkk
-nVW
-nVW
+neI
+neI
+neI
+neI
 neI
 neI
 neI
@@ -152404,9 +152440,9 @@ exy
 hcM
 bfy
 mJM
-mkk
-mkk
-mkk
+nVW
+nVW
+nVW
 nVW
 nVW
 neI
@@ -152664,10 +152700,10 @@ dwz
 mkk
 mkk
 mkk
-mkk
+tHV
 nVW
-neI
-neI
+nVW
+nVW
 neI
 neI
 neI
@@ -152920,10 +152956,10 @@ rOc
 kVp
 mkk
 mkk
-tHV
-nVW
-nVW
-nVW
+mkk
+mkk
+mkk
+mkk
 nVW
 hEk
 neI
