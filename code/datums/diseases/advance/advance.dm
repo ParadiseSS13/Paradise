@@ -604,4 +604,22 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		total_transmittable += S.transmittable
 	return total_transmittable
 
+/datum/disease/advance/get_required_cures()
+	return cures_required
+
+/datum/disease/advance/is_stabilized()
+	return !evolution_chance
+
+/datum/disease/advance/get_tracker()
+	return tracker
+
+/datum/disease/advance/get_ui_id()
+	return id
+
+/datum/disease/advance/get_strain_id()
+	return strain
+
+/datum/disease/advance/get_full_strain_id()
+	return GetDiseaseID()
+
 #undef EVOLUTION_CHANCE

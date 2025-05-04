@@ -356,9 +356,6 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			if(!A)
 				atom_say("Unable to find requested strain.")
 				return
-			if(A.name != "Unknown")
-				atom_say("Request rejected. Strain already has a name.")
-				return
 			var/new_name = tgui_input_text(usr, "Name the Strain", "New Name", max_length = MAX_NAME_LEN)
 			if(!new_name)
 				return
@@ -448,9 +445,6 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		var/datum/disease/advance/advanced_disease = blood_disease
 		if(istype(blood_disease, /datum/disease/advance))
 			known = (advanced_disease.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
-			blood_disease = GLOB.archive_diseases[advanced_disease.GetDiseaseID()]
-			if(!blood_disease)
-				CRASH("We weren't able to get the advance disease from the archive.")
 			for(var/datum/symptom/virus_symptom in advanced_disease.symptoms)
 				symptoms += list(list(
 					"name" = virus_symptom.name,
@@ -474,15 +468,18 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		strains += list(list(
 			"commonName" = known ? blood_disease.name : "Unknown strain",
 			"description" = known ? blood_disease.desc : "Unknown strain",
-			"strainID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.strain : blood_disease.name,
-			"strainFullID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.GetDiseaseID() : blood_disease.name,
-			"diseaseID" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.id : blood_disease.name,
-			"sample_stage" = istype(blood_disease, /datum/disease/advance) ? advanced_disease.stage : blood_disease.stage,
+			"strainID" = blood_disease.get_strain_id(),
+			"strainFullID" = blood_disease.get_full_strain_id(),
+			"diseaseID" = blood_disease.get_ui_id(),
+			"sample_stage" = blood_disease.get_stage(),
 			"known" = known,
 			"bloodDNA" = Blood.data["blood_DNA"],
 			"bloodType" = Blood.data["blood_type"],
 			"diseaseAgent" = blood_disease.agent,
 			"possibleTreatments" = known ? blood_disease.cure_text : "Unknown strain",
+			"RequiredCures" = blood_disease.get_required_cures(),
+			"Stabilized" = blood_disease.is_stabilized(),
+			"StrainTracker" = blood_disease.get_tracker(),
 			"transmissionRoute" = known ? blood_disease.spread_text : "Unknown strain",
 			"symptoms" = symptoms,
 			"baseStats" = base_stats,

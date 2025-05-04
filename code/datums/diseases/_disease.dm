@@ -182,9 +182,32 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	D.strain_data = strain_data.Copy()
 	return D
 
+/datum/disease/proc/get_required_cures()
+	return needs_all_cures ? length(cures) : 1
+
+/datum/disease/proc/is_stabilized()
+	return TRUE
+
+/datum/disease/proc/get_tracker()
+	return ""
+
+/datum/disease/proc/get_stage()
+	return stage
 
 /datum/disease/proc/GetDiseaseID()
 	return type
+
+// Id for the pandemic
+/datum/disease/proc/get_ui_id()
+	return name
+
+// Another Id for the pandemic. We need multiple procs so we can override them in different ways
+/datum/disease/proc/get_strain_id()
+	return name
+
+// Another Id for the pandemic.
+/datum/disease/proc/get_full_strain_id()
+	return name
 
 /datum/disease/proc/IsSpreadByTouch()
 	if(spread_flags & SPREAD_CONTACT_FEET || spread_flags & SPREAD_CONTACT_HANDS || spread_flags & SPREAD_CONTACT_GENERAL)

@@ -36,6 +36,9 @@ interface PathogenStrain {
   symptoms?: PathogenSymptom[];
   baseStats?: BaseStats;
   isAdvanced: BooleanLike;
+  RequiredCures: Number;
+  Stabilized: BooleanLike;
+  StrainTracker: string;
 }
 
 interface PanDEMICData {
@@ -69,7 +72,7 @@ export const PanDEMIC = (props, context) => {
   }
 
   return (
-    <Window width={700} height={510}>
+    <Window width={700} height={640}>
       <Window.Content>
         <Stack fill vertical>
           <Operating operating={calibrating} name="PanD.E.M.I.C" />
@@ -121,6 +124,9 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
     possibleTreatments,
     transmissionRoute,
     isAdvanced,
+    RequiredCures,
+    Stabilized,
+    StrainTracker,
   } = props.strain;
 
   const bloodInformation = (
@@ -146,31 +152,36 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
 
   let nameButtons;
   if (isAdvanced) {
-    if (commonName !== undefined && commonName !== null && commonName !== 'Unknown') {
-      nameButtons = (
-        <Button
-          icon="print"
-          content="Print Release Forms"
-          disabled={!known}
-          onClick={() =>
-            act('print_release_forms', {
-              strain_index: props.strainIndex,
-            })
-          }
-          style={{ 'margin-left': 'auto' }}
-        />
-      );
-    } else {
-      nameButtons = (
+    nameButtons = (
+      <Stack align="right">
+        {commonName !== undefined && commonName !== null && commonName !== 'Unknown' ? (
+          <Button
+            icon="print"
+            content="Print Release Forms"
+            disabled={!known}
+            onClick={() =>
+              act('print_release_forms', {
+                strain_index: props.strainIndex,
+              })
+            }
+            style={{ 'margin-left': 'auto' }}
+          />
+        ) : (
+          ''
+        )}
         <Button
           icon="pen"
-          content="Name Disease"
+          content={
+            commonName !== undefined && commonName !== null && commonName !== 'Unknown'
+              ? 'Rename Disease'
+              : 'Name Disease'
+          }
           disabled={!known}
           onClick={() => act('name_strain', { strain_index: props.strainIndex })}
           style={{ 'margin-left': 'auto' }}
         />
-      );
-    }
+      </Stack>
+    );
   }
   let analyzeButton;
   let removeDataButton;
@@ -195,50 +206,61 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   }
 
   return (
-    <LabeledList>
-      <LabeledList.Item label="Common Name" className="common-name-label">
-        <Stack horizontal align="center">
+    <Stack vertical>
+      <Stack horizontal align="left">
+        {nameButtons}
+        {analyzeButton}
+        {removeDataButton}
+      </Stack>
+      <LabeledList>
+        <LabeledList.Item label="Common Name" className="common-name-label">
           {commonName ?? 'Unknown'}
-          {nameButtons}
-          {analyzeButton}
-          {removeDataButton}
-        </Stack>
-      </LabeledList.Item>
-      {
-        <LabeledList.Item label="Analysis Time">
-          {analyzing
-            ? (analysisTime < 6000 ? '0' : '') +
-              Math.floor(analysisTime / 600) +
-              ':' +
-              (Math.floor((analysisTime / 10) % 60) < 10 ? '0' : '') +
-              Math.floor((analysisTime / 10) % 60)
-            : analysisTimeDelta >= 0
-              ? (analysisTimeDelta < 6000 ? '0' : '') +
-                Math.floor(analysisTimeDelta / 600) +
-                ':' +
-                (Math.floor((analysisTimeDelta / 10) % 60) < 10 ? '0' : '') +
-                Math.floor((analysisTimeDelta / 10) % 60)
-              : analysisTimeDelta === -1
-                ? 'Strain Data Is Present In Database'
-                : 'Multiple Strains Detected. Analysis Impossible'}
         </LabeledList.Item>
-      }
-      <LabeledList.Item label="Time From Accumulated Error">
-        {(accumulatedError < 6000 ? '0' : '') +
-          Math.floor(accumulatedError / 600) +
-          ':' +
-          (Math.floor((accumulatedError / 10) % 60) < 10 ? '0' : '') +
-          Math.floor((accumulatedError / 10) % 60)}
-      </LabeledList.Item>
+        {
+          <LabeledList.Item label="Analysis Time">
+            {analyzing
+              ? (analysisTime < 6000 ? '0' : '') +
+                Math.floor(analysisTime / 600) +
+                ':' +
+                (Math.floor((analysisTime / 10) % 60) < 10 ? '0' : '') +
+                Math.floor((analysisTime / 10) % 60)
+              : analysisTimeDelta >= 0
+                ? (analysisTimeDelta < 6000 ? '0' : '') +
+                  Math.floor(analysisTimeDelta / 600) +
+                  ':' +
+                  (Math.floor((analysisTimeDelta / 10) % 60) < 10 ? '0' : '') +
+                  Math.floor((analysisTimeDelta / 10) % 60)
+                : analysisTimeDelta === -1
+                  ? 'Strain Data Is Present In Database'
+                  : 'Multiple Strains Detected. Analysis Impossible'}
+          </LabeledList.Item>
+        }
+        <LabeledList.Item label="Time From Accumulated Error">
+          {(accumulatedError < 6000 ? '0' : '') +
+            Math.floor(accumulatedError / 600) +
+            ':' +
+            (Math.floor((accumulatedError / 10) % 60) < 10 ? '0' : '') +
+            Math.floor((accumulatedError / 10) % 60)}
+        </LabeledList.Item>
 
-      {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
-      <LabeledList.Item label="Strain ID">{strainID}</LabeledList.Item>
-      <LabeledList.Item label="Sample Stage">{sample_stage}</LabeledList.Item>
-      <LabeledList.Item label="Disease Agent">{diseaseAgent}</LabeledList.Item>
-      {bloodInformation}
-      <LabeledList.Item label="Spread Vector">{transmissionRoute ?? 'None'}</LabeledList.Item>
-      <LabeledList.Item label="Possible Cures">{possibleTreatments ?? 'None'}</LabeledList.Item>
-    </LabeledList>
+        {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
+        <LabeledList.Item label="Strain ID">{strainID}</LabeledList.Item>
+        <LabeledList.Item label="Sample Stage">{sample_stage}</LabeledList.Item>
+        <LabeledList.Item label="Disease Agent">{diseaseAgent}</LabeledList.Item>
+        {bloodInformation}
+        <LabeledList.Item label="Spread Vector">{transmissionRoute ?? 'None'}</LabeledList.Item>
+        <LabeledList.Item label="Possible Cures">{possibleTreatments ?? 'None'}</LabeledList.Item>
+        <LabeledList.Item label="Required Cures">{RequiredCures ?? 'None'}</LabeledList.Item>
+        {isAdvanced ? <LabeledList.Item label="Stabilized">{Stabilized === 1 ? 'Yes' : 'No'}</LabeledList.Item> : ''}
+        {isAdvanced ? (
+          <LabeledList.Item label="Tracked Strain">
+            {StrainTracker && StrainTracker !== '' ? StrainTracker : 'None'}
+          </LabeledList.Item>
+        ) : (
+          ''
+        )}
+      </LabeledList>
+    </Stack>
   );
 };
 
