@@ -4,6 +4,7 @@
 	icon_state = "doctor_envirosuit"
 	item_state = "doctor_envirosuit"
 	item_color = "doctor_envirosuit"
+	permeability_coefficient = 0.1
 
 /obj/item/clothing/under/plasmaman/cmo
 	name = "chief medical officer's plasma envirosuit"
@@ -11,6 +12,7 @@
 	icon_state = "cmo_envirosuit"
 	item_state = "cmo_envirosuit"
 	item_color = "cmo_envirosuit"
+	permeability_coefficient = 0.1
 
 /obj/item/clothing/under/plasmaman/science
 	name = "science plasma envirosuit"
