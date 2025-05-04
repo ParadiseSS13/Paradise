@@ -20,6 +20,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
+	permeability_coefficient = 0.4
 
 /obj/item/clothing/head/helmet/attack_self__legacy__attackchain(mob/user)
 	if(can_toggle && !user.incapacitated())
@@ -96,6 +97,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
