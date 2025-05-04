@@ -436,7 +436,7 @@
 		return
 	if(ismecha(target)|| isapc(target))
 		var/obj/T = target
-		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level))))
+		T.obj_integrity = min(T.max_integrity, T.obj_integrity + (T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level)))))
 	if(isrobot(target))
 		var/mob/living/silicon/robot/T = target
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
@@ -1047,7 +1047,7 @@
 	auto_use_uses = FALSE
 	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
-	level_max = 0
+	level_max = 8
 
 /datum/spell/ai_spell/enhanced_tracker/cast(list/targets, mob/living/silicon/ai/user)
 	if(!istype(user))
