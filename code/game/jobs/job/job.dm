@@ -156,6 +156,9 @@
 		return FALSE
 	return (current_positions < spawn_positions) || (spawn_positions == -1)
 
+/datum/job/proc/is_command_position()
+	return (title in GLOB.command_positions)
+
 /datum/outfit/job
 	name = "Standard Gear"
 	collect_not_del = TRUE // we don't want anyone to lose their job shit
