@@ -101,8 +101,8 @@
 	. = ..()
 	terrain_theme = pick("lavaland","winter","jungle","alien")
 	switch(terrain_theme)
-		if("lavaland")//Depressurizes the place... and free cult metal, I guess.
-			NewTerrainFloors = /turf/simulated/floor/plating/asteroid/basalt // Needs to be updated after turf update
+		if("lavaland")//Free cult metal, I guess.
+			NewTerrainFloors = /turf/simulated/floor/plating/false_asteroid
 			NewTerrainWalls = /turf/simulated/wall/cult
 			NewFlora = list(/mob/living/simple_animal/hostile/asteroid/goldgrub)
 			florachance = 1
@@ -135,13 +135,13 @@
 				if(isturf(Stuff))
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
-						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors)
+						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors, keep_icon = FALSE)
 						if(prob(florachance) && length(NewFlora) && !is_blocked_turf(O))
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
 					if(iswallturf(T) && NewTerrainWalls && !istype(T, /turf/simulated/wall/indestructible))
-						T.ChangeTurf(NewTerrainWalls)
+						T.ChangeTurf(NewTerrainWalls, keep_icon = FALSE)
 						continue
 				if(istype(Stuff, /obj/structure/chair) && NewTerrainChairs)
 					var/obj/structure/chair/Original = Stuff

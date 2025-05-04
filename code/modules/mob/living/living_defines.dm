@@ -119,3 +119,5 @@
 	var/last_taste_text
 	///If a creature gets to be super special and have extra range on their chat messages
 	var/extra_message_range = 0
+	/// Sets our icon to `null` when `gib()` is used
+	var/gib_nullifies_icon = TRUE

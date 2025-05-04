@@ -42,7 +42,4 @@
 
 
 /obj/vehicle/car/handle_vehicle_layer()
-	if(dir == SOUTH)
-		layer = ABOVE_MOB_LAYER
-	else
-		layer = OBJ_LAYER
+	layer = OBJ_LAYER
