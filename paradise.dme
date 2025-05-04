@@ -607,6 +607,8 @@
 #include "code\datums\helper_datums\map_template.dm"
 #include "code\datums\helper_datums\teleport.dm"
 #include "code\datums\helper_datums\topic_input.dm"
+#include "code\datums\job_selection\job_candidate.dm"
+#include "code\datums\job_selection\job_selector.dm"
 #include "code\datums\keybindings\_keybinding.dm"
 #include "code\datums\keybindings\admin_keybinds.dm"
 #include "code\datums\keybindings\ai_keybinds.dm"
