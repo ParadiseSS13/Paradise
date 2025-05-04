@@ -27,12 +27,16 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 		)
 
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
-	icon_state = "captain_cap"
+	icon_state = "captain_capblue"
+
+/obj/item/clothing/head/caphat/parade/white
+	icon_state = "captain_capwhite"
 
 //Head of Personnel
 /obj/item/clothing/head/hop
