@@ -26,7 +26,7 @@
 	record_spawn = TRUE
 
 	var/fauna_scan_range = 12
-	var/megafauna_scan_range = 12
+	var/megafauna_scan_range = 16
 	var/ghost_ruin_scan_range = 12
 	var/turf/mining_base_gps
 

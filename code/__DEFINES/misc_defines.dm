@@ -742,3 +742,6 @@ do { \
 ///  Economy account defines
 #define BANK_PIN_MIN 10000
 #define BANK_PIN_MAX 99999
+
+//! The number of seconds between the start of the UNIX and BYOND epochs.
+#define BYOND_EPOCH_UNIX 946702800

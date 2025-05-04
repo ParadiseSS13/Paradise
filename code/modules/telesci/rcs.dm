@@ -18,6 +18,7 @@
 	throw_range = 5
 	toolspeed = 1
 	usesound = 'sound/weapons/flash.ogg'
+	origin_tech = "bluespace=3"
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
 	/// Selected telepad
