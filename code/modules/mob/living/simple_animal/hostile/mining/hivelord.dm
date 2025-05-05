@@ -186,7 +186,6 @@
 	robust_searching = TRUE
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
-	contains_xeno_organ = FALSE
 
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf

@@ -180,6 +180,7 @@ Difficulty: Hard
 		QDEL_NULL(BL)
 		QDEL_NULL(beam)
 		body_shield_enabled = FALSE
+		update_appearance(UPDATE_OVERLAYS)
 		return ..()
 	else if(exploding) //but it refused
 		return
@@ -623,6 +624,8 @@ Difficulty: Hard
 	return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	if(stat == DEAD || exploding == TRUE) // a check so it doesnt try to move after death
+		return
 	if(Dir)
 		leg_walking_controler(Dir)
 		if(charging)

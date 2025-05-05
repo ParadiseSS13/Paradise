@@ -34,7 +34,8 @@
 		/obj/item/dissector/upgraded = 70,
 		TOOL_DISSECTOR = 40,
 		/obj/item/scalpel/laser/manager = 10,
-		/obj/item/wirecutters = 5,
+		/obj/item/scalpel = 5,
+		/obj/item/wirecutters = 2,
 		/obj/item/kitchen/utensil/fork = 1,
 	)
 

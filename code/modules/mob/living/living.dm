@@ -939,16 +939,18 @@
 			if(do_mob(user, src, current_step.time) && Adjacent(I))
 				if(prob(current_step.allowed_tools[I.type]))
 					to_chat(user, "<span class='warning'>You struggle to perform the dissection properly, and will have to start the last step over!</span>")
+					return TRUE
 				current_dissection_step += 1
 				playsound(src,  current_step.success_sound, 50, TRUE, -1)
 				if(current_dissection_step > max_dissection_steps)
 					var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(src.loc)
-					if(custom_organ_states)
+					if(length(custom_organ_states))
 						new_organ.icon_state = pick(custom_organ_states)
 					new_organ.true_organ_type = pick(xeno_organ_results)
 					new_organ.unknown_quality = pick_quality(I, current_step)
 					xeno_organ_results = null
 					SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[new_organ.true_organ_type]", new_organ.unknown_quality))
+					return TRUE
 			return TRUE
 
 

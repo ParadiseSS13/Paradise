@@ -78,6 +78,10 @@
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	GLOB.alive_megafauna_list -= UID()
+	// lets normalize the icons a bit
+	icon = 'icons/mob/lavaland/corpses.dmi'
+	pixel_x = 0
+	pixel_y = 0
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
