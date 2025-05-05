@@ -405,6 +405,8 @@ SLIME SCANNER
 	if(H.radiation > RAD_MOB_SAFE)
 		msgs += "<span class='danger'>Subject is irradiated.</span>"
 
+	msgs += "<span class='notice'>Biological Age: [H.age]</span>"
+
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/healthanalyzer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
