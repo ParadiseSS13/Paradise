@@ -63,26 +63,8 @@
 	return is_equipped()
 
 /obj/item/storage/belt/MouseDrop(obj/over_object, src_location, over_location)
-	var/mob/M = usr
-	if(!is_screen_atom(over_object))
-		return ..()
+	..()
 	playsound(loc, "rustle", 50, TRUE, -5)
-	if(!M.restrained() && !M.stat && can_use())
-		switch(over_object.name)
-			if("r_hand")
-				if(M.unequip(src))
-					if(M.r_hand)
-						M.drop_item_to_ground(src)
-					else
-						M.put_in_r_hand(src)
-			if("l_hand")
-				if(M.unequip(src))
-					if(M.l_hand)
-						M.drop_item_to_ground(src)
-					else
-						M.put_in_l_hand(src)
-		add_fingerprint(usr)
-		return
 
 /obj/item/storage/belt/deserialize(list/data)
 	..()
@@ -114,7 +96,8 @@
 		/obj/item/holosign_creator,
 		/obj/item/stack/nanopaste,
 		/obj/item/robotanalyzer,
-		/obj/item/rpd/bluespace
+		/obj/item/rpd/bluespace,
+		/obj/item/hammer
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -1082,8 +1065,8 @@
 		/obj/item/kitchen/utensil,
 		/obj/item/kitchen/knife,
 		/obj/item/kitchen/rollingpin,
-		/obj/item/kitchen/mould,
-		/obj/item/kitchen/sushimat,
+		/obj/item/reagent_containers/cooking/mould,
+		/obj/item/reagent_containers/cooking/sushimat,
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,

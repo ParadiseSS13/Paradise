@@ -75,7 +75,7 @@
 /obj/structure/largecrate/cow/crowbar_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
-	new /mob/living/simple_animal/cow(loc)
+	new /mob/living/basic/cow(loc)
 	return ..()
 
 /obj/structure/largecrate/goat

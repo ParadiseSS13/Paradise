@@ -234,6 +234,7 @@
 	cost = 50
 	job = list("Scientist")
 	hijack_only = TRUE
+	surplus = 0
 
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
@@ -274,6 +275,15 @@
 	item = /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist
 	cost = 30
 	job = list("Life Support Specialist")
+
+/datum/uplink_item/jobspecific/contortionist_plasmaman
+	name = "Contortionist's Plasma Envirosuit"
+	desc = "A highly flexible envirosuit that will help you navigate the ventilation loops of the station internally, specialized for Plasmamen. Comes with pockets and ID slot, but can't be used without stripping off most gear, including backpack, belt, and exosuit. Free hands are also necessary to crawl around inside."
+	reference = "AIRJP"
+	item = /obj/item/clothing/under/plasmaman/atmospherics/contortionist
+	cost = 30
+	job = list("Life Support Specialist")
+	species = list("Plasmaman")
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
@@ -427,6 +437,22 @@
 	cost = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
+
+/datum/uplink_item/dangerous/bulldog_traitor
+	name = "Bulldog Shotgun"
+	desc = "Lean and mean: Optimized for people that want to get up close and personal. Comes loaded with rubbershot. Extra Ammo sold separately."
+	reference = "BLSG"
+	item = /obj/item/gun/projectile/automatic/shotgun/bulldog/traitor
+	cost = 50
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/bull_rubbershot
+	name = "Bulldog - 12g Rubbershot Magazine"
+	desc = "An additional 8-round rubbershot magazine for use in the Bulldog shotgun."
+	reference = "12BRU"
+	item = /obj/item/ammo_box/magazine/m12g/rubbershot
+	cost = 10
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/guardian
 	name = "Holoparasites"

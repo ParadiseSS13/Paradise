@@ -73,22 +73,22 @@
 		MiddleShiftClickOn(A)
 		return
 	if(modifiers["shift"] && modifiers["ctrl"])
-		CtrlShiftClickOn(A)
+		CtrlShiftClickOn(A, modifiers)
 		return
 	if(modifiers["shift"] && modifiers["alt"])
-		AltShiftClickOn(A)
+		AltShiftClickOn(A, modifiers)
 		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
 		return
 	if(modifiers["shift"])
-		ShiftClickOn(A)
+		ShiftClickOn(A, modifiers)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
-		AltClickOn(A)
+		AltClickOn(A, modifiers)
 		return
 	if(modifiers["ctrl"])
-		CtrlClickOn(A)
+		CtrlClickOn(A, modifiers)
 		return
 
 	if(incapacitated(ignore_restraints = 1, ignore_grab = 1))
@@ -140,7 +140,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1)
+			UnarmedAttack(A, 1, params)
 		return
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
@@ -152,7 +152,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1)
+			UnarmedAttack(A, 1, params)
 	else
 		if(W)
 			if(W.new_attack_chain)
@@ -262,7 +262,7 @@
 	proximity_flag is not currently passed to attack_hand, and is instead used
 	in human click code to allow glove touches only at melee range.
 */
-/mob/proc/UnarmedAttack(atom/A, proximity_flag)
+/mob/proc/UnarmedAttack(atom/A, proximity_flag, params)
 	if(ismob(A))
 		changeNext_move(CLICK_CD_MELEE)
 	return
@@ -351,10 +351,10 @@
 	For most mobs, examine.
 	This is overridden in ai.dm
 */
-/mob/proc/ShiftClickOn(atom/A)
-	A.ShiftClick(src)
+/mob/proc/ShiftClickOn(atom/A, modifiers)
+	A.ShiftClick(src, modifiers)
 	return
-/atom/proc/ShiftClick(mob/user)
+/atom/proc/ShiftClick(mob/user, modifiers)
 	if(user.client && get_turf(user.client.eye) == get_turf(user))
 		user.examinate(src)
 	return
@@ -363,11 +363,11 @@
 	Ctrl click
 	For most objects, pull
 */
-/mob/proc/CtrlClickOn(atom/A)
-	A.CtrlClick(src)
+/mob/proc/CtrlClickOn(atom/A, modifiers)
+	A.CtrlClick(src, modifiers)
 	return
 
-/atom/proc/CtrlClick(mob/user)
+/atom/proc/CtrlClick(mob/user, modifiers)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
 	var/mob/living/ML = user
 	if(istype(ML))
@@ -376,12 +376,12 @@
 /*
 	Alt click
 */
-/mob/proc/AltClickOn(atom/A)
-	A.AltClick(src)
+/mob/proc/AltClickOn(atom/A, modifiers)
+	A.AltClick(src, modifiers)
 	return
 
 // See click_override.dm
-/mob/living/AltClickOn(atom/A)
+/mob/living/AltClickOn(atom/A, modifiers)
 	. = SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, A, src)
 	if(. & COMSIG_MOB_CANCEL_CLICKON)
 		return
@@ -389,7 +389,7 @@
 		return
 	..()
 
-/atom/proc/AltClick(mob/user)
+/atom/proc/AltClick(mob/user, modifiers)
 	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT, user) & COMPONENT_CANCEL_ALTCLICK)
 		return
 	var/turf/T = get_turf(src)
@@ -409,15 +409,15 @@
 	Control+Shift/Alt+Shift click
 	Unused except for AI
 */
-/mob/proc/CtrlShiftClickOn(atom/A)
-	A.CtrlShiftClick(src)
+/mob/proc/CtrlShiftClickOn(atom/A, modifiers)
+	A.CtrlShiftClick(src, modifiers)
 	return
 
-/atom/proc/CtrlShiftClick(mob/user)
+/atom/proc/CtrlShiftClick(mob/user, modifiers)
 	return
 
-/mob/proc/AltShiftClickOn(atom/A)
-	A.AltShiftClick(src)
+/mob/proc/AltShiftClickOn(atom/A, modifiers)
+	A.AltShiftClick(src, modifiers)
 	return
 
 /mob/proc/ShiftMiddleClickOn(atom/A)
@@ -468,7 +468,7 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
-	dir = direction
+	setDir(direction)
 
 /atom/movable/screen/click_catcher
 	icon = 'icons/mob/screen_gen.dmi'

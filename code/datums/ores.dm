@@ -17,8 +17,8 @@
  * Returns [MINERAL_ALLOW_DIG] if the containing turf should be changed to its
  * "dug" state, [MINERAL_PREVENT_DIG] if it should remain as is.
  */
-/datum/ore/proc/on_mine(turf/source, mob/user, triggered_by_explosion = FALSE)
-	var/amount = rand(drop_min, drop_max)
+/datum/ore/proc/on_mine(turf/source, mob/user, triggered_by_explosion = FALSE, productivity_mod = 1)
+	var/amount = round(rand(drop_min, drop_max) + productivity_mod)
 
 	if(ispath(drop_type, /obj/item/stack/ore))
 		new drop_type(source, amount)
@@ -42,6 +42,18 @@
 /datum/ore/diamond
 	drop_type = /obj/item/stack/ore/diamond
 	scan_icon_state = "rock_Diamond"
+
+/datum/ore/platinum
+	drop_type = /obj/item/stack/ore/platinum
+	scan_icon_state = "rock_Platinum"
+
+/datum/ore/palladium
+	drop_type = /obj/item/stack/ore/palladium
+	scan_icon_state = "rock_Palladium"
+
+/datum/ore/iridium
+	drop_type = /obj/item/stack/ore/iridium
+	scan_icon_state = "rock_Iridium"
 
 /datum/ore/gold
 	drop_type = /obj/item/stack/ore/gold
@@ -79,6 +91,7 @@
 	drop_type = /obj/item/stack/ore/tranquillite
 	drop_min = 3
 	drop_max = 3
+	scan_icon_state = "rock_Tranquillite"
 
 /datum/ore/ancient_basalt
 	drop_type = /obj/item/stack/ore/glass/basalt/ancient
@@ -181,7 +194,7 @@
 		deltimer(explosion_callback)
 
 	stage = GIBTONITE_DETONATE
-	explosion(source, 1, 3, 5, adminlog = notify_admins)
+	explosion(source, 1, 3, 5, adminlog = notify_admins, cause = "Gibtonite")
 
 	if(!istype(source))
 		return

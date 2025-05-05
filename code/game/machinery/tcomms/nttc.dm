@@ -32,7 +32,6 @@
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
-		"Head of Personnel" = "comradio",
 		"Nanotrasen Representative" = "comradio",
 		// Engineeering
 		"Atmospheric Technician" = "engradio",
@@ -109,12 +108,16 @@
 		// Supply
 		"Quartermaster" = "supradio",
 		"Cargo Technician" = "supradio",
+		"Smith" = "supradio",
+		"Metalworker" = "supradio",
+		"Tinkerer" = "supradio",
 		"Shaft Miner" = "supradio",
 		"Spelunker" = "supradio",
 		"Explorer" = "supradio",
 		"Salvage Technician" = "supradio",
 		"Scavenger" = "supradio",
 		// Service
+		"Head of Personnel" = "srvradio",
 		"Bartender" = "srvradio",
 		"Beautician" = "srvradio",
 		"Botanical Researcher" = "srvradio",

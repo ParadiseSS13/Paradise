@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
 		return
 
@@ -155,8 +155,10 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
+			M.change_body_type(MALE)
 		else
 			M.change_gender(FEMALE)
+			M.change_body_type(FEMALE)
 
 	if(!new_species)
 		new_species = "Human"
@@ -170,7 +172,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	M.overeatduration = 0
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/eye_c = pick("#000000", "#8B4513", "#1E90FF", "#8c00ff", "#a80c0c", "#2fdb63") // Black, brown, blue, purple, red, green
-	var/skin_tone = rand(-120, 20) // A range of skin colors
+	var/skin_tone = random_skin_tone(new_species) // randomise skin tone depending on mob's species
 
 	switch(new_species) //Diona not included as they don't use the hair colours, kidan use accessory, drask are skin tone Grey not included as they are BALD
 		if("Human", "Tajaran", "Vulpkanin", "Nian")
@@ -196,8 +198,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
 	head_organ.headacc_colour = pick("#1f138b", "#272525", "#07a035", "#8c00ff", "#a80c0c")
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.sprite_sheet_name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.sprite_sheet_name)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
+	if(M.gender != FEMALE) // no beard for women pls
+		head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 
 	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]")
 	M.age = rand(23,35)

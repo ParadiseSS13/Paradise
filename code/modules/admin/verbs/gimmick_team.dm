@@ -7,7 +7,7 @@
 	set desc = "Spawns a group of players in the specified outfit."
 	if(!check_rights(R_EVENT))
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 	if(alert("Do you want to spawn a Gimmick Team at YOUR CURRENT LOCATION?", null,"Yes","No")=="No")

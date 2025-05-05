@@ -392,7 +392,7 @@
 			to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
 			times_used--
 			return
-		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later."))
+		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later.", hidden = TRUE))
 			times_used--
 			return
 		to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")

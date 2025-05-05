@@ -1,6 +1,6 @@
 //base type for controllers of two-door systems
 /obj/machinery/airlock_controller
-	layer = ABOVE_WINDOW_LAYER
+	layer = ON_EDGED_TURF_LAYER
 	name = "airlock controller"
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
@@ -158,13 +158,19 @@
 	switch(state)
 		if(CONTROL_STATE_PREPARE)
 			if(check_doors_secured())
-				if(chamber_pressure <= target_pressure)
+				if(chamber_pressure < target_pressure)
 					state = CONTROL_STATE_PRESSURIZE
 					signalPumps(TRUE, TRUE, target_pressure)	//send a signal to start pressurizing
 
 				else if(chamber_pressure > target_pressure)
 					state = CONTROL_STATE_DEPRESSURIZE
 					signalPumps(TRUE, FALSE, target_pressure)	//send a signal to start depressurizing
+
+				else // Prevent airlock from deadlocking
+					cycleDoors(target_state)
+
+					state = CONTROL_STATE_IDLE
+					target_state = TARGET_NONE
 
 				//Check for vacuum - this is set after the pumps so the pumps are aiming for 0
 				if(!target_pressure)

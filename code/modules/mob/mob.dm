@@ -25,7 +25,6 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
-	LAssailant = null
 	runechat_msg_location = null
 	if(length(observers))
 		for(var/mob/dead/observe as anything in observers)
@@ -176,8 +175,10 @@
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(message, blind_message)
 	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_INCLUDE))
+#ifndef GAME_TESTS
 		if(!M.client)
 			continue
+#endif
 		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 // Show a message to all mobs in earshot of this one
@@ -670,6 +671,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(examined == src)
 		return
 
+	// Only ones who can see both examining mob and examined item
+	var/list/can_see_examine = viewers(examined) & viewers(2, src)
+
 	// If TRUE, the usr's view() for the examined object too
 	var/examining_worn_item = FALSE
 	var/loc_str = "at something off in the distance."
@@ -697,12 +701,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
 
-	var/list/can_see_target = viewers(examined)
-	for(var/mob/M as anything in viewers(2, src))
+	for(var/mob/M as anything in can_see_examine)
 		if(!M.client || M.stat != CONSCIOUS ||HAS_TRAIT(M, TRAIT_BLIND))
 			continue
 
-		if(examining_worn_item || (M == src) || (M in can_see_target))
+		if(examining_worn_item || (M == src))
 			to_chat(M, can_see_str)
 		else
 			to_chat(M, cannot_see_str)
@@ -733,6 +736,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/dead/broadcast_examine(atom/examined)
 	return //Observers arent real the government is lying to you
+
+/mob/living/silicon/ai/broadcast_examine(atom/examined)
+	var/mob/living/silicon/ai/ai = src
+	// Only show the AI's examines if they're in a holopad
+	if(istype(ai.current, /obj/machinery/hologram/holopad))
+		return ..()
+
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
@@ -1037,7 +1047,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
 		return
 
-	if(!SSticker || SSticker.current_state < 3)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
@@ -1048,6 +1058,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
+		// Dumb duplicate code until we have no more simple mobs
+		for(var/mob/living/basic/B in GLOB.alive_mob_list)
+			if(!(is_station_level(B.z) || is_admin_level(B.z))) // Prevents players from spawning in space
+				continue
+			if(B.valid_respawn_target_for(src) && B.stat != DEAD && !B.key)
+				creatures += B
 		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
 		switch(picked)
 			if("Mouse")
@@ -1091,6 +1107,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/get_ghost(even_if_they_cant_reenter = 0)
 	if(mind)
 		return mind.get_ghost(even_if_they_cant_reenter)
+
+/mob/proc/check_ghost_client()
+	if(mind)
+		return mind.check_ghost_client()
 
 /mob/proc/grab_ghost(force)
 	if(mind)
@@ -1417,14 +1437,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  */
 /mob/proc/show_rads(range)
 	for(var/turf/place in range(range, src))
-		var/rads = SSradiation.get_turf_radiation(place)
-		if(rads < RAD_BACKGROUND_RADIATION)
+		var/list/rads = SSradiation.get_turf_radiation(place)
+		if(!rads || (rads[1] + rads[2] + rads[3]) < RAD_BACKGROUND_RADIATION)
 			continue
-
-		var/strength = round(rads / 1000, 0.1)
+		var/alpha_strength = round(rads[1] / 1000, 0.1)
+		var/beta_strength = round(rads[2] / 1000, 0.1)
+		var/gamma_strength = round(rads[3] / 1000, 0.1)
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
-		MA.maptext = MAPTEXT("[strength]k")
+		MA.maptext = MAPTEXT("Α [alpha_strength]k\nΒ [beta_strength]k\nΓ [gamma_strength]k")
 		MA.color = "#04e604"
 		MA.layer = RAD_TEXT_LAYER
 		MA.plane = GAME_PLANE
@@ -1595,3 +1616,16 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/living/proc/remove_recent_magic_block()
 	REMOVE_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+
+/mob/living/proc/adjustHealth(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		return FALSE
+	var/oldbruteloss = bruteloss
+	bruteloss = clamp(bruteloss + amount, 0, maxHealth)
+	if(oldbruteloss == bruteloss)
+		updating_health = FALSE
+		. = STATUS_UPDATE_NONE
+	else
+		. = STATUS_UPDATE_HEALTH
+	if(updating_health)
+		updatehealth()

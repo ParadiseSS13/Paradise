@@ -12,6 +12,7 @@
 	status_flags = CANSTUN|CANWEAKEN|CANPUSH
 	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
+	weather_immunities = list("ash")
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -87,16 +88,16 @@
 			var/obj/item/borg/upgrade/modkit/M = A
 			. += "<span class='notice'>There is \a [M] installed, using <b>[M.cost]%</b> capacity.</span>"
 
-
-/mob/living/simple_animal/hostile/mining_drone/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/mob/living/simple_animal/hostile/mining_drone/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, "<span class='notice'>You instruct [src] to drop any collected ore.</span>")
 		DropOre()
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/borg/upgrade/modkit))
-		I.melee_attack_chain(user, stored_gun, params)
-		return
-	..()
+		I.melee_attack_chain(user, stored_gun, list2params(modifiers))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/hostile/mining_drone/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)

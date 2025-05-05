@@ -182,11 +182,6 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
 			var/datum/species/S = GLOB.all_species[active_character.species]
-			var/datum/species/subtype = GLOB.all_species[active_character.species_subtype]
-			if(istype(S) && istype(subtype))
-				subtype = new subtype.type()
-				S = new S.type()
-				S.bodyflags |= subtype.bodyflags
 			if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 				active_character.species = initial(active_character.species)
 				S = GLOB.all_species[active_character.species]
@@ -212,8 +207,6 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Age:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
 			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(Randomize)</a><br>"
 			dat += "<b>Species:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
-			if(S.bodyflags & HAS_SPECIES_SUBTYPE)
-				dat += "<b>Species Sub-Type:</b> <a href='byond://?_src_=prefs;preference=species_subtype;task=input'>[active_character.species_subtype]</a><br>"
 			dat += "<b>Gender:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
 			dat += "<b>Body Type:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
 			dat += "<br>"
@@ -481,6 +474,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Set screentip mode:</b> <a href='byond://?_src_=prefs;preference=screentip_mode'>[(screentip_mode == 0) ? "Disabled" : "[screentip_mode]px"]</a><br>"
 			dat += "<b>Screentip color:</b> <span style='border: 1px solid #161616; background-color: [screentip_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=screentip_color'><b>Change</b></a><br>"
 			dat += "<b>Thought Bubble when pointing:</b> <a href='byond://?_src_=prefs;preference=thought_bubble'>[(toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Cogbar indicators:</b> <a href='byond://?_src_=prefs;preference=cogbar'>[(toggles3 & PREFTOGGLE_3_COGBAR_ANIMATIONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += " - <b>Alpha (transparency):</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " - <b>Color:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"

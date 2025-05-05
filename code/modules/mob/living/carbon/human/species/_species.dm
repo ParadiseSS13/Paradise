@@ -3,11 +3,6 @@
 	var/name
 	/// Pluralized name (since "[name]s" is not always valid)
 	var/name_plural
-	/// Sub-type of the species. Used for when slimes imitate a species or when an IPC has augments that look like another species. This will affect sprite_sheet_name
-	var/species_subtype = "None"
-	/// List of available sub-types for the species to imitate / morph into (Machine / Slime)
-	var/allowed_species_subtypes = list()
-	/// The corresponding key for spritesheets
 	var/sprite_sheet_name
 	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
 	/// Because it's unathi's turn to be special snowflakes.
@@ -205,9 +200,7 @@
 
 /datum/species/New()
 	unarmed = new unarmed_type()
-	if(!isnull(species_subtype) && species_subtype != "None")
-		sprite_sheet_name = species_subtype
-	else if(!sprite_sheet_name)
+	if(!sprite_sheet_name)
 		sprite_sheet_name = name
 
 /datum/species/proc/get_random_name(gender)
@@ -221,8 +214,41 @@
  * Arguments:
  * * H: The human to create organs inside of
  * * bodyparts_to_omit: Any bodyparts in this list (and organs within them) should not be added.
+ * * transfer_contents: Whether or not to transfer the contents of the old organs to the new ones
  */
-/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit) //Handles creation of mob organs.
+/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit, transfer_contents = TRUE) //Handles creation of mob organs.
+	var/list/transfer_list = list()
+	for(var/limb_name in has_limbs)
+		var/obj/item/organ/external/body_part = H.bodyparts_by_name[limb_name]
+		if(!body_part)
+			continue
+		// Always expel all cyber implants
+		for(var/obj/item/organ/internal/cyberimp/internal_organ in body_part.internal_organs)
+			internal_organ.remove(H)
+			internal_organ.forceMove(get_turf(H))
+
+		// If we don't transfer the content or make a new organ in place of the old one, drop the contents on the ground
+		if(!transfer_contents || (bodyparts_to_omit && (limb_name in bodyparts_to_omit)))
+			// Drop cavity implant
+			if(body_part.hidden)
+				body_part.hidden.forceMove(get_turf(H))
+				body_part.hidden = null // null ref so it doesn't get deleted with the bodypart
+			// Drop general contents of bodypart
+			for(var/atom/movable/thing in body_part.contents)
+				thing.forceMove(get_turf(H))
+			body_part.contents = list() // empty ref list so the contents don't get deleted with the bodypart
+
+		else
+			// Transfer cavity implant
+			transfer_list += list("[limb_name]" = list("hidden" = null, "contents" = list()))
+			if(body_part.hidden)
+				transfer_list[limb_name]["hidden"] = body_part.hidden
+				body_part.hidden = null // null ref so it doesn't get deleted with the bodypart
+			// Transfer contents
+			if(length(body_part.contents))
+				transfer_list[limb_name]["contents"] = body_part.contents
+				body_part.contents = list() // empty ref list so the contents don't get deleted with the bodypart
+
 	QDEL_LIST_CONTENTS(H.internal_organs)
 	QDEL_LIST_CONTENTS(H.bodyparts)
 
@@ -238,6 +264,23 @@
 		var/limb_path = organ_data["path"]
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
+		// Transfer things from the old organ to the new
+		if(istype(O, /obj/item/organ/external) && transfer_list[limb_name])
+			var/obj/item/organ/external/external_organ = O
+			external_organ.hidden = transfer_list[limb_name]["hidden"]
+			external_organ.contents = transfer_list[limb_name]["contents"]
+
+			transfer_list -= transfer_list[limb_name]
+
+	// Anything we still didn't transfer for whatever reason we drop on the ground
+	for(var/list/remaining in transfer_list)
+		if(remaining["hidden"])
+			var/atom/movable/thing = remaining["hidden"]
+			thing.forceMove(get_turf(H))
+		if(length(remaining["contents"]))
+			for(var/atom/movable/thing in remaining["contents"])
+				thing.forceMove(get_turf(H))
+
 
 	for(var/index in has_organ)
 		var/obj/item/organ/internal/organ_path = has_organ[index]
@@ -349,10 +392,8 @@
 	leftover -= .
 
 	var/health_deficiency = max(H.maxHealth - H.health, H.getStaminaLoss())
-	if(H.reagents)
-		for(var/datum/reagent/R in H.reagents.reagent_list)
-			if(R.shock_reduction)
-				health_deficiency -= R.shock_reduction
+	health_deficiency -= H.shock_reduction(FALSE)
+
 	if(HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
 		return
 	if(health_deficiency >= 40 - (40 * leftover * SLOWDOWN_MULTIPLIER)) //If we have 0.25 slowdown, or halfway to the threshold of 0.5, we reduce the health threshold by that 50%
@@ -408,18 +449,6 @@
 			H.faction -= i
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
-	return
-
-/** Handles changing icobase for species that can imitate/morph into other species
- * 	Arguments:
- * 	- H: The human of which was are updating.
- * 	- new_subtype: Our imitate species, by datum reference.
- * 	- owner_sensitive: Always leave at TRUE, this is for updating our icon. (change_icobase)
- * 	- reset_styles: If true, resets styles, hair, and other appearance styles.
- * 	- forced: If true, will set the subspecies type even if it is the same as the current species.
- */
-///
-/datum/species/proc/updatespeciessubtype(mob/living/carbon/human/H, datum/species/new_subtype, owner_sensitive = TRUE, reset_styles = TRUE, forced = FALSE)
 	return
 
 // Do species-specific reagent handling here
@@ -564,13 +593,7 @@
 		return FALSE
 	add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
-	if(!iscarbon(user))
-		target.LAssailant = null
-	else
-		target.LAssailant = user
-
-	target.lastattacker = user.real_name
-	target.lastattackerckey = user.ckey
+	target.store_last_attacker(user)
 
 	var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 	damage += attack.damage
@@ -917,9 +940,6 @@
 			return TRUE
 
 	return FALSE //Unsupported slot
-
-/datum/species/proc/update_health_hud(mob/living/carbon/human/H)
-	return FALSE
 
 /datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))

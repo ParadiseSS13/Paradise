@@ -360,25 +360,22 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return TRUE
 
-/obj/machinery/porta_turret/tool_act(mob/living/user, obj/item/I, tool_type)
-	if(user.a_intent != INTENT_HELP)
-		return ..()
-	if(syndicate)
-		to_chat(user, "<span class='danger'>[src] is sealed tightly, tools won't help here.</span>")
-		return TRUE
-
-	if(!(stat & BROKEN))
-		to_chat(user, "<span class='notice'>[src] is in fine condition, you'd need to rough it up a bit if you wanted to disassemble it.</span>")
-		return TRUE
-	return ..()
-
 /obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!(stat & BROKEN) || syndicate) // No disasembling active turrets or syndicate ones
+
+	if(user.a_intent != INTENT_HELP)
+		return FALSE
+
+	if(syndicate)
+		to_chat(user, "<span class='danger'>[src] is sealed tightly, tools won't help here.</span>")
 		return
+	if(!(stat & BROKEN))
+		to_chat(user, "<span class='notice'>[src] is in fine condition, you'd need to rough it up a bit if you wanted to disassemble it.</span>")
+		return
+
 	to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
 	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
-		return FALSE
+		return
 	if(prob(70))
 		to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 		if(installation)
@@ -412,18 +409,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(user.a_intent == INTENT_HELP)
 		return ..()
 
-	// otherwise, if the turret was attacked with the intention of harming it:
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_item_attack_animation()
+/obj/machinery/porta_turret/attacked_by(obj/item/attacker, mob/living/user)
+	. = ..()
+	// TODO: move to play_attack_sound when we actually use obj_integrity
 	playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
 
 	//if the force of impact dealt at least 1 damage, the turret gets pissed off
-	if(used.force * 0.5 > 1)
+	if(attacker.force * 0.5 > 1)
 		if(!attacked && !emagged)
 			attacked = TRUE
 			addtimer(VARSET_CALLBACK(src, attacked, FALSE), 6 SECONDS)
-
-	return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
 /obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
@@ -633,7 +628,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(iscuffed(L)) // If the target is handcuffed, leave it alone
 		return TURRET_NOT_TARGET
 
-	if(isanimal(L) || issmall(L)) // Animals are not so dangerous
+	if(isanimal_or_basicmob(L) || issmall(L)) // Animals are not so dangerous
 		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 
 	if(isalien(L)) // Xenos are dangerous
@@ -1149,6 +1144,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
 	projectile = /obj/item/projectile/bullet
 	eprojectile = /obj/item/projectile/bullet
+
+/obj/machinery/porta_turret/syndicate/turret_outpost
+	name = "machine gun turret (5.56x45mm)"
+	desc = "Syndicate exterior defense turret chambered for 5.56x45mm rounds. Designed to down intruders with rifle caliber bullets."
+	projectile = /obj/item/projectile/bullet/heavybullet2
+	eprojectile = /obj/item/projectile/bullet/heavybullet2
 
 /obj/machinery/porta_turret/syndicate/grenade
 	name = "mounted grenade launcher (40mm)"

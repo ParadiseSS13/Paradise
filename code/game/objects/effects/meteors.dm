@@ -243,7 +243,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 
 /obj/effect/meteor/medium/meteor_effect()
 	..()
-	explosion(loc, 0, 1, 2, 3, 0)
+	explosion(loc, 0, 1, 2, 3, 0, cause = name)
 
 //Large-sized
 /obj/effect/meteor/big
@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 
 /obj/effect/meteor/big/meteor_effect()
 	..()
-	explosion(loc, 1, 2, 3, 4, 0)
+	explosion(loc, 1, 2, 3, 4, 0, cause = name)
 
 //Flaming meteor
 /obj/effect/meteor/flaming
@@ -268,7 +268,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 
 /obj/effect/meteor/flaming/meteor_effect()
 	..()
-	explosion(loc, 1, 2, 3, 4, 0, 0, 5)
+	explosion(loc, 1, 2, 3, 4, 0, 0, 5, cause = name)
 
 //Radiation meteor
 /obj/effect/meteor/irradiated
@@ -280,9 +280,11 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	..()
-	explosion(loc, 0, 0, 4, 3, 0)
+	explosion(loc, 0, 0, 4, 3, 0, cause = name)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-	radiation_pulse(src, 5000, 7)
+	radiation_pulse(src, 20000, 7, ALPHA_RAD)
+	for(var/turf/target_turf in range(loc, 3))
+		contaminate_target(target_turf, src, 2000, ALPHA_RAD)
 	//Hot take on this one. This often hits walls. It really has to breach into somewhere important to matter. This at leats makes the area slightly dangerous for a bit
 
 /obj/effect/meteor/bananium
@@ -294,7 +296,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 
 /obj/effect/meteor/bananium/meteor_effect()
 	..()
-	explosion(loc, 0, 0, 3, 2, 0)
+	explosion(loc, 0, 0, 3, 2, 0, cause = name)
 	var/turf/current_turf = get_turf(src)
 	new /obj/item/grown/bananapeel(current_turf)
 	for(var/obj/target in range(4, current_turf))
@@ -319,12 +321,12 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 
 /obj/effect/meteor/tunguska/meteor_effect()
 	..()
-	explosion(loc, 5, 10, 15, 20, 0)
+	explosion(loc, 5, 10, 15, 20, 0, cause = "[name]: End explosion")
 
 /obj/effect/meteor/tunguska/Bump()
 	..()
 	if(prob(20))
-		explosion(loc, 2, 4, 6, 8)
+		explosion(loc, 2, 4, 6, 8, cause = "[name]: Bump explosion")
 
 //Meaty Ore
 /obj/effect/meteor/meaty

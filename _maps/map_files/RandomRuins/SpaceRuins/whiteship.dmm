@@ -6,6 +6,10 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
+"bE" = (
+/obj/effect/spawner/random/pool/whiteship_mob,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
 "cf" = (
 /obj/effect/spawner/random/oil/often,
 /turf/simulated/floor/plating,
@@ -61,6 +65,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
+"fT" = (
+/obj/effect/spawner/random/pool/whiteship_mob,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
 "gd" = (
 /obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -86,9 +94,7 @@
 /turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "kO" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "nC" = (
@@ -138,9 +144,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "sk" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "sm" = (
@@ -153,9 +157,7 @@
 /turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "tV" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1
-	},
+/obj/machinery/door/airlock/multi_tile/glass/directional/north,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "uo" = (
@@ -214,7 +216,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/whiteship_mob,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "ys" = (
@@ -243,6 +245,7 @@
 /area/shuttle/abandoned)
 "zH" = (
 /obj/machinery/light/small,
+/obj/effect/spawner/random/pool/whiteship_mob,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "zM" = (
@@ -304,6 +307,10 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
+"KW" = (
+/obj/effect/spawner/random/pool/whiteship_mob,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/abandoned)
 "KX" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -335,9 +342,8 @@
 /area/shuttle/abandoned)
 "Pe" = (
 /obj/structure/chair/wood,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/random/directional/north,
+/obj/effect/spawner/random/pool/whiteship_mob,
 /turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "Pi" = (
@@ -520,7 +526,7 @@ zM
 zM
 zO
 AS
-vB
+bE
 wh
 vB
 vB
@@ -542,7 +548,7 @@ kO
 vB
 gd
 Of
-Of
+KW
 zO
 zO
 zM
@@ -622,7 +628,7 @@ vB
 sk
 zO
 Xq
-ux
+fT
 Xq
 zO
 zM

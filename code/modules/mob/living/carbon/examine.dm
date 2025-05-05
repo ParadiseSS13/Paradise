@@ -252,9 +252,11 @@
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
 		if(!just_sleeping)
-			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
-			if(get_int_organ(/obj/item/organ/internal/brain) && !key)
-				if(!get_ghost())
+			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive"
+			if(get_int_organ(/obj/item/organ/internal/brain) && !client) // body has no online player inside - let's look for ghost
+				if(!check_ghost_client()) // our ghost is offline or no ghost attached to body
+					msg += "; there are no signs of life"
+				if(!get_ghost() && !key) // no ghost attached to body
 					msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
 
@@ -342,22 +344,29 @@
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)
 	if(ishuman(M))
-		var/have_hudtypes = list()
 		var/mob/living/carbon/human/H = M
-
+		var/obj/item/clothing/glasses/hud/hudglasses
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			var/obj/item/clothing/glasses/hud/hudglasses = H.glasses
-			if(hudglasses?.examine_extensions)
-				have_hudtypes += hudglasses.examine_extensions
+			hudglasses = H.glasses
+			if(hudglasses.hud_debug)
+				return TRUE
 
-		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
-		if(CIH?.examine_extensions)
-			have_hudtypes += CIH.examine_extensions
+		var/have_hudtypes = list()
+		var/datum/atom_hud/data/human/medbasic = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
+		var/datum/atom_hud/data/human/medadv = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		var/datum/atom_hud/data/human/secbasic = GLOB.huds[DATA_HUD_SECURITY_BASIC]
+		var/datum/atom_hud/data/human/secadv = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		if((H in medbasic.hudusers) || (H in medadv.hudusers))
+			have_hudtypes += EXAMINE_HUD_MEDICAL_READ
+		if(H in secadv.hudusers)
+			have_hudtypes += EXAMINE_HUD_SECURITY_READ
+		if(H in secbasic.hudusers)
+			have_hudtypes += EXAMINE_HUD_SKILLS
 
 		var/user_accesses = M.get_access()
 		var/secwrite = has_access(null, list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS), user_accesses) // same as obj/machinery/computer/secure_data/req_one_access
 		var/medwrite = has_access(null, list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS), user_accesses) // same access as obj/machinery/computer/med_data/req_one_access
-		if(secwrite)
+		if(secwrite || hudglasses?.hud_access_override)
 			have_hudtypes += EXAMINE_HUD_SECURITY_WRITE
 		if(medwrite)
 			have_hudtypes += EXAMINE_HUD_MEDICAL_WRITE

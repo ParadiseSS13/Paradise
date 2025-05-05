@@ -590,7 +590,7 @@
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_rainbow"
 	trash = /obj/item/c_tube
-	filling_color = "#C8A5DC"
+	filling_color = "#eb0dc6"
 	list_reagents = list("omnizine" = 20)
 	goal_difficulty = FOOD_GOAL_HARD
 

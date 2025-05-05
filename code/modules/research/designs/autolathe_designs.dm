@@ -82,6 +82,14 @@
 	build_path = /obj/item/screwdriver
 	category = list("initial","Tools")
 
+/datum/design/hammer
+	name = "Hammer"
+	id = "hammer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/hammer
+	category = list("initial","Tools")
+
 /datum/design/wirecutters
 	name = "Wirecutters"
 	id = "wirecutters"
@@ -254,6 +262,22 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 12000)
 	build_path = /obj/item/kitchen/knife
+	category = list("initial","Dinnerware")
+
+/datum/design/cheese_knife
+	name = "Cheese Knife"
+	id = "cheese_knife"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/kitchen/knife/cheese
+	category = list("initial","Dinnerware")
+
+/datum/design/pizza_cutter
+	name = "Pizza Cutter"
+	id = "pizza_cutter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000)
+	build_path = /obj/item/kitchen/knife/pizza_cutter
 	category = list("initial","Dinnerware")
 
 /datum/design/fork
