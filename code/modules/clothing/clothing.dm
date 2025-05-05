@@ -249,7 +249,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
-	permeability_coefficient = 0.3
+	permeability_coefficient = 0.5
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb = list("challenged")
@@ -629,7 +629,7 @@
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_SHOES
 
-	permeability_coefficient = 0.2
+	permeability_coefficient = 0.4
 	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
@@ -759,7 +759,7 @@
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_OUTER_SUIT
 	dyeable = FALSE
-	permeability_coefficient = 0.7
+	permeability_coefficient = 0.75
 
 	var/fire_resist = T0C + 100
 	var/blood_overlay_type = "suit"
