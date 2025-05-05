@@ -207,10 +207,10 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",		/datum/event/spider_terror, 	15,		list(ASSIGNMENT_SECURITY = 3), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",		/datum/event/spawn_slaughter,	20,  	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Shadow Demon", 		/datum/event/spawn_slaughter/shadow,	20, 	is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Immovable Rod",		/datum/event/immovable_rod,				0,		list(ASSIGNMENT_ENGINEER = 10), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Disease Outbreak",			/datum/event/disease_outbreak, 			15,		list(ASSIGNMENT_MEDICAL = 4), TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
+		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
 
 
