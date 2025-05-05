@@ -6571,28 +6571,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/east)
-"aKl" = (
-/obj/structure/table/reinforced,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith{
-	dir = 1
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Smith's Desk";
-	dir = 1
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "smithdesk";
-	name = "Smith's Desk Shutters";
-	dir = 5
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "smithdesk";
-	name = "Smith's Desk Shutters";
-	dir = 5
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
-/area/station/supply/smith_office)
 "aKq" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -59072,7 +59050,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "smithdesk";
 	name = "Smith's Desk Shutters";
-	dir = 5
+	dir = 2
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -86536,11 +86514,12 @@
 	},
 /area/station/security/permabrig)
 "xIS" = (
-/obj/structure/rack,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/newscaster/directional/west,
+/obj/machinery/telepad_cargo,
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -108683,7 +108662,7 @@ hHa
 tXo
 ebX
 qaF
-aKl
+lSi
 jPT
 hDK
 msj
