@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	set name = "Legacy Play Global Sound"
 	if(!check_rights(R_SOUNDS))	return
 
-	if(alert(src, "WARNING: Legacy Play Global Sound does not support CDN assets. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really play direct sound?", list("Yes", "No")) != "Yes")
+	if(alert("WARNING: Legacy Play Global Sound does not support CDN asset sending. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really use Legacy Play Global Sound?", "Yes", "No") == "No")
 		return
 
 	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
