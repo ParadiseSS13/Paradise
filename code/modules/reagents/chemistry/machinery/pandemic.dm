@@ -137,7 +137,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	return B
 
 /// Find the time it would take to analyze the current disease before any symptom symptom_guesses are made
-/obj/machinery/pandemic/proc/find_analysis_time_delta(datum/reagent/R)
+/obj/machinery/pandemic/proc/find_analysis_time_delta()
 	var/strains = 0
 	var/stage_amount = 0
 	var/list/stages = list()
@@ -146,35 +146,42 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/stealth = 0
 	var/resistance = 0
 	var/max_stages = 0
-	for(var/datum/disease/advance/to_analyze in R.data["viruses"])
-		// Automatically analyze if the tracker stores the ID of an analyzed disease
-		if(to_analyze.tracker && (to_analyze.tracker in GLOB.known_advanced_diseases["[z]"]))
-			if(!(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]))
-				GLOB.known_advanced_diseases["[z]"] += list(to_analyze.GetDiseaseID())
-		// If we know this disease there's no need to keep going.
-		if(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
-			return
-		// If we somehow got multiple strains we can't do analysis.
-		if(to_analyze.strain != current_strain || current_strain == "")
-			strains++
-			if(strains > 1)
-				analysis_time_delta = - 2
-				SStgui.update_uis(src, TRUE)
+	var/datum/reagent/blood/blood_sample = locate() in beaker.reagents.reagent_list
+	var/datum/reagent/virus_genes/gene_sample = locate() in beaker.reagents.reagent_list
+	if(blood_sample && blood_sample.data && blood_sample.data["viruses"])
+		for(var/datum/disease/advance/to_analyze in blood_sample.data["viruses"])
+			// Automatically analyze if the tracker stores the ID of an analyzed disease
+			if(to_analyze.tracker && (to_analyze.tracker in GLOB.known_advanced_diseases["[z]"]))
+				if(!(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]))
+					GLOB.known_advanced_diseases["[z]"] += list(to_analyze.GetDiseaseID())
+			// If we know this disease there's no need to keep going.
+			if(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
 				return
-			current_strain = to_analyze.strain
-		// Figure out the stealth value. We only need to do this once
-		if(!stealth_init)
-			for(var/datum/symptom/S in to_analyze.symptoms)
-				stealth += S.stealth
-				resistance += S.resistance
-			stealth += to_analyze.base_properties["stealth"]
-			resistance +=  to_analyze.base_properties["resistance"]
-			max_stages = to_analyze.max_stages
-			stealth_init = TRUE
-		// If we found a unique stage count it
-		if(!(to_analyze.stage in stages))
-			stage_amount++
-			stages += to_analyze.stage
+			// If we somehow got multiple strains we can't do analysis.
+			if(to_analyze.strain != current_strain || current_strain == "")
+				strains++
+				if(strains > 1)
+					analysis_time_delta = - 2
+					SStgui.update_uis(src, TRUE)
+					return
+				current_strain = to_analyze.strain
+			// Figure out the stealth value. We only need to do this once
+			if(!stealth_init)
+				for(var/datum/symptom/S in to_analyze.symptoms)
+					stealth += S.stealth
+					resistance += S.resistance
+				stealth += to_analyze.base_properties["stealth"]
+				resistance +=  to_analyze.base_properties["resistance"]
+				max_stages = to_analyze.max_stages
+				stealth_init = TRUE
+			// If we found a unique stage count it
+			if(!(to_analyze.stage in stages))
+				stage_amount++
+				stages += to_analyze.stage
+	if(gene_sample && gene_sample.data)
+		for(var/strain_id in gene_sample.data)
+			if(strain_id == current_strain)
+				stage_amount += 2
 
 	var/power_level = max(stealth + resistance, 0)
 	// Make sure we don't runtime if empty
@@ -596,16 +603,13 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		beaker = used
 		beaker.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
-		SStgui.update_uis(src, TRUE)
 		icon_state = "pandemic1"
-		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			if(R.id == "blood")
-				find_analysis_time_delta(R)
-				SStgui.update_uis(src, TRUE)
-				for(var/datum/disease/advance/virus in R.data["viruses"])
-					log_admin("[key_name(user)] inserted disease [virus] of strain [virus.strain] with the following symptoms: [english_list(virus.symptoms)] into [src] at these coords x: [x] y: [y] z: [z]")
-				break
-
+		var/datum/reagent/blood/inserted = locate() in beaker.reagents.reagent_list
+		if(inserted && inserted.data && inserted.data["viruses"])
+			find_analysis_time_delta()
+			for(var/datum/disease/advance/virus in inserted.data["viruses"])
+				log_admin("[key_name(user)] inserted disease [virus] of strain [virus.strain] with the following symptoms: [english_list(virus.symptoms)] into [src] at these coords x: [x] y: [y] z: [z]")
+		SStgui.update_uis(src, TRUE)
 		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()

@@ -202,3 +202,11 @@
 	name = "Tracking agar"
 	id = "tracking_agar"
 	color = "#2c8852" // rgb: 45,136,82
+
+/datum/reagent/virus_genes
+	name = "Viral Genetic Material"
+	id = "virus_genes"
+	color = "#e0717a"
+
+/datum/reagent/virus_genes/on_merge(list/_data)
+	data = (data ? data : list()) + (_data ? _data : list())

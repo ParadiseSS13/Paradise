@@ -507,7 +507,7 @@
 					var/preserved_data = null
 					for(var/B in C.required_reagents)
 						if(!preserved_data)
-							preserved_data = get_data(B)
+							preserved_data = copy_data_by_id(B)
 						remove_reagent(B, (multiplier * C.required_reagents[B]), safety = TRUE)
 
 					var/created_volume = C.result_amount*multiplier
@@ -905,6 +905,11 @@
 		var/datum/reagent/R = A
 		if(R.id == reagent_id)
 			R.data = new_data
+
+/datum/reagents/proc/copy_data_by_id(reagent_id)
+	for(var/datum/reagent/candidate in reagent_list)
+		if(candidate.id == reagent_id)
+			return(copy_data(candidate))
 
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data)
