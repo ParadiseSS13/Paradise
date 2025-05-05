@@ -16,7 +16,7 @@
 	end_duration = 100
 	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
 	var/pre_maint_all_access
-	area_type = /area
+	area_types = list(/area)
 	protected_areas = list(
 		/area/station/maintenance,
 		/area/station/turret_protected/ai_upload,

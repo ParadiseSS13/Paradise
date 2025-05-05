@@ -93,9 +93,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ap" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/noslip,
@@ -198,9 +196,7 @@
 	},
 /area/ruin/space/moonbase19)
 "aD" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
@@ -395,13 +391,13 @@
 /area/ruin/space/moonbase19)
 "ba" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/moonbase19)
 "bb" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -1507,10 +1503,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2082,9 +2075,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gM" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -2595,7 +2586,7 @@
 /area/ruin/space/moonbase19)
 "ij" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/north{
 	id_tag = "awaycargogate"
 	},
 /turf/simulated/floor/catwalk,
@@ -5061,11 +5052,7 @@
 	},
 /area/ruin/space/moonbase19)
 "rl" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 4
@@ -6900,9 +6887,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -7987,9 +7972,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Ey" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/noslip,
 /area/ruin/space/moonbase19)
@@ -8164,10 +8147,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "Fp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -10817,7 +10797,7 @@
 /area/ruin/space/moonbase19)
 "RD" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
@@ -11755,9 +11735,7 @@
 	},
 /area/ruin/space/moonbase19)
 "VX" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light/small{
@@ -12288,10 +12266,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12310,9 +12285,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Yu" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/vomit/green,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plasteel{
