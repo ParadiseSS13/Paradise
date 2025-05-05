@@ -68,7 +68,7 @@ Difficulty: Hard
 	internal_gps = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
-	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
+	deathmessage = "sinks into a pile of grotesque viscera, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
 	contains_xeno_organ = TRUE
 	max_dissection_steps = 6
@@ -97,12 +97,12 @@ Difficulty: Hard
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin removing the spikes and shards of bone from the mass.</span>",
-	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
+	"<span class='notice'>You begin to prep the mass for dissection... If you can even call it that at this point</span>",
+	"<span class='notice'>You begin removing shards and chunks of bone, clearing a spot to safely cut deeper.</span>",
+	"<span class='notice'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone..</span>",
 	"<span class='notice'>You clamp the mass amount of leaking arteries in the surgical site.</span>",
 	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+	"<span class='notice'>You finally find something, and begin to remove a unidentifiable mass out of the mass!</span>",
 	)
 
 /obj/item/gps/internal/bubblegum
@@ -185,8 +185,8 @@ Difficulty: Hard
 		for(var/mob/M in A)
 			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
 		new /obj/effect/bubblegum_exit(get_turf(src))
-	name = "Fleshy Pile"
-	desc = "Upon closer inspection it doesnt actually look like it comes from bubblegum, but some other kind of foreign entity."
+	name = "Fleshy Mass"
+	desc = "Whatever this is, doesn't actually look like it comes from bubblegum, but many other entities. just thinking about how many creatures met their end to make this pile makes you shudder."
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)

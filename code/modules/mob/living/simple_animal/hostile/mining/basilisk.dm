@@ -47,6 +47,7 @@
 	dissection_tool_step = list(
 	/datum/surgery_step/generic/dissect,
 	/datum/surgery_step/generic/drill,
+	/datum/surgery_step/generic/retract_skin,
 	/datum/surgery_step/generic/clamp_bleeders,
 	/datum/surgery_step/generic/cut_open,
 	/datum/surgery_step/generic/clamp_bleeders,
@@ -56,7 +57,8 @@
 
 	dissection_text = list(
 	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin to drill into the crystalline structure.</span>",
+	"<span class='notice'>You drill a series of holes into the crystalline carapace.</span>",
+	"<span class='notice'>You crack the crystalline carapace into many pieces.</span>",
 	"<span class='notice'>You begin removing the pieces of obstructive material.</span>",
 	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
 	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",

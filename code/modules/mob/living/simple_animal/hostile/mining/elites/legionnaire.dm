@@ -65,7 +65,7 @@
 	dissection_text = list(
 	"<span class='notice'>You begin to prep the subject for dissection...</span>",
 	"<span class='notice'>You begin sawing through the dense bone obstructions.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>With a sickening crunch, you force the dissection cavity open.</span>",
 	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
 	)
 

@@ -44,7 +44,7 @@
 
 /datum/job_objective/scan_organs
 	objective_name = "Scan Extraterrestrial Organs"
-	description = "Scan alien organs via the organ analyzer to learn more about the local ecology."
+	description = "Scan alien organs via the organ analyzer to learn more about their local ecology."
 	gives_payout = TRUE
 	completion_payment = 200
 
