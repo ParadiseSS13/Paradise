@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/list/symptoms_to_try = transmissable_symptoms.Copy()
 	var/spread_threhsold = SPREAD_CONTACT_HANDS
 	// Chance for it to be extra spready, scales quadratically with severity
-	if(prob(max_severity ** 2) * 3)
+	if(prob((max_severity ** 2) * 3))
 		spread_threhsold = SPREAD_CONTACT_GENERAL
 	if(prob((max_severity ** 2) * 1.5))
 		spread_threhsold = SPREAD_AIRBORNE
