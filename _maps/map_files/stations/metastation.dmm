@@ -2295,6 +2295,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "aun" = (
+/obj/structure/cable,
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -26566,6 +26568,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -54706,7 +54711,6 @@
 	},
 /area/station/medical/break_room)
 "lsc" = (
-/obj/machinery/power/apc/directional/south,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
@@ -74433,7 +74437,6 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
 "sPC" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -74445,6 +74448,9 @@
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
