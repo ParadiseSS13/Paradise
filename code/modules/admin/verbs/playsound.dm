@@ -17,8 +17,11 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 /client/proc/play_sound(S as sound)
 	set category = "Event"
-	set name = "Play Global Sound"
+	set name = "Legacy Play Global Sound"
 	if(!check_rights(R_SOUNDS))	return
+
+	if(alert(src, "WARNING: Legacy Play Global Sound does not support CDN assets. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really play direct sound?", list("Yes", "No")) != "Yes")
+		return
 
 	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
 	uploaded_sound.priority = 250
@@ -132,7 +135,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 /client/proc/play_sound_tgchat()
 	set category = "Event"
-	set name = "Play Global Sound TGchat"
+	set name = "Play Global Sound"
 	if(!check_rights(R_SOUNDS))
 		return
 
