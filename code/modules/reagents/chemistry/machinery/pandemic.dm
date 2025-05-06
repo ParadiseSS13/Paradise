@@ -370,7 +370,11 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 				return
 			A.AssignName(new_name)
 			for(var/datum/disease/advance/AD in GLOB.active_diseases)
-				AD.Refresh(FALSE, FALSE, FALSE, FALSE)
+				AD.Refresh(TRUE, FALSE, FALSE, FALSE)
+			var/datum/reagent/blood = locate() in beaker.reagents.reagent_list
+			if(blood.data && blood.data["viruses"])
+				for(var/datum/disease/advance/virus in blood.data["viruses"])
+					virus.AssignName(new_name)
 			update_static_data(ui.user)
 		if("switch_strain")
 			var/strain_index = text2num(params["strain_index"])
