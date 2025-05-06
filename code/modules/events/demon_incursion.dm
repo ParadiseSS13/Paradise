@@ -103,7 +103,7 @@
 
 /obj/structure/spawner/nether/demon_incursion/proc/spread()
 	var/list/spawnable_turfs = list()
-	for(var/turf/simulated/floor/possible_loc in orange(10, src.loc))
+	for(var/turf/simulated/floor/possible_loc in orange(8, src.loc))
 		if(!istype(possible_loc))
 			continue
 		if(is_blocked_turf(possible_loc))
