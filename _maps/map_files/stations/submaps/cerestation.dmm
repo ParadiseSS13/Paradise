@@ -13,9 +13,6 @@
 "cc" = (
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored/cere/engineering)
-"ck" = (
-/turf/simulated/mineral/ancient/outer,
-/area/space/nearstation)
 "co" = (
 /obj/item/chair,
 /obj/item/reagent_containers/dropper/precision{
@@ -60,9 +57,6 @@
 "fh" = (
 /turf/simulated/mineral/ancient,
 /area/station/hallway/spacebridge/scidock)
-"fj" = (
-/turf/simulated/mineral/ancient/outer,
-/area/space)
 "fu" = (
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -81,7 +75,7 @@
 /area/station/hallway/spacebridge/scidock)
 "hA" = (
 /obj/machinery/door/airlock/glass,
-/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -95,7 +89,7 @@
 /area/station/hallway/spacebridge/scidock)
 "kV" = (
 /obj/machinery/door/airlock/glass,
-/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "ld" = (
@@ -103,9 +97,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "ly" = (
-/obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/glass,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -226,13 +220,14 @@
 /area/station/hallway/spacebridge/scidock)
 "zC" = (
 /obj/machinery/door/airlock/glass,
-/obj/structure/barricade/wooden,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "Af" = (
 /obj/machinery/door/airlock/research,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
 "BP" = (
@@ -251,9 +246,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/hallway/spacebridge/scidock)
-"DJ" = (
-/turf/simulated/wall,
-/area/mine/unexplored/cere/engineering)
 "DV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -327,6 +319,7 @@
 /area/station/hallway/spacebridge/scidock)
 "Ms" = (
 /obj/machinery/door/airlock/research,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -413,6 +406,9 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"Up" = (
+/turf/simulated/mineral/ancient,
+/area/station/maintenance/maintcentral)
 "US" = (
 /obj/item/chair{
 	dir = 1
@@ -464,7 +460,7 @@
 "VM" = (
 /obj/machinery/door/airlock/research,
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
 "WL" = (
@@ -486,10 +482,6 @@
 /obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
-"ZY" = (
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/mine/unexplored/cere/engineering)
 
 (1,1,1) = {"
 ET
@@ -551,7 +543,7 @@ ET
 ET
 ET
 SC
-cc
+Up
 cc
 py
 Vo
@@ -603,7 +595,7 @@ ET
 ET
 ET
 ET
-ZY
+Up
 py
 Vo
 Vo
@@ -655,8 +647,8 @@ ET
 ET
 ET
 ET
-DJ
-fj
+wy
+py
 Vo
 Vo
 Vb
@@ -1175,7 +1167,7 @@ ET
 ET
 ET
 SC
-cc
+Up
 cc
 py
 Vo
@@ -1227,7 +1219,7 @@ ET
 ET
 ET
 ET
-ZY
+Up
 py
 Vo
 Vo
@@ -1279,8 +1271,8 @@ ET
 ET
 ET
 ET
-DJ
-ck
+wy
+py
 EV
 EV
 EV
