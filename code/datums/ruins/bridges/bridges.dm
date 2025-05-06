@@ -51,7 +51,7 @@
 /obj/effect/spawner/dynamic_bridge/LateInitialize()
 	forwards_backwards = list(NORTH, SOUTH)
 	side_to_side = list(EAST, WEST)
-	if(!attempt_bridge())
+	if(attempt_bridge() != BRIDGE_SPAWN_SUCCESS)
 		forward_goal = null
 		backward_goal = null
 		forwards_backwards = list(EAST, WEST)
@@ -271,6 +271,13 @@
 				count++
 			walk_dir = forwards_backwards[1]
 
+	if(bad_passage)
+		return BRIDGE_SPAWN_BAD_TERRAIN
+	if(count < min_length)
+		return BRIDGE_SPAWN_TOO_NARROW
+	if(count > max_length)
+		return BRIDGE_SPAWN_TOO_WIDE
+
 	if(!bad_passage && count >= min_length && forward_goal && backward_goal)
 		for(var/turf/T in get_line(forward_goal, backward_goal))
 			make_walkway(T)
@@ -289,7 +296,7 @@
 				get_step(get_step(backward_goal, side_to_side[2]), forwards_backwards[2])))
 			cleanup_edge(T)
 
-		return TRUE
+		return BRIDGE_SPAWN_SUCCESS
 
 /// Checks if we are going out of bounds. Returns TRUE if we are close (less than or equal to 2 turfs) to a border
 /obj/effect/spawner/dynamic_bridge/proc/out_of_bounds(direction, turf/current_turf)

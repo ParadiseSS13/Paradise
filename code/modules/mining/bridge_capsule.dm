@@ -41,11 +41,20 @@
 	if(istype(loc, SSmapping.lavaland_theme?.primary_turf_type))
 		loc.visible_message("<span class='warning'>[src] suddenly bursts!</span>")
 		var/obj/effect/spawner/dynamic_bridge/capsule/spawner = new(loc, thrown_dir)
-		if(spawner.attempt_bridge())
-			qdel(src)
-		else
-			loc.visible_message("<span class='warning'>[src] buzzes loudly and falls to the ground!</span>")
-			stop_flying()
+		var/result = spawner.attempt_bridge()
+		var/fail_message = "[src] buzzes loudly and falls to the ground!"
+		switch(result)
+			if(BRIDGE_SPAWN_SUCCESS)
+				qdel(src)
+			if(BRIDGE_SPAWN_BAD_TERRAIN)
+				loc.visible_message("<span class='warning'>[fail_message] It looks like the terrain here is too uneven for a bridge.</span>")
+				stop_flying()
+			if(BRIDGE_SPAWN_TOO_NARROW)
+				loc.visible_message("<span class='warning'>[fail_message] It looks like the span here is too narrow.</span>")
+				stop_flying()
+			if(BRIDGE_SPAWN_TOO_WIDE)
+				loc.visible_message("<span class='warning'>[fail_message] It looks like the span here is too wide.</span>")
+				stop_flying()
 
 		qdel(spawner)
 		return
