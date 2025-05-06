@@ -40,6 +40,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/tmp/d2 = 1
 	/// The regional powernet this cable is registered to
 	var/datum/regional_powernet/powernet
+	var/strengthened = FALSE
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
@@ -119,11 +120,19 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(powernet && (powernet.available_power > 0))		// is it powered?
-		to_chat(user, chat_box_examine("<span class='notice'>Total power: [DisplayPower(powernet.available_power)]\nLoad: [DisplayPower(powernet.power_demand)]\nExcess power: [DisplayPower(get_surplus())]</span>"))
-	else
-		to_chat(user, "<span class='warning'>The cable is not powered.</span>")
+	to_chat(user, generate_power_message())
 	shock(user, 5, 0.2)
+
+/obj/structure/cable/proc/generate_power_message()
+	if(powernet && (powernet.available_power > 0))
+		return chat_box_examine("<span class='notice'>Total power: [DisplayPower(powernet.available_power)]\nLoad: [DisplayPower(powernet.power_demand)]\nExcess power: [DisplayPower(get_surplus())]</span>")
+	else
+		return "<span class='warning'>The cable is not powered.</span>"
+
+/obj/structure/cable/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		. += generate_power_message()
 
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -134,6 +143,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(shock(user, 50))
+		return
+	if(strengthened)
+		to_chat(user, "<span class = 'danger'>The cable resists your attempts to cut it!")
 		return
 	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
 	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])",INVESTIGATE_WIRES)
@@ -421,6 +433,11 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/white
 	color = COLOR_WHITE
+
+/obj/structure/cable/proc/unstrengthen_cables(mob/demon)
+	SIGNAL_HANDLER // COMSIG_MOB_DEATH
+	src.strengthened = FALSE
+	UnregisterSignal(demon, COMSIG_MOB_DEATH)
 
 //
 //	This ASCII art represents my brain after looking at cable

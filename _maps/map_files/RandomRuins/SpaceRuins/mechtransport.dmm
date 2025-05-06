@@ -679,7 +679,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "Vp" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "mechtransport_ext"
 	},
 /turf/simulated/floor/plasteel/dark,
