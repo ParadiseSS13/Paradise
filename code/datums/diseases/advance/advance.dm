@@ -336,7 +336,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = 20 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		// The amount of cures needed to cure the disease. clamped between 1 and 6 because we generate 6 possible cures
-		cures_required = clamp(round(max(properties["resistance"], 0) ** 0.77), 1, 6)
+		cures_required = round(max(2.2 * (1.1 ** properties["resistance"]), 1))
 		// 9 stage rate is twice as fast as 0 stage rate, -9 stage rate is half as fast as 0.
 		stage_prob = 4 * (1.08 ** properties["stage rate"])
 		SetSeverity(properties["severity"])
@@ -407,10 +407,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		cures = list()
 		cure_text = ""
 		cures += pick(GLOB.standard_cures)
-		cures += cure_pick(GLOB.advanced_cures)
-		cures += cure_pick(GLOB.plant_cures)
-		for(var/i in 1 to 4)
-			switch(rand(1, 3))
+		for(var/i in 1 to cures_required + 2)
+			switch(pick(40;1, 40;2, 20;3))
 				if(1)
 					cures += cure_pick(GLOB.advanced_cures)
 				if(2)
