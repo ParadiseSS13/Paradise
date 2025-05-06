@@ -26,7 +26,7 @@
 	icon_opened = "emerg_open"
 
 /obj/structure/closet/walllocker/emerglocker/populate_contents()
-	switch(pickweight(list("small" = 55, "aid" = 25, "tank" = 10, "both" = 10, "nothing" = 0, "delete" = 0)))
+	switch(pickweight(list("small" = 55, "aid" = 25, "tank" = 10, "both" = 10)))
 		if("small")
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/tank/internals/emergency_oxygen(src)
