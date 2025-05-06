@@ -103,12 +103,12 @@
 	release_items()
 	..()
 	if(L_item)
-		A = pick(oview(range))
+		A = pick(oview(range, owner))
 		L_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your left arm spasms and throws [L_item]!</span>")
 		l_hand_obj = null
 	if(R_item)
-		A = pick(oview(range))
+		A = pick(oview(range, owner))
 		R_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your right arm spasms and throws [R_item]!</span>")
 		r_hand_obj = null
