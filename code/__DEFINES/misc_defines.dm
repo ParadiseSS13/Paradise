@@ -745,3 +745,9 @@ do { \
 
 //! The number of seconds between the start of the UNIX and BYOND epochs.
 #define BYOND_EPOCH_UNIX 946702800
+
+// Use this define to register something as a purchasable!
+// * n — The proper name of the purchasable
+// * o — The object type path of the purchasable to spawn
+// * p — The price of the purchasable in mining points
+#define EQUIPMENT(n, o, p) n = new /datum/data/mining_equipment(n, o, p)
