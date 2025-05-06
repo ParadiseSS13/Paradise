@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	B.name = "[name] [bottle_type] bottle"
 	return B
 
-/// Find the time it would take to analyze the current disease before any symptom symptom_guesses are made
+/// Find the time it would take to analyze the current disease before any symptom predictions are made
 /obj/machinery/pandemic/proc/find_analysis_time_delta()
 	var/strains = 0
 	var/stage_amount = 0
@@ -178,10 +178,12 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			if(!(to_analyze.stage in stages))
 				stage_amount++
 				stages += to_analyze.stage
+
 	if(gene_sample && gene_sample.data)
 		for(var/strain_id in gene_sample.data)
 			if(strain_id == current_strain)
 				stage_amount += 2
+				break
 
 	var/power_level = max(stealth + resistance, 0)
 	// Make sure we don't runtime if empty
