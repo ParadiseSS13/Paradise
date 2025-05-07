@@ -337,7 +337,7 @@
 	category = list("initial","Dinnerware")
 
 /datum/design/bowl
-	name = "Prep bowl"
+	name = "Prep Bowl"
 	id = "prep_bowl"
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
 	build_type = AUTOLATHE
@@ -345,7 +345,7 @@
 	category = list("initial","Dinnerware")
 
 /datum/design/icecream_bowl
-	name = "Icecream bowl"
+	name = "Icecream Bowl"
 	id = "icecream_bowl"
 	materials = list(MAT_METAL = 750)
 	build_type = AUTOLATHE
@@ -353,7 +353,7 @@
 	category = list("initial","Dinnerware")
 
 /datum/design/pot
-	name = "Cooking pot"
+	name = "Cooking Pot"
 	id = "pot"
 	materials = list(MAT_METAL = 1250)
 	build_type = AUTOLATHE
@@ -369,7 +369,7 @@
 	category = list("initial","Dinnerware")
 
 /datum/design/ovendish
-	name = "Oven dish"
+	name = "Oven Dish"
 	id = "oven_dish"
 	materials = list(MAT_METAL = 1500)
 	build_type = AUTOLATHE
@@ -377,7 +377,7 @@
 	category = list("initial","Dinnerware")
 
 /datum/design/grill_grate
-	name = "Grill grate"
+	name = "Grill Grate"
 	id = "grill_grate"
 	materials = list(MAT_METAL = 750)
 	build_type = AUTOLATHE
@@ -385,7 +385,7 @@
 	category = list("initial","Dinnerware")
 
 /datum/design/deep_basket
-	name = "Deep fryer basket"
+	name = "Deep Fryer Basket"
 	id = "basket"
 	materials = list(MAT_METAL = 1000)
 	build_type = AUTOLATHE
