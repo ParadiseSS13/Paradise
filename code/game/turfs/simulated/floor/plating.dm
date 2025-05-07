@@ -473,3 +473,25 @@
 /turf/simulated/floor/plating/nitrogen
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+/// Used in situations like the anomalous crystal where we want
+/// floors that look and act like asteroid floors but aren't.
+/// This doesn't allow you to dig sand out of it but whatever.
+/turf/simulated/floor/plating/false_asteroid
+	gender = PLURAL
+	name = "volcanic floor"
+	baseturf = /turf/simulated/floor/plating/false_asteroid
+	icon_state = "basalt"
+	icon_plating = "basalt"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	var/environment_type = "basalt"
+	var/turf_type = /turf/simulated/floor/plating/false_asteroid
+	var/floor_variance = 20 //probability floor has a different icon state
+
+/turf/simulated/floor/plating/false_asteroid/AfterChange(ignore_air, keep_cabling)
+	. = ..()
+	if(prob(floor_variance))
+		icon_plating = "[environment_type][rand(0,12)]"
