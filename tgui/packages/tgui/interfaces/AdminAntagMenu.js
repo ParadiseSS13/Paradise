@@ -28,6 +28,8 @@ const PickTitle = (index) => {
       return 'Security';
     case 3:
       return 'All High Value Items';
+    case 4:
+      return 'Advanced Disease Carriers';
     default:
       return 'Something went wrong with this menu, make an issue report please!';
   }
@@ -43,6 +45,8 @@ const PickTab = (index) => {
       return <Security />;
     case 3:
       return <HighValueItems />;
+    case 4:
+      return <AdvancedDiseaseCarriers />;
     default:
       return 'Something went wrong with this menu, make an issue report please!';
   }
@@ -103,6 +107,16 @@ export const AdminAntagMenu = (properties, context) => {
                 icon="lock"
               >
                 High Value Items
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="AdvancedDiseaseCarriers"
+                selected={tabIndex === 4}
+                onClick={() => {
+                  setTabIndex(4);
+                }}
+                icon="virus"
+              >
+                Advanced Disease Carriers
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
@@ -487,6 +501,172 @@ const Security = (properties, context) => {
                 onClick={() => {
                   act('obs', {
                     mind_uid: officer.mind_uid,
+                  });
+                }}
+              >
+                OBS
+              </Button>
+            </Table.Cell>
+          </Table.Row>
+        ))}
+    </Table>
+  );
+};
+
+const AdvancedDiseaseCarriers = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const { disease_carriers } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [sortId, _setSortId] = useLocalState(context, 'sortId3', 'health');
+  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+
+  const getColor = (carrier) => {
+    if (carrier.status === 2) {
+      return 'red';
+    }
+    if (carrier.status === 1) {
+      return 'orange';
+    }
+    if (carrier.broken_bone || carrier.internal_bleeding) {
+      return 'yellow';
+    }
+    return 'grey';
+  };
+  const getStatus = (carrier) => {
+    if (carrier.status === 2) {
+      return 'Dead';
+    }
+    if (carrier.status === 1) {
+      return 'Unconscious';
+    }
+    return 'Alive';
+  };
+
+  if (!disease_carriers.length) {
+    return 'No Disease Carriers!';
+  }
+  return (
+    <Table className="AdminAntagMenu__list">
+      <Table.Row bold>
+        <SortButton sort_group="sortId4" id="name">
+          Name
+        </SortButton>
+        <SortButton sort_group="sortId4" id="role">
+          Role
+        </SortButton>
+        <SortButton sort_group="sortId4" id="status">
+          Status
+        </SortButton>
+        <SortButton sort_group="sortId4" id="virus_name">
+          Virus Name
+        </SortButton>
+        <SortButton sort_group="sortId4" id="patient_zero">
+          Patient Zero
+        </SortButton>
+        <SortButton sort_group="sortId4" id="strain">
+          Strain
+        </SortButton>
+        <SortButton sort_group="sortId4" id="progress">
+          Progress
+        </SortButton>
+        <SortButton sort_group="sortId4" id="health">
+          Health
+        </SortButton>
+        <SortButton sort_group="sortId4" id="event_UID">
+          Event UID
+        </SortButton>
+      </Table.Row>
+      {disease_carriers
+        .filter(
+          createSearch(searchText, (carrier) => {
+            return carrier.name + '|' + carrier.role + '|' + getStatus(carrier) + '|' + carrier.strain;
+          })
+        )
+        .sort((a, b) => {
+          const i = sortOrder ? 1 : -1;
+          if (a[sortId] === undefined || a[sortId] === null) {
+            return i;
+          }
+          if (b[sortId] === undefined || b[sortId] === null) {
+            return -1 * i;
+          }
+          if (typeof a[sortId] === 'number') {
+            return (a[sortId] - b[sortId]) * i;
+          }
+          return a[sortId].localeCompare(b[sortId]) * i;
+        })
+        .map((carrier, index) => (
+          <Table.Row key={index}>
+            <Table.Cell collapsing>
+              <Button
+                onClick={() =>
+                  act('show_player_panel', {
+                    mind_uid: carrier.mind_uid,
+                  })
+                }
+              >
+                {carrier.name}
+              </Button>
+            </Table.Cell>
+            <Table.Cell collapsing>{carrier.role}</Table.Cell>
+            <Table.Cell collapsing>
+              <Box color={getColor(carrier)}>{getStatus(carrier)}</Box>
+            </Table.Cell>
+            <Table.Cell collapsing>{carrier.virus_name}</Table.Cell>
+            <Table.Cell collapsing>{carrier.patient_zero}</Table.Cell>
+            <Table.Cell collapsing>{carrier.strain}</Table.Cell>
+            <Table.Cell>
+              <ProgressBar
+                minValue={0}
+                value={carrier.progress / 100}
+                maxValue={1}
+                ranges={{
+                  good: [0.6, Infinity],
+                  average: [0, 0.6],
+                  bad: [-Infinity, 0],
+                }}
+              >
+                {carrier.progress}
+              </ProgressBar>
+            </Table.Cell>
+            <Table.Cell>
+              <ProgressBar
+                minValue={0}
+                value={carrier.health / carrier.max_health}
+                maxValue={1}
+                ranges={{
+                  good: [0.6, Infinity],
+                  average: [0, 0.6],
+                  bad: [-Infinity, 0],
+                }}
+              >
+                {carrier.health}
+              </ProgressBar>
+            </Table.Cell>
+            <Table.Cell>{carrier.event_UID}</Table.Cell>
+            <Table.Cell collapsing>
+              <Button
+                onClick={() => {
+                  act('pm', {
+                    ckey: carrier.ckey,
+                  });
+                }}
+              >
+                PM
+              </Button>
+              <Button
+                onClick={() => {
+                  act('follow', {
+                    datum_uid: carrier.mind_uid,
+                  });
+                }}
+              >
+                FLW
+              </Button>
+              <Button
+                onClick={() => {
+                  act('obs', {
+                    mind_uid: carrier.mind_uid,
                   });
                 }}
               >

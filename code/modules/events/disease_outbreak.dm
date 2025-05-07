@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/static/list/diseases_minor = list()
 	var/static/list/diseases_moderate_major = list()
 	var/force_disease_time = 300
-	var/list/infected_clients = list()
+	var/list/infected_players = list()
 
 /datum/event/disease_outbreak/setup()
 	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate_major))

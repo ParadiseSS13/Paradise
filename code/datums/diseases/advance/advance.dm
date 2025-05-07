@@ -122,17 +122,17 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(event)
 		var/datum/event/disease_outbreak/outbreak = locateUID(event)
 		if(istype(outbreak) && !QDELETED(outbreak))
-			outbreak.infected_clients -= src
+			outbreak.infected_players -= src
 	return ..()
 
 /// Randomly mutate the disease
 /datum/disease/advance/after_infect()
-	if(event && affected_mob.client)
+	if(event && affected_mob.mind)
 		var/datum/event/disease_outbreak/outbreak = locateUID(event)
 		if(istype(outbreak) && !QDELETED(outbreak))
-			outbreak.infected_clients |= src
+			outbreak.infected_players |= src
 	if(prob(evolution_chance))
-		if(affected_mob.client)
+		if(affected_mob.mind)
 			SSblackbox.record_feedback("tally", "Advanced Disease", 1, "Spontanous Evolution")
 		var/min = rand(1, 6)
 		var/max = rand(min, 6)
