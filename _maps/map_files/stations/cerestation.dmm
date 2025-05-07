@@ -38102,8 +38102,6 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "gYP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tech_storage,
 /obj/machinery/door/airlock/engineering,
