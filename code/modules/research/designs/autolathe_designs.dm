@@ -368,9 +368,9 @@
 	build_path = /obj/item/reagent_containers/cooking/pan
 	category = list("initial","Dinnerware")
 
-/datum/design/oven
+/datum/design/ovendish
 	name = "Oven dish"
-	id = "oven"
+	id = "oven_dish"
 	materials = list(MAT_METAL = 1500)
 	build_type = AUTOLATHE
 	build_path = /obj/item/reagent_containers/cooking/oven
