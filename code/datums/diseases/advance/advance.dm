@@ -1,6 +1,3 @@
-/// Evoltion chance each cycle in percents.
-/// The base chance in % that a virus will mutate as it spreads. Further modified by stage speed and the viral evolutionary acceleration trait
-#define EVOLUTION_CHANCE (2)
 
 /*
 
@@ -56,7 +53,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	/// The base properties of the virus. retained between strains
 	var/list/base_properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1)
 	/// Chance of the virus evolving on spread
-	var/evolution_chance = EVOLUTION_CHANCE
+	var/evolution_chance = VIRUS_EVOLUTION_CHANCE
 	/// The symptoms of the disease.
 	var/list/symptoms = list()
 	/// A unique ID for the strain and symptoms.
@@ -301,7 +298,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE, new_cure = TRUE, new_strain = TRUE)
 	if(new_strain)
 		strain = "adv_[num2text(GLOB.next_unique_strain++, 8)]"
-		evolution_chance = EVOLUTION_CHANCE
+		evolution_chance = VIRUS_EVOLUTION_CHANCE
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties, new_cure)
 	id = null
@@ -351,7 +348,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		SetSeverity(properties["severity"])
 		// Calculate evolution chance, unless stabilized with stabilizing agar
 		if(evolution_chance)
-			evolution_chance = EVOLUTION_CHANCE * (1 + sqrtor0(properties["stage rate"]) / 6)
+			evolution_chance = VIRUS_EVOLUTION_CHANCE * (1 + sqrtor0(properties["stage rate"]) / 6)
 		if(new_cure)
 			GenerateCure(properties)
 	else
@@ -629,4 +626,3 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/get_full_strain_id()
 	return GetDiseaseID()
 
-#undef EVOLUTION_CHANCE

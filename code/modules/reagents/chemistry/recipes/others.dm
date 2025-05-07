@@ -534,8 +534,21 @@
 	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
 	if(B && B.data)
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
+		if(istype(D))
 			D.tracker = D.GetDiseaseID()
+
+/datum/chemical_reaction/mix_virus/clear_virus
+	name = "Clear Virus"
+	id = "clear_virus"
+	required_reagents = list("viral_eraser" = 10)
+
+/datum/chemical_reaction/mix_virus/clear_virus/on_reaction(datum/reagents/holder, created_volume)
+	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
+	if(B && B.data)
+		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
+		if(istype(D))
+			D.tracker = ""
+			D.evolution_chance = VIRUS_EVOLUTION_CHANCE
 
 // Someday, maybe add some version of doing science on patient zero to discover the recipees.
 /datum/chemical_reaction/zombie

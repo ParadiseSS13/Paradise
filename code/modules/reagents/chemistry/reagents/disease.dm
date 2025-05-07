@@ -208,5 +208,10 @@
 	id = "virus_genes"
 	color = "#e0717a"
 
+/datum/reagent/viral_eraser
+	name = "Viral Eraser"
+	id = "viral_eraser"
+	color = "#ffe600" // rgb: 45,136,82
+
 /datum/reagent/virus_genes/on_merge(list/_data)
 	data = (data ? data : list()) + (_data ? _data : list())

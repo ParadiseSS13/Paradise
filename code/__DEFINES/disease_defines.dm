@@ -4,6 +4,10 @@
 /// The maximum amount of symptoms a virus can have
 #define VIRUS_SYMPTOM_LIMIT	6
 
+/// Evoltion chance each cycle in percents.
+/// The base chance in % that a virus will mutate as it spreads. Further modified by stage speed and the viral evolutionary acceleration trait
+#define VIRUS_EVOLUTION_CHANCE 2
+
 //Visibility Flags
 #define VIRUS_HIDDEN_SCANNER	(1<<0)
 #define VIRUS_HIDDEN_PANDEMIC	(1<<1)
