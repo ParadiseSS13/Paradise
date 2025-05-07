@@ -336,6 +336,62 @@
 	build_path = /obj/item/reagent_containers/drinks/shaker
 	category = list("initial","Dinnerware")
 
+/datum/design/bowl
+	name = "Prep bowl"
+	id = "prep_bowl"
+	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/bowl
+	category = list("initial","Dinnerware")
+
+/datum/design/icecream_bowl
+	name = "Icecream bowl"
+	id = "icecream_bowl"
+	materials = list(MAT_METAL = 750)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/icecream_bowl
+	category = list("initial","Dinnerware")
+
+/datum/design/pot
+	name = "Cooking pot"
+	id = "pot"
+	materials = list(MAT_METAL = 1250)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/pot
+	category = list("initial","Dinnerware")
+
+/datum/design/pan
+	name = "Pan"
+	id = "pan"
+	materials = list(MAT_METAL = 1000)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/pan
+	category = list("initial","Dinnerware")
+
+/datum/design/oven
+	name = "Oven dish"
+	id = "oven"
+	materials = list(MAT_METAL = 1500)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/oven
+	category = list("initial","Dinnerware")
+
+/datum/design/grill_grate
+	name = "Grill grate"
+	id = "oven"
+	materials = list(MAT_METAL = 750)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/grill_grate
+	category = list("initial","Dinnerware")
+
+/datum/design/deep_basket
+	name = "Deep fryer basket"
+	id = "basket"
+	materials = list(MAT_METAL = 1000)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/deep_basket
+	category = list("initial","Dinnerware")
+
 /datum/design/cultivator
 	name = "Cultivator"
 	id = "cultivator"
