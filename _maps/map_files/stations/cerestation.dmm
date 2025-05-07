@@ -15579,9 +15579,6 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -22317,9 +22314,6 @@
 /area/station/maintenance/fore)
 "dpN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellow"
@@ -22675,14 +22669,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "dtk" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/obj/structure/cable/orange{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/orange{
-	icon_state = "0-2"
-	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room/secondary)
 "dtp" = (
@@ -38743,11 +38731,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "hgl" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room/secondary)
 "hgp" = (
@@ -56890,9 +56875,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/engineering/glass,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -95357,9 +95339,6 @@
 /area/station/maintenance/port)
 "tIW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 8
