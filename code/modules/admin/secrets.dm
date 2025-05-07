@@ -52,7 +52,6 @@
 					<BR>
 					<B>Coder Secrets</B><BR>
 					<BR>
-					<A href='byond://?src=[UID()];secretsadmin=list_job_debug'>Show Job Debug</A>&nbsp;&nbsp;
 					<A href='byond://?src=[UID()];secretscoder=spawn_objects'>Admin Log</A><BR>
 					<BR>
 					</center>
