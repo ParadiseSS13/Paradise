@@ -378,7 +378,7 @@
 
 /datum/design/grill_grate
 	name = "Grill grate"
-	id = "oven"
+	id = "grill_grate"
 	materials = list(MAT_METAL = 750)
 	build_type = AUTOLATHE
 	build_path = /obj/item/reagent_containers/cooking/grill_grate
