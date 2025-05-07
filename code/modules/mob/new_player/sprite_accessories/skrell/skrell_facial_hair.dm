@@ -3,77 +3,77 @@
 	species_allowed = list("Skrell")
 
 /datum/sprite_accessory/facial_hair/skrell/patch
-	name = "Patch"
+	name = "Skrell Patch"
 	icon_state = "patch"
 
 /datum/sprite_accessory/facial_hair/skrell/goatee
-	name = "Goatee"
+	name = "Skrell Goatee"
 	icon_state = "goatee"
 
 /datum/sprite_accessory/facial_hair/skrell/tripoint
-	name = "Tri-Point"
+	name = "Skrell Tri-Point"
 	icon_state = "tri-point"
 
 /datum/sprite_accessory/facial_hair/skrell/strap
-	name = "Strap"
+	name = "Skrell Strap"
 	icon_state = "strap"
 
 /datum/sprite_accessory/facial_hair/skrell/full
-	name = "Full Beard"
+	name = "Skrell Full Beard"
 	icon_state = "full"
 
 /datum/sprite_accessory/facial_hair/skrell/chops
-	name = "Chops"
+	name = "Skrell Chops"
 	icon_state = "chops"
 
 /datum/sprite_accessory/facial_hair/skrell/chops_l
-	name = "Thick Chops"
+	name = "Skrell Thick Chops"
 	icon_state = "chops_big"
 
 /datum/sprite_accessory/facial_hair/skrell/monotail
-	name = "Monotail"
+	name = "Skrell Monotail"
 	icon_state = "monotail"
 
 /datum/sprite_accessory/facial_hair/skrell/monotail_l
-	name = "Long Monotail"
+	name = "Skrell Long Monotail"
 	icon_state = "monotail_long"
 
 /datum/sprite_accessory/facial_hair/skrell/adorns
-	name = "Adornments"
+	name = "Skrell Adornments"
 	icon_state = "adorns"
 
 /datum/sprite_accessory/facial_hair/skrell/handlebar
-	name = "Handlebar"
+	name = "Skrell Handlebar"
 	icon_state = "handlebar"
 
 /datum/sprite_accessory/facial_hair/skrell/fumanchu
-	name = "Fu-Man-Chu"
+	name = "Skrell Fu-Man-Chu"
 	icon_state = "fumanchu"
 
 /datum/sprite_accessory/facial_hair/skrell/mustache
-	name = "Mustache"
+	name = "Skrell Mustache"
 	icon_state = "mustache"
 
 /datum/sprite_accessory/facial_hair/skrell/overgrown
-	name = "Overgrown"
+	name = "Skrell Overgrown"
 	icon_state = "overgrown"
 
 /datum/sprite_accessory/facial_hair/skrell/braid
-	name = "Braided"
+	name = "Skrell Braided"
 	icon_state = "braided"
 
 /datum/sprite_accessory/facial_hair/skrell/braid_l
-	name = "Long Braided"
+	name = "Skrell Long Braided"
 	icon_state = "braided_long"
 
 /datum/sprite_accessory/facial_hair/skrell/braid_d
-	name = "Double Braided"
+	name = "Skrell Double Braided"
 	icon_state = "double_braided"
 
 /datum/sprite_accessory/facial_hair/skrell/whiskers
-	name = "Whiskers"
+	name = "Skrell Whiskers"
 	icon_state = "whiskers"
 
 /datum/sprite_accessory/facial_hair/skrell/whiskers_c
-	name = "Chin Whiskers"
+	name = "Skrell Chin Whiskers"
 	icon_state = "whiskers_chin"
