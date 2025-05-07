@@ -66,8 +66,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	var/processing = FALSE
 	/// A unique ID for the strain. Uses the unique_datum_id of the first virus datum that is of that strain.
 	var/strain = ""
-	/// Is this an event virus?
-	var/event
+	/// The event the virus came from, if it did
+	var/datum/event/disease_outbreak/event
 	/// How far along the disease has progressed? This is tied with stage but is separate to give more granularity to symptom effects
 	var/progress = 0
 	/// The time at which the disease last advanced
@@ -81,11 +81,12 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
  */
 
-/datum/disease/advance/New(datum/disease/advance/to_copy, _event = FALSE, copy_stage = TRUE)
+/datum/disease/advance/New(datum/disease/advance/to_copy, datum/event/disease_outbreak/_event, copy_stage = TRUE)
 	if(!istype(to_copy))
 		to_copy = null
 	strain = "origin"
-	event = _event
+	if(istype(_event))
+		event = _event
 	last_advancement = world.time
 	// whether to generate a new cure or not
 	var/new_cure = TRUE
@@ -98,6 +99,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 				symptoms += new S.type
 	// Copy cure, evolution ability and strain if we are copying an existing disease
 	if(to_copy)
+		name = to_copy.name
 		base_properties = to_copy.base_properties.Copy()
 		evolution_chance = to_copy.evolution_chance
 		tracker = to_copy.tracker
@@ -118,10 +120,14 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(processing)
 		for(var/datum/symptom/S in symptoms)
 			S.End(src)
+	if(istype(event))
+		event.infected_clients -= src
 	return ..()
 
 /// Randomly mutate the disease
 /datum/disease/advance/after_infect()
+	if(affected_mob?.client && istype(event))
+		event.infected_clients |= src
 	if(prob(evolution_chance))
 		if(affected_mob.client)
 			SSblackbox.record_feedback("tally", "Advanced Disease", 1, "Spontanous Evolution")
@@ -211,7 +217,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 // Returns the advance disease with a different reference memory.
 /datum/disease/advance/Copy(copy_stage = TRUE)
-	return new /datum/disease/advance(src, 0, copy_stage)
+	return new /datum/disease/advance(to_copy = src, copy_stage = copy_stage)
 
 /datum/disease/advance/record_infection()
 	SSblackbox.record_feedback("tally", "Advanced Disease", 1, "[name]_[strain] Infection")

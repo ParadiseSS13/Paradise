@@ -171,7 +171,7 @@ MARK: Helpers
 /mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE, start_stage = 1)
 	if(client)
 		D.record_infection()
-	var/datum/disease/DD = new D.type(D, FALSE, FALSE)
+	var/datum/disease/DD = D.Copy(FALSE)
 	DD.stage = start_stage
 	viruses += DD
 	DD.affected_mob = src

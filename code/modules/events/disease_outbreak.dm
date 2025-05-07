@@ -13,6 +13,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/static/list/diseases_minor = list()
 	var/static/list/diseases_moderate_major = list()
 	var/force_disease_time = 300
+	var/list/infected_clients = list()
 
 /datum/event/disease_outbreak/setup()
 	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate_major))
@@ -70,7 +71,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
-	var/datum/disease/advance/A = new /datum/disease/advance(_event = TRUE)
+	var/datum/disease/advance/A = new /datum/disease/advance(_event = src)
 	// Base properties get buffs depending on severity
 	var/list/properties_to_buff = A.base_properties.Copy()
 	for(var/i = 0, i < max_severity / 2, i++)
