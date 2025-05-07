@@ -27,6 +27,7 @@
 	suffix = "lavaland_surface_seed_vault.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/seed_vault_eden
 	name = "Garden of Eden"
@@ -44,6 +45,7 @@
 	Probably best to stay clear."
 	suffix = "lavaland_surface_ash_walker1.dmm"
 	allow_duplicates = FALSE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/ash_walker_siege
 	name = "Ash Walker Siege"
@@ -61,6 +63,7 @@
 	suffix = "lavaland_surface_golem_ship.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/althland_facility
 	name = "Althland Facility"
@@ -197,6 +200,7 @@
 	suffix = "lavaland_surface_hermit.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/miningripley
 	name = "Ripley"
