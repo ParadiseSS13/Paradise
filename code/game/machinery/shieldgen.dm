@@ -416,18 +416,22 @@
 	for(var/T in traveled_turfs)
 		var/obj/machinery/shieldwall/SW = new /obj/machinery/shieldwall(T, src, other_generator) //(ref to this gen, ref to connected gen)
 		SW.dir = direction
+		add_overlay("shield_[direction]")
 		active_shields["[direction]"] += SW
 		other_generator.active_shields["[opposite_direction]"] += SW
+		other_generator.add_overlay("shield_[opposite_direction]")
 
 /obj/machinery/shieldwallgen/proc/deactivate()
 	activated = FALSE
 	STOP_PROCESSING(SSmachines, src)
 	for(var/direction in GLOB.cardinal)
+		cut_overlay("shield_[direction]")
 		var/list/L = active_shields["[direction]"]
 		QDEL_LIST_CONTENTS(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
 
 /obj/machinery/shieldwallgen/proc/remove_active_shield(obj/machinery/shieldwall/SW, direction)
 	var/list/L = active_shields["[direction]"]
+	cut_overlay("shield_[direction]")
 	L -= SW
 
 /obj/machinery/shieldwallgen/item_interaction(mob/living/user, obj/item/used, list/modifiers)
