@@ -6742,6 +6742,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/refill_station/oxygen,
+/obj/structure/sign/poster/official/air2/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -39109,6 +39110,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/refill_station/plasma,
+/obj/structure/sign/poster/official/safety_internals/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
