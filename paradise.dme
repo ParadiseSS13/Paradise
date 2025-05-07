@@ -2646,6 +2646,7 @@
 #include "code\modules\mob\new_player\sprite_accessories\moth\moth_head_accessories.dm"
 #include "code\modules\mob\new_player\sprite_accessories\moth\moth_head_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\shared\shared_tail_markings.dm"
+#include "code\modules\mob\new_player\sprite_accessories\skrell\skrell_body_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\skrell\skrell_face.dm"
 #include "code\modules\mob\new_player\sprite_accessories\skrell\skrell_facial_hair.dm"
 #include "code\modules\mob\new_player\sprite_accessories\tajaran\tajaran_body_markings.dm"
