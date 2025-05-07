@@ -132,12 +132,6 @@
 	)
 
 // have to redefine all of these because xenos don't technically have bodyparts.
-/datum/surgery/intermediate/manipulate/extract/xeno
-	requires_bodypart = FALSE
-
-/datum/surgery/intermediate/manipulate/implant/xeno
-	requires_bodypart = FALSE
-
 /datum/surgery/intermediate/manipulate/mend/xeno
 	requires_bodypart = FALSE
 
@@ -147,10 +141,8 @@
 /datum/surgery_step/proxy/manipulate_organs/alien
 	name = "Manipulate Organs Xeno (proxy)"
 	branches = list(
-		/datum/surgery/intermediate/manipulate/extract/xeno,
-		/datum/surgery/intermediate/manipulate/implant/xeno,
 		/datum/surgery/intermediate/manipulate/mend/xeno,
-		/datum/surgery/intermediate/manipulate/clean/xeno
+		/datum/surgery/intermediate/manipulate/clean/xeno,
 	)
 
 // Internal surgeries.

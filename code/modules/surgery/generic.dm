@@ -29,34 +29,43 @@
 	time = 1.6 SECONDS
 
 /datum/surgery_step/generic/cut_open/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message(
-		"[user] starts the incision on [target]'s [affected.name] with [tool].",
-		"You start the incision on [target]'s [affected.name] with [tool].",
-		chat_message_type = MESSAGE_TYPE_COMBAT
-	)
-	affected.custom_pain("You feel a horrible pain as if from a sharp knife in your [affected.name]!")
+	if(istype(surgery, /datum/surgery/dissect))
+		to_chat(user, "[target.dissection_text[surgery.step_number]]")
+	else
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		user.visible_message(
+			"[user] starts the incision on [target]'s [affected.name] with [tool].",
+			"You start the incision on [target]'s [affected.name] with [tool].",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
+		affected.custom_pain("You feel a horrible pain as if from a sharp knife in your [affected.name]!")
 	return ..()
 
 /datum/surgery_step/generic/cut_open/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message(
+	if(istype(surgery, /datum/surgery/dissect))
+		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
+	else
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		user.visible_message(
 		"<span class='notice'>[user] has made an incision on [target]'s [affected.name] with [tool].</span>",
 		"<span class='notice'>You have made an incision on [target]'s [affected.name] with [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
-	)
-	affected.open = ORGAN_ORGANIC_OPEN
-	target.resume_bleeding()
+		)
+		affected.open = ORGAN_ORGANIC_OPEN
+		target.resume_bleeding()
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with [tool]!</span>",
-		"<span class='warning'>Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with [tool]!</span>",
-		chat_message_type = MESSAGE_TYPE_COMBAT
-	)
-	affected.receive_damage(10)
+	if(istype(surgery, /datum/surgery/dissect))
+		to_chat(user, "[target.dissection_failure_text[surgery.step_number]]")
+	else
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		user.visible_message(
+			"<span class='warning'>[user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with [tool]!</span>",
+			"<span class='warning'>Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with [tool]!</span>",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
+		affected.receive_damage(10)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/clamp_bleeders

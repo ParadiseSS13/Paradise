@@ -306,6 +306,7 @@
 	sentience_type = SENTIENCE_BOSS
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speed = 0
+	butcher_results = list(/obj/item/regen_mesh)
 
 /mob/living/simple_animal/hostile/asteroid/big_legion/AttackingTarget()
 	if(!isliving(target))

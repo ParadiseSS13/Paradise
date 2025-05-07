@@ -83,12 +83,9 @@
 	if(L.current_dissection_step > 1)
 		to_chat(user, "<span class='warning'>You cannot begin surgery on a patient with an open dissection site!</span>")
 		return
-	if(isalien(L)) // god why do xeno organs have to be fundamental to how they live. This is easier.
-		to_chat(user, "<span class='warning'>You're going to have to do a proper dissection to get anything useful from this.</span>")
-		return
 	if(!IS_HORIZONTAL(L) && !can_start_on_stander)
 		return
-	if(IS_HORIZONTAL(L) && !on_operable_surface(L))
+	if(IS_HORIZONTAL(L) && !on_operable_surface(L) && !isanimal(L))
 		return
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
@@ -134,7 +131,7 @@
 	var/datum/surgery/procedure
 
 	if(!length(available_surgeries))
-		if(IS_HORIZONTAL(target))
+		if(IS_HORIZONTAL(target) || isanimal(target))
 			to_chat(user, "<span class='notice'>There aren't any surgeries you can perform there right now.</span>")
 		else
 			to_chat(user, "<span class='notice'>You can't perform any surgeries there while [target] is standing.</span>")
@@ -294,9 +291,14 @@
 
 		return
 
-	if(!isnull(affecting_limb) && (surgery.requires_organic_bodypart && affecting_limb.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting_limb.is_robotic()))
-		to_chat(user, "<span class='warning'>That's not the right type of limb for this operation!</span>")
-		return
+	if(iscarbon(target))
+		if(!isnull(affecting_limb) && (surgery.requires_organic_bodypart && affecting_limb.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting_limb.is_robotic()))
+			to_chat(user, "<span class='warning'>That's not the right type of limb for this operation!</span>")
+			return
+
+		if(surgery_needs_exposure(surgery, target))
+			to_chat(user, "<span class='warning'>You have to expose [target.p_their()] [parse_zone(selected_zone)] first!</span>")
+			return
 
 	if(surgery.lying_required && !on_operable_surface(target))
 		to_chat(user, "<span class='notice'>Patient must be lying down for this operation.</span>")
@@ -308,10 +310,6 @@
 
 	if(!surgery.can_start(user, target))
 		to_chat(user, "<span class='warning'>Can't start the surgery!</span>")
-		return
-
-	if(surgery_needs_exposure(surgery, target))
-		to_chat(user, "<span class='warning'>You have to expose [target.p_their()] [parse_zone(selected_zone)] first!</span>")
 		return
 
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)

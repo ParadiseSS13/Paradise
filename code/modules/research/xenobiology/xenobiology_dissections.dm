@@ -23,7 +23,8 @@
 
 /obj/item/dissector/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/surgery_initiator)
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
@@ -38,11 +39,54 @@
 		/obj/item/wirecutters = 2,
 		/obj/item/kitchen/utensil/fork = 1,
 	)
-
 	preop_sound = 'sound/surgery/organ1.ogg'
 	success_sound = 'sound/surgery/organ2.ogg'
 	failure_sound = 'sound/effects/bone_break_1.ogg'
-	time = 1.6 SECONDS
+	time = 0.4 SECONDS
+
+/datum/surgery_step/generic/dissect/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(istype(surgery, /datum/surgery/dissect))
+		to_chat(user, "[target.dissection_text[surgery.step_number]]")
+	return ..()
+
+/datum/surgery_step/generic/dissect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(istype(surgery, /datum/surgery/dissect))
+		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/generic/dissect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(istype(surgery, /datum/surgery/dissect))
+		to_chat(user, "[target.dissection_failure_text[surgery.step_number]]")
+	return SURGERY_STEP_RETRY
+
+/datum/surgery/dissect
+	name = "experimental dissection"
+	requires_bodypart = FALSE  // most simplemobs wont have limbs
+	possible_locs = list(BODY_ZONE_CHEST)
+	target_mobtypes = list(/mob/living)
+	requires_organic_bodypart = FALSE
+	lying_required = FALSE
+	steps = list(
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/dissect,
+	)
+
+/datum/surgery/dissect/New(atom/surgery_target, surgery_location, surgery_bodypart)
+	if(isliving(surgery_target))
+		var/mob/living/L = surgery_target
+		steps = L.dissection_tool_step
+	. = ..()
+
+/datum/surgery/dissect/can_start(mob/user, mob/living/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(target.stat == DEAD && target.contains_xeno_organ && target.xeno_organ_results)
+		return TRUE
+	return FALSE
 
 /obj/item/regen_mesh
 	name = "Regenerative Organ Mesh"
@@ -533,6 +577,7 @@
 	var/datum/spell/contort/spell = new
 	if(organ_quality == ORGAN_PRISTINE)
 		spell.duration_time = 1 MINUTES
+	spell.quality = organ_quality
 	M.AddSpell(spell)
 
 /obj/item/organ/internal/heart/xenobiology/contortion/remove(mob/living/carbon/human/M, special = 0)
@@ -552,11 +597,12 @@
 	sound = null
 	var/duration_time = 30 SECONDS
 	active = FALSE
+	var/quality
 
 /datum/spell/contort/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/datum/spell/contort/cast(list/targets, mob/living/user)
+/datum/spell/contort/cast(list/targets, mob/living/carbon/human/user)
 	. = ..()
 	if(HAS_TRAIT_FROM(user, TRAIT_CONTORTED_BODY, ORGAN_TRAIT))
 		deactivate(user)
@@ -567,7 +613,14 @@
 	if(IS_HORIZONTAL(user))
 		user.layer = TURF_LAYER + 0.2
 	active = TRUE
-	addtimer(CALLBACK(src, PROC_REF(deactivate), user), 30 SECONDS)
+	if(quality == ORGAN_DAMAGED)
+		if(prob(10))
+			var/obj/item/organ/external/limb_to_break = pick(user.bodyparts)
+			limb_to_break.fracture()
+			to_chat(user, "<span class='danger'>We tense ourself incorrectly, something inside our [limb_to_break] snaps!</span>")
+	if(quality == ORGAN_PRISTINE)
+		duration_time = 1 MINUTES
+	addtimer(CALLBACK(src, PROC_REF(deactivate), user), duration_time)
 	revert_cast()
 
 /datum/spell/contort/proc/deactivate(mob/living/user)
