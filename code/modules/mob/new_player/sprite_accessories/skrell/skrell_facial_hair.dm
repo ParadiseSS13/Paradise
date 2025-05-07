@@ -68,7 +68,7 @@
 
 /datum/sprite_accessory/facial_hair/skrell/braid_d
 	name = "Double Braided"
-	icon_state = "braided_double"
+	icon_state = "double_braided"
 
 /datum/sprite_accessory/facial_hair/skrell/whiskers
 	name = "Whiskers"
