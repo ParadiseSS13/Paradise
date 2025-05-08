@@ -6,6 +6,7 @@
 @use 'sass:color';
 @use '../base.scss';
 @use '../colors.scss';
+@use '../functions.scss' as *;
 
 $text-color: rgba(255, 255, 255, 0.75) !default;
 $background-color: #363636 !default;
@@ -18,6 +19,7 @@ $shadow-color: rgba(0, 0, 0, 0.1) !default;
   box-shadow: 0 2px 2px $shadow-color;
   box-shadow: 0 base.rem(2px) base.rem(2px) $shadow-color;
   user-select: none;
+  width: vp(100vw);
   -ms-user-select: none; // TODO: Remove with 516
 }
 

@@ -91,17 +91,17 @@
 	for(var/file in stylesheets)
 		head_content += "<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url(file)]'>"
 
-	for(var/file in scripts)
-		head_content += "<script type='text/javascript' src='[SSassets.transport.get_asset_url(file)]'></script>"
-
-	if(user.client.window_scaling && user.client.window_scaling != 1)
+	if(user.client?.window_scaling && user.client?.window_scaling != 1 && !user.client.prefs?.toggles3 & PREFTOGGLE_3_SCALE && width && height)
 		head_content += {"
 			<style>
 				body {
-					zoom: [100 / user.client.window_scaling]%;
+					zoom: [100 / user.client?.window_scaling]%;
 				}
 			</style>
 			"}
+
+	for(var/file in scripts)
+		head_content += "<script type='text/javascript' src='[SSassets.transport.get_asset_url(file)]'></script>"
 
 	return {"<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -138,9 +138,9 @@
 
 	var/window_size = ""
 	if(width && height)
-		window_size = "size=[width]x[height];"
-		if(user?.client?.window_scaling)
-			window_size = "size=[width * user.client.window_scaling]x[height * user.client.window_scaling];"
+		if(user.client.prefs?.toggles3 & PREFTOGGLE_3_SCALE)
+			var/scaling = user.client.window_scaling
+			window_size = "size=[width * scaling]x[height * scaling];"
 		else
 			window_size = "size=[width]x[height];"
 	if(include_default_stylesheet)

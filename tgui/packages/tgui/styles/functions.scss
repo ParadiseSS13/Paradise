@@ -68,3 +68,9 @@
 @function fake-alpha($color-rgba, $color-background) {
   @return color.mix(color.change($color-rgba, $alpha: 1), $color-background, color.alpha($color-rgba) * 100%);
 }
+
+// Multiplies our viewport units by the DPI scaling amount
+// to ensure that they display correctly when using differently-scaled windows
+@function vp($viewportUnit) {
+  @return calc(var(--scaling-amount) * $viewportUnit);
+}

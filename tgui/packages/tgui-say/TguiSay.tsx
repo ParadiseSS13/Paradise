@@ -15,6 +15,7 @@ type ByondOpen = {
 type ByondProps = {
   maxLength: number;
   lightMode: BooleanLike;
+  scale: BooleanLike;
 };
 
 type State = {
@@ -40,6 +41,7 @@ export class TguiSay extends Component<{}, State> {
   private lightMode: boolean;
   private maxLength: number;
   private messages: typeof byondMessages;
+  private scale: boolean;
   // eslint-disable-next-line react/state-in-constructor
   state: State;
 
@@ -53,6 +55,7 @@ export class TguiSay extends Component<{}, State> {
     this.lightMode = false;
     this.maxLength = 1024;
     this.messages = byondMessages;
+    this.scale = true;
     this.state = {
       buttonContent: '',
       size: WINDOW_SIZES.small,
@@ -74,7 +77,7 @@ export class TguiSay extends Component<{}, State> {
   }
 
   componentDidMount() {
-    windowSet(WINDOW_SIZES.small);
+    windowSet(WINDOW_SIZES.small, this.scale);
     Byond.subscribeTo('props', this.handleProps);
     Byond.subscribeTo('open', this.handleOpen);
   }
@@ -145,7 +148,7 @@ export class TguiSay extends Component<{}, State> {
     this.chatHistory.reset();
     this.channelIterator.reset();
     this.currentPrefix = null;
-    windowClose();
+    windowClose(this.scale);
   }
 
   handleEnter() {
@@ -278,13 +281,14 @@ export class TguiSay extends Component<{}, State> {
     }
     this.setState({ buttonContent: this.channelIterator.current() });
 
-    windowOpen(this.channelIterator.current());
+    windowOpen(this.channelIterator.current(), this.scale);
   };
 
   handleProps = (data: ByondProps) => {
     const { maxLength, lightMode } = data;
     this.maxLength = maxLength;
     this.lightMode = !!lightMode;
+    this.scale = !!data.scale;
     window.document.body.style['zoom'] = `${100 / window.devicePixelRatio}%`;
   };
 
@@ -309,7 +313,7 @@ export class TguiSay extends Component<{}, State> {
 
     if (this.state.size !== newSize) {
       this.setState({ size: newSize });
-      windowSet(newSize);
+      windowSet(newSize, this.scale);
     }
   }
 
@@ -327,7 +331,13 @@ export class TguiSay extends Component<{}, State> {
       this.channelIterator.current();
 
     return (
-      <div className={`window window-${theme} window-${this.state.size}`} $HasKeyedChildren>
+      <div
+        className={`window window-${theme} window-${this.state.size}`}
+        $HasKeyedChildren
+        style={{
+          zoom: this.scale ? '' : `${100 / window.devicePixelRatio}%`,
+        }}
+      >
         <Dragzone position="top" theme={theme} />
         <div className="center" $HasKeyedChildren>
           <Dragzone position="left" theme={theme} />

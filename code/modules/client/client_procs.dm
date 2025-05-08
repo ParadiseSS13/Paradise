@@ -429,6 +429,8 @@
 	)
 	addtimer(CALLBACK(src, PROC_REF(check_panel_loaded)), 30 SECONDS)
 
+	INVOKE_ASYNC(src, PROC_REF(acquire_dpi))
+
 	// Initialize tgui say
 	tgui_say.initialize()
 
@@ -1330,15 +1332,6 @@
 	to_chat(src, "All sounds stopped.")
 	tgui_panel?.stop_music()
 
-/client/proc/acquire_dpi()
-	set waitfor = FALSE
-
-	// Remove with 516
-	if(byond_version < 516)
-		return
-
-	window_scaling = text2num(winget(src, null, "dpi"))
-
 // This is in its own proc so we can async it out
 /client/proc/nag_516()
 	if(byond_version >= 516)
@@ -1350,6 +1343,11 @@
 
 	src << link("https://secure.byond.com/download/")
 
+/// This grabs the DPI of the user per their skin
+/client/proc/acquire_dpi()
+	window_scaling = text2num(winget(src, null, "dpi"))
+
+	log_debug("scalies: [window_scaling]")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
