@@ -8118,6 +8118,7 @@
 /area/tdome/tdomeadmin)
 "Dk" = (
 /obj/machinery/cooking/oven/upgraded,
+/obj/item/reagent_containers/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8624,6 +8625,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
