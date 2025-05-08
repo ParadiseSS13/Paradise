@@ -746,6 +746,16 @@
 	else
 		M.RemoveSpell(/datum/spell/eat)
 
+/obj/item/organ/internal/liver/xenobiology/hungry/on_life()
+	. = ..()
+	switch(organ_quality)
+		if(ORGAN_DAMAGED)
+			owner.adjust_nutrition(-2)
+		if(ORGAN_NORMAL)
+			owner.adjust_nutrition(-1)
+		if(ORGAN_PRISTINE)
+			owner.adjust_nutrition(-0.3)
+
 /obj/item/organ/internal/appendix/xenobiology/tendril
 	name = "Writhing Tendrils"
 	desc = "This organ is constantly squirming and writhing around. Yuck."
