@@ -54,8 +54,8 @@ export class ChatPanel extends Component<Props, State> {
       chatRenderer.assignStyle({
         width: '100%',
         whiteSpace: 'pre-wrap',
-        fontSize: this.props.fontSize,
-        lineHeight: this.props.lineHeight,
+        'font-size': this.props.fontSize,
+        'line-height': this.props.lineHeight,
       });
     }
   }
