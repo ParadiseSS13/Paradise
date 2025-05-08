@@ -226,7 +226,7 @@
 /turf/simulated/wall/burn_down()
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
-	ChangeTurf(/turf/simulated/floor)
+	ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
 	if(melting)
@@ -255,7 +255,6 @@
 		burn_down()
 		var/turf/simulated/floor/F = src
 		F.burn_tile()
-		F.icon_state = "plating"
 		if(O)	qdel(O)
 		return
 
@@ -267,7 +266,6 @@
 
 			var/turf/simulated/floor/F = src
 			F.burn_tile()
-			F.icon_state = "plating"
 			break
 		take_damage(30)
 		playsound(src, 'sound/items/welder.ogg', 100, TRUE)
