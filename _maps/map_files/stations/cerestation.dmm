@@ -45482,12 +45482,6 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/primary/fore/north)
-"iwy" = (
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/multi_tile/glass/directional/south,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "iwD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb{
@@ -59869,6 +59863,12 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"lGh" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass/directional/south,
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "lGj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -129450,8 +129450,8 @@ aZZ
 aZZ
 aZZ
 bjn
+lGh
 xOB
-iwy
 bjn
 aZZ
 aZZ

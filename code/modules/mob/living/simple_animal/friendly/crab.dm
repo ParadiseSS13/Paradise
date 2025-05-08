@@ -18,8 +18,11 @@
 	friendly = "pinches"
 	ventcrawler = VENTCRAWLER_ALWAYS
 	can_hide = TRUE
-	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
+
+/mob/living/simple_animal/crab/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/crab/handle_automated_movement()
 	//CRAB movement
