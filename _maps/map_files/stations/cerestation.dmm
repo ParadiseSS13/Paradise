@@ -20660,6 +20660,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -140869,7 +140870,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+jft
 rNK
 rNK
 rWw
@@ -141600,7 +141601,7 @@ rNK
 rNK
 xbO
 xbO
-aXR
+gwb
 gwb
 gwb
 gwb
@@ -141640,7 +141641,7 @@ rNK
 rNK
 rNK
 rNK
-jft
+rNK
 rNK
 rWw
 rWw
@@ -141898,7 +141899,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+rWw
 rWw
 ccW
 ccW
@@ -142150,13 +142151,13 @@ xOG
 gwb
 gwb
 fID
-rNK
-rNK
-rNK
-rNK
-rNK
-rWw
-rWw
+lzH
+lzH
+lzH
+lzH
+lzH
+iFs
+ccW
 ccW
 ccW
 ful
@@ -143178,12 +143179,12 @@ gwb
 fTu
 hWI
 fID
-rNK
-rNK
-rNK
-rNK
-rNK
-rWw
+lzH
+lzH
+lzH
+lzH
+lzH
+iFs
 ccW
 ccW
 ccW
@@ -143438,7 +143439,7 @@ oZU
 rNK
 rNK
 rNK
-ayb
+rNK
 rNK
 rWw
 ccW
@@ -143695,7 +143696,7 @@ lzH
 lzH
 rNK
 rNK
-jft
+ayb
 rNK
 rWw
 ccW
@@ -151396,8 +151397,8 @@ wJC
 nVW
 aXR
 aXR
+aXR
 xbO
-rNK
 rNK
 rNK
 rNK
@@ -151653,7 +151654,7 @@ njx
 nVW
 aXR
 aXR
-xbO
+aXR
 xbO
 rNK
 rNK
@@ -151898,9 +151899,9 @@ bRI
 pQe
 qre
 dNp
-nVW
-nVW
-nVW
+aXR
+aXR
+aXR
 nVW
 eAS
 afg
@@ -152155,8 +152156,8 @@ bRI
 qre
 qre
 dNp
-nVW
-nVW
+aXR
+aXR
 nVW
 nVW
 eAS
@@ -155232,9 +155233,9 @@ tHg
 fUu
 qmR
 mJM
-nVW
-nVW
-nVW
+aXR
+aXR
+aXR
 nVW
 tTP
 mkk
@@ -155489,8 +155490,8 @@ fUu
 fUu
 oKe
 mJM
-nVW
-nVW
+aXR
+aXR
 nVW
 nVW
 wJC
@@ -155746,7 +155747,7 @@ ipV
 liD
 hkP
 mJM
-nVW
+aXR
 nVW
 nVW
 wJC
