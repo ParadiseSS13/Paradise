@@ -2,8 +2,7 @@
 
 GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	/datum/strippable_item/corgi_head,
-	/datum/strippable_item/corgi_back,
-	/datum/strippable_item/pet_collar
+	/datum/strippable_item/corgi_back
 )))
 
 /datum/strippable_item/corgi_head
@@ -41,7 +40,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(!istype(pet_source))
 		return
 
-	return pet_source.pcollar
+	return (locate(/obj/item/petcollar) in source)
 
 /datum/strippable_item/pet_collar/try_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
@@ -59,15 +58,15 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(!istype(pet_source))
 		return
 
-	INVOKE_ASYNC(source, TYPE_PROC_REF(/mob/living/simple_animal, add_collar), equipping, user)
+	user.transfer_item_to(equipping, source)
 
 /datum/strippable_item/pet_collar/finish_unequip(atom/source, mob/user)
 	var/mob/living/simple_animal/pet_source = source
 	if(!istype(pet_source))
 		return
 
-	INVOKE_ASYNC(pet_source, TYPE_PROC_REF(/mob/living/simple_animal, remove_collar), user.drop_location(), user)
-
+	var/obj/item/petcollar/collar = locate() in source
+	user.put_in_hands(collar)
 
 /datum/strippable_item/corgi_back
 	key = STRIPPABLE_ITEM_BACK
