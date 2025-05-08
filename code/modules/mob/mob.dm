@@ -720,6 +720,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 	return ..()
 
+/mob/living/silicon/ai/broadcast_examine(atom/examined)
+	var/mob/living/silicon/ai/ai = src
+	// Only show the AI's examines if they're in a holopad
+	if(istype(ai.current, /obj/machinery/hologram/holopad))
+		return ..()
+
+
 /mob/living/carbon/human/broadcast_examine(atom/examined)
 	var/obj/item/glasses = get_item_by_slot(ITEM_SLOT_EYES)
 	if(glasses && (HAS_TRAIT(glasses, TRAIT_HIDE_EXAMINE)))
