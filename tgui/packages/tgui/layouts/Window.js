@@ -134,9 +134,9 @@ export class Window extends Component {
         </div>
         {fancy && (
           <>
-            <div className="Window__resizeHandle__e" onMouseDown={resizeStartHandler(1, 0)} />
-            <div className="Window__resizeHandle__s" onMouseDown={resizeStartHandler(0, 1)} />
-            <div className="Window__resizeHandle__se" onMouseDown={resizeStartHandler(1, 1)} />
+            <div className="Window__resizeHandle__e" onMousedown={resizeStartHandler(1, 0)} />
+            <div className="Window__resizeHandle__s" onMousedown={resizeStartHandler(0, 1)} />
+            <div className="Window__resizeHandle__se" onMousedown={resizeStartHandler(1, 1)} />
           </>
         )}
       </Layout>
