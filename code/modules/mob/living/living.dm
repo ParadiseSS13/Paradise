@@ -1300,3 +1300,12 @@
 
 /mob/living/proc/sec_hud_set_ID()
 	return
+
+/mob/living/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
+			for(var/datum/surgery/S in surgeries)
+				if(S.next_step(user, src))
+					return ITEM_INTERACT_COMPLETE
+
+	return ..()
