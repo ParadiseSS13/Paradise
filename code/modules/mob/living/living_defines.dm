@@ -155,7 +155,7 @@
 	/// Contains specialty text for dissection success steps
 	var/list/dissection_success_text = list(
 	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site..</span>",
+	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
 	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
 	"<span class='notice'>You successfully force the dissection cavity open.</span>",
 	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",

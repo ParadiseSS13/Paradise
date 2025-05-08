@@ -76,12 +76,29 @@ Difficulty: Medium
 	"<span class='notice'>You begin to prep the subject for dissection...</span>",
 	"<span class='notice'>You begin to saw through the thick skull plating.</span>",
 	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You cut away at the small skulls continuing to bud up from the corpse.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You begin cutting away at the small skulls continuing to bud up from the corpse.</span>",
+	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
 	"<span class='notice'>You once again cut away at the budding skulls attempting to seal up the surgical site.</span>",
 	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
 	)
-
+	dissection_success_text = list(
+	"<span class='notice'>You successfully set up a dissection site.</span>",
+	"<span class='notice'>You manage to crack through the thick skull plating.</span>",
+	"<span class='notice'>You successfully make an incision into the dissection site</span>",
+	"<span class='notice'>You manage to cut away and control the growing buds.</span>",
+	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You again manage to cut away and control the growing buds.</span>",
+	"<span class='notice'>You remove an unidentifiable mass out of the subject!</span>"
+	)
+	dissection_failure_text = list(
+	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+	"<span class='warning'>You begin to saw through the thick skull plating.</span>",
+	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with tool!</span>",
+	"<span class='warning'>You fail to cut the buds away faster than they're regrowing!</span>",
+	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+	"<span class='warning'>You fail to cut the buds away faster than they're regrowing!</span>",
+	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
 	. = ..()

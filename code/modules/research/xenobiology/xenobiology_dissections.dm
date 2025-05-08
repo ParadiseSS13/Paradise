@@ -52,12 +52,32 @@
 /datum/surgery_step/generic/dissect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
 		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
+		if(length(surgery.steps) >= surgery.current_step)
+			var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(target.loc)
+			if(length(target.custom_organ_states))
+				new_organ.icon_state = pick(target.custom_organ_states)
+			new_organ.true_organ_type = pick(target.xeno_organ_results)
+			new_organ.unknown_quality = pick_quality(tool, surgery)
+			target.xeno_organ_results = null
+			SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[new_organ.true_organ_type]", new_organ.unknown_quality))
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/dissect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
 		to_chat(user, "[target.dissection_failure_text[surgery.step_number]]")
 	return SURGERY_STEP_RETRY
+
+/datum/surgery_step/generic/dissect/proc/pick_quality(obj/item/I, datum/surgery_step/current_step)
+	if(istype(I, /obj/item/dissector/alien))
+		return ORGAN_PRISTINE
+	var/quality_chance = current_step.allowed_tools[I]
+	var/inverted_chance = 100 - quality_chance
+	quality_chance += ((inverted_chance * 0.66) * -(I.bit_efficiency_mod))
+	if(prob(quality_chance / 2))
+		return ORGAN_PRISTINE
+	if(prob(quality_chance))
+		return ORGAN_NORMAL
+	return ORGAN_DAMAGED
 
 /datum/surgery/dissect
 	name = "experimental dissection"

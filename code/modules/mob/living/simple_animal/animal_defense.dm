@@ -2,6 +2,7 @@
 	if(can_collar && istype(O, /obj/item/petcollar) && !pcollar)
 		add_collar(O, user)
 		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	..()
