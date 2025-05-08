@@ -75,7 +75,7 @@ export const Panel = (props) => {
         )}
         <Stack.Item grow>
           <Section fill fitted position="relative">
-            <Pane.Content scrollable>
+            <Pane.Content style={{ overflowY: 'scroll' }} scrollable>
               <ChatPanel lineHeight={settings.lineHeight} />
             </Pane.Content>
             <Notifications>
