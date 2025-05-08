@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { useState } from 'react';
+import { storage } from 'common/storage';
 import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Box,
@@ -36,7 +36,6 @@ import {
 import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
 import { selectActiveTab, selectHighlightSettingById, selectHighlightSettings, selectSettings } from './selectors';
 import { SettingsStatPanel } from './SettingsStatPanel';
-import { storage } from 'common/storage';
 
 export const SettingsPanel = (props) => {
   const activeTab = useSelector(selectActiveTab);
