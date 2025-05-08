@@ -18,9 +18,10 @@
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
-	var/max_water = 50
-	/// We use max_water and max_firefighting_foam to disinguish which extinguishers get Water and which get Firefighting Foam
-	var/max_firefighting_foam = 0
+	/// Used to determine the chemical that spawns in the extinguisher
+	var/reagent_id = "water"
+	/// Used to determine the maximum capacity of extinguishers
+	var/reagent_capacity = 50
 	/// If `TRUE`, using in hand will toggle the extinguisher's safety. This must be set to `FALSE` for extinguishers with different firing modes (i.e. backpacks).
 	var/has_safety = TRUE
 	/// If `TRUE`, the extinguisher will not fire.
@@ -39,8 +40,8 @@
 	base_icon_state = "atmoFE"
 	materials = list(MAT_TITANIUM = 200)
 	dog_fashion = null
-	max_water = 0
-	max_firefighting_foam = 65
+	reagent_id = "firefighting_foam"
+	reagent_capacity = 65
 
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
@@ -54,7 +55,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 3
 	materials = list()
-	max_water = 30
+	reagent_capacity = 30
 	dog_fashion = null
 
 /obj/item/extinguisher/examine(mob/user)
@@ -65,9 +66,8 @@
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
 	if(!reagents)
-		create_reagents(max_water + max_firefighting_foam)
-		reagents.add_reagent("water", max_water)
-		reagents.add_reagent("firefighting_foam", max_firefighting_foam)
+		create_reagents(reagent_capacity)
+		reagents.add_reagent(reagent_id, reagent_capacity)
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
 /obj/item/extinguisher/activate_self(mob/user)
@@ -104,7 +104,7 @@
 		return TRUE
 
 	var/obj/structure/reagent_dispensers/watertank/W = target
-	var/transferred = W.reagents.trans_to(src, max_water + max_firefighting_foam)
+	var/transferred = W.reagents.trans_to(src, reagent_capacity)
 	if(!transferred)
 		to_chat(user, "<span class='notice'>\The [W] is empty!</span>")
 		return TRUE
@@ -163,7 +163,7 @@
 		INVOKE_ASYNC(water, TYPE_PROC_REF(/obj/effect/particle_effect/water, extinguish_move), new_target)
 
 /obj/item/extinguisher/cyborg_recharge(coeff, emagged)
-	reagents.check_and_add("water", max_water, 5 * coeff)
+	reagents.check_and_add("water", reagent_capacity, 5 * coeff)
 
 /obj/item/extinguisher/proc/buckled_speed_move(obj/structure/chair/buckled_to, direction) // Buckled_to may not be a chair here, but we're assuming so because it makes it easier to typecheck
 	var/movementdirection = turn(direction, 180)
