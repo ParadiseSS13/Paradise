@@ -720,13 +720,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 	return ..()
 
-/mob/living/silicon/ai/broadcast_examine(atom/examined)
-	var/mob/living/silicon/ai/ai = src
-	// Only show the AI's examines if they're in a holopad
-	if(istype(ai.current, /obj/machinery/hologram/holopad))
-		return ..()
-
-
 /mob/living/carbon/human/broadcast_examine(atom/examined)
 	var/obj/item/glasses = get_item_by_slot(ITEM_SLOT_EYES)
 	if(glasses && (HAS_TRAIT(glasses, TRAIT_HIDE_EXAMINE)))
@@ -748,6 +741,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/dead/broadcast_examine(atom/examined)
 	return //Observers arent real the government is lying to you
+
+/mob/living/silicon/ai/broadcast_examine(atom/examined)
+	var/mob/living/silicon/ai/ai = src
+	// Only show the AI's examines if they're in a holopad
+	if(istype(ai.current, /obj/machinery/hologram/holopad))
+		return ..()
+
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
