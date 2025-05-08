@@ -35,7 +35,8 @@
 	var/list/addiction_threshold_accumulated = list()
 	var/flags
 
-/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
+/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum, atom/_my_atom = null)
+	my_atom = _my_atom
 	maximum_volume = maximum
 	if(temperature_minimum)
 		temperature_min = temperature_minimum
@@ -74,6 +75,9 @@
 					GLOB.chemical_reactions_list[id] = list()
 				GLOB.chemical_reactions_list[id] += D
 				break // Don't bother adding ourselves to other reagent ids, it is redundant.
+	if(my_atom)
+		RegisterSignal(my_atom, COMSIG_ATOM_RAD_ACT, PROC_REF(radiation_react))
+		ADD_TRAIT(my_atom, TRAIT_ABSORB_RADS, "reagents_holder_[UID()]")
 
 /**
  * Removes reagents from the holder until the passed amount is matched.
@@ -245,6 +249,11 @@
 	for(var/A in reagent_list)
 		var/datum/reagent/current_reagent = A
 		current_reagent.reaction_temperature(chem_temp, 100)
+
+/datum/reagents/proc/radiation_react(atom/source, amount, emission_type)
+	SIGNAL_HANDLER // COMSIG_ATOM_RAD_ACT
+	for(var/datum/reagent/current_reagent in reagent_list)
+		current_reagent.reaction_radiation(amount, emission_type)
 
 /datum/reagents/proc/temperature_reagents(exposed_temperature, divisor = 35, change_cap = 15) //This is what you use to change the temp of a reagent holder.
 	//Do not manually change the reagent unless you know what youre doing.
@@ -989,8 +998,7 @@
 // Convenience proc to create a reagents holder for an atom
 // Max vol is maximum volume of holder
 /atom/proc/create_reagents(max_vol, temperature_minimum, temperature_maximum)
-	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum)
-	reagents.my_atom = src
+	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum, src)
 
 /proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
 	var/static/list/random_reagents
@@ -1035,8 +1043,11 @@
 	reagent_list = null
 	QDEL_LIST_CONTENTS(addiction_list)
 	addiction_list = null
-	if(my_atom && my_atom.reagents == src)
-		my_atom.reagents = null
+	if(my_atom)
+		UnregisterSignal(my_atom, COMSIG_ATOM_RAD_ACT)
+		REMOVE_TRAIT(my_atom, TRAIT_ABSORB_RADS, "reagents_holder_[UID()]")
+		if(my_atom.reagents == src)
+			my_atom.reagents = null
 	my_atom = null
 
 #undef ADDICTION_TIME

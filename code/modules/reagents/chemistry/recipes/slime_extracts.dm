@@ -526,10 +526,10 @@
 	var/obj/item/reagent_containers/glass/bottle/result_bottle = new(get_turf(holder.my_atom))
 	holder.trans_to(result_bottle, holder.total_volume)
 	var/datum/reagent/virus_genes/result_genes = locate() in result_bottle.reagents.reagent_list
-	var/list/strains = list()
+	var/list/strains = list("slime" = list())
 	if(result_genes.data && result_genes.data["viruses"])
 		for(var/datum/disease/advance/advanced_virus in result_genes.data["viruses"])
-			strains += list(advanced_virus.strain)
+			strains["slime"] += list(advanced_virus.strain)
 			result_bottle.name = "[advanced_virus.strain] Strain Viral Genetic Matter"
 			break
 	result_genes.data = strains

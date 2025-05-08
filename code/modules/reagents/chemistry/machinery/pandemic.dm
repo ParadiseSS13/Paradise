@@ -180,10 +180,11 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 				stages += to_analyze.stage
 
 	if(gene_sample && gene_sample.data)
-		for(var/strain_id in gene_sample.data)
-			if(strain_id == current_strain)
-				stage_amount += 2
-				break
+		for(var/key in gene_sample.data)
+			for(var/strain_id in gene_sample.data[key])
+				if(strain_id == current_strain)
+					stage_amount += 2
+					break
 
 	var/power_level = max(stealth + resistance, 0)
 	// Make sure we don't runtime if empty

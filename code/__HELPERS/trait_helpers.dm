@@ -316,6 +316,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// A wearable item that protects the covered areas from viral infection
 #define TRAIT_ANTI_VIRAL "anti_viral"
 
+/// Given to items that have something that absorbs radiation in them that is neither the item or in it's contents
+#define TRAIT_ABSORB_RADS "absorb_rads"
+
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
 #define TRAIT_TURF_COVERED "turf_covered"
 

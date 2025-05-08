@@ -62,8 +62,12 @@
 		data.Cut()
 	data = null
 
-/// By default, if we are in an atom disinfect it at 60C or above
+/// By default do nothing
 /datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume)
+	return
+
+/// By default do nothing
+/datum/reagent/proc/reaction_radiation(amount, emission_type)
 	return
 
 /**
