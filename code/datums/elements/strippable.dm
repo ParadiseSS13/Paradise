@@ -313,8 +313,11 @@
 
 	var/list/items = list()
 
-	for(var/strippable_key in strippable.items)
-		var/datum/strippable_item/item_data = strippable.items[strippable_key]
+	var/list/unfiltered_items = strippable.items.Copy()
+	SEND_SIGNAL(owner, COMSIG_STRIPPABLE_REQUEST_ITEMS, unfiltered_items)
+
+	for(var/strippable_key in unfiltered_items)
+		var/datum/strippable_item/item_data = unfiltered_items[strippable_key]
 
 		if(!item_data.should_show(owner, user))
 			continue
@@ -389,11 +392,14 @@
 	if(!isliving(ui.user) || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return
 
+	var/list/unfiltered_items = strippable.items.Copy()
+	SEND_SIGNAL(owner, COMSIG_STRIPPABLE_REQUEST_ITEMS, unfiltered_items)
+
 	. = TRUE
 	switch(action)
 		if("use")
 			var/key = params["key"]
-			var/datum/strippable_item/strippable_item = strippable.items[key]
+			var/datum/strippable_item/strippable_item = unfiltered_items[key]
 
 			if(isnull(strippable_item))
 				return
