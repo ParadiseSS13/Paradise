@@ -1,5 +1,4 @@
 import { Box, Button, Collapsible, Dropdown, LabeledList, Modal, Section, Slider, Stack } from 'tgui-core/components';
-import { round } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -353,7 +352,7 @@ const InstrumentStatus = (properties) => {
                 })
               }
             />
-            {round(600 / tempo)} BPM
+            {Math.round(600 / tempo)} BPM
             <Button
               disabled={tempo <= minTempo}
               content="+"
@@ -417,7 +416,7 @@ const InstrumentStatusAdvanced = (properties) => {
         value={sustainLinearDuration}
         step={0.5}
         stepPixelSize={85}
-        format={(v) => round(v * 100) / 100 + ' seconds'}
+        format={(v) => Math.round(v * 100) / 100 + ' seconds'}
         onChange={(_e, v) =>
           act('setlinearfalloff', {
             new: v / 10,
@@ -433,7 +432,7 @@ const InstrumentStatusAdvanced = (properties) => {
         maxValue={10}
         value={sustainExponentialDropoff}
         step={0.01}
-        format={(v) => round(v * 1000) / 1000 + '% per decisecond'}
+        format={(v) => Math.round(v * 1000) / 1000 + '% per decisecond'}
         onChange={(_e, v) =>
           act('setexpfalloff', {
             new: v,
@@ -473,7 +472,7 @@ const InstrumentStatusAdvanced = (properties) => {
                     maxValue={noteShiftMax}
                     value={noteShift}
                     stepPixelSize={2}
-                    format={(v) => v + ' keys / ' + round((v / 12) * 100) / 100 + ' octaves'}
+                    format={(v) => v + ' keys / ' + Math.round((v / 12) * 100) / 100 + ' octaves'}
                     onChange={(_e, v) =>
                       act('setnoteshift', {
                         new: v,

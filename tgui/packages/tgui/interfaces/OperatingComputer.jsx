@@ -1,5 +1,4 @@
 import { Box, Button, Icon, Knob, LabeledList, ProgressBar, Section, Stack, Tabs } from 'tgui-core/components';
-import { round } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -86,7 +85,7 @@ const OperatingComputerPatient = (props) => {
             {damages.map((d, i) => (
               <LabeledList.Item key={i} label={d[0] + ' Damage'}>
                 <ProgressBar key={i} min="0" max="100" value={occupant[d[1]] / 100} ranges={damageRange}>
-                  {round(occupant[d[1]])}
+                  {Math.round(occupant[d[1]])}
                 </ProgressBar>
               </LabeledList.Item>
             ))}
@@ -97,7 +96,7 @@ const OperatingComputerPatient = (props) => {
                 value={occupant.bodyTemperature / occupant.maxTemp}
                 color={tempColors[occupant.temperatureSuitability + 3]}
               >
-                {round(occupant.btCelsius)}&deg;C, {round(occupant.btFaren)}
+                {Math.round(occupant.btCelsius)}&deg;C, {Math.round(occupant.btFaren)}
                 &deg;F
               </ProgressBar>
             </LabeledList.Item>

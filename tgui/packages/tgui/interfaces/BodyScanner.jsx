@@ -10,7 +10,6 @@ import {
   Table,
   Tooltip,
 } from 'tgui-core/components';
-import { round } from 'tgui-core/math';
 import { capitalize } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
@@ -155,9 +154,9 @@ const BodyScannerMainOccupant = (props) => {
           {stats[occupant.stat][1]}
         </LabeledList.Item>
         <LabeledList.Item label="Temperature">
-          <AnimatedNumber value={round(occupant.bodyTempC)} />
+          <AnimatedNumber value={Math.round(occupant.bodyTempC)} />
           &deg;C,&nbsp;
-          <AnimatedNumber value={round(occupant.bodyTempF)} />
+          <AnimatedNumber value={Math.round(occupant.bodyTempF)} />
           &deg;F
         </LabeledList.Item>
         <LabeledList.Item label="Implants">
@@ -240,7 +239,7 @@ const BodyScannerMainDamageBar = (props) => {
       mb={!!props.marginBottom && '0.5rem'}
       ranges={damageRange}
     >
-      {round(props.value)}
+      {Math.round(props.value)}
     </ProgressBar>
   );
 };
@@ -293,14 +292,14 @@ const BodyScannerMainOrgansExternal = (props) => {
                   <Tooltip content="Total damage">
                     <Stack.Item>
                       <Icon name="heartbeat" mr={0.5} />
-                      {round(o.totalLoss)}
+                      {Math.round(o.totalLoss)}
                     </Stack.Item>
                   </Tooltip>
                   {!!o.bruteLoss && (
                     <Tooltip content="Brute damage">
                       <Stack.Item grow>
                         <Icon name="bone" mr={0.5} />
-                        {round(o.bruteLoss)}
+                        {Math.round(o.bruteLoss)}
                       </Stack.Item>
                     </Tooltip>
                   )}
@@ -308,7 +307,7 @@ const BodyScannerMainOrgansExternal = (props) => {
                     <Tooltip content="Burn damage">
                       <Stack.Item>
                         <Icon name="fire" mr={0.5} />
-                        {round(o.fireLoss)}
+                        {Math.round(o.fireLoss)}
                       </Stack.Item>
                     </Tooltip>
                   )}
@@ -379,7 +378,7 @@ const BodyScannerMainOrgansInternal = (props) => {
                 mt={i > 0 && '0.5rem'}
                 ranges={damageRange}
               >
-                {round(o.damage)}
+                {Math.round(o.damage)}
               </ProgressBar>
             </Table.Cell>
             <Table.Cell textAlign="right" verticalAlign="top" width="33%" pt={i > 0 && 'calc(0.5rem + 2px)'}>
