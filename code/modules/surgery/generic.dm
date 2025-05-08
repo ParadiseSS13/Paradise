@@ -12,6 +12,7 @@
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
 		/obj/item/kitchen/knife = 90,
+		TOOL_DISSECTOR = 75,
 		/obj/item/kitchen/knife/shiv = 70,
 		/obj/item/shard = 60,
 		TOOL_WIRECUTTER = 35,

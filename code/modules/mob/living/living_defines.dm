@@ -126,12 +126,9 @@
 	/*
 	Xenobiology Dissection Vars
 	*/
+
 	/// Does this creature contain a xeno organ we can harvest?
 	var/contains_xeno_organ = FALSE
-	/// How far in the dissection process are we
-	var/current_dissection_step = 1
-	/// How many dissection steps does this creature have?
-	var/max_dissection_steps = 5
 	/// What possible xeno organs does this creature hold? None by default
 	var/list/xeno_organ_results = list()
 	/// Does this creature have any special organ sprites?
@@ -163,7 +160,7 @@
 	/// Contains specialty text for dissection step failures
 	var/list/dissection_failure_text = list(
 	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with tool!</span>",
+	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
 	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
 	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
 	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",

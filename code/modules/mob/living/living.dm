@@ -547,7 +547,6 @@
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
-	current_dissection_step = 1
 	if(buckled) //Unbuckle the mob and clear the alerts.
 		unbuckle(force = TRUE)
 
@@ -908,77 +907,19 @@
 /mob/living/proc/get_permeability_protection()
 	return 0
 
-
-
-// lets try and remove some organs
-/mob/living/proc/attempt_dissection(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && current_dissection_step > 1 && istype(I.type, /obj/item/dissector))
-		to_chat(user, "<span class='danger'>You begin to close the current dissection site!</span>")
-		playsound(src, 'sound/surgery/cautery1.ogg', 50, TRUE, -1)
-		if(do_mob(user, src, 5 SECONDS) && Adjacent(I))
-			playsound(src, 'sound/surgery/cautery2.ogg', 50, TRUE, -1)
-			to_chat(user, "<span class='warning'>You successfully seal up and repair the current dissection site.</span>")
-			current_dissection_step = 1
-			return TRUE
-		return TRUE
-	// only dead creatures with possible organs should be considered
-	if(user.a_intent == INTENT_HELP && stat == DEAD && contains_xeno_organ)
-		//we shouldnt allow dissections if it has open surgeries to prevent overlap
-		if(length(surgeries))
-			to_chat(user, "<span class='warning'>You cannot dissect [src] while it has ongoing surgeries!</span>")
-		// we should know if the creature has already been harvested
-		if(!xeno_organ_results && istype(I, /obj/item/dissector))
-			to_chat(user, "There are no available organs to remove from [src]!")
-			return TRUE
-		var/datum/surgery_step/current_step = dissection_tool_step[current_dissection_step]
-		current_step = new current_step
-		// actually perform the dissection
-		if(xeno_organ_results && current_step.is_valid_tool(user, I))
-			to_chat(user, dissection_text[current_dissection_step])
-			playsound(src, current_step.preop_sound, 50, TRUE, -1)
-			if(do_mob(user, src, current_step.time) && Adjacent(I))
-				if(prob(current_step.allowed_tools[I.type]))
-					to_chat(user, "<span class='warning'>You struggle to perform the dissection properly, and will have to start the last step over!</span>")
-					return TRUE
-				current_dissection_step += 1
-				playsound(src,  current_step.success_sound, 50, TRUE, -1)
-				if(current_dissection_step > max_dissection_steps)
-					var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(src.loc)
-					if(length(custom_organ_states))
-						new_organ.icon_state = pick(custom_organ_states)
-					new_organ.true_organ_type = pick(xeno_organ_results)
-					new_organ.unknown_quality = pick_quality(I, current_step)
-					xeno_organ_results = null
-					SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[new_organ.true_organ_type]", new_organ.unknown_quality))
-					return TRUE
-			return TRUE
-
-
-/mob/living/proc/pick_quality(obj/item/I, datum/surgery_step/current_step)
-	if(istype(I, /obj/item/dissector/alien))
-		return ORGAN_PRISTINE
-	var/quality_chance = current_step.allowed_tools[I]
-	var/inverted_chance = 100 - quality_chance
-	quality_chance += ((inverted_chance * 0.66) * -(I.bit_efficiency_mod))
-	if(prob(quality_chance / 2))
-		return ORGAN_PRISTINE
-	if(prob(quality_chance))
-		return ORGAN_NORMAL
-	return ORGAN_DAMAGED
-
 /mob/living/examine(mob/user)
 	. = ..()
 	if(stat != DEAD)
 		return
 	if(!user.reagent_vision())
 		return
-	if(current_dissection_step > 1)
-		. += "<span class='warning'>[src] has an ongoing dissection!</span>"
-		if(current_dissection_step <= max_dissection_steps)
-			var/obj/item/step_name = dissection_tool_step[current_dissection_step]
-			. += "<span class='notice'>You feel the next dissection step will be: [step_name.name]</span>"
-		else
-			. += "<span class='warning'>[src] looks like they have had their organs dissected!</span>"
+	var/datum/surgery/dissection
+	for(var/datum/surgery/dissect/D in surgeries)
+		dissection = D
+	if(dissection)
+		. += "<span class='notice'>You detect the next dissection step will be: [dissection.get_surgery_step()]</span>"
+	if(!xeno_organ_results)
+		. += "<span class='warning'>[src] looks like they have had their organs dissected!</span>"
 
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)

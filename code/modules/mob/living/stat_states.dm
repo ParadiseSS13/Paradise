@@ -55,7 +55,6 @@
 	if(stat != DEAD)
 		return FALSE
 
-	current_dissection_step = 1
 	create_attack_log("<font color='red'>Came back to life at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
 	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")

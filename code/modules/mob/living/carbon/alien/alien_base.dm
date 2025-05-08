@@ -23,7 +23,6 @@
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 	contains_xeno_organ = TRUE
-	max_dissection_steps = 5
 	custom_organ_states = list("plasma", "neurotox", "acid", "hivenode")
 	xeno_organ_results = list(
 		/obj/item/organ/internal/alien/plasmavessel,
@@ -41,10 +40,24 @@
 
 	dissection_text = list(
 	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin sawing through the chitinout outer layer.</span>",
-	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You begin sawing through the chitinous outer layer.</span>",
+	"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
+	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
 	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+	)
+	dissection_success_text = list(
+	"<span class='notice'>You successfully set up a dissection site.</span>",
+	"<span class='notice'>You manage to saw through the armored exoskeleton.</span>",
+	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+	"<span class='notice'>You successfully force the dissection cavity open.</span>",
+	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+	)
+	dissection_failure_text = list(
+	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+	"<span class='warning'>You fail to get through the armored outer layer!</span>",
+	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
+	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /mob/living/carbon/alien/Initialize(mapload)

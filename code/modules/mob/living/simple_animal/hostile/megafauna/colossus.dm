@@ -55,7 +55,6 @@ Difficulty: Very Hard
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
 	contains_xeno_organ = TRUE
-	max_dissection_steps = 6
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
 
@@ -87,8 +86,24 @@ Difficulty: Very Hard
 	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
 	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
 	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You carefully sever the metal sections from the surrounding flesh.</span>",
+	"<span class='notice'>You carefully begin severing the metal sections from the surrounding flesh.</span>",
 	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+	)
+	dissection_success_text = list(
+	"<span class='notice'>You successfully set up a dissection site.</span>",
+	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
+	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+	"<span class='notice'>You successfully force the dissection cavity open.</span>",
+	"<span class='notice'>You manage to cut away and seperate the metal from flesh.</span>",
+	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+	)
+	dissection_failure_text = list(
+	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
+	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
+	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+	"<span class='warning'>The mixture of metal and flesh seems impossible to distinguish in some places!</span>",
+	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)

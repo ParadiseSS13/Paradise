@@ -51,7 +51,6 @@ Difficulty: Medium
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 	appearance_flags = 512
-	max_dissection_steps = 7
 	contains_xeno_organ = TRUE
 	custom_organ_states = list("legion1", "legion2")
 
@@ -92,8 +91,8 @@ Difficulty: Medium
 	)
 	dissection_failure_text = list(
 	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You begin to saw through the thick skull plating.</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with tool!</span>",
+	"<span class='warning'>You cant get enough leverage to saw through the thick skull plating!</span>",
+	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
 	"<span class='warning'>You fail to cut the buds away faster than they're regrowing!</span>",
 	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
 	"<span class='warning'>You fail to cut the buds away faster than they're regrowing!</span>",

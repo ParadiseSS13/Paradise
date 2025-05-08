@@ -13,6 +13,7 @@
 	name = "Improved Dissection Manager"
 	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs. This one has had several improvements applied to it."
 	icon_state = "dissector_upgrade"
+	toolspeed = 0.4
 
 // allows for perfect pristine organ extraction. Only available from non-lavaland abductor tech
 /obj/item/dissector/alien
@@ -20,6 +21,7 @@
 	desc = "A tool of alien origin, capable of near impossible levels of precision during dissections."
 	icon_state = "dissector_alien"
 	origin_tech = "abductor=3"
+	toolspeed = 0.2
 
 /obj/item/dissector/Initialize(mapload)
 	. = ..()
@@ -42,7 +44,7 @@
 	preop_sound = 'sound/surgery/organ1.ogg'
 	success_sound = 'sound/surgery/organ2.ogg'
 	failure_sound = 'sound/effects/bone_break_1.ogg'
-	time = 0.4 SECONDS
+	time = 1.5
 
 /datum/surgery_step/generic/dissect/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
@@ -52,13 +54,13 @@
 /datum/surgery_step/generic/dissect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
 		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
-		if(length(surgery.steps) >= surgery.current_step)
+		if(length(surgery.steps) <= surgery.step_number) // only procs if its the finishing step
 			var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(target.loc)
 			if(length(target.custom_organ_states))
 				new_organ.icon_state = pick(target.custom_organ_states)
 			new_organ.true_organ_type = pick(target.xeno_organ_results)
-			new_organ.unknown_quality = pick_quality(tool, surgery)
-			target.xeno_organ_results = null
+			new_organ.unknown_quality = pick_quality(tool, surgery.get_surgery_step())
+			target.xeno_organ_results = null // ensures we cant remove multiple organs. Only one allowed!
 			SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[new_organ.true_organ_type]", new_organ.unknown_quality))
 	return SURGERY_STEP_CONTINUE
 
@@ -67,18 +69,20 @@
 		to_chat(user, "[target.dissection_failure_text[surgery.step_number]]")
 	return SURGERY_STEP_RETRY
 
+/// Decides the quality of the new organ based off tool efficiency and tool bit mods
 /datum/surgery_step/generic/dissect/proc/pick_quality(obj/item/I, datum/surgery_step/current_step)
 	if(istype(I, /obj/item/dissector/alien))
 		return ORGAN_PRISTINE
 	var/quality_chance = current_step.allowed_tools[I]
 	var/inverted_chance = 100 - quality_chance
 	quality_chance += ((inverted_chance * 0.66) * -(I.bit_efficiency_mod))
-	if(prob(quality_chance / 2))
+	if(prob(quality_chance / 2)) // at best, 50% chance
 		return ORGAN_PRISTINE
 	if(prob(quality_chance))
 		return ORGAN_NORMAL
 	return ORGAN_DAMAGED
 
+// Dissections should always end in he dissect step for organ quality sake
 /datum/surgery/dissect
 	name = "experimental dissection"
 	requires_bodypart = FALSE  // most simplemobs wont have limbs

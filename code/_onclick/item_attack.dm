@@ -112,9 +112,6 @@
 		return TRUE
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	//if(attempt_dissection(attacking, user))
-	//	return TRUE
-
 	if(attempt_harvest(attacking, user))
 		return TRUE
 

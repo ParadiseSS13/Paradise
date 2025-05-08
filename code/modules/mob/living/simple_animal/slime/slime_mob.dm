@@ -369,6 +369,11 @@
 				for(var/datum/surgery/S in surgeries)
 					if(S.next_step(M, src))
 						return 1
+		if(M.a_intent == INTENT_HELP)
+			new /obj/effect/temp_visual/heart(src.loc)
+			if(prob(4))
+				discipline_slime(M, positive_reinforcement = TRUE)
+
 		if(..()) //successful attack
 			attacked += 10
 

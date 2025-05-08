@@ -71,7 +71,6 @@ Difficulty: Hard
 	deathmessage = "sinks into a pile of grotesque viscera, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
 	contains_xeno_organ = TRUE
-	max_dissection_steps = 6
 
 	custom_organ_states = list("bubblegum1", "bubblegum2", "bubblegum3", "bubblegum4")
 
@@ -97,12 +96,28 @@ Difficulty: Hard
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the mass for dissection... If you can even call it that at this point</span>",
+	"<span class='notice'>You begin to prep the corpse for dissection... If you can even call it that at this point</span>",
 	"<span class='notice'>You begin removing shards and chunks of bone, clearing a spot to safely cut deeper.</span>",
-	"<span class='notice'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone..</span>",
-	"<span class='notice'>You clamp the mass amount of leaking arteries in the surgical site.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone...</span>",
+	"<span class='notice'>You begin clamping the mass amount of leaking arteries in the surgical site.</span>",
+	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
 	"<span class='notice'>You finally find something, and begin to remove a unidentifiable mass out of the mass!</span>",
+	)
+	dissection_success_text = list(
+	"<span class='notice'>You successfully set up a dissection site.</span>",
+	"<span class='notice'>You manage to clear out the dissection site of obstructive bone.</span>",
+	"<span class='notice'>You manage to cut deep enough until something of signifigance seems to reveal.</span>",
+	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+	"<span class='notice'>You successfully force the dissection cavity open.</span>",
+	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+	)
+	dissection_failure_text = list(
+	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+	"<span class='warning'>You begin removing shards and chunks of bone, clearing a spot to safely cut deeper.</span>",
+	"<span class='warning'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone..</span>",
+	"<span class='warning'>You clamp the mass amount of leaking arteries in the surgical site.</span>",
+	"<span class='warning'>You force the dissection cavity open.</span>",
+	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /obj/item/gps/internal/bubblegum

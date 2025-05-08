@@ -72,9 +72,23 @@
 	dissection_text = list(
 	"<span class='notice'>You begin to prep the subject for dissection...</span>",
 	"<span class='notice'>You begin to unscrew the coverings.</span>",
+	"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
+	"<span class='notice'>You carefully begin to disconnect the core from the surrounding power network.</span>",
+	"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
+	)
+	dissection_success_text = list(
+	"<span class='notice'>You successfully set up a dissection site.</span>",
+	"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
 	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
-	"<span class='notice'>You carefully begin power down any remaining systems.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+	"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
+	"<span class='notice'>You remove the core from the metal housing!</span>",
+	)
+	dissection_failure_text = list(
+	"<span class='warning'>You begin to prep the subject for dissection...</span>",
+	"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
+	"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
+	"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
+	"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
 	)
 
 /datum/action/innate/elite_attack/chaser_burst
