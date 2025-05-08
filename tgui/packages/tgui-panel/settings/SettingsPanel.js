@@ -36,6 +36,7 @@ import {
 import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
 import { selectActiveTab, selectHighlightSettingById, selectHighlightSettings, selectSettings } from './selectors';
 import { SettingsStatPanel } from './SettingsStatPanel';
+import { storage } from 'common/storage';
 
 export const SettingsPanel = (props) => {
   const activeTab = useSelector(selectActiveTab);
@@ -73,10 +74,21 @@ export const SettingsPanel = (props) => {
   );
 };
 
-export const SettingsGeneral = (props) => {
-  const { theme, fontFamily, fontSize, lineHeight } = useSelector(selectSettings);
-  const dispatch = useDispatch();
-  const [freeFont, setFreeFont] = useState(false);
+export const SettingsGeneral = (props, context) => {
+  const { theme, fontFamily, fontSize, lineHeight, chatSaving } = useSelector(context, selectSettings);
+  const dispatch = useDispatch(context);
+  const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
+
+  const updateChatSaving = (value) => {
+    const boolValue = value === true;
+    dispatch(
+      updateSettings({
+        chatSaving: boolValue,
+      })
+    );
+    storage.set('chat-saving-enabled', boolValue);
+  };
+
   return (
     <Section fill>
       <Stack fill vertical>
@@ -195,6 +207,14 @@ export const SettingsGeneral = (props) => {
         </LabeledList>
         <Divider />
         <Stack>
+          <Stack.Item>
+            <Button.Checkbox
+              checked={chatSaving === true}
+              content="Persistent Chat"
+              tooltip="Enable chat persistence"
+              onClick={() => updateChatSaving(!chatSaving)}
+            />
+          </Stack.Item>
           <Stack.Item grow>
             <Button
               content="Save chat log"

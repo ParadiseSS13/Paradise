@@ -17,8 +17,8 @@
  * Returns [MINERAL_ALLOW_DIG] if the containing turf should be changed to its
  * "dug" state, [MINERAL_PREVENT_DIG] if it should remain as is.
  */
-/datum/ore/proc/on_mine(turf/source, mob/user, triggered_by_explosion = FALSE)
-	var/amount = rand(drop_min, drop_max)
+/datum/ore/proc/on_mine(turf/source, mob/user, triggered_by_explosion = FALSE, productivity_mod = 1)
+	var/amount = round(rand(drop_min, drop_max) + productivity_mod)
 
 	if(ispath(drop_type, /obj/item/stack/ore))
 		new drop_type(source, amount)
@@ -91,6 +91,7 @@
 	drop_type = /obj/item/stack/ore/tranquillite
 	drop_min = 3
 	drop_max = 3
+	scan_icon_state = "rock_Tranquillite"
 
 /datum/ore/ancient_basalt
 	drop_type = /obj/item/stack/ore/glass/basalt/ancient

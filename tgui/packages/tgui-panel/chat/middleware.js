@@ -39,37 +39,56 @@ const blacklisted_tags = ['a', 'iframe', 'link', 'video'];
 
 const saveChatToStorage = async (store) => {
   const state = selectChat(store.getState());
-  const fromIndex = Math.max(0, chatRenderer.messages.length - MAX_PERSISTED_MESSAGES);
-  const messages = chatRenderer.messages.slice(fromIndex).map((message) => serializeMessage(message));
+
+  // Always save the chat state (which includes custom tabs)
   storage.set('chat-state', state);
-  storage.set('chat-messages', messages);
+
+  // Only save messages if chat saving is enabled
+  const chatSavingEnabled = await storage.get('chat-saving-enabled');
+  if (chatSavingEnabled !== false) {
+    const fromIndex = Math.max(0, chatRenderer.messages.length - MAX_PERSISTED_MESSAGES);
+    const messages = chatRenderer.messages.slice(fromIndex).map((message) => serializeMessage(message));
+    storage.set('chat-messages', messages);
+  }
 };
 
 const loadChatFromStorage = async (store) => {
-  const [state, messages] = await Promise.all([storage.get('chat-state'), storage.get('chat-messages')]);
+  // Always try to load the chat state (for custom tabs)
+  const state = await storage.get('chat-state');
+
   // Discard incompatible versions
   if (state && state.version <= 4) {
     store.dispatch(loadChat());
     return;
   }
-  if (messages) {
-    for (let message of messages) {
-      if (message.html) {
-        message.html = DOMPurify.sanitize(message.html, {
-          FORBID_TAGS: blacklisted_tags,
-        });
+
+  // Check if message saving is enabled before loading messages
+  const chatSavingEnabled = await storage.get('chat-saving-enabled');
+  let messages = [];
+
+  if (chatSavingEnabled !== false) {
+    messages = await storage.get('chat-messages');
+    if (messages) {
+      for (let message of messages) {
+        if (message.html) {
+          message.html = DOMPurify.sanitize(message.html, {
+            FORBID_TAGS: blacklisted_tags,
+          });
+        }
       }
+      const batch = [
+        ...messages,
+        createMessage({
+          type: 'internal/reconnected',
+        }),
+      ];
+      chatRenderer.processBatch(batch, {
+        prepend: true,
+      });
     }
-    const batch = [
-      ...messages,
-      createMessage({
-        type: 'internal/reconnected',
-      }),
-    ];
-    chatRenderer.processBatch(batch, {
-      prepend: true,
-    });
   }
+
+  // Always load the chat state (with custom tabs)
   store.dispatch(loadChat(state));
 };
 

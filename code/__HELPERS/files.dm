@@ -34,8 +34,11 @@
 	return text
 
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list("txt", "log", "htm", "json"))
-	// wow why was this ever a parameter
-	root = "data/logs/"
+	if(!dd_hasprefix(root, "data/logs/") || findtext(root, "../"))
+		message_admins("/client/browse_files was called with a non-log or relative root `[root]`, please inform a headcoder!")
+		log_admin("/client/browse_files was called with a non-log or relative root `[root]`!")
+
+		return
 	var/path = root
 
 	for(var/i=0, i<max_iterations, i++)

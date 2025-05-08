@@ -36,6 +36,13 @@ SUBSYSTEM_DEF(tgui)
 	ntos_error = "<style type='text/css'>\n[ntos_error]\n</style>"
 	basehtml = replacetextEx(basehtml, "<!-- tgui:ntos-error -->", ntos_error)
 
+/datum/controller/subsystem/tgui/can_vv_get(var_name)
+	if(var_name == "basehtml")
+		return FALSE // No security implication here, it just spams the fuck out of the UI
+
+	return ..()
+
+
 /datum/controller/subsystem/tgui/Shutdown()
 	close_all_uis()
 

@@ -147,25 +147,23 @@ const SortButton = (properties) => {
   const [sortOrder, setSortOrder] = useState(true);
   const { id, children } = properties;
   return (
-    <Stack.Item grow>
-      <Table.Cell>
-        <Button
-          color={sortId !== id && 'transparent'}
-          fluid
-          onClick={() => {
-            if (sortId === id) {
-              setSortOrder(!sortOrder);
-            } else {
-              setSortId(id);
-              setSortOrder(true);
-            }
-          }}
-        >
-          {children}
-          {sortId === id && <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />}
-        </Button>
-      </Table.Cell>
-    </Stack.Item>
+    <Table.Cell>
+      <Button
+        color={sortId !== id && 'transparent'}
+        fluid
+        onClick={() => {
+          if (sortId === id) {
+            setSortOrder(!sortOrder);
+          } else {
+            setSortId(id);
+            setSortOrder(true);
+          }
+        }}
+      >
+        {children}
+        {sortId === id && <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />}
+      </Button>
+    </Table.Cell>
   );
 };
 

@@ -8,7 +8,7 @@ import { Window } from '../layouts';
 export const AugmentMenu = (props) => {
   return (
     <Window width={700} height={660} theme="malfunction">
-      <Window.Content>
+      <Window.Content scrollable>
         <Stack vertical>
           <Abilities context={context} />
         </Stack>

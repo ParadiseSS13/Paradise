@@ -31,8 +31,8 @@ export const AIProgramPicker = (props) => {
                     </Button>
                   }
                 >
-                  <LabeledList>
-                    <Stack vertical>
+                  <Stack vertical>
+                    <LabeledList>
                       <Stack.Item mb={2}>
                         <LabeledList.Item label="Description">{program.description}</LabeledList.Item>
                       </Stack.Item>
@@ -52,8 +52,8 @@ export const AIProgramPicker = (props) => {
                           </LabeledList.Item>
                         </Stack.Item>
                       </Stack>
-                    </Stack>
-                  </LabeledList>
+                    </LabeledList>
+                  </Stack>
                 </Section>
               ))}
           </Stack.Item>
