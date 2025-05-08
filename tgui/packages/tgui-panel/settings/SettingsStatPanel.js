@@ -81,7 +81,7 @@ export const SettingsStatPanel = (props) => {
                       <Input
                         width={'100%'}
                         value={statFontFamily}
-                        onChange={(e, value) =>
+                        onChange={(value) =>
                           dispatch(
                             updateSettings({
                               statFontFamily: value,
@@ -118,7 +118,7 @@ export const SettingsStatPanel = (props) => {
                     value={statFontSize}
                     unit="px"
                     format={(value) => toFixed(value)}
-                    onChange={(e, value) => dispatch(updateSettings({ statFontSize: value }))}
+                    onChange={(value) => dispatch(updateSettings({ statFontSize: value }))}
                   />
                 )}
               </Stack.Item>

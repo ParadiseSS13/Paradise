@@ -51,7 +51,7 @@ export const ColourMatrixTester = (props) => {
                       minValue={-5}
                       maxValue={5}
                       stepPixelSize={5}
-                      onChange={(e, value) =>
+                      onChange={(value) =>
                         act('setvalue', {
                           /* +1 to account for BYOND lists */
                           idx: k2.idx + 1,

@@ -56,7 +56,7 @@ export const TurbineComputer = (props) => {
                 maxValue={100}
                 step={1}
                 stepPixelSize={1}
-                onDrag={(e, value) =>
+                onDrag={(value) =>
                   act('set_throttle', {
                     throttle: value,
                   })

@@ -434,7 +434,7 @@ const manageChannelModalBodyOverride = (modal) => {
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Owner">
-            <Input disabled={!isAdmin} width="100%" value={author} onInput={(_e, v) => setAuthor(v)} />
+            <Input disabled={!isAdmin} width="100%" value={author} onChange={(value) => setAuthor(value)} />
           </LabeledList.Item>
           <LabeledList.Item label="Name">
             <Input
@@ -442,7 +442,7 @@ const manageChannelModalBodyOverride = (modal) => {
               placeholder="50 characters max."
               maxLength="50"
               value={name}
-              onInput={(_e, v) => setName(v)}
+              onChange={(value) => setName(value)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Description (optional)" verticalAlign="top">
@@ -452,11 +452,11 @@ const manageChannelModalBodyOverride = (modal) => {
               placeholder="128 characters max."
               maxLength="128"
               value={description}
-              onInput={(_e, v) => setDescription(v)}
+              onChange={(value) => setDescription(value)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Icon">
-            <Input disabled={!isAdmin} value={icon} width="35%" mr="0.5rem" onInput={(_e, v) => setIcon(v)} />
+            <Input disabled={!isAdmin} value={icon} width="35%" mr="0.5rem" onChange={(value) => setIcon(value)} />
             <Icon name={icon} size="2" verticalAlign="middle" mr="0.5rem" />
           </LabeledList.Item>
           <LabeledList.Item label="Accept Public Stories?">
@@ -535,7 +535,7 @@ const createStoryModalBodyOverride = (modal) => {
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Author">
-            <Input disabled={!isAdmin} width="100%" value={author} onInput={(_e, v) => setAuthor(v)} />
+            <Input disabled={!isAdmin} width="100%" value={author} onChange={(value) => setAuthor(value)} />
           </LabeledList.Item>
           <LabeledList.Item label="Channel" verticalAlign="top">
             <Dropdown
@@ -553,7 +553,7 @@ const createStoryModalBodyOverride = (modal) => {
               placeholder="128 characters max."
               maxLength="128"
               value={title}
-              onInput={(_e, v) => setTitle(v)}
+              onChange={(value) => setTitle(value)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Story Text" verticalAlign="top">
@@ -565,7 +565,7 @@ const createStoryModalBodyOverride = (modal) => {
               rows="8"
               width="100%"
               value={body}
-              onInput={(_e, v) => setBody(v)}
+              onChange={(value) => setBody(value)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Photo (optional)" verticalAlign="top">
@@ -645,10 +645,10 @@ const wantedNoticeModalBodyOverride = (modal) => {
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Authority">
-            <Input disabled={!isAdmin} width="100%" value={author} onInput={(_e, v) => setAuthor(v)} />
+            <Input disabled={!isAdmin} width="100%" value={author} onChange={(value) => setAuthor(value)} />
           </LabeledList.Item>
           <LabeledList.Item label="Name">
-            <Input width="100%" value={name} maxLength="128" onInput={(_e, v) => setName(v)} />
+            <Input width="100%" value={name} maxLength="128" onChange={(value) => setName(value)} />
           </LabeledList.Item>
           <LabeledList.Item label="Description" verticalAlign="top">
             <Input
@@ -657,7 +657,7 @@ const wantedNoticeModalBodyOverride = (modal) => {
               value={description}
               maxLength="512"
               rows="4"
-              onInput={(_e, v) => setDescription(v)}
+              onChange={(value) => setDescription(value)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Photo (optional)" verticalAlign="top">

@@ -25,8 +25,8 @@ export const pda_cookbook = (props) => {
             <Input
               width="200px"
               placeholder={`Search ${current_category}`}
-              onChange={(value) => setSearchText(value)}
               value={searchText}
+              onChange={(value) => setSearchText(value)}
             />
           }
         >

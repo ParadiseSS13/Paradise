@@ -19,7 +19,7 @@ export const pai_radio = (props) => {
           maxValue={maxFrequency / 10}
           value={frequency / 10}
           format={(value) => toFixed(value, 1)}
-          onChange={(e, value) =>
+          onChange={(value) =>
             act('freq', {
               freq: value,
             })

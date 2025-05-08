@@ -82,7 +82,7 @@ export const SolarControl = (props) => {
                   minValue={0}
                   maxValue={359}
                   value={cdir}
-                  onDrag={(e, cdir) => act('cdir', { cdir })}
+                  onDrag={(cdir) => act('cdir', { cdir })}
                 />
               )}
               {tracking_state === TRACKER_AUTO && <Box lineHeight="19px"> Automated </Box>}
@@ -121,7 +121,7 @@ export const SolarControl = (props) => {
                     const sign = Math.sign(tracking_rate) > 0 ? '+' : '-';
                     return sign + Math.abs(tracking_rate);
                   }}
-                  onDrag={(e, tdir) => act('tdir', { tdir })}
+                  onDrag={(tdir) => act('tdir', { tdir })}
                 />
               )}
               {tracking_state === TRACKER_OFF && <Box lineHeight="19px"> Tracker offline </Box>}

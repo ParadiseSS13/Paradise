@@ -169,7 +169,7 @@ const CataloguePane = (_properties) => {
           />
         }
       >
-        <Input fluid placeholder="Search for..." onChange={(v) => setSearchText(v)} mb={1} />
+        <Input fluid placeholder="Search for..." onChange={(value) => setSearchText(value)} mb={1} />
         <Box maxHeight={25} overflowY="auto" overflowX="hidden">
           <Table m="0.5rem">
             {cratesToShow.map((c) => (

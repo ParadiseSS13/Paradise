@@ -179,7 +179,7 @@ const SheetLine = (properties) => {
             minValue={0}
             maxValue={Math.min(ore.amount, 50)}
             stepPixelSize={6}
-            onChange={(_e, value) =>
+            onChange={(value) =>
               act(ore.value ? 'sheet' : 'alloy', {
                 'id': ore.id,
                 'amount': value,
@@ -227,7 +227,7 @@ const AlloyLine = (properties) => {
             minValue={0}
             maxValue={Math.min(ore.amount, 50)}
             stepPixelSize={6}
-            onChange={(_e, value) =>
+            onChange={(value) =>
               act(ore.value ? 'sheet' : 'alloy', {
                 'id': ore.id,
                 'amount': value,

@@ -40,7 +40,7 @@ export const CloningPod = (props) => {
                 maxValue={sanguine_reagent}
                 step={1}
                 unit="units"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('remove_reagent', {
                     reagent: 'sanguine_reagent',
                     amount: value,
@@ -65,7 +65,7 @@ export const CloningPod = (props) => {
                 maxValue={osseous_reagent}
                 step={1}
                 unit="units"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('remove_reagent', {
                     reagent: 'osseous_reagent',
                     amount: value,

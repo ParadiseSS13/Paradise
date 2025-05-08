@@ -100,7 +100,7 @@ export const AdminAntagMenu = (properties) => {
               scrollable
               buttons={
                 <Stack fill>
-                  <Input placeholder="Search..." width="300px" onChange={(value) => setSearchText(value)} />
+                  <Input width="300px" placeholder="Search..." onChange={(value) => setSearchText(value)} />
                   <Button icon="sync" onClick={() => act('refresh')}>
                     Refresh
                   </Button>

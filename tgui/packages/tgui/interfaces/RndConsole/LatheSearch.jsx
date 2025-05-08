@@ -6,7 +6,7 @@ export const LatheSearch = (properties) => {
   const { act } = useBackend();
   return (
     <Box>
-      <Input placeholder="Search..." onEnter={(e, value) => act('search', { to_search: value })} />
+      <Input placeholder="Search..." onEnter={(value) => act('search', { to_search: value })} />
     </Box>
   );
 };

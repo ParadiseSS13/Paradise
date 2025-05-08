@@ -68,7 +68,7 @@ export const Pacman = (props) => {
                         maxValue={output_max * (emagged ? 2.5 : 1)}
                         step={1}
                         className="mt-1"
-                        onDrag={(e, value) =>
+                        onDrag={(value) =>
                           act('change_power', {
                             change_power: value,
                           })

@@ -80,7 +80,7 @@ const Story = (props) => {
                       minValue={0}
                       maxValue={256}
                       step={1}
-                      onChange={(e, value) => setImageSize(value)}
+                      onChange={(value) => setImageSize(value)}
                     />
                   </LabeledList.Item>
                 </>

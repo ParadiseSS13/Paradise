@@ -38,7 +38,7 @@ export const AtmosPump = (props) => {
                 minValue={0}
                 maxValue={max_rate}
                 value={rate}
-                onDrag={(e, value) =>
+                onDrag={(value) =>
                   act('custom_rate', {
                     rate: value,
                   })

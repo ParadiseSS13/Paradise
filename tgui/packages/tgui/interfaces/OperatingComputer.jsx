@@ -184,7 +184,7 @@ const OperatingComputerOptions = (props) => {
           value={healthAlarm}
           stepPixelSize={5}
           ml="0"
-          onChange={(e, val) =>
+          onChange={(val) =>
             act('health_adj', {
               new: val,
             })
@@ -207,7 +207,7 @@ const OperatingComputerOptions = (props) => {
           value={oxyAlarm}
           stepPixelSize={5}
           ml="0"
-          onChange={(e, val) =>
+          onChange={(val) =>
             act('oxy_adj', {
               new: val,
             })

@@ -81,9 +81,10 @@ const CrewMonitorDataView = (_properties) => {
   const { act, data } = useBackend();
   const { possible_levels, viewing_current_z_level, is_advanced, highlightedNames } = data;
   const crew = sortBy(
+    data.crewmembers,
     (cm) => !highlightedNames.includes(cm.name),
     (cm) => cm.name
-  )(data.crewmembers || []);
+  );
   const [search, setSearch] = useState('');
   const searcher = createSearch(search, (cm) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
@@ -92,11 +93,7 @@ const CrewMonitorDataView = (_properties) => {
     <Section fill scrollable backgroundColor="transparent">
       <Stack>
         <Stack.Item width="100%" ml="5px">
-          <Input
-            placeholder="Search by name, assignment or location.."
-            width="100%"
-            onInput={(_e, value) => setSearch(value)}
-          />
+          <Input fluid placeholder="Search by name, assignment or location.." onChange={(value) => setSearch(value)} />
         </Stack.Item>
         <Stack.Item>
           {is_advanced ? (

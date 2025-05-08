@@ -31,7 +31,7 @@ export const BloomEdit = (props) => {
                 maxValue={10}
                 step={0.01}
                 width="20px"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('glow_brightness_base', {
                     value: value,
                   })
@@ -47,7 +47,7 @@ export const BloomEdit = (props) => {
                 maxValue={10}
                 step={0.01}
                 width="20px"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('glow_brightness_power', {
                     value: value,
                   })
@@ -63,7 +63,7 @@ export const BloomEdit = (props) => {
                 maxValue={10}
                 step={0.01}
                 width="20px"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('glow_contrast_base', {
                     value: value,
                   })
@@ -79,7 +79,7 @@ export const BloomEdit = (props) => {
                 maxValue={10}
                 step={0.01}
                 width="20px"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('glow_contrast_power', {
                     value: value,
                   })
@@ -95,7 +95,7 @@ export const BloomEdit = (props) => {
                 maxValue={10}
                 step={0.01}
                 width="20px"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('exposure_brightness_base', {
                     value: value,
                   })
@@ -111,7 +111,7 @@ export const BloomEdit = (props) => {
                 maxValue={10}
                 step={0.01}
                 width="20px"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('exposure_brightness_power', {
                     value: value,
                   })
@@ -127,7 +127,7 @@ export const BloomEdit = (props) => {
                 maxValue={10}
                 step={0.01}
                 width="20px"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('exposure_contrast_base', {
                     value: value,
                   })
@@ -143,7 +143,7 @@ export const BloomEdit = (props) => {
                 maxValue={10}
                 step={0.01}
                 width="20px"
-                onChange={(e, value) =>
+                onChange={(value) =>
                   act('exposure_contrast_power', {
                     value: value,
                   })

@@ -126,7 +126,7 @@ export const BluespaceTap = (props) => {
                         value={desiredMiningPower}
                         maxvalue={Infinity}
                         step={1}
-                        onChange={(e, value) =>
+                        onChange={(value) =>
                           act('set', {
                             set_power: value,
                           })

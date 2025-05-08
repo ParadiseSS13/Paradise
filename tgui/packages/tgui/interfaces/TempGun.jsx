@@ -24,7 +24,7 @@ export const TempGun = (props) => {
                 value={target_temperature}
                 format={(value) => toFixed(value, 2)}
                 width="50px"
-                onDrag={(e, value) =>
+                onDrag={(value) =>
                   act('target_temperature', {
                     target_temperature: value,
                   })

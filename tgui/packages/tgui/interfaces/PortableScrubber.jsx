@@ -118,7 +118,7 @@ const PressureSettings = (props) => {
             minValue={0}
             maxValue={max_rate}
             value={rate}
-            onChange={(e, value) =>
+            onChange={(value) =>
               act('set_rate', {
                 rate: value,
               })

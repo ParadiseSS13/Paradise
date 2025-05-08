@@ -123,12 +123,7 @@ const MiningVendorSearch = (_properties) => {
     <Box>
       <Stack fill>
         <Stack.Item grow>
-          <Input
-            mt={0.2}
-            placeholder="Search by item name.."
-            width="100%"
-            onInput={(_e, value) => setSearchText(value)}
-          />
+          <Input fluid mt={0.2} placeholder="Search by item name.." onChange={(value) => setSearchText(value)} />
         </Stack.Item>
         <Stack.Item>
           <Button

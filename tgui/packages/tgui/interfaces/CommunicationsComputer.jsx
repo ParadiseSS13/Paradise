@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Collapsible, Dropdown, Input, LabeledList, Section, Stack } from 'tgui-core/components';
+import { Box, Button, Collapsible, Dropdown, Input, LabeledList, Section, Stack, TextArea } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -27,7 +27,6 @@ const PickWindow = (index) => {
 
 export const CommunicationsComputer = (props) => {
   const { act, data } = useBackend();
-
   const { menu_state } = data;
 
   return (
@@ -469,76 +468,72 @@ const AdminAnnouncePage = (props) => {
   }
 
   const [subtitle, setSubtitle] = useState('');
-  const [text, setText] = useState('text', '');
+  const [text, setText] = useState('');
   const [classified, setClassified] = useState(0);
   const [beepsound, setBeepsound] = useState('Beep');
 
   return (
-    <Stack.Item>
+    <Stack.Item grow>
       <Section
+        fill
         title="Central Command Report"
         buttons={<Button icon="arrow-circle-left" content="Back To Main Menu" onClick={() => act('main')} />}
       >
-        <Input
-          placeholder="Enter Subtitle here."
-          fluid
-          value={subtitle}
-          onChange={(e, value) => setSubtitle(value)}
-          mb="5px"
-        />
-        <Input
-          placeholder="Enter Announcement here,\nMultiline input is accepted."
-          rows={10}
-          fluid
-          multiline={1}
-          value={text}
-          onChange={(e, value) => setText(value)}
-        />
-        <Button.Confirm
-          content="Send Announcement"
-          fluid
-          icon="paper-plane"
-          center
-          mt="5px"
-          textAlign="center"
-          onClick={() =>
-            act('make_cc_announcement', {
-              subtitle: subtitle,
-              text: text,
-              classified: classified,
-              beepsound: beepsound,
-            })
-          }
-        />
-        <Stack>
-          <Stack.Item>
-            <Dropdown
-              width="260px"
-              height="20px"
-              options={possible_cc_sounds}
-              selected={beepsound}
-              onSelected={(val) => setBeepsound(val)}
-              disabled={classified}
-            />
-          </Stack.Item>
-          <Stack.Item>
-            <Button
-              icon="volume-up"
-              mx="5px"
-              disabled={classified}
-              tooltip="Test sound"
-              onClick={() => act('test_sound', { sound: beepsound })}
-            />
-          </Stack.Item>
-          <Stack.Item>
-            <Button.Checkbox
-              checked={classified}
-              content="Classified"
-              fluid
-              tooltip={classified ? 'Sent to station communications consoles' : 'Publically announced'}
-              onClick={() => setClassified(!classified)}
-            />
-          </Stack.Item>
+        <Stack fill vertical>
+          <Input fluid placeholder="Enter Subtitle here." value={subtitle} onChange={(value) => setSubtitle(value)} />
+          <TextArea
+            fluid
+            height="100%"
+            rows={10}
+            placeholder="Enter Announcement here. Multiline input is accepted."
+            value={text}
+            onChange={setText}
+          />
+          <Button.Confirm
+            fluid
+            icon="paper-plane"
+            textAlign="center"
+            onClick={() => {
+              act('make_cc_announcement', {
+                subtitle: subtitle,
+                text: text,
+                classified: classified,
+                beepsound: beepsound,
+              });
+              setText('');
+              setSubtitle('');
+            }}
+          >
+            Send Announcement
+          </Button.Confirm>
+          <Stack align="center">
+            <Stack.Item grow>
+              <Dropdown
+                options={possible_cc_sounds}
+                selected={beepsound}
+                onSelected={(val) => setBeepsound(val)}
+                disabled={classified}
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                icon="volume-up"
+                disabled={classified}
+                tooltip="Test sound"
+                onClick={() => act('test_sound', { sound: beepsound })}
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button.Checkbox
+                fluid
+                checked={classified}
+                tooltip={classified ? 'Sent to station communications consoles' : 'Publically announced'}
+                onClick={() => setClassified(!classified)}
+              >
+                Classified
+              </Button.Checkbox>
+            </Stack.Item>
+          </Stack>
         </Stack>
       </Section>
     </Stack.Item>

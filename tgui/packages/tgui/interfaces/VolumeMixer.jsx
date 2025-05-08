@@ -34,7 +34,7 @@ export const VolumeMixer = (properties) => {
                       maxValue={100}
                       stepPixelSize={3.13}
                       value={channel.volume}
-                      onChange={(e, value) => act('volume', { channel: channel.num, volume: value })}
+                      onChange={(value) => act('volume', { channel: channel.num, volume: value })}
                     />
                   </Stack.Item>
                   <Stack.Item>

@@ -38,7 +38,7 @@ export const ConveyorSwitch = (props) => {
                     maxValue={50}
                     step={1}
                     format={(value) => value + 'x'}
-                    onChange={(e, value) => act('slowFactor', { value: value })}
+                    onChange={(value) => act('slowFactor', { value: value })}
                   />
                 </Flex.Item>
                 <Flex.Item mx="1px">

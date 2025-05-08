@@ -172,7 +172,7 @@ const Products = (props) => {
             minValue={1}
             maxValue={10}
             stepPixelSize={7}
-            onChange={(e, value) => setVendAmount(value)}
+            onChange={(value) => setVendAmount(value)}
           />
         </>
       }

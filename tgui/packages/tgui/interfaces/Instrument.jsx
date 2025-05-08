@@ -332,7 +332,7 @@ const InstrumentStatus = (properties) => {
             maxValue={maxRepeats}
             value={repeat}
             stepPixelSize={59}
-            onChange={(_e, v) =>
+            onChange={(v) =>
               act('repeat', {
                 new: v,
               })
@@ -373,7 +373,7 @@ const InstrumentStatus = (properties) => {
             maxValue={maxVolume}
             value={volume}
             stepPixelSize={6}
-            onDrag={(_e, v) =>
+            onDrag={(v) =>
               act('setvolume', {
                 new: v,
               })
@@ -417,7 +417,7 @@ const InstrumentStatusAdvanced = (properties) => {
         step={0.5}
         stepPixelSize={85}
         format={(v) => Math.round(v * 100) / 100 + ' seconds'}
-        onChange={(_e, v) =>
+        onChange={(v) =>
           act('setlinearfalloff', {
             new: v / 10,
           })
@@ -433,7 +433,7 @@ const InstrumentStatusAdvanced = (properties) => {
         value={sustainExponentialDropoff}
         step={0.01}
         format={(v) => Math.round(v * 1000) / 1000 + '% per decisecond'}
-        onChange={(_e, v) =>
+        onChange={(v) =>
           act('setexpfalloff', {
             new: v,
           })
@@ -473,7 +473,7 @@ const InstrumentStatusAdvanced = (properties) => {
                     value={noteShift}
                     stepPixelSize={2}
                     format={(v) => v + ' keys / ' + Math.round((v / 12) * 100) / 100 + ' octaves'}
-                    onChange={(_e, v) =>
+                    onChange={(v) =>
                       act('setnoteshift', {
                         new: v,
                       })
@@ -500,7 +500,7 @@ const InstrumentStatusAdvanced = (properties) => {
                     maxValue={100}
                     value={sustainDropoffVolume}
                     stepPixelSize={6}
-                    onChange={(_e, v) =>
+                    onChange={(v) =>
                       act('setdropoffvolume', {
                         new: v,
                       })

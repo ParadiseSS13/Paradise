@@ -397,7 +397,7 @@ const ChemMasterProductionCommon = (props: { children: ReactNode; productionData
           value={set_items_amount}
           minValue={1}
           maxValue={max_items_amount}
-          onChange={(e, value) =>
+          onChange={(value) =>
             act(`set_items_amount`, {
               production_mode: id,
               amount: value,
@@ -411,7 +411,7 @@ const ChemMasterProductionCommon = (props: { children: ReactNode; productionData
             fluid
             value={set_name}
             placeholder={placeholder_name}
-            onChange={(e, value) =>
+            onChange={(value) =>
               act(`set_items_name`, {
                 production_mode: id,
                 name: value,

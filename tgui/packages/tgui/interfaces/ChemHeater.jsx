@@ -54,7 +54,7 @@ const ChemHeaterSettings = (_properties) => {
               value={round(targetTemp, 0)}
               minValue={0}
               maxValue={1000}
-              onDrag={(e, value) =>
+              onDrag={(value) =>
                 act('adjust_temperature', {
                   target: value,
                 })

@@ -155,7 +155,7 @@ const Designs = (properties) => {
         </Stack>
       }
     >
-      <Input placeholder="Search by name..." mb="0.5rem" width="100%" onInput={(_e, value) => setSearchText(value)} />
+      <Input mb="0.5rem" width="100%" placeholder="Search by name..." onChange={(value) => setSearchText(value)} />
       {filteredDesigns.map((design) => (
         <Design key={design.id} design={design} />
       ))}

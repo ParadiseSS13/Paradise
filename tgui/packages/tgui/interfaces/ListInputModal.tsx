@@ -220,12 +220,12 @@ const SearchBar = (props) => {
       width="100%"
       autoFocus
       autoSelect
+      placeholder="Search..."
+      value={searchQuery}
+      onChange={(value) => onSearch(value)}
       onEnter={() => {
         act('submit', { entry: filteredItems[selected] });
       }}
-      onChange={onSearch}
-      placeholder="Search..."
-      value={searchQuery}
     />
   );
 };

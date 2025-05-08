@@ -94,9 +94,9 @@ const InputArea = (props) => {
           allowFloats={!round_value}
           minValue={min_value}
           maxValue={max_value}
+          value={input}
           onChange={onChange}
           onEnter={(value) => act('submit', { entry: value })}
-          value={input}
         />
       </Stack.Item>
       <Stack.Item>

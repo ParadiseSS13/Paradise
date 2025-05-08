@@ -209,8 +209,8 @@ const AccountsActions = (properties) => {
       </Stack.Item>
       <Stack.Item grow>
         <Input
-          placeholder="Search by account holder, number, status"
           width="100%"
+          placeholder="Search by account holder, number, status"
           onChange={(value) => setSearchText(value)}
         />
       </Stack.Item>
@@ -290,10 +290,10 @@ const CreateAccount = (properties) => {
     <Section title="Create Account" buttons={<Button icon="arrow-left" content="Back" onClick={() => act('back')} />}>
       <LabeledList>
         <LabeledList.Item label="Account Holder">
-          <Input placeholder="Name Here" onChange={(e, value) => setAccName(value)} />
+          <Input placeholder="Name Here" onChange={(value) => setAccName(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Initial Deposit">
-          <Input placeholder="0" onChange={(e, value) => setAccDeposit(value)} />
+          <Input placeholder="0" onChange={(value) => setAccDeposit(value)} />
         </LabeledList.Item>
       </LabeledList>
       <Button

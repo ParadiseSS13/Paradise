@@ -189,8 +189,8 @@ const SecurityRecordsActions = (properties) => {
       </Stack.Item>
       <Stack.Item grow>
         <Input
-          placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
           fluid
+          placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
           onChange={(value) => setSearchText(value)}
         />
       </Stack.Item>

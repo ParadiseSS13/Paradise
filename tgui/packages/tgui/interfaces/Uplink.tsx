@@ -193,10 +193,10 @@ const ItemsPage = (_properties) => {
             <Input
               fluid
               placeholder="Search Equipment"
+              value={searchText}
               onChange={(value) => {
                 handleSearch(value);
               }}
-              value={searchText}
             />
           </Section>
         </Stack.Item>

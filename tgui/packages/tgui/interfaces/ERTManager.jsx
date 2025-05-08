@@ -329,7 +329,7 @@ const DenyERT = (props) => {
           fluid
           multiline={1}
           value={text}
-          onChange={(e, value) => setText(value)}
+          onChange={(value) => setText(value)}
         />
         <Button.Confirm
           content="Deny ERT"

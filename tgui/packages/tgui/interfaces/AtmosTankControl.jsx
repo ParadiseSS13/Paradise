@@ -65,7 +65,7 @@ export const AtmosTankControl = (props) => {
                         minValue={0}
                         maxValue={50}
                         value={inlet.rate}
-                        onDrag={(e, value) =>
+                        onDrag={(value) =>
                           act('set_inlet_volume_rate', {
                             dev: inlet.uid,
                             val: value,
@@ -114,7 +114,7 @@ export const AtmosTankControl = (props) => {
                         minValue={0}
                         maxValue={5066}
                         value={outlet.rate}
-                        onDrag={(e, value) =>
+                        onDrag={(value) =>
                           act('set_outlet_pressure', {
                             dev: outlet.uid,
                             val: value,

@@ -158,7 +158,7 @@ const LoadoutGears = (props) => {
           </Stack.Item>
           {search && (
             <Stack.Item>
-              <Input width={20} placeholder="Search..." value={searchText} onChange={setSearchText} />
+              <Input width={20} placeholder="Search..." value={searchText} onChange={(value) => setSearchText(value)} />
             </Stack.Item>
           )}
           <Stack.Item>

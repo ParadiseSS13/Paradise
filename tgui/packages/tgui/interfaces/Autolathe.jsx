@@ -101,7 +101,7 @@ export const Autolathe = (props) => {
                 />
               }
             >
-              <Input fluid placeholder="Search for..." onChange={(v) => setSearchText(v)} mb={1} />
+              <Input fluid mb={1} placeholder="Search for..." onChange={(value) => setSearchText(value)} />
               {recipesToShow.map((recipe) => (
                 <Stack.Item grow key={recipe.ref}>
                   <img

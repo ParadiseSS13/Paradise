@@ -102,8 +102,8 @@ const Abilities = ({ context }) => {
             <Input
               width="200px"
               placeholder="Search Abilities"
-              onChange={(value) => setSearchText(value)}
               value={searchText}
+              onChange={(value) => setSearchText(value)}
             />
           </div>
         </div>

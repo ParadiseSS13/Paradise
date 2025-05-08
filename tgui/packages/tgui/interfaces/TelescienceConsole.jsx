@@ -51,8 +51,8 @@ export const TelescienceConsole = (properties) => {
                     maxValue={360}
                     disabled={working}
                     value={current_bearing}
-                    onDrag={(e, value) => setDummyRot(value)}
-                    onChange={(e, value) => act('setbear', { bear: value })}
+                    onDrag={(value) => setDummyRot(value)}
+                    onChange={(value) => act('setbear', { bear: value })}
                   />
                   <Icon ml={1} size={1} name="arrow-up" rotation={dummyRot} />
                 </Box>
@@ -66,7 +66,7 @@ export const TelescienceConsole = (properties) => {
                   maxValue={100}
                   disabled={working}
                   value={current_elevation}
-                  onChange={(e, value) => act('setelev', { elev: value })}
+                  onChange={(value) => act('setelev', { elev: value })}
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Power Level">
@@ -89,7 +89,7 @@ export const TelescienceConsole = (properties) => {
                   maxValue={max_z}
                   value={current_sector}
                   disabled={working}
-                  onChange={(e, value) => act('setz', { newz: value })}
+                  onChange={(value) => act('setz', { newz: value })}
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Telepad Actions">

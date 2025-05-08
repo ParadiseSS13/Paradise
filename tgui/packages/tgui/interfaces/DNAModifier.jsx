@@ -229,7 +229,7 @@ const DNAModifierMainUI = (props) => {
             value={selectedUITarget}
             format={(value) => value.toString(16).toUpperCase()}
             ml="0"
-            onChange={(e, val) => act('changeUITarget', { value: val })}
+            onChange={(val) => act('changeUITarget', { value: val })}
           />
         </LabeledList.Item>
       </LabeledList>
@@ -270,7 +270,7 @@ const DNAModifierMainRadiationEmitter = (props) => {
             value={radiationIntensity}
             popUpPosition="right"
             ml="0"
-            onChange={(e, val) => act('radiationIntensity', { value: val })}
+            onChange={(val) => act('radiationIntensity', { value: val })}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Duration">
@@ -282,7 +282,7 @@ const DNAModifierMainRadiationEmitter = (props) => {
             value={radiationDuration}
             popUpPosition="right"
             ml="0"
-            onChange={(e, val) => act('radiationDuration', { value: val })}
+            onChange={(val) => act('radiationDuration', { value: val })}
           />
         </LabeledList.Item>
       </LabeledList>

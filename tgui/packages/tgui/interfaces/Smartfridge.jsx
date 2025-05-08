@@ -68,7 +68,7 @@ export const Smartfridge = (props) => {
                           maxValue={item.quantity}
                           step={1}
                           stepPixelSize={3}
-                          onChange={(e, value) => act('vend', { index: item.vend, amount: value })}
+                          onChange={(value) => act('vend', { index: item.vend, amount: value })}
                         />
                         <Button
                           width={4}

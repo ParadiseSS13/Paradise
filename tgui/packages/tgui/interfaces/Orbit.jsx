@@ -142,8 +142,8 @@ export const Orbit = (props) => {
                 autoFocus
                 fluid
                 value={searchText}
-                onInput={(_, value) => setSearchText(value)}
-                onEnter={(_, value) => orbitMostRelevant(value)}
+                onChange={(value) => setSearchText(value)}
+                onEnter={(value) => orbitMostRelevant(value)}
               />
             </Stack.Item>
             <Stack.Item>
