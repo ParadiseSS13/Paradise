@@ -7,6 +7,8 @@
 		wooden container filled with 18th century coinage in the middle of a \
 		lavawracked hellscape? It is clearly a mystery."
 
+	/// Prevents megafauna spawning within a certain range of ruins.
+	var/megafauna_safe_range = FALSE
 	var/unpickable = FALSE 	 //If TRUE these won't be placed automatically (can still be forced or loaded with another ruin)
 	var/always_place = FALSE //Will skip the whole weighting process and just plop this down, ideally you want the ruins of this kind to have no cost.
 	var/placement_weight = 1 //How often should this ruin appear
