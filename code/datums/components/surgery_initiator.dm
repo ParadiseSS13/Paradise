@@ -292,9 +292,10 @@
 		return
 
 	if(iscarbon(target))
-		if(!isnull(affecting_limb) && (surgery.requires_organic_bodypart && affecting_limb.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting_limb.is_robotic()))
-			to_chat(user, "<span class='warning'>That's not the right type of limb for this operation!</span>")
-			return
+		if(!isnull(affecting_limb))
+			if((surgery.requires_organic_bodypart && affecting_limb.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting_limb.is_robotic()))
+				to_chat(user, "<span class='warning'>That's not the right type of limb for this operation!</span>")
+				return
 
 		if(surgery_needs_exposure(surgery, target))
 			to_chat(user, "<span class='warning'>You have to expose [target.p_their()] [parse_zone(selected_zone)] first!</span>")

@@ -48,35 +48,6 @@
 	)
 	requires_organic_bodypart = TRUE
 
-/datum/surgery/organ_manipulation/alien
-	name = "Alien Organ Manipulation"
-	requires_bodypart = FALSE  // xenos just don't have "bodyparts"
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-	target_mobtypes = list(/mob/living/carbon/alien/humanoid)
-	steps = list(
-		/datum/surgery_step/saw_carapace,
-		/datum/surgery_step/cut_carapace,
-		/datum/surgery_step/retract_carapace,
-		/datum/surgery_step/proxy/manipulate_organs/alien,
-		/datum/surgery_step/generic/seal_carapace
-	)
-
-
-
-
-/datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
-	. = ..()
-	if(!.)
-		return FALSE
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected.encased) //no bone, problem.
-			return FALSE
-		if(HAS_TRAIT(target, TRAIT_NO_BONES))
-			return FALSE
-		return TRUE
-
 /datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
 	if(!.)
