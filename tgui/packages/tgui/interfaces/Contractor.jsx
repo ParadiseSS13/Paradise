@@ -1,7 +1,7 @@
-import { rad2deg } from 'common/math';
 import { Component, Fragment } from 'react';
 import { useState } from 'react';
 import { Box, Button, Flex, Icon, LabeledList, Modal, Section, Tabs } from 'tgui-core/components';
+import { rad2deg } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
 import { Countdown } from '../components';

@@ -1,6 +1,6 @@
-import { rad2deg } from 'common/math';
 import { useState } from 'react';
 import { Box, Button, Icon, Input, LabeledList, Section, Stack, Table } from 'tgui-core/components';
+import { rad2deg } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

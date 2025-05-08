@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "tgui",
-  "version": "6.0.0",
+  "version": "6.0.0-paradise",
   "dependencies": {
     "common": "workspace:*",
     "dateformat": "^5.0.3",

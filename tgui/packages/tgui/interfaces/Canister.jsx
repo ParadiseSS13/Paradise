@@ -154,7 +154,7 @@ export const Canister = (props) => {
                   maxValue={maxReleasePressure}
                   step={5}
                   stepPixelSize={1}
-                  onDrag={(value) =>
+                  onDrag={(e, value) =>
                     act('pressure', {
                       pressure: value,
                     })

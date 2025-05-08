@@ -222,7 +222,7 @@ const NanoMapZoomer = (props) => {
               stepPixelSize={10}
               format={(v) => v + 'x'}
               value={props.zoom}
-              onDrag={(v) => props.onZoom(e, v)}
+              onDrag={(e, v) => props.onZoom(e, v)}
             />
             <Button ml="0.5em" float="right" icon="sync" tooltip="Reset View" onClick={(e) => props.onReset?.(e)} />
           </Flex>

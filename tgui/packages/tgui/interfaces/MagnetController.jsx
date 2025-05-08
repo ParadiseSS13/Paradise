@@ -105,7 +105,7 @@ export const MagnetController = (props) => {
                 value={speed.value}
                 minValue={speed.min}
                 maxValue={speed.max}
-                onChange={(value) =>
+                onChange={(e, value) =>
                   act('set_speed', {
                     speed: value,
                   })
@@ -183,7 +183,7 @@ export const MagnetController = (props) => {
                     value={electricityLevel}
                     minValue={magnetConfiguration.electricityLevel.min}
                     maxValue={magnetConfiguration.electricityLevel.max}
-                    onChange={(value) =>
+                    onChange={(e, value) =>
                       act('set_electricity_level', {
                         id: uid,
                         electricityLevel: value,
@@ -196,7 +196,7 @@ export const MagnetController = (props) => {
                     value={magneticField}
                     minValue={magnetConfiguration.magneticField.min}
                     maxValue={magnetConfiguration.magneticField.max}
-                    onChange={(value) =>
+                    onChange={(e, value) =>
                       act('set_magnetic_field', {
                         id: uid,
                         magneticField: value,

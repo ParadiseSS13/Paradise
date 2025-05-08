@@ -158,7 +158,7 @@ export const AgentCardInfo = (props) => {
                 minValue={17}
                 value={age || 0}
                 maxValue={300}
-                onChange={(value) => act('change_age', { age: value })}
+                onChange={(e, value) => act('change_age', { age: value })}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Rank">

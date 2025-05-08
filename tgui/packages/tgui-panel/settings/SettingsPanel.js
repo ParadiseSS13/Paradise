@@ -167,7 +167,7 @@ export const SettingsGeneral = (props) => {
               maxValue={32}
               unit="px"
               format={(value) => toFixed(value)}
-              onChange={(value) =>
+              onChange={(e, value) =>
                 dispatch(
                   updateSettings({
                     fontSize: value,
@@ -183,7 +183,7 @@ export const SettingsGeneral = (props) => {
               value={lineHeight}
               maxValue={5}
               format={(value) => toFixed(value, 2)}
-              onDrag={(value) =>
+              onDrag={(e, value) =>
                 dispatch(
                   updateSettings({
                     lineHeight: value,

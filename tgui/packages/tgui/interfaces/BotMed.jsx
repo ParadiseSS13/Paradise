@@ -55,7 +55,7 @@ export const BotMed = (props) => {
                   maxValue={heal_threshold.max}
                   step={5}
                   disabled={noaccess}
-                  onChange={(value) =>
+                  onChange={(e, value) =>
                     act('set_heal_threshold', {
                       target: value,
                     })
@@ -70,7 +70,7 @@ export const BotMed = (props) => {
                   step={5}
                   format={(value) => `${value}u`}
                   disabled={noaccess}
-                  onChange={(value) =>
+                  onChange={(e, value) =>
                     act('set_injection_amount', {
                       target: value,
                     })

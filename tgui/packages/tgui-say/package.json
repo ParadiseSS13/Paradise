@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "tgui-say",
-  "version": "6.0.0-paradise",
+  "version": "6.0.0-paradise-paradise",
   "dependencies": {
     "common": "workspace:*",
     "react": "^19.1.0",

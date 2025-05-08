@@ -1,6 +1,5 @@
-import { KEY_NUMPAD_0, KEY_NUMPAD_9 } from 'common/keycodes';
 import { Box, Button, Section, Stack, Table } from 'tgui-core/components';
-import { KEY_0, KEY_9, KEY_BACKSPACE, KEY_ENTER, KEY_ESCAPE } from 'tgui-core/keycodes';
+import { KEY_0, KEY_9, KEY_BACKSPACE, KEY_ENTER, KEY_ESCAPE, KEY_NUMPAD_0, KEY_NUMPAD_9 } from 'tgui-core/keycodes';
 import { classes } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
