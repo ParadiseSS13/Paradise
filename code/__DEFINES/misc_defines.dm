@@ -435,6 +435,7 @@
 #define INVESTIGATE_SINGULO "singulo"
 #define INVESTIGATE_SUPERMATTER "supermatter"
 #define INVESTIGATE_WIRES "wires"
+#define INVESTIGATE_DEATHS "deaths"
 
 // The SQL version required by this version of the code
 #define SQL_VERSION 67
