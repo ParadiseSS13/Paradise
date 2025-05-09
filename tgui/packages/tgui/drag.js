@@ -10,6 +10,7 @@ import { createLogger } from './logging';
 
 const logger = createLogger('drag');
 
+const pixelRatio = window.devicePixelRatio ?? 1;
 let windowKey = Byond.windowId;
 let dragging = false;
 let resizing = false;

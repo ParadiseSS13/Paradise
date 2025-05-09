@@ -414,8 +414,6 @@
 			to_chat(src, message)
 		GLOB.clientmessages.Remove(ckey)
 
-	acquire_dpi()
-
 	if(SSinput.initialized)
 		set_macros()
 
@@ -429,7 +427,7 @@
 	)
 	addtimer(CALLBACK(src, PROC_REF(check_panel_loaded)), 30 SECONDS)
 
-	INVOKE_ASYNC(src, PROC_REF(acquire_dpi))
+	INVOKE_ASYNC(src, PROC_REF(prepare_main_menu))
 
 	// Initialize tgui say
 	tgui_say.initialize()
@@ -1348,6 +1346,13 @@
 	window_scaling = text2num(winget(src, null, "dpi"))
 
 	log_debug("scalies: [window_scaling]")
+
+/client/proc/prepare_main_menu()
+	acquire_dpi()
+	var/mob/new_player/new_player = mob
+	if(!istype(new_player))
+		return
+	new_player.new_player_panel()
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
