@@ -91,7 +91,7 @@
 	for(var/file in stylesheets)
 		head_content += "<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url(file)]'>"
 
-	if(user.client?.window_scaling && user.client?.window_scaling != 1 && !user.client.prefs?.toggles3 & PREFTOGGLE_3_SCALE && width && height)
+	if(user.client?.window_scaling && user.client?.window_scaling != 1 && !(user.client.prefs?.toggles3 & PREFTOGGLE_3_SCALE) && width && height)
 		head_content += {"
 			<style>
 				body {

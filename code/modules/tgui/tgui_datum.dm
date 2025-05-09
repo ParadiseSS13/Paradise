@@ -89,7 +89,6 @@
 		window.initialize(
 			strict_mode = TRUE,
 			fancy = (user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI),
-			scale = (user.client.prefs?.toggles3 & PREFTOGGLE_3_SCALE),
 			assets = list(
 				get_asset_datum(/datum/asset/simple/tgui),
 			))
