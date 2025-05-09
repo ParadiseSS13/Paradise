@@ -88,6 +88,37 @@
 
 	return f_style
 
+// it might be made species related, but it is pretty okay now
+/proc/random_hair_color(tint = TRUE, range)
+	if(prob(1))
+		return rand_hex_color() // sPaCe PuNk
+	var/list/color_options = list(
+		COLOR_GRAY15,
+		COLOR_DARK_BLUE_GRAY,
+		COLOR_YELLOW_GRAY,
+		COLOR_WARM_YELLOW,
+		COLOR_DARK_ORANGE,
+		COLOR_PALE_ORANGE,
+		COLOR_SUN,
+		COLOR_CHESTNUT,
+		COLOR_BEASTY_BROWN,
+		COLOR_SILVER,
+	)
+	if(tint) // returns a tint of selected color
+		return tint_color(pick(color_options), range)
+	return pick(color_options)
+
+/// Returns a purely random tint for specific color
+/proc/tint_color(color, range = 25)
+	if(!istext(color) || length(color) < 7 || copytext(color, 1, 2) != "#") // if it's not a hex color
+		return color // just leave it as it is
+
+	var/R = clamp(color2R(color) + rand(-range, range), 0, 255)
+	var/G = clamp(color2G(color) + rand(-range, range), 0, 255)
+	var/B = clamp(color2B(color) + rand(-range, range), 0, 255)
+
+	return rgb(R, G, B)
+
 /proc/random_head_accessory(species = "Human")
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
@@ -177,22 +208,18 @@
 	else
 		return current_species.get_random_name(gender)
 
+/// Randomises skin tone, specifically for each species that has a skin tone. Otherwise keeps a default of 1
 /proc/random_skin_tone(species = "Human")
-	if(species == "Human" || species == "Drask")
-		switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
-			if("caucasian")		. = -10
-			if("afroamerican")	. = -115
-			if("african")		. = -165
-			if("latino")		. = -55
-			if("albino")		. = 34
-			else				. = rand(-185, 34)
-		return min(max(. + rand(-25, 25), -185), 34)
-	else if(species == "Vox")
-		. = rand(1, 6)
-	else if(species == "Nian")
-		. = rand(1, 4)
-	else
-		. = 1
+	switch(species)
+		if("Human")
+			return rand(1, 13)
+		if("Drask")
+			return rand(1, 220)
+		if("Nian")
+			return rand(1, 4)
+		if("Vox")
+			return rand(1, 8)
+	return 1
 
 /proc/skintone2racedescription(tone, species = "Human")
 	if(species == "Human")

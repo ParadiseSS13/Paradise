@@ -1,4 +1,6 @@
 #define ASH_WALKER_SPAWN_THRESHOLD 2
+#define ASH_WALKER_TENDRIL_HEALING 0.05
+
 //The ash walker den consumes corpses or unconscious mobs to create ash walker eggs. For more info on those, check ghost_role_spawners.dm
 /obj/structure/lavaland/ash_walker
 	name = "necropolis tendril nest"
@@ -13,7 +15,6 @@
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	max_integrity = 200
 
-	var/faction = list("ashwalker")
 	var/meat_counter = 6
 
 /obj/structure/lavaland/ash_walker/Initialize(mapload)
@@ -46,7 +47,7 @@
 			else
 				meat_counter++
 			H.gib()
-			obj_integrity = min(obj_integrity + max_integrity*0.05,max_integrity)//restores 5% hp of tendril
+			obj_integrity = min(obj_integrity + max_integrity * ASH_WALKER_TENDRIL_HEALING, max_integrity)//restores 5% hp of tendril
 
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
@@ -57,28 +58,24 @@
 /obj/effect/mob_spawn/human/alive/ash_walker
 	name = "ash walker egg"
 	desc = "A man-sized yellow egg, spawned from some unfathomable creature. A humanoid silhouette lurks within."
-	mob_name = "an ash walker"
+	role_name = "ash walker"
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "large_egg"
-	mob_species = /datum/species/unathi/ashwalker
-	outfit = /datum/outfit/ashwalker
-	roundstart = FALSE
-	death = FALSE
-	anchored = FALSE
-	move_resist = MOVE_FORCE_NORMAL
-	density = FALSE
-	death_cooldown = 300 SECONDS
 	important_info = "Do not leave Lavaland without admin permission. Do not attack the mining outpost without being provoked."
 	description = "You are an ashwalker, a native inhabitant of Lavaland. Try to survive with nothing but spears and other tribal technology. Bring dead bodies back to your tendril to create more of your kind. You are free to attack miners and other outsiders."
 	flavour_text = "Your tribe worships the Necropolis. The wastes are sacred ground, its monsters a blessed bounty. \
 	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest. \
 	Keep in mind - your speed is given to you by the power of the Necropolis, <b>leaving the planet will make your body more lethargic!</b>"
 	assignedrole = "Ash Walker"
+	density = FALSE
+	anchored = FALSE
+	move_resist = MOVE_FORCE_NORMAL
+	death_cooldown = 300 SECONDS
+	allow_gender_pick = TRUE
+	mob_species = /datum/species/unathi/ashwalker
+	outfit = /datum/outfit/ashwalker
 
 /obj/effect/mob_spawn/human/alive/ash_walker/special(mob/living/carbon/human/new_spawn)
-	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
-	new_spawn.mind.offstation_role = TRUE
-
 	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Glory to the Necropolis!</b>")
 	to_chat(new_spawn, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Ash_Walker)</span>")
 
@@ -89,8 +86,9 @@
 		notify_ghosts("An ash walker egg is ready to hatch in \the [A.name].", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
 
 /datum/outfit/ashwalker
-	name ="Ashwalker"
+	name = "Ashwalker"
 	head = /obj/item/clothing/head/helmet/gladiator
 	uniform = /obj/item/clothing/under/costume/gladiator/ash_walker
 
 #undef ASH_WALKER_SPAWN_THRESHOLD
+#undef ASH_WALKER_TENDRIL_HEALING
