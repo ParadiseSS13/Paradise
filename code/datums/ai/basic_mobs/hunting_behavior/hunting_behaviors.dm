@@ -77,7 +77,6 @@
 	/// Do we reset the target after attacking something, so we can check for status changes.
 	var/always_reset_target = FALSE
 
-
 /datum/ai_behavior/hunt_target/setup(datum/ai_controller/controller, hunting_target_key, hunting_cooldown_key)
 	. = ..()
 	var/atom/hunt_target = controller.blackboard[hunting_target_key]
