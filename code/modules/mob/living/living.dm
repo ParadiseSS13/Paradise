@@ -262,7 +262,16 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
-	..()
+	if(pulling)
+		var/atom/pullee = pulling
+		..()
+		if(isliving(pullee))
+			create_log(MISC_LOG, "Stopped pulling [key_name_admin(pullee)]")
+		else
+			for(var/log_pulltype in GLOB.log_pulltypes)
+				if(istype(pullee, log_pulltype))
+					create_log(MISC_LOG, "Stopped pulling [pullee]")
+					break
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
 
@@ -1012,6 +1021,14 @@
 	AM.pulledby = src
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
+
+	if(isliving(AM))
+		create_log(MISC_LOG, "Started pulling [key_name_admin(AM)]")
+	else
+		for(var/log_pulltype in GLOB.log_pulltypes)
+			if(istype(AM, log_pulltype))
+				create_log(MISC_LOG, "Started pulling [AM]")
+				break
 
 /mob/living/proc/check_pull()
 	if(pulling && !pulling.Adjacent(src))
