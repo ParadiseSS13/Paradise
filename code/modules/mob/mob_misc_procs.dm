@@ -5,13 +5,6 @@
 			return 1
 	return 0
 
-/proc/ispet(A)
-	if(isanimal(A))
-		var/mob/living/simple_animal/SA = A
-		if(SA.can_collar)
-			return 1
-	return 0
-
 /mob/proc/get_screen_colour()
 	SHOULD_CALL_PARENT(TRUE)
 	// OOC Colourblind setting takes priority over everything else.
