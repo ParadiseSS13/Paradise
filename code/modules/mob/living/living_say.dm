@@ -286,6 +286,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(get_turf(M) in hearturfs)
 				listening |= M
 
+	SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+
 	var/list/speech_bubble_recipients = list()
 	var/speech_bubble_test = say_test(message)
 

@@ -25,6 +25,10 @@
 
 // Targeting
 
+/// Generic key for a non-specific targeted action
+#define BB_TARGETED_ACTION "BB_TARGETED_action"
+/// Generic key for a non-specific action
+#define BB_GENERIC_ACTION "BB_generic_action"
 /// How close a mob must be for us to select it as a target, if that is less than how far we can maintain it as a target
 #define BB_AGGRO_RANGE "BB_aggro_range"
 /// Key for our current target.
@@ -82,7 +86,55 @@
 /// How often can we get spooked by a target?
 #define BB_STATIONARY_COOLDOWN "BB_stationary_cooldown"
 
+// minebot keys
+/// key that stores our toggle light ability
+#define BB_MINEBOT_LIGHT_ABILITY "minebot_light_ability"
+/// key that stores our dump ore ability
+#define BB_MINEBOT_DUMP_ABILITY "minebot_dump_ability"
+/// key that stores our target turf
+#define BB_TARGET_MINERAL_TURF "target_mineral_turf"
+/// key that stores list of the turfs we ignore
+#define BB_BLACKLIST_MINERAL_TURFS "blacklist_mineral_turfs"
+/// key that stores the previous blocked wall
+#define BB_PREVIOUS_UNREACHABLE_WALL "previous_unreachable_wall"
+/// key that stores our mining mode
+#define BB_AUTOMATED_MINING "automated_mining"
+/// key that stores the nearest dead human
+#define BB_NEARBY_DEAD_MINER "nearby_dead_miner"
+/// key that holds the drone we defend
+#define BB_DRONE_DEFEND "defend_drone"
+/// key that holds the minimum distance before we flee
+#define BB_MINIMUM_SHOOTING_DISTANCE "minimum_shooting_distance"
+/// key that holds the miner we must befriend
+#define BB_MINER_FRIEND "miner_friend"
+/// should we auto protect?
+#define BB_MINEBOT_AUTO_DEFEND "minebot_auto_defend"
+/// gibtonite wall we need to run away from
+#define BB_MINEBOT_GIBTONITE_RUN "minebot_gibtonite_run"
+
+/// Blackboard field for the most recent command the pet was given
+#define BB_ACTIVE_PET_COMMAND "BB_active_pet_command"
+
+/// Blackboard field for what we actually want the pet to target
+#define BB_CURRENT_PET_TARGET "BB_current_pet_target"
+/// Blackboard field for how we target things, as usually we want to be more permissive than normal
+#define BB_PET_TARGETING_STRATEGY "BB_pet_targeting"
+/// List of UIDs to mobs this mob is friends with, will follow their instructions and won't attack them
+#define BB_FRIENDS_LIST "BB_friends_list"
+/// List of strings we might say to encourage someone to make better choices.
+#define BB_OWNER_SELF_HARM_RESPONSES "BB_self_harm_responses"
+/// List of strings used to apologize for attacking friends.
+#define BB_OWNER_FRIENDLY_FIRE_APOLOGIES "BB_ff_apologies"
+
+
 // Misc
 
 /// For /datum/ai_behavior/find_potential_targets, what if any field are we using currently
 #define BB_FIND_TARGETS_FIELD(type) "bb_find_targets_field_[type]"
+
+/// key that tells the wall we will mine
+#define BB_TARGET_MINERAL_WALL "BB_target_mineral_wall"
+/// key that holds the ore we will eat
+#define BB_ORE_TARGET "BB_ore_target"
+/// which ore types we will not eat
+#define BB_ORE_IGNORE_TYPES "BB_ore_ignore_types"
