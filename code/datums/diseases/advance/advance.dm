@@ -175,7 +175,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/handle_stage_advance(has_cure = FALSE)
 	if(!has_cure && (prob(stage_prob) || world.time > last_advancement + 1000))
 		last_advancement = world.time
-		progress = min(progress + 4 , 100)
+		progress = min(progress + 6, 100)
 		stage = min(ceil(progress / 20), max_stages)
 		if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
 			discovered = TRUE
