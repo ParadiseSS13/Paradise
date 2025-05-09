@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 						break
 				break
 	if(length(infected_players) > 2 && announceWhen <= 0)
-		announceWhen = activeFor + 240
+		announceWhen = activeFor + 180
 	. = ..()
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
