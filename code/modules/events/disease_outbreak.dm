@@ -65,47 +65,45 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 					if(player.ForceContractDisease(chosen_disease, TRUE, TRUE))
 						GLOB.current_pending_diseases -= list(disease_event)
 						break
-				announceWhen = activeFor + 150
 				break
+	if(length(infected_players) > 2 && announceWhen <= 0)
+		announceWhen = activeFor + 240
 	. = ..()
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)
 	var/datum/disease/advance/A = new /datum/disease/advance(_event = UID())
+	A.clear_symptoms()
 	// Base properties get buffs depending on severity
-	var/list/properties_to_buff = A.base_properties.Copy()
+	var/list/properties_to_buff = A.base_properties.Copy() - list("transmittable")
 	for(var/i = 0, i < max_severity / 2, i++)
 		A.base_properties[pick(properties_to_buff)]++
-	A.base_properties["transmittable"] += round(max_severity / 2)
 	A.base_properties["stealth"] += max_severity // Stealth gets an additional bonus since most symptoms reduce it a fair bit.
-	// Generate a 6 symptom disease, with some guaranteed to be close to the maximum severity
-	A.symptoms += A.GenerateSymptomsBySeverity(1, max_severity, 3)
-	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 2, max_severity, 2)
-	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 1)
-	A.AssignProperties(A.GenerateProperties())
-	var/list/symptoms_to_try = transmissable_symptoms.Copy()
-	var/spread_threhsold = SPREAD_CONTACT_HANDS
+	var/spread_threhsold = 4
 	// Chance for it to be extra spready, scales quadratically with severity
 	if(prob((max_severity ** 2) * 3))
-		spread_threhsold = SPREAD_CONTACT_GENERAL
+		spread_threhsold = 5
 	if(prob((max_severity ** 2) * 1.5))
-		spread_threhsold = SPREAD_AIRBORNE
-		A.base_properties["transmittable"]++
-	while(length(symptoms_to_try))
-		if(A.spread_flags & spread_threhsold)
-			break
-		if(length(A.symptoms) < VIRUS_SYMPTOM_LIMIT)	//Ensure the virus is spreadable by adding symptoms that boost transmission
-			var/datum/symptom/TS = pick_n_take(symptoms_to_try)
-			A.AddSymptom(new TS)
-		else
-			var/datum/symptom/removed = popleft(A.symptoms)	//We have a full symptom list but are still not transmittable. Try removing one of the "payloads"
-			if(removed.transmittable > 0)
-				symptoms_to_try |= removed.type
+		spread_threhsold = 6
 
-		A.AssignProperties(A.GenerateProperties())
-		// If we ended up losing too much of the payload add another payload
-		if(A.GenerateProperties()["severity"] < max_severity - 1)
-			A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 1)
+	// If we have extra spread include either cough or sneeze
+	if(spread_threhsold >= 5)
+		var/symptom_path = pick(/datum/symptom/cough, /datum/symptom/sneeze)
+		A.add_symptom_path(symptom_path)
+
+	// Generate payload. 2-3 symptoms that actually do something
+	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 1)
+	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 3, max_severity, rand(1, 2))
+
+	var/symptom_list = transmissable_symptoms.Copy()
+
+	// Add symptoms that increase transmittability to fill the rest
+	while(length(A.symptoms) < VIRUS_SYMPTOM_LIMIT)
+		var/symptom_path = pick_n_take(symptom_list)
+		A.add_symptom_path(symptom_path)
+
+	// Add extra transmitabillity through base properties as needed
+	A.base_properties["transmittable"] = max(0, spread_threhsold - (A.totalTransmittable() - length(A.symptoms)))
 
 	A.name = pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick("v", "V", "-" + num2text(GLOB.game_year), "")
 	A.Refresh()

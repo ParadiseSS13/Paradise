@@ -25,16 +25,15 @@ Bonus
 	transmittable = 5
 	level = 1
 	severity = 1
-	treatments = list("perfluorodecalin")
+	treatments = list("salbutamol", "perfluorodecalin")
 
 /datum/symptom/sneeze/Activate(datum/disease/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(1, 2, 3)
-				M.emote("sniff")
-			else
-				M.emote("sneeze")
-				A.spread(5)
+		if(prob(A.progress + 20))
+			M.emote("sneeze")
+			A.spread(5)
+		else
+			M.emote("sniff")
 	return

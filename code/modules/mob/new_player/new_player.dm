@@ -386,9 +386,8 @@
 			AnnounceArrival(character, rank, join_message)
 
 			if(length(GLOB.current_pending_diseases) && character.ForceContractDisease(GLOB.current_pending_diseases[1]["disease"], TRUE, TRUE))
-				var/datum/event/disease_outbreak/to_announce = GLOB.current_pending_diseases[1]["event"]
-				to_announce.announceWhen = to_announce.activeFor + 150
-				to_announce.force_disease_time = 0
+				var/datum/event/disease_outbreak/outbreak = GLOB.current_pending_diseases[1]["event"]
+				outbreak.force_disease_time = 0
 				popleft(GLOB.current_pending_diseases)
 			if(GLOB.summon_guns_triggered)
 				give_guns(character)

@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	max_stages = 5
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human)
-	incubation = 30
+	incubation = 60
 
 	// NEW VARS
 
@@ -479,10 +479,28 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		symptoms += S
 	return
 
+/datum/disease/advance/proc/has_symptom_path(symptom_path)
+	for(var/datum/symptom/current_symptom in symptoms)
+		if(current_symptom.type == symptom_path)
+			return TRUE
+	return FALSE
+
+/datum/disease/advance/proc/add_symptom_path(symptom_path)
+	if(has_symptom_path(symptom_path))
+		return
+	if(length(symptoms) < VIRUS_SYMPTOM_LIMIT)
+		symptoms += new symptom_path
+
 // Simply removes the symptom.
 /datum/disease/advance/proc/RemoveSymptom(datum/symptom/S)
 	symptoms -= S
 	return
+
+/datum/disease/advance/proc/clear_symptoms()
+	for(var/datum/symptom/current_symptom in symptoms)
+		symptoms -= current_symptom
+		qdel(current_symptom)
+
 
 /*
 
