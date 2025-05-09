@@ -73,7 +73,7 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 			current_state = AUTOCHEF_IDLE
 
 /obj/machinery/autochef/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/storage/part_replacer) || used.flags & ABSTRACT)
+	if(istype(used, /obj/item/storage/part_replacer) || (used.flags & ABSTRACT))
 		return ..()
 
 	var/obj/item/autochef_remote/remote = used
