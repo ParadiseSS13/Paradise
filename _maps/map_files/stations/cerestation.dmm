@@ -3413,6 +3413,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/telepad_cargo,
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -9623,7 +9625,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "bvF" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/double/directional/east{
 	name = "Command Emergency EVA Storage";
 	id_tag = "commandeva"
 	},
@@ -24100,7 +24102,7 @@
 	},
 /area/station/hallway/primary/aft/west)
 "dnY" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/double/directional/north{
 	name = "Medical Emergency EVA Storage";
 	id_tag = "medeva"
 	},
@@ -28776,7 +28778,7 @@
 /area/station/security/permabrig)
 "epT" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -38596,7 +38598,7 @@
 	},
 /area/station/hallway/primary/aft/east)
 "gPT" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40683,7 +40685,7 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "hre" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/double/directional/east{
 	name = "Cargo Emergency EVA Storage";
 	id_tag = "cargoeva"
 	},
@@ -45476,14 +45478,6 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/primary/fore/north)
-"iwy" = (
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 2
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "iwD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb{
@@ -59470,6 +59464,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"lCN" = (
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "lCO" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/engineering,
@@ -59850,6 +59850,12 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"lGh" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass/directional/south,
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "lGj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -60278,7 +60284,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
@@ -63343,6 +63349,14 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
+"mzy" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/reagent_dispensers/watertank/firetank,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/atmos)
 "mzz" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -65009,7 +65023,7 @@
 	},
 /area/station/engineering/control)
 "mUX" = (
-/obj/machinery/door/poddoor/multi_tile/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/triple/directional/east{
 	name = "Civilian Emergency EVA Storage";
 	id_tag = "civeva"
 	},
@@ -67064,7 +67078,7 @@
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "nvX" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/double/directional/north{
 	id_tag = "arrivalseva";
 	name = "Arrivals Emergency EVA Storage"
 	},
@@ -83250,7 +83264,7 @@
 	},
 /area/station/hallway/primary/fore/east)
 "rrI" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/double/directional/east{
 	name = "Science Emergency EVA Storage";
 	id_tag = "scieva"
 	},
@@ -84872,7 +84886,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "rMg" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -106265,7 +106279,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "wMQ" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -129430,8 +129444,8 @@ aZZ
 aZZ
 aZZ
 bjn
+lGh
 xOB
-iwy
 bjn
 aZZ
 aZZ
@@ -133869,7 +133883,7 @@ cGd
 cGd
 wNA
 qKO
-yiP
+lCN
 xIa
 xIa
 xIa
@@ -141784,7 +141798,7 @@ jDd
 lMu
 cZf
 deb
-cZf
+mzy
 skI
 bUV
 bVx

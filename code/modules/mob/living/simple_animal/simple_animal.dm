@@ -10,6 +10,7 @@
 	universal_speak = FALSE
 	status_flags = CANPUSH
 	healable = TRUE
+	gib_nullifies_icon = FALSE // prevents players from having transparent icon when their body is gibbed
 
 	var/icon_living = ""
 	var/icon_dead = ""
@@ -86,13 +87,8 @@
 	/// Allows a mob to pass unbolted doors while hidden
 	var/pass_door_while_hidden = FALSE
 
-	var/obj/item/petcollar/pcollar = null
-	/// If the mob has collar sprites, define them.
-	var/collar_type
 	/// If the mob can be renamed
 	var/unique_pet = FALSE
-	/// Can add collar to mob or not, use the set_can_collar if you want to change this on runtime
-	var/can_collar = FALSE
 
 	/// Hot simple_animal baby making vars
 	var/list/childtype = null
@@ -151,12 +147,8 @@
 	if(can_hide)
 		var/datum/action/innate/hide/hide = new()
 		hide.Grant(src)
-	if(pcollar)
-		pcollar = new(src)
-		regenerate_icons()
 	if(footstep_type)
 		AddComponent(/datum/component/footstep, footstep_type)
-	add_strippable_element()
 
 	apply_atmos_requirements()
 	AddElement(/datum/element/body_temperature, minbodytemp, maxbodytemp, cold_damage_per_tick, heat_damage_per_tick)
@@ -164,7 +156,6 @@
 /mob/living/simple_animal/Destroy()
 	/// We need to clear the reference to where we're walking to properly GC
 	GLOB.move_manager.stop_looping(src)
-	QDEL_NULL(pcollar)
 	for(var/datum/action/innate/hide/hide in actions)
 		hide.Remove(src)
 	master_commander = null
@@ -199,11 +190,6 @@
 /mob/living/simple_animal/proc/remove_atmos_requirements()
 	RemoveElement(/datum/element/atmos_requirements)
 
-/mob/living/simple_animal/handle_atom_del(atom/A)
-	if(A == pcollar)
-		pcollar = null
-	return ..()
-
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
@@ -221,9 +207,6 @@
 	..()
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_resting
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
 	if(!can_crawl)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //simple mobs cannot crawl (unless they can)
 
@@ -231,9 +214,6 @@
 	..()
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_living
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
-			regenerate_icons()
 
 /mob/living/simple_animal/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
@@ -315,10 +295,8 @@
 		for(var/path in butcher_results)
 			for(var/i in 1 to butcher_results[path])
 				new path(Tsec)
-	if(pcollar)
-		pcollar.forceMove(drop_location())
-		pcollar = null
 	..()
+
 /mob/living/simple_animal/say_quote(message)
 	var/verb = "says"
 
@@ -352,9 +330,6 @@
 	density = initial(density)
 	if(TRAIT_FLYING in initial_traits)
 		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
-	if(collar_type)
-		collar_type = "[initial(collar_type)]"
-		regenerate_icons()
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
@@ -388,9 +363,6 @@
 		if(flip_on_death)
 			transform = transform.Turn(180)
 		density = FALSE
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_dead"
-			regenerate_icons()
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -471,20 +443,11 @@
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
 		if(ITEM_SLOT_COLLAR)
-			return pcollar
+			return (locate(/obj/item/petcollar) in src)
 	. = ..()
 
 /mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = 0)
-	// . = ..() // Do not call parent. We do not want animals using their hand slots.
-	switch(slot)
-		if(ITEM_SLOT_COLLAR)
-			if(pcollar)
-				return FALSE
-			if(!can_collar)
-				return FALSE
-			if(!istype(I, /obj/item/petcollar))
-				return FALSE
-			return TRUE
+	return FALSE
 
 /mob/living/simple_animal/equip_to_slot(obj/item/W, slot, initial = FALSE)
 	if(!istype(W))
@@ -496,23 +459,15 @@
 	W.layer = ABOVE_HUD_LAYER
 	W.plane = ABOVE_HUD_PLANE
 
-	switch(slot)
-		if(ITEM_SLOT_COLLAR)
-			add_collar(W)
-
 /mob/living/simple_animal/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
 	. = ..()
 	if(!. || !target)
 		return
 
-	if(target == pcollar)
-		pcollar = null
-		regenerate_icons()
-
 /mob/living/simple_animal/get_access()
 	. = ..()
-	if(pcollar)
-		. |= pcollar.GetAccess()
+	for(var/obj/item/petcollar/collar in contents)
+		. |= collar.GetAccess()
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
@@ -586,41 +541,6 @@
 		LAZYREMOVE(idle_mobs_on_old_z, src)
 		toggle_ai(initial(AIStatus))
 
-/mob/living/simple_animal/proc/add_collar(obj/item/petcollar/P, mob/user)
-	if(!istype(P) || QDELETED(P) || pcollar)
-		return
-	if(user && !user.drop_item_to_ground(P))
-		return
-	P.forceMove(src)
-	P.equipped(src)
-	pcollar = P
-	regenerate_icons()
-	if(user)
-		to_chat(user, "<span class='notice'>You put [P] around [src]'s neck.</span>")
-	if(P.tagname && !unique_pet)
-		name = P.tagname
-		real_name = P.tagname
-
-/mob/living/simple_animal/proc/remove_collar(atom/new_loc, mob/user)
-	if(!pcollar)
-		return
-
-	var/obj/old_collar = pcollar
-
-	drop_item_to_ground(pcollar)
-
-	if(user)
-		user.put_in_hands(old_collar)
-
-	return old_collar
-
-
-/mob/living/simple_animal/regenerate_icons()
-	cut_overlays()
-	if(pcollar && collar_type)
-		add_overlay("[collar_type]collar")
-		add_overlay("[collar_type]tag")
-
 /mob/living/simple_animal/Login()
 	..()
 	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
@@ -638,16 +558,3 @@
 
 /mob/living/simple_animal/proc/end_dchat_plays()
 	stop_automated_movement = FALSE
-
-/mob/living/simple_animal/proc/set_can_collar(new_value)
-	can_collar = (new_value ? TRUE : FALSE)
-	if(can_collar)
-		add_strippable_element()
-		return
-	remove_collar(drop_location())
-	RemoveElement(/datum/element/strippable)
-
-/mob/living/simple_animal/proc/add_strippable_element()
-	if(!can_collar)
-		return
-	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/pet_collar)))
