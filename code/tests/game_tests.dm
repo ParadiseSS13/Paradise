@@ -32,6 +32,7 @@
 #include "test_emotes.dm"
 #include "test_ensure_subtree_operational_datum.dm"
 #include "test_init_sanity.dm"
+#include "test_job_selection.dm"
 #include "test_log_format.dm"
 #include "test_map_templates.dm"
 #include "test_missing_icons.dm"
@@ -46,6 +47,7 @@
 #include "test_subsystem_init.dm"
 #include "test_subsystem_metric_sanity.dm"
 #include "test_timer_sanity.dm"
+#include "test_wears_collar.dm"
 #endif
 
 #ifdef MAP_TESTS

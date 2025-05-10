@@ -264,3 +264,7 @@
 /datum/gear/hat/capsolgov
 	display_name = "Cap, Sol Gov"
 	path = /obj/item/clothing/head/soft/solgov
+
+/datum/gear/hat/cool_bandana
+	display_name = "Badass Bandana"
+	path = /obj/item/clothing/head/cool_bandana
