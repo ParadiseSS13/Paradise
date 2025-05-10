@@ -346,7 +346,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CMO"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
 "aet" = (
@@ -6140,6 +6142,9 @@
 /area/station/hallway/primary/fore/east)
 "aJc" = (
 /obj/structure/filingcabinet/chestdrawer,
+/obj/structure/disaster_counter/chemistry{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -28397,6 +28402,40 @@
 /obj/effect/landmark/start/engineer,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
+"cjb" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/table,
+/obj/item/clothing/head/welding{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/clothing/head/welding{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 10
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/structure/reagent_dispensers/watertank/firetank,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/atmos/control)
 "cjc" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/recharge_station,
@@ -29576,17 +29615,26 @@
 /obj/machinery/door_control{
 	id = "Biohazard_medi";
 	name = "Medical Quarantine";
-	pixel_x = 24;
+	pixel_x = 8;
 	req_access = list(40);
-	pixel_y = 8
-	},
-/obj/machinery/keycard_auth{
 	pixel_y = -26
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
+/obj/machinery/keycard_auth{
+	pixel_y = -26;
+	pixel_x = -4
 	},
+/obj/machinery/button/windowtint{
+	id = "CMO";
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24;
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "coF" = (
 /obj/structure/chair/wheelchair,
@@ -32039,9 +32087,7 @@
 /area/station/maintenance/medmaint)
 "cAj" = (
 /obj/machinery/requests_console/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cAq" = (
 /obj/machinery/atmospherics/unary/tank/air{
@@ -32853,10 +32899,7 @@
 	c_tag = "Chief Medical Officer's Office"
 	},
 /obj/machinery/newscaster/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cEd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -33026,7 +33069,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CMO"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
 "cES" = (
@@ -33035,9 +33080,7 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi,
 /obj/item/stamp/cmo,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cET" = (
 /obj/structure/cable{
@@ -33313,9 +33356,7 @@
 "cGb" = (
 /obj/structure/table/glass,
 /obj/machinery/computer/med_data/laptop,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cGc" = (
 /obj/machinery/door/airlock{
@@ -34039,8 +34080,9 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "cIR" = (
-/obj/structure/closet/secure_closet/cmo,
 /obj/structure/sign/poster/official/help_others/directional/west,
+/obj/item/kirbyplants/large,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -34385,11 +34427,11 @@
 	},
 /area/station/command/office/rd)
 "cKz" = (
-/obj/machinery/firealarm/directional/south,
-/obj/item/kirbyplants/large,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
+/obj/structure/bed/dogbed/runtime,
+/obj/item/toy/cattoy,
+/mob/living/simple_animal/pet/cat/runtime,
+/obj/machinery/light,
+/turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cKA" = (
 /obj/structure/cable{
@@ -40106,7 +40148,8 @@
 "dUb" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner"
+	dir = 4;
+	icon_state = "whiteblue"
 	},
 /area/station/command/office/cmo)
 "dUd" = (
@@ -41245,9 +41288,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/chief_medical_officer,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "esf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -42948,6 +42989,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
+"fbq" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/xenobiology)
 "fbr" = (
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -50253,7 +50301,7 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 5;
 	icon_state = "whiteblue"
 	},
 /area/station/command/office/cmo)
@@ -53890,10 +53938,10 @@
 /obj/machinery/computer/crew{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/machinery/status_display{
+	pixel_x = 32
 	},
+/turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "jJr" = (
 /obj/effect/decal/cleanable/dirt,
@@ -56700,7 +56748,9 @@
 /area/station/security/armory)
 "kNv" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CMO"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
 "kNG" = (
@@ -66267,25 +66317,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/public/sleep)
-"oMT" = (
-/obj/structure/table,
-/obj/item/clothing/head/welding{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/clothing/head/welding{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/welding,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
-/area/station/engineering/atmos/control)
 "oNf" = (
 /obj/structure/chair/comfy/brown,
 /obj/structure/sign/poster/contraband/ambrosia_vulgaris/directional/west,
@@ -73926,13 +73957,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
-"rQm" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/medbay)
 "rQt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment/corner{
@@ -79504,13 +79528,9 @@
 	},
 /area/station/hallway/primary/central/north)
 "ukt" = (
-/obj/machinery/alarm/directional/east,
-/obj/structure/bed/dogbed/runtime,
-/obj/item/toy/cattoy,
-/mob/living/simple_animal/pet/cat/runtime,
+/obj/structure/closet/secure_closet/cmo,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
+	icon_state = "whitebluefull"
 	},
 /area/station/command/office/cmo)
 "ukB" = (
@@ -80991,9 +81011,9 @@
 /area/station/medical/exam_room)
 "uSl" = (
 /obj/machinery/suit_storage_unit/cmo/secure,
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
+	icon_state = "whitebluefull"
 	},
 /area/station/command/office/cmo)
 "uSw" = (
@@ -87126,9 +87146,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "xwi" = (
 /obj/effect/turf_decal/stripes/line{
@@ -87234,6 +87252,9 @@
 	icon_state = "2-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/cmo,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "CMO"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -112031,8 +112052,8 @@ lcd
 lzO
 nBF
 uLM
-rQm
 cov
+rot
 rot
 qdp
 aAp
@@ -130501,7 +130522,7 @@ ceF
 ceF
 qty
 sNA
-oMT
+cjb
 uJI
 xBg
 xoS
@@ -131572,7 +131593,7 @@ gZe
 deu
 sFX
 pNz
-kjo
+fbq
 fvN
 aaa
 aaa
