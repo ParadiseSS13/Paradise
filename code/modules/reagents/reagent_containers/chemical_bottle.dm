@@ -376,7 +376,7 @@
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure
 	name = "BVAK bottle"
 	desc = "A small bottle containing Bio Virus Antidote Kit."
-	list_reagents = list("atropine" = 5, "epinephrine" = 5, "salbutamol" = 10, "spaceacillin" = 10)
+	list_reagents = list("atropine" = 5, "epinephrine" = 5, "salbutamol" = 10, "penicillin" = 10)
 
 /obj/item/reagent_containers/glass/bottle/zombiecure1
 	name = "\improper Anti-Plague Sequence Alpha bottle"

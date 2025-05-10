@@ -75,7 +75,7 @@
 	var/extra_progress = 0
 	if(owner.nutrition > NUTRITION_LEVEL_FULL)
 		extra_progress += 1
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
+	var/antibiotics = owner.reagents.get_reagent_amount("penicillin")
 	if(antibiotics > 50)
 		extra_progress -= 0.5
 	var/boosters = owner.reagents.get_reagent_amount("salglu_solution")

@@ -21,11 +21,11 @@
 	var/penetrate_thick = FALSE
 	var/choosen_reagent = "salglu_solution"
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol")
+	var/list/reagent_ids = list("salglu_solution", "epinephrine", "penicillin", "charcoal", "hydrocodone", "mannitol", "salbutamol")
 	var/list/reagent_ids_emagged = list("tirizene")
 	var/static/list/reagent_icons = list("salglu_solution" = image(icon = 'icons/goonstation/objects/iv.dmi', icon_state = "ivbag"),
 							"epinephrine" = image(icon = 'icons/obj/hypo.dmi', icon_state = "autoinjector"),
-							"spaceacillin" = image(icon = 'icons/obj/decals.dmi', icon_state = "bio"),
+							"penicillin" = image(icon = 'icons/obj/decals.dmi', icon_state = "bio"),
 							"charcoal" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill17"),
 							"hydrocodone" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bottle19"),
 							"styptic_powder" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bandaid_brute"),
@@ -63,7 +63,7 @@
 /obj/item/reagent_containers/borghypo/abductor
 	charge_cost = 40
 	recharge_time = 3
-	reagent_ids = list("salglu_solution", "epinephrine", "hydrocodone", "spaceacillin", "charcoal", "mannitol", "salbutamol", "corazone")
+	reagent_ids = list("salglu_solution", "epinephrine", "hydrocodone", "penicillin", "charcoal", "mannitol", "salbutamol", "corazone")
 	penetrate_thick = TRUE
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)

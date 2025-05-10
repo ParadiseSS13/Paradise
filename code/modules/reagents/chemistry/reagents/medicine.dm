@@ -226,9 +226,9 @@
 	M.Jitter(10 SECONDS)
 	return list(0, update_flags)
 
-/datum/reagent/medicine/spaceacillin
-	name = "Spaceacillin"
-	id = "spaceacillin"
+/datum/reagent/medicine/penicillin
+	name = "Penicillin"
+	id = "penicillin"
 	description = "An all-purpose antibiotic agent extracted from space fungus."
 	reagent_state = LIQUID
 	color = "#0AB478"
@@ -236,7 +236,7 @@
 	taste_description = "antibiotics"
 	goal_difficulty = REAGENT_GOAL_EASY
 
-/datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/M)
+/datum/reagent/medicine/penicillin/on_mob_life(mob/living/M)
 	var/list/organs_list = list()
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M

@@ -21,10 +21,10 @@
 	mix_message = "The solution bubbles softly."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/spaceacillin
-	name = "Spaceacillin"
-	id = "spaceacillin"
-	result = "spaceacillin"
+/datum/chemical_reaction/penicillin
+	name = "Penicillin"
+	id = "penicillin"
+	result = "penicillin"
 	required_reagents = list("fungus" = 1, "ethanol" = 1)
 	result_amount = 2
 	mix_message = "The solvent extracts an antibiotic compound from the fungus."
@@ -33,7 +33,7 @@
 	name = "Rezadone"
 	id = "rezadone"
 	result = "rezadone"
-	required_reagents = list("carpotoxin" = 1, "spaceacillin" = 1, "copper" = 1)
+	required_reagents = list("carpotoxin" = 1, "penicillin" = 1, "copper" = 1)
 	result_amount = 3
 
 /datum/chemical_reaction/sterilizine
@@ -167,7 +167,7 @@
 	name = "Oculine"
 	id = "oculine"
 	result = "oculine"
-	required_reagents = list("atropine" = 1, "spaceacillin" = 1, "salglu_solution" = 1)
+	required_reagents = list("atropine" = 1, "penicillin" = 1, "salglu_solution" = 1)
 	result_amount = 3
 	mix_message = "The mixture settles, becoming a milky white."
 
