@@ -63048,6 +63048,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},

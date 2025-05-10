@@ -52380,6 +52380,7 @@
 /area/station/science/genetics)
 "kvh" = (
 /obj/machinery/light,
+/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "kvi" = (
