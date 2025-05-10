@@ -93,16 +93,24 @@
 	if(prob(1))
 		return rand_hex_color() // sPaCe PuNk
 	var/list/color_options = list(
+		// gray, black, blue - 5 total
 		COLOR_GRAY15,
+		COLOR_GRAY40,
+		COLOR_SILVER,
 		COLOR_DARK_BLUE_GRAY,
+		COLOR_WALL_GUNMETAL,
+		// yellow, red, orange - 5 total
 		COLOR_YELLOW_GRAY,
 		COLOR_WARM_YELLOW,
 		COLOR_DARK_ORANGE,
 		COLOR_PALE_ORANGE,
 		COLOR_SUN,
+		// brownish. there is not much of them so they are repeated - 5 total
+		COLOR_CHESTNUT,
 		COLOR_CHESTNUT,
 		COLOR_BEASTY_BROWN,
-		COLOR_SILVER,
+		COLOR_BEASTY_BROWN,
+		COLOR_BROWN_ORANGE,
 	)
 	if(tint) // returns a tint of selected color
 		return tint_color(pick(color_options), range)
