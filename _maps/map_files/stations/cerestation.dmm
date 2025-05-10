@@ -7935,6 +7935,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northwest)
+"bnb" = (
+/obj/machinery/power/grounding_rod,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "yellow"
+	},
+/area/station/maintenance/maintcentral)
 "bnd" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -16611,6 +16620,14 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay)
+"cvm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/station/maintenance/maintcentral)
 "cvq" = (
 /obj/machinery/door_control{
 	id = "arrivalseva";
@@ -21845,6 +21862,10 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
+"dkG" = (
+/obj/machinery/power/grounding_rod,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "dkL" = (
 /mob/living/simple_animal/hostile/retaliate/carp/koi{
 	name = "Jeremy"
@@ -29803,6 +29824,13 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/station/engineering/break_room/secondary)
+"eXi" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Central Asteroid Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "eXl" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -44222,6 +44250,15 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/paramedic)
+"inY" = (
+/obj/machinery/power/grounding_rod,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/station/maintenance/maintcentral)
 "ioc" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -46715,6 +46752,15 @@
 	icon_state = "red"
 	},
 /area/station/maintenance/fore2)
+"iRw" = (
+/obj/machinery/power/tesla_coil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "yellow"
+	},
+/area/station/maintenance/maintcentral)
 "iRB" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -84151,6 +84197,13 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
+"riV" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/station/maintenance/maintcentral)
 "rjb" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /obj/effect/spawner/random/fungus/maybe,
@@ -86066,6 +86119,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
+"rGW" = (
+/obj/machinery/power/tesla_coil,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "rGX" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -152422,7 +152479,7 @@ dNp
 nVW
 mJM
 nVW
-gWd
+wJC
 eAS
 iQU
 eAS
@@ -154981,11 +155038,11 @@ iFH
 vwn
 uRV
 yjY
-dye
-dye
-dye
-dye
-dye
+mJM
+mJM
+mJM
+mJM
+mJM
 dye
 dye
 mJM
@@ -155239,10 +155296,10 @@ tHg
 fUu
 qmR
 mJM
-aXR
-aXR
-aXR
-nVW
+bnb
+riV
+rGW
+mJM
 eot
 mkk
 mkk
@@ -155496,10 +155553,10 @@ fUu
 fUu
 oKe
 mJM
-aXR
-aXR
-nVW
-nVW
+inY
+lNi
+lNi
+eXi
 wJC
 eAS
 eAS
@@ -155753,10 +155810,10 @@ ipV
 liD
 hkP
 mJM
-aXR
-nVW
-nVW
-wJC
+dkG
+cvm
+iRw
+mJM
 wJC
 slr
 xlX
@@ -156012,8 +156069,8 @@ bTQ
 mJM
 nVW
 xWx
-pQY
-eAS
+nVW
+nVW
 eAS
 jUP
 nVW
@@ -156526,10 +156583,10 @@ mkk
 fAS
 cSM
 mJM
-mkk
-ibf
-nVW
-nVW
+pQY
+eAS
+eAS
+eAS
 nVW
 aXR
 aXR
@@ -156783,9 +156840,9 @@ czY
 fwo
 nVW
 nVW
-aXR
-aXR
-aXR
+nVW
+ibf
+nVW
 aXR
 aXR
 aXR
@@ -157040,9 +157097,9 @@ mkk
 fwo
 ilx
 xbO
-xbO
-aXR
-aXR
+ilx
+nVW
+nVW
 aXR
 aXR
 aXR
