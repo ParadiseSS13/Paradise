@@ -36,6 +36,7 @@
 		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
 		EQUIPMENT("Lazarus Capsule belt", /obj/item/storage/belt/lazarus, 200),
 		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
+		EQUIPMENT("Telecommunications Relay Kit", /obj/item/storage/box/relay_kit, 500),
 	)
 	prize_list["Modsuits and Exosuits"] = list(
 		EQUIPMENT("Standard MODsuit", /obj/item/mod/control/pre_equipped/standard/explorer, 1000),
