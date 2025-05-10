@@ -175,3 +175,32 @@
 	contains = list(/obj/item/reagent_containers/glass/bottle/reagent/omnizine)
 	cost = 300
 	containername = "omnizine shipment crate"
+
+/datum/supply_packs/medical/biosuits
+	name = "Biosuit 4-pack"
+	contains = list(
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/suit/bio_suit,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bio_hood,
+	)
+	cost = 400
+	containername = "biosuit shipment crate"
+
+/datum/supply_packs/medical/surgical_masks
+	name = "Sterile Mask And Goggles 4-pack"
+	contains = list(/obj/item/clothing/mask/surgical,
+					/obj/item/clothing/mask/surgical,
+					/obj/item/clothing/mask/surgical,
+					/obj/item/clothing/mask/surgical,
+					/obj/item/clothing/glasses/goggles,
+					/obj/item/clothing/glasses/goggles,
+					/obj/item/clothing/glasses/goggles,
+					/obj/item/clothing/glasses/goggles,
+				)
+	cost = 200
+	containername = "sterile mask shipment crate"
