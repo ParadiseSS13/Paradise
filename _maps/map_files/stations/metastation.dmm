@@ -66368,6 +66368,7 @@
 	pixel_x = 1;
 	pixel_y = 4
 	},
+/obj/item/storage/box/stingers,
 /obj/item/storage/box/teargas{
 	pixel_x = -1;
 	pixel_y = 2
