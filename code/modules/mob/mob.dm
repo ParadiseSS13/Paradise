@@ -261,10 +261,6 @@
 	if(!istype(W))
 		return FALSE
 
-	if(W.flags & NODROP)
-		to_chat(src, "<span class='warning'>[W] is stuck to your hand!</span>")
-		return FALSE
-
 	if(!W.mob_can_equip(src, slot, disable_warning))
 		if(del_on_fail)
 			qdel(W)

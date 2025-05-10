@@ -23,6 +23,7 @@
 #include "jobs\test_job_globals.dm"
 #include "test_aicard_icons.dm"
 #include "test_announcements.dm"
+#include "test_anti_drop.dm"
 #include "test_apc_construction.dm"
 #include "test_components.dm"
 #include "test_config_sanity.dm"
