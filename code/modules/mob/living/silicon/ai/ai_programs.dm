@@ -758,9 +758,7 @@
 		revert_cast()
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(base_cooldown - (max(spell_level - 3, 0) * 30 SECONDS), cooldown_min)
-	if(cooldown_handler.is_on_cooldown())
-		cooldown_handler.start_recharge()
+	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 30)), cooldown_min)
 
 /// Enhanced Door Controls - Reduces delay in bolting and shocking doors
 /datum/ai_program/enhanced_doors
