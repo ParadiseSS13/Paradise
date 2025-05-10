@@ -11016,8 +11016,8 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "bIn" = (
-/obj/item/kirbyplants/large/alien/alien5,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -77344,25 +77344,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
-"pGW" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/reagent_dispensers/watertank/firetank,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/atmos)
 "pGX" = (
 /obj/machinery/hydroponics/constructable{
 	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
@@ -145497,7 +145478,7 @@ bIi
 lLg
 lLg
 lLg
-pGW
+lLg
 qSW
 bIi
 bUV
