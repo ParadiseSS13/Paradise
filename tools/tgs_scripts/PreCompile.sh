@@ -9,7 +9,7 @@ set -x
 #need to switch to game dir for Dockerfile weirdness
 original_dir=$PWD
 cd "$1"
-. _build_dependencies.sh
+. dependencies.sh
 cd "$original_dir"
 
 git config --global user.name
