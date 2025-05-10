@@ -76844,7 +76844,6 @@
 	},
 /area/station/security/permabrig)
 "tpc" = (
-/obj/machinery/door/airlock/research,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -76853,6 +76852,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
+/obj/machinery/door/airlock/research{
+	name = "Robotics Surgery Room"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -77508,7 +77510,6 @@
 	},
 /area/station/engineering/break_room)
 "tEe" = (
-/obj/machinery/door/airlock/research,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -77523,6 +77524,9 @@
 	id_tag = "rd_robotics_lockdown";
 	name = "Robotics Lockdown";
 	opacity = 0
+	},
+/obj/machinery/door/airlock/research{
+	name = "Robotics Surgery Room"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -79779,6 +79783,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
