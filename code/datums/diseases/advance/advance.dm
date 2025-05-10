@@ -150,7 +150,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(symptoms && length(symptoms))
 		var/list/mob_reagents = list()
 		for(var/datum/reagent/chem in affected_mob.reagents.reagent_list)
-			mob_reagents += chem.id
+			mob_reagents += list("[chem.id]" = chem.volume)
 		if(!processing)
 			processing = TRUE
 			for(var/datum/symptom/S in symptoms)
@@ -158,12 +158,20 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		var/treated = FALSE
 		for(var/datum/symptom/S in symptoms)
 			treated = FALSE
+			var/treatment_volume = 0
 			for(var/treatment in S.treatments)
 				if(treatment in mob_reagents)
 					treated = TRUE
+					treatment_volume = min(mob_reagents[treatment], S.purge_amount)
 					affected_mob.reagents.remove_reagent(treatment, S.purge_amount)
-			if(!treated)
+			if(treated)
+				if(S.treatment_timer < VIRUS_MAX_TREATMENT_TIMER)
+					// Increase timer in proportion to how much of the reagent we actually had
+					S.treatment_timer += VIRUS_TREATMENT_TIMER_MOD * treatment_volume / S.purge_amount
+			else if(S.treatment_timer <= 0)
 				S.Activate(src)
+			else
+				S.treatment_timer--
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
 	return TRUE

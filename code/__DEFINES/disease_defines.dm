@@ -4,6 +4,10 @@
 /// The maximum amount of symptoms a virus can have
 #define VIRUS_SYMPTOM_LIMIT	6
 
+/// The maximum amount of time a symptom will be delayed for after the treating reagents have left the body
+#define VIRUS_MAX_TREATMENT_TIMER 300
+#define VIRUS_TREATMENT_TIMER_MOD 2
+
 /// Evoltion chance each cycle in percents.
 /// The base chance in % that a virus will mutate as it spreads. Further modified by stage speed and the viral evolutionary acceleration trait
 #define VIRUS_EVOLUTION_CHANCE 2

@@ -19,6 +19,8 @@ GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 	var/list/treatments = list()
 	/// Amount of reagents purged when they prevent the symptom from acting
 	var/purge_amount = 0.4
+	/// A cooldown the symptom is put under when treated
+	var/treatment_timer = 0
 
 /datum/symptom/New()
 	var/list/S = GLOB.list_symptoms
