@@ -68036,9 +68036,7 @@
 /area/station/public/dorms)
 "nXu" = (
 /obj/structure/window/reinforced,
-/obj/structure/table/reinforced,
-/obj/item/hemostat,
-/obj/item/scalpel,
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -87485,6 +87483,8 @@
 	},
 /obj/item/slime_scanner,
 /obj/item/slime_scanner,
+/obj/item/hemostat,
+/obj/item/scalpel,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
