@@ -948,6 +948,9 @@
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
+				if("tgui_scale")
+					toggles3 ^= PREFTOGGLE_3_SCALE
+
 				if("tgui_input")
 					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_INPUT
 

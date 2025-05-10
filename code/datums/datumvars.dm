@@ -233,6 +233,7 @@
 
 	sleep(1) // Without a sleep here, VV sometimes disconnects clients
 
+	var/ui_scale = prefs?.toggles3 & PREFTOGGLE_3_SCALE
 
 	var/list/variable_html = list()
 	if(islist)
@@ -255,7 +256,7 @@
 		<meta charset="UTF-8">
 		<title>[title]</title>
 		<link rel="stylesheet" type="text/css" href="[SSassets.transport.get_asset_url("view_variables.css")]">
-		[window_scaling ? "<style>body {zoom: [100 / window_scaling]%;}</style>" : ""]
+		[!ui_scale && window_scaling ? "<style>body {zoom: [100 / window_scaling]%;}</style>" : ""]
 	</head>
 	<body onload='selectTextField(); updateSearch()' onkeydown='return checkreload()' onkeyup='updateSearch()'>
 		<script type="text/javascript">
@@ -455,8 +456,11 @@
 	if(istype(D, /datum))
 		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
 
-	var/size_string = window_scaling ? "size=[475 * window_scaling]x[650 * window_scaling]" : "size=[475]x[650]"
-	usr << browse(html, "window=variables[refid];[size_string]")
+	var/size_string = "size=475x650";
+	if(ui_scale && window_scaling)
+		size_string = "size=[475 * window_scaling]x[650 * window_scaling]"
+
+	src << browse(html, "window=variables[refid];[size_string]")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
 /proc/debug_variable(name, value, level, datum/owner, sanitize = TRUE)

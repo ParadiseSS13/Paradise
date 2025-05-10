@@ -25,8 +25,6 @@
 	GLOB.player_list |= src
 	GLOB.new_player_mobs |= src
 
-	new_player_panel()
-
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
 		add_verb(client, /client/proc/readmin)
 

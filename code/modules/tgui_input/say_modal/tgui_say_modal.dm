@@ -56,9 +56,12 @@
  */
 /datum/tgui_say/proc/load()
 	window_open = FALSE
-	winset(client, "tgui_say", "pos=848,500;size=275,30;is-visible=0;")
+
+	winset(client, "tgui_say", "pos=848,500;is-visible=0;")
+
 	window.send_message("props", list(
 		"lightMode" = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
+		"scale" = (client.prefs?.toggles3 & PREFTOGGLE_3_SCALE),
 		"maxLength" = MAX_MESSAGE_LEN,
 	))
 	stop_thinking()

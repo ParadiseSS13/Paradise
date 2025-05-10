@@ -192,9 +192,11 @@ window "paramapwindow"
 		pos = 0,464
 		size = 280x16
 		anchor1 = 0,100
+
 		text-color = #ffffff
 		background-color = #222222
 		border = line
+		saved-params = ""
 		text = ""
 		align = left
 
@@ -219,63 +221,71 @@ window "rpane"
 		is-vert = false
 	elem "textb"
 		type = BUTTON
-		pos = 0,7
-		size = 50x16
+		pos = 10,7
+		size = 64x22
 		saved-params = "is-checked"
 		text = "Text"
 		command = ".winset \"rpanewindow.top=;\""
 		group = "rpanemode"
 		button-type = pushbox
+		font-style = "bold"
 	elem "infob"
 		type = BUTTON
-		pos = 52,7
-		size = 50x16
+		pos = 74,7
+		size = 64x22
 		is-checked = true
 		saved-params = "is-checked"
 		text = "Info"
 		command = ".winset \"rpanewindow.top=infowindow\""
 		group = "rpanemode"
 		button-type = pushbox
+		font-style = "bold"
 	elem "wikib"
 		type = BUTTON
-		pos = 115,7
-		size = 50x16
+		pos = 138,7
+		size = 64x22
 		text = "Wiki"
 		command = "wiki"
+		font-style = "bold"
 	elem "forumb"
 		type = BUTTON
-		pos = 167,7
-		size = 50x16
+		pos = 202,7
+		size = 64x22
 		text = "Forum"
 		command = "forum"
+		font-style = "bold"
 	elem "rulesb"
 		type = BUTTON
-		pos = 219,7
-		size = 50x16
+		pos = 266,7
+		size = 64x22
 		text = "Rules"
 		command = "rules"
+		font-style = "bold"
 	elem "githubb"
 		type = BUTTON
-		pos = 271,7
-		size = 50x16
+		pos = 330,7
+		size = 64x22
 		text = "GitHub"
 		command = "github"
+		font-style = "bold"
 	elem "webmap"
 		type = BUTTON
-		pos = 323,7
-		size = 50x16
+		pos = 394,7
+		size = 64x22
 		text = "Map"
 		command = "webmap"
+		font-style = "bold"
 	elem "changelog"
 		type = BUTTON
-		pos = 385,7
-		size = 70x16
+		pos = 458,7
+		size = 64x22
 		text = "Changelog"
 		command = "Changelog"
+		font-style = "bold"
 	elem "discordb"
 		type = BUTTON
-		pos = 457,7
-		size = 60x16
+		pos = 522,7
+		size = 64x22
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #7289da
@@ -283,8 +293,8 @@ window "rpane"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 519,7
-		size = 60x16
+		pos = 586,7
+		size = 64x22
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #008000

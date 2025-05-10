@@ -224,6 +224,8 @@
 			"size" = window_size,
 			"fancy" = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_FANCYUI),
 			"locked" = FALSE,
+			"scale" = (user.client.prefs?.toggles3 & PREFTOGGLE_3_SCALE)
+
 		),
 		"client" = list(
 			"ckey" = user.client.ckey,
