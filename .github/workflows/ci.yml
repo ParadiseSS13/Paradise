@@ -85,11 +85,10 @@ jobs:
         byondtype: ['STABLE', 'BETA']
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
         with:
-          path: ~/BYOND
-          key: ${{ runner.os }}-byond-${{ matrix.byondtype }}
+          release: ${{ matrix.byondtype }}
       # We test PARADISE_PRODUCTION_HARDWARE here because we dont in station_mapload_tests
       - name: Compile All Maps
         run: |
@@ -108,11 +107,10 @@ jobs:
         byondtype: ['STABLE', 'BETA']
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
         with:
-          path: ~/BYOND
-          key: ${{ runner.os }}-byond-${{ matrix.byondtype }}
+          release: ${{ matrix.byondtype }}
       - name: Install RUST_G Deps
         run: |
           sudo dpkg --add-architecture i386
@@ -136,11 +134,10 @@ jobs:
         byondtype: ['STABLE', 'BETA']
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
         with:
-          path: ~/BYOND
-          key: ${{ runner.os }}-byond-${{ matrix.byondtype }}
+          release: ${{ matrix.byondtype }}
       - name: Setup & Validate DB
         run: |
           sudo systemctl start mysql
