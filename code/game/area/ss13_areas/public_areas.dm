@@ -153,6 +153,25 @@
 /area/station/hallway/secondary/bridge
 	name = "\improper Command Hallway"
 	icon_state = "hallC"
+
+// Hallways for departments
+
+/area/station/hallway/science
+	name = "\improper Science Hallway"
+	icon_state = "science_hallway"
+
+/area/station/hallway/science/fore
+	name = "\improper Fore Science Hallway"
+
+/area/station/hallway/science/aft
+	name = "\improper Aft Science Hallway"
+
+/area/station/hallway/science/starboard
+	name = "\improper Starboard Science Hallway"
+
+/area/station/hallway/science/port
+	name = "\improper Port Science Hallway"
+
 // Other public areas
 
 
