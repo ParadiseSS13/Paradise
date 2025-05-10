@@ -53,8 +53,11 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
-	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
+	difficulty_ore_modifier = 3
+	crusher_loot = list(/obj/item/crusher_trophy/demon_claws)
+	loot = list(/obj/item/clothing/suit/space/hostile_environment,
+				/obj/item/clothing/head/helmet/space/hostile_environment,
+				/obj/item/melee/spellblade/random)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0
@@ -158,6 +161,10 @@ Difficulty: Hard
 		new /obj/effect/bubblegum_exit(get_turf(src))
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/bubblegum/drop_loot()
+	if(enraged && !second_life)
+		return //The jebait chest already drops
+	return ..()
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)
 	if(second_life)
 		Shoot(A)
