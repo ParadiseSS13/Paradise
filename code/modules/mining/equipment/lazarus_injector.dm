@@ -104,9 +104,13 @@
 	else
 		if("neutral" in S.faction)
 			S.forceMove(src)
-			S.name = "[M.name]'s [initial(S.name)]"
+			var/obj/item/petcollar/collar = S.get_item_by_slot(ITEM_SLOT_COLLAR)
+			if(collar)
+				name = "Lazarus Capsule: [S.name]"
+			else
+				S.name = "[M.name]'s [initial(S.name)]"
+				name = "Lazarus Capsule: [initial(S.name)]"
 			S.cancel_camera()
-			name = "Lazarus Capsule: [initial(S.name)]"
 			to_chat(M, "<span class='notice'>You placed a [S.name] inside the Lazarus Capsule!</span>")
 			captured = S
 		else
