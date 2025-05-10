@@ -42731,6 +42731,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -44228,6 +44229,14 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay)
+"fLt" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/station/hallway/science/starboard)
 "fLw" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -54889,6 +54898,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "kpv" = (
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -77269,6 +77279,7 @@
 	initialize_directions = 11
 	},
 /obj/structure/disposalpipe/segment,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -82815,6 +82826,7 @@
 	dir = 8;
 	initialize_directions = 11
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -126242,7 +126254,7 @@ nCx
 cwc
 cvW
 cBR
-mhA
+fLt
 rHl
 cRH
 mMv
