@@ -108,6 +108,26 @@
 	cost = 300
 	containername = "seafood crate"
 
+/datum/supply_packs/organic/donuts
+	name = "Donuts Crate"
+	contains = list(
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box
+	)
+	cost = 200
+	containername = "donuts crate"
+
+/datum/supply_packs/organic/donkpocket
+	name = "Donk-Pockets Crate"
+	contains = list(
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets
+	)
+	cost = 200
+	containername = "donk-pockets crate"
+
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
 	contains = list (/obj/item/storage/box/monkeycubes)
