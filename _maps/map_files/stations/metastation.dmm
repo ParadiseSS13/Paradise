@@ -37919,7 +37919,6 @@
 	},
 /obj/machinery/requests_console/directional/north,
 /obj/machinery/computer/operating{
-	dir = 2;
 	name = "dissection computer"
 	},
 /turf/simulated/floor/plasteel{
@@ -45476,7 +45475,6 @@
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
 "gbz" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "custom placement";
@@ -55484,7 +55482,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "kvh" = (
-/obj/structure/closet/bombcloset,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -27
@@ -79796,6 +79793,13 @@
 	icon_state = "dark"
 	},
 /area/station/hallway/primary/central/north)
+"uLY" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/xenobiology)
 "uMj" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -83380,7 +83384,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/closet/l3closet/scientist,
+/obj/structure/closet/bombcloset,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -130058,7 +130062,7 @@ cNz
 sFS
 cNz
 cNz
-kjo
+uLY
 fvN
 aaa
 aaa

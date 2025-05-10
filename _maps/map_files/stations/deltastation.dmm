@@ -26186,6 +26186,11 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
+"bXF" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/monkey_recycler,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/xenobiology)
 "bXH" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/light,
@@ -38779,11 +38784,14 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cOS" = (
-/obj/machinery/monkey_recycler,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
+	},
+/obj/machinery/processor{
+	desc = "A machine used to process slimes and retrieve their extract.";
+	name = "Slime Processor"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -39936,7 +39944,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cTy" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -40016,11 +40023,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cTM" = (
-/obj/machinery/processor{
-	desc = "A machine used to process slimes and retrieve their extract.";
-	name = "Slime Processor"
-	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -125787,7 +125791,7 @@ dWm
 cWA
 cTu
 cWA
-dWm
+bXF
 dWv
 dmq
 dhG

@@ -40511,8 +40511,7 @@
 /obj/structure/shelf/science,
 /obj/machinery/camera{
 	c_tag = "Xenobiology Module North";
-	network = list("Research","SS13");
-	dir = 2
+	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42403,10 +42402,19 @@
 	},
 /area/station/science/xenobiology)
 "cZz" = (
-/obj/structure/reagent_dispensers/watertank,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
+/obj/structure/table/glass,
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -56240,6 +56248,7 @@
 	network = list("Research","SS13")
 	},
 /obj/machinery/alarm/directional/south,
+/obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "hTK" = (
@@ -73847,6 +73856,8 @@
 	int_button_link_id = "xeno_btn_int"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -78804,18 +78815,8 @@
 /area/station/maintenance/apmaint2)
 "tAp" = (
 /obj/machinery/firealarm/directional/west,
-/obj/structure/table/glass,
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /obj/machinery/requests_console/directional/north,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"

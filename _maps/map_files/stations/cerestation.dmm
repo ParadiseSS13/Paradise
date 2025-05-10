@@ -2210,16 +2210,15 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/chair/office/light{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/start/xenobiologist,
+/obj/machinery/computer/camera_advanced/xenobio{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "arH" = (
@@ -28883,7 +28882,6 @@
 	name = "custom placement"
 	},
 /obj/machinery/computer/operating{
-	dir = 2;
 	name = "dissection computer"
 	},
 /turf/simulated/floor/plasteel{
@@ -46625,12 +46623,7 @@
 "iKf" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/requests_console/directional/west,
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/clothing/glasses/science,
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -49420,6 +49413,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "jqB" = (
@@ -79665,9 +79662,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/computer/camera_advanced/xenobio{
-	dir = 8
+/obj/structure/table,
+/obj/item/clothing/glasses/science{
+	pixel_x = 2;
+	pixel_y = 4
 	},
+/obj/item/clothing/glasses/science,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "qxe" = (
@@ -88386,6 +88386,26 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
+"sBE" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/xenobiology)
 "sBG" = (
 /obj/machinery/camera{
 	c_tag = "Research Airlock";
@@ -136205,7 +136225,7 @@ xPU
 eoz
 nBb
 wAG
-jqw
+arw
 wAG
 yiP
 ewB
@@ -136462,7 +136482,7 @@ odF
 jtk
 btq
 wAG
-arw
+wdn
 wAG
 meZ
 jNL
@@ -136976,7 +136996,7 @@ iZx
 oDZ
 vMf
 wAG
-wdn
+sBE
 wAG
 rPK
 dko
