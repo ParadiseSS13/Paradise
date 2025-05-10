@@ -69,15 +69,19 @@
 // White ship mapmanips
 /obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/medbay
 	name = "white_ship medbay"
+	color = COLOR_LIME
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/medbay
 	name = "white_ship medbay"
+	color = COLOR_LIME
 
 /obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/storage
 	name = "white_ship storage"
+	color = COLOR_SUN
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/storage
 	name = "white_ship storage"
+	color = COLOR_SUN
 
 /obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/gun_room
 	name = "white_ship gun room"
