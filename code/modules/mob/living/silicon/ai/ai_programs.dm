@@ -738,9 +738,13 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
+	AI.play_sound_remote(target, 'sound/magic/magic_block.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 5 SECONDS)
-	if(do_after_once(AI, 5 SECONDS, target = target, allow_moving = TRUE))
+	if(do_after(AI, 5 SECONDS, target = target, allow_moving_target = TRUE))
+		// Check camera vision again.
+		if(!check_camera_vision(user, target))
+			revert_cast()
+			return
 		AI.program_picker.nanites -= 75
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		target.heal_overall_damage(damage_healed, damage_healed)
@@ -754,7 +758,9 @@
 		revert_cast()
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 30)), cooldown_min)
+	cooldown_handler.recharge_duration = max(base_cooldown - (max(spell_level - 3, 0) * 30 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 /// Enhanced Door Controls - Reduces delay in bolting and shocking doors
 /datum/ai_program/enhanced_doors
