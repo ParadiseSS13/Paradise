@@ -332,6 +332,7 @@
 		EQUIPMENT("KA Trigger Modification Kit", /obj/item/borg/upgrade/modkit/trigger_guard, 1000),
 		EQUIPMENT("Shuttle Console Board", /obj/item/circuitboard/shuttle/golem_ship, 2000),
 		EQUIPMENT("The Liberator's Legacy", /obj/item/storage/box/rndboards, 2000),
+		EQUIPMENT("The Liberator's Fabricator", /obj/item/storage/box/smithboards, 1000),
 	)
 
 /**********************Mining Equiment Vendor (Gulag)**************************/

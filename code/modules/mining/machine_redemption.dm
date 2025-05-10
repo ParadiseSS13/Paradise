@@ -95,6 +95,19 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/mineral/ore_redemption/golem/RefreshParts()
+	var/P = 0.65
+	var/S = 0.65
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
+		P += 0.35 * M.rating
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
+		S += 0.35 * M.rating
+		// Manipulators do nothing
+	// Update our values
+	point_upgrade = P
+	sheet_per_ore = S
+	SStgui.update_uis(src)
+
 /**
   * # Ore Redemption Machine (Labor Camp)
   *
