@@ -604,6 +604,7 @@
 #include "code\datums\elements\shatters_when_thrown.dm"
 #include "code\datums\elements\strippable.dm"
 #include "code\datums\elements\waddling.dm"
+#include "code\datums\elements\wears_collar.dm"
 #include "code\datums\helper_datums\async_input.dm"
 #include "code\datums\helper_datums\construction_datum.dm"
 #include "code\datums\helper_datums\icon_snapshot.dm"
