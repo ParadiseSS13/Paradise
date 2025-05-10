@@ -74,8 +74,10 @@
 	mob_species = /datum/species/golem
 	STATIC_COOLDOWN_DECLARE(ghost_flash_cooldown)
 	var/has_owner = FALSE
-	var/can_transfer = TRUE //if golems can switch bodies to this new shell
-	var/mob/living/owner //golem's owner if it has one
+	/// If golems can switch boies to this new shell
+	var/can_transfer = TRUE
+	/// Golem's owner if it has one
+	var/mob/living/owner
 
 /obj/effect/mob_spawn/human/alive/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()

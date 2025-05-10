@@ -1,6 +1,4 @@
 #define ASH_WALKER_SPAWN_THRESHOLD 2
-#define ASH_WALKER_TENDRIL_HEALING 0.05
-
 //The ash walker den consumes corpses or unconscious mobs to create ash walker eggs. For more info on those, check ghost_role_spawners.dm
 /obj/structure/lavaland/ash_walker
 	name = "necropolis tendril nest"
@@ -47,7 +45,7 @@
 			else
 				meat_counter++
 			H.gib()
-			obj_integrity = min(obj_integrity + max_integrity * ASH_WALKER_TENDRIL_HEALING, max_integrity)//restores 5% hp of tendril
+			obj_integrity = min(obj_integrity + max_integrity*0.05,max_integrity)//restores 5% hp of tendril
 
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
@@ -91,4 +89,3 @@
 	uniform = /obj/item/clothing/under/costume/gladiator/ash_walker
 
 #undef ASH_WALKER_SPAWN_THRESHOLD
-#undef ASH_WALKER_TENDRIL_HEALING
