@@ -138,7 +138,8 @@
 	/obj/item/poster/random_official,
 	/obj/item/stack/wrapping_paper,
 	/obj/item/stack/wrapping_paper,
-	/obj/item/stack/wrapping_paper)
+	/obj/item/stack/wrapping_paper,
+	/obj/item/storage/toolbox/artistic)
 	cost = 100
 	containername = "arts and crafts crate"
 
@@ -643,3 +644,58 @@
 	)
 	containertype = /obj/structure/closet/crate/cookware
 	containername = "cookware crate"
+
+/datum/supply_packs/misc/mugs
+	name = "Coffee Mugs Crate"
+	cost = 100
+	contains = list(
+		/obj/item/reagent_containers/drinks/mug,
+		/obj/item/reagent_containers/drinks/mug,
+		/obj/item/reagent_containers/drinks/mug,
+		/obj/item/reagent_containers/drinks/mug,
+		/obj/item/reagent_containers/drinks/mug
+	)
+	containername = "coffee mugs crate"
+
+/datum/supply_packs/misc/mugs_departament
+	name = "Departamental Coffee Mugs Crate"
+	cost = 250
+	contains = list(
+		/obj/item/reagent_containers/drinks/mug/eng,
+		/obj/item/reagent_containers/drinks/mug/eng,
+		/obj/item/reagent_containers/drinks/mug/med,
+		/obj/item/reagent_containers/drinks/mug/med,
+		/obj/item/reagent_containers/drinks/mug/sci,
+		/obj/item/reagent_containers/drinks/mug/sci,
+		/obj/item/reagent_containers/drinks/mug/sec,
+		/obj/item/reagent_containers/drinks/mug/sec,
+		/obj/item/reagent_containers/drinks/mug/serv,
+		/obj/item/reagent_containers/drinks/mug/serv
+	)
+	containername = "departamental coffee mugs crate"
+
+/datum/supply_packs/misc/mugs_novelty
+	name = "Novelty Coffee Mugs Crate"
+	cost = 500
+	contains = list(
+		/obj/item/reagent_containers/drinks/mug/novelty,
+		/obj/item/reagent_containers/drinks/mug/novelty,
+		/obj/item/reagent_containers/drinks/mug/novelty
+	)
+	containername = "novelty coffee mugs crate"
+
+/datum/supply_packs/misc/sec_cosplay
+	name = "Security Officer Cosplay Kit"
+	cost = 500
+	contains = list(
+		/obj/item/clothing/under/color/red,
+		/obj/item/clothing/head/helmet/fake,
+		/obj/item/clothing/suit/armor/fake,
+		/obj/item/clothing/shoes/jackboots,
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/restraints/handcuffs/toy,
+		/obj/item/toy/flash,
+		/obj/item/clothing/glasses/sunglasses_fake,
+		/obj/item/gun/energy/laser/tag/fake_egun
+	)
+	containername = "security officer cosplay kit"

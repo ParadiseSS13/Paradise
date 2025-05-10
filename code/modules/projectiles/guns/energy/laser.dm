@@ -448,3 +448,11 @@
 	icon_state = "redtag"
 	item_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
+
+/obj/item/gun/energy/laser/tag/fake_egun
+	name = "replica EG-7 energy gun"
+	desc = "This's a laser tag gun redesigned to look like an EG-7 energy gun."
+	icon_state = "laser"
+	item_state = "laser"
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
+	ammo_x_offset = 1

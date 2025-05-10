@@ -91,6 +91,23 @@
 	cost = 300
 	containername = "condiment crate"
 
+/datum/supply_packs/organic/seafood
+	name = "Seafood Crate"
+	contains = list(
+		/obj/item/fish/salmon,
+		/obj/item/fish/salmon,
+		/obj/item/fish/salmon,
+		/obj/item/fish/catfish,
+		/obj/item/fish/catfish,
+		/obj/item/fish/catfish,
+		/obj/item/food/shrimp,
+		/obj/item/food/shrimp,
+		/obj/item/food/shrimp,
+		/obj/item/food/shrimp
+	)
+	cost = 300
+	containername = "seafood crate"
+
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
 	contains = list (/obj/item/storage/box/monkeycubes)

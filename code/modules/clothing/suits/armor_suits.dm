@@ -110,6 +110,15 @@
 	item_state = "bloody_armor"
 	sprite_sheets = null
 
+/obj/item/clothing/suit/armor/fake
+	name = "replica armor vest"
+	desc = "A replica of a mass-produced Level II soft armor. Made of cheap foam and provides no protection."
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	heat_protection = FALSE
+	cold_protection = FALSE
+	max_integrity = 50
+	w_class = WEIGHT_CLASS_SMALL
+
 /obj/item/clothing/suit/armor/secjacket
 	name = "security jacket"
 	desc = "A stylish black jacket used by Nanotrasen corporate security. Basic kevlar weave offers minor protection, but far less than a typical Security vest."
