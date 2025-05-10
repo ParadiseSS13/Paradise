@@ -733,6 +733,16 @@
 	sound = "sound/effects/unathihiss.ogg"
 	muzzled_noises = list("weak hissing")
 
+/datum/emote/living/carbon/human/thump
+	key = "thump"
+	key_third_person = "thumps"
+	message = "thumps their tail."
+	message_param = "thumps their tail at %t."
+	species_type_whitelist_typecache = list(/datum/species/unathi)
+	emote_type = EMOTE_AUDIBLE
+	// Credit to TylerAM (freesound.org) for the sound.
+	sound = "sound/effects/unathitailthump.ogg"
+
 /datum/emote/living/carbon/human/creak
 	key = "creak"
 	key_third_person = "creaks"

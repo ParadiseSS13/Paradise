@@ -505,6 +505,10 @@
 	linked_emote = /datum/emote/living/carbon/human/hiss
 	name = "Hiss (Unathi)"
 
+/datum/keybinding/emote/carbon/human/thump
+	linked_emote = /datum/emote/living/carbon/human/thump
+	name = "Tail Thump"
+
 /datum/keybinding/emote/carbon/human/creak
 	linked_emote = /datum/emote/living/carbon/human/creak
 	name = "Creak"

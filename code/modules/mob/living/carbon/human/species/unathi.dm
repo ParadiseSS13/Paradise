@@ -34,6 +34,8 @@
 	//Default styles for created mobs.
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
+	male_scream_sound = 'sound/effects/unathiscream.ogg' // credits to skyrat [https://github.com/Skyrat-SS13/Skyrat-tg/pull/892]
+	female_scream_sound = 'sound/effects/unathiscream.ogg'
 	butt_sprite = "unathi"
 
 	has_organ = list(
