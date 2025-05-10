@@ -76,7 +76,10 @@
 	var/thing_to_check = src
 	if(AM)
 		thing_to_check = list(AM)
-	for(var/thing in thing_to_check)
+	for(var/atom/thing in thing_to_check)
+		if(HAS_TRAIT(thing, TRAIT_FLYING))
+			continue	//YOU'RE FLYING OVER IT
+
 		if(isobj(thing))
 			var/obj/O = thing
 			if(!O.simulated)
@@ -97,8 +100,6 @@
 		else if(isliving(thing))
 			. = TRUE
 			var/mob/living/L = thing
-			if(HAS_TRAIT(L, TRAIT_FLYING))
-				continue	//YOU'RE FLYING OVER IT
 			var/buckle_check = L.buckling
 			if(!buckle_check)
 				buckle_check = L.buckled
@@ -206,7 +207,10 @@
 	var/thing_to_check = src
 	if(AM)
 		thing_to_check = list(AM)
-	for(var/thing in thing_to_check)
+	for(var/atom/thing in thing_to_check)
+		if(HAS_TRAIT(thing, TRAIT_FLYING))
+			continue	//YOU'RE FLYING OVER IT
+
 		if(isobj(thing))
 			var/obj/O = thing
 			if(!O.simulated)
