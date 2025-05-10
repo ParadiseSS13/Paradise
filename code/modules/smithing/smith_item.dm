@@ -28,6 +28,7 @@
 	return
 
 /obj/item/smithed_item/proc/set_stats()
+	color = material.color_tint
 	return
 
 /obj/item/smithed_item/proc/set_name()

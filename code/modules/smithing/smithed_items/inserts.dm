@@ -22,6 +22,7 @@
 	var/obj/item/clothing/suit/attached_suit
 
 /obj/item/smithed_item/insert/set_stats()
+	..()
 	brute_armor = initial(brute_armor) * quality.stat_mult * material.brute_armor_mult
 	burn_armor = initial(burn_armor) * quality.stat_mult * material.burn_armor_mult
 	laser_armor = initial(laser_armor) * quality.stat_mult * material.laser_armor_mult
