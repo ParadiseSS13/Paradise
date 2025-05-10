@@ -576,7 +576,9 @@
 	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam/advanced = 1)
+		/obj/item/videocam/advanced = 1,
+		/obj/item/clothing/suit/armor/vest/press = 1
+)
 
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

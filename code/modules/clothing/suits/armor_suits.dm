@@ -110,6 +110,24 @@
 	item_state = "bloody_armor"
 	sprite_sheets = null
 
+/obj/item/clothing/suit/armor/vest/press
+	name = "press vest"
+	desc = "A sturdy vest that should keep you protected from the dangers of the station."
+	icon_state = "press_vest"
+	item_state = "armor"
+
+/obj/item/clothing/suit/armor/vest/press/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_OUTER_SUIT)
+		to_chat(user, "<span class='warning'>You no longer feel capable of violence!</span>")
+		ADD_TRAIT(user, TRAIT_PACIFISM, "armor_press")
+
+/obj/item/clothing/suit/armor/vest/press/dropped(mob/user, silent)
+	. = ..()
+	if(user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT) == src)
+		to_chat(user, "<span class='warning'>You feel capable of violence again!</span>")
+		REMOVE_TRAIT(user, TRAIT_PACIFISM, "armor_press")
+
 /obj/item/clothing/suit/armor/secjacket
 	name = "security jacket"
 	desc = "A stylish black jacket used by Nanotrasen corporate security. Basic kevlar weave offers minor protection, but far less than a typical Security vest."
