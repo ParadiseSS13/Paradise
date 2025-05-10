@@ -8,6 +8,18 @@
 	name = "Antennae"
 	icon_state = "antennae"
 
+/datum/sprite_accessory/head_accessory/ipc/ipc_winged_antennae
+	name = "Winged Antennae"
+	icon_state = "wings"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_horns
+	name = "Horns"
+	icon_state = "horns"
+
+/datum/sprite_accessory/head_accessory/ipc/ipc_ring
+	name = "Orbital Ring"
+	icon_state = "ring"
+
 /datum/sprite_accessory/head_accessory/ipc/ipc_tv_antennae
 	name = "T.V. Antennae"
 	icon_state = "tvantennae"
