@@ -373,6 +373,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
@@ -413,6 +414,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 		actions_types = list(/datum/action/item_action/adjust)
