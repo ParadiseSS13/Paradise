@@ -1386,7 +1386,7 @@
 	result = list(/obj/item/stack/medical/bruise_pack)
 	reqs = list(/obj/item/stack/medical/bruise_pack/improvised = 6,
 				/datum/reagent/medicine/heal_on_apply/styptic_powder = 30,
-				/datum/reagent/medicine/sterilizine = 10)
+				/datum/reagent/medicine/spaceacillin = 10)
 	category = CAT_MISC
 
 /datum/crafting_recipe/ointment
@@ -1396,5 +1396,5 @@
 	reqs = list(/obj/item/stack/sheet/plastic = 2,
 				/datum/reagent/water = 10,
 				/datum/reagent/medicine/heal_on_apply/silver_sulfadiazine = 30,
-				/datum/reagent/medicine/sterilizine = 10)
+				/datum/reagent/medicine/spaceacillin = 10)
 	category = CAT_MISC
