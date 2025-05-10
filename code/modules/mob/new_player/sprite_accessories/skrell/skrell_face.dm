@@ -50,6 +50,26 @@
 	icon_state = "female"
 	secondary_theme = "gradient"
 
+/datum/sprite_accessory/hair/skrell/splotched_tentacle_m
+	name = "Splotched Skrell Male Tentacles"
+	icon_state = "male"
+	secondary_theme = "splotches"
+
+/datum/sprite_accessory/hair/skrell/splotched_tentacle_f
+	name = "Splotched Skrell Female Tentacles"
+	icon_state = "female"
+	secondary_theme = "splotches"
+
+/datum/sprite_accessory/hair/skrell/splotched_tentacle_long
+	name = "Splotched Long Skrell Tentacles"
+	icon_state = "verylong"
+	secondary_theme = "splotches"
+
+/datum/sprite_accessory/hair/skrell/splotched_tentacle_short
+	name = "Splotched Short Skrell Tentacles"
+	icon_state = "veryshort"
+	secondary_theme = "splotches"
+
 /datum/sprite_accessory/hair/skrell/skr_gclothtentacleslong
 	name = "Ombre Dye, Long Skrell Tentacles"
 	icon_state = "verylong"
