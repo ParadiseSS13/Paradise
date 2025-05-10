@@ -1,10 +1,9 @@
 /datum/spawn_pool/whiteship_mobs
-	id = "whiteship_mobs_spawn_pool"
 	available_points = 0
 
 /obj/effect/spawner/random/pool/whiteship_mob
 	icon_state = "giftbox"
-	spawn_pool_id = "whiteship_mobs_spawn_pool"
+	spawn_pool = /datum/spawn_pool/whiteship_mobs
 	unique_picks = TRUE
 	guaranteed = TRUE
 	point_value = 0
