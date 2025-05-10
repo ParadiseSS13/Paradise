@@ -291,17 +291,15 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 //Ratvarian spear
-/obj/item/clockwork/weapon/ratvarian_spear
+/obj/item/spear/ratvarian_spear
 	name = "ratvarian spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
-	icon = 'icons/obj/clockwork_objects.dmi'
-	icon_state = "ratvarian_spear"
-	item_state = "ratvarian_spear"
-	force = 15 //Extra damage is dealt to targets in attack()
+	base_icon_state = "ratvarian_spear"
+	icon_state = "ratvarian_spear0"
+	force = 12
+	force_unwielded = 12
+	force_wielded = 22
 	throwforce = 25
 	armour_penetration_percentage = 15
-	sharp = TRUE
-	attack_verb = list("stabbed", "poked", "slashed")
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	w_class = WEIGHT_CLASS_BULKY
-	var/bonus_burn = 5
+	embed_chance = 0	// would suck to lose this after one throw
+	var/bonus_burn = 5	// currently does nothing

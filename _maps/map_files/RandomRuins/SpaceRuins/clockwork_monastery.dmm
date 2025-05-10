@@ -481,8 +481,8 @@
 /area/ruin/space/clockwork_monastery)
 "NC" = (
 /obj/structure/gunrack/clockwork,
-/obj/item/clockwork/weapon/ratvarian_spear,
-/obj/item/clockwork/weapon/ratvarian_spear,
+/obj/item/spear/ratvarian_spear,
+/obj/item/spear/ratvarian_spear,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "NF" = (
