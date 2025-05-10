@@ -24,7 +24,7 @@
 		/datum/ai_planning_subtree/find_and_hunt_target/drink_water,
 	)
 
-///subtree to go around drinking water
+/// subtree to go around drinking water
 /datum/ai_planning_subtree/find_and_hunt_target/drink_water
 	target_key = BB_DEER_WATER_TARGET
 	finding_behavior = /datum/ai_behavior/find_and_set/in_list/turf_types
@@ -43,7 +43,7 @@
 	var/static/list/possible_emotes = list("drinks the water!", "dances in the water!", "splashes around happily!")
 	hunter.custom_emote(EMOTE_VISIBLE, pick(possible_emotes))
 
-///subtree to go around grazing
+/// subtree to go around grazing
 /datum/ai_planning_subtree/find_and_hunt_target/graze
 	target_key = BB_DEER_GRASS_TARGET
 	finding_behavior = /datum/ai_behavior/find_and_set/in_list/turf_types
@@ -62,7 +62,7 @@
 	var/static/list/possible_emotes = list("eats the grass!", "munches down the grass!", "chews on the grass!")
 	hunter.custom_emote(EMOTE_VISIBLE, pick(possible_emotes))
 
-///subtree to go around playing with other deers
+/// subtree to go around playing with other deers
 /datum/ai_planning_subtree/play_with_friends
 
 /datum/ai_planning_subtree/play_with_friends/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
@@ -88,7 +88,7 @@
 	deer.ai_controller?.set_blackboard_key(BB_DEER_PLAYFRIEND, source)
 	return can_see(source, deer, radius)
 
-///subtree to mark trees as territories
+/// subtree to mark trees as territories
 /datum/ai_planning_subtree/find_and_hunt_target/mark_territory
 	target_key = BB_DEER_TREE_TARGET
 	finding_behavior = /datum/ai_behavior/find_hunt_target
@@ -106,12 +106,12 @@
 	hunter.ai_controller.set_blackboard_key(BB_DEER_TREEHOME, hunted)
 
 /datum/ai_planning_subtree/find_and_hunt_target/mark_territory/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	if(controller.blackboard_key_exists(BB_DEER_TREEHOME)) //already found our home, abort!
+	if(controller.blackboard_key_exists(BB_DEER_TREEHOME)) // already found our home, abort!
 		return
 	return ..()
 
 /datum/ai_planning_subtree/rest_at_home/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	if(controller.blackboard[BB_DEER_RESTING] > world.time) //we're resting for now, nothing more to do
+	if(controller.blackboard[BB_DEER_RESTING] > world.time) // we're resting for now, nothing more to do
 		return SUBTREE_RETURN_FINISH_PLANNING
 	if(!controller.blackboard_key_exists(BB_DEER_TREEHOME) || controller.blackboard[BB_DEER_NEXT_REST_TIMER] > world.time)
 		return
@@ -120,9 +120,9 @@
 /datum/ai_behavior/return_home
 	required_distance = 0
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
-	///minimum time till next rest
+	/// minimum time till next rest
 	var/minimum_time = 2 MINUTES
-	///maximum time till next rest
+	/// maximum time till next rest
 	var/maximum_time = 4 MINUTES
 
 /datum/ai_behavior/return_home/setup(datum/ai_controller/controller, target_key)
