@@ -18,7 +18,7 @@ jobs:
       - name: Setup Cache
         uses: actions/cache@v4
         with:
-          path: $HOME/SpacemanDMM
+          path: ~/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
 
       - name: Install Tools
@@ -79,13 +79,17 @@ jobs:
   compile_all_maps:
     name: Compile All Maps
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        byondtype: ['STABLE', 'BETA']
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache
         uses: actions/cache@v4
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-${{ matrix.byondtype }}
       # We test PARADISE_PRODUCTION_HARDWARE here because we dont in station_mapload_tests
       - name: Compile All Maps
         run: |
@@ -107,8 +111,8 @@ jobs:
       - name: Setup Cache
         uses: actions/cache@v4
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-${{ matrix.byondtype }}
       - name: Install RUST_G Deps
         run: |
           sudo dpkg --add-architecture i386
@@ -135,8 +139,8 @@ jobs:
       - name: Setup Cache
         uses: actions/cache@v4
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-${{ matrix.byondtype }}
       - name: Setup & Validate DB
         run: |
           sudo systemctl start mysql
