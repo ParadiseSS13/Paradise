@@ -2,27 +2,21 @@
 /obj/effect/mob_spawn/human/alive/hermit
 	name = "malfunctioning cryostasis sleeper"
 	desc = "A humming sleeper with a silhouetted occupant inside. Its stasis function is broken and it's likely being used as a bed."
-	mob_name = "a stranded hermit"
+	role_name = "stranded hermit"
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "cryostasis_sleeper"
-	roundstart = FALSE
-	death = FALSE
-	random = TRUE
-	allow_species_pick = TRUE
-	mob_species = /datum/species/human
 	description = "You are a single survivor stranded on lavaland in a makeshift shelter. Try to survive with barely any equipment. For when miner is just too boring."
 	flavour_text = "You've been stranded in this godless prison of a planet for longer than you can remember. Each day you barely scrape by, and between the terrible \
 	conditions of your makeshift shelter, the hostile creatures, and the ash drakes swooping down from the cloudless skies, all you can wish for is the feel of soft grass between your toes and \
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
 	assignedrole = "Hermit"
+	allow_species_pick = TRUE
+	allow_gender_pick = TRUE
+	outfit = /datum/outfit/hermit
 
 /obj/effect/mob_spawn/human/alive/hermit/Initialize(mapload)
 	. = ..()
 	var/arrpee = rand(1,4)
-	outfit.suit = /obj/item/clothing/suit/space/syndicate/orange
-	outfit.head = /obj/item/clothing/head/helmet/space/syndicate/orange
-	outfit.shoes = /obj/item/clothing/shoes/black
-	outfit.back = /obj/item/storage/backpack
 	switch(arrpee)
 		if(1)
 			flavour_text += "you were a [pick("arms dealer", "shipwright", "docking manager")]'s assistant on a small trading station several sectors from here. Raiders attacked, and there was \
@@ -49,3 +43,9 @@
 /obj/effect/mob_spawn/human/alive/hermit/Destroy()
 	new/obj/structure/fluff/empty_cryostasis_sleeper(get_turf(src))
 	return ..()
+
+/datum/outfit/hermit
+	suit = /obj/item/clothing/suit/space/syndicate/orange
+	head = /obj/item/clothing/head/helmet/space/syndicate/orange
+	shoes = /obj/item/clothing/shoes/black
+	back = /obj/item/storage/backpack
