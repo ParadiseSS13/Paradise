@@ -1008,8 +1008,18 @@
 	return ..()
 
 /datum/status_effect/quicksilver_form/on_apply()
+	var/obj/item/item_one = owner.get_active_hand()
+	if(item_one)
+		item_one.equip_to_best_slot(owner)
+	var/obj/item/item_two = owner.get_inactive_hand()
+	if(item_two)
+		// Equip to best slot only works for the item in the active hand. As such, if we detect an item, we swap, equip, then swap back
+		owner.swap_hand()
+		item_two.equip_to_best_slot(owner)
+		owner.swap_hand()
 	if(should_deflect)
 		ADD_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
 	temporary_flag_storage = owner.pass_flags
 	owner.pass_flags |= (PASSTABLE | PASSGRILLE | PASSMOB | PASSFENCE | PASSGIRDER | PASSGLASS | PASSTAKE | PASSBARRICADE)
 	owner.add_atom_colour(COLOR_ALUMINIUM, TEMPORARY_COLOUR_PRIORITY)
@@ -1017,6 +1027,7 @@
 
 /datum/status_effect/quicksilver_form/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
 	owner.pass_flags = temporary_flag_storage
 	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_ALUMINIUM)
 
