@@ -55,7 +55,7 @@
 	SIGNAL_HANDLER // COMSIG_ATOM_EXITED
 
 	var/obj/item/petcollar/collar = moved
-	if(!istype(moved))
+	if(!istype(collar))
 		return
 
 	if(collar.tagname)
