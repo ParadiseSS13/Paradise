@@ -28236,6 +28236,10 @@
 	},
 /obj/item/storage/belt/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
+/obj/item/radio{
+	pixel_x = 7;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -28403,9 +28407,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
 "cjb" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table,
 /obj/item/clothing/head/welding{
 	pixel_x = -3;
@@ -28419,18 +28420,6 @@
 /obj/item/clothing/glasses/welding,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light,
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/structure/reagent_dispensers/watertank/firetank,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
@@ -50219,6 +50208,16 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/break_room)
+"iea" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/structure/sign/atmosplaque{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow";
+	dir = 8
+	},
+/area/station/engineering/atmos/control)
 "iet" = (
 /obj/machinery/light{
 	dir = 8
@@ -61442,19 +61441,10 @@
 	},
 /area/station/medical/medbay)
 "mFU" = (
-/obj/structure/table,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/radio{
-	pixel_x = 7;
-	pixel_y = 4
-	},
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/requests_console/directional/north,
+/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -71438,9 +71428,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
 "qRI" = (
-/obj/structure/sign/atmosplaque{
-	pixel_x = -32
-	},
 /obj/machinery/computer/station_alert{
 	dir = 4
 	},
@@ -71449,6 +71436,7 @@
 	dir = 10;
 	network = list("SS13","Engineering")
 	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellow"
@@ -128981,7 +128969,7 @@ rJa
 fLx
 fUl
 rJR
-uls
+iea
 uls
 vud
 axh
