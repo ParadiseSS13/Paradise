@@ -164,9 +164,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, TRUE)
 
 	// updates DNA for our external and internal organs
-	for(var/part as anything in (character.bodyparts + character.internal_organs))
-		var/obj/item/organ/bodypart = part
-		bodypart.dna.UI = character.dna.UI
+	for(var/obj/item/organ/organ in (character.bodyparts + character.internal_organs))
+		organ.dna.UI = character.dna.UI
 
 	UpdateUI()
 
