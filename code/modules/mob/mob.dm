@@ -258,12 +258,7 @@
 //set del_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = FALSE, disable_warning = FALSE, initial = FALSE)
-	if(!istype(W))
-		return FALSE
-
-	if(W.flags & NODROP)
-		to_chat(src, "<span class='warning'>[W] is stuck to your hand!</span>")
-		return FALSE
+	if(!istype(W)) return 0
 
 	if(!W.mob_can_equip(src, slot, disable_warning))
 		if(del_on_fail)
@@ -272,10 +267,10 @@
 			if(!disable_warning)
 				to_chat(src, "<span class='warning'>You are unable to equip that.</span>")//Only print if del_on_fail is false
 
-		return FALSE
+		return 0
 
 	equip_to_slot(W, slot, initial) //This proc should not ever fail.
-	return TRUE
+	return 1
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
