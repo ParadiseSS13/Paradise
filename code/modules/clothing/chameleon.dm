@@ -199,6 +199,8 @@
 			var/obj/item/P = new picked_item(null)
 			I.sprite_sheets = P.sprite_sheets
 			qdel(P)
+		else
+			I.sprite_sheets = null
 
 		if(isclothing(I) && isclothing(picked_item))
 			var/obj/item/clothing/CL = I
