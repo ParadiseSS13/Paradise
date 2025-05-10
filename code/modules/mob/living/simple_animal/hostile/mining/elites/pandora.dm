@@ -41,6 +41,8 @@
 	death_sound = 'sound/magic/repulse.ogg'
 	deathmessage = "'s lights flicker, before its top part falls down."
 	loot_drop = /obj/item/clothing/accessory/pandora_hope
+	contains_xeno_organ = TRUE
+	custom_organ_states = list("hiero1", "hiero2")
 
 	attack_action_types = list(/datum/action/innate/elite_attack/chaser_burst,
 								/datum/action/innate/elite_attack/magic_box,
@@ -51,6 +53,43 @@
 	var/cooldown_time = 2 SECONDS
 	var/chaser_speed = 3
 	var/recalculation_speed = 4 //How many times chasers moves before recalculating
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/detox,
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/heart/xenobiology/paradox,
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/robotics/external/unscrew_hatch,
+	/datum/surgery_step/robotics/external/open_hatch,
+	/datum/surgery_step/robotics/manipulate_robotic_organs/extract,
+	/datum/surgery_step/generic/dissect,
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You begin to unscrew the coverings.</span>",
+	"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
+	"<span class='notice'>You carefully begin to disconnect the core from the surrounding power network.</span>",
+	"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
+	)
+	dissection_success_text = list(
+	"<span class='notice'>You successfully set up a dissection site.</span>",
+	"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
+	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
+	"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
+	"<span class='notice'>You remove the core from the metal housing!</span>",
+	)
+	dissection_failure_text = list(
+	"<span class='warning'>You begin to prep the subject for dissection...</span>",
+	"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
+	"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
+	"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
+	"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
+	)
 
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Chaser Burst"

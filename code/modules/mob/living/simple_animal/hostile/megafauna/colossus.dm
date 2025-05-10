@@ -34,7 +34,7 @@ Difficulty: Very Hard
 	attack_sound = 'sound/magic/ratvar_attack.ogg'
 	icon_state = "eva"
 	icon_living = "eva"
-	icon_dead = ""
+	icon_dead = "eva_dead"
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
@@ -45,22 +45,66 @@ Difficulty: Very Hard
 	move_to_delay = 10
 	ranged = TRUE
 	pixel_x = -32
-	del_on_death = TRUE
 	universal_speak = TRUE
 	internal_gps = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
-	deathmessage = "disintegrates, leaving a glowing core in its wake."
+	deathmessage = "flakes away into innumerable pieces with the wind. It's metallic arm graft staying behind, falling to the ground with a loud thud."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
+	contains_xeno_organ = TRUE
+	/// Have we used our final attack yet?
+	var/final_available = TRUE
+
+	custom_organ_states = list("colossus1", "colossus2", "colossus3", "colossus4")
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							/datum/action/innate/megafauna_attack/aoe_attack,
 							/datum/action/innate/megafauna_attack/shotgun,
 							/datum/action/innate/megafauna_attack/alternating_cardinals)
-	/// Have we used our final attack yet?
-	var/final_available = TRUE
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/detox,
+		/obj/item/organ/internal/ears/xenobiology/colorful,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants,
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/dissect,
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
+	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
+	"<span class='notice'>You force the dissection cavity open.</span>",
+	"<span class='notice'>You carefully begin severing the metal sections from the surrounding flesh.</span>",
+	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+	)
+	dissection_success_text = list(
+	"<span class='notice'>You successfully set up a dissection site.</span>",
+	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
+	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+	"<span class='notice'>You successfully force the dissection cavity open.</span>",
+	"<span class='notice'>You manage to cut away and seperate the metal from flesh.</span>",
+	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+	)
+	dissection_failure_text = list(
+	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
+	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
+	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+	"<span class='warning'>The mixture of metal and flesh seems impossible to distinguish in some places!</span>",
+	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
 	. = ..()

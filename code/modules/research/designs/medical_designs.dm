@@ -295,6 +295,37 @@
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
 
+/datum/design/dissector
+	name = "Dissection Manager"
+	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs."
+	id = "dissection_manager"
+	req_tech = list("biotech" = 3, "materials" = 3,  "programming" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
+	build_path = /obj/item/dissector
+	category = list("Medical")
+
+/datum/design/improved_dissector
+	name = "Improved Dissection Manager"
+	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs. This one has had several improvements applied to it."
+	id = "dissection_manager_upgraded"
+	req_tech = list("biotech" = 7, "materials" = 6,  "engineering" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000, MAT_SILVER = 1500, MAT_GOLD = 2000)
+	build_path = /obj/item/dissector/upgraded
+	category = list("Medical")
+
+// allows for perfect dissections, should be very hard to obtain.
+/datum/design/alien_dissector
+	name = "Alien Dissection Manager"
+	desc = "A tool of alien origin, capable of near impossible levels of precision during dissections."
+	id = "dissection_manager_alien"
+	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 4500, MAT_DIAMOND = 3000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
+	build_path = /obj/item/dissector/alien
+	category = list("Medical")
+
 /////////////////////////////////////////
 //////////Cybernetic Implants////////////
 /////////////////////////////////////////

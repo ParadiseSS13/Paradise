@@ -56,6 +56,7 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "ancient_robot"
 	icon_living = "ancient_robot"
+	icon_dead = "ancient_robot_dead"
 	friendly = "stares down"
 	speak_emote = list("BUZZES")
 	universal_speak = TRUE
@@ -69,7 +70,6 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -16
 	pixel_y = -16
-	del_on_death = TRUE
 	loot = list(/obj/structure/closet/crate/necropolis/ancient)
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
 	internal_gps = /obj/item/gps/internal/ancient
@@ -78,6 +78,7 @@ Difficulty: Hard
 	deathmessage = "explodes into a shower of alloys"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
+	contains_xeno_organ = TRUE
 
 	var/charging = FALSE
 	var/revving_charge = FALSE
@@ -86,6 +87,45 @@ Difficulty: Hard
 	var/extra_player_anger = 0
 	var/mode = 0 //This variable controls the special attacks of the robot, one for each anomaly core.
 	var/exploding = FALSE
+
+	custom_organ_states = list("vetus1", "vetus2")
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/detox,
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/heart/xenobiology/incompatible,
+		/obj/item/organ/internal/cell/xenobiology/supercharged,
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/robotics/external/unscrew_hatch,
+	/datum/surgery_step/robotics/external/open_hatch,
+	/datum/surgery_step/robotics/manipulate_robotic_organs/extract,
+	/datum/surgery_step/generic/dissect,
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the subject for dissection...</span>",
+	"<span class='notice'>You begin to unscrew the coverings.</span>",
+	"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
+	"<span class='notice'>You carefully begin to disconnect the core from the machinery without setting off any secondary explosions.</span>",
+	"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
+	)
+	dissection_success_text = list(
+	"<span class='notice'>You successfully set up a dissection site.</span>",
+	"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
+	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
+	"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
+	"<span class='notice'>You remove the core from the metal housing!</span>",
+	)
+	dissection_failure_text = list(
+	"<span class='warning'>You begin to prep the subject for dissection...</span>",
+	"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
+	"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
+	"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
+	"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
+	)
 
 /// Legs and the connector for the legs
 
@@ -146,6 +186,15 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/death(gibbed, allowed = FALSE)
 	if(allowed)
+		overlays.Cut()
+		underlays.Cut()
+		QDEL_NULL(TR)
+		QDEL_NULL(TL)
+		QDEL_NULL(BR)
+		QDEL_NULL(BL)
+		QDEL_NULL(beam)
+		body_shield_enabled = FALSE
+		update_appearance(UPDATE_OVERLAYS)
 		return ..()
 	else if(exploding) //but it refused
 		return
@@ -156,7 +205,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Life(seconds, times_fired)
 	..()
-	if(!exploding)
+	if(!exploding && !stat == DEAD)
 		return
 	playsound(src, 'sound/items/timer.ogg', 70, 0)
 
@@ -589,6 +638,8 @@ Difficulty: Hard
 	return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	if(stat == DEAD || exploding == TRUE) // a check so it doesnt try to move after death
+		return
 	if(Dir)
 		leg_walking_controler(Dir)
 		if(charging)

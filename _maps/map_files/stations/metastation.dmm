@@ -17028,6 +17028,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -36839,7 +36840,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/obj/effect/mapping_helpers/airlock/access/any/science/tox,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -37912,25 +37914,13 @@
 /area/station/maintenance/asmaint)
 "ddz" = (
 /obj/machinery/alarm/directional/east,
-/obj/structure/rack,
-/obj/item/storage/box/beakers{
-	pixel_x = 6;
-	pixel_y = 10
-	},
-/obj/item/storage/box/syringes{
-	pixel_x = -4;
-	pixel_y = 5
-	},
-/obj/item/scalpel{
-	pixel_y = -2
-	},
-/obj/item/hemostat{
-	pixel_x = 10
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/machinery/requests_console/directional/north,
+/obj/machinery/computer/operating{
+	name = "dissection computer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -42196,10 +42186,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "eMG" = (
-/obj/structure/closet/l3closet/scientist,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/organ_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -42439,6 +42429,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -42933,13 +42924,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
-"fbq" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/smithing/scientific_assembler,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/science/xenobiology)
 "fbr" = (
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -45491,7 +45475,6 @@
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
 "gbz" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "custom placement";
@@ -46196,6 +46179,9 @@
 	},
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/disposal/delivery_chute{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -55496,7 +55482,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "kvh" = (
-/obj/structure/closet/bombcloset,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -27
@@ -56068,6 +56053,15 @@
 	icon_state = "redfull"
 	},
 /area/station/security/permabrig)
+"kFZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/optable,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/xenobiology)
 "kGf" = (
 /obj/machinery/light_construct{
 	dir = 8
@@ -57171,6 +57165,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -62217,9 +62212,13 @@
 /area/station/engineering/control)
 "nfR" = (
 /obj/structure/table/glass,
-/obj/item/clothing/gloves/color/latex,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/item/storage/surgical_tray,
+/obj/item/dissector,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde{
+	pixel_x = -15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -63055,7 +63054,6 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -71331,6 +71329,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79794,6 +79793,13 @@
 	icon_state = "dark"
 	},
 /area/station/hallway/primary/central/north)
+"uLY" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/xenobiology)
 "uMj" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -79949,7 +79955,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/science/tox{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -80131,6 +80140,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"uUn" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 6;
+	pixel_y = 10
+	},
+/obj/item/storage/box/syringes{
+	pixel_x = -4;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/xenobiology)
 "uUq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -81828,12 +81852,13 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Test Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/obj/effect/mapping_helpers/airlock/access/any/science/tox_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -83356,10 +83381,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "wsf" = (
-/obj/item/kirbyplants/large/plant12,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/closet/bombcloset,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -84324,7 +84349,10 @@
 	name = "Science Chemistry";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/science/tox{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -85532,10 +85560,10 @@
 	pixel_y = 8;
 	anchored = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+/obj/structure/table/reinforced,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
 	dir = 4
 	},
-/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -130034,7 +130062,7 @@ cNz
 sFS
 cNz
 cNz
-kjo
+uLY
 fvN
 aaa
 aaa
@@ -130285,13 +130313,13 @@ abf
 aaa
 aaa
 fvN
-iUe
+kFZ
 cEA
 gZe
 deu
 sFX
 pNz
-fbq
+uUn
 fvN
 aaa
 aaa

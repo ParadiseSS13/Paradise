@@ -37,7 +37,7 @@ Difficulty: Hard
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	icon_state = "bubblegum"
 	icon_living = "bubblegum"
-	icon_dead = ""
+	icon_dead = "bubblegum_dead"
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
@@ -52,7 +52,6 @@ Difficulty: Hard
 	melee_queue_distance = 20 // as far as possible really, need this because of blood warp
 	ranged = TRUE
 	pixel_x = -32
-	del_on_death = TRUE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
@@ -69,12 +68,57 @@ Difficulty: Hard
 	internal_gps = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
-	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
+	deathmessage = "sinks into a pile of grotesque viscera, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
+	contains_xeno_organ = TRUE
+
+	custom_organ_states = list("bubblegum1", "bubblegum2", "bubblegum3", "bubblegum4")
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/triple_charge,
 							/datum/action/innate/megafauna_attack/hallucination_charge,
 							/datum/action/innate/megafauna_attack/hallucination_surround,
 							/datum/action/innate/megafauna_attack/blood_warp)
+
+	xeno_organ_results = list(
+		/obj/item/organ/internal/liver/xenobiology/detox,
+		/obj/item/organ/internal/appendix/xenobiology/feverish,
+		/obj/item/organ/internal/liver/xenobiology/toxic,
+		/obj/item/organ/internal/heart/xenobiology/bloody_sack,
+	)
+
+	dissection_tool_step = list(
+	/datum/surgery_step/generic/dissect,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/cut_open,
+	/datum/surgery_step/generic/clamp_bleeders,
+	/datum/surgery_step/generic/retract_skin,
+	/datum/surgery_step/generic/dissect,
+	)
+
+	dissection_text = list(
+	"<span class='notice'>You begin to prep the corpse for dissection... If you can even call it that at this point</span>",
+	"<span class='notice'>You begin removing shards and chunks of bone, clearing a spot to safely cut deeper.</span>",
+	"<span class='notice'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone...</span>",
+	"<span class='notice'>You begin clamping the mass amount of leaking arteries in the surgical site.</span>",
+	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
+	"<span class='notice'>You finally find something, and begin to remove a unidentifiable mass out of the mass!</span>",
+	)
+	dissection_success_text = list(
+	"<span class='notice'>You successfully set up a dissection site.</span>",
+	"<span class='notice'>You manage to clear out the dissection site of obstructive bone.</span>",
+	"<span class='notice'>You manage to cut deep enough until something of signifigance seems to reveal.</span>",
+	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+	"<span class='notice'>You successfully force the dissection cavity open.</span>",
+	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+	)
+	dissection_failure_text = list(
+	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+	"<span class='warning'>You begin removing shards and chunks of bone, clearing a spot to safely cut deeper.</span>",
+	"<span class='warning'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone..</span>",
+	"<span class='warning'>You clamp the mass amount of leaking arteries in the surgical site.</span>",
+	"<span class='warning'>You force the dissection cavity open.</span>",
+	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+	)
 
 /obj/item/gps/internal/bubblegum
 	icon_state = null
@@ -147,15 +191,19 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
 	qdel(second_life_portal)
 	if(enraged && !second_life)
+		del_on_death = TRUE
 		var/obj/structure/closet/crate/necropolis/bubblegum/bait/jebait = new /obj/structure/closet/crate/necropolis/bubblegum/bait(get_turf(src))
 		var/obj/effect/bubblegum_trigger/great_chest_ahead = new /obj/effect/bubblegum_trigger(jebait, ListTargets())
 		new /obj/effect/landmark/spawner/bubblegum_exit(get_turf(src))
 		great_chest_ahead.forceMove(jebait)
 	if(second_life)
+		del_on_death = FALSE
 		var/area/A = get_area(src)
 		for(var/mob/M in A)
 			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
 		new /obj/effect/bubblegum_exit(get_turf(src))
+	name = "Fleshy Mass"
+	desc = "Whatever this is, doesn't actually look like it comes from bubblegum, but many other entities. just thinking about how many creatures met their end to make this pile makes you shudder."
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)
@@ -653,6 +701,8 @@ Difficulty: Hard
 		break
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(20))
+		if(stat == DEAD)
+			continue
 		to_chat(H, "<span class='colossus'><b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b></span>")
 		FindTarget(list(H), 1)
 
