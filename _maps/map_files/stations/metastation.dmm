@@ -23671,6 +23671,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment/corner,
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -31191,6 +31192,7 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -55877,6 +55879,7 @@
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurplecorners"
