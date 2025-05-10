@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		for(var/list/disease_event in GLOB.current_pending_diseases)
 			if(chosen_disease == disease_event["disease"])
 				for(var/mob/living/carbon/human/player in GLOB.player_list)
-					if(player.ForceContractDisease(chosen_disease, TRUE, TRUE))
+					if((player.name in  GLOB.crew_list) && player.ForceContractDisease(chosen_disease, TRUE, TRUE))
 						GLOB.current_pending_diseases -= list(disease_event)
 						break
 				break
