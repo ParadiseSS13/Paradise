@@ -20361,10 +20361,10 @@
 /area/station/engineering/engine_foyer)
 "bCk" = (
 /obj/structure/table/wood,
-/obj/item/nullrod/fedora,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/item/clothing/head/fedora,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bCl" = (
