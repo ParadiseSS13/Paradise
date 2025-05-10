@@ -26,6 +26,7 @@
 	var/obj/item/gun/energy/attached_gun
 
 /obj/item/smithed_item/lens/set_stats()
+	..()
 	durability = initial(durability) * material.durability_mult
 	max_durability = durability
 	power_mult = 1 + (base_power_mult * quality.stat_mult * material.power_draw_mult)

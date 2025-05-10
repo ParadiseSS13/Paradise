@@ -32,6 +32,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/smithed_item/tool_bit/set_stats()
+	..()
 	durability = initial(durability) * material.durability_mult
 	max_durability = durability
 	size_mod = initial(size_mod) + material.size_mod
