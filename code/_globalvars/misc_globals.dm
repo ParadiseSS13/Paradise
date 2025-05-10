@@ -71,3 +71,11 @@ GLOBAL_VAR_INIT(sparks_active, 0)
 #define GLOBAL_SMOKE_LIMIT 200
 ///Counter for the current amount of smoke
 GLOBAL_VAR_INIT(smokes_active, 0)
+
+/// A list of types of objects we want to record in admin logs when
+/// a player starts pulling them.
+GLOBAL_LIST_INIT(log_pulltypes, list(
+	/mob/living,
+	/obj/structure/reagent_dispensers,
+	/obj/machinery/atmospherics/portable/canister,
+))
