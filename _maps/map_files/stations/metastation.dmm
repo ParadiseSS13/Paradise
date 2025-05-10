@@ -441,7 +441,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera/motion{
-	c_tag = "Research AI Upload";
+	c_tag = "Research - AI Upload";
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -11051,15 +11051,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/service/hydroponics)
-"bak" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/maintenance/asmaint)
 "bam" = (
 /turf/simulated/wall/r_wall,
 /area/station/command/office/ce)
@@ -12252,6 +12243,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/camera{
+	c_tag = "Research - Hallway Fore";
+	network = list("Research","SS13");
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -19283,9 +19279,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/barrier/grille_maybe,
@@ -27121,6 +27114,11 @@
 "cdi" = (
 /obj/structure/closet/secure_closet/roboticist,
 /obj/machinery/alarm/directional/north,
+/obj/machinery/camera{
+	c_tag = "Research - Robotics Lab Fore";
+	dir = 6;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29359,6 +29357,11 @@
 /area/station/science/rnd)
 "cnx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/camera{
+	c_tag = "Research - Research and Development";
+	dir = 6;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -31254,6 +31257,11 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/camera{
+	c_tag = "Research Director's Office";
+	dir = 9;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/carpet/purple,
 /area/station/command/office/rd)
 "cxm" = (
@@ -31587,6 +31595,11 @@
 /area/station/science/break_room)
 "cyR" = (
 /obj/machinery/alarm/server/directional/east,
+/obj/machinery/camera{
+	c_tag = "Research - Breakroom";
+	dir = 9;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -41027,11 +41040,6 @@
 	},
 /area/station/security/permabrig)
 "eAL" = (
-/obj/machinery/camera{
-	c_tag = "Secure Lab - Test Chamber";
-	dir = 8;
-	network = list("TestChamber","SS13","Research")
-	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
@@ -41643,6 +41651,11 @@
 "ePa" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Research - Xenobiology Exterior";
+	dir = 9;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -42443,7 +42456,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Science Toxins Launch Room";
+	c_tag = "Research - Toxins Launch Room";
 	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plasteel{
@@ -49492,6 +49505,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "iag" = (
@@ -51292,6 +51308,11 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Research - Robotics Lab Aft";
+	dir = 8;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "iLE" = (
@@ -53712,6 +53733,11 @@
 "jOq" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Research - Mechbay";
+	dir = 8;
+	network = list("Research","SS13")
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/science/robotics/chargebay)
@@ -57751,6 +57777,17 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/aft/south)
+"lyL" = (
+/obj/machinery/camera{
+	c_tag = "Research - Main Hallway";
+	network = list("Research","SS13");
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/station/hallway/science)
 "lzO" = (
 /obj/machinery/light{
 	dir = 4
@@ -58256,6 +58293,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
+"lJK" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "lJM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -59805,7 +59848,7 @@
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/turf_decal/delivery/blue/hollow,
 /obj/machinery/camera{
-	c_tag = "Science - Toxins Secure - Starboard";
+	c_tag = "Research - Toxins Secure - Starboard";
 	dir = 8;
 	network = list("Research","SS13")
 	},
@@ -62155,6 +62198,10 @@
 /area/station/maintenance/xenobio_south)
 "nli" = (
 /obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/machinery/camera{
+	c_tag = "Research - Hallway Aft";
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -63326,7 +63373,7 @@
 /area/station/maintenance/fore)
 "nNx" = (
 /obj/machinery/camera{
-	c_tag = "Science Toxins Mixing - Aft";
+	c_tag = "Research - Toxins Mixing - Aft";
 	dir = 4;
 	network = list("Research","SS13")
 	},
@@ -70103,6 +70150,11 @@
 /area/station/maintenance/fpmaint)
 "qCQ" = (
 /obj/structure/sink/directional/east,
+/obj/machinery/camera{
+	c_tag = "Research - Genetics";
+	dir = 9;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -70744,6 +70796,14 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/reception)
+"qSy" = (
+/obj/machinery/camera{
+	c_tag = "Research - Test Site";
+	dir = 6;
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/engine,
+/area/station/science/test_chamber)
 "qSD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -72217,7 +72277,7 @@
 /area/station/engineering/atmos)
 "rzh" = (
 /obj/machinery/camera{
-	c_tag = "Science - Lobby"
+	c_tag = "Research - Lobby"
 	},
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -73170,14 +73230,6 @@
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
-"rPx" = (
-/obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/stripes/end,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "rPB" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -73628,6 +73680,11 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/directional/east,
+/obj/machinery/camera{
+	c_tag = "Research - Test Range";
+	dir = 6;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -74307,6 +74364,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
+"sov" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/stripes/end,
+/obj/machinery/power/apc/directional/north,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "soE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -75599,6 +75664,11 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/camera{
+	c_tag = "Research - Secondary Aft Hallway";
+	network = list("Research","SS13");
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -78928,6 +78998,11 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/machinery/camera{
+	c_tag = "Research - Aft Decontamination Airlock";
+	network = list("Research","SS13");
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -80413,6 +80488,10 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/camera{
+	c_tag = "Research - Chemistry Exterior";
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -80519,7 +80598,7 @@
 /area/station/hallway/science/aft)
 "uVm" = (
 /obj/machinery/camera{
-	c_tag = "Science Toxins Mixing - Aft Starboard";
+	c_tag = "Research - Toxins Mixing - Aft Starboard";
 	dir = 8;
 	network = list("Research","SS13")
 	},
@@ -83746,7 +83825,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Science Toxins Mixing - Fore";
+	c_tag = "Research - Toxins Mixing - Fore";
 	dir = 8;
 	network = list("Research","SS13")
 	},
@@ -84908,6 +84987,10 @@
 /area/station/maintenance/fsmaint)
 "wVj" = (
 /obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/machinery/camera{
+	c_tag = "Research - Fore Decontamination Airlock";
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -87491,6 +87574,11 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Research - Server Coldroom";
+	network = list("Research","SS13");
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -87963,6 +88051,11 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Research - Chemistry Lab";
+	dir = 6;
+	network = list("Research","SS13")
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
@@ -121206,7 +121299,7 @@ nYH
 beA
 iFA
 aOG
-cxO
+lyL
 sRS
 hbj
 kvG
@@ -123530,8 +123623,8 @@ tKX
 bgD
 rEB
 uCe
-rPx
-bak
+ygA
+qEh
 byB
 cPc
 yeG
@@ -123787,8 +123880,8 @@ bPI
 uCe
 uCe
 uCe
-ygA
-emj
+sov
+lJK
 iaf
 uhc
 emj
@@ -125836,7 +125929,7 @@ uOY
 mfA
 oCd
 mMv
-uzR
+qSy
 gIB
 qyw
 uzR
