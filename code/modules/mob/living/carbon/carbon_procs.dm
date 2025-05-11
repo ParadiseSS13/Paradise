@@ -513,9 +513,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!client)
 		return
 #endif
-	if(!do_after(src, ventcrawl_delay, target = src))
-		return
-
+	if(ismorph(src))
+		if(!do_after(src, ventcrawl_delay, target = src, hidden = TRUE))
+			return
+	else
+		if(!do_after(src, ventcrawl_delay, target = src))
+			return
 	if(!vent_found.can_crawl_through())
 		to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
 		return

@@ -26,7 +26,6 @@
 	melee_damage_lower = 1
 	melee_damage_upper = 2
 	stop_automated_movement_when_pulled = TRUE
-	can_collar = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/cow/udder = null
 	gender = FEMALE
@@ -35,6 +34,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
 	. = ..()
 	udder = new()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/hostile/retaliate/goat/Destroy()
 	QDEL_NULL(udder)
@@ -135,12 +135,12 @@
 	mob_size = MOB_SIZE_TINY
 	holder_type = /obj/item/holder/chicken
 	can_hide = TRUE
-	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chick/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/wears_collar)
 	scatter_atom()
 
 /mob/living/simple_animal/chick/scatter_atom(x_offset, y_offset)
@@ -157,10 +157,10 @@
 				C.name = name
 			if(mind)
 				mind.transfer_to(C)
-			if(pcollar)
-				var/the_collar = pcollar
-				drop_item_to_ground(pcollar)
-				C.add_collar(the_collar)
+
+			for(var/atom/movable/AM in contents)
+				AM.forceMove(C)
+
 			qdel(src)
 
 
@@ -208,7 +208,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	mob_size = MOB_SIZE_SMALL
 	holder_type = /obj/item/holder/chicken
 	can_hide = TRUE
-	can_collar = TRUE
 	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
 	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
@@ -222,6 +221,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_state = "[icon_prefix]_[body_color]"
 	icon_living = "[icon_prefix]_[body_color]"
 	icon_dead = "[icon_prefix]_[body_color]_dead"
+	AddElement(/datum/element/wears_collar)
 	scatter_atom()
 	update_appearance(UPDATE_ICON_STATE)
 	GLOB.chicken_count += 1
@@ -325,10 +325,13 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	attacktext = "pecks"
 	health = 50
 	maxHealth = 50
-	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/turkey/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -350,10 +353,13 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/goose/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -375,10 +381,13 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
+
+/mob/living/simple_animal/seal/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/walrus
 	name = "walrus"
@@ -400,10 +409,13 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
+
+/mob/living/simple_animal/walrus/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /obj/item/udder
 	name = "udder"

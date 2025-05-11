@@ -25,9 +25,12 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	can_hide = TRUE
 	holder_type = /obj/item/holder/bunny
-	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	ventcrawler = VENTCRAWLER_ALWAYS
+
+/mob/living/simple_animal/bunny/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/bunny/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
