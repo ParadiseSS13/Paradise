@@ -451,8 +451,8 @@
 
 /obj/item/gun/energy/laser/tag/fake_egun
 	name = "replica EG-7 energy gun"
-	desc = "This's a laser tag gun redesigned to look like an EG-7 energy gun."
-	icon_state = "laser"
-	item_state = "laser"
+	desc = "A laser tag gun redesigned to look like an EG-7 energy gun."
+	icon_state = "energy"
+	item_state = "energy"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
 	ammo_x_offset = 1

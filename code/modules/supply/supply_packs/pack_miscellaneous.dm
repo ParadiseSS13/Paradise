@@ -647,46 +647,84 @@
 
 /datum/supply_packs/misc/mugs
 	name = "Coffee Mugs Crate"
-	cost = 100
 	contains = list(
-		/obj/item/reagent_containers/drinks/mug,
-		/obj/item/reagent_containers/drinks/mug,
 		/obj/item/reagent_containers/drinks/mug,
 		/obj/item/reagent_containers/drinks/mug,
 		/obj/item/reagent_containers/drinks/mug
 	)
+	cost = 100
 	containername = "coffee mugs crate"
 
-/datum/supply_packs/misc/mugs_departament
-	name = "Departamental Coffee Mugs Crate"
-	cost = 250
+/datum/supply_packs/misc/mugs_sec
+	name = "Security Coffee Mugs Crate"
+	contains = list(
+		/obj/item/reagent_containers/drinks/mug/sec,
+		/obj/item/reagent_containers/drinks/mug/sec,
+		/obj/item/reagent_containers/drinks/mug/sec
+	)
+	cost = 100
+	containername = "security coffee mugs crate"
+	containertype = /obj/structure/closet/crate/secure
+	access = ACCESS_SECURITY
+
+/datum/supply_packs/misc/mugs_sci
+	name = "Science Coffee Mugs Crate"
+	contains = list(
+		/obj/item/reagent_containers/drinks/mug/sci,
+		/obj/item/reagent_containers/drinks/mug/sci,
+		/obj/item/reagent_containers/drinks/mug/sci
+	)
+	cost = 100
+	containername = "science coffee mugs crate"
+	containertype = /obj/structure/closet/crate/secure
+	access = ACCESS_RESEARCH
+
+/datum/supply_packs/misc/mugs_eng
+	name = "Engineering Coffee Mugs Crate"
 	contains = list(
 		/obj/item/reagent_containers/drinks/mug/eng,
 		/obj/item/reagent_containers/drinks/mug/eng,
+		/obj/item/reagent_containers/drinks/mug/eng
+	)
+	cost = 100
+	containername = "engineering coffee mugs crate"
+	containertype = /obj/structure/closet/crate/secure
+	access = ACCESS_CONSTRUCTION
+
+/datum/supply_packs/misc/mugs_med
+	name = "Medical Coffee Mugs Crate"
+	contains = list(
 		/obj/item/reagent_containers/drinks/mug/med,
 		/obj/item/reagent_containers/drinks/mug/med,
-		/obj/item/reagent_containers/drinks/mug/sci,
-		/obj/item/reagent_containers/drinks/mug/sci,
-		/obj/item/reagent_containers/drinks/mug/sec,
-		/obj/item/reagent_containers/drinks/mug/sec,
+		/obj/item/reagent_containers/drinks/mug/med
+	)
+	cost = 100
+	containername = "medical coffee mugs crate"
+	containertype = /obj/structure/closet/crate/secure
+	access = ACCESS_MEDICAL
+
+/datum/supply_packs/misc/mugs_serv
+	name = "Service Coffee Mugs Crate"
+	contains = list(
+		/obj/item/reagent_containers/drinks/mug/serv,
 		/obj/item/reagent_containers/drinks/mug/serv,
 		/obj/item/reagent_containers/drinks/mug/serv
 	)
-	containername = "departamental coffee mugs crate"
+	cost = 100
+	containername = "service coffee mugs crate"
 
 /datum/supply_packs/misc/mugs_novelty
 	name = "Novelty Coffee Mugs Crate"
-	cost = 500
 	contains = list(
 		/obj/item/reagent_containers/drinks/mug/novelty,
 		/obj/item/reagent_containers/drinks/mug/novelty,
 		/obj/item/reagent_containers/drinks/mug/novelty
 	)
+	cost = 250
 	containername = "novelty coffee mugs crate"
 
 /datum/supply_packs/misc/sec_cosplay
 	name = "Security Officer Cosplay Kit"
-	cost = 500
 	contains = list(
 		/obj/item/clothing/under/color/red,
 		/obj/item/clothing/head/helmet/fake,
@@ -698,4 +736,125 @@
 		/obj/item/clothing/glasses/sunglasses_fake,
 		/obj/item/gun/energy/laser/tag/fake_egun
 	)
+	cost = 400
 	containername = "security officer cosplay kit"
+
+/datum/supply_packs/misc/syndi_sci_cosplay
+	name = "Unethical Sciencist Cosplay Kit"
+	contains = list(
+		/obj/item/clothing/suit/storage/labcoat,
+		/obj/item/clothing/under/syndicate/tacticool,
+		/obj/item/clothing/shoes/jackboots,
+		/obj/item/clothing/mask/gas/syndicate,
+		/obj/item/storage/belt/utility/expedition/vendor,
+		/obj/item/storage/backpack/duffel/syndie/med,
+		/obj/item/storage/toolbox/fakesyndi,
+		/obj/item/folder/syndicate/fake_red
+	)
+	cost = 400
+	containername = "unethical sciencist cosplay kit"
+	contraband = TRUE
+
+/datum/supply_packs/misc/potted_plants_medium
+	name = "Potted Plants Crate"
+	contains = list(
+		/obj/item/kirbyplants/medium,
+		/obj/item/kirbyplants/medium,
+		/obj/item/kirbyplants/medium
+	)
+	cost = 100
+	containername = "potted plants crate"
+	containertype = /obj/structure/closet/crate/plastic
+
+/datum/supply_packs/misc/potted_plants_small
+	name = "Tabletop Potted Plants Crate"
+	contains = list(
+		/obj/item/kirbyplants/small,
+		/obj/item/kirbyplants/small,
+		/obj/item/kirbyplants/small
+	)
+	cost = 50
+	containername = "tabletop potted plants crate"
+	containertype = /obj/structure/closet/crate/plastic
+
+/datum/supply_packs/misc/potted_plants_alien
+	name = "Alien Potted Plants Crate"
+	contains = list(
+		/obj/item/kirbyplants/large/alien,
+		/obj/item/kirbyplants/large/alien,
+		/obj/item/kirbyplants/large/alien
+	)
+	cost = 150
+	containername = "alien potted plants crate"
+	containertype = /obj/structure/closet/crate/plastic
+
+/datum/supply_packs/misc/flag_sci
+	name = "RnD Flag Crate"
+	contains = list(
+		/obj/item/flag/rnd
+	)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure
+	containername = "RnD flag crate"
+	access = ACCESS_RESEARCH
+
+/datum/supply_packs/misc/flag_sec
+	name = "Security Flag Crate"
+	contains = list(
+		/obj/item/flag/sec
+	)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure
+	containername = "security flag crate"
+	access = ACCESS_SECURITY
+
+/datum/supply_packs/misc/flag_sup
+	name = "Supply Flag Crate"
+	contains = list(
+		/obj/item/flag/cargo
+	)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure
+	containername = "supply flag crate"
+	access = ACCESS_CARGO
+
+/datum/supply_packs/misc/flag_atm
+	name = "Atmospherics Flag Crate"
+	contains = list(
+		/obj/item/flag/atmos
+	)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure
+	containername = "atmospherics flag crate"
+	access = ACCESS_CONSTRUCTION
+
+/datum/supply_packs/misc/flag_com
+	name = "Command Flag Crate"
+	contains = list(
+		/obj/item/flag/command
+	)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure
+	containername = "command flag crate"
+	access = ACCESS_HEADS
+
+/datum/supply_packs/misc/flag_greytide
+	name = "Assistant Flag Crate"
+	contains = list(
+		/obj/item/flag/grey
+	)
+	cost = 250
+	containername = "assistant flag crate"
+	contraband = TRUE
+
+/datum/supply_packs/misc/party_grenades
+	name = "Confetti Grenades Crate"
+	contains = list(
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti
+	)
+	cost = 300
+	containername = "confetti grenades crate"

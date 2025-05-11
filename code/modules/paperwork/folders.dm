@@ -114,6 +114,9 @@
 	new /obj/item/documents/syndicate/red(src)
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/item/folder/syndicate/fake_red
+	desc = "A folder stamped \"Top Secret - Property of The Syndicate\". Its glossy cover seems cheap."
+
 /obj/item/folder/syndicate/blue
 	icon_state = "folder_sblue"
 
