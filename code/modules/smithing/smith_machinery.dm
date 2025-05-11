@@ -100,6 +100,9 @@
 	if(G.state < GRAB_NECK)
 		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 		return FALSE
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>You try to shove someone into the machine, but your access is denied!</span>")
+		return FALSE
 	var/result = special_attack(user, G.affecting)
 	user.changeNext_move(CLICK_CD_MELEE)
 	special_attack_on_cooldown = TRUE
