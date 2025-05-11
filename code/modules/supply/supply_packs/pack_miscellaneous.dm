@@ -736,7 +736,7 @@
 		/obj/item/clothing/glasses/sunglasses_fake,
 		/obj/item/gun/energy/laser/tag/fake_egun
 	)
-	cost = 400
+	cost = 500
 	containername = "security officer cosplay kit"
 
 /datum/supply_packs/misc/syndi_sci_cosplay
@@ -751,7 +751,7 @@
 		/obj/item/storage/toolbox/fakesyndi,
 		/obj/item/folder/syndicate/fake_red
 	)
-	cost = 400
+	cost = 500
 	containername = "unethical sciencist cosplay kit"
 	contraband = TRUE
 
