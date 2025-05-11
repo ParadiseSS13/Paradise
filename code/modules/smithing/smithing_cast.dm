@@ -189,3 +189,4 @@
 	icon_state = "egun_parts_cast"
 	desc = "A cast for creating energy gun frames."
 	selected_product = /obj/item/smithed_item/component/egun_parts
+	basin_state = "cast_egun_parts"
