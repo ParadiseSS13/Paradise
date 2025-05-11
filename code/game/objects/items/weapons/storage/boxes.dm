@@ -971,6 +971,14 @@
 	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 
+/obj/item/storage/box/marine_armor_export
+	name = "\improper Federation marine armor box"
+	desc = "A box containing a factory-fresh suit of export-grade Trans-Solar Marine Corps combat armor."
+
+/obj/item/storage/box/marine_armor_export/populate_contents()
+	new /obj/item/clothing/suit/armor/federation/marine/export(src)
+	new /obj/item/clothing/head/helmet/federation/marine/export(src)
+
 /obj/item/storage/box/skrell_suit
 	name = "skrellian suit box"
 	desc = "A box containing a skrell-designed medical spacesuit."
