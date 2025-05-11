@@ -13,6 +13,7 @@
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
+	var/random_color = TRUE
 
 /obj/item/flashlight/Initialize(mapload)
 	. = ..()
@@ -23,6 +24,17 @@
 		icon_state = "[initial(icon_state)]-on"
 	else
 		icon_state = "[initial(icon_state)]"
+
+/obj/item/flashlight/New(loc, param_color = null)
+	..()
+	if(random_color)
+		if(!param_color)
+			param_color = pick("yellow","blue")
+		icon_state = "flashlight_[param_color]"
+		item_state = "flashlight_[param_color]"
+
+	if(prob(75))
+		src.pixel_y = rand(0, 16)
 
 /obj/item/flashlight/proc/update_brightness()
 	if(on)
@@ -96,6 +108,7 @@
 	flags = CONDUCT
 	brightness_on = 2
 	var/colour = "blue" // Ink color
+	random_color = FALSE
 
 /obj/item/flashlight/seclite
 	name = "seclite"
@@ -105,6 +118,7 @@
 	force = 9 // Not as good as a stun baton.
 	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
+	random_color = FALSE
 
 /obj/item/flashlight/drone
 	name = "low-power flashlight"
@@ -114,6 +128,7 @@
 	flags = CONDUCT
 	brightness_on = 2
 	w_class = WEIGHT_CLASS_TINY
+	random_color = FALSE
 
 // the desk lamps are a bit special
 /obj/item/flashlight/lamp
@@ -127,6 +142,7 @@
 	materials = list()
 	on = TRUE
 	light_color = "#fff4bb"
+	random_color = FALSE
 
 /obj/item/flashlight/lamp/examine(mob/user)
 	. = ..()
@@ -171,6 +187,7 @@
 	var/produce_heat = 1500
 	var/fuel_lower = 800
 	var/fuel_upp = 1000
+	random_color = FALSE
 
 /obj/item/flashlight/flare/New()
 	fuel = rand(fuel_lower, fuel_upp)
@@ -343,6 +360,7 @@
 	light_color = "#FFBF00"
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
+	random_color = FALSE
 
 /obj/item/flashlight/slime/New()
 	..()
@@ -420,6 +438,7 @@
 	anchored = TRUE
 	var/range = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	random_color = FALSE
 
 /obj/item/flashlight/eyelight
 	name = "eyelight"
@@ -428,3 +447,4 @@
 	light_power = 1
 	flags = CONDUCT | DROPDEL
 	actions_types = list()
+	random_color = FALSE
