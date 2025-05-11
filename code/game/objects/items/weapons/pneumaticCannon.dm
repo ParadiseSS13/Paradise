@@ -97,6 +97,14 @@
 	fire(user, target)
 	return ITEM_INTERACT_COMPLETE
 
+/obj/item/pneumatic_cannon/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(get_turf(user) == get_turf(target))
+		return ..()
+	if(user.a_intent != INTENT_HELP) // I know this seems backwards but other guns also have point blank shooting being locked to help intent
+		return ..()
+	fire(user, target)
+	return ITEM_INTERACT_COMPLETE
+
 /obj/item/pneumatic_cannon/proc/fire(mob/living/carbon/human/user, atom/target)
 	if(!istype(user) && !target)
 		return
