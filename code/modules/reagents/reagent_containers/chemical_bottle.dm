@@ -317,6 +317,11 @@
 	desc = "A small bottle. Contains stable agar which stop a virus from being able to mutate on its own"
 	list_reagents = list("stable_agar" = 50)
 
+/obj/item/reagent_containers/glass/bottle/sterilizine
+	name = "Sterilizine bottle"
+	desc = "A small bottle. Contains sterilizine, which is used to sterilize beakers and syringes"
+	list_reagents = list("sterilizine" = 50)
+
 /obj/item/reagent_containers/glass/bottle/viral_eraser
 	name = "Viral eraser bottle"
 	desc = "A small bottle. Contains a small amount of viral eraser which removes all tracking and stabilizing from a virus"
