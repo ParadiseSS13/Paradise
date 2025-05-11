@@ -1,5 +1,5 @@
 /****************************************************
-				BLOOD SYSTEM
+				MARK: BLOOD SYSTEM
 ****************************************************/
 
 #define EXOTIC_BLEED_MULTIPLIER 4 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
@@ -134,7 +134,7 @@
 	bleed_rate = 0
 
 /****************************************************
-				BLOOD TRANSFERS
+				MARK: BLOOD TRANSFERS
 ****************************************************/
 
 //Gets blood from mob to a container or other mob, preserving all data in it.

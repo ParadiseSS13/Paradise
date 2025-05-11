@@ -178,9 +178,9 @@ MARK: Helpers
 	GLOB.active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
 
 	if(respect_carrier)
-		DD.carrier -= D.carrier
+		DD.carrier = D.carrier
 
-	create_log(MISC_LOG, "has contacted the virus \"[DD]\"")
+	create_log(MISC_LOG, "has contracted the virus \"[DD]\"")
 	DD.affected_mob.med_hud_set_status()
 	DD.after_infect()
 
