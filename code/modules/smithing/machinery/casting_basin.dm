@@ -153,6 +153,9 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smithing/casting_basin/attack_hand(mob/user)
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return FINISH_ATTACK
 	if(produced_item)
 		if(produced_item.burn_check(user))
 			produced_item.burn_user(user)

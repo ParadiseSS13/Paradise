@@ -12,6 +12,7 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
+	req_one_access = list(ACCESS_SMITH)
 	/// How many loops per operation
 	var/operation_time = 10
 	/// Is this active
@@ -65,6 +66,14 @@
 		working_component = used
 		return ITEM_INTERACT_COMPLETE
 	return ..()
+
+/obj/machinery/smithing/emag_act(user as mob)
+	if(!emagged)
+		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)
+		req_one_access = list()
+		emagged = TRUE
+		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		return TRUE
 
 /obj/machinery/smithing/proc/operate(loops, mob/living/user)
 	operating = TRUE
