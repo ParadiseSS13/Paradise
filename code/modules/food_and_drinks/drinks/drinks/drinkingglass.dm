@@ -72,3 +72,6 @@
 
 /obj/item/reagent_containers/drinks/drinkingglass/jungle_vox
 	list_reagents = list("junglevox" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/pina_colada
+	list_reagents = list("pinacolada" = 50)
