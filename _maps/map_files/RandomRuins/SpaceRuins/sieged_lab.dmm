@@ -492,7 +492,7 @@
 "xV" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/east{
 	id_tag = "SL_EndRoom"
 	},
 /turf/simulated/floor/plasteel{
@@ -777,7 +777,7 @@
 	},
 /area/ruin/space/sieged_lab)
 "La" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -1054,7 +1054,7 @@
 	name = "Executive Suite"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
 	id_tag = "SL_EndRoom"
 	},
 /turf/simulated/floor/plasteel,
