@@ -360,7 +360,7 @@
 /datum/action/item_action/accessory
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 
-/datum/action/item_action/accessory/IsAvailable()
+/datum/action/item_action/accessory/IsAvailable(show_message = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
