@@ -184,7 +184,9 @@
 			for(var/datum/disease/advance/AD in to_mix)
 				result_diseases += AD.Copy()
 		else
-			result_diseases = list(Advance_Mix(to_mix))
+			var/datum/disease/advance/result_virus = Advance_Mix(to_mix)
+			if(istype(result_virus))
+				result_diseases = list(result_virus)
 
 		if(length(result_diseases))
 			var/list/preserve = result_diseases
