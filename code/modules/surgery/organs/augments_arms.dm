@@ -668,6 +668,10 @@
 	button_icon = 'icons/obj/surgery.dmi'
 	button_icon_state = "shell_cannon"
 
+/datum/action/item_action/organ_action/toggle/shell_cannon
+	button_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "shell_cannon"
+
 /obj/item/organ/internal/cyberimp/arm/shell_launcher
 	name = "shell launch system implant"
 	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve-gauge shotgun shells."
