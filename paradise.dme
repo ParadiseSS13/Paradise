@@ -482,6 +482,7 @@
 #include "code\datums\cache\crew.dm"
 #include "code\datums\cache\powermonitor.dm"
 #include "code\datums\components\_component.dm"
+#include "code\datums\components\action_item_overlay.dm"
 #include "code\datums\components\ai_retaliate_advanced.dm"
 #include "code\datums\components\anti_magic.dm"
 #include "code\datums\components\boomerang.dm"

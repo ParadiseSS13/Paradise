@@ -59,8 +59,8 @@
 
 /datum/action/innate/diona/merge
 	name = "Merge with gestalt"
-	button_overlay_icon = 'icons/mob/human_races/r_diona.dmi'
-	button_overlay_icon_state = "preview"
+	button_icon = 'icons/mob/human_races/r_diona.dmi'
+	button_icon_state = "preview"
 
 /datum/action/innate/diona/merge/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -68,8 +68,8 @@
 
 /datum/action/innate/diona/evolve
 	name = "Evolve"
-	button_overlay_icon = 'icons/obj/cloning.dmi'
-	button_overlay_icon_state = "pod_cloning"
+	button_icon = 'icons/obj/cloning.dmi'
+	button_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -77,8 +77,8 @@
 
 /datum/action/innate/diona/steal_blood
 	name = "Steal blood"
-	button_overlay_icon = 'icons/goonstation/objects/iv.dmi'
-	button_overlay_icon_state = "bloodbag"
+	button_icon = 'icons/goonstation/objects/iv.dmi'
+	button_icon_state = "bloodbag"
 
 /datum/action/innate/diona/steal_blood/Activate()
 	var/mob/living/simple_animal/diona/user = owner

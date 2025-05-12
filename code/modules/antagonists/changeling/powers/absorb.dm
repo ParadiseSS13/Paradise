@@ -1,7 +1,7 @@
 /datum/action/changeling/absorb_dna
 	name = "Absorb DNA"
 	desc = "Absorb the DNA of our victim. Requires us to strangle them."
-	button_overlay_icon_state = "absorb_dna"
+	button_icon_state = "absorb_dna"
 	chemical_cost = 0
 	power_type = CHANGELING_INNATE_POWER
 	req_human = TRUE
