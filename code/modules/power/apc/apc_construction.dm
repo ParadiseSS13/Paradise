@@ -169,14 +169,14 @@
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, apc_frame_welding_time, amount = 3, volume = I.tool_volume))
 		if((stat & BROKEN) || opened == APC_COVER_OFF)
-			new /obj/item/stack/sheet/metal(loc)
+			new sheet_type(loc)
 			user.visible_message(\
 				"<span class='notice'>[user] has cut [src] apart with [I].</span>",
 				"<span class='notice'>You disassembled the broken APC frame.</span>",
 				"<span class='warning'>You hear welding.</span>"
 				)
 		else
-			new /obj/item/mounted/frame/apc_frame(loc)
+			new frame_type(loc)
 			user.visible_message(\
 				"<span class='notice'>[user] has cut [src] from the wall with [I].</span>",
 				"<span class='notice'>You cut the APC frame from the wall.</span>",

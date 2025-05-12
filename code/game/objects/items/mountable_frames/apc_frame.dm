@@ -15,16 +15,16 @@
 	if(A.get_apc())
 		to_chat(user, "<span class='warning'>This area already has an APC!</span>")
 		return //only one APC per area
-	
+
 	if(!A.requires_power)
 		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
 		return //can't place apcs in areas with no power requirement
-	
+
 	for(var/obj/machinery/power/terminal/E in T)
 		if(E.master)
 			to_chat(user, "<span class='warning'>There is another network terminal here!</span>")
 			return
-	
+
 		else
 			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(T)
 			C.amount = 10
@@ -34,4 +34,12 @@
 
 /obj/item/mounted/frame/apc_frame/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/power/apc(get_turf(src), get_dir(user, on_wall), TRUE)
+	qdel(src)
+
+/obj/item/mounted/frame/apc_frame/reinforced
+	name = "Reinforced APC frame"
+	desc = "Used for repairing or building Reinforced APCs, which provide additional arcing protection"
+
+/obj/item/mounted/frame/apc_frame/reinforced/do_build(turf/on_wall, mob/user)
+	new /obj/machinery/power/apc/reinforced(get_turf(src), get_dir(user, on_wall), TRUE)
 	qdel(src)

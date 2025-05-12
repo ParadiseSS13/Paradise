@@ -23,6 +23,8 @@
 	// These exist here and not as defines in `apc_defines.dm` so they can be modified for `test_apc_construction.dm`.
 	var/apc_frame_welding_time = 2 SECONDS
 	var/apc_terminal_wiring_time = 2 SECONDS
+	var/frame_type = /obj/item/mounted/frame/apc_frame
+	var/sheet_type = /obj/item/stack/sheet/metal
 
 	// set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
 	powernet = 0
@@ -241,6 +243,8 @@
 	. += "<span class='notice'>You can crowbar an unlocked APC to open the cover of the APC.</span>"
 	if(isAntag(user))
 		. += "<span class='warning'>An APC can be emagged to unlock it, this will keep it in it's refresh state, making very obvious something is wrong.</span>"
+	if(shock_proof)
+		. += "This is a reinforced model with additional arcing protection"
 
 /obj/machinery/power/apc/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(issilicon(user) && get_dist(src, user) > 1)
@@ -352,7 +356,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	// APC frame repair. Instant, but you consume 2 metal instead of doing it for free.
-	if(istype(used, /obj/item/mounted/frame/apc_frame) && opened)
+	if(istype(used, frame_type) && opened)
 		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity))
 			to_chat(user, "<span class='warning'>[src] has no damage to fix!</span>")
 			return ITEM_INTERACT_COMPLETE
@@ -835,7 +839,7 @@
 	if(obj_integrity > integrity_failure || opened != APC_COVER_OFF)
 		return
 	var/drop_loc = drop_location()
-	new /obj/item/stack/sheet/metal(drop_loc, 3) // Metal from the frame
+	new sheet_type(drop_loc, 3) // Metal from the frame
 	new /obj/item/stack/cable_coil(drop_loc, 10) // wiring from the terminal and the APC, some lost due to explosion
 	QDEL_NULL(terminal) // We don't want floating terminals
 	qdel(src)
@@ -1107,6 +1111,12 @@
 /obj/machinery/power/apc/critical
 	cell_type = 25000
 
+/// Can handle any amount of power. Made with plasteel frames and is found in maints and other high power areas.
+/obj/machinery/power/apc/reinforced
+	shock_proof = TRUE
+	frame_type = /obj/item/mounted/frame/apc_frame/reinforced
+	sheet_type = /obj/item/stack/sheet/plasteel
+
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate/off, 24, 24)
@@ -1115,6 +1125,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/critical, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/off_station/empty_charge, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced, 24, 24)
 
 
 /obj/item/apc_electronics
