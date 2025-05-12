@@ -555,7 +555,7 @@
 	name = "treasure satchel"
 	desc = "A satchel for storing scavenged salvage. There be treasure."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel"
+	icon_state = "satchel_treasure"
 	origin_tech = "engineering=2"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
