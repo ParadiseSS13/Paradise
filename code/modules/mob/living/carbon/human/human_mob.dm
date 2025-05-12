@@ -764,7 +764,7 @@
 				for(var/datum/data/record/R in GLOB.data_core.security)
 					if(R.fields["id"] == E.fields["id"])
 						found_record = E
-					break outer
+						break outer
 
 	if(!found_record)
 		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
