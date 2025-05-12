@@ -3,7 +3,7 @@
 	icon_state = "eyes"
 	gender = PLURAL
 	organ_tag = "eyes"
-	parent_organ = "eyes"
+	parent_organ = "head"
 	slot = "eyes"
 	var/eye_color = "#000000" // Should never be null
 	var/list/colourmatrix = null
