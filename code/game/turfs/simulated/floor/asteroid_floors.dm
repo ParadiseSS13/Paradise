@@ -25,7 +25,7 @@
 		icon_state = "[environment_type][rand(0,12)]"
 
 /turf/simulated/floor/plating/asteroid/proc/getDug(productivity_mod = 1)
-	new digResult(src, 5 * productivity_mod)
+	new digResult(src, round(5 + productivity_mod))
 	icon_plating = "[environment_type]_dug"
 	icon_state = "[environment_type]_dug"
 	SSblackbox.record_feedback("tally", "ore_mined", 5, "[digResult]")
