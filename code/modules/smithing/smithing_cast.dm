@@ -171,9 +171,6 @@
 /obj/item/smithing_cast/misc/AltClick(mob/user, modifiers)
 	return
 
-/obj/item/smithing_cast/misc/examine(mob/user)
-	. = desc
-
 /obj/item/smithing_cast/misc/egun_parts
 	name = "energy gun parts cast"
 	icon_state = "egun_parts_cast"

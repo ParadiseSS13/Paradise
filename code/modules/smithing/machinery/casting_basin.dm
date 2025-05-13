@@ -52,7 +52,6 @@
 			qdel(temp_product)
 		else if(istype(cast, /obj/item/smithing_cast/misc) && !produced_item)
 			var/obj/item/temp_product = new cast.selected_product(src) // This is necessary due to selected_product being a type
-			var/obj/item/smithing_cast/component/comp_cast = cast
 			. += "<span class='notice'>Required Resources:</span>"
 			var/MAT
 			// Get the materials the item needs and display
