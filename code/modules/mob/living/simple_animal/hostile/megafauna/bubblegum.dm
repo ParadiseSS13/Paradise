@@ -52,8 +52,11 @@ Difficulty: Hard
 	melee_queue_distance = 20 // as far as possible really, need this because of blood warp
 	ranged = TRUE
 	pixel_x = -32
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
-	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
+	difficulty_ore_modifier = 3
+	crusher_loot = list(/obj/item/crusher_trophy/demon_claws)
+	loot = list(/obj/item/clothing/suit/space/hostile_environment,
+				/obj/item/clothing/head/helmet/space/hostile_environment,
+				/obj/item/melee/spellblade/random)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0
@@ -206,6 +209,10 @@ Difficulty: Hard
 	desc = "Whatever this is, doesn't actually look like it comes from bubblegum, but many other entities. just thinking about how many creatures met their end to make this pile makes you shudder."
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/bubblegum/drop_loot()
+	if(enraged && !second_life)
+		return //The jebait chest already drops
+	return ..()
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)
 	if(second_life)
 		Shoot(A)

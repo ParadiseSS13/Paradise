@@ -49,9 +49,10 @@ Difficulty: Very Hard
 	internal_gps = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
+	crusher_loot = list(/obj/item/crusher_trophy/blaster_tubes)
 	deathmessage = "flakes away into innumerable pieces with the wind. It's metallic arm graft staying behind, falling to the ground with a loud thud."
+	difficulty_ore_modifier = 3
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
 	contains_xeno_organ = TRUE
@@ -386,6 +387,13 @@ Difficulty: Very Hard
 	if(throwing)
 		return
 	floating = on
+
+/mob/living/simple_animal/hostile/megafauna/colossus/generate_random_loot()
+	var/list/crystalchoices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(crystalchoices)
+	var/list/choices = list(/obj/item/organ/internal/vocal_cords/colossus, /obj/item/organ/internal/eyes/cybernetic/eyesofgod, random_crystal)
+	for(var/I in 1 to 2)
+		loot += pick_n_take(choices)
 
 /obj/item/projectile/colossus
 	name ="death bolt"

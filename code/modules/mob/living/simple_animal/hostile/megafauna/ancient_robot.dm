@@ -70,8 +70,8 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -16
 	pixel_y = -16
-	loot = list(/obj/structure/closet/crate/necropolis/ancient)
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
+	loot = list(/obj/item/pinpointer/tendril)
+	crusher_loot = list(/obj/item/crusher_trophy/adaptive_intelligence_core)
 	internal_gps = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_ROBOT
 	score_type = ROBOT_SCORE
@@ -79,6 +79,7 @@ Difficulty: Hard
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
 	contains_xeno_organ = TRUE
+	difficulty_ore_modifier = 4 //Vetus' whole deal was that it dropped ore before all megas did, so it gets a ton
 
 	var/charging = FALSE
 	var/revving_charge = FALSE
@@ -178,6 +179,18 @@ Difficulty: Hard
 	QDEL_NULL(beam)
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/spawn_ore_reward(atom/spawn_location)
+	..()
+	var/list/exquisite_ore = list(
+		/obj/item/stack/ore/platinum, // The vetus can have some, as a treat
+		/obj/item/stack/ore/iridium,
+		/obj/item/stack/ore/palladium
+	)
+
+	new /obj/item/stack/sheet/mineral/abductor(spawn_location, roll("4d8")) // This is the amount of the other rare ores spawned
+	for(var/ore in exquisite_ore)
+		new ore(spawn_location, rand(5, 10)) // Don't want mining to step too much on explorer's toes.
+
 /obj/item/gps/internal/ancient
 	icon_state = null
 	gpstag = "Malfunctioning Signal"
@@ -224,15 +237,14 @@ Difficulty: Hard
 			core_type = /obj/item/assembly/signaler/anomaly/vortex
 		if(CRYO)
 			core_type = /obj/item/assembly/signaler/anomaly/cryo
+	loot += core_type
 
-	var/crate_type = pick(loot)
-	var/obj/structure/closet/crate/C = new crate_type(loc)
-	new core_type(C)
-	if(!enraged)
-		return
-	for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
-		if(M.client)
-			new /obj/item/disk/fauna_research/vetus(C)
+	if(enraged)
+		for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
+			if(!M.client)
+				return
+			loot += /obj/item/disk/fauna_research/vetus
+	..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()

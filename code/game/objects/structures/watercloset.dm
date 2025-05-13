@@ -346,8 +346,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 			pixel_y = -5
 			layer = FLY_LAYER
 
-//add heat controls? when emagged, you can freeze to death in it?
-
 /obj/effect/mist
 	name = "mist"
 	icon = 'icons/obj/watercloset.dmi'
@@ -494,13 +492,10 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 		var/mob/living/carbon/C = M
 
 		if(current_temperature == SHOWER_FREEZING)
-			//C.bodytemperature = max(80, C.bodytemperature - 80)
 			to_chat(C, "<span class='warning'>The water is freezing!</span>")
 
 		else if(current_temperature == SHOWER_BOILING)
-			//C.bodytemperature = min(500, C.bodytemperature + 35)
-			C.adjustFireLoss(5)
-			to_chat(C, "<span class='danger'>The water is searing!</span>")
+			to_chat(C, "<span class='warning'>The water is searing!</span>")
 
 #undef SHOWER_FREEZING
 #undef SHOWER_NORMAL
