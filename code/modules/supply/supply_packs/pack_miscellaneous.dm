@@ -626,7 +626,7 @@
 
 /datum/supply_packs/misc/cookware_crate
 	name = "Kitchen Cookware Crate"
-	cost = 250
+	cost = 100
 	contains = list(
 		/obj/item/reagent_containers/cooking/board,
 		/obj/item/reagent_containers/cooking/bowl,
@@ -728,13 +728,13 @@
 	contains = list(
 		/obj/item/clothing/under/color/red,
 		/obj/item/clothing/head/helmet/fake,
-		/obj/item/clothing/suit/armor/fake,
+		/obj/item/clothing/suit/fake_armor,
 		/obj/item/clothing/shoes/jackboots,
 		/obj/item/storage/fancy/donut_box,
 		/obj/item/restraints/handcuffs/toy,
 		/obj/item/toy/flash,
 		/obj/item/clothing/glasses/sunglasses_fake,
-		/obj/item/gun/energy/laser/tag/fake_egun
+		/obj/item/gun/energy/gun/fake
 	)
 	cost = 500
 	containername = "security officer cosplay kit"
@@ -747,7 +747,6 @@
 		/obj/item/clothing/shoes/jackboots,
 		/obj/item/clothing/mask/gas/syndicate,
 		/obj/item/storage/belt/utility/expedition/vendor,
-		/obj/item/storage/backpack/duffel/syndie/med,
 		/obj/item/storage/toolbox/fakesyndi,
 		/obj/item/folder/syndicate/fake_red
 	)

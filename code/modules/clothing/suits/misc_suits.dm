@@ -1479,3 +1479,16 @@
 	name = "rainbow abaya"
 	icon_state = "rainbowabaya"
 	hoodtype = /obj/item/clothing/head/hooded/screened_niqab/rainbow
+
+/obj/item/clothing/suit/fake_armor
+	name = "repliсa armor vest"
+	desc = "A replica of armor vest made of cheap foam rubber, plastic sheets and duct tape."
+	icon_state = "armor"
+	item_state = "armor"
+	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)

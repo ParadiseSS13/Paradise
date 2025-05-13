@@ -113,9 +113,11 @@
 	contains = list(
 		/obj/item/storage/fancy/donut_box,
 		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box,
 		/obj/item/storage/fancy/donut_box
 	)
-	cost = 200
+	cost = 450
 	containername = "donuts crate"
 
 /datum/supply_packs/organic/donkpocket
@@ -123,9 +125,11 @@
 	contains = list(
 		/obj/item/storage/box/donkpockets,
 		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets,
 		/obj/item/storage/box/donkpockets
 	)
-	cost = 200
+	cost = 400
 	containername = "donk-pockets crate"
 
 /datum/supply_packs/organic/monkey
