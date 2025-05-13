@@ -24,6 +24,7 @@ Bonus
 	transmittable = -4
 	level = 5
 	severity = 4
+	treatments = ("oculine")
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
 	..()
