@@ -194,6 +194,7 @@
 
 /obj/item/ammo_casing/energy/disabler/fake
 	projectile_type = /obj/item/projectile/beam/disabler/fake
+	e_cost = 100
 
 /obj/item/ammo_casing/energy/disabler/eshotgun
 	projectile_type = /obj/item/projectile/beam/disabler/pellet

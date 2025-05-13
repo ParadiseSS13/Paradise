@@ -1482,7 +1482,7 @@
 
 /obj/item/clothing/suit/fake_armor
 	name = "repliсa armor vest"
-	desc = "A replica of armor vest made of cheap foam rubber, plastic sheets and duct tape."
+	desc = "A replica of armor vest made of cheap foam rubber, plastic sheets and duct tape. Obviously, provides no protection."
 	icon_state = "armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"

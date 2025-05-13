@@ -293,6 +293,7 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
 	)
 
+// Replica
 /obj/item/clothing/head/helmet/fake
 	name = "replica helmet"
 	desc = "A replica of a mass-produced protective helmet used by security personnel across the sector. Made of cheap plastic and provides no protection."
