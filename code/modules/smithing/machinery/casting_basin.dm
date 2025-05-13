@@ -50,6 +50,16 @@
 				. += "<span class='notice'> - [MAT]: [ROUND_UP(((temp_product.materials[MAT] * quality.material_mult) * efficiency) / MINERAL_MATERIAL_AMOUNT)] sheets.</span>"
 			// Get rid of the temp product
 			qdel(temp_product)
+		else if(istype(cast, /obj/item/smithing_cast/misc) && !produced_item)
+			var/obj/item/temp_product = new cast.selected_product(src) // This is necessary due to selected_product being a type
+			var/obj/item/smithing_cast/component/comp_cast = cast
+			. += "<span class='notice'>Required Resources:</span>"
+			var/MAT
+			// Get the materials the item needs and display
+			for(MAT in temp_product.materials)
+				. += "<span class='notice'> - [MAT]: [ROUND_UP((temp_product.materials[MAT] * efficiency) / MINERAL_MATERIAL_AMOUNT)] sheets.</span>"
+			// Get rid of the temp product
+			qdel(temp_product)
 
 	if(produced_item)
 		. += "<span class='notice'>There is a [produced_item] in the machine. You can pick it up with your hand.</span>"
@@ -86,6 +96,8 @@
 			. += "cast_lens"
 		else if(istype(cast, /obj/item/smithing_cast/component/trim))
 			. += "cast_trim"
+		else if(istype(cast, /obj/item/smithing_cast/misc/egun_parts))
+			. += "cast_egun_parts"
 		. += "casting_lip"
 	if(panel_open)
 		. += "casting_wires"
@@ -229,6 +241,32 @@
 		new_stack.amount = amount
 		new_stack.update_icon(UPDATE_ICON_STATE)
 
+		// Clean up temps
+		qdel(temp_product)
+		return FINISH_ATTACK
+
+	if(istype(cast, /obj/item/smithing_cast/misc))
+		var/list/used_mats = list()
+
+		// Check if there is enough materials to craft the item
+		for(MAT in temp_product.materials)
+			used_mats[MAT] = temp_product.materials[MAT] * efficiency
+
+		if(!materials.has_materials(used_mats, 1))
+			to_chat(user, "<span class='warning'>Not enough materials in the crucible to smelt [temp_product.name]!</span>")
+			qdel(temp_product)
+			return FINISH_ATTACK
+
+		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
+		// Use the materials and create the item.
+		materials.use_amount(used_mats)
+		linked_crucible.animate_pour(operation_time SECONDS)
+		operate(operation_time, user)
+		produced_item = new cast.selected_product(src)
+		produced_item.set_worktime()
+		produced_item.update_appearance(UPDATE_NAME)
+		produced_item.update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_OVERLAYS)
 		// Clean up temps
 		qdel(temp_product)
 		return FINISH_ATTACK

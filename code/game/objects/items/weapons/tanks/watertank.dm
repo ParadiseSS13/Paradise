@@ -224,7 +224,7 @@
 	item_state = "nozzleatmos"
 	has_safety = FALSE
 	safety_active = FALSE
-	max_water = 500
+	reagent_capacity = 500
 	precision = TRUE
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
@@ -257,7 +257,7 @@
 
 	tank = loc
 	reagents = tank.reagents
-	max_water = tank.volume
+	reagent_capacity = tank.volume
 
 	return ..()
 
