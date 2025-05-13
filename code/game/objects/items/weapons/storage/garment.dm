@@ -7,7 +7,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	display_contents_with_number = FALSE
 	max_combined_w_class = 200
-	storage_slots = 21
+	storage_slots = 27
 	resistance_flags = FLAMMABLE
 	can_hold = list(/obj/item/clothing)
 	cant_hold = list(
