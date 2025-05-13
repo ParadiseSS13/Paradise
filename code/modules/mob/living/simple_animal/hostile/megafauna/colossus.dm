@@ -49,7 +49,6 @@ Difficulty: Very Hard
 	internal_gps = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
-	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	crusher_loot = list(/obj/item/crusher_trophy/blaster_tubes)
 	deathmessage = "flakes away into innumerable pieces with the wind. It's metallic arm graft staying behind, falling to the ground with a loud thud."
 	difficulty_ore_modifier = 3
