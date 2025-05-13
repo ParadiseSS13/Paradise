@@ -511,17 +511,17 @@
 	Malf AI HUD
 ~~~~~~~~~~~~~~~*/
 
-/mob/living/carbon/human/proc/malf_hud_set_status(new_status)
+/mob/living/carbon/human/proc/malf_hud_set_status()
 	var/image/holder = hud_list[MALF_AI_HUD]
+	var/new_status
 	var/targetname = get_visible_name(TRUE) //gets the name of the target, works if they have an id or if their face is uncovered
 	if(!SSticker)
 		return //wait till the game starts or the monkeys runtime
-	if(!new_status)
-		for(var/datum/data/record/E in GLOB.data_core.general)
-			if(E.fields["name"] == targetname)
-				for(var/datum/data/record/R in GLOB.data_core.security)
-					if(R.fields["id"] == E.fields["id"])
-						new_status = E.fields["ai_target"]
+	for(var/datum/data/record/E in GLOB.data_core.general)
+		if(E.fields["name"] == targetname)
+			for(var/datum/data/record/R in GLOB.data_core.security)
+				if(R.fields["id"] == E.fields["id"])
+					new_status = E.fields["ai_target"]
 	if(targetname)
 		var/datum/data/record/R = find_record("name", targetname, GLOB.data_core.security)
 		if(R)
