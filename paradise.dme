@@ -2910,6 +2910,7 @@
 #include "code\modules\redis\callbacks\dev_callback.dm"
 #include "code\modules\redis\callbacks\msay_callback.dm"
 #include "code\modules\redis\callbacks\server_messages_callback.dm"
+#include "code\modules\redis\callbacks\staff_callback.dm"
 #include "code\modules\research\backup_console.dm"
 #include "code\modules\research\circuitprinter.dm"
 #include "code\modules\research\designs.dm"
