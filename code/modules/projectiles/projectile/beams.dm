@@ -112,7 +112,7 @@
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/item/projectile/beam/disabler/fake
-	name = "weak disabler beam"
+	name = "weakened disabler beam"
 	nodamage = 1
 	damage = 0
 
