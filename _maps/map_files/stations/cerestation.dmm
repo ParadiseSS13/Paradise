@@ -63066,6 +63066,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment/corner,
+/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "muW" = (
@@ -82008,7 +82009,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/storage/belt/medical/surgery{
+	pixel_y = 10
+	},
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -92322,13 +92328,9 @@
 	},
 /area/station/hallway/primary/fore/east)
 "twG" = (
-/obj/structure/table/glass,
+/obj/structure/shelf/science,
 /obj/item/book/manual/wiki/sop_science,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
-	},
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -106372,6 +106374,10 @@
 	},
 /obj/item/storage/box/beakers{
 	pixel_x = 10
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

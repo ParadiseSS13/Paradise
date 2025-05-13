@@ -23057,14 +23057,12 @@
 	dir = 1;
 	network = list("Research","SS13")
 	},
-/obj/structure/table,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3
-	},
+/obj/structure/shelf/science,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -108429,11 +108427,7 @@
 	pixel_x = 10
 	},
 /obj/structure/table,
-/obj/item/clothing/glasses/science{
-	pixel_y = 4
-	},
-/obj/item/clothing/glasses/science,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/storage/belt/medical/surgery,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -120718,6 +120712,7 @@
 /area/station/service/kitchen)
 "yfA" = (
 /obj/structure/table/glass,
+/obj/item/clothing/gloves/color/latex,
 /obj/item/slime_scanner,
 /obj/item/slime_scanner{
 	pixel_y = 4;
