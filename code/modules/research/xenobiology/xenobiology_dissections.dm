@@ -55,13 +55,20 @@
 	if(istype(surgery, /datum/surgery/dissect))
 		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
 		if(length(surgery.steps) <= surgery.step_number) // only procs if its the finishing step
-			var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(target.loc)
-			if(length(target.custom_organ_states))
-				new_organ.icon_state = pick(target.custom_organ_states)
-			new_organ.true_organ_type = pick(target.xeno_organ_results)
-			new_organ.unknown_quality = pick_quality(tool, surgery.get_surgery_step())
-			target.xeno_organ_results = null // ensures we cant remove multiple organs. Only one allowed!
-			SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[new_organ.true_organ_type]", new_organ.unknown_quality))
+			if(isalien(target)) // xenos are special snowflakes
+				var/picked = pick(target.xeno_organ_results)
+				var/obj/item/organ/internal/alien/xeno = new picked(target.loc)
+				xeno.organ_quality = pick_quality(tool, surgery.get_surgery_step())
+				SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[picked]", xeno.organ_quality))
+				target.xeno_organ_results -= picked
+			else
+				var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(target.loc)
+				if(length(target.custom_organ_states))
+					new_organ.icon_state = pick(target.custom_organ_states)
+				new_organ.true_organ_type = pick(target.xeno_organ_results)
+				new_organ.unknown_quality = pick_quality(tool, surgery.get_surgery_step())
+				target.xeno_organ_results = null // ensures we cant remove multiple organs. Only one allowed!
+				SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[new_organ.true_organ_type]", new_organ.unknown_quality))
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/dissect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

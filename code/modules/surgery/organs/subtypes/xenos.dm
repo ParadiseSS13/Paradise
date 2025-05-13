@@ -155,11 +155,17 @@
 	..()
 	M.faction |= "alien"
 	ADD_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
+	if(organ_quality == ORGAN_PRISTINE)
+		M.add_language("Hivemind")
+		M.add_language("Xenomorph")
 
 /obj/item/organ/internal/alien/hivenode/remove(mob/living/carbon/M, special = 0)
 	M.faction -= "alien"
 	REMOVE_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
 	. = ..()
+	if(organ_quality == ORGAN_PRISTINE)
+		M.remove_language("Hivemind")
+		M.remove_language("Xenomorph")
 
 /obj/item/organ/internal/alien/neurotoxin
 	name = "xeno neurotoxin gland"
