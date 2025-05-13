@@ -59,6 +59,7 @@
 		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150),
 		EQUIPMENT("Shelter Capsule", /obj/item/survivalcapsule, 400),
 		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
+		EQUIPMENT("Bridge Capsule", /obj/item/bridge_capsule, 300),
 		EQUIPMENT("Stabilizing Serum", /obj/item/hivelordstabilizer, 400),
 		EQUIPMENT("Survival Medipen", /obj/item/reagent_containers/hypospray/autoinjector/survival, 500),
 	)
