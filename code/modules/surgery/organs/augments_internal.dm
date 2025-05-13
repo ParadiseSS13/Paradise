@@ -103,21 +103,21 @@
 	release_items()
 	..()
 	if(L_item)
-		A = pick(oview(range))
+		A = pick(oview(range, owner))
 		L_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your left arm spasms and throws [L_item]!</span>")
 		l_hand_obj = null
 	if(R_item)
-		A = pick(oview(range))
+		A = pick(oview(range, owner))
 		R_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your right arm spasms and throws [R_item]!</span>")
 		r_hand_obj = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	active = FALSE
-	if(!l_hand_ignore && l_hand_obj && (l_hand_obj == owner.l_hand))
+	if(!l_hand_ignore && l_hand_obj)
 		l_hand_obj.flags &= ~NODROP
-	if(!r_hand_ignore && r_hand_obj && (r_hand_obj == owner.r_hand))
+	if(!r_hand_ignore && r_hand_obj)
 		r_hand_obj.flags &= ~NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(mob/living/carbon/M, special = 0)
