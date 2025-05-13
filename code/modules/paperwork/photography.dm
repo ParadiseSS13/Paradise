@@ -660,13 +660,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
-		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.machines)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.telescreens)
 			if(usr && (usr.unique_datum_id in T.watchers))
 				T.atom_say("[M.name]: [msg]")  // Uses appearance for identifying speaker, not voice
 
 /obj/item/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
-		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.machines)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.telescreens)
 			if(usr && (usr.unique_datum_id in T.watchers))
 				T.atom_say("*[M.name] [msg]")  // Uses appearance for identifying speaker, not voice
 

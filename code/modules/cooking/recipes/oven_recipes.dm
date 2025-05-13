@@ -358,7 +358,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 50 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
 	)
 
 /datum/cooking/recipe/cookies
@@ -618,7 +618,7 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/berries),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
-		PCWJ_USE_OVEN(J_MED, 50 SECONDS),
+		PCWJ_USE_OVEN(J_MED, 30 SECONDS),
 	)
 
 /datum/cooking/recipe/limecake
@@ -716,7 +716,7 @@
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
-		PCWJ_ADD_PRODUCE(/obj/item/grown/cotton),
+		PCWJ_ADD_ITEM(/obj/item/grown/cotton),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 5),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),

@@ -27,12 +27,14 @@
 	suffix = "lavaland_surface_seed_vault.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/seed_vault_eden
 	name = "Garden of Eden"
 	id = "ruin-eden"
-	description = "Not all of the seed vaulters stay within their tiny sheltered grow rooms to toil with plants. Some desired to full extent of the wastes, \
-	to research and adapt their creations to the ashen wastes. Unfortunately, "
+	description = "Not all of the seed vaulters stay within their tiny sheltered grow rooms to toil with plants. Some desired to spread through the full extent of the wastes \
+	to research and adapt their creations to the conditions to the dead land. Unfortunately, most did not survive their foray. Even fewer managed \
+	to secure a foothold before they fell."
 	suffix = "lavaland_surface_eden.dmm"
 	allow_duplicates = FALSE
 
@@ -43,6 +45,7 @@
 	Probably best to stay clear."
 	suffix = "lavaland_surface_ash_walker1.dmm"
 	allow_duplicates = FALSE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/ash_walker_siege
 	name = "Ash Walker Siege"
@@ -60,6 +63,7 @@
 	suffix = "lavaland_surface_golem_ship.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/althland_facility
 	name = "Althland Facility"
@@ -196,6 +200,7 @@
 	suffix = "lavaland_surface_hermit.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/miningripley
 	name = "Ripley"
@@ -237,3 +242,19 @@
 	description = "A passenger shuttle crashsite of indeterminate origin."
 	suffix = "lavaland_surface_shuttlecrash.dmm"
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/nt
+	name = "Nanotrasen Mining Complex"
+	id = "gulag"
+	description = "Nanotrasen's sturdy planetside mining station and labor camp."
+	suffix = "lavaland_surface_nt.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
+
+/datum/map_template/ruin/lavaland/legiongate
+	name = "Necropolis Gate"
+	id = "legiongate"
+	description = "At the heart of the city of the dead is a horror, so vile, and so powerful, that not even death can claim it."
+	suffix = "lavaland_surface_legiongate.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE

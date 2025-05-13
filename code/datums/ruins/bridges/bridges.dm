@@ -29,7 +29,7 @@
 /obj/effect/spawner/dynamic_bridge
 	var/max_length = 8
 	var/min_length = 4
-	var/bridge_theme = LONG_BRIDGE_THEME_CULT
+	var/bridge_theme
 	var/list/forwards_backwards
 	var/list/side_to_side
 	var/turf/forward_goal
@@ -37,20 +37,21 @@
 
 /obj/effect/spawner/dynamic_bridge/Initialize(mapload)
 	. = ..()
-	bridge_theme = pick(
-		LONG_BRIDGE_THEME_CULT,
-		LONG_BRIDGE_THEME_HIERO,
-		LONG_BRIDGE_THEME_CLOCKWORK,
-		LONG_BRIDGE_THEME_STONE,
-		LONG_BRIDGE_THEME_WOOD,
-		LONG_BRIDGE_THEME_CATWALK,
-	)
+	if(!bridge_theme)
+		bridge_theme = pick(
+			LONG_BRIDGE_THEME_CULT,
+			LONG_BRIDGE_THEME_HIERO,
+			LONG_BRIDGE_THEME_CLOCKWORK,
+			LONG_BRIDGE_THEME_STONE,
+			LONG_BRIDGE_THEME_WOOD,
+			LONG_BRIDGE_THEME_CATWALK,
+		)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/spawner/dynamic_bridge/LateInitialize()
 	forwards_backwards = list(NORTH, SOUTH)
 	side_to_side = list(EAST, WEST)
-	if(!attempt_bridge())
+	if(attempt_bridge() != BRIDGE_SPAWN_SUCCESS)
 		forward_goal = null
 		backward_goal = null
 		forwards_backwards = list(EAST, WEST)
@@ -70,7 +71,30 @@
 	if(end.flags & LAVA_BRIDGE || !(ismineralturf(end) || istype(end, /turf/simulated/floor/plating/asteroid)))
 		return FALSE
 
+	var/area/A = get_area(end)
+	if(istype(A, /area/lavaland/surface/gulag_rock))
+		return FALSE
+
+	if(istype(A, /area/lavaland/surface/outdoors/outpost))
+		return FALSE
+
+	if(istype(A, /area/mine/outpost))
+		return FALSE
+
+	if(istype(A, /area/shuttle))
+		return FALSE
+
 	return TRUE
+
+/obj/effect/spawner/dynamic_bridge/proc/bridgeable_turf(turf/T)
+	// Pre SSlatemapping, before we've replaced mapping turfs with their river theme
+	if(istype(T, /turf/simulated/floor/lava/mapping_lava))
+		return TRUE
+	// Everything else
+	if(istype(T, /turf/simulated/floor/chasm))
+		return TRUE
+	if(istype(T, /turf/simulated/floor/lava))
+		return TRUE
 
 /// Returns whether the passed in turf is a valid "passage". A valid passage is
 /// a lava tile that has lava on both sides of it. Invalid passage tiles do not
@@ -79,11 +103,14 @@
 /obj/effect/spawner/dynamic_bridge/proc/valid_passage(turf/T)
 	if(T.flags & LAVA_BRIDGE)
 		return FALSE
-	if(!istype(T, /turf/simulated/floor/lava/mapping_lava))
+	if(!bridgeable_turf(T))
 		return FALSE
-	if(!istype(get_step(T, side_to_side[1]), /turf/simulated/floor/lava/mapping_lava))
+	if(!bridgeable_turf(get_step(T, side_to_side[1])))
 		return FALSE
-	if(!istype(get_step(T, side_to_side[2]), /turf/simulated/floor/lava/mapping_lava))
+	if(!bridgeable_turf(get_step(T, side_to_side[2])))
+		return FALSE
+	var/area/A = get_area(T)
+	if(istype(A, /area/lavaland/surface/gulag_rock))
 		return FALSE
 
 	return TRUE
@@ -209,7 +236,7 @@
 
 /// Make a tile safe for player passage, for use at the bridge entrance and exits
 /obj/effect/spawner/dynamic_bridge/proc/cleanup_edge(turf/T)
-	if(istype(T, /turf/simulated/floor/lava/mapping_lava))
+	if(bridgeable_turf(T))
 		T.ChangeTurf(/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
 		T.icon_state = "basalt" // hate
 
@@ -244,6 +271,13 @@
 				count++
 			walk_dir = forwards_backwards[1]
 
+	if(bad_passage)
+		return BRIDGE_SPAWN_BAD_TERRAIN
+	if(count < min_length)
+		return BRIDGE_SPAWN_TOO_NARROW
+	if(count > max_length)
+		return BRIDGE_SPAWN_TOO_WIDE
+
 	if(!bad_passage && count >= min_length && forward_goal && backward_goal)
 		for(var/turf/T in get_line(forward_goal, backward_goal))
 			make_walkway(T)
@@ -262,7 +296,7 @@
 				get_step(get_step(backward_goal, side_to_side[2]), forwards_backwards[2])))
 			cleanup_edge(T)
 
-		return TRUE
+		return BRIDGE_SPAWN_SUCCESS
 
 /// Checks if we are going out of bounds. Returns TRUE if we are close (less than or equal to 2 turfs) to a border
 /obj/effect/spawner/dynamic_bridge/proc/out_of_bounds(direction, turf/current_turf)
@@ -279,6 +313,40 @@
 		if(WEST)
 			return current_turf.x <= 2
 	return TRUE
+
+/obj/effect/spawner/dynamic_bridge/capsule
+	bridge_theme = LONG_BRIDGE_THEME_CATWALK
+
+/obj/effect/spawner/dynamic_bridge/capsule/Initialize(mapload, thrown_dir)
+	. = ..()
+	if(thrown_dir in list(EAST, WEST))
+		forwards_backwards = list(EAST, WEST)
+		side_to_side = list(NORTH, SOUTH)
+	else
+		forwards_backwards = list(NORTH, SOUTH)
+		side_to_side = list(EAST, WEST)
+
+	return INITIALIZE_HINT_NORMAL
+
+/datum/map_template/ruin/lavaland/zlvl_bridge
+	prefix = "_maps/map_files/RandomRuins/LavaRuins/zlvl_bridges/"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/vertical
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
+	name = "Vertical Bridge One"
+	suffix = "lavaland_zlvl_bridge_vertical_1.dmm"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
+	name = "Horizontal Bridge One"
+	suffix = "lavaland_zlvl_bridge_horizontal_1.dmm"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
 
 #undef LONG_BRIDGE_THEME_CULT
 #undef LONG_BRIDGE_THEME_HIERO

@@ -201,7 +201,7 @@ included in this role are:
 
 - [Burzah](https://github.com/Burzah)
 - [Contrabang](https://github.com/Contrabang)
-- [farie82](https://github.com/farie82)
+- [Warriorstar](https://github.com/warriorstar-orion)
 
 ---
 

@@ -210,7 +210,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 				"}
 
 			//Simple Animals
-			if(isanimal(M))
+			if(isanimal_or_basicmob(M))
 				body += "<A href='byond://?_src_=holder;makeanimal=[M.UID()]'>Re-Animalize</A> | "
 			else
 				body += "<A href='byond://?_src_=holder;makeanimal=[M.UID()]'>Animalize</A> | "
@@ -516,7 +516,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(SSticker.current_state < GAME_STATE_PREGAME)
+	if(SSticker.current_state < GAME_STATE_STARTUP)
 		alert("Unable to start the game as it is not set up.")
 		return
 

@@ -513,9 +513,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!client)
 		return
 #endif
-	if(!do_after(src, ventcrawl_delay, target = src))
-		return
-
+	if(ismorph(src))
+		if(!do_after(src, ventcrawl_delay, target = src, hidden = TRUE))
+			return
+	else
+		if(!do_after(src, ventcrawl_delay, target = src))
+			return
 	if(!vent_found.can_crawl_through())
 		to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
 		return
@@ -1235,13 +1238,10 @@ so that different stomachs can handle things in different ways VB*/
 		. |= LH.GetAccess()
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(!wear_mask)
-		return TRUE
+	if(wear_mask?.flags & BLOCK_GAS_SMOKE_EFFECT || head?.flags & BLOCK_GAS_SMOKE_EFFECT || internal)
+		return FALSE
 
-	if(!(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT) && internal == null)
-		return TRUE
-
-	return FALSE
+	return TRUE
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()

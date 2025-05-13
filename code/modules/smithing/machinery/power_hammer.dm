@@ -18,6 +18,11 @@
 	RefreshParts()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/smithing/power_hammer/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can set [src] to automatically continue hammering heated metal with a multitool.</span>"
+	. += "<span class='notice'>The autohammer light is currently [repeating ? "on" : "off"].</span>"
+
 /obj/machinery/smithing/power_hammer/update_overlays()
 	. = ..()
 	overlays.Cut()
@@ -42,7 +47,10 @@
 	operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - operation_mult)), 2)
 
 /obj/machinery/smithing/power_hammer/operate(loops, mob/living/user)
-	if(!working_component.hot)
+	if(!working_component)
+		to_chat(user, "<span class='notice'>There is no component to hammer!</span>")
+		return
+	if(!working_component.heat)
 		to_chat(user, "<span class='notice'>[working_component] is too cold to properly shape.</span>")
 		return
 	if(working_component.hammer_time <= 0)
@@ -52,11 +60,11 @@
 	working_component.powerhammer()
 	do_sparks(5, TRUE, src)
 	// If the hammer is set to repeat mode, let it repeat operations automatically.
-	if(repeating && working_component.hot && working_component.hammer_time)
+	if(repeating && working_component.heat && working_component.hammer_time)
 		operate(loops, user)
 	// When an item is done, beep.
 	if(!working_component.hammer_time)
-		playsound(src, 'sound/machines/boop.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/boop.ogg', 50, FALSE)
 
 /obj/machinery/smithing/power_hammer/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE

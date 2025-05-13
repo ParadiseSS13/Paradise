@@ -99,6 +99,7 @@
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	hitsound = "swing_hit"
 	icon_state = "dualsaber0"
 	force = 3
 	throwforce = 5
@@ -128,8 +129,21 @@
 	. = ..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force_unwielded, wieldsound = wieldsound, unwieldsound = unwieldsound, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded = TRUE)
+	AddComponent(/datum/component/parry, \
+		_stamina_constant = 2, \
+		_stamina_coefficient = 0.25, \
+		_parryable_attack_types = ALL_ATTACK_TYPES, \
+		_parry_cooldown = (4 / 3) SECONDS, /* 0.33 seconds of cooldown for 75% uptime */ \
+		_requires_two_hands = TRUE)
+	AddComponent(/datum/component/two_handed, \
+		force_wielded = force_wielded, \
+		force_unwielded = force_unwielded, \
+		wieldsound = wieldsound, \
+		unwieldsound = unwieldsound, \
+		attacksound = 'sound/weapons/blade1.ogg', \
+		wield_callback = CALLBACK(src, PROC_REF(on_wield)), \
+		unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), \
+		only_sharp_when_wielded = TRUE)
 
 /obj/item/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -226,18 +240,13 @@
 /obj/item/dualsaber/blue
 	blade_color = "blue"
 
-
 /obj/item/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(user && HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You lack the grace to wield this!</span>")
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
-
-	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
-
 /obj/item/dualsaber/proc/on_unwield()
-	hitsound = "swing_hit"
 	w_class = initial(w_class)
 
 /obj/item/dualsaber/IsReflect()

@@ -34,8 +34,10 @@
 	if(L.reagents.has_reagent("terror_black_toxin", 100))
 		return ..()
 	var/inject_target = pick("chest", "head")
+	// Stop if we got blocked/parried
+	if(!L.attack_animal(src))
+		return
 	L.apply_damage(30, STAMINA)
-	L.attack_animal(src)
 	if(L.can_inject(null, FALSE, inject_target, FALSE) || (HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) && HAS_TRAIT(L, TRAIT_IMMOBILIZED)))
 		L.reagents.add_reagent("terror_black_toxin", 30) // inject our special poison
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")

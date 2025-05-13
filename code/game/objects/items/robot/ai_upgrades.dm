@@ -47,3 +47,15 @@
 		to_chat(AI, "Via a combination of hidden microphones and lip reading software, you are able to use your cameras to listen in on conversations.")
 	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
 	qdel(src)
+
+// AI program reset
+/obj/item/ai_upgrade/ai_program_reset
+	name = "Program Reset Disk"
+	desc = "Insert this disk into the AI core to completely reset their programs."
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/ai_upgrade/ai_program_reset/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
+	if(!istype(AI))
+		return
+	to_chat(user, "<span class='notice'>You reset [AI]'s program storage to factory settings.</span>")
+	AI.reset_programs()

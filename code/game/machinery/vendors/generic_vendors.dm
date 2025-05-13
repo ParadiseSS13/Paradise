@@ -670,6 +670,7 @@
 					/obj/item/clothing/under/costume/pirate = 1,
 					/obj/item/clothing/suit/pirate_brown = 1,
 					/obj/item/clothing/suit/pirate_black =1,
+					/obj/item/clothing/head/cool_bandana =1,
 					/obj/item/clothing/under/costume/pirate_rags =1,
 					/obj/item/clothing/head/pirate = 1,
 					/obj/item/clothing/under/costume/soviet = 1,
@@ -789,6 +790,7 @@
 				/obj/item/clothing/under/costume/pirate = 100,
 				/obj/item/clothing/suit/pirate_brown = 100,
 				/obj/item/clothing/suit/pirate_black = 100,
+				/obj/item/clothing/head/cool_bandana = 50,
 				/obj/item/clothing/under/costume/pirate_rags = 100,
 				/obj/item/clothing/head/pirate = 50,
 				/obj/item/clothing/under/costume/soviet = 100,
@@ -1382,7 +1384,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed, 32, 32)
 					/obj/item/cartridge/atmos = 10,
 					/obj/item/cartridge/janitor = 10,
 					/obj/item/cartridge/signal/toxins = 10,
-					/obj/item/cartridge/signal = 10)
+					/obj/item/cartridge/signal = 10,
+					/obj/item/cartridge/chef = 10)
 
 	contraband = list(/obj/item/cartridge/clown = 1,
 					/obj/item/cartridge/mime = 1)
@@ -1394,7 +1397,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed, 32, 32)
 				/obj/item/cartridge/atmos = 75,
 				/obj/item/cartridge/janitor = 100,
 				/obj/item/cartridge/signal/toxins = 150,
-				/obj/item/cartridge/signal = 75)
+				/obj/item/cartridge/signal = 75,
+				/obj/item/cartridge/chef = 100)
 
 	refill_canister = /obj/item/vending_refill/cart
 

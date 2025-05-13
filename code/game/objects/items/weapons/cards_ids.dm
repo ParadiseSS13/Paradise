@@ -792,7 +792,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY, ACCESS_SMITH) //access to robots/mechs
 	can_id_flash = FALSE //So you do not flash it the first time you use it.
 	var/registered = FALSE
 
@@ -861,6 +861,11 @@
 						ACCESS_CHANGE_IDS, ACCESS_MINISAT)
 	trainee = I.registered_name
 	icon_state = "nct_chip_active"
+
+/obj/item/card/id/syndicate_fake // Syndicate ID drip with none of the access theft or anti-tracking.
+	name = "\improper Syndicate ID card"
+	desc = "An evil-looking ID issued to members of the Syndicate."
+	icon_state = "syndie"
 
 // Decals
 /obj/item/id_decal

@@ -13,6 +13,27 @@
 /// Only contains attacker name/ckey right now but could be expanded.
 /datum/attack_info
 	/// Name of the mob who performed the last attack.
-	var/last_attacker_name = null
+	var/last_attacker_name
 	/// Ckey of the player who performed the last attack.
-	var/last_attacker_ckey = null
+	var/last_attacker_ckey
+	/// Name and type of the weapon that the last attack was performed with.
+	var/last_attacker_weapon
+
+/datum/attack_info/proc/last_attacker_html()
+	var/name = "INVALID"
+	var/ckey = "INVALID"
+	if(last_attacker_name)
+		name = last_attacker_name
+	if(last_attacker_ckey)
+		var/client/C = get_client_by_ckey(last_attacker_ckey)
+		if(C)
+			ckey = "<a href='byond://?priv_msg=[C.ckey];type=;ticket_id='>[C.ckey]</a>"
+		else
+			ckey = "[C.ckey] (DC)"
+
+	return "[ckey]/([name])"
+
+/datum/attack_info/proc/last_weapon()
+	if(last_attacker_weapon)
+		return " ([last_attacker_weapon])"
+	return ""

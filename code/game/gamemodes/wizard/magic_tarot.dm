@@ -460,7 +460,7 @@
 
 /datum/tarot/the_hermit/activate(mob/living/target)
 	var/list/viable_vendors = list()
-	for(var/obj/machinery/economy/vending/candidate in GLOB.machines)
+	for(var/obj/machinery/economy/vending/candidate in SSmachines.get_by_type(/obj/machinery/economy/vending))
 		if(!is_station_level(candidate.z))
 			continue
 		viable_vendors += candidate

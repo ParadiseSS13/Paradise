@@ -63,6 +63,51 @@
 	)
 	appear_in_default_catalog = FALSE
 
+/datum/cooking/recipe_step/add_item/deep_fried_anything
+
+/datum/cooking/recipe_step/add_item/deep_fried_anything/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/food/food_item = added_item
+	if(!istype(food_item))
+		return PCWJ_CHECK_INVALID
+
+	if("deep fried" in food_item.cooktype)
+		tracker.step_reaction_message = "That is already deep-fried!"
+		return PCWJ_CHECK_INVALID
+
+	// check to see if this is something that belongs to another deep fryer
+	// recipe with only one item
+	for(var/datum/cooking/recipe/recipe in GLOB.pcwj_recipe_dictionary[/obj/item/reagent_containers/cooking/deep_basket])
+		if(length(recipe.steps) == 2) // One add step and one deep fry step
+			var/datum/cooking/recipe_step/add_item/add_item_step = recipe.steps[1]
+			if(istype(add_item_step) && (src != add_item_step) && add_item_step.check_conditions_met(added_item, tracker) == PCWJ_CHECK_VALID)
+				return PCWJ_CHECK_INVALID
+
+	return PCWJ_CHECK_VALID
+
+/datum/cooking/recipe/deep_fried_anything
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/deep_fried_anything(),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe/deep_fried_anything/create_product(datum/cooking/recipe_tracker/tracker)
+	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
+	if(!istype(container))
+		stack_trace("couldn't find container for deep fried everything recipe")
+
+	var/obj/item/food/food_item = container.contents[1]
+	var/obj/item/food/result = new(container)
+	result.icon = food_item.icon
+	result.icon_state = food_item.icon_state
+	result.color = "#FFAD33"
+	result.name = "deep-fried [food_item.name]"
+	result.desc = "It has been deep-fried."
+	result.cooktype["deep fried"] = TRUE
+	food_item.reagents.trans_to(result, food_item.reagents.total_volume)
+	qdel(food_item)
+
 /datum/cooking/recipe/jellybean_red
 	container_type = /obj/item/reagent_containers/cooking/mould/bean
 	product_type = /obj/item/food/candy/jellybean/red

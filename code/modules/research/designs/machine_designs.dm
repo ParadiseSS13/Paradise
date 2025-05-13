@@ -12,6 +12,16 @@
 	build_path = /obj/item/circuitboard/thermomachine
 	category = list ("Engineering Machinery")
 
+/datum/design/space_heater
+	name = "Machine Board (Space Heater)"
+	desc = "The circuit board for a space heater"
+	id = "space_heater"
+	req_tech = list("programming" = 3, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/space_heater
+	category = list ("Engineering Machinery")
+
 /datum/design/recharger
 	name = "Machine Board (Weapon Recharger)"
 	desc = "The circuit board for a weapon recharger."
@@ -570,6 +580,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/kinetic_assembler
+	category = list ("Misc. Machinery")
+
+/datum/design/scientific_assembler
+	name = "Machine Design (Kinetic Assembler)"
+	desc = "The circuit board for a Kinetic Assembler."
+	id = "scientific_assembler"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/scientific_assembler
 	category = list ("Misc. Machinery")
 
 /datum/design/mining_equipment_vendor

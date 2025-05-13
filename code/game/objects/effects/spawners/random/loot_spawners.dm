@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/loot
 	name = "random loot spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "loot"
 
 /obj/effect/spawner/random/loot/contraband_posters
@@ -77,7 +76,6 @@
 
 /obj/effect/spawner/random/loot_crate
 	name = "lootcrate spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "crate_secure"
 	spawn_inside = /obj/structure/closet/crate/secure/loot
 	loot = list(
@@ -129,3 +127,19 @@
 /obj/effect/spawner/random/loot_crate/rarely
 	name = "lootcrate spawner, 20% chance"
 	spawn_loot_chance = 20
+
+/obj/effect/spawner/random/loot/bluespace_tap/food_mixed
+	loot = list(
+		/obj/effect/spawner/random/bluespace_tap/food_common = 6,
+		/obj/effect/spawner/random/bluespace_tap/food_uncommon = 3,
+		/obj/effect/spawner/random/bluespace_tap/food_rare,
+	)
+
+/obj/effect/spawner/random/syndie_mob_loot
+	loot = list(
+		/obj/item/reagent_containers/patch/styptic,
+		/obj/item/reagent_containers/patch/silver_sulf,
+		/obj/item/food/syndicake,
+		/obj/item/food/donkpocket,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+	)
