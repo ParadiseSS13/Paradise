@@ -1350,6 +1350,12 @@
 
 		usr.client.view_devsays()
 
+	else if(href_list["staffsays"])
+		if(!check_rights(R_ADMIN | R_DEV_TEAM))
+			return
+
+		usr.client.view_staffsays()
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
