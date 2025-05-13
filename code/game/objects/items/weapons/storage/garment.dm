@@ -7,7 +7,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	display_contents_with_number = FALSE
 	max_combined_w_class = 200
-	storage_slots = 21
+	storage_slots = 27
 	resistance_flags = FLAMMABLE
 	can_hold = list(/obj/item/clothing)
 	cant_hold = list(
@@ -30,6 +30,7 @@
 /obj/item/storage/bag/garment/captain/populate_contents()
 	new /obj/item/clothing/head/caphat(src)
 	new /obj/item/clothing/head/caphat/parade(src)
+	new /obj/item/clothing/head/caphat/parade/white(src)
 	new /obj/item/clothing/head/beret/captain(src)
 	new /obj/item/clothing/head/beret/captain/white(src)
 	new /obj/item/clothing/head/crown/fancy(src)
@@ -41,6 +42,9 @@
 	new /obj/item/clothing/suit/armor/vest/capcarapace/coat/white(src)
 	new /obj/item/clothing/neck/cloak/captain_mantle(src)
 	new /obj/item/clothing/under/rank/captain(src)
+	new /obj/item/clothing/under/rank/captain/skirt(src)
+	new /obj/item/clothing/under/rank/captain/white(src)
+	new /obj/item/clothing/under/rank/captain/skirt/white(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
 	new /obj/item/clothing/under/rank/captain/dress(src)
 	new /obj/item/clothing/gloves/color/captain(src)
