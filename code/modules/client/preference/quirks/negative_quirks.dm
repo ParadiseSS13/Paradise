@@ -116,3 +116,9 @@
 	species_flags = QUIRK_ORGANIC_INCOMPATIBLE
 	trait_to_apply = TRAIT_NO_APC_CHARGING
 	organ_slot_to_remove = "r_arm_device" // This feels like such a dumb way to do this but I can't think of a smarter solution
+
+/datum/quirk/pacifism
+	name = "Pacifist"
+	desc = "You can't bring yourself to hurt others, and cannot take a command or security position."
+	cost = -3
+	trait_to_apply = TRAIT_PACIFISM
