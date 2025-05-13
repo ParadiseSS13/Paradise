@@ -846,15 +846,3 @@
 	cost = 250
 	containername = "assistant flag crate"
 	contraband = TRUE
-
-/datum/supply_packs/misc/party_grenades
-	name = "Confetti Grenades Crate"
-	contains = list(
-		/obj/item/grenade/confetti,
-		/obj/item/grenade/confetti,
-		/obj/item/grenade/confetti,
-		/obj/item/grenade/confetti,
-		/obj/item/grenade/confetti
-	)
-	cost = 300
-	containername = "confetti grenades crate"
