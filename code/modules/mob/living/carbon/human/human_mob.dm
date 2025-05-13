@@ -786,7 +786,7 @@
 
 	found_record.fields["ai_target"] = new_status
 
-	update_all_mob_malf_hud(new_status)
+	update_all_mob_malf_hud()
 
 
 /mob/living/carbon/human/can_be_flashed(intensity = 1, override_blindness_check = 0)
