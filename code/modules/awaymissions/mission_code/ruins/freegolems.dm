@@ -27,7 +27,11 @@
 	new /obj/item/resonator/upgraded(src)
 	new /obj/item/storage/firstaid/freegolem(src)
 
-/// Golem variant of the ORM
+/**
+  * # Ore Redemption Machine (Golem)
+  *
+  * Golem variant of the ORM.
+  */
 /obj/machinery/mineral/ore_redemption/golem
 	req_access = list(ACCESS_FREE_GOLEMS)
 	req_access_claim = ACCESS_FREE_GOLEMS
@@ -43,7 +47,21 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/// Golem variant of the mining equipment vendor.
+/obj/machinery/mineral/ore_redemption/golem/RefreshParts()
+	var/P = 0.65
+	var/S = 0.65
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
+		P += 0.35 * M.rating
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
+		S += 0.35 * M.rating
+		// Manipulators do nothing
+	// Update our values
+	point_upgrade = P
+	sheet_per_ore = S
+	SStgui.update_uis(src)
+
+/**********************Mining Equiment Vendor (Golem)**************************/
+
 /obj/machinery/mineral/equipment_vendor/golem
 	name = "golem ship equipment vendor"
 
@@ -68,6 +86,7 @@
 		EQUIPMENT("KA Trigger Modification Kit", /obj/item/borg/upgrade/modkit/trigger_guard, 1000),
 		EQUIPMENT("Shuttle Console Board", /obj/item/circuitboard/shuttle/golem_ship, 2000),
 		EQUIPMENT("The Liberator's Legacy", /obj/item/storage/box/rndboards, 2000),
+		EQUIPMENT("The Liberator's Fabricator", /obj/item/storage/box/smithboards, 1000),
 	)
 
 /// Free golem blueprints, like permit but can claim as much as needed.

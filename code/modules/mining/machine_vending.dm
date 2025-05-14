@@ -30,6 +30,7 @@
 		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
 		EQUIPMENT("Lazarus Capsule belt", /obj/item/storage/belt/lazarus, 200),
 		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
+		EQUIPMENT("Telecommunications Relay Kit", /obj/item/storage/box/relay_kit, 500),
 	)
 	prize_list["Modsuits and Exosuits"] = list(
 		EQUIPMENT("Standard MODsuit", /obj/item/mod/control/pre_equipped/standard/explorer, 1000),
@@ -52,6 +53,7 @@
 		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150),
 		EQUIPMENT("Shelter Capsule", /obj/item/survivalcapsule, 400),
 		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
+		EQUIPMENT("Bridge Capsule", /obj/item/bridge_capsule, 300),
 		EQUIPMENT("Stabilizing Serum", /obj/item/hivelordstabilizer, 400),
 		EQUIPMENT("Survival Medipen", /obj/item/reagent_containers/hypospray/autoinjector/survival, 500),
 	)
