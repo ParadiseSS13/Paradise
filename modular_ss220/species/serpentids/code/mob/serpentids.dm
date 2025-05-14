@@ -229,16 +229,10 @@
 /datum/antag_scenario/traitor
 	restricted_species = list("Serpentid")
 
-/datum/antag_scenario/mindflayer
-	restricted_species = list("Serpentid")
-
 /datum/antag_scenario/team/blood_brothers
 	restricted_species = list("Serpentid")
 
 /datum/ruleset/traitor
-	banned_species = list("Serpentid")
-
-/datum/ruleset/mindflayer
 	banned_species = list("Serpentid")
 
 /datum/ruleset/vampire
