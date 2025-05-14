@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 
 /datum/quirk/Destroy(force, ...)
 	remove_quirk_effects()
-	owner.quirks -= src
+	owner.quirks.Remove(src)
 	owner = null
 	return ..()
 
@@ -107,3 +107,6 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 			return TRUE
 	return FALSE
 
+/mob/living/carbon/human/proc/clear_quirks()
+	for(var/datum/quirk/quirk in quirks)
+		qdel(quirk)
