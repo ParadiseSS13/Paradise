@@ -37,11 +37,55 @@
 
 /obj/item/storage/box/papersack/prepped_meal
 	name = "packed meal"
+	var/list/entree_options = list(
+		/obj/item/food/sandwich,
+		/obj/item/food/toastedsandwich,
+		/obj/item/food/jellysandwich,
+		/obj/item/food/grilledcheese,
+		/obj/item/food/burger/cheese,
+		/obj/item/food/blt,
+		/obj/item/food/philly_cheesesteak,
+		/obj/item/food/sliced/hawaiian_pizza,
+		/obj/item/food/sliced/pepperoni_pizza,
+		/obj/item/food/meatkebab,
+		/obj/item/food/salmonsteak, // If anyone microwaves their leftover fish in the workplace it should be on sight
+		/obj/item/food/shrimp_skewer,
+		/obj/item/food/omelette
+	)
+	var/list/snack_options = list(
+		/obj/item/food/chips,
+		/obj/item/food/sosjerky,
+		/obj/item/food/pistachios,
+		/obj/item/food/no_raisin,
+		/obj/item/food/stroopwafel,
+		/obj/item/food/candy/toffee,
+		/obj/item/food/candy/chocolate_orange,
+		/obj/item/food/sliced/mothmallow,
+		/obj/item/food/sliced/apple_cake,
+		/obj/item/food/sliced/banarnarbread
 
-/obj/item/storage/box/papersack/prepped_meal/populate_contents() //Just go with this for ease right now, but maybe make a more interesting lunch spawner later
-	new /obj/item/food/customizable/sandwich(src)
-	new /obj/item/food/chips(src)
-	new /obj/item/reagent_containers/drinks/cans/cola(src)
+	)
+	var/list/drink_options = list(
+		/obj/item/reagent_containers/drinks/h_chocolate,
+		/obj/item/reagent_containers/drinks/tea,
+		/obj/item/reagent_containers/drinks/cans/cola,
+		/obj/item/reagent_containers/drinks/cans/space_mountain_wind,
+		/obj/item/reagent_containers/drinks/cans/dr_gibb,
+		/obj/item/reagent_containers/drinks/cans/space_up,
+		/obj/item/reagent_containers/drinks/cans/iced_tea,
+		/obj/item/reagent_containers/drinks/cans/starkist,
+		/obj/item/reagent_containers/drinks/bottle/beer // Don't tell your boss
+	)
+
+/obj/item/storage/box/papersack/prepped_meal/populate_contents()
+	var/entree = pick(entree_options)
+	var/snack = pick(snack_options)
+	var/drink = pick(drink_options)
+	new entree (src)
+	new snack (src)
+	new drink (src)
+
+
 
 /datum/quirk/upgraded_lungs
 	name = "Upgraded Cybernetic Lungs"
