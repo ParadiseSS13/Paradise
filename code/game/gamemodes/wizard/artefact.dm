@@ -894,10 +894,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	var/datum/disease/zombie/wizard/plague_virus = new /datum/disease/zombie/wizard(chosen_plague, TRUE)
 	victim.ForceContractDisease(plague_virus)
-	for(var/datum/disease/zombie/wizard/zomb in victim.viruses)
-		zomb.stage = 8 // immediate zombie!
+	for(var/datum/disease/V in victim.viruses)
+		if(istype(V, /datum/disease/zombie))
+			V.stage = 8 // immediate zombie!
+		else
+			V.cure() // lets remove any other annoying viruses
 
-	// Wiz and minions should contract their own diseases
+	// Wiz and minions shouldnt be able to contract their own diseases
 	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
 	necromancer.add_language("Zombie", TRUE) // make sure necromancer can speak to the bois
@@ -906,7 +909,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	addtimer(CALLBACK(src, PROC_REF(finish_convert), victim, necromancer, chosen_plague), 5 SECONDS)
 
 /obj/item/plague_talisman/proc/finish_convert(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer, datum/disease/chosen_plague)
-	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!<br>
+	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!<br> \
 	[necromancer.p_theyre(TRUE)] your master now, assist [necromancer.p_them()]at all costs, for you are now above death!<br> \
 		You have been bestowed the following plague: <br> \
 		[chosen_plague.name]!</span>"
