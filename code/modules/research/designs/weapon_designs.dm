@@ -403,7 +403,7 @@
 	name = "'Scylla' mantis blade implant"
 	desc = "A reverse-engineered mantis blade implant. While the monomolecular edge was lost, they remain deadly weapons."
 	id = "mantis_blade_nt"
-	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 6)
+	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 6 SECONDS
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 3000, MAT_DIAMOND = 4000)
