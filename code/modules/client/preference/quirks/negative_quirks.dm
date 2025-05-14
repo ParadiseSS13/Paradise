@@ -13,7 +13,7 @@
 	name = "Lightweight"
 	desc = "You can't handle liquor very well, and get drunker quicker."
 	cost = -1
-	alcohol_modifier = 1.3
+	alcohol_modifier = 1.5
 
 /datum/quirk/foreigner
 	name = "Foreigner"
