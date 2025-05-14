@@ -3,7 +3,7 @@
  * Manages a list of pet command datums, allowing you to boss it around
  * Creates a radial menu of pet commands when this creature is alt-clicked, if it has any
  */
-#define DEFAULT_RADIAL_VIEWING_DISTANCE 9
+
 /datum/component/obeys_commands
 	/// List of commands you can give to the owner of this component
 	var/list/available_commands = list()
