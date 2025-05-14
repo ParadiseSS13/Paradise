@@ -1214,7 +1214,12 @@
 		if(!istype(M))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
-		M.force_add_quirk()
+		var/quirk_name = tgui_input_list(usr, "What quirk do you want to add to [M]?", "Quirk to add", GLOB.quirk_paths)
+		if(!quirk_name)
+			return
+		var/datum/quirk/chosen_quirk = GLOB.quirk_paths[quirk_name]
+		var/datum/quirk/to_add = new chosen_quirk.type // Don't want hard refs to the global list
+		to_add.apply_quirk_effects(M)
 
 	else if(href_list["remquirk"])
 		if(!check_rights(R_SPAWN))
@@ -1223,7 +1228,10 @@
 		if(!istype(M))
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
-		M.force_remove_quirk()
+		var/datum/quirk/to_remove = tgui_input_list(usr, "What quirk do you want to remove from [src]?", "Quirk to remove", M.quirks)
+		if(!to_remove)
+			return
+		qdel(to_remove)
 
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return

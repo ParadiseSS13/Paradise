@@ -27,6 +27,7 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 
 /datum/quirk/Destroy(force, ...)
 	remove_quirk_effects()
+	owner.quirks -= src
 	owner = null
 	return ..()
 
@@ -105,20 +106,4 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 			active_character.quirks.Remove(quirk)
 			return TRUE
 	return FALSE
-
-/// An admin-only proc for adding quirks directly to a mob. This won't do anything for quirks that give items/organs though since those are effects on spawn
-/mob/living/carbon/human/proc/force_add_quirk()
-	var/quirk_name = tgui_input_list(src, "What quirk do you want to add to [src]?", "Quirk to add", GLOB.quirk_paths)
-	if(!quirk_name)
-		return
-	var/datum/quirk/chosen_quirk = GLOB.quirk_paths[quirk_name]
-	var/datum/quirk/to_add = new chosen_quirk.type // Don't want hard refs to the global list
-	to_add.apply_quirk_effects(src)
-
-/// An admin only proc for removing quirks directly from mobs
-/mob/living/carbon/human/proc/force_remove_quirk()
-	var/datum/quirk/to_remove = tgui_input_list(src, "What quirk do you want to remove from [src]?", "Quirk to remove", src.quirks)
-	if(!to_remove)
-		return
-	qdel(to_remove)
 
