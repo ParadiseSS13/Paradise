@@ -63,10 +63,12 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 //////////////////////////////////////////
 //Reinforced cheese
 //////////////////////////////////////////
-/datum/recipe/oven/reinforcedcheese
-	reagents = list("sodiumchloride" = 10)
-	items = list(
-		/obj/item/food/sliceable/cheesewheel,
-		/obj/item/food/sliceable/cheesewheel
+/datum/cooking/recipe/reinforcedcheese
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/stack/sheet/cheese
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/cheesewheel),
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/cheesewheel),
+		PCWJ_ADD_REAGENT("sodiumchloride", 10),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
-	result = /obj/item/stack/sheet/cheese
