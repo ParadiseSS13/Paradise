@@ -89877,6 +89877,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
