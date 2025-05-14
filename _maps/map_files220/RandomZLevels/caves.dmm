@@ -394,7 +394,6 @@
 /area/awaymission/caves)
 "bP" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 4
 	},
 /obj/item/stack/cable_coil{
@@ -898,9 +897,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "eg" = (
-/obj/structure/computerframe{
-	icon_state = "comp_frame_2"
-	},
+/obj/structure/computerframe,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
@@ -1019,7 +1016,6 @@
 /area/awaymission/caves)
 "eQ" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/glass,
@@ -2117,7 +2113,6 @@
 /area/awaymission/caves/build)
 "kU" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/glass,
@@ -2261,7 +2256,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "lE" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/glass,
@@ -2538,7 +2532,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "nm" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 8
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -2621,7 +2614,6 @@
 /area/awaymission/caves)
 "nG" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/glass,
@@ -3322,7 +3314,6 @@
 /area/awaymission/caves)
 "rX" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/glass,
@@ -6049,7 +6040,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "Hf" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 4
 	},
 /obj/machinery/light_construct/small/directional/west,
@@ -6058,7 +6048,6 @@
 /area/awaymission/caves)
 "Hg" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -6758,7 +6747,6 @@
 /area/awaymission/caves)
 "KO" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -7087,7 +7075,6 @@
 /area/awaymission/caves)
 "Nh" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 8
 	},
 /obj/machinery/light/small/directional/east,
@@ -8426,7 +8413,6 @@
 /area/awaymission/caves)
 "UE" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -8586,7 +8572,6 @@
 /area/awaymission/caves)
 "Vk" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/glass,

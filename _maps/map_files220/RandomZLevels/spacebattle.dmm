@@ -9758,10 +9758,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/bridge)
-"Gl" = (
-/obj/item/clothing/accessory/storage,
-/turf/space,
-/area/space)
 "Gm" = (
 /obj/effect/spawner/random/pool/gatewayloot/nt/handgun,
 /obj/structure/sign/engineering{
@@ -46084,7 +46080,7 @@ yG
 yG
 Dg
 yG
-Gl
+yG
 yG
 rv
 TB

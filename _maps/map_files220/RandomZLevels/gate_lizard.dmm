@@ -2571,7 +2571,6 @@
 /area/awaymission/jungle_planet/inside)
 "drb" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -3480,9 +3479,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "eFd" = (
-/obj/structure/computerframe{
-	icon_state = "comp_frame_5"
-	},
+/obj/structure/computerframe,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -5012,7 +5009,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "gMt" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 4
 	},
 /obj/item/shard,
@@ -8635,7 +8631,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "lfj" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 8
 	},
 /obj/item/shard{
@@ -12279,7 +12274,6 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "pWf" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/cobweb,
@@ -14332,9 +14326,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "ssW" = (
-/obj/structure/computerframe{
-	icon_state = "comp_frame_2"
-	},
+/obj/structure/computerframe,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -16844,7 +16836,6 @@
 "vwC" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -16988,9 +16979,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "vFj" = (
-/obj/structure/computerframe{
-	icon_state = "comp_frame_2"
-	},
+/obj/structure/computerframe,
 /obj/item/shard{
 	icon_state = "medium"
 	},

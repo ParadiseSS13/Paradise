@@ -10,12 +10,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/powered/requires_power_space)
 "al" = (
-/obj/machinery/suit_storage_unit/syndicate{
-	mask_type = null;
-	storage_type = null;
-	suit_type = null;
-	req_access = null
-	},
+/obj/machinery/suit_storage_unit/syndicate/empty,
 /obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
@@ -101,18 +96,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
-"cM" = (
-/obj/machinery/suit_storage_unit/syndicate{
-	mask_type = null;
-	storage_type = null;
-	suit_type = null;
-	req_access = null
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/powered/requires_power_space)
 "do" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -161,9 +144,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "eq" = (
@@ -297,9 +278,7 @@
 /obj/structure/machine_frame{
 	icon_state = "box_1"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "hP" = (
@@ -621,9 +600,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "oz" = (
-/obj/structure/computerframe{
-	icon_state = "comp_frame_2"
-	},
+/obj/structure/computerframe,
 /obj/effect/spawner/random/dirt/often,
 /obj/item/shard{
 	icon_state = "small";
@@ -640,9 +617,7 @@
 /area/ruin/space/powered/requires_power_space)
 "pj" = (
 /obj/machinery/light_construct/directional/west,
-/obj/structure/computerframe{
-	icon_state = "comp_frame_5"
-	},
+/obj/structure/computerframe,
 /obj/effect/spawner/random/dirt/often,
 /obj/item/shard,
 /obj/item/stack/cable_coil{
@@ -702,7 +677,6 @@
 /area/ruin/space/powered/requires_power_space)
 "pP" = (
 /obj/item/shard{
-	icon_state = "large";
 	pixel_y = 9
 	},
 /turf/template_noop,
@@ -813,9 +787,7 @@
 /area/ruin/space/powered/requires_power_space)
 "tX" = (
 /obj/structure/mecha_wreckage/mauler,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "ue" = (
@@ -1340,13 +1312,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "NN" = (
-/obj/machinery/suit_storage_unit/syndicate{
-	mask_type = null;
-	storage_type = null;
-	suit_type = null;
-	state_open = 1;
-	req_access = null
-	},
+/obj/machinery/suit_storage_unit/syndicate/empty,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "NP" = (
@@ -1421,26 +1387,14 @@
 /area/ruin/space/powered/requires_power_space)
 "QS" = (
 /obj/machinery/light_construct/directional/west,
-/obj/machinery/suit_storage_unit/syndicate{
-	mask_type = null;
-	storage_type = null;
-	suit_type = null;
-	state_open = 1;
-	req_access = null
-	},
+/obj/machinery/suit_storage_unit/syndicate/empty,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "QU" = (
-/obj/machinery/suit_storage_unit/syndicate{
-	mask_type = null;
-	storage_type = null;
-	suit_type = null;
-	state_open = 1;
-	req_access = null
-	},
+/obj/machinery/suit_storage_unit/syndicate/empty,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1653,9 +1607,7 @@
 	icon_state = "borgdecon2";
 	name = "cyborg recharging station"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -2605,7 +2557,7 @@ iB
 iB
 iB
 jb
-cM
+QU
 XJ
 XJ
 cB

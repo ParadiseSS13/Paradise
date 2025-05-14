@@ -4911,13 +4911,6 @@
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
-"gad" = (
-/obj/structure/computerframe{
-	icon_state = "comp_frame_2";
-	dir = 2
-	},
-/turf/simulated/floor/plasteel/smooth,
-/area/awaymission/black_mesa/high_security_servers)
 "gae" = (
 /obj/structure/railing{
 	dir = 4
@@ -7781,7 +7774,6 @@
 /area/awaymission/black_mesa/security_outpost)
 "jGv" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/glass,
@@ -9190,7 +9182,6 @@
 /area/awaymission/black_mesa/lambda_hallway)
 "lqS" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 2
 	},
 /turf/simulated/floor/plasteel/smooth,
@@ -9489,7 +9480,6 @@
 /area/awaymission/black_mesa/hecu_zone_camp)
 "lFP" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 2
 	},
 /turf/simulated/floor/plasteel/smooth,
@@ -10136,13 +10126,6 @@
 	},
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/black_mesa/black_ops_hall)
-"mzl" = (
-/obj/structure/computerframe{
-	icon_state = "comp_frame_2";
-	dir = 2
-	},
-/turf/simulated/floor/plasteel/smooth,
-/area/awaymission/black_mesa/black_ops_server)
 "mzF" = (
 /obj/structure/flora/biolumini/mine/weaklight,
 /turf/simulated/floor/plating/xen,
@@ -10348,7 +10331,6 @@
 /area/awaymission/black_mesa/deep_sci_hall)
 "mML" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 2
 	},
 /turf/simulated/floor/plasteel/smooth,
@@ -10381,7 +10363,6 @@
 /area/awaymission/black_mesa/hecu_zone_external_hall)
 "mOJ" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 1
 	},
 /obj/structure/alien/xenoweeds,
@@ -10910,7 +10891,6 @@
 /area/awaymission/black_mesa/science_decon_room)
 "nsg" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_2";
 	dir = 2
 	},
 /obj/structure/alien/xenoweeds,
@@ -15404,13 +15384,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
-"sMM" = (
-/obj/structure/computerframe{
-	icon_state = "comp_frame_2";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/black_mesa/entrance_lobby)
 "sNi" = (
 /obj/structure/alien/xenoweeds,
 /turf/simulated/floor/plasteel,
@@ -16185,13 +16158,6 @@
 /obj/structure/curtain,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
-"tSb" = (
-/obj/structure/computerframe{
-	icon_state = "comp_frame_5";
-	dir = 2
-	},
-/turf/simulated/floor/plasteel/smooth,
-/area/awaymission/black_mesa/dorm_computers)
 "tSk" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel/smooth,
@@ -16862,7 +16828,6 @@
 /area/awaymission/black_mesa/xen/lost_camp)
 "uLl" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -18917,7 +18882,6 @@
 /area/awaymission/black_mesa/hecu_zone_camp)
 "xmz" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 2
 	},
 /turf/simulated/floor/plating,
@@ -18961,7 +18925,6 @@
 /area/awaymission/black_mesa/science_labs)
 "xoD" = (
 /obj/structure/computerframe{
-	icon_state = "comp_frame_5";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -45812,7 +45775,7 @@ cBU
 xrh
 tKJ
 byo
-tSb
+mML
 ggX
 byo
 ocA
@@ -64517,7 +64480,7 @@ aKT
 cFH
 nLK
 jUm
-gad
+lFP
 jME
 jME
 cdE
@@ -77462,7 +77425,7 @@ kEv
 kEv
 oaf
 bjS
-sMM
+uLl
 vfs
 ukM
 sNi
@@ -83749,7 +83712,7 @@ pAt
 eBZ
 rlX
 txn
-mzl
+lqS
 pwu
 pwu
 tqR
