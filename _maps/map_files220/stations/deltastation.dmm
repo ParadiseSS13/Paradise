@@ -58131,6 +58131,11 @@
 	id_tag = "rndstorage";
 	name = "Secure Storage Blast Doors"
 	},
+/obj/machinery/door_control/shutter/south{
+	id = "rndstorage";
+	name = "RnD Secure Storage Control";
+	req_access = list(8)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blackcorner"
@@ -97931,11 +97936,6 @@
 /turf/simulated/wall,
 /area/station/medical/reception)
 "tJj" = (
-/obj/machinery/door_control/shutter/west{
-	id = "rndstorage";
-	name = "RnD Secure Storage Control";
-	req_access = list(8)
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
