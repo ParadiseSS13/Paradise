@@ -181,12 +181,16 @@
 		return
 	if(user.m_intent != MOVE_INTENT_RUN)
 		return
+	if(!COOLDOWN_FINISHED(user, skittish_cooldown))
+		to_chat(user, "<span class='notice'>Wait a few seconds to do that again.</span>")
+		return
 	if(locked && !allowed(user))
 		return
 	locked = FALSE
 	if(opened || open())
 		user.forceMove(src)
 		close()
+		COOLDOWN_START(user, skittish_cooldown, 2 SECONDS)
 
 /obj/structure/closet/proc/can_open()
 	if(welded)
