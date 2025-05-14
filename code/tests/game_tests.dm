@@ -23,6 +23,7 @@
 #include "jobs\test_job_globals.dm"
 #include "test_aicard_icons.dm"
 #include "test_announcements.dm"
+#include "test_anti_drop.dm"
 #include "test_apc_construction.dm"
 #include "test_components.dm"
 #include "test_config_sanity.dm"
@@ -47,6 +48,7 @@
 #include "test_subsystem_init.dm"
 #include "test_subsystem_metric_sanity.dm"
 #include "test_timer_sanity.dm"
+#include "test_wears_collar.dm"
 #endif
 
 #ifdef MAP_TESTS

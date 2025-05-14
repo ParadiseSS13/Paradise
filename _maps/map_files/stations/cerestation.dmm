@@ -45478,12 +45478,6 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/primary/fore/north)
-"iwy" = (
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/multi_tile/glass/directional/south,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "iwD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb{
@@ -59470,6 +59464,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"lCN" = (
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "lCO" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/engineering,
@@ -59850,6 +59850,12 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"lGh" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass/directional/south,
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "lGj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -63343,6 +63349,14 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
+"mzy" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/reagent_dispensers/watertank/firetank,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/atmos)
 "mzz" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -129430,8 +129444,8 @@ aZZ
 aZZ
 aZZ
 bjn
+lGh
 xOB
-iwy
 bjn
 aZZ
 aZZ
@@ -133869,7 +133883,7 @@ cGd
 cGd
 wNA
 qKO
-yiP
+lCN
 xIa
 xIa
 xIa
@@ -141784,7 +141798,7 @@ jDd
 lMu
 cZf
 deb
-cZf
+mzy
 skI
 bUV
 bVx

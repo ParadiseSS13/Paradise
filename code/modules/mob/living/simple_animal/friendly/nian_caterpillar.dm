@@ -41,7 +41,6 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	holder_type = /obj/item/holder/nian_caterpillar
-	can_collar = TRUE
 
 	/// Evolution action.
 	var/datum/action/innate/nian_caterpillar_emerge/evolve_action = new()
@@ -51,6 +50,7 @@
 /mob/living/simple_animal/nian_caterpillar/Initialize(mapload)
 	. = ..()
 	real_name = name
+	AddElement(/datum/element/wears_collar)
 	add_language("Tkachi")
 	evolve_action.Grant(src)
 
