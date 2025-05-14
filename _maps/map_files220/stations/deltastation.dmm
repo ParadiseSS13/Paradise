@@ -409,9 +409,11 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
 	},
-/obj/machinery/computer/sm_monitor{
-	dir = 1
+/obj/machinery/computer/monitor{
+	dir = 1;
+	name = "Engine Power Monitoring Computer"
 	},
+/obj/structure/cable/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -16870,6 +16872,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -16877,6 +16882,9 @@
 /area/station/command/bridge)
 "bxv" = (
 /obj/machinery/computer/atmos_alert,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -16884,6 +16892,9 @@
 /area/station/command/bridge)
 "bxw" = (
 /obj/machinery/computer/monitor,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -68950,13 +68961,11 @@
 /area/station/science/misc_lab)
 "kNF" = (
 /obj/machinery/status_display/directional/south,
-/obj/machinery/computer/monitor{
-	dir = 1;
-	name = "Engineering Power Monitoring Console"
-	},
-/obj/structure/cable,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/computer/sm_monitor{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -78928,6 +78937,9 @@
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "nRz" = (
@@ -85933,6 +85945,9 @@
 	dir = 6
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "qbb" = (
