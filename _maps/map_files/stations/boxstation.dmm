@@ -36426,15 +36426,6 @@
 	icon_state = "dark"
 	},
 /area/station/public/construction)
-"cCc" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	name = "Testing Lab Shutters";
-	id_tag = "testlab"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/misc_lab)
 "cCf" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -60096,9 +60087,6 @@
 /area/station/maintenance/apmaint)
 "jSO" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research{
-	name = "Research Storage"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -60108,6 +60096,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/airlock/research/glass{
+	name = "Research Storage"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
@@ -64021,18 +64012,21 @@
 /area/station/maintenance/fsmaint)
 "lNS" = (
 /obj/machinery/disposal,
-/obj/machinery/door_control{
-	id = "testlab";
-	name = "Test Lab Privacy Shutters";
-	pixel_x = -28;
-	pixel_y = 5
-	},
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/light_switch{
 	pixel_x = -24;
 	pixel_y = -6;
 	dir = 4;
 	name = "custom placement"
+	},
+/obj/machinery/button/windowtint{
+	id = "testlab";
+	pixel_x = -24;
+	dir = 4;
+	pixel_y = 4
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -64837,9 +64831,6 @@
 /area/station/command/bridge)
 "miM" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research{
-	name = "Test Lab"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -64849,6 +64840,12 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/research/glass{
+	name = "Test Lab"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "testlab"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -82016,12 +82013,15 @@
 /area/station/engineering/atmos)
 "ves" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research{
-	name = "Test Lab"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/research/glass{
+	name = "Test Lab"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "testlab"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/misc_lab)
@@ -86754,9 +86754,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "xDy" = (
-/obj/machinery/door/airlock/research{
-	name = "Research Division Access"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -86772,6 +86769,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/research/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -88141,11 +88139,8 @@
 	},
 /area/station/science/rnd)
 "yiF" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	name = "Testing Lab Shutters";
-	id_tag = "testlab"
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "testlab"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/misc_lab)
@@ -137108,7 +137103,7 @@ gVT
 cya
 ygr
 gFV
-cCc
+yiF
 ebu
 cDw
 cDw
@@ -137622,7 +137617,7 @@ ocw
 oxp
 nOo
 rkS
-cCc
+yiF
 cBC
 cDt
 cFY
