@@ -7,7 +7,8 @@
 	allowed_states |= list("darkneutralcorner", "darkneutral", "darkneutralfull", "navybluecorners", "navyblue", "navybluefull",
 		"navybluealt", "navybluealtstrip", "navybluecornersalt", "darkbluealt", "darkbluealtstrip", "darkbluecornersalt",
 		"darkredalt", "darkredaltstrip", "darkredcornersalt", "darkyellowalt", "darkyellowaltstrip", "darkyellowcornersalt",
-		"whitebrowncorner", "whitebrown"
+		"whitebrowncorner", "whitebrown", "floor_large", "small", "diagonal", "herringbone", "dark_large", "dark_small",
+		"dark_diagonal", "dark_herringbone", "white_large", "white_small", "white_diagonal", "white_herringbone"
 		)
 
 /turf/simulated/floor
