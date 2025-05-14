@@ -36380,7 +36380,6 @@
 	dir = 6
 	},
 /obj/structure/curtain/open/shower/security{
-	icon_state = "closed";
 	opacity = 1
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -52827,9 +52826,7 @@
 	},
 /area/station/science/lobby)
 "fKW" = (
-/obj/structure/curtain/open/shower/security{
-	icon_state = "closed"
-	},
+/obj/structure/curtain/open/shower/security,
 /turf/simulated/floor/wood/fancy,
 /area/station/service/theatre)
 "fLx" = (
@@ -69783,9 +69780,7 @@
 "lds" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/curtain/open/shower/security{
-	icon_state = "closed"
-	},
+/obj/structure/curtain/open/shower/security,
 /turf/simulated/floor/wood/fancy,
 /area/station/service/theatre)
 "ldv" = (
@@ -111360,7 +111355,6 @@
 /area/station/security/main)
 "xYL" = (
 /obj/structure/curtain/open/shower/security{
-	icon_state = "closed";
 	opacity = 1
 	},
 /obj/effect/turf_decal/siding/blue{

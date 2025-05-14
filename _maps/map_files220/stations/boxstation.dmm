@@ -65698,7 +65698,6 @@
 /area/station/maintenance/aft)
 "lZu" = (
 /obj/structure/curtain/open/shower/security{
-	icon_state = "closed";
 	opacity = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -79094,7 +79093,6 @@
 /area/station/service/chapel)
 "qPF" = (
 /obj/structure/curtain/open/shower/security{
-	icon_state = "closed";
 	opacity = 1
 	},
 /obj/effect/turf_decal/siding/wood/cherry{
@@ -81137,7 +81135,6 @@
 /area/station/command/office/ce)
 "rLf" = (
 /obj/structure/curtain/open/shower/security{
-	icon_state = "closed";
 	opacity = 1
 	},
 /obj/effect/turf_decal/siding/wood/cherry{

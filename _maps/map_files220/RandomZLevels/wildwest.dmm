@@ -23,7 +23,6 @@
 /area/awaymission/wildwest/wildwest_mines)
 "al" = (
 /obj/structure/curtain/medical{
-	icon_state = "open";
 	opacity = 0
 	},
 /obj/effect/mine/dnascramble,
@@ -2069,8 +2068,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "tQ" = (
 /obj/structure/curtain/black{
-	opacity = 0;
-	icon_state = "open"
+	opacity = 0
 	},
 /obj/effect/mine/dnascramble,
 /obj/item/dice/d6,
@@ -2569,8 +2567,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "zy" = (
 /obj/structure/curtain/black{
-	opacity = 0;
-	icon_state = "open"
+	opacity = 0
 	},
 /obj/effect/mine/dnascramble,
 /obj/item/stack/tile/wood,
@@ -2932,8 +2929,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "CQ" = (
 /obj/structure/curtain/black{
-	opacity = 0;
-	icon_state = "open"
+	opacity = 0
 	},
 /obj/effect/mine/dnascramble,
 /obj/item/trash/chips,
@@ -4378,8 +4374,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "QS" = (
 /obj/structure/curtain/black{
-	opacity = 0;
-	icon_state = "open"
+	opacity = 0
 	},
 /turf/simulated/floor/carpet/orange,
 /area/awaymission/wildwest/wildwest_mines)
