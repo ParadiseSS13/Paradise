@@ -389,6 +389,14 @@
 	id = "clockwork_monastery"
 	suffix = "clockwork_monastery.dmm"
 	name = "Abandoned Clockwork Monastery"
-	description = "A hidden monastery once used by the followers of Ratvar's clockwork cult. The original inhabitants have departed for City of Cogs, Reebe. \
+	description = "A hidden monastery once used bway the followers of Ratvar's clockwork cult. The original inhabitants have departed for City of Cogs, Reebe. \
 		The constructs that were left behind to guard the monastery will ruthlessly cut down anyone that does not swear their fealty to Ratvar."
 	allow_duplicates = FALSE
+
+
+/datum/map_template/ruin/space/bluespace_relay_beacon
+	id = "bluespace_relay_beacon"
+	suffix = "bluespace_relay_beacon.dmm"
+	name = "Nanotrasen Bluespace Relay"
+	description = "Nanotrasen uses relays like these to further extend telecomunications around an area of space, as well as long range beacons for easier deployment in the future. \
+		Sadly, the ones deployed in this sector are rather vunerable to the anomalous space, and as such many end up disconnecting from the telecomns network and the teleportation network."
