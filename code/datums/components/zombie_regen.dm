@@ -22,10 +22,10 @@
 		healing_factor /= 3
 	if(zomboid.stat == DEAD)
 		healing_factor *= 2
-	for(var/obj/item/organ/external/e in zomboid.bodyparts)
-		if(e.status & ORGAN_BURNT) // lets slowly remove any crit burns
+	for(var/obj/item/organ/external/E in zomboid.bodyparts)
+		if(E.status & ORGAN_BURNT) // lets slowly remove any crit burns
 			if(prob(20))
-				e.status -= ORGAN_BURNT
+				E.status &= ~ORGAN_BURNT
 			break
 	zomboid.heal_overall_damage(healing_factor, healing_factor)
 	zomboid.adjustBrainLoss(-healing_factor)
