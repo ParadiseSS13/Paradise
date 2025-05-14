@@ -127,7 +127,7 @@
 			"cost" = quirk.cost,
 			"path" = quirk.type
 		)
-		GLOB.quirk_datums[quirk.name] = quirk // This will let us get the datum of a quirk with just the name later.
+		GLOB.quirk_paths[quirk.name] = quirk.type // This will let us get the datum of a quirk with just the name later.
 		GLOB.quirk_tgui_info += list(data)
 
 	// Setup a list of robolimbs

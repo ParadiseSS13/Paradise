@@ -2268,7 +2268,8 @@
 	var/list/quirk_cache = quirks.Copy()
 	quirks.Cut()
 	for(var/quirk_name in quirk_cache)
-		var/datum/quirk/quirk = GLOB.quirk_datums["[quirk_name]"]
+		var/datum/quirk/chosen_quirk = GLOB.quirk_paths["[quirk_name]"]
+		var/datum/quirk/quirk = new chosen_quirk.type // Don't want hard refs to the global list
 		if(!quirk)
 			continue
 		point_total += quirk.cost

@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(quirk_datums)
+GLOBAL_LIST_EMPTY(quirk_paths)
 /datum/quirk
 	/// Name of the quirk. It's important that the basetypes don't have a name, and that any quirks you want people to see to have one.
 	var/name
@@ -108,10 +108,11 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 
 /// An admin-only proc for adding quirks directly to a mob. This won't do anything for quirks that give items/organs though since those are effects on spawn
 /mob/living/carbon/human/proc/force_add_quirk()
-	var/quirk_name = tgui_input_list(src, "What quirk do you want to add to [src]?", "Quirk to add", GLOB.quirk_datums)
+	var/quirk_name = tgui_input_list(src, "What quirk do you want to add to [src]?", "Quirk to add", GLOB.quirk_paths)
 	if(!quirk_name)
 		return
-	var/datum/quirk/to_add = GLOB.quirk_datums[quirk_name]
+	var/datum/quirk/chosen_quirk = GLOB.quirk_paths[quirk_name]
+	var/datum/quirk/to_add = new chosen_quirk.type // Don't want hard refs to the global list
 	to_add.apply_quirk_effects(src)
 
 /// An admin only proc for removing quirks directly from mobs
