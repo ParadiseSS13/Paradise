@@ -207,18 +207,14 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -8
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/powered/bar)
 "aX" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "black"
@@ -238,9 +234,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ba" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1
-	},
+/obj/machinery/door/airlock/multi_tile/glass/directional/north,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -314,11 +308,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -8
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -670,9 +660,7 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
 "CN" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -689,9 +677,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "DT" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

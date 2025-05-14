@@ -105,7 +105,7 @@
 	if(!istype(product, product_type))
 		return FALSE
 	// Quality doesn't match
-	if(product.quality != quality)
+	if(!istype(product.quality, quality))
 		return FALSE
 	// Material doesn't match
 	if(product.material != material)

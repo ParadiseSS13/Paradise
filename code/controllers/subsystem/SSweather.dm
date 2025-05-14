@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(weather)
 	var/list/processing = list()
 	var/list/eligible_traits = list()
 	var/list/next_hit_by_zlevel = list() //Used by barometers to know when the next storm is coming
+	var/list/next_weather_by_zlevel = list() // For the weather radar detection
 	cpu_display = SS_CPUDISPLAY_LOW
 
 /datum/controller/subsystem/weather/get_metrics()
@@ -28,6 +29,8 @@ SUBSYSTEM_DEF(weather)
 			var/mob/living/L = i
 			if(W.can_weather_act(L))
 				W.weather_act(L)
+		if(W.area_act == TRUE)
+			W.area_act()
 
 	// start random weather on relevant levels
 	while(length(eligible_traits))
@@ -39,6 +42,7 @@ SUBSYSTEM_DEF(weather)
 		for(var/z in zlevels)
 			addtimer(CALLBACK(src, PROC_REF(make_eligible), trait, possible_weathers), randTime + initial(W.weather_duration_upper), TIMER_UNIQUE) //Around 5-10 minutes between weathers
 			next_hit_by_zlevel["[z]"] = world.time + randTime + initial(W.telegraph_duration)
+			next_weather_by_zlevel["[z]"] = W
 		run_weather(W, zlevels)
 
 		eligible_traits.len--
@@ -68,17 +72,19 @@ SUBSYSTEM_DEF(weather)
 	var/list/zlevels = levels_by_trait(weather_datum_type::target_trait)
 	var/datum/weather/W = new weather_datum_type(zlevels)
 	W.telegraph()
+	SSblackbox.record_feedback("tally", "weather_event", 1, "[weather_datum_type]")
 
 /datum/controller/subsystem/weather/proc/make_eligible(trait, list/possible_weathers)
 	eligible_traits[trait] = possible_weathers
 	for(var/zlevel in levels_by_trait(trait))
 		next_hit_by_zlevel["[zlevel]"] = null
+		next_weather_by_zlevel["[zlevel]"] = null
 
 /datum/controller/subsystem/weather/proc/get_weather(z, area/active_area)
 	var/datum/weather/A
 	for(var/V in processing)
 		var/datum/weather/W = V
-		if((z in W.impacted_z_levels) && W.area_type == active_area)
+		if((z in W.impacted_z_levels) && is_path_in_list(active_area, W.area_types))
 			A = W
 			break
 	return A

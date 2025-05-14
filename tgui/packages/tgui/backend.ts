@@ -15,6 +15,7 @@ import { perf } from 'common/perf';
 import { createAction } from 'common/redux';
 import { setupDrag } from './drag';
 import { focusMap } from './focus';
+import { releaseHeldKeys, startKeyPassthrough, stopKeyPassthrough } from './hotkeys';
 import { createLogger } from './logging';
 import { resumeRenderer, suspendRenderer } from './renderer';
 
@@ -153,6 +154,8 @@ export const backendMiddleware = (store) => {
       Byond.winset(Byond.windowId, {
         'is-visible': false,
       });
+      stopKeyPassthrough();
+      releaseHeldKeys();
       setTimeout(() => focusMap());
     }
 
@@ -179,6 +182,7 @@ export const backendMiddleware = (store) => {
       logger.log('backend/update', payload);
       // Signal renderer that we have resumed
       resumeRenderer();
+      startKeyPassthrough();
       // Setup drag
       setupDrag();
       // We schedule this for the next tick here because resizing and unhiding

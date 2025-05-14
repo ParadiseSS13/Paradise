@@ -212,7 +212,9 @@
 		stop_pulling()
 	var/current_dir
 	if(isliving(AM))
-		current_dir = AM.dir
+		var/mob/living/living_mob = AM
+		if(!living_mob.buckled)
+			current_dir = AM.dir
 	if(AM.Move(get_step(AM.loc, t), t, glide_size))
 		Move(get_step(loc, t), t)
 	if(current_dir)
@@ -260,7 +262,13 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
-	..()
+	if(pulling)
+		var/atom/pullee = pulling
+		..()
+		for(var/log_pulltype in GLOB.log_pulltypes)
+			if(istype(pullee, log_pulltype))
+				create_log(MISC_LOG, "Stopped pulling", pullee)
+				break
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
 
@@ -1010,6 +1018,11 @@
 	AM.pulledby = src
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
+
+	for(var/log_pulltype in GLOB.log_pulltypes)
+		if(istype(AM, log_pulltype))
+			create_log(MISC_LOG, "Started pulling", AM)
+			break
 
 /mob/living/proc/check_pull()
 	if(pulling && !pulling.Adjacent(src))

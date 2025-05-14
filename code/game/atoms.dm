@@ -555,7 +555,6 @@
 			else
 				managed_overlays = new_overlays
 			add_overlay(new_overlays)
-		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS)
 
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
 
@@ -567,7 +566,8 @@
 /// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /atom/proc/update_overlays()
 	PROTECTED_PROC(TRUE)
-	return list()
+	. = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
 
 /atom/proc/relaymove()
 	return
@@ -1121,7 +1121,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 				V.reagents.add_reagent(vomit_reagent, 5)
 				return
 
-		var/obj/effect/decal/cleanable/vomit/this = new type(src)
+		var/obj/effect/decal/cleanable/vomit/this = new type(get_turf(src))
 		if(!this.gravity_check)
 			this.newtonian_move(dir)
 

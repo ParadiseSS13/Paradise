@@ -56,6 +56,12 @@
 	return objectives
 
 /**
+ * Get all of our targets
+ */
+/datum/objective_holder/proc/get_targets()
+	return assigned_targets
+
+/**
  * Replace old_objective with new_objective
  */
 /datum/objective_holder/proc/replace_objective(datum/objective/old_objective, datum/objective/new_objective, datum/original_target_department, list/original_steal_list)

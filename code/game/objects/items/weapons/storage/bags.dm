@@ -361,7 +361,11 @@
 	flags = CONDUCT
 	slot_flags = null
 	materials = list(MAT_METAL=3000)
-	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
+	can_hold = list(
+		/obj/item/food,
+		/obj/item/reagent_containers/drinks,
+		/obj/item/reagent_containers/condiment,
+	)
 
 /obj/item/storage/bag/tray/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	..()
@@ -530,6 +534,22 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/firealarm_electronics, /obj/item/apc_electronics, /obj/item/airalarm_electronics, /obj/item/camera_assembly, /obj/item/stock_parts/cell, /obj/item/circuitboard, /obj/item/stack/cable_coil)
 	resistance_flags = FLAMMABLE
+
+////////////////////////////////////////
+// MARK:	Smith bag
+////////////////////////////////////////
+/obj/item/storage/bag/smith
+	name = "smith's bag"
+	desc = "A fireproof bag for storing modifications, casts, and modification components."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "smith_bag"
+	item_state = "smith_bag"
+	storage_slots = 30
+	max_combined_w_class = 60
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/smithed_item, /obj/item/smithing_cast)
+	resistance_flags = FIRE_PROOF
 
 ////////////////////////////////////////
 // MARK:	Treasure bag
