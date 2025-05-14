@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(quirk_datums)
 /datum/quirk/Destroy(force, ...)
 	remove_quirk_effects()
 	owner = null
-	..()
+	return ..()
 
 /* For any quirk that processes, you'll want to have
 *
