@@ -83,7 +83,11 @@
 			if(prob(2) && affected_mob.nutrition >= 100)
 				affected_mob.adjustBruteLoss(5)
 				affected_mob.vomit(6,0,TRUE,7,0)
-				affected_mob.visible_message("<span class='danger'>[affected_mob] vomits with such force that [p_theyre(FALSE)] sent flying backwards!</span>", "<span class='userdanger'>You vomit a torrent of magic bile so forcefully, that you are sent flying!</span>", "<span class='warning'>You hear someone vomit profusely.</span>")
+				affected_mob.visible_message(
+					"<span class='danger'>[affected_mob] vomits with such force that [affected_mob.p_theyre(FALSE)] sent flying backwards!</span>", 
+					"<span class='userdanger'>You vomit a torrent of magic bile so forcefully, that you are sent flying!</span>", 
+					"<span class='warning'>You hear someone vomit profusely.</span>"
+				)
 				do_fling(affected_mob)
 
 /datum/disease/grut_gut/proc/do_fling()
@@ -118,14 +122,14 @@
 			if(prob(3))
 				affected_mob.emote("sniff")
 			if(prob(3))
-				to_chat(affected_mob, "<span class='danger'>Your nose and throat feels uncomfortably dry.</span>")
+				to_chat(affected_mob, "<span class='danger'>Your nose and throat feel uncomfortably dry.</span>")
 		if(3)
 			if(prob(2))
 				affected_mob.emote("cough")
 			if(prob(3))
 				affected_mob.emote("sniff")
 			if(prob(3))
-				to_chat(affected_mob, "<span class='danger'>Your nose and throat feels uncomfortably dry.</span>")
+				to_chat(affected_mob, "<span class='danger'>Your nose and throat feel uncomfortably dry.</span>")
 		if(4)
 			if(prob(2))
 				affected_mob.emote("cough")
@@ -138,7 +142,7 @@
 			if(prob(2))
 				affected_mob.emote("cough")
 			if(prob(2))
-				to_chat(affected_mob, "<span class='danger'>Your nose feels like its going to burn right off your face!</span>")
+				to_chat(affected_mob, "<span class='danger'>Your nose feels like it's going to burn right off your face!</span>")
 				affected_mob.adjustFireLoss(5)
 			if(prob(3))
 				affected_mob.emote("sniff")
@@ -204,7 +208,7 @@
 				T.add_vomit_floor(FALSE, FALSE, /obj/effect/decal/cleanable/vomit/spacematter)
 
 /obj/effect/decal/cleanable/vomit/spacematter
-	name = "Spacematter Vomit"
+	name = "spacematter vomit"
 	desc = "Despite the hazard, its dazzlingly beautiful. You should probably get away from it though."
 	icon_state = "vomitnebula_1"
 	random_icon_states = list("vomitnebula_1", "vomitnebula_2", "vomitnebula_3", "vomitnebula_4")
@@ -221,7 +225,7 @@
 	milla.invoke_async(src)
 	if(world.time >= time_to_live) // dont want to remove the spot, but stop removing atmos
 		STOP_PROCESSING(SSprocessing, src)
-		src.visible_message("<span class = 'danger'>The spacematter vomit evaporates into nothingness!</span>")
+		src.visible_message("<span class='danger'>[src] evaporates into nothingness!</span>")
 		qdel(src)
 
 /datum/milla_safe/spacematter_vomit_process

@@ -136,7 +136,7 @@
 		H.update_body()
 	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
 		if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
-			var/datum/antagonist/zombie/plague = new/datum/antagonist/zombie(plague_disease)
+			var/datum/antagonist/zombie/plague = new /datum/antagonist/zombie(plague_disease)
 			plague.silent = TRUE //to prevent the second box from appearing
 			plague.wiki_page_name = null
 			affected_mob.mind.add_antag_datum(plague)

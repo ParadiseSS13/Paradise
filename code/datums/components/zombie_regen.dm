@@ -17,7 +17,7 @@
 	var/turf/current_turf = get_turf(zomboid)
 	var/healing_factor = max(1, 6 * (1 - current_turf.get_lumcount()))
 	if(HAS_TRAIT(zomboid, TRAIT_PLAGUE_ZOMBIE))
-		healing_factor = healing_factor * 4 // plague zombies have more health, and should heal faster
+		healing_factor *= 4 // plague zombies have more health, and should heal faster
 	if(zomboid.reagents.has_reagent("zombiecure3"))
 		healing_factor /= 3
 	if(zomboid.stat == DEAD)

@@ -709,7 +709,7 @@
 	update_icon()
 
 /obj/item/storage/belt/plague_talisman
-	name = "Runic Belt"
+	name = "\improper Runic Belt"
 	desc = "A belt designed to hold safely contain Plague Talismans. Better hope it doesn't start dripping..."
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"

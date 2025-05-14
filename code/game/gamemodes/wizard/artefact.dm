@@ -701,7 +701,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 
 	if(victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy/plague_zombie))
-		to_chat(necromancer, "<span class='warning'>This one is already under another artefact's influence!</span>")
+		to_chat(necromancer, "<span class='warning'>This one is already under another artifact's influence!</span>")
 		return
 
 	if(!check_skeletons()) //If above the cap, there is a cooldown on additional skeletons
@@ -848,7 +848,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 //////////////////////// plague Talisman //////////////////////////////
 
 /obj/item/plague_talisman
-	name = "plague Talisman"
+	name = "\improper Plague Talisman"
 	desc = "A vile rune, capable of raising the dead as plague-bearing creatures of destruction. The edges have sharp hooks."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "plague_talisman"
@@ -906,7 +906,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 	addtimer(CALLBACK(src, PROC_REF(finish_convert), victim, necromancer, chosen_plague), 5 SECONDS)
 
 /obj/item/plague_talisman/proc/finish_convert(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer, datum/disease/chosen_plague)
-	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them at all costs, for you are now above death!<br> \
+	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!<br>
+	[necromancer.p_theyre(TRUE)] your master now, assist [necromancer.p_them()]at all costs, for you are now above death!<br> \
 		You have been bestowed the following plague: <br> \
 		[chosen_plague.name]!</span>"
 	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
