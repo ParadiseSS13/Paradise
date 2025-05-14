@@ -491,7 +491,7 @@ Difficulty: Hard
 		if(stat == DEAD)
 			continue
 		anger++
-	if(health <= health / 2)
+	if(health <= maxHealth / 2)
 		anger += 2
 	if(enraged)
 		anger += 2
