@@ -41234,7 +41234,7 @@
 	},
 /area/station/security/prisonershuttle)
 "hHp" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -144781,12 +144781,12 @@ gwb
 gwb
 aXR
 aXR
-ojN
-ojN
-ojN
-ojN
-ojN
-ojN
+fOR
+fOR
+fOR
+fOR
+fOR
+fOR
 lzH
 rNK
 rNK
@@ -145043,7 +145043,7 @@ ppw
 nZX
 sSb
 sSb
-ojN
+fOR
 lzH
 rNK
 rNK
@@ -145557,7 +145557,7 @@ qKv
 xkZ
 wIV
 sHM
-ojN
+fOR
 lzH
 rNK
 rNK
@@ -145814,7 +145814,7 @@ sSb
 aJO
 sSb
 tQP
-ojN
+fOR
 lzH
 rNK
 rNK
@@ -146071,7 +146071,7 @@ oHG
 cyz
 xsZ
 cVk
-ojN
+fOR
 lzH
 rNK
 rNK
@@ -146328,7 +146328,7 @@ flB
 izX
 dnH
 eLl
-ojN
+fOR
 lzH
 rNK
 rNK
