@@ -26,6 +26,9 @@
 /datum/quirk/foreigner/apply_quirk_effects(mob/living/quirky)
 	..()
 	owner.remove_language("Galactic Common")
+	if(!length(owner.languages))
+		log_admin("[owner] set up a character with no known languages.") // It's possible to do this but I have no idea how to prevent it without just giving them back galcom for free, so admins can ask them to not do that
+		return
 	owner.set_default_language(quirky.languages[1]) // set_default_language needs to be passed a direct reference to the user's language list
 
 /datum/quirk/foreigner/remove_quirk_effects()
