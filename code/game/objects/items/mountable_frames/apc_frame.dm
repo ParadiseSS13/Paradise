@@ -35,11 +35,3 @@
 /obj/item/mounted/frame/apc_frame/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/power/apc(get_turf(src), get_dir(user, on_wall), TRUE)
 	qdel(src)
-
-/obj/item/mounted/frame/apc_frame/reinforced
-	name = "Reinforced APC frame"
-	desc = "Used for repairing or building Reinforced APCs, which provide additional arcing protection"
-
-/obj/item/mounted/frame/apc_frame/reinforced/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/power/apc/reinforced(get_turf(src), get_dir(user, on_wall), TRUE)
-	qdel(src)

@@ -170,6 +170,8 @@
 	if(I.use_tool(src, user, apc_frame_welding_time, amount = 3, volume = I.tool_volume))
 		if((stat & BROKEN) || opened == APC_COVER_OFF)
 			new sheet_type(loc)
+			if(shock_proof)
+				new /obj/item/stack/sheet/plastic(loc, 10)
 			user.visible_message(\
 				"<span class='notice'>[user] has cut [src] apart with [I].</span>",
 				"<span class='notice'>You disassembled the broken APC frame.</span>",

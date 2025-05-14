@@ -229,6 +229,7 @@
 				. += "Electronics installed but not wired."
 			else /* if(!has_electronics() && !terminal) */
 				. += "There are no electronics nor connected wires."
+			. += shock_proof ? "There is additional plastic insulation" : "There is a place to put in some plastic insulation"
 		else
 			if(stat & MAINT)
 				. += "The cover is closed. Something wrong with it: it doesn't work."
@@ -243,8 +244,6 @@
 	. += "<span class='notice'>You can crowbar an unlocked APC to open the cover of the APC.</span>"
 	if(isAntag(user))
 		. += "<span class='warning'>An APC can be emagged to unlock it, this will keep it in it's refresh state, making very obvious something is wrong.</span>"
-	if(shock_proof)
-		. += "This is a reinforced model with additional arcing protection"
 
 /obj/machinery/power/apc/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(issilicon(user) && get_dist(src, user) > 1)
@@ -388,6 +387,26 @@
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
+	if(istype(used, /obj/item/stack/sheet/plastic))
+		var/obj/item/stack/sheet/plastic/plastic_stack = used
+		if(!opened)
+			to_chat(user, "<span class='warning'>You can't add insulation with the cover closed!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		if(shock_proof)
+			to_chat(user, "<span class='warning'>[src] already has extra insulation installed!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		if(plastic_stack.get_amount() < 10)
+			to_chat(user, "<span class='warning'>You need ten sheets of plastic to add insulation to [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		plastic_stack.use(10)
+		to_chat(user, "<span class='notice'>You add extra insulation to [src].</span>")
+		shock_proof = TRUE
+
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/power/apc/AltClick(mob/user)
@@ -421,6 +440,11 @@
 			cell = null
 			charging = APC_NOT_CHARGING
 			update_icon()
+		else if(shock_proof)
+			to_chat(user, "<span class='info'>You remove the insulation from [src]</span>")
+			var/obj/item/stack/sheet/plastic/plastic_stack = new(loc, 10)
+			user.put_in_hands(plastic_stack)
+			shock_proof = FALSE
 		return
 
 	if(stat & (BROKEN|MAINT))
@@ -841,6 +865,8 @@
 	var/drop_loc = drop_location()
 	new sheet_type(drop_loc, 3) // Metal from the frame
 	new /obj/item/stack/cable_coil(drop_loc, 10) // wiring from the terminal and the APC, some lost due to explosion
+	if(shock_proof)
+		new /obj/item/stack/sheet/plastic(drop_loc, 10)
 	QDEL_NULL(terminal) // We don't want floating terminals
 	qdel(src)
 
@@ -1114,8 +1140,6 @@
 /// Can handle any amount of power. Made with plasteel frames and is found in maints and other high power areas.
 /obj/machinery/power/apc/reinforced
 	shock_proof = TRUE
-	frame_type = /obj/item/mounted/frame/apc_frame/reinforced
-	sheet_type = /obj/item/stack/sheet/plasteel
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
