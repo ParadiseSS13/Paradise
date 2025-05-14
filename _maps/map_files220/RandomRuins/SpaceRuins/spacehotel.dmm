@@ -5161,7 +5161,7 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "Og" = (
 /obj/structure/closet/crate/can,
-/obj/structure/closet/walllocker/medlocker/west,
+/obj/structure/closet/walllocker/medlocker/directional/west,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "Oj" = (

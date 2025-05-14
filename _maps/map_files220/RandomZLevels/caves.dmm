@@ -2740,7 +2740,7 @@
 	},
 /area/awaymission/caves)
 "or" = (
-/obj/structure/closet/walllocker/firelocker/south,
+/obj/structure/closet/walllocker/firelocker/directional/south,
 /obj/effect/spawner/random/blood/often,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
@@ -7474,7 +7474,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "Pq" = (
-/obj/structure/closet/walllocker/medlocker/south,
+/obj/structure/closet/walllocker/medlocker/directional/south,
 /obj/effect/spawner/random/blood/often,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel/dark{

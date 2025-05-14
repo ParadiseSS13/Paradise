@@ -1,0 +1,13 @@
+help: 'Use the specific directional subtypes for this wall locker.'
+/obj/structure/closet/walllocker:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+=/obj/structure/closet/walllocker/firelocker:
+  banned: true
+=/obj/structure/closet/walllocker/firelocker/directional:
+  banned: true
+=/obj/structure/closet/walllocker/medlocker:
+  banned: true
+=/obj/structure/closet/walllocker/medlocker/directional:
+  banned: true

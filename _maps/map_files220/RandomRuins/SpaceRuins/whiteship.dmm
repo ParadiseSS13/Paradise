@@ -791,9 +791,7 @@
 /obj/item/scalpel/laser/laser2{
 	pixel_y = 12
 	},
-/obj/structure/closet/walllocker/medlocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/medlocker/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},

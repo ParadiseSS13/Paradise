@@ -1305,7 +1305,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "qA" = (
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "qB" = (

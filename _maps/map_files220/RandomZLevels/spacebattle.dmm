@@ -2756,7 +2756,7 @@
 /turf/space,
 /area/space)
 "iV" = (
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/syndie/space{
 	id = "armory"
 	},
@@ -14062,7 +14062,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/hallway3)
 "Ue" = (
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
 	icon_state = "4-8"

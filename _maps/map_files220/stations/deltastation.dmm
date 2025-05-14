@@ -60834,7 +60834,7 @@
 	},
 /area/station/medical/medbay)
 "ioK" = (
-/obj/structure/closet/walllocker/medlocker/west,
+/obj/structure/closet/walllocker/medlocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -74510,7 +74510,7 @@
 	},
 /area/station/maintenance/fore2)
 "mAW" = (
-/obj/structure/closet/walllocker/medlocker/west,
+/obj/structure/closet/walllocker/medlocker/directional/west,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -74694,7 +74694,7 @@
 /area/station/maintenance/fore)
 "mEV" = (
 /obj/machinery/light/directional/east,
-/obj/structure/closet/walllocker/medlocker/east,
+/obj/structure/closet/walllocker/medlocker/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"

@@ -3055,7 +3055,7 @@
 /obj/item/reagent_containers/iv_bag/blood/vox,
 /obj/item/reagent_containers/iv_bag/blood/vox,
 /obj/machinery/light/directional/west,
-/obj/structure/closet/walllocker/medlocker/west{
+/obj/structure/closet/walllocker/medlocker/directional/west{
 	color = "#73d1cb"
 	},
 /turf/simulated/floor/mineral/plastitanium{
@@ -13361,7 +13361,7 @@
 	},
 /obj/item/reagent_containers/iv_bag/blood/vox,
 /obj/item/reagent_containers/iv_bag/blood/vox,
-/obj/structure/closet/walllocker/medlocker/east{
+/obj/structure/closet/walllocker/medlocker/directional/east{
 	color = "#73d1cb"
 	},
 /obj/structure/light_fake/small{
@@ -18717,7 +18717,7 @@
 /obj/structure/light_fake/spot{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "hWD" = (
@@ -28503,7 +28503,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light/directional/north,
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "mhk" = (
@@ -35470,7 +35470,7 @@
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
-/obj/structure/closet/walllocker/firelocker/east,
+/obj/structure/closet/walllocker/firelocker/directional/east,
 /obj/structure/table/reinforced{
 	color = "#e67e7e"
 	},
@@ -37230,7 +37230,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "qgj" = (
-/obj/structure/closet/walllocker/firelocker/south,
+/obj/structure/closet/walllocker/firelocker/directional/south,
 /obj/effect/turf_decal/box/red,
 /obj/item/reagent_containers/pill/random_drugs,
 /turf/simulated/floor/mineral/plastitanium{
@@ -38517,7 +38517,7 @@
 	name = "Blast Shutters";
 	opacity = 0
 	},
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "qLq" = (
@@ -44352,7 +44352,7 @@
 	},
 /area/syndicate_mothership/outside)
 "tdF" = (
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /obj/effect/turf_decal/box/red,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/mineral/plastitanium{
@@ -53010,7 +53010,7 @@
 /area/shuttle/vox)
 "wVh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /obj/effect/turf_decal/box/red,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/mineral/plastitanium{

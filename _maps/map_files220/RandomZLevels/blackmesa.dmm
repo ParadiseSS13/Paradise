@@ -13817,7 +13817,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
 "qPF" = (
-/obj/structure/closet/walllocker/firelocker/south,
+/obj/structure/closet/walllocker/firelocker/directional/south,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark"
 	},
@@ -17116,7 +17116,7 @@
 /turf/simulated/floor/beach/away/water/deep/xen,
 /area/awaymission/black_mesa/xen/entering_zone)
 "uWR" = (
-/obj/structure/closet/walllocker/medlocker/west,
+/obj/structure/closet/walllocker/medlocker/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "uXd" = (

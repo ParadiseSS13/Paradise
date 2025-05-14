@@ -7764,7 +7764,7 @@
 "aFa" = (
 /obj/structure/sign/poster/contraband/random/directional/east,
 /obj/structure/sink/kitchen/east,
-/obj/structure/closet/walllocker/medlocker/south,
+/obj/structure/closet/walllocker/medlocker/directional/south,
 /obj/item/reagent_containers/drinks/shaker{
 	pixel_x = -8;
 	pixel_y = 2
@@ -12048,7 +12048,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/station/public/sleep_female)
 "aVq" = (
-/obj/structure/closet/walllocker/firelocker/west,
+/obj/structure/closet/walllocker/firelocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -53819,7 +53819,7 @@
 	},
 /area/station/security/prison/cell_block/a)
 "htr" = (
-/obj/structure/closet/walllocker/firelocker/east,
+/obj/structure/closet/walllocker/firelocker/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -56836,7 +56836,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "iFq" = (
@@ -79363,7 +79363,7 @@
 /turf/space,
 /area/space/nearstation)
 "qVp" = (
-/obj/structure/closet/walllocker/firelocker/south,
+/obj/structure/closet/walllocker/firelocker/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -94944,7 +94944,7 @@
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/end,
-/obj/structure/closet/walllocker/firelocker/north,
+/obj/structure/closet/walllocker/firelocker/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},

@@ -1563,7 +1563,7 @@
 	},
 /area/awaymission/bmp_ship/common)
 "eP" = (
-/obj/structure/closet/walllocker/medlocker/west,
+/obj/structure/closet/walllocker/medlocker/directional/west,
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/splint,
@@ -2009,7 +2009,7 @@
 	pixel_y = 2
 	},
 /obj/item/storage/box/syringes,
-/obj/structure/closet/walllocker/medlocker/east,
+/obj/structure/closet/walllocker/medlocker/directional/east,
 /obj/item/reagent_containers/glass/bottle/ether,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/fore)
@@ -2965,7 +2965,7 @@
 	},
 /area/awaymission/bmp_ship/common)
 "jv" = (
-/obj/structure/closet/walllocker/medlocker/west,
+/obj/structure/closet/walllocker/medlocker/directional/west,
 /obj/item/storage/firstaid/toxin,
 /obj/item/storage/firstaid/toxin,
 /obj/effect/turf_decal/stripes/line{
@@ -5004,7 +5004,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
 "BQ" = (
-/obj/structure/closet/walllocker/medlocker/west,
+/obj/structure/closet/walllocker/medlocker/directional/west,
 /obj/item/storage/firstaid/o2,
 /obj/item/storage/firstaid/o2,
 /obj/effect/turf_decal/stripes/line{
@@ -5077,7 +5077,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/closet/walllocker/medlocker/west,
+/obj/structure/closet/walllocker/medlocker/directional/west,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/buffer)
 "CI" = (
@@ -5348,7 +5348,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/turrets_north)
 "Fb" = (
-/obj/structure/closet/walllocker/medlocker/west,
+/obj/structure/closet/walllocker/medlocker/directional/west,
 /obj/item/stack/medical/ointment/advanced,
 /obj/item/stack/medical/ointment/advanced,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -7052,7 +7052,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/closet/walllocker/firelocker/west,
+/obj/structure/closet/walllocker/firelocker/directional/west,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/buffer)
 "YL" = (
