@@ -172,34 +172,34 @@
 
 // Multi-tile airlocks
 /obj/structure/door_assembly/multi_tile
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/glass_large.dmi'
-	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/glass_large/overlays.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/large.dmi'
+	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/large/overlays.dmi'
 
 /obj/structure/door_assembly/multi_tile/command
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/command_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/command_large.dmi'
 	airlock_type = /obj/machinery/door/airlock/multi_tile/command
 	glass_type = /obj/machinery/door/airlock/multi_tile/command/glass
 
 /obj/structure/door_assembly/multi_tile/security
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/security_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/security_large.dmi'
 	base_name = "security large airlock"
 	airlock_type = /obj/machinery/door/airlock/multi_tile/security
 	glass_type = /obj/machinery/door/airlock/multi_tile/security/glass
 
 /obj/structure/door_assembly/multi_tile/engineering
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/engineering_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/engineering_large.dmi'
 	base_name = "engineering large airlock"
 	airlock_type = /obj/machinery/door/airlock/multi_tile/engineering
 	glass_type = /obj/machinery/door/airlock/multi_tile/engineering/glass
 
 /obj/structure/door_assembly/multi_tile/atmospheric
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/atmospheric_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/atmospheric_large.dmi'
 	base_name = "atmospheric large airlock"
 	airlock_type = /obj/machinery/door/airlock/multi_tile/atmospheric
 	glass_type = /obj/machinery/door/airlock/multi_tile/atmospheric/glass
 
 /obj/structure/door_assembly/multi_tile/supply
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/supply_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/supply_large.dmi'
 	base_name = "supply large airlock"
 	airlock_type = /obj/machinery/door/airlock/multi_tile/supply
 	glass_type = /obj/machinery/door/airlock/multi_tile/supply/glass

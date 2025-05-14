@@ -208,28 +208,28 @@
 
 // Multi-tile airlocks
 /obj/machinery/door/airlock/multi_tile
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/glass_large.dmi'
-	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/glass_large/overlays.dmi'
-	note_overlay_file = 'modular_ss220/aesthetics/airlocks/icons/glass_large/overlays.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/large.dmi'
+	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/large/overlays.dmi'
+	note_overlay_file = 'modular_ss220/aesthetics/airlocks/icons/large/overlays.dmi'
 
 /obj/machinery/door/airlock/multi_tile/command
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/command_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/command_large.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile/command
 
 /obj/machinery/door/airlock/multi_tile/security
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/security_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/security_large.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile/security
 
 /obj/machinery/door/airlock/multi_tile/engineering
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/engineering_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/engineering_large.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile/engineering
 
 /obj/machinery/door/airlock/multi_tile/atmospheric
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/atmospheric_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/atmospheric_large.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile/atmospheric
 
 /obj/machinery/door/airlock/multi_tile/supply
-	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/supply_glass_large.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/supply_large.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile/supply
 
 // Multi-tile airlocks glass
