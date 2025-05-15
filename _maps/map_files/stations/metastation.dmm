@@ -12371,24 +12371,20 @@
 	icon_state = "dark"
 	},
 /area/station/command/office/ce)
-"beJ" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowfull"
-	},
-/area/station/command/office/ce)
 "beK" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
-	pixel_y = 6
-	},
-/obj/item/ashtray/bronze{
-	pixel_x = 10
+/obj/item/flashlight/lamp{
+	pixel_x = -6;
+	pixel_y = 13
 	},
 /obj/item/lighter/zippo{
-	pixel_x = -9;
-	pixel_y = 7
+	pixel_x = -7
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 2
+	},
+/obj/item/ashtray/bronze{
+	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
@@ -15479,13 +15475,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
 "bob" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/glasses/meson,
 /obj/machinery/keycard_auth{
 	pixel_y = -24
+	},
+/obj/machinery/computer/security/engineering{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15581,12 +15575,12 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/storage/secure/briefcase,
-/obj/item/clothing/mask/cigarette/cigar,
 /obj/machinery/computer/security/telescreen/minisat{
 	dir = 1;
 	pixel_y = -30
 	},
+/obj/item/storage/secure/briefcase,
+/obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42224,6 +42218,23 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/ne)
+"eNl" = (
+/obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/sop_engineering{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/book/manual/wiki/sop_command{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/book/manual/wiki/faxes{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowfull"
+	},
+/area/station/command/office/ce)
 "eNp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -128184,8 +128195,8 @@ bAL
 hPR
 bfd
 mpz
-beJ
 bmN
+eNl
 bhU
 aGX
 bam
@@ -128442,8 +128453,8 @@ tBG
 bbK
 mpz
 beK
-bgw
-hFs
+bgx
+bhU
 bom
 bam
 oZT
@@ -128699,8 +128710,8 @@ hPR
 bam
 bdA
 jNu
-bgx
-bhU
+bgw
+hFs
 bob
 bam
 jCd
