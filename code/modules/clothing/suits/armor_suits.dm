@@ -110,6 +110,12 @@
 	item_state = "bloody_armor"
 	sprite_sheets = null
 
+/obj/item/clothing/suit/armor/vest/press
+	name = "press vest"
+	desc = "A sturdy vest that should keep you protected from the dangers of the station."
+	icon_state = "press_vest"
+	item_state = "armor"
+
 /obj/item/clothing/suit/armor/secjacket
 	name = "security jacket"
 	desc = "A stylish black jacket used by Nanotrasen corporate security. Basic kevlar weave offers minor protection, but far less than a typical Security vest."

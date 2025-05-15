@@ -1227,6 +1227,21 @@
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
 
+/obj/item/storage/box/smithboards
+	name = "the Liberator's fabricator"
+	desc = "A box containing a gift for golems with the will to create."
+	icon_state = "circuit_box"
+
+/obj/item/storage/box/smithboards/populate_contents()
+	new /obj/item/circuitboard/magma_crucible(src)
+	new /obj/item/circuitboard/casting_basin(src)
+	new /obj/item/circuitboard/casting_basin(src)
+	new /obj/item/circuitboard/power_hammer(src)
+	new /obj/item/circuitboard/lava_furnace(src)
+	new /obj/item/circuitboard/kinetic_assembler(src)
+	new /obj/item/vending_refill/smith(src)
+	new /obj/item/circuitboard/vendor(src)
+
 /// for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
 /obj/item/storage/box/stockparts/basic
 	name = "box of stock parts"
