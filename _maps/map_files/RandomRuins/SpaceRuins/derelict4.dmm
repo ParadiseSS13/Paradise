@@ -14,25 +14,13 @@
 "e" = (
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/space/unpowered)
-"f" = (
-/obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
 "g" = (
+/obj/item/shard,
+/obj/effect/decal/remains/robot,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "h" = (
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/unpowered)
-"i" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/unpowered)
-"j" = (
-/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/unpowered)
 "k" = (
@@ -46,22 +34,23 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "m" = (
-/obj/item/shard,
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mob_spawn/human/corpse/charredskeleton,
+/obj/item/cigbutt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "n" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"p" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"o" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"p" = (
-/obj/structure/table,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/unpowered)
 "q" = (
@@ -71,28 +60,136 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/unpowered)
-"r" = (
+"u" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"v" = (
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"w" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"x" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"y" = (
+/obj/structure/girder,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"z" = (
+/obj/effect/mob_spawn/human/corpse/random_species/doctor,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"B" = (
+/obj/machinery/door/airlock/titanium/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"C" = (
+/obj/effect/spawner/random/trash,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"D" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/grille/broken,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"E" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"F" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/unpowered)
-"s" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"t" = (
-/obj/structure/girder,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "K" = (
 /obj/structure/spawner/mining/basilisk,
 /turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"M" = (
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"N" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/grille/broken,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"O" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/space/unpowered)
+"P" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"Q" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"R" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"S" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/space/unpowered)
+"U" = (
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"V" = (
+/obj/structure/grille,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"W" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"X" = (
+/obj/machinery/door/airlock/command/glass,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
+"Y" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/stack/sheet/metal{
+	amount = 2;
+	pixel_x = 2;
+	pixel_y = -6
+	},
+/obj/item/stack/sheet/mineral/titanium{
+	amount = 4;
+	pixel_x = 9;
+	pixel_y = -8
+	},
+/obj/effect/spawner/random/engineering/toolbox,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "Z" = (
 /mob/living/simple_animal/hostile/carp,
@@ -677,10 +774,10 @@ b
 b
 b
 b
-b
-b
-b
-b
+D
+N
+V
+y
 b
 b
 b
@@ -716,12 +813,12 @@ d
 b
 b
 b
-g
-g
-o
 b
+g
+P
+P
+w
 b
-c
 b
 b
 d
@@ -754,14 +851,14 @@ d
 d
 b
 b
-c
-e
-g
+E
+y
+b
 m
 p
-g
-e
-c
+R
+u
+y
 b
 b
 d
@@ -795,13 +892,13 @@ b
 b
 b
 c
-e
-g
+y
+w
 n
-q
-h
-e
-c
+W
+U
+u
+O
 b
 b
 d
@@ -835,13 +932,13 @@ b
 b
 b
 c
-e
-g
-h
-h
-h
-e
-c
+O
+O
+S
+X
+S
+S
+S
 c
 b
 b
@@ -873,15 +970,15 @@ a
 b
 b
 b
-c
+E
 c
 e
+u
+u
 h
-h
-h
-h
+u
+u
 e
-c
 c
 c
 c
@@ -914,16 +1011,16 @@ a
 b
 b
 c
-c
-f
+e
+e
+R
+R
 h
-h
-h
-h
-f
-c
+q
+R
+e
+e
 K
-c
 c
 b
 a
@@ -953,17 +1050,17 @@ a
 a
 b
 b
-b
-c
 e
-i
+e
+k
+U
 h
 h
-r
+h
+h
+h
 e
-c
-c
-c
+e
 c
 a
 a
@@ -993,17 +1090,17 @@ a
 a
 b
 b
-b
-c
-e
-j
+Q
+R
+R
+R
 h
 h
-s
-t
-c
-c
-c
+h
+R
+R
+R
+Q
 c
 a
 a
@@ -1029,23 +1126,23 @@ a
 a
 a
 a
-a
 b
 b
 b
 d
-c
-e
-k
+S
+R
+R
+R
 h
-g
-g
-g
+h
+h
+R
+R
+M
+O
+E
 c
-c
-a
-a
-a
 a
 a
 b
@@ -1069,23 +1166,23 @@ b
 b
 a
 a
-a
 b
 b
 b
 d
+B
+x
+U
+h
+h
+h
+h
+h
+W
+Y
+w
 c
-e
-e
-e
-e
-e
-e
 c
-c
-a
-a
-a
 a
 a
 a
@@ -1109,23 +1206,23 @@ b
 b
 a
 Z
-a
 b
 b
 b
 d
+S
+R
+R
+R
+v
+h
+h
+R
+W
+w
+y
 c
-e
-l
-l
-l
-l
-e
 c
-c
-a
-a
-a
 a
 a
 a
@@ -1149,23 +1246,23 @@ b
 b
 a
 a
-a
 b
 b
 b
-b
-b
+c
+Q
+R
+R
+R
+z
+h
+h
+R
+R
+C
+Q
 c
 c
-c
-c
-c
-c
-c
-c
-a
-a
-a
 a
 a
 a
@@ -1190,22 +1287,22 @@ a
 a
 a
 a
-a
 b
 b
-b
+c
+S
+F
+F
+F
+S
+S
+S
+F
+F
+F
+S
 c
 c
-c
-c
-c
-a
-a
-a
-a
-a
-a
-a
 Z
 a
 a
@@ -1230,21 +1327,21 @@ a
 a
 a
 a
-a
-a
 b
 b
+b
+S
+l
+l
+l
+S
 c
+S
+l
+l
+l
+S
 c
-c
-c
-c
-a
-a
-a
-a
-a
-a
 a
 a
 a
@@ -1270,21 +1367,21 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+b
+b
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
 a
 a
 a
@@ -1311,19 +1408,19 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+b
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
 a
 a
 a
@@ -1354,14 +1451,14 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
+c
+c
+c
+c
+c
+c
+c
+c
 a
 a
 a
@@ -1396,10 +1493,10 @@ a
 a
 a
 a
-a
-a
-a
-a
+c
+c
+c
+c
 Z
 a
 a
