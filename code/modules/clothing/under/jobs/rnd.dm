@@ -5,18 +5,25 @@
 		"Human" = 'icons/mob/clothing/under/rnd.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/rnd.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/rnd.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/rnd.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/rnd.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/rnd.dmi'
 		)
 
-/obj/item/clothing/under/rank/rnd/research_director
-	name = "research director's jumpsuit"
-	desc = "It's a jumpsuit worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
-	icon_state = "director"
-	item_state = "g_suit"
-	item_color = "director"
+/obj/item/clothing/under/rank/rnd/rd
+	name = "research director's uniform"
+	desc = "It's a purple dress shirt and black slacks worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
+	icon_state = "rd"
+	item_state = "rd"
+	item_color = "rd"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 25)
 
-/obj/item/clothing/under/rank/rnd/research_director/dress
+/obj/item/clothing/under/rank/rnd/rd/skirt
+	name = "research director's skirt"
+	desc = "It's a purple dress shirt and black skirt worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
+	icon_state = "rd_skirt"
+	item_color = "rd_skirt"
+
+/obj/item/clothing/under/rank/rnd/rd/dress
 	name = "research director's dress uniform"
 	desc = "Feminine fashion for the style conscious RD."
 	icon_state = "dress_rd"
