@@ -168,10 +168,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
-"O" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/ruin/space/unpowered)
 "P" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 4
@@ -930,7 +926,7 @@ n
 L
 U
 u
-O
+S
 b
 b
 d
@@ -964,8 +960,8 @@ b
 b
 b
 c
-O
-O
+S
+S
 S
 X
 S
@@ -1172,7 +1168,7 @@ h
 o
 o
 M
-O
+S
 E
 c
 a
