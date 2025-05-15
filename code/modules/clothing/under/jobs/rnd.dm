@@ -22,6 +22,7 @@
 	desc = "It's a purple dress shirt and black skirt worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
 	icon_state = "rd_skirt"
 	item_color = "rd_skirt"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/rnd/rd/dress
 	name = "research director's dress uniform"
