@@ -861,7 +861,7 @@
 		/obj/item/extinguisher/mini, //Why the hell would the syndicate care about greys?
 		/obj/item/gripper/medical,
 	)
-	special_rechargables = list(/obj/item/extinguisher/mini/cyborg)
+	special_rechargables = list(/obj/item/extinguisher/mini)
 
 /obj/item/robot_module/syndicate_medical/emag_act(mob/user)
 	. = ..()
