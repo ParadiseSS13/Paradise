@@ -5,13 +5,6 @@
 			return 1
 	return 0
 
-/proc/ispet(A)
-	if(isanimal(A))
-		var/mob/living/simple_animal/SA = A
-		if(SA.can_collar)
-			return 1
-	return 0
-
 /mob/proc/get_screen_colour()
 	SHOULD_CALL_PARENT(TRUE)
 	// OOC Colourblind setting takes priority over everything else.
@@ -81,7 +74,7 @@
 	if(istype(worn_glasses) && worn_glasses.color_view) //Check to see if they got those magic glasses and they're augmenting the colour of what the wearer sees. If they're not, color_view should be null.
 		return worn_glasses.color_view
 	else if(eyes) //If they're not, check to see if their eyes got one of them there colour matrices. Will be null if eyes are robotic/the mob isn't colourblind and they have no default colour matrix.
-		return eyes.get_colourmatrix()
+		return eyes.get_colormatrix()
 
 /**
   * Flash up a color as an overlay on a player's screen, then fade back to normal.

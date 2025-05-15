@@ -109,7 +109,7 @@
 		if(H.voice != M.real_name)
 			mod_link.visual.name = H.voice
 		else
-			mod_link.visual.name = M.name
+			mod_link.visual.name = H.name
 	else
 		mod_link.visual.name = M.name
 	mod_link.visual.atom_say(capitalize(multilingual_to_message(message_pieces)))
@@ -221,17 +221,17 @@
 				return TRUE
 	else
 		var/obj/item/clothing/neck/link_scryer/chosen_scryer = linked_thing
-		var/response = tgui_alert(user, "Would you like to copy or imprint the frequency?", "MODlink Frequency", list("Copy", "Imprint"))
+		var/response = tgui_alert(user, "Would you like to copy the frequency to the multitool or imprint the frequency to [src]?", "MODlink Frequency", list("Copy", "Imprint"))
 		if(!user.is_holding(I))
 			return FALSE
 		switch(response)
 			if("Copy")
-				mod_link.frequency = chosen_scryer.mod_link.frequency
-				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
-				return TRUE
-			if("Imprint")
 				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
 				M.buffer_uid = UID()
+				return TRUE
+			if("Imprint")
+				mod_link.frequency = chosen_scryer.mod_link.frequency
+				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
 				return TRUE
 
 /obj/item/clothing/neck/link_scryer/get_cell()
@@ -306,6 +306,8 @@
 		var/mob/living/carbon/human/H = M
 		if(H.voice != M.real_name)
 			mod_link.visual.name = H.voice
+		else
+			mod_link.visual.name = H.name
 	else
 		mod_link.visual.name = M.name
 	mod_link.visual.atom_say(capitalize(multilingual_to_message(message_pieces)))

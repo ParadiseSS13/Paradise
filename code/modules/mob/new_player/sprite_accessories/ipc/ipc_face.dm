@@ -48,6 +48,10 @@
 	name = "Monoeye IPC Screen"
 	icon_state = "monoeye"
 
+/datum/sprite_accessory/hair/ipc/ipc_screen_blinkingeye
+	name = "Blinking IPC Screen"
+	icon_state = "blinkingeye"
+
 /datum/sprite_accessory/hair/ipc/ipc_screen_nature
 	name = "Nature IPC Screen"
 	icon_state = "nature"

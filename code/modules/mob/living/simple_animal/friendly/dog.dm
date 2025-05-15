@@ -73,7 +73,6 @@
 	butcher_results = list(/obj/item/food/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
-	collar_type = "corgi"
 	hud_type = /datum/hud/corgi
 	///Currently worn item on the head slot
 	var/obj/item/inventory_head = null
@@ -84,13 +83,14 @@
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 	var/razor_shave_delay = 5 SECONDS
+	var/collar_icon_state = "corgi"
+
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/dog/corgi/add_strippable_element()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state)
 	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_corgi_items)
+	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/corgi/Destroy()
 	QDEL_NULL(inventory_head)
@@ -246,7 +246,7 @@
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_corgi_fluff()
-		regenerate_icons()
+		update_appearance()
 	else
 		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
 		item_to_add.forceMove(drop_location())
@@ -276,8 +276,9 @@
 		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
 		DF.apply(src)
 
-/mob/living/simple_animal/pet/dog/corgi/regenerate_icons()
-	..()
+/mob/living/simple_animal/pet/dog/corgi/update_overlays()
+	. = ..()
+
 	if(inventory_head)
 		var/image/head_icon
 		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
@@ -296,7 +297,7 @@
 		else
 			head_icon = DF.get_overlay()
 
-		add_overlay(head_icon)
+		. += head_icon
 
 	if(inventory_back)
 		var/image/back_icon
@@ -315,7 +316,8 @@
 			back_icon.transform = turn(back_icon.transform, 180)
 		else
 			back_icon = DF.get_overlay()
-		add_overlay(back_icon)
+
+		. += back_icon
 
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/ian
@@ -519,9 +521,8 @@
 	density = FALSE
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	collar_type = "puppy"
-	strippable_inventory_slots = list(/datum/strippable_item/pet_collar) // Puppies do not have a head or back equipment slot.
-
+	strippable_inventory_slots = list() // Puppies do not have a head or back equipment slot.
+	collar_icon_state = "puppy"
 
 /// Tribute to the corgis born in nullspace
 /mob/living/simple_animal/pet/dog/corgi/puppy/void
@@ -553,7 +554,7 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
-	strippable_inventory_slots = list(/datum/strippable_item/corgi_back, /datum/strippable_item/pet_collar) //Lisa already has a cute bow!
+	strippable_inventory_slots = list(/datum/strippable_item/corgi_back) //Lisa already has a cute bow!
 	var/turns_since_scan = 0
 
 /mob/living/simple_animal/pet/dog/corgi/lisa/Life()
@@ -655,7 +656,10 @@
 	icon_living = "pug"
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/food/meat/pug = 3)
-	collar_type = "pug"
+
+/mob/living/simple_animal/pet/dog/pug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = "pug")
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()
