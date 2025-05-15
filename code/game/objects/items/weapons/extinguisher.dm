@@ -60,7 +60,7 @@
 
 /obj/item/extinguisher/mini/cyborg
 	name = "integrated fire extinguisher"
-	desc = "An minuture fire extinguisher designed to store firefighting foam."
+	desc = "A miniature fire extinguisher designed to store firefighting foam."
 	icon_state = "cyborgFE0"
 	item_state = "cyborgFE"
 	base_icon_state = "cyborgFE"
