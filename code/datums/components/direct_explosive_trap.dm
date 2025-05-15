@@ -18,9 +18,12 @@
 	glow_colour_ = COLOR_RED,
 	datum/callback/explosive_check_,
 	list/triggering_signals_ = list(
-		COMSIG_ATOM_ATTACK_HAND,
+		// TODO: This is where COMSIG_ATTACK_HAND would be
+		// if we could actually rely on it to call its parent
+		COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY,
+		COMSIG_INTERACT_USER,
 		COMSIG_ATTACK_BY,
-		COMSIG_MOVABLE_BUMP,
+		COMSIG_ATOM_BUMPED,
 		COMSIG_CLICK_ALT,
 		COMSIG_LIVING_TRY_PULL,
 		COMSIG_MOUSEDROP_ONTO,
