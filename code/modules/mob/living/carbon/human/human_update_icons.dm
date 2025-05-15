@@ -1095,6 +1095,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(BACK_LAYER)
 	if(back)
+		var/actual_layer = ((head?.flags & BLOCKHAIR) || (wear_mask?.flags & BLOCKHAIR)) ? HEAD_LAYER - 0.01 : BACK_LAYER
 		update_hud_back(back)
 		//determine the icon to use
 		var/t_state = back.item_state
@@ -1102,11 +1103,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			t_state = back.icon_state
 		var/mutable_appearance/standing
 		if(back.icon_override)
-			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -actual_layer)
 		else if(back.sprite_sheets && back.sprite_sheets[dna.species.sprite_sheet_name])
-			standing = mutable_appearance(back.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance(back.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -actual_layer)
 		else
-			standing = mutable_appearance('icons/mob/clothing/back.dmi', "[t_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance('icons/mob/clothing/back.dmi', "[t_state]", layer = -actual_layer)
 
 		//create the image
 		standing.alpha = back.alpha

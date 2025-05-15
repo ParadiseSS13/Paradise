@@ -120,6 +120,7 @@
 			update_hair()	//rebuild hair
 			update_fhair()
 			update_head_accessory()
+			update_inv_back()
 		// Bandanas and paper hats go on the head but are not head clothing
 		if(istype(target, /obj/item/clothing/head))
 			var/obj/item/clothing/head/hat = target
@@ -148,6 +149,7 @@
 			update_hair()	//rebuild hair
 			update_fhair()
 			update_head_accessory()
+			update_inv_back()
 		if(internal && !get_organ_slot("breathing_tube"))
 			internal = null
 		if(target.flags_inv & HIDEEARS)
@@ -224,6 +226,7 @@
 				update_hair()	//rebuild hair
 				update_fhair()
 				update_head_accessory()
+				update_inv_back()
 			if(length(hud_list))
 				sec_hud_set_ID()
 				malf_hud_set_status()
@@ -297,6 +300,7 @@
 				update_hair()	//rebuild hair
 				update_fhair()
 				update_head_accessory()
+				update_inv_back()
 			// paper + bandanas
 			if(istype(I, /obj/item/clothing/head))
 				var/obj/item/clothing/head/hat = I
