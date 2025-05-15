@@ -106,6 +106,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
+	. = ..()
 	if(operating || emagged || foam_level)
 		return
 	if(ismob(AM))
