@@ -210,7 +210,17 @@
 /datum/gear/hat/beret_job/cargo
 	display_name = "Beret, cargo"
 	path = /obj/item/clothing/head/beret/cargo
-	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
+	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner")
+
+/datum/gear/hat/beret_job/expedition
+	display_name = "Beret, expedition"
+	path = /obj/item/clothing/head/beret/expedition
+	allowed_roles = list("Quartermaster", "Explorer")
+
+/datum/gear/hat/beret_job/smith
+	display_name = "Beret, smith"
+	path + /obj/item/clothing/head/beret/smith
+	allowed_roles = list("Quartermaster", "Smith")
 
 /datum/gear/hat/beret_job/qm
 	display_name = "Beret, quartermaster"
