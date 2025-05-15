@@ -162,6 +162,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+
 //Research
 /obj/item/clothing/head/rd
 	name = "research director's cap"
