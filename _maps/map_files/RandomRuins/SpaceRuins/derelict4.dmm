@@ -14,6 +14,10 @@
 "e" = (
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/space/unpowered)
+"f" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/unpowered)
 "g" = (
 /obj/item/shard,
 /obj/effect/decal/remains/robot,
@@ -21,11 +25,25 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "h" = (
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/unpowered)
+"i" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/stack/sheet/mineral/titanium{
+	amount = 4;
+	pixel_x = 9;
+	pixel_y = -8
+	},
+/obj/item/stack/sheet/metal{
+	amount = 2;
+	pixel_x = 2;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "k" = (
 /obj/effect/spawner/random/loot_crate/rarely,
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "l" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -46,6 +64,12 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/unpowered)
+"o" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/unpowered)
 "p" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -58,7 +82,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/unpowered)
+"t" = (
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
+/turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "u" = (
 /obj/structure/table/reinforced,
@@ -66,7 +94,7 @@
 /area/ruin/space/unpowered)
 "v" = (
 /obj/item/storage/firstaid/regular,
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "w" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -74,7 +102,7 @@
 /area/ruin/space/unpowered)
 "x" = (
 /obj/effect/spawner/random/food_trash,
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "y" = (
 /obj/structure/girder,
@@ -83,16 +111,16 @@
 /area/ruin/space/unpowered)
 "z" = (
 /obj/effect/mob_spawn/human/corpse/random_species/doctor,
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "B" = (
 /obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "C" = (
 /obj/effect/spawner/random/trash,
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "D" = (
 /obj/effect/decal/cleanable/glass,
@@ -113,14 +141,23 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
+"H" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/food_or_drink/dinner,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/unpowered)
 "K" = (
 /obj/structure/spawner/mining/basilisk,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
+"L" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
 "M" = (
 /obj/effect/mob_spawn/human/corpse/random_species/engineer,
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "N" = (
 /obj/effect/decal/cleanable/glass,
@@ -155,6 +192,11 @@
 "S" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/ruin/space/unpowered)
+"T" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/unpowered)
 "U" = (
 /obj/effect/mob_spawn/human/corpse/random_species/assistant,
 /turf/simulated/floor/mineral/titanium/blue/airless,
@@ -170,7 +212,7 @@
 /area/ruin/space/unpowered)
 "W" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "X" = (
 /obj/machinery/door/airlock/command/glass,
@@ -178,16 +220,6 @@
 /area/ruin/space/unpowered)
 "Y" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/stack/sheet/metal{
-	amount = 2;
-	pixel_x = 2;
-	pixel_y = -6
-	},
-/obj/item/stack/sheet/mineral/titanium{
-	amount = 4;
-	pixel_x = 9;
-	pixel_y = -8
-	},
 /obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
@@ -895,7 +927,7 @@ c
 y
 w
 n
-W
+L
 U
 u
 O
@@ -973,11 +1005,11 @@ b
 E
 c
 e
-u
-u
+T
+H
 h
-u
-u
+T
+f
 e
 c
 c
@@ -1013,11 +1045,11 @@ b
 c
 e
 e
-R
-R
+o
+o
 h
 q
-R
+o
 e
 e
 K
@@ -1053,7 +1085,7 @@ b
 e
 e
 k
-U
+t
 h
 h
 h
@@ -1091,15 +1123,15 @@ a
 b
 b
 Q
-R
-R
-R
+o
+o
+o
 h
 h
 h
-R
-R
-R
+o
+o
+o
 Q
 c
 a
@@ -1131,14 +1163,14 @@ b
 b
 d
 S
-R
-R
-R
+o
+o
+o
 h
 h
 h
-R
-R
+o
+o
 M
 O
 E
@@ -1172,15 +1204,15 @@ b
 d
 B
 x
-U
-h
+t
 h
 h
 h
 h
 W
+W
 Y
-w
+i
 c
 c
 a
@@ -1211,13 +1243,13 @@ b
 b
 d
 S
-R
-R
-R
+o
+o
+o
 v
 h
 h
-R
+o
 W
 w
 y
@@ -1251,14 +1283,14 @@ b
 b
 c
 Q
-R
-R
-R
+o
+o
+o
 z
 h
 h
-R
-R
+o
+o
 C
 Q
 c
