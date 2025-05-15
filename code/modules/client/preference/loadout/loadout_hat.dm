@@ -219,7 +219,7 @@
 
 /datum/gear/hat/beret_job/smith
 	display_name = "Beret, smith"
-	path + /obj/item/clothing/head/beret/smith
+	path = /obj/item/clothing/head/beret/smith
 	allowed_roles = list("Quartermaster", "Smith")
 
 /datum/gear/hat/beret_job/qm
