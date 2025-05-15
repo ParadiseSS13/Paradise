@@ -59,7 +59,7 @@
 /// Let people know something is up
 /datum/component/direct_explosive_trap/proc/on_examined(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
-	if(get_dist(source, user) >= 2)
+	if(get_dist(source, user) <= 2)
 		examine_text += "<span class='notice'>Looks odd!</span>"
 
 /// Blow up
