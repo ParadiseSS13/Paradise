@@ -1,6 +1,6 @@
 /obj/item/clothing/under/rank/captain
 	name = "captain's jumpsuit"
-	desc = "It's a blue jumpsuit with some gold markings denoting the rank of \"Captain\"."
+	desc = "It's a blue dress shirt and black slacks with some gold markings denoting the rank of \"Captain\"."
 	icon = 'icons/obj/clothing/under/captain.dmi'
 	icon_state = "captain"
 	item_state = "caparmor"
@@ -13,6 +13,22 @@
 		"Grey" = 'icons/mob/clothing/species/grey/under/captain.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/captain.dmi',
 		)
+
+/obj/item/clothing/under/rank/captain/skirt
+	name = "captain's jumpskirt"
+	desc = "It's a blue dress shirt and black skirt with some gold markings denoting the rank of \"Captain\"."
+	icon_state = "captain_skirt"
+	item_color = "captain_skirt"
+
+/obj/item/clothing/under/rank/captain/white
+	desc = "It's a white dress shirt and black slacks with some gold markings denoting the rank of \"Captain\"."
+	icon_state = "captain_white"
+	item_color = "captain_white"
+
+/obj/item/clothing/under/rank/captain/skirt/white
+	desc = "It's a white dress shirt and black skirt with some gold markings denoting the rank of \"Captain\"."
+	icon_state = "captain_skirt_white"
+	item_color = "captain_skirt_white"
 
 /obj/item/clothing/under/rank/captain/dress
 	name = "captain's dress"

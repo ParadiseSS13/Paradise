@@ -1,6 +1,7 @@
 GLOBAL_LIST_EMPTY(asays)
 GLOBAL_LIST_EMPTY(msays)
 GLOBAL_LIST_EMPTY(devsays)
+GLOBAL_LIST_EMPTY(staffsays)
 
 /datum/say
 	var/ckey
@@ -43,6 +44,16 @@ GLOBAL_LIST_EMPTY(devsays)
 		return
 
 	display_says(GLOB.asays, "asay")
+
+/client/proc/view_staffsays()
+	set name = "Staffsays"
+	set desc = "View Staffsays from the current round."
+	set category = "Admin"
+
+	if(!check_rights(R_DEV_TEAM | R_ADMIN))
+		return
+
+	display_says(GLOB.staffsays, "devsay")
 
 /client/proc/display_says(list/say_list, title)
 
