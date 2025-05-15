@@ -1344,11 +1344,11 @@
 
 		var/list/ele_list = list()
 		if(ispath(path, /datum/element))
-			ele_lst = get_callproc_args()
-			ele_lst.Insert(1, path)
+			ele_list = get_callproc_args()
+			ele_list.Insert(1, path)
 		for(var/datum/target_to_remove_from as anything in targets_to_remove_from)
 			if(ispath(path, /datum/element))
-				target._RemoveElement(lst)
+				target._RemoveElement(ele_list)
 			else
 				var/list/components_actual = target_to_remove_from.GetComponents(path)
 				for(var/to_delete in components_actual)
