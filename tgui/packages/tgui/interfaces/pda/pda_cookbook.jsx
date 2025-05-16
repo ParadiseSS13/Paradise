@@ -8,8 +8,8 @@ export const pda_cookbook = (props) => {
   const { act, data } = useBackend();
   const { categories, current_category, recipes, search_text } = data;
 
-  const [recipeList, setRecipeList] = useState('recipeList', recipes);
-  const [searchText, setSearchText] = useState('searchText', search_text);
+  const [recipeList, setRecipeList] = useState(recipes);
+  const [searchText, setSearchText] = useState(search_text);
 
   return (
     <Box>

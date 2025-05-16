@@ -11,8 +11,19 @@
 /obj/machinery/power/teg,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
+"aS" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/cartridge/chef,
+/turf/simulated/floor/carpet,
+/area/shuttle/arrival/station)
 "br" = (
 /obj/machinery/r_n_d/circuit_imprinter/upgraded,
+/turf/simulated/floor/carpet,
+/area/shuttle/arrival/station)
+"ch" = (
+/obj/machinery/light,
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/multitool,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "cj" = (
@@ -455,6 +466,10 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
+"yb" = (
+/obj/machinery/computer/holodeck_control,
+/turf/simulated/floor/carpet,
+/area/shuttle/arrival/station)
 "yh" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/radio/headset/centcom,
@@ -509,6 +524,10 @@
 /mob/living/simple_animal/bot/secbot,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
+"AZ" = (
+/obj/machinery/telepad,
+/turf/simulated/floor/carpet,
+/area/shuttle/arrival/station)
 "Bk" = (
 /obj/machinery/reagentgrinder,
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -524,11 +543,8 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "BV" = (
-/obj/machinery/computer/holodeck_control{
-	dir = 1
-	},
-/turf/simulated/floor/carpet,
-/area/shuttle/arrival/station)
+/turf/simulated/floor/engine,
+/area/holodeck/alphadeck)
 "Cf" = (
 /obj/machinery/computer/communications{
 	dir = 1
@@ -893,9 +909,6 @@
 /mob/living/simple_animal/bot/floorbot,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
-"OQ" = (
-/turf/simulated/floor/engine,
-/area/holodeck/alphadeck)
 "OV" = (
 /obj/machinery/smartfridge/foodcart,
 /obj/item/food/meatballspaghetti,
@@ -1052,6 +1065,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
+"TM" = (
+/obj/machinery/computer/telescience{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/shuttle/arrival/station)
 "TY" = (
 /obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/carpet,
@@ -1175,10 +1194,6 @@
 /area/shuttle/arrival/station)
 "Yo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/carpet,
-/area/shuttle/arrival/station)
-"Ze" = (
-/obj/machinery/computer/holodeck_control,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "Zh" = (
@@ -31922,7 +31937,7 @@ IO
 JA
 JA
 JA
-BV
+JA
 Hz
 xx
 JA
@@ -35012,7 +35027,7 @@ MZ
 JA
 JA
 JA
-tq
+aS
 Hz
 Of
 JA
@@ -36052,7 +36067,7 @@ JA
 JA
 JA
 JA
-JA
+AZ
 Hz
 eO
 eO
@@ -36298,7 +36313,7 @@ JA
 JA
 JA
 JA
-Ze
+yb
 JA
 JA
 JA
@@ -36309,7 +36324,7 @@ JA
 JA
 Bw
 JA
-JA
+TM
 Hz
 eO
 eO
@@ -36566,7 +36581,7 @@ Rl
 JA
 JA
 JA
-lp
+ch
 Hz
 eO
 eO
@@ -36806,16 +36821,16 @@ eO
 Hz
 JA
 JA
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
 JA
 JA
 Hz
@@ -37063,16 +37078,16 @@ eO
 Hz
 JA
 JA
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
 JA
 JA
 Hz
@@ -37320,16 +37335,16 @@ eO
 Hz
 JA
 JA
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
 JA
 JA
 Hz
@@ -37577,16 +37592,16 @@ eO
 Hz
 JA
 JA
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
 JA
 JA
 Hz
@@ -37834,16 +37849,16 @@ eO
 Hz
 JA
 JA
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
-OQ
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
+BV
 JA
 JA
 Hz
