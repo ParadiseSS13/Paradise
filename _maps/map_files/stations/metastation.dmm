@@ -2978,7 +2978,6 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/yellow,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
@@ -9314,6 +9313,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/computer/station_alert,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -9897,7 +9899,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/power/apc/critical/directional/west,
-/obj/machinery/computer/security/engineering,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -9952,6 +9956,9 @@
 	},
 /obj/machinery/computer/monitor{
 	name = "Engineering Power Monitoring Console"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -19595,6 +19602,9 @@
 /area/station/hallway/primary/aft/north)
 "bAL" = (
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/computer/security/engineering{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
