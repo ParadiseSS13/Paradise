@@ -136,6 +136,9 @@
 				return
 
 /obj/structure/morgue/attack_hand(mob/user as mob)
+	if(!anchored)
+		to_chat(user, "<span class='warning'>\The [src] is unsecured from the floor!</span>")
+		return
 	if(connected)
 		for(var/atom/movable/A in connected.loc)
 			if(!A.anchored)
@@ -151,6 +154,17 @@
 	add_fingerprint(user)
 	update_state()
 	return
+
+/obj/structure/morgue/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>\The [src] is anchored to the floor!</span>")
+		return
+	setDir(turn(dir, 90))
 
 /obj/structure/morgue/attack_ai(mob/user)
 	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
@@ -190,7 +204,30 @@
 		to_chat(user, "<span class='notice'>You cut the tag off the morgue.</span>")
 		name = initial(name)
 		update_icon(UPDATE_OVERLAYS)
+		return
+
+/obj/structure/morgue/wrench_act(mob/user, obj/item/I)
+	if(status != EMPTY_MORGUE)
+		to_chat(user, "<span class='warning'>\The [src] is not in a state to be deconstructed!</span>")
 		return TRUE
+
+	if(!connected)
+		default_unfasten_wrench(user, I, 4 SECONDS)
+		add_fingerprint(user)
+		return TRUE
+
+/obj/structure/morgue/welder_act(mob/user, obj/item/I)
+	if(!anchored)
+		WELDER_ATTEMPT_SLICING_MESSAGE
+		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			WELDER_SLICING_SUCCESS_MESSAGE
+			deconstruct(TRUE)
+		return TRUE
+
+/obj/structure/morgue/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 5)
+	return ..()
 
 /obj/structure/morgue/relaymove(mob/user)
 	if(user.stat)

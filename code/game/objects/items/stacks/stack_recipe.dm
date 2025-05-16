@@ -147,6 +147,12 @@
 	if(istype(result, /obj/item/restraints/handcuffs/cable))
 		result.color = S.color
 	..()
+/datum/stack_recipe
+/datum/stack_recipe/post_build(mob/user, obj/item/stack/S, obj/result)
+	if(istype(result, /obj/structure/morgue))
+		var/obj/structure/morgue/M = result
+		M.anchored = FALSE
+	..()
 
 /datum/stack_recipe/dangerous
 /datum/stack_recipe/dangerous/post_build(mob/user, obj/item/stack/S, obj/result)
