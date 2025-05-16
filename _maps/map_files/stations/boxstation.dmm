@@ -26575,12 +26575,16 @@
 	},
 /area/station/medical/chemistry)
 "bOH" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
+/obj/machinery/door/airlock/engineering{
+	name = "Toxin Testing EVA Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/wall,
+/area/station/maintenance/electrical/aft_starboard)
 "bOK" = (
 /turf/simulated/wall,
 /area/station/command/office/captain/bedroom)
@@ -60900,8 +60904,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/wall,
+/area/station/maintenance/electrical/aft_starboard)
 "kjG" = (
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
@@ -66081,17 +66086,10 @@
 	},
 /area/station/science/break_room)
 "mMk" = (
-/obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high/plus,
-/obj/item/clothing/gloves/color/fyellow{
-	pixel_y = 6
-	},
-/obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/aft_starboard)
 "mMB" = (
@@ -72528,23 +72526,17 @@
 /turf/simulated/floor/carpet,
 /area/station/public/vacant_office)
 "qcp" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/metal{
-	amount = 20
-	},
-/obj/item/stack/rods{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 20;
-	pixel_x = 1;
-	pixel_y = 1
-	},
-/obj/effect/spawner/random/maintenance,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/storage/toolbox/electrical,
+/obj/item/clothing/gloves/color/fyellow{
+	pixel_y = 6
+	},
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/aft_starboard)
 "qcs" = (
@@ -81565,6 +81557,9 @@
 	icon_state = "darkpurple"
 	},
 /area/station/science/toxins/mixing)
+"uDX" = (
+/turf/simulated/wall,
+/area/station/maintenance/electrical/aft_starboard)
 "uEc" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -83857,6 +83852,19 @@
 	},
 /obj/structure/cable/orange,
 /obj/machinery/power/apc/reinforced/directional/south,
+/obj/structure/table,
+/obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/item/stack/sheet/metal{
+	amount = 20
+	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "vSs" = (
@@ -140704,7 +140712,7 @@ wzx
 eMZ
 cgE
 cgs
-ciY
+uDX
 kjx
 bOH
 ciY
