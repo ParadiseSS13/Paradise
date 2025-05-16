@@ -35,7 +35,7 @@
 
 /datum/event/prison_break/announce(false_alarm)
 	if(length(areas) || false_alarm)
-		GLOB.minor_announcement.Announce("[pick("Gr3y.T1d3 virus", "S.E.L.F program", "Malignant trojan", "Runtime error", "Hostile worm", "[pick("Castle", "Felix", "Fractal", "Paradox", "Rubiks", "Portcullis", "Hammer", "Lockpick", "Faust", "Dream")][pick(" 2.0","")] Daemon")] detected in [station_name()] [(eventDept == "Security")? "imprisonment":"containment"] subroutines. Secure any compromised areas immediately. Station AI involvement is recommended.", "[eventDept] Alert")
+		GLOB.minor_announcement.Announce("[pick("Gr3y.T1d3 virus", "S.E.L.F program", "Malignant trojan", "Runtime error", "Unidentified hostile worm", "[pick("Castle", "Felix", "Fractal", "Paradox", "Rubiks", "Portcullis", "Hammer", "Lockpick", "Faust", "Dream")][pick(" 2.0","")] Daemon")] detected in [station_name()] [(eventDept == "Security")? "imprisonment":"containment"] subroutines. Secure any compromised areas immediately. Station AI involvement is recommended.", "[eventDept] Alert")
 
 /datum/event/prison_break/start()
 	for(var/area/A in world)
