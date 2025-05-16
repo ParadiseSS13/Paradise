@@ -63,7 +63,7 @@
 	name = "orb of pure bluespace energy"
 	icon_state = "bluespace"
 	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
-	damage = 90
+	damage = BSG_BASE_DAMAGE
 	damage_type = BURN
 	armour_penetration_flat = 50
 	range = 9
@@ -163,7 +163,7 @@
 /obj/item/projectile/energy/arc_revolver
 	name = "arc emitter"
 	icon_state = "plasma_light"
-	damage = 10
+	damage = ARC_REVOLVER_BASE_DAMAGE
 	damage_type = BURN
 	var/charge_number = null
 
