@@ -1,6 +1,18 @@
 import { sortBy } from 'common/collections';
 import { useState } from 'react';
 import { Box, Button, Divider, LabeledList, Section, Stack, Tabs } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
+export type Access = {
+  desc: string;
+  ref: number;
+}
+
+export type AccessRegion = {
+  name: string;
+  regid: number;
+  accesses: Access[];
+}
 
 const diffMap = {
   0: {
@@ -17,7 +29,21 @@ const diffMap = {
   },
 };
 
-export const AccessList = (props) => {
+type AccessListProps = {
+  sectionButtons: React.JSX.Element;
+  usedByRcd: BooleanLike;
+  rcdButtons: React.JSX.Element;
+  accesses: AccessRegion[];
+  selectedList: number[];
+  grantableList: number[];
+  accessMod: (ref: number) => void;
+  denyAll: () => void;
+  grantAll: () => void;
+  grantDep: (ref: number) => void;
+  denyDep: (ref: number) => void;
+};
+
+export const AccessList = (props: AccessListProps) => {
   const {
     sectionButtons = null,
     usedByRcd,
@@ -31,11 +57,14 @@ export const AccessList = (props) => {
     grantDep,
     denyDep,
   } = props;
-  const [selectedAccessName, setSelectedAccessName] = useState('accessName', accesses[0]?.name);
+  const [selectedAccessName, setSelectedAccessName] = useState(accesses[0]?.name);
   const selectedAccess = accesses.find((access) => access.name === selectedAccessName);
-  const selectedAccessEntries = sortBy((entry) => entry.desc)(selectedAccess?.accesses || []);
+  let selectedAccessEntries: Access[] = [];
+  if (selectedAccess) {
+    selectedAccessEntries = sortBy(selectedAccess.accesses, (entry: Access) => entry.desc);
+  }
 
-  const checkAccessIcon = (accesses) => {
+  const checkAccessIcon = (accesses: Access[]) => {
     let oneAccess = false;
     let oneInaccess = false;
     for (let element of accesses) {
@@ -77,7 +106,6 @@ export const AccessList = (props) => {
               return (
                 <Tabs.Tab
                   key={access.name}
-                  altSelection
                   color={color}
                   icon={icon}
                   selected={access.name === selectedAccessName}
@@ -100,7 +128,7 @@ export const AccessList = (props) => {
                 icon="check"
                 content="Select All In Region"
                 color="good"
-                onClick={() => grantDep(selectedAccess.regid)}
+                onClick={() => selectedAccess && grantDep(selectedAccess.regid)}
               />
             </Stack.Item>
             <Stack.Item grow>
@@ -109,7 +137,7 @@ export const AccessList = (props) => {
                 icon="times"
                 content="Deselect All In Region"
                 color="bad"
-                onClick={() => denyDep(selectedAccess.regid)}
+                onClick={() => selectedAccess && denyDep(selectedAccess.regid)}
               />
             </Stack.Item>
           </Stack>

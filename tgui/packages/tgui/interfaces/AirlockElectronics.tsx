@@ -1,9 +1,9 @@
-// code\game\machinery\doors\airlock_electronics.dm
 import { Button, Section, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { AccessList } from './common/AccessList';
+import { AccessList, AccessRegion } from './common/AccessList';
+import { BooleanLike } from 'tgui-core/react';
 
 const NORTH = 1;
 const SOUTH = 2;
@@ -12,7 +12,7 @@ const WEST = 8;
 
 export const AirlockElectronics = (props) => {
   return (
-    <Window width={450} height={565}>
+    <Window width={500} height={565}>
       <Window.Content>
         <Stack fill vertical>
           <UnrestrictedAccess />
@@ -23,8 +23,12 @@ export const AirlockElectronics = (props) => {
   );
 };
 
+type UnrestrictedAccessData = {
+  unrestricted_dir: number;
+}
+
 const UnrestrictedAccess = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<UnrestrictedAccessData>();
   const { unrestricted_dir } = data;
   return (
     <Section title="Access Control">
@@ -96,11 +100,19 @@ const UnrestrictedAccess = (props) => {
   );
 };
 
+type AirlockElectronicsData = {
+  selected_accesses: number[];
+  one_access: BooleanLike;
+  regions: AccessRegion[];
+}
+
 const ChooseAccess = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<AirlockElectronicsData>();
   const { selected_accesses, one_access, regions } = data;
   return (
     <AccessList
+      sectionButtons={<></>}
+      grantableList={[]}
       usedByRcd={1}
       rcdButtons={
         <>
