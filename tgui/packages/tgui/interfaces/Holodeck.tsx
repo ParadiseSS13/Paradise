@@ -3,14 +3,21 @@ import { Box, Button, Dimmer, Icon, LabeledList, Section, Stack } from 'tgui-cor
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { BooleanLike } from 'tgui-core/react';
+
+type HolodeckData = {
+  emagged: BooleanLike;
+  ai_override: BooleanLike;
+  decks: string[];
+}
 
 export const Holodeck = (props) => {
-  const { act, data } = useBackend();
-  const [currentDeck, setCurrentDeck] = useState('currentDeck', '');
-  const [showReload, setShowReload] = useState('showReload', false);
+  const { act, data } = useBackend<HolodeckData>();
+  const [currentDeck, setCurrentDeck] = useState('');
+  const [showReload, setShowReload] = useState(false);
   const { decks, ai_override, emagged } = data;
 
-  const handleSelectDeck = (deck) => {
+  const handleSelectDeck = (deck: string) => {
     act('select_deck', {
       deck: deck,
     });
@@ -22,7 +29,7 @@ export const Holodeck = (props) => {
   };
 
   return (
-    <Window width={400} height={320}>
+    <Window width={420} height={320}>
       {showReload && <HolodeckReload />}
       <Window.Content>
         <Stack fill vertical>
@@ -82,7 +89,7 @@ export const Holodeck = (props) => {
 const HolodeckReload = (props) => {
   return (
     <Dimmer textAlign="center">
-      <Icon name="spinner" size="5" spin />
+      <Icon name="spinner" size={5} spin />
       <br />
       <br />
       <Box color="white">
