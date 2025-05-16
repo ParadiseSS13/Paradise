@@ -6,13 +6,13 @@ import { BooleanLike } from 'tgui-core/react';
 export type Access = {
   desc: string;
   ref: number;
-}
+};
 
 export type AccessRegion = {
   name: string;
   regid: number;
   accesses: Access[];
-}
+};
 
 const diffMap = {
   0: {
