@@ -14,31 +14,32 @@
 /datum/implant_fluff/abductor
 	name = "GC$X9%D#G"
 	life = "Unknown."
-	notes = "Appears to contain highly advanced bluespace technology."
+	notes = "(FATAL ERROR 310) Unidentified object detected in bio-chip receptacle. Please contact your system administrator!"
+	function = "(FATAL ERROR 310) Unidentified object detected in bio-chip receptacle. Please contact your system administrator!"
 
 /datum/implant_fluff/adrenaline
 	name = "Cybersun Industries RX-2 Adrenaline Bio-chip"
-	life = "Five days."
-	notes = "One of Cybersun Industries' oldest and simplest implants, it is rumoured to be among their best-selling products."
-	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that removes stuns, increases speed, and has mild healing effects."
+	life = "Indefinite lifespan. Three uses."
+	notes = "One of Cybersun's most popular bio-chips, seeing extensive use within the Trans-Solar Armed Forces and wealthy PMCs."
+	function = "Injects a cocktail of powerful stimulants and regenerative agents that removes stuns, increases speed, and heals minor injuries. The internal reservoir holds three doses."
 
 /datum/implant_fluff/basic_adrenalin
 	name = "Cybersun Industries RX-1 Adrenaline Bio-chip"
-	life = "Five days or after 1 use."
+	life = "Indefinite lifespan. One use."
 	notes = "A reduced-size version of Cybersun Industries' hugely popular RX-2 biochip, designed to offer the same robust jolt of energy for the budget-conscious consumer. Single use only."
 	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
 /datum/implant_fluff/proto_adrenaline
-	name = "Cybersun Industries FX-1 Proto-Adrenaline Bio-chip"
-	life = "5 days, destroyed after 1 use."
+	name = "Cybersun Industries RX-1P Proto-Adrenaline Bio-chip"
+	life = "Approximately three month lifespan. One use."
 	notes = "An ultra-minimalist version of Cybersun Industries' hugely popular RX-2 biochip, for those operating on a shoestring budget."
-	function = "Injects a mixture of adrenaline, noradrenaline, and cortisol into the subject, giving them a very quick burst of energy that will clear all stunning effects and allow them to rise to their feet. The effect is extremely short lived and lacks any staying power."
+	function = "Injects a mixture of adrenaline, noradrenaline, and cortisol into the subject, giving them a very quick burst of energy that will clear all stunning effects and allow them to quickly regain their footing. The effect is extremely short lived and lacks any staying power."
 
 /datum/implant_fluff/supercharge
 	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
-	life = "Known to last for up to a year."
-	notes = "A complex bio-chip utilizing a multitude of synthetic chemicals invented by Cybersun Industries. It's rumored that synthetic rights groups maintain stockpiles of these."
-	function = "Synthetic subjects injected with this bio-chip can activate an injection of lubricants, coolants, and positronic patching fluid."
+	life = "Indefinite lifespan. One use."
+	notes = "A modification of the acclaimed RX-2 biochip, the RX-4 is specialized for IPC use, and sees extensive service within Cybersun's synthetic security units."
+	function = "Deploys a mixture of lubricants, coolants, and positronic patching fluid directly into an IPC's vital systems, replicating the effects of an RX-2 biochip."
 
 /datum/implant_fluff/chem
 	name = "Bishop Cybernetics Chemical Injection Bio-chip"
@@ -52,10 +53,10 @@
 	function = "Contains a compact radio signaler that triggers when the host's lifesigns cease."
 
 /datum/implant_fluff/dust
-	name = "Cybersun Industries Dust Bio-chip"
-	life = "Unknown, attempts to retrieve a sample of the bio-chip have often led to the destruction of the bio-chip... and user."
-	notes = "Activates upon death or from manual activation by the user."
-	function = "Contains a compact, electrically activated heat source that turns its host to ash upon activation, or their death."
+	name = "Cybersun Industries RX-70 Dust Bio-chip"
+	life = "Indefinite. Destroyed upon use, along with the user."
+	notes = "A specialist biochip developed by Cybersun for sale to special operations units and intelligence agencies, the RX-70 has also seen success within criminal groups seeking quick corpse-disposal methods."
+	function = "Contains a compact, electrically activated thermite charge that turns its host to ash upon activation, or their death."
 
 /datum/implant_fluff/emp
 	name = "Cybersun Industries RX-22 Electromagnetic Pulse Emitter Bio-chip"
@@ -64,15 +65,15 @@
 	function = "Upon detonization the bio-chip will release an EMP affecting the immediate area around the user."
 
 /datum/implant_fluff/explosive
-	name = "Cybersun Industries RX-78 Employee Management Bio-chip"
+	name = "Cybersun Industries RX-78 Self-Destruction Bio-chip"
 	life = "Destroyed upon activation."
-	notes = "Appears to contain a small, dense explosive device wired to a signaller chip. The serial number on the side is scratched out."
+	notes = "Designed for its military customers only, the RX-78 has seen substantial success within intelligence agencies for deep-cover operatives."
 	function = "Contains a compact, electrically detonated explosive that detonates upon receiving a specially encoded signal or upon host death."
 
 /datum/implant_fluff/explosive_macro
-	name = "Cybersun Industries RX-79 Employee Management Bio-chip"
+	name = "Cybersun Industries RX-78E Self-Destruction Bio-chip"
 	life = "Destroyed upon activation."
-	notes = "Compared to its predecessor, the RX-79 contains a much larger explosive; sometimes you just need a bigger boom. Due to its bulkiness, it has been known to press into the user's frontal lobe, impairing judgement."
+	notes = "A questionably stable modification of the Cybersun RX-78, the RX-78E, as it is known, rigs a large fuel-air explosive in place of the original plastique payload, dramatically increasing blast size."
 	function = "Contains a bulky, electrically triggered explosive that detonates upon receiving a specially encoded signal or upon host death."
 
 /datum/implant_fluff/freedom
@@ -82,7 +83,7 @@
 	function = "Uses a mixture of cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
 /datum/implant_fluff/protofreedom
-	name = "Cybersun Industries X-92 Quick Escape Bio-chip"
+	name = "Cybersun Industries RX-91 Quick Escape Bio-chip"
 	life = "Destroyed after 1 use."
 	notes = "A bio-chip that is illegal in many systems. This is the early prototype version of the RX-92. It's significantly cheaper than its newer version."
 	function = "Uses a mixture of cheap cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
@@ -95,9 +96,9 @@
 
 /datum/implant_fluff/mindshield
 	name = "Nanotrasen Type 3 Mindshield Bio-chip"
-	life = "Studies have shown the bio-chip to last up to 10 years."
-	notes = "This is the third iteration of a bio-chip that has garnered attention from many galactic humanoid rights groups over concerns of self autonomy. Allegedly, it used to force the user to be completely loyal to Nanotrasen."
-	function = "Personnel injected with this device can better resist mental compulsions such as brainwashing and mindslaving."
+	life = "Indefinite."
+	notes = "An advanced neural shielding chip, the Type 3 Mindshield uses low-frequency radio pulses and defensive nanites to ensure the mental safety of Nanotrasen officers and security personnel."
+	function = "Personnel injected with this device can better resist mental compulsions such as brainwashing and mindslaving. The hardened shell prevents damage or interference from EMPs."
 
 /datum/implant_fluff/storage
 	name = "Cybersun Industries RX-16 Collapsible Body Cavity Bio-chip"

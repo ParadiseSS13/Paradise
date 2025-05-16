@@ -71,7 +71,7 @@
 			if(RANDOM_STORY_PIRATES)
 				newMsg.body = "[pick("Pirates","Criminal elements","A [pick("Syndicate","Donk Co.","Waffle Co.","\'REDACTED\'")] strike force")] have [pick("raided","blockaded","attempted to blackmail","attacked")] [affected_dest.name] today. Security has been tightened, but many valuable minerals were taken."
 			if(RANDOM_STORY_CORPORATE_ATTACK)
-				newMsg.body = "A small [pick("pirate","Cybersun Industries","Gorlex Marauders","Syndicate")] fleet has precise-jumped into proximity with [affected_dest.name], [pick("for a smash-and-grab operation","in a hit and run attack","in an overt display of hostilities")]. Much damage was done, and security has been tightened since the incident."
+				newMsg.body = "A small [pick("pirate","Gorlex Marauders","Syndicate")] fleet has precise-jumped into proximity with [affected_dest.name], [pick("for a smash-and-grab operation","in a hit and run attack","in an overt display of hostilities")]. Much damage was done, and security has been tightened since the incident."
 			if(RANDOM_STORY_ALIEN_RAIDERS)
 				if(prob(20))
 					newMsg.body = "The Tiger Co-operative have raided [affected_dest.name] today, no doubt on orders from their enigmatic masters. Stealing wildlife, farm animals, medical research materials and kidnapping civilians. Nanotrasen authorities are standing by to counter attempts at bio-terrorism."
