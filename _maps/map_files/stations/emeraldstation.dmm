@@ -31240,9 +31240,6 @@
 /turf/space,
 /area/station/engineering/atmos/asteroid)
 "gfI" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -32992,12 +32989,6 @@
 	},
 /turf/simulated/floor/beach/away/sand,
 /area/station/public/dorms)
-"gxU" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood,
-/area/station/service/library)
 "gyd" = (
 /turf/simulated/wall/r_wall,
 /area/station/command/meeting_room)
@@ -46613,9 +46604,6 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/camera{
 	c_tag = "Library Quiet Hall"
 	},
@@ -54380,9 +54368,6 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start/assistant,
@@ -55997,9 +55982,6 @@
 /area/station/science/lobby)
 "laA" = (
 /obj/item/kirbyplants/large,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -160022,7 +160004,7 @@ jhz
 pHY
 jhz
 jhz
-gxU
+ifP
 kzM
 mKm
 pvS
