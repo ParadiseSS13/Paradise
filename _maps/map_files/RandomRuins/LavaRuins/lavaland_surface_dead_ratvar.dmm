@@ -108,7 +108,7 @@
 /area/lavaland/surface/outdoors)
 "B" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/item/clockwork/weapon/ratvarian_spear,
+/obj/item/spear/ratvarian_spear,
 /turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors)
 "C" = (
