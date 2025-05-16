@@ -306,7 +306,7 @@
 	extended_desc = "Before the development of the mindslave implant, the mind-controlling technology was first prototyped using existing MMI systems. The unfettered access given to the user's brain made the task of delivering the memetic payloads trivial, allowing for brainwashing techniques to be perfected before moving on to a miniaturised implant. \
 		Whilst these specialty MMIs are rarely used owing to the far greater applicability and convenience of the mindslave implant, they do see occasional employment by undercover agents that wish to stealthily convert the AI-slaved cyborgs of Nanotrasen. \
 		Just like the mindslave implant, these are extremely illegal in most regions of space. Simple possession (to say nothing of actual use) generally warrants a very long prison sentence. \
-		The manufacturer of these devices remains unknown, though indepdent observers have noted similarities in the design to contemporary Cybersun electronics. The company, naturally, denies all such associations."
+		The manufacturer of these devices remains unknown, though independent observers have noted similarities in the design to contemporary Cybersun electronics. The company, naturally, denies all such associations."
 
 /obj/item/mmi/syndie/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(!master_uid && ishuman(user) && user.mind && istype(O,/obj/item/organ/internal/brain))
