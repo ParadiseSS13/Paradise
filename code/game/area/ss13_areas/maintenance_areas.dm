@@ -105,6 +105,18 @@
 	name = "Electrical Maintenance"
 	icon_state = "elect"
 
+/area/station/maintenance/electrical/fore
+	name = "Fore Electrical Maintenance"
+
+/area/station/maintenance/electrical/aft
+	name = "Aft Electrical Maintenance"
+
+/area/station/maintenance/electrical/port
+	name = "Port Electrical Maintenance"
+
+/area/station/maintenance/electrical/starboard
+	name = "Starboard Electrical Maintenance"
+
 /area/station/maintenance/electrical/fore_port
 	name = "Fore Port Electrical Maintenance"
 

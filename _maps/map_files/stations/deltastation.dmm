@@ -38245,10 +38245,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/aft_port)
 "cMY" = (
-/obj/machinery/power/smes,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_port)
 "cMZ" = (
@@ -38694,13 +38694,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/aft_port)
 "cOA" = (
-/obj/machinery/power/smes,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_port)
 "cOB" = (

@@ -7724,8 +7724,7 @@
 	},
 /area/station/hallway/primary/fore)
 "aBZ" = (
-/obj/structure/closet,
-/obj/effect/spawner/random/maintenance,
+/obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_port)
 "aCa" = (
@@ -49097,6 +49096,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/brig)
+"elx" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/station/maintenance/electrical/fore_port)
 "elC" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -59655,7 +59658,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
 /turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
+/area/station/maintenance/electrical/fore_port)
 "jDV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -63442,6 +63445,12 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/security/permabrig)
+"luj" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical,
+/obj/item/multitool,
+/turf/simulated/floor/plating,
+/area/station/maintenance/electrical/fore_port)
 "lvc" = (
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
@@ -66212,6 +66221,9 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"mPx" = (
+/turf/simulated/wall,
+/area/station/maintenance/electrical/fore_port)
 "mPT" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
@@ -78084,7 +78096,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "sOg" = (
-/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "sOz" = (
@@ -85245,7 +85256,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
 /turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
+/area/station/maintenance/electrical/fore_port)
 "wDS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -104398,11 +104409,11 @@ aIK
 aGn
 aHS
 wOW
-aGn
-aKW
-aRp
-aGn
-aGn
+mPx
+elx
+mPx
+mPx
+mPx
 aRu
 pWT
 aTz
@@ -104655,11 +104666,11 @@ aIy
 aGn
 aLu
 aLm
-bat
+mPx
 dRP
 tIZ
 cov
-aGn
+mPx
 opt
 aTu
 aUx
@@ -105169,11 +105180,11 @@ aIL
 aGn
 aSs
 aMP
-bat
+mPx
 aBT
-aOX
+luj
 aBZ
-aGn
+mPx
 nSe
 aTu
 aUz
@@ -105426,11 +105437,11 @@ gxu
 aGn
 aLu
 aLr
-aGn
-aGn
-loS
-aGn
-aKW
+mPx
+mPx
+mPx
+mPx
+elx
 bQX
 aTu
 aUu
