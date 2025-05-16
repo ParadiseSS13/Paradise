@@ -23053,7 +23053,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -52380,6 +52380,7 @@
 /area/station/science/genetics)
 "kvh" = (
 /obj/machinery/light,
+/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "kvi" = (
@@ -96808,7 +96809,7 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/railing,
-/mob/living/simple_animal/deer{
+/mob/living/basic/deer{
 	name = "Reed"
 	},
 /turf/simulated/floor/grass,

@@ -59464,6 +59464,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"lCN" = (
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "lCO" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/engineering,
@@ -63343,6 +63349,14 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
+"mzy" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/reagent_dispensers/watertank/firetank,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/atmos)
 "mzz" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -133869,7 +133883,7 @@ cGd
 cGd
 wNA
 qKO
-yiP
+lCN
 xIa
 xIa
 xIa
@@ -141784,7 +141798,7 @@ jDd
 lMu
 cZf
 deb
-cZf
+mzy
 skI
 bUV
 bVx

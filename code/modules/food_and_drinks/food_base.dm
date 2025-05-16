@@ -340,7 +340,7 @@
 		if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
 			inaccurate = FALSE
 	else
-		return TRUE
+		return ..()
 	if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && \
 			!(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
 		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")

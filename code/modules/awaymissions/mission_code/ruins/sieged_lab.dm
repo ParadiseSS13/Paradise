@@ -175,3 +175,6 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 
 /obj/effect/mine/sieged_lab/mineEffect(mob/living/victim)
 	explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab
+	guaranteed = TRUE
