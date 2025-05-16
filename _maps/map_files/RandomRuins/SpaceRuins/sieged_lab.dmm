@@ -56,7 +56,6 @@
 /area/ruin/space/sieged_lab)
 "dy" = (
 /obj/structure/table/wood,
-/obj/item/paper/sieged_lab_research_paper,
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/sieged_lab)
 "dE" = (
@@ -492,7 +491,7 @@
 "xV" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/east{
 	id_tag = "SL_EndRoom"
 	},
 /turf/simulated/floor/plasteel{
@@ -557,6 +556,12 @@
 	dir = 5;
 	icon_state = "yellow"
 	},
+/area/ruin/space/sieged_lab)
+"AB" = (
+/obj/structure/noticeboard,
+/obj/item/paper/sieged_lab_research_paper,
+/obj/item/paper/sieged_lab_research_paper,
+/turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/sieged_lab)
 "AC" = (
 /obj/structure/sign/directions/engineering{
@@ -777,7 +782,7 @@
 	},
 /area/ruin/space/sieged_lab)
 "La" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -850,6 +855,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
+/area/ruin/space/sieged_lab)
+"PF" = (
+/obj/structure/safe/floor,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab,
+/turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/sieged_lab)
 "PI" = (
 /obj/machinery/space_heater,
@@ -1054,7 +1065,7 @@
 	name = "Executive Suite"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
 	id_tag = "SL_EndRoom"
 	},
 /turf/simulated/floor/plasteel,
@@ -3250,9 +3261,9 @@ GU
 Fc
 Fc
 KP
-SP
+AB
 GY
-GY
+PF
 dy
 GY
 Gh
