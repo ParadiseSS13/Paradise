@@ -32143,6 +32143,24 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"clA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/hardsuitstorage)
 "clF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -39342,9 +39360,6 @@
 	},
 /area/station/hallway/primary/aft/south)
 "cNU" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -39417,9 +39432,6 @@
 	},
 /obj/machinery/alarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40188,9 +40200,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "cRh" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
@@ -41055,14 +41064,14 @@
 /area/station/public/mrchangs)
 "cUj" = (
 /obj/machinery/requests_console/directional/north,
-/obj/structure/table,
-/obj/item/book/manual/wiki/engineering_guide,
-/obj/item/book/manual/engineering_particle_accelerator{
-	pixel_y = 6
-	},
-/obj/item/book/manual/engineering_singularity_safety,
 /obj/machinery/camera{
 	c_tag = "Engineering North-West"
+	},
+/obj/machinery/computer/monitor{
+	name = "Grid Power Monitoring Computer"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
@@ -41071,13 +41080,6 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/structure/table,
-/obj/item/book/manual/wiki/hacking{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/book/manual/wiki/engineering_construction,
-/obj/item/book/manual/supermatter_engine,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "cUl" = (
@@ -41588,12 +41590,12 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/machinery/computer/monitor{
 	dir = 4;
 	name = "Grid Power Monitoring Computer"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
@@ -46893,12 +46895,26 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/engineering_electrical,
 /obj/machinery/power/apc/critical/directional/north{
 	shock_proof = 1
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/structure/table,
+/obj/item/book/manual/engineering_singularity_safety,
+/obj/item/book/manual/engineering_particle_accelerator{
+	pixel_y = 6
+	},
+/obj/item/book/manual/wiki/engineering_guide,
+/obj/item/book/manual/supermatter_engine,
+/obj/item/book/manual/wiki/hacking{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/book/manual/wiki/engineering_construction,
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
@@ -46914,7 +46930,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "dsN" = (
@@ -48605,7 +48621,10 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-8"
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -52380,6 +52399,12 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"fRy" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/hardsuitstorage)
 "fRJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -53694,9 +53719,6 @@
 /turf/simulated/floor/transparent/glass,
 /area/station/hallway/primary/central/south)
 "gCE" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -55981,6 +56003,9 @@
 	c_tag = "Engineering SMES";
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -56379,6 +56404,17 @@
 "hVy" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/entry/north)
+"hVB" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/computer/monitor{
+	name = "Grid Power Monitoring Computer"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/smes)
 "hVP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -60659,6 +60695,7 @@
 /area/station/maintenance/aft)
 "kfu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "kfv" = (
@@ -75061,6 +75098,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"rjy" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/smes)
 "rkp" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 6
@@ -78504,6 +78549,12 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/computer/monitor{
+	name = "Grid Power Monitoring Computer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81076,6 +81127,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81547,6 +81601,14 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"uFj" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/smes)
 "uFn" = (
 /obj/structure/closet/secure_closet/medical3,
 /obj/effect/turf_decal/delivery/white/hollow,
@@ -82163,8 +82225,8 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -82214,9 +82276,7 @@
 	shock_proof = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83183,6 +83243,9 @@
 /area/station/supply/storage)
 "vBs" = (
 /obj/machinery/firealarm/directional/east,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -87809,6 +87872,15 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/turbine)
+"xTg" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/smes)
 "xTr" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
@@ -114684,9 +114756,9 @@ gxl
 rgM
 cUj
 cVi
-cWy
-uVt
-cVo
+fRy
+omG
+clA
 dtp
 dar
 cXP
@@ -120091,7 +120163,7 @@ vaH
 cOi
 cNU
 cRh
-cOc
+uFj
 epT
 xJE
 nfE
@@ -120344,11 +120416,11 @@ cYU
 dab
 mtc
 edp
-aMM
-cQH
+rjy
+xTg
 hKe
 vBs
-aMM
+cOc
 epT
 xJE
 ssQ
@@ -120600,7 +120672,7 @@ cUx
 cZS
 cZS
 tbU
-aMM
+uFj
 aMM
 cQH
 dcq
@@ -120856,8 +120928,8 @@ cSZ
 dtc
 cWp
 cZS
-aMM
-aMM
+hVB
+cOc
 aMM
 cQH
 cZF
