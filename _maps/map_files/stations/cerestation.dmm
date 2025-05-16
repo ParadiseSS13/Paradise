@@ -16668,6 +16668,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17386,6 +17389,9 @@
 "ctc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -22188,6 +22194,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -26327,6 +26336,20 @@
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
+"dNs" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/security/lobby)
 "dNu" = (
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
@@ -40947,6 +40970,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bluecorner"
@@ -43559,9 +43585,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -44543,9 +44566,6 @@
 "ioy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -48097,9 +48117,6 @@
 	dir = 4
 	},
 /obj/item/kirbyplants/large,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
@@ -51892,6 +51909,13 @@
 "jVE" = (
 /turf/simulated/wall,
 /area/station/legal/courtroom)
+"jVH" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "jVQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -54793,6 +54817,9 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -69577,6 +69604,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -79687,6 +79717,9 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -83552,9 +83585,6 @@
 /obj/structure/chair/comfy{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -85449,11 +85479,11 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -88861,6 +88891,9 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -88996,9 +89029,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -93615,6 +93645,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -93714,6 +93747,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -94845,6 +94881,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -125774,7 +125813,7 @@ esN
 fIM
 jVE
 dya
-rKD
+ccg
 yaN
 idf
 qCk
@@ -126031,7 +126070,7 @@ qFq
 kRx
 jVE
 pAE
-rKD
+ccg
 yaN
 rDk
 qCk
@@ -126802,7 +126841,7 @@ lDb
 ccw
 gmC
 qGR
-ojx
+dNs
 oku
 sOu
 bhy
@@ -162010,7 +162049,7 @@ xUa
 xUa
 xUa
 uvI
-pbR
+jVH
 fVV
 oxQ
 oxQ
