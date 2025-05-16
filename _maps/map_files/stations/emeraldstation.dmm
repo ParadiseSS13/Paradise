@@ -22647,7 +22647,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "eyE" = (
@@ -82415,7 +82415,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "qkY" = (
