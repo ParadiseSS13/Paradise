@@ -1,7 +1,6 @@
-import { filter, map, reduce, sortBy } from 'common/collections';
 import { useState } from 'react';
 import { Box, Button, Collapsible, ImageButton, Input, NoticeBox, Section } from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
+import { BooleanLike } from 'tgui-core/react';
 import { createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
@@ -17,13 +16,43 @@ export const StackCraft = () => {
   );
 };
 
+type Recipe = {
+  uid: string;
+  required_amount: number;
+  result_amount: number;
+  max_result_amount: number;
+  icon: string;
+  icon_state: string;
+  image: string;
+};
+
+// A key-value pair in a recipe list is either the name of a recipe
+// and the details, or the name of a category of recipes and a nested
+// key-value pair of the same
+type RecipeList = {
+  [key: string]: Recipe | RecipeList;
+};
+
+type RecipesData = {
+  amount: number;
+  recipes: RecipeList;
+}
+
+type RecipeBoxProps = {
+  title: string;
+  recipe: Recipe;
+}
+
+// RecipeList converted via Object.entries() for filterRecipeList
+type RecipeListFilterableEntry = [string, RecipeList | Recipe];
+
 const Recipes = (props) => {
-  const { data } = useBackend();
+  const { data } = useBackend<RecipesData>();
   const { amount, recipes } = data;
-  const [searchText, setSearchText] = useState('searchText', '');
+  const [searchText, setSearchText] = useState('');
 
   const filteredRecipes = filterRecipeList(recipes, createSearch(searchText));
-  const [searchActive, setSearchActive] = useState('', false);
+  const [searchActive, setSearchActive] = useState<BooleanLike>(false);
 
   return (
     <Section
@@ -62,31 +91,38 @@ const Recipes = (props) => {
  * @param recipeList the recipe list to filter
  * @param titleFilter the filter function for recipe title
  */
-const filterRecipeList = (recipeList, titleFilter) => {
-  const filteredList = flow([
-    map((entry) => {
-      const [title, recipe] = entry;
+const filterRecipeList = (recipeList: RecipeList, titleFilter: (title: string) => boolean): RecipeList | undefined => {
+  const filteredList = Object.fromEntries(
+    Object.entries(recipeList)
+      .flatMap((entry): RecipeListFilterableEntry[] => {
+        const [title, recipe] = entry;
 
-      if (isRecipeList(recipe)) {
         // If category name matches, return the whole thing.
         if (titleFilter(title)) {
-          return entry;
+          return [entry];
         }
 
-        // otherwise, filter sub-entries.
-        return [title, filterRecipeList(recipe, titleFilter)];
-      }
+        if (isRecipeList(recipe)) {
+          // otherwise, filter sub-entries.
+          const subEntries = filterRecipeList(recipe, titleFilter);
+          if (subEntries !== undefined) {
+            return [[title, subEntries]];
+          }
+        }
 
-      return titleFilter(title) ? entry : [title, undefined];
-    }),
-    filter(([title, recipe]) => recipe !== undefined),
-    sortBy(([title, recipe]) => title),
-    sortBy(([title, recipe]) => !isRecipeList(recipe)),
-    reduce((obj, [title, recipe]) => {
-      obj[title] = recipe;
-      return obj;
-    }, {}),
-  ])(Object.entries(recipeList));
+        return [];
+      })
+
+      // Sort items so that lists are on top and recipes underneath.
+      // Plus everything is in alphabetical order.
+      .sort(([aKey, aValue], [bKey, bValue]) =>
+        isRecipeList(aValue) !== isRecipeList(bValue)
+          ? isRecipeList(aValue)
+            ? -1
+            : 1
+          : aKey.localeCompare(bKey),
+      ),
+  );
 
   return Object.keys(filteredList).length ? filteredList : undefined;
 };
@@ -96,8 +132,8 @@ const filterRecipeList = (recipeList, titleFilter) => {
  * Returns true if the recipe is recipe list, false othewise
  * @param recipe recipe to check
  */
-const isRecipeList = (recipe) => {
-  return recipe['uid'] === undefined;
+const isRecipeList = (recipe: Recipe | RecipeList): recipe is RecipeList => {
+  return recipe.uid === undefined;
 };
 
 /**
@@ -106,7 +142,7 @@ const isRecipeList = (recipe) => {
  * @param recipe recipe to calculate multiplier for
  * @param amount available amount of resource used in passed recipe
  */
-const calculateMultiplier = (recipe, amount) => {
+const calculateMultiplier = (recipe: Recipe, amount: number) => {
   if (recipe.required_amount > amount) {
     return 0;
   }
@@ -114,7 +150,12 @@ const calculateMultiplier = (recipe, amount) => {
   return Math.floor(amount / recipe.required_amount);
 };
 
-const Multipliers = (props) => {
+type MultipliersProps = {
+  recipe: Recipe;
+  max_possible_multiplier: number;
+}
+
+const Multipliers = (props: MultipliersProps) => {
   const { act } = useBackend();
 
   const { recipe, max_possible_multiplier } = props;
@@ -126,7 +167,7 @@ const Multipliers = (props) => {
 
   const multipliers = [5, 10, 25];
 
-  const finalResult = [];
+  const finalResult: React.JSX.Element[] = [];
 
   for (const multiplier of multipliers) {
     if (max_available_multiplier >= multiplier) {
@@ -167,7 +208,11 @@ const Multipliers = (props) => {
   return <>{finalResult.map((x) => x)}</>;
 };
 
-const RecipeListBox = (props) => {
+type RecipeListProps = {
+  recipes: RecipeList;
+};
+
+const RecipeListBox = (props: RecipeListProps) => {
   const { recipes } = props;
 
   return Object.entries(recipes).map((entry) => {
@@ -177,12 +222,13 @@ const RecipeListBox = (props) => {
         <Collapsible
           key={title}
           title={title}
-          contentStyle={{
-            marginTop: '0',
-            paddingBottom: '0.5em',
+          child_mt={0}
+          childStyles={{
+            padding: '0.5em',
             backgroundColor: 'rgba(62, 97, 137, 0.15)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             borderTop: 'none',
+            borderRadius: '0 0 0.33em 0.33em',
           }}
         >
           <Box p={1} pb={0.25}>
@@ -196,8 +242,8 @@ const RecipeListBox = (props) => {
   });
 };
 
-const RecipeBox = (props) => {
-  const { act, data } = useBackend();
+const RecipeBox = (props: RecipeBoxProps) => {
+  const { act, data } = useBackend<RecipesData>();
   const { amount } = data;
   const { title, recipe } = props;
   const { result_amount, required_amount, max_result_amount, uid, icon, icon_state, image } = recipe;
