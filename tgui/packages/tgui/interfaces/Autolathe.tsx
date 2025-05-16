@@ -1,13 +1,13 @@
 import { filter, sortBy } from 'common/collections';
 import { Box, Button, Input, LabeledList, Section, Stack } from 'tgui-core/components';
 import { Dropdown } from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
 import { createSearch, toTitleCase } from 'tgui-core/string';
 
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
+import { BooleanLike } from 'tgui-core/react';
 
-const canBeMade = (recipe, mavail, gavail, multi) => {
+const canBeMade = (recipe: Recipe, mavail: number, gavail: number, multi: number) => {
   if (recipe.requirements === null) {
     return true;
   }
@@ -20,8 +20,35 @@ const canBeMade = (recipe, mavail, gavail, multi) => {
   return true;
 };
 
+type QueuedItem = [string, number];
+
+type Recipe = {
+  name: string;
+  category: string[];
+  requirements: { [key: string]: number };
+  hacked: BooleanLike;
+  uid: string;
+  max_multiplier: number;
+  image: string;
+};
+
+type AutolatheData = {
+  total_amount: number;
+  max_amount: number;
+  metal_amount: number;
+  glass_amount: number;
+  busyname: string;
+  busyamt: number;
+  showhacked: BooleanLike;
+  buildQueue: QueuedItem[];
+  buildQueueLen: number;
+  recipes: Recipe[];
+  categories: string[];
+  fill_percent: number;
+}
+
 export const Autolathe = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<AutolatheData>();
   const {
     total_amount,
     max_amount,
@@ -34,35 +61,31 @@ export const Autolathe = (props) => {
     buildQueueLen,
     recipes,
     categories,
+    fill_percent,
   } = data;
 
-  let [category, setCategory] = useSharedState('category', 0);
+  let [category, setCategory] = useSharedState('category', 'Tools');
 
-  if (category === 0) {
-    category = 'Tools';
-  }
   let metalReadable = metal_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'); // add thousands seperator
   let glassReadable = glass_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   let totalReadable = total_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
   const [searchText, setSearchText] = useSharedState('searchText', '');
 
-  const testSearch = createSearch(searchText, (recipe) => recipe.name);
-
-  let buildQueueItems = '';
+  let buildQueueItems: React.JSX.Element[] = [];
   if (buildQueueLen > 0) {
-    buildQueueItems = buildQueue.map((a, i) => {
+    buildQueueItems = buildQueue.map((queue_item, i) => {
       return (
         <Box key={i}>
           <Button
             fluid
-            key={a}
+            key={i}
             icon="times"
             color="transparent"
-            content={buildQueue[i][0]}
+            content={queue_item[0]}
             onClick={() =>
               act('remove_from_queue', {
-                remove_from_queue: buildQueue.indexOf(a) + 1,
+                remove_from_queue: i + 1,
               })
             }
           />
@@ -71,11 +94,17 @@ export const Autolathe = (props) => {
     });
   }
 
-  const recipesToShow = flow([
-    filter((recipe) => (recipe.category.indexOf(category) > -1 || searchText) && (data.showhacked || !recipe.hacked)),
-    searchText && filter(testSearch),
-    sortBy((recipe) => recipe.name.toLowerCase()),
-  ])(recipes);
+  const selectRecipes = (recipes: Recipe[], searchText = ''): Recipe[] => {
+    let queriedRecipes = filter(recipes, (recipe) =>
+      (recipe.category.indexOf(category) > -1 || !!searchText) && (!!showhacked || !recipe.hacked));
+    if (searchText) {
+      const testSearch = createSearch(searchText, (recipe: Recipe) => recipe.name);
+      queriedRecipes = filter(queriedRecipes, testSearch);
+    }
+    queriedRecipes = sortBy(queriedRecipes, (recipe) => recipe.name.toLowerCase());
+    return queriedRecipes;
+  }
+  const queriedRecipes = selectRecipes(recipes, searchText);
 
   let rText = 'Build';
   if (searchText) {
@@ -101,11 +130,11 @@ export const Autolathe = (props) => {
                 />
               }
             >
-              <Input fluid mb={1} placeholder="Search for..." onChange={(value) => setSearchText(value)} />
-              {recipesToShow.map((recipe) => (
-                <Stack.Item grow key={recipe.ref}>
+              <Input fluid mb={1} placeholder="Search for..." onChange={(value) => setSearchText(value)} value={searchText} />
+              {queriedRecipes.map((recipe) => (
+                <Stack.Item grow key={recipe.uid}>
                   <img
-                    src={`data:image/jpeg;base64,${recipe.image}`}
+                    src={`data:image /jpeg;base64,${recipe.image}`}
                     style={{
                       verticalAlign: 'middle',
                       width: '32px',
@@ -115,8 +144,8 @@ export const Autolathe = (props) => {
                   <Button
                     mr={1}
                     icon="hammer"
-                    selected={data.busyname === recipe.name && data.busyamt === 1}
-                    disabled={!canBeMade(recipe, data.metal_amount, data.glass_amount, 1)}
+                    selected={busyname === recipe.name && busyamt === 1}
+                    disabled={!canBeMade(recipe, metal_amount, glass_amount, 1)}
                     onClick={() =>
                       act('make', {
                         make: recipe.uid,
@@ -130,8 +159,8 @@ export const Autolathe = (props) => {
                     <Button
                       mr={1}
                       icon="hammer"
-                      selected={data.busyname === recipe.name && data.busyamt === 10}
-                      disabled={!canBeMade(recipe, data.metal_amount, data.glass_amount, 10)}
+                      selected={busyname === recipe.name && busyamt === 10}
+                      disabled={!canBeMade(recipe, metal_amount, glass_amount, 10)}
                       onClick={() =>
                         act('make', {
                           make: recipe.uid,
@@ -146,8 +175,8 @@ export const Autolathe = (props) => {
                     <Button
                       mr={1}
                       icon="hammer"
-                      selected={data.busyname === recipe.name && data.busyamt === 25}
-                      disabled={!canBeMade(recipe, data.metal_amount, data.glass_amount, 25)}
+                      selected={busyname === recipe.name && busyamt === 25}
+                      disabled={!canBeMade(recipe, metal_amount, glass_amount, 25)}
                       onClick={() =>
                         act('make', {
                           make: recipe.uid,
@@ -162,8 +191,8 @@ export const Autolathe = (props) => {
                     <Button
                       mr={1}
                       icon="hammer"
-                      selected={data.busyname === recipe.name && data.busyamt === recipe.max_multiplier}
-                      disabled={!canBeMade(recipe, data.metal_amount, data.glass_amount, recipe.max_multiplier)}
+                      selected={busyname === recipe.name && busyamt === recipe.max_multiplier}
+                      disabled={!canBeMade(recipe, metal_amount, glass_amount, recipe.max_multiplier)}
                       onClick={() =>
                         act('make', {
                           make: recipe.uid,
@@ -179,7 +208,8 @@ export const Autolathe = (props) => {
                       .map((mat) => toTitleCase(mat) + ': ' + recipe.requirements[mat])
                       .join(', ')) || <Box>No resources required.</Box>}
                 </Stack.Item>
-              ))}
+              ))
+              }
             </Section>
           </Stack.Item>
           <Stack.Item width="30%">
@@ -188,7 +218,7 @@ export const Autolathe = (props) => {
                 <LabeledList.Item label="Metal">{metalReadable}</LabeledList.Item>
                 <LabeledList.Item label="Glass">{glassReadable}</LabeledList.Item>
                 <LabeledList.Item label="Total">{totalReadable}</LabeledList.Item>
-                <LabeledList.Item label="Storage">{data.fill_percent}% Full</LabeledList.Item>
+                <LabeledList.Item label="Storage">{fill_percent}% Full</LabeledList.Item>
               </LabeledList>
             </Section>
             <Section title="Building">
@@ -202,7 +232,7 @@ export const Autolathe = (props) => {
                 icon="times"
                 content="Clear All"
                 color="red"
-                disabled={!data.buildQueueLen}
+                disabled={!buildQueueLen}
                 onClick={() => act('clear_queue')}
               />
             </Section>
