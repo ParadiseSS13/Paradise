@@ -837,7 +837,7 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
-	desc = "A pair of heavy combat gauntlets that project lethal energy claws via the power of captive pyroclastic anomaly core."
+	desc = "A pair of heavy combat gauntlets that project lethal energy claws via the power of a captive pyroclastic anomaly core."
 	item_state = "pyro"
 	item_color = "pyro" // I will kill washing machines one day
 	icon_state = "pyro"
