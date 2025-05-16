@@ -12,7 +12,6 @@ import {
   Button,
   Collapsible,
   ColorBox,
-  Divider,
   Input,
   LabeledList,
   Section,
@@ -97,7 +96,6 @@ export const SettingsGeneral = (props) => {
             {THEMES.map((THEME) => (
               <Button
                 key={THEME}
-                content={capitalize(THEME)}
                 selected={theme === THEME}
                 color="transparent"
                 onClick={() =>
@@ -107,7 +105,9 @@ export const SettingsGeneral = (props) => {
                     })
                   )
                 }
-              />
+              >
+                {capitalize(THEME)}
+              </Button>
             ))}
           </LabeledList.Item>
           <LabeledList.Item label="Font style">
@@ -205,32 +205,35 @@ export const SettingsGeneral = (props) => {
             />
           </LabeledList.Item>
         </LabeledList>
-        <Divider />
+        <Stack.Divider />
         <Stack>
           <Stack.Item>
             <Button.Checkbox
               checked={chatSaving === true}
-              content="Persistent Chat"
               tooltip="Enable chat persistence"
               onClick={() => updateChatSaving(!chatSaving)}
-            />
+            >
+              Persistent Chat
+            </Button.Checkbox>
           </Stack.Item>
           <Stack.Item grow>
             <Button
-              content="Save chat log"
               icon="save"
               tooltip="Export current tab history into HTML file"
               onClick={() => dispatch(saveChatToDisk())}
-            />
+            >
+              Save chat log
+            </Button>
           </Stack.Item>
           <Stack.Item>
             <Button.Confirm
               icon="trash"
               confirmContent="Are you sure?"
-              content="Clear chat"
               tooltip="Erase current tab history"
               onClick={() => dispatch(clearChat())}
-            />
+            >
+              Clear chat
+            </Button.Confirm>
           </Stack.Item>
         </Stack>
       </Stack>
@@ -253,16 +256,17 @@ const TextHighlightSettings = (props) => {
               <Button
                 color="transparent"
                 icon="plus"
-                content="Add Highlight Setting"
                 onClick={() => {
                   dispatch(addHighlightSetting());
                 }}
-              />
+              >
+                Add Highlight Setting
+              </Button>
             </Stack.Item>
           )}
         </Stack>
       </Section>
-      <Divider />
+      <Stack.Divider />
       <Box>
         <Button icon="check" onClick={() => dispatch(rebuildChat())}>
           Apply now
@@ -285,7 +289,6 @@ const TextHighlightSetting = (props) => {
       <Stack mb={1} color="label" align="baseline">
         <Stack.Item grow>
           <Button
-            content="Delete"
             color="transparent"
             icon="times"
             onClick={() =>
@@ -295,12 +298,13 @@ const TextHighlightSetting = (props) => {
                 })
               )
             }
-          />
+          >
+            Delete
+          </Button>
         </Stack.Item>
         <Stack.Item>
           <Button.Checkbox
             checked={highlightWholeMessage}
-            content="Whole Message"
             tooltip="If this option is selected, the entire message will be highlighted in yellow."
             onClick={() =>
               dispatch(
@@ -310,11 +314,12 @@ const TextHighlightSetting = (props) => {
                 })
               )
             }
-          />
+          >
+            Whole Message
+          </Button.Checkbox>
         </Stack.Item>
         <Stack.Item>
           <Button.Checkbox
-            content="Exact"
             checked={matchWord}
             tooltipPosition="bottom-start"
             tooltip="If this option is selected, only exact matches (no extra letters before or after) will trigger. Not compatible with punctuation. Overriden if regex is used."
@@ -326,11 +331,12 @@ const TextHighlightSetting = (props) => {
                 })
               )
             }
-          />
+          >
+            Exact
+          </Button.Checkbox>
         </Stack.Item>
         <Stack.Item>
           <Button.Checkbox
-            content="Case"
             tooltip="If this option is selected, the highlight will be case-sensitive."
             checked={matchCase}
             onClick={() =>
@@ -341,7 +347,9 @@ const TextHighlightSetting = (props) => {
                 })
               )
             }
-          />
+          >
+            Case
+          </Button.Checkbox>
         </Stack.Item>
         <Stack.Item shrink={0}>
           <ColorBox mr={1} color={highlightColor} />
