@@ -10070,9 +10070,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -10181,9 +10178,6 @@
 	},
 /area/station/hallway/primary/fore)
 "aKz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -12553,9 +12547,6 @@
 /area/station/command/bridge)
 "aSx" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "aSz" = (
@@ -12827,9 +12818,6 @@
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
 "aTF" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54006,9 +53994,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "gJO" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
@@ -56990,9 +56975,6 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -59190,9 +59172,6 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -70054,9 +70033,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
@@ -70450,9 +70426,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "oVs" = (
@@ -71846,9 +71819,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "pHN" = (
@@ -72361,9 +72331,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/janitor,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -72845,9 +72812,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/service/clown,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "qiN" = (
@@ -75010,9 +74974,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/hardsuitstorage)
 "rhh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -76234,9 +76195,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/power/terminal,
-/obj/structure/cable/orange{
-	icon_state = "0-2"
-	},
 /obj/structure/cable/orange,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_starboard)
@@ -76605,9 +76563,6 @@
 	pixel_y = 28
 	},
 /obj/structure/disposalpipe/junction/y,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -82990,9 +82945,6 @@
 	},
 /area/station/science/hallway)
 "vuP" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/disposalpipe/junction,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -84598,6 +84550,9 @@
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
