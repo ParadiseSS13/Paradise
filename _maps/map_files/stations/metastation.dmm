@@ -20142,10 +20142,10 @@
 /area/station/engineering/engine_foyer)
 "bCk" = (
 /obj/structure/table/wood,
-/obj/item/nullrod/fedora,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/item/clothing/head/fedora,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bCl" = (
@@ -32723,19 +32723,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
-"cDY" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/morphine{
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/machinery/camera{
-	dir = 9;
-	c_tag = "Chief Medical Officer's Office"
-	},
-/obj/machinery/newscaster/directional/east,
-/turf/simulated/floor/carpet/blue,
-/area/station/command/office/cmo)
 "cEd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -61357,6 +61344,23 @@
 	icon_state = "white"
 	},
 /area/station/medical/surgery/primary)
+"mTF" = (
+/obj/structure/table/glass,
+/obj/machinery/camera{
+	dir = 9;
+	c_tag = "Chief Medical Officer's Office"
+	},
+/obj/machinery/newscaster/directional/east,
+/obj/item/storage/box/monkeycubes{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/glass/bottle/morphine{
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/health,
+/turf/simulated/floor/carpet/blue,
+/area/station/command/office/cmo)
 "mUd" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
@@ -75815,6 +75819,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/food/monkeycube,
 /turf/simulated/floor/grass/no_creep,
 /area/station/maintenance/medmaint)
 "sXZ" = (
@@ -112117,7 +112122,7 @@ cvo
 cvo
 ifr
 dUb
-cDY
+mTF
 jJo
 coE
 cAT
