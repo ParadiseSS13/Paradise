@@ -1,13 +1,28 @@
 import { map } from 'common/collections';
-import { Box, Button, Fragment, LabeledList, NumberInput, Section } from 'tgui-core/components';
+import { Box, Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
 import { RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
+import { BooleanLike } from 'tgui-core/react';
+
+type RadioData = {
+  freqlock: BooleanLike;
+  frequency: number;
+  minFrequency: number;
+  maxFrequency: number;
+  canReset: BooleanLike;
+  listening: BooleanLike;
+  broadcasting: BooleanLike;
+  loudspeaker: BooleanLike;
+  has_loudspeaker: BooleanLike;
+  ichannels: { [key: string]: number };
+  schannels: { [key: string]: BooleanLike };
+}
 
 export const Radio = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<RadioData>();
   const {
     freqlock,
     frequency,
@@ -18,26 +33,25 @@ export const Radio = (props) => {
     broadcasting,
     loudspeaker,
     has_loudspeaker,
+    ichannels,
+    schannels,
   } = data;
   const tunedChannel = RADIO_CHANNELS.find((channel) => channel.freq === frequency);
   let matchedChannel = tunedChannel && tunedChannel.name ? true : false;
   let colorMap = [];
-  let rc = [];
-  let i = 0;
-  for (i = 0; i < RADIO_CHANNELS.length; i++) {
-    rc = RADIO_CHANNELS[i];
-    colorMap[rc['name']] = rc['color'];
-  }
-  const schannels = map((value, key) => ({
+  RADIO_CHANNELS.forEach((radioChannel) => {
+    colorMap[radioChannel.name] = radioChannel.color;
+  })
+  const secureChannels = map(schannels, (value, key) => ({
     name: key,
     status: !!value,
-  }))(data.schannels);
-  const ichannels = map((value, key) => ({
+  }));
+  const internalChannels = map(ichannels, (value, key) => ({
     name: key,
     freq: value,
-  }))(data.ichannels);
+  }));
   return (
-    <Window width={375} height={130 + schannels.length * 21.2 + ichannels.length * 11}>
+    <Window width={375} height={130 + secureChannels.length * 21.2 + internalChannels.length * 11}>
       <Window.Content scrollable>
         <Section fill>
           <LabeledList>
@@ -47,36 +61,36 @@ export const Radio = (props) => {
                   {toFixed(frequency / 10, 1) + ' kHz'}
                 </Box>
               )) || (
-                <>
-                  <NumberInput
-                    animate
-                    unit="kHz"
-                    step={0.2}
-                    stepPixelSize={10}
-                    minValue={minFrequency / 10}
-                    maxValue={maxFrequency / 10}
-                    value={frequency / 10}
-                    format={(value) => toFixed(value, 1)}
-                    onChange={(value) =>
-                      act('frequency', {
-                        adjust: value - frequency / 10,
-                      })
-                    }
-                  />
-                  <Button
-                    icon="undo"
-                    content=""
-                    disabled={!canReset}
-                    tooltip="Reset"
-                    onClick={() =>
-                      act('frequency', {
-                        tune: 'reset',
-                      })
-                    }
-                  />
-                </>
-              )}
-              {matchedChannel && (
+                  <>
+                    <NumberInput
+                      animated
+                      unit="kHz"
+                      step={0.2}
+                      stepPixelSize={10}
+                      minValue={minFrequency / 10}
+                      maxValue={maxFrequency / 10}
+                      value={frequency / 10}
+                      format={(value) => toFixed(value, 1)}
+                      onChange={(value) =>
+                        act('frequency', {
+                          adjust: value - frequency / 10,
+                        })
+                      }
+                    />
+                    <Button
+                      icon="undo"
+                      content=""
+                      disabled={!canReset}
+                      tooltip="Reset"
+                      onClick={() =>
+                        act('frequency', {
+                          tune: 'reset',
+                        })
+                      }
+                    />
+                  </>
+                )}
+              {matchedChannel && tunedChannel && (
                 <Box inline color={tunedChannel.color} ml={2}>
                   [{tunedChannel.name}]
                 </Box>
@@ -113,7 +127,7 @@ export const Radio = (props) => {
             </LabeledList.Item>
             {schannels.length !== 0 && (
               <LabeledList.Item label="Keyed Channels">
-                {schannels.map((channel) => (
+                {secureChannels.map((channel) => (
                   <Box key={channel.name}>
                     <Button
                       icon={channel.status ? 'check-square-o' : 'square-o'}
@@ -132,14 +146,14 @@ export const Radio = (props) => {
                 ))}
               </LabeledList.Item>
             )}
-            {ichannels.length !== 0 && (
+            {internalChannels.length !== 0 && (
               <LabeledList.Item label="Standard Channel">
-                {ichannels.map((channel) => (
+                {internalChannels.map((channel) => (
                   <Button
                     key={'i_' + channel.name}
                     icon="arrow-right"
                     content={channel.name}
-                    selected={matchedChannel && tunedChannel.name === channel.name}
+                    selected={matchedChannel && tunedChannel && tunedChannel.name === channel.name}
                     onClick={() =>
                       act('ichannel', {
                         ichannel: channel.freq,

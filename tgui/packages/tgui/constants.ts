@@ -49,7 +49,13 @@ export const CSS_COLORS = [
   'label',
 ];
 
-export const RADIO_CHANNELS = [
+export type RadioChannel = {
+  name: string;
+  freq: number;
+  color: string;
+}
+
+export const RADIO_CHANNELS: RadioChannel[] = [
   {
     name: 'Syndicate',
     freq: 1213,
