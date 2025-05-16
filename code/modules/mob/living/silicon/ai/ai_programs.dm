@@ -268,8 +268,8 @@
 /datum/spell/ai_spell/ranged/rgb_lighting
 	name = "RGB Lighting"
 	desc = "Changes the color of a selected light"
-	action_icon = 'icons/obj/lighting.dmi'
-	action_icon_state = "random_glowstick"
+	action_icon = 'icons/effects/random_spawners.dmi'
+	action_icon_state = "glowstick"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
 	base_cooldown = 30 SECONDS
