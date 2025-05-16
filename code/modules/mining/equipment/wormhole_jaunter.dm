@@ -196,6 +196,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 
 /obj/effect/temp_visual/getaway_flare/exfiltration/vampire
 	name = "bloody portal"
+	icon_state = "vampire-portal"
 
 /obj/effect/temp_visual/getaway_flare/exfiltration/mindflayer
 	name = "nanite telepad"

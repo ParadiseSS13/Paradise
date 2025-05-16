@@ -206,11 +206,10 @@
 
 // Vampire Portal
 /obj/item/wormhole_jaunter/extraction/vampire
-	name = "bloody flare"
-	icon = 'icons/obj/lighting.dmi'
+	name = "blood chalice"
+	icon = 'icons/obj/items.dmi'
 	desc = "An unholy construct that will create a single-use portal that will let you escape the station. One way trip."
-	icon_state = "flare-contractor"
-	item_state = "flare"
+	icon_state = "blood-chalice"
 	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/vampire
 
 // Changeling Mass
@@ -219,7 +218,6 @@
 	icon = 'icons/obj/lighting.dmi'
 	desc = "A mass of writhing flesh that will create a single-use portal that will let you escape the station. One way trip."
 	icon_state = "flare-contractor"
-	item_state = "flare"
 	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/changeling
 
 // Mindflayer Swarm
@@ -228,16 +226,12 @@
 	icon = 'icons/obj/lighting.dmi'
 	desc = "A swarm of mindflayer nanites in the shape of a telepad that will create a single-use portal that will let you escape the station. One way trip."
 	icon_state = "flare-contractor"
-	item_state = "flare"
 	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/mindflayer
 
 // Debug/Admin
 /obj/item/wormhole_jaunter/extraction/admin
 	name = "advanced extraction flare"
-	icon = 'icons/obj/lighting.dmi'
-	desc = "An advanced single-use extraction flare that will let you escape the station. One way trip."
-	icon_state = "flare-contractor"
-	item_state = "flare"
+	desc = "An advanced single-use extraction flare that will let you escape the station quickly. One way trip."
 	delayed_extraction = FALSE
 	extraction_time = 5 SECONDS
 	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/admin
