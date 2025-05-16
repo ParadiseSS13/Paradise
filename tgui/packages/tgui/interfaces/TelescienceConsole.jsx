@@ -20,7 +20,7 @@ export const TelescienceConsole = (properties) => {
     working,
     max_z,
   } = data;
-  const [dummyRot, setDummyRot] = useState('dummyrot', current_bearing);
+  const [dummyRot, setDummyRot] = useState(current_bearing);
 
   return (
     <Window width={400} height={500}>

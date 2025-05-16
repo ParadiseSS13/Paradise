@@ -7,7 +7,7 @@ import { Window } from '../layouts';
 
 export const SatelliteControl = (props) => {
   const { act, data } = useBackend();
-  const [tabIndex, setTabIndexInternal] = useState('tabIndex', data.tabIndex);
+  const [tabIndex, setTabIndexInternal] = useState(data.tabIndex);
   const setTabIndex = (index) => {
     setTabIndexInternal(index);
     act('set_tab_index', { tab_index: index });
