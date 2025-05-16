@@ -153,7 +153,7 @@ const ChemMasterBeaker = (props: {}) => {
           <BeakerContents
             beakerLoaded
             beakerContents={beaker_reagents}
-            buttons={beaker_reagents.map((chemical, i) => (
+            buttons={(chemical, i) => (
               <Box key={i} mb={i < beaker_reagents.length - 1 && '2px'}>
                 <Button
                   content="Analyze"
@@ -198,7 +198,7 @@ const ChemMasterBeaker = (props: {}) => {
                   }
                 />
               </Box>
-            ))}
+            )}
           />
         ) : (
           <Box color="label">No beaker loaded.</Box>
@@ -233,7 +233,7 @@ const ChemMasterBuffer = (props: {}) => {
           <BeakerContents
             beakerLoaded
             beakerContents={buffer_reagents}
-            buttons={buffer_reagents.map((chemical, i) => (
+            buttons={(chemical, i) => (
               <Box key={i} mb={i < buffer_reagents.length - 1 && '2px'}>
                 <Button
                   content="Analyze"
@@ -278,7 +278,7 @@ const ChemMasterBuffer = (props: {}) => {
                   }
                 />
               </Box>
-            ))}
+            )}
           />
         ) : (
           <Box color="label">Buffer is empty.</Box>
