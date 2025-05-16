@@ -19,7 +19,7 @@ export const CompostBin = (props) => {
   let [vendAmount, setVendAmount] = useSharedState('vendAmount', 1);
 
   return (
-    <Window width={360} height={250}>
+    <Window width={360} height={260}>
       <Window.Content>
         <Stack fill vertical>
           <Section label="Resources">
