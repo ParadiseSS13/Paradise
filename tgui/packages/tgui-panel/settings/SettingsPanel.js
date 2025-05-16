@@ -5,6 +5,7 @@
  */
 
 import { storage } from 'common/storage';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Box,
@@ -73,10 +74,10 @@ export const SettingsPanel = (props) => {
   );
 };
 
-export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, fontSize, lineHeight, chatSaving } = useSelector(context, selectSettings);
-  const dispatch = useDispatch(context);
-  const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
+export const SettingsGeneral = (props) => {
+  const { theme, fontFamily, fontSize, lineHeight, chatSaving } = useSelector(selectSettings);
+  const dispatch = useDispatch();
+  const [freeFont, setFreeFont] = useState(false);
 
   const updateChatSaving = (value) => {
     const boolValue = value === true;
