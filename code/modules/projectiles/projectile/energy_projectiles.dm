@@ -57,6 +57,8 @@
 /obj/item/projectile/energy/bolt/large
 	damage = 20
 
+#define BSG_BASE_DAMAGE 90
+
 /obj/item/projectile/energy/bsg
 	name = "orb of pure bluespace energy"
 	icon_state = "bluespace"
@@ -89,6 +91,8 @@
 	..()
 
 /obj/item/projectile/energy/bsg/proc/kaboom(atom/target)
+	// If a lens is modifying the damage of the projectile, the AOE should be impacted as well
+	var/damage_multiplier = damage / BSG_BASE_DAMAGE
 	playsound(src, 'sound/weapons/bsg_explode.ogg', 75, TRUE)
 	for(var/mob/living/M in hearers(7, src)) //No stuning people with thermals through a wall.
 		if(M == target)
@@ -102,7 +106,7 @@
 		if(prob(min(400 / distance, 100))) //100% chance to hit with the blast up to 3 tiles, after that chance to hit is 80% at 4 tiles, 66.6% at 5, 57% at 6, and 50% at 7
 			if(prob(min(200 / distance, 100)))//100% chance to upgraded to a stun as well at a direct hit, 100% at 1 tile, 66% at 2, 50% at 3, 40% at 4, 33% at 5, 28.5% at 6, and finaly 25% at 7. This is calculated after the first hit however.
 				floored = TRUE
-			M.apply_damage((rand(60, 80) * (1.1 - distance / 10)), BURN) //reduced by 10% per tile
+			M.apply_damage((rand(60, 80) * (1.1 - distance / 10)) * damage_multiplier, BURN) //reduced by 10% per tile
 			add_attack_logs(firer, M, "Hit heavily by [src]")
 			if(floored)
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
@@ -115,9 +119,11 @@
 		else
 			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
 			add_attack_logs(firer, M, "Hit lightly by [src]")
-			M.apply_damage(rand(20, 25), BURN)
+			M.apply_damage(rand(20, 25) * damage_multiplier, BURN)
 		if(ROLE_BLOB in M.faction)
-			M.apply_damage(rand(20, 25), BURN) //Ensures it clears all blob spores on the screen without fail.
+			M.apply_damage(rand(20, 25) * damage_multiplier, BURN) //Ensures it clears all blob spores on the screen without fail.
+
+#undef BSG_BASE_DAMAGE
 
 /obj/item/projectile/energy/weak_plasma
 	name = "plasma bolt"
@@ -151,6 +157,9 @@
 	homing_active = TRUE
 	..()
 
+
+#define ARC_REVOLVER_BASE_DAMAGE 10
+
 /obj/item/projectile/energy/arc_revolver
 	name = "arc emitter"
 	icon_state = "plasma_light"
@@ -167,7 +176,7 @@
 			A.duration += 10 SECONDS
 			qdel(src)
 			return
-	new /obj/effect/abstract/arc_revolver(target, charge_number, immolate)
+	new /obj/effect/abstract/arc_revolver(target, charge_number, immolate, damage)
 	qdel(src)
 
 
@@ -180,13 +189,15 @@
 	var/successfulshocks = 0
 	var/wait_for_three = 0
 	var/our_immolate = 0
+	var/damage_multiplier = 1
 
-/obj/effect/abstract/arc_revolver/Initialize(mapload, charge_number, immolate)
+/obj/effect/abstract/arc_revolver/Initialize(mapload, charge_number, immolate, damage)
 	. = ..()
 	charge_numbers += charge_number
 	START_PROCESSING(SSfastprocess, src)
 	GLOB.arc_emitters += src
 	our_immolate = immolate / 5
+	damage_multiplier = damage / ARC_REVOLVER_BASE_DAMAGE
 	build_chains()
 
 /obj/effect/abstract/arc_revolver/proc/build_chains()
@@ -255,7 +266,7 @@
 						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
 						"<span class='italics'>You hear a heavy electrical crack.</span>" \
 					)
-				var/damage = (2 - isliving(B.origin) + 2 - isliving(B.target)) //Damage is upped depending if the origin is a mob or not. Wall to wall hurts more than mob to wall, or mob to mob
+				var/damage = (2 - isliving(B.origin) + 2 - isliving(B.target)) * damage_multiplier //Damage is upped depending if the origin is a mob or not. Wall to wall hurts more than mob to wall, or mob to mob
 				L.adjustFireLoss(damage) //time to die
 				if(our_immolate)
 					L.adjust_fire_stacks(our_immolate)
@@ -274,3 +285,5 @@
 			var/datum/cd = chain
 			if(!chain || QDELETED(cd))
 				chains -= chain
+
+#undef ARC_REVOLVER_BASE_DAMAGE
