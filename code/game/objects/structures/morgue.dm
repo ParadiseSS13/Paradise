@@ -204,7 +204,7 @@
 		to_chat(user, "<span class='notice'>You cut the tag off the morgue.</span>")
 		name = initial(name)
 		update_icon(UPDATE_OVERLAYS)
-		return
+		return TRUE
 
 /obj/structure/morgue/wrench_act(mob/user, obj/item/I)
 	if(status != EMPTY_MORGUE)
