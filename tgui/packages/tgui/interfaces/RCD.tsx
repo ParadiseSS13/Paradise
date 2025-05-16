@@ -1,11 +1,28 @@
+import React from 'react';
 import { Button, Icon, ProgressBar, Section, Stack, Tabs } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { AccessList } from './common/AccessList';
+import { AccessList, AccessRegion } from './common/AccessList';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 
-export const RCD = (props) => {
+interface RCDData {
+  matter: number;
+  max_matter: number;
+  mode: string;
+  door_name: string;
+  electrochromic: boolean;
+  airlock_glass: number;
+  tab: number;
+  locked: boolean;
+  one_access: boolean;
+  selected_accesses: number[];
+  regions: AccessRegion[];
+  door_types_ui_list: { type: string; name: string; image: string }[];
+  door_type: string;
+}
+
+export const RCD: React.FC = () => {
   return (
     <Window width={480} height={670}>
       <ComplexModal />
@@ -21,11 +38,12 @@ export const RCD = (props) => {
   );
 };
 
-const MatterReadout = (props) => {
-  const { data } = useBackend();
+const MatterReadout: React.FC = () => {
+  const { data } = useBackend<RCDData>();
   const { matter, max_matter } = data;
   const good_matter = max_matter * 0.7;
   const average_matter = max_matter * 0.25;
+
   return (
     <Stack.Item>
       <Section title="Matter Storage">
@@ -38,14 +56,14 @@ const MatterReadout = (props) => {
           value={matter}
           maxValue={max_matter}
         >
-          <Stack.Item textAlign="center">{matter + ' / ' + max_matter + ' units'}</Stack.Item>
+          <Stack.Item textAlign="center">{`${matter} / ${max_matter} units`}</Stack.Item>
         </ProgressBar>
       </Section>
     </Stack.Item>
   );
 };
 
-const ConstructionType = () => {
+const ConstructionType: React.FC = () => {
   return (
     <Stack.Item>
       <Section title="Construction Type">
@@ -60,10 +78,14 @@ const ConstructionType = () => {
   );
 };
 
-const ConstructionTypeCheckbox = (props) => {
-  const { act, data } = useBackend();
-  const { mode_type } = props;
+interface ConstructionTypeCheckboxProps {
+  mode_type: string;
+}
+
+const ConstructionTypeCheckbox: React.FC<ConstructionTypeCheckboxProps> = ({ mode_type }) => {
+  const { act, data } = useBackend<RCDData>();
   const { mode } = data;
+
   return (
     <Stack.Item grow textAlign="center">
       <Button
@@ -81,9 +103,10 @@ const ConstructionTypeCheckbox = (props) => {
   );
 };
 
-const AirlockSettings = (props) => {
-  const { act, data } = useBackend();
+const AirlockSettings: React.FC = () => {
+  const { act, data } = useBackend<RCDData>();
   const { door_name, electrochromic, airlock_glass } = data;
+
   return (
     <Stack.Item>
       <Section title="Airlock Settings">
@@ -102,7 +125,7 @@ const AirlockSettings = (props) => {
               <Button
                 fluid
                 icon={electrochromic ? 'toggle-on' : 'toggle-off'}
-                content={'Electrochromic'}
+                content="Electrochromic"
                 selected={electrochromic}
                 onClick={() => act('electrochromic')}
               />
@@ -114,9 +137,10 @@ const AirlockSettings = (props) => {
   );
 };
 
-const TypesAndAccess = (props) => {
-  const { act, data } = useBackend();
+const TypesAndAccess: React.FC = () => {
+  const { act, data } = useBackend<RCDData>();
   const { tab, locked, one_access, selected_accesses, regions } = data;
+
   return (
     <>
       <Stack.Item textAlign="center">
@@ -159,7 +183,7 @@ const TypesAndAccess = (props) => {
           >
             <Stack fill>
               <Stack.Item grow textAlign="center" align="center" color="label">
-                <Icon name="lock" size="5" mb={3} />
+                <Icon name="lock" size={5} mb={3} />
                 <br />
                 Airlock access selection is currently locked.
               </Stack.Item>
@@ -221,6 +245,7 @@ const TypesAndAccess = (props) => {
                 region: ref,
               })
             }
+            grantableList={regions.map((region) => region.regid)}
           />
         )}
       </Stack.Item>
@@ -228,17 +253,16 @@ const TypesAndAccess = (props) => {
   );
 };
 
-const AirlockTypeList = (props) => {
-  const { act, data } = useBackend();
+interface AirlockTypeListProps {
+  check_number: number;
+}
+
+const AirlockTypeList: React.FC<AirlockTypeListProps> = ({ check_number }) => {
+  const { act, data } = useBackend<RCDData>();
   const { door_types_ui_list, door_type } = data;
-  const { check_number } = props;
-  // Filter either odd or even airlocks in the list, based on what `check_number` is.
-  const doors_filtered = [];
-  for (let i = 0; i < door_types_ui_list.length; i++) {
-    if (i % 2 === check_number) {
-      doors_filtered.push(door_types_ui_list[i]);
-    }
-  }
+
+  const doors_filtered = door_types_ui_list.filter((_, index) => index % 2 === check_number);
+
   return (
     <Stack.Item>
       {doors_filtered.map((entry, i) => (
