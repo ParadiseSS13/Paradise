@@ -90,7 +90,7 @@ Pipelines + Other Objects -> Pipe network
 	return ..()
 
 // Icons/overlays/underlays
-/obj/machinery/atmospherics/update_icon()
+/obj/machinery/atmospherics/update_icon(updates=ALL)
 	if(check_icon_cache())
 		..(ALL)
 	else
