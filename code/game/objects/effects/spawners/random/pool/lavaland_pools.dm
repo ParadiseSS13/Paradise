@@ -8,25 +8,24 @@
 	)
 
 /datum/spawn_pool/lavaland_fauna
-	id = "lavaland_fauna_spawn_pool"
 
 /datum/spawn_pool/lavaland_fauna/New()
 	. = ..()
 	available_points = rand(100, 150)
 
 /datum/spawn_pool/lavaland_megafauna
-	id = "lavaland_megafauna_spawn_pool"
 
 /datum/spawn_pool/lavaland_megafauna/New()
 	. = ..()
 	available_points = roll("8d3")
 
 /obj/effect/spawner/random/pool/lavaland_fauna
-	spawn_pool_id = "lavaland_fauna_spawn_pool"
+	spawn_pool = /datum/spawn_pool/lavaland_fauna
 	record_spawn = TRUE
 
 	var/fauna_scan_range = 12
 	var/megafauna_scan_range = 16
+	var/ghost_ruin_scan_range = 12
 	var/turf/mining_base_gps
 
 	loot = list(
@@ -70,7 +69,7 @@
 	return ..()
 
 /obj/effect/spawner/random/pool/lavaland_fauna/megafauna
-	spawn_pool_id = "lavaland_megafauna_spawn_pool"
+	spawn_pool = /datum/spawn_pool/lavaland_megafauna
 	point_value = 1
 	loot = list(
 		/mob/living/simple_animal/hostile/megafauna/dragon = 4,
@@ -94,6 +93,15 @@
 		if(ismegafauna(thing) && get_dist(T, thing) <= megafauna_scan_range)
 			return FALSE
 
+	for(var/obj/effect/landmark/ruin/ruin_landmark in GLOB.ruin_landmarks)
+		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
+		// avoid spawning a megafauna if it's too close to a ghost spawn ruin
+		if(template.megafauna_safe_range)
+			// largest axis halved + the ruin scan range
+			var/exclusion_distance = (template.width > template.height ? template.width : template.height * 0.5) + ghost_ruin_scan_range
+			if(get_dist(T, ruin_landmark) < exclusion_distance)
+				return FALSE
+
 	return ..()
 
 /obj/effect/spawner/random/pool/lavaland_fauna/megafauna/unique
@@ -104,14 +112,13 @@
 	)
 
 /datum/spawn_pool/tendrils
-	id = "lavaland_tendril_spawn_pool"
 
 /datum/spawn_pool/tendrils/New()
 	. = ..()
 	available_points = roll("5d4") + roll("1d6")
 
 /obj/effect/spawner/random/pool/tendril_spawner
-	spawn_pool_id = "lavaland_tendril_spawn_pool"
+	spawn_pool = /datum/spawn_pool/tendrils
 	point_value = 1
 	loot = list(
 		/obj/structure/spawner/lavaland,
