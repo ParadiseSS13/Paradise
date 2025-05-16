@@ -4125,6 +4125,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
+"aRB" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "aRC" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/sop_general,
@@ -25049,6 +25055,9 @@
 /area/station/engineering/atmos/asteroid)
 "eXT" = (
 /obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/carpet,
 /area/station/public/arcade)
 "eXU" = (
@@ -43453,6 +43462,9 @@
 	name = "Fore Starboard Solar Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "iBG" = (
@@ -69654,9 +69666,11 @@
 /area/station/command/office/cmo)
 "nMM" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable/orange,
 /obj/structure/cable/orange{
 	icon_state = "0-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
@@ -71536,6 +71550,9 @@
 "oeq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -77112,6 +77129,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "pgC" = (
@@ -78834,6 +78854,9 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "pzM" = (
@@ -81065,6 +81088,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -85030,6 +85056,26 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"qNC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/public/dorms)
 "qNJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange{
@@ -91342,6 +91388,9 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "rWt" = (
@@ -105026,6 +105075,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "uFV" = (
@@ -107396,6 +107448,9 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "veM" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet,
 /area/station/public/arcade)
 "veX" = (
@@ -157911,10 +157966,10 @@ wSv
 wSv
 wSv
 oeq
-wSv
+aRB
 rWs
-bvA
-urb
+iQb
+qNC
 njI
 tZO
 wDY
