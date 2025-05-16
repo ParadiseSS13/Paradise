@@ -24427,6 +24427,9 @@
 /area/station/maintenance/asmaint)
 "eRO" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "eRV" = (
@@ -50853,6 +50856,9 @@
 /area/station/hallway/primary/fore/north)
 "jWX" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "jXb" = (
