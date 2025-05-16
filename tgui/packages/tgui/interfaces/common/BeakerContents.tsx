@@ -1,12 +1,24 @@
 import { Stack } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 
-const formatUnits = (a) => a + ' unit' + (a === 1 ? '' : 's');
+const formatUnits = (a: number) => a + ' unit' + (a === 1 ? '' : 's');
+
+type BeakerReagent = {
+  name: string;
+  id: string;
+  volume: number;
+}
+
+type BeakerContentsProps = {
+  beakerLoaded: BooleanLike;
+  beakerContents: BeakerReagent[];
+  buttons: (chemical: BeakerReagent, idx: number) => React.JSX.Element;
+}
 
 /**
  * Displays a beaker's contents
- * @property {object} props
  */
-export const BeakerContents = (props) => {
+export const BeakerContents = (props: BeakerContentsProps) => {
   const { beakerLoaded, beakerContents = [], buttons } = props;
 
   return (
