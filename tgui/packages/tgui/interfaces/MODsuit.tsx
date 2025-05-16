@@ -19,15 +19,105 @@ import {
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-const ConfigureNumberEntry = (props) => {
+interface ModSuitData {
+  active: boolean;
+  malfunctioning: boolean;
+  locked: boolean;
+  open: boolean;
+  selected_module: string | null;
+  complexity: number;
+  complexity_max: number;
+  wearer_name: string;
+  wearer_job: string;
+  link_call?: string | null;
+  link_id?: string | null;
+  control: string;
+  helmet: string | null;
+  chestplate: string | null;
+  gauntlets: string | null;
+  boots: string | null;
+  core: string | null;
+  charge: number;
+  ui_theme: string;
+  interface_break: boolean;
+  modules: ModuleData[];
+}
+
+interface Virus {
+  name: string;
+  type: string;
+  stage: number;
+  maxstage: number;
+  cure: string;
+}
+
+interface ConfigData {
+  display_name: string;
+  type: 'number' | 'bool' | 'color' | 'list';
+  key: string;
+  value: any;
+  values?: string[];
+}
+
+interface ModuleData {
+  ref: string;
+  id?: string;
+  module_name: string;
+  description: string;
+  module_active: boolean;
+  module_complexity: number;
+  idle_power: number;
+  active_power: number;
+  use_power: number;
+  cooldown: number;
+  cooldown_time: number;
+  module_type: number;
+  pinned: boolean;
+  configuration_data: Record<string, ConfigData>;
+  // Health analyzer props
+  userhealth?: number;
+  usermaxhealth?: number;
+  userbrute?: number;
+  userburn?: number;
+  usertoxin?: number;
+  useroxy?: number;
+  // Rad counter props
+  userradiated?: boolean;
+  usertoxins?: number;
+  usermaxtoxins?: number;
+  threatlevel?: number | string;
+  // Status readout props
+  statustime?: string;
+  statusid?: string;
+  statushealth?: number;
+  statusmaxhealth?: number;
+  statusbrute?: number;
+  statusburn?: number;
+  statustoxin?: number;
+  statusoxy?: number;
+  statustemp?: number;
+  statusnutrition?: number;
+  statusfingerprints?: string;
+  statusdna?: string;
+  statusviruses?: Virus[];
+}
+
+interface ConfigureNumberEntryProps {
+  name: string;
+  value: number;
+  module_ref: string;
+}
+
+const ConfigureNumberEntry = (props: ConfigureNumberEntryProps) => {
   const { name, value, module_ref } = props;
-  const { act } = useBackend();
+  const { act } = useBackend<ModSuitData>();
   return (
     <NumberInput
       value={value}
       minValue={-50}
       maxValue={50}
       stepPixelSize={5}
+      step={1}
       width="39px"
       onChange={(value) =>
         act('configure', {
@@ -40,9 +130,15 @@ const ConfigureNumberEntry = (props) => {
   );
 };
 
-const ConfigureBoolEntry = (props) => {
+interface ConfigureBoolEntryProps {
+  name: string;
+  value: boolean;
+  module_ref: string;
+}
+
+const ConfigureBoolEntry = (props: ConfigureBoolEntryProps) => {
   const { name, value, module_ref } = props;
-  const { act } = useBackend();
+  const { act } = useBackend<ModSuitData>();
   return (
     <Button.Checkbox
       checked={value}
@@ -57,9 +153,15 @@ const ConfigureBoolEntry = (props) => {
   );
 };
 
-const ConfigureColorEntry = (props) => {
+interface ConfigureColorEntryProps {
+  name: string;
+  value: string;
+  module_ref: string;
+}
+
+const ConfigureColorEntry = (props: ConfigureColorEntryProps) => {
   const { name, value, module_ref } = props;
-  const { act } = useBackend();
+  const { act } = useBackend<ModSuitData>();
   return (
     <>
       <Button
@@ -76,13 +178,21 @@ const ConfigureColorEntry = (props) => {
   );
 };
 
-const ConfigureListEntry = (props) => {
+interface ConfigureListEntryProps {
+  name: string;
+  value: string;
+  values: string[];
+  module_ref: string;
+}
+
+const ConfigureListEntry = (props: ConfigureListEntryProps) => {
   const { name, value, values, module_ref } = props;
-  const { act } = useBackend();
+  const { act } = useBackend<ModSuitData>();
   return (
     <Dropdown
       displayText={value}
       options={values}
+      selected={value}
       onSelected={(value) =>
         act('configure', {
           'key': name,
@@ -94,13 +204,22 @@ const ConfigureListEntry = (props) => {
   );
 };
 
-const ConfigureDataEntry = (props) => {
+interface ConfigureDataEntryProps {
+  name: string;
+  display_name: string;
+  type: 'number' | 'bool' | 'color' | 'list';
+  value: any;
+  values?: string[];
+  module_ref: string;
+}
+
+const ConfigureDataEntry = (props: ConfigureDataEntryProps) => {
   const { name, display_name, type, value, values, module_ref } = props;
   const configureEntryTypes = {
-    number: <ConfigureNumberEntry {...props} />,
-    bool: <ConfigureBoolEntry {...props} />,
-    color: <ConfigureColorEntry {...props} />,
-    list: <ConfigureListEntry {...props} />,
+    number: <ConfigureNumberEntry name={name} value={value} module_ref={module_ref} />,
+    bool: <ConfigureBoolEntry name={name} value={value} module_ref={module_ref} />,
+    color: <ConfigureColorEntry name={name} value={value} module_ref={module_ref} />,
+    list: <ConfigureListEntry name={name} value={value} values={values || []} module_ref={module_ref} />,
   };
   return (
     <Box>
@@ -109,8 +228,16 @@ const ConfigureDataEntry = (props) => {
   );
 };
 
-const RadCounter = (props) => {
-  const { active, userradiated, usertoxins, usermaxtoxins, threatlevel } = props;
+interface RadCounterProps {
+  active: boolean;
+  userradiated?: boolean;
+  usertoxins?: number;
+  usermaxtoxins?: number;
+  threatlevel?: number | string;
+}
+
+const RadCounter = (props: RadCounterProps) => {
+  const { active, userradiated, usertoxins = 0, usermaxtoxins = 100, threatlevel } = props;
   return (
     <Stack fill textAlign="center">
       <Stack.Item grow>
@@ -141,8 +268,26 @@ const RadCounter = (props) => {
   );
 };
 
-const HealthAnalyzer = (props) => {
-  const { active, userhealth, usermaxhealth, userbrute, userburn, usertoxin, useroxy } = props;
+interface HealthAnalyzerProps {
+  active: boolean;
+  userhealth?: number;
+  usermaxhealth?: number;
+  userbrute?: number;
+  userburn?: number;
+  usertoxin?: number;
+  useroxy?: number;
+}
+
+const HealthAnalyzer = (props: HealthAnalyzerProps) => {
+  const {
+    active,
+    userhealth = 0,
+    usermaxhealth = 100,
+    userbrute = 0,
+    userburn = 0,
+    usertoxin = 0,
+    useroxy = 0,
+  } = props;
   return (
     <>
       <Section title="Health">
@@ -219,19 +364,36 @@ const HealthAnalyzer = (props) => {
   );
 };
 
-const StatusReadout = (props) => {
+interface StatusReadoutProps {
+  active: boolean;
+  statustime?: string;
+  statusid?: string;
+  statushealth?: number;
+  statusmaxhealth?: number;
+  statusbrute?: number;
+  statusburn?: number;
+  statustoxin?: number;
+  statusoxy?: number;
+  statustemp?: number;
+  statusnutrition?: number;
+  statusfingerprints?: string;
+  statusdna?: string;
+  statusviruses?: Virus[];
+}
+
+const StatusReadout = (props: StatusReadoutProps) => {
   const {
     active,
     statustime,
     statusid,
-    statushealth,
-    statusmaxhealth,
-    statusbrute,
-    statusburn,
-    statustoxin,
-    statusoxy,
-    statustemp,
-    statusnutrition,
+    statushealth = 0,
+    statusmaxhealth = 100,
+    statusbrute = 0,
+    statusburn = 0,
+    statustoxin = 0,
+    statusoxy = 0,
+    statustemp = 0,
+    statusnutrition = 0,
     statusfingerprints,
     statusdna,
     statusviruses,
@@ -366,7 +528,7 @@ const StatusReadout = (props) => {
   );
 };
 
-const ID2MODULE = {
+const ID2MODULE: Record<string, React.ComponentType<any>> = {
   rad_counter: RadCounter,
   health_analyzer: HealthAnalyzer,
   status_readout: StatusReadout,
@@ -381,8 +543,7 @@ const LockedInterface = () => (
   </Section>
 );
 
-const LockedModule = (props) => {
-  const { act, data } = useBackend();
+const LockedModule = () => {
   return (
     <Dimmer>
       <Stack>
@@ -394,7 +555,13 @@ const LockedModule = (props) => {
   );
 };
 
-const ConfigureScreen = (props) => {
+interface ConfigureScreenProps {
+  configuration_data: Record<string, ConfigData>;
+  module_ref: string;
+  onExit: () => void;
+}
+
+const ConfigureScreen = (props: ConfigureScreenProps) => {
   const { configuration_data, module_ref } = props;
   const configuration_keys = Object.keys(configuration_data);
   return (
@@ -427,7 +594,7 @@ const ConfigureScreen = (props) => {
   );
 };
 
-const displayText = (param) => {
+const displayText = (param?: number): string => {
   switch (param) {
     case 1:
       return 'Use';
@@ -435,13 +602,26 @@ const displayText = (param) => {
       return 'Toggle';
     case 3:
       return 'Select';
+    default:
+      return '';
   }
 };
 
-const ParametersSection = (props) => {
-  const { act, data } = useBackend();
-  const { active, malfunctioning, locked, open, selected_module, complexity, complexity_max, wearer_name, wearer_job } =
-    data;
+const ParametersSection = () => {
+  const { act, data } = useBackend<ModSuitData>();
+  const {
+    active,
+    malfunctioning,
+    locked,
+    open,
+    selected_module,
+    complexity,
+    complexity_max,
+    wearer_name,
+    wearer_job,
+    link_call,
+    link_id,
+  } = data;
   const status = malfunctioning ? 'Malfunctioning' : active ? 'Active' : 'Inactive';
   return (
     <Section title="Parameters">
@@ -473,7 +653,7 @@ const ParametersSection = (props) => {
               icon={'wifi'}
               color={link_call ? 'good' : 'default'}
               disabled={!link_id}
-              content={link_call ? 'Calling (' + link_call + ')' : 'Call (' + link_id + ')'}
+              content={link_call ? 'Calling (' + link_call + ')' : 'Call (' + (link_id || '') + ')'}
               onClick={() => act('call')}
             />
           }
@@ -493,8 +673,8 @@ const ParametersSection = (props) => {
   );
 };
 
-const HardwareSection = (props) => {
-  const { act, data } = useBackend();
+const HardwareSection = () => {
+  const { data } = useBackend<ModSuitData>();
   const { active, control, helmet, chestplate, gauntlets, boots, core, charge } = data;
   return (
     <Section title="Hardware">
@@ -514,13 +694,14 @@ const HardwareSection = (props) => {
             <LabeledList.Item label="Core Charge">
               <ProgressBar
                 value={charge / 100}
-                content={charge + '%'}
                 ranges={{
                   good: [0.6, Infinity],
                   average: [0.3, 0.6],
                   bad: [-Infinity, 0.3],
                 }}
-              />
+              >
+                {charge + '%'}
+              </ProgressBar>
             </LabeledList.Item>
           </LabeledList>
         )) || (
@@ -533,8 +714,8 @@ const HardwareSection = (props) => {
   );
 };
 
-const InfoSection = (props) => {
-  const { act, data } = useBackend();
+const InfoSection = () => {
+  const { data } = useBackend<ModSuitData>();
   const { active, modules } = data;
   const info_modules = modules.filter((module) => !!module.id);
 
@@ -543,7 +724,7 @@ const InfoSection = (props) => {
       <Stack vertical>
         {(info_modules.length !== 0 &&
           info_modules.map((module) => {
-            const Module = ID2MODULE[module.id];
+            const Module = ID2MODULE[module.id || ''];
             return (
               <Stack.Item key={module.ref}>
                 {!active && <LockedModule />}
@@ -556,10 +737,10 @@ const InfoSection = (props) => {
   );
 };
 
-const ModuleSection = (props) => {
-  const { act, data } = useBackend();
+const ModuleSection = () => {
+  const { act, data } = useBackend<ModSuitData>();
   const { complexity_max, modules } = data;
-  const [configureState, setConfigureState] = useState(null);
+  const [configureState, setConfigureState] = useState<string | null>(null);
   return (
     <Section title="Modules" fill>
       <Stack vertical>
@@ -627,7 +808,7 @@ const ModuleSection = (props) => {
                             selected={configureState === module.ref}
                             tooltip="Configure"
                             tooltipPosition="left"
-                            disabled={module.configuration_data.length === 0}
+                            disabled={Object.keys(module.configuration_data).length === 0}
                           />
                           <Button
                             onClick={() => act('pin', { 'ref': module.ref })}
@@ -655,9 +836,9 @@ const ModuleSection = (props) => {
   );
 };
 
-export const MODsuitContent = (props) => {
-  const { act, data } = useBackend();
-  const { ui_theme, interface_break } = data;
+export const MODsuitContent = () => {
+  const { data } = useBackend<ModSuitData>();
+  const { interface_break } = data;
   return (
     <Section fill scrollable={!interface_break}>
       {(!!interface_break && <LockedInterface />) || (
@@ -680,9 +861,9 @@ export const MODsuitContent = (props) => {
   );
 };
 
-export const MODsuit = (props) => {
-  const { act, data } = useBackend();
-  const { ui_theme, interface_break } = data;
+export const MODsuit = () => {
+  const { data } = useBackend<ModSuitData>();
+  const { ui_theme } = data;
   return (
     <Window theme={ui_theme} width={400} height={620}>
       <Window.Content>
