@@ -41,7 +41,7 @@ jobs:
           UPSTREAM_BRANCH: 'master'
           MERGE_BRANCH: 'merge-upstream'
           CHANGELOG_AUTHOR: 'ParadiseSS13'
-          TRANSLATE_CHANGES: 'true'
+          TRANSLATE_CHANGES: false
           OPENAI_API_KEY: ${{ secrets.ORG_EMPTY_TOKEN }}
           LOG_LEVEL: ${{ runner.debug && 'DEBUG' || 'INFO' }}
         run: |
