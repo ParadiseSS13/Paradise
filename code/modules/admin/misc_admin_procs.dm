@@ -365,7 +365,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 	var/result = input(usr, "Select reboot method", "World Reboot", options[1]) as null|anything in options
 
-	if(is_live_server)
+	if(result && is_live_server)
 		if(alert(usr, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART","This server is live","Restart","Cancel") != "Restart")
 			return FALSE
 
