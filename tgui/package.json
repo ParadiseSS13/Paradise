@@ -14,9 +14,6 @@
     "tgui:lint": "eslint packages --ext .js,.cjs,.ts,.tsx",
     "tgui:prettier": "prettier --check .",
     "tgui:sonar": "eslint packages -c .eslintrc-sonar.yml",
-    "tgui:test": "vitest",
-    "tgui:test-simple": "CI=true vitest",
-    "tgui:test-ci": "CI=true vitest",
     "tgui:tsc": "tsc",
     "tgui:prettier-fix": "prettier --write .",
     "tgui:eslint-fix": "eslint --fix packages --ext .js,.cjs,.ts,.jsx,.tsx"
@@ -44,7 +41,6 @@
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@types/webpack-env": "^1.18.8",
-    "@types/wicg-file-system-access": "^2023.10.6",
-    "vitest": "^3.1.1"
+    "@types/wicg-file-system-access": "^2023.10.6"
   }
 }
