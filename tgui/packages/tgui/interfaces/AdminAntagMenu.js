@@ -12,6 +12,7 @@ import {
   Stack,
   Table,
   Tabs,
+  Tooltip,
 } from '../components';
 import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
@@ -515,7 +516,7 @@ const Security = (properties, context) => {
 
 const AdvancedDiseaseCarriers = (properties, context) => {
   const { act, data } = useBackend(context);
-  const { disease_carriers } = data;
+  const { disease_carriers, virus_data } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const [sortId, _setSortId] = useLocalState(context, 'sortId3', 'health');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
@@ -551,17 +552,11 @@ const AdvancedDiseaseCarriers = (properties, context) => {
         <SortButton sort_group="sortId4" id="name">
           Name
         </SortButton>
-        <SortButton sort_group="sortId4" id="role">
-          Role
-        </SortButton>
         <SortButton sort_group="sortId4" id="status">
           Status
         </SortButton>
         <SortButton sort_group="sortId4" id="virus_name">
           Virus Name
-        </SortButton>
-        <SortButton sort_group="sortId4" id="patient_zero">
-          Patient Zero
         </SortButton>
         <SortButton sort_group="sortId4" id="strain">
           Strain
@@ -572,14 +567,11 @@ const AdvancedDiseaseCarriers = (properties, context) => {
         <SortButton sort_group="sortId4" id="health">
           Health
         </SortButton>
-        <SortButton sort_group="sortId4" id="event_UID">
-          Event UID
-        </SortButton>
       </Table.Row>
       {disease_carriers
         .filter(
           createSearch(searchText, (carrier) => {
-            return carrier.name + '|' + carrier.role + '|' + getStatus(carrier) + '|' + carrier.strain;
+            return carrier.name + '|' + '|' + getStatus(carrier) + '|' + carrier.strain + '|' + carrier.virus_name;
           })
         )
         .sort((a, b) => {
@@ -596,84 +588,89 @@ const AdvancedDiseaseCarriers = (properties, context) => {
           return a[sortId].localeCompare(b[sortId]) * i;
         })
         .map((carrier, index) => (
-          <Table.Row key={index}>
-            <Table.Cell collapsing>
-              <Button
-                onClick={() =>
-                  act('show_player_panel', {
-                    mind_uid: carrier.mind_uid,
-                  })
-                }
-              >
-                {carrier.name}
-              </Button>
-            </Table.Cell>
-            <Table.Cell collapsing>{carrier.role}</Table.Cell>
-            <Table.Cell collapsing>
-              <Box color={getColor(carrier)}>{getStatus(carrier)}</Box>
-            </Table.Cell>
-            <Table.Cell collapsing>{carrier.virus_name}</Table.Cell>
-            <Table.Cell collapsing>{carrier.patient_zero}</Table.Cell>
-            <Table.Cell collapsing>{carrier.strain}</Table.Cell>
-            <Table.Cell>
-              <ProgressBar
-                minValue={0}
-                value={carrier.progress / 100}
-                maxValue={1}
-                ranges={{
-                  good: [0.6, Infinity],
-                  average: [0, 0.6],
-                  bad: [-Infinity, 0],
-                }}
-              >
-                {carrier.progress}
-              </ProgressBar>
-            </Table.Cell>
-            <Table.Cell>
-              <ProgressBar
-                minValue={0}
-                value={carrier.health / carrier.max_health}
-                maxValue={1}
-                ranges={{
-                  good: [0.6, Infinity],
-                  average: [0, 0.6],
-                  bad: [-Infinity, 0],
-                }}
-              >
-                {carrier.health}
-              </ProgressBar>
-            </Table.Cell>
-            <Table.Cell>{carrier.event_UID}</Table.Cell>
-            <Table.Cell collapsing>
-              <Button
-                onClick={() => {
-                  act('pm', {
-                    ckey: carrier.ckey,
-                  });
-                }}
-              >
-                PM
-              </Button>
-              <Button
-                onClick={() => {
-                  act('follow', {
-                    datum_uid: carrier.mind_uid,
-                  });
-                }}
-              >
-                FLW
-              </Button>
-              <Button
-                onClick={() => {
-                  act('obs', {
-                    mind_uid: carrier.mind_uid,
-                  });
-                }}
-              >
-                OBS
-              </Button>
-            </Table.Cell>
-          </Table.Row>
+          <Tooltip key={index} position="auto-start" content={'Symptoms: ' + virus_data[carrier.strain]}>
+            <Table.Row key={index}>
+              <Table.Cell collapsing>
+                <Button
+                  color={carrier.patient_zero ? 'red' : ''}
+                  onClick={() =>
+                    act('show_player_panel', {
+                      mind_uid: carrier.mind_uid,
+                    })
+                  }
+                >
+                  {carrier.name}
+                </Button>
+              </Table.Cell>
+              <Table.Cell collapsing>
+                <Box color={getColor(carrier)}>{getStatus(carrier)}</Box>
+              </Table.Cell>
+              <Table.Cell collapsing>{carrier.virus_name}</Table.Cell>
+              <Table.Cell collapsing>{carrier.strain}</Table.Cell>
+
+              <Table.Cell>
+                {carrier.patient_zero ? (
+                  'Patient Zero'
+                ) : (
+                  <ProgressBar
+                    minValue={0}
+                    value={carrier.progress / 100}
+                    maxValue={1}
+                    ranges={{
+                      good: [0, 20],
+                      average: [20, 60],
+                      bad: [60, 100],
+                    }}
+                  >
+                    {carrier.progress}
+                  </ProgressBar>
+                )}
+              </Table.Cell>
+              <Table.Cell>
+                <ProgressBar
+                  minValue={0}
+                  value={carrier.health / carrier.max_health}
+                  maxValue={1}
+                  ranges={{
+                    good: [0.6, Infinity],
+                    average: [0, 0.6],
+                    bad: [-Infinity, 0],
+                  }}
+                >
+                  {carrier.health}
+                </ProgressBar>
+              </Table.Cell>
+              <Table.Cell collapsing>
+                <Button
+                  onClick={() => {
+                    act('pm', {
+                      ckey: carrier.ckey,
+                    });
+                  }}
+                >
+                  PM
+                </Button>
+                <Button
+                  onClick={() => {
+                    act('follow', {
+                      datum_uid: carrier.mind_uid,
+                    });
+                  }}
+                >
+                  FLW
+                </Button>
+                <Button
+                  onClick={() => {
+                    act('obs', {
+                      mind_uid: carrier.mind_uid,
+                    });
+                  }}
+                >
+                  OBS
+                </Button>
+              </Table.Cell>
+            </Table.Row>
+          </Tooltip>
         ))}
     </Table>
   );
