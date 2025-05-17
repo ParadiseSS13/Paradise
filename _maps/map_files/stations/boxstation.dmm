@@ -19813,7 +19813,7 @@
 /obj/structure/closet/crate/can,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 10;
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
@@ -21169,7 +21169,10 @@
 "bsO" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/economy/vending/snack,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "bsP" = (
 /obj/machinery/disposal,
@@ -21177,7 +21180,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "bsQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -21253,7 +21259,10 @@
 	pixel_y = 28
 	},
 /obj/machinery/economy/vending/cola,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "btb" = (
 /obj/structure/table/wood,
@@ -21860,7 +21869,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "buX" = (
 /obj/structure/chair/office/dark{
@@ -22955,7 +22967,10 @@
 /area/station/engineering/ai_transit_tube)
 "bzO" = (
 /obj/structure/chair,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "bzP" = (
 /obj/structure/toilet/directional/east,
@@ -24564,8 +24579,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "bGK" = (
@@ -41857,12 +41871,6 @@
 	icon_state = "purplecorner"
 	},
 /area/station/hallway/primary/starboard/east)
-"cXj" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purplecorner"
-	},
-/area/station/hallway/secondary/exit)
 "cXm" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -42347,8 +42355,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "cZp" = (
@@ -51012,7 +51019,10 @@
 /area/station/service/hydroponics)
 "fjd" = (
 /obj/structure/chair/sofa/corp/left,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "fjf" = (
 /obj/structure/chair/stool{
@@ -57203,6 +57213,12 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
+"irO" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
+/area/station/hallway/secondary/exit)
 "irY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/roller{
@@ -57549,10 +57565,7 @@
 /obj/structure/sign/evac{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purplecorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "iBS" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
@@ -57797,12 +57810,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
-	},
-/area/station/hallway/secondary/exit)
-"iIB" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/exit)
 "iIO" = (
@@ -59304,8 +59311,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escapecorner";
+	dir = 8
 	},
 /area/station/hallway/secondary/exit)
 "jwH" = (
@@ -65356,6 +65363,15 @@
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/station/supply/storage)
+"mwO" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 8
+	},
+/area/station/hallway/secondary/exit)
 "mxy" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -65384,7 +65400,10 @@
 "mxH" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/firealarm/directional/east,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "mxP" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -69948,8 +69967,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "oMN" = (
@@ -70012,6 +70030,13 @@
 /obj/effect/spawner/random/barrier/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"oPq" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 4
+	},
+/area/station/hallway/secondary/exit)
 "oPE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -71235,7 +71260,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner"
+	},
 /area/station/hallway/secondary/exit)
 "pyl" = (
 /obj/item/storage/box/monkeycubes,
@@ -73390,8 +73417,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "qAg" = (
@@ -75066,8 +75092,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escapecorner";
+	dir = 8
 	},
 /area/station/hallway/secondary/exit)
 "rog" = (
@@ -76797,8 +76823,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escapecorner";
+	dir = 8
 	},
 /area/station/hallway/secondary/exit)
 "skT" = (
@@ -78295,6 +78321,13 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/smes)
+"tcd" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 4
+	},
+/area/station/hallway/secondary/exit)
 "tcm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -80951,6 +80984,13 @@
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
+"uuA" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 1
+	},
+/area/station/hallway/secondary/exit)
 "uuD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -81445,7 +81485,10 @@
 /area/station/maintenance/aft)
 "uLo" = (
 /obj/structure/chair/sofa/corp/right,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "uLp" = (
 /turf/simulated/floor/wood,
@@ -81455,8 +81498,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "uLZ" = (
@@ -83120,8 +83162,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "vGu" = (
@@ -83274,8 +83315,8 @@
 	},
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escapecorner";
+	dir = 8
 	},
 /area/station/hallway/secondary/exit)
 "vKU" = (
@@ -85536,8 +85577,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "wVx" = (
@@ -88383,7 +88423,10 @@
 /area/station/service/library)
 "ylC" = (
 /obj/structure/chair/sofa/corp,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "ylO" = (
 /obj/structure/extinguisher_cabinet{
@@ -138938,7 +138981,7 @@ hpY
 glD
 kTU
 bBl
-cXj
+bmm
 uuo
 iSv
 bNv
@@ -139189,7 +139232,7 @@ aaa
 aaa
 bEF
 bsP
-buH
+uuA
 yka
 fBb
 fBb
@@ -139200,7 +139243,7 @@ bPq
 bPq
 cYk
 bmm
-iIB
+bmm
 xPe
 mdr
 ePu
@@ -141770,7 +141813,7 @@ bmm
 bmm
 bHV
 bmm
-oMz
+mwO
 bmm
 vFk
 bEF
@@ -142027,7 +142070,7 @@ bjR
 iek
 bHV
 bmm
-oMz
+mwO
 bmm
 hCr
 bEF
@@ -142273,7 +142316,7 @@ bEG
 bEG
 bEG
 mxH
-bzs
+tcd
 acg
 gSE
 nHv
@@ -142284,7 +142327,7 @@ nHv
 swk
 snH
 bSc
-oMz
+mwO
 bmm
 eqx
 bEF
@@ -142541,7 +142584,7 @@ bjR
 iek
 ijt
 bmm
-oMz
+mwO
 sMw
 nmZ
 vTG
@@ -143305,10 +143348,10 @@ dUS
 lEZ
 ido
 pya
-bmm
-bmm
-bmm
-lEZ
+irO
+irO
+irO
+oPq
 ido
 vws
 ido

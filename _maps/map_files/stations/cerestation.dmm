@@ -4506,7 +4506,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "aNu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -15982,7 +15985,10 @@
 	pixel_x = 24;
 	name = "custom placement"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "cfT" = (
 /obj/structure/railing{
@@ -16552,7 +16558,9 @@
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/south,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "ckx" = (
 /obj/effect/spawner/random/dirt/often,
@@ -17173,7 +17181,10 @@
 /area/station/maintenance/fsmaint)
 "cpF" = (
 /obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "cpG" = (
 /obj/machinery/light{
@@ -22325,11 +22336,16 @@
 	pixel_x = 28;
 	name = "custom placement"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "cZu" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "cZw" = (
 /obj/structure/cable/orange{
@@ -28471,7 +28487,10 @@
 	c_tag = "Escape Wing South East";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "emn" = (
 /obj/item/radio/intercom{
@@ -31794,6 +31813,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"fbD" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
+/area/station/hallway/secondary/exit)
 "fbO" = (
 /obj/machinery/light/small,
 /obj/effect/spawner/random/dirt/frequent,
@@ -35940,10 +35964,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "geE" = (
 /obj/item/radio/intercom{
@@ -39539,7 +39560,10 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "hcF" = (
 /obj/machinery/teleport/station,
@@ -40038,10 +40062,7 @@
 /area/station/maintenance/disposal/northeast)
 "hjp" = (
 /obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "hjq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -43001,10 +43022,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "hRO" = (
 /obj/machinery/light{
@@ -47548,7 +47566,10 @@
 /obj/structure/chair/sofa/corp/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "iTS" = (
 /obj/machinery/light/small{
@@ -50668,7 +50689,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "jDq" = (
 /obj/item/flag/nt,
@@ -57925,10 +57949,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "llw" = (
 /obj/structure/disposalpipe/segment/corner,
@@ -64455,10 +64476,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "mNt" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
@@ -68712,6 +68730,10 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/carpet/red,
 /area/station/service/chapel)
+"nRg" = (
+/obj/structure/sign/evac,
+/turf/simulated/wall,
+/area/station/hallway/secondary/exit)
 "nRs" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -69962,7 +69984,10 @@
 	c_tag = "Escape Wing East";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "oib" = (
 /obj/machinery/door/firedoor,
@@ -72618,7 +72643,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "oOV" = (
 /obj/structure/fans/tiny,
@@ -72714,7 +72742,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "oPJ" = (
 /obj/structure/rack,
@@ -74232,7 +74263,10 @@
 "piw" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/recharge_station,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "piE" = (
 /obj/machinery/power/apc/critical/directional/south,
@@ -75926,7 +75960,9 @@
 	pixel_y = -24;
 	name = "south bump"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "pDJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -76434,7 +76470,9 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "pKa" = (
 /obj/structure/disposalpipe/junction{
@@ -78547,6 +78585,11 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/asmaint)
+"qic" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner"
+	},
+/area/station/hallway/secondary/exit)
 "qii" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -98785,7 +98828,9 @@
 /obj/structure/chair/sofa/corp{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "uYW" = (
 /obj/structure/disposalpipe/segment{
@@ -100563,7 +100608,9 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "vuM" = (
 /obj/structure/marker_beacon/dock_marker,
@@ -162148,7 +162195,7 @@ jpk
 cdT
 fvg
 vTf
-cdT
+nRg
 cdT
 cdT
 jpk
@@ -162675,7 +162722,7 @@ pob
 jvl
 qoU
 jvl
-ceQ
+fbD
 aXn
 aXn
 aXn
@@ -164726,7 +164773,7 @@ jvl
 jvl
 jvl
 jvl
-ceQ
+qic
 cfO
 cpF
 hcB
