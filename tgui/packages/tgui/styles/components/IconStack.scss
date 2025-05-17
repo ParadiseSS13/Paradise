@@ -1,0 +1,14 @@
+.IconStack {
+  position: relative;
+  display: inline-block;
+  height: 7.5em;
+  width: 10em;
+  line-height: 2em;
+  vertical-align: middle;
+  text-align: left;
+
+  &:after {
+    color: transparent;
+    content: '.';
+  }
+}

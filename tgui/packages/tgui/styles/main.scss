@@ -20,6 +20,7 @@
 
 // Components
 @include meta.load-css('./components/Countdown.scss');
+@include meta.load-css('./components/IconStack.scss');
 @include meta.load-css('./components/NanoMap.scss');
 
 // Interfaces
