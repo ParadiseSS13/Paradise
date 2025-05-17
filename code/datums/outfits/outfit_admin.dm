@@ -318,6 +318,7 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
+		/obj/item/gun/energy/pulse,
 		/obj/item/disk/nuclear/unrestricted
 	)
 
@@ -330,6 +331,9 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Deathsquad Commando"), "Deathsquad")
 	H.sec_hud_set_ID()
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
@@ -586,8 +590,8 @@
 		return
 	H.real_name = "[capitalize(pick(GLOB.first_names_soviet))] [capitalize(pick(GLOB.last_names_soviet))]"
 	H.name = H.real_name
-	H.add_language("Zvezhan")
-	H.set_default_language(GLOB.all_languages["Zvezhan"])
+	H.add_language("Neo-Russkiya") // SS220 EDIT - Zvezhan -> Neo-Russkiya
+	H.set_default_language(GLOB.all_languages["Neo-Russkiya"]) // SS220 EDIT - Zvezhan -> Neo-Russkiya
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
@@ -766,9 +770,9 @@
 		return
 
 	if(is_solgov_lieutenant)
-		H.real_name = "Lieutenant [pick(GLOB.last_names)]"
+		H.real_name = "Лейтенант [pick(GLOB.last_names)]"
 	else
-		H.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]"
+		H.real_name = "[pick("Капрал", "Сержант", "Старший Сержант", "Сержант 1-го Класса", "Мастер-Сержант", "Сержант-Майор")] [pick(GLOB.last_names)]"
 	H.name = H.real_name
 	var/obj/item/card/id/I = H.wear_id
 	I.assignment = name
@@ -1454,7 +1458,7 @@
 		backpack_contents.Add(/obj/item/gun/throw/piecannon)
 		backpack_contents[/obj/item/gun/throw/piecannon] = 1
 
-	var/clown_rank = pick("Trickster First Class", "Master Clown", "Major Prankster")
+	var/clown_rank = pick("Приколист 1-го Класса", "Мастер-Пранкстер", "Майор Клоун")
 	var/clown_name = pick(GLOB.clown_names)
 	H.real_name = "[clown_rank] [clown_name]"
 

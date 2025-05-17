@@ -14,7 +14,7 @@
 /obj/item/slapper/attack__legacy__attackchain(mob/M, mob/living/carbon/human/user)
 	user.do_attack_animation(M)
 	playsound(M, hitsound, 50, TRUE, -1)
-	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", "<span class='notice'>You slap [M]!</span>", "<span class='hear'>You hear a slap.</span>")
+	user.visible_message("<span class='danger'>[user] даёт пощёчину [M]!</span>", "<span class='notice'>Вы даёте пощёчину [M]!</span>", "<span class='hear'>Вы слышите шлепок.</span>")
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.IsSleeping())
@@ -46,12 +46,12 @@
 			if(istype(human_user.shoes, /obj/item/clothing/shoes/cowboy))
 				human_user.say(pick("Hot damn!", "Hoo-wee!", "Got-dang!"))
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 110, TRUE)
-		user.visible_message("<b><span class='danger'>[user] slams [user.p_their()] fist down on [the_table]!</span></b>", "<b><span class='danger'>You slam your fist down on [the_table]!</span></b>")
+		user.visible_message("<b><span class='danger'>[user] бьёт кулаком по [the_table]!</span></b>", "<b><span class='danger'>Вы бьёте кулаком по [the_table]!</span></b>")
 		qdel(src)
 	else
 		user.do_attack_animation(the_table)
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 40, TRUE)
-		user.visible_message("<span class='notice'>[user] slaps [user.p_their()] hand on [the_table].</span>", "<span class='notice'>You slap your hand on [the_table].</span>")
+		user.visible_message("<span class='notice'>[user] бьёт [user.p_their()] ладонью по [the_table].</span>", "<span class='notice'>Вы бьёте ладонью по [the_table].</span>")
 		table_smacks_left--
 		if(table_smacks_left <= 0)
 			qdel(src)
@@ -60,10 +60,10 @@
 	return 0
 
 /obj/item/slapper/parry
-	desc = "This is how real men win fights."
+	desc = "Именно так настоящие мужчины побеждают в боях."
 	force = 5
 	flags = DROPDEL | ABSTRACT | NODROP
-	attack_verb = list("slapped", "backhanded", "smacked", "discombobulated")
+	attack_verb = list("даёт пощёчину", "бьёт тыльной стороной ладони", "шлепает", "дезориентирует")
 	table_smacks_left = 10 //Much more smackitude
 
 /obj/item/slapper/parry/Initialize(mapload)

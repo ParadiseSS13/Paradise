@@ -2516,7 +2516,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/general_air_control/large_tank_control{
 	name = "Mixed Air Supply Control";
-	autolink_sensors = list("air_sensor"="Tank");
+	autolink_sensors = list("air_sensor");
 	outlet_autolink_ids = list("theta_air_out");
 	inlet_injector_autolink_ids = list("theta_air_in");
 	dir = 8

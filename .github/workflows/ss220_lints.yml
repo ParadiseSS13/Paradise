@@ -1,0 +1,27 @@
+name: Modular Maplint
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '_maps/map_files220/**/*.dmm'
+      - 'tools/maplint/ss220_lints/**'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '_maps/map_files220/**/*.dmm'
+      - 'tools/maplint/ss220_lints/**'
+
+jobs:
+  modular-maplint:
+    runs-on: ubuntu-latest
+    name: Lint Modular Maps
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Modular Map Linter
+        run: |
+          python -m tools.maplint.source.ss220_linter --github

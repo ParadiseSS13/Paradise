@@ -9,9 +9,9 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
-	blurb = "Unathi are a scaled species of reptilian beings from the desert world of Moghes, within the Uuosa-Eso system. \
-	Organizing themselves in highly competitive feudal kingdoms, the Unathi lack any sort of wide-scale unification, and their culture and history consist of centuries of internal conflict and struggle.<br/><br/> \
-	Despite clans having a sizeable military force, inter-clan rivalries and constant civil war prevent the Unathi from achieving much more in the wider galactic scene."
+	blurb = "Унатхи - чешуйчатый вид рептилий с тропической планеты Могес, расположенной в системе Узул. \
+	Организовавшись в высококонкурентные феодальные королевства, не заимели какого-либо широкомасштабного объединения.<br/><br/> \
+	Хоть и установлена Имперская гегемония, однако из-за консерватизма управляющих, ограничены родным сектором."
 
 	species_traits = list(LIPS)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_REPTILE
@@ -117,8 +117,8 @@
 	sprite_sheet_name = "Unathi" // We have the same sprite sheets as unathi
 	article_override = null
 
-	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
-	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
+	blurb = "Эти рептилоидные существа, похоже, родственны Унатхам, но выглядят значительно менее развитыми. \
+	Они скитаются по пустошам Лаваленда, поклоняются мертвому городу и похищают ничего не подозревающих шахтеров."
 
 	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"

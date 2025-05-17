@@ -1006,14 +1006,14 @@
 					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 					H.makeCluwne()
 			else if(myeffect == "Demote")
-				GLOB.major_announcement.Announce("[target.real_name] is hereby demoted to the rank of Assistant. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				GLOB.major_announcement.Announce("[target.real_name] понижается в должности до ассистента. Немедленно оформите это понижение. Невыполнение этих приказов является основанием для расторжения контракта.", "Приказ Центрального Командования.")
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
 						R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
 						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 				update_all_mob_security_hud()
 			else if(myeffect == "Demote with Bot")
-				GLOB.major_announcement.Announce("[target.real_name] is hereby demoted to the rank of Assistant. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				GLOB.major_announcement.Announce("[target.real_name] понижается в должности до ассистента. Немедленно оформите это понижение. Невыполнение этих приказов является основанием для расторжения контракта.", "Приказ Центрального Командования.")
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
 						R.fields["criminal"] = SEC_RECORD_STATUS_ARREST

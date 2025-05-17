@@ -6,269 +6,269 @@
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/station/maintenance/engimaint
-	name = "Engineering Maintenance"
+	name = "Технические Тоннели Инженерии"
 	icon_state = "engimaint"
 
 /area/station/maintenance/medmaint
-	name = "Medical Maintenance"
+	name = "Технические Тоннели Медицинского Отдела"
 	icon_state = "medmaint"
 
 /area/station/maintenance/fpmaint
-	name = "Fore-Port Maintenance"
+	name = "Северо-Западные Технические Тоннели"
 	icon_state = "fpmaint"
 
 /area/station/maintenance/fpmaint2
-	name = "Fore-Port Secondary Maintenance"
+	name = "Вспомогательные Северо-Западные Технические Тоннели"
 	icon_state = "fpmaint"
 
 /area/station/maintenance/fsmaint
-	name = "Fore-Starboard Maintenance"
+	name = "Северо-Восточные Технические Тоннели"
 	icon_state = "fsmaint"
 
 /area/station/maintenance/fsmaint2
-	name = "Fore-Starboard Secondary Maintenance"
+	name = "Вспомогательные Северо-Восточные Технические Тоннели"
 	icon_state = "fsmaint"
 
 /area/station/maintenance/asmaint
-	name = "Aft-Starboard Maintenance"
+	name = "Юго-Восточные Технические Тоннели"
 	icon_state = "asmaint"
 
 /area/station/maintenance/asmaint2
-	name = "Aft-Starboard Secondary Maintenance"
+	name = "Вспомогательные Юго-Восточные Технические Тоннели"
 	icon_state = "asmaint"
 
 /area/station/maintenance/apmaint
-	name = "Aft-Port Maintenance"
+	name = "Юго-Западные Технические Тоннели"
 	icon_state = "apmaint"
 
 /area/station/maintenance/apmaint2
-	name = "Aft-Port Secondary Maintenance"
+	name = "Вспомогательные Юго-Западные Технические Тоннели"
 	icon_state = "apmaint"
 
 /area/station/maintenance/maintcentral
-	name = "Central Maintenance"
+	name = "Центральные Технические Тоннели"
 	icon_state = "maintcentral"
 
 /area/station/maintenance/maintcentral2
-	name = "Central Maintenance Secondary"
+	name = "Вспомогательные Центральные Технические Тоннели"
 	icon_state = "maintcentral"
 
 /area/station/maintenance/fore
-	name = "Fore Maintenance"
+	name = "Северные Технические Тоннели"
 	icon_state = "fmaint"
 
 /area/station/maintenance/fore2
-	name = "Fore Secondary Maintenance"
+	name = "Вспомогательные Северные Технические Тоннели"
 	icon_state = "fmaint"
 
 /area/station/maintenance/aft
-	name = "Aft Maintenance"
+	name = "Южные Технические Тоннели"
 	icon_state = "amaint"
 
 /area/station/maintenance/aft2
-	name = "Aft Secondary Maintenance"
+	name = "Вспомогательные Южные Технические Тоннели"
 	icon_state = "amaint"
 
 /area/station/maintenance/starboard
-	name = "Starboard Maintenance"
+	name = "Восточные Технические Тоннели"
 	icon_state = "smaint"
 
 /area/station/maintenance/starboard2
-	name = "Starboard Secondary Maintenance"
+	name = "Вспомогательные Восточные Технические Тоннели"
 	icon_state = "smaint"
 
 /area/station/maintenance/port
-	name = "Port Maintenance"
+	name = "Западные Технические Тоннели"
 	icon_state = "pmaint"
 
 /area/station/maintenance/port2
-	name = "Port Secondary Maintenance"
+	name = "Вспомогательные Западные Технические Тоннели"
 	icon_state = "pmaint"
 
 /area/station/maintenance/storage
-	name = "Atmospherics Maintenance"
+	name = "Технические Тоннели Турбины"
 	icon_state = "atmosmaint"
 
 /area/station/maintenance/incinerator
-	name = "\improper Incinerator"
+	name = "Мусоросжигатель"
 	icon_state = "incin"
 
 /area/station/maintenance/turbine
-	name = "\improper Turbine"
+	name = "Турбина"
 	icon_state = "turbine"
 
 /area/station/maintenance/disposal
-	name = "Waste Disposal"
+	name = "Комната Утилизации"
 	icon_state = "disposals"
 
 /area/station/maintenance/electrical
-	name = "Electrical Maintenance"
+	name = "Необслуживаемое Помещение Электрооборудования"
 	icon_state = "elect"
 
 /area/station/maintenance/abandonedbar
-	name = "Maintenance Bar"
+	name = "Заброшенный Бар"
 	icon_state = "oldbar"
 	apc_starts_off = TRUE
 
 /area/station/maintenance/library
-	name = "Abandoned Library"
+	name = "Заброшенная Библиотека"
 	icon_state = "library"
 	apc_starts_off = TRUE
 
 /area/station/maintenance/theatre
-	name = "\improper Abandoned Theatre"
+	name = "Заброшеный Театр"
 	icon_state = "Theatre"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/station/maintenance/spacehut
-	name = "Space Hut"
+	name = "Космическая Хата"
 	icon_state = "spacehut"
 	apc_starts_off = TRUE
 
 /area/station/maintenance/electrical_shop
-	name ="Electronics Den"
+	name ="Уголок Электроники"
 	icon_state = "elect"
 
 /area/station/maintenance/gambling_den
-	name = "Gambling Den"
+	name = "Игровой Зал"
 	icon_state = "yellow"
 
 // Solars
 
 /area/station/maintenance/solar_maintenance
-	name = "\improper Solar Maintenance"
+	name = "Пункт Контроля Солнечных Панелей"
 	icon_state = "general_solar_control"
 
 /area/station/maintenance/solar_maintenance/fore
-	name = "\improper Fore Solar Maintenance"
+	name = "Пункт Контроля Северных Солнечных Панелей"
 	icon_state = "fore_solar_control"
 
 /area/station/maintenance/solar_maintenance/fore_starboard
-	name = "\improper Fore-Starboard Solar Maintenance"
+	name = "Пункт Контроля Северо-Восточных Солнечных Панелей"
 	icon_state = "fore_starboard_solar_control"
 
 /area/station/maintenance/solar_maintenance/fore_port
-	name = "\improper Fore-Port Solar Maintenance"
+	name = "Пункт Контроля Северо-Западных Солнечных Панелей"
 	icon_state = "fore_port_solar_control"
 
 /area/station/maintenance/solar_maintenance/aft
-	name = "\improper Aft Solar Maintenance"
+	name = "Пункт Контроля Южных Солнечных Панелей"
 	icon_state = "aft_solar_control"
 
 /area/station/maintenance/solar_maintenance/aft_starboard
-	name = "\improper Aft-Starboard Solar Maintenance"
+	name = "Пункт Контроля Юго-Восточных Солнечных Панелей"
 	icon_state = "aft_starboard_solar_control"
 
 /area/station/maintenance/solar_maintenance/aft_port
-	name = "\improper Aft-Port Solar Maintenance"
+	name = "Пункт Контроля Юго-Западных Солнечных Панелей"
 	icon_state = "aft_port_solar_control"
 
 /area/station/maintenance/solar_maintenance/starboard
-	name = "\improper Starboard Solar Maintenance"
+	name = "Пункт Контроля Восточных Солнечных Панелей"
 	icon_state = "starboard_solar_control"
 
 /area/station/maintenance/solar_maintenance/port
-	name = "\improper Port Solar Maintenance"
+	name = "Пункт Контроля Западных Солнечных Панелей"
 	icon_state = "port_solar_control"
 
 /// Derelict Assembly Line
 /area/station/maintenance/assembly_line
-	name = "\improper Assembly Line"
+	name = "Комната Сборочной Линии"
 	icon_state = "ass_line"
 	apc_starts_off = TRUE
 
 /area/station/maintenance/abandoned_office
-	name = "\improper Abandoned Office"
+	name = "Заброшенный Офис"
 	icon_state = "abandoned_office"
 	apc_starts_off = TRUE
 
 /area/station/maintenance/abandoned_garden
-	name = "\improper Abandoned Garden"
+	name = "Заброшенный Сад"
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/maintenance/xenobio_north
-	name = "Xenobiology North Maintenance"
+	name = "Северные Технические Тоннели Ксенобиологии"
 	icon_state = "xenobio_north_maint"
 
 /area/station/maintenance/xenobio_south
-	name = "Xenobiology South Maintenance"
+	name = "Южные Технические Тоннели Ксенобиологии"
 	icon_state = "xenobio_south_maint"
 
 
 // CERE
 
 /area/station/maintenance/disposal/southwest
-	name = "South Western Disposals"
+	name = "Юго-Западный Мусоропровод"
 
 /area/station/maintenance/disposal/south
-	name = "Southern Disposals"
+	name = "Южный Мусоропровод"
 
 /area/station/maintenance/disposal/east
-	name = "Eastern Disposals"
+	name = "Восточный Мусоропровод"
 
 /area/station/maintenance/disposal/northeast
-	name = "North Eastern Disposals"
+	name = "Северо-Восточный Мусоропровод"
 
 /area/station/maintenance/disposal/north
-	name = "Northern Disposals"
+	name = "Северный Мусоропровод"
 
 /area/station/maintenance/disposal/northwest
-	name = "North Western Disposals"
+	name = "Северо-Западный Мусоропровод"
 
 /area/station/maintenance/disposal/west
-	name = "Western Disposals"
+	name = "Западный Мусоропровод"
 
 /area/station/maintenance/disposal/westalt
-	name = "Western Secondary Disposals"
+	name = "Вспомогательный Западный Мусоропровод"
 
 /area/station/maintenance/disposal/external/southwest
-	name = "South-Western External Waste Belt"
+	name = "Внешний Юго-Западный Мусоропровод"
 
 /area/station/maintenance/disposal/external/southeast
-	name = "South-Eastern External Waste Belt"
+	name = "Внешний Юго-Восточный Мусоропровод"
 
 /area/station/maintenance/disposal/external/north
-	name = "Northern External Waste Belt"
+	name = "Внешний Северный Мусоропровод"
 
 // Emerald Station
 
 /area/station/maintenance/dorms
-	name = "Dorms Maintenance"
+	name = "Технические Тоннели Дормиториев"
 	icon_state = "dorms_maint"
 
 /area/station/maintenance/dorms/port
-	name = "Dorms Port Maintenance"
+	name = "Западные Технические Тоннели Дормиториев"
 	icon_state = "dorms_maint_port"
 
 /area/station/maintenance/dorms/starboard
-	name = "Dorms Starboard Maintenance"
+	name = "Восточные Технические Тоннели Дормиториев"
 	icon_state = "dorms_maint_starboard"
 
 /area/station/maintenance/dorms/aft
-	name = "Dorms Aft Maintenance"
+	name = "Южные Технические Тоннели Дормиториев"
 	icon_state = "dorms_maint_aft"
 
 /area/station/maintenance/dorms/fore
-	name = "Dorms Fore Maintenance"
+	name = "Северные Технические Тоннели Дормиториев"
 	icon_state = "dorms_maint_fore"
 
 /area/station/maintenance/security
-	name = "Security Maintenance"
+	name = "Технические Тоннели Службы Безопасности"
 	icon_state = "sec_maint"
 
 /area/station/maintenance/security/fore
-	name = "Security Maintenance Fore"
+	name = "Северные Технические Тоннели Службы Безопасности"
 	icon_state = "sec_maint_fore"
 
 /area/station/maintenance/security/aft_port
-	name = "Security Maintenance Aft Port"
+	name = "Юго-Западные Технические Тоннели Службы Безопасности"
 	icon_state = "sec_maint_ap"
 
 /area/station/maintenance/security/aft_starboard
-	name = "Security Maintenance Aft Starboard"
+	name = "Юго-Восточные Технические Тоннели Службы Безопасности"
 	icon_state = "sec_maint_as"
 
 /area/station/engineering/atmos/asteroid_maint
-	name = "Asteroid Filtering Maintenance"
+	name = "Технические Тоннели Атмосферного Отсека Астероида"
 	icon_state = "asteroid_maint"
