@@ -6,7 +6,6 @@
 
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
-import { dirname } from 'node:path';
 
 import { loadSourceMaps, setupLink } from './link/server.js';
 import { createLogger } from './logging.js';
@@ -30,9 +29,7 @@ class RspackCompiler {
   async setup(options) {
     // Create a require context that is relative to project root
     // and retrieve all necessary dependencies.
-
-    let dirName = dirname(import.meta.url) + '/../..';
-    const requireFromRoot = createRequire(dirName);
+    const requireFromRoot = createRequire(import.meta.dirname + '/../../..');
     /** @type {typeof import('@rspack/core')} */
     const rspack = await requireFromRoot('@rspack/core');
     const createConfig = await requireFromRoot('./rspack.config.cjs');

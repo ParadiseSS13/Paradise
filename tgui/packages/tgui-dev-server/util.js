@@ -4,21 +4,15 @@
  * @license MIT
  */
 
-import fs from 'node:fs';
+import fs, { globSync } from 'node:fs';
 import path from 'node:path';
-
-import { globSync } from 'glob';
 
 export const resolvePath = path.resolve;
 
 /** Combines path.resolve with glob patterns. */
 export function resolveGlob(...sections) {
   /** @type {string[]} */
-  const unsafePaths = globSync(path.resolve(...sections), {
-    strict: false,
-    silent: true,
-    windowsPathsNoEscape: true,
-  });
+  const unsafePaths = globSync(path.resolve(...sections));
 
   /** @type {string[]} */
   const safePaths = [];
