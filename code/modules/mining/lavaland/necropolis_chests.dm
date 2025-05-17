@@ -8,6 +8,9 @@
 	icon_closed = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/structure/closet/crate/necropolis/ex_act(severity) // So vetus explosion won't destroy everything inside
+	return
+
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
