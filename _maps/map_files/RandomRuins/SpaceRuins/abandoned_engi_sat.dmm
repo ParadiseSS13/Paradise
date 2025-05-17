@@ -205,11 +205,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station/empty_charge/directional/south,
-/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
+/obj/machinery/power/apc/off_station/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "fs" = (
