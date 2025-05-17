@@ -146,9 +146,11 @@
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE
 	//Flies right over the chasm
+	if(HAS_TRAIT(AM, TRAIT_FLYING))
+		return FALSE
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(HAS_TRAIT(M, TRAIT_FLYING) || M.floating)
+		if(M.floating)
 			return FALSE
 		if(istype(M.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
 			return FALSE

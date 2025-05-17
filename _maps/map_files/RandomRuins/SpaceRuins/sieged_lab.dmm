@@ -56,7 +56,6 @@
 /area/ruin/space/sieged_lab)
 "dy" = (
 /obj/structure/table/wood,
-/obj/item/paper/sieged_lab_research_paper,
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/sieged_lab)
 "dE" = (
@@ -556,6 +555,12 @@
 	icon_state = "yellow"
 	},
 /area/ruin/space/sieged_lab)
+"AB" = (
+/obj/structure/noticeboard,
+/obj/item/paper/sieged_lab_research_paper,
+/obj/item/paper/sieged_lab_research_paper,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/sieged_lab)
 "AC" = (
 /obj/structure/sign/directions/engineering{
 	pixel_x = 32;
@@ -848,6 +853,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
+/area/ruin/space/sieged_lab)
+"PF" = (
+/obj/structure/safe/floor,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab,
+/turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/sieged_lab)
 "PI" = (
 /obj/machinery/space_heater,
@@ -3248,9 +3259,9 @@ GU
 Fc
 Fc
 KP
-SP
+AB
 GY
-GY
+PF
 dy
 GY
 Gh
