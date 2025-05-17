@@ -405,8 +405,9 @@
 			surgery.complete(target)
 
 	surgery.step_in_progress = FALSE
-	for(var/obj/item/smithed_item/tool_bit/bit in tool.attached_bits)
-		bit.damage_bit()
+	if(tool)
+		for(var/obj/item/smithed_item/tool_bit/bit in tool.attached_bits)
+			bit.damage_bit()
 	if(advance)
 		INVOKE_ASYNC(src, PROC_REF(play_success_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_SUCCESS
