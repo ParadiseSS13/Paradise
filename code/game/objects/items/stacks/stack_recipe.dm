@@ -151,6 +151,7 @@
 	if(istype(result, /obj/structure/morgue))
 		var/obj/structure/morgue/M = result
 		M.anchored = FALSE
+		M.status = "depowered"
 	..()
 
 /datum/stack_recipe/dangerous
