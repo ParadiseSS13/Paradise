@@ -12,6 +12,7 @@
 
 #define EXTENDED_TRAY "extended"
 #define EMPTY_MORGUE "empty"
+#define DEPOWERED_MORGUE "depowered"
 #define UNREVIVABLE "unrevivable"
 #define REVIVABLE "revivable"
 #define NOT_BODY "notbody"
@@ -29,6 +30,7 @@
 	var/static/status_descriptors = list(
 		EXTENDED_TRAY = "The tray is currently extended.",
 		EMPTY_MORGUE = "The tray is currently empty.",
+		DEPOWERED_MORGUE = "The tray is currently depowered",
 		UNREVIVABLE = "The tray contains an unviable body.",
 		REVIVABLE = "The tray contains a body that is responsive to revival techniques.",
 		NOT_BODY = "The tray contains something that is not a body.",
@@ -136,6 +138,9 @@
 				return
 
 /obj/structure/morgue/attack_hand(mob/user as mob)
+	if(status == DEPOWERED_MORGUE)
+		to_chat(user, "<span class='warning'>\The [src] is unpowered!</span>")
+		return TRUE
 	if(!anchored)
 		to_chat(user, "<span class='warning'>\The [src] is unsecured from the floor!</span>")
 		return
@@ -206,15 +211,33 @@
 		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 
-/obj/structure/morgue/wrench_act(mob/user, obj/item/I)
-	if(status != EMPTY_MORGUE)
-		to_chat(user, "<span class='warning'>\The [src] is not in a state to be deconstructed!</span>")
+/obj/structure/morgue/screwdriver_act(mob/living/user, obj/item/I)
+	if(status != EXTENDED_TRAY && status != DEPOWERED_MORGUE)
+		to_chat(user, "<span class='warning'>\The [src] is not in a state to be unscrewed!</span>")
 		return TRUE
+	if(status == DEPOWERED_MORGUE)
+		if(I.use_tool(src, user, volume = I.tool_volume))
+			SCREWDRIVER_SCREW_MESSAGE
+			status = EMPTY_MORGUE
+			if(connected)
+				QDEL_NULL(connected)
+				connected = null
+			update_state()
+	else
+		if(I.use_tool(src, user, volume = I.tool_volume))
+			SCREWDRIVER_UNSCREW_MESSAGE
+			status = DEPOWERED_MORGUE
+	add_fingerprint(user)
+	return TRUE
 
-	if(!connected)
-		default_unfasten_wrench(user, I, 4 SECONDS)
-		add_fingerprint(user)
+/obj/structure/morgue/wrench_act(mob/user, obj/item/I)
+	if(status != DEPOWERED_MORGUE)
+		to_chat(user, "<span class='warning'>Unscrew \the [src] first!</span>")
 		return TRUE
+	default_unfasten_wrench(user, I, 4 SECONDS)
+	QDEL_NULL(connected)
+	add_fingerprint(user)
+	return TRUE
 
 /obj/structure/morgue/welder_act(mob/user, obj/item/I)
 	if(!anchored)
@@ -296,7 +319,7 @@
 	max_integrity = 350
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
-	if(connected)
+	if(connected && connected.status == EXTENDED_TRAY) //Connected this connected that; connected has lost all meaning to me. Thank god we didnt call anchored 'connected'.
 		for(var/atom/movable/A as mob|obj in loc)
 			if(!A.anchored)
 				A.forceMove(connected)
