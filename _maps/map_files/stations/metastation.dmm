@@ -23981,9 +23981,6 @@
 	c_tag = "Aft Primary Hallway - Aft";
 	dir = 8
 	},
-/obj/structure/sign/directions/evac{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
 	},
@@ -27945,7 +27942,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "cgW" = (
 /obj/structure/cable{
@@ -32409,7 +32406,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "cBo" = (
 /obj/structure/table/wood,
@@ -35313,7 +35310,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "escape"
+	},
 /area/station/maintenance/aft2)
 "cOj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -35629,6 +35629,9 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Departure Lounge"
 	},
+/obj/structure/sign/evac{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -35650,6 +35653,9 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Departure Lounge"
+	},
+/obj/structure/sign/evac{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -38498,10 +38504,7 @@
 /area/station/science/testrange)
 "dhs" = (
 /obj/machinery/atmospherics/refill_station/plasma,
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -49431,6 +49434,10 @@
 	icon_state = "darkgrey"
 	},
 /area/station/medical/morgue)
+"hMA" = (
+/obj/structure/sign/evac,
+/turf/simulated/wall,
+/area/station/maintenance/aft)
 "hMJ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -52565,6 +52572,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/west)
+"jfY" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 4
+	},
+/area/station/maintenance/aft)
 "jgq" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -55920,7 +55933,10 @@
 "kEw" = (
 /obj/effect/spawner/random/cobweb/left/frequent,
 /obj/structure/closet/crate,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 8
+	},
 /area/station/maintenance/aft2)
 "kEy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -58904,12 +58920,6 @@
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
-"lPR" = (
-/obj/machinery/alarm/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/exit)
 "lPV" = (
 /obj/item/shard,
 /turf/space,
@@ -67284,6 +67294,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/refill_station/oxygen,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -70498,7 +70512,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner"
+	},
 /area/station/maintenance/aft)
 "qMg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -77908,9 +77924,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "tVJ" = (
-/obj/structure/sign/directions/evac{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
 	},
@@ -79315,6 +79328,13 @@
 "uCe" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/testrange)
+"uCE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 1
+	},
+/area/station/maintenance/aft2)
 "uCO" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -80187,16 +80207,16 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/maintenance/aft)
 "uUX" = (
 /obj/machinery/status_display{
@@ -83126,7 +83146,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random/directional/west,
 /obj/item/kirbyplants/large/plant14,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -83314,6 +83333,7 @@
 /area/station/maintenance/port2)
 "wqk" = (
 /obj/machinery/economy/vending/cigarette,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "wql" = (
@@ -112318,7 +112338,7 @@ tQO
 cdX
 qMa
 uUR
-chy
+jfY
 bZU
 hEX
 pue
@@ -112575,7 +112595,7 @@ cON
 bZU
 bZU
 cXa
-bZU
+hMA
 bZU
 wqk
 pue
@@ -114629,7 +114649,7 @@ bZU
 cqh
 bZU
 cVk
-lPR
+kUp
 sfB
 kUp
 ssi
@@ -115916,7 +115936,7 @@ wKQ
 tmz
 kEw
 cOi
-lTS
+uCE
 nWk
 coG
 gEX

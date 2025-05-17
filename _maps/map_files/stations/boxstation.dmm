@@ -16399,6 +16399,15 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
+"beE" = (
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 4
+	},
+/area/station/maintenance/asmaint)
 "beF" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -19805,7 +19814,7 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purplecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "boF" = (
@@ -26234,7 +26243,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purplecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "bNx" = (
@@ -47476,7 +47485,10 @@
 /obj/structure/chair/sofa/bench/left{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "dCe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -53128,7 +53140,10 @@
 /obj/structure/chair/sofa/bench/right{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "glM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -55198,7 +55213,10 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "hqe" = (
 /obj/machinery/navbeacon{
@@ -57528,6 +57546,9 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
+/obj/structure/sign/evac{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -58126,7 +58147,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purplecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "iSF" = (
@@ -58526,6 +58547,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
+"jdC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
+/area/station/maintenance/asmaint)
 "jdS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance,
@@ -64602,6 +64630,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"mdr" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
+/area/station/maintenance/asmaint)
 "mdt" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -68070,6 +68105,14 @@
 	icon_state = "engine"
 	},
 /area/station/science/toxins/test)
+"nYf" = (
+/obj/effect/spawner/random/barrier/grille_often,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 1
+	},
+/area/station/maintenance/asmaint)
 "nYg" = (
 /obj/structure/statue/cyberiad/center,
 /obj/structure/cable{
@@ -74220,6 +74263,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/sign/evac{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "qSY" = (
@@ -80244,6 +80290,10 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
+"ubC" = (
+/obj/structure/sign/evac,
+/turf/simulated/wall,
+/area/station/maintenance/asmaint)
 "ubF" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -80898,7 +80948,7 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purplecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "uuD" = (
@@ -87247,6 +87297,11 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/permabrig)
+"xPe" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "xPn" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -87829,7 +87884,14 @@
 /area/station/medical/chemistry)
 "yak" = (
 /obj/machinery/atmospherics/portable/canister/air,
-/turf/simulated/floor/plating,
+/obj/structure/sign/evac{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 4
+	},
 /area/station/maintenance/asmaint)
 "yao" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -138882,8 +138944,8 @@ iSv
 bNv
 rFe
 boD
-ciY
-cDo
+ubC
+beE
 csL
 cga
 pEO
@@ -139139,9 +139201,9 @@ bPq
 cYk
 bmm
 iIB
-oUq
-csL
-cga
+xPe
+mdr
+ePu
 gww
 csL
 rng
@@ -139397,7 +139459,7 @@ iwC
 buH
 uLU
 ciY
-rng
+nYf
 csL
 cga
 csL
@@ -140425,7 +140487,7 @@ bHV
 bmm
 qzV
 ciY
-cga
+csL
 hZN
 ciY
 wYs
@@ -140682,7 +140744,7 @@ bHV
 bmm
 wVi
 ciY
-csL
+ePu
 kgg
 ciY
 vBX
@@ -140939,7 +141001,7 @@ bHV
 bmm
 bGJ
 ciY
-csL
+jdC
 yak
 ciY
 fAH
@@ -141196,7 +141258,7 @@ bHV
 bmm
 oMz
 ciY
-oUq
+xPe
 ciY
 ciY
 ciY

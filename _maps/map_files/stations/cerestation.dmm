@@ -11529,6 +11529,13 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
+"bFO" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
+/area/station/maintenance/asmaint)
 "bFY" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -28726,6 +28733,13 @@
 /obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
+"eor" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 4
+	},
+/area/station/maintenance/asmaint)
 "eot" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -33304,7 +33318,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "fvk" = (
 /obj/structure/cable/orange{
@@ -35502,6 +35516,9 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
+	},
+/obj/structure/sign/evac{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -48089,10 +48106,6 @@
 	icon_state = "purplecorner"
 	},
 /area/station/hallway/primary/aft/west)
-"jaR" = (
-/obj/structure/sign/evac,
-/turf/simulated/wall,
-/area/station/hallway/secondary/exit)
 "jbg" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -63633,6 +63646,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
+"mCQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "mCW" = (
 /obj/structure/table/glass,
 /obj/item/hemostat,
@@ -67330,7 +67350,10 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/often,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/maintenance/asmaint)
 "nyR" = (
 /obj/machinery/ai_status_display,
@@ -77988,6 +78011,9 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
+/obj/structure/sign/evac{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -88348,11 +88374,9 @@
 	},
 /area/station/medical/reception)
 "sBs" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "sBt" = (
 /obj/effect/decal/cleanable/blood/splatter,
@@ -99314,15 +99338,6 @@
 	icon_state = "green"
 	},
 /area/station/public/quantum/service)
-"vfs" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/asmaint)
 "vfu" = (
 /obj/machinery/light{
 	dir = 4
@@ -102559,7 +102574,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "vTo" = (
 /turf/simulated/wall,
@@ -161104,7 +161119,7 @@ aXn
 aXn
 aXn
 aXn
-vfs
+bGh
 vRX
 chI
 njL
@@ -161361,7 +161376,7 @@ aXn
 aXn
 aXn
 aXn
-bGh
+giR
 vRX
 chI
 gqQ
@@ -161618,7 +161633,7 @@ aXn
 aXn
 aXn
 aXn
-giR
+mCQ
 sBs
 chI
 tcs
@@ -161874,9 +161889,9 @@ aXn
 aXn
 aXn
 aXn
-fbs
+bFO
 nyL
-vRX
+eor
 chI
 mTL
 fcw
@@ -162143,7 +162158,7 @@ cdT
 cdT
 cdT
 cdT
-jaR
+cdT
 qct
 lkg
 fYb

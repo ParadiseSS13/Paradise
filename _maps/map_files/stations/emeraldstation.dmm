@@ -20728,7 +20728,10 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/junction/y,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/primary/starboard)
 "ejg" = (
 /obj/effect/spawner/random/maintenance,
@@ -30878,6 +30881,16 @@
 	icon_state = "darkpurple"
 	},
 /area/station/science/robotics)
+"ghf" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/sign/evac{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "ghg" = (
 /obj/structure/transit_tube/curved/flipped{
 	dir = 1
@@ -42819,7 +42832,7 @@
 "iBa" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "iBd" = (
 /turf/simulated/floor/grass,
@@ -43815,6 +43828,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+"iKO" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
+/area/station/maintenance/starboard)
 "iKR" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
@@ -47011,6 +47031,12 @@
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
 /area/station/security/interrogation)
+"jrM" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
+/area/station/hallway/primary/starboard)
 "jrQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
@@ -54830,6 +54856,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
+"kVS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
+/area/station/hallway/primary/starboard)
 "kVU" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -94090,6 +94128,14 @@
 	icon_state = "dark"
 	},
 /area/station/aisat/breakroom)
+"sLU" = (
+/obj/machinery/space_heater,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 4
+	},
+/area/station/maintenance/starboard)
 "sLX" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sop_science{
@@ -99440,6 +99486,9 @@
 	name = "Central Access"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/sign/evac{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "tPJ" = (
@@ -111289,6 +111338,10 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/medical/break_room)
+"whM" = (
+/obj/structure/sign/evac,
+/turf/simulated/wall,
+/area/station/hallway/secondary/exit)
 "whN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -171591,9 +171644,9 @@ mPL
 ohZ
 hwk
 iro
-kyA
+jrM
 ejd
-nIN
+kVS
 rMy
 fuo
 gZF
@@ -171848,7 +171901,7 @@ qKm
 qKm
 aZh
 aZh
-tPw
+ghf
 jaa
 tPw
 aZh
@@ -172630,7 +172683,7 @@ vjF
 aZh
 gEd
 uDo
-vPv
+ejo
 nfl
 vPv
 jnb
@@ -172886,7 +172939,7 @@ jxS
 iLD
 aZh
 aZh
-mXw
+gRv
 sAp
 cGm
 xTH
@@ -173143,8 +173196,8 @@ gHn
 jHe
 nvH
 aZh
-gRv
-sfK
+iKO
+sLU
 stp
 mXw
 huY
@@ -173401,7 +173454,7 @@ jgL
 mkG
 aZh
 iBa
-aZh
+whM
 aZh
 cGm
 gLv
