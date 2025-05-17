@@ -68661,19 +68661,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
-"lFv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/aft/north)
 "lFG" = (
 /obj/machinery/requests_console/directional/east,
 /obj/structure/table,
@@ -138331,7 +138318,7 @@ cNO
 cPy
 jBj
 jBj
-lFv
+jBj
 foc
 dGU
 jBj
