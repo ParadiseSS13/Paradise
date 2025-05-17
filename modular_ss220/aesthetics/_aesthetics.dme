@@ -43,7 +43,6 @@
 #include "stamps\code\stamps.dm"
 #include "tcomms\code\message.dm"
 #include "toolboxes\code\toolboxes.dm"
-#include "wallcloset\code\wallcloset.dm"
 #include "walls\code\walls.dm"
 #include "windoor\code\windoor.dm"
 #include "windows\code\windows.dm"

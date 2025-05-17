@@ -7,16 +7,17 @@
 /datum/modpack/objects/initialize()
 	GLOB.metal_recipes += list(
 		new /datum/stack_recipe("metal platform", /obj/structure/platform, 4, time = 3 SECONDS,one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("metal platform corner", /obj/structure/platform/corner, 2, time = 20, one_per_turf = TRUE, on_floor = TRUE)
+		new /datum/stack_recipe("metal platform corner", /obj/structure/platform/corner, 2, time = 20, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("wall locker frame", /obj/item/mounted/frame/wall_locker, 2,  time = 3 SECONDS),
 	)
 
 	GLOB.plasteel_recipes += list(
 		new /datum/stack_recipe("reinforced plasteel platform", /obj/structure/platform/reinforced, 4, time = 4 SECONDS,one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("reinforced plasteel platform corner", /obj/structure/platform/reinforced/corner, 2, time = 30,one_per_turf = TRUE, on_floor = TRUE)
+		new /datum/stack_recipe("reinforced plasteel platform corner", /obj/structure/platform/reinforced/corner, 2, time = 30,one_per_turf = TRUE, on_floor = TRUE),
 	)
 
 	GLOB.wood_recipes += list(
-		new /datum/stack_recipe("tribune", /obj/structure/tribune, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
+		new /datum/stack_recipe("tribune", /obj/structure/tribune, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)
 
 	GLOB.plastic_recipes += list(
@@ -24,5 +25,5 @@
 	)
 
 	GLOB.cardboard_recipes += list(
-		new /datum/stack_recipe("cigarette packet", /obj/item/storage/fancy/cigarettes/cigpack_diy/empty)
+		new /datum/stack_recipe("cigarette packet", /obj/item/storage/fancy/cigarettes/cigpack_diy/empty),
 	)
