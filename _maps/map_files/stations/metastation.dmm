@@ -11493,9 +11493,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/sortjunction{
-	sort_type_txt = "23"
+/obj/structure/chair/stool{
+	dir = 8
 	},
+/obj/effect/landmark/start/geneticist,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25206,7 +25208,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/genetics,
+/obj/machinery/dna_scannernew,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -30479,10 +30481,10 @@
 	},
 /area/station/hallway/science/fore)
 "ctb" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurple"
+/obj/structure/window/reinforced{
+	dir = 1
 	},
+/turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "cte" = (
 /turf/simulated/wall,
@@ -42263,7 +42265,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "eYA" = (
-/obj/machinery/economy/vending/genedrobe,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -46108,11 +46113,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "gBg" = (
-/obj/structure/closet/radiation,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkpurple"
-	},
+/obj/structure/closet/secure_closet/genetics,
+/turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "gBB" = (
 /obj/structure/cable{
@@ -46385,6 +46387,8 @@
 	dir = 4
 	},
 /obj/machinery/newscaster/directional/west,
+/obj/structure/table/glass,
+/obj/item/storage/box/disks,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurplecorners"
@@ -48389,8 +48393,7 @@
 	},
 /area/station/security/warden)
 "hzr" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/disks,
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -62622,10 +62625,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "nlQ" = (
-/obj/structure/closet/radiation,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
-	},
+/mob/living/carbon/human/monkey,
+/obj/structure/sink/directional/south,
+/turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "nmc" = (
 /obj/structure/chair{
@@ -64583,11 +64585,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "oeT" = (
-/obj/effect/landmark/start/geneticist,
-/obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/door/window/classic/normal{
+	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/genetics{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
+	},
+/turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "ofu" = (
 /obj/machinery/power/apc/directional/west,
@@ -67060,7 +67067,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "piI" = (
-/obj/machinery/dna_scannernew,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -70526,12 +70536,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "qCQ" = (
-/obj/structure/sink/directional/east,
 /obj/machinery/camera{
 	c_tag = "Research - Genetics";
 	dir = 9;
 	network = list("Research","SS13")
 	},
+/obj/machinery/economy/vending/genedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -71672,8 +71682,7 @@
 	},
 /area/station/medical/exam_room)
 "rdd" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
+/obj/machinery/computer/scan_consolenew{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -72088,6 +72097,9 @@
 "rnM" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -73910,12 +73922,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "rVy" = (
-/obj/machinery/computer/scan_consolenew{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
-	},
+/turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "rVE" = (
 /obj/structure/disposalpipe/segment,
@@ -81545,9 +81552,6 @@
 	},
 /area/station/hallway/primary/central/nw)
 "vde" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -81556,6 +81560,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/sortjunction/reversed{
+	dir = 8;
+	sort_type_txt = "23"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -121185,7 +121193,7 @@ jEA
 jEA
 rvJ
 xTs
-qlx
+ctb
 nlQ
 aOG
 eZG
