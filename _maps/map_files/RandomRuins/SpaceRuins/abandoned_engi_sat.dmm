@@ -273,7 +273,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/ruin/space/abandoned_engi_sat)
 "hP" = (
 /obj/machinery/status_display{
 	mode = 0;
@@ -788,7 +788,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/space/nearstation)
+/area/ruin/space/abandoned_engi_sat)
 "yj" = (
 /obj/machinery/door/airlock{
 	name = "Restroom"
@@ -1139,10 +1139,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
-"Lh" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/template_noop)
 "LL" = (
 /obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
@@ -1968,7 +1964,7 @@ LP
 (13,1,1) = {"
 LP
 rr
-yJ
+rr
 Rs
 uC
 VJ
@@ -2391,7 +2387,7 @@ fA
 ex
 iV
 iV
-Lh
+dB
 LP
 LP
 rr
@@ -2425,7 +2421,7 @@ Ye
 fA
 eG
 iV
-Lh
+dB
 LP
 LP
 LP
