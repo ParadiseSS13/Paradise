@@ -187,23 +187,6 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	playsound(loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	set_light(8, l_color = "#FFD165")
 
-/obj/effect/temp_visual/getaway_flare/exfiltration
-	name = "extraction flare"
-	duration = 90.1 SECONDS
-
-/obj/effect/temp_visual/getaway_flare/exfiltration/changeling
-	name = "writhing mass"
-
-/obj/effect/temp_visual/getaway_flare/exfiltration/vampire
-	name = "bloody portal"
-	icon_state = "vampire-portal"
-
-/obj/effect/temp_visual/getaway_flare/exfiltration/mindflayer
-	name = "nanite telepad"
-
-/obj/effect/temp_visual/getaway_flare/exfiltration/admin
-	duration = 5.1 SECONDS
-
 /obj/item/grenade/jaunter_grenade
 	name = "chasm jaunter recovery grenade"
 	desc = "NT-Drunk Dialer Grenade. Originally built by NT for locating all beacons in an area and creating wormholes to them, it now finds use to miners for recovering allies from chasms."

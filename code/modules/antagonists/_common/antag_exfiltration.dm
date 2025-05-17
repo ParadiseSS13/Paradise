@@ -12,7 +12,7 @@
 	/// How long does the extraction take?
 	var/extraction_time = 90 SECONDS
 	/// Type of setup once a flare is lit
-	var/setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration
+	var/setup_type = /obj/effect/temp_visual/exfiltration
 	/// Type of portal spawned
 	var/portal_type = /obj/effect/portal/advanced/exfiltration
 
@@ -168,12 +168,11 @@
 		return
 
 	// Delay extractions
-	if(world.time < 60 MINUTES && delayed_extraction) // 60 minutes of no exfil
-		to_chat(user, "<span class='warning'>The exfiltration teleporter is calibrating. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
-		return
-	var/obj/effect/temp_visual/getaway_flare/exfiltration/F = new setup_type(get_turf(src))
-	user.visible_message("<span class='notice'>[user] pulls out a black and gold flare and lights it.</span>",\
-						"<span class='notice'>You light an extraction flare, initiating the extraction process.</span>")
+	 if(world.time < 60 MINUTES && delayed_extraction) // 60 minutes of no exfil
+	 	to_chat(user, "<span class='warning'>The exfiltration teleporter is calibrating. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+	 	return
+	var/obj/effect/temp_visual/exfiltration/F = new setup_type(get_turf(src))
+	show_activation_message(user)
 	user.drop_item()
 	forceMove(F)
 	addtimer(CALLBACK(src, PROC_REF(create_portal), user), extraction_time)
@@ -204,39 +203,246 @@
 /obj/item/wormhole_jaunter/extraction/chasm_react(mob/user)
 	return // This is not an instant getaway portal like the jaunter
 
-// Vampire Portal
+/obj/item/wormhole_jaunter/extraction/proc/show_activation_message(mob/user)
+	user.visible_message("<span class='notice'>[user] pulls out a black and gold flare and lights it.</span>",
+					"<span class='notice'>You light an extraction flare, initiating the extraction process.</span>")
+
+// MARK: Traitor Flare
+/obj/effect/temp_visual/exfiltration
+	name = "extraction flare"
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "flare-contractor-on"
+	duration = 90.1 SECONDS
+	/// Sound that plays when activated
+	var/activation_sound = 'sound/goonstation/misc/matchstick_light.ogg'
+	/// Light emitted when activated
+	var/emitted_color = "#FFD165"
+	/// Does this one emit light by default?
+	var/start_lit = TRUE
+
+/obj/effect/temp_visual/exfiltration/Initialize(mapload)
+	. = ..()
+	playsound(loc, activation_sound, 50, TRUE)
+	if(start_lit)
+		set_light(8, l_color = emitted_color)
+
+// MARK: Vampire Chalice
 /obj/item/wormhole_jaunter/extraction/vampire
 	name = "blood chalice"
 	icon = 'icons/obj/items.dmi'
 	desc = "An unholy construct that will create a single-use portal that will let you escape the station. One way trip."
 	icon_state = "blood-chalice"
-	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/vampire
+	setup_type = /obj/effect/temp_visual/exfiltration/vampire
 
-// Changeling Mass
+/obj/item/wormhole_jaunter/extraction/vampire/show_activation_message(mob/user)
+	user.visible_message("<span class='notice'>[user] sets a blood-filled chalice on the ground. It begins to bubble ominously...</span>",
+					"<span class='notice'>You set a blood-filled chalice on the ground. It begins to bubble ominously...</span>")
+
+/obj/effect/temp_visual/exfiltration/vampire
+	name = "bloody portal"
+	icon_state = "vampire-portal"
+	activation_sound = 'sound/magic/strings.ogg'
+	emitted_color = "#710C04"
+
+// MARK: Changeling Mass
 /obj/item/wormhole_jaunter/extraction/changeling
 	name = "writhing mass"
 	icon = 'icons/obj/lighting.dmi'
 	desc = "A mass of writhing flesh that will create a single-use portal that will let you escape the station. One way trip."
 	icon_state = "flare-contractor"
-	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/changeling
+	setup_type = /obj/effect/temp_visual/exfiltration/changeling
 
-// Mindflayer Swarm
+/obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
+	user.visible_message("<span class='notice'>[user] sets a grotesque fleshy mass on the floor.</span>",
+					"<span class='notice'>You set a pulsing piece of yourself on the floor.</span>")
+
+/obj/effect/temp_visual/exfiltration/changeling
+	name = "writhing mass"
+	activation_sound = 'sound/effects/squelch1.ogg'
+	emitted_color = "#E79592"
+
+// MARK: Mindflayer telepad
 /obj/item/wormhole_jaunter/extraction/mindflayer
 	name = "nanite telepad"
 	icon = 'icons/obj/lighting.dmi'
 	desc = "A swarm of mindflayer nanites in the shape of a telepad that will create a single-use portal that will let you escape the station. One way trip."
-	icon_state = "flare-contractor"
-	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/mindflayer
+	icon_state = "flayer_telepad_base"
+	setup_type = /obj/effect/temp_visual/exfiltration/mindflayer
 
-// Debug/Admin
+/obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
+	user.visible_message("<span class='notice'>[user] sets a strange telepad on the floor. It begins to unfold.</span>",
+					"<span class='notice'>You push a button on [src], and watch as it begins to unfold.</span>")
+
+/obj/effect/temp_visual/exfiltration/mindflayer
+	name = "mindflayer telepad"
+	desc = "A swarm of mindflayer nanites in the shape of a telepad that will create a single-use portal."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "flayer_telepad_deploy"
+	activation_sound = 'sound/mecha/skyfall_power_up.ogg'
+	start_lit = FALSE
+
+/obj/effect/temp_visual/exfiltration/mindflayer/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(blink)), 10 SECONDS)
+
+/obj/effect/temp_visual/exfiltration/mindflayer/proc/blink()
+	icon_state = "flayer_telepad_blink"
+	do_sparks(4, 0, src)
+	addtimer(CALLBACK(src, PROC_REF(no_blink)), 5 SECONDS)
+
+/obj/effect/temp_visual/exfiltration/mindflayer/proc/no_blink()
+	icon_state = "flayer_telepad_base"
+	do_sparks(4, 0, src)
+	set_light(3, 0.5, LIGHT_COLOR_DARKGREEN)
+	new /obj/effect/flayer_telepad_binary_effect(get_turf(src))
+
+/obj/effect/flayer_telepad_binary_effect
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "qpad-charge"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/flayer_telepad_binary_effect/Initialize(mapload)
+	. = ..()
+	appearance_flags |= KEEP_TOGETHER
+	var/icon/our_icon = icon('icons/obj/lighting.dmi', "qpad-charge")
+	var/icon/alpha_mask
+	alpha_mask = new('icons/effects/effects.dmi', "scanline") // Scanline effect.
+	our_icon.AddAlphaMask(alpha_mask) // Finally, let's mix in a distortion effect.
+	icon = our_icon
+	color = list(0.2,0.45,0,0, 0,1,0,0, 0,0,0.2,0, 0,0,0,1, 0,0,0,0)
+	var/mutable_appearance/theme_icon = mutable_appearance('icons/misc/pic_in_pic.dmi', "room_background", appearance_flags = appearance_flags | RESET_TRANSFORM)
+	theme_icon.blend_mode = BLEND_INSET_OVERLAY
+	overlays += theme_icon
+	addtimer(CALLBACK(src, PROC_REF(progress_step)), 1 SECONDS)
+
+/obj/effect/flayer_telepad_binary_effect/proc/progress_step()
+	new /obj/effect/flayer_telepad_binary_effect_secondary(get_turf(src))
+	qdel(src)
+
+/obj/effect/flayer_telepad_binary_effect_secondary
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "qpad-charge2"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/flayer_telepad_binary_effect_secondary/Initialize(mapload)
+	. = ..()
+	appearance_flags |= KEEP_TOGETHER
+	var/icon/our_icon = icon('icons/obj/lighting.dmi', "qpad-charge2")
+	var/icon/alpha_mask
+	alpha_mask = new('icons/effects/effects.dmi', "scanline") // Scanline effect.
+	our_icon.AddAlphaMask(alpha_mask) // Finally, let's mix in a distortion effect.
+	icon = our_icon
+	color = list(0.2,0.45,0,0, 0,1,0,0, 0,0,0.2,0, 0,0,0,1, 0,0,0,0)
+	var/mutable_appearance/theme_icon = mutable_appearance('icons/misc/pic_in_pic.dmi', "room_background", appearance_flags = appearance_flags | RESET_TRANSFORM)
+	theme_icon.blend_mode = BLEND_INSET_OVERLAY
+	overlays += theme_icon
+	addtimer(CALLBACK(src, PROC_REF(sparky)), 4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(progress_step)), 24 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(complete_portal)), 74 SECONDS)
+
+/obj/effect/flayer_telepad_binary_effect_secondary/proc/sparky()
+	new /obj/effect/flayer_binary_portal(get_turf(src))
+	do_sparks(4, 0, src)
+
+/obj/effect/flayer_telepad_binary_effect_secondary/proc/progress_step()
+	new /obj/effect/flayer_telepad_binary_effect_tertiary(get_turf(src))
+
+/obj/effect/flayer_telepad_binary_effect_secondary/proc/complete_portal()
+	qdel(src)
+
+/obj/effect/flayer_binary_portal
+	icon_state = "bluespace"
+	icon = 'icons/obj/projectiles.dmi'
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	pixel_y = 24
+
+/obj/effect/flayer_binary_portal/Initialize(mapload)
+	. = ..()
+	// transform *= 0.25
+	appearance_flags |= KEEP_TOGETHER | PIXEL_SCALE
+	var/icon/our_icon = icon('icons/obj/projectiles.dmi', "bluespace")
+	var/icon/alpha_mask
+	alpha_mask = new('icons/effects/effects.dmi', "scanline") // Scanline effect.
+	our_icon.AddAlphaMask(alpha_mask) // Finally, let's mix in a distortion effect.
+	icon = our_icon
+	color = list(0.2,0.45,0,0, 0,1,0,0, 0,0,0.2,0, 0,0,0,1, 0,0,0,0)
+	var/mutable_appearance/theme_icon = mutable_appearance('icons/misc/pic_in_pic.dmi', "room_background", appearance_flags = appearance_flags | RESET_TRANSFORM)
+	theme_icon.blend_mode = BLEND_INSET_OVERLAY
+	overlays += theme_icon
+	addtimer(CALLBACK(src, PROC_REF(wormhole)), 25 SECONDS)
+	animate(src, transform = matrix().Scale(0.25), time = 0.1 SECONDS)
+	animate(transform = matrix().Scale(1, 2), time = 24 SECONDS)
+	animate(transform = matrix().Scale(0.5), time = 0.9 SECONDS)
+
+/obj/effect/flayer_binary_portal/proc/wormhole()
+	new /obj/effect/flayer_binary_portal_secondary(get_turf(src))
+	do_sparks(4, 0, src)
+	qdel(src)
+
+/obj/effect/flayer_binary_portal_secondary
+	icon_state = "kinesis"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	pixel_y = 24
+
+/obj/effect/flayer_binary_portal_secondary/Initialize(mapload)
+	. = ..()
+	set_light(5, 2, LIGHT_COLOR_DARKGREEN)
+	var/obj/effect/warp_effect/bsg/warp = new /obj/effect/warp_effect/bsg(get_turf(src))
+	warp.pixel_y = 24
+	appearance_flags |= KEEP_TOGETHER | PIXEL_SCALE
+	var/icon/our_icon = icon('icons/effects/effects.dmi', "kinesis")
+	var/icon/alpha_mask
+	alpha_mask = new('icons/effects/effects.dmi', "scanline") // Scanline effect.
+	our_icon.AddAlphaMask(alpha_mask) // Finally, let's mix in a distortion effect.
+	icon = our_icon
+	color = list(0.2,0.45,0,0, 0,1,0,0, 0,0,0.2,0, 0,0,0,1, 0,0,0,0)
+	var/mutable_appearance/theme_icon = mutable_appearance('icons/misc/pic_in_pic.dmi', "room_background", appearance_flags = appearance_flags | RESET_TRANSFORM)
+	theme_icon.blend_mode = BLEND_INSET_OVERLAY
+	overlays += theme_icon
+	addtimer(CALLBACK(src, PROC_REF(complete_portal)), 45 SECONDS)
+	animate(src, transform = matrix().Scale(0.3), time = 0.1 SECONDS)
+	animate(transform = matrix().Scale(0.3, 0.6), time = 5 SECONDS)
+	animate(transform = matrix().Scale(0.6, 1.2), time = 15 SECONDS)
+
+/obj/effect/flayer_binary_portal_secondary/proc/complete_portal()
+	animate(src, transform = matrix().Scale(0.1), time = 0.1 SECONDS)
+	do_sparks(4, 0, src)
+	qdel(src)
+
+/obj/effect/flayer_telepad_binary_effect_tertiary
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "qpad-beam"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/flayer_telepad_binary_effect_tertiary/Initialize(mapload)
+	. = ..()
+	appearance_flags |= KEEP_TOGETHER
+	var/icon/our_icon = icon('icons/obj/lighting.dmi', "qpad-beam")
+	var/icon/alpha_mask
+	alpha_mask = new('icons/effects/effects.dmi', "scanline") // Scanline effect.
+	our_icon.AddAlphaMask(alpha_mask) // Finally, let's mix in a distortion effect.
+	icon = our_icon
+	color = list(0.2,0.45,0,0, 0,1,0,0, 0,0,0.2,0, 0,0,0,1, 0,0,0,0)
+	var/mutable_appearance/theme_icon = mutable_appearance('icons/misc/pic_in_pic.dmi', "room_background", appearance_flags = appearance_flags | RESET_TRANSFORM)
+	theme_icon.blend_mode = BLEND_INSET_OVERLAY
+	overlays += theme_icon
+	addtimer(CALLBACK(src, PROC_REF(complete_portal)), 50 SECONDS)
+
+/obj/effect/flayer_telepad_binary_effect_tertiary/proc/complete_portal()
+	qdel(src)
+
+// MARK:  Debug/Admin
 /obj/item/wormhole_jaunter/extraction/admin
 	name = "advanced extraction flare"
 	desc = "An advanced single-use extraction flare that will let you escape the station quickly. One way trip."
 	delayed_extraction = FALSE
 	extraction_time = 5 SECONDS
-	setup_type = /obj/effect/temp_visual/getaway_flare/exfiltration/admin
+	setup_type = /obj/effect/temp_visual/exfiltration/admin
 
-// Extraction Portal
+/obj/effect/temp_visual/exfiltration/admin
+	duration = 5.1 SECONDS
+
+// MARK:  Extraction Portal
 /obj/effect/portal/advanced/exfiltration
 	name = "exfiltration portal"
 	icon_state = "portal-syndicate"
