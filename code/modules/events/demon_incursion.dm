@@ -134,6 +134,10 @@
 		if(!linked_incursion.portals)
 			new /obj/item/wrench(loc) // Final reward for beating the incursion. TODO the actual reward
 
+/obj/structure/spawner/nether/demon_incursion/on_mob_spawn(mob/created_mob)
+	. = ..()
+	created_mob.Move(get_step(created_mob.loc, pick(GLOB.alldirs)))
+
 /obj/structure/spawner/nether/demon_incursion/attacked_by(obj/item/attacker, mob/living/user)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)

@@ -7,7 +7,7 @@
 	icon_dead = "mi-go-dead"
 	attack_verb_simple = "lacerate"
 	attack_verb_continuous = "lacerates"
-	speed = -0.5
+	speed = 0
 	death_message = "wails as its form turns into a pulpy mush."
 	death_sound = 'sound/voice/hiss6.ogg'
 	/// List of sounds the migo can make
@@ -189,7 +189,7 @@
 	// Assuming we move towards the target we want to swerve toward them to get closer
 	var/cdir = turn(move_direction, 45)
 	var/ccdir = turn(move_direction, -45)
-	. = Move(get_step(loc,pick(cdir, ccdir)))
+	. = Move(get_step(loc, pick(cdir, ccdir)))
 	if(!.)// Can't dodge there so we just carry on
 		. = Move(moving_to, move_direction)
 
