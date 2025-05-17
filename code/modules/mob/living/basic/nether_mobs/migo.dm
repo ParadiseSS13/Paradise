@@ -10,6 +10,7 @@
 	speed = 0
 	death_message = "wails as its form turns into a pulpy mush."
 	death_sound = 'sound/voice/hiss6.ogg'
+	gold_core_spawnable = HOSTILE_SPAWN
 	/// List of sounds the migo can make
 	var/static/list/migo_sounds
 	/// Will the migo dodge?

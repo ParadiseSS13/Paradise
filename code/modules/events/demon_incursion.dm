@@ -110,7 +110,7 @@
 					/mob/living/basic/netherworld/blankbody,
 					/mob/living/basic/netherworld/hellhound,
 					/mob/living/simple_animal/hostile/skeleton,
-					/mob/living/simple_animal/hostile/faithless)
+					/mob/living/basic/netherworld/faithless)
 	/// The event that spawned this portal
 	var/datum/event/demon_incursion/linked_incursion
 	/// The delay before it spawns another portal
