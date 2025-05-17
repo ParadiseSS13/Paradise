@@ -14211,10 +14211,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/funeral)
-"cOp" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/station/maintenance/electrical/aft_port)
 "cOq" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/spawner/random/cobweb/right/rare,
@@ -144147,8 +144143,8 @@ diy
 mPs
 mPs
 mPs
-cOp
-cOp
+mPs
+mPs
 aZS
 aZS
 aZS
