@@ -232,10 +232,20 @@
 	path = /obj/item/clothing/head/beret/roboblack
 	allowed_roles = list("Research Director", "Roboticist")
 
+/datum/gear/hat/beret_job/rd
+	display_name = "Beret, research director"
+	path = /obj/item/clothing/head/beret/rd
+	allowed_roles = list("Research Director")
+
 /datum/gear/hat/beret_job/med
 	display_name = "Beret, medical"
 	path = /obj/item/clothing/head/beret/med
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Geneticist", "Coroner", "Paramedic")
+
+/datum/gear/hat/beret_job/cmo
+	display_name = "Beret, chief medical officer"
+	path = /obj/item/clothing/head/beret/cmo
+	allowed_roles = list("Chief Medical Officer")
 
 /datum/gear/hat/beret_job/eng
 	display_name = "Beret, engineering"
