@@ -73,7 +73,7 @@
 	death_cooldown = 300 SECONDS
 	mob_species = /datum/species/golem
 	var/has_owner = FALSE
-	/// If golems can switch boies to this new shell
+	/// If golems can switch bodies to this new shell
 	var/can_transfer = TRUE
 	/// Golem's owner if it has one
 	var/mob/living/owner
