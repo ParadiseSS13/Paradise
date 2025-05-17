@@ -693,6 +693,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 #undef EXTENDED_TRAY
 #undef EMPTY_MORGUE
+#undef DEPOWERED_MORGUE
 #undef UNREVIVABLE
 #undef REVIVABLE
 #undef NOT_BODY
