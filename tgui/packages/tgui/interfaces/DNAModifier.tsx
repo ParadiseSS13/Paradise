@@ -15,31 +15,78 @@ import {
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
-const stats = [
+
+interface DNAModifierData {
+  irradiating: number;
+  dnaBlockSize: number;
+  locked: boolean;
+  hasOccupant: boolean;
+  hasDisk: boolean;
+  isBeakerLoaded: boolean;
+  isInjectorReady: boolean;
+  selectedMenuKey: string;
+  selectedUIBlock: number;
+  selectedUISubBlock: number;
+  selectedUITarget: number;
+  selectedSEBlock: number;
+  selectedSESubBlock: number;
+  radiationIntensity: number;
+  radiationDuration: number;
+  beakerVolume: number;
+  beakerLabel: string | null;
+  occupant: {
+    name: string;
+    stat: number;
+    health: number;
+    minHealth: number;
+    maxHealth: number;
+    radiationLevel: number;
+    isViableSubject: boolean;
+    uniqueIdentity: string;
+    uniqueEnzymes: string | null;
+    structuralEnzymes: string;
+  };
+  disk: {
+    data: boolean;
+    label: string | null;
+    owner: string | null;
+    type: 'ui' | 'se';
+    ue: boolean;
+  };
+  buffers: Array<{
+    data: boolean;
+    label: string;
+    owner: string | null;
+    type: 'ui' | 'se';
+    ue: boolean;
+  }>;
+}
+
+const stats: [string, string][] = [
   ['good', 'Alive'],
   ['average', 'Critical'],
   ['bad', 'DEAD'],
 ];
 
-const operations = [
+const operations: [string, string, string][] = [
   ['ui', 'Modify U.I.', 'dna'],
   ['se', 'Modify S.E.', 'dna'],
   ['buffer', 'Transfer Buffers', 'syringe'],
   ['rejuvenators', 'Rejuvenators', 'flask'],
 ];
 
-const rejuvenatorsDoses = [5, 10, 20, 30, 50];
+const rejuvenatorsDoses: number[] = [5, 10, 20, 30, 50];
 
-export const DNAModifier = (props) => {
-  const { act, data } = useBackend();
+export const DNAModifier = () => {
+  const { act, data } = useBackend<DNAModifierData>();
   const { irradiating, dnaBlockSize, occupant } = data;
-  let isDNAInvalid = !occupant.isViableSubject || !occupant.uniqueIdentity || !occupant.structuralEnzymes;
+  const isDNAInvalid = !occupant.isViableSubject || !occupant.uniqueIdentity || !occupant.structuralEnzymes;
   let radiatingModal;
   if (irradiating) {
     radiatingModal = <DNAModifierIrradiating duration={irradiating} />;
   }
   return (
-    <Window width={660} height={775}>
+    <Window width={660} height={800}>
       <ComplexModal />
       {radiatingModal}
       <Window.Content>
@@ -48,7 +95,7 @@ export const DNAModifier = (props) => {
             <DNAModifierOccupant isDNAInvalid={isDNAInvalid} />
           </Stack.Item>
           <Stack.Item grow>
-            <DNAModifierMain dnaBlockSize={dnaBlockSize} />
+            <DNAModifierMain dnaBlockSize={dnaBlockSize} isDNAInvalid={isDNAInvalid} />
           </Stack.Item>
         </Stack>
       </Window.Content>
@@ -56,8 +103,12 @@ export const DNAModifier = (props) => {
   );
 };
 
-const DNAModifierOccupant = (props) => {
-  const { act, data } = useBackend();
+interface DNAModifierOccupantProps {
+  isDNAInvalid: boolean;
+}
+
+const DNAModifierOccupant = (props: DNAModifierOccupantProps) => {
+  const { act, data } = useBackend<DNAModifierData>();
   const { locked, hasOccupant, occupant } = data;
   const { isDNAInvalid } = props;
   return (
@@ -91,8 +142,8 @@ const DNAModifierOccupant = (props) => {
               <LabeledList.Item label="Name">{occupant.name}</LabeledList.Item>
               <LabeledList.Item label="Health">
                 <ProgressBar
-                  min={occupant.minHealth}
-                  max={occupant.maxHealth}
+                  minValue={occupant.minHealth}
+                  maxValue={occupant.maxHealth}
                   value={occupant.health / occupant.maxHealth}
                   ranges={{
                     good: [0.5, Infinity],
@@ -116,7 +167,7 @@ const DNAModifierOccupant = (props) => {
           ) : (
             <LabeledList>
               <LabeledList.Item label="Radiation">
-                <ProgressBar min="0" max="100" value={occupant.radiationLevel / 100} color="average" />
+                <ProgressBar minValue={0} maxValue={100} value={occupant.radiationLevel / 100} color="average" />
               </LabeledList.Item>
               <LabeledList.Item label="Unique Enzymes">
                 {data.occupant.uniqueEnzymes ? (
@@ -138,9 +189,14 @@ const DNAModifierOccupant = (props) => {
   );
 };
 
-const DNAModifierMain = (props) => {
-  const { act, data } = useBackend();
-  const { selectedMenuKey, hasOccupant, occupant } = data;
+interface DNAModifierMainProps {
+  dnaBlockSize: number;
+  isDNAInvalid: boolean;
+}
+
+const DNAModifierMain = (props: DNAModifierMainProps) => {
+  const { act, data } = useBackend<DNAModifierData>();
+  const { selectedMenuKey, hasOccupant } = data;
   const { dnaBlockSize, isDNAInvalid } = props;
 
   if (!hasOccupant) {
@@ -148,7 +204,7 @@ const DNAModifierMain = (props) => {
       <Section fill>
         <Stack fill>
           <Stack.Item grow align="center" textAlign="center" color="label">
-            <Icon name="user-slash" mb="0.5rem" size="5" />
+            <Icon name="user-slash" mb="0.5rem" size={5} />
             <br />
             No occupant in DNA modifier.
           </Stack.Item>
@@ -160,7 +216,7 @@ const DNAModifierMain = (props) => {
       <Section fill>
         <Stack fill>
           <Stack.Item grow align="center" textAlign="center" color="label">
-            <Icon name="user-slash" mb="0.5rem" size="5" />
+            <Icon name="user-slash" mb="0.5rem" size={5} />
             <br />
             No operation possible on this subject.
           </Stack.Item>
@@ -207,57 +263,81 @@ const DNAModifierMain = (props) => {
   );
 };
 
-const DNAModifierMainUI = (props) => {
-  const { act, data } = useBackend();
+interface DNAModifierMainUIProps {
+  dnaBlockSize: number;
+}
+
+const DNAModifierMainUI = (props: DNAModifierMainUIProps) => {
+  const { act, data } = useBackend<DNAModifierData>();
   const { selectedUIBlock, selectedUISubBlock, selectedUITarget, occupant } = data;
   const { dnaBlockSize } = props;
   return (
     <Section title="Modify Unique Identifier">
-      <DNAModifierBlocks
-        dnaString={occupant.uniqueIdentity}
-        selectedBlock={selectedUIBlock}
-        selectedSubblock={selectedUISubBlock}
-        blockSize={dnaBlockSize}
-        action="selectUIBlock"
-      />
-      <LabeledList>
-        <LabeledList.Item label="Target">
-          <Knob
-            minValue={1}
-            maxValue={15}
-            stepPixelSize="20"
-            value={selectedUITarget}
-            format={(value) => value.toString(16).toUpperCase()}
-            ml="0"
-            onChange={(e, val) => act('changeUITarget', { value: val })}
-          />
-        </LabeledList.Item>
-      </LabeledList>
-      <Button icon="radiation" content="Irradiate Block" mt="0.5rem" onClick={() => act('pulseUIRadiation')} />
+      <Stack vertical>
+        <Stack.Item grow>
+          <Section>
+            <DNAModifierBlocks
+              dnaString={occupant.uniqueIdentity}
+              selectedBlock={selectedUIBlock}
+              selectedSubblock={selectedUISubBlock}
+              blockSize={dnaBlockSize}
+              action="selectUIBlock"
+            />
+          </Section>
+        </Stack.Item>
+        <Stack.Item>
+          <LabeledList>
+            <LabeledList.Item label="Target">
+              <Knob
+                minValue={1}
+                maxValue={15}
+                stepPixelSize={20}
+                value={selectedUITarget}
+                format={(value) => value.toString(16).toUpperCase()}
+                ml="0"
+                onChange={(e, val) => act('changeUITarget', { value: val })}
+              />
+            </LabeledList.Item>
+          </LabeledList>
+          <Button icon="radiation" content="Irradiate Block" mt="0.5rem" onClick={() => act('pulseUIRadiation')} />
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
 
-const DNAModifierMainSE = (props) => {
-  const { act, data } = useBackend();
+interface DNAModifierMainSEProps {
+  dnaBlockSize: number;
+}
+
+const DNAModifierMainSE = (props: DNAModifierMainSEProps) => {
+  const { act, data } = useBackend<DNAModifierData>();
   const { selectedSEBlock, selectedSESubBlock, occupant } = data;
   const { dnaBlockSize } = props;
   return (
     <Section title="Modify Structural Enzymes">
-      <DNAModifierBlocks
-        dnaString={occupant.structuralEnzymes}
-        selectedBlock={selectedSEBlock}
-        selectedSubblock={selectedSESubBlock}
-        blockSize={dnaBlockSize}
-        action="selectSEBlock"
-      />
-      <Button icon="radiation" content="Irradiate Block" onClick={() => act('pulseSERadiation')} />
+      <Stack vertical>
+        <Stack.Item grow>
+          <Section>
+            <DNAModifierBlocks
+              dnaString={occupant.structuralEnzymes}
+              selectedBlock={selectedSEBlock}
+              selectedSubblock={selectedSESubBlock}
+              blockSize={dnaBlockSize}
+              action="selectSEBlock"
+            />
+          </Section>
+        </Stack.Item>
+        <Stack.Item>
+          <Button icon="radiation" content="Irradiate Block" onClick={() => act('pulseSERadiation')} />
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
 
-const DNAModifierMainRadiationEmitter = (props) => {
-  const { act, data } = useBackend();
+const DNAModifierMainRadiationEmitter = () => {
+  const { act, data } = useBackend<DNAModifierData>();
   const { radiationIntensity, radiationDuration } = data;
   return (
     <Section title="Radiation Emitter">
@@ -298,8 +378,8 @@ const DNAModifierMainRadiationEmitter = (props) => {
   );
 };
 
-const DNAModifierMainBuffers = (props) => {
-  const { act, data } = useBackend();
+const DNAModifierMainBuffers = () => {
+  const { data } = useBackend<DNAModifierData>();
   const { buffers } = data;
   let bufferElements = buffers.map((buffer, i) => (
     <DNAModifierMainBuffersElement key={i} id={i + 1} name={'Buffer ' + (i + 1)} buffer={buffer} />
@@ -318,8 +398,22 @@ const DNAModifierMainBuffers = (props) => {
   );
 };
 
-const DNAModifierMainBuffersElement = (props) => {
-  const { act, data } = useBackend();
+interface BufferData {
+  data: boolean;
+  label: string;
+  owner: string | null;
+  type: 'ui' | 'se';
+  ue: boolean;
+}
+
+interface DNAModifierMainBuffersElementProps {
+  id: number;
+  name: string;
+  buffer: BufferData;
+}
+
+const DNAModifierMainBuffersElement = (props: DNAModifierMainBuffersElementProps) => {
+  const { act, data } = useBackend<DNAModifierData>();
   const { id, name, buffer } = props;
   const isInjectorReady = data.isInjectorReady;
   const realName = name + (buffer.data ? ' - ' + buffer.label : '');
@@ -477,8 +571,8 @@ const DNAModifierMainBuffersElement = (props) => {
   );
 };
 
-const DNAModifierMainBuffersDisk = (props) => {
-  const { act, data } = useBackend();
+const DNAModifierMainBuffersDisk = () => {
+  const { act, data } = useBackend<DNAModifierData>();
   const { hasDisk, disk } = data;
   return (
     <Section
@@ -512,7 +606,7 @@ const DNAModifierMainBuffersDisk = (props) => {
         )
       ) : (
         <Box color="label" textAlign="center" my="1rem">
-          <Icon name="save-o" size="4" />
+          <Icon name="save-o" size={4} />
           <br />
           No disk inserted.
         </Box>
@@ -521,8 +615,8 @@ const DNAModifierMainBuffersDisk = (props) => {
   );
 };
 
-const DNAModifierMainRejuvenators = (props) => {
-  const { act, data } = useBackend();
+const DNAModifierMainRejuvenators = () => {
+  const { act, data } = useBackend<DNAModifierData>();
   const { isBeakerLoaded, beakerVolume, beakerLabel } = data;
   return (
     <Section
@@ -569,14 +663,19 @@ const DNAModifierMainRejuvenators = (props) => {
           </LabeledList.Item>
         </LabeledList>
       ) : (
-        <Stack fill>
-          <Stack.Item bold grow textAlign="center" align="center" color="label">
-            <Icon.Stack>
-              <Icon name="flask" size={5} color="silver" />
-              <Icon name="slash" size={5} color="red" />
-            </Icon.Stack>
-            <br />
-            <h3>No beaker loaded.</h3>
+        <Stack fill vertical>
+          <Stack.Item grow align="center">
+            <Stack vertical align="center" textAlign="center">
+              <Stack.Item>
+                <Icon.Stack>
+                  <Icon name="flask" size={5} mt={25} mx={-4} />
+                  <Icon name="slash" color="red" size={5} mt={25} mx={-5} />
+                </Icon.Stack>
+              </Stack.Item>
+              <Stack.Item textAlign="center" mt={35}>
+                <h3>No Beaker Loaded</h3>
+              </Stack.Item>
+            </Stack>
           </Stack.Item>
         </Stack>
       )}
@@ -584,10 +683,15 @@ const DNAModifierMainRejuvenators = (props) => {
   );
 };
 
-const DNAModifierIrradiating = (props) => {
+interface DNAModifierIrradiatingProps {
+  duration: number;
+}
+
+const DNAModifierIrradiating = (props: DNAModifierIrradiatingProps) => {
+  const { duration } = props;
   return (
     <Dimmer textAlign="center">
-      <Icon name="spinner" size="5" spin />
+      <Icon name="spinner" size={5} spin />
       <br />
       <Box color="average">
         <h1>
@@ -598,27 +702,38 @@ const DNAModifierIrradiating = (props) => {
       </Box>
       <Box color="label">
         <h3>
-          For {props.duration} second{props.duration === 1 ? '' : 's'}
+          For {duration} second{duration === 1 ? '' : 's'}
         </h3>
       </Box>
     </Dimmer>
   );
 };
 
-const DNAModifierBlocks = (props) => {
-  const { act, data } = useBackend();
+interface DNAModifierBlocksProps {
+  dnaString: string;
+  selectedBlock: number;
+  selectedSubblock: number;
+  blockSize: number;
+  action: string;
+}
+
+const DNAModifierBlocks = (props: DNAModifierBlocksProps) => {
+  const { act } = useBackend<DNAModifierData>();
   const { dnaString, selectedBlock, selectedSubblock, blockSize, action } = props;
 
   const characters = dnaString.split('');
-  let curBlock = 0;
-  let dnaBlocks = [];
+  // Explicitly type the arrays to fix TypeScript errors
+  const dnaBlocks: React.ReactNode[] = [];
+
   for (let block = 0; block < characters.length; block += blockSize) {
     const realBlock = block / blockSize + 1;
-    let subBlocks = [];
+    const subBlocks: React.ReactNode[] = [];
+
     for (let subblock = 0; subblock < blockSize; subblock++) {
       const realSubblock = subblock + 1;
       subBlocks.push(
         <Button
+          key={subblock}
           selected={selectedBlock === realBlock && selectedSubblock === realSubblock}
           content={characters[block + subblock]}
           mb="0"
@@ -631,8 +746,9 @@ const DNAModifierBlocks = (props) => {
         />
       );
     }
+
     dnaBlocks.push(
-      <Stack.Item mb="1rem" mr="1rem" width={7.8} textAlign="right">
+      <Stack.Item key={block} mb="1rem" mr="1rem" width={7.8} textAlign="right">
         <Box inline mr="0.5rem" fontFamily="monospace">
           {realBlock}
         </Box>
@@ -640,5 +756,6 @@ const DNAModifierBlocks = (props) => {
       </Stack.Item>
     );
   }
+
   return <Flex wrap="wrap">{dnaBlocks}</Flex>;
 };
