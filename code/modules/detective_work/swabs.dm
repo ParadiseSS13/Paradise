@@ -116,6 +116,13 @@
 		var/list/choices = list()
 		if(A.blood_DNA)
 			choices |= "Blood"
+		var/list/turf_blood = list()
+		if (issimulatedturf(A))
+			for(var/obj/effect/decal/cleanable/blood/B in A.contents)
+				if(B.blood_DNA)
+					turf_blood |= B.blood_DNA
+					choices	 |= "Blood"
+
 		if(istype(A, /obj/item/clothing/gloves))
 			choices |= "Gunpowder particles"
 
@@ -137,8 +144,11 @@
 		var/target_dna
 		var/target_gsr
 		if(choice == "Blood")
-			target_dna = A.blood_DNA.Copy()
 			sample_type = "blood"
+		if(A.blood_DNA)
+			target_dna = A.blood_DNA.Copy()
+		if(turf_blood)
+			turf_blood.Copy()
 
 		else if(choice == "gunpowder particles")
 			var/obj/item/clothing/B = A
