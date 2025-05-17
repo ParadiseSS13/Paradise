@@ -654,7 +654,7 @@
 	. += ""
 	. += "Accidental injuries and death during initial testing also caused a protective energy barrier to be added to the design. By using the flux core as a metaphorical 'lightning rod', \
 	it will capture some of the energy from the detonation of the weapon's projectile and use it to create a finely-tuned neutralising bluespace field that protects the user from the blast wave. \
-	This system works against the blast wave from any BSG, but it cannot defend against the damaging effects of a direct hit."
+	This system works to create a "shield" that destructively interferes with the bluespace shock wave, However this system is not strong enough to defend against a direct hit from another(or your own if you're unlucky) BSG shot."
 
 /obj/item/gun/energy/bsg/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
