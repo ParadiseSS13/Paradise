@@ -156,3 +156,6 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 /// Returns the desired final target from the filtered list of targets
 /datum/ai_behavior/find_potential_targets/proc/pick_final_target(datum/ai_controller/controller, list/filtered_targets)
 	return pick(filtered_targets)
+
+/datum/ai_behavior/find_potential_targets/bigger_range
+	vision_range = 16

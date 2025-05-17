@@ -105,10 +105,10 @@
 	spawn_time = 5 SECONDS // Short spawn time initially, it gets updated after it spawns initial mobs
 	max_mobs = 15 // We want a lot of mobs, but not too many
 	max_integrity = 250
-	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo,
-					/mob/living/simple_animal/hostile/netherworld,
-					/mob/living/simple_animal/hostile/netherworld/blankbody,
-					/mob/living/simple_animal/hostile/hellhound,
+	mob_types = list(/mob/living/basic/netherworld/migo,
+					/mob/living/basic/netherworld,
+					/mob/living/basic/netherworld/blankbody,
+					/mob/living/basic/netherworld/hellhound,
 					/mob/living/simple_animal/hostile/skeleton,
 					/mob/living/simple_animal/hostile/faithless)
 	/// The event that spawned this portal

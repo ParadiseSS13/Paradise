@@ -79,8 +79,8 @@
 	var/list/possible_mobs = list(
 		/mob/living/simple_animal/hostile/hellhound,
 		/mob/living/simple_animal/hostile/skeleton,
-		/mob/living/simple_animal/hostile/netherworld,
-		/mob/living/simple_animal/hostile/netherworld/migo,
+		/mob/living/basic/netherworld/,
+		/mob/living/basic/netherworld/migo,
 		/mob/living/simple_animal/hostile/faithless)
 
 /obj/effect/tear/Initialize(mapload)

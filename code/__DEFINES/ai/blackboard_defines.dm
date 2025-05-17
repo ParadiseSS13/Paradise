@@ -41,6 +41,8 @@
 #define BB_TEMPORARILY_IGNORE_FACTION "BB_temporarily_ignore_factions"
 ///List of mobs who have damaged us
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_basic_mob_shitlist"
+///Blackboard key for a whitelist typecache of "things we can target while trying to move"
+#define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
 
 //Hunting BB keys
 
@@ -50,6 +52,8 @@
 #define BB_LOW_PRIORITY_HUNTING_TARGET "BB_low_priority_hunting_target"
 /// Key that holds the cooldown for our hunting subtree
 #define BB_HUNTING_COOLDOWN(type) "BB_HUNTING_COOLDOWN_[type]"
+/// Blackboard field for what we actually want the pet to target
+#define BB_CURRENT_PET_TARGET "BB_current_pet_target"
 
 // Food and eating
 
