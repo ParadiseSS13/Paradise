@@ -35,11 +35,11 @@
 	var/sample_type
 	inuse = TRUE
 	to_chat(user, "<span class='notice'>You start collecting samples.</span>")
-	if(do_after(user, 2 SECONDS, target = user))
-		if(H.wear_mask)
+	if(H.wear_mask)
 			to_chat(user, "<span class='warning'>[H] is wearing a mask.</span>")
 			inuse = FALSE
 			return
+	if(do_after(user, 2 SECONDS, target = user))
 
 		if(!H.dna || !H.dna.unique_enzymes)
 			to_chat(user, "<span class='warning'>Looks like he has no DNA!</span>")
@@ -117,7 +117,7 @@
 	to_chat(user, "<span class='notice'>You start collecting evidence.</span>")
 	if(do_after(user, 2 SECONDS, target = user))
 		var/list/choices = list()
-		if(A.blood_DNA)
+		if(istype(A, /obj/effect/decal/cleanable/blood))
 			choices |= "Blood"
 		if(istype(A, /obj/item/clothing))
 			choices |= "Gunpowder particles"

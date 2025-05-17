@@ -113,7 +113,7 @@
 		//dna data itself
 		var/data = "No analysis data available."
 		if(!isnull(bloodswab.dna))
-			data = "Spectrometric analysis on the provided sample determined the presence of DNA strands in the amount [bloodswab.dna.len].<br><br>"
+			data = "Spectrometric analysis on the provided sample determined the presence of DNA. DNA String(s) found: [bloodswab.dna.len].<br><br>"
 			for(var/blood in bloodswab.dna)
 				data += "<span class='notice'>Blood type: [bloodswab.dna[blood]]<br>\nDNA: [blood]<br><br></span>"
 		else
