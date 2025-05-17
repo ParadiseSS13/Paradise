@@ -168,7 +168,9 @@
 	name = "[initial(name)] ([H])"
 	icon_state = "fingerprint1"
 
-/obj/item/sample/print/attack(mob/living/M, mob/user)
+/obj/item/sample/print/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
+	. = ..()
+	(mob/living/M, mob/user)
 
 	if(!ishuman(M))
 		return ..()
