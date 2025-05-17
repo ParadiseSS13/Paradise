@@ -9,7 +9,7 @@
 	/// Linked magma crucible
 	var/obj/machinery/magma_crucible/linked_crucible
 	/// Access to claim points
-	var/req_access_claim = ACCESS_MINING_STATION
+	var/list/req_access_claim = list(ACCESS_MINING_STATION, ACCESS_FREE_GOLEMS)
 	/// The number of unclaimed points.
 	var/points = 0
 	/// Point multiplier
@@ -101,12 +101,16 @@
 		if(!points)
 			to_chat(user, "<span class='warning'>There are no points to claim.</span>");
 			return ITEM_INTERACT_COMPLETE
-		if(anyone_claim || (req_access_claim in ID.access))
-			ID.mining_points += points
-			ID.total_mining_points += points
-			to_chat(user, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
-			points = 0
-		else
+		var/claimed = FALSE
+		for(var/access in req_access_claim)
+			if(anyone_claim || (access in ID.access))
+				ID.mining_points += points
+				ID.total_mining_points += points
+				to_chat(user, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
+				points = 0
+				claimed = TRUE
+				break
+		if(!claimed)
 			to_chat(user, "<span class='warning'>Required access not found.</span>")
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
