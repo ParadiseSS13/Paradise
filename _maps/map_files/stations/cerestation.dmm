@@ -14740,9 +14740,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -30300,9 +30297,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/launch)
 "eLX" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/structure/closet/crate{
 	name = "solar pack crate"
 	},
@@ -37605,9 +37599,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -56117,9 +56108,6 @@
 	},
 /area/station/maintenance/fore)
 "kWa" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
@@ -92425,16 +92413,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/fore)
-"tHh" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "tHj" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -107229,21 +107207,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
-"xfr" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/starboard)
 "xfB" = (
 /mob/living/simple_animal/hostile/retaliate/kangaroo{
 	name = "Darwin"
@@ -151883,7 +151846,7 @@ vpJ
 wLr
 wLr
 cAU
-tHh
+eyB
 imG
 ggK
 vpJ
@@ -169829,7 +169792,7 @@ gFg
 eqX
 oeO
 nKW
-xfr
+xis
 itf
 itf
 shz

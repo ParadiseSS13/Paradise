@@ -38408,9 +38408,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
@@ -38871,9 +38868,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/lightsout,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -62739,10 +62733,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
-"iTF" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/electrical/fore_starboard)
 "iTV" = (
 /obj/structure/gunrack,
 /obj/item/gun/energy/gun,
@@ -138339,7 +138329,7 @@ jBj
 jBj
 cNO
 cPy
-lFv
+jBj
 lFv
 lFv
 foc
@@ -146240,7 +146230,7 @@ aaa
 eNt
 bwA
 bWr
-iTF
+nrv
 uOa
 lUQ
 gbO

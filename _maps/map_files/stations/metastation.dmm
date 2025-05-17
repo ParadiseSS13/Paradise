@@ -55419,6 +55419,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "kyo" = (
@@ -74149,7 +74150,6 @@
 	},
 /area/station/maintenance/fsmaint)
 "smy" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/wall,
 /area/station/maintenance/electrical/aft_starboard)
@@ -84717,12 +84717,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
-"wWs" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/station/maintenance/electrical/aft_starboard)
 "wWu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -120879,7 +120873,7 @@ fmf
 uJQ
 nBf
 fFO
-wWs
+doo
 eIB
 gIZ
 vEU

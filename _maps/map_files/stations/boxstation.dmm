@@ -26571,7 +26571,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/wall,
+/turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "bOK" = (
 /turf/simulated/wall,
@@ -48633,9 +48633,6 @@
 	},
 /area/station/service/mime)
 "edD" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/atmos/glass{
 	autoclose = 0;
 	id_tag = "atmossm_door_ext";
@@ -60896,7 +60893,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/wall,
+/turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "kjG" = (
 /turf/simulated/floor/wood,
@@ -69278,9 +69275,6 @@
 /area/station/science/xenobiology)
 "otk" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

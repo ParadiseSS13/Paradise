@@ -52727,9 +52727,6 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "kqR" = (
@@ -99076,9 +99073,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -108256,9 +108250,6 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "atmos";
 	name = "Atmos Blast Door"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -143129,7 +143120,7 @@ pCe
 tKv
 qII
 jvQ
-cOp
+mPs
 jnP
 aZS
 aZS
