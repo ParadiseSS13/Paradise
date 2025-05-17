@@ -44,7 +44,7 @@
 	else
 		dirs_to_move += dir_to_next_step
 
-	for (var/direction in dirs_to_move)
+	for(var/direction in dirs_to_move)
 		if(attack_in_direction(controller, basic_mob, direction))
 			return AI_BEHAVIOR_DELAY
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
@@ -54,7 +54,7 @@
 	if(!is_blocked_turf(next_step))
 		return FALSE
 
-	for (var/obj/object as anything in next_step.contents)
+	for(var/obj/object as anything in next_step.contents)
 		if(!can_smash_object(basic_mob, object))
 			continue
 		basic_mob.melee_attack(object)
