@@ -23088,7 +23088,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -43241,11 +43241,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "iEW" = (
-/obj/structure/table/glass,
-/obj/item/storage/belt/utility,
-/obj/item/wrench,
 /obj/machinery/requests_console/directional/east,
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/telepad_cargo,
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -52440,6 +52439,7 @@
 /area/station/science/genetics)
 "kvh" = (
 /obj/machinery/light,
+/obj/structure/reagent_dispensers/watertank/firetank,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "kvi" = (
@@ -64036,6 +64036,10 @@
 	pixel_y = 3
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/item/circuitboard/singulo_monitor{
+	pixel_x = 3;
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65739,7 +65743,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "nib" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
@@ -69195,6 +69199,8 @@
 /obj/structure/table/glass,
 /obj/item/weldingtool/research,
 /obj/item/stack/cable_coil,
+/obj/item/wrench,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -92595,7 +92601,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "svF" = (
-/obj/machinery/door/airlock/multi_tile{
+/obj/machinery/door/airlock/multi_tile/directional/east{
 	name = "maintenance access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -94759,7 +94765,7 @@
 	},
 /area/station/legal/lawoffice)
 "sSv" = (
-/obj/machinery/door/airlock/multi_tile/glass{
+/obj/machinery/door/airlock/multi_tile/glass/directional/east{
 	locked = 1
 	},
 /obj/structure/barricade/wooden,
@@ -96936,7 +96942,7 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/railing,
-/mob/living/simple_animal/deer{
+/mob/living/basic/deer{
 	name = "Reed"
 	},
 /turf/simulated/floor/grass,
@@ -104085,7 +104091,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/computer)
 "uJn" = (
-/obj/machinery/door/airlock/multi_tile{
+/obj/machinery/door/airlock/multi_tile/directional/east{
 	name = "maintenance access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
