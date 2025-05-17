@@ -105,9 +105,6 @@
 	if(istype(A, /obj/machinery/dnaforensics))
 		return
 
-	if(istype(A,/mob/living))
-		return
-
 	if(is_used())
 		to_chat(user, "<span class='warning'>This sample kit is already used</span>")
 		return
@@ -117,9 +114,9 @@
 	to_chat(user, "<span class='notice'>You start collecting evidence.</span>")
 	if(do_after(user, 2 SECONDS, target = user))
 		var/list/choices = list()
-		if(istype(A, /obj/effect/decal/cleanable/blood))
+		if(A.blood_DNA)
 			choices |= "Blood"
-		if(istype(A, /obj/item/clothing))
+		if(istype(A, /obj/item/clothing/gloves))
 			choices |= "Gunpowder particles"
 
 		var/choice
@@ -140,9 +137,6 @@
 		var/target_dna
 		var/target_gsr
 		if(choice == "Blood")
-			if(!length(A.blood_DNA))
-				inuse = FALSE
-				return
 			target_dna = A.blood_DNA.Copy()
 			sample_type = "blood"
 
