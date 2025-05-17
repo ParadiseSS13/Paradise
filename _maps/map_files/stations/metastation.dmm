@@ -27048,8 +27048,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "cdl" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
 /obj/machinery/camera{
 	c_tag = "Medbay Chemistry";
 	dir = 8
@@ -27058,6 +27056,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellow"
@@ -35906,21 +35905,18 @@
 	dir = 4
 	},
 /obj/machinery/alarm/directional/south,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science,
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/hand_labeler,
+/obj/item/radio/headset/headset_med,
+/obj/item/folder/white,
 /obj/item/screwdriver{
 	pixel_x = -2;
 	pixel_y = 14
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner";
-	pixel_x = 8;
-	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -42209,9 +42205,6 @@
 /area/station/hallway/primary/fore/east)
 "eNR" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -44260,14 +44253,14 @@
 	},
 /area/station/science/xenobiology)
 "fAU" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -53375,12 +53368,8 @@
 /area/space/nearstation)
 "jDx" = (
 /obj/machinery/requests_console/directional/west,
-/obj/structure/table/glass,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
-/obj/item/radio/headset/headset_med,
-/obj/item/folder/white,
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -56868,12 +56857,20 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
+/obj/structure/disaster_counter/chemistry{
+	pixel_x = -32
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
+	name = "Chemistry Cleaner";
+	pixel_x = 8;
+	pixel_y = 5
+	},
 /obj/item/screwdriver{
 	pixel_x = -2;
 	pixel_y = 14
-	},
-/obj/structure/disaster_counter/chemistry{
-	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -63384,14 +63381,6 @@
 "nEV" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/defusal)
-"nFf" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/medical/chemistry)
 "nFh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -73599,9 +73588,6 @@
 	},
 /area/station/science/break_room)
 "rYd" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellow"
@@ -84443,7 +84429,6 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteyellow"
@@ -113830,7 +113815,7 @@ pri
 voO
 xBh
 lkN
-nFf
+lkN
 pwg
 cIc
 cLd
