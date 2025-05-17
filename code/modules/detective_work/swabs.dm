@@ -36,9 +36,9 @@
 	inuse = TRUE
 	to_chat(user, "<span class='notice'>You start collecting samples.</span>")
 	if(H.wear_mask)
-			to_chat(user, "<span class='warning'>[H] is wearing a mask.</span>")
-			inuse = FALSE
-			return
+		to_chat(user, "<span class='warning'>[H] is wearing a mask.</span>")
+		inuse = FALSE
+		return
 	if(do_after(user, 2 SECONDS, target = user))
 
 		if(!H.dna || !H.dna.unique_enzymes)
