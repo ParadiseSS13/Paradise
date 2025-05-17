@@ -78,13 +78,13 @@
 
 /datum/implant_fluff/freedom
 	name = "Cybersun Industries RX-92 Quick Escape Bio-chip"
-	life = "Destroyed after 4 uses."
+	life = "Unknown. Destroyed after 4 uses."
 	notes = "A bio-chip that is illegal in many systems. It is notoriously known for allowing users to grotesquely fracture bones and over-exert joints in order to slip out of the tightest of restraints."
 	function = "Uses a mixture of cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
 /datum/implant_fluff/protofreedom
 	name = "Cybersun Industries RX-91 Quick Escape Bio-chip"
-	life = "Destroyed after 1 use."
+	life = "Unknown. Destroyed after 1 use."
 	notes = "A bio-chip that is illegal in many systems. This is the early prototype version of the RX-92. It's significantly cheaper than its newer version."
 	function = "Uses a mixture of cheap cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
@@ -96,7 +96,7 @@
 
 /datum/implant_fluff/mindshield
 	name = "Nanotrasen Type 3 Mindshield Bio-chip"
-	life = "Indefinite."
+	life = "Approximately three years."
 	notes = "An advanced neural shielding chip, the Type 3 Mindshield uses low-frequency radio pulses and defensive nanites to ensure the mental safety of Nanotrasen officers and security personnel."
 	function = "Personnel injected with this device can better resist mental compulsions such as brainwashing and mindslaving. The hardened shell prevents damage or interference from EMPs."
 
