@@ -231,3 +231,148 @@
 			extra_product.update_appearance(UPDATE_NAME)
 			extra_product.scatter_atom()
 	finished_product = null
+
+// MARK: Scientific Assembler
+
+/obj/machinery/smithing/scientific_assembler
+	name = "scientific assembler"
+	desc = "A smart assembler that takes slime cores, energy cells, and energy gun parts to produce energy guns."
+	icon = 'icons/obj/machines/smithing_machines.dmi'
+	icon_state = "assembler"
+	max_integrity = 100
+	pixel_x = 0	// 1x1
+	pixel_y = 0
+	bound_height = 32
+	bound_width = 32
+	bound_y = 0
+	operation_sound = 'sound/items/welder.ogg'
+	/// Slime extract for the egun
+	var/obj/item/slime_extract/slime_core
+	/// The gun frame
+	var/obj/item/smithed_item/component/egun_parts/parts
+	/// The battery
+	var/obj/item/stock_parts/cell/cell
+
+/obj/machinery/smithing/scientific_assembler/Initialize(mapload)
+	. = ..()
+	// Stock parts
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/kinetic_assembler(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
+/obj/machinery/smithing/scientific_assembler/examine(mob/user)
+	. = ..()
+	if(slime_core || parts || cell)
+		. += "<span class='notice'>You can activate the machine with your hand, or remove a component by alt-clicking.</span>"
+	if(slime_core)
+		. += "<span class='notice'>There is a [slime_core] in the core slot.</span>"
+	if(parts)
+		. += "<span class='notice'>There is a [parts] in the gun frame slot.</span>"
+	if(cell)
+		. += "<span class='notice'>There is a [cell] in the power cell slot.</span>"
+
+/obj/machinery/smithing/scientific_assembler/RefreshParts()
+	var/operation_mult = 0
+	for(var/obj/item/stock_parts/component in component_parts)
+		operation_mult += OPERATION_SPEED_MULT_PER_RATING * component.rating
+	// Update our values
+	operation_time = operation_time = max(ROUND_UP(initial(operation_time) * (1.3 - operation_mult)), 2)
+
+/obj/machinery/smithing/scientific_assembler/update_icon_state()
+	. = ..()
+	if(panel_open)
+		icon_state = "assembler_wires"
+
+/obj/machinery/smithing/kinetic_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/smithing/scientific_assembler/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(panel_open)
+		icon_state = "assembler_wires"
+
+/obj/machinery/smithing/scientific_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(operating)
+		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/slime_extract))
+		var/obj/item/slime_extract/core = used
+		if(!core.associated_gun_type)
+			to_chat(user, "<span class='notice'>[core] is not capable of producing an energy gun!</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(slime_core)
+			to_chat(user, "<span class='notice'>You remove [slime_core] from the core component slot of [src].</span>")
+			slime_core.forceMove(src.loc)
+			slime_core = null
+		if(used.flags & NODROP || !user.transfer_item_to(used, src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You insert [used] into the core component slot of [src].</span>")
+		slime_core = used
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/smithed_item/component/egun_parts))
+		if(parts)
+			to_chat(user, "<span class='notice'>You remove [parts] from the gun parts component slot of [src].</span>")
+			parts.forceMove(src.loc)
+			parts = null
+		if(used.flags & NODROP || !user.transfer_item_to(used, src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/smithed_item/component/egun_parts/new_parts = used
+		if(new_parts.hammer_time)
+			to_chat(user, "<span class='warning'>[new_parts] is not complete yet!</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You insert [used] into the gun parts component slot of [src].</span>")
+		parts = used
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stock_parts/cell))
+		if(cell)
+			to_chat(user, "<span class='notice'>You remove [cell] from the power cell component slot of [src].</span>")
+			cell.forceMove(src.loc)
+			cell = null
+		if(used.flags & NODROP || !user.transfer_item_to(used, src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You insert [used] into the power cell component slot of [src].</span>")
+		cell = used
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, "<span class='warning'>You feel like there's no reason to process [used].</span>")
+	return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/smithing/scientific_assembler/attack_hand(mob/user)
+	if(!slime_core)
+		to_chat(user, "<span class='warning'>[src] lacks a slime core!</span>")
+		return FINISH_ATTACK
+
+	if(!parts)
+		to_chat(user, "<span class='warning'>[src] lacks an energy gun frame!</span>")
+		return FINISH_ATTACK
+
+	if(!cell)
+		to_chat(user, "<span class='warning'>[src] lacks a power cell!</span>")
+		return FINISH_ATTACK
+
+	operate(operation_time, user)
+	return FINISH_ATTACK
+
+/obj/machinery/smithing/scientific_assembler/operate(loops, mob/living/user)
+	..()
+	var/obj/item/gun/energy/finished_product = new slime_core.associated_gun_type(src)
+	finished_product.forceMove(src.loc)
+	qdel(slime_core)
+	qdel(parts)
+	qdel(cell)
+	slime_core = null
+	parts = null
+	cell = null

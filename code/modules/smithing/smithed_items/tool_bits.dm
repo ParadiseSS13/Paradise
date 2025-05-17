@@ -32,6 +32,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/smithed_item/tool_bit/set_stats()
+	..()
 	durability = initial(durability) * material.durability_mult
 	max_durability = durability
 	size_mod = initial(size_mod) + material.size_mod
@@ -145,6 +146,7 @@
 	desc = "A hyper-advanced bit restricted to central command officials."
 	speed_mod = -1
 	efficiency_mod = 1
+	failure_rate = -20
 	durability = 300
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum

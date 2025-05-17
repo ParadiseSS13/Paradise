@@ -12,8 +12,8 @@
 	product_type = /obj/item/food/bbqribs
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_REAGENT("bbqsauce", 5),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
@@ -98,8 +98,8 @@
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/stack/rods),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 
@@ -108,7 +108,7 @@
 	product_type = /obj/item/food/meatsteak
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_REAGENT("sodiumchloride", 1),
 		PCWJ_ADD_REAGENT("blackpepper", 1),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
@@ -221,33 +221,12 @@
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 
-/datum/cooking/recipe/syntisteak
-	container_type = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/meatsteak
-	catalog_category = COOKBOOK_CATEGORY_MEAT
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat/syntiflesh),
-		PCWJ_ADD_REAGENT("sodiumchloride", 1),
-		PCWJ_ADD_REAGENT("blackpepper", 1),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
-/datum/cooking/recipe/syntitelebacon
-	container_type = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/telebacon
-	catalog_category = COOKBOOK_CATEGORY_MEAT
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat/syntiflesh),
-		PCWJ_ADD_ITEM(/obj/item/assembly/signaler),
-		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
-	)
-
 /datum/cooking/recipe/telebacon
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/telebacon
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_ITEM(/obj/item/assembly/signaler),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)

@@ -25,6 +25,9 @@
 	speed = 2
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+/mob/living/simple_animal/pet/sloth/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 //IAA Sloth
 /mob/living/simple_animal/pet/sloth/paperwork
