@@ -105,7 +105,7 @@
 
 /obj/item/clothing/under/rank/cargo/expedition/overalls
 	name = "expedition overalls"
-	desc = "A black set of overalls over a brown turtleneck, designed to protect the wearer from microscopic space debris. Does not protect against larger objects."
+	desc = "A brown set of overalls over a blue turtleneck, designed to protect the wearer from microscopic space debris. Does not protect against larger objects."
 	icon_state = "expedition_overalls"
 	item_state = "expedition_overalls"
 	item_color = "expedition_overalls"

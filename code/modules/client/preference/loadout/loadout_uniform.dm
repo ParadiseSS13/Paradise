@@ -289,6 +289,11 @@
 	path = /obj/item/clothing/under/rank/cargo/expedition/skirt
 	allowed_roles = list("Quartermaster", "Explorer")
 
+/datum/gear/uniform/skirt/job/smith
+	display_name = "Skirt, smith"
+	path = /obj/item/clothing/under/rank/cargo/smith/skirt
+	allowed_roles = list("Quartermaster", "Smith")
+
 /datum/gear/uniform/skirt/job/qm
 	display_name = "Skirt, quartermaster"
 	path = /obj/item/clothing/under/rank/cargo/qm/skirt
