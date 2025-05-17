@@ -4,6 +4,46 @@ import { round } from 'tgui-core/math';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
+interface SleeperData {
+  hasOccupant: boolean;
+  isBeakerLoaded: boolean;
+  beakerMaxSpace: number;
+  beakerFreeSpace: number;
+  dialysis: boolean;
+  auto_eject_dead: boolean;
+  maxchem: number;
+  amounts: number[];
+  occupant: {
+    name: string;
+    health: number;
+    maxHealth: number;
+    stat: number;
+    bodyTemperature: number;
+    maxTemp: number;
+    btCelsius: number;
+    btFaren: number;
+    temperatureSuitability: number;
+    hasBlood: boolean;
+    bloodMax: number;
+    bloodLevel: number;
+    bloodPercent: number;
+    pulse: number;
+    oxyLoss: number;
+    toxLoss: number;
+    bruteLoss: number;
+    fireLoss: number;
+  };
+  chemicals: {
+    id: string;
+    title: string;
+    occ_amount: number;
+    pretty_amount: string;
+    overdosing: boolean;
+    od_warning: boolean;
+    injectable: boolean;
+  }[];
+}
+
 const stats = [
   ['good', 'Alive'],
   ['average', 'Critical'],
@@ -17,15 +57,15 @@ const damages = [
   ['Burn', 'fireLoss'],
 ];
 
-const damageRange = {
+const damageRange: Record<string, [number, number]> = {
   average: [0.25, 0.5],
   bad: [0.5, Infinity],
 };
 
 const tempColors = ['bad', 'average', 'average', 'good', 'average', 'average', 'bad'];
 
-export const Sleeper = (props) => {
-  const { act, data } = useBackend();
+export const Sleeper = (props: {}) => {
+  const { act, data } = useBackend<SleeperData>();
   const { hasOccupant } = data;
   const body = hasOccupant ? <SleeperMain /> : <SleeperEmpty />;
   return (
@@ -42,9 +82,7 @@ export const Sleeper = (props) => {
   );
 };
 
-const SleeperMain = (props) => {
-  const { act, data } = useBackend();
-  const { occupant } = data;
+const SleeperMain = (props: {}) => {
   return (
     <>
       <SleeperOccupant />
@@ -54,8 +92,8 @@ const SleeperMain = (props) => {
   );
 };
 
-const SleeperOccupant = (props) => {
-  const { act, data } = useBackend();
+const SleeperOccupant = (props: {}) => {
+  const { act, data } = useBackend<SleeperData>();
   const { occupant, auto_eject_dead } = data;
   return (
     <Section
@@ -79,12 +117,12 @@ const SleeperOccupant = (props) => {
         <LabeledList.Item label="Name">{occupant.name}</LabeledList.Item>
         <LabeledList.Item label="Health">
           <ProgressBar
-            min="0"
-            max={occupant.maxHealth}
-            value={occupant.health / occupant.maxHealth}
+            minValue={0}
+            maxValue={occupant.maxHealth}
+            value={occupant.health}
             ranges={{
-              good: [0.5, Infinity],
-              average: [0, 0.5],
+              good: [0.5 * occupant.maxHealth, Infinity],
+              average: [0, 0.5 * occupant.maxHealth],
               bad: [-Infinity, 0],
             }}
           >
@@ -96,26 +134,25 @@ const SleeperOccupant = (props) => {
         </LabeledList.Item>
         <LabeledList.Item label="Temperature">
           <ProgressBar
-            min="0"
-            max={occupant.maxTemp}
-            value={occupant.bodyTemperature / occupant.maxTemp}
+            minValue={0}
+            maxValue={occupant.maxTemp}
+            value={occupant.bodyTemperature}
             color={tempColors[occupant.temperatureSuitability + 3]}
           >
-            {round(occupant.btCelsius, 0)}&deg;C,
-            {round(occupant.btFaren, 0)}&deg;F
+            {round(occupant.btCelsius, 0)}°C, {round(occupant.btFaren, 0)}°F
           </ProgressBar>
         </LabeledList.Item>
         {!!occupant.hasBlood && (
           <>
             <LabeledList.Item label="Blood Level">
               <ProgressBar
-                min="0"
-                max={occupant.bloodMax}
-                value={occupant.bloodLevel / occupant.bloodMax}
+                minValue={0}
+                maxValue={occupant.bloodMax}
+                value={occupant.bloodLevel}
                 ranges={{
-                  bad: [-Infinity, 0.6],
-                  average: [0.6, 0.9],
-                  good: [0.6, Infinity],
+                  bad: [-Infinity, 0.6 * occupant.bloodMax],
+                  average: [0.6 * occupant.bloodMax, 0.9 * occupant.bloodMax],
+                  good: [0.9 * occupant.bloodMax, Infinity],
                 }}
               >
                 {occupant.bloodPercent}%, {occupant.bloodLevel}cl
@@ -131,26 +168,30 @@ const SleeperOccupant = (props) => {
   );
 };
 
-const SleeperDamage = (props) => {
-  const { data } = useBackend();
+const SleeperDamage = (props: {}) => {
+  const { data } = useBackend<SleeperData>();
   const { occupant } = data;
   return (
     <Section title="Occupant Damage">
       <LabeledList>
-        {damages.map((d, i) => (
-          <LabeledList.Item key={i} label={d[0]}>
-            <ProgressBar key={i} min="0" max="100" value={occupant[d[1]] / 100} ranges={damageRange}>
-              {round(occupant[d[1]], 0)}
-            </ProgressBar>
-          </LabeledList.Item>
-        ))}
+        {damages.map((d, i) => {
+          const damage = occupant[d[1] as keyof typeof occupant];
+          const value = typeof damage === 'number' ? damage : 0;
+          return (
+            <LabeledList.Item key={i} label={d[0]}>
+              <ProgressBar key={i} minValue={0} maxValue={100} value={value} ranges={damageRange}>
+                {round(value, 0)}
+              </ProgressBar>
+            </LabeledList.Item>
+          );
+        })}
       </LabeledList>
     </Section>
   );
 };
 
-const SleeperDialysis = (props) => {
-  const { act, data } = useBackend();
+const SleeperDialysis = (props: {}) => {
+  const { act, data } = useBackend<SleeperData>();
   const { hasOccupant, isBeakerLoaded, beakerMaxSpace, beakerFreeSpace, dialysis } = data;
   const canDialysis = dialysis && beakerFreeSpace > 0;
   return (
@@ -173,13 +214,13 @@ const SleeperDialysis = (props) => {
         <LabeledList>
           <LabeledList.Item label="Remaining Space">
             <ProgressBar
-              min="0"
-              max={beakerMaxSpace}
-              value={beakerFreeSpace / beakerMaxSpace}
+              minValue={0}
+              maxValue={beakerMaxSpace}
+              value={beakerFreeSpace}
               ranges={{
-                good: [0.5, Infinity],
-                average: [0.25, 0.5],
-                bad: [-Infinity, 0.25],
+                good: [0.5 * beakerMaxSpace, Infinity],
+                average: [0.25 * beakerMaxSpace, 0.5 * beakerMaxSpace],
+                bad: [-Infinity, 0.25 * beakerMaxSpace],
               }}
             >
               {beakerFreeSpace}u
@@ -193,8 +234,8 @@ const SleeperDialysis = (props) => {
   );
 };
 
-const SleeperChemicals = (props) => {
-  const { act, data } = useBackend();
+const SleeperChemicals = (props: {}) => {
+  const { act, data } = useBackend<SleeperData>();
   const { occupant, chemicals, maxchem, amounts } = data;
   return (
     <Section title="Occupant Chemicals">
@@ -220,25 +261,17 @@ const SleeperChemicals = (props) => {
         }
         return (
           <Box key={i} backgroundColor="rgba(0, 0, 0, 0.33)" mb="0.5rem">
-            <Section title={chem.title} level="3" mx="0" lineHeight="18px" buttons={odWarning}>
+            <Section title={chem.title} buttons={odWarning}>
               <Stack>
-                <ProgressBar
-                  min="0"
-                  max={maxchem}
-                  value={chem.occ_amount / maxchem}
-                  color={barColor}
-                  title="Amount of chemicals currently inside the occupant / Total amount injectable by this machine"
-                  mr="0.5rem"
-                >
+                <ProgressBar minValue={0} maxValue={maxchem} value={chem.occ_amount} color={barColor} mr="0.5rem">
                   {chem.pretty_amount}/{maxchem}u
                 </ProgressBar>
-                {amounts.map((a, i) => (
+                {amounts.map((a, j) => (
                   <Button
-                    key={i}
+                    key={j}
                     disabled={!chem.injectable || chem.occ_amount + a > maxchem || occupant.stat === 2}
                     icon="syringe"
-                    content={'Inject ' + a + 'u'}
-                    title={'Inject ' + a + 'u of ' + chem.title + ' into the occupant'}
+                    content={`Inject ${a}u`}
                     mb="0"
                     height="19px"
                     onClick={() =>
@@ -258,12 +291,12 @@ const SleeperChemicals = (props) => {
   );
 };
 
-const SleeperEmpty = (props) => {
+const SleeperEmpty = (props: {}) => {
   return (
     <Section fill textAlign="center">
       <Stack fill>
         <Stack.Item grow align="center" color="label">
-          <Icon name="user-slash" mb="0.5rem" size="5" />
+          <Icon name="user-slash" mb="0.5rem" size={5} />
           <br />
           No occupant detected.
         </Stack.Item>
