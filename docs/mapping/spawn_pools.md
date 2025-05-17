@@ -28,7 +28,6 @@ explorer loot to a pool, we first need to create the pool as a distinct
 
 ```dm
 /datum/spawn_pool/space_loot
-	id = "space_loot_pool"
 	available_points = 200
 ```
 
@@ -37,7 +36,7 @@ And then we create the spawners we want, all subtypes of
 
 ```dm
 /obj/effect/spawner/random/pool/space_loot
-	spawn_pool_id = "space_loot_pool"
+	spawn_pool = /datum/spawn_pool/space_loot
 
 /obj/effect/spawner/random/pool/space_loot/tier1
 	point_value = 5
