@@ -55,7 +55,7 @@
 			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, S.bloody_shoes[blood_state] + add_blood)
 			S.bloody_shoes[BLOOD_BASE_ALPHA] = BLOODY_FOOTPRINT_BASE_ALPHA * (alpha/255)
 			if(blood_DNA && length(blood_DNA))
-				S.add_blood(H.blood_DNA, basecolor)
+				S.add_blood(blood_DNA, basecolor)
 			S.blood_state = blood_state
 			S.blood_color = basecolor
 			update_icon()
