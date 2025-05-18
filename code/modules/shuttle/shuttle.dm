@@ -17,7 +17,7 @@
 	dir = NORTH
 	/// Size of covered area, perpendicular to direction.
 	var/width = 0
-	/// Size of covered area, paralell to direction.
+	/// Size of covered area, parallel to direction.
 	var/height = 0
 	/// Position relative to covered area, perpendicular to direction.
 	var/dwidth = 0
