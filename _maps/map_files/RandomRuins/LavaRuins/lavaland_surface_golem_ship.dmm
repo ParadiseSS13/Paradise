@@ -153,6 +153,7 @@
 /obj/machinery/door/airlock/external,
 /obj/docking_port/mobile/free_golem,
 /obj/structure/fans/tiny,
+/obj/docking_port/stationary/golem/lavaland,
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "oD" = (
