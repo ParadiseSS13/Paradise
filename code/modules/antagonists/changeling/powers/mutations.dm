@@ -216,7 +216,7 @@
 	/// Used for deleting gun after hitting something
 	var/hit_something = FALSE
 	/// True if we're shooting our shot -- used to track shooting to prevent deleting mid shot
-	var/shooting_right_now = FALSE 
+	var/shooting_right_now = FALSE
 
 /obj/item/gun/magic/tentacle/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	shooting_right_now = TRUE
@@ -541,7 +541,7 @@
 
 	// snowflake checks my beloved
 	// this will become tooltype checks I swear
-	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw) && !istype(I, /obj/item/butcher_chainsaw))
+	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/melee/chainsaw))
 		return
 
 	user.visible_message(

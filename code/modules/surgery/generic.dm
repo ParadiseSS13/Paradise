@@ -19,8 +19,7 @@
 		/obj/item/claymore = 6,
 		/obj/item/melee/energy = 6,
 		/obj/item/pen/edagger = 6,
-		/obj/item/chainsaw = 1,
-		/obj/item/butcher_chainsaw = 1
+		/obj/item/melee/chainsaw = 1,
 	)
 
 	preop_sound = 'sound/surgery/scalpel1.ogg'
@@ -281,8 +280,7 @@
 	name = "amputate limb"
 	allowed_tools = list(
 		TOOL_SAW = 100,
-		/obj/item/chainsaw = 100,	// It's pretty good at doing this outside of surgery tbh...
-		/obj/item/butcher_chainsaw = 100,
+		/obj/item/melee/chainsaw = 100,	// It's pretty good at doing this outside of surgery tbh...
 		/obj/item/hatchet = 90,
 		/obj/item/melee/arm_blade = 75,
 		/obj/item/claymore = 75,
