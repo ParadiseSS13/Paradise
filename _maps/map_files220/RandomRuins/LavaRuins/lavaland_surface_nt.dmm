@@ -4397,7 +4397,9 @@
 /area/lavaland/surface/gulag_rock)
 "BY" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/supply/glass,
+/obj/machinery/door/airlock/multi_tile/supply/glass{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
