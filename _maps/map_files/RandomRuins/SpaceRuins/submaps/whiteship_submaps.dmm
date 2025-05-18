@@ -70,7 +70,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurplecorners"
+	icon_state = "darkpurple"
 	},
 /area/template_noop)
 "dZ" = (
@@ -677,7 +677,9 @@
 /area/template_noop)
 "Ow" = (
 /obj/machinery/door/airlock/science/glass,
-/turf/template_noop,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurple"
+	},
 /area/template_noop)
 "OT" = (
 /turf/simulated/floor/plating/airless,
