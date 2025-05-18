@@ -237,6 +237,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. = ..()
 	recipes = GLOB.diamond_recipes
 
+/obj/item/stack/sheet/mineral/diamond/ten
+	amount = 10
+
 /obj/item/stack/sheet/mineral/diamond/fifty
 	amount = 50
 
@@ -257,6 +260,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += "Uranium is extremely dense, radioactive metal. Without undergoing complex enrichment processes, it consists of roughly 99% uranium-238, and roughly 1% fissile uranium-235."
 	. += ""
 	. += "It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."
+
+/obj/item/stack/sheet/mineral/uranium/ten
+	amount = 10
 
 /obj/item/stack/sheet/mineral/uranium/fifty
 	amount = 50
@@ -294,6 +300,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/plasma/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.plasma_recipes
+
+/obj/item/stack/sheet/mineral/plasma/ten
+	amount = 10
 
 /obj/item/stack/sheet/mineral/plasma/fifty
 	amount = 50
