@@ -480,7 +480,7 @@
 			if(hud_used && hud_used.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
-		else if(isrobot(src) || islarva(src) || isanimal(src) || is_ai(src))
+		else if(isrobot(src) || islarva(src) || isanimal_or_basicmob(src) || is_ai(src))
 			switch(input)
 				if(INTENT_HELP)
 					a_intent = INTENT_HELP

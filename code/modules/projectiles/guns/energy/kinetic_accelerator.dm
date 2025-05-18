@@ -328,10 +328,10 @@
 		message_admins("User attempted to install a modkit into a kinetic accelerator while it is installed in an accelerator. Could be a double click, or an exploit attempt.")
 		return FALSE
 	if(minebot_upgrade)
-		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+		if(minebot_exclusive && !istype(KA.loc, /mob/living/basic/mining_drone))
 			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
 			return FALSE
-	else if(istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+	else if(istype(KA.loc, /mob/living/basic/mining_drone))
 		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
 		return FALSE
 	if(denied_type)

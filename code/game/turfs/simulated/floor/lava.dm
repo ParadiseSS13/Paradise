@@ -67,6 +67,12 @@
 		return TRUE
 	return FALSE
 
+/turf/simulated/floor/lava/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(!pass_info.is_living)
+		return TRUE
+
+	return pass_info.is_flying || pass_info.is_megafauna || (locate(/obj/structure/bridge_walkway) in src)
+
 /turf/simulated/floor/lava/proc/burn_stuff(AM)
 	. = FALSE
 
@@ -164,6 +170,9 @@
 
 /turf/simulated/floor/lava/burn_tile()
 	return
+
+/turf/simulated/floor/lava/can_cross_safely(atom/movable/crossing)
+	return locate(/obj/structure/bridge_walkway) in src
 
 /turf/simulated/floor/lava/lava_land_surface
 	oxygen = LAVALAND_OXYGEN

@@ -15,6 +15,7 @@
 	var/health = 100 	//A mob's health
 	/// Healable by medical stacks?
 	var/healable = FALSE
+	var/deathmessage = ""
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	VAR_PROTECTED/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)

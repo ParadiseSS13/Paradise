@@ -158,3 +158,4 @@
 #define COMSIG_LENS_ATTACH "lens_attach"
 /// When using an insert on an item that can accept an insert
 #define COMSIG_INSERT_ATTACH "insert_attach"
+#define COMSIG_MINE_EXPOSE_GIBTONITE "mine_expose_gibtonite"
