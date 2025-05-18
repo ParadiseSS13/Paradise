@@ -459,6 +459,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	category = list("Medical")
 
+/datum/design/cyberimp_employment_hud
+	name = "Employment HUD Implant"
+	desc = "These cybernetic eyes will display an employment HUD over everything you see. Wiggle eyes to control."
+	id = "ci-skillhud"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 5 SECONDS
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/skill
+	category = list("Medical")
+
 /datum/design/cyberimp_medical_hud
 	name = "Medical HUD Implant"
 	desc = "These cybernetic eyes will display a medical HUD over everything you see. Wiggle eyes to control."

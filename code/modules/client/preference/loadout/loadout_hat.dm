@@ -210,7 +210,17 @@
 /datum/gear/hat/beret_job/cargo
 	display_name = "Beret, cargo"
 	path = /obj/item/clothing/head/beret/cargo
-	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
+	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner")
+
+/datum/gear/hat/beret_job/expedition
+	display_name = "Beret, expedition"
+	path = /obj/item/clothing/head/beret/expedition
+	allowed_roles = list("Quartermaster", "Explorer")
+
+/datum/gear/hat/beret_job/smith
+	display_name = "Beret, smith"
+	path = /obj/item/clothing/head/beret/smith
+	allowed_roles = list("Quartermaster", "Smith")
 
 /datum/gear/hat/beret_job/qm
 	display_name = "Beret, quartermaster"
@@ -232,10 +242,20 @@
 	path = /obj/item/clothing/head/beret/roboblack
 	allowed_roles = list("Research Director", "Roboticist")
 
+/datum/gear/hat/beret_job/rd
+	display_name = "Beret, research director"
+	path = /obj/item/clothing/head/beret/rd
+	allowed_roles = list("Research Director")
+
 /datum/gear/hat/beret_job/med
 	display_name = "Beret, medical"
 	path = /obj/item/clothing/head/beret/med
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Geneticist", "Coroner", "Paramedic")
+
+/datum/gear/hat/beret_job/cmo
+	display_name = "Beret, chief medical officer"
+	path = /obj/item/clothing/head/beret/cmo
+	allowed_roles = list("Chief Medical Officer")
 
 /datum/gear/hat/beret_job/eng
 	display_name = "Beret, engineering"
