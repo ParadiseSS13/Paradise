@@ -12,7 +12,7 @@
 
 	if(length(turfs)) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
-		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, null, rand(30,70),rand(5,2)) //spawn a controller at turf
+		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, null, rand(30,100),rand(3,1)) //spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
 		if(length(SC.vines))
