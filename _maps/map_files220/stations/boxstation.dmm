@@ -57631,7 +57631,8 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/airlock/multi_tile/command/glass{
-	id_tag = "conference_bolt"
+	id_tag = "conference_bolt";
+	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
@@ -80992,7 +80993,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "pIe" = (

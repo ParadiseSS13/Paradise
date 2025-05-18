@@ -1310,10 +1310,12 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "iD" = (
-/obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/machinery/door/airlock/multi_tile/supply/glass{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplecorners"
 	},
@@ -1395,9 +1397,6 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "jh" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1627,14 +1626,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/comms)
 "kK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/mine/outpost/hallway/west)
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/bed/dogbed/brad,
+/mob/living/simple_animal/cockroach/brad,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "kQ" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
@@ -2159,7 +2155,7 @@
 	},
 /area/mine/outpost/mechbay)
 "nY" = (
-/obj/effect/spawner/window/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
 "of" = (
@@ -2337,14 +2333,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"pe" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/dogbed/brad,
-/mob/living/simple_animal/cockroach/brad,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "ph" = (
 /obj/machinery/light_switch{
 	pixel_x = 24;
@@ -2450,7 +2438,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "pL" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
 "pU" = (
@@ -2646,10 +2634,10 @@
 /area/mine/outpost/smith_workshop)
 "qN" = (
 /obj/machinery/light/directional/east,
-/obj/item/kirbyplants/large,
 /obj/structure/sign/kiddieplaque/remembrance/mining{
 	pixel_x = 32
 	},
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2671,12 +2659,7 @@
 	},
 /area/mine/outpost/cafeteria)
 "qZ" = (
-/obj/machinery/economy/vending/cigarette,
-/obj/effect/turf_decal/stripes/box,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
+/turf/simulated/mineral/ancient,
 /area/mine/outpost/hallway/west)
 "rh" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3698,8 +3681,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock/mining/glass,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3710,7 +3691,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners";
 	dir = 4
@@ -3814,7 +3794,7 @@
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/east)
 "yj" = (
-/obj/effect/spawner/window/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "yl" = (
@@ -4742,7 +4722,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "Eg" = (
-/obj/effect/spawner/window/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/medbay)
 "Ei" = (
@@ -5930,8 +5910,8 @@
 	},
 /area/mine/outpost/storage)
 "LB" = (
-/obj/machinery/economy/vending/cigarette,
-/obj/machinery/newscaster/directional/east,
+/obj/machinery/alarm/directional/east,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -6129,7 +6109,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "Mn" = (
-/obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6141,6 +6120,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/machinery/door/airlock/multi_tile/supply/glass{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7718,7 +7700,7 @@
 /turf/simulated/wall,
 /area/mine/outpost/cafeteria)
 "Wk" = (
-/obj/machinery/alarm/directional/east,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7934,7 +7916,7 @@
 	},
 /area/lavaland/surface/gulag_rock)
 "Xs" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
 "XA" = (
@@ -8133,6 +8115,7 @@
 /obj/structure/chair/sofa/bench/right{
 	dir = 8
 	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -8160,13 +8143,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Yw" = (
-/obj/machinery/door/airlock/mining/glass,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14391,7 +14371,7 @@ qL
 DR
 oU
 zJ
-ZV
+kK
 ZV
 ZV
 ZV
@@ -15853,7 +15833,7 @@ sp
 GL
 Mf
 Yf
-pe
+vn
 oO
 oO
 oO
@@ -15997,7 +15977,7 @@ WH
 fx
 Sj
 qZ
-kK
+XP
 FU
 qN
 Wk

@@ -6614,11 +6614,11 @@
 /area/station/maintenance/fpmaint)
 "aKe" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/multi_tile/supply/glass{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/machinery/door/airlock/multi_tile/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aKf" = (
