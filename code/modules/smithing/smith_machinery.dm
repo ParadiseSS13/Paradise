@@ -12,6 +12,7 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
+	req_one_access = list(ACCESS_SMITH)
 	/// How many loops per operation
 	var/operation_time = 10
 	/// Is this active
@@ -66,6 +67,14 @@
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
+/obj/machinery/smithing/emag_act(user as mob)
+	if(!emagged)
+		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)
+		req_one_access = list()
+		emagged = TRUE
+		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		return TRUE
+
 /obj/machinery/smithing/proc/operate(loops, mob/living/user)
 	operating = TRUE
 	update_icon(ALL)
@@ -90,6 +99,9 @@
 		return FALSE
 	if(G.state < GRAB_NECK)
 		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		return FALSE
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>You try to shove someone into the machine, but your access is denied!</span>")
 		return FALSE
 	var/result = special_attack(user, G.affecting)
 	user.changeNext_move(CLICK_CD_MELEE)
