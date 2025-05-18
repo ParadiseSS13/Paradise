@@ -56,54 +56,44 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
 	if(length(changelings))
-		var/list/text = list("<FONT size = 3><B>The changelings were:</B></FONT>")
+		var/list/text = list("<br><FONT size = 3><B>The changelings were:</B></FONT>")
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = TRUE
 
-			text += "<br>[changeling.get_display_key()] was [changeling.name] ("
+			text += "<br>[changeling.get_display_key()] was [changeling.name] and "
 			if(changeling.current)
 				if(changeling.current.stat == DEAD)
-					text += "died"
+					text += "<span class='bold'>died</span>!"
 				else
-					text += "survived"
+					text += "<span class='bold'>survived</span>"
 				if(changeling.current.real_name != changeling.name)
 					text += " as [changeling.current.real_name]"
+				else
+					text += "!"
 			else
-				text += "body destroyed"
+				text += "<span class='bold'>had [changeling.p_their()] body destroyed</span>!"
 				changelingwin = FALSE
-			text += ")"
-
-			//Removed sanity if(changeling) because we -want- a runtime to inform us that the changelings list is incorrect and needs to be fixed.
-			var/datum/antagonist/changeling/cling = changeling.has_antag_datum(/datum/antagonist/changeling)
-			text += "<br><b>Changeling ID:</b> [cling.changelingID]."
-			text += "<br><b>Genomes Extracted:</b> [cling.absorbed_count]"
 
 			var/list/all_objectives = changeling.get_all_objectives(include_team = FALSE)
 
 			if(length(all_objectives))
-				var/count = 1
 				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						if(istype(objective, /datum/objective/steal))
 							var/datum/objective/steal/S = objective
 							SSblackbox.record_feedback("nested tally", "changeling_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
 						else
 							SSblackbox.record_feedback("nested tally", "changeling_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						if(istype(objective, /datum/objective/steal))
 							var/datum/objective/steal/S = objective
 							SSblackbox.record_feedback("nested tally", "changeling_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
 						else
 							SSblackbox.record_feedback("nested tally", "changeling_objective", 1, list("[objective.type]", "FAIL"))
 						changelingwin = 0
-					count++
 
 			if(changelingwin)
-				text += "<br><font color='green'><B>The changeling was successful!</B></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "SUCCESS")
 			else
-				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "FAIL")
 		return text.Join("")
