@@ -46,7 +46,7 @@
 			inuse = FALSE
 			return
 
-		if(user != H && H.a_intent != INTENT_HELP && !IS_HORIZONTAL(H))
+		if(user != H && user.a_intent != INTENT_HELP && !IS_HORIZONTAL(H))
 			user.visible_message("<span class='danger'>[user] trying to take a sample from [H], but they resist.</span>")
 			inuse = FALSE
 			return
