@@ -512,7 +512,7 @@
 			return
 		var/list/turfs = list()
 		for(var/turf/T in orange(1, get_turf(target)))
-			if(is_blocked_turf(T, TRUE))
+			if(T.is_blocked_turf(exclude_mobs = TRUE))
 				continue
 			turfs += T
 

@@ -118,7 +118,8 @@
 			movable_target.forceMove(src)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
-		if(isturf(target) && !is_blocked_turf(target) && LAZYLEN(crates_in_hand))
+		var/turf/target_turf = target
+		if(istype(target_turf) && !target_turf.is_blocked_turf() && LAZYLEN(crates_in_hand))
 			drop_random_crate(target)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 

@@ -117,7 +117,7 @@
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors, keep_icon = FALSE)
-						if(prob(florachance) && length(NewFlora) && !is_blocked_turf(O))
+						if(prob(florachance) && length(NewFlora) && !O.is_blocked_turf())
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue

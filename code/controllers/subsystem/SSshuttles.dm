@@ -361,7 +361,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	if(!length(supply_shuttle_turfs))
 		for(var/turf/simulated/T in supply.areaInstance)
-			if(is_blocked_turf(T))
+			if(T.is_blocked_turf())
 				continue
 			supply_shuttle_turfs += T
 	if(!length(supply_shuttle_turfs)) // In case some nutjob walled the supply shuttle 10 minutes into the round

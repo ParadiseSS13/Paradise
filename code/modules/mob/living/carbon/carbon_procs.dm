@@ -133,7 +133,7 @@
 				adjustToxLoss(-3)
 
 		T = get_step(T, dir)
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			break
 
 /mob/living/carbon/gib()

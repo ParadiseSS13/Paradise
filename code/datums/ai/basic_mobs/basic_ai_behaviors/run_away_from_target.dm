@@ -52,7 +52,7 @@
 	var/turf/return_turf
 	for(var/i in 1 to run_distance)
 		var/turf/test_destination = get_ranged_target_turf_direct(source, target, range = i, offset = angle)
-		if(is_blocked_turf(test_destination, excluded_objs = GLOB.airlocks + src))
+		if(test_destination.is_blocked_turf(source_atom = source, ignore_atoms = GLOB.airlocks))
 			break
 		return_turf = test_destination
 	return return_turf

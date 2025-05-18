@@ -120,7 +120,7 @@
 	GLOB.major_announcement.Announce("We were unable to find an orderer. We have sent the beacon placer to the Cargo Office.", "Shuttle Purchase Receipt")
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/station/supply/office))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 

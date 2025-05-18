@@ -95,7 +95,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -124,7 +124,7 @@
 	// Find a spot for the scientist to spawn
 	var/list/locs = list()
 	for(var/turf/T in orange(1, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	locs -= get_turf(agent)
 	if(!length(locs))
@@ -278,7 +278,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -357,7 +357,7 @@
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
 		var/light_amount = T.get_lumcount()
-		if(!is_blocked_turf(T) && light_amount <= 0.5)
+		if(!T.is_blocked_turf() && light_amount <= 0.5)
 			locs += T
 	if(!length(locs))
 		return INITIALIZE_HINT_QDEL

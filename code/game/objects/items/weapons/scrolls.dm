@@ -50,7 +50,7 @@
 	var/list/L = list()
 
 	for(var/turf/T in get_area_turfs(thearea.type))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
