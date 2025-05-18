@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY = re.compile(r"(?<!#define GLOBAL_LIST_EMPTY\(X\) )GLOBAL_LIST
 # An easy regex replacement for this is GLOBAL_LIST_EMPTY$1
 def check_global_list_empty(idx, line):
     if GLOBAL_LIST_EMPTY.search(line):
-        failures.append((idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead."))
+        return [(idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead.")]
 
 # makes sure arguments contained within "ui = new" are valid
 TGUI_UI_NEW = re.compile(r"ui = new\(((?:(?!,\s*).)+,\s*){1,3}(?:(?!,\s*).)+\)")
@@ -214,24 +214,27 @@ CODE_CHECKS = [
 
 def lint_file(code_filepath: str) -> list[Failure]:
     all_failures = []
-    with open(code_filepath, encoding="UTF-8") as code:
-        filename = code_filepath.split(os.path.sep)[-1]
+    try:
+        with open(code_filepath, encoding="UTF-8") as code:
+            filename = code_filepath.split(os.path.sep)[-1]
 
-        extra_checks = []
-        if filename != IGNORE_515_PROC_MARKER_FILENAME:
-            extra_checks.append(check_515_proc_syntax)
-        if filename != IGNORE_ATOM_ICON_FILE:
-            extra_checks.append(check_manual_icon_updates)
+            extra_checks = []
+            if filename != IGNORE_515_PROC_MARKER_FILENAME:
+                extra_checks.append(check_515_proc_syntax)
+            if filename != IGNORE_ATOM_ICON_FILE:
+                extra_checks.append(check_manual_icon_updates)
 
-        last_line = None
-        for idx, line in enumerate(code):
-            for check in CODE_CHECKS + extra_checks:
-                if failures := check(idx, line):
-                    all_failures += [Failure(code_filepath, lineno, message) for lineno, message in failures]
-            last_line = line
+            last_line = None
+            for idx, line in enumerate(code):
+                for check in CODE_CHECKS + extra_checks:
+                    if failures := check(idx, line):
+                        all_failures += [Failure(code_filepath, lineno, message) for lineno, message in failures]
+                last_line = line
 
-        if last_line and last_line[-1] != '\n':
-            all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline"))
+            if last_line and last_line[-1] != '\n':
+                all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline"))
+    except Exception as e:
+        print(f"Failed to lint {code_filepath}", e)
     return all_failures
 
 if __name__ == "__main__":

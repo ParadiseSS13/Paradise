@@ -1,8 +1,8 @@
 /datum/event/dust/meaty/announce()
 	if(prob(16))
-		GLOB.minor_announcement.Announce("Unknown biological entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")
+		GLOB.minor_announcement.Announce("Неизвестные биологические объекты были обнаружены рядом с [station_name()], пожалуйста, будьте наготове.", "ВНИМАНИЕ: Неопознанные формы жизни.")
 	else
-		GLOB.minor_announcement.Announce("Meaty ores have been detected on collision course with the station.", "Meaty Ore Alert", new_sound = 'sound/AI/meteors.ogg')
+		GLOB.minor_announcement.Announce("На пути станции были обнаружены мясные метеоры.", "ВНИМАНИЕ: Мясориты.", new_sound = 'sound/AI/meteors.ogg')
 
 /datum/event/dust/meaty/setup()
 	qnty = rand(45,125)

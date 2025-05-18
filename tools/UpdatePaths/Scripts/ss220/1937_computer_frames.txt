@@ -1,0 +1,1 @@
+/obj/structure/computerframe : /obj/structure/computerframe{@OLD;icon_state=@SKIP}

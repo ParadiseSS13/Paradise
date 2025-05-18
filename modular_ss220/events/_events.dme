@@ -1,0 +1,8 @@
+#include "_events.dm"
+
+#include "code/new_space_laws.dm"
+#include "code/headcrabs.dm"
+#include "code/infestation_extended.dm"
+#include "code/christmas.dm"
+#include "code/spider_terror.dm"
+#include "code/SSticker.dm"

@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen officials"
+	supervisors = "Официальными лицами Нанотрейзен"
 	department_head = list("Nanotrasen Navy Officer")
 	selection_color = "#ccccff"
 	req_admin_notify = 1
@@ -15,7 +15,7 @@
 	exp_map = list(EXP_TYPE_COMMAND = 1200)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/captain
-	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Command), basic job duties, and act professionally (roleplay)."
+	important_information = "Эта роль требует, чтобы вы координировали работу отделов. От вас требуется знание Стандартных Рабочих Процедур (Командования), базовых должностных обязанностей и профессиональных действий."
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -23,7 +23,7 @@
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
 	// Why the hell are captain announcements minor
-	GLOB.minor_announcement.Announce("All hands, Captain [H.real_name] on deck!")
+	GLOB.minor_announcement.Announce("Всему экипажу, капитан [H.real_name] на борту!")
 
 /datum/outfit/job/captain
 	name = "Captain"
@@ -59,7 +59,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = 1
@@ -105,7 +105,7 @@
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY , DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/hop
-	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Service), basic job duties, and act professionally (roleplay)."
+	important_information = "Эта роль требует, чтобы вы координировали работу отдела. От вас требуется знание Стандартных Рабочих Процедур (Сервис), базовых должностных обязанностей и профессиональных действий."
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"
@@ -130,7 +130,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the command staff"
+	supervisors = "командным составом"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
@@ -180,7 +180,7 @@
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/nanotrasenrep
-	important_information = "This role requires you to advise the Command team about Standard Operating Procedure, Chain of Command, and report to Central Command about various matters. You are required to act in a manner befitting someone representing Nanotrasen."
+	important_information = "Эта роль требует, чтобы вы консультировали командование по Стандартным Рабочим Процедурам, цепочке командования и отчитывались перед Центральным Командованием по различным вопросам. От вас требуется действовать так, как подобает лицу, представляющему Нанотрейзен."
 
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
@@ -204,7 +204,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Nanotrasen representative"
+	supervisors = "представителем Нанотрейзен"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
@@ -232,7 +232,7 @@
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/blueshield
-	important_information = "This role requires you to ensure the safety of the Heads of Staff, not the general crew. You may perform arrests only if the combatant is directly threatening a member of Command, the Nanotrasen Representative, or the Magistrate."
+	important_information = "Эта роль требует, чтобы вы обеспечивали безопасность руководителей персонала, а не всего экипажа. Вы можете производить аресты только в том случае, если нарушитель напрямую угрожает члену командования, представителю Нанотрейзен или магистрату."
 
 /datum/outfit/job/blueshield
 	name = "Blueshield"
@@ -260,7 +260,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen Asset Protection"
+	supervisors = "верховным судом Нанотрейзен"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
@@ -284,7 +284,7 @@
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/judge
-	important_information = "This role requires you to oversee legal matters and make important decisions about sentencing. You are required to have an extensive knowledge of Space Law and Security SOP and only operate within, not outside, the boundaries of the law."
+	important_information = "Эта роль требует от вас курировать юридические вопросы и принимать важные решения о вынесении приговоров. От вас требуется обладать обширными знаниями в области Космического Закона и охранного СРП, действовать только в рамках закона, а не за его пределами."
 
 /datum/outfit/job/judge
 	name = "Magistrate"
@@ -313,7 +313,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	job_department_flags = DEP_FLAG_LEGAL
-	supervisors = "the magistrate"
+	supervisors = "магистратом"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	access = list(
@@ -332,7 +332,7 @@
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	outfit = /datum/outfit/job/iaa
-	important_information = "Your job is to deal with affairs regarding Standard Operating Procedure. You are NOT in charge of Space Law affairs, nor can you override it. You are NOT a prisoner defence lawyer."
+	important_information = "Ваша работа заключается в решении вопросов, касающихся Стандартных Рабочих Процедур. Вы не отвечаете за вопросы Космического Закона и не можете его отменять. Вы не являетесь адвокатом заключенных."
 
 /datum/outfit/job/iaa
 	name = "Internal Affairs Agent"

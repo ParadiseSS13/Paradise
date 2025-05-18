@@ -1,5 +1,5 @@
 /obj/mecha/combat/gygax
-	desc = "A lightweight security exosuit. Popular among private and corporate security."
+	desc = "Легкий боевой экзокостюм. Популярен среди частных и корпоративных служб безопасности"
 	name = "Gygax"
 	icon_state = "gygax"
 	initial_icon = "gygax"
@@ -35,16 +35,16 @@
 
 /obj/mecha/combat/gygax/examine_more(mob/user)
 	. = ..()
-	. += "<i>A light, fast and cheap combat mech designed and produced by Shellguard Munitions. \
-	Originally developed as a mobile flanker for open combat scenarios, a substantial flaw in the mech's Leg Overdrive systems caused poor sales. \
-	When using this system, the legs of the Gygax are prone to overheating and damaging the rest of the machine, leading overzealous pilots to harm themselves more than the enemy.</i>"
+	. += "<i>Легкий, быстрый и дешевый боевой экзокостюм, разработанный и произведенный Shellguard Munitions. \
+	Первоначально разработан как мобильный мех для сценариев открытого боя, однако существенный недостаток в системе ускорения ног привёл к плохим продажам. \
+	При использовании этой системы ноги Гигакса склонны к перегреву и повреждению остальной части экзокостюма, в результате чего чрезмерно усердные пилоты наносят больше вреда себе, чем противнику.</i>"
 	. += ""
-	. += "<i>Despite this flaw, Shellguard was able to reconsider the use of the mech and instead marketed it as a civil defence and policing mech. \
-	Popularity soared, especially among corporations like Nanotrasen, who were seeking a light, fast, cheap design to use to equip their security teams. \
-	As with all station-side mechs, Nanotrasen has purchased the license to produce the Gygax in their facilities.</i>"
+	. += "<i>Несмотря на этот недостаток, Shellguard Munitions смогли пересмотреть использование этого робота и начали рекламировать его как экзокостюм для гражданской обороны и полиции. \
+	Популярность резко возросла, особенно среди таких корпораций, как Nanotrasen, которые искали легкую, быструю и дешевую конструкцию для оснащения своих служб безопасности. \
+	Как в случаях со всеми станционными мехами, Nanotrasen приобрела лицензию на производство Гигакса на своих предприятиях.</i>"
 
 /obj/mecha/combat/gygax/dark
-	desc = "A lightweight exosuit, painted in a dark scheme. This model appears to have some modifications."
+	desc = "Легкий экзокостюм, окрашенный в темные тона. Эта модель, похоже, имеет некоторые модификации."
 	name = "Dark Gygax"
 	icon_state = "darkgygax"
 	initial_icon = "darkgygax"
@@ -82,8 +82,8 @@
 /obj/mecha/combat/gygax/dark/examine_more(mob/user)
 	..()
 	. = list()
-	. += "<i>A light, fast and cheap combat mech designed and produced by Shellguard Munitions, though this one appears to be modified. \
-	With minor alterations to the loadout, armor, and a slick black paint job, this variant strikes a menacing silhouette, its owner clearly being someone you should not mess with.</i>"
+	. += "<i>Легкий, быстрый и дешевый боевой экзокостюм, разработанный и произведенный Shellguard Munitions, хотя он выглядит модифицированным. \
+	С небольшими изменениями в снаряжении, броне и гладкой черной окраске этот вариант выглядит угрожающе, а его владелец явно не из тех, с кем вам следует связываться.</i>"
 	. += ""
-	. += "<i>Despite the flaws of the base model, this modified Gygax has no trouble being a speedy, dangerous killing machine. \
-	Alterations such as this are common amongst fringe users and outlaw groups, and the upgrades are most certainly illegal. Don't cut yourself.</i>"
+	. += "<i>Несмотря на недостатки базовой модели, этот модифицированный Гигакс является быстрой и опасной машиной для убийств. \
+	Подобные модели распространены среди преступных группировок, и модификации, безусловно, являются незаконными.</i>"

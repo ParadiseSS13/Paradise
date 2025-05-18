@@ -26,7 +26,7 @@
 	)
 
 /datum/event/bureaucratic_error/announce()
-	GLOB.major_announcement.Announce("A recent bureaucratic error in the Human Resources Department may result in personnel shortages in some departments and redundant staffing in others. Contact your local HoP to solve this issue.", "Paperwork Mishap Alert")
+	GLOB.major_announcement.Announce("Недавняя бюрократическая ошибка в отделе кадров может привести к нехватке персонала в одних отделах и избытку в других. Свяжитесь с ГП вашей станции для решения этой проблемы.", "Ошибка системы документооборота.")
 
 /datum/event/bureaucratic_error/start()
 	var/list/affected_jobs = list() // For logging

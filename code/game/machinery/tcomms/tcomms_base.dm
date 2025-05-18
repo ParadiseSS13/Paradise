@@ -413,6 +413,17 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
+	// SS220 EDIT START - receiving sound effect
+	if(tcm.receive_sound_effect)
+		for(var/obj/item/radio/radio in radios)
+			playsound(
+				source = radio,
+				soundin = tcm.receive_sound_effect,
+				vol = rand(40, 50),
+				extrarange = SOUND_RANGE_SET(3)
+			)
+	// SS220 EDIT END
+
 	return TRUE
 
 

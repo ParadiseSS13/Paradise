@@ -17,7 +17,7 @@
 	eyes = "blank_eyes"
 	tox_mod = 0
 	clone_mod = 0
-	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
+	death_message = "издаёт короткую серию пронзительных звуковых сигналов, вздрагивает и падает, не функционируя."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
 	species_traits = list(NO_BLOOD, NO_CLONESCAN, NO_INTORGANS)

@@ -315,7 +315,7 @@
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(buckled)
 		if((last_warning + 300) < world.time)
-			speak("Movement restrained! Unit on standby!")
+			speak("Движение ограничено! Юнит в режиме ожидания!")
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, FALSE)
 			last_warning = world.time
 		return
@@ -601,7 +601,7 @@
 	if(syndicate_aligned)
 		return
 	var/area/location = get_area(src)
-	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!", radio_channel)
+	speak("Внимание, требуется медицинская помощь! [crit_patient ? "<b>[crit_patient]</b>" : "Пострадавший"] в критическом состоянии в [location]!", radio_channel)
 	declare_cooldown = TRUE
 	spawn(200) //Twenty seconds
 		declare_cooldown = FALSE

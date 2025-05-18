@@ -14,6 +14,7 @@
 	/// The desired pressure the refill station should be outputting into a holding tank.
 	target_pressure = MAX_TARGET_PRESSURE
 	can_unwrench_while_on = FALSE
+	layer = BELOW_OBJ_LAYER
 	/// The current air contents of this device
 	var/datum/gas_mixture/air_contents = new
 	/// The tank inserted into the machine
