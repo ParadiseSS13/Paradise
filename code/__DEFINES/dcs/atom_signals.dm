@@ -124,6 +124,9 @@
 #define COMSIG_LIVING_TRY_PULL "living_try_pull"
 	#define COMSIG_LIVING_CANCEL_PULL (1 << 0)
 
+///from base of atom/Bumped(atom/bumped_atom)
+#define COMSIG_ATOM_BUMPED "atom_bumped"
+
 ///from base of atom/expose_reagents(): (/list, /datum/reagents, chemholder, volume_modifier)
 #define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
 
