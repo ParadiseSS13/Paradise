@@ -101,7 +101,6 @@
 		return TRUE
 
 /obj/item/forensics/swab/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-
 	if(istype(A, /obj/machinery/dnaforensics))
 		return
 
@@ -115,12 +114,15 @@
 	if(do_after(user, 2 SECONDS, target = user))
 		var/list/choices = list()
 		var/list/found_blood = list()
+
+		// This is utterly hateful, yes, but so is blood_DNA. - Chuga
 		if(issimulatedturf(A))
 			for(var/obj/effect/decal/cleanable/C in A.contents)
 				if(istype(C, /obj/effect/decal/cleanable/blood) || istype(C, /obj/effect/decal/cleanable/trail_holder))
 					found_blood |= C.blood_DNA
 		else if(isliving(A))
-			found_blood |= astype(A, /mob/living).get_blood_dna_list()
+			var/mob/living/L = A
+			found_blood |= L.get_blood_dna_list()
 		else
 			if(A.blood_DNA)
 				found_blood |= A.blood_DNA
