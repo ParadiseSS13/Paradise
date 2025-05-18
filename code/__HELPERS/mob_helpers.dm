@@ -393,8 +393,9 @@
  *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
  *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
  *	param {boolean} hidden - By default, any action 1 second or longer shows a cog over the user while it is in progress. If hidden is set to TRUE, the cog will not be shown.
+ *	If allow_sleeping_or_dead is true, dead and sleeping mobs will continue. Good if you want to show a progress bar to the user but it doesn't need them to do anything, like modsuits.
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE, allow_sleeping_or_dead = FALSE)
 	if(!user)
 		return FALSE
 	var/atom/Tloc = null
@@ -443,7 +444,7 @@
 				. = FALSE
 				break
 
-		if(!user || user.stat || check_for_true_callbacks(extra_checks))
+		if(!user || (user.stat && !allow_sleeping_or_dead) || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 
@@ -606,9 +607,9 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
-/proc/update_all_mob_malf_hud(new_status)
+/proc/update_all_mob_malf_hud()
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
-		H.malf_hud_set_status(new_status)
+		H.malf_hud_set_status()
 
 /proc/getviewsize(view)
 	var/viewX
