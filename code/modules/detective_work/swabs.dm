@@ -179,7 +179,7 @@
 
 /obj/item/forensics/swab/proc/set_used(sample_str, atom/source)
 	name = ("[initial(name)] ([sample_str] - [source])")
-	desc = "[initial(desc)] /The label on the bottle reads: 'Sample [sample_str] с [source].'."
+	desc = "[initial(desc)] The label on the bottle reads: 'Sample [sample_str] с [source].'."
 	icon_state = "swab_used"
 	used = TRUE
 

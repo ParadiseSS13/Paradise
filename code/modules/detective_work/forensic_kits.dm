@@ -47,10 +47,6 @@
 	new /obj/item/forensics/sample_kit/powder(src)
 	new /obj/item/storage/csi_markers(src)
 
-/obj/structure/closet/secure_closet/detective/populate_contents()
-	new /obj/item/storage/briefcase/crimekit(src)
-	return ..()
-
 /obj/item/storage/csi_markers
 	name = "crime scene markers box"
 	desc = "A cardboard box for crime scene marker cards."
