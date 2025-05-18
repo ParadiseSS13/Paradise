@@ -19883,13 +19883,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet/lockerroom)
-"bwQ" = (
-/obj/machinery/door/airlock{
-	id_tag = "toilet_ass3"
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel/freezer,
-/area/station/public/toilet/lockerroom)
 "bwS" = (
 /obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -20504,7 +20497,6 @@
 	},
 /area/station/maintenance/apmaint)
 "bzQ" = (
-/obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -20512,6 +20504,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/bathroom,
 /turf/simulated/floor/plasteel/white,
 /area/station/public/toilet/lockerroom)
 "bzT" = (
@@ -57093,7 +57086,8 @@
 /area/station/maintenance/fsmaint)
 "hyb" = (
 /obj/structure/chair/sofa/bench/right{
-	dir = 1
+	dir = 1;
+	cover_color = "#68452a"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -64829,7 +64823,6 @@
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "kla" = (
-/obj/machinery/light/small/directional/south,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -66872,7 +66865,8 @@
 /area/station/command/meeting_room)
 "kVl" = (
 /obj/structure/chair/sofa/bench/left{
-	dir = 1
+	dir = 1;
+	cover_color = "#68452a"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -70562,11 +70556,9 @@
 	},
 /area/station/engineering/supermatter_room)
 "mfu" = (
-/obj/machinery/door/airlock{
-	id_tag = "toilet_ass1"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/bathroom,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet/lockerroom)
 "mfv" = (
@@ -85261,7 +85253,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "raN" = (
-/obj/effect/turf_decal/stripes/end,
+/obj/machinery/light/floor,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "raP" = (
@@ -86922,10 +86914,8 @@
 	},
 /area/station/service/hydroponics)
 "rKP" = (
-/obj/machinery/door/airlock{
-	id_tag = "toilet_ass2"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/bathroom,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet/lockerroom)
 "rKV" = (
@@ -95131,12 +95121,7 @@
 /obj/structure/transit_tube_pod{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "uwi" = (
@@ -123483,7 +123468,7 @@ mfu
 bvs
 rKP
 bvs
-bwQ
+rKP
 bvs
 bym
 bvF
