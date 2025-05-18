@@ -203,3 +203,15 @@
 	base_name = "supply large airlock"
 	airlock_type = /obj/machinery/door/airlock/multi_tile/supply
 	glass_type = /obj/machinery/door/airlock/multi_tile/supply/glass
+
+/obj/structure/door_assembly/multi_tile/medical
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/medical_large.dmi'
+	base_name = "medical large airlock"
+	airlock_type = /obj/machinery/door/airlock/multi_tile/medical
+	glass_type = /obj/machinery/door/airlock/multi_tile/medical/glass
+
+/obj/structure/door_assembly/multi_tile/research
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/research_large.dmi'
+	base_name = "research large airlock"
+	airlock_type = /obj/machinery/door/airlock/multi_tile/research
+	glass_type = /obj/machinery/door/airlock/multi_tile/research/glass

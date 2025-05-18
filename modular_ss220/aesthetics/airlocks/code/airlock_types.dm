@@ -232,6 +232,14 @@
 	icon = 'modular_ss220/aesthetics/airlocks/icons/large/supply_large.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile/supply
 
+/obj/machinery/door/airlock/multi_tile/medical
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/medical_large.dmi'
+	assemblytype = /obj/structure/door_assembly/multi_tile/medical
+
+/obj/machinery/door/airlock/multi_tile/research
+	icon = 'modular_ss220/aesthetics/airlocks/icons/large/research_large.dmi'
+	assemblytype = /obj/structure/door_assembly/multi_tile/research
+
 // Multi-tile airlocks glass
 /obj/machinery/door/airlock/multi_tile/command/glass
 	opacity = FALSE
@@ -250,5 +258,13 @@
 	glass = TRUE
 
 /obj/machinery/door/airlock/multi_tile/supply/glass
+	opacity = FALSE
+	glass = TRUE
+
+/obj/machinery/door/airlock/multi_tile/medical/glass
+	opacity = FALSE
+	glass = TRUE
+
+/obj/machinery/door/airlock/multi_tile/research/glass
 	opacity = FALSE
 	glass = TRUE
