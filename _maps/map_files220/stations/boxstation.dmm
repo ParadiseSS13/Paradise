@@ -27397,6 +27397,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -28277,7 +28278,6 @@
 	},
 /area/station/engineering/atmos)
 "cgk" = (
-/obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/junction/y,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -30426,6 +30426,7 @@
 /area/station/maintenance/asmaint2)
 "coC" = (
 /obj/machinery/alarm/directional/west,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -32937,6 +32938,7 @@
 /obj/machinery/door/airlock/public,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/vacant_store)
 "cyI" = (
@@ -35252,9 +35254,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/structure/chair/sofa/bench/left{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -60410,9 +60409,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/chair/sofa/bench/right{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -60519,6 +60515,14 @@
 	icon_state = "darkred"
 	},
 /area/station/security/range)
+"iIR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/south)
 "iIW" = (
 /obj/structure/mineral_door/wood,
 /obj/effect/decal/cleanable/dust,
@@ -96833,7 +96837,6 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -135574,7 +135577,7 @@ cex
 bLU
 cev
 cev
-cev
+iIR
 cgk
 lyv
 lyv
