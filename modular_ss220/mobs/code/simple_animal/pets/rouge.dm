@@ -5,7 +5,6 @@
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
 	mob_size = MOB_SIZE_SMALL
 	blood_volume = BLOOD_VOLUME_NORMAL
-	can_collar = TRUE
 	gender = FEMALE
 	icon_state = "rouge"
 	icon_living = "rouge"
@@ -30,6 +29,10 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	can_hide = 1
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/verb/chasetail()
 	set name = "Chase your tail"
@@ -64,9 +67,6 @@
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_resting
 		rest = TRUE
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
 		if(inventory_head)
 			regenerate_icons()
 
@@ -75,9 +75,6 @@
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_living
 		rest = FALSE
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
-			regenerate_icons()
 		if(inventory_head)
 			regenerate_icons()
 

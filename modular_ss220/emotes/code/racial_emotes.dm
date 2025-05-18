@@ -131,6 +131,7 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_threat
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip
 	H.verbs |= /mob/living/carbon/human/proc/emote_whips
+	H.verbs |= /mob/living/carbon/human/proc/emote_thump
 	H.verbs |= /mob/living/carbon/human/proc/emote_rumble
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
@@ -142,6 +143,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_threat
 	H.verbs -= /mob/living/carbon/human/proc/emote_whip
 	H.verbs -= /mob/living/carbon/human/proc/emote_whips
+	H.verbs -= /mob/living/carbon/human/proc/emote_thump
 	H.verbs -= /mob/living/carbon/human/proc/emote_rumble
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)

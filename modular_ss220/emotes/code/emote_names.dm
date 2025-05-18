@@ -540,6 +540,9 @@
 /datum/emote/living/carbon/human/wiggles
 	name = EMOTE_HUMAN_WIGGLES
 
+/datum/emote/living/carbon/human/thump
+	name = EMOTE_HUMAN_THUMP
+
 /datum/emote/living/carbon/human/whip
 	name = EMOTE_HUMAN_WHIP
 

@@ -368,6 +368,11 @@
 	set category = "Эмоции"
 	emote("threat", intentional = TRUE)
 
+/mob/living/carbon/human/proc/emote_thump()
+	set name = "< " + EMOTE_HUMAN_THUMP + " >"
+	set category = "Эмоции"
+	emote("thump", intentional = TRUE)
+
 /mob/living/carbon/human/proc/emote_whip()
 	set name = "< " + EMOTE_HUMAN_WHIP + " >"
 	set category = "Эмоции"

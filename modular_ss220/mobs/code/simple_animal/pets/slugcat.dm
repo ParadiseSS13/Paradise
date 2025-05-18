@@ -20,7 +20,6 @@
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_ALWAYS
-	can_collar = 1
 	butcher_results = list(/obj/item/food/meat = 5)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -43,6 +42,10 @@
 
 	var/is_pacifist = FALSE
 	var/is_reduce_damage = TRUE
+
+/mob/living/simple_animal/pet/slugcat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/pet/slugcat/monk
 	name = "слизнекот-монах"

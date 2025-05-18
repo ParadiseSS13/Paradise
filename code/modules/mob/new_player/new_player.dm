@@ -346,7 +346,7 @@
 		to_chat(src, alert("[rank] недоступен из-за того, что у вашего персонажа ампутированы конечности и отсутствуют протезы. Попробуйте другую должность."))
 		return 0
 
-	SSjobs.AssignRole(src, rank, 1)
+	SSjobs.job_selector.latejoin_assign(src, thisjob)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
 	character = SSjobs.AssignRank(character, rank, TRUE)					//equips the human

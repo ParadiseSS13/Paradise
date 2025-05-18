@@ -49,18 +49,12 @@
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_resting
 		regenerate_icons()
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/security/on_standing_up(updating = 1)
 	..()
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_living
 		regenerate_icons()
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
-			regenerate_icons()
 
 
 /mob/living/simple_animal/pet/dog/security/Initialize(mapload)

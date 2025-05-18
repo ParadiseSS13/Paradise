@@ -63,6 +63,7 @@
 "az" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "aC" = (
@@ -162,7 +163,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "bB" = (
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "bH" = (
@@ -439,7 +440,7 @@
 	},
 /area/awaymission/wildwest/wildwest_refine)
 "ey" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "eB" = (
@@ -472,7 +473,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "eP" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -592,7 +593,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "fP" = (
 /obj/structure/flora/ash/tall_shroom,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
 "fQ" = (
@@ -1112,7 +1113,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "kR" = (
 /obj/structure/flora/rock,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
 "kS" = (
@@ -1135,13 +1136,10 @@
 	},
 /area/awaymission/wildwest/wildwest_mines)
 "ld" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/random/pool/gatewayloot/syndicate/mixed,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "lg" = (
@@ -1252,8 +1250,9 @@
 "lL" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
-	id_tag = "ww_pod"
+/obj/machinery/door/poddoor/multi_tile/triple{
+	id_tag = "ww_pod";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
@@ -1383,7 +1382,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "nf" = (
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
 "nh" = (
@@ -1531,9 +1530,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "on" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1585,7 +1582,7 @@
 "oK" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/carpet/orange,
 /area/awaymission/wildwest/wildwest_mines)
 "oL" = (
@@ -2067,11 +2064,11 @@
 /turf/simulated/floor/carpet/red,
 /area/awaymission/wildwest/wildwest_mines)
 "tQ" = (
+/obj/effect/mine/dnascramble,
+/obj/item/dice/d6,
 /obj/structure/curtain/black{
 	opacity = 0
 	},
-/obj/effect/mine/dnascramble,
-/obj/item/dice/d6,
 /turf/simulated/floor/carpet,
 /area/awaymission/wildwest/wildwest_mines)
 "tW" = (
@@ -2082,7 +2079,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "tX" = (
 /obj/machinery/light/small/directional/east,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/carpet/green,
 /area/awaymission/wildwest/wildwest_mines)
 "tZ" = (
@@ -2109,7 +2106,7 @@
 	},
 /area/awaymission/wildwest/wildwest_vault)
 "uk" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2314,7 +2311,7 @@
 /area/awaymission/wildwest/wildwest_vault)
 "wB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2566,11 +2563,11 @@
 /turf/simulated/floor/carpet/red,
 /area/awaymission/wildwest/wildwest_mines)
 "zy" = (
+/obj/effect/mine/dnascramble,
+/obj/item/stack/tile/wood,
 /obj/structure/curtain/black{
 	opacity = 0
 	},
-/obj/effect/mine/dnascramble,
-/obj/item/stack/tile/wood,
 /turf/simulated/floor/carpet/green,
 /area/awaymission/wildwest/wildwest_mines)
 "zC" = (
@@ -2895,9 +2892,6 @@
 /obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
-"Cx" = (
-/turf/simulated/wall/r_wall,
-/area/awaymission/wildwest/wildwest_mines)
 "CB" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -2928,11 +2922,11 @@
 /turf/simulated/floor/carpet/orange,
 /area/awaymission/wildwest/wildwest_mines)
 "CQ" = (
+/obj/effect/mine/dnascramble,
+/obj/item/trash/chips,
 /obj/structure/curtain/black{
 	opacity = 0
 	},
-/obj/effect/mine/dnascramble,
-/obj/item/trash/chips,
 /turf/simulated/floor/carpet/purple,
 /area/awaymission/wildwest/wildwest_mines)
 "CW" = (
@@ -3017,7 +3011,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "DB" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
 "DF" = (
@@ -3137,7 +3131,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/wildwest/wildwest_mines)
 "EG" = (
@@ -3202,9 +3196,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Ff" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3258,7 +3250,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "FG" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "FH" = (
@@ -3281,7 +3273,7 @@
 /turf/simulated/floor/carpet/red,
 /area/awaymission/wildwest/wildwest_mines)
 "FO" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "FS" = (
@@ -3470,11 +3462,11 @@
 "HS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "HT" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -3512,10 +3504,6 @@
 	icon_state = "cultdamage"
 	},
 /area/awaymission/wildwest/wildwest_vault)
-"Io" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
-/turf/simulated/floor/carpet/red,
-/area/awaymission/wildwest/wildwest_mines)
 "Ip" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/directional/north,
@@ -3594,7 +3582,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Jm" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/carpet,
 /area/awaymission/wildwest/wildwest_mines)
 "Jp" = (
@@ -3603,7 +3591,7 @@
 	},
 /area/awaymission/wildwest/wildwest_mines)
 "Jt" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -3616,24 +3604,15 @@
 	},
 /turf/space,
 /area/space)
-"JH" = (
-/obj/structure/chair/comfy/black,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
-/turf/simulated/floor/carpet/red,
-/area/awaymission/wildwest/wildwest_mines)
 "JI" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/stone_tile/surrounding_tile/cracked,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
 "JJ" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob{
-	guaranteed = 1
-	},
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3647,10 +3626,8 @@
 	},
 /area/awaymission/wildwest/wildwest_mines)
 "JN" = (
-/obj/structure/toilet{
-	dir = 4
-	},
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/structure/toilet/directional/west,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "JO" = (
@@ -3673,7 +3650,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "JV" = (
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/carpet/purple,
 /area/awaymission/wildwest/wildwest_mines)
 "Kb" = (
@@ -3874,7 +3851,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "Mk" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Mq" = (
@@ -3941,7 +3918,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "MO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4309,7 +4286,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidplating"
 	},
@@ -4372,12 +4349,6 @@
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
-"QS" = (
-/obj/structure/curtain/black{
-	opacity = 0
-	},
-/turf/simulated/floor/carpet/orange,
-/area/awaymission/wildwest/wildwest_mines)
 "QU" = (
 /obj/structure/closet/cabinet,
 /obj/effect/decal/cleanable/dirt,
@@ -4424,7 +4395,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "RM" = (
-/mob/living/simple_animal/hostile/hellhound/tear{
+/mob/living/simple_animal/hostile/hellhound/greater{
 	faction = list("wildwest")
 	},
 /turf/simulated/floor{
@@ -4488,7 +4459,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Sr" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/wildwest/wildwest_refine)
 "Sw" = (
@@ -4692,7 +4663,7 @@
 	},
 /area/awaymission/wildwest/wildwest_refine)
 "Uk" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
 	pixel_x = -28
@@ -4712,7 +4683,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/wildwest/wildwest_mines)
 "Uz" = (
@@ -4738,7 +4709,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "UH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "UN" = (
@@ -4765,12 +4736,10 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_mines)
 "UX" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/sign/poster/contraband/random/directional/south,
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "UZ" = (
@@ -5006,10 +4975,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/wildwest/wildwest_mines)
-"XX" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
-/turf/simulated/floor/plating,
-/area/awaymission/wildwest/wildwest_refine)
 "Yc" = (
 /obj/item/stack/sheet/plasteel,
 /turf/simulated/floor/plating,
@@ -5062,7 +5027,7 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
 "YI" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
 "YJ" = (
@@ -5073,10 +5038,7 @@
 "YK" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/sign/poster/contraband/random/directional/north,
-/obj/structure/toilet{
-	dir = 8
-	},
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "YM" = (
@@ -5087,7 +5049,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "YP" = (
-/obj/effect/spawner/random/pool/gatewayloot/syndie_mob,
+/obj/effect/spawner/random/pool/gatewayloot/syndicate/mob,
 /turf/simulated/floor/carpet/green,
 /area/awaymission/wildwest/wildwest_mines)
 "YQ" = (
@@ -9600,7 +9562,7 @@ UH
 iW
 KR
 Tc
-XX
+iG
 PL
 TA
 KR
@@ -9856,13 +9818,13 @@ AQ
 Ft
 Zj
 Sw
-Cx
-Cx
-Cx
-Cx
-Cx
-Cx
-Cx
+em
+em
+em
+em
+em
+em
+em
 KR
 tr
 rw
@@ -11531,7 +11493,7 @@ em
 em
 em
 wp
-YI
+wp
 wp
 hM
 wp
@@ -11840,7 +11802,7 @@ hk
 hk
 Pt
 JS
-JH
+Sa
 kg
 Ye
 VF
@@ -13250,7 +13212,7 @@ JS
 JS
 Ui
 hk
-DB
+wK
 Eg
 JS
 wK
@@ -13282,7 +13244,7 @@ VF
 Vi
 Qo
 iY
-Io
+Ih
 hk
 hB
 wK
@@ -13555,7 +13517,7 @@ lR
 YP
 hk
 mW
-FG
+kO
 JS
 wK
 hk
@@ -13686,7 +13648,7 @@ QU
 hk
 cd
 Pt
-QS
+Ql
 vJ
 CG
 hk
@@ -13980,7 +13942,7 @@ Gv
 en
 lo
 hk
-DB
+wK
 to
 JS
 wK
@@ -15253,7 +15215,7 @@ hk
 Ff
 on
 JJ
-JJ
+on
 Ff
 hk
 wK
@@ -16408,7 +16370,7 @@ hk
 hk
 wK
 wK
-DB
+wK
 wX
 wK
 wK

@@ -131,6 +131,15 @@
 	spawn_loot_chance = 20
 	loot = list(/obj/item/butcher_chainsaw/gateway)
 
+/obj/effect/spawner/random/syndie_mob_loot/ranged
+	spawn_loot_chance = 1
+	loot = list(
+		/obj/item/gun/projectile/automatic/pistol = 8,
+		/obj/item/gun/projectile/revolver/fake,
+
+		/obj/item/gun/projectile/revolver, // 0.1%
+	)
+
 /obj/effect/spawner/random/maintenance
 	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
 

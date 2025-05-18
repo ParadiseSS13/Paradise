@@ -1,3 +1,6 @@
+/datum/job
+	var/donator_tier = 0
+
 /datum/job/donor
 	title = "Donor" // он тут быть не должен. Но если педали вдруг выдадут, то пускай хотя бы так
 	flag = 0
@@ -13,8 +16,8 @@
 	outfit = /datum/outfit/job/donor
 	hidden_from_job_prefs = TRUE
 	is_extra_job = TRUE
+	donator_tier = 999 // I'm unreachable!
 	var/ru_title
-	var/donator_tier = 999 // I'm unreachable!
 
 /datum/outfit/job/donor
 	name = "Donor"

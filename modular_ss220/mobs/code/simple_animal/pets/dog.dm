@@ -6,10 +6,14 @@
 	melee_damage_lower = 6
 	melee_damage_upper = 10
 	attacktext = "кусает"
-	var/growl_sound = list('modular_ss220/mobs/sound/creatures/dog_grawl1.ogg','modular_ss220/mobs/sound/creatures/dog_grawl2.ogg') //Used in emote.
-
 	butcher_results = list(/obj/item/food/meat/dog = 4)
-	collar_type = "dog"
+
+	var/growl_sound = list('modular_ss220/mobs/sound/creatures/dog_grawl1.ogg','modular_ss220/mobs/sound/creatures/dog_grawl2.ogg') //Used in emote.
+	var/collar_icon_state = "dog"
+
+/mob/living/simple_animal/pet/dog/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state, collar_resting_icon_state_ = TRUE)
 
 /mob/living/simple_animal/pet/dog/wuv(change, mob/M)
 	. = ..()

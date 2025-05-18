@@ -1340,7 +1340,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	operating = NONE
 	recalculate_atmos_connectivity()
 	if(safe)
-		CheckForMobs()
+		check_for_mobs()
 	return TRUE
 
 /obj/machinery/door/airlock/lock(forced=0)

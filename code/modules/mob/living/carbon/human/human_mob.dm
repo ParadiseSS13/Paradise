@@ -765,7 +765,7 @@
 				for(var/datum/data/record/R in GLOB.data_core.security)
 					if(R.fields["id"] == E.fields["id"])
 						found_record = E
-					break outer
+						break outer
 
 	if(!found_record)
 		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
@@ -787,7 +787,7 @@
 
 	found_record.fields["ai_target"] = new_status
 
-	update_all_mob_malf_hud(new_status)
+	update_all_mob_malf_hud()
 
 
 /mob/living/carbon/human/can_be_flashed(intensity = 1, override_blindness_check = 0)

@@ -38,7 +38,7 @@
 		var/mob/mob = owner
 		mob.update_client_colour(time = update_time_client_colour)
 
-/obj/item/organ/internal/eyes/serpentid/get_colourmatrix()
+/obj/item/organ/internal/eyes/serpentid/get_colormatrix()
 	if(!owner)
 		return
 

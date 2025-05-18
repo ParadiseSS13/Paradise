@@ -614,3 +614,14 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
+/obj/item/clothing/head/cool_bandana
+	name = "badass bandana"
+	desc = "You know what time it is."
+	icon_state = "tmc_hat"
+	item_state = "armor"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+		)

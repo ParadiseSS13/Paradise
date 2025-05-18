@@ -539,9 +539,7 @@
 	id = "mech_toilet"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -1076,7 +1074,7 @@
 	icon_state = "mirror_broke";
 	pixel_x = -30
 	},
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "yr" = (

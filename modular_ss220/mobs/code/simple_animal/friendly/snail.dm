@@ -21,7 +21,6 @@
 	gender = NEUTER
 	can_hide = 1
 	butcher_results = list(/obj/item/food/salmonmeat/snailmeat = 1, /obj/item/stack/ore/tranquillite = 1)
-	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	stop_automated_movement_when_pulled = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -29,6 +28,10 @@
 	faction = list("slime", "neutral")
 	reagents = new()
 	holder_type = /obj/item/holder/snail
+
+/mob/living/simple_animal/snail/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/snail/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1

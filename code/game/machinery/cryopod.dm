@@ -347,7 +347,7 @@
 	for(var/obj/item/I in items)
 		if(istype(I, /obj/item/pda))
 			var/obj/item/pda/P = I
-			QDEL_NULL(P.id)
+			P.id = null
 			qdel(P)
 			continue
 		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.

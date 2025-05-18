@@ -53,6 +53,10 @@
 	linked_emote = /datum/emote/living/carbon/human/whip
 	name = EMOTE_HUMAN_WHIP
 
+/datum/keybinding/emote/carbon/human/thump
+	linked_emote = /datum/emote/living/carbon/human/thump
+	name = EMOTE_HUMAN_THUMP
+
 /datum/keybinding/emote/carbon/human/croak
 	linked_emote = /datum/emote/living/carbon/human/croak
 	name = EMOTE_HUMAN_CROAK

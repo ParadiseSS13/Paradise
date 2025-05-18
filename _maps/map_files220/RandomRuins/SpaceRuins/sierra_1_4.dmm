@@ -173,7 +173,9 @@
 /turf/space,
 /area/space/nearstation)
 "bt" = (
-/obj/machinery/door/airlock/multi_tile,
+/obj/machinery/door/airlock/multi_tile{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/structure/cable/green{
@@ -336,7 +338,9 @@
 	},
 /area/ruin/space/sierra/med)
 "cU" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /obj/machinery/door/firedoor/closed,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/plasteel{
@@ -2492,7 +2496,9 @@
 	},
 /area/ruin/space/sierra/med)
 "tR" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4589,7 +4595,9 @@
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "Lg" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /obj/machinery/door/firedoor/closed,
 /obj/structure/cable/green{
 	icon_state = "1-2"
@@ -5888,7 +5896,7 @@
 	},
 /area/ruin/space/sierra/med)
 "Vm" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/sierra/rnd)
 "Vn" = (

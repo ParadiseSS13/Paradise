@@ -1,10 +1,9 @@
-/datum/controller/subsystem/jobs/AssignRole(mob/new_player/player, rank, latejoin)
+/datum/job_selector/assign_role(datum/job_candidate/candidate, datum/job/job, latejoin = FALSE, step = "unknown_step")
 	. = ..()
 	if(!.)
 		return
 
-	var/datum/job/job = GetJob(rank)
-	log_game("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[job.total_positions])")
+	log_game("Игрок [candidate.get_ckey()] вошел в раунд с профессией [job.title] ([job.current_positions]/[job.total_positions])")
 
 /datum/mind/proc/log_antag_objectives()
 	var/list/objectives = get_all_objectives()

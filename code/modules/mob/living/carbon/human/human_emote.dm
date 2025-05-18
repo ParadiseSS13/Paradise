@@ -733,6 +733,16 @@
 	sound = "sound/effects/unathihiss.ogg"
 	muzzled_noises = list("тихий шипящий")
 
+/datum/emote/living/carbon/human/thump
+	key = "thump"
+	key_third_person = "thumps"
+	message = "ударяет хвостом."
+	message_param = "ударяет хвостом, глядя на %t."
+	species_type_whitelist_typecache = list(/datum/species/unathi)
+	emote_type = EMOTE_AUDIBLE
+	// Credit to TylerAM (freesound.org) for the sound.
+	sound = "sound/effects/unathitailthump.ogg"
+
 /datum/emote/living/carbon/human/creak
 	key = "creak"
 	key_third_person = "creaks"

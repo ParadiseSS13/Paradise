@@ -163,9 +163,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "iu" = (
-/obj/machinery/shower{
-	pixel_y = 15
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "white"

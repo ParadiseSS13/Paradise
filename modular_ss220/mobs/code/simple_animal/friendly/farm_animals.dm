@@ -57,10 +57,13 @@
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	can_hide = 1
-	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 	holder_type = /obj/item/holder/cock
+
+/mob/living/simple_animal/cock/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/cock/npc_safe(mob/user)
 	return TRUE

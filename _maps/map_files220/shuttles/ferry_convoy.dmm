@@ -32,7 +32,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "h" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/transport)
 "i" = (

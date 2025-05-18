@@ -36,8 +36,11 @@
 	universal_speak = 0
 	can_hide = 1
 	holder_type = /obj/item/holder/frog
-	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
+
+/mob/living/simple_animal/frog/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/frog/toxic
 	name = "яркая лягушка"

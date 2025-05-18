@@ -64,23 +64,24 @@
 	. = ..()
 	spy_spider_attached?.hear_talk(M, message_pieces)
 
-/obj/item/clothing/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/radio/spy_spider))
-		return ..()
-	if(spy_spider_attached || !((slot_flags & ITEM_SLOT_OUTER_SUIT) || (slot_flags & ITEM_SLOT_JUMPSUIT)))
-		to_chat(user, span_warning("Ты не находишь места для жучка!"))
-		return TRUE
-	var/obj/item/radio/spy_spider/spy_spider = I
+// TODO: migrate to the new attack chain when /obj/item/clothing get migrated
+// /obj/item/clothing/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+// 	if(!istype(I, /obj/item/radio/spy_spider))
+// 		return ..()
+// 	if(spy_spider_attached || !((slot_flags & ITEM_SLOT_OUTER_SUIT) || (slot_flags & ITEM_SLOT_JUMPSUIT)))
+// 		to_chat(user, span_warning("Ты не находишь места для жучка!"))
+// 		return TRUE
+// 	var/obj/item/radio/spy_spider/spy_spider = I
 
-	if(!spy_spider.broadcasting)
-		to_chat(user, span_warning("Жучок выключен!"))
-		return TRUE
+// 	if(!spy_spider.broadcasting)
+// 		to_chat(user, span_warning("Жучок выключен!"))
+// 		return TRUE
 
-	user.unequip(spy_spider)
-	spy_spider.forceMove(src)
-	spy_spider_attached = spy_spider
-	to_chat(user, span_info("Ты незаметно прикрепляешь жучок к [src]."))
-	return TRUE
+// 	user.unequip(spy_spider)
+// 	spy_spider.forceMove(src)
+// 	spy_spider_attached = spy_spider
+// 	to_chat(user, span_info("Ты незаметно прикрепляешь жучок к [src]."))
+// 	return TRUE
 
 /obj/item/clothing/proc/remove_spy_spider(cloth_uid, spider_uid)
 	if(!in_range(src, usr))

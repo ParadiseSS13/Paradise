@@ -17,7 +17,6 @@
 	density = 0
 	ventcrawler = 2
 	can_hide = 1
-	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	see_in_dark = 6
 	speak = list("Слава Синдикату!","Смерть НаноТрейзен!", "У вас есть сыр?")
@@ -45,6 +44,10 @@
 	melee_damage_upper = 5
 	var/chew_probability = 1
 	var/squeak_sound = 'sound/creatures/mousesqueak.ogg'
+
+/mob/living/simple_animal/hostile/retaliate/syndirat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/Initialize(mapload)
 	. = ..()

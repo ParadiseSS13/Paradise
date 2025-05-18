@@ -1265,9 +1265,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_storage)
 "bHd" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/xen/zombie,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -2761,9 +2759,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/gas_emitter_chamber)
 "dsK" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/turf_decal/miscellaneous/plumbing{
 	dir = 4
 	},
@@ -4562,7 +4558,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
 "fCN" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28;
 	icon_state = "mirror_broke"
@@ -7219,9 +7215,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/cryo_room)
 "iYj" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/security_guard,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/black_mesa/hecu_zone_bathroom)
@@ -7653,7 +7647,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_servers)
 "jyL" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/item/clothing/suit/chef/classic{
 	name = "Jim Norton's Quebecois Coffee apron"
 	},
@@ -8626,7 +8620,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "kEM" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/dorm_computers)
 "kEO" = (
@@ -8649,7 +8645,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "kIW" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_test_chambers)
 "kJz" = (
@@ -11038,9 +11036,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/hecu_zone_camp)
 "nBd" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/miscellaneous/plumbing{
 	dir = 8
 	},
@@ -13667,7 +13663,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/security_outpost)
 "qKr" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/alien/xenoweeds,
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_lobby)
@@ -14937,7 +14933,9 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/black_mesa/deep_sci_hall)
 "smM" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /obj/structure/alien/xenoweeds,
 /turf/simulated/floor/plasteel/smooth{
 	icon_state = "smooth_large"
@@ -15480,7 +15478,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
 "sUG" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -15778,9 +15778,7 @@
 /area/awaymission/black_mesa/black_ops_science_room)
 "tsf" = (
 /obj/item/salvage/ruin/brick,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/black_mesa/equipment_room)
 "tsO" = (
@@ -16702,7 +16700,7 @@
 	},
 /area/awaymission/black_mesa/scientist_hall)
 "uEO" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -17904,7 +17902,9 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "wbU" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/science_labs)
 "wbV" = (

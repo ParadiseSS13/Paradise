@@ -32,15 +32,14 @@
 	maxHealth = 3
 	var/amount_grown = 0
 	can_hide = 1
-	can_collar = 0
 	holder_type = /obj/item/holder/hamster
-
 
 /mob/living/simple_animal/mouse/hamster/baby/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
 	)
+	RemoveElement(/datum/element/wears_collar)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 // Hamster procs

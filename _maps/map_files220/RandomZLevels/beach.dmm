@@ -60,10 +60,8 @@
 /area/awaymission/beach)
 "aK" = (
 /obj/effect/turf_decal/sand,
-/obj/structure/toilet{
-	pixel_y = 8
-	},
-/obj/structure/sink/directional/west,
+/obj/structure/toilet/directional/north,
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small/directional/west,
 /obj/machinery/door_control/bolt_control/east{
 	id = "toilet1beach"
@@ -79,7 +77,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "bn" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "plastic"
 	},
@@ -535,10 +533,8 @@
 /area/awaymission/beach)
 "gk" = (
 /obj/effect/turf_decal/siding/wood/neutral,
-/obj/structure/sink/directional/east,
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/structure/sink/directional/west,
+/obj/machinery/shower/directional/north,
 /obj/item/soap,
 /turf/simulated/floor/wood/parquet,
 /area/awaymission/beach)
@@ -597,10 +593,8 @@
 /area/awaymission/beach)
 "hr" = (
 /obj/effect/turf_decal/sand,
-/obj/structure/toilet{
-	pixel_y = 8
-	},
-/obj/structure/sink/directional/west,
+/obj/structure/toilet/directional/north,
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small/directional/west,
 /obj/machinery/door_control/bolt_control/east{
 	id = "toilet2beach"
@@ -2502,9 +2496,7 @@
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/north,
 /obj/item/soap/homemade,
 /turf/simulated/floor/wood/parquet,
 /area/awaymission/beach)
@@ -2580,10 +2572,8 @@
 /area/awaymission/beach)
 "IH" = (
 /obj/effect/turf_decal/sand,
-/obj/structure/toilet{
-	pixel_y = 8
-	},
-/obj/structure/sink/directional/west,
+/obj/structure/toilet/directional/north,
+/obj/structure/sink/directional/east,
 /obj/item/cigbutt{
 	pixel_y = -7;
 	pixel_x = -13
@@ -2619,9 +2609,7 @@
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "Jh" = (
@@ -2967,10 +2955,8 @@
 /area/awaymission/beach)
 "MT" = (
 /obj/effect/turf_decal/sand,
-/obj/structure/toilet{
-	pixel_y = 8
-	},
-/obj/structure/sink/directional/west,
+/obj/structure/toilet/directional/north,
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small/directional/west,
 /obj/machinery/door_control/bolt_control/east{
 	id = "toiletfarbeach"
@@ -3021,7 +3007,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "NM" = (
-/obj/structure/sink/kitchen/north,
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "NS" = (
@@ -3546,9 +3532,7 @@
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "VJ" = (
@@ -3791,9 +3775,7 @@
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "YB" = (
@@ -3890,9 +3872,7 @@
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/north,
 /obj/item/soap/deluxe,
 /turf/simulated/floor/wood/parquet,
 /area/awaymission/beach)

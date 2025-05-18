@@ -201,6 +201,12 @@ RESTRICT_TYPE(/mob/living/basic)
 		return FALSE
 	return TRUE
 
+/mob/living/basic/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(.)
+		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		return attack_threshold_check(damage, M.melee_damage_type)
+
 /mob/living/basic/handle_environment(datum/gas_mixture/readonly_environment)
 	SEND_SIGNAL(src, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
 

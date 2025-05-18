@@ -186,40 +186,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/spacecleanertank, 
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/reagent_dispensers/peppertank, 32, 32)
 
-/* Sinks */
-/obj/structure/sink/directional
-	name = "\improper sink"
-
-/obj/structure/sink/directional/south
-	pixel_y = -4
-	dir = 1
-
-/obj/structure/sink/directional/north
-	pixel_y = 18
-
-/obj/structure/sink/directional/west
-	pixel_x = 12
-	dir = 4
-
-/obj/structure/sink/directional/east
-	pixel_x = -12
-	dir = 8
-
-/obj/structure/sink/kitchen/south
-	pixel_y = -4
-	dir = 1
-
-/obj/structure/sink/kitchen/north
-	pixel_y = 18
-
-/obj/structure/sink/kitchen/west
-	pixel_x = -11
-	dir = 4
-
-/obj/structure/sink/kitchen/east
-	pixel_x = 11
-	dir = 8
-
 /* Displays */
 /obj/machinery/status_display
 	layer = ABOVE_WINDOW_LAYER

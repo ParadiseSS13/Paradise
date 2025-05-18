@@ -361,7 +361,11 @@
 	flags = CONDUCT
 	slot_flags = null
 	materials = list(MAT_METAL=3000)
-	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
+	can_hold = list(
+		/obj/item/food,
+		/obj/item/reagent_containers/drinks,
+		/obj/item/reagent_containers/condiment,
+	)
 
 /obj/item/storage/bag/tray/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	..()
@@ -555,7 +559,7 @@
 	name = "treasure satchel"
 	desc = "A satchel for storing scavenged salvage. There be treasure."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel"
+	icon_state = "satchel_treasure"
 	origin_tech = "engineering=2"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS

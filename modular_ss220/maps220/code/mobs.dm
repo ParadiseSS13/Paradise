@@ -1344,90 +1344,17 @@
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/syndie
 	name = "melee/ranged"
 	icon_state = "melee"
-	syndi_mob = /obj/effect/spawner/random/pool/gatewayloot/syndie_mob
+	syndi_mob = /obj/effect/spawner/random/pool/spaceloot/syndicate/mob
 
-/obj/effect/landmark/awaymissions/spacebattle/mob_spawn/syndie/space
+/obj/effect/landmark/awaymissions/spacebattle/mob_spawn/syndie/modsuit
 	name = "space melee/ranged"
 	icon_state = "space_melee"
-	syndi_mob = /obj/effect/spawner/random/pool/gatewayloot/syndie_mob/space
+	syndi_mob = /obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit
 
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/drone
 	name = "drone"
 	icon_state = "drone"
 	syndi_mob = /mob/living/simple_animal/hostile/malf_drone/spacebattle
-
-//Enemies
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle
-	damage_coeff = list(BRUTE = 0.8, BURN = 0.9, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	attack_sound = 'sound/weapons/saberon.ogg'
-	maxHealth = 200
-	health = 200
-	loot = list(
-		/obj/effect/decal/cleanable/ash,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot/melee,
-	)
-
-/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle
-	damage_coeff = list(BRUTE = 0.6, BURN = 0.8, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	attack_sound = 'sound/weapons/saberon.ogg'
-	maxHealth = 200
-	health = 200
-	loot = list(
-		/obj/effect/decal/cleanable/ash,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot/melee,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot/space,
-	)
-
-/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle
-	damage_coeff = list(BRUTE = 0.8, BURN = 0.9, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	maxHealth = 200
-	health = 200
-	loot = list(
-		/obj/effect/decal/cleanable/ash,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot/ranged,
-	)
-
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle
-	damage_coeff = list(BRUTE = 0.6, BURN = 0.8, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	maxHealth = 200
-	health = 200
-	loot = list(
-		/obj/effect/decal/cleanable/ash,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot/ranged,
-		/obj/effect/spawner/random/pool/gatewayloot/syndie_mob_loot/space,
-	)
-
-// Spacebattle QM
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/spacebattle
-	name = "Syndicate Commander"
-	damage_coeff = list(BRUTE = 0.5, BURN = 0.6, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	health = 300
-	maxHealth = 300
-	loot = list(
-		/obj/effect/decal/cleanable/ash,
-		/obj/effect/spawner/random/loot/gateway_chainsaw,
-	)
-	var/spacebattle_boss = TRUE
-
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/spacebattle/death()
-	if(spacebattle_boss)
-		for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
-			if(P.density && (P.id_tag == "Spacebattle_exit" || P.id_tag == "1ShipLock"))
-				spawn(0)
-					P.open()
-	return ..()
-
-// Spacebattle QM used at pools.dm
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/spacebattle/gateway
-	spacebattle_boss = FALSE
-	loot = list(
-		/obj/effect/decal/cleanable/ash,
-		/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot/centcomm,
-	)
 
 // Syndie griefsky
 /mob/living/simple_animal/bot/secbot/griefsky/syndie
@@ -1490,3 +1417,26 @@
 		icon_state = "wisewill-Combat-roll"
 	else if(health / maxHealth < 0.5)
 		icon_state = "wisewill-Combat"
+
+// MARK: Syndicate mobs
+/mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
+	. = ..()
+	if(ranged)
+		loot |= /obj/effect/spawner/random/syndie_mob_loot/ranged
+
+// Spacebattle QM
+/mob/living/simple_animal/hostile/syndicate/modsuit/elite/spacebattle
+	corpse = /obj/effect/mob_spawn/human/corpse/syndicate/modsuit/elite/depot
+	var/spacebattle_boss = TRUE
+
+/mob/living/simple_animal/hostile/syndicate/modsuit/elite/spacebattle/Initialize(mapload)
+	. = ..()
+	loot |= /obj/effect/spawner/random/loot/gateway_chainsaw
+
+/mob/living/simple_animal/hostile/syndicate/modsuit/elite/spacebattle/death()
+	if(spacebattle_boss)
+		for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+			if(P.density && (P.id_tag == "Spacebattle_exit" || P.id_tag == "1ShipLock"))
+				spawn(0)
+					P.open()
+	return ..()

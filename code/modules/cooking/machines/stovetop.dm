@@ -126,6 +126,7 @@
 	board_name = "Stovetop"
 	build_path = /obj/machinery/cooking/stovetop
 	board_type = "machine"
+	icon_state = "service"
 	origin_tech = list(TECH_BIO = 1)
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,

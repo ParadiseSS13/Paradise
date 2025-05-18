@@ -518,9 +518,7 @@
 /obj/machinery/button/windowtint/south{
 	id = "cave4_bath2"
 	},
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -691,9 +689,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -889,7 +885,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "ef" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/effect/spawner/random/dirt/often,
 /obj/item/stack/rods,
 /turf/simulated/floor/plasteel/dark{
@@ -1045,9 +1041,7 @@
 /obj/machinery/button/windowtint/north{
 	id = "cave4_bath1"
 	},
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/item/bikehorn/rubberducky,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
@@ -1658,7 +1652,7 @@
 /area/awaymission/caves/build/reqpower_build)
 "ip" = (
 /obj/structure/railing,
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredalt"
@@ -4244,7 +4238,7 @@
 	},
 /area/awaymission/caves)
 "wH" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/effect/spawner/random/dirt/often,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
@@ -5796,7 +5790,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build)
 "FK" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6024,9 +6018,7 @@
 	},
 /area/awaymission/caves/build)
 "Hd" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -7169,9 +7161,7 @@
 	},
 /area/awaymission/caves/build)
 "NK" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
@@ -8091,9 +8081,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "Tf" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel{
@@ -8339,9 +8327,7 @@
 	},
 /area/awaymission/caves)
 "Uq" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/spawner/random/dirt/often,
 /obj/machinery/light_construct/small/directional/south,
 /turf/simulated/floor/plating,
@@ -8581,9 +8567,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "Vm" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/random/dirt/often,
 /obj/machinery/light_construct/small/directional/south,

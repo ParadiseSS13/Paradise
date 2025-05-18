@@ -1782,7 +1782,7 @@
 	},
 /area/awaymission/bmp_ship/common)
 "ft" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -5176,7 +5176,7 @@
 	},
 /area/awaymission/bmp_ship/kitchen)
 "Dx" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -6205,7 +6205,7 @@
 /area/space)
 "Pi" = (
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
-/mob/living/simple_animal/hostile/syndicate/ranged/space{
+/mob/living/simple_animal/hostile/syndicate/modsuit/ranged{
 	health = 300;
 	maxHealth = 300
 	},
@@ -6826,7 +6826,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
 "Wc" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
@@ -19585,7 +19585,7 @@ Hr
 ll
 fq
 UF
-eJ
+vy
 js
 JS
 rL
@@ -19845,7 +19845,7 @@ dp
 cQ
 ec
 Ri
-vy
+eJ
 cm
 JS
 PY

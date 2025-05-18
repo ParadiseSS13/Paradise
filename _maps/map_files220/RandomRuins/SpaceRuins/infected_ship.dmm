@@ -486,9 +486,7 @@
 	pixel_y = 33;
 	icon_state = "mirror_broke"
 	},
-/obj/structure/sink{
-	pixel_y = 17
-	},
+/obj/structure/sink/directional/north,
 /obj/item/organ/internal/body_egg/alien_embryo,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
@@ -1547,7 +1545,7 @@
 	amount = 1
 	},
 /obj/structure/bed/nest,
-/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie/corpse,
+/obj/effect/mob_spawn/human/corpse/syndicate/modsuit,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "WR" = (
@@ -1638,9 +1636,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered/requires_power_space)
 "Zk" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/spawner/random/dirt/often,
 /obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating,

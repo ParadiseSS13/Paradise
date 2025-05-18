@@ -1497,7 +1497,7 @@
 /area/awaymission/jungle_planet/outside)
 "bXF" = (
 /obj/effect/spawner/random/dirt/often,
-/obj/effect/spawner/random/pool/spaceloot/mod/syndie,
+/obj/effect/spawner/random/pool/spaceloot/mod/syndie/gateway,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)
 "bYg" = (
@@ -1586,7 +1586,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "cdb" = (
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/obj/effect/mob_spawn/human/corpse/syndicate,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
@@ -3032,7 +3032,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "ebS" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -3878,9 +3878,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/abandoned)
 "fht" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -5423,7 +5421,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "hlm" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
 	pixel_x = 28
@@ -8367,7 +8365,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "kRO" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -10784,9 +10782,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "nSX" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -12390,7 +12386,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "qeg" = (
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/obj/effect/mob_spawn/human/corpse/syndicate,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -12964,9 +12960,8 @@
 	},
 /area/awaymission/jungle_planet/outside/cave/small)
 "qOs" = (
-/obj/structure/sink{
-	layer = 4;
-	pixel_y = 26
+/obj/structure/sink/directional/north{
+	layer = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13177,7 +13172,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "rbk" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/spiderling_remains,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -16656,9 +16651,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "vni" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/decal/cleanable/cobweb2{
 	icon_state = "cobweb1"
 	},
@@ -17975,9 +17968,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "wTj" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/machinery/light_construct/small/directional/west,
 /mob/living/simple_animal/hostile/poison_snake{
 	wander = 0
