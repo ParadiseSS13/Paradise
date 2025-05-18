@@ -133,6 +133,28 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		temp_list["max_health"] = player.maxHealth
 		cached_data["security"] += list(temp_list)
 
+	cached_data["disease_carriers"] = list()
+	cached_data["virus_data"] = list()
+	for(var/datum/disease/advance/virus in GLOB.active_diseases)
+		var/list/temp_list = list()
+		var/list/temp_list2 = list()
+		var/mob/living/carbon/player = virus.affected_mob
+		if(!player?.mind)
+			continue
+		temp_list["name"] = player.mind.name
+		temp_list["mind_uid"] = player.mind.UID()
+		temp_list["ckey"] = ckey(player.mind.key)
+		temp_list["status"] = player.stat
+		temp_list["health"] = player.health
+		temp_list["max_health"] = player.maxHealth
+		temp_list["progress"] = virus.progress
+		temp_list["patient_zero"] = virus.carrier
+		temp_list["virus_name"] = virus.name
+		temp_list["strain"] = virus.strain
+		if(!("[virus.strain]" in temp_list2))
+			temp_list2["[virus.strain]"] = english_list(virus.symptoms)
+		cached_data["disease_carriers"] += list(temp_list)
+		cached_data["virus_data"] += temp_list2
 
 /datum/ui_module/admin/antagonist_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
