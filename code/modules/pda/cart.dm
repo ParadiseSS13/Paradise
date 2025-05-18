@@ -35,7 +35,7 @@
 	icon_state = "cart-e"
 	programs = list(
 		new /datum/data/pda/app/power,
-		new /datum/data/pda/utility/scanmode/halogen
+		new /datum/data/pda/utility/scanmode/halogen,
 	)
 
 /obj/item/cartridge/atmos
@@ -43,7 +43,7 @@
 	desc = "A data cartridge for portable microcomputers. Has a gas scanner."
 	icon_state = "cart-a"
 	programs = list(
-		new /datum/data/pda/utility/scanmode/gas
+		new /datum/data/pda/utility/scanmode/gas,
 	)
 
 /obj/item/cartridge/medical
@@ -52,7 +52,7 @@
 	icon_state = "cart-m"
 	programs = list(
 		new /datum/data/pda/app/crew_records/medical,
-		new /datum/data/pda/utility/scanmode/medical
+		new /datum/data/pda/utility/scanmode/medical,
 	)
 
 /obj/item/cartridge/chemistry
@@ -60,7 +60,7 @@
 	desc = "A data cartridge for portable microcomputers. Has a reagent scanner."
 	icon_state = "cart-chem"
 	programs = list(
-		new /datum/data/pda/utility/scanmode/reagent
+		new /datum/data/pda/utility/scanmode/reagent,
 	)
 
 /obj/item/cartridge/security
@@ -69,7 +69,7 @@
 	icon_state = "cart-s"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
-		new /datum/data/pda/app/secbot_control
+		new /datum/data/pda/app/secbot_control,
 	)
 
 /obj/item/cartridge/detective
@@ -79,7 +79,7 @@
 	programs = list(
 		new /datum/data/pda/app/crew_records/medical,
 		new /datum/data/pda/utility/scanmode/medical,
-		new /datum/data/pda/app/crew_records/security
+		new /datum/data/pda/app/crew_records/security,
 	)
 
 
@@ -88,7 +88,7 @@
 	desc = "A data cartridge for portable microcomputers. Tracks custodial equipment."
 	icon_state = "cart-j"
 	programs = list(
-		new /datum/data/pda/app/janitor
+		new /datum/data/pda/app/janitor,
 	)
 
 /obj/item/cartridge/iaa
@@ -96,7 +96,7 @@
 	desc = "A data cartridge for portable microcomputers. Has security records."
 	icon_state = "cart-s"
 	programs = list(
-		new /datum/data/pda/app/crew_records/security
+		new /datum/data/pda/app/crew_records/security,
 	)
 
 /obj/item/cartridge/clown
@@ -105,7 +105,7 @@
 	icon_state = "cart-clown"
 	charges = 5
 	programs = list(
-		new /datum/data/pda/utility/honk
+		new /datum/data/pda/utility/honk,
 	)
 	messenger_plugins = list(
 		new /datum/data/pda/messenger_plugin/virus/clown
@@ -117,14 +117,14 @@
 	icon_state = "cart-mi"
 	charges = 5
 	messenger_plugins = list(
-		new /datum/data/pda/messenger_plugin/virus/mime
+		new /datum/data/pda/messenger_plugin/virus/mime,
 	)
 
 /obj/item/cartridge/signal
 	name = "generic signaler cartridge"
 	desc = "A data cartridge with an integrated radio signaler module."
 	programs = list(
-		new /datum/data/pda/app/signaller
+		new /datum/data/pda/app/signaller,
 	)
 
 /obj/item/cartridge/signal/Initialize(mapload)
@@ -204,7 +204,7 @@
 		new /datum/data/pda/app/power,
 		new /datum/data/pda/utility/scanmode/halogen,
 		new /datum/data/pda/utility/scanmode/gas,
-		new /datum/data/pda/app/status_display
+		new /datum/data/pda/app/status_display,
 	)
 
 /obj/item/cartridge/cmo
