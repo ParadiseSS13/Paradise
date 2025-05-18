@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 			R.force_modules = list("Engineering", "Medical")
 		return R
 
-	var/mob/living/carbon/human/M = new(null)
+	var/mob/living/carbon/human/M = new(spawn_location)
 
 	if(new_gender)
 		if(new_gender == "Male")
@@ -217,7 +217,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(!(M.mind in SSticker.minds))
 		SSticker.minds += M.mind //Adds them to regular mind list.
 	SSticker.mode.ert += M.mind
-	M.forceMove(spawn_location)
 
 	SSjobs.CreateMoneyAccount(M, role, null)
 

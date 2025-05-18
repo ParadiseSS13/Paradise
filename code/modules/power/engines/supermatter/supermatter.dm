@@ -218,6 +218,8 @@
 	var/processes = TRUE
 
 	//vars used for supermatter events (Anomalous crystal activityw)
+	/// Can this crystal run supermatter events?
+	var/crystal_can_run_events = TRUE
 	/// Do we have an active event?
 	var/datum/engi_event/supermatter_event/event_active
 	///flat multiplies the amount of gas released by the SM.
@@ -1025,7 +1027,7 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/shard/engine
 	name = "anchored supermatter shard"
-	is_main_engine = TRUE
+	crystal_can_run_events = FALSE // Do not make the crystal begin to delaminate whilst it's still docked at CC.
 	anchored = TRUE
 	moveable = FALSE
 
@@ -1228,6 +1230,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
 	if(!has_been_powered)
+		return
+	if(!crystal_can_run_events)
 		return
 	if(!next_event_time) // for when the SM starts
 		make_next_event_time()

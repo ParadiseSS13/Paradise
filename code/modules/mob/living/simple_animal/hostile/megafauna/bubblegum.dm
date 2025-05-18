@@ -637,6 +637,9 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/try_bloodattack()
 	return
 
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/drop_loot()
+	return
+
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2
 	desc = "Oh they are PISSED. And quite injured too..."
 	health = 750

@@ -28142,6 +28142,15 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/surgery/observation)
+"cfG" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/singulo_monitor{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/control)
 "cfI" = (
 /obj/effect/turf_decal/delivery/blue/hollow,
 /obj/machinery/sleeper,
@@ -132777,7 +132786,7 @@ cSU
 cSU
 dtq
 ouM
-cXP
+cfG
 cYC
 cZL
 daK
