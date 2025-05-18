@@ -114,65 +114,67 @@
 	to_chat(user, "<span class='notice'>You start collecting evidence.</span>")
 	if(do_after(user, 2 SECONDS, target = user))
 		var/list/choices = list()
-		if(A.blood_DNA)
-			choices |= "Blood"
-		var/list/turf_blood = list()
-		if (issimulatedturf(A))
+		var/list/found_blood = list()
+		if(issimulatedturf(A))
 			for(var/obj/effect/decal/cleanable/blood/B in A.contents)
-				if(B.blood_DNA)
-					turf_blood |= B.blood_DNA
-					choices	 |= "Blood"
-
-		if(istype(A, /obj/item/clothing/gloves))
-			choices |= "Gunpowder particles"
-
-		var/choice
-		if(!length(choices))
-			to_chat(user, "<span class='warning'>There is no evidence on [A].</span>")
-			inuse = FALSE
-			return
-		else if(length(choices) == 1)
-			choice = choices[1]
+				found_blood |= B.blood_DNA
+			for(var/obj/effect/decal/cleanable/trail_holder/B in A.contents)
+				found_blood |= B.blood_DNA
+		else if(isliving(A))
+			found_blood |= astype(A, /mob/living).get_blood_dna_list()
 		else
-			choice = tgui_input_list(user, "What evidence are you looking for?", "Collection of evidence", choices)
+			if(A.blood_DNA)
+				found_blood |= A.blood_DNA
 
-		if(!choice)
-			inuse = FALSE
-			return
+			if(length(found_blood))
+				choices |= "Blood"
+			if(istype(A, /obj/item/clothing/gloves))
+				choices |= "Gunpowder particles"
 
-		var/sample_type
-		var/target_dna
-		var/target_gsr
-		if(choice == "Blood")
-			sample_type = "blood"
-		if(A.blood_DNA)
-			target_dna = A.blood_DNA.Copy()
-		if(turf_blood)
-			turf_blood.Copy()
-
-		else if(choice == "gunpowder particles")
-			var/obj/item/clothing/B = A
-			if(!istype(B) || !B.gunshot_residue)
-				to_chat(user, "<span class='warning'>There is not a hint of gunpowder on [A].</span>")
+			var/choice
+			if(!length(choices))
+				to_chat(user, "<span class='warning'>There is no evidence on [A].</span>")
 				inuse = FALSE
 				return
-			target_gsr = B.gunshot_residue
-			sample_type = "powder"
-
-		if(sample_type)
-			user.visible_message(
-				"<span class='notice'>[user] takes a swab from [A] for analysis.</span>",
-				"<span class='notice'>You take a swab from [A] for analysis.</span>")
-			if(!dispenser)
-				dna = target_dna
-				gsr = target_gsr
-				set_used(sample_type, A)
+			else if(length(choices) == 1)
+				choice = choices[1]
 			else
-				var/obj/item/forensics/swab/S = new(get_turf(user))
-				S.dna = target_dna
-				S.gsr = target_gsr
-				S.set_used(sample_type, A)
-	inuse = FALSE
+				choice = tgui_input_list(user, "What evidence are you looking for?", "Collection of evidence", choices)
+
+			if(!choice)
+				inuse = FALSE
+				return
+
+			var/sample_type
+			var/target_dna
+			var/target_gsr
+			if(choice == "Blood")
+				target_dna = found_blood
+				sample_type = "blood"
+
+			else if(choice == "gunpowder particles")
+				var/obj/item/clothing/B = A
+				if(!istype(B) || !B.gunshot_residue)
+					to_chat(user, "<span class='warning'>There is not a hint of gunpowder on [A].</span>")
+					inuse = FALSE
+					return
+				target_gsr = B.gunshot_residue
+				sample_type = "powder"
+
+			if(sample_type)
+				user.visible_message(
+					"<span class='notice'>[user] takes a swab from [A] for analysis.</span>",
+					"<span class='notice'>You take a swab from [A] for analysis.</span>")
+				if(!dispenser)
+					dna = target_dna
+					gsr = target_gsr
+					set_used(sample_type, A)
+				else
+					var/obj/item/forensics/swab/S = new(get_turf(user))
+					S.dna = target_dna
+					S.gsr = target_gsr
+					S.set_used(sample_type, A)
+		inuse = FALSE
 
 /obj/item/forensics/swab/proc/set_used(sample_str, atom/source)
 	name = ("[initial(name)] ([sample_str] - [source])")
