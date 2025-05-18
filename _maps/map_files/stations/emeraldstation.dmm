@@ -1192,6 +1192,13 @@
 	icon_state = "whitepurplefull"
 	},
 /area/station/turret_protected/ai_upload)
+"anS" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "anV" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -8705,6 +8712,16 @@
 	icon_state = "white"
 	},
 /area/station/medical/sleeper)
+"bKT" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/silver,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "bKW" = (
 /obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel{
@@ -12538,6 +12555,13 @@
 	},
 /turf/simulated/floor/engine/airless/nodecay,
 /area/station/engineering/atmos/asteroid_filtering)
+"cyF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "cyI" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -14923,6 +14947,13 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/central/sw)
+"cYo" = (
+/obj/machinery/ai_node/network_node,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "cYq" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -16156,6 +16187,10 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"dlM" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "dlO" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/random/maintenance,
@@ -25160,6 +25195,10 @@
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/aft2)
+"fbU" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "fcb" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
@@ -27661,6 +27700,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/ai_monitored/storage/eva)
+"fyV" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall,
+/area/station/maintenance/abandonedservers)
 "fyW" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -30511,8 +30554,11 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 10
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
@@ -43884,6 +43930,10 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/transmission_laser)
+"iLC" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/station/maintenance/abandonedservers)
 "iLD" = (
 /obj/structure/railing{
 	dir = 4
@@ -48297,6 +48347,11 @@
 	icon_state = "white"
 	},
 /area/station/command/office/rd)
+"jEE" = (
+/obj/structure/machine_frame,
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "jER" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "coroner"
@@ -50788,6 +50843,10 @@
 "kdI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "kdJ" = (
@@ -61499,6 +61558,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"mqR" = (
+/turf/simulated/wall,
+/area/station/maintenance/abandonedservers)
 "mqT" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 9
@@ -63153,6 +63215,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
+"mKj" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "mKm" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/characters,
@@ -69332,6 +69399,16 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
+"nSm" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/gold,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "nSu" = (
 /obj/structure/chair/stool,
 /obj/machinery/camera{
@@ -70685,6 +70762,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"ofz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/abandonedservers)
 "ofA" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -71153,6 +71239,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"ojS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/abandonedservers)
 "ojT" = (
 /obj/structure/closet/secure_closet/medical3,
 /turf/simulated/floor/plasteel{
@@ -76319,6 +76413,15 @@
 	},
 /turf/simulated/floor/engine/asteroid,
 /area/station/engineering/atmos/asteroid_core)
+"pid" = (
+/obj/structure/table,
+/obj/item/stack/cable_coil/random,
+/obj/effect/spawner/random/maintenance,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "pif" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -79747,6 +79850,12 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/medical/break_room)
+"pTF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "pTR" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -88531,9 +88640,12 @@
 	},
 /area/station/security/permabrig)
 "rIH" = (
-/obj/structure/table,
 /obj/effect/spawner/random/maintenance,
 /obj/item/melee/baseball_bat,
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "rIT" = (
@@ -90442,6 +90554,15 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/engineering/atmos/asteroid_filtering)
+"rZc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "rZe" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	name = "Gas to Cooling Loop"
@@ -95799,6 +95920,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/public/fitness)
+"tec" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "tei" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/lifestar,
@@ -106010,6 +106139,11 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/apmaint)
+"vgb" = (
+/obj/item/mounted/frame/apc_frame,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/abandonedservers)
 "vgc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -106237,15 +106371,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/hallway/primary/aft)
-"vjj" = (
-/obj/structure/table,
-/obj/effect/spawner/random/cobweb/right/rare,
-/obj/item/storage/toolbox/mechanical,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "vjr" = (
 /obj/machinery/suit_storage_unit/cmo/secure,
 /obj/item/toy/figure/crew/cmo{
@@ -115751,6 +115876,13 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/security/brig)
+"xgt" = (
+/obj/machinery/ai_node/network_node,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "xgu" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "o2_sensor"
@@ -117819,6 +117951,15 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/engine)
+"xAq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "xAz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/partial,
@@ -176034,14 +176175,14 @@ jnP
 aZS
 jnP
 jnP
-jnP
-nuJ
-nuJ
-nuJ
-nuJ
+mqR
+mqR
+mqR
+mqR
+mqR
 nuJ
 jMq
-hzR
+pTF
 vYY
 dmn
 hXr
@@ -176291,14 +176432,14 @@ aZS
 aZS
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-nuJ
+mqR
+jEE
+pid
+tec
+mqR
 rIH
-dZk
-dZk
+xAq
+cyF
 kdI
 gdt
 dpq
@@ -176548,13 +176689,13 @@ aZS
 jnP
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-nuJ
-vjj
-dZk
+dlM
+anS
+fbU
+ojS
+ofz
+cyF
+rZc
 vkZ
 ybH
 wTf
@@ -176805,11 +176946,11 @@ aZS
 aZS
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-nuJ
+mqR
+cYo
+vgb
+bKT
+fyV
 bAR
 dlb
 bAR
@@ -177062,11 +177203,11 @@ jnP
 aZS
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-nuJ
+mqR
+nSm
+mKj
+xgt
+mqR
 xFv
 oVd
 xFv
@@ -177319,11 +177460,11 @@ jnP
 aZS
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-nuJ
+mqR
+mqR
+dlM
+iLC
+mqR
 xFv
 lBf
 xFv
