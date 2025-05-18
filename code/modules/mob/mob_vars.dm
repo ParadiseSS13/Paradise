@@ -251,4 +251,6 @@
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
 
+	///gunshot residue for det work
+	var/gunshot_residue
 	new_attack_chain = TRUE

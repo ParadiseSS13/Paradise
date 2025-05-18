@@ -204,6 +204,7 @@
 	new /obj/item/storage/bag/garment/detective(src)
 	new /obj/item/storage/belt/security(src)
 	new /obj/item/storage/box/evidence(src)
+	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/taperecorder(src)
 
