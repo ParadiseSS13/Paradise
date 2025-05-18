@@ -259,7 +259,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "be" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
