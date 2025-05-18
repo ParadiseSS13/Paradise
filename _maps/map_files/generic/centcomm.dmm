@@ -4575,7 +4575,7 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "qk" = (
-/obj/machinery/cooking/deepfryer,
+/obj/machinery/cooking/deepfryer/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -13362,7 +13362,7 @@
 /area/centcom/evac)
 "Vh" = (
 /obj/structure/table/reinforced,
-/obj/machinery/cooking/grill,
+/obj/machinery/cooking/grill/upgraded,
 /obj/item/stack/sheet/wood{
 	amount = 30
 	},
@@ -13578,7 +13578,7 @@
 	},
 /area/shuttle/escape)
 "VW" = (
-/obj/machinery/cooking/ice_cream_mixer,
+/obj/machinery/cooking/ice_cream_mixer/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
