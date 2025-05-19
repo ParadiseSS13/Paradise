@@ -55823,7 +55823,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/station/service/bar)
+/area/station/maintenance/fsmaint)
 "hag" = (
 /turf/simulated/floor/wood/fancy,
 /area/station/legal/courtroom/gallery)
@@ -83560,7 +83560,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
-/area/station/service/hydroponics)
+/area/station/service/kitchen)
 "qzV" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/turf_decal/delivery/red/hollow,
