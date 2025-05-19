@@ -9,7 +9,7 @@
 	/// Linked magma crucible
 	var/obj/machinery/magma_crucible/linked_crucible
 	/// Access to claim points
-	var/req_access_claim = ACCESS_MINING_STATION
+	var/list/req_access_claim = list(ACCESS_MINING_STATION, ACCESS_FREE_GOLEMS)
 	/// The number of unclaimed points.
 	var/points = 0
 	/// Point multiplier
@@ -43,6 +43,10 @@
 		linked_crucible.linked_machines |= src
 		return
 
+/obj/machinery/mineral/smart_hopper/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>There are currently [points] claimable points. [points ? "Swipe your ID to claim them." : ""]</span>"
+
 /obj/machinery/mineral/smart_hopper/update_overlays()
 	. = ..()
 	overlays.Cut()
@@ -54,9 +58,9 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/mineral/smart_hopper/RefreshParts()
-	var/point_mult = BASE_POINT_MULT
+	var/point_mult = SMITHING_BASE_POINT_MULT
 	for(var/obj/item/stock_parts/component in component_parts)
-		point_mult += POINT_MULT_ADD_PER_RATING * component.rating
+		point_mult += SMITHING_POINT_MULT_ADD_PER_RATING * component.rating
 	// Update our values
 	point_upgrade = point_mult
 	SStgui.update_uis(src)
@@ -97,12 +101,16 @@
 		if(!points)
 			to_chat(user, "<span class='warning'>There are no points to claim.</span>");
 			return ITEM_INTERACT_COMPLETE
-		if(anyone_claim || (req_access_claim in ID.access))
-			ID.mining_points += points
-			ID.total_mining_points += points
-			to_chat(user, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
-			points = 0
-		else
+		var/claimed = FALSE
+		for(var/access in req_access_claim)
+			if(anyone_claim || (access in ID.access))
+				ID.mining_points += points
+				ID.total_mining_points += points
+				to_chat(user, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!</span>")
+				points = 0
+				claimed = TRUE
+				break
+		if(!claimed)
 			to_chat(user, "<span class='warning'>Required access not found.</span>")
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE

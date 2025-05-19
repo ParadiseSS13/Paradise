@@ -146,9 +146,11 @@
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE
 	//Flies right over the chasm
+	if(HAS_TRAIT(AM, TRAIT_FLYING))
+		return FALSE
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(HAS_TRAIT(M, TRAIT_FLYING) || M.floating)
+		if(M.floating)
 			return FALSE
 		if(istype(M.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
 			return FALSE
@@ -316,13 +318,6 @@
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, border_dir)
 	return TRUE
-
-/turf/simulated/floor/chasm/pride/Initialize(mapload)
-	. = ..()
-	drop_x = x
-	drop_y = y
-	var/list/target_z = levels_by_trait(SPAWN_RUINS)
-	drop_z = pick(target_z)
 
 /turf/simulated/floor/chasm/space_ruin
 	/// Used to keep count of how many times we checked if our target turf was valid.

@@ -53,11 +53,3 @@
 		if(length(speak_verbs))
 			speak_verb = pick(speak_verbs)
 		controller.queue_behavior(/datum/ai_behavior/perform_speech, pick(speak), sound_to_play, speak_verb)
-
-/datum/ai_planning_subtree/random_speech/cow
-	speech_chance = 2
-	speak = list("Moo?", "Moo", "MOOOOOO")
-	speak_verbs = list("moos", "moos hauntingly")
-	sound = list('sound/creatures/cow.ogg')
-	emote_hear = list("brays.")
-	emote_see = list("shakes her head.")

@@ -45,17 +45,19 @@
 	desc = "A crate designed for safe transport of animals. The contents are a mystery."
 
 /obj/structure/closet/critter/random/populate_contents()
-	content_mob = pick(/mob/living/simple_animal/pet/dog/corgi,
-	/mob/living/simple_animal/pet/dog/corgi/lisa,
+	content_mob = pick(
 	/mob/living/basic/cow,
-	/mob/living/simple_animal/pig,
+	/mob/living/basic/deer,
+	/mob/living/basic/pig,
+
+	/mob/living/simple_animal/pet/dog/corgi,
+	/mob/living/simple_animal/pet/dog/corgi/lisa,
 	/mob/living/simple_animal/hostile/retaliate/goat,
 	/mob/living/simple_animal/turkey,
 	/mob/living/simple_animal/chick,
 	/mob/living/simple_animal/pet/cat,
 	/mob/living/simple_animal/pet/dog/pug,
 	/mob/living/simple_animal/pet/dog/fox,
-	/mob/living/simple_animal/deer,
 	/mob/living/simple_animal/bunny)
 
 /obj/structure/closet/critter/corgi
@@ -72,7 +74,7 @@
 
 /obj/structure/closet/critter/pig
 	name = "pig crate"
-	content_mob = /mob/living/simple_animal/pig
+	content_mob = /mob/living/basic/pig
 
 /obj/structure/closet/critter/goat
 	name = "goat crate"
@@ -115,7 +117,7 @@
 
 /obj/structure/closet/critter/deer
 	name = "deer crate"
-	content_mob = /mob/living/simple_animal/deer
+	content_mob = /mob/living/basic/deer
 
 /obj/structure/closet/critter/bunny
 	name = "bunny crate"

@@ -6,7 +6,7 @@ import { capitalize } from 'common/string';
 export const AugmentMenu = (props, context) => {
   return (
     <Window width={700} height={660} theme="malfunction">
-      <Window.Content>
+      <Window.Content scrollable>
         <Stack vertical>
           <Abilities context={context} />
         </Stack>

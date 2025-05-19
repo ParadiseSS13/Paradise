@@ -218,7 +218,6 @@
 #define RUSTLIBS_JOB_NO_SUCH_JOB "NO SUCH JOB"
 #define RUSTLIBS_JOB_ERROR "JOB PANICKED"
 
-#undef RUSTLIB
 #undef RUSTLIB_CALL
 
 // Indexes for Tiles and InterestingTiles

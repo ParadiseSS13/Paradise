@@ -435,9 +435,10 @@
 #define INVESTIGATE_SINGULO "singulo"
 #define INVESTIGATE_SUPERMATTER "supermatter"
 #define INVESTIGATE_WIRES "wires"
+#define INVESTIGATE_DEATHS "deaths"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 66
+#define SQL_VERSION 67
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -742,3 +743,17 @@ do { \
 ///  Economy account defines
 #define BANK_PIN_MIN 10000
 #define BANK_PIN_MAX 99999
+
+//! The number of seconds between the start of the UNIX and BYOND epochs.
+#define BYOND_EPOCH_UNIX 946702800
+
+// Use this define to register something as a purchasable!
+// * n — The proper name of the purchasable
+// * o — The object type path of the purchasable to spawn
+// * p — The price of the purchasable in mining points
+#define EQUIPMENT(n, o, p) n = new /datum/data/mining_equipment(n, o, p)
+
+#define BRIDGE_SPAWN_SUCCESS 0
+#define BRIDGE_SPAWN_TOO_WIDE 1
+#define BRIDGE_SPAWN_TOO_NARROW 2
+#define BRIDGE_SPAWN_BAD_TERRAIN 3
