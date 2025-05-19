@@ -360,6 +360,7 @@
 	else
 		health = 0
 		icon_state = icon_dead
+		update_icon(UPDATE_ICON_STATE)
 		if(flip_on_death)
 			transform = transform.Turn(180)
 		density = FALSE
