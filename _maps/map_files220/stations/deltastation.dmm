@@ -679,7 +679,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/mechanic)
 "afG" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/grimy,
@@ -2467,8 +2467,8 @@
 	},
 /area/station/command/customs)
 "apY" = (
-/obj/structure/chair/office,
 /obj/machinery/light/directional/north,
+/obj/structure/chair,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aqa" = (
@@ -8754,7 +8754,7 @@
 /area/station/supply/office)
 "aMd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -8915,14 +8915,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/unisex)
 "aNb" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/structure/chair{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
@@ -15470,7 +15470,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -19828,10 +19828,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/main)
 "bHZ" = (
-/obj/structure/chair/office{
+/obj/machinery/firealarm/directional/west,
+/obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -25153,7 +25153,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain/bedroom)
 "cax" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -25186,10 +25186,10 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/chair/office,
 /obj/machinery/camera{
 	c_tag = "Courtroom North"
 	},
+/obj/structure/chair,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "caC" = (
@@ -25820,7 +25820,7 @@
 /obj/structure/railing{
 	dir = 6
 	},
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "cct" = (
@@ -26317,7 +26317,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/legal/magistrate)
 "cer" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -26712,7 +26712,7 @@
 	},
 /area/station/supply/qm)
 "cgf" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -28723,7 +28723,7 @@
 /obj/structure/railing{
 	dir = 5
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -30340,8 +30340,8 @@
 /area/station/maintenance/port2)
 "cws" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/chair/office,
 /obj/machinery/light/directional/north,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -34966,7 +34966,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cQJ" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -35808,7 +35808,7 @@
 /turf/space,
 /area/station/engineering/solar/aft_starboard)
 "cTO" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -38602,13 +38602,13 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
 "dht" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Courtroom South";
 	dir = 1;
 	start_active = 1
+	},
+/obj/structure/chair{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
@@ -39074,7 +39074,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "djm" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -40516,7 +40516,7 @@
 /area/station/medical/chemistry)
 "dqv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -40763,7 +40763,7 @@
 /turf/simulated/floor/wood/parquet/tile/oak,
 /area/station/command/office/ntrep)
 "drq" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -45391,7 +45391,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/funeral)
 "dQZ" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -49999,7 +49999,7 @@
 /area/station/science/xenobiology)
 "eOZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -52809,7 +52809,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/maintenance/fsmaint)
 "fMj" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "fMM" = (
@@ -56706,7 +56706,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "gYJ" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -58351,7 +58351,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -58648,14 +58648,14 @@
 	},
 /area/station/maintenance/apmaint)
 "hFq" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/chair{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -59229,7 +59229,7 @@
 /area/station/service/hydroponics)
 "hNV" = (
 /obj/structure/railing,
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "hOf" = (
@@ -65159,8 +65159,8 @@
 	},
 /area/station/service/bar/atrium)
 "jEo" = (
-/obj/structure/chair/office,
 /obj/machinery/alarm/directional/north,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -73171,7 +73171,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "mgl" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -80247,7 +80247,7 @@
 	},
 /area/station/maintenance/port)
 "oll" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -82740,10 +82740,10 @@
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "pbt" = (
-/obj/structure/chair/office{
+/obj/machinery/light/directional/south,
+/obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/light/directional/south,
 /turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "pbz" = (
@@ -83082,14 +83082,14 @@
 	},
 /area/station/security/permabrig)
 "phI" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -84840,7 +84840,7 @@
 /area/station/public/toilet)
 "pIa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -85228,7 +85228,7 @@
 	},
 /area/station/public/locker)
 "pNv" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "pNz" = (
@@ -85780,7 +85780,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dormitory_maintenance)
 "pXz" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -85820,8 +85820,8 @@
 /turf/simulated/floor/carpet,
 /area/station/service/bar/atrium)
 "pYb" = (
-/obj/structure/chair/office,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/interrogation/observation)
 "pYc" = (
@@ -88630,10 +88630,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "qQL" = (
-/obj/structure/chair/office{
+/obj/structure/sign/poster/official/random/directional/south,
+/obj/structure/chair{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -91601,7 +91601,7 @@
 "rNL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -99060,7 +99060,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -101852,7 +101852,7 @@
 	},
 /area/station/public/locker)
 "uXf" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -103191,14 +103191,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "vxH" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/chair{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -105826,7 +105826,7 @@
 	},
 /area/station/science/storage)
 "wpT" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -106232,10 +106232,10 @@
 	},
 /area/station/engineering/hallway)
 "wyf" = (
-/obj/structure/chair/office{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -109850,11 +109850,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "xCs" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -110499,11 +110499,11 @@
 	},
 /area/station/public/toilet)
 "xLL" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
+	},
+/obj/structure/chair{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
