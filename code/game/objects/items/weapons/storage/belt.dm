@@ -327,6 +327,9 @@
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,
 		/obj/item/detective_scanner,
+		/obj/item/sample/print,
+		/obj/item/forensics/swab,
+		/obj/item/forensics/sample_kit,
 	)
 
 /obj/item/storage/belt/security/full/populate_contents()
