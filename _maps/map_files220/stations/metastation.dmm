@@ -509,7 +509,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "agh" = (
-/obj/machinery/light/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/requests_console/directional/west,
 /obj/structure/cable/yellow{
@@ -10058,6 +10057,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/jcloset,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "aWi" = (
@@ -15503,10 +15503,9 @@
 /area/station/procedure/trainer_office)
 "bmR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/directional/west,
-/obj/structure/janitorialcart,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom/directional/east,
+/obj/structure/janitorialcart/full,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "bmT" = (
@@ -42957,12 +42956,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/l3closet/janitor,
 /obj/structure/reagent_dispensers/spacecleanertank/directional/north,
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Custodial Closet";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "eow" = (
@@ -44755,6 +44753,7 @@
 "fhz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/vehicle/janicart,
+/obj/machinery/light_switch/south,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "fhC" = (
@@ -74646,10 +74645,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "ufr" = (
-/obj/machinery/camera{
-	c_tag = "Custodial Closet";
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/janitor,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -74658,6 +74653,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "ufw" = (

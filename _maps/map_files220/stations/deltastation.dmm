@@ -93857,8 +93857,8 @@
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
 "sxf" = (
-/obj/structure/janitorialcart,
 /obj/item/mop,
+/obj/structure/janitorialcart/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
