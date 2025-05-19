@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Box, Button, Icon, Input, LabeledList, ProgressBar, Section, Stack, Table, Tabs } from 'tgui-core/components';
 import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
 
@@ -7,6 +7,7 @@ import { Window } from '../layouts';
 import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
+import SortableTableContext from './common/SortableTableContext';
 import { TemporaryNotice } from './common/TemporaryNotice';
 
 const severities = {
@@ -99,12 +100,17 @@ export const MedicalRecords = (_properties) => {
   );
 };
 
-const MedicalRecordsList = (_properties) => {
+const MedicalRecordsList = () => (
+  <SortableTableContext.Default sortId="name">
+    <MedicalRecordsListBase />
+  </SortableTableContext.Default>
+);
+
+const MedicalRecordsListBase = (_properties) => {
   const { act, data } = useBackend();
   const { records } = data;
   const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('name');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { sortId, sortOrder } = useContext(SortableTableContext);
   return (
     <>
       <Stack.Item>
@@ -373,12 +379,17 @@ const MedicalRecordsViewComments = (_properties) => {
   );
 };
 
-const MedicalRecordsViruses = (_properties) => {
+const MedicalRecordsViruses = () => (
+  <SortableTableContext.Default sortId="name">
+    <MedicalRecordsVirusesBase />
+  </SortableTableContext.Default>
+);
+
+const MedicalRecordsVirusesBase = (_properties) => {
   const { act, data } = useBackend();
   const { virus } = data;
   const [searchText, setSearchText] = useState('');
-  const [sortId2, _setSortId2] = useState('name');
-  const [sortOrder2, _setSortOrder2] = useState(true);
+  const { sortId, sortOrder } = useContext(SortableTableContext);
   return (
     <>
       <Stack.Item grow>
@@ -394,9 +405,9 @@ const MedicalRecordsViruses = (_properties) => {
           <Section fill scrollable>
             <Table className="MedicalRecords__list">
               <Table.Row bold>
-                <SortButton2 id="name">Name</SortButton2>
-                <SortButton2 id="max_stages">Max Stages</SortButton2>
-                <SortButton2 id="severity">Severity</SortButton2>
+                <SortButton id="name">Name</SortButton>
+                <SortButton id="max_stages">Max Stages</SortButton>
+                <SortButton id="severity">Severity</SortButton>
               </Table.Row>
               {virus
                 .filter(
@@ -405,8 +416,8 @@ const MedicalRecordsViruses = (_properties) => {
                   })
                 )
                 .sort((a, b) => {
-                  const i = sortOrder2 ? 1 : -1;
-                  return a[sortId2].localeCompare(b[sortId2]) * i;
+                  const i = sortOrder ? 1 : -1;
+                  return a[sortId].localeCompare(b[sortId]) * i;
                 })
                 .map((vir) => (
                   <Table.Row
@@ -526,8 +537,7 @@ const MedicalRecordsMedbots = (_properties) => {
 };
 
 const SortButton = (properties) => {
-  const [sortId, setSortId] = useState('name');
-  const [sortOrder, setSortOrder] = useState(true);
+  const { sortId, setSortId, sortOrder, setSortOrder } = useContext(SortableTableContext);
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -545,31 +555,6 @@ const SortButton = (properties) => {
       >
         {children}
         {sortId === id && <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />}
-      </Button>
-    </Table.Cell>
-  );
-};
-
-const SortButton2 = (properties) => {
-  const [sortId2, setSortId2] = useState('name');
-  const [sortOrder2, setSortOrder2] = useState(true);
-  const { id, children } = properties;
-  return (
-    <Table.Cell>
-      <Button
-        fluid
-        color={sortId2 !== id && 'transparent'}
-        onClick={() => {
-          if (sortId2 === id) {
-            setSortOrder2(!sortOrder2);
-          } else {
-            setSortId2(id);
-            setSortOrder2(true);
-          }
-        }}
-      >
-        {children}
-        {sortId2 === id && <Icon name={sortOrder2 ? 'sort-up' : 'sort-down'} ml="0.25rem;" />}
       </Button>
     </Table.Cell>
   );

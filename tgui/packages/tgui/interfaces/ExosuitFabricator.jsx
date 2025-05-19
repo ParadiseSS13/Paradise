@@ -30,6 +30,7 @@ const iconNameOverrides = {
 export const ExosuitFabricator = (properties) => {
   const { act, data } = useBackend();
   const { building, linked } = data;
+  const [showLevelsModal, setShowLevelsModal] = useState(false);
 
   if (!linked) {
     return <LinkMenu />;
@@ -38,12 +39,12 @@ export const ExosuitFabricator = (properties) => {
   return (
     <Window width={950} height={625}>
       <Window.Content className="Exofab">
-        <LevelsModal />
+        <LevelsModal showLevelsModal={showLevelsModal} setShowLevelsModal={setShowLevelsModal} />
         <Stack fill>
           <Stack.Item grow>
             <Stack fill vertical>
               <Stack.Item grow>
-                <Designs />
+                <Designs setShowLevelsModal={setShowLevelsModal} />
               </Stack.Item>
               {building && (
                 <Stack.Item>
@@ -122,7 +123,7 @@ const Designs = (properties) => {
     return design.name;
   });
   const filteredDesigns = designs.filter(searcher);
-  const [showLevelsModal, setShowLevelsModal] = useState(false);
+  const { setShowLevelsModal } = properties;
   return (
     <Section
       fill
@@ -397,7 +398,7 @@ const LevelsModal = (properties) => {
   const { act, data } = useBackend();
   const { tech_levels } = data;
 
-  const [showLevelsModal, setShowLevelsModal] = useState(false);
+  const { showLevelsModal, setShowLevelsModal } = properties;
 
   if (showLevelsModal) {
     return (

@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Box, Button, Icon, Input, NoticeBox, ProgressBar, Section, Stack, Table, Tabs } from 'tgui-core/components';
 import { createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import SearchableTableContext from './common/SearchableTableContext';
+import SortableTableContext from './common/SortableTableContext';
+import TabsContext from './common/TabsContext';
 
 const PickTitle = (index) => {
   switch (index) {
@@ -36,10 +39,6 @@ const PickTab = (index) => {
 };
 
 export const AdminAntagMenu = (properties) => {
-  const { act, data } = useBackend();
-  const { loginState, currentPage } = data;
-  const [tabIndex, setTabIndex] = useState(0);
-  const [searchText, setSearchText] = useState('');
   return (
     <Window width={800} height={600}>
       <Window.Content scrollable>
@@ -49,79 +48,108 @@ export const AdminAntagMenu = (properties) => {
               This menu is a Work in Progress. Some antagonists like Nuclear Operatives and Biohazards will not show up.
             </NoticeBox>
           </Stack.Item>
-          <Stack.Item>
-            <Tabs>
-              <Tabs.Tab
-                key="Antagonists"
-                selected={tabIndex === 0}
-                onClick={() => {
-                  setTabIndex(0);
-                }}
-                icon="user"
-              >
-                Antagonists
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="Objectives"
-                selected={tabIndex === 1}
-                onClick={() => {
-                  setTabIndex(1);
-                }}
-                icon="people-robbery"
-              >
-                Objectives
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="Security"
-                selected={tabIndex === 2}
-                onClick={() => {
-                  setTabIndex(2);
-                }}
-                icon="handcuffs"
-              >
-                Security
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="HighValueItems"
-                selected={tabIndex === 3}
-                onClick={() => {
-                  setTabIndex(3);
-                }}
-                icon="lock"
-              >
-                High Value Items
-              </Tabs.Tab>
-            </Tabs>
-          </Stack.Item>
-          <Stack.Item grow>
-            <Section
-              title={PickTitle(tabIndex)}
-              fill
-              scrollable
-              buttons={
-                <Stack fill>
-                  <Input width="300px" placeholder="Search..." onChange={(value) => setSearchText(value)} />
-                  <Button icon="sync" onClick={() => act('refresh')}>
-                    Refresh
-                  </Button>
-                </Stack>
-              }
-            >
-              {PickTab(tabIndex)}
-            </Section>
-          </Stack.Item>
+          <TabsContext.Default tabIndex={0}>
+            <Stack.Item>
+              <AdminAntagMenuNavigation />
+            </Stack.Item>
+            <Stack.Item grow>
+              <AdminAntagMenuContent />
+            </Stack.Item>
+          </TabsContext.Default>
         </Stack>
       </Window.Content>
     </Window>
   );
 };
 
-const AntagList = (properties) => {
+const AdminAntagMenuNavigation = () => {
+  const { tabIndex, setTabIndex } = useContext(TabsContext);
+  return (
+    <Tabs>
+      <Tabs.Tab
+        key="Antagonists"
+        selected={tabIndex === 0}
+        onClick={() => {
+          setTabIndex(0);
+        }}
+        icon="user"
+      >
+        Antagonists
+      </Tabs.Tab>
+      <Tabs.Tab
+        key="Objectives"
+        selected={tabIndex === 1}
+        onClick={() => {
+          setTabIndex(1);
+        }}
+        icon="people-robbery"
+      >
+        Objectives
+      </Tabs.Tab>
+      <Tabs.Tab
+        key="Security"
+        selected={tabIndex === 2}
+        onClick={() => {
+          setTabIndex(2);
+        }}
+        icon="handcuffs"
+      >
+        Security
+      </Tabs.Tab>
+      <Tabs.Tab
+        key="HighValueItems"
+        selected={tabIndex === 3}
+        onClick={() => {
+          setTabIndex(3);
+        }}
+        icon="lock"
+      >
+        High Value Items
+      </Tabs.Tab>
+    </Tabs>
+  );
+};
+
+const AdminAntagMenuContent = () => (
+  <SearchableTableContext.Default>
+    <AdminAntagMenuContentBase />
+  </SearchableTableContext.Default>
+);
+
+const AdminAntagMenuContentBase = () => {
+  const { act } = useBackend();
+  const { tabIndex } = useContext(TabsContext);
+  const { setSearchText } = useContext(SearchableTableContext);
+  return (
+    <Section
+      title={PickTitle(tabIndex)}
+      fill
+      scrollable
+      buttons={
+        <Stack fill>
+          <Input width="300px" placeholder="Search..." onChange={(value) => setSearchText(value)} />
+          <Button icon="sync" onClick={() => act('refresh')}>
+            Refresh
+          </Button>
+        </Stack>
+      }
+    >
+      {PickTab(tabIndex)}
+    </Section>
+  );
+};
+
+const AntagList = () => (
+  <SortableTableContext.Default sortId="antag_name">
+    <AntagListBase />
+  </SortableTableContext.Default>
+);
+
+const AntagListBase = (properties) => {
   const { act, data } = useBackend();
   const { antagonists } = data;
-  const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('antag_name');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { searchText } = useContext(SearchableTableContext);
+  const { sortId, sortOrder } = useContext(SortableTableContext);
   if (!antagonists.length) {
     return 'No Antagonists!';
   }
@@ -219,12 +247,17 @@ const AntagList = (properties) => {
   );
 };
 
-const Objectives = (properties) => {
+const Objectives = () => (
+  <SortableTableContext.Default sortId="target_name">
+    <ObjectivesBase />
+  </SortableTableContext.Default>
+);
+
+const ObjectivesBase = (properties) => {
   const { act, data } = useBackend();
   const { objectives } = data;
-  const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('target_name');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { searchText } = useContext(SearchableTableContext);
+  const { sortId, sortOrder } = useContext(SortableTableContext);
   if (!objectives.length) {
     return 'No Objectives!';
   }
@@ -324,12 +357,17 @@ const Objectives = (properties) => {
   );
 };
 
-const Security = (properties) => {
+const Security = () => (
+  <SortableTableContext.Default sortId="health">
+    <SecurityBase />
+  </SortableTableContext.Default>
+);
+
+const SecurityBase = (properties) => {
   const { act, data } = useBackend();
   const { security } = data;
-  const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('health');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { searchText } = useContext(SearchableTableContext);
+  const { sortId, sortOrder } = useContext(SortableTableContext);
 
   const getColor = (officer) => {
     if (officer.status === 2) {
@@ -485,12 +523,17 @@ const Security = (properties) => {
   );
 };
 
-const HighValueItems = (properties) => {
+const HighValueItems = () => (
+  <SortableTableContext.Default sortId="person">
+    <HighValueItemsBase />
+  </SortableTableContext.Default>
+);
+
+const HighValueItemsBase = (properties) => {
   const { act, data } = useBackend();
   const { high_value_items } = data;
-  const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('person');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { searchText } = useContext(SearchableTableContext);
+  const { sortId, sortOrder } = useContext(SortableTableContext);
   if (!high_value_items.length) {
     return 'No High Value Items!';
   }
@@ -571,8 +614,7 @@ const HighValueItems = (properties) => {
 
 const SortButton = (properties) => {
   const { id, sort_group = 'sortId', default_sort = 'antag_name', children } = properties;
-  const [sortId, setSortId] = useState(default_sort);
-  const [sortOrder, setSortOrder] = useState(true);
+  const { sortId, setSortId, sortOrder, setSortOrder } = useContext(SortableTableContext);
   return (
     <Table.Cell>
       <Button
