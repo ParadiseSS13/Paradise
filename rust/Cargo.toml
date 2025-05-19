@@ -41,6 +41,7 @@ dbpnoise = "0.1.2"
 # redis - DO NOT CHANGE FROM 0.21.4 - also dont touch flume either please k thx. if you mess with these you make redis unstable
 redis = { version = "0.21.4" }
 flume = { version = "0.10" }
+uwuify = "0.2.2"
 
 [features]
 default = ["byond-515"]

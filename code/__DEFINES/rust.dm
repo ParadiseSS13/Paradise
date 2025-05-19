@@ -190,6 +190,9 @@
 /proc/rustlibs_redis_publish(channel, message)
 	return RUSTLIB_CALL(redis_publish, channel, message)
 
+/proc/rustlibs_uwuify(text)
+	return RUSTLIB_CALL(uwuify_text, text)
+
 #undef RUSTLIB_CALL
 
 // Indexes for Tiles and InterestingTiles

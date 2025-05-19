@@ -605,3 +605,13 @@
 
 /obj/item/dnainjector/anticomic/GetInitBlock()
 	return GLOB.comicblock
+
+/obj/item/dnainjector/uwu
+	name = "DNA-Injector (Nya~)"
+	desc = "The industrial revolution and its consequences."
+	datatype = DNA2_BUF_SE
+	value = 0xFFF
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/uwu/GetInitBlock()
+	return GLOB.uwublock
