@@ -106,7 +106,7 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
 	world.log << "EC: [error_code]"
 
 	// If we have no result, were not finished
-	if(error_code == RUSTG_JOB_NO_RESULTS_YET)
+	if(error_code == RUSTLIBS_JOB_NO_RESULTS_YET)
 		return FALSE
 	else
 		// If we got here, we have a result to parse

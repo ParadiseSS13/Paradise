@@ -8,9 +8,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
-	sleep(100)
-	world.log << "Running"
-	world.log << HTTPGet("https://icanhazip.com")
+
 
 	SSmetrics.world_init_time = REALTIMEOFDAY
 
@@ -44,6 +42,10 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
+	world.log << "Running"
+	var/result = json_encode(HTTPGet("https://icanhazip.com"))
+	world.log << "[result]"
+	del(world)
 	load_files() // Loads up the MOTD (Welcome message players see when joining the server), TOS and gamemode
 
 	// This needs to happen early, otherwise people can get a null species, nuking their character
