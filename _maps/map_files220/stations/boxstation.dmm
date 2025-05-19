@@ -10443,8 +10443,8 @@
 /area/station/public/storage/tools)
 "aNw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office,
 /obj/effect/decal/cleanable/blood/drip,
+/obj/structure/chair,
 /turf/simulated/floor/plating,
 /area/station/security/restroom)
 "aNx" = (
@@ -34649,8 +34649,9 @@
 /area/station/engineering/atmos)
 "cFo" = (
 /obj/machinery/light/directional/north,
-/obj/machinery/atmospherics/refill_station/nitrogen,
-/obj/effect/turf_decal/delivery/blue,
+/obj/structure/chair/sofa/bench{
+	cover_color = "#68452a"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -37215,8 +37216,9 @@
 	c_tag = "Engineering Lobby West";
 	network = list("SS13","Engineering")
 	},
-/obj/machinery/atmospherics/refill_station/oxygen,
-/obj/effect/turf_decal/delivery/blue,
+/obj/structure/chair/sofa/bench/right{
+	cover_color = "#68452a"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -59647,8 +59649,9 @@
 /area/station/maintenance/turbine)
 "irY" = (
 /obj/machinery/status_display/directional/north,
-/obj/machinery/atmospherics/refill_station/plasma,
-/obj/effect/turf_decal/delivery/blue,
+/obj/structure/chair/sofa/bench/left{
+	cover_color = "#68452a"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -71758,6 +71761,13 @@
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
+"mAN" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/obj/effect/turf_decal/delivery/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/aft)
 "mAX" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -73521,6 +73531,8 @@
 /area/station/command/office/hop)
 "njZ" = (
 /obj/machinery/light_switch/east,
+/obj/machinery/atmospherics/refill_station/oxygen,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -91640,10 +91652,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "tqg" = (
-/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 4
 	},
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -105529,6 +105541,13 @@
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"xUV" = (
+/obj/machinery/atmospherics/refill_station/plasma,
+/obj/effect/turf_decal/delivery/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/aft)
 "xUX" = (
 /obj/machinery/door/window/classic/reversed{
 	name = "Kill Chamber";
@@ -136093,8 +136112,8 @@ liu
 adq
 uer
 njZ
-cEV
-cEV
+mAN
+xUV
 lXh
 iLu
 jjy
