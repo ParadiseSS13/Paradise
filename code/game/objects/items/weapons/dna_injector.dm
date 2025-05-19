@@ -607,11 +607,21 @@
 	return GLOB.comicblock
 
 /obj/item/dnainjector/uwu
-	name = "DNA-Injector (Nya~)"
-	desc = "The industrial revolution and its consequences."
+	name = "DNA-Injector (Nya)"
+	desc = "Pwepawe fow unfoweseen conseqwuencies..."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/uwu/GetInitBlock()
+	return GLOB.uwublock
+
+/obj/item/dnainjector/antiuwu
+	name = "DNA-Injector (Anti-Nya)"
+	desc = "Will get rid of cat-like speech."
+	datatype = DNA2_BUF_SE
+	value = 0x001
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/antiuwu/GetInitBlock()
 	return GLOB.uwublock
