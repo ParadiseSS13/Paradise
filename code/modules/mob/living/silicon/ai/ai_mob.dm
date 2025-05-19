@@ -320,6 +320,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Nanites:", "[program_picker.nanites] / [program_picker.max_nanites]")
+	status_tab_data[++status_tab_data.len] = list("Nanite Manufacture Rate:", "[(1 + 0.5 * program_picker.bandwidth)]")
 	if(stat)
 		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
 		return
