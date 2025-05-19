@@ -3178,6 +3178,17 @@
 					W.item_color = "schoolgirl"
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				SEND_SOUND(world, sound('sound/AI/animes.ogg'))
+			if("uwu") // mrrp~ Apparently, not at all!
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "UWU")
+				for(var/mob/living/carbon/human/H in world)
+					if(H.dna)
+						H.dna.SetSEState(GLOB.uwublock, TRUE)
+						singlemutcheck(H, GLOB.uwublock, MUTCHK_FORCED)
+				message_admins("[key_name_admin(usr)] activated UWU mode")
+				// TODO: awful sound effect
+
 			if("eagles")//SCRAW
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return

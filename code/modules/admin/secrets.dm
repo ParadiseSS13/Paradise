@@ -110,6 +110,7 @@
 					<A href='byond://?src=[UID()];secretsfun=tripleAI'>Triple AI mode (needs to be used in the lobby)</A><BR>
 					<A href='byond://?src=[UID()];secretsfun=flicklights'>Ghost Mode</A>&nbsp;&nbsp;
 					<A href='byond://?src=[UID()];secretsfun=schoolgirl'>Japanese Animes Mode</A>&nbsp;&nbsp;
+					<A href='byond://?src=[UID()];secretsfun=uwu'>UWU mode</A>&nbsp;&nbsp;
 					<A href='byond://?src=[UID()];secretsfun=eagles'>Egalitarian Station Mode</A><BR>
 					<A href='byond://?src=[UID()];secretsfun=guns'>Summon Guns</A>&nbsp;&nbsp;
 					<A href='byond://?src=[UID()];secretsfun=magic'>Summon Magic</A>
