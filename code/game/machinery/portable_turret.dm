@@ -788,7 +788,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 
 	if(!emagged)	//if it hasn't been emagged, cooldown before shooting again
-		if((last_fired + (shot_delay / fitted_lens.fire_rate_mult) > world.time) || !raised)
+		var/delay_modifier = 1
+		if(fitted_lens)
+			delay_modifier = fitted_lens.fire_rate_mult
+		if((last_fired + (shot_delay / delay_modifier) > world.time) || !raised)
 			return
 		last_fired = world.time
 
