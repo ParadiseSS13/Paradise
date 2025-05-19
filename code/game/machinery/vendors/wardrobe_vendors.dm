@@ -125,7 +125,7 @@
 					/obj/item/reagent_containers/drinks/flask/detflask = 2,
 					/obj/item/storage/fancy/cigarettes/dromedaryco = 5,
 					/obj/item/clothing/head/helmet/space/plasmaman/white = 2,
-					/obj/item/clothing/under/plasmaman/enviroslacks = 2
+					/obj/item/clothing/under/plasmaman/enviroslacks = 2,
 					/obj/item/storage/box/swabs = 2)
 
 	prices = list(/obj/item/clothing/under/rank/security/detective = 50,
@@ -150,7 +150,7 @@
 				/obj/item/reagent_containers/drinks/flask/detflask = 50,
 				/obj/item/storage/fancy/cigarettes/dromedaryco = 5,
 				/obj/item/clothing/head/helmet/space/plasmaman/white = 60,
-				/obj/item/clothing/under/plasmaman/enviroslacks = 60
+				/obj/item/clothing/under/plasmaman/enviroslacks = 60,
 				/obj/item/storage/box/swabs = 20)
 
 	contraband = list(/obj/item/toy/figure/crew/detective = 1)
