@@ -319,6 +319,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Nanites:", "[program_picker.nanites] / [program_picker.max_nanites]")
 	if(stat)
 		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
 		return
