@@ -3,6 +3,9 @@
 	SEE rust\src\rustlibs_http\mod.rs FOR DETAILS
 */
 
+// remove when off TM
+/proc/log_http_debug(text)
+	rustlibs_log_write("data/aa_debug.log", "[text][GLOB.log_end]")
 
 /**
   * # HTTP Request
@@ -25,14 +28,14 @@
 	var/list/headers = list()
 	/// URL that the request is being sent to
 	var/url
-	/// If present, response body will be saved to this file.
-	var/output_file
 	/// Job error code, if any
 	var/error_code
 	/// The response for the request
 	var/datum/http_response/response_obj
 	/// Callback for executing after async requests. Will be called with an argument of [/datum/http_response] as first argument
 	var/datum/callback/cb
+	/// DEV Tracking
+	var/checks = 0
 
 /*
 ###########################################################################
@@ -52,14 +55,13 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
   * * _body - The body of the request, if applicable
   * * _headers - Associative list of HTTP headers to send, if applicab;e
   */
-/datum/http_request/proc/prepare(_method, _url, _body = "", list/_headers, _output_file)
+/datum/http_request/proc/prepare(_method, _url, _body = "", list/_headers)
 	if(istype(_headers))
 		headers =_headers
 
 	method = _method
 	url = _url
 	body = _body
-	output_file = _output_file
 
 /**
   * Async execution starter
@@ -69,17 +71,9 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
   * As such, you cannot use this for events which may happen at roundstart (EG: IPIntel, BYOND account tracking, etc)
   */
 /datum/http_request/proc/begin_async()
+	log_http_debug("Starting request - [method] [url] (B: [body] | H: [json_encode(headers)])")
 	rustlibs_http_send_request(src)
-
-/**
-  * Options builder
-  *
-  * Builds options for if we want to download files with SShttp
-  */
-/datum/http_request/proc/build_options()
-	if(output_file)
-		return json_encode(list("output_filename" = output_file, "body_filename" = null))
-	return null
+	log_http_debug("Got ID [id]")
 
 /**
   * Async completion checker
@@ -89,12 +83,10 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
   * or async requests which have already finished
   */
 /datum/http_request/proc/is_complete()
-	world.log << "ID: [id]"
 	// If we dont have an ID, were blocking, so assume complete
 	if(isnull(id))
 		return TRUE
 
-	world.log << "IP: [in_progress]"
 	// If we arent in progress, assume complete
 	if(!in_progress)
 		return TRUE
@@ -102,13 +94,25 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
 	// We got here, so check the status
 	var/result = rustlibs_http_check_request(src)
 
-	world.log << "RES: [result]"
-	world.log << "EC: [error_code]"
-
 	// If we have no result, were not finished
 	if(error_code == RUSTLIBS_JOB_NO_RESULTS_YET)
+		checks++
+		if(checks == 1000)
+			message_admins("\[[time_stamp()]] A HTTP request took over 1000 checks and still isn't finished. Inform AA at once, and screenshot the timestamp in this message please.")
+			log_http_debug("Request #[id] did over 1000 checks - check that")
 		return FALSE
 	else
+		if(error_code == RUSTLIBS_JOB_NO_SUCH_JOB)
+			message_admins("\[[time_stamp()]] A HTTP request forgot what its job was. Inform AA at once, and screenshot the timestamp in this message please.")
+			log_http_debug("Request #[id] lost its job - check that")
+
+		else if(error_code == RUSTLIBS_JOB_ERROR)
+			message_admins("\[[time_stamp()]] A HTTP request had a hissy fit. Inform AA at once, and screenshot the timestamp in this message please.")
+			log_http_debug("Request #[id] panic - check that")
+
+		else
+			log_http_debug("Request #[id] seems to have gone fine")
+
 		// If we got here, we have a result to parse
 		response_obj = result
 		return TRUE
