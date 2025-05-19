@@ -54,7 +54,8 @@ fn construct_request(
                     "head" => client.head(url),
                     _ => client.get(url),
                 }
-                .set("User-Agent", &format!("{PKG_NAME}/{VERSION}"));
+                .set("User-Agent", &format!("{PKG_NAME}/{VERSION}"))
+                .timeout(std::time::Duration::from_secs(5));
 
                 let final_body = body.as_bytes().to_vec();
 
@@ -81,8 +82,20 @@ fn construct_request(
 
 fn submit_request(prep: RequestPrep) -> Result<String> {
     // Send the request
-    let response = prep.req.send_bytes(&prep.body).map_err(Box::new)?;
-
+    // TODO: this is a sinful hack, rewrite this as soon as the module is stable on live
+    let response = match prep.req.send_bytes(&prep.body) {
+        Ok(r) => r,
+        Err(ureq::Error::Status(code, r)) => r,
+        Err(ureq::Error::Transport(t)) => {
+            let mut resp = Response {
+                status_code: 0,
+                headers: HashMap::new(),
+                body: None,
+            };
+            resp.body = Some(t.to_string());
+            return Ok(serde_json::to_string(&resp)?);
+        }
+    };
     let body;
     let mut resp = Response {
         status_code: response.status(),
@@ -147,7 +160,10 @@ fn http_submit_async_request(mut request: ByondValue) -> Result<ByondValue> {
     };
 
     // Start the request as a job on a new thread
-    let job_id = jobs::start(move || submit_request(req).unwrap());
+    let job_id = jobs::start(move || match submit_request(req) {
+        Ok(r) => r,
+        Err(e) => e.to_string(),
+    });
 
     // Write job id back to BYOND
     request.write_var("id", &ByondValue::new_num(job_id as f32))?;
@@ -158,7 +174,7 @@ fn http_submit_async_request(mut request: ByondValue) -> Result<ByondValue> {
 
 #[byondapi::bind]
 fn http_check_job(mut request: ByondValue) -> Result<ByondValue> {
-    logging::setup_panic_handler();
+    // logging::setup_panic_handler();
     let id = request.read_var("id")?.get_number()? as usize;
     match jobs::check(&id) {
         // Job id exists, check progress
@@ -211,8 +227,7 @@ fn http_check_job(mut request: ByondValue) -> Result<ByondValue> {
             // Something bad happened during the request
             Err(flume::TryRecvError::Disconnected) => {
                 request.write_var("error_code", &ByondValue::new_str(jobs::JOB_PANICKED)?)?;
-                request.write_var("errored", &ByondValue::new_num(1f32))?;
-
+                request.write_var("in_progress", &ByondValue::new_num(0f32))?;
                 return Ok(ByondValue::null());
             }
         },
