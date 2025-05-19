@@ -1,17 +1,18 @@
 use crate::jobs;
+use crate::logging;
 use byondapi::value::ByondValue;
+use eyre::Result;
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
 use std::collections::{BTreeMap, HashMap};
-
 // ----------------------------------------------------------------------------
 // Interface
 
 #[derive(Serialize, Deserialize)]
-struct Response<'a> {
+struct Response {
     status_code: u16,
     headers: HashMap<String, String>,
-    body: Option<&'a str>,
+    body: Option<String>,
 }
 
 // If the response can be deserialized -> success.
@@ -78,8 +79,9 @@ fn construct_request(
     })
 }
 
-fn submit_request(prep: RequestPrep) -> Option<String> {
-    let response = prep.req.send_bytes(&prep.body).map_err(Box::new).unwrap();
+fn submit_request(prep: RequestPrep) -> Result<String> {
+    // Send the request
+    let response = prep.req.send_bytes(&prep.body).map_err(Box::new)?;
 
     let body;
     let mut resp = Response {
@@ -96,32 +98,32 @@ fn submit_request(prep: RequestPrep) -> Option<String> {
         resp.headers.insert(key, value.to_owned());
     }
 
-    body = response.into_string().unwrap();
-    resp.body = Some(&body);
+    body = response.into_string()?;
+    resp.body = Some(body);
 
-    Some(serde_json::to_string(&resp).unwrap())
+    Ok(serde_json::to_string(&resp)?)
 }
 
 // Exported methods
 #[byondapi::bind]
-fn http_start_client() -> eyre::Result<ByondValue> {
+fn http_start_client() -> Result<ByondValue> {
     HTTP_CLIENT.with(|cell| cell.replace(Some(ureq::agent())));
     Ok(ByondValue::null())
 }
 
 #[byondapi::bind]
-fn http_shutdown_client() -> eyre::Result<ByondValue> {
+fn http_shutdown_client() -> Result<ByondValue> {
     HTTP_CLIENT.with(|cell| cell.replace(None));
     Ok(ByondValue::null())
 }
 
 #[byondapi::bind]
-fn http_submit_async_request(mut request: ByondValue) -> eyre::Result<ByondValue> {
+fn http_submit_async_request(mut request: ByondValue) -> Result<ByondValue> {
     let method = request.read_var("method")?.get_string()?;
     let url = request.read_var("url")?.get_string()?;
     let body = request.read_var("body")?.get_string()?;
 
-    let headers = request.read_var("headers").unwrap().get_list().unwrap();
+    let headers = request.read_var("headers")?.get_list()?;
 
     let mut real_headers = None;
 
@@ -130,8 +132,8 @@ fn http_submit_async_request(mut request: ByondValue) -> eyre::Result<ByondValue
 
         for pair in headers.chunks(2) {
             if let [k, v] = pair {
-                let kstr = k.get_string().unwrap();
-                let vstr = v.get_string().unwrap();
+                let kstr = k.get_string()?;
+                let vstr = v.get_string()?;
                 btm.insert(kstr, vstr);
             }
         }
@@ -144,95 +146,83 @@ fn http_submit_async_request(mut request: ByondValue) -> eyre::Result<ByondValue
         None => return Ok(ByondValue::null()),
     };
 
+    // Start the request as a job on a new thread
     let job_id = jobs::start(move || submit_request(req).unwrap());
 
-    request
-        .write_var("id", &ByondValue::new_num(job_id as f32))
-        .unwrap();
-
-    request
-        .write_var("in_progress", &ByondValue::new_num(1f32))
-        .unwrap();
+    // Write job id back to BYOND
+    request.write_var("id", &ByondValue::new_num(job_id as f32))?;
+    request.write_var("in_progress", &ByondValue::new_num(1f32))?;
 
     Ok(ByondValue::null())
 }
 
 #[byondapi::bind]
-fn http_check_job(mut request: ByondValue) -> eyre::Result<ByondValue> {
-    let id = request.read_var("id").unwrap().get_number().unwrap() as usize;
+fn http_check_job(mut request: ByondValue) -> Result<ByondValue> {
+    logging::setup_panic_handler();
+    let id = request.read_var("id")?.get_number()? as usize;
     match jobs::check(&id) {
+        // Job id exists, check progress
         Some(res) => match res {
-            Ok(res2) => {
+            // Request completed, parse it
+            Ok(res) => {
                 // We are no longer in progress
+                request.write_var("in_progress", &ByondValue::new_num(0f32))?;
                 request
-                    .write_var("in_progress", &ByondValue::new_num(0f32))
+                    .write_var("error_code", &ByondValue::null())
                     .unwrap();
 
                 // Decode response
-                let web_response: Response = serde_json::from_str(&res2).unwrap();
+                let web_response: Response = serde_json::from_str(&res).unwrap();
                 // We have a response - assemble our HTML datum
-                let target_type = ByondValue::new_str("/datum/http_response").unwrap();
-                let mut response_datum = ByondValue::builtin_new(target_type, &[]).unwrap();
+                let target_type = ByondValue::new_str("/datum/http_response")?;
+                let mut response_datum = ByondValue::builtin_new(target_type, &[])?;
 
-                // Write primatives
+                // Write primitives
                 response_datum
                     .write_var(
                         "status_code",
                         &ByondValue::new_num(web_response.status_code as f32),
                     )
                     .unwrap();
-
                 response_datum
-                    .write_var(
-                        "body",
-                        &ByondValue::new_str(web_response.body.unwrap()).unwrap(),
-                    )
-                    .unwrap();
+                    .write_var("body", &ByondValue::new_str(web_response.body.unwrap())?)?;
 
                 // Headers are more complicated since its an assoc list
                 let mut headers_list = ByondValue::new_list().unwrap();
                 for header_k in web_response.headers.keys() {
                     // Get the key as a BV
-                    let hk_bv = ByondValue::new_str(header_k.to_string()).unwrap();
+                    let hk_bv = ByondValue::new_str(header_k.to_string())?;
 
                     // Get the value as a BV
                     let hv = web_response.headers.get(header_k).unwrap();
-                    let hv_bv = ByondValue::new_str(hv.to_string()).unwrap();
+                    let hv_bv = ByondValue::new_str(hv.to_string())?;
 
-                    headers_list.write_list_index(hk_bv, hv_bv).unwrap();
+                    headers_list.write_list_index(hk_bv, hv_bv)?;
                 }
 
                 // Send it back
                 Ok(response_datum)
             }
+            // Request is still being made
+            Err(flume::TryRecvError::Empty) => {
+                request.write_var("error_code", &ByondValue::new_str(jobs::NO_RESULTS_YET)?)?;
+                return Ok(ByondValue::null());
+            }
+            // Something bad happened during the request
             Err(flume::TryRecvError::Disconnected) => {
-                // We have an error - send proper stuff back
-                request
-                    .write_var(
-                        "error_code",
-                        &ByondValue::new_str(jobs::JOB_PANICKED).unwrap(),
-                    )
-                    .unwrap();
+                request.write_var("error_code", &ByondValue::new_str(jobs::JOB_PANICKED)?)?;
+                request.write_var("errored", &ByondValue::new_num(1f32))?;
 
                 return Ok(ByondValue::null());
             }
-            Err(flume::TryRecvError::Empty) => {
-                request
-                    .write_var(
-                        "error_code",
-                        &ByondValue::new_str(jobs::NO_RESULTS_YET).unwrap(),
-                    )
-                    .unwrap();
-                return Ok(ByondValue::null());
-            }
         },
+        // Job id does not exist
         None => {
-            request
-                .write_var(
-                    "error_code",
-                    &ByondValue::new_str(jobs::NO_SUCH_JOB).unwrap(),
-                )
-                .unwrap();
+            request.write_var(
+                "error_code",
+                &ByondValue::new_str(jobs::NO_SUCH_JOB).unwrap(),
+            )?;
+
             return Ok(ByondValue::null());
         }
     }
