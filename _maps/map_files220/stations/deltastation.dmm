@@ -7276,10 +7276,10 @@
 	},
 /area/station/medical/patients_rooms)
 "aGv" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/window/grilled,
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "aGx" = (
@@ -43225,7 +43225,7 @@
 	},
 /area/station/hallway/primary/fore)
 "dEK" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/grilled,
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "dER" = (

@@ -52680,7 +52680,7 @@
 	},
 /area/station/hallway/primary/starboard)
 "iYh" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/test)
 "iZl" = (
