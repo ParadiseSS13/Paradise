@@ -1350,6 +1350,12 @@
 
 		usr.client.view_devsays()
 
+	else if(href_list["staffsays"])
+		if(!check_rights(R_ADMIN | R_DEV_TEAM))
+			return
+
+		usr.client.view_staffsays()
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -2093,10 +2099,9 @@
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
-					P.set_can_collar(TRUE)
+					P.AddElement(/datum/element/wears_collar)
 					P.faction = list("neutral")
-					var/obj/item/petcollar/C = new
-					P.add_collar(C)
+					var/obj/item/petcollar/C = new(P)
 					var/obj/item/card/id/I = H.wear_id
 					if(I)
 						var/obj/item/card/id/D = new /obj/item/card/id(C)
