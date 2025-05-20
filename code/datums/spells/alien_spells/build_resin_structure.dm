@@ -1,7 +1,6 @@
 #define RESIN_WALL "Resin Wall"
 #define RESIN_NEST "Resin Nest"
 #define RESIN_DOOR "Resin Door"
-#define REVIVAL_NEST "Revival Nest"
 
 /datum/spell/alien_spell/build_resin
 	name = "Build Resin Structure"
@@ -15,8 +14,7 @@
 /datum/spell/alien_spell/build_resin/cast(list/targets, mob/living/carbon/user)
 	var/static/list/resin_buildings = list(RESIN_WALL = image(icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi', icon_state = "resin_wall-0"),
 									RESIN_NEST = image(icon = 'icons/mob/alien.dmi', icon_state = "nest"),
-									RESIN_DOOR = image(icon = 'icons/obj/smooth_structures/alien/resin_door.dmi', icon_state = "resin"),
-									REVIVAL_NEST = image(icon = 'icons/mob/alien.dmi', icon_state = "placeholder_rejuv_nest"))
+									RESIN_DOOR = image(icon = 'icons/obj/smooth_structures/alien/resin_door.dmi', icon_state = "resin"))
 	var/choice = show_radial_menu(user, user, resin_buildings, src, radius = 40)
 	var/turf/turf_to_spawn_at = user.loc
 	if(!choice)
@@ -42,8 +40,6 @@
 			new /obj/structure/bed/nest(turf_to_spawn_at)
 		if(RESIN_DOOR)
 			new /obj/structure/alien/resin/door(turf_to_spawn_at)
-		if(REVIVAL_NEST)
-			new /obj/structure/bed/revival_nest(turf_to_spawn_at)
 
 /datum/spell/touch/alien_spell/consume_resin
 	name = "Consume resin structures"
@@ -75,7 +71,7 @@
 	if(!plasma_check(10, C))
 		to_chat(C, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
-	var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest, /obj/structure/bed/revival_nest)
+	var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest)
 	for(var/resin_type in resin_objects)
 		if(!istype(target, resin_type))
 			continue
@@ -90,4 +86,3 @@
 #undef RESIN_WALL
 #undef RESIN_NEST
 #undef RESIN_DOOR
-#undef REVIVAL_NEST
