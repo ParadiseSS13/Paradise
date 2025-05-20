@@ -293,7 +293,7 @@
 		if(!D.is_operational())
 			continue
 		var/valid = TRUE
-		if(opening)	//don't open if adjacent area is on fire
+		if(opening)
 			for(var/I in D.affecting_areas)
 				var/area/A = I
 				if(A.fire)
@@ -301,19 +301,17 @@
 					break
 		if(!valid)
 			continue
-
-		// At this point, the area is safe and the door is technically functional.
-		// Firedoors do not close automatically by default, and setting it to false when the alarm is off prevents unnecessary timers from being created. Emagged doors are permanently disabled from automatically closing, or being operated by alarms altogether apart from the lights.
 		if(!D.emagged)
 			if(opening)
 				D.autoclose = FALSE
 			else
 				D.autoclose = TRUE
-
 		INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, deactivate_alarm) : TYPE_PROC_REF(/obj/machinery/door/firedoor, activate_alarm)))
 		if(D.welded || D.emagged)
 			continue // Alarm is toggled, but door stuck
-
+		if(!opening && istype(D, /obj/machinery/door/firedoor))
+			if(!D.can_be_closed_by_alarm())
+				continue
 		if(D.operating)
 			if((D.operating == DOOR_OPENING && opening) || (D.operating == DOOR_CLOSING && !opening))
 				continue
@@ -399,6 +397,10 @@
   */
 /area/proc/close_and_lock_door(obj/machinery/door/DOOR)
 	set waitfor = FALSE
+	if(istype(DOOR, /obj/machinery/door/firedoor))
+		var/obj/machinery/door/firedoor/FD = DOOR
+		if(!FD.can_be_closed_by_alarm())
+			return
 	DOOR.close()
 	if(DOOR.density)
 		DOOR.lock()
