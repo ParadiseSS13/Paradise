@@ -190,6 +190,12 @@
 /proc/rustlibs_redis_publish(channel, message)
 	return RUSTLIB_CALL(redis_publish, channel, message)
 
+
+// MARK: Toast
+/// (Windows only) Triggers a desktop notification with the specified title and body
+/proc/rustlibs_create_toast(title, body) 
+	return RUSTLIB_CALL(create_toast, title, body)
+
 #undef RUSTLIB_CALL
 
 // Indexes for Tiles and InterestingTiles
