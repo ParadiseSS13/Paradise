@@ -1,9 +1,3 @@
-// Use this define to register something as a purchasable!
-// * n — The proper name of the purchasable
-// * o — The object type path of the purchasable to spawn
-// * p — The price of the purchasable in mining points
-#define EQUIPMENT(n, o, p) n = new /datum/data/mining_equipment(n, o, p)
-
 /**********************Mining Equipment Vendor**************************/
 
 /obj/machinery/mineral/equipment_vendor
@@ -307,35 +301,6 @@
 	remove_id()
 	return ..()
 
-
-/**********************Mining Equiment Vendor (Golem)**************************/
-
-/obj/machinery/mineral/equipment_vendor/golem
-	name = "golem ship equipment vendor"
-
-/obj/machinery/mineral/equipment_vendor/golem/Initialize(mapload)
-	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/golem(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
-
-	desc += "\nIt seems a few selections have been added."
-	prize_list["Extra"] += list(
-		EQUIPMENT("Extra ID", /obj/item/card/id/golem, 250),
-		EQUIPMENT("Science Backpack", /obj/item/storage/backpack/science, 250),
-		EQUIPMENT("Full Toolbelt", /obj/item/storage/belt/utility/full/multitool, 250),
-		EQUIPMENT("Monkey Cube", /obj/item/food/monkeycube, 250),
-		EQUIPMENT("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 500),
-		EQUIPMENT("Grey Slime Extract", /obj/item/slime_extract/grey, 1000),
-		EQUIPMENT("KA Trigger Modification Kit", /obj/item/borg/upgrade/modkit/trigger_guard, 1000),
-		EQUIPMENT("Shuttle Console Board", /obj/item/circuitboard/shuttle/golem_ship, 2000),
-		EQUIPMENT("The Liberator's Legacy", /obj/item/storage/box/rndboards, 2000),
-		EQUIPMENT("The Liberator's Fabricator", /obj/item/storage/box/smithboards, 1000),
-	)
 
 /**********************Mining Equiment Vendor (Gulag)**************************/
 
