@@ -604,11 +604,11 @@ redis_connstring = "redis://127.0.0.1/"
 # This section contains configuration for all space ruins and lava ruins
 
 # Enable space z-level generation.
-enable_space = false
+enable_space = true
 # Enable lavaland generation.
-enable_lavaland = false
+enable_lavaland = true
 # Globally enable and disable placing of all ruins across lavaland and space.
-enable_ruins = false
+enable_ruins = true
 # Minimum number of extra space zlevels to generate
 minimum_space_zlevels = 2
 # Maximum number of extra space zlevels to generate
@@ -774,7 +774,7 @@ external_tos_handler = false
 # Path to the map datum to load, overriding the defaults and `data/next_map.txt`.
 # Do not use in production.
 # Comment out to disable.
-override_map = "/datum/map/test_tiny"
+#override_map = "/datum/map/test_tiny"
 # Regional servers.
 # This is not for separate DD instances per region, but if you have a geo-routing setup deployed to optimise routing for players
 # I am 99.9% certain you will never need to fill this out
