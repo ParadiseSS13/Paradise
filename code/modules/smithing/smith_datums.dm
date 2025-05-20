@@ -88,6 +88,8 @@
 	var/secondary_goal_candidate = FALSE
 	/// How much is this secondary goal worth?
 	var/secondary_goal_difficulty
+	/// What color does the material tint?
+	var/color_tint = "#ffffff"
 
 /datum/smith_material/metal
 	name = "metal"
@@ -101,6 +103,7 @@
 	durability_mult = MINOR_MATERIAL_BUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_EASY
+	color_tint = "#78787b"
 
 /datum/smith_material/silver
 	name = "silver"
@@ -113,6 +116,7 @@
 	projectile_damage_multiplier = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
+	color_tint = "#f0f0f0"
 
 /datum/smith_material/gold
 	name = "gold"
@@ -129,6 +133,7 @@
 	durability_mult = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
+	color_tint = "#ffd659"
 
 /datum/smith_material/plasma
 	name = "plasma"
@@ -141,6 +146,7 @@
 	durability_mult = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_EASY
+	color_tint = "#ba3692"
 
 /datum/smith_material/titanium
 	name = "titanium"
@@ -155,6 +161,7 @@
 	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_EASY
+	color_tint = "#c1c9cf"
 
 /datum/smith_material/uranium
 	name = "uranium"
@@ -174,6 +181,7 @@
 	durability_mult = MINOR_MATERIAL_BUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
+	color_tint = "#2c8c46"
 	/// Radioactive, woah
 	var/radiation_amount = 15
 
@@ -186,6 +194,7 @@
 	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	tool_productivity_mult = MAJOR_MATERIAL_BUFF
 	durability_mult = MAJOR_MATERIAL_BUFF
+	color_tint = "#aef2f4"
 
 /datum/smith_material/bluespace
 	name = "bluespace"
@@ -199,6 +208,7 @@
 	tool_productivity_mult = MAJOR_MATERIAL_BUFF
 	power_draw_mult = MAJOR_MATERIAL_BUFF
 	projectile_damage_multiplier = MAJOR_MATERIAL_BUFF
+	color_tint = "#2e50b7"
 
 /datum/smith_material/plasteel
 	name = "plasteel"
@@ -216,6 +226,7 @@
 	durability_mult = MAJOR_MATERIAL_BUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
+	color_tint = "#555053"
 
 /datum/smith_material/plastitanium
 	name = "plastitanium"
@@ -234,6 +245,7 @@
 	durability_mult = MAJOR_MATERIAL_BUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_HARD
+	color_tint = "#8a838a"
 
 /datum/smith_material/iridium
 	name = "iridium"
@@ -250,6 +262,7 @@
 	power_draw_mult = MINOR_MATERIAL_BUFF
 	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
 	durability_mult = MINOR_MATERIAL_BUFF
+	color_tint = "#62c3cc"
 
 /datum/smith_material/palladium
 	name = "palladium"
@@ -266,6 +279,7 @@
 	power_draw_mult = MINOR_MATERIAL_DEBUFF
 	projectile_damage_multiplier = MINOR_MATERIAL_DEBUFF
 	durability_mult = MINOR_MATERIAL_BUFF
+	color_tint = "#d36717"
 
 /datum/smith_material/platinum
 	name = "platinum"
@@ -282,6 +296,7 @@
 	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
 	power_draw_mult = MINOR_MATERIAL_BUFF
 	durability_mult = MINOR_MATERIAL_BUFF
+	color_tint = "#c7d3f9"
 
 /datum/smith_material/brass
 	name = "brass"
@@ -301,6 +316,7 @@
 	durability_mult = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
+	color_tint = "#97681b"
 
 #undef MAJOR_MATERIAL_BUFF
 #undef MINOR_MATERIAL_BUFF
