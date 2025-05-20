@@ -67,6 +67,7 @@
 #include "loadout/_loadout.dme"
 #include "logs/_logs.dme"
 #include "mecha_skins/mecha_skins.dme"
+#include "metaserver/_metaserver.dme"
 #include "mobs/_mobs.dme"
 #include "mod/_mods.dme"
 #include "outfits/_outfits.dme"

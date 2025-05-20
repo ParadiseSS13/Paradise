@@ -110,10 +110,10 @@
 			return FALSE
 
 		switch(client.donator_level)
-			if(LITTLE_WORKER_TIER)
+			if(LITTLE_WORKER_LEVEL)
 				if(LITTLE_WORKER_TTS_LEVEL >= seed.required_donator_level)
 					return TRUE
-			if(BIG_WORKER_TIER)
+			if(BIG_WORKER_LEVEL)
 				if(BIG_WORKER_TTS_LEVEL >= seed.required_donator_level)
 					return TRUE
 

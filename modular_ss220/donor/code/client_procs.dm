@@ -7,7 +7,7 @@
 	var/static/list/big_worker = list("Администратор", "Старший Разработчик", "Разработчик", "Бригадир Мапперов", "Маппер", "Ведущий Редактор Вики", "Администратор СС14")
 
 	if(C.holder)
-		C.donator_level = (C.holder.rank in ultimate_worker) ? DONATOR_LEVEL_MAX : (C.holder.rank in big_worker) ? BIG_WORKER_TIER : LITTLE_WORKER_TIER
+		C.donator_level = (C.holder.rank in ultimate_worker) ? DONATOR_LEVEL_MAX : (C.holder.rank in big_worker) ? BIG_WORKER_LEVEL : LITTLE_WORKER_LEVEL
 		return
 
 	var/is_wl = GLOB.configuration.overflow.reroute_cap == 0.5 ? TRUE : FALSE
@@ -21,9 +21,13 @@
 		return
 
 	while(rank_ckey_read.NextRow())
-		C.donator_level = (rank_ckey_read.item[1] in ultimate_worker) ? DONATOR_LEVEL_MAX : (rank_ckey_read.item[1] in big_worker) ? BIG_WORKER_TIER : LITTLE_WORKER_TIER
+		C.donator_level = (rank_ckey_read.item[1] in ultimate_worker) ? DONATOR_LEVEL_MAX : (rank_ckey_read.item[1] in big_worker) ? BIG_WORKER_LEVEL : LITTLE_WORKER_LEVEL
 
 	qdel(rank_ckey_read)
+
+/datum/client_login_processor/donator_check/get_query(client/C)
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT 1", list()) // La stampella
+	return query
 
 /datum/client_login_processor/donator_check/process_result(datum/db_query/Q, client/C)
 	if(IsGuestKey(C.ckey))
@@ -31,43 +35,19 @@
 
 	CheckAutoDonatorLevel(C)
 
-	while(Q.NextRow())
-		var/total = Q.item[1]
-		var/donator_level = 0
-		switch(total)
-			if(220 to 439)
-				donator_level = 1
-			if(440 to 999)
-				donator_level = 2
-			if(1000 to 2219)
-				donator_level = 3
-			if(2220 to 9999)
-				donator_level = 4
-			if(10000 to INFINITY)
-				donator_level = DONATOR_LEVEL_MAX
 
-		switch(C.donator_level)
-			if(LITTLE_WORKER_TIER)
-				C.donator_level = LITTLE_WORKER_TTS_LEVEL > donator_level ? C.donator_level : donator_level
-			if(BIG_WORKER_TIER)
-				C.donator_level = BIG_WORKER_TTS_LEVEL > donator_level ? C.donator_level : donator_level
-			else
-				C.donator_level = max(C.donator_level, donator_level)
+	var/donator_level = SScentral.get_player_donate_tier_blocking(C)
+
+	switch(C.donator_level)
+		if(LITTLE_WORKER_LEVEL)
+			C.donator_level = LITTLE_WORKER_TTS_LEVEL > donator_level ? C.donator_level : donator_level
+		if(BIG_WORKER_LEVEL)
+			C.donator_level = BIG_WORKER_TTS_LEVEL > donator_level ? C.donator_level : donator_level
+		else
+			C.donator_level = max(C.donator_level, donator_level)
 
 	C.donor_loadout_points()
 	C.donor_character_slots()
-
-/datum/client_login_processor/donator_check/get_query(client/C)
-	var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT CAST(SUM(amount) as UNSIGNED INTEGER) FROM budget
-		WHERE ckey=:ckey
-			AND is_valid=true
-			AND date_start <= NOW()
-			AND (NOW() < date_end OR date_end IS NULL)
-		GROUP BY ckey
-	"}, list("ckey" = C.ckey))
-
-	return query
 
 /client/donor_loadout_points()
 	if(!prefs)
@@ -86,9 +66,9 @@
 			prefs.max_gear_slots += 12
 		if(5)
 			prefs.max_gear_slots += 16
-		if(LITTLE_WORKER_TIER)
+		if(LITTLE_WORKER_LEVEL)
 			prefs.max_gear_slots += 1
-		if(BIG_WORKER_TIER)
+		if(BIG_WORKER_LEVEL)
 			prefs.max_gear_slots += 5
 
 /client/proc/donor_character_slots()
@@ -97,22 +77,16 @@
 
 	prefs.max_save_slots = MAX_SAVE_SLOTS_SS220 + 5 * donator_level
 
-	switch(donator_level)
-		if(LITTLE_WORKER_TIER)
-			prefs.max_save_slots = 7
-		if(BIG_WORKER_TIER)
-			prefs.max_save_slots = 10
-
 	prefs.character_saves.len = prefs.max_save_slots
-
-#undef MAX_SAVE_SLOTS_SS220
 
 /client/proc/is_donor_allowed(required_donator_level)
 	switch(donator_level)
-		if(LITTLE_WORKER_TIER)
+		if(LITTLE_WORKER_LEVEL)
 			if(required_donator_level > LITTLE_WORKER_LEVEL)
 				return FALSE
-		if(BIG_WORKER_TIER)
+		if(BIG_WORKER_LEVEL)
 			if(required_donator_level > BIG_WORKER_LEVEL)
 				return FALSE
 	return required_donator_level <= donator_level
+
+#undef MAX_SAVE_SLOTS_SS220

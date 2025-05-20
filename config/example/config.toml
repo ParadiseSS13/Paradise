@@ -178,7 +178,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 672207
+sql_version = 672208
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -964,8 +964,6 @@ ffmpeg_cpuaffinity = ""
 [ss220_misc_configuration]
 # This section contains everything that should be in general_configuration
 
-# Force discord verification
-force_discord_verification = false
 # Respawn delay in minutes before one may respawn as a crew member
 respawn_delay = 20
 # Players needed to enable advanced communication (common channel limitations).
@@ -1261,3 +1259,9 @@ job_species_blacklist = [
 ]
 
 ################################################################
+
+[central_configuration]
+api_url = "https://my_api_url.com/v1"
+api_token = "12345678"
+server_type = "default"
+force_discord_verification = false
