@@ -3,7 +3,7 @@
 	desc = "A rechargeable electrochemical power cell."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "cell"
-	item_state = "cell"
+	item_state = "cell1"
 	origin_tech = "powerstorage=1"
 	force = 5
 	throwforce = 5
@@ -254,6 +254,7 @@
 	name = "super-capacity power cell"
 	origin_tech = "powerstorage=3;materials=3"
 	icon_state = "scell"
+	item_state = "cell2"
 	maxcharge = 20000
 	materials = list(MAT_GLASS = 300)
 	rating = 4
@@ -266,6 +267,7 @@
 	name = "hyper-capacity power cell"
 	origin_tech = "powerstorage=4;engineering=4;materials=4"
 	icon_state = "hpcell"
+	item_state = "cell2"
 	maxcharge = 30000
 	materials = list(MAT_GLASS = 400)
 	rating = 5
@@ -279,6 +281,7 @@
 	desc = "A rechargeable transdimensional power cell."
 	origin_tech = "powerstorage=5;bluespace=4;materials=4;engineering=4"
 	icon_state = "bscell"
+	item_state = "cell3"
 	maxcharge = 40000
 	materials = list(MAT_GLASS = 600)
 	rating = 6
@@ -299,6 +302,7 @@
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
+	item_state = "cell4"
 	origin_tech =  "powerstorage=7"
 	maxcharge = 30000
 	materials = list(MAT_GLASS=1000)
