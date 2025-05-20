@@ -69,6 +69,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/view_instances,
 	/client/proc/start_vote,
+	/client/proc/extend_round,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist,
 	/client/proc/debugstatpanel,
@@ -636,6 +637,21 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	holder.Secrets()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Secrets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
+
+
+/client/proc/extend_round()
+	set name = "Extend Round"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(tgui_alert(usr, "Are you sure you want to extend the round?", "Round Extension", list("No", "Yes")) == "Yes")
+		SSticker.next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_interval_time
+		log_admin("[key_name(usr)] has extended the round!")
+		message_admins("[key_name_admin(usr)] has extended the round!")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Extend Round")
+		return
 
 /client/proc/getStealthKey()
 	return GLOB.stealthminID[ckey]

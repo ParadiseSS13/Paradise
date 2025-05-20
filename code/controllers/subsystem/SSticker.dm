@@ -120,8 +120,7 @@ SUBSYSTEM_DEF(ticker)
 					sample_biohazard_population(biohazard)
 
 			if(world.time > next_autotransfer)
-				SSvote.start_vote(new /datum/vote/crew_transfer)
-				next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_interval_time
+				init_shift_change(null, TRUE)
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
 			if(GLOB.configuration.gamemode.disable_certain_round_early_end)
