@@ -125,6 +125,7 @@
 	name = "capacitor"
 	desc = "A basic capacitor used in the construction of a variety of devices."
 	icon_state = "capacitor"
+	item_state = "capacitor1"
 	origin_tech = "powerstorage=1"
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
@@ -132,6 +133,7 @@
 	name = "scanning module"
 	desc = "A compact, high resolution scanning module used in the construction of certain devices."
 	icon_state = "scan_module"
+	item_state = "scan_module1"
 	origin_tech = "magnets=1"
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 
@@ -139,6 +141,7 @@
 	name = "micro-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "micro_mani"
+	item_state = "mani1"
 	origin_tech = "materials=1;programming=1"
 	materials = list(MAT_METAL=30)
 
@@ -162,6 +165,7 @@
 	name = "advanced capacitor"
 	desc = "An advanced capacitor used in the construction of a variety of devices."
 	icon_state = "adv_capacitor"
+	item_state = "capacitor2"
 	origin_tech = "powerstorage=3"
 	rating = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
@@ -170,6 +174,7 @@
 	name = "advanced scanning module"
 	desc = "A compact, high resolution scanning module used in the construction of certain devices."
 	icon_state = "adv_scan_module"
+	item_state = "scan_module2"
 	origin_tech = "magnets=3"
 	rating = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
@@ -178,6 +183,7 @@
 	name = "nano-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "nano_mani"
+	item_state = "mani2"
 	origin_tech = "materials=3;programming=2"
 	rating = 2
 	materials = list(MAT_METAL=30)
@@ -204,6 +210,7 @@
 	name = "super capacitor"
 	desc = "A super-high capacity capacitor used in the construction of a variety of devices."
 	icon_state = "super_capacitor"
+	item_state = "capacitor3"
 	origin_tech = "powerstorage=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
@@ -212,6 +219,7 @@
 	name = "phasic scanning module"
 	desc = "A compact, high resolution phasic scanning module used in the construction of certain devices."
 	icon_state = "super_scan_module"
+	item_state = "scan_module3"
 	origin_tech = "magnets=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
@@ -220,6 +228,7 @@
 	name = "pico-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "pico_mani"
+	item_state = "mani3"
 	origin_tech = "materials=4;programming=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=30)
@@ -246,6 +255,7 @@
 	name = "quadratic capacitor"
 	desc = "An ultra-high capacity capacitor used in the construction of a variety of devices."
 	icon_state = "quadratic_capacitor"
+	item_state = "capacitor4"
 	origin_tech = "powerstorage=5;materials=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
@@ -254,6 +264,7 @@
 	name = "triphasic scanning module"
 	desc = "A compact, ultra resolution triphasic scanning module used in the construction of certain devices."
 	icon_state = "triphasic_scan_module"
+	item_state = "scan_module4"
 	origin_tech = "magnets=5;materials=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
@@ -262,6 +273,7 @@
 	name = "femto-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "femto_mani"
+	item_state = "mani4"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=30)
