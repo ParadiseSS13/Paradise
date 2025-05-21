@@ -126,6 +126,7 @@
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
 		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_TELEPORTER,
 	)
 	alt_titles = list("Xenoarcheologist", "Slime Cultivator", "Slime Rancher")
 	minimal_player_age = 3

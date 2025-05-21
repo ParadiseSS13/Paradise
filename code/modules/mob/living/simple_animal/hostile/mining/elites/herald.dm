@@ -53,10 +53,7 @@
 	var/is_mirror = FALSE
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/detox,
-		/obj/item/organ/internal/appendix/xenobiology/freezing,
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/ears/xenobiology/sinister,
+		/obj/item/organ/internal/lungs/xenobiology/mirror,
 	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/death()

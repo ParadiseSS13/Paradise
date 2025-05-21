@@ -76,9 +76,6 @@
 	var/perfectsouls = 0
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/heart/xenobiology/vestigial,
-		/obj/item/organ/internal/ears/xenobiology/colorful,
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
 		/obj/item/organ/internal/appendix/xenobiology/electro_strands,
 	)
 

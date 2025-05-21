@@ -56,9 +56,6 @@ Difficulty: Medium
 	custom_organ_states = list("legion1", "legion2")
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/detox,
-		/obj/item/organ/internal/appendix/xenobiology/freezing,
-		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/heart/xenobiology/squirming,
 	)
 
@@ -138,6 +135,7 @@ Difficulty: Medium
 	..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
+	icon = 'icons/mob/lavaland/corpses.dmi'
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
 			other.loot = list(/obj/item/storm_staff) //Initial does not work with lists.

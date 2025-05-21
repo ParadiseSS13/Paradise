@@ -92,9 +92,6 @@ Difficulty: Hard
 	custom_organ_states = list("vetus1", "vetus2")
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/detox,
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
 		/obj/item/organ/internal/cell/xenobiology/supercharged,
 	)
 
@@ -198,6 +195,7 @@ Difficulty: Hard
 	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/death(gibbed, allowed = FALSE)
+	icon = 'icons/mob/lavaland/corpses.dmi'
 	if(allowed)
 		overlays.Cut()
 		underlays.Cut()

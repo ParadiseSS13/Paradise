@@ -55,9 +55,6 @@
 	var/recalculation_speed = 4 //How many times chasers moves before recalculating
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/detox,
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
 		/obj/item/organ/internal/heart/xenobiology/paradox,
 	)
 

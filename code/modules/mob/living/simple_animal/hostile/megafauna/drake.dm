@@ -69,9 +69,6 @@ Difficulty: Medium
 							/datum/action/innate/megafauna_attack/lava_swoop)
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/appendix/xenobiology/feverish,
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
 		/obj/item/organ/internal/lungs/xenobiology/flame_sack,
 	)
 

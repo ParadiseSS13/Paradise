@@ -49,9 +49,7 @@
 								/datum/action/innate/elite_attack/spew_smoke)
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/alien/plasmavessel,
-		/obj/item/organ/internal/alien/hivenode,
-		/obj/item/organ/internal/alien/resinspinner,
+		/obj/item/organ/internal/ears/xenobiology/sinister,
 	)
 
 	dissection_tool_step = list(

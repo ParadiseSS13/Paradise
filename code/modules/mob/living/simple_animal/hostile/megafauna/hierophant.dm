@@ -75,9 +75,6 @@ Difficulty: Hard
 							/datum/action/innate/megafauna_attack/blink_spam)
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/appendix/xenobiology/freezing,
-		/obj/item/organ/internal/ears/xenobiology/colorful,
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
 		/datum/spell/turf_teleport/organ_teleport,
 	)
 
@@ -504,6 +501,7 @@ Difficulty: Hard
 		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
 		for(var/turf/simulated/wall/indestructible/hierophant/T in GLOB.hierophant_walls)
 			T.collapse()
+		icon = 'icons/mob/lavaland/corpses.dmi'
 		..(/* force_grant = stored_nearby */)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()

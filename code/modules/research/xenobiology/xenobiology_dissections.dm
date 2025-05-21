@@ -80,10 +80,18 @@
 /datum/surgery_step/generic/dissect/proc/pick_quality(obj/item/I, datum/surgery_step/current_step)
 	if(istype(I, /obj/item/dissector/alien))
 		return ORGAN_PRISTINE
-	var/quality_chance = current_step.allowed_tools[I]
+	var/quality_chance
+	for(var/key in current_step.allowed_tools)
+		if(ispath(key) && istype(I, key))
+			quality_chance = allowed_tools[key]
+			break
+		else if(I.tool_behaviour == key)
+			quality_chance = allowed_tools[key]
+			break
+
 	var/inverted_chance = 100 - quality_chance
-	quality_chance += ((inverted_chance * 0.66) * -(I.bit_efficiency_mod))
-	if(prob(quality_chance / 2)) // at best, 50% chance
+	quality_chance += ((inverted_chance * 0.66) * -(I.bit_efficiency_mod - 1))
+	if(prob(quality_chance / 2)) // at best, ~50% chance
 		return ORGAN_PRISTINE
 	if(prob(quality_chance))
 		return ORGAN_NORMAL
@@ -276,7 +284,6 @@
 /obj/item/organ/internal/heart/xenobiology/vestigial
 	name = "Vestigial Organ"
 	desc = "Whether this has ever had any function is a mystery. It certainly doesn't work in its current state."
-	can_paradox = TRUE
 
 /obj/item/organ/internal/heart/xenobiology/vestigial/on_life()
 	. = ..()
@@ -286,7 +293,6 @@
 /obj/item/organ/internal/heart/xenobiology/incompatible
 	name = "Incompatible Organ"
 	desc = "This organ is largely incompatible with humanoid physiology. You might be able to get it to work, but will likely cause a host of other issues."
-	can_paradox = TRUE
 
 /obj/item/organ/internal/heart/xenobiology/incompatible/on_life()
 	if(prob(0.6)) // it'll fail... eventually
@@ -856,8 +862,12 @@
 	. = ..()
 	var/datum/spell/turf_teleport/organ_teleport/spell = new
 	spell.quality = organ_quality
+	spell.inner_tele_radius = 2
+	spell.outer_tele_radius = 8
 	if(organ_quality == ORGAN_PRISTINE)
 		spell.base_cooldown = 90 SECONDS
+		spell.inner_tele_radius = 2
+		spell.outer_tele_radius = 15
 	M.AddSpell(spell)
 
 /obj/item/organ/internal/eyes/xenobiology/glowing/remove(mob/living/carbon/M, special = 0)
@@ -887,6 +897,7 @@
 	var/atom/target = targets[1]
 	if(!isliving(target))
 		to_chat(user, "<span class = 'warning'>We can only teleport living things!</span>")
+		revert_cast()
 		return
 	if(target == user)
 		to_chat(user, "<span class = 'warning'>We are unable to teleport ourself!</span>")

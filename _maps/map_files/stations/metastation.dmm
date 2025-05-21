@@ -47164,6 +47164,9 @@
 	dir = 8
 	},
 /obj/item/storage/belt/medical/surgery,
+/obj/item/reagent_containers/glass/bottle/reagent/morphine{
+	pixel_y = 16
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"

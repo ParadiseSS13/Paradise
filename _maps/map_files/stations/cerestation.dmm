@@ -68154,6 +68154,9 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
+/obj/item/reagent_containers/glass/bottle/reagent/morphine{
+	pixel_y = -14
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"

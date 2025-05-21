@@ -83,9 +83,6 @@ Difficulty: Hard
 							/datum/action/innate/megafauna_attack/blood_warp)
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/detox,
-		/obj/item/organ/internal/appendix/xenobiology/feverish,
-		/obj/item/organ/internal/liver/xenobiology/toxic,
 		/obj/item/organ/internal/heart/xenobiology/bloody_sack,
 	)
 
@@ -207,6 +204,7 @@ Difficulty: Hard
 		new /obj/effect/bubblegum_exit(get_turf(src))
 	name = "Fleshy Mass"
 	desc = "Whatever this is, doesn't actually look like it comes from bubblegum, but many other entities. just thinking about how many creatures met their end to make this pile makes you shudder."
+	icon = 'icons/mob/lavaland/corpses.dmi'
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/drop_loot()

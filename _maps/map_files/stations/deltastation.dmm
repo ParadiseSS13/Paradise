@@ -40829,6 +40829,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/item/storage/belt/medical/surgery,
+/obj/item/reagent_containers/glass/bottle/reagent/morphine,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},

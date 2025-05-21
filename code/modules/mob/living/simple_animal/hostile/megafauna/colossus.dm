@@ -66,9 +66,6 @@ Difficulty: Very Hard
 							/datum/action/innate/megafauna_attack/alternating_cardinals)
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/detox,
-		/obj/item/organ/internal/ears/xenobiology/colorful,
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
 		/obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants,
 	)
 
@@ -114,6 +111,10 @@ Difficulty: Very Hard
 	. = ..()
 	for(var/mob/living/simple_animal/hostile/megafauna/hierophant/H in GLOB.mob_list)
 		H.RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, easy_anti_cheese))
+
+/mob/living/simple_animal/hostile/megafauna/colossus/death(gibbed)
+	. = ..()
+	icon = 'icons/mob/lavaland/corpses.dmi'
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
