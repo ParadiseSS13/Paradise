@@ -1046,11 +1046,11 @@
 		return
 	user.enhanced_tracking = TRUE
 	user.alarms_listened_for += "Tracking"
-	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 1 SECONDS)
 
 /datum/ai_program/enhanced_tracker/downgrade(mob/living/silicon/ai/user)
 	..()
-	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 1 SECONDS)
 
 /datum/ai_program/enhanced_tracker/uninstall(mob/living/silicon/ai/user)
 	..()
@@ -1073,6 +1073,9 @@
 		return
 	// Pick a mob to track
 	var/target_name = tgui_input_list(user, "Pick a trackable target...", "AI", user.trackable_mobs())
+	if(!target_name)
+		user.tracked_mob = null
+		return
 	user.tracked_mob = (isnull(user.track.humans[target_name]) ? user.track.others[target_name] : user.track.humans[target_name])
 
 /mob/living/silicon/ai/proc/raise_tracking_alert(area/A, mob/target)
@@ -1088,6 +1091,9 @@
 	if(GLOB.alarm_manager.trigger_alarm("Tracking", A, A.cameras, closest_camera))
 		// Cancel alert after 1 minute
 		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Tracking", A, closest_camera), 1 MINUTES)
+
+/mob/living/silicon/ai/proc/reset_tracker_cooldown()
+	tracker_alert_cooldown = FALSE
 
 // Pointer - Lets you put down a holographic reticle to draw attention to things
 /datum/ai_program/pointer
