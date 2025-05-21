@@ -121,7 +121,8 @@
 
 /mob/living/simple_animal/slime/death()
 	var/cur_turf = get_turf(src)
-	holding_organ.forceMove(cur_turf)
+	if(holding_organ)
+		holding_organ.forceMove(cur_turf)
 	underlays.Cut()
 	return ..()
 
