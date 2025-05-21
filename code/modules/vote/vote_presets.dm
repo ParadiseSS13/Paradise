@@ -13,6 +13,14 @@
 	if(result == "Initiate Crew Transfer")
 		init_shift_change(null, TRUE)
 
+/datum/vote/crew_transfer/ui_interact(mob/user, datum/tgui/ui)
+	if(isobserver(user))
+		var/mob/dead/observer/ghost = user
+		if(!ghost.check_ahud_rejoin_eligibility())
+			to_chat(user,"<span class='warning'>You cannot vote on crew transfer as you have no respawnability</span>")
+			return FALSE
+	. = ..()
+
 // Map vote
 /datum/vote/map
 	question = "Map Vote"
