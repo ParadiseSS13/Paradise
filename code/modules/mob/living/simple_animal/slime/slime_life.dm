@@ -486,11 +486,11 @@
 		return
 	if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
 		return // no processing while in the computer
-	if(organ_progress < 100)
+	if(organ_progress < 50)
 		organ_progress += 1
 		return
 	organ_progress = 1
-	say("All done!", speak_emote)
+	say("All done!", pick(speak_emote))
 	var/obj/item/organ/internal/finished_organ = new holding_organ.true_organ_type(src.loc)
 	finished_organ.organ_quality = holding_organ.unknown_quality
 	finished_organ.icon_state = holding_organ.icon_state

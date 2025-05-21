@@ -501,8 +501,9 @@
 			if(Discipline == 1)
 				attacked = 0
 
-	if(Target)
+	if(trained)
 		Target = null
+
 	if(buckled)
 		Feedstop(silent = TRUE) //we unbuckle the slime from the mob it latched onto.
 
