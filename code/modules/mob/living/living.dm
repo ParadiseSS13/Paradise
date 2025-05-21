@@ -221,6 +221,30 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
+/mob/living/examine(mob/user)
+	. = ..()
+	if(stat != DEAD)
+		return
+	if(!user.reagent_vision())
+		return
+	var/datum/surgery/dissection
+	for(var/datum/surgery/dissect/D in surgeries)
+		dissection = D
+	if(dissection)
+		. += "<span class='notice'>You detect the next dissection step will be: [dissection.get_surgery_step()]</span>"
+	if(!xeno_organ_results)
+		. += "<span class='warning'>[src] looks like they have had their organs dissected!</span>"
+
+
+/mob/living/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
+			for(var/datum/surgery/S in surgeries)
+				if(S.next_step(user, src))
+					return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
 /mob/living/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
@@ -913,21 +937,6 @@
 /mob/living/proc/get_permeability_protection()
 	return 0
 
-/mob/living/examine(mob/user)
-	. = ..()
-	if(stat != DEAD)
-		return
-	if(!user.reagent_vision())
-		return
-	var/datum/surgery/dissection
-	for(var/datum/surgery/dissect/D in surgeries)
-		dissection = D
-	if(dissection)
-		. += "<span class='notice'>You detect the next dissection step will be: [dissection.get_surgery_step()]</span>"
-	if(!xeno_organ_results)
-		. += "<span class='warning'>[src] looks like they have had their organs dissected!</span>"
-
-
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
 	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?
 		to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
@@ -1252,12 +1261,3 @@
 
 /mob/living/proc/sec_hud_set_ID()
 	return
-
-/mob/living/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(length(surgeries))
-		if(user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return ITEM_INTERACT_COMPLETE
-
-	return ..()
