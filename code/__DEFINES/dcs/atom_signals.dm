@@ -123,6 +123,7 @@
 ///called on /living, when pull is attempted, but before it completes, from base of [/mob/living/proc/start_pulling]: (atom/movable/thing, force)
 #define COMSIG_LIVING_TRY_PULL "living_try_pull"
 	#define COMSIG_LIVING_CANCEL_PULL (1 << 0)
+#define COMSIG_ATOM_PULLED "atom_pulled"
 
 ///from base of atom/Bumped(atom/bumped_atom)
 #define COMSIG_ATOM_BUMPED "atom_bumped"
