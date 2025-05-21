@@ -133,7 +133,7 @@
 		underlay_appearance.icon = icon = 'icons/mob/slimes.dmi'
 		underlay_appearance.icon_state = "xeno_organ"
 		underlays += underlay_appearance
-		add_overlay("aslime-[mood]")
+	. += "aslime-[mood]"
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
