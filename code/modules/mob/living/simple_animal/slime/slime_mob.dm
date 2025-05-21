@@ -502,6 +502,7 @@
 				attacked = 0
 
 	if(trained)
+		say("Sorry...", pick(speak_emote))
 		Target = null
 
 	if(buckled)
