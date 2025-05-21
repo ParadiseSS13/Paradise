@@ -25,6 +25,6 @@
 		var/turf/test_turf = get_step(target_wall, direction)
 		if(isnull(test_turf))
 			continue
-		if(!is_blocked_turf(test_turf, excluded_objs = list(source)))
+		if(!test_turf.is_blocked_turf(source_atom = source))
 			return TRUE
 	return FALSE

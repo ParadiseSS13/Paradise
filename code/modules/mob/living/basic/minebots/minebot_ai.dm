@@ -189,7 +189,7 @@
 	var/mob/living/source = controller.pawn
 	var/list/turfs_in_path = get_line(source, target) - target
 	for(var/turf/turf in turfs_in_path)
-		if(is_blocked_turf(turf, exclude_mobs = TRUE))
+		if(turf.is_blocked_turf(exclude_mobs = TRUE))
 			controller.set_blackboard_key(BB_PREVIOUS_UNREACHABLE_WALL, target)
 			return TRUE
 		for(var/mob/living/potential_friend in turf)
