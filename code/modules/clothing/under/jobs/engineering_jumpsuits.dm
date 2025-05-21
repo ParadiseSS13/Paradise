@@ -10,19 +10,19 @@
 		)
 
 /obj/item/clothing/under/rank/engineering/chief_engineer
-	name = "chief engineer's jumpsuit"
-	desc = "It's a high visibility jumpsuit given to those engineers insane enough to achieve the rank of \"Chief engineer\". It has minor radiation shielding."
-	icon_state = "chief_engineer"
-	item_state = "chief_engineer"
-	item_color = "chief_engineer"
+	name = "chief engineer's uniform"
+	desc = "It's a yellow dress shirt and black slacks given to those engineers insane enough to achieve the rank of \"Chief engineer\". It has minor radiation shielding."
+	icon_state = "ce"
+	item_state = "ce"
+	item_color = "ce"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 200, ACID = 35)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
-	name = "chief engineer's jumpskirt"
-	desc = "It's a high visibility jumpskirt given to those engineers insane enough to achieve the rank of \"Chief engineer\". It has minor radiation shielding."
-	icon_state = "chief_engineer_skirt"
-	item_color = "chief_engineer_skirt"
+	name = "chief engineer's skirt"
+	desc = "It's a yellow dress shirt and black skirt given to those engineers insane enough to achieve the rank of \"Chief engineer\". It has minor radiation shielding."
+	icon_state = "ce_skirt"
+	item_color = "ce_skirt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
