@@ -63969,6 +63969,10 @@
 	pixel_y = 3
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/item/circuitboard/singulo_monitor{
+	pixel_x = 3;
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
