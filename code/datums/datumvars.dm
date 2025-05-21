@@ -1354,7 +1354,7 @@
 				for(var/to_delete in components_actual)
 					qdel(to_delete)
 
-		message_admins("<span class='notice'>[key_name_admin(usr)] has [mass_remove? "mass" : ""] removed [path] component from [mass_remove? target.type : key_name_admin(target)].</span>")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has [mass_remove ? "mass" : ""] removed [path] component from [mass_remove ? target.type : key_name_admin(target)].</span>")
 	if(href_list["datumrefresh"])
 		var/datum/DAT = locateUID(href_list["datumrefresh"])
 		if(!istype(DAT, /datum) && !isclient(DAT))
