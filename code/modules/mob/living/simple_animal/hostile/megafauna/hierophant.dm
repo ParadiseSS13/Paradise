@@ -75,14 +75,14 @@ Difficulty: Hard
 							/datum/action/innate/megafauna_attack/blink_spam)
 
 	xeno_organ_results = list(
-		/datum/spell/turf_teleport/organ_teleport,
+		/obj/item/organ/internal/eyes/xenobiology/glowing,
 	)
 
 	dissection_tool_step = list(
 	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/robotics/external/unscrew_hatch,
-	/datum/surgery_step/robotics/external/open_hatch,
-	/datum/surgery_step/robotics/manipulate_robotic_organs/extract,
+	/datum/surgery_step/fake_robotics/unscrew_hatch,
+	/datum/surgery_step/fake_robotics/open_hatch,
+	/datum/surgery_step/fake_robotics/amputate,
 	/datum/surgery_step/generic/dissect,
 	)
 
@@ -101,7 +101,7 @@ Difficulty: Hard
 	"<span class='notice'>You remove the core from the metal housing!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>You begin to prep the subject for dissection...</span>",
+	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
 	"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
 	"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
 	"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",

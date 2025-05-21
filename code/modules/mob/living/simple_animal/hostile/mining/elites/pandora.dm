@@ -60,9 +60,9 @@
 
 	dissection_tool_step = list(
 	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/robotics/external/unscrew_hatch,
-	/datum/surgery_step/robotics/external/open_hatch,
-	/datum/surgery_step/robotics/manipulate_robotic_organs/extract,
+	/datum/surgery_step/fake_robotics/unscrew_hatch,
+	/datum/surgery_step/fake_robotics/open_hatch,
+	/datum/surgery_step/fake_robotics/amputate,
 	/datum/surgery_step/generic/dissect,
 	)
 

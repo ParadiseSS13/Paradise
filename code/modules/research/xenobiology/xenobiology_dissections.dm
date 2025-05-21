@@ -13,7 +13,7 @@
 	name = "Improved Dissection Manager"
 	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs. This one has had several improvements applied to it."
 	icon_state = "dissector_upgrade"
-	toolspeed = 0.4
+	toolspeed = 0.6
 
 // allows for perfect pristine organ extraction. Only available from non-lavaland abductor tech
 /obj/item/dissector/alien
@@ -44,7 +44,7 @@
 	preop_sound = 'sound/surgery/organ1.ogg'
 	success_sound = 'sound/surgery/organ2.ogg'
 	failure_sound = 'sound/effects/bone_break_1.ogg'
-	time = 1.5
+	time = 1.5 SECONDS
 
 /datum/surgery_step/generic/dissect/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
@@ -126,6 +126,62 @@
 	if(target.stat == DEAD && target.contains_xeno_organ && target.xeno_organ_results)
 		return TRUE
 	return FALSE
+
+/datum/surgery_step/fake_robotics
+	name = "fake robotics operations - do not use this parent object"
+	allowed_tools = list()
+	time = 10 SECONDS
+
+/datum/surgery_step/fake_robotics/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(istype(surgery, /datum/surgery/dissect))
+		to_chat(user, "[target.dissection_text[surgery.step_number]]")
+	if(tool && tool.tool_behaviour)
+		tool.play_tool_sound(user, 30)
+	return ..()
+
+/datum/surgery_step/fake_robotics/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(istype(surgery, /datum/surgery/dissect))
+		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
+	if(tool && tool.tool_behaviour)
+		tool.play_tool_sound(user, 30)
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/fake_robotics/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(istype(surgery, /datum/surgery/dissect))
+		to_chat(user, "[target.dissection_failure_text[surgery.step_number]]")
+	if(tool && tool.tool_behaviour)
+		tool.play_tool_sound(user, 30)
+	return SURGERY_STEP_RETRY
+
+/datum/surgery_step/fake_robotics/unscrew_hatch
+	name = "unscrew hatch"
+	allowed_tools = list(
+		TOOL_SCREWDRIVER = 100,
+		/obj/item/coin = 50,
+		/obj/item/kitchen/knife = 50
+	)
+
+	time = 1.6 SECONDS
+
+/datum/surgery_step/fake_robotics/open_hatch
+	name = "open hatch"
+	allowed_tools = list(
+		TOOL_RETRACTOR = 100,
+		TOOL_CROWBAR = 100,
+		/obj/item/kitchen/utensil = 50
+	)
+
+	time = 2.4 SECONDS
+
+/datum/surgery_step/fake_robotics/amputate
+	name = "remove component"
+
+	allowed_tools = list(
+		TOOL_MULTITOOL = 100
+	)
+
+	time = 5 SECONDS
+
 
 /obj/item/regen_mesh
 	name = "Regenerative Organ Mesh"
