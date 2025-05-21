@@ -289,14 +289,14 @@
 	can_paradox = TRUE
 
 /obj/item/organ/internal/heart/xenobiology/incompatible/on_life()
-	if(prob(0.3)) // it'll fail... eventually
+	if(prob(0.6)) // it'll fail... eventually
 		if(!owner.undergoing_cardiac_arrest())
 			owner.set_heartattack(TRUE) // yeah probably shouldnt use this
-	if(prob(20))
-		owner.AdjustConfused(5 SECONDS)
-	if(prob(20))
+	if(prob(10))
+		owner.AdjustConfused(5 SECONDS, 5 SECONDS, 30 SECONDS)
+	if(prob(10))
 		owner.AdjustJitter(5 SECONDS)
-	if(prob(20))
+	if(prob(10))
 		owner.vomit(20)
 
 /obj/item/organ/internal/lungs/xenobiology/flame_sack
