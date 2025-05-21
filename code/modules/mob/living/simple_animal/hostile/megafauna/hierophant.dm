@@ -502,6 +502,7 @@ Difficulty: Hard
 		for(var/turf/simulated/wall/indestructible/hierophant/T in GLOB.hierophant_walls)
 			T.collapse()
 		icon = 'icons/mob/lavaland/corpses.dmi'
+		DeleteComponent(/datum/component/boss_music)
 		..(/* force_grant = stored_nearby */)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
