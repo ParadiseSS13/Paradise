@@ -319,7 +319,7 @@
 	max_integrity = 350
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
-	if(connected && connected.status == EXTENDED_TRAY) //Connected this connected that; connected has lost all meaning to me. Thank god we didnt call anchored 'connected'.
+	if(connected && connected.status == EXTENDED_TRAY) // Connected this connected that; connected has lost all meaning to me. Thank god we didnt call anchored 'connected'.
 		for(var/atom/movable/A as mob|obj in loc)
 			if(!A.anchored)
 				A.forceMove(connected)
