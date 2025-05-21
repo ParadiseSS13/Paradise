@@ -133,6 +133,7 @@
 		underlay_appearance.icon = icon = 'icons/mob/slimes.dmi'
 		underlay_appearance.icon_state = "xeno_organ"
 		underlays += underlay_appearance
+		add_overlay("aslime-[mood]")
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
@@ -159,7 +160,7 @@
 	if(stat != DEAD)
 		icon_state = icon_text
 		if(mood && stat == CONSCIOUS)
-			add_overlay("aslime-[mood]")
+			update_appearance(UPDATE_OVERLAYS)
 	else
 		icon_state = icon_dead
 
@@ -450,8 +451,8 @@
 	// Extinguishers just piss them off more
 	if(!client && !Target && istype(source, /obj/effect/particle_effect/water))
 		adjustBruteLoss(5) // extra potent
-		if(trained && prob(25))
-			src.say("Ow!!! Why!?")
+		if(trained && prob(75))
+			say("Ow!!! Why!?", pick(speak_emote))
 			trained = FALSE
 			rabid = TRUE
 	if(!client && Target && volume >= 3) // Like cats
