@@ -475,7 +475,7 @@ export const StripMenu = (props, context) => {
           </Stack>
         </Window.Content>
       </Window>
-    )
+    );
   }
 
   return (
