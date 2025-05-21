@@ -128,12 +128,13 @@
 
 /mob/living/simple_animal/slime/update_overlays()
 	. = ..()
-	if(holding_organ && stat != DEAD)
-		var/mutable_appearance/underlay_appearance = mutable_appearance(layer = 3.9, plane = GAME_PLANE) // 3.9 so it wont potentially layer weird if someones laying below
-		underlay_appearance.icon = icon = 'icons/mob/slimes.dmi'
-		underlay_appearance.icon_state = "xeno_organ"
-		underlays += underlay_appearance
-	. += "aslime-[mood]"
+	if(stat != DEAD)
+		. += "aslime-[mood]"
+		if(holding_organ)
+			var/mutable_appearance/underlay_appearance = mutable_appearance(layer = 3.9, plane = GAME_PLANE) // 3.9 so it wont potentially layer weird if someones laying below
+			underlay_appearance.icon = icon = 'icons/mob/slimes.dmi'
+			underlay_appearance.icon_state = "xeno_organ"
+			underlays += underlay_appearance
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
