@@ -156,24 +156,40 @@
 
 // Hallways for departments
 
-/area/station/hallway/science
+/area/station/hallway/supply // SUPPLY (CARGO)
+	name = "\improper Cargo Hallway"
+	icon_state = "cargo_hallway"
+
+/area/station/hallway/supply/fore
+	name = "\improper Fore Cargo Hallway"
+
+/area/station/hallway/supply/starboard
+	name = "\improper Starboard Cargo Hallway"
+
+/area/station/hallway/supply/aft
+	name = "\improper Aft Cargo Hallway"
+
+/area/station/hallway/supply/port
+	name = "\improper Port Cargo Hallway"
+
+
+/area/station/hallway/science // SCIENCE (RESEARCH)
 	name = "\improper Science Hallway"
 	icon_state = "science_hallway"
 
 /area/station/hallway/science/fore
 	name = "\improper Fore Science Hallway"
 
-/area/station/hallway/science/aft
-	name = "\improper Aft Science Hallway"
-
 /area/station/hallway/science/starboard
 	name = "\improper Starboard Science Hallway"
+
+/area/station/hallway/science/aft
+	name = "\improper Aft Science Hallway"
 
 /area/station/hallway/science/port
 	name = "\improper Port Science Hallway"
 
 // Other public areas
-
 
 /area/station/public/dorms
 	name = "\improper Dormitories"
