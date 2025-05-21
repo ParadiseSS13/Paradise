@@ -39174,7 +39174,7 @@
 /obj/structure/marker_beacon/dock_marker/collision,
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "fDi" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1
@@ -73170,10 +73170,6 @@
 	icon_state = "cautioncorner"
 	},
 /area/station/hallway/primary/starboard/east)
-"sfx" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "sfz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -98825,10 +98821,10 @@ aaa
 aaa
 aaa
 fCU
-sfx
-sfx
-sfx
-sfx
+abq
+abq
+abq
+abq
 ayy
 ayy
 ayy
@@ -99853,10 +99849,10 @@ aaa
 aaa
 aaa
 fCU
-sfx
-sfx
-sfx
-sfx
+abq
+abq
+abq
+abq
 ayy
 ayy
 ayy
@@ -103451,10 +103447,10 @@ aaa
 aaa
 aaa
 fCU
-sfx
-sfx
-sfx
-sfx
+abq
+abq
+abq
+abq
 vXe
 vXe
 vXe
@@ -104479,10 +104475,10 @@ aaa
 aaa
 aaa
 fCU
-sfx
-sfx
-sfx
-sfx
+abq
+abq
+abq
+abq
 vXe
 vXe
 vXe
