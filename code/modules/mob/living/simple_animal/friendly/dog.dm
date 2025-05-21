@@ -78,8 +78,6 @@
 	var/obj/item/inventory_head = null
 	///Currently worn item on the back slot
 	var/obj/item/inventory_back = null
-	///Item slots that are available for this corgi to equip stuff into
-	var/list/strippable_inventory_slots = list()
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 	var/razor_shave_delay = 5 SECONDS
@@ -89,13 +87,15 @@
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state)
-	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_corgi_items)
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/corgi/Destroy()
 	QDEL_NULL(inventory_head)
 	QDEL_NULL(inventory_back)
 	return ..()
+
+/mob/living/simple_animal/pet/dog/corgi/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_corgi_items
 
 /mob/living/simple_animal/pet/dog/corgi/handle_atom_del(atom/A)
 	if(A == inventory_head)
@@ -521,8 +521,10 @@
 	density = FALSE
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	strippable_inventory_slots = list() // Puppies do not have a head or back equipment slot.
 	collar_icon_state = "puppy"
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/get_strippable_items(datum/source, list/items)
+	return
 
 /// Tribute to the corgis born in nullspace
 /mob/living/simple_animal/pet/dog/corgi/puppy/void
@@ -554,12 +556,20 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
-	strippable_inventory_slots = list(/datum/strippable_item/corgi_back) //Lisa already has a cute bow!
+	var/datum/strippable_item/corgi_back/corgi_strippable_back
 	var/turns_since_scan = 0
+
+/mob/living/simple_animal/pet/dog/corgi/lisa/Initialize(mapload)
+	. = ..()
+	// Lisa already has a cute bow, so she only needs the back slot
+	corgi_strippable_back = new
 
 /mob/living/simple_animal/pet/dog/corgi/lisa/Life()
 	..()
 	make_babies()
+
+/mob/living/simple_animal/pet/dog/corgi/lisa/get_strippable_items(datum/source, list/items)
+	items[STRIPPABLE_ITEM_BACK] = corgi_strippable_back
 
 /mob/living/simple_animal/pet/dog/corgi/lisa/handle_automated_movement()
 	. = ..()
