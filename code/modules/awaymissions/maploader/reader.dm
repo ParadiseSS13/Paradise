@@ -62,7 +62,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/datum/dmm_suite/loaded_map/LM = new
 	// This try-catch is used as a budget "Finally" clause, as the dirt count
 	// needs to be reset
-	var/watch = start_watch()
 	log_debug("[measureOnly ? "Measuring" : "Loading"] map: [fname]")
 	try
 		LM.index = 1
