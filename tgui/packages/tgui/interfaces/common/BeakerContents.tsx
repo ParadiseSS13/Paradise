@@ -7,13 +7,13 @@ type BeakerReagent = {
   name: string;
   id: string;
   volume: number;
-}
+};
 
 type BeakerContentsProps = {
   beakerLoaded: BooleanLike;
   beakerContents: BeakerReagent[];
   buttons: (chemical: BeakerReagent, idx: number) => React.JSX.Element;
-}
+};
 
 /**
  * Displays a beaker's contents

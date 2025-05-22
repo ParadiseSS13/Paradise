@@ -1,11 +1,11 @@
 import { filter, sortBy } from 'common/collections';
 import { Box, Button, Input, LabeledList, Section, Stack } from 'tgui-core/components';
 import { Dropdown } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 import { createSearch, toTitleCase } from 'tgui-core/string';
 
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
-import { BooleanLike } from 'tgui-core/react';
 
 const canBeMade = (recipe: Recipe, mavail: number, gavail: number, multi: number) => {
   if (recipe.requirements === null) {
@@ -45,7 +45,7 @@ type AutolatheData = {
   recipes: Recipe[];
   categories: string[];
   fill_percent: number;
-}
+};
 
 export const Autolathe = (props) => {
   const { act, data } = useBackend<AutolatheData>();
@@ -95,15 +95,17 @@ export const Autolathe = (props) => {
   }
 
   const selectRecipes = (recipes: Recipe[], searchText = ''): Recipe[] => {
-    let queriedRecipes = filter(recipes, (recipe) =>
-      (recipe.category.indexOf(category) > -1 || !!searchText) && (!!showhacked || !recipe.hacked));
+    let queriedRecipes = filter(
+      recipes,
+      (recipe) => (recipe.category.indexOf(category) > -1 || !!searchText) && (!!showhacked || !recipe.hacked)
+    );
     if (searchText) {
       const testSearch = createSearch(searchText, (recipe: Recipe) => recipe.name);
       queriedRecipes = filter(queriedRecipes, testSearch);
     }
     queriedRecipes = sortBy(queriedRecipes, (recipe) => recipe.name.toLowerCase());
     return queriedRecipes;
-  }
+  };
   const queriedRecipes = selectRecipes(recipes, searchText);
 
   let rText = 'Build';
@@ -130,7 +132,13 @@ export const Autolathe = (props) => {
                 />
               }
             >
-              <Input fluid mb={1} placeholder="Search for..." onChange={(value) => setSearchText(value)} value={searchText} />
+              <Input
+                fluid
+                mb={1}
+                placeholder="Search for..."
+                onChange={(value) => setSearchText(value)}
+                value={searchText}
+              />
               {queriedRecipes.map((recipe) => (
                 <Stack.Item grow key={recipe.uid}>
                   <img
@@ -208,8 +216,7 @@ export const Autolathe = (props) => {
                       .map((mat) => toTitleCase(mat) + ': ' + recipe.requirements[mat])
                       .join(', ')) || <Box>No resources required.</Box>}
                 </Stack.Item>
-              ))
-              }
+              ))}
             </Section>
           </Stack.Item>
           <Stack.Item width="30%">

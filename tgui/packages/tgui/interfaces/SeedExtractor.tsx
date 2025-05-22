@@ -10,14 +10,14 @@ type SeedExtractorContextType = {
   vendAmountState: [number, (value: number) => void];
   sortIdState: [string, (value: string) => void];
   sortOrderState: [boolean, (value: boolean) => void];
-}
+};
 
 const SeedExtractorContext = createContext<SeedExtractorContextType>({
   searchTextState: ['', () => {}],
   vendAmountState: [1, () => {}],
   sortIdState: ['name', () => {}],
   sortOrderState: [true, () => {}],
-})
+});
 
 export const SeedExtractor = (props) => {
   const searchTextState = useState('');
@@ -29,7 +29,7 @@ export const SeedExtractor = (props) => {
     <Window theme="hydroponics" width={800} height={400}>
       <ComplexModal />
       <Window.Content>
-        <SeedExtractorContext.Provider value={{searchTextState, vendAmountState, sortIdState, sortOrderState}}>
+        <SeedExtractorContext.Provider value={{ searchTextState, vendAmountState, sortIdState, sortOrderState }}>
           <Stack fill vertical>
             <Stack.Item>
               <SeedExtractorActions />
@@ -142,20 +142,21 @@ type Seed = {
   yield: number;
   potency: number;
   amount: number;
-}
+};
 
 type SeedListData = {
-  icons: { [key: string]: string};
+  icons: { [key: string]: string };
   seeds: Seed[];
-}
+};
 
 const SeedList = (props) => {
   const { act, data } = useBackend<SeedListData>();
-  const { searchTextState, vendAmountState, sortIdState, sortOrderState } = useContext<SeedExtractorContextType>(SeedExtractorContext);
-  const [ searchText, setSearchText ] = searchTextState;
-  const [ vendAmount, setVendAmount ] = vendAmountState;
-  const [ sortId, setSortId ] = sortIdState;
-  const [ sortOrder, setSortOrder ] = sortOrderState;
+  const { searchTextState, vendAmountState, sortIdState, sortOrderState } =
+    useContext<SeedExtractorContextType>(SeedExtractorContext);
+  const [searchText, setSearchText] = searchTextState;
+  const [vendAmount, setVendAmount] = vendAmountState;
+  const [sortId, setSortId] = sortIdState;
+  const [sortOrder, setSortOrder] = sortOrderState;
 
   const { icons, seeds } = data;
 
@@ -224,12 +225,12 @@ const SeedList = (props) => {
 type SortButtonProps = {
   id: string;
   children: ReactNode;
-}
+};
 
 const SortButton = (props: SortButtonProps) => {
   const { sortIdState, sortOrderState } = useContext<SeedExtractorContextType>(SeedExtractorContext);
-  const [ sortId, setSortId ] = sortIdState;
-  const [ sortOrder, setSortOrder ] = sortOrderState;
+  const [sortId, setSortId] = sortIdState;
+  const [sortOrder, setSortOrder] = sortOrderState;
 
   const { id, children } = props;
   return (
@@ -255,8 +256,8 @@ const SortButton = (props: SortButtonProps) => {
 
 const SeedExtractorActions = (props) => {
   const { searchTextState, vendAmountState } = useContext<SeedExtractorContextType>(SeedExtractorContext);
-  const [ searchText, setSearchText ] = searchTextState;
-  const [ vendAmount, setVendAmount ] = vendAmountState;
+  const [searchText, setSearchText] = searchTextState;
+  const [vendAmount, setVendAmount] = vendAmountState;
 
   return (
     <Stack fill>
@@ -270,7 +271,11 @@ const SeedExtractorActions = (props) => {
       </Stack.Item>
       <Stack.Item>
         Vend amount:
-        <Input placeholder="1" onChange={(value) => setVendAmount(Number(value) >= 1 ? Number(value) : 1)} value={`${vendAmount}`} />
+        <Input
+          placeholder="1"
+          onChange={(value) => setVendAmount(Number(value) >= 1 ? Number(value) : 1)}
+          value={`${vendAmount}`}
+        />
       </Stack.Item>
     </Stack>
   );

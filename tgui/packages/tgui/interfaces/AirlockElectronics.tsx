@@ -1,9 +1,9 @@
 import { Button, Section, Stack } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { AccessList, AccessRegion } from './common/AccessList';
-import { BooleanLike } from 'tgui-core/react';
 
 const NORTH = 1;
 const SOUTH = 2;
@@ -25,7 +25,7 @@ export const AirlockElectronics = (props) => {
 
 type UnrestrictedAccessData = {
   unrestricted_dir: number;
-}
+};
 
 const UnrestrictedAccess = (props) => {
   const { act, data } = useBackend<UnrestrictedAccessData>();
@@ -104,7 +104,7 @@ type AirlockElectronicsData = {
   selected_accesses: number[];
   one_access: BooleanLike;
   regions: AccessRegion[];
-}
+};
 
 const ChooseAccess = (props) => {
   const { act, data } = useBackend<AirlockElectronicsData>();

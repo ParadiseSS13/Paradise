@@ -36,12 +36,12 @@ type RecipeList = {
 type RecipesData = {
   amount: number;
   recipes: RecipeList;
-}
+};
 
 type RecipeBoxProps = {
   title: string;
   recipe: Recipe;
-}
+};
 
 // RecipeList converted via Object.entries() for filterRecipeList
 type RecipeListFilterableEntry = [string, RecipeList | Recipe];
@@ -116,12 +116,8 @@ const filterRecipeList = (recipeList: RecipeList, titleFilter: (title: string) =
       // Sort items so that lists are on top and recipes underneath.
       // Plus everything is in alphabetical order.
       .sort(([aKey, aValue], [bKey, bValue]) =>
-        isRecipeList(aValue) !== isRecipeList(bValue)
-          ? isRecipeList(aValue)
-            ? -1
-            : 1
-          : aKey.localeCompare(bKey),
-      ),
+        isRecipeList(aValue) !== isRecipeList(bValue) ? (isRecipeList(aValue) ? -1 : 1) : aKey.localeCompare(bKey)
+      )
   );
 
   return Object.keys(filteredList).length ? filteredList : undefined;
@@ -153,7 +149,7 @@ const calculateMultiplier = (recipe: Recipe, amount: number) => {
 type MultipliersProps = {
   recipe: Recipe;
   max_possible_multiplier: number;
-}
+};
 
 const Multipliers = (props: MultipliersProps) => {
   const { act } = useBackend();

@@ -53,7 +53,7 @@ export type RadioChannel = {
   name: string;
   freq: number;
   color: string;
-}
+};
 
 export const RADIO_CHANNELS: RadioChannel[] = [
   {

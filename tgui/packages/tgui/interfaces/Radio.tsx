@@ -1,11 +1,11 @@
 import { map } from 'common/collections';
 import { Box, Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
-import { BooleanLike } from 'tgui-core/react';
 
 type RadioData = {
   freqlock: BooleanLike;
@@ -19,7 +19,7 @@ type RadioData = {
   has_loudspeaker: BooleanLike;
   ichannels: { [key: string]: number };
   schannels: { [key: string]: BooleanLike };
-}
+};
 
 export const Radio = (props) => {
   const { act, data } = useBackend<RadioData>();
@@ -41,7 +41,7 @@ export const Radio = (props) => {
   let colorMap = [];
   RADIO_CHANNELS.forEach((radioChannel) => {
     colorMap[radioChannel.name] = radioChannel.color;
-  })
+  });
   const secureChannels = map(schannels, (value, key) => ({
     name: key,
     status: !!value,
@@ -61,35 +61,35 @@ export const Radio = (props) => {
                   {toFixed(frequency / 10, 1) + ' kHz'}
                 </Box>
               )) || (
-                  <>
-                    <NumberInput
-                      animated
-                      unit="kHz"
-                      step={0.2}
-                      stepPixelSize={10}
-                      minValue={minFrequency / 10}
-                      maxValue={maxFrequency / 10}
-                      value={frequency / 10}
-                      format={(value) => toFixed(value, 1)}
-                      onChange={(value) =>
-                        act('frequency', {
-                          adjust: value - frequency / 10,
-                        })
-                      }
-                    />
-                    <Button
-                      icon="undo"
-                      content=""
-                      disabled={!canReset}
-                      tooltip="Reset"
-                      onClick={() =>
-                        act('frequency', {
-                          tune: 'reset',
-                        })
-                      }
-                    />
-                  </>
-                )}
+                <>
+                  <NumberInput
+                    animated
+                    unit="kHz"
+                    step={0.2}
+                    stepPixelSize={10}
+                    minValue={minFrequency / 10}
+                    maxValue={maxFrequency / 10}
+                    value={frequency / 10}
+                    format={(value) => toFixed(value, 1)}
+                    onChange={(value) =>
+                      act('frequency', {
+                        adjust: value - frequency / 10,
+                      })
+                    }
+                  />
+                  <Button
+                    icon="undo"
+                    content=""
+                    disabled={!canReset}
+                    tooltip="Reset"
+                    onClick={() =>
+                      act('frequency', {
+                        tune: 'reset',
+                      })
+                    }
+                  />
+                </>
+              )}
               {matchedChannel && tunedChannel && (
                 <Box inline color={tunedChannel.color} ml={2}>
                   [{tunedChannel.name}]

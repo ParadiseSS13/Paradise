@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { Box, Button, Dimmer, Icon, LabeledList, Section, Stack } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { BooleanLike } from 'tgui-core/react';
 
 type HolodeckData = {
   emagged: BooleanLike;
   ai_override: BooleanLike;
   decks: string[];
-}
+};
 
 export const Holodeck = (props) => {
   const { act, data } = useBackend<HolodeckData>();
