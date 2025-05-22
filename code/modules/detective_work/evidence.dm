@@ -155,9 +155,9 @@
 
 /obj/item/sample/print/update_icon_state()
 	. = ..()
-	icon_state = "fingerprint"
+	icon_state = "fingerprint0"
 	if(used)
-		icon_state += "1"
+		icon_state = "fingerprint1"
 
 
 /obj/item/sample/print/attack_self__legacy__attackchain(mob/user)
