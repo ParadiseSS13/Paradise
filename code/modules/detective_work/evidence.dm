@@ -149,8 +149,16 @@
 	name = "fingerprint card"
 	desc = "Preserves fingerprints."
 	icon = 'icons/obj/card.dmi'
-	icon_state = "fingerprint0"
+	icon_state = "fingerprint"
 	item_state = "paper"
+	var/used
+
+/obj/item/sample/print/update_icon_state()
+	. = ..()
+	icon_state = "fingerprint"
+	if(used)
+		icon_state += "1"
+
 
 /obj/item/sample/print/attack_self__legacy__attackchain(mob/user)
 	if(!length(evidence))
@@ -166,7 +174,8 @@
 	var/fullprint = H.get_full_print()
 	evidence[fullprint] = fullprint
 	name = "[initial(name)] ([H])"
-	icon_state = "fingerprint1"
+	used = TRUE
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/sample/print/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	. = ..()
@@ -174,7 +183,7 @@
 	if(!ishuman(M))
 		return ..()
 
-	if(evidence && evidence.len)
+	if(length(evidence))
 		return FALSE
 
 	var/mob/living/carbon/human/H = M
@@ -183,19 +192,12 @@
 		to_chat(user, "<span class='warning'>[H] is wearing gloves.</span>")
 		return TRUE
 
-	if(user != H && H.a_intent != INTENT_HELP && !IS_HORIZONTAL(H))
+	if(user != H && !IS_HORIZONTAL(H))
 		user.visible_message("<span class='danger'>[user] tried to fingerprint [H], but he resists.</span>")
 		return TRUE
 
 	if(user.zone_selected == "r_hand" || user.zone_selected == "l_hand")
-		var/has_hand
-		var/obj/item/organ/external/O = H.has_organ("r_hand")
-		if(istype(O))
-			has_hand = TRUE
-		else
-			O = H.has_organ("l_hand")
-			if(istype(O))
-				has_hand = TRUE
+		var/has_hand = (H.has_organ("r_hand") || H.has_organ("l_hand"))
 		if(!has_hand)
 			to_chat(user, "<span class='warning'>But [H] has no hands.</span>")
 			return FALSE
@@ -207,7 +209,8 @@
 		evidence[fullprint] = fullprint
 		copy_evidence(src)
 		name = ("[initial(name)] ([H])")
-		icon_state = "fingerprint1"
+		used = TRUE
+		update_appearance(UPDATE_ICON_STATE)
 		return TRUE
 	return FALSE
 
@@ -219,7 +222,7 @@
 
 /obj/item/forensics/sample_kit
 	name = "fiber collection kit"
-	desc = "Magnifying glass and tweezers. Used to lift fabric fibers."
+	desc = "Magnifying glass and tweezers. Used to lift fabric fibers. Use on harm intent to collect samples and not interact with objects."
 	icon_state = "m_glass"
 	w_class = WEIGHT_CLASS_SMALL
 	///naming for individual evidence items
@@ -249,10 +252,10 @@
 
 /obj/item/forensics/sample_kit/powder
 	name = "fingerprint Powder"
-	desc = "A jar of aluminum powder and a specialized brush."
+	desc = "A jar of aluminum powder and a specialized brush. Use on harm intent to collect samples and not interact with objects."
 	icon_state = "dust"
 	evidence_type = "prints"
-	evidence_path = /obj/item/sample/print
+	return (length(supplied.fingerprints))
 
 /obj/item/forensics/sample_kit/powder/can_take_sample(mob/user, atom/supplied)
 	return (supplied.fingerprints && supplied.fingerprints.len)

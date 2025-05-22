@@ -68,7 +68,6 @@
 	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current sample. <b>Click while holding a sample</b> to insert a sample. <b>Click with an empty hand</b> to operate.</span>"
 
 /obj/machinery/dnaforensics/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
-
 	if(swab)
 		to_chat(user, "<span class='warning'>There is already a test tube inside the scanner.</span>")
 		return
@@ -82,7 +81,6 @@
 		return
 	else
 		to_chat(user, "<span class='notice'>This is not a compatable sample!</span>")
-
 	..()
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
@@ -91,15 +89,13 @@
 		to_chat(user, "<span class='warning'>The scanner is empty!</span>")
 		return
 	scanning = TRUE
-	update_icon()
+	update_appearance(UPDATE_ICON)
 	to_chat(user, "<span class='notice'>The scanner begins to hum and analyze the contents of the tube containing [swab].</span>")
 
 	if(!do_after(user, 2.5 SECONDS, src) || !swab)
 		to_chat(user, "<span class='notice'>You have stopped analyzing [swab]</span>")
 		scanning = FALSE
-		update_icon()
-
-		return
+		update_appearance(UPDATE_ICON)
 
 	to_chat(user, "<span class='notice'>Printing report...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
@@ -123,7 +119,7 @@
 		report.forceMove(src.loc)
 		report.update_icon()
 		scanning = FALSE
-		update_icon()
+		update_appearance(UPDATE_ICON)
 
 /obj/machinery/dnaforensics/proc/remove_sample(mob/living/remover)
 	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
@@ -135,7 +131,7 @@
 	swab.forceMove(get_turf(src))
 	remover.put_in_hands(swab)
 	swab = null
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/dnaforensics/AltClick()
 	remove_sample(usr)
@@ -180,7 +176,6 @@
 	anchored = TRUE
 	density = TRUE
 	new_attack_chain = FALSE
-
 	var/obj/item/sample = null
 	var/report_num = FALSE
 	var/fingerprint_complete = 6
@@ -198,7 +193,6 @@
 	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current sample. <b>Click while holding a sample</b> to insert a sample. <b>Click with an empty hand</b> to operate.</span>"
 
 /obj/machinery/microscope/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
-
 	if(sample)
 		to_chat(user, "<span class='warning'>There is already a sample in the microscope!</span>")
 		return
@@ -209,7 +203,7 @@
 		user.unequip(W)
 		W.forceMove(src)
 		sample = W
-		update_icon()
+		update_appearance(UPDATE_ICON_STATE)
 
 		return
 	..()
@@ -286,7 +280,7 @@
 	sample.forceMove(get_turf(src))
 	remover.put_in_hands(sample)
 	sample = null
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/microscope/proc/is_complete_print(print)
 	return stringpercent(print) <= fingerprint_complete

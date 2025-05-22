@@ -40,7 +40,6 @@
 		inuse = FALSE
 		return
 	if(do_after(user, 2 SECONDS, target = user))
-
 		if(!H.dna || !H.dna.unique_enzymes)
 			to_chat(user, "<span class='warning'>Looks like he has no DNA!</span>")
 			inuse = FALSE
