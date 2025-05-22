@@ -401,6 +401,9 @@
 			"You start transplanting [tool] into [target]'s [parse_zone(target_zone)].",
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
+	if(I.warning)
+		if(tgui_alert(user, "This is a permanent action, guaranteeing this person will be removed from the round. Are you sure?", "Insert Cursed Bananium Heart", list("Yes", "No")) != "Yes")
+			return
 	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/implant/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

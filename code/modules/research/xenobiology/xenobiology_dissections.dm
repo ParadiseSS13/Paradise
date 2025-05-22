@@ -1274,11 +1274,15 @@
 			M.AddComponent(/datum/component/squeak)
 			M.AddElement(/datum/element/waddling)
 			ADD_TRAIT(M, TRAIT_COMIC_SANS, name)
+			ADD_TRAIT(M, TRAIT_CLUMSY, name)
 			to_chat(M, "<span class='userdanger'>UH OH</span>")
 		else
 			M.emote("scream")
 			M.AdjustJitter(20 SECONDS)
+			ADD_TRAIT(M, TRAIT_COMIC_SANS, name)
+			ADD_TRAIT(M, TRAIT_CLUMSY, name)
 			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, bananatouched_harmless)), 3 SECONDS)
+
 
 /obj/item/organ/internal/heart/xenobiology/bananium/on_life()
 	. = ..()
@@ -1335,6 +1339,7 @@
 	layer = ABOVE_MOB_LAYER // front and center baybee
 	hidden_origin_tech = TECH_SYNDICATE
 	hidden_tech_level = 3
+	warning = TRUE
 	var/list/clown_noises = list(
 		"HONK!",
 		"SQUEAK!",
@@ -1344,8 +1349,10 @@
 	)
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)
-	if(tgui_alert(src, "This is a permanent action, guaranteeing this person will be removed from the round. Are you sure?", "Insert Cursed Bananium Heart", list("Yes", "No")) != "Yes")
-		return
+	if(!M.mind)
+		M.emote("scream")
+		M.SetJitter(20 SECONDS)
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, makeCluwne)), 5 SECONDS)
 	if(M.mind.assigned_role == "Clown")
 		addtimer(CALLBACK(src, PROC_REF(glorious_death), M), 5 MINUTES)
 		to_chat(owner, "<span class='userdanger'>YOU FEEL THE PURE, UNFILTERED JOY OF THE HONKMOTHER!!!</span>")

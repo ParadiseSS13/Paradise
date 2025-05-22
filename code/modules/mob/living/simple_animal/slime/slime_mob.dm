@@ -401,7 +401,7 @@
 		if(trained)
 			if(user.transfer_item_to(I, src, force = TRUE))
 				holding_organ = I
-				to_chat(user, "<span class='notice'>The slime gently pulls the organ into itself.</span>")
+				src.visible_message("<span class='notice'>The slime gently pulls the offered organ into itself.</span>")
 				update_appearance(UPDATE_OVERLAYS)
 				return ITEM_INTERACT_COMPLETE
 		else

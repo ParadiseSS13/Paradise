@@ -19,6 +19,8 @@
 	var/organ_quality = ORGAN_NORMAL
 	/// Does this organ originate from the xenobiology dissection loop?
 	var/is_xeno_organ = FALSE
+	/// Does this organ give a warning upon being inserted?
+	var/warning = FALSE
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
