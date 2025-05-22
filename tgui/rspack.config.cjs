@@ -48,9 +48,7 @@ module.exports = (env = {}, argv) => {
       'tgui-say': ['./packages/tgui-say'],
     },
     output: {
-      path: argv.useTmpFolder
-        ? path.resolve(__dirname, './public/.tmp')
-        : path.resolve(__dirname, './public'),
+      path: argv.useTmpFolder ? path.resolve(__dirname, './public/.tmp') : path.resolve(__dirname, './public'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
@@ -64,10 +62,7 @@ module.exports = (env = {}, argv) => {
         tgui: path.resolve(__dirname, './packages/tgui'),
         'tgui-panel': path.resolve(__dirname, './packages/tgui-panel'),
         'tgui-say': path.resolve(__dirname, './packages/tgui-say'),
-        'tgui-dev-server': path.resolve(
-          __dirname,
-          './packages/tgui-dev-server',
-        ),
+        'tgui-dev-server': path.resolve(__dirname, './packages/tgui-dev-server'),
       },
     },
     module: {

@@ -204,4 +204,3 @@ interface Window {
 declare interface String {
   trimLongStr(length: number): string;
 }
-

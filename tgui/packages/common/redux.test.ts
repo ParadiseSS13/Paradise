@@ -1,13 +1,6 @@
 import { describe, it } from 'vitest';
 
-import {
-  Action,
-  applyMiddleware,
-  combineReducers,
-  createAction,
-  createStore,
-  Reducer,
-} from './redux';
+import { Action, applyMiddleware, combineReducers, createAction, createStore, Reducer } from './redux';
 
 // Dummy Reducer
 const counterReducer: Reducer<number, Action<string>> = (state = 0, action) => {
@@ -38,10 +31,7 @@ describe('Redux implementation tests', () => {
   });
 
   it('createStore with applyMiddleware works', ({ expect }) => {
-    const store = createStore(
-      counterReducer,
-      applyMiddleware(loggingMiddleware),
-    );
+    const store = createStore(counterReducer, applyMiddleware(loggingMiddleware));
     expect(store.getState()).toBe(0);
   });
 

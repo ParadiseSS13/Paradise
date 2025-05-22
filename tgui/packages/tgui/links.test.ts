@@ -17,15 +17,10 @@ describe('captureExternalLinks', () => {
   });
 
   it('should subscribe to document clicks', ({ expect }) => {
-    expect(addEventListenerSpy).toHaveBeenCalledWith(
-      'click',
-      expect.any(Function),
-    );
+    expect(addEventListenerSpy).toHaveBeenCalledWith('click', expect.any(Function));
   });
 
-  it('should preventDefault and send a message when a non-BYOND external link is clicked', ({
-    expect,
-  }) => {
+  it('should preventDefault and send a message when a non-BYOND external link is clicked', ({ expect }) => {
     const externalLink = {
       tagName: 'A',
       getAttribute: () => 'https://example.com',
@@ -45,9 +40,7 @@ describe('captureExternalLinks', () => {
     });
   });
 
-  it('should not preventDefault or send a message when a BYOND link is clicked', ({
-    expect,
-  }) => {
+  it('should not preventDefault or send a message when a BYOND link is clicked', ({ expect }) => {
     const byondLink = {
       tagName: 'A',
       getAttribute: () => 'byond://server-address',
