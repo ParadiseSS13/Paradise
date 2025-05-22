@@ -1285,21 +1285,20 @@
 			return
 		else if(M.mind.assigned_role == "Mime")
 			M.AddComponent(/datum/component/squeak)
-			M.AddElement(/datum/element/waddling)
-			ADD_TRAIT(M, TRAIT_COMIC_SANS, name)
-			ADD_TRAIT(M, TRAIT_CLUMSY, name)
+			M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
+			M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
 			to_chat(M, "<span class='userdanger'>UH OH</span>")
 		else
 			M.emote("scream")
 			M.AdjustJitter(20 SECONDS)
-			ADD_TRAIT(M, TRAIT_COMIC_SANS, name)
-			ADD_TRAIT(M, TRAIT_CLUMSY, name)
+			M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
+			M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
 			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, bananatouched_harmless)), 3 SECONDS)
 	else
 		M.emote("scream")
 		M.AdjustJitter(20 SECONDS)
-		ADD_TRAIT(M, TRAIT_COMIC_SANS, name)
-		ADD_TRAIT(M, TRAIT_CLUMSY, name)
+		M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
+		M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, bananatouched_harmless)), 3 SECONDS)
 
 /obj/item/organ/internal/heart/xenobiology/bananium/on_life()
@@ -1310,7 +1309,7 @@
 		owner.adjustBruteLoss(-3)
 		owner.adjustFireLoss(-3)
 	else if(owner.mind.assigned_role == "Mime")
-		if(prob(20))
+		if(prob(3))
 			owner.emote("scream")
 			owner.vomit(20)
 			owner.EyeBlurry(10 SECONDS)
@@ -1318,23 +1317,24 @@
 			owner.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
 			owner.Druggy(30 SECONDS)
 		if(owner.dna.species.tox_mod <= 0) // If they can't take tox damage, make them take burn damage
-			owner.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
+			owner.adjustFireLoss(1, robotic = TRUE)
 		else
-			owner.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
-		if(prob(6))
-			var/list/clown_message = list("You feel light-headed.",
-			"You can't see straight.",
-			"You feel about as funny as the station clown.",
-			"Bright colours and rainbows cloud your vision.",
-			"Your funny bone aches.",
-			"What was that?!",
-			"You can hear bike horns in the distance.",
-			"You feel like <em>SHOUTING</em>!",
-			"Sinister laughter echoes in your ears.",
-			"Your legs feel like jelly.",
-			"You feel like telling a pun.",
-			)
-			to_chat(owner, "<span class='warning'>[pick(clown_message)]</span>")
+			owner.adjustToxLoss(1)
+	if(prob(2))
+		var/list/clown_message = list(
+		"You feel light-headed.",
+		"You can't see straight.",
+		"Your heart tickles!",
+		"Your blood feels like singing.",
+		"Your funny bone aches.",
+		"What was that?!",
+		"You can hear bike horns in the distance.",
+		"You feel like <em>SHOUTING</em>!",
+		"Sinister laughter echoes in your ears.",
+		"Your legs feel like jelly.",
+		"You feel like telling a pun.",
+		)
+		to_chat(owner, "<span class='warning'>[pick(clown_message)]</span>")
 
 
 /obj/item/organ/internal/heart/xenobiology/bananium/remove(mob/living/carbon/human/M, special)
@@ -1342,12 +1342,12 @@
 	if(M.mind)
 		if(M.mind.assigned_role == "Clown")
 			M.DeleteComponent(/datum/component/squeak)
-			to_chat(M, "<span class='userdanger'>You feel great!</span>")
+			to_chat(M, "<span class='userdanger'>Awh, the funs over...</span>")
 		else
-			M.RemoveElement(/datum/element/waddling)
 			M.DeleteComponent(/datum/component/squeak)
-			REMOVE_TRAIT(M, TRAIT_COMIC_SANS, name)
 			to_chat(M, "<span class='danger'>Blissful silence...</span>")
+			M.dna.SetSEState(GLOB.clumsyblock, FALSE, FALSE)
+			M.dna.SetSEState(GLOB.comicblock, FALSE, FALSE)
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium
 	name = "Cursed Bananium Heart"
