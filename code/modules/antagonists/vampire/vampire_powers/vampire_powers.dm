@@ -109,11 +109,12 @@
 	return TRUE
 
 /datum/spell/vampire/self/exfiltrate
-	name = "Conjure Extraction Portal"
-	desc = "Congeal blood into a construct that will generate a portal away from the station."
+	name = "Conjure Blood Chalice"
+	desc = "Congeal blood into a chalice that will generate a portal away from the station."
 	gain_desc = "You can now decide to leave the station."
 	base_cooldown = 2 SECONDS
-	action_icon_state = "select_class"
+	action_icon = 'icons/obj/items.dmi'
+	action_icon_state = "blood-chalice"
 	var/used = FALSE
 
 /datum/spell/vampire/self/exfiltrate/cast(mob/user)

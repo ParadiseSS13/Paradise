@@ -168,9 +168,9 @@
 		return
 
 	// Delay extractions
-	 if(world.time < 60 MINUTES && delayed_extraction) // 60 minutes of no exfil
-	 	to_chat(user, "<span class='warning'>The exfiltration teleporter is calibrating. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
-	 	return
+	if(world.time < 60 MINUTES && delayed_extraction) // 60 minutes of no exfil
+		to_chat(user, "<span class='warning'>The exfiltration teleporter is calibrating. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		return
 	var/obj/effect/temp_visual/exfiltration/F = new setup_type(get_turf(src))
 	show_activation_message(user)
 	user.drop_item()
