@@ -8,6 +8,9 @@
 	icon_closed = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/structure/closet/crate/necropolis/ex_act(severity) // So vetus explosion won't destroy everything inside
+	return
+
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
@@ -680,7 +683,7 @@
 	for(var/distance in 0 to 8)
 		var/turf/current_dash_target = dash_target
 		current_dash_target = get_step(current_dash_target, user.dir)
-		if(!is_blocked_turf(current_dash_target, TRUE))
+		if(!current_dash_target.is_blocked_turf(exclude_mobs = TRUE))
 			dash_target = current_dash_target
 		else
 			break

@@ -11633,9 +11633,6 @@
 /area/station/maintenance/fpmaint)
 "aPv" = (
 /obj/effect/spawner/random/barrier/grille_often,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "aPw" = (
@@ -14859,7 +14856,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "aZQ" = (
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -27256,6 +27253,12 @@
 	icon_state = "whiteyellow"
 	},
 /area/station/medical/chemistry)
+"bRx" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "bRy" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -49816,6 +49819,13 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/west)
+"eGF" = (
+/obj/effect/spawner/random/barrier/grille_often,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint2)
 "eGU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -53990,10 +54000,6 @@
 /obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
-"gJO" = (
-/obj/effect/spawner/random/barrier/grille_often,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
 "gJU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
@@ -55356,7 +55362,6 @@
 	},
 /area/station/hallway/secondary/entry)
 "hsH" = (
-/obj/structure/table,
 /obj/item/paper_bin{
 	pixel_x = -3;
 	pixel_y = 7
@@ -55366,6 +55371,7 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = -32
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "blue"
@@ -76034,12 +76040,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
-"rJA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "rJJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -102055,7 +102055,7 @@ aMh
 wWZ
 whA
 aTh
-aPv
+eGF
 whA
 jwE
 aVc
@@ -107454,7 +107454,7 @@ vab
 aLu
 aGn
 aKW
-gJO
+aPv
 aVi
 aWq
 aXQ
@@ -129811,10 +129811,10 @@ aOF
 aHP
 aVA
 aXW
-aZQ
-aZQ
-aZQ
-aZQ
+bRx
+bRx
+bRx
+bRx
 bfP
 bkD
 bML
@@ -130062,8 +130062,8 @@ aHI
 aIA
 hHh
 aKS
-aZQ
-aZQ
+bRx
+bRx
 aOE
 aGX
 aQL
@@ -134951,10 +134951,10 @@ aMq
 aTj
 aUg
 fsv
-rJA
+aZQ
 vEl
 asD
-rJA
+aZQ
 jcm
 baz
 bcq

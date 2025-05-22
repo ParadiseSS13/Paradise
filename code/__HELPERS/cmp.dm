@@ -22,6 +22,9 @@
 /proc/cmp_ckey_dsc(client/a, client/b)
 	return sorttext(a.ckey, b.ckey)
 
+/proc/cmp_typepaths_asc(a, b)
+	return sorttext("[b]", "[a]")
+
 /proc/cmp_subsystem_init(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return initial(b.init_order) - initial(a.init_order)	//uses initial() so it can be used on types
 
