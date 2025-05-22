@@ -1295,7 +1295,12 @@
 			ADD_TRAIT(M, TRAIT_COMIC_SANS, name)
 			ADD_TRAIT(M, TRAIT_CLUMSY, name)
 			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, bananatouched_harmless)), 3 SECONDS)
-
+	else
+		M.emote("scream")
+		M.AdjustJitter(20 SECONDS)
+		ADD_TRAIT(M, TRAIT_COMIC_SANS, name)
+		ADD_TRAIT(M, TRAIT_CLUMSY, name)
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, bananatouched_harmless)), 3 SECONDS)
 
 /obj/item/organ/internal/heart/xenobiology/bananium/on_life()
 	. = ..()
