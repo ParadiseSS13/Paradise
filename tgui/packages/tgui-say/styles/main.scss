@@ -27,4 +27,15 @@
   .window-#{$channel} {
     background-color: $color;
   }
+
+  .shine-#{$channel} {
+    background: conic-gradient(
+      in hsl from var(--gradient-angle),
+      $color,
+      color.adjust($color, $lightness: -15%, $space: hsl),
+      color.adjust($color, $lightness: 15%, $space: hsl),
+      color.adjust($color, $lightness: -15%, $space: hsl),
+      $color
+    );
+  }
 }

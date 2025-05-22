@@ -252,6 +252,7 @@ export function TguiSay() {
   return (
     <>
       <div className={`window window-${theme} window-${size}`} onMouseDown={dragStartHandler}>
+        <span className="drag-icon" />
         {!lightMode && <div className={`shine shine-${theme}`} />}
       </div>
       <div
