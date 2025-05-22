@@ -791,7 +791,7 @@
 	if(do_after(AI, 5 SECONDS, target = target, allow_moving_target = allow_moving))
 		// Check camera vision again.
 		if(!check_camera_vision(user, target))
-      AI.program_picker.refund_nanites(75)
+			AI.program_picker.refund_nanites(75)
 			revert_cast()
 			return
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
