@@ -209,8 +209,7 @@
 			if(!affected)
 				skip_surgery = TRUE
 
-		else
-			// uh there's no reason this should be hit but let's be safe LOL
+		else if(!isanimal(patient)) // surgery is base to living mobs now but we should still probably restrict this
 			skip_surgery = TRUE
 
 	if(!skip_surgery)

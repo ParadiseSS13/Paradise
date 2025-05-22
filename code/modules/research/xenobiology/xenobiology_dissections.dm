@@ -35,6 +35,7 @@
 	allowed_tools = list(
 		/obj/item/dissector/alien = 100,
 		/obj/item/dissector/upgraded = 70,
+		/obj/item/organ_extractor = 60,
 		TOOL_DISSECTOR = 40,
 		/obj/item/scalpel/laser/manager = 10,
 		/obj/item/scalpel = 5,
@@ -61,7 +62,18 @@
 				xeno.organ_quality = pick_quality(tool, surgery.get_surgery_step())
 				SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[picked]", xeno.organ_quality))
 				target.xeno_organ_results -= picked
+				if(istype(tool, /obj/item/organ_extractor))
+					var/obj/item/organ_extractor/I = tool
+					I.insert_internal_organ_in_extractor(xeno)
 			else
+				if(istype(tool, /obj/item/organ_extractor)) // lets directly insert it into an organ extractor
+					var/obj/item/organ_extractor/I = tool
+					var/organ_type = pick(target.xeno_organ_results)
+					var/obj/item/organ/internal/organ = new organ_type(target.loc)
+					organ.organ_quality = pick_quality(tool, surgery.get_surgery_step())
+					SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[organ.type]", organ.organ_quality))
+					I.insert_internal_organ_in_extractor(organ)
+					return SURGERY_STEP_CONTINUE
 				var/obj/item/xeno_organ/new_organ = new /obj/item/xeno_organ(target.loc)
 				if(length(target.custom_organ_states))
 					new_organ.icon_state = pick(target.custom_organ_states)
@@ -888,6 +900,7 @@
 
 /obj/effect/temp_visual/goliath_flick/proc/retract(atom/target, organ_quality, mob/user)
 	icon_state = "Goliath_tentacle_retract"
+	user.visible_message("<span class='warning'>[user] digs a massive tendril into the ground!</span>")
 	timerid = QDEL_IN(src, 7)
 	if(target.loc == src.loc)
 		if(isliving(target))
