@@ -68,7 +68,7 @@ task-lint() {
 
 task-test() {
   cd "${base_dir}"
-  yarn run jest
+  yarn run vitest
 }
 
 task-prettier() {
