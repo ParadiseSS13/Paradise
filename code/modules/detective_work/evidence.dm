@@ -149,7 +149,7 @@
 	name = "fingerprint card"
 	desc = "Preserves fingerprints."
 	icon = 'icons/obj/card.dmi'
-	icon_state = "fingerprint"
+	icon_state = "fingerprint0"
 	item_state = "paper"
 	var/used
 
