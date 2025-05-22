@@ -77337,10 +77337,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
-"pAd" = (
-/obj/machinery/status_display,
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "pAB" = (
 /obj/structure/bed,
 /obj/machinery/light,
@@ -136746,7 +136742,7 @@ dKo
 hVf
 dKo
 dNc
-pAd
+dNO
 dXF
 dKo
 dKo
