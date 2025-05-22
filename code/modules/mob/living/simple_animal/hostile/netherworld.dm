@@ -19,9 +19,6 @@
 	contains_xeno_organ = TRUE
 
 	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/heart/xenobiology/vestigial,
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
 		/obj/item/organ/internal/liver/xenobiology/sharp,
 	)
 
