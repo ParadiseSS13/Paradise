@@ -258,15 +258,19 @@
 /datum/spell/flayer/self/extraction
 	name = "Nanite Portal Generator"
 	desc = "Allows us to use our nanites to create an extraction portal."
-	action_icon_state = "magnet" // Uhhhhhhhhhhhhhhhhhhhhhhhhhhh
+	action_icon = 'icons/obj/lighting.dmi'
+	action_icon_state = "flayer_telepad_base"
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = FLAYER_CATEGORY_GENERAL
-	base_cooldown = 2 SECONDS // The cast time is going to be the main limiting factor, not cooldown
-	base_cost = 25
+	base_cooldown = 2 SECONDS
+	base_cost = 0
 	stage = 1
+	var/used = FALSE
 
 /datum/spell/flayer/self/extraction/cast(list/targets, mob/user)
-	var/datum/antagonist/mindflayer/flayer = user.mind.has_antag_datum(/datum/antagonist/mindflayer)
+	if(used)
+		to_chat(user, "<span class='warning'>You have already attempted to create a portal generator!</span>")
+		return
 	// No extraction for certian steals/hijack
 	var/denied = FALSE
 	var/objectives = user.mind.get_all_objectives()
@@ -281,7 +285,7 @@
 			break
 	if(denied)
 		to_chat(user, "<span class='warning'>The master mindflayer has deemed your objectives too delicate for an early extraction.</span>")
-		flayer.remove_ability(src)
+		used = TRUE
 		return
 
 	if(world.time < 60 MINUTES) // 60 minutes of no exfil
@@ -292,4 +296,4 @@
 		return
 	var/obj/item/wormhole_jaunter/extraction/mindflayer/extractor = new /obj/item/wormhole_jaunter/extraction/mindflayer()
 	L.put_in_active_hand(extractor)
-	flayer.remove_ability(src)
+	used = TRUE

@@ -114,9 +114,12 @@
 	gain_desc = "You can now decide to leave the station."
 	base_cooldown = 2 SECONDS
 	action_icon_state = "select_class"
+	var/used = FALSE
 
 /datum/spell/vampire/self/exfiltrate/cast(mob/user)
-	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(used)
+		to_chat(user, "<span class='warning'>You have already attempted to create a blood chalice!</span>")
+		return
 	// No extraction for certian steals/hijack
 	var/denied = FALSE
 	var/objectives = user.mind.get_all_objectives()
@@ -131,7 +134,7 @@
 			break
 	if(denied)
 		to_chat(user, "<span class='warning'>The master vampire has deemed your objectives too delicate for an early extraction.</span>")
-		vamp.remove_ability(src)
+		used = TRUE
 		return
 
 	if(world.time < 60 MINUTES) // 60 minutes of no exfil
@@ -142,7 +145,7 @@
 		return
 	var/obj/item/wormhole_jaunter/extraction/vampire/extractor = new /obj/item/wormhole_jaunter/extraction/vampire()
 	L.put_in_active_hand(extractor)
-	vamp.remove_ability(src)
+	used = TRUE
 
 /datum/spell/vampire/self/specialize
 	name = "Choose Specialization"
