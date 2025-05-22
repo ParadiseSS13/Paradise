@@ -325,7 +325,7 @@
 		var/list/result
 
 		var/obj/item/item = item_data.get_item(owner)
-		if(item && (item.flags & ABSTRACT || HAS_TRAIT(item, TRAIT_NO_STRIP) || HAS_TRAIT(item, TRAIT_SKIP_EXAMINE)))
+		if(item && (item.flags & ABSTRACT || HAS_TRAIT(item, TRAIT_NO_STRIP)))
 			items[strippable_key] = result
 			continue
 

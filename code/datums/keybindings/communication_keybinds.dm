@@ -78,3 +78,8 @@
 	name = DEV_CHANNEL
 	keys = list("F2")
 	required_rights = R_DEV_TEAM | R_ADMIN
+
+/datum/keybinding/client/communication/staffsay
+	name = STAFF_CHANNEL
+	keys = list("-")
+	required_rights = R_DEV_TEAM | R_MENTOR | R_ADMIN
