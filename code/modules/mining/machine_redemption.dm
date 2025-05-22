@@ -76,39 +76,6 @@
 	RefreshParts()
 
 /**
-  * # Ore Redemption Machine (Golem)
-  *
-  * Golem variant of the ORM.
-  */
-/obj/machinery/mineral/ore_redemption/golem
-	req_access = list(ACCESS_FREE_GOLEMS)
-	req_access_claim = ACCESS_FREE_GOLEMS
-
-/obj/machinery/mineral/ore_redemption/golem/Initialize(mapload)
-	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/ore_redemption/golem(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/assembly/igniter(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
-
-/obj/machinery/mineral/ore_redemption/golem/RefreshParts()
-	var/P = 0.65
-	var/S = 0.65
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		P += 0.35 * M.rating
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		S += 0.35 * M.rating
-		// Manipulators do nothing
-	// Update our values
-	point_upgrade = P
-	sheet_per_ore = S
-	SStgui.update_uis(src)
-
-/**
   * # Ore Redemption Machine (Labor Camp)
   *
   * Labor camp variant of the ORM. Points can be claimed by anyone.

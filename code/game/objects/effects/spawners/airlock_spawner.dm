@@ -11,12 +11,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 #define DOOR_NORMAL_PLACEMENT 1
 #define DOOR_FLIPPED_PLACEMENT 2
 
-#define VENT_ID		"[id_to_link]_vent"
-#define EXT_DOOR_ID	"[id_to_link]_door_ext"
-#define INT_DOOR_ID	"[id_to_link]_door_int"
-#define EXT_BTN_ID	"[id_to_link]_btn_ext"
-#define INT_BTN_ID	"[id_to_link]_btn_int"
-
 /obj/effect/spawner/airlock
 	name = "1 by 1 airlock spawner (interior north, exterior south)"
 	desc = "If you can see this, there's probably a missing airlock here. Better tell an admin and report this on the github."
@@ -95,7 +89,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 			the_button.forceMove(get_step(the_button, NORTH))
 
 /obj/effect/spawner/airlock/proc/handle_door_stuff(obj/machinery/door/airlock/A, is_this_an_interior_airlock) //This sets up the door vars correctly and then locks it before first use
-	A.id_tag = is_this_an_interior_airlock ? INT_DOOR_ID : EXT_DOOR_ID
+	A.id_tag = is_this_an_interior_airlock ? INT_DOOR_ID(id_to_link) : EXT_DOOR_ID(id_to_link)
 	set_access_helper(A)
 	A.name = door_name
 	A.lock()
@@ -103,9 +97,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/proc/spawn_button(turf/T, some_direction, interior)
 	var/obj/machinery/access_button/the_button = new(T)
 	if(interior)
-		the_button.autolink_id = INT_BTN_ID
+		the_button.autolink_id = INT_BTN_ID(id_to_link)
 	else
-		the_button.autolink_id = EXT_BTN_ID
+		the_button.autolink_id = EXT_BTN_ID(id_to_link)
 
 	switch(some_direction)
 		if(NORTH)
@@ -127,11 +121,11 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/turf/T = get_turf(src)
 	var/obj/machinery/airlock_controller/air_cycler/AC = new(T)
 	set_access_helper(AC)
-	AC.vent_link_id = VENT_ID
-	AC.int_door_link_id = INT_DOOR_ID
-	AC.ext_door_link_id = EXT_DOOR_ID
-	AC.int_button_link_id = INT_BTN_ID
-	AC.ext_button_link_id = EXT_BTN_ID
+	AC.vent_link_id = VENT_ID(id_to_link)
+	AC.int_door_link_id = INT_DOOR_ID(id_to_link)
+	AC.ext_door_link_id = EXT_DOOR_ID(id_to_link)
+	AC.int_button_link_id = INT_BTN_ID(id_to_link)
+	AC.ext_button_link_id = EXT_BTN_ID(id_to_link)
 	if(interior_direction != WEST && exterior_direction != WEST) //If west wall is free, place it there
 		AC.pixel_x -= 25
 		AC.pixel_y += 9
@@ -197,7 +191,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	A.on_construction(A.dir, initialization_directions ? initialization_directions : A.dir)
 	if(istype(A, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
 		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
-		created_pump.autolink_id = VENT_ID
+		created_pump.autolink_id = VENT_ID(id_to_link)
 
 /obj/effect/spawner/airlock/proc/set_access_helper(obj/I)
 	var/obj/machinery/door/airlock/airlock = I
@@ -320,8 +314,3 @@ This spawner places pipe leading up to the interior door, you will need to finis
 #undef CHAMBER_BIGGER
 #undef DOOR_NORMAL_PLACEMENT
 #undef DOOR_FLIPPED_PLACEMENT
-#undef VENT_ID
-#undef EXT_DOOR_ID
-#undef INT_DOOR_ID
-#undef EXT_BTN_ID
-#undef INT_BTN_ID
