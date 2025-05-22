@@ -218,7 +218,8 @@ Difficulty: Hard
 	..()
 	if(!exploding && !stat == DEAD)
 		return
-	playsound(src, 'sound/items/timer.ogg', 70, 0)
+	else if(stat == DEAD)
+		playsound(src, 'sound/items/timer.ogg', 70, 0)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/drop_loot()
 	var/core_type = null

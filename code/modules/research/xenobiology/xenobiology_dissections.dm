@@ -647,10 +647,10 @@
 			if(terror)
 				H.reagents.add_reagent("terror_black_toxin", 10)
 			else
-				H.reagents.add_reagent("venom", 10)
+				H.reagents.add_reagent("spider_venom", 10)
 		else
 			if(terror)
-				H.reagents.add_reagent("venom", 10)
+				H.reagents.add_reagent("spider_venom", 10)
 			else
 				H.reagents.add_reagent("toxin", 10)
 	else
@@ -918,11 +918,11 @@
 	. = ..()
 	var/datum/spell/turf_teleport/organ_teleport/spell = new
 	spell.quality = organ_quality
-	spell.inner_tele_radius = 2
+	spell.inner_tele_radius = 3
 	spell.outer_tele_radius = 8
 	if(organ_quality == ORGAN_PRISTINE)
 		spell.base_cooldown = 90 SECONDS
-		spell.inner_tele_radius = 2
+		spell.inner_tele_radius = 5
 		spell.outer_tele_radius = 15
 	M.AddSpell(spell)
 
@@ -1112,21 +1112,17 @@
 
 /obj/item/organ/internal/heart/xenobiology/squirming/on_life()
 	. = ..()
-	if(owner.getStaminaLoss() > 10)
-		if(prob(10)) // dont wear yourself out
-			src.receive_damage(10, 0)
+	if(owner.getStaminaLoss() >= 5)
 		switch(organ_quality)
-			if(ORGAN_DAMAGED) // also damages other organs. oops!
-				for(var/obj/item/organ/internal/organ in owner.internal_organs)
-					if(organ == src)
-						continue
-					if(prob(10))
-						organ.receive_damage(10, 0)
-				owner.adjustStaminaLoss(-3)
-			if(ORGAN_NORMAL)
+			if(ORGAN_DAMAGED)
 				owner.adjustStaminaLoss(-5)
-			if(ORGAN_PRISTINE)
+			if(ORGAN_NORMAL)
 				owner.adjustStaminaLoss(-10)
+			if(ORGAN_PRISTINE) // slightly better/different than emagged cybernetic
+				owner.adjustStaminaLoss(-25)
+				if(prob(20))
+					owner.AdjustStunned(-2 SECONDS)
+					owner.AdjustKnockDown(-2 SECONDS)
 
 /obj/item/organ/internal/appendix/xenobiology/electro_strands
 	name = "Electromagnetic Strands"
@@ -1151,6 +1147,7 @@
 	desc = "This organ sprouts several sharp points out of itself, which you can't imagine would feel good to get implanted."
 	analyzer_price = 30
 	var/original_unarmed
+	var/original_sharpened
 	hidden_origin_tech = TECH_COMBAT
 	hidden_tech_level = 7
 
@@ -1164,11 +1161,18 @@
 		if(organ_quality == ORGAN_PRISTINE)
 			claws.has_been_sharpened = TRUE
 		owner.dna.species.unarmed = claws
+	else
+		var/datum/unarmed_attack/unarmed = owner.get_unarmed_attack()
+		original_sharpened = unarmed.sharp
+		unarmed.sharp = TRUE
 
 /obj/item/organ/internal/liver/xenobiology/sharp/remove(mob/living/carbon/human/M, special = 0)
 	. = ..()
 	if(original_unarmed != /datum/unarmed_attack/claws)
 		M.dna.species.unarmed = original_unarmed
+	else
+		var/datum/unarmed_attack/unarmed = owner.get_unarmed_attack()
+		unarmed.sharp = original_sharpened
 
 /obj/item/organ/internal/appendix/xenobiology/noisemaker
 	name = "Mimicry Organ"
@@ -1457,7 +1461,7 @@
 	else
 		user.nutrition = max(user.nutrition - 75, 5)
 	for(var/obj/item/organ/internal/cell/C in user.internal_organs)
-		C.damage += 40 // ouch. Maybe dont blow up
+		C.damage += 20 // ouch. Maybe dont blow up
 
 /obj/item/organ/internal/heart/xenobiology/megacarp
 	name = "Rancid Clump"
@@ -1562,26 +1566,33 @@
 	name = "Lethargic Organ"
 	desc = "This organ barely seems to do anything, only being just active enough to keep itself alive. However, it seems exceptionally hardy."
 	analyzer_price = 20
+	var/datum/armor/organ_resistance_boost
 
 /obj/item/organ/internal/kidneys/xenobiology/lethargic/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
 	ADD_TRAIT(M, TRAIT_GOTTAGOSLOW, ORGAN_TRAIT)
 	if(organ_quality == ORGAN_DAMAGED)
-		M.maxHealth += 10
+		organ_resistance_boost = new /datum/armor(5, 5, 5, 5, 5, 5, 5, 5, 0)
+		owner.physiology.stamina_mod *= 0.9
 	if(organ_quality == ORGAN_NORMAL)
-		M.maxHealth += 25
+		organ_resistance_boost = new /datum/armor(15, 15, 15, 15, 15, 15, 15, 15, 0)
+		owner.physiology.stamina_mod *= 0.75
 	if(organ_quality == ORGAN_PRISTINE)
-		M.maxHealth += 50
+		organ_resistance_boost = new /datum/armor(50, 50, 50, 50, 50, 50, 50, 50, 0)
+		owner.physiology.stamina_mod *= 0.5
+	owner.physiology.armor = owner.physiology.armor.attachArmor(organ_resistance_boost)
 
 /obj/item/organ/internal/kidneys/xenobiology/lethargic/remove(mob/living/carbon/M, special)
 	. = ..()
 	REMOVE_TRAIT(M, TRAIT_GOTTAGOSLOW, ORGAN_TRAIT)
 	if(organ_quality == ORGAN_DAMAGED)
-		M.maxHealth -= 10
+		owner.physiology.stamina_mod /= 0.9
 	if(organ_quality == ORGAN_NORMAL)
-		M.maxHealth -= 25
+		owner.physiology.stamina_mod /= 0.75
 	if(organ_quality == ORGAN_PRISTINE)
-		M.maxHealth -= 50
+		owner.physiology.stamina_mod /= 0.5
+	owner.physiology.armor = owner.physiology.armor.detachArmor(organ_resistance_boost)
+	QDEL_NULL(organ_resistance_boost)
 
 /obj/item/organ/internal/ears/xenobiology/colorful
 	name = "Colorful Organ"
