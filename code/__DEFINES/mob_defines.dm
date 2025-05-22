@@ -46,7 +46,7 @@
 #define MOB_SPIRIT		(1 << 9)
 #define MOB_PLANT		(1 << 10)
 
-#define AGE_MIN 17			//youngest a character can be
+#define AGE_MIN 20			//youngest a character can be
 #define AGE_MAX 500			//oldest a character can be
 
 /// Mob is standing up, usually associated with lying_angle value of 0.
