@@ -255,7 +255,6 @@
 	desc = "A jar of aluminum powder and a specialized brush. Use on harm intent to collect samples and not interact with objects."
 	icon_state = "dust"
 	evidence_type = "prints"
-	return (length(supplied.fingerprints))
 
 /obj/item/forensics/sample_kit/powder/can_take_sample(mob/user, atom/supplied)
-	return (supplied.fingerprints && supplied.fingerprints.len)
+	return (length(supplied.fingerprints))
