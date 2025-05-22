@@ -61,7 +61,7 @@
 	sleep(jaunt_in_time)
 	qdel(holder)
 	if(!QDELETED(target))
-		if(is_blocked_turf(mobloc, TRUE))
+		if(mobloc.is_blocked_turf(exclude_mobs = TRUE))
 			for(var/turf/T in orange(7))
 				if(isspaceturf(T))
 					continue
