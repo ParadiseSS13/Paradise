@@ -209,20 +209,20 @@
 	new /obj/structure/barricade/security(get_turf(loc))
 	switch(mode)
 		if(VERTICAL)
-			var/target_turf = get_step(src, NORTH)
-			if(!(is_blocked_turf(target_turf)))
+			var/turf/target_turf = get_step(src, NORTH)
+			if(!(target_turf.is_blocked_turf()))
 				new /obj/structure/barricade/security(target_turf)
 
-			var/target_turf2 = get_step(src, SOUTH)
-			if(!(is_blocked_turf(target_turf2)))
+			var/turf/target_turf2 = get_step(src, SOUTH)
+			if(!(target_turf2.is_blocked_turf()))
 				new /obj/structure/barricade/security(target_turf2)
 		if(HORIZONTAL)
-			var/target_turf = get_step(src, EAST)
-			if(!(is_blocked_turf(target_turf)))
+			var/turf/target_turf = get_step(src, EAST)
+			if(!(target_turf.is_blocked_turf()))
 				new /obj/structure/barricade/security(target_turf)
 
-			var/target_turf2 = get_step(src, WEST)
-			if(!(is_blocked_turf(target_turf2)))
+			var/turf/target_turf2 = get_step(src, WEST)
+			if(!(target_turf2.is_blocked_turf()))
 				new /obj/structure/barricade/security(target_turf2)
 	qdel(src)
 
@@ -367,12 +367,12 @@
 
 	var/dir_left = turn(direction, -90)
 	var/dir_right = turn(direction, 90)
-	var/target_turf = get_step(src, dir_left)
-	if(!is_blocked_turf(target_turf))
+	var/turf/target_turf = get_step(src, dir_left)
+	if(!target_turf.is_blocked_turf())
 		connected_shields += new barricade_type(target_turf, src, FALSE, direction, dir_left)
 
-	var/target_turf2 = get_step(src, dir_right)
-	if(!is_blocked_turf(target_turf2))
+	var/turf/target_turf2 = get_step(src, dir_right)
+	if(!target_turf2.is_blocked_turf())
 		connected_shields += new barricade_type(target_turf2, src, FALSE, direction, dir_right)
 
 

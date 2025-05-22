@@ -133,7 +133,7 @@
 	var/list/possible_turfs = get_adjacent_open_turfs(target)
 	shuffle_inplace(possible_turfs)
 	for(var/turf/possible_turf as anything in possible_turfs)
-		if(!is_blocked_turf(possible_turf))
+		if(!possible_turf.is_blocked_turf())
 			set_movement_target(controller, possible_turf)
 			return TRUE
 	return FALSE
