@@ -129,12 +129,10 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "fP" = (
-/obj/machinery/requests_console{
-	pixel_y = 32
-	},
 /obj/machinery/sleeper{
 	dir = 2
 	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "gd" = (
@@ -581,9 +579,7 @@
 /area/shuttle/arrival/station)
 "DQ" = (
 /obj/machinery/photocopier,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "Ee" = (
@@ -777,10 +773,8 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "Li" = (
-/obj/machinery/alarm/all_access{
-	pixel_y = 28
-	},
 /obj/machinery/atmospherics/binary/pump,
+/obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "Ln" = (
@@ -923,10 +917,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	pixel_y = 28
-	},
 /obj/machinery/atmospherics/binary/passive_gate,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "PS" = (
@@ -1031,12 +1023,10 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "SC" = (
-/obj/machinery/power/apc{
-	pixel_y = 32
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "SK" = (
@@ -1113,11 +1103,9 @@
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "Vw" = (
-/obj/machinery/economy/atm{
-	pixel_y = 30
-	},
 /obj/item/eftpos,
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "VA" = (
