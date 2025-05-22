@@ -178,6 +178,8 @@ GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
 		do_cables(cables)
 
 /datum/space_level/proc/do_pipes(list/pipes)
+	SSair._setup_atmos_machinery(pipes)
+	SSair._setup_pipenets(pipes)
 	pipes.Cut()
 
 /datum/space_level/proc/do_cables(list/cables)
