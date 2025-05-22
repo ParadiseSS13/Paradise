@@ -112,6 +112,7 @@
 			GLOB.scanned_organs += list(organ.type = 1)
 		contains_organ = organ
 		user.transfer_item_to(organ, src)
+		src.visible_message("[user] inserts [organ] into the recepticle.")
 		update_appearance(UPDATE_OVERLAYS)
 		return ITEM_INTERACT_COMPLETE
 	return ..()
