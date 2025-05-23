@@ -1,0 +1,35 @@
+[
+	{
+		// White ship medbay, but randomized contents
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 6,
+		"submap_size_y": 5,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/whiteship_submaps.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/medbay",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/medbay",
+		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+	},
+	{
+		// White ship storage, but randomized contents
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 7,
+		"submap_size_y": 5,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/whiteship_submaps.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/storage",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/storage",
+		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+	},
+	{
+		// White ship gun room, but randomized contents
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 7,
+		"submap_size_y": 5,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/whiteship_submaps.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/gun_room",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/gun_room",
+		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+	}
+]
