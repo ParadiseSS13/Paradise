@@ -188,6 +188,7 @@
 
 /obj/effect/spawner/random/space_pirate
 	name = "random space pirate spawner"
+	icon_state = "pirate"
 	loot = list(
 		/mob/living/simple_animal/hostile/pirate,
 		/mob/living/simple_animal/hostile/pirate/ranged,
