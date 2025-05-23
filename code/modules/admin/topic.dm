@@ -3189,7 +3189,7 @@
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				SEND_SOUND(world, sound('sound/AI/animes.ogg'))
 			if("uwu") // mrrp~ Apparently, not at all!
-				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+				if(alert(usr, "Awe you suwe you want to do this? ;w;", "Confirmation", "Yes ^w^", "No umu") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "UWU")
 				for(var/mob/living/carbon/human/H in world)
