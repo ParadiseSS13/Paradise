@@ -35638,8 +35638,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/shelf/supply,
-/obj/item/rcs,
+/obj/structure/closet/secure_closet/smith,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -85173,6 +85172,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/item/rcs,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
