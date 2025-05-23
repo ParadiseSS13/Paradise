@@ -169,7 +169,7 @@
 			for(var/datum/map_template/ruin/R in ruins_available)
 				if(R.id == current_pick.id)
 					ruins_available -= R
-			stack_trace("failed to place ruin [current_pick.suffix]")
+			log_debug("failed ruin placement `[current_pick.suffix]` length(z_levels)=[length(z_levels)] budget=[ruin_budget]")
 
 		//Update the available list
 		for(var/datum/map_template/ruin/R in ruins_available)

@@ -6786,14 +6786,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "sm" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem_ussp";
-	name = "Near USSP Station";
-	width = 16
-	},
+/obj/docking_port/stationary/golem/ussp,
 /turf/template_noop,
 /area/template_noop)
 "sn" = (
