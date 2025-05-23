@@ -285,6 +285,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
+	move_resist = null
 	flick("blobbernaut_death", src)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
