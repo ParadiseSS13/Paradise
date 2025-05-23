@@ -32,7 +32,7 @@
 	attempt_to_eat(attacker, attacking_item, similar_to)
 	return COMPONENT_SKIP_AFTERATTACK
 
-///handle eating and nutrition gain from eating minerals
+/// Handle eating and nutrition gain from eating minerals
 /datum/component/special_tastes/proc/attempt_to_eat(mob/living/carbon/human/user, obj/item/attacking_item, obj/item/similar_to)
 	if(istype(attacking_item, /obj/item/stack))
 		var/obj/item/stack/stacked_item = attacking_item
