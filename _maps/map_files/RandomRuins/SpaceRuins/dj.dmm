@@ -479,7 +479,7 @@
 	},
 /area/ruin/space/djstation)
 "bp" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /mob/living/simple_animal/hostile/soviet/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
