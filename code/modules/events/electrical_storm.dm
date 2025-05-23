@@ -1,4 +1,6 @@
 /datum/event/electrical_storm
+	name = "Electrical Storm"
+	role_weights = list(ASSIGNMENT_ENGINEERING = 20, ASSIGNMENT_JANITOR = 150)
 	var/lightsoutAmount	= 1
 	var/lightsoutRange	= 25
 

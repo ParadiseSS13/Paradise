@@ -1,5 +1,7 @@
 GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak
+	name = "Disease Outbreak"
+	role_weights = list(ASSIGNMENT_MEDICAL = 30)
 	/// The type of disease that patient zero will be infected with.
 	var/datum/disease/chosen_disease
 

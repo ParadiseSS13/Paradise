@@ -1,6 +1,7 @@
 #define TS_HIGHPOP_TRIGGER 80
 
 /datum/event/spider_terror
+	name = "Terror Spiders"
 	announceWhen = 240
 	var/spawncount = 1
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
