@@ -11,8 +11,8 @@
 
 	/// Do these organs have an repeatbale ongoing effects?
 	var/has_ongoing_effect = TRUE
-	/// Is this organs effect currently active
-	var/active
+	/// Is this organ's effect currently active
+	var/active = FALSE
 	/// the low-end of random cooldown times between activations
 	var/cooldown_low = 300
 	/// the high-end of random cooldown times between activations
