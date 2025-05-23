@@ -94,6 +94,7 @@
 	GLOB.loudblock      = getAssignedBlock("LOUD",       numsToAssign)
 	GLOB.dizzyblock     = getAssignedBlock("DIZZY",      numsToAssign)
 
+	GLOB.uwublock		= getAssignedBlock("UWU",		 numsToAssign)
 
 	//
 	// Static Blocks

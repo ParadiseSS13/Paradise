@@ -60,3 +60,5 @@ GLOBAL_VAR_INIT(polymorphblock, 0)
 ///////////////////////////////
 GLOBAL_VAR_INIT(loudblock, 0)
 GLOBAL_VAR_INIT(dizzyblock, 0)
+
+GLOBAL_VAR_INIT(uwublock, 0)

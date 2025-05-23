@@ -536,3 +536,17 @@
 /datum/mutation/disability/dizzy/deactivate(mob/living/M)
 	..()
 	M.SetDizzy(0)
+
+/datum/mutation/disability/uwu
+	name = "Nya"
+	desc = "Makes you tawk a wittwe stwangewy."
+	activation_messages = list("Umm, it feels wike something is weally off... >.<")
+	deactivation_messages = list("What the fuck was that?")
+	instability = -GENE_INSTABILITY_MINOR // powergaming tax
+
+/datum/mutation/disability/uwu/New()
+	..()
+	block = GLOB.uwublock
+
+/datum/mutation/disability/uwu/on_say(mob/M, message)
+	return rustlibs_uwuify(message)
