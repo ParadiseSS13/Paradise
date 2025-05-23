@@ -1,5 +1,4 @@
 /datum/event_meta
-	var/name 		= ""
 	/// Whether or not the event is available for random selection at all.
 	var/enabled 	= TRUE
 	/// The base weight of this event. A zero means it may never fire, but see get_weight()
@@ -8,37 +7,30 @@
 	var/min_weight
 	/// The maximum weight that this event will have.
 	var/max_weight
-	/// the current severity of this event
-	var/severity
 	/// If true, then the event will not be re-added to the list of available events
 	var/one_shot
 	/// A modifier applied to all event weights (role and base), respects min and max
 	var/weight_mod	= 1
-	/// A list of roles that add weight to the event
-	var/list/role_weights = list()
-	var/datum/event/event_type
+	/// Event held by this meta event. Used to do things like calculate weight.
+	var/datum/event/skeleton
 
-/datum/event_meta/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
-	name = event_name
-	severity = event_severity
-	event_type = type
+/datum/event_meta/New(type, event_severity, event_weight, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
+	skeleton = new type(EM = src, skeleton = TRUE, _severity = event_severity)
 	one_shot = is_one_shot
 	weight = event_weight
 	min_weight = min_event_weight
 	max_weight = max_event_weight
-	if(job_weights)
-		role_weights = job_weights
+
+/datum/event_meta/proc/change_event(type)
+	var/event_severity = skeleton.severity
+	skeleton.event_meta = null
+	qdel(skeleton)
+	skeleton = new type(EM = src, skeleton = TRUE, _severity = event_severity)
 
 /datum/event_meta/proc/get_weight(list/total_resources)
 	if(!enabled)
 		return 0
-
-	var/job_weight = 0
-	for(var/role in role_weights)
-		if(role in total_resources)
-			job_weight += total_resources[role] * role_weights[role]
-
-	return clamp((weight + job_weight) * weight_mod, min_weight, max_weight)
+	return clamp((weight + skeleton.get_weight(total_resources)) * weight_mod, min_weight, max_weight)
 
 /*/datum/event_meta/ninja/get_weight(var/list/active_with_role)
 	if(toggle_space_ninja)
@@ -70,8 +62,17 @@
 	/// The area the event will hit
 	var/area/impact_area
 	var/datum/event_meta/event_meta = null
+	/// The base weight of each role on the event for the purpose of calculating event weight and resource cost
+	var/list/role_weights = list()
 
 /datum/event/nothing
+
+/// Calculate the weight for rolling the event based on round circumstances.
+/datum/event/proc/get_weight(list/total_resources)
+	var/job_weight = 0
+	for(var/role in role_weights)
+		if(role in total_resources)
+			job_weight += total_resources[role] * role_weights[role] * severity
 
 /**
   * Called first before processing.
@@ -177,16 +178,14 @@
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
 
-/datum/event/New(datum/event_meta/EM, skeleton = FALSE)
+/datum/event/New(datum/event_meta/EM, skeleton = FALSE, _severity)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
 	if(!skeleton)
 		SSevents.active_events += src
 
-	if(!EM)
-		EM = new /datum/event_meta(EVENT_LEVEL_MAJOR, "Unknown, Most likely admin called", src.type)
-
 	event_meta = EM
-	severity = event_meta.severity
+
+	severity = _severity
 	if(severity < EVENT_LEVEL_MUNDANE) severity = EVENT_LEVEL_MUNDANE
 	if(severity > EVENT_LEVEL_MAJOR) severity = EVENT_LEVEL_MAJOR
 

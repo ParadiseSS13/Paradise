@@ -35,10 +35,10 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		set_event_delay()
 		next_event.enabled = !next_event.one_shot	// This event will no longer be available in the random rotation if one shot
 
-		new next_event.event_type(next_event)	// Events are added and removed from the processing queue in their New/kill procs
+		new next_event.skeleton.type(next_event)	// Events are added and removed from the processing queue in their New/kill procs
 
-		log_debug("Starting event '[next_event.name]' of severity [GLOB.severity_to_string[severity]].")
-		SSblackbox.record_feedback("nested tally", "events", 1, list(GLOB.severity_to_string[severity], next_event.name))
+		log_debug("Starting event '[next_event.skeleton.name]' of severity [GLOB.severity_to_string[severity]].")
+		SSblackbox.record_feedback("nested tally", "events", 1, list(GLOB.severity_to_string[severity], next_event.skeleton.name))
 		GLOB.event_last_fired[next_event] = world.time
 		next_event = null						// When set to null, a random event will be selected next time
 	else
