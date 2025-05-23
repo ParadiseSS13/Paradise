@@ -7,3 +7,5 @@ standard_stamp.ogg is adapted from tom_woysky's "Stamp.wav" https://freesound.or
 machines/triple_beep.ogg is taken from /tg/station. Source (https://github.com/tgstation/tgstation)
 
 misc/server_alert.ogg is taken from https://freesound.org/people/rhodesmas/sounds/380264/ and compressed to .ogg, under the CC-BY 3.0 license. Sound modified by Carthusia
+
+voice/zombie_keap.ogg is taken from https://freesound.org/people/scorpion67890/sounds/396797/ and compressed to .ogg under Creative Commons 0 liscence.
