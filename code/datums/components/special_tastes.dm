@@ -55,7 +55,7 @@
 	user.put_in_active_hand(attacking_item)
 	qdel(food)
 
-///turn the item into food, can only be eaten in 1 bite to prevent creating a half-eaten item that those without the trait can also eat.
+/// Turn the item into food, can only be eaten in 1 bite to prevent creating a half-eaten item that those without the trait can also eat.
 /datum/component/special_tastes/proc/turn_into_food(obj/item/future_food, obj/item/similar_to)
 	var/obj/item/food/food = new
 	food.name = future_food.name
