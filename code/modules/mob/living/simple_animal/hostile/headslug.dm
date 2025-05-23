@@ -32,32 +32,7 @@
 	var/egg_layed = FALSE
 	sentience_type = SENTIENCE_OTHER
 	contains_xeno_organ = TRUE
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/heart/xenobiology/contortion,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You carefully begin making a tiny incision in the diminutive creature.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully make an incision into the tiny creature.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
-	)
+	ignore_generic_organs = TRUE
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)

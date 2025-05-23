@@ -201,55 +201,6 @@
 	a_intent = INTENT_HARM
 	contains_xeno_organ = TRUE
 
-	xeno_organ_results = list(
-		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/appendix/xenobiology/feverish,
-		/obj/item/organ/internal/eyes/xenobiology/receptors,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin closing off one of the many leaking fluid sacks in the corpse.</span>",
-	"<span class='notice'>Your work area closed filled back in. You begin to re-open it.</span>",
-	"<span class='notice'>You begin closing off more leaking sacks and fluid veins.</span>",
-	"<span class='notice'>This damned dissection site <b>WON'T STOP CLOSING!</b></span>",
-	"<span class='notice'>You begin once again closing off more fluid sacks and leaking cavities....</span>",
-	"<span class='notice'>You at last begin to remove something from the cadaver...</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You easily pry apart the semi-liquid corpse.</span>",
-	"<span class='notice'>You close off one numerous leaking cavities.</span>",
-	"<span class='notice'>You manage to get the dissection site back open</span>",
-	"<span class='notice'>You close off more leaking sacks and fluid veins.</span>",
-	"<span class='notice'>You manage to get the dissection site back open... again.</span>",
-	"<span class='notice'>You finally get the leaking under control.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>The you fail to open the incision site, it simply closes back up!</span>",
-	"<span class='warning'>The leakage is too intense, you cant get it under control!</span>",
-	"<span class='warning'>The you fail to open the incision site, it simply closes back up!</span>",
-	"<span class='warning'>The leakage is too intense, you cant get it under control!</span>",
-	"<span class='warning'>The you fail to open the incision site, it simply closes back up!</span>",
-	"<span class='warning'>The leakage is too intense, you cant get it under control!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the goopy flesh!</span>",
-	)
-
 /mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
 	. = ..()
 	var/datum/action/innate/communicate_overmind_blob/overmind_chat = new

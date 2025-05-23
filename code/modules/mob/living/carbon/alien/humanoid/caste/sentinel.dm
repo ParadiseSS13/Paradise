@@ -5,13 +5,6 @@
 	health = 175
 	icon_state = "aliens_s"
 
-	xeno_organ_results = list(
-		/obj/item/organ/internal/alien/plasmavessel,
-		/obj/item/organ/internal/alien/acidgland,
-		/obj/item/organ/internal/alien/neurotoxin,
-		/obj/item/organ/internal/alien/hivenode,
-	)
-
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"
 	icon = 'icons/mob/alienlarge.dmi'

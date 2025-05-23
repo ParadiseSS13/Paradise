@@ -34,13 +34,6 @@
 	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	contains_xeno_organ = TRUE
 
-	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
-		/obj/item/organ/internal/heart/xenobiology/vestigial,
-		/obj/item/organ/internal/appendix/xenobiology/toxin_stinger,
-	)
-
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
 	var/datum/action/innate/web_giant_spider/web_action = new()

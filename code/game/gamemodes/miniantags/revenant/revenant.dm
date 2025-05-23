@@ -38,6 +38,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	initial_traits = list(TRAIT_FLYING)
 	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
 
 	/// The revenant's idle icon
 	var/icon_idle = "revenant_idle"
@@ -76,32 +77,6 @@
 	var/perfectsouls = 0
 	/// Are we currently dying? extra check against becomming incorporeal
 	var/dying = FALSE
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/appendix/xenobiology/electro_strands,
-	)
-
-	dissection_tool_step = list(
-		/datum/surgery_step/generic/dissect,
-		/datum/surgery_step/generic/retract_skin,
-		/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin prepping the subject for dissection...</span>",
-	"<span class='notice'>You begin to easily open up a surgical site from the ashen mound.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the nearly ashen pile!</span>",
-	"<span class='warning'>You struggle to get the surgical site open as ash crumples back in on itself!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
-	)
 
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
 	..()

@@ -66,47 +66,7 @@ Difficulty: Hard
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
 	contains_xeno_organ = TRUE
-
-	custom_organ_states = list("hiero1", "hiero2")
-
-	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
-							/datum/action/innate/megafauna_attack/chaser_swarm,
-							/datum/action/innate/megafauna_attack/cross_blasts,
-							/datum/action/innate/megafauna_attack/blink_spam)
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/eyes/xenobiology/glowing,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/fake_robotics/unscrew_hatch,
-	/datum/surgery_step/fake_robotics/open_hatch,
-	/datum/surgery_step/fake_robotics/amputate,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin to unscrew the coverings.</span>",
-	"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
-	"<span class='notice'>You carefully begin to disconnect the core from the surrounding power network.</span>",
-	"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
-	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
-	"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
-	"<span class='notice'>You remove the core from the metal housing!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
-	"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
-	"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
-	"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
-	)
+	ignore_generic_organs = TRUE
 
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams

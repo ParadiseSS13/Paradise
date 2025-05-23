@@ -36,13 +36,6 @@
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	contains_xeno_organ = TRUE
 
-	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/appendix/xenobiology/freezing,
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/appendix/xenobiology/tendril,
-	)
-
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	. = ..()
 	handle_preattack()

@@ -63,53 +63,12 @@ Difficulty: Medium
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/ash_drake
 	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							/datum/action/innate/megafauna_attack/fire_cone_meteors,
 							/datum/action/innate/megafauna_attack/mass_fire,
 							/datum/action/innate/megafauna_attack/lava_swoop)
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/lungs/xenobiology/flame_sack,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/amputate,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin sawing through the hardened scales of the drake.</span>",
-	"<span class='notice'>You carefully begin removing the scales from the corpse</span>",
-	"<span class='notice'>You begin to make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You feel the resistance of the hardened scales give away to the saw.</span>",
-	"<span class='notice'>You pluck away the remaining scales from around the dissection site.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You fail to find enough leverage to saw through the thick scales!</span>",
-	"<span class='warning'>You cant get a good enough grip on the loosened scales to pluck them off!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
-	)
-
 
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"

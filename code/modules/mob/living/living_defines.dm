@@ -123,45 +123,11 @@
 	///If a creature gets to be super special and have extra range on their chat messages
 	var/extra_message_range = 0
 
-	/*
-	Xenobiology Dissection Vars
-	*/
+	/// Points to what specialized dissection information a mob gets.
+	var/datum/dissection_surgery_container
 
 	/// Does this creature contain a xeno organ we can harvest?
 	var/contains_xeno_organ = FALSE
-	/// What possible xeno organs does this creature hold? None by default
-	var/list/xeno_organ_results = list()
-	/// Does this creature have any special organ sprites?
-	var/list/custom_organ_states = list()
-	/// Contains the list for which paths are needed at each dissection step.
-	var/list/dissection_tool_step = list(
-		/datum/surgery_step/generic/dissect,
-		/datum/surgery_step/generic/cut_open,
-		/datum/surgery_step/generic/clamp_bleeders,
-		/datum/surgery_step/generic/retract_skin,
-		/datum/surgery_step/generic/dissect,
-	)
-	/// Contains specialty text for each dissection step.
-	var/list/dissection_text = list(
-	"<span class='notice'>You begin prepping the subject for dissection...</span>",
-	"<span class='notice'>You begin to make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
-	)
-	/// Contains specialty text for dissection success steps
-	var/list/dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
-	)
-	/// Contains specialty text for dissection step failures
-	var/list/dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
-	)
+
+	/// The toggle for if this creature should ignore the rolls for generic organs upon dissection
+	var/ignore_generic_organs = FALSE

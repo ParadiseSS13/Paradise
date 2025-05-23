@@ -41,42 +41,12 @@
 	var/datum/effect_system/smoke_spread/bad/smoke
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
 	contains_xeno_organ = TRUE
-	custom_organ_states = list("legion1", "legion2")
+	ignore_generic_organs = TRUE
 
 	attack_action_types = list(/datum/action/innate/elite_attack/legionnaire_charge,
 								/datum/action/innate/elite_attack/head_detach,
 								/datum/action/innate/elite_attack/bonfire_teleport,
 								/datum/action/innate/elite_attack/spew_smoke)
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/ears/xenobiology/sinister,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/amputate,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin sawing through the dense bone obstructions.</span>",
-	"<span class='notice'>With a sickening crunch, you begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You manage to detach the bones away from the dissection cavity.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>"
-	)
-	dissection_failure_text = list(
-	"<span class='notice'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='notice'>Your saw fails to find purchase against the hardened bone!</span>",
-	"<span class='notice'>The surrounding bone refuses to budge!</span>",
-	"<span class='notice'>The tool fails to remove the organ from the surrounding skeletal structure!</span>"
-	)
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/myhead = null
 	var/obj/structure/legionnaire_bonfire/mypile = null

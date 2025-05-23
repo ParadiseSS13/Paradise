@@ -26,11 +26,3 @@
 	maxbodytemp = 500
 	gold_core_spawnable = HOSTILE_SPAWN
 	contains_xeno_organ = TRUE
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/ears/xenobiology/colorful,
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/appendix/xenobiology/feverish,
-		/obj/item/organ/internal/liver/xenobiology/soupy,
-	)
-

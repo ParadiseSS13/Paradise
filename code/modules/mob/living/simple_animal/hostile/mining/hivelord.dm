@@ -34,13 +34,6 @@
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	contains_xeno_organ = TRUE
 
-	xeno_organ_results = list(
-		/obj/item/organ/internal/heart/xenobiology/incompatible,
-		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
-		/obj/item/organ/internal/heart/xenobiology/vestigial,
-		/obj/item/organ/internal/heart/xenobiology/hyperactive,
-	)
-
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
 		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new brood_type(loc)

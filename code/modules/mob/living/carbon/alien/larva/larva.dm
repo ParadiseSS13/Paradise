@@ -16,14 +16,6 @@
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
 	hud_type = /datum/hud/larva
-	custom_organ_states = list("plasma_tiny", "neurotox", "acid", "hivenode")
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/alien/plasmavessel/larva,
-		/obj/item/organ/internal/alien/acidgland,
-		/obj/item/organ/internal/alien/neurotoxin,
-		/obj/item/organ/internal/alien/hivenode,
-	)
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/Initialize(mapload)

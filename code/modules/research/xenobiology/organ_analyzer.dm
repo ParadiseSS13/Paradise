@@ -126,6 +126,7 @@
 		return
 	if(contains_organ)
 		user.put_in_hands(contains_organ)
+		contains_organ = null
 		update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/organ_analyzer/process()

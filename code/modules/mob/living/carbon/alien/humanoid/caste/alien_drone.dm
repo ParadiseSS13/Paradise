@@ -4,13 +4,6 @@
 	maxHealth = 150
 	health = 150
 	icon_state = "aliend_s"
-	custom_organ_states = list("plasma_large", "neurotox", "acid", "hivenode")
-	xeno_organ_results = list(
-		/obj/item/organ/internal/alien/plasmavessel/drone,
-		/obj/item/organ/internal/alien/acidgland,
-		/obj/item/organ/internal/alien/resinspinner,
-		/obj/item/organ/internal/alien/hivenode,
-	)
 
 /mob/living/carbon/alien/humanoid/drone/Initialize(mapload)
 	. = ..()

@@ -145,14 +145,6 @@
 
 	contains_xeno_organ = TRUE
 
-	xeno_organ_results = list(
-		/obj/item/organ/internal/heart/xenobiology/vestigial,
-		/obj/item/organ/internal/appendix/xenobiology/feverish,
-		/obj/item/organ/internal/kidneys/xenobiology/lethargic,
-		/obj/item/organ/internal/heart/xenobiology/megacarp,
-	)
-
-
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()
 	name = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"

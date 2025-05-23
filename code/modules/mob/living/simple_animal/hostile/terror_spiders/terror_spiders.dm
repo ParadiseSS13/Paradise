@@ -21,43 +21,6 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	gender = FEMALE
 	contains_xeno_organ = TRUE
 
-	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/detox,
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/appendix/xenobiology/freezing,
-		/obj/item/organ/internal/appendix/xenobiology/toxin_stinger/terror,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/amputate,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin sawing through the chitinout outer layer.</span>",
-	"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You manage to saw through the hardened exoskeleton.</span>",
-	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>You begin to prep the subject for dissection...</span>",
-	"<span class='warning'>Your saw fails to find purchase against the reinforced exoskeleton!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
-	)
-
 	// Icons
 	icon = 'icons/mob/terrorspider.dmi'
 	icon_state = "terror_red"

@@ -55,53 +55,14 @@ Difficulty: Very Hard
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
 	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
-
-	custom_organ_states = list("colossus1", "colossus2", "colossus3", "colossus4")
 
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							/datum/action/innate/megafauna_attack/aoe_attack,
 							/datum/action/innate/megafauna_attack/shotgun,
 							/datum/action/innate/megafauna_attack/alternating_cardinals)
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You carefully begin severing the metal sections from the surrounding flesh.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You manage to cut away and seperate the metal from flesh.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The mixture of metal and flesh seems impossible to distinguish in some places!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
-	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
 	. = ..()

@@ -36,55 +36,6 @@
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
 
-	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/appendix/xenobiology/freezing,
-		/obj/item/organ/internal/ears/xenobiology/colorful,
-		/obj/item/organ/internal/kidneys/xenobiology/sweating,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/drill,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin drilling into the crystals to weakent he structure.</span>",
-	"<span class='notice'>You begin breaking apart the crystals preventing access to the subject.</span>",
-	"<span class='notice'>You begin removing the remaining pieces of obstructive material.</span>",
-	"<span class='notice'>You begin to make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You drill a series of holes into the crystalline carapace.</span>",
-	"<span class='notice'>You crack open the crystalline lattice into many pieces.</span>",
-	"<span class='notice'>You colelct and remove the myriad of loose crystals.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You fail to drill through the hardened crystals!</span>",
-	"<span class='warning'>You fail to get enough leverage to break apart the crystal lattice!</span>",
-	"<span class='warning'>You cant seem to get a good grip on the irregular chunks of material!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
-	)
-
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
 	icon_state = "ice_2"
@@ -137,44 +88,6 @@
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 	initial_traits = list(TRAIT_FLYING)
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/liver/xenobiology/toxic,
-		/obj/item/organ/internal/appendix/xenobiology/freezing,
-		/obj/item/organ/internal/ears/xenobiology/colorful,
-		/obj/item/organ/internal/kidneys/xenobiology/sinew,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	// need to override this from the basilisks
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
-	)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"

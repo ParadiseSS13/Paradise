@@ -79,6 +79,7 @@ Difficulty: Hard
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
 	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
 	difficulty_ore_modifier = 4 //Vetus' whole deal was that it dropped ore before all megas did, so it gets a ton
 
 	var/charging = FALSE
@@ -88,42 +89,6 @@ Difficulty: Hard
 	var/extra_player_anger = 0
 	var/mode = 0 //This variable controls the special attacks of the robot, one for each anomaly core.
 	var/exploding = FALSE
-
-	custom_organ_states = list("vetus1", "vetus2")
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/cell/xenobiology/supercharged,
-	)
-
-	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/fake_robotics/unscrew_hatch,
-	/datum/surgery_step/fake_robotics/open_hatch,
-	/datum/surgery_step/fake_robotics/amputate,
-	/datum/surgery_step/generic/dissect,
-	)
-
-	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin to unscrew the coverings.</span>",
-	"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
-	"<span class='notice'>You carefully begin to disconnect the core from the machinery without setting off any secondary explosions.</span>",
-	"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
-	)
-	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
-	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
-	"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
-	"<span class='notice'>You remove the core from the metal housing!</span>",
-	)
-	dissection_failure_text = list(
-	"<span class='warning'>You begin to prep the subject for dissection...</span>",
-	"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
-	"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
-	"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
-	"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
-	)
 
 /// Legs and the connector for the legs
 

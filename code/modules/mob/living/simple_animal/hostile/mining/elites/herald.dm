@@ -42,7 +42,7 @@
 	deathmessage = "begins to shudder as it becomes transparent..."
 	loot_drop = /obj/item/clothing/neck/cloak/herald_cloak
 	contains_xeno_organ = TRUE
-
+	ignore_generic_organs = TRUE
 
 	attack_action_types = list(/datum/action/innate/elite_attack/herald_trishot,
 								/datum/action/innate/elite_attack/herald_directionalshot,
@@ -51,10 +51,6 @@
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/my_mirror = null
 	var/is_mirror = FALSE
-
-	xeno_organ_results = list(
-		/obj/item/organ/internal/lungs/xenobiology/mirror,
-	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/death()
 	. = ..()
