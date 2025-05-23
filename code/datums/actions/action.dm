@@ -194,7 +194,6 @@
  * force - whether an update is forced regardless of existing status
  */
 /datum/action/proc/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
-	// button.cut_overlay(unavailable_effect)
 	button.overlays -= unavailable_effect
 	button.maptext = ""
 	if(should_draw_cooldown())

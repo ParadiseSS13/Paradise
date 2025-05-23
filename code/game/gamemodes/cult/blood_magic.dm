@@ -86,7 +86,11 @@
 	var/health_cost = 0
 	/// Have we already been positioned into our starting location?
 	var/positioned = FALSE
+	var/mutable_appearance/button_charge_count
 
+/datum/action/innate/cult/blood_spell/New(target)
+	. = ..()
+	button_charge_count = image('icons/effects/effects.dmi', icon_state = "nothing")
 
 /datum/action/innate/cult/blood_spell/proc/get_panel_text()
 	if(initial(charges) == 1)
@@ -94,14 +98,17 @@
 	var/available_charges = hand_magic ? "[hand_magic.uses]" : "[charges]"
 	return "[available_charges]/[initial(charges)]"
 
-/datum/action/innate/cult/blood_spell/build_button_icon(atom/movable/screen/movable/action_button/button, update_flags, force)
+/datum/action/innate/cult/blood_spell/update_button_status(atom/movable/screen/movable/action_button/button, force)
 	. = ..()
+	if(!button)
+		return
+	button.overlays -= button_charge_count
+
 	var/text = get_panel_text()
 	if(!text || !button)
 		return
-	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
-	count_down_holder.maptext = "<div style=\"font-size:8pt;color:white;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
-	button.add_overlay(count_down_holder)
+	button_charge_count.maptext = "<div style=\"font-size:8pt;color:white;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
+	button.overlays |= button_charge_count
 
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
