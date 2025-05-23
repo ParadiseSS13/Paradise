@@ -450,15 +450,17 @@
 	var/water_damage = rand(10, 15) * volume
 	adjustBruteLoss(water_damage)
 	// Extinguishers just piss them off more
-	if(!client && !Target && istype(source, /obj/effect/particle_effect/water))
+	if(!client && istype(source, /obj/effect/particle_effect/water))
 		adjustBruteLoss(5) // extra potent
 		if(trained && prob(75))
-			say("Ow!!! Why!?", pick(speak_emote))
+			say("Ow! HEY!!!", pick(speak_emote))
 			trained = FALSE
 			rabid = TRUE
 	if(!client && Target && volume >= 3) // Like cats
 		Target = null
-		++Discipline
+		discipline_slime(FALSE)
+		if(prob(5))
+			say("Ow ow ow!", pick(speak_emote))
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
@@ -496,14 +498,14 @@
 	if(stat)
 		return
 
-	if(prob(80) && !client)
+	if(!client)
 		Discipline++
 
 		if(!is_adult)
-			if(Discipline == 1)
+			if(Discipline >= 1)
 				attacked = 0
 
-	if(trained)
+	if(trained && !positive_reinforcement)
 		say("Sorry...", pick(speak_emote))
 		Target = null
 
