@@ -345,7 +345,7 @@
 	// want to get rid of this we need to move bumping in its entirety to signal
 	// handlers, which is scarier.
 	set waitfor = FALSE
-	return
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, AM)
 
 /// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
