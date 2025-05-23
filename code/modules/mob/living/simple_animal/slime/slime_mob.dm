@@ -69,7 +69,7 @@
 	// does this slime have a xeno organ inserted into it already?
 	var/obj/item/xeno_organ/holding_organ
 	// An elevated form of discipline. Is this slime trained and ready to begin organ therapy?
-	var/trained = 0
+	var/trained = FALSE
 	// how far along in the organ processing are we
 	var/organ_progress = 0
 
@@ -412,8 +412,8 @@
 		if(S.amount < 5)
 			to_chat(user, "<span class='notice'>You need at least five sheets of plasma to feed the slime!</span>")
 			return ITEM_INTERACT_COMPLETE
-		new /obj/effect/temp_visual/heart(src.loc)
-		src.visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
+		new /obj/effect/temp_visual/heart(loc)
+		visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
 		S.use(5)
 		if(Discipline)
 			trained = TRUE

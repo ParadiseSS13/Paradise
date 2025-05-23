@@ -1,4 +1,4 @@
-///allows humanoids to eat arbitrary items
+/// Allows humanoids to eat arbitrary items
 /datum/component/special_tastes
 	/// associated list of item to reagents and tastes
 	/// Typepath = (list(reagents = list(reagents), tastes = list(tastes)); Ex: list(/obj/item/stack/sheet/mineral/silver = list("reagents" = list("nutriment" = 5, "vitamin" = 1), "tastes" = list("metal and blood" = 1)))
@@ -16,7 +16,7 @@
 	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(attempt_ingest))
 
 /// check if item is in the list of potential food
-/datum/component/special_tastes/proc/attempt_ingest(source, obj/item/attacking_item, mob/living/carbon/human/attacker)
+/datum/component/special_tastes/proc/attempt_ingest(datum/source, obj/item/attacking_item, mob/living/carbon/human/attacker)
 	SIGNAL_HANDLER  // COMSIG_ATTACK_BY
 	if(parent != attacker) // only if they attack themselves with it
 		return
@@ -32,7 +32,7 @@
 	attempt_to_eat(attacker, attacking_item, similar_to)
 	return COMPONENT_SKIP_AFTERATTACK
 
-///handle eating and nutrition gain from eating minerals
+/// Handle eating and nutrition gain from eating minerals
 /datum/component/special_tastes/proc/attempt_to_eat(mob/living/carbon/human/user, obj/item/attacking_item, obj/item/similar_to)
 	if(istype(attacking_item, /obj/item/stack))
 		var/obj/item/stack/stacked_item = attacking_item
@@ -55,7 +55,7 @@
 	user.put_in_active_hand(attacking_item)
 	qdel(food)
 
-///turn the item into food, can only be eaten in 1 bite to prevent creating a half-eaten item that those without the trait can also eat.
+/// Turn the item into food, can only be eaten in 1 bite to prevent creating a half-eaten item that those without the trait can also eat.
 /datum/component/special_tastes/proc/turn_into_food(obj/item/future_food, obj/item/similar_to)
 	var/obj/item/food/food = new
 	food.name = future_food.name

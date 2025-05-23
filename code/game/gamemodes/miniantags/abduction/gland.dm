@@ -11,16 +11,16 @@
 
 	/// Do these organs have an repeatbale ongoing effects?
 	var/has_ongoing_effect = TRUE
-	/// Is this organs effect currently active
-	var/active
+	/// Is this organ's effect currently active
+	var/active = FALSE
 	/// the low-end of random cooldown times between activations
 	var/cooldown_low = 300
 	/// the high-end of random cooldown times between activations
 	var/cooldown_high = 300
 	/// what time will the organ activate next
 	var/next_activation = 0
-	/// How many uses of this organ remain before it goes dormant
-	var/uses // -1 For inifinite
+	/// How many uses of this organ remain before it goes dormant; -1 for infinite uses
+	var/uses
 
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
