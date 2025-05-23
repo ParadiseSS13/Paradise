@@ -412,8 +412,8 @@
 		if(S.amount < 5)
 			to_chat(user, "<span class='notice'>You need at least five sheets of plasma to feed the slime!</span>")
 			return ITEM_INTERACT_COMPLETE
-		new /obj/effect/temp_visual/heart(src.loc)
-		src.visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
+		new /obj/effect/temp_visual/heart(loc)
+		visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
 		S.use(5)
 		if(Discipline)
 			trained = TRUE
