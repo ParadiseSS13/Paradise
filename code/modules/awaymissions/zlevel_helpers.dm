@@ -2,8 +2,6 @@
 
 // Ensures that atmos and environment are set up.
 /datum/milla_safe_must_sleep/late_setup_level/on_run(turf/bot_left, turf/top_right, smoothTurfs)
-	var/total_timer = start_watch()
-	var/subtimer = start_watch()
 	if(!smoothTurfs)
 		smoothTurfs = block(bot_left, top_right)
 
@@ -14,7 +12,6 @@
 		SSair.setup_turfs(bot_left, top_right)
 	set_zlevel_freeze(bot_left.z, FALSE)
 
-	subtimer = start_watch()
 	for(var/turf/T in smoothTurfs)
 		if(T.smoothing_flags)
 			QUEUE_SMOOTH(T)
@@ -24,7 +21,6 @@
 				QUEUE_SMOOTH(A)
 
 /proc/empty_rect(low_x,low_y, hi_x,hi_y, z)
-	var/timer = start_watch()
 	empty_region(block(low_x, low_y, z, hi_x, hi_y, z))
 
 /proc/empty_region(list/turfs)
