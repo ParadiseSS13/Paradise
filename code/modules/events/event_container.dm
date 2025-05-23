@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 	// Subtract resources from active antags
 	for(var/datum/antagonist/active in GLOB.antagonists)
-		var/list/antag_costs = active.event_resource_cost()
+		var/list/antag_costs = active.antag_event_resource_cost()
 		for(var/assignment in antag_costs)
 			if(total_resources[assignment])
 				total_resources[assignment] -= antag_costs[assignment]
