@@ -69,7 +69,7 @@
 	// does this slime have a xeno organ inserted into it already?
 	var/obj/item/xeno_organ/holding_organ
 	// An elevated form of discipline. Is this slime trained and ready to begin organ therapy?
-	var/trained = 0
+	var/trained = FALSE
 	// how far along in the organ processing are we
 	var/organ_progress = 0
 
