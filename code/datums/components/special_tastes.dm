@@ -16,7 +16,7 @@
 	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(attempt_ingest))
 
 /// check if item is in the list of potential food
-/datum/component/special_tastes/proc/attempt_ingest(source, obj/item/attacking_item, mob/living/carbon/human/attacker)
+/datum/component/special_tastes/proc/attempt_ingest(datum/source, obj/item/attacking_item, mob/living/carbon/human/attacker)
 	SIGNAL_HANDLER  // COMSIG_ATTACK_BY
 	if(parent != attacker) // only if they attack themselves with it
 		return
