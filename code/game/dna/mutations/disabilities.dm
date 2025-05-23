@@ -541,7 +541,7 @@
 	name = "Nya"
 	desc = "Makes you tawk a wittwe stwangewy."
 	activation_messages = list("Umm, it feels wike something is weally off... >.<")
-	deactivation_messages = list("Nyoo~ you feel all cutesy and normal again, huh? *purrs softly* it’s nice to feel all snuggly and comfy, meow~ :3 let’s keep it that way, okay? >///< nyaa~")
+	deactivation_messages = list("What the fuck was that?")
 	instability = -GENE_INSTABILITY_MINOR // powergaming tax
 
 /datum/mutation/disability/uwu/New()
