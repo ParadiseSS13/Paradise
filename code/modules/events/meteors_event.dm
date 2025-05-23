@@ -6,7 +6,6 @@
 	var/next_meteor = 6
 	var/waves = 1
 	var/atom/movable/screen/alert/augury/meteor/screen_alert
-	role_weight = list(ASSIGNMENT_ENGINEERING =  10)
 
 /datum/event/meteor_wave/setup()
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)

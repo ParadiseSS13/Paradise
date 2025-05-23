@@ -1,6 +1,6 @@
 /datum/event/abductor
 	name = "Abductor Visit"
-	role_weight = list(ASSIGNMENT_SECURITY =  3)
+	role_weights = list(ASSIGNMENT_SECURITY =  3)
 
 /datum/event/abductor/start()
 	INVOKE_ASYNC(src, PROC_REF(try_makeAbductorTeam))

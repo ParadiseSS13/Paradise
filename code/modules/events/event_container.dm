@@ -228,3 +228,12 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
+
+/datum/event_container/disaster
+	severity = EVENT_LEVEL_MAJOR
+	available_events = list(
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 590),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/blob, 20, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/alien_infestation, 15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spider_terror, 	15,		list(ASSIGNMENT_SECURITY = 3), TRUE)
+		)
