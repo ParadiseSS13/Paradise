@@ -1,0 +1,14 @@
+#define ASSIGNMENT_TOTAL "Any"
+#define ASSIGNMENT_COMMAND "Command"
+#define ASSIGNMENT_ENGINEERING "Engineering"
+#define ASSIGNMENT_MEDICAL "Medical"
+#define ASSIGNMENT_SECURITY "Security"
+#define ASSIGNMENT_SCIENCE "Science"
+#define ASSIGNMENT_AI "AI"
+#define ASSIGNMENT_CYBORG "Cyborg"
+#define ASSIGNMENT_JANITOR "Janitor"
+#define ASSIGNMENT_BOTANIST "Botanist"
+#define ASSIGNMENT_CHEMIST "Chemist"
+#define ASSIGNMENT_VIROLOGIST "Virologist"
+
+#define ASSIGNMENT_STAFFING_VALUE 10

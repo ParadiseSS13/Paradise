@@ -55,61 +55,52 @@
 
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.
-// Note that this isn't sorted by department, because e.g. having a roboticist shouldn't make meteors spawn.
+// Note that this isn't sorted just by department, because e.g. having a roboticist shouldn't make meteors spawn.
 /proc/number_active_with_role()
 	var/list/active_with_role = list()
-	active_with_role["Engineer"] = 0
-	active_with_role["Medical"] = 0
-	active_with_role["Security"] = 0
-	active_with_role["Scientist"] = 0
-	active_with_role["AI"] = 0
-	active_with_role["Cyborg"] = 0
-	active_with_role["Janitor"] = 0
-	active_with_role["Botanist"] = 0
-	active_with_role["Chemist"] = 0
-	active_with_role["Any"] = length(GLOB.player_list)
+	active_with_role[ASSIGNMENT_TOTAL] = 0
+	active_with_role[ASSIGNMENT_COMMAND] = 0
+	active_with_role[ASSIGNMENT_ENGINEERING] = 0
+	active_with_role[ASSIGNMENT_MEDICAL] = 0
+	active_with_role[ASSIGNMENT_SECURITY] = 0
+	active_with_role[ASSIGNMENT_SCIENCE] = 0
 
 	for(var/mob/M in GLOB.player_list)
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
+		active_with_role[ASSIGNMENT_TOTAL]++
+
 		if(isrobot(M))
 			var/mob/living/silicon/robot/R = M
 			if(R.module && (R.module.name == "engineering robot module"))
-				active_with_role["Engineer"]++
+				active_with_role[ASSIGNMENT_ENGINEERING]++
 
 			if(R.module && (R.module.name == "medical robot module"))
-				active_with_role["Medical"]++
+				active_with_role[ASSIGNMENT_MEDICAL]++
 
 			if(R.module && (R.module.name == "security robot module"))
-				active_with_role["Security"]++
+				active_with_role[ASSIGNMENT_SECURITY]++
 
-		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer"))
-			active_with_role["Engineer"]++
+		if(M.mind.assigned_role in GLOB.engineering_positions)
+			active_with_role[ASSIGNMENT_ENGINEERING]++
 
-		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor"))
-			active_with_role["Medical"]++
+		if(M.mind.assigned_role in GLOB.medical_positions)
+			active_with_role[ASSIGNMENT_MEDICAL]++
 
 		if(M.mind.assigned_role in GLOB.active_security_positions)
-			active_with_role["Security"]++
+			active_with_role[ASSIGNMENT_SECURITY]++
 
-		if(M.mind.assigned_role in list("Research Director", "Scientist"))
-			active_with_role["Scientist"]++
+		if(M.mind.assigned_role in GLOB.science_positions)
+			active_with_role[ASSIGNMENT_SCIENCE]++
 
-		if(M.mind.assigned_role == "AI")
-			active_with_role["AI"]++
+		if(M.mind.assigned_role in GLOB.command_positions)
+			active_with_role[ASSIGNMENT_COMMAND]++
 
-		if(M.mind.assigned_role == "Cyborg")
-			active_with_role["Cyborg"]++
-
-		if(M.mind.assigned_role == "Janitor")
-			active_with_role["Janitor"]++
-
-		if(M.mind.assigned_role == "Botanist")
-			active_with_role["Botanist"]++
-
-		if(M.mind.assigned_role == "Chemist")
-			active_with_role["Chemist"]++
+		if(active_with_role[M.mind.assigned_role])
+			active_with_role[M.mind.assigned_role]++
+		else
+			active_with_role[M.mind.assigned_role] = 1
 
 	return active_with_role
 

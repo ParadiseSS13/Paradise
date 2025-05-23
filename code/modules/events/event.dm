@@ -29,14 +29,14 @@
 	if(job_weights)
 		role_weights = job_weights
 
-/datum/event_meta/proc/get_weight(list/active_with_role)
+/datum/event_meta/proc/get_weight(list/total_resources)
 	if(!enabled)
 		return 0
 
 	var/job_weight = 0
 	for(var/role in role_weights)
-		if(role in active_with_role)
-			job_weight += active_with_role[role] * role_weights[role]
+		if(role in total_resources)
+			job_weight += total_resources[role] * role_weights[role]
 
 	return clamp((weight + job_weight) * weight_mod, min_weight, max_weight)
 
@@ -208,3 +208,6 @@
 /// If this proc returns TRUE, the regular Announce() won't be called.
 /datum/event/proc/fake_announce()
 	return FALSE
+
+/datum/event/proc/event_resource_cost()
+	return list()

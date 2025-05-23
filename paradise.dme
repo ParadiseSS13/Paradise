@@ -65,6 +65,7 @@
 #include "code\__DEFINES\economy_event_defines.dm"
 #include "code\__DEFINES\emotes_defines.dm"
 #include "code\__DEFINES\error_handler_defines.dm"
+#include "code\__DEFINES\event_defines.dm"
 #include "code\__DEFINES\flags.dm"
 #include "code\__DEFINES\food_defines.dm"
 #include "code\__DEFINES\footstep_defines.dm"
