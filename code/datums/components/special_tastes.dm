@@ -1,4 +1,4 @@
-///allows humanoids to eat arbitrary items
+/// Allows humanoids to eat arbitrary items
 /datum/component/special_tastes
 	/// associated list of item to reagents and tastes
 	/// Typepath = (list(reagents = list(reagents), tastes = list(tastes)); Ex: list(/obj/item/stack/sheet/mineral/silver = list("reagents" = list("nutriment" = 5, "vitamin" = 1), "tastes" = list("metal and blood" = 1)))
