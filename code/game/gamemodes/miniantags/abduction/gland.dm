@@ -19,8 +19,8 @@
 	var/cooldown_high = 300
 	/// what time will the organ activate next
 	var/next_activation = 0
-	/// How many uses of this organ remain before it goes dormant
-	var/uses // -1 For inifinite
+	/// How many uses of this organ remain before it goes dormant; -1 for infinite uses
+	var/uses
 
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
