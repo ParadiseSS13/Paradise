@@ -1390,10 +1390,10 @@
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/central/south)
 "aok" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "specops_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
 "aon" = (
@@ -11000,7 +11000,7 @@
 	dwidth = 4;
 	height = 11;
 	id = "trade_dock";
-	name = "port bay 4 at Cyberiad";
+	name = "port bay 4 at Cerebron";
 	width = 9
 	},
 /turf/space,
@@ -12726,10 +12726,10 @@
 /turf/simulated/floor/plating,
 /area/station/supply/sorting)
 "bpG" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "admin_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
 "bpI" = (
@@ -19401,10 +19401,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
 "bTn" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "ferry_home";
-	locked = 1
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "ferry_home"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
 "bTA" = (
@@ -35281,8 +35281,8 @@
 	},
 /area/station/hallway/primary/central/north)
 "ejj" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
@@ -46565,11 +46565,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
 "ios" = (
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/light{
-	dir = 1
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -46903,9 +46901,6 @@
 	},
 /area/station/service/chapel)
 "iuI" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/sign/directions/evac{
 	pixel_x = 32;
 	pixel_y = -8
@@ -49488,7 +49483,7 @@
 /area/station/security/execution)
 "jwr" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -54896,16 +54891,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
-"lnR" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/secondary/entry/east)
 "lnT" = (
 /obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
@@ -62975,8 +62960,8 @@
 /turf/space,
 /area/space/nearstation)
 "onD" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
@@ -74825,12 +74810,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"sKK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/east)
 "sKO" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -103960,8 +103939,8 @@ hkF
 hkF
 aKU
 mFd
-vXe
-lnR
+hXV
+dvn
 kNu
 dvn
 dvn
@@ -104218,8 +104197,8 @@ gEK
 uKy
 bfu
 onD
-sKK
-dvn
+qFK
+qFK
 bzs
 nPt
 qFK
@@ -104474,7 +104453,7 @@ hkF
 hkF
 aKU
 aqw
-hXV
+vXe
 ios
 ehj
 ehj
