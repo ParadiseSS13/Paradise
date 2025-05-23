@@ -136,6 +136,9 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// How often can you melee attack?
 	var/melee_attack_cooldown = 2 SECONDS
 
+	/// Compatibility with mob spawners
+	var/datum/component/spawner/nest
+
 /mob/living/basic/Initialize(mapload)
 	. = ..()
 
@@ -144,6 +147,12 @@ RESTRICT_TYPE(/mob/living/basic)
 
 	apply_atmos_requirements()
 	apply_temperature_requirements()
+
+/mob/living/basic/Destroy()
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
+	return ..()
 
 /mob/living/basic/movement_delay()
 	. = speed
@@ -231,6 +240,9 @@ RESTRICT_TYPE(/mob/living/basic)
 	. = ..()
 	if(!.)
 		return FALSE
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
 	if(!gibbed)
 		if(death_sound)
 			playsound(get_turf(src), death_sound, 200, 1)
