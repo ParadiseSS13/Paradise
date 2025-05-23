@@ -9625,7 +9625,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "bvF" = (
-/obj/machinery/door/poddoor/multi_tile/double/directional/east{
+/obj/machinery/door/poddoor/multi_tile/directional/east{
 	name = "Command Emergency EVA Storage";
 	id_tag = "commandeva"
 	},
@@ -24102,7 +24102,7 @@
 	},
 /area/station/hallway/primary/aft/west)
 "dnY" = (
-/obj/machinery/door/poddoor/multi_tile/double/directional/north{
+/obj/machinery/door/poddoor/multi_tile/directional/north{
 	name = "Medical Emergency EVA Storage";
 	id_tag = "medeva"
 	},
@@ -40685,7 +40685,7 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/scidock)
 "hre" = (
-/obj/machinery/door/poddoor/multi_tile/double/directional/east{
+/obj/machinery/door/poddoor/multi_tile/directional/east{
 	name = "Cargo Emergency EVA Storage";
 	id_tag = "cargoeva"
 	},
@@ -67078,7 +67078,7 @@
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "nvX" = (
-/obj/machinery/door/poddoor/multi_tile/double/directional/north{
+/obj/machinery/door/poddoor/multi_tile/directional/north{
 	id_tag = "arrivalseva";
 	name = "Arrivals Emergency EVA Storage"
 	},
@@ -83264,7 +83264,7 @@
 	},
 /area/station/hallway/primary/fore/east)
 "rrI" = (
-/obj/machinery/door/poddoor/multi_tile/double/directional/east{
+/obj/machinery/door/poddoor/multi_tile/directional/east{
 	name = "Science Emergency EVA Storage";
 	id_tag = "scieva"
 	},

@@ -780,7 +780,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "cV" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/north{
 	name = "Syndicate Base Blast Door"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -3055,7 +3055,7 @@
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership/jail)
 "lh" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/north{
 	id_tag = "nukeop_base";
 	name = "Syndicate Base Docking Area Blast Door"
 	},
@@ -13428,7 +13428,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "VD" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/east{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/east{
 	id_tag = "CCDOCK2";
 	name = "Special Operations Secondary Dock"
 	},
@@ -13968,7 +13968,7 @@
 	},
 /area/centcom/evac)
 "Xh" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/north{
 	id_tag = "specopsoffice";
 	name = "Privacy Shield"
 	},

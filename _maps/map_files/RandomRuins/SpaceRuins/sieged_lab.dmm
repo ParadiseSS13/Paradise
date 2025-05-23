@@ -491,7 +491,7 @@
 "xV" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/east{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/east{
 	id_tag = "SL_EndRoom"
 	},
 /turf/simulated/floor/plasteel{
@@ -1065,7 +1065,7 @@
 	name = "Executive Suite"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/north{
 	id_tag = "SL_EndRoom"
 	},
 /turf/simulated/floor/plasteel,
