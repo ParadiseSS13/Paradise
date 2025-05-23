@@ -4552,7 +4552,7 @@
 	},
 /area/ruin/space/deepstorage)
 "BU" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "white"

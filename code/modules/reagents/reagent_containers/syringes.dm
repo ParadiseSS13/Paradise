@@ -189,6 +189,10 @@
 	var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 	reagents.reaction(target, REAGENT_INGEST, fraction)
 	reagents.trans_to(target, amount_per_transfer_from_this)
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		if(length(carbon_target.viruses))
+			AddComponent(/datum/component/viral_contamination, carbon_target.viruses)
 	to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
 	if(reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
 		mode = SYRINGE_DRAW

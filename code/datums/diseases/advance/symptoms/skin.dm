@@ -18,11 +18,12 @@ BONUS
 
 	name = "Vitiligo"
 	stealth = -3
-	resistance = -1
-	stage_speed = -1
-	transmittable = -2
+	resistance = 0
+	stage_speed = 1
+	transmittable = 2
 	level = 4
 	severity = 1
+	treatments = list("synthflesh")
 
 /datum/symptom/vitiligo/Activate(datum/disease/advance/A)
 	..()
@@ -66,6 +67,7 @@ BONUS
 	transmittable = -2
 	level = 4
 	severity = 1
+	treatments = list("synthflesh")
 
 /datum/symptom/revitiligo/Activate(datum/disease/advance/A)
 	..()

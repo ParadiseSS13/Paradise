@@ -2,13 +2,13 @@
 	name = "GBS"
 	max_stages = 5
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Diphenhydramine & Sulfur"
 	cures = list("diphenhydramine","sulfur")
 	cure_chance = 15 // Higher chance to cure, since two reagents are required
 	agent = "Gravitokinetic Bipotential SADS+"
 	viable_mobtypes = list(/mob/living/carbon/human)
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 
 /datum/disease/gbs/stage_act()
 	if(!..())
@@ -41,9 +41,9 @@
 	name = "Non-Contagious GBS"
 	stage_prob = 5
 	spread_text = "Non-contagious"
-	spread_flags = NON_CONTAGIOUS
+	spread_flags = SPREAD_NON_CONTAGIOUS
 	cure_text = "Cryoxadone"
 	cures = list("cryoxadone")
 	cure_chance = 10
 	agent = "gibbis"
-	disease_flags = CURABLE
+	disease_flags = VIRUS_CURABLE
