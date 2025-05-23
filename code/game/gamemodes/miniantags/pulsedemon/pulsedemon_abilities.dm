@@ -35,7 +35,7 @@
 		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)] APC\s to upgrade. <b>Alt-Click</b> this spell to upgrade it."]"
 	action.name = name
 	action.desc = desc
-	action.UpdateButtons()
+	action.build_all_button_icons()
 
 /datum/spell/pulse_demon/can_cast(mob/living/simple_animal/demon/pulse_demon/user, charge_check, show_message)
 	if(!..())
@@ -278,8 +278,8 @@
 
 /datum/spell/pulse_demon/toggle/proc/do_toggle(varstate, mob/user)
 	if(action)
-		action.button_background_icon_state = varstate ? action_background_icon_state : "[action_background_icon_state]_disabled"
-		action.UpdateButtons()
+		action.background_icon_state = varstate ? action_background_icon_state : "[action_background_icon_state]_disabled"
+		action.build_all_button_icons()
 	if(user)
 		to_chat(user, "<span class='notice'>You will [varstate ? "now" : "no longer"] [base_message]</span>")
 	return varstate
