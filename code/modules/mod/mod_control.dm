@@ -294,6 +294,14 @@
 
 			add_fingerprint(M)
 
+/obj/item/mod/control/wirecutter_act(mob/living/user, obj/item/I)
+	if(open)
+		if(seconds_electrified && get_charge() && shock(user))
+			return TRUE
+		wires.Interact(user)
+		return TRUE
+	return ..()
+
 /obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
 	if(..())
 		return TRUE
