@@ -34397,9 +34397,8 @@
 /area/station/hallway/primary/starboard/east)
 "dTf" = (
 /obj/machinery/camera{
-	c_tag = "AI Satellite Atmospherics";
-	dir = 4;
-	network = list("SS13","MiniSat")
+	c_tag = "Smiths Office";
+	dir = 4
 	},
 /obj/machinery/newscaster/directional/west,
 /obj/machinery/status_display/supply_display{
@@ -60067,9 +60066,8 @@
 "nhC" = (
 /obj/machinery/suit_storage_unit/expedition,
 /obj/machinery/camera{
-	c_tag = "AI Satellite Atmospherics";
-	dir = 4;
-	network = list("SS13","MiniSat")
+	c_tag = "Expedition Room";
+	dir = 4
 	},
 /obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
