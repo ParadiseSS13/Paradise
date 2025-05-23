@@ -896,7 +896,7 @@
 
 		H.forceMove(P)
 	else			// if wasn't a pipe, then set loc to turf
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			H.forceMove(loc)
 		else
 			H.forceMove(T)
