@@ -12,6 +12,9 @@
 	for(var/initial_trait in initial_traits)
 		ADD_TRAIT(src, initial_trait, INNATE_TRAIT)
 
+	AddElement(/datum/element/strippable)
+	RegisterSignal(src, COMSIG_STRIPPABLE_REQUEST_ITEMS, PROC_REF(get_strippable_items))
+
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
 /mob/living/proc/determine_move_and_pull_forces()
@@ -1236,4 +1239,8 @@
 	to_chat(plushvictim, "<span class='warning'>You have been cursed into an enchanted plush doll! At least you can still move around a bit...</span>")
 
 /mob/living/proc/sec_hud_set_ID()
+	return
+
+/mob/living/proc/get_strippable_items(datum/source, list/items)
+	SIGNAL_HANDLER // COMSIG_STRIPPABLE_REQUEST_ITEMS
 	return
