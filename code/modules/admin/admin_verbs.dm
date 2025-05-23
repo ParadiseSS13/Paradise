@@ -271,7 +271,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/raw_gas_scan,
 	/client/proc/teleport_interesting_turf,
 	/client/proc/visualize_interesting_turfs,
-	/client/proc/profile_code
+	/client/proc/profile_code,
+	/client/proc/cmd_debug_types
 ))
 
 /client/proc/add_admin_verbs()

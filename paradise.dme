@@ -3127,6 +3127,7 @@
 #include "code\modules\tgui\modules\atmos_control.dm"
 #include "code\modules\tgui\modules\colour_matrix_tester.dm"
 #include "code\modules\tgui\modules\crew_monitor.dm"
+#include "code\modules\tgui\modules\debug_types.dm"
 #include "code\modules\tgui\modules\destination_tagger.dm"
 #include "code\modules\tgui\modules\ert_manager.dm"
 #include "code\modules\tgui\modules\generic_crew_manifest.dm"
