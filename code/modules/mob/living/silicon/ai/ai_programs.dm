@@ -748,9 +748,20 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
+	AI.play_sound_remote(target, 'sound/magic/magic_block.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 5 SECONDS)
-	if(do_after_once(AI, 5 SECONDS, target = target, allow_moving = TRUE))
+	// Only allow moving targets if the program is max level.
+	var/allow_moving = FALSE
+	if(spell_level == level_max)
+		allow_moving = TRUE
+		to_chat(target, "<span class='notice'>You feel a flow of healing nanites stream to you from a nearby camera.</span>")
+	else
+		to_chat(target, "<span class='notice'>You feel a flow of healing nanites stream to you from a nearby camera. Hold still for them to work!</span>")
+	if(do_after(AI, 5 SECONDS, target = target, allow_moving_target = allow_moving))
+		// Check camera vision again.
+		if(!check_camera_vision(user, target))
+			revert_cast()
+			return
 		AI.program_picker.nanites -= 75
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		target.heal_overall_damage(damage_healed, damage_healed)
