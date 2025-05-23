@@ -36,6 +36,9 @@
 /obj/machinery/smithing/power_change()
 	if(!..())
 		return
+	// If power is lost during operation, reset the operating flag to prevent the machine from getting stuck
+	if(stat & NOPOWER && operating)
+		operating = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/smithing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -71,6 +74,8 @@
 	update_icon(ALL)
 	for(var/i in 1 to loops)
 		if(stat & (NOPOWER|BROKEN))
+			operating = FALSE
+			update_icon(ALL)
 			return FALSE
 		use_power(500)
 		if(operation_sound)
