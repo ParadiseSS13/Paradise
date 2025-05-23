@@ -14,7 +14,7 @@
 	/// Event held by this meta event. Used to do things like calculate weight.
 	var/datum/event/skeleton
 
-/datum/event_meta/New(type, event_severity, event_weight, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
+/datum/event_meta/New(event_severity, type, event_weight, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
 	skeleton = new type(EM = src, skeleton = TRUE, _severity = event_severity)
 	one_shot = is_one_shot
 	weight = event_weight
@@ -66,6 +66,7 @@
 	var/list/role_weights = list()
 
 /datum/event/nothing
+	name = "Nothing"
 
 /// Calculate the weight for rolling the event based on round circumstances.
 /datum/event/proc/get_weight(list/total_resources)

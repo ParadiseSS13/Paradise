@@ -1,6 +1,7 @@
 #define REVENANT_SPAWN_THRESHOLD 10
 
 /datum/event/revenant
+	name = "Revenant"
 	var/key_of_revenant
 
 

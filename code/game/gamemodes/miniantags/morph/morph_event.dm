@@ -1,4 +1,6 @@
 /datum/event/spawn_morph
+	name = "Morph Spawn"
+	role_weights = list(ASSIGNMENT_SECURITY = 10)
 	var/key_of_morph
 
 /datum/event/spawn_morph/proc/get_morph()

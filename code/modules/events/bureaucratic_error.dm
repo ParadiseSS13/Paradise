@@ -1,4 +1,5 @@
 /datum/event/bureaucratic_error
+	name = "Bureaucratic Error"
 	announceWhen = 1
 	/// Jobs that are not allowed to be picked for the bureaucratic error
 	var/list/blacklisted_jobs = list(

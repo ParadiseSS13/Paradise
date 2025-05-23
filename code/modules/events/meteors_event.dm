@@ -1,9 +1,12 @@
 /datum/event/meteor_wave
+	name = "Meteor Wave"
+	role_weights = list(ASSIGNMENT_ENGINEERING = 25)
 	startWhen		= 5
 	endWhen 		= 7
 	var/next_meteor = 6
 	var/waves = 1
 	var/atom/movable/screen/alert/augury/meteor/screen_alert
+	role_weight = list(ASSIGNMENT_ENGINEERING =  10)
 
 /datum/event/meteor_wave/setup()
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)

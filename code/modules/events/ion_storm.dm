@@ -3,6 +3,8 @@
 #define ION_ANNOUNCE 1
 
 /datum/event/ion_storm
+	name = "Ion Storm"
+	role_weights = list(ASSIGNMENT_AI = 50, ASSIGNMENT_CYBORG = 50, ASSIGNMENT_ENGINEERING = 15, ASSIGNMENT_SCIENCE = 5)
 	var/botEmagChance = 10
 	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
 	var/ionMessage = null

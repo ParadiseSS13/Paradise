@@ -1,3 +1,7 @@
+/datum/event/dust/meaty
+	name = "Meaty Ores"
+	role_weights = list(ASSIGNMENT_ENGINEERING = 20)
+
 /datum/event/dust/meaty/announce()
 	if(prob(16))
 		GLOB.minor_announcement.Announce("Unknown biological entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")

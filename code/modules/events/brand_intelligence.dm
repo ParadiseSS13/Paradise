@@ -1,4 +1,6 @@
 /datum/event/brand_intelligence
+	name = "Brand Intelligence"
+	role_weights = list(ASSIGNMENT_ENGINEERING = 25)
 	announceWhen	= 21
 	endWhen			= 1000	//Ends when all vending machines are subverted anyway.
 

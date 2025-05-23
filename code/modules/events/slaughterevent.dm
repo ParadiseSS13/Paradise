@@ -1,4 +1,5 @@
 /datum/event/spawn_slaughter
+	name = "Slaughter Demon"
 	var/key_of_slaughter
 	var/mob/living/simple_animal/demon/demon = /mob/living/simple_animal/demon/slaughter/lesser
 
@@ -44,9 +45,11 @@
 	INVOKE_ASYNC(src, PROC_REF(get_slaughter))
 
 /datum/event/spawn_slaughter/greater
+	name = "Greater Slaughter Demon"
 	demon = /mob/living/simple_animal/demon/slaughter
 
 /datum/event/spawn_slaughter/shadow
+	name = "Shadow Demon"
 	demon = /mob/living/simple_animal/demon/shadow
 
 /datum/event/spawn_slaughter/shadow/get_spawn_loc()

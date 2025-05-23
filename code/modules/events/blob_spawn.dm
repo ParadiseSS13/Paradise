@@ -1,7 +1,9 @@
 /datum/event/blob
+	name = "Blob"
 	announceWhen	= 180
 	endWhen			= 240
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
+	role_weights = list(ASSIGNMENT_ENGINEERING =  4)
 
 /datum/event/blob/announce(false_alarm)
 	if(successSpawn || false_alarm)

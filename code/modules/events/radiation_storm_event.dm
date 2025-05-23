@@ -1,3 +1,7 @@
+/datum/event/radiation_storm
+	name = "Radiation Storm"
+	role_weights = list(ASSIGNMENT_MEDICAL = 50)
+
 /datum/event/radiation_storm/setup()
 	startWhen = 3
 	endWhen = startWhen + 1
