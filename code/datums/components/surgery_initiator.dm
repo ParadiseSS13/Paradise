@@ -320,6 +320,14 @@
 
 	log_attack(user, target, "operated on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 
+	if(istype(surgery, /datum/surgery/dissect))
+		if(isnull(target.dissection_surgery_container))
+			if(target.type in GLOB.xenobiology_dissection_bridge)
+				target.dissection_surgery_container = new GLOB.xenobiology_dissection_bridge[target.type]
+			else
+				log_debug("There was a dissection initiated, however there was no reference in xenobiology_dissection_bridge to point to!")
+				return
+
 	return procedure
 
 /datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target)
