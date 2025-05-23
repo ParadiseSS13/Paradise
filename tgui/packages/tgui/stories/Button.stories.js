@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
-import { Box, Button, Section } from '../components';
+import { useState } from 'react';
+import { Box, Button, Section } from 'tgui-core/components';
 
 export const meta = {
   title: 'Button',
@@ -30,8 +30,8 @@ const COLORS_SPECTRUM = [
 
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
-const Story = (props, context) => {
-  const [translucent, setTranslucent] = useLocalState(context, 'translucent', false);
+const Story = (props) => {
+  const [translucent, setTranslucent] = useState(false);
 
   return (
     <>
