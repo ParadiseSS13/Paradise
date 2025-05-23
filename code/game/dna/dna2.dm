@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 /datum/dna/proc/ResetUIFrom(mob/living/carbon/human/character)
 	// INITIALIZE!
-	ResetUI(1)
+	ResetUI(TRUE)
 	// Hair
 	// FIXME:  Species-specific defaults pls
 	var/obj/item/organ/external/head/head = character.get_organ("head")
@@ -120,33 +120,33 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	head_traits_to_dna(character, head)
 	eye_color_to_dna(eyes_organ)
 
-	SetUIValueRange(DNA_UI_SKIN_R,		color2R(character.skin_colour),			255,	1)
-	SetUIValueRange(DNA_UI_SKIN_G,		color2G(character.skin_colour),			255,	1)
-	SetUIValueRange(DNA_UI_SKIN_B,		color2B(character.skin_colour),			255,	1)
+	SetUIValueRange(DNA_UI_SKIN_R,		color2R(character.skin_colour),			255,	TRUE)
+	SetUIValueRange(DNA_UI_SKIN_G,		color2G(character.skin_colour),			255,	TRUE)
+	SetUIValueRange(DNA_UI_SKIN_B,		color2B(character.skin_colour),			255,	TRUE)
 
-	SetUIValueRange(DNA_UI_HEAD_MARK_R,	color2R(character.m_colours["head"]),	255,	1)
-	SetUIValueRange(DNA_UI_HEAD_MARK_G,	color2G(character.m_colours["head"]),	255,	1)
-	SetUIValueRange(DNA_UI_HEAD_MARK_B,	color2B(character.m_colours["head"]),	255,	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_R,	color2R(character.m_colours["head"]),	255,	TRUE)
+	SetUIValueRange(DNA_UI_HEAD_MARK_G,	color2G(character.m_colours["head"]),	255,	TRUE)
+	SetUIValueRange(DNA_UI_HEAD_MARK_B,	color2B(character.m_colours["head"]),	255,	TRUE)
 
-	SetUIValueRange(DNA_UI_BODY_MARK_R,	color2R(character.m_colours["body"]),	255,	1)
-	SetUIValueRange(DNA_UI_BODY_MARK_G,	color2G(character.m_colours["body"]),	255,	1)
-	SetUIValueRange(DNA_UI_BODY_MARK_B,	color2B(character.m_colours["body"]),	255,	1)
+	SetUIValueRange(DNA_UI_BODY_MARK_R,	color2R(character.m_colours["body"]),	255,	TRUE)
+	SetUIValueRange(DNA_UI_BODY_MARK_G,	color2G(character.m_colours["body"]),	255,	TRUE)
+	SetUIValueRange(DNA_UI_BODY_MARK_B,	color2B(character.m_colours["body"]),	255,	TRUE)
 
-	SetUIValueRange(DNA_UI_TAIL_MARK_R,	color2R(character.m_colours["tail"]),	255,	1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_G,	color2G(character.m_colours["tail"]),	255,	1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_B,	color2B(character.m_colours["tail"]),	255,	1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_R,	color2R(character.m_colours["tail"]),	255,	TRUE)
+	SetUIValueRange(DNA_UI_TAIL_MARK_G,	color2G(character.m_colours["tail"]),	255,	TRUE)
+	SetUIValueRange(DNA_UI_TAIL_MARK_B,	color2B(character.m_colours["tail"]),	255,	TRUE)
 
-	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
+	SetUIValueRange(DNA_UI_SKIN_TONE,	abs(35 - character.s_tone),	220,	TRUE)
 
-	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		1)
-	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		TRUE)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		TRUE)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		TRUE)
 
-	SetUIValueRange(DNA_UI_PHYSIQUE, GLOB.character_physiques.Find(character.physique),	length(GLOB.character_physiques), 1)
-	SetUIValueRange(DNA_UI_HEIGHT, GLOB.character_heights.Find(character.height),	length(GLOB.character_heights), 1)
+	SetUIValueRange(DNA_UI_PHYSIQUE, GLOB.character_physiques.Find(character.physique),	length(GLOB.character_physiques), TRUE)
+	SetUIValueRange(DNA_UI_HEIGHT, GLOB.character_heights.Find(character.height),	length(GLOB.character_heights), TRUE)
 
 	var/list/bodyacc = GLOB.body_accessory_by_name.Find(character.body_accessory?.name || "None")
-	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), 1)
+	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), TRUE)
 
 	switch(character.body_type)
 		if(FEMALE)
@@ -157,16 +157,15 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	//Set the Gender
 	switch(character.gender)
 		if(FEMALE)
-			SetUITriState(DNA_UI_GENDER, DNA_GENDER_FEMALE, 1)
+			SetUITriState(DNA_UI_GENDER, DNA_GENDER_FEMALE, TRUE)
 		if(MALE)
-			SetUITriState(DNA_UI_GENDER, DNA_GENDER_MALE, 1)
+			SetUITriState(DNA_UI_GENDER, DNA_GENDER_MALE, TRUE)
 		if(PLURAL)
-			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, 1)
+			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, TRUE)
 
-	if(head)
-		head.dna.UI = character.dna.UI
-	if(eyes_organ)
-		eyes_organ.dna.UI = character.dna.UI
+	// updates DNA for our external and internal organs
+	for(var/obj/item/organ/organ in (character.bodyparts + character.internal_organs))
+		organ.dna.UI = character.dna.UI
 
 	UpdateUI()
 

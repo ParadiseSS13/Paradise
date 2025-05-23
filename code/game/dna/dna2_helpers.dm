@@ -152,7 +152,7 @@
 		H.m_colours["body"] = rgb(dna.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
 		H.m_colours["tail"] = rgb(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
 
-		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
+		H.s_tone = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220)
 
 		switch(dna.GetUIState(DNA_UI_BODY_TYPE))
 			if(DNA_GENDER_FEMALE)

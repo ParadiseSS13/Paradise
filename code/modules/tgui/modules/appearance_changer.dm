@@ -51,7 +51,7 @@
 				if(owner.dna.species.bodyflags & HAS_SKIN_TONE)
 					new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
 					if(isnum(new_s_tone) && (!..()))
-						new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
+						new_s_tone = max(min(round(new_s_tone), 220),1)
 				else if(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 					var/const/MAX_LINE_ENTRIES = 4
 					var/prompt = "Choose your character's skin tone: 1-[length(owner.dna.species.icon_skin_tones)]\n("
