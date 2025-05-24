@@ -14,56 +14,6 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	spell.remove_ranged_ability(spell.ranged_ability_user)
 	return ..()
 
-/datum/spell/proc/InterceptClickOn(mob/user, params, atom/A)
-	if(user.ranged_ability != src)
-		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.</span>")
-		user.ranged_ability.remove_ranged_ability(user)
-		return TRUE //TRUE for failed, FALSE for passed.
-	user.face_atom(A)
-	if(targeting)
-		targeting.InterceptClickOn(user, params, A, src)
-	return FALSE
-
-/datum/spell/proc/add_ranged_ability(mob/user, msg)
-	if(!user || !user.client)
-		return
-	if(user.ranged_ability && user.ranged_ability != src)
-		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been replaced by <b>[name]</b>.")
-		user.ranged_ability.remove_ranged_ability(user)
-	user.ranged_ability = src
-	ranged_ability_user = user
-	user.client.click_intercept = new /datum/click_intercept/proc_holder(user.client, user.ranged_ability)
-	add_mousepointer(user.client)
-	active = TRUE
-	if(msg)
-		to_chat(user, msg)
-	update_spell_icon()
-
-/datum/spell/proc/update_spell_icon()
-	return
-
-/datum/spell/proc/add_mousepointer(client/C)
-	if(C && ranged_mousepointer && C.mouse_pointer_icon == initial(C.mouse_pointer_icon))
-		C.mouse_pointer_icon = ranged_mousepointer
-
-/datum/spell/proc/remove_mousepointer(client/C)
-	if(C && ranged_mousepointer && C.mouse_pointer_icon == ranged_mousepointer)
-		C.mouse_pointer_icon = initial(C.mouse_pointer_icon)
-
-/datum/spell/proc/remove_ranged_ability(mob/user, msg)
-	if(!user || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
-		return
-	user.ranged_ability = null
-	ranged_ability_user = null
-	active = FALSE
-	if(user.client)
-		qdel(user.client.click_intercept)
-		user.client.click_intercept = null
-		remove_mousepointer(user.client)
-		if(msg)
-			to_chat(user, msg)
-	update_spell_icon()
-
 /datum/spell
 	var/name = "Spell" // Only rename this if the spell you're making is not abstract
 	var/desc = "A wizard spell."
@@ -142,6 +92,81 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	/// The spell cannot be cast if the caster has any of the antimagic flags set.
 	var/antimagic_flags = MAGIC_RESISTANCE
 
+/datum/spell/New()
+	..()
+	action = new(src)
+	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
+	if(!gain_desc)
+		gain_desc = "You can now use [src]."
+
+	if(!targeting_datums[type])
+		targeting_datums[type] = create_new_targeting()
+		if(!targeting_datums[type])
+			stack_trace("Spell of type [type] did not implement create_new_targeting")
+	if(isnull(spell_handlers[type]))
+		spell_handlers[type] = create_new_handler()
+
+	if(spell_handlers[type] != NONE)
+		custom_handler = spell_handlers[type]
+	targeting = targeting_datums[type]
+	cooldown_handler = create_new_cooldown()
+	cooldown_handler.cooldown_init(src)
+
+/datum/spell/Destroy()
+	QDEL_NULL(action)
+	QDEL_NULL(cooldown_handler)
+	return ..()
+
+/datum/spell/proc/InterceptClickOn(mob/user, params, atom/A)
+	if(user.ranged_ability != src)
+		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.</span>")
+		user.ranged_ability.remove_ranged_ability(user)
+		return TRUE //TRUE for failed, FALSE for passed.
+	user.face_atom(A)
+	if(targeting)
+		targeting.InterceptClickOn(user, params, A, src)
+	return FALSE
+
+/datum/spell/proc/add_ranged_ability(mob/user, msg)
+	if(!user || !user.client)
+		return
+	if(user.ranged_ability && user.ranged_ability != src)
+		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been replaced by <b>[name]</b>.")
+		user.ranged_ability.remove_ranged_ability(user)
+	user.ranged_ability = src
+	ranged_ability_user = user
+	user.client.click_intercept = new /datum/click_intercept/proc_holder(user.client, user.ranged_ability)
+	add_mousepointer(user.client)
+	active = TRUE
+	if(msg)
+		to_chat(user, msg)
+	update_spell_icon()
+
+/datum/spell/proc/update_spell_icon()
+	return
+
+/datum/spell/proc/add_mousepointer(client/C)
+	if(C && ranged_mousepointer && C.mouse_pointer_icon == initial(C.mouse_pointer_icon))
+		C.mouse_pointer_icon = ranged_mousepointer
+
+/datum/spell/proc/remove_mousepointer(client/C)
+	if(C && ranged_mousepointer && C.mouse_pointer_icon == ranged_mousepointer)
+		C.mouse_pointer_icon = initial(C.mouse_pointer_icon)
+
+/datum/spell/proc/remove_ranged_ability(mob/user, msg)
+	if(!user || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
+		return
+	user.ranged_ability = null
+	ranged_ability_user = null
+	active = FALSE
+	if(user.client)
+		qdel(user.client.click_intercept)
+		user.client.click_intercept = null
+		remove_mousepointer(user.client)
+		if(msg)
+			to_chat(user, msg)
+	update_spell_icon()
+
 /* Checks if the user can cast the spell
  * @param charge_check If the proc should do the cooldown check
  * @param start_recharge If the proc should set the cooldown
@@ -209,31 +234,6 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 
 /datum/spell/proc/playMagSound()
 	playsound(get_turf(usr), sound,50,1)
-
-/datum/spell/New()
-	..()
-	action = new(src)
-	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
-	if(!gain_desc)
-		gain_desc = "You can now use [src]."
-
-	if(!targeting_datums[type])
-		targeting_datums[type] = create_new_targeting()
-		if(!targeting_datums[type])
-			stack_trace("Spell of type [type] did not implement create_new_targeting")
-	if(isnull(spell_handlers[type]))
-		spell_handlers[type] = create_new_handler()
-
-	if(spell_handlers[type] != NONE)
-		custom_handler = spell_handlers[type]
-	targeting = targeting_datums[type]
-	cooldown_handler = create_new_cooldown()
-	cooldown_handler.cooldown_init(src)
-
-/datum/spell/Destroy()
-	QDEL_NULL(action)
-	QDEL_NULL(cooldown_handler)
-	return ..()
 
 /**
  * Creates and returns the targeting datum for this spell type. Override this!
@@ -451,18 +451,6 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 /datum/spell/proc/on_mind_transfer(mob/living/L)
 	return TRUE
 
-/datum/spell/aoe
-	name = "Spell"
-	create_attack_logs = FALSE
-	create_custom_logs = TRUE
-	/// How far does it effect
-	var/aoe_range = 7
-
-// Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
-// With this override, all /aoe type spells will only generate 1 log, saying that the user has cast the spell.
-/datum/spell/aoe/write_custom_logs(list/targets, mob/user)
-	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
-
 /datum/spell/proc/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		if(show_message)
@@ -529,29 +517,3 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 		return FALSE
 
 	return TRUE
-
-/datum/spell/summonmob
-	name = "Summon Servant"
-	desc = "This spell can be used to call your servant, whenever you need it."
-	base_cooldown = 10 SECONDS
-	clothes_req = FALSE
-	invocation = "JE VES"
-	invocation_type = "whisper"
-	level_max = 0 //cannot be improved
-	cooldown_min = 100
-
-	var/mob/living/target_mob
-
-	action_icon_state = "summons"
-
-/datum/spell/summonmob/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/datum/spell/summonmob/cast(list/targets, mob/user = usr)
-	if(!target_mob)
-		return
-	var/turf/Start = get_turf(user)
-	for(var/direction in GLOB.alldirs)
-		var/turf/T = get_step(Start,direction)
-		if(!T.density)
-			target_mob.Move(T)
