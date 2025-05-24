@@ -307,7 +307,7 @@
 	. = ..()
 	if(!.)
 		return
-	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 50, TRUE, ignore_walls = FALSE)
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 75, TRUE, ignore_walls = FALSE)
 
 /obj/structure/chair/barber
 	icon_state = "barber_chair"
