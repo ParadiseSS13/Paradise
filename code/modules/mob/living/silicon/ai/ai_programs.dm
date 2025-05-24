@@ -254,6 +254,9 @@
 	if(istype(user.loc, /obj/machinery/power/apc))
 		to_chat(user, "<span class='warning'>Error: APCs do not have enough processing power to handle programs!</span>")
 		return
+	if(istype(user.loc, /obj/item/aicard))
+		to_chat(user, "<span class='warning'>Error: InteliCards do not have enough processing power to handle programs!</span>")
+		return
 	user.program_picker.ui_interact(user)
 
 /// RGB Lighting - Recolors Lights
