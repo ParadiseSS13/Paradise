@@ -33,6 +33,10 @@
 		var/obj/item/organ/internal/organ = new organ_path()
 		organ.insert(src)
 
+/mob/living/carbon/alien/death(gibbed)
+	move_resist = null
+	. = ..()
+
 /// returns the list of type paths of the organs that we need to insert into
 /// this particular xeno upon its creation
 /mob/living/carbon/alien/proc/get_caste_organs()
