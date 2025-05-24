@@ -55399,7 +55399,6 @@
 	},
 /area/station/hallway/secondary/entry)
 "hsH" = (
-/obj/structure/table,
 /obj/item/paper_bin{
 	pixel_x = -3;
 	pixel_y = 7
@@ -55409,6 +55408,7 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = -32
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "blue"

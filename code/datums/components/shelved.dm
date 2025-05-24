@@ -59,9 +59,13 @@
 	for(var/turf/turf_in_view in view(2, get_turf(structure_parent)))
 		if(!isfloorturf(turf_in_view))
 			continue
+		var/blocked_los = FALSE
 		for(var/turf/potential_blockage as anything in get_line(get_turf(structure_parent), turf_in_view))
-			if(!is_blocked_turf(potential_blockage, exclude_mobs = TRUE, excluded_objs = list(parent)))
-				nearby_empty_tiles += turf_in_view
+			if(potential_blockage.is_blocked_turf(exclude_mobs = TRUE, source_atom = parent))
+				blocked_los = TRUE
+				break
+		if(!blocked_los)
+			nearby_empty_tiles += turf_in_view
 
 	var/itemcount = 1
 	for(var/obj/item/I in structure_parent.loc)
