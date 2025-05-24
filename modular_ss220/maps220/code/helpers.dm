@@ -1,7 +1,5 @@
-/obj/effect/mapping_helpers
-	icon = 'modular_ss220/maps220/icons/mapping_helpers.dmi'
-
 /obj/effect/mapping_helpers/light
+	icon = 'modular_ss220/maps220/icons/mapping_helpers.dmi'
 	icon_state = "sunlight_helper"
 	light_color = null
 	light_power = 1
@@ -38,10 +36,12 @@
 
 /obj/effect/mapping_helpers/machinery/damaged
 	name = "damaged machinery helper"
+	icon = 'modular_ss220/maps220/icons/mapping_helpers.dmi'
 	icon_state = "damaged_machine"
 
 /obj/effect/mapping_helpers/machinery/destroyed
 	name = "destroyed machinery helper"
+	icon = 'modular_ss220/maps220/icons/mapping_helpers.dmi'
 	icon_state = "broken_machine"
 
 /obj/effect/mapping_helpers/machinery/damaged/payload(obj/machinery/M)
@@ -54,6 +54,7 @@
 ///Deals random damage to the first window found on a tile to appear cracked
 /obj/effect/mapping_helpers/damaged_window
 	name = "damaged window helper"
+	icon = 'modular_ss220/maps220/icons/mapping_helpers.dmi'
 	icon_state = "damaged_window"
 	layer = ABOVE_OBJ_LAYER
 	late = TRUE
@@ -93,6 +94,7 @@
 //Airlock helpers
 /obj/effect/mapping_helpers/airlock/welded
 	name = "airlock welded helper"
+	icon = 'modular_ss220/maps220/icons/mapping_helpers.dmi'
 	icon_state = "airlock_welded"
 
 /obj/effect/mapping_helpers/airlock/welded/payload(obj/machinery/door/airlock/airlock)
