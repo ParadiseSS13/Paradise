@@ -378,6 +378,16 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/public/fitness)
+"aeX" = (
+/obj/machinery/camera{
+	c_tag = "Arrivals Hallway West 2";
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/entry/west)
 "aeZ" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "n2_sensor"
@@ -7140,6 +7150,18 @@
 /obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
+"aSF" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/machinery/camera{
+	c_tag = "Arrivals Hallway East 3";
+	dir = 5
+	},
+/turf/simulated/floor/grass/no_creep,
+/area/station/hallway/secondary/entry/east)
 "aSJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -39297,6 +39319,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/north)
+"fEB" = (
+/obj/machinery/camera{
+	c_tag = "Vault Exterior";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/fore/east)
 "fED" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Toxins Storage"
@@ -41747,6 +41778,10 @@
 /area/station/engineering/atmos/control)
 "gyN" = (
 /obj/machinery/economy/vending/coffee,
+/obj/machinery/camera{
+	c_tag = "Arrivals Hallway West 1";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -41805,11 +41840,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "gBt" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/area/station/hallway/primary/fore/east)
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/machinery/camera{
+	c_tag = "Arrivals Hallway West 3";
+	dir = 9
+	},
+/turf/simulated/floor/grass/no_creep,
+/area/station/hallway/secondary/entry/west)
 "gBB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -43304,6 +43345,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/camera{
+	c_tag = "Career Trainer's Range"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -46882,6 +46926,10 @@
 	dir = 4
 	},
 /obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Library South West";
+	dir = 4
+	},
 /turf/simulated/floor/carpet/purple,
 /area/station/service/library)
 "iuU" = (
@@ -47572,6 +47620,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
+"iGn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Fore-West Hallway 1";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/fore/west)
 "iGq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -51754,6 +51814,14 @@
 	icon_state = "dark"
 	},
 /area/station/security/execution)
+"kiz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Library South East";
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "kiC" = (
 /obj/item/paper/crumpled,
 /obj/effect/decal/cleanable/dirt,
@@ -71864,6 +71932,18 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"rFj" = (
+/obj/structure/chair/comfy/beige{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals Lounge West"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/entry/lounge)
 "rFq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -73908,6 +73988,10 @@
 /area/station/hallway/secondary/entry/west)
 "suO" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/camera{
+	c_tag = "Security Checkpoint Exterior";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -75422,6 +75506,10 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/stripes/white/corner,
+/obj/machinery/camera{
+	c_tag = "Arrivals Hallway East 2";
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -76626,6 +76714,16 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
+"twj" = (
+/obj/machinery/camera{
+	c_tag = "Central Primary Hallway - Fore East Hallway";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/fore/east)
 "twz" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -77077,6 +77175,10 @@
 	},
 /obj/structure/sign/directions/science{
 	pixel_y = -40
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals Lounge East";
+	dir = 10
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/secondary/entry/lounge)
@@ -78541,6 +78643,15 @@
 /obj/effect/spawner/random/book,
 /turf/simulated/floor/wood,
 /area/station/service/library)
+"ukq" = (
+/obj/machinery/camera{
+	c_tag = "Fore-West Hallway 2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/station/hallway/primary/fore/west)
 "ukt" = (
 /obj/structure/closet/secure_closet/cmo,
 /turf/simulated/floor/plasteel{
@@ -83160,9 +83271,9 @@
 	},
 /area/station/security/main)
 "wdk" = (
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
+/obj/machinery/camera{
+	c_tag = "Library North";
+	dir = 6
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -99234,7 +99345,7 @@ oUe
 oUe
 oUe
 oUe
-oUe
+aeX
 oUe
 oUe
 oUe
@@ -99999,7 +100110,7 @@ ayy
 ayy
 nbO
 nlB
-kOe
+gBt
 kOe
 kOe
 kOe
@@ -100782,7 +100893,7 @@ aaa
 aaa
 aaa
 bfG
-upc
+rFj
 eqG
 kOX
 yem
@@ -103106,7 +103217,7 @@ aMd
 uBe
 avU
 bgX
-eKz
+ukq
 nSY
 aOB
 xtc
@@ -103597,7 +103708,7 @@ vXe
 vXe
 jgq
 mVN
-mZP
+aSF
 mZP
 mZP
 mZP
@@ -104659,7 +104770,7 @@ xqq
 roV
 uFw
 rbK
-hmQ
+iGn
 vdD
 eXH
 jBk
@@ -108257,7 +108368,7 @@ nYm
 xHw
 fGb
 aLK
-tDA
+fEB
 pqM
 gqK
 nFg
@@ -110054,7 +110165,7 @@ amt
 vyn
 wpu
 lIM
-gBt
+aXt
 sTC
 qUX
 iAF
@@ -110311,7 +110422,7 @@ xCB
 kFl
 xCB
 lIM
-aXt
+twj
 sTC
 qUX
 iAF
@@ -115191,7 +115302,7 @@ bFw
 bFw
 aZN
 dDw
-bcI
+kiz
 bzK
 bbn
 nGC
