@@ -24810,9 +24810,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "csW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 5
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "csX" = (
@@ -34264,6 +34262,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"dRd" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "dRt" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -44127,7 +44129,8 @@
 /area/station/maintenance/apmaint)
 "hqt" = (
 /obj/effect/spawner/airlock,
-/turf/simulated/wall,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "hqx" = (
 /obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
@@ -60758,9 +60761,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
@@ -66079,6 +66079,7 @@
 /obj/structure/bed/dogbed/runtime{
 	name = "Var's bed"
 	},
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "pwg" = (
@@ -75538,9 +75539,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/cryo)
-"sWN" = (
-/turf/simulated/floor/wood,
-/area/station/maintenance/asmaint)
 "sWO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/decal/cleanable/dirt,
@@ -76338,6 +76336,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"tms" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "tmt" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
@@ -87565,9 +87570,6 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/primary/aft/south)
-"xDO" = (
-/turf/simulated/wall,
-/area/station/maintenance/solar_maintenance/aft_starboard)
 "xEi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -125579,10 +125581,10 @@ bME
 emj
 kXT
 xGF
-sWN
+ihF
 gaZ
 ihF
-cPc
+dRd
 aaa
 aaa
 aaa
@@ -125839,7 +125841,7 @@ voe
 gaZ
 jzw
 pSZ
-cPc
+dRd
 aaa
 aaa
 aaa
@@ -126090,7 +126092,7 @@ cPc
 bME
 wCN
 csW
-bME
+tms
 cPc
 cPc
 pCj
@@ -126606,10 +126608,10 @@ dSx
 cQW
 cQW
 cQW
-xDO
-xDO
-aaa
-aaa
+cQW
+cQW
+abq
+abq
 aaa
 aaa
 aaa
@@ -126864,8 +126866,8 @@ cQW
 cJm
 fFW
 cuq
-xDO
-xDO
+xwJ
+xwJ
 hqt
 aaa
 aaa
