@@ -303,7 +303,11 @@
 	else
 		cut_overlay(armrest)
 
-
+/obj/structure/chair/office/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 50, TRUE, ignore_walls = FALSE)
 
 /obj/structure/chair/barber
 	icon_state = "barber_chair"

@@ -202,3 +202,9 @@
 	stationary = TRUE
 
 #undef MAX_RATE
+
+/obj/machinery/atmospherics/portable/scrubber/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
