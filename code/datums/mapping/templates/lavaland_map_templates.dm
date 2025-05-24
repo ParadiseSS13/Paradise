@@ -267,3 +267,25 @@
 	Sadly, in their mass production rush, they lack a RTG power source and rely on pacmans, with many of the pods being shipped with the wrong fuel inside."
 	allow_duplicates = FALSE // Less space on lavaland. Ideally we would figure out a way to ban this from spawning the same level as the mining base
 	always_place = TRUE // Since only one can spawn for now, might as well ensure it.
+
+// MARK: Bridges
+
+/datum/map_template/ruin/lavaland/zlvl_bridge
+	prefix = "_maps/map_files/RandomRuins/LavaRuins/zlvl_bridges/"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/vertical
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
+	name = "Vertical Bridge One"
+	suffix = "lavaland_zlvl_bridge_vertical_1.dmm"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
+
+/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
+	name = "Horizontal Bridge One"
+	suffix = "lavaland_zlvl_bridge_horizontal_1.dmm"
+	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
