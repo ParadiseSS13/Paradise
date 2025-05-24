@@ -12,6 +12,7 @@
 #include "blastdoor\code\blastdoor.dm"
 #include "cameras\code\cameras.dm"
 #include "chairs\code\chairs.dm"
+#include "clothing\code\clothing.dm"
 #include "decals\code\decals.dm"
 #include "dirwindows\code\dirwindows.dm"
 #include "door_control\code\door_control.dm"
