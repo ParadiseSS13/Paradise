@@ -2,7 +2,6 @@
 	speech_chance = 2
 	speak = list("Moo?", "Moo", "MOOOOOO")
 	speak_verbs = list("moos", "moos hauntingly")
-	sound = list('sound/creatures/cow.ogg')
 	emote_hear = list("brays.")
 	emote_see = list("shakes her head.")
 

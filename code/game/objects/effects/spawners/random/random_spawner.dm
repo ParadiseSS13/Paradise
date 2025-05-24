@@ -180,7 +180,7 @@
 
 /obj/effect/spawner/random/proc/has_unblocked_line(destination)
 	for(var/turf/potential_blockage as anything in get_line(get_turf(src), destination))
-		if(!is_blocked_turf(potential_blockage, exclude_mobs = TRUE))
+		if(!potential_blockage.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 		return FALSE
 	return TRUE
