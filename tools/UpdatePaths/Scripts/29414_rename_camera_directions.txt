@@ -1,18 +1,18 @@
-/obj/machinery/camera/motion{c_tag="Mini Satellite Antechamber Center"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Antechamber Center"}
-/obj/machinery/camera/motion{c_tag="Mini Satellite Antechamber North"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Antechamber North"}
-/obj/machinery/camera/motion{c_tag="Mini Satellite Antechamber"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Antechamber"}
-/obj/machinery/camera/motion{c_tag="Mini Satellite Exterior East"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior East"}
-/obj/machinery/camera/motion{c_tag="Mini Satellite Exterior West"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior West"}
-/obj/machinery/camera/motion{c_tag="Mini Satellite Maintenance"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Maintenance"}
-/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Aft Port"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior - Aft Port"}
-/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Aft Starboard"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior - Aft Starboard"}
-/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Aft"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior - Aft"}
-/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Fore Port"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior - Fore Port"}
-/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Fore Starboard"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior - Fore Starboard"}
-/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Fore"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior - Fore"}
-/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Port Aft"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior - Port Aft"}
-/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Starboard Aft"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior - Starboard Aft"}
-/obj/machinery/camera/motion{c_tag="MiniSat Telecomms"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Telecomms"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Antechamber Center"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Antechamber Center"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Antechamber North"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Antechamber North"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Antechamber"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Antechamber"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Exterior East"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior East"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Exterior West"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior West"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Maintenance"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Maintenance"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Aft Port"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Aft Port"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Aft Starboard"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Aft Starboard"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Aft"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Aft"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Fore Port"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Fore Port"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Fore Starboard"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Fore Starboard"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Fore"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Fore"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Port Aft"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Port Aft"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Starboard Aft"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Starboard Aft"}
+/obj/machinery/camera/motion{c_tag="MiniSat Telecomms"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Telecomms"}
 /obj/machinery/camera{c_tag="AI Minisatellite Airlock Exterior"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Airlock Exterior"}
 /obj/machinery/camera{c_tag="AI Minisatellite Foyer Access"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Foyer Access"}
 /obj/machinery/camera{c_tag="AI Minisatellite Foyer Airlock"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Foyer Airlock"}

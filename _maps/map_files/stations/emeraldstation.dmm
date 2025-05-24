@@ -34988,7 +34988,7 @@
 	},
 /area/station/public/dorms)
 "gYV" = (
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Antechamber North";
 	dir = 1;
 	network = list("SS13","MiniSat")

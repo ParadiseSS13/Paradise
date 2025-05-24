@@ -27166,7 +27166,7 @@
 	},
 /area/station/telecomms/chamber)
 "caY" = (
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Telecomms";
 	network = list("SS13","Minisat");
 	start_active = 1

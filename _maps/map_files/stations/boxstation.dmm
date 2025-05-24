@@ -44533,7 +44533,7 @@
 /area/station/hallway/primary/central/north)
 "diz" = (
 /obj/machinery/light/small,
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Antechamber North";
 	dir = 1;
 	network = list("SS13","MiniSat")
@@ -46380,7 +46380,7 @@
 "dpw" = (
 /obj/structure/table/reinforced,
 /obj/item/hand_tele,
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Antechamber Center";
 	dir = 1;
 	network = list("SS13","MiniSat")

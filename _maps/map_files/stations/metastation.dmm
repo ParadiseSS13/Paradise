@@ -3845,7 +3845,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior - Aft Port";
 	dir = 8;
 	network = list("SS13","MiniSat")
@@ -10059,7 +10059,7 @@
 /area/station/maintenance/fsmaint)
 "bfc" = (
 /obj/structure/window/reinforced,
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior - Fore Port";
 	dir = 8;
 	network = list("SS13","MiniSat")
@@ -10532,7 +10532,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior - Fore Starboard";
 	dir = 4;
 	network = list("SS13","MiniSat")
@@ -11781,7 +11781,7 @@
 	},
 /area/station/public/storage/tools/auxiliary)
 "blN" = (
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior West";
 	dir = 8;
 	network = list("SS13","MiniSat")
@@ -12238,7 +12238,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior East";
 	dir = 4;
 	network = list("SS13","MiniSat")
@@ -13346,7 +13346,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior - Fore";
 	network = list("SS13","MiniSat")
 	},
@@ -13996,7 +13996,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Antechamber";
 	dir = 4;
 	network = list("SS13","MiniSat")
@@ -15682,7 +15682,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Maintenance";
 	dir = 8;
 	network = list("SS13","MiniSat")
@@ -17590,7 +17590,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior - Port Aft";
 	dir = 8;
 	network = list("SS13","MiniSat")
@@ -17927,7 +17927,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior - Starboard Aft";
 	dir = 4;
 	network = list("SS13","MiniSat")
@@ -30861,7 +30861,7 @@
 /area/station/maintenance/spacehut)
 "cWj" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior - Aft";
 	dir = 1;
 	network = list("SS13","MiniSat")
@@ -86000,7 +86000,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Satellite Exterior - Aft Starboard";
 	dir = 4;
 	network = list("SS13","MiniSat")
