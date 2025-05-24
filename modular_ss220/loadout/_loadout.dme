@@ -2,6 +2,7 @@
 
 #include "code/donor.dm"
 #include "code/donor_items.dm"
+#include "code/general.dm"
 #include "code/racial.dm"
 #include "code/removal.dm"
 #include "code/shoes.dm"

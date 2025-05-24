@@ -16,6 +16,7 @@
 #include "code/weapons/melee/baseball_bat.dm"
 #include "code/weapons/melee/electrostaff.dm"
 #include "code/weapons/melee/stylet.dm"
+#include "code/weapons/melee/telescopic.dm"
 #include "code/weapons/melee/twohanded.dm"
 #include "code/weapons/melee/vibroblade.dm"
 #include "code/weapons/storage/lockbox.dm"
