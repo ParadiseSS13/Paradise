@@ -12,10 +12,10 @@
 	heatmod = 3
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
-	blurb = "The Diona are plant-like creatures made up of a gestalt of smaller Nymphs. \
-	Dionae lack any form of centralized government or homeworld, with most avoiding the affairs of the wider galaxy, preferring instead to focus on the spread of their species.<br/><br/> \
-	As a gestalt entity, each nymph possesses an individual personality, yet they communicate collectively. \
-	Consequently, Diona often speak in a unique blend of first and third person, using 'We' and 'I' to reflect their unified yet multifaceted nature."
+	blurb = "Дионы - растениеподобные существа, образованные в гештальт более мелких Нимф. \
+	У Дион нет централизованного правительства на их родной планете, большинство из них избегает дел в обширной галактике, предпочитая сосредотачиваться на религиозных, философских и научных учениях.<br/><br/> \
+	Как гештальт-сущность, каждая Нимфа обладает индивидуальностью, но общаются они коллективно. \
+	Поэтому Диона часто говорит в уникальном сочетании первого и третьего лица, используя \"Мы\" и \"Я\", чтобы отразить свою единую, но многогранную природу."
 
 	eyes = "blank_eyes"
 	species_traits = list(NO_HAIR)

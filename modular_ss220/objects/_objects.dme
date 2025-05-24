@@ -1,0 +1,68 @@
+#include "_objects.dm"
+
+// Flora
+#include "code/flora/sakura.dm"
+
+// ID Skins
+#include "code/id_skins/_id_skins_base.dm"
+#include "code/id_skins/id_skins.dm"
+#include "code/id_skins/id_skins_spawners.dm"
+
+// Mecha
+#include "code/mecha/lockermech.dm"
+#include "code/mecha/combat.dm"
+
+// Weapons
+#include "code/weapons/melee/baseball_bat.dm"
+#include "code/weapons/melee/electrostaff.dm"
+#include "code/weapons/melee/stylet.dm"
+#include "code/weapons/melee/telescopic.dm"
+#include "code/weapons/melee/twohanded.dm"
+#include "code/weapons/melee/vibroblade.dm"
+#include "code/weapons/storage/lockbox.dm"
+#include "code/weapons/ranged/beretta.dm"
+#include "code/weapons/ranged/pneumagun.dm"
+#include "code/weapons/ranged/revolvers.dm"
+#include "code/weapons/ranged/special_eguns.dm"
+#include "code/weapons/ranged/sslr.dm"
+#include "code/weapons/ranged/sakhno.dm"
+#include "code/weapons/ranged/skrell_rifle.dm"
+
+// Plushies
+#include "code/plushies/hampters.dm"
+#include "code/plushies/macvulpix.dm"
+
+// Miscellaneous
+#include "code/beach_umbrella.dm"
+#include "code/big_bed.dm"
+#include "code/billboard.dm"
+#include "code/closets.dm"
+#include "code/coffin.dm"
+#include "code/computer.dm"
+#include "code/gps.dm"
+#include "code/mattress.dm"
+#include "code/miscellaneous.dm"
+#include "code/officetoys.dm"
+#include "code/papershredder.dm"
+#include "code/plastic_chair.dm"
+#include "code/platform.dm"
+#include "code/portable_turret.dm"
+#include "code/posters.dm"
+#include "code/shuttle.dm"
+#include "code/smartfridge.dm"
+#include "code/spellbook.dm"
+#include "code/suit_storage_unit.dm"
+#include "code/tribune.dm"
+#include "code/key.dm"
+#include "code/musician.dm"
+#include "code/flag.dm"
+#include "code/wallets.dm"
+#include "code/flashlight.dm"
+#include "code/material_pouch.dm"
+#include "code/components.dm"
+#include "code/airlock_painter.dm"
+#include "code/animalhide.dm"
+#include "code/intercom.dm"
+#include "code/radio.dm"
+#include "code/fancy.dm"
+#include "code/kvassbarrel.dm"

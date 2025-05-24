@@ -3,7 +3,7 @@
 	var/lightsoutRange	= 25
 
 /datum/event/electrical_storm/announce()
-	GLOB.minor_announcement.Announce("An electrical storm has been detected in your area, please repair potential electronic overloads.", "Electrical Storm Alert", 'sound/AI/elec_storm.ogg')
+	GLOB.minor_announcement.Announce("На борту станции зафиксирована электрическая буря. Пожалуйста, устраните потенциальные перегрузки электросетей.", "ВНИМАНИЕ: Электрическая буря.", 'sound/AI/elec_storm.ogg')
 
 /datum/event/electrical_storm/start()
 	var/list/epicentreList = list()

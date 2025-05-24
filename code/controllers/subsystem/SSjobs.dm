@@ -106,28 +106,28 @@ SUBSYSTEM_DEF(jobs)
 		CreateMoneyAccount(H, rank, job)
 
 	var/list/L = list()
-	L.Add("<b>Your role on the station is: [alt_title ? alt_title : rank].")
-	L.Add("You answer directly to [job.supervisors]. Special circumstances may change this.")
-	L.Add("For more information on how the station works, see [wiki_link("Standard_Operating_Procedure", "Standard Operating Procedure (SOP)")].")
+	L.Add("<b>Ваша роль на станции: [alt_title ? alt_title : rank].")
+	L.Add("Вы отвечаете непосредственно перед [job.supervisors]. Особые обстоятельства могут изменить это.")
+	L.Add("Для большей информации о работе станции ознакомьтесь со [wiki_link("Standard_Operating_Procedure", "Стандартными Рабочими Процедурами (СРП)")].")
 	if(job.job_department_flags & DEP_FLAG_SERVICE)
-		L.Add("As a member of Service, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Service)", "Department SOP")].")
+		L.Add("Как сотрудник сервиса, обязательно ознакомьтесь с [wiki_link("Standard_Operating_Procedure_(Service)", "СРП отдела")].")
 	if(job.job_department_flags & DEP_FLAG_SUPPLY)
-		L.Add("As a member of Supply, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Supply)", "Department SOP")].")
+		L.Add("Как сотрудник снабжения, обязательно ознакомьтесь с [wiki_link("Standard_Operating_Procedure_(Supply)", "СРП отдела")].")
 	if(job.job_department_flags == DEP_FLAG_COMMAND) // Check if theyre only command, like captain/hop/bs/ntrep, to not spam their chatbox
-		L.Add("As an important member of Command, read up on your [wiki_link("Standard_Operating_Procedure_(Command)", "Department SOP")].")
+		L.Add("Как важный член командования, ознакомьтесь с вашим [wiki_link("Standard_Operating_Procedure_(Command)", "СРП отдела")].")
 	if(job.job_department_flags & DEP_FLAG_LEGAL)
-		L.Add("Your job requires complete knowledge of [wiki_link("Space Law", "Space Law")] and [wiki_link("Legal_Standard_Operating_Procedure", "Legal Standard Operating Procedure")].")
+		L.Add("Ваша работа требует полного знания [wiki_link("Space Law", "Космического Закона")] и [wiki_link("Legal_Standard_Operating_Procedure", "Правовых Стандартных Рабочих Процедур")].")
 	if(job.job_department_flags & DEP_FLAG_ENGINEERING)
-		L.Add("As a member of Engineering, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Engineering)", "Department SOP")].")
+		L.Add("Как сотрудник инженерии, обязательно ознакомьтесь с [wiki_link("Standard_Operating_Procedure_(Engineering)", "СРП отдела")].")
 	if(job.job_department_flags & DEP_FLAG_MEDICAL)
-		L.Add("As a member of Medbay, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Medical)", "Department SOP")].")
+		L.Add("Как сотрудник медотдела, обязательно ознакомьтесь с [wiki_link("Standard_Operating_Procedure_(Medical)", "СРП отдела")].")
 	if(job.job_department_flags & DEP_FLAG_SCIENCE) // geneticist gets both, yeah sure why not
-		L.Add("As a member of Science, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Science)", "Department SOP")].")
+		L.Add("Как сотрудник НИО, обязательно ознакомьтесь с [wiki_link("Standard_Operating_Procedure_(Science)", "СРП отдела")].")
 	if(job.job_department_flags & DEP_FLAG_SECURITY)
-		L.Add("As a member of Security, you are to know [wiki_link("Space Law", "Space Law")] and [wiki_link("Legal_Standard_Operating_Procedure", "Legal Standard Operating Procedure")], as well as your [wiki_link("Standard_Operating_Procedure_(Security)", "Department SOP")].")
+		L.Add("Как сотрудник безопасности, вы должны знать [wiki_link("Space Law", "Космический Закон")] и [wiki_link("Legal_Standard_Operating_Procedure", "Правовые Стандартные Рабочие Процедуры")], включая [wiki_link("Standard_Operating_Procedure_(Security)", "СРП отдела")].")
 	if(job.req_admin_notify)
-		L.Add("You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.")
-	L.Add("<br>If you need help, check the [wiki_link("Main_Page", "wiki")] or use Mentorhelp(F1)!</b>")
+		L.Add("Вы играете на роли, важной для игрового процесса. Если вы отключаетесь, пожалуйста, пройдите в крио и проинформируйте командование. Если это невозможно, предупредите администрацию через F1 - Adminhelp")
+	L.Add("<br>Если вам нужна помощь, проверьте [wiki_link("Main_Page", "вики")] или используйте Mentorhelp(F1)!</b>")
 	if(job.important_information)
 		L.Add("</b><span class='userdanger' style='width: 80%'>[job.important_information]</span>")
 
@@ -161,7 +161,7 @@ SUBSYSTEM_DEF(jobs)
 			landmarks = shuffle(landmarks) //Shuffle it so it's random
 
 		for(var/obj/effect/landmark/start/sloc in landmarks)
-			if(sloc.name != rank && !drunken_spawning)
+			if(sloc.name != rank && !drunken_spawning && (sloc.name != job.relate_job)) // SS220 EDIT - Novice Jobs - Jobs relate module
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue
@@ -201,7 +201,7 @@ SUBSYSTEM_DEF(jobs)
 			H = new_mob
 
 	if(job && H)
-		job.after_spawn(H)
+		job.after_spawn(H, joined_late)	// SS220 EDIT - jobs - prisoner spawn
 
 		//Gives glasses to the vision impaired
 		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))
@@ -267,11 +267,11 @@ SUBSYSTEM_DEF(jobs)
 	for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
 		objective.owner_account = account
 
-	H.mind.store_memory("<b>Your account number is:</b> #[account.account_number]<br><b>Your account pin is:</b> [account.account_pin]")
+	H.mind.store_memory("<b>Ваш номер аккаунта:</b> #[account.account_number]<br><b>Ваш пин-код от аккаунта:</b> [account.account_pin]")
 	H.mind.set_initial_account(account)
 
-	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
-	to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
+	to_chat(H, "<span class='boldnotice'>Как сотрудник Нанотрейзен, вы будете получать зарплату в размере $[account.payday_amount] кредитов каждые 30 минут</span>")
+	to_chat(H, "<span class='boldnotice'>Ваш номер аккаунта: [account.account_number], ваш пин-код от аккаунта: [account.account_pin]</span>")
 
 	if(!job) //if their job datum is null (looking at you ERTs...), we don't need to do anything past this point
 		return
@@ -301,14 +301,14 @@ SUBSYSTEM_DEF(jobs)
 		if(!department_account)
 			return
 
-		remembered_info += "As a head of staff you have access to your department's money account through your PDA's NanoBank or a station ATM<br>"
-		remembered_info += "<b>The [department.department_name] department's account number is:</b> #[department_account.account_number]<br>"
-		remembered_info += "<b>The [department.department_name] department's account pin is:</b> [department_account.account_pin]<br>"
-		remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
+		remembered_info += "<b>Как руководитель отдела, вы имеете доступ к денежному счету вашего отдела через НаноБанк вашего КПК или банкоматы на станции<br>"
+		remembered_info += "<b>Номер аккаунта [department.department_name] отдела:</b> #[department_account.account_number]<br>"
+		remembered_info += "<b>Пин-код аккаунта [department.department_name] отдела:</b> [department_account.account_pin]<br>"
+		remembered_info += "<b>Средства вашего отдела:</b> $[department_account.credit_balance]<br>"
 
 		H.mind.store_memory(remembered_info)
-		to_chat(H, "<span class='boldnotice'>Your department will receive a $[department_account.payday_amount] credit stipend every 30 minutes</span>")
-		to_chat(H, "<span class='boldnotice'>The [department.department_name] department's account number is: #[department_account.account_number], Your department's account pin is: [department_account.account_pin]</span>")
+		to_chat(H, "<span class='boldnotice'>Ваш отдел получает $[department_account.payday_amount] кредитов каждые 30 минут</span>")
+		to_chat(H, "<span class='boldnotice'>Номер аккаунта [department.department_name] отдела: #[department_account.account_number], пин-код аккаунта: [department_account.account_pin]</span>")
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
@@ -371,7 +371,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое уведомление: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/notify_by_name(target_name, antext)
 	// Used to notify a specific crew member based on their real_name
@@ -386,7 +386,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое уведомление: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
 	var/list/formatted = list()
