@@ -124,7 +124,7 @@
 	var/extra_message_range = 0
 
 	/// Points to what specialized dissection information a mob gets.
-	var/datum/dissection_surgery_container
+	var/datum/xenobiology_surgery_container/surgery_container
 
 	/// Does this creature contain a xeno organ we can harvest?
 	var/contains_xeno_organ = FALSE

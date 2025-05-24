@@ -232,7 +232,7 @@
 		dissection = D
 	if(dissection)
 		. += "<span class='notice'>You detect the next dissection step will be: [dissection.get_surgery_step()]</span>"
-	if(!xeno_organ_results)
+	if(!surgery_container.xeno_generic_organs)
 		. += "<span class='warning'>[src] looks like they have had their organs dissected!</span>"
 
 

@@ -54,10 +54,6 @@
 	var/chaser_speed = 3
 	var/recalculation_speed = 4 //How many times chasers moves before recalculating
 
-	xeno_organ_results = list(
-		/obj/item/organ/internal/heart/xenobiology/paradox,
-	)
-
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Chaser Burst"
 	button_overlay_icon_state = "singular_shot"

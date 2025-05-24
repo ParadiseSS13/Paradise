@@ -120,7 +120,7 @@
 
 /datum/surgery_step/robotics/external/unscrew_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -132,7 +132,7 @@
 
 /datum/surgery_step/robotics/external/unscrew_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_success_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -145,7 +145,7 @@
 
 /datum/surgery_step/robotics/external/unscrew_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_failure_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_failure_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -167,7 +167,7 @@
 
 /datum/surgery_step/robotics/external/open_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -179,7 +179,7 @@
 
 /datum/surgery_step/robotics/external/open_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_success_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -192,7 +192,7 @@
 
 /datum/surgery_step/robotics/external/open_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_failure_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_failure_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -214,7 +214,7 @@
 
 /datum/surgery_step/robotics/external/close_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -226,7 +226,7 @@
 
 /datum/surgery_step/robotics/external/close_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_success_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -240,7 +240,7 @@
 
 /datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_failure_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_failure_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -659,7 +659,7 @@
 
 /datum/surgery_step/robotics/external/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -673,7 +673,7 @@
 
 /datum/surgery_step/robotics/external/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_success_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_success_text[surgery.step_number]]")
 	else
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -692,7 +692,7 @@
 
 /datum/surgery_step/robotics/external/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery, /datum/surgery/dissect))
-		to_chat(user, "[target.dissection_failure_text[surgery.step_number]]")
+		to_chat(user, "[target.surgery_container.dissection_failure_text[surgery.step_number]]")
 	else
 		user.visible_message(
 			"<span class='warning'>[user]'s hand slips!</span>",

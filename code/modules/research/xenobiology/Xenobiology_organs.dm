@@ -113,9 +113,20 @@
 	tough = TRUE
 	is_xeno_organ = TRUE
 
+/obj/item/organ/internal/eyes/cybernetic/xenobiology
+	name = "Unidentified Electronic"
+	desc = "This is a parent object and should not appear. Contact a developer."
+	icon = 'icons/obj/xeno_organs.dmi'
+	icon_state = "organ4"
+	dead_icon = null
+	origin_tech = null
+	tough = TRUE
+	is_xeno_organ = TRUE
+
 /obj/item/organ/internal/liver/xenobiology/toxic
 	name = "Toxic Glands"
 	desc = "These fleshy glands' alien chemistry are incompatible with most humanoid life."
+
 
 /obj/item/organ/internal/liver/xenobiology/toxic/on_life()
 	. = ..()
@@ -719,37 +730,38 @@
 			else
 				T.visible_message("<span class='warning'>[T] refuses to budge!</span>")
 
-/obj/item/organ/internal/eyes/xenobiology/glowing
+/obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing
 	name = "Glowing Core"
 	desc = "This organ glows with a strange energy from its depths. Is it even appropiate to call this an organ?"
 	analyzer_price = 40
 	hidden_origin_tech = TECH_BLUESPACE
 	hidden_tech_level = 6
+	status = ORGAN_ROBOT
 
-/obj/item/organ/internal/eyes/xenobiology/glowing/Initialize(mapload)
+/obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing/Initialize(mapload)
 	. = ..()
 	icon_state = pick("hiero1", "hiero2")
 
-/obj/item/organ/internal/eyes/xenobiology/glowing/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
 	var/datum/spell/turf_teleport/organ_teleport/spell = new
 	spell.quality = organ_quality
 	spell.inner_tele_radius = 3
 	spell.outer_tele_radius = 8
 	if(organ_quality == ORGAN_PRISTINE)
-		spell.base_cooldown = 90 SECONDS
+		spell.base_cooldown = 60 SECONDS
 		spell.inner_tele_radius = 5
 		spell.outer_tele_radius = 15
 	M.AddSpell(spell)
 
-/obj/item/organ/internal/eyes/xenobiology/glowing/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	M.RemoveSpell(/datum/spell/turf_teleport/organ_teleport)
 
 /datum/spell/turf_teleport/organ_teleport
 	name = "Unstable blink"
 	desc = "Touch someone to destabilize their location in bluespace for a moment."
-	base_cooldown = 3 MINUTES
+	base_cooldown = 2 MINUTES
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"

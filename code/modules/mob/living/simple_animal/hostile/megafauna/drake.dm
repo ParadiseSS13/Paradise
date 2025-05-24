@@ -614,7 +614,6 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
 	contains_xeno_organ = FALSE
-	xeno_organ_results = null
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/generate_random_loot()
 	return

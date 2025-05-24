@@ -311,6 +311,16 @@
 
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
 
+	// Need to pass dissection its steps because it changes alot depending on the creature
+	if(istype(procedure, /datum/surgery/dissect))
+		if(isnull(target.surgery_container))
+			if(target.type in GLOB.xenobiology_dissection_bridge)
+				var/list_choice = GLOB.xenobiology_dissection_bridge[target.type]
+				target.surgery_container = new list_choice
+			else
+				log_debug("There was a dissection initiated, however there was no reference in xenobiology_dissection_bridge to point to!")
+				return
+			procedure.steps = target.surgery_container.dissection_tool_step
 
 	RegisterSignal(procedure, COMSIG_SURGERY_BLOOD_SPLASH, PROC_REF(on_blood_splash))
 
@@ -319,14 +329,6 @@
 	show_starting_message(user, target, procedure)
 
 	log_attack(user, target, "operated on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
-
-	if(istype(surgery, /datum/surgery/dissect))
-		if(isnull(target.dissection_surgery_container))
-			if(target.type in GLOB.xenobiology_dissection_bridge)
-				target.dissection_surgery_container = new GLOB.xenobiology_dissection_bridge[target.type]
-			else
-				log_debug("There was a dissection initiated, however there was no reference in xenobiology_dissection_bridge to point to!")
-				return
 
 	return procedure
 
@@ -390,7 +392,6 @@
 			"<span class='warning'>You stop applying [parent] onto [target].</span>"
 		)
 		return
-
 
 	if(!isnull(surgery_start_sound))
 		playsound(src, surgery_start_sound, 50, TRUE)
