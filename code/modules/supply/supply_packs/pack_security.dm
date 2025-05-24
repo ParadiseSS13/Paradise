@@ -390,3 +390,16 @@
 	containertype = /obj/structure/largecrate/secway
 	containername = "secway crate"
 	access = ACCESS_HEADS
+
+/datum/supply_packs/security/party_ammo
+	name = "Party Ammunition Crate"
+	contains = list(
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/storage/fancy/shell/confetti,
+		/obj/item/storage/fancy/shell/confetti,
+		/obj/item/storage/fancy/shell/confetti
+	)
+	cost = 300
+	containername = "party ammunition crate"
