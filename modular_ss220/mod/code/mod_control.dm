@@ -32,7 +32,6 @@
 		quick_deploy(wearer)
 
 /obj/item/mod/control/quick_deploy(mob/user)
-	user = user || loc // why the fuck this is nullable
 	if(!is_any_part_deployed() && !theme.is_species_allowed(user.dna.species))
 		to_chat(user, span_warning("Ошибка видовой принадлежности! Развертывание недоступно."))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
@@ -40,12 +39,16 @@
 	return ..()
 
 /obj/item/mod/control/deploy(mob/user, obj/item/part, mass)
-	user = user || loc // why the fuck this is nullable
-	if(!mass && part.loc != user && !theme.is_species_allowed(user.dna.species))
-		to_chat(user, span_warning("Ошибка видовой принадлежности! Развертывание недоступно."))
-		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
+	if(part.loc == src)
+		if(user && !theme.is_species_allowed(user.dna.species))
+			to_chat(user, span_warning("Ошибка видовой принадлежности! Развертывание недоступно."))
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			return FALSE
 	return ..()
+
+/obj/item/mod/control/quick_activation()
+	if(theme.is_species_allowed(wearer.dna.species))
+		return ..()
 
 /obj/item/mod/control/pre_equipped/exclusive
 	icon = 'modular_ss220/mod/icons/object/mod_clothing.dmi'
