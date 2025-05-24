@@ -167,6 +167,12 @@
 	else
 		return ..()
 
+/obj/structure/bed/roller/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 75, TRUE, ignore_walls = FALSE)
+
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	density = TRUE
 	icon_state = icon_up
