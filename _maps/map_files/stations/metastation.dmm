@@ -66071,7 +66071,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "pvT" = (
-/obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/pet/cat/var_cat,
 /obj/machinery/light{
 	dir = 8
@@ -66079,7 +66078,6 @@
 /obj/structure/bed/dogbed/runtime{
 	name = "Var's bed"
 	},
-/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "pwg" = (
@@ -69498,6 +69496,7 @@
 	},
 /obj/item/bedsheet/black,
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/asmaint)
 "qIg" = (
@@ -79533,7 +79532,6 @@
 	},
 /area/station/security/execution)
 "uEh" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random/directional/west,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/kirbyplants/large/plant14,
@@ -84697,6 +84695,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "wDM" = (
