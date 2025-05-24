@@ -45036,6 +45036,7 @@
 	pixel_x = -24;
 	req_access = list(13)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "duF" = (
@@ -64118,6 +64119,7 @@
 	pixel_x = -24;
 	req_access = list(13)
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "jXI" = (
