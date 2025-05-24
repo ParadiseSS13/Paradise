@@ -827,6 +827,14 @@
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
 	rad_conversion_amount = 3
 
+/obj/structure/window/full/plastitanium/rad_protect
+	name = "leaded plastitanium window"
+	desc = "An evil looking window of plasma and titanium. It has been infused with lead and offers exceptional radiation resistance."
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_VERY_EXTREME_INSULATION
+	rad_conversion_amount = 0
+
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass."
