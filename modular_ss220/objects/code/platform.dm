@@ -137,8 +137,8 @@
 		to_chat(user, span_warning("You cannot climb over [src], as it is blocked by \a [blocking_object]!"))
 		return
 
-	var/destination_climb = get_step(src, dir)
-	if(is_blocked_turf(destination_climb))
+	var/turf/destination_climb = get_step(src, dir)
+	if(destination_climb.is_blocked_turf())
 		to_chat(user, span_warning("You cannot climb over [src], the path is blocked!"))
 		return
 	var/turf/T = src.loc

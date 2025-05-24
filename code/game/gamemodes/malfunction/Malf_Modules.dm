@@ -710,7 +710,7 @@
 		to_chat(src, "<span class='warning'>У вас нет видимости там!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
-	if(is_blocked_turf(deploylocation))
+	if(deploylocation.is_blocked_turf())
 		to_chat(src, "<span class='warning'>Эта зона должна быть очищена от объектов!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE

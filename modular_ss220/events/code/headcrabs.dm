@@ -18,7 +18,7 @@
 	var/area/randomarea = pick(availableareas)
 	var/list/turf/simulated/floor/turfs = list()
 	for(var/turf/simulated/floor/F in randomarea)
-		if(!is_blocked_turf(F))
+		if(!F.is_blocked_turf())
 			turfs += F
 	var/list/spawn_types = list()
 	var/max_number

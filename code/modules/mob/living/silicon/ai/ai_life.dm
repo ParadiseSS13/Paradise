@@ -27,13 +27,14 @@
 		check_holopad_eye()
 
 	// Enhanced Tracking
-	if(enhanced_tracking && tracked_mob)
+	if(enhanced_tracking && tracked_mob && !tracker_alert_cooldown)
 		if(can_see(tracked_mob))
 			var/area/A = get_area(tracked_mob)
 			if(A)
 				addtimer(CALLBACK(src, PROC_REF(raise_tracking_alert), A, tracked_mob), enhanced_tracking_delay)
-				// To prevent spam, immediately unset tracking.
-				tracked_mob = null
+				// To prevent spam, start a cooldown.
+				tracker_alert_cooldown = TRUE
+				addtimer(CALLBACK(src, PROC_REF(reset_tracker_cooldown)), tracking_alert_interval)
 
 	if(malfhack && malfhack.aidisabled)
 		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")

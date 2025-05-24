@@ -82,7 +82,7 @@
 		return
 	var/turf/T = get_turf(target)
 
-	if(is_blocked_turf(T, TRUE)) //can't put mines on a tile that has dense stuff
+	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put mines on a tile that has dense stuff
 		to_chat(user, "<span class='notice'>The space is occupied! You cannot place a mine there!</span>")
 		return
 	if(!use(1)) //Can't place a landmine if you don't have a landmine
