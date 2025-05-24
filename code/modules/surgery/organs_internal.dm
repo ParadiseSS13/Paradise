@@ -48,6 +48,19 @@
 	)
 	requires_organic_bodypart = TRUE
 
+/datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected.encased) //no bone, problem.
+			return FALSE
+		if(HAS_TRAIT(target, TRAIT_NO_BONES))
+			return FALSE
+		return TRUE
+
 /datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
 	if(!.)
