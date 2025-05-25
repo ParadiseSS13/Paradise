@@ -974,7 +974,7 @@
 	return ..()
 
 /datum/status_effect/flayer_rejuv/tick()
-	if(!ishuman(owner))
+	if(!ishuman(owner) || owner.stat == DEAD)
 		return
 
 	var/mob/living/carbon/human/flayer = owner
