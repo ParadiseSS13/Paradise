@@ -120,7 +120,6 @@
 	return ..()
 
 /mob/living/simple_animal/slime/death()
-	var/cur_turf = get_turf(src)
 	if(holding_organ)
 		eject_organ()
 	underlays.Cut()
