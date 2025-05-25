@@ -27339,6 +27339,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"bSe" = (
+/obj/effect/spawner/window/reinforced/tinted,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "bSg" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -30142,6 +30146,16 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/hallway)
+"cdl" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/aft)
 "cdq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/disposalpipe/segment{
@@ -38265,6 +38279,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "cJt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet,
 /area/station/maintenance/aft)
 "cJu" = (
@@ -46712,6 +46732,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/ai)
+"drx" = (
+/obj/structure/machine_frame,
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedservers)
 "dry" = (
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
@@ -47265,6 +47289,15 @@
 /obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
+"dvc" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/sign/poster/contraband/random/directional/west,
+/turf/simulated/floor/wood,
+/area/station/maintenance/aft)
 "dvv" = (
 /mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/carpet,
@@ -48381,6 +48414,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"dXH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft)
 "dXX" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -49498,6 +49540,12 @@
 "exu" = (
 /obj/structure/chair/sofa/left,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "exw" = (
@@ -50660,6 +50708,12 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"fcA" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedservers)
 "fcC" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -51427,6 +51481,9 @@
 /obj/item/seeds/amanita,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
+"ftA" = (
+/turf/simulated/wall,
+/area/station/maintenance/abandonedservers)
 "ftM" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -51443,6 +51500,13 @@
 	icon_state = "red"
 	},
 /area/station/maintenance/fore)
+"fuw" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedservers)
 "fuy" = (
 /obj/machinery/light,
 /obj/structure/chair/sofa/corp/left{
@@ -52530,6 +52594,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/genetics)
+"fXk" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedservers)
 "fXp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -54812,6 +54883,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
+"heK" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/ai_node/network_node,
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedservers)
 "hfp" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
@@ -55965,6 +56041,10 @@
 	icon_state = "dark"
 	},
 /area/station/security/execution)
+"hLB" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "hLL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -57112,6 +57192,10 @@
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
+"iqB" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "irE" = (
 /obj/structure/closet/l3closet,
 /obj/effect/decal/cleanable/dirt,
@@ -57767,6 +57851,12 @@
 	pixel_x = 7;
 	pixel_y = 7;
 	anchored = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -58577,11 +58667,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
-"jgR" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/sign/poster/contraband/random/directional/west,
-/turf/simulated/floor/wood,
-/area/station/maintenance/aft)
 "jhq" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -59741,6 +59826,10 @@
 	icon_state = "red"
 	},
 /area/station/legal/courtroom)
+"jMY" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall,
+/area/station/maintenance/abandonedservers)
 "jNe" = (
 /obj/machinery/suit_storage_unit/blueshield/secure,
 /turf/simulated/floor/wood,
@@ -63261,6 +63350,12 @@
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
+"lwi" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "lwt" = (
 /obj/machinery/computer/operating{
 	dir = 8
@@ -64404,6 +64499,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"maW" = (
+/obj/effect/spawner/random/barrier/possibly_welded_airlock,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "mba" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/item/garrote/improvised,
@@ -66279,6 +66384,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonlockers)
+"naB" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "naU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -73429,6 +73544,16 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
+"qDr" = (
+/obj/structure/table,
+/obj/item/stack/cable_coil/random,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/obj/effect/spawner/random/maintenance,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedservers)
 "qDJ" = (
 /obj/structure/table_frame,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -75281,6 +75406,14 @@
 	icon_state = "dark"
 	},
 /area/station/command/office/hos)
+"rAI" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/silver,
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedservers)
 "rAR" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/structure/table/reinforced,
@@ -75395,6 +75528,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"rEm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/aft)
 "rEv" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/tinted,
@@ -75625,6 +75767,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
+"rJx" = (
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "rJJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -78238,6 +78383,11 @@
 "tgQ" = (
 /turf/simulated/wall,
 /area/station/hallway/primary/central/se)
+"tgR" = (
+/obj/machinery/ai_node/network_node,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/abandonedservers)
 "thJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
@@ -79008,6 +79158,18 @@
 	icon_state = "redcorner"
 	},
 /area/station/command/bridge)
+"tEp" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "tEq" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -79748,9 +79910,14 @@
 "tVq" = (
 /obj/structure/chair/sofa,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -79962,6 +80129,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"tYJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/item/mounted/frame/apc_frame,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "tYP" = (
 /obj/structure/sign/poster/official/random/directional/east,
 /obj/structure/table,
@@ -81591,6 +81768,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"uXu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/aft)
 "uXA" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/cleanable/dirt,
@@ -83383,6 +83569,10 @@
 	icon_state = "brown"
 	},
 /area/station/supply/expedition)
+"vVV" = (
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "vWe" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/directional/west,
@@ -84717,6 +84907,12 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
+"wFF" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/abandonedservers)
 "wFR" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -86653,6 +86849,16 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"xGP" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "xHr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack{
@@ -87037,6 +87243,13 @@
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/security/permabrig)
+"xPM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "xQB" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -87592,6 +87805,15 @@
 	icon_state = "whiteyellowfull"
 	},
 /area/station/medical/chemistry)
+"yah" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/aft)
 "yak" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
@@ -132797,7 +133019,7 @@ chf
 cDm
 dmb
 cIj
-cep
+dXH
 chf
 xvM
 cUq
@@ -133054,9 +133276,9 @@ nAy
 chf
 nbC
 eGX
-cIm
-jgR
-cIm
+rEm
+dvc
+uXu
 vnY
 rEz
 chf
@@ -133313,7 +133535,7 @@ fbp
 uGf
 guQ
 mrc
-cIm
+yah
 cep
 cIm
 chf
@@ -133570,7 +133792,7 @@ ntr
 juH
 tNc
 xOM
-cIj
+cdl
 bZZ
 chf
 chf
@@ -134341,7 +134563,7 @@ ciY
 ciY
 ciY
 ciY
-bGH
+maW
 ciY
 ciY
 aab
@@ -134598,8 +134820,8 @@ cIq
 dmq
 cIq
 cIq
-cIq
-cIq
+naB
+xGP
 xfW
 owP
 atZ
@@ -134856,7 +135078,7 @@ csL
 hyk
 csL
 csL
-csL
+uzh
 ciY
 aab
 aab
@@ -135112,14 +135334,14 @@ ciY
 eNn
 csL
 ciY
-ciY
-ciY
-ciY
-aaa
-aaa
-aaa
-aaa
-aaa
+ftA
+tEp
+ftA
+ftA
+ftA
+ftA
+ftA
+aab
 aaa
 aaa
 aaa
@@ -135369,14 +135591,14 @@ dSu
 csL
 csL
 cKF
-ciY
+ftA
+tYJ
+vVV
+tgR
+rAI
+fXk
+ftA
 aab
-aab
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -135626,14 +135848,14 @@ ciY
 vZV
 csL
 cHf
-ycI
-aaa
+bSe
+xPM
+wFF
+hLB
+hLB
+fcA
+iqB
 aab
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -135883,15 +136105,15 @@ ciY
 csL
 csL
 ctq
-ycI
-aaa
+bSe
+rJx
+hLB
+rJx
+rJx
+fuw
+iqB
 aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aab
 aaa
 aaa
 aaa
@@ -136140,16 +136362,16 @@ ciY
 cDo
 csL
 bUx
-dSu
+jMY
+drx
+qDr
+rAI
+heK
+lwi
+ftA
 aab
 aab
 aab
-aab
-aab
-aab
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -136397,17 +136619,17 @@ csL
 csL
 csL
 dSu
-ciY
+ftA
+ftA
+ftA
+ftA
+ftA
+jMY
+ftA
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aab
 aaa
 aaa
 aaa
@@ -136657,8 +136879,8 @@ ciY
 aaa
 alv
 alv
-alv
-alv
+aab
+aab
 alv
 alv
 alv
