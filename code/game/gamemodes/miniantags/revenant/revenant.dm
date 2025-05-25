@@ -39,6 +39,7 @@
 	initial_traits = list(TRAIT_FLYING)
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/revenant
 
 	/// The revenant's idle icon
 	var/icon_idle = "revenant_idle"

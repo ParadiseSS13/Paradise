@@ -67,6 +67,7 @@ Difficulty: Hard
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/hierophant
 
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams

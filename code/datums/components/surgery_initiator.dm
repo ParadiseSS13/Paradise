@@ -314,21 +314,10 @@
 	// Need to pass dissection its steps because it changes alot depending on the creature
 	if(istype(procedure, /datum/surgery/dissect))
 		if(isnull(target.surgery_container))
-			var/closest_match = /mob/living
-			for(var/list_type in GLOB.xenobiology_dissection_bridge)
-				if(target.type == list_type) // if we find an exact match, keep it
-					closest_match = target.type
-					break
-				if(ispath(list_type, closest_match) && ispath(target.type, list_type))
-					closest_match = list_type
-			if(isnull(target.surgery_container))
-				if(closest_match == /mob/living)
-					log_debug("There was a dissection initiated on [src] with xeno_organ = TRUE, however there was no reference in xenobiology_dissection_bridge to point to!")
-					to_chat(user, "<span class = 'userdanger'>An error occured while fetching the dissection information. Please inform a developer</span>")
-					return
-			closest_match = GLOB.xenobiology_dissection_bridge[closest_match]
-			target.surgery_container = new closest_match
-			procedure.steps = target.surgery_container.dissection_tool_step
+			log_debug("A dissection was started on [target] with contains_xeno_organ as TRUE, however its surgery_container was null!")
+			to_chat(user, "<span class = 'userdanger'>[target] does not have a dissection surgery information set to it. Please inform an admin or developer.")
+		target.surgery_container = new target.surgery_container
+		procedure.steps = target.surgery_container.dissection_tool_step
 
 	RegisterSignal(procedure, COMSIG_SURGERY_BLOOD_SPLASH, PROC_REF(on_blood_splash))
 

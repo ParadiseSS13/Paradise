@@ -27,6 +27,7 @@
 	status_flags = CANPUSH
 	search_objects = 1
 	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/goldgrub
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
 						/obj/item/stack/ore/uranium)
 

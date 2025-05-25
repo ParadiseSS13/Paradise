@@ -32,6 +32,7 @@
 	turns_per_move = 5
 	gold_core_spawnable = HOSTILE_SPAWN
 	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/basilisk
 
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
@@ -88,6 +89,7 @@
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 	initial_traits = list(TRAIT_FLYING)
+	surgery_container = /datum/xenobiology_surgery_container/watcher
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"

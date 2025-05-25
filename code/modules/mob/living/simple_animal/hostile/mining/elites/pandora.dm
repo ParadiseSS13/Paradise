@@ -43,6 +43,7 @@
 	loot_drop = /obj/item/clothing/accessory/pandora_hope
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/pandora
 
 	attack_action_types = list(/datum/action/innate/elite_attack/chaser_burst,
 								/datum/action/innate/elite_attack/magic_box,

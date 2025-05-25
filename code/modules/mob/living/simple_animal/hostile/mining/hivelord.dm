@@ -33,6 +33,7 @@
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/hivelord
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)

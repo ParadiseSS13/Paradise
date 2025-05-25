@@ -20,6 +20,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
 	gender = FEMALE
 	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/terror_spider
 
 	// Icons
 	icon = 'icons/mob/terrorspider.dmi'

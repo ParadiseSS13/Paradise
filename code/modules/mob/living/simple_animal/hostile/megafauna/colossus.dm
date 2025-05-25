@@ -56,6 +56,7 @@ Difficulty: Very Hard
 	enraged_loot = /obj/item/disk/fauna_research/colossus
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/colossus
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
 

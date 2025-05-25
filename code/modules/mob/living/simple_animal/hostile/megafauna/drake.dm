@@ -64,6 +64,7 @@ Difficulty: Medium
 	enraged_loot = /obj/item/disk/fauna_research/ash_drake
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/drake
 
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							/datum/action/innate/megafauna_attack/fire_cone_meteors,

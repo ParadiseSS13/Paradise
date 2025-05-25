@@ -36,6 +36,7 @@
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/food/meat/slab = 2)
 	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/morph
 
 	/// If the morph is disguised or not
 	var/morphed = FALSE

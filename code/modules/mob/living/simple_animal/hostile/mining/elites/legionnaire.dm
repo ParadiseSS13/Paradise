@@ -42,6 +42,7 @@
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/legionnaire
 
 	attack_action_types = list(/datum/action/innate/elite_attack/legionnaire_charge,
 								/datum/action/innate/elite_attack/head_detach,

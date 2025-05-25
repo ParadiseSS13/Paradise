@@ -80,6 +80,7 @@ Difficulty: Hard
 	attack_action_types = list()
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/vetus
 	difficulty_ore_modifier = 4 //Vetus' whole deal was that it dropped ore before all megas did, so it gets a ton
 
 	var/charging = FALSE

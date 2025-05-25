@@ -17,6 +17,7 @@
 	minbodytemp = 0
 	faction = list("nether")
 	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/sweating
 
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"
@@ -29,6 +30,7 @@
 	speed = -0.5
 	deathmessage = "wails as its form turns into a pulpy mush."
 	death_sound = 'sound/voice/hiss6.ogg'
+	surgery_container = /datum/xenobiology_surgery_container/migo
 
 /mob/living/simple_animal/hostile/netherworld/migo/Initialize(mapload)
 	. = ..()

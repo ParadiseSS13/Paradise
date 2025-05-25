@@ -75,6 +75,7 @@ Difficulty: Hard
 	death_sound = 'sound/misc/enter_blood.ogg'
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/bubblegum
 
 	attack_action_types = list(/datum/action/innate/megafauna_attack/triple_charge,
 							/datum/action/innate/megafauna_attack/hallucination_charge,

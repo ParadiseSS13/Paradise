@@ -24,6 +24,7 @@
 	var/death_sound = 'sound/voice/hiss6.ogg'
 	ignore_generic_organs = TRUE
 	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/alien
 
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()

@@ -200,6 +200,7 @@
 	move_resist = MOVE_FORCE_OVERPOWERING
 	a_intent = INTENT_HARM
 	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/blobbernaut
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
 	. = ..()

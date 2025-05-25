@@ -36,6 +36,7 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/hound
 
 /mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()

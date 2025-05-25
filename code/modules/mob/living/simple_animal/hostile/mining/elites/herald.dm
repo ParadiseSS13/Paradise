@@ -43,6 +43,7 @@
 	loot_drop = /obj/item/clothing/neck/cloak/herald_cloak
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/herald
 
 	attack_action_types = list(/datum/action/innate/elite_attack/herald_trishot,
 								/datum/action/innate/elite_attack/herald_directionalshot,
