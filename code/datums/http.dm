@@ -3,10 +3,6 @@
 	SEE rust\src\rustlibs_http\mod.rs FOR DETAILS
 */
 
-// remove when off TM
-/proc/log_http_debug(text)
-	rustlibs_log_write("data/aa_debug.log", "[text][GLOB.log_end]")
-
 /**
   * # HTTP Request
   *
@@ -34,8 +30,6 @@
 	var/datum/http_response/response_obj
 	/// Callback for executing after async requests. Will be called with an argument of [/datum/http_response] as first argument
 	var/datum/callback/cb
-	/// DEV Tracking
-	var/checks = 0
 
 /*
 ###########################################################################
@@ -71,9 +65,7 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
   * As such, you cannot use this for events which may happen at roundstart (EG: IPIntel, BYOND account tracking, etc)
   */
 /datum/http_request/proc/begin_async()
-	log_http_debug("Starting request - [method] [url] (B: [body] | H: [json_encode(headers)])")
 	rustlibs_http_send_request(src)
-	log_http_debug("Got ID [id]")
 
 /**
   * Async completion checker
@@ -96,23 +88,8 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
 
 	// If we have no result, were not finished
 	if(error_code == RUSTLIBS_JOB_NO_RESULTS_YET)
-		checks++
-		if(checks == 1000)
-			message_admins("\[[time_stamp()]] A HTTP request took over 1000 checks and still isn't finished. Inform AA at once, and screenshot the timestamp in this message please.")
-			log_http_debug("Request #[id] did over 1000 checks - check that")
 		return FALSE
 	else
-		if(error_code == RUSTLIBS_JOB_NO_SUCH_JOB)
-			message_admins("\[[time_stamp()]] A HTTP request forgot what its job was. Inform AA at once, and screenshot the timestamp in this message please.")
-			log_http_debug("Request #[id] lost its job - check that")
-
-		else if(error_code == RUSTLIBS_JOB_ERROR)
-			message_admins("\[[time_stamp()]] A HTTP request had a hissy fit. Inform AA at once, and screenshot the timestamp in this message please.")
-			log_http_debug("Request #[id] panic - check that")
-
-		else
-			log_http_debug("Request #[id] seems to have gone fine")
-
 		// If we got here, we have a result to parse
 		response_obj = result
 		return TRUE
