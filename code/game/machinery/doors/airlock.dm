@@ -175,7 +175,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/Destroy()
 	SStgui.close_uis(wires)
-	QDEL_LIST_CONTENTS(fillers)
 	QDEL_NULL(electronics)
 	QDEL_NULL(wires)
 	QDEL_NULL(note)
@@ -1268,13 +1267,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
 	set_opacity(0)
-	if(width > 1)
-		set_fillers_opacity(0)
 	update_freelook_sight()
 	sleep(4)
 	density = FALSE
-	if(width > 1)
-		set_fillers_density(FALSE)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
@@ -1314,16 +1309,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!override)
 		sleep(1)
 	density = TRUE
-	if(width > 1)
-		set_fillers_density(TRUE)
 	if(!override)
 		sleep(4)
 	if(!safe)
 		crush()
 	if((visible && !glass) || polarized_on)
 		set_opacity(1)
-		if(width > 1)
-			set_fillers_opacity(1)
 	update_freelook_sight()
 	sleep(1)
 	update_icon(AIRLOCK_CLOSED, 1)
@@ -1507,9 +1498,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!(flags & NODECONSTRUCT))
 		var/obj/structure/door_assembly/DA
 		if(assemblytype)
-			DA = new assemblytype(loc)
+			DA = new assemblytype(loc, dir)
 		else
-			DA = new /obj/structure/door_assembly(loc)
+			DA = new /obj/structure/door_assembly(loc, dir)
 			//If you come across a null assemblytype, it will produce the default assembly instead of disintegrating.
 		DA.reinforced_glass = src.reinforced_glass //tracks whether there's rglass in
 		DA.anchored = TRUE
@@ -1540,7 +1531,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			electronics = null
 			ae.forceMove(loc)
 			ae.is_installed = FALSE
-	QDEL_LIST_CONTENTS(fillers)
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
