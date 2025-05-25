@@ -420,6 +420,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 1)
 
+/obj/item/circuitboard/space_heater
+	board_name = "Space Heater"
+	icon_state = "engineering"
+	build_path = /obj/machinery/space_heater
+	board_type = "machine"
+	origin_tech = "programming=3;plasmatech=3"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/cell = 1)
+
 /obj/item/circuitboard/recharger
 	board_name = "Recharger"
 	icon_state = "security"
@@ -1086,6 +1097,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 3,
 							/obj/item/stack/sheet/glass = 1)
 
+/obj/item/circuitboard/scientific_assembler
+	board_name = "Scientific Assembler"
+	icon_state = "supply"
+	build_path = /obj/machinery/smithing/scientific_assembler
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=4"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 1,
+							/obj/item/stock_parts/manipulator = 3,
+							/obj/item/stack/sheet/glass = 1)
+
 /obj/item/circuitboard/ore_redemption
 	board_name = "Ore Redemption"
 	icon_state = "supply"
@@ -1201,7 +1223,35 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
-							/obj/item/stack/sheet/plasteel = 5)
+							/obj/item/stack/sheet/plasteel = 5
+	)
+
+/obj/item/circuitboard/processing_node
+	board_name = "Processing Node"
+	icon_state = "science"
+	build_path = /obj/machinery/ai_node/processing_node
+	board_type = "machine"
+	origin_tech = "programming=4"
+	req_components = list(
+							/obj/item/stock_parts/capacitor = 2,
+							/obj/item/stack/sheet/mineral/gold = 1,
+							/obj/item/stack/sheet/mineral/silver = 1,
+							/obj/item/stack/sheet/mineral/diamond = 1,
+							/obj/item/stack/cable_coil = 5
+	)
+
+/obj/item/circuitboard/network_node
+	board_name = "Network Node"
+	icon_state = "science"
+	build_path = /obj/machinery/ai_node/network_node
+	board_type = "machine"
+	origin_tech = "programming=4"
+	req_components = list(
+							/obj/item/stock_parts/capacitor = 2,
+							/obj/item/stack/sheet/mineral/gold = 1,
+							/obj/item/stack/sheet/mineral/silver = 1,
+							/obj/item/stack/cable_coil = 5
+	)
 
 /obj/item/circuitboard/autochef
 	board_name = "Autochef"

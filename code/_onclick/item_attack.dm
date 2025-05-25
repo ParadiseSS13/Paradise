@@ -178,10 +178,12 @@
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
-	target.lastattacker = user.real_name
-	target.lastattackerckey = user.ckey
-
+	target.store_last_attacker(user)
 	user.do_attack_animation(target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		if(human_target.check_shields(src, force, "[user]'s [name]", MELEE_ATTACK, armour_penetration_flat, armour_penetration_percentage))
+			return FALSE
 	add_fingerprint(user)
 
 	return TRUE

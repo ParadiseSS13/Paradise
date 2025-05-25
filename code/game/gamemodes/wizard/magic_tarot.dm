@@ -384,7 +384,7 @@
 /datum/tarot/the_emperor/activate(mob/living/target)
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/station/command/bridge))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
@@ -460,7 +460,7 @@
 
 /datum/tarot/the_hermit/activate(mob/living/target)
 	var/list/viable_vendors = list()
-	for(var/obj/machinery/economy/vending/candidate in GLOB.machines)
+	for(var/obj/machinery/economy/vending/candidate in SSmachines.get_by_type(/obj/machinery/economy/vending))
 		if(!is_station_level(candidate.z))
 			continue
 		viable_vendors += candidate
@@ -576,7 +576,7 @@
 /datum/tarot/the_stars/activate(mob/living/target)
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/station/security/evidence))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
@@ -1007,7 +1007,7 @@
 /datum/tarot/reversed/the_world/activate(mob/living/target)
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/mine/outpost)) //Lavaland is the abyss, but also too hot to send people too. Mining base should be fair!
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 

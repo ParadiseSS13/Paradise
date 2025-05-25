@@ -76,7 +76,7 @@
 
 					return
 
-				investigate_log("has become a singularity. Caused by [user.key]","singulo")
+				investigate_log("has become a singularity. Caused by [user.key]",INVESTIGATE_SINGULO)
 				user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='danger'> You hear the sound of scientific evil brewing!</span>")
 				qdel(W)
 				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
@@ -789,7 +789,7 @@
 	name = "drop of immortality"
 	desc = "Drinking this will make you immortal. For a moment or two, at least."
 	icon_state = "holyflask"
-	color = "#C8A5DC"
+	color = "#437fb8"
 	volume = 5
 	list_reagents = list("adminordrazine" = 5)
 

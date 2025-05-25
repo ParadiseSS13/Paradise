@@ -205,14 +205,11 @@
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable_state = "dead"
-		if(!ghost_can_reenter()) // DNR or AntagHUD
-			revivable_state = "dead"
-		else if(ismachineperson(src) || (timeofdeath && is_revivable()))
-			revivable_state = "flatline"
-		else if(!mind)
-			revivable_state = "dead"
-		else if(get_ghost() || key)
-			revivable_state = "hassoul"
+		if(ghost_can_reenter()) // Not DNR or AntagHUD
+			if((ismachineperson(src) && (client || check_ghost_client())) || (!ismachineperson(src) && timeofdeath && is_revivable()))
+				revivable_state = "flatline"
+			else if(get_ghost() || key)
+				revivable_state = "hassoul"
 
 		holder.icon_state = "hud[revivable_state]"
 
@@ -514,17 +511,17 @@
 	Malf AI HUD
 ~~~~~~~~~~~~~~~*/
 
-/mob/living/carbon/human/proc/malf_hud_set_status(new_status)
+/mob/living/carbon/human/proc/malf_hud_set_status()
 	var/image/holder = hud_list[MALF_AI_HUD]
+	var/new_status
 	var/targetname = get_visible_name(TRUE) //gets the name of the target, works if they have an id or if their face is uncovered
 	if(!SSticker)
 		return //wait till the game starts or the monkeys runtime
-	if(!new_status)
-		for(var/datum/data/record/E in GLOB.data_core.general)
-			if(E.fields["name"] == targetname)
-				for(var/datum/data/record/R in GLOB.data_core.security)
-					if(R.fields["id"] == E.fields["id"])
-						new_status = E.fields["ai_target"]
+	for(var/datum/data/record/E in GLOB.data_core.general)
+		if(E.fields["name"] == targetname)
+			for(var/datum/data/record/R in GLOB.data_core.security)
+				if(R.fields["id"] == E.fields["id"])
+					new_status = E.fields["ai_target"]
 	if(targetname)
 		var/datum/data/record/R = find_record("name", targetname, GLOB.data_core.security)
 		if(R)

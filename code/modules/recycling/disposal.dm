@@ -322,10 +322,6 @@
 			"<span class='warning'>You hear the sound of someone being stuffed into a disposal unit.</span>"
 		)
 
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = user
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
@@ -900,7 +896,7 @@
 
 		H.forceMove(P)
 	else			// if wasn't a pipe, then set loc to turf
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			H.forceMove(loc)
 		else
 			H.forceMove(T)

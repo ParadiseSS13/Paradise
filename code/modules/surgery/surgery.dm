@@ -328,6 +328,7 @@
 	surgery.step_in_progress = TRUE
 
 	var/speed_mod = 1
+	var/fail_mod = 1
 	var/advance = FALSE
 	var/retry = FALSE
 	var/prob_success = 100
@@ -349,6 +350,8 @@
 
 	if(tool)
 		speed_mod = tool.toolspeed
+		for(var/obj/item/smithed_item/tool_bit/bit in tool.attached_bits)
+			fail_mod -= (bit.failure_rate / 100)
 
 	// Using an unoptimal tool slows down your surgery
 	var/implement_speed_mod = 1
@@ -373,6 +376,7 @@
 	var/chem_check_result = chem_check(target)
 	var/pain_mod = deal_pain(user, target, target_zone, tool, surgery)
 	prob_success *= pain_mod
+	prob_success *= fail_mod
 
 	var/step_result
 
@@ -401,6 +405,9 @@
 			surgery.complete(target)
 
 	surgery.step_in_progress = FALSE
+	if(tool)
+		for(var/obj/item/smithed_item/tool_bit/bit in tool.attached_bits)
+			bit.damage_bit()
 	if(advance)
 		INVOKE_ASYNC(src, PROC_REF(play_success_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_SUCCESS

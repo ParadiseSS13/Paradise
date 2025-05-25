@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/fungus
 	name = "fungus 100% chance"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "fungus"
 	color = "#D5820B"
 	loot = list(/obj/effect/decal/cleanable/fungus)
@@ -19,7 +18,6 @@
 
 /obj/effect/spawner/random/blood
 	name = "blood 100% chance"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "blood"
 	loot = list(/obj/effect/decal/cleanable/blood/splatter)
 
@@ -33,7 +31,6 @@
 
 /obj/effect/spawner/random/oil
 	name = "oil 100% chance"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "oil"
 	loot = list(/obj/effect/decal/cleanable/blood/oil)
 
@@ -76,7 +73,6 @@
 
 /obj/effect/spawner/random/dirt
 	name = "dirt 100% chance"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "dirt"
 	loot = list(/obj/effect/decal/cleanable/dirt)
 

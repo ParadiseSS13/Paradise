@@ -199,9 +199,7 @@
 /area/ruin/ancientstation)
 "aJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	pixel_y = 12
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation)
 "aK" = (
@@ -254,10 +252,7 @@
 	name = "dusty mirror";
 	pixel_x = 26
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation)
 "aR" = (
@@ -268,12 +263,6 @@
 /obj/item/airlock_electronics,
 /obj/item/airlock_electronics,
 /turf/simulated/floor/plating,
-/area/ruin/ancientstation)
-"aS" = (
-/obj/structure/sign/poster/contraband/random,
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall,
 /area/ruin/ancientstation)
 "aT" = (
 /obj/effect/mapping_helpers/turfs/rust,
@@ -320,9 +309,7 @@
 /area/ruin/ancientstation/comm)
 "bb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},
@@ -395,9 +382,7 @@
 "bm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/soap/nanotrasen,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
@@ -858,6 +843,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/science/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "cK" = (
@@ -1505,12 +1491,11 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/work_for_a_future{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/work_for_a_future/directional/north,
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 5
 	},
+/obj/structure/sign/poster/official/science/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "eH" = (
@@ -1655,9 +1640,7 @@
 "fe" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "ff" = (
@@ -1672,9 +1655,7 @@
 /area/ruin/ancientstation)
 "fg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -1785,6 +1766,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"fw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/pot{
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "fx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2243,7 +2234,6 @@
 	},
 /area/ruin/ancientstation/kitchen)
 "gF" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/all_access/directional/north{
 	report_danger_level = 0
@@ -2264,25 +2254,13 @@
 	dir = 4
 	},
 /obj/structure/showcase/machinery/oldpod,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "gK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/cooking/stovetop,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ruin/ancientstation/kitchen)
-"gL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_y = 10
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2383,9 +2361,7 @@
 /area/ruin/ancientstation/comm)
 "gX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
@@ -2537,15 +2513,14 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "ht" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	dir = 8;
-	inlet_injector_autolink_id = "theta_air_in";
-	name = "Mixed Air Supply Control";
-	outlet_vent_autolink_id = "theta_air_out";
-	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor"="Tank")
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	name = "Mixed Air Supply Control";
+	autolink_sensors = list("air_sensor"="Tank");
+	outlet_autolink_ids = list("theta_air_out");
+	inlet_injector_autolink_ids = list("theta_air_in");
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "hu" = (
@@ -2594,7 +2569,7 @@
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	autolink_id = "theta_n2_in"
+	autolink_id = "theta_air_in"
 	},
 /turf/simulated/floor/engine/air,
 /area/ruin/ancientstation/atmo)
@@ -2603,6 +2578,8 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2934,11 +2911,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
-"iq" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/safety_internals,
-/turf/simulated/wall,
-/area/ruin/ancientstation/kitchen)
 "ir" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -3619,11 +3591,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
-"kD" = (
-/obj/structure/sign/poster/official/cleanliness,
-/obj/effect/mapping_helpers/turfs/rust,
-/turf/simulated/wall,
-/area/ruin/ancientstation)
 "kF" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -4012,6 +3979,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/flash,
+/obj/structure/sign/poster/contraband/donut_corp/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -4098,7 +4066,7 @@
 "my" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
-/area/template_noop)
+/area/ruin/unpowered)
 "mB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4377,6 +4345,11 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/ancientstation/kitchen)
+"pZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/help_others/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/betanorth)
 "qd" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/computerframe{
@@ -4527,7 +4500,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "rU" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/east{
 	name = "prototype vault blast doors";
 	desc = "A heavy duty blast door that opens mechanically. It was hermetically sealed when the crew went into cryostasis.";
 	id_tag = "prototype_vault"
@@ -4550,6 +4523,7 @@
 	pixel_y = 28;
 	pixel_x = 4
 	},
+/obj/structure/sign/poster/official/safety_report/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -4627,8 +4601,7 @@
 /area/ruin/ancientstation)
 "sY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/reagent_containers/cooking/grill_grate,
+/obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -4773,6 +4746,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/science/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "vg" = (
@@ -4864,11 +4838,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
-"vQ" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/nanomichi_ad,
-/turf/simulated/wall,
-/area/ruin/ancientstation/betanorth)
 "vY" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5074,20 +5043,17 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/air2{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/air2/directional/north,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "zi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/work_for_a_future{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/work_for_a_future/directional/north,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/structure/sign/poster/official/science/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "zp" = (
@@ -5142,6 +5108,7 @@
 "zR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/large/dead,
+/obj/structure/sign/poster/official/nanomichi_ad/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
 "zT" = (
@@ -5260,6 +5227,17 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/powered)
+"AZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/safety_internals/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "Bb" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -5445,11 +5423,6 @@
 /obj/machinery/power/tesla_coil,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
-"CK" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/help_others,
-/turf/simulated/wall,
-/area/ruin/ancientstation/betanorth)
 "CN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /mob/living/simple_animal/hostile/hivebot,
@@ -5839,9 +5812,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "Im" = (
@@ -5899,9 +5870,7 @@
 /area/ruin/ancientstation/rnd)
 "IP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	pixel_y = 25
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6003,11 +5972,6 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
-"Kj" = (
-/obj/structure/sign/poster/official/science,
-/obj/effect/mapping_helpers/turfs/rust,
-/turf/simulated/wall,
-/area/ruin/ancientstation/thetacorridor)
 "Kl" = (
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/hydroponics/soil,
@@ -6261,6 +6225,12 @@
 	icon_state = "red"
 	},
 /area/ruin/ancientstation/sec)
+"Nt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants/large/dead,
+/obj/structure/sign/poster/official/cleanliness/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "Nw" = (
 /obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
@@ -6283,7 +6253,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 8;
 	external_pressure_bound = 0;
-	autolink_id = "co2_out";
+	autolink_id = "theta_air_out";
 	internal_pressure_bound = 4000;
 	pressure_checks = 2
 	},
@@ -6568,11 +6538,6 @@
 	icon_state = "whitepurplefull"
 	},
 /area/ruin/ancientstation/comm)
-"Rj" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/safety_report,
-/turf/simulated/wall,
-/area/ruin/ancientstation/sec)
 "Ru" = (
 /mob/living/simple_animal/hostile/hivebot,
 /obj/effect/decal/cleanable/dirt,
@@ -6608,6 +6573,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
+"RQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/shelf,
+/obj/item/reagent_containers/cooking/deep_basket{
+	pixel_x = 1;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/cooking/pan{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/cooking/grill_grate{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/ancientstation/kitchen)
 "RR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -6734,6 +6718,12 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/ancientstation/betanorth)
+"Th" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/sign/poster/official/pda_ad/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "Tm" = (
@@ -6886,10 +6876,18 @@
 /area/ruin/ancientstation/powered)
 "UW" = (
 /obj/structure/table/reinforced,
-/obj/item/paper/fluff/ruins/oldstation/protosuit,
+/obj/item/paper/fluff/ruins/oldstation/protosuit{
+	pixel_x = -12
+	},
 /obj/machinery/door/window/reinforced/normal{
 	name = "prototype display case";
 	req_access = list(301)
+	},
+/obj/item/clothing/neck/link_scryer/loaded/theta{
+	pixel_x = -1
+	},
+/obj/item/clothing/neck/link_scryer/loaded/theta{
+	pixel_x = 12
 	},
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
@@ -6956,6 +6954,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6963,7 +6965,6 @@
 "VR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7016,9 +7017,7 @@
 /area/ruin/ancientstation/sec)
 "Wp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "Wt" = (
@@ -7207,16 +7206,9 @@
 	icon_state = "green"
 	},
 /area/ruin/ancientstation/hydroponics)
-"YX" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/structure/sign/poster/official/pda_ad,
-/turf/simulated/wall,
-/area/ruin/ancientstation/betanorth)
 "Zg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "Zh" = (
@@ -7224,12 +7216,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
-"Zi" = (
-/obj/structure/sign/poster/contraband/donut_corp,
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall,
-/area/ruin/ancientstation/sec)
 "Zn" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7237,6 +7223,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
+"Zr" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/random/directional/west,
+/turf/simulated/floor/plating,
+/area/ruin/ancientstation)
 "Zx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -7476,8 +7470,8 @@ bf
 bf
 bf
 Hw
-CK
-Qi
+bf
+pZ
 LC
 Hw
 dS
@@ -7621,14 +7615,14 @@ kH
 kH
 kH
 bf
-vQ
+bf
 bU
 bf
 bf
 bf
 bf
 bf
-YX
+bf
 HQ
 YP
 Wc
@@ -7676,7 +7670,7 @@ bf
 Iu
 be
 wp
-bR
+Th
 bR
 go
 Zh
@@ -8912,7 +8906,7 @@ aa
 aa
 az
 az
-aS
+qu
 aR
 aX
 bg
@@ -8960,7 +8954,7 @@ aa
 aa
 az
 dR
-aL
+Zr
 aL
 aL
 aL
@@ -9029,8 +9023,8 @@ ha
 hV
 ha
 gs
-iq
-Ac
+gs
+AZ
 je
 az
 az
@@ -9073,7 +9067,7 @@ cS
 fL
 gs
 gE
-gG
+sY
 eo
 gG
 vJ
@@ -9217,8 +9211,8 @@ rn
 gs
 Iw
 gG
-VR
 gG
+fw
 gG
 hZ
 ha
@@ -9265,7 +9259,7 @@ fO
 gs
 gt
 gG
-sY
+gG
 gG
 gG
 ia
@@ -9313,8 +9307,8 @@ fS
 gs
 zp
 kx
-gL
 gG
+VR
 gG
 hY
 ha
@@ -9457,7 +9451,7 @@ rC
 BU
 gs
 EH
-gG
+RQ
 Tm
 gG
 Cg
@@ -9588,8 +9582,8 @@ aQ
 Hn
 bb
 bm
-kD
-jg
+az
+Nt
 bC
 hm
 lN
@@ -9644,7 +9638,7 @@ dg
 dg
 dg
 MS
-Rj
+dg
 UV
 nF
 UV
@@ -9843,7 +9837,7 @@ eQ
 eQ
 eQ
 lH
-Zi
+MS
 dg
 aa
 VT
@@ -10309,9 +10303,9 @@ uQ
 eJ
 aa
 dC
-Kj
+dC
 fM
-Kj
+dC
 dC
 dC
 dC
@@ -10325,9 +10319,9 @@ dC
 dC
 dC
 dC
-Kj
+dC
 fM
-Kj
+dC
 dC
 dC
 dC

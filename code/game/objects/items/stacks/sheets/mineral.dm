@@ -237,6 +237,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. = ..()
 	recipes = GLOB.diamond_recipes
 
+/obj/item/stack/sheet/mineral/diamond/ten
+	amount = 10
+
 /obj/item/stack/sheet/mineral/diamond/fifty
 	amount = 50
 
@@ -257,6 +260,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += "Uranium is extremely dense, radioactive metal. Without undergoing complex enrichment processes, it consists of roughly 99% uranium-238, and roughly 1% fissile uranium-235."
 	. += ""
 	. += "It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."
+
+/obj/item/stack/sheet/mineral/uranium/ten
+	amount = 10
 
 /obj/item/stack/sheet/mineral/uranium/fifty
 	amount = 50
@@ -295,6 +301,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. = ..()
 	recipes = GLOB.plasma_recipes
 
+/obj/item/stack/sheet/mineral/plasma/ten
+	amount = 10
+
 /obj/item/stack/sheet/mineral/plasma/fifty
 	amount = 50
 
@@ -313,7 +322,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	var/turf/T = get_turf(src)
 	message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
 	log_game("Plasma sheets ignited by [key_name(user)] in [COORD(T)]")
-	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", INVESTIGATE_ATMOS)
 	user.create_log(MISC_LOG, "Plasma sheets ignited using [I]", src)
 	fire_act()
 

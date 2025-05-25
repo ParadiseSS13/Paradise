@@ -505,6 +505,10 @@
 	linked_emote = /datum/emote/living/carbon/human/hiss
 	name = "Hiss (Unathi)"
 
+/datum/keybinding/emote/carbon/human/thump
+	linked_emote = /datum/emote/living/carbon/human/thump
+	name = "Tail Thump"
+
 /datum/keybinding/emote/carbon/human/creak
 	linked_emote = /datum/emote/living/carbon/human/creak
 	name = "Creak"
@@ -618,7 +622,7 @@
 	category = KB_CATEGORY_EMOTE_ANIMAL
 
 /datum/keybinding/emote/simple_animal/can_use(client/C, mob/M)
-	return isanimal(M) && ..()
+	return isanimal_or_basicmob(M) && ..()
 
 /datum/keybinding/emote/simple_animal/diona_chirp
 	linked_emote = /datum/emote/living/simple_animal/diona_chirp

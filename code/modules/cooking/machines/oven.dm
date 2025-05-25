@@ -157,6 +157,7 @@
 	board_name = "Convection Oven"
 	build_path = /obj/machinery/cooking/oven
 	board_type = "machine"
+	icon_state = "service"
 	origin_tech = list(TECH_BIO = 1)
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
@@ -164,3 +165,10 @@
 		/obj/item/stock_parts/capacitor = 1,
 		/obj/item/stock_parts/micro_laser = 2,
 	)
+
+/obj/machinery/cooking/oven/loaded/Initialize(mapload)
+	. = ..()
+	for(var/i in 1 to length(surfaces))
+		var/datum/cooking_surface/surface = surfaces[i]
+		surface.container = new /obj/item/reagent_containers/cooking/oven(src)
+	update_appearance()

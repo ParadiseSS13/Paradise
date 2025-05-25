@@ -131,7 +131,65 @@
 /proc/mapmanip_read_dmm(mapname)
 	return RUSTLIB_CALL(mapmanip_read_dmm_file, mapname)
 
-#undef RUSTLIB
+// MARK: TOML
+/proc/rustlibs_read_toml_file(path)
+	var/list/output = json_decode(RUSTLIB_CALL(toml_file_to_json, path) || "null")
+	if(output["success"])
+		return json_decode(output["content"])
+	else
+		CRASH(output["content"])
+
+// MARK: Logging
+/proc/rustlibs_log_write(fname, text)
+	return RUSTLIB_CALL(log_write, fname, text)
+
+/proc/rustlibs_log_close_all()
+	return RUSTLIB_CALL(log_close_all)
+
+// MARK: DMI
+/proc/rustlibs_dmi_strip_metadata(fname)
+	return RUSTLIB_CALL(dmi_strip_metadata, fname)
+
+// MARK: JSON
+/proc/rustlibs_json_is_valid(text)
+	return (RUSTLIB_CALL(json_is_valid, text) == "true")
+
+
+// MARK: Grid Perlin Noise
+/**
+ * This proc generates a grid of perlin-like noise
+ *
+ * Returns a single string that goes row by row, with values of 1 representing an turned on cell, and a value of 0 representing a turned off cell.
+ *
+ * Arguments:
+ * * seed: seed for the function
+ * * accuracy: how close this is to the original perlin noise, as accuracy approaches infinity, the noise becomes more and more perlin-like
+ * * stamp_size: Size of a singular stamp used by the algorithm, think of this as the same stuff as frequency in perlin noise
+ * * world_size: size of the returned grid.
+ * * lower_range: lower bound of values selected for. (inclusive)
+ * * upper_range: upper bound of values selected for. (exclusive)
+ */
+/proc/rustlibs_dbp_generate(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
+	return RUSTLIB_CALL(dbp_generate, seed, accuracy, stamp_size, world_size, lower_range, upper_range)
+
+// MARK: Redis
+#define RUSTLIBS_REDIS_ERROR_CHANNEL "RUSTG_REDIS_ERROR_CHANNEL"
+
+/proc/rustlibs_redis_connect(addr)
+	return RUSTLIB_CALL(redis_connect, addr)
+
+/proc/rustlibs_redis_disconnect()
+	return RUSTLIB_CALL(redis_disconnect)
+
+/proc/rustlibs_redis_subscribe(channel)
+	return RUSTLIB_CALL(redis_subscribe, channel)
+
+/proc/rustlibs_redis_get_messages()
+	return RUSTLIB_CALL(redis_get_messages)
+
+/proc/rustlibs_redis_publish(channel, message)
+	return RUSTLIB_CALL(redis_publish, channel, message)
+
 #undef RUSTLIB_CALL
 
 // Indexes for Tiles and InterestingTiles

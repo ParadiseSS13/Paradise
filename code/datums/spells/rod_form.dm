@@ -40,13 +40,16 @@
 	notify = FALSE
 
 /obj/effect/immovablerod/wizard/Move()
+	. = ..()
 	if(get_dist(start_turf, get_turf(src)) >= max_distance)
 		qdel(src)
-	..()
 
 /obj/effect/immovablerod/wizard/Destroy()
 	if(wizard)
 		wizard.status_flags &= ~GODMODE
 		wizard.notransform = FALSE
 		wizard.forceMove(get_turf(src))
+		wizard = null
+
+	start_turf = null
 	return ..()
