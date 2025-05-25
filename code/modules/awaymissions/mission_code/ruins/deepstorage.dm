@@ -9,7 +9,7 @@
 	icon_living = "fleshling"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
-	icon_dead = ""
+	icon_dead = "fleshling_dead"
 	speed = 5
 	move_to_delay = 4
 	ranged = TRUE
@@ -23,8 +23,7 @@
 	sentience_type = SENTIENCE_BOSS
 	a_intent = INTENT_HARM
 	deathmessage = "collapses into a pile of gibs. From the looks of it this is the deadest it can get... "
-	del_on_death = TRUE
-
+	butcher_results = list(/obj/item/regen_mesh)
 	/// Is the boss charging right now?
 	var/charging = FALSE
 	/// Did our boss die?

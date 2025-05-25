@@ -31,6 +31,8 @@
 	var/datum/mind/origin
 	var/egg_layed = FALSE
 	sentience_type = SENTIENCE_OTHER
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)

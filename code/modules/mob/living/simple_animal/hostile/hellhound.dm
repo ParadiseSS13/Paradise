@@ -34,6 +34,8 @@
 	var/smoke_lastuse = 0
 	var/smoke_freq = 300 // 30 seconds
 	footstep_type = FOOTSTEP_MOB_CLAW
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
 
 /mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()

@@ -26,6 +26,7 @@
 	deathmessage = "spits up the contents of its stomach before dying!"
 	status_flags = CANPUSH
 	search_objects = 1
+	contains_xeno_organ = TRUE
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
 						/obj/item/stack/ore/uranium)
 

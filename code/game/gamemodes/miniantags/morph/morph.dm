@@ -35,6 +35,7 @@
 	attacktext = "glomps"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/food/meat/slab = 2)
+	contains_xeno_organ = TRUE
 
 	/// If the morph is disguised or not
 	var/morphed = FALSE
