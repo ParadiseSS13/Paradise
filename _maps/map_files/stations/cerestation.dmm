@@ -28187,22 +28187,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
-"ehv" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/chair/office/light{
-	dir = 4
-	},
-/obj/effect/landmark/start/xenobiologist,
-/turf/simulated/floor/plasteel/white,
-/area/station/science/xenobiology)
 "ehC" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -30215,7 +30199,6 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Aft Asteroid Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/spawner/random/dirt/frequent,
@@ -30223,6 +30206,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/obj/effect/mapping_helpers/airlock/access/any/science/tox,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/test_chamber)
 "eGC" = (
@@ -74236,6 +74220,22 @@
 	icon_state = "cafeteria"
 	},
 /area/station/medical/break_room)
+"pfY" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/effect/landmark/start/xenobiologist,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/xenobiology)
 "pga" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random/dirt/often,
@@ -136170,7 +136170,7 @@ lSZ
 oDZ
 vMf
 wAG
-ehv
+pfY
 wAG
 rPK
 dko
