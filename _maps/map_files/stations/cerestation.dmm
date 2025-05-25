@@ -2217,15 +2217,16 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/computer/camera_advanced/xenobio{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "arH" = (
@@ -13604,7 +13605,6 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "bRE" = (
@@ -17238,8 +17238,7 @@
 	dir = 10
 	},
 /obj/structure/table/glass,
-/obj/item/storage/surgical_tray,
-/obj/item/dissector,
+/obj/item/extinguisher,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -28938,9 +28937,8 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
-/obj/machinery/computer/operating{
-	name = "dissection computer"
-	},
+/obj/structure/table/glass,
+/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -32706,7 +32704,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/start/xenobiologist,
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "fnk" = (
@@ -46708,7 +46706,6 @@
 "iKf" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/requests_console/directional/west,
-/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -47999,8 +47996,7 @@
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
-/obj/effect/mapping_helpers/airlock/access/any/science/tox,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -49498,10 +49494,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/chair/office/light{
-	dir = 4
-	},
-/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "jqB" = (
@@ -54516,6 +54508,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "kvq" = (
+/obj/structure/chair/office/light{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -55856,17 +55851,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
-"kKm" = (
-/obj/structure/rack,
-/obj/item/extinguisher{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/extinguisher,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/station/science/xenobiology)
 "kKq" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -59586,6 +59570,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"lCN" = (
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "lCO" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/engineering,
@@ -63194,7 +63184,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment/corner,
-/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "muW" = (
@@ -63488,6 +63477,14 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
+"mzy" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/reagent_dispensers/watertank/firetank,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/atmos)
 "mzz" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -68292,9 +68289,6 @@
 /obj/item/slime_scanner{
 	pixel_x = 4;
 	pixel_y = 4
-	},
-/obj/item/reagent_containers/glass/bottle/reagent/morphine{
-	pixel_y = -14
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -79827,12 +79821,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 4
+/obj/machinery/computer/camera_advanced/xenobio{
+	dir = 8
 	},
-/obj/item/clothing/glasses/science,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "qxe" = (
@@ -82172,13 +82163,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/table/glass,
-/obj/item/storage/belt/medical/surgery{
-	pixel_y = 10
-	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -88561,26 +88545,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
-"sBE" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/science/xenobiology)
 "sBG" = (
 /obj/machinery/camera{
 	c_tag = "Research Airlock";
@@ -89578,7 +89542,7 @@
 	id = "RnDShutters";
 	name = "Research Privacy Shutters";
 	pixel_y = 24;
-	req_access = list(7)
+	req_access = list(47)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -89855,6 +89819,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/table/reinforced,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
 /obj/machinery/door/window/classic/normal{
 	name = "R&D Desk"
 	},
@@ -89873,7 +89838,6 @@
 	pixel_y = 7;
 	anchored = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -92425,11 +92389,16 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/fore)
 "tvP" = (
+/obj/structure/table/glass,
+/obj/item/clothing/glasses/science{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
-/obj/machinery/optable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -92497,9 +92466,8 @@
 	},
 /area/station/hallway/primary/fore/east)
 "twG" = (
-/obj/structure/shelf/science,
+/obj/structure/table/glass,
 /obj/item/book/manual/wiki/sop_science,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -97170,7 +97138,10 @@
 /area/station/maintenance/fore)
 "uBC" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/organ_analyzer,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24;
+	name = "custom placement"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -97654,8 +97625,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/tox,
-/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "uHD" = (
@@ -98821,8 +98791,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/access/any/science/tox,
-/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/misc_lab)
 "uWI" = (
@@ -106551,10 +106520,6 @@
 	},
 /obj/item/storage/box/beakers{
 	pixel_x = 10
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -134102,7 +134067,7 @@ cGd
 cGd
 wNA
 qKO
-kKm
+lCN
 xIa
 xIa
 xIa
@@ -136418,7 +136383,7 @@ xPU
 eoz
 nBb
 wAG
-arw
+jqw
 wAG
 yiP
 ewB
@@ -136675,7 +136640,7 @@ odF
 jtk
 btq
 wAG
-wdn
+arw
 wAG
 meZ
 jNL
@@ -137189,7 +137154,7 @@ iZx
 oDZ
 vMf
 wAG
-sBE
+wdn
 wAG
 rPK
 dko
@@ -142017,7 +141982,7 @@ jDd
 lMu
 cZf
 deb
-cZf
+mzy
 skI
 bUV
 bVx
