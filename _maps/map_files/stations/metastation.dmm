@@ -2598,6 +2598,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "awn" = (
+/obj/effect/turf_decal/box,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -32728,7 +32732,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "dlD" = (
 /obj/machinery/sparker{
@@ -35511,27 +35515,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/storage/secondary)
-"epV" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fsmaint)
 "epY" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -36647,22 +36630,11 @@
 	},
 /area/station/hallway/supply/port)
 "eHm" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
@@ -38807,28 +38779,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "fvE" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 2
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 1
-	},
 /obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -41501,30 +41458,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/a)
 "grK" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/random/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -52448,18 +52392,12 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/secondary/entry/lounge)
 "knG" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/broken{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/disposalpipe/broken{
 	dir = 1
 	},
@@ -52467,9 +52405,6 @@
 /obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -57838,28 +57773,14 @@
 	},
 /area/station/hallway/supply)
 "mjj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -59371,6 +59292,7 @@
 /obj/structure/cable/green{
 	icon_state = "2-8"
 	},
+/obj/item/crowbar/red,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -60365,28 +60287,10 @@
 /turf/simulated/wall,
 /area/station/maintenance/turbine)
 "nbD" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 5
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "nbK" = (
@@ -64386,29 +64290,15 @@
 	},
 /area/station/hallway/primary/aft/north)
 "oBS" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "oBT" = (
@@ -66010,6 +65900,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -73301,6 +73194,9 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/gravitygenerator)
 "rMW" = (
@@ -80366,24 +80262,11 @@
 	},
 /area/station/engineering/atmos)
 "uyB" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -89786,6 +89669,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
@@ -126388,8 +126274,8 @@ aaa
 aaa
 aaa
 aaa
-abq
 iju
+abq
 abq
 abq
 iju
@@ -127416,8 +127302,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
 iju
+abq
 abq
 abq
 iju
@@ -127673,10 +127559,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -127930,10 +127816,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -128187,10 +128073,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -128444,10 +128330,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 aup
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -128701,10 +128587,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -128958,10 +128844,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -129215,10 +129101,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -129472,10 +129358,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -129729,10 +129615,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -129986,10 +129872,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+abq
+abq
+abq
 rxc
 rxc
 rha
@@ -130243,10 +130129,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 nIj
 eQS
 dZx
@@ -130500,10 +130386,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 rha
 icM
 smM
@@ -130522,7 +130408,7 @@ aoF
 oBS
 mjj
 nbD
-avA
+dAH
 aIo
 aLl
 aLl
@@ -130757,10 +130643,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 rha
 qlL
 mGC
@@ -131014,10 +130900,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 abf
+aaa
+aaa
+aaa
 rha
 xgy
 mGC
@@ -131039,7 +130925,7 @@ wCy
 dAH
 iot
 dAH
-epV
+bpf
 bcd
 bpf
 dHr
@@ -131271,10 +131157,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 laH
+aaa
+aaa
+aaa
 rxc
 rBe
 mfD
@@ -131528,10 +131414,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 laH
+aaa
+aaa
+aaa
 rxc
 nIj
 rha
@@ -131785,10 +131671,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
 laH
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -132041,8 +131927,8 @@ aaa
 aaa
 aaa
 aaa
+aaa
 iju
-abq
 abq
 abq
 iju
