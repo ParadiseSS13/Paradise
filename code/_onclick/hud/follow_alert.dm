@@ -144,6 +144,8 @@
 /atom/movable/screen/alert/augury/meteor/process()
 	var/overridden = FALSE
 	for(var/obj/effect/meteor/M in GLOB.meteor_list)
+		if(istype(M, /obj/effect/meteor/fake))
+			continue  // Meteor? What meteor?
 		if(!is_station_level(M.z))
 			continue  // don't worry about endlessly looping
 		if(istype(M, /obj/effect/meteor/tunguska) && !overridden)

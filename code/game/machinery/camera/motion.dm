@@ -22,7 +22,7 @@
 	return localMotionTargets
 
 /obj/machinery/camera/proc/newTarget(mob/target)
-	if(isAI(target))
+	if(is_ai(target))
 		return FALSE
 	if(isbot(target)) //No armsky, you don't get to set off the motion alarm constantly
 		return FALSE

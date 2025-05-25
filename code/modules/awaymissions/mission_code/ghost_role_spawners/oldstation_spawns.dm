@@ -112,3 +112,15 @@
 /obj/structure/showcase/machinery/oldpod/used
 	name = "opened cryogenic pod"
 	desc = "A cryogenic pod that has recently discharged its occupant. The pod appears non-functional."
+
+/obj/structure/showcase/machinery/server_broken
+	name = "derelict R&D server"
+	desc = "An R&D server long since rendered non-functional due to lack of maintenance. Any scientific data that used to be stored inside has been lost to time."
+	icon = 'icons/obj/machines/research.dmi'
+	icon_state = "server-off"
+
+/obj/structure/showcase/machinery/thermomachine_broken
+	name = "derelict thermomachine"
+	desc = "A thermomachine long since rendered non-functional due to lack of maintenance. All the components are burned out and useless."
+	icon = 'icons/obj/cryogenic2.dmi'
+	icon_state = "freezer"

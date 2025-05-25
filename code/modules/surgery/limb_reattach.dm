@@ -151,7 +151,7 @@
 	return TRUE
 
 /datum/surgery_step/limb/attach/proc/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/E)
-	user.unEquip(E)
+	user.drop_item_to_ground(E)
 	E.replaced(target)
 	if(!E.is_robotic())
 		E.properly_attached = FALSE
@@ -175,13 +175,6 @@
 	if(!(E.dna) && E.is_robotic() && target.dna)
 		E.set_dna(target.dna)
 	..()
-	if(E.limb_name == BODY_ZONE_HEAD)
-		var/obj/item/organ/external/head/H = target.get_organ(BODY_ZONE_HEAD)
-		var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
-		if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
-			H.h_style = "Bald"
-			H.f_style = "Shaved"
-			target.m_styles["head"] = "None"
 
 
 /datum/surgery_step/limb/connect

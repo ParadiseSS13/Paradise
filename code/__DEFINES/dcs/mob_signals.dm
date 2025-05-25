@@ -22,11 +22,14 @@
 #define COMSIG_MOB_ALTCLICKON "mob_altclickon"
 	#define COMSIG_MOB_CANCEL_CLICKON (1<<0)
 
+///from base of mob/can_cast_magic(): (mob/user, magic_flags, charge_cost)
+#define COMSIG_MOB_RESTRICT_MAGIC "mob_cast_magic"
+///from base of mob/can_block_magic(): (mob/user, casted_magic_flags, charge_cost)
+#define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
+	#define COMPONENT_MAGIC_BLOCKED (1<<0)
+
 ///from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
 #define COMSIG_MOB_ALLOWED "mob_allowed"
-///from base of mob/anti_magic_check(): (mob/user, magic, holy, tinfoil, chargecost, self, protection_sources)
-#define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
-	#define COMPONENT_BLOCK_MAGIC (1<<0)
 ///from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"
 ///from base of atom/attack_hand(): (mob/user)
@@ -154,6 +157,12 @@
 //sent from a mob when they set themselves to DNR
 #define COMSIG_LIVING_SET_DNR "set_dnr"
 
+// /mob/living/carbon
+/// Called from apply_overlay(cache_index, overlay)
+#define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
+/// Called from remove_overlay(cache_index, overlay)
+#define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
+
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 // none of these are called as of right now, as there is nothing listening for them.
 ///from base of mob/living/Stun() (amount, ignore_canstun)
@@ -174,6 +183,8 @@
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
+/// from mob/living/*/UnarmedAttack(): (mob/living/source, atom/target, proximity, modifiers)
+#define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
 ///from base of mob/living/Write_Memory()
 #define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
@@ -183,17 +194,22 @@
 ///from /mob/living/simple_animal/handle_environment()
 #define COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT "simpleanimal_handle_environment"
 
-// /mob/living/simple_animal/hostile signals
-#define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
-//Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
-#define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
-
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"
+#define COMSIG_STRIPPABLE_REQUEST_ITEMS "strippable_request_items"
 
 // Sent when a mob spawner is attacked directly or via projectile.
 #define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
+
+/// From /datum/element/basic_eating/try_eating()
+#define COMSIG_MOB_PRE_EAT "mob_pre_eat"
+	///cancel eating attempt
+	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+
+/// From /datum/element/basic_eating/finish_eating()
+#define COMSIG_MOB_ATE "mob_ate"
+	///cancel post eating
+	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
 
 // ghost signals
 
@@ -215,3 +231,14 @@
 
 /// from remove_ventcrawler(): (mob/living/crawler)
 #define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"
+
+/// From base of /client/Move(): (new_loc, direction)
+#define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
+	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
+	#define COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	/// The argument of move_args which corresponds to the loc we're moving to
+	#define MOVE_ARG_NEW_LOC 1
+	/// The arugment of move_args which dictates our movement direction
+	#define MOVE_ARG_DIRECTION 2
+
+#define COMSIG_LIVING_RESTING "living_resting"

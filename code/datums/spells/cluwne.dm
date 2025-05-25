@@ -32,13 +32,13 @@
 	singlemutcheck(src, GLOB.nervousblock, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
 
-	unEquip(w_uniform, 1)
-	unEquip(shoes, 1)
-	unEquip(gloves, 1)
+	drop_item_to_ground(w_uniform, force = TRUE)
+	drop_item_to_ground(shoes, force = TRUE)
+	drop_item_to_ground(gloves, force = TRUE)
 	var/obj/item/organ/internal/honktumor/cursed/tumor = new
 	tumor.insert(src)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
-		unEquip(wear_mask, 1)
+		drop_item_to_ground(wear_mask, force = TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, ITEM_SLOT_JUMPSUIT, TRUE, TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, ITEM_SLOT_GLOVES, TRUE, TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, ITEM_SLOT_MASK, TRUE, TRUE)
@@ -65,23 +65,14 @@
 	dna.SetSEState(GLOB.nervousblock, FALSE)
 	singlemutcheck(src, GLOB.nervousblock, MUTCHK_FORCED)
 
-	var/obj/item/clothing/under/U = w_uniform
-	unEquip(w_uniform, 1)
-	if(U)
-		qdel(U)
-
-	var/obj/item/clothing/shoes/S = shoes
-	unEquip(shoes, 1)
-	if(S)
-		qdel(S)
+	qdel(w_uniform)
+	qdel(shoes)
 
 	if(istype(wear_mask, /obj/item/clothing/mask/cursedclown))
-		unEquip(wear_mask, 1)
+		qdel(wear_mask)
 
 	if(istype(gloves, /obj/item/clothing/gloves/cursedclown))
-		var/obj/item/clothing/gloves/G = gloves
-		unEquip(gloves, 1)
-		qdel(G)
+		qdel(gloves)
 
 	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/procedure/iaa/formal/black, ITEM_SLOT_JUMPSUIT, TRUE, TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, ITEM_SLOT_SHOES, TRUE, TRUE)

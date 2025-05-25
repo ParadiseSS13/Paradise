@@ -13,23 +13,15 @@
 /obj/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	return attacked_by(I, user)
 
-/mob/living/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
-	return attacked_by(I, user, def_zone)
-
-/mob/living/simple_animal/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
-	return attacked_by(I, user)
-
 /obj/item/proc/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
 	if(SEND_SIGNAL(src, COMSIG_ATTACK, M, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 
-	if(!__attack_core(M, user))
-		return
-
-	if(!M.new_attack_chain)
-		return M.attacked_by__legacy__attackchain(src, user, def_zone)
+	. = __attack_core(M, user)
+	if(.)
+		M.attacked_by(src, user, def_zone)
 
 /**
  * Called when `user` attacks us with item `W`.
@@ -46,19 +38,9 @@
 	return FALSE
 
 /obj/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	return ..() || (can_be_hit && I.new_attack_chain \
+	return ..() || (can_be_hit && (I.new_attack_chain \
 		? I.attack_obj(src, user, params) \
-		: I.attack_obj__legacy__attackchain(src, user, params))
-
-/mob/living/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(attempt_harvest(I, user))
-		return TRUE
-
-	if(I.new_attack_chain)
-		return I.attack(src, user, params)
-
-	return I.attack__legacy__attackchain(src, user)
+		: I.attack_obj__legacy__attackchain(src, user, params)))
 
 /**
  * Called when `user` attacks us with object `O`.
@@ -80,7 +62,9 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(O)
 
-	if(!O.new_attack_chain)
+	if(O.new_attack_chain)
+		O.attacked_by(src, user)
+	else
 		O.attacked_by__legacy__attackchain(src, user)
 
 /**

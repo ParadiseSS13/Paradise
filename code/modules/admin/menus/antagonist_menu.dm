@@ -101,7 +101,7 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		var/list/temp_list = list()
 		temp_list["name"] = target.name
 		temp_list["person"] = get(target, /mob/living)
-		temp_list["loc"] = target.loc.name
+		temp_list["loc"] = target.loc ? target.loc.name : "null"
 		temp_list["uid"] = target.UID()
 		var/turf/T = get_turf(target)
 		temp_list["admin_z"] = !T || is_admin_level(T.z)

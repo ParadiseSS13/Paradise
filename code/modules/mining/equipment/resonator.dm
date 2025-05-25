@@ -33,6 +33,7 @@
 	name = "upgraded resonator"
 	desc = "An upgraded version of the resonator that can produce more fields at once, as well as having no damage penalty for bursting a resonance field early. It also allows you to set 'Resonance matrixes', that detonate after someone (or something) walks over it."
 	icon_state = "resonator_u"
+	item_state = "resonator_u"
 	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
 	fieldlimit = 6
 	quick_burst_mod = 1
@@ -138,7 +139,11 @@
 	new /obj/effect/temp_visual/resonance_crush(src_turf)
 	if(ismineralturf(src_turf))
 		var/turf/simulated/mineral/mineral_turf = src_turf
-		mineral_turf.gets_drilled(creator)
+		if(is_ancient_rock(mineral_turf))
+			failure_prob = 100 // rock too strong for resonance field
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		else
+			mineral_turf.gets_drilled(creator)
 	check_pressure(src_turf)
 	playsound(src_turf, 'sound/weapons/resonator_blast.ogg', 50, TRUE)
 	for(var/mob/living/attacked_living in src_turf)

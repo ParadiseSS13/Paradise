@@ -191,19 +191,19 @@
 		emagged = TRUE
 		return TRUE
 
-/obj/machinery/power/port_gen/pacman/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob)
-	if(istype(O, sheet_path))
-		var/obj/item/stack/addstack = O
+/obj/machinery/power/port_gen/pacman/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, sheet_path))
+		var/obj/item/stack/addstack = used
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
 			to_chat(user, "<span class='notice'>[src] is full!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, "<span class='notice'>You add [amount] sheet\s to [src].</span>")
 		sheets += amount
 		addstack.use(amount)
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -263,7 +263,7 @@
 	var/list/data = list()
 
 	data["active"] = active
-	if(isAI(user))
+	if(is_ai(user))
 		data["is_ai"] = TRUE
 	else if(isrobot(user) && !Adjacent(user))
 		data["is_ai"] = TRUE
@@ -333,13 +333,13 @@
 /obj/machinery/power/port_gen/pacman/super/use_fuel()
 	//produces a tiny amount of radiation when in use
 	if(prob(2 * power_output))
-		radiation_pulse(get_turf(src), 50)
+		radiation_pulse(get_turf(src), 200, ALPHA_RAD)
 	..()
 
 /obj/machinery/power/port_gen/pacman/super/explode()
 	//a nice burst of radiation
-	radiation_pulse(get_turf(src), 500, 2)
-	explosion(loc, 3, 3, 5, 3)
+	radiation_pulse(get_turf(src), 2000, ALPHA_RAD)
+	explosion(loc, 3, 3, 5, 3, cause = "Exploding [name]")
 	qdel(src)
 
 /obj/machinery/power/port_gen/pacman/mrs
@@ -372,7 +372,7 @@
 
 /obj/machinery/power/port_gen/pacman/mrs/explode()
 	//no special effects, but the explosion is pretty big (same as a supermatter shard).
-	explosion(loc, 3, 6, 12, 16, 1)
+	explosion(loc, 3, 6, 12, 16, 1, cause = "Exploding [name]")
 	qdel(src)
 
 #undef SHEET_VOLUME

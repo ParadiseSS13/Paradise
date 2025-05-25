@@ -47,6 +47,10 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
+"H" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 "O" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/simulated/floor/plating/airless,
@@ -852,7 +856,7 @@ d
 d
 b
 c
-b
+H
 b
 b
 b
@@ -1090,7 +1094,7 @@ b
 b
 b
 c
-b
+H
 b
 b
 b

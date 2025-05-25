@@ -33,7 +33,7 @@
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
-	desc = "These tactical gloves are both insulated and offer protection from heat sources."
+	desc = "A tough pair of military gloves reinforced with light armor that doesn't restrict movement. A Nomex underlayer provides near complete protection from extreme temperatures."
 	icon_state = "combat"
 	item_state = "swat_gl"
 	siemens_coefficient = 0
@@ -44,7 +44,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 0, FIRE = 200, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -98,6 +98,22 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
 		)
 
+/obj/item/clothing/gloves/smithing
+	name = "smithing gloves"
+	desc = "Heatproof gloves designed for safely handling hot tools and even hotter metal."
+	icon_state = "smithing"
+	item_state = "smithing"
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/hands.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
+	)
 
 /obj/item/clothing/gloves/handwraps
 	name = "cloth handwraps"

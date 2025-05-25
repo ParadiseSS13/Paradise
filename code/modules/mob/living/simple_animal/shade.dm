@@ -33,14 +33,13 @@
 	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
 	var/holy = FALSE
 
-/mob/living/simple_animal/shade/attackby__legacy__attackchain(obj/item/O, mob/user)  //Marker -Agouri
+/mob/living/simple_animal/shade/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		SS.transfer_soul("SHADE", src, user)
-	else
-		..()
+		return ITEM_INTERACT_COMPLETE
 
-/mob/living/simple_animal/shade/Process_Spacemove()
+/mob/living/simple_animal/shade/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/shade/holy

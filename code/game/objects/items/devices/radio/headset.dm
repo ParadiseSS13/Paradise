@@ -71,7 +71,7 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..()
-	else if(isanimal(loc) || isAI(loc))
+	else if(isanimal_or_basicmob(loc) || is_ai(loc))
 		return ..()
 
 	return FALSE
@@ -107,6 +107,12 @@
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	origin_tech = "syndicate=3"
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+
+/obj/item/radio/headset/syndicate_fake
+	name = "syndicate headset"
+	desc = "A syndicate headset to set on your head."
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
@@ -308,6 +314,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ntrep
 
+/obj/item/radio/headset/headset_nct
+	name = "\improper Nanotrasen career trainer radio headset"
+	desc = "This is used by your well-taught corporate training team."
+	icon_state = "com_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/headset_nct
+
 /obj/item/radio/headset/heads/magistrate
 	name = "magistrate's headset"
 	desc = "The headset of the Magistrate."
@@ -402,11 +415,10 @@
 			to_chat(user, "The headset can't hold another key!")
 			return
 
-		if(!user.unEquip(key))
+		if(!user.transfer_item_to(key, src, FALSE, FALSE))
 			to_chat(user, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src].</span>")
 			return
 
-		key.forceMove(src)
 		if(!keyslot1)
 			keyslot1 = key
 		else

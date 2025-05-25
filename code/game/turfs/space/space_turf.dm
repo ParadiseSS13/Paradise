@@ -13,10 +13,6 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	intact = FALSE
 
-	var/destination_z
-	var/destination_x
-	var/destination_y
-
 	atmos_mode = ATMOS_MODE_SPACE
 
 /turf/space/Initialize(mapload)
@@ -51,14 +47,14 @@
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/space/BeforeChange()
+/turf/BeforeChange()
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.remove_from_transit(src)
 	if(light_sources) // Turn off starlight, if present
 		set_light(0)
 
-/turf/space/AfterChange(ignore_air, keep_cabling = FALSE)
+/turf/AfterChange(ignore_air, keep_cabling = FALSE)
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.add_to_transit(src)
@@ -74,85 +70,55 @@
 			return
 		set_light(0)
 
-/turf/space/attackby__legacy__attackchain(obj/item/C as obj, mob/user as mob, params)
-	..()
-	if(istype(C, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = C
+/turf/space/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/rods))
+		var/obj/item/stack/rods/R = used
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
 		if(W)
 			to_chat(user, "<span class='warning'>There is already a catwalk here!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(L)
 			if(R.use(1))
 				to_chat(user, "<span class='notice'>You construct a catwalk.</span>")
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				new/obj/structure/lattice/catwalk(src)
+				return ITEM_INTERACT_COMPLETE
 			else
 				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
-			return
+				return ITEM_INTERACT_COMPLETE
 		if(R.use(1))
 			to_chat(user, "<span class='notice'>Constructing support lattice...</span>")
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			ReplaceWithLattice()
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-		return
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(C, /obj/item/stack/tile/plasteel))
+	if(istype(used, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
+			var/obj/item/stack/tile/plasteel/S = used
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You build a floor.</span>")
 				ChangeTurf(/turf/simulated/floor/plating)
+				return ITEM_INTERACT_COMPLETE
 			else
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
+				return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+			return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
 	..()
 	if((!(A) || !(src in A.locs)))
 		return
-
-	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING))
-		var/tx = destination_x
-		var/ty = destination_y
-		var/turf/DT = locate(tx, ty, destination_z)
-		var/itercount = 0
-		while(DT.density || istype(DT.loc, /area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
-			if(itercount++ >= 100)
-				stack_trace("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [A] within 100 iterations.")
-				break
-			if(tx < 128)
-				tx++
-			else
-				tx--
-			if(ty < 128)
-				ty++
-			else
-				ty--
-			DT = locate(tx, ty, destination_z)
-
-		ADD_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT) // roundstart because its robust and won't be removed by someone being an idiot
-		A.forceMove(DT)
-		REMOVE_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
-
-		itercount = 0
-		var/atom/movable/current_pull = A.pulling
-		while(current_pull)
-			if(itercount > 100)
-				stack_trace("SPACE Z-TRANSIT ERROR: [A] encountered a possible infinite loop while traveling through z-levels.")
-				break
-			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
-			ADD_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
-			current_pull.forceMove(target_turf)
-			REMOVE_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
-			current_pull = current_pull.pulling
-			itercount++
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x
@@ -270,34 +236,6 @@
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return 1
 	return 0
-
-/turf/space/proc/set_transition_north(dest_z)
-	destination_x = x
-	destination_y = TRANSITION_BORDER_SOUTH + 1
-	destination_z = dest_z
-
-/turf/space/proc/set_transition_south(dest_z)
-	destination_x = x
-	destination_y = TRANSITION_BORDER_NORTH - 1
-	destination_z = dest_z
-
-/turf/space/proc/set_transition_east(dest_z)
-	destination_x = TRANSITION_BORDER_WEST + 1
-	destination_y = y
-	destination_z = dest_z
-
-/turf/space/proc/set_transition_west(dest_z)
-	destination_x = TRANSITION_BORDER_EAST - 1
-	destination_y = y
-	destination_z = dest_z
-
-/turf/space/proc/remove_transitions()
-	destination_z = initial(destination_z)
-
-/turf/space/attack_ghost(mob/dead/observer/user)
-	if(destination_z)
-		var/turf/T = locate(destination_x, destination_y, destination_z)
-		user.forceMove(T)
 
 /turf/space/acid_act(acidpwr, acid_volume)
 	return 0

@@ -190,6 +190,18 @@
 	display_name = "Kilt"
 	path = /obj/item/clothing/under/costume/kilt
 
+/datum/gear/uniform/suit/executive
+	display_name = "Executive Suit"
+	path = /obj/item/clothing/under/suit/really_black
+
+/datum/gear/uniform/suit/navyblue
+	display_name = "Navy Suit"
+	path = /obj/item/clothing/under/suit/navy
+
+/datum/gear/uniform/suit/checkered
+	display_name = "Checkered Suit"
+	path = /obj/item/clothing/under/suit/checkered
+
 /datum/gear/uniform/skirt
 	main_typepath = /datum/gear/uniform/skirt
 
@@ -213,11 +225,7 @@
 	main_typepath = /datum/gear/uniform/skirt/job
 	subtype_selection_cost = FALSE
 
-/datum/gear/uniform/skirt/job/ce
-	display_name = "Skirt, ce"
-	path = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
-	allowed_roles = list("Chief Engineer")
-
+//Engineering
 /datum/gear/uniform/skirt/job/atmos
 	display_name = "Skirt, atmos"
 	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt
@@ -228,16 +236,28 @@
 	path = /obj/item/clothing/under/rank/engineering/engineer/skirt
 	allowed_roles = list("Chief Engineer","Station Engineer")
 
+/datum/gear/uniform/skirt/job/ce
+	display_name = "Skirt, ce"
+	path = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
+	allowed_roles = list("Chief Engineer")
+
+//Research
+/datum/gear/uniform/skirt/job/sci
+	display_name = "Skirt, scientist"
+	path = /obj/item/clothing/under/rank/rnd/scientist/skirt
+	allowed_roles = list("Research Director","Scientist")
+
 /datum/gear/uniform/skirt/job/roboticist
 	display_name = "Skirt, roboticist"
 	path = /obj/item/clothing/under/rank/rnd/roboticist/skirt
 	allowed_roles = list("Research Director","Roboticist")
 
-/datum/gear/uniform/skirt/job/cmo
-	display_name = "Skirt, cmo"
-	path = /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt
-	allowed_roles = list("Chief Medical Officer")
+/datum/gear/uniform/skirt/job/rd
+	display_name = "Skirt, rd"
+	path = /obj/item/clothing/under/rank/rnd/rd/skirt
+	allowed_roles = list("Research Director")
 
+//Medical
 /datum/gear/uniform/skirt/job/chem
 	display_name = "Skirt, chemist"
 	path = /obj/item/clothing/under/rank/medical/chemist/skirt
@@ -253,11 +273,12 @@
 	path = /obj/item/clothing/under/rank/medical/doctor/skirt
 	allowed_roles = list("Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Coroner")
 
-/datum/gear/uniform/skirt/job/sci
-	display_name = "Skirt, scientist"
-	path = /obj/item/clothing/under/rank/rnd/scientist/skirt
-	allowed_roles = list("Research Director","Scientist")
+/datum/gear/uniform/skirt/job/cmo
+	display_name = "Skirt, cmo"
+	path = /obj/item/clothing/under/rank/medical/cmo/skirt
+	allowed_roles = list("Chief Medical Officer")
 
+//Supply
 /datum/gear/uniform/skirt/job/cargo
 	display_name = "Skirt, cargo"
 	path = /obj/item/clothing/under/rank/cargo/tech/skirt
@@ -268,11 +289,17 @@
 	path = /obj/item/clothing/under/rank/cargo/expedition/skirt
 	allowed_roles = list("Quartermaster", "Explorer")
 
+/datum/gear/uniform/skirt/job/smith
+	display_name = "Skirt, smith"
+	path = /obj/item/clothing/under/rank/cargo/smith/skirt
+	allowed_roles = list("Quartermaster", "Smith")
+
 /datum/gear/uniform/skirt/job/qm
 	display_name = "Skirt, quartermaster"
 	path = /obj/item/clothing/under/rank/cargo/qm/skirt
 	allowed_roles = list("Quartermaster")
 
+//Security
 /datum/gear/uniform/skirt/job/warden
 	display_name = "Skirt, warden"
 	path = /obj/item/clothing/under/rank/security/warden/skirt
@@ -288,6 +315,7 @@
 	path = /obj/item/clothing/under/rank/security/head_of_security/skirt
 	allowed_roles = list("Head of Security")
 
+//Service
 /datum/gear/uniform/skirt/job/clown
 	display_name = "Skirt, clown"
 	path = /obj/item/clothing/under/rank/civilian/clown/skirt
@@ -307,6 +335,12 @@
 	display_name = "Skirt, hop"
 	path = /obj/item/clothing/under/rank/civilian/hop/skirt
 	allowed_roles = list("Head of Personnel")
+
+//Command and dignitary
+/datum/gear/uniform/skirt/captain
+	display_name = "Skirt, captain"
+	path = /obj/item/clothing/under/rank/captain/skirt
+	allowed_roles = list("Captain")
 
 /datum/gear/uniform/skirt/job/magistrate
 	display_name = "Skirt, magistrate"
@@ -378,12 +412,12 @@
 /datum/gear/uniform/sec/secorporate
 	display_name = "Security uniform, corporate"
 	path = /obj/item/clothing/under/rank/security/officer/corporate
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/uniform/sec/dispatch
 	display_name = "Security uniform, dispatch"
 	path = /obj/item/clothing/under/rank/security/officer/dispatch
-	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/uniform/sec/casual
 	display_name = "Security uniform, casual"

@@ -21,6 +21,7 @@
 		<a href='byond://?src=[UID()];makeAntag=6'>Make Vampires</a><br>
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=8'>Make Mindflayers</a><br>
+		<a href='byond://?src=[UID()];makeAntag=9'>Make Event Characters</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -68,9 +69,10 @@
 			H = pick(candidates)
 			H.mind.make_Traitor()
 			candidates.Remove(H)
+			message_admins("[key_name(owner)] made [key_name_admin(H)] a Traitor with One-Click-Antag")
 
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /datum/admins/proc/makeChangelings()
@@ -99,9 +101,10 @@
 			H = pick(candidates)
 			H.mind.add_antag_datum(/datum/antagonist/changeling)
 			candidates.Remove(H)
+			message_admins("[key_name(owner)] made [key_name_admin(H)] a Changeling with One-Click-Antag")
 
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeRevs()
 
@@ -129,14 +132,15 @@
 			H = pick(candidates)
 			H?.mind?.add_antag_datum(/datum/antagonist/rev/head)
 			candidates.Remove(H)
-		return 1
-	return 0
+			message_admins("[key_name(owner)] made [key_name_admin(H)] a Revolutionary with One-Click-Antag")
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeWizard()
 
 	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
 	if(confirm != "Yes")
-		return 0
+		return FALSE
 	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", "wizard", source = I)
 
@@ -150,6 +154,7 @@
 		var/mob/living/carbon/human/new_character = makeBody(selected)
 		new_character.mind.add_antag_datum(/datum/antagonist/wizard)
 		new_character.forceMove(pick(GLOB.wizardstart))
+		message_admins("[key_name(owner)] made [key_name_admin(new_character)] a Wizard with One-Click-Antag")
 		dust_if_respawnable(selected)
 		return TRUE
 	return FALSE
@@ -183,6 +188,7 @@
 
 		var/datum/antagonist/cultist/cultist = H.mind.add_antag_datum(/datum/antagonist/cultist)
 		cultist.equip_roundstart_cultist(H)
+		message_admins("[key_name(owner)] made [key_name_admin(H)] a Cultist with One-Click-Antag")
 	return TRUE
 
 //Abductors
@@ -190,13 +196,13 @@
 
 	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
 	if(confirm != "Yes")
-		return 0
+		return FALSE
 	new /datum/event/abductor
 
 	log_admin("[key_name(owner)] tried making Abductors with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Abductors with One-Click-Antag")
 
-	return 1
+	return TRUE
 
 /datum/admins/proc/makeAliens()
 	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
@@ -283,10 +289,11 @@
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
 			H.mind.make_vampire()
+			message_admins("[key_name(owner)] made [key_name_admin(H)] a Vampire with One-Click-Antag")
 			candidates.Remove(H)
 
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeMindflayers()
 	var/datum/game_mode/vampire/temp = new()
@@ -308,8 +315,68 @@
 	for(var/i in 1 to num_mindflayers)
 		var/datum/mind/flayer = pick_n_take(possible_mindflayers)
 		flayer.make_mind_flayer()
+		message_admins("[key_name(owner)] made [key_name_admin(flayer)] a Mindflayer with One-Click-Antag")
 	qdel(temp)
 	return TRUE
+
+/datum/admins/proc/makeEventCharacters()
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	var/antnum = input(owner, "How many event characters you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
+		return FALSE
+
+	var/datum/game_mode/traitor/temp = new()
+	var/no_mindshields = input(owner, "Avoid mindshielded characters?") in list("Yes", "No", "Cancel")
+	if(no_mindshields == "Cancel")
+		qdel(temp)
+		return FALSE
+	else if(no_mindshields == "Yes")
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/respect_traitor = input(owner, "Require traitor willingness?") in list("Yes", "No", "Cancel")
+	var/role = null
+	if(respect_traitor == "Cancel")
+		qdel(temp)
+		return FALSE
+	else if(respect_traitor == "Yes")
+		role = ROLE_TRAITOR
+
+	var/give_objective = input(owner, "Give them a shared custom objective?") in list("Yes", "No", "Cancel")
+	var/objective = null
+	if(give_objective == "Cancel")
+		qdel(temp)
+		return FALSE
+	else if(give_objective == "Yes")
+		objective = sanitize(copytext_char(input("Custom objective:", "Objective", "") as text|null, 1, MAX_MESSAGE_LEN))
+		if(!length(objective))
+			qdel(temp)
+			return FALSE
+
+	log_admin("[key_name(owner)] tried making [antnum] event characters with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] event characters with One-Click-Antag")
+
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(role, applicant, temp))
+			candidates += applicant
+	qdel(temp)
+
+	if(length(candidates))
+		var/num_event_chars = min(length(candidates), antnum)
+
+		for(var/i in 1 to num_event_chars)
+			H = pick(candidates)
+			if(!isnull(objective))
+				var/datum/objective/O = new()
+				O.explanation_text = objective
+				O.needs_target = FALSE
+				H.mind.add_mind_objective(O)
+			H.mind.add_antag_datum(/datum/antagonist/eventmisc)
+			message_admins("[key_name(owner)] made [key_name_admin(H)] an Event Character with One-Click-Antag")
+			candidates.Remove(H)
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
 	var/max_thunderdome_players = 10

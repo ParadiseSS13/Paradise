@@ -368,7 +368,7 @@
 		SSeconomy.process_supply_order(order, FALSE)
 		if(order.ordered_by_department.crate_auto_approve && order.ordered_by_department.auto_approval_cap >= order.object.get_cost())
 			approve_crate(user, order.ordernum)
-		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", "cargo")
+		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", INVESTIGATE_CARGO)
 
 /obj/machinery/computer/supplycomp/proc/approve_crate(mob/user, order_num)
 	for(var/datum/supply_order/department_order in SSeconomy.request_list)
@@ -410,7 +410,7 @@
 					if(istype(order.object, /datum/supply_packs/abstract/shuttle))
 						update_static_data(user) // pack is going to be disabled, need to update pack data
 					SStgui.update_uis(src)
-					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
+					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", INVESTIGATE_CARGO)
 					SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
 				else
 					atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
@@ -437,7 +437,7 @@
 			SSeconomy.request_list -= order
 		else
 			return //how did we get here?
-		investigate_log("| [key_name(user)] has denied an order for [order.object.name].", "cargo")
+		investigate_log("| [key_name(user)] has denied an order for [order.object.name].", INVESTIGATE_CARGO)
 		break
 
 /obj/machinery/computer/supplycomp/proc/move_shuttle(mob/user)
@@ -447,7 +447,7 @@
 		to_chat(user, "<span class='warning'>For safety reasons, the automated supply shuttle cannot transport [SSshuttle.supply.blocking_item].</span>")
 	else if(SSshuttle.supply.getDockedId() == "supply_home")
 		SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
-		investigate_log("| [key_name(user)] has sent the supply shuttle away. Shuttle contents: [SSeconomy.sold_atoms]", "cargo")
+		investigate_log("| [key_name(user)] has sent the supply shuttle away. Shuttle contents: [SSeconomy.sold_atoms]", INVESTIGATE_CARGO)
 	else
 		SSshuttle.supply.request(SSshuttle.getDock("supply_home"))
 
@@ -462,7 +462,7 @@
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction", max_value = 99999)
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction", max_value = BANK_PIN_MAX, min_value = BANK_PIN_MIN)
 		if(!Adjacent(user) || !attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)

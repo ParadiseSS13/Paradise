@@ -37,7 +37,7 @@
 	switch(action)
 		if("track")
 			var/mob/living/carbon/human/H = locate(params["track"]) in GLOB.human_list
-			if(isAI(usr))
+			if(is_ai(usr))
 				var/mob/living/silicon/ai/AI = usr
 				if(hassensorlevel(H, SUIT_SENSOR_TRACKING))
 					AI.ai_actual_track(H)
@@ -105,7 +105,7 @@
 	data["offsetX"] = offset_x
 	data["offsetY"] = offset_y
 
-	data["isAI"] = isAI(user)
+	data["isAI"] = is_ai(user)
 	data["isObserver"] = isobserver(user)
 	data["ignoreSensors"] = ignore_sensors
 	data["crewmembers"] = GLOB.crew_repository.health_data(viewing_current_z_level, ignore_sensors)
@@ -123,6 +123,12 @@
 		data["possible_levels"] |= zl
 
 	return data
+
+/datum/ui_module/crew_monitor/mod
+	name = "Crew monitor (Modsuit)"
+
+/datum/ui_module/crew_monitor/mod/ui_state(mob/user)
+	return GLOB.deep_inventory_state
 
 /datum/ui_module/crew_monitor/ghost
 	name = "Crew monitor (Observer)"

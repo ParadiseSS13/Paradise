@@ -106,6 +106,7 @@
 	name = "Place Teleportation Beacon"
 	desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon requires an anchor, will not work on space tiles."
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 300 SECONDS
 	action_icon_state = "no_state"
 	action_background_icon = 'icons/mob/guardian.dmi'
@@ -129,6 +130,7 @@
 	name = "Set Surveillance Snare"
 	desc = "Places an invisible Surveillance Snare on the ground, if someone walks over it you'll be alerted. Max of 6 snares active at a time"
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 3 SECONDS
 	action_icon_state = "no_state"
 	action_background_icon = 'icons/mob/guardian.dmi'
@@ -160,6 +162,7 @@
 	name = "Change battlecry"
 	desc = "Changes your battlecry."
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	base_cooldown = 1 SECONDS
 	action_icon_state = "no_state"
 	action_background_icon = 'icons/mob/guardian.dmi'

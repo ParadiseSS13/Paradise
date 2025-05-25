@@ -258,7 +258,9 @@ SUBSYSTEM_DEF(ticker)
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
-	SSjobs.DivideOccupations() //Distribute jobs
+	SSjobs.job_selector = new()
+	SSjobs.job_selector.assign_all_roles()
+	SSjobs.job_selector.apply_roles_to_players()
 
 	if(hide_mode)
 		var/list/modes = list()
@@ -363,10 +365,8 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.configuration.general.enable_night_shifts)
 		SSnightshift.check_nightshift(TRUE)
 
-	#ifdef GAME_TESTS
-	// Run map tests first in case unit tests futz with map state
-	GLOB.test_runner.RunMap()
-	GLOB.test_runner.Run()
+	#ifdef TEST_RUNNER
+	GLOB.test_runner.RunAll()
 	#endif
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
@@ -568,7 +568,7 @@ SUBSYSTEM_DEF(ticker)
 	end_of_round_info += "<BR>"
 
 	//Silicon laws report
-	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
+	for(var/mob/living/silicon/ai/aiPlayer in GLOB.ai_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)
 
 		if(aiPlayer.stat != DEAD)

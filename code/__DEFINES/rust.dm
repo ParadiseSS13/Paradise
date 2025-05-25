@@ -18,13 +18,18 @@
 #endif
 
 /proc/__detect_rustlib()
+	var/version_suffix = "515"
+	if(world.byond_build >= 1651)
+		version_suffix = "516"
+
 	if(world.system_type == UNIX)
 #ifdef CIBUILDING
 		// CI override, use librustlibs_ci.so if possible.
-		if(fexists("./tools/ci/librustlibs_ci.so"))
-			return __rustlib = "tools/ci/librustlibs_ci.so"
+		if(fexists("./tools/ci/librustlibs_ci_[version_suffix].so"))
+			return __rustlib = "tools/ci/librustlibs_ci_[version_suffix].so"
 #endif
 		// First check if it's built in the usual place.
+		// Linx doesnt get the version suffix because if youre using linux you can figure out what server version youre running for
 		if(fexists("./rust/target/i686-unknown-linux-gnu/release/librustlibs[RUSTLIBS_SUFFIX].so"))
 			return __rustlib = "./rust/target/i686-unknown-linux-gnu/release/librustlibs[RUSTLIBS_SUFFIX].so"
 		// Then check in the current directory.
@@ -34,14 +39,14 @@
 		return __rustlib = "librustlibs[RUSTLIBS_SUFFIX].so"
 	else
 		// First check if it's built in the usual place.
-		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs[RUSTLIBS_SUFFIX].dll"))
-			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs[RUSTLIBS_SUFFIX].dll"
+		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
+			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
 		// Then check in the current directory.
-		if(fexists("./rustlibs[RUSTLIBS_SUFFIX].dll"))
-			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX].dll"
+		if(fexists("./rustlibs_[version_suffix][RUSTLIBS_SUFFIX].dll"))
+			return __rustlib = "./rustlibs_[version_suffix][RUSTLIBS_SUFFIX].dll"
 
 		// And elsewhere.
-		var/assignment_confirmed = (__rustlib = "rustlibs[RUSTLIBS_SUFFIX].dll")
+		var/assignment_confirmed = (__rustlib = "rustlibs_[version_suffix][RUSTLIBS_SUFFIX].dll")
 		// This being spanned over multiple lines is kinda scuffed, but its needed because of https://www.byond.com/forum/post/2072419
 		return assignment_confirmed
 
@@ -53,14 +58,22 @@
 // This needs to go BELOW the above define, otherwise the BYOND compiler can make the above immediate call disappear
 #undef RUSTLIBS_SUFFIX
 
+/// Exists by default in 516, but needs to be defined for 515 or byondapi-rs doesn't like it.
+/proc/byondapi_stack_trace(err)
+	CRASH(err)
+
+// MARK: MILLA
+
 /proc/milla_init_z(z)
 	return RUSTLIB_CALL(milla_initialize, z)
 
-/proc/is_milla_synchronous(tick)
-	return RUSTLIB_CALL(milla_is_synchronous, tick)
+/proc/milla_load_turfs(turf/low_corner, turf/high_corner)
+	ASSERT(istype(low_corner))
+	ASSERT(istype(high_corner))
+	return RUSTLIB_CALL(milla_load_turfs, "milla_data", low_corner, high_corner)
 
-/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
-	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity)
+/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
+	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
 
 /proc/get_tile_atmos(turf/T, list/L)
 	return RUSTLIB_CALL(milla_get_tile, T, L)
@@ -73,6 +86,9 @@
 
 /proc/get_interesting_atmos_tiles()
 	return RUSTLIB_CALL(milla_get_interesting_tiles)
+
+/proc/get_tracked_pressure_tiles()
+	return RUSTLIB_CALL(milla_get_tracked_pressure_tiles)
 
 /proc/reduce_superconductivity(turf/T, list/superconductivity)
 	var/north = superconductivity[1]
@@ -93,16 +109,87 @@
 
 	return RUSTLIB_CALL(milla_set_tile_airtight, T, north, east, south, west)
 
+/proc/create_hotspot(turf/T, hotspot_temperature, hotspot_volume)
+	return RUSTLIB_CALL(milla_create_hotspot, T, hotspot_temperature, hotspot_volume)
+
+/proc/track_pressure_tiles(atom/A, radius)
+	var/turf/T = get_turf(A)
+	if(istype(T))
+		return RUSTLIB_CALL(milla_track_pressure_tiles, T, radius)
+
 /proc/get_random_interesting_tile()
 	return RUSTLIB_CALL(milla_get_random_interesting_tile)
 
 /proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
 	return RUSTLIB_CALL(milla_create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
 
+/proc/set_zlevel_freeze(z, bool_frozen)
+	return RUSTLIB_CALL(milla_set_zlevel_frozen, z, bool_frozen)
+
+// MARK: MapManip
+
 /proc/mapmanip_read_dmm(mapname)
 	return RUSTLIB_CALL(mapmanip_read_dmm_file, mapname)
 
-#undef RUSTLIB
+// MARK: TOML
+/proc/rustlibs_read_toml_file(path)
+	var/list/output = json_decode(RUSTLIB_CALL(toml_file_to_json, path) || "null")
+	if(output["success"])
+		return json_decode(output["content"])
+	else
+		CRASH(output["content"])
+
+// MARK: Logging
+/proc/rustlibs_log_write(fname, text)
+	return RUSTLIB_CALL(log_write, fname, text)
+
+/proc/rustlibs_log_close_all()
+	return RUSTLIB_CALL(log_close_all)
+
+// MARK: DMI
+/proc/rustlibs_dmi_strip_metadata(fname)
+	return RUSTLIB_CALL(dmi_strip_metadata, fname)
+
+// MARK: JSON
+/proc/rustlibs_json_is_valid(text)
+	return (RUSTLIB_CALL(json_is_valid, text) == "true")
+
+
+// MARK: Grid Perlin Noise
+/**
+ * This proc generates a grid of perlin-like noise
+ *
+ * Returns a single string that goes row by row, with values of 1 representing an turned on cell, and a value of 0 representing a turned off cell.
+ *
+ * Arguments:
+ * * seed: seed for the function
+ * * accuracy: how close this is to the original perlin noise, as accuracy approaches infinity, the noise becomes more and more perlin-like
+ * * stamp_size: Size of a singular stamp used by the algorithm, think of this as the same stuff as frequency in perlin noise
+ * * world_size: size of the returned grid.
+ * * lower_range: lower bound of values selected for. (inclusive)
+ * * upper_range: upper bound of values selected for. (exclusive)
+ */
+/proc/rustlibs_dbp_generate(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
+	return RUSTLIB_CALL(dbp_generate, seed, accuracy, stamp_size, world_size, lower_range, upper_range)
+
+// MARK: Redis
+#define RUSTLIBS_REDIS_ERROR_CHANNEL "RUSTG_REDIS_ERROR_CHANNEL"
+
+/proc/rustlibs_redis_connect(addr)
+	return RUSTLIB_CALL(redis_connect, addr)
+
+/proc/rustlibs_redis_disconnect()
+	return RUSTLIB_CALL(redis_disconnect)
+
+/proc/rustlibs_redis_subscribe(channel)
+	return RUSTLIB_CALL(redis_subscribe, channel)
+
+/proc/rustlibs_redis_get_messages()
+	return RUSTLIB_CALL(redis_get_messages)
+
+/proc/rustlibs_redis_publish(channel, message)
+	return RUSTLIB_CALL(redis_publish, channel, message)
+
 #undef RUSTLIB_CALL
 
 // Indexes for Tiles and InterestingTiles
@@ -122,15 +209,20 @@
 #define MILLA_INDEX_SUPERCONDUCTIVITY_WEST	13
 #define MILLA_INDEX_INNATE_HEAT_CAPACITY	14
 #define MILLA_INDEX_TEMPERATURE				15
+#define MILLA_INDEX_HOTSPOT_TEMPERATURE		16
+#define MILLA_INDEX_HOTSPOT_VOLUME			17
+#define MILLA_INDEX_WIND_X					18
+#define MILLA_INDEX_WIND_Y					19
+#define MILLA_INDEX_FUEL_BURNT				20
 
 /// The number of values per tile.
-#define MILLA_TILE_SIZE						MILLA_INDEX_TEMPERATURE
+#define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT
 
 // These are only for InterestingTiles.
-#define MILLA_INDEX_TURF					16
-#define MILLA_INDEX_INTERESTING_REASONS		17
-#define MILLA_INDEX_AIRFLOW_X				18
-#define MILLA_INDEX_AIRFLOW_Y				19
+#define MILLA_INDEX_TURF					21
+#define MILLA_INDEX_INTERESTING_REASONS		22
+#define MILLA_INDEX_AIRFLOW_X				23
+#define MILLA_INDEX_AIRFLOW_Y				24
 
 /// The number of values per interesting tile.
 #define MILLA_INTERESTING_TILE_SIZE			MILLA_INDEX_AIRFLOW_Y

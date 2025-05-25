@@ -35,6 +35,7 @@
 /obj/machinery/computer/holodeck_control/Initialize(mapload)
 	. = ..()
 	linkedholodeck = locate(/area/holodeck/alphadeck)
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /obj/machinery/computer/holodeck_control/Destroy()
 	emergency_shutdown()
@@ -42,9 +43,6 @@
 
 /obj/machinery/computer/holodeck_control/attack_ai(mob/user)
 	return attack_hand(user)
-
-/obj/machinery/computer/holodeck_control/attackby__legacy__attackchain(obj/item/D, mob/user)
-	return
 
 /obj/machinery/computer/holodeck_control/attack_ghost(mob/user)
 	ui_interact(user)
@@ -76,7 +74,7 @@
 				if(prob(30))
 					do_sparks(2, 1, T)
 				T.ex_act(EXPLODE_LIGHT)
-				T.hotspot_expose(1000,500,1)
+				T.hotspot_expose(1000,500)
 
 /obj/machinery/computer/holodeck_control/proc/loadProgram(area/A)
 
@@ -131,7 +129,8 @@
 
 	var/mob/M = obj.loc
 	if(istype(M))
-		M.unEquip(obj, TRUE) //Holoweapons should always drop.
+		// Holoweapons should always drop.
+		M.drop_item_to_ground(obj, force = TRUE)
 
 	if(!silent)
 		var/obj/old_obj = obj
@@ -227,6 +226,10 @@
 	thermal_conductivity = 0
 	icon_state = "plating"
 
+/turf/simulated/floor/holofloor/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+
 /turf/simulated/floor/holofloor/carpet
 	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
@@ -264,10 +267,6 @@
 	pixel_x = -9
 	pixel_y = -9
 	layer = ABOVE_OPEN_TURF_LAYER
-
-/turf/simulated/floor/holofloor/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	return
-	// HOLOFLOOR DOES NOT GIVE A FUCK
 
 /turf/simulated/floor/holofloor/space
 	name = "\proper space"
@@ -437,8 +436,9 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
-/obj/machinery/readybutton/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/readybutton/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/readybutton/attack_hand(mob/user)
 	if(user.stat || stat & (BROKEN))

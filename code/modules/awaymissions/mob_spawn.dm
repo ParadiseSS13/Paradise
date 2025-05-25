@@ -207,7 +207,10 @@
 	var/suit_store = -1
 	var/hair_style
 	var/facial_hair_style
+	var/hair_color
+	var/facial_hair_color
 	var/skin_tone
+	var/eyes_color
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
@@ -233,7 +236,7 @@
 	if(mob_species)
 		H.set_species(mob_species)
 	if(random)
-		H.real_name = random_name(H.gender, H.dna.species)
+		H.real_name = random_name(H.gender, H.dna.species.name)
 
 	if(husk)
 		H.Drain()
@@ -244,16 +247,28 @@
 	H.socks = "Nude"
 	var/obj/item/organ/external/head/D = H.get_organ("head")
 	if(istype(D))
+		if(eyes_color)
+			H.change_eye_color(eyes_color)
 		if(hair_style)
 			D.h_style = hair_style
 		else
 			D.h_style = random_hair_style(gender, D.dna.species.name)
-		D.hair_colour = rand_hex_color()
+		if(hair_color)
+			D.hair_colour = hair_color
+			D.sec_hair_colour = hair_color
+		else
+			D.hair_colour = rand_hex_color()
+			D.sec_hair_colour = D.hair_colour
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else
 			D.f_style = random_facial_hair_style(gender, D.dna.species.name)
-		D.facial_colour = rand_hex_color()
+		if(facial_hair_color)
+			D.facial_colour = facial_hair_color
+			D.sec_facial_colour = facial_hair_color
+		else
+			D.facial_colour = rand_hex_color()
+			D.sec_facial_colour = D.facial_colour
 	if(skin_tone)
 		H.s_tone = skin_tone
 	else
@@ -310,6 +325,11 @@
 /obj/effect/mob_spawn/human/corpse
 	roundstart = FALSE
 	instant = TRUE
+
+/obj/effect/mob_spawn/human/corpse/create(ckey, flavour, name, mob/user)
+	var/mob/corpse = ..()
+	corpse.faction |= "spawned_corpse"
+	return corpse
 
 /obj/effect/mob_spawn/human/corpse/damaged
 	brute_damage = 1000
@@ -404,8 +424,20 @@
 	uniform = /obj/item/clothing/under/color/grey
 	shoes = /obj/item/clothing/shoes/combat
 
+/obj/effect/mob_spawn/human/corpse/ashwalker
+	name = "Ashwalker"
+	mob_name = "Ashwalker"
+	mob_species = /datum/species/unathi/ashwalker
+	outfit = /datum/outfit/ashwalker
+
 //Assistant Corpse
 /obj/effect/mob_spawn/human/corpse/assistant
+	name = "Assistant"
+	mob_name = "Assistant"
+	id_job = "Assistant"
+	outfit = /datum/outfit/job/assistant
+
+/obj/effect/mob_spawn/human/corpse/random_species/assistant
 	name = "Assistant"
 	mob_name = "Assistant"
 	id_job = "Assistant"
@@ -546,12 +578,37 @@
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
+/obj/effect/mob_spawn/human/corpse/random_species/doctor
+	name = "Doctor"
+	mob_name = "Medical Doctor"
+	id_job = "Medical Doctor"
+	outfit = /datum/outfit/job/doctor
+
 //Engineer corpse.
 /obj/effect/mob_spawn/human/corpse/engineer
 	name = "Engineer"
 	mob_name = "Engineer"
 	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
+
+/obj/effect/mob_spawn/human/corpse/random_species/engineer
+	name = "Engineer"
+	mob_name = "Engineer"
+	id_job = "Engineer"
+	outfit = /datum/outfit/job/engineer
+
+/datum/outfit/job/officer/nerfed
+	suit_store = null
+	bio_chips = null
+	l_pocket = null
+	l_ear = null
+	id = null
+
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer
+	name = "Security Officer"
+	mob_name = "Security Officer"
+	id_job = "Security Officer"
+	outfit = /datum/outfit/job/officer/nerfed
 
 //Mime corpse.
 /obj/effect/mob_spawn/human/corpse/mime
@@ -588,6 +645,12 @@
 
 //Scientist corpse.
 /obj/effect/mob_spawn/human/corpse/scientist
+	name = "Scientist"
+	mob_name = "Scientist"
+	id_job = "Scientist"
+	outfit = /datum/outfit/job/scientist
+
+/obj/effect/mob_spawn/human/corpse/random_species/scientist
 	name = "Scientist"
 	mob_name = "Scientist"
 	id_job = "Scientist"
@@ -637,6 +700,7 @@
 		/datum/species/grey,
 		/datum/species/diona,
 	)
+	del_types |= /obj/item/card/id
 
 	return ..()
 

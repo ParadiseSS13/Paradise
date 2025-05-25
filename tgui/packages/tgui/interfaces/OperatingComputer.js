@@ -60,6 +60,7 @@ export const OperatingComputer = (props, context) => {
 const OperatingComputerPatient = (props, context) => {
   const { data } = useBackend(context);
   const { occupant } = data;
+  const { activeSurgeries } = occupant;
   return (
     <Stack fill vertical>
       <Stack.Item grow>
@@ -122,12 +123,17 @@ const OperatingComputerPatient = (props, context) => {
         </Section>
       </Stack.Item>
       <Stack.Item>
-        <Section title="Current Procedure" level="2">
-          {occupant.inSurgery ? (
-            <LabeledList>
-              <LabeledList.Item label="Procedure">{occupant.surgeryName}</LabeledList.Item>
-              <LabeledList.Item label="Next Step">{occupant.stepName}</LabeledList.Item>
-            </LabeledList>
+        <Section title="Active surgeries" level="2">
+          {occupant.inSurgery && !!activeSurgeries ? (
+            activeSurgeries.map((s, i) => (
+              <Section style={{ textTransform: 'capitalize' }} title={s.name + ' (' + s.location + ')'} key={i}>
+                <LabeledList key={i}>
+                  <LabeledList.Item key={i} label="Next Step">
+                    {s.step}
+                  </LabeledList.Item>
+                </LabeledList>
+              </Section>
+            ))
           ) : (
             <Box color="label">No procedure ongoing.</Box>
           )}

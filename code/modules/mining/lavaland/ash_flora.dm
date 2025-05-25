@@ -203,8 +203,7 @@
 
 /obj/item/food/grown/ash_flora/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-4, 4)
-	pixel_y = rand(-4, 4)
+	scatter_atom()
 
 /// for actual crafting
 /obj/item/food/grown/ash_flora/shavings

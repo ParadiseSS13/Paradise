@@ -1,17 +1,19 @@
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
+	if(!loc && !(flags & ABSTRACT))
+		stack_trace("Carbon mob being instantiated in nullspace")
 
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
 		if(QDELETED(item))
 			continue
-		unEquip(item, silent = TRUE)
+		drop_item_to_ground(item, silent = TRUE)
 		qdel(item)
 	QDEL_LIST_CONTENTS(internal_organs)
-	QDEL_LIST_CONTENTS(stomach_contents)
-	QDEL_LIST_CONTENTS(processing_patches)
+	QDEL_LAZYLIST(stomach_contents)
+	QDEL_LAZYLIST(processing_patches)
 	GLOB.carbon_list -= src
 	if(in_throw_mode)
 		toggle_throw_mode()
@@ -131,7 +133,7 @@
 				adjustToxLoss(-3)
 
 		T = get_step(T, dir)
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			break
 
 /mob/living/carbon/gib()
@@ -232,7 +234,10 @@
 		return
 	// If it has any of the highfive statuses, dap, handshake, etc
 	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
-	if(effect)
+	if(istype(effect, STATUS_EFFECT_OFFERING_EFTPOS))
+		to_chat(M, "<span class='warning'>You need to have your ID in hand to scan it!</span>")
+		return
+	else if(effect)
 		M.apply_status_effect(effect.type)
 		return
 	// BEGIN HUGCODE - N3X
@@ -469,6 +474,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(!C.check_clothing(src))//return values confuse me right now
 				return
 
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/plasmaman/atmospherics/contortionist))
+			var/obj/item/clothing/under/plasmaman/atmospherics/contortionist/C = H.w_uniform
+			if(!C.check_clothing(src))
+				return
+
+
 	var/obj/machinery/atmospherics/unary/vent_found
 
 	if(clicked_on)
@@ -500,9 +513,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!client)
 		return
 #endif
-	if(!do_after(src, ventcrawl_delay, target = src))
-		return
-
+	if(ismorph(src))
+		if(!do_after(src, ventcrawl_delay, target = src, hidden = TRUE))
+			return
+	else
+		if(!do_after(src, ventcrawl_delay, target = src))
+			return
 	if(!vent_found.can_crawl_through())
 		to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
 		return
@@ -702,7 +718,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
-		unEquip(I, silent = TRUE)
+		drop_item_to_ground(I, silent = TRUE)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
@@ -731,25 +747,26 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/get_restraining_item()
 	return handcuffed
 
-/mob/living/carbon/unEquip(obj/item/I, force, silent = FALSE) //THIS PROC DID NOT CALL ..()
-	. = ..() //Sets the default return value to what the parent returns.
-	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
+/mob/living/carbon/unequip_to(obj/item/target, atom/destination, force = FALSE, silent = FALSE, drop_inventory = TRUE, no_move = FALSE)
+	. = ..()
+
+	if(!. || !target) //We don't want to set anything to null if the parent returned 0.
 		return
 
-	if(I == back)
+	if(target == back)
 		back = null
 		update_inv_back()
-	else if(I == wear_mask)
+	else if(target == wear_mask)
 		if(ishuman(src)) //If we don't do this hair won't be properly rebuilt.
 			return
 		wear_mask = null
 		update_inv_wear_mask()
-	else if(I == handcuffed)
+	else if(target == handcuffed)
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
 			unbuckle()
 		update_handcuffed()
-	else if(I == legcuffed)
+	else if(target == legcuffed)
 		legcuffed = null
 		toggle_move_intent()
 		update_inv_legcuffed()
@@ -859,7 +876,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [breakout_time / 10] seconds and you need to stay still.)</span>")
-	if(!do_after(src, breakout_time, FALSE, src, allow_moving = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check))), allow_moving_target = TRUE))
+	if(!do_after(src, breakout_time, FALSE, src, allow_moving = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check))), allow_moving_target = TRUE, hidden = TRUE))
 		if(src && buckled)
 			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
@@ -925,12 +942,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	apply_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
 	visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
 	to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
-	if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check)))))
+	if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check))), hidden = TRUE))
 		visible_message("<span class='warning'>[src] removes [I]!</span>")
 		to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
 		if(I.security_lock)
 			I.do_break()
-		unEquip(I)
+		drop_item_to_ground(I)
 	remove_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
 
 /mob/living/carbon/proc/cuff_resist(obj/item/restraints/restraints, break_cuffs)
@@ -1107,12 +1124,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return TRUE
 
 /mob/living/carbon/proc/shock_reduction()
-	var/shock_reduction = 0
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction)
-				shock_reduction += R.shock_reduction
-	return shock_reduction
+	return 0
 
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return TRUE
@@ -1162,17 +1174,21 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
 		return FALSE
 
+	var/list/reaction_msg = list()
 	if(fullness <= 50)
-		to_chat(src, "<span class='warning'>You hungrily chew out a piece of [to_eat] and gobble it!</span>")
+		reaction_msg += "You hungrily chew out a piece of [to_eat] and gobble it!"
+		to_chat(src, "<span class='warning'></span>")
 	else if(fullness > 50 && fullness < 150)
-		to_chat(src, "<span class='notice'>You hungrily begin to eat [to_eat].</span>")
+		reaction_msg += "You hungrily begin to eat [to_eat]."
 	else if(fullness > 150 && fullness < 500)
-		to_chat(src, "<span class='notice'>You take a bite of [to_eat].</span>")
+		reaction_msg += "You take a bite of [to_eat]."
 	else if(fullness > 500 && fullness < 600)
-		to_chat(src, "<span class='notice'>You unwillingly chew a bit of [to_eat].</span>")
+		reaction_msg += "You unwillingly chew a bit of [to_eat]."
 	else if(fullness > (600 * (1 + overeatduration / 2000))) // The more you eat - the more you can eat
 		to_chat(src, "<span class='warning'>You cannot force any more of [to_eat] to go down your throat.</span>")
 		return FALSE
+
+	to_chat(src, "<span class='notice'>[jointext(reaction_msg, " ")]</span>")
 
 	return TRUE
 
@@ -1222,13 +1238,10 @@ so that different stomachs can handle things in different ways VB*/
 		. |= LH.GetAccess()
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(!wear_mask)
-		return TRUE
+	if(wear_mask?.flags & BLOCK_GAS_SMOKE_EFFECT || head?.flags & BLOCK_GAS_SMOKE_EFFECT || internal)
+		return FALSE
 
-	if(!(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT) && internal == null)
-		return TRUE
-
-	return FALSE
+	return TRUE
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
@@ -1247,8 +1260,9 @@ so that different stomachs can handle things in different ways VB*/
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/HT = head
 		. += HT.tint
-	if(wear_mask)
-		. += wear_mask.tint
+	if(ismask(wear_mask))
+		var/obj/item/clothing/mask/worn_mask = wear_mask
+		. += worn_mask.tint
 
 	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
 	if(E)
@@ -1266,7 +1280,7 @@ so that different stomachs can handle things in different ways VB*/
 	update_inv_wear_mask()
 
 /mob/living/carbon/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
-	if(C.tint || initial(C.tint))
+	if(istype(C) && (C.tint || initial(C.tint)))
 		update_tint()
 	update_inv_wear_mask()
 
@@ -1369,3 +1383,45 @@ so that different stomachs can handle things in different ways VB*/
 /// Returns TRUE if a breathing tube is equipped.
 /mob/living/carbon/proc/can_breathe_tube()
 	return get_organ_slot("breathing_tube")
+
+/mob/living/carbon/proc/lazrevival(mob/living/carbon/M)
+	if(M.get_ghost()) // ghosted after the timer expires.
+		M.visible_message("<span class='warning'>[M]'s body stops twitching as the Lazarus Reagent loses potency.</span>")
+		return
+
+	// If the ghost has re-entered the body, perform the revival!
+	M.visible_message("<span class='success'>[M] gasps as they return to life!</span>")
+	M.adjustCloneLoss(50)
+	M.setOxyLoss(0)
+	M.adjustBruteLoss(rand(0, 15))
+	M.adjustToxLoss(rand(0, 15))
+	M.adjustFireLoss(rand(0, 15))
+	M.do_jitter_animation(200)
+
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/necrosis_prob = 15 * H.decaylevel
+		H.decaylevel = 0
+		for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
+			if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
+				O.necrotize(FALSE)
+				if(O.status & ORGAN_DEAD)
+					O.germ_level = INFECTION_LEVEL_THREE
+		H.update_body()
+
+	M.grab_ghost()
+	M.update_revive()
+	add_attack_logs(M, M, "Revived with Lazarus Reagent")
+	SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
+
+/mob/living/carbon/is_inside_mob(atom/thing)
+	if(!(..()))
+		return FALSE
+	if(head && head.UID() == thing.UID())
+		return FALSE
+	if(wear_suit && wear_suit.UID() == thing.UID())
+		return FALSE
+	return TRUE
+
+/mob/living/carbon/proc/get_thermal_protection() // Xenos got nothin
+	return 0

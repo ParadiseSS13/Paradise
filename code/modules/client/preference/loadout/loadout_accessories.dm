@@ -16,66 +16,6 @@
 	slot = ITEM_SLOT_ACCESSORY
 	sort_category = "Accessories"
 
-/datum/gear/accessory/scarf
-	display_name = "Scarf"
-	path = /obj/item/clothing/accessory/scarf
-
-/datum/gear/accessory/scarf/red
-	display_name = "Scarf, red"
-	path = /obj/item/clothing/accessory/scarf/red
-
-/datum/gear/accessory/scarf/green
-	display_name = "Scarf, green"
-	path = /obj/item/clothing/accessory/scarf/green
-
-/datum/gear/accessory/scarf/darkblue
-	display_name = "Scarf, dark blue"
-	path = /obj/item/clothing/accessory/scarf/darkblue
-
-/datum/gear/accessory/scarf/purple
-	display_name = "Scarf, purple"
-	path = /obj/item/clothing/accessory/scarf/purple
-
-/datum/gear/accessory/scarf/yellow
-	display_name = "Scarf, yellow"
-	path = /obj/item/clothing/accessory/scarf/yellow
-
-/datum/gear/accessory/scarf/orange
-	display_name = "Scarf, orange"
-	path = /obj/item/clothing/accessory/scarf/orange
-
-/datum/gear/accessory/scarf/lightblue
-	display_name = "Scarf, light blue"
-	path = /obj/item/clothing/accessory/scarf/lightblue
-
-/datum/gear/accessory/scarf/white
-	display_name = "Scarf, white"
-	path = /obj/item/clothing/accessory/scarf/white
-
-/datum/gear/accessory/scarf/black
-	display_name = "Scarf, black"
-	path = /obj/item/clothing/accessory/scarf/black
-
-/datum/gear/accessory/scarf/zebra
-	display_name = "Scarf, zebra"
-	path = /obj/item/clothing/accessory/scarf/zebra
-
-/datum/gear/accessory/scarf/christmas
-	display_name = "Scarf, christmas"
-	path = /obj/item/clothing/accessory/scarf/christmas
-
-/datum/gear/accessory/scarf/stripedred
-	display_name = "Scarf, striped red"
-	path = /obj/item/clothing/accessory/stripedredscarf
-
-/datum/gear/accessory/scarf/stripedgreen
-	display_name = "Scarf, striped green"
-	path = /obj/item/clothing/accessory/stripedgreenscarf
-
-/datum/gear/accessory/scarf/stripedblue
-	display_name = "Scarf, striped blue"
-	path = /obj/item/clothing/accessory/stripedbluescarf
-
 /datum/gear/accessory/holobadge
 	display_name = "Holobadge, pin"
 	path = /obj/item/clothing/accessory/holobadge
@@ -85,27 +25,6 @@
 	display_name = "Holobadge, cord"
 	path = /obj/item/clothing/accessory/holobadge/cord
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
-
-/datum/gear/accessory/tieblue
-	display_name = "Tie, blue"
-	path = /obj/item/clothing/accessory/blue
-
-/datum/gear/accessory/tiered
-	display_name = "Tie, red"
-	path = /obj/item/clothing/accessory/red
-
-/datum/gear/accessory/tieblack
-	display_name = "Tie, black"
-	path = /obj/item/clothing/accessory/black
-
-/datum/gear/accessory/tiehorrible
-	display_name = "Tie, vomit green"
-	path = /obj/item/clothing/accessory/horrible
-
-/datum/gear/accessory/stethoscope
-	display_name = "Stethoscope"
-	path = /obj/item/clothing/accessory/stethoscope
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic")
 
 /datum/gear/accessory/cowboyshirt
 	display_name = "Cowboy shirt, black"
@@ -146,22 +65,6 @@
 /datum/gear/accessory/cowboyshirt/navy/short_sleeved
 	display_name = "Cowboy shirt, short sleeved navy"
 	path = /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
-
-/datum/gear/accessory/locket/silver
-	display_name = "Silver locket"
-	path = /obj/item/clothing/accessory/necklace/locket/silver
-
-/datum/gear/accessory/locket
-	display_name = "Gold locket"
-	path = /obj/item/clothing/accessory/necklace/locket
-
-/datum/gear/accessory/necklace/long
-	display_name = "Large necklace"
-	path = /obj/item/clothing/accessory/necklace/long
-
-/datum/gear/accessory/necklace
-	display_name = "Simple necklace"
-	path = /obj/item/clothing/accessory/necklace
 
 /datum/gear/accessory/corset
 	display_name = "Corset, black"
@@ -233,7 +136,7 @@
 /datum/gear/accessory/armband_job/procedure
 	display_name = "Armband, procedure"
 	path = /obj/item/clothing/accessory/armband/procedure
-	allowed_roles = list("Captain", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent")
+	allowed_roles = list("Captain", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Career Trainer")
 
 /datum/gear/accessory/armband_job/service
 	display_name = "Armband, service"

@@ -90,6 +90,7 @@
 /mob/living/carbon/examine(mob/user)
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
 		return list("<span class='notice'>You're struggling to make out any details...</span>")
+
 	var/skipgloves = FALSE
 	var/skipsuitstorage = FALSE
 	var/skipjumpsuit = FALSE
@@ -98,6 +99,7 @@
 	var/skipears = FALSE
 	var/skipeyes = FALSE
 	var/skipface = FALSE
+	var/hallucinating = HAS_TRAIT(user, TRAIT_EXAMINE_HALLUCINATING)
 
 	//exosuits and helmets obscure our view and stuff.
 	if(wear_suit)
@@ -141,8 +143,11 @@
 			accessories = parts[5]
 
 		if(item)
+			if(HAS_TRAIT(item, TRAIT_SKIP_EXAMINE))
+				continue
 			if(istype(item, /obj/item/grab))
 				grab_items |= item
+
 			if(item.flags & ABSTRACT)
 				abstract_items |= item
 			else
@@ -162,6 +167,32 @@
 		else
 			// add any extra info on the limbs themselves
 			msg += examine_handle_individual_limb(limb_name)
+
+	// hallucinating?
+	if(hallucinating && prob(50))
+		// List of hallucination messages
+		var/list/hallucination_texts = list(
+			"You blink, and for a moment, [p_their()] body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
+			"[p_they(TRUE)] appear[p_s()] to be surrounded by a swarm of tiny, glowing butterflies.",
+			"[p_they(TRUE)] [p_are()] wearing a crown made of spaghetti. Wait, no... it's gone now.",
+			"[p_they(TRUE)] look[p_s()] suspicious, as if plotting a jelly heist.",
+			"[p_they(TRUE)] begin[p_s()] to hum a tune, but the sound seems to echo from all directions at once.",
+			"[p_they(TRUE)] smile [p_s()], and for a second, [p_their()] face twists into a thousand tiny reflections.",
+			"[p_they(TRUE)] seem[p_s()] to float slightly above the ground, [p_their()] feet just brushing against the floor.",
+			"[p_their(TRUE)] hands flicker like holograms, shifting between different gestures before returning to normal.",
+			"[p_they(TRUE)] seems to be cloaked in a faint, swirling fog that disappears the moment you focus on it.",
+			"You glance at [p_them()], and for an instant, [p_their()] shadow stretches unnaturally long, as if reaching for something just out of view. Did that shadow have a face?",
+			"You glance at [p_them()], and for a moment, [p_their()] eyes seem to flash with a strange, metallic gleam. You could have sworn it was gold... or was it red?",
+			"[p_they(TRUE)] seem[p_s()] to be walking straight towards you, [p_their()] silhouette stretching longer than it should. Were [p_their()] footsteps too quiet? Or is it just you? There's something off about the way [p_they()] move[p_s()].",
+			"For a moment, [p_they()] snap[p_s()] to an odd position, [p_their()] head and legs stiff and unwavering. [p_their(TRUE)] arms are outstretched to [p_their()] sides, and you see black where [p_their()] eyes should be.",
+			"[p_they(TRUE)] [p_have()] no face. There's an impossibly dark layer of nothingness where it should be. [p_their(TRUE)] sclerae are the only indication [p_they()] still [p_have()] eyes.",
+			"You swear you just saw [p_them()] sobbing and begging!",
+			"[p_they(TRUE)] [p_are()] bleeding profusely! [p_their(TRUE)] blood is crawling its way back in!",
+			"[p_their(TRUE)] head violently jerks to meet your gaze."
+	)
+		// Pick a random hallucination description
+		var/random_text = pick(hallucination_texts)
+		msg += "<span class='warning'>[random_text]</span>\n"
 
 	//handcuffed?
 	if(handcuffed)
@@ -221,9 +252,11 @@
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
 		if(!just_sleeping)
-			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
-			if(get_int_organ(/obj/item/organ/internal/brain) && !key)
-				if(!get_ghost())
+			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive"
+			if(get_int_organ(/obj/item/organ/internal/brain) && !client) // body has no online player inside - let's look for ghost
+				if(!check_ghost_client()) // our ghost is offline or no ghost attached to body
+					msg += "; there are no signs of life"
+				if(!get_ghost() && !key) // no ghost attached to body
 					msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
 
@@ -311,30 +344,43 @@
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)
 	if(ishuman(M))
-		var/have_hudtypes = list()
 		var/mob/living/carbon/human/H = M
-
+		var/obj/item/clothing/glasses/hud/hudglasses
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			var/obj/item/clothing/glasses/hud/hudglasses = H.glasses
-			if(hudglasses?.examine_extensions)
-				have_hudtypes += hudglasses.examine_extensions
+			hudglasses = H.glasses
+			if(hudglasses.hud_debug)
+				return TRUE
 
-		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
-		if(CIH?.examine_extensions)
-			have_hudtypes += CIH.examine_extensions
+		var/have_hudtypes = list()
+		var/datum/atom_hud/data/human/medbasic = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
+		var/datum/atom_hud/data/human/medadv = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		var/datum/atom_hud/data/human/secbasic = GLOB.huds[DATA_HUD_SECURITY_BASIC]
+		var/datum/atom_hud/data/human/secadv = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		if((H in medbasic.hudusers) || (H in medadv.hudusers))
+			have_hudtypes += EXAMINE_HUD_MEDICAL_READ
+		if(H in secadv.hudusers)
+			have_hudtypes += EXAMINE_HUD_SECURITY_READ
+		if(H in secbasic.hudusers)
+			have_hudtypes += EXAMINE_HUD_SKILLS
 
 		var/user_accesses = M.get_access()
 		var/secwrite = has_access(null, list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS), user_accesses) // same as obj/machinery/computer/secure_data/req_one_access
 		var/medwrite = has_access(null, list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS), user_accesses) // same access as obj/machinery/computer/med_data/req_one_access
-		if(secwrite)
+		if(secwrite || hudglasses?.hud_access_override)
 			have_hudtypes += EXAMINE_HUD_SECURITY_WRITE
 		if(medwrite)
 			have_hudtypes += EXAMINE_HUD_MEDICAL_WRITE
 
 		return (hudtype in have_hudtypes)
 
-	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
-		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
+	else if(isrobot(M) || is_ai(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
+		var/mob/living/silicon/ai/sillycon = M
+		if(sillycon.laws.zeroth_law && is_ai(M))
+			return (hudtype in list(EXAMINE_HUD_MALF_READ, EXAMINE_HUD_MALF_WRITE, EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS))
+		else if(sillycon.laws.zeroth_law && isrobot(M))
+			return (hudtype in list(EXAMINE_HUD_MALF_READ, EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS))
+		else
+			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS))
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M

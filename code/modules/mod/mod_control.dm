@@ -87,12 +87,14 @@
 	var/emp_proof = FALSE
 	/// List of overlays the mod has. Needs to be cut onremoval / module deactivation
 	var/list/mod_overlays = list()
-	/// Is the jetpack on so we should make ion effects?
-	var/jetpack_active = FALSE
 	/// Cham option for when the cham module is installed.
 	var/datum/action/item_action/chameleon_change/modsuit/chameleon_action
 	/// Is the control unit disquised?
 	var/current_disguise = FALSE
+	/// The MODlink datum, letting us call people from the suit.
+	var/datum/mod_link/mod_link
+	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
+	var/starting_frequency = null
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()
@@ -159,10 +161,19 @@
 		module = new module(src)
 		install(module)
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+	START_PROCESSING(SSobj, src)
+	mod_link = new(
+		src,
+		starting_frequency,
+		CALLBACK(src, PROC_REF(get_wearer)),
+		CALLBACK(src, PROC_REF(can_call)),
+		CALLBACK(src, PROC_REF(make_link_visual)),
+		CALLBACK(src, PROC_REF(get_link_visual)),
+		CALLBACK(src, PROC_REF(delete_link_visual))
+	)
 
 /obj/item/mod/control/Destroy()
-	if(active)
-		STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSobj, src)
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module, deleting = TRUE)
 	for(var/obj/item/part as anything in mod_parts)
@@ -181,6 +192,7 @@
 		QDEL_NULL(boots)
 	if(core)
 		QDEL_NULL(core)
+	QDEL_NULL(mod_link)
 	QDEL_NULL(wires)
 	wearer = null
 	selected_module = null
@@ -208,6 +220,7 @@
 			. += "You could remove [core] with a <b>wrench</b>."
 		else
 			. += "You could use a <b>MOD core</b> on it to install one."
+	. += "You could copy/set link frequency with a <b>multitool</b>."
 
 /obj/item/mod/control/examine_more(mob/user)
 	. = ..()
@@ -216,9 +229,13 @@
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
 		seconds_electrified--
+	if(mod_link.link_call)
+		subtract_charge((DEFAULT_CHARGE_DRAIN * 0.25))
+	if(!active)
+		return
 	if(get_charge() <= 10 && active && !activating) //Sometimes we get power being funky, this should fix it.
 		power_off()
-		return PROCESS_KILL
+		return
 	var/malfunctioning_charge_drain = 0
 	if(malfunctioning)
 		malfunctioning_charge_drain = rand(1, 20)
@@ -240,13 +257,6 @@
 /obj/item/mod/control/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
-
-/obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(!jetpack_active || !isturf(user.loc))
-		return
-	var/turf/T = get_step(src, REVERSE_DIR(direction))
-	if(!has_gravity(T))
-		new /obj/effect/particle_effect/ion_trails(T, direction)
 
 /obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
@@ -276,7 +286,7 @@
 						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
 						playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 						return
-				if(!M.unEquip(src, silent = TRUE))
+				if(!M.unequip(src, force = TRUE))
 					return
 				M.put_in_active_hand(src)
 			else
@@ -302,6 +312,49 @@
 		update_charge_alert()
 		return TRUE
 	return ..()
+
+/obj/item/mod/control/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	var/obj/item/linked_thing = locateUID(M.buffer_uid)
+
+	if(!linked_thing)
+		to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+		M.buffer_uid = UID()
+		return TRUE
+	if(ismodcontrol(linked_thing))
+		var/obj/item/mod/control/chosen_control = linked_thing
+		var/response = tgui_alert(user, "Would you like to copy the frequency to the multitool or imprint the frequency to [src]?", "MODlink Frequency", list("Copy", "Imprint"))
+		if(!user.is_holding(I))
+			return FALSE
+		switch(response)
+			if("Copy")
+				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				M.buffer_uid = UID()
+				return TRUE
+			if("Imprint")
+				mod_link.frequency = chosen_control.mod_link.frequency
+				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				return TRUE
+	else
+		var/obj/item/clothing/neck/link_scryer/chosen_scryer = linked_thing
+		var/response = tgui_alert(user, "Would you like to copy the frequency to the multitool or imprint the frequency to [src]?", "MODlink Frequency", list("Copy", "Imprint"))
+		if(!user.is_holding(I))
+			return FALSE
+		switch(response)
+			if("Copy")
+				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				M.buffer_uid = UID()
+				return TRUE
+			if("Imprint")
+				mod_link.frequency = chosen_scryer.mod_link.frequency
+				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				return TRUE
+
 
 /obj/item/mod/control/screwdriver_act(mob/living/user, obj/item/screwdriver)
 	if(..())
@@ -531,6 +584,7 @@
 		retract(null, part)
 	if(active)
 		finish_activation(on = FALSE)
+		mod_link?.end_call()
 	var/mob/old_wearer = wearer
 	unset_wearer()
 	old_wearer.drop_item()
@@ -613,6 +667,10 @@
 	old_module.on_uninstall(deleting = deleting)
 	QDEL_LIST_ASSOC_VAL(old_module.pinned_to)
 	old_module.mod = null
+
+/// Intended for callbacks, don't use normally, just get wearer by itself.
+/obj/item/mod/control/proc/get_wearer()
+	return wearer
 
 /obj/item/mod/control/proc/update_access(mob/user, obj/item/card/id/card)
 	if(!allowed(user))
@@ -711,7 +769,15 @@
 			overslotting_parts -= part
 			continue
 		overslotting_parts |= part
+	var/used_skin_modifiers = theme.skin_modifiers[new_skin]
+	apply_modifiers(used_skin_modifiers)
 	wearer?.regenerate_icons()
+
+/obj/item/mod/control/proc/apply_modifiers(modifiers)
+	if(modifiers & MAKE_SPACEPROOF)
+		min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+		for(var/obj/item/clothing/part in mod_parts)
+			part.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/mod/control/proc/on_exit(datum/source, atom/movable/part, direction)
 	SIGNAL_HANDLER

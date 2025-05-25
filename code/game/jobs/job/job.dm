@@ -60,6 +60,7 @@
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
 
 	var/admin_only = 0
+	var/mentor_only = 0
 	var/spawn_ert = 0
 	var/syndicate_command = 0
 
@@ -147,6 +148,9 @@
 	if(job_banned_gamemode)
 		return FALSE
 	return (current_positions < spawn_positions) || (spawn_positions == -1)
+
+/datum/job/proc/is_command_position()
+	return (title in GLOB.command_positions)
 
 /datum/outfit/job
 	name = "Standard Gear"

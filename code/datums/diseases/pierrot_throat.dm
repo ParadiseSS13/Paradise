@@ -50,7 +50,7 @@
 
 	var/saved_internals = H.internal
 
-	H.unEquip(H.get_item_by_slot(ITEM_SLOT_MASK))
+	H.drop_item_to_ground(H.get_item_by_slot(ITEM_SLOT_MASK))
 	var/obj/item/clothing/mask/gas/clown_hat/peak_comedy = new
 	peak_comedy.flags |= DROPDEL
 	H.equip_to_slot_or_del(peak_comedy, ITEM_SLOT_MASK)

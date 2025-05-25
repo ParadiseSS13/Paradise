@@ -9,6 +9,7 @@
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
 	can_flashlight = TRUE
+	can_be_lensed = FALSE
 	flight_x_offset = 15
 	flight_y_offset = 9
 	var/overheat_time = 16
@@ -33,8 +34,8 @@
 			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
+				. |= "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
-				. += "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 
 /obj/item/gun/energy/kinetic_accelerator/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
@@ -77,7 +78,6 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	max_mod_capacity = 80
 	icon_state = "kineticgun_b"
 
 /obj/item/gun/energy/kinetic_accelerator/cyborg/malf
@@ -324,6 +324,9 @@
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE
+	if(istype(loc, /obj/item/gun/energy/kinetic_accelerator)) //Could be in another KA too.
+		message_admins("User attempted to install a modkit into a kinetic accelerator while it is installed in an accelerator. Could be a double click, or an exploit attempt.")
+		return FALSE
 	if(minebot_upgrade)
 		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
 			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
@@ -344,7 +347,7 @@
 		if(.)
 			to_chat(user, "<span class='notice'>You install the modkit.</span>")
 			playsound(loc, usesound, 100, 1)
-			user.unEquip(src)
+			user.unequip(src)
 			forceMove(KA)
 			KA.modkits += src
 		else

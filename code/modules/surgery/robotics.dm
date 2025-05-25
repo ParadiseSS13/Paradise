@@ -444,10 +444,6 @@
 		to_chat(user, "<span class='notice'>[I] is in no state to be transplanted.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(target.get_int_organ(I))
-		to_chat(user, "<span class='warning'>[target] already has [I].</span>")
-		return SURGERY_BEGINSTEP_SKIP
-
 	user.visible_message(
 		"[user] begins reattaching [target]'s [tool].",
 		"You start reattaching [target]'s [tool]."
@@ -613,7 +609,7 @@
 
 	var/obj/item/mmi/M = tool
 
-	user.unEquip(tool)
+	user.drop_item_to_ground(tool)
 	M.attempt_become_organ(affected,target)
 	return ..()
 
@@ -754,6 +750,7 @@
 	else if(!target.Adjacent(user))
 		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
+
 	var/new_gender = gender_list[gender_key]
 	var/old_name = target.real_name
 	target.real_name = new_name
@@ -763,4 +760,5 @@
 		"<span class='notice'>You alter [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 		)
+
 	return SURGERY_STEP_CONTINUE

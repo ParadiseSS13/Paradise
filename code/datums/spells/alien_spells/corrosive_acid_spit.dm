@@ -31,6 +31,7 @@
 		C.add_plasma(-200)
 	else
 		to_chat(C, "<span class='noticealien'>You cannot dissolve this object.</span>")
+	handle_delete(user)
 
 /datum/spell/touch/alien_spell/burning_touch
 	name = "Blazing touch"
@@ -72,3 +73,4 @@
 			C.visible_message("<span class='alertalien'>[C] touches [target] and burns right through it!</span>")
 			C.add_plasma(-100)
 			qdel(target)
+	handle_delete(user)

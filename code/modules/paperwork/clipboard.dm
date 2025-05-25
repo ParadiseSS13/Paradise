@@ -52,8 +52,7 @@
 		if(!is_pen(P))
 			return
 		to_chat(user, "<span class='notice'>You slide [P] into [src].</span>")
-		user.unEquip(P)
-		P.forceMove(src)
+		user.transfer_item_to(P, src)
 		containedpen = P
 	else
 		if(!containedpen)
@@ -96,7 +95,7 @@
 
 /obj/item/clipboard/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
-		user.unEquip(W)
+		user.unequip(W)
 		W.forceMove(src)
 		to_chat(user, "<span class='notice'>You clip [W] onto [src].</span>")
 		playsound(loc, "pageturn", 50, 1)

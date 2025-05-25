@@ -357,7 +357,7 @@
 	P.precision = 0
 	P.failchance = 0
 	P.can_multitool_to_remove = 1
-	if(W.name == "bluespace beam")
+	if(W.name == "wormhole beam")
 		qdel(blue)
 		blue = P
 	else
@@ -407,6 +407,20 @@
 	force = 60
 	origin_tech = "combat=7;magnets=6"
 	execution_speed = 2 SECONDS
+
+/obj/item/gun/energy/laser/instakill/examine(mob/user)
+	. = ..()
+	. += "This gun gibs anyone it hits and destroys objects."
+
+/obj/item/gun/energy/laser/instakill/examine_more(mob/user)
+	. = ..()
+	. = list()
+	. += "Utilizing top-shelf Shellguard batteries, a sleek off-white chassis, and a dense enough lens to make an optometrist cry, this rifle fires laser bolts that can violently disassemble anyone it hits. You're still not sure when it would be useful, though."
+	. += ""
+	. += "Once quested for in days of old, this rifle and other treasures of the gods were sealed away in their palace in the sky. The once-open door was not simply locked, but taken away."
+	. += ""
+	. += "Who are we kidding, this is an admin-only weapon that instakills people. Go nuts. Have fun."
+
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -686,11 +700,11 @@
 
 /obj/item/gun/energy/bsg/equipped(mob/user, slot, initial)
 	. = ..()
-	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID(src)]")
+	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
 
 /obj/item/gun/energy/bsg/dropped(mob/user, silent)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID(src)]")
+	REMOVE_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
@@ -1036,7 +1050,7 @@
 		user.flash_eyes(2, TRUE)
 		do_sparks(rand(5, 9), FALSE, src)
 		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		cell.charge = 0 //ha ha you lose
 		update_icon()
 		return

@@ -127,6 +127,7 @@
 /area/ruin/space/powered/bar)
 "aF" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aG" = (
@@ -134,6 +135,7 @@
 /area/ruin/space/powered)
 "aH" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aI" = (
@@ -205,25 +207,21 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -8
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/powered/bar)
 "aX" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "black"
 	},
 /area/ruin/space/powered/bar)
 "aY" = (
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/neck/stethoscope,
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/scalpel,
 /obj/structure/table,
@@ -236,9 +234,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ba" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1
-	},
+/obj/machinery/door/airlock/multi_tile/glass/directional/north,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -312,11 +308,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -8
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -456,6 +448,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -667,9 +660,7 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
 "CN" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -686,9 +677,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "DT" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -733,9 +722,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
-"Gz" = (
-/turf/simulated/wall/mineral/iron,
-/area/template_noop)
 "HX" = (
 /obj/structure/table,
 /obj/item/book/manual/barman_recipes,
@@ -3185,7 +3171,7 @@ aw
 ab
 aw
 ab
-Gz
+aw
 ad
 ab
 ab

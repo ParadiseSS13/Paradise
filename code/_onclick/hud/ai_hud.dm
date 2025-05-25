@@ -105,7 +105,7 @@
 /atom/movable/screen/ai/state_laws/Click()
 	if(..())
 		return
-	if(isAI(usr))
+	if(is_ai(usr))
 		var/mob/living/silicon/ai/AI = usr
 		AI.subsystem_law_manager()
 
@@ -156,7 +156,7 @@
 /atom/movable/screen/ai/sensors/Click()
 	if(..())
 		return
-	if(isAI(usr))
+	if(is_ai(usr))
 		var/mob/living/silicon/ai/AI = usr
 		AI.sensor_mode()
 	else if(isrobot(usr))

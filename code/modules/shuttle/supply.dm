@@ -12,10 +12,10 @@
 	id = "supply"
 	callTime = 2 MINUTES
 	dir = 8
-	travelDir = 90
 	width = 12
 	dwidth = 5
 	height = 7
+	port_direction = EAST
 
 	// The list of things that can't be sent to CC.
 	var/list/blacklist = list(
@@ -219,6 +219,10 @@
 		var/obj/effect/E = AM
 		if(E.is_cleanable())
 			return CARGO_OK
+		return CARGO_SKIP_ATOM
+
+	if(istype(AM, /mob/dead))
+		return CARGO_SKIP_ATOM
 
 	return CARGO_OK
 

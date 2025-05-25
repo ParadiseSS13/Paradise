@@ -1,6 +1,9 @@
 #define DEBUG
 //#define TESTING
 
+// Uncomment the following line to enable debug logging for cooking recipes.
+// #define PCWJ_DEBUG
+
 // Uncomment the following line to compile unit tests on a local server. The output will be in a test_run-[DATE].log file in the ./data folder.
 // #define LOCAL_GAME_TESTS
 
@@ -14,14 +17,15 @@
 
 #ifdef LOCAL_GAME_TESTS
 #define GAME_TESTS
-#endif
-
-#ifdef CIBUILDING
-#define GAME_TESTS
+#define MAP_TESTS
 #endif
 
 #if defined(CIBUILDING) && defined(LOCAL_GAME_TESTS)
 #error CIBUILDING and LOCAL_GAME_TESTS should not be enabled at the same time!
+#endif
+
+#if defined(GAME_TESTS) || defined(MAP_TESTS)
+#define TEST_RUNNER
 #endif
 
 /***** All toggles for the GC ref finder *****/

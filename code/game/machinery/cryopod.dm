@@ -136,7 +136,7 @@
 	item["name"] = I.name
 
 	frozen_items += list(item)
-	if(preserve_status == CRYO_OBJECTIVE)
+	if(preserve_status == CRYO_OBJECTIVE || istype(I, /obj/item/card/id/captains_spare))
 		objective_items += I
 	I.forceMove(src)
 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(item_got_removed))
@@ -334,13 +334,12 @@
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/I in occupant)
-		occupant.unEquip(I)
-		I.forceMove(src)
+		occupant.transfer_item_to(I, src)
 		handle_contents(I)
 
 	//Delete all items not on the preservation list.
 	var/list/items = contents
-	items -= occupant // Don't delete the occupant
+	items -= occupant // Don't delete the occupant // this fucking nullspaces the occupant btw, i fuckin hate old code
 	items -= announce // or the autosay radio.
 
 	ADD_TRAIT(occupant, TRAIT_CRYO_DESPAWNING, TRAIT_GENERIC)
@@ -348,7 +347,7 @@
 	for(var/obj/item/I in items)
 		if(istype(I, /obj/item/pda))
 			var/obj/item/pda/P = I
-			QDEL_NULL(P.id)
+			P.id = null
 			qdel(P)
 			continue
 		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
@@ -368,6 +367,8 @@
 	if(IS_SACRIFICE_TARGET(occupant.mind))
 		SSticker.mode.cult_team.find_new_sacrifice_target()
 
+	SSticker.mode.on_mob_cryo(occupant, src)
+
 	//Update any existing objectives involving this mob.
 	if(occupant.mind)
 		if(occupant.mind.initial_account)
@@ -386,10 +387,6 @@
 
 		if(occupant.mind.objective_holder.clear())
 			occupant.mind.special_role = null
-		else
-			if(SSticker.mode.name == "AutoTraitor")
-				var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
-				current_mode.possible_traitors.Remove(occupant)
 
 	// Delete them from datacore.
 
@@ -429,9 +426,9 @@
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(announce_rank)
-				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE)
+				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE, automatic = TRUE)
 			else
-				announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE)
+				announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(announce_rank)
 				announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
@@ -453,64 +450,64 @@
 	name = initial(name)
 
 
-/obj/machinery/cryopod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-
-		if(occupant)
-			to_chat(user, "<span class='notice'>[src] is in use.</span>")
-			return
-
-		if(!ismob(G.affecting))
-			return
-
-		if(!check_occupant_allowed(G.affecting))
-			return
-
-		var/willing = null //We don't want to allow people to be forced into despawning.
-		var/mob/living/M = G.affecting
-		time_till_despawn = initial(time_till_despawn)
-
-		if(!istype(M) || M.stat == DEAD)
-			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
-			return
-
-		if(M.client)
-			if(tgui_alert(M, "Would you like to enter long-term storage?", "Cryosleep", list("Yes", "No")) == "Yes")
-				if(!M || !G || !G.affecting)
-					return
-				willing = willing_time_divisor
-		else
-			willing = 1
-
-		if(willing)
-
-			visible_message("[user] starts putting [G.affecting.name] into [src].")
-
-			if(do_after(user, 20, target = G.affecting))
-				if(!M || !G || !G.affecting)
-					return
-
-				if(occupant)
-					to_chat(user, "<span class='boldnotice'>[src] is in use.</span>")
-					return
-
-				take_occupant(M, willing)
-
-			else //because why the fuck would you keep going if the mob isn't in the pod
-				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
-				return
-
-			icon_state = occupied_icon_state
-
-			M.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
-			to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
-			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
-
-			take_occupant(M, willing)
-	else
+/obj/machinery/cryopod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/grab/G = used
+	if(!istype(G))
 		return ..()
 
+	if(occupant)
+		to_chat(user, "<span class='notice'>[src] is in use.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(!ismob(G.affecting))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!check_occupant_allowed(G.affecting))
+		return ITEM_INTERACT_COMPLETE
+
+	var/willing = null //We don't want to allow people to be forced into despawning.
+	var/mob/living/M = G.affecting
+	time_till_despawn = initial(time_till_despawn)
+
+	if(!istype(M) || M.stat == DEAD)
+		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(M.client)
+		if(tgui_alert(M, "Would you like to enter long-term storage?", "Cryosleep", list("Yes", "No")) == "Yes")
+			if(!M || !G || !G.affecting)
+				return ITEM_INTERACT_COMPLETE
+			willing = willing_time_divisor
+	else
+		willing = 1
+
+	if(willing)
+
+		visible_message("[user] starts putting [G.affecting.name] into [src].")
+
+		if(do_after(user, 20, target = G.affecting))
+			if(!M || !G || !G.affecting)
+				return ITEM_INTERACT_COMPLETE
+
+			if(occupant)
+				to_chat(user, "<span class='boldnotice'>[src] is in use.</span>")
+				return ITEM_INTERACT_COMPLETE
+
+			take_occupant(M, willing)
+
+		else //because why the fuck would you keep going if the mob isn't in the pod
+			to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		icon_state = occupied_icon_state
+
+		M.throw_alert("cryopod", /atom/movable/screen/alert/ghost/cryo)
+		to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
+		to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+
+		take_occupant(M, willing)
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 
@@ -682,7 +679,7 @@
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
-	for(var/obj/machinery/cryopod/P in GLOB.machines)
+	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
 		if(P.occupant)
 			continue
 		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))

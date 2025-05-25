@@ -52,7 +52,7 @@
 /obj/item/staff/broom/attackby__legacy__attackchain(obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))
 		new/obj/item/staff/broom/horsebroom(get_turf(src))
-		user.unEquip(O)
+		user.unequip(O)
 		qdel(O)
 		qdel(src)
 		return

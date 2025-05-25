@@ -22,11 +22,15 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
-	collar_type = "cat"
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 	var/eats_mice = 1
+	var/collar_icon_state = "cat"
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/pet/cat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state, collar_resting_icon_state_ = TRUE)
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/runtime
@@ -118,7 +122,6 @@
 	resting = TRUE
 	custom_emote(EMOTE_VISIBLE, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 	icon_state = "[icon_living]_sit"
-	collar_type = "[initial(collar_type)]_sit"
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(stat == CONSCIOUS && !buckled)
@@ -157,7 +160,7 @@
 
 	turns_since_scan++
 	if(turns_since_scan > 5)
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		turns_since_scan = 0
 	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 		movement_target = null
@@ -172,7 +175,7 @@
 				break
 	if(movement_target)
 		stop_automated_movement = TRUE
-		walk(src, movement_target, 0, 3)
+		GLOB.move_manager.move_to(src, movement_target, 0, 3)
 
 /mob/living/simple_animal/pet/cat/proc_cat
 	name = "Proc"
@@ -195,7 +198,7 @@
 	gender = NEUTER
 	density = FALSE
 	pass_flags = PASSMOB
-	collar_type = "kitten"
+	collar_icon_state = "kitten"
 
 /mob/living/simple_animal/pet/cat/syndi
 	name = "SyndiCat"
@@ -235,7 +238,7 @@
 	butcher_results = list(
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
-		/obj/item/food/birthdaycakeslice = 3,
+		/obj/item/food/sliced/birthday_cake = 3,
 		/obj/item/food/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"

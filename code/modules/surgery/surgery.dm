@@ -49,6 +49,14 @@
 	/// How likely it should be for the surgery to cause infection: 0-1
 	var/germ_prevention_quality = 0
 
+/**
+ * Create a new surgery.
+ *
+ * Arguments:
+ * * surgery_target - The atom the target is being performed on.
+ * * surgery_location - The body zone that the surgery is being performed on.
+ * * surgery_bodypart - The body part that the surgery is being performed on.
+ */
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(!surgery_target)
@@ -320,6 +328,7 @@
 	surgery.step_in_progress = TRUE
 
 	var/speed_mod = 1
+	var/fail_mod = 1
 	var/advance = FALSE
 	var/retry = FALSE
 	var/prob_success = 100
@@ -341,6 +350,8 @@
 
 	if(tool)
 		speed_mod = tool.toolspeed
+		for(var/obj/item/smithed_item/tool_bit/bit in tool.attached_bits)
+			fail_mod -= (bit.failure_rate / 100)
 
 	// Using an unoptimal tool slows down your surgery
 	var/implement_speed_mod = 1
@@ -365,6 +376,7 @@
 	var/chem_check_result = chem_check(target)
 	var/pain_mod = deal_pain(user, target, target_zone, tool, surgery)
 	prob_success *= pain_mod
+	prob_success *= fail_mod
 
 	var/step_result
 
@@ -393,6 +405,9 @@
 			surgery.complete(target)
 
 	surgery.step_in_progress = FALSE
+	if(tool)
+		for(var/obj/item/smithed_item/tool_bit/bit in tool.attached_bits)
+			bit.damage_bit()
 	if(advance)
 		INVOKE_ASYNC(src, PROC_REF(play_success_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_SUCCESS
@@ -488,10 +503,27 @@
 /**
  * Get the action that will be performed during this surgery step, in context of the surgery it is a part of.
  *
- * * surgery - A surgery in progress.
+ * Arguments:
+ * * surgery - The main surgery this is being invoked by.
+ * * with_tools - Whether to include the tool necessary for the step at the end of the step information.
+ * *
  */
-/datum/surgery_step/proc/get_step_information(datum/surgery/surgery)
-	return name
+/datum/surgery_step/proc/get_step_information(datum/surgery/surgery, with_tools = FALSE)
+	if(!with_tools)
+		return name
+
+	var/list/tools = list()
+	for(var/tool in allowed_tools)
+		// only list main surgery tools. you can figure out the improvised version by trying (or reading the wiki lul)
+		if((tool in GLOB.surgery_tool_behaviors) || ((tool in GLOB.construction_tool_behaviors) && allowed_tools[tool] == 100))
+			tools |= tool
+	if(!length(tools))
+		// if nothing else, just pick the first in the list.
+		var/atom/tool = allowed_tools[1]
+		tools |= (ispath(tool)) ? tool::name : "[tool]"
+
+
+	return "[name] ([english_list(tools, and_text=" or ")])"
 
 /**
  * Spread some nasty germs to an organ.

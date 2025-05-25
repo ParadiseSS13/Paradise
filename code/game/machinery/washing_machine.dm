@@ -83,28 +83,28 @@
 		return
 	toggle_door()
 
-
-/obj/machinery/washing_machine/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/machinery/washing_machine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(default_unfasten_wrench(user, W))
-		return
-	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
+	if(default_unfasten_wrench(user, used))
+		return ITEM_INTERACT_COMPLETE
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, used))
 		update_appearance(UPDATE_ICON_STATE)
-		return
-	if(default_deconstruction_crowbar(user, W, FALSE))
-		return
-	if(istype(W, /obj/item/soap))
+		return ITEM_INTERACT_COMPLETE
+	if(default_deconstruction_crowbar(user, used, FALSE))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/soap))
 		return ..() // need to be able to clean washing machine without putting stuff into the washing machine :D
-	if(istype(W, /obj/item/grab))
-		var/obj/item/grab/G = W
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		if(isliving(G.assailant))
 			if(attempt_insert(user, G.affecting))
 				qdel(G)
-		return
-	if(istype(W))
-		if(attempt_insert(user, W))
-			return
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used))
+		if(attempt_insert(user, used))
+			return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 

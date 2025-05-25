@@ -53,13 +53,19 @@
 			/obj/item/toy/plushie/tuxedo_cat
 		),
 
-		list(// species plushie minus nian
-			/obj/item/toy/plushie/voxplushie,
-			/obj/item/toy/plushie/ipcplushie,
+		list(// Species plushies minus Nian.
+			/obj/item/toy/plushie/dionaplushie,
+			/obj/item/toy/plushie/draskplushie,
 			/obj/item/toy/plushie/greyplushie,
-			/obj/item/toy/plushie/nianplushie,
+			/obj/item/toy/plushie/humanplushie,
+			/obj/item/toy/plushie/kidanplushie,
+			/obj/item/toy/plushie/ipcplushie,
+			/obj/item/toy/plushie/plasmamanplushie,
+			/obj/item/toy/plushie/skrellplushie,
+			/obj/item/toy/plushie/voxplushie,
 			/obj/item/toy/plushie/abductor,
-			/obj/item/toy/plushie/abductor/agent
+			/obj/item/toy/plushie/abductor/agent,
+			/obj/item/toy/plushie/borgplushie/random
 		),
 
 		list (
@@ -83,3 +89,20 @@
 			/obj/item/toy/plushie/nianplushie/rainbow = 1
 		),
 	)
+
+/obj/effect/spawner/random/plushies/explosive
+	/// Chance to spawn a minibomb in the plushie.
+	var/explosive_chance = 1
+
+/obj/effect/spawner/random/plushies/explosive/make_item(spawn_loc, type_path_to_make)
+	var/obj/item/toy/plushie/plushie = ..()
+
+	if(!istype(plushie))
+		return plushie
+
+	if(prob(explosive_chance))
+		plushie.has_stuffing = FALSE
+		var/obj/item/grenade/syndieminibomb/grenade = new(plushie)
+		plushie.grenade = grenade
+
+	return plushie

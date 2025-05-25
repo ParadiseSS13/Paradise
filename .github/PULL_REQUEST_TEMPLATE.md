@@ -21,14 +21,11 @@
 
 <!-- How did you test the PR, if at all? -->
 
-<hr>
-
-### Declaration
+## Declaration
 
 - [ ] I confirm that I either do not require [pre-approval](https://github.com/ParadiseSS13/Paradise/blob/master/docs/CODE_OF_CONDUCT.md#types-of-changes-that-need-approval) for this PR, or I have obtained such approval and have included a screenshot to demonstrate this below.
   <!-- Replace the box with [x] to mark as complete. -->
   <!-- Ensure there are no spaces between the x and the square brackets [] else this will not work properly. -->
-  <hr>
 
 ## Changelog
 

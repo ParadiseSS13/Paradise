@@ -102,7 +102,7 @@
 			QDEL_IN(decal, 25)
 
 /obj/machinery/poolcontroller/proc/handleTemp(mob/M)
-	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
+	if(!M || is_ai_eye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
 		return
 	M.water_act(100, temperature, src)//leave temp at 0, we handle it in the switch. oh wait
 	switch(temperature) //Apply different effects based on what the temperature is set to.

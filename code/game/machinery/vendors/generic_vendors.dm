@@ -156,30 +156,15 @@
 	return TRUE
 
 /obj/machinery/economy/vending/coffee/do_vend(datum/data/vending_product/R, mob/user)
-	if(..())
+	var/obj/item/reagent_containers/drinks/vended = ..()
+	if(!istype(vended))
 		return
-	var/obj/item/reagent_containers/drinks/vended = new R.product_path()
 
 	if(istype(vended, /obj/item/reagent_containers/drinks/mug))
-		var/put_on_turf = TRUE
-		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
-				put_on_turf = FALSE
-		if(put_on_turf)
-			var/turf/T = get_turf(src)
-			vended.forceMove(T)
 		return
 
 	vended.reagents.trans_to(inserted_item, vended.reagents.total_volume)
-	if(vended.reagents.total_volume)
-		var/put_on_turf = TRUE
-		if(user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended))
-				put_on_turf = FALSE
-		if(put_on_turf)
-			var/turf/T = get_turf(src)
-			vended.forceMove(T)
-	else
+	if(!vended.reagents.total_volume)
 		qdel(vended)
 
 
@@ -437,6 +422,10 @@
 					/obj/item/clothing/under/pants/tan = 3,
 					/obj/item/clothing/under/pants/blue = 3,
 					/obj/item/clothing/under/pants/track = 3,
+					/obj/item/clothing/suit/tracksuit = 3,
+					/obj/item/clothing/suit/tracksuit/green = 3,
+					/obj/item/clothing/suit/tracksuit/red = 3,
+					/obj/item/clothing/suit/tracksuit/white = 3,
 					/obj/item/clothing/suit/jacket/miljacket = 3,
 					/obj/item/clothing/suit/jacket/miljacket/white = 3,
 					/obj/item/clothing/suit/jacket/miljacket/desert = 3,
@@ -456,23 +445,23 @@
 					/obj/item/clothing/head/beanie/stripedblue = 3,
 					/obj/item/clothing/head/beanie/stripedgreen = 3,
 					/obj/item/clothing/head/beanie/rasta = 3,
-					/obj/item/clothing/accessory/scarf/red = 3,
-					/obj/item/clothing/accessory/scarf/green = 3,
-					/obj/item/clothing/accessory/scarf/darkblue = 3,
-					/obj/item/clothing/accessory/scarf/purple = 3,
-					/obj/item/clothing/accessory/scarf/yellow = 3,
-					/obj/item/clothing/accessory/scarf/orange = 3,
-					/obj/item/clothing/accessory/scarf/lightblue = 3,
-					/obj/item/clothing/accessory/scarf/white = 3,
-					/obj/item/clothing/accessory/scarf/black = 3,
-					/obj/item/clothing/accessory/scarf/zebra = 3,
-					/obj/item/clothing/accessory/scarf/christmas = 3,
-					/obj/item/clothing/accessory/stripedredscarf = 3,
-					/obj/item/clothing/accessory/stripedbluescarf = 3,
-					/obj/item/clothing/accessory/stripedgreenscarf = 3,
-					/obj/item/clothing/accessory/blue = 3,
-					/obj/item/clothing/accessory/red = 3,
-					/obj/item/clothing/accessory/black = 3,
+					/obj/item/clothing/neck/scarf/red = 3,
+					/obj/item/clothing/neck/scarf/green = 3,
+					/obj/item/clothing/neck/scarf/darkblue = 3,
+					/obj/item/clothing/neck/scarf/purple = 3,
+					/obj/item/clothing/neck/scarf/yellow = 3,
+					/obj/item/clothing/neck/scarf/orange = 3,
+					/obj/item/clothing/neck/scarf/lightblue = 3,
+					/obj/item/clothing/neck/scarf/white = 3,
+					/obj/item/clothing/neck/scarf/black = 3,
+					/obj/item/clothing/neck/scarf/zebra = 3,
+					/obj/item/clothing/neck/scarf/christmas = 3,
+					/obj/item/clothing/neck/scarf/stripedred = 3,
+					/obj/item/clothing/neck/scarf/stripedblue = 3,
+					/obj/item/clothing/neck/scarf/stripedgreen = 3,
+					/obj/item/clothing/neck/tie/blue = 3,
+					/obj/item/clothing/neck/tie/red = 3,
+					/obj/item/clothing/neck/tie/black = 3,
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/clothing/under/dress/sundress = 2,
 					/obj/item/clothing/under/dress/stripeddress = 2,
@@ -496,9 +485,9 @@
 					/obj/item/storage/belt/fannypack = 1,
 					/obj/item/storage/belt/fannypack/blue = 1,
 					/obj/item/storage/belt/fannypack/red = 1,
-					/obj/item/clothing/suit/mantle = 2,
-					/obj/item/clothing/suit/mantle/old = 1,
-					/obj/item/clothing/suit/mantle/regal = 2)
+					/obj/item/clothing/neck/cloak/mantle = 2,
+					/obj/item/clothing/neck/cloak/old = 1,
+					/obj/item/clothing/neck/cloak/regal = 2)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					/obj/item/clothing/mask/balaclava = 1,
@@ -524,6 +513,10 @@
 				/obj/item/clothing/under/pants/tan = 75,
 				/obj/item/clothing/under/pants/blue = 75,
 				/obj/item/clothing/under/pants/track = 75,
+				/obj/item/clothing/suit/tracksuit = 75,
+				/obj/item/clothing/suit/tracksuit/green = 75,
+				/obj/item/clothing/suit/tracksuit/red = 75,
+				/obj/item/clothing/suit/tracksuit/white = 75,
 				/obj/item/clothing/suit/jacket/miljacket = 75,
 				/obj/item/clothing/suit/jacket/miljacket/white = 75,
 				/obj/item/clothing/suit/jacket/miljacket/desert = 75,
@@ -543,23 +536,23 @@
 				/obj/item/clothing/head/beanie/stripedblue = 40,
 				/obj/item/clothing/head/beanie/stripedgreen = 40,
 				/obj/item/clothing/head/beanie/rasta = 40,
-				/obj/item/clothing/accessory/scarf/red = 20,
-				/obj/item/clothing/accessory/scarf/green = 20,
-				/obj/item/clothing/accessory/scarf/darkblue = 20,
-				/obj/item/clothing/accessory/scarf/purple = 20,
-				/obj/item/clothing/accessory/scarf/yellow = 20,
-				/obj/item/clothing/accessory/scarf/orange = 20,
-				/obj/item/clothing/accessory/scarf/lightblue = 20,
-				/obj/item/clothing/accessory/scarf/white = 20,
-				/obj/item/clothing/accessory/scarf/black = 20,
-				/obj/item/clothing/accessory/scarf/zebra = 20,
-				/obj/item/clothing/accessory/scarf/christmas = 20,
-				/obj/item/clothing/accessory/stripedredscarf = 20,
-				/obj/item/clothing/accessory/stripedbluescarf = 20,
-				/obj/item/clothing/accessory/stripedgreenscarf = 20,
-				/obj/item/clothing/accessory/blue = 20,
-				/obj/item/clothing/accessory/red = 20,
-				/obj/item/clothing/accessory/black = 20,
+				/obj/item/clothing/neck/scarf/red = 20,
+				/obj/item/clothing/neck/scarf/green = 20,
+				/obj/item/clothing/neck/scarf/darkblue = 20,
+				/obj/item/clothing/neck/scarf/purple = 20,
+				/obj/item/clothing/neck/scarf/yellow = 20,
+				/obj/item/clothing/neck/scarf/orange = 20,
+				/obj/item/clothing/neck/scarf/lightblue = 20,
+				/obj/item/clothing/neck/scarf/white = 20,
+				/obj/item/clothing/neck/scarf/black = 20,
+				/obj/item/clothing/neck/scarf/zebra = 20,
+				/obj/item/clothing/neck/scarf/christmas = 20,
+				/obj/item/clothing/neck/scarf/stripedred = 20,
+				/obj/item/clothing/neck/scarf/stripedblue = 20,
+				/obj/item/clothing/neck/scarf/stripedgreen = 20,
+				/obj/item/clothing/neck/tie/blue = 20,
+				/obj/item/clothing/neck/tie/red = 20,
+				/obj/item/clothing/neck/tie/black = 20,
 				/obj/item/clothing/accessory/waistcoat = 20,
 				/obj/item/clothing/under/dress/sundress = 75,
 				/obj/item/clothing/under/dress/stripeddress = 75,
@@ -584,9 +577,9 @@
 				/obj/item/storage/belt/fannypack = 50,
 				/obj/item/storage/belt/fannypack/blue = 50,
 				/obj/item/storage/belt/fannypack/red = 50,
-				/obj/item/clothing/suit/mantle = 20,
-				/obj/item/clothing/suit/mantle/old = 20,
-				/obj/item/clothing/suit/mantle/regal = 30,
+				/obj/item/clothing/neck/cloak/mantle = 20,
+				/obj/item/clothing/neck/cloak/old = 20,
+				/obj/item/clothing/neck/cloak/regal = 30,
 				/obj/item/clothing/suit/pimpcoat/white = 500,
 				/obj/item/clothing/under/misc/mailman = 100)
 
@@ -685,6 +678,7 @@
 					/obj/item/clothing/under/costume/pirate = 1,
 					/obj/item/clothing/suit/pirate_brown = 1,
 					/obj/item/clothing/suit/pirate_black =1,
+					/obj/item/clothing/head/cool_bandana =1,
 					/obj/item/clothing/under/costume/pirate_rags =1,
 					/obj/item/clothing/head/pirate = 1,
 					/obj/item/clothing/under/costume/soviet = 1,
@@ -704,6 +698,7 @@
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 1,
 					/obj/item/clothing/mask/gas/sexymime = 1,
 					/obj/item/clothing/under/rank/civilian/mime/sexy = 1,
+					/obj/item/clothing/suit/suspenders = 1,
 					/obj/item/clothing/mask/face/bat = 1,
 					/obj/item/clothing/mask/face/bee = 1,
 					/obj/item/clothing/mask/face/bear = 1,
@@ -718,7 +713,7 @@
 					/obj/item/clothing/suit/poncho = 1,
 					/obj/item/clothing/suit/poncho/green = 1,
 					/obj/item/clothing/suit/poncho/red = 1,
-					/obj/item/clothing/accessory/horrible = 1,
+					/obj/item/clothing/neck/tie/horrible = 1,
 					/obj/item/clothing/under/costume/maid = 1,
 					/obj/item/clothing/under/costume/janimaid = 1,
 					/obj/item/clothing/under/costume/jester = 1,
@@ -803,6 +798,7 @@
 				/obj/item/clothing/under/costume/pirate = 100,
 				/obj/item/clothing/suit/pirate_brown = 100,
 				/obj/item/clothing/suit/pirate_black = 100,
+				/obj/item/clothing/head/cool_bandana = 50,
 				/obj/item/clothing/under/costume/pirate_rags = 100,
 				/obj/item/clothing/head/pirate = 50,
 				/obj/item/clothing/under/costume/soviet = 100,
@@ -822,6 +818,7 @@
 				/obj/item/clothing/under/rank/civilian/clown/sexy = 100,
 				/obj/item/clothing/mask/gas/sexymime = 100,
 				/obj/item/clothing/under/rank/civilian/mime/sexy = 100,
+				/obj/item/clothing/suit/suspenders = 50,
 				/obj/item/clothing/mask/face/bat = 100,
 				/obj/item/clothing/mask/face/bee = 100,
 				/obj/item/clothing/mask/face/bear = 100,
@@ -836,7 +833,7 @@
 				/obj/item/clothing/suit/poncho = 75,
 				/obj/item/clothing/suit/poncho/green = 75,
 				/obj/item/clothing/suit/poncho/red = 75,
-				/obj/item/clothing/accessory/horrible = 30,
+				/obj/item/clothing/neck/tie/horrible = 30,
 				/obj/item/clothing/under/costume/maid = 75,
 				/obj/item/clothing/under/costume/janimaid = 75,
 				/obj/item/clothing/under/costume/jester = 100,
@@ -1365,6 +1362,7 @@
 					/obj/item/stack/medical/ointment = 2,
 					/obj/item/reagent_containers/syringe/charcoal = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
+					/obj/item/stack/medical/splint = 2,
 					/obj/item/healthanalyzer = 1)
 
 	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4,
@@ -1394,7 +1392,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed, 32, 32)
 					/obj/item/cartridge/atmos = 10,
 					/obj/item/cartridge/janitor = 10,
 					/obj/item/cartridge/signal/toxins = 10,
-					/obj/item/cartridge/signal = 10)
+					/obj/item/cartridge/signal = 10,
+					/obj/item/cartridge/chef = 10)
 
 	contraband = list(/obj/item/cartridge/clown = 1,
 					/obj/item/cartridge/mime = 1)
@@ -1406,7 +1405,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed, 32, 32)
 				/obj/item/cartridge/atmos = 75,
 				/obj/item/cartridge/janitor = 100,
 				/obj/item/cartridge/signal/toxins = 150,
-				/obj/item/cartridge/signal = 75)
+				/obj/item/cartridge/signal = 75,
+				/obj/item/cartridge/chef = 100)
 
 	refill_canister = /obj/item/vending_refill/cart
 

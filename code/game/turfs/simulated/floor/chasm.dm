@@ -42,6 +42,18 @@
 	var/drop_y = 1
 	var/drop_z = 2 // so that it doesn't send you to CC if something fucks up.
 
+/turf/simulated/floor/chasm/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_new_atom_at_loc))
+
+/turf/simulated/floor/chasm/proc/on_new_atom_at_loc(turf/location, atom/created, init_flags)
+	SIGNAL_HANDLER // COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON
+	drop_stuff(created)
+
+/turf/simulated/floor/chasm/ChangeTurf(turf/simulated/floor/T, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
+	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
+	. = ..()
+
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
 	START_PROCESSING(SSprocessing, src)
@@ -62,9 +74,11 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/chasm/attackby__legacy__attackchain(obj/item/C, mob/user, params, area/area_restriction)
-	..()
-	if(istype(C, /obj/item/stack/rods))
+/turf/simulated/floor/chasm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/rods))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(!L)
 			var/obj/item/inactive = user.get_inactive_hand()
@@ -77,19 +91,21 @@
 
 			if(!inactive || inactive.tool_behaviour != TOOL_SCREWDRIVER)
 				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
-				return
-			var/obj/item/stack/rods/R = C
+				return ITEM_INTERACT_COMPLETE
+			var/obj/item/stack/rods/R = used
 			if(R.use(1))
 				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
 				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 				ReplaceWithLattice()
 			else
 				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-			return
-	if(istype(C, /obj/item/stack/tile/plasteel))
+
+			return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
+			var/obj/item/stack/tile/plasteel/S = used
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
@@ -99,6 +115,8 @@
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+
+		return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/chasm/is_safe()
 	if(find_safeties() && ..())
@@ -128,9 +146,11 @@
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE
 	//Flies right over the chasm
+	if(HAS_TRAIT(AM, TRAIT_FLYING))
+		return FALSE
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(HAS_TRAIT(M, TRAIT_FLYING) || M.floating)
+		if(M.floating)
 			return FALSE
 		if(istype(M.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
 			return FALSE
@@ -298,13 +318,6 @@
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, border_dir)
 	return TRUE
-
-/turf/simulated/floor/chasm/pride/Initialize(mapload)
-	. = ..()
-	drop_x = x
-	drop_y = y
-	var/list/target_z = levels_by_trait(SPAWN_RUINS)
-	drop_z = pick(target_z)
 
 /turf/simulated/floor/chasm/space_ruin
 	/// Used to keep count of how many times we checked if our target turf was valid.

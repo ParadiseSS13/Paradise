@@ -32,7 +32,6 @@
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
-		"Head of Personnel" = "comradio",
 		"Nanotrasen Representative" = "comradio",
 		// Engineeering
 		"Atmospheric Technician" = "engradio",
@@ -109,12 +108,16 @@
 		// Supply
 		"Quartermaster" = "supradio",
 		"Cargo Technician" = "supradio",
+		"Smith" = "supradio",
+		"Metalworker" = "supradio",
+		"Tinkerer" = "supradio",
 		"Shaft Miner" = "supradio",
 		"Spelunker" = "supradio",
 		"Explorer" = "supradio",
 		"Salvage Technician" = "supradio",
 		"Scavenger" = "supradio",
 		// Service
+		"Head of Personnel" = "srvradio",
 		"Bartender" = "srvradio",
 		"Beautician" = "srvradio",
 		"Botanical Researcher" = "srvradio",
@@ -132,6 +135,8 @@
 		"Journalist" = "srvradio",
 		"Librarian" = "srvradio",
 		"Mime" = "srvradio",
+		// Procedure
+		"Nanotrasen Career Trainer" = "proradio",
 	)
 	/// List of Command jobs
 	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "Quartermaster", "AI")

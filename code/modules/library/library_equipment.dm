@@ -10,7 +10,7 @@
 /obj/structure/bookcase
 	name = "bookcase"
 	icon = 'icons/obj/library.dmi'
-	icon_state = "bookshelf-0"
+	icon_state = "bookshelf"
 	anchored = TRUE
 	density = TRUE
 	opacity = TRUE
@@ -18,6 +18,7 @@
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
+	var/material_type = /obj/item/stack/sheet/wood
 
 /obj/structure/bookcase/Initialize(mapload)
 	. = ..()
@@ -29,14 +30,14 @@
 	for(var/obj/item/I in get_turf(src))
 		if(is_type_in_list(I, allowed_books))
 			I.forceMove(src)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/bookcase/attackby__legacy__attackchain(obj/item/O, mob/user)
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
 			return
 		O.forceMove(src)
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
@@ -44,7 +45,7 @@
 			if(is_type_in_list(T, allowed_books))
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	if(is_pen(O))
 		rename_interactive(user, O)
@@ -65,17 +66,19 @@
 		user.put_in_hands(choice)
 	else
 		choice.forceMove(get_turf(src))
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/wood(loc, 5)
+	new material_type(get_turf(src), 5)
 	for(var/obj/item/I in contents)
 		if(is_type_in_list(I, allowed_books))
 			I.forceMove(get_turf(src))
 	..()
 
-/obj/structure/bookcase/update_icon_state()
-	icon_state = "bookshelf-[min(length(contents), 5)]"
+/obj/structure/bookcase/update_overlays()
+	. = ..()
+	if(length(contents))
+		. += "[icon_state]-[min(length(contents), 5)]"
 
 
 /obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
@@ -101,7 +104,7 @@
 /obj/structure/bookcase/manuals/medical/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/structure/bookcase/manuals/engineering
@@ -115,7 +118,7 @@
 	new /obj/item/book/manual/wiki/engineering_guide(src)
 	new /obj/item/book/manual/engineering_singularity_safety(src)
 	new /obj/item/book/manual/wiki/robotics_cyborgs(src)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
@@ -123,7 +126,7 @@
 /obj/structure/bookcase/manuals/research_and_development/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/bookcase/sop
 	name = "bookcase (Standard Operating Procedures)"
@@ -139,23 +142,36 @@
 	new /obj/item/book/manual/wiki/sop_security(src)
 	new /obj/item/book/manual/wiki/sop_service(src)
 	new /obj/item/book/manual/wiki/sop_supply(src)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/bookcase/random
 	var/category = null
 	var/book_count = 5
-	icon_state = "random_bookcase"
+	icon_state = "random_bookshelf"
 	anchored = TRUE
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(load_books)), 0)
+	icon_state = "bookshelf" // to keep random_bookshelf icon for mappers
 
 /obj/structure/bookcase/random/proc/load_books()
 	var/list/books = GLOB.library_catalog.get_random_book(book_count)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(src, book, TRUE, FALSE)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/bookcase/metal
+	icon_state = "bookshelf_metal"
+	material_type = /obj/item/stack/sheet/metal
+
+/obj/structure/bookcase/nt
+	icon_state = "bookshelf_nt"
+	material_type = /obj/item/stack/sheet/metal
+
+/obj/structure/bookcase/military
+	icon_state = "bookshelf_military"
+	material_type = /obj/item/stack/sheet/plasteel
 
 /*
  * Book binder
@@ -183,15 +199,18 @@
 	ui_interact(user)
 
 
-/obj/machinery/bookbinder/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(istype(I, /obj/item/paper))
-		select_paper(I)
-	if(istype(I, /obj/item/paper_bundle))
-		select_paper_stack(I)
-	if(istype(I, /obj/item/book))
-		select_book(I)
-	if(default_unfasten_wrench(user, I, time = 60))
-		return
+/obj/machinery/bookbinder/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/paper))
+		select_paper(used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/paper_bundle))
+		select_paper_stack(used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/book))
+		select_book(used)
+		return ITEM_INTERACT_COMPLETE
+	if(default_unfasten_wrench(user, used, time = 60))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

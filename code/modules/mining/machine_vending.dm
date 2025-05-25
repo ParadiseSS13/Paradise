@@ -1,9 +1,3 @@
-// Use this define to register something as a purchasable!
-// * n — The proper name of the purchasable
-// * o — The object type path of the purchasable to spawn
-// * p — The price of the purchasable in mining points
-#define EQUIPMENT(n, o, p) n = new /datum/data/mining_equipment(n, o, p)
-
 /**********************Mining Equipment Vendor**************************/
 
 /obj/machinery/mineral/equipment_vendor
@@ -36,6 +30,7 @@
 		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
 		EQUIPMENT("Lazarus Capsule belt", /obj/item/storage/belt/lazarus, 200),
 		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
+		EQUIPMENT("Telecommunications Relay Kit", /obj/item/storage/box/relay_kit, 500),
 	)
 	prize_list["Modsuits and Exosuits"] = list(
 		EQUIPMENT("Standard MODsuit", /obj/item/mod/control/pre_equipped/standard/explorer, 1000),
@@ -58,6 +53,7 @@
 		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150),
 		EQUIPMENT("Shelter Capsule", /obj/item/survivalcapsule, 400),
 		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
+		EQUIPMENT("Bridge Capsule", /obj/item/bridge_capsule, 300),
 		EQUIPMENT("Stabilizing Serum", /obj/item/hivelordstabilizer, 400),
 		EQUIPMENT("Survival Medipen", /obj/item/reagent_containers/hypospray/autoinjector/survival, 500),
 	)
@@ -220,25 +216,25 @@
 			return FALSE
 	add_fingerprint()
 
-/obj/machinery/mineral/equipment_vendor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/mineral/equipment_vendor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(panel_open)
-		return TRUE
-	if(istype(I, /obj/item/mining_voucher))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/mining_voucher))
 		if(!has_power())
-			return
-		redeem_voucher(I, user)
-		return
-	if(istype(I, /obj/item/card/id))
+			return ITEM_INTERACT_COMPLETE
+		redeem_voucher(used, user)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id))
 		if(!has_power())
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/card/id/C = user.get_active_hand()
 		if(istype(C) && !istype(inserted_id))
 			if(!user.drop_item())
-				return
+				return ITEM_INTERACT_COMPLETE
 			C.forceMove(src)
 			inserted_id = C
 			ui_interact(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/mineral/equipment_vendor/crowbar_act(mob/living/user, obj/item/I)
@@ -306,34 +302,6 @@
 	return ..()
 
 
-/**********************Mining Equiment Vendor (Golem)**************************/
-
-/obj/machinery/mineral/equipment_vendor/golem
-	name = "golem ship equipment vendor"
-
-/obj/machinery/mineral/equipment_vendor/golem/Initialize(mapload)
-	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/golem(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
-
-	desc += "\nIt seems a few selections have been added."
-	prize_list["Extra"] += list(
-		EQUIPMENT("Extra ID", /obj/item/card/id/golem, 250),
-		EQUIPMENT("Science Backpack", /obj/item/storage/backpack/science, 250),
-		EQUIPMENT("Full Toolbelt", /obj/item/storage/belt/utility/full/multitool, 250),
-		EQUIPMENT("Monkey Cube", /obj/item/food/monkeycube, 250),
-		EQUIPMENT("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 500),
-		EQUIPMENT("Grey Slime Extract", /obj/item/slime_extract/grey, 1000),
-		EQUIPMENT("KA Trigger Modification Kit", /obj/item/borg/upgrade/modkit/trigger_guard, 1000),
-		EQUIPMENT("Shuttle Console Board", /obj/item/circuitboard/shuttle/golem_ship, 2000),
-		EQUIPMENT("The Liberator's Legacy", /obj/item/storage/box/rndboards, 2000),
-	)
-
 /**********************Mining Equiment Vendor (Gulag)**************************/
 
 /obj/machinery/mineral/equipment_vendor/labor
@@ -364,7 +332,7 @@
 		EQUIPMENT("Big Burger", /obj/item/food/burger/bigbite, 250),
 		EQUIPMENT("Recycled Prisoner", /obj/item/food/soylentgreen, 500),
 		EQUIPMENT("Crayons", /obj/item/storage/fancy/crayons, 350),
-		EQUIPMENT("Plushie", /obj/random/plushie, 750),
+		EQUIPMENT("Plushie", /obj/effect/spawner/random/plushies, 750),
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),
 		EQUIPMENT("Dice set", /obj/item/storage/box/dice, 250),
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),
@@ -446,30 +414,30 @@
 		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
 	)
 
-/obj/machinery/mineral/equipment_vendor/explorer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "explorer-open", "explorer", I))
-		return
+/obj/machinery/mineral/equipment_vendor/explorer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "explorer-open", "explorer", used))
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
+		if(istype(used, /obj/item/crowbar))
 			remove_id()
-			default_deconstruction_crowbar(user, I)
-		return TRUE
-	if(istype(I, /obj/item/mining_voucher))
+			default_deconstruction_crowbar(user, used)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/mining_voucher))
 		if(!has_power())
-			return
-		redeem_voucher(I, user)
-		return
-	if(istype(I, /obj/item/card/id))
+			return ITEM_INTERACT_COMPLETE
+		redeem_voucher(used, user)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id))
 		if(!has_power())
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/card/id/C = user.get_active_hand()
 		if(istype(C) && !istype(inserted_id))
 			if(!user.drop_item())
-				return
+				return ITEM_INTERACT_COMPLETE
 			C.forceMove(src)
 			inserted_id = C
 			ui_interact(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /**********************Mining Equipment Datum**************************/

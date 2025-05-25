@@ -16,7 +16,6 @@
 	name = "\improper Abandoned Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
-	there_can_be_many = TRUE
 
 /area/ruin/space/unpowered/no_grav/way_home
 	name = "\improper Salvation"
@@ -72,7 +71,6 @@
 /area/ruin/space/methlab
 	name = "\improper Abandoned Drug Lab"
 	icon_state = "green"
-	there_can_be_many = TRUE
 
 // Space Bar
 /area/ruin/space/powered/bar
@@ -182,9 +180,26 @@
 	icon_state = "dark"
 	requires_power = FALSE
 
+/area/ruin/space/turreted_outpost
+	name = "Syndicate Interdiction Platform"
+	icon_state = "red"
+
+/area/ruin/space/turreted_outpost/vault
+	name = "Syndicate Interdiction Platform Vault"
+	icon_state = "storage"
+
+/area/ruin/space/turreted_outpost/solars
+	name = "Syndicate Interdiction Platform Solars"
+	icon_state = "general_solars"
+
 /area/ruin/space/abandoned_engi_sat
 	name = "Abandoned NT Engineering Satellite"
 	apc_starts_off = TRUE
+
+/area/ruin/space/sieged_lab
+	name = "Laboratory X-18"
+	apc_starts_off = TRUE
+	tele_proof = TRUE
 
 /area/ruin/space/moonbase19
 	name = "Moon Base 19"
@@ -271,3 +286,26 @@
 
 /area/ruin/space/clown_mime_ruin
 	name = "\improper Derelict Transport Vessel"
+
+/area/ruin/space/clockwork_monastery
+	name = "\improper Abandoned Clockwork Monastery"
+	there_can_be_many = FALSE
+	requires_power = FALSE
+	ambientsounds = list("sound/ambience/reebe_ambience_1.ogg", "sound/ambience/reebe_ambience_2.ogg", "sound/ambience/reebe_ambience_3.ogg")
+
+/area/ruin/space/rocky_motel
+	name = "\improper Rocky Motel"
+	icon_state = "rocky_motel"
+	there_can_be_many = FALSE
+
+/area/ruin/space/rocky_motel/asteroid
+	icon_state = "away"
+
+/area/ruin/space/space_relay
+	name = "Nanotrasen Bluespace Relay"
+	icon_state = "space_relay"
+
+/area/ruin/space/space_relay/Initialize(mapload)
+	name = "Nanotrasen Bluespace Relay #[rand(1, 1000)]" //Give it a random relay name
+	return ..()
+

@@ -115,6 +115,7 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer,
 /obj/item/grenade/flashbang,
 /obj/item/storage/firstaid/regular,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
 "F" = (

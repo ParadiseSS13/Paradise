@@ -2,6 +2,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor_or_lattice = TRUE),
 	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("catwalk tile", /obj/item/stack/tile/catwalk, 2, 4, 20),
+	new /datum/stack_recipe("curtain rod", /obj/item/mounted/curtain/curtain_fixture, 2, 1, 20),
 	null,
 	new /datum/stack_recipe_list("railings...", list(
 		new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -60,10 +61,9 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 /obj/item/stack/rods/fifty
 	amount = 50
 
-/obj/item/stack/rods/New(loc, amount=null)
-	..()
+/obj/item/stack/rods/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.rod_recipes
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	var/replace = user.is_in_inactive_hand(src)
 	use(2)
 	if(get_amount() <= 0 && replace)
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		if(new_item)
 			user.put_in_hands(new_item)
 

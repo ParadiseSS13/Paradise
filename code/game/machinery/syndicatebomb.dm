@@ -114,21 +114,24 @@
 	else
 		. = timer_set
 
-/obj/machinery/syndicatebomb/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler))
+/obj/machinery/syndicatebomb/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/assembly/signaler))
 		if(open_panel)
 			wires.Interact(user)
-	else if(istype(I, /obj/item/bombcore))
+
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/bombcore))
 		if(!payload)
 			if(!user.drop_item())
-				return
-			payload = I
+				return ITEM_INTERACT_COMPLETE
+			payload = used
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 			payload.forceMove(src)
 		else
 			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/syndicatebomb/wrench_act(mob/user, obj/item/I)
 	if(!can_unanchor)
@@ -338,7 +341,7 @@
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
-	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log)
+	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, cause = "[name]: bombcore explosion")
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
@@ -660,7 +663,7 @@
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return
 
-	for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+	for(var/obj/machinery/syndicatebomb/B in SSmachines.get_by_type(/obj/machinery/syndicatebomb))
 		if(B.active)
 			B.detonation_timer = world.time + BUTTON_DELAY
 			detonated++

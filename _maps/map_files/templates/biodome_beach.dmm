@@ -70,17 +70,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "ao" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -147,7 +142,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "az" = (
-/obj/item/clothing/accessory/necklace/dope,
+/obj/item/clothing/neck/necklace/dope,
 /obj/item/reagent_containers/spray/spraytan,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
@@ -264,9 +259,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bo" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/beach)
@@ -312,8 +305,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/chair/stool,
 /turf/simulated/floor/wood,
@@ -457,9 +449,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "qT" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/beach)
 "sp" = (

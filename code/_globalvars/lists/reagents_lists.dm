@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"vodkatonic","ginfizz","bahama_mama","singulo","sbiten","devilskiss","red_mead",
 					"mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte",
 					"cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
-					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini", "flamingmoe",
+					"silencer","changelingsting","dublindrop","syndicatebomb","erikasurprise","driestmartini", "flamingmoe",
 					"arnold_palmer","gimlet","sidecar","whiskeysour","mintjulep","pinacolada","sontse","ahdomaieclipse",
 					"beachfeast","fyrsskartears","junglevox","slimemold","dieseife","aciddreams","islaywhiskey","ultramatter",
 					"howler", "dionasmash"))
@@ -50,4 +50,5 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"teslium_paste", "omnizine_no_addiction", "zombiecure1",
 							"zombiecure2", "zombiecure3", "zombiecure4",
 							"admincleaner_all", "admincleaner_item", "admincleaner_mob",
+							"synthetic_omnizine_no_addiction", "surge_plus"
 							))

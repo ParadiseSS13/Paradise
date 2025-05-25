@@ -11,6 +11,8 @@
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_ID
+
 	new_attack_chain = TRUE
 	var/associated_account_number = 0
 
@@ -29,6 +31,7 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
 /obj/item/card/emag
 	desc = "It's a card with a magnetic strip attached to some circuitry."
@@ -38,6 +41,7 @@
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
 /obj/item/card/emag/pre_attack(atom/target, mob/living/user, params)
 	if(..() || ismob(target))
@@ -55,7 +59,7 @@
 
 /obj/item/card/emag/magic_key/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!isairlock(target))
-		return ITEM_INTERACT_COMPLETE
+		return NONE
 	var/obj/machinery/door/D = target
 	D.locked = FALSE
 	D.update_icon()
@@ -71,6 +75,7 @@
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
 /obj/item/card/cmag/Initialize(mapload)
 	. = ..()
@@ -95,7 +100,6 @@
 	var/total_mining_points = 0
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
-	slot_flags = ITEM_SLOT_ID
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
@@ -161,6 +165,27 @@
 	if(can_id_flash)
 		flash_card(user)
 
+/obj/item/card/id/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!isliving(target))
+		return NONE
+	return shared_interact(target, user)
+
+/obj/item/card/id/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isliving(target) && get_dist(target, user) <= 2)
+		return shared_interact(target, user)
+	return NONE
+
+/obj/item/card/id/proc/shared_interact(mob/living/victim, mob/living/user)
+	if(victim.has_status_effect(STATUS_EFFECT_OFFERING_EFTPOS))
+		var/obj/item/eftpos/eftpos = victim.is_holding_item_of_type(/obj/item/eftpos)
+		if(!eftpos || !eftpos.can_offer)
+			to_chat(user, "<span class='warning'>They don't seem to have it in hand anymore.</span>")
+			return ITEM_INTERACT_COMPLETE
+		victim.remove_status_effect(STATUS_EFFECT_OFFERING_EFTPOS)
+		eftpos.scan_card(src, user)
+		return ITEM_INTERACT_COMPLETE
+	return NONE
+
 /obj/item/card/id/proc/UpdateName()
 	name = "[registered_name]'s ID Card ([assignment])"
 
@@ -206,9 +231,8 @@
 	if(G.registered_name != registered_name && G.registered_name != "NOT SPECIFIED")
 		to_chat(user, "The guest pass cannot be attached to this ID.")
 		return
-	if(!user.unEquip(G))
+	if(!user.transfer_item_to(G, src))
 		return
-	G.loc = src
 	guest_pass = G
 
 /obj/item/card/id/GetID()
@@ -490,19 +514,19 @@
 	name = "Security ID"
 	registered_name = "Officer"
 	icon_state = "security"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_EVIDENCE, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
 /obj/item/card/id/detective
 	name = "Detective ID"
 	registered_name = "Detective"
 	icon_state = "detective"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_EVIDENCE, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 
 /obj/item/card/id/warden
 	name = "Warden ID"
 	registered_name = "Warden"
 	icon_state = "warden"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_EVIDENCE, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
 /obj/item/card/id/internalaffairsagent
 	name = "Internal Affairs Agent ID"
@@ -534,11 +558,17 @@
 	icon_state = "cargo"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/smith
+	name = "Smith ID"
+	registered_name = "Smith"
+	icon_state = "smith"
+	access = list(ACCESS_CARGO_BAY, ACCESS_CARGO, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_SMITH)
+
 /obj/item/card/id/quartermaster
 	name = "Quartermaster ID"
 	registered_name = "Quartermaster"
 	icon_state = "quartermaster"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_SMITH)
 
 /obj/item/card/id/shaftminer
 	name = "Shaftminer ID"
@@ -578,7 +608,7 @@
 	name = "Head of Security ID"
 	registered_name = "HoS"
 	icon_state = "HoS"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_EVIDENCE, ACCESS_ARMORY, ACCESS_COURT,
 						ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 						ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 						ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS)
@@ -620,12 +650,19 @@
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 						ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS, ACCESS_NTREP)
 
+/obj/item/card/id/nct
+	name = "\improper Nanotrasen Career Trainer ID"
+	registered_name = "Nanotrasen Career Trainer"
+	icon_state = "nctrainer"
+	access = list(ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_CARGO, ACCESS_CONSTRUCTION, ACCESS_COURT, ACCESS_EVA, ACCESS_TRAINER, ACCESS_MAINT_TUNNELS,
+						ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_SEC_DOORS, ACCESS_THEATRE, ACCESS_INTERNAL_AFFAIRS)
+
 /obj/item/card/id/blueshield
 	name = "Blueshield ID"
 	registered_name = "Blueshield"
 	icon_state = "blueshield"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
-						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_EVIDENCE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
 						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_INTERNAL_AFFAIRS,
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
@@ -636,7 +673,7 @@
 	registered_name = "Magistrate"
 	icon_state = "magistrate"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
-						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_EVIDENCE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
 						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_INTERNAL_AFFAIRS,
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
@@ -755,7 +792,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY, ACCESS_SMITH) //access to robots/mechs
 	can_id_flash = FALSE //So you do not flash it the first time you use it.
 	var/registered = FALSE
 
@@ -775,6 +812,60 @@
 
 /obj/item/card/id/data
 	icon_state = "data"
+
+/obj/item/card/id/nct_data_chip
+	name = "\improper NCT Trainee Access Chip"
+	desc = "A small electronic access token that allows its user to copy the access of their Trainee. Only accessible by NT Career Trainers!"
+	icon_state = "nct_chip"
+	assignment = "Nanotrasen Career Trainer"
+	var/registered_user = null
+	var/trainee = null
+
+/obj/item/card/id/nct_data_chip/examine(mob/user)
+	. = ..()
+	. += "<br>The current registered Trainee is: <b>[trainee]</b>"
+	. += "<span class='notice'>Use in hand to reset the assigned trainee and access.</span>"
+	. += "<span class='purple'>The datachip is unable to copy any access that has been deemed high-risk by Nanotrasen Officials. That includes some, if not most, head related access permissions.</span>"
+
+/obj/item/card/id/nct_data_chip/activate_self(mob/user)
+	if(..())
+		return
+	if(!trainee)
+		return
+
+	var/response = tgui_alert(user, "Would you like to remove [trainee] as your current active Trainee?", "Choose", list("Yes", "No"))
+	if(response == "Yes")
+		trainee = null
+		icon_state = "nct_chip"
+		access = list()
+
+/obj/item/card/id/nct_data_chip/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/item/card/id))
+		return
+	if(!(isliving(user) && user.mind))
+		return
+
+	if(user.mind.current != registered_user)
+		to_chat(user, "<span class='notice'>You do not have access to use this NCT Trainee Access Chip!</span>")
+		return
+
+	if(istype(target, /obj/item/card/id/ert))
+		to_chat(user, "<span class='warning'>The chip's screen blinks red as you attempt scanning this ID.</span>")
+		return
+
+	var/obj/item/card/id/I = target
+	to_chat(user, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
+	access = I.access.Copy()
+	access.Remove(ACCESS_AI_UPLOAD, ACCESS_ARMORY, ACCESS_CAPTAIN, ACCESS_CE, ACCESS_RD, ACCESS_HOP, ACCESS_QM, ACCESS_CMO, ACCESS_HOS, ACCESS_NTREP,
+						ACCESS_MAGISTRATE, ACCESS_BLUESHIELD, ACCESS_HEADS_VAULT, ACCESS_KEYCARD_AUTH, ACCESS_RC_ANNOUNCE,
+						ACCESS_CHANGE_IDS, ACCESS_MINISAT)
+	trainee = I.registered_name
+	icon_state = "nct_chip_active"
+
+/obj/item/card/id/syndicate_fake // Syndicate ID drip with none of the access theft or anti-tracking.
+	name = "\improper Syndicate ID card"
+	desc = "An evil-looking ID issued to members of the Syndicate."
+	icon_state = "syndie"
 
 // Decals
 /obj/item/id_decal
@@ -829,10 +920,10 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
+	return list("data", "id", "gold", "silver", "security", "detective", "warden", "internalaffairsagent", "medical", "coroner", "chemist", "virologist", "paramedic", "psychiatrist", "geneticist", "research", "roboticist", "quartermaster", "cargo", "shaftminer", "engineering", "atmostech", "captain", "HoP", "HoS", "CMO", "RD", "CE", "assistant", "clown", "mime", "botanist", "librarian", "chaplain", "bartender", "chef", "janitor", "rainbow", "prisoner", "explorer", "nct")
 
 /proc/get_centcom_card_skins()
-	return list("centcom","blueshield","magistrate","ntrep","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","ERT_paranormal","deathsquad","commander","syndie","TDred","TDgreen")
+	return list("centcom", "blueshield", "magistrate", "ntrep", "ERT_leader", "ERT_empty", "ERT_security", "ERT_engineering", "ERT_medical", "ERT_janitorial", "ERT_paranormal", "deathsquad", "commander", "syndie", "TDred", "TDgreen")
 
 /proc/get_all_card_skins()
 	return get_station_card_skins() + get_centcom_card_skins()
@@ -853,6 +944,8 @@
 			return "Security Officer"
 		if("internalaffairsagent")
 			return "Internal Affairs Agent"
+		if("nct")
+			return "Nanotrasen Career Trainer"
 		if("atmostech")
 			return "Life Support Specialist"
 		if("HoP")

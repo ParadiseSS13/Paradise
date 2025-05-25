@@ -195,7 +195,7 @@
 	return S
 
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
-	if(parent_organ != parent.limb_name)
+	if(parent_organ != parent.limb_name && parent_organ != "eyes" && parent_organ != "mouth")
 		return FALSE
 	insert(H)
 	return TRUE
@@ -319,11 +319,11 @@
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
-				if(H.unEquip(H.shoes))
-					walk_away(thingy,H,15,2)
+				if(H.drop_item_to_ground(H.shoes))
+					GLOB.move_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							walk(thingy,0)
+							GLOB.move_manager.stop_looping(thingy)
 
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE

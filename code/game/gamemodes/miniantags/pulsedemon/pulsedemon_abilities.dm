@@ -10,12 +10,15 @@
 
 /datum/spell/pulse_demon
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	action_background_icon_state = "bg_pulsedemon"
 	var/locked = TRUE
-	var/unlock_cost = 1 KJ
+	var/unlock_cost = 1
 	var/cast_cost = 1 KJ
-	var/upgrade_cost = 1 KJ
+	var/upgrade_cost = 1
 	var/requires_area = FALSE
+	var/revealing = FALSE
+	var/reveal_time = 10 SECONDS
 	base_cooldown = 20 SECONDS
 	level_max = 4
 
@@ -25,11 +28,11 @@
 
 /datum/spell/pulse_demon/proc/update_info()
 	if(locked)
-		name = "[initial(name)] (Locked) ([format_si_suffix(unlock_cost)]W)"
-		desc = "[initial(desc)] It costs [format_si_suffix(unlock_cost)]W to unlock. <b>Alt-Click</b> this spell to unlock it."
+		name = "[initial(name)] (Locked) ([format_si_suffix(unlock_cost)] APC\s)"
+		desc = "[initial(desc)] It costs [format_si_suffix(unlock_cost)] APC\s to unlock. <b>Alt-Click</b> this spell to unlock it."
 	else
 		name = "[initial(name)][cast_cost == 0 ? "" : " ([format_si_suffix(cast_cost)]W)"]"
-		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)]W to upgrade. <b>Alt-Click</b> this spell to upgrade it."]"
+		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)] APC\s to upgrade. <b>Alt-Click</b> this spell to upgrade it."]"
 	action.name = name
 	action.desc = desc
 	action.UpdateButtons()
@@ -42,7 +45,7 @@
 	if(locked)
 		if(show_message)
 			to_chat(user, "<span class='warning'>This ability is locked! Alt-click the button to purchase this ability.</span>")
-			to_chat(user, "<span class='notice'>It costs [format_si_suffix(unlock_cost)]W to unlock.</span>")
+			to_chat(user, "<span class='notice'>It costs [format_si_suffix(unlock_cost)] APC\s to unlock.</span>")
 		return FALSE
 	if(user.charge < cast_cost)
 		if(show_message)
@@ -65,6 +68,8 @@
 		return FALSE
 	if(try_cast_action(user, targets[1]))
 		user.adjust_charge(-cast_cost)
+		if(revealing)
+			INVOKE_ASYNC(src, PROC_REF(reveal_demon), user, reveal_time)
 		return TRUE
 	else
 		revert_cast(user)
@@ -76,42 +81,47 @@
 /datum/spell/pulse_demon/proc/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	return FALSE
 
+/datum/spell/pulse_demon/proc/reveal_demon(mob/user, reveal_time)
+	user.layer = ABOVE_NORMAL_TURF_LAYER
+	do_sparks(rand(2, 4), FALSE, user)
+	sleep(reveal_time)
+	user.layer = ABOVE_PLATING_LAYER
+
 // handles purchasing and upgrading abilities
 /datum/spell/pulse_demon/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
 		return
 
 	if(locked)
-		if(user.charge >= unlock_cost)
-			user.adjust_charge(-unlock_cost)
+		if(user.apcs_remaining >= unlock_cost)
+			user.apcs_remaining -= unlock_cost
 			locked = FALSE
 			to_chat(user, "<span class='notice'>You have unlocked [initial(name)]!</span>")
 
 			if(cast_cost > 0)
 				to_chat(user, "<span class='notice'>It costs [format_si_suffix(cast_cost)]W to use once.</span>")
 			if(level_max > 0 && spell_level < level_max)
-				to_chat(user, "<span class='notice'>It will cost [format_si_suffix(upgrade_cost)]W to upgrade.</span>")
+				to_chat(user, "<span class='notice'>It will cost [format_si_suffix(upgrade_cost)] APC\s to upgrade.</span>")
 
 			update_info()
 		else
-			to_chat(user, "<span class='warning'>You cannot afford this ability! It costs [format_si_suffix(unlock_cost)]W to unlock.</span>")
+			to_chat(user, "<span class='warning'>You cannot afford this ability! It costs [format_si_suffix(unlock_cost)] APC\s to unlock.</span>")
 	else
 		if(spell_level >= level_max)
 			to_chat(user, "<span class='warning'>You have already fully upgraded this ability!</span>")
-		else if(user.charge >= upgrade_cost)
-			user.adjust_charge(-upgrade_cost)
+		else if(user.apcs_remaining >= upgrade_cost)
+			user.apcs_remaining -= upgrade_cost
 			spell_level = min(spell_level + 1, level_max)
-			upgrade_cost = round(initial(upgrade_cost) * (1.5 ** spell_level))
 			do_upgrade(user)
 
 			if(spell_level == level_max)
 				to_chat(user, "<span class='notice'>You have fully upgraded [initial(name)]!</span>")
 			else
-				to_chat(user, "<span class='notice'>The next upgrade will cost [format_si_suffix(upgrade_cost)]W to unlock.</span>")
+				to_chat(user, "<span class='notice'>The next upgrade will cost [format_si_suffix(upgrade_cost)] APC\s to unlock.</span>")
 
 			update_info()
 		else
-			to_chat(user, "<span class='warning'>You cannot afford to upgrade this ability! It costs [format_si_suffix(upgrade_cost)]W to upgrade.</span>")
+			to_chat(user, "<span class='warning'>You cannot afford to upgrade this ability! It costs [format_si_suffix(upgrade_cost)] APC\s to upgrade.</span>")
 
 /datum/spell/pulse_demon/proc/do_upgrade(mob/living/simple_animal/demon/pulse_demon/user)
 	cooldown_handler.recharge_duration = round(base_cooldown / (1.5 ** spell_level))
@@ -121,9 +131,11 @@
 	name = "Cable Hop"
 	desc = "Jump to another cable in view."
 	action_icon_state = "pd_cablehop"
-	unlock_cost = 15 KJ
-	cast_cost = 5 KJ
-	upgrade_cost = 75 KJ
+	unlock_cost = 4
+	cast_cost = 200 KJ
+	upgrade_cost = 2
+	revealing = TRUE
+	reveal_time = 5 SECONDS
 
 /datum/spell/pulse_demon/cablehop/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	var/turf/O = get_turf(user)
@@ -150,10 +162,11 @@
 	name = "Electromagnetic Tamper"
 	desc = "Unlocks hidden programming in machines. Must be inside a hijacked APC to use."
 	action_icon_state = "pd_emag"
-	unlock_cost = 50 KJ
-	cast_cost = 20 KJ
-	upgrade_cost = 200 KJ
+	unlock_cost = 4
+	cast_cost = 200 KJ
+	upgrade_cost = 2
 	requires_area = TRUE
+	revealing = TRUE
 
 /datum/spell/pulse_demon/emagtamper/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	to_chat(user, "<span class='warning'>You attempt to tamper with [target]!</span>")
@@ -164,10 +177,11 @@
 	name = "Electromagnetic Pulse"
 	desc = "Creates an EMP where you click. Be careful not to use it on yourself!"
 	action_icon_state = "pd_emp"
-	unlock_cost = 50 KJ
-	cast_cost = 10 KJ
-	upgrade_cost = 200 KJ
+	unlock_cost = 4
+	cast_cost = 500 KJ
+	upgrade_cost = 2
 	requires_area = TRUE
+	revealing = TRUE
 
 /datum/spell/pulse_demon/emp/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	to_chat(user, "<span class='warning'>You attempt to EMP [target]!</span>")
@@ -176,12 +190,16 @@
 
 /datum/spell/pulse_demon/overload
 	name = "Overload Machine"
-	desc = "Overloads a machine, causing it to explode."
+	desc = "Overloads a machine, causing it to explode. Becomes powerful enough to breach when fully upgraded."
 	action_icon_state = "pd_overload"
-	unlock_cost = 300 KJ
-	cast_cost = 50 KJ
-	upgrade_cost = 500 KJ
+	unlock_cost = 8
+	cast_cost = 1000 KJ
+	upgrade_cost = 4
+	level_max = 4
 	requires_area = TRUE
+	revealing = TRUE
+	base_cooldown = 60 SECONDS
+	reveal_time = 20 SECONDS
 
 /datum/spell/pulse_demon/overload/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	var/obj/machinery/M = target
@@ -192,12 +210,15 @@
 		to_chat(user, "<span class='warning'>That machine cannot be overloaded.</span>")
 		return FALSE
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(src, PROC_REF(detonate), M), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(detonate), user, M), 5 SECONDS)
 	return TRUE
 
-/datum/spell/pulse_demon/overload/proc/detonate(obj/machinery/target)
+/datum/spell/pulse_demon/overload/proc/detonate(mob/living/simple_animal/demon/pulse_demon/user, obj/machinery/target)
 	if(!QDELETED(target))
-		explosion(get_turf(target), 0, 1, 1, 0)
+		if(spell_level == level_max)
+			explosion(get_turf(target), 0, 1, 2, 2, smoke = TRUE, cause = "Pulse Demon: [name]")
+		else
+			explosion(get_turf(target), 0, 0, 2, 2, smoke = TRUE, cause = "Pulse Demon: [name]")
 		if(!QDELETED(target))
 			qdel(target)
 
@@ -205,8 +226,8 @@
 	name = "Remote Hijack"
 	desc = "Remotely hijacks an APC."
 	action_icon_state = "pd_remotehack"
-	unlock_cost = 15 KJ
-	cast_cost = 10 KJ
+	unlock_cost = 2
+	cast_cost = 200 KJ
 	level_max = 0
 	base_cooldown = 3 SECONDS // you have to wait for the regular hijack time anyway
 
@@ -223,9 +244,9 @@
 	name = "Remote Drain"
 	desc = "Remotely drains a power source."
 	action_icon_state = "pd_remotedrain"
-	unlock_cost = 5 KJ
-	cast_cost = 100
-	upgrade_cost = 100 KJ
+	unlock_cost = 2
+	cast_cost = 50 KJ
+	upgrade_cost = 2
 
 /datum/spell/pulse_demon/remotedrain/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	if(isapc(target))
@@ -294,9 +315,9 @@
 	desc = "Toggle whether you can move outside of cables or power sources."
 	base_message = "move outside of cables."
 	action_icon_state = "pd_toggle_exit"
-	unlock_cost = 100 KJ
-	upgrade_cost = 300 KJ
+	upgrade_cost = 2
 	level_max = 3
+	locked = FALSE
 
 /datum/spell/pulse_demon/toggle/can_exit_cable/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	if(user.can_exit_cable && !(user.current_cable || user.current_power))
@@ -353,6 +374,22 @@
 	user.forceMove(locateUID(user.controlling_area.cameras[current_camera + 1]))
 	return TRUE
 
+/datum/spell/pulse_demon/toggle/penetrating_shock
+	name = "Toggle Intense Shocks"
+	desc = "Toggle whether to use 200 KJ of energy to bypass electric-resistant victims immunity when attacking."
+	base_message = "use strong shocks when attacking."
+	action_icon_state = "pd_strong_shocks"
+	locked = TRUE
+	unlock_cost = 4
+	cast_cost = 0
+	level_max = 0
+
+/datum/spell/pulse_demon/toggle/penetrating_shock/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/datum/spell/pulse_demon/toggle/penetrating_shock/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
+	user.strong_shocks = do_toggle(!user.strong_shocks, user)
+
 /datum/spell/pulse_demon/open_upgrades
 	name = "Open Upgrade Menu"
 	desc = "Open the upgrades menu. Alt-click for descriptions and costs."
@@ -388,34 +425,43 @@
 	var/cost
 	switch(upgrade)
 		if(PD_UPGRADE_HIJACK_SPEED)
-			if(user.hijack_time <= 1 SECONDS)
+			if(user.hijack_time <= 6 SECONDS)
 				return -1
-			cost = (100 / (user.hijack_time / (1 SECONDS))) * 20 KJ
+			if(user.hijack_time > 12 SECONDS)
+				cost = 1
+			else
+				cost = 2
 		if(PD_UPGRADE_DRAIN_SPEED)
 			if(user.max_drain_rate >= 500 KJ)
 				return -1
-			cost = user.max_drain_rate * 15
+			cost = 1
 		if(PD_UPGRADE_MAX_HEALTH)
 			if(user.maxHealth >= 200)
 				return -1
-			cost = user.maxHealth * 5 KJ
+			if(user.maxHealth <= 100)
+				cost = 1
+			else
+				cost = 2
 		if(PD_UPGRADE_HEALTH_REGEN)
-			if(user.health_regen_rate >= 100)
+			if(user.health_regen_rate >= 10)
 				return -1
-			cost = user.health_regen_rate * 50 KJ
+			cost = 1
 		if(PD_UPGRADE_HEALTH_LOSS)
-			if(user.health_loss_rate <= 1)
+			if(user.health_loss_rate <= 0)
 				return -1
-			cost = (100 / user.health_loss_rate) * 20 KJ
+			if(user.health_loss_rate >= 3)
+				cost = 1
+			else
+				cost = 2
 		if(PD_UPGRADE_HEALTH_COST)
-			if(user.power_per_regen <= 1)
+			if(user.power_per_regen <= 1 KJ)
 				return -1
-			cost = (100 / user.power_per_regen) * 50 KJ
+			cost = 1
 		if(PD_UPGRADE_MAX_CHARGE)
-			cost = user.maxcharge
+			cost = 1
 		else
 			return -1
-	return round(cost)
+	return cost
 
 /datum/spell/pulse_demon/open_upgrades/proc/get_upgrades(mob/living/simple_animal/demon/pulse_demon/user)
 	var/upgrades = list()
@@ -423,7 +469,7 @@
 		var/cost = calc_cost(user, upgrade)
 		if(cost == -1)
 			continue
-		upgrades["[upgrade] ([format_si_suffix(cost)]W)"] = upgrade_icons[upgrade]
+		upgrades["[upgrade] ([format_si_suffix(cost)] APC\s)"] = upgrade_icons[upgrade]
 	return upgrades
 
 /datum/spell/pulse_demon/open_upgrades/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
@@ -449,18 +495,18 @@
 	var/cost = calc_cost(user, choice)
 	if(cost == -1)
 		return FALSE
-	if(user.charge < cost)
-		to_chat(user, "<span class='warning'>You do not have enough charge to purchase this upgrade!</span>")
+	if(user.apcs_remaining < cost)
+		to_chat(user, "<span class='warning'>You do not have enough unused APCs to purchase this upgrade!</span>")
 		return FALSE
 
-	user.adjust_charge(-cost)
+	user.apcs_remaining -= cost
 	switch(choice)
 		if(PD_UPGRADE_HIJACK_SPEED)
-			user.hijack_time = max(round(user.hijack_time / 1.5), 1 SECONDS)
+			user.hijack_time = max(round(user.hijack_time - 3 SECONDS), 6 SECONDS)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [user.hijack_time / (1 SECONDS)] second\s to hijack APCs.</span>")
 		if(PD_UPGRADE_DRAIN_SPEED)
 			var/old = user.max_drain_rate
-			user.max_drain_rate = min(round(user.max_drain_rate * 1.5), 500 KJ)
+			user.max_drain_rate = user.max_drain_rate + 20 KJ
 			if(user.power_drain_rate == old)
 				user.power_drain_rate = user.max_drain_rate
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you can now drain [format_si_suffix(user.max_drain_rate)]W.</span>")
@@ -468,22 +514,24 @@
 			user.maxHealth = min(round(user.maxHealth * 1.5), 200)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], your max health is now [user.maxHealth].</span>")
 		if(PD_UPGRADE_HEALTH_REGEN)
-			user.health_regen_rate = min(round(user.health_regen_rate * 1.5), 100)
+			user.health_regen_rate = min(round(user.health_regen_rate + 2), 10)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now regenerate [user.health_regen_rate] health per cycle when powered.</span>")
 		if(PD_UPGRADE_HEALTH_LOSS)
-			user.health_loss_rate = max(round(user.health_loss_rate / 1.5), 1)
-			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now lose [user.health_loss_rate] health per cycle when unpowered.</span>")
+			user.health_loss_rate = max(round(user.health_loss_rate - 1), 0)
+			if(user.health_loss_rate == 0)
+				to_chat(user, "<span class='notice'>You have upgraded your [choice], You will no longer lose health when on an unpowered cable.</span>")
+			else
+				to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now lose [user.health_loss_rate] health per cycle when unpowered.</span>")
 		if(PD_UPGRADE_HEALTH_COST)
 			user.power_per_regen = max(round(user.power_per_regen / 1.5), 1)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [format_si_suffix(user.power_per_regen)]W of power to regenerate health.</span>")
 			to_chat(user, "<span class='notice'>Additionally, if you enable draining while on a cable, any excess power that would've been used regenerating will be added to your charge.</span>")
 		if(PD_UPGRADE_MAX_CHARGE)
-			user.maxcharge = round(user.maxcharge * 2)
+			user.maxcharge = user.maxcharge + 50 KJ
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you can now store [format_si_suffix(user.maxcharge)]J of energy.</span>")
 		else
 			return FALSE
 	return TRUE
-
 
 #undef PULSEDEMON_REMOTE_DRAIN_MULTIPLIER
 #undef PD_UPGRADE_HIJACK_SPEED

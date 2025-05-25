@@ -110,6 +110,7 @@
 						R.desc = desc
 						R.function_id = function_id
 						R.revealed = TRUE
+						R.origin_tech = null
 						QDEL_IN(R, rand(10, 100))
 						INVOKE_ASYNC(R, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 
@@ -184,7 +185,7 @@
 /obj/item/relic/proc/explode_callback(mob/user)
 	if(loc == user)
 		visible_message("<span class='notice'>[src]'s top opens, releasing a powerful blast!</span>")
-		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2)
+		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2, cause = "Exploding relic")
 		warn_admins(user, "Explosion")
 		qdel(src)
 

@@ -137,7 +137,7 @@
 	// MORE POWER
 	movement_beam(move_target, 1 SECONDS)
 	sleep(0.5 SECONDS)
-	walk_towards(src, move_target, 0, 10)
+	GLOB.move_manager.home_onto(src, move_target, 0, 10)
 
 /obj/singularity/energy_ball/proc/on_atom_entered(datum/source, atom/movable/entered)
 	var/mob/living/living_entered = entered
@@ -261,11 +261,11 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/C = user
-	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", INVESTIGATE_SINGULO)
 	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
 		"<span class='userdanger'>As you mentally focus on the energy ball you feel the contents of your skull become overcharged. That was shockingly stupid.</span>")
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
-	C.ghostize(0)
+	C.ghostize()
 	if(B)
 		B.remove(C)
 		qdel(B)

@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
-/turf/simulated/mineral/random/low_chance,
+/turf/simulated/mineral/random/low_chance/space,
 /area/ruin/space/unpowered)
 "ac" = (
 /obj/structure/chair{
@@ -477,9 +477,7 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_y = 0
-	},
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/catwalk/airless,
 /area/ruin/space/unpowered)
 "bv" = (
@@ -833,7 +831,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "cP" = (
-/obj/item/kirbyplants/plant27,
+/obj/item/kirbyplants/large/plant10,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -847,7 +845,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "cT" = (
-/obj/item/kirbyplants/plant21,
+/obj/item/kirbyplants/large/plant4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -891,7 +889,7 @@
 /area/ruin/space/deepstorage)
 "dg" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/kirbyplants/plant21,
+/obj/item/kirbyplants/large/plant4,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1168,10 +1166,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "fD" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = -4
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
@@ -1277,7 +1272,7 @@
 /area/ruin/space/deepstorage)
 "gq" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/bluespace_tap/cultural,
+/obj/effect/spawner/random/bluespace_tap/cultural_rare,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -1296,7 +1291,7 @@
 /area/ruin/space/deepstorage)
 "gC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/plant18,
+/obj/item/kirbyplants/large/plant8,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -1373,7 +1368,7 @@
 	},
 /area/ruin/space/deepstorage)
 "hg" = (
-/obj/item/kirbyplants/plant27,
+/obj/item/kirbyplants/large/plant10,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1490,9 +1485,7 @@
 "hK" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/structure/sign/poster/contraband/power{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/power/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -1522,7 +1515,7 @@
 "hW" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Tram"
 	},
 /turf/simulated/floor/plating,
@@ -1662,7 +1655,7 @@
 	},
 /area/ruin/space/deepstorage)
 "iZ" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "ja" = (
 /obj/machinery/light/small,
@@ -1705,11 +1698,7 @@
 	},
 /area/ruin/space/deepstorage)
 "jo" = (
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/item/soap,
 /obj/effect/decal/cleanable/dirt,
@@ -1752,9 +1741,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/sign/poster/contraband/missing_gloves{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/missing_gloves/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2404,7 +2391,7 @@
 	},
 /area/ruin/space/deepstorage)
 "nM" = (
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -2659,7 +2646,7 @@
 /obj/item/salvage/ruin/soviet,
 /obj/structure/rack,
 /obj/item/stack/spacecash/c500,
-/obj/effect/spawner/random/bluespace_tap/cultural,
+/obj/effect/spawner/random/bluespace_tap/cultural_rare,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2669,7 +2656,7 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/spacecash/c500,
-/obj/effect/spawner/random/bluespace_tap/organic,
+/obj/effect/spawner/random/bluespace_tap/organic_rare,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2877,7 +2864,7 @@
 /turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "re" = (
-/obj/item/kirbyplants/plant18,
+/obj/item/kirbyplants/large/plant8,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3366,7 +3353,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /obj/structure/sign/biohazard{
 	pixel_x = -32
 	},
@@ -3911,7 +3898,7 @@
 "yb" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
 	id_tag = "DS_BossStorage";
 	name = "warehouse valuables storage blast door"
 	},
@@ -4004,7 +3991,7 @@
 /area/ruin/space/deepstorage)
 "yB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -4308,7 +4295,7 @@
 /obj/machinery/door/airlock/vault{
 	name = "Auxiliary Power Room"
 	},
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Engineering"
 	},
 /turf/simulated/floor/catwalk,
@@ -4390,7 +4377,7 @@
 	},
 /area/ruin/space/deepstorage)
 "AN" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
 	id_tag = "DS_FrontGate"
 	},
 /turf/simulated/floor/catwalk/airless,
@@ -4510,7 +4497,7 @@
 /area/ruin/space/deepstorage)
 "BF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "white"
@@ -4867,11 +4854,7 @@
 /area/ruin/space/deepstorage)
 "Dx" = (
 /obj/structure/window/reinforced/tinted,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4992,11 +4975,7 @@
 /area/ruin/space/deepstorage)
 "Eu" = (
 /obj/structure/window/reinforced/tinted,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
@@ -5330,7 +5309,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Ha" = (
-/obj/item/kirbyplants/plant27,
+/obj/item/kirbyplants/large/plant10,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -5468,7 +5447,7 @@
 "IR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/effect/spawner/random/bluespace_tap/organic,
+/obj/effect/spawner/random/bluespace_tap/organic_rare,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -5639,9 +5618,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Kg" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -5693,9 +5670,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Kx" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -5768,9 +5743,7 @@
 	},
 /area/ruin/space/deepstorage)
 "KS" = (
-/obj/structure/sign/poster/official/safety_internals{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/safety_internals/directional/east,
 /obj/item/chair/stool{
 	pixel_y = -7;
 	dir = 8
@@ -5882,7 +5855,7 @@
 "LJ" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "DS_BossStorage";
 	name = "warehouse blast doors"
 	},
@@ -5915,7 +5888,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/deepstorage)
 "LT" = (
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5999,9 +5972,9 @@
 /area/ruin/space/deepstorage)
 "MR" = (
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/random/deepstorage_reward/main,
+/obj/effect/spawner/random/pool/spaceloot/deepstorage/main,
+/obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -6302,7 +6275,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Pq" = (
-/obj/item/kirbyplants/plant29,
+/obj/item/kirbyplants/large/plant11,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6723,7 +6696,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Sc" = (
-/obj/item/kirbyplants/plant18,
+/obj/item/kirbyplants/large/plant8,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6835,7 +6808,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -6910,7 +6883,7 @@
 "TK" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity,
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Storage"
 	},
 /turf/simulated/floor/plasteel{
@@ -6987,7 +6960,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity,
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Storage"
 	},
 /turf/simulated/floor/plasteel{
@@ -7031,10 +7004,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Uv" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = -4
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = -28
 	},
@@ -7350,7 +7320,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Ww" = (
-/obj/item/kirbyplants/plant27,
+/obj/item/kirbyplants/large/plant10,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "vault"
@@ -7487,7 +7457,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Xj" = (
-/obj/item/kirbyplants/plant10,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7547,7 +7517,7 @@
 /area/ruin/space/deepstorage)
 "Xy" = (
 /obj/structure/table/glass,
-/obj/item/kirbyplants/plant15{
+/obj/item/kirbyplants/small/small4{
 	pixel_y = 13
 	},
 /turf/simulated/floor/plasteel{

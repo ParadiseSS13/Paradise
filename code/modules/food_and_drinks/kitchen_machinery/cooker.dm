@@ -160,8 +160,7 @@
 		oil.name = "fat"
 		oil.desc = "Uh oh, looks like some fat from [src]!"
 		oil.loc = location
-		location.hotspot_expose(700, 50, 1)
-		//TODO have a chance of setting the tile on fire
+		location.hotspot_expose(700, 1)
 
 /obj/machinery/cooker/proc/changename(obj/item/name, obj/item/setme)
 	setme.name = "[thiscooktype] [name.name]"
@@ -180,29 +179,30 @@
 	var/obj/item/food/type = new(get_turf(src))
 	return type
 
-/obj/machinery/cooker/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/cooker/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(upgradeable)
 	//Not all cooker types currently support build/upgrade stuff, so not all of it will work well with this
 	//Until we decide whether or not we want to bring back the cereal maker or old grill/oven in some form, this initial check will have to suffice
-		if(istype(I, /obj/item/storage/part_replacer))
-			exchange_parts(user, I)
-			return
+		if(istype(used, /obj/item/storage/part_replacer))
+			exchange_parts(user, used)
+			return ITEM_INTERACT_COMPLETE
 	if(stat & (NOPOWER|BROKEN))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the panel first!</span>")
-		return
-	if(istype(I, /obj/item/grab))
-		return special_attack_grab(I, user)
-	if(!checkValid(I, user))
-		return
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/grab))
+		if(special_attack_grab(used, user))
+			return ITEM_INTERACT_COMPLETE
+	if(!checkValid(used, user))
+		return ITEM_INTERACT_COMPLETE
 	if(!burns)
-		if(istype(I, /obj/item/food))
-			if(checkCooked(I))
+		if(istype(used, /obj/item/food))
+			if(checkCooked(used))
 				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
-				return
-	putIn(I, user)
-	for(var/mob/living/L in I.contents) //Emagged cookers - Any mob put in will not survive the trip
+				return ITEM_INTERACT_COMPLETE
+	putIn(used, user)
+	for(var/mob/living/L in used.contents) //Emagged cookers - Any mob put in will not survive the trip
 		if(L.stat != DEAD)
 			if(ispAI(L)) //Snowflake check because pAIs are weird
 				var/mob/living/silicon/pai/P = L
@@ -211,7 +211,8 @@
 				L.death()
 		break
 
-	addtimer(CALLBACK(src, PROC_REF(finish_cook), I, user), cooktime)
+	addtimer(CALLBACK(src, PROC_REF(finish_cook), used, user), cooktime)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)
 	if(QDELETED(I)) //For situations where the item being cooked gets deleted mid-cook (primed grenades)

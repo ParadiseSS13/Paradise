@@ -97,6 +97,7 @@
 	name = "AVD-CNED glasses"
 	desc = "Diagnostic, Hydroponic, Medical, Security, and Skills HUD. Built-in advanced reagent scanner. Alt-click to toggle X-ray vision."
 	icon_state = "nvgmeson"
+	hud_debug = TRUE
 	flags_cover = GLASSESCOVERSEYES
 	flash_protect = FLASH_PROTECTION_WELDER
 	scan_reagents_advanced = TRUE
@@ -104,7 +105,6 @@
 	prescription_upgradable = FALSE
 
 	hud_types = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED, DATA_HUD_HYDROPONIC)
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS)
 
 	var/xray = FALSE
 
@@ -272,6 +272,12 @@
 /obj/item/storage/box/debug/debugtools
 	name = "debug tools"
 
+/obj/item/paper/debug_research
+	name = "debug reseach notes"
+	desc = "Your brain is melting just from looking at this endless knowledge."
+	info = "<b>Information written here is beyond your understanding</b>"
+	origin_tech = "materials=10;engineering=10;plasmatech=10;powerstorage=10;bluespace=10;biotech=10;combat=10;magnets=10;programming=10;toxins=10;syndicate=10;abductor=10"
+
 /obj/item/storage/box/debug/debugtools/populate_contents()
 	new /obj/item/card/emag(src)
 	new /obj/item/rcd/combat/admin(src)
@@ -284,6 +290,7 @@
 	new /obj/item/storage/box/debug/misc_debug(src)
 	new /obj/item/storage/box/centcomofficer(src)
 	new /obj/item/radio/uplink/admin(src)
+	new /obj/item/paper/debug_research(src)
 
 /obj/item/storage/box/debug/material
 	name = "box of materials"
@@ -324,7 +331,6 @@
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)
 	new /obj/item/clothing/under/misc/acj(src)
 	new /obj/item/clothing/suit/advanced_protective_suit(src)
-	new /obj/item/multitool/ai_detect/admin(src) // for giggles and shits
 	new /obj/item/adminfu_scroll(src)
 	new /obj/item/teleporter/admin(src)
 	new /obj/item/storage/belt/bluespace/admin(src) // god i love storage nesting

@@ -27,6 +27,16 @@
 	suffix = "lavaland_surface_seed_vault.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	megafauna_safe_range = TRUE
+
+/datum/map_template/ruin/lavaland/seed_vault_eden
+	name = "Garden of Eden"
+	id = "ruin-eden"
+	description = "Not all of the seed vaulters stay within their tiny sheltered grow rooms to toil with plants. Some desired to spread through the full extent of the wastes \
+	to research and adapt their creations to the conditions to the dead land. Unfortunately, most did not survive their foray. Even fewer managed \
+	to secure a foothold before they fell."
+	suffix = "lavaland_surface_eden.dmm"
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/ash_walker
 	name = "Ash Walker Nest"
@@ -34,6 +44,15 @@
 	description = "A race of unbreathing lizards live here, that run faster than a human can, worship a broken dead city, and are capable of reproducing by something involving tentacles? \
 	Probably best to stay clear."
 	suffix = "lavaland_surface_ash_walker1.dmm"
+	allow_duplicates = FALSE
+	megafauna_safe_range = TRUE
+
+/datum/map_template/ruin/lavaland/ash_walker_siege
+	name = "Ash Walker Siege"
+	id = "ashwalker-siege"
+	description = "Despite the success of many ashwalker tribes to spread and propagate through the wasteland, this one was besieged by a band of miners looking to pacify the threats of the wasteland. \
+	While only threat was a singular Ash Walker warrior, they did not go out without the glory of a great combat."
+	suffix = "lavaland_surface_ash_walker_siege.dmm"
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/free_golem
@@ -44,6 +63,7 @@
 	suffix = "lavaland_surface_golem_ship.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/althland_facility
 	name = "Althland Facility"
@@ -59,6 +79,14 @@
 	description = "An abandoned mining pit, once operated by the late Althland Mining Corporation, stands as a testament to the extensive efforts of numerous labor groups who endeavored to exploit the ore-rich depths of the planet. \
 	Now, it lies abandoned, wholly reclaimed by the hostile environment, transforming into yet another relic of a lost company."
 	suffix = "lavaland_surface_althland_excavation.dmm"
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/althland_minebot_factory
+	name = "Althland Minebot Factory"
+	id = "althland-minebot-factory"
+	description = "A long-since abandoned factory, teeming with the remains of the abandoned robotics within. This once busy settlement now lay in ruin, a testament to the harsh reality of the wastes. \
+	On rare occasions such as this, it is a reminder that even in disrepair, some places may still contain great power within."
+	suffix = "lavaland_surface_althland_minebot_factory.dmm"
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/sin
@@ -172,6 +200,7 @@
 	suffix = "lavaland_surface_hermit.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/miningripley
 	name = "Ripley"
@@ -213,3 +242,28 @@
 	description = "A passenger shuttle crashsite of indeterminate origin."
 	suffix = "lavaland_surface_shuttlecrash.dmm"
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/nt
+	name = "Nanotrasen Mining Complex"
+	id = "gulag"
+	description = "Nanotrasen's sturdy planetside mining station and labor camp."
+	suffix = "lavaland_surface_nt.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
+
+/datum/map_template/ruin/lavaland/legiongate
+	name = "Necropolis Gate"
+	id = "legiongate"
+	description = "At the heart of the city of the dead is a horror, so vile, and so powerful, that not even death can claim it."
+	suffix = "lavaland_surface_legiongate.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
+
+/datum/map_template/ruin/lavaland/lavaland_relay
+	id = "lavaland_relay"
+	suffix = "lavaland_surface_mining_telecomms.dmm"
+	name = "Nanotrasen Lavaland Relay"
+	description = "Using the same technology as shelter capsules, these pods have been shot from orbit onto lavaland to demonstrate a quick and efficient way for an army to setup forward bases. \
+	Sadly, in their mass production rush, they lack a RTG power source and rely on pacmans, with many of the pods being shipped with the wrong fuel inside."
+	allow_duplicates = FALSE // Less space on lavaland. Ideally we would figure out a way to ban this from spawning the same level as the mining base
+	always_place = TRUE // Since only one can spawn for now, might as well ensure it.

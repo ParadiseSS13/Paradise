@@ -45,7 +45,7 @@
 	to_chat(user, "<span class='notice'>You start planting [src].</span>")
 	if(!do_after(user, (2.5 SECONDS) * toolspeed, target = AM))
 		return
-	if(!user.unEquip(src))
+	if(!user.unequip(src))
 		return
 	target = AM
 	forceMove(AM)
@@ -109,7 +109,7 @@
 	else
 		location = get_atom_on_turf(src)
 	if(location)
-		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = src)
+		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = name)
 		location.ex_act(EXPLODE_HEAVY, target)
 	qdel(src)
 

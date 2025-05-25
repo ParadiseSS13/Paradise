@@ -6,6 +6,28 @@
 	nodamage = 1
 	armour_penetration_percentage = 100
 	flag = MAGIC
+	/// determines what type of antimagic can block the spell projectile
+	var/antimagic_flags = MAGIC_RESISTANCE
+	/// determines the drain cost on the antimagic item
+	var/antimagic_charge_cost = 1
+
+/obj/item/projectile/magic/prehit(atom/target)
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
+			visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
+			damage = 0
+			nodamage = 1
+			return FALSE
+	return ..()
+
+/obj/item/projectile/magic/on_hit(atom/target, blocked, hit_zone)
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost)) // Yes we have to check this twice welcome to bullet hell code
+			return FALSE
+	return ..()
+
 
 /obj/item/projectile/magic/death
 	name = "bolt of death"
@@ -21,7 +43,7 @@
 	muzzle_flash_range = 2
 	muzzle_flash_color_override = LIGHT_COLOR_PURPLE
 	impact_light_intensity = 7
-	impact_light_range =  2.5
+	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_PURPLE
 
 /obj/item/projectile/magic/fireball
@@ -41,6 +63,8 @@
 
 /obj/item/projectile/magic/death/on_hit(mob/living/carbon/target)
 	. = ..()
+	if(!.)
+		return .
 	if(isliving(target))
 		if(target.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
 			if(target.revive())
@@ -75,8 +99,10 @@
 
 /obj/item/projectile/magic/fireball/on_hit(target)
 	. = ..()
+	if(!.)
+		return .
 	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
+	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = name)
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
@@ -95,6 +121,8 @@
 
 /obj/item/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
+	if(!.)
+		return .
 	if(ismob(target))
 		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
 			target.death(FALSE)
@@ -121,6 +149,8 @@
 
 /obj/item/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
+	if(!.)
+		return .
 	var/teleammount = 0
 	var/teleloc = target
 	if(!isturf(target))
@@ -179,6 +209,8 @@
 
 /obj/item/projectile/magic/change/on_hit(atom/change)
 	. = ..()
+	if(!.)
+		return .
 	wabbajack(change)
 
 GLOBAL_LIST_INIT(wabbajack_hostile_animals, list(
@@ -200,7 +232,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	"cat" = /mob/living/simple_animal/pet/cat,
 	"mouse" = /mob/living/simple_animal/mouse,
 	"chicken" = /mob/living/simple_animal/chicken,
-	"cow" = /mob/living/simple_animal/cow,
+	"cow" = /mob/living/basic/cow,
 	"lizard" = /mob/living/simple_animal/lizard,
 	"fox" = /mob/living/simple_animal/pet/dog/fox,
 	"chick" = /mob/living/simple_animal/chick,
@@ -235,7 +267,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				for(var/i in H.internal_organs)
 					qdel(i)
 			for(var/obj/item/W in M)
-				M.unEquip(W, 1)
+				M.unequip(W, force = TRUE)
 				qdel(W)
 
 		var/mob/living/new_mob
@@ -380,6 +412,9 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	SpinAnimation()
 
 /obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(!.)
+		return .
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.slip(src, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
@@ -394,7 +429,6 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
 			L.Weaken(slip_weaken)
 			L.Stun(slip_stun)
-	. = ..()
 
 /obj/item/projectile/magic/arcane_barrage
 	name = "arcane bolt"

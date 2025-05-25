@@ -82,6 +82,14 @@
 	build_path = /obj/item/screwdriver
 	category = list("initial","Tools")
 
+/datum/design/hammer
+	name = "Hammer"
+	id = "hammer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/hammer
+	category = list("initial","Tools")
+
 /datum/design/wirecutters
 	name = "Wirecutters"
 	id = "wirecutters"
@@ -186,6 +194,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/ears/earmuffs
 	category = list("initial", "Miscellaneous")
+
 /datum/design/painter
 	name = "Modular Painter"
 	id = "mod_painter"
@@ -193,6 +202,14 @@
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
 	build_path = /obj/item/painter
 	category = list("initial", "Miscellaneous")
+
+/datum/design/eftpos
+	name = "EFTPOS"
+	id = "eftpos"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
+	build_path = /obj/item/eftpos
+	category = list("initial","Miscellaneous")
 
 /datum/design/metal
 	name = "Metal"
@@ -245,6 +262,22 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 12000)
 	build_path = /obj/item/kitchen/knife
+	category = list("initial","Dinnerware")
+
+/datum/design/cheese_knife
+	name = "Cheese Knife"
+	id = "cheese_knife"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/kitchen/knife/cheese
+	category = list("initial","Dinnerware")
+
+/datum/design/pizza_cutter
+	name = "Pizza Cutter"
+	id = "pizza_cutter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000)
+	build_path = /obj/item/kitchen/knife/pizza_cutter
 	category = list("initial","Dinnerware")
 
 /datum/design/fork
@@ -301,6 +334,62 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1500)
 	build_path = /obj/item/reagent_containers/drinks/shaker
+	category = list("initial","Dinnerware")
+
+/datum/design/bowl
+	name = "Prep Bowl"
+	id = "prep_bowl"
+	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/bowl
+	category = list("initial","Dinnerware")
+
+/datum/design/icecream_bowl
+	name = "Icecream Bowl"
+	id = "icecream_bowl"
+	materials = list(MAT_METAL = 750)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/icecream_bowl
+	category = list("initial","Dinnerware")
+
+/datum/design/pot
+	name = "Cooking Pot"
+	id = "pot"
+	materials = list(MAT_METAL = 1250)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/pot
+	category = list("initial","Dinnerware")
+
+/datum/design/pan
+	name = "Pan"
+	id = "pan"
+	materials = list(MAT_METAL = 1000)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/pan
+	category = list("initial","Dinnerware")
+
+/datum/design/ovendish
+	name = "Oven Dish"
+	id = "oven_dish"
+	materials = list(MAT_METAL = 1500)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/oven
+	category = list("initial","Dinnerware")
+
+/datum/design/grill_grate
+	name = "Grill Grate"
+	id = "grill_grate"
+	materials = list(MAT_METAL = 750)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/grill_grate
+	category = list("initial","Dinnerware")
+
+/datum/design/deep_basket
+	name = "Deep Fryer Basket"
+	id = "basket"
+	materials = list(MAT_METAL = 1000)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/deep_basket
 	category = list("initial","Dinnerware")
 
 /datum/design/cultivator
@@ -548,7 +637,7 @@
 	id = "stethoscope"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500)
-	build_path = /obj/item/clothing/accessory/stethoscope
+	build_path = /obj/item/clothing/neck/stethoscope
 	category = list("initial", "Medical")
 
 /datum/design/timer
@@ -963,6 +1052,7 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
+	requires_whitelist = TRUE
 
 /datum/design/desk_bell
 	name = "Desk Bell"

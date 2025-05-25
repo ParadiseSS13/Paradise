@@ -46,11 +46,13 @@
 		qdel(src)
 		return
 	var/grace_heal = bloodlust * 0.05
-	owner.adjustBruteLoss(-grace_heal)
-	owner.adjustFireLoss(-grace_heal)
-	owner.adjustToxLoss(-grace_heal)
-	owner.adjustOxyLoss(-(grace_heal * 2))
-	owner.adjustCloneLoss(-grace_heal)
+
+	var/mob/living/carbon/human/owner_human = owner
+	owner_human.adjustBruteLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustFireLoss(-grace_heal, robotic = TRUE)
+	owner_human.adjustToxLoss(-grace_heal)
+	owner_human.adjustOxyLoss(-(grace_heal * 2))
+	owner_human.adjustCloneLoss(-grace_heal)
 
 /datum/status_effect/his_grace/on_remove()
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
@@ -92,9 +94,12 @@
 	var/found_someone = FALSE
 
 	for(var/mob/living/L in oview(9, owner))
-		found_someone = TRUE
 		playsound(owner, 'sound/magic/teleport_diss.ogg', 50, TRUE)
 		L.Beam(owner, "grabber_beam", time = 1 SECONDS, maxdistance = 9)
+		if(L.can_block_magic(MAGIC_RESISTANCE))
+			to_chat(L, "<span class='warning'>You shake off the tendrils that try to wrap around you!</span>")
+			continue
+		found_someone = TRUE
 		L.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 	if(found_someone)
 		owner.visible_message("<span class='warning'>The violet light around [owner] glows black... and shoots off to those around [owner.p_them()]!</span>", "<span class='warning'>The tendrils around you cinch tightly... but then unwravel and fly at others!</span>")
@@ -337,11 +342,13 @@
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(owner)
+	owner.permanent_huds |= H
 	return ..()
 
 /datum/status_effect/hippocratic_oath/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	owner.permanent_huds ^= H
 	H.remove_hud_from(owner)
 
 /datum/status_effect/hippocratic_oath/tick()
@@ -406,10 +413,10 @@
 			L.adjustBruteLoss(-3.5)
 			L.adjustFireLoss(-3.5)
 			heal_points--
-	else if(isanimal(L))
-		var/mob/living/simple_animal/SM = L
-		if(SM.health < SM.maxHealth)
-			SM.adjustHealth(-3.5)
+	else if(isanimal_or_basicmob(L))
+		var/mob/living/animal = L
+		if(animal.health < animal.maxHealth)
+			animal.adjustHealth(-3.5)
 			force_particle = TRUE
 			if(prob(50)) // Animals are simpler
 				heal_points--
@@ -459,12 +466,12 @@
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
-	owner.remove_CC()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
 		if(regen_type_applied == "Legion")
 			if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
+				owner.remove_CC()
 				for(var/obj/item/organ/external/E in H.bodyparts)
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
@@ -1001,8 +1008,18 @@
 	return ..()
 
 /datum/status_effect/quicksilver_form/on_apply()
+	var/obj/item/item_one = owner.get_active_hand()
+	if(item_one)
+		item_one.equip_to_best_slot(owner)
+	var/obj/item/item_two = owner.get_inactive_hand()
+	if(item_two)
+		// Equip to best slot only works for the item in the active hand. As such, if we detect an item, we swap, equip, then swap back
+		owner.swap_hand()
+		item_two.equip_to_best_slot(owner)
+		owner.swap_hand()
 	if(should_deflect)
 		ADD_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
 	temporary_flag_storage = owner.pass_flags
 	owner.pass_flags |= (PASSTABLE | PASSGRILLE | PASSMOB | PASSFENCE | PASSGIRDER | PASSGLASS | PASSTAKE | PASSBARRICADE)
 	owner.add_atom_colour(COLOR_ALUMINIUM, TEMPORARY_COLOUR_PRIORITY)
@@ -1010,6 +1027,7 @@
 
 /datum/status_effect/quicksilver_form/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
 	owner.pass_flags = temporary_flag_storage
 	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_ALUMINIUM)
 

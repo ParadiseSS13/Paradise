@@ -58,6 +58,7 @@
 	var/xenomorph_acid_boosted = FALSE
 	var/heal_boost = 1
 	var/datum/spell/vampire/self/vamp_claws/parent_spell
+	new_attack_chain = TRUE
 
 /obj/item/vamp_claws/Initialize(mapload, new_parent_spell)
 	. = ..()
@@ -73,19 +74,18 @@
 /obj/item/vamp_claws/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
-/obj/item/vamp_claws/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/vamp_claws/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/attacker = user
-
 	if(!V)
 		return
 	if(xenomorph_acid_boosted)
 		target.acid_act(42, 10) // 42 is the acid power of facid, 10 is equal to 100 units.
 	if(!iscarbon(target))
-		return ..()
+		return FINISH_ATTACK
 	var/mob/living/carbon/C = target
 	if(isalien(target))
 		if(!xenomorph_acid_boosted)
@@ -102,7 +102,7 @@
 				color = list(0.5,1,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1, 0,0,0,0) // This makes it coloured acidic green
 				user.update_inv_r_hand()
 				user.update_inv_l_hand()
-	if(C.ckey && C.stat != DEAD && C.affects_vampire())
+	if(C.ckey && C.stat != DEAD && C.affects_vampire(user))
 		if(isalien(C) || !(NO_BLOOD in C.dna.species.species_traits)) // second check runtimes if they are not a xenomorph, but we check xenomorph first
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
@@ -112,21 +112,23 @@
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
 		durability--
 		if(durability <= 0)
-			qdel(src)
 			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+			qdel(src)
 
 /obj/item/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
-/obj/item/vamp_claws/attack_self__legacy__attackchain(mob/user)
-	qdel(src)
+/obj/item/vamp_claws/activate_self(mob/user)
+	if(..())
+		return
 	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
+	qdel(src)
 
 /datum/spell/vampire/blood_tendrils
 	name = "Blood Tendrils (10)"
-	desc = "You summon blood tendrils from bluespace after a delay to ensnare people in an area, slowing them down."
+	desc = "You summon a small field of horrific blood tendrils after a delay to ensnare people in an area, slowing them down."
 	gain_desc = "You have gained the ability to summon blood tendrils to slow people down in an area that you target."
 	required_blood = 10
 
@@ -135,7 +137,7 @@
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
 
-	selection_activated_message = "<span class='notice'>You channel blood magics to weaken the bluespace veil. <b>Left-click to cast at a target area!</b></span>"
+	selection_activated_message = "<span class='notice'>You prepare to summon a set of blood tendrils. <b>Left-click to cast at a target area!</b></span>"
 	selection_deactivated_message = "<span class='notice'>Your magics subside.</span>"
 
 /datum/spell/vampire/blood_tendrils/create_new_targeting()

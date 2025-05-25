@@ -169,23 +169,6 @@
 	else
 		return FALSE
 
-// Returns true if direction is blocked from loc
-// Checks if doors are open
-/proc/DirBlocked(turf/loc, dir)
-	for(var/obj/structure/window/D in loc)
-		if(!D.density)
-			continue
-		if(D.fulltile)
-			return 1
-		if(D.dir == dir)
-			return 1
-
-	for(var/obj/machinery/door/D in loc)
-		if(!D.density)//if the door is open
-			continue
-		else return 1	// if closed, it's a real, air blocking door
-	return 0
-
 /////////////////////////////////////////////////////////////////////////
 
 /**
@@ -268,7 +251,7 @@
 	f = round(f)
 	f = max(low, f)
 	f = min(high, f)
-	if((f % 2) == 0) //Ensure the last digit is an odd number
+	if(ISEVEN(f)) //Ensure the last digit is an odd number
 		f += 1
 	return f
 
@@ -297,7 +280,7 @@
 //When a borg is activated, it can choose which AI it wants to be slaved to
 /proc/active_ais()
 	. = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 		if(A.stat == DEAD)
 			continue
 		if(A.control_disabled)
@@ -403,6 +386,8 @@
 	for(var/mob/living/simple_animal/slime/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/living/basic/M in sortmob)
 		moblist.Add(M)
 	return moblist
 
@@ -656,57 +641,6 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return 1
 
-/proc/is_blocked_turf(turf/T, exclude_mobs, list/excluded_objs)
-	if(T.density)
-		return TRUE
-	if(locate(/mob/living/silicon/ai) in T) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
-		return TRUE
-	if(!exclude_mobs)
-		for(var/mob/living/L in T)
-			if(L.density)
-				return TRUE
-	var/any_excluded_objs = length(excluded_objs)
-	for(var/obj/O in T)
-		if(any_excluded_objs && (O in excluded_objs))
-			continue
-		if(O.density)
-			return TRUE
-	return FALSE
-
-/proc/get_step_towards2(atom/ref , atom/trg)
-	var/base_dir = get_dir(ref, get_step_towards(ref,trg))
-	var/turf/temp = get_step_towards(ref,trg)
-
-	if(is_blocked_turf(temp))
-		var/dir_alt1 = turn(base_dir, 90)
-		var/dir_alt2 = turn(base_dir, -90)
-		var/turf/turf_last1 = temp
-		var/turf/turf_last2 = temp
-		var/free_tile
-		var/breakpoint = 0
-
-		while(!free_tile && breakpoint < 10)
-			if(!is_blocked_turf(turf_last1))
-				free_tile = turf_last1
-				break
-			if(!is_blocked_turf(turf_last2))
-				free_tile = turf_last2
-				break
-			turf_last1 = get_step(turf_last1,dir_alt1)
-			turf_last2 = get_step(turf_last2,dir_alt2)
-			breakpoint++
-
-		if(!free_tile) return get_step(ref, base_dir)
-		else return get_step_towards(ref,free_tile)
-
-	else return get_step(ref, base_dir)
-
-//Takes: Anything that could possibly have variables and a varname to check.
-//Returns: 1 if found, 0 if not.
-/proc/hasvar(datum/A, varname)
-	if(A.vars.Find(lowertext(varname))) return 1
-	else return 0
-
 //Returns: all the areas in the world
 /proc/return_areas()
 	var/list/area/areas = list()
@@ -750,27 +684,19 @@ Returns 1 if the chain up to the area contains the given typepath
 				turfs += T
 	return turfs
 
-//Takes: Area type as text string or as typepath OR an instance of the area.
-//Returns: A list of all atoms	(objs, turfs, mobs) in areas of that type of that type in the world.
-/proc/get_area_all_atoms(areatype)
-	if(!areatype) return null
-	if(istext(areatype)) areatype = text2path(areatype)
-	if(isarea(areatype))
-		var/area/areatemp = areatype
-		areatype = areatemp.type
-
-	var/list/atoms = list()
-	for(var/area/N in world)
-		if(istype(N, areatype))
-			for(var/atom/A in N)
-				atoms += A
-	return atoms
-
 /// Simple datum for storing coordinates.
 /datum/coords
 	var/x_pos
 	var/y_pos
 	var/z_pos
+
+/datum/coords/New(x_pos_, y_pos_, z_pos_)
+	x_pos = x_pos_
+	y_pos = y_pos_
+	z_pos = z_pos_
+
+/datum/coords/proc/to_string(z = null)
+	return "([x_pos],[y_pos],[z ? z : z_pos])"
 
 /area/proc/move_contents_to(area/A, turf_to_leave, direction) // someone rewrite this function i beg of you
 	//Takes: Area. Optional: turf type to leave behind.
@@ -871,7 +797,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							continue
 
 						O.loc.Exited(O)
-						O.setLoc(X)
+						O.set_loc(X)
 						O.loc.Entered(O)
 
 					for(var/mob/M in T)
@@ -1005,7 +931,28 @@ Returns 1 if the chain up to the area contains the given typepath
 					copied_objects += newmobs
 
 					for(var/V in T.vars)
-						if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
+						if(!(V in list(
+							"ckey",
+							"comp_lookup",
+							"contents",
+							"destination_x",
+							"destination_y",
+							"destination_z",
+							"group",
+							"key",
+							"loc",
+							"locs",
+							"luminosity",
+							"parent_type",
+							"parent",
+							"signal_procs",
+							"type",
+							"vars",
+							"verbs",
+							"x",
+							"y",
+							"z",
+						)))
 							X.vars[V] = T.vars[V]
 
 					to_update += X
@@ -1021,10 +968,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/dx = abs(B.x - A.x)
 	var/dy = abs(B.y - A.y)
 	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
-
-//chances are 1:value. anyprob(1) will always return true
-/proc/anyprob(value)
-	return (rand(1,value)==value)
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
@@ -1117,17 +1060,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	if(final_x || final_y)
 		return locate(final_x, final_y, T.z)
 
-//Finds the distance between two atoms, in pixels
-//centered = 0 counts from turf edge to edge
-//centered = 1 counts from turf center to turf center
-//of course mathematically this is just adding world.icon_size on again
-/proc/getPixelDistance(atom/A, atom/B, centered = 1)
-	if(!istype(A)||!istype(B))
-		return 0
-	. = bounds_dist(A, B) + sqrt((((A.pixel_x+B.pixel_x)**2) + ((A.pixel_y+B.pixel_y)**2)))
-	if(centered)
-		. += world.icon_size
-
 /proc/get(atom/loc, type)
 	while(loc)
 		if(istype(loc, type))
@@ -1179,17 +1111,6 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
-
-/*
-Standard way to write links -Sayu
-*/
-
-/proc/topic_link(datum/D, arglist, content)
-	if(islist(arglist))
-		arglist = list2params(arglist)
-	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
-
-
 
 /proc/get_location_accessible(mob/M, location)
 	var/covered_locations	= 0	//based on body_parts_covered
@@ -1295,16 +1216,6 @@ Standard way to write links -Sayu
 		chance = max(chance - (initial_chance / steps), 0)
 		steps--
 
-/proc/get_random_colour(simple, lower, upper)
-	var/colour
-	if(simple)
-		colour = pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")
-	else
-		for(var/i=1;i<=3;i++)
-			var/temp_col = "[num2hex(rand(lower,upper), 2)]"
-			colour += temp_col
-	return colour
-
 /proc/get_distant_turf(turf/T, direction, distance)
 	if(!T || !direction || !distance)	return
 
@@ -1374,6 +1285,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			var/obj/structure/window/W = O
 			if(W.ini_dir == dir_to_check || W.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
 				return FALSE
+		if(istype(O, /obj/machinery/power/rad_collector))
+			return FALSE
 	return TRUE
 
 //datum may be null, but it does need to be a typed var
@@ -1532,12 +1445,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		. += T.contents
 		if(areas)
 			. |= T.loc
-
-/proc/turf_clear(turf/T)
-	for(var/atom/A in T)
-		if(A.simulated)
-			return FALSE
-	return TRUE
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")
@@ -1718,6 +1625,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(findtext("[key]", filter) || findtext("[value]", filter))
 			matches[key] = value
 	return matches
+
+/proc/return_typenames(type)
+	return splittext("[type]", "/")
 
 //Key thing that stops lag. Cornerstone of performance in ss13, Just sitting here, in unsorted.dm.
 
@@ -1959,7 +1869,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(CHANNEL_FIREALARM)
 			return "Fire Alarms"
 		if(CHANNEL_ASH_STORM)
-			return "Ash Storms"
+			return "Weather"
 		if(CHANNEL_RADIO_NOISE)
 			return "Radio Noise"
 		if(CHANNEL_BOSS_MUSIC)

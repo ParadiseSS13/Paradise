@@ -50,8 +50,8 @@ Difficulty: Medium
 	move_to_delay = 5
 	ranged = TRUE
 	pixel_x = -32
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon/crusher)
-	loot = list(/obj/structure/closet/crate/necropolis/dragon)
+	difficulty_ore_modifier = 2
+	crusher_loot = list(/obj/item/crusher_trophy/tail_spike)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = NONE
 	var/player_cooldown = 0
@@ -282,7 +282,7 @@ Difficulty: Medium
 		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
 		hotspot.temperature = 1000
 		hotspot.recolor()
-		T.hotspot_expose(700,50,1)
+		T.hotspot_expose(700, 50)
 		for(var/mob/living/L in T.contents)
 			if((L in hit_list) || L == source)
 				continue
@@ -422,8 +422,15 @@ Difficulty: Medium
 	if(!swooping)
 		..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
+
+/mob/living/simple_animal/hostile/megafauna/dragon/generate_random_loot()
+	var/list/choices = list(/obj/item/melee/ghost_sword,
+							/obj/item/lava_staff,
+							/obj/item/dragons_blood,
+							list(/obj/item/spellbook/oneuse/sacredflame, /obj/item/gun/magic/wand/fireball))
+	loot += pick(choices)
 
 /obj/effect/temp_visual/lava_warning
 	icon_state = "lavastaff_warn"
@@ -593,10 +600,13 @@ Difficulty: Medium
 	melee_damage_lower = 30
 	mouse_opacity = MOUSE_OPACITY_ICON
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
-	loot = list()
 	crusher_loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
+
+/mob/living/simple_animal/hostile/megafauna/dragon/lesser/generate_random_loot()
+	return
+
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
@@ -645,6 +655,10 @@ Difficulty: Medium
 		return
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
+
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/generate_random_loot()
+	return
+
 
 /datum/spell/aoe/repulse/spacedragon
 	name = "Tail Sweep"

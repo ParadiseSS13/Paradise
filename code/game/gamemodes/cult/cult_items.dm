@@ -12,7 +12,7 @@
 
 /obj/item/melee/cultblade
 	name = "cult blade"
-	desc = "An arcane weapon wielded by the followers of a cult."
+	desc = "A powerful blade made of darkened metal. An aura of barely-perceptible red light seems to surround it."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
 	item_state = "blood_blade"
@@ -40,7 +40,7 @@
 
 	if(!IS_CULTIST(user))
 		user.Weaken(10 SECONDS)
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
 							"<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
 		if(ishuman(user))
@@ -70,11 +70,11 @@
 
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
-		user.unEquip(src, TRUE)
+		user.drop_item_to_ground(src, force = TRUE)
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
-	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
+	desc = "A bola, crafted of dark metal and sinuous cords. The inscriptions covering the weights prevent it from striking the Faithful."
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakouttime = 45
@@ -96,7 +96,7 @@
 /obj/item/clothing/head/hooded/culthood
 	name = "cult hood"
 	icon_state = "culthood"
-	desc = "A hood worn by the followers of a cult."
+	desc = "An armored hood reinforced with dark metal and covered with esoteric inscriptions urging you toward martyrdom. Serve your purpose."
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
@@ -150,7 +150,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robes"
-	desc = "An empowered garb which creates a powerful shield around the user."
+	desc = "An imposing set of armored robes, heavily reinforced with dark metal. Strange sigils and glyphs cover the suit, crackling with unholy power."
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
@@ -161,7 +161,7 @@
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"
-	desc = "An empowered garb which creates a powerful shield around the user."
+	desc = "An armored hood, heavily reinforced with dark metal. The inscriptions covering the interior fill you with confidence and determination."
 	icon_state = "cult_hoodalt"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	body_parts_covered = HEAD
@@ -175,7 +175,7 @@
 	if(!IS_CULTIST(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 
@@ -192,7 +192,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe
 	name = "flagellant's robes"
-	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
+	desc = "A set of blood-soaked robes inscribed with unholy sigils. Wearing them greatly increases movement speed, but the cursed fabrics will take an additional tithe when the wearer is hit."
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
 	flags_inv = HIDEJUMPSUIT
@@ -212,7 +212,7 @@
 	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 	else if(slot == ITEM_SLOT_OUTER_SUIT)
@@ -225,7 +225,7 @@
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
-	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
+	desc = "A blood-soaked hood inscribed with unholy sigils. The interior is covered in small barbs, reminding you of your duty."
 	icon_state = "flagellanthood"
 	item_state = "flagellanthood"
 	flags = BLOCKHAIR
@@ -240,7 +240,7 @@
 
 /obj/item/whetstone/cult
 	name = "eldritch whetstone"
-	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
+	desc = "A block of dark, cracked metal, criss-crossed by glowing lines of unholy power. The block can grant any blade a razor's edge, but is unlikely to survive imbuement."
 	icon_state = "cult_sharpener"
 	increment = 5
 	max = 40
@@ -258,14 +258,14 @@
 
 /obj/item/reagent_containers/drinks/bottle/unholywater
 	name = "flask of unholy water"
-	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
+	desc = "A small flask made of darkened glass, and covered with minute inscriptions. The dark liquid within rejuvenates believers, and scalds the faithless."
 	icon_state = "holyflask"
 	color = "#333333"
 	list_reagents = list("unholywater" = 40)
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
 	name = "zealot's blindfold"
-	desc = "May the master guide you through the darkness and shield you from the light."
+	desc = "A thick blindfold made of dark cloth. The runes and sigils sewn into the fabric amplify the vision of the faithful."
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	see_in_dark = 8
@@ -278,21 +278,21 @@
 	..()
 	if(!IS_CULTIST(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.Confused(60 SECONDS)
 		user.Weaken(10 SECONDS)
 		user.EyeBlind(60 SECONDS)
 
 /obj/item/shuttle_curse
 	name = "cursed orb"
-	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
+	desc = "A small metal orb, crackling with the power of a barely-restrained curse. Crushing the orb will unleash its energy, targeting the vessel which attempts to save the station from its fate."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shuttlecurse"
 	var/global/curselimit = 0
 
 /obj/item/shuttle_curse/attack_self__legacy__attackchain(mob/living/user)
 	if(!IS_CULTIST(user))
-		user.unEquip(src, 1)
+		user.drop_item_to_ground(src, force = TRUE)
 		user.Weaken(10 SECONDS)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
@@ -316,7 +316,7 @@
 
 /obj/item/cult_shift
 	name = "veil shifter"
-	desc = "This relic teleports you forward by a medium distance."
+	desc = "A small rod of black metal, surrounded by red crystals that blaze with unholy power. The relic can shift the faithful forward in space with little more than a thought."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
@@ -345,7 +345,7 @@
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
 	if(!IS_CULTIST(user))
-		user.unEquip(src, TRUE)
+		user.drop_item_to_ground(src, force = TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
@@ -426,7 +426,7 @@
 
 /obj/item/shield/mirror
 	name = "mirror shield"
-	desc = "An infamous shield used by eldritch sects to confuse and disorient their enemies."
+	desc = "A small shield of polished metal. The surface glows with eldritch power, and is capable of reflecting incoming attacks."
 	icon = 'icons/obj/cult.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -560,8 +560,8 @@
 	return FALSE
 
 /obj/item/cult_spear
-	name = "blood halberd"
-	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is wielded."
+	name = "blood spear"
+	desc = "A mighty polearm made entirely of crystalized blood, held together with eldritch power. Throwing the weapon will cause its enchantments to discharge violently on impact."
 	icon = 'icons/obj/cult.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
@@ -642,7 +642,7 @@
 
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
-	desc = "Call the blood spear back to your hand!"
+	desc = "Recall the blood spear to your hand."
 	button_background_icon_state = "bg_cult"
 	button_overlay_icon_state = "bloodspear"
 	default_button_position = "11:31,4:-2"
@@ -664,13 +664,13 @@
 		cooldown = world.time + 20
 		if(isliving(spear.loc))
 			var/mob/living/L = spear.loc
-			L.unEquip(spear)
+			L.drop_item_to_ground(spear)
 			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
 		spear.throw_at(owner, 10, 2, null, dodgeable = FALSE)
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"
-	desc = "Blood for blood."
+	desc = "A crackling orb of blood-red energy, straining for the chance to kill. Simply point at the target, and let it loose."
 	item_state = "disintegrate"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -717,17 +717,17 @@
 
 /obj/item/blood_orb
 	name = "orb of blood"
+	desc = "A solid orb of crystalized blood, likely taken unwillingly. The orb can be used to transfer vitae between the faithful."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "summoning_orb"
 	item_state = "summoning_orb"
-	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
 
 /obj/item/portal_amulet
 	name = "reality sunderer"
+	desc = "An elaborately carved amulet resembling a human eye. Looking directly at it sends shivers down your spine. Allows cultists to open portals over teleport runes, destroying the rune in the process."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "amulet"
-	desc = "Some amulet made out of metal, bluespace crystals, and blood. Allows cultists to open portals over teleport runes, destroying the rune in the process."
 	w_class = WEIGHT_CLASS_SMALL
 
 
@@ -811,13 +811,12 @@
 	if(target)
 		exit = new /obj/effect/cult_portal_exit(target)
 
-/obj/effect/portal/cult/attackby__legacy__attackchain(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user) || istype(I, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
-		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
+/obj/effect/portal/cult/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if((istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) || (istype(used, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY)))
+		to_chat(user, "<span class='notice'>You close the portal with your [used].</span>")
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/portal/cult/Destroy()
 	QDEL_NULL(exit)
@@ -829,3 +828,88 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	color = "red"
+
+#define GATEWAY_TURF_SCAN_RANGE 40
+GLOBAL_LIST_EMPTY(proteon_portals)
+
+/obj/item/proteon_orb
+	name = "summoning orb"
+	desc = "An eerie translucent orb that feels impossibly light. Legends say summoning orbs are created from corrupted scrying orbs. If you hold it close to your ears, you can hear the screams of the damned."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state ="scrying_orb"
+	light_range = 3
+	light_color = LIGHT_COLOR_RED
+	new_attack_chain = TRUE
+	/// A nice blood colour matrix
+	var/list/blood_color_matrix = list(1.25,-0.1,-0.1,0, 0,0.15,0,0, 0,0,0.15,0, 0,0,0,1, 0,0,0,0)
+
+
+/obj/item/proteon_orb/Initialize(mapload)
+	. = ..()
+	color = blood_color_matrix
+
+
+/obj/item/proteon_orb/examine(mob/user)
+	. = ..()
+	if(!IS_CULTIST(user) && isliving(user))
+		var/mob/living/living_user = user
+		living_user.adjustBrainLoss(5)
+		. += "<span class='danger'>It hurts just to look at it. Better keep away.</span>"
+	else
+		. += "<span class='cult'>It can be used to create a gateway to Nar'Sie's domain, which will summon weak, sentient constructs over time.</span>"
+
+/obj/item/proteon_orb/activate_self(mob/user)
+	if(..())
+		return
+
+	var/list/portals_to_scan = GLOB.proteon_portals
+
+	if(!IS_CULTIST(user))
+		to_chat(user, "<span class='cultlarge'>\"You want to enter my domain? Go ahead.\"</span>")
+		portals_to_scan = null // narsie wants to have some fun and the veil wont stop her
+
+	for(var/obj/structure/spawner/sentient/proteon_spawner/P as anything in portals_to_scan)
+		if(get_dist(P, src) <= 40)
+			to_chat(user, "<span class='cult'><b>There's a gateway too close nearby. The veil is not yet weak enough to allow such close rips in its fabric.</b></span>")
+			return
+	to_chat(user, "<span class='cultitalic'><b>You focus on [src] and direct it into the ground. It rumbles...</b></span>")
+
+	var/turf/hole_spot = get_turf(user)
+	if(!isfloorturf(hole_spot))
+		to_chat(user, "<span class='notice'>This is not a suitable spot.</span>")
+		return
+
+	INVOKE_ASYNC(hole_spot, TYPE_PROC_REF(/turf/simulated/floor, quake_gateway), user)
+	qdel(src)
+
+/**
+ * Bespoke proc that happens when a proteon orb is activated, creating a gateway.
+ * If activated by a non-cultist, they get an unusual game over.
+*/
+/turf/simulated/floor/proc/quake_gateway(mob/living/user)
+	ChangeTurf(/turf/simulated/floor/engine/cult)
+	Shake(4, 4, 5 SECONDS)
+	var/fucked = FALSE
+	if(!IS_CULTIST(user))
+		fucked = TRUE
+		user.notransform = TRUE
+		user.add_atom_colour(LIGHT_COLOR_RED, TEMPORARY_COLOUR_PRIORITY)
+		user.visible_message("<span class='cult'><b>Dark tendrils appear from the ground and root [user] in place!</b></span>")
+	sleep(5 SECONDS) // can we still use these or. i mean its async
+	new /obj/structure/spawner/sentient/proteon_spawner(src)
+	visible_message("<span class='cult'><b>A mysterious hole appears out of nowhere!</b></span>")
+	if(!fucked || QDELETED(user))
+		return
+	if(get_turf(user) != src) // they get away. for now
+		user.notransform = FALSE
+	user.visible_message("<span class='cult'><b>[user] is pulled into the portal through an infinitesmally minuscule hole, shredding [user.p_their()] body!</b></span>")
+	add_attack_logs(user, user, "Killed themselfs via use of a proteon orb as a non cultist", ATKLOG_ALL)
+	user.gib() // total destruction
+	sleep(5 SECONDS)
+	user.visible_message("<span class='cultitalic'>An unusually large construct appears through the portal!</span>")
+	var/mob/living/simple_animal/hostile/construct/proteon/hostile/remnant = new(get_step_rand(src))
+	remnant.name = "[user]" // no, they do not become it
+	remnant.appearance_flags += PIXEL_SCALE
+	remnant.transform *= 1.5
+
+#undef GATEWAY_TURF_SCAN_RANGE

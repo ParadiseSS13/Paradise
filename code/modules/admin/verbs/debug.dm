@@ -121,10 +121,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		CRASH("WrapAdminProcCall with no ckey: [target] [procname] [english_list(arguments)]")
 	if(current_caller && current_caller != ckey)
 		if(!GLOB.AdminProcCallSpamPrevention[ckey])
-			to_chat(usr, "<span class='adminnotice'>Another set of admin called procs are still running, your proc will be run after theirs finish.</span>")
+			to_chat(usr, "<span class='userdanger'>Another set of admin called procs are still running, your proc will be run after theirs finish.</span>")
 			GLOB.AdminProcCallSpamPrevention[ckey] = TRUE
 			UNTIL(!GLOB.AdminProcCaller)
-			to_chat(usr, "<span class='adminnotice'>Running your proc</span>")
+			to_chat(usr, "<span class='userdanger'>Running your proc</span>")
 			GLOB.AdminProcCallSpamPrevention -= ckey
 		else
 			UNTIL(!GLOB.AdminProcCaller)
@@ -135,8 +135,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	++GLOB.AdminProcCallCount
 	try
 		. = world.WrapAdminProcCall(target, procname, arguments)
-	catch
-		to_chat(usr, "<span class='adminnotice'>Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you.</span>")
+	catch(var/exception/e)
+		to_chat(usr, "<span class='userdanger'>Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you. Runtime Info: [e.file]:[e.line]: [e.name]</span>")
 
 	if(--GLOB.AdminProcCallCount == 0)
 		GLOB.AdminProcCaller = null
@@ -163,6 +163,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set name = "\[Admin\] Atom ProcCall"
 
 	if(!check_rights(R_PROCCALL))
+		return
+
+	if(istype(A, /datum/logging) || istype(A, /datum/log_record))
+		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call on a logging object. Inform the host <u>at once</u>.</span>")
+		log_admin("[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
+		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
 		return
 
 	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null)
@@ -202,57 +208,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	//this will protect us from a fair few errors ~Carn
 
 	while(argnum--)
-		var/class = null
-		// Make a list with each index containing one variable, to be given to the proc
-		if(src.holder && src.holder.marked_datum)
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","reference in range","reference in view", "mob reference","icon","file","client","mob's area","Marked datum ([holder.marked_datum.type])","CANCEL")
-			if(holder.marked_datum && class == "Marked datum ([holder.marked_datum.type])")
-				class = "Marked datum"
-		else
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","mob reference","reference in range","reference in view","icon","file","client","mob's area","CANCEL")
-		switch(class)
-			if("CANCEL")
-				return null
+		var/list/value = vv_get_value(restricted_classes = list(VV_RESTORE_DEFAULT))
+		var/class = value["class"]
+		if(!class)
+			return null
 
-			if("text")
-				lst += clean_input("Enter new text:","Text",null)
-
-			if("num")
-				lst += input("Enter new number:","Num",0) as num
-
-			if("type")
-				lst += input("Enter type:","Type") in typesof(/obj,/mob,/area,/turf)
-
-			if("reference")
-				lst += input("Select reference:","Reference",src) as mob|obj|turf|area in world
-
-			if("reference in range")
-				lst += input("Select reference in range:", "Reference in range", src) as mob|obj|turf|area in range(view)
-
-			if("reference in view")
-				lst += input("Select reference in view:", "Reference in view", src) as mob|obj|turf|area in view(view)
-
-			if("mob reference")
-				lst += input("Select reference:","Reference",usr) as mob in world
-
-			if("file")
-				lst += input("Pick file:","File") as file
-
-			if("icon")
-				lst += input("Pick icon:","Icon") as icon
-
-			if("client")
-				var/list/keys = list()
-				for(var/mob/M in world)
-					keys += M.client
-				lst += input("Please, select a player!", "Selection", null, null) as null|anything in keys
-
-			if("mob's area")
-				var/mob/temp = input("Select mob", "Selection", usr) as mob in world
-				lst += temp.loc
-
-			if("Marked datum")
-				lst += holder.marked_datum
+		lst += value["value"]
 	return lst
 
 /client/proc/Cell()
@@ -287,7 +248,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -305,7 +266,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 
@@ -365,7 +326,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -385,7 +346,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -405,7 +366,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -458,7 +419,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
@@ -550,31 +511,31 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		else
 			areas_with_multiple_air_alarms |= A.type
 
-	for(var/obj/machinery/requests_console/RC in GLOB.machines)
+	for(var/obj/machinery/requests_console/RC in SSmachines.get_by_type(/obj/machinery/requests_console))
 		var/area/A = get_area(RC)
 		if(!A)
 			continue
 		areas_with_RC |= A.type
 
-	for(var/obj/machinery/light/L in GLOB.machines)
+	for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 		var/area/A = get_area(L)
 		if(!A)
 			continue
 		areas_with_light |= A.type
 
-	for(var/obj/machinery/light_switch/LS in GLOB.machines)
+	for(var/obj/machinery/light_switch/LS in SSmachines.get_by_type(/obj/machinery/light_switch))
 		var/area/A = get_area(LS)
 		if(!A)
 			continue
 		areas_with_LS |= A.type
 
-	for(var/obj/item/radio/intercom/I in GLOB.global_radios)
+	for(var/obj/item/radio/intercom/I in SSmachines.get_by_type(/obj/item/radio/intercom))
 		var/area/A = get_area(I)
 		if(!A)
 			continue
 		areas_with_intercom |= A.type
 
-	for(var/obj/machinery/camera/C in GLOB.machines)
+	for(var/obj/machinery/camera/C in SSmachines.get_by_type(/obj/machinery/camera))
 		var/area/A = get_area(C)
 		if(!A)
 			continue
@@ -718,11 +679,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!", null,"Yes","No") != "Yes")
 		return
 
-	for(var/obj/machinery/power/emitter/E in GLOB.machines)
+	for(var/obj/machinery/power/emitter/E in SSmachines.get_by_type(/obj/machinery/power/emitter))
 		if(E.anchored)
 			E.active = TRUE
 
-	for(var/obj/machinery/field/generator/F in GLOB.machines)
+	for(var/obj/machinery/field/generator/F in SSmachines.get_by_type(/obj/machinery/field/generator))
 		if(!F.active)
 			F.active = TRUE
 			F.state = 2
@@ -733,13 +694,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			F.update_icon()
 
 	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in GLOB.machines)
+		for(var/obj/machinery/the_singularitygen/G in SSmachines.get_by_type(/obj/machinery/the_singularitygen))
 			if(G.anchored)
 				var/obj/singularity/S = new /obj/singularity(get_turf(G))
 				S.energy = 800
 				break
 
-	for(var/obj/machinery/power/rad_collector/Rad in GLOB.machines)
+	for(var/obj/machinery/power/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/rad_collector))
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
@@ -751,7 +712,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in GLOB.machines)
+	for(var/obj/machinery/power/smes/SMES in SSmachines.get_by_type(/obj/machinery/power/smes))
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 
@@ -898,7 +859,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))

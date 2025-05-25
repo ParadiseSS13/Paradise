@@ -43,7 +43,6 @@
 
 	var/list/donors = list()
 	holder_type = /obj/item/holder/diona
-	can_collar = TRUE
 
 	a_intent = INTENT_HELP
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
@@ -53,6 +52,10 @@
 	var/datum/action/innate/diona/merge/merge_action = new()
 	var/datum/action/innate/diona/evolve/evolve_action = new()
 	var/datum/action/innate/diona/steal_blood/steal_blood_action = new()
+
+/mob/living/simple_animal/diona/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /datum/action/innate/diona/merge
 	name = "Merge with gestalt"
@@ -210,7 +213,7 @@
 	ADD_TRAIT(adult.mind, TRAIT_XENOBIO_SPAWNED_HUMAN, ROUNDSTART_TRAIT)
 
 	for(var/obj/item/W in contents)
-		unEquip(W)
+		drop_item_to_ground(W)
 
 	qdel(src)
 	return TRUE

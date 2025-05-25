@@ -13,7 +13,7 @@
 	var/number_of_rods = 1
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
-	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TURF, SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TURF, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_CATWALK)
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
@@ -38,8 +38,9 @@
 		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
 		deconstruct()
 	else
+		// hand this off to the turf instead (for building plating, catwalks, etc)
 		var/turf/T = get_turf(src)
-		return T.attackby__legacy__attackchain(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+		return T.item_interaction(user, C, params)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

@@ -59,7 +59,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/ruin/space/powered/casino/engine)
 "bq" = (
 /obj/structure/rack,
 /obj/item/radio{
@@ -98,10 +98,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "cy" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = -6
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = -32
 	},
@@ -214,7 +211,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "fT" = (
-/obj/item/kirbyplants/plant1,
+/obj/item/kirbyplants/medium/medium2,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "fV" = (
@@ -293,6 +290,7 @@
 /area/ruin/space/powered/casino/security)
 "hv" = (
 /obj/structure/table/reinforced,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "hJ" = (
@@ -323,6 +321,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "in" = (
@@ -382,6 +382,7 @@
 /area/ruin/space/powered/casino/arrivals)
 "jz" = (
 /obj/structure/closet/cabinet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/floor)
 "jJ" = (
@@ -428,7 +429,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "kC" = (
-/obj/item/kirbyplants/plant10,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "kH" = (
@@ -508,7 +509,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "mP" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "mW" = (
@@ -567,7 +568,8 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/space/powered/casino/docked_ships)
 "op" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -621,7 +623,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "ql" = (
-/obj/machinery/kitchen_machine/candy_maker,
+/obj/machinery/cooking/ice_cream_mixer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -660,6 +662,7 @@
 "rh" = (
 /obj/structure/grille/broken,
 /obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "rp" = (
@@ -731,7 +734,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/ruin/space/powered/casino/engine)
 "vb" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 4
@@ -767,9 +770,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/engine)
 "wb" = (
-/obj/structure/sign/poster/official/high_class_martini{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/high_class_martini/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "wg" = (
@@ -795,13 +796,12 @@
 /turf/template_noop,
 /area/template_noop)
 "wn" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/effect/mob_spawn/human/corpse/random_species/gambler,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/powered/casino/hall)
 "wo" = (
@@ -987,7 +987,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/ruin/space/powered/casino/engine)
 "BC" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1111,6 +1111,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
+"EK" = (
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered/casino/kitchen)
 "EZ" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/spawner/random/dirt/maybe,
@@ -1175,9 +1182,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "Hq" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1310,6 +1315,7 @@
 "Nh" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/oxygen,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/casino/docked_ships)
 "Nj" = (
@@ -1368,6 +1374,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
+"OZ" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/powered/casino/kitchen)
 "Pz" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -1429,7 +1442,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2222,7 +2235,7 @@ cc
 cc
 fT
 sO
-UO
+OZ
 RS
 Is
 Is
@@ -2454,7 +2467,7 @@ An
 IS
 sO
 UW
-DM
+EK
 ql
 DM
 sO

@@ -5,13 +5,6 @@
 			return 1
 	return 0
 
-/proc/ispet(A)
-	if(isanimal(A))
-		var/mob/living/simple_animal/SA = A
-		if(SA.can_collar)
-			return 1
-	return 0
-
 /mob/proc/get_screen_colour()
 	SHOULD_CALL_PARENT(TRUE)
 	// OOC Colourblind setting takes priority over everything else.
@@ -81,7 +74,7 @@
 	if(istype(worn_glasses) && worn_glasses.color_view) //Check to see if they got those magic glasses and they're augmenting the colour of what the wearer sees. If they're not, color_view should be null.
 		return worn_glasses.color_view
 	else if(eyes) //If they're not, check to see if their eyes got one of them there colour matrices. Will be null if eyes are robotic/the mob isn't colourblind and they have no default colour matrix.
-		return eyes.get_colourmatrix()
+		return eyes.get_colormatrix()
 
 /**
   * Flash up a color as an overlay on a player's screen, then fade back to normal.
@@ -186,6 +179,7 @@
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		log_admin("[key_name(theghost)] has taken control of [key_name(M)]")
 		var/mob/dead/observer/ghost = M.ghostize(TRUE) // Keep them respawnable
 		ghost?.can_reenter_corpse = FALSE // but keep them out of their old body
 		M.key = theghost.key
@@ -210,7 +204,9 @@
 // Do not use this if someone is intentionally trying to hit a specific body part.
 // Use get_zone_with_miss_chance() for that.
 /proc/ran_zone(zone, probability = 80)
-
+#ifdef GAME_TESTS
+	probability = 100
+#endif
 	zone = check_zone(zone)
 
 	if(prob(probability))
@@ -240,6 +236,30 @@
 			return "r_foot"
 
 	return zone
+
+/// Convert the impact zone of a projectile to a clothing zone we can do a contamination check on
+/proc/hit_zone_to_clothes_zone(zone)
+	switch(zone)
+		if("head")
+			return HEAD
+		if("chest")
+			return UPPER_TORSO
+		if("l_hand")
+			return HANDS
+		if("r_hand")
+			return HANDS
+		if("l_arm")
+			return ARMS
+		if("r_arm")
+			return ARMS
+		if("l_leg")
+			return LEGS
+		if("r_leg")
+			return LEGS
+		if("l_foot")
+			return FEET
+		if("r_foot")
+			return FEET
 
 /proc/above_neck(zone)
 	var/list/zones = list("head", "mouth", "eyes")
@@ -350,6 +370,17 @@
 
 	return returntext
 
+/proc/brain_gibberish(message, emp_damage)
+	if(copytext(message, 1, 2) == "*") // if the brain tries to emote, return an emote
+		return message
+
+	var/repl_char = pick("@","&","%","$","/")
+	var/regex/bad_char = regex("\[*]|#")
+	message = Gibberish(message, emp_damage)
+	message = bad_char.Replace(message, repl_char, 1, 2) // prevents the gibbered message from emoting
+
+	return message
+
 /proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		S.message = Gibberish(S.message, p, replace_rate)
@@ -449,7 +480,7 @@
 			if(hud_used && hud_used.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
-		else if(isrobot(src) || islarva(src) || isanimal(src) || isAI(src))
+		else if(isrobot(src) || islarva(src) || isanimal(src) || is_ai(src))
 			switch(input)
 				if(INTENT_HELP)
 					a_intent = INTENT_HELP
@@ -486,7 +517,7 @@
 	else
 		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
 
-	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE))
+	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE, hidden = TRUE))
 		return
 
 	if(resting)
@@ -499,7 +530,7 @@
 	var/obj/item/multitool/P
 	if(isrobot(user) || ishuman(user))
 		P = user.get_active_hand()
-	else if(isAI(user))
+	else if(is_ai(user))
 		var/mob/living/silicon/ai/AI=user
 		P = AI.aiMulti
 

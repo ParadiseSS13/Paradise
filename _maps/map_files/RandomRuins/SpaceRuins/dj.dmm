@@ -445,9 +445,7 @@
 "bk" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/communist_state/directional/north,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/djstation)
 "bl" = (
@@ -525,6 +523,7 @@
 "bt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/can,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -688,12 +687,9 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -716,9 +712,7 @@
 	},
 /area/ruin/space/djstation)
 "bT" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /obj/structure/window/reinforced,
 /obj/item/soap/deluxe/laundry,
@@ -905,7 +899,7 @@
 	},
 /area/ruin/space/djstation)
 "yr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
@@ -964,9 +958,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "MM" = (
-/obj/structure/toilet{
-	pixel_y = 11
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -988,9 +980,7 @@
 /area/ruin/space/djstation)
 "RH" = (
 /obj/machinery/economy/vending/snack/free,
-/obj/structure/sign/poster/contraband/cc64k_ad{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/cc64k_ad/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

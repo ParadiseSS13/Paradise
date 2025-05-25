@@ -147,7 +147,7 @@
 	return TRUE
 
 /obj/machinery/quantumpad/attack_hand(mob/user)
-	if(isAI(user))
+	if(is_ai(user))
 		return
 	if(!check_usable(user))
 		return
@@ -161,13 +161,13 @@
 	if(!istype(AI))
 		return
 	if(AI.eyeobj.loc != loc)
-		AI.eyeobj.setLoc(get_turf(loc))
+		AI.eyeobj.set_loc(get_turf(loc))
 		return
 	if(!check_usable(user))
 		return
 	var/turf/T = get_turf(linked_pad)
-	if(GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))
-		AI.eyeobj.setLoc(T)
+	if(GLOB.cameranet && GLOB.cameranet.check_turf_vis(T))
+		AI.eyeobj.set_loc(T)
 	else
 		to_chat(user, "<span class='warning'>Linked pad is not on or near any active cameras on the station.</span>")
 

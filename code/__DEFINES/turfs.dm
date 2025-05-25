@@ -13,3 +13,10 @@
 
 #define MINERAL_PREVENT_DIG	0	//! A mineral turf should not be changed when mined.
 #define MINERAL_ALLOW_DIG	1	//! A mineral turf should be dug out when mined.
+
+/// Returns an outline (neighboring turfs) of the given block
+#define CORNER_OUTLINE(corner, width, height) ( \
+	CORNER_BLOCK_OFFSET(corner, width + 2, 1, -1, -1) + \
+	CORNER_BLOCK_OFFSET(corner, width + 2, 1, -1, height) + \
+	CORNER_BLOCK_OFFSET(corner, 1, height, -1, 0) + \
+	CORNER_BLOCK_OFFSET(corner, 1, height, width, 0))

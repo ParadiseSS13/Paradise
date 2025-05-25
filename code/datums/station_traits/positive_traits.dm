@@ -170,6 +170,7 @@
 		/datum/job/hydro = /obj/item/organ/internal/cyberimp/arm/botanical,
 		/datum/job/captain = /obj/item/organ/internal/heart/cybernetic/upgraded,
 		/datum/job/cargo_tech = /obj/item/organ/internal/cyberimp/brain/anti_sleep,
+		/datum/job/smith = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/chaplain = /obj/item/organ/internal/cyberimp/brain/anti_drop,
 		/datum/job/chemist = /obj/item/organ/internal/liver/cybernetic,
 		/datum/job/chief_engineer = /obj/item/organ/internal/cyberimp/brain/wire_interface,
@@ -200,7 +201,8 @@
 		/datum/job/judge = /obj/item/organ/internal/cyberimp/arm/telebaton,
 		/datum/job/explorer = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/nanotrasenrep = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash
+		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash,
+		/datum/job/nanotrasentrainer = /obj/item/organ/internal/heart/cybernetic/upgraded
 	)
 
 /datum/station_trait/cybernetic_revolution/New()
@@ -212,7 +214,7 @@
 
 	var/cybernetic_type = job_to_cybernetic[job.type]
 	if(!cybernetic_type)
-		if(isAI(spawned))
+		if(is_ai(spawned))
 			var/mob/living/silicon/ai/ai = spawned
 			ai.eyeobj.relay_speech = TRUE //surveillance upgrade. the ai gets cybernetics too.
 		return

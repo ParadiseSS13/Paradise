@@ -63,20 +63,8 @@
 	return is_equipped()
 
 /obj/item/storage/belt/MouseDrop(obj/over_object, src_location, over_location)
-	var/mob/M = usr
-	if(!is_screen_atom(over_object))
-		return ..()
+	..()
 	playsound(loc, "rustle", 50, TRUE, -5)
-	if(!M.restrained() && !M.stat && can_use())
-		switch(over_object.name)
-			if("r_hand")
-				if(M.unEquip(src, silent = TRUE))
-					M.put_in_r_hand(src)
-			if("l_hand")
-				if(M.unEquip(src, silent = TRUE))
-					M.put_in_l_hand(src)
-		add_fingerprint(usr)
-		return
 
 /obj/item/storage/belt/deserialize(list/data)
 	..()
@@ -108,7 +96,8 @@
 		/obj/item/holosign_creator,
 		/obj/item/stack/nanopaste,
 		/obj/item/robotanalyzer,
-		/obj/item/rpd/bluespace
+		/obj/item/rpd/bluespace,
+		/obj/item/hammer
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -133,6 +122,14 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/extinguisher/mini(src)
+	update_icon()
+
+/obj/item/storage/belt/utility/brass/populate_contents()
+	new /obj/item/wrench/brass(src)
+	new /obj/item/crowbar/brass(src)
+	new /obj/item/screwdriver/brass(src)
+	new /obj/item/weldingtool/experimental/brass(src)
+	new /obj/item/wirecutters/brass(src)
 	update_icon()
 
 /obj/item/storage/belt/utility/chief
@@ -290,6 +287,16 @@
 		/obj/item/reagent_containers/spray/pestspray
 		)
 
+/obj/item/storage/belt/botany/full/populate_contents()
+	new /obj/item/plant_analyzer(src)
+	new /obj/item/cultivator(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/hatchet(src)
+	new /obj/item/reagent_containers/spray/pestspray(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wrench(src)
+	update_icon()
+
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
@@ -300,6 +307,7 @@
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/radio,
+		/obj/item/grenade/barrier,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
@@ -318,7 +326,8 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,
-		/obj/item/detective_scanner)
+		/obj/item/detective_scanner,
+	)
 
 /obj/item/storage/belt/security/full/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
@@ -353,6 +362,30 @@
 	max_combined_w_class = 15
 	use_item_overlays = FALSE
 	layer_over_suit = TRUE
+
+/obj/item/storage/belt/federation_webbing
+	name = "\improper Federation combat webbing"
+	desc = "A tactical chest rig used by soldiers and marines of the Trans-Solar Federation. It's covered in pouches and attachment points."
+	icon_state = "federationwebbing"
+	item_state = "federationwebbing"
+	storage_slots = 15
+	max_combined_w_class = 25
+	use_item_overlays = FALSE
+	layer_over_suit = TRUE
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/rcd,
+		/obj/item/rcd_ammo,
+		/obj/item/ammo_box,
+		/obj/item/melee/baton,
+		/obj/item/melee/classic_baton,
+		/obj/item/kitchen/knife
+	)
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
@@ -771,15 +804,16 @@
 /obj/item/storage/belt/sheath/remove_from_storage(obj/item/W, atom/new_location)
 	if(!..())
 		return
-	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
+	if(!length(contents)) // telekinesis grab spawns inside of the sheath and leaves it immediately...
+		playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
 
 /obj/item/storage/belt/sheath/update_icon_state()
 	if(length(contents))
-		icon_state = "[icon_state]-sword"
-		item_state = "[item_state]-sword"
+		icon_state = "[base_icon_state]-sword"
+		item_state = "[base_icon_state]-sword"
 	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
+		icon_state = base_icon_state
+		item_state = base_icon_state
 	if(isliving(loc))
 		var/mob/living/L = loc
 		L.update_inv_belt()
@@ -787,8 +821,7 @@
 /obj/item/storage/belt/sheath/saber
 	name = "saber sheath"
 	desc = "Can hold sabers."
-	icon_state = "sheath"
-	item_state = "sheath"
+	base_icon_state = "sheath"
 	can_hold = list(/obj/item/melee/saber)
 
 /obj/item/storage/belt/sheath/saber/populate_contents()
@@ -798,8 +831,7 @@
 /obj/item/storage/belt/sheath/snakesfang
 	name = "snakesfang scabbard"
 	desc = "Can hold scimitars."
-	icon_state = "snakesfangsheath"
-	item_state = "snakesfangsheath"
+	base_icon_state = "snakesfangsheath"
 	can_hold = list(/obj/item/melee/snakesfang)
 
 /obj/item/storage/belt/sheath/snakesfang/populate_contents()
@@ -809,8 +841,7 @@
 /obj/item/storage/belt/sheath/breach_cleaver
 	name = "breach cleaver scabbard"
 	desc = "Can hold massive cleavers."
-	icon_state = "breachcleaversheath"
-	item_state = "breachcleaversheath"
+	base_icon_state = "breachcleaversheath"
 	can_hold = list(/obj/item/melee/breach_cleaver)
 
 /obj/item/storage/belt/sheath/breach_cleaver/populate_contents()
@@ -823,7 +854,7 @@
 
 /obj/item/storage/belt/bluespace
 	name = "Belt of Holding"
-	desc = "The greatest in pants-supporting technology."
+	desc = "A bleeding-edge storage medium that incorporates principles developed for the Bag of Holding into belt form."
 	icon_state = "holdingbelt"
 	item_state = "holdingbelt"
 	storage_slots = 14
@@ -1034,8 +1065,8 @@
 		/obj/item/kitchen/utensil,
 		/obj/item/kitchen/knife,
 		/obj/item/kitchen/rollingpin,
-		/obj/item/kitchen/mould,
-		/obj/item/kitchen/sushimat,
+		/obj/item/reagent_containers/cooking/mould,
+		/obj/item/reagent_containers/cooking/sushimat,
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,

@@ -73,13 +73,13 @@
 			return
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip < max_syringes)
-			if(!user.unEquip(A))
+			if(user.transfer_item_to(A, src))
+				to_chat(user, "<span class='notice'>You load [A] into [src]!</span>")
+				syringes.Add(A)
+				process_chamber() // Chamber the syringe if none is already
+				return TRUE
+			else
 				return
-			to_chat(user, "<span class='notice'>You load [A] into [src]!</span>")
-			syringes.Add(A)
-			A.loc = src
-			process_chamber() // Chamber the syringe if none is already
-			return TRUE
 		else
 			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
 	else if(istype(A, /obj/item/dnainjector))
@@ -170,7 +170,7 @@
 		return FALSE
 
 	if(user)
-		if(!user.unEquip(new_syringe))
+		if(!user.drop_item_to_ground(new_syringe))
 			return
 		to_chat(user, "<span class='notice'>You load \the [new_syringe] into [src].</span>")
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)

@@ -33,9 +33,7 @@
 		to_chat(user, "You flip the hat back in normal position.")
 	user.update_inv_head()	//so our mob-overlays update
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/soft/red
 	name = "red cap"
@@ -112,6 +110,13 @@
 	icon_state = "expeditionsoft"
 	item_color = "expedition"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+
+/obj/item/clothing/head/soft/smith
+	name = "smith's cap"
+	desc = "It's a brown baseball hat with a black smithing shield."
+	icon_state = "smithsoft"
+	item_color = "smith"
+	dog_fashion = /datum/dog_fashion/head/smith
 
 /obj/item/clothing/head/soft/janitorgrey
 	name = "grey janitor's cap"

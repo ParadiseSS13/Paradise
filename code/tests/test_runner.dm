@@ -22,38 +22,18 @@
 	// Running the tests is part of the ticker's start function, because I cant think of any better place to put it
 	SSticker.force_start = TRUE
 
-
-/datum/test_runner/proc/RunMap(z_level = 2)
-	CHECK_TICK
-
-	var/list/tests = list()
-
-	for(var/I in subtypesof(/datum/map_per_tile_test))
-		tests += new I
-		test_logs[I] = list()
-		durations[I] = 0
-
-	for(var/turf/T in block(1, 1, z_level, world.maxx, world.maxy, z_level))
-		for(var/datum/map_per_tile_test/test in tests)
-			if(test.failure_count < MAX_MAP_TEST_FAILURE_COUNT)
-				var/duration = REALTIMEOFDAY
-				test.CheckTile(T)
-				durations[test.type] += REALTIMEOFDAY - duration
-
-				if(test.failure_count >= MAX_MAP_TEST_FAILURE_COUNT)
-					test.Fail(T, "failure threshold reached at this tile")
-
-		CHECK_TICK
-
-	for(var/datum/map_per_tile_test/test in tests)
-		if(!test.succeeded)
-			failed_any_test = TRUE
-			test_logs[test.type] += test.fail_reasons
-
-	QDEL_LIST_CONTENTS(tests)
-
+/datum/test_runner/proc/RunAll()
+	#ifdef MAP_TESTS
+	// Run map tests first in case unit tests futz with map state
+	RunMap()
+	#endif
+	#ifdef GAME_TESTS
+	Run()
+	#endif
+	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
 
 /datum/test_runner/proc/Run()
+	log_world("Test runner: game tests.")
 	CHECK_TICK
 
 	for(var/I in subtypesof(/datum/game_test))
@@ -84,10 +64,38 @@
 
 		CHECK_TICK
 
-	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
+/datum/test_runner/proc/RunMap(z_level = 2)
+	log_world("Test runner: map tests.")
+	CHECK_TICK
 
+	var/list/tests = list()
+
+	for(var/I in subtypesof(/datum/map_per_tile_test))
+		tests += new I
+		test_logs[I] = list()
+		durations[I] = 0
+
+	for(var/turf/T in block(1, 1, z_level, world.maxx, world.maxy, z_level))
+		for(var/datum/map_per_tile_test/test in tests)
+			if(test.failure_count < MAX_MAP_TEST_FAILURE_COUNT)
+				var/duration = REALTIMEOFDAY
+				test.CheckTile(T)
+				durations[test.type] += REALTIMEOFDAY - duration
+
+				if(test.failure_count >= MAX_MAP_TEST_FAILURE_COUNT)
+					test.Fail(T, "failure threshold reached at this tile")
+
+		CHECK_TICK
+
+	for(var/datum/map_per_tile_test/test in tests)
+		if(!test.succeeded)
+			failed_any_test = TRUE
+			test_logs[test.type] += test.fail_reasons
+
+	QDEL_LIST_CONTENTS(tests)
 
 /datum/test_runner/proc/Finalize(emit_failures = FALSE)
+	log_world("Test runner: finalizing.")
 	var/time = world.timeofday
 	set waitfor = FALSE
 

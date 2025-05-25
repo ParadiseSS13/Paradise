@@ -13,6 +13,8 @@
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
+	/// Healable by medical stacks?
+	var/healable = FALSE
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	VAR_PROTECTED/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
@@ -30,7 +32,7 @@
 
 	var/now_pushing = null
 
-	var/atom/movable/cameraFollow = null
+	var/atom/movable/camera_follow = null
 
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
@@ -117,3 +119,5 @@
 	var/last_taste_text
 	///If a creature gets to be super special and have extra range on their chat messages
 	var/extra_message_range = 0
+	/// Sets our icon to `null` when `gib()` is used
+	var/gib_nullifies_icon = TRUE

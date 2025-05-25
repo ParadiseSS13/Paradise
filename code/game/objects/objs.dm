@@ -113,7 +113,7 @@
 			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
-		if(isAI(usr) || isrobot(usr))
+		if(is_ai(usr) || isrobot(usr))
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE
@@ -238,12 +238,12 @@
 
 /obj/vv_get_dropdown()
 	. = ..()
-	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
+	.["Delete all of type"] = "byond://?_src_=vars;delall=[UID()]"
 	if(!speed_process)
-		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
+		.["Make speed process"] = "byond://?_src_=vars;makespeedy=[UID()]"
 	else
-		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
-	.["Modify armor values"] = "?_src_=vars;modifyarmor=[UID()]"
+		.["Make normal process"] = "byond://?_src_=vars;makenormalspeed=[UID()]"
+	.["Modify armor values"] = "byond://?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
 	return TRUE

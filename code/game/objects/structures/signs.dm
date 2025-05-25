@@ -201,7 +201,7 @@
 
 /obj/structure/sign/greencross
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
+	desc = "The universal symbol of medical institutions across the Sector. You'll probably find help here."
 	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque
@@ -386,3 +386,13 @@
 	name = "\improper HIGH EXPLOSIVES"
 	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
 	icon_state = "explosives2"
+
+/obj/structure/sign/magboots
+	name = "\improper MAG BOOTS"
+	desc = "A warning sign which reads MAGBOOTS"
+	icon_state = "magboots"
+
+/obj/structure/sign/turbine
+	name = "\improper TURBINE"
+	desc = "A warning which reads TURBINE"
+	icon_state = "turbine"

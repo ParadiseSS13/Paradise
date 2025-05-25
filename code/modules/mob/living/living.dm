@@ -121,6 +121,10 @@
 	if(moving_diagonally) //no mob swap during diagonal moves.
 		return TRUE
 
+	if(has_status_effect(STATUS_EFFECT_UNBALANCED))
+		// Don't swap while being shoved by air.
+		return TRUE
+
 	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
 		if(isstructure(M.pulling) || isstructure(pulling))
 			return TRUE
@@ -208,9 +212,11 @@
 		stop_pulling()
 	var/current_dir
 	if(isliving(AM))
-		current_dir = AM.dir
-	if(step(AM, t))
-		step(src, t)
+		var/mob/living/living_mob = AM
+		if(!living_mob.buckled)
+			current_dir = AM.dir
+	if(AM.Move(get_step(AM.loc, t), t, glide_size))
+		Move(get_step(loc, t), t)
 	if(current_dir)
 		AM.setDir(current_dir)
 	now_pushing = FALSE
@@ -256,7 +262,13 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
-	..()
+	if(pulling)
+		var/atom/pullee = pulling
+		..()
+		for(var/log_pulltype in GLOB.log_pulltypes)
+			if(istype(pullee, log_pulltype))
+				create_log(MISC_LOG, "Stopped pulling", pullee)
+				break
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
 
@@ -346,6 +358,8 @@
 
 /mob/living/acid_act(acidpwr, acid_volume)
 	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
+	to_chat(src, "<span class='userdanger'>The acid burns you!</span>")
+	playsound(src, 'sound/weapons/sear.ogg', 50, TRUE)
 	return 1
 
 /mob/living/welder_act(mob/user, obj/item/I)
@@ -477,12 +491,12 @@
 		var/mob/living/carbon/C = src
 
 		if(C.handcuffed && !initial(C.handcuffed))
-			C.unEquip(C.handcuffed)
+			C.drop_item_to_ground(C.handcuffed)
 		C.handcuffed = initial(C.handcuffed)
 		C.update_handcuffed()
 
 		if(C.legcuffed && !initial(C.legcuffed))
-			C.unEquip(C.legcuffed)
+			C.drop_item_to_ground(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
 		C.update_inv_legcuffed()
 
@@ -526,10 +540,10 @@
 	cure_nearsighted()
 	CureMute()
 	CureDeaf()
-	CureTourettes()
 	CureEpilepsy()
 	CureCoughing()
 	CureNervous()
+	CureParaplegia()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	SetDeaf(0)
@@ -589,7 +603,12 @@
 /mob/living/proc/UpdateDamageIcon()
 	return
 
-/mob/living/Move(atom/newloc, direct, movetime)
+/mob/living/get_spacemove_backup(movement_dir)
+	if(movement_dir == 0 && has_status_effect(STATUS_EFFECT_UNBALANCED))
+		return
+	return ..()
+
+/mob/living/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
@@ -605,30 +624,12 @@
 	if(restrained() || HAS_TRAIT(src, TRAIT_CANNOT_PULL))
 		stop_pulling()
 
-	var/turf/old_loc = loc
 	. = ..()
 	if(.)
 		step_count++
-		pull_pulled(old_loc, pullee, movetime)
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
-
-/mob/living/proc/pull_pulled(turf/dest, atom/movable/pullee, movetime)
-	if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
-		if(pulling.anchored)
-			stop_pulling()
-			return
-
-		var/pull_dir = get_dir(src, pulling)
-		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
-			if(isliving(pulling))
-				var/mob/living/M = pulling
-				if(IS_HORIZONTAL(M) && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth))) // So once you reach 50 brute damage you hit 100% chance to leave a blood trail for every tile you're pulled
-					M.makeTrail(dest)
-			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
-			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
-				stop_pulling()
 
 /mob/living/proc/makeTrail(turf/turf_to_trail_on)
 	if(!has_gravity(src))
@@ -683,41 +684,7 @@
 /mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	if(buckled)
 		return
-	if(client && client.move_delay >= world.time + world.tick_lag * 2)
-		pressure_resistance_prob_delta -= 30
-
-	var/list/turfs_to_check = list()
-
-	if(has_limbs)
-		var/direction = 0
-		if(flow_x > 100)
-			direction |= EAST
-		if(flow_x < -100)
-			direction |= WEST
-		if(flow_y > 100)
-			direction |= NORTH
-		if(flow_y < -100)
-			direction |= SOUTH
-
-		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
-		if(T)
-			turfs_to_check += T
-
-		T = get_step(src, angle2dir(dir2angle(direction) - 90))
-		if(T)
-			turfs_to_check += T
-
-		for(var/t in turfs_to_check)
-			T = t
-			if(T.density)
-				pressure_resistance_prob_delta -= 20
-				continue
-			for(var/atom/movable/AM in T)
-				if(AM.density && AM.anchored)
-					pressure_resistance_prob_delta -= 20
-					break
-
-	..(flow_x, flow_y, pressure_resistance_prob_delta)
+	..()
 
 /*//////////////////////
 	START RESIST PROCS
@@ -822,7 +789,7 @@
 	return FALSE
 
 /mob/living/update_gravity(has_gravity)
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 	if(has_gravity)
 		clear_alert("weightless")
@@ -869,7 +836,7 @@
 	return
 
 /mob/living/singularity_act()
-	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
+	investigate_log("([key_name(src)]) has been consumed by the singularity.",INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
 	gib()
 	return 20
 
@@ -982,6 +949,29 @@
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
 	if(S)
 		. += S.slowdown_value
+	else
+		// Only apply directional slow if we don't have a full slow.
+		var/datum/status_effect/incapacitating/directional_slow/DS = has_status_effect(STATUS_EFFECT_DIRECTIONAL_SLOW)
+		if(DS)
+			if(DS.direction == last_move)
+				// Moving directly in the direction we're slowed, full penalty
+				. += DS.slowdown_value
+			else if(REVERSE_DIR(DS.direction) == last_move)
+				// Moving directly opposite to the slow, no penalty.
+				// Lint doesn't like this block being empty so, uh, add zero, I guess.
+				. += 0
+			else if(IS_DIR_CARDINAL(DS.direction) || IS_DIR_CARDINAL(last_move))
+				if(DS.direction & last_move)
+					// Moving roughly in the direction we're slowed, full penalty.
+					. += DS.slowdown_value
+				else if(!(REVERSE_DIR(DS.direction) & last_move))
+					// Moving perpendicular to the slow, partial penalty.
+					. += DS.slowdown_value / 2
+				// Moving roughly opposite to the slow, no penalty.
+			else
+				// Diagonal move perpendicular to the slow, partial penalty.
+				. += DS.slowdown_value / 2
+
 	if(forced_look)
 		. += DIRECTION_LOCK_SLOWDOWN
 	if(ignorewalk)
@@ -1028,12 +1018,11 @@
 	AM.pulledby = src
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
-	if(ismob(AM))
-		var/mob/M = AM
-		if(!iscarbon(src))
-			M.LAssailant = null
-		else
-			M.LAssailant = usr
+
+	for(var/log_pulltype in GLOB.log_pulltypes)
+		if(istype(AM, log_pulltype))
+			create_log(MISC_LOG, "Started pulling", AM)
+			break
 
 /mob/living/proc/check_pull()
 	if(pulling && !pulling.Adjacent(src))
@@ -1043,26 +1032,54 @@
 	if(registered_z != new_z)
 		if(registered_z)
 			SSmobs.clients_by_zlevel[registered_z] -= src
-		if(client)
-			if(new_z)
-				SSmobs.clients_by_zlevel[new_z] += src
+
+		if(isnull(client))
+			registered_z = null
+			return
+
+		// Check the amount of clients exists on the Z level we're leaving from,
+		// this excludes us because at this point we are not registered to any z level.
+		var/old_level_new_clients = (registered_z ? length(SSmobs.clients_by_zlevel[registered_z]) : null)
+		// No one is left after we're gone, shut off inactive ones
+		if(registered_z && old_level_new_clients == 0)
+			for(var/datum/ai_controller/controller as anything in SSai_controllers.ai_controllers_by_zlevel[registered_z])
+				controller.set_ai_status(AI_STATUS_OFF)
+
+
+		if(new_z)
+			// Check the amount of clients exists on the Z level we're moving towards, excluding ourselves.
+			var/new_level_old_clients = length(SSmobs.clients_by_zlevel[new_z])
+
+			//We'll add ourselves to the list now so get_expected_ai_status() will know we're on the z level.
+			SSmobs.clients_by_zlevel[new_z] += src
+
+			if(new_level_old_clients == 0) // No one was here before, wake up all the AIs.
+				// Basic mob AI
+				for(var/datum/ai_controller/controller as anything in SSai_controllers.ai_controllers_by_zlevel[new_z])
+					// We don't set them directly on, for instances like AIs acting while dead and other cases that may exist in the future.
+					// This isn't a problem for AIs with a client since the client will prevent this from being called anyway.
+					controller.set_ai_status(controller.get_expected_ai_status())
+
+				// Simple mob AI
 				for(var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance)
 					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
 					if(SA)
 						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
 					else
 						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
-			registered_z = new_z
-		else
-			registered_z = null
+		registered_z = new_z
 
 /mob/living/on_changed_z_level(turf/old_turf, turf/new_turf)
 	..()
 	update_z(new_turf?.z)
 
-/mob/living/rad_act(amount)
-	. = ..()
-
+/mob/living/rad_act(atom/source, amount, emission_type)
+	// Mobs block very little Beta and Gamma radiation, but we still want the rads to affect them.
+	if(emission_type > ALPHA_RAD)
+		amount /=  (1 - RAD_MOB_INSULATION)
+	// Alpha sources outside the body don't do much
+	else if(!is_inside_mob(source))
+		amount /= 100
 	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
 
@@ -1074,8 +1091,21 @@
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
 
-
 	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, ARMOUR_VALUE_TO_PERCENTAGE(blocked))
+
+/mob/living/proc/is_inside_mob(atom/thing)
+	if(!(thing in contents))
+		return FALSE
+	if(l_hand && l_hand.UID() == thing.UID())
+		return FALSE
+	if(r_hand && r_hand.UID() == thing.UID())
+		return FALSE
+	if(back && back.UID() == thing.UID())
+		return FALSE
+	if(wear_mask && wear_mask.UID() == thing.UID())
+		return FALSE
+
+	return TRUE
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1175,10 +1205,10 @@
 		return
 	return ..()
 
-/mob/living/Moved(OldLoc, Dir, Forced = FALSE)
+/mob/living/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	for(var/obj/O in src)
-		O.on_mob_move(Dir, src)
+		O.on_mob_move(movement_dir, src)
 
 /// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
 /mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)

@@ -1,20 +1,17 @@
 /// A random spawner managed by a [/datum/spawn_pool].
 /obj/effect/spawner/random/pool
-	icon = 'icons/effects/random_spawners.dmi'
-	icon_state = "loot"
-
 	/// How much this spawner will subtract from the available budget if it
-	/// spawns. A value of `INFINITY` (i.e., not setting the value on a subtype)
+	/// spawns. A value of `-1` (i.e., not setting the value on a subtype)
 	/// does not attempt to subtract from the budget. This is useful for
 	/// spawners which themselves spawn other spawners.
-	var/point_value = INFINITY
+	var/point_value = -1
 	/// Whether non-spawner items should be removed from the shared loot pool
 	/// after spawning.
 	var/unique_picks = FALSE
 	/// Guaranteed spawners will always proc, and always proc first.
 	var/guaranteed = FALSE
-	/// The ID of the spawn pool. Must match the pool's [/datum/spawn_pool/var/id].
-	var/spawn_pool_id
+	/// The type of the spawn pool.
+	var/spawn_pool
 
 /obj/effect/spawner/random/pool/Initialize(mapload)
 	// short-circuit atom init machinery since we won't be around long
@@ -22,7 +19,7 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
 
-	if(!spawn_pool_id)
+	if(!spawn_pool)
 		stack_trace("No spawn pool ID provided to [src]([type])")
 
 	if(GLOB.spawn_pool_manager.finalized)
@@ -32,9 +29,9 @@
 		qdel(src)
 		return
 
-	var/datum/spawn_pool/pool = GLOB.spawn_pool_manager.get(spawn_pool_id)
+	var/datum/spawn_pool/pool = GLOB.spawn_pool_manager.get(spawn_pool)
 	if(!pool)
-		stack_trace("Could not find spawn pool with ID [spawn_pool_id]")
+		stack_trace("Could not find spawn pool [spawn_pool]")
 
 	if(unique_picks && !(type in pool.unique_spawners))
 		pool.unique_spawners[type] = loot.Copy()
@@ -45,9 +42,9 @@
 		pool.known_spawners |= src
 
 /obj/effect/spawner/random/pool/generate_loot_list()
-	var/datum/spawn_pool/pool = GLOB.spawn_pool_manager.get(spawn_pool_id)
+	var/datum/spawn_pool/pool = GLOB.spawn_pool_manager.get(spawn_pool)
 	if(!pool)
-		stack_trace("Could not find spawn pool with ID [spawn_pool_id]")
+		stack_trace("Could not find spawn pool [spawn_pool]")
 
 	if(unique_picks)
 		var/list/unique_loot = pool.unique_spawners[type]
@@ -65,9 +62,9 @@
 
 	var/is_safe = FALSE
 	var/deduct_points = TRUE
-	var/datum/spawn_pool/pool = GLOB.spawn_pool_manager.get(spawn_pool_id)
+	var/datum/spawn_pool/pool = GLOB.spawn_pool_manager.get(spawn_pool)
 	if(!pool)
-		stack_trace("Could not find spawn pool with ID [spawn_pool_id]")
+		stack_trace("Could not find spawn pool [spawn_pool]")
 
 	if(ispath(type_path_to_make, /obj/effect/spawner/random/pool))
 		return TRUE
@@ -79,7 +76,7 @@
 		deduct_points = FALSE
 
 	// If we don't have a sane point value, don't deduct points
-	if(point_value == INFINITY)
+	if(point_value == -1)
 		deduct_points = FALSE
 
 	// If we deduct points, we need to check affordability

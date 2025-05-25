@@ -108,7 +108,7 @@
 	if(!armed || !isturf(loc) || !istype(entered))
 		return
 
-	if((iscarbon(entered) || isanimal(entered)) && !HAS_TRAIT(entered, TRAIT_FLYING))
+	if((iscarbon(entered) || isanimal_or_basicmob(entered)) && !HAS_TRAIT(entered, TRAIT_FLYING))
 		spring_trap(entered)
 
 		if(ishuman(entered))
@@ -224,7 +224,7 @@
 	L.update_inv_l_hand()
 	spinning = TRUE
 	for(var/i in 1 to max_spins)
-		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L))))
+		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L)), hidden = TRUE))
 			reset_values(L)
 			break
 		throw_range += range_increment

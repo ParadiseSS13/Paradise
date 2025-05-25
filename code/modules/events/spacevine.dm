@@ -12,7 +12,7 @@
 
 	if(length(turfs)) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
-		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, null, rand(30,70),rand(5,2)) //spawn a controller at turf
+		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, null, rand(30, 100), rand(3, 1)) //spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
 		if(length(SC.vines))
@@ -82,13 +82,14 @@
 	color = "#aa77aa"
 	icon_state = "vinefloor"
 
+/turf/simulated/floor/vines/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+
 /turf/simulated/floor/vines/get_broken_states()
 	return list()
 
 //All of this shit is useless for vines
-
-/turf/simulated/floor/vines/attackby__legacy__attackchain()
-	return
 
 /turf/simulated/floor/vines/burn_tile()
 	return
@@ -216,7 +217,7 @@
 		return TRUE
 
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/I)
-	explosion(holder.loc, 0, 0, severity, 0, 0)
+	explosion(holder.loc, 0, 0, severity, 0, 0, cause = "Explosive Spacevines")
 
 /datum/spacevine_mutation/fire_proof
 	name = "fire proof"
@@ -398,6 +399,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE
 	max_integrity = 50
 	unbuckle_time = 5 SECONDS
+	cares_about_temperature = TRUE
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
@@ -700,7 +702,7 @@
 	if(!i && prob(100/severity))
 		wither()
 
-/obj/structure/spacevine/temperature_expose(null, temp, volume)
+/obj/structure/spacevine/temperature_expose(temp, volume)
 	..()
 	var/override = 0
 	for(var/SM_type in mutations)

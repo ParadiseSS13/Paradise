@@ -31,6 +31,7 @@
 	pockets?.update_viewers()
 
 /obj/item/clothing/suit/storage/AltClick(mob/user)
+	..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		pockets?.open(user)
 		add_fingerprint(user)
@@ -45,6 +46,9 @@
 	return ..()
 
 /obj/item/clothing/suit/storage/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+	// Inserts shouldn't be added into the inventory of the pockets if they're attaching.
+	if(istype(W, /obj/item/smithed_item/insert) && length(inserts) != insert_max)
+		return ..()
 	..()
 	return pockets?.attackby__legacy__attackchain(W, user, params)
 
@@ -64,8 +68,10 @@
 
 	var/list/L = list()
 
-	L += src.contents
 
+	for(var/obj/item/I in src.contents)
+		if(!istype(I, /obj/item/smithed_item/insert)) // We don't want people to pull inserts out without calling the proper signals, so they shouldn't be displayed in storage.
+			L += I
 	for(var/obj/item/storage/S in src)
 		L += S.return_inv()
 	for(var/obj/item/gift/G in src)

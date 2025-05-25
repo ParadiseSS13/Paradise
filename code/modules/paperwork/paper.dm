@@ -50,6 +50,8 @@
 	var/const/crayonfont = "Comic Sans MS"
 	var/regex/blacklist = new("(<iframe|<embed|<script|<canvas|<video|<audio|onload)", "g") // Blacklist of naughties
 
+	scatter_distance = 8
+
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
 /obj/item/paper/New()
@@ -156,7 +158,7 @@
 	if(user.zone_selected == "eyes")
 		user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
 			"<span class='notice'>You show the paper to [H].</span>")
-		H.examinate(src)
+		to_chat(H, "<a href='byond://?src=[UID()];show_content=1'>Read \the [src]</a>")
 
 	else if(user.zone_selected == "mouth")
 		if(H == user)
@@ -306,6 +308,7 @@
 		\[u\] - \[/u\] : Makes the text <u>underlined</u>.<br>
 		\[large\] - \[/large\] : Increases the <font size = \"4\">size</font> of the text.<br>
 		\[sign\] : Inserts a signature of your name in a foolproof way.<br>
+		\[name\] : Inserts your regular name, not like your signature.<br>
 		\[field\] : Inserts an invisible field which lets you start type from there. Useful for forms.<br>
 		<br>
 		<b><center>Pen exclusive commands</center></b><br>
@@ -390,6 +393,12 @@
 		var/id = href_list["write"]
 		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
+	if(href_list["show_content"])
+		var/dist = get_dist(src, usr)
+		if(dist < 2)
+			show_content(usr)
+		else
+			to_chat(usr, "<span class='notice'>I'm too far away from \the [src] to read it.</span>")
 
 /obj/item/paper/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
 	..()
@@ -413,38 +422,38 @@
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
-		user.unEquip(P)
+		user.drop_item_to_ground(P)
 		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_r_hand(B)
 			else if(h_user.l_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_l_hand(B)
 			else if(h_user.l_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_hands(B)
 			else if(!isturf(src.loc))
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You clip [P] to [(src.name == "paper") ? "the paper" : src.name].</span>")
-		src.loc = B
+		forceMove(B)
 		P.loc = B
 		B.amount++
 		B.update_icon()
@@ -479,7 +488,7 @@
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
+			user.drop_item_to_ground(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
@@ -487,7 +496,7 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 
@@ -622,10 +631,6 @@
 /obj/item/paper/hydroponics
 	name = "Greetings from Billy Bob"
 	info = "<B>Hey fellow botanist!</B><BR>\n<BR>\nI didn't trust the station folk so I left<BR>\na couple of weeks ago. But here's some<BR>\ninstructions on how to operate things here.<BR>\nYou can grow plants and each iteration they become<BR>\nstronger, more potent and have better yield, if you<BR>\nknow which ones to pick. Use your botanist's analyzer<BR>\nfor that. You can turn harvested plants into seeds<BR>\nat the seed extractor, and replant them for better stuff!<BR>\nSometimes if the weed level gets high in the tray<BR>\nmutations into different mushroom or weed species have<BR>\nbeen witnessed. On the rare occassion even weeds mutate!<BR>\n<BR>\nEither way, have fun!<BR>\n<BR>\nBest regards,<BR>\nBilly Bob Johnson.<BR>\n<BR>\nPS.<BR>\nHere's a few tips:<BR>\nIn nettles, potency = damage<BR>\nIn amanitas, potency = deadliness + side effect<BR>\nIn Liberty caps, potency = drug power + effect<BR>\nIn chilis, potency = heat<BR>\n<B>Nutrients keep mushrooms alive!</B><BR>\n<B>Water keeps weeds such as nettles alive!</B><BR>\n<B>All other plants need both.</B>"
-
-/obj/item/paper/chef
-	name = "Cooking advice from Morgan Ramslay"
-	info = "Right, so you're wanting to learn how to feed the teeming masses of the station yeah?<BR>\n<BR>\nWell I was asked to write these tips to help you not burn all of your meals and prevent food poisonings.<BR>\n<BR>\nOkay first things first, making a humble ball of dough.<BR>\n<BR>\nCheck the lockers for a bag or two of flour and then find a glass cup or a beaker, something that can hold liquids. Next pour 15 units of flour into the container and then pour 10 units of water in as well. Hey presto! You've made a ball of dough, which can lead to many possibilities.<BR>\n<BR>\nAlso, before I forget, KEEP YOUR FOOD OFF THE DAMN FLOOR! Space ants love getting onto any food not on a table or kept away in a closed locker. You wouldn't believe how many injuries have resulted from space ants...<BR>\n<BR>\nOkay back on topic, let's make some cheese, just follow along with me here.<BR>\n<BR>\nLook in the lockers again for some milk cartons and grab another glass to mix with. Next look around for a bottle named 'Universal Enzyme' unless they changed the look of it, it should be a green bottle with a red label. Now pour 5 units of enzyme into a glass and 40 units of milk into the glass as well. In a matter of moments you'll have a whole wheel of cheese at your disposal.<BR>\n<BR>\nOkay now that you've got the ingredients, let's make a classic crewman food, cheese bread.<BR>\n<BR>\nMake another ball of dough, and cut up your cheese wheel with a knife or something else sharp such as a pair of wire cutters. Okay now look around for an oven in the kitchen and put 2 balls of dough and 2 cheese wedges into the oven and turn it on. After a few seconds a fresh and hot loaf of cheese bread will pop out. Lastly cut it into slices with a knife and serve.<BR>\n<BR>\nCongratulations on making it this far. If you haven't created a burnt mess of slop after following these directions you might just be on your way to becoming a master chef someday.<BR>\n<BR>\nBe sure to look up other recipes and bug the Head of Personnel if Botany isn't providing you with crops, wheat is your friend and lifeblood.<BR>\n<BR>\nGood luck in the kitchen, and try not to burn down the place.<BR>\n<BR>\n-Morgan Ramslay"
 
 /obj/item/paper/djstation
 	name = "Mission Briefing"
@@ -865,6 +870,18 @@
 	name = "Lava Field Observations"
 	info = "<center>Asteroid Core Observation Log 306</center><hr><br><i>We took some additional samples of the deep layers of the molten core of the asteroid. Undetermined trace elements were able to be identified in the solution. Its possible this is how the plasma remains so stable at these temperatures. None of our current filter methods have been able to properly extract it as of yet, but we're certain a breakthrough is on the horizon. We did it before, we can do it again.</i>"
 
+/obj/item/paper/clockwork_cult_message
+	name = "Old handwritten note"
+	info = "<center>To any brothers and sisters that journey here from beyond the system:</center><br><br>\
+	The Nar'Sien dogs have failed, and we have gleaned the method by which we can awake His divine mechanism. The spark shall be turned into lightning and the gears shall once again turn.<br><br>\
+	We go now to purge the dogs from the hole we know they hide within, and then The Eminance shall then call us back to Reebe so that we may begin preperations for His awakening.<br><br>\
+	The guardians shall protect the monastery in our stead. Make use of its supplies and prepare for our return, together we shall all finalize His vison."
+
+/obj/item/paper/white_ship_telepad
+	name = "Don't forget"
+	info = "Make sure to not forget the link code for the telepad. Rather not get stuck out here for a few more weeks."
+
+
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
 
@@ -1058,3 +1075,10 @@
 /obj/item/paper/instruction/pacman_generator
 	name = "Instructions for P.A.C.M.A.N. Generator series"
 	info = "P.A.C.M.A.N. are commonly used as 'Emergency' power generators, with its upgraded version being capable of utilizing uranium and plasma sheets to function. Simply anchor on the power cable node, insert the plasma sheet, select the level and turn it ON to generate power, just make sure to not overheat it or it will explode."
+
+/obj/item/paper/rocky_motel
+	name = "strange note"
+	info = "Nancy, dear, could you <i>please</i> stop hiding my beer in the safe? I'm telling you, it's alcohol-free and safe to drink. Just quit making me mad, for fuck's sake!"
+
+/obj/item/paper/rocky_motel/syndie
+	info = "Don't forget to grab the gold from safe tomorrow, I'm not going to stay there for another year, this place sucks."

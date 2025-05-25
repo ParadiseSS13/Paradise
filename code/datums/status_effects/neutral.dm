@@ -72,7 +72,7 @@
 /datum/status_effect/high_five/proc/wiz_effect(mob/living/carbon/user, mob/living/carbon/highfived)
 	user.status_flags |= GODMODE
 	highfived.status_flags |= GODMODE
-	explosion(get_turf(user), 5, 2, 1, 3, cause = id)
+	explosion(get_turf(user), 5, 2, 1, 3, cause = "Wizard high-five")
 	// explosions have a spawn so this makes sure that we don't get gibbed
 	addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, highfived), 0.3 SECONDS) // I want to be sure this lasts long enough, with lag.
 	add_attack_logs(user, highfived, "caused a wizard [id] explosion")
@@ -139,6 +139,29 @@
 
 /datum/status_effect/high_five/dap/get_missed_message()
 	return "sadly can't find anybody to give daps to, and daps [owner.p_themselves()]. Shameful."
+
+/datum/status_effect/high_five/offering_eftpos
+	id = "offering_eftpos"
+	request = "holds out an EFTPOS device."
+	item_path = /obj/item/eftpos
+
+/datum/status_effect/high_five/offering_eftpos/get_missed_message()
+	return "pulls back the EFTPOS device."
+
+/datum/status_effect/high_five/offering_eftpos/on_apply()
+	owner.custom_emote(EMOTE_VISIBLE, request)
+	owner.create_point_bubble_from_path(item_path, FALSE)
+	RegisterSignal(owner, COMSIG_ATOM_RANGED_ATTACKED, PROC_REF(on_ranged_attack))
+	return TRUE
+
+/datum/status_effect/high_five/offering_eftpos/on_remove()
+	UnregisterSignal(owner, COMSIG_ATOM_RANGED_ATTACKED)
+
+/datum/status_effect/high_five/offering_eftpos/proc/on_ranged_attack(mob/living/me, mob/living/carbon/human/attacker)
+	SIGNAL_HANDLER  // COMSIG_ATOM_RANGED_ATTACKED
+	if(get_dist(me, attacker) <= 2)
+		to_chat(attacker, "<span class='warning'>You need to have your ID in hand to scan it!</span>")
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/status_effect/high_five/handshake
 	id = "handshake"
@@ -328,7 +351,7 @@
 		for(var/mob/living/L in range(10, our_scope.given_turf))
 			if(locks >= LWAP_LOCK_CAP)
 				return
-			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L) || L.invisibility > owner.see_invisible) //xenobio moment
+			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L) || L.invisibility > owner.see_invisible || isLivingSSD(L)) //xenobio moment
 				continue
 			new /obj/effect/temp_visual/single_user/lwap_ping(owner.loc, owner, L)
 			locks++

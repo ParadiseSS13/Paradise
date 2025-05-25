@@ -13,7 +13,7 @@
 
 /datum/design/blutrash
 	name = "Trash Bag of Holding"
-	desc = "An advanced trash bag with bluespace properties; capable of holding a plethora of garbage."
+	desc = "An advanced trash bag that uses experimental Bluespace technology to send stored trash to a specialized pocket dimension."
 	id = "blutrash"
 	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE

@@ -86,7 +86,7 @@
 		to_chat(user, "<span class='notice'>A spectral hand appears from your spellbook and pulls a brand new plasmaman envirosuit, complete with helmet, from the void, then drops it on the floor.</span>")
 		new /obj/item/clothing/head/helmet/space/plasmaman/assistant(get_turf(user))
 		new /obj/item/clothing/under/plasmaman/assistant(get_turf(user))
-	user.unEquip(user.wear_id)
+	user.drop_item_to_ground(user.wear_id)
 	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, ITEM_SLOT_JUMPSUIT) //Just in case they're naked
 	var/obj/item/card/id/wizid = new /obj/item/card/id(src)
 	user.equip_to_slot_or_del(wizid, ITEM_SLOT_ID)
@@ -130,14 +130,8 @@
 	destroy_spellbook = TRUE
 
 /datum/spellbook_entry/loadout/fireball/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(user.wear_suit)
-		var/jumpsuit = user.wear_suit
-		user.unEquip(user.wear_suit, TRUE)
-		qdel(jumpsuit)
-	if(user.head)
-		var/head = user.head
-		user.unEquip(user.head, TRUE)
-		qdel(head)
+	qdel(user.wear_suit)
+	qdel(user.head)
 
 	// Part of Sacred Flame
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")

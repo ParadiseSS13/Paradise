@@ -46,6 +46,24 @@
 	name = "Asteroid 5"
 	description = "Oh my god, another giant rock!"
 
+/datum/map_template/ruin/space/asteroidmining1
+	id = "asteroidmining1"
+	suffix = "asteroidmining1.dmm"
+	name = "Mining Asteroid 1"
+	description = "A giant rock rich in ores!"
+
+/datum/map_template/ruin/space/asteroidmining2
+	id = "asteroidmining2"
+	suffix = "asteroidmining2.dmm"
+	name = "Mining Asteroid 2"
+	description = "A cluster of rocks rich in ore."
+
+/datum/map_template/ruin/space/asteroidmining3
+	id = "asteroidmining3"
+	suffix = "asteroidmining3.dmm"
+	name = "Mining Asteroid 3"
+	description = "They dug too greedily, and too deeply..."
+
 /datum/map_template/ruin/space/deep_storage
 	id = "deep-storage"
 	suffix = "deepstorage.dmm"
@@ -148,9 +166,11 @@
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
 	suffix = "turretedoutpost.dmm"
-	name = "Unnamed Turreted Outpost"
-	description = "We'd ask them to stop blaring that ruskiepop music, but \
-		none of us are brave enough to go near those death turrets they have."
+	name = "Syndicate Interdiction Platform"
+	description = "Taking a departure from their usual MO of hiding their installations away from prying eyes, \
+	the Syndicate deployed this asset right in the open and bolted enough guns onto the hull to keep all but the most determined attackers at bay. \
+	The jolly crew perform raiding operations against poorly protected NT assets."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/way_home
 	id = "way-home"
@@ -225,7 +245,6 @@
 	name = "Suspicious Supply Depot"
 	description = "A syndicate supply depot, heavily stocked, but heavily guarded with an assortment of shields, sentry bots, armed operatives and more."
 	allow_duplicates = FALSE // One of these is enough
-	always_place = TRUE // This is on the always spawn list because of the shielding chance
 
 /datum/map_template/ruin/space/ussp_tele
 	id = "ussp_tele"
@@ -358,3 +377,26 @@
 	name = "Damaged Drakehound Skiff"
 	description = "A small Drakehound craft, damaged from an engine malfunction."
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/sieged_lab
+	id = "sieged_lab"
+	suffix = "sieged_lab.dmm"
+	name = "Sieged Lab"
+	description = "A destroyed laboratory, under siege from forces unknown."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/clockwork_monastery
+	id = "clockwork_monastery"
+	suffix = "clockwork_monastery.dmm"
+	name = "Abandoned Clockwork Monastery"
+	description = "A hidden monastery once used by the followers of Ratvar's clockwork cult. The original inhabitants have departed for City of Cogs, Reebe. \
+		The constructs that were left behind to guard the monastery will ruthlessly cut down anyone that does not swear their fealty to Ratvar."
+	allow_duplicates = FALSE
+
+
+/datum/map_template/ruin/space/bluespace_relay_beacon
+	id = "bluespace_relay_beacon"
+	suffix = "bluespace_relay_beacon.dmm"
+	name = "Nanotrasen Bluespace Relay"
+	description = "Nanotrasen uses relays like these to further extend telecommunications around an area of space, as well as long range beacons for easier deployment in the future. \
+		Unfortunately, the anomalous activity around Epsilon Eridani, along with orbital debris and space-faring hostiles, has rendered many of these relay stations inoperable, leaving their communications and teleportation systems offline."

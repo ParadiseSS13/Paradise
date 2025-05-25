@@ -14,9 +14,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ah" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ai" = (
@@ -59,18 +57,14 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ap" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -121,18 +115,14 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aG" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -155,9 +145,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aM" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/machinery/light/spot{
 	dir = 4
 	},

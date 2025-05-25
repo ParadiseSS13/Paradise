@@ -94,9 +94,10 @@
 	// Else, anomaly core gets deleted by qdel(src).
 	qdel(src)
 
-/obj/effect/anomaly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/analyzer))
+/obj/effect/anomaly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
@@ -341,7 +342,6 @@
 /obj/effect/anomaly/pyro
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
-	var/ticks = 0
 	var/produces_slime = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/pyro
 
@@ -351,16 +351,11 @@
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
-	ticks++
 	for(var/mob/living/M in hearers(4, src))
 		if(prob(50))
 			M.adjust_fire_stacks(4)
 			M.IgniteMob()
 
-	if(ticks < 4)
-		return
-	else
-		ticks = 0
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		var/datum/gas_mixture/air = new()
@@ -382,8 +377,8 @@
 		//Make it hot and burny for the new slime
 		var/datum/gas_mixture/air = new()
 		air.set_temperature(1000)
-		air.set_toxins(500)
-		air.set_oxygen(500)
+		air.set_toxins(125)
+		air.set_oxygen(125)
 		T.blind_release_air(air)
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/S = new(T, new_colour)
@@ -424,7 +419,7 @@
 		shootAt(H)
 
 	if(prob(10))
-		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container/anomaly(get_turf(src))
 		for(var/i in 1 to 5)
 			step_towards(A, pick(turf_targets))
 			sleep(2)

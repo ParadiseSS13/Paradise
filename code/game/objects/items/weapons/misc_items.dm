@@ -81,7 +81,7 @@
 			return
 		if(I.flags & ABSTRACT)
 			return
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			to_chat(user, "<span class='notice'>[I] doesn't seem to want to go into [src]!</span>")
 			return
 		I.forceMove(src)
@@ -120,6 +120,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 5
+
+/obj/item/c_tube/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	qdel(src)
+	return TRUE
 
 
 
