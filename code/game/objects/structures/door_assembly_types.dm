@@ -142,8 +142,10 @@
 	glass_type = /obj/machinery/door/airlock/multi_tile/glass
 	material_amt = 8
 
-/obj/structure/door_assembly/multi_tile/Initialize(mapload)
+/obj/structure/door_assembly/multi_tile/Initialize(mapload, direction)
 	. = ..()
+	if(direction)
+		setDir(direction)
 	update_bounds()
 
 /obj/structure/door_assembly/multi_tile/Move(new_loc, new_dir)
