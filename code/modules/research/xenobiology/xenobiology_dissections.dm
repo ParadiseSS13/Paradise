@@ -63,7 +63,7 @@
 				SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[picked]", xeno.organ_quality))
 				target.surgery_container.xeno_specialized_organs -= picked
 				for(var/obj/item/organ/internal/alien/A in target.internal_organs)
-					if(A.type = xeno)
+					if(A.type == xeno)
 						A.remove()
 				if(istype(tool, /obj/item/organ_extractor))
 					var/obj/item/organ_extractor/I = tool
