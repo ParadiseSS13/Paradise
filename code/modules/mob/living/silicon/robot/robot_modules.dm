@@ -684,7 +684,7 @@
 	R.add_language("Skrellian", 1)
 	R.add_language("Vox-pidgin", 1)
 	R.add_language("Rootspeak", 1)
-	R.add_language("Trinary", 1)
+	R.add_language("Common Encoding Standard", 1)
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)

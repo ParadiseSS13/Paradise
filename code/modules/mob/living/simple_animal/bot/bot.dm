@@ -237,7 +237,7 @@
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
 	add_language("Gutter", 1)
-	add_language("Trinary", 1)
+	add_language("Common Encoding Standard", 1)
 	default_language = GLOB.all_languages["Galactic Common"]
 
 	prepare_huds()
