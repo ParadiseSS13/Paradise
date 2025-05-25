@@ -1290,6 +1290,13 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/ai)
+"ajh" = (
+/obj/structure/machine_frame,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/station/maintenance/abandonedservers)
 "aji" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -5667,6 +5674,11 @@
 /obj/item/multitool,
 /turf/simulated/floor/plating,
 /area/station/aisat/service)
+"aXL" = (
+/obj/machinery/ai_node/network_node,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "aXN" = (
 /obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/grass/jungle,
@@ -8362,6 +8374,20 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
+"boh" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Starboard Asteroid Maintenance Access"
+	},
+/obj/structure/barricade/wooden/crude,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/station/maintenance/abandonedservers)
 "bol" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable/orange,
@@ -16169,6 +16195,14 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
+"chD" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/gold,
+/obj/item/stack/sheet/mineral/silver,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "chG" = (
 /obj/machinery/camera{
 	c_tag = "Docking Security Checkpoint";
@@ -26504,6 +26538,13 @@
 /obj/item/reagent_containers/drinks/flask/gold,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
+"dMn" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "dMy" = (
 /obj/structure/table,
 /obj/item/stock_parts/manipulator,
@@ -27484,6 +27525,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
+"dXt" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/obj/item/stack/cable_coil/random,
+/obj/machinery/light/small,
+/obj/machinery/alarm/directional/west,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "dXz" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -37956,6 +38008,20 @@
 	icon_state = "white"
 	},
 /area/station/medical/virology)
+"gHG" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/station/maintenance/abandonedservers)
 "gHJ" = (
 /obj/structure/cable/orange{
 	icon_state = "2-8"
@@ -38970,6 +39036,10 @@
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
+"gVc" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/turf/simulated/wall,
+/area/station/maintenance/abandonedservers)
 "gVo" = (
 /obj/item/stack/package_wrap{
 	pixel_y = 7
@@ -42469,6 +42539,16 @@
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
+"hLO" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "hLT" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
@@ -49642,6 +49722,16 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/starboard)
+"jtd" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/cable/orange{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "jth" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -52043,6 +52133,9 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
+"jSj" = (
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/abandonedservers)
 "jSk" = (
 /obj/structure/railing{
 	dir = 10
@@ -52348,6 +52441,14 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet/lockerroom)
+"jVt" = (
+/obj/machinery/ai_node/network_node,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "jVy" = (
 /obj/structure/safe/floor,
 /obj/item/bikehorn/rubberducky,
@@ -61993,6 +62094,14 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"mgh" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "mgu" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -62671,6 +62780,18 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/starboard)
+"mqq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/fsmaint)
 "mqt" = (
 /obj/structure/grille/broken,
 /obj/structure/cable{
@@ -66374,6 +66495,17 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
+"nlU" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "nlZ" = (
 /obj/machinery/porta_turret/ai_turret/disable,
 /obj/structure/disposalpipe/segment{
@@ -70684,6 +70816,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
+"oqT" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/fsmaint)
 "oqV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -74714,6 +74855,16 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/maintenance/gambling_den)
+"ppc" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Starboard Asteroid Maintenance Access"
+	},
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/station/maintenance/abandonedservers)
 "ppd" = (
 /obj/structure/cable/orange{
 	icon_state = "2-8"
@@ -75180,6 +75331,9 @@
 	icon_state = "whiteblue"
 	},
 /area/station/maintenance/port)
+"pup" = (
+/turf/simulated/wall,
+/area/station/maintenance/abandonedservers)
 "pus" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -87385,6 +87539,10 @@
 	icon_state = "vault"
 	},
 /area/station/maintenance/fsmaint)
+"spe" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/abandonedservers)
 "spk" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -96050,6 +96208,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
+"urI" = (
+/obj/item/mounted/frame/apc_frame,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "usd" = (
 /obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/carpet/black,
@@ -111636,6 +111801,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/legal/magistrate)
+"yek" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/gold,
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedservers)
 "yeo" = (
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /obj/structure/table/wood,
@@ -167174,9 +167349,9 @@ rNK
 rNK
 rNK
 aVN
-rNK
-rNK
-rNK
+lCC
+lCC
+lCC
 lCC
 alc
 rPm
@@ -167430,10 +167605,10 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
+lCC
+alc
+alc
+pup
 lCC
 mKo
 okQ
@@ -167686,12 +167861,12 @@ lzH
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
 lCC
+alc
+jVt
+aXL
+dXt
+gVc
 jfS
 okQ
 lpL
@@ -167943,13 +168118,13 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
 lCC
-alc
+pup
+mgh
+dMn
+urI
+ppc
+cpC
 rPm
 doy
 aRx
@@ -168200,15 +168375,15 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
 lCC
-alc
-rPm
-doy
+pup
+jtd
+hLO
+gHG
+boh
+oqT
+mqq
+nlU
 aRx
 ihY
 ibJ
@@ -168457,13 +168632,13 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
 lCC
-unU
+lCC
+yek
+chD
+ajh
+gVc
+hqL
 rPm
 rIK
 aRx
@@ -168715,11 +168890,11 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rPi
-rPi
-nir
+lCC
+lCC
+jSj
+jSj
+spe
 hHP
 jTA
 pug
