@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	if(!user || !user.client)
 		return
 	if(user.ranged_ability && user.ranged_ability != src)
-		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been replaced by <b>[name]</b>.")
+		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been replaced by <b>[name]</b>.</span>")
 		user.ranged_ability.remove_ranged_ability(user)
 	user.ranged_ability = src
 	ranged_ability_user = user
