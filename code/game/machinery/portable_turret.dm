@@ -73,6 +73,8 @@
 	var/initial_eprojectile = null
 	/// What non-lethal mode projectile with the turret start with?
 	var/initial_projectile = null
+	/// What lens is fitted to the turret/gun?
+	var/obj/item/smithed_item/lens/fitted_lens
 
 
 /obj/machinery/porta_turret/Initialize(mapload)
@@ -381,6 +383,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(installation)
 			var/obj/item/gun/energy/Gun = new installation(loc)
 			Gun.cell.charge = gun_charge
+			if(fitted_lens)
+				Gun.current_lens = fitted_lens
+				fitted_lens.forceMove(Gun)
+				Gun.current_lens.on_attached(Gun)
 			Gun.update_icon()
 		if(prob(50))
 			new /obj/item/stack/sheet/metal(loc, rand(1,4))
@@ -389,6 +395,18 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	else
 		to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
 	qdel(src) // qdel
+
+/obj/machinery/porta_turret/screwdriver_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return FALSE
+
+	if(!fitted_lens)
+		to_chat(user, "<span class='notice'>[src] has no attached lenses.</span>")
+		return
+	to_chat(user, "<span class='notice'>You remove the lens from [src]</span>")
+	user.put_in_hands(fitted_lens)
+	fitted_lens = null
+	return TRUE
 
 /obj/machinery/porta_turret/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if((stat & BROKEN) && !syndicate)
@@ -404,6 +422,17 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
 
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/smithed_item/lens))
+		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/smithed_item/lens/new_lens = used
+		if(fitted_lens)
+			to_chat(user, "<span class='notice'>You swap the fitted lens in [src].</span>")
+			user.put_in_hands(fitted_lens)
+		fitted_lens = new_lens
 		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent == INTENT_HELP)
@@ -759,7 +788,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 
 	if(!emagged)	//if it hasn't been emagged, cooldown before shooting again
-		if((last_fired + shot_delay > world.time) || !raised)
+		var/delay_modifier = 1
+		if(fitted_lens)
+			delay_modifier = fitted_lens.fire_rate_mult
+		if((last_fired + (shot_delay / delay_modifier) > world.time) || !raised)
 			return
 		last_fired = world.time
 
@@ -779,9 +811,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			A = new projectile(loc)
 			playsound(loc, shot_sound, 75, 1)
 
+	var/lens_power_mult = 1
+	if(fitted_lens)
+		A.damage = A.damage * fitted_lens.damage_mult
+		A.stamina = A.damage * fitted_lens.damage_mult
+		A.speed = A.speed / fitted_lens.laser_speed_mult
+		lens_power_mult = fitted_lens.power_mult
+
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
+	use_power(lens_power_mult * (reqpower * (2 * (emagged || lethal)) * (2 * emagged)))
 
 	if(istype(A))
 		A.original = target
@@ -868,6 +907,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/finish_name="turret"	//the name applied to the product turret
 	var/installation = null		//the gun type installed
 	var/gun_charge = 0			//the gun charge of the gun type installed
+	/// The lens attached to the gun used
+	var/obj/item/smithed_item/lens/gun_lens
 
 /obj/machinery/porta_turret_construct/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//this is a bit unwieldy but self-explanatory
@@ -925,6 +966,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					return ITEM_INTERACT_COMPLETE
 				installation = used.type //installation becomes used.type
 				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge
+				gun_lens = E.current_lens
 				to_chat(user, "<span class='notice'>You add [used] to the turret.</span>")
 
 				if(istype(E, /obj/item/gun/energy/laser/tag/blue))
@@ -1018,6 +1060,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		Turret.name = finish_name
 		Turret.installation = installation
 		Turret.gun_charge = gun_charge
+		gun_lens.forceMove(Turret)
+		Turret.fitted_lens = gun_lens
 		Turret.enabled = FALSE
 		Turret.setup()
 
