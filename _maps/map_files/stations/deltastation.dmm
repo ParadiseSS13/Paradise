@@ -65457,11 +65457,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
-"khg" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/monkey_recycler,
-/turf/simulated/floor/plasteel/white,
-/area/station/science/xenobiology)
 "kho" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72735,7 +72730,6 @@
 	pixel_x = -6;
 	pixel_y = 3
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "rnd"
 	},
@@ -72747,6 +72741,7 @@
 	id_tag = "researchdesk1";
 	name = "Research and Development Front Desk Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "nyr" = (
@@ -74978,13 +74973,6 @@
 "ovL" = (
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/north)
-"owy" = (
-/obj/structure/filingcabinet/chestdrawer,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
-	},
-/area/station/science/xenobiology)
 "owN" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp{
@@ -75520,6 +75508,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/starboard/east)
+"oIS" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "oIT" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -91541,6 +91536,11 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"vpx" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/monkey_recycler,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/xenobiology)
 "vpS" = (
 /obj/structure/bookcase/random,
 /obj/effect/decal/cleanable/cobweb2,
@@ -126844,7 +126844,7 @@ dWm
 cWA
 cTu
 cWA
-khg
+vpx
 dWv
 dmq
 dhG
@@ -131466,7 +131466,7 @@ eGq
 rkt
 oRX
 cIL
-owy
+oIS
 cPe
 cTO
 cSg
