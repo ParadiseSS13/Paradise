@@ -1,22 +1,3 @@
-//Colossus
-/obj/structure/closet/crate/necropolis/colossus
-	name = "colossus chest"
-
-/obj/structure/closet/crate/necropolis/colossus/populate_contents()
-	var/list/crystalchoices = subtypesof(/obj/machinery/anomalous_crystal)
-	var/random_crystal = pick(crystalchoices)
-	var/list/choices = list(/obj/item/organ/internal/vocal_cords/colossus, /obj/item/organ/internal/eyes/cybernetic/eyesofgod, random_crystal)
-	for(var/I in 1 to 2)
-		var/loot = pick_n_take(choices)
-		new loot(src)
-
-/obj/structure/closet/crate/necropolis/colossus/crusher
-	name = "angelic colossus chest"
-
-/obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
-	. = ..()
-	new /obj/item/crusher_trophy/blaster_tubes(src)
-
 ///Anomolous Crystal///
 
 /obj/machinery/anomalous_crystal
@@ -136,7 +117,7 @@
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors, keep_icon = FALSE)
-						if(prob(florachance) && length(NewFlora) && !is_blocked_turf(O))
+						if(prob(florachance) && length(NewFlora) && !O.is_blocked_turf())
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
