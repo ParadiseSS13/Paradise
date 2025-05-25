@@ -41458,7 +41458,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/a)
 "grK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -52395,14 +52394,12 @@
 /obj/structure/disposalpipe/broken{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/broken{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/spawner/random/trash,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
