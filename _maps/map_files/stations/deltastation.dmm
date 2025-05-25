@@ -49378,16 +49378,6 @@
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
-"dOv" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/chair/comfy/corp,
-/turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 8
-	},
-/area/station/hallway/secondary/exit)
 "dOD" = (
 /obj/machinery/computer/rdconsole/core{
 	dir = 1
@@ -49469,9 +49459,6 @@
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
 	dir = 8
@@ -49927,6 +49914,9 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
 	dir = 8
@@ -50410,6 +50400,8 @@
 "dTH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/table,
+/obj/effect/spawner/random/snacks,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -52834,8 +52826,9 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
-/obj/structure/chair/comfy/corp{
-	dir = 1
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
@@ -65984,26 +65977,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/wood,
 /area/station/procedure/trainer_office)
-"kwE" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/chair,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/wall,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/station/hallway/secondary/exit)
 "kxe" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -69096,6 +69069,15 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/break_room)
+"lRZ" = (
+/obj/structure/chair/comfy/corp{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "escape";
+	dir = 8
+	},
+/area/station/hallway/secondary/exit)
 "lSa" = (
 /obj/machinery/newscaster/directional/south,
 /obj/machinery/dye_generator,
@@ -76735,16 +76717,6 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/control)
-"pkZ" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "escape";
-	dir = 8
-	},
-/area/station/hallway/secondary/exit)
 "pla" = (
 /obj/effect/spawner/random/barrier/wall_probably,
 /turf/simulated/floor/plating,
@@ -82196,8 +82168,7 @@
 "rCw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/table,
-/obj/effect/spawner/random/snacks,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -85834,6 +85805,13 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
+"sYj" = (
+/obj/structure/chair/comfy/corp,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape";
+	dir = 8
+	},
+/area/station/hallway/secondary/exit)
 "sYz" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -135825,13 +135803,13 @@ dST
 dMo
 dUT
 jWG
-pkZ
-dOv
+mlW
+dSo
 dPb
 eBl
-mlW
+sYj
 dRl
-mlW
+lRZ
 dSo
 dKP
 dTh
@@ -136082,13 +136060,13 @@ lRS
 sZI
 gBQ
 hKg
+hKg
+hKg
+rCw
 mVh
 lfc
-rCw
+dTH
 dPM
-dTH
-dTH
-dTH
 dkq
 dSs
 dSP
@@ -137110,7 +137088,7 @@ fZh
 oVC
 hEt
 mXE
-kwE
+sUD
 dKo
 dKo
 dKo
