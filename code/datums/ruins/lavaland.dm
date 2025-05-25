@@ -250,6 +250,7 @@
 	suffix = "lavaland_surface_nt.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	never_spawn_on_the_same_level = list("lavaland_relay")
 
 /datum/map_template/ruin/lavaland/legiongate
 	name = "Necropolis Gate"
@@ -265,5 +266,5 @@
 	name = "Nanotrasen Lavaland Relay"
 	description = "Using the same technology as shelter capsules, these pods have been shot from orbit onto lavaland to demonstrate a quick and efficient way for an army to setup forward bases. \
 	Sadly, in their mass production rush, they lack a RTG power source and rely on pacmans, with many of the pods being shipped with the wrong fuel inside."
-	allow_duplicates = FALSE // Less space on lavaland. Ideally we would figure out a way to ban this from spawning the same level as the mining base
-	always_place = TRUE // Since only one can spawn for now, might as well ensure it.
+	allow_duplicates = FALSE
+	never_spawn_on_the_same_level = list("gulag")
