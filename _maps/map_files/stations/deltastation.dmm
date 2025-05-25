@@ -38864,6 +38864,8 @@
 "cOO" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/folder/white,
+/obj/item/pen,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cOP" = (
@@ -38891,11 +38893,14 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cOS" = (
-/obj/machinery/monkey_recycler,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
+	},
+/obj/machinery/processor{
+	desc = "A machine used to process slimes and retrieve their extract.";
+	name = "Slime Processor"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -39578,7 +39583,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/effect/landmark/start/scientist,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -39588,6 +39592,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cRX" = (
@@ -39669,7 +39674,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -40054,7 +40059,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cTy" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -40134,11 +40138,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cTM" = (
-/obj/machinery/processor{
-	desc = "A machine used to process slimes and retrieve their extract.";
-	name = "Slime Processor"
-	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -40531,7 +40532,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -40574,12 +40575,12 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/folder/white,
-/obj/item/pen,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/item/storage/surgical_tray,
+/obj/item/dissector,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "cVs" = (
@@ -40893,13 +40894,14 @@
 	},
 /area/station/science/rnd)
 "cWT" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/storage/bag/bio,
-/obj/item/storage/bag/bio,
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/shelf/science,
+/obj/item/storage/bag/bio,
+/obj/item/storage/bag/bio,
+/obj/item/slime_scanner,
+/obj/item/slime_scanner,
+/obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -40912,31 +40914,34 @@
 	},
 /area/station/science/xenobiology)
 "cWV" = (
-/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/operating{
+	dir = 1;
+	name = "dissection computer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
 "cWW" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/optable,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
 "cXa" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/slime_scanner,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
 /obj/effect/turf_decal/delivery,
+/obj/item/storage/belt/medical/surgery,
+/obj/item/reagent_containers/glass/bottle/reagent/morphine,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -41420,6 +41425,9 @@
 /obj/machinery/reagentgrinder,
 /obj/machinery/requests_console/directional/east,
 /obj/effect/turf_decal/delivery,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde{
+	pixel_x = -15
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "cZF" = (
@@ -52271,7 +52279,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/tox,
+/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/obj/effect/mapping_helpers/airlock/access/any/science/tox,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/misc_lab)
 "eky" = (
@@ -65448,6 +65457,11 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
+"khg" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/monkey_recycler,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/xenobiology)
 "kho" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -74964,6 +74978,13 @@
 "ovL" = (
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/north)
+"owy" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "owN" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp{
@@ -86235,7 +86256,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "tgQ" = (
-/obj/machinery/smithing/scientific_assembler,
+/obj/machinery/organ_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -126823,7 +126844,7 @@ dWm
 cWA
 cTu
 cWA
-dWm
+khg
 dWv
 dmq
 dhG
@@ -131445,7 +131466,7 @@ eGq
 rkt
 oRX
 cIL
-cQP
+owy
 cPe
 cTO
 cSg
