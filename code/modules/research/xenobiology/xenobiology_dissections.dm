@@ -62,6 +62,9 @@
 				xeno.organ_quality = pick_quality(tool, surgery.get_surgery_step())
 				SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[picked]", xeno.organ_quality))
 				target.surgery_container.xeno_specialized_organs -= picked
+				for(var/obj/item/organ/internal/alien/A in target.internal_organs)
+					if(A.type = xeno)
+						A.remove()
 				if(istype(tool, /obj/item/organ_extractor))
 					var/obj/item/organ_extractor/I = tool
 					I.insert_internal_organ_in_extractor(xeno)
