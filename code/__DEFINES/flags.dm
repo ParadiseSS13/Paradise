@@ -22,10 +22,8 @@
 
 ///Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS			(1<<14)
-// This item will disable any target's shield on hit
-#define SHIELD_PENETRATE		(1<<15)
-// Same as above but we simply ignore any parries and always land a successful hit
-#define PARRY_PENETRATE			(1<<16)
+// This item will ignore any parries and always land a successful hit
+#define PARRY_PENETRATE			(1<<15)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name

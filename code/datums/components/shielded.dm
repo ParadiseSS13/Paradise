@@ -152,15 +152,6 @@
 
 	COOLDOWN_START(src, recently_hit_cd, recharge_start_delay)
 
-	if(isitem(hitby) && current_charges > 0)
-		var/obj/item/Weapon = hitby
-		if(Weapon.flags & SHIELD_PENETRATE)
-			adjust_charge(-max_charges)
-			INVOKE_ASYNC(src, PROC_REF(actually_run_hit_callback), owner, hitby, current_charges)
-			if(!recharge_start_delay) // if recharge_start_delay is 0, we don't recharge
-				return
-			START_PROCESSING(SSdcs, src) // if we DO recharge, start processing so we can do that
-
 	if(current_charges <= 0)
 		return
 	. = COMPONENT_BLOCK_SUCCESSFUL
