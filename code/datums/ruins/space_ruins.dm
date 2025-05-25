@@ -391,3 +391,11 @@
 	description = "A hidden monastery once used by the followers of Ratvar's clockwork cult. The original inhabitants have departed for City of Cogs, Reebe. \
 		The constructs that were left behind to guard the monastery will ruthlessly cut down anyone that does not swear their fealty to Ratvar."
 	allow_duplicates = FALSE
+
+
+/datum/map_template/ruin/space/bluespace_relay_beacon
+	id = "bluespace_relay_beacon"
+	suffix = "bluespace_relay_beacon.dmm"
+	name = "Nanotrasen Bluespace Relay"
+	description = "Nanotrasen uses relays like these to further extend telecommunications around an area of space, as well as long range beacons for easier deployment in the future. \
+		Unfortunately, the anomalous activity around Epsilon Eridani, along with orbital debris and space-faring hostiles, has rendered many of these relay stations inoperable, leaving their communications and teleportation systems offline."

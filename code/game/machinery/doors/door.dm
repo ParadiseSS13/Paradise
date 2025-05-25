@@ -37,8 +37,6 @@
 	var/unres_sides = 0
 	//Multi-tile doors
 	var/width = 1
-	/// List. Player view blocking fillers for multi-tile doors.
-	var/list/fillers
 	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
 	var/sound_ready = TRUE
 	var/sound_cooldown = 1 SECONDS
@@ -55,7 +53,6 @@
 	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
 	/// So explosion doesn't deal extra damage for multitile airlocks
 	COOLDOWN_DECLARE(explosion_cooldown)
-
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -91,7 +88,7 @@
 	update_icon()
 
 /obj/machinery/door/ex_act()
-	if(width > 1 && fillers)
+	if(width > 1)
 		if(!COOLDOWN_FINISHED(src, explosion_cooldown))
 			return
 		COOLDOWN_START(src, explosion_cooldown, 1 SECONDS)
@@ -106,6 +103,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
+	. = ..()
 	if(operating || emagged || foam_level)
 		return
 	if(ismob(AM))
@@ -384,18 +382,12 @@
 	recalculate_atmos_connectivity()
 	do_animate("opening")
 	set_opacity(0)
-	if(width > 1)
-		set_fillers_opacity(0)
 	sleep(5)
 	density = FALSE
-	if(width > 1)
-		set_fillers_density(FALSE)
 	sleep(5)
 	layer = initial(layer)
 	update_icon()
 	set_opacity(0)
-	if(width > 1)
-		set_fillers_opacity(0)
 	operating = NONE
 	update_freelook_sight()
 	if(autoclose)
@@ -422,14 +414,10 @@
 	layer = closingLayer
 	sleep(5)
 	density = TRUE
-	if(width > 1)
-		set_fillers_density(TRUE)
 	sleep(5)
 	update_icon()
 	if(!glass || polarized_on)
 		set_opacity(TRUE)
-		if(width > 1)
-			set_fillers_opacity(TRUE)
 	operating = NONE
 	recalculate_atmos_connectivity()
 	update_freelook_sight()
@@ -441,9 +429,12 @@
 
 /obj/machinery/door/proc/get_airlock_turfs()
 	var/list/airlock_turfs = list(get_turf(src))
-	if(width > 1 && fillers)
-		for(var/obj/F in fillers)
-			airlock_turfs |= get_turf(F)
+	if(width > 1)
+		var/turf/last_turf = get_turf(src)
+		for(var/i in width - 1)
+			var/turf/next_turf = get_step(last_turf, dir)
+			airlock_turfs |= next_turf
+			last_turf = next_turf
 	return airlock_turfs
 
 /obj/machinery/door/proc/check_for_mobs()
@@ -551,14 +542,10 @@
 /**
  * Sets the bounds of the airlock. For use with multi-tile airlocks.
  * If the airlock is multi-tile, it will set the bounds to be the size of the airlock.
- * If the airlock doesn't already have fillers, it will create them.
- * If the airlock already has fillers, it will move them to the correct location.
  */
 /obj/machinery/door/proc/update_bounds()
 	if(width <= 1)
 		return
-
-	QDEL_LIST_CONTENTS(fillers)
 
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
@@ -583,39 +570,6 @@
 		else
 			bound_y = 0
 			pixel_y = 0
-
-	LAZYINITLIST(fillers)
-
-	var/obj/last_filler = src
-	for(var/i in 1 to width)
-		var/obj/airlock_filler_object/filler
-
-		if(length(fillers) < i)
-			filler = new(src)
-			filler.pair_airlock(src)
-			fillers.Add(filler)
-		else
-			filler = fillers[i]
-
-		filler.loc = get_step(last_filler, dir)
-		filler.density = density
-		filler.set_opacity(opacity)
-
-		last_filler = filler
-
-/obj/machinery/door/proc/set_fillers_density(density)
-	if(!length(fillers))
-		return
-
-	for(var/obj/airlock_filler_object/filler as anything in fillers)
-		filler.density = density
-
-/obj/machinery/door/proc/set_fillers_opacity(opacity)
-	if(!length(fillers))
-		return
-
-	for(var/obj/airlock_filler_object/filler as anything in fillers)
-		filler.set_opacity(opacity)
 
 #define MAX_FOAM_LEVEL 5
 // Adds foam to the airlock, which will block it from being opened
