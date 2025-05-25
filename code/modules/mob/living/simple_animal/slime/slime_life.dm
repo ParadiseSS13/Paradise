@@ -486,6 +486,9 @@
 		return
 	if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
 		return // no processing while in the computer
+	if(!trained) // if we somehow untrain mid process
+		say("BLECK!!", pick(speak_emote))
+		eject_organ()
 	if(organ_progress < 50)
 		organ_progress += 1
 		return

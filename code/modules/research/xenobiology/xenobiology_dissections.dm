@@ -83,7 +83,6 @@
 				new_organ.true_organ_type = pick_organ(target)
 				new_organ.unknown_quality = pick_quality(tool, surgery.get_surgery_step())
 				user.put_in_inactive_hand(new_organ)
-				target.surgery_container.xeno_generic_organs = null // ensures we cant remove multiple organs. Only one allowed!
 				SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[new_organ.true_organ_type]", new_organ.unknown_quality))
 			target.contains_xeno_organ = FALSE
 	return SURGERY_STEP_CONTINUE

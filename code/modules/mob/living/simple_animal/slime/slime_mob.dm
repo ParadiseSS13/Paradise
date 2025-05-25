@@ -122,7 +122,7 @@
 /mob/living/simple_animal/slime/death()
 	var/cur_turf = get_turf(src)
 	if(holding_organ)
-		holding_organ.forceMove(cur_turf)
+		eject_organ()
 	underlays.Cut()
 	return ..()
 
@@ -399,6 +399,9 @@
 			to_chat(user, "<span class='warning'>The slime is already processing an organ!</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(trained)
+			if(src.mind)
+				src.visible_message("<span class='notice'>Sentient slimes are unable to process organs!</span>")
+				return ITEM_INTERACT_COMPLETE
 			if(user.transfer_item_to(I, src, force = TRUE))
 				holding_organ = I
 				src.visible_message("<span class='notice'>The slime gently pulls the offered organ into itself.</span>")
@@ -552,3 +555,13 @@
 /mob/living/simple_animal/slime/unit_test_dummy
 	wander = FALSE
 	stop_automated_movement = TRUE
+
+/mob/living/simple_animal/slime/proc/eject_organ()
+	holding_organ.forceMove(loc)
+	visible_message("<span class='notice'>[src] drops the [holding_organ.name] as it splits!</span>")
+	holding_organ = null
+	update_appearance()
+
+/mob/living/simple_animal/slime/sentience_act()
+	. = ..()
+	eject_organ()
