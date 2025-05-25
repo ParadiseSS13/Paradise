@@ -94,7 +94,7 @@
 
 /datum/surgery_step/generic/dissect/proc/pick_organ(mob/living/target)
 	var/chosen_organ_type
-	if(!target.ignore_generic_organs && prob(75))
+	if(!target.ignore_generic_organs && (prob(75) || !target.surgery_container.xeno_specialized_organs)) //if it has no specialized organs always roll generic
 		chosen_organ_type = pick(target.surgery_container.xeno_generic_organs)
 	else
 		chosen_organ_type = pick(target.surgery_container.xeno_specialized_organs)
