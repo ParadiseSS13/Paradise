@@ -51,7 +51,12 @@
 	icon = null
 	initial_loc = get_area(loc)
 	initial_loc.scrubbers += src
+	GLOB.all_scrubbers += src
 	name = "[initial_loc.name] Air Scrubber #[length(initial_loc.scrubbers)]"
+
+/obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
+	. = ..()
+	GLOB.all_scrubbers -= src
 
 /obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
 	. = ..()

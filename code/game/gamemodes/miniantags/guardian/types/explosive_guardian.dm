@@ -63,6 +63,9 @@
 	move_resist = A.move_resist
 	addtimer(CALLBACK(src, PROC_REF(disable)), 600)
 
+/obj/item/guardian_bomb/CanPass(atom/movable/mover, border_dir)
+	return stored_obj.CanPass(mover, border_dir)
+
 /obj/item/guardian_bomb/proc/disable()
 	add_attack_logs(null, stored_obj, "booby trap expired")
 	stored_obj.forceMove(get_turf(src))

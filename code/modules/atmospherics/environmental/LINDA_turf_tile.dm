@@ -1,3 +1,8 @@
+/turf/simulated/Initialize(mapload)
+	. = ..()
+	if(!blocks_air)
+		blind_set_air(get_initial_air())
+
 /turf/simulated/proc/get_initial_air()
 	var/datum/gas_mixture/air = new()
 	if(!blocks_air)

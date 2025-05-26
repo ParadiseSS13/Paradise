@@ -225,6 +225,8 @@
 	var/processes = TRUE
 
 	//vars used for supermatter events (Anomalous crystal activityw)
+	/// Can this crystal run supermatter events?
+	var/crystal_can_run_events = TRUE
 	/// Do we have an active event?
 	var/datum/engi_event/supermatter_event/event_active
 	///flat multiplies the amount of gas released by the SM.
@@ -744,7 +746,7 @@
 	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
 		"<span class='userdanger'>As you mentally focus on the supermatter you feel the contents of your skull start melting away. That was a really dense idea.</span>")
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
-	C.ghostize(0)
+	C.ghostize()
 	if(B)
 		B.remove(C)
 		qdel(B)
@@ -1031,7 +1033,7 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/shard/engine
 	name = "anchored supermatter shard"
-	is_main_engine = TRUE
+	crystal_can_run_events = FALSE // Do not make the crystal begin to delaminate whilst it's still docked at CC.
 	anchored = TRUE
 	moveable = FALSE
 
@@ -1234,6 +1236,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
 	if(!has_been_powered)
+		return
+	if(!crystal_can_run_events)
 		return
 	if(!next_event_time) // for when the SM starts
 		make_next_event_time()
