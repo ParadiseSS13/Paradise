@@ -703,20 +703,26 @@ What are the archived variables for?
 			reacting = TRUE
 	// handles hydrogen burning
 	if((private_hydrogen >= 0) && (private_oxygen >= 0) && private_temperature > 0)
-		var/energy_released = WATER_VAPOR_REACTION_ENERGY
-
-		// Calculate the reaction rate based on temperature
-		var/reaction_rate = 1
-		var/burned_hydrogen = min(reaction_rate * private_hydrogen, H2_NEEDED_FOR_H2O)
-		var/burned_oxygen = min(reaction_rate * private_oxygen, O2_NEEDED_FOR_H2O)
+		// Calculate the reaction rate based on temperature and pressure
+		var/reaction_rate = (private_temperature / (private temperature + 2000)) * (return_pressure() / (return_pressure() + 100))
+		// Burn a portion of our hydrogen equal to reaction_rate, but no more than we have or have oxygen for.
+		var/burned_hydrogen = min(reaction_rate * private_hydrogen, private_hydrogen, private_oxygen * 2)
+		var/burned_oxygen = min(burned_hydrogen / 2, private_oxygen)
 		var/produced_water_vapor = (burned_hydrogen / H2_NEEDED_FOR_H2O)
-
+		
+		// cache heat capacity before making changes to the gasses
+		var/old_heat_capacity = heat_capacity()
+		
+		// Burn gasses
 		private_hydrogen -= burned_hydrogen
 		private_oxygen -= burned_oxygen
 		private_water_vapor += produced_water_vapor
-
-		var/old_heat_capacity = heat_capacity()
+		
+		// Calculate gained energy
+		var/energy_released = HYDROGEN_BURN_ENERGY * burned_hydrogen
+		// Calculate post-burn heat capacity
 		var/new_heat_capacity = heat_capacity()
+		// Calculate new temperature
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 			private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
 
