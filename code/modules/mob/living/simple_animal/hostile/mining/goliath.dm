@@ -192,3 +192,8 @@
 	icon_state = "Goliath_tentacle_retract"
 	deltimer(timerid)
 	timerid = QDEL_IN(src, 7)
+
+/mob/living/simple_animal/hostile/asteroid/goliath/space
+
+/mob/living/simple_animal/hostile/asteroid/goliath/space/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
