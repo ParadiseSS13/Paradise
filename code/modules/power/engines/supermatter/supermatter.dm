@@ -479,46 +479,22 @@
 	if(produces_gas)
 		//Remove gas from surrounding area
 		removed = env.remove(gasefficency * env.total_moles())
-	else
+
+	if(!removed)
 		// Pass all the gas related code an empty gas container
 		removed = new()
 	damage_archived = damage
 	if(!removed || removed.total_moles() <= 0 || isspaceturf(T)) //we're in space or there is no gas to process
+		// All gas values are 0 because we have no gas. Gasmix power ratio is frozen at the last value it had
+		combined_gas = 0
+		plasmacomp = 0
+		o2comp = 0
+		co2comp = 0
+		n2ocomp = 0
+		n2comp =  0
 		if(takes_damage)
 			damage += min(((power + 2000) * 0.002) * DAMAGE_INCREASE_MULTIPLIER, DAMAGE_HARDCAP * explosion_point) // always does at least some damage
 	else
-		if(takes_damage)
-			//causing damage
-			//Due to DAMAGE_INCREASE_MULTIPLIER, we only deal one 4th of the damage the statements otherwise would cause
-
-			//((((some value between 0.5 and 1 * (temp - ((273.15 + 40) * some values between 1 and 10))) * some number between 0.25 and knock your socks off / 150) * 0.25
-			//Heat and mols account for each other, a lot of hot mols are more damaging then a few
-			// Reduced heat damage below 200 Mols
-			damage = max(damage + (max(max(removed.total_moles() / MOLE_PENALTY_THRESHOLD, 0.5) * (removed.temperature() - ((T0C + heat_penalty_threshold) * dynamic_heat_resistance)), 0) * mole_heat_penalty / 50 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
-			// Power only starts affecting damage when it is above 5000
-			damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
-			// Molar count only starts affecting damage when it is above 1800
-			damage = max(damage + (max(combined_gas - MOLE_PENALTY_THRESHOLD, 0) / 80) * DAMAGE_INCREASE_MULTIPLIER, 0)
-
-			//There might be a way to integrate healing and hurting via heat
-			//healing damage
-			if(combined_gas < MOLE_PENALTY_THRESHOLD)
-				//Only has a net positive effect when the temp is below the damage point. Heals up to 2 damage without N2O, going up to 12 with full N2O
-				damage = max(damage + (min(removed.temperature() - (T0C + heat_penalty_threshold) * dynamic_heat_resistance, 0) / 150 ), 0)
-
-			//Check for holes in the SM inner chamber.
-			var/turf/here = get_turf(src)
-			for(var/turf/neighbor in here.GetAtmosAdjacentTurfs(alldir = TRUE))
-				if(!isspaceturf(neighbor))
-					continue
-				damage += (power + 2000) * 0.002 * DAMAGE_INCREASE_MULTIPLIER
-				break
-			//caps damage rate
-
-			//Takes the lower number between archived damage + (1.8) and damage
-			//This means we can only deal 1.8 damage per function call
-			damage = min(damage_archived + (DAMAGE_HARDCAP * explosion_point),damage)
-
 		//calculating gas related values
 		combined_gas = max(removed.total_moles(), 0)
 
@@ -530,83 +506,122 @@
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp - n2comp, 0), 1)
 
-		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY), 0.25)
-		dynamic_heat_resistance = max(n2ocomp * N2O_HEAT_RESISTANCE, 1)
+	if(takes_damage)
+		//causing damage
+		//Due to DAMAGE_INCREASE_MULTIPLIER, we only deal one 4th of the damage the statements otherwise would cause
 
-		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
+		//((((some value between 0.5 and 1 * (temp - ((273.15 + 40) * some values between 1 and 10))) * some number between 0.25 and knock your socks off / 150) * 0.25
+		//Heat and mols account for each other, a lot of hot mols are more damaging then a few
+		// Reduced heat damage below 200 Mols
+		damage = max(damage + (max(max(combined_gas / MOLE_PENALTY_THRESHOLD, 0.5) * (temperature - ((T0C + heat_penalty_threshold) * dynamic_heat_resistance)), 0) * mole_heat_penalty / 50 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+		// Power only starts affecting damage when it is above 5000
+		damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
+		// Molar count only starts affecting damage when it is above 1800
+		damage = max(damage + (max(combined_gas - MOLE_PENALTY_THRESHOLD, 0) / 80) * DAMAGE_INCREASE_MULTIPLIER, 0)
 
-		//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
-		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 1)
+		//There might be a way to integrate healing and hurting via heat
+		//healing damage
+		if(combined_gas < MOLE_PENALTY_THRESHOLD)
+			//Only has a net positive effect when the temp is below the damage point. Heals up to 2 damage without N2O, going up to 12 with full N2O
+			damage = max(damage + (min(removed.temperature() - (T0C + heat_penalty_threshold) * dynamic_heat_resistance, 0) / 150 ), 0)
 
-		if(combined_gas > POWERLOSS_INHIBITION_MOLE_THRESHOLD && co2comp > POWERLOSS_INHIBITION_GAS_THRESHOLD)
-			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling + clamp(co2comp - powerloss_dynamic_scaling, -0.02, 0.02), 0, 1)
+		//Check for holes in the SM inner chamber.
+		var/turf/here = get_turf(src)
+		for(var/turf/neighbor in here.GetAtmosAdjacentTurfs(alldir = TRUE))
+			if(!isspaceturf(neighbor))
+				continue
+			damage += (power + 2000) * 0.002 * DAMAGE_INCREASE_MULTIPLIER
+			break
+		//caps damage rate
+
+		//Takes the lower number between archived damage + (1.8) and damage
+		//This means we can only deal 1.8 damage per function call
+		damage = min(damage_archived + (DAMAGE_HARDCAP * explosion_point),damage)
+
+	dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY), 0.25)
+	dynamic_heat_resistance = max(n2ocomp * N2O_HEAT_RESISTANCE, 1)
+
+	power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
+
+	//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
+	mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 1)
+
+	if(combined_gas > POWERLOSS_INHIBITION_MOLE_THRESHOLD && co2comp > POWERLOSS_INHIBITION_GAS_THRESHOLD)
+		powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling + clamp(co2comp - powerloss_dynamic_scaling, -0.02, 0.02), 0, 1)
+	else
+		powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling - 0.05, 0, 1)
+	//Ranges from 0 to 1(1-(value between 0 and 1 * ranges from 1 to 1.5(mol / 500)))
+	//We take the mol count, and scale it to be our inhibitor
+	powerloss_inhibitor = clamp(1 - (powerloss_dynamic_scaling * clamp(combined_gas / POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD, 1 , 1.5)), 0 , 1)
+
+	//Releases stored power into the general pool
+	//We get this by consuming shit or being scalpeled
+	if(matter_power && power_changes)
+		//We base our removed power off one 10th of the matter_power.
+		var/removed_matter = max(matter_power / MATTER_POWER_CONVERSION, 40)
+		//Adds at least 40 power
+		power = max(power + removed_matter, 0)
+		//Removes at least 40 matter power
+		matter_power = max(matter_power - removed_matter, 0)
+
+	var/temp_factor = 50
+	if(gasmix_power_ratio > 0.8)
+		//with a perfect gas mix, make the power less based on heat
+		icon_state = "[base_icon_state]_glow"
+	else
+		//in normal mode, base the produced energy around the heat
+		temp_factor = 30
+		icon_state = base_icon_state
+
+
+	if(power_changes && combined_gas)
+		power = max((temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
+
+	pre_reduction_power = power
+
+	var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
+
+	gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
+
+	radiation_pulse(src, 6 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))), GAMMA_RAD)
+
+	// Power decay depends on the portion of CO2 of the gas mix. If spaced it simply decays slowly
+	if(power_changes)
+		if(removed && combined_gas)
+			power = max((power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor) + power_additive), 0)
 		else
-			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling - 0.05, 0, 1)
-		//Ranges from 0 to 1(1-(value between 0 and 1 * ranges from 1 to 1.5(mol / 500)))
-		//We take the mol count, and scale it to be our inhibitor
-		powerloss_inhibitor = clamp(1 - (powerloss_dynamic_scaling * clamp(combined_gas / POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD, 1 , 1.5)), 0 , 1)
+			power = power * 0.998
 
-		//Releases stored power into the general pool
-		//We get this by consuming shit or being scalpeled
-		if(matter_power && power_changes)
-			//We base our removed power off one 10th of the matter_power.
-			var/removed_matter = max(matter_power / MATTER_POWER_CONVERSION, 40)
-			//Adds at least 40 power
-			power = max(power + removed_matter, 0)
-			//Removes at least 40 matter power
-			matter_power = max(matter_power - removed_matter, 0)
+	//Power * 0.55 * a value between 1 and 0.8
+	var/device_energy = power * REACTION_POWER_MODIFIER
 
-		var/temp_factor = 50
-		if(gasmix_power_ratio > 0.8)
-			//with a perfect gas mix, make the power less based on heat
-			icon_state = "[base_icon_state]_glow"
-		else
-			//in normal mode, base the produced energy around the heat
-			temp_factor = 30
-			icon_state = base_icon_state
+	if(has_been_powered)
+		// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
+		var/produced_joules = max(0, (((device_energy * dynamic_heat_modifier) ** 1.18) * THERMAL_RELEASE_MODIFIER) * heat_multiplier)
+		temperature = (heat_capacity * temperature + produced_joules) / heat_capacity
 
+		// Exchange heat with the air, combust once if possible then exchange heat again.
+		if(removed.total_moles() >= 1)
+			var/total_energy = temperature * heat_capacity + removed.thermal_energy()
+			// Heat up the air. Also heating up the SM at this point would do nothing
+			removed.set_temperature(total_energy / (heat_capacity + removed.heat_capacity()))
+			// Combustion
+			removed.react()
+			// Recalculate energy after combustion
+			total_energy = temperature * heat_capacity + removed.thermal_energy()
+			// Exchange heat
+			temperature = total_energy / (heat_capacity + removed.heat_capacity())
+			removed.set_temperature(temperature)
 
-		if(power_changes)
-			power = max((temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
+		// Calculate how much gas to release
+		var/gas_generation_modifier = max(device_energy + ((temperature - T0C) * THERMAL_GAS_MODIFIER * dynamic_heat_modifier), 0) ** 0.699
+		// Varies based on power, gas content, and heat to a lesser extent
+		removed.set_toxins(removed.toxins() + max((gas_multiplier * gas_generation_modifier / PLASMA_RELEASE_MODIFIER) + 5, 0))
+		// Varies based on power, gas content, and heat
+		removed.set_oxygen(removed.oxygen() + max((gas_multiplier * gas_generation_modifier / OXYGEN_RELEASE_MODIFIER) + 10, 0))
 
-		pre_reduction_power = power
-
-		var/crush_ratio = combined_gas / MOLE_CRUNCH_THRESHOLD
-
-		gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
-
-		radiation_pulse(src, 6 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))), GAMMA_RAD)
-
-		//Power * 0.55 * a value between 1 and 0.8
-		var/device_energy = power * REACTION_POWER_MODIFIER
-
-		if(has_been_powered)
-			// Calculate how much gas to release
-			var/gas_generation_modifier = max(device_energy + ((temperature - T0C) * THERMAL_GAS_MODIFIER * dynamic_heat_modifier), 0) ** 0.699
-			// Varies based on power, gas content, and heat to a lesser extent
-			removed.set_toxins(removed.toxins() + max((gas_multiplier * gas_generation_modifier / PLASMA_RELEASE_MODIFIER) + 5, 0))
-			// Varies based on power, gas content, and heat
-			removed.set_oxygen(removed.oxygen() + max((gas_multiplier * gas_generation_modifier / OXYGEN_RELEASE_MODIFIER) + 10, 0))
-
-			// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
-			var/produced_joules = max(0, (((device_energy * dynamic_heat_modifier) ** 1.18) * THERMAL_RELEASE_MODIFIER) * heat_multiplier)
-			temperature = (heat_capacity * temperature + produced_joules) / heat_capacity
-
-			// Exchange heat with the air, combust once if possible then exchange heat again.
-			if(removed.total_moles() >= 1)
-				var/total_energy = temperature * heat_capacity + removed.thermal_energy()
-				// Heat up the air. Also heating up the SM at this point would do nothing
-				removed.set_temperature(total_energy / (heat_capacity + removed.heat_capacity()))
-				// Combustion
-				removed.react()
-				// Recalculate energy after combustion
-				total_energy = temperature * heat_capacity + removed.thermal_energy()
-				// Exchange heat
-				temperature = total_energy / (heat_capacity + removed.heat_capacity())
-				removed.set_temperature(temperature)
-
-		if(produces_gas)
-			env.merge(removed)
+	if(produces_gas)
+		env.merge(removed)
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
@@ -618,10 +633,6 @@
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )
 		l.base_rad_act(src, rads, GAMMA_RAD)
 
-	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
-	//Use of the second function improves the power gain imparted by using co2
-	if(power_changes)
-		power = max((power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor) + power_additive), 0)
 	//After this point power is lowered
 	//This wraps around to the begining of the function
 	//Handle high power zaps/anomaly generation
