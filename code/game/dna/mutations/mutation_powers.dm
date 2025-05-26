@@ -939,7 +939,7 @@
 		if(!new_tone)
 			new_tone = 35
 		else
-			new_tone = 35 - max(min(round(text2num(new_tone)), 220), 1)
+			new_tone = max(min(round(text2num(new_tone)), 220), 1)
 			M.change_skin_tone(new_tone)
 
 	if(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
