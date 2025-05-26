@@ -21,7 +21,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A roll of tobacco and nicotine."
 	icon_state = "cigoff"
 	item_state = "cigoff"
-	throwforce = 0
 	throw_speed = 0.5
 	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY

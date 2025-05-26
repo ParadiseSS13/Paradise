@@ -227,7 +227,6 @@
 	item_state = "cigpacket"
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	slot_flags = ITEM_SLOT_BELT
 	storage_slots = 6
 	max_combined_w_class = 6
