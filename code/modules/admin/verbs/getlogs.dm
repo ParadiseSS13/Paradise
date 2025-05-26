@@ -40,7 +40,7 @@
 
 		// convert unix timestamp in seconds to byond timestamp in deciseconds
 		var/round_datetime = (query.item[1] - BYOND_EPOCH_UNIX) * 10
-		round_path = "data/logs/[time2text(round_datetime, "YYYY/MM-Month/DD-Day")]/round-[round_id]/"
+		round_path = "data/logs/[time2text(round_datetime, "YYYY/MM-Month/DD-Day", 0)]/round-[round_id]/"
 		qdel(query)
 
 	access_file_by_browsing_path(usr, round_path)
