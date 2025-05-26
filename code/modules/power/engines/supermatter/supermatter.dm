@@ -525,13 +525,13 @@
 			//Only has a net positive effect when the temp is below the damage point. Heals up to 2 damage without N2O, going up to 12 with full N2O
 			damage = max(damage + (min(removed.temperature() - (T0C + heat_penalty_threshold) * dynamic_heat_resistance, 0) / 150 ), 0)
 
-		//Check for holes in the SM inner chamber.
+		// Check for holes in the SM inner chamber. Take damage and radiate some heat away for each
 		var/turf/here = get_turf(src)
 		for(var/turf/neighbor in here.GetAtmosAdjacentTurfs(alldir = TRUE))
 			if(!isspaceturf(neighbor))
 				continue
-			damage += (power + 2000) * 0.002 * DAMAGE_INCREASE_MULTIPLIER
-			break
+			damage += (power + 2000) * 0.0005 * DAMAGE_INCREASE_MULTIPLIER
+			temperature *= 0.997
 		//caps damage rate
 
 		//Takes the lower number between archived damage + (1.8) and damage
@@ -590,7 +590,7 @@
 		if(removed && combined_gas)
 			power = max((power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor) + power_additive), 0)
 		else
-			power = power * 0.998
+			power = power - min(((power / 3000) ** 3) * powerloss_inhibitor, power * 0.5)
 
 	//Power * 0.55 * a value between 1 and 0.8
 	var/device_energy = power * REACTION_POWER_MODIFIER
