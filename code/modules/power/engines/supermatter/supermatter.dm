@@ -43,11 +43,12 @@
 #define DAMAGE_HARDCAP 0.002
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
-
+#define MAX_GAS_GENERATION 10000
 #define THERMAL_RELEASE_MODIFIER 11        //Higher == more heat released during reaction, not to be confused with the above values
-#define THERMAL_GAS_MODIFIER 5
-#define PLASMA_RELEASE_MODIFIER 16      //Higher == less plasma released by reaction
-#define OXYGEN_RELEASE_MODIFIER 8       //Higher == less oxygen released at high temperature/power
+#define THERMAL_GAS_MODIFIER 1			// Higher == more gas generation from temperature
+#define POWER_GAS_MODIFIER 3			// Higher == more gas generation from temperature
+#define PLASMA_RELEASE_MODIFIER 8      //Higher == less plasma released by reaction
+#define OXYGEN_RELEASE_MODIFIER 4       //Higher == less oxygen released at high temperature/power
 
 #define REACTION_POWER_MODIFIER 1       //Higher == more overall power
 
@@ -617,7 +618,7 @@
 			removed.set_temperature(temperature)
 
 		// Calculate how much gas to release
-		var/gas_generation_modifier = max(device_energy + ((temperature - T0C) * THERMAL_GAS_MODIFIER * dynamic_heat_modifier), 0) ** 0.699
+		var/gas_generation_modifier = max(device_energy * POWER_GAS_MODIFIER + ((temperature - T0C) * THERMAL_GAS_MODIFIER * dynamic_heat_modifier), 0) ** 0.63
 		// Varies based on power, gas content, and heat to a lesser extent
 		removed.set_toxins(removed.toxins() + max((gas_multiplier * gas_generation_modifier / PLASMA_RELEASE_MODIFIER) + 5, 0))
 		// Varies based on power, gas content, and heat
@@ -1361,3 +1362,5 @@
 #undef PLASMA_CRUNCH
 #undef SUPERMATTER_HEAT_CAPACITY
 #undef THERMAL_GAS_MODIFIER
+#undef POWER_GAS_MODIFIER
+#undef MAX_GAS_GENERATION
