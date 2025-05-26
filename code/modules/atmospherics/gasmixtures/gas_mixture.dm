@@ -702,7 +702,7 @@ What are the archived variables for?
 		if(fuel_burnt)
 			reacting = TRUE
 	// handles hydrogen burning
-	if((private_hydrogen >= 0) && (private_oxygen >= 0) && private_temperature > 0)
+	if((private_hydrogen >= 0) && (private_oxygen >= 0) && private_temperature > HYDROGEN_MIN_IGNITE_TEMP)
 		var/energy_released = WATER_VAPOR_REACTION_ENERGY
 
 		// Calculate the reaction rate based on temperature

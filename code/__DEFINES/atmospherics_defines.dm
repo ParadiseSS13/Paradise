@@ -74,6 +74,7 @@
 
 // Hydrogen defines
 #define HYDROGEN_BURN_ENERGY 				286000
+#define HYDROGEN_MIN_IGNITE_TEMP            500
 
 // Water Vapor defines
 #define WATER_VAPOR_PER_PLASMA_BURNT        4
