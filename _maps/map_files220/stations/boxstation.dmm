@@ -29254,9 +29254,7 @@
 /area/station/command/office/ntrep)
 "ckx" = (
 /obj/machinery/alarm/directional/west,
-/obj/structure/table/reinforced,
-/obj/item/folder/yellow,
-/obj/item/pen,
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -75297,6 +75295,8 @@
 /obj/item/storage/backpack/duffel{
 	pixel_y = 5
 	},
+/obj/item/folder/yellow,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"

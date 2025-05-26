@@ -72096,6 +72096,18 @@
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
 /area/station/science/server)
+"lMN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/storage/backpack/duffel{
+	pixel_y = 5
+	},
+/obj/item/folder/yellow,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	icon_state = "browncorner"
+	},
+/area/station/supply/smith_office)
 "lNj" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -100797,6 +100809,13 @@
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
+"uKb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/smithing/scientific_assembler,
+/turf/simulated/floor/plasteel{
+	icon_state = "browncorner"
+	},
+/area/station/supply/smith_office)
 "uKe" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
@@ -152788,7 +152807,7 @@ uwZ
 lbP
 qUc
 oOg
-bjL
+lMN
 egS
 bov
 hMM
@@ -153045,7 +153064,7 @@ wDz
 blE
 kpK
 qQK
-bjL
+uKb
 egS
 bov
 hMM

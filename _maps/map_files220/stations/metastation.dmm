@@ -5300,12 +5300,7 @@
 /area/station/engineering/control)
 "aEH" = (
 /obj/machinery/firealarm/directional/east,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/machinery/smithing/scientific_assembler,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -7085,7 +7080,10 @@
 	},
 /area/station/science/research)
 "aLK" = (
-/obj/machinery/requests_console/directional/west,
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -8902,8 +8900,16 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
 "aSl" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable/yellow,
+/obj/machinery/requests_console/directional/east,
+/obj/structure/table/reinforced,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/item/storage/backpack/duffel{
+	pixel_y = 5
+	},
+/obj/item/folder/yellow,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -9759,7 +9765,7 @@
 "aVk" = (
 /obj/structure/table/reinforced,
 /obj/item/eftpos/register{
-	dir = 1
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -61437,6 +61443,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "niv" = (
@@ -72020,9 +72029,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "sLS" = (
@@ -78069,7 +78079,7 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -79961,6 +79971,12 @@
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
 "xab" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "xal" = (
