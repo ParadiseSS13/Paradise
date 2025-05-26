@@ -46,8 +46,8 @@
 
 #define THERMAL_RELEASE_MODIFIER 11        //Higher == more heat released during reaction, not to be confused with the above values
 #define THERMAL_GAS_MODIFIER 5
-#define PLASMA_RELEASE_MODIFIER 10       //Higher == less plasma released by reaction
-#define OXYGEN_RELEASE_MODIFIER 5       //Higher == less oxygen released at high temperature/power
+#define PLASMA_RELEASE_MODIFIER 16      //Higher == less plasma released by reaction
+#define OXYGEN_RELEASE_MODIFIER 8       //Higher == less oxygen released at high temperature/power
 
 #define REACTION_POWER_MODIFIER 1       //Higher == more overall power
 
