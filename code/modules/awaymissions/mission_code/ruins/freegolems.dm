@@ -133,3 +133,39 @@
 	desc = "Used to recall the Golem Ship."
 	possible_destinations = "freegolem_lavaland"
 	resistance_flags = INDESTRUCTIBLE
+
+#define FREE_GOLEM_SHIP_WIDTH 18
+#define FREE_GOLEM_SHIP_HEIGHT 19
+
+/obj/docking_port/mobile/free_golem
+	name = "Free Golem Ship"
+	dir = 8
+	id = "freegolem"
+	dwidth = FREE_GOLEM_SHIP_WIDTH / 2
+	height = FREE_GOLEM_SHIP_HEIGHT
+	width = FREE_GOLEM_SHIP_WIDTH
+	preferred_direction = WEST
+	port_direction = SOUTH
+
+/obj/docking_port/stationary/golem
+	dir = 8
+	height = FREE_GOLEM_SHIP_HEIGHT
+	width = FREE_GOLEM_SHIP_WIDTH
+	dwidth = FREE_GOLEM_SHIP_WIDTH / 2
+
+/obj/docking_port/stationary/golem/space
+	name = "The middle of space"
+	id = "freegolem_space"
+
+/obj/docking_port/stationary/golem/ussp
+	name = "Near USSP Station"
+	id = "freegolem_ussp"
+
+/obj/docking_port/stationary/golem/lavaland
+	name = "Lavaland Surface"
+	id = "freegolem_lavaland"
+	area_type = /area/ruin/powered/golem_ship
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
+
+#undef FREE_GOLEM_SHIP_WIDTH
+#undef FREE_GOLEM_SHIP_HEIGHT

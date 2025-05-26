@@ -123,9 +123,9 @@ RESTRICT_TYPE(/datum/dynamic_airlock_linker)
 /// this process are qdel'd so they don't attempt to assign access to anything
 /// else later.
 /datum/dynamic_airlock_linker/proc/consume_access_helpers(obj/effect/map_effect/dynamic_airlock/helper)
-	for(var/obj/effect/mapping_helpers/airlock/access/any/any_helper as anything in get_turf(helper))
+	for(var/obj/effect/mapping_helpers/airlock/access/any/any_helper in get_turf(helper))
 		req_one_access |= any_helper.access
 		qdel(any_helper)
-	for(var/obj/effect/mapping_helpers/airlock/access/all/all_helper as anything in get_turf(helper))
+	for(var/obj/effect/mapping_helpers/airlock/access/all/all_helper in get_turf(helper))
 		req_access |= all_helper.access
 		qdel(all_helper)

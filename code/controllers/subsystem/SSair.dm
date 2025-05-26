@@ -542,7 +542,7 @@ SUBSYSTEM_DEF(air)
 
 		var/turf/tile = locate(x, y, z)
 		if(istype(tile))
-			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			var/obj/effect/abstract/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
 			var/ratio = pressure / ONE_ATMOSPHERE
 			pressure_overlay.overlay.color = rgb((1 - ratio) * 255, 0, ratio * 255)
 			pressure_overlay.overlay.alpha = pressure_overlay_alpha
@@ -606,7 +606,7 @@ SUBSYSTEM_DEF(air)
 				continue
 
 			var/turf/tile = locate(x, y, oldloc.z)
-			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			var/obj/effect/abstract/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
 			user.client.images -= pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/add_pressure_hud(mob/user, turf/oldloc, full_send)
@@ -629,7 +629,7 @@ SUBSYSTEM_DEF(air)
 				continue
 
 			var/turf/tile = locate(x, y, newloc.z)
-			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			var/obj/effect/abstract/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
 			user.client.images += pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/process_bound_mixtures(resumed = 0)
