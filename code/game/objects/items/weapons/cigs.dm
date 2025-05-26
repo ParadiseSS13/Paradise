@@ -21,6 +21,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A roll of tobacco and nicotine."
 	icon_state = "cigoff"
 	item_state = "cigoff"
+	throwforce = 0
 	throw_speed = 0.5
 	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
@@ -369,7 +370,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "cigbutt"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 1
+	throwforce = 0
 	scatter_distance = 10
 
 /obj/item/cigbutt/Initialize(mapload)
