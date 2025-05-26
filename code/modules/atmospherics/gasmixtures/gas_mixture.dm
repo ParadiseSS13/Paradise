@@ -702,7 +702,7 @@ What are the archived variables for?
 		if(fuel_burnt)
 			reacting = TRUE
 	// handles hydrogen burning
-	if((private_hydrogen >= 0) && (private_oxygen >= 0) && private_temperature > 0)
+	if((private_hydrogen >= 0) && (private_oxygen >= 0) && private_temperature > HYDROGEN_MIN_IGNITE_TEMP)
 		// Calculate the reaction rate based on temperature and pressure
 		var/reaction_rate = (private_temperature / (private temperature + 2000)) * (return_pressure() / (return_pressure() + 100))
 		// Burn a portion of our hydrogen equal to reaction_rate, but no more than we have or have oxygen for.
