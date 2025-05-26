@@ -23,13 +23,29 @@ const sortTypes = {
 
 export const MiningVendor = (_properties) => {
   const [gridLayout, setGridLayout] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [sortOrder, setSortOrder] = useState('Alphabetical');
+  const [descending, setDescending] = useState(false);
   return (
     <Window width={400} height={525}>
       <Window.Content>
         <Stack fill vertical>
           <MiningVendorUser />
-          <MiningVendorSearch gridLayout={gridLayout} setGridLayout={setGridLayout} />
-          <MiningVendorItems gridLayout={gridLayout} />
+          <MiningVendorSearch
+            gridLayout={gridLayout}
+            setGridLayout={setGridLayout}
+            setSearchText={setSearchText}
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+            descending={descending}
+            setDescending={setDescending}
+          />
+          <MiningVendorItems
+            gridLayout={gridLayout}
+            searchText={searchText}
+            sortOrder={sortOrder}
+            descending={descending}
+          />
         </Stack>
       </Window.Content>
     </Window>
@@ -74,14 +90,13 @@ const MiningVendorUser = (_properties) => {
   );
 };
 
-const MiningVendorItems = (_properties) => {
+const MiningVendorItems = (props) => {
   const { act, data } = useBackend();
   const { has_id, id, items } = data;
-  const { gridLayout } = _properties;
+  const { gridLayout } = props;
   // Search thingies
-  const [searchText, _setSearchText] = useState('');
-  const [sortOrder, _setSortOrder] = useState('Alphabetical');
-  const [descending, _setDescending] = useState(false);
+  const { searchText } = props;
+  const { sortOrder, descending } = props;
   const searcher = createSearch(searchText, (item) => {
     return item[0];
   });
@@ -114,11 +129,8 @@ const MiningVendorItems = (_properties) => {
   );
 };
 
-const MiningVendorSearch = (_properties) => {
-  const { gridLayout, setGridLayout } = _properties;
-  const [_searchText, setSearchText] = useState('');
-  const [_sortOrder, setSortOrder] = useState('');
-  const [descending, setDescending] = useState(false);
+const MiningVendorSearch = (props) => {
+  const { gridLayout, setGridLayout, setSearchText, sortOrder, setSortOrder, descending, setDescending } = props;
   return (
     <Box>
       <Stack fill>
@@ -136,7 +148,7 @@ const MiningVendorSearch = (_properties) => {
         </Stack.Item>
         <Stack.Item basis="30%">
           <Dropdown
-            selected="Alphabetical"
+            selected={sortOrder}
             options={Object.keys(sortTypes)}
             width="100%"
             onSelected={(v) => setSortOrder(v)}

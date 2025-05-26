@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Box, Button, Icon, Input, LabeledList, Section, Stack, Table, Tabs } from 'tgui-core/components';
 import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
 
@@ -7,6 +7,7 @@ import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
+import SortableTableContext from './common/SortableTableContext';
 import { TemporaryNotice } from './common/TemporaryNotice';
 
 const statusStyles = {
@@ -83,68 +84,73 @@ const SecurityRecordsNavigation = (properties) => {
 };
 
 const SecurityRecordsPageList = (properties) => {
-  const { act, data } = useBackend();
-  const { records } = data;
   const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('name');
-  const [sortOrder, _setSortOrder] = useState(true);
   return (
     <>
       <Stack.Item>
-        <SecurityRecordsActions />
+        <SecurityRecordsActions setSearchText={setSearchText} />
       </Stack.Item>
       <Stack.Item grow mt={0.5}>
         <Section fill scrollable>
-          <Table className="SecurityRecords__list">
-            <Table.Row bold>
-              <SortButton id="name">Name</SortButton>
-              <SortButton id="id">ID</SortButton>
-              <SortButton id="rank">Assignment</SortButton>
-              <SortButton id="fingerprint">Fingerprint</SortButton>
-              <SortButton id="status">Criminal Status</SortButton>
-            </Table.Row>
-            {records
-              .filter(
-                createSearch(searchText, (record) => {
-                  return (
-                    record.name + '|' + record.id + '|' + record.rank + '|' + record.fingerprint + '|' + record.status
-                  );
-                })
-              )
-              .sort((a, b) => {
-                const i = sortOrder ? 1 : -1;
-                return a[sortId].localeCompare(b[sortId]) * i;
-              })
-              .map((record) => (
-                <Table.Row
-                  key={record.id}
-                  className={'SecurityRecords__listRow--' + statusStyles[record.status]}
-                  onClick={() =>
-                    act('view', {
-                      uid_gen: record.uid_gen,
-                      uid_sec: record.uid_sec,
-                    })
-                  }
-                >
-                  <Table.Cell>
-                    <Icon name="user" /> {record.name}
-                  </Table.Cell>
-                  <Table.Cell>{record.id}</Table.Cell>
-                  <Table.Cell>{record.rank}</Table.Cell>
-                  <Table.Cell>{record.fingerprint}</Table.Cell>
-                  <Table.Cell>{record.status}</Table.Cell>
-                </Table.Row>
-              ))}
-          </Table>
+          <SortableTableContext.Default sortId="name">
+            <SecurityRecordsTable searchText={searchText} />
+          </SortableTableContext.Default>
         </Section>
       </Stack.Item>
     </>
   );
 };
 
+const SecurityRecordsTable = (props) => {
+  const { act, data } = useBackend();
+  const { records } = data;
+  const { searchText } = props;
+  const { sortId, sortOrder } = useContext(SortableTableContext);
+  return (
+    <Table className="SecurityRecords__list">
+      <Table.Row bold>
+        <SortButton id="name">Name</SortButton>
+        <SortButton id="id">ID</SortButton>
+        <SortButton id="rank">Assignment</SortButton>
+        <SortButton id="fingerprint">Fingerprint</SortButton>
+        <SortButton id="status">Criminal Status</SortButton>
+      </Table.Row>
+      {records
+        .filter(
+          createSearch(searchText, (record) => {
+            return record.name + '|' + record.id + '|' + record.rank + '|' + record.fingerprint + '|' + record.status;
+          })
+        )
+        .sort((a, b) => {
+          const i = sortOrder ? 1 : -1;
+          return a[sortId].localeCompare(b[sortId]) * i;
+        })
+        .map((record) => (
+          <Table.Row
+            key={record.id}
+            className={'SecurityRecords__listRow--' + statusStyles[record.status]}
+            onClick={() =>
+              act('view', {
+                uid_gen: record.uid_gen,
+                uid_sec: record.uid_sec,
+              })
+            }
+          >
+            <Table.Cell>
+              <Icon name="user" /> {record.name}
+            </Table.Cell>
+            <Table.Cell>{record.id}</Table.Cell>
+            <Table.Cell>{record.rank}</Table.Cell>
+            <Table.Cell>{record.fingerprint}</Table.Cell>
+            <Table.Cell>{record.status}</Table.Cell>
+          </Table.Row>
+        ))}
+    </Table>
+  );
+};
+
 const SortButton = (properties) => {
-  const [sortId, setSortId] = useState('name');
-  const [sortOrder, setSortOrder] = useState(true);
+  const { sortId, setSortId, sortOrder, setSortOrder } = useContext(SortableTableContext);
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -170,7 +176,7 @@ const SortButton = (properties) => {
 const SecurityRecordsActions = (properties) => {
   const { act, data } = useBackend();
   const { isPrinting } = data;
-  const [searchText, setSearchText] = useState('');
+  const { setSearchText } = properties;
   return (
     <Stack fill>
       <Stack.Item>

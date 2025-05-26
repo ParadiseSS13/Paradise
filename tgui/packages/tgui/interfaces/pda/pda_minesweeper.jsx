@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Box, Button, Icon, Stack, Table } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
+import SortableTableContext from '../common/SortableTableContext';
 
 export const pda_minesweeper = (props) => {
   const { act, data } = useBackend();
@@ -116,11 +117,16 @@ export const MineSweeperGame = (props) => {
   );
 };
 
-export const MineSweeperLeaderboard = (props) => {
+export const MineSweeperLeaderboard = (props) => (
+  <SortableTableContext.Default sortId="time" sortOrder={false}>
+    <MineSweeperLeaderboardBase />
+  </SortableTableContext.Default>
+);
+
+const MineSweeperLeaderboardBase = (props) => {
   const { act, data } = useBackend();
   const { leaderboard } = data;
-  const [sortId, _setSortId] = useState('time');
-  const [sortOrder, _setSortOrder] = useState(false);
+  const { sortId, sortOrder } = useContext(SortableTableContext);
 
   return (
     <Table className="Minesweeper__list">
@@ -145,8 +151,7 @@ export const MineSweeperLeaderboard = (props) => {
 };
 
 const SortButton = (properties) => {
-  const [sortId, setSortId] = useState('time');
-  const [sortOrder, setSortOrder] = useState(false);
+  const { sortId, setSortId, sortOrder, setSortOrder } = useContext(SortableTableContext);
   const { id, children } = properties;
   return (
     <Table.Cell>

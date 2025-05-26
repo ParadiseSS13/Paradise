@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import {
   AnimatedNumber,
   Box,
@@ -14,6 +14,7 @@ import {
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
+import TabsContext from './common/TabsContext';
 
 export const AirAlarm = (props) => {
   const { act, data } = useBackend();
@@ -25,10 +26,10 @@ export const AirAlarm = (props) => {
         <InterfaceLockNoticeBox />
         <AirStatus />
         {!locked && (
-          <>
+          <TabsContext.Default tabIndex={0}>
             <AirAlarmTabs />
             <AirAlarmUnlockedContent />
-          </>
+          </TabsContext.Default>
         )}
       </Window.Content>
     </Window>
@@ -161,7 +162,7 @@ const AirStatus = (props) => {
 };
 
 const AirAlarmTabs = (props) => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const { tabIndex, setTabIndex } = useContext(TabsContext);
   return (
     <Tabs>
       <Tabs.Tab key="Vents" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
@@ -181,7 +182,7 @@ const AirAlarmTabs = (props) => {
 };
 
 const AirAlarmUnlockedContent = (props) => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const { tabIndex } = useContext(TabsContext);
   switch (tabIndex) {
     case 0:
       return <AirAlarmVentsView />;

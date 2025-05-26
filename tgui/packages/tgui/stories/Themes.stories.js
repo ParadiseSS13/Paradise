@@ -4,9 +4,10 @@
  * @license MIT
  */
 
+import { useContext } from 'react';
 import { Input, LabeledList, Section } from 'tgui-core/components';
 
-import { useLocalState } from '../backend';
+import { ThemeContext } from '../debug/ThemeContext';
 
 export const meta = {
   title: 'Themes',
@@ -14,7 +15,7 @@ export const meta = {
 };
 
 const Story = (props) => {
-  const [theme, setTheme] = useLocalState('kitchenSinkTheme');
+  const [theme, setTheme] = useContext(ThemeContext);
   return (
     <Section>
       <LabeledList>

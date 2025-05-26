@@ -8,14 +8,29 @@ import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
 export const CargoConsole = (props) => {
+  const [contentsModal, setContentsModal] = useState(null);
+  const [contentsModalTitle, setContentsModalTitle] = useState(null);
+  const [selectedAccount, setSelectedAccount] = useState('selectedAccount');
   return (
     <Window width={900} height={800}>
       <Window.Content>
         <Stack fill vertical>
-          <ContentsModal />
+          <ContentsModal
+            contentsModal={contentsModal}
+            setContentsModal={setContentsModal}
+            contentsModalTitle={contentsModalTitle}
+            setContentsModalTitle={setContentsModalTitle}
+          />
           <StatusPane />
-          <PaymentPane />
-          <CataloguePane />
+          <PaymentPane selectedAccount={selectedAccount} setSelectedAccount={setSelectedAccount} />
+          <CataloguePane
+            contentsModal={contentsModal}
+            setContentsModal={setContentsModal}
+            contentsModalTitle={contentsModalTitle}
+            setContentsModalTitle={setContentsModalTitle}
+            selectedAccount={selectedAccount}
+            setSelectedAccount={setSelectedAccount}
+          />
           <DetailsPane />
         </Stack>
       </Window.Content>
@@ -23,10 +38,10 @@ export const CargoConsole = (props) => {
   );
 };
 
-const ContentsModal = (_properties) => {
-  const [contentsModal, setContentsModal] = useState(null);
+const ContentsModal = (props) => {
+  const { contentsModal, setContentsModal } = props;
+  const { contentsModalTitle, setContentsModalTitle } = props;
 
-  const [contentsModalTitle, setContentsModalTitle] = useState(null);
   if (contentsModal !== null && contentsModalTitle !== null) {
     return (
       <Modal maxWidth="75%" width={window.innerWidth + 'px'} maxHeight={window.innerHeight * 0.75 + 'px'} mx="auto">
@@ -95,10 +110,10 @@ const StatusPane = (_properties) => {
   );
 };
 
-const PaymentPane = (properties) => {
+const PaymentPane = (props) => {
   const { act, data } = useBackend();
   const { accounts } = data;
-  const [selectedAccount, setSelectedAccount] = useState('selectedAccount');
+  const { selectedAccount, setSelectedAccount } = props;
 
   let accountMap = [];
   accounts.map((account) => (accountMap[account.name] = account.account_UID));
@@ -129,7 +144,7 @@ const PaymentPane = (properties) => {
   );
 };
 
-const CataloguePane = (_properties) => {
+const CataloguePane = (props) => {
   const { act, data } = useBackend();
   const { requests, categories, supply_packs } = data;
 
@@ -137,17 +152,17 @@ const CataloguePane = (_properties) => {
 
   const [searchText, setSearchText] = useSharedState('searchText', '');
 
-  const [contentsModal, setContentsModal] = useState(null);
+  const { contentsModal, setContentsModal } = props;
 
-  const [contentsModalTitle, setContentsModalTitle] = useState(null);
+  const { contentsModalTitle, setContentsModalTitle } = props;
 
   const packSearch = createSearch(searchText, (crate) => crate.name);
-  const [selectedAccount, setSelectedAccount] = useState('selectedAccount');
+  const { selectedAccount, setSelectedAccount } = props;
 
   const cratesToShow = flow([
-    filter((pack) => pack.cat === categories.filter((c) => c.name === category)[0].category || searchText),
-    searchText && filter(packSearch),
-    sortBy((pack) => pack.name.toLowerCase()),
+    (o) => filter(o, (pack) => pack.cat === categories.filter((c) => c.name === category)[0].category || searchText),
+    searchText && ((o) => filter(o, packSearch)),
+    (o) => sortBy(o, (pack) => pack.name.toLowerCase()),
   ])(supply_packs);
 
   let titleText = 'Crate Catalogue';

@@ -39,6 +39,7 @@ const terminalMessages = [
 
 export const Contractor = (properties) => {
   const { act, data } = useBackend();
+  const [viewingPhoto, setViewingPhoto] = useState('');
   let body;
   if (data.unauthorized) {
     body = (
@@ -72,15 +73,14 @@ export const Contractor = (properties) => {
           <Navigation />
         </Flex.Item>
         <Flex.Item grow="1" overflow="hidden">
-          {data.page === 1 ? <Contracts height="100%" /> : <Hub height="100%" />}
+          {data.page === 1 ? <Contracts height="100%" setViewingPhoto={setViewingPhoto} /> : <Hub height="100%" />}
         </Flex.Item>
       </>
     );
   }
-  const [viewingPhoto, _setViewingPhoto] = useState('');
   return (
     <Window theme="syndicate" width={500} height={600}>
-      {viewingPhoto && <PhotoZoom />}
+      {viewingPhoto && <PhotoZoom viewingPhoto={viewingPhoto} setViewingPhoto={setViewingPhoto} />}
       <Window.Content className="Contractor">
         <Flex direction="column" height="100%">
           {body}
@@ -175,7 +175,7 @@ const Contracts = (properties) => {
   const { contracts, contract_active, can_extract } = data;
   const activeContract = !!contract_active && contracts.filter((c) => c.status === 1)[0];
   const extractionCooldown = activeContract && activeContract.time_left > 0;
-  const [_viewingPhoto, setViewingPhoto] = useState('');
+  const { setViewingPhoto, ...rest } = properties;
   return (
     <Section
       title="Available Contracts"
@@ -186,7 +186,7 @@ const Contracts = (properties) => {
           {extractionCooldown && <Countdown timeEnd={activeContract.time_left} format={(v, f) => f.substr(3)} />}
         </Button>
       }
-      {...properties}
+      {...rest}
     >
       {contracts
         .slice()
@@ -400,8 +400,8 @@ class FakeTerminal extends Component {
   }
 }
 
-const PhotoZoom = (properties) => {
-  const [viewingPhoto, setViewingPhoto] = useState('');
+const PhotoZoom = (props) => {
+  const { viewingPhoto, setViewingPhoto } = props;
   return (
     <Modal className="Contractor__photoZoom">
       <Box as="img" src={viewingPhoto} />

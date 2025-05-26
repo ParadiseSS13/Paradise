@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { Box, Button, Divider, Dropdown, Icon, Input, LabeledList, Modal, Section, Stack } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 
@@ -38,12 +38,15 @@ const jobOpeningCategories = {
   },
 };
 
+const NewscasterContext = createContext(null);
+
 export const Newscaster = (properties) => {
   const { act, data } = useBackend();
   const { is_security, is_admin, is_silent, is_printing, screen, channels, channel_idx = -1 } = data;
   const [menuOpen, setMenuOpen] = useState(false);
-  const [viewingPhoto, _setViewingPhoto] = useState('');
+  const [viewingPhoto, setViewingPhoto] = useState('');
   const [censorMode, setCensorMode] = useState(false);
+  const [fullStories, setFullStories] = useState([]);
   let body;
   if (screen === 0 || screen === 2) {
     body = <NewscasterFeed />;
@@ -53,11 +56,13 @@ export const Newscaster = (properties) => {
   const totalUnread = channels.reduce((a, c) => a + c.unread, 0);
   return (
     <Window theme={is_security && 'security'} width={800} height={600}>
-      {viewingPhoto ? (
-        <PhotoZoom />
-      ) : (
-        <ComplexModal maxWidth={window.innerWidth / 1.5 + 'px'} maxHeight={window.innerHeight / 1.5 + 'px'} />
-      )}
+      <NewscasterContext.Provider value={{ viewingPhoto, setViewingPhoto }}>
+        {viewingPhoto ? (
+          <PhotoZoom />
+        ) : (
+          <ComplexModal maxWidth={window.innerWidth / 1.5 + 'px'} maxHeight={window.innerHeight / 1.5 + 'px'} />
+        )}
+      </NewscasterContext.Provider>
       <Window.Content>
         <Stack fill>
           <Section fill className={classes(['Newscaster__menu', menuOpen && 'Newscaster__menu--open'])}>
@@ -129,7 +134,11 @@ export const Newscaster = (properties) => {
           </Section>
           <Stack fill vertical width="100%">
             <TemporaryNotice />
-            {body}
+            <NewscasterContext.Provider
+              value={{ viewingPhoto, setViewingPhoto, censorMode, fullStories, setFullStories }}
+            >
+              {body}
+            </NewscasterContext.Provider>
           </Stack>
         </Stack>
       </Window.Content>
@@ -164,8 +173,7 @@ const MenuButton = (properties) => {
 const NewscasterFeed = (properties) => {
   const { act, data } = useBackend();
   const { screen, is_admin, channel_idx, channel_can_manage, channels, stories, wanted } = data;
-  const [fullStories, _setFullStories] = useState([]);
-  const [censorMode, _setCensorMode] = useState(false);
+  const { fullStories, censorMode } = useContext(NewscasterContext);
   const channel = screen === 2 && channel_idx > -1 ? channels[channel_idx - 1] : null;
   return (
     <Stack fill vertical>
@@ -332,8 +340,7 @@ const Story = (properties) => {
   const { act, data } = useBackend();
   const { story, wanted = false } = properties;
   const { is_admin } = data;
-  const [fullStories, setFullStories] = useState([]);
-  const [censorMode, _setCensorMode] = useState(false);
+  const { fullStories, setFullStories, censorMode } = useContext(NewscasterContext);
   return (
     <Section
       className={classes(['Newscaster__story', wanted && 'Newscaster__story--wanted'])}
@@ -396,12 +403,12 @@ const Story = (properties) => {
 
 const PhotoThumbnail = (properties) => {
   const { name, ...rest } = properties;
-  const [viewingPhoto, setViewingPhoto] = useState('');
+  const { setViewingPhoto } = useContext(NewscasterContext);
   return <Box as="img" className="Newscaster__photo" src={name} onClick={() => setViewingPhoto(name)} {...rest} />;
 };
 
 const PhotoZoom = (properties) => {
-  const [viewingPhoto, setViewingPhoto] = useState('');
+  const { viewingPhoto, setViewingPhoto } = useContext(NewscasterContext);
   return (
     <Modal className="Newscaster__photoZoom">
       <Box as="img" src={viewingPhoto} />
