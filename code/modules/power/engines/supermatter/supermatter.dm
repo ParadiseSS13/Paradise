@@ -293,6 +293,9 @@
 	if(moveable)
 		. += "<span class='notice'>It can be [anchored ? "unfastened from" : "fastened to"] the floor with a wrench.</span>"
 
+/obj/machinery/atmospherics/supermatter_crystal/water_act(volume, temperature, source, method)
+	temperature -= min(temperature * temperature / (temperature + 100000), 10000)
+
 /obj/machinery/atmospherics/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
 	if(!T)
