@@ -11,10 +11,10 @@
 #define OBJECT (LOWEST + 1)
 #define LOWEST (1)
 
-#define PLASMA_HEAT_PENALTY 30     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
-#define OXYGEN_HEAT_PENALTY 20
-#define CO2_HEAT_PENALTY 2
-#define NITROGEN_HEAT_PENALTY -1.5
+#define PLASMA_HEAT_PENALTY 10     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
+#define OXYGEN_HEAT_PENALTY 5
+#define CO2_HEAT_PENALTY 2.3
+#define NITROGEN_HEAT_PENALTY -1
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
 #define PLASMA_TRANSMIT_MODIFIER 4
@@ -44,9 +44,10 @@
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
 
-#define THERMAL_RELEASE_MODIFIER 10        //Higher == more heat released during reaction, not to be confused with the above values
-#define PLASMA_RELEASE_MODIFIER 1000       //Higher == less plasma released by reaction
-#define OXYGEN_RELEASE_MODIFIER 300       //Higher == less oxygen released at high temperature/power
+#define THERMAL_RELEASE_MODIFIER 11        //Higher == more heat released during reaction, not to be confused with the above values
+#define THERMAL_GAS_MODIFIER 5
+#define PLASMA_RELEASE_MODIFIER 10       //Higher == less plasma released by reaction
+#define OXYGEN_RELEASE_MODIFIER 5       //Higher == less oxygen released at high temperature/power
 
 #define REACTION_POWER_MODIFIER 1       //Higher == more overall power
 
@@ -581,13 +582,14 @@
 
 		if(has_been_powered)
 			// Calculate how much gas to release
+			var/gas_generation_modifier = max(device_energy + ((temperature - T0C) * THERMAL_GAS_MODIFIER * dynamic_heat_modifier), 0) ** 0.699
 			// Varies based on power, gas content, and heat to a lesser extent
-			removed.set_toxins(removed.toxins() + max((device_energy + (temperature ** 0.5) * dynamic_heat_modifier - T0C) / PLASMA_RELEASE_MODIFIER) * gas_multiplier + 5, 0)
+			removed.set_toxins(removed.toxins() + max((gas_multiplier * gas_generation_modifier / PLASMA_RELEASE_MODIFIER) + 5, 0))
 			// Varies based on power, gas content, and heat
-			removed.set_oxygen(removed.oxygen() + max(((device_energy + temperature * dynamic_heat_modifier - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier + 10, 0))
+			removed.set_oxygen(removed.oxygen() + max((gas_multiplier * gas_generation_modifier / OXYGEN_RELEASE_MODIFIER) + 10, 0))
 
 			// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
-			var/produced_joules = max(0, (((device_energy * dynamic_heat_modifier) ** 1.15) * THERMAL_RELEASE_MODIFIER) * heat_multiplier)
+			var/produced_joules = max(0, (((device_energy * dynamic_heat_modifier) ** 1.18) * THERMAL_RELEASE_MODIFIER) * heat_multiplier)
 			temperature = (heat_capacity * temperature + produced_joules) / heat_capacity
 
 			// Exchange heat with the air, combust once if possible then exchange heat again.
@@ -1344,3 +1346,4 @@
 #undef N2O_CRUNCH
 #undef PLASMA_CRUNCH
 #undef SUPERMATTER_HEAT_CAPACITY
+#undef THERMAL_GAS_MODIFIER
