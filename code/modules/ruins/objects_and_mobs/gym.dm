@@ -40,7 +40,7 @@
 	density = TRUE
 	anchored = TRUE
 	var/icon_state_inuse
-	var/material_drop = /obj/item/stack/sheet/plasteel
+	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 5
 
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)

@@ -123,7 +123,11 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2),
 	new /datum/stack_recipe/barsign_frame("bar sign frame", /obj/machinery/barsign, 4),
 	new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
-	null
+	null,
+	new /datum/stack_recipe_list("gym equipment", list(
+		new /datum/stack_recipe("weight lifter", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("stack lifter", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	)),
 ))
 
 /obj/item/stack/sheet/metal
@@ -194,11 +198,6 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe_list("airlock assemblies", list(
 		new /datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("vault door assembly", /obj/structure/door_assembly/door_assembly_vault, 8, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	)),
-	null,
-	new /datum/stack_recipe_list("gym equipment", list(
-		new /datum/stack_recipe("weight lifter", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("stack lifter", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 ))
 
