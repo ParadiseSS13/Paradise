@@ -106,6 +106,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
+	. = ..()
 	if(operating || emagged || foam_level)
 		return
 	if(ismob(AM))
@@ -587,7 +588,7 @@
 	LAZYINITLIST(fillers)
 
 	var/obj/last_filler = src
-	for(var/i in 1 to width)
+	for(var/i in 1 to width - 1)
 		var/obj/airlock_filler_object/filler
 
 		if(length(fillers) < i)

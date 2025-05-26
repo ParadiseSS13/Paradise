@@ -328,26 +328,6 @@
 
 	return INITIALIZE_HINT_NORMAL
 
-/datum/map_template/ruin/lavaland/zlvl_bridge
-	prefix = "_maps/map_files/RandomRuins/LavaRuins/zlvl_bridges/"
-	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge
-
-/datum/map_template/ruin/lavaland/zlvl_bridge/vertical
-	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical
-
-/datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
-	name = "Vertical Bridge One"
-	suffix = "lavaland_zlvl_bridge_vertical_1.dmm"
-	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/vertical/one
-
-/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
-	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal
-
-/datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
-	name = "Horizontal Bridge One"
-	suffix = "lavaland_zlvl_bridge_horizontal_1.dmm"
-	ci_exclude = /datum/map_template/ruin/lavaland/zlvl_bridge/horizontal/one
-
 #undef LONG_BRIDGE_THEME_CULT
 #undef LONG_BRIDGE_THEME_HIERO
 #undef LONG_BRIDGE_THEME_CLOCKWORK
