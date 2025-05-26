@@ -195,6 +195,11 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 		new /datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("vault door assembly", /obj/structure/door_assembly/door_assembly_vault, 8, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
+	null,
+	new /datum/stack_recipe_list("gym equipment", list(
+		new /datum/stack_recipe("weight lifter", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("stack lifter", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	)),
 ))
 
 /obj/item/stack/sheet/plasteel
@@ -385,6 +390,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1),
 	new /datum/stack_recipe("bedsheet", /obj/item/bedsheet, 3),
 	new /datum/stack_recipe("empty sandbag", /obj/item/emptysandbag, 4),
+	new /datum/stack_recipe("punch bag", /obj/structure/punching_bag, 10, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("blindfold", /obj/item/clothing/glasses/sunglasses/blindfold, 3),
 	new /datum/stack_recipe("tattered blindfold", /obj/item/clothing/glasses/sunglasses/blindfold/fake, 2),
