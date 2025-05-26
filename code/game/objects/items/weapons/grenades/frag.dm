@@ -22,8 +22,10 @@
 	desc = "A specialized less-lethal hand grenade used for police action. Launches hard rubber balls in all directions upon detonation."
 	icon_state = "stinger"
 	item_state = "grenade"
+	det_time = 5 SECONDS
+	modifiable_timer = FALSE
 	shrapnel_contained = 50
-	embedded_type = /obj/item/projectile/bullet/pellet/rubber
+	embedded_type = /obj/item/projectile/bullet/pellet/rubber/stinger
 
 /obj/item/grenade/frag/prime()
 	update_mob()
