@@ -5941,12 +5941,13 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
 "cFJ" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access = list(19)
-	},
 /obj/machinery/status_display/directional/west,
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/airlock/multi_tile/command/glass{
+	dir = 4;
+	name = "Escape Shuttle Cockpit"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "cFP" = (
 /obj/effect/turf_decal/plaque{
@@ -9252,10 +9253,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "dZw" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access = list(63)
+/obj/machinery/door/airlock/multi_tile/command/glass{
+	dir = 4;
+	name = "Escape Shuttle Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17368,7 +17370,8 @@
 "hvB" = (
 /obj/machinery/door/airlock/multi_tile/command/glass{
 	name = "Командный Центр";
-	req_access = list(114)
+	req_access = list(114);
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/stairs/left{
 	color = "gray"
@@ -18734,7 +18737,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "hXt" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1
+	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/trader_station/sol)
 "hXu" = (
@@ -21504,7 +21509,8 @@
 	},
 /area/shuttle/escape)
 "jgz" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/multi_tile/medical/glass{
+	dir = 1;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
@@ -37357,7 +37363,9 @@
 "qlb" = (
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "navybluefull"
 	},
@@ -38698,10 +38706,10 @@
 /turf/simulated/floor/plating,
 /area/centcom/ss220/supply)
 "qRj" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/multi_tile/medical/glass{
+	dir = 4;
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "qRr" = (
@@ -40985,12 +40993,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
 "rKN" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access = list(19)
-	},
 /obj/machinery/status_display/directional/east,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "rKQ" = (
 /obj/structure/light_fake{
@@ -45648,7 +45652,9 @@
 	},
 /area/centcom/ss220/command)
 "tLz" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
 "tLW" = (
@@ -48091,9 +48097,9 @@
 /turf/simulated/wall/indestructible/rock,
 /area/vox_base)
 "uUb" = (
-/obj/machinery/door/airlock/titanium/glass{
-	name = "Emergency Airlock Access";
-	req_access = list(63)
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1;
+	name = "Emergency Airlock Access"
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -49756,7 +49762,8 @@
 	},
 /area/vox_base)
 "vBp" = (
-/obj/machinery/door/airlock/titanium/glass{
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1;
 	name = "Shuttle Cargo Hatch"
 	},
 /turf/simulated/floor/plasteel,
@@ -85188,7 +85195,7 @@ fqT
 hWD
 hWD
 iuG
-dZw
+hWD
 iuG
 hWD
 tfi
@@ -85699,7 +85706,7 @@ wId
 cof
 snC
 snC
-uUb
+lLq
 uUb
 snC
 snC
@@ -85962,7 +85969,7 @@ lKj
 snC
 snC
 snC
-vBp
+lLq
 vBp
 snC
 snC
@@ -85970,7 +85977,7 @@ snC
 snC
 lJO
 eRG
-jgz
+hWD
 jgz
 eRG
 snC
@@ -86738,7 +86745,7 @@ ibI
 ibI
 ibI
 vhV
-qRj
+lLq
 yim
 hGl
 pgS
