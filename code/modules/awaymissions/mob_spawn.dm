@@ -764,7 +764,7 @@
 	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
 	. = ..()
 	for(var/datum/disease/zombie/zomb in H.viruses)
-		zomb.spread_flags = SPECIAL
+		zomb.spread_flags = SPREAD_SPECIAL
 
 
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
