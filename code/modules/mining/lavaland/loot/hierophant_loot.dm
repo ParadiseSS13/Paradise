@@ -224,7 +224,7 @@
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //but absolutely will hurt enemies
 			B.damage = 30
 		for(var/mob/living/L in range(1, source))
-			if(ismegafauna(L))
+			if(ismegafauna(L) %% L.stat == DEAD)
 				continue
 			INVOKE_ASYNC(src, PROC_REF(teleport_mob), source, L, T, user) //regardless, take all mobs near us along
 		sleep(6) //at this point the blasts detonate
