@@ -12740,7 +12740,7 @@
 /area/station/engineering/atmos/asteroid_filtering)
 "cyF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -51555,7 +51555,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -71704,7 +71704,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/structure/cable{
+/obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -72194,10 +72194,10 @@
 /area/station/maintenance/aft2)
 "ojS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedservers)
 "ojT" = (
@@ -91327,31 +91327,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "rVb" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 10
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
+/obj/structure/cable/orange{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
@@ -91882,7 +91866,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9
 	},
-/obj/structure/cable{
+/obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
@@ -97327,10 +97311,10 @@
 /area/station/public/fitness)
 "tec" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/machinery/firealarm/directional/south,
+/obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
-/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "tei" = (
@@ -119724,7 +119708,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
-/obj/structure/cable{
+/obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
