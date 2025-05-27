@@ -73943,9 +73943,6 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable/orange,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 6
-	},
 /obj/structure/cable/cyan{
 	icon_state = "1-8"
 	},
@@ -73954,6 +73951,9 @@
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
