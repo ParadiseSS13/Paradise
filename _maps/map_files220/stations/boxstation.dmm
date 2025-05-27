@@ -9180,6 +9180,15 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/pen{
+	pixel_x = -6;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -13312,7 +13321,6 @@
 	},
 /area/station/security/checkpoint/secondary)
 "aXC" = (
-/obj/structure/chair/office/dark,
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -13739,18 +13747,13 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "aZa" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
-	},
-/obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},

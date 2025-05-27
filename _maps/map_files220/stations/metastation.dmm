@@ -4156,6 +4156,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/alarm/directional/east,
+/obj/structure/reagent_dispensers/peppertank/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -14650,7 +14651,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
 "bko" = (
-/obj/structure/chair/office/dark,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -15212,6 +15212,10 @@
 /obj/item/pen{
 	pixel_x = -3;
 	pixel_y = 8
+	},
+/obj/item/paper{
+	pixel_x = 7;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -36247,7 +36251,7 @@
 /area/station/maintenance/aft2)
 "cJA" = (
 /obj/machinery/computer/secure_data{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40329,7 +40333,6 @@
 	},
 /area/station/security/checkpoint/south)
 "ddW" = (
-/obj/structure/reagent_dispensers/peppertank/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -49783,6 +49786,11 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
 	dir = 1
 	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Arrivals Security Checkpoint";
+	dir = 1
+	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
 "hEe" = (
@@ -63909,12 +63917,7 @@
 	},
 /area/station/medical/chemistry)
 "oDf" = (
-/obj/item/paper,
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/reinforced/normal{
-	name = "Arrivals Security Checkpoint";
-	pixel_y = -8
-	},
+/obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},

@@ -2802,8 +2802,6 @@
 	},
 /area/station/security/checkpoint/secondary)
 "arb" = (
-/obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -3063,9 +3061,6 @@
 	},
 /area/station/command/customs)
 "arK" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3079,11 +3074,13 @@
 	},
 /area/station/command/customs)
 "arL" = (
-/obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/chair/office/dark{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -3129,6 +3126,15 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general{
 	dir = 8
 	},
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/item/pen{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/station/command/customs)
 "arR" = (
@@ -3138,22 +3144,23 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/table/reinforced,
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
 	},
 /area/station/security/checkpoint/secondary)
 "arS" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -3294,16 +3301,7 @@
 /area/station/command/customs)
 "asy" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/item/pen{
-	pixel_x = 6;
-	pixel_y = 4
-	},
 /obj/item/folder/blue{
-	pixel_x = -6;
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -3357,16 +3355,7 @@
 /area/station/security/checkpoint/secondary)
 "asG" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/item/pen{
-	pixel_x = -6;
-	pixel_y = 4
-	},
 /obj/item/folder/red{
-	pixel_x = 6;
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -3607,6 +3596,15 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
 	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
@@ -83773,6 +83771,9 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -96239,6 +96240,9 @@
 "tja" = (
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
