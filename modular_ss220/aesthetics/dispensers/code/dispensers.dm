@@ -3,7 +3,8 @@
 	icon_state = "water"
 
 /obj/structure/reagent_dispensers/watertank/firetank
-	icon = 'icons/obj/objects.dmi'
+	icon = 'modular_ss220/aesthetics/dispensers/icons/dispensers.dmi'
+	icon_state = "foam"
 
 /obj/structure/reagent_dispensers/watertank/high
 	icon = 'modular_ss220/aesthetics/dispensers/icons/dispensers.dmi'
