@@ -492,7 +492,7 @@
 "Dm" = (
 /obj/machinery/door/airlock/titanium/glass,
 /obj/effect/mapping_helpers/airlock/c_foam/three,
-/turf/template_noop,
+/turf/simulated/floor/plating/airless,
 /area/template_noop)
 "Dv" = (
 /obj/machinery/light/small{
@@ -699,7 +699,10 @@
 /area/template_noop)
 "Ri" = (
 /obj/machinery/door/airlock/security/glass,
-/turf/template_noop,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
 /area/template_noop)
 "RE" = (
 /obj/structure/shuttle/engine/heater{
