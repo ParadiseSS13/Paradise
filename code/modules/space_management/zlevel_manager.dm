@@ -72,8 +72,6 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 // Increases the dirt count on a z level
 /datum/zlev_manager/proc/add_dirt(z)
 	var/datum/space_level/our_z = get_zlev(z)
-	if(our_z.dirt_count == 0)
-		log_debug("Placing an init freeze on z-level '[our_z.zpos]'!")
 	our_z.dirt_count++
 
 
