@@ -72,7 +72,8 @@
 	for(var/datum/cooking_surface/surface in surfaces)
 		if(surface.on)
 			if(!stored_wood)
-				SEND_SIGNAL(surface.container, COMSIG_COOK_GRILL_NO_FUEL)
+				if(surface.container)
+					SEND_SIGNAL(surface.container, COMSIG_COOK_GRILL_NO_FUEL)
 				surface.turn_off()
 			else
 				stored_wood = max(0, stored_wood - wood_consumption_rate)
@@ -195,6 +196,7 @@
 	board_name = "Charcoal Grill"
 	build_path = /obj/machinery/cooking/grill
 	board_type = "machine"
+	icon_state = "service"
 	origin_tech = list(TECH_BIO = 1)
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,

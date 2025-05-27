@@ -33,7 +33,6 @@
 	icon_dead = "parrot_dead"
 	icon_resting = "parrot_sit"
 	pass_flags = PASSTABLE
-	can_collar = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	faction = list("neutral", "jungle")
 
@@ -127,7 +126,7 @@
 		/obj/machinery/computer/guestpass
 	))
 
-/mob/living/simple_animal/parrot/add_strippable_element()
+	AddElement(/datum/element/wears_collar)
 	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
 
 /mob/living/simple_animal/parrot/Destroy()

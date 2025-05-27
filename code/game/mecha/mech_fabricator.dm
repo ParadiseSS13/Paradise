@@ -67,6 +67,9 @@
 	categories = list(
 		"Cyborg",
 		"Cyborg Repair",
+		"Cyborg Upgrades",
+		"IPC",
+		"IPC Upgrades",
 		"MODsuit Construction",
 		"MODsuit Modules",
 		"Ripley",
@@ -79,7 +82,6 @@
 		"Reticence",
 		"Phazon",
 		"Exosuit Equipment",
-		"Cyborg Upgrade Modules",
 		"Medical",
 		"Misc"
 	)

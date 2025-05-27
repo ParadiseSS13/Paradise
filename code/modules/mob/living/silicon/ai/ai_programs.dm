@@ -254,6 +254,9 @@
 	if(istype(user.loc, /obj/machinery/power/apc))
 		to_chat(user, "<span class='warning'>Error: APCs do not have enough processing power to handle programs!</span>")
 		return
+	if(istype(user.loc, /obj/item/aicard))
+		to_chat(user, "<span class='warning'>Error: InteliCards do not have enough processing power to handle programs!</span>")
+		return
 	user.program_picker.ui_interact(user)
 
 /// RGB Lighting - Recolors Lights
@@ -268,8 +271,8 @@
 /datum/spell/ai_spell/ranged/rgb_lighting
 	name = "RGB Lighting"
 	desc = "Changes the color of a selected light"
-	action_icon = 'icons/obj/lighting.dmi'
-	action_icon_state = "random_glowstick"
+	action_icon = 'icons/effects/random_spawners.dmi'
+	action_icon_state = "glowstick"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
 	base_cooldown = 30 SECONDS
@@ -318,7 +321,9 @@
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/rgb_lighting/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = base_cooldown - (spell_level * 5)
+	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 5 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 /// Power Shunt - Recharges things from your SMES
 /datum/ai_program/power_shunt
@@ -391,7 +396,9 @@
 
 /datum/spell/ai_spell/ranged/power_shunt/on_purchase_upgrade()
 	power_sent = min(10000, 2500 + (spell_level * 2500))
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 30)), cooldown_min)
+	cooldown_handler.recharge_duration = max(base_cooldown - (max(spell_level - 3, 0) * 30 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 /// Repair Nanites - Uses large numbers of nanites to repair things
 /datum/ai_program/repair_nanites
@@ -436,7 +443,7 @@
 		return
 	if(ismecha(target)|| isapc(target))
 		var/obj/T = target
-		T.obj_integrity += min(T.max_integrity, T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level))))
+		T.obj_integrity = min(T.max_integrity, T.obj_integrity + (T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level)))))
 	if(isrobot(target))
 		var/mob/living/silicon/robot/T = target
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
@@ -450,7 +457,9 @@
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 
 /datum/spell/ai_spell/ranged/repair_nanites/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 30)), cooldown_min)
+	cooldown_handler.recharge_duration = max(base_cooldown - (max(spell_level - 3, 0) * 30 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 /// Universal Adapter - Unlocks usage of repair nanites and power shunt for IPCs
 /datum/ai_program/universal_adapter
@@ -590,7 +599,9 @@
 	addtimer(CALLBACK(nanofrost, TYPE_PROC_REF(/obj/effect/nanofrost_container, Smoke)), 5 SECONDS)
 
 /datum/spell/ai_spell/ranged/extinguishing_system/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 15)), 30 SECONDS)
+	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 15 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 /// Bluespace Miner Subsystem - Makes money for science, at the cost of extra power drain
 /datum/ai_program/bluespace_miner
@@ -642,7 +653,6 @@
 /datum/ai_program/multimarket_analyser/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
 	..()
 	SSeconomy.pack_price_modifier = original_price_mod * (0.95 - (0.05 * upgrade_level))
-	upgrade_level++
 	installed = TRUE
 
 /datum/ai_program/multimarket_analyser/downgrade(mob/living/silicon/ai/user)
@@ -700,7 +710,9 @@
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
 /datum/spell/ai_spell/ranged/light_repair/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = base_cooldown - (spell_level * 5)
+	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 5 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 /// Nanosurgeon Deployment - Uses large numbers of nanites to heal things
 /datum/ai_program/nanosurgeon_deployment
@@ -739,9 +751,20 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
+	AI.play_sound_remote(target, 'sound/magic/magic_block.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 5 SECONDS)
-	if(do_after_once(AI, 5 SECONDS, target = target, allow_moving = TRUE))
+	// Only allow moving targets if the program is max level.
+	var/allow_moving = FALSE
+	if(spell_level == level_max)
+		allow_moving = TRUE
+		to_chat(target, "<span class='notice'>You feel a flow of healing nanites stream to you from a nearby camera.</span>")
+	else
+		to_chat(target, "<span class='notice'>You feel a flow of healing nanites stream to you from a nearby camera. Hold still for them to work!</span>")
+	if(do_after(AI, 5 SECONDS, target = target, allow_moving_target = allow_moving))
+		// Check camera vision again.
+		if(!check_camera_vision(user, target))
+			revert_cast()
+			return
 		AI.program_picker.nanites -= 75
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		target.heal_overall_damage(damage_healed, damage_healed)
@@ -755,7 +778,9 @@
 		revert_cast()
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (max(spell_level - 3, 0) * 30)), cooldown_min)
+	cooldown_handler.recharge_duration = max(base_cooldown - (max(spell_level - 3, 0) * 30 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 /// Enhanced Door Controls - Reduces delay in bolting and shocking doors
 /datum/ai_program/enhanced_doors
@@ -855,7 +880,9 @@
 		upgraded = TRUE
 
 /datum/spell/ai_spell/research_subsystem/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), cooldown_min)
+	cooldown_handler.recharge_duration = max(base_cooldown - (max(spell_level - 3, 0) * 30 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 // Emergency Sealant - Patches holes with metal foam
 /datum/ai_program/emergency_sealant
@@ -902,6 +929,9 @@
 
 /datum/spell/ai_spell/ranged/emergency_sealant/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 30 SECONDS)
+	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 30 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 // Holosign Deployment - Deploys a holosign on the selected turf
 /datum/ai_program/holosign_displayer
@@ -985,7 +1015,7 @@
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
 	base_cooldown = 30 SECONDS
-	cooldown_min = 5 SECONDS
+	cooldown_min = 15 SECONDS
 	level_max = 10
 	selection_activated_message = "<span class='notice'>You prepare to honk...</span>"
 	selection_deactivated_message = "<span class='notice'>You reduce the amount of humor in your subsystems.</span>"
@@ -1009,7 +1039,9 @@
 		AI.play_sound_remote(target, 'sound/items/bikehorn.ogg', 50)
 
 /datum/spell/ai_spell/ranged/honk_subsystem/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 15) SECONDS, 15 SECONDS)
+	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 15 SECONDS), cooldown_min)
+	if(cooldown_handler.is_on_cooldown())
+		cooldown_handler.start_recharge()
 
 // Enhanced Tracking System - Select a target. Get alerted after a delay whenever that target enters camera sight
 /datum/ai_program/enhanced_tracker
@@ -1028,11 +1060,11 @@
 		return
 	user.enhanced_tracking = TRUE
 	user.alarms_listened_for += "Tracking"
-	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 1 SECONDS)
 
 /datum/ai_program/enhanced_tracker/downgrade(mob/living/silicon/ai/user)
 	..()
-	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 1 SECONDS)
 
 /datum/ai_program/enhanced_tracker/uninstall(mob/living/silicon/ai/user)
 	..()
@@ -1048,13 +1080,16 @@
 	auto_use_uses = FALSE
 	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
-	level_max = 0
+	level_max = 8
 
 /datum/spell/ai_spell/enhanced_tracker/cast(list/targets, mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
 	// Pick a mob to track
 	var/target_name = tgui_input_list(user, "Pick a trackable target...", "AI", user.trackable_mobs())
+	if(!target_name)
+		user.tracked_mob = null
+		return
 	user.tracked_mob = (isnull(user.track.humans[target_name]) ? user.track.others[target_name] : user.track.humans[target_name])
 
 /mob/living/silicon/ai/proc/raise_tracking_alert(area/A, mob/target)
@@ -1070,6 +1105,9 @@
 	if(GLOB.alarm_manager.trigger_alarm("Tracking", A, A.cameras, closest_camera))
 		// Cancel alert after 1 minute
 		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Tracking", A, closest_camera), 1 MINUTES)
+
+/mob/living/silicon/ai/proc/reset_tracker_cooldown()
+	tracker_alert_cooldown = FALSE
 
 // Pointer - Lets you put down a holographic reticle to draw attention to things
 /datum/ai_program/pointer

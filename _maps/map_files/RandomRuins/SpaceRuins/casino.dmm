@@ -22,7 +22,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "ar" = (
@@ -98,10 +98,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "cy" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = -6
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = -32
 	},
@@ -314,9 +311,6 @@
 /area/ruin/space/powered/casino/kitchen)
 "id" = (
 /obj/structure/safe,
-/obj/item/stack/spacecash/c500{
-	pixel_y = -5
-	},
 /obj/item/circuitboard/teleporter_hub{
 	pixel_x = 3;
 	pixel_y = 6
@@ -324,8 +318,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/item/stack/spacecash/c1000,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/casino,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/casino,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "in" = (
@@ -344,9 +339,9 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "iL" = (
-/obj/effect/mob_spawn/human/corpse/random_species/gambler,
-/turf/simulated/floor/wood,
-/area/ruin/space/powered/casino/kitchen)
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/docked_ships)
 "ja" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -392,7 +387,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "jK" = (
@@ -512,7 +507,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "mP" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "mW" = (
@@ -520,12 +515,9 @@
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/kitchen)
 "no" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/obj/effect/mob_spawn/human/corpse/random_species/gambler,
-/turf/simulated/floor/wood,
-/area/ruin/space/powered/casino/kitchen)
+/obj/effect/spawner/random/pool/casino_mob,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/floor)
 "nx" = (
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/space/powered/casino/hall)
@@ -609,7 +601,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/security)
 "pV" = (
@@ -756,10 +748,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
 "vo" = (
-/mob/living/simple_animal/hostile/pirate,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "vQ" = (
@@ -799,9 +791,7 @@
 /turf/template_noop,
 /area/template_noop)
 "wn" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -827,7 +817,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "wx" = (
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "wB" = (
@@ -859,7 +849,7 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "xd" = (
@@ -1064,7 +1054,7 @@
 /area/ruin/space/powered/casino/floor)
 "DJ" = (
 /obj/effect/spawner/random/dirt/maybe,
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "DL" = (
@@ -1160,7 +1150,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/casino/kitchen)
 "GJ" = (
@@ -1187,13 +1177,11 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "Hq" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/powered/casino/hall)
 "Hx" = (
@@ -1222,7 +1210,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "ID" = (
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
 "IJ" = (
@@ -1316,7 +1304,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/casino/kitchen)
 "MU" = (
-/mob/living/simple_animal/hostile/pirate/ranged,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "Nh" = (
@@ -1364,7 +1352,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "ON" = (
@@ -1566,7 +1554,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/casino/kitchen)
 "TW" = (
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1745,10 +1733,6 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"Xm" = (
-/obj/effect/mob_spawn/human/corpse/bartender,
-/turf/simulated/floor/carpet/black,
-/area/ruin/space/powered/casino/floor)
 "Xo" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/powered/casino/floor)
@@ -1764,7 +1748,7 @@
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/teleporter)
 "XN" = (
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/casino_mob,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "Yo" = (
@@ -1873,9 +1857,9 @@ wg
 wg
 wg
 Mt
-Mt
-Mt
-Mt
+iL
+iL
+iL
 Mt
 wg
 wg
@@ -2214,7 +2198,7 @@ sO
 sO
 IJ
 dL
-iL
+TV
 dL
 IJ
 sO
@@ -2478,7 +2462,7 @@ EK
 ql
 DM
 sO
-no
+nT
 nT
 TV
 TV
@@ -2973,12 +2957,12 @@ qe
 AO
 qe
 Tx
-Xm
+Th
 aD
 ZJ
 Th
 Th
-ZR
+Sz
 ZR
 Sz
 Th
@@ -3105,7 +3089,7 @@ KV
 KV
 jz
 du
-du
+no
 Dy
 Th
 Th
@@ -3537,9 +3521,9 @@ wg
 wg
 wg
 SK
-SK
-SK
-SK
+eP
+eP
+eP
 SK
 wg
 wg

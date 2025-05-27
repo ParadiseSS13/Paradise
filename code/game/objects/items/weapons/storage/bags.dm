@@ -275,7 +275,7 @@
 /obj/item/storage/bag/plants/portaseeder/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> to convert the plants inside to seeds.</span>"
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to convert the plants inside to seeds.</span>"
 
 /obj/item/storage/bag/plants/portaseeder/proc/process_plants(mob/user)
 	if(!length(contents))
@@ -291,7 +291,7 @@
 		to_chat(user, "<span class='warning'>[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside.</span>")
 	playsound(user, "sound/machines/ding.ogg", 25)
 
-/obj/item/storage/bag/plants/portaseeder/AltShiftClick(mob/user)
+/obj/item/storage/bag/plants/portaseeder/CtrlShiftClick(mob/user)
 	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
 		process_plants(user)
 
@@ -304,13 +304,18 @@
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds)
 
-/obj/item/storage/bag/plants/seed_sorting_tray/attack_self__legacy__attackchain(mob/user)
+/obj/item/storage/bag/plants/seed_sorting_tray/CtrlShiftClick(mob/user)
 	var/depth = 0
 	for(var/obj/item/unsorted_seeds/unsorted in src)
 		if(!do_after(user, 1 SECONDS, TRUE, src, must_be_held = TRUE))
 			break
 		depth = min(8, depth + 1)
 		unsorted.sort(depth)
+
+/obj/item/storage/bag/plants/seed_sorting_tray/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to sort seeds inside.</span>"
 
 ////////////////////////////////////////
 // MARK:	Cash bag
@@ -361,7 +366,11 @@
 	flags = CONDUCT
 	slot_flags = null
 	materials = list(MAT_METAL=3000)
-	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
+	can_hold = list(
+		/obj/item/food,
+		/obj/item/reagent_containers/drinks,
+		/obj/item/reagent_containers/condiment,
+	)
 
 /obj/item/storage/bag/tray/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	..()
@@ -532,6 +541,22 @@
 	resistance_flags = FLAMMABLE
 
 ////////////////////////////////////////
+// MARK:	Smith bag
+////////////////////////////////////////
+/obj/item/storage/bag/smith
+	name = "smith's bag"
+	desc = "A fireproof bag for storing modifications, casts, and modification components."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "smith_bag"
+	item_state = "smith_bag"
+	storage_slots = 30
+	max_combined_w_class = 60
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/smithed_item, /obj/item/smithing_cast)
+	resistance_flags = FIRE_PROOF
+
+////////////////////////////////////////
 // MARK:	Treasure bag
 ////////////////////////////////////////
 
@@ -539,7 +564,7 @@
 	name = "treasure satchel"
 	desc = "A satchel for storing scavenged salvage. There be treasure."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel"
+	icon_state = "satchel_treasure"
 	origin_tech = "engineering=2"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS

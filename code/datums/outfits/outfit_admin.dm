@@ -92,7 +92,7 @@
 	l_hand = /obj/item/tank/internals/oxygen/red
 
 	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/storage/box/survival_syndie = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
@@ -1593,7 +1593,7 @@
 	if(prob(50))
 		var/codename_prefix = pick("Exposed", "Unveiled", "Phantom", "Mirage", "Punished", "Invisible", "Swift")
 		codename = "[codename_prefix] [codename]"
-	H.rename_character(null, codename)
+	H.rename_character(H.real_name, codename)
 
 	var/hair_color = "#361A00"
 
