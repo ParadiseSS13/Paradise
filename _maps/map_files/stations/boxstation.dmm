@@ -88535,9 +88535,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
