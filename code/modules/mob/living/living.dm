@@ -1018,6 +1018,7 @@
 	AM.pulledby = src
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
+	SEND_SIGNAL(AM, COMSIG_ATOM_PULLED, src)
 
 	for(var/log_pulltype in GLOB.log_pulltypes)
 		if(istype(AM, log_pulltype))

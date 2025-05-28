@@ -254,6 +254,9 @@
 	if(istype(user.loc, /obj/machinery/power/apc))
 		to_chat(user, "<span class='warning'>Error: APCs do not have enough processing power to handle programs!</span>")
 		return
+	if(istype(user.loc, /obj/item/aicard))
+		to_chat(user, "<span class='warning'>Error: InteliCards do not have enough processing power to handle programs!</span>")
+		return
 	user.program_picker.ui_interact(user)
 
 /// RGB Lighting - Recolors Lights
@@ -268,8 +271,8 @@
 /datum/spell/ai_spell/ranged/rgb_lighting
 	name = "RGB Lighting"
 	desc = "Changes the color of a selected light"
-	action_icon = 'icons/obj/lighting.dmi'
-	action_icon_state = "random_glowstick"
+	action_icon = 'icons/effects/random_spawners.dmi'
+	action_icon_state = "glowstick"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
 	auto_use_uses = FALSE
 	base_cooldown = 30 SECONDS
@@ -748,9 +751,20 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
+	AI.play_sound_remote(target, 'sound/magic/magic_block.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 5 SECONDS)
-	if(do_after_once(AI, 5 SECONDS, target = target, allow_moving = TRUE))
+	// Only allow moving targets if the program is max level.
+	var/allow_moving = FALSE
+	if(spell_level == level_max)
+		allow_moving = TRUE
+		to_chat(target, "<span class='notice'>You feel a flow of healing nanites stream to you from a nearby camera.</span>")
+	else
+		to_chat(target, "<span class='notice'>You feel a flow of healing nanites stream to you from a nearby camera. Hold still for them to work!</span>")
+	if(do_after(AI, 5 SECONDS, target = target, allow_moving_target = allow_moving))
+		// Check camera vision again.
+		if(!check_camera_vision(user, target))
+			revert_cast()
+			return
 		AI.program_picker.nanites -= 75
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		target.heal_overall_damage(damage_healed, damage_healed)
@@ -1046,11 +1060,11 @@
 		return
 	user.enhanced_tracking = TRUE
 	user.alarms_listened_for += "Tracking"
-	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 1 SECONDS)
 
 /datum/ai_program/enhanced_tracker/downgrade(mob/living/silicon/ai/user)
 	..()
-	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 2 SECONDS)
+	user.enhanced_tracking_delay = initial(user.enhanced_tracking_delay) - (upgrade_level * 1 SECONDS)
 
 /datum/ai_program/enhanced_tracker/uninstall(mob/living/silicon/ai/user)
 	..()
@@ -1073,6 +1087,9 @@
 		return
 	// Pick a mob to track
 	var/target_name = tgui_input_list(user, "Pick a trackable target...", "AI", user.trackable_mobs())
+	if(!target_name)
+		user.tracked_mob = null
+		return
 	user.tracked_mob = (isnull(user.track.humans[target_name]) ? user.track.others[target_name] : user.track.humans[target_name])
 
 /mob/living/silicon/ai/proc/raise_tracking_alert(area/A, mob/target)
@@ -1088,6 +1105,9 @@
 	if(GLOB.alarm_manager.trigger_alarm("Tracking", A, A.cameras, closest_camera))
 		// Cancel alert after 1 minute
 		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Tracking", A, closest_camera), 1 MINUTES)
+
+/mob/living/silicon/ai/proc/reset_tracker_cooldown()
+	tracker_alert_cooldown = FALSE
 
 // Pointer - Lets you put down a holographic reticle to draw attention to things
 /datum/ai_program/pointer

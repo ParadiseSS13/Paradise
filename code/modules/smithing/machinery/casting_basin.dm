@@ -17,6 +17,8 @@
 	var/obj/item/smithing_cast/cast
 	/// Finished product
 	var/obj/item/smithed_item/component/produced_item
+	/// Is it opened or closed?
+	var/we_are_open = TRUE
 
 /obj/machinery/smithing/casting_basin/Initialize(mapload)
 	. = ..()
@@ -31,7 +33,7 @@
 	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
 		linked_crucible = crucible
 		linked_crucible.linked_machines |= src
-		return
+		return 
 
 /obj/machinery/smithing/casting_basin/examine(mob/user)
 	. = ..()
@@ -76,27 +78,13 @@
 /obj/machinery/smithing/casting_basin/update_overlays()
 	. = ..()
 	overlays.Cut()
-	if(produced_item)
+	if(produced_item && !we_are_open)
 		. += "casting_closed"
-	if(cast && !produced_item)
-		if(istype(cast, /obj/item/smithing_cast/sheet))
-			. += "cast_sheet"
-		else if(istype(cast, /obj/item/smithing_cast/component/insert_frame))
-			. += "cast_armorframe"
-		else if(istype(cast, /obj/item/smithing_cast/component/insert_lining))
-			. += "cast_mesh"
-		else if(istype(cast, /obj/item/smithing_cast/component/bit_mount))
-			. += "cast_bitmount"
-		else if(istype(cast, /obj/item/smithing_cast/component/bit_head))
-			. += "cast_bithead"
-		else if(istype(cast, /obj/item/smithing_cast/component/lens_focus))
-			. += "cast_focus"
-		else if(istype(cast, /obj/item/smithing_cast/component/lens_frame))
-			. += "cast_lens"
-		else if(istype(cast, /obj/item/smithing_cast/component/trim))
-			. += "cast_trim"
-		else if(istype(cast, /obj/item/smithing_cast/misc/egun_parts))
-			. += "cast_egun_parts"
+	if(cast && produced_item && we_are_open)
+		. += "[cast.basin_state]_full"
+		. += "casting_lip"
+	if(cast && !produced_item && we_are_open)
+		. += cast.basin_state
 		. += "casting_lip"
 	if(panel_open)
 		. += "casting_wires"
@@ -141,6 +129,14 @@
 /obj/machinery/smithing/casting_basin/AltClick(mob/living/user)
 	if(!Adjacent(user))
 		return
+	if(!we_are_open)
+		to_chat(user, "<span class='notice'>You open [src].</span>")
+		we_are_open = TRUE
+		update_icon(UPDATE_OVERLAYS)
+		return
+	if(produced_item)
+		to_chat(user, "<span class='warning'>Remove the item first!</span>")
+		return
 	if(!cast)
 		to_chat(user, "<span class='warning'>There is no cast to remove.</span>")
 		return
@@ -152,10 +148,18 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smithing/casting_basin/attack_hand(mob/user)
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+	if(!we_are_open)
+		to_chat(user, "<span class='notice'>You open [src].</span>")
+		we_are_open = TRUE
+		update_icon(UPDATE_OVERLAYS)
+		return FINISH_ATTACK
 	if(produced_item)
 		if(produced_item.burn_check(user))
 			produced_item.burn_user(user)
 			produced_item.forceMove(user.loc)
+			update_icon(UPDATE_OVERLAYS)
 			produced_item = null
 			return FINISH_ATTACK
 		user.put_in_hands(produced_item)
@@ -199,6 +203,7 @@
 		to_chat(user, "<span class='notice'>You begin to pour the liquid minerals into the [src]...</span>")
 		// Use the materials and create the item.
 		materials.use_amount(used_mats)
+		we_are_open = FALSE
 		linked_crucible.animate_pour(operation_time SECONDS)
 		operate(operation_time, user)
 		produced_item = new cast.selected_product(src)
