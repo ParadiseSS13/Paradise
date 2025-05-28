@@ -1491,4 +1491,4 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
-		)
+	)
