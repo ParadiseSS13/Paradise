@@ -83,10 +83,11 @@
 
 // toggles_3 variables. These MUST be prefixed with PREFTOGGLE_3
 #define PREFTOGGLE_3_COGBAR_ANIMATIONS				(1<<0) // 1
+#define PREFTOGGLE_3_GHOST_VISION					(1<<1) // 2
 
-#define TOGGLES_3_TOTAL 							1 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL 							3 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_COGBAR_ANIMATIONS)
+#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_COGBAR_ANIMATIONS|PREFTOGGLE_3_GHOST_VISION)
 
 // Sanity checks
 // I should really convert these to a JSON list at some point hnnnnnng

@@ -29,7 +29,8 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = TRUE
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
-	var/ghostvision = TRUE //is the ghost able to see things humans can't?
+	/// Is the ghost able to see things humans can't? May be overriden depending on your preferences
+	var/ghostvision = TRUE
 	var/seedarkness = TRUE
 	var/seerads = FALSE     // can the ghost see radiation?
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
@@ -103,6 +104,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	//starts ghosts off with all HUDs.
 	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
+	RegisterSignal(src, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(set_ghost_vision))
 	..()
 	plane = GAME_PLANE
 	add_observer_verbs()
@@ -111,6 +113,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
+	UnregisterSignal(src, COMSIG_MOB_CLIENT_LOGIN)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -136,6 +139,13 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 		return
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	lighting_alpha = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
+	update_sight()
+
+/mob/dead/observer/proc/set_ghost_vision()
+	if(!client)
+		return
+	UnregisterSignal(src, COMSIG_MOB_CLIENT_LOGIN)
+	ghostvision = client.prefs.toggles3 & PREFTOGGLE_3_GHOST_VISION
 	update_sight()
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
@@ -709,13 +719,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	..()
 //END TELEPORT HREF CODE
+
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
 	set desc = "Toggles your ability to see things only ghosts can see, like other ghosts"
 	set category = "Ghost"
-	ghostvision = !(ghostvision)
+	if(!client)
+		return
+	client.prefs.toggles3 ^= PREFTOGGLE_3_GHOST_VISION
+	ghostvision = client.prefs.toggles3 & PREFTOGGLE_3_GHOST_VISION
 	update_sight()
-	to_chat(usr, "You [(ghostvision?"now":"no longer")] have ghost vision.")
+	to_chat(usr, "You [(ghostvision ? "now" : "no longer")] have ghost vision.")
 
 /mob/dead/observer/verb/pick_darkness(desired_dark as num)
 	set name = "Pick Darkness"
