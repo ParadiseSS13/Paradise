@@ -94,6 +94,10 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
+/datum/outfit/job/doctor/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_MED_EXAMINE, JOB_TRAIT)
+
 /datum/job/coroner
 	title = "Coroner"
 	flag = JOB_CORONER
@@ -136,6 +140,10 @@
 					/obj/item/reagent_scanner = 1,
 					/obj/item/healthanalyzer = 1,
 					/obj/item/storage/box/bodybags = 1)
+
+/datum/outfit/job/coroner/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_CORPSE_RESIST, JOB_TRAIT)
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -193,6 +201,10 @@
 	backpack = /obj/item/storage/backpack/chemistry
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
+
+/datum/outfit/job/chemist/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_TOX_RESIST, JOB_TRAIT)
 
 /datum/job/geneticist
 	title = "Geneticist"
@@ -271,6 +283,10 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
+
+/datum/outfit/job/virologist/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_GERMOPHOBE, JOB_TRAIT)
 
 /datum/job/psychiatrist
 	title = "Psychiatrist"

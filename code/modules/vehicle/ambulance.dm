@@ -104,6 +104,35 @@
 				var/mob/living/buckled_mob = m
 				buckled_mob.setDir(Dir)
 
+/obj/vehicle/ambulance/Bump(atom/movable/M)
+	if(has_buckled_mobs())
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+				if(HAS_TRAIT(m, TRAIT_SPEED_DEMON))
+					if(isobj(m))
+						var/obj/O = m
+						if(!O.anchored)
+							step(m, dir)
+					else if(ismob(m))
+						run_over(m)
+					break
+	return ..()
+
+/obj/vehicle/ambulance/proc/run_over(mob/M)
+	var/directional_blocked = FALSE
+	var/turf/T = get_step(M.loc, turn(dir, 45))
+		if(T.density)
+			T = get_step(M.loc, turn(dir, -45))
+			if(T.density)
+				directional_blocked = TRUE
+			else
+				step(M, turn(dir, -45))
+		else
+			step(M, turn(dir, 45))
+	playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
+	if(directional_blocked || (iscarbon(M) && installed_vtec == TRUE)) // GET OUT OF THE WAY, ASSHOLE!
+		M.KnockDown(4 SECONDS)
+
 /obj/structure/bed/amb_trolley
 	name = "ambulance train trolley"
 	icon = 'icons/vehicles/CargoTrain.dmi'

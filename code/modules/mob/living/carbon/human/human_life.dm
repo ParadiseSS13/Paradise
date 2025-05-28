@@ -895,8 +895,9 @@
 			if(HAS_TRAIT(H, TRAIT_NOBREATH))
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
-			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
-				continue //too cool for puke
+			if(H.mind && HAS_TRAIT(H.mind, TRAIT_CORPSE_RESIST))
+				to_chat(H, "<span class='warning'>You smell something rotting nearby.</span>")
+				continue
 			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()
 

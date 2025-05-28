@@ -194,6 +194,8 @@
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	var/old_toxloss = toxloss
+	if(src.mind && HAS_TRAIT(src.mind, TRAIT_TOX_RESIST))
+		amount = (ROUND_UP(amount / 1.5))
 	toxloss = max(toxloss + amount, 0)
 	if(old_toxloss == toxloss)
 		updating_health = FALSE
