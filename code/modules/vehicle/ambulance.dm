@@ -3,6 +3,7 @@
 	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
 	key_type = /obj/item/key/ambulance
+	var/siren_on = FALSE
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop
@@ -41,9 +42,11 @@
 	cooldown = world.time
 
 	if(A.soundloop.muted)
+		A.siren_on = TRUE
 		A.soundloop.start()
 		A.set_light(4,3,"#F70027")
 	else
+		A.siren_on = FALSE
 		A.soundloop.stop()
 		A.set_light(0)
 
@@ -106,32 +109,38 @@
 
 /obj/vehicle/ambulance/Bump(atom/movable/M)
 	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-				if(HAS_TRAIT(m, TRAIT_SPEED_DEMON))
-					if(isobj(m))
-						var/obj/O = m
-						if(!O.anchored)
-							step(m, dir)
-					else if(ismob(m))
-						run_over(m)
+		for(var/mob/living/m in buckled_mobs)
+			if(HAS_TRAIT(m.mind, TRAIT_SPEED_DEMON))
+				if(isobj(M))
+					var/obj/O = M
+					if(!O.anchored)
+						step(M, dir)
+				else if(ismob(M) && siren_on)
+					run_over(M)
 					break
-	return ..()
 
-/obj/vehicle/ambulance/proc/run_over(mob/M)
+/obj/vehicle/ambulance/proc/run_over(mob/living/M)
 	var/directional_blocked = FALSE
-	var/turf/T = get_step(M.loc, turn(dir, 45))
-		if(T.density)
-			T = get_step(M.loc, turn(dir, -45))
-			if(T.density)
-				directional_blocked = TRUE
-			else
-				step(M, turn(dir, -45))
+	var/turf/T = get_step(M.loc, turn(dir, 90))
+	if(check_density(T))
+		T = get_step(M.loc, turn(dir, -90))
+		if(check_density(T))
+			directional_blocked = TRUE
 		else
-			step(M, turn(dir, 45))
+			step(M, turn(dir, -90))
+	else
+		step(M, turn(dir, 90))
 	playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-	if(directional_blocked || (iscarbon(M) && installed_vtec == TRUE)) // GET OUT OF THE WAY, ASSHOLE!
+	if(directional_blocked || installed_vtec == TRUE) // GET OUT OF THE WAY, ASSHOLE!
 		M.KnockDown(4 SECONDS)
+
+/obj/vehicle/ambulance/proc/check_density(turf/T)
+	if(T.density)
+		return TRUE
+	for(var/atom/movable/thing in T.contents)
+		if(thing.density)
+			return TRUE
+	return FALSE
 
 /obj/structure/bed/amb_trolley
 	name = "ambulance train trolley"

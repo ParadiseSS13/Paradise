@@ -173,6 +173,10 @@
 
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
+/datum/outfit/job/doctor/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_CORPSE_RESIST, JOB_TRAIT) // too cool to vomit
+
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)

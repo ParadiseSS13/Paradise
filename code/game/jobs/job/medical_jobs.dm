@@ -56,6 +56,11 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
+
+/datum/outfit/job/cmo/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_MED_EXAMINE, JOB_TRAIT)
+
 /datum/job/doctor
 	title = "Medical Doctor"
 	flag = JOB_DOCTOR
@@ -378,3 +383,7 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/engineer
+
+/datum/outfit/job/paramedic/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_SPEED_DEMON, JOB_TRAIT)

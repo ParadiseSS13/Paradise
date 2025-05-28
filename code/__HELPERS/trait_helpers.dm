@@ -353,7 +353,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// user will take ~25% less tox damage
 #define TRAIT_TOX_RESIST "tox_resist"
 /// user can drive the ambulance cart to push people out of the way
-#define TRAIT_SPEED_DEMON "speed-demon"
+#define TRAIT_SPEED_DEMON "speed_demon"
 
 // sci traits
 

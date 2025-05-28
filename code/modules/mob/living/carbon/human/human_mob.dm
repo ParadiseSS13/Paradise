@@ -2183,7 +2183,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!HAS_TRAIT(user.mind, TRAIT_MED_EXAMINE))
 		return
 
-	if(do_after_once(user, 6 SECONDS, target = src, allow_moving = FALSE, attempt_cancel_message = "You couldn't get a good look at [src]!"))
+	if(do_after_once(user, 8 SECONDS, target = src, allow_moving = FALSE, attempt_cancel_message = "You couldn't get a good look at [src]!"))
 		var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
 		for(var/obj/item/organ/external/E in src.bodyparts)
 			missing -= E.limb_name
@@ -2198,5 +2198,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					to_chat(user, "<span class='info'>You conclude [src]'s [E.name] is broken.")
 				else
 					to_chat(user, "<span class='info'>You conclude [src]'s [E.name] has a [E.broken_description].")
-		for(var/t in missing)
-			to_chat(user, "<span class='info'>[p_their(src)] [parse_zone(t)] is missing!</span>")
