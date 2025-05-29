@@ -92,7 +92,7 @@ requirement on a case-by-case basis, as the need arises.
 
 ### Generative AI
 
-The use of generative AI tools is not permitted on the ParadiseSS13 repository. This includes both pull request code, code review, and filing issues. If you proceed to post PRs, issues, or comments that are clearly AI generated, you will be warned against this and your content will be closed/deleted. Multiple infractions will result in an outright ban from the repository.
+The use of generative AI tools is not permitted on the ParadiseSS13 repository. This includes pull request code, code review, and filing issues. If you proceed to post PRs, issues, or comments that are clearly AI generated, you will be warned against this and your content will be closed/deleted. Multiple infractions will result in an outright ban from the repository.
 
 <!-- Add a fixed link so that changing the heading name doesn't break the link. -->
 
