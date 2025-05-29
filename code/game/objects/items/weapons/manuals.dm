@@ -27,6 +27,7 @@
 	//Pages has to be a list of strings, it will break the book otherwise
 	pages = list({"How did we get here? Anyway, if you are reading this please make a report on the Github as you should not
 					be able to possess this object in the first place!"})
+	new_attack_chain = TRUE
 
 /obj/item/book/manual/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
