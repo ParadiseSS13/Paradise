@@ -27,7 +27,7 @@
 
 /datum/ai_behavior/ranged_skirmish/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key, max_range, min_range)
 	var/atom/target = controller.blackboard[target_key]
-	if (QDELETED(target))
+	if(QDELETED(target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	var/datum/targeting_strategy/targeting_strategy = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
@@ -40,7 +40,7 @@
 	target = hiding_target || target
 
 	var/distance = get_dist(controller.pawn, target)
-	if (distance > max_range || distance < min_range)
+	if(distance > max_range || distance < min_range)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	controller.ai_interact(target = target, intent = INTENT_HARM)

@@ -30,7 +30,7 @@
 	src.projectile_type = projectile_type
 	src.cooldown_time = cooldown_time
 
-	if (!projectile_type)
+	if(!projectile_type)
 		CRASH("Set no projectile type in [parent]'s ranged attacks component! What are they supposed to be attacking with, air?")
 	if(burst_shots <= 1)
 		return

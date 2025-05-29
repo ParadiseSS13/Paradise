@@ -30,6 +30,6 @@
 		ranged_attacks = AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
 		name = "grappling " + name
 		ai_controller = /datum/ai_controller/basic_controller/simple/simple_skirmisher
-		update_name()
+		update_appearance(UPDATE_NAME)
 	AddElement(/datum/element/ai_retaliate)
 	AddComponent(/datum/component/footstep, step_type)
