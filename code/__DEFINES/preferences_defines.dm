@@ -183,3 +183,18 @@
 #define COLOURBLIND_MODE_DEUTER "Red-green (green weak, deuteranopia)"
 #define COLOURBLIND_MODE_PROT "Red-green (red weak, protanopia)"
 #define COLOURBLIND_MODE_TRIT "Blue-yellow (tritanopia)"
+
+/// Client FPS options
+GLOBAL_LIST_INIT(client_fps_options, list_fps_options())
+
+/proc/list_fps_options()
+	. = list()
+
+	for(var/fps_desired in world.fps to 1000)
+		var/frame_time = floor(1000 / fps_desired)
+		var/fps_actual = ceil(1000 / frame_time)
+
+		if(.["[fps_actual]"])
+			continue
+
+		.["[fps_actual]"] = fps_desired
