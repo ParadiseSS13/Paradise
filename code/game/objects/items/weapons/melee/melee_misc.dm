@@ -311,6 +311,7 @@
 	armour_penetration_flat = 50
 	sharp = TRUE
 	new_attack_chain = TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	///enchantment holder, gives it unique on hit effects.
 	var/datum/enchantment/enchant = null
 	///the cooldown and power of enchantments are multiplied by this var when its applied
@@ -512,7 +513,7 @@
 			return
 		var/list/turfs = list()
 		for(var/turf/T in orange(1, get_turf(target)))
-			if(is_blocked_turf(T, TRUE))
+			if(T.is_blocked_turf(exclude_mobs = TRUE))
 				continue
 			turfs += T
 
