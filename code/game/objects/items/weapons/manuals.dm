@@ -932,21 +932,12 @@
 	name = "Imaginary Space Law Manual"
 	desc = "A set of memorized Nanotrasen guidelines for keeping law and order on their space stations."
 	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	imaginary = TRUE
 
 /obj/item/book/manual/wiki/security_space_law/imaginary/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_NO_STRIP, INNATE_TRAIT)
-
-/obj/item/book/manual/wiki/security_space_law/imaginary/attack(mob/living/target, mob/living/user, params)
-	if(..())
-		return FINISH_ATTACK
-	return FINISH_ATTACK // its imaginary
-
-/obj/item/book/manual/wiki/security_space_law/imaginary/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-	return ITEM_INTERACT_COMPLETE // its imaginary
 
 /obj/item/book/manual/wiki/security_space_law/black
 	name = "Space Law - Limited Edition"
@@ -982,21 +973,12 @@
 	name = "Imaginary Legal SOP Manual"
 	desc = "A set of memorized Nanotrasen guidelines aiming at the safe conduct of all legal activities."
 	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	imaginary = TRUE
 
 /obj/item/book/manual/wiki/sop_legal/imaginary/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_NO_STRIP, INNATE_TRAIT)
-
-/obj/item/book/manual/wiki/sop_legal/imaginary/attack(mob/living/target, mob/living/user, params)
-	if(..())
-		return FINISH_ATTACK
-	return FINISH_ATTACK // its imaginary
-
-/obj/item/book/manual/wiki/sop_legal/imaginary/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-	return ITEM_INTERACT_COMPLETE // its imaginary
 
 /obj/item/book/manual/wiki/sop_supply
 	name = "Supply Standard Operating Procedures"

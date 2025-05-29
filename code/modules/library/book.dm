@@ -41,6 +41,8 @@
 	var/pages = list()
 	///What page is the book currently opened to? Page 0 - Intro Page | Page 1-5 - Content Pages
 	var/current_page = 0
+	///Is this item imaginary and not able to interact with anything else?
+	var/imaginary = FALSE
 
 	///Book UI Popup Height
 	var/book_height = 400
@@ -76,6 +78,8 @@
 
 
 /obj/item/book/attack(mob/M, mob/living/user)
+	if(imaginary)
+		return FINISH_ATTACK
 	if(user.a_intent == INTENT_HELP)
 		force = 0
 		attack_verb = list("educated")
@@ -87,6 +91,9 @@
 /obj/item/book/activate_self(mob/user)
 	if(..())
 		return
+	if(imaginary)
+		read_book(user)
+		return FINISH_ATTACK
 	if(carved)
 		//Attempt to remove inserted object, if none found, remind user that someone vandalized their book (Bastards)!
 		if(!remove_stored_item(user, TRUE))
@@ -94,9 +101,11 @@
 		return FINISH_ATTACK
 	user.visible_message("<span class='notice'>[user] opens a book titled \"[title]\" and begins reading intently.</span>")
 	read_book(user)
-	return FINISH_ATTACK
+	return ..()
 
 /obj/item/book/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(imaginary)
+		return ITEM_INTERACT_COMPLETE
 	if(is_pen(used))
 		edit_book(user)
 	else if(istype(used, /obj/item/barcodescanner))
