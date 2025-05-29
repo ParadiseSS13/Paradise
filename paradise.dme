@@ -1599,6 +1599,7 @@
 #include "code\modules\admin\verbs\toggledebugverbs.dm"
 #include "code\modules\admin\verbs\tripAI.dm"
 #include "code\modules\admin\verbs\view_instances.dm"
+#include "code\modules\admin\verbs\SDQL2\sdql2_verbs.dm"
 #include "code\modules\admin\verbs\SDQL2\SDQL_2.dm"
 #include "code\modules\admin\verbs\SDQL2\SDQL_2_parser.dm"
 #include "code\modules\admin\verbs\SDQL2\useful_procs.dm"
