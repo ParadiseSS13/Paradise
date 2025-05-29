@@ -52,10 +52,6 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
-	add_verb(src, list(
-		/mob/dead/observer/proc/dead_tele,
-		/mob/dead/observer/proc/jump_to_ruin,
-		/mob/dead/observer/proc/open_spawners_menu))
 
 	// Our new boo spell.
 	AddSpell(new /datum/spell/boo(null))
@@ -328,9 +324,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Respawnability:", "[HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
 
-/mob/dead/observer/verb/reenter_corpse()
-	set category = "Ghost"
-	set name = "Re-enter Corpse"
+/mob/dead/observer/proc/reenter_corpse()
 	if(!client)
 		return
 	if(!mind || QDELETED(mind.current))
@@ -347,7 +341,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 
-	return 1
+	return TRUE
 
 
 /mob/dead/observer/proc/notify_cloning(message, sound, atom/source)
@@ -454,24 +448,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
 
 /mob/dead/observer/proc/dead_tele()
-	set category = "Ghost"
-	set name = "Teleport"
-	set desc= "Teleport to a location"
-
-	if(!isobserver(usr))
-		to_chat(usr, "Not when you're not dead!")
-		return
 	var/target = tgui_input_list(usr, "Area to teleport to", "Teleport to a location", SSmapping.ghostteleportlocs)
 	teleport(SSmapping.ghostteleportlocs[target])
 
-/mob/dead/observer/proc/jump_to_ruin()
+/mob/dead/observer/verb/jump_to_ruin()
 	set category = "Ghost"
 	set name = "Jump to Ruin"
 	set desc = "Displays a list of all placed ruins to teleport to."
-
-	if(!isobserver(usr))
-		to_chat(usr, "Not when you're not dead!")
-		return
 
 	var/list/names = list()
 	for(var/i in GLOB.ruin_landmarks)
@@ -516,11 +499,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	forceMove(pick(turfs))
 	update_parallax_contents()
 
-/mob/dead/observer/verb/follow()
-	set category = "Ghost"
-	set name = "Orbit" // "Haunt"
-	set desc = "Follow and orbit a mob."
-
+/mob/dead/observer/proc/follow()
 	GLOB.orbit_menu.ui_interact(src)
 
 /mob/dead/observer/verb/crew_monitor()
@@ -720,16 +699,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 //END TELEPORT HREF CODE
 
-/mob/dead/observer/verb/toggle_ghostsee()
-	set name = "Toggle Ghost Vision"
-	set desc = "Toggles your ability to see things only ghosts can see, like other ghosts"
-	set category = "Ghost"
+/mob/dead/observer/proc/ghost_vision()
 	if(!client)
 		return
 	client.prefs.toggles3 ^= PREFTOGGLE_3_GHOST_VISION
 	ghostvision = client.prefs.toggles3 & PREFTOGGLE_3_GHOST_VISION
 	update_sight()
-	to_chat(usr, "You [(ghostvision ? "now" : "no longer")] have ghost vision.")
+	to_chat(src, "<span class='notice'>You [(ghostvision ? "now" : "no longer")] have ghost vision.</span>")
 
 /mob/dead/observer/verb/pick_darkness(desired_dark as num)
 	set name = "Pick Darkness"
@@ -856,10 +832,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	GLOB.observer_default_invisibility = amount
 
 /mob/dead/observer/proc/open_spawners_menu()
-	set name = "Mob spawners menu"
-	set desc = "See all currently available ghost spawners"
-	set category = "Ghost"
-
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)
 

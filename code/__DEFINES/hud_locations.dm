@@ -148,9 +148,10 @@
 #define ui_ghost_orbit "SOUTH:6,CENTER-1.5"
 #define ui_ghost_reenter_corpse "SOUTH:6,CENTER-.5"
 #define ui_ghost_teleport "SOUTH:6,CENTER+.5"
-#define ui_ghost_respawn_list "SOUTH:6,CENTER+1.5"
-#define ui_ghost_respawn_mob "SOUTH:6+1,CENTER+1.5"
-#define ui_ghost_respawn_pai "SOUTH:6+2,CENTER+1.5"
+#define ui_ghost_vision "SOUTH:6,CENTER+1.5"
+#define ui_ghost_respawn_list "SOUTH:6,CENTER+2.5"
+#define ui_ghost_respawn_mob "SOUTH:6+1,CENTER+2.5"
+#define ui_ghost_respawn_pai "SOUTH:6+2,CENTER+2.5"
 
 //HUD styles. Please ensure HUD_VERSIONS is the same as the maximum index. Index order defines how they are cycled in F12.
 #define HUD_STYLE_STANDARD 1
