@@ -660,6 +660,17 @@
 	sound = "sound/effects/voxrustle.ogg"
 	species_type_whitelist_typecache = list(/datum/species/vox)
 
+/datum/emote/living/carbon/human/caw
+	key = "caw"
+	key_third_person = "caws"
+	message = "caws."
+	message_param = "caws at %t."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	// Credit to u_a4gfvwagf1 (pixabay.com) for the original sound.
+	sound = "sound/effects/voxcaw.ogg"
+	species_type_whitelist_typecache = list(/datum/species/vox)
+	muzzled_noises = list("frustrated")
+
 /datum/emote/living/carbon/human/warble
 	key = "warble"
 	key_third_person = "warbles"
