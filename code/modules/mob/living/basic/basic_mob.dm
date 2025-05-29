@@ -136,6 +136,9 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// How often can you melee attack?
 	var/melee_attack_cooldown = 2 SECONDS
 
+	/// Loot this mob drops on death.
+	var/list/loot = list()
+
 	/// Compatibility with mob spawners
 	var/datum/component/spawner/nest
 
@@ -243,6 +246,7 @@ RESTRICT_TYPE(/mob/living/basic)
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null
+	drop_loot()
 	if(!gibbed)
 		if(death_sound)
 			playsound(get_turf(src), death_sound, 200, 1)
@@ -311,3 +315,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
+
+/mob/living/basic/proc/drop_loot()
+	if(length(loot))
+		for(var/item in loot)
+			new item(get_turf(src))
