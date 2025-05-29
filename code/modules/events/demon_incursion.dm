@@ -23,7 +23,7 @@
 	var/list/area_turfs = get_area_turfs(impact_area)
 	while(length(area_turfs) && initial_portals > 0)
 		var/turf/T = pick_n_take(area_turfs)
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 
 		// Give ghosts some time to jump there before it begins.
@@ -139,7 +139,7 @@
 	for(var/turf/simulated/floor/possible_loc in orange(8, src.loc))
 		if(!istype(possible_loc))
 			continue
-		if(is_blocked_turf(possible_loc))
+		if(possible_loc.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 		if(locate(/obj/structure/spawner/nether/demon_incursion) in possible_loc)
 			continue

@@ -127,6 +127,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/melee_damage_upper = 0
 	/// How much damage this simple animal does to objects, if any
 	var/obj_damage = 0
+	/// What can this mob break?
+	var/environment_smash = ENVIRONMENT_SMASH_NONE
 	/// Flat armour reduction, occurs after percentage armour penetration.
 	var/armour_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.

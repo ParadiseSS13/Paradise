@@ -4,6 +4,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	attack_verb_simple = "attack"
 	attack_verb_continuous = "attacks"
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	speak_emote = list("screams")
 	gold_core_spawnable = HOSTILE_SPAWN

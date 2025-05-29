@@ -9,6 +9,7 @@
 	obj_damage = 100
 	melee_damage_lower = 25
 	melee_damage_upper = 50
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	attack_verb_simple = "chomp"
 	attack_verb_continuous = "chomps"

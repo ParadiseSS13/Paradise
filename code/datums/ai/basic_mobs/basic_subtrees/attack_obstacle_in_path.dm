@@ -12,7 +12,7 @@
 		return
 
 	var/turf/next_step = get_step_towards(controller.pawn, target)
-	if(!is_blocked_turf(next_step))
+	if(!next_step.is_blocked_turf(exclude_mobs = TRUE, source_atom = controller.pawn))
 		return
 
 	controller.queue_behavior(attack_behaviour, target_key)
@@ -51,7 +51,7 @@
 
 /datum/ai_behavior/attack_obstructions/proc/attack_in_direction(datum/ai_controller/controller, mob/living/basic/basic_mob, direction)
 	var/turf/next_step = get_step(basic_mob, direction)
-	if(!is_blocked_turf(next_step))
+	if(!next_step.is_blocked_turf(exclude_mobs = TRUE, source_atom = controller.pawn))
 		return FALSE
 
 	for(var/obj/object as anything in next_step.contents)
@@ -74,6 +74,8 @@
 		return FALSE
 	var/list/whitelist = basic_mob.ai_controller.blackboard[BB_OBSTACLE_TARGETING_WHITELIST]
 	if(whitelist && !is_type_in_typecache(object, whitelist))
+		return FALSE
+	if((!ismachinery(object) && !isstructure(object)))
 		return FALSE
 
 	return TRUE // It's in our way, let's get it out of our way
