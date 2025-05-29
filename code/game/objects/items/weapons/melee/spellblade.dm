@@ -6,6 +6,7 @@
 	icon_state = "spellblade"
 	item_state = "spellblade"
 	hitsound = 'sound/weapons/rapierhit.ogg'
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	armour_penetration_flat = 50
