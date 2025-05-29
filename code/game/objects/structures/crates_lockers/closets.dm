@@ -216,30 +216,32 @@
 	update_appearance()
 	return TRUE
 
-/obj/structure/closet/proc/close()
+/obj/structure/closet/proc/close(mob/user)
 	if(!opened)
 		return FALSE
 	if(!can_close())
 		return FALSE
 
 	var/itemcount = 0
-
+	var/temp_capacity = storage_capacity
+	if(user.mind && HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
+		temp_capacity *= 1.5
 	//Cham Projector Exception
 	for(var/obj/effect/dummy/chameleon/AD in loc)
-		if(itemcount >= storage_capacity)
+		if(itemcount >= temp_capacity)
 			break
 		AD.forceMove(src)
 		itemcount++
 
 	for(var/obj/item/I in loc)
-		if(itemcount >= storage_capacity)
+		if(itemcount >= temp_capacity)
 			break
 		if(!I.anchored)
 			I.forceMove(src)
 			itemcount++
 
 	for(var/mob/M in loc)
-		if(itemcount >= storage_capacity)
+		if(itemcount >= temp_capacity)
 			break
 		if(isobserver(M))
 			continue
@@ -262,7 +264,7 @@
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
-	if(!(opened ? close() : open()))
+	if(!(opened ? close(user) : open()))
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
 /obj/structure/closet/proc/bust_open()
@@ -496,7 +498,7 @@
 	if(opened && can_close())
 		target.forceMove(src)
 		visible_message("<span class='danger'>[attacker] shoves [target] inside [src]!</span>", "<span class='warning'>You hear a thud, and something clangs shut.</span>")
-		close()
+		close(attacker)
 		add_attack_logs(attacker, target, "shoved into [src]")
 		return TRUE
 

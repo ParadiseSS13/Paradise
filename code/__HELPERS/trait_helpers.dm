@@ -350,14 +350,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_GERMOPHOBE "germophobe"
 /// user wont vomit around corpses
 #define TRAIT_CORPSE_RESIST "corpse_resist"
-/// user will take ~25% less tox damage
+/// user will take 25% less tox damage
 #define TRAIT_TOX_RESIST "tox_resist"
 /// user can drive the ambulance cart to push people out of the way
 #define TRAIT_SPEED_DEMON "speed_demon"
 
 // sci traits
 
-/// user take 50% damage from clone damage
+/// user take -25% damage from clone damage
 #define TRAIT_CLONE_RESIST "clone_resist"
 /// user can craft things from the crafting menu in 1/4 time
 #define TRAIT_CRAFTY "crafty"
@@ -385,18 +385,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// allows the user to stuff more items in lockers/crates and wrap them faster
 #define TRAIT_PACK_RAT "pack_rat"
 /// Allows the user to ????
-#define TRAIT_SMITH
-/// Allows the user to tell their Z level without a gps
-#define TRAIT_NAVIGATOR
+#define TRAIT_SMITH "tait_smith"
+/// Allows faster butchering times
+#define TRAIT_BUTCHER "butcher"
 
 // sec traits
 
 /// Gives the user a new tab for being able to open up space law/sop book pages
-#define TRAIT_JUDICIAL
+#define TRAIT_JUDICIAL "judicial"
 
 // command traits
 
-/// Allows user to drink coffee to ????
+/// Allows user to drink coffee to point rapidly to get others to do what you want
 #define TRAIT_COFFEE_SNOB "coffee_snob"
 
 

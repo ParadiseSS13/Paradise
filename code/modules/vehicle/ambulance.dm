@@ -131,8 +131,8 @@
 	else
 		step(M, turn(dir, 90))
 	playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-	if(directional_blocked || installed_vtec == TRUE) // GET OUT OF THE WAY, ASSHOLE!
-		M.KnockDown(4 SECONDS)
+	if(directional_blocked || (emagged == TRUE && installed_vtec == TRUE)) // GET OUT OF THE WAY, ASSHOLE!
+		M.KnockDown(2 SECONDS)
 
 /obj/vehicle/ambulance/proc/check_density(turf/T)
 	if(T.density)
@@ -141,6 +141,16 @@
 		if(thing.density)
 			return TRUE
 	return FALSE
+
+/obj/vehicle/ambulance/emag_act(mob/user)
+	emagged = TRUE
+	visible_message("[src] sputters and fizzles as the safeties are shorted out!")
+	do_sparks(3, 0, src)
+
+/obj/vehicle/ambulance/examine(mob/user)
+	. = ..()
+	if(emagged && in_range(src, user))
+		. += "<span class='danger'>The safeties seem to have been shorted out!</span>"
 
 /obj/structure/bed/amb_trolley
 	name = "ambulance train trolley"

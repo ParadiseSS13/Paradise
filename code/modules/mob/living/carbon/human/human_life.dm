@@ -109,20 +109,22 @@
 	for(var/mutation_type in active_mutations)
 		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
 		mutation.on_life(src)
-
-	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
+	var/gene_bonus
+	if(mind && HAS_TRAIT(mind, TRAIT_GENETIC_BUDGET))
+		gene_bonus = 5
+	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1 - gene_bonus)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(10, instability * 0.67))
 			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
-		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
+		if(gene_stability < GENETIC_DAMAGE_STAGE_2  - gene_bonus)
 			if(prob(instability * 0.83))
 				adjustCloneLoss(min(8, instability * 0.05))
 				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
 			if(prob(instability * 0.1))
 				adjustToxLoss(min(10, instability * 0.67))
 				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
-			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
+			if(gene_stability < (GENETIC_DAMAGE_STAGE_3  - gene_bonus) && prob(1))
 				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)

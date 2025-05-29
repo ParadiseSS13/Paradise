@@ -248,6 +248,10 @@
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
 
+/datum/outfit/job/geneticist/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_GENETIC_BUDGET, JOB_TRAIT)
+
 /datum/job/virologist
 	title = "Virologist"
 	flag = JOB_VIROLOGIST
@@ -271,6 +275,7 @@
 		/datum/job_objective/virus_samples
 	)
 	outfit = /datum/outfit/job/virologist
+
 
 /datum/outfit/job/virologist
 	name = "Virologist"
