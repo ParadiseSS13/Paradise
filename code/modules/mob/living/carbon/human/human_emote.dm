@@ -666,10 +666,12 @@
 	message = "caws."
 	message_param = "caws at %t."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	// Credit to u_a4gfvwagf1 (pixabay.com) for the original sound.
-	sound = "sound/effects/voxcaw.ogg"
+	// Credit to zeroisnotnull (opengameart.org) for the original sound.
 	species_type_whitelist_typecache = list(/datum/species/vox)
 	muzzled_noises = list("frustrated")
+
+/datum/emote/living/carbon/human/caw/get_sound(mob/living/user)
+	return pick("sound/effects/voxfcaw.ogg","sound/effects/voxrcaw.ogg")
 
 /datum/emote/living/carbon/human/warble
 	key = "warble"
