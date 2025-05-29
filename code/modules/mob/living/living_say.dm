@@ -139,6 +139,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	message = trim_left(message)
 
+	if(big_voice)
+		message = "<span class='reallybig'>[message]</span>"
+
 	//parse the language code and consume it
 	var/list/message_pieces = list()
 	if(ignore_languages)

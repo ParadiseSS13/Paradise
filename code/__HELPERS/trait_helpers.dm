@@ -358,7 +358,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // sci traits
 
 /// user take -25% damage from clone damage
-#define TRAIT_CLONE_RESIST "clone_resist"
+#define TRAIT_CLONE_RESIST "clone_resist" // not implemented yet
 /// user can craft things from the crafting menu in 1/4 time
 #define TRAIT_CRAFTY "crafty"
 /// User is alloted a higher genetics budget
