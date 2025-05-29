@@ -15,7 +15,9 @@
 	if(!istype(parent, /datum/action))
 		return COMPONENT_INCOMPATIBLE
 
-	ASSERT(isnull(item) || istype(item))
+	if(item && !istype(item))
+		stack_trace("[type] created with a non-null, non-movable item; item must be null or movable")
+		return COMPONENT_INCOMPATIBLE
 
 	if(!item && !item_callback)
 		stack_trace("[type] created without a reference item or an item callback - one or the other is required.")

@@ -30,8 +30,6 @@
 	var/show_to_observers = TRUE
 	/// Toggles whether this action is usable or not
 	var/action_disabled = FALSE
-	/// If False, the owner of this action does not get a hud and cannot activate it on their own
-	var/owner_has_control = TRUE
 	/// The appearance used as an overlay for when the action is unavailable
 	var/mutable_appearance/unavailable_effect
 
