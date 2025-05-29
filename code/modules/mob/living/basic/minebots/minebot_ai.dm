@@ -1,6 +1,6 @@
 /datum/ai_controller/basic_controller/minebot
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/always_check_factions,
 		BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends,
 		BB_MINIMUM_SHOOTING_DISTANCE = 3,
 		BB_MINEBOT_PLANT_MINES = TRUE,
@@ -75,7 +75,7 @@
 	var/obj/item/radio/radio = locate(/obj/item/radio) in living_pawn.contents
 	if(!radio)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
-	var/message = "[target] in need of help at coordinates: [target_turf.x], [target_turf.y], [target_turf.z]!"
+	var/message = message_to_multilingual("Miner in need of help at coordinates: [target_turf.x], [target_turf.y], [target_turf.z]!")
 	radio.talk_into(living_pawn, message, "Supply")
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 

@@ -9,7 +9,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	basic_mob_flags = DEL_ON_DEATH
 	sentience_type = SENTIENCE_MINEBOT
-	faction = list("neutral")
+	faction = list("neutral", "goldgrub") // goldgrubs are invulnerable to PKA fire
 	weather_immunities = list("ash")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minimum_survivable_temperature = 0
@@ -54,7 +54,7 @@
 	radio = new(src)
 	radio.listening = FALSE
 	radio.follow_target = src
-	radio.config(list("Supply" = 0))
+	radio.config(list("Supply" = TRUE))
 
 	AddComponent(/datum/component/footstep, FOOTSTEP_OBJ_ROBOT)
 	AddComponent(/datum/component/obeys_commands, pet_commands)
@@ -128,6 +128,7 @@
 	if(stored_gun)
 		for(var/obj/item/borg/upgrade/modkit/M in stored_gun.modkits)
 			M.uninstall(stored_gun)
+	robogibs(loc)
 	deathmessage = "blows apart!"
 	. = ..()
 
@@ -186,5 +187,5 @@
 	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \
 	"<span class='warning'>You press center button on \the [src]. The device suddenly expands into a fully functional mining drone!</span>")
 	var/mob/living/basic/mining_drone/drone = new(get_turf(src))
-	drone.ai_controller.set_blackboard_key(BB_MINER_FRIEND, user)
+	drone.befriend(user)
 	qdel(src)

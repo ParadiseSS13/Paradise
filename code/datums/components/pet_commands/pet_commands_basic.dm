@@ -24,7 +24,7 @@
 	command_name = "Loose"
 	command_desc = "Allow your pet to resume its natural behaviours."
 	speech_commands = list("free", "loose")
-	command_feedback = "relaxes"
+	command_feedback = "relaxes."
 
 /datum/pet_command/free/execute_action(datum/ai_controller/controller)
 	controller.clear_blackboard_key(BB_ACTIVE_PET_COMMAND)
@@ -93,7 +93,7 @@
 	command_desc = "Command your pet to attack things that you point out to it."
 	requires_pointing = TRUE
 	speech_commands = list("attack", "sic", "kill")
-	command_feedback = "growl"
+	command_feedback = "growls."
 	pointed_reaction = "and growls"
 	/// Balloon alert to display if providing an invalid target
 	var/refuse_reaction = "shakes head"

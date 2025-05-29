@@ -4,11 +4,15 @@
 	desc = "A minebot upgrade."
 	icon_state = "door_electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
+	new_attack_chain = TRUE
 
-/obj/item/mine_bot_upgrade/afterattack__legacy__attackchain(mob/living/basic/mining_drone/M, mob/user, proximity)
-	if(!istype(M) || !proximity)
-		return
-	upgrade_bot(M, user)
+/obj/item/mine_bot_upgrade/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	var/mob/living/basic/mining_drone/minebot = target
+	if(!istype(minebot))
+		return ..()
+
+	upgrade_bot(minebot, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mine_bot_upgrade/proc/upgrade_bot(mob/living/basic/mining_drone/M, mob/user)
 	if(M.melee_damage_upper != initial(M.melee_damage_upper))
@@ -29,6 +33,7 @@
 		return
 	M.maxHealth += 45
 	M.updatehealth()
+	to_chat(user, "You upgrade [M]'s chassis.")
 	qdel(src)
 
 /// Minebot AI upgrade/sentience potion
