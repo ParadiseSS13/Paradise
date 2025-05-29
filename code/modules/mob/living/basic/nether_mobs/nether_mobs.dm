@@ -23,7 +23,7 @@
 	/// The component we use for making ranged attacks
 	var/datum/component/ranged_attacks/ranged_attacks
 	/// The chance of it being a grappler variant
-	var/grappler_chance = 100
+	var/grappler_chance = 20
 
 /mob/living/basic/netherworld/Initialize(mapload)
 	. = ..()
