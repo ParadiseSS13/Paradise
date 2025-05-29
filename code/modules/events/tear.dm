@@ -77,7 +77,7 @@
 	var/spawn_max = 0
 	var/spawn_total = 0
 	var/list/possible_mobs = list(
-		/mob/living/basic/netherworld/hellhound,
+		/mob/living/basic/hostile/hellhound,
 		/mob/living/simple_animal/hostile/skeleton,
 		/mob/living/basic/netherworld/,
 		/mob/living/basic/netherworld/migo,

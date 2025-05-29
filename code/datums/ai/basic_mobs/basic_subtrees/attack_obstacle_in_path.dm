@@ -24,7 +24,7 @@
 	/// If we should attack walls, be prepared for complaints about breaches
 	var/can_attack_turfs = FALSE
 	/// For if you want your mob to be able to attack dense objects
-	var/can_attack_dense_objects = FALSE
+	var/can_attack_dense_objects = TRUE
 
 /datum/ai_behavior/attack_obstructions/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	var/mob/living/basic/basic_mob = controller.pawn
@@ -37,7 +37,7 @@
 	var/dir_to_next_step = get_dir(basic_mob, next_step)
 	// If moving diagonally we need to punch both ways, or more accurately the one we are blocked in
 	var/list/dirs_to_move = list()
-	if(dir_to_next_step & GLOB.diagonals)
+	if(dir_to_next_step && GLOB.diagonals)
 		for(var/direction in GLOB.cardinal)
 			if(direction & dir_to_next_step)
 				dirs_to_move += direction

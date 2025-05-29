@@ -93,7 +93,7 @@
 	mob_types = list(/mob/living/basic/netherworld/migo,
 					/mob/living/basic/netherworld,
 					/mob/living/basic/netherworld/blankbody,
-					/mob/living/basic/netherworld/hellhound,
+					/mob/living/basic/hostile/hellhound,
 					/mob/living/basic/hostile/skeleton,
 					/mob/living/basic/netherworld/faithless)
 	/// The event that spawned this portal

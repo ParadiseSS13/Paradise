@@ -1,4 +1,4 @@
-/mob/living/basic/netherworld/hellhound
+/mob/living/basic/hostile/hellhound
 	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
 	name = "lesser hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
@@ -22,6 +22,7 @@
 	universal_understand = TRUE
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	step_type = FOOTSTEP_MOB_CLAW
+	faction = list("nether")
 	/// The hellhound's icon when resting
 	var/icon_resting = "hellhound_rest"
 	/// How many cycles has the hellhound rested
@@ -35,7 +36,7 @@
 	/// How often can the hellhound use smoke
 	var/smoke_freq = 30 SECONDS
 
-/mob/living/basic/netherworld/hellhound/examine(mob/user)
+/mob/living/basic/hostile/hellhound/examine(mob/user)
 	. = ..()
 	if(stat != DEAD)
 		var/list/msgs = list()
@@ -56,7 +57,7 @@
 				msgs += "<span class='notice'>It is currently resting.</span>"
 		. += msgs.Join("<BR>")
 
-/mob/living/basic/netherworld/hellhound/Life(seconds, times_fired)
+/mob/living/basic/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
 	if(stat != DEAD && IS_HORIZONTAL(src) && (getBruteLoss() || getFireLoss()))
 		if(life_regen_cycles >= life_regen_cycle_trigger)
@@ -75,7 +76,7 @@
 // 		return TRUE
 // 	return FALSE
 
-/mob/living/basic/netherworld/hellhound/greater
+/mob/living/basic/hostile/hellhound/greater
 	name = "greater hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and should be engaged with extreme caution."
 	icon_state = "hellhoundgreater"
@@ -90,7 +91,7 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 
-/mob/living/basic/netherworld/hellhound/greater/Initialize(mapload)
+/mob/living/basic/hostile/hellhound/greater/Initialize(mapload)
 	. = ..()
 	// Movement
 	AddSpell(new /datum/spell/ethereal_jaunt/shift)
@@ -114,12 +115,12 @@
 	summonspell.summon_amt = 1
 	AddSpell(summonspell)
 
-/mob/living/basic/netherworld/hellhound/greater/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+/mob/living/basic/hostile/hellhound/greater/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	. = ..()
 	if(. && ishuman(target) && (!client || a_intent == INTENT_HARM))
 		special_aoe()
 
-/mob/living/basic/netherworld/hellhound/greater/proc/special_aoe()
+/mob/living/basic/hostile/hellhound/greater/proc/special_aoe()
 	if(world.time < (smoke_lastuse + smoke_freq))
 		return
 	smoke_lastuse = world.time
@@ -127,7 +128,7 @@
 	smoke.set_up(10, FALSE, loc)
 	smoke.start()
 
-/mob/living/basic/netherworld/hellhound/greater/tear
+/mob/living/basic/hostile/hellhound/greater/tear
 	name = "frenzied hellhound"
 	maxHealth = 300
 	health = 300

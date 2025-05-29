@@ -19,8 +19,17 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, STAM = 0, OXY = 1)
 	faction = list("nether")
 	var/step_type = FOOTSTEP_MOB_SHOE
+	/// The component we use for making ranged attacks
+	var/datum/component/ranged_attacks/ranged_attacks
+	/// The chance of it being a grappler variant
+	var/grappler_chance = 10
 
 /mob/living/basic/netherworld/Initialize(mapload)
 	. = ..()
+	if(prob(grappler_chance))
+		ranged_attacks = AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
+		name = "grappling " + name
+		ai_controller = /datum/ai_controller/basic_controller/simple/simple_skirmisher
+		update_name()
 	AddElement(/datum/element/ai_retaliate)
 	AddComponent(/datum/component/footstep, step_type)

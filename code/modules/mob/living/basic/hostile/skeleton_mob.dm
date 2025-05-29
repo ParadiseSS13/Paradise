@@ -13,8 +13,8 @@
 	melee_damage_upper = 15
 	harm_intent_damage = 5
 	obj_damage = 50
-	minbodytemp = 0
-	maxbodytemp = 1500
+	minimum_survivable_temperature = 0
+	maximum_survivable_temperature = 1500
 	healable = FALSE
 	attack_verb_simple = "slash"
 	attack_verb_continuous = "slashes"
@@ -39,7 +39,7 @@
 	gold_core_spawnable = NO_SPAWN
 	melee_damage_lower = 17
 	melee_damage_upper = 20
-	deathmessage = "collapses into a pile of bones, its gear falling to the floor!"
+	death_message = "collapses into a pile of bones, its gear falling to the floor!"
 	loot = list(/obj/effect/decal/remains/human,
 				/obj/item/spear,
 				/obj/item/clothing/shoes/winterboots,
