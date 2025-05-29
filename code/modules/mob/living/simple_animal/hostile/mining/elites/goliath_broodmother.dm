@@ -41,6 +41,7 @@
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/goliath
 
 	attack_action_types = list(/datum/action/innate/elite_attack/tentacle_patch,
 								/datum/action/innate/elite_attack/spawn_children,
