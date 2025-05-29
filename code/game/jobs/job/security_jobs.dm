@@ -70,6 +70,11 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
+/datum/outfit/job/hos/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)
+
 /datum/job/warden
 	title = "Warden"
 	flag = JOB_WARDEN
@@ -120,6 +125,11 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+
+/datum/outfit/job/warden/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)
 
 /datum/job/detective
 	title = "Detective"
@@ -173,9 +183,11 @@
 
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
-/datum/outfit/job/doctor/on_mind_initialize(mob/living/carbon/human/H)
+/datum/outfit/job/detective/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_CORPSE_RESIST, JOB_TRAIT) // too cool to vomit
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -240,3 +252,7 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
+/datum/outfit/job/officer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)

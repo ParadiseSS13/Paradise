@@ -128,6 +128,10 @@
 	id = /obj/item/card/id/smith
 	pda = /obj/item/pda/cargo
 
+/datum/outfit/job/smith/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_SMITH, JOB_TRAIT)
+
 /datum/job/mining
 	title = "Shaft Miner"
 	flag = JOB_MINER

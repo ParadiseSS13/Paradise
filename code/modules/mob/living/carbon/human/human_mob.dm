@@ -2198,3 +2198,18 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					to_chat(user, "<span class='info'>You conclude [src]'s [E.name] is broken.")
 				else
 					to_chat(user, "<span class='info'>You conclude [src]'s [E.name] has a [E.broken_description].")
+
+/mob/living/carbon/human/pointed(atom/A as mob|obj|turf in view())
+	set name = "Point To"
+	set category = null
+	if(next_move >= world.time)
+		return
+
+	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
+		return FALSE
+	if(mind && HAS_TRAIT(mind, TRAIT_COFFEE_SNOB) && reagents.has_reagent("coffee"))
+		changeNext_move(CLICK_CD_POINT / 3)
+	else
+		changeNext_move(CLICK_CD_POINT)
+
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))

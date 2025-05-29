@@ -300,3 +300,21 @@
 	if(!H.mind.initial_account)
 		return
 	id.associated_account_number = H.mind.initial_account.account_number
+
+/mob/living/carbon/human/proc/space_law()
+	set name = "Open Space Law"
+	set desc = "Open a memorized version of the space law booklet."
+	set category = "Space Law"
+
+	var/obj/item/book/manual/wiki/security_space_law/imaginary/book = new()
+	if(!put_in_any_hand_if_possible(book))
+		QDEL_NULL(book)
+
+/mob/living/carbon/human/proc/sop_legal()
+	set name = "Open Legal SOP"
+	set desc = "Open a memorized version of the legal SOP booklet."
+	set category = "Space Law"
+
+	var/obj/item/book/manual/wiki/sop_legal/imaginary/book = new()
+	if(!put_in_any_hand_if_possible(book))
+		QDEL_NULL(book)

@@ -198,6 +198,10 @@
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
+/datum/outfit/job/nanotrasenrep/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_COFFEE_SNOB, JOB_TRAIT)
+
 /datum/job/blueshield
 	title = "Blueshield"
 	flag = JOB_BLUESHIELD
@@ -306,6 +310,11 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
+/datum/outfit/job/judge/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)
+
 /datum/job/iaa
 	title = "Internal Affairs Agent"
 	flag = JOB_INTERNAL_AFFAIRS
@@ -353,6 +362,11 @@
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+
+/datum/outfit/job/iaa/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)
 
 /datum/job/nanotrasentrainer
 	title = "Nanotrasen Career Trainer"

@@ -928,6 +928,16 @@
 	title = "Space Law"
 	wiki_article_title = "Space_law"
 
+/obj/item/book/manual/wiki/security_space_law/imaginary
+	name = "Imaginary Space Law Manual"
+	desc = "A set of memorized Nanotrasen guidelines for keeping law and order on their space stations."
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+
+/obj/item/book/manual/wiki/security_space_law/imaginary/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+	return FINISH_ATTACK // its imaginary
+
 /obj/item/book/manual/wiki/security_space_law/black
 	name = "Space Law - Limited Edition"
 	desc = "A leather-bound, immaculately-written copy of JUSTICE."
@@ -957,6 +967,16 @@
 	author = "Nanotrasen"
 	title = "Legal Standard Operating Procedures"
 	wiki_article_title = "Legal_Standard_Operating_Procedure"
+
+/obj/item/book/manual/wiki/sop_legal/imaginary
+	name = "Imaginary Legal SOP Manual"
+	desc = "A set of memorized Nanotrasen guidelines for keeping law and order on their space stations."
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+
+/obj/item/book/manual/wiki/sop_legal/imaginary/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+	return FINISH_ATTACK // its imaginary
 
 /obj/item/book/manual/wiki/sop_supply
 	name = "Supply Standard Operating Procedures"
