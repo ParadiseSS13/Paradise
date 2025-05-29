@@ -23,14 +23,14 @@
 	/// The component we use for making ranged attacks
 	var/datum/component/ranged_attacks/ranged_attacks
 	/// The chance of it being a grappler variant
-	var/grappler_chance = 10
+	var/grappler_chance = 100
 
 /mob/living/basic/netherworld/Initialize(mapload)
 	. = ..()
 	if(prob(grappler_chance))
 		ranged_attacks = AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
 		name = "grappling " + name
-		ai_controller = /datum/ai_controller/basic_controller/simple/simple_skirmisher
+		ai_controller = new /datum/ai_controller/basic_controller/simple/simple_skirmisher(src)
 		update_appearance(UPDATE_NAME)
 	AddElement(/datum/element/ai_retaliate)
 	AddComponent(/datum/component/footstep, step_type)
