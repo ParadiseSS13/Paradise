@@ -604,11 +604,11 @@ redis_connstring = "redis://127.0.0.1/"
 # This section contains configuration for all space ruins and lava ruins
 
 # Enable space z-level generation.
-enable_space = true
+enable_space = false
 # Enable lavaland generation.
-enable_lavaland = true
+enable_lavaland = false
 # Globally enable and disable placing of all ruins across lavaland and space.
-enable_ruins = true
+enable_ruins = false
 # Minimum number of extra space zlevels to generate
 minimum_space_zlevels = 2
 # Maximum number of extra space zlevels to generate
@@ -639,7 +639,6 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining1.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining2.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining3.dmm",
-  "_maps/map_files/RandomRuins/SpaceRuins/bluespace_relay_beacon.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/casino.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/clockwork_monastery.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
@@ -731,7 +730,6 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
-  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_mining_telecomms.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_monster_nest.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
@@ -776,7 +774,7 @@ external_tos_handler = false
 # Path to the map datum to load, overriding the defaults and `data/next_map.txt`.
 # Do not use in production.
 # Comment out to disable.
-#override_map = "/datum/map/test_tiny"
+override_map = "/datum/map/test_tiny"
 # Regional servers.
 # This is not for separate DD instances per region, but if you have a geo-routing setup deployed to optimise routing for players
 # I am 99.9% certain you will never need to fill this out
