@@ -100,6 +100,8 @@
 	var/datum/event/demon_incursion/linked_incursion
 	/// The delay before it spawns another portal
 	var/expansion_delay = 1 MINUTES
+	/// Chance to spawn a new portal
+	var/expansion_chance = 50
 
 /obj/structure/spawner/nether/demon_incursion/Initialize(mapload)
 	. = ..()
@@ -131,6 +133,8 @@
 		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
 
 /obj/structure/spawner/nether/demon_incursion/proc/spread()
+	if(!prob(expansion_chance))
+		return
 	var/list/spawnable_turfs = list()
 	for(var/turf/simulated/floor/possible_loc in orange(8, src.loc))
 		if(!istype(possible_loc))
