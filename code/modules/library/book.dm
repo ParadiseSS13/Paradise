@@ -23,6 +23,7 @@
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
+	new_attack_chain = TRUE
 
 	///Title & Real name of the book
 	var/title
@@ -74,37 +75,41 @@
 	icon_state = "book[rand(1,8)]"
 
 
-/obj/item/book/attack__legacy__attackchain(mob/M, mob/living/user)
+/obj/item/book/attack(mob/M, mob/living/user)
 	if(user.a_intent == INTENT_HELP)
 		force = 0
 		attack_verb = list("educated")
 	else
 		force = initial(force)
 		attack_verb = list("bashed", "whacked")
-	..()
+	return ..()
 
-/obj/item/book/attack_self__legacy__attackchain(mob/user)
+/obj/item/book/activate_self(mob/user)
+	if(..())
+		return
 	if(carved)
 		//Attempt to remove inserted object, if none found, remind user that someone vandalized their book (Bastards)!
 		if(!remove_stored_item(user, TRUE))
 			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
-		return
+		return FINISH_ATTACK
 	user.visible_message("<span class='notice'>[user] opens a book titled \"[title]\" and begins reading intently.</span>")
 	read_book(user)
+	return FINISH_ATTACK
 
-/obj/item/book/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(is_pen(I))
+/obj/item/book/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
 		edit_book(user)
-	else if(istype(I, /obj/item/barcodescanner))
-		var/obj/item/barcodescanner/scanner = I
+	else if(istype(used, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/scanner = used
 		scanner.scanBook(src, user) //abstraction and proper scoping ftw | did you know barcode scanner code used to be here?
-		return
-	else if(I.sharp && !carved) //don't use sharp objects on your books if you don't want to carve out all of its pages kids!
-		carve_book(user, I)
-	else if(store_item(I, user))
-		return
+		return ITEM_INTERACT_COMPLETE
+	else if(used.sharp && !carved) //don't use sharp objects on your books if you don't want to carve out all of its pages kids!
+		carve_book(user, used)
+		return ITEM_INTERACT_COMPLETE
+	else if(store_item(used, user))
+		return ITEM_INTERACT_COMPLETE
 	else
-		..()
+		return ..()
 
 /obj/item/book/examine(mob/user)
 	. = ..()

@@ -27,7 +27,6 @@
 	//Pages has to be a list of strings, it will break the book otherwise
 	pages = list({"How did we get here? Anyway, if you are reading this please make a report on the Github as you should not
 					be able to possess this object in the first place!"})
-	new_attack_chain = TRUE
 
 /obj/item/book/manual/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
@@ -944,6 +943,11 @@
 		return FINISH_ATTACK
 	return FINISH_ATTACK // its imaginary
 
+/obj/item/book/manual/wiki/security_space_law/imaginary/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE // its imaginary
+
 /obj/item/book/manual/wiki/security_space_law/black
 	name = "Space Law - Limited Edition"
 	desc = "A leather-bound, immaculately-written copy of JUSTICE."
@@ -988,6 +992,11 @@
 	if(..())
 		return FINISH_ATTACK
 	return FINISH_ATTACK // its imaginary
+
+/obj/item/book/manual/wiki/sop_legal/imaginary/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE // its imaginary
 
 /obj/item/book/manual/wiki/sop_supply
 	name = "Supply Standard Operating Procedures"
