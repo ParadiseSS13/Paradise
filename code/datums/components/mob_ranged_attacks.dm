@@ -63,7 +63,7 @@
 /// Actually fire the damn thing
 /datum/component/ranged_attacks/proc/async_fire_ranged_attack(mob/living/basic/firer, atom/target, modifiers)
 	firer.face_atom(target)
-	var/turf/current_turf = get_turf(src)
+	var/turf/current_turf = get_turf(firer)
 	var/turf/target_turf = get_turf(target)
 
 	var/obj/item/projectile/mob_projectile = new projectile_type(firer.loc)
