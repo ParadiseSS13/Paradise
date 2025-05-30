@@ -56,7 +56,7 @@
 			if(prob(3))
 				to_chat(affected_mob, "<span class='danger'>Your feel an uncomfortable pressure in your abdomen.</span>")
 			if(prob(2))
-				affected_mob.custom_emote(EMOTE_VISIBLE, "burps")
+				affected_mob.custom_emote(EMOTE_AUDIBLE, "burps")
 			if(prob(1))
 				affected_mob.emote("groan")
 		if(4)
@@ -64,16 +64,16 @@
 				affected_mob.fakevomit(no_text = 1)
 				affected_mob.adjust_nutrition(-rand(3,5))
 			if(prob(2))
-				affected_mob.custom_emote(EMOTE_VISIBLE, "burps")
+				affected_mob.custom_emote(EMOTE_AUDIBLE, "burps")
 			if(prob(3))
 				to_chat(affected_mob, "<span class='danger'>Your feel horribly bloated.</span>")
 			if(prob(2))
 				to_chat(affected_mob, "<span class='danger'>A deep bubbling resounds through your chest.</span>")
 		if(5)
 			if(prob(2))
-				affected_mob.custom_emote(EMOTE_VISIBLE, "belches loudly!")
+				affected_mob.custom_emote(EMOTE_AUDIBLE, "belches loudly!")
 			if(prob(1))
-				affected_mob.custom_emote(EMOTE_VISIBLE, "burps")
+				affected_mob.custom_emote(EMOTE_AUDIBLE, "burps")
 			if(prob(1))
 				affected_mob.emote("groan")
 			if(prob(3))
@@ -84,8 +84,8 @@
 				affected_mob.adjustBruteLoss(5)
 				affected_mob.vomit(6, 0, TRUE, 7, 0)
 				affected_mob.visible_message(
-					"<span class='danger'>[affected_mob] vomits with such force that [affected_mob.p_theyre(FALSE)] sent flying backwards!</span>", 
-					"<span class='userdanger'>You vomit a torrent of magic bile so forcefully, that you are sent flying!</span>", 
+					"<span class='danger'>[affected_mob] vomits with such force that [affected_mob.p_theyre(FALSE)] sent flying backwards!</span>",
+					"<span class='userdanger'>You vomit a torrent of magic bile so forcefully, that you are sent flying!</span>",
 					"<span class='warning'>You hear someone vomit profusely.</span>"
 				)
 				do_fling(affected_mob)

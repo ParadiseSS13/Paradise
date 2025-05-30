@@ -116,8 +116,9 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 /datum/antagonist/zombie/get_antag_objectives()
 	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
 		return
+	return ..()
 
 /datum/antagonist/zombie/add_antag_objective()
 	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
 		return
-
+	return ..()
