@@ -1,14 +1,3 @@
-#define ASSIGNMENT_ANY "Any"
-#define ASSIGNMENT_AI "AI"
-#define ASSIGNMENT_CYBORG "Cyborg"
-#define ASSIGNMENT_ENGINEER "Engineer"
-#define ASSIGNMENT_BOTANIST "Botanist"
-#define ASSIGNMENT_JANITOR "Janitor"
-#define ASSIGNMENT_MEDICAL "Medical"
-#define ASSIGNMENT_SCIENTIST "Scientist"
-#define ASSIGNMENT_SECURITY "Security"
-#define ASSIGNMENT_CHEMIST "Chemist"
-
 GLOBAL_LIST_INIT(severity_to_string, list(EVENT_LEVEL_MUNDANE = "Mundane", EVENT_LEVEL_MODERATE = "Moderate", EVENT_LEVEL_MAJOR = "Major"))
 GLOBAL_LIST_EMPTY(event_last_fired)
 
@@ -46,10 +35,10 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		set_event_delay()
 		next_event.enabled = !next_event.one_shot	// This event will no longer be available in the random rotation if one shot
 
-		new next_event.event_type(next_event)	// Events are added and removed from the processing queue in their New/kill procs
+		new next_event.skeleton.type(next_event)	// Events are added and removed from the processing queue in their New/kill procs
 
-		log_debug("Starting event '[next_event.name]' of severity [GLOB.severity_to_string[severity]].")
-		SSblackbox.record_feedback("nested tally", "events", 1, list(GLOB.severity_to_string[severity], next_event.name))
+		log_debug("Starting event '[next_event.skeleton.name]' of severity [GLOB.severity_to_string[severity]].")
+		SSblackbox.record_feedback("nested tally", "events", 1, list(GLOB.severity_to_string[severity], next_event.skeleton.name))
 		GLOB.event_last_fired[next_event] = world.time
 		next_event = null						// When set to null, a random event will be selected next time
 	else
@@ -60,11 +49,39 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/proc/acquire_event()
 	if(length(available_events) == 0)
 		return
+	// A list of the amount of active players in each role/department
 	var/active_with_role = number_active_with_role()
+	// A list of the net available resources of each department depending on staffing and active threats/events
+	var/list/total_resources = list()
+
+	// Add resources from staffing
+	for(var/assignment in active_with_role)
+		if(total_resources[assignment])
+			total_resources[assignment] += ASSIGNMENT_STAFFING_VALUE
+		else
+			total_resources[assignment] = ASSIGNMENT_STAFFING_VALUE
+
+	// Subtract resources from active antags
+	for(var/datum/antagonist/active in GLOB.antagonists)
+		var/list/antag_costs = active.antag_event_resource_cost()
+		for(var/assignment in antag_costs)
+			if(total_resources[assignment])
+				total_resources[assignment] -= antag_costs[assignment]
+			else
+				total_resources[assignment] = -antag_costs[assignment]
+
+	// Subtract resources from active events
+	for(var/datum/event/active in SSevents.active_events)
+		var/list/event_costs = active.event_resource_cost()
+		for(var/assignment in event_costs)
+			if(total_resources[assignment])
+				total_resources[assignment] -= event_costs[assignment]
+			else
+				total_resources[assignment] = -event_costs[assignment]
 
 	var/list/possible_events = list()
 	for(var/datum/event_meta/EM in available_events)
-		var/event_weight = EM.get_weight(active_with_role)
+		var/event_weight = EM.get_weight(total_resources)
 		if(EM.enabled && event_weight)
 			possible_events[EM] = event_weight
 
@@ -134,92 +151,89 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Nothing",			/datum/event/nothing,			1100),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "PDA Spam",			/datum/event/pda_spam, 			0, 		list(ASSIGNMENT_ANY = 4), FALSE, 25, 50),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Economic News",		/datum/event/economic_event,	300),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Trivial News",		/datum/event/trivial_news, 		400),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Mundane News", 		/datum/event/mundane_news, 		300),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Vermin Infestation",/datum/event/infestation, 		100,	list(ASSIGNMENT_JANITOR = 100)),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Sentience",			/datum/event/sentience,			50),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30)),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Fungal Growth",		/datum/event/wallrot/fungus, 	50, 	list(ASSIGNMENT_CHEMIST = 50)),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Koi School",		/datum/event/carp_migration/koi,		80),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Camera Failure",	/datum/event/camera_failure,		100, list(ASSIGNMENT_ENGINEER = 10)),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Fake Virus",		/datum/event/fake_virus,		50),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Bureaucratic Error",/datum/event/bureaucratic_error,					40, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Disease Outbreak",	/datum/event/disease_outbreak, 			50,		list(ASSIGNMENT_MEDICAL = 25), TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 1100),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 0, FALSE, 25, 50),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	300),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 		400),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 300),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 100),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 50),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot, 0),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot/fungus, 50),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/carp_migration/koi,		80),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/camera_failure, 100),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/fake_virus,		50),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bureaucratic_error,	40, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/disease_outbreak, 50, TRUE)
 	)
 
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Nothing",					/datum/event/nothing,					1230),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "False Alarm",				/datum/event/falsealarm,					200),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Appendicitis", 			/datum/event/spontaneous_appendicitis, 	0,		list(ASSIGNMENT_MEDICAL = 10), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Carp School",				/datum/event/carp_migration,			200, 	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Rogue Drones",				/datum/event/rogue_drone, 				0,		list(ASSIGNMENT_SECURITY = 20)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Space Vines",				/datum/event/spacevine, 				250,	list(ASSIGNMENT_ENGINEER = 10)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Meteor Shower",			/datum/event/meteor_wave,				0,		list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Solar Flare",				/datum/event/solar_flare,				0,		list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Meaty Ores",				/datum/event/dust/meaty,				0,		list(ASSIGNMENT_ENGINEER = 20)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Communication Blackout",	/datum/event/communications_blackout,	500,	list(ASSIGNMENT_AI = 150, ASSIGNMENT_SECURITY = 120)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Prison Break",				/datum/event/prison_break,				0,		list(ASSIGNMENT_SECURITY = 100)),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 1230),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/falsealarm, 200),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spontaneous_appendicitis, 	0, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 200, , TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/rogue_drone, 0),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spacevine, 250),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 0),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/solar_flare, 0),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 0),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 500),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/prison_break, 0),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "APC Short",				/datum/event/apc_short, 				200,	list(ASSIGNMENT_ENGINEER = 60)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Electrical Storm",			/datum/event/electrical_storm, 			250,	list(ASSIGNMENT_ENGINEER = 20, ASSIGNMENT_JANITOR = 150)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Radiation Storm",			/datum/event/radiation_storm, 			25,		list(ASSIGNMENT_MEDICAL = 50), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Spider Infestation",		/datum/event/spider_infestation, 		100,	list(ASSIGNMENT_SECURITY = 30), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ion Storm",				/datum/event/ion_storm, 				0,		list(ASSIGNMENT_AI = 50, ASSIGNMENT_CYBORG = 50, ASSIGNMENT_ENGINEER = 15, ASSIGNMENT_SCIENTIST = 5)),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/apc_short, 200),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/electrical_storm, 250),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/radiation_storm, 25, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spider_infestation, 100, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/ion_storm, 0),
 		//new /datum/event_meta/ninja(EVENT_LEVEL_MODERATE, "Space Ninja",		/datum/event/space_ninja, 				0,		list(ASSIGNMENT_SECURITY = 15), TRUE),
 		// NON-BAY EVENTS
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Mass Hallucination",		/datum/event/mass_hallucination,		300),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Brand Intelligence",		/datum/event/brand_intelligence,		50, 	list(ASSIGNMENT_ENGINEER = 25),	TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Dimensional Tear",			/datum/event/tear,						0,		list(ASSIGNMENT_SECURITY = 35)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Honknomoly",				/datum/event/tear/honk,						0),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vent Clog",				/datum/event/vent_clog,					250),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Wormholes",				/datum/event/wormholes,					150),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Pyro Anomaly",				/datum/event/anomaly/anomaly_pyro,		75,		list(ASSIGNMENT_ENGINEER = 60)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Cryo Anomaly",				/datum/event/anomaly/anomaly_cryo,		75,		list(ASSIGNMENT_ENGINEER = 60)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vortex Anomaly",			/datum/event/anomaly/anomaly_vortex,	75,		list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Bluespace Anomaly",		/datum/event/anomaly/anomaly_bluespace,	75,		list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Flux Anomaly",				/datum/event/anomaly/anomaly_flux,		75,		list(ASSIGNMENT_ENGINEER = 50)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Gravitational Anomaly",	/datum/event/anomaly/anomaly_grav,		200),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Revenant", 				/datum/event/revenant, 					150),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Morph Spawn", 				/datum/event/spawn_morph, 				40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Disease Outbreak",			/datum/event/disease_outbreak, 			50,		list(ASSIGNMENT_MEDICAL = 30), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Door Runtime",				/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Tourist Arrivals",			/datum/event/tourist_arrivals,			100,	list(ASSIGNMENT_SECURITY = 15), TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/mass_hallucination,		300),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 50, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear, 0),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear/honk,	0),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/vent_clog,	250),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/wormholes,	150),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_pyro, 75),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_cryo, 75),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_vortex, 75),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_bluespace,	75),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 75),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 200),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/revenant, 150),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_morph, 40, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 50, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 50, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 100, TRUE)
 	)
 
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Nothing",				/datum/event/nothing,			590),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Carp Migration",		/datum/event/carp_migration,	10,		list(ASSIGNMENT_SECURITY =  3), TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 590),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "APC Overload",		/datum/event/apc_overload,		0),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Blob",				/datum/event/blob, 				20,		list(ASSIGNMENT_ENGINEER =  4), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",			/datum/event/meteor_wave,		0,		list(ASSIGNMENT_ENGINEER =  10),	TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Abductor Visit",		/datum/event/abductor, 		    20, 	list(ASSIGNMENT_SECURITY =  3), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Alien Infestation",	/datum/event/alien_infestation, 15,		list(ASSIGNMENT_SECURITY = 3), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Traders",				/datum/event/traders,			85, 	is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",		/datum/event/spider_terror, 	15,		list(ASSIGNMENT_SECURITY = 3), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",		/datum/event/spawn_slaughter,	20,  	is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Shadow Demon", 		/datum/event/spawn_slaughter/shadow,	20, 	is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Immovable Rod",		/datum/event/immovable_rod,				0,		list(ASSIGNMENT_ENGINEER = 10), TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	0),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/blob, 20, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 0, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 20, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/alien_infestation, 15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 85, 	is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spider_terror, 	15,		list(ASSIGNMENT_SECURITY = 3), TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 20, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 20, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 0, TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
 
-
-#undef ASSIGNMENT_ANY
-#undef ASSIGNMENT_AI
-#undef ASSIGNMENT_CYBORG
-#undef ASSIGNMENT_ENGINEER
-#undef ASSIGNMENT_BOTANIST
-#undef ASSIGNMENT_JANITOR
-#undef ASSIGNMENT_MEDICAL
-#undef ASSIGNMENT_SCIENTIST
-#undef ASSIGNMENT_SECURITY
-#undef ASSIGNMENT_CHEMIST
+/datum/event_container/disaster
+	severity = EVENT_LEVEL_DISASTER
+	available_events = list(
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 590),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 20, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 	15,		list(ASSIGNMENT_SECURITY = 3), TRUE)
+		)

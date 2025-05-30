@@ -1,4 +1,6 @@
 /datum/event/door_runtime
+	name = "Door Runtime"
+	role_weights = list(ASSIGNMENT_ENGINEERING = 25, ASSIGNMENT_AI = 150)
 
 /datum/event/door_runtime/announce()
 	GLOB.minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert", 'sound/AI/door_runtimes.ogg')

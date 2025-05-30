@@ -1,4 +1,6 @@
 /datum/event/meteor_wave
+	name = "Meteor Wave"
+	role_weights = list(ASSIGNMENT_ENGINEERING = 25)
 	startWhen		= 5
 	endWhen 		= 7
 	var/next_meteor = 6
