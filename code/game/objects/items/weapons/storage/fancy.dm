@@ -371,7 +371,7 @@
 	icon_state = "robust_packet"
 	item_state = "robust_packet"
 	cigarette_slogan = "Unsure about smoking? Want to bring your children safely into the family tradition? Look no more with this special packet! Includes 100% nicotine-free* candy cigarettes."
-	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
+	cigarette_type = /obj/item/clothing/mask/cigarette/candy
 
 /obj/item/storage/fancy/cigarettes/cigpack_candy/examine(mob/user)
 	. = ..()
@@ -407,7 +407,7 @@
 	desc = "An obscure brand of evil-looking cigarettes. They smell like donk pockets."
 	icon_state = "syndie_packet"
 	item_state = "syndie_packet"
-	cigarette_slogan = "Strong flavour, dense smoke, infused with Omnizine."
+	cigarette_slogan = "Strong flavour, dense smoke, infused with omnizine."
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/rollingpapers
