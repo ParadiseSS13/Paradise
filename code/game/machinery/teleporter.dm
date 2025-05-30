@@ -524,7 +524,7 @@
 		to_chat(entered, "<span class='notice'>You can't use this here.</span>")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(entered) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS))
+	if(target && !recalibrating && !panel_open && !blockAI(entered) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS) && !iseffect(entered))
 		do_teleport(entered, target)
 		use_power(5000)
 		teleports_this_cycle++

@@ -11,15 +11,15 @@
 
 
 /obj/item/clothing/under/rank/cargo/qm
-	name = "quartermaster's jumpsuit"
-	desc = "It's a jumpsuit worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
+	name = "quartermaster's uniform"
+	desc = "It's a brown dress shirt and black slacks worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
 	icon_state = "qm"
 	item_state = "qm"
 	item_color = "qm"
 
 /obj/item/clothing/under/rank/cargo/qm/skirt
-	name = "quartermaster's jumpskirt"
-	desc = "It's a jumpskirt worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
+	name = "quartermaster's skirt"
+	desc = "It's a brown dress shirt and black skirt worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
 	icon_state = "qm_skirt"
 	item_state = "qm_skirt"
 	item_color = "qm_skirt"
@@ -27,7 +27,7 @@
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/cargo/qm/dress
-	name = "quartermaster's dress uniform"
+	name = "quartermaster's dress"
 	desc = "An elegant dress for the style conscious quartermaster."
 	icon_state = "qm_dress"
 	item_state = "qm_dress"
@@ -105,7 +105,7 @@
 
 /obj/item/clothing/under/rank/cargo/expedition/overalls
 	name = "expedition overalls"
-	desc = "A black set of overalls over a brown turtleneck, designed to protect the wearer from microscopic space debris. Does not protect against larger objects."
+	desc = "A brown set of overalls over a blue turtleneck, designed to protect the wearer from microscopic space debris. Does not protect against larger objects."
 	icon_state = "expedition_overalls"
 	item_state = "expedition_overalls"
 	item_color = "expedition_overalls"
