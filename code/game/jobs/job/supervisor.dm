@@ -198,6 +198,17 @@
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
+/datum/outfit/job/nanotrasenrep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+
+	if(visualsOnly)
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(give_gaze), H)
+
+/datum/outfit/job/nanotrasenrep/proc/give_gaze(mob/living/carbon/human/user)
+	user.AddSpell(new /datum/spell/inspectors_gaze(null))
+
 /datum/job/blueshield
 	title = "Blueshield"
 	flag = JOB_BLUESHIELD
@@ -327,7 +338,7 @@
 		ACCESS_RESEARCH,
 		ACCESS_SEC_DOORS
 	)
-	alt_titles = list("Human Resources Agent")
+	alt_titles = list("Human Resources Agent", "Inspector")
 	minimal_player_age = 30
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
@@ -353,6 +364,17 @@
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+
+/datum/outfit/job/iaa/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+
+	if(visualsOnly)
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(give_gaze), H)
+
+/datum/outfit/job/iaa/proc/give_gaze(mob/living/carbon/human/user)
+	user.AddSpell(new /datum/spell/inspectors_gaze(null))
 
 /datum/job/nanotrasentrainer
 	title = "Nanotrasen Career Trainer"
