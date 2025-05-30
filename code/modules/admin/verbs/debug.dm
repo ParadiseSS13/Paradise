@@ -918,3 +918,28 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		CHECK_TICK
 
 	log_and_message_admins_no_usr("The world has been decontaminated of [counter] radiation components.")
+
+/client/proc/cmd_debug_types()
+	set name = "Debug Types"
+	set desc = "List all instances of given type"
+	set category = "Debug"
+	if(!check_rights(R_DEBUG))
+		return
+	var/target_path = tgui_input_text(src, "Debug Types (WARNING: CAN CAUSE LAG)", "Enter Type Path", "")
+	log_debug("target_path = [target_path]")
+	var/list/data = list()
+	for(var/datum/D in get_all_of_type(target_path))
+		var/item = list()
+		item["path"] = D.type
+		item["uid"] = "\ref[D]"
+		item["can_edit"] = "true"
+		item["can_jump"] = "false"
+		item["loc"] = ""
+		if(istype(D, /atom/movable))
+			var/atom/movable/A = D
+			if(A.loc)
+				item["can_jump"] = "true"
+				item["loc"] = "[A.loc]"
+		data[++data.len] = item
+	var/datum/ui_module/debug_types/ui = new(target_path=target_path, data=data)
+	ui.ui_interact(usr)
