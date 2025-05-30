@@ -34,7 +34,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 	items_to_replace = list(
-		/obj/item/reagent_containers/borghypo/basic = /obj/item/reagent_containers/borghypo/basic/upgraded
+		/obj/item/reagent_containers/borghypo/basic = /obj/item/reagent_containers/borghypo
 	)
 
 // Улучшения голопроектора //
