@@ -663,8 +663,8 @@
 /datum/emote/living/carbon/human/caw
 	key = "caw"
 	key_third_person = "caws"
-	message = "caws."
-	message_param = "caws at %t."
+	message = "cawws!"
+	message_param = "cawws at %t!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	// Credit to zeroisnotnull (opengameart.org) for the original sound.
 	species_type_whitelist_typecache = list(/datum/species/vox)
