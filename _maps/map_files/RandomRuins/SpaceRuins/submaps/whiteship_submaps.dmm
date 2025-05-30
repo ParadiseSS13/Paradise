@@ -634,7 +634,6 @@
 /area/template_noop)
 "Nr" = (
 /obj/structure/bed,
-/obj/effect/mob_spawn/human/alive/zombie/non_infectious,
 /obj/effect/decal/cleanable/blood,
 /obj/item/restraints/handcuffs/cable/zipties/used,
 /obj/item/stack/sheet/cloth,
