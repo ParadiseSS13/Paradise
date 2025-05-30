@@ -1,7 +1,7 @@
 //Lavaland Ruins
 
 /area/ruin/powered/beach
-	name = "Beach Bar"
+	name = "Пляжный Бар"
 	icon_state = "beach"
 
 /area/ruin/powered/clownplanet
@@ -18,7 +18,7 @@
 	icon_state = "yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
+	name = "Корабль Свободных Големов"
 	icon_state = "yellow"
 
 /area/ruin/powered/greed
@@ -37,7 +37,7 @@
 	icon_state = "yellow"
 
 /area/ruin/unpowered/hierophant
-	name = "Hierophant's Arena"
+	name = "Арена Иерофанта"
 	icon_state = "yellow"
 
 /area/ruin/powered/pride

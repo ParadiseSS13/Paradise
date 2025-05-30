@@ -157,20 +157,20 @@
 // Hallways for departments
 
 /area/station/hallway/supply
-	name = "\improper Cargo Hallway"
+	name = "Коридор Карго"
 	icon_state = "cargo_hallway"
 
 /area/station/hallway/supply/fore
-	name = "\improper Fore Cargo Hallway"
+	name = "Северный Коридор Карго"
 
 /area/station/hallway/supply/starboard
-	name = "\improper Starboard Cargo Hallway"
+	name = "Восточный Коридор Карго"
 
 /area/station/hallway/supply/aft
-	name = "\improper Aft Cargo Hallway"
+	name = "Южный Коридор Карго"
 
 /area/station/hallway/supply/port
-	name = "\improper Port Cargo Hallway"
+	name = "Западный Коридор Карго"
 
 
 // Other public areas
@@ -213,7 +213,7 @@
 	request_console_name = "Crew Quarters"
 
 /area/station/public/arcade
-	name = "Аркаданый Зал"
+	name = "Аркадный Зал"
 	icon_state = "arcade"
 
 /area/station/public/mrchangs

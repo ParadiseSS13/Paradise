@@ -11,7 +11,7 @@
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/shuttle/arrival
-	name = "\improper Arrival Shuttle"
+	name = "Шаттл Прибытия"
 	parallax_move_direction = EAST
 
 /area/shuttle/arrival/station

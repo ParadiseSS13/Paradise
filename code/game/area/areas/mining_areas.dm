@@ -5,7 +5,7 @@
 	has_gravity = TRUE
 
 /area/mine/unexplored
-	name = "Mine"
+	name = "Астероид"
 	icon_state = "unexplored"
 	always_unpowered = TRUE
 	requires_power = TRUE

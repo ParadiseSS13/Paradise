@@ -96,13 +96,13 @@
 // Other Areas on centcom z level
 
 /area/abductor_ship
-	name = "\improper Abductor Ship"
+	name = "Корабль Абдукторов"
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = TRUE
 
 /area/wizard_station
-	name = "\improper Wizard's Den"
+	name = "Логово Волшебника"
 	icon_state = "yellow"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
@@ -121,23 +121,23 @@
 	name = "\improper SpiderClan Holding Facility"
 
 /area/trader_station
-	name = "Trade Base"
+	name = "Торговая Станция"
 	icon_state = "yellow"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/trader_station/sol
-	name = "Trading Satellite"
+	name = "Торговая Станция ТСФ"
 
 /area/ghost_bar
-	name = "Ghost Bar"
+	name = "Призрачный Бар"
 	icon_state = "observatory"
 	requires_power = FALSE
 	has_gravity = TRUE
 	hide_attacklogs = TRUE
 
 /area/backrooms
-	name = "Backrooms"
+	name = "Закулисье"
 	icon_state = "yellow"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
