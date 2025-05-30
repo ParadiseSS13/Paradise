@@ -1394,6 +1394,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
 		if(GetComponent(/datum/component/ducttape))
 			QDEL_NULL(builtInCamera)
+		if(program_picker)
+			program_picker.reset_programs()
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "Вас загрузили на портативное устройство. Удалённое соединение с устройствами разорвано.")
 		to_chat(user, "<span class='boldnotice'>Загрузка успешна</span>: [name] ([rand(1000,9999)].exe) удалён из терминала и перенесён в память устройства.")

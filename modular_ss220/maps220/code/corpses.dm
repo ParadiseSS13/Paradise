@@ -5,7 +5,6 @@
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	icon_state = "tactifool"
 	mob_name = "Unknown"
-	random = TRUE
 	death = TRUE
 	disable_sensors = TRUE
 	outfit = /datum/outfit/packercorpse
@@ -27,7 +26,6 @@
 	name = "Syndi trader corpse"
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	icon_state = "tactifool"
-	random = TRUE
 	disable_sensors = TRUE
 	outfit = /datum/outfit/syndicatetrader
 

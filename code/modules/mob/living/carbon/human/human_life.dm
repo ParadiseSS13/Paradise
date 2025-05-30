@@ -675,7 +675,7 @@
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
 	var/obj/item/organ/internal/brain = get_int_organ(/obj/item/organ/internal/brain)
-	if(brain?.damage >= brain.max_damage || (guaranteed_death_threshold) <= -500)
+	if(brain?.damage >= brain?.max_damage || guaranteed_death_threshold <= -500)
 		death()
 		return
 
