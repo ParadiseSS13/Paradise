@@ -312,8 +312,10 @@
 			else
 				if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
 					shoot_live_shot(user, target, TRUE, message)
+					chambered.leave_residue(user)
 				else
 					shoot_live_shot(user, target, FALSE, message)
+					chambered.leave_residue(user)
 		else
 			shoot_with_empty_chamber(user)
 			return
