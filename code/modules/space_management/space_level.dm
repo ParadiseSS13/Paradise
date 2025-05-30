@@ -27,6 +27,9 @@
 	var/dirt_count = 0
 	var/list/init_list = list()
 
+	/// This is a list of ruins on the space_level. Used to prevent certain ruins from spawning on the same level as other ruins.
+	var/list/our_ruin_list = list()
+
 /datum/space_level/New(z, level_name, transition_type = SELFLOOPING, traits = list(BLOCK_TELEPORT), transition_tag_)
 	name = level_name
 	zpos = z

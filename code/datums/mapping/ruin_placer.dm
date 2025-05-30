@@ -27,6 +27,18 @@
 		var/height_border = base_padding + round(ruin.height / 2) + padding
 
 		for(var/z_level in z_levels)
+			var/blocked_on_level = FALSE
+			var/datum/space_level/current_level = GLOB.space_manager.get_zlev(z_level)
+			for(var/blocked_ruin_id in ruin.never_spawn_on_the_same_level)
+				if(blocked_on_level)
+					break
+				for(var/ruin_id in current_level.our_ruin_list)
+					if(blocked_ruin_id == ruin_id)
+						blocked_on_level = TRUE
+						break
+			if(blocked_on_level)
+				continue
+
 			var/placement_tries = PLACEMENT_TRIES
 			while(placement_tries > 0)
 				CHECK_TICK
@@ -82,6 +94,7 @@
 					T.flags |= NO_RUINS
 				new /obj/effect/landmark/ruin(central_turf, ruin)
 				ruin.loaded++
+				current_level.our_ruin_list += ruin.id
 
 				log_world("Ruin \"[ruin.name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
 
