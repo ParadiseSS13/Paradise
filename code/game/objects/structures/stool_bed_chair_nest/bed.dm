@@ -190,6 +190,7 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_METAL = 5000)
 	var/extended = /obj/structure/bed/roller
 
 /obj/item/roller/attack_self__legacy__attackchain(mob/user)
