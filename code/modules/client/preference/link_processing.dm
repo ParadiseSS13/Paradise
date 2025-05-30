@@ -868,7 +868,7 @@
 						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
 					var/desiredfps = tgui_input_list(user, "Choose your desired fps.[version_message]\n(Min = synced with server tick rate)", "Character Preference", GLOB.client_fps_options, clientfps)
 					if(!isnull(desiredfps))
-						clientfps = desiredfps
+						clientfps = text2num(desiredfps)
 						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
 							parent.fps = GLOB.client_fps_options[desiredfps]
 
