@@ -4437,10 +4437,10 @@
 	},
 /area/station/security/brig)
 "atA" = (
-/obj/machinery/door/airlock/silver,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/bathroom,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7806,12 +7806,9 @@
 	},
 /area/station/maintenance/abandonedbar)
 "aDW" = (
-/obj/structure/door_assembly/door_assembly_silver{
-	anchored = 1;
-	name = "Service Room"
-	},
-/obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dust,
+/obj/structure/door_assembly/door_assembly_fre,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "aDX" = (
@@ -17713,13 +17710,11 @@
 	pixel_x = -5;
 	pixel_y = 7
 	},
-/obj/structure/extinguisher_cabinet/directional/south{
-	name = "south bump"
-	},
 /obj/item/storage/box/flares{
 	pixel_x = 5;
 	pixel_y = -1
 	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "bnA" = (
@@ -18473,8 +18468,6 @@
 	},
 /area/station/supply/expedition)
 "bqC" = (
-/obj/machinery/alarm/directional/west,
-/obj/item/radio/intercom/directional/south,
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
@@ -22985,11 +22978,11 @@
 	},
 /area/station/medical/chemistry)
 "bJJ" = (
-/obj/machinery/door/airlock/wood,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
+/obj/machinery/door/airlock/bathroom,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "bJP" = (
@@ -34549,11 +34542,7 @@
 "cEJ" = (
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/atmospherics/portable/canister/air,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "cEL" = (
@@ -35002,9 +34991,6 @@
 /obj/machinery/ai_status_display/directional/north,
 /obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/delivery,
-/obj/structure/railing{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -35353,9 +35339,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/structure/railing/cap{
-	dir = 9
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
 "cHW" = (
@@ -60298,6 +60281,7 @@
 	},
 /obj/effect/turf_decal/delivery/red/partial,
 /obj/structure/closet/walllocker/firelocker/directional/north,
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
 "iFq" = (
@@ -63647,9 +63631,9 @@
 	},
 /area/station/hallway/primary/central/sw)
 "jPW" = (
-/obj/machinery/door/airlock/silver,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/machinery/door/airlock/public,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jPX" = (
@@ -64645,8 +64629,8 @@
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "kil" = (
-/obj/machinery/door/airlock/silver,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/freezer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "kiq" = (
@@ -69385,9 +69369,9 @@
 /area/station/maintenance/fsmaint)
 "lNi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/door_assembly/door_assembly_silver,
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/door_assembly/door_assembly_bathroom,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -100987,7 +100971,9 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/access/any/supply/smith,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "brownfull"
+	},
 /area/station/supply/smith_office)
 "wuy" = (
 /obj/structure/chair,
