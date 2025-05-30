@@ -106,6 +106,8 @@
 
 	if(isitem(hitby))
 		var/obj/item/I = hitby
+		if(I.flags & PARRY_PENETRATE)
+			return
 		armour_penetration_percentage = I.armour_penetration_percentage
 		armour_penetration_flat = I.armour_penetration_flat
 
