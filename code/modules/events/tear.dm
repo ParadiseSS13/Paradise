@@ -77,11 +77,11 @@
 	var/spawn_max = 0
 	var/spawn_total = 0
 	var/list/possible_mobs = list(
-		/mob/living/simple_animal/hostile/hellhound,
+		/mob/living/basic/hostile/hellhound,
 		/mob/living/simple_animal/hostile/skeleton,
-		/mob/living/simple_animal/hostile/netherworld,
-		/mob/living/simple_animal/hostile/netherworld/migo,
-		/mob/living/simple_animal/hostile/faithless)
+		/mob/living/basic/netherworld/,
+		/mob/living/basic/netherworld/migo,
+		/mob/living/basic/netherworld/faithless)
 
 /obj/effect/tear/Initialize(mapload)
 	. = ..()
