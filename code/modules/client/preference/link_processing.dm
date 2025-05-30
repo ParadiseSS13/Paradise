@@ -861,16 +861,10 @@
 						return
 					active_character.pda_ringtone = ringtone
 				if("clientfps")
-					var/version_message
-					if(user.client && user.client.byond_version < 511)
-						version_message = "\nYou need to be using byond version 511 or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
-					if(world.byond_version < 511)
-						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
-					var/desiredfps = tgui_input_list(user, "Choose your desired fps.[version_message]\n(Min = synced with server tick rate)", "Character Preference", GLOB.client_fps_options, clientfps)
+					var/desiredfps = tgui_input_list(user, "Choose your desired fps. (Min = synced with server tick rate)", "Character Preference", GLOB.client_fps_options, clientfps)
 					if(!isnull(desiredfps))
-						clientfps = text2num(desiredfps)
-						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
-							parent.fps = GLOB.client_fps_options[desiredfps]
+						clientfps = GLOB.client_fps_options[desiredfps] // saves raw number cos byond will convert it on his own
+						parent.fps = clientfps
 
 		else
 			switch(href_list["preference"])

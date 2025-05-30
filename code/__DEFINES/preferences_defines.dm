@@ -184,7 +184,7 @@
 #define COLOURBLIND_MODE_PROT "Red-green (red weak, protanopia)"
 #define COLOURBLIND_MODE_TRIT "Blue-yellow (tritanopia)"
 
-/// Client FPS options. List indexes are text values, not numeric. Don't forget to convert them if you ever gonna use them
+/// Client FPS options. List's indexes are text values, not numeric. Don't forget to convert them if you ever gonna use them
 GLOBAL_LIST_INIT(client_fps_options, list_fps_options())
 
 /proc/list_fps_options()
