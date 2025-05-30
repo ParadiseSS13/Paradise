@@ -477,6 +477,10 @@
 	linked_emote = /datum/emote/living/carbon/human/quill
 	name = "Quill"
 
+/datum/keybinding/emote/carbon/human/caw
+	linked_emote = /datum/emote/living/carbon/human/caw
+	name = "Caw"
+
 /datum/keybinding/emote/carbon/human/warble
 	linked_emote = /datum/emote/living/carbon/human/warble
 	name = "Warble"
