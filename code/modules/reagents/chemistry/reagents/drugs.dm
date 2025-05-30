@@ -64,7 +64,7 @@
 /datum/reagent/psilocybin
 	name = "Psilocybin"
 	id = "psilocybin"
-	description = "A strong psycotropic derived from certain species of mushroom."
+	description = "A strong psychotropic derived from certain species of mushroom."
 	color = "#E700E7" // rgb: 231, 0, 231
 	taste_description = "visions"
 
@@ -617,7 +617,7 @@
 /datum/reagent/happiness
 	name = "Happiness"
 	id = "happiness"
-	description = "Fills you with ecstasic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
+	description = "Fills you with ecstatic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
 	reagent_state = LIQUID
 	color = "#f2ff00"
 	overdose_threshold = 20
@@ -801,7 +801,7 @@
 /datum/reagent/rotatium
 	name = "Rotatium"
 	id = "rotatium"
-	description = "A constantly swirling, oddly colourful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
+	description = "A constantly swirling, oddly colorful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
 	reagent_state = LIQUID
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
