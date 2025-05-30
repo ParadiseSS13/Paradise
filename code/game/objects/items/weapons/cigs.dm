@@ -338,7 +338,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	list_reagents = list("nicotine" = 40, "omnizine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
-	list_reagents = list("thc" = 20, "cbd" = 40)
+	name = "medical marijuana cigarette"
+	desc = "A cigarette containing specially-bread cannabis that has been engineered to only contain CBD, for medical use. The lack of THC makes it fully legal under Space Law."
+	list_reagents = list("cbd" = 60)
 
 /obj/item/clothing/mask/cigarette/robustgold
 	list_reagents = list("nicotine" = 40, "gold" = 1)
@@ -348,7 +350,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
-	desc = "A roll of dried plant matter wrapped in thin paper."
+	desc = "A roll of dried plant matter wrapped in thin paper. It carries the unmistakable smell of cannabis."
 	icon_state = "spliffoff"
 	icon_on = "spliffon"
 	icon_off = "spliffoff"
