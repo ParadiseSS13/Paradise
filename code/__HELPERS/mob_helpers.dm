@@ -118,7 +118,7 @@
 
 /// Returns a purely random tint for specific color
 /proc/tint_color(color, range = 25)
-	if(!istext(color) || length(color) < 7 || copytext(color, 1, 2) != "#") // if it's not a hex color
+	if(!is_color_text(color)) // if it's not a hex color
 		return color // just leave it as it is
 
 	var/R = clamp(color2R(color) + rand(-range, range), 0, 255)
@@ -218,54 +218,12 @@
 
 /// Randomises skin tone, specifically for each species that has a skin tone. Otherwise keeps a default of 1
 /proc/random_skin_tone(species = "Human")
-	switch(species)
-		if("Human")
-			return rand(1, 13)
-		if("Drask")
-			return rand(1, 220)
-		if("Nian")
-			return rand(1, 4)
-		if("Vox")
-			return rand(1, 8)
+	var/datum/species/species_selected = GLOB.all_species[species]
+	if(species_selected?.bodyflags & HAS_SKIN_TONE)
+		return rand(1, 220)
+	else if(species_selected?.bodyflags & HAS_ICON_SKIN_TONE)
+		return rand(1, length(species_selected.icon_skin_tones))
 	return 1
-
-/proc/skintone2racedescription(tone, species = "Human")
-	if(species == "Human")
-		switch(tone)
-			if(30 to INFINITY)		return "albino"
-			if(20 to 30)			return "pale"
-			if(5 to 15)				return "light skinned"
-			if(-10 to 5)			return "white"
-			if(-25 to -10)			return "tan"
-			if(-45 to -25)			return "darker skinned"
-			if(-65 to -45)			return "brown"
-			if(-INFINITY to -65)	return "black"
-			else					return "unknown"
-	else if(species == "Vox")
-		switch(tone)
-			if(2)					return "plum"
-			if(3)					return "brown"
-			if(4)					return "gray"
-			if(5)					return "emerald"
-			if(6)					return "azure"
-			if(7)					return "crimson"
-			if(8)					return "nebula"
-			else					return "lime"
-	else
-		return "unknown"
-
-/proc/age2agedescription(age)
-	switch(age)
-		if(0 to 1)			return "infant"
-		if(1 to 3)			return "toddler"
-		if(3 to 13)			return "child"
-		if(13 to 19)		return "teenager"
-		if(19 to 30)		return "young adult"
-		if(30 to 45)		return "adult"
-		if(45 to 60)		return "middle-aged"
-		if(60 to 70)		return "aging"
-		if(70 to INFINITY)	return "elderly"
-		else				return "unknown"
 
 /proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name)
 	var/status = criminal_status

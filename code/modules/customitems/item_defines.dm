@@ -132,8 +132,8 @@
 		if(H.dna.species.bodyflags & (HAS_SKIN_TONE | HAS_ICON_SKIN_TONE))
 			H.change_skin_tone(-115, TRUE)
 		else if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
-			var/list/hsl = list(rgb2hsl(hex2num(copytext(H.skin_colour, 2, 4)), hex2num(copytext(H.skin_colour, 4, 6)), hex2num(copytext(color, 6, 8))))
-			hsl[3] = min(hsl[3], 0.05) // makes their current skin color very dark, setting its lightness to max 5%
+			var/list/hsl = rgb2hsl(hex2num(copytext(H.skin_colour, 2, 4)), hex2num(copytext(H.skin_colour, 4, 6)), hex2num(copytext(color, 6, 8)))
+			hsl[3] = min(hsl[3], 0.15) // makes their current skin color dark, setting its lightness to max of 15%
 			var/list/rgb = hsl2rgb(arglist(hsl))
 			var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
 			H.change_skin_color(new_color)
