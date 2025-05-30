@@ -76,6 +76,6 @@
 	. += "The successful development of a process to create synthetic bluespace crystals was nothing short of a miracle. \
 	Natural bluespace crystals are excruciatingly rare, an issue exacerbated by their tendency to blink out of existence if mishandled."
 	. += ""
-	. += "Whilst the crystals produced by current synthetic processes are not as potent as natural ones, they can be used in most bluespace technologies with no noticeable loss in performance."
+	. += "While the crystals produced by current synthetic processes are not as potent as natural ones, they can be used in most bluespace technologies with no noticeable loss in performance."
 	. += ""
 	. += "The manufacturing process is one of Nanotrasen's most closely guarded trade secrets, were it ever to get out, it would have severe consequences for the company."
