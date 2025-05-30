@@ -371,7 +371,7 @@
 	item_state = "trainer_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/centcom
-	name = "centeral command envirosuit helmet"
+	name = "central command envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for central command officials."
 	icon_state = "centcom_envirohelm"
 	item_state = "centcom_envirohelm"
