@@ -82,7 +82,7 @@
 				to_chat(affected_mob, "<span class='danger'>Your abdomen gurgles and bubbles with a fierce intensity!</span>")
 			if(prob(2) && affected_mob.nutrition >= 100)
 				affected_mob.adjustBruteLoss(5)
-				affected_mob.vomit(6,0,TRUE,7,0)
+				affected_mob.vomit(6, 0, TRUE, 7, 0)
 				affected_mob.visible_message(
 					"<span class='danger'>[affected_mob] vomits with such force that [affected_mob.p_theyre(FALSE)] sent flying backwards!</span>", 
 					"<span class='userdanger'>You vomit a torrent of magic bile so forcefully, that you are sent flying!</span>", 
