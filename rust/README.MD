@@ -10,6 +10,17 @@ It currently handles:
 - Atmospherics (`milla`)
 - DMM manipulation stuff (`mapmanip`)
 
+It also imports and tweaks the following [rust-g](https://github.com/tgstation/rust-g) features:
+
+- DMI
+- File
+- HTTP
+- JSON
+- Logging
+- Noisegen
+- Redis PubSub
+- TOML
+
 ## Building
 
 BYOND 516.1651 introduced breaking changes to ByondAPI, the interop system to get data other than strings in and out of DLLs.

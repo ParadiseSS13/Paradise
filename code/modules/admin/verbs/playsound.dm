@@ -158,7 +158,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			// Send the request off
 			var/datum/http_request/media_poll_request = new()
 			// The fact we are using GET with a body offends me
-			media_poll_request.prepare(RUSTG_HTTP_METHOD_GET, GLOB.configuration.system.ytdlp_url, json_encode(request_body))
+			media_poll_request.prepare(RUSTLIBS_HTTP_METHOD_GET, GLOB.configuration.system.ytdlp_url, json_encode(request_body))
 			// Start it off and wait
 			media_poll_request.begin_async()
 			UNTIL(media_poll_request.is_complete())
