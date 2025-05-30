@@ -63,6 +63,11 @@
 		if(3)
 			adjustBruteLoss(110)
 
+/mob/living/simple_animal/hostile/asteroid/basilisk/space
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/space/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
+
 //Watcher
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
 	name = "watcher"
