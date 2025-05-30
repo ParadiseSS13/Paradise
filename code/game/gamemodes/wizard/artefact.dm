@@ -910,7 +910,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/plague_talisman/proc/finish_convert(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer, datum/disease/chosen_plague)
 	var/greet_text = "<span class='userdanger'>You have been raised into undeath by <b>[necromancer.real_name]</b>!<br> \
-	[necromancer.p_theyre(TRUE)] your master now, assist [necromancer.p_them()]at all costs, for you are now above death!<br> \
+	[necromancer.p_theyre(TRUE)] your master now, assist [necromancer.p_them()] at all costs, for you are now above death!<br> \
 		You have been bestowed the following plague: <br> \
 		[chosen_plague.name]!</span>"
 	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
