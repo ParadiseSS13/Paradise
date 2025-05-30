@@ -153,7 +153,7 @@
 	// The time until the next rock falls from the sky
 	var/next_rubble
 	// Has a river already been generated this storm?
-	var/generated_river = FALSE
+	var/generated_river = TRUE
 	// What tiles can we hit with a rock?
 	var/list/valid_targets = list()
 
