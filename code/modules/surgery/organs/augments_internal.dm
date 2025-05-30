@@ -62,14 +62,14 @@
 			if(owner.l_hand.flags & NODROP)
 				l_hand_ignore = TRUE
 			else
-				owner.l_hand.flags |= NODROP
+				owner.l_hand.set_nodrop(TRUE, owner)
 				l_hand_ignore = FALSE
 
 		if(r_hand_obj)
 			if(owner.r_hand.flags & NODROP)
 				r_hand_ignore = TRUE
 			else
-				owner.r_hand.flags |= NODROP
+				owner.r_hand.set_nodrop(TRUE, owner)
 				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
@@ -116,9 +116,9 @@
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	active = FALSE
 	if(!l_hand_ignore && l_hand_obj)
-		l_hand_obj.flags &= ~NODROP
+		l_hand_obj.set_nodrop(FALSE, owner)
 	if(!r_hand_ignore && r_hand_obj)
-		r_hand_obj.flags &= ~NODROP
+		r_hand_obj.set_nodrop(FALSE, owner)
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(mob/living/carbon/M, special = 0)
 	if(active)

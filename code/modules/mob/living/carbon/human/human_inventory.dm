@@ -244,9 +244,11 @@
 		if(ITEM_SLOT_LEFT_HAND)
 			l_hand = I
 			update_inv_l_hand()
+			update_hands_hud()
 		if(ITEM_SLOT_RIGHT_HAND)
 			r_hand = I
 			update_inv_r_hand()
+			update_hands_hud()
 		if(ITEM_SLOT_BELT)
 			belt = I
 			update_inv_belt()

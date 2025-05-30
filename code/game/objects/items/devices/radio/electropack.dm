@@ -63,7 +63,7 @@
 		user.put_in_hands(A)
 		A.add_fingerprint(user)
 		if(src.flags & NODROP)
-			A.flags |= NODROP
+			A.set_nodrop(TRUE)
 
 
 /obj/item/electropack/proc/handle_shock()
