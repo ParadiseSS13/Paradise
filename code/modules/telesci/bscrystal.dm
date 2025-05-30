@@ -24,8 +24,8 @@
 	. = ..()
 	. += "Bluespace crystals are a form of exotic matter that is very poorly understood. The process of their creation is not known, nor how they end up in the places they do."
 	. += ""
-	. += "They are instrumental in the creation of new experimental bluespace-manipulative technologies, unlocking previously impossible feats or trivialising ones that less advanced technologies struggle with. \
-	As plasma-based technologies become more mature and new radical innovations taper off, bluespece research is becoming new technological frontier."
+	. += "They are instrumental in the creation of new experimental bluespace-manipulative technologies, unlocking previously impossible feats or trivializing ones that less advanced technologies struggle with. \
+	As plasma-based technologies become more mature and new radical innovations taper off, bluespace research is becoming new technological frontier."
 	. += ""
 	. += "Nanotrasen and many of its rivals are scrambling to be the first to develop practical mass-producible bluespace technologies so they they can become the hegemon of a new market monopoly."
 
@@ -76,6 +76,6 @@
 	. += "The successful development of a process to create synthetic bluespace crystals was nothing short of a miracle. \
 	Natural bluespace crystals are excruciatingly rare, an issue exacerbated by their tendency to blink out of existence if mishandled."
 	. += ""
-	. += "Whilst the crystals produced by current synthetic processes are not as potent as natural ones, they can be used in most bluespace technologies with no noticable loss in performance."
+	. += "Whilst the crystals produced by current synthetic processes are not as potent as natural ones, they can be used in most bluespace technologies with no noticeable loss in performance."
 	. += ""
 	. += "The manufacturing process is one of Nanotrasen's most closely guarded trade secrets, were it ever to get out, it would have severe consequences for the company."
