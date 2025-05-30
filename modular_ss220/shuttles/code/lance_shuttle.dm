@@ -13,5 +13,7 @@
 	syndicate.dheight = 0
 	syndicate.width = 19
 	syndicate.dwidth = 9
-	qdel(SSshuttle.getDock("emergency_home"), TRUE)
+	var/obj/docking_port/stationary/home = SSshuttle.getDock("emergency_home")
+	SSshuttle.stationary_docking_ports -= home
+	qdel(home, TRUE)
 	SSshuttle.emergency_locked_in = TRUE
