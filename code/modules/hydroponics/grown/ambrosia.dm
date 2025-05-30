@@ -68,7 +68,7 @@
 	name = "pack of ambrosia gaia seeds"
 	desc = "These seeds grow into ambrosia gaia, filled with infinite potential."
 	icon_state = "seed-ambrosia_gaia"
-	species = "ambrosia_gaia"
+	species = "ambrosiagaia"
 	plantname = "Ambrosia Gaia"
 	product = /obj/item/food/grown/ambrosia/gaia
 	mutatelist = list()
