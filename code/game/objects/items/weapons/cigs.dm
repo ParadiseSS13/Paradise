@@ -369,7 +369,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "cigbutt"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 1
+	throwforce = 0
 	scatter_distance = 10
 
 /obj/item/cigbutt/Initialize(mapload)
