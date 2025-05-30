@@ -1826,7 +1826,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "amY" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2562,7 +2562,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "apL" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/grimy,
@@ -2607,7 +2607,7 @@
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "apS" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -2857,7 +2857,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "aqI" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/public/vacant_office)
 "aqJ" = (
@@ -2874,7 +2874,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/public/vacant_office)
 "aqM" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -17683,7 +17683,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint)
 "bsL" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/camera{
 	c_tag = "Courtroom Gallery";
 	dir = 8
@@ -26175,7 +26175,7 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "bXj" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -27026,7 +27026,7 @@
 	},
 /area/station/hallway/primary/central/east)
 "caw" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
 "cax" = (
@@ -28039,7 +28039,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
 "cei" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -32566,7 +32566,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /obj/machinery/power/apc/directional/north,
@@ -36830,7 +36830,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "cHc" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -37791,7 +37791,7 @@
 	},
 /area/station/science/lobby)
 "cKx" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -40149,7 +40149,7 @@
 /turf/space,
 /area/station/engineering/solar/aft_starboard)
 "cTO" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -40619,7 +40619,7 @@
 	},
 /area/station/science/rnd)
 "cVw" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1;
 	pixel_y = 3
 	},
@@ -42074,7 +42074,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "dcc" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/scientist,
@@ -42852,7 +42852,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "deM" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -44157,7 +44157,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "dkS" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -44170,7 +44170,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "dkT" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -44772,7 +44772,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "dnq" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1;
 	pixel_y = 3
 	},
@@ -45132,7 +45132,7 @@
 	},
 /area/station/hallway/primary/aft/south)
 "dpd" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/geneticist,
@@ -46403,7 +46403,7 @@
 	},
 /area/station/science/robotics)
 "dvr" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/roboticist,
@@ -54062,7 +54062,7 @@
 	},
 /area/station/security/main)
 "eVp" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/internal_affairs,
@@ -58352,7 +58352,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical)
 "gRI" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -59314,7 +59314,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "hrt" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/geneticist,
@@ -59630,7 +59630,7 @@
 	},
 /area/station/service/hydroponics)
 "hzD" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -63837,7 +63837,7 @@
 	},
 /area/station/security/warden)
 "juA" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/engine,
@@ -64065,7 +64065,7 @@
 	},
 /area/station/hallway/primary/aft/north)
 "jBE" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/virologist,
@@ -66874,7 +66874,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "kNC" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/engine,
@@ -67251,7 +67251,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "kVZ" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -67501,7 +67501,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "lad" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/doctor,
@@ -69866,7 +69866,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "mlY" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
@@ -78555,7 +78555,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "pYm" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -79913,7 +79913,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "qJc" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -84451,7 +84451,7 @@
 /area/station/hallway/secondary/exit)
 "svp" = (
 /obj/effect/landmark/start/chief_medical_officer,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -87248,7 +87248,7 @@
 /turf/space,
 /area/space/nearstation)
 "tCE" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -87393,7 +87393,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "tGd" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -94390,7 +94390,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "wzF" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
@@ -98283,7 +98283,7 @@
 /area/station/service/chapel/office)
 "yiO" = (
 /obj/effect/turf_decal/stripes/corner,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
