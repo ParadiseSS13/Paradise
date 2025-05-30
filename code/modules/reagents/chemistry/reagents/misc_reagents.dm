@@ -803,7 +803,9 @@
 
 /datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
 	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
-		H.change_skin_tone(max(H.s_tone - 10, -195))
+		H.change_skin_tone(min(-H.s_tone + 45, 220)) // adjusts our skin tone by 10
+	else if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		H.change_skin_tone(min(H.s_tone + 1, length(H.dna.species.icon_skin_tones))) // adjusts our skin tone by 1
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")

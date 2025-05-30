@@ -32,7 +32,7 @@
 	var/f_style = "Shaved"				//Facial hair type
 	var/f_colour = "#000000"			//Facial hair color
 	var/f_sec_colour = "#000000"		//Secondary facial hair color
-	var/s_tone = 0						//Skin tone
+	var/s_tone = 1						//Skin tone
 	var/s_colour = "#000000"			//Skin color
 	var/e_colour = "#000000"			//Eye color
 	var/alt_head = "None"				//Alt head style.
@@ -619,7 +619,9 @@
 	socks = random_socks(body_type, species)
 	if(length(GLOB.body_accessory_by_species[species]))
 		body_accessory = random_body_accessory(species, S.optional_body_accessory)
-	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+	if(S.bodyflags & HAS_SKIN_TONE)
+		s_tone = 35 - random_skin_tone(species)
+	else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)

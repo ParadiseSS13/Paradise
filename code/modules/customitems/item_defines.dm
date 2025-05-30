@@ -129,8 +129,14 @@
 /obj/item/fluff/bird_painter/attack_self__legacy__attackchain(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.s_tone = -115
-		H.regenerate_icons()
+		if(H.dna.species.bodyflags & (HAS_SKIN_TONE | HAS_ICON_SKIN_TONE))
+			H.change_skin_tone(-115, TRUE)
+		else if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+			var/list/hsl = list(rgb2hsl(hex2num(copytext(H.skin_colour, 2, 4)), hex2num(copytext(H.skin_colour, 4, 6)), hex2num(copytext(color, 6, 8))))
+			hsl[3] = min(hsl[3], 0.05) // makes their current skin color very dark, setting its lightness to max 5%
+			var/list/rgb = hsl2rgb(arglist(hsl))
+			var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+			H.change_skin_color(new_color)
 		to_chat(user, "You use [src] on yourself.")
 		qdel(src)
 
