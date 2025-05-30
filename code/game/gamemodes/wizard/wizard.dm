@@ -33,6 +33,8 @@
 	for(var/datum/mind/wiz in pre_wizards)
 		wiz.add_antag_datum(/datum/antagonist/wizard)
 		wiz.current.forceMove(pick(GLOB.wizardstart))
+		var/mob/living/carbon/human/human_wizard = wiz.current // Honestly if the wizard isn't a human then someone else has gone horribly wrong
+		human_wizard.clear_quirks()
 	pre_wizards.Cut()
 	..()
 
