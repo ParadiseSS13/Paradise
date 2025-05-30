@@ -44,7 +44,7 @@
 
 	//Even sphere correction engage
 	var/offByOneOffset = 1
-	if(bigZ % 2 == 0)
+	if(ISEVEN(bigZ))
 		offByOneOffset = 0
 
 	for(var/i = lilZ, i <= bigZ+offByOneOffset, i++)

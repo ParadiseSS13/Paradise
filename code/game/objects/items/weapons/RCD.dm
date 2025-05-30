@@ -211,6 +211,11 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
+/datum/rcd_act/remove_user/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return A == rcd.loc
+
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
@@ -272,6 +277,8 @@
 
 /obj/item/rcd/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 	if(!length(possible_actions))
 		possible_actions = list()
 		for(var/action_type in subtypesof(/datum/rcd_act))
@@ -343,11 +350,10 @@
 /obj/item/rcd/suicide_act(mob/living/user)
 	user.Immobilize(10 SECONDS) // You cannot move.
 	flags |= NODROP				// You cannot drop. You commit to die.
-	var/turf/suicide_tile = get_turf(src)
 	if(mode == MODE_DECON)
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/datum/rcd_act/remove_user/act = new()
-		if(!act.try_act(suicide_tile, src, user))
+		if(!act.try_act(user, src, user))
 			flags &= ~NODROP
 			return SHAME
 		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
@@ -358,7 +364,7 @@
 		return OBLITERATION
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(!interact_with_atom(suicide_tile, user, TRUE))
+	if(!interact_with_atom(get_turf(src), user, TRUE))
 		flags &= ~NODROP
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
@@ -415,6 +421,9 @@
 	SStgui.update_uis(src)
 
 /obj/item/rcd/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/smithed_item/tool_bit))
+		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, used, user)
+		return ..()
 	if(!istype(used, /obj/item/rcd_ammo))
 		return ..()
 	var/obj/item/rcd_ammo/ammo = used
@@ -632,6 +641,7 @@
  * * amount - the amount of matter to use
  */
 /obj/item/rcd/use(amount)
+	amount = amount * bit_efficiency_mod
 	if(matter < amount)
 		return FALSE
 	matter -= amount
@@ -692,7 +702,7 @@
  * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
  */
 /obj/item/rcd/proc/detonate_pulse_explode()
-	explosion(src, 0, 0, 3, 1, flame_range = 1)
+	explosion(src, 0, 0, 3, 1, flame_range = 1, cause = "RCD Explosion")
 	qdel(src)
 
 /obj/item/rcd/preloaded

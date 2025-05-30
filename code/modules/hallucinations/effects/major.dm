@@ -68,15 +68,15 @@
 	target.visible_message("<span class='warning'>[target] trips over nothing.</span>",
 						"<span class='userdanger'>You get stuck in [src]!</span>")
 
-/obj/effect/hallucination/tripper/spider_web/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/effect/hallucination/tripper/spider_web/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(user != target)
-		return
-
+		return ITEM_INTERACT_COMPLETE
 	step_towards(target, get_turf(src))
 	target.Weaken(4 SECONDS)
-	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [I.name] as if striking something, only to trip!</span>",
-						"<span class='userdanger'>[src] vanishes as you strike it with [I], causing you to stumble forward!</span>")
+	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [used.name] as if striking something, only to trip!</span>",
+						"<span class='userdanger'>[src] vanishes as you strike it with [used], causing you to stumble forward!</span>")
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /**
   * # Hallucination - Abduction
@@ -95,7 +95,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -124,7 +124,7 @@
 	// Find a spot for the scientist to spawn
 	var/list/locs = list()
 	for(var/turf/T in orange(1, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	locs -= get_turf(agent)
 	if(!length(locs))
@@ -278,7 +278,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -357,7 +357,7 @@
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
 		var/light_amount = T.get_lumcount()
-		if(!is_blocked_turf(T) && light_amount <= 0.5)
+		if(!T.is_blocked_turf() && light_amount <= 0.5)
 			locs += T
 	if(!length(locs))
 		return INITIALIZE_HINT_QDEL

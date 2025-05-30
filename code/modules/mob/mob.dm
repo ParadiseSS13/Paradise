@@ -25,7 +25,6 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
-	LAssailant = null
 	runechat_msg_location = null
 	if(length(observers))
 		for(var/mob/dead/observe as anything in observers)
@@ -76,6 +75,7 @@
 		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
 		PRESSURE_HUD = 'icons/effects/effects.dmi',
+		MALF_AI_HUD = 'icons/mob/hud/malfhud.dmi',
 	)
 
 	for(var/hud in hud_possible)
@@ -149,7 +149,7 @@
 
 /mob/visible_message(message, self_message, blind_message, chat_message_type)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/M as anything in get_mobs_in_view(3, src))
+		for(var/mob/M as anything in get_mobs_in_view(3, src, ai_eyes = AI_EYE_INCLUDE))
 			if(M.see_invisible < invisibility)
 				continue //can't view the invisible
 			var/msg = message
@@ -161,7 +161,7 @@
 				msg = blind_message
 			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 		return
-	for(var/mob/M as anything in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_INCLUDE))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
@@ -174,9 +174,11 @@
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(message, blind_message)
-	for(var/mob/M as anything in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_INCLUDE))
+#ifndef GAME_TESTS
 		if(!M.client)
 			continue
+#endif
 		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 // Show a message to all mobs in earshot of this one
@@ -190,7 +192,7 @@
 	if(hearing_distance)
 		range = hearing_distance
 	var/msg = message
-	for(var/mob/M as anything in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src, ai_eyes = AI_EYE_REQUIRE_HEAR))
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
@@ -216,7 +218,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M as anything in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src, ai_eyes = AI_EYE_REQUIRE_HEAR))
 		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 /mob/proc/findname(msg)
@@ -256,7 +258,8 @@
 //set del_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = FALSE, disable_warning = FALSE, initial = FALSE)
-	if(!istype(W)) return 0
+	if(!istype(W))
+		return FALSE
 
 	if(!W.mob_can_equip(src, slot, disable_warning))
 		if(del_on_fail)
@@ -265,10 +268,10 @@
 			if(!disable_warning)
 				to_chat(src, "<span class='warning'>You are unable to equip that.</span>")//Only print if del_on_fail is false
 
-		return 0
+		return FALSE
 
 	equip_to_slot(W, slot, initial) //This proc should not ever fail.
-	return 1
+	return TRUE
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
@@ -637,6 +640,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return TRUE
 
 	face_atom(A)
+
 	if(!client)
 		var/list/result = A.examine(src)
 		to_chat(src, chat_box_examine(result.Join("\n")))
@@ -647,7 +651,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	for(var/key in client.recent_examines)
 		if(client.recent_examines[key] < world.time)
 			client.recent_examines -= key
+
 	var/ref_to_atom = A.UID()
+
 	if(LAZYACCESS(client.recent_examines, ref_to_atom))
 		result = A.examine_more(src)
 		if(!length(result))
@@ -657,8 +663,92 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(length(A.examine_more()))
 			result += "<span class='notice'><i>You can examine [A.p_them()] again to take a closer look...</i></span>"
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
+		broadcast_examine(A)
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+
+/// Tells nearby mobs about our examination.
+/mob/proc/broadcast_examine(atom/examined)
+	if(examined == src)
+		return
+
+	// If TRUE, the usr's view() for the examined object too
+	var/examining_worn_item = FALSE
+	var/examining_stored_item = FALSE
+	var/loc_str = "at something off in the distance."
+
+	if(isitem(examined))
+		var/obj/item/I = examined
+		if(I.in_storage)
+			if(get(I, /mob/living) == src)
+				loc_str = "inside [p_their()] [I.loc.name]..."
+			else
+				loc_str = "inside [I.loc]..."
+
+			examining_stored_item = TRUE
+
+		else if(I.loc == src)
+			// Hide items in pockets.
+			if(get_slot_by_item(I) & ITEM_SLOT_BOTH_POCKETS)
+				loc_str = "inside [p_their()] pockets."
+			else
+				loc_str = "at [p_their()] [I.name]."
+
+			examining_worn_item = TRUE
+
+	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
+	if(examining_worn_item)
+		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+
+	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
+
+	var/list/can_see_target = hearers(examined)
+	// Don't broadcast if we can't see the item.
+	if(!(examining_stored_item || examining_worn_item) && !(src in can_see_target))
+		return
+
+	for(var/mob/M as anything in viewers(2, src))
+		if(!M.client || M.stat != CONSCIOUS ||HAS_TRAIT(M, TRAIT_BLIND))
+			continue
+
+		if(examining_worn_item || (M == src) || (M in can_see_target))
+			to_chat(M, can_see_str)
+		else
+			to_chat(M, cannot_see_str)
+
+/mob/living/broadcast_examine(atom/examined)
+	if(stat != CONSCIOUS)
+		return
+	return ..()
+
+/mob/living/carbon/human/broadcast_examine(atom/examined)
+	var/obj/item/glasses = get_item_by_slot(ITEM_SLOT_EYES)
+	if(glasses && (HAS_TRAIT(glasses, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/mask = get_item_by_slot(ITEM_SLOT_MASK)
+	if(mask && ((mask.flags_inv & HIDEFACE) || HAS_TRAIT(mask, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/head = get_item_by_slot(ITEM_SLOT_HEAD)
+	if(head && ((head.flags_inv & HIDEFACE) || HAS_TRAIT(head, TRAIT_HIDE_EXAMINE)))
+		return
+
+	// We'll just assume if your eyes have tinted covering you can't see them very well.
+	if(get_total_tint())
+		return
+
+	return ..()
+
+/mob/dead/broadcast_examine(atom/examined)
+	return //Observers arent real the government is lying to you
+
+/mob/living/silicon/ai/broadcast_examine(atom/examined)
+	var/mob/living/silicon/ai/ai = src
+	// Only show the AI's examines if they're in a holopad
+	if(istype(ai.current, /obj/machinery/hologram/holopad))
+		return ..()
+
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
@@ -963,7 +1053,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
 		return
 
-	if(!SSticker || SSticker.current_state < 3)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
@@ -974,6 +1064,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
+		// Dumb duplicate code until we have no more simple mobs
+		for(var/mob/living/basic/B in GLOB.alive_mob_list)
+			if(!(is_station_level(B.z) || is_admin_level(B.z))) // Prevents players from spawning in space
+				continue
+			if(B.valid_respawn_target_for(src) && B.stat != DEAD && !B.key)
+				creatures += B
 		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
 		switch(picked)
 			if("Mouse")
@@ -1017,6 +1113,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/get_ghost(even_if_they_cant_reenter = 0)
 	if(mind)
 		return mind.get_ghost(even_if_they_cant_reenter)
+
+/mob/proc/check_ghost_client()
+	if(mind)
+		return mind.check_ghost_client()
 
 /mob/proc/grab_ghost(force)
 	if(mind)
@@ -1343,14 +1443,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  */
 /mob/proc/show_rads(range)
 	for(var/turf/place in range(range, src))
-		var/rads = SSradiation.get_turf_radiation(place)
-		if(rads < RAD_BACKGROUND_RADIATION)
+		var/list/rads = SSradiation.get_turf_radiation(place)
+		if(!rads || (rads[1] + rads[2] + rads[3]) < RAD_BACKGROUND_RADIATION)
 			continue
-
-		var/strength = round(rads / 1000, 0.1)
+		var/alpha_strength = round(rads[1] / 1000, 0.1)
+		var/beta_strength = round(rads[2] / 1000, 0.1)
+		var/gamma_strength = round(rads[3] / 1000, 0.1)
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
-		MA.maptext = MAPTEXT("[strength]k")
+		MA.maptext = MAPTEXT("Α [alpha_strength]k\nΒ [beta_strength]k\nΓ [gamma_strength]k")
 		MA.color = "#04e604"
 		MA.layer = RAD_TEXT_LAYER
 		MA.plane = GAME_PLANE
@@ -1521,3 +1622,16 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/living/proc/remove_recent_magic_block()
 	REMOVE_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+
+/mob/living/proc/adjustHealth(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		return FALSE
+	var/oldbruteloss = bruteloss
+	bruteloss = clamp(bruteloss + amount, 0, maxHealth)
+	if(oldbruteloss == bruteloss)
+		updating_health = FALSE
+		. = STATUS_UPDATE_NONE
+	else
+		. = STATUS_UPDATE_HEALTH
+	if(updating_health)
+		updatehealth()

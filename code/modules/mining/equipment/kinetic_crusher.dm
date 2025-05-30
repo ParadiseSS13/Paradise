@@ -189,10 +189,7 @@
 		. += "[icon_state]_uncharged"
 	if(light_on)
 		. += "[icon_state]_lit"
-	spawn(1)
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+	update_action_buttons()
 
 //destablizing force
 /obj/item/projectile/destabilizer

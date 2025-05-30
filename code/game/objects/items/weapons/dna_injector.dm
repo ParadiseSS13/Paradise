@@ -505,6 +505,26 @@
 /obj/item/dnainjector/antiblind/GetInitBlock()
 	return GLOB.blindblock
 
+/obj/item/dnainjector/paraplegicmut
+	name = "DNA-Injector (Paraplegic)"
+	desc = "Faceplanting, in needle form."
+	datatype = DNA2_BUF_SE
+	value = 0xFFF
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/paraplegicmut/GetInitBlock()
+	return GLOB.paraplegicblock
+
+/obj/item/dnainjector/antiparaplegic
+	name = "DNA-Injector (Anti-Paraplegic)"
+	desc = "Returns your legs to working order."
+	datatype = DNA2_BUF_SE
+	value = 0x001
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/antiparaplegic/GetInitBlock()
+	return GLOB.paraplegicblock
+
 /obj/item/dnainjector/deafmut
 	name = "DNA-Injector (Deaf)"
 	desc = "Sorry, what did you say?"

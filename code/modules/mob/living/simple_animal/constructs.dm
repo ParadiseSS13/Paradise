@@ -141,7 +141,7 @@
 /mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/item/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		if(P.damage_type == BRUTE || P.damage_type == BURN)
-			adjustBruteLoss(P.damage * 0.6) // 21 hit with security laser gun
+			adjustBruteLoss(P.damage * 0.8) // 16 hit with security laser gun
 			P.on_hit(src)
 			return FALSE
 	return ..()

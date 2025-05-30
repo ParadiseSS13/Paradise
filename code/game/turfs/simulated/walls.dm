@@ -25,7 +25,8 @@
 
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	flags_ricochet = RICOCHET_HARD
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_MEDIUM_INSULATION
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
@@ -225,7 +226,7 @@
 /turf/simulated/wall/burn_down()
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
-	ChangeTurf(/turf/simulated/floor)
+	ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
 	if(melting)
@@ -254,7 +255,6 @@
 		burn_down()
 		var/turf/simulated/floor/F = src
 		F.burn_tile()
-		F.icon_state = "plating"
 		if(O)	qdel(O)
 		return
 
@@ -266,7 +266,6 @@
 
 			var/turf/simulated/floor/F = src
 			F.burn_tile()
-			F.icon_state = "plating"
 			break
 		take_damage(30)
 		playsound(src, 'sound/items/welder.ogg', 100, TRUE)

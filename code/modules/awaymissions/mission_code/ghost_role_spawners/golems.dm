@@ -59,25 +59,25 @@
 /obj/effect/mob_spawn/human/alive/golem
 	name = "inert free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
-	mob_name = "a free golem"
+	role_name = "free golem"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct"
-	mob_species = /datum/species/golem
-	roundstart = FALSE
-	death = FALSE
-	anchored = FALSE
-	move_resist = MOVE_FORCE_NORMAL
-	density = FALSE
-	death_cooldown = 300 SECONDS
-	STATIC_COOLDOWN_DECLARE(ghost_flash_cooldown)
-	var/has_owner = FALSE
-	var/can_transfer = TRUE //if golems can switch bodies to this new shell
-	var/mob/living/owner = null //golem's owner if it has one
 	important_info = "You are not an antagonist. Do not create AIs without explicit admin permission. Do not involve yourself with the main station, boarding the main station requires explicit admin permission."
 	description = "As a Free Golem on lavaland, you are unable to use most weapons, but you can mine, research and make more of your kind. Earn enough mining points and you can even move your shuttle out of there. Your goal is to survive on lavaland with your kin, not to become crew on the primary station."
 	flavour_text = "You are a Free Golem. Your family worships The Liberator. In his infinite and divine wisdom, he set your clan free to \
 	travel the stars with a single declaration: \"Yeah go do whatever.\" Though you are bound to the one who created you, it is customary in your society to repeat those same words to newborn \
 	golems, so that no golem may ever be forced to serve again."
+	density = FALSE
+	anchored = FALSE
+	move_resist = MOVE_FORCE_NORMAL
+	death_cooldown = 300 SECONDS
+	mob_species = /datum/species/golem
+	var/has_owner = FALSE
+	/// If golems can switch bodies to this new shell
+	var/can_transfer = TRUE
+	/// Golem's owner if it has one
+	var/mob/living/owner
+	STATIC_COOLDOWN_DECLARE(ghost_flash_cooldown)
 
 /obj/effect/mob_spawn/human/alive/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
@@ -98,7 +98,7 @@
 		Serve [creator], and assist [creator.p_them()] in completing [creator.p_their()] goals at any cost."
 		owner = creator
 
-/obj/effect/mob_spawn/human/alive/golem/special(mob/living/new_spawn, name)
+/obj/effect/mob_spawn/human/alive/golem/special(mob/living/new_spawn)
 	var/datum/species/golem/X = mob_species
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
@@ -130,10 +130,6 @@
 		if(has_owner)
 			var/datum/species/golem/G = H.dna.species
 			G.owner = owner
-		if(!name)
-			H.rename_character(null, H.dna.species.get_random_name())
-		else
-			H.rename_character(null, name)
 		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
 			H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
 			H.mind.AddSpell(new /datum/spell/mime/speak(null))
@@ -166,16 +162,13 @@
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
 
-/obj/effect/mob_spawn/human/alive/golem/attackby__legacy__attackchain(obj/item/I, mob/living/carbon/user, params)
-	if(!istype(I, /obj/item/slimepotion/transference))
-		return ..()
-	if(iscarbon(user) && can_transfer)
+/obj/effect/mob_spawn/human/alive/golem/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/slimepotion/transference) && iscarbon(user) && can_transfer)
 		var/human_transfer_choice = tgui_alert(user, "Transfer your soul to [src]? (Warning, your old body will die!)", "Respawn", list("Yes", "No"))
-		if(human_transfer_choice != "Yes")
-			return
-		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))
-			return
-		handle_becoming_golem(I, user)
+		if(human_transfer_choice != "Yes" || QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(used))
+			return ITEM_INTERACT_COMPLETE
+		handle_becoming_golem(used, user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/mob_spawn/human/alive/golem/proc/handle_becoming_golem(obj/item/I, mob/living/carbon/user)
 	if(isgolem(user) && can_transfer)
@@ -201,7 +194,7 @@
 /obj/effect/mob_spawn/human/alive/golem/servant
 	has_owner = TRUE
 	name = "inert servant golem shell"
-	mob_name = "a servant golem"
+	role_name = "servant golem"
 
 /obj/effect/mob_spawn/human/alive/golem/servant/handle_becoming_golem(obj/item/I, mob/living/carbon/user)
 	if(!isgolem(user))
@@ -211,7 +204,6 @@
 /obj/effect/mob_spawn/human/alive/golem/adamantine
 	name = "dust-caked free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
-	mob_name = "a free golem"
+	assignedrole = "Free Golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
-	assignedrole = "Free Golem"

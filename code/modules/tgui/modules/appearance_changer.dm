@@ -17,13 +17,9 @@
 	var/list/whitelist
 	var/list/blacklist
 
-	/// Temporary holder when we first initialize the TGUI, we store this as our owner's previous subtype so we can tell when it updates.
-	var/owner_subtype
-
 /datum/ui_module/appearance_changer/New(datum/host, mob/living/carbon/human/H, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
 	..()
 	owner = H
-	owner_subtype = owner.dna.species.species_subtype
 	head_organ = owner.get_organ("head")
 	check_whitelist = check_species_whitelist
 	whitelist = species_whitelist
@@ -55,7 +51,7 @@
 				if(owner.dna.species.bodyflags & HAS_SKIN_TONE)
 					new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
 					if(isnum(new_s_tone) && (!..()))
-						new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
+						new_s_tone = max(min(round(new_s_tone), 220),1)
 				else if(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 					var/const/MAX_LINE_ENTRIES = 4
 					var/prompt = "Choose your character's skin tone: 1-[length(owner.dna.species.icon_skin_tones)]\n("
@@ -218,11 +214,7 @@
 		ui.open()
 
 /datum/ui_module/appearance_changer/ui_data(mob/user)
-	if(user.dna.species.species_subtype != owner_subtype)
-		owner_subtype = user.dna.species.species_subtype
-		cut_and_generate_data()
-	else
-		generate_data(check_whitelist, whitelist, blacklist)
+	generate_data(check_whitelist, whitelist, blacklist)
 	var/list/data = list()
 
 	data["specimen"] = owner.dna.species.name

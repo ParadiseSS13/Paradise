@@ -44,7 +44,8 @@ Difficulty: Medium
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
 	loot = list(/obj/item/storm_staff)
-	crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
+	difficulty_ore_modifier = 3
+	crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
 	elimination = TRUE
@@ -57,34 +58,43 @@ Difficulty: Medium
 	transform *= 2
 
 /mob/living/simple_animal/hostile/megafauna/legion/enrage()
+	if(enraged || ((health / maxHealth) * 100 <= 80))
+		return
+	enraged = TRUE
 	health = 1250
 	maxHealth = 1250
 	transform /= 1.5
-	loot = list(/datum/nothing)
-	crusher_loot = list(/datum/nothing)
+	loot = list()
+	crusher_loot = list()
 	var/mob/living/simple_animal/hostile/megafauna/legion/legiontwo = new /mob/living/simple_animal/hostile/megafauna/legion(get_turf(src))
-	legiontwo.transform /= 1.5
-	legiontwo.loot = list(/datum/nothing)
-	legiontwo.crusher_loot = list(/datum/nothing)
+	legiontwo.enraged = TRUE
 	legiontwo.health = 1250
 	legiontwo.maxHealth = 1250
-	legiontwo.enraged = TRUE
+	legiontwo.transform /= 1.5
+	legiontwo.loot = list()
+	legiontwo.crusher_loot = list()
 
 /mob/living/simple_animal/hostile/megafauna/legion/unrage()
 	. = ..()
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
 			other.loot = list(/obj/item/storm_staff) //Initial does not work with lists.
-			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
+			other.crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull)
 			other.maxHealth = 2500
 			other.health = 2500
 	qdel(src) //Suprise, it's the one on lavaland that regrows to full.
+
+/mob/living/simple_animal/hostile/megafauna/legion/drop_loot()
+	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
+		if(other != src)
+			return
+	..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
 			other.loot = list(/obj/item/storm_staff) //Initial does not work with lists.
-			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
+			other.crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull)
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()

@@ -5,13 +5,6 @@
 			return 1
 	return 0
 
-/proc/ispet(A)
-	if(isanimal(A))
-		var/mob/living/simple_animal/SA = A
-		if(SA.can_collar)
-			return 1
-	return 0
-
 /mob/proc/get_screen_colour()
 	SHOULD_CALL_PARENT(TRUE)
 	// OOC Colourblind setting takes priority over everything else.
@@ -81,7 +74,7 @@
 	if(istype(worn_glasses) && worn_glasses.color_view) //Check to see if they got those magic glasses and they're augmenting the colour of what the wearer sees. If they're not, color_view should be null.
 		return worn_glasses.color_view
 	else if(eyes) //If they're not, check to see if their eyes got one of them there colour matrices. Will be null if eyes are robotic/the mob isn't colourblind and they have no default colour matrix.
-		return eyes.get_colourmatrix()
+		return eyes.get_colormatrix()
 
 /**
   * Flash up a color as an overlay on a player's screen, then fade back to normal.
@@ -211,7 +204,9 @@
 // Do not use this if someone is intentionally trying to hit a specific body part.
 // Use get_zone_with_miss_chance() for that.
 /proc/ran_zone(zone, probability = 80)
-
+#ifdef GAME_TESTS
+	probability = 100
+#endif
 	zone = check_zone(zone)
 
 	if(prob(probability))
@@ -241,6 +236,30 @@
 			return "r_foot"
 
 	return zone
+
+/// Convert the impact zone of a projectile to a clothing zone we can do a contamination check on
+/proc/hit_zone_to_clothes_zone(zone)
+	switch(zone)
+		if("head")
+			return HEAD
+		if("chest")
+			return UPPER_TORSO
+		if("l_hand")
+			return HANDS
+		if("r_hand")
+			return HANDS
+		if("l_arm")
+			return ARMS
+		if("r_arm")
+			return ARMS
+		if("l_leg")
+			return LEGS
+		if("r_leg")
+			return LEGS
+		if("l_foot")
+			return FEET
+		if("r_foot")
+			return FEET
 
 /proc/above_neck(zone)
 	var/list/zones = list("head", "mouth", "eyes")
@@ -498,7 +517,7 @@
 	else
 		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
 
-	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE))
+	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE, hidden = TRUE))
 		return
 
 	if(resting)

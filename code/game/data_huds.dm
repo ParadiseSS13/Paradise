@@ -43,6 +43,9 @@
 /datum/atom_hud/data/human/security/advanced
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
 
+/datum/atom_hud/data/human/malf_ai
+	hud_icons = list(MALF_AI_HUD)
+
 /datum/atom_hud/data/diagnostic
 
 /datum/atom_hud/data/diagnostic/basic
@@ -202,14 +205,11 @@
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable_state = "dead"
-		if(!ghost_can_reenter()) // DNR or AntagHUD
-			revivable_state = "dead"
-		else if(ismachineperson(src) || (timeofdeath && is_revivable()))
-			revivable_state = "flatline"
-		else if(!mind)
-			revivable_state = "dead"
-		else if(get_ghost() || key)
-			revivable_state = "hassoul"
+		if(ghost_can_reenter()) // Not DNR or AntagHUD
+			if((ismachineperson(src) && (client || check_ghost_client())) || (!ismachineperson(src) && timeofdeath && is_revivable()))
+				revivable_state = "flatline"
+			else if(get_ghost() || key)
+				revivable_state = "hassoul"
 
 		holder.icon_state = "hud[revivable_state]"
 
@@ -236,8 +236,6 @@
 	if(wear_id && ! HAS_TRAIT(src, TRAIT_UNKNOWN))
 		holder.icon_state = "hud[ckey(wear_id.get_job_name())]"
 	sec_hud_set_security_status()
-
-
 
 /mob/living/carbon/human/proc/sec_hud_set_implants()
 	var/image/holder
@@ -407,7 +405,7 @@
 			holder.icon_state = "hudpatrol"
 		if(BOT_PREP_ARREST, BOT_ARREST, BOT_HUNT, BOT_BLOCKED, BOT_NO_ROUTE) //STOP RIGHT THERE, CRIMINAL SCUM!
 			holder.icon_state = "hudalert"
-		if(BOT_MOVING, BOT_DELIVER, BOT_GO_HOME, BOT_NAV, BOT_WAIT_FOR_NAV) //Moving to target for normal bots, moving to deliver or go home for MULES.
+		if(BOT_MOVING, BOT_PATHING, BOT_DELIVER, BOT_GO_HOME, BOT_NAV, BOT_WAIT_FOR_NAV) //Moving to target for normal bots, moving to deliver or go home for MULES.
 			holder.icon_state = "hudmove"
 		else
 			holder.icon_state = ""
@@ -508,6 +506,39 @@
 	holder.alpha = 130
 	holder.plane = ABOVE_LIGHTING_PLANE
 	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/*~~~~~~~~~~~~~~
+	Malf AI HUD
+~~~~~~~~~~~~~~~*/
+
+/mob/living/carbon/human/proc/malf_hud_set_status()
+	var/image/holder = hud_list[MALF_AI_HUD]
+	var/new_status
+	var/targetname = get_visible_name(TRUE) //gets the name of the target, works if they have an id or if their face is uncovered
+	if(!SSticker)
+		return //wait till the game starts or the monkeys runtime
+	for(var/datum/data/record/E in GLOB.data_core.general)
+		if(E.fields["name"] == targetname)
+			for(var/datum/data/record/R in GLOB.data_core.security)
+				if(R.fields["id"] == E.fields["id"])
+					new_status = E.fields["ai_target"]
+	if(targetname)
+		var/datum/data/record/R = find_record("name", targetname, GLOB.data_core.security)
+		if(R)
+			switch(new_status)
+				if(MALF_STATUS_NONE)
+					holder.icon_state = ""
+					return
+				if(MALF_STATUS_GREEN)
+					holder.icon_state = "malf_hud_green"
+					return
+				if(MALF_STATUS_RED)
+					holder.icon_state = "malf_hud_red"
+					return
+				if(MALF_STATUS_AVOID)
+					holder.icon_state = "malf_hud_avoid"
+					return
+	holder.icon_state = ""
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

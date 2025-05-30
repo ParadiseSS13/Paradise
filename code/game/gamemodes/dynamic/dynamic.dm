@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 /datum/game_mode/dynamic
 	name = "Dynamic"
 	config_tag = "dynamic"
-	required_players = 10
+	required_players = 0
 	/// Non-implied rulesets in play
 	var/list/datum/ruleset/rulesets = list()
 	/// Implied rulesets that are in play
@@ -26,10 +26,32 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 			possible_rulesets |= ruleset.implied_ruleset_type.name
 	to_chat(world, "<b>Possible Rulesets:</b> [english_list(possible_rulesets)]")
 
+/// Calculates the dynamic budget based on the number of players in the round
+/datum/game_mode/dynamic/proc/calculate_budget(players)
+	switch(players)
+		if(0 to 4)
+			// Flat budget of 7
+			return 7
+		if(5 to 20)
+			// +0.5 budget each for players 5-20
+			// Cumulative total at 20 players: 15
+			return 7 + 0.5 * (players - 4)
+		if(21 to 30)
+			// +1.5 budget each for players 21 to 30
+			// Cumulative total at 30 players: 30
+			return 15 + 1.5 * (players - 20)
+		else
+			// +1 budget each for players 31+, so just player count.
+			return players
+
 /datum/game_mode/dynamic/proc/allocate_ruleset_budget()
 	var/ruleset_budget = text2num(GLOB.dynamic_forced_rulesets["budget"] || pickweight(list("0" = 3, "1" = 8, "2" = 12, "3" = 3)))
-	antag_budget = num_players()
+	var/num_players = num_players()
+	antag_budget = calculate_budget(num_players)
 	log_dynamic("Allocated gamemode budget: [ruleset_budget]")
+	SSblackbox.record_feedback("tally", "dynamic_budget", ruleset_budget, "ruleset")
+	SSblackbox.record_feedback("tally", "dynamic_budget", antag_budget, "antag")
+	SSblackbox.record_feedback("amount", "dynamic_num_players", num_players)
 	var/list/possible_rulesets = list()
 	for(var/datum/ruleset/ruleset as anything in subtypesof(/datum/ruleset))
 		if(ruleset.ruleset_weight <= 0)
@@ -39,6 +61,8 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		var/datum/ruleset/new_ruleset = new ruleset()
 		possible_rulesets[new_ruleset] = new_ruleset.ruleset_weight
 
+	for(var/datum/ruleset/ruleset in possible_rulesets)
+		SSblackbox.record_feedback("tally", "dynamic_possible_rulesets_by_weight", ruleset.ruleset_weight, "[ruleset.type]")
 	log_dynamic("Available rulesets: [english_list(possible_rulesets)]")
 
 	for(var/datum/ruleset/ruleset as anything in GLOB.dynamic_forced_rulesets)

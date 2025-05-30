@@ -174,8 +174,8 @@ SUBSYSTEM_DEF(air)
 
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	setup_turfs()
-	setup_atmos_machinery(GLOB.machines)
-	setup_pipenets(GLOB.machines)
+	setup_atmos_machinery(SSmachines.get_by_type(/obj/machinery/atmospherics))
+	setup_pipenets(SSmachines.get_by_type(/obj/machinery/atmospherics))
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
 		A.initialize_atmos_network()
 
@@ -417,40 +417,54 @@ SUBSYSTEM_DEF(air)
 			continue
 
 		var/reasons = currentrun[offset + MILLA_INDEX_INTERESTING_REASONS]
-		var/x_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_X]
-		var/y_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_Y]
-		var/milla_tile = currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1)
-		currentrun.len -= MILLA_INTERESTING_TILE_SIZE
 
 		// Bind the MILLA tile we got, if needed.
-		if(isnull(T.bound_air))
-			bind_turf(T, milla_tile)
-		else if(T.bound_air.lastread < milla_tick)
-			T.bound_air.copy_from_milla(milla_tile)
-			T.bound_air.lastread = milla_tick
-			T.bound_air.readonly = null
-			T.bound_air.dirty = FALSE
-			T.bound_air.synchronized = FALSE
-
 		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
+			var/milla_tile = currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1)
+			if(isnull(T.bound_air))
+				bind_turf(T, milla_tile)
+			else if(T.bound_air.lastread < milla_tick)
+				T.bound_air.copy_from_milla(milla_tile)
+				T.bound_air.lastread = milla_tick
+				T.bound_air.readonly = null
+				T.bound_air.dirty = FALSE
+				T.bound_air.synchronized = FALSE
+
 			var/turf/simulated/S = T
 			if(istype(S))
 				S.update_visuals()
 
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
+			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
+			var/fuel_burnt = currentrun[offset + MILLA_INDEX_FUEL_BURNT]
+			var/hotspot_temperature = currentrun[offset + MILLA_INDEX_HOTSPOT_TEMPERATURE]
+			var/hotspot_volume = currentrun[offset + MILLA_INDEX_HOTSPOT_VOLUME]
+
 			var/turf/simulated/S = T
 			if(istype(S))
 				if(isnull(S.active_hotspot))
 					// Wasn't an active hotspot before, add it.
 					hotspots += S
+				else
+					S.active_hotspot.temperature = temperature
+					S.active_hotspot.fuel_burnt = fuel_burnt
+					S.active_hotspot.data_tick = milla_tick
+					if(hotspot_volume > 0)
+						S.active_hotspot.temperature = hotspot_temperature
+						S.active_hotspot.volume = hotspot_volume * CELL_VOLUME
+					else
+						S.active_hotspot.temperature = temperature
+						S.active_hotspot.volume = CELL_VOLUME
 
-				var/datum/gas_mixture/air = T.get_readonly_air()
-				T.temperature_expose(air.temperature())
+				T.temperature_expose(temperature)
 				for(var/atom/movable/item in T)
-					item.temperature_expose(air, air.temperature(), CELL_VOLUME)
-				T.temperature_expose(air, air.temperature(), CELL_VOLUME)
+					if(item.cares_about_temperature || !isnull(item.reagents))
+						item.temperature_expose(temperature, CELL_VOLUME)
 
 		if(reasons & MILLA_INTERESTING_REASON_WIND)
+			var/x_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_X]
+			var/y_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_Y]
+
 			var/turf/simulated/S = T
 			if(istype(S))
 				if(isnull(S.wind_tick))
@@ -461,6 +475,7 @@ SUBSYSTEM_DEF(air)
 				S.wind_y = y_flow
 			T.high_pressure_movements(x_flow, y_flow)
 
+		currentrun.len -= MILLA_INTERESTING_TILE_SIZE
 		if(MC_TICK_CHECK)
 			return
 
@@ -527,7 +542,7 @@ SUBSYSTEM_DEF(air)
 
 		var/turf/tile = locate(x, y, z)
 		if(istype(tile))
-			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			var/obj/effect/abstract/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
 			var/ratio = pressure / ONE_ATMOSPHERE
 			pressure_overlay.overlay.color = rgb((1 - ratio) * 255, 0, ratio * 255)
 			pressure_overlay.overlay.alpha = pressure_overlay_alpha
@@ -591,7 +606,7 @@ SUBSYSTEM_DEF(air)
 				continue
 
 			var/turf/tile = locate(x, y, oldloc.z)
-			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			var/obj/effect/abstract/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
 			user.client.images -= pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/add_pressure_hud(mob/user, turf/oldloc, full_send)
@@ -614,7 +629,7 @@ SUBSYSTEM_DEF(air)
 				continue
 
 			var/turf/tile = locate(x, y, newloc.z)
-			var/obj/effect/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
+			var/obj/effect/abstract/pressure_overlay/pressure_overlay = tile.ensure_pressure_overlay()
 			user.client.images += pressure_overlay.overlay
 
 /datum/controller/subsystem/air/proc/process_bound_mixtures(resumed = 0)

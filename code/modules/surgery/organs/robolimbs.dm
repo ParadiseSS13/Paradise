@@ -35,24 +35,24 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	selectable = 0
 	has_subtypes = null
 
-/datum/robolimb/hesphiastos
-	company = "Hesphiastos Industries"
+/datum/robolimb/hephaestus
+	company = "Hephaestus Industries"
 	desc = "This limb has a militaristic black and green casing with gold stripes."
-	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_main.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/hesphiastos.dmi')
+	icon = 'icons/mob/human_races/cyberlimbs/hephaestus/hephaestus_main.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/hephaestus.dmi')
 	has_subtypes = 1
 
-/datum/robolimb/hesphiastos/alt1
-	company = "Hesphiastos Industries alt."
-	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_alt1.dmi'
+/datum/robolimb/hephaestus/alt1
+	company = "Hephaestus Industries alt."
+	icon = 'icons/mob/human_races/cyberlimbs/hephaestus/hephaestus_alt1.dmi'
 	parts = list("head")
 	is_monitor = 1
 	selectable = 0
 	has_subtypes = null
 
-/datum/robolimb/hesphiastos/monitor
-	company = "Hesphiastos Industries mtr."
-	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_monitor.dmi'
+/datum/robolimb/hephaestus/monitor
+	company = "Hephaestus Industries mtr."
+	icon = 'icons/mob/human_races/cyberlimbs/hephaestus/hephaestus_monitor.dmi'
 	parts = list("head")
 	is_monitor = 1
 	selectable = 0

@@ -40,7 +40,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/administration)
 "aj" = (
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/admin{
 	dir = 2;
 	dwidth = 9;
 	height = 18;

@@ -1046,9 +1046,7 @@
 	if(!length(cards))
 		return
 	if(length(cards) <= 2)
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+		update_action_buttons()
 	..()
 
 /obj/item/cardhand/update_name()

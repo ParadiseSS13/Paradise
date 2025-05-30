@@ -24,6 +24,7 @@ FIRE ALARM
 	active_power_consumption = 6
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	resistance_flags = FIRE_PROOF
+	cares_about_temperature = TRUE
 
 	light_power = LIGHTING_MINIMUM_POWER
 	light_range = 7
@@ -107,7 +108,7 @@ FIRE ALARM
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
-/obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/machinery/firealarm/temperature_expose(temperature, volume)
 	..()
 	if(!emagged && detecting && temperature > T0C + 200)
 		alarm()			// added check of detector status here
@@ -127,24 +128,28 @@ FIRE ALARM
 
 /obj/machinery/firealarm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
-	if(wiresexposed)
-		if(buildstage == FIRE_ALARM_UNWIRED && istype(used, /obj/item/stack/cable_coil))
-			var/obj/item/stack/cable_coil/coil = used
-			if(!coil.use(5))
-				to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
-				return ITEM_INTERACT_COMPLETE
+	if(!wiresexposed)
+		return ..()
 
-			buildstage = FIRE_ALARM_READY
-			playsound(get_turf(src), used.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You wire [src]!</span>")
-			update_icon()
-		else if(buildstage == FIRE_ALARM_FRAME && istype(used, /obj/item/firealarm_electronics))
-			to_chat(user, "<span class='notice'>You insert the circuit!</span>")
-			qdel(used)
-			buildstage = FIRE_ALARM_UNWIRED
-			update_icon()
+	if(buildstage == FIRE_ALARM_UNWIRED && istype(used, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/coil = used
+		if(!coil.use(5))
+			to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
 
+		buildstage = FIRE_ALARM_READY
+		playsound(get_turf(src), used.usesound, 50, TRUE)
+		to_chat(user, "<span class='notice'>You wire [src]!</span>")
+		update_icon()
 		return ITEM_INTERACT_COMPLETE
+
+	if(buildstage == FIRE_ALARM_FRAME && istype(used, /obj/item/firealarm_electronics))
+		to_chat(user, "<span class='notice'>You insert the circuit!</span>")
+		qdel(used)
+		buildstage = FIRE_ALARM_UNWIRED
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/firealarm/crowbar_act(mob/user, obj/item/I)
@@ -198,6 +203,7 @@ FIRE ALARM
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	update_icon()
 	WIRECUTTER_SNIP_MESSAGE
 	var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(drop_location())
 	new_coil.amount = 5

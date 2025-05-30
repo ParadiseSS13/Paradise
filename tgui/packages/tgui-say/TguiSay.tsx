@@ -74,6 +74,7 @@ export class TguiSay extends Component<{}, State> {
   }
 
   componentDidMount() {
+    windowSet(WINDOW_SIZES.small);
     Byond.subscribeTo('props', this.handleProps);
     Byond.subscribeTo('open', this.handleOpen);
   }
@@ -284,6 +285,7 @@ export class TguiSay extends Component<{}, State> {
     const { maxLength, lightMode } = data;
     this.maxLength = maxLength;
     this.lightMode = !!lightMode;
+    window.document.body.style['zoom'] = `${100 / window.devicePixelRatio}%`;
   };
 
   reset() {

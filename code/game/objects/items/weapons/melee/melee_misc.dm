@@ -310,6 +310,8 @@
 	force = 25
 	armour_penetration_flat = 50
 	sharp = TRUE
+	new_attack_chain = TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	///enchantment holder, gives it unique on hit effects.
 	var/datum/enchantment/enchant = null
 	///the cooldown and power of enchantments are multiplied by this var when its applied
@@ -319,29 +321,37 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
-
 /obj/item/melee/spellblade/Destroy()
 	QDEL_NULL(enchant)
 	return ..()
 
-/obj/item/melee/spellblade/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
-	. = ..()
-	enchant?.on_hit(target, user, proximity, src)
+/obj/item/melee/spellblade/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	enchant?.pre_hit(target, user, src)
 
-/obj/item/melee/spellblade/attack_self__legacy__attackchain(mob/user)
+/obj/item/melee/spellblade/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	enchant?.on_hit(target, user, src)
+
+/obj/item/melee/spellblade/activate_self(mob/user)
+	if(..())
+		return
 	if(enchant)
 		return
 
-	var/static/list/options = list("Lightning" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "chain_lightning"),/// todo add icons for these
-							"Fire" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "fire"),
-							"Bluespace" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "blink"),
-							"Forcewall" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "shield"),
-							"Temporal Slash" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "spacetime"),)
-	var/static/list/options_to_type = list("Lightning" = /datum/enchantment/lightning,
-									"Fire" = /datum/enchantment/fire,
-									"Bluespace" = /datum/enchantment/bluespace,
-									"Forcewall" = /datum/enchantment/forcewall,
-									"Temporal Slash" = /datum/enchantment/time_slash,)
+	var/static/list/options = list(
+		"Lightning" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "chain_lightning"),
+		"Fire" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "fire"),
+		"Bluespace" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "blink"),
+		"Forcewall" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "shield"),
+		"Temporal Slash" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "spacetime"),
+	)
+	var/static/list/options_to_type = list(
+		"Lightning" = /datum/enchantment/lightning,
+		"Fire" = /datum/enchantment/fire,
+		"Bluespace" = /datum/enchantment/bluespace,
+		"Forcewall" = /datum/enchantment/forcewall,
+		"Temporal Slash" = /datum/enchantment/time_slash,
+	)
 
 	var/choice = show_radial_menu(user, src, options)
 	if(!choice)
@@ -351,9 +361,9 @@
 /obj/item/melee/spellblade/proc/add_enchantment(new_enchant, mob/living/user, intentional = TRUE)
 	var/datum/enchantment/E = new new_enchant
 	enchant = E
-	E.on_apply_to_blade(src)
 	E.on_gain(src, user)
 	E.power *= power
+	E.on_apply_to_blade(src)
 	if(intentional)
 		SSblackbox.record_feedback("nested tally", "spellblade_enchants", 1, list("[E.name]"))
 
@@ -361,12 +371,6 @@
 	. = ..()
 	if(enchant && (iswizard(user) || IS_CULTIST(user))) // only wizards and cultists understand runes
 		. += "The runes along the side read; [enchant.desc]."
-
-
-/obj/item/melee/spellblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	return ..()
 
 /datum/enchantment
 	/// used for blackbox logging
@@ -377,32 +381,29 @@
 	var/power = 1
 	/// whether the enchant procs despite not being in proximity
 	var/ranged = FALSE
-	/// stores the world.time after which it can be used again, the `initial(cooldown)` is the cooldown between activations.
-	var/cooldown = -1
+	/// stores cooldown between activations.
+	var/cooldown = 0
 	/// If the spellblade has traits, has it applied them?
 	var/applied_traits = FALSE
-	/// A modifier that can be appled to the cooldown after the enchantment has been initialized. Used by the forcewall spellblade
-	var/cooldown_multiplier = 1
+	COOLDOWN_DECLARE(enchant_cooldown)
 
-/datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
-	if(world.time < cooldown)
+/datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
+	if(!COOLDOWN_FINISHED(src, enchant_cooldown) || !istype(target) || target.stat == DEAD)
 		return FALSE
-	if(!istype(target))
-		return FALSE
-	if(target.stat == DEAD)
-		return FALSE
-	if(!ranged && !proximity)
-		return FALSE
-	cooldown = world.time + (initial(cooldown) * cooldown_multiplier)
 	return TRUE
 
-/datum/enchantment/proc/on_gain(obj/item/melee/spellblade, mob/living/user)
+/datum/enchantment/proc/pre_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
+	if(!ranged || !COOLDOWN_FINISHED(src, enchant_cooldown) || !istype(target) || target.stat == DEAD)
+		return FALSE
+	return TRUE
+
+/datum/enchantment/proc/on_gain(obj/item/melee/spellblade/S, mob/living/user)
 	return
 
 /datum/enchantment/proc/toggle_traits(obj/item/I, mob/living/user)
 	return
 
-/datum/enchantment/proc/on_apply_to_blade(obj/item/melee/spellblade)
+/datum/enchantment/proc/on_apply_to_blade(obj/item/melee/spellblade/S)
 	return
 
 /datum/enchantment/lightning
@@ -418,14 +419,14 @@
 	if(user)
 		toggle_traits(S, user)
 
-
-/datum/enchantment/lightning/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
+/datum/enchantment/lightning/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
 	. = ..()
 	if(.)
 		zap(target, user, list(user), power)
+		COOLDOWN_START(src, enchant_cooldown, cooldown)
 
 /datum/enchantment/lightning/toggle_traits(obj/item/I, mob/living/user)
-	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
+	var/enchant_ID = UID() // so it only removes the traits applied by this specific enchant.
 	if(applied_traits)
 		REMOVE_TRAIT(user, TRAIT_SHOCKIMMUNE, "[enchant_ID]")
 	else
@@ -462,7 +463,7 @@
 		toggle_traits(S, user)
 
 /datum/enchantment/fire/toggle_traits(obj/item/I, mob/living/user)
-	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
+	var/enchant_ID = UID() // so it only removes the traits applied by this specific enchant.
 	if(applied_traits)
 		REMOVE_TRAIT(user, TRAIT_NOFIRE, "[enchant_ID]")
 		REMOVE_TRAIT(user, TRAIT_RESISTHEAT, "[enchant_ID]")
@@ -472,10 +473,11 @@
 		ADD_TRAIT(user, TRAIT_NOFIRE, "[enchant_ID]")
 		applied_traits = TRUE
 
-/datum/enchantment/fire/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
+/datum/enchantment/fire/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
 	. = ..()
 	if(.)
 		fireflash_s(target, 4, 8000 * power, 500)
+		COOLDOWN_START(src, enchant_cooldown, cooldown)
 
 /datum/enchantment/forcewall
 	name = "forcewall"
@@ -484,14 +486,14 @@
 	// multiplier for how much the cooldown is reduced by. A miner spellblade can only buff every 4 seconds, making it more vunerable, the wizard one is much more consistant.
 	power = 2
 
-/datum/enchantment/forcewall/on_apply_to_blade(obj/item/melee/spellblade)
-	cooldown_multiplier /= power
+/datum/enchantment/forcewall/on_apply_to_blade(obj/item/melee/spellblade/S)
+	cooldown /= power
 
-/datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
+/datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
 	. = ..()
-	if(!.)
-		return
-	user.apply_status_effect(STATUS_EFFECT_FORCESHIELD)
+	if(.)
+		user.apply_status_effect(STATUS_EFFECT_FORCESHIELD)
+		COOLDOWN_START(src, enchant_cooldown, cooldown)
 
 /datum/enchantment/bluespace
 	name = "bluespace"
@@ -501,43 +503,43 @@
 	// the number of deciseconds of stun applied by the teleport strike
 	power = 5
 
-/datum/enchantment/bluespace/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
-	if(proximity) // don't put it on cooldown if adjacent
-		return
+/datum/enchantment/bluespace/pre_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
 	. = ..()
-	if(!.)
-		return
-	var/turf/user_turf = get_turf(user)
-	if(get_dist(user_turf, get_turf(target)) > 9) //blocks cameras without blocking xray or thermals
-		return
-	if(!((target in view(9, user)) || user.sight & SEE_MOBS))
-		return
-	var/list/turfs = list()
-	for(var/turf/T in orange(1, get_turf(target)))
-		if(is_blocked_turf(T, TRUE))
-			continue
-		turfs += T
+	if(.)
+		var/turf/user_turf = get_turf(user)
+		if(get_dist(user_turf, get_turf(target)) > 9) //blocks cameras without blocking xray or thermals
+			return
+		if(!((target in view(9, user)) || user.sight & SEE_MOBS))
+			return
+		var/list/turfs = list()
+		for(var/turf/T in orange(1, get_turf(target)))
+			if(T.is_blocked_turf(exclude_mobs = TRUE))
+				continue
+			turfs += T
 
-	var/target_turf = pick(turfs)
-	user_turf.Beam(target_turf, "warp_beam", time = 0.3 SECONDS)
-	user.forceMove(target_turf)
-	S.melee_attack_chain(user, target)
-	target.Weaken(power)
+		var/target_turf = pick(turfs)
+		user_turf.Beam(target_turf, "warp_beam", time = 0.3 SECONDS)
+		user.forceMove(target_turf)
+		S.melee_attack_chain(user, target)
+		target.Weaken(power)
+		COOLDOWN_START(src, enchant_cooldown, cooldown)
+
+/datum/enchantment/bluespace/on_apply_to_blade(obj/item/melee/spellblade/S)
+	cooldown /= S.power
 
 /datum/enchantment/time_slash
 	name = "temporal"
 	desc = "this blade will slice faster but weaker, and will curse the target, slashing them a few seconds after they have not been swinged at for each hit"
-	power = 15 // This should come out to 40 damage per hit. However, delayed.
+	power = 20 // This should come out to 32.5 damage per hit. However, delayed.
 
-/datum/enchantment/time_slash/on_apply_to_blade(obj/item/melee/spellblade)
-	spellblade.force /= 2
+/datum/enchantment/time_slash/on_apply_to_blade(obj/item/melee/spellblade/S)
+	S.force /= 2
 
-/datum/enchantment/time_slash/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
+/datum/enchantment/time_slash/on_hit(mob/living/target, mob/living/user, obj/item/melee/spellblade/S)
 	user.changeNext_move(CLICK_CD_MELEE * 0.5)
 	. = ..()
-	if(!.)
-		return
-	target.apply_status_effect(STATUS_EFFECT_TEMPORAL_SLASH, power)
+	if(.)
+		target.apply_status_effect(STATUS_EFFECT_TEMPORAL_SLASH, power)
 
 /obj/effect/temp_visual/temporal_slash
 	name = "temporal slash"
@@ -574,10 +576,13 @@
 
 /obj/item/melee/spellblade/random/Initialize(mapload)
 	. = ..()
-	var/list/options = list(/datum/enchantment/lightning,
-							/datum/enchantment/fire,
-							/datum/enchantment/forcewall,
-							/datum/enchantment/bluespace,
-							/datum/enchantment/time_slash,)
+	var/list/options = list(
+		/datum/enchantment/lightning,
+		/datum/enchantment/fire,
+		/datum/enchantment/forcewall,
+		/datum/enchantment/bluespace,
+		/datum/enchantment/time_slash,
+	)
+
 	var/datum/enchantment/E = pick(options)
 	add_enchantment(E, intentional = FALSE)

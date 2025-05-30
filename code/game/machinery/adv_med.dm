@@ -364,6 +364,7 @@
 		occupantData["blind"] = HAS_TRAIT(occupant, TRAIT_BLIND)
 		occupantData["colourblind"] = HAS_TRAIT(occupant, TRAIT_COLORBLIND)
 		occupantData["nearsighted"] = HAS_TRAIT(occupant, TRAIT_NEARSIGHT)
+		occupantData["paraplegic"] = HAS_TRAIT(occupant, TRAIT_PARAPLEGIC)
 
 	data["occupant"] = occupantData
 	return data
@@ -453,6 +454,8 @@
 			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><br>"
 		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHT))
 			dat += "<font color='red'>Retinal misalignment detected.</font><br>"
+		if(HAS_TRAIT(occupant, TRAIT_PARAPLEGIC))
+			dat += "<font color='red'>Lumbar nerves damaged.</font><br>"
 
 		dat += "<hr>"
 		dat += "<table border='1' style='width:100%'>"

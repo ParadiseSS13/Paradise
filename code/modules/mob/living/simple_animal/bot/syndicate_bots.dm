@@ -67,7 +67,7 @@
 	if(!H)
 		return
 	target = H
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
 	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
@@ -94,7 +94,7 @@
 			if(find_new_target())
 				return
 			if(!mode && auto_patrol)
-				mode = BOT_START_PATROL
+				set_mode(BOT_START_PATROL)
 
 		if(BOT_HUNT)
 			if(frustration >= 8)
@@ -140,7 +140,7 @@
 			continue
 		target = M
 		oldtarget_name = M.name
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE

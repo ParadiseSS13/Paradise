@@ -328,8 +328,10 @@
 		keep_turfs = typecacheof(list(
 			/turf/simulated/floor/lava,
 			/turf/simulated/floor/indestructible/hierophant,
-			/turf/simulated/floor/indestructible/necropolis
-			))
+			/turf/simulated/floor/indestructible/necropolis,
+			/turf/simulated/floor/indestructible/boss,
+			/turf/simulated/floor/vault/lavaland_air,
+		))
 
 /obj/item/mod/module/ash_accretion/Destroy()
 	QDEL_NULL(armor_mod_2)

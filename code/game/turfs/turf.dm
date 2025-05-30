@@ -85,11 +85,17 @@
 	var/datum/gas_mixture/bound_to_turf/bound_air
 
 	/// The effect used to render a pressure overlay from this tile.
-	var/obj/effect/pressure_overlay/pressure_overlay
+	var/obj/effect/abstract/pressure_overlay/pressure_overlay
 
 	var/list/milla_data = null
 
 	new_attack_chain = TRUE
+	/// The destination x-coordinate that atoms entering this turf will be automatically moved to.
+	var/destination_x
+	/// The destination y-coordinate that atoms entering this turf will be automatically moved to.
+	var/destination_y
+	/// The destination z-level that atoms entering this turf will be automatically moved to.
+	var/destination_z
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -153,6 +159,7 @@
 	..()
 
 /turf/attack_hand(mob/user as mob)
+	. = ..()
 	user.Move_Pulled(src)
 
 /turf/attack_robot(mob/user)
@@ -193,7 +200,7 @@
 
 /turf/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/bullet/gyro))
-		explosion(src, -1, 0, 2)
+		explosion(src, -1, 0, 2, cause = "[Proj.type] fired by [key_name(Proj.firer)] (hit turf)")
 	..()
 	return FALSE
 
@@ -225,17 +232,58 @@
 		return FALSE
 	return TRUE
 
-/turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
+/turf/Entered(atom/movable/A, atom/OL, ignoreRest = FALSE)
 	..()
-	if(ismob(M))
-		var/mob/O = M
+	if(ismob(A))
+		var/mob/O = A
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
 
 	// If an opaque movable atom moves around we need to potentially update visibility.
-	if(M.opacity)
+	if(A.opacity)
 		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
 		reconsider_lights()
+
+	if((!(A) || !(src in A.locs)))
+		return
+
+	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING) && !HAS_TRAIT(A, TRAIT_NO_EDGE_TRANSITIONS))
+		var/tx = destination_x
+		var/ty = destination_y
+		var/turf/DT = locate(tx, ty, destination_z)
+		var/itercount = 0
+		while(DT.density || istype(DT.loc, /area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
+			if(itercount++ >= 100)
+				stack_trace("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [A] within 100 iterations.")
+				break
+			if(tx < 128)
+				tx++
+			else
+				tx--
+			if(ty < 128)
+				ty++
+			else
+				ty--
+			DT = locate(tx, ty, destination_z)
+
+		ADD_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT) // roundstart because its robust and won't be removed by someone being an idiot
+		A.forceMove(DT)
+		REMOVE_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
+
+		itercount = 0
+		var/atom/movable/current_pull = A.pulling
+		while(current_pull)
+			if(itercount > 100)
+				stack_trace("SPACE Z-TRANSIT ERROR: [A] encountered a possible infinite loop while traveling through z-levels.")
+				break
+			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
+			ADD_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
+			current_pull.forceMove(target_turf)
+			REMOVE_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
+			current_pull = current_pull.pulling
+			itercount++
+
+	return TRUE
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
@@ -280,6 +328,11 @@
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
 
 	var/old_baseturf = baseturf
+	var/old_pressure_overlay
+	if(pressure_overlay)
+		old_pressure_overlay = pressure_overlay
+		pressure_overlay = null
+
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
 	var/list/old_comp_lookup = comp_lookup?.Copy()
@@ -298,6 +351,7 @@
 	if(!defer_change)
 		W.AfterChange(ignore_air)
 	W.blueprint_data = old_blueprint_data
+	W.pressure_overlay = old_pressure_overlay
 
 	recalc_atom_opacity()
 
@@ -551,7 +605,7 @@
 	LAZYADD(blueprint_data, I)
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
+	if(SSticker.current_state == GAME_STATE_STARTUP || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type = /turf/space)
@@ -675,11 +729,31 @@
 	get_turf_air(T).copy_from(air)
 
 /turf/simulated/proc/update_hotspot()
-	var/datum/gas_mixture/air = get_readonly_air()
-	if(air.fuel_burnt() < 0.001)
-		if(isnull(active_hotspot))
-			return FALSE
+	// This is a horrible (but fast) way to do this. Don't copy it.
+	// It's only used here because we know we're in safe code and this method is called a ton.
+	var/datum/gas_mixture/air
+	var/fuel_burnt = 0
+	if(isnull(active_hotspot))
+		active_hotspot = new(src)
+		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
+		active_hotspot.update_tick = rand(0, active_hotspot.update_interval - 1)
 
+	if(active_hotspot.data_tick != SSair.milla_tick)
+		if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
+			air = get_readonly_air()
+		else
+			air = bound_air
+		fuel_burnt = air.fuel_burnt()
+		if(air.hotspot_volume() > 0)
+			active_hotspot.temperature = air.hotspot_temperature()
+			active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
+		else
+			active_hotspot.temperature = air.temperature()
+			active_hotspot.volume = CELL_VOLUME
+	else
+		fuel_burnt = active_hotspot.fuel_burnt
+
+	if(fuel_burnt < 0.001)
 		// If it's old, delete it.
 		if(active_hotspot.death_timer < SSair.milla_tick)
 			QDEL_NULL(active_hotspot)
@@ -687,18 +761,12 @@
 		else
 			return TRUE
 
-	if(isnull(active_hotspot))
-		active_hotspot = new(src)
-
 	active_hotspot.death_timer = SSair.milla_tick + 4
-	if(air.hotspot_volume() > 0)
-		active_hotspot.temperature = air.hotspot_temperature()
-		active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
-	else
-		active_hotspot.temperature = air.temperature()
-		active_hotspot.volume = CELL_VOLUME
 
-	active_hotspot.update_visuals()
+	if(active_hotspot.update_tick == 0)
+		active_hotspot.update_visuals(active_hotspot.fuel_burnt)
+		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
+	active_hotspot.update_tick = (active_hotspot.update_tick + 1) % active_hotspot.update_interval
 	return TRUE
 
 /turf/simulated/proc/update_wind()
@@ -712,7 +780,14 @@
 
 	wind_effect.dir = wind_direction(wind_x, wind_y)
 
-	var/datum/gas_mixture/air = get_readonly_air()
+	// This is a horrible (but fast) way to do this. Don't copy it.
+	// It's only used here because we know we're in safe code and this method is called a ton.
+	var/datum/gas_mixture/air
+	if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
+		air = get_readonly_air()
+	else
+		air = bound_air
+
 	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
 	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
 	wind_effect.alpha = min(255, 5 + wind_strength * 25)
@@ -721,17 +796,21 @@
 /turf/return_analyzable_air()
 	return get_readonly_air()
 
-/obj/effect/pressure_overlay
+/obj/effect/abstract/pressure_overlay
+	name = null
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	// I'm really not sure this is the right var for this, but it's what the suply shuttle is using to determine if anything is blocking a tile, so let's not do that.
 	simulated = FALSE
 	// Please do not splat the visual effect with a shuttle.
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
+	layer = OBJ_LAYER
+	invisibility = 0
 
 	var/image/overlay
 
-/obj/effect/pressure_overlay/Initialize(mapload)
+/obj/effect/abstract/pressure_overlay/Initialize(mapload)
 	. = ..()
 	overlay = new(icon, src, "white")
 	overlay.alpha = 0
@@ -739,21 +818,21 @@
 	overlay.blend_mode = BLEND_OVERLAY
 	overlay.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 
-/obj/effect/pressure_overlay/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/obj/effect/abstract/pressure_overlay/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
 	// No, I don't think I will.
 	return FALSE
 
-/obj/effect/pressure_overlay/singularity_pull()
+/obj/effect/abstract/pressure_overlay/singularity_pull()
 	// I am not a physical object, you have no control over me!
 	return FALSE
 
-/obj/effect/pressure_overlay/singularity_act()
+/obj/effect/abstract/pressure_overlay/singularity_act()
 	// I don't taste good, either!
 	return FALSE
 
 /turf/proc/ensure_pressure_overlay()
 	if(isnull(pressure_overlay))
-		for(var/obj/effect/pressure_overlay/found_overlay in src)
+		for(var/obj/effect/abstract/pressure_overlay/found_overlay in src)
 			pressure_overlay = found_overlay
 	if(isnull(pressure_overlay))
 		pressure_overlay = new(src)
@@ -769,3 +848,82 @@
 
 /turf/_clear_signal_refs()
 	return
+
+/turf/proc/set_transition_north(dest_z)
+	destination_x = x
+	destination_y = TRANSITION_BORDER_SOUTH + 1
+	destination_z = dest_z
+
+/turf/proc/set_transition_south(dest_z)
+	destination_x = x
+	destination_y = TRANSITION_BORDER_NORTH - 1
+	destination_z = dest_z
+
+/turf/proc/set_transition_east(dest_z)
+	destination_x = TRANSITION_BORDER_WEST + 1
+	destination_y = y
+	destination_z = dest_z
+
+/turf/proc/set_transition_west(dest_z)
+	destination_x = TRANSITION_BORDER_EAST - 1
+	destination_y = y
+	destination_z = dest_z
+
+/turf/proc/remove_transitions()
+	destination_z = initial(destination_z)
+
+/turf/attack_ghost(mob/dead/observer/user)
+	if(destination_z)
+		var/turf/T = locate(destination_x, destination_y, destination_z)
+		user.forceMove(T)
+		return TRUE
+	return ..()
+
+/// Returns whether it is safe for an atom to move across this turf
+/// TODO: Things like lava will need to have more specialized code
+/// but that can wait for when we port basic mobs that may actually
+/// encounter lava
+/turf/proc/can_cross_safely(atom/movable/crossing)
+	return TRUE
+
+/**
+ * Check whether we are blocked by something dense in our contents with respect to a specific atom.
+ *
+ * Arguments:
+ * * exclude_mobs - If TRUE, ignores dense mobs on the turf.
+ * * source_atom - If this is not null, will check whether any contents on the
+ *   turf can block this atom specifically. Also ignores itself on the turf.
+ * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent
+ *   an atom from blocking itself on the turf.
+ * * type_list - are we checking for types of atoms to ignore and not physical atoms
+ */
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms, type_list = FALSE)
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/movable_content as anything in contents)
+		// If a source_atom is specified, that's what we're checking
+		// blockage with respect to, so we ignore it
+		if(movable_content == source_atom)
+			continue
+
+		// Prevents jaunting onto the AI core cheese, AI should always block a
+		// turf due to being a dense mob even when unanchored
+		if(is_ai(movable_content))
+			return TRUE
+
+		// don't consider ignored atoms or their types
+		if(length(ignore_atoms))
+			if(!type_list && (movable_content in ignore_atoms))
+				continue
+			else if(type_list && is_type_in_list(movable_content, ignore_atoms))
+				continue
+
+		// If the thing is dense AND we're including mobs or the thing isn't a
+		// mob AND if there's a source atom and it cannot pass through the thing
+		// on the turf, we consider the turf blocked.
+		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
+			if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
+				continue
+			return TRUE
+	return FALSE

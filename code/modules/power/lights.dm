@@ -238,6 +238,7 @@
 	idle_power_consumption = 10  //when in low power mode
 	active_power_consumption = 20 //when in full power mode
 	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
+	cares_about_temperature = TRUE
 	var/base_state = "tube" // Base description and icon_state
 	/// Is the light on or off?
 	var/on = FALSE
@@ -593,6 +594,13 @@
 // attack with item - insert light (if right type), otherwise try to break the light
 
 /obj/machinery/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/gripper/gripper = used
+	if(istype(gripper) && gripper.engineering_machine_interaction)
+		if(gripper.gripped_item)
+			return item_interaction(user, gripper.gripped_item, modifiers)
+		else
+			return ..()
+
 	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(used, /obj/item/lightreplacer))
@@ -758,13 +766,12 @@
 
 // attempts to set emergency lights
 /obj/machinery/light/proc/set_emergency_lights()
-	var/area/current_area = get_area(src)
-	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
+	var/obj/machinery/power/apc/current_apc = machine_powernet?.powernet_apc
 	if(status != LIGHT_OK || !current_apc || flickering || no_emergency)
-		emergency_lights_off(current_area, current_apc)
+		emergency_lights_off(current_apc)
 		return
 	if(current_apc.emergency_lights || !current_apc.emergency_power)
-		emergency_lights_off(current_area, current_apc)
+		emergency_lights_off(current_apc)
 		return
 	if(fire_mode)
 		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
@@ -775,7 +782,7 @@
 	update_icon()
 	RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
-/obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
+/obj/machinery/light/proc/emergency_lights_off(obj/machinery/power/apc/current_apc)
 	set_light(0, 0, 0) //you, sir, are off!
 	if(current_apc)
 		RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
@@ -929,7 +936,7 @@
 	zap_flags &= ~(ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE)
 	. = ..()
 	if(explosive)
-		explosion(src, 0, 0, 0, flame_range = 5, adminlog = FALSE)
+		explosion(src, 0, 0, 0, flame_range = 5, cause = "Exploding light")
 		qdel(src)
 
 // timed process
@@ -943,7 +950,7 @@
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
@@ -956,7 +963,7 @@
 
 /obj/machinery/light/proc/actually_explode()
 	var/turf/T = get_turf(loc)
-	explosion(T, 0, 0, 2, 2)
+	explosion(T, 0, 0, 2, 2, cause = "exploding light")
 	qdel(src)
 
 /obj/machinery/light/extinguish_light(force = FALSE)

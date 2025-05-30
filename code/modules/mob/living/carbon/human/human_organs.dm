@@ -47,7 +47,7 @@
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
 		var/obj/item/organ/external/E = bodyparts_by_name[limb_tag]
-		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning() || !E.properly_attached)
+		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning() || !E.properly_attached || HAS_TRAIT(src, TRAIT_PARAPLEGIC))
 			if(E?.status & ORGAN_DEAD && HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 				continue
 			if(E && !E.properly_attached && life_tick % 24 == 0)

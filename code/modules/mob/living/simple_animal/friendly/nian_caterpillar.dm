@@ -41,7 +41,6 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	holder_type = /obj/item/holder/nian_caterpillar
-	can_collar = TRUE
 
 	/// Evolution action.
 	var/datum/action/innate/nian_caterpillar_emerge/evolve_action = new()
@@ -51,6 +50,7 @@
 /mob/living/simple_animal/nian_caterpillar/Initialize(mapload)
 	. = ..()
 	real_name = name
+	AddElement(/datum/element/wears_collar)
 	add_language("Tkachi")
 	evolve_action.Grant(src)
 
@@ -124,11 +124,11 @@
 	else
 		get_scooped(M)
 
-/mob/living/simple_animal/nian_caterpillar/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
+/mob/living/simple_animal/nian_caterpillar/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		gib() // Commit die.
-	else
-		..()
 
 /datum/action/innate/nian_caterpillar_emerge
 	name = "Evolve"

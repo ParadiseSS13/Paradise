@@ -689,8 +689,8 @@
 /obj/machinery/economy/vending/ui_data(mob/user)
 	var/list/data = list()
 
-	data["locked"] = locked()
-	data["chargesMoney"] = locked()
+	data["locked"] = locked(user) != VENDOR_UNLOCKED
+	data["bypass_lock"] = locked(user) == VENDOR_LOCKED_FOR_OTHERS
 	data["usermoney"] = 0
 	data["inserted_cash"] = cash_transaction
 	data["user"] = null
@@ -777,12 +777,12 @@
 			var/key = text2num(params["inum"])
 			try_vend(key, user)
 		if("rename")
-			if(!locked())
+			if(locked(user) != VENDOR_LOCKED)
 				var/new_name = tgui_input_text(user, "Rename the vendor to what?", name)
 				if(!isnull(new_name))
 					name = new_name
 		if("change_appearance")
-			if(locked())
+			if(locked(user) == VENDOR_LOCKED)
 				return
 			var/possible_icons = list()
 			var/icon_lookup = list()
@@ -834,7 +834,7 @@
 		flick(icon_deny, src)
 		return
 
-	if(!ishuman(user) || currently_vending.price <= 0 || !locked())
+	if(!ishuman(user) || currently_vending.price <= 0 || locked(user) != VENDOR_LOCKED)
 		// Either the purchaser is not human, or the item is free.
 		// Skip all payment logic, and vend without a delay.
 		vend(currently_vending, user, FALSE)
@@ -1079,8 +1079,8 @@
 	mob_hurt = TRUE
 	return ..()
 
-/obj/machinery/economy/vending/proc/locked()
-	return TRUE
+/obj/machinery/economy/vending/proc/locked(mob/user)
+	return VENDOR_LOCKED
 
 /obj/machinery/economy/vending/proc/get_vendor_account()
 	return GLOB.station_money_database.vendor_account

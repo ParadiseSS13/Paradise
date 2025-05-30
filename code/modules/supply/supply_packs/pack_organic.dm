@@ -15,8 +15,6 @@
 					/obj/item/reagent_containers/condiment/peppermill,
 					/obj/item/kitchen/rollingpin,
 					/obj/item/storage/fancy/egg_box,
-					/obj/item/mixing_bowl,
-					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/condiment/enzyme,
 					/obj/item/reagent_containers/condiment/sugar,
 					/obj/item/food/meat/monkey,
@@ -33,7 +31,8 @@
 					/obj/item/pizzabox/mushroom,
 					/obj/item/pizzabox/pepperoni,
 					/obj/item/pizzabox/vegetable,
-					/obj/item/pizzabox/hawaiian)
+					/obj/item/pizzabox/hawaiian,
+					/obj/item/kitchen/knife/pizza_cutter)
 	cost = 500
 	containername = "Pizza crate"
 

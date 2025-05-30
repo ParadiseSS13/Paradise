@@ -60,6 +60,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 80, ACID = 50)
 	max_integrity = 250
 	integrity_failure = 100
+	cares_about_temperature = TRUE
 
 	var/valve_open = FALSE
 	var/release_pressure = ONE_ATMOSPHERE
@@ -166,7 +167,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	else if(current_pressure_appearance == EXTREME_PRESSURE)
 		. += "can-o3"
 
-/obj/machinery/atmospherics/portable/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/atmospherics/portable/canister/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > temperature_resistance)
 		take_damage(5, BURN, 0)
@@ -200,6 +201,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		holding_tank = null
 
 	T.blind_release_air(expelled_gas)
+	if(attack_info)
+		investigate_log("canister destroyed, last attacked by [attack_info.last_attacker_html()][attack_info.last_weapon()]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/canister/proc/sync_pressure_appearance()
 	var/new_pressure_appearance = pressure_to_appearance(air_contents.return_pressure())
@@ -269,10 +272,10 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		if(close_valve)
 			valve_open = FALSE
 			update_icon()
-			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", "atmos")
+			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", INVESTIGATE_ATMOS)
 
 		else if(valve_open && holding_tank)
-			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", "atmos")
+			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/canister/attack_ai(mob/user)
 	add_hiddenprint(user)
@@ -351,7 +354,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 				pressure = text2num(pressure)
 			if(.)
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
-				investigate_log("was set to [release_pressure] kPa by [key_name(ui.user)].", "atmos")
+				investigate_log("was set to [release_pressure] kPa by [key_name(ui.user)].", INVESTIGATE_ATMOS)
 
 		if("valve")
 			var/logmsg
@@ -375,7 +378,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			else
 				logmsg = "Valve was <b>closed</b> by [key_name(ui.user)], stopping the transfer into the [holding_tank || "air"].<br>"
 
-			investigate_log(logmsg, "atmos")
+			investigate_log(logmsg, INVESTIGATE_ATMOS)
 			release_log += logmsg
 
 		if("eject")
@@ -405,6 +408,14 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/atmospherics/portable/canister/atmos_init()
 	. = ..()
 	update_icon()
+
+/obj/machinery/atmospherics/portable/canister/attacked_by(obj/item/attacker, mob/living/user)
+	. = ..()
+	store_last_attacker(user, attacker)
+
+/obj/machinery/atmospherics/portable/canister/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	store_last_attacker(M)
 
 /obj/machinery/atmospherics/portable/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"

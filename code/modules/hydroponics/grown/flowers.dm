@@ -73,7 +73,7 @@
 	icon_grow = "spacemanstrumpet-grow"
 	icon_dead = "spacemanstrumpet-dead"
 	mutatelist = null
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
+	reagents_add = list("nutriment" = 0.05)
 
 /obj/item/food/grown/trumpet
 	seed = /obj/item/seeds/poppy/lily/trumpet

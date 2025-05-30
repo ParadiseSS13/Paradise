@@ -160,16 +160,14 @@
 	paintable = FALSE
 	var/last_event = 0
 
-/obj/machinery/door/airlock/uranium/process()
-	if(world.time > last_event + 20)
-		if(prob(50))
-			radiate()
-		last_event = world.time
-	..()
+/obj/machinery/door/airlock/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
-/obj/machinery/door/airlock/uranium/proc/radiate()
-	radiation_pulse(get_turf(src), 150)
 
+/obj/machinery/door/airlock/uranium/attack_hand(mob/user)
+	. = ..()
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE
@@ -182,7 +180,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 	paintable = FALSE
 
-/obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/airlock/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
@@ -204,7 +202,7 @@
 	if(used.get_heat() > 300)
 		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		log_game("Plasma airlock ignited by [key_name(user)] in ([x],[y],[z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
 		ignite(used.get_heat())
 		return ITEM_INTERACT_COMPLETE
 
@@ -656,7 +654,6 @@
 //Terribly sorry for the code doubling, but things go derpy otherwise.
 /obj/machinery/door/airlock/multi_tile
 	name = "large airlock"
-	dir = EAST
 	width = 2
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
@@ -664,8 +661,12 @@
 	assemblytype = /obj/structure/door_assembly/multi_tile
 	paintable = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/airlock/multi_tile, 32)
+
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return
+
+MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/airlock/multi_tile/glass, 32)
 
 /obj/machinery/door/airlock/multi_tile/glass
 	opacity = FALSE
@@ -680,17 +681,30 @@
 	opacity = TRUE
 	anchored = TRUE
 	invisibility = INVISIBILITY_MAXIMUM
+	obj_integrity = INFINITY // our parent airlock/assembly will handle that
 	//atmos_canpass = CANPASS_DENSITY
 	/// The door/airlock this fluff panel is attached to
 	var/obj/machinery/door/filled_airlock
-
-/obj/airlock_filler_object/Bumped(atom/A)
-	if(isnull(filled_airlock))
-		stack_trace("Someone bumped into an airlock filler with no parent airlock specified!")
-	return filled_airlock.Bumped(A)
+	/// The assembly this fluff panel is attached to
+	var/obj/structure/door_assembly/filled_assembly
 
 /obj/airlock_filler_object/Destroy()
 	filled_airlock = null
+	filled_assembly = null
+	return ..()
+
+/obj/airlock_filler_object/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+	if(filled_airlock)
+		filled_airlock.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
+	else if(filled_assembly)
+		filled_assembly.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
+	return ..()
+
+/obj/airlock_filler_object/ex_act(severity)
+	if(filled_airlock)
+		filled_airlock.ex_act(severity)
+	else if(filled_assembly)
+		filled_assembly.ex_act(severity)
 	return ..()
 
 /// Multi-tile airlocks pair with a filler panel, if one goes so does the other.
@@ -701,12 +715,25 @@
 	filled_airlock = parent_airlock
 	RegisterSignal(filled_airlock, COMSIG_PARENT_QDELETING, PROC_REF(no_airlock))
 
+/obj/airlock_filler_object/proc/pair_assembly(obj/structure/door_assembly/parent_assembly)
+	if(isnull(parent_assembly))
+		stack_trace("Attempted to pair an airlock filler with no parent assembly specified!")
+
+	filled_assembly = parent_assembly
+	RegisterSignal(filled_assembly, COMSIG_PARENT_QDELETING, PROC_REF(no_assembly))
+
 /obj/airlock_filler_object/proc/no_airlock()
 	UnregisterSignal(filled_airlock)
 	qdel(src)
 
+/obj/airlock_filler_object/proc/no_assembly()
+	UnregisterSignal(filled_assembly)
+	qdel(src)
+
 /// Multi-tile airlocks (using a filler panel) have special handling for movables with PASS_FLAG_GLASS
 /obj/airlock_filler_object/CanPass(atom/movable/mover, border_dir)
+	if(mover == filled_assembly)
+		return TRUE
 	. = ..()
 	if(.)
 		return

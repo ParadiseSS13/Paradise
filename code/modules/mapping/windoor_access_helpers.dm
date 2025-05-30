@@ -176,6 +176,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/iaa
 	access = ACCESS_INTERNAL_AFFAIRS
 
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/evidence
+	access = ACCESS_EVIDENCE
+
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service
 	icon_state = "access_windoor_serv"
@@ -228,6 +231,9 @@
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mineral_storage
 	access = ACCESS_MINERAL_STOREROOM
+
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith
+	access = ACCESS_SMITH
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/qm
 	access = ACCESS_QM
@@ -384,6 +390,9 @@
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/iaa
 	access = ACCESS_INTERNAL_AFFAIRS
+
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/evidence
+	access = ACCESS_EVIDENCE
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service

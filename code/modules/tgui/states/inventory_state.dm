@@ -10,7 +10,7 @@ GLOBAL_DATUM_INIT(inventory_state, /datum/ui_state/inventory_state, new)
 	if(!(src_object in user))
 		if(issilicon(user))
 			var/mob/living/silicon/robot/R = user
-			if(src_object in R.module_active) // Magnetic grippers
+			if(src_object in R.selected_item) // Magnetic grippers
 				return user.shared_ui_interaction(src_object)
 		return UI_CLOSE
 	return user.shared_ui_interaction(src_object)

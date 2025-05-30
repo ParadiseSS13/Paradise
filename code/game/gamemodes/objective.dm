@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/M in get_owners())
 		if(possible_target == M)
 			return TARGET_INVALID_IS_OWNER
-		if(possible_target in M.targets)
+		if(possible_target in holder.get_targets())
 			return TARGET_INVALID_IS_TARGET
 	if(SEND_SIGNAL(src, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, possible_target) & OBJECTIVE_INVALID_TARGET)
 		return TARGET_INVALID_BLACKLISTED
@@ -771,7 +771,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return TRUE
 
 /datum/objective/destroy/post_target_cryo(list/owners)
-	holder.replace_objective(src, /datum/objective/assassinate)
+	holder.replace_objective(src, new /datum/objective/assassinate(null, team, owner))
 
 /datum/objective/steal_five_of_type
 	name = "Steal Five Items"

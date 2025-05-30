@@ -24,6 +24,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 95, ACID = 70)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	cares_about_temperature = TRUE
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -350,7 +351,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/door/firedoor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/firedoor/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
@@ -382,6 +383,7 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
+	cares_about_temperature = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/heat_resistance = 1000
@@ -546,7 +548,7 @@
 		new /obj/machinery/door/firedoor(get_turf(src))
 	qdel(src)
 
-/obj/structure/firelock_frame/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/firelock_frame/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)

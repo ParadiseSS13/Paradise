@@ -1,0 +1,9 @@
+help: "Please use a proper relative area for turfs. If this error is on a submap template, add the file path to the exclude list on `area_noop_on_turf.yml`"
+exclude_files:
+  - _maps/map_files/RandomRuins/SpaceRuins/submaps/rocky_motel_submap.dmm
+  - _maps/map_files/RandomRuins/SpaceRuins/submaps/telecomns_returns_submap.dmm
+  - _maps/map_files/RandomRuins/SpaceRuins/submaps/sieged_lab_submaps.dmm
+  - _maps/map_files/RandomRuins/SpaceRuins/submaps/whiteship_submaps.dmm
+/area/template_noop:
+  banned_neighbors:
+  - /turf/simulated

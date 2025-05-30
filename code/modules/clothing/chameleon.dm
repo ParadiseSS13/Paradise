@@ -199,6 +199,8 @@
 			var/obj/item/P = new picked_item(null)
 			I.sprite_sheets = P.sprite_sheets
 			qdel(P)
+		else
+			I.sprite_sheets = null
 
 		if(isclothing(I) && isclothing(picked_item))
 			var/obj/item/clothing/CL = I
@@ -374,7 +376,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/hud/security/chameleon
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	hud_access_override = TRUE
 	flash_protect = FLASH_PROTECTION_FLASH
 
 	var/datum/action/item_action/chameleon_change/chameleon_action

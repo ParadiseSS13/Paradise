@@ -166,7 +166,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/powered)
 "aK" = (
-/turf/simulated/mineral/random,
+/turf/simulated/mineral/random/space,
 /area/ruin/powered)
 "aL" = (
 /obj/item/multitool,
@@ -470,9 +470,7 @@
 	},
 /area/ruin/unpowered/bmp_ship/midship)
 "bW" = (
-/obj/structure/sink{
-	pixel_y = 12
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -1796,7 +1794,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/bmp_ship/fore)
 "gi" = (
-/turf/simulated/mineral/random,
+/turf/simulated/mineral/random/space,
 /area/ruin/unpowered/bmp_ship/midship)
 "gj" = (
 /obj/machinery/light{
@@ -2057,9 +2055,7 @@
 	},
 /area/ruin/unpowered/bmp_ship/aft)
 "hg" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2084,11 +2080,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/bmp_ship/aft)
 "hk" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2179,7 +2171,7 @@
 	},
 /area/ruin/unpowered/bmp_ship/midship)
 "uT" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/powered)
 "BC" = (
 /obj/structure/cable{

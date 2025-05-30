@@ -1,6 +1,6 @@
 
 /atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(reagents)
+	if(!isnull(reagents))
 		reagents.temperature_reagents(exposed_temperature)
 
 /turf/simulated/temperature_expose(exposed_temperature)
@@ -32,19 +32,35 @@
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
-	// The last tick this hotspot should be alive for.
+	/// The last tick this hotspot should be alive for.
 	var/death_timer = 0
+	/// How much fuel did we burn this tick?
+	var/fuel_burnt = 0
+	/// Which tick did we last load data at?
+	var/data_tick = 0
+	/// Which update tick are we on?
+	var/update_tick = 0
+	/// How often do we update?
+	var/update_interval = 1
 
 /obj/effect/hotspot/New()
 	..()
 	dir = pick(GLOB.cardinal)
 
-/obj/effect/hotspot/proc/update_visuals()
+/obj/effect/hotspot/proc/update_visuals(fuel_burnt)
 	color = heat2color(temperature)
-	set_light(l_color = color)
-	var/turf/here = get_turf(src)
-	var/datum/gas_mixture/gas = here.get_readonly_air()
-	var/fuel_burnt = gas.fuel_burnt()
+	var/list/rgb = rgb2num(color)
+	if(isnull(light_color))
+		light_color = color
+		set_light(l_color = color)
+	else
+		var/list/light_rgb = rgb2num(light_color)
+		var/r_delta = abs(rgb[1] - light_rgb[1])
+		var/g_delta = abs(rgb[2] - light_rgb[2])
+		var/b_delta = abs(rgb[3] - light_rgb[3])
+		if(r_delta > 10 || g_delta > 10 || b_delta)
+			set_light(l_color = color)
+
 	if(fuel_burnt > 1)
 		icon_state = "3"
 	else if(fuel_burnt > 0.1)

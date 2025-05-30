@@ -357,7 +357,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/attack_self__legacy__attackchain(mob/living/user)
 	if(!chambered && length(magazine.contents))
-		pump()
+		pump(user)
 	else
 		toggle_tube(user)
 
@@ -376,6 +376,6 @@
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
 	if(user.incapacitated() || !Adjacent(user) || !istype(user))
 		return
-	pump()
+	pump(user)
 
 // DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in revolver.dm

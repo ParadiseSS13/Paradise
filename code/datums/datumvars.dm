@@ -88,6 +88,9 @@
 	.["Jump to Object"] = "byond://?_src_=vars;jump_to=[UID()]"
 	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
 	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
+	.["Add Component/Element"] = "byond://?_src_=vars;addcomponent=[UID()]"
+	.["Remove Component/Element"] = "byond://?_src_=vars;removecomponent=[UID()]"
+	.["Mass Remove Component/Element"] = "byond://?_src_=vars;massremovecomponent=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
@@ -112,6 +115,8 @@
 	if(!D)
 		return
 
+	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/simple/vv)
+	asset_cache_datum.send(usr)
 
 	var/islist = islist(D)
 	var/isclient = isclient(D)
@@ -249,28 +254,11 @@
 
 	var/html = {"
 <html>
-	<meta charset="UTF-8">
 	<head>
+		<meta charset="UTF-8">
 		<title>[title]</title>
-		<style>
-			body {
-				font-family: Verdana, sans-serif;
-				font-size: 9pt;
-			}
-			.value {
-				font-family: "Courier New", monospace;
-				font-size: 8pt;
-			}
-			.var {
-				display: none;
-			}
-			.var.visible {
-				display: list-item;
-			}
-			.var.selected {
-				background-color: "#ffee88";
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="[SSassets.transport.get_asset_url("view_variables.css")]">
+		[window_scaling ? "<style>body {zoom: [100 / window_scaling]%;}</style>" : ""]
 	</head>
 	<body onload='selectTextField(); updateSearch()' onkeydown='return checkreload()' onkeyup='updateSearch()'>
 		<script type="text/javascript">
@@ -469,61 +457,78 @@
 
 	if(istype(D, /datum))
 		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
-	usr << browse(html, "window=variables[refid];size=475x650")
+
+	var/size_string = window_scaling ? "size=[475 * window_scaling]x[650 * window_scaling]" : "size=[475]x[650]"
+	usr << browse(html, "window=variables[refid];[size_string]")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, datum/DA = null, sanitize = TRUE)
+/proc/debug_variable(name, value, level, datum/owner, sanitize = TRUE)
 	var/header
-	if(DA)
-		if(islist(DA))
-			var/list/debug_list = DA
+	if(owner)
+		if(islist(owner))
+			var/list/debug_list = owner
 			var/index = name
 			if(value)
 				name = debug_list[name] // name is really the index until this line
 			else
 				value = debug_list[name]
-			header = "<li class='vars visible'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
+			header = "<li class='vars visible'>(<a href='byond://?_src_=vars;listedit=\ref[owner];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[owner];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[owner];index=[index]'>-</a>) "
 		else
-			header = "<li class='vars visible'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
+			header = "<li class='vars visible'>(<a href='byond://?_src_=vars;datumedit=[owner.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[owner.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[owner.UID()];varnamemass=[name]'>M</a>) "
 	else
 		header = "<li>"
 
-	var/item
+	var/name_part = VV_HTML_ENCODE(name)
+	if(level > 0 || islist(owner)) //handling keys in assoc lists
+		if(isdatum(name))
+			var/datum/datum_key = name
+			name_part = "<a href='byond://?_src_=vars;Vars=[datum_key.UID()]'>[VV_HTML_ENCODE(name)] \ref[datum_key]</a>"
+		else if(isclient(name))
+			var/client/client_key = name
+			name_part = "<a href='byond://?_src_=vars;Vars=[client_key.UID()]'>[VV_HTML_ENCODE(client_key)] \ref[client_key]</a> ([client_key] [client_key.type])"
+		else if(islist(name))
+			var/list/list_value = name
+			name_part = "<a href='byond://?_src_=vars;VarsList=\ref[list_value]'> /list ([length(list_value)]) \ref[name]</a>"
+
+	var/item = _debug_variable_value(name, value, level, owner, sanitize)
+
+	return "[header][name_part] = [item]</li>"
+
+/proc/_debug_variable_value(name, value, level, datum/owner, sanitize)
+
+	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] \ref[value]s)"
+
 	if(isnull(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>null</span>"
+		return "<span class='value'>null</span>"
 
 	else if(is_color_text(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'><span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"</span>"
+		return "<span class='value'><span class='colorbox' style='width: 1em; background-color: [value]; border: 1px solid black; display: inline-block'>&nbsp;</span> \"[value]\"</span>"
 
 	else if(istext(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
 
 	else if(isicon(value))
 		#ifdef VARSICON
-		item = "[name] = /icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		return "/icon (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
-		item = "[name] = /icon (<span class='value'>[value]</span>)"
+		return "/icon (<span class='value'>[value]</span>)"
 		#endif
 
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
-		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
+		return "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> /image (<span class='value'>[value]</span>)"
 		#endif
 
 	else if(isfile(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>'[value]'</span>"
+		return "<span class='value'>'[value]'</span>"
 
 	else if(istype(value, /datum))
 		var/datum/D = value
-		item = "<a href='byond://?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
+		return D.debug_variable_value(sanitize)
 
-	else if(isclient(value))
-		var/client/C = value
-		item = "<a href='byond://?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [C] [C.type]"
-//
 	else if(islist(value))
 		var/list/L = value
 		var/list/items = list()
@@ -540,22 +545,29 @@
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			if(isdatum(name))
-				item = "<a href='byond://?_src_=vars;VarsList=\ref[name]'>[VV_HTML_ENCODE(name)]</a> = <a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a><ul>[items.Join()]</ul>"
-			else
-				item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
+			return "<a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a><ul>[items.Join()]</ul>"
 
 		else
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
+			return "<a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a>"
 
 	else if(name in GLOB.bitfields)
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
+		return "<span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
 	else
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		return "<span class='value'>[VV_HTML_ENCODE(value)]</span>"
 
-	return "[header][item]</li>"
+/datum/proc/debug_variable_value(sanitize)
+	return "<a href='byond://?_src_=vars;Vars=[UID()]'>[VV_HTML_ENCODE(src)] \ref[src]</a> ([type])"
 
-#undef VV_HTML_ENCODE
+/matrix/debug_variable_value(sanitize)
+	return {"<span class='value'>
+			<table class='matrixbrak'><tbody><tr><td class='lbrak'>&nbsp;</td><td>
+			<table class='matrix'>
+			<tbody>
+				<tr><td>[a]</td><td>[d]</td><td>0</td></tr>
+				<tr><td>[b]</td><td>[e]</td><td>0</td></tr>
+				<tr><td>[c]</td><td>[f]</td><td>1</td></tr>
+			</tbody>
+			</table></td><td class='rbrak'>&nbsp;</td></tr></tbody></table></span>"} //TODO link to modify_transform wrapper for all matrices
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
@@ -1262,6 +1274,87 @@
 			return
 		holder.modify_traits(A)
 
+	if(href_list["addcomponent"])
+		if(!check_rights(NONE))
+			return
+		var/datum/target = locateUID(href_list["addcomponent"])
+		if(!target)
+			return
+		var/list/names = list()
+		var/list/componentsubtypes = sortList(subtypesof(/datum/component), GLOBAL_PROC_REF(cmp_typepaths_asc))
+		names += "---Components---"
+		names += componentsubtypes
+		names += "---Elements---"
+		names += sortList(subtypesof(/datum/element), GLOBAL_PROC_REF(cmp_typepaths_asc))
+
+		var/result = tgui_input_list(usr, "Choose a component/element to add", "Add Component", names)
+		if(isnull(result))
+			return
+		if(!usr || result == "---Components---" || result == "---Elements---")
+			return
+
+		if(QDELETED(src))
+			to_chat(usr, "That thing doesn't exist anymore!", confidential = TRUE)
+			return
+
+		var/list/lst = get_callproc_args()
+		if(!lst)
+			return
+
+		var/datumname = "error"
+		lst.Insert(1, result)
+		if(result in componentsubtypes)
+			datumname = "component"
+			target._AddComponent(lst)
+		else
+			datumname = "element"
+			target._AddElement(lst)
+		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(target)].")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(target)].</span>")
+	if(href_list["removecomponent"] || href_list["massremovecomponent"])
+		if(!check_rights(NONE))
+			return
+		var/datum/target = href_list["removecomponent"] ? locateUID(href_list["removecomponent"]) : locateUID(href_list["massremovecomponent"])
+		if(!target)
+			return
+		var/mass_remove = href_list["massremovecomponent"]
+		var/list/components = target.datum_components.Copy()
+		var/list/names = list()
+		names += "---Components---"
+		if(length(components))
+			names += sortList(components, GLOBAL_PROC_REF(cmp_typepaths_asc))
+		names += "---Elements---"
+		// We have to list every element here because there is no way to know what element is on this object without doing some sort of hack.
+		names += sortList(subtypesof(/datum/element), GLOBAL_PROC_REF(cmp_typepaths_asc))
+		var/path = tgui_input_list(usr, "Choose a component/element to remove. All elements listed here may not be on the datum.", "Remove element", names)
+		if(isnull(path))
+			return
+		if(!usr || path == "---Components---" || path == "---Elements---")
+			return
+		if(QDELETED(src))
+			to_chat(usr, "That thing doesn't exist anymore!")
+			return
+		var/list/targets_to_remove_from = list(target)
+		if(mass_remove)
+			var/method = vv_subtype_prompt(target.type)
+			targets_to_remove_from = get_all_of_type(target.type, method)
+
+			if(alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", "Yes", "No") == "No")
+				return
+
+		var/list/ele_list = list()
+		if(ispath(path, /datum/element))
+			ele_list = get_callproc_args()
+			ele_list.Insert(1, path)
+		for(var/datum/target_to_remove_from as anything in targets_to_remove_from)
+			if(ispath(path, /datum/element))
+				target._RemoveElement(ele_list)
+			else
+				var/list/components_actual = target_to_remove_from.GetComponents(path)
+				for(var/to_delete in components_actual)
+					qdel(to_delete)
+
+		message_admins("<span class='notice'>[key_name_admin(usr)] has [mass_remove ? "mass" : ""] removed [path] component from [mass_remove ? target.type : key_name_admin(target)].</span>")
 	if(href_list["datumrefresh"])
 		var/datum/DAT = locateUID(href_list["datumrefresh"])
 		if(!istype(DAT, /datum) && !isclient(DAT))
@@ -1478,3 +1571,5 @@
 		to_chat(src, "<span class='debug'>Now showing GLOB.[var_search].</span>")
 		return debug_variables(result)
 	to_chat(src, "<span class='debug'>GLOB.[var_search] returned [result].</span>")
+
+#undef VV_HTML_ENCODE

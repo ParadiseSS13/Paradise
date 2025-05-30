@@ -262,8 +262,9 @@
 	icon_state = "plasma"
 	item_color = "plasma"
 	materials = list(MAT_PLASMA = 1000)
+	cares_about_temperature = TRUE
 
-/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(temperature, volume)
 	..()
 	if(temperature > T0C + 200)
 		burn_up()
