@@ -571,7 +571,7 @@
 
 /obj/item/storage/box/stingers
 	name = "box of stinger grenades (WARNING)"
-	desc = "<B>WARNING: These devices are dangerous and can cause significant physical harm with repeated use.</B>"
+	desc = "<b>WARNING: These devices are dangerous and can cause significant physical harm with repeated use.</b>"
 	icon_state = "flashbang_box"
 
 /obj/item/storage/box/stingers/populate_contents()
