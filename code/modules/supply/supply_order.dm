@@ -27,10 +27,9 @@
 	orderedbyaccount = account
 	RegisterSignal(orderedbyaccount, COMSIG_PARENT_QDELETING, PROC_REF(clear_request))
 
-/// Clear the request from the request list and delete it
+/// Clear the request from the request list so it's not permanently stuck in the console
 /datum/supply_order/proc/clear_request()
 	SSeconomy.request_list -= src
-	qdel(src)
 
 /datum/supply_order/proc/createObject(atom/_loc, errors = 0)
 	if(!object)
