@@ -21,21 +21,27 @@
 		'sound/effects/pageturn3.ogg'
 	)
 
-/obj/item/book/granter/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/book/granter/Initialize(mapload, datum/cachedbook/CB, _copyright, _protected)
+	. = ..()
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
+
+/obj/item/book/granter/activate_self(mob/user)
+	if(..())
+		return
 	if(reading)
 		to_chat(user, "<span class='warning'>You're already reading this!</span>")
-		return FALSE
+		return FINISH_ATTACK
 	if(!user.has_vision())
 		to_chat(user, "<span class='warning'>You are blind and can't read anything!</span>")
-		return FALSE
+		return FINISH_ATTACK
 	if(!isliving(user))
-		return FALSE
+		return FINISH_ATTACK
 	if(!can_learn(user))
-		return FALSE
+		return FINISH_ATTACK
 
 	if(uses <= 0)
 		recoil(user)
-		return FALSE
+		return FINISH_ATTACK
 
 	on_reading_start(user)
 	reading = TRUE
@@ -43,13 +49,11 @@
 		if(!turn_page(user))
 			on_reading_stopped(user)
 			reading = FALSE
-			return
+			return CONTINUE_ATTACK
 	if(do_after(user, reading_time, src))
 		uses--
 		on_reading_finished(user)
 	reading = FALSE
-
-	return TRUE
 
 /// Called when the user starts to read the granter.
 /obj/item/book/granter/proc/on_reading_start(mob/living/user)

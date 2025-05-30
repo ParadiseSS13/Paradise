@@ -130,6 +130,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/base_icon = ""
 	/// If set to TRUE, the robot's 3 module slots will progressively become unusable as they take damage.
 	var/modules_break = TRUE
+	/// Is the robot already being charged by a roboticist?
+	var/being_charged
 
 	/// Maximum brightness of a robot's headlamp. Set as a var for easy adjusting.
 	var/lamp_max = 10
@@ -923,6 +925,33 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	// Check if the user is trying to insert another component like a radio, actuator, armor etc.
+	if(istype(W, /obj/item/stock_parts/cell) && HAS_TRAIT(user.mind, TRAIT_CYBORG_SPECIALIST) && !opened && user.a_intent != INTENT_HARM)
+		var/obj/item/stock_parts/cell/donor = W
+		if(being_charged)
+			to_chat(user, "<span class='warning'>You are already charging [src]!")
+			return ITEM_INTERACT_COMPLETE
+		if(donor.charge == 0)
+			to_chat(user, "<span class='warning'>[donor] has no charge to donate!")
+			return ITEM_INTERACT_COMPLETE
+		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+		being_charged = TRUE
+		while(do_after(user, 0.5 SECONDS, target = src))
+			var/cell_difference = cell.maxcharge - cell.charge
+			if(donor.charge >= 500 && cell_difference >= 500)
+				cell.charge += 500
+				donor.charge -= 500
+			else if(donor.charge <= cell_difference)
+				cell.charge += donor.charge
+				donor.charge = 0
+			else if(donor.charge > cell_difference)
+				cell.charge = cell.maxcharge
+				donor.charge -= cell_difference
+			if(donor.charge == 0 || cell.charge >= cell.maxcharge)
+				donor.update_icon(UPDATE_OVERLAYS)
+				break
+			cell.update_icon(UPDATE_OVERLAYS)
+		being_charged = FALSE
+		return ITEM_INTERACT_COMPLETE
 	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
 			var/datum/robot_component/C = components[V]
@@ -1128,10 +1157,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	C.uninstall()
 	thing.forceMove(loc)
-
-
-
-
 
 /mob/living/silicon/robot/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
