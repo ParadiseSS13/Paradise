@@ -108,7 +108,7 @@ const AtmosControlMapView = (_properties, context) => {
     <Box height="526px" mb="0.5rem" overflow="hidden">
       <NanoMap>
         {alarms
-          .filter((a) => a.z === 2)
+          .filter((a) => a.z === 3) // SS220 EDIT - ORIGIN: 2
           .map((aa) => (
             // The AA means air alarm, and nothing else
             <NanoMap.MarkerIcon

@@ -4,10 +4,10 @@
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	language = "Chittin"
 
-	blurb = "The Kidan are ant-like beings possessing a hardened exoskeleton and strict adherence to social castes. \
-	They originate from the planet Aurum — a barren bombarded world that suffered after the war with the Solar-Central Compact, having lost decisively after the Battle of Argos.<br/><br/> \
-	They are relatively minor players in galactic affairs and presently suffer heavy sanctions from the SCC, \
-	though they are tentatively re-establishing relations with other galactic powers, even after the crumbling of their once powerful empire."
+	blurb = "Киданы - муравьеподобные существа, обладающих жестким экзоскелетом и строго придерживающиеся профессиональных каст. \
+	Они родом с планеты Аурум - бесплодного, подвергшегося бомбардировкам мира, который пострадал после войны с Человеко-Скреллаинским Альянсом, потерпев сокрушительное поражение.<br/><br/> \
+	Они являются относительно незначительными игроками на галактической арене и в настоящее время полностью порабощены людьми и лишены самостоятельности в политических делах, \
+	вынуждая их предпринимать попытки борьбы за свою независимость."
 	unarmed_type = /datum/unarmed_attack/claws
 
 	brute_mod = 0.8

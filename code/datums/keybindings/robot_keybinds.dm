@@ -14,22 +14,22 @@
 	M.toggle_module(module_number)
 
 /datum/keybinding/robot/module/slot_1
-	name = "Module 1"
+	name = "Ячейка 1"
 	module_number = 1
 	keys = list("1")
 
 /datum/keybinding/robot/module/slot_2
-	name = "Module 2"
+	name = "Ячейка 2"
 	module_number = 2
 	keys = list("2")
 
 /datum/keybinding/robot/module/slot_3
-	name = "Module 3"
+	name = "Ячейка 3"
 	module_number = 3
 	keys = list("3")
 
 /datum/keybinding/robot/switch_intent
-	name = "Switch Intents"
+	name = "Смена Intents"
 	keys = list("4")
 
 /datum/keybinding/robot/switch_intent/down(client/C)
@@ -38,7 +38,7 @@
 	M.a_intent_change(INTENT_HOTKEY_LEFT)
 
 /datum/keybinding/robot/cycle_modules
-	name = "Cycle Modules"
+	name = "Смена ячеек"
 	keys = list("X")
 
 /datum/keybinding/robot/cycle_modules/down(client/C)
@@ -47,7 +47,7 @@
 	M.cycle_modules()
 
 /datum/keybinding/robot/drop_held_object
-	name = "Store Selected Module"
+	name = "Деактивировать ячейку"
 	keys = list("Q", "Northwest")
 
 /datum/keybinding/robot/drop_held_object/down(client/C)

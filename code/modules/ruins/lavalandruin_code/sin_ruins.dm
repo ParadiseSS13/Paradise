@@ -196,7 +196,7 @@
 	. = ..()
 	if(!ishuman(user))
 		return
-	if(ishuman(target))
+	if(ishuman(target) && !is_species(target, /datum/species/serpentid)) // SS220 EDIT - SERPENTIDS
 		var/mob/living/carbon/human/H = target
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name

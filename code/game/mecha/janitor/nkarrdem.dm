@@ -1,5 +1,5 @@
 /obj/mecha/nkarrdem
-	desc = "A heavy duty sanitation exosuit; optimized for the removal of mass amounts of dirt, grime, and grease."
+	desc = "Тяжёлый санитарный экзокостюм. Оптимизирован для удаления больших объемов грязи, налета и жира."
 	name = "Nkarrdem"
 	icon_state = "nkarrdem"
 	initial_icon = "nkarrdem"
@@ -22,17 +22,17 @@
 /obj/mecha/nkarrdem/examine_more(mob/user)
 	..()
 	. = list()
-	. += "<i>The Nkarrdem is an older-generation CBRN mech developed jointly by Interdyne and Shellguard for rapid decontamination during a period where biological weapons are frequently used, though it suffered from several \
-	cost-cutting measures that exposes the operator to the hazardous environments. Surplus units are then sold for cleaning purposes.</i>"
+	. += "<i>Nkarrdem — это мех старого поколения для ядерной, химической, биологической защиты, разработанный совместно компаниями Interdyne и Shellguard для быстрой деконтаминации в период частого применения биологического оружия. \
+	Однако он пострадал от ряда мер по снижению затрат, что подвергает оператора опасным условиям. Лишние единицы затем продаются для уборки..</i>"
 	. += ""
-	. += "<i>The name 'Nkarrdem' comes from Skrellian legend, meaning 'Turquoise Fields'. The Turquoise Fields are an algae plataeu, where the kings of old would go to their final rest.</i>"
+	. += "<i>Название «Nkarrdem» происходит из легенды скреллов и означает «Бирюзовые поля». Бирюзовые поля — это поля водорослей, где короли древности отправлялись на свой вечный покой.</i>"
 
 
 /obj/mecha/nkarrdem/moved_inside(mob/living/carbon/human/H)
 	. = ..()
 	if(. && ishuman(H))
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			occupant_message("<span class='warning'>[H.glasses] prevent you from using [src]'s built-in janitorial HUD.</span>")
+			occupant_message("<span class='warning'>[capitalize(H.glasses.declent_ru(NOMINATIVE))] мешают вам использовать встроенный уборочный HUD [declent_ru(GENITIVE)].</span>")
 		else
 			var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
 			jani_hud.add_hud_to(H)

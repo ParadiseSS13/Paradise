@@ -35,10 +35,10 @@
 	// Dont blank out the other window. This one is read only.
 	if(!GLOB.configuration.system.external_tos_handler)
 		src << browse(null, "window=playersetup")
-		output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
-		output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
+		output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>Я согласен</A>"
+		output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>Я не согласен</A>"
 	src << browse(output,"window=privacy_consent;size=500x300")
-	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Privacy Consent</div>", 500, 400)
+	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Соглашение о конфиденциальности</div>", 500, 400)
 	// Let them close it here, this is a read only pane
 	if(!GLOB.configuration.system.external_tos_handler)
 		popup.set_window_options("can_close=0")
@@ -50,40 +50,40 @@
 	set waitfor = FALSE
 	var/real_name = client.prefs.active_character.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
-		real_name = "Random Character Slot"
-	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
+		real_name = "Случайный персонаж"
+	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Настройка персонажа</A><br /><i>[real_name]</i></p>"
 
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)
-			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+			output += "<p><a href='byond://?src=[UID()];ready=1'>Нажмите, если готовы</A></p>"
 		else
-			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+			output += "<p><b>Вы готовы</b> (<a href='byond://?src=[UID()];ready=2'>Отмена</A>)</p>"
 	else
-		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
-		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
+		output += "<p><a href='byond://?src=[UID()];manifest=1'>Просмотр списка экипажа</A></p>"
+		output += "<p><a href='byond://?src=[UID()];late_join=1'>Присоединиться к игре!</A></p>"
 
 	var/list/antags = client.prefs.be_special
 	if(length(antags))
 		if(!client.skip_antag)
-			output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+			output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Глобальная настройка антагов</A>"
 		else
 			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+		output += "<br /><small>Вы <b>[client.skip_antag ? "не готовы" : "готовы"]</b> для всех антаг ролей.</small></p>"
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
-		output += "<p>Observe (Please wait...)</p>"
+		output += "<p>Наблюдать (Ожидайте...)</p>"
 	else
-		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
+		output += "<p><a href='byond://?src=[UID()];observe=1'>Наблюдать</A></p>"
 
 	if(GLOB.join_tos)
-		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
+		output += "<p><a href='byond://?src=[UID()];tos=1'>Условия использования</A></p>"
 
 	if(length(GLOB.configuration.system.region_map))
 		output += "<p><a href='byond://?src=[UID()];setregion=1'>Set region (reduces ping)</A></p>"
 
 	output += "</center>"
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 340)
+	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>Новый игрок</div>", 240, 340)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
 	popup.open(FALSE)
@@ -93,18 +93,18 @@
 	. = status_tab_data
 	if(SSticker)
 		if(!SSticker.hide_mode)
-			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
+			status_tab_data[++status_tab_data.len] = list("Режим:", "[GLOB.master_mode]")
 		else
-			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
+			status_tab_data[++status_tab_data.len] = list("Режим:", "Секрет")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
-			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
+			status_tab_data[++status_tab_data.len] = list("Начало через:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "ПАУЗА")
 			if(check_rights(R_ADMIN, 0, src))
-				status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
+				status_tab_data[++status_tab_data.len] = list("Готово:", "[totalPlayersReady]")
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
-					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
+					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(В игре)" : "(Не готов)")
 				if(player.ready)
 					totalPlayersReady++
 
@@ -128,7 +128,7 @@
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
-		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+		to_chat(usr, "<span class='warning'>Перед тем как присоединиться, вы должны согласиться с условиями использования!</span>")
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
 			"ckey" = ckey
 		))
@@ -142,15 +142,24 @@
 
 	if(href_list["ready"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, "<span class='warning'>Перед тем как присоединиться, вы должны согласиться с условиями использования!</span>")
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
 		if(!ready && !client.prefs.active_character.check_any_job() && (client.prefs.active_character.alternate_option == RETURN_TO_LOBBY))
-			to_chat(usr, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			to_chat(usr, "<span class='danger'>Вы не выбрали ни одну должность, а также включена функция возврата в лобби в случае недоступности должности. Это не даёт вам получить раунд-стартовую роль, проверьте ваши настройки должностей.</span>")
 			ready = FALSE
 			return FALSE
+
+		// SS220 ADDITION START - TTS220
+		if(!check_tts_seed_ready())
+			return FALSE
+
+		if(!can_use_species(src, client.prefs.active_character.species))
+			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
+			return FALSE
+		// SS220 ADDITION END
 
 		ready = !ready
 		new_player_panel_proc()
@@ -165,16 +174,16 @@
 
 	if(href_list["observe"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, "<span class='warning'>Перед тем как присоединиться, вы должны согласиться с условиями использования!</span>")
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
-			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
+			to_chat(usr, "<span class='warning'>Вы должны дождаться окончания запуска сервера, прежде чем сможете присоединиться к нему!</span>")
 			return FALSE
 
-		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
+		if(alert(usr, "Вы уверены, что хотите наблюдать? После этого Вы не сможете присоединиться к раунду!", "Наблюдать", "Да", "Нет") == "Да")
 			if(!client)
 				return TRUE
 			var/mob/dead/observer/observer = new(src)
@@ -198,7 +207,7 @@
 			else
 				spawn_point = locate("landmark*Observer-Start")
 
-			to_chat(src, "<span class='notice'>Now teleporting.</span>")
+			to_chat(src, "<span class='notice'>Телепортация...</span>")
 			observer.forceMove(get_turf(spawn_point))
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.active_character.update_preview_icon(1)
@@ -224,16 +233,19 @@
 
 	if(href_list["late_join"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, "<span class='warning'>Перед тем как присоединиться, вы должны согласиться с условиями использования!</span>")
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+			to_chat(usr, "<span class='warning'>Раунд либо не готов, либо уже завершился...</span>")
 			return
 		if(!can_use_species(src, client.prefs.active_character.species))
-			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
+			to_chat(src, alert("В настоящее время вы не включены в белый список для игры на [client.prefs.active_character.species]."))
+			return FALSE
+
+		if(!check_tts_seed_ready()) // SS220 ADDITION - TTS
 			return FALSE
 
 		LateChoices()
@@ -244,14 +256,14 @@
 	if(href_list["SelectedJob"])
 
 		if(!GLOB.enter_allowed)
-			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
+			to_chat(usr, "<span class='notice'>Администратор запретил входить в игру!</span>")
 			return
 
 		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
 
 		if(!can_use_species(src, client.prefs.active_character.species))
-			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
+			to_chat(src, alert("В настоящее время вы не включены в белый список для игры на [client.prefs.active_character.species]."))
 			return FALSE
 
 		AttemptLateSpawn(href_list["SelectedJob"])
@@ -318,20 +330,20 @@
 	if(src != usr)
 		return 0
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+		to_chat(usr, "<span class='warning'>Раунд либо не готов, либо уже завершился...</span>")
 		return 0
 	if(!GLOB.enter_allowed)
-		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
+		to_chat(usr, "<span class='notice'>Администратор запретил входить в игру!</span>")
 		return 0
 	if(!IsJobAvailable(rank))
-		to_chat(src, alert("[rank] is not available. Please try another."))
+		to_chat(src, alert("[rank] не доступен. Попробуйте другую должность."))
 		return 0
 	var/datum/job/thisjob = SSjobs.GetJob(rank)
 	if(thisjob.barred_by_disability(client))
-		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
+		to_chat(src, alert("[rank] недоступен из-за инвалидности вашего персонажа. Попробуйте другую должность."))
 		return 0
 	if(thisjob.barred_by_missing_limbs(client))
-		to_chat(src, alert("[rank] is not available due to your character having amputated limbs without a prosthetic replacement. Please try another."))
+		to_chat(src, alert("[rank] недоступен из-за того, что у вашего персонажа ампутированы конечности и отсутствуют протезы. Попробуйте другую должность."))
 		return 0
 
 	SSjobs.job_selector.latejoin_assign(src, thisjob)
@@ -361,10 +373,10 @@
 			character.loc = pick(GLOB.syndicateofficer)
 		else
 			character.forceMove(pick(GLOB.aroomwarp))
-		join_message = "has arrived"
+		join_message = "прибыл[character.gender == FEMALE ? "а" : ""]"
 	else
 		character.forceMove(pick(GLOB.latejoin))
-		join_message = "has arrived on the station"
+		join_message = "прибыл[character.gender == FEMALE ? "а" : ""] на станцию"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
@@ -428,7 +440,7 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer", follow_target_override = character)
+					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : ", посетитель," ] [join_message ? join_message : "прибыл на станцию"].", "Оповещение О Прибытии", follow_target_override = character)
 
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
@@ -439,13 +451,13 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
-					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
+					var/arrivalmessage = "Новый[rank ? " [rank]" : ", посетитель," ] [join_message ? join_message : "прибыл на станцию"]."
 					announcer.say(";[arrivalmessage]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer", follow_target_override = character)
+					GLOB.global_announcer.autosay("Новый[rank ? " [rank]" : ", посетитель," ] [join_message ? join_message : "прибыл на станцию"].", "Оповещение О Прибытии", follow_target_override = character)
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
@@ -513,7 +525,7 @@
 				categorizedJobs["Miscellaneous"]["jobs"] += job
 
 	if(num_jobs_available)
-		dat += "Choose from the following open positions:<br><br>"
+		dat += "Выберите одну из следующих открытых вакансий:<br><br>"
 		dat += "<table><tr><td valign='top'>"
 		for(var/jobcat in categorizedJobs)
 			if(categorizedJobs[jobcat]["colBreak"])
@@ -532,11 +544,11 @@
 
 		dat += "</td></tr></table></center>"
 	else
-		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<BR>Wait a few minutes, then try again.<BR>Or, try observing the round.</center>"
+		dat += "<br><br><center>К сожалению, в настоящее время свободных вакансий нет.<BR>Попробуйте снова через несколько минут<BR>Или попробуйте понаблюдать за раундом.</center>"
 	// Removing the old window method but leaving it here for reference
 //		src << browse(dat, "window=latechoices;size=300x640;can_close=1")
 	// Added the new browser window method
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 600)
+	var/datum/browser/popup = new(src, "latechoices", "Выберите должность", 900, 600)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
 	popup.add_script("delay_interactivity", 'html/browser/delay_interactivity.js')
 	popup.set_content(dat)

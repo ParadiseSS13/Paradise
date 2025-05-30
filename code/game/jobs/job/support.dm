@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	job_department_flags = DEP_FLAG_SUPPLY | DEP_FLAG_COMMAND
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list("Captain")
 	department_account_access = TRUE
 	selection_color = "#e2c59d"
@@ -33,7 +33,7 @@
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
-	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
+	important_information = "Эта роль требует, чтобы вы координировали работу отдела. От вас требуется знание Стандартных Рабочих Процедур (Снабжения), базовых должностных обязанностей и профессиональных действий."
 	exp_map = list(EXP_TYPE_SUPPLY = 1200)
 
 /datum/outfit/job/qm
@@ -63,7 +63,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	job_department_flags = DEP_FLAG_SUPPLY
-	supervisors = "the quartermaster"
+	supervisors = "квартирмейстером"
 	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
 	access = list(
@@ -129,7 +129,7 @@
 	total_positions = 6
 	spawn_positions = 8
 	job_department_flags = DEP_FLAG_SUPPLY
-	supervisors = "the quartermaster"
+	supervisors = "квартирмейстером"
 	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
 	access = list(
@@ -242,7 +242,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	job_department_flags = DEP_FLAG_SERVICE
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
@@ -286,7 +286,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	job_department_flags = DEP_FLAG_SERVICE
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(
@@ -325,7 +325,7 @@
 	total_positions = 3
 	spawn_positions = 2
 	job_department_flags = DEP_FLAG_SERVICE
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(
@@ -364,7 +364,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	job_department_flags = DEP_FLAG_SERVICE
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(
@@ -441,7 +441,7 @@
 	active = TRUE
 	button_background_icon_state = "bg_spell"
 	UpdateButtons()
-	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
+	to_chat(H, "<span class='notice'>Вы начинаете вести себя неуклюже, чтобы отвести от себя подозрения. Снова сосредоточьтесь, прежде чем использовать оружие.</span>")
 
 /datum/action/innate/toggle_clumsy/Deactivate()
 	var/mob/living/carbon/human/H = owner
@@ -450,7 +450,7 @@
 	active = FALSE
 	button_background_icon_state = "bg_default"
 	UpdateButtons()
-	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
+	to_chat(H, "<span class='notice'>Вы сосредоточились и теперь можете эффективно пользоваться оружием.</span>")
 
 /datum/job/mime
 	title = "Mime"
@@ -459,7 +459,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	job_department_flags = DEP_FLAG_SERVICE
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(
@@ -518,7 +518,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	job_department_flags = DEP_FLAG_SERVICE
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(
@@ -553,7 +553,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	job_department_flags = DEP_FLAG_SERVICE
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(

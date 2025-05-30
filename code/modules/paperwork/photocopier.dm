@@ -154,7 +154,7 @@
 		to_chat(copymob, "<span class='notice'>Something smells toasty...</span>")
 	if(ishuman(copymob)) //Suit checks are in check_mob
 		var/mob/living/carbon/human/H = copymob
-		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
+		temp_img = icon(H.dna.species.butt_sprite_icon, H.dna.species.butt_sprite) // SS220 EDIT. Original: temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
 	else if(isdrone(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
 	else if(isnymph(copymob))
@@ -234,7 +234,7 @@
 
 	else if(check_mob())
 		to_chat(copymob, "<span class='notice'>You feel a slight pressure on your ass.</span>")
-		atom_say("Attention: Unable to remove large object!")
+		atom_say("Внимание: Невозможно удалить крупный объект!")
 
 /obj/machinery/photocopier/proc/remove_folder()
 	if(copying)
@@ -290,7 +290,7 @@
 	if(!cancopy(scancopy))
 		return
 	copying = TRUE
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	playsound(loc, print_sound, 50) // SS220 EDIT
 	if(istype(C, /obj/item/paper))
 		for(var/i in copies to 1 step -1)
 			if(!papercopy(C))
@@ -349,7 +349,7 @@
 	LAZYADD(saved_documents, O)
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
-	atom_say("Document successfully scanned!")
+	atom_say("Документ удачно отсканирован!")
 
 /obj/machinery/photocopier/proc/delete_file(uid)
 	var/document = locateUID(uid)
@@ -551,7 +551,7 @@
 		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [copymob]!</span>")
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
-	atom_say("Attention: Posterior Placed on Printing Plaque!")
+	atom_say("Внимание: Обнаружена задница на печатном полотне!")
 	SStgui.update_uis(src)
 	return TRUE
 

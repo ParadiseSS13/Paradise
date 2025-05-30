@@ -37,7 +37,7 @@ export const pda_main_menu = (props, context) => {
                         key={app.uid}
                         icon={app.uid in notifying ? app.notify_icon : app.icon}
                         iconSpin={app.uid in notifying}
-                        color={app.uid in notifying ? 'red' : 'transparent'}
+                        color={app.color || app.uid in notifying ? 'red' : 'transparent'} // SS220 EDIT - alarm button
                         content={app.name}
                         onClick={() => act('StartProgram', { program: app.uid })}
                       />

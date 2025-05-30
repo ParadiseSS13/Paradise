@@ -13,7 +13,7 @@ jobs:
       (github.event.comment.author_association == 'MEMBER') ||
       (github.event.comment.author_association == 'OWNER'))
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - id: create_token
         uses: actions/create-github-app-token@v2
@@ -38,7 +38,7 @@ jobs:
       - name: PR Data
         run: |
           pr_json=$(curl -L -s --fail-with-body -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }})
-          if [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ] ; then
+          if [ `jq -r '.head.repo.id == .base.repo.id' <<<$pr_json` == "false" ] && [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ] ; then
             gh pr comment ${{ github.event.issue.html_url }} --body 'GitHub Actions can not push to the repository without "Allow edits and access to secrets by maintainers" checked.'
             echo "FAIL_NOTIFIED=true" >> "$GITHUB_ENV"
             exit 1

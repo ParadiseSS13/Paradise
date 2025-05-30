@@ -18,10 +18,10 @@
 	//exotic_blood = "cryoxadone"
 	body_temperature = 273
 
-	blurb = "Drask are cold-bodied humanoids from the ice world of Hoorlm, contained within a black hole system. \
-	Operating in enclaves run by elders, Drasks are biologically immortal and place great societal value in patience.<br/><br/> \
-	Drask traditionally pay homage to their planet as their birth deity, with many modern Drask viewing space travel a patron saint. \
-	Drasks wield little influence on the galaxy in a traditional sense and have slowly begun to become more prevalent outside their origin system thanks to alien contact."
+	blurb = "Драски - хладнокровные гуманоиды из ледяной планеты Урулм. \
+	Драски живут в едином межсистемном государстве, зовущейся Гегемония Маарун, объединены в теократическое общество восхваляющее богов Блюспейс пространства и всё, что с ним связано.<br/><br/> \
+	Драски изоляционисты, они не имеют большого влияния на галактику в привычном смысле этого слова, они не ведут дел с научными технократами, \
+	но благодаря контактам с другими видами, они стали постепенно распространяться за пределы своей родной системы."
 
 	suicide_messages = list(
 		"is self-warming with friction!",
