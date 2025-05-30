@@ -76,6 +76,16 @@
 /datum/program_picker/ui_host()
 	return assigned_ai ? assigned_ai : src
 
+/datum/program_picker/proc/spend_nanites(amount)
+	if(nanites - amount < 0)
+		return FALSE
+	else
+		nanites -= amount
+		return TRUE
+
+/datum/program_picker/proc/refund_nanites(amount)
+	nanites = min(max_nanites, nanites + amount)
+
 /datum/program_picker/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -263,14 +273,14 @@
 /datum/ai_program/rgb_lighting
 	program_name = "RGB Lighting"
 	program_id = "rgb_lighting"
-	description = "Recolor a light to a desired color. At significantly high efficiency, it can change the color of an entire room's lighting by targeting the APC."
+	description = "Recolor a light to a desired color. At significantly high efficiency, it can change the color of an entire room's lighting by targeting the APC. Costs 5 Nanites to use."
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/rgb_lighting
 	unlock_text = "RGB Lighting installation complete!"
 
 /datum/spell/ai_spell/ranged/rgb_lighting
 	name = "RGB Lighting"
-	desc = "Changes the color of a selected light"
+	desc = "Changes the color of a selected light. Costs 5 Nanites to use."
 	action_icon = 'icons/effects/random_spawners.dmi'
 	action_icon_state = "glowstick"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -294,6 +304,11 @@
 		to_chat(user, "<span class='warning'>You can only recolor lights!</span>")
 		revert_cast()
 		return
+	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(5))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	// Color selection
 	var/color_picked = tgui_input_color(user, "Please select a light color.", "RGB Lighting Color")
 	var/list/hsl = rgb2hsl(hex2num(copytext(color_picked, 2, 4)), hex2num(copytext(color_picked, 4, 6)), hex2num(copytext(color_picked, 6, 8)))
@@ -303,6 +318,7 @@
 	if(istype(target, /obj/machinery/power/apc))
 		if(spell_level < 3) // If you haven't upgraded it 3 times, you have to color lights individually.
 			to_chat(user, "<span class='warning'>Your coloring subsystem is not strong enough to target an entire room!</span>")
+			AI.program_picker.refund_nanites(5)
 			revert_cast()
 			return
 		var/obj/machinery/power/apc/A = target
@@ -315,8 +331,6 @@
 		L.color = new_color
 		L.brightness_color = new_color
 		L.update(TRUE, TRUE, FALSE)
-	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 5
 	AI.play_sound_remote(target, 'sound/effects/spray.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
@@ -329,14 +343,14 @@
 /datum/ai_program/power_shunt
 	program_name = "Power Shunt"
 	program_id = "power_shunt"
-	description = "Recharge an APC, Borg, or Mech with power directly from your SMES!"
+	description = "Recharge an APC, Borg, or Mech with power directly from your SMES! Costs 20 Nanites to use."
 	nanite_cost = 20
 	power_type = /datum/spell/ai_spell/ranged/power_shunt
 	unlock_text = "Power Shunt installation complete!"
 
 /datum/spell/ai_spell/ranged/power_shunt
 	name = "Power Shunt"
-	desc = "Recharge an APC, Borg, or Mech with power directly from your SMES"
+	desc = "Recharge an APC, Borg, or Mech with power directly from your SMES.  Costs 20 Nanites to use."
 	action_icon = 'icons/obj/power.dmi'
 	action_icon_state = "smes-o"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -371,6 +385,10 @@
 		to_chat(user, "<span class='warning'>No SMES detected to power from!</span>")
 		revert_cast()
 		return
+	if(!AI.program_picker.spend_nanites(20))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	if(ismecha(target))
 		var/obj/mecha/T = target
 		T.cell.give(power_sent)
@@ -390,7 +408,6 @@
 			continue
 		power_source.charge -= power_sent
 		break
-	AI.program_picker.nanites -= 20
 	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
@@ -404,7 +421,7 @@
 /datum/ai_program/repair_nanites
 	program_name = "Repair Nanites"
 	program_id = "repair_nanites"
-	description = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines!"
+	description = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines! Costs 75 Nanites to use."
 	cost = 2
 	nanite_cost = 75
 	power_type = /datum/spell/ai_spell/ranged/repair_nanites
@@ -412,7 +429,7 @@
 
 /datum/spell/ai_spell/ranged/repair_nanites
 	name = "Repair Nanites"
-	desc = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines!"
+	desc = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines! Costs 75 Nanites to use."
 	action_icon = 'icons/obj/surgery.dmi'
 	action_icon_state = "tube"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -441,6 +458,10 @@
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to repair IPCs!</span>")
 		revert_cast()
 		return
+	if(!AI.program_picker.spend_nanites(75))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	if(ismecha(target)|| isapc(target))
 		var/obj/T = target
 		T.obj_integrity = min(T.max_integrity, T.obj_integrity + (T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level)))))
@@ -452,7 +473,6 @@
 		var/mob/living/carbon/human/machine/T = target
 		var/damage_healed = AI.adapter_efficiency * (20 + (min(30, (10 * spell_level))))
 		T.heal_overall_damage(damage_healed, damage_healed, TRUE, 0, 1)
-	AI.program_picker.nanites -= 75
 	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 
@@ -495,7 +515,7 @@
 /datum/ai_program/airlock_restoration
 	program_name = "Airlock Restoration"
 	program_id = "airlock_restoration"
-	description = "Repair an airlock's wires, if the AI control wire is not cut."
+	description = "Repair an airlock's wires, if the AI control wire is not cut. Costs 25 Nanites to use."
 	cost = 2
 	nanite_cost = 25
 	power_type = /datum/spell/ai_spell/ranged/airlock_restoration
@@ -503,7 +523,7 @@
 
 /datum/spell/ai_spell/ranged/airlock_restoration
 	name = "Airlock Restoration"
-	desc = "Repair the wires in an airlock that still has an intact AI control wire."
+	desc = "Repair the wires in an airlock that still has an intact AI control wire. Costs 25 Nanites to use."
 	action_icon = 'icons/obj/doors/doorint.dmi'
 	action_icon_state = "door_closed"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -532,11 +552,13 @@
 		to_chat(user, "<span class='warning'>Error: Null Connection to Airlock!</span>")
 		revert_cast()
 		return
-
-	var/turf/T = get_turf(target)
 	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(25))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
+	var/turf/T = get_turf(target)
 	var/duration = (6 - spell_level) SECONDS
-	AI.program_picker.nanites -= 25
 	AI.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
@@ -557,7 +579,7 @@
 /datum/ai_program/extinguishing_system
 	program_name = "Automated Extinguishing System"
 	program_id = "extinguishing_system"
-	description = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires."
+	description = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires. Costs 50 Nanites to use."
 	cost = 3
 	nanite_cost = 50
 	power_type = /datum/spell/ai_spell/ranged/extinguishing_system
@@ -565,7 +587,7 @@
 
 /datum/spell/ai_spell/ranged/extinguishing_system
 	name = "Automated Extinguishing System"
-	desc = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires."
+	desc = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires. Costs 50 Nanites to use."
 	action_icon = 'icons/effects/effects.dmi'
 	action_icon_state = "frozen_smoke_capsule"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -589,11 +611,13 @@
 		to_chat(user, "<span class='warning'>Invalid location for nanofrost deployment!</span>")
 		revert_cast()
 		return
-
+	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(50))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	var/obj/effect/nanofrost_container/nanofrost = new /obj/effect/nanofrost_container(target)
 	log_game("[key_name(user)] used Nanofrost at [get_area(target)] ([target.x], [target.y], [target.z]).")
-	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 50
 	AI.play_sound_remote(src, 'sound/items/syringeproj.ogg', 40)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 	addtimer(CALLBACK(nanofrost, TYPE_PROC_REF(/obj/effect/nanofrost_container, Smoke)), 5 SECONDS)
@@ -667,14 +691,14 @@
 /datum/ai_program/light_repair
 	program_name = "Light Synthesizer"
 	program_id = "light_repair"
-	description = "Replace damaged or missing lightbulbs."
+	description = "Replace damaged or missing lightbulbs. Costs 5 Nanites to use."
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/light_repair
 	unlock_text = "Light replacer configuration installed."
 
 /datum/spell/ai_spell/ranged/light_repair
 	name = "Light Synthesizer"
-	desc = "Replace damaged or missing lightbulbs."
+	desc = "Replace damaged or missing lightbulbs. Costs 5 Nanites to use."
 	action_icon = 'icons/obj/janitor.dmi'
 	action_icon_state = "lightreplacer0"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -699,13 +723,16 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(5))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	// Handle repairs here since we're using a spell and not a tool
 	target.status = LIGHT_OK
 	target.switchcount = 0
 	target.emagged = FALSE
 	target.on = target.has_power()
 	target.update(TRUE, TRUE, FALSE)
-	AI.program_picker.nanites -= 5
 	AI.play_sound_remote(target, 'sound/machines/ding.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
@@ -718,7 +745,7 @@
 /datum/ai_program/nanosurgeon_deployment
 	program_name = "Nanosurgeon Deployment"
 	program_id = "nanosurgeon_deployment"
-	description = "Heal a crew member with large numbers of robotic nanomachines!"
+	description = "Heal a crew member with large numbers of robotic nanomachines! Costs 75 Nanites to use."
 	cost = 3
 	nanite_cost = 75
 	power_type = /datum/spell/ai_spell/ranged/nanosurgeon_deployment
@@ -726,7 +753,7 @@
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment
 	name = "Nanosurgeon Deployment"
-	desc = "Heal a crew member with large numbers of robotic nanomachines!"
+	desc = "Heal a crew member with large numbers of robotic nanomachines! Costs 75 Nanites to use."
 	action_icon = 'icons/obj/surgery.dmi'
 	action_icon_state = "scalpel_laser1_on"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -751,6 +778,10 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(75))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	AI.play_sound_remote(target, 'sound/magic/magic_block.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 5 SECONDS)
 	// Only allow moving targets if the program is max level.
@@ -763,9 +794,9 @@
 	if(do_after(AI, 5 SECONDS, target = target, allow_moving_target = allow_moving))
 		// Check camera vision again.
 		if(!check_camera_vision(user, target))
+			AI.program_picker.refund_nanites(75)
 			revert_cast()
 			return
-		AI.program_picker.nanites -= 75
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		target.heal_overall_damage(damage_healed, damage_healed)
 		if(spell_level >= 5)
@@ -775,6 +806,7 @@
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
 	else
+		AI.program_picker.refund_nanites(75)
 		revert_cast()
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
@@ -814,7 +846,7 @@
 /datum/ai_program/research_subsystem
 	program_name = "Experimental Research Subsystem"
 	program_id = "research_subsystem"
-	description = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field."
+	description = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field. Costs 60 Nanites to use."
 	cost = 5
 	nanite_cost = 60
 	power_type = /datum/spell/ai_spell/research_subsystem
@@ -822,7 +854,7 @@
 
 /datum/spell/ai_spell/research_subsystem
 	name = "Experimental Research Subsystem"
-	desc = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field."
+	desc = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field. Costs 60 Nanites to use."
 	action_icon = 'icons/obj/machines/research.dmi'
 	action_icon_state = "tdoppler"
 	auto_use_uses = FALSE
@@ -834,6 +866,11 @@
 	var/rnd_server = "station_rnd"
 
 /datum/spell/ai_spell/research_subsystem/cast(list/targets, mob/user)
+	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(60))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	// First, find the RND server
 	var/network_manager_uid = null
 	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
@@ -859,6 +896,7 @@
 		if(!tech_to_upgrade)
 			to_chat(user, "<span class='notice'>Current research cannot be discovered any further.</span>")
 			revert_cast()
+			AI.program_picker.refund_nanites(60)
 			return
 		// No illegals until level 10
 		if(spell_level < 10 && istype(tech_to_upgrade, /datum/tech/syndicate))
@@ -888,7 +926,7 @@
 /datum/ai_program/emergency_sealant
 	program_name = "Emergency Sealant"
 	program_id = "emergency_sealant"
-	description = "Deploy an area of metal foam to rapidly repair and seal hull breaches."
+	description = "Deploy an area of metal foam to rapidly repair and seal hull breaches. Costs 50 Nanites to use."
 	cost = 2
 	nanite_cost = 50
 	power_type = /datum/spell/ai_spell/ranged/emergency_sealant
@@ -896,7 +934,7 @@
 
 /datum/spell/ai_spell/ranged/emergency_sealant
 	name = "Emergency Sealant"
-	desc = "Deploy an area of metal foam to rapidly repair and seal hull breaches."
+	desc = "Deploy an area of metal foam to rapidly repair and seal hull breaches. Costs 50 Nanites to use."
 	action_icon = 'icons/obj/structures.dmi'
 	action_icon_state = "reinforced"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -917,7 +955,10 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 50
+	if(!AI.program_picker.spend_nanites(50))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	AI.play_sound_remote(target, 'sound/effects/bubbles2.ogg', 50)
 	new /obj/effect/temp_visual/ai_sealant(get_turf(target))
 	addtimer(CALLBACK(src, PROC_REF(do_metal_foam), user, target), 10 SECONDS)
@@ -937,7 +978,7 @@
 /datum/ai_program/holosign_displayer
 	program_name = "Holosign Displayer"
 	program_id = "holosign_displayer"
-	description = "Deploy a holographic sign to alert crewmembers to potential hazards."
+	description = "Deploy a holographic sign to alert crewmembers to potential hazards. Costs 10 Nanites to use."
 	cost = 1
 	nanite_cost = 10
 	power_type = /datum/spell/ai_spell/ranged/holosign_displayer
@@ -945,7 +986,7 @@
 
 /datum/spell/ai_spell/ranged/holosign_displayer
 	name = "Holosign Displayer"
-	desc = "Deploy a holographic sign to alert crewmembers to potential hazards."
+	desc = "Deploy a holographic sign to alert crewmembers to potential hazards. Costs 10 Nanites to use."
 	action_icon = 'icons/obj/device.dmi'
 	action_icon_state = "signmaker"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -973,6 +1014,11 @@
 	if(!check_camera_vision(user, target))
 		revert_cast()
 		return
+	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(10))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	var/sign_id = tgui_input_list(usr, "Select a holosign!", "AI", sign_choices)
 	if(!sign_id)
 		return
@@ -987,8 +1033,6 @@
 		else
 			revert_cast()
 			return
-	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 10
 	var/H = new sign_type(get_turf(target), src)
 	addtimer(CALLBACK(src, PROC_REF(sign_timer_complete), H), (60 + 30 * spell_level) SECONDS, TIMER_UNIQUE)
 	AI.play_sound_remote(target, 'sound/machines/click.ogg', 20)
@@ -1002,14 +1046,14 @@
 /datum/ai_program/honk_subsystem
 	program_name = "Honk Subsystem"
 	program_id = "honk_subsystem"
-	description = "Download a program from Clowns.NT to be able to play bike horn sounds on demand."
+	description = "Download a program from Clowns.NT to be able to play bike horn sounds on demand. Costs 5 Nanites to use."
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/honk_subsystem
 	unlock_text = "Honker.exe installed."
 
 /datum/spell/ai_spell/ranged/honk_subsystem
 	name = "Honk Subsystem"
-	desc = "Download a program from Clowns.NT to be able to play bike horn sounds on demand."
+	desc = "Download a program from Clowns.NT to be able to play bike horn sounds on demand. Costs 5 Nanites to use."
 	action_icon = 'icons/obj/items.dmi'
 	action_icon_state = "bike_horn"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -1032,7 +1076,10 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 5
+	if(!AI.program_picker.spend_nanites(5))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	if(spell_level >= 10)
 		AI.play_sound_remote(target, 'sound/items/airhorn.ogg', 50,)
 	else
@@ -1113,7 +1160,7 @@
 /datum/ai_program/pointer
 	program_name = "Holopointer"
 	program_id = "holopointer"
-	description = "Illuminate a hologram to notify or beckon crew."
+	description = "Illuminate a hologram to notify or beckon crew. Costs 5 Nanites to use."
 	cost = 1
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/pointer
@@ -1121,7 +1168,7 @@
 
 /datum/spell/ai_spell/ranged/pointer
 	name = "Holopointer"
-	desc = "Illuminate a hologram to notify or beckon crew."
+	desc = "Illuminate a hologram to notify or beckon crew. Costs 5 Nanites to use."
 	action_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
 	action_icon_state = "target_circle"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -1142,5 +1189,8 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 5
+	if(!AI.program_picker.spend_nanites(5))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	new /obj/effect/temp_visual/ai_pointer(get_turf(target))
