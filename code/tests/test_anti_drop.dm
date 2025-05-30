@@ -30,7 +30,7 @@
 	player.puppet.drop_item_to_ground(belt)
 	TEST_ASSERT(!player.puppet.get_item_by_slot(ITEM_SLOT_BELT), "failed to remove belt after disabling NODROP")
 
-	var/obj/item/butcher_chainsaw/saw = player.spawn_obj_in_hand(/obj/item/butcher_chainsaw)
+	var/obj/item/melee/chainsaw/syndie/saw = player.spawn_obj_in_hand(/obj/item/melee/chainsaw/syndie)
 	player.use_item_in_hand()
 	anti_drop.ui_action_click()
 	anti_drop.ui_action_click()
