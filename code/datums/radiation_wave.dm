@@ -67,7 +67,7 @@
 		weight_right = index < (2 * steps) ? weights[WRAP_INDEX((index + offset), weight_length)] : 0
 		// The weight of the current tile the average of the weights of the tiles we checked for earlier
 		// And is reduced by irradiating things and getting blocked
-		if(weight_left + weight_center + weight_right)
+		if(current_turf && (weight_left + weight_center + weight_right))
 			new_weights += radiate(source, current_turf, (ratio) * (weight_left + weight_center + weight_right) / ((1 + (index > 1 && index < (2 * steps + 1) && steps > 1) + (index > 2 && index < (2 * steps)))), emission_type)
 		else
 			new_weights += 0
