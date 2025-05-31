@@ -42,7 +42,7 @@
 	cqc.remove(player.puppet)
 
 	player.set_intent(INTENT_HELP)
-	var/mob/mining_drone = player.spawn_mob_nearby(/mob/living/simple_animal/hostile/mining_drone)
+	var/mob/mining_drone = player.spawn_mob_nearby(/mob/living/basic/mining_drone)
 	var/obj/scanner = player.spawn_obj_in_hand(/obj/item/mining_scanner)
 	player.click_on(mining_drone)
 	TEST_ASSERT_LAST_CHATLOG(player, "drop any collected ore.")
