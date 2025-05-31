@@ -27,6 +27,7 @@
 		var/mob/living/living_target = hunted
 		hunter.manual_emote("chomps [living_target]!")
 		living_target.investigate_log("has been killed by [key_name(hunter)].", INVESTIGATE_DEATHS)
+		add_attack_logs(hunter, hunted, "AI controller killed", ATKLOG_ALL)
 		living_target.death()
 
 	else if(isfood(hunted))

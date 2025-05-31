@@ -54,7 +54,7 @@
 	// who created us, so we're not screaming on comms about every single
 	// dead player that we find
 	if(!controller.blackboard_key_exists(BB_FRIENDS_LIST))
-		return
+		return null
 	for(var/mob/living/carbon/human/target in oview(search_range, controller.pawn))
 		if(!(target in controller.blackboard[BB_FRIENDS_LIST]))
 			continue

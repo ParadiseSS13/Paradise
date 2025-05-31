@@ -15,7 +15,7 @@
 		if(!(target_obj.resistance_flags & INDESTRUCTIBLE))
 			return TRUE
 
-	if(target in living_mob.ai_controller.blackboard[BB_FRIENDS_LIST])
+	if((living_mob?.ai_controller?.blackboard[BB_FRIENDS_LIST]) && target in living_mob.ai_controller.blackboard[BB_FRIENDS_LIST])
 		return FALSE
 
 	return ..()

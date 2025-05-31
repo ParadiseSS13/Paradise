@@ -8,7 +8,7 @@
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 	/// If true we will get rid of our target on completion
 	var/clear_target = FALSE
-	///should we use a different movement type?
+	/// If desired, an alternate [/datum/ai_movement] to use for movement/pathfinding.
 	var/new_movement_type
 
 /datum/ai_behavior/travel_towards/setup(datum/ai_controller/controller, target_key)

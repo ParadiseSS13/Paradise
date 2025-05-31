@@ -55,16 +55,6 @@
 	controller.queue_behavior(follow_behavior, BB_CURRENT_PET_TARGET)
 	return SUBTREE_RETURN_FINISH_PLANNING
 
-/datum/pet_command/good_boy/execute_action(datum/ai_controller/controller)
-	controller.clear_blackboard_key(BB_ACTIVE_PET_COMMAND)
-	var/mob/living/parent = locateUID(parent_uid)
-	if(!parent)
-		return SUBTREE_RETURN_FINISH_PLANNING
-
-	new /obj/effect/temp_visual/heart(parent.loc)
-	parent.emote("spin")
-	return SUBTREE_RETURN_FINISH_PLANNING
-
 /**
  * # Pet Command: Use ability
  * Use an an ability that does not require any targets
@@ -121,6 +111,7 @@
 /// Display feedback about not targeting something
 /datum/pet_command/attack/proc/refuse_target(mob/living/parent, atom/target)
 	var/mob/living/living_parent = parent
+	living_parent.custom_emote(EMOTE_VISIBLE, refuse_reaction)
 	living_parent.visible_message("<span class='notice'>[living_parent] refuses to attack [target].</span>")
 
 /datum/pet_command/attack/execute_action(datum/ai_controller/controller)
@@ -151,6 +142,7 @@
 /datum/pet_command/protect_owner/execute_action(datum/ai_controller/controller)
 	var/mob/living/victim = controller.blackboard[BB_CURRENT_PET_TARGET]
 	if(QDELETED(victim))
+		controller.clear_blackboard_key(BB_CURRENT_PET_TARGET)
 		return
 	// cancel the action if they're below our given crit stat, OR if we're trying to attack ourselves (this can happen on tamed mobs w/ protect subtree rarely)
 	if(victim.stat > controller.blackboard[BB_TARGET_MINIMUM_STAT] || victim == controller.pawn)

@@ -61,6 +61,7 @@
 
 /mob/living/basic/mining_drone/Destroy()
 	QDEL_NULL(stored_gun)
+	drop_ore(message = FALSE)
 	return ..()
 
 /mob/living/basic/mining_drone/emp_act(severity)
@@ -92,7 +93,7 @@
 /mob/living/basic/mining_drone/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, "<span class='notice'>You instruct [src] to drop any collected ore.</span>")
-		DropOre()
+		drop_ore()
 		return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/borg/upgrade/modkit))
 		I.melee_attack_chain(user, stored_gun, list2params(modifiers))
@@ -123,7 +124,7 @@
 		WELDER_REPAIR_SUCCESS_MESSAGE
 
 /mob/living/basic/mining_drone/death()
-	DropOre(0)
+	drop_ore(message = FALSE)
 	if(stored_gun)
 		for(var/obj/item/borg/upgrade/modkit/M in stored_gun.modkits)
 			M.uninstall(stored_gun)
@@ -158,11 +159,7 @@
 		var/obj/item/target_ore = attack_target
 		target_ore.forceMove(src)
 
-/mob/living/basic/mining_drone/proc/CollectOre()
-	for(var/obj/item/stack/ore/O in range(1, src))
-		O.forceMove(src)
-
-/mob/living/basic/mining_drone/proc/DropOre(message = 1)
+/mob/living/basic/mining_drone/proc/drop_ore(message = TRUE)
 	if(!length(contents))
 		if(message)
 			to_chat(src, "<span class='warning'>You attempt to dump your stored ore, but you have none.</span>")

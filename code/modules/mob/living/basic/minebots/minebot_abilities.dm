@@ -45,4 +45,4 @@
 
 /datum/action/innate/minedrone/dump_ore/Activate()
 	var/mob/living/basic/mining_drone/user = owner
-	user.DropOre()
+	user.drop_ore()

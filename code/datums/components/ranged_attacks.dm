@@ -68,6 +68,9 @@
 
 /// Actually fire the damn thing
 /datum/component/ranged_attacks/proc/async_fire_ranged_attack(mob/living/basic/firer, atom/target, modifiers)
+	if(QDELETED(firer))
+		return
+
 	firer.face_atom(target)
 	if(projectile_type)
 		firer.fire_projectile(projectile_type, target, projectile_sound)
@@ -85,8 +88,3 @@
 	casing.fire(target, firer, null, null, null, target_zone, 0, firer)
 	casing.update_appearance()
 	SEND_SIGNAL(parent, COMSIG_BASICMOB_POST_ATTACK_RANGED, target, modifiers)
-
-/datum/component/ranged_attacks/proc/disable_attack(mob/source, obj/item/crusher_trophy/used_trophy, mob/living/user)
-	SIGNAL_HANDLER
-	var/stun_duration = (used_trophy.bonus_value * 0.1) SECONDS
-	COOLDOWN_INCREMENT(src, fire_cooldown, stun_duration)

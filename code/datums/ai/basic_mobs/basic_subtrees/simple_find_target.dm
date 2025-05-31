@@ -10,7 +10,7 @@
 /datum/ai_planning_subtree/simple_find_target/not_while_observed
 
 /datum/ai_planning_subtree/simple_find_target/not_while_observed/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	for(var/mob/living/carbon/human/watcher in hearers(7, controller.pawn))
+	for(var/mob/living/carbon/human/watcher in hearers(11, controller.pawn))
 		if(watcher.stat != DEAD)
 			return
 	return ..()
