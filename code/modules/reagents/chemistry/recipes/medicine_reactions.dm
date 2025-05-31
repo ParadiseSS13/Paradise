@@ -36,6 +36,13 @@
 	required_reagents = list("carpotoxin" = 1, "spaceacillin" = 1, "copper" = 1)
 	result_amount = 3
 
+/datum/chemical_reaction/sterilizine
+	name = "Sterilizine"
+	id = "sterilizine"
+	result = "sterilizine"
+	required_reagents = list("antihol" = 2, "chlorine" = 1)
+	result_amount = 3
+
 /datum/chemical_reaction/charcoal
 	name = "Charcoal"
 	id = "charcoal"
