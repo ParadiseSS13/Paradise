@@ -32,7 +32,7 @@
 
 /client/proc/run_sdql2_query(query_text)
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
-		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!</span>")
+		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute an SDQL query!</span>")
 		log_admin("Non-admin [key_name(usr)] attempted to execute an SDQL query: [query_text]")
 		return
 
