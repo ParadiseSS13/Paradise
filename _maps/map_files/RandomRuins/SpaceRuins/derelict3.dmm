@@ -48,7 +48,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "H" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "O" = (

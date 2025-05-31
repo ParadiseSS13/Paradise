@@ -156,7 +156,7 @@
 /area/ruin/space/sieged_lab)
 "kr" = (
 /obj/effect/spawner/random/storage,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	color = "#ff7f00"
 	},
@@ -856,8 +856,8 @@
 /area/ruin/space/sieged_lab)
 "PF" = (
 /obj/structure/safe/floor,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab,
+/obj/effect/spawner/random/pool/spaceloot/sieged_lab,
+/obj/effect/spawner/random/pool/spaceloot/sieged_lab,
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/sieged_lab)
 "PI" = (

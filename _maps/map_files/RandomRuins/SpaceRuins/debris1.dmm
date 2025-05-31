@@ -150,7 +150,7 @@
 /turf/simulated/floor/plating/burnt/airless,
 /area/ruin)
 "QL" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating/burnt/airless,
 /area/ruin)
 

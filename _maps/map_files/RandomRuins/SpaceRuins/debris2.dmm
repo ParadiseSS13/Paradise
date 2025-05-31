@@ -131,7 +131,7 @@
 /area/ruin/unpowered)
 "Di" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 

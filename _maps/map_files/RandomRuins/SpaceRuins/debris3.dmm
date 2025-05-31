@@ -129,7 +129,7 @@
 /turf/template_noop,
 /area/template_noop)
 "P" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/unpowered)
 "Q" = (

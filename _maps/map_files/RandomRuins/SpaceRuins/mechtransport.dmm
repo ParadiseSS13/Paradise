@@ -21,7 +21,7 @@
 /area/ruin/space/mech_transport)
 "aZ" = (
 /obj/effect/spawner/random/loot_crate,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "bk" = (
@@ -158,7 +158,7 @@
 	},
 /obj/machinery/door/window,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "od" = (
@@ -196,7 +196,7 @@
 /area/ruin/space/mech_transport)
 "pJ" = (
 /obj/structure/closet/firecloset,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "qs" = (
@@ -253,7 +253,7 @@
 /area/ruin/space/mech_transport)
 "sY" = (
 /obj/structure/closet,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/mech_transport)
 "ta" = (

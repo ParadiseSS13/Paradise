@@ -1030,7 +1030,7 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "dd" = (
 /obj/structure/closet/firecloset/full,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "de" = (
@@ -1125,7 +1125,7 @@
 /area/template_noop)
 "jI" = (
 /obj/structure/disposalpipe/trunk,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/drone_bay)
 "jQ" = (

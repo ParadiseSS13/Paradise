@@ -290,7 +290,7 @@
 /area/ruin/space/powered/casino/security)
 "hv" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "hJ" = (
@@ -319,8 +319,8 @@
 	icon_state = "4-8"
 	},
 /obj/item/stack/spacecash/c1000,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/casino,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/casino,
+/obj/effect/spawner/random/pool/spaceloot/casino,
+/obj/effect/spawner/random/pool/spaceloot/casino,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "in" = (
@@ -380,7 +380,7 @@
 /area/ruin/space/powered/casino/arrivals)
 "jz" = (
 /obj/structure/closet/cabinet,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/floor)
 "jJ" = (
@@ -657,7 +657,7 @@
 "rh" = (
 /obj/structure/grille/broken,
 /obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "rp" = (
@@ -796,7 +796,7 @@
 	dir = 8
 	},
 /obj/effect/mob_spawn/human/corpse/random_species/gambler,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/powered/casino/hall)
 "wo" = (
@@ -1108,7 +1108,7 @@
 /area/ruin/space/powered/casino/arrivals)
 "EK" = (
 /obj/structure/table,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1310,7 +1310,7 @@
 "Nh" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/oxygen,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/casino/docked_ships)
 "Nj" = (
@@ -1371,7 +1371,7 @@
 /area/ruin/space/powered/casino/security)
 "OZ" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
