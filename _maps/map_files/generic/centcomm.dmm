@@ -6052,6 +6052,7 @@
 	pixel_x = -2;
 	pixel_y = 1
 	},
+/obj/item/dissector,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vl" = (
@@ -6240,6 +6241,8 @@
 "vM" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
+/obj/item/organ/internal/heart/xenobiology/cursed_bananium,
+/obj/item/organ/internal/heart/xenobiology/bananium,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "vN" = (
@@ -6457,6 +6460,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
+/obj/item/dissector/alien,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wA" = (
