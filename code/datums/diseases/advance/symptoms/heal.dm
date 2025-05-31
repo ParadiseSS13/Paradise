@@ -23,6 +23,7 @@ Bonus
 	stage_speed = -4
 	transmittable = -4
 	level = 6
+	treatments = list("frostoil")
 
 /datum/symptom/heal/Activate(datum/disease/advance/A)
 	..()
@@ -55,6 +56,7 @@ Bonus
 //////////////////////////////////////
 */
 
+/*
 /datum/symptom/heal/metabolism
 
 	name = "Anti-Bodies Metabolism"
@@ -88,6 +90,7 @@ Bonus
 					M.resistances -= res
 		to_chat(M, "<span class='warning'>You feel weaker.</span>")
 
+*/
 /*
 //////////////////////////////////////
 

@@ -2,14 +2,14 @@
 	name = "The Cold"
 	max_stages = 3
 	spread_text = "Airborne"
-	spread_flags = AIRBORNE
+	spread_flags = SPREAD_AIRBORNE
 	cure_text = "Rest & Spaceacillin"
 	cures = list("spaceacillin")
 	agent = "XY-rhinovirus"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
 	permeability_mod = 0.5
 	desc = "If left untreated the subject will contract the flu."
-	severity = MINOR
+	severity = VIRUS_MINOR
 
 /datum/disease/cold/stage_act()
 	if(!..())
