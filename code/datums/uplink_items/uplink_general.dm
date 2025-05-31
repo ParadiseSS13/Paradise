@@ -262,7 +262,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/porta_turret
 	name = "Portable Turret"
-	desc = "A pop-up Syndicate turret. Shoots anyone who didn't prime the grenade. The turret cannot be moved after it's deployed."
+	desc = "A pop-up Syndicate turret that will shoot anyone who didn't prime the grenade. The turret cannot be moved after it's deployed."
 	reference = "MIS"
 	item = /obj/item/grenade/turret
 	cost = 20
@@ -646,7 +646,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 
 /datum/uplink_item/device_tools/surgerybag
-	name = "Syndicate Surgery Duffelbag"
+	name = "Syndicate Surgery Duffel Bag"
 	desc = "The Syndicate surgery duffel bag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
 	reference = "SSDB"
 	item = /obj/item/storage/backpack/duffel/syndie/med/surgery
