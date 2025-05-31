@@ -248,7 +248,7 @@
 		else
 			to_chat(user, "<span class='warning'>This organ is already in pristine condition!</span>")
 			return ITEM_INTERACT_COMPLETE
-	. = ..()
+	return ..()
 
 
 

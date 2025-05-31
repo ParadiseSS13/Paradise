@@ -1,5 +1,5 @@
 /obj/item/dissector
-	name = "Dissection Manager"
+	name = "\improper Dissection Manager"
 	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "dissector"
@@ -10,14 +10,14 @@
 	tool_behaviour = TOOL_DISSECTOR
 
 /obj/item/dissector/upgraded
-	name = "Improved Dissection Manager"
+	name = "\improper Improved Dissection Manager"
 	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs. This one has had several improvements applied to it."
 	icon_state = "dissector_upgrade"
 	toolspeed = 0.6
 
 // allows for perfect pristine organ extraction. Only available from non-lavaland abductor tech
 /obj/item/dissector/alien
-	name = "Alien Dissection Manager"
+	name = "\improper Alien Dissection Manager"
 	desc = "A tool of alien origin, capable of near impossible levels of precision during dissections."
 	icon_state = "dissector_alien"
 	origin_tech = "abductor=3"
@@ -305,19 +305,19 @@
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin prepping the subject for dissection...</span>",
-	"<span class='notice'>You begin to easily open up a surgical site from the ashen mound.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+		"<span class='notice'>You begin prepping the subject for dissection...</span>",
+		"<span class='notice'>You begin to easily open up a surgical site from the ashen mound.</span>",
+		"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You successfully force the dissection cavity open.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the nearly ashen pile!</span>",
-	"<span class='warning'>You struggle to get the surgical site open as ash crumples back in on itself!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+		"<span class='warning'>The tool fails to get a grip on the nearly ashen pile!</span>",
+		"<span class='warning'>You struggle to get the surgical site open as ash crumples back in on itself!</span>",
+		"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /datum/xenobiology_surgery_container/colossus
@@ -326,37 +326,37 @@
 	custom_organ_states = list("colossus1", "colossus2", "colossus3", "colossus4")
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You carefully begin severing the metal sections from the surrounding flesh.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
+		"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
+		"<span class='notice'>You force the dissection cavity open.</span>",
+		"<span class='notice'>You carefully begin severing the metal sections from the surrounding flesh.</span>",
+		"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You manage to cut away and seperate the metal from flesh.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You successfully make an incision into the dissection site.</span>",
+		"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+		"<span class='notice'>You successfully force the dissection cavity open.</span>",
+		"<span class='notice'>You manage to cut away and seperate the metal from flesh.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The mixture of metal and flesh seems impossible to distinguish in some places!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+		"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
+		"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
+		"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+		"<span class='warning'>The mixture of metal and flesh seems impossible to distinguish in some places!</span>",
+		"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /datum/xenobiology_surgery_container/pandora
@@ -365,33 +365,33 @@
 	custom_organ_states = list("hiero1", "hiero2")
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/fake_robotics/unscrew_hatch,
-	/datum/surgery_step/fake_robotics/open_hatch,
-	/datum/surgery_step/fake_robotics/amputate,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/fake_robotics/unscrew_hatch,
+		/datum/surgery_step/fake_robotics/open_hatch,
+		/datum/surgery_step/fake_robotics/amputate,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin to unscrew the coverings.</span>",
-	"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
-	"<span class='notice'>You carefully begin to disconnect the core from the surrounding power network.</span>",
-	"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin to unscrew the coverings.</span>",
+		"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
+		"<span class='notice'>You carefully begin to disconnect the core from the surrounding power network.</span>",
+		"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
-	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
-	"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
-	"<span class='notice'>You remove the core from the metal housing!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
+		"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
+		"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
+		"<span class='notice'>You remove the core from the metal housing!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>You begin to prep the subject for dissection...</span>",
-	"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
-	"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
-	"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
-	"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
+		"<span class='warning'>You begin to prep the subject for dissection...</span>",
+		"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
+		"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
+		"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
+		"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
 	)
 
 /datum/xenobiology_surgery_container/legionnaire
@@ -400,29 +400,29 @@
 	custom_organ_states = list("legion1", "legion2")
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/amputate,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/amputate,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin sawing through the dense bone obstructions.</span>",
-	"<span class='notice'>With a sickening crunch, you begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin sawing through the dense bone obstructions.</span>",
+		"<span class='notice'>With a sickening crunch, you begin forcing the dissection cavity open.</span>",
+		"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You manage to detach the bones away from the dissection cavity.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>"
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You manage to detach the bones away from the dissection cavity.</span>",
+		"<span class='notice'>You successfully force the dissection cavity open.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>"
 	)
 	dissection_failure_text = list(
-	"<span class='notice'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='notice'>Your saw fails to find purchase against the hardened bone!</span>",
-	"<span class='notice'>The surrounding bone refuses to budge!</span>",
-	"<span class='notice'>The tool fails to remove the organ from the surrounding skeletal structure!</span>"
+		"<span class='notice'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='notice'>Your saw fails to find purchase against the hardened bone!</span>",
+		"<span class='notice'>The surrounding bone refuses to budge!</span>",
+		"<span class='notice'>The tool fails to remove the organ from the surrounding skeletal structure!</span>"
 	)
 
 /datum/xenobiology_surgery_container/bubblegum
@@ -431,70 +431,70 @@
 	custom_organ_states = list("bubblegum1", "bubblegum2", "bubblegum3", "bubblegum4")
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the corpse for dissection... If you can even call it that at this point</span>",
-	"<span class='notice'>You begin removing shards and chunks of bone, clearing a spot to safely cut deeper.</span>",
-	"<span class='notice'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone...</span>",
-	"<span class='notice'>You begin clamping the mass amount of leaking arteries in the surgical site.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You finally find something, and begin to remove a unidentifiable mass out of the mass!</span>",
+		"<span class='notice'>You begin to prep the corpse for dissection... If you can even call it that at this point</span>",
+		"<span class='notice'>You begin removing shards and chunks of bone, clearing a spot to safely cut deeper.</span>",
+		"<span class='notice'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone...</span>",
+		"<span class='notice'>You begin clamping the mass amount of leaking arteries in the surgical site.</span>",
+		"<span class='notice'>You begin forcing the dissection cavity open.</span>",
+		"<span class='notice'>You finally find something, and begin to remove a unidentifiable mass out of the mass!</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You manage to clear out the dissection site of obstructive bone.</span>",
-	"<span class='notice'>You manage to cut deep enough until something of signifigance seems to reveal.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You manage to clear out the dissection site of obstructive bone.</span>",
+		"<span class='notice'>You manage to cut deep enough until something of signifigance seems to reveal.</span>",
+		"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+		"<span class='notice'>You successfully force the dissection cavity open.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You begin removing shards and chunks of bone, clearing a spot to safely cut deeper.</span>",
-	"<span class='warning'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone..</span>",
-	"<span class='warning'>You clamp the mass amount of leaking arteries in the surgical site.</span>",
-	"<span class='warning'>You force the dissection cavity open.</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+		"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='warning'>You begin removing shards and chunks of bone, clearing a spot to safely cut deeper.</span>",
+		"<span class='warning'>You slowly cut your way into the pile, looking for anything other than formless flesh and bone..</span>",
+		"<span class='warning'>You clamp the mass amount of leaking arteries in the surgical site.</span>",
+		"<span class='warning'>You force the dissection cavity open.</span>",
+		"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /datum/xenobiology_surgery_container/alien
 	xeno_specialized_organs = list(/obj/item/organ/internal/alien/hivenode)
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/saw_carapace,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/saw_carapace,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin sawing through the chitinous outer layer.</span>",
-	"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin sawing through the chitinous outer layer.</span>",
+		"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
+		"<span class='notice'>You begin forcing the dissection cavity open.</span>",
+		"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You manage to saw through the armored exoskeleton.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You manage to saw through the armored exoskeleton.</span>",
+		"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+		"<span class='notice'>You successfully force the dissection cavity open.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You fail to get through the armored outer layer!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+		"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='warning'>You fail to get through the armored outer layer!</span>",
+		"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
+		"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+		"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /datum/xenobiology_surgery_container/alien/sentinel
@@ -543,111 +543,111 @@
 	custom_organ_states = list("hiero1", "hiero2")
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/fake_robotics/unscrew_hatch,
-	/datum/surgery_step/fake_robotics/open_hatch,
-	/datum/surgery_step/fake_robotics/amputate,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/fake_robotics/unscrew_hatch,
+		/datum/surgery_step/fake_robotics/open_hatch,
+		/datum/surgery_step/fake_robotics/amputate,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin to unscrew the coverings.</span>",
-	"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
-	"<span class='notice'>You carefully begin to disconnect the core from the surrounding power network.</span>",
-	"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin to unscrew the coverings.</span>",
+		"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
+		"<span class='notice'>You carefully begin to disconnect the core from the surrounding power network.</span>",
+		"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
-	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
-	"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
-	"<span class='notice'>You remove the core from the metal housing!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
+		"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
+		"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
+		"<span class='notice'>You remove the core from the metal housing!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
-	"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
-	"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
-	"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
+		"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
+		"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
+		"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
+		"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
 	)
 
 /datum/xenobiology_surgery_container/blobbernaut
 	xeno_specialized_organs = list(/obj/item/organ/internal/eyes/xenobiology/receptors)
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin closing off one of the many leaking fluid sacks in the corpse.</span>",
-	"<span class='notice'>Your work area closed filled back in. You begin to re-open it.</span>",
-	"<span class='notice'>You begin closing off more leaking sacks and fluid veins.</span>",
-	"<span class='notice'>This damned dissection site <b>WON'T STOP CLOSING!</b></span>",
-	"<span class='notice'>You begin once again closing off more fluid sacks and leaking cavities....</span>",
-	"<span class='notice'>You at last begin to remove something from the cadaver...</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin forcing the dissection cavity open.</span>",
+		"<span class='notice'>You begin closing off one of the many leaking fluid sacks in the corpse.</span>",
+		"<span class='notice'>Your work area closed filled back in. You begin to re-open it.</span>",
+		"<span class='notice'>You begin closing off more leaking sacks and fluid veins.</span>",
+		"<span class='notice'>This damned dissection site <b>WON'T STOP CLOSING!</b></span>",
+		"<span class='notice'>You begin once again closing off more fluid sacks and leaking cavities....</span>",
+		"<span class='notice'>You at last begin to remove something from the cadaver...</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You easily pry apart the semi-liquid corpse.</span>",
-	"<span class='notice'>You close off one numerous leaking cavities.</span>",
-	"<span class='notice'>You manage to get the dissection site back open</span>",
-	"<span class='notice'>You close off more leaking sacks and fluid veins.</span>",
-	"<span class='notice'>You manage to get the dissection site back open... again.</span>",
-	"<span class='notice'>You finally get the leaking under control.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You easily pry apart the semi-liquid corpse.</span>",
+		"<span class='notice'>You close off one numerous leaking cavities.</span>",
+		"<span class='notice'>You manage to get the dissection site back open</span>",
+		"<span class='notice'>You close off more leaking sacks and fluid veins.</span>",
+		"<span class='notice'>You manage to get the dissection site back open... again.</span>",
+		"<span class='notice'>You finally get the leaking under control.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>The you fail to open the incision site, it simply closes back up!</span>",
-	"<span class='warning'>The leakage is too intense, you cant get it under control!</span>",
-	"<span class='warning'>The you fail to open the incision site, it simply closes back up!</span>",
-	"<span class='warning'>The leakage is too intense, you cant get it under control!</span>",
-	"<span class='warning'>The you fail to open the incision site, it simply closes back up!</span>",
-	"<span class='warning'>The leakage is too intense, you cant get it under control!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the goopy flesh!</span>",
+		"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='warning'>The you fail to open the incision site, it simply closes back up!</span>",
+		"<span class='warning'>The leakage is too intense, you cant get it under control!</span>",
+		"<span class='warning'>The you fail to open the incision site, it simply closes back up!</span>",
+		"<span class='warning'>The leakage is too intense, you cant get it under control!</span>",
+		"<span class='warning'>The you fail to open the incision site, it simply closes back up!</span>",
+		"<span class='warning'>The leakage is too intense, you cant get it under control!</span>",
+		"<span class='warning'>The tool fails to remove the organ from the goopy flesh!</span>",
 	)
 
 /datum/xenobiology_surgery_container/terror_spider
 	xeno_specialized_organs = list(/obj/item/organ/internal/appendix/xenobiology/toxin_stinger/terror)
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/amputate,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/amputate,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin sawing through the chitinout outer layer.</span>",
-	"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin sawing through the chitinout outer layer.</span>",
+		"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
+		"<span class='notice'>You begin forcing the dissection cavity open.</span>",
+		"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You manage to saw through the hardened exoskeleton.</span>",
-	"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You manage to saw through the hardened exoskeleton.</span>",
+		"<span class='notice'>You clamp any cavities leaking fluids into the surgical site.</span>",
+		"<span class='notice'>You force the dissection cavity open.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>You begin to prep the subject for dissection...</span>",
-	"<span class='warning'>Your saw fails to find purchase against the reinforced exoskeleton!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+		"<span class='warning'>You begin to prep the subject for dissection...</span>",
+		"<span class='warning'>Your saw fails to find purchase against the reinforced exoskeleton!</span>",
+		"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
+		"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+		"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /datum/xenobiology_surgery_container/vetus
@@ -656,183 +656,183 @@
 	custom_organ_states = list("vetus1", "vetus2")
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/fake_robotics/unscrew_hatch,
-	/datum/surgery_step/fake_robotics/open_hatch,
-	/datum/surgery_step/fake_robotics/amputate,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/fake_robotics/unscrew_hatch,
+		/datum/surgery_step/fake_robotics/open_hatch,
+		/datum/surgery_step/fake_robotics/amputate,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin to unscrew the coverings.</span>",
-	"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
-	"<span class='notice'>You carefully begin to disconnect the core from the machinery without setting off any secondary explosions.</span>",
-	"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin to unscrew the coverings.</span>",
+		"<span class='notice'>You begin prying open the loose panel from the machine.</span>",
+		"<span class='notice'>You carefully begin to disconnect the core from the machinery without setting off any secondary explosions.</span>",
+		"<span class='notice'>You begin removing the core from the metal housing surrounding it.</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
-	"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
-	"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
-	"<span class='notice'>You remove the core from the metal housing!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You successfully remove any screws keeping the panel shut.</span>",
+		"<span class='notice'>You pry open the loose panels to expose the core within.</span>",
+		"<span class='notice'>You successfully disconnect the core from the power connectors.</span>",
+		"<span class='notice'>You remove the core from the metal housing!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>You begin to prep the subject for dissection...</span>",
-	"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
-	"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
-	"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
-	"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
+		"<span class='warning'>You begin to prep the subject for dissection...</span>",
+		"<span class='warning'>You cant get enough torque to unscrew the rusted fastenings off!</span>",
+		"<span class='warning'>You fail to find enough leverage to get the panel off!</span>",
+		"<span class='warning'>You cant find how to safely remove the core from its attached wiring!</span>",
+		"<span class='warning'>The tool fails to remove the core from the metal housing!</span>",
 	)
 
 /datum/xenobiology_surgery_container/drake
 	xeno_specialized_organs = list(/obj/item/organ/internal/lungs/xenobiology/flame_sack)
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/amputate,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/amputate,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin sawing through the hardened scales of the drake.</span>",
-	"<span class='notice'>You carefully begin removing the scales from the corpse</span>",
-	"<span class='notice'>You begin to make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin sawing through the hardened scales of the drake.</span>",
+		"<span class='notice'>You carefully begin removing the scales from the corpse</span>",
+		"<span class='notice'>You begin to make a careful incision into the subject's corpse.</span>",
+		"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
+		"<span class='notice'>You begin forcing the dissection cavity open.</span>",
+		"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You feel the resistance of the hardened scales give away to the saw.</span>",
-	"<span class='notice'>You pluck away the remaining scales from around the dissection site.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You feel the resistance of the hardened scales give away to the saw.</span>",
+		"<span class='notice'>You pluck away the remaining scales from around the dissection site.</span>",
+		"<span class='notice'>You successfully make an incision into the dissection site.</span>",
+		"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+		"<span class='notice'>You force the dissection cavity open.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You fail to find enough leverage to saw through the thick scales!</span>",
-	"<span class='warning'>You cant get a good enough grip on the loosened scales to pluck them off!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+		"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='warning'>You fail to find enough leverage to saw through the thick scales!</span>",
+		"<span class='warning'>You cant get a good enough grip on the loosened scales to pluck them off!</span>",
+		"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
+		"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
+		"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+		"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /datum/xenobiology_surgery_container/headslug
 	xeno_specialized_organs = list(/obj/item/organ/internal/heart/xenobiology/contortion)
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You carefully begin making a tiny incision in the diminutive creature.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You carefully begin making a tiny incision in the diminutive creature.</span>",
+		"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You successfully make an incision into the tiny creature.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You successfully make an incision into the tiny creature.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+		"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
+		"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /datum/xenobiology_surgery_container/basilisk
 	xeno_specialized_organs = list(/obj/item/organ/internal/kidneys/xenobiology/sweating)
 
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/drill,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/clamp_bleeders,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/drill,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin drilling into the crystals to weakent he structure.</span>",
-	"<span class='notice'>You begin breaking apart the crystals preventing access to the subject.</span>",
-	"<span class='notice'>You begin removing the remaining pieces of obstructive material.</span>",
-	"<span class='notice'>You begin to make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin drilling into the crystals to weakent he structure.</span>",
+		"<span class='notice'>You begin breaking apart the crystals preventing access to the subject.</span>",
+		"<span class='notice'>You begin removing the remaining pieces of obstructive material.</span>",
+		"<span class='notice'>You begin to make a careful incision into the subject's corpse.</span>",
+		"<span class='notice'>You begin clamping any cavities leaking fluids into the surgical site.</span>",
+		"<span class='notice'>You begin forcing the dissection cavity open.</span>",
+		"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>",
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You drill a series of holes into the crystalline carapace.</span>",
-	"<span class='notice'>You crack open the crystalline lattice into many pieces.</span>",
-	"<span class='notice'>You colelct and remove the myriad of loose crystals.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site.</span>",
-	"<span class='notice'>You successfully clamp any leaking cavities.</span>",
-	"<span class='notice'>You successfully force the dissection cavity open.</span>",
-	"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You drill a series of holes into the crystalline carapace.</span>",
+		"<span class='notice'>You crack open the crystalline lattice into many pieces.</span>",
+		"<span class='notice'>You colelct and remove the myriad of loose crystals.</span>",
+		"<span class='notice'>You successfully make an incision into the dissection site.</span>",
+		"<span class='notice'>You successfully clamp any leaking cavities.</span>",
+		"<span class='notice'>You successfully force the dissection cavity open.</span>",
+		"<span class='notice'>You remove some kind of unidentifiable mass from the subject!</span>",
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You fail to drill through the hardened crystals!</span>",
-	"<span class='warning'>You fail to get enough leverage to break apart the crystal lattice!</span>",
-	"<span class='warning'>You cant seem to get a good grip on the irregular chunks of material!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
+		"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='warning'>You fail to drill through the hardened crystals!</span>",
+		"<span class='warning'>You fail to get enough leverage to break apart the crystal lattice!</span>",
+		"<span class='warning'>You cant seem to get a good grip on the irregular chunks of material!</span>",
+		"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
+		"<span class='warning'>Your hand slips, tearing some of the flesh from the subject and worsening the leakage!</span>",
+		"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+		"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>",
 	)
 
 /datum/xenobiology_surgery_container/legion
 	xeno_specialized_organs = list(/obj/item/organ/internal/heart/xenobiology/squirming)
 	custom_organ_states = list("legion1", "legion2")
 	dissection_tool_step = list(
-	/datum/surgery_step/generic/dissect,
-	/datum/surgery_step/generic/amputate,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/retract_skin,
-	/datum/surgery_step/generic/cut_open,
-	/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/dissect,
+		/datum/surgery_step/generic/amputate,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/dissect,
 	)
 
 	dissection_text = list(
-	"<span class='notice'>You begin to prep the subject for dissection...</span>",
-	"<span class='notice'>You begin to saw through the thick skull plating.</span>",
-	"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
-	"<span class='notice'>You begin cutting away at the small skulls continuing to bud up from the corpse.</span>",
-	"<span class='notice'>You begin forcing the dissection cavity open.</span>",
-	"<span class='notice'>You once again cut away at the budding skulls attempting to seal up the surgical site.</span>",
-	"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
+		"<span class='notice'>You begin to prep the subject for dissection...</span>",
+		"<span class='notice'>You begin to saw through the thick skull plating.</span>",
+		"<span class='notice'>You make a careful incision into the subject's corpse.</span>",
+		"<span class='notice'>You begin cutting away at the small skulls continuing to bud up from the corpse.</span>",
+		"<span class='notice'>You begin forcing the dissection cavity open.</span>",
+		"<span class='notice'>You once again cut away at the budding skulls attempting to seal up the surgical site.</span>",
+		"<span class='notice'>You begin removing an unidentifiable mass out of the subject!</span>"
 	)
 	dissection_success_text = list(
-	"<span class='notice'>You successfully set up a dissection site.</span>",
-	"<span class='notice'>You manage to crack through the thick skull plating.</span>",
-	"<span class='notice'>You successfully make an incision into the dissection site</span>",
-	"<span class='notice'>You manage to cut away and control the growing buds.</span>",
-	"<span class='notice'>You force the dissection cavity open.</span>",
-	"<span class='notice'>You again manage to cut away and control the growing buds.</span>",
-	"<span class='notice'>You remove an unidentifiable mass out of the subject!</span>"
+		"<span class='notice'>You successfully set up a dissection site.</span>",
+		"<span class='notice'>You manage to crack through the thick skull plating.</span>",
+		"<span class='notice'>You successfully make an incision into the dissection site</span>",
+		"<span class='notice'>You manage to cut away and control the growing buds.</span>",
+		"<span class='notice'>You force the dissection cavity open.</span>",
+		"<span class='notice'>You again manage to cut away and control the growing buds.</span>",
+		"<span class='notice'>You remove an unidentifiable mass out of the subject!</span>"
 	)
 	dissection_failure_text = list(
-	"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
-	"<span class='warning'>You cant get enough leverage to saw through the thick skull plating!</span>",
-	"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
-	"<span class='warning'>You fail to cut the buds away faster than they're regrowing!</span>",
-	"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
-	"<span class='warning'>You fail to cut the buds away faster than they're regrowing!</span>",
-	"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>"
+		"<span class='warning'>The tool fails to get a grip on the corpse's surface!</span>",
+		"<span class='warning'>You cant get enough leverage to saw through the thick skull plating!</span>",
+		"<span class='warning'>Your hand slips, slicing open the corpse in a wrong spot with the tool!</span>",
+		"<span class='warning'>You fail to cut the buds away faster than they're regrowing!</span>",
+		"<span class='warning'>Your hand slips, tearing the edges of incision!</span>",
+		"<span class='warning'>You fail to cut the buds away faster than they're regrowing!</span>",
+		"<span class='warning'>The tool fails to remove the organ from the surrounding flesh!</span>"
 	)

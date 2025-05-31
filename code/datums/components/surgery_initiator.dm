@@ -315,7 +315,7 @@
 	if(istype(procedure, /datum/surgery/dissect))
 		if(isnull(target.surgery_container))
 			log_debug("A dissection was started on [target] with contains_xeno_organ as TRUE, however its surgery_container was null!")
-			to_chat(user, "<span class = 'userdanger'>[target] does not have a dissection surgery information set to it. Please inform an admin or developer.</span>")
+			to_chat(user, "<span class='userdanger'>[target] does not have a dissection surgery information set to it. Please inform an admin or developer.</span>")
 		if(ispath(target.surgery_container, /datum/xenobiology_surgery_container))
 			target.surgery_container = new target.surgery_container
 		procedure.steps = target.surgery_container.dissection_tool_step
