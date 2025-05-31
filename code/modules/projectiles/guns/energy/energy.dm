@@ -268,7 +268,7 @@
 // MARK: FAKE ENERGY GUN
 /obj/item/gun/energy/gun/fake
 	name = "replica EG-7 energy gun"
-	desc = "Basically, it's a laser tag gun redesigned with a few pieces of cheap plastic to look like an EG-7 energy gun, so you won't harm anyone. Neither you play a tag. Sad."
+	desc = "It's a laser tag gun redesigned with a few pieces of cheap plastic to look like an EG-7 energy gun, so you won't harm anyone. This one isn't even sanctioned for laser tag, sad."
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/fake)
 	can_flashlight = FALSE
 	selfcharge = TRUE
