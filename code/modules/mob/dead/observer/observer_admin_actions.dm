@@ -65,7 +65,7 @@
 /datum/action/innate/admin/ticket/mentor
 	name = "Mentorhelps"
 	button_overlay_icon_state = "mentorhelp"
-	rights_required = R_MENTOR
+	rights_required = R_MENTOR|R_ADMIN
 
 /datum/action/innate/admin/ticket/mentor/register_ticket_signals()
 	RegisterSignal(SSmentor_tickets, COMSIGN_TICKET_COUNT_UPDATE, PROC_REF(update_tickets))
