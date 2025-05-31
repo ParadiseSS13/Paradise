@@ -49,6 +49,7 @@
 #define PCWJ_USE_STOVE(temperature, time, options...) new/datum/cooking/recipe_step/use_machine/stovetop(temperature, time, list(##options))
 #define PCWJ_USE_ICE_CREAM_MIXER(time, options...) new/datum/cooking/recipe_step/use_machine/ice_cream_mixer(time, list(##options))
 #define PCWJ_USE_DEEP_FRYER(time, options...) new/datum/cooking/recipe_step/use_machine/deepfryer(time, list(##options))
+#define PCWJ_ADD_MEATHUNK(options...) new/datum/cooking/recipe_step/add_item/meathunk(list(##options))
 
 #define PCWJ_CONTAINER_AVAILABLE 1
 #define PCWJ_CONTAINER_BUSY 2
