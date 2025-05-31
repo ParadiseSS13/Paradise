@@ -1231,9 +1231,9 @@
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	can_charge = FALSE
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/lever_action)
 	shaded_charge = FALSE
-	var/cycle_time = 1 SECONDS
+	var/cycle_time = 1.5 SECONDS
 	COOLDOWN_DECLARE(cycle_cooldown)
 
 /obj/item/gun/energy/laser/lever_action/examine(mob/user)
@@ -1265,8 +1265,15 @@
 		var/obj/item/gun/energy/laser/lever_action/offhand = user.get_inactive_hand()
 		offhand.cycle_action()
 
+/obj/item/gun/energy/laser/lever_action/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if(!COOLDOWN_FINISHED(src, cycle_cooldown))
+		return
+	return ..()
+
 /obj/item/gun/energy/laser/lever_action/proc/cycle_action(mob/living/user)
 	if(!COOLDOWN_FINISHED(src, cycle_cooldown))
+		return
+	if(cell.charge == cell.maxcharge)
 		return
 	cell.give(cell.maxcharge)
 	playsound(user, 'sound/weapons/gun_interactions/lever_action.ogg', 60, TRUE)
