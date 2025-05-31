@@ -261,7 +261,7 @@
 	. = ..()
 	// Stock parts
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/kinetic_assembler(null)
+	component_parts += new /obj/item/circuitboard/scientific_assembler(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
