@@ -264,3 +264,13 @@
 	. += ""
 	. += "This scatter-beam technology allows for more energy output per trigger pull, however the increased heat on the focusing lens has resulted in a decreased fire rate compared to the standard fare. \
 	It is a Nanotrasen officer's best friend, allowing them to stop crime one trigger pull at a time."
+
+// MARK: FAKE ENERGY GUN
+/obj/item/gun/energy/gun/fake
+	name = "replica EG-7 energy gun"
+	desc = "It's a laser tag gun redesigned with a few pieces of cheap plastic to look like an EG-7 energy gun, so you won't harm anyone. This one isn't even sanctioned for laser tag, sad."
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/fake)
+	can_flashlight = FALSE
+	selfcharge = TRUE
+	can_charge = FALSE
+	throwforce = 0
