@@ -1248,7 +1248,7 @@
 	The internal components are beefier and larger than strictly required to lend further durability. Whilst it is quite heavy for a laserarm, it's only somewhat heavier than \
 	average compared to a traditional ballistic rifle of similar size."
 	. += ""
-	. += "The main selling point of the rifle is the built-in recharging mechanism, operated by cycling a lever that located at the trigger guard. \
+	. += "The main selling point of the rifle is the built-in recharging mechanism, operated by cycling a lever located around the trigger guard. \
 	One full cycle provides enough energy for a single shot. Skillful users can twirl the rifle to operate the lever, although the operator's manual strongly cautions against doing so."
 	. += ""
 	. += "This weapon has long been one of Warp Tac's most popular products thanks to a large market among colonists, frontiersmen, and the occasional pirate outfit."
