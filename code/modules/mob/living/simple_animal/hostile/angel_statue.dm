@@ -122,7 +122,7 @@
 	// This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
 		for(var/mob/living/M in viewers(world.view + 1, check) - src)
-			if(M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege)
+			if(M.client && CanAttack(M) && !is_ai(M)) // AI cannot use their infinite view to stop us.
 				if(M.has_vision())
 					return M
 		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
