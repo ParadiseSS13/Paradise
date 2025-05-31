@@ -174,6 +174,9 @@
 		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/kinetic_assembler/attack_hand(mob/user)
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return FINISH_ATTACK
 	if(!primary)
 		to_chat(user, "<span class='warning'>[src] lacks a primary component!</span>")
 		return FINISH_ATTACK
@@ -246,6 +249,7 @@
 	bound_width = 32
 	bound_y = 0
 	operation_sound = 'sound/items/welder.ogg'
+	req_one_access = list(ACCESS_TOX, ACCESS_XENOBIOLOGY, ACCESS_SMITH)
 	/// Slime extract for the egun
 	var/obj/item/slime_extract/slime_core
 	/// The gun frame
@@ -351,6 +355,9 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/scientific_assembler/attack_hand(mob/user)
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return FINISH_ATTACK
 	if(!slime_core)
 		to_chat(user, "<span class='warning'>[src] lacks a slime core!</span>")
 		return FINISH_ATTACK

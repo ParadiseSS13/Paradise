@@ -330,3 +330,74 @@
 	name = "emergency response team janitor helmet"
 	desc = "A mid-quality combat helmet produced by Citadel Armories. The visor is made of toughened plastic and the radio antenna is entirely decorative. This one has chipped purple Janitorial stripes."
 	icon_state = "erthelmet_jan"
+
+//Federation
+/obj/item/clothing/head/helmet/federation/marine
+	name = "\improper Federation marine combat helmet"
+	desc = "A powered combat helmet used by the Trans-Solar Marine Corps. Provides excellent protection in all areas, while a modern OCULUS array augments the wearer's vision."
+	icon_state = "fedhelmet_marine"
+	item_state = "fedhelmet_marine"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
+	)
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	flash_protect = FLASH_PROTECTION_WELDER
+	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = 200, ACID = 100)
+	strip_delay = 130
+
+/obj/item/clothing/head/helmet/federation/marine/export
+	name = "\improper Federation marine combat helmet (E)"
+	desc = "An export-grade combat helmet commonly given or sold to allies of the Trans-Solar Federation. The OCULUS system has been removed, and its protection is generally inferior to its in-service counterpart."
+	icon_state = "fedhelmet_marine"
+	item_state = "fedhelmet_marine"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
+	)
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES
+	see_in_dark = 0
+	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	flash_protect = FLASH_PROTECTION_NONE
+	armor = list(MELEE = 30, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 50)
+	strip_delay = 130
+
+/obj/item/clothing/head/helmet/federation/marine/officer
+	name = "\improper Federation marine officer's combat helmet"
+	desc = "A powered combat helmet used by officers of the Trans-Solar Marine Corps. Provides excellent protection in all areas, while a next-gen OCULUS array augments the wearer's vision."
+	icon_state = "fedhelmet_marine_officer"
+	item_state = "fedhelmet_marine_officer"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
+	)
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES
+	see_in_dark = 8
+	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	flash_protect = FLASH_PROTECTION_WELDER
+	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = 200, ACID = 100)
+	strip_delay = 130
