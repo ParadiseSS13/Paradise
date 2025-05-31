@@ -284,6 +284,14 @@
 	cost = 300
 	containername = "laser rifle ammo crate"
 
+/datum/supply_packs/security/armory/lever_action
+	name = "Model 2495 Laser Rifle Crate"
+	contains = list(/obj/item/gun/energy/laser/lever_action,
+					/obj/item/gun/energy/laser/lever_action)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "lever action rifle crate"
+
 /datum/supply_packs/security/armory/tranqammo
 	name = "Tranquilizer Shell Crate"
 	contains = list(/obj/item/storage/fancy/shell/tranquilizer,
