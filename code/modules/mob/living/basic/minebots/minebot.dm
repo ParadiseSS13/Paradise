@@ -27,7 +27,7 @@
 	var/light_on = FALSE
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 	var/obj/item/radio/radio
-	///the commands our owner can give us
+	/// The commands our owner can give us
 	var/static/list/pet_commands = list(
 		/datum/pet_command/idle/minebot,
 		/datum/pet_command/move,
@@ -81,7 +81,7 @@
 	for(var/obj/item/stack/ore/ore_stack in contents)
 		ore_count += ore_stack.amount
 
-	. += "<span class='notice'>It is currently storing [ore_count] ore.</span>"
+	. += "<span class='notice'>[t_He] is currently storing [ore_count] ore.</span>"
 
 	if(stored_gun && stored_gun.max_mod_capacity)
 		. += "<span class='notice'><b>[stored_gun.get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
@@ -121,7 +121,6 @@
 	if(I.use_tool(src, user, 15, 1, volume = I.tool_volume) && health != maxHealth)
 		adjustBruteLoss(-20)
 		WELDER_REPAIR_SUCCESS_MESSAGE
-	return
 
 /mob/living/basic/mining_drone/death()
 	DropOre(0)
@@ -130,7 +129,7 @@
 			M.uninstall(stored_gun)
 	robogibs(loc)
 	deathmessage = "blows apart!"
-	. = ..()
+	return ..()
 
 /mob/living/basic/mining_drone/CanPass(atom/movable/O)
 	if(istype(O, /obj/item/projectile/kinetic))
@@ -185,7 +184,7 @@
 
 /obj/item/mining_drone_cube/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \
-	"<span class='warning'>You press center button on \the [src]. The device suddenly expands into a fully functional mining drone!</span>")
+	"<span class='warning'>You press center button on [src]. The device suddenly expands into a fully functional mining drone!</span>")
 	var/mob/living/basic/mining_drone/drone = new(get_turf(src))
 	drone.befriend(user)
 	qdel(src)

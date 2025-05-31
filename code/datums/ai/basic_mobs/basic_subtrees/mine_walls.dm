@@ -11,6 +11,7 @@
 
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
+/// Check to see if we can get to and mine the turf the mineral is in
 /datum/ai_behavior/find_mineral_wall/proc/check_if_mineable(datum/ai_controller/controller, turf/target_wall)
 	var/mob/living/source = controller.pawn
 	var/direction_to_turf = get_dir(target_wall, source)
