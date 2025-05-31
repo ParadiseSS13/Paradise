@@ -17,7 +17,7 @@
 	layer = ABOVE_OBJ_LAYER
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
-	var/health = 80			//the turret's health
+	var/health = 130			//the turret's health
 	var/locked = TRUE			//if the turret's behaviour control access is locked
 	var/controllock = FALSE		//if the turret responds to control panels. TRUE = does NOT respond
 
@@ -93,6 +93,19 @@
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
+	if(prob(35)) // Half chance of drops than proper deconstruction
+		if(installation)
+			var/obj/item/gun/energy/Gun = new installation(loc)
+			Gun.cell.charge = gun_charge
+			if(fitted_lens)
+				Gun.current_lens = fitted_lens
+				fitted_lens.forceMove(Gun)
+				Gun.current_lens.on_attached(Gun)
+			Gun.update_icon()
+		if(prob(50))
+			new /obj/item/stack/sheet/metal(loc, rand(1,4))
+		if(prob(50))
+			new /obj/item/assembly/prox_sensor(loc)
 	return ..()
 
 /obj/machinery/porta_turret/centcom/Initialize(mapload)
@@ -490,8 +503,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration_flat, armour_penetration_percentage)
-	if(stat & BROKEN)
-		return
 	if(!raised && !raising)
 		damage_amount = damage_amount / 8
 		if(damage_amount < 5)
@@ -500,8 +511,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	health -= damage_amount
 	if(damage_amount > 5 && prob(45) && spark_system && damage_flag != FIRE)
 		spark_system.start()
-	if(health <= 0)
+	if(health <= 50 && !(stat & BROKEN))
 		die()	//the death process :(
+	if(health <= 0)
+		Destroy()
 
 /obj/machinery/porta_turret/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type == STAMINA)
@@ -547,7 +560,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			take_damage(initial(health) * 8 / 3)
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
-	health = 0
+	health = 50
 	stat |= BROKEN	//enables the BROKEN bit
 	if(spark_system)
 		spark_system.start()	//creates some sparks because they look cool
@@ -855,7 +868,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/centcom/pulse
 	name = "pulse turret"
-	health = 200
+	health = 250
 	enabled = TRUE
 	lethal = TRUE
 	lethal_is_configurable = FALSE
@@ -1173,7 +1186,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return 10 //Syndicate turrets shoot everything not in their faction
 
 /obj/machinery/porta_turret/syndicate/pod
-	health = 40
+	health = 90
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
 
@@ -1204,12 +1217,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/syndicate/assault_pod
 	name = "machine gun turret (4.6x30mm)"
 	desc = "Syndicate exterior defense turret chambered for 4.6x30mm rounds. Designed to be fitted to assault pods, it uses low calliber bullets to save space."
-	health = 100
+	health = 150
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
 
 /obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior
-	health = 100
+	health = 150
 
 /obj/machinery/porta_turret/inflatable_turret
 	name = "Syndicate Pop-Up Turret"
@@ -1219,7 +1232,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	icon_state = "syndieturret0"
 	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	health = 50
+	health = 100
 	syndicate = TRUE
 	installation = null
 	always_up = TRUE
