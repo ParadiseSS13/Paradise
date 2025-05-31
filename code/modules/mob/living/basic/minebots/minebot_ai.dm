@@ -188,7 +188,7 @@
 /datum/ai_behavior/minebot_mine_turf/proc/check_obstacles_in_path(datum/ai_controller/controller, turf/target)
 	var/mob/living/source = controller.pawn
 	var/list/turfs_in_path = get_line(source, target) - target
-	for(var/turf/turf in turfs_in_path)
+	for(var/turf/turf as anything in turfs_in_path)
 		if(turf.is_blocked_turf(exclude_mobs = TRUE))
 			controller.set_blackboard_key(BB_PREVIOUS_UNREACHABLE_WALL, target)
 			return TRUE

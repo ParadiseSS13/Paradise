@@ -82,10 +82,9 @@
 		target_zone = target_mob.get_random_valid_zone()
 	else
 		target_zone = ran_zone()
-	casing.fire(target, firer, null, null, null, target_zone, 0,  firer)
+	casing.fire(target, firer, null, null, null, target_zone, 0, firer)
 	casing.update_appearance()
 	SEND_SIGNAL(parent, COMSIG_BASICMOB_POST_ATTACK_RANGED, target, modifiers)
-	return
 
 /datum/component/ranged_attacks/proc/disable_attack(mob/source, obj/item/crusher_trophy/used_trophy, mob/living/user)
 	SIGNAL_HANDLER

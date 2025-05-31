@@ -332,4 +332,4 @@ RESTRICT_TYPE(/mob/living/basic)
 
 /mob/living/basic/adjustStaminaLoss(amount, updating_health = TRUE)
 	if(damage_coeff[STAMINA])
-		return ..(amount*damage_coeff[STAMINA], updating_health)
+		return ..(amount * damage_coeff[STAMINA], updating_health)
