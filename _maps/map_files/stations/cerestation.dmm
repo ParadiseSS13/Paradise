@@ -92250,10 +92250,6 @@
 /obj/effect/turf_decal/caution,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
-"sQL" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "sQN" = (
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
@@ -142804,8 +142800,8 @@ uay
 jwb
 yiS
 vFs
-sQL
-sQL
+qJG
+qJG
 oZU
 oZU
 rcG
