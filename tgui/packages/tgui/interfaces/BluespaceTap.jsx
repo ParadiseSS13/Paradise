@@ -51,6 +51,7 @@ export const BluespaceTap = (props) => {
     powerUse,
     availablePower,
     emagged,
+    dirty,
     autoShutown,
     stabilizers,
     stabilizerPower,
@@ -159,6 +160,19 @@ export const BluespaceTap = (props) => {
             </Section>
           </Collapsible>
           <Section fill title="Output">
+            {dirty ? (
+              <Dimmer backgroundColor="rgba(63, 39, 18, 0.85)">
+                <Stack mb="30px" fontsize="256px">
+                  <Stack.Item bold color="brown" fontsize="256px" textAlign="center">
+                    Blockage Detected
+                    <br />
+                    Cleanup Required
+                  </Stack.Item>
+                </Stack>
+              </Dimmer>
+            ) : (
+              ''
+            )}
             <Stack>
               <Stack.Item>
                 <Box>
