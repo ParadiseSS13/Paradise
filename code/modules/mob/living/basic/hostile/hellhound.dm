@@ -128,7 +128,7 @@
 	smoke.set_up(10, FALSE, loc)
 	smoke.start()
 
-/mob/living/basic/hostile/hellhound/greater/tear
+/mob/living/basic/hostile/hellhound/tear
 	name = "frenzied hellhound"
 	maxHealth = 300
 	health = 300
