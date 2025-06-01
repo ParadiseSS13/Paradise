@@ -282,6 +282,7 @@
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	icon_state = "officermask"
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	aggressiveness = 3
 	phrase = 12
