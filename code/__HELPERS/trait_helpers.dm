@@ -351,14 +351,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// user wont vomit around corpses
 #define TRAIT_CORPSE_RESIST "corpse_resist"
 /// user will take 25% less tox damage
-#define TRAIT_TOX_RESIST "tox_resist"
+#define TRAIT_QUICK_HEATER "quick_heater"
 /// user can drive the ambulance cart to push people out of the way
 #define TRAIT_SPEED_DEMON "speed_demon"
 
 // sci traits
 
-/// user take -25% damage from clone damage
-#define TRAIT_CLONE_RESIST "clone_resist" // not implemented yet
 /// user can craft things from the crafting menu in 1/4 time
 #define TRAIT_CRAFTY "crafty"
 /// User is alloted a higher genetics budget

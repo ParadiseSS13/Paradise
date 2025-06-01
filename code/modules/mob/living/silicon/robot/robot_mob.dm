@@ -925,7 +925,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	// Check if the user is trying to insert another component like a radio, actuator, armor etc.
-	if(istype(W, /obj/item/stock_parts/cell) && HAS_TRAIT(user.mind, TRAIT_CYBORG_SPECIALIST) && !opened && user.a_intent != INTENT_HARM)
+	if(istype(W, /obj/item/stock_parts/cell) && user.mind && HAS_TRAIT(user.mind, TRAIT_CYBORG_SPECIALIST) && !opened && user.a_intent != INTENT_HARM)
 		var/obj/item/stock_parts/cell/donor = W
 		if(being_charged)
 			to_chat(user, "<span class='warning'>You are already charging [src]!")

@@ -224,7 +224,7 @@
 
 	var/itemcount = 0
 	var/temp_capacity = storage_capacity
-	if(user.mind && HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
+	if(user && user.mind && HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
 		temp_capacity *= 1.5
 	//Cham Projector Exception
 	for(var/obj/effect/dummy/chameleon/AD in loc)

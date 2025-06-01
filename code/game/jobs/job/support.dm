@@ -565,7 +565,7 @@
 		return
 	ADD_TRAIT(H, TRAIT_NEVER_MISSES_DISPOSALS, ROUNDSTART_TRAIT)
 
-/datum/outfit/job/hydro/on_mind_initialize(mob/living/carbon/human/H)
+/datum/outfit/job/janitor/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_JANITOR, JOB_TRAIT)
 

@@ -936,7 +936,7 @@
 		update_state()
 		plant_hud_set_status()
 		plant_hud_set_health()
-	else if(HAS_TRAIT(user.mind, TRAIT_GREEN_THUMB) && weedlevel > 0)
+	else if(user.mind && HAS_TRAIT(user.mind, TRAIT_GREEN_THUMB) && weedlevel > 0)
 		user.visible_message("[user] uproots the weeds.", "<span class='notice'>You pluck the weeds from [src] with your hands.</span>")
 		adjustWeeds(-10)
 		update_state()

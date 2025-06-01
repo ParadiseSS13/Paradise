@@ -331,7 +331,7 @@
 	// Adding APC electronics.
 	if(istype(used, /obj/item/apc_electronics) && opened)
 		if(has_electronics())
-			if(HAS_TRAIT(user.mind, TRAIT_ELECTRICAL_SPECIALIST))
+			if(user.mind && HAS_TRAIT(user.mind, TRAIT_ELECTRICAL_SPECIALIST))
 				if(stat & BROKEN)
 					to_chat(user, "<span class='warning'>[src] is damaged! You must repair the frame before you can install [used]!</span>")
 					return ITEM_INTERACT_COMPLETE
@@ -393,7 +393,7 @@
 			update_icon()
 			return ITEM_INTERACT_COMPLETE
 
-		if(has_electronics() && !HAS_TRAIT(user.mind, TRAIT_ELECTRICAL_SPECIALIST))
+		if(has_electronics() && user.mind && !HAS_TRAIT(user.mind, TRAIT_ELECTRICAL_SPECIALIST))
 			to_chat(user, "<span class='warning'>You cannot repair [src] until you remove the electronics!</span>")
 			return ITEM_INTERACT_COMPLETE
 

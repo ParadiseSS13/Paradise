@@ -209,7 +209,7 @@
 
 /datum/outfit/job/chemist/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
-	ADD_TRAIT(H.mind, TRAIT_TOX_RESIST, JOB_TRAIT)
+	ADD_TRAIT(H.mind, TRAIT_QUICK_HEATER, JOB_TRAIT)
 
 /datum/job/geneticist
 	title = "Geneticist"

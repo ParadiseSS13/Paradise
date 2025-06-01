@@ -109,8 +109,8 @@
 
 /obj/vehicle/ambulance/Bump(atom/movable/M)
 	if(has_buckled_mobs())
-		for(var/mob/living/m in buckled_mobs)
-			if(HAS_TRAIT(m.mind, TRAIT_SPEED_DEMON))
+		for(var/mob/living/L in buckled_mobs)
+			if(L.mind && HAS_TRAIT(L.mind, TRAIT_SPEED_DEMON))
 				if(isobj(M))
 					var/obj/O = M
 					if(!O.anchored)

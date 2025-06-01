@@ -194,8 +194,6 @@
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	var/old_toxloss = toxloss
-	if(src.mind && HAS_TRAIT(src.mind, TRAIT_TOX_RESIST))
-		amount = (ROUND_UP(amount * 0.75))
 	toxloss = max(toxloss + amount, 0)
 	if(old_toxloss == toxloss)
 		updating_health = FALSE
@@ -241,8 +239,6 @@
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	var/old_cloneloss = cloneloss
-	if(src.mind && HAS_TRAIT(src.mind, TRAIT_CLONE_RESIST))
-		amount = (ROUND_UP(amount * 0.75))
 	cloneloss = max(cloneloss + amount, 0)
 	if(old_cloneloss == cloneloss)
 		updating_health = FALSE

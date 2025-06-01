@@ -232,7 +232,7 @@
 		to_chat(user, "<span class='warning'>You need more paper.</span>")
 		return
 	// Checking these again since it's after a delay
-	if(HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
+	if(user.mind && HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
 		if(!do_after_once(user, 0.75 SECONDS, target = C) || C.opened || !use(3))
 			return
 	else
