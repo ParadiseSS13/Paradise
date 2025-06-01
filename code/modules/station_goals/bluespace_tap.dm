@@ -176,6 +176,12 @@
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 
+/obj/machinery/power/bluespace_tap/examine(mob/user)
+	. = ..()
+	. += "An alien looking device that gathers all manner of objects from different dimensions"
+	if(dirty)
+		. += "It's gummed up with filth!"
+
 /obj/machinery/power/bluespace_tap/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
 	. = ..()
 	dirty = FALSE

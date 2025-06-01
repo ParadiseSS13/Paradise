@@ -13599,19 +13599,6 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/engineering/atmos)
-"bXg" = (
-/obj/structure/rack,
-/obj/item/crowbar,
-/obj/item/flashlight,
-/obj/machinery/camera{
-	c_tag = "Supermatter Laser Room Port";
-	dir = 5;
-	network = list("SS13","Engineering")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "bXj" = (
 /turf/simulated/mineral/ancient,
 /area/station/service/chapel/office)
@@ -22926,6 +22913,37 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"duT" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/rack,
+/obj/item/crowbar,
+/obj/item/flashlight,
+/obj/machinery/camera{
+	c_tag = "Supermatter Laser Room Port";
+	dir = 5;
+	network = list("SS13","Engineering")
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Supermatter Cooling Port";
+	dir = 1;
+	network = list("SS13","CE","engine")
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "duU" = (
 /obj/structure/flora/junglebush,
 /obj/effect/turf_decal/woodsiding{
@@ -25619,15 +25637,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "dXt" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/orange{
-	icon_state = "1-8"
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
 	},
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/obj/item/stack/cable_coil/random,
+/obj/machinery/light/small,
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plating,
-/area/station/engineering/tech_storage)
+/area/station/maintenance/abandonedservers)
 "dXz" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -31848,17 +31867,6 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
-"fvi" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 5
-	},
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/obj/item/stack/cable_coil/random,
-/obj/machinery/light/small,
-/obj/machinery/alarm/directional/west,
-/turf/simulated/floor/plating,
-/area/station/maintenance/abandonedservers)
 "fvk" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -37243,20 +37251,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/asmaint)
-"gLp" = (
-/obj/structure/rack,
-/obj/item/wrench,
-/obj/item/weldingtool,
-/obj/item/clothing/head/welding,
-/obj/machinery/camera{
-	c_tag = "Supermatter Laser Room Starboard";
-	network = list("SS13","Engineering");
-	dir = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "gLv" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plating,
@@ -43115,6 +43109,24 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"hZZ" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/camera{
+	c_tag = "Supermatter West";
+	dir = 4;
+	network = list("SS13","CE","engine")
+	},
+/obj/structure/closet/firecloset,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/break_room/secondary)
 "iag" = (
 /obj/machinery/computer/med_data{
 	dir = 1
@@ -63964,6 +63976,16 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
+"mzx" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/tech_storage)
 "mzz" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -78063,6 +78085,34 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/equipmentstorage)
+"pNc" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/camera{
+	c_tag = "Supermatter North";
+	dir = 1;
+	network = list("SS13","CE","engine")
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
+/obj/machinery/atmospherics/meter,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/control)
 "pNq" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/orange{
@@ -78436,7 +78486,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Mini Satellite Teleporter";
+	c_tag = "AI Satellite Teleporter";
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
@@ -87729,6 +87779,31 @@
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
+"rVs" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 8
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/camera{
+	c_tag = "Supermatter East";
+	dir = 9;
+	network = list("SS13","CE","engine")
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 8
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "rVt" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/mineral/ancient,
@@ -99027,14 +99102,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
-"uvp" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "uvq" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/orange{
@@ -101014,13 +101081,6 @@
 "uRf" = (
 /turf/simulated/wall,
 /area/station/science/hallway)
-"uRg" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
-/turf/simulated/floor/engine,
-/area/station/engineering/control)
 "uRm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -105057,6 +105117,38 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
+"vLb" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/rack,
+/obj/item/wrench,
+/obj/item/weldingtool,
+/obj/item/clothing/head/welding,
+/obj/machinery/camera{
+	c_tag = "Supermatter Laser Room Starboard";
+	network = list("SS13","Engineering");
+	dir = 9
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Supermatter Cooling Starboard";
+	dir = 1;
+	network = list("SS13","CE","engine")
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "vLd" = (
 /obj/structure/chair{
 	dir = 8
@@ -111306,7 +111398,7 @@
 	req_access = list(10)
 	},
 /obj/machinery/camera{
-	c_tag = "SM South";
+	c_tag = "Supermatter South";
 	network = list("SS13","CE","engine")
 	},
 /turf/simulated/floor/engine,
@@ -148012,7 +148104,7 @@ eVf
 gkX
 eaQ
 eFz
-eFz
+hZZ
 okV
 pRK
 lJa
@@ -149028,7 +149120,7 @@ biK
 eVf
 dcG
 bhd
-bXg
+duT
 nOF
 pqa
 nOF
@@ -150064,7 +150156,7 @@ nOF
 xIu
 rSB
 bqB
-uRg
+pNc
 btx
 btw
 btw
@@ -151598,7 +151690,7 @@ rNK
 rNK
 lzH
 bhd
-gLp
+vLb
 nOF
 pqa
 nOF
@@ -152636,7 +152728,7 @@ qJG
 hvr
 qJG
 bhd
-uvp
+rVs
 kmB
 lDo
 sNa
@@ -154925,7 +155017,7 @@ lzH
 lzH
 cll
 xuF
-dXt
+mzx
 cll
 cll
 vds
@@ -171602,7 +171694,7 @@ lCC
 alc
 jVt
 aXL
-fvi
+dXt
 gVc
 jfS
 okQ
