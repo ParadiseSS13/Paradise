@@ -37956,6 +37956,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/economy/vending/minedrobe,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "gGB" = (

@@ -31795,7 +31795,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "cjU" = (
-/obj/structure/closet/secure_closet/miner,
+/obj/machinery/economy/vending/minedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -33343,7 +33343,7 @@
 /area/station/supply/smith_office)
 "cqG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/wardrobe/miner,
+/obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
