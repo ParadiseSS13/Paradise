@@ -38346,7 +38346,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "SM Cooling Starboard";
+	c_tag = "Supermatter Cooling Starboard";
 	dir = 1;
 	network = list("SS13","CE","engine")
 	},
@@ -77200,7 +77200,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Mini Satellite Teleporter";
+	c_tag = "AI Satellite Teleporter";
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
@@ -79469,7 +79469,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "SM Cooling Port";
+	c_tag = "Supermatter Cooling Port";
 	dir = 1;
 	network = list("SS13","CE","engine")
 	},
@@ -89225,7 +89225,7 @@
 /area/station/hallway/primary/starboard/south)
 "sJq" = (
 /obj/machinery/camera{
-	c_tag = "SM West";
+	c_tag = "Supermatter West";
 	dir = 4;
 	network = list("SS13","CE","engine")
 	},
@@ -96519,7 +96519,7 @@
 /area/station/maintenance/fore)
 "uvp" = (
 /obj/machinery/camera{
-	c_tag = "SM East";
+	c_tag = "Supermatter East";
 	dir = 9;
 	network = list("SS13","CE","engine")
 	},
@@ -98449,7 +98449,7 @@
 	dir = 6
 	},
 /obj/machinery/camera{
-	c_tag = "SM North";
+	c_tag = "Supermatter North";
 	dir = 1;
 	network = list("SS13","CE","engine")
 	},
@@ -107890,7 +107890,7 @@
 	req_access = list(10)
 	},
 /obj/machinery/camera{
-	c_tag = "SM South";
+	c_tag = "Supermatter South";
 	network = list("SS13","CE","engine")
 	},
 /turf/simulated/floor/engine,
