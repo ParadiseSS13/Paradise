@@ -3723,7 +3723,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior - Aft Port";
+	c_tag = "AI Satellite Exterior - Aft Port";
 	dir = 8;
 	network = list("SS13","MiniSat")
 	},
@@ -9054,7 +9054,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Science Hallway - Xenobio Acess";
+	c_tag = "Science Hallway - Xenobiology Acess";
 	dir = 10;
 	network = list("Research","SS13")
 	},
@@ -9858,7 +9858,7 @@
 "bfc" = (
 /obj/structure/window/reinforced,
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior - Fore Port";
+	c_tag = "AI Satellite Exterior - Fore Port";
 	dir = 8;
 	network = list("SS13","MiniSat")
 	},
@@ -10311,7 +10311,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior - Fore Starboard";
+	c_tag = "AI Satellite Exterior - Fore Starboard";
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
@@ -11573,7 +11573,7 @@
 /area/station/public/storage/tools/auxiliary)
 "blN" = (
 /obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Exterior West";
+	c_tag = "AI Satellite Exterior West";
 	dir = 8;
 	network = list("SS13","MiniSat")
 	},
@@ -12014,7 +12014,7 @@
 "bnK" = (
 /obj/machinery/light/small,
 /obj/machinery/camera{
-	c_tag = "MiniSat Exterior - Space Access";
+	c_tag = "AI Satellite Exterior - Space Access";
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
@@ -12042,7 +12042,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Exterior East";
+	c_tag = "AI Satellite Exterior East";
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
@@ -13118,7 +13118,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior - Fore";
+	c_tag = "AI Satellite Exterior - Fore";
 	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/plasteel{
@@ -13764,7 +13764,7 @@
 	pixel_x = -24
 	},
 /obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Antechamber";
+	c_tag = "AI Satellite Antechamber";
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
@@ -14310,7 +14310,7 @@
 "bxg" = (
 /obj/machinery/alarm/directional/north,
 /obj/machinery/camera{
-	c_tag = "Mini Satellite Access";
+	c_tag = "AI Satellite Access";
 	network = list("SS13","MiniSat")
 	},
 /obj/machinery/light/small{
@@ -15443,7 +15443,7 @@
 	dir = 9
 	},
 /obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Maintenance";
+	c_tag = "AI Satellite Maintenance";
 	dir = 8;
 	network = list("SS13","MiniSat")
 	},
@@ -15857,7 +15857,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Mini Satellite Teleporter";
+	c_tag = "AI Satellite Teleporter";
 	dir = 8;
 	network = list("SS13","MiniSat")
 	},
@@ -17388,7 +17388,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior - Port Aft";
+	c_tag = "AI Satellite Exterior - Port Aft";
 	dir = 8;
 	network = list("SS13","MiniSat")
 	},
@@ -17725,7 +17725,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior - Starboard Aft";
+	c_tag = "AI Satellite Exterior - Starboard Aft";
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
@@ -22915,7 +22915,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Special Containment";
+	c_tag = "Xenobiology - Special Containment";
 	dir = 8;
 	network = list("Research","SS13","Containmentssss")
 	},
@@ -26944,13 +26944,6 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"cDD" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/asmaint)
 "cDE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -29141,7 +29134,7 @@
 	req_access = list(55)
 	},
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Central Port";
+	c_tag = "Xenobiology - Central Port";
 	dir = 8;
 	network = list("Research","SS13")
 	},
@@ -29413,7 +29406,7 @@
 /area/station/maintenance/asmaint)
 "cPe" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Central Fore";
+	c_tag = "Xenobiology - Central Fore";
 	dir = 1;
 	network = list("Research","SS13")
 	},
@@ -30721,7 +30714,7 @@
 "cWj" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior - Aft";
+	c_tag = "AI Satellite Exterior - Aft";
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
@@ -34128,6 +34121,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"dRd" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "dRt" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -37156,16 +37153,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/virology)
-"eRG" = (
-/mob/living/simple_animal/pet/cat/var_cat,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/bed/dogbed/runtime{
-	name = "Var's bed"
-	},
-/turf/simulated/floor/wood,
-/area/station/maintenance/asmaint)
 "eRM" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -49013,24 +49000,6 @@
 	name = "reinforced stairs"
 	},
 /area/station/science/test_chamber)
-"jim" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_y = 4;
-	pixel_x = -5
-	},
-/obj/item/pen{
-	pixel_x = 8;
-	pixel_y = 5
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkgreen"
-	},
-/area/station/procedure/trainer_office)
 "jiK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -50070,7 +50039,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Central Aft Starboard";
+	c_tag = "Xenobiology - Central Aft Starboard";
 	dir = 4;
 	network = list("Research","SS13")
 	},
@@ -50113,7 +50082,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Space Bridge";
+	c_tag = "Xenobiology - Space Bridge";
 	dir = 8;
 	network = list("Research","SS13")
 	},
@@ -52237,7 +52206,7 @@
 	pixel_y = -6
 	},
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Fore";
+	c_tag = "Xenobiology - Fore";
 	dir = 4;
 	network = list("Research","SS13")
 	},
@@ -52621,7 +52590,7 @@
 /area/station/maintenance/xenobio_south)
 "ktd" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Central Fore Starboard";
+	c_tag = "Xenobiology - Central Fore Starboard";
 	dir = 4;
 	network = list("Research","SS13")
 	},
@@ -58525,6 +58494,42 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"mwZ" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/camera{
+	c_tag = "Engineering - Supermatter Aft";
+	dir = 1;
+	network = list("SS13","Engineering")
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/camera{
+	c_tag = "Supermatter Aft";
+	dir = 1;
+	network = list("SS13","engine")
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/control)
 "mxb" = (
 /obj/machinery/door/airlock/freezer,
 /obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
@@ -61306,6 +61311,13 @@
 	icon_state = "white"
 	},
 /area/station/medical/surgery/observation)
+"nut" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "nuz" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -61738,10 +61750,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
-"nDk" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "nDt" = (
 /obj/item/toy/figure/crew/syndie{
 	pixel_x = -8;
@@ -63358,19 +63366,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
-"ogE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "ogH" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -65561,21 +65556,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/main)
-"oXB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/camera{
-	c_tag = "Engineering - Supermatter Aft";
-	dir = 1;
-	network = list("SS13","Engineering")
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/control)
 "oXE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/line{
@@ -66320,26 +66300,6 @@
 /obj/item/stack/cable_coil,
 /turf/space,
 /area/space)
-"pos" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/green{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Engineering - Supermatter Port";
-	dir = 8;
-	network = list("SS13","Engineering")
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/control)
 "pot" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -66659,17 +66619,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
-"pvv" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/control)
 "pvz" = (
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
+"pvT" = (
+/mob/living/simple_animal/pet/cat/var_cat,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/bed/dogbed/runtime{
+	name = "Var's bed"
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/asmaint)
 "pwg" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -69310,16 +69273,6 @@
 	icon_state = "white"
 	},
 /area/station/science/rnd)
-"qto" = (
-/obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/camera{
-	c_tag = "Engineering - Supermatter Fore";
-	network = list("SS13","Engineering")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "qtp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -70144,6 +70097,30 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
+"qHh" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/camera{
+	c_tag = "Engineering - Supermatter Fore";
+	network = list("SS13","Engineering")
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/camera{
+	c_tag = "Supermatter Fore";
+	network = list("SS13","engine")
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "qIa" = (
 /obj/structure/bed,
 /obj/item/crowbar/red{
@@ -73108,6 +73085,31 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
+"rLs" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/camera{
+	c_tag = "Supermatter Starboard";
+	dir = 5;
+	network = list("SS13","engine")
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/control)
 "rLw" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "waste_sensor";
@@ -77094,6 +77096,13 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
+"tms" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "tmt" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
@@ -77542,6 +77551,24 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
+"ttp" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_y = 4;
+	pixel_x = -5
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkgreen"
+	},
+/area/station/procedure/trainer_office)
 "ttz" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
@@ -79974,6 +80001,52 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"urF" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible/green{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Engineering - Supermatter Port";
+	dir = 8;
+	network = list("SS13","Engineering")
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible/green{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Supermatter Port";
+	dir = 8;
+	network = list("SS13","engine")
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/control)
 "urH" = (
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plating,
@@ -81541,7 +81614,7 @@
 "uXo" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Airlock";
+	c_tag = "Xenobiology - Airlock";
 	dir = 4;
 	network = list("Research","SS13")
 	},
@@ -85598,7 +85671,7 @@
 /area/station/security/prison/cell_block/a)
 "wyX" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Central Aft";
+	c_tag = "Xenobiology - Central Aft";
 	dir = 6;
 	network = list("Research","SS13")
 	},
@@ -85830,6 +85903,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"wCN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "wDG" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
@@ -87329,7 +87415,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior - Aft Starboard";
+	c_tag = "AI Satellite Exterior - Aft Starboard";
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
@@ -89486,13 +89572,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
-"xRO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/asmaint)
 "xRR" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -106769,7 +106848,7 @@ xIX
 aEB
 mUd
 aGZ
-jim
+ttp
 bou
 xIX
 bgW
@@ -126646,7 +126725,7 @@ aZi
 oUb
 cPc
 oBQ
-eRG
+pvT
 uEh
 cPc
 aaa
@@ -126905,7 +126984,7 @@ xGF
 ihF
 gaZ
 ihF
-nDk
+dRd
 aaa
 aaa
 aaa
@@ -127162,7 +127241,7 @@ voe
 gaZ
 jzw
 pSZ
-nDk
+dRd
 aaa
 aaa
 aaa
@@ -127411,9 +127490,9 @@ kqz
 ifD
 cPc
 bME
-ogE
+wCN
 csW
-xRO
+tms
 cPc
 cPc
 pCj
@@ -127669,7 +127748,7 @@ cPc
 xGF
 cIM
 cEG
-cDD
+nut
 dcC
 cPc
 iCd
@@ -133504,7 +133583,7 @@ aRg
 aTJ
 aPs
 aVs
-pos
+urF
 knc
 aXs
 tjY
@@ -134521,7 +134600,7 @@ heC
 qli
 sln
 enp
-qto
+qHh
 bsw
 mtV
 aHi
@@ -135051,7 +135130,7 @@ flr
 jYw
 kGw
 dea
-oXB
+mwZ
 aCg
 lFv
 aef
@@ -135558,7 +135637,7 @@ aJW
 pUq
 lOU
 unX
-pvv
+rLs
 oOs
 iAT
 lOU
