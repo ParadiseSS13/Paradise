@@ -509,9 +509,6 @@
 	icon_state = "2-4"
 	},
 /obj/item/mounted/frame/apc_frame,
-/obj/effect/turf_decal/stripes/white/corner{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "agi" = (
@@ -1027,7 +1024,6 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/machinery/alarm/directional/east,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -1425,9 +1421,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -1714,10 +1707,6 @@
 /obj/machinery/camera{
 	c_tag = "Holodeck";
 	dir = 1
-	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -3424,8 +3413,10 @@
 /obj/structure/cable/pink{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/refill_station/plasma,
-/turf/simulated/floor/catwalk,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aBN" = (
 /obj/structure/cable{
@@ -18084,9 +18075,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/station/engineering/solar/fore_starboard)
-"bOn" = (
-/turf/space,
-/area/station/maintenance/fsmaint)
 "bOo" = (
 /obj/structure/bookcase{
 	name = "bookcase (Non-Fiction)"
@@ -24730,7 +24718,7 @@
 	id_tag = "turbinevent";
 	name = "Turbine Vent"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "ctw" = (
 /obj/machinery/light{
@@ -34682,6 +34670,15 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
+"eac" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "eaC" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -35115,6 +35112,12 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
+"eiz" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/airless,
+/area/station/maintenance/solar_maintenance/fore_starboard)
 "eiD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -38142,6 +38145,16 @@
 	icon_state = "brown"
 	},
 /area/station/supply/office)
+"fiF" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "transittube";
+	name = "Transit Tube Blast Door"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/station/engineering/ai_transit_tube)
 "fiI" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -39189,6 +39202,11 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
+"fDr" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "fDE" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 1
@@ -40022,6 +40040,10 @@
 	icon_state = "browncorner"
 	},
 /area/station/hallway/supply/port)
+"fRr" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "fRT" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -41735,11 +41757,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"gAh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
 "gAz" = (
 /obj/machinery/firealarm/directional/north,
 /obj/structure/table,
@@ -48333,14 +48350,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "iSH" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
-	},
-/obj/item/stack/cable_coil/blue,
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/white/line,
+/obj/item/stack/cable_coil/blue,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "iSJ" = (
@@ -50652,6 +50663,10 @@
 	icon_state = "red"
 	},
 /area/station/security/brig)
+"jNe" = (
+/obj/effect/spawner/airlock/w_to_e/long,
+/turf/simulated/wall,
+/area/station/maintenance/fore)
 "jNj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -55299,9 +55314,6 @@
 /obj/structure/cable/pink{
 	icon_state = "2-10"
 	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/white/corner,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -57798,6 +57810,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"mjZ" = (
+/turf/simulated/floor/plating/airless,
+/area/station/aisat)
 "mkb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/large,
@@ -58495,9 +58510,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "mwZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -58509,24 +58521,6 @@
 	c_tag = "Engineering - Supermatter Aft";
 	dir = 1;
 	network = list("SS13","Engineering")
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/camera{
-	c_tag = "Supermatter Aft";
-	dir = 1;
-	network = list("SS13","engine")
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -61941,7 +61935,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "nGj" = (
 /turf/simulated/floor/plasteel{
@@ -65759,10 +65753,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
-"pcz" = (
-/obj/effect/spawner/airlock/w_to_e,
-/turf/simulated/wall,
-/area/station/maintenance/fore)
 "pcA" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/bottle/beer,
@@ -67632,6 +67622,16 @@
 	icon_state = "red"
 	},
 /area/station/security/prison/cell_block/a)
+"pNU" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "pOr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random/directional/west,
@@ -68669,6 +68669,12 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
+"qfl" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/station/aisat)
 "qfm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -69243,6 +69249,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
+"qsB" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "qsK" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel,
@@ -69652,6 +69664,10 @@
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
+"qyr" = (
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "qyw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
@@ -70098,24 +70114,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "qHh" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/camera{
 	c_tag = "Engineering - Supermatter Fore";
 	network = list("SS13","Engineering")
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/camera{
-	c_tag = "Supermatter Fore";
-	network = list("SS13","engine")
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -70389,11 +70391,18 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
+"qMm" = (
+/turf/simulated/floor/plating/airless,
+/area/station/maintenance/fore)
 "qMn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/secondary/entry/west)
+"qMr" = (
+/obj/machinery/atmospherics/refill_station/plasma,
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/fore)
 "qMx" = (
 /obj/structure/janitorialcart/full,
 /obj/effect/turf_decal/delivery/hollow,
@@ -73086,27 +73095,9 @@
 	},
 /area/station/hallway/secondary/exit)
 "rLs" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/camera{
-	c_tag = "Supermatter Starboard";
-	dir = 5;
-	network = list("SS13","engine")
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -78253,6 +78244,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"tHH" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "tHI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80002,9 +79999,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "urF" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/green{
 	dir = 8
 	},
@@ -80022,28 +80016,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/manifold/visible/green{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Supermatter Port";
-	dir = 8;
-	network = list("SS13","engine")
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -82659,7 +82633,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/white/line{
+/obj/effect/turf_decal/stripes/white/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -129948,12 +129922,12 @@ aaa
 abf
 abq
 abq
-abq
 rxc
 rxc
 rha
 rxc
 nIj
+ajg
 dxh
 aWv
 awp
@@ -130205,13 +130179,13 @@ aaa
 abf
 aaa
 aaa
-aaa
 nIj
 eQS
 dZx
 gPk
 jMZ
-gAh
+fDr
+kVN
 gNO
 lKn
 bUA
@@ -130462,12 +130436,12 @@ aaa
 abf
 aaa
 aaa
-aaa
 rha
 icM
 smM
 rBO
 rxc
+tHH
 vpQ
 agg
 xER
@@ -130719,22 +130693,22 @@ aaa
 abf
 aaa
 aaa
-aaa
 rha
 qlL
 mGC
 qlL
 nIj
+qMr
 aBM
 loo
 qNN
 sxV
 nmd
 awp
-oWE
-bDN
-bDN
-oWE
+qyr
+akh
+akh
+pNU
 aBZ
 pep
 fvE
@@ -130976,23 +130950,23 @@ aaa
 abf
 aaa
 aaa
-aaa
 rha
 xgy
 mGC
 cQw
 rxc
 tNh
+eac
 iSH
 nBd
 cYe
 rWr
-ajg
-aaa
-aaa
-aaa
-bOn
-aLl
+awp
+oWE
+bDN
+bDN
+oWE
+aBZ
 ere
 wCy
 dAH
@@ -131233,7 +131207,6 @@ aaa
 laH
 aaa
 aaa
-aaa
 rxc
 rBe
 mfD
@@ -131241,7 +131214,8 @@ eEA
 rxc
 ajg
 alW
-pcz
+jNe
+ajg
 aVY
 ajg
 ajg
@@ -131487,18 +131461,18 @@ aaa
 aaa
 aaa
 aaa
-laH
-aaa
-aaa
-aaa
+iju
+abq
+abq
 rxc
 nIj
 rha
 rxc
 rxc
 ajg
-alW
+fRr
 ajg
+aaa
 aaa
 aaa
 aaa
@@ -131744,7 +131718,6 @@ aaa
 aaa
 aaa
 aaa
-laH
 aaa
 aaa
 aaa
@@ -131754,8 +131727,9 @@ aaa
 aaa
 aaa
 ajg
-alW
+qsB
 ajg
+aaa
 aaa
 aaa
 aaa
@@ -132001,18 +131975,18 @@ aaa
 aaa
 aaa
 aaa
-iju
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+ajg
+qMm
+ajg
 abq
-abq
-iju
-abq
-abq
-abq
-abq
-abq
-aef
-aef
-aef
 abq
 abq
 abq
@@ -132265,11 +132239,11 @@ aaa
 aaa
 aaa
 aaa
-iju
 aaa
-aaa
-aaa
-aaa
+aef
+aef
+aef
+abq
 abq
 amk
 amk
@@ -132522,7 +132496,7 @@ aaa
 aaa
 aaa
 aaa
-abq
+aaa
 aaa
 aaa
 aaa
@@ -132779,7 +132753,7 @@ aaa
 aaa
 aaa
 aaa
-abq
+aaa
 aaa
 aaa
 aaa
@@ -133036,7 +133010,7 @@ aaa
 aaa
 aaa
 aaa
-abq
+aaa
 aaa
 aaa
 aaa
@@ -133293,7 +133267,7 @@ aaa
 aaa
 aaa
 aaa
-iju
+aaa
 aaa
 aaa
 aaa
@@ -133550,7 +133524,7 @@ aaa
 aaa
 aaa
 aaa
-abq
+aaa
 aaa
 aaa
 aaa
@@ -133807,11 +133781,11 @@ aaa
 aaa
 aaa
 aaa
-abq
-abq
-abq
-abq
-abq
+aaa
+aaa
+aaa
+aaa
+aaa
 abq
 amk
 amk
@@ -134064,7 +134038,7 @@ aaa
 aaa
 aaa
 aaa
-abq
+aaa
 aaa
 aaa
 aaa
@@ -134321,7 +134295,7 @@ aaa
 aaa
 aaa
 aaa
-iju
+aaa
 aaa
 aaa
 aaa
@@ -134588,7 +134562,7 @@ abq
 abq
 abq
 iLR
-arC
+eiz
 mVu
 arC
 atV
@@ -135917,7 +135891,7 @@ fiT
 aaa
 abq
 jKj
-kBD
+fiF
 iRu
 dRt
 dRt
@@ -136710,7 +136684,7 @@ xNZ
 bCM
 abq
 bCM
-fZt
+qbf
 bCM
 clH
 cmP
@@ -141819,8 +141793,8 @@ aaa
 aaa
 aaa
 aUV
-lph
-efR
+qfl
+mjZ
 koo
 woN
 bDg
