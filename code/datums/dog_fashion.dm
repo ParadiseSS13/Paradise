@@ -316,3 +316,7 @@
 /datum/dog_fashion/head/rd
 	name = "Director REAL_NAME"
 	desc = "The smartest puppy around."
+
+/datum/dog_fashion/head/miningsoft
+	name = "Spelunker REAL_NAME"
+	desc = "Legions are just like a walking chew toys for him."
