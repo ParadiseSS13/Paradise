@@ -9,6 +9,8 @@
 	obj_damage = 100
 	melee_damage_lower = 25
 	melee_damage_upper = 50
+	melee_attack_cooldown_min = 1.5 SECONDS
+	melee_attack_cooldown_max = 2.5 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	attack_verb_simple = "chomp"

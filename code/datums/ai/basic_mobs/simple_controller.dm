@@ -5,3 +5,4 @@
 
 	ai_movement = /datum/ai_movement/basic_avoidance
 	idle_behavior = /datum/idle_behavior/idle_random_walk
+	interesting_dist = AI_SIMPLE_INTERESTING_DIST

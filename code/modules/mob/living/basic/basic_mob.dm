@@ -135,8 +135,10 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/armour_penetration_percentage = 0
 	/// Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
-	/// How often can you melee attack?
-	var/melee_attack_cooldown = 2 SECONDS
+	/// Lower bound for melee attack cooldown
+	var/melee_attack_cooldown_min = 2 SECONDS
+	/// Upper bound for melee attack cooldown
+	var/melee_attack_cooldown_max = 2 SECONDS
 
 	/// Loot this mob drops on death.
 	var/list/loot = list()
@@ -210,6 +212,7 @@ RESTRICT_TYPE(/mob/living/basic)
 /mob/living/basic/proc/early_melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
 	if(!ignore_cooldown)
+		var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
 		changeNext_move(melee_attack_cooldown)
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target, Adjacent(target), modifiers) & COMPONENT_HOSTILE_NO_ATTACK)
 		return FALSE
