@@ -104794,13 +104794,13 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "vFs" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/railing/cap/reversed{
 	dir = 8
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/station/hallway/spacebridge/serveng)
 "vFA" = (
