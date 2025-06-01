@@ -1,4 +1,5 @@
-import { useDispatch, useLocalState, useSelector } from 'tgui/backend';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'tgui/backend';
 import { Button, Collapsible, Input, LabeledList, NoticeBox, Section, Slider, Stack } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
 import { capitalize } from 'tgui-core/string';
@@ -18,7 +19,7 @@ export const SettingsStatPanel = (props) => {
     </NoticeBox>
   );
 
-  const [freeStatFont, setFreeStatFont] = useLocalState('freeStatFont', false);
+  const [freeStatFont, setFreeStatFont] = useState(false);
 
   return (
     <Section fill>

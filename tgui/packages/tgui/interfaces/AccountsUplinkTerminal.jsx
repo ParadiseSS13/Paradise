@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Icon, Input, LabeledList, Section, Stack, Table, Tabs } from 'tgui-core/components';
 import { createSearch } from 'tgui-core/string';
 
@@ -6,6 +6,9 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
+import SearchableTableContext from './common/SearchableTableContext';
+import SortableTableContext from './common/SortableTableContext';
+import TabsContext from './common/TabsContext';
 
 export const AccountsUplinkTerminal = (properties) => {
   const { act, data } = useBackend();
@@ -37,10 +40,12 @@ export const AccountsUplinkTerminal = (properties) => {
       <Window.Content scrollable>
         <Stack fill vertical>
           <LoginInfo />
-          <AccountsUplinkTerminalNavigation />
-          <Section fill scrollable>
-            {body}
-          </Section>
+          <TabsContext.Default tabIndex={0}>
+            <AccountsUplinkTerminalNavigation />
+            <Section fill scrollable>
+              {body}
+            </Section>
+          </TabsContext.Default>
         </Stack>
       </Window.Content>
     </Window>
@@ -49,7 +54,7 @@ export const AccountsUplinkTerminal = (properties) => {
 
 const AccountsUplinkTerminalNavigation = (properties) => {
   const { data } = useBackend();
-  const [tabIndex, setTabIndex] = useState(0);
+  const { tabIndex, setTabIndex } = useContext(TabsContext);
   const { login_state } = data;
   return (
     <Stack vertical mb={1}>
@@ -68,7 +73,7 @@ const AccountsUplinkTerminalNavigation = (properties) => {
 };
 
 const AccountsUplinkTerminalContent = (props) => {
-  const [tabIndex] = useState(0);
+  const { tabIndex } = useContext(TabsContext);
   switch (tabIndex) {
     case 0:
       return <AccountsRecordList />;
@@ -79,12 +84,19 @@ const AccountsUplinkTerminalContent = (props) => {
   }
 };
 
-const AccountsRecordList = (properties) => {
+const AccountsRecordList = () => (
+  <SearchableTableContext.Default>
+    <SortableTableContext.Default sortId="owner_name">
+      <AccountsRecordListBase />
+    </SortableTableContext.Default>
+  </SearchableTableContext.Default>
+);
+
+const AccountsRecordListBase = (properties) => {
   const { act, data } = useBackend();
   const { accounts } = data;
-  const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('owner_name');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { searchText } = useContext(SearchableTableContext);
+  const { sortId, sortOrder } = useContext(SortableTableContext);
   return (
     <Stack fill vertical>
       <AccountsActions />
@@ -174,8 +186,7 @@ const DepartmentAccountsList = (properties) => {
 };
 
 const SortButton = (properties) => {
-  const [sortId, setSortId] = useState('name');
-  const [sortOrder, setSortOrder] = useState(true);
+  const { sortId, setSortId, sortOrder, setSortOrder } = useContext(SortableTableContext);
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -201,7 +212,7 @@ const SortButton = (properties) => {
 const AccountsActions = (properties) => {
   const { act, data } = useBackend();
   const { is_printing } = data;
-  const [searchText, setSearchText] = useState('');
+  const { setSearchText } = useContext(SearchableTableContext);
   return (
     <Stack>
       <Stack.Item>

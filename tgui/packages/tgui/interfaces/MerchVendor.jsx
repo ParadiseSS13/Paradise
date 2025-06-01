@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Box, Button, Section, Stack, Table, Tabs } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import TabsContext from './common/TabsContext';
 
 const VendingRow = (props) => {
   const { act, data } = useBackend();
@@ -42,7 +43,7 @@ const VendingRow = (props) => {
 
 const MerchProducts = (props) => {
   const { data } = useBackend();
-  const [tabIndex] = useState(1);
+  const { tabIndex } = useContext(TabsContext);
   const { products, imagelist } = data;
 
   const categories = ['apparel', 'toy', 'decoration'];
@@ -100,8 +101,10 @@ export const MerchVendor = (props) => {
           </Stack.Item>
           <Stack.Item grow>
             <Section fill scrollable title="Products">
-              <MerchVendorNavigation />
-              <MerchProducts />
+              <TabsContext.Default tabIndex={1}>
+                <MerchVendorNavigation />
+                <MerchProducts />
+              </TabsContext.Default>
             </Section>
           </Stack.Item>
         </Stack>
@@ -112,7 +115,7 @@ export const MerchVendor = (props) => {
 
 const MerchVendorNavigation = (properties) => {
   const { data } = useBackend();
-  const [tabIndex, setTabIndex] = useState(1);
+  const { tabIndex, setTabIndex } = useContext(TabsContext);
   const { login_state } = data;
 
   return (

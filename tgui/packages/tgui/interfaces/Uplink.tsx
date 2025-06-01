@@ -82,7 +82,6 @@ export const Uplink = (props) => {
   const { cart } = data;
 
   const [tabIndex, setTabIndex] = useState(0);
-  const [searchText, setSearchText] = useState('');
 
   return (
     <Window width={900} height={600} theme="syndicate">
@@ -96,7 +95,6 @@ export const Uplink = (props) => {
                 selected={tabIndex === 0}
                 onClick={() => {
                   setTabIndex(0);
-                  setSearchText('');
                 }}
                 icon="store"
               >
@@ -107,7 +105,6 @@ export const Uplink = (props) => {
                 selected={tabIndex === 1}
                 onClick={() => {
                   setTabIndex(1);
-                  setSearchText('');
                 }}
                 icon="shopping-cart"
               >
@@ -118,7 +115,6 @@ export const Uplink = (props) => {
                 selected={tabIndex === 2}
                 onClick={() => {
                   setTabIndex(2);
-                  setSearchText('');
                 }}
                 icon="user"
               >
