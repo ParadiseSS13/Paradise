@@ -6146,6 +6146,7 @@
 	},
 /obj/effect/map_effect/dynamic_airlock,
 /obj/machinery/airlock_controller/air_cycler/directional/east,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/north)
 "aZo" = (
@@ -6159,6 +6160,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume,
 /obj/effect/map_effect/dynamic_airlock,
 /obj/machinery/airlock_controller/air_cycler/directional/west,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/north)
 "aZt" = (
@@ -14608,6 +14610,13 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/a)
+"cfp" = (
+/obj/structure/railing/cap/normal{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "cfq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -33634,6 +33643,17 @@
 	},
 /turf/space,
 /area/station/engineering/solar/fore_starboard)
+"fPU" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/railing/cap/normal{
+	dir = 1
+	},
+/turf/space,
+/area/station/hallway/spacebridge/comeng)
 "fPZ" = (
 /obj/item/stack/ore/glass,
 /obj/effect/turf_decal/box,
@@ -52911,6 +52931,16 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
+"kew" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/space,
+/area/station/hallway/spacebridge/engmed)
 "keE" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
@@ -75492,6 +75522,19 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
+"piM" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/railing/cap/normal{
+	dir = 4
+	},
+/turf/space,
+/area/station/hallway/spacebridge/engmed)
 "piQ" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/primary/central/east)
@@ -103741,6 +103784,10 @@
 	},
 /area/station/hallway/secondary/entry/west)
 "vwn" = (
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
 /obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -114179,6 +114226,14 @@
 	icon_state = "dark"
 	},
 /area/station/supply/warehouse)
+"xNe" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/station/hallway/spacebridge/comeng)
 "xNf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -151073,8 +151128,8 @@ aYt
 aYt
 aYt
 aYt
-aYt
-aYt
+fPU
+xNe
 uxA
 aZk
 nPs
@@ -156746,14 +156801,14 @@ aXR
 aXR
 xbO
 aYg
-euP
+cfp
 cPO
 lKa
 hah
 nSn
 rgY
 lKa
-oKJ
+kew
 xbO
 aXR
 nVW
@@ -157010,7 +157065,7 @@ hah
 nSn
 rgY
 lKa
-oKJ
+kew
 xbO
 xbO
 nVW
@@ -157267,8 +157322,8 @@ sme
 jmj
 ucj
 cWT
-oKJ
-rNK
+piM
+qJG
 xbO
 xbO
 xbO
