@@ -3000,6 +3000,10 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/central/east)
+"avA" = (
+/obj/structure/sign/radiation,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/gravitygenerator)
 "avD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -5539,12 +5543,14 @@
 "aTW" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/engineering,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/highsecurity{
+	name = "Gravity Generator"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
@@ -6774,8 +6780,7 @@
 /obj/machinery/atmospherics/refill_station/oxygen,
 /obj/structure/sign/poster/official/air2/directional/west,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+	icon_state = "white"
 	},
 /area/station/hallway/primary/central/east)
 "bfb" = (
@@ -8621,6 +8626,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/orange{
 	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -11211,8 +11219,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+	icon_state = "white"
 	},
 /area/station/hallway/primary/central/east)
 "bIX" = (
@@ -39281,8 +39288,7 @@
 /obj/machinery/atmospherics/refill_station/plasma,
 /obj/structure/sign/poster/official/safety_internals/directional/west,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
+	icon_state = "white"
 	},
 /area/station/hallway/primary/central/east)
 "hjU" = (
@@ -40878,6 +40884,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -40914,6 +40923,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -42384,6 +42396,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -43259,7 +43274,7 @@
 /obj/machinery/atmospherics/refill_station/oxygen,
 /obj/structure/sign/poster/official/air2/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
+	icon_state = "white"
 	},
 /area/station/hallway/primary/central/west)
 "ibB" = (
@@ -62513,6 +62528,16 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet/unisex)
+"mfs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/east)
 "mfu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -64909,7 +64934,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/refill_station/nitrogen,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
+	icon_state = "white"
 	},
 /area/station/hallway/primary/central/west)
 "mKz" = (
@@ -65527,6 +65552,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/stripes/white/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -65587,7 +65613,7 @@
 /obj/machinery/atmospherics/refill_station/plasma,
 /obj/structure/sign/poster/official/safety_internals/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
+	icon_state = "white"
 	},
 /area/station/hallway/primary/central/west)
 "mSv" = (
@@ -99776,6 +99802,10 @@
 /area/station/hallway/primary/port/south)
 "uAW" = (
 /obj/structure/table,
+/obj/item/stack/cable_coil{
+	pixel_x = -2;
+	pixel_y = 8
+	},
 /obj/item/geiger_counter,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -109576,6 +109606,19 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
+"wIg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/west)
 "wIh" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -146098,7 +146141,7 @@ kKy
 agU
 mSa
 hBU
-xrr
+wIg
 hRn
 kZj
 nMX
@@ -146595,7 +146638,7 @@ ngD
 lfU
 iAp
 cLq
-gzv
+avA
 eFn
 rZe
 rZe
@@ -153551,7 +153594,7 @@ qdQ
 qdQ
 nTa
 hBi
-fgJ
+mfs
 bsC
 dsq
 obD
@@ -156887,7 +156930,7 @@ baS
 aXR
 aXR
 xbO
-aYg
+qJG
 cfp
 cPO
 lKa
