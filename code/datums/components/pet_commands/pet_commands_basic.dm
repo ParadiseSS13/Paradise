@@ -183,7 +183,7 @@
 		return
 
 	var/mob/living/current_target = owner.ai_controller?.blackboard[BB_CURRENT_PET_TARGET]
-	if(attacker == current_target) //we are already dealing with this target
+	if(attacker == current_target) // we are already dealing with this target
 		return
 	if(isliving(attacker) && can_see(owner, attacker, protect_range))
 		set_command_active(owner, attacker)
@@ -193,7 +193,7 @@
 	command_desc = "Command your pet to move to a location!"
 	requires_pointing = TRUE
 	speech_commands = list("move", "walk")
-	///the behavior we use to walk towards targets
+	/// the behavior we use to walk towards targets
 	var/datum/ai_behavior/walk_behavior = /datum/ai_behavior/travel_towards
 
 /datum/pet_command/move/set_command_target(mob/living/parent, atom/target)

@@ -5,7 +5,7 @@
 	/// If we want it to attack ALL OBJECTS
 	var/attack_obj = FALSE
 
-///Returns true or false depending on if the target can be attacked by the mob
+/// Returns true or false depending on if the target can be attacked by the mob
 /datum/targeting_strategy/basic/not_friends/can_attack(mob/living/living_mob, atom/target, vision_range)
 	if(attack_closed_turf && (iswallturf(target) || ismineralturf(target)))
 		return TRUE
@@ -20,18 +20,18 @@
 
 	return ..()
 
-///friends dont care about factions
+/// friends dont care about factions
 /datum/targeting_strategy/basic/not_friends/faction_check(mob/living/living_mob, mob/living/the_target)
 	return FALSE
 
 /datum/targeting_strategy/basic/not_friends/attack_closed_turfs
 	attack_closed_turf = TRUE
 
-//Allows mobs to target objs. In case you want your mob to target these without going after walls
+// Allows mobs to target objs. In case you want your mob to target these without going after walls
 /datum/targeting_strategy/basic/not_friends/attack_objs
 	attack_obj = TRUE
 
-//Let us target everything that needs targeting, just like they used to.
+// Let us target everything that needs targeting, just like they used to.
 /datum/targeting_strategy/basic/not_friends/attack_everything
 	attack_closed_turf = TRUE
 	attack_obj = TRUE

@@ -233,7 +233,7 @@
 	if(being_used || !ismob(target))
 		return FALSE
 	var/mob/M = target
-	if(!isanimal_or_basicmob(M) || M.mind) //only works on animals that aren't player controlled
+	if(!isanimal_or_basicmob(M) || M.mind) // only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 		return FALSE
 	if(M.stat)

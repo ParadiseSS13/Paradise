@@ -1,6 +1,6 @@
 /// Finds a specific atom type to hunt.
 /datum/ai_behavior/find_hunt_target
-	///is this only meant to search for turf types?
+	/// is this only meant to search for turf types?
 	var/search_turf_types = FALSE
 
 /datum/ai_behavior/find_hunt_target/perform(seconds_per_tick, datum/ai_controller/controller, hunting_target_key, types_to_hunt, hunt_range)
@@ -33,7 +33,7 @@
 		return FALSE
 
 	var/obj/item/pet_target = controller.blackboard[BB_CURRENT_PET_TARGET]
-	if(target == pet_target) //we are currently fetching this ore for master, dont eat it!
+	if(target == pet_target) // we are currently fetching this ore for master, dont eat it!
 		return FALSE
 
 	return can_see(source, target, radius)

@@ -83,7 +83,7 @@
 	. = ..()
 	controller.clear_blackboard_key(target_key)
 
-///operational datums is null because we dont use a ranged component, we use a gun in our contents
+/// operational datums is null because we dont use a ranged component, we use a gun in our contents
 /datum/ai_planning_subtree/basic_ranged_attack_subtree/minebot
 	operational_datums = null
 	ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack/minebot
@@ -110,7 +110,7 @@
 /datum/ai_behavior/basic_ranged_attack/minebot
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 	avoid_friendly_fire = TRUE
-	///if our target is closer than this distance, finish action
+	/// if our target is closer than this distance, finish action
 	var/minimum_distance = 3
 
 /datum/ai_behavior/basic_ranged_attack/minebot/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
@@ -123,7 +123,7 @@
 	if(get_dist(living_pawn, target) <= minimum_distance)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
-///mine walls if we are on automated mining mode
+/// mine walls if we are on automated mining mode
 /datum/ai_planning_subtree/minebot_mining/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	if(!controller.blackboard[BB_AUTOMATED_MINING])
 		return
@@ -205,7 +205,7 @@
 	. = ..()
 	controller.clear_blackboard_key(target_key)
 
-///store ores in our body
+/// store ores in our body
 /datum/ai_planning_subtree/find_and_hunt_target/hunt_ores/minebot
 	hunting_behavior = /datum/ai_behavior/hunt_target/interact_with_target/consume_ores/minebot
 	hunt_chance = 100
@@ -223,7 +223,7 @@
 /datum/ai_planning_subtree/flee_target/minebot_gibtonite
 	target_key = BB_MINEBOT_GIBTONITE_RUN
 
-///pet commands
+/// pet commands
 /datum/pet_command/free/minebot
 
 /datum/pet_command/free/minebot/execute_action(datum/ai_controller/controller)
@@ -245,7 +245,7 @@
 /datum/pet_command/minebot_ability
 	command_name = "Minebot ability"
 	command_desc = "Make your minebot use one of its abilities."
-	///the ability we will use
+	/// the ability we will use
 	var/ability_key
 
 /datum/pet_command/minebot_ability/execute_action(datum/ai_controller/controller)
