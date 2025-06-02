@@ -19,7 +19,8 @@
 /datum/event/demon_incursion/start()
 	if(isnull(impact_area))
 		log_debug("No valid event areas could be generated for demonic incursion.")
-	var/initial_portals = min(length(GLOB.clients) / 5, 1)
+	var/initial_portals = min(length(GLOB.clients) / 10, 1)
+	target_portals = initial_portals * 10
 	var/list/area_turfs = get_area_turfs(impact_area)
 	while(length(area_turfs) && initial_portals > 0)
 		var/turf/T = pick_n_take(area_turfs)
@@ -98,15 +99,27 @@
 					/mob/living/basic/netherworld/faithless)
 	/// The event that spawned this portal
 	var/datum/event/demon_incursion/linked_incursion
-	/// The delay before it spawns another portal
-	var/expansion_delay = 1 MINUTES
-	/// Chance to spawn a new portal
-	var/expansion_chance = 50
+	/// Percentage chance that a portal will spread every time spread() is called
+	var/portal_spread_chance = 50
+	/// Lower bound for portal spreading
+	var/portal_spread_cooldown_min = 3 MINUTES
+	/// Upper bound for portal spreading
+	var/portal_spread_cooldown_max = 5 MINUTES
+	/// Time until next portal
+	var/expansion_delay
+	/// How fast does the portal spawn mobs after the initial spawns?
+	var/spawn_rate = 1 MINUTES
+	/// How many initial mobs does it spawn?
+	var/initial_spawns_min = 1
+	var/initial_spawns_max = 4
 
 /obj/structure/spawner/nether/demon_incursion/Initialize(mapload)
 	. = ..()
+	expansion_delay = rand(portal_spread_cooldown_min, portal_spread_cooldown_max)
 	addtimer(CALLBACK(src, PROC_REF(spread)), expansion_delay)
-	addtimer(CALLBACK(src, PROC_REF(stop_initial_mobs)), 10 SECONDS)
+	var/initial_spawns = rand(initial_spawns_min, initial_spawns_max)
+	var/initial_spawn_time = spawn_time * initial_spawns - 1
+	addtimer(CALLBACK(src, PROC_REF(stop_initial_mobs)), initial_spawn_time)
 
 /obj/structure/spawner/nether/demon_incursion/deconstruct(disassembled)
 	var/reward_type = pick(/obj/item/stack/ore/bluespace_crystal, /obj/item/stack/ore/palladium, /obj/item/stack/ore/platinum, /obj/item/stack/ore/iridium, /obj/item/stack/ore/diamond)
@@ -133,7 +146,9 @@
 		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
 
 /obj/structure/spawner/nether/demon_incursion/proc/spread()
-	if(!prob(expansion_chance))
+	if(!prob(portal_spread_chance))
+		expansion_delay = rand(portal_spread_cooldown_min, portal_spread_cooldown_max)
+		addtimer(CALLBACK(src, PROC_REF(spread)), expansion_delay)
 		return
 	var/list/spawnable_turfs = list()
 	for(var/turf/simulated/floor/possible_loc in orange(8, src.loc))
@@ -144,12 +159,15 @@
 		if(locate(/obj/structure/spawner/nether/demon_incursion) in possible_loc)
 			continue
 		spawnable_turfs += possible_loc
+	if(!spawnable_turfs)
+		return
 	var/turf/spawn_loc = pick_n_take(spawnable_turfs)
 	linked_incursion.spawn_portal(spawn_loc)
+	expansion_delay = rand(portal_spread_cooldown_min, portal_spread_cooldown_max)
 	addtimer(CALLBACK(src, PROC_REF(spread)), expansion_delay)
 	return
 
 /obj/structure/spawner/nether/demon_incursion/proc/stop_initial_mobs()
 	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
-	spawn_comp.spawn_time = 45 SECONDS
-	spawn_time = 45 SECONDS
+	spawn_comp.spawn_time = spawn_rate
+	spawn_time = spawn_rate
