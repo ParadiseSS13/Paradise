@@ -51013,9 +51013,6 @@
 	},
 /area/station/engineering/solar/aft_port)
 "dWe" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/camera{
 	c_tag = "Xenobio East";
@@ -51027,21 +51024,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde{
 	pixel_x = -15
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/camera{
-	c_tag = "Xenobiology East";
-	dir = 8;
-	network = list("Research","SS13")
-	},
-/obj/machinery/reagentgrinder,
-/obj/machinery/requests_console/directional/east,
-/obj/effect/turf_decal/delivery,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
