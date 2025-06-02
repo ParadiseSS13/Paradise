@@ -38,7 +38,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/smithed_item/component/proc/cool_off()
-	heat--
+	heat = max(heat - 1, 0)
 	if(heat)
 		addtimer(CALLBACK(src, PROC_REF(cool_off)), cool_time)
 	else
