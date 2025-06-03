@@ -11529,7 +11529,7 @@
 /area/station/engineering/break_room)
 "bFE" = (
 /obj/effect/landmark/start/chemist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -15049,7 +15049,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "bXM" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -15205,7 +15205,7 @@
 	},
 /area/station/service/chapel)
 "bYU" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/structure/cable/orange{
@@ -16217,7 +16217,7 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -16445,7 +16445,7 @@
 	},
 /area/station/security/evidence)
 "cjy" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -17743,7 +17743,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "ctF" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/structure/cable/orange{
@@ -18285,7 +18285,7 @@
 /area/station/science/misc_lab)
 "cys" = (
 /obj/effect/landmark/start/doctor,
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -18319,7 +18319,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -18437,7 +18437,7 @@
 	},
 /area/station/command/bridge)
 "czk" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
@@ -20905,7 +20905,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
 "cQC" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -32693,28 +32693,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
-"fmT" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/chair/office/light{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/landmark/start/xenobiologist,
-/turf/simulated/floor/plasteel/white,
-/area/station/science/xenobiology)
 "fnk" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -43155,7 +43133,7 @@
 /area/station/maintenance/disposal/external/southwest)
 "hSP" = (
 /obj/effect/landmark/start/botanist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -49816,7 +49794,7 @@
 /area/station/engineering/tech_storage)
 "jtR" = (
 /obj/effect/landmark/start/scientist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -50199,7 +50177,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "jxg" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -51809,7 +51787,7 @@
 	},
 /area/station/science/xenobiology)
 "jOt" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/geneticist,
@@ -52672,7 +52650,7 @@
 	},
 /area/station/medical/surgery/primary)
 "jYR" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -54045,6 +54023,39 @@
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
+"kpX" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/xenobiology)
 "kqa" = (
 /turf/simulated/floor/wood/nitrogen,
 /area/station/maintenance/abandonedbar)
@@ -54520,18 +54531,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
-"kvq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/science/xenobiology)
 "kvs" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
@@ -56626,7 +56625,7 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
 "kTR" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/geneticist,
 /obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
@@ -60713,7 +60712,7 @@
 	},
 /area/station/science/robotics)
 "lQz" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -62249,7 +62248,7 @@
 	},
 /area/station/medical/storage)
 "mix" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/doctor,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -62385,7 +62384,7 @@
 	},
 /area/station/public/storage/tools)
 "mkw" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -66034,7 +66033,7 @@
 	},
 /area/station/supply/office)
 "ngA" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -75020,7 +75019,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "pqm" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/structure/cable/orange{
@@ -77862,7 +77861,7 @@
 	},
 /area/station/service/theatre)
 "pXm" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/paramedic,
@@ -78966,7 +78965,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/scientist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -84328,6 +84327,41 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"rDh" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/monkey_recycler,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/chair/office{
+	dir = 4
+	},
+/obj/effect/landmark/start/scientist,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/xenobiology)
 "rDk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -91360,6 +91394,56 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port/north)
+"tiC" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark/start/xenobiologist,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark/start/scientist,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/xenobiology)
 "tiE" = (
 /obj/structure/chair{
 	dir = 8
@@ -94570,7 +94654,7 @@
 	},
 /area/station/security/brig)
 "tYf" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -96466,7 +96550,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/station/public/fitness)
 "uuI" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -97508,7 +97592,7 @@
 /area/station/security/lobby)
 "uFu" = (
 /obj/effect/landmark/start/scientist,
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "uFE" = (
@@ -102600,7 +102684,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "vQP" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/structure/cable/orange{
@@ -103409,19 +103493,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/reception)
-"wdn" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/monkey_recycler,
-/turf/simulated/floor/plasteel/white,
-/area/station/science/xenobiology)
 "wds" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
@@ -104138,7 +104209,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/chemist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -134624,7 +134695,7 @@ cmZ
 wBr
 cGd
 erm
-kvq
+kpX
 wAG
 wAG
 meZ
@@ -136684,7 +136755,7 @@ odF
 jtk
 btq
 wAG
-wdn
+rDh
 wAG
 meZ
 jNL
@@ -137969,7 +138040,7 @@ kII
 njH
 vld
 vld
-fmT
+tiC
 vld
 vld
 bYh
