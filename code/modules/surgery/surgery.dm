@@ -481,6 +481,8 @@
 			if(SURGERY_BLOODSPREAD_FULLBODY)
 				target.visible_message("<span class='notice'>A spray of blood coats [user].</span>")
 				H.bloody_body(target)
+	SEND_SIGNAL(tool, COMSIG_MOB_REAGENT_EXCHANGE, target)
+	tool.AddComponent(/datum/component/viral_contamination, target.viruses)
 
 /**
  * Finish a surgery step, performing anything that runs on the tail-end of a successful surgery.
