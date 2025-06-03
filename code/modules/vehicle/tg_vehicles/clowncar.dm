@@ -1,4 +1,4 @@
-/obj/tgvehicle/clowncar
+/obj/tgvehicle/sealed/car/clowncar
 	name = "clown car"
 	desc = "How someone could even fit in there is beyond me."
 	icon_state = "clowncar"
@@ -14,11 +14,11 @@
 	/// Armor
 	var/armor_type = /datum/armor/car_clowncar
 	/// How long does it take to get in?
-	var/enter_delay = 40
+	enter_delay = 4 SECONDS
 	/// Are the lights on?
 	var/light_on = FALSE
 	// /Determines which occupants provide access when bumping into doors
-	var/access_provider_flags = VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_KIDNAPPED
+	access_provider_flags = VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_KIDNAPPED
 	/// list of headlight colors we use to pick through when we have party mode due to emag
 	var/headlight_colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_LIME, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_PURPLE)
 	/// Cooldown time inbetween [/obj/tgvehicle/clowncar/proc/roll_the_dice()] usages
@@ -54,7 +54,7 @@
 	. = ..()
 	if(car_traits & CAN_KIDNAP)
 		initialize_controller_action_type(/datum/action/vehicle/dump_kidnapped_mobs, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/climb_out, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/climb_out, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/horn, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/headlights, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/thank, VEHICLE_CONTROL_KIDNAPPED)

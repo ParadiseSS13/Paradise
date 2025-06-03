@@ -3190,6 +3190,7 @@
 #include "code\modules\vehicle\vehicle.dm"
 #include "code\modules\vehicle\tg_vehicles\clowncar.dm"
 #include "code\modules\vehicle\tg_vehicles\scooter.dm"
+#include "code\modules\vehicle\tg_vehicles\sealed.dm"
 #include "code\modules\vehicle\tg_vehicles\tg_vehicle_actions.dm"
 #include "code\modules\vehicle\tg_vehicles\tg_vehicles.dm"
 #include "code\modules\virology\virology_goals.dm"
