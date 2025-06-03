@@ -218,6 +218,8 @@
 		for(var/atom/movable/thing as anything in contents)
 			if(thing == mover || thing == mover_loc) // Multi tile objects and moving out of other objects
 				continue
+			if(mover.inertia_moving && GLOB.move_manager.processing_on(thing, SSspacedrift))
+				continue
 			if(!thing.Cross(mover))
 				if(QDELETED(mover)) //deleted from Cross() (CanPass is pure so it cant delete, Cross shouldnt be doing this either though, but it can happen)
 					return FALSE
