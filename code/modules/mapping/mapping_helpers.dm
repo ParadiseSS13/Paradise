@@ -77,10 +77,23 @@
 	T.flags |= NO_LAVA_GEN
 	..()
 
+/obj/effect/mapping_helpers/lava_magnet
+	name = "lava magnet"
+	icon_state = "lava_magnet"
+	layer = ON_EDGED_TURF_LAYER
+
+/obj/effect/mapping_helpers/lava_magnet/New()
+	. = ..()
+
+	var/turf/T = get_turf(src)
+	if(istype(T) && (T.z in levels_by_trait(ORE_LEVEL)))
+		var/obj/effect/landmark/river_waypoint/waypoint = new(T)
+		GLOB.river_waypoint_presets += waypoint
+
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
 	late = TRUE
-	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered)
+	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor)
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
@@ -91,11 +104,17 @@
 
 /obj/effect/mapping_helpers/airlock/LateInitialize()
 	. = ..()
-	if(!(locate(/obj/machinery/door) in get_turf(src)))
-		log_world("[src] failed to find an airlock at [AREACOORD(src)]")
 
+	var/list/valid_airlocks = list()
 	for(var/obj/machinery/door/D in get_turf(src))
-		payload(D)
+		if(!is_type_in_list(D, blacklist))
+			valid_airlocks += D
+
+	if(length(valid_airlocks))
+		for(var/obj/machinery/door/D in valid_airlocks)
+			payload(D)
+	else
+		log_world("[src] failed to find any valid airlocks at [AREACOORD(src)]")
 
 	qdel(src)
 
@@ -140,9 +159,32 @@
 /obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock)
 	airlock.name = get_area_name(airlock, TRUE)
 
+// Will cfoam an airlock
+/obj/effect/mapping_helpers/airlock/c_foam
+	name = "airlock c_foam helper"
+	icon_state = "airlock_c_foam_helper" //QWERTODO: Sprite this
+	/// How many times will this helper foam the door? The max level is 5.
+	var/foam_level = 1
+
+/obj/effect/mapping_helpers/airlock/c_foam/payload(obj/machinery/door/airlock/airlock)
+	for(var/loops in 1 to foam_level)
+		airlock.foam_up()
+
+/obj/effect/mapping_helpers/airlock/c_foam/two
+	foam_level = 2
+
+/obj/effect/mapping_helpers/airlock/c_foam/three
+	foam_level = 3
+
+/obj/effect/mapping_helpers/airlock/c_foam/four
+	foam_level = 4
+
+/obj/effect/mapping_helpers/airlock/c_foam/five
+	foam_level = 5
+
 //part responsible for windoors (thanks S34N)
 /obj/effect/mapping_helpers/airlock/windoor
-	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)
+	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/airlock)
 
 /// Apply to a wall (or floor, technically) to ensure it is instantly destroyed by any explosion, even if usually invulnerable
 /obj/effect/mapping_helpers/bombable_wall
@@ -175,3 +217,52 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk/payload(obj/machinery/door/window/windoor)
 	if(windoor.dir == dir)
 		windoor.name = "[get_area_name(windoor, TRUE)] Desk"
+
+/obj/effect/mapping_helpers/turfs
+	icon = 'icons/turf/overlays.dmi'
+
+/obj/effect/mapping_helpers/turfs/Initialize(mapload)
+	. = ..()
+
+	var/turf/T = get_turf(src)
+	if(istype(T))
+		payload(T)
+
+/obj/effect/mapping_helpers/turfs/proc/payload(turf/simulated/T)
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("root turf mapping_helper payload called")
+
+/obj/effect/mapping_helpers/turfs/damage
+	icon_state = "damaged"
+
+/obj/effect/mapping_helpers/turfs/damage/payload(turf/simulated/T)
+	T.break_tile()
+
+/obj/effect/mapping_helpers/turfs/burn
+	icon_state = "burned"
+
+/obj/effect/mapping_helpers/turfs/burn/payload(turf/simulated/T)
+	T.burn_tile()
+
+/obj/effect/mapping_helpers/turfs/rust
+	icon = 'icons/effects/rust_overlay.dmi'
+	icon_state = "rust1"
+	var/spawn_probability = 100
+
+/obj/effect/mapping_helpers/turfs/rust/payload(turf/simulated/wall/T)
+	if(!istype(T))
+		return
+
+	if(prob(spawn_probability))
+		rustify(T)
+
+/obj/effect/mapping_helpers/turfs/proc/rustify(turf/T)
+	var/turf/simulated/wall/W = T
+	if(istype(W) && !HAS_TRAIT(W, TRAIT_RUSTY))
+		W.rust_turf()
+
+/obj/effect/mapping_helpers/turfs/rust/probably
+	spawn_probability = 75
+
+/obj/effect/mapping_helpers/turfs/rust/maybe
+	spawn_probability = 25

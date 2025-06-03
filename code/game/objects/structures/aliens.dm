@@ -14,6 +14,7 @@
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
 	max_integrity = 100
+	cares_about_temperature = TRUE
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE)
@@ -115,7 +116,8 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	var/initial_state
 	var/state_open = FALSE
 	var/is_operating = FALSE
@@ -251,7 +253,7 @@
 	var/silent_removal = FALSE
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
-	..()
+	. = ..()
 	linked_node = node
 	if(isspaceturf(loc))
 		qdel(src)
@@ -355,7 +357,7 @@
 		new /obj/structure/alien/weeds(T, linked_node)
 		check_surroundings()
 
-/obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/weeds/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
@@ -433,9 +435,9 @@
 	var/node_range = NODERANGE
 
 
-/obj/structure/alien/weeds/node/Initialize()
+/obj/structure/alien/weeds/node/Initialize(mapload)
 	add_overlay("weednode")
-	..(loc, src)
+	return ..(loc, src)
 
 #undef NODERANGE
 
@@ -468,6 +470,7 @@
 	*In the BURST/BURSTING state, the alien egg can be removed by being attacked by a alien or any other weapon
 	**/
 	var/status = GROWING
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/alien/egg/grown
 	status = GROWN
@@ -485,7 +488,7 @@
 	else if(status != GROWN)
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 	if(status == GROWN)
-		AddComponent(/datum/component/proximity_monitor)
+		proximity_monitor = new(src)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -516,7 +519,7 @@
 /obj/structure/alien/egg/proc/grow()
 	icon_state = "egg"
 	status = GROWN
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src)
 
 ///Need to carry the kill from Burst() to Hatch(), this section handles the alien opening the egg
 /obj/structure/alien/egg/proc/burst(kill)
@@ -524,7 +527,7 @@
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING
-		qdel(GetComponent(/datum/component/proximity_monitor))
+		QDEL_NULL(proximity_monitor)
 		addtimer(CALLBACK(src, PROC_REF(hatch)), 1.5 SECONDS)
 
 ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
@@ -544,7 +547,7 @@
 		if(status != BURST)
 			burst(kill = TRUE)
 
-/obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/egg/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 500)
 		take_damage(5, BURN, 0, 0)

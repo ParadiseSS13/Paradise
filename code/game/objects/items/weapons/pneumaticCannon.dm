@@ -10,6 +10,7 @@
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
+	new_attack_chain = TRUE
 	///The max weight of items that can fit into the cannon
 	var/max_weight_class = 20
 	///The weight of items currently in the cannon
@@ -40,13 +41,13 @@
 		if(tank)
 			. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 		for(var/obj/item/I in loaded_items)
-			. += "<span class='info'>[bicon(I)] It has [I] loaded.</span>"
+			. += "<span class='notice'>[bicon(I)] It has [I] loaded.</span>"
 
 /**
 * Arguments:
 * * I - item to load into the cannon
 * * user - the person loading the item in
-* Returns:
+* * Returns:
 * * True if item was loaded, false if it failed
 */
 /obj/item/pneumatic_cannon/proc/load_item(obj/item/I, mob/user)
@@ -56,10 +57,9 @@
 	if(I.w_class > w_class)
 		to_chat(user, "<span class='warning'>[I] is too large to fit into [src]!</span>")
 		return FALSE
-	if(!user.unEquip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
+	if(!user.unequip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
 		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
 		return FALSE
-	to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
 	loaded_items.Add(I)
 	loaded_weight_class += I.w_class
 	I.forceMove(src)
@@ -76,32 +76,34 @@
 		pressure_setting++
 	to_chat(user, "<span class='notice'>You tweak [src]'s pressure output to [pressure_setting].</span>")
 
-/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/tank/internals) && !tank)
-		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
-			to_chat(user, "<span class='warning'>[W] is too small for [src].</span>")
-			return
-		add_tank(W, user)
-		return
-	if(W.type == type)
+/obj/item/pneumatic_cannon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tank/internals) && !tank)
+		if(istype(used, /obj/item/tank/internals/emergency_oxygen))
+			to_chat(user, "<span class='warning'>[used] is too small for [src].</span>")
+			return ITEM_INTERACT_COMPLETE
+		add_tank(used, user)
+		return ITEM_INTERACT_COMPLETE
+	if(used.type == type)
 		to_chat(user, "<span class='warning'>You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption.</span>")
-		return
-	load_item(W, user)
+		return ITEM_INTERACT_COMPLETE
+	load_item(used, user)
+	return ..()
 
 /obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
 	remove_tank(user)
 	return TRUE
 
-/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
-	if(isstorage(target)) //So you can store it in backpacks
+/obj/item/pneumatic_cannon/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	fire(user, target)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/pneumatic_cannon/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(get_turf(user) == get_turf(target))
 		return ..()
-	if(istype(target, /obj/structure/rack)) //So you can store it on racks
-		return ..()
-	if(!istype(user))
+	if(user.a_intent != INTENT_HELP) // I know this seems backwards but other guns also have point blank shooting being locked to help intent
 		return ..()
 	fire(user, target)
-
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pneumatic_cannon/proc/fire(mob/living/carbon/human/user, atom/target)
 	if(!istype(user) && !target)
@@ -145,7 +147,7 @@
 	if(tank)
 		to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
 		return
-	if(!user.unEquip(new_tank))
+	if(!user.unequip(new_tank))
 		return
 	to_chat(user, "<span class='notice'>You hook [new_tank] up to [src].</span>")
 	new_tank.forceMove(src)

@@ -76,6 +76,10 @@ Pipelines + Other Objects -> Pipe network
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
+/obj/machinery/atmospherics/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	. = ..()
+	update_underlays()
+
 /obj/machinery/atmospherics/Destroy()
 	SSair.atmos_machinery -= src
 	SSair.pipenets_to_build -= src
@@ -86,7 +90,7 @@ Pipelines + Other Objects -> Pipe network
 	return ..()
 
 // Icons/overlays/underlays
-/obj/machinery/atmospherics/update_icon()
+/obj/machinery/atmospherics/update_icon(updates=ALL)
 	if(check_icon_cache())
 		..(ALL)
 	else
@@ -101,12 +105,12 @@ Pipelines + Other Objects -> Pipe network
 			plane = GAME_PLANE
 			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
-/obj/machinery/atmospherics/proc/update_pipe_image()
-	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
+/obj/machinery/atmospherics/proc/update_pipe_image(overlay = src)
+	pipe_image = image(overlay, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
 	pipe_image.plane = HUD_PLANE
 
 /obj/machinery/atmospherics/proc/check_icon_cache()
-	if(!istype(SSair.icon_manager))
+	if(!istype(GLOB.pipe_icon_manager))
 		return FALSE
 
 	return TRUE
@@ -121,17 +125,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type)
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_down", direction, color_cache_name(node))
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_intact", direction, color_cache_name(node))
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
 		if(T.transparent_floor) //we want to keep pipes under transparent floors connected normally
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 		else
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_exposed", direction, pipe_color)
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
 	return check_icon_cache()
@@ -200,7 +201,7 @@ Pipelines + Other Objects -> Pipe network
 	if(!can_unwrench)
 		return FALSE
 	. = TRUE
-	if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
+	if(wrench_floor_check())
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	if(level == 1 && isturf(T) && T.intact)
@@ -242,7 +243,7 @@ Pipelines + Other Objects -> Pipe network
 		"<span class='notice'>You have unfastened [src].</span>",
 		"<span class='italics'>You hear ratcheting.</span>"
 	)
-	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 	if(unsafe_wrenching)
@@ -252,12 +253,19 @@ Pipelines + Other Objects -> Pipe network
 			unsafe_pressure_release(user,internal_pressure)
 	deconstruct(TRUE)
 
+/**
+ * This proc is to tell if an atmospheric device is in a state that should be unwrenchable because its under the floor.
+ **/
+/obj/machinery/atmospherics/proc/wrench_floor_check()
+	return FALSE
+
 //(De)construction
-/obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
+/obj/machinery/atmospherics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference
@@ -300,7 +308,7 @@ Pipelines + Other Objects -> Pipe network
 		level = (T.intact || !can_be_undertile) ? 2 : 1
 	else
 		level = 2
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(usr)
 	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
 		SSair.machinery_to_construct.Add(src)
@@ -325,6 +333,7 @@ Pipelines + Other Objects -> Pipe network
 // Ventcrawling
 #define VENT_SOUND_DELAY 30
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
+	var/datum/pipeline/current_pipenet = returnPipenet(src)
 	direction &= initialize_directions
 	if(!direction || !(direction in GLOB.cardinal)) //cant go this way.
 		return
@@ -335,6 +344,7 @@ Pipelines + Other Objects -> Pipe network
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
+			current_pipenet.crawlers -= user
 			user.remove_ventcrawl()
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
@@ -347,6 +357,7 @@ Pipelines + Other Objects -> Pipe network
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
+			current_pipenet.crawlers -= user
 			user.remove_ventcrawl()
 			user.forceMove(loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")
@@ -401,14 +412,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay_adapter(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
 		if(T.transparent_floor) //we want to keep pipes under transparent floors connected normally
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 		else
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
 
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)

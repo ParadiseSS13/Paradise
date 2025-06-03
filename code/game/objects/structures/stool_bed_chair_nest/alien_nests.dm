@@ -33,7 +33,7 @@
 				M.visible_message("<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
 					"<span class='notice'>You struggle to break free from the gelatinous resin... (Stay still for two minutes.)</span>",\
 					"<span class='italics'>You hear squelching...</span>")
-				if(!do_after(M, 120 SECONDS, target = src))
+				if(!do_after(M, 120 SECONDS, target = src, hidden = TRUE))
 					if(M && M.buckled)
 						to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
 					return
@@ -78,8 +78,11 @@
 		if(istype(hugger_mask) && !hugger_mask.sterile && (locate(/obj/item/organ/internal/body_egg/alien_embryo) in buckled_mob.internal_organs))
 			if(user && !isalien(user))
 				return
-			buckled_mob.throw_alert("ghost_nest", /atom/movable/screen/alert/ghost)
-			to_chat(buckled_mob, "<span class='ghostalert'>You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest.</span>")
+			buckled_mob.throw_alert("ghost_nest", /atom/movable/screen/alert/ghost/xeno)
+			to_chat(buckled_mob, "<span class='ghostalert'>You may now click on the ghost prompt on your screen to leave your body. You will be alerted when you're removed from the nest.</span>")
+			if(tgui_alert(buckled_mob, "You may now ghost and keep respawnability, you will be notified if you leave the nest, would you like to do so?", "Ghosting", list("Yes", "No")) != "Yes")
+				return
+			buckled_mob.ghostize(TRUE)
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/M)
 	M.pixel_y = 0

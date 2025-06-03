@@ -9,7 +9,6 @@ LINEN BINS
 	desc = "A surprisingly soft linen bedsheet."
 	icon = 'icons/obj/bedsheet.dmi'
 	icon_state = "sheet"
-	item_state = "bedsheet"
 	lefthand_file = 'icons/mob/inhands/bedsheet_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/bedsheet_righthand.dmi'
 	layer = 4
@@ -19,9 +18,11 @@ LINEN BINS
 	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
 	resistance_flags = FLAMMABLE
-	slot_flags = SLOT_FLAG_BACK
-
+	slot_flags = ITEM_SLOT_NECK
 	dog_fashion = /datum/dog_fashion/head/ghost
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_BEDSHEET
+
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
@@ -35,7 +36,7 @@ LINEN BINS
 		return
 	return ..()
 
-/obj/item/bedsheet/attack_self(mob/user as mob)
+/obj/item/bedsheet/attack_self__legacy__attackchain(mob/user as mob)
 	user.drop_item()
 	if(layer == initial(layer))
 		layer = 5
@@ -44,13 +45,13 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
-/obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
+/obj/item/bedsheet/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
 		transfer_fingerprints_to(C)
 		C.add_fingerprint(user)
-		qdel(src)
 		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
+		qdel(src)
 	else
 		return ..()
 
@@ -93,7 +94,7 @@ LINEN BINS
 
 /obj/item/bedsheet/rainbow
 	name = "rainbow bedsheet"
-	desc = "A multi_colored blanket.  It's actually several different sheets cut up and sewn together."
+	desc = "A multi_colored blanket. It's actually several different sheets cut up and sewn together."
 	icon_state = "sheetrainbow"
 	item_state = "bedsheetrainbow"
 	item_color = "rainbow"
@@ -123,7 +124,7 @@ LINEN BINS
 
 /obj/item/bedsheet/mime
 	name = "mime's blanket"
-	desc = "A very soothing striped blanket.  All the noise just seems to fade out when you're under the covers in this."
+	desc = "A very soothing striped blanket. All the noise just seems to fade out when you're under the covers in this."
 	icon_state = "sheetmime"
 	item_state = "bedsheetmime"
 	item_color = "mime"
@@ -132,7 +133,7 @@ LINEN BINS
 
 /obj/item/bedsheet/clown
 	name = "clown's blanket"
-	desc = "A rainbow blanket with a clown mask woven in.  It smells faintly of bananas."
+	desc = "A rainbow blanket with a clown mask woven in. It smells faintly of bananas."
 	icon_state = "sheetclown"
 	item_state = "bedsheetclown"
 	item_color = "clown"
@@ -164,7 +165,7 @@ LINEN BINS
 
 /obj/item/bedsheet/medical
 	name = "medical blanket"
-	desc = "It's a sterilized* blanket commonly used in the Medbay.  *Sterilization is voided if a virologist is present onboard the station."
+	desc = "It's a sterilized* blanket commonly used in the Medbay. *Sterilization is voided if a virologist is present onboard the station."
 	icon_state = "sheetmedical"
 	item_state = "bedsheetmedical"
 	item_color = "medical"
@@ -173,7 +174,7 @@ LINEN BINS
 
 /obj/item/bedsheet/cmo
 	name = "chief medical officer's bedsheet"
-	desc = "It's a sterilized blanket that has a cross emblem.  There's some cat fur on it, likely from Runtime."
+	desc = "It's a sterilized blanket that has a cross emblem. There's some cat fur on it, likely from Runtime."
 	icon_state = "sheetcmo"
 	item_state = "bedsheetcmo"
 	item_color = "cmo"
@@ -182,7 +183,7 @@ LINEN BINS
 
 /obj/item/bedsheet/hos
 	name = "head of security's bedsheet"
-	desc = "It is decorated with a shield emblem.  While crime doesn't sleep, you do, but you are still THE LAW!"
+	desc = "It is decorated with a shield emblem. While crime doesn't sleep, you do, but you are still THE LAW!"
 	icon_state = "sheethos"
 	item_state = "bedsheethos"
 	item_color = "hosred"
@@ -191,7 +192,7 @@ LINEN BINS
 
 /obj/item/bedsheet/hop
 	name = "head of personnel's bedsheet"
-	desc = "It is decorated with a key emblem.  For those rare moments when you can rest and cuddle with Ian without someone screaming for you over the radio."
+	desc = "It is decorated with a key emblem. For those rare moments when you can rest and cuddle with Ian without someone screaming for you over the radio."
 	icon_state = "sheethop"
 	item_state = "bedsheethop"
 	item_color = "hop"
@@ -200,7 +201,7 @@ LINEN BINS
 
 /obj/item/bedsheet/ce
 	name = "chief engineer's bedsheet"
-	desc = "It is decorated with a wrench emblem.  It's highly reflective and stain resistant, so you don't need to worry about ruining it with oil."
+	desc = "It is decorated with a wrench emblem. It's highly reflective and stain resistant, so you don't need to worry about ruining it with oil."
 	icon_state = "sheetce"
 	item_state = "bedsheetce"
 	item_color = "chief"
@@ -209,7 +210,7 @@ LINEN BINS
 
 /obj/item/bedsheet/qm
 	name = "quartermaster's bedsheet"
-	desc = "It is decorated with a crate emblem in silver lining.  It's rather tough, and just the thing to lie on after a hard day of pushing paper."
+	desc = "It is decorated with a crate emblem in silver lining. It's rather tough, and just the thing to lie on after a hard day of pushing paper."
 	icon_state = "sheetqm"
 	item_state = "bedsheetqm"
 	item_color = "qm"
@@ -243,16 +244,25 @@ LINEN BINS
 
 /obj/item/bedsheet/cult
 	name = "cultist's bedsheet"
-	desc = "You might dream of Nar'Sie if you sleep with this.  It seems rather tattered and glows of an eldritch presence."
+	desc = "You might dream of Nar'Sie if you sleep with this. It seems rather tattered and glows of an eldritch presence."
 	icon_state = "sheetcult"
 	item_state = "bedsheetcult"
 	item_color = "cult"
 	dream_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 	nightmare_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 
+/obj/item/bedsheet/clockwork
+	name = "Ratvarian bedsheet"
+	desc = "You might dream of Ratvar if you sleep with this. The fabric has threads of brass sewn into it which eminate a pleasent warmth."
+	icon_state = "sheetclockwork"
+	item_state = "bedsheetclockwork"
+	item_color = "brass"
+	dream_messages = list("tick, tock, tick, tock, tick, tock, tick, tock", "a great shining city of brass", "men in radiant suits of brass", "a perfect blueprint of the world", "a glowing cogwheel", "a massive humanoid figure")
+	nightmare_messages = list("<span_class = userdanger>\"the Nar'Sian dogs shall be CRUSHED!\"</span>", "the unenlightened, ready to hear His word", "a half-buried brass titan", "two massive humanoid figures attacking each other")
+
 /obj/item/bedsheet/wiz
 	name = "wizard's bedsheet"
-	desc = "A special fabric enchanted with magic so you can have an enchanted night.  It even glows!"
+	desc = "A special fabric enchanted with magic so you can have an enchanted night. It even glows!"
 	icon_state = "sheetwiz"
 	item_state = "bedsheetwiz"
 	item_color = "wiz"
@@ -316,7 +326,7 @@ LINEN BINS
 		default_unfasten_wrench(user, I, time = 20)
 		return TRUE
 
-/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
+/obj/structure/bedsheetbin/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
 		if(!user.drop_item())
 			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")

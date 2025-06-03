@@ -32,7 +32,7 @@
 			to_chat(user, "<span class='warning'>You restore the safeties on [src]</span>")
 		return TRUE
 
-/obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
+/obj/item/handheld_defibrillator/attack__legacy__attackchain(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
 		return ..()
 

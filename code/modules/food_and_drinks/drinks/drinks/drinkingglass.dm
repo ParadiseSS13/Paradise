@@ -15,19 +15,17 @@
 	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
 
-/obj/item/reagent_containers/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food/egg)) //breaking eggs
-		var/obj/item/food/egg/E = I
+/obj/item/reagent_containers/drinks/drinkingglass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food/egg)) //breaking eggs
+		var/obj/item/food/egg/egg = used
 		if(reagents)
 			if(reagents.total_volume >= reagents.maximum_volume)
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
 			else
-				to_chat(user, "<span class='notice'>You break [E] in [src].</span>")
-				E.reagents.trans_to(src, E.reagents.total_volume)
-				qdel(E)
-			return
-	else
-		..()
+				to_chat(user, "<span class='notice'>You break [egg] in [src].</span>")
+				egg.reagents.trans_to(src, egg.reagents.total_volume)
+				qdel(egg)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_containers/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!reagents.total_volume)
@@ -52,8 +50,8 @@
 			overlays += I
 	else
 		icon_state = "glass_empty"
-		name = "glass"
-		desc = "Your standard drinking glass."
+		name = initial(name)
+		desc = initial(desc)
 
 // for /obj/machinery/economy/vending/sovietsoda
 /obj/item/reagent_containers/drinks/drinkingglass/soda
@@ -68,3 +66,9 @@
 
 /obj/item/reagent_containers/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
+
+/obj/item/reagent_containers/drinks/drinkingglass/syndicate_bomb
+	list_reagents = list("syndicatebomb" = 50)
+
+/obj/item/reagent_containers/drinks/drinkingglass/jungle_vox
+	list_reagents = list("junglevox" = 50)

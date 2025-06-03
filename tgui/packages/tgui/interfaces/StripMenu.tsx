@@ -95,7 +95,7 @@ const SLOTS: Record<
 > = {
   eyes: {
     displayName: 'eyewear',
-    gridSpot: getGridSpotKey([1, 0]),
+    gridSpot: getGridSpotKey([0, 0]),
     image: 'inventory-glasses.png',
   },
 
@@ -109,6 +109,12 @@ const SLOTS: Record<
     displayName: 'mask',
     gridSpot: getGridSpotKey([1, 1]),
     image: 'inventory-mask.png',
+  },
+
+  neck: {
+    displayName: 'neck',
+    gridSpot: getGridSpotKey([1, 0]),
+    image: 'inventory-neck.png',
   },
 
   pet_collar: {
@@ -237,7 +243,7 @@ const ALTERNATIVE_SLOTS: Record<
 > = {
   eyes: {
     displayName: 'eyewear',
-    gridSpot: getGridSpotKey([1, 0]),
+    gridSpot: getGridSpotKey([0, 0]),
     image: 'inventory-glasses.png',
   },
 
@@ -251,6 +257,12 @@ const ALTERNATIVE_SLOTS: Record<
     displayName: 'mask',
     gridSpot: getGridSpotKey([1, 1]),
     image: 'inventory-mask.png',
+  },
+
+  neck: {
+    displayName: 'neck',
+    gridSpot: getGridSpotKey([1, 0]),
+    image: 'inventory-neck.png',
   },
 
   pet_collar: {
@@ -423,21 +435,25 @@ export const StripMenu = (props, context) => {
     }
   }
 
+  const get_button_transparency = (item) => {
+    if (item?.cantstrip) {
+      return false;
+    }
+    if (item?.interacting) {
+      return false;
+    }
+    return true;
+  };
+
   const get_button_color = (item) => {
-    if (!item) {
-      return 'translucent';
-    }
-    if (item.cantstrip) {
-      return 'transparent';
-    }
-    if (item.interacting) {
+    if (item?.interacting) {
       return 'average';
     }
-    return 'translucent';
+    return null;
   };
 
   const disable_background_hover = (item) => {
-    if (item && item.cantstrip) {
+    if (item?.cantstrip) {
       return 'transparent';
     }
     return 'none';
@@ -546,6 +562,7 @@ export const StripMenu = (props, context) => {
                             });
                           }}
                           fluid
+                          translucent={get_button_transparency(item)}
                           color={get_button_color(item)}
                           tooltip={tooltip}
                           style={{

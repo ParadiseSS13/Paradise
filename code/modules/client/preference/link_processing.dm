@@ -85,34 +85,6 @@
 			active_character.gen_record = genmsg
 			active_character.SetRecords(user)
 
-	if(href_list["preference"] == "gear")
-		if(href_list["toggle_gear"])
-			var/datum/gear/TG = GLOB.gear_datums[text2path(href_list["toggle_gear"])]
-			if(TG && (TG.type in active_character.loadout_gear))
-				active_character.loadout_gear -= TG.type
-			else
-				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
-					return
-				build_loadout(TG)
-
-		else if(href_list["gear"] && href_list["tweak"]) // NYI
-			var/datum/gear/gear = GLOB.gear_datums[text2path(href_list["gear"])]
-			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
-			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
-				return
-			var/metadata = tweak.get_metadata(user, active_character.get_tweak_metadata(gear, tweak))
-			if(!metadata)
-				return
-			active_character.set_tweak_metadata(gear, tweak, metadata)
-		else if(href_list["select_category"])
-			gear_tab = href_list["select_category"]
-		else if(href_list["clear_loadout"])
-			active_character.loadout_gear.Cut()
-
-		ShowChoices(user)
-		return
-
 	switch(href_list["task"])
 		if("random")
 			var/datum/robolimb/robohead
@@ -322,24 +294,23 @@
 					active_character.metadata = new_metadata
 
 				if("b_type")
-					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type", "Character Preference", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
+					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type", "Character Preference", list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
 					if(!new_b_type)
 						return
 					active_character.b_type = new_b_type
 
 				if("hair")
 					if(!(S.bodyflags & BALD))
-						var/input = "Choose your character's hair colour:"
-						var/new_hair = input(user, input, "Character Preference", active_character.h_colour) as color|null
-						if(new_hair)
+						var/new_hair = tgui_input_color(user, "Choose your character's hair color.", "Character Preference", active_character.h_colour)
+						if(!isnull(new_hair))
 							active_character.h_colour = new_hair
 
 				if("secondary_hair")
 					if(!(S.bodyflags & BALD))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[active_character.h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", active_character.h_sec_colour) as color|null
-							if(new_hair)
+							var/new_hair = tgui_input_color(user, "Choose your character's secondary hair color.", "Character Preference", active_character.h_sec_colour)
+							if(!isnull(new_hair))
 								active_character.h_sec_colour = new_hair
 
 				if("h_style")
@@ -387,9 +358,10 @@
 						active_character.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
 
 				if("h_grad_colour")
-					var/result = input(user, "Choose your character's hair gradient colour:", "Character Preference", active_character.h_grad_colour) as color|null
-					if(result)
-						active_character.h_grad_colour = result
+					var/result = tgui_input_color(user, "Choose your character's hair gradient color:", "Character Preference", active_character.h_grad_colour)
+					if(isnull(result))
+						return
+					active_character.h_grad_colour = result
 
 				if("h_grad_alpha")
 					var/result = tgui_input_number(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", active_character.h_grad_alpha, 255)
@@ -398,16 +370,17 @@
 					active_character.h_grad_alpha = clamp(result, 0, 255)
 
 				if("runechat_color")
-					var/result = input(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color) as color|null
-					if(result)
-						active_character.runechat_color = result
+					var/result = tgui_input_color(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color)
+					if(isnull(result))
+						return
+					active_character.runechat_color = result
 
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
-						var/input = "Choose the colour of your your character's head accessory:"
-						var/new_head_accessory = input(user, input, "Character Preference", active_character.hacc_colour) as color|null
-						if(new_head_accessory)
-							active_character.hacc_colour = new_head_accessory
+						var/new_head_accessory = tgui_input_color(user, "Choose the color of your your character's head accessory.", "Character Preference", active_character.hacc_colour)
+						if(isnull(new_head_accessory))
+							return
+						active_character.hacc_colour = new_head_accessory
 
 				if("ha_style")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
@@ -476,16 +449,19 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
+						if(!length(valid_markings)) // Some IPC head models do have head markings, some don't; This is here to prevent us from attempting to open an empty TGUI list
+							tgui_alert(user, "No head markings available for this head!", "Character Preference")
+							return
 						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's head markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["head"] = new_marking_style
 
 				if("m_head_colour")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-						var/input = "Choose the colour of your your character's head markings:"
-						var/new_markings = input(user, input, "Character Preference", active_character.m_colours["head"]) as color|null
-						if(new_markings)
-							active_character.m_colours["head"] = new_markings
+						var/new_markings = tgui_input_color(user, "Choose the color of your your character's head markings.", "Character Preference", active_character.m_colours["head"])
+						if(isnull(new_markings))
+							return
+						active_character.m_colours["head"] = new_markings
 
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
@@ -505,10 +481,10 @@
 
 				if("m_body_colour")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-						var/input = "Choose the colour of your your character's body markings:"
-						var/new_markings = input(user, input, "Character Preference", active_character.m_colours["body"]) as color|null
-						if(new_markings)
-							active_character.m_colours["body"] = new_markings
+						var/new_markings = tgui_input_color(user, "Choose the color of your your character's body markings.", "Character Preference", active_character.m_colours["body"])
+						if(isnull(new_markings))
+							return
+						active_character.m_colours["body"] = new_markings
 
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
@@ -534,10 +510,10 @@
 
 				if("m_tail_colour")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-						var/input = "Choose the colour of your your character's tail markings:"
-						var/new_markings = input(user, input, "Character Preference", active_character.m_colours["tail"]) as color|null
-						if(new_markings)
-							active_character.m_colours["tail"] = new_markings
+						var/new_markings = tgui_input_color(user, "Choose the color of your your character's tail markings.", "Character Preference", active_character.m_colours["tail"])
+						if(isnull(new_markings))
+							return
+						active_character.m_colours["tail"] = new_markings
 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
@@ -562,17 +538,19 @@
 
 				if("facial")
 					if(!(S.bodyflags & SHAVED))
-						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", active_character.f_colour) as color|null
-						if(new_facial)
-							active_character.f_colour = new_facial
+						var/new_facial = tgui_input_color(user, "Choose your character's facial-hair color:", "Character Preference", active_character.f_colour)
+						if(isnull(new_facial))
+							return
+						active_character.f_colour = new_facial
 
 				if("secondary_facial")
 					if(!(S.bodyflags & SHAVED))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[active_character.f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", active_character.f_sec_colour) as color|null
-							if(new_facial)
-								active_character.f_sec_colour = new_facial
+							var/new_facial = tgui_input_color(user, "Choose your character's secondary facial-hair color:", "Character Preference", active_character.f_sec_colour)
+							if(isnull(new_facial))
+								return
+							active_character.f_sec_colour = new_facial
 
 				if("f_style")
 					var/list/valid_facial_hairstyles = list()
@@ -655,39 +633,47 @@
 						active_character.socks = new_socks
 
 				if("eyes")
-					var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference", active_character.e_colour) as color|null
-					if(new_eyes)
-						active_character.e_colour = new_eyes
+					var/new_eyes = tgui_input_color(user, "Choose your character's eye color:", "Character Preference", active_character.e_colour)
+					if(isnull(new_eyes))
+						return
+					active_character.e_colour = new_eyes
 
 				if("s_tone")
 					if(S.bodyflags & HAS_SKIN_TONE)
 						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
-						if(!new_s_tone)
+						if(isnull(new_s_tone))
 							return
 						active_character.s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 						var/const/MAX_LINE_ENTRIES = 4
 						var/prompt = "Choose your character's skin tone: 1-[length(S.icon_skin_tones)]\n(Light to Dark)"
 						var/skin_c = tgui_input_number(user, prompt, "Character Preference", active_character.s_tone, length(S.icon_skin_tones), 1)
-						if(!skin_c)
+						if(isnull(skin_c))
 							return
 						active_character.s_tone = skin_c
 
 				if("skin")
 					if((S.bodyflags & HAS_SKIN_COLOR) || GLOB.body_accessory_by_species[active_character.species] || check_rights(R_ADMIN, 0, user))
-						var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference", active_character.s_colour) as color|null
-						if(new_skin)
-							active_character.s_colour = new_skin
+						var/new_skin = tgui_input_color(user, "Choose your character's skin color: ", "Character Preference", active_character.s_colour)
+						if(isnull(new_skin))
+							return
+						active_character.s_colour = new_skin
 
 				if("ooccolor")
-					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference", ooccolor) as color|null
-					if(new_ooccolor)
-						ooccolor = new_ooccolor
+					var/new_ooccolor = tgui_input_color(user, "Choose your OOC color:", "Game Preference", ooccolor)
+					if(isnull(new_ooccolor))
+						return
+					ooccolor = new_ooccolor
 
 				if("bag")
 					var/new_backbag = tgui_input_list(user, "Choose your character's style of bag", "Character Preference", GLOB.backbaglist)
 					if(new_backbag)
 						active_character.backbag = new_backbag
+
+				if("loadout")
+					var/datum/ui_module/loadout/loadout = new()
+					loadout.ui_interact(user)
+					return FALSE
 
 				if("nt_relation")
 					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed"))
@@ -867,6 +853,13 @@
 					if(!(brain_type in GLOB.borg_brain_choices))
 						return
 					active_character.cyborg_brain_type = brain_type
+				if("pda_ringtone")
+					var/ringtone = tgui_input_list(user, "What type of ringtone would you like to have on your PDA?", "PDA Ringtones", list("Reset Default Ringtone") + GLOB.pda_ringtone_choices, active_character.pda_ringtone)
+					if(!(ringtone in GLOB.pda_ringtone_choices))
+						if(ringtone == "Reset Default Ringtone")
+							active_character.pda_ringtone = null
+						return
+					active_character.pda_ringtone = ringtone
 				if("clientfps")
 					var/version_message
 					if(user.client && user.client.byond_version < 511)
@@ -938,7 +931,20 @@
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
+				if("map_pick")
+					var/list/potential_maps = list()
+					for(var/x in subtypesof(/datum/map))
+						var/datum/map/M = x
+						if(!initial(M.voteable))
+							continue
+						potential_maps += M
 
+					var/list/output = tgui_input_ranked_list(usr, "Pick a map, in order of most wanted to least. This will go on until there are no more maps left.", "Maps", potential_maps)
+					if(!length(output))
+						return
+					map_vote_pref_json = list() //Clear it out
+					for(var/index in 1 to length(output)) //This is an associated list to make blackbox tracking easier
+						map_vote_pref_json[output[index]] = index
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
@@ -1001,19 +1007,21 @@
 						var/list/actualview = getviewsize(parent.view)
 						parent.void.UpdateGreed(actualview[1],actualview[2])
 
+					parent.fit_viewport()
 					parent.debug_text_overlay?.update_view(parent)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
-						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
+						to_chat(user, "<span class='notice'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
 								Then after [GLOB.configuration.afk.auto_despawn_minutes] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
 					else
-						to_chat(user, "<span class='info'>Automatic cryoing turned off.</span>")
+						to_chat(user, "<span class='notice'>Automatic cryoing turned off.</span>")
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
-					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
-					if(!UI_style_color_new) return
+					var/UI_style_color_new = tgui_input_color(user, "Choose your UI color, dark colors are not recommended!", "Game Preference", UI_style_color)
+					if(isnull(UI_style_color_new))
+						return
 					UI_style_color = UI_style_color_new
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
@@ -1036,6 +1044,12 @@
 						var/atom/movable/screen/plane_master/point/PM = locate(/atom/movable/screen/plane_master/point) in parent.screen
 						PM.backdrop(parent.mob)
 
+				if("cogbar")
+					toggles3 ^= PREFTOGGLE_3_COGBAR_ANIMATIONS
+					if(length(parent?.screen))
+						var/atom/movable/screen/plane_master/cogbar/PM = locate(/atom/movable/screen/plane_master/cogbar) in parent.screen
+						PM.backdrop(parent.mob)
+
 				if("be_special")
 					var/r = href_list["role"]
 					if(r in GLOB.special_roles)
@@ -1052,6 +1066,9 @@
 
 				if("hear_midis")
 					sound ^= SOUND_MIDI
+
+				if("mute_end_of_round")
+					sound ^= SOUND_MUTE_END_OF_ROUND
 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY
@@ -1145,9 +1162,10 @@
 					screentip_mode = desired_screentip_mode
 
 				if("screentip_color")
-					var/screentip_color_new = input(user, "Choose your screentip color", screentip_color) as color|null
-					if(screentip_color_new)
-						screentip_color = screentip_color_new
+					var/screentip_color_new = tgui_input_color(user, "Choose your screentip color", "Game Preference", screentip_color)
+					if(isnull(screentip_color_new))
+						return
+					screentip_color = screentip_color_new
 
 				if("edit_2fa")
 					// Do this async so we arent holding up a topic() call

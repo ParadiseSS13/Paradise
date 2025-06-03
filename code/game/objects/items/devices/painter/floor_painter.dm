@@ -4,12 +4,13 @@
 	module_name = "floor painter"
 	module_state = "floor_painter"
 
-	var/floor_icon
+	var/floor_icon = 'icons/turf/floors.dmi'
 	var/floor_state = "floor"
 	var/floor_dir = SOUTH
+	var/wide_mode = FALSE
 
 	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "bcircuit", "black", "blackcorner", "blue", "bluecorner",
-		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "browncornerold", "cafeteria", "caution",
+		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "browncornerold", "brownfull", "cafeteria", "caution",
 		"cautioncorner", "cautionfull", "chapel", "cmo", "dark", "delivery", "escape", "escapecorner", "floor", "floorgrime", "freezerfloor", "gcircuit",
 		"green", "greenblue", "greenbluefull", "greencorner", "greenfull", "greenyellow", "greenyellowfull", "grimy", "hydrofloor", "loadingarea", "neutral",
 		"neutralcorner", "neutralfull", "orange", "orangecorner", "orangefull", "purple", "purplecorner", "purplefull", "rcircuit", "rampbottom", "ramptop", "red",
@@ -21,36 +22,27 @@
 		"darkred", "darkredcorners", "darkredfull", "darkblue", "darkbluecorners", "darkbluefull", "darkgreen", "darkgreencorners",
 		"darkgreenfull", "darkyellow", "darkyellowcorners", "darkyellowfull", "darkbrown", "darkbrowncorners", "darkbrownfull")
 
-	// This is a double-list. First entry is the type key, second is the direction, with the final value being the b64 of the icon
-	var/static/list/lookup_cache = list()
-
-/datum/painter/floor/New(obj/item/painter/parent_painter)
-	. = ..()
-	if(!length(lookup_cache))
-		for(var/style in allowed_states)
-			if(!(style in lookup_cache))
-				lookup_cache += style
-				lookup_cache[style] = list()
-
-			for(var/dir in GLOB.alldirs)
-				var/icon/floor_icon = icon('icons/turf/floors.dmi', style, dir)
-				// These indexes have to be strings otherwise it treats it as a list index not a map lookup index
-				lookup_cache[style] += "[dir]"
-				lookup_cache[style]["[dir]"] = icon2base64(floor_icon)
-
 /datum/painter/floor/paint_atom(atom/target, mob/user)
 	if(!istype(target, /turf/simulated/floor/plasteel))
 		to_chat(user, "<span class='warning'>[holder] can only be used on station flooring.</span>")
 		return
 	var/turf/simulated/floor/plasteel/F = target
 
-	if(F.icon_state == floor_state && F.dir == floor_dir)
+	if(!wide_mode && F.icon_state == floor_state && F.dir == floor_dir)
 		to_chat(user, "<span class='notice'>This is already painted [floor_state] [dir2text(floor_dir)]!</span>")
 		return
 
 	F.icon_state = floor_state
 	F.icon_regular_floor = floor_state
 	F.dir = floor_dir
+
+	if(wide_mode)
+		var/turf/simulated/floor/plasteel/tileList = F.AdjacentTurfs(TRUE, FALSE, FALSE)
+		for(var/turf/simulated/floor/plasteel/T in tileList)
+			T.icon_state = floor_state
+			T.icon_regular_floor = floor_state
+			T.dir = floor_dir
+
 	return TRUE
 
 /datum/painter/floor/pick_color(mob/user)
@@ -65,31 +57,21 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FloorPainter", module_name)
-		// Disable automatic updates, because:
-		// 1) we are the only user of the item, and don't expect to observe external changes
-		// 2) generating and sending the icon each tick is a bit expensive, and creates small but noticeable lag
+		// Disable automatic updates, because we are the only user of the item, and don't expect to observe external changes
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /datum/painter/floor/ui_data(mob/user)
 	var/list/data = list()
-	data["availableStyles"] = allowed_states
 	data["selectedStyle"] = floor_state
-	data["selectedDir"] = dir2text(floor_dir)
-
-	data["directionsPreview"] = list()
-	for(var/dir in GLOB.alldirs)
-		data["directionsPreview"][dir2text(dir)] = lookup_cache[floor_state]["[dir]"]
-
+	data["selectedDir"] = floor_dir
+	data["wideMode"] = wide_mode
 	return data
-
 
 /datum/painter/floor/ui_static_data(mob/user)
 	var/list/data = list()
-	data["allStylesPreview"] = list()
-	for(var/style in allowed_states)
-		data["allStylesPreview"][style] = lookup_cache[style]["[SOUTH]"]
-
+	data["icon"] = floor_icon
+	data["availableStyles"] = allowed_states
 	return data
 
 /datum/painter/floor/ui_act(action, params)
@@ -111,8 +93,11 @@
 		floor_state = allowed_states[index]
 
 	if(action == "select_direction")
-		var/dir = text2dir(params["direction"])
+		var/dir = params["direction"]
 		if(dir != 0)
 			floor_dir = dir
+
+	if(action == "wide_mode")
+		wide_mode = !wide_mode
 
 	return TRUE

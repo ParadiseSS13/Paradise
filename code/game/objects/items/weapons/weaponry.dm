@@ -2,11 +2,11 @@
   * # Banhammer
   */
 /obj/item/banhammer
-	desc = "A banhammer"
 	name = "banhammer"
+	desc = "A banhammer."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
@@ -20,7 +20,7 @@
 	visible_message("<span class='suicide'>[user] is hitting [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to ban [user.p_themselves()] from life.</span>")
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
-/obj/item/banhammer/attack(mob/M, mob/user)
+/obj/item/banhammer/attack__legacy__attackchain(mob/M, mob/user)
 	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
 	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
@@ -32,7 +32,7 @@
 	icon_state = "sord"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -54,7 +54,7 @@
 	item_state = "claymore"
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 40
 	throwforce = 10
 	sharp = TRUE
@@ -86,7 +86,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 40
 	throwforce = 10
@@ -134,7 +134,7 @@
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
-/obj/item/wirerod/attackby(obj/item/I, mob/user, params)
+/obj/item/wirerod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/shard))
 		var/obj/item/spear/S = new /obj/item/spear
@@ -142,8 +142,8 @@
 			S.add_plasmaglass()
 			S.update_icon()
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
-		user.unEquip(I)
+			user.unequip(src)
+		user.unequip(I)
 
 		user.put_in_hands(S)
 		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
@@ -154,8 +154,8 @@
 		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
 
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
-		user.unEquip(I)
+			user.unequip(src)
+		user.unequip(I)
 
 		user.put_in_hands(P)
 		to_chat(user, "<span class='notice'>You fasten [I] to the top of the rod with the cable.</span>")
@@ -164,7 +164,7 @@
 
 /obj/item/throwing_star
 	name = "throwing star"
-	desc = "An ancient weapon still used to this day due to it's ease of lodging itself into victim's body parts"
+	desc = "An ancient weapon still used to this day due to it's ease of lodging itself into victim's body parts."
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "throwingstar"
 	item_state = "eshield0"
@@ -242,7 +242,7 @@
 					lastdeflect = world.time + 3000
 				return TRUE
 
-/obj/item/melee/baseball_bat/attack_self(mob/user)
+/obj/item/melee/baseball_bat/attack_self__legacy__attackchain(mob/user)
 	if(!homerun_able)
 		if(!deflectmode && world.time >= lastdeflect)
 			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
@@ -258,21 +258,21 @@
 		return ..()
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
-	if(do_after(user, 90, target = user))
+	if(do_after(user, 9 SECONDS, target = user, hidden = TRUE))
 		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
 		homerun_ready = 1
 	..()
 
-/obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
+/obj/item/melee/baseball_bat/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(deflectmode)
-		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
+		to_chat(user, "<span class='userdanger'>You cannot attack in deflect mode!</span>")
 		return
 	. = ..()
 	if(homerun_ready)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		user.visible_message("<span class='userdanger'>It's a home run!</span>")
 		target.throw_at(throw_target, rand(8,10), 14, user)
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
@@ -300,6 +300,10 @@
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, rand(1, 2), 7, user)
 	next_throw_time = world.time + 10 SECONDS
+
+/obj/item/melee/baseball_bat/dropped(mob/user, silent)
+	. = ..()
+	deflectmode = FALSE
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"

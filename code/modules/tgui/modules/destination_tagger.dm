@@ -41,8 +41,8 @@
 		playsound(host, 'sound/machines/terminal_select.ogg', 15, TRUE)
 		. = TRUE
 		// Handle setting tags (and flushing for drones)
-		if(istype(host, /obj/item/destTagger))
-			var/obj/item/destTagger/O = host
+		if(istype(host, /obj/item/dest_tagger))
+			var/obj/item/dest_tagger/O = host
 			O.currTag = my_tag
 		else if(isrobot(host))
 			var/mob/living/silicon/robot/R = host

@@ -7,12 +7,20 @@
 		down to the exact coordinates. This information is fed to a central database viewable from the device itself, \
 		though using it to help people is up to you."
 	icon_state = "gps"
-	module_type = MODULE_ACTIVE
+	module_type = MODULE_USABLE
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	incompatible_modules = list(/obj/item/mod/module/gps)
 	cooldown_time = 0.5 SECONDS
-	device = /obj/item/gps/mod
+	allow_flags = MODULE_ALLOW_INACTIVE
+	var/obj/item/gps/mod/gps
+
+/obj/item/mod/module/gps/Initialize(mapload)
+	. = ..()
+	gps = new(src)
+
+/obj/item/mod/module/gps/on_use()
+	gps.attack_self__legacy__attackchain(mod.wearer)
 
 ///Hydraulic Clamp - Lets you pick up and drop crates.
 /obj/item/mod/module/clamp
@@ -320,8 +328,10 @@
 		keep_turfs = typecacheof(list(
 			/turf/simulated/floor/lava,
 			/turf/simulated/floor/indestructible/hierophant,
-			/turf/simulated/floor/indestructible/necropolis
-			))
+			/turf/simulated/floor/indestructible/necropolis,
+			/turf/simulated/floor/indestructible/boss,
+			/turf/simulated/floor/vault/lavaland_air,
+		))
 
 /obj/item/mod/module/ash_accretion/Destroy()
 	QDEL_NULL(armor_mod_2)
@@ -497,6 +507,11 @@
 	light_color = LIGHT_COLOR_ORANGE
 	ammo_type = /obj/structure/mining_bomb
 
+/obj/item/projectile/bullet/reusable/mining_bomb/handle_drop()
+	if(!dropped)
+		new ammo_type(loc, firer)
+		dropped = TRUE
+
 /obj/structure/mining_bomb
 	name = "mining bomb"
 	desc = "A bomb. Why are you staring at this?"
@@ -545,7 +560,7 @@
 			mineral_turf.gets_drilled(firer)
 	for(var/mob/living/mob in range(power, src))
 		mob.apply_damage(damage * (ishostile(mob) ? fauna_boost : 1), BRUTE, spread_damage = TRUE)
-		if(!ishostile(mob) || !firer)
+		if(!ishostile(mob) || !firer || mob.stat != CONSCIOUS)
 			continue
 		var/mob/living/simple_animal/hostile/hostile_mob = mob
 		hostile_mob.GiveTarget(firer)

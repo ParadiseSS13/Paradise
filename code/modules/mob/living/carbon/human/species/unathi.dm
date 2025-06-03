@@ -34,6 +34,8 @@
 	//Default styles for created mobs.
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
+	male_scream_sound = 'sound/effects/unathiscream.ogg' // credits to skyrat [https://github.com/Skyrat-SS13/Skyrat-tg/pull/892]
+	female_scream_sound = 'sound/effects/unathiscream.ogg'
 	butt_sprite = "unathi"
 
 	has_organ = list(
@@ -62,6 +64,8 @@
 		)
 	autohiss_exempt = list("Sinta'unathi")
 
+	plushie_type = /obj/item/toy/plushie/lizardplushie
+
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/unathi_ignite/fire = new()
@@ -88,9 +92,11 @@
 		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
 		return
 	if(!welding_fuel_used || user.reagents.has_reagent("fuel", welding_fuel_used))
-		if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
-			to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
-			return
+		if(ismask(user.wear_mask))
+			var/obj/item/clothing/mask/worn_mask = user.wear_mask
+			if((user.head?.flags_cover & HEADCOVERSMOUTH) || (worn_mask.flags_cover & MASKCOVERSMOUTH) && !worn_mask.up)
+				to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
+				return
 		var/obj/item/match/unathi/fire = new(user.loc, src)
 		if(user.put_in_hands(fire))
 			to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
@@ -121,15 +127,16 @@
 	species_traits = list(LIPS, NOT_SELECTABLE)
 	inherent_traits = list(TRAIT_CHUNKYFINGERS)
 
-	has_organ = list( // same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.
-		"heart" =    /obj/item/organ/internal/heart/unathi,
-		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
-		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
-		)
+	// same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.
+	has_organ = list(
+		"heart"		= /obj/item/organ/internal/heart/unathi,
+		"lungs"		= /obj/item/organ/internal/lungs/unathi/ash_walker,
+		"liver"		= /obj/item/organ/internal/liver/unathi,
+		"kidneys"	= /obj/item/organ/internal/kidneys/unathi,
+		"brain"		= /obj/item/organ/internal/brain/unathi,
+		"appendix"	= /obj/item/organ/internal/appendix,
+		"eyes"		= /obj/item/organ/internal/eyes/unathi
+	)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
 	..()

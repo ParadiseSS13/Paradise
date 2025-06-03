@@ -48,12 +48,12 @@
 	src.forced_surgery = forced_surgery
 
 /datum/component/surgery_initiator/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(initiate_surgery_moment))
+	RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(initiate_surgery_moment))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, PROC_REF(on_parent_sharpness_change))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE_MORE, PROC_REF(on_parent_examine_more))
 
 /datum/component/surgery_initiator/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
+	UnregisterSignal(parent, COMSIG_ATTACK)
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS)
 	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE_MORE)
 
@@ -67,12 +67,12 @@
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
 	var/obj/item/P = parent
 	if(!P.sharp)
+		UnlinkComponent()
 		RemoveComponent()
-		qdel(src)
 
 /// Does the surgery initiation.
 /datum/component/surgery_initiator/proc/initiate_surgery_moment(datum/source, atom/target, mob/user)
-	SIGNAL_HANDLER	// COMSIG_ITEM_ATTACK
+	SIGNAL_HANDLER	// COMSIG_ATTACK
 	if(!isliving(user))
 		return
 	var/mob/living/L = target

@@ -2,7 +2,7 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(flying && !floating) //TODO: Better floating
+	if(HAS_TRAIT(src, TRAIT_FLYING) && !floating) //TODO: Better floating
 		float(TRUE)
 
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
@@ -116,7 +116,8 @@
 /mob/living/proc/handle_random_events()
 	return
 
-/mob/living/proc/handle_environment(datum/gas_mixture/environment)
+/// Handle temperature/pressure differences between body and environment
+/mob/living/proc/handle_environment()
 	return
 
 /mob/living/proc/update_pulling()

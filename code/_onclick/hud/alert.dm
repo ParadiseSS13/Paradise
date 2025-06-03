@@ -100,7 +100,7 @@
 	icon = 'icons/mob/screen_alert.dmi'
 	icon_state = "default"
 	name = "Alert"
-	desc = "Something seems to have gone wrong with this alert, so report this bug please"
+	desc = "Something seems to have gone wrong with this alert, so report this bug please."
 	mouse_opacity = MOUSE_OPACITY_ICON
 	/// How long before this alert automatically clears itself (in deciseconds). If zero, remains until cleared.
 	var/timeout = 0
@@ -141,7 +141,7 @@
 		return FALSE
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
+		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='notice'>[desc]</span>")
 		return FALSE
 	if(master)
 		usr.client.Click(master, location, control, params)
@@ -502,6 +502,12 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 600
 	var/atom/target = null
 
+/atom/movable/screen/alert/programs_reset
+	name = "Programs Reset"
+	desc = "Your programs have been reset by a Program Reset Disk!"
+	icon_state = "silicon_generic_alert"
+	timeout = 30 SECONDS
+
 /atom/movable/screen/alert/hackingapc/Destroy()
 	target = null
 	return ..()
@@ -514,7 +520,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/living/silicon/ai/AI = usr
 	var/turf/T = get_turf(target)
 	if(T)
-		AI.eyeobj.setLoc(T)
+		AI.eyeobj.set_loc(T)
 
 //MECHS
 /atom/movable/screen/alert/low_mech_integrity
@@ -615,9 +621,9 @@ so as to remain in compliance with the most up-to-date laws."
 
 /atom/movable/screen/alert/ghost
 	name = "Ghost"
-	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+	desc = "Would you like to ghost?"
 	icon_state = "template"
-	timeout = 5 MINUTES // longer than any infection should be
+	timeout = 5 MINUTES
 
 /atom/movable/screen/alert/ghost/Initialize(mapload)
 	. = ..()
@@ -626,7 +632,21 @@ so as to remain in compliance with the most up-to-date laws."
 	I.plane = FLOAT_PLANE
 	overlays += I
 
+/atom/movable/screen/alert/ghost/proc/handle_ghosting(mob/living/carbon/human/target)
+	target.ghost()
+
 /atom/movable/screen/alert/ghost/Click()
+	if(!..())
+		return
+	handle_ghosting(usr)
+
+/atom/movable/screen/alert/ghost/cryo
+	desc = "Would you like to ghost? Your body will automatically be moved into cryostorage."
+
+/atom/movable/screen/alert/ghost/xeno
+	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+
+/atom/movable/screen/alert/ghost/xeno/Click()
 	if(!..())
 		return
 	var/mob/living/carbon/human/infected_user = usr

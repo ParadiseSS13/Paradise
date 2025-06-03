@@ -72,5 +72,16 @@ $RECYCLE.BIN
 # VIM swap files.
 *.swp
 
-# Rust output.
-/milla/target/*
+# Rust output and test output files.
+/rust/src/mapmanip/test/*_out.dmm
+/rust/target/*
+rustlibs_panic.txt
+
+# mkdocs output.
+site
+
+# mapmanip-generated DMM files
+_maps/map_files/**/*.mapmanipout.dmm
+
+# byond version manager tracking file
+.byondversion

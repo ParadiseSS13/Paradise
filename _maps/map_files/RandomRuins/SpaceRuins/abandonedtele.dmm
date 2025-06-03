@@ -90,6 +90,7 @@
 /area/ruin/space/abandtele)
 "w" = (
 /obj/structure/closet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "x" = (
@@ -106,6 +107,7 @@
 /obj/item/weldingtool,
 /obj/item/wrench,
 /obj/item/circuitboard/teleporter,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "z" = (
@@ -130,7 +132,9 @@ a
 a
 a
 a
-c
+a
+a
+a
 a
 a
 a
@@ -142,11 +146,13 @@ a
 (2,1,1) = {"
 a
 a
-c
+a
+a
 a
 c
 a
-c
+a
+a
 a
 a
 a
@@ -154,6 +160,23 @@ a
 a
 "}
 (3,1,1) = {"
+a
+a
+a
+c
+a
+c
+a
+c
+a
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
 a
 a
 c
@@ -166,8 +189,10 @@ a
 a
 a
 a
+a
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+a
 a
 c
 c
@@ -180,8 +205,10 @@ a
 a
 a
 a
+a
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+a
 a
 c
 b
@@ -194,8 +221,10 @@ a
 a
 a
 a
+a
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+a
 a
 b
 b
@@ -208,8 +237,10 @@ a
 a
 a
 a
+a
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+a
 b
 b
 g
@@ -222,8 +253,10 @@ b
 c
 a
 a
+a
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+a
 b
 d
 h
@@ -236,8 +269,10 @@ b
 c
 c
 a
+a
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+a
 b
 e
 h
@@ -250,8 +285,10 @@ c
 c
 a
 c
+a
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+a
 b
 f
 h
@@ -264,8 +301,10 @@ h
 a
 a
 c
+a
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+a
 b
 b
 i
@@ -278,8 +317,10 @@ B
 c
 a
 a
+a
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+a
 c
 b
 b
@@ -292,15 +333,34 @@ c
 a
 a
 a
+a
 "}
-(13,1,1) = {"
+(14,1,1) = {"
 a
 a
+a
 b
 b
 b
 b
 b
+a
+a
+a
+a
+a
+a
+"}
+(15,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
 a
 a
 a

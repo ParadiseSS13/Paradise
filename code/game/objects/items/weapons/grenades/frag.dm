@@ -13,7 +13,7 @@
 
 /obj/item/grenade/frag/prime()
 	update_mob()
-	explosion(loc, 0, 1, DEFAULT_SHRAPNEL_RANGE, breach = FALSE)
+	explosion(loc, 0, 1, DEFAULT_SHRAPNEL_RANGE, cause = name, breach = FALSE)
 	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
 	qdel(src)
 
@@ -66,11 +66,15 @@
 	w_class = WEIGHT_CLASS_SMALL
 	sharp = TRUE
 	hitsound = 'sound/weapons/pierce.ogg'
+	scatter_distance = 8
 
 /obj/item/shrapnel/Initialize(mapload)
 	. = ..()
 	icon_state = pick("shrapnel1", "shrapnel2", "shrapnel3")
-	pixel_x = rand(-8, 8)
-	pixel_y = rand(-8, 8)
+	scatter_atom()
+
+/obj/item/shrapnel/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	qdel(src)
+	return TRUE
 
 #undef DEFAULT_SHRAPNEL_RANGE

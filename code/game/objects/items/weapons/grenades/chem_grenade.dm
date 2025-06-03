@@ -32,6 +32,11 @@
 		payload_name += " " // formatting, ignore me
 	update_icon()
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
 	QDEL_LIST_CONTENTS(beakers)
@@ -89,12 +94,12 @@
 			underlays += "[O]_r"
 
 
-/obj/item/grenade/chem_grenade/attack_self(mob/user)
+/obj/item/grenade/chem_grenade/attack_self__legacy__attackchain(mob/user)
 	if(stage == READY &&  !active)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 		if(nadeassembly)
-			nadeassembly.attack_self(user)
+			nadeassembly.attack_self__legacy__attackchain(user)
 			update_icon(UPDATE_ICON_STATE)
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
@@ -114,14 +119,17 @@
 /obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/item/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
-		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
+		owner.visible_message("<span class='userdanger'>[hitby] hits [owner]'s [name], setting it off! What a shot!</span>")
 		var/turf/T = get_turf(src)
 		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
 		add_attack_logs(P.firer, owner, "A projectile ([hitby]) detonated a grenade held", ATKLOG_FEW)
 		prime()
-		return 1 //It hit the grenade, not them
+		if(!QDELETED(src)) // some grenades don't detonate but we want them destroyed, otherwise you can just hold empty grenades as shields.
+			qdel(src)
+		return TRUE
+	return ..()
 
-/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/hand_labeler))
 		var/obj/item/hand_labeler/HL = I
 		if(length(HL.label))
@@ -134,6 +142,9 @@
 				to_chat(user, "You remove the label from [src].")
 				return 1
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
+
+		if(length(beakers) == 0) 
+			container_type = TRANSPARENT // Allows to see reagents in player's made bombs
 		if(length(beakers) == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
 			return
@@ -143,6 +154,9 @@
 				user.drop_item()
 				I.forceMove(src)
 				beakers += I
+				// Saving reagents to show them via scanners
+				reagents.reagent_list.Add(I.reagents.reagent_list)
+				reagents.update_total()
 			else
 				to_chat(user, "<span class='notice'>[I] is empty.</span>")
 
@@ -243,9 +257,9 @@
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
-/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM, oldloc)
+/obj/item/grenade/chem_grenade/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.on_atom_entered(source, entered)
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	if(nadeassembly)
@@ -357,7 +371,7 @@
 	//I tried to just put it in the allowed_containers list but
 	//if you do that it must have reagents.  If you're going to
 	//make a special case you might as well do it explicitly. -Sayu
-/obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/large/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
 		to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
 		user.drop_item()
@@ -519,6 +533,8 @@
 	payload_name = "cleaner"
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = READY
+	/// The chemical used to clean things
+	var/cleaning_chem = "cleaner"
 
 /obj/item/grenade/chem_grenade/cleaner/Initialize(mapload)
 	. = ..()
@@ -526,12 +542,27 @@
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
 	B1.reagents.add_reagent("fluorosurfactant", 40)
-	B2.reagents.add_reagent("cleaner", 10)
+	B2.reagents.add_reagent(cleaning_chem, 10)
 	B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
 
 	beakers += B1
 	beakers += B2
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/grenade/chem_grenade/cleaner/everything
+	payload_name = "melter"
+	desc = "Inside of this grenade are black-market Syndicate nanites that consume everything they come in cross with. Organs, clothes, consoles, people. Nothing is safe.<br>Now with a new foaming applicator!"
+	cleaning_chem = "admincleaner_all"
+
+/obj/item/grenade/chem_grenade/cleaner/object
+	payload_name = "object dissolving"
+	desc = "Inside of this grenade are black-market Syndicate nanites that curiously only consume objects, leaving living creatures and larger machinery alone.<br>Now with a new foaming applicator!"
+	cleaning_chem = "admincleaner_item"
+
+/obj/item/grenade/chem_grenade/cleaner/organic
+	payload_name = "organic dissolving"
+	desc = "Inside of this grenade are black-market Syndicate nanites that have an appetite for living creatures and their organs, be they silicon or organic, dead or alive.<br>Now with a new foaming applicator!"
+	cleaning_chem = "admincleaner_mob"
 
 
 /obj/item/grenade/chem_grenade/teargas

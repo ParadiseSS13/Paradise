@@ -46,7 +46,7 @@
 	return ..() // previously this toggled listning when not in a holder, that's a little silly.  It was only called in attack_self that way.
 
 
-/obj/item/assembly/voice/attack_self(mob/user)
+/obj/item/assembly/voice/attack_self__legacy__attackchain(mob/user)
 	if(!user || !secured)
 		return FALSE
 
@@ -68,7 +68,7 @@
 	origin_tech = "magnets=1;engineering=1"
 	bomb_name = "noise-activated bomb"
 
-/obj/item/assembly/voice/noise/attack_self(mob/user)
+/obj/item/assembly/voice/noise/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/assembly/voice/noise/examine(mob/user)

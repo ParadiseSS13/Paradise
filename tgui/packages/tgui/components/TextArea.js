@@ -33,9 +33,6 @@ export class TextArea extends Component {
     this.handleOnChange = (e) => {
       const { editing } = this.state;
       const { onChange } = this.props;
-      if (editing) {
-        this.setEditing(false);
-      }
       if (onChange) {
         onChange(e, e.target.value);
       }

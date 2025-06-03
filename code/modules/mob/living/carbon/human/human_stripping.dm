@@ -5,6 +5,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/head,
 	/datum/strippable_item/mob_item_slot/back,
 	/datum/strippable_item/mob_item_slot/mask,
+	/datum/strippable_item/mob_item_slot/neck,
 	/datum/strippable_item/mob_item_slot/eyes,
 	/datum/strippable_item/mob_item_slot/left_ear,
 	/datum/strippable_item/mob_item_slot/right_ear,
@@ -26,11 +27,11 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/eyes
 	key = STRIPPABLE_ITEM_EYES
-	item_slot = SLOT_HUD_GLASSES
+	item_slot = ITEM_SLOT_EYES
 
 /datum/strippable_item/mob_item_slot/jumpsuit
 	key = STRIPPABLE_ITEM_JUMPSUIT
-	item_slot = SLOT_HUD_JUMPSUIT
+	item_slot = ITEM_SLOT_JUMPSUIT
 
 /datum/strippable_item/mob_item_slot/jumpsuit/get_alternate_actions(atom/source, mob/user)
 	var/list/multiple_options = list()
@@ -58,43 +59,44 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	if(!length(jumpsuit.accessories))
 		return
 	var/obj/item/clothing/accessory/A = jumpsuit.accessories[1]
-	if(!in_thief_mode(user))
+	var/thief_mode = in_thief_mode(user)
+	if(!thief_mode)
 		user.visible_message("<span class='danger'>[user] starts to take off [A] from [source]'s [jumpsuit]!</span>", \
 							"<span class='danger'>You start to take off [A] from [source]'s [jumpsuit]!</span>")
 
-	if(!do_mob(user, source, POCKET_STRIP_DELAY))
+	if(!do_mob(user, source, POCKET_STRIP_DELAY, hidden = thief_mode))
 		return
 	if(QDELETED(A) || !(A in jumpsuit.accessories))
 		return
 
-	if(!in_thief_mode(user))
+	if(!thief_mode)
 		user.visible_message("<span class='danger'>[user] takes [A] off of [source]'s [jumpsuit]!</span>", \
 							"<span class='danger'>You take [A] off of [source]'s [jumpsuit]!</span>")
 	jumpsuit.detach_accessory(A, user)
 
 /datum/strippable_item/mob_item_slot/left_ear
 	key = STRIPPABLE_ITEM_L_EAR
-	item_slot = SLOT_HUD_LEFT_EAR
+	item_slot = ITEM_SLOT_LEFT_EAR
 
 /datum/strippable_item/mob_item_slot/right_ear
 	key = STRIPPABLE_ITEM_R_EAR
-	item_slot = SLOT_HUD_RIGHT_EAR
+	item_slot = ITEM_SLOT_RIGHT_EAR
 
 /datum/strippable_item/mob_item_slot/suit
 	key = STRIPPABLE_ITEM_SUIT
-	item_slot = SLOT_HUD_OUTER_SUIT
+	item_slot = ITEM_SLOT_OUTER_SUIT
 
 /datum/strippable_item/mob_item_slot/gloves
 	key = STRIPPABLE_ITEM_GLOVES
-	item_slot = SLOT_HUD_GLOVES
+	item_slot = ITEM_SLOT_GLOVES
 
 /datum/strippable_item/mob_item_slot/feet
 	key = STRIPPABLE_ITEM_FEET
-	item_slot = SLOT_HUD_SHOES
+	item_slot = ITEM_SLOT_SHOES
 
 /datum/strippable_item/mob_item_slot/suit_storage
 	key = STRIPPABLE_ITEM_SUIT_STORAGE
-	item_slot = SLOT_HUD_SUIT_STORE
+	item_slot = ITEM_SLOT_SUIT_STORE
 
 /datum/strippable_item/mob_item_slot/suit_storage/get_alternate_actions(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
@@ -106,11 +108,11 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/id
 	key = STRIPPABLE_ITEM_ID
-	item_slot = SLOT_HUD_WEAR_ID
+	item_slot = ITEM_SLOT_ID
 
 /datum/strippable_item/mob_item_slot/pda
 	key = STRIPPABLE_ITEM_PDA
-	item_slot = SLOT_HUD_WEAR_PDA
+	item_slot = ITEM_SLOT_PDA
 
 /datum/strippable_item/mob_item_slot/pda/get_obscuring(atom/source)
 	return isnull(get_item(source)) \
@@ -119,7 +121,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/belt
 	key = STRIPPABLE_ITEM_BELT
-	item_slot = SLOT_HUD_BELT
+	item_slot = ITEM_SLOT_BELT
 
 /datum/strippable_item/mob_item_slot/belt/get_alternate_actions(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
@@ -156,9 +158,10 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	add_attack_logs(user, source, "Attempting pickpocketing of [item]")
 	item.add_fingerprint(user)
 
-	var/result = start_unequip_mob(item, source, user, POCKET_STRIP_DELAY)
+	var/thief_mode = in_thief_mode(user)
+	var/result = start_unequip_mob(item, source, user, POCKET_STRIP_DELAY, thief_mode)
 
-	if(!result && !in_thief_mode(user))
+	if(!result && !thief_mode)
 		warn_owner(source)
 
 	return result
@@ -168,12 +171,12 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/pocket/left
 	key = STRIPPABLE_ITEM_LPOCKET
-	item_slot = SLOT_HUD_LEFT_STORE
+	item_slot = ITEM_SLOT_LEFT_POCKET
 	pocket_side = "left"
 
 /datum/strippable_item/mob_item_slot/pocket/right
 	key = STRIPPABLE_ITEM_RPOCKET
-	item_slot = SLOT_HUD_RIGHT_STORE
+	item_slot = ITEM_SLOT_RIGHT_POCKET
 	pocket_side = "right"
 
 /proc/get_strippable_alternate_action_internals(obj/item/item, atom/source)

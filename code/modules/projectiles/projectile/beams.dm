@@ -52,7 +52,7 @@
 	impact_light_color_override = LIGHT_COLOR_DARKRED
 
 /obj/item/projectile/beam/laser/ai_turret/prehit(atom/target)
-	if(isAI(target))
+	if(is_ai(target))
 		damage = 0 //cheater cheater I don't want AI to die to stupid placement eater
 		nodamage = 1
 	if(isliving(target))
@@ -76,6 +76,12 @@
 	name = "laser pellet"
 	icon_state = "scatterlaser"
 	damage = 5
+
+/obj/item/projectile/beam/scatter/eshotgun
+	damage = 6
+	tile_dropoff = 0.5
+	tile_dropoff_s = 0.5
+	range = 8
 
 /obj/item/projectile/beam/xray
 	name = "xray beam"
@@ -105,12 +111,21 @@
 	armour_penetration_flat = -10
 	light_color = LIGHT_COLOR_BLUE
 
+/obj/item/projectile/beam/disabler/pellet
+	name = "split disabler beam"
+	icon_state = "scatterdisabler"
+	damage = 10
+	light_color = LIGHT_COLOR_BLUE
+	range = 8
+
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
 	damage = 50
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARKBLUE
+	/// If this shot can immediately destroy rwalls or not
+	var/weakened_against_rwalls = FALSE
 
 /obj/item/projectile/beam/pulse/hitscan
 	impact_effect_type = null
@@ -130,13 +145,16 @@
 	impact_light_color_override = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
-	if(isturf(target) || isstructure(target) || ismachinery(target))
-		target.ex_act(2)
+	if(isreinforcedwallturf(target) && weakened_against_rwalls)
+		target.ex_act(EXPLODE_LIGHT)
+	else if(isturf(target) || isstructure(target) || ismachinery(target))
+		target.ex_act(EXPLODE_HEAVY)
 	..()
 
 /obj/item/projectile/beam/pulse/shot
 	name = "proto pulse"
 	damage = 40
+	weakened_against_rwalls = TRUE
 
 /obj/item/projectile/beam/emitter
 	name = "emitter beam"

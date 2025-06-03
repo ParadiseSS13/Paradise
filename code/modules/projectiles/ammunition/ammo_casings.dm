@@ -138,7 +138,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c45/nostamina
-	projectile_type = /obj/item/projectile/bullet/midbullet3
+	projectile_type = /obj/item/projectile/bullet/weakbullet3
 
 /obj/item/ammo_casing/n762
 	name = "7.62x38mmR round"
@@ -178,14 +178,13 @@
 	variance = 25
 
 /obj/item/ammo_casing/shotgun/rubbershot
-	name = "rubber shot"
+	name = "rubbershot shell"
 	desc = "A 12 gauge shell filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "cshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
-	variance = 35
+	variance = 25
 	materials = list(MAT_METAL=4000)
-
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
@@ -253,13 +252,22 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 
+/obj/item/ammo_casing/shotgun/laserslug
+	name = "laser slug"
+	desc = "A rudimentary 12 gauge shotgun shell that replicates the effects of a laser weapon with a low-powered laser."
+	icon_state = "improvshell"
+	projectile_type = /obj/item/projectile/beam/laser
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
+
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "lasershot"
 	desc = "An advanced 12 gauge shell that uses a multitude of lenses to split a high-powered laser into eight small beams."
 	icon_state = "lshell"
 	projectile_type = /obj/item/projectile/beam/scatter
 	pellets = 8
-	variance = 35
+	variance = 25
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
@@ -283,7 +291,7 @@
 	..()
 	create_reagents(30)
 
-/obj/item/ammo_casing/shotgun/dart/attackby()
+/obj/item/ammo_casing/shotgun/dart/attackby__legacy__attackchain()
 	return
 
 /obj/item/ammo_casing/shotgun/dart/bioterror
@@ -298,7 +306,7 @@
 	reagents.add_reagent("sodium_thiopental", 6)
 
 /obj/item/ammo_casing/shotgun/tranquilizer
-	name = "tranquilizer darts"
+	name = "tranquilizer dart"
 	desc = "A 12 gauge dart shell loaded with powerful tranquilizers."
 	icon_state = "nshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
@@ -307,7 +315,7 @@
 	materials = list(MAT_METAL=250)
 
 /obj/item/ammo_casing/shotgun/holy
-	name = "holy water darts"
+	name = "holy water dart"
 	desc = "A 12 gauge dart shell loaded with holy water."
 	icon_state = "hshell"
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/holy
@@ -320,6 +328,12 @@
 	desc = "A 12 gauge shell loaded with... confetti?"
 	icon_state = "partyshell"
 	projectile_type = /obj/item/projectile/bullet/confetti
+
+/obj/item/ammo_casing/shotgun/shrapnel
+	name = "shrapnel rounds"
+	projectile_type = /obj/item/projectile/bullet/shrapnel
+	pellets = 3
+	variance = 20
 
 /obj/item/ammo_casing/a556
 	name = "5.56mm round"
@@ -406,11 +420,11 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
+/obj/item/ammo_casing/caseless/foam_dart/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
 	if((is_pen(A)) && modified && !FD.pen)
-		if(!user.unEquip(A))
+		if(!user.unequip(A)) // forceMove happens in add_pen
 			return
 		add_pen(A)
 		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
@@ -435,7 +449,7 @@
 	FD.damage = 5
 	FD.nodamage = FALSE
 
-/obj/item/ammo_casing/caseless/foam_dart/attack_self(mob/living/user)
+/obj/item/ammo_casing/caseless/foam_dart/attack_self__legacy__attackchain(mob/living/user)
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
 	if(FD.pen)
 		FD.damage = initial(FD.damage)

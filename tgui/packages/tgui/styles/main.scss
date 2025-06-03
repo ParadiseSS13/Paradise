@@ -46,9 +46,11 @@
 
 // Interfaces
 @include meta.load-css('./interfaces/AccountsUplinkTerminal.scss');
+@include meta.load-css('./interfaces/AdminAntagMenu.scss');
 @include meta.load-css('./interfaces/AlertModal.scss');
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
+@include meta.load-css('./interfaces/ColorPicker.scss');
 @include meta.load-css('./interfaces/Contractor.scss');
 @include meta.load-css('./interfaces/CrewMonitor.scss');
 @include meta.load-css('./interfaces/ExosuitFabricator.scss');
@@ -56,11 +58,13 @@
 @include meta.load-css('./interfaces/KitchenMachine.scss');
 @include meta.load-css('./interfaces/LibraryComputer.scss');
 @include meta.load-css('./interfaces/ListInput.scss');
+@include meta.load-css('./interfaces/Loadout.scss');
 @include meta.load-css('./interfaces/Newscaster.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/OreRedemption.scss');
 @include meta.load-css('./interfaces/PanDEMIC.scss');
 @include meta.load-css('./interfaces/PDA.scss');
+@include meta.load-css('./interfaces/pda_minesweeper.scss');
 @include meta.load-css('./interfaces/PdaPainter.scss');
 @include meta.load-css('./interfaces/PoolController.scss');
 @include meta.load-css('./interfaces/ReagentsEditor.scss');
@@ -81,7 +85,7 @@
 .Layout__content {
   // From 'packages/tgui/assets/bg-nanotrasen.svg', converted to base64 manually to stop webpack exploding
   background-image: url('../assets/bg-nanotrasen.svg');
-  background-size: 70%;
+  background-size: 70% 70%;
   background-position: center;
   background-repeat: no-repeat;
 }

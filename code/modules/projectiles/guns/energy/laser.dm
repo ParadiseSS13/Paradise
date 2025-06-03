@@ -109,7 +109,7 @@
 
 /obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/gun/energy/laser/captain/examine(mob/user)
 	. = ..()
@@ -166,7 +166,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	can_holster = FALSE
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
@@ -218,7 +218,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 12
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	can_holster = FALSE
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=6;magnets=6;powerstorage=4"
@@ -237,7 +237,7 @@
 
 /obj/item/gun/energy/lwap/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 3 SECONDS, flags = SCOPE_MOVEMENT_CANCELS | SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
+	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 2 SECONDS, flags = SCOPE_MOVEMENT_CANCELS | SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
 
 /obj/item/gun/energy/lwap/on_scope_success(mob/living/user)
 	to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
@@ -248,7 +248,7 @@
 	select_fire(user)
 	user.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
 
-/obj/item/gun/energy/lwap/attack_self()
+/obj/item/gun/energy/lwap/attack_self__legacy__attackchain()
 	return //no manual ammo changing.
 
 /obj/item/ammo_casing/energy/laser/sniper
@@ -258,7 +258,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	select_name = null
 	fire_sound = 'sound/weapons/marauder.ogg'
-	delay = 5 SECONDS
+	delay = 2 SECONDS
 
 /obj/item/ammo_casing/energy/laser/sniper/pierce
 	projectile_type = /obj/item/projectile/beam/laser/sniper/pierce
@@ -287,8 +287,10 @@
 /obj/item/projectile/beam/laser/sniper/pierce
 	forcedodge = 1 // Can pierce one non wall thing.
 	speed = 0.5
+	always_hit_living_nondense = TRUE //This means if you are scoped in sniping at crit xenomorphs or crit humans, you can always hit them even if you do not directly click on them
 	/// Have we hit an r_wall? If we have, don't pierce it again so we don't become too effective on reinforced locations (AI sat)
 	var/hit_a_r_wall = FALSE
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSGIRDER
 
 /obj/item/projectile/beam/laser/sniper/pierce/prehit(atom/target)
 	if(istype(target, /turf/simulated/wall/r_wall))
@@ -296,7 +298,7 @@
 			hit_a_r_wall = TRUE
 			if(!forcedodge)
 				forcedodge++
-	else if((isturf(target) || istype(target, /obj/structure/alien/resin)) && !forcedodge)
+	else if((isturf(target) || istype(target, /obj/structure/alien/resin) || istype(target, /obj/structure/spider)) && !forcedodge)
 		forcedodge++
 	..()
 
@@ -426,7 +428,7 @@
 //////////////////////////////
 /obj/item/gun/energy/laser/tag
 	name = "laser tag gun"
-	desc = "Standard issue weapon of the Imperial Guard"
+	desc = "Standard issue weapon of the Imperial Guard."
 	origin_tech = "combat=2;magnets=2"
 	clumsy_check = FALSE
 	needs_permit = FALSE

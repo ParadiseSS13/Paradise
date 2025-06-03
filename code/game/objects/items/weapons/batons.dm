@@ -1,7 +1,7 @@
 /**
   * # Police Baton
   *
-  * Knocks down the hit mob when not on harm intent and when [/obj/item/melee/classic_baton/on] is TRUE
+  * Knocks down the hit mob when not on harm intent and when [/obj/item/melee/classic_baton/var/on] is `TRUE`.
   *
   * A non-lethal attack has a cooldown to avoid spamming
   */
@@ -11,7 +11,7 @@
 	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "baton"
 	item_state = "classic_baton"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
 	w_class = WEIGHT_CLASS_NORMAL
 	// Settings
@@ -35,7 +35,7 @@
 	/// Whether the baton is toggled on (to allow attacking)
 	var/on = TRUE
 
-/obj/item/melee/classic_baton/attack(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
 
@@ -97,7 +97,6 @@
 	playsound(target, stun_sound, 75, TRUE, -1)
 	add_attack_logs(user, target, "Knocked down with [src]")
 	// Hit 'em
-	target.LAssailant = iscarbon(user) ? user : null
 	target.KnockDown(knockdown_duration)
 	on_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), cooldown)
@@ -155,7 +154,7 @@
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
 	icon_state = "telebaton_0" // For telling what it is when mapping
 	item_state = null
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	on = FALSE
 	/// Force when concealed
@@ -184,7 +183,7 @@
 	force = force_off
 	attack_verb = on ? attack_verb_on : attack_verb_off
 
-/obj/item/melee/classic_baton/telescopic/attack_self(mob/user)
+/obj/item/melee/classic_baton/telescopic/attack_self__legacy__attackchain(mob/user)
 	on = !on
 	icon_state = on ? icon_state_on : icon_state_off
 	if(on)
@@ -196,7 +195,7 @@
 	else
 		to_chat(user, "<span class='notice'>You collapse [src].</span>")
 		item_state = null //no sprite for concealment even when in hand
-		slot_flags = SLOT_FLAG_BELT
+		slot_flags = ITEM_SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off //not so robust now
 		attack_verb = attack_verb_off

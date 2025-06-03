@@ -24,7 +24,7 @@
 	else
 		return TRUE
 
-/obj/item/clothing/accessory/holster/attack_self()
+/obj/item/clothing/accessory/holster/attack_self__legacy__attackchain()
 	var/holsteritem = usr.get_active_hand()
 	if(!holstered)
 		holster(holsteritem, usr)
@@ -50,8 +50,8 @@
 		return
 
 	holstered = W
-	user.unEquip(holstered)
-	holstered.loc = src
+	user.unequip(holstered)
+	holstered.forceMove(src)
 	holstered.add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
 
@@ -63,7 +63,7 @@
 		to_chat(user, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
 	else
 		if(user.a_intent == INTENT_HARM)
-			usr.visible_message("<span class='warning'>[user] draws [holstered], ready to shoot!</span></span>", \
+			usr.visible_message("<span class='warning'>[user] draws [holstered], ready to shoot!</span>", \
 			"<span class='warning'>You draw [holstered], ready to shoot!</span>")
 		else
 			user.visible_message("<span class='notice'>[user] draws [holstered], pointing it at the ground.</span>", \
@@ -80,7 +80,7 @@
 
 	..(user)
 
-/obj/item/clothing/accessory/holster/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/accessory/holster/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	holster(W, user)
 
 /obj/item/clothing/accessory/holster/emp_act(severity)
@@ -103,7 +103,7 @@
 	if(!holstered)
 		var/obj/item/gun/gun = user.get_active_hand()
 		if(!istype(gun))
-			to_chat(user, "<span class='warning'>You need your gun equiped to holster it.</span>")
+			to_chat(user, "<span class='warning'>You need your gun equipped to holster it.</span>")
 			return
 		holster(gun, user)
 	else

@@ -38,7 +38,7 @@
 	var/open_sound = 'sound/items/deconstruct.ogg'
 	var/status
 
-/obj/structure/morgue/Initialize()
+/obj/structure/morgue/Initialize(mapload)
 	. = ..()
 	update_icon(update_state())
 	set_light(1, LIGHTING_MINIMUM_POWER)
@@ -172,7 +172,7 @@
 		return ..()
 	attack_hand(user)
 
-/obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
+/obj/structure/morgue/attackby__legacy__attackchain(P as obj, mob/user as mob, params)
 	if(is_pen(P))
 		var/t = rename_interactive(user, P)
 
@@ -294,9 +294,7 @@
 	connected = null
 	return ..()
 
-/obj/structure/m_tray/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/m_tray/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover))
 		if(mover.checkpass(PASSTABLE))
 			return TRUE
@@ -313,7 +311,7 @@
 	if(pass_info.is_movable)
 		. = . || pass_info.pass_flags & PASSTABLE
 
-/obj/structure/m_tray/Process_Spacemove(movement_dir)
+/obj/structure/m_tray/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /*
@@ -421,7 +419,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	GLOB.crematoriums += src
 	return TRUE
 
-/obj/structure/crematorium/attackby(obj/item/P, mob/user, params)
+/obj/structure/crematorium/attackby__legacy__attackchain(obj/item/P, mob/user, params)
 	if(is_pen(P))
 		rename_interactive(user, P)
 		add_fingerprint(user)
@@ -584,7 +582,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	connected = null
 	return ..()
 
-/obj/structure/c_tray/Process_Spacemove(movement_dir)
+/obj/structure/c_tray/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 // Crematorium switch

@@ -1,19 +1,19 @@
-/datum/wires/particle_acc/control_box
+/datum/wires/particle_accelerator
 	wire_count = 5
 	holder_type = /obj/machinery/particle_accelerator/control_box
 	proper_name = "Particle accelerator control"
 
-/datum/wires/particle_acc/control_box/New(atom/_holder)
+/datum/wires/particle_accelerator/New(atom/_holder)
 	wires = list(WIRE_PARTICLE_POWER, WIRE_PARTICLE_STRENGTH, WIRE_PARTICLE_INTERFACE, WIRE_PARTICLE_POWER_LIMIT)
 	return ..()
 
-/datum/wires/particle_acc/control_box/interactable(mob/user)
+/datum/wires/particle_accelerator/interactable(mob/user)
 	var/obj/machinery/particle_accelerator/control_box/C = holder
 	if(C.construction_state == 2)
 		return TRUE
 	return FALSE
 
-/datum/wires/particle_acc/control_box/on_pulse(wire)
+/datum/wires/particle_accelerator/on_pulse(wire)
 	var/obj/machinery/particle_accelerator/control_box/C = holder
 	switch(wire)
 		if(WIRE_PARTICLE_POWER)
@@ -29,7 +29,7 @@
 			C.visible_message("[bicon(C)]<b>[C]</b> makes a large whirring noise.")
 	..()
 
-/datum/wires/particle_acc/control_box/on_cut(wire, mend)
+/datum/wires/particle_accelerator/on_cut(wire, mend)
 	var/obj/machinery/particle_accelerator/control_box/C = holder
 	switch(wire)
 		if(WIRE_PARTICLE_POWER)

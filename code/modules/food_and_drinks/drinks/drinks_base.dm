@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/reagent_containers/drinks
 	name = "drink"
-	desc = "yummy"
+	desc = "yummy!"
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER
@@ -14,23 +14,19 @@
 	var/consume_sound = 'sound/items/drink.ogg'
 	var/chugging = FALSE
 
-/obj/item/reagent_containers/drinks/attack_self(mob/user)
-	return
-
-/obj/item/reagent_containers/drinks/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/drinks/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		return FALSE
+		return
 
 	if(!is_drainable())
 		to_chat(user, "<span class='warning'>You need to open [src] first!</span>")
-		return FALSE
+		return
 
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(C.drink(src, user))
-			return TRUE
-	return FALSE
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.drink(src, user)
 
 /obj/item/reagent_containers/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
 	if(!iscarbon(over_object))
@@ -54,40 +50,38 @@
 				break
 		chugging = FALSE
 
-/obj/item/reagent_containers/drinks/afterattack(obj/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/reagent_containers/drinks/normal_act(obj/target, mob/living/user) // The 2 if checks are forced true to preserve tapping behaviour.
 	if(chugging)
-		return
+		return TRUE
 
 	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
+		. = TRUE
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty.</span>")
-			return FALSE
+			return
 
 		if(target.reagents.holder_full())
 			to_chat(user, "<span class='warning'>[target] is full.</span>")
-			return FALSE
+			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
+		. = TRUE
 		if(!is_refillable())
 			to_chat(user, "<span class='warning'>[src]'s tab isn't open!</span>")
-			return FALSE
+			return
 		if(!target.reagents.total_volume)
 			to_chat(user, "<span class='warning'>[target] is empty.</span>")
-			return FALSE
+			return
 
 		if(reagents.holder_full())
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
-			return FALSE
+			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
-
-	return FALSE
 
 /obj/item/reagent_containers/drinks/examine(mob/user)
 	. = ..()
@@ -277,7 +271,10 @@
 	. = ..()
 	reagents.set_reacting(FALSE)
 
-/obj/item/reagent_containers/drinks/shaker/attack_self(mob/user)
+/obj/item/reagent_containers/drinks/shaker/activate_self(mob/user)
+	if(..())
+		return
+
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>You won't shake an empty shaker now, will you?</span>")
 		return
@@ -325,7 +322,7 @@
 
 /obj/item/reagent_containers/drinks/flask/gold
 	name = "captain's flask"
-	desc = "A gold flask belonging to the captain."
+	desc = "A regal flask belonging to the captain, with Nanotrasen's logo inlaid with pearl."
 	icon_state = "flask_gold"
 	materials = list(MAT_GOLD=500)
 

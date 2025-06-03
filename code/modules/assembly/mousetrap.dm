@@ -77,7 +77,7 @@
 	update_icon()
 	pulse(0)
 
-/obj/item/assembly/mousetrap/attack_self(mob/living/user)
+/obj/item/assembly/mousetrap/attack_self__legacy__attackchain(mob/living/user)
 	if(!armed)
 		to_chat(user, "<span class='notice'>You arm [src].</span>")
 	else
@@ -108,19 +108,19 @@
 			return
 	..()
 
-/obj/item/assembly/mousetrap/Crossed(atom/movable/AM, oldloc)
+/obj/item/assembly/mousetrap/on_atom_entered(datum/source, atom/movable/entered)
 	if(armed)
-		if(ishuman(AM))
-			var/mob/living/carbon/H = AM
+		if(ishuman(entered))
+			var/mob/living/carbon/H = entered
 			if(H.m_intent == MOVE_INTENT_RUN)
 				triggered(H)
 				H.visible_message("<span class='warning'>[H] accidentally steps on [src].</span>", "<span class='warning'>You accidentally step on [src]</span>")
 
-		else if(ismouse(AM))
-			triggered(AM)
+		else if(ismouse(entered))
+			triggered(entered)
 
-		else if(AM.density) // For mousetrap grenades, set off by anything heavy
-			triggered(AM)
+		else if(entered.density) // For mousetrap grenades, set off by anything heavy
+			triggered(entered)
 
 	..()
 

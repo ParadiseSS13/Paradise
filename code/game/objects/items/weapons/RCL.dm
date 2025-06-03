@@ -20,7 +20,7 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed)
 
-/obj/item/rcl/attackby(obj/item/W, mob/user)
+/obj/item/rcl/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(!loaded)
@@ -67,7 +67,7 @@
 /obj/item/rcl/examine(mob/user)
 	. = ..()
 	if(loaded)
-		. += "<span class='info'>It contains [loaded.amount]/[max_amount] cables.</span>"
+		. += "<span class='notice'>It contains [loaded.amount]/[max_amount] cables.</span>"
 
 /obj/item/rcl/Destroy()
 	QDEL_NULL(loaded)
@@ -110,7 +110,7 @@
 	active = FALSE
 	last = null
 
-/obj/item/rcl/attack_self(mob/user)
+/obj/item/rcl/attack_self__legacy__attackchain(mob/user)
 	..()
 	active = HAS_TRAIT(src, TRAIT_WIELDED)
 	if(!active)

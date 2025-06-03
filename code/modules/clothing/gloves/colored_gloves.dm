@@ -3,13 +3,14 @@
 
 /obj/item/clothing/gloves/color/yellow
 	name = "insulated gloves"
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "A pair of rubber-lined industrial gloves. They'll protect the wearer from electrical shocks."
 	icon_state = "yellow"
 	item_state = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	item_color="yellow"
+	item_color = "yellow"
 	resistance_flags = NONE
+	dyeable = TRUE
 
 /obj/item/clothing/gloves/color/yellow/fake
 	siemens_coefficient = 1
@@ -17,7 +18,7 @@
 /// Cheap Chinese Crap
 /obj/item/clothing/gloves/color/fyellow
 	name = "budget insulated gloves"
-	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
+	desc = "A pair of knock-off insulated gloves. They might stop a shock, but it'll be a gamble."
 	icon_state = "yellow"
 	item_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
@@ -31,7 +32,7 @@
 
 /obj/item/clothing/gloves/color/fyellow/old
 	name = "worn out insulated gloves"
-	desc = "Old and worn out insulated gloves, hopefully they still work."
+	desc = "An old pair of insulated gloves. While a lot of the rubber is worn away, enough should be left to at least reduce any electrical shocks. Probably."
 
 /obj/item/clothing/gloves/color/fyellow/old/Initialize(mapload)
 	. = ..()
@@ -39,7 +40,7 @@
 
 /obj/item/clothing/gloves/color/black
 	name = "black gloves"
-	desc = "These gloves are fire-resistant."
+	desc = "A pair of black gloves made of fire-resistant fabric."
 	icon_state = "black"
 	item_state = "bgloves"
 	item_color="black"
@@ -56,17 +57,10 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
 		)
 
-
-/obj/item/clothing/gloves/color/black/hos
-	item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
-
-/obj/item/clothing/gloves/color/black/ce
-	item_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
-
 /obj/item/clothing/gloves/color/black/thief
 	pickpocket = 1
 
-/obj/item/clothing/gloves/color/black/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/gloves/color/black/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/wirecutters))
 		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
 			var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes","No"))
@@ -84,7 +78,7 @@
 	..()
 
 /obj/item/clothing/gloves/color/black/poisoner
-	desc = "These gloves are fire-resistant. They seem thicker than usual."
+	desc = "A pair of thick black gloves. They're coated with a hydrophobic material that repels liquids."
 	safe_from_poison = TRUE
 
 /obj/item/clothing/gloves/color/orange
@@ -103,7 +97,7 @@
 
 /obj/item/clothing/gloves/color/red/insulated
 	name = "insulated gloves"
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "A pair of rubber-lined industrial gloves. They'll protect the wearer from electrical shocks."
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
@@ -144,13 +138,7 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "gray"
 	item_state = "graygloves"
-	item_color="grey"
-
-/obj/item/clothing/gloves/color/grey/rd
-	item_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
-
-/obj/item/clothing/gloves/color/grey/hop
-	item_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
+	item_color = "grey"
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
@@ -166,23 +154,20 @@
 	item_state = "browngloves"
 	item_color="brown"
 
-/obj/item/clothing/gloves/color/brown/cargo
-	item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
-
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
-	desc = "Cheap sterile gloves made from latex."
+	desc = "A pair of thin sterile gloves made from latex. The material's thin enough that fingerprints can still be transferred to objects you touch."
 	icon_state = "latex"
 	item_state = "lgloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
-	item_color="white"
+	item_color = "white"
 	transfer_prints = TRUE
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
-	desc = "Pricy sterile gloves that are stronger than latex."
+	desc = "A pair of high-quality sterile gloves made from thick nitrile material. "
 	icon_state = "nitrile"
 	item_state = "nitrilegloves"
 	transfer_prints = FALSE
@@ -190,7 +175,7 @@
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
-	desc = "These look pretty fancy."
+	desc = "A pair of white silk gloves for individuals of class and discerning taste."
 	icon_state = "white"
 	item_state = "wgloves"
 	item_color="mime"
@@ -201,13 +186,10 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
 		)
 
-/obj/item/clothing/gloves/color/white/redcoat
-	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
-
 
 /obj/item/clothing/gloves/color/captain
 	name = "captain's gloves"
-	desc = "Regal blue gloves, with a nice gold trim. Swanky."
+	desc = "A pair of very expensive gloves made of reinforced blue & gold fabric. They're insulated against both electrical shocks and extreme temperatures."
 	icon_state = "captain"
 	item_state = "captain"
 	item_color = "captain"
@@ -232,3 +214,4 @@
 	icon_state = "furglovesico"
 	item_state = "furgloves"
 	transfer_prints = TRUE
+	dyeable = FALSE

@@ -37,7 +37,7 @@
 	icon_state = "crunchy"
 	bitesize_mod = 2
 
-/obj/item/food/grown/random/Initialize()
+/obj/item/food/grown/random/Initialize(mapload)
 	. = ..()
 	wine_power = rand(0.1,1.5)
 	if(prob(1))

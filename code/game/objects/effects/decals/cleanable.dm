@@ -27,17 +27,15 @@
 
 //Add "bloodiness" of this blood's type, to the human's shoes
 //This is on /cleanable because fuck this ancient mess
-/obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
-	..()
-
-	if(!ishuman(O))
+/obj/effect/decal/cleanable/blood/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!ishuman(entered))
 		return
 
-	if(!gravity_check && ishuman(O))
-		bloodyify_human(O)
+	if(!gravity_check && ishuman(entered))
+		bloodyify_human(entered)
 
 	if(!off_floor)
-		var/mob/living/carbon/human/H = O
+		var/mob/living/carbon/human/H = entered
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
 		var/hasfeet = TRUE
@@ -87,12 +85,12 @@
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
-	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
 	prepare_huds()
+	if(should_merge_decal(loc))
+		return INITIALIZE_HINT_QDEL
+	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
 	jani_hud.add_to_hud(src)
 	jani_hud_set_sign()
-	if(try_merging_decal())
-		return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
 	if(smoothing_flags)
@@ -108,14 +106,13 @@
 	jani_hud.remove_from_hud(src)
 	return ..()
 
-/obj/effect/decal/cleanable/proc/try_merging_decal(turf/T)
+/obj/effect/decal/cleanable/proc/should_merge_decal(turf/T)
 	if(!T)
 		T = loc
 	if(isturf(T))
 		for(var/obj/effect/decal/cleanable/C in T)
 			if(C != src && C.type == type && !QDELETED(C))
 				if(C.gravity_check && replace_decal(C))
-					qdel(src)
 					return TRUE
 	return FALSE
 

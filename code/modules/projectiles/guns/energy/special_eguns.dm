@@ -24,7 +24,7 @@
 //////////////////////////////
 /obj/item/gun/energy/ionrifle
 	name = "ion rifle"
-	desc = "A man portable anti-armor weapon designed to disable mechanical threats"
+	desc = "A man portable anti-armor weapon designed to disable mechanical threats."
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/ionrifle.ogg'
@@ -32,7 +32,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	can_holster = FALSE
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
@@ -69,7 +69,7 @@
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient, it packs the exact same punch and capacity in a smaller, easier to transport package."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
@@ -139,7 +139,7 @@
 /obj/item/gun/energy/floragun/pre_attack(atom/A, mob/living/user, params)
 	if(istype(A, /obj/machinery/hydroponics))
 		// Calling afterattack from pre_attack looks stupid, but afterattack with proximity FALSE is what makes the gun fire, and we're returning FALSE to cancel the melee attack.
-		afterattack(A, user, FALSE, params)
+		afterattack__legacy__attackchain(A, user, FALSE, params)
 		return FALSE
 	return ..()
 
@@ -228,7 +228,7 @@
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	user.visible_message("<span class='suicide'>[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+	user.visible_message("<span class='suicide'>[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
@@ -269,7 +269,7 @@
 	. += "It can be reloaded using refined plasma sheets, or plasma ore obtained in the field (although the latter is less efficient). \
 	Plasma cutters such as these can be found in use at plasma mining operations throughout known space."
 
-/obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
+/obj/item/gun/energy/plasmacutter/attackby__legacy__attackchain(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		if(cell.charge >= cell.maxcharge)
 			to_chat(user,"<span class='notice'>[src] is already fully charged.")
@@ -357,7 +357,7 @@
 	P.precision = 0
 	P.failchance = 0
 	P.can_multitool_to_remove = 1
-	if(W.name == "bluespace beam")
+	if(W.name == "wormhole beam")
 		qdel(blue)
 		blue = P
 	else
@@ -407,6 +407,20 @@
 	force = 60
 	origin_tech = "combat=7;magnets=6"
 	execution_speed = 2 SECONDS
+
+/obj/item/gun/energy/laser/instakill/examine(mob/user)
+	. = ..()
+	. += "This gun gibs anyone it hits and destroys objects."
+
+/obj/item/gun/energy/laser/instakill/examine_more(mob/user)
+	. = ..()
+	. = list()
+	. += "Utilizing top-shelf Shellguard batteries, a sleek off-white chassis, and a dense enough lens to make an optometrist cry, this rifle fires laser bolts that can violently disassemble anyone it hits. You're still not sure when it would be useful, though."
+	. += ""
+	. += "Once quested for in days of old, this rifle and other treasures of the gods were sealed away in their palace in the sky. The once-open door was not simply locked, but taken away."
+	. += ""
+	. += "Who are we kidding, this is an admin-only weapon that instakills people. Go nuts. Have fun."
+
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -510,7 +524,7 @@
 		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
 			discharge()
 
-/obj/item/gun/energy/plasma_pistol/attack_self(mob/living/user)
+/obj/item/gun/energy/plasma_pistol/attack_self__legacy__attackchain(mob/living/user)
 	if(overloaded)
 		to_chat(user, "<span class='warning'>[src] is already overloaded!</span>")
 		return
@@ -523,9 +537,17 @@
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
 	charge_failure = FALSE
+	holder = user
+	RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, PROC_REF(fail_charge))
 	addtimer(CALLBACK(src, PROC_REF(overload)), 2.5 SECONDS)
 
+/obj/item/gun/energy/plasma_pistol/proc/fail_charge()
+	SIGNAL_HANDLER // COMSIG_CARBON_SWAP_HANDS
+	charge_failure = TRUE // No charging 2 guns at once.
+	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
+
 /obj/item/gun/energy/plasma_pistol/proc/overload()
+	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
 	if(ishuman(loc) && !charge_failure)
 		var/mob/living/carbon/C = loc
 		select_fire(C)
@@ -610,7 +632,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = TRUE
 	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
@@ -648,7 +670,7 @@
 	it will create a finely-tuned neutralising bluespace field that protects the user from the blast wave generated by the weapon's projectile. \
 	However, this field will not protect the user from a second BSG, as it is tied to the energy signature of an individual gun's flux anomaly core."
 
-/obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
+/obj/item/gun/energy/bsg/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
 			to_chat(user, "<span class='notice'>[src] already has a bluespace crystal installed.</span>")
@@ -675,6 +697,14 @@
 		update_icon()
 	else
 		return ..()
+
+/obj/item/gun/energy/bsg/equipped(mob/user, slot, initial)
+	. = ..()
+	ADD_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
+
+/obj/item/gun/energy/bsg/dropped(mob/user, silent)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_BSG_IMMUNE, "[UID()]")
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
@@ -733,7 +763,7 @@
 	icon = 'icons/obj/guns/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
@@ -759,7 +789,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/gun/energy/temperature/attack_self(mob/user)
+/obj/item/gun/energy/temperature/attack_self__legacy__attackchain(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -993,7 +1023,7 @@
 	user.visible_message("<span class='notice'>[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]</span>")
 	update_icon()
 
-/obj/item/gun/energy/detective/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/energy/detective/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	. = ..()
 	if(!istype(I, /obj/item/ammo_box/magazine/detective/speedcharger))
 		return
@@ -1020,7 +1050,7 @@
 		user.flash_eyes(2, TRUE)
 		do_sparks(rand(5, 9), FALSE, src)
 		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		cell.charge = 0 //ha ha you lose
 		update_icon()
 		return

@@ -32,12 +32,12 @@ GLOBAL_PROTECT(log_end)
 	if(!skip_glob)
 		GLOB.admin_log.Add(text)
 	if(GLOB.configuration.logging.admin_logging)
-		rustg_log_write(GLOB.world_game_log, "ADMIN: [text][GLOB.log_end]")
+		rustlibs_log_write(GLOB.world_game_log, "ADMIN: [text][GLOB.log_end]")
 
 /proc/log_debug(text)
 	// This has presence checks as this may be called before GLOB has loaded
 	if(GLOB?.configuration?.logging.debug_logging)
-		rustg_log_write(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
+		rustlibs_log_write(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
@@ -45,110 +45,162 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_game(text)
 	if(GLOB.configuration.logging.game_logging)
-		rustg_log_write(GLOB.world_game_log, "GAME: [text][GLOB.log_end]")
+		rustlibs_log_write(GLOB.world_game_log, "GAME: [text][GLOB.log_end]")
 
 /proc/log_vote(text)
 	if(GLOB.configuration.logging.vote_logging)
-		rustg_log_write(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
+		rustlibs_log_write(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
+
+/proc/log_if_mismatch(mob/who, message, automatic = FALSE)
+	if(istype(usr, /mob) && istype(who) && usr.last_known_ckey != who.last_known_ckey)
+		if(automatic)
+			rustlibs_log_write(GLOB.world_game_log, "AUTOMATIC ([usr.last_known_ckey]): [message][GLOB.log_end]")
+		else
+			rustlibs_log_write(GLOB.world_game_log, "LOG USER MISMATCH: [usr.simple_info_line()] was usr for [message][GLOB.log_end]")
 
 /proc/log_access_in(client/new_client)
 	if(GLOB.configuration.logging.access_logging)
-		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
-		rustg_log_write(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
+		var/message = "ACCESS IN: [key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(new_client.mob, message)
 
 /proc/log_access_out(mob/last_mob)
 	if(GLOB.configuration.logging.access_logging)
-		var/message = "[key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
-		rustg_log_write(GLOB.world_game_log, "ACCESS OUT: [message][GLOB.log_end]")
+		var/message = "ACCESS OUT: [key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(last_mob, message)
 
-/proc/log_say(text, mob/speaker)
+/proc/log_say(text, mob/speaker, automatic = FALSE)
 	if(GLOB.configuration.logging.say_logging)
-		rustg_log_write(GLOB.world_game_log, "SAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "SAY: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message, automatic)
 
 /proc/log_whisper(text, mob/speaker)
 	if(GLOB.configuration.logging.whisper_logging)
-		rustg_log_write(GLOB.world_game_log, "WHISPER: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "WHISPER: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_ooc(text, client/user)
 	if(GLOB.configuration.logging.ooc_logging)
-		rustg_log_write(GLOB.world_game_log, "OOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "OOC: [user.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(user, message)
 
 /proc/log_aooc(text, client/user)
 	if(GLOB.configuration.logging.ooc_logging)
-		rustg_log_write(GLOB.world_game_log, "AOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "AOOC: [user.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(user, message)
 
 /proc/log_looc(text, client/user)
 	if(GLOB.configuration.logging.ooc_logging)
-		rustg_log_write(GLOB.world_game_log, "LOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "LOOC: [user.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(user, message)
 
 /proc/log_emote(text, mob/speaker)
 	if(GLOB.configuration.logging.emote_logging)
-		rustg_log_write(GLOB.world_game_log, "EMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "EMOTE: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
-/proc/log_attack(attacker, defender, message)
+/proc/log_attack(mob/attacker, defender_str, attack_message)
 	if(GLOB.configuration.logging.attack_logging)
-		rustg_log_write(GLOB.world_game_log, "ATTACK: [attacker] against [defender]: [message][GLOB.log_end]") //Seperate attack logs? Why?
+		var/attacker_str = "INVALID"
+		if(istype(attacker))
+			attacker_str = attacker.simple_info_line()
+		var/message = "ATTACK: [attacker_str] against [defender_str]: [attack_message]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(attacker, message)
 
 /proc/log_adminsay(text, mob/speaker)
 	if(GLOB.configuration.logging.adminchat_logging)
-		rustg_log_write(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_ping_all_admins(text, mob/speaker)
 	if(GLOB.configuration.logging.adminchat_logging)
-		rustg_log_write(GLOB.world_game_log, "ALL ADMIN PING: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "ALL ADMIN PING: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_qdel(text)
-	rustg_log_write(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
+	rustlibs_log_write(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
 /proc/log_mentorsay(text, mob/speaker)
 	if(GLOB.configuration.logging.adminchat_logging)
-		rustg_log_write(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
+
+/proc/log_devsay(text, mob/speaker)
+	if(GLOB.configuration.logging.adminchat_logging)
+		var/message = "DEVSAY: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
+
+/proc/log_staffsay(text, mob/speaker)
+	if(GLOB.configuration.logging.adminchat_logging)
+		var/message = "STAFFSAY: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_ghostsay(text, mob/speaker)
 	if(GLOB.configuration.logging.say_logging)
-		rustg_log_write(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_ghostemote(text, mob/speaker)
 	if(GLOB.configuration.logging.emote_logging)
-		rustg_log_write(GLOB.world_game_log, "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_adminwarn(text)
 	if(GLOB.configuration.logging.admin_warning_logging)
-		rustg_log_write(GLOB.world_game_log, "ADMINWARN: [html_decode(text)][GLOB.log_end]")
+		rustlibs_log_write(GLOB.world_game_log, "ADMINWARN: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_pda(text, mob/speaker)
 	if(GLOB.configuration.logging.pda_logging)
-		rustg_log_write(GLOB.world_game_log, "PDA: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+		var/message = "PDA: [speaker.simple_info_line()]: [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_chat(text, mob/speaker)
 	if(GLOB.configuration.logging.pda_logging)
-		rustg_log_write(GLOB.world_game_log, "CHAT: [speaker.simple_info_line()] [html_decode(text)][GLOB.log_end]")
+		var/message = "CHAT: [speaker.simple_info_line()] [html_decode(text)]"
+		rustlibs_log_write(GLOB.world_game_log, "[message][GLOB.log_end]")
+		log_if_mismatch(speaker, message)
 
 /proc/log_tgs(text, level)
 	GLOB.tgs_log += "\[[time_stamp()]] \[[level]] [text]"
-	rustg_log_write(GLOB.world_game_log, "TGS: [level]: [text][GLOB.log_end]")
+	rustlibs_log_write(GLOB.world_game_log, "TGS: [level]: [text][GLOB.log_end]")
 
 /proc/log_misc(text)
-	rustg_log_write(GLOB.world_game_log, "MISC: [text][GLOB.log_end]")
+	rustlibs_log_write(GLOB.world_game_log, "MISC: [text][GLOB.log_end]")
 
 /proc/log_world(text)
 	SEND_TEXT(world.log, text)
 	// This has to be presence checked as log_world() is used before world/New().
 	if(GLOB?.configuration?.logging.world_logging)
-		rustg_log_write(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
+		rustlibs_log_write(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff
-	rustg_log_write(GLOB.world_runtime_log, "[text][GLOB.log_end]")
+	rustlibs_log_write(GLOB.world_runtime_log, "[text][GLOB.log_end]")
 
 /proc/log_config(text)
-	rustg_log_write(GLOB.config_error_log, "[text][GLOB.log_end]")
+	rustlibs_log_write(GLOB.config_error_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text)
 
 /proc/log_href(text)
-	rustg_log_write(GLOB.world_href_log, "HREF: [html_decode(text)][GLOB.log_end]")
+	rustlibs_log_write(GLOB.world_href_log, "HREF: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_runtime_summary(text)
-	rustg_log_write(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
+	rustlibs_log_write(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
 
 /proc/log_tgui(user_or_client, text)
 	var/list/messages = list()
@@ -162,22 +214,22 @@ GLOBAL_PROTECT(log_end)
 		messages.Add("[client.ckey]")
 	messages.Add(": [text]")
 	messages.Add("[GLOB.log_end]")
-	rustg_log_write(GLOB.tgui_log, messages.Join())
+	rustlibs_log_write(GLOB.tgui_log, messages.Join())
 
 #ifdef REFERENCE_TRACKING
 /proc/log_gc(text)
-	rustg_log_write(GLOB.gc_log, "[text][GLOB.log_end]")
+	rustlibs_log_write(GLOB.gc_log, "[text][GLOB.log_end]")
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
 			to_chat(C, "GC DEBUG: [text]")
 #endif
 
 /proc/log_sql(text)
-	rustg_log_write(GLOB.sql_log, "[text][GLOB.log_end]")
+	rustlibs_log_write(GLOB.sql_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text) // Redirect it to DD too
 
 /proc/log_chat_debug(text)
-	rustg_log_write(GLOB.chat_debug_log, "[text][GLOB.log_end]")
+	rustlibs_log_write(GLOB.chat_debug_log, "[text][GLOB.log_end]")
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
@@ -188,7 +240,7 @@ GLOBAL_PROTECT(log_end)
 
 /* For logging round startup. */
 /proc/start_log(log)
-	rustg_log_write(log, "Starting up. Round ID is [GLOB.round_id ? GLOB.round_id : "NULL"]\n-------------------------[GLOB.log_end]")
+	rustlibs_log_write(log, "Starting up. Round ID is [GLOB.round_id ? GLOB.round_id : "NULL"]\n-------------------------[GLOB.log_end]")
 
 // Helper procs for building detailed log lines
 

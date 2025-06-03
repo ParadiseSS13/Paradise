@@ -34,7 +34,7 @@
 	user.update_inv_l_hand()
 	user.update_inv_r_hand()
 	if(iswizard(user))
-		user.flying = TRUE
+		ADD_TRAIT(user, TRAIT_FLYING, "broomstick")
 		user.say("QUID 'ITCH")
 		animate(user, pixel_y = pixel_y + 10 , time = 10, loop = 1, easing = SINE_EASING)
 	to_chat(user, "<span class='notice'>You hold [src] between your legs.</span>")
@@ -44,22 +44,22 @@
 	user.update_inv_l_hand()
 	user.update_inv_r_hand()
 	if(iswizard(user))
+		REMOVE_TRAIT(user, TRAIT_FLYING, "broomstick")
 		animate(user, pixel_y = pixel_y + 10 , time = 1, loop = 1)
 		animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
 		animate(user)
 
-/obj/item/staff/broom/attackby(obj/O, mob/user)
+/obj/item/staff/broom/attackby__legacy__attackchain(obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))
 		new/obj/item/staff/broom/horsebroom(get_turf(src))
-		user.unEquip(O)
+		user.unequip(O)
 		qdel(O)
 		qdel(src)
 		return
 	..()
 
 /obj/item/staff/broom/dropped(mob/user)
-	if(iswizard(user) && user.flying)
-		user.flying = FALSE
+	REMOVE_TRAIT(user, TRAIT_FLYING, "broomstick")
 	..()
 
 /obj/item/staff/broom/horsebroom
@@ -69,19 +69,7 @@
 	icon_state = "horsebroom"
 	item_state = "horsebroom0"
 
-/obj/item/staff/broom/horsebroom/attack_self(mob/user as mob)
+/obj/item/staff/broom/horsebroom/attack_self__legacy__attackchain(mob/user as mob)
 	..()
 	item_state = "horsebroom[HAS_TRAIT(src, TRAIT_WIELDED) ? 1 : 0]"
 
-/obj/item/staff/stick
-	name = "stick"
-	desc = "A great tool to drag someone else's drinks across the bar."
-	icon_state = "stick"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	item_state = "stick"
-	force = 3.0
-	throwforce = 5.0
-	throw_speed = 1
-	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL

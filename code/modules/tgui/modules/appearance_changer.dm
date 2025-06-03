@@ -51,7 +51,7 @@
 				if(owner.dna.species.bodyflags & HAS_SKIN_TONE)
 					new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
 					if(isnum(new_s_tone) && (!..()))
-						new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
+						new_s_tone = max(min(round(new_s_tone), 220),1)
 				else if(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 					var/const/MAX_LINE_ENTRIES = 4
 					var/prompt = "Choose your character's skin tone: 1-[length(owner.dna.species.icon_skin_tones)]\n("
@@ -72,8 +72,8 @@
 
 		if("skin_color")
 			if(can_change_skin_color())
-				var/new_skin = input(usr, "Choose your character's skin colour: ", "Skin Color", owner.skin_colour) as color|null
-				if(new_skin && (!..()) && owner.change_skin_color(new_skin))
+				var/new_skin = tgui_input_color(usr, "Choose your character's skin colour: ", "Skin Color", owner.skin_colour)
+				if(!isnull(new_skin) && (!..()) && owner.change_skin_color(new_skin))
 					update_dna()
 
 		if("hair")
@@ -83,32 +83,32 @@
 
 		if("hair_color")
 			if(can_change(APPEARANCE_HAIR_COLOR))
-				var/new_hair = input("Please select hair color.", "Hair Color", head_organ.hair_colour) as color|null
-				if(new_hair && (!..()) && owner.change_hair_color(new_hair))
+				var/new_hair = tgui_input_color(usr, "Please select hair color.", "Hair Color", head_organ.hair_colour)
+				if(!isnull(new_hair) && (!..()) && owner.change_hair_color(new_hair))
 					update_dna()
 
 		if("secondary_hair_color")
 			if(can_change(APPEARANCE_SECONDARY_HAIR_COLOR))
-				var/new_hair = input("Please select secondary hair color.", "Secondary Hair Color", head_organ.sec_hair_colour) as color|null
-				if(new_hair && (!..()) && owner.change_hair_color(new_hair, 1))
+				var/new_hair = tgui_input_color(usr, "Please select secondary hair color.", "Secondary Hair Color", head_organ.sec_hair_colour)
+				if(!isnull(new_hair) && (!..()) && owner.change_hair_color(new_hair, 1))
 					update_dna()
 
 		if("hair_gradient")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
 				var/new_style = tgui_input_list(usr, "Please select gradient style", "Hair Gradient", GLOB.hair_gradients_list)
-				if(new_style)
+				if(!isnull(new_style))
 					owner.change_hair_gradient(style = new_style)
 
 		if("hair_gradient_offset")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
 				var/new_offset = input("Please enter gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Hair Gradient", "[head_organ.h_grad_offset_x],[head_organ.h_grad_offset_y]") as null|text
-				if(new_offset)
+				if(!isnull(new_offset))
 					owner.change_hair_gradient(offset_raw = new_offset)
 
 		if("hair_gradient_colour")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_color = input("Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour) as null|color
-				if(new_color)
+				var/new_color = tgui_input_color(usr, "Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour)
+				if(!isnull(new_color))
 					owner.change_hair_gradient(color = new_color)
 
 		if("hair_gradient_alpha")
@@ -124,26 +124,26 @@
 
 		if("facial_hair_color")
 			if(can_change(APPEARANCE_FACIAL_HAIR_COLOR))
-				var/new_facial = input("Please select facial hair color.", "Facial Hair Color", head_organ.facial_colour) as color|null
-				if(new_facial && (!..()) && owner.change_facial_hair_color(new_facial))
+				var/new_facial = tgui_input_color(usr, "Please select facial hair color.", "Facial Hair Color", head_organ.facial_colour)
+				if(!isnull(new_facial) && (!..()) && owner.change_facial_hair_color(new_facial))
 					update_dna()
 
 		if("secondary_facial_hair_color")
 			if(can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR))
-				var/new_facial = input("Please select secondary facial hair color.", "Secondary Facial Hair Color", head_organ.sec_facial_colour) as color|null
-				if(new_facial && (!..()) && owner.change_facial_hair_color(new_facial, 1))
+				var/new_facial = tgui_input_color(usr, "Please select secondary facial hair color.", "Secondary Facial Hair Color", head_organ.sec_facial_colour)
+				if(!isnull(new_facial) && (!..()) && owner.change_facial_hair_color(new_facial, 1))
 					update_dna()
 
 		if("eye_color")
 			if(can_change(APPEARANCE_EYE_COLOR))
 				var/obj/item/organ/internal/eyes/eyes_organ = owner.get_int_organ(/obj/item/organ/internal/eyes)
-				var/new_eyes = input("Please select eye color.", "Eye Color", eyes_organ.eye_color) as color|null
-				if(new_eyes && (!..()) && owner.change_eye_color(new_eyes))
+				var/new_eyes = tgui_input_color(usr, "Please select eye color.", "Eye Color", eyes_organ.eye_color)
+				if(!isnull(new_eyes) && (!..()) && owner.change_eye_color(new_eyes))
 					update_dna()
 
 		if("runechat_color")
-			var/new_runechat_color = input("Please select runechat color.", "Runechat Color", owner.dna.chat_color) as color|null
-			if(new_runechat_color && (!..()))
+			var/new_runechat_color = tgui_input_color(usr, "Please select runechat color.", "Runechat Color", owner.dna.chat_color)
+			if(!isnull(new_runechat_color) && (!..()))
 				owner.change_runechat_color(new_runechat_color)
 
 		if("head_accessory")
@@ -153,8 +153,8 @@
 
 		if("head_accessory_color")
 			if(can_change_head_accessory())
-				var/new_head_accessory = input("Please select head accessory color.", "Head Accessory Color", head_organ.headacc_colour) as color|null
-				if(new_head_accessory && (!..()) && owner.change_head_accessory_color(new_head_accessory))
+				var/new_head_accessory = tgui_input_color(usr, "Please select head accessory color.", "Head Accessory Color", head_organ.headacc_colour)
+				if(!isnull(new_head_accessory) && (!..()) && owner.change_head_accessory_color(new_head_accessory))
 					update_dna()
 
 		if("head_marking")
@@ -164,7 +164,7 @@
 
 		if("head_marking_color")
 			if(can_change_markings("head"))
-				var/new_markings = input("Please select head marking color.", "Marking Color", owner.m_colours["head"]) as color|null
+				var/new_markings = tgui_input_color(usr, "Please select head marking color.", "Marking Color", owner.m_colours["head"])
 				if(new_markings && (!..()) && owner.change_marking_color(new_markings, "head"))
 					update_dna()
 
@@ -175,7 +175,7 @@
 
 		if("body_marking_color")
 			if(can_change_markings("body"))
-				var/new_markings = input("Please select body marking color.", "Marking Color", owner.m_colours["body"]) as color|null
+				var/new_markings = tgui_input_color(usr, "Please select body marking color.", "Marking Color", owner.m_colours["body"])
 				if(new_markings && (!..()) && owner.change_marking_color(new_markings, "body"))
 					update_dna()
 
@@ -186,7 +186,7 @@
 
 		if("tail_marking_color")
 			if(can_change_markings("tail"))
-				var/new_markings = input("Please select tail marking color.", "Marking Color", owner.m_colours["tail"]) as color|null
+				var/new_markings = tgui_input_color(usr, "Please select tail marking color.", "Marking Color", owner.m_colours["tail"])
 				if(new_markings && (!..()) && owner.change_marking_color(new_markings, "tail"))
 					update_dna()
 
@@ -314,7 +314,7 @@
 	return data
 
 /datum/ui_module/appearance_changer/proc/update_dna()
-	if(owner && (flags & APPEARANCE_UPDATE_DNA))
+	if(owner)
 		owner.update_dna()
 
 /datum/ui_module/appearance_changer/proc/can_change(flag)

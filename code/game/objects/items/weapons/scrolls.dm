@@ -21,7 +21,7 @@
 	. += "<span class='notice'>Number of uses: [uses]. This scroll will vanish after the final use.</span>"
 	. += "<span class='notice'>P.S. Don't forget to bring your gear, you'll need it to cast most spells.</span>"
 
-/obj/item/teleportation_scroll/attack_self(mob/user)
+/obj/item/teleportation_scroll/attack_self__legacy__attackchain(mob/living/user)
 	if(!uses) //somehow?
 		to_chat(user, "<span class='warning'>You attempt to read the scroll but it disintegrates in your hand, it appears that is has run out of charges!</span>")
 		qdel(src)
@@ -50,7 +50,7 @@
 	var/list/L = list()
 
 	for(var/turf/T in get_area_turfs(thearea.type))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
@@ -59,7 +59,7 @@
 		return
 
 	if(user && user.buckled)
-		user.buckled.unbuckle_mob(user, force = TRUE)
+		user.unbuckle(force = TRUE)
 
 	if(user?.has_buckled_mobs())
 		user.unbuckle_all_mobs(force = TRUE)

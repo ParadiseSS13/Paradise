@@ -2,7 +2,8 @@
 	gender = PLURAL
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER //sporangiums up don't shoot
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
-	icon_state = "l_mushroom"
+	icon_state = "l_mushroom1"
+	base_icon_state = "l_mushroom"
 	name = "large mushrooms"
 	desc = "A number of large mushrooms, covered in a faint layer of ash and what can only be spores."
 	anchored = TRUE
@@ -24,7 +25,7 @@
 
 /obj/structure/flora/ash/Initialize(mapload)
 	. = ..()
-	base_icon = "[icon_state][rand(1, 4)]"
+	base_icon = "[base_icon_state][rand(1, 4)]"
 	icon_state = base_icon
 
 /obj/structure/flora/ash/proc/harvest(user)
@@ -59,7 +60,7 @@
 	desc = initial(desc)
 	harvested = FALSE
 
-/obj/structure/flora/ash/attackby(obj/item/W, mob/user, params)
+/obj/structure/flora/ash/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!harvested && needs_sharp_harvest && W.sharp)
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
 		if(do_after(user, harvest_time, target = src))
@@ -80,7 +81,8 @@
 	regrowth_time_low = 4200
 
 /obj/structure/flora/ash/leaf_shroom
-	icon_state = "s_mushroom"
+	icon_state = "s_mushroom1"
+	base_icon_state = "s_mushroom"
 	name = "leafy mushrooms"
 	desc = "A number of mushrooms, each of which surrounds a greenish sporangium with a number of leaf-like structures."
 	harvested_name = "leafless mushrooms"
@@ -96,7 +98,8 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cap_shroom
-	icon_state = "r_mushroom"
+	icon_state = "r_mushroom1"
+	base_icon_state = "r_mushroom"
 	name = "tall mushrooms"
 	desc = "Several mushrooms, the larger of which have a ring of conks at the midpoint of their stems."
 	harvested_name = "small mushrooms"
@@ -111,7 +114,8 @@
 	regrowth_time_high = 5400
 
 /obj/structure/flora/ash/stem_shroom
-	icon_state = "t_mushroom"
+	icon_state = "t_mushroom1"
+	base_icon_state = "t_mushroom"
 	name = "numerous mushrooms"
 	desc = "A large number of mushrooms, some of which have long, fleshy stems. They're radiating light!"
 	light_range = 1.5
@@ -128,7 +132,8 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cacti
-	icon_state = "cactus"
+	icon_state = "cactus1"
+	base_icon_state = "cactus"
 	name = "fruiting cacti"
 	desc = "Several prickly cacti, brimming with ripe fruit and covered in a thin layer of ash."
 	harvested_name = "cacti"
@@ -156,6 +161,7 @@
 	name = "large rock"
 	desc = "A volcanic rock. Pioneers used to ride these babies for miles."
 	icon_state = "basalt1"
+	base_icon_state = "basalt"
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	harvest = /obj/item/stack/ore/glass/basalt
@@ -197,8 +203,7 @@
 
 /obj/item/food/grown/ash_flora/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-4, 4)
-	pixel_y = rand(-4, 4)
+	scatter_atom()
 
 /// for actual crafting
 /obj/item/food/grown/ash_flora/shavings

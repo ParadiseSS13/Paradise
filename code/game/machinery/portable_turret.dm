@@ -13,6 +13,8 @@
 	active_power_consumption = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = PW_CHANNEL_EQUIPMENT	//drains power from the EQUIPMENT channel
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, rad = 0, fire = 90, acid = 90)
+	///this will be visible when above doors/firelocks/blastdoors to prevent cheese
+	layer = ABOVE_OBJ_LAYER
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
 	var/health = 80			//the turret's health
@@ -71,6 +73,8 @@
 	var/initial_eprojectile = null
 	/// What non-lethal mode projectile with the turret start with?
 	var/initial_projectile = null
+	/// What lens is fitted to the turret/gun?
+	var/obj/item/smithed_item/lens/fitted_lens
 
 
 /obj/machinery/porta_turret/Initialize(mapload)
@@ -187,7 +191,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/isLocked(mob/user)
 	if(HasController())
 		return TRUE
-	if(isrobot(user) || isAI(user))
+	if(isrobot(user) || is_ai(user))
 		if(ailock)
 			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 			return TRUE
@@ -358,28 +362,31 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return TRUE
 
-/obj/machinery/porta_turret/tool_act(mob/living/user, obj/item/I, tool_type)
-	if(user.a_intent != INTENT_HELP)
-		return ..()
-	if(syndicate)
-		to_chat(user, "<span class='danger'>[src] is sealed tightly, tools won't help here.</span>")
-		return TRUE
-
-	if(!(stat & BROKEN))
-		to_chat(user, "<span class='notice'>[src] is in fine condition, you'd need to rough it up a bit if you wanted to disassemble it.</span>")
-		return TRUE
-	return ..()
-
 /obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
+
+	if(user.a_intent != INTENT_HELP)
+		return FALSE
+
+	if(syndicate)
+		to_chat(user, "<span class='danger'>[src] is sealed tightly, tools won't help here.</span>")
+		return
+	if(!(stat & BROKEN))
+		to_chat(user, "<span class='notice'>[src] is in fine condition, you'd need to rough it up a bit if you wanted to disassemble it.</span>")
+		return
+
 	to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
 	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
-		return FALSE
+		return
 	if(prob(70))
 		to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 		if(installation)
 			var/obj/item/gun/energy/Gun = new installation(loc)
 			Gun.cell.charge = gun_charge
+			if(fitted_lens)
+				Gun.current_lens = fitted_lens
+				fitted_lens.forceMove(Gun)
+				Gun.current_lens.on_attached(Gun)
 			Gun.update_icon()
 		if(prob(50))
 			new /obj/item/stack/sheet/metal(loc, rand(1,4))
@@ -389,11 +396,23 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
 	qdel(src) // qdel
 
-/obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
-	if((stat & BROKEN) && !syndicate)
-		return
+/obj/machinery/porta_turret/screwdriver_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return FALSE
 
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	if(!fitted_lens)
+		to_chat(user, "<span class='notice'>[src] has no attached lenses.</span>")
+		return
+	to_chat(user, "<span class='notice'>You remove the lens from [src]</span>")
+	user.put_in_hands(fitted_lens)
+	fitted_lens = null
+	return TRUE
+
+/obj/machinery/porta_turret/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if((stat & BROKEN) && !syndicate)
+		return ITEM_INTERACT_COMPLETE
+
+	else if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(HasController())
 			to_chat(user, "<span class='notice'>Turrets regulated by a nearby turret controller are not unlockable.</span>")
 		else if(allowed(user))
@@ -403,22 +422,32 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
 
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/smithed_item/lens))
+		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/smithed_item/lens/new_lens = used
+		if(fitted_lens)
+			to_chat(user, "<span class='notice'>You swap the fitted lens in [src].</span>")
+			user.put_in_hands(fitted_lens)
+		fitted_lens = new_lens
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent == INTENT_HELP)
 		return ..()
-	// otherwise, if the turret was attacked with the intention of harming it:
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_item_attack_animation()
+
+/obj/machinery/porta_turret/attacked_by(obj/item/attacker, mob/living/user)
+	. = ..()
+	// TODO: move to play_attack_sound when we actually use obj_integrity
 	playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
-	if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
+
+	//if the force of impact dealt at least 1 damage, the turret gets pissed off
+	if(attacker.force * 0.5 > 1)
 		if(!attacked && !emagged)
 			attacked = TRUE
 			addtimer(VARSET_CALLBACK(src, attacked, FALSE), 6 SECONDS)
-
-	..()
-
-
 
 /obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
@@ -628,7 +657,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(iscuffed(L)) // If the target is handcuffed, leave it alone
 		return TURRET_NOT_TARGET
 
-	if(isanimal(L) || issmall(L)) // Animals are not so dangerous
+	if(isanimal_or_basicmob(L) || issmall(L)) // Animals are not so dangerous
 		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 
 	if(isalien(L)) // Xenos are dangerous
@@ -759,7 +788,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 
 	if(!emagged)	//if it hasn't been emagged, cooldown before shooting again
-		if((last_fired + shot_delay > world.time) || !raised)
+		var/delay_modifier = 1
+		if(fitted_lens)
+			delay_modifier = fitted_lens.fire_rate_mult
+		if((last_fired + (shot_delay / delay_modifier) > world.time) || !raised)
 			return
 		last_fired = world.time
 
@@ -779,9 +811,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			A = new projectile(loc)
 			playsound(loc, shot_sound, 75, 1)
 
+	var/lens_power_mult = 1
+	if(fitted_lens)
+		A.damage = A.damage * fitted_lens.damage_mult
+		A.stamina = A.damage * fitted_lens.damage_mult
+		A.speed = A.speed / fitted_lens.laser_speed_mult
+		lens_power_mult = fitted_lens.power_mult
+
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
+	use_power(lens_power_mult * (reqpower * (2 * (emagged || lethal)) * (2 * emagged)))
 
 	if(istype(A))
 		A.original = target
@@ -868,67 +907,67 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/finish_name="turret"	//the name applied to the product turret
 	var/installation = null		//the gun type installed
 	var/gun_charge = 0			//the gun charge of the gun type installed
+	/// The lens attached to the gun used
+	var/obj/item/smithed_item/lens/gun_lens
 
-
-/obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user)
+/obj/machinery/porta_turret_construct/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//this is a bit unwieldy but self-explanatory
 	switch(build_step)
 		if(0)	//first step
-			if(iswrench(I) && !anchored)
-				playsound(loc, I.usesound, 100, 1)
+			if(iswrench(used) && !anchored)
+				playsound(loc, used.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You secure the external bolts.</span>")
 				anchored = TRUE
 				build_step = 1
-				return
+				return ITEM_INTERACT_COMPLETE
 
-			else if(I.tool_behaviour == TOOL_CROWBAR && !anchored)
-				playsound(loc, I.usesound, 75, 1)
+			else if(used.tool_behaviour == TOOL_CROWBAR && !anchored)
+				playsound(loc, used.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the turret construction.</span>")
 				new /obj/item/stack/sheet/metal( loc, 5)
 				qdel(src) // qdel
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		if(1)
-			if(istype(I, /obj/item/stack/sheet/metal))
-				var/obj/item/stack/sheet/metal/M = I
+			if(istype(used, /obj/item/stack/sheet/metal))
+				var/obj/item/stack/sheet/metal/M = used
 				if(M.use(2))
 					to_chat(user, "<span class='notice'>You add some metal armor to the interior frame.</span>")
 					build_step = 2
 					icon_state = "turret_frame2"
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
-			else if(iswrench(I))
-				playsound(loc, I.usesound, 75, 1)
+			else if(iswrench(used))
+				playsound(loc, used.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You unfasten the external bolts.</span>")
 				anchored = FALSE
 				build_step = 0
-				return
-
+				return ITEM_INTERACT_COMPLETE
 
 		if(2)
-			if(iswrench(I))
-				playsound(loc, I.usesound, 100, 1)
+			if(iswrench(used))
+				playsound(loc, used.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You bolt the metal armor into place.</span>")
 				build_step = 3
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		if(3)
-			if(istype(I, /obj/item/gun/energy)) //the gun installation part
-
+			if(istype(used, /obj/item/gun/energy)) //the gun installation part
 				if(isrobot(user))
-					return
-				var/obj/item/gun/energy/E = I //typecasts the item to an energy gun
-				if(!user.unEquip(I))
-					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
+				var/obj/item/gun/energy/E = used //typecasts the item to an energy gun
+				if(!user.unequip(used))
+					to_chat(user, "<span class='notice'>\the [used] is stuck to your hand, you cannot put it in \the [src]</span>")
+					return ITEM_INTERACT_COMPLETE
 				if(!E.can_fit_in_turrets)
-					to_chat(user, "<span class='notice'>[I] will not operate correctly in [src].</span>")
-					return
-				installation = I.type //installation becomes I.type
+					to_chat(user, "<span class='notice'>[used] will not operate correctly in [src].</span>")
+					return ITEM_INTERACT_COMPLETE
+				installation = used.type //installation becomes used.type
 				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge
-				to_chat(user, "<span class='notice'>You add [I] to the turret.</span>")
+				gun_lens = E.current_lens
+				to_chat(user, "<span class='notice'>You add [used] to the turret.</span>")
 
 				if(istype(E, /obj/item/gun/energy/laser/tag/blue))
 					target_type = /obj/machinery/porta_turret/tag/blue
@@ -938,51 +977,51 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					target_type = /obj/machinery/porta_turret
 
 				build_step = 4
-				qdel(I) //delete the gun :( qdel
-				return
+				qdel(used) //delete the gun :(
+				return ITEM_INTERACT_COMPLETE
 
-			else if(iswrench(I))
-				playsound(loc, I.usesound, 100, 1)
+			else if(iswrench(used))
+				playsound(loc, used.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You remove the turret's metal armor bolts.</span>")
 				build_step = 2
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		if(4)
-			if(isprox(I))
-				if(!user.unEquip(I))
-					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
-					return
+			if(isprox(used))
+				if(!user.unequip(used, src))
+					to_chat(user, "<span class='notice'>\the [used] is stuck to your hand, you cannot put it in \the [src]</span>")
+					return ITEM_INTERACT_COMPLETE
 				build_step = 5
-				qdel(I) // qdel
+				qdel(used)
 				to_chat(user, "<span class='notice'>You add the prox sensor to the turret.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			//attack_hand() removes the gun
 
 		if(5)
-			return
+			return ITEM_INTERACT_COMPLETE
 			//screwdriver_act() handles screwing the panel closed
 			//attack_hand() removes the prox sensor
 
 		if(6)
-			if(istype(I, /obj/item/stack/sheet/metal))
-				var/obj/item/stack/sheet/metal/M = I
+			if(istype(used, /obj/item/stack/sheet/metal))
+				var/obj/item/stack/sheet/metal/M = used
 				if(M.use(2))
 					to_chat(user, "<span class='notice'>You add some metal armor to the exterior frame.</span>")
 					build_step = 7
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		if(7)
-			if(I.tool_behaviour == TOOL_CROWBAR)
-				playsound(loc, I.usesound, 75, 1)
+			if(used.tool_behaviour == TOOL_CROWBAR)
+				playsound(loc, used.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/metal(loc, 2)
 				build_step = 6
-				return
+				return ITEM_INTERACT_COMPLETE
 
-	..()
+	return ..()
 
 /obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
 	if(build_step != 6 && build_step != 5)
@@ -1021,6 +1060,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		Turret.name = finish_name
 		Turret.installation = installation
 		Turret.gun_charge = gun_charge
+		gun_lens.forceMove(Turret)
+		Turret.fitted_lens = gun_lens
 		Turret.enabled = FALSE
 		Turret.setup()
 
@@ -1148,6 +1189,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	projectile = /obj/item/projectile/bullet
 	eprojectile = /obj/item/projectile/bullet
 
+/obj/machinery/porta_turret/syndicate/turret_outpost
+	name = "machine gun turret (5.56x45mm)"
+	desc = "Syndicate exterior defense turret chambered for 5.56x45mm rounds. Designed to down intruders with rifle caliber bullets."
+	projectile = /obj/item/projectile/bullet/heavybullet2
+	eprojectile = /obj/item/projectile/bullet/heavybullet2
+
 /obj/machinery/porta_turret/syndicate/grenade
 	name = "mounted grenade launcher (40mm)"
 	desc = "Syndicate 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."
@@ -1221,3 +1268,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return ((stat & BROKEN) || !pass_info.is_living)
+
+// Meatpackers' ruin turret
+/obj/machinery/porta_turret/meatpacker_ship
+	name = "ship defense turret"
+	lethal = TRUE
+	check_synth = TRUE

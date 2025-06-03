@@ -6,13 +6,15 @@
 	icon_state = "cutout_basic"
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
-	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
+	var/list/possible_appearances = list("Assistant", "Female", "Clown", "Mime",
 		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
 		"Deathsquad Commando", "Ian", "Slaughter Demon",
-		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider")
-	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
-	var/deceptive = FALSE //If the cutout actually appears as what it portray and not a discolored version
-	var/lastattacker = null
+		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider",
+		"Changeling", "Vampire", "Abductor", "Zombie", "Soviet Marine", "Federation Marine")
+	/// If the cutout is pushed over and has to be righted
+	var/pushed_over = FALSE
+	/// If the cutout actually appears as what it portray and not a discolored version
+	var/deceptive = FALSE
 
 /obj/item/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
@@ -30,7 +32,7 @@
 	alpha = initial(alpha)
 	pushed_over = TRUE
 
-/obj/item/cardboard_cutout/attack_self(mob/living/user)
+/obj/item/cardboard_cutout/attack_self__legacy__attackchain(mob/living/user)
 	if(!pushed_over)
 		return
 	to_chat(user, "<span class='notice'>You right [src].</span>")
@@ -39,7 +41,7 @@
 	icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
 	pushed_over = FALSE
 
-/obj/item/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
+/obj/item/cardboard_cutout/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/crayon))
 		change_appearance(I, user)
 		return
@@ -100,6 +102,10 @@
 			name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
 			desc = "A cardboard cutout of an assistant."
 			icon_state = "cutout_greytide"
+		if("Female")
+			name = "[pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
+			desc = "A cardboard cutout of a female assistant."
+			icon_state = "cutout_female"
 		if("Clown")
 			name = pick(GLOB.clown_names)
 			desc = "A cardboard cutout of a clown. You get the feeling that it should be in a corner."
@@ -180,6 +186,30 @@
 			icon = 'icons/mob/terrorspider.dmi'
 			icon_state = "terror_gray"
 			dir = "SOUTH"
+		if("Soviet Marine")
+			name = "[pick(GLOB.first_names_soviet)] [pick(GLOB.last_names_soviet)]"
+			desc = "A cardboard cutout of a soviet marine."
+			icon_state = "cutout_soviet"
+		if("Federation Marine")
+			name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]"
+			desc = "A cardboard cutout of a federation marine."
+			icon_state = "cutout_sol"
+		if("Changeling")
+			name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+			desc = "A cardboard cutout of a changeling."
+			icon_state = "cutout_cling"
+		if("Abductor")
+			name = "Unknown"
+			desc = "A cardboard cutout of an abductor."
+			icon_state = "cutout_abductor"
+		if("Zombie")
+			name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+			desc = "A cardboard cutout of a zombie."
+			icon_state = "cutout_zombie"
+		if("Vampire")
+			name = "Unknown"
+			desc = "A cardboard cutout of a vampire."
+			icon_state = "cutout_vampire"
 
 	return 1
 

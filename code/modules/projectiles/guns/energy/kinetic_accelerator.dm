@@ -9,6 +9,7 @@
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
 	can_flashlight = TRUE
+	can_be_lensed = FALSE
 	flight_x_offset = 15
 	flight_y_offset = 9
 	var/overheat_time = 16
@@ -33,10 +34,10 @@
 			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
+				. |= "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
-				. += "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 
-/obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
+/obj/item/gun/energy/kinetic_accelerator/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
 		var/obj/item/borg/upgrade/modkit/MK = I
 		MK.install(src, user)
@@ -77,7 +78,6 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	max_mod_capacity = 80
 	icon_state = "kineticgun_b"
 
 /obj/item/gun/energy/kinetic_accelerator/cyborg/malf
@@ -272,13 +272,14 @@
 /obj/item/gun/energy/kinetic_accelerator/pistol
 	name = "proto-kinetic pistol"
 	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
-	icon_state = "kineticgun_p"
+	icon_state = "kineticpistol"
 	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	max_mod_capacity = 65
 	can_bayonet = FALSE
 	can_flashlight = FALSE
 	can_holster = TRUE
+	empty_state = "kineticpistol_empty"
 
 
 //Modkits
@@ -291,6 +292,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 	usesound = 'sound/items/screwdriver.ogg'
+	allow_duplicate = TRUE
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30
@@ -303,7 +305,7 @@
 	if(in_range(user, src))
 		. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
 
-/obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
+/obj/item/borg/upgrade/modkit/attackby__legacy__attackchain(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
 		var/obj/item/gun/energy/kinetic_accelerator/KA = A
 		if(KA.max_mod_capacity)
@@ -313,15 +315,18 @@
 	else
 		return ..()
 
-/obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/modkit/action(mob/user, mob/living/silicon/robot/R)
 	if(!..())
 		return
 
 	for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
-		return install(H, usr)
+		return install(H, user)
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE
+	if(istype(loc, /obj/item/gun/energy/kinetic_accelerator)) //Could be in another KA too.
+		message_admins("User attempted to install a modkit into a kinetic accelerator while it is installed in an accelerator. Could be a double click, or an exploit attempt.")
+		return FALSE
 	if(minebot_upgrade)
 		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
 			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
@@ -342,7 +347,7 @@
 		if(.)
 			to_chat(user, "<span class='notice'>You install the modkit.</span>")
 			playsound(loc, usesound, 100, 1)
-			user.unEquip(src)
+			user.unequip(src)
 			forceMove(KA)
 			KA.modkits += src
 		else
@@ -536,7 +541,7 @@
 			R.damage_multiplier = modifier
 			R.burst()
 			return
-		new /obj/effect/temp_visual/resonance(target_turf, K.firer, null, 30)
+		new /obj/effect/temp_visual/resonance(target_turf, K.firer, null, RESONATOR_MODE_MANUAL, 100) //manual detonate mode and will NOT spread
 
 /obj/item/borg/upgrade/modkit/bounty
 	name = "death syphon"
@@ -655,5 +660,5 @@
 	name = "adjustable tracer bolts"
 	desc = "Causes kinetic accelerator bolts to have an adjustable-colored tracer trail and explosion. Use in-hand to change color."
 
-/obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
-	bolt_color = input(user,"","Choose Color",bolt_color) as color|null
+/obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self__legacy__attackchain(mob/user)
+	bolt_color = tgui_input_color(user, "Please select a tracer color", "PKA Tracer Color", bolt_color)

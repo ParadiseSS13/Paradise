@@ -10,7 +10,7 @@ Contents:
 	name = "ninja mask"
 	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement."
 	icon_state = "s-ninja(norm)"
-	item_state = "s-ninja_mask"
+	item_state = "s-ninja(norm)"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',

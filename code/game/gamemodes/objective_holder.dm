@@ -4,15 +4,15 @@
 
 /datum/objective_holder
 	/// Our list of current objectives
-	var/list/datum/objective/objectives = list()
+	VAR_PRIVATE/list/datum/objective/objectives = list()
 	/// Who do we belong to [mind, antagonist, team]
-	var/datum/objective_owner
+	VAR_PRIVATE/datum/objective_owner
 	/// A list of strings which contain [targets][/datum/objective/var/target] of the antagonist's objectives. Used to prevent duplicate objectives.
-	var/list/assigned_targets = list()
+	VAR_PRIVATE/list/assigned_targets = list()
 	/// A callback invoked when a new objective is added. This is required because sometimes objectives are added directly without going through objective_owner. Not currently used.
-	var/datum/callback/on_add_callback
+	VAR_PRIVATE/datum/callback/on_add_callback
 	/// A callback invoked when a new objective is added. This is required because sometimes objectives are removed directly without going through objective_owner (EX: replace_objective(), clear()). Not currently used.
-	var/datum/callback/on_remove_callback
+	VAR_PRIVATE/datum/callback/on_remove_callback
 
 /datum/objective_holder/New(new_owner)
 	. = ..()
@@ -56,11 +56,18 @@
 	return objectives
 
 /**
+ * Get all of our targets
+ */
+/datum/objective_holder/proc/get_targets()
+	return assigned_targets
+
+/**
  * Replace old_objective with new_objective
  */
-/datum/objective_holder/proc/replace_objective(datum/objective/old_objective, datum/objective/new_objective)
+/datum/objective_holder/proc/replace_objective(datum/objective/old_objective, datum/objective/new_objective, datum/original_target_department, list/original_steal_list)
+	new_objective.target_department = original_target_department
+	new_objective.steal_list = original_steal_list
 	new_objective = add_objective(new_objective, add_to_list = FALSE)
-
 	// Replace where the old objective was, with the new one
 	objectives.Insert(objectives.Find(old_objective), new_objective)
 	remove_objective(old_objective)
@@ -122,3 +129,10 @@
 	on_remove_callback?.Invoke(objective_owner, Objective)
 	if(!QDELETED(Objective))
 		qdel(Objective)
+
+/**
+ * Returns `objective_owner`
+ */
+/datum/objective_holder/proc/get_holder_owner()
+	RETURN_TYPE(/datum)
+	return objective_owner

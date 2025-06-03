@@ -3,10 +3,14 @@
 		return
 	..(reason)
 	if(stat == DEAD)
-		if(dna.species && dna.species.can_revive_by_healing)
+		if(dna.species && dna.species.can_revive_by_healing)  // Here's where IPC revival is handled
 			var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
 			if(B)
-				if((health >= (HEALTH_THRESHOLD_DEAD + HEALTH_THRESHOLD_CRIT) * 0.5) && check_vital_organs() && !suiciding)
+				if((health >= (HEALTH_THRESHOLD_DEAD + HEALTH_THRESHOLD_CRIT) * 0.5) && ipc_vital_organ_check() && !suiciding)
+					var/mob/dead/observer/ghost = get_ghost()
+					if(ghost)
+						to_chat(ghost, "<span class='ghostalert'>Your chassis has been repaired and repowered, re-enter if you want to continue playing!</span> (Verbs -> Ghost -> Re-enter corpse)")
+						SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 					update_revive()
 					create_debug_log("revived from healing, trigger reason: [reason]")
 

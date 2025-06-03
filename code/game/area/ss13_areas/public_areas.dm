@@ -86,8 +86,19 @@
 /area/station/hallway/primary/central/se
 
 /area/station/hallway/spacebridge
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	icon_state = "hall_space"
+
+/area/station/hallway/spacebridge/security
+	icon_state = "hall_space"
+	name = "\improper Security Space Bridge"
+
+/area/station/hallway/spacebridge/security/west
+	icon_state = "hall_space"
+	name = "\improper Security West Space Bridge"
+
+/area/station/hallway/spacebridge/security/south
+	icon_state = "hall_space"
+	name = "\improper Security South Space Bridge"
 
 /area/station/hallway/spacebridge/dockmed
 	name = "Docking-Medical Bridge"
@@ -142,6 +153,26 @@
 /area/station/hallway/secondary/bridge
 	name = "\improper Command Hallway"
 	icon_state = "hallC"
+
+// Hallways for departments
+
+/area/station/hallway/supply
+	name = "\improper Cargo Hallway"
+	icon_state = "cargo_hallway"
+
+/area/station/hallway/supply/fore
+	name = "\improper Fore Cargo Hallway"
+
+/area/station/hallway/supply/starboard
+	name = "\improper Starboard Cargo Hallway"
+
+/area/station/hallway/supply/aft
+	name = "\improper Aft Cargo Hallway"
+
+/area/station/hallway/supply/port
+	name = "\improper Port Cargo Hallway"
+
+
 // Other public areas
 
 
@@ -253,3 +284,11 @@
 
 /area/station/public/quantum/medbay
 	name = "Medbay Quantum Pad"
+
+/area/station/public/park
+	name = "Public Nature Reserve"
+	icon_state = "park"
+
+/area/station/public/shops
+	name = "Dorms Public Storefront"
+	icon_state = "shop"

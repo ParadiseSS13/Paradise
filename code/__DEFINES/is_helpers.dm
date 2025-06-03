@@ -1,6 +1,8 @@
 // Datums
 #define isdatum(thing) (istype(thing, /datum))
 
+#define isspell(A) (istype(A, /datum/spell))
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -31,7 +33,7 @@
 
 // Simple animals
 
-#define issimple_animal(A) (istype(A, /mob/living/simple_animal))
+#define isanimal(A) (istype(A, /mob/living/simple_animal))
 
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
@@ -42,6 +44,16 @@
 #define isslime(A) (istype((A), /mob/living/simple_animal/slime))
 
 #define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
+
+#define isshadowdemon(A) (istype(A, /mob/living/simple_animal/demon/shadow))
+
+// Basic mobs
+
+#define isbasicmob(A) (istype(A, /mob/living/basic))
+
+// Simple animal -> basic mob migration helpers
+
+#define isanimal_or_basicmob(A) (isanimal(A) || isbasicmob(A))
 
 // Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
@@ -60,6 +72,8 @@
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
+#define ismask(A) (istype(A, /obj/item/clothing/mask))
+
 #define isprojectile(A) (istype(A, /obj/item/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
@@ -73,6 +87,8 @@
 #define isstorage(A) (istype(A, /obj/item/storage))
 
 #define isstack(I) (istype(I, /obj/item/stack))
+
+#define istable(S) (istype(S, /obj/structure/table))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -134,6 +150,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispill(A) istype(A, /obj/item/reagent_containers/pill)
 #define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
 #define isfood(A) istype(A, /obj/item/food)
+#define is_color_text(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
 
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)
@@ -147,3 +164,5 @@ GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
 #define ispassmeteorturf(A) (is_type_in_typecache(A, GLOB.turfs_pass_meteor))
 
 #define is_screen_atom(A) istype(A, /atom/movable/screen)
+
+#define is_multi_tile_object(atom) (atom?.bound_width > world.icon_size || atom?.bound_height > world.icon_size)

@@ -41,7 +41,7 @@
  * * end: What we're trying to path to. It doesn't matter if this is a turf or some other atom, we're gonna just path to the turf it's on anyway
  * * max_distance: The maximum number of steps we can take in a given path to search (default: 30, 0 = infinite)
  * * mintargetdistance: Minimum distance to the target before path returns, could be used to get near a target, but not right to it - for an AI mob with a gun, for example.
- * * age: How old a path map can be before we'll avoid reusing it. Use the defines found in [code/__DEFINES/path.dm], values larger then MAP_REUSE_SLOWEST will be discarded
+ * * age: How old a path map can be before we'll avoid reusing it. Use the defines found in [code/__DEFINES/path_defines.dm], values larger then MAP_REUSE_SLOWEST will be discarded
  * * access: A list representing what access we have and what doors we can open.
  * * simulated_only: Whether we consider tur fs without atmos simulation (AKA do we want to ignore space)
  * * exclude: If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
@@ -359,7 +359,7 @@
 		src.can_ventcrawl = living_construct.ventcrawler == VENTCRAWLER_ALWAYS || living_construct.ventcrawler == VENTCRAWLER_NUDE
 		src.mob_size = living_construct.mob_size
 		src.incorporeal_move = living_construct.incorporeal_move
-		is_flying = living_construct.flying
+		is_flying = HAS_TRAIT(living_construct, TRAIT_FLYING)
 	if(iscameramob(construct_from))
 		src.camera_type = construct_from.type
 	src.is_bot = isbot(construct_from)
@@ -386,7 +386,7 @@ GLOBAL_LIST_INIT(can_pass_info_vars, GLOBAL_PROC_REF(can_pass_check_vars))
 
 /datum/can_pass_info/proc/compare_against(datum/can_pass_info/check_against)
 	for(var/comparable_var in GLOB.can_pass_info_vars)
-		if(!(vars[comparable_var] ~= check_against[comparable_var]))
+		if(!(vars[comparable_var] ~= check_against.vars[comparable_var]))
 			return FALSE
 	if(!pulling_info != !check_against.pulling_info)
 		return FALSE

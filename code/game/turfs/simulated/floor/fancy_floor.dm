@@ -59,6 +59,10 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/wood/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
 // Grass
 /turf/simulated/floor/grass
 	name = "grass patch"
@@ -79,13 +83,12 @@
 /turf/simulated/floor/grass/get_broken_states()
 	return list("damaged")
 
-/turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return
-	if(istype(C, /obj/item/shovel))
+/turf/simulated/floor/grass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/shovel))
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		remove_tile()
+		return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/grass/jungle
 	name = "jungle grass"
@@ -93,6 +96,13 @@
 	icon_state = "junglegrass"
 	base_icon_state = "junglegrass"
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
+
+/turf/simulated/floor/grass/jungle/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /// This vairant shows up under normal turfs so fits in the regular 32x32 sprite
 /turf/simulated/floor/grass/no_creep
@@ -210,6 +220,12 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET, SMOOTH_GROUP_CARPET_ROYALBLUE)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_ROYALBLUE)
 
+/turf/simulated/floor/carpet/grimey
+	icon = 'icons/turf/floors/carpet_grimey.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/grimey
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET,SMOOTH_GROUP_CARPET_GRIMEY)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_GRIMEY)
+
 /turf/simulated/floor/carpet/airless
 	oxygen = 0
 	nitrogen = 0
@@ -221,6 +237,11 @@
 	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/carpet/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
 //End of carpets
 
 // Bamboo mats

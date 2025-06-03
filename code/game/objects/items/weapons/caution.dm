@@ -16,12 +16,13 @@
 	var/timing = FALSE
 	var/armed = FALSE
 	var/timepassed = 0
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/item/caution/proximity_sign/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src, 1)
 
-/obj/item/caution/proximity_sign/attack_self(mob/user as mob)
+/obj/item/caution/proximity_sign/attack_self__legacy__attackchain(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.mind.has_antag_datum(/datum/antagonist/traitor) && !IS_MINDSLAVE(H))
@@ -53,7 +54,7 @@
 			if(C.m_intent != MOVE_INTENT_WALK)
 				visible_message("[src] beeps, \"Sign says walk, asshole.\"")
 				playsound(src, 'sound/misc/sign_says_walk.ogg', 40)
-				explosion(src.loc,-1,0,2)
+				explosion(src.loc,-1,0,2, cause = "Exploding wet floor sign")
 				if(ishuman(C))
 					dead_legs(C)
 				if(src)
@@ -71,15 +72,17 @@
 	name = "proximity mine dispenser"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "caution"
-	energy_type = /datum/robot_storage/energy/janitor/landmine
+	energy_type = /datum/robot_storage/energy/jani_landmine
 	is_cyborg = TRUE
 
-/obj/item/stack/caution/proximity_sign/malf/afterattack(atom/target, mob/user)
+/obj/item/stack/caution/proximity_sign/malf/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!check_allowed_items(target, 1))
+		return
+	if(!proximity)
 		return
 	var/turf/T = get_turf(target)
 
-	if(is_blocked_turf(T, TRUE)) //can't put mines on a tile that has dense stuff
+	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put mines on a tile that has dense stuff
 		to_chat(user, "<span class='notice'>The space is occupied! You cannot place a mine there!</span>")
 		return
 	if(!use(1)) //Can't place a landmine if you don't have a landmine

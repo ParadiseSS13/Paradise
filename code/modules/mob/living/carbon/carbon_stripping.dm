@@ -1,10 +1,10 @@
 /datum/strippable_item/mob_item_slot/head
 	key = STRIPPABLE_ITEM_HEAD
-	item_slot = SLOT_HUD_HEAD
+	item_slot = ITEM_SLOT_HEAD
 
 /datum/strippable_item/mob_item_slot/back
 	key = STRIPPABLE_ITEM_BACK
-	item_slot = SLOT_HUD_BACK
+	item_slot = ITEM_SLOT_BACK
 
 /datum/strippable_item/mob_item_slot/back/get_alternate_actions(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
@@ -16,7 +16,7 @@
 
 /datum/strippable_item/mob_item_slot/mask
 	key = STRIPPABLE_ITEM_MASK
-	item_slot = SLOT_HUD_WEAR_MASK
+	item_slot = ITEM_SLOT_MASK
 
 /datum/strippable_item/mob_item_slot/mask/get_body_action(atom/source, mob/user)
 	if(!ishuman(source))
@@ -36,17 +36,20 @@
 /datum/strippable_item/mob_item_slot/mask/alternate_action(atom/source, mob/user, action_key)
 	if(!..())
 		return
+
+	var/thief_mode = in_thief_mode(user)
+
 	// Headpocket dislodging
 	if(action_key == "dislodge_headpocket")
 		var/mob/living/carbon/human/H = source
 		var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
 		if(!pocket.held_item)
 			return
-		if(!in_thief_mode(user))
+		if(!thief_mode)
 			user.visible_message("<span class='danger'>[user] is trying to remove something from [source]'s head!</span>",
 								"<span class='danger'>You start to dislodge whatever's inside [source]'s headpocket!</span>")
-		if(do_mob(user, source, POCKET_STRIP_DELAY))
-			if(!in_thief_mode(user))
+		if(do_mob(user, source, POCKET_STRIP_DELAY, hidden = thief_mode))
+			if(!thief_mode)
 				user.visible_message("<span class='danger'>[user] has dislodged something from [source]'s head!</span>",
 									"<span class='danger'>You have dislodged everything from [source]'s headpocket!</span>")
 			pocket.empty_contents()
@@ -63,10 +66,10 @@
 		to_chat(user, "You lack the ability to manipulate the lock.")
 		return
 
-	if(!in_thief_mode(user))
+	if(!thief_mode)
 		muzzle.visible_message("<span class='danger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>", \
 						"<span class='userdanger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>")
-	if(!do_mob(user, source, POCKET_STRIP_DELAY))
+	if(!do_mob(user, source, POCKET_STRIP_DELAY, hidden = thief_mode))
 		return
 
 	var/success = FALSE
@@ -77,14 +80,18 @@
 
 	if(!success)
 		return
-	if(!in_thief_mode(user))
+	if(!thief_mode)
 		muzzle.visible_message("<span class='danger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>", \
 						"<span class='userdanger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>")
 
 
+/datum/strippable_item/mob_item_slot/neck
+	key = STRIPPABLE_ITEM_NECK
+	item_slot = ITEM_SLOT_NECK
+
 /datum/strippable_item/mob_item_slot/handcuffs
 	key = STRIPPABLE_ITEM_HANDCUFFS
-	item_slot = SLOT_HUD_HANDCUFFED
+	item_slot = ITEM_SLOT_HANDCUFFED
 
 /datum/strippable_item/mob_item_slot/handcuffs/should_show(atom/source, mob/user)
 	if(!iscarbon(source))
@@ -99,7 +106,7 @@
 
 /datum/strippable_item/mob_item_slot/legcuffs
 	key = STRIPPABLE_ITEM_LEGCUFFS
-	item_slot = SLOT_HUD_LEGCUFFED
+	item_slot = ITEM_SLOT_LEGCUFFED
 
 /datum/strippable_item/mob_item_slot/legcuffs/should_show(atom/source, mob/user)
 	if(!iscarbon(source))
@@ -173,8 +180,8 @@
 
 /datum/strippable_item/hand/left
 	key = STRIPPABLE_ITEM_LHAND
-	which_hand = SLOT_HUD_LEFT_HAND
+	which_hand = ITEM_SLOT_LEFT_HAND
 
 /datum/strippable_item/hand/right
 	key = STRIPPABLE_ITEM_RHAND
-	which_hand = SLOT_HUD_RIGHT_HAND
+	which_hand = ITEM_SLOT_RIGHT_HAND

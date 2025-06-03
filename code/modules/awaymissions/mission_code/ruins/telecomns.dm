@@ -17,12 +17,46 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	GLOB.telecomms_bots -= src
 	return ..()
 
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba
+	name = "A FUCKING DOOMBA"
+	desc = "IT'S GOT A BOMB RUN!"
+	var/obj/structure/reagent_dispensers/fueltank/internal_tank
+	var/obj/structure/marker_beacon/dock_marker/collision/decorative_eye
+
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/Initialize(mapload)
+	. = ..()
+	internal_tank = new(src)
+	decorative_eye = new(src)
+	vis_contents += internal_tank
+	vis_contents += decorative_eye
+	internal_tank.pixel_y = 10
+	decorative_eye.pixel_y = -8
+	decorative_eye.pixel_x = 1
+	decorative_eye.layer = 4
+	internal_tank.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	decorative_eye.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/explode()
+	visible_message("<span class='userdanger'>[src] EXPLODES!</span>")
+	var/your_doom = get_turf(src)
+	new /obj/item/grenade/frag(your_doom)
+	internal_tank.forceMove(your_doom)
+	explosion(your_doom, 1, 0, 0, 6, FALSE, 6, cause = "DVORAK Doomba")
+	qdel(decorative_eye)
+	qdel(src)
+
 /obj/effect/abstract/bot_trap
 	name = "evil bot trap to make explorers hate you"
 
-/obj/effect/abstract/bot_trap/Crossed(atom/movable/AM, oldloc)
+/obj/effect/abstract/bot_trap/Initialize(mapload)
 	. = ..()
-	if(isrobot(AM) || ishuman(AM))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/abstract/bot_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isrobot(entered) || ishuman(entered))
 		var/turf/T = get_turf(src)
 		for(var/mob/living/simple_animal/bot/B in GLOB.telecomms_bots)
 			B.call_bot(null, T, FALSE)
@@ -32,9 +66,15 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/loot_trap
 	name = "table surrounding loot trap"
 
-/obj/effect/abstract/loot_trap/Crossed(atom/movable/AM, oldloc)
+/obj/effect/abstract/loot_trap/Initialize(mapload)
 	. = ..()
-	if(isrobot(AM) || ishuman(AM))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/abstract/loot_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isrobot(entered) || ishuman(entered))
 		var/turf/T = get_turf(src)
 		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			DD.thief = TRUE
@@ -47,9 +87,15 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/cheese_trap
 	name = "cheese preventer"
 
-/obj/effect/abstract/cheese_trap/Crossed(atom/movable/AM, oldloc)
+/obj/effect/abstract/cheese_trap/Initialize(mapload)
 	. = ..()
-	if(isrobot(AM) || ishuman(AM))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/abstract/cheese_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isrobot(entered) || ishuman(entered))
 		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			if(DD.thief)
 				DD.start_the_party(TRUE)
@@ -59,12 +105,13 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "recharger"
 	desc = "A charging dock for energy based weaponry. Did it just-"
 	icon_state = "autolathe_trap"
+	board_type = /obj/item/circuitboard/autolathe/trapped
 	//Has someone put an item in the autolathe, breaking the hologram?
 	var/disguise_broken = FALSE
 
-/obj/machinery/autolathe/trapped/Initialize()
+/obj/machinery/autolathe/trapped/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(material_container_shenanigins))
+	RegisterSignal(src, COMSIG_ATTACK_BY, PROC_REF(material_container_shenanigins))
 
 /obj/machinery/autolathe/trapped/proc/material_container_shenanigins(datum/source, obj/item/attacker, mob/user)
 	if(!disguise_broken)
@@ -112,9 +159,9 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
 	if(prob(50))
 		if(prob(80))
-			new /obj/item/surveillance_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/surveillance_upgrade(get_turf(src))
 		else // 10% chance
-			new /obj/item/malf_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/malf_upgrade(get_turf(src))
 	return ..()
 
 /obj/structure/telecomms_trap_tank
@@ -122,6 +169,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	desc = "That plasma tank seems rigged to explode!"
 	icon = 'icons/atmos/tank.dmi'
 	icon_state = "toxins_map"
+	proj_ignores_layer = TRUE
 	anchored = TRUE
 	layer = DISPOSAL_PIPE_LAYER
 	plane = FLOOR_PLANE
@@ -139,7 +187,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	explode()
 
 /obj/structure/telecomms_trap_tank/proc/explode()
-	explosion(loc, 1, 4, 6, flame_range = 6)
+	explosion(loc, 1, 4, 6, flame_range = 6, cause = "Telecomms trap tank")
 	qdel(src)
 
 /obj/structure/telecomms_doomsday_device
@@ -170,13 +218,15 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	flick_holder.layer = kaboom.layer + 0.1
 	flick("popup", flick_holder)
 	sleep(1 SECONDS)
-	for(var/obj/machinery/shieldgen/telecomms/shield in urange(15, get_turf(src)))
-		shield.shields_up()
+	for(var/obj/structure/telecomms_shield_cover/shield in urange(15, get_turf(src)))
+		shield.activate()
 	if(ruin_cheese_attempted)
 		for(var/obj/machinery/door/airlock/A in urange(20, get_turf(src)))
 			A.unlock(TRUE) //Fuck your bolted open doors, you cheesed it.
 			A.close(override = TRUE)
 	for(var/area/A in urange(25, get_turf(src), areas = TRUE))
+		for(var/obj/machinery/camera/tracking_head/camera in A)
+			camera.toggle_cam(null, 0)
 		if(istype(A, /area/space))
 			continue
 		if(ruin_cheese_attempted)
@@ -217,9 +267,9 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/item/bombcore/doomsday
 	name = "supermatter charged bomb core"
-	desc = "If you are looking at this, please don't put it in a bomb"
+	desc = "If you are looking at this, please don't put it in a bomb."
 
-/obj/item/bombcore/doomsday/Initialize()
+/obj/item/bombcore/doomsday/Initialize(mapload)
 	. = ..()
 	if(!istype(loc, /obj/machinery/syndicatebomb/doomsday))
 		log_debug("something tried to spawn a telecomms doomsday ruin payload outside the ruin, deleting!")
@@ -236,7 +286,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		loc.invisibility = 90
 	for(var/turf/simulated/wall/indestructible/riveted/R in urange(25, get_turf(src)))
 		R.ChangeTurf(/turf/space)
-	explosion(get_turf(src), 30, 40, 50, 60, 1, 1, 65, 0)
+	explosion(get_turf(src), 30, 40, 50, 60, 1, 1, 65, 0, cause = "DVORAK Doomsday Device")
 	sleep(3 SECONDS)
 	var/obj/singularity/S = new /obj/singularity(get_turf(src))
 	S.consumedSupermatter = TRUE // woe large supermatter to eat the remains apon thee
@@ -244,6 +294,25 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	QDEL_IN(S, 25 SECONDS)
 	if(istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
+	qdel(src)
+
+/obj/structure/telecomms_shield_cover
+	name = "turret"
+	desc = "Looks like the cover to a turret. Not deploying, however?"
+	icon = 'icons/obj/turrets.dmi'
+	icon_state = "turretCover"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	anchored = TRUE
+
+/obj/structure/telecomms_shield_cover/proc/activate()
+	invisibility = 90
+	var/obj/machinery/shieldgen/telecomms/trap = new /obj/machinery/shieldgen/telecomms(get_turf(src))
+	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
+	flick_holder.layer = trap.layer + 0.1
+	flick("popup", flick_holder)
+	sleep(1 SECONDS)
+	trap.shields_up()
+	qdel(flick_holder)
 	qdel(src)
 
 /turf/simulated/floor/catwalk/airless
@@ -257,7 +326,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /mob/living/simple_animal/hostile/hivebot/strong/malfborg
 	name = "Security cyborg"
-	desc = "Oh god they still have access to these"
+	desc = "Oh god they still have access to these!"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "Noble-SEC"
 	health = 200
@@ -320,7 +389,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/item/remote_ai_upload // A 1 use AI upload. Potential D.V.O.R.A.K reward.
 	name = "remote AI upload"
-	desc = "A mobile AI upload. The bluespace relay will likely overload after one use. Make it count."
+	desc = "A mobile AI upload. The transmitter is extremely powerful, but will burn out after one use. Make it count."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dvorak_upload"
 	w_class = WEIGHT_CLASS_TINY
@@ -343,31 +412,31 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	QDEL_NULL(integrated_console)
 	return ..()
 
-/obj/item/remote_ai_upload/attack_self(mob/user as mob)
+/obj/item/remote_ai_upload/attack_self__legacy__attackchain(mob/user as mob)
 	integrated_console.attack_hand(user)
 
-/obj/item/remote_ai_upload/attackby(obj/item/O, mob/user, params)
+/obj/item/remote_ai_upload/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/emag))
 		to_chat(user, "<span class='warning'>You are more likely to damage this with an emag, than achieve something useful.</span>")
 		return
-	var/time_to_die = integrated_console.attackby(O, user, params)
+	var/time_to_die = integrated_console.attackby__legacy__attackchain(O, user, params)
 	if(time_to_die)
 		to_chat(user, "<span class='danger'>[src]'s relay begins to overheat...</span>")
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 		addtimer(CALLBACK(src, PROC_REF(prime)), 5 SECONDS)
 
 /obj/item/remote_ai_upload/proc/prime()
-		explosion(loc, -1, -1, 2, 4, flame_range = 4)
+		explosion(loc, -1, -1, 2, 4, flame_range = 4, cause = "Remote AI Upload explosion")
 		qdel(src)
 
-/obj/effect/spawner/lootdrop/telecomms_core_table
+/obj/effect/spawner/random/telecomms_core_table
 	name = "telecomms core table spawner"
-	lootcount = 1
+	spawn_loot_count = 1
 	loot = list(
-			/obj/item/rcd/combat,
-			/obj/item/gun/medbeam,
-			/obj/item/mod/module/energy_shield,
-			/obj/item/storage/box/syndie_kit/oops_all_extraction_flares
+		/obj/item/rcd/combat,
+		/obj/item/gun/medbeam,
+		/obj/item/gun/energy/wormhole_projector,
+		/obj/item/storage/box/syndie_kit/oops_all_extraction_flares
 	)
 
 /obj/item/storage/box/syndie_kit/oops_all_extraction_flares
@@ -377,18 +446,27 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	for(var/I in 1 to 7)
 		new /obj/item/wormhole_jaunter/contractor(src)
 
-/obj/effect/spawner/random_spawners/telecomms_emp_loot
+/obj/effect/spawner/random/telecomms_emp_loot
 	name = "telecomms emp loot"
-	result = list(
+	loot = list(
 		/obj/item/grenade/empgrenade = 8,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/gun/energy/ionrifle = 1)
 
-/obj/effect/spawner/random_spawners/telecomms_teleprod_maybe
+/obj/effect/spawner/random/telecomms_teleprod_maybe
 	name = "teleprod maybe"
-	result = list(
-		/datum/nothing = 4,
-		/obj/item/melee/baton/cattleprod/teleprod = 1)
+	loot = list(/obj/item/melee/baton/cattleprod/teleprod = 1)
+	spawn_loot_chance = 20
+
+/obj/effect/spawner/random/telecomms_weldertank_maybe
+	name = "weldertank maybe"
+	loot = list(/obj/structure/reagent_dispensers/fueltank)
+	spawn_loot_chance = 25
+
+/obj/effect/spawner/random/telecomms_doomba_one_in_twenty
+	name = "doomba very rarely"
+	loot = list(/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba)
+	spawn_loot_chance = 5
 
 // This could work in any ruin. However for now, as the scope is quite large, it's going to be coded a bit more to D.V.O.R.A.K
 /obj/structure/environmental_storytelling_holopad
@@ -412,10 +490,11 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	var/soundblock = null
 	/// How long do we sleep between messages? 5 seconds by default.
 	var/loop_sleep_time = 5 SECONDS
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/environmental_storytelling_holopad/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src, 1)
 
 /obj/structure/environmental_storytelling_holopad/Destroy()
 	QDEL_NULL(our_holo)
@@ -429,7 +508,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/structure/environmental_storytelling_holopad/proc/start_message(mob/living/carbon/human/H)
 	activated = TRUE
-	qdel(GetComponent(/datum/component/proximity_monitor))
+	QDEL_NULL(proximity_monitor)
 	icon_state = "holopad1"
 	update_icon(UPDATE_OVERLAYS)
 	var/obj/effect/overlay/hologram = new(get_turf(src))
@@ -494,6 +573,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 			soundblock = "kerberos"
 		if("NSS Farragus")
 			soundblock = "farragus"
+		if("NSS Diagoras")
+			soundblock = "diagoras"
 	if(!soundblock)
 		things_to_say = list("Either you are using the tiny test map, or someone has made a new station and it got merged!", "If this is the case, you'll want to issue report this if a new map is merged", "Lines 2 and 3 here are always the same, only the first line will need a new generation")
 

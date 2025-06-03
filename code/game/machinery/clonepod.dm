@@ -87,6 +87,8 @@
 	var/price_modifier = 1.1
 	/// Our storage modifier, which is used in calculating organ and biomass storage.
 	var/storage_modifier = 1
+	/// How resistant the cloner is to being emp'd. Equal to the average level of all the stock parts
+	var/emp_resistance = 1
 
 	/// The cloner's biomass count.
 	var/biomass = 0
@@ -164,15 +166,19 @@
 	. += "<span class='notice'>[desc_flavor]</span>"
 
 /obj/machinery/clonepod/RefreshParts()
-	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
+	speed_modifier = 0 // Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
+	emp_resistance = 0
 	for(var/obj/item/stock_parts/SP as anything in component_parts)
-		if(istype(SP, /obj/item/stock_parts/matter_bin/)) // Matter bins for storage modifier
+		if(istype(SP, /obj/item/stock_parts/matter_bin)) // Matter bins for storage modifier
 			storage_modifier = round(10 * (SP.rating / 2)) // 5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
+			emp_resistance += SP.rating
 		else if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
 			price_modifier = -(SP.rating / 10) + 1.2 // 1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
+			emp_resistance += SP.rating
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
 			speed_modifier += SP.rating / 2 // 1 at tier 1, 2 at tier 2, et cetera
-
+			emp_resistance += SP.rating
+	emp_resistance /= 4 // 4 stock parts, this brings us to a value between 1 to 4. Decimals can happen and are fine.
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		if(istype(B))
 			reagents.maximum_volume = B.volume //The default cloning pod has a large beaker in it, so 100u.
@@ -239,7 +245,7 @@
 					create_clone()
 					return
 
-				if(clone.cloneloss >= 25)
+				if(clone.getCloneLoss() >= 25)
 					clone.adjustCloneLoss(-2)
 					return
 
@@ -367,7 +373,7 @@
 		reset_cloning()
 		return TRUE
 
-	if(!clone.cloneloss)
+	if(!clone.getCloneLoss())
 		clone.forceMove(loc)
 		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 		patient_mind.transfer_to(clone)
@@ -532,10 +538,10 @@
 		var/mob/M = inserted.loc
 		if(!M.get_active_hand() == inserted)
 			return //not sure how this would happen, but smartfridges check for it so
-		if(!M.drop_item())
+		if(!M.unequip(inserted))
 			to_chat(inserter, "<span class='warning'>[inserted] is stuck to you!</span>")
 			return
-		M.unEquip(inserted)
+
 	inserted.forceMove(src)
 	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s organ storage.</span>")
 	SStgui.try_update_ui(inserter, src)
@@ -554,26 +560,25 @@
 			return RP
 	return FALSE
 
-//Attackby and x_acts
-/obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(I.is_open_container())
-		return
+/obj/machinery/clonepod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.is_open_container())
+		return ..()
 
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		switch(tgui_alert(user, "Perform an emergency ejection of [src]?", "Cloning pod", list("Yes", "No")))
 			if("Yes")
 				eject_clone(TRUE) // GET OUT
 				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
 				log_admin("[key_name(user)] has activated a cloning pod's emergency eject at [COORD(src)] (clone: [key_name(clone)])")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
-		insert_organ(I, user)
-		return
+	if(is_organ(used) || is_type_in_list(used, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
+		insert_organ(used, user)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -623,13 +628,34 @@
 
 /obj/machinery/clonepod/emag_act(user)
 	. = ..()
-	eject_clone(TRUE)
+	malfunction()
 	return TRUE
 
 /obj/machinery/clonepod/emp_act(severity)
-	if(prob(50))
-		eject_clone(TRUE)
+	if(prob(100 / (severity * emp_resistance)))
+		malfunction()
 	return ..()
+
+/obj/machinery/clonepod/proc/malfunction()
+	if(clone)
+		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
+		if(istype(patient_mind, /datum/mind))
+			patient_mind.transfer_to(clone)
+			clone.grab_ghost()
+			to_chat(clone, "<span class='warning'><b>Agony blazes across your consciousness as your body is torn apart.</b>\
+			<br><i>Is this what dying is like? Yes it is.</i></span>")
+			SEND_SOUND(clone, sound('sound/hallucinations/veryfar_noise.ogg', 0, TRUE, 50))
+		sleep(40)
+		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
+		qdel(clone)
+		reset_cloning()
+
+	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, FALSE)
+	update_icon()
+
 
 //TGUI
 /obj/machinery/clonepod/ui_interact(mob/user, datum/tgui/ui = null)
@@ -651,6 +677,9 @@
 	var/list/organs_list
 	for(var/obj/item/organ/O in contents)
 		organs_list += list(list("name" = O.name, "ref" = O.UID()))
+
+	for(var/obj/item/robot_parts/RP in contents)
+		organs_list += list(list("name" = RP.name, "ref" = RP.UID()))
 
 	data["organs"] = organs_list
 	data["currently_cloning"] = currently_cloning

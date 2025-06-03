@@ -38,7 +38,7 @@
 	. += "This capsule has the [template.name] stored."
 	. += template.description
 
-/obj/item/survivalcapsule/attack_self()
+/obj/item/survivalcapsule/attack_self__legacy__attackchain()
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
@@ -73,13 +73,18 @@
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SHELTER_PLACED, T)
 		qdel(src)
 
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
-	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace."
+	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace. It is made of durable materials more capable of withstanding harsh weather over standard capsules."
 	origin_tech = "engineering=3;bluespace=4"
 	template_id = "shelter_beta"
+
+// for things that shouldnt affect specifically the luxury pods
+/area/survivalpod/luxurypod
+	name = "\improper Luxury Shelter"
 
 //Pod turfs and objects
 
@@ -98,6 +103,10 @@
 	name = "pod window"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
+
+/obj/structure/window/full/shuttle/survival_pod/tinted
+	name = "tinted pod window"
+	opacity = TRUE
 
 //Floors
 /turf/simulated/floor/pod
@@ -180,14 +189,23 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+	update_icon()
+
+/obj/machinery/sleeper/survival_pod/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, "[icon_state]_lightmask")
 
 //NanoMed
 /obj/machinery/economy/vending/wallmed/survival_pod
-	name = "survival pod medical supply"
+	name = "survival pod emergency medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
-	req_access = list()
 
-	products = list(/obj/item/stack/medical/splint = 2)
+	products = list(/obj/item/stack/medical/bruise_pack = 1,
+				/obj/item/stack/medical/ointment = 1,
+				/obj/item/reagent_containers/syringe/charcoal = 1,
+				/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 2,
+				/obj/item/stack/medical/splint = 1,
+	)
 	contraband = list()
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod, 32, 32)
@@ -200,6 +218,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	anchored = TRUE
 	density = TRUE
 	pixel_y = -32
+	light_power = 1.4
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_color = "#79dcc4"
+
+/obj/item/gps/computer/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/gps/computer/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, "[icon_state]_lightmask")
 
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -213,7 +242,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	qdel(src)
 
 /obj/item/gps/computer/attack_hand(mob/user)
-	attack_self(user)
+	attack_self__legacy__attackchain(user)
 
 //Bed
 /obj/structure/bed/pod
@@ -226,9 +255,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	desc = "A heated storage unit."
 	icon_state = "donkvendor"
 	icon = 'icons/obj/lavaland/donkvendor.dmi'
-	light_range = 8
-	light_power = 1.2
-	light_color = "#DDFFD3"
+	light_range_on = 3
+	light_power_on = 1
+	light_color = "#79dcc4"
 	max_n_of_items = 10
 	pixel_y = -4
 	flags = NODECONSTRUCT
@@ -254,7 +283,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	return
 
 /obj/machinery/smartfridge/survival_pod/update_overlays()
-	return list()
+	underlays.Cut()
+	underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
@@ -279,7 +309,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/Initialize(loc)
+/obj/structure/fans/Initialize(mapload, loc)
 	. = ..()
 	recalculate_atmos_connectivity()
 
@@ -327,13 +357,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
 	desc = "A sign of relief for weary miners, and a warning for would-be competitors to Nanotrasen's mining claims."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "ntpod"
+	layer = TABLE_LAYER // scuffed but it works
 
 /obj/structure/sign/mining/survival
 	name = "shelter sign"
 	desc = "A high visibility sign designating a safe shelter."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "survival"
 
 //Fluff
@@ -374,7 +403,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 						/obj/item/stack/telecrystal/twenty,
 						/obj/item/banhammer)
 
-/obj/item/fakeartefact/New()
+/obj/item/fakeartefact/Initialize(mapload)
 	. = ..()
 	var/obj/item/I = pick(possible)
 	name = initial(I.name)
@@ -382,3 +411,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	desc = initial(I.desc)
 	icon_state = initial(I.icon_state)
 	item_state = initial(I.item_state)
+	lefthand_file = initial(I.lefthand_file)
+	righthand_file = initial(I.righthand_file)
+	slot_flags = initial(I.slot_flags)
+	w_class = initial(I.w_class)

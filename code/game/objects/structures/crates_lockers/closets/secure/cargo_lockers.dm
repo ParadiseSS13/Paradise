@@ -2,7 +2,6 @@
 	name = "cargo technician's locker"
 	req_access = list(ACCESS_CARGO)
 	icon_state = "cargo"
-	open_door_sprite = "mining_door"
 
 /obj/structure/closet/secure_closet/cargotech/populate_contents()
 	new /obj/item/clothing/under/rank/cargo/tech(src)
@@ -17,11 +16,13 @@
 	name = "explorer's locker"
 	req_access = list(ACCESS_EXPEDITION)
 	icon_state = "explorer"
-	open_door_sprite = "mining_door"
+	opened_door_sprite = "cargo"
+
 
 /obj/structure/closet/secure_closet/explorer/populate_contents()
 	new /obj/item/radio/headset/headset_cargo/expedition(src)
 	new /obj/item/gun/energy/kinetic_accelerator/pistol(src)
+	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/beacon(src)
@@ -31,11 +32,25 @@
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/expedition(src)
 
+/obj/structure/closet/secure_closet/smith
+	name = "smith's locker"
+	req_access = list(ACCESS_SMITH)
+	icon_state = "cargo"
+	opened_door_sprite = "cargo"
+	closed_door_sprite = "smith"
+
+/obj/structure/closet/secure_closet/smith/populate_contents()
+	new /obj/item/radio/headset/headset_cargo(src)
+	new /obj/item/storage/bag/garment/smith(src)
+	new /obj/item/eftpos(src)
+	new /obj/item/pickaxe/drill(src)
+	new /obj/item/rcs(src)
+
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
 	req_access = list(ACCESS_QM)
 	icon_state = "qm"
-	open_door_sprite = "mining_door"
+	opened_door_sprite = "cargo"
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
 	new /obj/item/radio/headset/heads/qm(src)
@@ -46,7 +61,7 @@
 	new /obj/item/clothing/accessory/medal/supply(src)
 	new /obj/item/clothing/suit/pimpcoat/tan(src)
 	new /obj/item/rcs(src)
-	new /obj/item/destTagger(src)
+	new /obj/item/dest_tagger(src)
 	new /obj/item/reagent_containers/drinks/mug/qm(src)
 	new /obj/item/flash(src)
 	new /obj/item/cartridge/qm(src)

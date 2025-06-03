@@ -157,7 +157,7 @@
 
 /obj/structure/spider/terrorweb
 	name = "terror web"
-	desc = "it's stringy and sticky"
+	desc = "It's stringy and sticky!"
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE // prevents people dragging it
 	density = FALSE // prevents it blocking all movement
@@ -170,8 +170,12 @@
 	. = ..()
 	if(prob(50))
 		icon_state = "stickyweb2"
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
+/obj/structure/spider/terrorweb/CanPass(atom/movable/mover, border_dir)
 	if(isterrorspider(mover))
 		return TRUE
 	if(istype(mover, /obj/item/projectile/terrorqueenspit))
@@ -185,10 +189,9 @@
 		return prob(20)
 	return ..()
 
-/obj/structure/spider/terrorweb/Crossed(atom/movable/AM, oldloc)
-	..()
-	if(isliving(AM) && !isterrorspider(AM))
-		var/mob/living/M = AM
+/obj/structure/spider/terrorweb/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isliving(entered) && !isterrorspider(entered))
+		var/mob/living/M = entered
 		to_chat(M, "<span class='userdanger'>You get stuck in [src] for a moment.</span>")
 		M.Weaken(8 SECONDS)
 		if(iscarbon(M))
@@ -254,7 +257,7 @@
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
 		stop_automated_movement = TRUE
-		walk(src,0)
+		GLOB.move_manager.stop_looping(src)
 		if(do_after(src, 40, target = cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)

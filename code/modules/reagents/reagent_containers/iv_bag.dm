@@ -16,6 +16,7 @@
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
+	var/injection_action_delay = 3 SECONDS
 
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
@@ -32,8 +33,10 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack_self(mob/user)
-	..()
+/obj/item/reagent_containers/iv_bag/activate_self(mob/user)
+	if(..())
+		return
+
 	mode = !mode
 	update_icon(UPDATE_OVERLAYS)
 
@@ -47,19 +50,17 @@
 
 /obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
 	injection_target = target
-	ADD_TRAIT(injection_target, TRAIT_HAS_IV_BAG, UID())
 	RegisterSignal(injection_target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
 	if(injection_target)
-		REMOVE_TRAIT(injection_target, TRAIT_HAS_IV_BAG, UID())
 		UnregisterSignal(injection_target, COMSIG_PARENT_EXAMINE)
-		injection_target = null
+	injection_target = null
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/process()
-	if(!injection_target)
+	if(QDELETED(injection_target))
 		end_processing()
 		return
 
@@ -89,17 +90,13 @@
 				injection_target.reagents.trans_id_to(src, reagent.id, amount_per_transfer_from_this / 10)
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack(mob/living/M, mob/living/user, def_zone)
-	return
-
-/obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/reagent_containers/iv_bag/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!target.reagents)
-		return
+		return FALSE
 
-	if(isliving(target))
-		var/mob/living/L = target
+	var/mob/living/L = target
+	if(istype(L))
 		if(injection_target) // Removing the needle
 			if(L != injection_target)
 				to_chat(user, "<span class='notice'>[src] is already inserted into [injection_target]'s arm!")
@@ -107,7 +104,7 @@
 			if(L != user)
 				L.visible_message("<span class='danger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
-				if(!do_mob(user, L))
+				if(!do_mob(user, L, injection_action_delay))
 					return
 			L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
@@ -115,22 +112,24 @@
 		else // Inserting the needle
 			if(!L.can_inject(user, TRUE))
 				return
-			if(HAS_TRAIT(target, TRAIT_HAS_IV_BAG))
-				to_chat(user, "<span class='warning'>[target] already [target.p_have()] another IV bag inserted into [target.p_them()]!</span>")
-				return
 			if(amount_per_transfer_from_this > 10) // We only want to be able to transfer 1, 5, or 10 units to people. Higher numbers are for transfering to other containers
 				to_chat(user, "<span class='warning'>The IV bag can only be used on someone with a transfer amount of 1, 5 or 10.</span>")
 				return
 			if(L != user)
 				L.visible_message("<span class='danger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>", \
 									"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
-				if(!do_mob(user, L))
+				if(!do_mob(user, L, injection_action_delay))
 					return
 			L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
 									"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
 			begin_processing(L)
 
-	else if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
+/obj/item/reagent_containers/iv_bag/normal_act(atom/target, mob/living/user)
+	. = TRUE
+	if(!target.reagents)
+		return FALSE
+
+	if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty.</span>")
 			return
@@ -162,9 +161,10 @@
 			if(IV_INJECT)
 				. += "inject"
 
-/obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		rename_interactive(user, I)
+/obj/item/reagent_containers/iv_bag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
 
 // PRE-FILLED IV BAGS BELOW
 
@@ -191,26 +191,26 @@
 		update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/reagent_containers/iv_bag/blood/random/Initialize()
+/obj/item/reagent_containers/iv_bag/blood/random/Initialize(mapload)
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
 	return ..()
 
-/obj/item/reagent_containers/iv_bag/blood/APlus
+/obj/item/reagent_containers/iv_bag/blood/a_plus
 	blood_type = "A+"
 
-/obj/item/reagent_containers/iv_bag/blood/AMinus
+/obj/item/reagent_containers/iv_bag/blood/a_minus
 	blood_type = "A-"
 
-/obj/item/reagent_containers/iv_bag/blood/BPlus
+/obj/item/reagent_containers/iv_bag/blood/b_plus
 	blood_type = "B+"
 
-/obj/item/reagent_containers/iv_bag/blood/BMinus
+/obj/item/reagent_containers/iv_bag/blood/b_minus
 	blood_type = "B-"
 
-/obj/item/reagent_containers/iv_bag/blood/OPlus
+/obj/item/reagent_containers/iv_bag/blood/o_plus
 	blood_type = "O+"
 
-/obj/item/reagent_containers/iv_bag/blood/OMinus
+/obj/item/reagent_containers/iv_bag/blood/o_minus
 	blood_type = "O-"
 
 /obj/item/reagent_containers/iv_bag/blood/vox

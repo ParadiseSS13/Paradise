@@ -14,10 +14,6 @@ SUBSYSTEM_DEF(jobs)
 	var/list/id_change_records = list() // List of all job transfer records
 	var/probability_of_antag_role_restriction = 100 // Dict probability of a job rolling an antagonist role
 	var/id_change_counter = 1
-	//Players who need jobs
-	var/list/unassigned = list()
-	//Debug info
-	var/list/job_debug = list()
 
 	///list of station departments and their associated roles and economy payments
 	var/list/station_departments = list()
@@ -25,8 +21,8 @@ SUBSYSTEM_DEF(jobs)
 	var/late_arrivals_spawning = FALSE
 	/// Do we spawn people drunkenly due to the party last night?
 	var/drunken_spawning = FALSE
-	/// A list of minds that have failed to roll antagonist. Cleared when job selection finishes.
-	var/list/failed_head_antag_roll = list()
+	/// Job selector, used for roundstart and late join job assignment
+	var/datum/job_selector/job_selector
 
 /datum/controller/subsystem/jobs/Initialize()
 	if(!length(occupations))
@@ -58,10 +54,6 @@ SUBSYSTEM_DEF(jobs)
 
 	return 1
 
-
-/datum/controller/subsystem/jobs/proc/Debug(text)
-	job_debug.Add(text)
-
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
 	if(!length(occupations))
 		SetupOccupations()
@@ -74,45 +66,6 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/GetPlayerAltTitle(mob/new_player/player, rank)
 	return player.client.prefs.active_character.GetPlayerAltTitle(GetJob(rank))
-
-/datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = 0)
-	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
-	if(player && player.mind && rank)
-		var/datum/job/job = GetJob(rank)
-		if(!job)
-			return FALSE
-		if(job.job_banned_gamemode)
-			return FALSE
-		if(jobban_isbanned(player, rank))
-			return FALSE
-		if(!job.player_old_enough(player.client))
-			return FALSE
-		if(job.get_exp_restrictions(player.client))
-			return FALSE
-		if(job.barred_by_disability(player.client))
-			return FALSE
-		if(job.barred_by_missing_limbs(player.client))
-			return FALSE
-
-		var/available = latejoin ? job.is_position_available() : job.is_spawn_position_available()
-
-		if(available)
-			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JTP:[job.total_positions], JSP:[job.spawn_positions]")
-			player.mind.assigned_role = rank
-			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
-
-			// JOB OBJECTIVES OH SHIT
-			player.mind.job_objectives.Cut()
-			for(var/objectiveType in job.required_objectives)
-				new objectiveType(player.mind)
-
-			unassigned -= player
-			job.current_positions++
-			SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (latejoin ? "latejoin" : "roundstart")))
-			return 1
-
-	Debug("AR has failed, Player: [player], Rank: [rank]")
-	return 0
 
 /datum/controller/subsystem/jobs/proc/FreeRole(rank, force = FALSE)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
@@ -128,322 +81,14 @@ SUBSYSTEM_DEF(jobs)
 		return TRUE
 	return FALSE
 
-/datum/controller/subsystem/jobs/proc/FindOccupationCandidates(datum/job/job, level, flag)
-	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
-	var/list/candidates = list()
-	for(var/mob/new_player/player in unassigned)
-		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.get_exp_restrictions(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
-		if(jobban_isbanned(player, job.title))
-			Debug("FOC isbanned failed, Player: [player]")
-			continue
-		if(!job.player_old_enough(player.client))
-			Debug("FOC player not old enough, Player: [player]")
-			continue
-		if(job.get_exp_restrictions(player.client))
-			Debug("FOC player not enough playtime, Player: [player]")
-			continue
-		if(job.barred_by_disability(player.client))
-			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
-			continue
-		if(job.barred_by_missing_limbs(player.client))
-			Debug("FOC player has missing limbs rendering them ineligible for job, Player: [player]")
-			continue
-		if(flag && !(flag in player.client.prefs.be_special))
-			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
-			continue
-		if(player.mind && (job.title in player.mind.restricted_roles))
-			Debug("FOC incompatbile with antagonist role, Player: [player]")
-			continue
-		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
-			if(player.mind.special_role && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
-				if((player.mind in SSjobs.failed_head_antag_roll) || !prob(probability_of_antag_role_restriction))
-					Debug("FOC Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-					SSjobs.failed_head_antag_roll |= player.mind
-					continue
-				else
-					probability_of_antag_role_restriction /= 10
-			Debug("FOC pass, Player: [player], Level:[level]")
-			candidates += player
-	return candidates
-
-/datum/controller/subsystem/jobs/proc/GiveRandomJob(mob/new_player/player)
-	Debug("GRJ Giving random job, Player: [player]")
-	for(var/datum/job/job in shuffle(occupations))
-		if(!job)
-			continue
-
-		if(istype(job, GetJob("Assistant"))) // We don't want to give him assistant, that's boring!
-			continue
-
-		if(job.title in GLOB.command_positions) //If you want a command position, select it!
-			continue
-
-		if(job.admin_only) // No admin positions either.
-			continue
-
-		if(jobban_isbanned(player, job.title))
-			Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
-			continue
-
-		if(!job.player_old_enough(player.client))
-			Debug("GRJ player not old enough, Player: [player]")
-			continue
-
-		if(job.get_exp_restrictions(player.client))
-			Debug("GRJ player not enough playtime, Player: [player]")
-			continue
-
-		if(job.barred_by_disability(player.client))
-			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
-			continue
-
-		if(job.barred_by_missing_limbs(player.client))
-			Debug("GRJ player has missing limbs rendering them ineligible for job, Player: [player]")
-			continue
-
-		if(player.mind && (job.title in player.mind.restricted_roles))
-			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
-			continue
-		if(player.mind.special_role && player.mind && (job.title in SSticker.mode.single_antag_positions))
-			if((player.mind in SSjobs.failed_head_antag_roll) || !prob(probability_of_antag_role_restriction))
-				Debug("GRJ Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-				SSjobs.failed_head_antag_roll |= player.mind
-				continue
-			else
-				probability_of_antag_role_restriction /= 10
-		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
-			Debug("GRJ Random job given, Player: [player], Job: [job]")
-			AssignRole(player, job.title)
-			unassigned -= player
-			break
-
 /datum/controller/subsystem/jobs/proc/ResetOccupations()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if((player) && (player.mind))
 			player.mind.assigned_role = null
 			player.mind.special_role = null
+	occupations.Cut()
 	SetupOccupations()
-	unassigned = list()
 	return
-
-
-///This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
-/datum/controller/subsystem/jobs/proc/FillHeadPosition()
-	for(var/level = 1 to 3)
-		for(var/command_position in GLOB.command_positions)
-			var/datum/job/job = GetJob(command_position)
-			if(!job)
-				continue
-			var/list/candidates = FindOccupationCandidates(job, level)
-			if(!length(candidates))
-				continue
-
-			var/list/filteredCandidates = list()
-
-			for(var/mob/V in candidates)
-				// Log-out during round-start? What a bad boy, no head position for you!
-				if(!V.client)
-					continue
-				filteredCandidates += V
-
-			if(!length(filteredCandidates))
-				continue
-
-			var/mob/new_player/candidate = pick(filteredCandidates)
-			if(AssignRole(candidate, command_position))
-				return 1
-
-	return 0
-
-
-///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
-/datum/controller/subsystem/jobs/proc/CheckHeadPositions(level)
-	for(var/command_position in GLOB.command_positions)
-		var/datum/job/job = GetJob(command_position)
-		if(!job)
-			continue
-		var/list/candidates = FindOccupationCandidates(job, level)
-		if(!length(candidates))
-			continue
-		var/mob/new_player/candidate = pick(candidates)
-		AssignRole(candidate, command_position)
-
-
-/datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(!GLOB.configuration.jobs.allow_ai)
-		return FALSE
-
-	var/ai_selected = 0
-	var/datum/job/job = GetJob("AI")
-	if(!job)
-		return 0
-
-	for(var/i = job.total_positions, i > 0, i--)
-		for(var/level = 1 to 3)
-			var/list/candidates = list()
-			candidates = FindOccupationCandidates(job, level)
-			if(length(candidates))
-				var/mob/new_player/candidate = pick(candidates)
-				if(AssignRole(candidate, "AI"))
-					ai_selected++
-					break
-
-		if(ai_selected)
-			return 1
-
-		return 0
-
-
-/** Proc DivideOccupations
-*  fills var "assigned_role" for all ready players.
-*  This proc must not have any side effect besides of modifying "assigned_role".
-**/
-/datum/controller/subsystem/jobs/proc/DivideOccupations()
-	// Lets roughly time this
-	var/watch = start_watch()
-	//Setup new player list and get the jobs list
-	Debug("Running DO")
-	if(!length(occupations))
-		SetupOccupations()
-
-	//Holder for Triumvirate is stored in the ticker, this just processes it
-	if(SSticker)
-		for(var/datum/job/ai/A in occupations)
-			if(SSticker.triai)
-				A.spawn_positions = 3
-
-	//Get the players who are ready
-	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.mind && !player.mind.assigned_role)
-			unassigned += player
-
-	Debug("DO, Len: [length(unassigned)]")
-	if(!length(unassigned))
-		return FALSE
-
-	//Shuffle players and jobs
-	unassigned = shuffle(unassigned)
-
-	HandleFeedbackGathering()
-
-	//People who wants to be assistants, sure, go on.
-	Debug("DO, Running Assistant Check 1")
-	var/datum/job/ast = new /datum/job/assistant()
-	var/list/assistant_candidates = FindOccupationCandidates(ast, 3)
-	Debug("AC1, Candidates: [length(assistant_candidates)]")
-	for(var/mob/new_player/player in assistant_candidates)
-		Debug("AC1 pass, Player: [player]")
-		AssignRole(player, "Assistant")
-		assistant_candidates -= player
-	Debug("DO, AC1 end")
-
-	//Select one head
-	Debug("DO, Running Head Check")
-	FillHeadPosition()
-	Debug("DO, Head Check end")
-
-	//Check for an AI
-	Debug("DO, Running AI Check")
-	FillAIPosition()
-	Debug("DO, AI Check end")
-
-	//Other jobs are now checked
-	Debug("DO, Running Standard Check")
-
-
-	// New job giving system by Donkie
-	// This will cause lots of more loops, but since it's only done once it shouldn't really matter much at all.
-	// Hopefully this will add more randomness and fairness to job giving.
-
-	// Loop through all levels from high to low
-	var/list/shuffledoccupations = shuffle(occupations)
-	for(var/level = 1 to 3)
-		//Check the head jobs first each level
-		CheckHeadPositions(level)
-
-		// Loop through all unassigned players
-		for(var/mob/new_player/player in unassigned)
-
-			// Loop through all jobs
-			for(var/datum/job/job in shuffledoccupations) // SHUFFLE ME BABY
-				if(!job)
-					continue
-
-				if(jobban_isbanned(player, job.title))
-					Debug("DO isbanned failed, Player: [player], Job:[job.title]")
-					continue
-
-				if(!job.player_old_enough(player.client))
-					Debug("DO player not old enough, Player: [player], Job:[job.title]")
-					continue
-
-				if(job.get_exp_restrictions(player.client))
-					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
-					continue
-
-				if(job.barred_by_disability(player.client))
-					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
-					continue
-
-				if(job.barred_by_missing_limbs(player.client))
-					Debug("DO player has missing limbs rendering them ineligible for job, Player: [player], Job:[job.title]")
-					continue
-
-				if(player.mind && (job.title in player.mind.restricted_roles))
-					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
-					continue
-				// If the player wants that job on this level, then try give it to him.
-				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
-					// If the job isn't filled
-					if(job.is_spawn_position_available())
-						if(player.mind.special_role && player.mind && (job.title in SSticker.mode.single_antag_positions)) //We want to check if they want the job, before rolling the prob chance
-							if((player.mind in SSjobs.failed_head_antag_roll) || !prob(probability_of_antag_role_restriction))
-								Debug("DO Failed probability of getting a second antagonist position in this job, Player: [player], Job:[job.title]")
-								SSjobs.failed_head_antag_roll |= player.mind
-								continue
-							else
-								probability_of_antag_role_restriction /= 10
-						Debug("DO pass, Player: [player], Level:[level], Job:[job.title]")
-						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
-						AssignRole(player, job.title)
-						unassigned -= player
-						break
-
-	// Hand out random jobs to the people who didn't get any in the last check
-	// Also makes sure that they got their preference correct
-	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.active_character.alternate_option == GET_RANDOM_JOB)
-			GiveRandomJob(player)
-
-	Debug("DO, Standard Check end")
-
-	Debug("DO, Running AC2")
-
-	// Antags, who have to get in, come first
-	for(var/mob/new_player/player in unassigned)
-		if(player.mind.special_role)
-			if(player.client.prefs.active_character.alternate_option != BE_ASSISTANT)
-				GiveRandomJob(player)
-				if(player in unassigned)
-					AssignRole(player, "Assistant")
-			else
-				AssignRole(player, "Assistant")
-		else if(length(player.mind.restricted_roles))
-			stack_trace("A player with `restricted_roles` had no `special_role`. They are likely an antagonist, but failed to spawn in.") // this can be fixed by assigning a special_role in pre_setup of the gamemode
-			message_admins("A player mind ([player.mind]) is likely an antagonist, but may have failed to spawn in! Please report this to coders.")
-
-	// Then we assign what we can to everyone else.
-	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.active_character.alternate_option == BE_ASSISTANT)
-			Debug("AC2 Assistant located, Player: [player]")
-			AssignRole(player, "Assistant")
-		else if(player.client.prefs.active_character.alternate_option == RETURN_TO_LOBBY)
-			player.ready = FALSE
-			unassigned -= player
-
-	log_debug("Dividing Occupations took [stop_watch(watch)]s")
-	failed_head_antag_roll = list()
-	return TRUE
 
 /datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)
 	if(!H)
@@ -488,6 +133,16 @@ SUBSYSTEM_DEF(jobs)
 
 	to_chat(H, chat_box_green(L.Join("<br>")))
 
+	// If the job has objectives, announce those too
+	if(length(H.mind.job_objectives))
+		var/list/objectives_message = list()
+		var/counter = 1
+		for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
+			objectives_message.Add("<b>Objective #[counter]: [objective.objective_name]</b>")
+			objectives_message.Add("[objective.description]<br>")
+			counter++
+		to_chat(H, chat_box_notice(objectives_message.Join("<br>")))
+
 	return H
 
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
@@ -509,6 +164,8 @@ SUBSYSTEM_DEF(jobs)
 			if(sloc.name != rank && !drunken_spawning)
 				continue
 			if(locate(/mob/living) in sloc.loc)
+				continue
+			if(drunken_spawning && sloc.name == "AI")
 				continue
 			S = sloc
 			break
@@ -548,7 +205,7 @@ SUBSYSTEM_DEF(jobs)
 
 		//Gives glasses to the vision impaired
 		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))
-			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), SLOT_HUD_GLASSES)
+			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), ITEM_SLOT_EYES)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
@@ -556,7 +213,7 @@ SUBSYSTEM_DEF(jobs)
 					H.update_nearsighted_effects()
 
 	if(joined_late || job.admin_only)
-		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].", force_no_usr_check=TRUE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 		return H
 	if(late_arrivals_spawning)
@@ -571,7 +228,7 @@ SUBSYSTEM_DEF(jobs)
 			liver_multiplier = 5
 		H.Sleeping(5 SECONDS)
 		H.Drunk((2 / liver_multiplier) MINUTES)
-	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].")
+	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].", force_no_usr_check=TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 	return H
 
@@ -599,48 +256,6 @@ SUBSYSTEM_DEF(jobs)
 			J.total_positions = 0
 
 	return TRUE
-
-
-/datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()
-	for(var/datum/job/job in occupations)
-
-		var/high = 0 //high
-		var/medium = 0 //medium
-		var/low = 0 //low
-		var/never = 0 //never
-		var/banned = 0 //banned
-		var/young = 0 //account too young
-		var/disabled = FALSE //has disability rendering them ineligible
-		for(var/mob/new_player/player in GLOB.player_list)
-			if(!(player.ready && player.mind && !player.mind.assigned_role))
-				continue //This player is not ready
-			if(jobban_isbanned(player, job.title))
-				banned++
-				continue
-			if(!job.player_old_enough(player.client))
-				young++
-				continue
-			if(job.get_exp_restrictions(player.client))
-				young++
-				continue
-			if(job.barred_by_disability(player.client) || job.barred_by_missing_limbs(player.client))
-				disabled++
-				continue
-			if(player.client.prefs.active_character.GetJobDepartment(job, 1) & job.flag)
-				high++
-			else if(player.client.prefs.active_character.GetJobDepartment(job, 2) & job.flag)
-				medium++
-			else if(player.client.prefs.active_character.GetJobDepartment(job, 3) & job.flag)
-				low++
-			else never++ //not selected
-
-		SSblackbox.record_feedback("nested tally", "job_preferences", high, list("[job.title]", "high"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", medium, list("[job.title]", "medium"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", low, list("[job.title]", "low"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", never, list("[job.title]", "never"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", banned, list("[job.title]", "banned"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.title]", "young"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", disabled, list("[job.title]", "disabled"))
 
 //fuck
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
@@ -814,7 +429,7 @@ SUBSYSTEM_DEF(jobs)
 
 	// Step 1: Get us a list of clients to process
 	var/list/client/clients_to_process = GLOB.clients.Copy() // This is copied so that clients joining in the middle of this dont break things
-	Debug("Starting EXP update for [length(clients_to_process)] clients. (Adding [minutes] minutes)")
+	log_debug("Starting EXP update for [length(clients_to_process)] clients. (Adding [minutes] minutes)")
 
 	var/list/datum/db_query/select_queries = list() // List of SELECT queries to mass grab EXP.
 
@@ -960,4 +575,4 @@ SUBSYSTEM_DEF(jobs)
 	SSdbcore.MassExecute(player_update_queries, TRUE, TRUE, FALSE, FALSE) // Batch execute so we can take advantage of async magic
 	SSdbcore.MassExecute(playtime_history_update_queries, TRUE, TRUE, FALSE, FALSE)
 
-	Debug("Successfully updated all EXP data in [stop_watch(start_time)]s")
+	log_debug("Successfully updated all EXP data in [stop_watch(start_time)]s")

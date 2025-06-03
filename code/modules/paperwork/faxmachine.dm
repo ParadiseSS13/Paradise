@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> [src] to remove its currently stored ID.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] to remove its currently stored ID.</span>"
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
@@ -90,15 +90,17 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/photocopier/faxmachine/attackby(obj/item/item, mob/user, params)
-	if(istype(item,/obj/item/card/id) && !scan)
-		scan(item)
-	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
-		..()
+/obj/machinery/photocopier/faxmachine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id) && !scan)
+		scan(used)
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/paper) || istype(used, /obj/item/photo) || istype(used, /obj/item/paper_bundle))
+		. = ..()
 		SStgui.update_uis(src)
-	else if(istype(item, /obj/item/folder))
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/folder))
 		to_chat(user, "<span class='warning'>The [src] can't accept folders!</span>")
-		return //early return so the parent proc doesn't suck up and items that a photocopier would take
+		return ITEM_INTERACT_COMPLETE //early return so the parent proc doesn't suck up and items that a photocopier would take
 	else
 		return ..()
 
@@ -299,22 +301,22 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
-			success = F.receivefax(copyitem)
-	if(success)
-		var/datum/fax/F = new /datum/fax()
-		F.name = copyitem.name
-		F.from_department = department
-		F.to_department = destination
-		F.origin = src
-		F.message = copyitem
-		F.sent_by = sender
-		F.sent_at = world.time
+			var/datum/fax/A = new /datum/fax()
+			A.name = copyitem.name
+			A.from_department = department
+			A.to_department = destination
+			A.origin = src
+			A.message = copyitem
+			A.sent_by = sender
+			A.sent_at = world.time
 
+			success = F.receivefax(A)
+	if(success)
 		visible_message("[src] beeps, \"Message transmitted successfully.\"")
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
-/obj/machinery/photocopier/faxmachine/proc/receivefax(obj/item/incoming)
+/obj/machinery/photocopier/faxmachine/proc/receivefax(datum/fax/incoming)
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 
@@ -327,17 +329,56 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	addtimer(CALLBACK(src, PROC_REF(print_fax), incoming), 2 SECONDS)
 	return TRUE
 
-/obj/machinery/photocopier/faxmachine/proc/print_fax(obj/item/incoming)
-	if(istype(incoming, /obj/item/paper))
-		papercopy(incoming)
-	else if(istype(incoming, /obj/item/photo))
-		photocopy(incoming)
-	else if(istype(incoming, /obj/item/paper_bundle))
-		bundlecopy(incoming)
+/obj/machinery/photocopier/faxmachine/proc/print_fax(datum/fax/incoming)
+	var/obj/item/new_copy = null
+	if(istype(incoming.message, /obj/item/paper))
+		new_copy = papercopy(incoming.message)
+	else if(istype(incoming.message, /obj/item/photo))
+		new_copy = photocopy(incoming.message)
+	else if(istype(incoming.message, /obj/item/paper_bundle))
+		new_copy = bundlecopy(incoming.message)
 	else
 		return
 
+	// Store the fax that was received in the admin room in adminfaxes
+	// Fixes issue where deleting the original would make it unreadable in the admin panel
+	if(istype(incoming, /datum/fax/admin))
+		var/datum/fax/admin/A = new /datum/fax/admin()
+		A.name = new_copy.name
+		A.from_department = incoming.from_department
+		A.to_department = incoming.to_department
+		A.origin = incoming.origin
+		A.message = new_copy
+		A.sent_by = incoming.sent_by
+		A.sent_at = incoming.sent_at
+
+		GLOB.adminfaxes += A
+
 	use_power(active_power_consumption)
+
+/obj/machinery/photocopier/faxmachine/proc/log_fax(mob/sender, destination)
+	// Logging for sending photos
+	if(istype(copyitem, /obj/item/photo))
+		log_admin("[key_name(sender)] has sent a photo by fax to [destination]")
+		return
+
+	// Logging for single paper message
+	if(istype(copyitem, /obj/item/paper))
+		var/obj/item/paper/fax_message = copyitem
+		log_admin("[key_name(sender)] has sent a message by fax to [destination] reading [fax_message.info]")
+		return
+
+	// Logging for paper bundle messages
+	if(istype(copyitem, /obj/item/paper_bundle))
+		var/obj/item/paper_bundle/paper_bundle = copyitem
+		// Incremented by one for each paper in the bundle
+		var/page_count = 1
+
+		// Loop through the contents of the paper bundle and grab the message from each page
+		for(var/obj/item/paper/page in paper_bundle.contents)
+			log_admin("[key_name(sender)] has sent a bundled message by fax to [destination] - Page [page_count]: [page.info]")
+			page_count ++
+		return
 
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
 	use_power(active_power_consumption)
@@ -363,8 +404,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
-			F.receivefax(copyitem)
+			F.receivefax(A)
 	visible_message("[src] beeps, \"Message transmitted successfully.\"")
+	log_fax(sender, destination)
 
 /obj/machinery/photocopier/faxmachine/proc/cooldown_seconds()
 	if(sendcooldown < world.time)
@@ -376,7 +418,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
-			to_chat(C, msg)
+			to_chat(C, msg, MESSAGE_TYPE_ADMINPM)
 			if(C.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(C, fax_sound)
 

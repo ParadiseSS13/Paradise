@@ -1,14 +1,14 @@
 /*
-field_generator power level display
- *   The icon used for the field_generator need to have 'num_power_levels' number of icon states
- *   named 'Field_Gen +p[num]' where 'num' ranges from 1 to 'num_power_levels'
- *   The power level is displayed using overlays. The current displayed power level is stored in 'powerlevel'.
- *   The overlay in use and the powerlevel variable must be kept in sync.  A powerlevel equal to 0 means that
- *   no power level overlay is currently in the overlays list.
+field_generator energy level display
+ *   The icon used for the field_generator need to have 'num_energy_levels' number of icon states
+ *   named 'Field_Gen +p[num]' where 'num' ranges from 1 to 'num_energy_levels'
+ *   The energy level is displayed using overlays. The current displayed energy level is stored in 'energylevel'.
+ *   The overlay in use and the energylevel variable must be kept in sync.  A energylevel equal to 0 means that
+ *   no energy level overlay is currently in the overlays list.
  *   -Aygar
 */
 
-#define field_generator_max_power 250
+#define FIELD_GENERATOR_MAX_ENERGY 125
 
 #define FG_UNSECURED 0
 #define FG_SECURED 1
@@ -31,10 +31,10 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
 	armor = list(MELEE = 25, BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 50, ACID = 70)
-	var/const/num_power_levels = 6	// Total number of power level icon has
-	var/power_level = 0
+	var/const/num_energy_levels = 6	// Total number of power level icon has
+	var/energy_level = 0
 	var/active = FG_OFFLINE
-	var/power = 20  // Current amount of power
+	var/energy = 20  // Current amount of energy
 	var/state = FG_UNSECURED
 	var/warming_up = 0
 	var/list/obj/machinery/field/containment/fields
@@ -47,8 +47,8 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 		. += "+a[warming_up]"
 	if(length(fields))
 		. += "+on"
-	if(power_level)
-		. += "+p[power_level]"
+	if(energy_level)
+		. += "+p[energy_level]"
 
 /obj/machinery/field/generator/Initialize(mapload)
 	. = ..()
@@ -58,7 +58,51 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 /obj/machinery/field/generator/process()
 	if(active == FG_ONLINE)
-		calc_power()
+		calc_energy()
+
+/**
+ * Gets a list of generators that form a field that is enclosing a given singularity, if such a field exists.
+ *
+ * Arguments:
+ * * _dir - The direction in which we are currently going
+ * * singulo - The singularity we are looking to contain
+ * * containment_gens - A list of generators which is the portion of the potential result we have so far.
+ */
+/obj/machinery/field/generator/proc/find_containment_gens(_dir, obj/singularity/singulo, list/containment_gens = list())
+	// We can't go in a direction that doesn't exist
+	if(!dir)
+		return list()
+
+	containment_gens |= src
+	// This is used to evaluate a path before returning it. We don't want to stop after the first dead end.
+	var/list/temp_gens = list()
+
+	for(var/obj/machinery/field/generator/gen in connected_gens)
+		// We don't ever want to do anything with the generator behind us so this check comes first
+		if(get_dir(src, gen) == turn(_dir, 180))
+			continue
+		// If we completed a full circle and it contains the singularity return it. Otherwise continue
+		if(gen in containment_gens)
+			if(singulo.in_containment(containment_gens))
+				return containment_gens
+			continue
+
+		// Go right if we can, forward if we can't go right, and left if we can't go forward
+		if(get_dir(src, gen) == turn(_dir, -90))
+			temp_gens = gen.find_containment_gens(turn(_dir, -90), singulo, containment_gens)
+			if(length(temp_gens))
+				return temp_gens
+		if(get_dir(src, gen) == _dir)
+			temp_gens = gen.find_containment_gens(_dir, singulo, containment_gens)
+			if(length(temp_gens))
+				return temp_gens
+		if(get_dir(src, gen) == turn(_dir, 90))
+			temp_gens = gen.find_containment_gens(turn(_dir, 90), singulo, containment_gens)
+			if(length(temp_gens))
+				return temp_gens
+
+	// We got to a dead end, temp_gens should be empty here.
+	return temp_gens
 
 /obj/machinery/field/generator/attack_hand(mob/user)
 	if(state == FG_WELDED)
@@ -71,7 +115,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 					"<span class='notice'>You turn on [src].</span>", \
 					"<span class='italics'>You hear heavy droning.</span>")
 				turn_on()
-				investigate_log("<font color='green'>activated</font> by [user.key].","singulo")
+				investigate_log("<font color='green'>activated</font> by [user.key].", INVESTIGATE_SINGULO)
 
 				add_fingerprint(user)
 	else
@@ -141,8 +185,8 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 /obj/machinery/field/generator/bullet_act(obj/item/projectile/Proj)
 	if(Proj.flag != BULLET && !Proj.nodamage)
-		power = min(power + Proj.damage, field_generator_max_power)
-		check_power_level()
+		energy = min(energy + Proj.damage, FIELD_GENERATOR_MAX_ENERGY)
+		check_energy_level()
 	return 0
 
 
@@ -151,10 +195,10 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	return ..()
 
 
-/obj/machinery/field/generator/proc/check_power_level()
-	var/new_level = round(num_power_levels * power / field_generator_max_power)
-	if(new_level != power_level)
-		power_level = new_level
+/obj/machinery/field/generator/proc/check_energy_level()
+	var/new_level = round(num_energy_levels * energy / FIELD_GENERATOR_MAX_ENERGY)
+	if(new_level != energy_level)
+		energy_level = new_level
 		update_icon()
 
 /obj/machinery/field/generator/proc/turn_off()
@@ -177,49 +221,60 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 				start_fields()
 
 
-/obj/machinery/field/generator/proc/calc_power()
+/obj/machinery/field/generator/proc/calc_energy()
 	var/power_draw = 2 + length(fields)
 
-	if(draw_power(round(power_draw/2, 1)))
-		check_power_level()
-		return 1
+	if(draw_power(round(power_draw / 2, 1)))
+		spread_energy()
+		check_energy_level()
+		return TRUE
 	else
 		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
-		investigate_log("ran out of power and <font color='red'>deactivated</font>","singulo")
-		power = 0
-		check_power_level()
-		return 0
+		investigate_log("ran out of energy and <font color='red'>deactivated</font>",INVESTIGATE_SINGULO)
+		energy = 0
+		check_energy_level()
+		return FALSE
 
-//This could likely be better, it tends to start loopin if you have a complex generator loop setup.  Still works well enough to run the engine fields will likely recode the field gens and fields sometime -Mport
-/obj/machinery/field/generator/proc/draw_power(draw = 0, failsafe = 0, obj/machinery/field/generator/G = null, obj/machinery/field/generator/last = null)
-	if((G && (G == src)) || (failsafe >= 8))//Loopin, set fail
+/**
+* Draws power. If there isn't enough energy to sustain the draw, draw from connected generators, up to 3 generators away.
+* We never do a 180, so at most we should be going around 270 degrees, and never loop.
+*
+* Arguments:
+** draw - Amount of energy needed to sustain powerdraw during this cycle
+** failsafe - Current depth of the recursion. We don't let this go above 3.
+** last - should be src of the previous call, we check against this to prevent going back and forth between two field generators.
+*/
+/obj/machinery/field/generator/proc/draw_power(draw = 0, failsafe = 0, obj/machinery/field/generator/last = null)
+	if(failsafe >= 3)// Asking at most 3 gens away so we can't loop.
 		return 0
 	else
 		failsafe++
 
-	if(power >= draw)//We have enough power
-		power -= draw
+	if(energy >= draw)// We have enough energy
+		energy -= draw
 		return 1
 
-	else//Need more power
-		draw -= power
-		power = 0
+	else//Need more energy
+		draw -= energy
+		energy = 0
 		for(var/CG in connected_gens)
 			var/obj/machinery/field/generator/FG = CG
-			if(FG == last)//We just asked you
+			if(FG == last)// We just asked you
 				continue
-			if(G)//Another gen is askin for power and we dont have it
-				if(FG.draw_power(draw,failsafe,G,src))//Can you take the load
-					return 1
-				else
-					return 0
-			else//We are askin another for power
-				if(FG.draw_power(draw,failsafe,src,src))
+			else// We are askin another for energy
+				if(FG.draw_power(draw, failsafe, src))
 					return 1
 				else
 					return 0
 
+/// Sends energy to every neighbour that has less energy
+/obj/machinery/field/generator/proc/spread_energy()
+	for(var/obj/machinery/field/generator/gen as anything in connected_gens)
+		if(energy > gen.energy + 3)
+			var/diff = min(energy - gen.energy, FIELD_GENERATOR_MAX_ENERGY - gen.energy)// We don't want to delete energy
+			gen.energy += diff / 2
+			energy -= diff / 2
 
 /obj/machinery/field/generator/proc/start_fields()
 	if(state != FG_WELDED || !anchored)
@@ -272,11 +327,11 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 	T = loc
 	for(var/dist in 0 to steps) // creates each field tile
-		var/field_dir = get_dir(T,get_step(G.loc, NSEW))
+		var/field_dir = get_dir(T, get_step(G.loc, NSEW))
 		T = get_step(T, NSEW)
 		if(!locate(/obj/machinery/field/containment) in T)
 			var/obj/machinery/field/containment/CF = new/obj/machinery/field/containment()
-			CF.set_master(src,G)
+			CF.set_master(src, G)
 			CF.loc = T
 			CF.dir = field_dir
 			fields += CF
@@ -299,8 +354,8 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	for(var/CG in connected_gens)
 		var/obj/machinery/field/generator/FG = CG
 		FG.connected_gens -= src
-		if(!FG.clean_up)//Makes the other gens clean up as well
-			FG.cleanup()
+		if(!FG.clean_up)//Makes the other gens clean up and shutdown as well
+			FG.turn_off()
 		connected_gens -= FG
 	clean_up = FALSE
 	update_icon()
@@ -325,7 +380,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 				// [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)] works much better and actually works at all
 				// Oh and yes, this exact comment was pasted from the exact same thing I did to tcomms code. Dont at me.
 				message_admins("A singularity exists and a containment field has failed on the same Z-Level. Singulo location: [O ? "[get_location_name(O, TRUE)] [COORD(O)]" : "nonexistent location"] [ADMIN_JMP(O)] | Field generator location: [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]")
-				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.","singulo")
+				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.", INVESTIGATE_SINGULO)
 		O.last_warning = world.time
 
 /obj/machinery/field/generator/shock_field(mob/living/user)
@@ -343,3 +398,5 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 #undef FG_OFFLINE
 #undef FG_CHARGING
 #undef FG_ONLINE
+
+#undef FIELD_GENERATOR_MAX_ENERGY

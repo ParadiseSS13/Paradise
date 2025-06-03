@@ -289,6 +289,15 @@
 /datum/chemical_reaction/jestosterone/on_reaction(datum/reagents/holder, created_volume)
 	playsound(get_turf(holder.my_atom), 'sound/items/bikehorn.ogg', 50, 1)
 
+/datum/chemical_reaction/mimestrogen
+	name = "Mimestrogen"
+	id = "mimestrogen"
+	result = "mimestrogen"
+	required_reagents = list("blood" = 1, "sodiumchloride" = 1, "nothing" = 1, "capulettium_plus" = 1) // Or one freshly-squeezed mime
+	min_temp = T0C + 100
+	result_amount = 5
+	mix_message = "The mixture seems to drain of color before stopping at a dark grey."
+
 /datum/chemical_reaction/royal_bee_jelly
 	name = "royal bee jelly"
 	id = "royal_bee_jelly"

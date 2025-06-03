@@ -74,13 +74,13 @@
 		to_chat(user, "<span class='warning'>[part.name] already deployed!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(part in overslotting_parts)
-		var/obj/item/overslot = wearer.get_item_by_slot(slot_bitfield_to_slot(part.slot_flags))
+		var/obj/item/overslot = wearer.get_item_by_slot(part.slot_flags)
 		if(overslot)
-			wearer.unEquip(overslot, TRUE)
+			wearer.drop_item_to_ground(overslot, force = TRUE)
 			overslotting_parts[part] = overslot
 			overslot.forceMove(part)
 			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
-	if(wearer.equip_to_slot_if_possible(part, slot_bitfield_to_slot(part.slot_flags), disable_warning = TRUE))
+	if(wearer.equip_to_slot_if_possible(part, part.slot_flags, disable_warning = TRUE))
 		part.flags |= NODROP
 		if(mass)
 			return TRUE
@@ -104,12 +104,11 @@
 		to_chat(user, "<span class='warning'>You already have retracted there!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	part.flags &= ~NODROP
-	wearer.unEquip(part, TRUE)
-	part.forceMove(src)
+	wearer.transfer_item_to(part, src, force = TRUE)
 	if(overslotting_parts[part])
 		UnregisterSignal(part, COMSIG_ATOM_EXITED)
 		var/obj/item/overslot = overslotting_parts[part]
-		if(!wearer.equip_to_slot_if_possible(overslot, slot_bitfield_to_slot(overslot.slot_flags), disable_warning = TRUE))
+		if(!wearer.equip_to_slot_if_possible(overslot, overslot.slot_flags, disable_warning = TRUE))
 			overslot.forceMove(get_turf(wearer))
 		overslotting_parts[part] = null
 	if(mass)
@@ -155,29 +154,30 @@
 		if(!module.active || (module.allow_flags & MODULE_ALLOW_INACTIVE))
 			continue
 		module.on_deactivation(display_message = FALSE)
+	mod_link.end_call()
 	activating = TRUE
 	to_chat(wearer, "<span class='notice'>MODsuit [active ? "shutting down" : "starting up"].</span>")
-	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE))
+	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE, hidden = TRUE, allow_sleeping_or_dead = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>[boots] [active ? "relax their grip on your legs" : "seal around your feet"].</span>")
 			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			seal_part(boots, seal = !active)
-	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE))
+	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE, hidden = TRUE, allow_sleeping_or_dead = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>[gauntlets] [active ? "become loose around your fingers" : "tighten around your fingers and wrists"].</span>")
 			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			seal_part(gauntlets, seal = !active)
-	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE))
+	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE, hidden = TRUE, allow_sleeping_or_dead = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>[chestplate] [active ? "releases your chest" : "cinches tightly against your chest"].</span>")
 			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			seal_part(chestplate, seal = !active)
-	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE))
+	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE, hidden = TRUE, allow_sleeping_or_dead = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>[helmet] hisses [active ? "open" : "closed"].</span>")
 			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			seal_part(helmet, seal = !active)
-	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE))
+	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE, use_default_checks = FALSE, hidden = TRUE, allow_sleeping_or_dead = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>Systems [active ? "shut down. Parts unsealed. Goodbye" : "started up. Parts sealed. Welcome"], [wearer].</span>")
 			finish_activation(on = !active)
@@ -211,19 +211,17 @@
 		var/mob/living/carbon/human/H = wearer
 		H.regenerate_icons()
 
-/// Finishes the suit's activation, starts processing
+/// Finishes the suit's activation
 /obj/item/mod/control/proc/finish_activation(on)
 	active = on
 	if(active)
 		for(var/obj/item/mod/module/module as anything in modules)
 			module.on_suit_activation()
-		START_PROCESSING(SSobj, src)
 	else
 		for(var/obj/item/mod/module/module as anything in modules)
 			module.on_suit_deactivation()
-		STOP_PROCESSING(SSobj, src)
 	update_speed()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	wearer.regenerate_icons()
 
 /// Quickly deploys all the suit parts and if successful, seals them and turns on the suit. Intended mostly for outfits.

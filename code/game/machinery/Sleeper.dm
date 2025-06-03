@@ -28,6 +28,7 @@
 	active_power_consumption = 2500
 
 	light_color = LIGHT_COLOR_CYAN
+	light_power = 0.5
 
 /obj/machinery/sleeper/examine(mob/user)
 	. = ..()
@@ -36,7 +37,7 @@
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
-	. += "<span class='info'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
 
 /obj/machinery/sleeper/power_change()
 	..() //we don't check parent return here because we also care about BROKEN
@@ -209,6 +210,12 @@
 				occupantData["temperatureSuitability"] = -3
 			else if(silly.bodytemperature > silly.maxbodytemp)
 				occupantData["temperatureSuitability"] = 3
+		else if(isbasicmob(occupant))
+			var/mob/living/basic/basicmob = occupant
+			if(basicmob.bodytemperature < basicmob.minimum_survivable_temperature)
+				occupantData["temperatureSuitability"] = -3
+			else if(basicmob.bodytemperature > basicmob.maximum_survivable_temperature)
+				occupantData["temperatureSuitability"] = 3
 		// Blast you, imperial measurement system
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
@@ -300,49 +307,49 @@
 			return FALSE
 	add_fingerprint(usr)
 
-/obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
+/obj/machinery/sleeper/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(!beaker)
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
-				return
+				to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+				return ITEM_INTERACT_COMPLETE
 
-			beaker = I
-			I.forceMove(src)
-			user.visible_message("[user] adds \a [I] to [src]!", "You add \a [I] to [src]!")
+			beaker = used
+			used.forceMove(src)
+			user.visible_message("[user] adds \a [used] to [src]!", "You add \a [used] to [src]!")
 			SStgui.update_uis(src)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		else
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!ismob(G.affecting))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
 
 		if(do_after(user, 20, target = G.affecting))
 			if(occupant)
 				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(!G || !G.affecting)
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			var/mob/M = G.affecting
 			M.forceMove(src)
@@ -352,7 +359,7 @@
 			add_fingerprint(user)
 			qdel(G)
 			SStgui.update_uis(src)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -427,7 +434,7 @@
 	occupant.forceMove(loc)
 	occupant = null
 	playsound(src, 'sound/machines/podopen.ogg', 5)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(loc)
@@ -497,7 +504,7 @@
 		L.forceMove(src)
 		occupant = L
 		playsound(src, 'sound/machines/podclose.ogg', 5)
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 		add_fingerprint(user)
 		if(user.pulling == L)
@@ -514,7 +521,7 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(isanimal(O) || issilicon(O)) //animals and robots dont fit
+	if(isanimal_or_basicmob(O) || issilicon(O)) //animals and robots dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
@@ -562,5 +569,17 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+
+/obj/machinery/sleeper/clockwork
+	name = "soothing sleeper"
+	desc = "A large cryogenics unit built from brass. Its surface is pleasantly cool the touch."
+	icon_state = "sleeper_c-open"
+	base_icon = "sleeper_c"
+	possible_chems = list("epinephrine", "salbutamol", "styptic_powder", "silver_sulfadiazine", "oculine", "mannitol")
+	light_color = LIGHT_COLOR_DARKRED
+
+/obj/machinery/sleeper/clockwork/crowbar_act(mob/user, obj/item/I)
+	to_chat(user, "<span class='warning'>You pry on the internal mechanisms of [src] with all your might, but they refuse to budge!</span>")
+	return FALSE
 
 #undef ADDICTION_SPEEDUP_TIME

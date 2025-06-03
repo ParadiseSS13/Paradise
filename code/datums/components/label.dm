@@ -22,11 +22,12 @@
 	apply_label()
 
 /datum/component/label/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackby))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(Examine))
+	RegisterSignal(parent, COMSIG_LABEL_REMOVE, PROC_REF(on_remove))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_NAME, PROC_REF(on_update_name))
 
 /datum/component/label/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_LABEL_REMOVE, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_NAME))
 
 /**
 	This proc will fire after the parent is hit by a hand labeler which is trying to apply another label.
@@ -40,28 +41,10 @@
 		label_name = _label_name
 	apply_label()
 
-/**
-	This proc will trigger when any object is used to attack the parent.
-
-	If the attacking object is not a hand labeler, it will return.
-	If the attacking object is a hand labeler it will restore the name of the parent to what it was before this component was added to it, and the component will be deleted.
-
-	Arguments:
-	* source: The parent.
-	* attacker: The object that is hitting the parent.
-	* user: The mob who is wielding the attacking object.
-*/
-/datum/component/label/proc/OnAttackby(datum/source, obj/item/attacker, mob/user)
-	// If the attacking object is not a hand labeler or it's not off (has a label ready to apply), return.
-	// The hand labeler should be off in order to remove a label.
-	var/obj/item/hand_labeler/labeler = attacker
-	if(!istype(labeler) || labeler.mode)
-		return
-
+/datum/component/label/proc/on_remove(datum/source)
 	remove_label()
-	playsound(parent, 'sound/items/poster_ripped.ogg', 20, TRUE)
-	to_chat(user, "<span class='warning'>You remove the label from [parent].</span>")
 	qdel(src) // Remove the component from the object.
+	return TRUE
 
 /**
 	This proc will trigger when someone examines the parent.
@@ -72,13 +55,21 @@
 	* user: The mob exmaining the parent.
 	* examine_list: The current list of text getting passed from the parent's normal examine() proc.
 */
-/datum/component/label/proc/Examine(datum/source, mob/user, list/examine_list)
+
+///Reapplies label when update_name is called on the parent object. Attempts to remove it first just in case.
+/datum/component/label/proc/on_update_name()
+	SIGNAL_HANDLER // COMSIG_ATOM_UPDATE_NAME
+	remove_label()
+	apply_label()
+
+/datum/component/label/proc/on_examine(datum/source, mob/user, list/examine_list)
 	examine_list += "<span class='notice'>It has a label with some words written on it. Use a hand labeler to remove it.</span>"
 
 /// Applies a label to the name of the parent in the format of: "parent_name (label)"
 /datum/component/label/proc/apply_label()
 	var/atom/owner = parent
 	owner.name += " ([label_name])"
+	owner.investigate_log("Label: \"[label_name]\" applied", INVESTIGATE_RENAME)
 
 /// Removes the label from the parent's name
 /datum/component/label/proc/remove_label()
@@ -96,7 +87,7 @@
 	return ..()
 
 /// Adds detailed information to the examine text.
-/datum/component/label/goal/Examine(datum/source, mob/user, list/examine_list)
+/datum/component/label/goal/on_examine(datum/source, mob/user, list/examine_list)
 	examine_list += "<span class='notice'>It has a label on it, marking it as part of a secondary goal for [label_name]. Use a hand labeler to remove it.</span>"
 
 /// Applies a static label to the parent's name.

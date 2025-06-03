@@ -13,7 +13,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "e" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "f" = (
@@ -40,6 +40,10 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
+"t" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
 "T" = (
 /obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/plating,
@@ -52,7 +56,9 @@ a
 a
 a
 a
-b
+a
+a
+a
 a
 a
 a
@@ -67,12 +73,14 @@ a
 a
 a
 a
-b
-b
-b
+a
 a
 a
 b
+a
+a
+a
+a
 a
 a
 a
@@ -83,54 +91,80 @@ a
 a
 a
 a
+a
+a
+b
+b
 b
 a
 a
 b
-h
-h
-b
 a
 a
 a
-b
+a
+a
 a
 "}
 (4,1,1) = {"
 a
+a
+a
+a
 b
+a
+a
 b
-c
-c
-c
 h
 h
-h
-h
-c
-c
-c
+b
+a
+a
+a
+b
 a
 a
 "}
 (5,1,1) = {"
 a
+a
+b
 b
 c
 c
 c
-c
-c
-i
-i
-c
-c
+h
+h
+h
+h
 c
 c
 c
-b
+a
+a
+a
 "}
 (6,1,1) = {"
+a
+a
+b
+c
+c
+c
+c
+c
+i
+i
+c
+c
+c
+c
+c
+b
+a
+"}
+(7,1,1) = {"
+a
 a
 a
 c
@@ -146,8 +180,10 @@ c
 c
 c
 b
+a
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+a
 a
 a
 c
@@ -163,8 +199,10 @@ d
 c
 c
 a
+a
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+a
 a
 a
 c
@@ -180,8 +218,10 @@ d
 c
 c
 a
+a
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+a
 a
 b
 c
@@ -197,8 +237,10 @@ d
 c
 c
 a
+a
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+a
 b
 a
 c
@@ -214,8 +256,10 @@ d
 c
 c
 a
+a
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+a
 a
 b
 c
@@ -231,8 +275,10 @@ d
 c
 c
 a
+a
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+a
 a
 a
 c
@@ -248,45 +294,33 @@ e
 c
 c
 a
-"}
-(13,1,1) = {"
-a
-a
-c
-c
-c
-d
-d
-d
-d
-d
-d
-c
-c
-c
 a
 "}
 (14,1,1) = {"
 a
-b
+a
+a
 c
 c
 c
+d
+d
+t
+d
+d
+d
 c
 c
 c
-c
-c
-c
-c
-c
-c
+a
 a
 "}
 (15,1,1) = {"
 a
 a
-a
+b
+c
+c
 c
 c
 c
@@ -303,17 +337,19 @@ a
 (16,1,1) = {"
 a
 a
-b
 a
-b
-b
-b
 a
-b
-b
-b
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
 a
-b
 a
 a
 "}
@@ -321,6 +357,26 @@ a
 a
 a
 a
+b
+a
+b
+b
+b
+a
+b
+b
+b
+a
+b
+a
+a
+a
+"}
+(18,1,1) = {"
+a
+a
+a
+a
 a
 a
 b
@@ -329,6 +385,26 @@ a
 b
 b
 b
+a
+a
+a
+a
+a
+"}
+(19,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
 a
 a
 a

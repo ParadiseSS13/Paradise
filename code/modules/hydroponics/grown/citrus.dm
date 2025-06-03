@@ -114,7 +114,7 @@
 	tastes = list("burning lemon" = 1)
 	wine_flavor = "fire"
 
-/obj/item/food/grown/firelemon/attack_self(mob/living/user)
+/obj/item/food/grown/firelemon/attack_self__legacy__attackchain(mob/living/user)
 	var/area/A = get_area(user)
 	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
@@ -134,7 +134,7 @@
 /obj/item/food/grown/firelemon/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.unEquip(src)
+		M.drop_item_to_ground(src)
 
 /obj/item/food/grown/firelemon/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion
@@ -143,21 +143,21 @@
 	switch(seed.potency) //Combustible lemons are alot like IEDs, lots of flame, very little bang.
 		if(0 to 30)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 1)
+			explosion(loc,-1,-1,2, flame_range = 1, cause = name)
 			qdel(src)
 		if(31 to 50)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 2)
+			explosion(loc,-1,-1,2, flame_range = 2, cause = name)
 			qdel(src)
 		if(51 to 70)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 3)
+			explosion(loc,-1,-1,2, flame_range = 3, cause = name)
 			qdel(src)
 		if(71 to 90)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 4)
+			explosion(loc,-1,-1,2, flame_range = 4, cause = name)
 			qdel(src)
 		else
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 5)
+			explosion(loc,-1,-1,2, flame_range = 5, cause = name)
 			qdel(src)

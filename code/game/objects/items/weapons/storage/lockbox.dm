@@ -14,7 +14,7 @@
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
 
-/obj/item/storage/lockbox/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/storage/lockbox/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(broken)
 			to_chat(user, "<span class='warning'>It appears to be broken.</span>")
@@ -173,7 +173,7 @@
 /obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
 	return
 
-/obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/lockbox/medal/hardmode_box/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/disk/fauna_research))
 		var/obj/item/disk/fauna_research/disky = W
 		var/obj/item/pride = new disky.output(get_turf(src))
@@ -223,7 +223,7 @@
 	if(prob(10))
 		new /obj/item/clothing/mask/facehugger(src) //Suprise! Storing facehuggers improperly is what lead to this mess.
 		return
-	var/spawn_type = pick(/obj/item/gun/energy/kinetic_accelerator/experimental, /obj/item/surveillance_upgrade, /obj/item/mod/module/stealth/ninja)
+	var/spawn_type = pick(/obj/item/gun/energy/kinetic_accelerator/experimental, /obj/item/ai_upgrade/surveillance_upgrade, /obj/item/mod/module/stealth/ninja)
 	if(prob(25))
 		if(rand(1, 6) == 1) //organ time. I want this to be more balanced in distribution, so organs are under a prob 25
 			new /obj/item/organ/internal/alien/plasmavessel/drone(src)  //Disected drone before the place got wiped. No hivenode.

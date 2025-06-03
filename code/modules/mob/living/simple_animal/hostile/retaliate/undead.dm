@@ -29,14 +29,15 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	flying = TRUE
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
 	loot = list(/obj/item/food/ectoplasm)
 	del_on_death = TRUE
 
-/mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(check_drift = 0)
+	initial_traits = list(TRAIT_FLYING)
+
+/mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Life(seconds, times_fired)
@@ -89,8 +90,9 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	deathmessage = null
+	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/retaliate/skeleton/warden/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/hostile/retaliate/skeleton/warden/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/skeleton/angered_warden
@@ -109,8 +111,9 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	loot = list(/obj/effect/decal/remains/human, /obj/item/clothing/head/warden, /obj/item/card/sec_shuttle_ruin)
+	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/skeleton/angered_warden/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/hostile/skeleton/angered_warden/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/zombie

@@ -6,6 +6,7 @@
 	icon_opened = "crate_open"
 	icon_closed = "crate"
 	climbable = TRUE
+	enable_door_overlay = FALSE
 	var/rigged = FALSE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
@@ -37,7 +38,7 @@
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = tgui_alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?", "Bluespace Compression Warning", list("Yes", "No"))
+				var/response = tgui_alert(usr, "This crate has been packed extremely tightly, an item inside won't fit back inside. Are you sure you want to open it?", "Compressed Materials Warning", list("Yes", "No"))
 				if(response != "Yes" || !Adjacent(usr))
 					return FALSE
 				break
@@ -86,7 +87,7 @@
 	opened = FALSE
 	return TRUE
 
-/obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/crate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!opened && try_rig(W, user))
 		return
 	return ..()
@@ -160,7 +161,7 @@
 	if(destination in announce_beacons)
 		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 			if(D.department in announce_beacons[destination])
-				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
+				D.createMessage(name, "Your Crate has Arrived!", msg, RQ_NORMALPRIORITY)
 
 /obj/structure/closet/crate/secure
 	desc = "A secure crate."
@@ -205,7 +206,7 @@
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
-	explosion(get_turf(src), 0, 1, 5, 5)
+	explosion(get_turf(src), 0, 1, 5, 5, cause = "Tamper-proof secure crate")
 	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()
@@ -306,7 +307,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/crate/secure/personal/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/crate/secure/personal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(opened || !istype(I, /obj/item/card/id))
 		return ..()
 
@@ -383,6 +384,13 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
+/obj/structure/closet/crate/freezer/deluxe
+	name = "Deluxe Freezer"
+	desc = "A fancy looking freezer emblazoned with the Nanotrasen logo."
+	icon_state = "freezerdeluxe"
+	icon_opened = "freezerdeluxe_open"
+	icon_closed = "freezerdeluxe"
+
 /obj/structure/closet/crate/freezer/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/gas = ..()
@@ -409,12 +417,12 @@
 	desc = "A freezer used to store IV bags containing various blood types."
 
 /obj/structure/closet/crate/freezer/iv_storage/populate_contents()
-	new /obj/item/reagent_containers/iv_bag/blood/OMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/OPlus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/AMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/APlus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/BMinus(src)
-	new /obj/item/reagent_containers/iv_bag/blood/BPlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/o_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/o_plus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/a_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/a_plus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/b_minus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/b_plus(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
@@ -582,16 +590,33 @@
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
 
-//crates of gear in the free golem ship
-/obj/structure/closet/crate/golemgear/populate_contents()
-	new /obj/item/storage/backpack/industrial(src)
-	new /obj/item/shovel(src)
-	new /obj/item/pickaxe(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
-	new /obj/item/storage/bag/ore(src)
-	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/card/id/golem(src)
-	new /obj/item/flashlight/lantern(src)
+/obj/structure/closet/crate/cookware
+	name = "cookware crate"
+	icon_state = "cookware"
+	icon_opened = "cookware_open"
+	icon_closed = "cookware"
+
+/obj/structure/closet/crate/cookware/populate_contents()
+	// Ice cream mixer containers
+	new /obj/item/reagent_containers/cooking/icecream_bowl(src)
+	// Oven containers
+	new /obj/item/reagent_containers/cooking/oven(src)
+	// Stovetop containers
+	new /obj/item/reagent_containers/cooking/pan(src)
+	new /obj/item/reagent_containers/cooking/pan(src)
+	new /obj/item/reagent_containers/cooking/pot(src)
+	new /obj/item/reagent_containers/cooking/pot(src)
+	// Deepfryer containers
+	new /obj/item/reagent_containers/cooking/deep_basket(src)
+	new /obj/item/reagent_containers/cooking/deep_basket(src)
+	// Cutting board
+	new /obj/item/reagent_containers/cooking/board(src)
+	// Grill containers
+	new /obj/item/reagent_containers/cooking/grill_grate(src)
+	new /obj/item/reagent_containers/cooking/grill_grate(src)
+	// Prep bowls
+	new /obj/item/reagent_containers/cooking/bowl(src)
+	new /obj/item/reagent_containers/cooking/bowl(src)
 
 #define RECURSION_PANIC_AMOUNT 10
 
@@ -651,7 +676,9 @@
 	for(var/item in bought_items)
 		var/obj/purchased = new item(src)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
-	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
+	var/item_list = jointext(sortList(itemlog), ", ")
+	log_game("[key_name(user)] purchased a surplus crate with [item_list]")
+	user.create_log(MISC_LOG, "Surplus crate purchase with spawned items [item_list]")
 
 /obj/structure/closet/crate/surplus/proc/generate_refund(amount)
 	var/changing_amount = amount

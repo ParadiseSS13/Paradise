@@ -150,27 +150,26 @@
 
 	var/list/blocked = list(
 		/obj/item/food,
-		/obj/item/food/breadslice,
+		/obj/item/food/sliced/bread,
 		/obj/item/food/sliceable,
 		/obj/item/food/sliceable/pizza,
-		/obj/item/food/margheritapizzaslice,
-		/obj/item/food/meatpizzaslice,
-		/obj/item/food/mushroompizzaslice,
-		/obj/item/food/vegetablepizzaslice,
-		/obj/item/food/cheesepizzaslice,
-		/obj/item/food/garlicpizzaslice,
-		/obj/item/food/donkpocketpizzaslice,
-		/obj/item/food/dankpizzaslice,
-		/obj/item/food/macpizzaslice,
-		/obj/item/food/firecrackerpizzaslice,
-		/obj/item/food/pestopizzaslice,
-		/obj/item/food/pepperonipizzaslice,
+		/obj/item/food/sliced/margherita_pizza,
+		/obj/item/food/sliced/meat_pizza,
+		/obj/item/food/sliced/mushroom_pizza,
+		/obj/item/food/sliced/vegetable_pizza,
+		/obj/item/food/sliced/cheese_pizza,
+		/obj/item/food/sliced/garlic_pizza,
+		/obj/item/food/sliced/donk_pocket_pizza,
+		/obj/item/food/sliced/dank_pizza,
+		/obj/item/food/sliced/mac_pizza,
+		/obj/item/food/sliced/fire_cracker_pizza,
+		/obj/item/food/sliced/pesto_pizza,
+		/obj/item/food/sliced/pepperoni_pizza,
 		/obj/item/food/meat,
 		/obj/item/food/meat/slab,
 		/obj/item/food/grown,
 		/obj/item/food/grown/shell,
 		/obj/item/food/grown/mushroom,
-		/obj/item/food/deepfryholder,
 		/obj/item/food/chinese,
 		/obj/item/food/human,
 		/obj/item/food/monstermeat,
@@ -463,7 +462,7 @@
 		if(slime.docile) //Undoes docility, but doesn't make rabid.
 			slime.visible_message("<span class='danger'>[slime] forgets its training, becoming wild once again!</span>")
 			slime.docile = FALSE
-			slime.update_name()
+			slime.update_appearance(UPDATE_NAME)
 			continue
 		slime.rabid = TRUE
 		slime.visible_message("<span class='danger'>[slime] is driven into a frenzy!</span>")
@@ -536,7 +535,7 @@
 	var/turf/extract_turf = get_turf(extract)
 	message_admins("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
-	explosion(extract_turf, 1, 3, 6)
+	explosion(extract_turf, 1, 3, 6, cause = "Oil Slime explosion")
 
 /datum/chemical_reaction/oil_slick
 	name = "Oil Potion"
@@ -716,7 +715,7 @@
 		P.forceMove(get_turf(holder.my_atom))
 
 //Rainbow :o)
-/datum/chemical_reaction/slimeRNG
+/datum/chemical_reaction/slime_rng
 	name = "Random Core"
 	id = "slimerng"
 	result = null
@@ -725,7 +724,7 @@
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/rainbow
 
-/datum/chemical_reaction/slimeRNG/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/slime_rng/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/mob/living/simple_animal/slime/random/S = new (get_turf(holder.my_atom))
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!</span>")

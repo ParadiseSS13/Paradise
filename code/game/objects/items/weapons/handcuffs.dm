@@ -12,7 +12,7 @@
 			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...</span>")
 		to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
 
-	if(!do_after(user, effective_breakout_time, FALSE, user))
+	if(!do_after(user, effective_breakout_time, FALSE, user, hidden = TRUE))
 		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 		to_chat(user, "<span class='warning'>You fail to [break_cuffs ? "break" : "remove"] [src]!</span>")
 		return
@@ -26,11 +26,13 @@
 /obj/item/restraints/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
 	if(!silent)
 		user.visible_message("<span class='danger'>[user] manages to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_cuffs ? "break" : "remove"] [src].</span>")
-	user.unEquip(src)
+	user.unequip(src)
 
 	if(break_cuffs)
 		qdel(src)
 		return TRUE
+	else
+		forceMove(user.drop_location())
 
 //////////////////////////////
 // MARK: HANDCUFFS
@@ -42,7 +44,7 @@
 	icon_state = "handcuff"
 	belt_icon = "handcuffs"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -58,7 +60,7 @@
 	/// If set to TRUE, people with the TRAIT_CLUMSY won't cuff themselves when trying to cuff others.
 	var/ignoresClumsy = FALSE
 
-/obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
+/obj/item/restraints/handcuffs/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
@@ -214,10 +216,6 @@
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
-/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
-	if(isrobot(user))
-		cuff(C, user, FALSE)
-
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
 	icon_state = "cablecuff_used"
@@ -229,7 +227,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/restraints/handcuffs/cable/zipties/used/attack()
+/obj/item/restraints/handcuffs/cable/zipties/used/attack__legacy__attackchain()
 	return
 
 //////////////////////////////
@@ -266,18 +264,18 @@
 //////////////////////////////
 // MARK: CRAFTING
 //////////////////////////////
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
+/obj/item/restraints/handcuffs/cable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	..()
-	// Don't allow borgs to send their their ziptie module to the shadow realm.
-	if(istype(src, /obj/item/restraints/handcuffs/cable/zipties/cyborg))
-		return
 
+	handle_attack_construction(I, user)
+
+/obj/item/restraints/handcuffs/cable/proc/handle_attack_construction(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(!R.use(1))
 			to_chat(user, "<span class='warning'>[R.amount > 1 ? "These rods" : "This rod"] somehow can't be used for crafting!</span>")
 			return
-		if(!user.unEquip(src))
+		if(!user.unequip(src))
 			return
 		var/obj/item/wirerod/W = new /obj/item/wirerod(get_turf(src))
 		if(!remove_item_from_storage(user))
@@ -294,7 +292,7 @@
 
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
 		if(do_after(user, 3.5 SECONDS * M.toolspeed, target = src))
-			if(!M.use(6) || !user.unEquip(src))
+			if(!M.use(6) || !user.unequip(src))
 				return
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(get_turf(src))
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
@@ -305,4 +303,12 @@
 
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
-		cable_color(C.colourName)
+		cable_color(C.dye_color)
+
+/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
+	if(isrobot(user))
+		cuff(C, user, FALSE)
+
+/obj/item/restraints/handcuffs/cable/zipties/cyborg/handle_attack_construction(obj/item/I, mob/user)
+	// Don't allow borgs to send their their ziptie module to the shadow realm.
+	return

@@ -7,12 +7,13 @@
 	icon = 'icons/mob/fleshling.dmi'
 	icon_state = "fleshling"
 	icon_living = "fleshling"
+	attack_sound = 'sound/misc/demon_attack1.ogg'
+	death_sound = 'sound/misc/demon_dies.ogg'
 	icon_dead = ""
 	speed = 5
 	move_to_delay = 4
 	ranged = TRUE
 	pixel_x = -16
-	attack_sound = 'sound/misc/demon_attack1.ogg'
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	wander = TRUE
@@ -23,8 +24,6 @@
 	a_intent = INTENT_HARM
 	deathmessage = "collapses into a pile of gibs. From the looks of it this is the deadest it can get... "
 	del_on_death = TRUE
-	death_sound = 'sound/misc/demon_dies.ogg'
-	attack_sound = 'sound/misc/demon_attack1.ogg'
 
 	/// Is the boss charging right now?
 	var/charging = FALSE
@@ -110,8 +109,8 @@
 	playsound(src, 'sound/effects/meteorimpact.ogg', 25, TRUE, 2, TRUE)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/fleshling/Bump(atom/A, yes)
-	if(charging && yes)
+/mob/living/simple_animal/hostile/megafauna/fleshling/Bump(atom/A)
+	if(charging)
 		if(isliving(A))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -176,7 +175,7 @@
 	if(target)
 		playsound(loc, 'sound/voice/zombie_scream.ogg', 70, TRUE)
 
-/mob/living/simple_animal/hostile/spaceinfected/Move(atom/newloc)
+/mob/living/simple_animal/hostile/spaceinfected/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	if(ischasm(newloc)) // as this place filled with chasms, they shouldn't randomly fall in while wandering around
 		return FALSE
 	return ..()
@@ -282,6 +281,17 @@
 /obj/effect/portal/advanced/deepstorage
 	name = "portal"
 	desc = "Good luck."
+
+// loot spawners
+
+/obj/effect/spawner/random/deepstorage_reward
+	name = "warehouse fashion reward"
+	loot = list(
+			/obj/item/storage/box/syndie_kit/chameleon,
+			/obj/item/clothing/suit/pimpcoat,
+			/obj/item/melee/skateboard/hoverboard,
+			/obj/item/clothing/glasses/sunglasses/yeah
+	)
 
 // paper stuff & lore
 

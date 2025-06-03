@@ -4,15 +4,16 @@ import { Box, Button, Icon, LabeledList, NoticeBox, Section, Table, Tabs } from 
 import { classes } from 'common/react';
 import { DataDiskMenu } from './DataDiskMenu';
 import { LatheMenu } from './LatheMenu';
+import { LinkMenu } from './LinkMenu';
 import { SettingsMenu } from './SettingsMenu';
-import { DeconstructionMenu } from './DeconstructionMenu';
+import { AnalyzerMenu } from './AnalyzerMenu';
 
 const Tab = Tabs.Tab;
 
 export const MENU = {
   MAIN: 0,
   DISK: 2,
-  DESTROY: 3,
+  ANALYZE: 3,
   LATHE: 4,
   IMPRINTER: 5,
   SETTINGS: 6,
@@ -31,8 +32,8 @@ const decideTab = (tab) => {
       return <MainMenu />;
     case MENU.DISK:
       return <DataDiskMenu />;
-    case MENU.DESTROY:
-      return <DeconstructionMenu />;
+    case MENU.ANALYZE:
+      return <AnalyzerMenu />;
     case MENU.LATHE:
     case MENU.IMPRINTER:
       return <LatheMenu />;
@@ -52,7 +53,12 @@ const ConsoleTab = (props, context) => {
 
 export const RndConsole = (properties, context) => {
   const { act, data } = useBackend(context);
-  const { menu, linked_destroy, linked_lathe, linked_imprinter, wait_message } = data;
+
+  if (!data.linked) {
+    return <LinkMenu />;
+  }
+
+  const { menu, linked_analyzer, linked_lathe, linked_imprinter, wait_message } = data;
 
   return (
     <Window width={800} height={550}>
@@ -62,8 +68,8 @@ export const RndConsole = (properties, context) => {
             <ConsoleTab icon="flask" menu={MENU.MAIN}>
               Research
             </ConsoleTab>
-            {!!linked_destroy && (
-              <ConsoleTab icon="microscope" menu={MENU.DESTROY}>
+            {!!linked_analyzer && (
+              <ConsoleTab icon="microscope" menu={MENU.ANALYZE}>
                 Analyze
               </ConsoleTab>
             )}

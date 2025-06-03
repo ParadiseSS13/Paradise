@@ -1,11 +1,10 @@
 /datum/spell/conjure_item
 	name = "Summon weapon"
-	desc = "A generic spell that should not exist.  This summons an instance of a specific type of item, or if one already exists, un-summons it."
+	desc = "A generic spell that should not exist. This summons an instance of a specific type of item, or if one already exists, un-summons it."
 	invocation_type = "none"
 	clothes_req = FALSE
 	var/obj/item/item
 	var/item_type = /obj/item/banhammer
-	school = "conjuration"
 	base_cooldown = 15 SECONDS
 	cooldown_min = 10
 

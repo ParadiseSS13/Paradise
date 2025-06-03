@@ -32,31 +32,26 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/suit/fire/firefighter
-	icon_state = "firesuit"
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	icon_override = 'icons/mob/clothing/suits/utility.dmi'
+	icon_state = "firefighter"
 	item_state = "firefighter"
-
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suits/utility.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suits/utility.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suits/utility.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi'
+	)
 
-/obj/item/clothing/suit/fire/heavy
-	name = "firesuit"
-	desc = "A suit that protects against extreme fire and heat."
-	//icon_state = "thermal"
-	item_state = "ro_suit"
-	w_class = WEIGHT_CLASS_BULKY
-	slowdown = 1.5
-
-/obj/item/clothing/suit/fire/atmos
+/obj/item/clothing/suit/fire/firefighter/atmos
 	name = "firesuit"
 	desc = "An expensive firesuit that protects against even the most deadly of station fires. Designed to protect even if the wearer is set aflame."
-	icon_state = "atmos_firesuit"
-	item_state = "firesuit_atmos"
+	icon_state = "firefighter_atmos"
+	item_state = "firefighter_atmos"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /*
  * Bomb protection
@@ -103,6 +98,7 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = NONE
+	dyeable = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -123,7 +119,10 @@
  */
 /obj/item/clothing/head/radiation
 	name = "radiation hood"
-	icon_state = "rad"
+	icon = 'icons/obj/clothing/head/utility.dmi'
+	icon_state = "radhood"
+	item_state = 'icons/mob/clothing/head/utility.dmi'
+	icon_override = 'icons/mob/clothing/head/utility.dmi'
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
 	flags = BLOCKHAIR|THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -133,23 +132,32 @@
 	resistance_flags = NONE
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/head/utility.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head/utility.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head/utility.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head/utility.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/utility.dmi'
+	)
+	rad_insulation_alpha = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
+	rad_insulation_gamma = RAD_FULL_INSULATION
 
 /obj/item/clothing/suit/radiation
 	name = "radiation suit"
 	desc = "A suit that protects against radiation. Label: Made with lead, do not eat insulation."
-	icon_state = "rad"
-	item_state = "rad_suit"
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	icon_override = 'icons/mob/clothing/suits/utility.dmi'
+	icon_state = "radsuit"
+	item_state = "radsuit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50
 	flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen, /obj/item/geiger_counter)
-	slowdown = 1.5
+	slowdown = 0.75
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = INFINITY, FIRE = 20, ACID = 20)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
@@ -157,5 +165,14 @@
 	resistance_flags = NONE
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suits/utility.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suits/utility.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suits/utility.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi'
+	)
+	rad_insulation_alpha = RAD_FULL_INSULATION
+	rad_insulation_beta = RAD_FULL_INSULATION
+	rad_insulation_gamma = RAD_FULL_INSULATION

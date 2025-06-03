@@ -28,6 +28,10 @@
 /area/space/nearstation/centcom
 	icon_state = "space_near_cc"
 
+/area/space/nearstation/no_teleport
+	icon_state = "space_near_notp"
+	tele_proof = TRUE
+
 /area/space/atmosalert()
 	return
 
@@ -39,6 +43,14 @@
 
 /area/space/centcomm
 	icon_state = "space_cc"
+
+/area/space/no_teleport
+	icon_state = "space_notp"
+	tele_proof = TRUE
+
+/area/game_test
+	name = "Game Test Area"
+	requires_power = FALSE
 
 //SYNDICATES
 
@@ -52,3 +64,11 @@
 
 /area/syndicate_mothership/jail
 	name = "\improper Syndicate Jail"
+
+/area/cordon
+	name = "CORDON"
+	icon_state = "cordon"
+	requires_power = FALSE
+	always_unpowered = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	valid_territory = FALSE

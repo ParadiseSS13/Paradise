@@ -10,16 +10,16 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	///How much charge the battery currently has
+	/// Battery's current state of charge (kilojoules)
 	var/charge = 0
-	///How much charge the battery can hold
+	/// Battery's maximum state of charge (kilojoules)
 	var/maxcharge = 1000
-	///How much charge the battery should start with
+	/// How much energy the cell starts with (kilojoules)
 	var/starting_charge
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
 	///If the battery will explode
 	var/rigged = FALSE
-	///How much charge is given every tick when recharging
+	/// How much energy is given to a recharging cell every tick (kilojoules / tick)
 	var/chargerate = 100
 	///Whether it will recharge automatically
 	var/self_recharge = FALSE
@@ -36,7 +36,8 @@
 	START_PROCESSING(SSobj, src)
 	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
-		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
+		// State of charge is in kJ so we multiply it by 1000 to get Joules
+		desc += " This one has a power rating of [DisplayJoules(maxcharge * 1000)], and you should not swallow it."
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
@@ -104,7 +105,7 @@
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
 
-/obj/item/stock_parts/cell/attackby(obj/item/W, mob/user, params)
+/obj/item/stock_parts/cell/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = W
 
@@ -136,7 +137,7 @@
 	log_admin("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 
-	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
+	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range, cause = "Powercell explosion")
 	charge = 0 //Extra safety in the event the cell does not QDEL right
 	qdel(src)
 
@@ -374,3 +375,10 @@
 	name = "reactive armor power cell"
 	desc = "A cell used to power reactive armors."
 	maxcharge = 2400
+
+/obj/item/stock_parts/cell/flayerprod
+	name = "mind flayer internal cell"
+	desc = "you shouldn't be seeing this, contact a coder"
+	maxcharge = 4000
+	self_recharge = TRUE
+	chargerate = 200 //This self charges it 50 power per tick at the base level

@@ -19,7 +19,7 @@
 	. = ..()
 	AddComponent(/datum/component/slippery, src, 8 SECONDS, 100, 0, FALSE)
 
-/obj/item/soap/afterattack(atom/target, mob/user, proximity)
+/obj/item/soap/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(user.zone_selected == "mouth" && ishuman(target)) // cleaning out someone's mouth is a different act
@@ -58,7 +58,7 @@
 	else
 		. += "<span class='notice'>[src] has been eaten down to a sliver!</span>"
 
-/obj/item/soap/attack(mob/target as mob, mob/user as mob)
+/obj/item/soap/attack__legacy__attackchain(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth")
 		user.visible_message("<span class='warning'>[user] starts washing [target]'s mouth out with [name]!</span>")
 		if(do_after(user, cleanspeed, target = target))
@@ -76,14 +76,14 @@
 
 /obj/item/soap/homemade
 	desc = "A homemade bar of soap. Smells of... well...."
-	icon_state = "soapgibs"
+	icon_state = "soaphome"
 	cleanspeed = 45 // a little faster to reward chemists for going to the effort
 
 /obj/item/soap/ducttape
 	desc = "A homemade bar of soap. It seems to be gibs and tape..Will this clean anything?"
 	icon_state = "soapgibs"
 
-/obj/item/soap/ducttape/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/soap/ducttape/afterattack__legacy__attackchain(atom/target, mob/user as mob, proximity)
 	if(!proximity) return
 
 	if(user.client && (target in user.client.screen))
@@ -99,7 +99,7 @@
 					if(!istype(carried_item, /obj/item/bio_chip))//If it's not an implant.
 						carried_item.add_mob_blood(target)//Oh yes, there will be blood...
 				var/mob/living/carbon/human/H = target
-				H.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color())
+				H.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color(), 0)
 				H.bloody_body(target)
 
 	return
@@ -118,3 +118,9 @@
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
 	icon_state = "soapsyndie"
 	cleanspeed = 10 //much faster than mop so it is useful for traitors who want to clean crime scenes
+
+/obj/item/soap/ds
+	desc = "A very intimidating, jet-black bar of soap with a skull embossed on the top. Whatever this thing is made of, it can clean any mess in the blink of an eye."
+	icon_state = "soapds"
+	cleanspeed = 5
+

@@ -67,12 +67,12 @@
 						"<span class='userdanger'>[A] puts you into a chokehold!</span>")
 	add_attack_logs(A, D, "Put into a chokehold with martial-art [src]", ATKLOG_ALL)
 	chokehold_active = TRUE
-	var/damage_multiplier = 1 + A.getStaminaLoss() / 100 //The chokehold is more effective the more tired the target is.
-	while(do_mob(A, D, 2 SECONDS) && chokehold_active)
+	var/damage_multiplier = 1 + D.getStaminaLoss() / 100 //The chokehold is more effective the more tired the target is.
+	while(do_mob(A, D, 2 SECONDS, hidden = TRUE) && chokehold_active)
 		D.apply_damage(10 * damage_multiplier, OXY)
 		D.LoseBreath(3 SECONDS)
 		if(D.getOxyLoss() >= 50 || D.health <= 20)
-			D.visible_message("<span class ='danger>[A] puts [D] to sleep!</span>", \
+			D.visible_message("<span class='danger'>[A] puts [D] to sleep!</span>", \
 						"<span class='userdanger'>[A] knocks you out cold!</span>")
 			D.SetSleeping(40 SECONDS)
 			drop_chokehold()

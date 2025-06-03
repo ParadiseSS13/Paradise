@@ -139,6 +139,10 @@
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
+	// Limit msg length
+	if(!check_rights(R_ADMIN, FALSE))
+		msg = copytext_char(msg, 1, 2048)
+
 	// Let high-rank admins use advanced pencode.
 	if(check_rights(R_SERVER|R_DEBUG, 0))
 		msg = admin_pencode_to_html(msg)
@@ -269,14 +273,14 @@
 
 	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
-	to_chat(src, "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>", MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+	to_chat(src, "<span class='discordpm'>PM to-<b>Discord Admins</b>: [msg]</span>", MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 
 	log_admin("PM: [key_name(src)]->Discord: [msg]")
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN, 0, X.mob))
-			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span></span>")
+			to_chat(X, "<span class='discordpm'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span></span>")
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"

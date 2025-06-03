@@ -22,16 +22,20 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
-	collar_type = "cat"
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 	var/eats_mice = 1
+	var/collar_icon_state = "cat"
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+/mob/living/simple_animal/pet/cat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state, collar_resting_icon_state_ = TRUE)
+
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
-/mob/living/simple_animal/pet/cat/Runtime
+/mob/living/simple_animal/pet/cat/runtime
 	name = "Runtime"
-	desc = "GCAT"
+	desc = "GCAT."
 	icon_state = "cat"
 	icon_living = "cat"
 	icon_dead = "cat_dead"
@@ -42,35 +46,35 @@
 	var/list/family = list()
 	var/list/children = list() //Actual mob instances of children
 
-/mob/living/simple_animal/pet/cat/Runtime/New()
+/mob/living/simple_animal/pet/cat/runtime/Initialize(mapload)
+	. = ..()
 	SSpersistent_data.register(src)
-	..()
 
-/mob/living/simple_animal/pet/cat/Runtime/Destroy()
+/mob/living/simple_animal/pet/cat/runtime/Destroy()
 	SSpersistent_data.registered_atoms -= src
 	return ..()
 
-/mob/living/simple_animal/pet/cat/Runtime/persistent_load()
+/mob/living/simple_animal/pet/cat/runtime/persistent_load()
 	read_memory()
 	deploy_the_cats()
 
-/mob/living/simple_animal/pet/cat/Runtime/persistent_save()
+/mob/living/simple_animal/pet/cat/runtime/persistent_save()
 	if(SEND_SIGNAL(src, COMSIG_LIVING_WRITE_MEMORY) & COMPONENT_DONT_WRITE_MEMORY)
 		return FALSE
 	write_memory(FALSE)
 
-/mob/living/simple_animal/pet/cat/Runtime/make_babies()
+/mob/living/simple_animal/pet/cat/runtime/make_babies()
 	var/mob/baby = ..()
 	if(baby)
 		children += baby
 		return baby
 
-/mob/living/simple_animal/pet/cat/Runtime/death()
+/mob/living/simple_animal/pet/cat/runtime/death()
 	if(can_die())
 		write_memory(TRUE)
 	return ..()
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/read_memory()
+/mob/living/simple_animal/pet/cat/runtime/proc/read_memory()
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
 	S["family"] 			>> family
 
@@ -78,7 +82,7 @@
 		family = list()
 	log_debug("Persistent data for [src] loaded (family: [family ? list2params(family) : "None"])")
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/write_memory(dead)
+/mob/living/simple_animal/pet/cat/runtime/proc/write_memory(dead)
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
 	family = list()
 	if(!dead)
@@ -92,7 +96,7 @@
 	S["family"]				<< family
 	log_debug("Persistent data for [src] saved (family: [family ? list2params(family) : "None"])")
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/deploy_the_cats()
+/mob/living/simple_animal/pet/cat/runtime/proc/deploy_the_cats()
 	for(var/cat_type in family)
 		if(family[cat_type] > 0)
 			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
@@ -118,7 +122,6 @@
 	resting = TRUE
 	custom_emote(EMOTE_VISIBLE, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 	icon_state = "[icon_living]_sit"
-	collar_type = "[initial(collar_type)]_sit"
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(stat == CONSCIOUS && !buckled)
@@ -142,6 +145,7 @@
 				M.death()
 				M.splat()
 				movement_target = null
+				walk(src, 0)
 				stop_automated_movement = FALSE
 				break
 		for(var/obj/item/toy/cattoy/T in view(1, src))
@@ -156,7 +160,7 @@
 
 	turns_since_scan++
 	if(turns_since_scan > 5)
-		walk_to(src,0)
+		GLOB.move_manager.stop_looping(src)
 		turns_since_scan = 0
 	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 		movement_target = null
@@ -164,28 +168,29 @@
 	if(!movement_target || !(movement_target.loc in oview(src, 3)))
 		movement_target = null
 		stop_automated_movement = FALSE
+		walk(src, 0)
 		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
 			if(isturf(snack.loc) && !snack.stat)
 				movement_target = snack
 				break
 	if(movement_target)
 		stop_automated_movement = TRUE
-		walk_to(src,movement_target,0,3)
+		GLOB.move_manager.move_to(src, movement_target, 0, 3)
 
-/mob/living/simple_animal/pet/cat/Proc
+/mob/living/simple_animal/pet/cat/proc_cat
 	name = "Proc"
 	gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
-/mob/living/simple_animal/pet/cat/Var
+/mob/living/simple_animal/pet/cat/var_cat
 	name = "Var"
 	desc = "Maintenance Cat!"
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/pet/cat/kitten
 	name = "kitten"
-	desc = "D'aaawwww"
+	desc = "D'aaawwww."
 	icon_state = "kitten"
 	icon_living = "kitten"
 	icon_dead = "kitten_dead"
@@ -193,9 +198,9 @@
 	gender = NEUTER
 	density = FALSE
 	pass_flags = PASSMOB
-	collar_type = "kitten"
+	collar_icon_state = "kitten"
 
-/mob/living/simple_animal/pet/cat/Syndi
+/mob/living/simple_animal/pet/cat/syndi
 	name = "SyndiCat"
 	desc = "It's a SyndiCat droid."
 	icon_state = "Syndicat"
@@ -211,11 +216,11 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 
-/mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
+/mob/living/simple_animal/pet/cat/syndi/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
-/mob/living/simple_animal/pet/cat/Syndi/npc_safe(mob/user)
+/mob/living/simple_animal/pet/cat/syndi/npc_safe(mob/user)
 	if(GAMEMODE_IS_NUCLEAR)
 		return TRUE
 	return FALSE
@@ -233,7 +238,7 @@
 	butcher_results = list(
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
-		/obj/item/food/birthdaycakeslice = 3,
+		/obj/item/food/sliced/birthday_cake = 3,
 		/obj/item/food/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"
@@ -271,7 +276,7 @@
 	if(stat == DEAD)
 		if(++final_bites >= total_final_bites)
 			visible_message("<span class='danger'>[L] finished eating [src], there's nothing left!</span>")
-			to_chat(L, "<span class='info'>Whoa, that last bite tasted weird.</span>")
+			to_chat(L, "<span class='notice'>Whoa, that last bite tasted weird.</span>")
 			L.reagents.add_reagent("teslium", 5)
 			qdel(src)
 

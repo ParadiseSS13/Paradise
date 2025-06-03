@@ -40,17 +40,10 @@
 	var/list/outfit_types = O.get_chameleon_disguise_info()
 
 	for(var/V in user.chameleon_item_actions)
-		var/datum/action/item_action/chameleon/change/A = V
-		var/done = FALSE
+		var/datum/action/item_action/chameleon_change/action = V
 		for(var/T in outfit_types)
-			for(var/name in A.chameleon_list)
-				if(A.chameleon_list[name] == T)
-					A.update_look(user, T)
-					outfit_types -= T
-					done = TRUE
-					break
-			if(done)
-				break
+			if(ispath(T, action.chameleon_type))
+				action.update_look(user, T)
 	//hardsuit helmets/suit hoods
 	if(ispath(O.suit, /obj/item/clothing/suit/hooded) && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -67,16 +60,21 @@
 	return TRUE
 
 
-/datum/action/item_action/chameleon/change
+/datum/action/item_action/chameleon_change
 	name = "Chameleon Change"
-	var/list/chameleon_blacklist = list() //This is a typecache
-	var/list/chameleon_list = list()
+	var/static/list/chameleon_blacklist = list() //This is a typecache
+	var/static/list/chameleon_list = list()
 	var/chameleon_type = null
 	var/chameleon_name = "Item"
-
+	var/obj/item/holder
 	var/emp_timer
 
-/datum/action/item_action/chameleon/change/Grant(mob/M)
+/datum/action/item_action/chameleon_change/New(Target)
+	. = ..()
+	holder = Target
+
+
+/datum/action/item_action/chameleon_change/Grant(mob/M)
 	if(M && (owner != M))
 		if(!M.chameleon_item_actions)
 			M.chameleon_item_actions = list(src)
@@ -86,7 +84,7 @@
 			M.chameleon_item_actions |= src
 	..()
 
-/datum/action/item_action/chameleon/change/Remove(mob/M)
+/datum/action/item_action/chameleon_change/Remove(mob/M)
 	if(M && (M == owner))
 		LAZYREMOVE(M.chameleon_item_actions, src)
 		if(!LAZYLEN(M.chameleon_item_actions))
@@ -94,49 +92,84 @@
 			qdel(O)
 	..()
 
-/datum/action/item_action/chameleon/change/UpdateButton(atom/movable/screen/movable/action_button/button, status_only, force)
+/datum/action/item_action/chameleon_change/UpdateButton(atom/movable/screen/movable/action_button/button, status_only, force)
 	. = ..()
 	if(.)
 		button.name = "Change [chameleon_name] Appearance"
 
+/datum/action/item_action/chameleon_change/ui_host()
+	return holder
 
-/datum/action/item_action/chameleon/change/proc/initialize_disguises()
+/datum/action/item_action/chameleon_change/ui_state(mob/user)
+	return GLOB.physical_state
+
+/datum/action/item_action/chameleon_change/ui_data(mob/user)
+	var/list/data = list()
+	data["selected_appearance"] = "[holder.name]_[holder.icon_state]"
+	return data
+
+/datum/action/item_action/chameleon_change/ui_static_data(mob/user, datum/tgui/ui = null)
+	var/list/data = list()
+	var/list/chameleon_skins = list()
+	for(var/chameleon_type in chameleon_list[chameleon_name])
+		var/obj/item/chameleon_item = chameleon_list[chameleon_name][chameleon_type]
+		chameleon_skins.Add(list(list(
+			"icon" = initial(chameleon_item.icon),
+			"icon_state" = initial(chameleon_item.icon_state),
+			"name" = initial(chameleon_item.name),
+		)))
+
+	data["chameleon_skins"] = chameleon_skins
+	return data
+
+/datum/action/item_action/chameleon_change/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Chameleon", "Change [chameleon_name] Appearance")
+		ui.open()
+		ui.set_autoupdate(FALSE)
+
+/datum/action/item_action/chameleon_change/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("change_appearance")
+			update_look(usr, chameleon_list[chameleon_name][params["new_appearance"]])
+
+/datum/action/item_action/chameleon_change/proc/initialize_disguises()
 	UpdateButtons()
 	chameleon_blacklist |= typecacheof(target.type)
+	if(!isnull(chameleon_list[chameleon_name]))
+		return
+	chameleon_list[chameleon_name] = list()
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
 			var/obj/item/I = V
 			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
 				continue
-			var/chameleon_item_name = "[initial(I.name)] ([initial(I.icon_state)])"
-			chameleon_list[chameleon_item_name] = I
+			var/chameleon_item_name = "[replacetext(initial(I.name), "\improper", "")]_[initial(I.icon_state)]"
+			if(isnull(chameleon_list[chameleon_name][chameleon_item_name]))
+				chameleon_list[chameleon_name][chameleon_item_name] = I
 
-/datum/action/item_action/chameleon/change/proc/select_look(mob/user)
-	var/obj/item/picked_item
-	var/picked_name
-	picked_name = tgui_input_list(user, "Select [chameleon_name] to change into", "Chameleon [chameleon_name]", chameleon_list)
-	if(!picked_name)
-		return
-	picked_item = chameleon_list[picked_name]
-	if(!picked_item)
-		return
-	update_look(user, picked_item)
+/datum/action/item_action/chameleon_change/proc/select_look(mob/user)
+	ui_interact(user)
 
-/datum/action/item_action/chameleon/change/proc/random_look(mob/user)
-	var/picked_name = pick(chameleon_list)
+/datum/action/item_action/chameleon_change/proc/random_look(mob/user)
+	var/picked_name = pick(chameleon_list[chameleon_name])
 	// If a user is provided, then this item is in use, and we
 	// need to update our icons and stuff
 
 	if(user)
-		update_look(user, chameleon_list[picked_name])
+		update_look(user, chameleon_list[chameleon_name][picked_name])
 
 	// Otherwise, it's likely a random initialisation, so we
 	// don't have to worry
 
 	else
-		update_item(chameleon_list[picked_name])
+		update_item(chameleon_list[chameleon_name][picked_name])
 
-/datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item)
+/datum/action/item_action/chameleon_change/proc/update_look(mob/user, obj/item/picked_item)
 	if(isliving(user))
 		var/mob/living/C = user
 		if(C.stat != CONSCIOUS)
@@ -145,9 +178,10 @@
 		update_item(picked_item)
 		var/obj/item/thing = target
 		thing.update_slot_icon()
+		SStgui.update_uis(src)
 	UpdateButtons()
 
-/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
+/datum/action/item_action/chameleon_change/proc/update_item(obj/item/picked_item)
 	target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
@@ -157,6 +191,7 @@
 
 		I.item_state = initial(picked_item.item_state)
 		I.item_color = initial(picked_item.item_color)
+		I.color = initial(picked_item.color)
 
 		I.icon_override = initial(picked_item.icon_override)
 		if(initial(picked_item.sprite_sheets))
@@ -164,6 +199,8 @@
 			var/obj/item/P = new picked_item(null)
 			I.sprite_sheets = P.sprite_sheets
 			qdel(P)
+		else
+			I.sprite_sheets = null
 
 		if(isclothing(I) && isclothing(picked_item))
 			var/obj/item/clothing/CL = I
@@ -173,14 +210,14 @@
 
 	target.icon = initial(picked_item.icon)
 
-/datum/action/item_action/chameleon/change/Trigger(left_click)
+/datum/action/item_action/chameleon_change/Trigger(left_click)
 	if(!IsAvailable())
 		return
 
 	select_look(owner)
 	return 1
 
-/datum/action/item_action/chameleon/change/proc/emp_randomise(amount = EMP_RANDOMISE_TIME)
+/datum/action/item_action/chameleon_change/proc/emp_randomise(amount = EMP_RANDOMISE_TIME)
 	START_PROCESSING(SSprocessing, src)
 	random_look(owner)
 
@@ -188,7 +225,7 @@
 	if(new_value > emp_timer)
 		emp_timer = new_value
 
-/datum/action/item_action/chameleon/change/process()
+/datum/action/item_action/chameleon_change/process()
 	if(world.time > emp_timer)
 		STOP_PROCESSING(SSprocessing, src)
 		return
@@ -214,7 +251,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
 		)
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/under/chameleon/Initialize(mapload)
 	. = ..()
@@ -266,7 +303,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/suit/chameleon/Initialize(mapload)
 	. = ..()
@@ -289,7 +326,7 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/glasses/chameleon
-	name = "Optical Meson Scanner"
+	name = "optical meson scanner"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
 	item_state = "meson"
@@ -303,7 +340,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/glasses/chameleon/Initialize(mapload)
 	. = ..()
@@ -339,10 +376,10 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/hud/security/chameleon
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	hud_access_override = TRUE
 	flash_protect = FLASH_PROTECTION_FLASH
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/glasses/hud/security/chameleon/Initialize(mapload)
 	. = ..()
@@ -367,7 +404,7 @@
 // for style
 // also its this typepath because random shit type checks based on the meson path
 /obj/item/clothing/glasses/meson/chameleon
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/glasses/meson/chameleon/Initialize(mapload)
 	. = ..()
@@ -396,7 +433,7 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/gloves/chameleon/Initialize(mapload)
 	. = ..()
@@ -425,6 +462,7 @@
 	icon_override = 'icons/mob/clothing/head/softcap.dmi'
 	icon_state = "greysoft"
 	item_color = "grey"
+	dyeable = FALSE
 
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -433,7 +471,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
 	)
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/head/chameleon/Initialize(mapload)
 	. = ..()
@@ -467,6 +505,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	dyeable = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -477,7 +516,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
 	)
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
 	. = ..()
@@ -522,11 +561,12 @@
 	icon_state = "black"
 	item_color = "black"
 	desc = "A pair of black shoes."
+	dyeable = FALSE
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/shoes/chameleon/Initialize(mapload)
 	. = ..()
@@ -562,7 +602,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
 	)
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/storage/backpack/chameleon/Initialize(mapload)
 	. = ..()
@@ -586,7 +626,7 @@
 /obj/item/storage/belt/chameleon
 	name = "tool-belt"
 	desc = "Can hold various tools."
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/storage/belt/chameleon/Initialize(mapload)
 	. = ..()
@@ -610,7 +650,7 @@
 
 /obj/item/radio/headset/chameleon
 	name = "radio headset"
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/radio/headset/chameleon/Initialize(mapload)
 	. = ..()
@@ -633,7 +673,7 @@
 
 /obj/item/pda/chameleon
 	name = "PDA"
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/pda/chameleon/Initialize(mapload)
 	. = ..()
@@ -656,7 +696,8 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/stamp/chameleon
-	var/datum/action/item_action/chameleon/change/chameleon_action
+	dye_color = DYE_RAINBOW
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/stamp/chameleon/Initialize(mapload)
 	. = ..()
@@ -673,20 +714,53 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/datum/action/item_action/chameleon/change/modsuit/update_item(obj/item/picked_item)
+/obj/item/clothing/neck/chameleon
+	name = "black tie"
+	desc = "A neosilk clip-on tie."
+	icon = 'icons/obj/clothing/neck.dmi'
+	icon_state = "blacktie"
+	resistance_flags = NONE
+
+	var/datum/action/item_action/chameleon_change/chameleon_action
+
+/obj/item/clothing/neck/chameleon/Initialize(mapload)
 	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/clothing/neck
+	chameleon_action.chameleon_name = "Tie"
+	chameleon_action.chameleon_blacklist = list()
+	chameleon_action.initialize_disguises()
+
+/obj/item/clothing/neck/chameleon/Destroy()
+	QDEL_NULL(chameleon_action)
+	return ..()
+
+/obj/item/clothing/neck/chameleon/emp_act(severity)
+	. = ..()
+	chameleon_action.emp_randomise()
+
+/obj/item/clothing/neck/chameleon/broken/Initialize(mapload)
+	. = ..()
+	chameleon_action.emp_randomise(INFINITY)
+
+/datum/action/item_action/chameleon_change/modsuit/update_item(obj/item/picked_item)
 	if(ismodcontrol(target))
 		var/obj/item/mod/control/C = target
-		if(C.current_disguise) //backup check
+		C.current_disguise = FALSE
+		if(C.active || C.activating)
+			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			return
+		if(initial(picked_item.name) == C.name) // If you select the same item as what it's currently disguised as, change back to MODsuit form.
 			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
 				toreturn.return_look()
 			return
+		. = ..()
 		C.current_disguise = TRUE
 		C.item_state = initial(picked_item.item_state)
 		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
-			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look))
+			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look), TRUE)
 
-/datum/action/item_action/chameleon/change/modsuit/select_look(mob/user)
+/datum/action/item_action/chameleon_change/modsuit/select_look(mob/user)
 	if(ismodcontrol(target))
 		var/obj/item/mod/control/C = target
 		if(C.current_disguise) //backup check

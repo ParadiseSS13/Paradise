@@ -95,7 +95,8 @@
 	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='byond://?src=[UID()];mode=1'>S</a>|<a href='byond://?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["mode"])
 		mode = text2num(href_list["mode"])
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
@@ -144,7 +145,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid
 	name = "repair droid"
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
-	icon_state = "repair_droid"
+	icon_state = "repair_droid_item"
 	origin_tech ="magnets=3;programming=3;engineering=4"
 	equip_cooldown = 20
 	energy_drain = 50
@@ -162,7 +163,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/attach(obj/mecha/M)
 	..()
-	droid_overlay = new(icon, icon_state = "repair_droid")
+	droid_overlay = new(icon, icon_state = "repair_droid_off")
 	M.overlays += droid_overlay
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach()
@@ -176,17 +177,18 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["toggle_repairs"])
 		chassis.overlays -= droid_overlay
 		if(equip_ready)
 			START_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid_a")
+			droid_overlay = new(icon, icon_state = "repair_droid_on")
 			log_message("Activated.")
 			set_ready_state(0)
 		else
 			STOP_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid")
+			droid_overlay = new(icon, icon_state = "repair_droid_off")
 			log_message("Deactivated.")
 			set_ready_state(1)
 		chassis.overlays += droid_overlay
@@ -221,7 +223,7 @@
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(1)
 		chassis.overlays -= droid_overlay
-		droid_overlay = new(icon, icon_state = "repair_droid")
+		droid_overlay = new(icon, icon_state = "repair_droid_off")
 		chassis.overlays += droid_overlay
 
 /////////////////////////////////// TESLA ENERGY RELAY ////////////////////////////////////////////////
@@ -264,7 +266,8 @@
 	return pow_chan
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["toggle_relay"])
 		if(equip_ready) //inactive
 			START_PROCESSING(SSobj, src)
@@ -332,7 +335,8 @@
 	..()
 
 /obj/item/mecha_parts/mecha_equipment/generator/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["toggle"])
 		if(equip_ready) //inactive
 			set_ready_state(0)
@@ -391,7 +395,7 @@
 		occupant_message("<span class='warning'>[fuel_name] traces in target minimal! [I] cannot be used as fuel.</span>")
 		return 0
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
+/obj/item/mecha_parts/mecha_equipment/generator/attackby__legacy__attackchain(weapon,mob/user, params)
 	load_fuel(weapon)
 
 /obj/item/mecha_parts/mecha_equipment/generator/process()
@@ -430,11 +434,11 @@
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 150
 	power_per_cycle = 250
-	var/rad_per_cycle = 30
+	var/rad_per_cycle = 120
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
-		radiation_pulse(get_turf(src), rad_per_cycle)
+		radiation_pulse(get_turf(src), rad_per_cycle, BETA_RAD)
 
 /obj/item/mecha_parts/mecha_equipment/thrusters
 	name = "exosuit ion thrusters"

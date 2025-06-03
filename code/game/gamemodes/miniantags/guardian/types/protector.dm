@@ -15,7 +15,7 @@
 	var/list/connected_shields = list()
 
 /mob/living/simple_animal/hostile/guardian/protector/ex_act(severity)
-	if(severity == 1)
+	if(severity == EXPLODE_DEVASTATE)
 		adjustBruteLoss(200) //if in protector mode, will do 20 damage and not actually necessarily kill the summoner
 	else
 		..()
@@ -125,7 +125,7 @@
 	color = linked_guardian.name_color
 	shield_orientation = left_or_right
 
-/obj/effect/guardianshield/CanPass(atom/movable/mover, turf/target)
+/obj/effect/guardianshield/CanPass(atom/movable/mover, border_dir)
 	if(mover == linked_guardian)
 		return TRUE
 	return FALSE
@@ -137,10 +137,13 @@
 	P.on_hit(src, 0)
 	return FALSE
 
-/obj/effect/guardianshield/attacked_by(obj/item/I, mob/living/user)
-	if(I.force)
-		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
-	linked_guardian.apply_damage(I.force, I.damtype)
+/obj/effect/guardianshield/attack_by(obj/item/attacking, mob/user, params)
+	if(..() || !attacking.force)
+		return FINISH_ATTACK
+
+	user.visible_message("<span class='danger'>[user] has hit [src] with [attacking]!</span>", "<span class='danger'>You hit [src] with [attacking]!</span>")
+	linked_guardian.apply_damage(attacking.force, attacking.damtype)
+	return FINISH_ATTACK
 
 /obj/effect/guardianshield/Destroy()
 	linked_guardian = null

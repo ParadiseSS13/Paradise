@@ -26,7 +26,7 @@ export const Pacman = (props, context) => {
   let fuelRatio = fuel_stored / fuel_cap;
   let tmpRatio = tmp_current / tmp_max; // temperature ratio
   let output_watts = output_set * power_gen;
-  let fuel_sec = Math.round(fuel_stored / fuel_usage);
+  let fuel_sec = Math.round((fuel_stored / fuel_usage) * 2); // Multiply by two, because one cycle is two seconds.
   let fuel_min = Math.round(fuel_sec / 60);
   let usage = fuel_sec > 120 ? `${fuel_min} minutes` : `${fuel_sec} seconds`;
   return (

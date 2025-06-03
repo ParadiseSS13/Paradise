@@ -12,13 +12,6 @@
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
 		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
-
-/obj/item/grenade/gas/proc/release_air(turf/simulated/target_turf)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
-	target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
-
 	qdel(src)
 
 /obj/item/grenade/gas/plasma
@@ -44,13 +37,13 @@
 	icon_state = "gluon"
 	item_state = "grenade"
 	var/freeze_range = 4
-	var/rad_damage = 350
+	var/rad_damage = 1400
 	var/stamina_damage = 30
 
 /obj/item/grenade/gluon/prime()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
-	radiation_pulse(src, rad_damage)
+	radiation_pulse(src, rad_damage, BETA_RAD)
 	for(var/turf/simulated/floor/T in view(freeze_range, loc))
 		T.MakeSlippery(TURF_WET_ICE)
 		for(var/mob/living/carbon/L in T)

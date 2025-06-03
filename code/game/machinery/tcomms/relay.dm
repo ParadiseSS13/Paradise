@@ -70,7 +70,7 @@
   *
   * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels on the linked core
   */
-/obj/machinery/tcomms/relay/onTransitZ(old_z, new_z)
+/obj/machinery/tcomms/relay/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()
 	if(linked_core)
 		linked_core.refresh_zlevels()

@@ -4,7 +4,7 @@
 
 /obj/machinery/power/emitter
 	name = "emitter"
-	desc = "A heavy duty industrial laser"
+	desc = "A heavy duty industrial laser."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"
 	anchored = FALSE
@@ -51,11 +51,26 @@
 	sparks.attach(src)
 	sparks.set_up(5, 1, src)
 
+/obj/machinery/power/emitter/cherenkov
+	icon_state = "emitter_+a"
+	anchored = TRUE
+	state = EMITTER_WELDED
+
+/obj/machinery/power/emitter/cherenkov/Initialize(mapload)
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/emitter(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	RefreshParts()
+	active = TRUE
+	update_icon()
+
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
 	if(panel_open)
 		. += "<span class='notice'>The maintenance panel is open.</span>"
-	. += "<span class='info'><b>Alt-Click</b> to rotate [src].</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to rotate [src].</span>"
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
@@ -85,7 +100,7 @@
 /obj/machinery/power/emitter/Destroy()
 	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)]) [usr ? "Broken by [key_name_admin(usr)]" : ""]", ATKLOG_FEW)
 	log_game("Emitter deleted at ([x],[y],[z])")
-	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z]) [usr ? "Broken by [key_name(usr)]" : ""]","singulo")
+	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z]) [usr ? "Broken by [key_name(usr)]" : ""]",INVESTIGATE_SINGULO)
 	QDEL_NULL(sparks)
 	return ..()
 
@@ -125,11 +140,11 @@
 		toggle = "off"
 		shot_number = 0
 		fire_delay = maximum_fire_delay
-		investigate_log("turned <font color='red'>off</font> by [key_name(user)]", "singulo")
+		investigate_log("turned <font color='red'>off</font> by [key_name(user)]", INVESTIGATE_SINGULO)
 	else
 		active = TRUE
 		toggle = "on"
-		investigate_log("turned <font color='green'>on</font> by [key_name(user)]", "singulo")
+		investigate_log("turned <font color='green'>on</font> by [key_name(user)]", INVESTIGATE_SINGULO)
 
 	to_chat(user, "You turn [src] [toggle].")
 	message_admins("Emitter turned [toggle] by [key_name_admin(user)] in ([x], [y], [z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
@@ -146,17 +161,17 @@
 	if(!anchored)
 		step(src, get_dir(M, src))
 
-/obj/machinery/power/emitter/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/card/id) && !istype(I, /obj/item/pda))
+/obj/machinery/power/emitter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/card/id) && !istype(used, /obj/item/pda))
 		return ..()
 
 	if(emagged)
 		to_chat(user, "<span class='warning'>The lock seems to be broken.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(active)
 		locked = !locked
@@ -164,6 +179,8 @@
 	else
 		locked = FALSE //just in case it somehow gets locked
 		to_chat(user, "<span class='warning'>The controls can only be locked when [src] is online!</span>")
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/power/emitter/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -247,12 +264,12 @@
 		if(!powered)
 			powered = TRUE
 			update_icon()
-			investigate_log("regained power and turned <font color='green'>on</font>","singulo")
+			investigate_log("regained power and turned <font color='green'>on</font>",INVESTIGATE_SINGULO)
 	else
 		if(powered)
 			powered = FALSE
 			update_icon()
-			investigate_log("lost power and turned <font color='red'>off</font>","singulo")
+			investigate_log("lost power and turned <font color='red'>off</font>",INVESTIGATE_SINGULO)
 		return
 
 	if(!check_delay())

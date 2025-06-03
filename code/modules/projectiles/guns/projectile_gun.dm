@@ -79,7 +79,7 @@
 	return !magazine
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user)
-	user.remove_from_mob(AM)
+	user.unequip(AM)
 	magazine = AM
 	magazine.forceMove(src)
 	if(w_class >= WEIGHT_CLASS_NORMAL && !suppressed)
@@ -98,7 +98,7 @@
 		user.update_inv_l_hand()
 	return
 
-/obj/item/gun/projectile/attackby(obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/attackby__legacy__attackchain(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -123,8 +123,9 @@
 		var/obj/item/suppressor/S = A
 		if(can_suppress)
 			if(!suppressed)
-				if(!user.unEquip(A))
+				if(!user.unequip(A))
 					return
+				A.forceMove(src)
 				to_chat(user, "<span class='notice'>You screw [S] onto [src].</span>")
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
@@ -161,7 +162,7 @@
 			return
 	..()
 
-/obj/item/gun/projectile/attack_self(mob/living/user as mob)
+/obj/item/gun/projectile/attack_self__legacy__attackchain(mob/living/user as mob)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)
 		magazine.loc = get_turf(loc)
@@ -206,7 +207,7 @@
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
 			return OXYLOSS
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 
@@ -231,8 +232,8 @@
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
 		w_class = WEIGHT_CLASS_NORMAL
 		item_state = "gun"//phil235 is it different with different skin?
-		slot_flags &= ~SLOT_FLAG_BACK	//you can't sling it on your back
-		slot_flags |= SLOT_FLAG_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
+		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
+		slot_flags |= ITEM_SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF
 		update_appearance()
 		return 1

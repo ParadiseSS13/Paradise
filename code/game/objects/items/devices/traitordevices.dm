@@ -6,6 +6,7 @@
 	item_state = "jammer"
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
+	new_attack_chain = TRUE
 	var/active = FALSE
 	var/range = 15
 
@@ -19,7 +20,9 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
-/obj/item/jammer/attack_self(mob/user)
+/obj/item/jammer/activate_self(mob/user)
+	if(..())
+		return
 	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."]</span>")
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
@@ -27,8 +30,7 @@
 		GLOB.active_jammers |= src
 	else
 		GLOB.active_jammers -= src
-	for(var/datum/action/item_action/toggle_radio_jammer/A in actions)
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/teleporter
 	name = "syndicate teleporter"
@@ -42,6 +44,7 @@
 	flags = CONDUCT
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
+	new_attack_chain = TRUE
 	var/list/icons_charges = list(
 		"syndi-tele-0",
 		"syndi-tele-1",
@@ -68,7 +71,9 @@
 	. = ..()
 	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
 
-/obj/item/teleporter/attack_self(mob/user)
+/obj/item/teleporter/activate_self(mob/user)
+	if(..())
+		return
 	attempt_teleport(user, FALSE)
 
 /obj/item/teleporter/process()
@@ -108,15 +113,22 @@
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
-
+	var/turf/starting = get_turf(src)
+	var/area/starting_area = get_area(starting)
+	if(!is_teleport_allowed(starting.z) || starting_area.tele_proof)
+		to_chat(user, "<span class='danger'>[src] will not work here!</span>")
+		return
+	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, starting) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	var/mob/living/M = user
 	var/turf/mobloc = get_turf(M)
 	var/list/turfs = list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
 	for(var/turf/T in range(user, tp_range))
-		if(!is_teleport_allowed(T.z))
-			break
+		var/area/dropping_area = get_area(T)
+		if(dropping_area.tele_proof) //There might be some valid turfs before / after you reach such an area, so we continue, not break.
+			continue
 		if(!(length(bagholding) && !flawless)) //Chaos if you have a bag of holding
 			if(get_dir(M, T) != M.dir)
 				continue
@@ -226,7 +238,7 @@
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
 		M.Weaken(6 SECONDS)
-		to_chat(M, "<span_class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		to_chat(M, "<span class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
@@ -265,9 +277,12 @@
 	desc = "It contains an alien nanoswarm created by the technomancers of boron. Through near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
+	new_attack_chain = TRUE
 	var/used = FALSE
 
-/obj/item/fireproofing_injector/attack_self(mob/living/user)
+/obj/item/fireproofing_injector/activate_self(mob/user)
+	if(..())
+		return
 	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
 		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
 		return
@@ -291,6 +306,7 @@
 	desc = "Specially designed nanomachines that enhance the low-temperature regenerative capabilities of drask. Requires supercooled air in the enviroment or internals to function."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
+	new_attack_chain = TRUE
 	var/used = FALSE
 
 /obj/item/cryoregenerative_enhancer/examine_more(mob/user)
@@ -299,7 +315,9 @@
 	. += ""
 	. += "Clinical trials have shown a four times increase in the rate of healing compared to a placebo. Whilst the product is technically not yet available to the public, the right connections with the right people allow interested parties to obtain samples early..."
 
-/obj/item/cryoregenerative_enhancer/attack_self(mob/living/user)
+/obj/item/cryoregenerative_enhancer/activate_self(mob/user)
+	if(..())
+		return
 	if(HAS_TRAIT(user, TRAIT_DRASK_SUPERCOOL))
 		to_chat(user, "<span class='warning'>Your regeneration is already enhanced!</span>")
 		return
@@ -316,7 +334,7 @@
 	if(used)
 		to_chat(user, "<span class='warning'>The injector is empty!</span>")
 		return
-	used = TRUE 
+	used = TRUE
 	to_chat(user, "<span class='notice'>You inject yourself with the enhancer!</span>")
 	ADD_TRAIT(user, TRAIT_DRASK_SUPERCOOL, "cryoregenerative_enhancer")
 
@@ -332,6 +350,7 @@
 	flags = CONDUCT
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
+	new_attack_chain = TRUE
 
 	/// How many times the mind batter has been used
 	var/times_used = 0
@@ -361,7 +380,9 @@
 		times_used--
 		icon_state = "batterer"
 
-/obj/item/batterer/attack_self(mob/living/carbon/user)
+/obj/item/batterer/activate_self(mob/user)
+	if(..())
+		return
 	activate_batterer(user)
 
 /obj/item/batterer/proc/activate_batterer(mob/user)
@@ -371,7 +392,7 @@
 			to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
 			times_used--
 			return
-		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later."))
+		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later.", hidden = TRUE))
 			times_used--
 			return
 		to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
@@ -443,6 +464,7 @@
 	icon = 'icons/obj/hhmirror.dmi'
 	icon_state = "hhmirror"
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/datum/ui_module/appearance_changer/appearance_changer_holder
 
 /obj/item/handheld_mirror/ui_state(mob/user)
@@ -451,11 +473,12 @@
 /obj/item/handheld_mirror/ui_interact(mob/user, datum/tgui/ui = null)
 	appearance_changer_holder.ui_interact(user, ui)
 
-/obj/item/handheld_mirror/attack_self(mob/user)
-	if(ishuman(user))
-		appearance_changer_holder = new(src, user)
-		appearance_changer_holder.flags = APPEARANCE_ALL_BODY
-		ui_interact(user)
+/obj/item/handheld_mirror/activate_self(mob/user)
+	if(..() || !ishuman(user))
+		return
+	appearance_changer_holder = new(src, user)
+	appearance_changer_holder.flags = APPEARANCE_ALL_BODY
+	ui_interact(user)
 
 /obj/item/handheld_mirror/Initialize(mapload)
 	. = ..()
@@ -465,3 +488,61 @@
 	GLOB.mirrors -= src
 	QDEL_NULL(appearance_changer_holder)
 	return ..()
+
+/// An admin-spawn item that will tell you roughly how close the nearest loyal Nanotrasen crewmember is.
+/obj/item/syndi_scanner
+	name = "syndicate scanner"
+	desc = "The Syndicate seem to have modified this T-ray scanner for a more nefarious purpose, allowing it to detect all loyal Nanotrasen crew."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "syndi-scanner"
+	throwforce = 5
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 4
+	throw_range = 10
+	flags = CONDUCT
+	item_state = "electronic"
+	new_attack_chain = TRUE
+	/// Split points for range_messages.
+	var/list/ranges = list(5, 15, 30)
+	/// Messages to output to the user.
+	var/list/range_messages = list(
+		"Very strong signal detected. Range: Within 5 meters.",
+		"Strong signal detected. Range: Within 15 meters.",
+		"Weak signal detected. Range: Within 30 meters.",
+		"No signal detected."
+	)
+	var/cooldown_length = 10 SECONDS
+	COOLDOWN_DECLARE(scan_cooldown)
+	var/on_hit_sound = 'sound/effects/ping_hit.ogg'
+
+/obj/item/syndi_scanner/activate_self(mob/user)
+	if(..())
+		return
+	if(!COOLDOWN_FINISHED(src, scan_cooldown))
+		to_chat(user, "<span class='warning'>[src] is recharging!</span>")
+		return
+
+	COOLDOWN_START(src, scan_cooldown, cooldown_length)
+	var/turf/user_turf = get_turf(user)
+	var/min_dist = INFINITY
+	for(var/mob/living/player in GLOB.player_list)
+		if(player.stat == DEAD || isnull(player.mind))
+			continue
+		if(!isnull(player.mind.special_role))
+			continue
+		var/turf/target_turf = get_turf(player)
+		if(target_turf.z != user_turf.z)
+			continue
+		min_dist = min(min_dist, get_dist(target_turf, user_turf))
+
+	// By default, we're in the first range, less than any split point.
+	var/range_index = 1
+	for(var/test_range in ranges)
+		if(min_dist > test_range)
+			// Past this split point, move to the next.
+			range_index++
+		else
+			// Found the right split point, and we're not past all of them, so play the on-hit sound effect.
+			playsound(user, on_hit_sound, 75, TRUE)
+			break
+	to_chat(user, "<span class='notice'>[range_messages[range_index]]</span>")

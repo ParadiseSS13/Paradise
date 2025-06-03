@@ -1,0 +1,4 @@
+/obj/item/storage/box/tranquilizer/@SUBTYPES : /obj/item/storage/fancy/shell/tranquilizer/@SUBTYPES{@OLD}
+/obj/item/storage/box/beanbag/@SUBTYPES : /obj/item/storage/fancy/shell/beanbag/@SUBTYPES{@OLD}
+/obj/item/storage/box/buck/@SUBTYPES : /obj/item/storage/fancy/shell/buck/@SUBTYPES{@OLD}
+/obj/item/storage/box/rubbershot/@SUBTYPES : /obj/item/storage/fancy/shell/rubbershot/@SUBTYPES{@OLD}

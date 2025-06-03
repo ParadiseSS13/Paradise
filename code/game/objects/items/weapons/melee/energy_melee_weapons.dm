@@ -44,6 +44,8 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	/// Used to mark the item as a cleaving saw so that cigarette_lighter_act() will perform an early return.
+	var/is_a_cleaving_saw = FALSE
 
 /obj/item/melee/energy/Initialize(mapload)
 	. = ..()
@@ -55,7 +57,10 @@
 	UnregisterSignal(src, COMSIG_ITEM_SHARPEN_ACT)
 	return ..()
 
-/obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/energy/attack__legacy__attackchain(mob/living/target, mob/living/user)
+	if(cigarette_lighter_act(user, target))
+		return
+
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/F in target.faction)
@@ -68,12 +73,43 @@
 	if(nemesis_faction)
 		force -= faction_bonus_force
 
+/obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	if(is_a_cleaving_saw)
+		return FALSE
+
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade.</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade.</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	user.do_attack_animation(target)
+	playsound(user.loc, hitsound, 50, TRUE)
+	cig.light(user, target)
+	return TRUE
+
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
 						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 	return BRUTELOSS|FIRELOSS
 
-/obj/item/melee/energy/attack_self(mob/living/carbon/user)
+/obj/item/melee/energy/attack_self__legacy__attackchain(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
@@ -198,11 +234,11 @@
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
-/obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
+/obj/item/melee/energy/sword/cyborg/attack__legacy__attackchain(mob/M, mob/living/silicon/robot/R)
 	if(R.cell)
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) && !(C.use(hitcost)))
-			attack_self(R)
+			attack_self__legacy__attackchain(R)
 			to_chat(R, "<span class='notice'>It's out of charge!</span>")
 			return
 		..()
@@ -230,7 +266,7 @@
 /obj/item/melee/energy/sword/saber/red
 	item_color = "red"
 
-/obj/item/melee/energy/sword/saber/attackby(obj/item/W, mob/living/user, params)
+/obj/item/melee/energy/sword/saber/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/melee/energy/sword/saber))
 		if(W == src)
@@ -243,8 +279,6 @@
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"
-			user.unEquip(W)
-			user.unEquip(src)
 			qdel(W)
 			qdel(src)
 			user.put_in_hands(newSaber)
@@ -275,13 +309,14 @@
 		return
 	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
-		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
-			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
-			return TRUE
-		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
-		return -1
+		if(P.reflectability == REFLECTABILITY_ENERGY)
+			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+			add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
+			return -1
+		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+		return TRUE
+
 	return TRUE
 
 //////////////////////////////
@@ -309,12 +344,18 @@
 //////////////////////////////
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
-	desc = "Arrrr matey."
+	desc = "A crude copy of syndicate technology. Favored among space pirates for its small form factor while inactive. Arrrr, matey!"
 	force_on = 20
+	throwforce_on = 10 // No PvP shenanigans, this is main weapon in PvE explorer gameplay and can be obtained very easy
+	embed_chance = 45
+	embedded_impact_pain_multiplier = 4
+	armour_penetration_percentage = 0
+	armour_penetration_flat = 0
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
-	origin_tech = "combat=3;magnets=4;syndicate=2"
+	origin_tech = "combat=3;magnets=4"
+	item_color = "red"
 
 //////////////////////////////
 // MARK: HARDLIGHT BLADE
@@ -335,7 +376,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, ROUNDSTART_TRAIT)
 
-/obj/item/melee/energy/blade/attack_self(mob/user)
+/obj/item/melee/energy/blade/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/melee/energy/blade/hardlight
@@ -364,7 +405,8 @@
 	inhand_y_dimension = 64
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
+	is_a_cleaving_saw = TRUE
 	var/attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -385,7 +427,7 @@
 	else
 		B.add_bleed(B.bleed_buildup)
 
-/obj/item/melee/energy/cleaving_saw/attack_self(mob/living/carbon/user)
+/obj/item/melee/energy/cleaving_saw/attack_self__legacy__attackchain(mob/living/carbon/user)
 	transform_weapon(user)
 
 /obj/item/melee/energy/cleaving_saw/proc/transform_weapon(mob/living/user, supress_message_text)
@@ -455,7 +497,7 @@
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
 
-/obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/energy/cleaving_saw/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) || swiping || !target.density || get_turf(target) == get_turf(user))
 		if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 			faction_bonus_force = 0

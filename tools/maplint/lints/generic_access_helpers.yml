@@ -1,0 +1,71 @@
+help: 'These access helpers are only organizational and do not provide any access. Use one of the appropriate subtypes.'
+=/obj/effect/mapping_helpers/airlock/windoor/access/all:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/all/command:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/all/medical:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/all/science:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/all/security:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/all/service:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/all/supply:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/any:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/any/command:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/any/medical:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/any/science:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/any/security:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/any/service:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/windoor/access/any/supply:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/centcomm:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/command:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/engineering:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/medical:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/ruins:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/science:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/security:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/service:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/shuttles:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/all/supply:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/any:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/any/command:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/any/engineering:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/any/medical:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/any/science:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/any/security:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/any/service:
+  banned: true
+=/obj/effect/mapping_helpers/airlock/access/any/supply:
+  banned: true

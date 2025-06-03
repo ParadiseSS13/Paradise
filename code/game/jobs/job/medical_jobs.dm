@@ -39,13 +39,14 @@
 	name = "Chief Medical Officer"
 	jobtype = /datum/job/cmo
 
-	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
+	uniform = /obj/item/clothing/under/rank/medical/cmo
 	suit = /obj/item/clothing/suit/storage/labcoat/cmo
 	shoes = /obj/item/clothing/shoes/brown
+	head = /obj/item/clothing/head/cmo
 	l_ear = /obj/item/radio/headset/heads/cmo
 	id = /obj/item/card/id/cmo
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/doctor
+	l_hand = /obj/item/storage/firstaid/regular/doctor
 	pda = /obj/item/pda/heads/cmo
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
@@ -65,7 +66,12 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MEDICAL,
+		ACCESS_MORGUE,
+		ACCESS_SURGERY
+	)
 	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
@@ -76,12 +82,12 @@
 	jobtype = /datum/job/doctor
 
 	uniform = /obj/item/clothing/under/rank/medical/doctor
-	suit = /obj/item/clothing/suit/storage/labcoat
+	suit = /obj/item/clothing/suit/storage/labcoat/medical
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/doctor
+	l_hand = /obj/item/storage/firstaid/regular/doctor
 	pda = /obj/item/pda/medical
 
 	backpack = /obj/item/storage/backpack/medic
@@ -98,7 +104,11 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MEDICAL,
+		ACCESS_MORGUE
+	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/coroner
@@ -146,8 +156,6 @@
 				else
 					uniform = /obj/item/clothing/under/rank/medical/scrubs/purple
 
-
-
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
 /datum/job/chemist
 	title = "Chemist"
@@ -159,7 +167,12 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_CHEMISTRY,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MEDICAL,
+		ACCESS_MINERAL_STOREROOM
+	)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -191,7 +204,13 @@
 	supervisors = "the chief medical officer and the research director"
 	department_head = list("Chief Medical Officer", "Research Director")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_GENETICS,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MEDICAL,
+		ACCESS_MORGUE,
+		ACCESS_RESEARCH
+	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/geneticist
@@ -212,7 +231,6 @@
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
 
-
 /datum/job/virologist
 	title = "Virologist"
 	flag = JOB_VIROLOGIST
@@ -223,7 +241,12 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MEDICAL,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_VIROLOGY
+	)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -259,7 +282,11 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MEDICAL,
+		ACCESS_PSYCHIATRIST
+	)
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
 

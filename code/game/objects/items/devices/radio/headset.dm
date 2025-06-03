@@ -11,7 +11,7 @@
 	materials = list(MAT_METAL = 200)
 	canhear_range = 0 // can't hear headsets from very far away
 
-	slot_flags = SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BOTH_EARS
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/obj/item/encryptionkey/keyslot1 = null
@@ -71,7 +71,7 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..()
-	else if(isanimal(loc) || isAI(loc))
+	else if(isanimal_or_basicmob(loc) || is_ai(loc))
 		return ..()
 
 	return FALSE
@@ -90,7 +90,7 @@
 	instant = TRUE
 	freqlock = TRUE
 
-/obj/item/radio/headset/alt/deathsquad/Initialize()
+/obj/item/radio/headset/alt/deathsquad/Initialize(mapload)
 	. = ..()
 	set_frequency(DTH_FREQ)
 
@@ -107,6 +107,12 @@
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	origin_tech = "syndicate=3"
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+
+/obj/item/radio/headset/syndicate_fake
+	name = "syndicate headset"
+	desc = "A syndicate headset to set on your head."
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
@@ -308,6 +314,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ntrep
 
+/obj/item/radio/headset/headset_nct
+	name = "\improper Nanotrasen career trainer radio headset"
+	desc = "This is used by your well-taught corporate training team."
+	icon_state = "com_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/headset_nct
+
 /obj/item/radio/headset/heads/magistrate
 	name = "magistrate's headset"
 	desc = "The headset of the Magistrate."
@@ -346,16 +359,18 @@
 
 /obj/item/radio/headset/ert/alt
 	name = "emergency response team's bowman headset"
-	desc = "The headset of the boss. Protects ears from flashbangs."
+	desc = "An ergonomic tactical headset used by Nanotrasen-affiliated PMCs. Protects against loud noises."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/ert/alt/solgov
-	name = "\improper Trans-Solar Federation Marine's bowman headset"
+	name = "\improper Trans-Solar Marine Corps bowman headset"
+	desc = "An ergonomic combat headset used by the TSMC. Protects against loud noises."
 
 /obj/item/radio/headset/ert/alt/solgovviper
-	name = "\improper Trans-Solar Federation Infiltrator's bowman headset"
+	name = "\improper 3rd SOD bowman headset"
+	desc = "A custom-fitted headset used by the commandos of the Federal Army's renowned 3rd Special Operations Detachment, more commonly known as the Vipers."
 
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
@@ -364,7 +379,8 @@
 	instant = TRUE
 
 /obj/item/radio/headset/ert/alt/commander/solgov
-	name = "\improper Trans-Solar Federation Lieutenant's bowman headset"
+	name = "\improper Trans-Solar Marine Corps officer's bowman headset"
+	desc = "An ergonomic combat headset used by the TSMC. This model is equipped with an extra-strength transmitter for barking orders."
 
 /obj/item/radio/headset/centcom
 	name = "centcom officer's bowman headset"
@@ -392,18 +408,17 @@
 		return FALSE
 	return ..()
 
-/obj/item/radio/headset/attackby(obj/item/key, mob/user)
+/obj/item/radio/headset/attackby__legacy__attackchain(obj/item/key, mob/user)
 	if(istype(key, /obj/item/encryptionkey/))
 
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
 			return
 
-		if(!user.unEquip(key))
+		if(!user.transfer_item_to(key, src, FALSE, FALSE))
 			to_chat(user, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src].</span>")
 			return
 
-		key.forceMove(src)
 		if(!keyslot1)
 			keyslot1 = key
 		else

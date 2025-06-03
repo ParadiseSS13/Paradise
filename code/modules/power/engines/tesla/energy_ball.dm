@@ -47,6 +47,10 @@
 	RegisterSignal(src, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(on_start_orbit))
 	RegisterSignal(src, COMSIG_ATOM_ORBIT_STOP, PROC_REF(on_stop_orbit))
 	RegisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_delete))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	. = ..()
 	if(!is_miniball)
 		set_light(10, 7, "#5e5edd")
@@ -133,7 +137,12 @@
 	// MORE POWER
 	movement_beam(move_target, 1 SECONDS)
 	sleep(0.5 SECONDS)
-	walk_towards(src, move_target, 0, 10)
+	GLOB.move_manager.home_onto(src, move_target, 0, 10)
+
+/obj/singularity/energy_ball/proc/on_atom_entered(datum/source, atom/movable/entered)
+	var/mob/living/living_entered = entered
+	if(istype(living_entered))
+		living_entered.dust()
 
 /datum/move_with_corner
 	var/turf/start
@@ -210,13 +219,6 @@
 	forceMove(target, direction)
 	return TRUE
 
-// This handles mobs crossing us. For us crossing mobs, see /mob/living/Crossed.
-// (It also dusts them.)
-/obj/singularity/energy_ball/Crossed(atom/thing)
-	if(isliving(thing))
-		var/mob/victim = thing
-		victim.dust()
-
 /obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
 		energy_to_lower = energy_to_raise - 20
@@ -259,11 +261,11 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/C = user
-	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", INVESTIGATE_SINGULO)
 	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
 		"<span class='userdanger'>As you mentally focus on the energy ball you feel the contents of your skull become overcharged. That was shockingly stupid.</span>")
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
-	C.ghostize(0)
+	C.ghostize()
 	if(B)
 		B.remove(C)
 		qdel(B)
@@ -337,14 +339,14 @@
 										/obj/machinery/field/containment,
 										/obj/structure/disposalpipe,
 										/obj/structure/disposaloutlet,
-										/obj/machinery/disposal/deliveryChute,
+										/obj/machinery/disposal/delivery_chute,
 										/obj/machinery/camera,
 										/obj/structure/sign,
 										/obj/structure/lattice,
 										/obj/structure/grille,
 										/obj/structure/cable,
 										/obj/machinery/the_singularitygen/tesla,
-										/obj/machinery/constructable_frame/machine_frame))
+										/obj/structure/machine_frame))
 
 	//Ok so we are making an assumption here. We assume that view() still calculates from the center out.
 	//This means that if we find an object we can assume it is the closest one of its type. This is somewhat of a speed increase.

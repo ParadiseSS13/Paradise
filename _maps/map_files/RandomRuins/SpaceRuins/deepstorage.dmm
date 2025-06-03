@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
-/turf/simulated/mineral/random/low_chance,
+/turf/simulated/mineral/random/low_chance/space,
 /area/ruin/space/unpowered)
 "ac" = (
 /obj/structure/chair{
@@ -88,7 +88,6 @@
 /area/ruin/space/deepstorage)
 "ap" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -143,8 +142,6 @@
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -254,7 +251,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/engine/airless,
@@ -275,9 +272,8 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "aR" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -307,7 +303,6 @@
 /area/ruin/space/deepstorage)
 "aV" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/computer/monitor,
@@ -482,9 +477,7 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_y = 0
-	},
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/catwalk/airless,
 /area/ruin/space/unpowered)
 "bv" = (
@@ -602,7 +595,7 @@
 /obj/structure/railing{
 	dir = 6
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/catwalk/airless,
@@ -671,7 +664,7 @@
 /area/ruin/space/deepstorage)
 "bY" = (
 /obj/structure/railing,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/catwalk/airless,
@@ -771,9 +764,8 @@
 	},
 /area/ruin/space/deepstorage)
 "co" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
@@ -839,7 +831,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "cP" = (
-/obj/item/kirbyplants/plant27,
+/obj/item/kirbyplants/large/plant10,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -853,14 +845,14 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "cT" = (
-/obj/item/kirbyplants/plant21,
+/obj/item/kirbyplants/large/plant4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
 "cU" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -897,7 +889,7 @@
 /area/ruin/space/deepstorage)
 "dg" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/kirbyplants/plant21,
+/obj/item/kirbyplants/large/plant4,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -984,7 +976,7 @@
 	},
 /area/ruin/space/deepstorage)
 "dR" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "dT" = (
@@ -1019,7 +1011,7 @@
 	},
 /area/ruin/space/deepstorage)
 "eh" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "em" = (
@@ -1029,9 +1021,8 @@
 	},
 /area/ruin/space/deepstorage)
 "eq" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "es" = (
@@ -1079,7 +1070,7 @@
 /area/ruin/space/deepstorage)
 "eI" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -1175,10 +1166,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "fD" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = -4
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	broken = 1;
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
@@ -1211,7 +1199,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -1259,7 +1247,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -1284,6 +1272,7 @@
 /area/ruin/space/deepstorage)
 "gq" = (
 /obj/structure/rack,
+/obj/effect/spawner/random/bluespace_tap/cultural_rare,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -1302,7 +1291,7 @@
 /area/ruin/space/deepstorage)
 "gC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/plant18,
+/obj/item/kirbyplants/large/plant8,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -1361,7 +1350,7 @@
 "gS" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/shard,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
@@ -1379,7 +1368,7 @@
 	},
 /area/ruin/space/deepstorage)
 "hg" = (
-/obj/item/kirbyplants/plant27,
+/obj/item/kirbyplants/large/plant10,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1394,7 +1383,7 @@
 	pixel_y = 4;
 	pixel_x = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "hj" = (
@@ -1439,8 +1428,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "hp" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "512";
 	name = "Guard Wing"
 	},
 /obj/structure/barricade/wooden/crude{
@@ -1462,7 +1451,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteredcorner";
 	dir = 1
@@ -1495,10 +1484,8 @@
 /area/ruin/space/deepstorage)
 "hK" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/sign/poster/contraband/power{
-	pixel_x = -32
-	},
+/obj/effect/spawner/random/maintenance,
+/obj/structure/sign/poster/contraband/power/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -1528,7 +1515,7 @@
 "hW" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Tram"
 	},
 /turf/simulated/floor/plating,
@@ -1619,7 +1606,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -1668,7 +1655,7 @@
 	},
 /area/ruin/space/deepstorage)
 "iZ" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "ja" = (
 /obj/machinery/light/small,
@@ -1691,8 +1678,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "jj" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512";
 	name = "Guard Store Room"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1711,11 +1698,7 @@
 	},
 /area/ruin/space/deepstorage)
 "jo" = (
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/item/soap,
 /obj/effect/decal/cleanable/dirt,
@@ -1742,7 +1725,7 @@
 /area/ruin/space/deepstorage)
 "jq" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "jr" = (
@@ -1758,9 +1741,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/sign/poster/contraband/missing_gloves{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/missing_gloves/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -1855,9 +1836,9 @@
 /area/ruin/space/deepstorage)
 "jT" = (
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/vault{
-	locked = 1;
-	req_access_txt = "512"
+	locked = 1
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
@@ -1946,7 +1927,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1981,7 +1962,7 @@
 "kG" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -2007,8 +1988,6 @@
 /area/ruin/space/unpowered)
 "kR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2093,7 +2072,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2111,12 +2090,12 @@
 	dir = 6
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "lL" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2169,9 +2148,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "mf" = (
@@ -2413,7 +2391,7 @@
 	},
 /area/ruin/space/deepstorage)
 "nM" = (
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -2539,7 +2517,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners";
 	dir = 4
@@ -2593,7 +2571,7 @@
 /obj/structure/railing/corner,
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -2657,16 +2635,18 @@
 /area/ruin/space/deepstorage)
 "pj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
 "pk" = (
-/obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
+/obj/structure/rack,
+/obj/item/stack/spacecash/c500,
+/obj/effect/spawner/random/bluespace_tap/cultural_rare,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2675,9 +2655,8 @@
 "ps" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/grenade/confetti,
-/obj/item/grenade/confetti,
-/obj/item/grenade/confetti,
+/obj/item/stack/spacecash/c500,
+/obj/effect/spawner/random/bluespace_tap/organic_rare,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2688,8 +2667,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/airless,
 /area/ruin/space/unpowered)
 "pz" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/command/glass{
-	req_access_txt = "512";
 	name = "Floor Administrator's Office"
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
@@ -2704,7 +2683,7 @@
 	},
 /area/ruin/space/deepstorage)
 "pH" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -2741,9 +2720,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -2757,7 +2735,7 @@
 /area/ruin/space/deepstorage)
 "qa" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -2778,14 +2756,14 @@
 "qm" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
 "qn" = (
 /turf/template_noop,
-/area/space)
+/area/template_noop)
 "qp" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -2860,7 +2838,7 @@
 /area/ruin/space/deepstorage)
 "qQ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2886,7 +2864,7 @@
 /turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "re" = (
-/obj/item/kirbyplants/plant18,
+/obj/item/kirbyplants/large/plant8,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2973,9 +2951,8 @@
 /area/ruin/space/deepstorage)
 "rK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -3011,7 +2988,7 @@
 /area/ruin/space/deepstorage)
 "rQ" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -3019,7 +2996,7 @@
 /area/ruin/space/deepstorage)
 "rS" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3145,7 +3122,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -3153,7 +3130,7 @@
 /area/ruin/space/deepstorage)
 "sY" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -3169,7 +3146,7 @@
 /area/ruin/space/unpowered)
 "ta" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteredcorner"
 	},
@@ -3348,7 +3325,7 @@
 /area/ruin/space/deepstorage)
 "tH" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3376,7 +3353,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /obj/structure/sign/biohazard{
 	pixel_x = -32
 	},
@@ -3409,7 +3386,7 @@
 /area/ruin/space/deepstorage)
 "tZ" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3532,7 +3509,7 @@
 	},
 /area/ruin/space/deepstorage)
 "vo" = (
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3545,8 +3522,6 @@
 "vt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
@@ -3775,9 +3750,8 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/deepstorage)
 "wH" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "DS_Quartermaster"
@@ -3857,8 +3831,8 @@
 	},
 /area/ruin/space/deepstorage)
 "xC" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512";
 	name = "Interrogation Room"
 	},
 /turf/simulated/floor/plasteel{
@@ -3924,7 +3898,7 @@
 "yb" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
 	id_tag = "DS_BossStorage";
 	name = "warehouse valuables storage blast door"
 	},
@@ -3940,7 +3914,11 @@
 /area/ruin/space/deepstorage)
 "ye" = (
 /obj/structure/table/reinforced,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
+/obj/structure/rack,
+/obj/item/grenade/confetti,
+/obj/item/grenade/confetti,
+/obj/item/grenade/confetti,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -3948,13 +3926,9 @@
 /area/ruin/space/deepstorage)
 "yf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4017,7 +3991,7 @@
 /area/ruin/space/deepstorage)
 "yB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -4047,7 +4021,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -4105,9 +4079,9 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/deepstorage)
 "zh" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity{
-	name = "Incinerator";
-	req_access_txt = "512"
+	name = "Incinerator"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -4166,9 +4140,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "zy" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/vault{
-	locked = 1;
-	req_access_txt = "512"
+	locked = 1
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/catwalk,
@@ -4189,9 +4163,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4318,11 +4291,11 @@
 /area/ruin/space/deepstorage)
 "As" = (
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/vault{
-	name = "Auxiliary Power Room";
-	req_access_txt = "512"
+	name = "Auxiliary Power Room"
 	},
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Engineering"
 	},
 /turf/simulated/floor/catwalk,
@@ -4353,8 +4326,8 @@
 	},
 /area/ruin/space/deepstorage)
 "AA" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512";
 	name = "Evidence Storage"
 	},
 /turf/simulated/floor/plasteel{
@@ -4404,7 +4377,7 @@
 	},
 /area/ruin/space/deepstorage)
 "AN" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
 	id_tag = "DS_FrontGate"
 	},
 /turf/simulated/floor/catwalk/airless,
@@ -4477,7 +4450,7 @@
 /area/ruin/space/deepstorage)
 "Br" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "black"
@@ -4501,8 +4474,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/deepstorage)
 "By" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "BB" = (
@@ -4524,7 +4497,7 @@
 /area/ruin/space/deepstorage)
 "BF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "white"
@@ -4657,7 +4630,7 @@
 /area/ruin/space/deepstorage)
 "Cl" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -4673,10 +4646,10 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Cn" = (
-/obj/structure/safe,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/stack/spacecash/c500,
-/obj/effect/spawner/random_spawners/ruin/deepstorage_award,
+/obj/structure/rack,
+/obj/effect/spawner/random/deepstorage_reward,
+/obj/effect/spawner/random/deepstorage_reward,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -4704,7 +4677,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame,
+/obj/structure/machine_frame,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/deepstorage)
 "CD" = (
@@ -4713,7 +4686,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "CG" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -4770,7 +4743,7 @@
 "CZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "black"
@@ -4812,7 +4785,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4833,9 +4806,9 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -4881,11 +4854,7 @@
 /area/ruin/space/deepstorage)
 "Dx" = (
 /obj/structure/window/reinforced/tinted,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -5006,11 +4975,7 @@
 /area/ruin/space/deepstorage)
 "Eu" = (
 /obj/structure/window/reinforced/tinted,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = -4;
-	pixel_y = -4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
@@ -5233,7 +5198,7 @@
 /area/ruin/space/unpowered)
 "GE" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -5344,7 +5309,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Ha" = (
-/obj/item/kirbyplants/plant27,
+/obj/item/kirbyplants/large/plant10,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -5367,9 +5332,8 @@
 	},
 /area/ruin/space/deepstorage)
 "Hx" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5465,7 +5429,7 @@
 /area/ruin/space/deepstorage)
 "IJ" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5482,8 +5446,8 @@
 /area/ruin/space/deepstorage)
 "IR" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/safe,
-/obj/item/stack/spacecash/c500,
+/obj/structure/rack,
+/obj/effect/spawner/random/bluespace_tap/organic_rare,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -5654,9 +5618,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Kg" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -5708,9 +5670,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Kx" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -5783,9 +5743,7 @@
 	},
 /area/ruin/space/deepstorage)
 "KS" = (
-/obj/structure/sign/poster/official/safety_internals{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/safety_internals/directional/east,
 /obj/item/chair/stool{
 	pixel_y = -7;
 	dir = 8
@@ -5819,7 +5777,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Lf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/effect/decal/cleanable/molten_object{
 	pixel_y = 6;
@@ -5832,7 +5790,7 @@
 /obj/structure/sign/greencross{
 	pixel_y = 32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "Li" = (
@@ -5897,7 +5855,7 @@
 "LJ" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
 	id_tag = "DS_BossStorage";
 	name = "warehouse blast doors"
 	},
@@ -5914,7 +5872,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "LM" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -5930,7 +5888,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/deepstorage)
 "LT" = (
-/obj/item/kirbyplants/plant22,
+/obj/item/kirbyplants/medium/medium6,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5957,7 +5915,7 @@
 "Mb" = (
 /obj/structure/railing,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Mf" = (
@@ -6014,8 +5972,9 @@
 /area/ruin/space/deepstorage)
 "MR" = (
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/pool/spaceloot/deepstorage/main,
+/obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -6026,7 +5985,7 @@
 /turf/simulated/floor/chasm/space_ruin,
 /area/ruin/space/powered)
 "MU" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "MV" = (
@@ -6042,7 +6001,7 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -6166,7 +6125,7 @@
 /area/ruin/space/deepstorage)
 "Ob" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "black"
@@ -6184,7 +6143,7 @@
 /area/ruin/space/unpowered)
 "Og" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/salvage/ruin/russian,
+/obj/item/salvage/ruin/soviet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "Oh" = (
@@ -6198,7 +6157,7 @@
 /area/ruin/space/deepstorage)
 "Oi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
@@ -6283,7 +6242,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -6316,7 +6275,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Pq" = (
-/obj/item/kirbyplants/plant29,
+/obj/item/kirbyplants/large/plant11,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6412,7 +6371,7 @@
 /area/ruin/space/deepstorage)
 "PU" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6596,7 +6555,7 @@
 	dir = 10
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "Rc" = (
@@ -6737,7 +6696,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Sc" = (
-/obj/item/kirbyplants/plant18,
+/obj/item/kirbyplants/large/plant8,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6849,7 +6808,7 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -6895,9 +6854,8 @@
 	},
 /area/ruin/space/deepstorage)
 "To" = (
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Tq" = (
@@ -6923,10 +6881,9 @@
 	},
 /area/ruin/space/deepstorage)
 "TK" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512"
-	},
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Storage"
 	},
 /turf/simulated/floor/plasteel{
@@ -7001,10 +6958,9 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512"
-	},
-/obj/machinery/door/poddoor/multi_tile/impassable{
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
 	id_tag = "DS_Storage"
 	},
 /turf/simulated/floor/plasteel{
@@ -7048,10 +7004,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Uv" = (
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = -4
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = -28
 	},
@@ -7108,7 +7061,7 @@
 /area/ruin/space/unpowered)
 "UM" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners";
 	dir = 1
@@ -7116,8 +7069,6 @@
 /area/ruin/space/deepstorage)
 "UO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -7321,7 +7272,6 @@
 	pixel_x = -32
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes{
@@ -7370,14 +7320,14 @@
 	},
 /area/ruin/space/deepstorage)
 "Ww" = (
-/obj/item/kirbyplants/plant27,
+/obj/item/kirbyplants/large/plant10,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
 "Wz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/holosign/barrier/engineering,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -7507,7 +7457,7 @@
 	},
 /area/ruin/space/deepstorage)
 "Xj" = (
-/obj/item/kirbyplants/plant10,
+/obj/item/kirbyplants/large/plant12,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7529,7 +7479,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -7567,7 +7517,7 @@
 /area/ruin/space/deepstorage)
 "Xy" = (
 /obj/structure/table/glass,
-/obj/item/kirbyplants/plant15{
+/obj/item/kirbyplants/small/small4{
 	pixel_y = 13
 	},
 /turf/simulated/floor/plasteel{
@@ -7614,7 +7564,7 @@
 /area/ruin/space/deepstorage)
 "XN" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -7685,7 +7635,7 @@
 /area/ruin/space/deepstorage)
 "Yk" = (
 /obj/structure/table/reinforced,
-/obj/item/salvage/ruin/nanotrasen,
+/obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -7905,7 +7855,7 @@
 "ZS" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/space/deepstorage)
 "ZU" = (
@@ -7918,9 +7868,8 @@
 /turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "ZW" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "512"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "podfloor"
@@ -7937,35 +7886,6 @@ qn
 qn
 qn
 qn
-ab
-qn
-qn
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-ab
 qn
 qn
 qn
@@ -7978,8 +7898,39 @@ qn
 qn
 qn
 qn
-ab
-ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
@@ -8004,50 +7955,7 @@ qn
 qn
 qn
 qn
-ab
 qn
-qn
-ab
-ab
-ab
-ab
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-ab
-qn
-qn
-ab
-qn
-qn
-qn
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-ab
-ab
-ab
-qn
-qn
-ab
-qn
-qn
-ab
-qn
-qn
-ab
-qn
-qn
-ab
-ab
 qn
 qn
 ab
@@ -8059,7 +7967,52 @@ qn
 ab
 qn
 qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
@@ -8072,13 +8025,11 @@ qn
 qn
 qn
 qn
+qn
+qn
 ab
-ab
-ab
-ab
-ab
-ab
-ab
+qn
+qn
 ab
 ab
 ab
@@ -8086,12 +8037,10 @@ ab
 qn
 qn
 qn
+ab
 qn
 qn
-ab
-ab
-ab
-ab
+qn
 ab
 qn
 qn
@@ -8103,21 +8052,12 @@ qn
 qn
 qn
 ab
+qn
+qn
+qn
 ab
 ab
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
-qn
+ab
 qn
 qn
 ab
@@ -8126,8 +8066,23 @@ qn
 ab
 qn
 qn
+ab
 qn
 qn
+ab
+ab
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+qn
+ab
 qn
 qn
 qn
@@ -8138,22 +8093,12 @@ qn
 qn
 qn
 qn
-ab
+qn
+qn
 qn
 qn
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-qn
 ab
 ab
 ab
@@ -8168,6 +8113,30 @@ qn
 qn
 qn
 qn
+ab
+ab
+ab
+ab
+ab
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+ab
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
@@ -8180,23 +8149,11 @@ ab
 qn
 qn
 ab
-ab
-ab
-ab
-iZ
-iZ
-ab
-aM
-aM
-ab
-ab
-ab
 qn
 qn
 qn
 qn
 qn
-ab
 qn
 qn
 qn
@@ -8208,23 +8165,9 @@ qn
 qn
 qn
 qn
+ab
 qn
 qn
-qn
-ab
-ab
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-ab
-ab
-ab
-ab
 ab
 ab
 ab
@@ -8241,26 +8184,39 @@ qn
 ab
 ab
 ab
+ab
+ab
+ab
+ab
+ab
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
 qn
 qn
 ab
+qn
+qn
 ab
 ab
-aM
+ab
+ab
 iZ
 iZ
-iZ
 ab
 aM
 aM
-aM
-aM
 ab
-aM
-aM
+ab
 ab
 qn
 qn
@@ -8268,6 +8224,9 @@ qn
 qn
 qn
 ab
+qn
+qn
+qn
 qn
 qn
 qn
@@ -8277,6 +8236,78 @@ qn
 qn
 qn
 qn
+qn
+qn
+qn
+qn
+ab
+ab
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+qn
+ab
+ab
+ab
+qn
+qn
+qn
+qn
+qn
+ab
+ab
+ab
+aM
+iZ
+iZ
+iZ
+ab
+aM
+aM
+aM
+aM
+ab
+aM
+aM
+ab
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+"}
+(7,1,1) = {"
+qn
+qn
+qn
+qn
+qn
 ab
 qn
 qn
@@ -8340,8 +8371,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+qn
 qn
 ab
 qn
@@ -8409,8 +8442,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+qn
 qn
 qn
 qn
@@ -8478,8 +8513,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+qn
 qn
 qn
 qn
@@ -8547,8 +8584,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+qn
 qn
 qn
 ab
@@ -8616,8 +8655,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(11,1,1) = {"
+(12,1,1) = {"
+qn
 qn
 ab
 ab
@@ -8685,8 +8726,10 @@ ab
 qn
 ab
 qn
+qn
 "}
-(12,1,1) = {"
+(13,1,1) = {"
+qn
 ab
 ab
 ab
@@ -8754,8 +8797,10 @@ ab
 qn
 qn
 ab
+qn
 "}
-(13,1,1) = {"
+(14,1,1) = {"
+qn
 ab
 ab
 jB
@@ -8823,8 +8868,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+qn
 ab
 ab
 jB
@@ -8892,8 +8939,10 @@ ab
 qn
 ab
 qn
+qn
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+qn
 qn
 ab
 jB
@@ -8961,8 +9010,10 @@ aM
 ab
 qn
 qn
+qn
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+qn
 ab
 ab
 jB
@@ -9030,8 +9081,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(17,1,1) = {"
+(18,1,1) = {"
+qn
 ab
 ab
 jB
@@ -9099,8 +9152,10 @@ iZ
 ab
 qn
 qn
+qn
 "}
-(18,1,1) = {"
+(19,1,1) = {"
+qn
 ab
 ab
 jB
@@ -9168,8 +9223,10 @@ iZ
 iZ
 qn
 qn
+qn
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+qn
 qn
 ab
 ab
@@ -9237,8 +9294,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+qn
 qn
 ab
 ab
@@ -9306,8 +9365,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(21,1,1) = {"
+(22,1,1) = {"
+qn
 qn
 ab
 jB
@@ -9375,8 +9436,10 @@ qn
 ab
 qn
 qn
+qn
 "}
-(22,1,1) = {"
+(23,1,1) = {"
+qn
 ab
 ab
 jB
@@ -9444,8 +9507,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(23,1,1) = {"
+(24,1,1) = {"
+qn
 ab
 jB
 jB
@@ -9513,8 +9578,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(24,1,1) = {"
+(25,1,1) = {"
+qn
 ab
 jB
 hH
@@ -9582,8 +9649,10 @@ qn
 qn
 ab
 qn
+qn
 "}
-(25,1,1) = {"
+(26,1,1) = {"
+qn
 ab
 jB
 Nv
@@ -9651,8 +9720,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(26,1,1) = {"
+(27,1,1) = {"
+qn
 ab
 jB
 jB
@@ -9720,8 +9791,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(27,1,1) = {"
+(28,1,1) = {"
+qn
 ab
 jB
 Ej
@@ -9789,8 +9862,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(28,1,1) = {"
+(29,1,1) = {"
+qn
 ab
 jB
 BL
@@ -9858,8 +9933,10 @@ iZ
 ab
 qn
 qn
+qn
 "}
-(29,1,1) = {"
+(30,1,1) = {"
+qn
 ab
 jB
 lg
@@ -9927,8 +10004,10 @@ iZ
 iZ
 qn
 qn
+qn
 "}
-(30,1,1) = {"
+(31,1,1) = {"
+qn
 ab
 jB
 vX
@@ -9996,8 +10075,10 @@ ab
 iZ
 qn
 ab
+qn
 "}
-(31,1,1) = {"
+(32,1,1) = {"
+qn
 ab
 jB
 jB
@@ -10065,8 +10146,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(32,1,1) = {"
+(33,1,1) = {"
+qn
 ab
 jB
 QD
@@ -10134,8 +10217,10 @@ Id
 qn
 qn
 qn
+qn
 "}
-(33,1,1) = {"
+(34,1,1) = {"
+qn
 ab
 jB
 nG
@@ -10203,8 +10288,10 @@ bM
 bM
 bM
 qn
+qn
 "}
-(34,1,1) = {"
+(35,1,1) = {"
+qn
 ab
 jB
 nQ
@@ -10272,8 +10359,10 @@ hn
 hn
 qn
 qn
+qn
 "}
-(35,1,1) = {"
+(36,1,1) = {"
+qn
 ab
 jB
 zd
@@ -10341,8 +10430,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(36,1,1) = {"
+(37,1,1) = {"
+qn
 ab
 jB
 jB
@@ -10410,8 +10501,10 @@ ab
 qn
 qn
 ab
+qn
 "}
-(37,1,1) = {"
+(38,1,1) = {"
+qn
 ab
 ab
 ab
@@ -10479,8 +10572,10 @@ ab
 qn
 iZ
 iZ
+qn
 "}
-(38,1,1) = {"
+(39,1,1) = {"
+qn
 qn
 ab
 ab
@@ -10548,8 +10643,10 @@ qn
 qn
 ab
 iZ
+qn
 "}
-(39,1,1) = {"
+(40,1,1) = {"
+qn
 qn
 ab
 ab
@@ -10617,8 +10714,10 @@ qn
 qn
 ab
 qn
+qn
 "}
-(40,1,1) = {"
+(41,1,1) = {"
+qn
 qn
 qn
 ab
@@ -10686,8 +10785,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(41,1,1) = {"
+(42,1,1) = {"
+qn
 qn
 ab
 qn
@@ -10755,8 +10856,10 @@ qn
 ab
 qn
 qn
+qn
 "}
-(42,1,1) = {"
+(43,1,1) = {"
+qn
 qn
 qn
 qn
@@ -10824,8 +10927,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(43,1,1) = {"
+(44,1,1) = {"
+qn
 qn
 qn
 qn
@@ -10893,8 +10998,10 @@ qn
 qn
 ab
 qn
+qn
 "}
-(44,1,1) = {"
+(45,1,1) = {"
+qn
 qn
 qn
 ab
@@ -10962,8 +11069,10 @@ qn
 qn
 qn
 qn
+qn
 "}
-(45,1,1) = {"
+(46,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11031,8 +11140,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(46,1,1) = {"
+(47,1,1) = {"
+qn
 qn
 ab
 qn
@@ -11100,8 +11211,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(47,1,1) = {"
+(48,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11169,8 +11282,10 @@ iZ
 iZ
 ab
 qn
+qn
 "}
-(48,1,1) = {"
+(49,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11238,8 +11353,10 @@ iZ
 iZ
 iZ
 qn
+qn
 "}
-(49,1,1) = {"
+(50,1,1) = {"
+qn
 qn
 ab
 qn
@@ -11307,8 +11424,10 @@ ab
 ab
 ab
 qn
+qn
 "}
-(50,1,1) = {"
+(51,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11376,8 +11495,10 @@ bD
 ab
 ab
 qn
+qn
 "}
-(51,1,1) = {"
+(52,1,1) = {"
+qn
 qn
 qn
 qn
@@ -11445,8 +11566,10 @@ ab
 ab
 ab
 qn
+qn
 "}
-(52,1,1) = {"
+(53,1,1) = {"
+qn
 qn
 qn
 ab
@@ -11514,8 +11637,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(53,1,1) = {"
+(54,1,1) = {"
+qn
 qn
 qn
 ab
@@ -11583,8 +11708,10 @@ ab
 iZ
 qn
 qn
+qn
 "}
-(54,1,1) = {"
+(55,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11652,8 +11779,10 @@ ab
 ab
 ab
 qn
+qn
 "}
-(55,1,1) = {"
+(56,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11721,8 +11850,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(56,1,1) = {"
+(57,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11790,8 +11921,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(57,1,1) = {"
+(58,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11859,8 +11992,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(58,1,1) = {"
+(59,1,1) = {"
+qn
 qn
 ab
 ab
@@ -11928,8 +12063,10 @@ jB
 ab
 iZ
 iZ
+qn
 "}
-(59,1,1) = {"
+(60,1,1) = {"
+qn
 qn
 qn
 ab
@@ -11997,8 +12134,10 @@ jB
 ab
 ab
 iZ
+qn
 "}
-(60,1,1) = {"
+(61,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12066,8 +12205,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(61,1,1) = {"
+(62,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12135,8 +12276,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(62,1,1) = {"
+(63,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12204,8 +12347,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(63,1,1) = {"
+(64,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12273,8 +12418,10 @@ jB
 ab
 qn
 qn
+qn
 "}
-(64,1,1) = {"
+(65,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12342,8 +12489,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(65,1,1) = {"
+(66,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12411,8 +12560,10 @@ jB
 iZ
 ab
 qn
+qn
 "}
-(66,1,1) = {"
+(67,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12480,8 +12631,10 @@ jB
 ab
 qn
 qn
+qn
 "}
-(67,1,1) = {"
+(68,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12549,8 +12702,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(68,1,1) = {"
+(69,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12618,8 +12773,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(69,1,1) = {"
+(70,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12687,8 +12844,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(70,1,1) = {"
+(71,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12756,8 +12915,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(71,1,1) = {"
+(72,1,1) = {"
+qn
 qn
 ab
 ab
@@ -12825,8 +12986,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(72,1,1) = {"
+(73,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12894,8 +13057,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(73,1,1) = {"
+(74,1,1) = {"
+qn
 qn
 qn
 ab
@@ -12963,8 +13128,10 @@ jB
 ab
 ab
 ab
+qn
 "}
-(74,1,1) = {"
+(75,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13032,8 +13199,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(75,1,1) = {"
+(76,1,1) = {"
+qn
 qn
 ab
 qn
@@ -13101,8 +13270,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(76,1,1) = {"
+(77,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13170,8 +13341,10 @@ jB
 ab
 ab
 qn
+qn
 "}
-(77,1,1) = {"
+(78,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13239,8 +13412,10 @@ ab
 ab
 qn
 ab
+qn
 "}
-(78,1,1) = {"
+(79,1,1) = {"
+qn
 qn
 qn
 ab
@@ -13308,8 +13483,10 @@ ab
 ab
 qn
 qn
+qn
 "}
-(79,1,1) = {"
+(80,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13377,8 +13554,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(80,1,1) = {"
+(81,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13446,8 +13625,10 @@ ab
 qn
 qn
 qn
+qn
 "}
-(81,1,1) = {"
+(82,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13515,8 +13696,10 @@ ab
 qn
 ab
 qn
+qn
 "}
-(82,1,1) = {"
+(83,1,1) = {"
+qn
 qn
 qn
 qn
@@ -13584,91 +13767,19 @@ ab
 qn
 qn
 qn
-"}
-(83,1,1) = {"
 qn
-qn
-qn
-ab
-ab
-ab
-qn
-qn
-ab
-qn
-qn
-qn
-ab
-qn
-qn
-qn
-qn
-qn
-qn
-ab
-ab
-qn
-qn
-qn
-qn
-sk
-sk
-Fk
-Fk
-Fk
-Fk
-Fk
-Fk
-Fk
-Fk
-Fk
-bB
-Fk
-Fk
-sk
-sk
-qn
-qn
-qn
-ab
-ab
-ab
-ab
-ab
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-jB
-ab
-ab
-ab
-qn
-ab
 "}
 (84,1,1) = {"
 qn
 qn
 qn
 qn
-qn
 ab
-qn
 ab
-qn
-qn
 ab
 qn
 qn
-qn
+ab
 qn
 qn
 qn
@@ -13680,47 +13791,53 @@ qn
 qn
 qn
 ab
+ab
+qn
+qn
+qn
 qn
 sk
 sk
-sk
-sk
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
+Fk
 bB
 Fk
 Fk
-Fk
-Fk
-sk
-sk
-sk
 sk
 sk
 qn
 qn
-ab
-qn
 qn
 ab
 ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
 ab
 ab
 ab
 qn
-qn
+ab
 qn
 "}
 (85,1,1) = {"
@@ -13730,6 +13847,78 @@ qn
 qn
 qn
 qn
+ab
+qn
+ab
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+qn
+qn
+qn
+qn
+qn
+ab
+qn
+sk
+sk
+sk
+sk
+bB
+Fk
+Fk
+Fk
+Fk
+sk
+sk
+sk
+sk
+sk
+qn
+qn
+ab
+qn
+qn
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+qn
+qn
+qn
+qn
+"}
+(86,1,1) = {"
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 qn
 qn
@@ -13790,5 +13979,77 @@ ab
 qn
 qn
 ab
+qn
+qn
+"}
+(87,1,1) = {"
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
+qn
 qn
 "}

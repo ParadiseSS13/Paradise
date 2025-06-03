@@ -3,7 +3,7 @@
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
 
 /obj/item/holder/New()
 	..()
@@ -25,9 +25,9 @@
 
 		qdel(src)
 
-/obj/item/holder/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/holder/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	for(var/mob/M in src.contents)
-		M.attackby(W,user, params)
+		M.attack_by(W, user, params)
 
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)
@@ -49,7 +49,7 @@
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
 	if(istype(M))
-		M.unEquip(src)
+		M.drop_item_to_ground(src)
 		to_chat(M, "[src] wriggles out of your grip!")
 		to_chat(L, "You wriggle out of [M]'s grip!")
 	else if(isitem(loc))
@@ -98,7 +98,7 @@
 	name = "nian caterpillar"
 	desc = "It's a tiny little itty bitty critter."
 	icon_state = "mothroach"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 
 /obj/item/holder/drone/emagged
 	name = "maintenance drone"
@@ -107,7 +107,7 @@
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
-	icon_state = "pai"
+	icon_state = null
 
 /obj/item/holder/mouse
 	name = "mouse"
@@ -117,7 +117,7 @@
 
 /obj/item/holder/bunny
 	name = "bunny"
-	desc = "Awww a cute bunny"
+	desc = "Awww a cute bunny."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "m_bunny"
 

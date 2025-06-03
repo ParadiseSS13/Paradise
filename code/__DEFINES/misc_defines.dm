@@ -104,6 +104,15 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
+#define STAGE_TWO_THRESHOLD 200
+#define STAGE_THREE_THRESHOLD 500
+#define STAGE_FOUR_THRESHOLD 1000
+#define STAGE_FIVE_THRESHOLD 2000
+#define STAGE_SIX_THRESHOLD 3000
+
+/// A define for the center of the coordinate map of big machinery
+#define MACH_CENTER 2
+
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
@@ -182,55 +191,57 @@
 #define FOAM_REACT_BEFORE_SPREAD	(1<<3)
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		48
-#define WING_LAYER				47
-#define WING_UNDERLIMBS_LAYER	46
-#define MUTANTRACE_LAYER		45
-#define TAIL_UNDERLIMBS_LAYER	44	//Tail split-rendering.
-#define LIMBS_LAYER				43
-#define MARKINGS_LAYER			42
-#define INTORGAN_LAYER			41
-#define UNDERWEAR_LAYER			40
-#define MUTATIONS_LAYER			39
-#define H_DAMAGE_LAYER			38
-#define UNIFORM_LAYER			37
-#define ID_LAYER				36
-#define HANDS_LAYER				35	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				34
-#define L_FOOT_BLOOD_LAYER		33	// Blood overlay separation Left-Foot
-#define R_FOOT_BLOOD_LAYER		32	// Blood overlay separation Right-Foot
-#define GLOVES_LAYER			31
-#define L_HAND_BLOOD_LAYER		30	// Blood overlay separation Left-Hand
-#define R_HAND_BLOOD_LAYER		29	// Blood overlay separation Right-Hand
-#define LEFT_EAR_LAYER			28
-#define RIGHT_EAR_LAYER			27
-#define BELT_LAYER				26	//Possible make this an overlay of something required to wear a belt?
+#define EYES_OVERLAY_LAYER		50
+#define MISC_LAYER				49 // Handles eye_shine() -> cybernetic eyes, specific eye traits.
+#define WING_LAYER				48
+#define WING_UNDERLIMBS_LAYER	47
+#define MUTANTRACE_LAYER		46
+#define TAIL_UNDERLIMBS_LAYER	45	//Tail split-rendering.
+#define LIMBS_LAYER				44
+#define MARKINGS_LAYER			43
+#define INTORGAN_LAYER			42
+#define UNDERWEAR_LAYER			41
+#define MUTATIONS_LAYER			40
+#define H_DAMAGE_LAYER			39
+#define UNIFORM_LAYER			38
+#define ID_LAYER				37
+#define HANDS_LAYER				36	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				35
+#define L_FOOT_BLOOD_LAYER		34	// Blood overlay separation Left-Foot
+#define R_FOOT_BLOOD_LAYER		33	// Blood overlay separation Right-Foot
+#define GLOVES_LAYER			32
+#define L_HAND_BLOOD_LAYER		31	// Blood overlay separation Left-Hand
+#define R_HAND_BLOOD_LAYER		30	// Blood overlay separation Right-Hand
+#define LEFT_EAR_LAYER			29
+#define RIGHT_EAR_LAYER			28
+#define BELT_LAYER				27	//Possible make this an overlay of something required to wear a belt?
+#define SPECIAL_NECK_LAYER		26
 #define SUIT_LAYER				25
 #define SPECIAL_BELT_LAYER		24
-#define SUIT_STORE_LAYER		23
-#define BACK_LAYER				22
-#define HEAD_ACCESSORY_LAYER	21
-#define FHAIR_LAYER				20
-#define GLASSES_LAYER			19
-#define HAIR_LAYER				18	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		17	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		16	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		15	//Select-layer rendering.
-#define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			13
-#define OVER_MASK_LAYER			12	//Select-layer rendering.
-#define HEAD_LAYER				11
-#define COLLAR_LAYER			10
-#define HANDCUFF_LAYER			9
-#define LEGCUFF_LAYER			8
-#define L_HAND_LAYER			7
-#define R_HAND_LAYER			6
-#define TARGETED_LAYER			5	//BS12: Layer for the target overlay from weapon targeting system
-#define HALO_LAYER				4	//blood cult ascended halo, because there's currently no better solution for adding/removing
-#define FIRE_LAYER				3	//If you're on fire
-#define MISC_LAYER				2
+#define NECK_LAYER				23
+#define SUIT_STORE_LAYER		22
+#define BACK_LAYER				21
+#define HEAD_ACCESSORY_LAYER	20
+#define FHAIR_LAYER				19
+#define GLASSES_LAYER			18
+#define HAIR_LAYER				17	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		16	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		15	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		14	//Select-layer rendering.
+#define TAIL_LAYER				13	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			12
+#define OVER_MASK_LAYER			11	//Select-layer rendering.
+#define HEAD_LAYER				10
+#define COLLAR_LAYER			9
+#define HANDCUFF_LAYER			8
+#define LEGCUFF_LAYER			7
+#define L_HAND_LAYER			6
+#define R_HAND_LAYER			5
+#define TARGETED_LAYER			4	//BS12: Layer for the target overlay from weapon targeting system
+#define HALO_LAYER				3	//blood cult ascended halo, because there's currently no better solution for adding/removing
+#define FIRE_LAYER				2	//If you're on fire
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			48
+#define TOTAL_LAYERS			50
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -414,13 +425,20 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // Defines for investigate to prevent typos and for styling
-#define INVESTIGATE_RENAME "renames"
-
+#define INVESTIGATE_ATMOS "atmos"
 #define INVESTIGATE_BOMB "bombs"
+#define INVESTIGATE_CARGO "cargo"
+#define INVESTIGATE_GRAVITY "gravity"
 #define INVESTIGATE_HOTMIC "hotmic"
+#define INVESTIGATE_RADIATION "radiation"
+#define INVESTIGATE_RENAME "renames"
+#define INVESTIGATE_SINGULO "singulo"
+#define INVESTIGATE_SUPERMATTER "supermatter"
+#define INVESTIGATE_WIRES "wires"
+#define INVESTIGATE_DEATHS "deaths"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 59
+#define SQL_VERSION 67
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -462,14 +480,6 @@
 #define PLACE_SAME_Z "same"
 #define PLACE_SPACE_RUIN "space"
 #define PLACE_LAVA_RUIN "lavaland"
-
-//Cleaning tool strength
-// 1 is also a valid cleaning strength but completely unused so left undefined
-#define CLEAN_WEAK 			2
-#define CLEAN_MEDIUM		3 // Acceptable tools
-#define CLEAN_STRONG		4 // Industrial strength
-#define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud
-#define CLEAN_GOD			6 // Cleans things spotless down to the atomic structure
 
 //Ghost orbit types:
 #define GHOST_ORBIT_CIRCLE		"circle"
@@ -533,11 +543,10 @@
 #define LINDA_SPAWN_AIR 		(1<<8)
 #define LINDA_SPAWN_COLD 		(1<<9)
 
-// Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
 #define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"
 #define MAPROTATION_MODE_FULL_RANDOM "Random"
-
+#define MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES "FPTP"
 
 /// Send to the primary Discord webhook
 #define DISCORD_WEBHOOK_PRIMARY "PRIMARY"
@@ -556,6 +565,7 @@
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
 #define RUNECHAT_SYMBOL_LOOC 2
+#define RUNECHAT_SYMBOL_DEAD 3
 
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) sleep(world.tick_lag)
@@ -589,19 +599,14 @@
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
 
-// Lavaland cave design defines
-
-#define BLOCKED_BURROWS "Blocked Burrows"
-#define CLASSIC_CAVES "Classic Caves"
-#define DEADLY_DEEPROCK "Deadly Deeprock"
-
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
 // Request console message priority defines
 
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
-#define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
-#define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
+#define RQ_LOWPRIORITY 1		// RQ_LOWPRIORITY = low priority
+#define RQ_NORMALPRIORITY 2		// RQ_NORMALPRIORITY = normal priority
+#define RQ_HIGHPRIORITY 3		// RQ_HIGHPRIORITY = high priority
 
 /**
  * Reading books can help with brain damage!
@@ -730,3 +735,28 @@ do { \
 #define INGREDIENT_CHECK_EXACT 1
 #define INGREDIENT_CHECK_FAILURE 0
 #define INGREDIENT_CHECK_SURPLUS -1
+
+#define LAVALAND_TENDRIL_COLLAPSE_RANGE 2 //! The radius of the chasm created by killed tendrils.
+
+#define ALPHA_VISIBLE 255 // the max alpha
+
+///  Economy account defines
+#define BANK_PIN_MIN 10000
+#define BANK_PIN_MAX 99999
+
+//! The number of seconds between the start of the UNIX and BYOND epochs.
+#define BYOND_EPOCH_UNIX 946702800
+
+// Use this define to register something as a purchasable!
+// * n — The proper name of the purchasable
+// * o — The object type path of the purchasable to spawn
+// * p — The price of the purchasable in mining points
+#define EQUIPMENT(n, o, p) n = new /datum/data/mining_equipment(n, o, p)
+
+#define BRIDGE_SPAWN_SUCCESS 0
+#define BRIDGE_SPAWN_TOO_WIDE 1
+#define BRIDGE_SPAWN_TOO_NARROW 2
+#define BRIDGE_SPAWN_BAD_TERRAIN 3
+
+#define DIRECT_EXPLOSIVE_TRAP_DEFUSE 1
+#define DIRECT_EXPLOSIVE_TRAP_IGNORE 2

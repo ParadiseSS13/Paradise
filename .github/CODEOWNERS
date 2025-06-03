@@ -6,28 +6,35 @@
 
 ### AffectedArc07
 # Actual Code
-/code/controllers/subsystem/non_firing/SSmapping.dm @AffectedArc07
 /code/controllers/subsystem/SSinstancing.dm @AffectedArc07
 /code/controllers/subsystem/SSredis.dm @AffectedArc07
-/code/controllers/subsystem/SSticker.dm @AffectedArc07
 /code/modules/redis/ @AffectedArc07
 
 # CI + Tooling
-/.github/workflows/ @AffectedArc07
-/code/modules/unit_tests/ @AffectedArc07
-/tools/ci/ @AffectedArc07
 _build_dependencies.sh @AffectedArc07
 
-# Server Stuff
+# Database Stuff
 /SQL/ @AffectedArc07
-/config/ @AffectedArc07
 
 # Executables that need to be security-cleared
 dreamchecker.exe @AffectedArc07
-milla.dll @AffectedArc07
+rustlibs.dll @AffectedArc07
+rustlibs_prod.dll @AffectedArc07
 rust_g.dll @AffectedArc07
 
-### S34NW
+# temp executables because life is pain
+rustlibs_515.dll @AffectedArc07
+rustlibs_516.dll @AffectedArc07
+rustlibs_515_prod.dll @AffectedArc07
+rustlibs_516_prod.dll @AffectedArc07
 
+
+### Burzah
 # TGUI stuff
-/tgui/bin @S34NW
+/tgui/bin @Burzah
+/tgui/docs @Burzah
+
+
+### Multiple Owners
+# Config Stuff
+/config/ @AffectedArc07 @Burzah @Contrabang @warriorstar-orion

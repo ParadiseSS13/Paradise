@@ -130,7 +130,7 @@
 			targets += M
 			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
-	for(var/obj/machinery/flasher/F in GLOB.machines)
+	for(var/obj/machinery/flasher/F in SSmachines.get_by_type(/obj/machinery/flasher))
 		if(F.id == id)
 			targets += F
 			RegisterSignal(F, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
@@ -140,7 +140,7 @@
 			targets += C
 			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
-	for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
+	for(var/obj/machinery/treadmill_monitor/T in SSmachines.get_by_type(/obj/machinery/treadmill_monitor))
 		if(T.id == id)
 			targets += T
 			RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))

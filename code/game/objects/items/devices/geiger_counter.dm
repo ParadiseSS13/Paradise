@@ -12,17 +12,26 @@
 	icon_state = "geiger_off"
 	item_state = "multitool"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags = NOBLUDGEON
 	materials = list(MAT_METAL = 210, MAT_GLASS = 150)
+	rad_insulation_alpha = RAD_ONE_PERCENT
+	rad_insulation_beta = RAD_ONE_PERCENT
+	rad_insulation_gamma = RAD_ONE_PERCENT
 
 	var/grace = RAD_GEIGER_GRACE_PERIOD
 	var/datum/looping_sound/geiger/soundloop
 
 	var/scanning = FALSE
-	var/radiation_count = 0
-	var/current_tick_amount = 0
-	var/last_tick_amount = 0
+	var/radiation_count_alpha = 0
+	var/radiation_count_beta = 0
+	var/radiation_count_gamma = 0
+	var/current_tick_amount_alpha = 0
+	var/current_tick_amount_beta = 0
+	var/current_tick_amount_gamma = 0
+	var/last_tick_amount_alpha = 0
+	var/last_tick_amount_beta = 0
+	var/last_tick_amount_gamma = 0
 	var/fail_to_receive = 0
 	var/current_warning = 1
 
@@ -40,19 +49,33 @@
 
 /obj/item/geiger_counter/process()
 	if(scanning)
-		radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
-		radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count_alpha -= radiation_count_alpha / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count_alpha += current_tick_amount_alpha / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count_beta -= radiation_count_beta / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count_beta += current_tick_amount_beta / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count_gamma -= radiation_count_gamma / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count_gamma += current_tick_amount_gamma / RAD_GEIGER_MEASURE_SMOOTHING
 
-		if(current_tick_amount)
+		if(current_tick_amount_alpha)
 			grace = RAD_GEIGER_GRACE_PERIOD
-			last_tick_amount = current_tick_amount
+			last_tick_amount_alpha = current_tick_amount_alpha
+		if(current_tick_amount_beta)
+			grace = RAD_GEIGER_GRACE_PERIOD
+			last_tick_amount_beta = current_tick_amount_beta
+		if(current_tick_amount_gamma)
+			grace = RAD_GEIGER_GRACE_PERIOD
+			last_tick_amount_gamma = current_tick_amount_gamma
 
 		else if(!emagged)
 			grace--
 			if(grace <= 0)
-				radiation_count = 0
+				radiation_count_alpha = 0
+				radiation_count_beta = 0
+				radiation_count_gamma = 0
 
-	current_tick_amount = 0
+	current_tick_amount_alpha = 0
+	current_tick_amount_beta = 0
+	current_tick_amount_gamma = 0
 
 	update_icon(UPDATE_ICON_STATE)
 	update_sound()
@@ -61,10 +84,11 @@
 	. = ..()
 	if(!scanning)
 		return
-	. += "<span class='info'>Alt-click it to clear stored radiation levels.</span>"
+	. += "<span class='notice'>Alt-click it to clear stored radiation levels.</span>"
 	if(emagged)
 		. += "<span class='warning'>The display seems to be incomprehensible.</span>"
 		return
+	var/radiation_count = max(radiation_count_alpha, radiation_count_beta, radiation_count_gamma)
 	switch(radiation_count)
 		if(-INFINITY to RAD_LEVEL_NORMAL)
 			. += "<span class='notice'>Ambient radiation level count reports that all is well.</span>"
@@ -79,7 +103,9 @@
 		if(RAD_LEVEL_CRITICAL + 1 to INFINITY)
 			. += "<span class='boldannounceic'>Ambient radiation levels above critical level!</span>"
 
-	. += "<span class='notice'>The last radiation amount detected was [last_tick_amount]</span>"
+	. += "<span class='notice'>The alpha radiation amount detected was [last_tick_amount_alpha]</span>"
+	. += "<span class='notice'>The beta radiation amount detected was [last_tick_amount_beta]</span>"
+	. += "<span class='notice'>The gamma radiation amount detected was [last_tick_amount_gamma]</span>"
 
 /obj/item/geiger_counter/update_icon_state()
 	if(!scanning)
@@ -87,6 +113,7 @@
 	else if(emagged)
 		icon_state = "geiger_on_emag"
 	else
+		var/radiation_count = max(radiation_count_alpha + radiation_count_beta + radiation_count_gamma)
 		switch(radiation_count)
 			if(-INFINITY to RAD_LEVEL_NORMAL)
 				icon_state = "geiger_on_1"
@@ -103,25 +130,32 @@
 
 /obj/item/geiger_counter/proc/update_sound()
 	var/datum/looping_sound/geiger/loop = soundloop
+	var/radiation_count = max(radiation_count_alpha, radiation_count_beta, radiation_count_gamma)
 	if(!scanning || !radiation_count)
 		loop.stop()
 		return
 	loop.last_radiation = radiation_count
 	loop.start()
 
-/obj/item/geiger_counter/rad_act(amount)
-	. = ..()
+/obj/item/geiger_counter/rad_act(atom/source, amount, emission_type)
+	amount *= 100
 	if(amount <= RAD_BACKGROUND_RADIATION || !scanning)
 		return
-	current_tick_amount += amount
+	switch(emission_type)
+		if(ALPHA_RAD)
+			current_tick_amount_alpha += amount
+		if(BETA_RAD)
+			current_tick_amount_beta += amount
+		if(GAMMA_RAD)
+			current_tick_amount_gamma += amount
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/geiger_counter/attack_self(mob/user)
+/obj/item/geiger_counter/attack_self__legacy__attackchain(mob/user)
 	scanning = !scanning
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>[bicon(src)] You switch [scanning ? "on" : "off"] [src].</span>")
 
-/obj/item/geiger_counter/afterattack(atom/target, mob/user)
+/obj/item/geiger_counter/afterattack__legacy__attackchain(atom/target, mob/user)
 	. = ..()
 	if(user.a_intent == INTENT_HELP)
 		if(!emagged)
@@ -129,8 +163,12 @@
 			addtimer(CALLBACK(src, PROC_REF(scan), target, user), 20, TIMER_UNIQUE) // Let's not have spamming GetAllContents
 		else
 			user.visible_message("<span class='notice'>[user] scans [target] with [src].</span>", "<span class='danger'>You project [src]'s stored radiation into [target]!</span>")
-			target.rad_act(radiation_count)
-			radiation_count = 0
+			target.base_rad_act(src, radiation_count_alpha, ALPHA_RAD)
+			target.base_rad_act(src, radiation_count_beta, BETA_RAD)
+			target.base_rad_act(src, radiation_count_gamma, GAMMA_RAD)
+			radiation_count_alpha = 0
+			radiation_count_beta = 0
+			radiation_count_gamma = 0
 		return TRUE
 
 /obj/item/geiger_counter/proc/scan(atom/A, mob/user)
@@ -148,7 +186,7 @@
 	else
 		to_chat(user, "<span class='notice'>[bicon(src)] Target is free of radioactive contamination.</span>")
 
-/obj/item/geiger_counter/attackby(obj/item/I, mob/user, params)
+/obj/item/geiger_counter/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER && emagged)
 		if(scanning)
 			to_chat(user, "<span class='warning'>Turn off [src] before you perform this action!</span>")
@@ -158,7 +196,9 @@
 			return FALSE
 		user.visible_message("<span class='notice'>[user] refastens [src]'s maintenance panel!</span>", "<span class='notice'>You reset [src] to its factory settings!</span>")
 		emagged = FALSE
-		radiation_count = 0
+		radiation_count_alpha = 0
+		radiation_count_beta = 0
+		radiation_count_gamma = 0
 		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 	else
@@ -170,7 +210,9 @@
 	if(!scanning)
 		to_chat(user, "<span class='warning'>[src] must be on to reset its radiation level!</span>")
 		return
-	radiation_count = 0
+	radiation_count_alpha = 0
+	radiation_count_beta = 0
+	radiation_count_gamma = 0
 	to_chat(user, "<span class='notice'>You flush [src]'s radiation counts, resetting it to normal.</span>")
 	update_icon(UPDATE_ICON_STATE)
 
@@ -198,8 +240,8 @@
 	RegisterSignal(user, COMSIG_ATOM_RAD_ACT, PROC_REF(redirect_rad_act))
 	listeningTo = user
 
-/obj/item/geiger_counter/cyborg/proc/redirect_rad_act(datum/source, amount)
-	rad_act(amount)
+/obj/item/geiger_counter/cyborg/proc/redirect_rad_act(datum/source, amount, emission_type)
+	base_rad_act(source, amount, emission_type)
 
 /obj/item/geiger_counter/cyborg/dropped()
 	. = ..()

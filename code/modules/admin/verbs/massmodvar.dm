@@ -65,14 +65,14 @@
 		if(prompt != "Continue")
 			return
 
-	default = vv_get_class(var_value)
+	default = vv_get_class(variable, var_value)
 
 	if(isnull(default))
 		to_chat(src, "Unable to determine variable type.")
 	else
 		to_chat(src, "Variable appears to be <b>[uppertext(default)]</b>.")
 
-	to_chat(src, "Variable contains: [var_value]")
+	to_chat(src, "Variable contains: [translate_bitfield(default, variable, var_value)]")
 
 	if(default == VV_NUM)
 		var/dir_text = ""
@@ -89,7 +89,7 @@
 		if(dir_text)
 			to_chat(src, "If a direction, direction is: [dir_text]")
 
-	var/value = vv_get_value(default_class = default)
+	var/value = vv_get_value(class = (default == VV_BITFIELD ? VV_BITFIELD : null), default_class = default, var_name = variable)
 	var/new_value = value["value"]
 	var/class = value["class"]
 
@@ -207,7 +207,7 @@
 
 	log_world("### MassVarEdit by [src]: [O.type] (A/R [accepted]/[rejected]) [variable]=[html_encode("[O.vars[variable]]")]([list2params(value)])")
 	log_admin("[key_name(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] (Type: [class]) ([accepted] objects modified)")
-	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [html_encode("[O.vars[variable]]")] (Type: [class]) ([accepted] objects modified)")
+	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [html_encode(translate_bitfield(default, variable, O.vars[variable]))] (Type: [class]) ([accepted] objects modified)")
 
 /proc/get_all_of_type(T, subtypes = TRUE)
 	var/list/typecache = list()
@@ -228,7 +228,7 @@
 			CHECK_TICK
 
 	else if(ispath(T, /obj/machinery))
-		for(var/obj/machinery/thing in GLOB.machines)
+		for(var/obj/machinery/thing in SSmachines.get_by_type(/obj/machinery))
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK

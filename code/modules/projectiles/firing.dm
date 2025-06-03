@@ -38,13 +38,20 @@
 
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread, atom/firer_source_atom)
 	var/turf/curloc = get_turf(firer_source_atom)
-	if(!istype(curloc)) // False-bottomed briefcase check.
+	if(!istype(curloc)) // False-bottomed briefcase check / shell launch system check.
 		var/obj/item/holding = user.get_active_hand()
 		if(istype(holding, /obj/item/storage/briefcase/false_bottomed))
 			curloc = get_turf(holding)
+		if(istype(firer_source_atom, /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher))
+			curloc = get_turf(user)
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
 	BB.ammo_casing = src
+	if(istype(BB.ammo_casing, /obj/item/ammo_casing/energy))
+		var/obj/item/ammo_casing/energy/energy_casing = BB.ammo_casing
+		BB.damage = BB.damage * energy_casing.lens_damage_multiplier
+		BB.stamina = BB.stamina * energy_casing.lens_damage_multiplier
+		BB.speed = BB.speed * energy_casing.lens_speed_multiplier
 
 	if(target && get_dist(user, target) <= 1) //Point blank shot must always hit
 		BB.starting = curloc

@@ -17,6 +17,10 @@
 	var/list/items_to_add = list()
 	/// A list of replacement items will need to be placed into a cyborg module's `special_rechargable` list after this upgrade is installed.
 	var/list/special_rechargables = list()
+	/// Allow the same upgrade to be installed multiple times, FALSE by default
+	var/allow_duplicate = FALSE
+	/// Delete the module after installing it. For deleting upgrades that might be installed multiple times, like the rename/reset upgrades.
+	var/delete_after_install = FALSE
 
 /**
  * Called when someone clicks on a borg with an upgrade in their hand.
@@ -24,12 +28,19 @@
  * Arguments:
  * * R - the cyborg that was clicked on with an upgrade.
  */
-/obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
-	if(!pre_install_checks(R))
+/obj/item/borg/upgrade/proc/action(mob/user, mob/living/silicon/robot/R)
+	if(!pre_install_checks(user, R))
 		return
+	if(!user.drop_item())
+		to_chat(user, "<span class='notice'>\The [src] is stuck to your hand, you cannot install it in [R]</span>")
+		return FALSE
 	if(!do_install(R))
 		return
 	after_install(R)
+	if(delete_after_install)
+		qdel(src)
+	else
+		forceMove(R)
 	return TRUE
 
 /**
@@ -38,13 +49,17 @@
  * Arguments:
  * * R - the cyborg that was clicked on with an upgrade.
  */
-/obj/item/borg/upgrade/proc/pre_install_checks(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/proc/pre_install_checks(mob/user, mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
-		to_chat(usr, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
+		to_chat(user, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
 		return
 	if(module_type && !istype(R.module, module_type))
-		to_chat(R, "<span class='warning'>Upgrade mounting error!  No suitable hardpoint detected!</span>")
-		to_chat(usr, "<span class='warning'>There's no mounting point for the module!</span>")
+		to_chat(R, "<span class='warning'>Upgrade mounting error! No suitable hardpoint detected!</span>")
+		to_chat(user, "<span class='warning'>There's no mounting point for the module!</span>")
+		return
+	var/obj/item/borg/upgrade/u = locate(type) in R
+	if(u && !allow_duplicate)
+		to_chat(user, "<span class='notice'>This unit already has [src] installed!</span>")
 		return
 	return TRUE
 
@@ -89,6 +104,7 @@
 	desc = "Used to reset a cyborg's module. Destroys any other upgrades applied to the cyborg."
 	icon_state = "cyborg_upgrade1"
 	require_module = TRUE
+	delete_after_install = TRUE
 
 /obj/item/borg/upgrade/reset/do_install(mob/living/silicon/robot/R)
 	R.reset_module()
@@ -101,9 +117,10 @@
 	name = "cyborg reclassification board"
 	desc = "Used to rename a cyborg."
 	icon_state = "cyborg_upgrade1"
+	delete_after_install = TRUE
 	var/heldname = "default name"
 
-/obj/item/borg/upgrade/rename/attack_self(mob/user)
+/obj/item/borg/upgrade/rename/attack_self__legacy__attackchain(mob/user)
 	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 	if(!new_heldname)
 		return
@@ -125,6 +142,7 @@
 	name = "cyborg emergency reboot module"
 	desc = "Used to force a reboot of a disabled-but-repaired cyborg, bringing it back online."
 	icon_state = "cyborg_upgrade1"
+	delete_after_install = TRUE
 
 /obj/item/borg/upgrade/restart/do_install(mob/living/silicon/robot/R)
 	if(R.health < 0)
@@ -150,10 +168,6 @@
 	origin_tech = "engineering=4;powerstorage=4"
 
 /obj/item/borg/upgrade/thrusters/do_install(mob/living/silicon/robot/R)
-	if(R.ionpulse)
-		to_chat(usr, "<span class='notice'>This unit already has ion thrusters installed!</span>")
-		return
-
 	R.ionpulse = TRUE
 	return TRUE
 
@@ -170,11 +184,6 @@
 	var/mob/living/silicon/robot/cyborg
 
 /obj/item/borg/upgrade/selfrepair/do_install(mob/living/silicon/robot/R)
-	var/obj/item/borg/upgrade/selfrepair/U = locate() in R
-	if(U)
-		to_chat(usr, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
-		return
-
 	cyborg = R
 	icon_state = "selfrepair_off"
 	var/datum/action/A = new /datum/action/item_action/toggle(src)
@@ -200,9 +209,7 @@
 /obj/item/borg/upgrade/selfrepair/update_icon_state()
 	if(cyborg)
 		icon_state = "selfrepair_[on ? "on" : "off"]"
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+		update_action_buttons()
 	else
 		icon_state = "cyborg_upgrade5"
 
@@ -259,11 +266,6 @@
 	origin_tech = "engineering=4;materials=5;programming=4"
 
 /obj/item/borg/upgrade/vtec/do_install(mob/living/silicon/robot/R)
-	for(var/obj/item/borg/upgrade/vtec/U in R.contents)
-		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
-		return
-
 	R.slowdown_cap = 3.5
 	return TRUE
 
@@ -316,7 +318,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 	items_to_replace = list(
-		/obj/item/storage/bag/ore/cyborg = /obj/item/storage/bag/ore/holding
+		/obj/item/storage/bag/ore/cyborg = /obj/item/storage/bag/ore/cyborg/holding
 	)
 
 /obj/item/borg/upgrade/lavaproof
@@ -376,10 +378,6 @@
 	var/mob/living/silicon/robot/cyborg
 
 /obj/item/borg/upgrade/floorbuffer/do_install(mob/living/silicon/robot/R)
-	for(var/obj/item/borg/upgrade/floorbuffer/U in R)
-		to_chat(R, "<span class='notice'>A floor buffer unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another floor buffer unit!</span>")
-		return
 	cyborg = R
 	var/datum/action/A = new /datum/action/item_action/floor_buffer(src)
 	A.Grant(R)
@@ -409,6 +407,20 @@
 	items_to_replace = list(
 		/obj/item/storage/bag/trash/cyborg = /obj/item/storage/bag/trash/bluespace/cyborg
 	)
+
+/***********************/
+// MARK: Service
+/***********************/
+
+/obj/item/borg/upgrade/rsf_executive
+	name = "executive service upgrade"
+	desc = "An upgrade that replaces a service cyborg's Rapid Service Fabricator with a classy Executive version."
+	icon_state = "cyborg_upgrade5"
+	origin_tech = "bio=2;materials=1"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
+	items_to_add = list(/obj/item/kitchen/knife/cheese)
+	items_to_replace = list(/obj/item/rsf = /obj/item/rsf/executive)
 
 /***********************/
 // MARK: Syndicate
@@ -469,11 +481,11 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 	items_to_replace = list(
-		/obj/item/scalpel/laser/laser1 = /obj/item/scalpel/laser/laser3, // No abductor laser scalpel, so next best thing.
+		/obj/item/scalpel/laser/laser1 = /obj/item/scalpel/laser/alien,
 		/obj/item/hemostat = /obj/item/hemostat/alien,
 		/obj/item/retractor = /obj/item/retractor/alien,
 		/obj/item/bonegel = /obj/item/bonegel/alien,
-		/obj/item/FixOVein = /obj/item/FixOVein/alien,
+		/obj/item/fix_o_vein = /obj/item/fix_o_vein/alien,
 		/obj/item/bonesetter = /obj/item/bonesetter/alien,
 		/obj/item/circular_saw = /obj/item/circular_saw/alien,
 		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien,
@@ -491,7 +503,7 @@
 	name = "janitorial cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces a janitorial cyborg's tools with the abductor versions."
 	icon_state = "abductor_mod"
-	origin_tech = "biotech=6;materials=6;abductor=3"
+	origin_tech = "biotech=6;materials=6;abductor=2"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
 	items_to_replace = list(

@@ -13,6 +13,7 @@
 	base_cooldown = 0
 	var/uses //If we have multiple uses of the same power
 	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
+	antimagic_flags = NONE
 
 /datum/spell/ai_spell/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -31,6 +32,26 @@
 	if(auto_use_uses)
 		adjust_uses(-1, user)
 
+/datum/spell/ai_spell/proc/find_nearest_camera(atom/target)
+	var/area/A = get_area(target)
+	if(!istype(A))
+		return
+	var/closest_camera = null
+	for(var/obj/machinery/camera/C in A)
+		if(isnull(closest_camera))
+			closest_camera = C
+			continue
+		if(get_dist(closest_camera, target) > get_dist(C, target))
+			closest_camera = C
+			continue
+	return closest_camera
+
+/datum/spell/ai_spell/proc/camera_beam(target, icon_state, icon, time)
+	var/obj/machinery/camera/C = find_nearest_camera(target)
+	if(!istype(C))
+		return
+	C.Beam(target, icon_state = icon_state, icon = icon, time = time)
+
 /datum/spell/ai_spell/proc/adjust_uses(amt, mob/living/silicon/ai/owner, silent)
 	uses += amt
 	if(!silent && uses)
@@ -43,6 +64,14 @@
 		return
 	desc = "[initial(desc)] It has [uses] use\s remaining."
 	UpdateButtons()
+
+/datum/spell/ai_spell/proc/check_camera_vision(mob/user, atom/target)
+	var/turf/target_turf = get_turf(target)
+	var/datum/camerachunk/C = GLOB.cameranet.get_camera_chunk(target_turf.x, target_turf.y, target_turf.z)
+	if(!C.visible_turfs[target_turf])
+		to_chat(user, "<span class='warning'>You don't have camera vision of this location!</span>")
+		return FALSE
+	return TRUE
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/spell/ai_spell/ranged
@@ -101,8 +130,8 @@
 
 /datum/module_picker/New()
 	possible_modules = list()
-	for(var/type in subtypesof(/datum/AI_Module))
-		var/datum/AI_Module/AM = new type
+	for(var/type in subtypesof(/datum/ai_module))
+		var/datum/ai_module/AM = new type
 		if(AM.power_type || AM.upgrade)
 			possible_modules += AM
 
@@ -112,7 +141,7 @@
 			<HR>
 			<B>Install Module:</B><BR>
 			<I>The number afterwards is the amount of processing time it consumes.</I><BR>"}
-	for(var/datum/AI_Module/module in possible_modules)
+	for(var/datum/ai_module/module in possible_modules)
 		dat += "<A href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	dat += "<HR>"
 	if(temp)
@@ -125,7 +154,7 @@
 /datum/module_picker/Topic(href, href_list)
 	..()
 
-	if(!isAI(usr))
+	if(!is_ai(usr))
 		return
 	var/mob/living/silicon/ai/A = usr
 
@@ -133,7 +162,7 @@
 		to_chat(A, "<span class='warning'>You are already dead!</span>")
 		return
 
-	for(var/datum/AI_Module/AM in possible_modules)
+	for(var/datum/ai_module/AM in possible_modules)
 		if(href_list[AM.mod_pick_name])
 
 			// Cost check
@@ -175,7 +204,7 @@
 	use(usr)
 
 //The base module type, which holds info about each ability.
-/datum/AI_Module
+/datum/ai_module
 	var/module_name
 	var/mod_pick_name
 	var/description = ""
@@ -187,11 +216,11 @@
 	var/unlock_sound //Sound played when an ability is unlocked
 	var/uses = 0
 
-/datum/AI_Module/proc/upgrade(mob/living/silicon/ai/AI) //Apply upgrades!
+/datum/ai_module/proc/upgrade(mob/living/silicon/ai/AI) //Apply upgrades!
 	return
 
 //Doomsday Device: Starts the self-destruct timer. It can only be stopped by killing the AI completely.
-/datum/AI_Module/nuke_station
+/datum/ai_module/nuke_station
 	module_name = "Doomsday Device"
 	mod_pick_name = "nukestation"
 	description = "Activate a weapon that will disintegrate all organic life on the station after a 450 second delay. Can only be used while on the station, will fail if your core is moved off station or destroyed."
@@ -303,7 +332,7 @@
 	SSticker.mode.station_was_nuked = TRUE
 
 //AI Turret Upgrade: Increases the health and damage of all turrets.
-/datum/AI_Module/upgrade_turrets
+/datum/ai_module/upgrade_turrets
 	module_name = "AI Turret Upgrade"
 	mod_pick_name = "turret"
 	description = "Improves the power and health of all AI turrets. This effect is permanent."
@@ -312,8 +341,8 @@
 	unlock_text = "<span class='notice'>You establish a power diversion to your turrets, upgrading their health and damage.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
-	for(var/obj/machinery/porta_turret/ai_turret/turret in GLOB.machines)
+/datum/ai_module/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
+	for(var/obj/machinery/porta_turret/ai_turret/turret in SSmachines.get_by_type(/obj/machinery/porta_turret/ai_turret))
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
 			turret.health += 30
@@ -322,7 +351,7 @@
 	AI.turrets_upgraded = TRUE
 
 //Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
-/datum/AI_Module/lockdown
+/datum/ai_module/lockdown
 	module_name = "Hostile Station Lockdown"
 	mod_pick_name = "lockdown"
 	description = "Overload the airlock, blast door and fire control networks, locking them down. Caution! This command also electrifies all airlocks. The networks will automatically reset after 90 seconds, briefly \
@@ -343,7 +372,7 @@
 	new /datum/event/door_runtime()
 
 //Destroy RCDs: Detonates all non-cyborg RCDs on the station.
-/datum/AI_Module/destroy_rcd
+/datum/ai_module/destroy_rcd
 	module_name = "Destroy RCDs"
 	mod_pick_name = "rcd"
 	description = "Send a specialised pulse to detonate all hand-held and exosuit Rapid Construction Devices on the station."
@@ -371,7 +400,7 @@
 	user.playsound_local(user, 'sound/machines/twobeep.ogg', 50, FALSE, use_reverb = FALSE)
 
 //Unlock Mech Domination: Unlocks the ability to dominate mechs. Big shocker, right?
-/datum/AI_Module/mecha_domination
+/datum/ai_module/mecha_domination
 	module_name = "Unlock Mech Domination"
 	mod_pick_name = "mechjack"
 	description = "Allows you to hack into a mech's onboard computer, shunting all processes into it and ejecting any occupants. Once uploaded to the mech, it is impossible to leave.\
@@ -381,11 +410,11 @@
 	unlock_text = "<span class='notice'>Virus package compiled. Select a target mech at any time. <b>You must remain on the station at all times. Loss of signal will result in total system lockout.</b></span>"
 	unlock_sound = 'sound/mecha/nominal.ogg'
 
-/datum/AI_Module/mecha_domination/upgrade(mob/living/silicon/ai/AI)
+/datum/ai_module/mecha_domination/upgrade(mob/living/silicon/ai/AI)
 	AI.can_dominate_mechs = TRUE //Yep. This is all it does. Honk!
 
 //Thermal Sensor Override: Unlocks the ability to disable all fire alarms from doing their job.
-/datum/AI_Module/break_fire_alarms
+/datum/ai_module/break_fire_alarms
 	module_name = "Thermal Sensor Override"
 	mod_pick_name = "burnpigs"
 	description = "Gives you the ability to override the thermal sensors on all fire alarms. This will remove their ability to scan for fire and thus their ability to alert. \
@@ -402,7 +431,7 @@
 	uses = 1
 
 /datum/spell/ai_spell/break_fire_alarms/cast(list/targets, mob/user)
-	for(var/obj/machinery/firealarm/F in GLOB.machines)
+	for(var/obj/machinery/firealarm/F in SSmachines.get_by_type(/obj/machinery/firealarm))
 		if(!is_station_level(F.z))
 			continue
 		F.emagged = TRUE
@@ -410,7 +439,7 @@
 	user.playsound_local(user, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
 //Air Alarm Safety Override: Unlocks the ability to enable flooding on all air alarms.
-/datum/AI_Module/break_air_alarms
+/datum/ai_module/break_air_alarms
 	module_name = "Air Alarm Safety Override"
 	mod_pick_name = "allow_flooding"
 	description = "Gives you the ability to disable safeties on all air alarms. This will allow you to use the environmental mode Flood, which disables scrubbers as well as pressure checks on vents. \
@@ -427,7 +456,7 @@
 	uses = 1
 
 /datum/spell/ai_spell/break_air_alarms/cast(list/targets, mob/user)
-	for(var/obj/machinery/alarm/AA in GLOB.machines)
+	for(var/obj/machinery/alarm/AA in SSmachines.get_by_type(/obj/machinery/alarm))
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = TRUE
@@ -435,7 +464,7 @@
 	user.playsound_local(user, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
 //Overload Machine: Allows the AI to overload a machine, detonating it after a delay. Two uses per purchase.
-/datum/AI_Module/overload_machine
+/datum/ai_module/overload_machine
 	module_name = "Machine Overload"
 	mod_pick_name = "overload"
 	description = "Overheats an electrical machine, causing a moderately-sized explosion and destroying it. Four uses per purchase."
@@ -472,12 +501,12 @@
 
 /datum/spell/ai_spell/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0, 2, 3, 0)
+		explosion(get_turf(M), 0, 2, 3, 0, cause = "Malf AI: [name]")
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
-/datum/AI_Module/override_machine
+/datum/ai_module/override_machine
 	module_name = "Machine Override"
 	mod_pick_name = "override"
 	description = "Overrides a machine's programming, causing it to rise up and attack everyone except other machines. Four uses."
@@ -515,7 +544,7 @@
 		new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, user, 1)
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
-/datum/AI_Module/place_cyborg_transformer
+/datum/ai_module/place_cyborg_transformer
 	module_name = "Robotic Factory (Removes Shunting)"
 	mod_pick_name = "cyborgtransformer"
 	description = "Build a machine anywhere, using expensive nanomachines, that can convert a living human into a loyal cyborg slave when placed inside."
@@ -572,8 +601,8 @@
 		var/turf/T = turfs[n]
 		if(!isfloorturf(T))
 			success = FALSE
-		var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(T.x, T.y, T.z)
-		if(!C.visibleTurfs[T])
+		var/datum/camerachunk/C = GLOB.cameranet.get_camera_chunk(T.x, T.y, T.z)
+		if(!C.visible_turfs[T])
 			alert_msg = "You don't have camera vision of this location!"
 			success = FALSE
 		for(var/atom/movable/AM in T.contents)
@@ -590,7 +619,7 @@
 	return success
 
 //Turret Assembly: Assemble an AI turret at the chosen location. One use per purchase
-/datum/AI_Module/place_turret
+/datum/ai_module/place_turret
 	module_name = "Deploy Turret"
 	mod_pick_name = "turretdeployer"
 	description = "Build a turret anywhere that lethally targets organic life in sight."
@@ -672,16 +701,16 @@
 	I.loc = deploylocation
 	client.images += I
 	I.icon_state = "redOverlay"
-	var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(deploylocation.x, deploylocation.y, deploylocation.z)
+	var/datum/camerachunk/C = GLOB.cameranet.get_camera_chunk(deploylocation.x, deploylocation.y, deploylocation.z)
 
 	if(!istype(deploylocation))
 		to_chat(src, "<span class='warning'>There isn't enough room! Make sure you are placing the machine in a clear area and on a floor.</span>")
 		return FALSE
-	if(!C.visibleTurfs[deploylocation])
+	if(!C.visible_turfs[deploylocation])
 		to_chat(src, "<span class='warning'>You don't have camera vision of this location!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
-	if(is_blocked_turf(deploylocation))
+	if(deploylocation.is_blocked_turf())
 		to_chat(src, "<span class='warning'>That area must be clear of objects!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
@@ -691,7 +720,7 @@
 	return TRUE
 
 //Blackout: Overloads a random number of lights across the station. Three uses.
-/datum/AI_Module/blackout
+/datum/ai_module/blackout
 	module_name = "Blackout"
 	mod_pick_name = "blackout"
 	description = "Attempts to overload the lighting circuits on the station, destroying some bulbs. Three uses."
@@ -718,7 +747,7 @@
 	adjust_uses(-1, user)
 
 //Reactivate Camera Network: Reactivates up to 30 cameras across the station.
-/datum/AI_Module/reactivate_cameras
+/datum/ai_module/reactivate_cameras
 	module_name = "Reactivate Camera Network"
 	mod_pick_name = "recam"
 	description = "Runs a network-wide diagnostic on the camera network, resetting focus and re-routing power to failed cameras. Can be used to repair up to 30 cameras."
@@ -752,7 +781,7 @@
 	adjust_uses(0, user, TRUE)
 
 //Upgrade Camera Network: EMP-proofs all cameras, in addition to giving them X-ray vision.
-/datum/AI_Module/upgrade_cameras
+/datum/ai_module/upgrade_cameras
 	module_name = "Upgrade Camera Network"
 	mod_pick_name = "upgradecam"
 	description = "Install broad-spectrum scanning and electrical redundancy firmware to the camera network, enabling EMP-proofing and light-amplified X-ray vision." //I <3 pointless technobabble
@@ -763,7 +792,7 @@
 	unlock_text = "<span class='notice'>OTA firmware distribution complete! Cameras upgraded: CAMSUPGRADED. Light amplification system online.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/upgrade_cameras/upgrade(mob/living/silicon/ai/AI)
+/datum/ai_module/upgrade_cameras/upgrade(mob/living/silicon/ai/AI)
 	var/upgraded_cameras = 0
 
 	for(var/V in GLOB.cameranet.cameras)
@@ -785,7 +814,7 @@
 
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()
 
-/datum/AI_Module/eavesdrop
+/datum/ai_module/eavesdrop
 	module_name = "Enhanced Surveillance"
 	mod_pick_name = "eavesdrop"
 	description = "Via a combination of hidden microphones and lip reading software, you are able to use your cameras to listen in on conversations."
@@ -795,11 +824,11 @@
 	unlock_text = "<span class='notice'>OTA firmware distribution complete! Cameras upgraded: Enhanced surveillance package online.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/eavesdrop/upgrade(mob/living/silicon/ai/AI)
+/datum/ai_module/eavesdrop/upgrade(mob/living/silicon/ai/AI)
 	if(AI.eyeobj)
 		AI.eyeobj.relay_speech = TRUE
 
-/datum/AI_Module/cameracrack
+/datum/ai_module/cameracrack
 	module_name = "Core Camera Cracker"
 	mod_pick_name = "cameracrack"
 	description = "By shortcirucuting the camera network chip, it overheats, preventing the camera console from using your internal camera."
@@ -809,12 +838,12 @@
 	unlock_text = "<span class='notice'>Network chip short circuited. Internal camera disconected from network. Minimal damage to other internal components.</span>"
 	unlock_sound = 'sound/items/wirecutter.ogg'
 
-/datum/AI_Module/cameracrack/upgrade(mob/living/silicon/ai/AI)
+/datum/ai_module/cameracrack/upgrade(mob/living/silicon/ai/AI)
 	if(AI.builtInCamera)
 		AI.cracked_camera = TRUE
 		QDEL_NULL(AI.builtInCamera)
 
-/datum/AI_Module/borg_upgrade
+/datum/ai_module/borg_upgrade
 	module_name = "Combat Cyborg Firmware Upgrade"
 	mod_pick_name = "combatborgs"
 	description = "Downloads firmware that activates built-in combat hardware present in all cyborgs. Cyborgs built after this is used will come with the hardware activated."
@@ -824,7 +853,7 @@
 	unlock_text = "<span class='notice'>Firmware downloaded. Bugs removed. Combat subsystems operating at 73% efficiency.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/borg_upgrade/upgrade(mob/living/silicon/ai/AI)
+/datum/ai_module/borg_upgrade/upgrade(mob/living/silicon/ai/AI)
 	AI.purchased_modules = list(/obj/item/robot_module/engineering, /obj/item/robot_module/janitor, /obj/item/robot_module/medical, /obj/item/robot_module/miner, /obj/item/robot_module/butler)
 	log_game("[key_name(usr)] purchased combat upgrades for all cyborgs.")
 	message_admins("<span class='notice'>[key_name_admin(usr)] purchased combat upgrades for all cyborgs!</span>")
@@ -833,7 +862,7 @@
 		R.module.rebuild_modules()
 		to_chat(R, "<span class='notice'>New firmware downloaded. Combat upgrades are now online.</span>")
 
-/datum/AI_Module/repair_cyborg
+/datum/ai_module/repair_cyborg
 	module_name = "Repair Cyborgs"
 	mod_pick_name = "repair_borg"
 	description = "Causes an electrical surge in the targeted cyborg, rebooting and repairing most of its subsystems. Requires two uses on a cyborg with broken armor."
@@ -864,7 +893,7 @@
 	user.playsound_local(user, "sparks", 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1, user)
 	robot_target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [robot_target]!</span>")
-	if(!do_mob(user, robot_target, 10 SECONDS))
+	if(!do_mob(user, robot_target, 10 SECONDS, hidden = TRUE))
 		is_active = FALSE
 		return
 	is_active = FALSE
@@ -879,7 +908,7 @@
 		component.component_disabled = FALSE
 	to_repair.revive()
 
-/datum/AI_Module/core_tilt
+/datum/ai_module/core_tilt
 	module_name = "Rolling Servos"
 	mod_pick_name = "watchforrollingcores"
 	description = "Allows you to slowly roll your core around, crushing anything in your path with your bulk."

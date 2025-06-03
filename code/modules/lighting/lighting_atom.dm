@@ -99,8 +99,11 @@
 	cut_overlay(exposure_overlay)
 
 	if(glow_icon && glow_icon_state)
-		glow_overlay = image(icon = glow_icon, icon_state = glow_icon_state, dir = dir, layer = 1)
-		glow_overlay.plane = LIGHTING_LAMPS_PLANE
+		glow_overlay = image(icon = glow_icon, icon_state = glow_icon_state, dir = dir, layer = -2)
+		if(layer <= LOW_OBJ_LAYER)
+			glow_overlay.plane = FLOOR_LIGHTING_LAMPS_PLANE // Yeah this sucks
+		else
+			glow_overlay.plane = LIGHTING_LAMPS_PLANE
 		glow_overlay.blend_mode = BLEND_ADD
 
 		if(glow_colored)

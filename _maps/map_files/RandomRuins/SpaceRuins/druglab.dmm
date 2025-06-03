@@ -13,6 +13,7 @@
 /area/ruin/space/methlab)
 "d" = (
 /obj/structure/closet/crate,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "e" = (
@@ -28,12 +29,20 @@
 /area/ruin/space/methlab)
 "g" = (
 /obj/effect/decal/cleanable/blood,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "h" = (
 /obj/machinery/door/airlock/external{
 	name = "Crackden Airlock"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 8
+	},
+/obj/machinery/access_button/offset/south,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "i" = (
@@ -47,6 +56,8 @@
 /obj/machinery/door/airlock/external{
 	name = "Plain Airlock"
 	},
+/obj/machinery/access_button/offset/southeast,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "l" = (
@@ -77,7 +88,6 @@
 /area/ruin/space/methlab)
 "p" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/east{
@@ -91,15 +101,6 @@
 /area/ruin/space/methlab)
 "r" = (
 /obj/machinery/chem_master,
-/turf/simulated/floor/plating,
-/area/ruin/space/methlab)
-"s" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plating,
-/area/ruin/space/methlab)
-"t" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "u" = (
@@ -124,8 +125,48 @@
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
+"A" = (
+/obj/item/grenade/chem_grenade/drugs,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"B" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"C" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
 "K" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
+/area/ruin/space/methlab)
+"L" = (
+/obj/machinery/airlock_controller/air_cycler/directional/north,
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"M" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"N" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"Z" = (
+/obj/item/grenade/chem_grenade/drugs,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8
+	},
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 
 (1,1,1) = {"
@@ -135,10 +176,12 @@ a
 a
 a
 a
-b
-b
-b
-b
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -149,12 +192,14 @@ a
 a
 a
 a
+a
+a
+a
 b
 b
 b
 b
-b
-b
+a
 a
 a
 a
@@ -164,19 +209,40 @@ a
 a
 a
 a
-b
-b
-K
-K
-K
+a
+a
 b
 b
 b
+b
+b
+b
+a
+a
 a
 a
 a
 "}
 (4,1,1) = {"
+a
+a
+a
+a
+b
+b
+K
+K
+K
+b
+b
+b
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
 a
 a
 a
@@ -191,8 +257,10 @@ b
 a
 a
 a
+a
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+a
 a
 a
 a
@@ -207,8 +275,10 @@ b
 b
 b
 b
+a
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+a
 a
 a
 b
@@ -216,15 +286,17 @@ b
 d
 j
 j
-s
+C
 j
 j
 y
 b
 b
 b
+a
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+a
 a
 a
 b
@@ -232,15 +304,17 @@ b
 e
 j
 p
-t
+N
 K
 K
 b
 b
 b
 a
+a
 "}
-(8,1,1) = {"
+(9,1,1) = {"
+a
 a
 b
 b
@@ -255,8 +329,10 @@ b
 a
 a
 a
+a
 "}
-(9,1,1) = {"
+(10,1,1) = {"
+a
 b
 b
 K
@@ -271,35 +347,22 @@ b
 a
 a
 a
+a
 "}
-(10,1,1) = {"
+(11,1,1) = {"
+a
 b
 b
 b
 K
 g
-i
+A
+B
 j
 j
-j
-x
-b
-a
-a
-a
-"}
-(11,1,1) = {"
-a
-a
-b
-b
-h
-b
 q
 b
-b
-b
-b
+a
 a
 a
 a
@@ -307,14 +370,16 @@ a
 (12,1,1) = {"
 a
 a
-b
-b
-i
-b
-b
-b
-b
 a
+b
+b
+h
+b
+M
+b
+b
+b
+b
 a
 a
 a
@@ -322,14 +387,16 @@ a
 "}
 (13,1,1) = {"
 a
+a
+a
+b
+b
+Z
 b
 b
 b
-j
 b
-b
-b
-b
+a
 a
 a
 a
@@ -338,10 +405,12 @@ a
 "}
 (14,1,1) = {"
 a
+a
 b
 b
 b
-k
+L
+b
 b
 b
 b
@@ -357,8 +426,10 @@ a
 a
 b
 b
-a
-a
+b
+k
+b
+b
 b
 a
 a
@@ -373,6 +444,44 @@ a
 a
 a
 b
+b
+a
+a
+b
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(17,1,1) = {"
+a
+a
+a
+a
+b
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(18,1,1) = {"
+a
+a
+a
+a
+a
+a
 a
 a
 a

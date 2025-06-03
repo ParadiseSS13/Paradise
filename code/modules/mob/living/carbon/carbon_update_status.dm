@@ -1,12 +1,13 @@
 /mob/living/carbon/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
 		return
-	if(stat != DEAD)
+
+	if(stat != DEAD && !(status_flags & TERMINATOR_FORM))
 		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || HAS_TRAIT(src, TRAIT_FAKEDEATH) || health < HEALTH_THRESHOLD_KNOCKOUT && check_death_method() || health <= HEALTH_THRESHOLD_DEAD)
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || HAS_TRAIT(src, TRAIT_FAKEDEATH) || health < HEALTH_THRESHOLD_KNOCKOUT && check_death_method() || health <= HEALTH_THRESHOLD_DEAD) // In case anyone is wondering where oldcrit is handled, it's here.
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
@@ -24,7 +25,7 @@
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT && stat == CONSCIOUS)
+	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT && stat != DEAD)
 		enter_stamcrit()
 	else if(stam_paralyzed)
 		SEND_SIGNAL(src, COMSIG_CARBON_EXIT_STAMINACRIT)

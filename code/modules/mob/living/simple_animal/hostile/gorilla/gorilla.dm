@@ -43,9 +43,9 @@
 	/// Chance of doing the throw or stamina damage, along with the flat damage amount
 	var/throw_onhit = 50
 
-/mob/living/simple_animal/hostile/gorilla/Initialize()
+/mob/living/simple_animal/hostile/gorilla/Initialize(mapload)
 	. = ..()
-	var/datum/action/innate/gorilla/gorilla_toggle/toggle = new
+	var/datum/action/innate/gorilla_toggle/toggle = new
 	toggle.Grant(src)
 	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate)) // Normal crates only please, no weird sized ones
 	carriable_cache = default_cache
@@ -54,14 +54,14 @@
 	LAZYCLEARLIST(crates_in_hand)
 	return ..()
 
-/datum/action/innate/gorilla/gorilla_toggle
+/datum/action/innate/gorilla_toggle
 	name = "Toggle Stand"
 	desc = "Toggles between crawling and standing up."
 	button_overlay_icon = 'icons/mob/actions/actions_animal.dmi'
 	button_overlay_icon_state = "gorilla_toggle"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/gorilla/gorilla_toggle/Activate()
+/datum/action/innate/gorilla_toggle/Activate()
 	. = ..()
 	var/mob/living/simple_animal/hostile/gorilla/gorilla = owner
 	if(!istype(gorilla))
@@ -118,7 +118,8 @@
 			movable_target.forceMove(src)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
-		if(isturf(target) && !is_blocked_turf(target) && LAZYLEN(crates_in_hand))
+		var/turf/target_turf = target
+		if(istype(target_turf) && !target_turf.is_blocked_turf() && LAZYLEN(crates_in_hand))
 			drop_random_crate(target)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 

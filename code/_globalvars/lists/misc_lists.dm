@@ -47,9 +47,6 @@ GLOBAL_LIST_INIT(round_end_sounds, list(
 
 GLOBAL_LIST_INIT(cooking_recipe_types, list(
 	RECIPE_MICROWAVE = /datum/recipe/microwave,
-	RECIPE_OVEN = /datum/recipe/oven,
-	RECIPE_GRILL = /datum/recipe/grill,
-	RECIPE_CANDY = /datum/recipe/candy
 	))
 GLOBAL_LIST_INIT(cooking_recipes, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
 GLOBAL_LIST_INIT(cooking_ingredients, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
@@ -70,3 +67,6 @@ GLOBAL_LIST_EMPTY(tilt_crits)
 
 /// Stores a list of the cached seed icons. Used in the seed extractor and the gene modder
 GLOBAL_LIST_EMPTY(seeds_cached_base64_icons)
+
+/// Assoc list of all RND techs with ID to name
+GLOBAL_LIST_EMPTY(rnd_tech_id_to_name)

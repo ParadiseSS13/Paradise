@@ -39,9 +39,9 @@
 	animal_species = /mob/living/simple_animal/hostile/asteroid/gutlunch
 	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
 
-	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal/eyes, 
-										/obj/item/organ/internal/heart, /obj/item/organ/internal/lungs, 
-										/obj/item/organ/internal/liver, /obj/item/organ/internal/kidneys, 
+	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal/eyes,
+										/obj/item/organ/internal/heart, /obj/item/organ/internal/lungs,
+										/obj/item/organ/internal/liver, /obj/item/organ/internal/kidneys,
 										/obj/item/organ/internal/appendix)
 	var/obj/item/udder/gutlunch/udder = null
 
@@ -58,12 +58,11 @@
 	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
 		add_overlay("gl_full")
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/hostile/asteroid/gutlunch/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 		regenerate_icons()
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/CanAttack(atom/the_target) // Gutlunch-specific version of CanAttack to handle stupid stat_exclusive = true crap so we don't have to do it for literally every single simple_animal/hostile except the two that spawn in lavaland
 	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids

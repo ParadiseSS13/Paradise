@@ -66,12 +66,13 @@
 	QDEL_LIST_CONTENTS(branches_init)
 	return ..()
 
-/datum/surgery_step/proxy/get_step_information(datum/surgery/surgery)
+/datum/surgery_step/proxy/get_step_information(datum/surgery/surgery, with_tools = FALSE)
 	var/datum/surgery_step/cur = surgery.get_surgery_next_step()
 	var/step_names = list()
 	for(var/datum/surgery/surg in branches_init)
-		step_names += surg.get_surgery_step()
-	step_names += cur  // put this one on the end
+		var/datum/surgery_step/surg_step = surg.get_surgery_step()
+		step_names += surg_step.get_step_information(surgery, with_tools)
+	step_names += cur.get_step_information(surgery, with_tools)  // put this one on the end
 
 	return english_list(step_names, "Nothing...? If you see this, tell a coder.", ", or ")
 
@@ -113,7 +114,7 @@
 		for(var/allowed in first_step.allowed_tools)
 			if(ispath(allowed) && istype(tool, allowed) || (tool && istype(tool) && tool.tool_behaviour == allowed))
 				next_surgery = S
-			if(allowed in starting_tools && !(allowed in overriding_tools))
+			if((allowed in starting_tools) && !(allowed in overriding_tools))
 				CRASH("[src] was provided with multiple branches that start with tool [allowed].")
 			else
 				starting_tools.Add(allowed)

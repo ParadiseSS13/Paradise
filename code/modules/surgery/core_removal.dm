@@ -19,6 +19,10 @@
 		/obj/item/kitchen/knife = 65,
 		/obj/item/shard = 45
 	)
+
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/scalpel2.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 	time = 1.6 SECONDS
 
 /datum/surgery_step/slime/cut_flesh/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
@@ -38,6 +42,8 @@
 /datum/surgery_step/slime/extract_core
 	name = "extract core"
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 100)
+	preop_sound = 'sound/surgery/organ1.ogg'
+	success_sound = 'sound/surgery/organ2.ogg'
 	time = 1.6 SECONDS
 
 /datum/surgery_step/slime/extract_core/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)

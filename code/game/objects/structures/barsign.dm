@@ -116,7 +116,7 @@
 		if(BARSIGN_WIRED)
 			. += "<span class='notice'>The frame lacks a <i>glass screen</i> and is filled with wires that could be <b>cut</b>.</span>"
 		if(BARSIGN_COMPLETE)
-			. += "<span class='info'><b>Alt-Click</b> to toggle its power.</span>"
+			. += "<span class='notice'><b>Alt-Click</b> to toggle its power.</span>"
 			if(panel_open)
 				. += "<span class='notice'>It is disabled by its <i>unscrewed</i> maintenance panel that exposes an area from which the screen could be <b>pried out</b>.</span>"
 
@@ -178,12 +178,12 @@
 		return
 	attack_hand(user)
 
-/obj/machinery/barsign/attackby(obj/item/I, mob/user, params)
+/obj/machinery/barsign/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	switch(build_stage)
 		// Inserting the electronics/circuit
 		if(BARSIGN_FRAME)
-			if(istype(I, /obj/item/barsign_electronics))
-				var/obj/item/barsign_electronics/electronic = I
+			if(istype(used, /obj/item/barsign_electronics))
+				var/obj/item/barsign_electronics/electronic = used
 				if(electronic.destroyed)
 					emagged = TRUE
 				else
@@ -196,37 +196,37 @@
 				qdel(electronic)
 				build_stage = BARSIGN_CIRCUIT
 				update_icon()
-				playsound(get_turf(src), I.usesound, 50, TRUE)
+				playsound(get_turf(src), used.usesound, 50, TRUE)
 				add_fingerprint(user)
-				return
+				return ITEM_INTERACT_COMPLETE
 		// Wiring the bar sign
 		if(BARSIGN_CIRCUIT)
-			if(istype(I, /obj/item/stack/cable_coil))
-				if(!I.use(5))
+			if(istype(used, /obj/item/stack/cable_coil))
+				if(!used.use(5))
 					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				stat &= ~EMPED
 				build_stage = BARSIGN_WIRED
 				update_icon()
-				playsound(get_turf(src), I.usesound, 50, TRUE)
+				playsound(get_turf(src), used.usesound, 50, TRUE)
 				to_chat(user, "<span class='notice'>You wire [src]!</span>")
 				power_state = IDLE_POWER_USE
 				add_fingerprint(user)
-				return
+				return ITEM_INTERACT_COMPLETE
 		// Placing in the glass
 		if(BARSIGN_WIRED)
-			if(istype(I, /obj/item/stack/sheet/glass))
-				if(!I.use(2))
+			if(istype(used, /obj/item/stack/sheet/glass))
+				if(!used.use(2))
 					to_chat(user, "<span class='warning'>You need at least 2 sheets of glass for this!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				build_stage = BARSIGN_COMPLETE
-				playsound(get_turf(src), I.usesound, 50, TRUE)
+				playsound(get_turf(src), used.usesound, 50, TRUE)
 				obj_integrity = max_integrity
 				if(stat & BROKEN)
 					stat &= ~BROKEN
 				set_sign(new /datum/barsign/hiddensigns/signoff)
 				add_fingerprint(user)
-				return
+				return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/barsign/proc/pick_sign(mob/user)
@@ -483,7 +483,7 @@
 	. = ..()
 	. += "<span class='notice'>Use it while in your active hand to toggle the access restrictions.</span>"
 
-/obj/item/barsign_electronics/attack_self(mob/user)
+/obj/item/barsign_electronics/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(destroyed)
 		return

@@ -57,7 +57,7 @@
 	max_integrity = 20
 	var/allow_walk = TRUE //can we pass through it on walk intent
 
-/obj/structure/holosign/barrier/CanPass(atom/movable/mover, turf/target)
+/obj/structure/holosign/barrier/CanPass(atom/movable/mover, border_dir)
 	if(!density)
 		return TRUE
 	if(mover.pass_flags & (PASSGLASS|PASSTABLE|PASSGRILLE))
@@ -70,7 +70,7 @@
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_LIGHT_INSULATION
+	rad_insulation_beta = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos
 	name = "holo firelock"
@@ -81,7 +81,7 @@
 	anchored = TRUE
 	alpha = 150
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_LIGHT_INSULATION
+	rad_insulation_beta = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()

@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 
 /obj/machinery/newscaster/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
 
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
@@ -386,9 +386,8 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				return
 			if(ishuman(usr))
 				var/obj/item/photo/P = usr.get_active_hand()
-				if(istype(P) && usr.unEquip(P))
+				if(istype(P) && usr.transfer_item_to(P, src))
 					photo = P
-					P.forceMove(src)
 					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\
 										"<span class='notice'>You insert [P] into [src]'s photo slot.</span>")
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
@@ -645,18 +644,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 /obj/machinery/newscaster/proc/get_scanned_user(mob/user)
 	. = list(name = "Unknown", security = user.can_admin_interact())
 	if(ishuman(user))
-		var/mob/living/carbon/human/M = user
-		// No ID, no luck
-		if(!M.wear_id)
-			return
-		// Try to get the ID
-		var/obj/item/card/id/ID
-		if(istype(M.wear_id, /obj/item/pda))
-			var/obj/item/pda/P = M.wear_id
-			ID = P.id
-		else if(istype(M.wear_id, /obj/item/card/id))
-			ID = M.wear_id
-		if(istype(ID))
+		var/mob/living/carbon/human/human_user = user
+		var/obj/item/card/id/ID = human_user.get_id_card()
+		if(ID)
 			return list(name = "[ID.registered_name] ([ID.assignment])", security = has_access(list(), list(ACCESS_SECURITY), ID.access))
 	else if(issilicon(user))
 		var/mob/living/silicon/ai_user = user
@@ -739,6 +729,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	eject_photo(user)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster/security_unit, 30, 30)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

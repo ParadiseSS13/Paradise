@@ -281,7 +281,7 @@
 //The legionnaire's bonfire, which can be swapped positions with.  Also sets flammable living beings on fire when they walk over it.
 /obj/structure/legionnaire_bonfire
 	name = "bone pile"
-	desc = "A pile of bones which seems to occasionally move a little.  It's probably a good idea to smash them."
+	desc = "A pile of bones which seems to occasionally move a little. It's probably a good idea to smash them."
 	icon = 'icons/obj/lavaland/legionnaire_bonfire.dmi'
 	icon_state = "bonfire"
 	max_integrity = 100
@@ -289,15 +289,22 @@
 	anchored = TRUE
 	density = FALSE
 	light_range = 4
-	light_color = LIGHT_COLOR_RED
+	light_color = LIGHT_COLOR_FLARE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
-/obj/structure/legionnaire_bonfire/Crossed(datum/source, atom/movable/mover)
-	if(isobj(source))
-		var/obj/object = source
+/obj/structure/legionnaire_bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/legionnaire_bonfire/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(isobj(entered))
+		var/obj/object = entered
 		object.fire_act(1000, 500)
-	if(isliving(source))
-		var/mob/living/fire_walker = source
+	if(isliving(entered))
+		var/mob/living/fire_walker = entered
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
 
@@ -337,7 +344,7 @@
 	A.friends += user
 	A.faction = user.faction.Copy()
 
-/obj/item/crusher_trophy/legionnaire_spine/attack_self(mob/user)
+/obj/item/crusher_trophy/legionnaire_spine/attack_self__legacy__attackchain(mob/user)
 	if(!isliving(user))
 		return
 	var/mob/living/LivingUser = user

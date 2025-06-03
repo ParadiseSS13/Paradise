@@ -64,7 +64,7 @@
 
 /obj/item/clothing/head/hasturhood
 	name = "hastur's hood"
-	desc = "It's unspeakably stylish"
+	desc = "It's unspeakably stylish."
 	icon_state = "hasturhood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
@@ -277,11 +277,11 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
-/obj/item/clothing/head/fedora/attack_self(mob/user)
+/obj/item/clothing/head/fedora/attack_self__legacy__attackchain(mob/user)
 	tip_fedora(user)
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
@@ -411,7 +411,8 @@
 /// Fluff?
 /obj/item/clothing/head/beret/purple
 	name = "Pierson Family Beret"
-	desc = " A purple beret, with a small golden crescent moon sewn onto it."
+	desc = "A purple beret, with a small golden crescent moon sewn onto it."
+	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
 
@@ -487,7 +488,7 @@
 	)
 	actions_types = list(/datum/action/item_action/caw)
 
-/obj/item/clothing/head/griffin/attack_self()
+/obj/item/clothing/head/griffin/attack_self__legacy__attackchain()
 	caw()
 
 /obj/item/clothing/head/griffin/proc/caw()
@@ -536,6 +537,7 @@
 	icon_state = "crown"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 50)
 	resistance_flags = FIRE_PROOF
+	can_be_hat = FALSE
 
 /obj/item/clothing/head/crown/fancy
 	name = "magnificent crown"
@@ -611,4 +613,15 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+		)
+/obj/item/clothing/head/cool_bandana
+	name = "badass bandana"
+	desc = "You know what time it is."
+	icon_state = "tmc_hat"
+	item_state = "armor"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 		)

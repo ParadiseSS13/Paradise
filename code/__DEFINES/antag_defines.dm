@@ -73,5 +73,43 @@ GLOBAL_LIST(contractors)
  */
 #define IS_CHANGELING(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/changeling))
 
+#define IS_MINDFLAYER(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindflayer))
+
 #define IS_MINDSLAVE(mob) (ishuman(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindslave, FALSE))
 
+/**
+ * Objective targeting flags
+ */
+
+/// Objective target must be mindshielded if possible
+#define MINDSHIELDED_TARGET		(1<<0)
+/// Objective target must be non-mindshielded if possible
+#define UNMINDSHIELDED_TARGET	(1<<1)
+/// Objective target must be a syndicate agent if possible
+#define SYNDICATE_TARGET		(1<<2)
+
+/**
+ * Antag organizations
+ */
+
+/// Antag hunting antag. Might help security overall.
+#define ORG_CHAOS_HUNTER "chaos_hunter"
+/// Will steal items/kill low importance crew, usually not much trouble
+#define ORG_CHAOS_MILD "chaos_mild"
+/// Your average tator, will be an issue
+#define ORG_CHAOS_AVERAGE "chaos_average"
+/// Hijack or hijack-tier antagonists.
+#define ORG_CHAOS_HIJACK "chaos_hijack"
+
+#define ORG_PROB_HUNTER 10
+#define ORG_PROB_MILD 20
+#define ORG_PROB_AVERAGE 65
+#define ORG_PROB_HIJACK 5
+
+// Chance that a traitor will receive a 'You are being targeted by another syndicate agent' notification regardless of being an actual target
+#define ORG_PROB_PARANOIA 5
+
+/// How often a biohazard's population is recorded after the event fires.
+#define BIOHAZARD_POP_INTERVAL 5 MINUTES
+/// The string version of the interval for use in blackbox key names.
+#define BIOHAZARD_POP_INTERVAL_STR "5min"

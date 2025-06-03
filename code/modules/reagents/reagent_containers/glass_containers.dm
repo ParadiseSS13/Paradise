@@ -6,8 +6,6 @@
 	var/base_name = " "
 	desc = " "
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "null"
-	item_state = "null"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
@@ -29,58 +27,54 @@
 
 	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
 
-/obj/item/reagent_containers/glass/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/glass/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!is_open_container())
-		return ..()
+		return
 
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
 
-	if(istype(M))
+	if(istype(target))
 		var/list/transferred = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
 			transferred += R.name
 		var/contained = english_list(transferred)
 
 		if(user.a_intent == INTENT_HARM)
-			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
-							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
-			add_attack_logs(user, M, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+			target.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
+							"<span class='userdanger'>[user] splashes the contents of [src] onto [target]!</span>")
+			add_attack_logs(user, target, "Splashed with [name] containing [contained]", !!target.ckey ? null : ATKLOG_ALL)
 
-			reagents.reaction(M, REAGENT_TOUCH)
+			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
 		else
-			if(!iscarbon(M)) // Non-carbons can't process reagents
-				to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
+			if(!iscarbon(target)) // Non-carbons can't process reagents
+				to_chat(user, "<span class='warning'>You cannot find a way to feed [target].</span>")
 				return
-			if(M != user)
-				M.visible_message("<span class='danger'>[user] attempts to feed something to [M].</span>", \
+			if(target != user)
+				target.visible_message("<span class='danger'>[user] attempts to feed something to [target].</span>", \
 							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
-				if(!do_mob(user, M))
+				if(!do_mob(user, target))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
-				M.visible_message("<span class='danger'>[user] feeds something to [M].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
-				add_attack_logs(user, M, "Fed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+				target.visible_message("<span class='danger'>[user] feeds something to [target].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
+				add_attack_logs(user, target, "Fed with [name] containing [contained]", !!target.ckey ? null : ATKLOG_ALL)
 			else
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
 
 			var/fraction = min(5 / reagents.total_volume, 1)
-			reagents.reaction(M, REAGENT_INGEST, fraction)
-			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5), 5)
-			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
+			reagents.reaction(target, REAGENT_INGEST, fraction)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
+			playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
-/obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
-	if((!proximity) || !check_allowed_items(target, target_self = TRUE))
+/obj/item/reagent_containers/glass/normal_act(atom/target, mob/living/user)
+	if(!check_allowed_items(target, target_self = TRUE) || !is_open_container() || !reagents)
 		return
 
-	if(!is_open_container())
-		return
-
-	if(!reagents)
-		return
-
+	. = TRUE
 	if(target.is_refillable()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty!</span>")
@@ -92,6 +86,7 @@
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [target].</span>")
+		return
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)
@@ -104,21 +99,24 @@
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
-
+		return
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
 			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
 								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
+			return
 
-/obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		var/t = rename_interactive(user, I)
+	return FALSE
+
+/obj/item/reagent_containers/glass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		var/t = rename_interactive(user, used)
 		if(!isnull(t))
 			label_text = t
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
@@ -131,6 +129,13 @@
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 
+/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
@@ -142,23 +147,21 @@
 /obj/item/reagent_containers/glass/beaker/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]1")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
-			if(0 to 9)
-				filling.icon_state = "[icon_state]-10"
-			if(10 to 24)
-				filling.icon_state = "[icon_state]10"
-			if(25 to 49)
-				filling.icon_state = "[icon_state]25"
-			if(50 to 74)
-				filling.icon_state = "[icon_state]50"
-			if(75 to 79)
-				filling.icon_state = "[icon_state]75"
-			if(80 to 90)
+			if(1 to 19)
+				filling.icon_state = "[icon_state]1"
+			if(20 to 39)
+				filling.icon_state = "[icon_state]20"
+			if(40 to 59)
+				filling.icon_state = "[icon_state]40"
+			if(60 to 79)
+				filling.icon_state = "[icon_state]60"
+			if(80 to 99)
 				filling.icon_state = "[icon_state]80"
-			if(91 to INFINITY)
+			if(100 to INFINITY)
 				filling.icon_state = "[icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
@@ -175,25 +178,25 @@
 	if(reagents)
 		reagents.temperature_reagents(4000)
 
-/obj/item/reagent_containers/glass/beaker/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/assembly_holder) && can_assembly)
+/obj/item/reagent_containers/glass/beaker/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/assembly_holder) && can_assembly)
 		if(assembly)
 			to_chat(usr, "<span class='warning'>[src] already has an assembly.</span>")
-			return ..()
-		assembly = W
-		user.drop_item()
-		W.forceMove(src)
-		update_icon(UPDATE_OVERLAYS)
-	else
-		..()
+		else
+			assembly = used
+			user.drop_item()
+			used.forceMove(src)
+			update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/item/reagent_containers/glass/beaker/HasProximity(atom/movable/AM)
 	if(assembly)
 		assembly.HasProximity(AM)
 
-/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM, oldloc)
+/obj/item/reagent_containers/glass/beaker/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(assembly)
-		assembly.Crossed(AM, oldloc)
+		assembly.on_atom_entered(source, entered)
 
 /obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)
@@ -267,7 +270,7 @@
 
 /obj/item/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
-	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete."
+	desc = "A bleeding-edge beaker that uses experimental bluespace technology to store massive quantities of liquid."
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
@@ -302,7 +305,8 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
+	prefered_slot_flags = ITEM_SLOT_IN_BACKPACK
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
@@ -323,24 +327,24 @@
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
 	..()
-	if(slot == SLOT_HUD_HEAD && reagents.total_volume)
+	if(slot == ITEM_SLOT_HEAD && reagents.total_volume)
 		to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
 		reagents.reaction(user, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
-/obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
-	if(istype(D, /obj/item/mop))
-		var/obj/item/mop/m = D
-		m.wet_mop(src, user)
-		return
-	if(isprox(D))
-		to_chat(user, "You add [D] to [src].")
-		qdel(D)
+/obj/item/reagent_containers/glass/bucket/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/mop))
+		var/obj/item/mop/mop = used
+		mop.wet_mop(src, user)
+		return ITEM_INTERACT_COMPLETE
+	if(isprox(used))
+		to_chat(user, "<span class='notice'>You add [used] to [src].</span>")
+		qdel(used)
 		user.put_in_hands(new /obj/item/bucket_sensor)
-		user.unEquip(src)
+		user.unequip(src)
 		qdel(src)
-	else
-		..()
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/item/reagent_containers/glass/beaker/waterbottle
 	name = "bottle of water"

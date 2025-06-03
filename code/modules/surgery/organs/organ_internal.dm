@@ -145,10 +145,12 @@
 
 	// No EMP handling was done, lets just give em damage
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			receive_damage(20, 1)
-		if(2)
+		if(EMP_LIGHT)
 			receive_damage(7, 1)
+		if(EMP_WEAKENED)
+			receive_damage(3, 1)
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
 	insert(target)
@@ -166,6 +168,9 @@
 	return
 
 /obj/item/organ/internal/proc/on_life()
+	return
+
+/obj/item/organ/internal/proc/dead_process()
 	return
 
 //abstract proc called by carbon/death()
@@ -190,7 +195,7 @@
 	return S
 
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
-	if(parent_organ != parent.limb_name)
+	if(parent_organ != parent.limb_name && parent_organ != "eyes" && parent_organ != "mouth")
 		return FALSE
 	insert(H)
 	return TRUE
@@ -199,14 +204,14 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
+/obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/food/S = prepare_eat()
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
-			S.attack(H, H)
+			S.attack__legacy__attackchain(H, H)
 			qdel(src)
 	else
 		..()
@@ -314,11 +319,11 @@
 			var/mob/living/carbon/human/H = owner
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
-				if(H.unEquip(H.shoes))
-					walk_away(thingy,H,15,2)
+				if(H.drop_item_to_ground(H.shoes))
+					GLOB.move_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							walk(thingy,0)
+							GLOB.move_manager.stop_looping(thingy)
 
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE

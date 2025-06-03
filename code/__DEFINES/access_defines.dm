@@ -1,7 +1,7 @@
 #define ACCESS_SECURITY					1	//! Security equipment.
 #define ACCESS_BRIG						2	//! Brig timers and permabrig.
 #define ACCESS_ARMORY					3
-#define ACCESS_FORENSICS_LOCKERS		4
+#define ACCESS_FORENSICS_LOCKERS		4	//! Detective office and locker
 #define ACCESS_MEDICAL					5
 #define ACCESS_MORGUE					6
 #define ACCESS_TOX						7
@@ -44,6 +44,7 @@
 #define ACCESS_THEATRE					46
 #define ACCESS_RESEARCH					47
 #define ACCESS_MINING					48
+#define ACCESS_SMITH					49
 #define ACCESS_MAILSORTING				50
 #define ACCESS_HEADS_VAULT				53
 #define ACCESS_MINING_STATION			54
@@ -65,6 +66,8 @@
 #define ACCESS_MINERAL_STOREROOM		76
 #define ACCESS_CARGO_BAY				78
 #define ACCESS_SUPPLY_SHUTTLE			79
+#define ACCESS_TRAINER					80
+#define ACCESS_EVIDENCE					81	//! Security evidence room
 
 #define ACCESS_WEAPONS					99	//! Weapon authorization for secbots.
 
@@ -88,3 +91,4 @@
 #define ACCESS_AWAY01					271	//! Access used for moonoutpost19 ruin.
 #define ACCESS_FREE_GOLEMS				300	//! Ghost role: free golems.
 #define ACCESS_THETA_STATION			301	//! Ghost role: Theta station.
+#define ACCESS_DEEPSTORAGE				512	//! Space ruin: Deep Storage

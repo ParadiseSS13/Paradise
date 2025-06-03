@@ -362,11 +362,11 @@
 			H.adjustFireLoss(clamp((volume - 5) * 3, 8, 75))
 			return
 
-		var/has_melted_something = FALSE
-		if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
+		var/protected = TRUE
+		if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF) && !(H.head?.resistance_flags & ACID_PROOF))
 			to_chat(H, "<span class='danger'>Your [H.wear_mask.name] melts away!</span>")
 			qdel(H.wear_mask)
-			has_melted_something = TRUE
+			protected = FALSE
 
 		if(H.head && !(H.head.resistance_flags & ACID_PROOF))
 			if(istype(H.head, /obj/item/clothing/head/mod) && ismodcontrol(H.back))
@@ -378,9 +378,9 @@
 			else
 				to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
 				qdel(H.head)
-			has_melted_something = TRUE
+			protected = FALSE
 
-		if(has_melted_something)
+		if(protected)
 			return
 
 	if(volume >= 5)
@@ -438,13 +438,13 @@
 	description = "A toxin that affects the stamina of a person when injected into the bloodstream."
 	reagent_state = LIQUID
 	color = "#6E2828"
-	data = 13
 	taste_description = "bitterness"
+	var/damage_per_cycle = 13
 
 /datum/reagent/staminatoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(REAGENTS_EFFECT_MULTIPLIER * data, FALSE)
-	data = max(data - 1, 3)
+	update_flags |= M.adjustStaminaLoss(damage_per_cycle * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	damage_per_cycle = max(damage_per_cycle - 1, 3)
 	return ..() | update_flags
 
 
@@ -471,7 +471,7 @@
 	metabolization_rate = 0.1
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
-	drink_desc = "A freezing pint of beer"
+	drink_desc = "A freezing pint of beer."
 	taste_description = "beer"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
@@ -924,14 +924,11 @@
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!M.nutrition)
-		switch(rand(1,3))
-			if(1)
-				to_chat(M, "<span class='warning'>You feel hungry...</span>")
-			if(2)
-				update_flags |= M.adjustToxLoss(1, FALSE)
-				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
-			else
-				pass()
+		if(prob(66.66))
+			to_chat(M, "<span class='warning'>You feel hungry...</span>")
+		else if(prob(50))
+			update_flags |= M.adjustToxLoss(1, FALSE)
+			to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
 	else
 		if(prob(60))
 			var/fat_to_burn = max(round(M.nutrition / 100, 1), 5)
@@ -1078,6 +1075,16 @@
 	else if(istype(O, /obj/structure/spacevine))
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
+	else if(istype(O, /obj/item/toy/plushie/dionaplushie))
+		var/turf/T = get_turf(O)
+		var/obj/item/toy/plushie/dionaplushie/DP = O
+		if(DP.grenade)
+			DP.explosive_betrayal(DP.grenade)
+			return
+		new /obj/item/toy/plushie/nymphplushie(T)
+		new /obj/item/toy/plushie/nymphplushie(T)
+		DP.visible_message("<span class='warning'>The diona plushie splits apart!</span>")
+		qdel(DP)
 
 /datum/reagent/glyphosate/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(isliving(M))
@@ -1121,6 +1128,9 @@
 	if(istype(O, /obj/effect/decal/cleanable/ants))
 		O.visible_message("<span class='warning'>The ants die.</span>")
 		qdel(O)
+	if(istype(O, /obj/item/toy/plushie/kidanplushie))
+		var/obj/item/toy/plushie/kidanplushie/stupidbug = O
+		stupidbug.make_cry()
 
 /datum/reagent/pestkiller/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(isliving(M))

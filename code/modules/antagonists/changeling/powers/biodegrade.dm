@@ -17,7 +17,7 @@
 	var/used = FALSE // only one form of shackles removed per use
 
 	if(user.handcuffed)
-		var/obj/O = user.get_item_by_slot(SLOT_HUD_HANDCUFFED)
+		var/obj/O = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		if(!istype(O))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
@@ -26,7 +26,7 @@
 		used = TRUE
 
 	if(user.legcuffed)
-		var/obj/O = user.get_item_by_slot(SLOT_HUD_LEGCUFFED)
+		var/obj/O = user.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		if(!istype(O))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
@@ -35,7 +35,7 @@
 		used = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime && !used)
-		var/obj/item/clothing/suit/S = user.get_item_by_slot(SLOT_HUD_OUTER_SUIT)
+		var/obj/item/clothing/suit/S = user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT)
 		if(!istype(S))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid across the front of [user.p_their()] [S.name]!</span>", \
@@ -84,9 +84,7 @@
 
 /datum/action/changeling/biodegrade/proc/dissolve_restraint(mob/living/carbon/human/user, obj/O)
 	if(O && (user.handcuffed == O || user.legcuffed == O || user.wear_suit == O))
-		user.unEquip(O)
 		O.visible_message("<span class='warning'>[O] dissolves into a puddle of sizzling goop.</span>")
-		O.forceMove(get_turf(user))
 		qdel(O)
 
 /datum/action/changeling/biodegrade/proc/open_closet(mob/living/carbon/human/user, obj/structure/closet/C)
@@ -145,7 +143,7 @@
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	return ..()
 
-/obj/item/melee/changeling_corrosive_acid/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/changeling_corrosive_acid/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You withdraw your readied acid.</span>")
 		parent_action.remove_hand_spell(user)

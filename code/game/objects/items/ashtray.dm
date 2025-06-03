@@ -5,12 +5,12 @@
 	var/icon_full = ""
 	var/material = /obj/item/stack/sheet/metal
 
-/obj/item/ashtray/attackby(obj/item/I, mob/user, params)
+/obj/item/ashtray/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/cigbutt) || istype(I, /obj/item/clothing/mask/cigarette) || istype(I, /obj/item/match))
 		if(length(contents) >= max_butts)
 			to_chat(user, "This ashtray is full.")
 			return
-		if(!user.unEquip(I))
+		if(!user.unequip(I))
 			return
 		I.forceMove(src)
 

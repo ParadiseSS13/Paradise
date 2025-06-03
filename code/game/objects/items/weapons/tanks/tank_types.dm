@@ -11,12 +11,17 @@
 /*
  * Oxygen
  */
-/obj/item/tank/internals/oxygen
-	name = "oxygen tank"
-	desc = "A tank of oxygen, this one is blue."
-	icon_state = "oxygen"
+/obj/item/tank/internals
+	name = "internals tank"
+	desc = "A tank for use in internals. If you see this, please submit a bug report."
+	icon_state = "generic"
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	force = 10
+
+/obj/item/tank/internals/oxygen
+	name = "oxygen tank"
+	desc = "A tank of oxygen. This one is blue."
+	icon_state = "oxygen"
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/oxygen/populate_gas()
@@ -25,12 +30,10 @@
 /obj/item/tank/internals/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
 	icon_state = "oxygen_f"
-	dog_fashion = null
 
 /obj/item/tank/internals/oxygen/red
 	desc = "A tank of oxygen, this one is red."
 	icon_state = "oxygen_fr"
-	dog_fashion = null
 
 /obj/item/tank/internals/oxygen/empty/populate_gas()
 	return
@@ -43,7 +46,7 @@
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
 	item_state = "an_tank"
-	force = 10
+	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/internals/anesthetic/populate_gas()
 	air_contents.set_oxygen((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD)
@@ -63,15 +66,14 @@
 /obj/item/tank/internals/plasma/populate_gas()
 	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
-/obj/item/tank/internals/plasma/attackby(obj/item/I, mob/user, params)
+/obj/item/tank/internals/plasma/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flamethrower))
 		var/obj/item/flamethrower/F = I
 		if((!F.status)||(F.ptank))
 			return
 		master = F
 		F.ptank = src
-		user.unEquip(src)
-		loc = F
+		user.transfer_item_to(src, F)
 		F.update_icon()
 	else
 		return ..()
@@ -90,8 +92,6 @@
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasma_fr"
 	item_state = "plasma_fr"
-	force = 10
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/plasmaman/populate_gas()
 	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -103,10 +103,10 @@
 /obj/item/tank/internals/plasmaman/belt
 	icon_state = "plasmaman_tank_belt"
 	item_state = "plasmaman_tank_belt"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	force = 5
-	volume = 35
+	volume = 18 // Lasts 1h 16m 30s
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/tank/internals/plasmaman/belt/full/populate_gas()
@@ -131,12 +131,11 @@
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
-	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
+	volume = 1 // Roughly 4m 15s of air
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
 	air_contents.set_oxygen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -147,7 +146,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"
 	icon_state = "emergency_engi"
-	volume = 6 // should last 24 minutes if full
+	volume = 3 // Lasts 12m 45s
 
 /obj/item/tank/internals/emergency_oxygen/engi/empty/populate_gas()
 	return
@@ -156,11 +155,12 @@
 	name = "suspicious emergency oxygen tank"
 	icon_state = "emergency_syndi"
 	desc = "A dark emergency oxygen tank. The label on the back reads \"Original Oxygen Tank Design, Do Not Steal.\""
+	volume = 11 // Lasts 46m 45s
 
 /obj/item/tank/internals/emergency_oxygen/double
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
-	volume = 12 //If it's double of the above, shouldn't it be double the volume??
+	volume = 6 // Lasts 25m 30s
 
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
 	return
@@ -172,7 +172,6 @@
 	name = "nitrogen tank"
 	desc = "A tank of nitrogen."
 	icon_state = "oxygen_fr"
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/nitrogen/populate_gas()
 	air_contents.set_nitrogen((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -189,7 +188,7 @@
 	name = "vox specialized nitrogen tank"
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
-	volume = 35
+	volume = 18 // Lasts 1h 16m 30s
 
 /obj/item/tank/internals/emergency_oxygen/double/vox/populate_gas()
 	air_contents.set_nitrogen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -216,9 +215,6 @@
 	desc = "A generic tank used for storing and transporting gasses. Can be used for internals."
 	icon_state = "generic"
 	item_state = "generic"
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
-	force = 10
-	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/generic/populate_gas()
 	return

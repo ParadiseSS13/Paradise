@@ -31,6 +31,8 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	var/score_events_endured = 0
 	/// How many APCs have poor charge?
 	var/score_power_loss = 0
+	/// How many GigaJoules of power did we export?
+	var/score_gigajoules_exported = 0
 	/// How many people got out alive?
 	var/score_escapees = 0
 	/// How many people /didn't/ get out alive?
@@ -133,7 +135,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 /datum/scoreboard/proc/check_station_player(mob/M)
 	if(!is_station_level(M.z) || M.stat != DEAD)
 		return
-	if(isAI(M))
+	if(is_ai(M))
 		dead_ai = TRUE
 		score_dead_crew++
 	else if(ishuman(M))
@@ -253,6 +255,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	<b>Ore Mined:</b> [score_ore_mined] ([points_ore_mined] Points)<br>"}
 	if(score_escapees)
 		dat += "<b>Shuttle Escapees:</b> [score_escapees] ([points_escapees] Points)<br>"
+	dat += "<b>Energy Exported:</b> [score_gigajoules_exported] GigaJoules<br>"
 	dat += "<b>Whole Station Powered:</b> [power_bonus ? "Yes" : "No"] ([power_bonus * 2500] Points)<br>"
 	dat += "<b>Whole Station Cleaned:</b> [mess_bonus ? "Yes" : "No"] ([mess_bonus * 1500] Points)<br><br>"
 

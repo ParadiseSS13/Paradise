@@ -33,7 +33,6 @@
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 60)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSEYES
 	can_toggle = TRUE
 	visor_flags_inv = HIDEEYES
@@ -48,7 +47,7 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 	)
 
-/obj/item/clothing/mask/gas/welding/attack_self(mob/user)
+/obj/item/clothing/mask/gas/welding/attack_self__legacy__attackchain(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/mask/gas/explorer
@@ -56,7 +55,6 @@
 	desc = "A military-grade gas mask that can be connected to an air supply."
 	icon_state = "gas_mining"
 	actions_types = list(/datum/action/item_action/adjust)
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 35)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
@@ -73,14 +71,14 @@
 /obj/item/clothing/mask/gas/explorer/marines
 	name = "military gas mask"
 
-/obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
+/obj/item/clothing/mask/gas/explorer/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/gas/explorer/adjustmask(user)
 	..()
 	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
-/obj/item/clothing/mask/gas/explorer/folded/Initialize()
+/obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
 	force_adjust_mask()
 
@@ -96,17 +94,11 @@
 
 
 //Bane gas mask
-/obj/item/clothing/mask/banemask
+/obj/item/clothing/mask/gas/banemask
 	name = "bane mask"
 	desc = "Only when the station is in flames, do you have my permission to robust."
 	icon_state = "bane_mask"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	w_class = WEIGHT_CLASS_NORMAL
-	item_state = "bane_mask"
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
+	item_state = "sechailer"
 
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
@@ -115,7 +107,6 @@
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/mask/gas/swat
 	name = "\improper SWAT mask"
@@ -137,7 +128,7 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/living/user)
+/obj/item/clothing/mask/gas/clown_hat/attack_self__legacy__attackchain(mob/living/user)
 	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
 							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"The Madman" = /obj/item/clothing/mask/gas/clown_hat/joker,
@@ -221,7 +212,7 @@
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
-	desc = "Beep boop"
+	desc = "Beep boop."
 	icon_state = "death"
 	resistance_flags = FLAMMABLE
 
@@ -235,7 +226,7 @@
 /obj/item/clothing/mask/gas/owl_mask/super_hero
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
-/obj/item/clothing/mask/gas/owl_mask/attack_self()
+/obj/item/clothing/mask/gas/owl_mask/attack_self__legacy__attackchain()
 	hoot()
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
@@ -259,6 +250,7 @@
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
 	item_state = "sechailer"
+	flags_inv = HIDEEYES|HIDEFACE
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
@@ -285,41 +277,31 @@
 								"super"			= "Face the wrath of the golden bolt.",
 								"dredd"			= "I am, the LAW!"
 								)
-/obj/item/clothing/mask/gas/sechailer/hos
-	name = "head of security's SWAT mask"
-	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
-	icon_state = "hosmask"
-	can_toggle = FALSE
-	aggressiveness = 3
-	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
-
-/obj/item/clothing/mask/gas/sechailer/warden
-	name = "warden's SWAT mask"
-	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
-	icon_state = "wardenmask"
-	can_toggle = FALSE
-	aggressiveness = 3
-	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
-
 
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	icon_state = "officermask"
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	aggressiveness = 3
 	phrase = 12
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
-/obj/item/clothing/mask/gas/sechailer/blue
+/obj/item/clothing/mask/gas/sechailer/swat/hos
+	name = "head of security's SWAT mask"
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
+	icon_state = "hosmask"
+
+/obj/item/clothing/mask/gas/sechailer/swat/warden
+	name = "warden's SWAT mask"
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
+	icon_state = "wardenmask"
+
+/obj/item/clothing/mask/gas/sechailer/swat/blue
 	name = "blue SWAT mask"
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
 	icon_state = "blue_sechailer"
-	item_state = "blue_sechailer"
-	aggressiveness = 3
-	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
 	name = "security hailer"
@@ -365,7 +347,7 @@
 			else
 				to_chat(user, "<span class='notice'>It's broken.</span>")
 
-/obj/item/clothing/mask/gas/sechailer/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/mask/gas/sechailer/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/wirecutters))
 		if(aggressiveness != 5)
 			to_chat(user, "<span class='warning'>You broke it!</span>")
@@ -395,7 +377,7 @@
 			to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
 	return TRUE
 
-/obj/item/clothing/mask/gas/sechailer/attack_self()
+/obj/item/clothing/mask/gas/sechailer/attack_self__legacy__attackchain()
 	halt()
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)

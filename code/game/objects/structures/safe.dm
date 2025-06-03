@@ -71,10 +71,16 @@ GLOBAL_LIST_EMPTY(safes)
 	// Combination generation
 	for(var/i in 1 to number_of_tumblers)
 		tumblers.Add(rand(0, 99))
+	if(mapload)
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+
+/obj/structure/safe/proc/take_contents()
 	// Put as many items on our turf inside as possible
 	for(var/obj/item/I in loc)
+		if(I.density || I.anchored)
+			continue
 		if(space >= maxspace)
-			return
+			break
 		if(I.w_class + space <= maxspace)
 			space += I.w_class
 			I.forceMove(src)
@@ -95,7 +101,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(!drill_timer)
 		return
 	cut_overlay(progress_bar)
-	progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
+	progress_bar = image('icons/effects/progressbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
 	add_overlay(progress_bar)
 	if(prob(DRILL_SPARK_CHANCE))
 		drill.spark_system.start()
@@ -182,7 +188,7 @@ GLOBAL_LIST_EMPTY(safes)
 	else
 		ui_interact(user)
 
-/obj/structure/safe/attackby(obj/item/I, mob/user, params)
+/obj/structure/safe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(open)
 		if(I.flags && ABSTRACT)
 			return
@@ -203,7 +209,7 @@ GLOBAL_LIST_EMPTY(safes)
 		else
 			to_chat(user, "<span class='warning'>[I] won't fit in [src].</span>")
 	else
-		if(istype(I, /obj/item/clothing/accessory/stethoscope))
+		if(istype(I, /obj/item/clothing/neck/stethoscope))
 			attack_hand(user)
 			return
 		else if(istype(I, /obj/item/thermal_drill))
@@ -262,14 +268,11 @@ GLOBAL_LIST_EMPTY(safes)
 	var/canhear = FALSE
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		var/list/accessories = H.w_uniform?.accessories
 		if(H.can_hear()) // This is cursed but is_type_in_list somehow fails
-			if(H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
+			if(H.is_in_hands(/obj/item/clothing/neck/stethoscope))
 				canhear = TRUE
-			else
-				for(var/obj/item/clothing/accessory/stethoscope/S in accessories)
-					canhear = TRUE
-					break
+			if(istype(H.neck, /obj/item/clothing/neck/stethoscope))
+				canhear = TRUE
 
 	. = TRUE
 	switch(action)
@@ -290,7 +293,7 @@ GLOBAL_LIST_EMPTY(safes)
 			for(var/i = 1 to ticks)
 				dial = WRAP(dial - 1, 0, 100)
 
-				var/invalid_turn = current_tumbler_index % 2 == 0 || current_tumbler_index > number_of_tumblers
+				var/invalid_turn = ISEVEN(current_tumbler_index) || current_tumbler_index > number_of_tumblers
 				if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
 					current_tumbler_index = 1
 
@@ -310,7 +313,7 @@ GLOBAL_LIST_EMPTY(safes)
 			for(var/i = 1 to ticks)
 				dial = WRAP(dial + 1, 0, 100)
 
-				var/invalid_turn = current_tumbler_index % 2 != 0 || current_tumbler_index > number_of_tumblers
+				var/invalid_turn = ISODD(current_tumbler_index) || current_tumbler_index > number_of_tumblers
 				if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
 					current_tumbler_index = 1
 
@@ -339,14 +342,14 @@ GLOBAL_LIST_EMPTY(safes)
 	if(get_dist(src, driller) >= 9)
 		return //You need to be near the drill if you want to get the buff.
 	for(var/mob/living/carbon/human/H in view(9, src))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") || H.mind.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown")) || H.mind.special_role == SPECIAL_ROLE_ERT)
 			if(H.mind && H.mind.special_role && H.mind.special_role != SPECIAL_ROLE_ERT)
 				continue
 			drill.spotted = TRUE
 			security_assualt_in_progress()
 			return
 	for(var/mob/living/carbon/human/H in view(9, driller))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") || H.mind.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown")) || H.mind.special_role == SPECIAL_ROLE_ERT)
 			if(H.mind && H.mind.special_role && H.mind.special_role != SPECIAL_ROLE_ERT)
 				continue
 			drill.spotted = TRUE
@@ -435,7 +438,7 @@ GLOBAL_LIST_EMPTY(safes)
 	drill_x_offset = -1
 	drill_y_offset = 20
 
-/obj/structure/safe/floor/Initialize()
+/obj/structure/safe/floor/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)

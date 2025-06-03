@@ -1,6 +1,6 @@
 /obj/item/mounted/frame/extinguisher
 	name = "Extinguisher Cabinet Frame"
-	desc = "Used for building extinguisher cabinet"
+	desc = "Used for building extinguisher cabinet."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "extinguisher_frame"
 

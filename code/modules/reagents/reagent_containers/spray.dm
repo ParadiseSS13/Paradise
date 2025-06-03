@@ -7,7 +7,7 @@
 	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -23,9 +23,16 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
-/obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
-	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
+/obj/item/reagent_containers/spray/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	return interact_with_atom(target, user, modifiers)
+
+/obj/item/reagent_containers/spray/normal_act(atom/A, mob/living/user)
+	. = TRUE
+	if(isstorage(A) || ismodcontrol(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
+		return FALSE
+
+	if(loc != user)
 		return
 
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
@@ -74,25 +81,18 @@
 
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A)
-	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
-	D.create_reagents(amount_per_transfer_from_this)
-	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
-	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
+	var/obj/effect/decal/chempuff/chem_puff = new /obj/effect/decal/chempuff(get_turf(src))
+	chem_puff.create_reagents(amount_per_transfer_from_this)
+	reagents.trans_to(chem_puff, amount_per_transfer_from_this, 1/spray_currentrange)
+	chem_puff.icon += mix_color_from_reagents(chem_puff.reagents.reagent_list)
 
-	for(var/i in 1 to spray_currentrange)
-		if(!step_towards(D, A) && i != 1)
-			qdel(D)
-			return
-		D.reagents.reaction(get_turf(D))
-		for(var/atom/T in get_turf(D))
-			D.reagents.reaction(T)
-		sleep(3)
-		if(QDELETED(D))
-			return
-	qdel(D)
+	var/datum/move_loop/our_loop = GLOB.move_manager.move_towards_legacy(chem_puff, A, 3 DECISECONDS, timeout = spray_currentrange * 3 DECISECONDS, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	chem_puff.RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
+	chem_puff.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
-
-/obj/item/reagent_containers/spray/attack_self(mob/user)
+/obj/item/reagent_containers/spray/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -102,7 +102,7 @@
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "[round(reagents.total_volume)] units left."
-	. += "<span class='info'><b>Alt-Shift-Click</b> to empty it.</span>"
+	. += "<span class='notice'><b>Alt-Shift-Click</b> to empty it.</span>"
 
 /obj/item/reagent_containers/spray/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -131,11 +131,6 @@
 	spray_currentrange = 2
 	amount_per_transfer_from_this = 10
 	list_reagents = list("cleaner" = 250)
-
-/obj/item/reagent_containers/spray/cleaner/attack_self(mob/user)
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
-	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 /obj/item/reagent_containers/spray/cleaner/advanced
 	name = "advanced space cleaner"
@@ -212,8 +207,10 @@
 	volume = 10
 	list_reagents = list("water" = 10)
 
-/obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
-	return
+/obj/item/reagent_containers/spray/waterflower/Initialize(mapload)
+	. = ..()
+	// Don't allow changing how much the flower sprays
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 
 //chemsprayer
 /obj/item/reagent_containers/spray/chemsprayer
@@ -268,7 +265,9 @@
 
 
 
-/obj/item/reagent_containers/spray/chemsprayer/attack_self(mob/user)
+/obj/item/reagent_containers/spray/chemsprayer/activate_self(mob/user)
+	if(..())
+		return
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")

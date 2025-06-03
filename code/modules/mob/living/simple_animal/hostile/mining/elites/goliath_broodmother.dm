@@ -18,7 +18,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother
 	name = "goliath broodmother"
-	desc = "An example of sexual dimorphism, this female goliath looks much different than the males of her species.  She is, however, just as dangerous, if not more."
+	desc = "An example of sexual dimorphism, this female goliath looks much different than the males of her species. She is, however, just as dangerous, if not more."
 	gender = FEMALE
 	icon_state = "broodmother"
 	icon_living = "broodmother"
@@ -165,7 +165,7 @@
 //The goliath's children.  Pretty weak, simple mobs which are able to put a single tentacle under their target when at range.
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child
 	name = "baby goliath"
-	desc = "A young goliath recently born from it's mother.  While they hatch from eggs, said eggs are incubated in the mother until they are ready to be born."
+	desc = "A young goliath recently born from it's mother. While they hatch from eggs, said eggs are incubated in the mother until they are ready to be born."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_baby"
 	icon_living = "goliath_baby"
@@ -209,7 +209,7 @@
 	if(!QDELETED(mother))
 		mother.children_list -= src
 	visible_message("<span class='warning'>[src] explodes!</span>")
-	explosion(src, flame_range = 3, adminlog = FALSE)
+	explosion(src, flame_range = 3, adminlog = FALSE, cause = "[name] death")
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
 	qdel(src)
@@ -263,7 +263,7 @@
 	if(prob(bonus_value) && target.stat != DEAD)
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(get_turf(target), user)
 
-/obj/item/crusher_trophy/broodmother_tongue/attack_self(mob/user)
+/obj/item/crusher_trophy/broodmother_tongue/attack_self__legacy__attackchain(mob/user)
 	if(!isliving(user))
 		return
 	var/mob/living/living_user = user

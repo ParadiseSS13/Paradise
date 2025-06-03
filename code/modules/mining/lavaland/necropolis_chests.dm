@@ -8,6 +8,9 @@
 	icon_closed = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/structure/closet/crate/necropolis/ex_act(severity) // So vetus explosion won't destroy everything inside
+	return
+
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
@@ -116,7 +119,7 @@
 	id = "hyperaoemod"
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 3000, MAT_SILVER= 3000, MAT_GOLD = 3000, MAT_DIAMOND = 4000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -126,7 +129,7 @@
 	id = "repeatermod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_URANIUM = 8000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -136,7 +139,7 @@
 	id = "resonatormod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -147,7 +150,7 @@
 	materials = list(MAT_METAL = 4000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_BLUESPACE = 4000)
 	reagents_list = list("blood" = 40)
 	build_path = /obj/item/borg/upgrade/modkit/bounty
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -183,6 +186,11 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
+	insert_max = 0
+
+/obj/item/clothing/suit/hooded/berserker/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_magic, ALL, inventory_flags = ITEM_SLOT_OUTER_SUIT)
 
 /obj/item/clothing/head/hooded/berserker
 	name = "berserker helmet"
@@ -321,7 +329,7 @@
 	var/usedHand
 	var/mob/living/carbon/owner
 
-/obj/item/rod_of_asclepius/attack_self(mob/user)
+/obj/item/rod_of_asclepius/attack_self__legacy__attackchain(mob/user)
 	if(activated)
 		return
 	if(!iscarbon(user))
@@ -372,33 +380,42 @@
 	addtimer(CALLBACK(src, PROC_REF(try_attach_to_owner)), 0) // Do this once the drop call stack is done. The holding limb might be getting removed
 
 /obj/item/rod_of_asclepius/proc/try_attach_to_owner()
-	if(ishuman(owner) && !QDELETED(owner))
-		if(ishuman(loc))
-			var/mob/living/carbon/human/thief = loc
-			thief.unEquip(src, TRUE, TRUE) // You're not my owner!
-		if(owner.stat == DEAD)
-			qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
-			return
-		flags |= NODROP // Readd the nodrop
-		var/mob/living/carbon/human/H = owner
-		var/limb_regrown = FALSE
-		if(usedHand == LEFT_HAND)
-			limb_regrown = H.regrow_external_limb_if_missing("l_arm")
-			limb_regrown = H.regrow_external_limb_if_missing("l_hand") || limb_regrown
-			H.drop_l_hand(TRUE)
-			H.put_in_l_hand(src, TRUE)
-		else
-			limb_regrown = H.regrow_external_limb_if_missing("r_arm")
-			limb_regrown = H.regrow_external_limb_if_missing("r_hand") || limb_regrown
-			H.drop_r_hand(TRUE)
-			H.put_in_r_hand(src, TRUE)
-		if(!limb_regrown)
-			to_chat(H, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
-		else
-			H.update_body() // Update the limb sprites
-			to_chat(H, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
-	else
+	if(!ishuman(owner) || QDELETED(owner))
 		deactivate()
+		return
+
+	var/mob/living/carbon/human/thief = loc
+
+	if(thief == owner) // stealing from yourself, huh?
+		return
+
+	if(ishuman(thief))
+		thief.drop_item_to_ground(src, force = TRUE, silent = TRUE) // You're not my owner!
+
+	if(owner.stat == DEAD)
+		qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
+		return
+
+	flags |= NODROP // Readd the nodrop
+	var/mob/living/carbon/human/H = owner
+	var/limb_regrown = FALSE
+
+	if(usedHand == LEFT_HAND)
+		limb_regrown = H.regrow_external_limb_if_missing("l_arm")
+		limb_regrown = H.regrow_external_limb_if_missing("l_hand") || limb_regrown
+		H.drop_l_hand(TRUE)
+		H.put_in_l_hand(src, TRUE)
+	else
+		limb_regrown = H.regrow_external_limb_if_missing("r_arm")
+		limb_regrown = H.regrow_external_limb_if_missing("r_hand") || limb_regrown
+		H.drop_r_hand(TRUE)
+		H.put_in_r_hand(src, TRUE)
+
+	if(!limb_regrown)
+		to_chat(H, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
+	else
+		H.update_body() // Update the limb sprites
+		to_chat(H, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
 
 /obj/item/rod_of_asclepius/proc/activated(mob/living/carbon/new_owner)
 	owner = new_owner
@@ -435,7 +452,7 @@
 	return // It's a shard
 
 
-/obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
+/obj/item/organ/internal/cyberimp/arm/katana/attack_self__legacy__attackchain(mob/living/carbon/user, modifiers)
 	. = ..()
 	to_chat(user,"<span class='userdanger'>The mass goes up your arm and inside it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
@@ -546,11 +563,11 @@
 	. = ..()
 	reset_inputs(null, TRUE)
 
-/obj/item/cursed_katana/attack_self(mob/user)
+/obj/item/cursed_katana/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	reset_inputs(user, TRUE)
 
-/obj/item/cursed_katana/attack(mob/living/target, mob/user, click_parameters)
+/obj/item/cursed_katana/attack__legacy__attackchain(mob/living/target, mob/user, click_parameters)
 	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -666,7 +683,7 @@
 	for(var/distance in 0 to 8)
 		var/turf/current_dash_target = dash_target
 		current_dash_target = get_step(current_dash_target, user.dir)
-		if(!is_blocked_turf(current_dash_target, TRUE))
+		if(!current_dash_target.is_blocked_turf(exclude_mobs = TRUE))
 			dash_target = current_dash_target
 		else
 			break

@@ -161,7 +161,7 @@ SUBSYSTEM_DEF(tickets)
 	if(M)
 		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)])"
 	L += "(<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
-	L += "[isAI(M) ? "(<a href='byond://?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='byond://?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
+	L += "[is_ai(M) ? "(<a href='byond://?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='byond://?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
 	L += "(<a href='byond://?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='byond://?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
 	L += "(<a href='byond://?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[one_line ? " " : "<br><br>"][msg]</span>"
 	return L.Join()
@@ -187,6 +187,7 @@ SUBSYSTEM_DEF(tickets)
 	SEND_SOUND(C, sound('sound/effects/adminticketopen.ogg'))
 
 	message_staff(url_title, NONE, TRUE)
+	open_ticket_count_updated()
 	return T
 
 //Set ticket state with key N to open
@@ -197,6 +198,7 @@ SUBSYSTEM_DEF(tickets)
 		sendFollowupToDiscord(T, usr.client, "*Ticket reopened.*")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has been re-opened.</span>")
 		T.ticketState = TICKET_OPEN
+		open_ticket_count_updated()
 		return TRUE
 
 //Set ticket state with key N to resolved
@@ -207,6 +209,7 @@ SUBSYSTEM_DEF(tickets)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [N]</span>")
 		sendFollowupToDiscord(T, usr.client, "*Ticket resolved.*")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
+		open_ticket_count_updated()
 		return TRUE
 
 /datum/controller/subsystem/tickets/proc/refresh_tickets(list/tickets)
@@ -271,6 +274,7 @@ SUBSYSTEM_DEF(tickets)
 	message_staff("<span class='[span_class]'>[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.</span>")
 	log_game("[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.")
 	create_other_system_ticket(T)
+	open_ticket_count_updated()
 
 /datum/controller/subsystem/tickets/proc/create_other_system_ticket(datum/ticket/T)
 	var/client/C = get_client_by_ckey(T.client_ckey)
@@ -326,6 +330,7 @@ SUBSYSTEM_DEF(tickets)
 		sendFollowupToDiscord(T, usr.client, "*Ticket closed.*")
 		to_chat_safe(returnClient(N), close_messages)
 		T.ticketState = TICKET_CLOSED
+		open_ticket_count_updated()
 		return TRUE
 
 //Check if the user already has a ticket open and within the cooldown period.
@@ -670,6 +675,8 @@ UI STUFF
 	message_adminTicket(chat_box_ahelp(msg), important)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
+	if(!check_rights(rights_needed))
+		return
 
 	if(href_list["refresh"])
 		showUI(usr)
@@ -824,6 +831,13 @@ UI STUFF
 	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
+
+/datum/controller/subsystem/tickets/proc/open_ticket_count_updated()
+	var/ticket_count = 0
+	for(var/datum/ticket/T in allTickets)
+		if(T.ticketState == TICKET_OPEN || T.ticketState == TICKET_STALE)
+			ticket_count++
+	SEND_SIGNAL(src, COMSIGN_TICKET_COUNT_UPDATE, ticket_count)
 
 #undef TICKET_STAFF_MESSAGE_ADMIN_CHANNEL
 #undef TICKET_STAFF_MESSAGE_PREFIX

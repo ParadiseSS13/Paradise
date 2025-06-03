@@ -84,30 +84,26 @@
 /obj/machinery/suit_storage_unit/blueshield/secure
 	secure = TRUE
 
-/obj/machinery/suit_storage_unit/engine
+/obj/machinery/suit_storage_unit/industrial/engine
 	name = "engineering suit storage unit"
-	icon_state = "industrial"
-	base_icon_state = "industrial"
 	mask_type = /obj/item/clothing/mask/breath
 	boots_type = /obj/item/clothing/shoes/magboots
 	suit_type = /obj/item/mod/control/pre_equipped/engineering
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	board_type = /obj/item/circuitboard/suit_storage_unit/industrial
 
-/obj/machinery/suit_storage_unit/engine/secure
+/obj/machinery/suit_storage_unit/industrial/engine/secure
 	secure = TRUE
 
-/obj/machinery/suit_storage_unit/ce
+/obj/machinery/suit_storage_unit/industrial/ce
 	name = "chief engineer's suit storage unit"
-	icon_state = "industrial"
-	base_icon_state = "industrial"
 	mask_type = /obj/item/clothing/mask/gas
 	boots_type = /obj/item/clothing/shoes/magboots/advance
 	suit_type = /obj/item/mod/control/pre_equipped/advanced
 	req_access = list(ACCESS_CE)
 	board_type = /obj/item/circuitboard/suit_storage_unit/industrial
 
-/obj/machinery/suit_storage_unit/ce/secure
+/obj/machinery/suit_storage_unit/industrial/ce/secure
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/rd
@@ -139,7 +135,7 @@
 
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
-	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
+	mask_type = /obj/item/clothing/mask/gas/sechailer/swat/hos
 	suit_type = /obj/item/mod/control/pre_equipped/safeguard
 	req_access = list(ACCESS_HOS)
 
@@ -185,7 +181,7 @@
 /obj/machinery/suit_storage_unit/gulag
 	name = "gulag suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/prisoner_gulag
-	helmet_type = /obj/item/clothing/head/space/prisoner_gulag
+	helmet_type = /obj/item/clothing/head/helmet/space/prisoner_gulag
 	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/expedition
@@ -193,6 +189,7 @@
 	mask_type = /obj/item/clothing/mask/gas/explorer
 	suit_type = /obj/item/mod/control/pre_equipped/standard/explorer
 	req_access = list(ACCESS_EXPEDITION)
+
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath
@@ -230,6 +227,8 @@
 
 /obj/machinery/suit_storage_unit/syndicate
 	name = "syndicate suit storage unit"
+	icon_state = "syndicate"
+	base_icon_state = "syndicate"
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	suit_type = /obj/item/mod/control/pre_equipped/nuclear
 	req_access = list(ACCESS_SYNDICATE)
@@ -238,13 +237,18 @@
 /obj/machinery/suit_storage_unit/syndicate/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/syndicate/empty
+	mask_type = null
+	suit_type = null
+	state_open = TRUE
+
 /obj/machinery/suit_storage_unit/radsuit
 	name = "radiation suit storage unit"
 	suit_type = /obj/item/clothing/suit/radiation
 	helmet_type = /obj/item/clothing/head/radiation
 	storage_type = /obj/item/geiger_counter
 
-/obj/machinery/suit_storage_unit/Initialize()
+/obj/machinery/suit_storage_unit/Initialize(mapload)
 	. = ..()
 
 	component_parts = list()
@@ -306,6 +310,7 @@
 
 	if(state_open)
 		. += "[base_icon_state]_open"
+		. += "[base_icon_state]_lights_open"
 		if(suit)
 			. += "[base_icon_state]_suit"
 		if(helmet)
@@ -317,10 +322,10 @@
 
 	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
+/obj/machinery/suit_storage_unit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(shocked)
 		if(shock(user, 100))
-			return
+			return ITEM_INTERACT_COMPLETE
 	if(!is_operational())
 		if(user.a_intent != INTENT_HELP)
 			return ..()
@@ -328,18 +333,19 @@
 			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
 			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		wires.Interact(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(state_open)
-		if(store_item(I, user))
+		if(store_item(used, user))
 			update_icon(UPDATE_OVERLAYS)
 			SStgui.update_uis(src)
-			to_chat(user, "<span class='notice'>You load [I] into the storage compartment.</span>")
+			to_chat(user, "<span class='notice'>You load [used] into the storage compartment.</span>")
 		else
-			to_chat(user, "<span class='warning'>You can't fit [I] into [src]!</span>")
-		return
+			to_chat(user, "<span class='warning'>You can't fit [used] into [src]!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/suit_storage_unit/crowbar_act(mob/living/user, obj/item/I)
@@ -372,7 +378,7 @@
   *
 **/
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
-	if((istype(I, /obj/item/clothing/suit)|| istype(I, /obj/item/mod/control)) && !suit)
+	if((istype(I, /obj/item/clothing/suit) || istype(I, /obj/item/mod/control) || istype(I, /obj/item/storage/backpack)) && !suit)
 		if(try_store_item(I, user))
 			suit = I
 			return TRUE

@@ -36,7 +36,7 @@
 
 		if(WIRE_BORG_CAMERA)
 			if(!isnull(R.camera) && !R.scrambledcodes)
-				R.camera.status = mend
+				R.camera.status = !mend //If we are mending, we set the status to false, and toggle cam. Otherwise, we set it to true, and cut. It's silly, I know
 				R.camera.toggle_cam(usr, 0) // Will kick anyone who is watching the Cyborg's camera.
 
 		if(WIRE_BORG_LOCKED)

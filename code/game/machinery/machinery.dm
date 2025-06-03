@@ -9,18 +9,21 @@
 	atom_say_verb = "beeps"
 	flags_ricochet = RICOCHET_HARD
 	receive_ricochet_chance_mod = 0.3
+	new_attack_chain = TRUE
 	var/stat = 0
 
 	/// How is this machine currently passively consuming power?
 	var/power_state = IDLE_POWER_USE
-	/// How much power does this machine consume when it is idling
+	/// How much power does this machine consume when it is idling. This should not be set manually, use the helper procs!
 	var/idle_power_consumption = 0
-	/// How much power does this machine consume when it is in use
+	/// How much power does this machine consume when it is in use. This should not be set manually, use the helper procs!
 	var/active_power_consumption = 0
 	/// The power channel this machine uses, idle/passive power consumption will pull from this channel and machine won't work if power channel has no power
 	var/power_channel = PW_CHANNEL_EQUIPMENT
 	/// The powernet this machine is connected to
 	var/datum/local_powernet/machine_powernet = null
+	/// Has power been initialized on this machine? Set in Initialize(), prevents all power updates to the local powernet until this is TRUE to avoid weird numbers.
+	var/power_initialized = FALSE
 
 	/// how badly will it shock you?
 	var/siemens_strength = 0.7
@@ -31,9 +34,11 @@
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
 
+	new_attack_chain = TRUE
+
 /obj/machinery/Initialize(mapload)
 	. = ..()
-	GLOB.machines += src
+	SSmachines.register_machine(src)
 
 	var/area/machine_area = get_area(src)
 	if(machine_area)
@@ -45,9 +50,10 @@
 		machine_powernet.register_machine(src)
 		switch(power_state)
 			if(IDLE_POWER_USE)
-				add_static_power(power_channel, idle_power_consumption)
+				_add_static_power(power_channel, idle_power_consumption)
 			if(ACTIVE_POWER_USE)
-				add_static_power(power_channel, active_power_consumption)
+				_add_static_power(power_channel, active_power_consumption)
+		power_initialized = TRUE
 
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
@@ -75,7 +81,7 @@
 /obj/machinery/Destroy()
 	change_power_mode(NO_POWER_USE) //we want to clear our static power usage on the local powernet
 	machine_powernet?.unregister_machine(src)
-	GLOB.machines.Remove(src)
+	SSmachines.unregister_machine(src)
 	if(!speed_process)
 		STOP_PROCESSING(SSmachines, src)
 	else
@@ -102,17 +108,21 @@
 
 // use active power from the local powernet
 /obj/machinery/proc/use_power(amount, channel)
-	if(!has_power())
+	if(!has_power() || !power_initialized)
 		return FALSE
 	if(!channel)
 		channel = power_channel
 	return machine_powernet.use_active_power(channel, amount)
 
-/obj/machinery/proc/add_static_power(channel, amount)
-	machine_powernet.adjust_static_power(channel, amount)
+/// Helper proc to positively adjust static power tracking on the machine's powernet, not meant for general use!
+/obj/machinery/proc/_add_static_power(channel, amount)
+	PRIVATE_PROC(TRUE)
+	machine_powernet?.adjust_static_power(channel, amount)
 
-/obj/machinery/proc/remove_static_power(channel, amount)
-	machine_powernet.adjust_static_power(channel, -amount)
+/// Helper proc to negatively adjust static power tracking on the machine's powernet, not meant for general use!
+/obj/machinery/proc/_remove_static_power(channel, amount)
+	PRIVATE_PROC(TRUE)
+	machine_powernet?.adjust_static_power(channel, -amount)
 
 /*
 	* # power_change()
@@ -135,34 +145,45 @@
 	if(machine_powernet?.powernet_area != get_area(src))
 		var/area/machine_area = get_area(src)
 		if(machine_area)
+			var/old_power_mode = power_state
+			change_power_mode(NO_POWER_USE) // Take away our current power from the old network
 			machine_powernet?.unregister_machine(src)
 			machine_powernet = machine_area.powernet
 			machine_powernet.register_machine(src)
+			change_power_mode(old_power_mode) // add it to the new network
 
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
 	if(isnull(use_type) || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
 		return
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
 	switch(power_state)
 		if(IDLE_POWER_USE)
-			remove_static_power(power_channel, idle_power_consumption)
+			_remove_static_power(power_channel, idle_power_consumption)
 		if(ACTIVE_POWER_USE)
-			remove_static_power(power_channel, active_power_consumption)
+			_remove_static_power(power_channel, active_power_consumption)
 
 	switch(use_type)
 		if(IDLE_POWER_USE)
-			add_static_power(power_channel, idle_power_consumption)
+			_add_static_power(power_channel, idle_power_consumption)
 		if(ACTIVE_POWER_USE)
-			add_static_power(power_channel, active_power_consumption)
+			_add_static_power(power_channel, active_power_consumption)
 
 	power_state = use_type
 
+/// Safely changes the static power on the local powernet based on an adjustment in idle power
 /obj/machinery/proc/update_idle_power_consumption(channel = power_channel, amount)
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
 	if(power_state == IDLE_POWER_USE)
 		machine_powernet.adjust_static_power(power_channel, amount - idle_power_consumption)
 	idle_power_consumption = amount
 
+/// Safely changes the static power on the local powernet based on an adjustment in active power
 /obj/machinery/proc/update_active_power_consumption(channel = power_channel, amount)
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
 	if(power_state == ACTIVE_POWER_USE)
 		machine_powernet.adjust_static_power(power_channel, amount - active_power_consumption)
 	active_power_consumption = amount
@@ -275,7 +296,7 @@
 	qdel(src)
 
 /obj/machinery/proc/spawn_frame(disassembled)
-	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	var/obj/structure/machine_frame/M = new /obj/structure/machine_frame(loc)
 	. = M
 	M.anchored = anchored
 	if(!disassembled)
@@ -336,43 +357,45 @@
 		reregister_machine()
 		power_change()
 
-/obj/machinery/attackby(obj/item/O, mob/user, params)
-	if(exchange_parts(user, O))
-		return
+/obj/machinery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(exchange_parts(user, used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/N = O
+	if(istype(used, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = used
 		if(stat & BROKEN)
 			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(obj_integrity == max_integrity)
 			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(being_repaired)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(N.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
+		to_chat(user, "<span class='notice'>You start applying [used] to [src].</span>")
 		being_repaired = TRUE
 		var/result = do_after(user, 3 SECONDS, target = src)
 		being_repaired = FALSE
 		if(!result)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!N.use(1))
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		obj_integrity = min(obj_integrity + 50, max_integrity)
-		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
-			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
-	else
-		return ..()
+		user.visible_message("<span class='notice'>[user] applied some [used] at [src]'s damaged areas.</span>",\
+			"<span class='notice'>You apply some [used] at [src]'s damaged areas.</span>")
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
@@ -532,7 +555,7 @@
 
 /obj/machinery/zap_act(power, zap_flags)
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE, cause = "Random Zap Explosion")
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power * 0.0005, BURN, ENERGY)
 		if(prob(40))

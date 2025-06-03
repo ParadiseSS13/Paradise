@@ -3,20 +3,13 @@
 /turf/template_noop,
 /area/template_noop)
 "x" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "H" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "S" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem_space";
-	name = "The middle of space";
-	width = 16
-	},
+/obj/docking_port/stationary/golem/space,
 /turf/template_noop,
 /area/template_noop)
 
@@ -51,11 +44,15 @@ a
 a
 a
 a
+a
+a
 "}
 (2,1,1) = {"
+a
 x
 H
 x
+a
 a
 a
 a
@@ -85,6 +82,7 @@ a
 a
 "}
 (3,1,1) = {"
+a
 H
 x
 x
@@ -115,9 +113,11 @@ a
 a
 a
 a
+a
 "}
 (4,1,1) = {"
 a
+a
 x
 x
 x
@@ -145,12 +145,14 @@ a
 a
 a
 a
-a
+H
+x
 a
 "}
 (5,1,1) = {"
 a
 a
+a
 x
 x
 a
@@ -176,14 +178,16 @@ a
 a
 a
 a
-a
-a
+H
+x
+x
 a
 "}
 (6,1,1) = {"
 a
 a
 a
+a
 x
 a
 a
@@ -209,7 +213,8 @@ a
 a
 a
 a
-a
+x
+H
 a
 "}
 (7,1,1) = {"
@@ -241,7 +246,9 @@ a
 a
 a
 a
-a
+x
+x
+x
 a
 "}
 (8,1,1) = {"
@@ -273,7 +280,9 @@ a
 a
 a
 a
-a
+x
+x
+x
 a
 "}
 (9,1,1) = {"
@@ -305,10 +314,14 @@ a
 a
 a
 a
+x
+x
 a
 a
 "}
 (10,1,1) = {"
+a
+a
 a
 a
 a
@@ -371,8 +384,12 @@ a
 a
 a
 a
+a
+a
 "}
 (12,1,1) = {"
+a
+a
 a
 a
 a
@@ -435,8 +452,12 @@ a
 a
 a
 a
+a
+a
 "}
 (14,1,1) = {"
+a
+a
 a
 a
 a
@@ -499,8 +520,12 @@ a
 a
 a
 a
+a
+a
 "}
 (16,1,1) = {"
+a
+a
 a
 a
 a
@@ -563,8 +588,12 @@ a
 a
 a
 a
+a
+a
 "}
 (18,1,1) = {"
+a
+a
 a
 a
 a
@@ -627,8 +656,12 @@ a
 a
 a
 a
+a
+a
 "}
 (20,1,1) = {"
+a
+a
 a
 a
 a
@@ -688,7 +721,9 @@ a
 a
 a
 a
+a
 x
+a
 a
 a
 "}
@@ -719,12 +754,15 @@ a
 a
 a
 a
+a
 x
 x
 x
 a
+a
 "}
 (23,1,1) = {"
+a
 a
 a
 a
@@ -755,8 +793,10 @@ x
 x
 x
 a
+a
 "}
 (24,1,1) = {"
+a
 a
 a
 x
@@ -787,8 +827,10 @@ x
 x
 x
 x
+a
 "}
 (25,1,1) = {"
+a
 a
 a
 a
@@ -819,15 +861,18 @@ x
 x
 x
 x
+a
 "}
 (26,1,1) = {"
 a
 a
 a
 a
+a
 x
 x
 H
+a
 a
 a
 a
@@ -867,11 +912,13 @@ a
 a
 a
 a
-H
-x
-x
-x
-x
+a
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -898,12 +945,14 @@ a
 a
 a
 a
-H
-x
-x
-x
-x
-x
+a
+a
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -931,10 +980,12 @@ a
 a
 a
 a
-x
-H
-x
-x
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -949,6 +1000,8 @@ a
 a
 "}
 (30,1,1) = {"
+a
+a
 a
 a
 a

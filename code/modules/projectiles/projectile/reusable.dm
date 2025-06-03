@@ -20,7 +20,7 @@
 
 /obj/item/projectile/bullet/reusable/magspear
 	name = "magnetic spear"
-	desc = "WHITE WHALE, HOLY GRAIL"
+	desc = "WHITE WHALE, HOLY GRAIL!"
 	damage = 30 //takes 3 spears to kill a mega carp, one to kill a normal carp
 	icon_state = "magspear"
 	ammo_type = /obj/item/ammo_casing/caseless/magspear
@@ -58,8 +58,10 @@
 /obj/item/projectile/bullet/reusable/foam_dart/riot
 	name = "riot foam dart"
 	icon_state = "foamdart_riot"
+	damage = 25
+	damage_type = STAMINA
+	nodamage = FALSE
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	stamina = 25
 	log_override = FALSE
 
 /obj/item/projectile/bullet/reusable/foam_dart/sniper
@@ -71,6 +73,8 @@
 /obj/item/projectile/bullet/reusable/foam_dart/sniper/riot
 	name = "riot sniper foam dart"
 	icon_state = "foamdartsniper_riot"
+	damage = 100
+	damage_type = STAMINA
+	nodamage = FALSE
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
-	stamina = 100
 	log_override = FALSE

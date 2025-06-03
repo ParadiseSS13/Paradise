@@ -13,7 +13,7 @@
 
 /datum/merch_item/snap_pops
 	name = "Snap-Pops"
-	desc = "Ten-thousand-year-old chinese fireworks: IN SPACE"
+	desc = "Ten-thousand-year-old chinese fireworks: IN SPACE!"
 	typepath = /obj/item/storage/box/snappops
 	cost = 100
 	category = MERCH_CAT_TOY
@@ -238,7 +238,7 @@
 
 /datum/merch_item/flag_solgov
 	name = "SolGov Flag"
-	desc = "The banner of Trans-Solar Federation, allied government."
+	desc = "The banner of Trans-Solar Federation."
 	typepath = /obj/item/flag/solgov
 	cost = 750
 	category = MERCH_CAT_DECORATION

@@ -202,7 +202,7 @@
 	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 
 	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
-	synd_mind.current.equip_to_slot_or_del(challenge, SLOT_HUD_RIGHT_HAND)
+	synd_mind.current.equip_to_slot_or_del(challenge, ITEM_SLOT_RIGHT_HAND)
 
 	update_syndicate_id(synd_mind, leader_title, TRUE)
 
@@ -219,7 +219,7 @@
 		else
 			var/mob/living/carbon/human/H = synd_mind.current
 			P.loc = H.loc
-			H.equip_to_slot_or_del(P, SLOT_HUD_RIGHT_STORE, 0)
+			H.equip_to_slot_or_del(P, ITEM_SLOT_RIGHT_POCKET, 0)
 			H.update_icons()
 
 
@@ -259,7 +259,7 @@
 
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
 	R.set_frequency(radio_freq)
-	synd_mob.equip_to_slot_or_del(R, SLOT_HUD_LEFT_EAR)
+	synd_mob.equip_to_slot_or_del(R, ITEM_SLOT_LEFT_EAR)
 
 	var/back
 
@@ -275,18 +275,18 @@
 		else
 			back = /obj/item/storage/backpack
 
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), SLOT_HUD_JUMPSUIT)
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), SLOT_HUD_SHOES)
-	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), SLOT_HUD_GLOVES)
-	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), SLOT_HUD_WEAR_ID)
-	synd_mob.equip_to_slot_or_del(new back(synd_mob), SLOT_HUD_BACK)
-	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), SLOT_HUD_BELT)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), SLOT_HUD_IN_BACKPACK)
-	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), SLOT_HUD_WEAR_PDA)
+	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), ITEM_SLOT_JUMPSUIT)
+	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), ITEM_SLOT_SHOES)
+	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), ITEM_SLOT_GLOVES)
+	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), ITEM_SLOT_ID)
+	synd_mob.equip_to_slot_or_del(new back(synd_mob), ITEM_SLOT_BACK)
+	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), ITEM_SLOT_BELT)
+	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndie(synd_mob.back), ITEM_SLOT_IN_BACKPACK)
+	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), ITEM_SLOT_PDA)
 	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = uplink_uses
-	synd_mob.equip_to_slot_or_del(U, SLOT_HUD_IN_BACKPACK)
+	synd_mob.equip_to_slot_or_del(U, ITEM_SLOT_IN_BACKPACK)
 	synd_mob.mind.offstation_role = TRUE
 
 	if(synd_mob.dna.species)
@@ -294,17 +294,17 @@
 
 		switch(race)
 			if("Vox")
-				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), SLOT_HUD_WEAR_MASK)
-				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), SLOT_HUD_LEFT_HAND)
+				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), ITEM_SLOT_MASK)
+				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), ITEM_SLOT_LEFT_HAND)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 
 			if("Plasmaman")
-				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), SLOT_HUD_WEAR_MASK)
-				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), SLOT_HUD_SUIT_STORE)
-				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), SLOT_HUD_IN_BACKPACK)
-				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), SLOT_HUD_IN_BACKPACK)
-				synd_mob.internal = synd_mob.get_item_by_slot(SLOT_HUD_SUIT_STORE)
+				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), ITEM_SLOT_MASK)
+				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), ITEM_SLOT_SUIT_STORE)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), ITEM_SLOT_IN_BACKPACK)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), ITEM_SLOT_IN_BACKPACK)
+				synd_mob.internal = synd_mob.get_item_by_slot(ITEM_SLOT_SUIT_STORE)
 				synd_mob.update_action_buttons_icon()
 
 	synd_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
@@ -501,7 +501,7 @@
 
 	for(var/mob in GLOB.mob_living_list)
 		var/mob/living/C = mob
-		if(ishuman(C) || isAI(C) || isrobot(C))
+		if(ishuman(C) || is_ai(C) || isrobot(C))
 			if(C.stat == DEAD)
 				continue
 			if(!C.client)

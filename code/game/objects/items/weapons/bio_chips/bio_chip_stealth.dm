@@ -52,17 +52,17 @@
 
 	// Spawn the actual box
 	var/obj/structure/closet/cardboard/agent/box = new(get_turf(owner), owner)
-	box.implant_user_UID = owner.UID()
 	// Slightly shorter time since we needed 0.3s to to do the spawn animation.
 	INVOKE_ASYNC(box, TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, go_invisible), 1.7 SECONDS)
-	box.create_fake_box()
 	owner.forceMove(box)
+	owner.overlay_fullscreen("agent_box", /atom/movable/screen/fullscreen/center/agent_box)
 	RegisterSignal(box, COMSIG_PARENT_QDELETING, PROC_REF(start_cooldown))
 
 /datum/action/item_action/agent_box/proc/start_cooldown(datum/source)
 	SIGNAL_HANDLER
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 10 SECONDS)
+	owner.clear_fullscreen("agent_box")
 	UpdateButtons()
 
 /datum/action/item_action/agent_box/proc/end_cooldown()
@@ -109,20 +109,9 @@
 	max_integrity = 1
 	move_speed_multiplier = 0.5 // You can move at run speed while in this box.
 	material_drop = null
-	/// UID of the person who summoned this box with an implant.
-	var/implant_user_UID
-	// This has to be a separate object and not just an image because the image will inherit the box's 0 alpha while it is stealthed.
-	/// A holder effect which follows the src box so we can display an image to the person inside the box.
-	var/obj/effect/fake_box
-	/// The box image attached to the `fake_box` object.
-	var/image/box_img
 
-/obj/structure/closet/cardboard/agent/Destroy()
-	var/mob/living/implant_user = locateUID(implant_user_UID)
-	implant_user?.client?.images -= box_img
-	QDEL_NULL(fake_box)
-	QDEL_NULL(box_img)
-	return ..()
+/obj/structure/closet/cardboard/agent/attackby__legacy__attackchain(obj/item/I, mob/living/user)
+	return
 
 /obj/structure/closet/cardboard/agent/open()
 	. = ..()
@@ -133,27 +122,6 @@
 // When the box is opened, it's deleted, so we never need to update this.
 /obj/structure/closet/cardboard/agent/update_icon_state()
 	return
-
-/obj/structure/closet/cardboard/agent/proc/create_fake_box()
-	if(fake_box)
-		return
-	fake_box = new(get_turf(src))
-	fake_box.mouse_opacity = MOUSE_OPACITY_TRANSPARENT // This object should be completely invisible.
-	box_img = image(icon, fake_box, icon_state, ABOVE_MOB_LAYER)
-	box_img.alpha = 128
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(move_fake_box))
-	var/mob/living/implant_user = locateUID(implant_user_UID)
-	implant_user.client?.images += box_img
-
-/obj/structure/closet/cardboard/agent/proc/move_fake_box(datum/source, oldloc, move_dir)
-	SIGNAL_HANDLER
-
-	// For non-standard movement such as teleports.
-	if(!move_dir)
-		fake_box.loc = get_turf(src)
-		return
-	// For basic 8-directional movement.
-	fake_box.loc = get_step(fake_box, move_dir)
 
 /obj/structure/closet/cardboard/agent/proc/go_invisible(invis_time = 2 SECONDS)
 	animate(src, alpha = 0, time = invis_time)

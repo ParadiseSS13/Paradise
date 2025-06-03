@@ -218,6 +218,14 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
+/datum/supply_packs/security/armory/eshotguns
+	name = "Energy Shotguns Crate"
+	contains = list(/obj/item/gun/energy/gun/shotgun,
+					/obj/item/gun/energy/gun/shotgun)
+	cost = 500
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "energy shotgun crate"
+
 /// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
 /datum/supply_packs/security/armory/epistol
 	name = "Energy Pistol Crate"
@@ -278,15 +286,15 @@
 
 /datum/supply_packs/security/armory/tranqammo
 	name = "Tranquilizer Shell Crate"
-	contains = list(/obj/item/storage/box/tranquilizer,
-					/obj/item/storage/box/tranquilizer)
+	contains = list(/obj/item/storage/fancy/shell/tranquilizer,
+					/obj/item/storage/fancy/shell/tranquilizer)
 	cost = 400
 	containername = "tranquilizer shell crate"
 
 /datum/supply_packs/security/armory/holyammo
 	name = "Holy Water Shell Crate"
-	contains = list(/obj/item/storage/box/holy,
-					/obj/item/storage/box/holy)
+	contains = list(/obj/item/storage/fancy/shell/holy,
+					/obj/item/storage/fancy/shell/holy)
 	cost = 400
 	containername = "holy water shell crate"
 
@@ -318,6 +326,20 @@
 	cost = 500
 	containername = "chemical bio-chip crate"
 
+/datum/supply_packs/security/armory/flayer_nullifer
+	name = "Mindflayer Containment Kit"
+	contains = list(/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification,
+					/obj/item/storage/box/handcuffs,
+					/obj/item/toy/plushie/ipcplushie) // For practicing takedowns
+	cost = 250
+	containername = "mindflayer containment kit"
+
+/datum/supply_packs/security/armory/bluespace_anchor
+	name = "Bluespace Anchor Crate"
+	contains = list(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor)
+	cost = 250
+	containername = "bluespace anchor crate"
+
 /datum/supply_packs/security/securitybarriers
 	name = "Security Barriers Crate"
 	contains = list(/obj/item/grenade/barrier,
@@ -334,7 +356,7 @@
 					/obj/item/clothing/head/soft/sec/corp,
 					/obj/item/clothing/head/soft/sec/corp,
 					/obj/item/clothing/under/rank/security/warden/corporate,
-					/obj/item/clothing/head/beret/sec/warden,
+					/obj/item/clothing/head/beret/warden,
 					/obj/item/clothing/under/rank/security/head_of_security/corporate,
 					/obj/item/clothing/head/beret/hos)
 	cost = 200

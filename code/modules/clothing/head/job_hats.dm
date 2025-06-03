@@ -4,7 +4,7 @@
 	name = "chef's hat"
 	desc = "The commander in chef's head wear."
 	icon_state = "chef"
-	item_state = "chef"
+	item_state = "chefhat"
 	strip_delay = 10
 	put_on_delay = 10
 	dog_fashion = /datum/dog_fashion/head/chef
@@ -27,12 +27,16 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 		)
 
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
-	icon_state = "captain_cap"
+	icon_state = "captain_capblue"
+
+/obj/item/clothing/head/caphat/parade/white
+	icon_state = "captain_capwhite"
 
 //Head of Personnel
 /obj/item/clothing/head/hop
@@ -117,13 +121,13 @@
 	)
 
 //Security
-/obj/item/clothing/head/HoS
+/obj/item/clothing/head/hos
 	name = "head of security's cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hos_cap"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
-	dog_fashion = /datum/dog_fashion/head/HoS
+	dog_fashion = /datum/dog_fashion/head/hos
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
@@ -159,7 +163,32 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
+//Research
+/obj/item/clothing/head/rd
+	name = "research director's cap"
+	desc = "Fancy hat for a bureaucratic command member. Not very practical for research use, but that's Nanotrasen!"
+	icon_state = "rdcap"
+	dog_fashion = /datum/dog_fashion/head/rd
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+	)
+
 //Medical
+/obj/item/clothing/head/cmo
+	name = "chief medical officer's cap"
+	desc = "Fancy hat for a bureaucratic command member. Not very practical for medical use, but that's Nanotrasen!"
+	icon_state = "cmocap"
+	dog_fashion = /datum/dog_fashion/head/cmo
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+	)
+
 /obj/item/clothing/head/surgery
 	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
@@ -193,3 +222,14 @@
 	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers. It is as dark as the coroner's humor."
 	icon_state = "surgcap_black"
 	dog_fashion = /datum/dog_fashion/head/surgery
+
+// NT Career Trainer
+/obj/item/clothing/head/drilltrainer
+	name = "campaign hat"
+	desc = "A wide-brimmed campaign hat with a drill sergeant feel, worn by Career Trainers to project knowledge and guide new employees with classic style."
+	icon_state = "trainercampaign"
+	item_state = "trainercampaign"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)

@@ -8,7 +8,7 @@ type InputButtonsData = {
 };
 
 type InputButtonsProps = {
-  input: string | number | string[];
+  input: string | number | string[] | Object;
   message?: string;
   disabled?: boolean;
 };

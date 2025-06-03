@@ -1,14 +1,14 @@
 // Recruiting observers to play as pAIs
 
-GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler for pAI candidates
+GLOBAL_DATUM_INIT(paiController, /datum/pai_controller, new) // Global handler for pAI candidates
 
-/datum/paiController
+/datum/pai_controller
 	var/list/pai_candidates = list()
 	var/list/asked = list()
 
 	var/askDelay = 10 * 60 * 1	// One minute [ms * sec * min]
 
-/datum/paiController/Topic(href, href_list[])
+/datum/pai_controller/Topic(href, href_list[])
 
 	var/datum/pai_save/candidate = locateUID(href_list["candidate"])
 
@@ -115,7 +115,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				return
 		recruitWindow(usr)
 
-/datum/paiController/proc/recruitWindow(mob/M)
+/datum/pai_controller/proc/recruitWindow(mob/M)
 	var/datum/pai_save/candidate = M.client.pai_save
 
 	var/dat = ""
@@ -234,7 +234,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 	M << browse(dat, "window=paiRecruit;size=580x580;")
 
-/datum/paiController/proc/findPAI(obj/item/paicard/p, mob/user)
+/datum/pai_controller/proc/findPAI(obj/item/paicard/p, mob/user)
 	requestRecruits(p, user)
 	var/list/available = list()
 	for(var/datum/pai_save/c in GLOB.paiController.pai_candidates)
@@ -349,7 +349,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 	user << browse(dat, "window=findPai")
 
-/datum/paiController/proc/requestRecruits(obj/item/paicard/P, mob/user)
+/datum/pai_controller/proc/requestRecruits(obj/item/paicard/P, mob/user)
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 			if(player_old_enough_antag(O.client,ROLE_PAI))
@@ -357,7 +357,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 					to_chat(O, "<span class='boldnotice'>A pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='byond://?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 					//question(O.client)
 
-/datum/paiController/proc/check_recruit(mob/dead/observer/O)
+/datum/pai_controller/proc/check_recruit(mob/dead/observer/O)
 	if(jobban_isbanned(O, ROLE_PAI) || jobban_isbanned(O, "nonhumandept"))
 		return 0
 	if(!player_old_enough_antag(O.client,ROLE_PAI))
@@ -370,7 +370,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		return 1
 	return 0
 
-/datum/paiController/proc/question(client/C)
+/datum/pai_controller/proc/question(client/C)
 	spawn(0)
 		if(!C)	return
 		asked.Add(C.key)

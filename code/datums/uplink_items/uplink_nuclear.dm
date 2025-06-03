@@ -8,7 +8,7 @@
 	name = "Stechkin APS Pistol"
 	reference = "APS"
 	desc = "The automatic machine pistol version of the FK-69 'Stechkin' chambered in 10mm Auto with a detachable 20-round box magazine. Perfect for dual wielding or as backup."
-	item = /obj/item/gun/projectile/automatic/pistol/APS
+	item = /obj/item/gun/projectile/automatic/pistol/aps
 	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -58,12 +58,11 @@
 
 /datum/uplink_item/dangerous/flamethrower
 	name = "Flamethrower"
-	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
-	reference = "FT"
-	item = /obj/item/flamethrower/full/tank
-	cost = 3
+	desc = "A chemical flamethrower, fueled by a volatile mix of fuel and napalm. Comes prefilled with two canisters. Do not use with caution."
+	reference = "CHEM_THROWER"
+	item = /obj/item/chemical_flamethrower/extended/nuclear
+	cost = 40 // In contrary to the gas flamethrower, this one is a very strong area denial tool that can't be countered by an AI
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	surplus = 40
 
 /datum/uplink_item/dangerous/combat_defib
 	name = "Combat Defibrillator Module"
@@ -91,6 +90,14 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
+/datum/uplink_item/dangerous/bulldog
+	name = "Bulldog Shotgun"
+	desc = "Lean and mean: Optimized for people that want to get up close and personal. Extra Ammo sold separately."
+	reference = "BULD"
+	item = /obj/item/gun/projectile/automatic/shotgun/bulldog
+	cost = 15
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 ////////////////////////////////////////
 // MARK: SUPPORT AND MECHAS
 ////////////////////////////////////////
@@ -102,11 +109,10 @@
 
 /datum/uplink_item/support/gygax
 	name = "Gygax Exosuit"
-	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent for hit-and-run style attacks. \
-	This model lacks a method of space propulsion, and therefore it is advised to repair the mothership's teleporter if you wish to make use of it."
+	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent for hit-and-run style attacks."
 	reference = "GE"
 	item = /obj/mecha/combat/gygax/dark/loaded
-	cost = 400
+	cost = 350
 
 /datum/uplink_item/support/mauler
 	name = "Mauler Exosuit"
@@ -224,18 +230,19 @@
 
 /datum/uplink_item/ammo/bulldog_ammobag
 	name = "Bulldog - 12g Ammo Duffel Bag"
-	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
+	desc = "A duffel bag filled with nine 8 round drum magazines. (6 Slug, 2 Buckshot, 1 Dragon's Breath)"
 	reference = "12ADB"
 	item = /obj/item/storage/backpack/duffel/syndie/shotgun
 	cost = 60 // normally 90
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/ammo/bulldog_XLmagsbag
-	name = "Bulldog - 12g XL Magazine Duffel Bag"
-	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
+/datum/uplink_item/ammo/bulldog_xl_magsbag
+	name = "Bulldog - 12g Extra-Large Magazine Duffel Bag"
+	desc = "A duffel bag containing five XL 16 round drum magazines. (3 Slug, 1 Buckshot, 1 Dragon's Breath)."
 	reference = "12XLDB"
-	item = /obj/item/storage/backpack/duffel/syndie/shotgunXLmags
-	cost = 60 // normally 90
+	item = /obj/item/storage/backpack/duffel/syndie/shotgun_xl_mags
+	// same price for more ammo, but you're likely to lose more ammo if you drop your bulldog. High risk, high reward.
+	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg
@@ -278,11 +285,19 @@
 	cost = 30
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/ammo/chemical_canister
+	name = "Box of chemical flamethrower canisters"
+	desc = "A box filled with 2 canisters of flamethrower fuel, exactly enough to fully refill your flamethrower once!"
+	reference = "CHEM_CAN"
+	item = /obj/item/storage/box/syndie_kit/chemical_canister
+	cost = 30
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/ammo/machinegun
-	name = "L6 SAW - 5.56x45mm Box Magazine"
-	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
+	name = "L6 SAW - 7.62x51mm Box Magazine"
+	desc = "A 50-round magazine of 7.62x51mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
 	reference = "762"
-	item = /obj/item/ammo_box/magazine/mm556x45
+	item = /obj/item/ammo_box/magazine/mm762x51
 	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -606,16 +621,7 @@
 // MARK: BUNDLES
 ////////////////////////////////////////
 
-/datum/uplink_item/bundles_TC/bulldog
-	name = "Bulldog Bundle"
-	desc = "Lean and mean: Optimized for people that want to get up close and personal. Contains the popular \
-			Bulldog shotgun, two 12g buckshot drums, and a pair of Thermal imaging goggles."
-	reference = "BULB"
-	item = /obj/item/storage/backpack/duffel/syndie/bulldogbundle
-	cost = 45 // normally 60
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/bundles_TC/c20r
+/datum/uplink_item/bundles_tc/c20r
 	name = "C-20r Bundle"
 	desc = "Old Faithful: The classic C-20r, bundled with three magazines and a (surplus) suppressor at discount price."
 	reference = "C20B"
@@ -623,7 +629,7 @@
 	cost = 90 // normally 105
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/cyber_implants
+/datum/uplink_item/bundles_tc/cyber_implants
 	name = "Cybernetic Implants Bundle"
 	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. Comes with an autosurgeon."
 	reference = "CIB"
@@ -631,7 +637,7 @@
 	cost = 200
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/medical
+/datum/uplink_item/bundles_tc/medical
 	name = "Medical Bundle"
 	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \
 			a medical beam gun and a pair of syndicate magboots."
@@ -640,7 +646,7 @@
 	cost = 80 // normally 105
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/sniper
+/datum/uplink_item/bundles_tc/sniper
 	name = "Sniper bundle"
 	desc = "Elegant and refined: Contains a collapsed sniper rifle in an expensive carrying case, \
 			two soporific knockout magazines, a free surplus suppressor, and a sharp-looking tactical turtleneck suit. \

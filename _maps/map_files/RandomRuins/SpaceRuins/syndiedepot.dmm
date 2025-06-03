@@ -76,7 +76,7 @@
 /turf/simulated/wall,
 /area/syndicate_depot/outer)
 "ap" = (
-/obj/effect/spawner/random_spawners/syndicate/turret/external,
+/obj/effect/spawner/random/syndicate/turret/external,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "aq" = (
@@ -85,7 +85,7 @@
 /area/syndicate_depot/outer)
 "ar" = (
 /obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -146,13 +146,13 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "aB" = (
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -173,7 +173,7 @@
 	},
 /area/syndicate_depot/core)
 "aE" = (
-/obj/effect/spawner/random_spawners/syndicate/layout/door,
+/obj/effect/spawner/random/syndicate/walldoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -196,20 +196,12 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"aI" = (
-/obj/structure/sign/poster/contraband/syndicate_recruitment,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
 "aJ" = (
 /obj/machinery/light,
-/obj/effect/spawner/random_spawners/syndicate/turret,
+/obj/effect/spawner/random/syndicate/turret,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate_depot/core)
-"aK" = (
-/obj/structure/sign/poster/contraband/lamarr,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "aL" = (
 /obj/machinery/light{
@@ -221,7 +213,7 @@
 	},
 /area/syndicate_depot/core)
 "aM" = (
-/obj/effect/spawner/random_spawners/syndicate/turret/external,
+/obj/effect/spawner/random/syndicate/turret/external,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -235,7 +227,7 @@
 	},
 /area/syndicate_depot/core)
 "aO" = (
-/obj/effect/spawner/random_spawners/syndicate/trap/mine,
+/obj/effect/spawner/random/syndicate/mine,
 /obj/item/stack/sheet/metal{
 	layer = 4.1
 	},
@@ -271,6 +263,7 @@
 	on = 1
 	},
 /obj/effect/turf_decal/delivery/blue,
+/obj/structure/sign/poster/contraband/lamarr/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -306,7 +299,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/spawner/random_spawners/syndicate/turret,
+/obj/effect/spawner/random/syndicate/turret,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -319,30 +312,26 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"aY" = (
-/obj/structure/sign/poster/contraband/fun_police,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
 "aZ" = (
-/obj/machinery/door/poddoor/multi_tile/two_tile_hor,
+/obj/machinery/door/poddoor/multi_tile/double/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "ba" = (
-/obj/effect/spawner/random_spawners/syndicate/trap/medbot,
+/obj/effect/spawner/random/syndicate/medbot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "bb" = (
-/obj/effect/spawner/random_spawners/syndicate/mob,
+/obj/effect/spawner/random/syndicate/mob,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "bc" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -350,14 +339,10 @@
 "bd" = (
 /obj/item/lighter/zippo/black,
 /obj/structure/table,
-/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/syndicate/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate_depot/core)
-"be" = (
-/obj/structure/sign/poster/contraband/lusty_xenomorph,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bf" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -367,14 +352,10 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate_depot/core)
-"bi" = (
-/obj/structure/sign/poster/official/high_class_martini,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bj" = (
 /obj/structure/dispenser,
@@ -394,7 +375,7 @@
 /area/syndicate_depot/outer)
 "bl" = (
 /obj/structure/table,
-/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/syndicate/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -409,20 +390,11 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
-"bn" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/spawner/random_spawners/syndicate/loot,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "bo" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -442,39 +414,36 @@
 	},
 /area/syndicate_depot/core)
 "bq" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/syndicate_depot/core)
 "br" = (
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/syndicate_depot/outer)
 "bs" = (
-/obj/effect/spawner/random_spawners/syndicate/turret,
+/obj/effect/spawner/random/syndicate/turret,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
-"bt" = (
-/obj/structure/sign/poster/official/air1,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
 "bu" = (
 /obj/structure/dispenser,
+/obj/structure/sign/poster/official/air1/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "bv" = (
-/obj/effect/spawner/random_spawners/syndicate/turret,
+/obj/effect/spawner/random/syndicate/turret,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -511,16 +480,8 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"bA" = (
-/obj/structure/sign/poster/contraband/tools,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
-"bB" = (
-/obj/structure/sign/poster/contraband/hacking_guide,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
 "bC" = (
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
+/mob/living/simple_animal/hostile/syndicate/depot/officer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -532,7 +493,7 @@
 	},
 /area/syndicate_depot/core)
 "bE" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level3,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/officer/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -561,17 +522,16 @@
 	name = "Sealed Doors";
 	protected = 0
 	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /obj/machinery/door/airlock/external{
-	id_tag = "sst_away";
-	req_access_txt = "150"
+	id_tag = "sst_away"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
 "bJ" = (
-/obj/structure/closet/secure_closet/syndicate/depot,
-/obj/effect/spawner/random_spawners/syndicate/trap/documents,
+/obj/effect/spawner/random/syndicate/trapped_documents,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -584,10 +544,9 @@
 /area/syndicate_depot/core)
 "bL" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/sign/poster/contraband/hacking_guide/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -599,7 +558,6 @@
 	},
 /obj/structure/fusionreactor,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -621,7 +579,7 @@
 /area/syndicate_depot/core)
 "bP" = (
 /obj/structure/table,
-/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb,
+/obj/effect/spawner/random/syndicate/pizzabomb,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -648,8 +606,7 @@
 /obj/machinery/turretid/syndicate{
 	name = "external turret controls";
 	pixel_x = -32;
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -657,7 +614,7 @@
 /area/syndicate_depot/outer)
 "bU" = (
 /obj/structure/table,
-/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/obj/effect/spawner/random/syndicate/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -692,7 +649,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bZ" = (
-/obj/effect/spawner/random_spawners/syndicate/layout/door/vault,
+/obj/effect/spawner/random/syndicate/wallvault,
 /obj/effect/landmark{
 	dir = 4;
 	name = "syndi_depot_shield"
@@ -709,14 +666,6 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
-"cb" = (
-/obj/structure/sign/poster/contraband/energy_swords,
-/obj/effect/landmark{
-	dir = 4;
-	name = "syndi_depot_shield"
-	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
 "cc" = (
 /obj/effect/landmark{
 	dir = 10;
@@ -725,7 +674,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cd" = (
-/obj/effect/spawner/random_spawners/syndicate/mob,
+/obj/effect/spawner/random/syndicate/mob,
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "ce" = (
@@ -742,7 +691,6 @@
 	name = "mysterious button";
 	power_state = 0
 	},
-/obj/structure/sign/poster/contraband/syndicate_recruitment,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/outer)
 "cg" = (
@@ -750,13 +698,8 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating/airless,
 /area/syndicate_depot/outer)
-"ch" = (
-/obj/structure/sign/poster/official/state_laws,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
 "ci" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/upgraded{
@@ -792,8 +735,8 @@
 	},
 /area/syndicate_depot/core)
 "cm" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level4,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -803,13 +746,14 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot,
+/obj/structure/sign/poster/contraband/energy_swords/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "co" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/armory/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -827,20 +771,13 @@
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cr" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cs" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
-"ct" = (
-/obj/structure/sign/poster/contraband/missing_gloves,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
 "cu" = (
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
 	dir = 4
@@ -851,8 +788,6 @@
 /area/syndicate_depot/core)
 "cv" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -864,13 +799,9 @@
 /area/syndicate_depot/core)
 "cw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -884,7 +815,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/syndicate/layout/door/vault,
+/obj/effect/spawner/random/syndicate/wallvault,
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
@@ -904,7 +835,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory,
+/mob/living/simple_animal/hostile/syndicate/depot/modsuit/elite,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -933,7 +864,6 @@
 	},
 /area/syndicate_depot/core)
 "cC" = (
-/obj/structure/sign/poster/contraband/revolver,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -946,15 +876,13 @@
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
+/mob/living/simple_animal/hostile/syndicate/depot/officer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "cE" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cF" = (
@@ -976,8 +904,6 @@
 /area/syndicate_depot/core)
 "cI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -998,7 +924,7 @@
 	},
 /area/syndicate_depot/core)
 "cL" = (
-/obj/effect/spawner/random_spawners/syndicate/layout/door/vault,
+/obj/effect/spawner/random/syndicate/wallvault,
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
@@ -1013,14 +939,8 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
-"cN" = (
-/obj/structure/sign/poster/official/obey,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
 "cO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -1028,14 +948,6 @@
 "cP" = (
 /obj/effect/landmark{
 	dir = 5;
-	name = "syndi_depot_shield"
-	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate_depot/core)
-"cQ" = (
-/obj/structure/sign/poster/contraband/syndicate_pistol,
-/obj/effect/landmark{
-	dir = 4;
 	name = "syndi_depot_shield"
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -1058,10 +970,8 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/spawner/random_spawners/syndicate/turret,
+/obj/effect/spawner/random/syndicate/turret,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1118,15 +1028,13 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/depot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "db" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small,
@@ -1145,7 +1053,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/syndicate/turret,
+/obj/effect/spawner/random/syndicate/turret,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1162,14 +1070,96 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
-"dg" = (
-/obj/item/gps/ruin{
-	gpstag = "ERR#UNKWN"
+"ei" = (
+/obj/structure/sign/poster/contraband/fun_police/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"mQ" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"rJ" = (
+/obj/structure/sign/poster/contraband/tools/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"tE" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"BU" = (
+/obj/structure/sign/poster/official/high_class_martini/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"Hp" = (
+/obj/structure/sign/poster/contraband/missing_gloves/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"Nh" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"Qr" = (
+/obj/structure/sign/poster/official/state_laws/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"Ro" = (
+/obj/structure/sign/poster/contraband/syndicate_pistol/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"Ry" = (
+/obj/item/stack/sheet/metal{
+	layer = 4.1
+	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/syndicate_depot/core)
 "Te" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
+/area/syndicate_depot/outer)
+"Uy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/revolver/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"VS" = (
+/obj/structure/sign/poster/official/obey/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"ZV" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/north,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 
 (1,1,1) = {"
@@ -1705,7 +1695,7 @@ at
 at
 at
 at
-bt
+at
 at
 at
 aC
@@ -1755,7 +1745,7 @@ aM
 at
 aD
 aD
-bn
+cW
 bu
 bz
 at
@@ -1811,7 +1801,7 @@ aD
 bv
 at
 aF
-ch
+at
 aB
 at
 cM
@@ -1853,8 +1843,8 @@ av
 aj
 aD
 aD
-aD
-aY
+ei
+at
 aD
 aD
 aD
@@ -1862,7 +1852,7 @@ aD
 aD
 aE
 aD
-aD
+Qr
 aD
 at
 at
@@ -1902,7 +1892,7 @@ aj
 aj
 ao
 ad
-dg
+at
 aL
 aD
 aZ
@@ -1959,7 +1949,7 @@ aD
 aD
 aD
 aD
-bo
+Nh
 aD
 bv
 at
@@ -2016,7 +2006,7 @@ at
 at
 at
 aE
-ct
+at
 at
 at
 aL
@@ -2062,15 +2052,15 @@ at
 at
 aB
 aD
-aD
-bA
+rJ
+at
 bJ
 bV
 aD
-aD
+Hp
 bE
-cN
-aD
+at
+VS
 cY
 at
 af
@@ -2119,7 +2109,7 @@ aD
 aD
 aD
 aD
-bE
+aB
 at
 aD
 aD
@@ -2157,8 +2147,8 @@ ai
 aj
 ao
 ad
-aI
-aN
+at
+Ry
 aN
 aD
 at
@@ -2318,7 +2308,7 @@ bd
 aD
 aD
 aD
-bB
+at
 bL
 bW
 ci
@@ -2477,8 +2467,8 @@ bZ
 cl
 cz
 aD
-cQ
-bE
+bY
+Ro
 aD
 aD
 at
@@ -2514,13 +2504,13 @@ af
 at
 aw
 aD
-aB
+aD
 at
 aD
 aD
-bc
-bi
 aD
+at
+BU
 aD
 bD
 bN
@@ -2573,9 +2563,9 @@ aD
 at
 aD
 aD
+aD
 bE
-bE
-cb
+bY
 cn
 cB
 aD
@@ -2584,7 +2574,7 @@ aD
 bC
 aD
 at
-bh
+aL
 aD
 at
 af
@@ -2635,7 +2625,7 @@ cV
 aD
 aD
 at
-bc
+aD
 aD
 at
 at
@@ -2730,7 +2720,7 @@ aD
 aD
 aE
 aD
-cy
+Uy
 aD
 bE
 at
@@ -2772,7 +2762,7 @@ aD
 aD
 aE
 aD
-bc
+aD
 bc
 at
 aD
@@ -2783,12 +2773,12 @@ at
 aD
 cD
 aD
-bE
+aD
 at
 aL
 aD
 bc
-bc
+aD
 aD
 aD
 at
@@ -2888,7 +2878,7 @@ aD
 cS
 at
 aO
-aD
+tE
 aD
 bb
 aD
@@ -2920,9 +2910,9 @@ af
 af
 af
 at
-aB
 aD
-aK
+aD
+at
 aR
 aD
 aD
@@ -2939,7 +2929,7 @@ at
 at
 at
 aE
-aI
+at
 at
 at
 at
@@ -2977,8 +2967,8 @@ at
 aS
 aX
 aD
-be
-aL
+at
+mQ
 aD
 bx
 at
@@ -2991,7 +2981,7 @@ aD
 cW
 aD
 aD
-aB
+aD
 at
 af
 af
@@ -3341,7 +3331,7 @@ aj
 bf
 bf
 cf
-af
+ZV
 cF
 af
 af

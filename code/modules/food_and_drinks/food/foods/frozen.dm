@@ -16,16 +16,17 @@
 	desc = "A funny cake with a clown face on it."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "clowncake"
-	slice_path = /obj/item/food/frozen/clowncakeslice
+	slice_path = /obj/item/food/sliced/clowncake
 	slices_num = 5
 	bitesize = 3
 	list_reagents = list("nutriment" = 20, "sugar" = 5, "vitamin" = 5, "banana" = 15)
 	tastes = list("cake" = 5, "sweetness" = 2, "banana" = 1, "sad clowns" = 1, "ice-cream" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/frozen/clowncakeslice
+/obj/item/food/sliced/clowncake
 	name = "clown cake slice"
 	desc = "A slice of bad jokes, and silly props."
+	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "clowncake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFD675"
@@ -359,6 +360,6 @@
 	name = "ant popsicle"
 	desc = "A colony of ants suspended in hardened sugar. Those things are dead, right?"
 	icon_state = "ant_pop"
-	trash = /obj/item/stack/rods
-	list_reagents = list("nutriment" = 1, "vitamin" = 1, "sugar" = 5, "ants" = 3,)
+	trash = /obj/item/trash/popsicle_stick
+	list_reagents = list("nutriment" = 1, "vitamin" = 1, "sugar" = 5, "ants" = 3)
 	tastes = list("candy" = 1, "ants" = 2)

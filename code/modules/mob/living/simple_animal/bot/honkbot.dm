@@ -36,6 +36,10 @@
 	var/datum/job/clown/J = new /datum/job/clown()
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
@@ -57,7 +61,7 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	last_found = world.time
 	spam_flag = FALSE
 
@@ -104,7 +108,7 @@
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = 6
 	target = H
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/honkbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)
@@ -112,13 +116,14 @@
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
-		return
-	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))//If the target is locked, they are recieving damage from the screwdriver
+/mob/living/simple_animal/bot/honkbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	// If the target is locked, they are recieving damage from the screwdriver
+	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))
 		retaliate(user)
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()
@@ -132,7 +137,7 @@
 
 /mob/living/simple_animal/bot/honkbot/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	if(locked || !open)
 		to_chat(user, "<span class='warning'>Unlock and open it with a screwdriver first!</span>")
 		return FALSE
@@ -147,6 +152,7 @@
 		to_chat(user, "<span class='notice'>You smear bananium ooze all over [src]'s circuitry!</span>")
 		add_attack_logs(user, src, "Cmagged")
 	show_laws()
+	return TRUE
 
 /mob/living/simple_animal/bot/honkbot/examine(mob/user)
 	. = ..()
@@ -204,20 +210,20 @@
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/cuff_callback(mob/living/carbon/C)
-	mode = BOT_ARREST
+	set_mode(BOT_ARREST)
 	sleep(1 SECONDS)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
 	if(!do_after(src, 6 SECONDS, target = C) || !on)
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		return
 	if(!C.handcuffed)
 		C.handcuffed = new /obj/item/restraints/handcuffs/twimsts(C)
 		C.update_handcuffed()
 	C.SetDeaf(0)
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
 	if(spam_flag)
@@ -261,15 +267,15 @@
 		return
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			GLOB.move_manager.stop_looping(src)
 			if(find_new_target())
 				return
 			if(!mode && auto_patrol)
-				mode = BOT_START_PATROL
+				set_mode(BOT_START_PATROL)
 		if(BOT_HUNT)
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
-				walk_to(src, 0)
+				GLOB.move_manager.stop_looping(src)
 				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, TRUE, -1)
 				back_to_idle()
 				return
@@ -303,7 +309,7 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_idle()
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	target = null
 	last_found = world.time
 	frustration = 0
@@ -312,7 +318,7 @@
 /mob/living/simple_animal/bot/honkbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // responds quickly
 
 /mob/living/simple_animal/bot/honkbot/proc/find_new_target()
@@ -330,7 +336,7 @@
 			if(emagged) // actually emagged
 				bike_horn()
 			else
-				if(C in view(4, src) && !spam_flag) //keep the range short for patrolling
+				if((C in view(4, src)) && !spam_flag) //keep the range short for patrolling
 					bike_horn()
 			continue
 
@@ -347,13 +353,13 @@
 		else
 			speak("Honk!")
 			visible_message("<b>[src]</b> starts chasing [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	visible_message("<span class='boldannounceic'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
@@ -370,12 +376,12 @@
 	..()
 	if(!isalien(target))
 		target = user
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && on) //only if its online
+/mob/living/simple_animal/bot/honkbot/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ismob(entered) && on) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
-			var/mob/living/carbon/C = AM
+			var/mob/living/carbon/C = entered
 			if(!istype(C) || !C || in_range(src, target))
 				return
 			C.visible_message("<span class='warning'>[pick( \
@@ -390,5 +396,3 @@
 			if(!client)
 				speak("Honk!")
 			sensor_blink()
-			return
-	..()

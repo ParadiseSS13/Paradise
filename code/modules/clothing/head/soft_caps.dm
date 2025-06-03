@@ -10,6 +10,7 @@
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/softcap
 	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/softcap.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
 		)
 	dyeable = TRUE
@@ -19,7 +20,7 @@
 	flipped = FALSE
 	..()
 
-/obj/item/clothing/head/soft/attack_self(mob/user)
+/obj/item/clothing/head/soft/attack_self__legacy__attackchain(mob/user)
 	flip(user)
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
@@ -32,9 +33,7 @@
 		to_chat(user, "You flip the hat back in normal position.")
 	user.update_inv_head()	//so our mob-overlays update
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/soft/red
 	name = "red cap"
@@ -112,6 +111,13 @@
 	item_color = "expedition"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 
+/obj/item/clothing/head/soft/smith
+	name = "smith's cap"
+	desc = "It's a brown baseball hat with a black smithing shield."
+	icon_state = "smithsoft"
+	item_color = "smith"
+	dog_fashion = /datum/dog_fashion/head/smith
+
 /obj/item/clothing/head/soft/janitorgrey
 	name = "grey janitor's cap"
 	desc = "It's a grey baseball hat with a purple custodial shield."
@@ -142,7 +148,7 @@
 	item_color = "corp"
 
 /obj/item/clothing/head/soft/solgov
-	name = "\improper Trans-Solar Federation marine cap"
+	name = "\improper TSF marine cap"
 	desc = "A soft cap worn by marines of the Trans-Solar Federation."
 	icon_state = "solgovsoft"
 	item_color = "solgov"
@@ -155,15 +161,15 @@
 	flipped = TRUE
 
 /obj/item/clothing/head/soft/solgov/marines/elite
-	name = "\improper Trans-Solar Federation Specops marine cap"
-	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is!"
+	name = "\improper MARSOC cap"
+	desc = "A cap worn by marines of the Trans-Solar Federation's Marine Special Operations Command. You aren't quite sure how they made this bulletproof, but you are glad it is!"
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "solgovelitesoft_flipped"
 	item_color = "solgovelite"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/soft/solgov/marines/command
-	name = "\improper Trans-Solar Federation lieutenant's cap"
+	name = "\improper TSF marine lieutenant's cap"
 	desc = "A soft cap worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "solgovcsoft_flipped"
 	item_color = "solgovc"
@@ -171,8 +177,8 @@
 	strip_delay = 80
 
 /obj/item/clothing/head/soft/solgov/marines/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's cap"
-	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is! The insignia signifies the wearer bears the rank of a Lieutenant."
+	name = "\improper MARSOC Lieutenant's cap"
+	desc = "A cap worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. You aren't quite sure how they made this bulletproof, but you are glad it is! The insignia signifies the wearer bears the rank of a Lieutenant."
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "solgovcelitesoft_flipped"
 	item_color = "solgovcelite"

@@ -1,15 +1,17 @@
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Table } from '../components';
+import { Box, Button, DmIcon, Section, Stack, Table, Icon } from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props, context) => {
   const { act, data } = useBackend(context);
-  const { product, productStock, productImage } = props;
-  const { chargesMoney, user, usermoney, inserted_cash, vend_ready, inserted_item_name } = data;
-  const free = !chargesMoney || product.price === 0;
+  const { product, productStock, productIcon, productIconState } = props;
+  const { locked, bypass_lock, user, usermoney, inserted_cash, vend_ready, inserted_item_name } = data;
   let buttonText = 'ERROR!';
   let rowIcon = '';
-  if (free) {
+  if (locked && bypass_lock) {
+    buttonText = 'FREE (' + product.price + ')';
+    rowIcon = 'arrow-circle-down';
+  } else if (!locked || product.price === 0) {
     buttonText = 'FREE';
     rowIcon = 'arrow-circle-down';
   } else {
@@ -17,18 +19,17 @@ const VendingRow = (props, context) => {
     rowIcon = 'shopping-cart';
   }
   let buttonDisabled =
-    !vend_ready || productStock === 0 || (!free && product.price > usermoney && product.price > inserted_cash);
+    !vend_ready ||
+    productStock === 0 ||
+    (locked && !bypass_lock && product.price > usermoney && product.price > inserted_cash);
   return (
     <Table.Row>
       <Table.Cell collapsing>
-        <img
-          src={`data:image/jpeg;base64,${productImage}`}
-          style={{
-            'vertical-align': 'middle',
-            width: '32px',
-            margin: '0px',
-            'margin-left': '0px',
-          }}
+        <DmIcon
+          verticalAlign="middle"
+          icon={productIcon}
+          icon_state={productIconState}
+          fallback={<Icon p={0.66} name={'spinner'} size={2} spin />}
         />
       </Table.Cell>
       <Table.Cell bold>{product.name}</Table.Cell>
@@ -61,7 +62,6 @@ export const Vending = (props, context) => {
     user,
     usermoney,
     inserted_cash,
-    chargesMoney,
     product_records = [],
     hidden_records = [],
     stock,
@@ -69,7 +69,8 @@ export const Vending = (props, context) => {
     inserted_item_name,
     panel_open,
     speaker,
-    imagelist,
+    locked,
+    bypass_lock,
   } = data;
   let inventory;
 
@@ -83,50 +84,66 @@ export const Vending = (props, context) => {
     <Window
       title="Vending Machine"
       width={450}
-      height={Math.min((chargesMoney ? 171 : 89) + inventory.length * 32, 585)}
+      height={Math.min((!locked || !!bypass_lock ? 230 : 171) + inventory.length * 32, 585)}
     >
       <Window.Content scrollable>
         <Stack fill vertical>
-          {!!chargesMoney && (
+          {(!locked || !!bypass_lock) && (
             <Stack.Item>
-              <Section
-                title="User"
-                buttons={
-                  <Stack>
-                    <Stack.Item>
-                      {!!inserted_item_name && (
-                        <Button
-                          fluid
-                          icon="eject"
-                          content={<span style={{ 'text-transform': 'capitalize' }}>{inserted_item_name}</span>}
-                          onClick={() => act('eject_item', {})}
-                        />
-                      )}
-                    </Stack.Item>
-                    <Stack.Item>
-                      <Button
-                        disabled={!inserted_cash}
-                        icon="money-bill-wave-alt"
-                        content={inserted_cash ? <>{<b>{inserted_cash}</b>} credits</> : 'Dispense Change'}
-                        tooltip={inserted_cash ? 'Dispense Change' : null}
-                        textAlign="left"
-                        onClick={() => act('change')}
-                      />
-                    </Stack.Item>
-                  </Stack>
-                }
-              >
-                {user && (
-                  <Box>
-                    Welcome, <b>{user.name}</b>, <b>{user.job || 'Unemployed'}</b>!
-                    <br />
-                    Your balance is <b>{usermoney} credits</b>.
-                    <br />
-                  </Box>
-                )}
+              <Section title="Configuration">
+                <Stack horizontal>
+                  <Stack.Item>
+                    <Button icon="pen-to-square" content="Rename Vendor" onClick={() => act('rename', {})} />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Button
+                      icon="pen-to-square"
+                      content="Change Vendor Appearance"
+                      onClick={() => act('change_appearance', {})}
+                    />
+                  </Stack.Item>
+                </Stack>
               </Section>
             </Stack.Item>
           )}
+          <Stack.Item>
+            <Section
+              title="User"
+              buttons={
+                <Stack>
+                  <Stack.Item>
+                    {!!inserted_item_name && (
+                      <Button
+                        fluid
+                        icon="eject"
+                        content={<span style={{ 'text-transform': 'capitalize' }}>{inserted_item_name}</span>}
+                        onClick={() => act('eject_item', {})}
+                      />
+                    )}
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Button
+                      disabled={!inserted_cash}
+                      icon="money-bill-wave-alt"
+                      content={inserted_cash ? <>{<b>{inserted_cash}</b>} credits</> : 'Dispense Change'}
+                      tooltip={inserted_cash ? 'Dispense Change' : null}
+                      textAlign="left"
+                      onClick={() => act('change')}
+                    />
+                  </Stack.Item>
+                </Stack>
+              }
+            >
+              {user && (
+                <Box>
+                  Welcome, <b>{user.name}</b>, <b>{user.job || 'Unemployed'}</b>!
+                  <br />
+                  Your balance is <b>{usermoney} credits</b>.
+                  <br />
+                </Box>
+              )}
+            </Section>
+          </Stack.Item>
           {!!panel_open && (
             <Stack.Item>
               <Section title="Maintenance">
@@ -148,7 +165,8 @@ export const Vending = (props, context) => {
                     key={product.name}
                     product={product}
                     productStock={stock[product.name]}
-                    productImage={imagelist[product.path]}
+                    productIcon={product.icon}
+                    productIconState={product.icon_state}
                   />
                 ))}
               </Table>

@@ -126,7 +126,7 @@
 /area/shuttle/escape)
 "fH" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -217,7 +217,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "iJ" = (
 /turf/template_noop,
@@ -333,7 +333,7 @@
 /area/shuttle/escape)
 "nX" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ob" = (
 /obj/structure/chair/office/dark,
@@ -464,16 +464,13 @@
 /area/shuttle/escape)
 "ut" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "uW" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/command{
-	dir = 4
 	},
 /obj/machinery/door/window/reinforced/normal{
 	name = "Last Resort";
@@ -487,6 +484,9 @@
 	pixel_y = -6
 	},
 /obj/item/gun/energy/gun/mini,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/general{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "vk" = (
@@ -532,7 +532,7 @@
 	name = "Holding Area"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "wF" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -604,7 +604,8 @@
 	timid = 1;
 	dir = 2;
 	lance_docking = 1;
-	shuttle_speed_factor = 1.5
+	shuttle_speed_factor = 1.5;
+	port_direction = 1
 	},
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock"
@@ -629,24 +630,17 @@
 	},
 /area/shuttle/escape)
 "AK" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery/blue/partial{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/blue/partial{
 	dir = 8
 	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "AS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
@@ -713,7 +707,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "DU" = (
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "DZ" = (
 /obj/structure/closet/fireaxecabinet{
@@ -757,7 +751,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/box/handcuffs,
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "HE" = (
 /obj/machinery/light/small,
@@ -766,8 +760,8 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/storage/firstaid/doctor,
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/item/storage/firstaid/regular/doctor,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "HK" = (
 /obj/structure/extinguisher_cabinet{
@@ -863,8 +857,7 @@
 /area/shuttle/escape)
 "Ko" = (
 /obj/machinery/computer/security{
-	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -991,7 +984,6 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1131,7 +1123,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "XB" = (
 /obj/structure/closet/crate/internals,

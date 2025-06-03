@@ -16,6 +16,7 @@ import {
 } from './actions';
 import { createDefaultHighlightSetting } from './model';
 import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
+import { storage } from 'common/storage';
 
 const defaultHighlightSetting = createDefaultHighlightSetting();
 
@@ -38,6 +39,15 @@ const initialState = {
     visible: false,
     activeTab: SETTINGS_TABS[0].id,
   },
+  // Stat Panel settings
+  statLinked: true,
+  statFontSize: 12,
+  statFontFamily: FONTS[0],
+  statTabsStyle: 'default',
+  // End of Stat Panel settings
+
+  // Chat persistence setting - default is false, but use stored value if available
+  chatSaving: storage.get('chat-saving-enabled') === true,
 };
 
 export const settingsReducer = (state = initialState, action) => {

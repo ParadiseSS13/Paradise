@@ -1,65 +1,117 @@
 //List of different corpse types
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier
+// MARK: Syndicate
+/obj/effect/mob_spawn/human/corpse/syndicate
 	name = "Syndicate Operative"
-	mob_name = "Syndicate Operative"
-	hair_style = "bald"
-	facial_hair_style = "shaved"
-	id_job = "Operative"
+	id_job = "err#unkwn"
 	id_access_list = list(ACCESS_SYNDICATE)
-	outfit = /datum/outfit/syndicatesoldiercorpse
+	outfit = /datum/outfit/syndicatecorpse
+	del_types = list()
+	disable_pda = TRUE
+	var/name_changed
+	var/name_to_add
+	var/num_to_add
 
-/datum/outfit/syndicatesoldiercorpse
+/obj/effect/mob_spawn/human/corpse/syndicate/Initialize(mapload)
+	if(!name_changed)
+		name_to_add = pick("Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray", "Yankee", "Zulu")
+		num_to_add = rand(1, 1337)
+		mob_name = "[syndicate_name()] [name_to_add] #[num_to_add]"
+		name_changed = TRUE
+	brute_damage = rand(0, 200)
+	var/hcolor = pick("#000000", "#8B4513", "#FFD700")
+	var/ecolor = pick("#000000", "#8B4513", "#1E90FF")
+	hair_color = hcolor
+	facial_hair_color = hcolor
+	eyes_color = ecolor
+	skin_tone = pick(-50, -30, -10, 0, 0, 0, 10)
+	return ..()
+
+/datum/outfit/syndicatecorpse
 	name = "Corpse of a Syndicate Operative"
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/armor/vest
+	suit = /obj/item/clothing/suit/jacket/bomber/syndicate
+	glasses = /obj/item/clothing/glasses/night/syndicate_fake
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	l_ear = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas
-	head = /obj/item/clothing/head/helmet/swat
-	back = /obj/item/storage/backpack
-	id = /obj/item/card/id
+	l_ear = /obj/item/radio/headset/syndicate_fake
+	mask = /obj/item/clothing/mask/gas/syndicate
+	head = /obj/item/clothing/head/helmet/swat/syndicate
+	back = /obj/item/storage/backpack/satchel
+	belt = /obj/item/storage/belt/utility/syndi_researcher
+	box = /obj/item/storage/box/survival_syndie/traitor/loot
+	l_pocket = /obj/item/tank/internals/emergency_oxygen/engi/syndi
+	id = /obj/item/card/id/syndicate_fake
+	pda = /obj/item/pda/syndicate_fake
+	internals_slot = ITEM_SLOT_LEFT_POCKET
+	var/modsuit
+	var/armory_loot
 
+/datum/outfit/syndicatecorpse/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(modsuit && prob(5))
+		box = null
+		head = null
+		suit = null
+		l_pocket = null
+		back = modsuit
+		suit_store = /obj/item/tank/internals/oxygen/red
+		internals_slot = ITEM_SLOT_SUIT_STORE
+	if(armory_loot)
+		backpack_contents |= /obj/item/storage/box/syndie_kit/loot/elite
+	else if(prob(50))
+		backpack_contents |= /obj/item/storage/box/syndie_kit/loot
 
-/obj/effect/mob_spawn/human/corpse/syndicatecommando
+/datum/outfit/syndicatecorpse/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(H?.w_uniform)
+		var/obj/item/clothing/under/U = H.w_uniform
+		var/obj/item/clothing/accessory/holster/W = new /obj/item/clothing/accessory/holster(U)
+		U.accessories += W
+		W.on_attached(U)
+
+// MARK: Syndicate mod
+/obj/effect/mob_spawn/human/corpse/syndicate/modsuit
 	name = "Syndicate Commando"
-	mob_name = "Syndicate Commando"
-	hair_style = "bald"
-	facial_hair_style = "shaved"
-	id_job = "Operative"
-	id_access_list = list(ACCESS_SYNDICATE)
-	outfit = /datum/outfit/syndicatecommandocorpse
+	outfit = /datum/outfit/syndicatecorpse/modsuit
 
-/datum/outfit/syndicatecommandocorpse
+/obj/effect/mob_spawn/human/corpse/syndicate/modsuit/Initialize(mapload)
+	if(!name_changed)
+		name_to_add = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces", "Rose", "Peony", "Lily", "Daisy", "Zinnia", "Ivy", "Iris", "Petunia", "Violet", "Lilac", "Orchid")
+		if(prob(95))
+			num_to_add = pick("II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX")
+		mob_name = num_to_add ? "[syndicate_name()] [name_to_add] [num_to_add]" : "[syndicate_name()] [name_to_add]"
+		name_changed = TRUE
+	return ..()
+
+/datum/outfit/syndicatecorpse/modsuit
 	name = "Corpse of a Syndicate Commando"
-	uniform = /obj/item/clothing/under/syndicate
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	l_ear = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas/syndicate
-	back = /obj/item/mod/control/pre_equipped/traitor
-	r_pocket = /obj/item/tank/internals/emergency_oxygen
-	id = /obj/item/card/id
+	modsuit = /obj/item/mod/control/pre_equipped/traitor
 
-/obj/effect/mob_spawn/human/corpse/syndicatequartermaster
+// MARK: Syndicate elite mod
+/obj/effect/mob_spawn/human/corpse/syndicate/modsuit/elite
+	name = "Syndicate Overseer"
+	outfit = /datum/outfit/syndicatecorpse/modsuit/elite
+
+/obj/effect/mob_spawn/human/corpse/syndicate/modsuit/elite/Initialize(mapload)
+	if(!name_changed)
+		name_to_add = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord", "Berzerk", "Reaper", "Beast", "Hellwalker", "Slayer", "Oathbreaker", "Supreme Commander", "Overseer", "Butcher", "Executioner", "Judge", "Head of Shitcurity", "Unchained Predator", "Outlander", "DM1-5", "Scourge of Hell", "Doom")
+		mob_name = "[syndicate_name()] [name_to_add]"
+		name_changed = TRUE
+	return ..()
+
+/datum/outfit/syndicatecorpse/modsuit/elite
+	name = "Corpse of a Syndicate Overseer"
+	modsuit = /obj/item/mod/control/pre_equipped/traitor_elite
+	armory_loot = TRUE
+
+// MARK: Syndicate depot QM
+/obj/effect/mob_spawn/human/corpse/syndicate/modsuit/elite/depot
 	name = "Syndicate Quartermaster"
-	mob_name = "Syndicate Quartermaster"
-	hair_style = "bald"
-	facial_hair_style = "shaved"
-	id_job = "Operative"
-	id_access_list = list(ACCESS_SYNDICATE)
-	outfit = /datum/outfit/syndicatequartermastercorpse
+	outfit = /datum/outfit/syndicatecorpse/modsuit/elite/depot
 
-/datum/outfit/syndicatequartermastercorpse
+/datum/outfit/syndicatecorpse/modsuit/elite/depot
 	name = "Corpse of a Syndicate Quartermaster"
-	uniform = /obj/item/clothing/under/syndicate
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	l_ear = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas/syndicate
-	back = /obj/item/mod/control/pre_equipped/traitor_elite
-	r_pocket = /obj/item/tank/internals/emergency_oxygen
-	id = /obj/item/card/id
+	armory_loot = FALSE
 
 /obj/effect/mob_spawn/human/corpse/clown/corpse
 	roundstart = TRUE
@@ -94,27 +146,43 @@
 	name = "Corpse of a Pirate Gunner"
 
 
-/obj/effect/mob_spawn/human/corpse/russian
-	name = "Russian"
-	mob_name = "Russian"
+/obj/effect/mob_spawn/human/corpse/soviet
+	name = "Soviet"
+	mob_name = "Soviet"
 	hair_style = "bald"
 	facial_hair_style = "shaved"
-	outfit = /datum/outfit/russiancorpse
+	outfit = /datum/outfit/sovietcorpse
 
-/datum/outfit/russiancorpse
-	name = "Corpse of a Russian"
-	uniform = /obj/item/clothing/under/costume/soviet
+/datum/outfit/sovietcorpse
+	name = "Corpse of a Soviet"
+	uniform = /obj/item/clothing/under/new_soviet
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/bearpelt
+	head = /obj/item/clothing/head/sovietsidecap
 
 
-/obj/effect/mob_spawn/human/corpse/russian/ranged
-	outfit = /datum/outfit/russiancorpse/ranged
+/obj/effect/mob_spawn/human/corpse/soviet/ranged
+	outfit = /datum/outfit/sovietcorpse/ranged
 
-/datum/outfit/russiancorpse/ranged
-	name = "Corpse of a Ranged Russian"
+/datum/outfit/sovietcorpse/ranged
+	name = "Corpse of a Ranged Soviet"
+	suit = /obj/item/clothing/suit/sovietcoat
+
+/obj/effect/mob_spawn/human/corpse/soviet_nian
+	name = "Soviet Nian"
+	mob_name = "Soviet Nian"
+	mob_species = /datum/species/moth
+	hair_style = "bald"
+	facial_hair_style = "shaved"
+	outfit = /datum/outfit/soviet_nian
+
+/datum/outfit/soviet_nian
+	name = "Soviet Nian"
+	uniform = /obj/item/clothing/under/new_soviet
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/ushanka
-
+	r_pocket = /obj/item/reagent_containers/drinks/drinkingglass/shotglass
+	l_pocket = /obj/item/reagent_containers/drinks/bottle/vodka
 
 /obj/effect/mob_spawn/human/corpse/wizard
 	name = "Corpse of a Space Wizard"

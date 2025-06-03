@@ -188,7 +188,7 @@
 		return
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
 						"<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
-	owner.emp_act(2)
+	owner.emp_act(EMP_LIGHT)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(empulse), owner, 2, 5, TRUE, "cult")
 	owner.whisper(invocation)
 	charges--
@@ -385,10 +385,11 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
+	var/antimagic_flags = MAGIC_RESISTANCE_HOLY
 
 /obj/item/melee/blood_magic/Initialize(mapload, spell)
 	. = ..()
-	if(has_source)
+	if(spell && has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost
@@ -410,18 +411,23 @@
 /obj/item/melee/blood_magic/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in blood-red fire.</span>"
 
-/obj/item/melee/blood_magic/attack_self(mob/living/user)
-	afterattack(user, user, TRUE)
+/obj/item/melee/blood_magic/attack_self__legacy__attackchain(mob/living/user)
+	attackby__legacy__attackchain(user, user, TRUE)
 
-/obj/item/melee/blood_magic/attack(mob/living/M, mob/living/carbon/user)
+/obj/item/melee/blood_magic/attack__legacy__attackchain(mob/living/M, mob/living/carbon/user)
 	if(!iscarbon(user) || !IS_CULTIST(user))
 		uses = 0
 		qdel(src)
 		return
+	if(M.can_block_magic(MAGIC_RESISTANCE_HOLY))
+		to_chat(user, "<span class='danger'>[M] absorbs your spell!</span>")
+		uses = 0
+		qdel(src)
+		return
 	add_attack_logs(user, M, "used a cult spell ([src]) on")
-	M.lastattacker = user.real_name
+	M.store_last_attacker(user)
 
-/obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
 	if(invocation)
 		user.whisper(invocation)
@@ -443,7 +449,7 @@
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
-/obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/stun/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
@@ -489,7 +495,7 @@
 	desc = "Will teleport a cultist to a teleport rune on contact."
 	invocation = "Sas'so c'arta forbici!"
 
-/obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/teleport/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(user.holy_check())
 		return
 	var/list/potential_runes = list()
@@ -537,6 +543,8 @@
 
 	var/turf/origin = get_turf(teleportee)
 	var/turf/destination = get_turf(actual_selected_rune)
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, destination) & COMPONENT_BLOCK_TELEPORT)
+		return
 	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), teleportee, origin, destination)
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
@@ -561,16 +569,15 @@
 	invocation = "In'totum Lig'abis!"
 	color = "#000000" // black
 
-/obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/shackles/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(user.holy_check())
 		return
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
-		if(C.canBeHandcuffed() || C.get_arm_ignore())
-			CuffAttack(C, user)
-		else
+		if(!(C.has_left_hand() || C.has_right_hand()))
 			user.visible_message("<span class='cultitalic'>This victim doesn't have enough arms to complete the restraint!</span>")
 			return
+		CuffAttack(C, user)
 		source.UpdateButtons()
 		..()
 
@@ -625,7 +632,7 @@
 	[METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n
 	Airlocks into brittle runed airlocks after a delay (harm intent)"}
 
-/obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/blood_magic/construction/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(user.holy_check())
 		return
 	if(proximity_flag)
@@ -681,16 +688,16 @@
 	desc = "Will equipt cult combat gear onto a cultist on contact."
 	color = "#33cc33" // green
 
-/obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/armor/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(user.holy_check())
 		return
 	if(iscarbon(target) && proximity)
 		uses--
 		var/mob/living/carbon/C = target
-		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), SLOT_HUD_OUTER_SUIT)
-		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), SLOT_HUD_JUMPSUIT)
-		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), SLOT_HUD_BACK)
-		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), SLOT_HUD_SHOES)
+		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_OUTER_SUIT)
+		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), ITEM_SLOT_JUMPSUIT)
+		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
+		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), ITEM_SLOT_SHOES)
 
 		if(C == user)
 			qdel(src) //Clears the hands
@@ -706,7 +713,7 @@
 	color = "#9c0651"
 	has_source = FALSE //special, only availible for a blood cost.
 
-/obj/item/melee/blood_magic/empower/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/blood_magic/empower/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(user.holy_check())
 		return
 	if(proximity_flag)
@@ -856,7 +863,7 @@
 	new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 
 // This should really be split into multiple procs
-/obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
+/obj/item/melee/blood_magic/manipulator/afterattack__legacy__attackchain(atom/target, mob/living/carbon/human/user, proximity)
 	if(user.holy_check())
 		return
 	if(!proximity)
@@ -911,7 +918,7 @@
 		to_chat(user, "<span class='cultitalic'>Your blood rite has gained [temp] charge\s from blood sources around you!</span>")
 		uses += max(1, temp)
 
-/obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
+/obj/item/melee/blood_magic/manipulator/attack_self__legacy__attackchain(mob/living/user)
 	if(user.holy_check())
 		return
 	var/list/options = list("Blood Orb (50)" = image(icon = 'icons/obj/cult.dmi', icon_state = "summoning_orb"),

@@ -5,7 +5,7 @@
 	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "pickaxe"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 15
 	throwforce = 10
 	item_state = "pickaxe"
@@ -19,6 +19,11 @@
 	var/excavation_amount = 100
 	usesound = 'sound/effects/picaxe1.ogg'
 	toolspeed = 1
+
+/obj/item/pickaxe/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/pickaxe/proc/playDigSound()
 	playsound(src, pick(digsound),20,1)
@@ -130,7 +135,7 @@
 	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "shovel"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	throwforce = 4
 	item_state = "shovel"
@@ -140,6 +145,11 @@
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 	usesound = 'sound/effects/shovel_dig.ogg'
 	toolspeed = 0.5
+
+/obj/item/shovel/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/shovel/spade
 	name = "spade"

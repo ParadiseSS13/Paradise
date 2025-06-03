@@ -61,7 +61,7 @@
 		return
 	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
+		owner.drop_item_to_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
 		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
@@ -144,7 +144,8 @@
 			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/remove()
-	if(owner && owner.shoes) owner.unEquip(owner.shoes)
+	if(owner && owner.shoes)
+		owner.drop_item_to_ground(owner.shoes)
 	. = ..()
 
 /obj/item/organ/external/foot/right
@@ -175,7 +176,7 @@
 		return
 	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
+		owner.drop_item_to_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
 		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
@@ -183,11 +184,11 @@
 	if(owner)
 		update_hand_missing()
 		if(owner.gloves)
-			owner.unEquip(owner.gloves)
+			owner.drop_item_to_ground(owner.gloves)
 		if(owner.l_hand && (body_part == HAND_LEFT))
-			owner.unEquip(owner.l_hand, TRUE)
+			owner.drop_item_to_ground(owner.l_hand, force = TRUE)
 		if(owner.r_hand && (body_part == HAND_RIGHT))
-			owner.unEquip(owner.r_hand, TRUE)
+			owner.drop_item_to_ground(owner.r_hand, force = TRUE)
 
 	. = ..()
 
@@ -264,21 +265,25 @@
 /obj/item/organ/external/head/vars_to_save()
 	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
 
+/obj/item/organ/external/head/droplimb(clean, disintegrate, ignore_children, nodamage)
+	disintegrate = DROPLIMB_SHARP // Lets make sure to not delete brains
+	return ..(clean, disintegrate, ignore_children, nodamage)
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
 		if(owner.glasses)
-			owner.unEquip(owner.glasses, force = TRUE)
+			owner.drop_item_to_ground(owner.glasses, force = TRUE)
 		if(owner.head)
-			owner.unEquip(owner.head, force = TRUE)
+			owner.drop_item_to_ground(owner.head, force = TRUE)
 		if(owner.l_ear)
-			owner.unEquip(owner.l_ear, force = TRUE)
+			owner.drop_item_to_ground(owner.l_ear, force = TRUE)
 		if(owner.r_ear)
-			owner.unEquip(owner.r_ear, force = TRUE)
+			owner.drop_item_to_ground(owner.r_ear, force = TRUE)
 		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask, force = TRUE)
+			owner.drop_item_to_ground(owner.wear_mask, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()

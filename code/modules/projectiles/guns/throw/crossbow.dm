@@ -46,7 +46,7 @@
 		. += "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]"
 	else
 		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
-	. += "<span class='info'><b>Alt-Click</b> [src] to adjust it's tension.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] to adjust it's tension.</span>"
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
@@ -68,7 +68,7 @@
 		modify_projectile(to_launch, 1)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/gun/throw/crossbow/attack_self(mob/living/user)
+/obj/item/gun/throw/crossbow/attack_self__legacy__attackchain(mob/living/user)
 	if(tension)
 		if(to_launch)
 			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string and removes [to_launch].</span>","<span class='notice'>You relax the tension on [src]'s string and remove [to_launch].</span>")
@@ -97,7 +97,7 @@
 		user.visible_message("[usr] draws back the string of [src]!","[src] clunks as you draw the string to its maximum tension!!")
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/throw/crossbow/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stock_parts/cell))
 		return ..()
 

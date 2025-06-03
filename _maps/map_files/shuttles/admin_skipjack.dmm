@@ -13,10 +13,10 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "ad" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "voxwest_door_ext";
-	locked = 1;
-	req_access_txt = "152"
+	locked = 1
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
@@ -40,7 +40,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/administration)
 "aj" = (
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/admin{
 	dir = 2;
 	dwidth = 9;
 	height = 18;
@@ -77,7 +77,7 @@
 "av" = (
 /obj/machinery/access_button{
 	autolink_id = "voxwest_btn_ext";
-	req_one_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
@@ -97,7 +97,7 @@
 	int_button_link_id = "voxwest_btn_int";
 	int_door_link_id = "voxwest_door_int";
 	pixel_x = 24;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
@@ -127,19 +127,19 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
 "aM" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "voxeast_door_ext";
-	locked = 1;
-	req_access_txt = "152"
+	locked = 1
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "aN" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "voxwest_door_int";
-	locked = 1;
-	req_access_txt = "152"
+	locked = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
@@ -162,9 +162,8 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "bb" = (
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "152"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
+/obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "bd" = (
@@ -232,7 +231,7 @@
 "bO" = (
 /obj/machinery/access_button{
 	autolink_id = "voxeast_btn_ext";
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
@@ -277,16 +276,16 @@
 	ext_door_link_id = "voxeast_door_ext";
 	int_door_link_id = "voxeast_door_int";
 	pixel_x = -24;
-	req_access_txt = "152";
 	ext_button_link_id = "voxeast_btn_ext";
-	int_button_link_id = "voxeast_btn_int"
+	int_button_link_id = "voxeast_btn_int";
+	req_access = list(152)
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "cg" = (
 /obj/machinery/access_button{
 	autolink_id = "voxwest_btn_int";
-	req_one_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/administration)
@@ -302,7 +301,7 @@
 "ck" = (
 /obj/item/clothing/head/collectable/xenom,
 /obj/item/clothing/head/chicken,
-/obj/item/aiModule/syndicate,
+/obj/item/ai_module/syndicate,
 /obj/item/storage/box/zipties,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
@@ -325,20 +324,20 @@
 "cn" = (
 /obj/machinery/access_button{
 	autolink_id = "voxeast_btn_int";
-	req_one_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/administration)
 "co" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "voxeast_door_int";
-	locked = 1;
-	req_access_txt = "152"
+	locked = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "cp" = (
-/obj/structure/AIcore,
+/obj/structure/ai_core,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "cu" = (
@@ -486,7 +485,7 @@
 /obj/machinery/door_control{
 	id = "voxshutters";
 	name = "remote shutter control";
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)

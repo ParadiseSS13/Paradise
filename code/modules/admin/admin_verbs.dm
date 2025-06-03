@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 	))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
+	/client/proc/check_antagonists2,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
@@ -22,6 +23,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
+	/client/proc/get_server_logs_by_round_id,
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
 	/client/proc/jump_to,				/*Opens a menu for jumping to an Area, Mob, Key or Coordinate*/
@@ -41,8 +43,10 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
+	/client/proc/cmd_staff_say,
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
+	/client/proc/cmd_dev_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/update_mob_sprite,
@@ -51,6 +55,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/library_manager,
 	/client/proc/view_asays,
 	/client/proc/view_msays,
+	/client/proc/view_devsays,
+	/client/proc/view_staffsays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -65,7 +71,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/start_vote,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist,
-	/client/proc/debugstatpanel
+	/client/proc/debugstatpanel,
+	/client/proc/create_rnd_restore_disk
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -76,7 +83,9 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_sound,
 	/client/proc/play_server_sound,
 	/client/proc/play_intercomm_sound,
-	/client/proc/stop_global_admin_sounds
+	/client/proc/stop_global_admin_sounds,
+	/client/proc/stop_sounds_global,
+	/client/proc/play_web_sound
 	))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
@@ -155,6 +164,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
+	/client/proc/map_template_load_lazy,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/uid_log,
@@ -177,7 +187,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/visualize_interesting_turfs,
 	/client/proc/profile_code,
 	/client/proc/debug_atom_init,
-	/client/proc/debug_bloom
+	/client/proc/debug_bloom,
+	/client/proc/cmd_mass_screenshot,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -216,12 +227,21 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/admin_observe_target,
 	/client/proc/cmd_mentor_say,	/* mentor say*/
 	/client/proc/view_msays,
+	/client/proc/cmd_staff_say,
+	/client/proc/view_staffsays
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
+))
+GLOBAL_LIST_INIT(admin_verbs_dev, list(
+	/client/proc/cmd_dev_say,
+	/client/proc/view_devsays,
+	/client/proc/cmd_staff_say,
+	/client/proc/view_staffsays
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
-	/client/proc/SDQL2_query
+	/client/proc/SDQL2_query,
+	/client/proc/load_sdql2_query,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/openAdminTicketUI,
@@ -257,8 +277,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/add_admin_verbs()
 	if(holder)
-		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
-		if(holder.rights != R_VIEWRUNTIMES)
+		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES AND/OR DEV, then give them the default admin verbs
+		if(holder.rights & ~(R_VIEWRUNTIMES|R_DEV_TEAM))
 			add_verb(src, GLOB.admin_verbs_default)
 		if(holder.rights & R_BUILDMODE)
 			add_verb(src, /client/proc/togglebuildmodeself)
@@ -301,6 +321,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
+		if(holder.rights & R_DEV_TEAM)
+			add_verb(src, GLOB.admin_verbs_dev)
 		if(is_connecting_from_localhost())
 			add_verb(src, /client/proc/export_current_character)
 
@@ -315,6 +337,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		/client/proc/togglebuildmodeself,
 		/client/proc/stealth,
 		/client/proc/readmin,
+		/client/proc/cmd_dev_say,
 		/client/proc/export_current_character,
 		GLOB.admin_verbs_default,
 		GLOB.admin_verbs_admin,
@@ -332,7 +355,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.admin_verbs_proccall,
 		GLOB.admin_verbs_show_debug_verbs,
 		GLOB.admin_verbs_ticket,
-		GLOB.admin_verbs_maintainer
+		GLOB.admin_verbs_maintainer,
+		GLOB.admin_verbs_dev
 	))
 	add_verb(src, /client/proc/show_verbs)
 
@@ -380,9 +404,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if(ishuman(mob))
 			var/mob/living/carbon/human/H = mob
 			H.regenerate_icons() // workaround for #13269
-		if(isAI(mob)) // client.mob, built in byond client var
+		if(is_ai(mob)) // client.mob, built in byond client var
 			var/mob/living/silicon/ai/ai = mob
-			ai.eyeobj.setLoc(old_turf)
+			ai.eyeobj.set_loc(old_turf)
 	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
@@ -568,6 +592,19 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
+/client/proc/check_antagonists2()
+	set name = "TGUI - Antagonists"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/datum/ui_module/admin = get_admin_ui_module(/datum/ui_module/admin/antagonist_menu)
+	admin.ui_interact(usr)
+	log_admin("[key_name(usr)] checked antagonists")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
+
 /client/proc/ban_panel()
 	set name = "Ban Panel"
 	set category = "Admin"
@@ -678,11 +715,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if(null)
 			return 0
 		if("Small Bomb")
-			explosion(epicenter, 1, 2, 3, 3)
+			explosion(epicenter, 1, 2, 3, 3, cause = "[ckey]: Drop Bomb command")
 		if("Medium Bomb")
-			explosion(epicenter, 2, 3, 4, 4)
+			explosion(epicenter, 2, 3, 4, 4, cause = "[ckey]: Drop Bomb command")
 		if("Big Bomb")
-			explosion(epicenter, 3, 5, 7, 5)
+			explosion(epicenter, 3, 5, 7, 5, cause = "[ckey]: Drop Bomb command")
 		if("Custom Bomb")
 			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(devastation_range))
@@ -696,7 +733,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(flash_range))
 				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "[ckey]: Drop Bomb command")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -892,6 +929,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		if(istype(mob, /mob/dead/observer))
+			var/mob/dead/observer/O = mob
+			O.update_admin_actions()
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
 	else
@@ -1097,8 +1137,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			message = strip_html(message, 500)
 
-			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
-			if(!message_color)
+			var/message_color = tgui_input_color(src, "Input your message color:", "Admin Message - Color Selector")
+			if(isnull(message_color))
 				return
 
 			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
@@ -1179,7 +1219,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	message_admins("[key_name_admin(usr)] is visualising interesting atmos turfs. Server may lag.")
 
 	var/list/zlevel_turf_indexes = list()
-	
+
 	var/list/coords = get_interesting_atmos_tiles()
 	if(!length(coords))
 		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
@@ -1227,4 +1267,35 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	vis.set_content(ui_dat.Join(""))
 	vis.open(FALSE)
+
+
+/client/proc/create_rnd_restore_disk()
+	set name = "Create RnD Backup Restore Disk"
+	set category = "Event" // Im putting this in event because the name is long and will offset everything
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/list/targets = list()
+
+	for(var/rnc_uid in SSresearch.backups)
+		var/datum/rnd_backup/B = SSresearch.backups[rnc_uid]
+
+		targets["[B.last_name] - [B.last_timestamp]"] = rnc_uid
+
+	var/choice = input(src, "Select a backup to restore", "RnD Backup Restore") as null|anything in targets
+	if(!choice || !(choice in targets))
+		return
+
+	var/actual_target = targets[choice]
+	if(!(actual_target in SSresearch.backups))
+		return
+
+	var/datum/rnd_backup/B = SSresearch.backups[actual_target]
+	var/confirmation = alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", "Yes", "No")
+
+	if(confirmation != "Yes")
+		return
+
+	B.to_backup_disk(get_turf(usr))
 

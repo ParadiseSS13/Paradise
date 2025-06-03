@@ -44,7 +44,7 @@
 
 	create_reagents(5)
 
-/obj/item/kitchen/utensil/attack(mob/living/carbon/C, mob/living/carbon/user)
+/obj/item/kitchen/utensil/attack__legacy__attackchain(mob/living/carbon/C, mob/living/carbon/user)
 	if(!istype(C))
 		return ..()
 
@@ -183,7 +183,7 @@
 
 /obj/item/kitchen/knife/butcher/meatcleaver/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
+	AddElement(/datum/element/butchers_humans)
 
 /obj/item/kitchen/knife/combat
 	name = "combat knife"
@@ -219,6 +219,18 @@
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
 
+/obj/item/kitchen/knife/cheese
+	name = "cheese knife"
+	desc = "A blunt knife used to slice cheese."
+	icon_state = "knife-cheese"
+	force = 3
+
+/obj/item/kitchen/knife/pizza_cutter
+	name = "pizza cutter"
+	desc = "A simple circular blade on a handle, used to cut pizza."
+	icon_state = "pizza_cutter"
+	force = 8
+
 /*
  * Rolling Pins
  */
@@ -240,9 +252,10 @@
  * Candy Moulds
  */
 
-/obj/item/kitchen/mould
+/obj/item/reagent_containers/cooking/mould
 	name = "generic candy mould"
 	desc = "You aren't sure what it's supposed to be."
+	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mould"
 	force = 5
 	throwforce = 5
@@ -251,61 +264,51 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 
-/obj/item/kitchen/mould/bear
+/obj/item/reagent_containers/cooking/mould/make_mini()
+	transform *= 0.5
+
+/obj/item/reagent_containers/cooking/mould/unmake_mini()
+	transform = null
+
+/obj/item/reagent_containers/cooking/mould/bear
 	name = "bear-shaped candy mould"
 	desc = "It has the shape of a small bear imprinted into it."
 	icon_state = "mould_bear"
 
-/obj/item/kitchen/mould/worm
+/obj/item/reagent_containers/cooking/mould/worm
 	name = "worm-shaped candy mould"
 	desc = "It has the shape of a worm imprinted into it."
 	icon_state = "mould_worm"
 
-/obj/item/kitchen/mould/bean
+/obj/item/reagent_containers/cooking/mould/bean
 	name = "bean-shaped candy mould"
 	desc = "It has the shape of a bean imprinted into it."
 	icon_state = "mould_bean"
 
-/obj/item/kitchen/mould/ball
+/obj/item/reagent_containers/cooking/mould/ball
 	name = "ball-shaped candy mould"
 	desc = "It has a small sphere imprinted into it."
 	icon_state = "mould_ball"
 
-/obj/item/kitchen/mould/cane
+/obj/item/reagent_containers/cooking/mould/cane
 	name = "cane-shaped candy mould"
 	desc = "It has the shape of a cane imprinted into it."
 	icon_state = "mould_cane"
 
-/obj/item/kitchen/mould/cash
+/obj/item/reagent_containers/cooking/mould/cash
 	name = "cash-shaped candy mould"
 	desc = "It has the shape and design of fake money imprinted into it."
 	icon_state = "mould_cash"
 
-/obj/item/kitchen/mould/coin
+/obj/item/reagent_containers/cooking/mould/coin
 	name = "coin-shaped candy mould"
 	desc = "It has the shape of a coin imprinted into it."
 	icon_state = "mould_coin"
 
-/obj/item/kitchen/mould/loli
+/obj/item/reagent_containers/cooking/mould/loli
 	name = "sucker mould"
 	desc = "It has the shape of a sucker imprinted into it."
 	icon_state = "mould_loli"
-
-/*
- * Sushi Mat
- */
-/obj/item/kitchen/sushimat
-	name = "Sushi Mat"
-	desc = "A wooden mat used for efficient sushi crafting."
-	icon_state = "sushi_mat"
-	force = 5
-	throwforce = 5
-	throw_speed = 3
-	throw_range = 3
-	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("rolled", "cracked", "battered", "thrashed")
-
-
 
 /// circular cutter by Ume
 

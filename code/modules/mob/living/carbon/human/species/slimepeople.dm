@@ -6,6 +6,7 @@
 #define SLIMEPERSON_MINHUNGER 250
 #define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
 
+
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
@@ -58,6 +59,9 @@
 		"is turning a dull, brown color and melting into a puddle!")
 
 	var/reagent_skin_coloring = FALSE
+	var/static_bodyflags = HAS_SKIN_COLOR | NO_EYES
+
+	plushie_type = /obj/item/toy/plushie/slimeplushie
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -77,6 +81,7 @@
 		if(istype(i, /datum/action/innate/regrow))
 			i.Remove(H)
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
+
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
 	var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
@@ -99,8 +104,6 @@
 			H.update_body()
 			blend(H)
 	..()
-
-
 
 /datum/species/slime/can_hear(mob/living/carbon/human/H) // fucking snowflakes
 	. = FALSE

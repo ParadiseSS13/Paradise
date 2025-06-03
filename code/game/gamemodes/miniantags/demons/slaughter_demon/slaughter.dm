@@ -104,7 +104,7 @@
 
 /datum/spell/sense_victims
 	name = "Sense Victims"
-	desc = "Sense the location of heretics"
+	desc = "Sense the location of heretics."
 	base_cooldown = 0
 	clothes_req = FALSE
 	cooldown_min = 0
@@ -164,15 +164,15 @@
 //Paradise Port: I added this because..SPOOPY DEMON IN YOUR BRAIN
 
 
-/datum/action/innate/demon/whisper
+/datum/action/innate/demon_whisper
 	name = "Demonic Whisper"
 	button_overlay_icon_state = "demon_comms"
 	button_background_icon_state = "bg_demon"
 
-/datum/action/innate/demon/whisper/IsAvailable()
+/datum/action/innate/demon_whisper/IsAvailable()
 	return ..()
 
-/datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
+/datum/action/innate/demon_whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
 	var/list/validtargets = list()
 	for(var/mob/living/M in view(user.client.maxview(), get_turf(user)))
 		if(M && M.mind && M.stat != DEAD)
@@ -188,7 +188,7 @@
 	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
-/datum/action/innate/demon/whisper/Activate()
+/datum/action/innate/demon_whisper/Activate()
 	var/mob/living/choice = choose_targets()
 	if(!choice)
 		return
@@ -197,7 +197,7 @@
 	if(!msg)
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
-	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
+	to_chat(usr, "<span class='notice'><b>You whisper to [choice]: </b>[msg]</span>")
 	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
@@ -212,7 +212,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
-	organ_datums = list(/datum/organ/heart/always_beating)
+	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery)
 
 /obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually
@@ -220,7 +220,7 @@
 /obj/item/organ/internal/heart/demon/prepare_eat()
 	return // Just so people don't accidentally waste it
 
-/obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/attack_self__legacy__attackchain(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						"<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
@@ -230,7 +230,7 @@
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /// SLAUGHTER DEMON HEART
 
-/obj/item/organ/internal/heart/demon/slaughter/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demon/slaughter/attack_self__legacy__attackchain(mob/living/user)
 	..()
 
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
@@ -326,6 +326,7 @@
 	return FALSE
 
 /datum/objective/demon_fluff
+	name = "Spread blood"
 	needs_target = FALSE
 
 /datum/objective/demon_fluff/New()

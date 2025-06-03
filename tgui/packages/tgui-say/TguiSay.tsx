@@ -6,7 +6,7 @@ import { byondMessages } from './timers';
 import { dragStartHandler } from 'tgui/drag';
 import { windowOpen, windowClose, windowSet } from './helpers';
 import { BooleanLike } from 'common/react';
-import { KEY } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 
 type ByondOpen = {
   channel: Channel;
@@ -74,6 +74,7 @@ export class TguiSay extends Component<{}, State> {
   }
 
   componentDidMount() {
+    windowSet(WINDOW_SIZES.small);
     Byond.subscribeTo('props', this.handleProps);
     Byond.subscribeTo('open', this.handleOpen);
   }
@@ -258,9 +259,10 @@ export class TguiSay extends Component<{}, State> {
         this.handleIncrementChannel();
         break;
 
-      case KEY.Escape:
-        this.handleClose();
-        break;
+      default:
+        if (isEscape(event.key)) {
+          this.handleClose();
+        }
     }
   }
 
@@ -283,6 +285,7 @@ export class TguiSay extends Component<{}, State> {
     const { maxLength, lightMode } = data;
     this.maxLength = maxLength;
     this.lightMode = !!lightMode;
+    window.document.body.style['zoom'] = `${100 / window.devicePixelRatio}%`;
   };
 
   reset() {

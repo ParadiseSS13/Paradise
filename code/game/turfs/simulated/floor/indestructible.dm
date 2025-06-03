@@ -1,5 +1,9 @@
 /turf/simulated/floor/indestructible
 
+/turf/simulated/floor/indestructible/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+
 /turf/simulated/floor/indestructible/ex_act(severity)
 	return
 
@@ -18,9 +22,6 @@
 /turf/simulated/floor/indestructible/burn_down()
 	return
 
-/turf/simulated/floor/indestructible/attackby(obj/item/I, mob/user, params)
-	return
-
 /turf/simulated/floor/indestructible/attack_hand(mob/user)
 	return
 
@@ -31,6 +32,12 @@
 	return
 
 /turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
+	return
+
+/turf/simulated/floor/indestructible/crowbar_act(mob/user, obj/item/I)
+	return
+
+/turf/simulated/floor/indestructible/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
 
 /turf/simulated/floor/indestructible/airless
@@ -59,10 +66,12 @@
 	if(prob(12))
 		icon_state = "necro[rand(2,3)]"
 
-/turf/simulated/floor/indestructible/necropolis/air
+/turf/simulated/floor/indestructible/necropolis/normal_air
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
 
 /// you put stone tiles on this and use it as a base
 /turf/simulated/floor/indestructible/boss
@@ -76,10 +85,12 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
-/turf/simulated/floor/indestructible/boss/air
+/turf/simulated/floor/indestructible/boss/normal_air
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
 
 /turf/simulated/floor/indestructible/hierophant
 	name = "floor"
@@ -92,7 +103,21 @@
 	atmos_environment = ENVIRONMENT_LAVALAND
 	smoothing_flags = SMOOTH_CORNERS
 
+/turf/simulated/floor/indestructible/hierophant/normal_air
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
+	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
+
 /turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
 
 /turf/simulated/floor/indestructible/hierophant/two
+
+/turf/simulated/floor/indestructible/hierophant/two/normal_air
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
+	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null

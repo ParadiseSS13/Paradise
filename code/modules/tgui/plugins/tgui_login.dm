@@ -11,7 +11,7 @@
  * 1. Call [/obj/proc/ui_login_act] at the start of your ui_act() proc
  * 2. Call [/obj/proc/ui_login_data] in your ui_data() proc while passing the data list
  * 3. In your object, call [/obj/proc/ui_login_get] to get the current login state.
- * 4. Optional: call [/obj/proc/ui_login_attackby] in your attackby() to make the login process easier.
+ * 4. Optional: call [/obj/proc/ui_login_attackby] in your attackby__legacy__attackchain() to make the login process easier.
  *
  * How to use (JS side): Use the <LoginScreen /> and <LoginInfo /> interfaces.
  */
@@ -56,7 +56,7 @@ GLOBAL_LIST(ui_logins)
 		"rank" = state.rank,
 		"logged_in" = state.logged_in,
 	)
-	data["isAI"] = isAI(user)
+	data["isAI"] = is_ai(user)
 	data["isRobot"] = isrobot(user)
 	data["isAdmin"] = user.can_admin_interact()
 
@@ -133,7 +133,7 @@ GLOBAL_LIST(ui_logins)
 		else
 			to_chat(usr, "<span class='warning'>Access Denied</span>")
 			return
-	else if(login_type == LOGIN_TYPE_AI && isAI(usr))
+	else if(login_type == LOGIN_TYPE_AI && is_ai(usr))
 		state.name = usr.name
 		state.rank = "AI"
 	else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))

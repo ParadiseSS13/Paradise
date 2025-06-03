@@ -15,26 +15,6 @@
 	else
 		return check_access_list(acc)
 
-/obj/proc/generate_req_lists()
-	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
-	if(!req_access)
-		req_access = list()
-		if(req_access_txt)
-			var/list/req_access_str = splittext(req_access_txt, ";")
-			for(var/x in req_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_access += n
-
-	if(!req_one_access)
-		req_one_access = list()
-		if(req_one_access_txt)
-			var/list/req_one_access_str = splittext(req_one_access_txt,";")
-			for(var/x in req_one_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_one_access += n
-
 /obj/proc/check_access(obj/item/I)
 	var/list/L
 	if(I)
@@ -44,8 +24,6 @@
 	return check_access_list(L)
 
 /obj/proc/check_access_list(list/L)
-	generate_req_lists()
-
 	if(!L)
 		return 0
 	if(!istype(L, /list))
@@ -97,7 +75,7 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Solar Federation General")
+		if("Trans-Solar Federation General")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Representative")
 			return get_all_centcom_access() + get_all_accesses()
@@ -127,9 +105,9 @@
 				ACCESS_COURT, ACCESS_CONSTRUCTION, ACCESS_CREMATORIUM, ACCESS_JANITOR, ACCESS_ENGINE, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_FORENSICS_LOCKERS,
 				ACCESS_GENETICS, ACCESS_EXPEDITION, ACCESS_BRIG, ACCESS_HOP, ACCESS_HOS, ACCESS_HYDROPONICS, ACCESS_CHANGE_IDS, ACCESS_KEYCARD_AUTH, ACCESS_KITCHEN,
 				ACCESS_INTERNAL_AFFAIRS, ACCESS_LIBRARY, ACCESS_MAGISTRATE, ACCESS_MAINT_TUNNELS, ACCESS_HEADS_VAULT, ACCESS_MEDICAL, ACCESS_MIME,
-				ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_MORGUE, ACCESS_NTREP, ACCESS_PARAMEDIC, ACCESS_ALL_PERSONAL_LOCKERS,
+				ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_SMITH, ACCESS_MORGUE, ACCESS_NTREP, ACCESS_PARAMEDIC, ACCESS_ALL_PERSONAL_LOCKERS,
 				ACCESS_ENGINE_EQUIP, ACCESS_PSYCHIATRIST, ACCESS_QM, ACCESS_RD, ACCESS_RC_ANNOUNCE, ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_RESEARCH, ACCESS_SECURITY,
-				ACCESS_SURGERY, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_THEATRE, ACCESS_TCOMSAT, ACCESS_TOX_STORAGE, ACCESS_VIROLOGY, ACCESS_WEAPONS, ACCESS_XENOBIOLOGY)
+				ACCESS_SURGERY, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_THEATRE, ACCESS_TCOMSAT, ACCESS_TOX_STORAGE, ACCESS_VIROLOGY, ACCESS_WEAPONS, ACCESS_XENOBIOLOGY, ACCESS_TRAINER, ACCESS_EVIDENCE)
 
 /proc/get_all_centcom_access()
 	return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_SECURITY, ACCESS_CENT_SHUTTLES, ACCESS_CENT_SPECOPS, ACCESS_CENT_SPECOPS_COMMANDER, ACCESS_CENT_COMMANDER)
@@ -148,19 +126,19 @@
 		if(REGION_ALL)
 			return get_all_accesses()
 		if(REGION_GENERAL) //station general
-			return list(ACCESS_KITCHEN, ACCESS_BAR, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_LIBRARY, ACCESS_THEATRE, ACCESS_INTERNAL_AFFAIRS, ACCESS_MAGISTRATE, ACCESS_CLOWN, ACCESS_MIME)
+			return list(ACCESS_KITCHEN, ACCESS_BAR, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_LIBRARY, ACCESS_THEATRE, ACCESS_INTERNAL_AFFAIRS, ACCESS_MAGISTRATE, ACCESS_CLOWN, ACCESS_MIME, ACCESS_TRAINER)
 		if(REGION_SECURITY) //security
-			return list(ACCESS_SEC_DOORS, ACCESS_WEAPONS, ACCESS_SECURITY, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_HOS)
+			return list(ACCESS_SEC_DOORS, ACCESS_WEAPONS, ACCESS_SECURITY, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_EVIDENCE, ACCESS_COURT, ACCESS_HOS)
 		if(REGION_MEDBAY) //medbay
 			return list(ACCESS_MEDICAL, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_PSYCHIATRIST, ACCESS_VIROLOGY, ACCESS_SURGERY, ACCESS_CMO, ACCESS_PARAMEDIC)
 		if(REGION_RESEARCH) //research
-			return list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_GENETICS, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_MINISAT, ACCESS_RD)
+			return list(ACCESS_AI_UPLOAD, ACCESS_RESEARCH, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_GENETICS, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_MINISAT, ACCESS_RD)
 		if(REGION_ENGINEERING) //engineering and maintenance
 			return list(ACCESS_CONSTRUCTION, ACCESS_MAINT_TUNNELS, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TECH_STORAGE, ACCESS_ATMOSPHERICS, ACCESS_MINISAT, ACCESS_CE)
 		if(REGION_SUPPLY) //supply
-			return list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_QM, ACCESS_HEADS_VAULT)
+			return list(ACCESS_EXPEDITION, ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_SMITH, ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_QM, ACCESS_HEADS_VAULT)
 		if(REGION_COMMAND) //command
-			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_EXPEDITION, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
+			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
 		if(REGION_CENTCOMM) //because why the heck not
 			return get_all_centcom_access() + get_all_accesses()
 
@@ -203,7 +181,7 @@
 		if(ACCESS_COURT)
 			return "Courtroom"
 		if(ACCESS_FORENSICS_LOCKERS)
-			return "Forensics"
+			return "Forensics Office"
 		if(ACCESS_MEDICAL)
 			return "Medical"
 		if(ACCESS_GENETICS)
@@ -292,6 +270,8 @@
 			return "Main Vault"
 		if(ACCESS_MINING_STATION)
 			return "Mining Outpost"
+		if(ACCESS_SMITH)
+			return "Smith's Workshop"
 		if(ACCESS_XENOBIOLOGY)
 			return "Xenobiology Lab"
 		if(ACCESS_HOP)
@@ -324,6 +304,10 @@
 			return "AI Satellite"
 		if(ACCESS_WEAPONS)
 			return "Weapon Permit"
+		if(ACCESS_TRAINER)
+			return "Nanotrasen Career Trainer"
+		if(ACCESS_EVIDENCE)
+			return "Evidence Lockers"
 
 /proc/get_centcom_access_desc(A)
 	switch(A)
@@ -388,13 +372,13 @@
 
 /proc/get_all_solgov_jobs()
 	return list(
-		"Sol Trader",
-		"Solar Federation Marine",
-		"Solar Federation Lieutenant",
-		"Solar Federation Specops Marine",
-		"Solar Federation Specops Lieutenant",
-		"Solar Federation Representative",
-		"Solar Federation General")
+		"Trans-Solar Federation Trader",
+		"TSF Marine",
+		"TSF Lieutenant",
+		"MARSOC Marine",
+		"MARSOC Lieutenant",
+		"Trans-Solar Federation Representative",
+		"Trans-Solar Federation General")
 
 /proc/get_all_soviet_jobs()
 	return list(
@@ -413,7 +397,7 @@
 		"Tourist")
 
 /proc/get_all_job_icons() //For all existing HUD icons
-	return GLOB.joblist + get_all_ERT_jobs() + list("Prisoner")
+	return GLOB.joblist + get_all_ERT_jobs() + list("Prisoner", "Centcom", "Solgov", "Soviet", "Unknown")
 
 /proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
 	var/list/retval

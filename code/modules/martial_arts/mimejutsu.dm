@@ -20,7 +20,7 @@
 	icon_state = "beret"
 	var/used = FALSE
 
-/obj/item/mimejutsu_scroll/attack_self(mob/user as mob)
+/obj/item/mimejutsu_scroll/attack_self__legacy__attackchain(mob/user as mob)
 	if(!ishuman(user))
 		return
 	if(!used)

@@ -38,7 +38,7 @@
   * Returns TRUE if a robot will show up in the console
   * Returns FALSE if a robot will not show up in the console
   * Arguments:
-  * * R - The [mob/living/silicon/robot] to be checked
+  * * R - The [/mob/living/silicon/robot] to be checked
   */
 /obj/machinery/computer/robotics/proc/console_shows(mob/living/silicon/robot/R)
 	if(!istype(R))
@@ -57,8 +57,8 @@
   * Returns TRUE if a user can send the command (does not guarantee it will work)
   * Returns FALSE if a user cannot
   * Arguments:
-  * * user - The [mob/user] to be checked
-  * * R - The [mob/living/silicon/robot] to be checked
+  * * user - The [/mob] to be checked
+  * * R - The [/mob/living/silicon/robot] to be checked
   * * telluserwhy - Bool of whether the user should be sent a to_chat message if they don't have access
   */
 /obj/machinery/computer/robotics/proc/can_control(mob/user, mob/living/silicon/robot/R, telluserwhy = FALSE)
@@ -66,7 +66,7 @@
 		return FALSE
 	if(!console_shows(R))
 		return FALSE
-	if(isAI(user))
+	if(is_ai(user))
 		if(R.connected_ai != user)
 			if(telluserwhy)
 				to_chat(user, "<span class='warning'>AIs can only control cyborgs which are linked to them.</span>")
@@ -100,14 +100,14 @@
   * Returns TRUE if a user is a traitor AI, or aghost
   * Returns FALSE otherwise
   * Arguments:
-  * * user - The [mob/user] to be checked
+  * * user - The [/mob] to be checked
   */
 /obj/machinery/computer/robotics/proc/can_hack_any(mob/user)
 	if(!istype(user))
 		return FALSE
 	if(user.can_admin_interact())
 		return TRUE
-	if(!isAI(user))
+	if(!is_ai(user))
 		return FALSE
 	return (user.mind.special_role && user.mind.is_original_mob(user))
 
@@ -117,8 +117,8 @@
   * Returns TRUE if a user can hack the specific cyborg
   * Returns FALSE if a user cannot
   * Arguments:
-  * * user - The [mob/user] to be checked
-  * * R - The [mob/living/silicon/robot] to be checked
+  * * user - The [/mob] to be checked
+  * * R - The [/mob/living/silicon/robot] to be checked
   */
 /obj/machinery/computer/robotics/proc/can_hack(mob/user, mob/living/silicon/robot/R)
 	if(!can_hack_any(user))
@@ -217,9 +217,9 @@
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_detonate(usr, R, TRUE))
 				return
-			if(R.mind && R.mind.special_role && R.emagged)
-				to_chat(R, "<span class='userdanger'>Extreme danger!  Termination codes detected.  Scrambling security codes and automatic AI unlink triggered.</span>")
-				R.ResetSecurityCodes()
+			if(R.mind && R.mmi.syndiemmi && !R.emagged) // Emagging removes your syndie MMI protections.
+				to_chat(R, "<span class='danger'>Detonation code received. Self destructing... HARDWARE_OVERRIDE_SYNDICATE: Detonation aborted. Connection to NT systems severed.</span>")
+				R.UnlinkSelf()
 				. = TRUE
 				return
 			var/turf/T = get_turf(R)

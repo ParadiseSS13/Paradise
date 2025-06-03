@@ -259,7 +259,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "be" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -419,7 +419,7 @@
 "bM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/regular/doctor,
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
@@ -693,7 +693,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = 24;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -721,7 +721,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = 24;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -1028,7 +1028,6 @@
 "jZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/tesla_coil{
@@ -1061,8 +1060,6 @@
 "lB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table/reinforced,
@@ -1168,8 +1165,6 @@
 /area/shuttle/escape)
 "wi" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/table/reinforced,
@@ -1206,7 +1201,6 @@
 "zo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/tesla_coil{
@@ -1303,7 +1297,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = -24;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -1434,8 +1428,6 @@
 /area/shuttle/escape)
 "Sa" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -1458,7 +1450,7 @@
 	name = "Warehouse Door Control";
 	pixel_x = -1;
 	pixel_y = -24;
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -1490,13 +1482,9 @@
 /area/shuttle/escape)
 "ZM" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/table/reinforced,

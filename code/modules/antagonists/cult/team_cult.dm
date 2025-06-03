@@ -31,17 +31,23 @@ RESTRICT_TYPE(/datum/team/cult)
 	/// Boolean that prevents all_members_timer from being called multiple times
 	var/is_in_transition = FALSE
 
+	/// Timer until we do a recount of cultist members
+	var/recount_timer
+
+/datum/team/cult/Destroy(force, ...)
+	deltimer(recount_timer)
+	return ..()
+
 /datum/team/cult/create_team(list/starting_members)
 	cult_threshold_check() // Set this ALWAYS before any check_cult_size check, or
 	. = ..()
 
 	objective_holder.add_objective(/datum/objective/servecult)
 
-	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
-
 	cult_status = NARSIE_DEMANDS_SACRIFICE
 
 	create_next_sacrifice()
+	recount_timer = addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 5 MINUTES, TIMER_STOPPABLE|TIMER_DELETE_ME|TIMER_LOOP)
 
 	for(var/datum/mind/M as anything in starting_members)
 		var/datum/antagonist/cultist/cultist = M.has_antag_datum(/datum/antagonist/cultist)
@@ -102,7 +108,7 @@ RESTRICT_TYPE(/datum/team/cult)
 /**
   * Returns the current number of cultists and constructs.
   *
-  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
+  * Returns the number of cultists and constructs in the format `list(number of Cultists, number of Constructs)`, or as one combined number.
   *
   * * separate - Should the number be returned as a list with two separate values (Humans and Constructs) or as one number.
   */
@@ -253,7 +259,7 @@ RESTRICT_TYPE(/datum/team/cult)
 			return TRUE //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
 		return FALSE
-	if(isanimal(mind.current))
+	if(isanimal_or_basicmob(mind.current))
 		return FALSE
 	return TRUE
 

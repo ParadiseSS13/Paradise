@@ -61,7 +61,7 @@ const OrbitedButton = (props, context) => {
       tooltip={
         thing.assigned_role ? (
           <Stack>
-            <Box as="img" mr="0.5em" className={classes(['orbit_job16x16', thing.assigned_role_sprite])} />{' '}
+            <Box as="img" mr="0.5em" className={classes(['job_icons16x16', thing.assigned_role_sprite])} />{' '}
             {thing.assigned_role}
           </Stack>
         ) : (

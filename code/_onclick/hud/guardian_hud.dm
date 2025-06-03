@@ -10,23 +10,23 @@
 	static_inventory += using
 	action_intent = using
 
-	using = new /atom/movable/screen/guardian/Manifest()
+	using = new /atom/movable/screen/guardian/manifest()
 	using.screen_loc = ui_rhand
 	static_inventory += using
 
-	using = new /atom/movable/screen/guardian/Recall()
+	using = new /atom/movable/screen/guardian/recall()
 	using.screen_loc = ui_lhand
 	static_inventory += using
 
-	using = new /atom/movable/screen/guardian/ToggleMode()
+	using = new /atom/movable/screen/guardian/toggle_mode()
 	using.screen_loc = ui_storage1
 	static_inventory += using
 
-	using = new /atom/movable/screen/guardian/ToggleLight()
+	using = new /atom/movable/screen/guardian/toggle_light()
 	using.screen_loc = ui_inventory
 	static_inventory += using
 
-	using = new /atom/movable/screen/guardian/Communicate()
+	using = new /atom/movable/screen/guardian/communicate()
 	using.screen_loc = ui_back
 	static_inventory += using
 
@@ -37,12 +37,12 @@
 	icon = 'icons/mob/guardian.dmi'
 	icon_state = "base"
 
-/atom/movable/screen/guardian/Manifest
+/atom/movable/screen/guardian/manifest
 	icon_state = "manifest"
 	name = "Manifest"
 	desc = "Spring forth into battle!"
 
-/atom/movable/screen/guardian/Manifest/Click()
+/atom/movable/screen/guardian/manifest/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		var/summoner_loc = G.summoner.loc
@@ -55,43 +55,43 @@
 		if(G.loc == G.summoner)
 			G.Manifest()
 
-/atom/movable/screen/guardian/Recall
+/atom/movable/screen/guardian/recall
 	icon_state = "recall"
 	name = "Recall"
 	desc = "Return to your user."
 
-/atom/movable/screen/guardian/Recall/Click()
+/atom/movable/screen/guardian/recall/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.Recall()
 
-/atom/movable/screen/guardian/ToggleMode
+/atom/movable/screen/guardian/toggle_mode
 	icon_state = "toggle"
 	name = "Toggle Mode"
 	desc = "Switch between ability modes."
 
-/atom/movable/screen/guardian/ToggleMode/Click()
+/atom/movable/screen/guardian/toggle_mode/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.ToggleMode()
 
-/atom/movable/screen/guardian/Communicate
+/atom/movable/screen/guardian/communicate
 	icon_state = "communicate"
 	name = "Communicate"
 	desc = "Communicate telepathically with your user."
 
-/atom/movable/screen/guardian/Communicate/Click()
+/atom/movable/screen/guardian/communicate/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.Communicate()
 
 
-/atom/movable/screen/guardian/ToggleLight
+/atom/movable/screen/guardian/toggle_light
 	icon_state = "light"
 	name = "Toggle Light"
 	desc = "Glow like star dust."
 
-/atom/movable/screen/guardian/ToggleLight/Click()
+/atom/movable/screen/guardian/toggle_light/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.ToggleLight()

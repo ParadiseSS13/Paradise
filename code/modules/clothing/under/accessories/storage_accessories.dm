@@ -33,8 +33,8 @@
 	if(hold.handle_mousedrop(usr, over_object))
 		..(over_object)
 
-/obj/item/clothing/accessory/storage/attackby(obj/item/W as obj, mob/user as mob, params)
-	return hold.attackby(W, user, params)
+/obj/item/clothing/accessory/storage/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+	return hold.attackby__legacy__attackchain(W, user, params)
 
 /obj/item/clothing/accessory/storage/emp_act(severity)
 	..()
@@ -50,7 +50,7 @@
 
 /obj/item/clothing/accessory/storage/proc/return_inv()
 
-	var/list/L = list(  )
+	var/list/L = list()
 
 	L += src.contents
 
@@ -62,7 +62,7 @@
 			L += G.gift:return_inv()
 	return L
 
-/obj/item/clothing/accessory/storage/attack_self(mob/user as mob)
+/obj/item/clothing/accessory/storage/attack_self__legacy__attackchain(mob/user as mob)
 	if(has_suit)	//if we are part of a suit
 		hold.open(user)
 	else

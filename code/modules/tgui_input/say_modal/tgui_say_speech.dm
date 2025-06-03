@@ -36,6 +36,12 @@
 		if(DSAY_CHANNEL)
 			client.dsay(entry)
 			return TRUE
+		if(DEV_CHANNEL)
+			client.cmd_dev_say(entry)
+			return TRUE
+		if(STAFF_CHANNEL)
+			client.cmd_staff_say(entry)
+			return TRUE
 	return FALSE
 
 /**

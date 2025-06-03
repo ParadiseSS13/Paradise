@@ -1,12 +1,16 @@
 /obj/item/ammo_casing/energy
 	name = "energy weapon lens"
-	desc = "The part of the gun that makes the laser go pew"
+	desc = "The part of the gun that makes the laser go pew."
 	caliber = "energy"
 	projectile_type = /obj/item/projectile/energy
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/laser.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	/// Damage multiplier from equipped lenses
+	var/lens_damage_multiplier = 1
+	/// Speed multiplier from equipped lenses.
+	var/lens_speed_multiplier = 1
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser
@@ -36,6 +40,13 @@
 	pellets = 5
 	variance = 25
 	select_name = "scatter"
+
+/obj/item/ammo_casing/energy/laser/eshotgun
+	projectile_type = /obj/item/projectile/beam/scatter/eshotgun
+	pellets = 6
+	variance = 25
+	select_name = "kill"
+	delay = 1 SECONDS
 
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/item/projectile/beam/laser/heavylaser
@@ -181,6 +192,17 @@
 	randomspread = 1
 	delay = 0
 
+/obj/item/ammo_casing/energy/disabler/eshotgun
+	projectile_type = /obj/item/projectile/beam/disabler/pellet
+	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	select_name  = "disable"
+	e_cost = 75
+	fire_sound = 'sound/weapons/taser2.ogg'
+	harmful = FALSE
+	delay = 1 SECONDS
+	pellets = 6
+	variance = 25
+
 /// seperate balancing for cyborg, again
 /obj/item/ammo_casing/energy/disabler/cyborg
 	e_cost = 250
@@ -255,14 +277,13 @@
 
 /obj/item/ammo_casing/energy/arc_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg' //New sound
-	e_cost = 125 //8 shots?
 	select_name = "lightning beam" //I guess
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE // Depends on sprite
 	projectile_type = /obj/item/projectile/energy/arc_revolver
 	///This number is randomly generated when the arc revolver is made. This ensures the beams only link to beams from the gun, one lower or higher than the number on the boosted object.
 	var/random_link_number
 
-/obj/item/ammo_casing/energy/arc_revolver/Initialize()
+/obj/item/ammo_casing/energy/arc_revolver/Initialize(mapload)
 	. = ..()
 	random_link_number = rand(1, 9999999)
 
@@ -280,7 +301,7 @@
 	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
 
 /obj/item/ammo_casing/energy/charged_plasma
-	projectile_type = /obj/item/projectile/energy/charged_plasma
+	projectile_type = /obj/item/projectile/homing/charged_plasma
 	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention

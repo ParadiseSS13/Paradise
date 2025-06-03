@@ -484,6 +484,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
                   <Dropdown
                     options={['Linear', 'Exponential']}
                     selected={smt}
+                    mb="0.4rem"
                     onSelected={(v) =>
                       act('setsustainmode', {
                         new: v,

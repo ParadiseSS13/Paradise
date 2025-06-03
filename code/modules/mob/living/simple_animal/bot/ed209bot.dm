@@ -1,8 +1,9 @@
 #define BATON_COOLDOWN 3.5 SECONDS
+#define BOT_REBATON_THRESHOLD 5 SECONDS
 
 /mob/living/simple_animal/bot/ed209
 	name = "\improper ED-209 Security Robot"
-	desc = "A security robot.  He looks less than thrilled."
+	desc = "A security robot. He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed2090"
 	density = TRUE
@@ -84,7 +85,7 @@
 /mob/living/simple_animal/bot/ed209/turn_on()
 	. = ..()
 	icon_state = "[lasercolor]ed209[on]"
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 
 /mob/living/simple_animal/bot/ed209/turn_off()
 	..()
@@ -96,7 +97,7 @@
 	oldtarget_name = null
 	anchored = FALSE
 	currently_cuffing = FALSE
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 	set_weapon()
@@ -176,15 +177,17 @@
 	threatlevel += 6
 	if(threatlevel >= 4)
 		target = H
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/user, params)
-	..()
+/mob/living/simple_animal/bot/ed209/attack_by(obj/item/W, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(W.force && !target && W.damtype != STAMINA)
 		retaliate(user)
 		if(lasercolor)//To make up for the fact that lasertag bots don't hunt
@@ -215,7 +218,7 @@
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
 			disabled = TRUE
-			walk_to(src, 0)
+			GLOB.move_manager.stop_looping(src)
 			target = null
 			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
 			return TRUE
@@ -259,18 +262,18 @@
 	switch(mode)
 
 		if(BOT_IDLE)		// idle
-			walk_to(src,0)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			if(!lasercolor) //lasertag bots don't want to arrest anyone
 				if(find_new_target())
 					return	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
-				mode = BOT_START_PATROL	// switch to patrol mode
+				set_mode(BOT_START_PATROL)	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				walk_to(src, 0)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -279,14 +282,18 @@
 				back_to_idle()
 				return
 
+			if(target.stat == DEAD)
+				back_to_idle() // Stop beating up the dead guy
+				return
+
 			if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
 				stun_attack(target)
 				if(!lasercolor)
-					mode = BOT_PREP_ARREST
+					set_mode(BOT_PREP_ARREST)
 					anchored = TRUE
 					target_lastloc = target.loc
 					return
-				mode = BOT_HUNT
+				set_mode(BOT_HUNT)
 				target = null
 				target_lastloc = null
 				return
@@ -296,7 +303,7 @@
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
+			if(!Adjacent(target) || !isturf(target.loc) || target.stam_regen_start_time - world.time <= BOT_REBATON_THRESHOLD || target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
 
@@ -321,11 +328,11 @@
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.stam_regen_start_time - world.time <= BOT_REBATON_THRESHOLD || target.getStaminaLoss() <= 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
 
-			mode = BOT_PREP_ARREST
+			set_mode(BOT_PREP_ARREST)
 			anchored = FALSE
 
 		if(BOT_START_PATROL)
@@ -343,7 +350,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_idle()
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	target = null
 	last_found = world.time
 	frustration = 0
@@ -352,7 +359,7 @@
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 
 // look for a criminal in view of the bot
@@ -379,7 +386,7 @@
 		speak("Level [threatlevel] infraction alert!")
 		playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
 		visible_message("<b>[src]</b> points at [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
@@ -390,7 +397,7 @@
 	return 0
 
 /mob/living/simple_animal/bot/ed209/explode()
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
@@ -477,7 +484,7 @@
 	..()
 	if(!isalien(target))
 		target = user
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/emp_act(severity)
 
@@ -514,7 +521,7 @@
 					var/mob/toarrest = pick(targets)
 					if(toarrest)
 						target = toarrest
-						mode = BOT_HUNT
+						set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/proc/unset_disabled()
 	disabled = FALSE
@@ -555,7 +562,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = INTENT_HELP
-	baton.attack(C, src)
+	baton.pre_attack(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
@@ -566,7 +573,7 @@
 		speak("[no_handcuffs ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
-	mode = BOT_ARREST
+	set_mode(BOT_ARREST)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
@@ -582,3 +589,4 @@
 	back_to_idle()
 
 #undef BATON_COOLDOWN
+#undef BOT_REBATON_THRESHOLD

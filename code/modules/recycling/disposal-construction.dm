@@ -26,7 +26,7 @@
 
 /obj/structure/disposalconstruct/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
+	. += "<span class='notice'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
 
 	// update iconstate and dpdir due to dir and type
 /obj/structure/disposalconstruct/proc/update()
@@ -126,7 +126,7 @@
 		if(PIPE_DISPOSALS_OUTLET)
 			return /obj/structure/disposaloutlet
 		if(PIPE_DISPOSALS_CHUTE)
-			return /obj/machinery/disposal/deliveryChute
+			return /obj/machinery/disposal/delivery_chute
 		if(PIPE_DISPOSALS_SORT_RIGHT, PIPE_DISPOSALS_SORT_LEFT)
 			return /obj/structure/disposalpipe/sortjunction
 	return
@@ -138,27 +138,31 @@
 // weldingtool: convert to real pipe
 
 /obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
 	var/ispipe = is_pipe()
 	var/nicetype = get_nice_name()
-	if(anchored)
-		anchored = FALSE
-		if(ispipe)
-			level = 2
-			density = FALSE
-		else
-			density = TRUE
-		to_chat(user, "You detach the [nicetype] from the underfloor.")
+	var/turf/T = get_turf(src)
+	
+	if(T.intact)
+		to_chat(user, "<span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
+		return
+	
+	if(ispipe)
+		anchored = !anchored
+		level = anchored ? 1 : 2
+		to_chat(user, anchored ? "<span class='notice'>You attach the [nicetype] to the underfloor.</span>" : "<span class='notice'>You detach the [nicetype] from the underfloor.</span>")
 	else
-		anchored = TRUE
-		if(ispipe)
-			level = 1 // We don't want disposal bins to disappear under the floors
-			density = FALSE
-		else
-			density = TRUE // We don't want disposal bins or outlets to go density 0
-		to_chat(user, "You attach the [nicetype] to the underfloor.")
+		var/obj/structure/disposalpipe/trunk/CT = locate() in T //For disposal bins, chutes, outlets.
+		if(!CT)
+			to_chat(user, "<span class='warning'>The [nicetype] requires a trunk underneath it in order to be anchored.</span>")
+			return
+		anchored = !anchored
+		density = anchored
+		to_chat(user, anchored ? "<span class='notice'>You attach the [nicetype] to the trunk.</span>" : "<span class='notice'>You detach the [nicetype] from the trunk.</span>")
+
 	I.play_tool_sound(src, I.tool_volume)
 	update()
-	return TRUE
+	. |= RPD_TOOL_SUCCESS
 
 /obj/structure/disposalconstruct/proc/is_pipe()
 	switch(ptype)
@@ -183,21 +187,20 @@
 			nicetype = "sorting pipe"
 	return nicetype
 
-/obj/structure/disposalconstruct/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalconstruct/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/nicetype = get_nice_name()
 	var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
+	var/turf/T = get_turf(src)
 	add_fingerprint(user)
 
-
-	var/turf/T = src.loc
 	if(T.intact)
-		to_chat(user, "You can only attach the [nicetype] if the floor plating is removed.")
+		to_chat(user, "<span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
 		return
 
 	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
 		var/obj/structure/disposalpipe/trunk/CP = locate() in T
 		if(!CP) // There's no trunk
-			to_chat(user, "The [nicetype] requires a trunk underneath it in order to work.")
+			to_chat(user, "<span class='warning'>The [nicetype] requires a trunk underneath it in order to work.</span>")
 			return
 	else
 		for(var/obj/structure/disposalpipe/CP in T)
@@ -207,15 +210,15 @@
 				if(istype(CP, /obj/structure/disposalpipe/broken))
 					pdir = CP.dir
 				if(pdir & dpdir)
-					to_chat(user, "There is already a [nicetype] at that location.")
+					to_chat(user, "<span class='warning'>There is already a [nicetype] at that location.</span>")
 					return
 
 	if(istype(I, /obj/item/weldingtool))
 		if(anchored)
 			if(I.tool_use_check(user, 0))
-				to_chat(user, "Welding the [nicetype] in place.")
+				to_chat(user, "<span class='notice'>You begin welding the [nicetype] in place.</span>")
 				if(I.use_tool(src, user, 20, volume = I.tool_volume))
-					to_chat(user, "The [nicetype] has been welded in place!")
+					to_chat(user, "<span class='notice'>You have welded the [nicetype] in place!</span>")
 					update() // TODO: Make this neat
 					if(ispipe) // Pipe
 
@@ -245,17 +248,17 @@
 
 					else if(ptype==PIPE_DISPOSALS_CHUTE) // Disposal outlet
 
-						var/obj/machinery/disposal/deliveryChute/P = new /obj/machinery/disposal/deliveryChute(src.loc)
+						var/obj/machinery/disposal/delivery_chute/P = new /obj/machinery/disposal/delivery_chute(src.loc)
 						src.transfer_fingerprints_to(P)
 						P.dir = dir
 
 					qdel(src)
 					return
 			else
-				to_chat(user, "You need more welding fuel to complete this task.")
+				to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
 				return
 		else
-			to_chat(user, "You need to attach it to the plating first!")
+			to_chat(user, "<span class='warning'>You need to attach it to the plating first!</span>")
 			return
 
 /obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)

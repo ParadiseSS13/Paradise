@@ -50,6 +50,13 @@
 		build_network()
 		. = 1
 
+/obj/machinery/atmospherics/unary/update_pipe_image()
+	. = ..()
+	if(parent)
+		for(var/mob/crawler in parent.crawlers)
+			var/mob/living/current_crawler = crawler
+			current_crawler.update_pipe_vision(src)
+
 /obj/machinery/atmospherics/unary/build_network(remove_deferral = FALSE)
 	if(!parent)
 		parent = new /datum/pipeline()
@@ -87,21 +94,14 @@
 	if(Old == parent)
 		parent = New
 
-/obj/machinery/atmospherics/unary/unsafe_pressure_release(mob/user, pressures)
+/obj/machinery/atmospherics/unary/unsafe_pressure_release(mob/user, pressure)
 	..()
 
 	var/turf/T = get_turf(src)
-	if(T)
-		var/datum/milla_safe/unary_unsafe_pressure_release/milla = new()
-		milla.invoke_async(src, pressures)
+	if(!T)
+		return
 
-/datum/milla_safe/unary_unsafe_pressure_release
+	var/lost = pressure * CELL_VOLUME / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
 
-/datum/milla_safe/unary_unsafe_pressure_release/on_run(obj/machinery/atmospherics/unary/device, pressures)
-	//Remove the gas from air_contents and assume it
-	var/turf/T = get_turf(device)
-	var/datum/gas_mixture/environment = get_turf_air(T)
-	var/lost = pressures * environment.volume / (device.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
-
-	var/datum/gas_mixture/to_release = device.air_contents.remove(lost)
-	environment.merge(to_release)
+	var/datum/gas_mixture/to_release = air_contents.remove(lost)
+	T.blind_release_air(to_release)

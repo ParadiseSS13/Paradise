@@ -33,6 +33,8 @@
 /obj/machinery/economy/atm/Initialize(mapload)
 	. = ..()
 	update_icon()
+	if(mapload)
+		new /obj/effect/turf_decal/delivery/green/hollow(loc)
 
 /obj/machinery/economy/atm/update_icon_state()
 	. = ..()
@@ -77,22 +79,20 @@
 /obj/machinery/economy/atm/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/economy/atm/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id))
+/obj/machinery/economy/atm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id))
 		if(has_power())
-			handle_id_insert(I, user)
-			return TRUE
+			handle_id_insert(used, user)
+			return ITEM_INTERACT_COMPLETE
 	else if(authenticated_account)
-		if(istype(I, /obj/item/stack/spacecash))
-			if(!has_power())
-				return
-			insert_cash(I, user)
-			return TRUE
+		if(istype(used, /obj/item/stack/spacecash) && has_power())
+			insert_cash(used, user)
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
 /obj/machinery/economy/atm/insert_cash(obj/item/stack/spacecash/cash_money, mob/user)
-	visible_message("<span class='info'>[user] inserts [cash_money] into [src].</span>")
+	visible_message("<span class='notice'>[user] inserts [cash_money] into [src].</span>")
 	cash_stored += cash_money.amount
 	account_database.credit_account(authenticated_account, cash_money.amount, "ATM Deposit", name, FALSE)
 	cash_money.use(cash_money.amount)
@@ -271,7 +271,7 @@
 		var/datum/money_account/target_account = account_database.find_user_account(target_account_number, include_departments = TRUE)
 		if(target_account)
 			account_database.credit_account(target_account, amount, purpose, name, FALSE)
-			to_chat(user, "[bicon(src)]<span class='info'>Funds transfer successful.</span>")
+			to_chat(user, "[bicon(src)]<span class='notice'>Funds transfer successful.</span>")
 	else
 		to_chat(user, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
@@ -315,10 +315,11 @@
 
 /obj/machinery/economy/atm/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	to_chat(user, "<span class='warning'>Yellow ooze seeps into the [src]'s card slot...</span>")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	return TRUE
 
 /obj/machinery/economy/atm/examine(mob/user)
 	. = ..()

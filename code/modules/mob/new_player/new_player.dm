@@ -53,7 +53,7 @@
 		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
-	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
+	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)
 			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
 		else
@@ -70,7 +70,7 @@
 			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
-	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+	if(SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Observe (Please wait...)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
@@ -111,6 +111,10 @@
 /mob/new_player/Topic(href, href_list[])
 	if(!client)
 		return FALSE
+
+	if(usr != src)
+		message_admins("[key_name_admin(usr)] may have attempted to href exploit with [key_name_admin(src)]'s new_player mob.")
+		return
 
 	if(href_list["consent_signed"])
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
@@ -273,6 +277,8 @@
 		return FALSE
 	if(job.get_exp_restrictions(client))
 		return FALSE
+	if(job.mentor_only && !check_rights(R_MENTOR | R_ADMIN, FALSE))
+		return FALSE
 
 	if(GLOB.configuration.jobs.assistant_limit)
 		if(job.title == "Assistant")
@@ -328,7 +334,7 @@
 		to_chat(src, alert("[rank] is not available due to your character having amputated limbs without a prosthetic replacement. Please try another."))
 		return 0
 
-	SSjobs.AssignRole(src, rank, 1)
+	SSjobs.job_selector.latejoin_assign(src, thisjob)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
 	character = SSjobs.AssignRank(character, rank, TRUE)					//equips the human
@@ -394,8 +400,8 @@
 /mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-			if(A.announce_arrivals)
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
+			if(A.stat != DEAD && A.announce_arrivals)
 				ailist += A
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
@@ -416,7 +422,7 @@
 						if(FEMALE)
 							target_gender = "female"
 					arrivalmessage = replacetext(arrivalmessage,"$gender",target_gender)
-					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
@@ -427,14 +433,14 @@
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 			ailist += A
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
-					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE, automatic = TRUE)
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)

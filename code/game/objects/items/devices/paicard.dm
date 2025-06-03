@@ -5,7 +5,7 @@
 	icon_state = "pai"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=2"
 	var/request_cooldown = 5 // five seconds
 	var/last_request
@@ -31,7 +31,7 @@
 	QDEL_NULL(radio)
 	return ..()
 
-/obj/item/paicard/attack_self(mob/user)
+/obj/item/paicard/attack_self__legacy__attackchain(mob/user)
 	if(!in_range(src, user))
 		return
 	user.set_machine(src)
@@ -288,7 +288,7 @@
 			to_chat(pai, "Your supplemental directives have been updated. Your new directives are:")
 			to_chat(pai, "Prime Directive: <br>[pai.pai_law0]")
 			to_chat(pai, "Supplemental Directives: <br>[pai.pai_laws]")
-	attack_self(usr)
+	attack_self__legacy__attackchain(usr)
 
 // 		WIRE_SIGNAL = 1
 //		WIRE_RECEIVE = 2

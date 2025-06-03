@@ -34,12 +34,19 @@
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
+	/// Can it use a lens
+	var/can_be_lensed = TRUE
+	/// Current lens
+	var/obj/item/smithed_item/lens/current_lens
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
 	. += "<span class='notice'>Energy weapons can fire through windows and other see-through surfaces. [can_charge ? "Can be recharged with a recharger" : "Cannot be recharged in a recharger."]</span>"
+	if(current_lens)
+		. += "<span class='notice'>Has a lens currently attached.</span>"
+		. += "<span class='notice'>Lenses can be removed with Alt-Click.</span>"
 
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))
@@ -66,6 +73,40 @@
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
 	update_icon()
+	RegisterSignal(src, COMSIG_LENS_ATTACH, PROC_REF(attach_lens))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(detach_lens))
+
+/obj/item/gun/energy/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+	..()
+	if(istype(I, /obj/item/smithed_item/lens))
+		SEND_SIGNAL(src, COMSIG_LENS_ATTACH, I, user)
+
+/obj/item/gun/energy/proc/attach_lens(atom/source, obj/item/smithed_item/lens/new_lens, mob/user)
+	SIGNAL_HANDLER // COMSIG_LENS_ATTACH
+	if(!Adjacent(user))
+		return
+	if(!can_be_lensed)
+		return
+	if(!istype(new_lens))
+		return
+	if(current_lens)
+		to_chat(user, "<span class='notice'>Your [src] already has a lens.</span>")
+		return
+	if(new_lens.flags & NODROP || !user.transfer_item_to(new_lens, src))
+		to_chat(user, "<span class='warning'>[new_lens] is stuck to your hand!</span>")
+		return
+	current_lens = new_lens
+	new_lens.on_attached(src)
+
+/obj/item/gun/energy/proc/detach_lens(atom/source, mob/user)
+	SIGNAL_HANDLER // COMSIG_CLICK_ALT
+	if(!Adjacent(user))
+		return
+	if(!current_lens)
+		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
+		return
+	user.put_in_hands(current_lens)
+	current_lens.on_detached()
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
@@ -98,7 +139,7 @@
 /obj/item/gun/energy/proc/on_recharge()
 	newshot()
 
-/obj/item/gun/energy/attack_self(mob/living/user as mob)
+/obj/item/gun/energy/attack_self__legacy__attackchain(mob/living/user as mob)
 	if(length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
@@ -132,7 +173,15 @@
 /obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
 	if(!chambered && can_shoot())
 		process_chamber()
-	return ..()
+	..()
+	if(current_lens)
+		user.changeNext_move(CLICK_CD_RANGE / current_lens.fire_rate_mult)
+	return
+
+/obj/item/gun/energy/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+	..()
+	if(current_lens)
+		current_lens.damage_lens()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	select++

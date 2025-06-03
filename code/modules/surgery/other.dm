@@ -3,11 +3,6 @@
 //					INTERNAL WOUND PATCHING						//
 //////////////////////////////////////////////////////////////////
 
-/datum/surgery/infection
-	name = "External Infection Treatment"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/cauterize)
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
-
 /datum/surgery/bleeding
 	name = "Internal Bleeding"
 	steps = list(
@@ -81,6 +76,7 @@
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
+	preop_sound = 'sound/surgery/organ1.ogg'
 	time = 3.2 SECONDS
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -109,7 +105,7 @@
 	affected.fix_internal_bleeding()
 	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
-		U.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color())
+		U.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color(), 0)
 
 	return SURGERY_STEP_CONTINUE
 
@@ -125,7 +121,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/treat_burns
-	name = "mend burns"
+	name = "treat severe burns"
 	allowed_tools = list(
 		/obj/item/stack/medical/ointment/advanced = 100,
 		/obj/item/stack/medical/ointment = 90
@@ -133,6 +129,7 @@
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
+	preop_sound = 'sound/surgery/organ1.ogg'
 	time = 3.2 SECONDS
 
 /datum/surgery_step/treat_burns/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -190,6 +187,9 @@
 		/obj/item/shard = 60
 	)
 
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 

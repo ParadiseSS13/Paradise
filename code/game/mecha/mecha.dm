@@ -2,8 +2,9 @@
 
 /obj/mecha
 	name = "Mecha"
-	desc = "Exosuit"
+	desc = "Exosuit."
 	icon = 'icons/mecha/mecha.dmi'
+
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
 	anchored = TRUE //no pulling around.
@@ -14,8 +15,8 @@
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
 	bubble_icon = "machine"
+	cares_about_temperature = TRUE
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
-	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
 	/// Time it takes to enter the mech
@@ -37,8 +38,11 @@
 	var/dna	//dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
-	var/lights = 0
+	var/lights = FALSE
 	var/lights_power = 6
+	var/lights_range = 6
+	var/lights_power_ambient = LIGHTING_MINIMUM_POWER
+	var/lights_range_ambient = MINIMUM_USEFUL_LIGHT_RANGE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	var/emp_proof = FALSE //If it is immune to emps
@@ -81,10 +85,13 @@
 	var/activated = FALSE
 	var/power_warned = FALSE
 
+	/// DMI containing greyscale emissive overlays, responsible for what parts of the mech glow in the dark
+	var/emissive_appearance_icon = 'icons/mecha/mecha_emissive.dmi'
+
 	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
-	var/melee_can_hit = TRUE
+	var/mecha_melee_cooldown = FALSE
 
 	/// How many ion thrusters we got on this bad boy
 	var/thruster_count = 0
@@ -102,6 +109,10 @@
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
+	/// How much speed the mech loses while the buffer is active
+	var/buffer_delay = 1
+	/// Does it clean the tile under it?
+	var/floor_buffer = FALSE
 
 	//Action datums
 	var/datum/action/innate/mecha/mech_eject/eject_action = new
@@ -120,7 +131,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	icon_state += "-open"
 	add_radio()
@@ -146,6 +157,14 @@
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
+
+	set_light(lights_range_ambient, lights_power_ambient)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/mecha/update_overlays()
+	. = ..()
+	underlays.Cut()
+	underlays += emissive_appearance(emissive_appearance_icon, "[icon_state]_lightmask")
 
 ////////////////////////
 ////// Helpers /////////
@@ -245,12 +264,12 @@
 	else
 		if(internal_damage & MECHA_INT_CONTROL_LOST)
 			target = safepick(oview(1, src))
-		if(!melee_can_hit || !isatom(target))
+		if(mecha_melee_cooldown || !isatom(target))
 			return
-		target.mech_melee_attack(src)
-		melee_can_hit = FALSE
-		spawn(melee_cooldown)
-			melee_can_hit = TRUE
+		if(iswallturf(target) || isliving(target) || isobj(target))
+			target.mech_melee_attack(src)
+			mecha_melee_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, mecha_melee_cooldown, FALSE), melee_cooldown)
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
@@ -268,7 +287,7 @@
 ////////  MARK: Movement procs
 //////////////////////////////////
 
-/obj/mecha/Process_Spacemove(movement_dir = 0)
+/obj/mecha/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	. = ..()
 	if(.)
 		return TRUE
@@ -282,7 +301,7 @@
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
-					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
+					to_chat(occupant, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
 		return TRUE
 
 /obj/mecha/relaymove(mob/user, direction)
@@ -386,7 +405,7 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
 
-/obj/mecha/Bump(atom/obstacle, bump_allowed)
+/obj/mecha/Bump(atom/obstacle)
 	if(throwing) //high velocity mechas in your face!
 		var/breakthrough = FALSE
 		if(istype(obstacle, /obj/structure/window))
@@ -409,7 +428,7 @@
 			breakthrough = TRUE
 
 		else if(istype(obstacle, /obj/structure/reagent_dispensers/fueltank))
-			obstacle.ex_act(1)
+			obstacle.ex_act(EXPLODE_DEVASTATE)
 
 		else if(isliving(obstacle))
 			var/mob/living/L = obstacle
@@ -441,15 +460,14 @@
 					throw_at(crashing, 50, throw_speed)
 
 	else
-		if(bump_allowed)
-			if(..())
-				return
-			if(isobj(obstacle))
-				var/obj/O = obstacle
-				if(!O.anchored)
-					step(obstacle, dir)
-			else if(ismob(obstacle))
+		if(..())
+			return
+		if(isobj(obstacle))
+			var/obj/O = obstacle
+			if(!O.anchored)
 				step(obstacle, dir)
+		else if(ismob(obstacle))
+			step(obstacle, dir)
 
 
 ///////////////////////////////////
@@ -643,7 +661,7 @@
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
 	for(var/mob/M in src) //Let's just be ultra sure
-		if(isAI(M))
+		if(is_ai(M))
 			var/mob/living/silicon/ai/AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
 			AI.gib() //No wreck, no AI to recover
 		else
@@ -682,7 +700,7 @@
 	log_message("EMP detected", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
-/obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/mecha/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > max_temperature)
 		log_message("Exposed to dangerous temperature.", 1)
@@ -693,7 +711,7 @@
 ////// MARK: AttackBy
 //////////////////////
 
-/obj/mecha/attackby(obj/item/W, mob/user, params)
+/obj/mecha/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/mmi))
 		if(mmi_move_inside(W,user))
 			to_chat(user, "[src]-MMI interface initialized successfuly")
@@ -754,7 +772,7 @@
 		return
 
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
-		if(!user.unEquip(W))
+		if(!user.drop_item_to_ground(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
 
@@ -820,7 +838,7 @@
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && pilot_is_mmi()))
+	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -831,11 +849,17 @@
 	else if(state == MECHA_OPEN_HATCH)
 		state = MECHA_BOLTS_UP
 		to_chat(user, "You close the hatch to the power unit")
+	else if(ishuman(occupant))
+		user.visible_message("<span class='notice'>[user] begins levering out the driver from the [src].</span>", "<span class='notice'>You begin to lever out the driver from the [src].</span>")
+		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
+			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!</span>", "<span class='notice'>You finish removing the driver from the [src]!</span>")
+			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) && pilot_is_mmi())
 			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
 			go_out()
 
@@ -926,7 +950,7 @@
 /////////////////////////////////////
 
 /obj/mecha/attack_ai(mob/living/silicon/ai/user)
-	if(!isAI(user))
+	if(!is_ai(user))
 		return
 	//Allows the Malf to scan a mech's status and loadout, helping it to decide if it is a worthy chariot.
 	if(user.can_dominate_mechs)
@@ -964,7 +988,7 @@
 				to_chat(user, "<span class='warning'>[name] must have maintenance protocols active in order to allow a transfer.</span>")
 				return
 			AI = occupant
-			if(!AI || !isAI(occupant)) //Mech does not have an AI for a pilot
+			if(!AI || !is_ai(occupant)) //Mech does not have an AI for a pilot
 				to_chat(user, "<span class='warning'>No AI detected in the [name] onboard computer.</span>")
 				return
 			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
@@ -982,7 +1006,7 @@
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
-			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
+			AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 			if(AI.can_dominate_mechs)
 				if(occupant) //Oh, I am sorry, were you using that?
 					to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!")
@@ -1008,16 +1032,22 @@
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
+	var/mob/camera/eye/hologram/hologram_eye = AI.remote_control
+	if(istype(hologram_eye))
+		hologram_eye.release_control()
+		qdel(hologram_eye)
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
 	icon_state = reset_icon(icon_state)
+	update_icon(UPDATE_OVERLAYS)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		SEND_SOUND(occupant, sound(nominalsound, volume = 50))
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
+	AI.reset_perspective(src)
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='boldnotice'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
@@ -1080,9 +1110,9 @@
 /obj/mecha/proc/toggle_lights(show_message = TRUE)
 	lights = !lights
 	if(lights)
-		set_light(light_range + lights_power)
+		set_light(lights_range, lights_power)
 	else
-		set_light(light_range - lights_power)
+		set_light(lights_range_ambient, lights_power_ambient)
 	if(show_message)
 		occupant_message("Toggled lights [lights ? "on" : "off"].")
 		log_message("Toggled lights [lights ? "on" : "off"].")
@@ -1169,6 +1199,7 @@
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(connected_port)
 			H.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
+		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	else
 		return FALSE
@@ -1207,7 +1238,7 @@
 		else if(mmi_as_oc.brainmob.stat)
 			to_chat(user, "Beta-rhythm below acceptable level.")
 			return FALSE
-		if(!user.unEquip(mmi_as_oc))
+		if(!user.drop_item_to_ground(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return FALSE
 		var/mob/living/brain/brainmob = mmi_as_oc.brainmob
@@ -1224,6 +1255,7 @@
 		Move(loc)
 		icon_state = reset_icon()
 		dir = dir_in
+		update_icon(UPDATE_OVERLAYS)
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
 			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
@@ -1244,10 +1276,11 @@
 /obj/mecha/proc/pilot_mmi_hud(mob/living/brain/pilot)
 	return
 
-/obj/mecha/Exited(atom/movable/M, atom/newloc)
+/obj/mecha/Exited(atom/movable/M, direction)
+	var/new_loc = get_step(M, direction)
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
-		if(!isAI(occupant)) //This causes carded AIS to gib, so we do not want this to be called during carding.
-			go_out(1, newloc)
+		if(!is_ai(occupant)) //This causes carded AIS to gib, so we do not want this to be called during carding.
+			go_out(1, new_loc)
 
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
@@ -1265,7 +1298,7 @@
 		var/mob/living/brain/brain = occupant
 		RemoveActions(brain)
 		mob_container = brain.container
-	else if(isAI(occupant))
+	else if(is_ai(occupant))
 		var/mob/living/silicon/ai/AI = occupant
 		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
 			RemoveActions(occupant)
@@ -1279,10 +1312,15 @@
 				return
 			to_chat(AI, "<span class='notice'>Returning to core...</span>")
 			AI.controlled_mech = null
-			AI.remote_control = null
+			if(istype(AI.eyeobj))
+				AI.remote_control = AI.eyeobj
+				AI.reset_perspective(AI.eyeobj)
+			else
+				AI.eyeobj = new /mob/camera/eye/ai(loc, AI.name, AI, AI)
 			RemoveActions(occupant, 1)
 			mob_container = AI
 			newloc = get_turf(AI.linked_core)
+			AI.eyeobj?.set_loc(newloc)
 			qdel(AI.linked_core)
 	else
 		return
@@ -1313,6 +1351,7 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/force_eject_occupant(mob/target)
 	go_out()
@@ -1553,7 +1592,7 @@
 /obj/mecha/obj_destruction()
 	if(wreckage)
 		var/mob/living/silicon/ai/AI
-		if(isAI(occupant))
+		if(is_ai(occupant))
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)

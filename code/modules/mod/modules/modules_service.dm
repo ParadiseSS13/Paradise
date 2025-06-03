@@ -38,7 +38,8 @@
 
 /obj/item/mod/module/waddle/on_suit_deactivation(deleting = FALSE)
 	if(!deleting)
-		qdel(mod.boots.GetComponent(/datum/component/squeak))
+		mod.boots.DeleteComponent(/datum/component/squeak)
+
 	mod.wearer.RemoveElement(/datum/element/waddling)
 
 //Boot heating - dries floors like galoshes/dry

@@ -4,9 +4,10 @@
 
 #define MAX_WEIGHT_CLASS WEIGHT_CLASS_SMALL
 
+//MARK: FOOD
 /obj/item/food
 	name = "snack"
-	desc = "yummy"
+	desc = "yummy!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = null
 	resistance_flags = FLAMMABLE
@@ -40,13 +41,13 @@
 	var/goal_difficulty = FOOD_GOAL_SKIP
 
 	var/bitecount = 0
-	var/trash = null
+	var/trash
 	var/slice_path
 	var/slices_num
-	var/dried_type = null
+	var/dried_type
 	var/dry = FALSE
 	var/cooktype[0]
-	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
+	var/cooked_type  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
@@ -64,7 +65,8 @@
 		ant_suppressors = typecacheof(list(
 			/obj/structure/table,
 			/obj/structure/rack,
-			/obj/structure/closet
+			/obj/structure/closet,
+			/obj/structure/shelf
 		))
 	START_PROCESSING(SSobj, src)
 	ant_location = get_turf(src)
@@ -125,6 +127,7 @@
 
 /obj/item/food/examine(mob/user)
 	. = ..()
+
 	if(in_range(user, src))
 		if(bitecount > 0)
 			if(bitecount==1)
@@ -149,7 +152,7 @@
 		if(M == user)
 			to_chat(user, "<span class='notice'>You finish eating [src].</span>")
 		user.visible_message("<span class='notice'>[M] finishes eating [src].</span>")
-		user.unEquip(src)	//so icons update :[
+		user.unequip(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(user)
 		user.put_in_hands(trash_item)
@@ -158,15 +161,14 @@
 /obj/item/food/proc/Post_Consume(mob/living/M)
 	return
 
-/obj/item/food/attack_self(mob/user)
+/obj/item/food/attack_self__legacy__attackchain(mob/user)
 	return
 
-/obj/item/food/attack(mob/M, mob/user, def_zone)
+/obj/item/food/attack__legacy__attackchain(mob/M, mob/user, def_zone)
 	if(user.a_intent == INTENT_HARM && force)
 		return ..()
 	if(reagents && !reagents.total_volume)	// Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		M.unEquip(src)	//so icons update :[
 		qdel(src)
 		return FALSE
 
@@ -178,10 +180,7 @@
 			return TRUE
 	return FALSE
 
-/obj/item/food/afterattack(obj/target, mob/user, proximity)
-	return
-
-/obj/item/food/attackby(obj/item/W, mob/user, params)
+/obj/item/food/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
@@ -197,8 +196,8 @@
 			return
 
 		user.visible_message( \
-			"[user] scoops up some [src] with \the [U]!", \
-			"<span class='notice'>You scoop up some [src] with \the [U]!" \
+			"[user] scoops up some [name] with [U]!", \
+			"<span class='notice'>You scoop up some [name] with [U]!" \
 		)
 
 		bitecount++
@@ -273,6 +272,24 @@
 			W.taste(reagents)
 			W.consume(src)
 
+//MARK: SLICE
+/obj/item/food/sliced
+
+/obj/item/food/sliced/Initialize(mapload, made_by_sliceable = FALSE)
+	if(made_by_sliceable)
+		// we null reagent from subclass, because it will get reagents from parent sliceable
+		list_reagents = list()
+		return ..()
+	if(length(list_reagents))
+		return ..()
+
+	// We don't have any reagents, let's add something
+	log_debug("[src] was a sliced food, which was neither sliced and has no reagents.")
+	list_reagents = list("nutriment" = 5)
+
+	return ..()
+
+//MARK: SLICEABLE
 /obj/item/food/sliceable
 	slices_num = 2
 
@@ -284,7 +301,7 @@
 	if(!Adjacent(user))
 		return
 	var/obj/item/I = user.get_active_hand()
-	if(!I)
+	if(!I || I == src) // dont try to slip inside itself
 		return
 	if(I.w_class > WEIGHT_CLASS_SMALL)
 		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
@@ -304,7 +321,7 @@
 	add_fingerprint(user)
 	I.forceMove(src)
 
-/obj/item/food/sliceable/attackby(obj/item/I, mob/user, params)
+/obj/item/food/sliceable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if((slices_num <= 0 || !slices_num) || !slice_path)
 		return FALSE
 
@@ -313,7 +330,7 @@
 		if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
 			inaccurate = FALSE
 	else
-		return TRUE
+		return ..()
 	if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && \
 			!(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
 		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
@@ -333,10 +350,9 @@
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i in 1 to (slices_num - slices_lost))
-		var/obj/slice = new slice_path (loc)
+		var/obj/slice = new slice_path (loc, TRUE)
 		reagents.trans_to(slice,reagents_per_slice)
-		slice.pixel_x = rand(-7, 7)
-		slice.pixel_y = rand(-7, 7)
+		slice.scatter_atom()
 	qdel(src)
 	return ..()
 
@@ -353,20 +369,12 @@
 	cooktype["grilled"] = TRUE
 	cooktype["deep fried"] = TRUE
 
-// MISC
-
+//MARK: MISC
 /obj/item/food/cereal
 	name = "box of cereal"
 	desc = "A box of cereal."
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "cereal_box"
-	list_reagents = list("nutriment" = 3)
-
-/obj/item/food/deepfryholder
-	name = "Deep Fried Foods Holder Obj"
-	desc = "If you can see this description the code for the deep fryer fucked up."
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "deepfried_holder_icon"
 	list_reagents = list("nutriment" = 3)
 
 #undef MAX_WEIGHT_CLASS

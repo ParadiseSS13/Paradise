@@ -5,18 +5,18 @@
 /obj/item/detective_scanner
 	name = "forensic scanner"
 	desc = "Used to remotely scan objects and biomass for DNA and fingerprints. Can print a report of the findings."
-	icon = 'icons/goonstation/objects/objects.dmi'
-	icon_state = "detscanner"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "detective_scanner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
 	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = FALSE
 	var/list/log = list()
 	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)
 
-/obj/item/detective_scanner/attack_self(mob/user)
+/obj/item/detective_scanner/attack_self__legacy__attackchain(mob/user)
 	var/search = tgui_input_text(user, "Enter name, fingerprint or blood DNA.", "Find record")
 
 	if(!search || user.stat || user.incapacitated())
@@ -100,10 +100,10 @@
 		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
 
 
-/obj/item/detective_scanner/attack()
+/obj/item/detective_scanner/attack__legacy__attackchain()
 	return
 
-/obj/item/detective_scanner/afterattack(atom/A, mob/user)
+/obj/item/detective_scanner/afterattack__legacy__attackchain(atom/A, mob/user)
 	scan(A, user)
 
 /obj/item/detective_scanner/proc/scan(atom/A, mob/user)
@@ -172,7 +172,7 @@
 		// Fingerprints
 		if(length(fingerprints))
 			sleep(30)
-			add_log("<span class='info'><B>Prints:</B></span>")
+			add_log("<span class='notice'><B>Prints:</B></span>")
 			for(var/finger in fingerprints)
 				add_log("[finger]")
 			found_something = TRUE
@@ -180,7 +180,7 @@
 		// Blood
 		if(length(blood))
 			sleep(30)
-			add_log("<span class='info'><B>Blood:</B></span>")
+			add_log("<span class='notice'><B>Blood:</B></span>")
 			found_something = TRUE
 			for(var/B in blood)
 				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
@@ -188,7 +188,7 @@
 		//Fibers
 		if(length(fibers))
 			sleep(30)
-			add_log("<span class='info'><B>Fibers:</B></span>")
+			add_log("<span class='notice'><B>Fibers:</B></span>")
 			for(var/fiber in fibers)
 				add_log("[fiber]")
 			found_something = TRUE
@@ -196,7 +196,7 @@
 		//Reagents
 		if(length(reagents))
 			sleep(30)
-			add_log("<span class='info'><B>Reagents:</B></span>")
+			add_log("<span class='notice'><B>Reagents:</B></span>")
 			for(var/R in reagents)
 				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
 			found_something = TRUE

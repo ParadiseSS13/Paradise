@@ -5,9 +5,9 @@
 	icon_deny = "engivend_deny"
 	icon_panel = "generic"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
+	req_one_access = list(ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
 	products = list(/obj/item/clothing/glasses/meson/engine = 2,
-					/obj/item/clothing/glasses/meson/engine/tray = 4,
+					/obj/item/clothing/glasses/meson/engine/atmos = 4,
 					/obj/item/multitool = 4,
 					/obj/item/geiger_counter = 5,
 					/obj/item/airlock_electronics = 10,
@@ -28,7 +28,7 @@
 	icon_state = "engi"
 	icon_deny = "engi_deny"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	req_access_txt = "11"
+	req_access = list(ACCESS_ENGINE_EQUIP)
 	products = list(/obj/item/clothing/under/rank/engineering/chief_engineer = 4,
 					/obj/item/clothing/under/rank/engineering/engineer = 40,
 					/obj/item/clothing/shoes/workboots = 4,
@@ -62,7 +62,7 @@
 	icon_deny = "robotics_deny"
 	category = VENDOR_TYPE_DEPARTMENTAL
 	icon_lightmask = "robotics"
-	req_access_txt = "29"
+	req_access = list(ACCESS_ROBOTICS)
 	products = list(/obj/item/clothing/suit/storage/labcoat = 4,
 					/obj/item/clothing/under/rank/rnd/roboticist = 4,
 					/obj/item/stack/cable_coil = 4, /obj/item/flash = 4,
@@ -99,24 +99,24 @@
 					/obj/item/trash/bowl = 20,
 					/obj/item/kitchen/knife = 3,
 					/obj/item/kitchen/rollingpin = 2,
-					/obj/item/kitchen/sushimat = 3,
+					/obj/item/reagent_containers/cooking/sushimat = 3,
 					/obj/item/reagent_containers/drinks/drinkingglass = 8,
-					/obj/item/clothing/suit/chef/classic = 2,
-					/obj/item/storage/belt/chef = 2,
 					/obj/item/reagent_containers/condiment/pack/ketchup = 5,
 					/obj/item/reagent_containers/condiment/pack/hotsauce = 5,
 					/obj/item/reagent_containers/condiment/saltshaker =5,
 					/obj/item/reagent_containers/condiment/peppermill =5,
 					/obj/item/whetstone = 2,
-					/obj/item/mixing_bowl = 10,
-					/obj/item/kitchen/mould/bear = 1,
-					/obj/item/kitchen/mould/worm = 1,
-					/obj/item/kitchen/mould/bean = 1,
-					/obj/item/kitchen/mould/ball = 1,
-					/obj/item/kitchen/mould/cane = 1,
-					/obj/item/kitchen/mould/cash = 1,
-					/obj/item/kitchen/mould/coin = 1,
-					/obj/item/kitchen/mould/loli = 1,
+					/obj/item/storage/box/papersack = 20,
+					/obj/item/kitchen/knife/cheese = 2,
+					/obj/item/kitchen/knife/pizza_cutter = 2,
+					/obj/item/reagent_containers/cooking/mould/bear = 1,
+					/obj/item/reagent_containers/cooking/mould/worm = 1,
+					/obj/item/reagent_containers/cooking/mould/bean = 1,
+					/obj/item/reagent_containers/cooking/mould/ball = 1,
+					/obj/item/reagent_containers/cooking/mould/cane = 1,
+					/obj/item/reagent_containers/cooking/mould/cash = 1,
+					/obj/item/reagent_containers/cooking/mould/coin = 1,
+					/obj/item/reagent_containers/cooking/mould/loli = 1,
 					/obj/item/kitchen/cutter = 2)
 
 	contraband = list(/obj/item/kitchen/rollingpin = 2,
@@ -208,6 +208,7 @@
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/peanuts = 3,
 					/obj/item/seeds/pineapple = 3,
+					/obj/item/seeds/plum = 3,
 					/obj/item/seeds/poppy = 3,
 					/obj/item/seeds/potato = 3,
 					/obj/item/seeds/pumpkin = 3,
@@ -252,7 +253,7 @@
 					"Don't you want some?",
 					"Ping!")
 
-	req_access_txt = "5"
+	req_access = list(ACCESS_MEDICAL)
 	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
 					/obj/item/stack/medical/bruise_pack/advanced = 2,
@@ -330,7 +331,7 @@
 	icon_deny = "sec_deny"
 	icon_panel = "wide_vendor"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	req_access_txt = "1"
+	req_access = list(ACCESS_SECURITY)
 	products = list(/obj/item/restraints/handcuffs = 8,
 					/obj/item/restraints/handcuffs/cable/zipties = 8,
 					/obj/item/grenade/flashbang = 4,
@@ -350,3 +351,28 @@
 	refill_canister = /obj/item/vending_refill/security
 	prices = list(/obj/item/food/donut = 40,
 				/obj/item/storage/fancy/donut_box = 200) //Bulk discount
+
+
+/obj/machinery/economy/vending/smith
+	name = "\improper Castivend"
+	desc = "Everything you need to start your own smithing workshop."
+	icon_state = "castivend"
+	category = VENDOR_TYPE_DEPARTMENTAL
+	req_access = list(ACCESS_SMITH)
+	products = list(/obj/item/smithing_cast/sheet = 6,
+					/obj/item/smithing_cast/component/insert_frame = 3,
+					/obj/item/smithing_cast/component/insert_lining = 3,
+					/obj/item/smithing_cast/component/bit_mount = 3,
+					/obj/item/smithing_cast/component/bit_head = 3,
+					/obj/item/smithing_cast/component/lens_focus = 3,
+					/obj/item/smithing_cast/component/lens_frame = 3,
+					/obj/item/smithing_cast/component/trim = 3,
+					/obj/item/smithing_cast/misc/egun_parts = 3,
+					/obj/item/storage/bag/smith = 2,
+					/obj/item/storage/box/crewvend = 1)
+
+	refill_canister = /obj/item/vending_refill/smith
+
+	prices = list(
+		/obj/item/storage/box/crewvend = 100
+	)

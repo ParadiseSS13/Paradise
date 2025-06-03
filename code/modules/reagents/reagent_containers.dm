@@ -14,11 +14,31 @@
 	var/has_lid = FALSE // Used for containers where we want to put lids on and off
 	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
 	var/temperature_max = 10000
+	new_attack_chain = TRUE
+
+/obj/item/reagent_containers/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isliving(target))
+		user.changeNext_move(CLICK_CD_MELEE)
+		mob_act(target, user)
+		return ITEM_INTERACT_COMPLETE
+	if(normal_act(target, user))
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+// Overriden inside its subtypes. Might add the basic container shit here (eg, beaker/bucket behaviour)
+/obj/item/reagent_containers/proc/mob_act(mob/target, mob/living/user)
+	return FALSE
+
+/obj/item/reagent_containers/proc/normal_act(atom/target, mob/living/user)
+	return FALSE
 
 /obj/item/reagent_containers/proc/can_set_transfer_amount(mob/user)
 	if(!length(possible_transfer_amounts))
 		// Nothing to configure.
 		return FALSE
+	return is_valid_interaction(user)
+
+/obj/item/reagent_containers/proc/is_valid_interaction(mob/user)
 	if(isrobot(user) && src.loc == user)
 		// Borgs can configure their modules.
 		return TRUE
@@ -34,6 +54,7 @@
 		// I guess there's, like, a switch or a dial or something?
 		// Whatever, you need to use your hands for this.
 		return FALSE
+
 	return TRUE
 
 /obj/item/reagent_containers/AltClick(mob/user)
@@ -88,18 +109,16 @@
 		container_type |= REFILLABLE | DRAINABLE
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/attack_self(mob/user)
-	if(has_lid)
-		if(is_open_container())
-			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
-			add_lid()
-		else
-			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
-			remove_lid()
+/obj/item/reagent_containers/activate_self(mob/user)
+	if(..() || !has_lid)
+		return
 
-/obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+	if(is_open_container())
+		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+		add_lid()
+	else
+		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+		remove_lid()
 
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
@@ -120,4 +139,4 @@
 
 	// Items that have no valid possible_transfer_amounts shouldn't say their transfer rate is variable
 	if(possible_transfer_amounts)
-		. += "<span class='info'><b>Alt-Click</b> to change the transfer amount.</span>"
+		. += "<span class='notice'><b>Alt-Click</b> to change the transfer amount.</span>"

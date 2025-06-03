@@ -19,22 +19,25 @@
 	/// How much organ damage can the weapon do?
 	var/trauma = 5
 
-/obj/item/melee/knuckleduster/attack_self(mob/user)
+/obj/item/melee/knuckleduster/attack_self__legacy__attackchain(mob/user)
 	if(!gripped)
 		gripped = TRUE
 		to_chat(user, "You tighten your grip on [src], ensuring you won't drop it.")
-		flags |= (NODROP | ABSTRACT)
+		flags |= NODROP
+		ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
 	else
 		gripped = FALSE
 		to_chat(user, "You relax your grip on [src].")
-		flags &= ~(NODROP | ABSTRACT)
+		flags &= ~NODROP
+		REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
 
 /obj/item/melee/knuckleduster/dropped(mob/user, silent)
 	. = ..()
 	gripped = FALSE
-	flags &= ~(NODROP | ABSTRACT)
+	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
 
-/obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)
+/obj/item/melee/knuckleduster/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	. = ..()
 	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 	if(!ishuman(target) || QDELETED(target))
@@ -65,10 +68,14 @@
 	icon_state = "knuckleduster_nt"
 	force = 10
 	throwforce = 5
-	origin_tech = "combat=3"
+	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Steal objectives shouldnt be easy to destroy.
 	materials = list(MAT_GOLD = 500, MAT_TITANIUM = 200, MAT_PLASMA = 200)
 	trauma = 10
+
+/obj/item/melee/knuckleduster/nanotrasen/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/melee/knuckleduster/nanotrasen/examine_more(mob/user)
 	. = ..()

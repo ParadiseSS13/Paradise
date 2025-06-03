@@ -97,7 +97,7 @@
 				"<span class='userdanger'>\The [source] arc flashes and electrocutes you!</span>",
 				"<span class='italics'>You hear a lightning-like crack!</span>")
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
-			explosion(loc, -1, 0, 2, 2)
+			explosion(loc, -1, 0, 2, 2, cause = "Extreme Electrocution from [source]")
 	else
 		apply_damage(shock_damage, STAMINA)
 	visible_message(
@@ -228,7 +228,7 @@
 	if(!G || G.oxygen() < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return FALSE
-	T.hotspot_expose(700, 50, 1)
+	T.hotspot_expose(700, 10)
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 
@@ -264,10 +264,6 @@
 	if(method == REAGENT_TOUCH)
 		// 100 volume - 20 seconds of lost sleep
 		AdjustSleeping(-(volume * 0.2 SECONDS), bound_lower = 1 SECONDS) // showers cannot save you from sleeping gas, 1 second lower boundary
-
-//This is called when the mob is thrown into a dense turf
-/mob/living/proc/turf_collision(turf/T, speed)
-	src.take_organ_damage(speed*5)
 
 /mob/living/proc/near_wall(direction, distance=1)
 	var/turf/T = get_step(get_turf(src),direction)
@@ -309,7 +305,6 @@
 		return 0
 	user.put_in_active_hand(G)
 	G.synch()
-	LAssailant = user
 
 	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	/*if(user.dir == src.dir)
@@ -324,7 +319,7 @@
 	return G
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
@@ -344,6 +339,8 @@
 		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+
 	M.face_atom(src)
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
 		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
@@ -358,6 +355,24 @@
 	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
 	add_attack_logs(M, src, "Animal attacked")
+	return TRUE
+
+// TODO: Probably a bunch of this shit doesn't need to be here but I don't feel
+// like sorting it out right now
+/mob/living/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	if((attacker.a_intent == INTENT_HELP && attacker.ckey) || attacker.melee_damage_upper == 0)
+		attacker.custom_emote(EMOTE_VISIBLE, "[attacker.friendly_verb_continuous] [src].")
+		return FALSE
+	if(HAS_TRAIT(attacker, TRAIT_PACIFISM))
+		to_chat(attacker, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+
+	if(attacker.attack_sound)
+		playsound(loc, attacker.attack_sound, 50, TRUE, 1)
+	attacker.do_attack_animation(src)
+	visible_message("<span class='danger'>[attacker] [attacker.attack_verb_continuous] [src]!</span>", \
+					"<span class='userdanger'>[attacker] [attacker.attack_verb_continuous] [src]!</span>")
+	add_attack_logs(attacker, src, "Basicmob attacked")
 	return TRUE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)

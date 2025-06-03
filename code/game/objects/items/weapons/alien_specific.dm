@@ -31,7 +31,8 @@
 	icon_state = "borg-spray-smoke"
 	list_reagents = list("water" = 50)
 
-/obj/item/reagent_containers/spray/alien/smoke/afterattack(atom/A as mob|obj, mob/user as mob)
+/obj/item/reagent_containers/spray/alient/normal_act(atom/A, mob/living/user)
+	. = TRUE
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
 		if(!A.reagents.total_volume && A.reagents)
 			to_chat(user, "<span class='notice'>\The [A] is empty.</span>")

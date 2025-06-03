@@ -14,7 +14,7 @@
 		)
 
 /obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == SLOT_HUD_HEAD)
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
 		if(isvox(user))
 			if(flags & BLOCKHAIR)
 				flags &= ~BLOCKHAIR
@@ -64,6 +64,7 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
+	dyeable = FALSE
 
 /obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
 	. = ..()
@@ -74,7 +75,7 @@
 	name = "officer beret"
 	desc = "An armored beret commonly used by special operations officers."
 	icon = 'icons/obj/clothing/head/beret.dmi'
-	icon_state = "beret_officer"
+	icon_state = "beret_soo"
 	item_state = 'icons/mob/clothing/head/beret.dmi'
 	icon_override = 'icons/mob/clothing/head/beret.dmi'
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
@@ -85,8 +86,8 @@
 		)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
-	name = "\improper Trans-Solar Federation commander's beret"
-	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by generals of the Trans-Solar Federation."
+	name = "\improper TSF staff officer's beret"
+	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by high-ranking officers of the Trans-Solar Federation."
 	icon_state = "beret_solgovcelite"
 
 /obj/item/clothing/suit/space/deathsquad/officer
@@ -103,7 +104,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
-	name = "\improper Trans-Solar Federation commander's jacket"
+	name = "\improper TSF staff officer's jacket"
+	desc = "A stylish, heavily armored jacket worn by high-ranking officers of the Trans-Solar Federation."
 	icon_state = "solgovcommander"
 	item_state = "solgovcommander"
 
@@ -122,7 +124,7 @@
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = /datum/dog_fashion/head/santa
 
-/obj/item/clothing/head/helmet/space/santahat/attack_self(mob/user as mob)
+/obj/item/clothing/head/helmet/space/santahat/attack_self__legacy__attackchain(mob/user as mob)
 	if(src.icon_state == "santahat")
 		src.icon_state = "santahat_beard"
 		src.item_state = "santahat_beard"

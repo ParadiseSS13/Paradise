@@ -53,6 +53,8 @@
 /datum/surgery_step/internal/extract_organ
 	name = "remove heart"
 	accept_hand = 1
+	preop_sound = 'sound/surgery/organ1.ogg'
+	success_sound = 'sound/surgery/organ2.ogg'
 	time = 32
 	var/obj/item/organ/internal/IC = null
 
@@ -86,6 +88,8 @@
 /datum/surgery_step/internal/gland_insert
 	name = "insert gland"
 	allowed_tools = list(/obj/item/organ/internal/heart/gland = 100)
+	preop_sound = 'sound/surgery/organ2.ogg'
+	success_sound = 'sound/surgery/organ1.ogg'
 	time = 32
 
 /datum/surgery_step/internal/gland_insert/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

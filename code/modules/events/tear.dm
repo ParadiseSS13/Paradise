@@ -18,10 +18,12 @@
 	impact_area = findEventArea()
 
 /datum/event/tear/start()
+	if(isnull(impact_area))
+		log_debug("No valid event areas could be generated for dimensional tear.")
 	var/list/area_turfs = get_area_turfs(impact_area)
 	while(length(area_turfs))
 		var/turf/T = pick_n_take(area_turfs)
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 
 		// Give ghosts some time to jump there before it begins.
@@ -45,6 +47,9 @@
 	if(!target_area)
 		if(false_alarm)
 			target_area = findEventArea()
+			if(isnull(target_area))
+				log_debug("Tried to announce a false-alarm tear without a valid area!")
+				kill()
 		else
 			log_debug("Tried to announce a tear without a valid area!")
 			kill()

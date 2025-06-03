@@ -12,6 +12,7 @@
 	var/flash = "Idle."
 	var/obj/machinery/abductor/console/console
 	var/mob/living/carbon/human/occupant
+	COOLDOWN_DECLARE(spam_cooldown)
 
 /obj/machinery/abductor/experiment/Destroy()
 	eject_abductee()
@@ -140,7 +141,10 @@
 		H.mind.add_mind_objective(O)
 		var/list/messages = H.mind.prepare_announce_objectives()
 		to_chat(H, chat_box_red(messages.Join("<br>"))) // let the player know they have a new objective
-		SSticker.mode.update_abductor_icons_added(H.mind)
+
+		var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
+		hud.join_hud(H)
+		set_antag_hud(H, "abductee")
 
 		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)
 			G.Start()
@@ -173,19 +177,19 @@
 	H.clear_restraints()
 	return
 
-/obj/machinery/abductor/experiment/attackby(obj/item/G, mob/user)
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/grabbed = G
+/obj/machinery/abductor/experiment/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/grabbed = used
 		if(!ishuman(grabbed.affecting))
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(isabductor(grabbed.affecting))
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(occupant)
 			to_chat(user, "<span class='notice'>[src] is already occupied!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(grabbed.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		visible_message("<span class='notice'>[user] puts [grabbed.affecting] into [src].</span>")
 		var/mob/living/carbon/human/H = grabbed.affecting
 		H.forceMove(src)
@@ -193,8 +197,9 @@
 		flash = "Machine ready."
 		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
-		qdel(G)
-		return
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/abductor/experiment/ex_act(severity)
@@ -217,10 +222,14 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/abductor/experiment/relaymove()
+	if(!COOLDOWN_FINISHED(src, spam_cooldown))
+		return
+
+	COOLDOWN_START(src, spam_cooldown, 2 SECONDS)
 	if(!occupant)
 		return
 	to_chat(occupant, "<span class='warning'>You start trying to break free!</span>")
-	if(!do_after(occupant, 20 SECONDS, FALSE, src))
+	if(!do_after_once(occupant, 20 SECONDS, FALSE, src, hidden = TRUE))
 		return
 	var/list/possible_results = list(
 		CALLBACK(src, PROC_REF(electrocute_abductee)) = 1,
@@ -234,7 +243,6 @@
 	if(!occupant)
 		return
 	to_chat(occupant, "<span class='warning'>Something is electrifying you!</span>")
-	sleep(1 SECONDS)
 	occupant.electrocute_act(10, src)
 	do_sparks(5, TRUE, src)
 
@@ -243,7 +251,7 @@
 		return
 	to_chat(occupant, "<span class='warning'>Something is stabbing you in the back!</span>")
 	occupant.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
-	occupant.reagents.add_reagent("ether", 5)
+	occupant.reagents.add_reagent("pancuronium", 3)
 
 /obj/machinery/abductor/experiment/force_eject_occupant(mob/target)
 	eject_abductee()

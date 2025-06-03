@@ -14,7 +14,7 @@
 	throw_range = 1
 	throw_speed = 1
 	pressure_resistance = 0
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -39,6 +39,7 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
+
 	/// Width of the window that opens
 	var/paper_width = 600
 	/// Height of the window that opens
@@ -47,6 +48,9 @@
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
+	var/regex/blacklist = new("(<iframe|<embed|<script|<canvas|<video|<audio|onload)", "g") // Blacklist of naughties
+
+	scatter_distance = 8
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
@@ -64,7 +68,7 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
 	if(user.is_literate())
 		if(in_range(user, src) || isobserver(user))
 			show_content(user)
@@ -125,7 +129,7 @@
 		desc = initial(desc)
 	add_fingerprint(user)
 
-/obj/item/paper/attack_self(mob/living/user as mob)
+/obj/item/paper/attack_self__legacy__attackchain(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		if(!spam_flag)
@@ -147,14 +151,14 @@
 	else
 		show_content(user, forcestars = 1)
 
-/obj/item/paper/attack(mob/living/carbon/M, mob/living/carbon/user, def_zone)
+/obj/item/paper/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user, def_zone)
 	if(!ishuman(M))
 		return ..()
 	var/mob/living/carbon/human/H = M
 	if(user.zone_selected == "eyes")
 		user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
 			"<span class='notice'>You show the paper to [H].</span>")
-		H.examinate(src)
+		to_chat(H, "<a href='byond://?src=[UID()];show_content=1'>Read \the [src]</a>")
 
 	else if(user.zone_selected == "mouth")
 		if(H == user)
@@ -304,6 +308,7 @@
 		\[u\] - \[/u\] : Makes the text <u>underlined</u>.<br>
 		\[large\] - \[/large\] : Increases the <font size = \"4\">size</font> of the text.<br>
 		\[sign\] : Inserts a signature of your name in a foolproof way.<br>
+		\[name\] : Inserts your regular name, not like your signature.<br>
 		\[field\] : Inserts an invisible field which lets you start type from there. Useful for forms.<br>
 		<br>
 		<b><center>Pen exclusive commands</center></b><br>
@@ -314,13 +319,24 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
+/obj/item/paper/vv_edit_var(var_name, var_value)
+	if((var_name == "info") && blacklist.Find(var_value)) //uh oh, they tried to be naughty
+		message_admins("<span class='danger'>EXPLOIT WARNING: ADMIN</span> [usr.ckey] attempted to write paper containing JS abusable tags!")
+		log_admin("EXPLOIT WARNING: ADMIN [usr.ckey] attempted to write paper containing JS abusable tags")
+		return FALSE
+	return ..()
+
 /obj/item/paper/proc/topic_href_write(id, input_element)
 	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 	if(!is_pen(item_write) && !istype(item_write, /obj/item/toy/crayon))
 		return
-	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && (usr in get_turf(src) || loc.Adjacent(usr))))
+	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && ((usr in get_turf(src)) || loc.Adjacent(usr))))
 		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+	if(blacklist.Find(input_element)) //uh oh, they tried to be naughty
+		message_admins("<span class='danger'>EXPLOIT WARNING: </span> [usr.ckey] attempted to write paper containing JS abusable tags!")
+		log_admin("EXPLOIT WARNING: [usr.ckey] attempted to write paper containing JS abusable tags")
+		return FALSE
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 	if(id != "end")
 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
@@ -377,8 +393,14 @@
 		var/id = href_list["write"]
 		var/input_element = input("Enter what you want to write:", "Write") as message
 		topic_href_write(id, input_element)
+	if(href_list["show_content"])
+		var/dist = get_dist(src, usr)
+		if(dist < 2)
+			show_content(usr)
+		else
+			to_chat(usr, "<span class='notice'>I'm too far away from \the [src] to read it.</span>")
 
-/obj/item/paper/attackby(obj/item/P, mob/living/user, params)
+/obj/item/paper/attackby__legacy__attackchain(obj/item/P, mob/living/user, params)
 	..()
 
 	if(resistance_flags & ON_FIRE)
@@ -400,38 +422,38 @@
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
-		user.unEquip(P)
+		user.drop_item_to_ground(P)
 		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_r_hand(B)
 			else if(h_user.l_hand == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_l_hand(B)
 			else if(h_user.l_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)
-				h_user.unEquip(src)
+				h_user.unequip(src)
 				h_user.put_in_hands(B)
 			else if(!isturf(src.loc))
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You clip [P] to [(src.name == "paper") ? "the paper" : src.name].</span>")
-		src.loc = B
+		forceMove(B)
 		P.loc = B
 		B.amount++
 		B.update_icon()
@@ -466,7 +488,7 @@
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
+			user.drop_item_to_ground(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
@@ -474,7 +496,7 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 
@@ -522,22 +544,17 @@
 /*
  * Premade paper
  */
-/obj/item/paper/Court
+/obj/item/paper/court
 	name = "Judgement"
 	info = "For crimes against the station, the offender is sentenced to:<BR>\n<BR>\n"
 
-/obj/item/paper/Toxin
+/obj/item/paper/toxin
 	name = "Chemical Information"
 	info = "Known Onboard Toxins:<BR>\n\tGrade A Semi-Liquid Plasma:<BR>\n\t\tHighly poisonous. You cannot sustain concentrations above 15 units.<BR>\n\t\tA gas mask fails to filter plasma after 50 units.<BR>\n\t\tWill attempt to diffuse like a gas.<BR>\n\t\tFiltered by scrubbers.<BR>\n\t\tThere is a bottled version which is very different<BR>\n\t\t\tfrom the version found in canisters!<BR>\n<BR>\n\t\tWARNING: Highly Flammable. Keep away from heat sources<BR>\n\t\texcept in a enclosed fire area!<BR>\n\t\tWARNING: It is a crime to use this without authorization.<BR>\nKnown Onboard Anti-Toxin:<BR>\n\tAnti-Toxin Type 01P: Works against Grade A Plasma.<BR>\n\t\tBest if injected directly into bloodstream.<BR>\n\t\tA full injection is in every regular Med-Kit.<BR>\n\t\tSpecial toxin Kits hold around 7.<BR>\n<BR>\nKnown Onboard Chemicals (other):<BR>\n\tRejuvenation T#001:<BR>\n\t\tEven 1 unit injected directly into the bloodstream<BR>\n\t\t\twill cure paralysis and sleep plasma.<BR>\n\t\tIf administered to a dying patient it will prevent<BR>\n\t\t\tfurther damage for about units*3 seconds.<BR>\n\t\t\tit will not cure them or allow them to be cured.<BR>\n\t\tIt can be administeredd to a non-dying patient<BR>\n\t\t\tbut the chemicals disappear just as fast.<BR>\n\tSoporific T#054:<BR>\n\t\t5 units wilkl induce precisely 1 minute of sleep.<BR>\n\t\t\tThe effect are cumulative.<BR>\n\t\tWARNING: It is a crime to use this without authorization"
 
 /obj/item/paper/courtroom
 	name = "A Crash Course in Legal SOP on SS13"
 	info = "<B>Roles:</B><BR>\nThe Detective is basically the investigator and prosecutor.<BR>\nThe Staff Assistant can perform these functions with written authority from the Detective.<BR>\nThe Captain/HoP/Warden is ct as the judicial authority.<BR>\nThe Security Officers are responsible for executing warrants, security during trial, and prisoner transport.<BR>\n<BR>\n<B>Investigative Phase:</B><BR>\nAfter the crime has been committed the Detective's job is to gather evidence and try to ascertain not only who did it but what happened. He must take special care to catalogue everything and don't leave anything out. Write out all the evidence on paper. Make sure you take an appropriate number of fingerprints. IF he must ask someone questions he has permission to confront them. If the person refuses he can ask a judicial authority to write a subpoena for questioning. If again he fails to respond then that person is to be jailed as insubordinate and obstructing justice. Said person will be released after he cooperates.<BR>\n<BR>\nONCE the FT has a clear idea as to who the criminal is he is to write an arrest warrant on the piece of paper. IT MUST LIST THE CHARGES. The FT is to then go to the judicial authority and explain a small version of his case. If the case is moderately acceptable the authority should sign it. Security must then execute said warrant.<BR>\n<BR>\n<B>Pre-Pre-Trial Phase:</B><BR>\nNow a legal representative must be presented to the defendant if said defendant requests one. That person and the defendant are then to be given time to meet (in the jail IS ACCEPTABLE). The defendant and his lawyer are then to be given a copy of all the evidence that will be presented at trial (rewriting it all on paper is fine). THIS IS CALLED THE DISCOVERY PACK. With a few exceptions, THIS IS THE ONLY EVIDENCE BOTH SIDES MAY USE AT TRIAL. IF the prosecution will be seeking the death penalty it MUST be stated at this time. ALSO if the defense will be seeking not guilty by mental defect it must state this at this time to allow ample time for examination.<BR>\nNow at this time each side is to compile a list of witnesses. By default, the defendant is on both lists regardless of anything else. Also the defense and prosecution can compile more evidence beforehand BUT in order for it to be used the evidence MUST also be given to the other side.\nThe defense has time to compile motions against some evidence here.<BR>\n<B>Possible Motions:</B><BR>\n1. <U>Invalidate Evidence-</U> Something with the evidence is wrong and the evidence is to be thrown out. This includes irrelevance or corrupt security.<BR>\n2. <U>Free Movement-</U> Basically the defendant is to be kept uncuffed before and during the trial.<BR>\n3. <U>Subpoena Witness-</U> If the defense presents god reasons for needing a witness but said person fails to cooperate then a subpoena is issued.<BR>\n4. <U>Drop the Charges-</U> Not enough evidence is there for a trial so the charges are to be dropped. The FT CAN RETRY but the judicial authority must carefully reexamine the new evidence.<BR>\n5. <U>Declare Incompetent-</U> Basically the defendant is insane. Once this is granted a medical official is to examine the patient. If he is indeed insane he is to be placed under care of the medical staff until he is deemed competent to stand trial.<BR>\n<BR>\nALL SIDES MOVE TO A COURTROOM<BR>\n<B>Pre-Trial Hearings:</B><BR>\nA judicial authority and the 2 sides are to meet in the trial room. NO ONE ELSE BESIDES A SECURITY DETAIL IS TO BE PRESENT. The defense submits a plea. If the plea is guilty then proceed directly to sentencing phase. Now the sides each present their motions to the judicial authority. He rules on them. Each side can debate each motion. Then the judicial authority gets a list of crew members. He first gets a chance to look at them all and pick out acceptable and available jurors. Those jurors are then called over. Each side can ask a few questions and dismiss jurors they find too biased. HOWEVER before dismissal the judicial authority MUST agree to the reasoning.<BR>\n<BR>\n<B>The Trial:</B><BR>\nThe trial has three phases.<BR>\n1. <B>Opening Arguments</B>- Each side can give a short speech. They may not present ANY evidence.<BR>\n2. <B>Witness Calling/Evidence Presentation</B>- The prosecution goes first and is able to call the witnesses on his approved list in any order. He can recall them if necessary. During the questioning the lawyer may use the evidence in the questions to help prove a point. After every witness the other side has a chance to cross-examine. After both sides are done questioning a witness the prosecution can present another or recall one (even the EXACT same one again!). After prosecution is done the defense can call witnesses. After the initial cases are presented both sides are free to call witnesses on either list.<BR>\nFINALLY once both sides are done calling witnesses we move onto the next phase.<BR>\n3. <B>Closing Arguments</B>- Same as opening.<BR>\nThe jury then deliberates IN PRIVATE. THEY MUST ALL AGREE on a verdict. REMEMBER: They mix between some charges being guilty and others not guilty (IE if you supposedly killed someone with a gun and you unfortunately picked up a gun without authorization then you CAN be found not guilty of murder BUT guilty of possession of illegal weaponry.). Once they have agreed they present their verdict. If unable to reach a verdict and feel they will never they call a deadlocked jury and we restart at Pre-Trial phase with an entirely new set of jurors.<BR>\n<BR>\n<B>Sentencing Phase:</B><BR>\nIf the death penalty was sought (you MUST have gone through a trial for death penalty) then skip to the second part. <BR>\nI. Each side can present more evidence/witnesses in any order. There is NO ban on emotional aspects or anything. The prosecution is to submit a suggested penalty. After all the sides are done then the judicial authority is to give a sentence.<BR>\nII. The jury stays and does the same thing as I. Their sole job is to determine if the death penalty is applicable. If NOT then the judge selects a sentence.<BR>\n<BR>\nTADA you're done. Security then executes the sentence and adds the applicable convictions to the person's record.<BR>\n"
-
-/obj/item/paper/flag
-	icon_state = "flag_neutral"
-	item_state = "paper"
-	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -551,6 +568,19 @@
 /obj/item/paper/sop
 	name = "paper- 'Standard Operating Procedure'"
 	info = "Alert Levels:<BR>\nBlue- Emergency<BR>\n\t1. Caused by fire<BR>\n\t2. Caused by manual interaction<BR>\n\tAction:<BR>\n\t\tClose all fire doors. These can only be opened by reseting the alarm<BR>\nRed- Ejection/Self Destruct<BR>\n\t1. Caused by module operating computer.<BR>\n\tAction:<BR>\n\t\tAfter the specified time the module will eject completely.<BR>\n<BR>\nEngine Maintenance Instructions:<BR>\n\tShut off ignition systems:<BR>\n\tActivate internal power<BR>\n\tActivate orbital balance matrix<BR>\n\tRemove volatile liquids from area<BR>\n\tWear a fire suit<BR>\n<BR>\n\tAfter<BR>\n\t\tDecontaminate<BR>\n\t\tVisit medical examiner<BR>\n<BR>\nToxin Laboratory Procedure:<BR>\n\tWear a gas mask regardless<BR>\n\tGet an oxygen tank.<BR>\n\tActivate internal atmosphere<BR>\n<BR>\n\tAfter<BR>\n\t\tDecontaminate<BR>\n\t\tVisit medical examiner<BR>\n<BR>\nDisaster Procedure:<BR>\n\tFire:<BR>\n\t\tActivate sector fire alarm.<BR>\n\t\tMove to a safe area.<BR>\n\t\tGet a fire suit<BR>\n\t\tAfter:<BR>\n\t\t\tAssess Damage<BR>\n\t\t\tRepair damages<BR>\n\t\t\tIf needed, Evacuate<BR>\n\tMeteor Shower:<BR>\n\t\tActivate fire alarm<BR>\n\t\tMove to the back of ship<BR>\n\t\tAfter<BR>\n\t\t\tRepair damage<BR>\n\t\t\tIf needed, Evacuate<BR>\n\tAccidental Reentry:<BR>\n\t\tActivate fire alarms in front of ship.<BR>\n\t\tMove volatile matter to a fire proof area!<BR>\n\t\tGet a fire suit.<BR>\n\t\tStay secure until an emergency ship arrives.<BR>\n<BR>\n\t\tIf ship does not arrive-<BR>\n\t\t\tEvacuate to a nearby safe area!"
+
+/obj/item/paper/dnd
+	name = "paper- 'Character Sheet'"
+	info = "<large><center><B>DnD Character Sheet Page 1 </large></center></B><BR> <BR> Race: <field> <BR> Alignment: <field> <BR> Background:<field> <BR> Class: <field> <BR> <BR> <BR> <large><center>Stats </large></center> <BR> STR:<field> <BR> DEX:<field> <BR> CON:<field> <BR> INT:<field> <BR> WIS:<field> <BR> CHR:<field> <BR> <center>Saving Throws</center> <BR> STR:<field> <BR> DEX:<field> <BR> CON:<field> <BR> INT:<field> <BR> WIS:<field> <BR> CHR:<field> <BR> <center>SKILLS</center> <BR> Acrobatics<i>DEX</i><field> <BR> Animal Handling<i>WIS</i><field> <BR> Arcana<i>INT</i><field> <BR> Athletics<i>STR</i><field> <BR> Deception<i>CHR</i><field> <BR> History<i>INT</i><field> <BR> Insight<i>WIS</i><field> <BR> Intimidation<i>CHR</i><field> <BR> Investigation<i>INT</i><field> <BR> Medicine<i>WIS</i><field> <BR> Nature<i>INT</i><field> <BR> Perception<i>WIS</i><field> <BR> Performance<i>CHR</i><field> <BR> Persuasion<i>CHR</i><field> <BR> Religion<i>INT</i><field> <BR> Sleight of Hand<i>DEX</i><field> <BR> Stealth<i>DEX</i><field> <BR> Survival<i>WIS</i><field><large><center><B>DnD Character Sheet Page 2 </large></center></B> <BR> <BR> <large><center>Combat Stats</large></center> <BR> Armor Class:<field> <BR> Intiative:<field> <BR> Speed:<field> <BR> <BR> <large><center>Attacks and Spells</large></center><large><center><B>DnD Character Sheet Page 3 </large></center></B> <BR> <BR> <center><B>HP </center></B> <BR> Current HP: <field> <BR> Temporary HP: <field><large><center><B>DnD Character Sheet Page 4</large></center></B> <BR> <BR> <large><center>Equipment</large></center> <BR> Gold: <field> <BR> Worn Equipment:<field> <BR> Inventory:<field>"
+
+/obj/item/paper/stalker
+	name = "Stalker Note"
+	info = "<i>The note looks rather worn, and covered in lipstick kiss marks</i> <BR> <BR> Oh Ian, so close, and yet so very far away. How cruel to keep you locked away in that little room. Confined, caged, ENSLAVED to that monster! You deserve to be free! FREE! I would treat you right, give you all the treats yout want. But that damned slavedriver refuses to give you up. Instead of ME! your RIGHTFUL CARETAKER! You'll be mine one day. Ill make you happy. Just wait a little longer, sweetie..."
+
+/obj/item/paper/maintengine
+	name = "Crumpled Note"
+	info = "Look - Ivan. I dont care about the fact you went behind my back to get the engine crate ordered and approved. I dont care about the fact that you've had trouble getting the engine stable in the past. I dont even care that you're trying to hide somewhere in maintenance with it...<BR> <BR> Just please, for the love of god tell me where it is. I wont report it, I just want to make sure its not going to catastrophically meltdown, or for you to die because of it. Please, just think it over. <BR> <BR> - Chief Engineer Stares-At-The-Crystal"
+	icon_state = "scrap"
 
 /obj/item/paper/crumpled
 	name = "paper scrap"
@@ -602,13 +632,36 @@
 	name = "Greetings from Billy Bob"
 	info = "<B>Hey fellow botanist!</B><BR>\n<BR>\nI didn't trust the station folk so I left<BR>\na couple of weeks ago. But here's some<BR>\ninstructions on how to operate things here.<BR>\nYou can grow plants and each iteration they become<BR>\nstronger, more potent and have better yield, if you<BR>\nknow which ones to pick. Use your botanist's analyzer<BR>\nfor that. You can turn harvested plants into seeds<BR>\nat the seed extractor, and replant them for better stuff!<BR>\nSometimes if the weed level gets high in the tray<BR>\nmutations into different mushroom or weed species have<BR>\nbeen witnessed. On the rare occassion even weeds mutate!<BR>\n<BR>\nEither way, have fun!<BR>\n<BR>\nBest regards,<BR>\nBilly Bob Johnson.<BR>\n<BR>\nPS.<BR>\nHere's a few tips:<BR>\nIn nettles, potency = damage<BR>\nIn amanitas, potency = deadliness + side effect<BR>\nIn Liberty caps, potency = drug power + effect<BR>\nIn chilis, potency = heat<BR>\n<B>Nutrients keep mushrooms alive!</B><BR>\n<B>Water keeps weeds such as nettles alive!</B><BR>\n<B>All other plants need both.</B>"
 
-/obj/item/paper/chef
-	name = "Cooking advice from Morgan Ramslay"
-	info = "Right, so you're wanting to learn how to feed the teeming masses of the station yeah?<BR>\n<BR>\nWell I was asked to write these tips to help you not burn all of your meals and prevent food poisonings.<BR>\n<BR>\nOkay first things first, making a humble ball of dough.<BR>\n<BR>\nCheck the lockers for a bag or two of flour and then find a glass cup or a beaker, something that can hold liquids. Next pour 15 units of flour into the container and then pour 10 units of water in as well. Hey presto! You've made a ball of dough, which can lead to many possibilities.<BR>\n<BR>\nAlso, before I forget, KEEP YOUR FOOD OFF THE DAMN FLOOR! Space ants love getting onto any food not on a table or kept away in a closed locker. You wouldn't believe how many injuries have resulted from space ants...<BR>\n<BR>\nOkay back on topic, let's make some cheese, just follow along with me here.<BR>\n<BR>\nLook in the lockers again for some milk cartons and grab another glass to mix with. Next look around for a bottle named 'Universal Enzyme' unless they changed the look of it, it should be a green bottle with a red label. Now pour 5 units of enzyme into a glass and 40 units of milk into the glass as well. In a matter of moments you'll have a whole wheel of cheese at your disposal.<BR>\n<BR>\nOkay now that you've got the ingredients, let's make a classic crewman food, cheese bread.<BR>\n<BR>\nMake another ball of dough, and cut up your cheese wheel with a knife or something else sharp such as a pair of wire cutters. Okay now look around for an oven in the kitchen and put 2 balls of dough and 2 cheese wedges into the oven and turn it on. After a few seconds a fresh and hot loaf of cheese bread will pop out. Lastly cut it into slices with a knife and serve.<BR>\n<BR>\nCongratulations on making it this far. If you haven't created a burnt mess of slop after following these directions you might just be on your way to becoming a master chef someday.<BR>\n<BR>\nBe sure to look up other recipes and bug the Head of Personnel if Botany isn't providing you with crops, wheat is your friend and lifeblood.<BR>\n<BR>\nGood luck in the kitchen, and try not to burn down the place.<BR>\n<BR>\n-Morgan Ramslay"
-
 /obj/item/paper/djstation
-	name = "DJ Listening Outpost"
-	info = "<B>Welcome new owner!</B><BR><BR>You have purchased the latest in listening equipment. The telecommunication setup we created is the best in listening to common and private radio fequencies. Here is a step by step guide to start listening in on those saucy radio channels:<br><ol><li>Equip yourself with a multi-tool</li><li>Use the multitool on each machine, that is the broadcaster, receiver and the relay.</li><li>Turn all the machines on, it has already been configured for you to listen on.</li></ol> Simple as that. Now to listen to the private channels, you'll have to configure the intercoms, located on the front desk. Here is a list of frequencies for you to listen on.<br><ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - Command Channel</li><li>135.1 - Science Channel</li><li>134.9 - Mining Channel</li><li>134.7 - Cargo Channel</li>"
+	name = "Mission Briefing"
+	info = "<center><h2>Welcome to Listening Post Yenisei!</h2></center><br>\
+	You will have two objectives for the duration of your assignment:\
+	<ul><li>Monitor radio traffic in this system, especially from the Nanotrasen stations and ship traffic heading to and from them. Important findings are to be relayed to The Union using the listening post's hyperwave antenna.</li>\
+	<li>You will be functioning as the hyperwave relay for KC-13, our other installation in the system. Ensure any messages they broadcast are forwarded to The Union.</li></ul>\
+	A library of patriotic entertainment media has been provided for you to broadcast into the system - your cover is that you are the operator of an independent Soviet radio station.<br> \
+	<br>\
+	The encryption schemes used by Nanotrasen have been included in this installation's radio equipment, allowing you to listen in on their chatter. Use the frequencies supplied below to tune into channels of interest.\
+	<br>\
+	<ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - \
+	Command Channel</li><li>135.1 - Science Channel</li><li>134.9 - Mining Channel</li><li>134.7 - Cargo Channel</li>"
+
+/obj/item/paper/djstation/diary_note
+	name = "Communications Update"
+	info = "KC-13 has stopped talking to me for about the past month. I assume Vostok just has his knickers in a twist.<br>\
+	<br>\
+	Hell, not my problem. Got all the vodka and cigarettes I need to last me a year."
+
+/obj/item/paper/ussp_tele
+	name = "Report - Bluespace Translocation Apparatus"
+	info = "Despite a lot of headaches and delays, the BTA is finally in a functional enough state to demonstrate to the Committee, although be warned that it has multiple limitations:<br>\
+	<br>\
+	<ul><li>The highly sensitive electronics are affected by a translocation event, which will throw off any acquired locks. \
+	The station must be recalibrated after every use to avoid the possibility of being translocated to a random point in space.</li>\
+	<li>Currently the system is only able to function with the help of locator beacons, we have been unable to safely generate arbitrary targeting coordinates.</li>\
+	<li>We cannot retrieve targets remotely, even with the aid of a locator beacon, energy consumption is too high to maintain a remote portal.</li></ul>\
+	Doctors Danielius and Hoang both believe that the first point can be worked out with some relatively minor technological improvements. \
+	Arbitrary targeting is technically possible but will remain infeasible for decades. Remote target retrieval will require an entirely different technique, \
+	although accounts of Syndicate contractor operations suggests that they possess a functioning apparatus capable of such a feat."
 
 /obj/item/paper/blueshield
 	name = "paper- 'Blueshield Mission Briefing'"
@@ -638,27 +691,117 @@
 	name = "Teleporter Instructions"
 	info = "<h3>Teleporter Instruction</h3><hr><ol><li>Install circuit board, glass and wiring to complete Teleporter Control Console</li><li>Use a screwdriver, wirecutter and screwdriver again on the Teleporter Station to connect it</li><li>Set destination with Teleporter Control Computer</li><li>Activate Teleporter Hub with Teleporter Station</li></ol>"
 
-/obj/item/paper/russiantraitorobj
+/obj/item/paper/soviettraitorobj
 	name = "paper- 'Mission Objectives'"
 	info = "The Syndicate have cunningly disguised a Syndicate Uplink as your PDA. Simply enter the code \"678 Bravo\" into the ringtone select to unlock its hidden features. <br><br><b>Objective #1</b>. Kill the God damn AI in a fire blast that it rocks the station. <b>Success!</b>  <br><b>Objective #2</b>. Escape alive. <b>Failed.</b>"
 
-/obj/item/paper/russiannuclearoperativeobj
+/obj/item/paper/sovietnuclearoperativeobj
 	name = "paper- 'Objectives of a Nuclear Operative'"
 	info = "<b>Objective #1</b>: Destroy the station with a nuclear device."
-
-/obj/item/paper/clownship
-	name = "paper- 'Note'"
-	info = "The call has gone out! Our ancestral home has been rediscovered! Not a small patch of land, but a true clown nation, a true Clown Planet! We're on our way home at last!"
 
 /obj/item/paper/syndicate
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
 	info = ""
 
+/obj/item/paper/syndicate/listening_post
+	name = "mission briefing"
+	info = {"<center><h1>Mission Details:</h1></center>
+	<br><br>
+	Greetings, agent. You have been assigned to a newly constructed listening post hidden in Nanotrasen-controlled space.
+	You are to monitor transmissions from the Nanotrasen space stations in the system, as well as those from potentially significant ships passing through the system.
+	<br><br>
+	Urgent reports are to be relayed immeditely to your handler, otherwise, condense significant happenings into packets to be sent out at scheduled intervals, to minimise the chances your transmissions being detected.
+	<br><br>
+	Accurate intelligence is crucial to the success of our operatives onboard. Do not fail us.
+	<br><br>
+	<b>Glory to the Syndicate!</b>"}
+
+/obj/item/paper/listening_post_report_1
+	name = "Report 01 - URGENT"
+	info = {"<b>URGENT:</b> Intercepted communications from the NAS Trurl have revealed that a shipment of nuclear fission warheads are being shipped into the system to replace aging inventory.
+	<br><br>
+	The convoy is lightly defended and disguised as a regular freight carrying operation. They are not expecting, nor prepared to stop a determined attacker."}
+
+/obj/item/paper/listening_post_report_2
+	name = "Report 02"
+	info = {"* Security across all shipping operations has been substantailly boosted, and the NAS Trurl has declared a heightened state of alert across all stations in the system.
+	<br><br>
+	* The NSS Farragus is reporting heightened mineral output - extra shipping traffic likely.
+	<br><br>
+	* The NSS Cyberiad's communications channels are flooded with garbled reports about a dangerous "floor cluwne" - exact details unclear."}
+
+/obj/item/paper/listening_post_report_3
+	name = "Report 03"
+	info = {"* Now that several months have passed, the security situation is slowly cooling down - the NAS Trurl's heightened state of alert is no longer in effect. Routine shipping traffic escorts are beginning to thin.
+	<br><br>
+	* The NSS Kerberos is reporting that mining output has dropped to zero. Morale has plummeted, engineers and roboticists are tearing apart old metal furnature and windows to secure materials.
+	<br><br>
+	* The NSS Diagoras is reporting a major plasma fire, but it appears to be contained to an asteroid attached to the station.
+	<br><br>
+	* Some form of pirate radio station appeared in the system and is broadcasting what appears to be Soviet state-made entertainment media - It is of highly doubious entertainment value, however.
+	These broadcasts are not on NT frequencies and therefore are not causing interferance."}
+
+/obj/item/paper/listening_post_report_4
+	name = "Report 04"
+	info = {"* The NAS Trurl has ordered all stations to prepare for a potentiel visit from multiple VIPs. Details scarce, security levels elevted.
+	<br><br>
+	* A USSP-operated station has been detected in the system.
+	It is intermittently communicating with the Soviet pirate radio station (which appears to be operated by the USSP as well). Both operations appear to be independent of each other. Will continue to monitor for developments.
+	<br><br>
+	* A TSF destroyer "TSFN Oberon" jumped into the system and opened encrypted communications with the NAS Trurl, contents of transmission unknown.
+	Broadcast exchanges continued as the destroyer adopted a search pattern. After six hours, the destroyer jumped out of system. At no point did it approach near either of the USSP installations.
+	<br><br>
+	* Nanotrasen plasma shipments have been disrupted by a massive migration of space carp, causing backlogs at shipping terminals."}
+
+/obj/item/paper/listening_post_report_5
+	name = "Report 05"
+	info = {"* Intermittent hyperwave broadcasts have been detected from the USSP pirate radio station. Broadcasts are highly directional (which hindered detection), pointing towards USSP space.
+	These messages are highly encrypted. It appears likely that the USSP is conducting eavesdropping operations against Nanotrasen as well.
+	<br><br>
+	* A terror spider outbreak was reported on the NSS Cerebron. Early discovery and an unusual lack of coordiation on the part of the spiders allowed the outbreak to be rapidly contained.
+	<br><br>
+	* The NSS Farragus's communications are flooded with garbled reports about "Ei Nath" -
+	piecing together fragments of communications suggests that this "Ei Nath" is a highly dangerous individual whose mere pressence causes great fear among Nanotrasen personnel. Attempt recruitment?"}
+
+/obj/item/paper/listening_post_report_6
+	name = "Report 06 - URGENT"
+	info = {"<b>URGENT:</b> An Aussec Armoury freighter has suffered an engine failure near the edge of the system, dropping out of hyperspace.
+	<br><br>
+	Escorts will be absent until they can retrace path. Limited window to execute raiding operations."}
+
+/obj/item/paper/listening_post_report_7
+	name = "Report 07"
+	info = {"* The USSP space station has gone silent on all frequencies for an extended period of time. USSP listening post continues to operate (the contents of the cover singal is not getting any better).
+	<br><br>
+	* New signals are being detected from an old Nanotrasen communications satellite. Multiple Nanotrasen explorers attempting to investigate are MIA.
+	<br><br>
+	* Vox skipjack detected in area, communications completely unintelligible. Likely preparing to launch shuttles to trade with or raid the stations in the area.
+	<br><br>
+	* <b>CAUTION:</b> Nanotrasen exploration teams growing in size and are scouring much larger areas than before. They are now operating dangerously close to this installation, requesting additional security."}
+
 /obj/item/paper/nanotrasen
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
+
+/obj/item/paper/nanotrasen/confessional
+	name = "Confession agreement"
+	info =  "<center><b>Confessional agreement form</b></center><HR> \
+		I hereby plead guilty to all of the listed charges below. I have been read all of my rights in accordance to space law and I am aware that I may decline to sign this form to proceed with normal court procedures.<br> \
+		By signing this form I waive my rights to a court hearing in return for reduced sentencing. I will be charged in accordance to the listed charges below, and waive my right to later appeal.<br> \
+		My charges are listed as below: <hr> \
+		502: Murder of the Kerikya the Research Director<br> \
+		407: Theft of a highly destructive experimental science prototype weapon<br> \
+		400: Releasing of toxic plasmagas into the primary hallway<br> \
+		308: Tresspass into the Research Directors office<br> \
+		305: Arming and inciting crew to resist security efforts to pacify the area.<br> \
+		304: Possession of a stun baton and Energy weapon assembly kits<br> \
+		302: Utilizing stun batons and energy wepaons on security personnel<br> \
+		203: Distribution of Methamphetamine and Pump-up to crew<br> \
+		105: Refusing to put on pants<hr> \
+		Projected Sentence: 5 life sentences<br> \
+		Accused Signature: <i> Fuck you im not signing shit</i>"
 
 /obj/item/paper/nuclear_guide_operating
 	name = "nuclear guide : 'Operating the Nuclear Device'"
@@ -721,6 +864,23 @@
 /obj/item/paper/syndicate_druglab/delivery
 	name = "paper - 'Delivery Note'"
 	info = "<i>Hey sweetie! The boss wants you to have some friends. I couldn't get you a real suit, but I found this in a cosplay shop! The bees surely won't see through your IMPECCABLE disguise!<br><br>xoxo,<br>george ♥</i><br><br>- What the fuck. I'm airlocking him tomorrow."
+
+/obj/item/paper/atmos_asteroid
+	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
+	name = "Lava Field Observations"
+	info = "<center>Asteroid Core Observation Log 306</center><hr><br><i>We took some additional samples of the deep layers of the molten core of the asteroid. Undetermined trace elements were able to be identified in the solution. Its possible this is how the plasma remains so stable at these temperatures. None of our current filter methods have been able to properly extract it as of yet, but we're certain a breakthrough is on the horizon. We did it before, we can do it again.</i>"
+
+/obj/item/paper/clockwork_cult_message
+	name = "Old handwritten note"
+	info = "<center>To any brothers and sisters that journey here from beyond the system:</center><br><br>\
+	The Nar'Sien dogs have failed, and we have gleaned the method by which we can awake His divine mechanism. The spark shall be turned into lightning and the gears shall once again turn.<br><br>\
+	We go now to purge the dogs from the hole we know they hide within, and then The Eminance shall then call us back to Reebe so that we may begin preperations for His awakening.<br><br>\
+	The guardians shall protect the monastery in our stead. Make use of its supplies and prepare for our return, together we shall all finalize His vison."
+
+/obj/item/paper/white_ship_telepad
+	name = "Don't forget"
+	info = "Make sure to not forget the link code for the telepad. Rather not get stuck out here for a few more weeks."
+
 
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
@@ -897,20 +1057,28 @@
 
 /obj/item/paper/researchnotes
 	name = "paper - 'Research Notes'"
-	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+	info = "<b>The notes appear gibberish to you. Perhaps a scientific analyzer in R&D could make sense of them?</b>"
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
-/obj/item/paper/researchnotes/New()
-	..()
+/obj/item/paper/researchnotes/Initialize(mapload)
+	. = ..()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
 
+// I want this type dead
 /obj/item/paper/instruction
 	name = "Instruction Notes"
 
 /obj/item/paper/instruction/pacman_generator
 	name = "Instructions for P.A.C.M.A.N. Generator series"
 	info = "P.A.C.M.A.N. are commonly used as 'Emergency' power generators, with its upgraded version being capable of utilizing uranium and plasma sheets to function. Simply anchor on the power cable node, insert the plasma sheet, select the level and turn it ON to generate power, just make sure to not overheat it or it will explode."
+
+/obj/item/paper/rocky_motel
+	name = "strange note"
+	info = "Nancy, dear, could you <i>please</i> stop hiding my beer in the safe? I'm telling you, it's alcohol-free and safe to drink. Just quit making me mad, for fuck's sake!"
+
+/obj/item/paper/rocky_motel/syndie
+	info = "Don't forget to grab the gold from safe tomorrow, I'm not going to stay there for another year, this place sucks."

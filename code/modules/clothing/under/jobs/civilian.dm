@@ -10,19 +10,21 @@
 		)
 
 /obj/item/clothing/under/rank/civilian/hop
-	name = "head of personnel's jumpsuit"
-	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
+	name = "head of personnel's uniform"
+	desc = "It's a blue dress shirt and black slacks worn by someone who works in the position of \"Head of Personnel\"."
 	icon_state = "hop"
 	item_color = "hop"
 
 /obj/item/clothing/under/rank/civilian/hop/skirt
-	name = "head of personnel's jumpskirt"
-	desc = "It's a jumpskirt worn by someone who works in the position of \"Head of Personnel\"."
+	name = "head of personnel's skirt"
+	desc = "It's a blue dress shirt and black skirt worn by someone who works in the position of \"Head of Personnel\"."
 	icon_state = "hop_skirt"
 	item_color = "hop_skirt"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/hop/dress
-	name = "head of personnel's dress uniform"
+	name = "head of personnel's dress"
 	desc = "Feminine fashion for the style conscious Head of Personnel."
 	icon_state = "hop_dress"
 	item_color = "hop_dress"
@@ -79,7 +81,7 @@
 	item_state = "clown"
 	item_color = "clown"
 
-/obj/item/clothing/under/rank/civilian/clown/Initialize()
+/obj/item/clothing/under/rank/civilian/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
@@ -120,6 +122,8 @@
 	icon_state = "mime_skirt"
 	item_state = "mime_skirt"
 	item_color = "mime_skirt"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/mime/sexy
 	name = "sexy mime outfit"

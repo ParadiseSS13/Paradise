@@ -141,6 +141,14 @@
 		new /datum/data/pda/app/signaller
 	)
 
+/obj/item/cartridge/chef
+	name = "Chef's Guide to the Galaxy"
+	desc = "A data cartridge for portable microcomputers. Contains every cooking recipe ever."
+	icon_state = "cart-chef"
+	programs = list(
+		new /datum/data/pda/app/cookbook
+	)
+
 /obj/item/cartridge/cargo
 	name = "Space Parts & Space Vendors Cartridge"
 	desc = "A data cartridge for portable microcomputers. Has supply records and MULEbot control."
@@ -285,7 +293,7 @@
 /// needed subtype so regular traitors can't open and close nuclear shuttle doors
 /obj/item/cartridge/syndicate/nuclear
 	name = "Nuclear Agent Detomatix Cartridge"
-	desc = "The same reliable Detomatix program except with the added ability of remotely toggling your nuclear shuttle airlock from your PDA"
+	desc = "The same reliable Detomatix program except with the added ability of remotely toggling your nuclear shuttle airlock from your PDA."
 	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
 	programs = list(
 		new /datum/data/pda/utility/toggle_door

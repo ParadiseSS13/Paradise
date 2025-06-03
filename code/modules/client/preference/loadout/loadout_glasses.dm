@@ -13,7 +13,7 @@
 
 /datum/gear/glasses
 	main_typepath = /datum/gear/glasses
-	slot = SLOT_HUD_GLASSES
+	slot = ITEM_SLOT_EYES
 	sort_category = "Glasses"
 
 /datum/gear/glasses/sunglasses
@@ -39,7 +39,7 @@
 /datum/gear/glasses/sechud
 	display_name = "Classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent","Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Internal Affairs Agent","Magistrate")
 
 /datum/gear/glasses/goggles
 	display_name = "Goggles"
@@ -52,7 +52,7 @@
 /datum/gear/glasses/goggles_job/sechudgoggles
 	display_name = "Security HUD goggles"
 	path = /obj/item/clothing/glasses/hud/security/goggles
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent", "Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Internal Affairs Agent", "Magistrate")
 
 /datum/gear/glasses/goggles_job/medhudgoggles
 	display_name = "Health HUD goggles"

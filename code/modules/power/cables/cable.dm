@@ -35,11 +35,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
 
 	/// The direction of endpoint one of this cable
-	var/d1 = 0
+	var/tmp/d1 = 0
 	/// The direction of enpoint two of this cable
-	var/d2 = 1
+	var/tmp/d2 = 1
 	/// The regional powernet this cable is registered to
 	var/datum/regional_powernet/powernet
+	var/strengthened = FALSE
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
@@ -83,7 +84,7 @@ By design, d1 is the smallest direction and d2 is the highest
 //   - Cable coil : merge cables
 //   - Multitool : get the power currently passing through the cable
 //
-/obj/structure/cable/attackby(obj/item/W, mob/user)
+/obj/structure/cable/attackby__legacy__attackchain(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor || T.intact)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
@@ -104,7 +105,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	else if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
-		cable_color(C.colourName)
+		cable_color(C.dye_color)
 
 	else
 		if(W.flags & CONDUCT)
@@ -119,11 +120,19 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(powernet && (powernet.available_power > 0))		// is it powered?
-		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.available_power)]\nLoad: [DisplayPower(powernet.power_demand)]\nExcess power: [DisplayPower(get_surplus())]</span>")
-	else
-		to_chat(user, "<span class='danger'>The cable is not powered.</span>")
+	to_chat(user, generate_power_message())
 	shock(user, 5, 0.2)
+
+/obj/structure/cable/proc/generate_power_message()
+	if(powernet && (powernet.available_power > 0))
+		return chat_box_examine("<span class='notice'>Total power: [DisplayPower(powernet.available_power)]\nLoad: [DisplayPower(powernet.power_demand)]\nExcess power: [DisplayPower(get_surplus())]</span>")
+	else
+		return "<span class='warning'>The cable is not powered.</span>"
+
+/obj/structure/cable/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		. += generate_power_message()
 
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -135,8 +144,11 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(shock(user, 50))
 		return
+	if(strengthened)
+		to_chat(user, "<span class = 'danger'>The cable resists your attempts to cut it!")
+		return
 	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
-	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])",INVESTIGATE_WIRES)
 	deconstruct()
 
 /obj/structure/cable/proc/cable_color(colorC)
@@ -154,12 +166,12 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
 	if(usr)
-		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])",INVESTIGATE_WIRES)
 	if(!(flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 2, color)
 		else
-			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 1, color)
 	qdel(src)
 
 /* ===POWERNET PROCS=== */
@@ -421,6 +433,11 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/white
 	color = COLOR_WHITE
+
+/obj/structure/cable/proc/unstrengthen_cables(mob/demon)
+	SIGNAL_HANDLER // COMSIG_MOB_DEATH
+	src.strengthened = FALSE
+	UnregisterSignal(demon, COMSIG_MOB_DEATH)
 
 //
 //	This ASCII art represents my brain after looking at cable

@@ -89,7 +89,7 @@
 /datum/action/item_action/mod/pinned_module
 	desc = "Activate the module."
 	button_overlay_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	button_overlay_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_background_icon = 'icons/mob/actions/actions_mod.dmi'
 	button_overlay_icon_state = "module"
 	/// Module we are linked to.
 	var/obj/item/mod/module/module
@@ -102,10 +102,12 @@
 	..()
 	module = linked_module
 	button_overlay_icon_state = module.icon_state
+	button_background_icon_state = ((module.module_type == MODULE_TOGGLE && module.active) ? "bg_mod_active" : "bg_mod")
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
 		// clears check hands
 		check_flags = AB_CHECK_CONSCIOUS
 	Grant(user)
+	RegisterSignals(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED), PROC_REF(linked_button_update))
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
@@ -114,7 +116,7 @@
 	return ..()
 
 /datum/action/item_action/mod/pinned_module/Grant(mob/user)
-	var/user_uid = UID(user)
+	var/user_uid = user.UID()
 	if(!pinner_uid)
 		pinner_uid = user_uid
 		module.pinned_to[pinner_uid] = src
@@ -127,3 +129,8 @@
 	if(!.)
 		return
 	module.on_select()
+
+/datum/action/item_action/mod/pinned_module/proc/linked_button_update()
+	if(module.module_type != MODULE_PASSIVE)
+		button_background_icon_state = (module.active ? "bg_mod_active" : "bg_mod")
+		UpdateButtons()

@@ -52,20 +52,13 @@
 	sheet_amount = 2
 	girder_type = /obj/structure/clockwork/wall_gear
 	var/heated
-	var/obj/effect/clockwork/overlay/wall/realappearance
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALL)
 
-/turf/simulated/wall/clockwork/Initialize()
+/turf/simulated/wall/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)
-	realappearance = new /obj/effect/clockwork/overlay/wall(src)
-	realappearance.linked = src
-
-/turf/simulated/wall/clockwork/Destroy()
-	QDEL_NULL(realappearance)
-	return ..()
 
 /turf/simulated/wall/clockwork/bullet_act(obj/item/projectile/Proj)
 	. = ..()

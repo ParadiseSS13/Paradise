@@ -15,7 +15,7 @@
 	ingredient_name = "slab of meat"
 	ingredient_name_plural = "slabs of meat"
 
-/obj/item/food/meat/attackby(obj/item/W, mob/user, params)
+/obj/item/food/meat/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
 		new /obj/item/food/rawcutlet(src)
 		new /obj/item/food/rawcutlet(src)
@@ -34,8 +34,6 @@
 
 /obj/item/food/meat/human
 	name = "-meat"
-	var/subjectname = ""
-	var/subjectjob = null
 	tastes = list("salty meat" = 1)
 
 /obj/item/food/meat/slab/meatproduct
@@ -99,7 +97,7 @@
 	bitesize = 1
 	list_reagents = list("protein" = 1)
 
-/obj/item/food/rawcutlet/attackby(obj/item/W, mob/user, params)
+/obj/item/food/rawcutlet/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
 		user.visible_message( \
 			"<span class ='notice'>[user] cuts the raw cutlet with [W]!</span>", \
@@ -112,6 +110,8 @@
 			H.put_in_hands(bacon)
 		else
 			qdel(src)
+
+	return ..()
 
 //////////////////////////
 //		Monster Meat	//
@@ -252,6 +252,89 @@
 		baconbeacon.forceMove(user)
 		baconbeacon.digest_delay()
 		baconbeacon = null
+
+/obj/item/food/meat/patty
+	name = "patty"
+	desc = "A juicy cooked patty, ready to be slapped between two buns."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "patty"
+	bitesize = 3
+	list_reagents = list("protein" = 3)
+
+/obj/item/food/meat/patty_raw
+	name = "raw patty"
+	desc = "A raw patty ready to be grilled into a juicy and delicious burger."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "patty_raw"
+	bitesize = 3
+	list_reagents = list("protein" = 2)
+
+/obj/item/food/meat/patty_raw/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
+
+/obj/item/food/meat/patty_raw/attack_self__legacy__attackchain(mob/user)
+	user.visible_message(
+		"<span class='notice'>[user] shapes [src] into a raw meatball.</span>",
+		"<span class='notice'>You shape [src] into a raw meatball.</span>"
+	)
+	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
+	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
+	user.drop_item()
+	qdel(src)
+	user.put_in_hands(M)
+	return 1
+
+/obj/item/food/ground_meat
+	name = "ground meat"
+	desc = "Some meat that has minced with a processor."
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "groundbeef"
+	filling_color = "#DB0000"
+	list_reagents = list("protein" = 4, "vitamin" = 1)
+	tastes = list("raw meat" = 1)
+
+/obj/item/food/ground_meat/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
+	. += "<span class='notice'>Use it in hand again to flatten it into a raw patty.</span>"
+
+/obj/item/food/ground_meat/attack_self__legacy__attackchain(mob/living/user)
+	user.visible_message(
+		"<span class='notice'>[user] shapes [src] into a ball.</span>",
+		"<span class='notice'>You shape [src] into a ball of raw ground meat.</span>"
+	)
+	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
+	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
+	user.drop_item()
+	qdel(src)
+	user.put_in_hands(M)
+	return TRUE
+
+/obj/item/food/meat/raw_meatball
+	name = "raw meatball"
+	desc = "Some ground meat shaped into a ball."
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "meatball_raw"
+	filling_color = "#DB4444"
+	list_reagents = list("protein" = 4, "vitamin" = 1)
+	tastes = list("raw meat" = 1)
+
+/obj/item/food/meat/raw_meatball/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use it in hand to flatten it into a raw patty.</span>"
+
+/obj/item/food/meat/raw_meatball/attack_self__legacy__attackchain(mob/user)
+	user.visible_message(
+		"<span class='notice'>[user] flattens [src] into a patty.</span>",
+		"<span class='notice'>You flatten [src] into a raw patty.</span>"
+	)
+	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
+	var/obj/item/food/meat/patty_raw/M = new(get_turf(user))
+	user.drop_item()
+	qdel(src)
+	user.put_in_hands(M)
+	return TRUE
 
 /obj/item/food/meatball
 	name = "meatball"
@@ -426,10 +509,10 @@
 		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
-/obj/item/food/egg/attackby(obj/item/W, mob/user, params)
+/obj/item/food/egg/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
-		var/clr = C.colourName
+		var/clr = C.dye_color
 
 		if(!(clr in list("blue","green","mime","orange","purple","rainbow","red","yellow")))
 			to_chat(usr, "<span class ='notice'>The egg refuses to take on this color!</span>")
@@ -564,19 +647,20 @@
 	desc = "A traditional turkey served with stuffing."
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "turkey"
-	slice_path = /obj/item/food/turkeyslice
+	slice_path = /obj/item/food/sliced/turkey
 	slices_num = 6
-	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
+	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 6)
 	tastes = list("turkey" = 2, "stuffing" = 2)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/turkeyslice
+/obj/item/food/sliced/turkey
 	name = "turkey serving"
 	desc = "A serving of some tender and delicious turkey."
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "turkeyslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#B97A57"
+	list_reagents = list("protein" = 4, "nutriment" = 3, "vitamin" = 1)
 	tastes = list("turkey" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 

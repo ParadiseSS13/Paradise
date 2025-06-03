@@ -74,7 +74,54 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
+/obj/item/flamethrower/attack__legacy__attackchain(mob/living/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!lit)
+		to_chat(user, "<span class='warning'>You need to ignite [src] before you can use it as a lighter!</span>")
+		return TRUE
+
+	// Pulling this off 'safely' requires years of experience, a true badass, or blind luck!
+	if(HAS_TRAIT(user, TRAIT_BADASS) || (user.mind.assigned_role in list("Station Engineer", "Chief Engineer", "Life Support Specialist")) || prob(50))
+		if(user == target)
+			user.visible_message(
+				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [user.p_their()] [cig] to light it, like some kind of psychopath!</span>",
+				"<span class='notice'>You lift up [src] and lightly pull the trigger, lighting [cig].</span>",
+				"<span class='warning'>You hear a brief burst of flame!</span>"
+			)
+		else
+			user.visible_message(
+				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [target], lighting [target.p_their()] [cig.name], like some kind of psychopath!</span>",
+				"<span class='notice'>You lift up [src] and point it at [target], lightly pullling the trigger to light [target.p_their()] [cig.name] with a big puff of flame.</span>",
+				"<span class='warning'>You hear a brief burst of flame!</span>"
+		)
+	else
+		// You set them on fire, but at least the cigarette got lit...
+		if(target == user)
+			user.visible_message(
+				"<span class='danger'>[user] carelessly lifts up [src] and releases a large burst of flame at [user.p_their()] [cig] to light it, accidentally setting [user.p_themselves()] ablaze in the process!</span>",
+				"<span class='userdanger'>You lift up [src] and squeeze the trigger to light [cig]. Unfortunately, you squeeze a little too hard and release a large burst of flame that sets you ablaze!</span>",
+				"<span class='danger'>You hear a plume of fire and something igniting!</span>"
+			)
+		else
+			user.visible_message(
+				"<span class='danger'>[user] carelessly lifts up [src] and releases a large burst of flame at [target] to light [target.p_their()] [cig.name], accidentally setting [target.p_them()] ablaze!</span>",
+				"<span class='danger'>You lift up [src] up and point it at [target], squeezing the trigger to light [target.p_their()] [cig.name]. \
+				Unfortunately, your squeeze a little too hard and release large burst of flame that sets [target.p_them()] ablaze!</span>",
+				"<span class='danger'>You hear a plume of fire and something igniting!</span>"
+			)
+		target.adjust_fire_stacks(2)
+		target.IgniteMob()
+	cig.light(user, target)
+	return TRUE
+
+/obj/item/flamethrower/afterattack__legacy__attackchain(atom/target, mob/user, flag)
 	. = ..()
 	if(flag)
 		return // too close
@@ -93,7 +140,7 @@
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
 			flame_turf(turflist)
 
-/obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
+/obj/item/flamethrower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(isigniter(I))
 		var/obj/item/assembly/igniter/IG = I
 		if(IG.secured)
@@ -159,7 +206,7 @@
 		return ptank.return_analyzable_air()
 	return null
 
-/obj/item/flamethrower/attack_self(mob/user)
+/obj/item/flamethrower/attack_self__legacy__attackchain(mob/user)
 	toggle_igniter(user)
 
 /obj/item/flamethrower/AltClick(mob/user)
@@ -184,11 +231,13 @@
 	to_chat(user, "<span class='notice'>You [lit ? "extinguish" : "ignite"] [src]!</span>")
 	lit = !lit
 	if(lit)
+		damtype = BURN
 		START_PROCESSING(SSobj, src)
 		if(!warned_admins)
 			message_admins("[ADMIN_LOOKUPFLW(user)] has lit a flamethrower.")
 			warned_admins = TRUE
 	else
+		damtype = initial(damtype)
 		STOP_PROCESSING(SSobj,src)
 	update_icon()
 
@@ -222,17 +271,14 @@
 	operating = FALSE
 	for(var/mob/M in viewers(1, loc))
 		if(M.client && M.machine == src)
-			attack_self(M)
+			attack_self__legacy__attackchain(M)
 
 
 /obj/item/flamethrower/proc/default_ignite(turf/target, release_amount = 0.05)
-	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
-	if(air_transfer.toxins())
-		air_transfer.set_toxins(air_transfer.toxins() * 5)
 	target.blind_release_air(air_transfer)
-	target.hotspot_expose((ptank.air_contents.temperature() * 2) + 380, 500)
+	target.hotspot_expose(PLASMA_UPPER_TEMPERATURE, min(CELL_VOLUME, CELL_VOLUME * air_transfer.total_moles()))
 
 
 /obj/item/flamethrower/Initialize(mapload)

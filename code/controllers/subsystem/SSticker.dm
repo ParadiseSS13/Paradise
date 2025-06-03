@@ -67,6 +67,9 @@ SUBSYSTEM_DEF(ticker)
 	var/datum/scoreboard/score = null
 	/// List of ckeys who had antag rolling issues flagged
 	var/list/flagged_antag_rollers = list()
+	/// List of biohazards keyed to the last time their population was sampled.
+	var/list/biohazard_pop_times = list()
+	var/list/biohazard_included_admin_spawns = list()
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -112,6 +115,10 @@ SUBSYSTEM_DEF(ticker)
 			delay_end = FALSE // reset this in case round start was delayed
 			mode.process()
 
+			for(var/biohazard in biohazard_pop_times)
+				if(world.time - biohazard_pop_times[biohazard] > BIOHAZARD_POP_INTERVAL)
+					sample_biohazard_population(biohazard)
+
 			if(world.time > next_autotransfer)
 				SSvote.start_vote(new /datum/vote/crew_transfer)
 				next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_interval_time
@@ -134,6 +141,9 @@ SUBSYSTEM_DEF(ticker)
 			// Start a map vote IF
 			// - Map rotate doesnt have a mode for today and map voting is enabled
 			// - Map rotate has a mode for the day and it ISNT full random
+			if(SSmaprotate.setup_done && (SSmaprotate.rotation_mode == MAPROTATION_MODE_HYBRID_FPTP_NO_DUPLICATES))
+				SSmaprotate.decide_next_map()
+				return
 			if(((!SSmaprotate.setup_done) && GLOB.configuration.vote.enable_map_voting) || (SSmaprotate.setup_done && (SSmaprotate.rotation_mode != MAPROTATION_MODE_FULL_RANDOM)))
 				SSvote.start_vote(new /datum/vote/map)
 			else
@@ -248,7 +258,9 @@ SUBSYSTEM_DEF(ticker)
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
-	SSjobs.DivideOccupations() //Distribute jobs
+	SSjobs.job_selector = new()
+	SSjobs.job_selector.assign_all_roles()
+	SSjobs.job_selector.apply_roles_to_players()
 
 	if(hide_mode)
 		var/list/modes = list()
@@ -289,11 +301,11 @@ SUBSYSTEM_DEF(ticker)
 			if(tripai.name == "tripai")
 				if(locate(/mob/living) in get_turf(tripai))
 					continue
-				GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(tripai))
+				GLOB.empty_playable_ai_cores += new /obj/structure/ai_core/deactivated(get_turf(tripai))
 	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
 		if(locate(/mob/living) in get_turf(A))
 			continue
-		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(A))
+		GLOB.empty_playable_ai_cores += new /obj/structure/ai_core/deactivated(get_turf(A))
 
 
 	// Setup pregenerated newsfeeds
@@ -331,7 +343,7 @@ SUBSYSTEM_DEF(ticker)
 
 	SSdbcore.SetRoundStart()
 	to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
-	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
+	SEND_SOUND(world, sound(SSmapping.map_datum.welcome_sound))
 
 	if(SSholiday.holidays)
 		to_chat(world, "<span class='darkmblue'>and...</span>")
@@ -350,12 +362,11 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			N.new_player_panel_proc()
 
-	SSnightshift.check_nightshift(TRUE)
+	if(GLOB.configuration.general.enable_night_shifts)
+		SSnightshift.check_nightshift(TRUE)
 
-	#ifdef UNIT_TESTS
-	// Run map tests first in case unit tests futz with map state
-	GLOB.test_runner.RunMap()
-	GLOB.test_runner.Run()
+	#ifdef TEST_RUNNER
+	GLOB.test_runner.RunAll()
 	#endif
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
@@ -544,6 +555,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
+	GLOB.disable_explosions = TRUE // that said, if people want to be """FUNNY""" and bomb at EORG, they can fuck themselves up
 	set_observer_default_invisibility(0) //spooks things up
 	//Round statistics report
 	var/datum/station_state/ending_station_state = new /datum/station_state()
@@ -556,7 +568,7 @@ SUBSYSTEM_DEF(ticker)
 	end_of_round_info += "<BR>"
 
 	//Silicon laws report
-	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
+	for(var/mob/living/silicon/ai/aiPlayer in GLOB.ai_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)
 
 		if(aiPlayer.stat != DEAD)
@@ -743,10 +755,14 @@ SUBSYSTEM_DEF(ticker)
 	if(end_string)
 		end_state = end_string
 
-	// Play a haha funny noise
+	// Play a haha funny noise for those who want to hear it :)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	SEND_SOUND(world, sound(round_end_sound))
+
+	for(var/mob/M in GLOB.player_list)
+		if(!(M.client.prefs.sound & SOUND_MUTE_END_OF_ROUND))
+			SEND_SOUND(M, round_end_sound)
+
 	sleep(sound_length)
 
 	world.Reboot()
@@ -816,29 +832,76 @@ SUBSYSTEM_DEF(ticker)
 		else
 			SSblackbox.record_feedback("nested tally", "biohazards", 1, list("defeated", biohazard))
 
+	for(var/biohazard in SSticker.biohazard_included_admin_spawns)
+		SSblackbox.record_feedback("nested tally", "biohazards", 1, list("included_admin_spawns", biohazard))
+
 /datum/controller/subsystem/ticker/proc/count_xenomorps()
 	. = 0
-	for(var/datum/mind/xeno_mind as anything in SSticker.mode.xenos)
+	for(var/datum/mind/xeno_mind in SSticker.mode.xenos)
 		if(xeno_mind.current?.stat == DEAD)
 			continue
 		.++
 
-/// Return whether or not a given biohazard is an active threat.
-/// For blobs, this is simply if there are any overminds left. For terrors and
-/// xenomorphs, this is whether they have overwhelming numbers.
-/datum/controller/subsystem/ticker/proc/biohazard_active_threat(biohazard)
+/datum/controller/subsystem/ticker/proc/sample_biohazard_population(biohazard)
+	SSblackbox.record_feedback("ledger", "biohazard_pop_[BIOHAZARD_POP_INTERVAL_STR]_interval", biohazard_count(biohazard), biohazard)
+	if(any_admin_spawned_mobs(biohazard) && !(biohazard in biohazard_included_admin_spawns))
+		biohazard_included_admin_spawns[biohazard] = TRUE
+
+	biohazard_pop_times[biohazard] = world.time
+
+/// Record the initial time that a biohazard spawned.
+/datum/controller/subsystem/ticker/proc/record_biohazard_start(biohazard)
+	SSblackbox.record_feedback("associative", "biohazard_starts", 1, list("type" = biohazard, "time_ds" = world.time - time_game_started))
+	sample_biohazard_population(biohazard)
+
+/// Returns whether the given biohazard includes mobs that were admin spawned.
+/// Only returns TRUE or FALSE, does not attempt to track which mobs were
+/// admin-spawned and which ones weren't.
+/datum/controller/subsystem/ticker/proc/any_admin_spawned_mobs(biohazard)
+	switch(biohazard)
+		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER)
+			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
+				if(S.admin_spawned)
+					return TRUE
+		if(BIOHAZARD_XENO)
+			for(var/datum/mind/xeno_mind in SSticker.mode.xenos)
+				if(xeno_mind.current?.admin_spawned)
+					return TRUE
+		if(BIOHAZARD_BLOB)
+			for(var/atom/blob_overmind in SSticker.mode.blob_overminds)
+				if(blob_overmind.admin_spawned)
+					return TRUE
+
+/datum/controller/subsystem/ticker/proc/biohazard_count(biohazard)
 	switch(biohazard)
 		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
 			var/spiders = 0
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
 				if(S.ckey)
 					spiders++
-			return spiders >= 5
+			return spiders
 		if(TS_INFESTATION_PRINCE_SPIDER)
 			return length(GLOB.ts_spiderlist)
 		if(BIOHAZARD_XENO)
-			return count_xenomorps() > 5
+			return count_xenomorps()
 		if(BIOHAZARD_BLOB)
 			return length(SSticker.mode.blob_overminds)
+
+	CRASH("biohazard_count got unexpected [biohazard]")
+
+/// Return whether or not a given biohazard is an active threat.
+/// For blobs, this is simply if there are any overminds left. For terrors and
+/// xenomorphs, this is whether they have overwhelming numbers.
+/datum/controller/subsystem/ticker/proc/biohazard_active_threat(biohazard)
+	var/count = biohazard_count(biohazard)
+	switch(biohazard)
+		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+			return count >= 5
+		if(TS_INFESTATION_PRINCE_SPIDER)
+			return count > 0
+		if(BIOHAZARD_XENO)
+			return count > 5
+		if(BIOHAZARD_BLOB)
+			return count > 0
 
 	return FALSE

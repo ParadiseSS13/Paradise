@@ -1,15 +1,26 @@
 ///AI Upgrades
 
-
-//Malf Picker
-/obj/item/malf_upgrade
-	name = "combat software upgrade"
-	desc = "A highly illegal, highly dangerous upgrade for artificial intelligence units, granting them a variety of powers as well as the ability to hack APCs."
+/obj/item/ai_upgrade
+	name = "parent ai upgrade"
+	desc = "A base rootkit for ai upgrades. If you are seeing this, report where you found it on the github issues."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
+	new_attack_chain = TRUE
 
+/obj/item/ai_upgrade/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_ai(target))
+		ai_upgrade_action(target, user)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/malf_upgrade/afterattack(mob/living/silicon/ai/AI, mob/user)
+/obj/item/ai_upgrade/proc/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
+	return
+
+//Malf Picker
+/obj/item/ai_upgrade/malf_upgrade
+	name = "combat software upgrade"
+	desc = "A highly illegal, highly dangerous upgrade for artificial intelligence units, granting them a variety of powers as well as the ability to hack APCs."
+
+/obj/item/ai_upgrade/malf_upgrade/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
 		return
 	if(AI.malf_picker)
@@ -23,13 +34,11 @@
 
 
 //Lipreading
-/obj/item/surveillance_upgrade
+/obj/item/ai_upgrade/surveillance_upgrade
 	name = "surveillance software upgrade"
 	desc = "A software package that will allow an artificial intelligence to 'hear' from its cameras via lip reading."
-	icon = 'icons/obj/module.dmi'
-	icon_state = "datadisk3"
 
-/obj/item/surveillance_upgrade/afterattack(mob/living/silicon/ai/AI, mob/user)
+/obj/item/ai_upgrade/surveillance_upgrade/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
 	if(!istype(AI))
 		return
 	if(AI.eyeobj)
@@ -38,3 +47,15 @@
 		to_chat(AI, "Via a combination of hidden microphones and lip reading software, you are able to use your cameras to listen in on conversations.")
 	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
 	qdel(src)
+
+// AI program reset
+/obj/item/ai_upgrade/ai_program_reset
+	name = "Program Reset Disk"
+	desc = "Insert this disk into the AI core to completely reset their programs."
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/ai_upgrade/ai_program_reset/ai_upgrade_action(mob/living/silicon/ai/AI, mob/user)
+	if(!istype(AI))
+		return
+	to_chat(user, "<span class='notice'>You reset [AI]'s program storage to factory settings.</span>")
+	AI.reset_programs()

@@ -16,7 +16,7 @@
 	maximum_cards = 5
 	our_card_cooldown_time = 12 SECONDS  // A minute for a full hand of 5 cards
 
-/obj/item/tarot_generator/attack_self(mob/user)
+/obj/item/tarot_generator/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
 		to_chat(user, "<span class='warning'>[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] more second\s!</span>")
 		return
@@ -50,7 +50,7 @@
 	///How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega
 	var/cards = 3
 
-/obj/item/tarot_card_pack/attack_self(mob/user)
+/obj/item/tarot_card_pack/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='notice'>[user] tears open [src].</span>", \
 						"<span class='hierophant'>You tear open [src]!</span>")
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
@@ -92,7 +92,7 @@
 	else
 		. += "<span class='hierophant'>We have the Ink... Could you provide your Vision instead?</span>"
 
-/obj/item/blank_tarot_card/attack_self(mob/user)
+/obj/item/blank_tarot_card/attack_self__legacy__attackchain(mob/user)
 	if(!ishuman(user))
 		return
 	if(!let_people_choose)
@@ -122,7 +122,7 @@
 		user.drop_item()
 		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), null, tarot_type)
 		user.put_in_hands(MTC)
-		to_chat(user, "</span><span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+		to_chat(user, "<span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
 		qdel(src)
 
 /obj/item/blank_tarot_card/choose //For admins mainly, to spawn a specific tarot card. Not recommended for ruins.
@@ -176,7 +176,12 @@
 		. += "<span class='hierophant'>[card_desc]</span>"
 	. += "<span class='hierophant'>Alt-Shift-Click to flip the card over.</span>"
 
-/obj/item/magic_tarot_card/attack_self(mob/user)
+/obj/item/magic_tarot_card/examine_more(mob/user)
+	. = ..()
+	if(!face_down)
+		. += "<span class='hierophant'>[src] [our_tarot.extended_desc]</span>"
+
+/obj/item/magic_tarot_card/attack_self__legacy__attackchain(mob/user)
 	poof()
 	if(has_been_activated)
 		return
@@ -184,7 +189,7 @@
 		flip()
 	if(our_tarot)
 		user.drop_item()
-		pre_activate(user)
+		pre_activate(user, user)
 		return
 	qdel(src)
 
@@ -201,7 +206,7 @@
 	if(has_been_activated)
 		return
 	if(isliving(hit_atom) && our_tarot)
-		pre_activate(hit_atom)
+		pre_activate(hit_atom, locateUID(throwingdatum.thrower_uid))
 		return
 	qdel(src)
 
@@ -226,26 +231,51 @@
 	new /obj/effect/temp_visual/revenant(get_turf(src))
 	qdel(src)
 
-/obj/item/magic_tarot_card/proc/pre_activate(mob/user)
+/obj/item/magic_tarot_card/proc/pre_activate(mob/user, atom/movable/thrower)
+	if(user != thrower) //Ignore antimagic stuff if the user is the thrower (aka self activation)
+		if(user.can_block_magic(our_tarot.antimagic_flags, 1))
+			visible_message("<span class='warning'>[src] burns up in a flash on contact with [user]!</span>")
+			qdel(src)
+			return
 	has_been_activated = TRUE
 	forceMove(user)
-	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
+	var/obj/effect/temp_visual/card_preview/tarot/draft = new(user, "tarot_[our_tarot.card_icon]")
 	user.vis_contents += draft
 	user.visible_message("<span class='hierophant'>[user] holds up [src]!</span>")
 	addtimer(CALLBACK(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user), 0.5 SECONDS)
+	if(ismob(thrower) && our_tarot)
+		add_attack_logs(thrower, user, "[thrower] has activated [our_tarot.name] on [user]", ATKLOG_FEW)
 	QDEL_IN(src, 0.6 SECONDS)
 
-/obj/effect/temp_visual/tarot_preview
+/obj/effect/temp_visual/card_preview
+	name = "a card"
+	icon = 'icons/obj/playing_cards.dmi'
+	icon_state = "tarot_the_unknown"
+	pixel_y = 20
+	duration = 1.5 SECONDS
+
+/obj/effect/temp_visual/card_preview/Initialize(mapload, new_icon_state)
+	. = ..()
+	if(new_icon_state)
+		icon_state = new_icon_state
+
+	flourish()
+
+/obj/effect/temp_visual/card_preview/proc/flourish()
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40, "#fcf3dc", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), alpha = 0, offset = 10, time = duration, loop = -1)
+		animate(offset = 0, time = duration)
+
+/obj/effect/temp_visual/card_preview/tarot
 	name = "a tarot card"
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "tarot_the_unknown"
 	pixel_y = 20
 	duration = 1.5 SECONDS
 
-/obj/effect/temp_visual/tarot_preview/Initialize(atom/mapload, new_icon_state)
-	. = ..()
-	if(new_icon_state)
-		icon_state = "tarot_[new_icon_state]"
+/obj/effect/temp_visual/card_preview/tarot/flourish()
 	var/new_filter = isnull(get_filter("ray"))
 	ray_filter_helper(1, 40,"#fcf3dc", 6, 20)
 	if(new_filter)
@@ -257,10 +287,14 @@
 	var/name = "XXII - The Unknown."
 	/// Desc used for the card description of the card
 	var/desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
+	/// Extended desc for the cards. For what they do
+	var/extended_desc = "asks you to report this as a bug on GitHub!"
 	/// What icon is used for the card?
 	var/card_icon = "the_unknown"
 	/// Are we reversed? Used for the card back.
 	var/reversed = FALSE
+	/// What antimagic flags do we have?
+	var/antimagic_flags = MAGIC_RESISTANCE
 
 /datum/tarot/proc/activate(mob/living/target)
 	stack_trace("A bugged tarot card was spawned and used. Please make an issue report! Type was [src.type]")
@@ -274,15 +308,19 @@
 /datum/tarot/the_fool
 	name = "0 - The Fool"
 	desc = "Where journey begins."
+	extended_desc = "returns the affected user to the arrival point of this forsaken journey."
 	card_icon = "the_fool"
 
 /datum/tarot/the_fool/activate(mob/living/target)
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(GLOB.latejoin))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
 /datum/tarot/the_magician
 	name = "I - The Magician"
 	desc = "May you never miss your goal."
+	extended_desc = "makes the user feel extraordinarily badass for a couple of minutes."
 	card_icon = "the_magician"
 
 /datum/tarot/the_magician/activate(mob/living/target)
@@ -292,6 +330,7 @@
 /datum/tarot/the_high_priestess
 	name = "II - The High Priestess"
 	desc = "Mother is watching you."
+	extended_desc = "alerts bubblegum to the user, who will strike them down. The user will receive heavy damage and will be immobilized."
 	card_icon = "the_high_priestess"
 
 /datum/tarot/the_high_priestess/activate(mob/living/target)
@@ -327,6 +366,7 @@
 /datum/tarot/the_empress
 	name = "III - The Empress"
 	desc = "May your rage bring power."
+	extended_desc = "gives the user a temporary boost of speed. This includes attack speed."
 	card_icon = "the_empress"
 
 /datum/tarot/the_empress/activate(mob/living/target)
@@ -338,25 +378,28 @@
 /datum/tarot/the_emperor
 	name = "IV - The Emperor"
 	desc = "Challenge me!"
+	extended_desc = "warps the user to where command commonly resides. Be ready for a fight."
 	card_icon = "the_emperor"
 
 /datum/tarot/the_emperor/activate(mob/living/target)
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/station/command/bridge))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Huh. No bridge? Well, that sucks.</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(L))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
 /datum/tarot/the_hierophant
 	name = "V - The Hierophant"
 	desc = "Two prayers for the lost."
+	extended_desc = "enchants the user's suit with magic that's strong enough to negate three attacks."
 	card_icon = "the_hierophant"
 
 /datum/tarot/the_hierophant/activate(mob/living/target)
@@ -371,6 +414,7 @@
 /datum/tarot/the_lovers
 	name = "VI - The Lovers"
 	desc = "May you prosper and be in good health."
+	extended_desc = "will restore the overall health of the user."
 	card_icon = "the_lovers"
 
 /datum/tarot/the_lovers/activate(mob/living/target)
@@ -388,6 +432,7 @@
 /datum/tarot/the_chariot
 	name = "VII - The Chariot"
 	desc = "May nothing stand before you."
+	extended_desc = "imbues the user with immense power and speed, rendering them practically immortal for 10 seconds, at the cost of being unable to harm another living thing."
 	card_icon = "the_chariot"
 
 /datum/tarot/the_chariot/activate(mob/living/target)
@@ -397,6 +442,7 @@
 /datum/tarot/justice
 	name = "VIII - Justice"
 	desc = "May your future become balanced."
+	extended_desc = "grants the user a medical first aid kit, a magical key that can open a single door, and 100 credits."
 	card_icon = "justice"
 
 /datum/tarot/justice/activate(mob/living/target)
@@ -409,11 +455,12 @@
 /datum/tarot/the_hermit
 	name = "IX - The Hermit"
 	desc = "May you see what life has to offer."
+	extended_desc = "teleports the user to a random vending machine within the station."
 	card_icon = "the_hermit"
 
 /datum/tarot/the_hermit/activate(mob/living/target)
 	var/list/viable_vendors = list()
-	for(var/obj/machinery/economy/vending/candidate in GLOB.machines)
+	for(var/obj/machinery/economy/vending/candidate in SSmachines.get_by_type(/obj/machinery/economy/vending))
 		if(!is_station_level(candidate.z))
 			continue
 		viable_vendors += candidate
@@ -421,13 +468,15 @@
 	if(!length(viable_vendors))
 		to_chat(target, "<span class='warning'>No vending machines? Well, with luck cargo will have something to offer. If you go there yourself.</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(get_turf(pick(viable_vendors)))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
 /datum/tarot/wheel_of_fortune
 	name = "X - Wheel of Fortune"
 	desc = "Spin the wheel of destiny."
+	extended_desc = "summons a random vending machine."
 	card_icon = "wheel_of_fortune"
 
 /datum/tarot/wheel_of_fortune/activate(mob/living/target)
@@ -441,6 +490,7 @@
 /datum/tarot/strength
 	name = "XI - Strength"
 	desc = "May your power bring rage."
+	extended_desc = "grants the user strength beyond belief, but renders them unable to handle ranged weapons."
 	card_icon = "strength"
 
 /datum/tarot/strength/activate(mob/living/target)
@@ -450,17 +500,19 @@
 /datum/tarot/the_hanged_man
 	name = "XII - The Hanged Man"
 	desc = "May you find enlightenment."
+	extended_desc = "allows the user to fly for a minute."
 	card_icon = "the_hanged_man"
 
 /datum/tarot/the_hanged_man/activate(mob/living/target)
-	if(target.flying)
+	if(HAS_TRAIT(target, TRAIT_FLYING))
 		return
-	target.flying = TRUE
-	addtimer(VARSET_CALLBACK(target, flying, FALSE), 60 SECONDS)
+	ADD_TRAIT(target, TRAIT_FLYING, "tarot")
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), target, TRAIT_FLYING, "tarot"), 60 SECONDS)
 
 /datum/tarot/death
 	name = "XIII - Death"
 	desc = "Lay waste to all that oppose you."
+	extended_desc = "deals damage to all those the user can see. Aside from themselves, of course."
 	card_icon = "death"
 
 /datum/tarot/death/activate(mob/living/target)
@@ -471,6 +523,7 @@
 /datum/tarot/temperance
 	name = "XIV - Temperance"
 	desc = "May you be pure in heart."
+	extended_desc = "cures all ailments the user has. Also reinvigorates their organs."
 	card_icon = "temperance"
 
 /datum/tarot/temperance/activate(mob/living/target)
@@ -495,6 +548,7 @@
 /datum/tarot/the_devil
 	name = "XV - The Devil"
 	desc = "Revel in the power of darkness."
+	extended_desc = "steals the life-force of everyone around the user."
 	card_icon = "the_devil"
 
 /datum/tarot/the_devil/activate(mob/living/target)
@@ -503,29 +557,34 @@
 /datum/tarot/the_tower
 	name = "XVI - The Tower"
 	desc = "Destruction brings creation."
+	extended_desc = "summons a self-replicating bomb."
 	card_icon = "the_tower"
 
 /datum/tarot/the_tower/activate(mob/living/target)
 	var/obj/item/grenade/clusterbuster/ied/bakoom = new(get_turf(target))
+	var/turf/bombturf = get_turf(target)
+	target.investigate_log("[key_name(target)] has been activated (either thrown at or used) on [target] at [bombturf.x],[bombturf.y],[bombturf.z]", INVESTIGATE_BOMB) // Yes, this is an atom proc. Suffering
 	bakoom.prime()
 
 /// I'm sorry matt, this is very funny.
 /datum/tarot/the_stars
 	name = "XVII - The Stars"
 	desc = "May you find what you desire."
+	extended_desc = "teleports the user to the station's evidence room, and opens a single locker within."
 	card_icon = "the_stars"
 
 /datum/tarot/the_stars/activate(mob/living/target)
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/station/security/evidence))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Huh. No evidence? Well, that means they can't charge you with a crime, right?</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(L))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 	for(var/obj/structure/closet/C in shuffle(view(9, target)))
@@ -538,23 +597,21 @@
 /datum/tarot/the_moon
 	name = "XVIII - The Moon"
 	desc = "May you find all you have lost."
+	extended_desc = "teleports the user to a random place of interest, starting with the sector the user is in first."
 	card_icon = "the_moon"
 
 /datum/tarot/the_moon/activate(mob/living/target)
 	var/list/funny_ruin_list = list()
 	var/turf/target_turf = get_turf(target)
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	for(var/I in GLOB.ruin_landmarks)
 		var/obj/effect/landmark/ruin/ruin_landmark = I
 		if(ruin_landmark.z == target_turf.z)
 			funny_ruin_list += ruin_landmark
 
 	if(length(funny_ruin_list))
-		var/turf/T = get_turf(pick(funny_ruin_list))
-		target.forceMove(T)
-		to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
-		T.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
-		new /obj/item/pickaxe/emergency(T)
-		target.update_parallax_contents()
+		teleport(target, get_turf(pick(funny_ruin_list)))
 		return
 	//We did not find a ruin on the same level. Well. I hope you have a space suit, but we'll go space ruins as they are mostly sorta kinda safer.
 	for(var/I in GLOB.ruin_landmarks)
@@ -564,18 +621,21 @@
 
 	if(!length(funny_ruin_list))
 		to_chat(target, "<span class='warning'>Huh. No space ruins? Well, this card is RUINED!</span>")
+		return
 
-	var/turf/T = get_turf(pick(funny_ruin_list))
-	target.forceMove(T)
+	teleport(target, get_turf(pick(funny_ruin_list)))
+
+/datum/tarot/the_moon/proc/teleport(mob/living/target, turf/teleport_location)
+	teleport_location.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall or fall into lava/chasm, and a pickaxe to avoid being trapped in a wall
+	target.forceMove(teleport_location)
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
-	T.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall, and a pickaxe to avoid being trapped in a wall
-	new /obj/item/pickaxe/emergency(T)
+	new /obj/item/pickaxe/emergency(teleport_location)
 	target.update_parallax_contents()
-	return
 
 /datum/tarot/the_sun
 	name = "XIX - The Sun"
 	desc = "May the light heal and enlighten you."
+	extended_desc = "fully rejuvenates the user back to their peak strength."
 	card_icon = "the_sun"
 
 /datum/tarot/the_sun/activate(mob/living/target)
@@ -584,6 +644,7 @@
 /datum/tarot/judgement
 	name = "XX - Judgement"
 	desc = "Judge lest ye be judged."
+	extended_desc = "alerts the denizens of the afterlife to the user's existence. Prepare to be judged."
 	card_icon = "judgement"
 
 /datum/tarot/judgement/activate(mob/living/target)
@@ -592,6 +653,7 @@
 /datum/tarot/the_world
 	name = "XXI - The World"
 	desc = "Open your eyes and see."
+	extended_desc = "bellows out smoke and grants the user full x-ray vision for two minutes."
 	card_icon = "the_world"
 
 /datum/tarot/the_world/activate(mob/living/target)
@@ -607,6 +669,7 @@
 /datum/tarot/reversed/the_fool
 	name = "0 - The Fool?"
 	desc = "Let go and move on."
+	extended_desc = "removes all items from the user, leaving them completely naked."
 	card_icon = "the_fool?"
 
 /datum/tarot/reversed/the_fool/activate(mob/living/target)
@@ -616,11 +679,12 @@
 	for(var/obj/item/I in H)
 		if(istype(I, /obj/item/bio_chip))
 			continue
-		H.unEquip(I)
+		H.drop_item_to_ground(I)
 
 /datum/tarot/reversed/the_magician
 	name = "I - The Magician?"
 	desc = "May no harm come to you."
+	extended_desc = "will repulse everything away from the user."
 	card_icon = "the_magician?"
 
 /datum/tarot/reversed/the_magician/activate(mob/living/target)
@@ -628,8 +692,11 @@
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	for(var/turf/T in range(5, target)) //Done this way so things don't get thrown all around hilariously.
 		for(var/atom/movable/AM in T)
+			if(ismob(AM))
+				var/mob/victim_mob = AM
+				if(victim_mob.can_block_magic(antimagic_flags))
+					continue
 			thrown_atoms += AM
-
 	for(var/atom/movable/AM as anything in thrown_atoms)
 		if(AM == target || AM.anchored || (ismob(AM) && !isliving(AM)))
 			continue
@@ -654,6 +721,7 @@
 /datum/tarot/reversed/the_high_priestess
 	name = "II - The High Priestess?"
 	desc = "Run."
+	extended_desc = "summons Bubblegum to tear portals open around the user that will grab and damage everyone nearby."
 	card_icon = "the_high_priestess?"
 
 /datum/tarot/reversed/the_high_priestess/activate(mob/living/target)
@@ -663,15 +731,20 @@
 /datum/tarot/reversed/the_empress
 	name = "III - The Empress?"
 	desc = "May your love bring protection."
+	extended_desc = "pacifies everyone in range, except for the user, for 40 seconds."
 	card_icon = "the_empress?"
 
 /datum/tarot/reversed/the_empress/activate(mob/living/target)
 	for(var/mob/living/L in oview(9, target))
+		if(L.can_block_magic(antimagic_flags))
+			to_chat(L, "<span class='notice'>You feel calm for a second, but it quickly passes.</span>")
+			continue
 		L.apply_status_effect(STATUS_EFFECT_PACIFIED)
 
 /datum/tarot/reversed/the_emperor
 	name = "IV - The Emperor?"
 	desc = "May you find a worthy opponent."
+	extended_desc = "teleports the user to a random head of staff."
 	card_icon = "the_emperor?"
 
 /datum/tarot/reversed/the_emperor/activate(mob/living/target)
@@ -684,19 +757,23 @@
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Huh. No command members? I hope you didn't kill them all already...</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(get_turf(pick(L)))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 
 /datum/tarot/reversed/the_hierophant
 	name = "V - The Hierophant?"
 	desc = "Two prayers for the forgotten."
+	extended_desc = "makes the Hierophant attack two random mobs in range."
 	card_icon = "the_hierophant?"
 
 /datum/tarot/reversed/the_hierophant/activate(mob/living/target)
 	var/active_chasers = 0
 	for(var/mob/living/M in shuffle(orange(7, target)))
 		if(M.stat == DEAD) //Let us not have dead mobs be used to make a disco inferno.
+			continue
+		if(M.can_block_magic(antimagic_flags)) //Be spared!
 			continue
 		if(active_chasers >= 2)
 			return
@@ -709,6 +786,7 @@
 /datum/tarot/reversed/the_lovers
 	name = "VI - The Lovers?"
 	desc = "May your heart shatter to pieces."
+	extended_desc = "causes the user of this card to experience true heartbreak - leaving their chest broken and battered."
 	card_icon = "the_lovers?"
 
 /datum/tarot/reversed/the_lovers/activate(mob/living/target)
@@ -726,6 +804,7 @@
 /datum/tarot/reversed/the_chariot
 	name = "VII - The Chariot?"
 	desc = "May nothing walk past you."
+	extended_desc = "will petrify the user for two minutes, rendering them completely indestructible."
 	card_icon = "the_chariot?"
 
 /datum/tarot/reversed/the_chariot/activate(mob/living/target)
@@ -735,6 +814,7 @@
 /datum/tarot/reversed/justice
 	name = "VIII - Justice?"
 	desc = "May your sins come back to torment you."
+	extended_desc = "creates a random orderable crate. This can include crates Supply would otherwise not have access to at the time."
 	card_icon = "justice?"
 
 /datum/tarot/reversed/justice/activate(mob/living/target)
@@ -752,6 +832,7 @@
 /datum/tarot/reversed/the_hermit
 	name = "IX - The Hermit?"
 	desc = "May you see the value of all things in life."
+	extended_desc = "will sell all loose guns, grenades, batons, and armor around the user, transforming them directly into cash."
 	card_icon = "the_hermit?"
 
 /datum/tarot/reversed/the_hermit/activate(mob/living/target) //Someone can improve this in the future (hopefully comment will not be here in 10 years.)
@@ -773,6 +854,7 @@
 /datum/tarot/reversed/wheel_of_fortune
 	name = "X - Wheel of Fortune?"
 	desc = "Throw the dice of fate."
+	extended_desc = "forces the user to roll for a powerful magical artifact. The outcome can be highly positive or highly negative; it is up to fate."
 	card_icon = "wheel_of_fortune?"
 
 /datum/tarot/reversed/wheel_of_fortune/activate(mob/living/target)
@@ -782,6 +864,7 @@
 /datum/tarot/reversed/strength
 	name = "XI - Strength?"
 	desc = "May you break their resolve."
+	extended_desc = "breaks the minds of those around the user, dealing heavy brain damage, and causing two minutes of hallucinations."
 	card_icon = "strength?"
 
 /datum/tarot/reversed/strength/activate(mob/living/target)
@@ -793,6 +876,7 @@
 /datum/tarot/reversed/the_hanged_man
 	name = "XII - The Hanged Man?"
 	desc = "May your greed know no bounds."
+	extended_desc = "forces the user to spin a cursed slot machine."
 	card_icon = "the_hanged_man?"
 
 /datum/tarot/reversed/the_hanged_man/activate(mob/living/target)
@@ -804,6 +888,7 @@
 /datum/tarot/reversed/death
 	name = "XIII - Death?"
 	desc = "May life spring forth from the fallen."
+	extended_desc = "grants the user a soulstone and a construct to freely use on the dead."
 	card_icon = "death?"
 
 /datum/tarot/reversed/death/activate(mob/living/target)
@@ -813,6 +898,7 @@
 /datum/tarot/reversed/temperance
 	name = "XIV - Temperance?"
 	desc = "May your hunger be satiated."
+	extended_desc = "forces the user to eat five pills containing random reagents."
 	card_icon = "temperance?"
 
 /datum/tarot/reversed/temperance/activate(mob/living/target)
@@ -829,6 +915,7 @@
 /datum/tarot/reversed/the_devil
 	name = "XV - The Devil?"
 	desc = "Bask in the light of your mercy."
+	extended_desc = "summons a primed cluster flashbang at the user's feet."
 	card_icon = "the_devil?"
 
 /datum/tarot/reversed/the_devil/activate(mob/living/target)
@@ -838,6 +925,7 @@
 /datum/tarot/reversed/the_tower
 	name = "XVI - The Tower?"
 	desc = "Creation brings destruction."
+	extended_desc = "will create large stone walls that erupt from the ground around the user."
 	card_icon = "the_tower?"
 
 /datum/tarot/reversed/the_tower/activate(mob/living/target)
@@ -853,6 +941,7 @@
 /datum/tarot/reversed/the_stars
 	name = "XVII - The Stars?"
 	desc = "May your loss bring fortune."
+	extended_desc = "will cause a large amount of genetic decomposition to the user, as well as hurting a limb. However, it will reward the user with two additional cards."
 	card_icon = "the_stars?"
 
 /datum/tarot/reversed/the_stars/activate(mob/living/target) //Heavy clone damage hit, but gain 2 cards. Not teathered to the card producer. Could lead to card stacking, but would require the sun to fix easily
@@ -880,7 +969,9 @@
 /datum/tarot/reversed/the_moon
 	name = "XVIII - The Moon?"
 	desc = "May you remember lost memories."
+	extended_desc = "will reveal the memories of everyone in range to the user."
 	card_icon = "the_moon?"
+	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 
 /datum/tarot/reversed/the_moon/activate(mob/living/target)
 	for(var/mob/living/L in view(5, target)) //Shorter range as this kinda can give away antagonists, though that is also funny.
@@ -889,6 +980,7 @@
 /datum/tarot/reversed/the_sun
 	name = "XIX - The Sun?"
 	desc = "May the darkness swallow all around you."
+	extended_desc = "makes the user emit darkness, freezing anyone nearby. They will also become nearsighted for the duration, however."
 	card_icon = "the_sun?"
 
 /datum/tarot/reversed/the_sun/activate(mob/living/target)
@@ -896,7 +988,8 @@
 
 /datum/tarot/reversed/judgement
 	name = "XX - Judgement?"
-	desc = "May you redeem those found wanting" //Who wants more, but ghosts for something interesting
+	desc = "May you redeem those found wanting." //Who wants more, but ghosts for something interesting
+	extended_desc = "nudges the future events of this shift to be more... interesting."
 	card_icon = "judgement?"
 
 /datum/tarot/reversed/judgement/activate(mob/living/target)
@@ -908,18 +1001,20 @@
 /datum/tarot/reversed/the_world
 	name = "XXI - The World?"
 	desc = "Step into the abyss."
+	extended_desc = "teleports the user to the mining outpost."
 	card_icon = "the_world?"
 
 /datum/tarot/reversed/the_world/activate(mob/living/target)
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/mine/outpost)) //Lavaland is the abyss, but also too hot to send people too. Mining base should be fair!
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
 	if(!length(L))
 		to_chat(target, "<span class='warning'>Hmm. No base? A miner issue.</span>")
 		return
-
+	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 	target.forceMove(pick(L))
 	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")

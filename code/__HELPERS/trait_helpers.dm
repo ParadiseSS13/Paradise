@@ -129,7 +129,10 @@
 /// A simple helper for checking traits in a mob's mind
 #define HAS_MIND_TRAIT(target, trait) (istype(target, /datum/mind) ? HAS_TRAIT(target, trait) : (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
 /// Gives a unique trait source for any given datum
-#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
+#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[target.UID()]"
+/// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
+/// You should not be using this
+#define GET_TRAIT_SOURCES(target, trait) (target.status_traits?[trait] || list())
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
@@ -137,7 +140,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //***** MOB TRAITS *****//
 #define TRAIT_RESPAWNABLE		"can_respawn_as_ghost_roles"
+#define TRAIT_BEING_OFFERED     "offered"
 #define TRAIT_BLIND 			"blind"
+#define TRAIT_PARAPLEGIC		"paraplegic"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
 #define TRAIT_NEARSIGHT			"nearsighted"
@@ -179,6 +184,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DWARF				"dwarf"
 #define TRAIT_SILENT_FOOTSTEPS	"silent_footsteps" //makes your footsteps completely silent
 #define TRAIT_MESON_VISION		"meson_vision"
+#define TRAIT_PRESSURE_VISION	"pressure_vision"
 #define TRAIT_FLASH_PROTECTION	"flash_protection"
 #define TRAIT_NIGHT_VISION		"night_vision"
 #define TRAIT_EMOTE_MUTE		"emote_mute"
@@ -224,7 +230,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
-#define TRAIT_MAGPULSE "magnetificent" // Used for anything that is magboot related
+#define TRAIT_MAGPULSE "magpulse" // Used for anything that is magboot related
 #define TRAIT_NOSLIP "noslip"
 #define TRAIT_SCOPED "user_scoped"
 #define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
@@ -236,7 +242,34 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
-#define TRAIT_HAS_IV_BAG "iv_bag" // Used to check if there is an active IV bag. Currently blocks another IV bags from being inserted.
+#define TRAIT_BSG_IMMUNE "bsg_immune" // Granted by BSG when held, prevents BSG AOE from hitting you
+#define TRAIT_PLAYING_CARDS "playing_cards"
+#define TRAIT_EMP_IMMUNE "emp_immune" //The mob will take no damage from EMPs
+#define TRAIT_EMP_RESIST "emp_resist" //The mob will take less damage from EMPs
+#define TRAIT_MINDFLAYER_NULLIFIED "flayer_nullified" //The mindflayer will not be able to activate their abilities, or drain swarms from people
+#define TRAIT_FLYING "flying"
+#define TRAIT_MED_MACHINE_HALLUCINATING "med_machine_hallucinating"  // medical machines (currently just scanners) will look strange.
+/// This mob is antimagic, and immune to spells / cannot cast spells
+#define TRAIT_ANTIMAGIC "anti_magic"
+/// This allows a person who has antimagic to cast spells without getting blocked
+#define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
+/// This mob recently blocked magic with some form of antimagic
+#define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
+#define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
+#define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
+#define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
+
+/// Whether or not the user is in a MODlink call, prevents making more calls
+#define TRAIT_IN_CALL "in_call"
+
+/// Trait given when a mob has been tipped
+#define TRAIT_MOB_TIPPED "mob_tipped"
+/// Trait given to mobs that have the basic eating element
+#define TRAIT_MOB_EATER "mob_eater"
+#define TRAIT_XENOBIO_SPAWNED "xenobio_spawned"
+
+/// Trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
+#define TRAIT_AI_PAUSED "trait_ai_paused"
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -257,20 +290,19 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
 
 //***** ITEM TRAITS *****//
-#define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
 /// An item that is being wielded.
 #define TRAIT_WIELDED "wielded"
 /// Wires on this will have their titles randomized for those with SHOW_WIRES
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
-/// Forces open doors after a delay specific to the item
-#define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
 /// Makes the item no longer spit out a visible message when thrown
 #define TRAIT_NO_THROWN_MESSAGE "no_message_when_thrown"
 /// Makes the item not display a message on storage insertion
 #define TRAIT_SILENT_INSERTION "silent_insertion"
 /// Makes an item active, this is generally used by energy based weapons or toggle based items.
 #define TRAIT_ITEM_ACTIVE "item_active"
+/// Forbids running broadcast_examine() in examinate().
+#define TRAIT_HIDE_EXAMINE "hide_examine"
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"
@@ -293,6 +325,21 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///An organ that was inserted into a dead mob, that has not been revived yet
 #define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
 
+/// Prevents stripping this equipment or seeing it in the strip menu
+#define TRAIT_NO_STRIP "no_strip"
+
+/// Prevents seeing this item on examine when on a mob, or seeing it in the strip menu. It's like ABSTRACT, without making the item fail to interact in several ways. The item can still be stripped however, combine with no_strip unless you have a reason not to.
+#define TRAIT_SKIP_EXAMINE "skip_examine"
+
+/// A general trait for tracking whether a zombie owned the organ or limb
+#define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ"
+
+/// Trait given by /datum/element/relay_attacker
+#define TRAIT_RELAYING_ATTACKER "relaying_attacker"
+
+/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
+
 //****** OBJ TRAITS *****//
 
 ///An /obj that should not increase the "depth" of the search for adjacency,
@@ -305,6 +352,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //****** ATOM/MOVABLE TRAITS *****//
 /// A trait for determining if a atom/movable is currently crossing into another z-level by using of /turf/space z-level "destination-xyz" transfers
 #define TRAIT_CURRENTLY_Z_MOVING "currently_z_moving" // please dont adminbus this
+
+//****** TURF TRAITS *****//
+#define TRAIT_RUSTY "rust_trait"
 
 //
 // common trait sources
@@ -353,6 +403,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define PULSEDEMON_TRAIT "pulse_demon"
 /// Mentor observing
 #define MENTOR_OBSERVING "mobserving"
+#define TIPPED_OVER "tipped_over"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -412,3 +463,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
+
+//***** MOVABLE ATOM TRAITS *****//
+// Prevents the atom from being transitioned to another Z level when approaching the edge of the map.
+#define TRAIT_NO_EDGE_TRANSITIONS "trait_no_edge_transitions"
+
+//***** PROC WRAPPERS *****//
+/// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.
+/proc/callback_add_trait(datum/target, trait, source)
+	ADD_TRAIT(target, trait, source)
+
+/// Proc wrapper of remove_trait. You should only use this for callback. Otherwise, use the macro.
+/proc/callback_remove_trait(datum/target, trait, source)
+	REMOVE_TRAIT(target, trait, source)

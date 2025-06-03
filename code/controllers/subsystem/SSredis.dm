@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(redis)
 			if(RCB.channel in subbed_channels)
 				stack_trace("Attempted to subscribe to the channel '[RCB.channel]' from [RCB.type] twice!")
 
-			rustg_redis_subscribe(RCB.channel)
+			rustlibs_redis_subscribe(RCB.channel)
 			subbed_channels[RCB.channel] = RCB
 
 		// Send our presence to required channels
@@ -67,12 +67,12 @@ SUBSYSTEM_DEF(redis)
 // Redis integration stuff
 /datum/controller/subsystem/redis/proc/connect()
 	if(GLOB.configuration.redis.enabled)
-		#ifndef UNIT_TESTS // CI uses linux so dont flag up a fail there
+		#ifndef GAME_TESTS // CI uses linux so dont flag up a fail there
 		if(world.system_type == UNIX)
 			stack_trace("SSredis has known to be very buggy when running on Linux with random dropouts ocurring due to interrupted syscalls. You have been warned!")
 		#endif
 
-		var/conn_failed = rustg_redis_connect(GLOB.configuration.redis.connstring)
+		var/conn_failed = rustlibs_redis_connect(GLOB.configuration.redis.connstring)
 		if(conn_failed)
 			log_startup_progress("Failed to connect to redis. Please inform the server host.")
 			SEND_TEXT(world.log, "Redis connection failure: [conn_failed]")
@@ -81,30 +81,22 @@ SUBSYSTEM_DEF(redis)
 		connected = TRUE
 
 /datum/controller/subsystem/redis/proc/disconnect()
-	rustg_redis_disconnect()
+	rustlibs_redis_disconnect()
 	connected = FALSE
 
 /datum/controller/subsystem/redis/proc/check_messages()
-	var/raw_data = rustg_redis_get_messages()
-	var/list/usable_data
+	var/list/data = rustlibs_redis_get_messages()
 
-	try // Did you know byond had try catch?
-		usable_data = json_decode(raw_data)
-	catch
-		message_admins("Failed to deserialise a redis message | Please inform the server host.")
-		log_debug("Redis raw data: [raw_data]")
-		return
-
-	for(var/channel in usable_data)
-		if(channel == RUSTG_REDIS_ERROR_CHANNEL)
-			var/redis_error_data = usable_data[channel]
+	for(var/channel in data)
+		if(channel == RUSTLIBS_REDIS_ERROR_CHANNEL)
+			var/redis_error_data = data[channel]
 			var/error_str
 			if(islist(redis_error_data))
 				error_str = json_encode(redis_error_data)
 			else
 				error_str = redis_error_data
 
-			message_admins("Redis error: [error_str] | Please inform the server host.") // uh oh
+			message_admins("Redis error: [error_str] | Please inform the server host")
 			log_game("Redis error: [error_str]")
 			continue
 		// Check its an actual channel
@@ -113,7 +105,7 @@ SUBSYSTEM_DEF(redis)
 			continue
 
 		var/datum/redis_callback/RCB = subbed_channels[channel]
-		for(var/message in usable_data[channel])
+		for(var/message in data[channel])
 			RCB.on_message(message)
 
 /datum/controller/subsystem/redis/proc/publish(channel, message)
@@ -126,7 +118,7 @@ SUBSYSTEM_DEF(redis)
 		return
 
 	// If we are alive, publish straight away
-	rustg_redis_publish(channel, message)
+	rustlibs_redis_publish(channel, message)
 
 
 // Misc protection stuff

@@ -91,8 +91,8 @@
 	to_chat(src, "<span class='notice'><b>Your spirit has entered [src] and possessed it.</b><br>You are able to do most things a humanoid would be able to do with a [src] in their hands.<br>If you want to end your ghostly possession, use the '<b>ghost</b>' verb, it won't penalize your ability to respawn.</span>")
 
 
-/mob/living/simple_animal/possessed_object/New(atom/loc as obj)
-	..()
+/mob/living/simple_animal/possessed_object/Initialize(mapload)
+	. = ..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins("<span class='adminnotice'>Possessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
@@ -144,7 +144,7 @@
 	name = spirit_name
 
 	if(A == src) // If we're clicking ourself we should not attack ourself.
-		possessed_item.attack_self(src)
+		possessed_item.attack_self__legacy__attackchain(src)
 	else
 		..()
 
@@ -173,11 +173,12 @@
 	set_opacity(possessed_item.opacity)
 	return ..(NONE)
 
-/mob/living/simple_animal/possessed_object/attackby(obj/item/O, mob/living/user)
-	. = ..()
+/mob/living/simple_animal/possessed_object/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/nullrod))
 		visible_message("<span type='notice'>[O] dispels the spooky aura!</span>")
 		death()
+
+		return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
 	//Don't call parent here as the mob isn't doing the hitting, technically

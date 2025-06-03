@@ -14,7 +14,7 @@
 	end_message = "<span class='danger'>The ground cools and returns to its usual form.</span>"
 	end_duration = 0
 
-	area_type = /area
+	area_types = list(/area)
 	protected_areas = list(/area/space)
 	target_trait = STATION_LEVEL
 
@@ -35,7 +35,7 @@
 		return
 	if(!L.client) //Only sentient people are going along with it!
 		return
-	if(L.flying)
+	if(HAS_TRAIT(L, TRAIT_FLYING))
 		return
 	L.adjustFireLoss(3)
 

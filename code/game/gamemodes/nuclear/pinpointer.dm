@@ -16,7 +16,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_PDA | SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_PDA | ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	throw_speed = 4
@@ -55,7 +55,7 @@
 	else if(mode == MODE_NUKE)
 		workbomb()
 
-/obj/item/pinpointer/attack_self(mob/user)
+/obj/item/pinpointer/attack_self__legacy__attackchain(mob/user)
 	if(mode == PINPOINTER_MODE_DET)
 		return
 	cycle(user)
@@ -143,7 +143,7 @@
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
 	if(shows_nuke_timer)
-		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 			if(bomb.timing)
 				. += "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
 
@@ -275,7 +275,7 @@
 ///////////////////////
 /obj/item/pinpointer/nukeop
 	var/obj/docking_port/mobile/home = null
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_PDA
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_PDA
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
 
@@ -396,7 +396,7 @@
 	///Var to track the linked detective gun
 	var/linked_gun_UID
 
-/obj/item/pinpointer/crew/attackby(obj/item/I, mob/living/user)
+/obj/item/pinpointer/crew/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I, /obj/item/gun/energy/detective))
 		link_gun(I.UID())
@@ -537,10 +537,13 @@
 		return FALSE
 
 /obj/item/pinpointer/tendril/proc/scan_for_tendrils()
+	var/turf/our_turf = get_turf(src)
 	if(mode == MODE_TENDRIL)
 		target = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
 		for(var/obj/structure/spawner/lavaland/T in GLOB.tendrils)
+			if(T.z != our_turf.z)
+				continue
 			var/temp_distance = get_dist(T, get_turf(src))
 			if(temp_distance < closest_distance)
 				target = T

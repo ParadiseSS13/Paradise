@@ -356,22 +356,20 @@
 	build_path = /obj/machinery/computer/sm_monitor
 	origin_tech = "programming=2;powerstorage=2"
 
+/obj/item/circuitboard/singulo_monitor
+	board_name = "Singularity Monitoring Console"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/singulo_monitor
+	origin_tech = "programming=2;powerstorage=2"
+
 // RD console circuits, so that de/reconstructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
 	board_name = "RD Console"
 	desc = "Swipe a Scientist level ID or higher to reconfigure."
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rdconsole/core
-	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics console
-	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Public")
-
-/obj/item/circuitboard/rdconsole/robotics
-	board_name = "RD Console - Robotics"
-	build_path = /obj/machinery/computer/rdconsole/robotics
-
-/obj/item/circuitboard/rdconsole/experiment
-	board_name = "RD Console - E.X.P.E.R.I-MENTOR"
-	build_path = /obj/machinery/computer/rdconsole/experiment
+	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building
+	var/list/access_types = list("R&D Core", "Public")
 
 /obj/item/circuitboard/rdconsole/public
 	board_name = "RD Console - Public"
@@ -382,10 +380,15 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/mecha
 
-/obj/item/circuitboard/rdservercontrol
-	board_name = "RD Server Control"
+/obj/item/circuitboard/rnd_network_controller
+	board_name = "R&D Network Controller"
 	icon_state = "science"
-	build_path = /obj/machinery/computer/rdservercontrol
+	build_path = /obj/machinery/computer/rnd_network_controller
+
+/obj/item/circuitboard/rnd_backup_console
+	board_name = "R&D Backup Console"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/rnd_backup
 
 /obj/item/circuitboard/crew
 	board_name = "Crew Monitoring Computer"
@@ -398,6 +401,12 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/mech_bay_power_console
 	origin_tech = "programming=3;powerstorage=3"
+
+/obj/item/circuitboard/ai_resource_console
+	board_name = "AI Resource Management Console"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/ai_resource
+	origin_tech = "programming=4"
 
 /obj/item/circuitboard/ordercomp
 	board_name = "Supply Ordering Console"
@@ -474,10 +483,10 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/golem_ship
 
-/obj/item/circuitboard/HolodeckControl
+/obj/item/circuitboard/holodeck_control
 	board_name = "Holodeck Control"
 	icon_state = "generic"
-	build_path = /obj/machinery/computer/HolodeckControl
+	build_path = /obj/machinery/computer/holodeck_control
 	origin_tech = "programming=4"
 
 /obj/item/circuitboard/aifixer
@@ -528,7 +537,7 @@
 	contraband_enabled = !contraband_enabled
 	playsound(src, 'sound/effects/pop.ogg', 50)
 
-/obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/rdconsole/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
 			user.visible_message("<span class='notice'>[user] waves [user.p_their()] ID past [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past [src]'s access protocol scanner.</span>")
@@ -539,12 +548,6 @@
 				if("R&D Core")
 					board_name = "RD Console"
 					build_path = /obj/machinery/computer/rdconsole/core
-				if("Robotics")
-					board_name = "RD Console - Robotics"
-					build_path = /obj/machinery/computer/rdconsole/robotics
-				if("E.X.P.E.R.I-MENTOR")
-					board_name = "RD Console - E.X.P.E.R.I-MENTOR"
-					build_path = /obj/machinery/computer/rdconsole/experiment
 				if("Public")
 					board_name = "RD Console - Public"
 					build_path = /obj/machinery/computer/rdconsole/public
@@ -565,13 +568,17 @@
 
 /obj/structure/computerframe
 	name = "computer frame"
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "comp_frame_1"
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "computer_frame"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 100
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
+
+/obj/structure/computerframe/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/computerframe/examine(mob/user)
 	. = ..()
@@ -621,8 +628,9 @@
 	if(state == STATE_GLASS)
 		new /obj/item/stack/sheet/glass(location, 2)
 
-/obj/structure/computerframe/update_icon_state()
-	icon_state = "comp_frame_[state]"
+/obj/structure/computerframe/update_overlays()
+	..()
+	. += "comp_frame_[state]"
 
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)
 	if(state != STATE_EMPTY)
@@ -700,7 +708,7 @@
 		I.play_tool_sound(src)
 		update_icon()
 
-/obj/structure/computerframe/attackby(obj/item/I, mob/user, params)
+/obj/structure/computerframe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	switch(state)
 		if(STATE_EMPTY)
 			if(!istype(I, /obj/item/circuitboard))

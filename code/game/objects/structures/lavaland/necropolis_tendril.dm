@@ -36,13 +36,15 @@ GLOBAL_LIST_EMPTY(tendrils)
 		if(ismineralturf(F))
 			var/turf/simulated/mineral/M = F
 			M.ChangeTurf(M.turf_type, FALSE, FALSE, TRUE)
+		var/turf/no_lava = F
+		no_lava.flags |= NO_LAVA_GEN
 
 /obj/structure/spawner/lavaland/deconstruct(disassembled)
 	new /obj/effect/collapse(loc)
 	new /obj/structure/closet/crate/necropolis/tendril(loc)
 	return ..()
 
-/obj/structure/spawner/lavaland/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/spawner/lavaland/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)
 
@@ -88,7 +90,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 		shake_camera(M, 15, 1)
 	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, TRUE)
 	visible_message("<span class='boldannounceic'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")
-	for(var/turf/T in range(2,src))
+	for(var/turf/T in range(LAVALAND_TENDRIL_COLLAPSE_RANGE, src))
 		if(!T.density)
 			T.TerraformTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
 	qdel(src)

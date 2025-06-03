@@ -204,7 +204,7 @@
 
 /datum/design/powermonitor
 	name = "Console Board (Power Monitor)"
-	desc = "Allows for the construction of circuit boards used to build a new power monitor"
+	desc = "Allows for the construction of circuit boards used to build a new power monitor."
 	id = "powermonitor"
 	req_tech = list("programming" = 2, "powerstorage" = 2)
 	build_type = IMPRINTER
@@ -243,13 +243,23 @@
 	category = list("Computer Boards")
 
 /datum/design/rdservercontrol
-	name = "Console Board (R&D Server Control Console)"
-	desc = "The circuit board for a R&D Server Control Console"
-	id = "rdservercontrol"
+	name = "Console Board (R&D Network Controller)"
+	desc = "The circuit board for a R&D Network Controller Console."
+	id = "rdnetworkcontrol"
 	req_tech = list("programming" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/rdservercontrol
+	build_path = /obj/item/circuitboard/rnd_network_controller
+	category = list("Computer Boards")
+
+/datum/design/rdbackup
+	name = "Console Board (R&D Backup)"
+	desc = "The circuit board for a R&D Backup Console."
+	id = "rdbackup"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/rnd_backup_console
 	category = list("Computer Boards")
 
 /datum/design/robocontrol
@@ -274,7 +284,7 @@
 
 /datum/design/solarcontrol
 	name = "Console Board (Solar Control)"
-	desc = "Allows for the construction of circuit boards used to build a solar control console"
+	desc = "Allows for the construction of circuit boards used to build a solar control console."
 	id = "solarcontrol"
 	req_tech = list("programming" = 2, "powerstorage" = 2)
 	build_type = IMPRINTER
@@ -284,12 +294,22 @@
 
 /datum/design/sm_monitor
 	name = "Console Board (Supermatter Monitoring)"
-	desc = "Allows for the construction of circuit boards used to build a supermatter monitoring console"
+	desc = "Allows for the construction of circuit boards used to build a supermatter monitoring console."
 	id = "sm_monitor"
 	req_tech = list("programming" = 2, "powerstorage" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/sm_monitor
+	category = list("Computer Boards")
+
+/datum/design/singulo_monitor
+	name = "Console Board (Singularity Monitoring)"
+	desc = "Allows for the construction of circuit boards used to build a singularity monitoring console."
+	id = "singulo_monitor"
+	req_tech = list("programming" = 2, "powerstorage" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/singulo_monitor
 	category = list("Computer Boards")
 
 /datum/design/ordercomp

@@ -11,7 +11,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/seaweed
 
-/obj/item/stack/seaweed/attack_self(mob/user)
+/obj/item/stack/seaweed/attack_self__legacy__attackchain(mob/user)
 	return
 
 /obj/item/stack/seaweed/attack_self_tk()

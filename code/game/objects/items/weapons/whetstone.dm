@@ -13,7 +13,7 @@
 	var/claw_damage_increase = 2
 
 
-/obj/item/whetstone/attackby(obj/item/I, mob/user, params)
+/obj/item/whetstone/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(used)
 		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
 		return
@@ -46,7 +46,7 @@
 	used = TRUE
 	update_icon()
 
-/obj/item/whetstone/attack_self(mob/user)
+/obj/item/whetstone/attack_self__legacy__attackchain(mob/user)
 	if(used)
 		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
 		return

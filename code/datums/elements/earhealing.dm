@@ -20,7 +20,7 @@
 /datum/element/earhealing/proc/equippedChanged(datum/source, mob/living/carbon/user, slot)
 	SIGNAL_HANDLER
 
-	if(((slot == SLOT_HUD_LEFT_EAR) || (slot == SLOT_HUD_RIGHT_EAR)) && istype(user))
+	if((slot & ITEM_SLOT_BOTH_EARS) && istype(user))
 		user_by_item[source] = user
 	else
 		user_by_item -= source

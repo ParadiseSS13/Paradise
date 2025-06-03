@@ -1,7 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "b" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -75,6 +72,9 @@
 /obj/structure/mirror/magic/pride,
 /turf/simulated/wall/mineral/diamond,
 /area/ruin/powered/pride)
+"P" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Y" = (
 /obj/machinery/door/airlock/diamond,
 /obj/structure/fans/tiny/invisible,
@@ -82,30 +82,30 @@
 /area/ruin/powered/pride)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
 "}
 (2,1,1) = {"
-a
-a
+P
+P
 c
 c
 c
@@ -123,7 +123,7 @@ c
 c
 c
 c
-a
+P
 "}
 (3,1,1) = {"
 b
@@ -145,7 +145,7 @@ G
 G
 G
 c
-a
+P
 "}
 (4,1,1) = {"
 c
@@ -167,7 +167,7 @@ e
 e
 G
 c
-a
+P
 "}
 (5,1,1) = {"
 c
@@ -188,8 +188,8 @@ g
 g
 r
 G
-a
-a
+P
+P
 "}
 (6,1,1) = {"
 c
@@ -210,8 +210,8 @@ g
 g
 g
 Y
-a
-a
+P
+P
 "}
 (7,1,1) = {"
 c
@@ -233,7 +233,7 @@ g
 r
 G
 c
-a
+P
 "}
 (8,1,1) = {"
 c
@@ -255,7 +255,7 @@ f
 f
 G
 c
-a
+P
 "}
 (9,1,1) = {"
 b
@@ -277,7 +277,7 @@ G
 G
 G
 c
-a
+P
 "}
 (10,1,1) = {"
 b
@@ -299,5 +299,5 @@ c
 c
 c
 c
-a
+P
 "}

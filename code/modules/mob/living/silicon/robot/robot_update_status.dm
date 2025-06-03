@@ -25,6 +25,9 @@
 	else
 		if(health > 0 && !suiciding && has_power_source())
 			update_revive()
+			if(camera)
+				if(!wires.is_cut(WIRE_BORG_CAMERA))
+					camera.turn_on(src, FALSE)
 			var/mob/dead/observer/ghost = get_ghost()
 			if(ghost)
 				to_chat(ghost, "<span class='ghostalert'>Your cyborg shell has been repaired and repowered, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")

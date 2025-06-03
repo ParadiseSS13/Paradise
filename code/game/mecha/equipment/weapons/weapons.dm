@@ -25,6 +25,9 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
 
+/obj/item/mecha_parts/mecha_equipment/weapon/get_destroy_sound()
+	return chassis.weapdestrsound
+
 /obj/item/mecha_parts/mecha_equipment/weapon/action(target, params)
 	if(!action_checks(target))
 		return
@@ -229,11 +232,11 @@
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
-				H.unEquip(H.shoes)
-				walk_away(thingy,chassis,15,2)
+				H.drop_item_to_ground(thingy)
+				GLOB.move_manager.move_away(thingy, chassis, 15, 2)
 				spawn(20)
 					if(thingy)
-						walk(thingy,0)
+						GLOB.move_manager.stop_looping(thingy)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)
@@ -270,7 +273,8 @@
 	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, 1)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["rearm"])
 		rearm()
 
@@ -301,7 +305,6 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
-	equip_cooldown = 2 SECONDS
 	name = "\improper LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
@@ -312,6 +315,12 @@
 	projectiles_per_shot = 4
 	variance = 25
 	harmful = TRUE
+	equip_cooldown = 2 SECONDS
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndie //Version used for Dark Gygax
+	name = "\improper LBX AC 20-r \"Scattershot .45\""
+	origin_tech = "combat=4;syndicate=2" //Crew is not going to get it normally anyways
+	projectile = /obj/item/projectile/bullet/midbullet
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	equip_cooldown = 1 SECONDS
@@ -390,6 +399,37 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/rearm()
 	return//Extra bit of security
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner
+	name = "\improper N23 Rotary Janitation Launcher"
+	desc = "A tool of mass cleaning. Launches primed cleaning foam grenades. Major slipping hazard."
+	icon_state = "mecha_grenadelnchr"
+	origin_tech = "combat=4;engineering=4"
+	projectile = /obj/item/grenade/chem_grenade/cleaner
+	fire_sound = 'sound/effects/bang.ogg'
+	equip_cooldown = 6 SECONDS
+	projectiles = 6
+	missile_speed = 1.5
+	projectile_energy_cost = 1000
+	size = 1
+	/// Time until grenade detonates
+	var/det_time = 2 SECONDS
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner/action(target, params)
+	if(!action_checks(target))
+		return
+	set_ready_state(0)
+	var/obj/item/grenade/chem_grenade/cleaner/grenade = new projectile(chassis.loc)
+	playsound(chassis, fire_sound, 50, TRUE)
+	grenade.throw_at(target, missile_range, missile_speed)
+	projectiles--
+	log_message("Fired from [name], targeting [target].")
+	log_attack(chassis.occupant, target, "Cleaning grenade fired from [name], targeting [target].")
+	addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade/chem_grenade/cleaner, prime)), det_time)
+	do_after_cooldown()
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner/can_attach(obj/mecha/nkarrdem/M as obj)
+	return istype(M) && length(M.equipment) < M.max_equip
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
 	equip_cooldown = 2 SECONDS

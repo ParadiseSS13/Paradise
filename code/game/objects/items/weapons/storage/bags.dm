@@ -24,7 +24,7 @@
 	allow_quick_empty = TRUE
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 ////////////////////////////////////////
 // MARK:	Trash bag
@@ -98,7 +98,7 @@
 
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
-	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
+	desc = "An advanced trash bag that uses experimental bluespace technology to send stored trash to a specialized pocket dimension."
 	icon_state = "bluetrashbag"
 	belt_icon = "trashbag_blue"
 	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
@@ -117,7 +117,7 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -127,14 +127,14 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE)
-	if(slot == SLOT_HUD_HEAD && length(contents))
+	if(slot == ITEM_SLOT_HEAD && length(contents))
 		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return FALSE
 	return ..()
 
 
 /obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
-	if(slot==SLOT_HUD_HEAD)
+	if(slot==ITEM_SLOT_HEAD)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
 	return
@@ -143,7 +143,7 @@
 	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+			if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 				if(H.internal)
 					return
 				H.AdjustLoseBreath(2 SECONDS)
@@ -161,16 +161,71 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/stack/ore)
+	/// The mob currently holding the ore bag, to track moving over ore to auto-pickup.
+	var/mob/listening_to
+
+/obj/item/storage/bag/ore/Destroy()
+	. = ..()
+	listening_to = null
+
+/obj/item/storage/bag/ore/equipped(mob/user, slot, initial)
+	. = ..()
+	if(listening_to == user)
+		return
+	begin_listening(src, user)
+
+/obj/item/storage/bag/ore/proc/begin_listening(datum/source, mob/user) // Even though its unused, the datum/source argument is required to make the signals work.
+	SIGNAL_HANDLER // COMSIG_CYBORG_ITEM_ACTIVATED
+	if(listening_to)
+		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(pickup_ores))
+	listening_to = user
+
+/obj/item/storage/bag/ore/proc/end_listening()
+	SIGNAL_HANDLER // COMSIG_CYBORG_ITEM_DEACTIVATED
+	if(listening_to)
+		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+		listening_to = null
+
+
+/obj/item/storage/bag/ore/dropped()
+	. = ..()
+	end_listening()
+
+/obj/item/storage/bag/ore/proc/pickup_ores(mob/living/user)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
+	var/turf/simulated/floor/plating/asteroid/tile = get_turf(user)
+
+	if(!istype(tile))
+		return
+
+	tile.attempt_ore_pickup(src, user)
+	// Then, if the user is dragging an ore box, empty the satchel
+	// into the box.
+	if(istype(user.pulling, /obj/structure/ore_box))
+		var/obj/structure/ore_box/box = user.pulling
+		box.attackby__legacy__attackchain(src, user)
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
 	flags = NODROP
+
+/obj/item/storage/bag/ore/cyborg/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CYBORG_ITEM_ACTIVATED, PROC_REF(begin_listening))
+	RegisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED, PROC_REF(end_listening))
+
+/obj/item/storage/bag/ore/cyborg/Destroy()
+	UnregisterSignal(src, COMSIG_CYBORG_ITEM_ACTIVATED)
+	UnregisterSignal(src, COMSIG_CYBORG_ITEM_DEACTIVATED)
+	return ..()
 
 /// miners, your messiah has arrived
 /obj/item/storage/bag/ore/holding
@@ -181,9 +236,13 @@
 	origin_tech = "bluespace=4;materials=3;engineering=3"
 	icon_state = "satchel_bspace"
 
-/obj/item/storage/bag/ore/holding/cyborg
+/obj/item/storage/bag/ore/cyborg/holding
 	name = "cyborg mining satchel of holding"
-	flags = NODROP
+	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
+	icon_state = "satchel_bspace"
+	storage_slots = INFINITY
+	max_combined_w_class = INFINITY
+
 
 ////////////////////////////////////////
 // MARK:	Plant bag
@@ -195,6 +254,7 @@
 	storage_slots = 40 //the number of plant pieces it can carry.
 	max_combined_w_class = 40 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(
 		/obj/item/seeds,
@@ -215,7 +275,7 @@
 /obj/item/storage/bag/plants/portaseeder/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> to convert the plants inside to seeds.</span>"
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to convert the plants inside to seeds.</span>"
 
 /obj/item/storage/bag/plants/portaseeder/proc/process_plants(mob/user)
 	if(!length(contents))
@@ -231,7 +291,7 @@
 		to_chat(user, "<span class='warning'>[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside.</span>")
 	playsound(user, "sound/machines/ding.ogg", 25)
 
-/obj/item/storage/bag/plants/portaseeder/AltShiftClick(mob/user)
+/obj/item/storage/bag/plants/portaseeder/CtrlShiftClick(mob/user)
 	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
 		process_plants(user)
 
@@ -244,13 +304,18 @@
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds)
 
-/obj/item/storage/bag/plants/seed_sorting_tray/attack_self(mob/user)
+/obj/item/storage/bag/plants/seed_sorting_tray/CtrlShiftClick(mob/user)
 	var/depth = 0
 	for(var/obj/item/unsorted_seeds/unsorted in src)
 		if(!do_after(user, 1 SECONDS, TRUE, src, must_be_held = TRUE))
 			break
 		depth = min(8, depth + 1)
 		unsorted.sort(depth)
+
+/obj/item/storage/bag/plants/seed_sorting_tray/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to sort seeds inside.</span>"
 
 ////////////////////////////////////////
 // MARK:	Cash bag
@@ -301,9 +366,13 @@
 	flags = CONDUCT
 	slot_flags = null
 	materials = list(MAT_METAL=3000)
-	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
+	can_hold = list(
+		/obj/item/food,
+		/obj/item/reagent_containers/drinks,
+		/obj/item/reagent_containers/condiment,
+	)
 
-/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
+/obj/item/storage/bag/tray/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
@@ -311,8 +380,7 @@
 
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
-		I.forceMove(M)
-		INVOKE_ASYNC(src, PROC_REF(scatter_tray_items), I)
+		do_scatter(I)
 
 	if(prob(50))
 		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
@@ -322,13 +390,18 @@
 	if(ishuman(M) && prob(10))
 		M.KnockDown(4 SECONDS)
 
-/obj/item/storage/bag/tray/proc/scatter_tray_items(obj/item/I)
-	if(!I)
-		return
+/obj/item/storage/bag/tray/proc/do_scatter(obj/item/tray_item)
+	var/delay = rand(2, 4)
+	var/datum/move_loop/loop = GLOB.move_manager.move_rand(tray_item, GLOB.cardinal, delay, timeout = rand(1, 2) * delay, flags = MOVEMENT_LOOP_START_FAST)
+	//This does mean scattering is tied to the tray. Not sure how better to handle it
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(change_speed))
 
-	for(var/i in 1 to rand(1, 2))
-		step(I, pick(NORTH,SOUTH,EAST,WEST))
-		sleep(rand(2, 4))
+/obj/item/storage/bag/tray/proc/change_speed(datum/move_loop/source)
+	SIGNAL_HANDLER // COMSIG_MOVELOOP_POSTPROCESS
+	var/new_delay = rand(2, 4)
+	var/count = source.lifetime / source.delay
+	source.lifetime = count * new_delay
+	source.delay = new_delay
 
 /obj/item/storage/bag/tray/update_icon_state()
 	return
@@ -340,7 +413,7 @@
 
 /obj/item/storage/bag/tray/cyborg
 
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/storage/bag/tray/cyborg/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	// We cannot reach the target.
 	if(!proximity_flag)
 		return
@@ -378,7 +451,7 @@
 		I.forceMove(dropspot)
 		// If there is no table, dump the contents of the tray at our feet like we're doing the service equivilent of a micdrop.
 		if(!found_table && isturf(dropspot))
-			INVOKE_ASYNC(src, PROC_REF(scatter_tray_items), I)
+			INVOKE_ASYNC(src, PROC_REF(do_scatter), I)
 
 	if(found_table)
 		user.visible_message("<span class='notice'>[user] unloads [user.p_their()] serving tray.</span>")
@@ -409,6 +482,7 @@
 	desc = "A bag for storing pills, patches, and bottles."
 	storage_slots = 50
 	max_combined_w_class = 200
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/reagent_containers/pill,
 					/obj/item/reagent_containers/patch,
@@ -426,6 +500,7 @@
 	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
 	storage_slots = 25
 	max_combined_w_class = 200
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/slime_extract, /obj/item/food/monkeycube,
 					/obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker,
@@ -444,6 +519,7 @@
 	item_state = "mailbag"
 	storage_slots = 14
 	max_combined_w_class = 28
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/envelope, /obj/item/stamp, /obj/item/pen, /obj/item/paper, /obj/item/mail_scanner)
 	resistance_flags = FLAMMABLE
@@ -459,9 +535,26 @@
 	item_state = "construction_bag"
 	storage_slots = 30
 	max_combined_w_class = 60
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/firealarm_electronics, /obj/item/apc_electronics, /obj/item/airalarm_electronics, /obj/item/camera_assembly, /obj/item/stock_parts/cell, /obj/item/circuitboard, /obj/item/stack/cable_coil)
 	resistance_flags = FLAMMABLE
+
+////////////////////////////////////////
+// MARK:	Smith bag
+////////////////////////////////////////
+/obj/item/storage/bag/smith
+	name = "smith's bag"
+	desc = "A fireproof bag for storing modifications, casts, and modification components."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "smith_bag"
+	item_state = "smith_bag"
+	storage_slots = 30
+	max_combined_w_class = 60
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/smithed_item, /obj/item/smithing_cast)
+	resistance_flags = FIRE_PROOF
 
 ////////////////////////////////////////
 // MARK:	Treasure bag
@@ -471,9 +564,10 @@
 	name = "treasure satchel"
 	desc = "A satchel for storing scavenged salvage. There be treasure."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel"
+	icon_state = "satchel_treasure"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_POCKETS
+	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 15
 	max_combined_w_class = 60

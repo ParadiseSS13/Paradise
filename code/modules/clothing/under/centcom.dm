@@ -28,8 +28,8 @@
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/centcom/ert/chaplain
-	name = "response team inquisitor uniform"
-	desc = "An armoured uniform designed for emergency response teams. This one belongs to an inquisitor."
+	name = "response team chaplain uniform"
+	desc = "An armoured uniform designed for emergency response teams. This one belongs to a chaplain."
 	icon_state = "ert_chaplain"
 	item_state = "ert_chaplain"
 	item_color = "ert_chaplain"
@@ -101,8 +101,8 @@
 	displays_id = FALSE
 
 /obj/item/clothing/under/rank/centcom/captain/solgov
-	name = "\improper Trans-Solar Federation commander's uniform"
-	desc = "Gold trim on space-black cloth, this uniform is worn by generals of the Trans-Solar Federation. It has exotic materials for protection."
+	name = "\improper TSF staff officer's uniform"
+	desc = "Gold trim on space-black cloth, this uniform is worn by high-ranking officers of the Trans-Solar Federation. It has exotic materials for protection."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	name = "\improper Nanotrasen diplomatic uniform"

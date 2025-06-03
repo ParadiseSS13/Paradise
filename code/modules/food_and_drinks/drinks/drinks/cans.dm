@@ -13,19 +13,19 @@
 	if(can_opened)
 		. += "<span class='notice'>It has been opened.</span>"
 	else
-		. += "<span class='info'>Ctrl-click to shake it up!</span>"
+		. += "<span class='notice'>Ctrl-click to shake it up!</span>"
 
-/obj/item/reagent_containers/drinks/cans/attack_self(mob/user)
-	if(can_opened)
-		return ..()
+/obj/item/reagent_containers/drinks/cans/activate_self(mob/user)
+	if(..() || can_opened)
+		return
+
 	if(times_shaken)
 		fizzy_open(user)
-		return ..()
+		return
 	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 	can_opened = TRUE
 	container_type |= OPENCONTAINER
 	to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
-	return ..()
 
 /obj/item/reagent_containers/drinks/cans/proc/crush(mob/user)
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
@@ -67,35 +67,19 @@
 	else
 		return ..()
 
-/obj/item/reagent_containers/drinks/cans/attack(mob/M, mob/user, proximity)
-	if(!can_opened)
-		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-		return
-	else if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
+/obj/item/reagent_containers/drinks/cans/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(target == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
 		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush [src] on your forehead.</span>")
 		crush(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
-/obj/item/reagent_containers/drinks/cans/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/bag/trash/cyborg))
+/obj/item/reagent_containers/drinks/cans/item_interaction(mob/living/user, obj/item/used, list/modifiers) // This doesn't belong here.
+	if(istype(used, /obj/item/storage/bag/trash/cyborg))
 		user.visible_message("<span class='notice'>[user] crushes [src] in [user.p_their()] trash compactor.</span>", "<span class='notice'>You crush [src] in your trash compactor.</span>")
-		var/obj/can = crush(user)
-		can.attackby(I, user, params)
-		return TRUE
-	..()
-
-/obj/item/reagent_containers/drinks/cans/afterattack(obj/target, mob/user, proximity)
-	if(!proximity)
-		return
-	if(istype(target, /obj/structure/reagent_dispensers) && !can_opened)
-		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-		return
-	else if(target.is_open_container() && !can_opened)
-		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-		return
-	else
-		return ..(target, user, proximity)
+		// Automatic crushed can pickup seems to be broken until storage is migrated.
+		crush(user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_containers/drinks/cans/throw_impact(atom/A)
 	. = ..()
@@ -165,13 +149,6 @@
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 
-/obj/item/reagent_containers/drinks/cans/beer
-	name = "space beer"
-	desc = "Contains only water, malt and hops."
-	icon_state = "beer"
-	is_glass = TRUE
-	list_reagents = list("beer" = 30)
-
 /obj/item/reagent_containers/drinks/cans/adminbooze
 	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."
@@ -192,14 +169,6 @@
 	icon_state = "badminbrew"
 	is_glass = TRUE
 	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
-
-/obj/item/reagent_containers/drinks/cans/ale
-	name = "Magm-Ale"
-	desc = "A true dorf's drink of choice."
-	icon_state = "alebottle"
-	item_state = "beer"
-	is_glass = TRUE
-	list_reagents = list("ale" = 30)
 
 /obj/item/reagent_containers/drinks/cans/space_mountain_wind
 	name = "Space Mountain Wind"

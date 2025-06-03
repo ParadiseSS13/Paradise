@@ -11,19 +11,19 @@
 //Noncult As we may have this on maps
 /obj/structure/cult/altar
 	name = "Altar"
-	desc = "A bloodstained altar."
+	desc = "A sacrifical altar, stained with long-dried blood. Any power it had is long gone."
 	icon_state = "altar"
 
 /obj/structure/cult/forge
 	name = "Daemon forge"
-	desc = "A forge used in crafting unholy armors and weapons."
+	desc = "A forge composed of dark stone and darker metal, covered in incomprehensible inscriptions. The fire within the forge burns low, it is incapable of producing anything."
 	icon_state = "forge"
 	light_range = 2
 	light_color = LIGHT_COLOR_LAVA
 
 /obj/structure/cult/pylon
 	name = "Pylon"
-	desc = "A floating crystal that hums with an unearthly energy."
+	desc = "An otherworldly crystal that hangs in mid-air. Its light is feeble and sputtering, acting as little more than dim illumination."
 	icon_state = "pylon"
 	light_range = 1.5
 	light_color = LIGHT_COLOR_RED
@@ -52,7 +52,7 @@
 		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
 	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
-/obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
+/obj/structure/cult/functional/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(user.holy_check())
 			return
@@ -136,7 +136,7 @@
 
 /obj/structure/cult/functional/altar
 	name = "altar"
-	desc = "A bloodstained altar dedicated to a cult."
+	desc = "A sacrifical altar, covered in fresh blood. The runes covering its sides glow with barely-restrained power."
 	icon_state = "altar"
 	max_integrity = 150 //Sturdy
 	death_message = "<span class='danger'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
@@ -155,7 +155,7 @@
 
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
-	desc = "A forge used in crafting the unholy weapons used by the armies of a cult."
+	desc = "A compact forge made of dark stone and darker metal. Molten metal flows through inscribed channels in the construction, ready to be turned into the unholy armaments of a cult."
 	icon_state = "forge"
 	light_range = 2
 	light_color = LIGHT_COLOR_LAVA
@@ -180,7 +180,7 @@
 	. = ..()
 	icon_state = GET_CULT_DATA(forge_icon_state, "forge")
 
-/obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
+/obj/structure/cult/functional/forge/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!iscarbon(G.affecting))
@@ -220,7 +220,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/pylon
 	name = "pylon"
-	desc = "A floating crystal that slowly heals those faithful to a cult."
+	desc = "A floating, otherworldly crystal that radiates a baleful red light. Wherever the light touches, matter warps, and the faithful are invigorated."
 	icon_state = "pylon"
 	light_range = 1.5
 	light_color = LIGHT_COLOR_RED
@@ -326,7 +326,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/effect/gateway
 	name = "gateway"
-	desc = "You're pretty sure that the abyss is staring back"
+	desc = "There's something inside. It's staring back."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
 	density = TRUE
@@ -339,9 +339,6 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	return
 
 /obj/effect/gateway/Bumped(atom/movable/AM)
-	return
-
-/obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
 	return
 
 #undef CULT_STRUCTURE_COOLDOWN

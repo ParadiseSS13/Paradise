@@ -15,6 +15,11 @@ SUBSYSTEM_DEF(input)
 	/// List of clients whose input to process in loop.
 	var/list/client/processing = list()
 
+	var/last_ckey
+	var/last_x
+	var/last_y
+	var/last_z
+
 /datum/controller/subsystem/input/Initialize()
 	refresh_client_macro_sets()
 
@@ -22,8 +27,14 @@ SUBSYSTEM_DEF(input)
 	return "P: [length(processing)]"
 
 /datum/controller/subsystem/input/fire(resumed = FALSE)
+	// Sleeps in input handling are bad, because they can stall the entire subsystem indefinitely, breaking most movement. key_loop has SHOULD_NOT_SLEEP(TRUE), which helps, but it doesn't catch everything, so we also waitfor=FALSE here, as using INVOKE_ASYNC here is very unperformant.
+	set waitfor = FALSE
 	var/list/to_cull
 	for(var/client/C in processing)
+		last_ckey = C.ckey
+		last_x = C.mob?.x
+		last_y = C.mob?.y
+		last_z = C.mob?.z
 		if(processing[C] + AUTO_CULL_TIME < world.time)
 			if(!length(C.input_data.keys_held))
 				LAZYADD(to_cull, C)
@@ -39,5 +50,8 @@ SUBSYSTEM_DEF(input)
 	for(var/i in 1 to length(clients))
 		var/client/user = clients[i]
 		user.set_macros()
+
+/datum/controller/subsystem/input/last_task()
+	return "[last_ckey] at [last_x], [last_y], [last_z]"
 
 #undef AUTO_CULL_TIME

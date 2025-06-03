@@ -327,14 +327,20 @@
 	force_update_limbs()
 	return TRUE
 
-/mob/living/carbon/human/proc/change_skin_tone(tone)
+/// Tone must be between -185 and 220. commonly used in 1 to 220, see `random_skin_tone()` for species-specific values
+/mob/living/carbon/human/proc/change_skin_tone(tone, override = FALSE)
 	if(s_tone == tone || !((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		return
 
-	s_tone = tone
+	if(tone in -185 to 220)
+		if(dna.species.bodyflags & HAS_ICON_SKIN_TONE || override)
+			s_tone = tone
+		else
+			s_tone = 35 - tone
+		force_update_limbs()
+		return TRUE
 
-	force_update_limbs()
-	return TRUE
+	CRASH("Skin tone values must be between -185 and 220!")
 
 /mob/living/carbon/human/proc/change_hair_gradient(style, offset_raw, color, alpha)
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -417,7 +423,7 @@
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 			if(H.dna.species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-					valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
+					valid_facial_hairstyles += facialhairstyle
 			else
 				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */

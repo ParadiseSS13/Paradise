@@ -2,7 +2,7 @@
 
 
 /obj/item/suppressor
-	name = "suppressor"
+	name = "universal suppressor"
 	desc = "A universal syndicate small-arms suppressor for maximum espionage."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "suppressor"

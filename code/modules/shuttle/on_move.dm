@@ -2,13 +2,17 @@
 /atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
-		onTransitZ(oldT.z, newT.z)
+		on_changed_z_level(oldT, newT)
 	if(light)
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
-	forceMove(T1)
+	abstract_move(T1)
 	return 1
+
+/atom/movable/lighting_object/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	// lighting objects should not be moved from their parent turfs
+	return 0
 
 /obj/effect/landmark/shuttle_import/onShuttleMove()
 	// Used for marking where to preview/load shuttles

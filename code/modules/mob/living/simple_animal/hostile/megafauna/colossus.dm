@@ -50,8 +50,8 @@ Difficulty: Very Hard
 	internal_gps = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
-	loot = list(/obj/structure/closet/crate/necropolis/colossus)
+	difficulty_ore_modifier = 3
+	crusher_loot = list(/obj/item/crusher_trophy/blaster_tubes)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
@@ -343,6 +343,13 @@ Difficulty: Very Hard
 		return
 	floating = on
 
+/mob/living/simple_animal/hostile/megafauna/colossus/generate_random_loot()
+	var/list/crystalchoices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(crystalchoices)
+	var/list/choices = list(/obj/item/organ/internal/vocal_cords/colossus, /obj/item/organ/internal/eyes/cybernetic/eyesofgod, random_crystal)
+	for(var/I in 1 to 2)
+		loot += pick_n_take(choices)
+
 /obj/item/projectile/colossus
 	name ="death bolt"
 	icon_state= "chronobolt"
@@ -356,7 +363,7 @@ Difficulty: Very Hard
 /obj/item/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(isturf(target) || isobj(target))
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 		for(var/obj/machinery/light/L in range(2, src))
 			L.break_light_tube(0, 1) //No leaving lights floating their as colossus breaks the station
 	if(isliving(target))

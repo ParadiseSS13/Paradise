@@ -1,28 +1,3 @@
-/obj/structure/closet/crate/necropolis/dragon
-	name = "dragon chest"
-
-/obj/structure/closet/crate/necropolis/dragon/populate_contents()
-	var/loot = rand(1,4)
-	switch(loot)
-		if(1)
-			new /obj/item/melee/ghost_sword(src)
-		if(2)
-			new /obj/item/lava_staff(src)
-		if(3)
-			new /obj/item/spellbook/oneuse/sacredflame(src)
-			new /obj/item/gun/magic/wand/fireball(src)
-		if(4)
-			new /obj/item/dragons_blood(src)
-
-
-/obj/structure/closet/crate/necropolis/dragon/crusher
-	name = "firey dragon chest"
-
-/obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
-	. = ..()
-	new /obj/item/crusher_trophy/tail_spike(src)
-
-
 // Spectral Blade
 
 /obj/item/melee/ghost_sword
@@ -44,14 +19,23 @@
 	var/list/obj/effect/wisp/ghost/orbs
 	/// List of ghosts currently orbiting us.
 	var/list/mob/dead/observer/ghosts
+	var/datum/component/parry/parry_comp
 
-/obj/item/melee/ghost_sword/New()
-	..()
+/obj/item/melee/ghost_sword/Initialize(mapload)
+	. = ..()
 	ghosts = list()
 	orbs = list()
 	register_signals(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	GLOB.poi_list |= src
+	parry_comp = AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (10 / 3) SECONDS)
+
+/obj/item/melee/ghost_sword/proc/update_parry(orbs)
+	var/counter = length(orbs)
+	// scaling stamina coeff. 0 ghosts being 1, 20 being 0.5
+	parry_comp.stamina_coefficient = 1 - clamp(counter * 0.025, 0, 0.5)
+	// scaling uptime. 0 ghosts being 30%, 20 ghosts being 70%
+	parry_comp.parry_cooldown = ((10 / 3) - clamp(counter * 0.095, 0, 1.9)) SECONDS
 
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in ghosts)
@@ -71,7 +55,7 @@
 	else
 		. += "It glows weakly."
 
-/obj/item/melee/ghost_sword/attack_self(mob/user)
+/obj/item/melee/ghost_sword/attack_self__legacy__attackchain(mob/user)
 	if(summon_cooldown > world.time)
 		to_chat(user, "You just recently called out for aid. You don't want to annoy the spirits.")
 		return
@@ -108,6 +92,7 @@
 	ghosts[ghost] = orb
 	orbs.Add(orb)
 
+	update_parry(orbs)
 	// if a ghost gets deleted, the orb cleans itself up
 	// which then passes the torch to us to clean ourselves up
 	RegisterSignal(orb, COMSIG_PARENT_QDELETING, PROC_REF(on_orb_qdel))
@@ -157,26 +142,20 @@
 /obj/item/melee/ghost_sword/proc/on_orb_qdel(obj/effect/wisp/ghost/orb)
 	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
 	orbs -= orb
+	update_parry(orbs)
 	for(var/ghost in ghosts)
 		if(ghosts[ghost] == orb)
 			ghosts -= ghost
 			break
 
 
-/obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/ghost_sword/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
 	force = 0
 	var/ghost_counter = length(orbs)
 
-	force = clamp((ghost_counter * 4), 0, 75)
+	force = clamp((ghost_counter * 3), 0, 50)
 	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirit\s!</span>")
 	..()
-
-/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/ghost_counter = length(orbs)
-	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghost\s!</span>")
-	return ..()
-
 
 /obj/effect/wisp/ghost
 	name = "mischievous wisp"
@@ -203,7 +182,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
 
-/obj/item/dragons_blood/attack_self(mob/living/carbon/human/user)
+/obj/item/dragons_blood/attack_self__legacy__attackchain(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
 
@@ -252,7 +231,7 @@
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	item_state = "lavastaff"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
@@ -273,7 +252,29 @@
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
-/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/lava_staff/attack__legacy__attackchain(mob/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/lava_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] holds the tip of [src] near [user.p_their()] [cig.name] until it is suddenly set alight.</span>",
+			"<span class='notice'>You hold the tip of [src] near [cig] until it is suddenly set alight.</span>",
+		)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] points [src] at [target] until [target.p_their()] [cig.name] is suddenly set alight.</span>",
+			"<span class='notice'>You point [src] at [target] until [target.p_their()] [cig] is suddenly set alight.</span>",
+		)
+	cig.light(user, target)
+	return TRUE
+
+/obj/item/lava_staff/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	if(timer > world.time)
 		return

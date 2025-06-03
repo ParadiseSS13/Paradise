@@ -16,7 +16,7 @@
 	end_duration = 100
 	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
 	var/pre_maint_all_access
-	area_type = /area
+	area_types = list(/area)
 	protected_areas = list(
 		/area/station/maintenance,
 		/area/station/turret_protected/ai_upload,
@@ -38,9 +38,9 @@
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
-	pre_maint_all_access = GLOB.maint_all_access
-	if(!GLOB.maint_all_access)
-		make_maint_all_access()
+	pre_maint_all_access = SSmapping.maint_all_access
+	if(!SSmapping.maint_all_access)
+		SSmapping.make_maint_all_access()
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
 	if(!prob(60))
@@ -55,7 +55,7 @@
 		return
 
 	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
-		L.rad_act(400)
+		L.base_rad_act(L ,400 , BETA_RAD)
 		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			return
 		randmuti(H) // Applies bad mutation
@@ -74,7 +74,7 @@
 	status_alarm(FALSE)
 	if(!pre_maint_all_access)
 		GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces. Door access resetting momentarily.", "Anomaly Alert")
-		addtimer(CALLBACK(SSweather, GLOBAL_PROC_REF(revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.
+		addtimer(CALLBACK(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.
 	else
 		GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
 

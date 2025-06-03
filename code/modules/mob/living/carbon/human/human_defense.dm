@@ -184,7 +184,7 @@ emp_act
 /mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, type)
 	if(!type || !def_zone)	return 0
 	var/protection = 0
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)	continue
 		if(bp && isclothing(bp))
@@ -281,12 +281,12 @@ emp_act
 			return right_hand_parry.parent
 	return right_hand_parry?.parent || left_hand_parry?.parent // parry with whichever hand has an item that can parry
 
-/mob/living/carbon/human/proc/check_block()
-	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
-		return TRUE
-
 /mob/living/carbon/human/emp_act(severity)
 	..()
+	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
+		return
+	if(HAS_TRAIT(src, TRAIT_EMP_RESIST))
+		severity = clamp(severity, EMP_LIGHT, EMP_WEAKENED)
 	for(var/X in bodyparts)
 		var/obj/item/organ/external/L = X
 		L.emp_act(severity)
@@ -407,6 +407,8 @@ emp_act
 	//DAMAGE//
 	for(var/obj/item/organ/external/affecting in damaged)
 		affecting.receive_damage(acidity, 2 * acidity)
+		to_chat(src, "<span class='userdanger'>The acid burns you!</span>")
+		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE)
 
 		if(istype(affecting, /obj/item/organ/external/head))
 			var/obj/item/organ/external/head/head_organ = affecting
@@ -438,7 +440,12 @@ emp_act
 		I.acid_act(acidpwr, acid_volume)
 	return 1
 
-/mob/living/carbon/human/emag_act(user as mob, obj/item/organ/external/affecting)
+/mob/living/carbon/human/emag_act(mob/user)
+	var/obj/item/organ/external/affecting
+	if(!user.zone_selected) // pulse demons really.
+		affecting = get_organ(pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG))
+	else
+		affecting = get_organ(user.zone_selected)
 	if(!istype(affecting))
 		return
 	if(!affecting.is_robotic())
@@ -447,34 +454,18 @@ emp_act
 	if(affecting.sabotaged)
 		to_chat(user, "<span class='warning'>[src]'s [affecting.name] is already sabotaged!</span>")
 	else
-		to_chat(user, "<span class='warning'>You sneakily slide the card into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
+		to_chat(user, "<span class='warning'>You sneakily hack into the dataport on [src]'s [affecting.name] and short out the safeties.</span>")
 		affecting.sabotaged = TRUE
-	return 1
+	return TRUE
 
 /mob/living/carbon/human/grabbedby(mob/living/user)
 	if(w_uniform)
 		w_uniform.add_fingerprint(user)
 	return ..()
 
-//Returns TRUE if the attack hit, FALSE if it missed.
 /mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
-	if(!I || !user)
-		return FALSE
-
-	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/food/meat/human/newmeat = new /obj/item/food/meat/human(get_turf(loc))
-		newmeat.name = real_name + newmeat.name
-		newmeat.subjectname = real_name
-		newmeat.subjectjob = job
-		newmeat.reagents.add_reagent("nutriment", (nutrition / 15) / 3)
-		reagents.trans_to(newmeat, round((reagents.total_volume) / 3, 1))
-		add_mob_blood(src)
-		--meatleft
-		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
-		if(!meatleft)
-			add_attack_logs(user, src, "Chopped up into meat")
-			qdel(src)
-			return FALSE
+	if(!I || !user || QDELETED(src))
+		return
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 
@@ -487,23 +478,16 @@ emp_act
 	if(user != src)
 		user.do_attack_animation(src)
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration_flat, I.armour_penetration_percentage))
-			return FALSE
-
-	if(check_block())
-		visible_message("<span class='warning'>[src] blocks [I]!</span>")
-		return FALSE
-
-	if(istype(I,/obj/item/card/emag))
-		emag_act(user, affecting)
+			return
 
 	send_item_attack_message(I, user, hit_area)
 
 	if(!I.force)
-		return FALSE //item force is zero
+		return //item force is zero
 
 	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration_flat = I.armour_penetration_flat, armour_penetration_percentage = I.armour_penetration_percentage)
 	if(armor == INFINITY)
-		return FALSE
+		return
 
 	var/weapon_sharp = I.sharp
 	// do not roll for random blunt if the target mob is dead for the ease of decaps
@@ -525,7 +509,7 @@ emp_act
 			bloody = TRUE
 			var/turf/location = loc
 			if(issimulatedturf(location))
-				add_splatter_floor(location, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
+				add_splatter_floor(location, emittor_intertia = last_movement_dir)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
 				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood
@@ -616,14 +600,27 @@ emp_act
 	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 	return TRUE
 
-/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color)
+/*
+	* This proc makes human hands bloody, if you touch something, you will leave a blood trace
+
+	* blood_dna: list of blood DNAs stored in each atom in blood_DNA variable or in get_blood_dna_list() on carbons
+	* b_color: blood color, simple. If there will be null, the blood will be red, otherwise the color you pass
+	* amount: amount of "blood charges" you want to give, that will be used to make items/walls bloody.
+		You can make something bloody this amount - 1 times.
+		If this variable will be null, amount will be set randomly from 2 to max_amount
+	* max_amount: if amount is not set, amount will be random from 2 to this value, default 4
+*/
+/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color, amount, max_amount = 4)
 	if(isnull(b_color))
 		b_color = "#A10808"
 	if(gloves)
-		gloves.add_blood(blood_dna, blood_color)
+		gloves.add_blood(blood_dna, blood_color, amount, max_amount)
 	else
 		hand_blood_color = b_color
-		bloody_hands = rand(2, 4)
+		if(isnull(amount))
+			bloody_hands = rand(2, max_amount)
+		else
+			bloody_hands = max(1, amount)
 		transfer_blood_dna(blood_dna)
 		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
@@ -722,6 +719,21 @@ emp_act
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
 
+/mob/living/carbon/human/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+		if(check_shields(attacker, damage, "[attacker.name]", MELEE_ATTACK, attacker.armour_penetration_flat, attacker.armour_penetration_percentage))
+			return FALSE
+		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		if(!affecting)
+			affecting = get_organ("chest")
+		affecting.add_autopsy_data(attacker.name, damage) // Add the mob's name to the autopsy data
+		var/armor = run_armor_check(affecting, MELEE, armour_penetration_flat = attacker.armour_penetration_flat, armour_penetration_percentage = attacker.armour_penetration_percentage)
+		apply_damage(damage, attacker.melee_damage_type, affecting, armor)
+		updatehealth("basicmob attack")
+
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = rand(5, 25)
@@ -761,7 +773,7 @@ emp_act
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")
-					update |= affecting.receive_damage(dmg, 0)
+					update |= affecting.receive_damage(0, dmg)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if("tox")
 					M.mech_toxin_damage(src)
@@ -798,10 +810,10 @@ emp_act
 		O.water_act(volume, temperature, source, method)
 
 
-
-/mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
+/mob/living/carbon/human/attack_by(obj/item/I, mob/living/user, params)
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
-		return TRUE
+		return FINISH_ATTACK
+
 	return ..()
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
@@ -822,5 +834,51 @@ emp_act
 	return TRUE
 
 /mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
-	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density // hit mobs that are intentionally lying down to prevent combat crawling.
+	return (HAS_TRAIT(src, TRAIT_FLOORED) || HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN)) && !density && !(P.always_hit_living_nondense && (stat != DEAD) && !isLivingSSD(src)) // hit mobs that are intentionally lying down to prevent combat crawling.
 
+/mob/living/carbon/human/canBeHandcuffed()
+	return has_left_hand() || has_right_hand()
+
+/// Returns a list. The first element is whether we penetrated all clothing for the zone, the rest are the clothes that got contaminated
+/mob/living/carbon/human/proc/rad_contaminate_zone(zone_flag, pocket = FALSE)
+	// This is for items inside of the mob
+	if(!zone_flag)
+		return list(TRUE)
+	var/list/garments = list()
+	var/list/contaminate = list()
+	var/passed = TRUE
+	// items in our pocket are treated uniquely as they are outside of the mob but also under most of its clothing
+	if(pocket)
+		garments = list(w_uniform)
+	else
+		// the suit is worn on top of all other stuff so it needs to be checked first
+		if(wear_suit)
+			garments = list(wear_suit)
+		for(var/obj/item/clothing/garment in contents)
+			if(garment.body_parts_covered & zone_flag)
+				garments |= garment
+	// If we have a suit push it to the start of the list
+	if(wear_suit)
+		garments -= wear_suit
+		garments = list(wear_suit) + garments
+
+	while(length(garments) && passed)
+		var/obj/item/clothing/garment = garments[1]
+		garments -= garment
+		passed = prob((garment.permeability_coefficient * 100) - 1) && !(garment.flags_2 & RAD_PROTECT_CONTENTS_2)
+		if(garment.flags_2 & RAD_NO_CONTAMINATE_2)
+			continue
+		contaminate += garment
+
+	return list(passed) + contaminate
+
+/// Tries to contaminate a human
+/mob/living/carbon/human/contaminate_atom(atom/source, intensity, emission_type, zone = null)
+	if(!zone)
+		zone = hit_zone_to_clothes_zone(ran_zone())
+	var/list/to_contaminate = rad_contaminate_zone(zone)
+	if(to_contaminate[1])
+		to_contaminate += src
+	to_contaminate -= to_contaminate[1]
+	for(var/atom/thing in to_contaminate)
+		thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)

@@ -13,14 +13,16 @@
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
+	/// Healable by medical stacks?
+	var/healable = FALSE
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
-	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
-	var/oxyloss = 0	//Oxygen depravation damage (no air in lungs)
-	var/toxloss = 0	//Toxic damage caused by being poisoned or radiated
-	var/fireloss = 0	//Burn damage caused by being way too hot, too cold or burnt.
-	var/cloneloss = 0	//Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
-	var/staminaloss = 0 //Stamina damage, or exhaustion. You recover it slowly naturally, and are stunned if it gets too high. Holodeck and hallucinations deal this.
+	VAR_PROTECTED/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
+	VAR_PROTECTED/oxyloss = 0	//Oxygen depravation damage (no air in lungs)
+	VAR_PROTECTED/toxloss = 0	//Toxic damage caused by being poisoned or radiated
+	VAR_PROTECTED/fireloss = 0	//Burn damage caused by being way too hot, too cold or burnt.
+	VAR_PROTECTED/cloneloss = 0	//Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
+	VAR_PROTECTED/staminaloss = 0 //Stamina damage, or exhaustion. You recover it slowly naturally, and are stunned if it gets too high. Holodeck and hallucinations deal this.
 
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
@@ -30,7 +32,7 @@
 
 	var/now_pushing = null
 
-	var/atom/movable/cameraFollow = null
+	var/atom/movable/camera_follow = null
 
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
@@ -40,6 +42,9 @@
 	// What type of mob is this
 	var/mob_biotypes = MOB_ORGANIC
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
+
+	/// movable atom we are buckled to
+	var/atom/movable/buckling
 
 	var/ventcrawler = VENTCRAWLER_NONE
 	var/list/icon/pipes_shown = list()
@@ -94,13 +99,16 @@
 
 	var/datum/language/default_language
 
-	var/datum/middleClickOverride/middleClickOverride = null
+	var/datum/middle_click_override/middleClickOverride = null
 
 	/// Famous last words -- if succumbing, what the user's last words were
 	var/last_words
 
 	///This variable is the chance for a mob to automatically dodge a bullet. Useful for admins, and applied to some mobs by default, such as the malfunctioning drone mobs.
 	var/advanced_bullet_dodge_chance = 0
+
+	/// List of traits that should be applied on Initialize
+	var/list/initial_traits = list()
 
 	/*
 	Taste Vars
@@ -109,3 +117,7 @@
 	var/last_taste_time
 	/// Stores a var of the last tast message we got. used so we don't spam people messages while they eat
 	var/last_taste_text
+	///If a creature gets to be super special and have extra range on their chat messages
+	var/extra_message_range = 0
+	/// Sets our icon to `null` when `gib()` is used
+	var/gib_nullifies_icon = TRUE

@@ -53,7 +53,7 @@
 		return
 
 	var/mob/living/LM = parent
-	if(!T.footstep || !(LM.mobility_flags & MOBILITY_MOVE) || LM.buckled || LM.throwing || LM.flying || istype(LM.loc, /obj/machinery/atmospherics))
+	if(!T.footstep || !(LM.mobility_flags & MOBILITY_MOVE) || LM.buckled || LM.throwing || HAS_TRAIT(LM, TRAIT_FLYING) || istype(LM.loc, /obj/machinery/atmospherics))
 		return
 
 	steps++
@@ -61,7 +61,7 @@
 	if(steps >= 6)
 		steps = 0
 
-	if(steps % 2)
+	if(ISODD(steps))
 		return
 
 	if(steps != 0 && !has_gravity(LM, T)) // don't need to step as often when you hop around

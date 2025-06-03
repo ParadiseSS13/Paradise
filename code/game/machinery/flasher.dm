@@ -15,8 +15,9 @@
 	var/strength = 10 SECONDS //How weakened targets are when flashed.
 	var/base_state = "mflash"
 	anchored = TRUE
+	var/datum/proximity_monitor/proximity_monitor
 
-/obj/machinery/flasher/Initialize()
+/obj/machinery/flasher/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -32,7 +33,7 @@
 
 /obj/machinery/flasher/portable/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src, range)
 
 /obj/machinery/flasher/power_change()
 	if(!..())
@@ -161,7 +162,7 @@
 	active = TRUE
 	icon_state = "launcheract"
 
-	for(var/obj/machinery/flasher/M in GLOB.machines)
+	for(var/obj/machinery/flasher/M in SSmachines.get_by_type(/obj/machinery/flasher))
 		if(M.id == id)
 			spawn()
 				M.flash()

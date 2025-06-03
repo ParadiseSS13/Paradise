@@ -45,15 +45,15 @@
 	if(!istype(H)) // Xenos don't have masks. They can still feel silly though
 		return
 
-	if(!H.has_organ_for_slot(SLOT_HUD_WEAR_MASK) || !H.canUnEquip(H.get_item_by_slot(SLOT_HUD_WEAR_MASK)))
+	if(!H.has_organ_for_slot(ITEM_SLOT_MASK) || !H.canUnEquip(H.get_item_by_slot(ITEM_SLOT_MASK)))
 		return
 
 	var/saved_internals = H.internal
 
-	H.unEquip(H.get_item_by_slot(SLOT_HUD_WEAR_MASK))
+	H.drop_item_to_ground(H.get_item_by_slot(ITEM_SLOT_MASK))
 	var/obj/item/clothing/mask/gas/clown_hat/peak_comedy = new
 	peak_comedy.flags |= DROPDEL
-	H.equip_to_slot_or_del(peak_comedy, SLOT_HUD_WEAR_MASK)
+	H.equip_to_slot_or_del(peak_comedy, ITEM_SLOT_MASK)
 
 	if(saved_internals) // Let's not stealthily suffocate Vox/Plasmamen, this isn't a murder virus
 		H.internal = saved_internals

@@ -59,7 +59,7 @@
 			visible_message("<span class='notice'>[src] seems to have [p_their()] hands full!</span>")
 			return
 		visible_message("<span class='notice'>[src] drops [in_hand] and picks up [thing] instead!</span>")
-		unEquip(in_hand)
+		unequip(in_hand)
 		in_hand.forceMove(old_loc)
 	else
 		visible_message("<span class='notice'>[src] picks up [thing]!</span>")
@@ -118,7 +118,7 @@
 		visible_message("<span class='warning'>[src] points [held_gun] towards [possible_target]!</span>")
 		return
 	// for his neutral special, he wields a Gun
-	held_gun.afterattack(possible_target, src)
+	held_gun.afterattack__legacy__attackchain(possible_target, src)
 	visible_message("<span class='danger'>[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]</span>")
 
 /mob/living/carbon/human/proc/dchat_step(dir)

@@ -127,7 +127,7 @@
 	begin_day = 1
 	begin_month = JULY
 
-/datum/holiday/UFO
+/datum/holiday/ufo
 	name = "UFO Day"
 	begin_day = 2
 	begin_month = JULY

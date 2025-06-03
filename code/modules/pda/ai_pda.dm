@@ -1,6 +1,5 @@
 // Special AI/pAI PDAs that cannot explode.
 /obj/item/pda/silicon
-	icon_state = "NONE"
 	detonate = FALSE
 	ttone = "data"
 
@@ -69,7 +68,7 @@
 	silent = !silent
 	to_chat(usr, "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>")
 
-/obj/item/pda/silicon/attack_self(mob/user as mob)
+/obj/item/pda/silicon/attack_self__legacy__attackchain(mob/user as mob)
 	if((honkamt > 0) && (prob(60)))//For clown virus.
 		honkamt--
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)

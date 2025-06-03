@@ -2,7 +2,8 @@
 	name = "coffin"
 	desc = "It's a burial receptacle for the dearly departed."
 	icon_state = "coffin"
-	open_door_sprite = null
+	enable_door_overlay = FALSE
+	door_anim_time = 0
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	material_drop = /obj/item/stack/sheet/wood
@@ -10,15 +11,6 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
-
-/obj/structure/closet/coffin/update_icon_state()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened
-
-/obj/structure/closet/coffin/update_overlays()
-	return list()
 
 /obj/structure/closet/coffin/sarcophagus
 	name = "sarcophagus"

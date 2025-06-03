@@ -84,15 +84,16 @@
 /**
  * Air alarm modes
  */
-#define AALARM_MODE_SCRUBBING 1
-#define AALARM_MODE_VENTING 2 //makes draught
+#define AALARM_MODE_FILTERING 1
+#define AALARM_MODE_DRAUGHT 2 //makes draught
 #define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
-#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
+#define AALARM_MODE_CYCLE 4 //sucks off all air, then refill and swithes to scrubbing
 #define AALARM_MODE_SIPHON 5 //Scrubbers suck air
 #define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
-#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
+#define AALARM_MODE_REFILL 7 //just like normal, but disables low pressure check until normalized, then switches to normal
 #define AALARM_MODE_OFF 8
 #define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
+#define AALARM_MODE_CUSTOM 10
 
 #define NUKE_STATUS_INTACT 0
 #define NUKE_CORE_MISSING 1
@@ -108,3 +109,9 @@
 #define RC_SUPPLY (1<<1)
 /// [/obj/machinery/requests_console] can relay anonymous information.
 #define RC_INFO   (1<<2)
+
+/// ORM point defines
+#define ORM_BASE_POINT_MULT 0.90
+#define ORM_BASE_SHEET_MULT 0.90
+#define ORM_POINT_MULT_ADD_PER_RATING 0.10
+#define ORM_SHEET_MULT_ADD_PER_RATING 0.10

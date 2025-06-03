@@ -40,12 +40,12 @@
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
 	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
 	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
-	. += "<span class='info'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
+	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
 	if(!(stat & (BROKEN | NOPOWER)))
-		set_light(2)
+		set_light(1.5, 1, LIGHT_COLOR_CYAN)
 	else
 		set_light(0)
 
@@ -298,41 +298,42 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/G, mob/user, params)
-	if(istype(G, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
-		var/obj/item/reagent_containers/B = G
+/obj/machinery/atmospherics/unary/cryo_cell/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
+		var/obj/item/reagent_containers/B = used
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		B.forceMove(src)
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/GG = G
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/GG = used
 		if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!ismob(GG.affecting))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(GG.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/M = GG.affecting
 		if(put_mob(M))
 			qdel(GG)
-		return
+
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

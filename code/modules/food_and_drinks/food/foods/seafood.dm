@@ -139,19 +139,19 @@
 	tastes = list("shrimp" = 1, "batter" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/sliceable/Ebi_maki
+/obj/item/food/sliceable/ebi_maki
 	name = "ebi maki roll"
 	desc = "A large unsliced roll of Ebi Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Ebi_maki"
-	slice_path = /obj/item/food/sushi_Ebi
+	slice_path = /obj/item/food/sliced/sushi_ebi
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_Ebi
+/obj/item/food/sliced/sushi_ebi
 	name = "ebi sushi"
 	desc = "A simple sushi consisting of cooked shrimp and rice."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -161,19 +161,19 @@
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/Ikura_maki
+/obj/item/food/sliceable/ikura_maki
 	name = "ikura maki roll"
 	desc = "A large unsliced roll of Ikura Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Ikura_maki"
-	slice_path = /obj/item/food/sushi_Ikura
+	slice_path = /obj/item/food/sliced/sushi_ikura
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_Ikura
+/obj/item/food/sliced/sushi_ikura
 	name = "ikura sushi"
 	desc = "A simple sushi consisting of salmon roe."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -183,19 +183,19 @@
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/Sake_maki
+/obj/item/food/sliceable/sake_maki
 	name = "sake maki roll"
 	desc = "A large unsliced roll of Sake Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Sake_maki"
-	slice_path = /obj/item/food/sushi_Sake
+	slice_path = /obj/item/food/sliced/sushi_sake
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_Sake
+/obj/item/food/sliced/sushi_sake
 	name = "sake sushi"
 	desc = "A simple sushi consisting of raw salmon and rice."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -205,19 +205,19 @@
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/SmokedSalmon_maki
+/obj/item/food/sliceable/smoked_salmon_maki
 	name = "smoked salmon maki roll"
 	desc = "A large unsliced roll of Smoked Salmon Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "SmokedSalmon_maki"
-	slice_path = /obj/item/food/sushi_SmokedSalmon
+	slice_path = /obj/item/food/sliced/sushi_smoked_salmon
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_SmokedSalmon
+/obj/item/food/sliced/sushi_smoked_salmon
 	name = "smoked salmon sushi"
 	desc = "A simple sushi consisting of cooked salmon and rice."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -227,19 +227,19 @@
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/Tamago_maki
+/obj/item/food/sliceable/tamago_maki
 	name = "tamago maki roll"
 	desc = "A large unsliced roll of Tamago Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Tamago_maki"
-	slice_path = /obj/item/food/sushi_Tamago
+	slice_path = /obj/item/food/sliced/sushi_tamago
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_Tamago
+/obj/item/food/sliced/sushi_tamago
 	name = "tamago sushi"
 	desc = "A simple sushi consisting of egg and rice."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -249,19 +249,19 @@
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/Inari_maki
+/obj/item/food/sliceable/inari_maki
 	name = "inari maki roll"
 	desc = "A large unsliced roll of Inari Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Inari_maki"
-	slice_path = /obj/item/food/sushi_Inari
+	slice_path = /obj/item/food/sliced/sushi_inari
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_Inari
+/obj/item/food/sliced/sushi_inari
 	name = "inari sushi"
 	desc = "A piece of fried tofu stuffed with rice."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -271,19 +271,19 @@
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/Masago_maki
+/obj/item/food/sliceable/masago_maki
 	name = "masago maki roll"
 	desc = "A large unsliced roll of Masago Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Masago_maki"
-	slice_path = /obj/item/food/sushi_Masago
+	slice_path = /obj/item/food/sliced/sushi_masago
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_Masago
+/obj/item/food/sliced/sushi_masago
 	name = "masago sushi"
 	desc = "A simple sushi consisting of goldfish roe."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -293,19 +293,19 @@
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/Tobiko_maki
+/obj/item/food/sliceable/tobiko_maki
 	name = "tobiko maki roll"
 	desc = "A large unsliced roll of Tobkio Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Tobiko_maki"
-	slice_path = /obj/item/food/sushi_Tobiko
+	slice_path = /obj/item/food/sliced/sushi_tobiko
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_Tobiko
+/obj/item/food/sliced/sushi_tobiko
 	name = "tobiko sushi"
 	desc = "A simple sushi consisting of shark roe."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -315,19 +315,19 @@
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/TobikoEgg_maki
+/obj/item/food/sliceable/tobiko_egg_maki
 	name = "tobiko and egg maki roll"
 	desc = "A large unsliced roll of Tobkio and Egg Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "TobikoEgg_maki"
-	slice_path = /obj/item/food/sushi_TobikoEgg
+	slice_path = /obj/item/food/sliced/sushi_tobiko_egg
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_TobikoEgg
+/obj/item/food/sliced/sushi_tobiko_egg
 	name = "tobiko and egg sushi"
 	desc = "A sushi consisting of shark roe and an egg."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -337,19 +337,19 @@
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/Tai_maki
+/obj/item/food/sliceable/tai_maki
 	name = "tai maki roll"
 	desc = "A large unsliced roll of Tai Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Tai_maki"
-	slice_path = /obj/item/food/sushi_Tai
+	slice_path = /obj/item/food/sliced/sushi_tai
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/sushi_Tai
+/obj/item/food/sliced/sushi_tai
 	name = "tai sushi"
 	desc = "A simple sushi consisting of catfish and rice."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -359,7 +359,7 @@
 	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sushi_Unagi
+/obj/item/food/sushi_unagi
 	name = "unagi sushi"
 	desc = "A simple sushi consisting of eel and rice."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -368,3 +368,13 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("grilled eel" = 1, "seaweed" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/caviar
+	name = "\improper Three-Star caviar"
+	desc = "A small, pretentious looking can of fish eggs."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "caviar"
+	bitesize = 1
+	trash = /obj/item/trash/caviar
+	list_reagents = list("protein" = 5)
+	tastes = list("fish" = 2, "high society" = 1)

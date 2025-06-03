@@ -15,7 +15,7 @@
 	coat = null
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/coatrack/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/coatrack/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	var/can_hang = FALSE
 	for(var/T in allowed)
 		if(istype(W,T))
@@ -29,7 +29,7 @@
 		return
 	return ..()
 
-/obj/structure/coatrack/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/coatrack/CanPass(atom/movable/mover, border_dir)
 	var/can_hang = FALSE
 	for(var/T in allowed)
 		if(istype(mover,T))

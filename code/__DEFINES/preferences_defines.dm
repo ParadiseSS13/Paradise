@@ -10,6 +10,7 @@
 #define SOUND_DISCO         (1<<8)
 #define SOUND_AI_VOICE      (1<<9)
 #define SOUND_PRAYERNOTIFY  (1<<10)
+#define SOUND_MUTE_END_OF_ROUND  (1<<11)
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_HEARTBEAT|SOUND_BUZZ|SOUND_INSTRUMENTS|SOUND_MENTORHELP|SOUND_DISCO|SOUND_AI_VOICE|SOUND_PRAYERNOTIFY)
 
@@ -79,13 +80,26 @@
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_THOUGHT_BUBBLE|PREFTOGGLE_2_DANCE_DISCO|PREFTOGGLE_2_MOD_ACTIVATION_METHOD|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS)
 
+
+// toggles_3 variables. These MUST be prefixed with PREFTOGGLE_3
+#define PREFTOGGLE_3_COGBAR_ANIMATIONS				(1<<0) // 1
+
+#define TOGGLES_3_TOTAL 							1 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+
+#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_COGBAR_ANIMATIONS)
+
 // Sanity checks
+// I should really convert these to a JSON list at some point hnnnnnng
 #if TOGGLES_TOTAL > 16777215
 #error toggles bitflag over 16777215. Please use toggles_2.
 #endif
 
 #if TOGGLES_2_TOTAL > 16777215
-#error toggles_2 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
+#error toggles_2 bitflag over 16777215. Please use toggles_3.
+#endif
+
+#if TOGGLES_3_TOTAL > 16777215
+#error toggles_3 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
 #endif
 
 // This is a list index. Required to start at 1 instead of 0 so it's properly placed in the list
@@ -161,9 +175,8 @@
 #define TAB_CHAR 	0
 #define TAB_GAME 	1
 #define TAB_ANTAG 	2
-#define TAB_GEAR 	3
-#define TAB_KEYS 	4
-#define TAB_TOGGLES 5
+#define TAB_KEYS 	3
+#define TAB_TOGGLES 4
 
 // Colourblind modes
 #define COLOURBLIND_MODE_NONE "None"

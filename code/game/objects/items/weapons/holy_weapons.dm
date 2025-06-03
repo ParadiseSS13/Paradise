@@ -21,9 +21,12 @@
 	var/list/fluff_transformations = list()
 	/// Extra 'Holy' burn damage for ERT null rods
 	var/sanctify_force = 0
+	/// The antimagic type the nullrod has.
+	var/antimagic_type = MAGIC_RESISTANCE_HOLY
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/anti_magic, antimagic_type)
 	if(!length(variant_names))
 		for(var/I in typesof(/obj/item/nullrod))
 			var/obj/item/nullrod/rod = I
@@ -35,13 +38,13 @@
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_themselves()] with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
 	return BRUTELOSS|FIRELOSS
 
-/obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
+/obj/item/nullrod/attack__legacy__attackchain(mob/M, mob/living/carbon/user)
 	..()
-	var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && V && HAS_MIND_TRAIT(M, TRAIT_HOLY))
-		if(!V.get_ability(/datum/vampire_passive/full))
-			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-			V.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
+	if(!sanctify_force)
+		return
+	if(isliving(M))
+		var/mob/living/L = M
+		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
@@ -50,14 +53,14 @@
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
 			user.Weaken(10 SECONDS)
-			user.unEquip(src, 1)
+			user.drop_item_to_ground(src, force = TRUE)
 			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
 			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 			throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 
-/obj/item/nullrod/attack_self(mob/user)
+/obj/item/nullrod/attack_self__legacy__attackchain(mob/user)
 	if(HAS_MIND_TRAIT(user, TRAIT_HOLY) && !reskinned)
 		reskin_holy_weapon(user)
 
@@ -96,14 +99,6 @@
 		return FALSE
 	return TRUE
 
-/obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
-	. = ..()
-	if(!sanctify_force)
-		return
-	if(isliving(AM))
-		var/mob/living/L = AM
-		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
-
 /// fluff subtype to be used for all donator nullrods
 /obj/item/nullrod/fluff
 	reskin_selectable = FALSE
@@ -137,7 +132,7 @@
 	item_state = "godstaff-red"
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 
 /obj/item/nullrod/staff/Initialize(mapload)
 	. = ..()
@@ -157,7 +152,7 @@
 	item_state = "claymore"
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK|SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -177,7 +172,7 @@
 	icon_state = "cultblade"
 	item_state = "darkbalde"
 	desc = "Spread the glory of the dark gods!"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
 
 /obj/item/nullrod/claymore/chainsaw_sword
@@ -186,7 +181,7 @@
 	icon_state = "chainswordon"
 	item_state = "chainswordon"
 	desc = "Suffer not a heretic to live."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
@@ -196,14 +191,14 @@
 	icon_state = "swordon"
 	item_state = "swordon"
 	desc = "The blade glows with the power of faith. Or possibly a battery."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/nullrod/claymore/katana
 	name = "hanzo steel"
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
@@ -211,7 +206,7 @@
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "multiverse"
 	item_state = "multiverse"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/nullrod/claymore/saber
 	name = "light energy blade"
@@ -220,7 +215,7 @@
 	icon_state = "swordblue"
 	item_state = "swordblue"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy blade"
@@ -241,7 +236,7 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 4.13
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -255,7 +250,7 @@
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration_flat = 30
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	sharp = TRUE
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/rapierhit.ogg'
@@ -296,7 +291,7 @@
 	obj_integrity = 100
 	var/possessed = FALSE
 
-/obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
+/obj/item/nullrod/scythe/talking/attack_self__legacy__attackchain(mob/living/user)
 	if(possessed)
 		return
 
@@ -332,7 +327,7 @@
 		qdel(S)
 	return ..()
 
-/obj/item/nullrod/scythe/talking/attackby(obj/item/I, mob/user, params)
+/obj/item/nullrod/scythe/talking/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/soulstone) || !possessed)
 		return ..()
 	if(obj_integrity >= max_integrity)
@@ -393,7 +388,7 @@
 	icon_state = "hammeron"
 	item_state = "hammeron"
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("smashed", "bashed", "hammered", "crunched")
 
@@ -428,7 +423,7 @@
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "fedora"
 	item_state = "fedora"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	force = 0
 	throw_speed = 4
 	throw_range = 7
@@ -476,7 +471,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	var/used_blessing = FALSE
 
-/obj/item/nullrod/carp/attack_self(mob/living/user)
+/obj/item/nullrod/carp/attack_self__legacy__attackchain(mob/living/user)
 	if(used_blessing)
 		return
 	if(user.mind && !HAS_MIND_TRAIT(user, TRAIT_HOLY))
@@ -496,7 +491,7 @@
 	item_state = "bostaff0"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 13
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	sharp = FALSE
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
@@ -549,7 +544,7 @@
 	throwforce = 0
 	var/praying = FALSE
 
-/obj/item/nullrod/rosary/attack(mob/living/carbon/M, mob/living/carbon/user)
+/obj/item/nullrod/rosary/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user)
 	if(!iscarbon(M))
 		return ..()
 
@@ -561,8 +556,8 @@
 		to_chat(user, "<span class='notice'>You are already using [src].</span>")
 		return
 
-	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [SSticker.Bible_deity_name].</span>",
-		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
+	user.visible_message("<span class='notice'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [SSticker.Bible_deity_name].</span>",
+		"<span class='notice'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
 
 	praying = TRUE
 	if(do_after(user, 15 SECONDS, target = M))
@@ -596,6 +591,16 @@
 		to_chat(user, "<span class='notice'>Your prayer to [SSticker.Bible_deity_name] was interrupted.</span>")
 		praying = FALSE
 
+
+/obj/item/nullrod/nazar
+	name = "nazar"
+	icon_state = "nazar"
+	item_state = null
+	desc = "A set of glass beads and amulet, which has been forged to provide powerful magic protection to the wielder."
+	force = 0
+	throwforce = 0
+	antimagic_type = ALL
+
 /obj/item/nullrod/salt
 	name = "Holy Salt"
 	icon = 'icons/obj/food/containers.dmi'
@@ -606,7 +611,7 @@
 	var/ghostcall_CD = 0
 
 
-/obj/item/nullrod/salt/attack_self(mob/user)
+/obj/item/nullrod/salt/attack_self__legacy__attackchain(mob/user)
 
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
@@ -614,8 +619,8 @@
 
 	if(!(ghostcall_CD > world.time))
 		ghostcall_CD = world.time + 5 MINUTES
-		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!</span>",
-		"<span class='info'>You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!</span>")
+		user.visible_message("<span class='notice'>[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!</span>",
+		"<span class='notice'>You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!</span>")
 		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
 		to_chat(user, "<span class='notice'>You need to wait before using [src] again.</span>")
@@ -631,7 +636,7 @@
 
 /obj/item/nullrod/rosary/bread/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(ishuman(user) && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND))
+	if(ishuman(user) && (slot & ITEM_SLOT_BOTH_HANDS))
 		START_PROCESSING(SSobj, src)
 	else
 		STOP_PROCESSING(SSobj, src)
@@ -648,8 +653,10 @@
 
 /obj/item/nullrod/rosary/bread/process()
 	var/mob/living/carbon/human/holder = loc
-	//would like to make the holder mime if they have it in on thier person in general
+	// would like to make the holder mime if they have it in on their person in general
 	for(var/mob/living/carbon/human/H in range(5, loc))
+		if(!H.mind)
+			continue
 		if(H.mind.assigned_role == "Clown" && !LAZYACCESS(smited_clowns, H))
 			LAZYSET(smited_clowns, H, TRUE)
 			H.Silence(20 SECONDS)
@@ -675,7 +682,7 @@
 	item_state = "godstaff-red"
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 
 	var/team_color = "red"
 	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
@@ -702,7 +709,7 @@
 		robes = null
 	return ..()
 
-/obj/item/nullrod/missionary_staff/attack_self(mob/user)
+/obj/item/nullrod/missionary_staff/attack_self__legacy__attackchain(mob/user)
 	if(robes)	//as long as it is linked, sec can't try to meta by stealing your staff and seeing if they get the link error message
 		return FALSE
 	if(!ishuman(user))		//prevents the horror (runtimes) of missionary xenos and other non-human mobs that might be able to activate the item
@@ -722,7 +729,7 @@
 		to_chat(missionary, "<span class='warning'>You must be wearing the missionary robes you wish to link with this staff.</span>")
 		return FALSE
 
-/obj/item/nullrod/missionary_staff/afterattack(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
+/obj/item/nullrod/missionary_staff/afterattack__legacy__attackchain(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
 	if(!ishuman(target) || !ishuman(missionary)) //ishuman checks
 		return
 	if(target == missionary)	//you can't convert yourself, that would raise too many questions about your own dedication to the cause

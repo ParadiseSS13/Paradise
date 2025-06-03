@@ -1,16 +1,16 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "h" = (
 /mob/living/simple_animal/hostile/asteroid/elite/pandora,
-/turf/simulated/floor/indestructible/hierophant/two,
+/turf/simulated/floor/indestructible/hierophant/two/normal_air,
+/area/tdome/arena)
+"m" = (
+/turf/simulated/floor/indestructible/hierophant/two/normal_air,
 /area/tdome/arena)
 "F" = (
 /turf/simulated/wall/indestructible/hierophant,
 /area/tdome/arena)
-"I" = (
-/turf/simulated/floor/indestructible/hierophant/two,
-/area/tdome/arena)
 "R" = (
-/turf/simulated/floor/indestructible/hierophant,
+/turf/simulated/floor/indestructible/hierophant/normal_air,
 /area/tdome/arena)
 
 (1,1,1) = {"
@@ -19,7 +19,7 @@ R
 R
 R
 R
-R
+m
 R
 "}
 (2,1,1) = {"
@@ -43,81 +43,81 @@ R
 (4,1,1) = {"
 R
 R
-I
-I
-I
+m
+m
+m
 R
 R
 "}
 (5,1,1) = {"
 R
 R
-I
-I
-I
+m
+m
+m
 R
 R
 "}
 (6,1,1) = {"
 R
-I
-I
-I
-I
-I
+m
+m
+m
+m
+m
 R
 "}
 (7,1,1) = {"
 R
-I
-I
-I
-I
-I
+m
+m
+m
+m
+m
 R
 "}
 (8,1,1) = {"
 F
 F
-I
+m
 h
-I
+m
 F
 F
 "}
 (9,1,1) = {"
 R
-I
-I
-I
-I
-I
+m
+m
+m
+m
+m
 R
 "}
 (10,1,1) = {"
 R
-I
-I
-I
-I
-I
+m
+m
+m
+m
+m
 R
 "}
 (11,1,1) = {"
 R
 R
-I
-I
-I
+m
+m
+m
 R
 R
 "}
 (12,1,1) = {"
 R
 R
-I
-I
-I
+m
+m
+m
 R
 R
 "}

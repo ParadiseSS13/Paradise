@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	/// Should we replace the role-banned player with a ghost?
 	var/replace_banned = TRUE
 	/// List of objectives connected to this datum.
-	var/datum/objective_holder/objective_holder
+	VAR_PRIVATE/datum/objective_holder/objective_holder
 	/// Antagonist datum specific information that appears in the player's notes. Information stored here will be removed when the datum is removed from the player.
 	var/antag_memory
 	/// The special role that will be applied to the owner's `special_role` var. i.e. `SPECIAL_ROLE_TRAITOR`, `SPECIAL_ROLE_VAMPIRE`.
@@ -39,8 +39,12 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_removal_text = "You are clumsy again."
 	/// The spawn class to use for gain/removal clown text
 	var/clown_text_span_class = "boldnotice"
+	/// If the antagonist can have their spoken voice be something else, this is the "voice" that they will appear as.
+	var/mimicking = ""
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
+	/// The organization, if any, this antag is associated with
+	var/datum/antag_org/organization
 
 	//Blurb stuff
 	/// Intro Blurbs text colour
@@ -167,6 +171,13 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return L
 
 /**
+ * Selects and set the organization this antag is associated with.
+ * Base proc, override as needed
+ */
+/datum/antagonist/proc/select_organization()
+	return
+
+/**
  * Adds this datum's antag hud to `antag_mob`.
  *
  * Arguments:
@@ -243,6 +254,12 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(ispath(objective_to_add))
 		objective_to_add = new objective_to_add()
 
+	// Roll to see if we target a specific department or random one
+	if(organization && prob(organization.focus))
+		if(organization.targeted_departments)
+			objective_to_add.target_department = pick(organization.targeted_departments)
+			objective_to_add.steal_list = organization.theft_targets
+
 	if(objective_to_add.owner)
 		stack_trace("[objective_to_add], [objective_to_add.type] was assigned as an objective to [owner] (mind), but already had an owner: [objective_to_add.owner] (mind). Overriding.")
 	objective_to_add.owner = owner
@@ -262,22 +279,22 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/has_antag_objectives(include_team = TRUE)
 	. = FALSE
-	if(include_team)
+	. |= objective_holder.has_objectives()
+	if(!. && include_team)
 		var/datum/team/team = get_team()
 		if(istype(team))
 			. |= team.objective_holder.has_objectives()
-	. |= objective_holder.has_objectives()
 
 /**
  * Get all of this antagonist's objectives, including from the team.
  */
 /datum/antagonist/proc/get_antag_objectives(include_team = TRUE)
 	. = list()
+	. |= objective_holder.get_objectives()
 	if(include_team)
 		var/datum/team/team = get_team()
 		if(istype(team))
 			. |= team.objective_holder.get_objectives()
-	. |= objective_holder.get_objectives()
 
 /**
  * Proc called when the datum is given to a mind.
@@ -285,6 +302,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/on_gain()
 	owner.special_role = special_role
 	add_owner_to_gamemode()
+	select_organization()
 	if(give_objectives)
 		give_objectives()
 	var/list/messages = list()
@@ -333,6 +351,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/replace_banned_player()
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [name]?", job_rank, TRUE, 10 SECONDS)
 	if(!length(candidates))
+		message_admins("[owner] ([owner.key]) has been converted into [name] with an active antagonist jobban for said role since no ghost has volunteered to take [owner.p_their()] place.")
+		to_chat(owner.current, "<span class='biggerdanger'>You have been converted into [name] with an active jobban. Your body was offered up but there were no ghosts to take over. You will be allowed to continue as [name], but any further violations of the rules on your part are likely to result in a permanent ban.</span>")
 		return FALSE
 	var/mob/dead/observer/C = pick(candidates)
 	to_chat(owner.current, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
@@ -379,6 +399,63 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/finalize_antag()
 	return
+
+/**
+ * Create and assign a full set of randomized, basic human traitor objectives.
+ * can_hijack - If you want the 5% chance for the antagonist to be able to roll hijack, only true for traitors
+ */
+/datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE)
+	// Hijack objective.
+	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+		add_antag_objective(/datum/objective/hijack)
+		return // Hijack should be their only objective (normally), so return.
+
+	// Will give normal steal/kill/etc. type objectives.
+	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
+		forge_single_human_objective()
+
+	var/can_succeed_if_dead = TRUE
+	for(var/datum/objective/O in owner.get_all_objectives())
+		if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
+			can_succeed_if_dead = FALSE
+			break
+
+	// Give them an escape objective if they don't have one already.
+	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
+		add_antag_objective(/datum/objective/escape)
+
+
+/**
+ * Create and assign a single randomized human traitor objective.
+ */
+/datum/antagonist/proc/forge_single_human_objective()
+	var/datum/objective/objective_to_add
+
+	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
+	if(organization && length(organization.objectives) && prob(organization.focus))
+		objective_to_add = pick(organization.objectives)
+	else
+		if(prob(50))
+			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+				objective_to_add = /datum/objective/destroy
+
+			else if(prob(5))
+				objective_to_add = /datum/objective/debrain
+
+			else if(prob(30))
+				objective_to_add = /datum/objective/maroon
+
+			else if(prob(30))
+				objective_to_add = /datum/objective/assassinateonce
+
+			else
+				objective_to_add = /datum/objective/assassinate
+		else
+			objective_to_add = /datum/objective/steal
+
+	if(delayed_objectives)
+		objective_to_add = new /datum/objective/delayed(objective_to_add)
+	add_antag_objective(objective_to_add)
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()

@@ -12,6 +12,13 @@
 	containertype = /obj/structure/largecrate
 	containername = "fuel tank crate"
 
+/datum/supply_packs/engineering/foamtank
+	name = "Firefighting Foam Tank Crate"
+	contains = list(/obj/structure/reagent_dispensers/watertank/firetank)
+	cost = 150
+	containertype = /obj/structure/largecrate
+	containername = "firefighting foam tank crate"
+
 /// the most robust crate
 /datum/supply_packs/engineering/tools
 	name = "Toolbox Crate"
@@ -122,8 +129,8 @@
 	containername = "field generator crate"
 
 /datum/supply_packs/engineering/engine/sing_gen
-	name = "Singularity Generator Crate"
-	contains = list(/obj/machinery/the_singularitygen)
+	name = "Singularity Generator And Console Circuitboard Crate"
+	contains = list(/obj/machinery/the_singularitygen, /obj/item/circuitboard/singulo_monitor)
 	cost = 350
 	containername = "singularity generator crate"
 
@@ -156,7 +163,7 @@
 	cost = 100
 	containername = "collector crate"
 
-/datum/supply_packs/engineering/engine/PA
+/datum/supply_packs/engineering/engine/particle_accelerator
 	name = "Particle Accelerator Crate"
 	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
 					/obj/machinery/particle_accelerator/control_box,
@@ -167,6 +174,12 @@
 					/obj/structure/particle_accelerator/end_cap)
 	cost = 250
 	containername = "particle accelerator crate"
+
+/datum/supply_packs/engineering/transmission_laser
+	name = "Power Transmission Laser Circuitboard"
+	cost = 1500
+	contains = list(/obj/item/circuitboard/machine/transmission_laser)
+	containername = "power transmission laser circuitboard crate"
 
 /datum/supply_packs/engineering/radiation
 	name = "Radiation Protection Crate"
@@ -264,3 +277,17 @@
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "Plasma canister crate"
+
+/datum/supply_packs/engineering/chemical_flamethrower
+	name = "Chemical Flamethrower Starter Pack"
+	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
+	cost = 750
+	containertype = /obj/structure/closet/crate // Just a normal open crate, you can get a gas flamethrower from an autolathe
+	containername = "chemical flamethrower crate"
+
+/datum/supply_packs/engineering/chemical_canister
+	name = "Chemical Flamethrower Canister Pack"
+	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
+	cost = 500
+	containertype = /obj/structure/closet/crate
+	containername = "chemical flamethrower canister crate"

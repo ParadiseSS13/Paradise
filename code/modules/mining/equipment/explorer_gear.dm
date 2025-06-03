@@ -58,6 +58,7 @@
 	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/melee/spellblade)
 	hide_tail_by_species = list("Vox", "Vulpkanin", "Unathi", "Tajaran")
+	dyeable = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -68,6 +69,9 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
 	)
 
+/obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -118,12 +122,13 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	dyeable = FALSE
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 
-/obj/item/clothing/head/space/prisoner_gulag
+/obj/item/clothing/head/helmet/space/prisoner_gulag
 	name = "gulag helmet"
 	desc = "A metallic helmet designed to operate with the mining suit, while dense it offers little protection aside heat."
 	icon_state = "hardsuit_gulag"

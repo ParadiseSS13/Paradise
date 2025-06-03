@@ -7,7 +7,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers
 	name = "Scrubbers pipe"
-	desc = "A one meter section of scrubbers pipe"
+	desc = "A one meter section of scrubbers pipe."
 	icon_state = "intact-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -22,7 +22,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/visible/supply
 	name = "Air supply pipe"
-	desc = "A one meter section of supply pipe"
+	desc = "A one meter section of supply pipe."
 	icon_state = "intact-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
@@ -54,8 +54,8 @@
 	color = PIPE_COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal
-	name="Universal pipe adapter"
-	desc = "An adapter for regular, supply and scrubbers pipes"
+	name = "Universal pipe adapter"
+	desc = "An adapter for regular, supply and scrubbers pipes."
 	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER)
 	icon_state = "map_universal"
 
@@ -66,7 +66,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_overlays()
 	. = list()
 	alpha = 255
-	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
+	. += GLOB.pipe_icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_underlays()

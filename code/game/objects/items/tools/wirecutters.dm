@@ -1,11 +1,11 @@
 /obj/item/wirecutters
 	name = "wirecutters"
-	desc = "This cuts wires."
+	desc = "A small pair of wirecutters, used for snipping electrical cabling. The handgrips are made of cheap plastic, and will not protect against electrical shocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
 	belt_icon = "wirecutters_red"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 6
 	throw_speed = 3
 	throw_range = 7
@@ -23,6 +23,13 @@
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
 
+	new_attack_chain = TRUE
+
+/obj/item/wirecutters/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
+
 /obj/item/wirecutters/New(loc, param_color = null)
 	..()
 	if(random_color)
@@ -31,16 +38,15 @@
 		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
 
-/obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
-	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
-		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		QDEL_NULL(C.handcuffed)
-		if(C.buckled && C.buckled.buckle_requires_restraints)
-			C.buckled.unbuckle_mob(C)
-		C.update_handcuffed()
-		return
-	else
-		return ..()
+/obj/item/wirecutters/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	var/mob/living/carbon/mob = target
+	if(istype(mob) && mob.handcuffed && istype(mob.handcuffed, /obj/item/restraints/handcuffs/cable))
+		user.visible_message("<span class='notice'>[user] cuts [mob]'s restraints with [src]!</span>")
+		QDEL_NULL(mob.handcuffed)
+		if(mob.buckled && mob.buckled.buckle_requires_restraints)
+			mob.unbuckle()
+		mob.update_handcuffed()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -60,7 +66,7 @@
 
 /obj/item/wirecutters/security
 	name = "security wirecutters"
-	desc = "A pair of wirecutters with a tactical grip and robust build."
+	desc = "A pair of tacticool wirecutters fitted with contoured grips and a picatinny rail. The blades are also sharper than normal."
 	icon_state = "cutters_sec"
 	belt_icon = "wirecutters_sec"
 	item_state = "cutters_red" //shh
@@ -85,7 +91,7 @@
 	new /obj/item/restraints/handcuffs/cable/zipties/used(user.loc)
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	user.dust()
 	return OBLITERATION
@@ -94,13 +100,14 @@
 	name = "brass wirecutters"
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
 	icon_state = "cutters_brass"
+	belt_icon = "wirecutters_brass"
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"
-	desc = "This cuts wires."
+	desc = "A pair of integrated wirecutters used by construction and engineering robots."
 	toolspeed = 0.5
 
 /obj/item/wirecutters/cyborg/drone
@@ -111,7 +118,7 @@
 
 /obj/item/wirecutters/power
 	name = "jaws of life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
+	desc = "A compact and powerful industrial tool with a modular head. This one has a set of large cutting blades attached."
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
 	belt_icon = "jaws"
@@ -145,9 +152,17 @@
 
 	return OXYLOSS
 
-/obj/item/wirecutters/power/attack_self(mob/user)
+/obj/item/wirecutters/power/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
 	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.on_detached()
+		bit.forceMove(pryjaws)
+		pryjaws.attached_bits += bit
+		bit.on_attached(pryjaws)
 	qdel(src)
 	user.put_in_active_hand(pryjaws)

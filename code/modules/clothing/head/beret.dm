@@ -9,6 +9,7 @@
 	dog_fashion = /datum/dog_fashion/head/beret
 
 	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi'
 		)
 
@@ -20,6 +21,11 @@
 
 /obj/item/clothing/head/beret/white
 	icon_state = "beret_white"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 /obj/item/clothing/head/beret/purple_normal
 	icon_state = "beret_purple_normal"
@@ -60,6 +66,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 		)
 
 /obj/item/clothing/head/beret/captain/white
@@ -74,7 +81,7 @@
 	icon_state = "beret_hos_black"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
-	dog_fashion = /datum/dog_fashion/head/HoS
+	dog_fashion = /datum/dog_fashion/head/hos
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
@@ -84,7 +91,7 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/beret/sec
 
-/obj/item/clothing/head/beret/sec/warden
+/obj/item/clothing/head/beret/warden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
 	icon_state = "beret_warden"
@@ -95,18 +102,44 @@
 	name = "chief engineer's beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
 	icon_state = "beret_ce"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 /obj/item/clothing/head/beret/eng
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
 	icon_state = "beret_engineering"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 /obj/item/clothing/head/beret/atmos
 	name = "atmospherics beret"
 	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
 	icon_state = "beret_atmospherics"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 //Science
+/obj/item/clothing/head/beret/rd
+	name = "research director's beret"
+	desc = "A purple beret with a gold science insignia emblazoned on it. Stop your scientists blowing up your department in style."
+	icon_state = "beret_rd"
+	dog_fashion = /datum/dog_fashion/head/rd
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
 	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic smell of burning plasma."
@@ -132,14 +165,31 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 		)
 
 /obj/item/clothing/head/beret/janitor
 	name = "janitorial beret"
 	desc = "A purple beret with a mint service insignia emblazoned on it. It smells squeaky clean."
 	icon_state = "beret_janitor"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 //Medical
+/obj/item/clothing/head/beret/cmo
+	name = "chief medical officer's beret"
+	desc = "A blue beret with a gold medical insignia emblazoned on it. Keep your doctors in line with style."
+	icon_state = "beret_cmo"
+	dog_fashion = /datum/dog_fashion/head/cmo
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
 /obj/item/clothing/head/beret/med
 	name = "medical beret"
 	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
@@ -153,7 +203,8 @@
 	dog_fashion = /datum/dog_fashion/head/qm
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 	)
 
 /obj/item/clothing/head/beret/cargo
@@ -162,7 +213,8 @@
 	icon_state = "beret_cargo"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 	)
 
 /obj/item/clothing/head/beret/expedition
@@ -174,13 +226,47 @@
 	strip_delay = 6 SECONDS
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 		)
 
+/obj/item/clothing/head/beret/smith
+	name = "smith's beret"
+	desc = "A brown beret with a black insignia emblazoned on it. Won't help you against the atmosphere of the planet, but will look stylish."
+	icon_state = "beret_smith"
+	item_color = "beret_smith"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+//NT Career Trainer
+/obj/item/clothing/head/beret/nct/black
+	name = "\improper NT Career Trainer's beret"
+	desc = "A beret worn by the mentors and trainers of the Career Training Team. This one is black!"
+	icon_state = "beret_trainerblack"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/nct/green
+	name = "\improper NT Career Trainer's beret"
+	desc = "A beret worn by the mentors and trainers of the Career Training Team. This one is green!"
+	icon_state = "beret_trainergreen"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 //Special Roles
-/obj/item/clothing/head/beret/solgov/command
-	name = "\improper Trans-Solar Federation Lieutenant's beret"
+/obj/item/clothing/head/beret/solgov
+	name = "\improper TSF Lieutenant's beret"
 	desc = "A beret worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "beret_solgovc"
 	item_color = "solgovc"
@@ -188,9 +274,9 @@
 	armor = list(MELEE = 10, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
 
-/obj/item/clothing/head/beret/solgov/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
-	desc = "A beret worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
+/obj/item/clothing/head/beret/solgov/elite
+	name = "\improper MARSOC Lieutenant's beret"
+	desc = "A beret worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. The insignia signifies the wearer bears the rank of a Lieutenant."
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "beret_solgovcelite"
 	item_color = "solgovcelite"

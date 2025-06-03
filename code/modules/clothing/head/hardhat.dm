@@ -17,7 +17,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
-/obj/item/clothing/head/hardhat/attack_self(mob/living/user)
+/obj/item/clothing/head/hardhat/attack_self__legacy__attackchain(mob/living/user)
 	toggle_helmet_light(user)
 
 /obj/item/clothing/head/hardhat/proc/toggle_helmet_light(mob/living/user)
@@ -34,9 +34,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_head()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/hardhat/proc/turn_on(mob/user)
 	set_light(brightness_on)
@@ -90,9 +88,11 @@
 /obj/item/clothing/head/hardhat/atmos
 	name = "atmospheric technician's firefighting helmet"
 	desc = "A firefighter's helmet, able to keep the user cool in any situation."
+	icon = 'icons/obj/clothing/head/utility.dmi'
+	icon_override = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "hardhat0_atmos"
-	item_state = "hardhat0_atmos"
 	item_color = "atmos"
+	item_state = 'icons/mob/clothing/head/utility.dmi'
 	flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	heat_protection = HEAD
@@ -101,6 +101,11 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/head/utility.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head/utility.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head/utility.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head/utility.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/utility.dmi'
+	)

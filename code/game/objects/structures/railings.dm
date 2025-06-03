@@ -5,6 +5,7 @@
 	icon_state = "railing"
 	density = TRUE
 	anchored = TRUE
+	flags_2 = RAD_NO_CONTAMINATE_2
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
@@ -12,8 +13,16 @@
 	var/currently_climbed = FALSE
 	var/mover_dir = null
 
+/obj/structure/railing/Initialize(mapload)
+	. = ..()
+	if(density && flags & ON_BORDER) // blocks normal movement from and to the direction it's facing.
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/structure/railing/get_climb_text()
-	return "<span class='info'>You can <b>Click-Drag</b> yourself to [src] to climb over it after a short delay.</span>"
+	return "<span class='notice'>You can <b>Click-Drag</b> yourself to [src] to climb over it after a short delay.</span>"
 
 /// aesthetic corner sharp edges hurt oof ouch
 /obj/structure/railing/corner
@@ -33,7 +42,7 @@
 /obj/structure/railing/cap/reversed
 	icon_state = "railing_cap_reversed"
 
-/obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/railing/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	..()
 	add_fingerprint(user)
 
@@ -87,8 +96,8 @@
 /obj/structure/railing/corner/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE
 
-/obj/structure/railing/corner/CheckExit()
-	return TRUE
+/obj/structure/railing/corner/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	return
 
 /obj/structure/railing/cap/CanPass()
 	return TRUE
@@ -96,25 +105,24 @@
 /obj/structure/railing/cap/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE
 
-/obj/structure/railing/cap/CheckExit()
-	return TRUE
+/obj/structure/railing/cap/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	return
 
-/obj/structure/railing/CanPass(atom/movable/mover, turf/target)
+/obj/structure/railing/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
 	if(isprojectile(mover))
 		return TRUE
 	if(ismob(mover))
 		var/mob/living/M = mover
-		if(M.flying || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
+		if(HAS_TRAIT(M, TRAIT_FLYING) || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(mover.throwing)
 		return TRUE
-	mover_dir = get_dir(loc, target)
 	//Due to how the other check is done, it would always return density for ordinal directions no matter what
-	if(ordinal_direction_check(mover_dir))
+	if(ordinal_direction_check(border_dir))
 		return FALSE
-	if(mover_dir != dir)
+	if(border_dir != dir)
 		return density
 	return FALSE
 
@@ -126,27 +134,27 @@
 
 	return TRUE
 
-/obj/structure/railing/CheckExit(atom/movable/O, target)
-	var/mob/living/M = O
-	if(istype(O) && O.checkpass(PASSFENCE))
-		return TRUE
-	if(isprojectile(O))
-		return TRUE
+/obj/structure/railing/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	var/mob/living/M = leaving
+	if(istype(leaving) && leaving.checkpass(PASSFENCE))
+		return
+	if(isprojectile(leaving))
+		return
 	if(istype(M))
-		if(M.flying || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
-			return TRUE
-	if(O.throwing)
-		return TRUE
-	if(O.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
-		return TRUE
+		if(HAS_TRAIT(M, TRAIT_FLYING) || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
+			return
+	if(leaving.throwing)
+		return
+	if(leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
+		return
 	if(currently_climbed)
-		return TRUE
-	mover_dir = get_dir(O.loc, target)
-	if(mover_dir == dir)
-		return FALSE
-	if(ordinal_direction_check(mover_dir))
-		return FALSE
-	return TRUE
+		return
+	if(direction == dir)
+		return COMPONENT_ATOM_BLOCK_EXIT
+	if(ordinal_direction_check(direction))
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 // Checks if the direction the mob is trying to move towards would be blocked by a corner railing
 /obj/structure/railing/proc/ordinal_direction_check(check_dir)
@@ -165,7 +173,7 @@
 				return TRUE
 	return FALSE
 
-/obj/structure/railing/do_climb(mob/living/user)
+/obj/structure/railing/start_climb(mob/living/user)
 	var/initial_mob_loc = get_turf(user)
 	. = ..()
 	if(.)

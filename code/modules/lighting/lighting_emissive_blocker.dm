@@ -11,6 +11,7 @@
 	layer = FLOAT_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+	flags_2 = RAD_NO_CONTAMINATE_2
 
 /atom/movable/emissive_blocker/Initialize(mapload, source)
 	. = ..()
@@ -31,8 +32,8 @@
 /atom/movable/emissive_blocker/blob_act()
 	return
 
-/atom/movable/emissive_blocker/onTransitZ()
-	return
+/atom/movable/emissive_blocker/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = FALSE)
+	return ..()
 
 //Prevents people from moving these after creation, because they shouldn't be.
 /atom/movable/emissive_blocker/forceMove(atom/destination, no_tp = FALSE, harderforce = FALSE)

@@ -43,34 +43,35 @@
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
 	return
 
-/obj/machinery/keycard_auth/attackby(obj/item/W, mob/user, params)
+/obj/machinery/keycard_auth/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(stat & (NOPOWER|BROKEN))
 		to_chat(user, "This device is not powered.")
-		return
-	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
-		if(!check_access(W))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
+		if(!check_access(used))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(user == event_source?.triggered_by)
 			to_chat(user, "<span class='warning'>Identical body-signature detected. Access denied.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(active)
 			//This is not the device that made the initial request. It is the device confirming the request.
 			if(!event_source)
-				return
+				return ITEM_INTERACT_COMPLETE
 			event_source.confirmed_by = user
 			SStgui.update_uis(event_source)
 			SStgui.update_uis(src)
 			event_source.confirm_and_trigger()
 			reset()
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(swiping)
 			if(event == "Emergency Response Team" && !ert_reason)
 				to_chat(user, "<span class='warning'>Supply a reason for calling the ERT first!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 			triggered_by = user
 			SStgui.update_uis(src)
 			broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
+
 	return ..()
 
 /obj/machinery/keycard_auth/power_change()
@@ -143,7 +144,7 @@
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
 	set_light(1, LIGHTING_MINIMUM_POWER)
-	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
+	for(var/obj/machinery/keycard_auth/KA in SSmachines.get_by_type(/obj/machinery/keycard_auth))
 		if(KA == src)
 			continue
 		KA.receive_request(src)
@@ -177,13 +178,13 @@
 		if("Red Alert")
 			INVOKE_ASYNC(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_RED)
 		if("Grant Emergency Maintenance Access")
-			make_maint_all_access()
+			SSmapping.make_maint_all_access()
 		if("Revoke Emergency Maintenance Access")
-			revoke_maint_all_access()
+			SSmapping.revoke_maint_all_access()
 		if("Activate Station-Wide Emergency Access")
-			make_station_all_access()
+			SSmapping.make_station_all_access()
 		if("Deactivate Station-Wide Emergency Access")
-			revoke_station_all_access()
+			SSmapping.revoke_station_all_access()
 		if("Emergency Response Team")
 			if(is_ert_blocked())
 				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
@@ -204,7 +205,7 @@
 				return
 
 			ERT_Announce(ert_reason, triggered_by, repeat_warning = FALSE)
-			addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, triggered_by), 15 MINUTES)
+			addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, triggered_by), 5 MINUTES)
 			ert_reason = null
 
 /obj/machinery/keycard_auth/proc/remind_admins(old_reason, the_triggerer) // im great at naming variables
@@ -215,43 +216,3 @@
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled
-
-GLOBAL_VAR_INIT(maint_all_access, 0)
-GLOBAL_VAR_INIT(station_all_access, 0)
-
-// Why are these global procs?
-/proc/make_maint_all_access()
-	for(var/area/station/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
-		for(var/obj/machinery/door/airlock/D in A)
-			D.emergency = 1
-			D.update_icon()
-	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
-	GLOB.maint_all_access = 1
-	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
-
-/proc/revoke_maint_all_access()
-	for(var/area/station/maintenance/A in world)
-		for(var/obj/machinery/door/airlock/D in A)
-			D.emergency = 0
-			D.update_icon()
-	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
-	GLOB.maint_all_access = 0
-	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
-
-/proc/make_station_all_access()
-	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
-		if(is_station_level(D.z))
-			D.emergency = 1
-			D.update_icon()
-	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
-	GLOB.station_all_access = 1
-	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
-
-/proc/revoke_station_all_access()
-	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
-		if(is_station_level(D.z))
-			D.emergency = 0
-			D.update_icon()
-	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
-	GLOB.station_all_access = 0
-	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))

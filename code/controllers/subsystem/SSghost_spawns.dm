@@ -43,8 +43,8 @@ SUBSYSTEM_DEF(ghost_spawns)
   * * source - The atom, atom prototype, icon or mutable appearance to display as an icon in the alert
   * * role_cleanname - The name override to display to clients
   */
-/datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
-	log_debug("Polling candidates [role ? "for [role_cleanname || get_roletext(role)]" : "\"[question]\""] for [poll_time / 10] seconds")
+/datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname, reason, dont_play_notice_sound = FALSE)
+	log_debug("Polling candidates [role ? "for [role_cleanname || role]" : "\"[question]\""] for [poll_time / 10] seconds")
 
 	// Start firing
 	polls_active = TRUE
@@ -63,8 +63,8 @@ SUBSYSTEM_DEF(ghost_spawns)
 	for(var/mob/M in (GLOB.player_list))
 		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
-
-		SEND_SOUND(M, notice_sound)
+		if(!dont_play_notice_sound)
+			SEND_SOUND(M, notice_sound)
 		if(flash_window)
 			window_flash(M.client)
 
@@ -132,7 +132,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(isatom(source))
 			act_jump = "<a href='byond://?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
 		var/act_signup = "<a href='byond://?src=[A.UID()];signup=1'>\[Sign Up]</a>"
-		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [role_cleanname || get_roletext(role)]" : "\"[question]\""]. [act_jump] [act_signup] [reason ? "<i>\nReason: [sanitize(reason)]</i>" : ""]</span></big>")
+		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [role_cleanname || role]" : "\"[question]\""]. [act_jump] [act_signup] [reason ? "<i>\nReason: [sanitize(reason)]</i>" : ""]</span></big>", MESSAGE_TYPE_DEADCHAT)
 
 		// Start processing it so it updates visually the timer
 		START_PROCESSING(SSprocessing, A)
@@ -196,7 +196,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 	// Trim players who aren't eligible anymore
 	var/len_pre_trim = length(P.signed_up)
 	P.trim_candidates()
-	log_debug("Candidate poll [P.role ? "for [get_roletext(P.role)]" : "\"[P.question]\""] finished. [len_pre_trim] players signed up, [length(P.signed_up)] after trimming")
+	log_debug("Candidate poll [P.role ? "for [P.role]" : "\"[P.question]\""] finished. [len_pre_trim] players signed up, [length(P.signed_up)] after trimming")
 
 	P.finished = TRUE
 	currently_polling -= P

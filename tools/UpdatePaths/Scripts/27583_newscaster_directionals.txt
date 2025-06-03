@@ -1,0 +1,16 @@
+/obj/machinery/newscaster/security_unit{dir=1;name="south bump";pixel_y=-28} : /obj/machinery/newscaster/security_unit/directional/south
+/obj/machinery/newscaster/security_unit{dir=4;name="west bump";pixel_x=-28} : /obj/machinery/newscaster/security_unit/directional/west
+/obj/machinery/newscaster/security_unit{dir=8;name="east bump";pixel_x=28} : /obj/machinery/newscaster/security_unit/directional/east
+/obj/machinery/newscaster/security_unit{dir=8;name="west bump";pixel_x=28} : /obj/machinery/newscaster/security_unit/directional/east
+/obj/machinery/newscaster/security_unit{name="north bump";pixel_y=28} : /obj/machinery/newscaster/security_unit/directional/north
+/obj/machinery/newscaster{desc="A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";name="custom placement";pixel_x=27} : /obj/machinery/newscaster/directional/east{desc="A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."}
+/obj/machinery/newscaster{desc="A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station.";name="custom placement";pixel_x=30} : /obj/machinery/newscaster/directional/east{desc="A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Union station."}
+/obj/machinery/newscaster{dir=1;name="south bump";pixel_y=-28} : /obj/machinery/newscaster/directional/south
+/obj/machinery/newscaster{dir=4;name="west bump";pixel_x=-28} : /obj/machinery/newscaster/directional/west
+/obj/machinery/newscaster{dir=8;name="east bump";pixel_x=28} : /obj/machinery/newscaster/directional/east
+/obj/machinery/newscaster{name="north bump";pixel_y=28} : /obj/machinery/newscaster/directional/north
+/obj/machinery/newscaster{name="south bump";pixel_y=-32} : /obj/machinery/newscaster/directional/south
+/obj/machinery/newscaster{pixel_x=-30} : /obj/machinery/newscaster/directional/west
+/obj/machinery/newscaster{pixel_y=-30} : /obj/machinery/newscaster/directional/south
+/obj/machinery/newscaster{pixel_y=30} : /obj/machinery/newscaster/directional/north
+/obj/machinery/newscaster{pixel_y=32} : /obj/machinery/newscaster/directional/north

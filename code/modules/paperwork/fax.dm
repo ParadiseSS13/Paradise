@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	var/list/reply_to = null
 
 /datum/fax/admin/New()
-	GLOB.adminfaxes += src
+	return
 
 // Fax panel - lets admins check all faxes sent during the round
 /client/proc/fax_panel()
@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	html += "<div class='block'>"
 	html += "<h2>Admin Faxes</h2>"
 	html += "<table>"
-	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='50px'>View</td><td width='50px'>Reply</td><td width='75px'>Replied To</td></td></tr>"
+	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='50px'>View</td><td width='50px'>Reply</td><td width='75px'>Replied To</td></tr>"
 	for(var/datum/fax/admin/A in GLOB.adminfaxes)
 		html += "<tr>"
 		html += "<td>[A.name]</td>"
@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	html += "<div class='block'>"
 	html += "<h2>Departmental Faxes</h2>"
 	html += "<table>"
-	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='175px'>View</td></td></tr>"
+	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='175px'>View</td></tr>"
 	for(var/datum/fax/F in GLOB.faxes)
 		html += "<tr>"
 		html += "<td>[F.name]</td>"

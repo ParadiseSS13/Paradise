@@ -1,6 +1,6 @@
 /obj/machinery/computer/arcade
 	name = "random arcade"
-	desc = "random arcade machine"
+	desc = "random arcade machine."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "arcade"
 	icon_keyboard = null
@@ -39,13 +39,13 @@
 		return
 	var/num_of_prizes = 0
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			num_of_prizes = rand(1,4)
-		if(2)
+		if(EMP_LIGHT)
 			num_of_prizes = rand(0,2)
 	for(var/i = num_of_prizes; i > 0; i--)
 		prizevend()
-	explosion(get_turf(src), -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes)
+	explosion(get_turf(src), -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes, cause = "EMP'd arcade machine")
 
 
 /obj/machinery/computer/arcade/battle
@@ -992,7 +992,7 @@
 		else
 			. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
 
-/obj/item/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
+/obj/item/orion_ship/attack_self__legacy__attackchain(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)
 		return
 
@@ -1012,7 +1012,7 @@
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 	sleep(3.6)
 	visible_message("<span class='userdanger'>[src] explodes!</span>")
-	explosion(src.loc, 1,2,4, flame_range = 3)
+	explosion(src.loc, 1,2,4, flame_range = 3, cause = "Orion Ship Minibomb")
 	qdel(src)
 
 

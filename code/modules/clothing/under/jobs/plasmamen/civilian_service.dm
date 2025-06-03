@@ -19,6 +19,12 @@
 	item_state = "explorer_envirosuit"
 	item_color = "explorer_envirosuit"
 
+/obj/item/clothing/under/plasmaman/smith
+	name = "smith envirosuit"
+	desc = "An airtight brown and black suit designed for safety around hot metal for plasmamen."
+	icon_state = "smith_envirosuit"
+	item_state = "smith_envirosuit"
+	item_color = "smith_envirosuit"
 
 /obj/item/clothing/under/plasmaman/chef
 	name = "chef's plasma envirosuit"
@@ -126,3 +132,18 @@
 	icon_state = "coke_envirosuit"
 	item_state = "coke_envirosuit"
 	item_color = "coke_envirosuit"
+
+/obj/item/clothing/under/plasmaman/tacticool
+	name = "tactical envirosuit"
+	desc = "An envirosuit designed to be sleek and tactical, forged on unknown parts of Boron."
+	icon_state = "tacticool_envirosuit"
+	item_state = "tacticool_envirosuit"
+	item_color = "tacticool_envirosuit"
+	has_sensor = FALSE
+
+/obj/item/clothing/under/plasmaman/trainer
+	name = "\improper NT career trainer's envirosuit"
+	desc = "An envirosuit designed for plasmamen employed as the nanotrasen career trainer."
+	icon_state = "trainer_envirosuit"
+	item_state = "trainer_envirosuit"
+	item_color = "trainer_envirosuit"

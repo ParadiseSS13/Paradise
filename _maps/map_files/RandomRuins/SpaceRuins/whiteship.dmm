@@ -3,33 +3,24 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"bE" = (
+/obj/effect/spawner/random/pool/whiteship_mob,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "cf" = (
-/obj/effect/spawner/random_spawners/oil_often,
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"cA" = (
-/obj/structure/table,
-/obj/item/scalpel{
-	pixel_y = 7
+/obj/effect/spawner/random/oil/often,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/effect/spawner/random/pool/whiteship_mob,
+/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "em" = (
 /obj/effect/spawner/airlock/w_to_e/long/square,
 /turf/simulated/wall/mineral/titanium,
-/area/shuttle/abandoned)
-"eo" = (
-/obj/structure/sign/greencross,
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/abandoned)
-"ez" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "eE" = (
 /obj/machinery/computer/nonfunctional{
@@ -52,19 +43,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"fI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"gd" = (
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
 "hz" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -78,42 +56,18 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"jn" = (
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 "ka" = (
 /turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "kO" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"nC" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
-"oh" = (
-/obj/structure/table,
-/obj/item/tank/internals/oxygen{
-	pixel_y = 1;
-	pixel_x = -2
-	},
-/obj/item/tank/internals/oxygen{
-	pixel_x = 3;
-	pixel_y = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
+"lp" = (
+/turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
 "qm" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/abandoned)
-"qF" = (
-/obj/machinery/economy/vending/coffee,
-/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "qK" = (
 /obj/structure/table/reinforced,
@@ -138,32 +92,18 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "sk" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "sm" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/machinery/door/airlock/titanium,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"sK" = (
-/obj/structure/table/wood/poker,
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 "tV" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1
-	},
+/obj/machinery/door/airlock/multi_tile/glass/directional/north,
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"uo" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	pixel_y = 2
-	},
-/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "ux" = (
 /turf/simulated/floor/plating,
@@ -176,9 +116,9 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "vz" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
@@ -189,32 +129,14 @@
 /obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"ws" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
 "wF" = (
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"wN" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/glass{
-	amount = 10;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/metal{
-	amount = 10
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "xz" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/whiteship_mob,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "ys" = (
@@ -234,14 +156,7 @@
 	id = "whiteship_away";
 	name = "Deep Space"
 	},
-/obj/docking_port/mobile{
-	dir = 8;
-	id = "whiteship";
-	name = "NEV Cherub";
-	dwidth = 6;
-	height = 19;
-	width = 12
-	},
+/obj/docking_port/mobile/whiteship,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "yF" = (
@@ -250,6 +165,10 @@
 /area/shuttle/abandoned)
 "zH" = (
 /obj/machinery/light/small,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "zM" = (
@@ -275,11 +194,6 @@
 /obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"Ct" = (
-/obj/structure/table/wood/poker,
-/obj/item/deck/cards,
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 "CE" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -293,76 +207,44 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
+"FK" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/medbay,
+/turf/template_noop,
+/area/template_noop)
 "Gs" = (
 /obj/structure/table/reinforced,
 /obj/item/analyzer,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
-"GX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/door/airlock/titanium,
+"HU" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/storage,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"Jf" = (
-/obj/structure/chair/wood,
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 "Kd" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"KX" = (
-/obj/structure/bed,
-/obj/item/bedsheet,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
-"Mj" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 "Mp" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet,
 /obj/item/gps/ruin{
 	gpstag = "NT Medical Ship";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"ML" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
 "Of" = (
 /turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
-"Pe" = (
-/obj/structure/chair/wood,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
-"Pi" = (
-/obj/structure/closet/crate/can,
-/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "Pu" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"Ro" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
+"Qb" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/gun_room,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "SS" = (
 /obj/structure/chair/comfy/shuttle{
@@ -371,31 +253,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "Vd" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"VD" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"WJ" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/canister/air,
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"WX" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
-"Xq" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet,
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "Yr" = (
@@ -404,27 +262,41 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
-"YH" = (
-/obj/structure/table/wood/poker,
-/obj/item/gun/energy/laser/retro,
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 
 (1,1,1) = {"
 zM
 zM
 zM
 zM
-zO
-Fr
-Fr
-zO
+zM
+zM
+zM
+zM
+zM
+zM
 zM
 zM
 zM
 zM
 "}
 (2,1,1) = {"
+zM
+zM
+zM
+zM
+zM
+zO
+Fr
+Fr
+zO
+zM
+zM
+zM
+zM
+zM
+"}
+(3,1,1) = {"
+zM
 zM
 zM
 zM
@@ -437,8 +309,10 @@ zO
 zM
 zM
 zM
+zM
 "}
-(3,1,1) = {"
+(4,1,1) = {"
+zM
 zM
 zM
 zM
@@ -451,8 +325,10 @@ zO
 zM
 zM
 zM
+zM
 "}
-(4,1,1) = {"
+(5,1,1) = {"
+zM
 zM
 zM
 zM
@@ -465,8 +341,10 @@ zO
 zM
 zM
 zM
+zM
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+zM
 zM
 zO
 zO
@@ -478,9 +356,11 @@ zO
 zO
 zO
 zO
+FK
 zM
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+zM
 zM
 zO
 eW
@@ -489,16 +369,18 @@ zO
 jk
 vB
 zO
-WX
-cA
+Of
+Of
 zO
 zM
+zM
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+zM
 zM
 zO
 AS
-vB
+bE
 wh
 vB
 vB
@@ -507,106 +389,122 @@ Of
 Of
 zO
 zM
-"}
-(8,1,1) = {"
-zO
-zO
-zO
-zO
-zO
-kO
-vB
-gd
-Of
-Of
-zO
-zO
+zM
 "}
 (9,1,1) = {"
-Fr
-uo
-qF
-Pi
+zM
+zO
+zO
+zO
+zO
+Qb
+kO
+vB
+Of
+Of
+Of
+zO
+zO
+zM
+"}
+(10,1,1) = {"
+zM
+ux
+ka
+ka
+ka
 zO
 uA
 vB
-eo
-ws
-Of
-nC
 zO
+Of
+Of
+Of
+zO
+zM
 "}
-(10,1,1) = {"
-Fr
+(11,1,1) = {"
+zM
+ux
 ka
 ka
 ka
-jn
+ka
 vB
 yF
 zO
-KX
-KX
-oh
+Of
+Of
+Of
 zO
-"}
-(11,1,1) = {"
-zO
-Pe
-sK
-YH
-zO
-vB
-vB
-zO
-zO
-zO
-zO
-zO
+zM
 "}
 (12,1,1) = {"
-Fr
-Jf
-Ct
-sK
+zM
+ux
+ka
+ka
+ka
+zO
+vB
+vB
+zO
+zO
+zO
+zO
+qm
+zM
+"}
+(13,1,1) = {"
+zM
+ux
+ka
+ka
+ka
 zO
 vB
 vB
 zO
 Mp
-VD
-Xq
-zO
+ux
+ux
+HU
+zM
 "}
-(13,1,1) = {"
-Fr
-Mj
-Ro
-Ro
+(14,1,1) = {"
+zM
+ux
+ka
+ka
+ka
 zO
 vB
 sk
 zO
-Xq
 ux
-Xq
-zO
+ux
+ux
+ux
+zM
 "}
-(14,1,1) = {"
+(15,1,1) = {"
+zM
 zO
 zO
 zO
 zO
 zO
 jk
-ML
-GX
-ez
+vB
+ux
+ux
 ux
 zO
 zO
+zM
 "}
-(15,1,1) = {"
+(16,1,1) = {"
+zM
 zM
 zO
 ri
@@ -615,12 +513,14 @@ sm
 Kd
 vz
 zO
-fI
+ux
 ux
 zO
 zM
+zM
 "}
-(16,1,1) = {"
+(17,1,1) = {"
+zM
 zM
 zO
 ys
@@ -629,26 +529,30 @@ zO
 Vd
 Vd
 em
-WJ
-wN
+ux
+ux
 zO
 zM
-"}
-(17,1,1) = {"
-zM
-zO
-CE
-CE
-zO
-Vd
-Vd
-zO
-CE
-CE
-zO
 zM
 "}
 (18,1,1) = {"
+zM
+zM
+zO
+CE
+CE
+zO
+Vd
+Vd
+zO
+lp
+lp
+zO
+zM
+zM
+"}
+(19,1,1) = {"
+zM
 zM
 zO
 hz
@@ -657,12 +561,14 @@ zO
 Pu
 at
 zO
-hz
-hz
+lp
+lp
 zO
 zM
+zM
 "}
-(19,1,1) = {"
+(20,1,1) = {"
+zM
 zM
 zM
 zM
@@ -671,6 +577,23 @@ qm
 yC
 ux
 qm
+zM
+zM
+zM
+zM
+zM
+"}
+(21,1,1) = {"
+zM
+zM
+zM
+zM
+zM
+zM
+zM
+zM
+zM
+zM
 zM
 zM
 zM

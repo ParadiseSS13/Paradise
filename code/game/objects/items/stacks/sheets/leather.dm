@@ -17,9 +17,9 @@ GLOBAL_LIST_INIT(human_recipes, list(
 	new /datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE),
 	))
 
-/obj/item/stack/sheet/animalhide/human/New(loc, amount=null)
+/obj/item/stack/sheet/animalhide/human/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.human_recipes
-	return ..()
 
 /obj/item/stack/sheet/animalhide/generic
 	name = "generic skin"
@@ -125,6 +125,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	icon_state = "sheet-wetleather"
 	item_state = "sheet-leather"
 	origin_tech = ""
+	cares_about_temperature = TRUE
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
 
@@ -152,11 +153,11 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new /datum/stack_recipe("leather jacket", /obj/item/clothing/suit/jacket/leather, 7),
 	new /datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
 	new /datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
-	new /datum/stack_recipe("hide mantle", /obj/item/clothing/suit/unathi/mantle, 4)))
+	new /datum/stack_recipe("hide mantle", /obj/item/clothing/neck/cloak/unathi, 4)))
 
-/obj/item/stack/sheet/leather/New(loc, new_amount, merge = TRUE)
+/obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.leather_recipes
-	return ..()
 
 /obj/item/stack/sheet/sinew
 	name = "watcher sinew"
@@ -172,9 +173,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	new /datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1),
 	))
 
-/obj/item/stack/sheet/sinew/New(loc, amount=null)
+/obj/item/stack/sheet/sinew/Initialize(mapload, new_amount, merge)
+	. = ..()
 	recipes = GLOB.sinew_recipes
-	return ..()
 
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
@@ -192,7 +193,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			/obj/item/clothing/head/hooded/explorer,
 			/obj/item/clothing/head/helmet/space/plasmaman/mining))
 
-/obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/stack/sheet/animalhide/goliath_hide/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache))
@@ -203,7 +204,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
 				return
 			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against melee attacks.</span>")
 		else
 			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
 	else if(istype(target, /obj/mecha/working/ripley))
@@ -216,7 +217,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against attacks.</span>")
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
@@ -229,7 +230,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 					to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
 					return
 				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
-				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+				to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			else
 				to_chat(user, "<span class='warning'>You can't improve [R] any further!</span>")
 		else
@@ -246,7 +247,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
-/obj/item/stack/sheet/animalhide/armor_plate/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/stack/sheet/animalhide/armor_plate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	if(istype(target, /obj/mecha/working/ripley))
@@ -259,12 +260,12 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 7, 60))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 4, 50))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against attacks.</span>")
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 
-/obj/item/stack/sheet/animalhide/armor_plate/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/animalhide/armor_plate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	return // no steel leather for ya
 
 /obj/item/stack/sheet/animalhide/ashdrake
@@ -279,7 +280,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	layer = MOB_LAYER
 	dynamic_icon_state = TRUE
 
-/obj/item/stack/sheet/animalhide/ashdrake/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/stack/sheet/animalhide/ashdrake/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	if(istype(target, /obj/mecha/working/ripley))
@@ -294,14 +295,14 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 13, 80))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against attacks.</span>")
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 
 //Step one - dehairing.
 
-/obj/item/stack/sheet/animalhide/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/animalhide/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W.sharp)
 		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
 		if(do_after(user, 50 * W.toolspeed, target = src))
@@ -327,7 +328,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 		qdel(src)
 
 //Step three - drying
-/obj/item/stack/sheet/wetleather/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/stack/sheet/wetleather/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature >= drying_threshold_temperature)
 		wetness--

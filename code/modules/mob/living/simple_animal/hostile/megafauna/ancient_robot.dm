@@ -70,14 +70,15 @@ Difficulty: Hard
 	pixel_x = -16
 	pixel_y = -16
 	del_on_death = TRUE
-	loot = list(/obj/structure/closet/crate/necropolis/ancient)
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
+	loot = list(/obj/item/pinpointer/tendril)
+	crusher_loot = list(/obj/item/crusher_trophy/adaptive_intelligence_core)
 	internal_gps = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_ROBOT
 	score_type = ROBOT_SCORE
 	deathmessage = "explodes into a shower of alloys"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
+	difficulty_ore_modifier = 4 //Vetus' whole deal was that it dropped ore before all megas did, so it gets a ton
 
 	var/charging = FALSE
 	var/revving_charge = FALSE
@@ -138,6 +139,18 @@ Difficulty: Hard
 	QDEL_NULL(beam)
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/spawn_ore_reward(atom/spawn_location)
+	..()
+	var/list/exquisite_ore = list(
+		/obj/item/stack/ore/platinum, // The vetus can have some, as a treat
+		/obj/item/stack/ore/iridium,
+		/obj/item/stack/ore/palladium
+	)
+
+	new /obj/item/stack/sheet/mineral/abductor(spawn_location, roll("4d8")) // This is the amount of the other rare ores spawned
+	for(var/ore in exquisite_ore)
+		new ore(spawn_location, rand(5, 10)) // Don't want mining to step too much on explorer's toes.
+
 /obj/item/gps/internal/ancient
 	icon_state = null
 	gpstag = "Malfunctioning Signal"
@@ -175,15 +188,14 @@ Difficulty: Hard
 			core_type = /obj/item/assembly/signaler/anomaly/vortex
 		if(CRYO)
 			core_type = /obj/item/assembly/signaler/anomaly/cryo
+	loot += core_type
 
-	var/crate_type = pick(loot)
-	var/obj/structure/closet/crate/C = new crate_type(loc)
-	new core_type(C)
-	if(!enraged)
-		return
-	for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
-		if(M.client)
-			new /obj/item/disk/fauna_research/vetus(C)
+	if(enraged)
+		for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
+			if(!M.client)
+				return
+			loot += /obj/item/disk/fauna_research/vetus
+	..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()
@@ -307,9 +319,9 @@ Difficulty: Hard
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A, yes)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A)
 	if(charging)
-		if(isliving(A) && yes)
+		if(isliving(A))
 			var/mob/living/L = A
 			if(!istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -345,8 +357,11 @@ Difficulty: Hard
 		disable_shield()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!body_shield_enabled)
-		return ..()
+		return
 	do_sparks(2, 1, src)
 	visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attack!</span>")
 	if(I.force)
@@ -476,7 +491,7 @@ Difficulty: Hard
 		if(stat == DEAD)
 			continue
 		anger++
-	if(health <= health / 2)
+	if(health <= maxHealth / 2)
 		anger += 2
 	if(enraged)
 		anger += 2
@@ -484,14 +499,14 @@ Difficulty: Hard
 	extra_player_anger = clamp(anger,1,cap) - 1
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
-	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
+	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
 	walk(src, 0)
 	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
-	explosion(get_turf(src), -1, 7, 15, 20)
+	explosion(get_turf(src), -1, 7, 15, 20, cause = "[name] death")
 	health = 0
 	death(allowed = TRUE)
 
@@ -596,12 +611,12 @@ Difficulty: Hard
 					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
 					hotspot.temperature = 1000
 					hotspot.recolor()
-					T.hotspot_expose(700,50,1)
+					T.hotspot_expose(700, 50)
 			if(mode == VORTEX)
 				var/turf/T = get_turf(src)
 				for(var/atom/A in T)
-					A.ex_act(3) //Body is immune to explosions of this strength.
-				T.ex_act(3)
+					A.ex_act(EXPLODE_LIGHT) //Body is immune to explosions of this strength.
+				T.ex_act(EXPLODE_LIGHT)
 			if(mode == CRYO)
 				var/turf/simulated/S = get_turf(src)
 				S.MakeSlippery(TURF_WET_ICE, enraged ? rand(25, 35 SECONDS) : rand(10, 20 SECONDS))
@@ -631,7 +646,6 @@ Difficulty: Hard
 	weather_immunities = list("lava","ash")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	flying = TRUE
 	check_friendly_fire = 1
 	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
@@ -652,6 +666,7 @@ Difficulty: Hard
 	ranged_ignores_vision = TRUE
 	stat_attack = UNCONSCIOUS
 	maxbodytemp = INFINITY
+	initial_traits = list(TRAIT_FLYING)
 	var/range = 3
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 300
@@ -695,9 +710,9 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
 	leg_part = Beam(core.beam, "leg_connection", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/onTransitZ(old_z,new_z)
+/mob/living/simple_animal/hostile/ancient_robot_leg/on_changed_z_level(turf/old_turf, turf/new_turf)
 	..()
-	update_z(new_z)
+	update_z(new_turf?.z)
 	if(leg_part)
 		QDEL_NULL(leg_part)
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
@@ -730,10 +745,10 @@ Difficulty: Hard
 	walk_towards(src, T, movespeed)
 	DestroySurroundings()
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A, yes)
+/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A)
 	if(!core.charging)
 		return
-	if(isliving(A) && yes)
+	if(isliving(A))
 		if(!istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -820,7 +835,7 @@ Difficulty: Hard
 	tesla_zap(src, zap_range, power, zap_flags)
 	qdel(src)
 
-/obj/item/projectile/energy/tesla_bolt/Bump(atom/A, yes) // Don't want the projectile hitting the legs
+/obj/item/projectile/energy/tesla_bolt/Bump(atom/A) // Don't want the projectile hitting the legs
 	if(!istype(/mob/living/simple_animal/hostile/ancient_robot_leg, A))
 		return ..()
 	var/turf/target_turf = get_turf(A)

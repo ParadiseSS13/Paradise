@@ -10,7 +10,8 @@
 	max_integrity = 200
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	var/initial_state
 	var/state_open = FALSE
 	var/is_operating = FALSE
@@ -25,7 +26,7 @@
 	/// How much foam is on the door. Max 5 levels.
 	var/foam_level = 0
 
-/obj/structure/mineral_door/Initialize()
+/obj/structure/mineral_door/Initialize(mapload)
 	. = ..()
 	initial_state = icon_state
 	recalculate_atmos_connectivity()
@@ -47,7 +48,7 @@
 		return try_to_operate(user)
 
 /obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
-	if(isAI(user)) //so the AI can't open it
+	if(is_ai(user)) //so the AI can't open it
 		return
 	else if(isrobot(user) && Adjacent(user)) //but cyborgs can, but not remotely
 		return try_to_operate(user)
@@ -59,7 +60,7 @@
 	if(user.can_advanced_admin_interact())
 		operate()
 
-/obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0)
+/obj/structure/mineral_door/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
@@ -115,7 +116,7 @@
 	else
 		icon_state = initial_state
 
-/obj/structure/mineral_door/attackby(obj/item/W, mob/user, params)
+/obj/structure/mineral_door/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
@@ -144,13 +145,12 @@
 	icon_state = "silver"
 	sheetType = /obj/item/stack/sheet/mineral/silver
 	max_integrity = 300
-	rad_insulation = RAD_HEAVY_INSULATION
 
 /obj/structure/mineral_door/gold
 	name = "gold door"
 	icon_state = "gold"
 	sheetType = /obj/item/stack/sheet/mineral/gold
-	rad_insulation = RAD_HEAVY_INSULATION
+	rad_insulation_gamma = RAD_MEDIUM_INSULATION
 
 /obj/structure/mineral_door/uranium
 	name = "uranium door"
@@ -167,7 +167,7 @@
 
 /obj/structure/mineral_door/transparent
 	opacity = FALSE
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
 
 /obj/structure/mineral_door/transparent/operate_update()
 	density = !density
@@ -180,17 +180,18 @@
 	name = "plasma door"
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
+	cares_about_temperature = TRUE
 
-/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user)
+/obj/structure/mineral_door/transparent/plasma/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(W.get_heat())
 		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
 		log_game("Plasma mineral door ignited by [key_name(user)] in ([x], [y], [z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
 		TemperatureAct(100)
 	else
 		return ..()
 
-/obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/mineral_door/transparent/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		TemperatureAct(exposed_temperature)
@@ -204,7 +205,6 @@
 	icon_state = "diamond"
 	sheetType = /obj/item/stack/sheet/mineral/diamond
 	max_integrity = 1000
-	rad_insulation = RAD_EXTREME_INSULATION
 
 /obj/structure/mineral_door/wood
 	name = "wood door"
@@ -215,9 +215,9 @@
 	hardness = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	rad_insulation = RAD_VERY_LIGHT_INSULATION
+	rad_insulation_beta = RAD_VERY_LIGHT_INSULATION
 
-/obj/structure/mineral_door/wood/Initialize()
+/obj/structure/mineral_door/wood/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
 
@@ -243,6 +243,6 @@
 			blockage.max_integrity += 25
 		foam_level++
 		blockage.icon_state = "foamed_[foam_level]"
-		blockage.update_icon_state()
+		blockage.update_icon(UPDATE_ICON_STATE)
 
 #undef MAX_FOAM_LEVEL

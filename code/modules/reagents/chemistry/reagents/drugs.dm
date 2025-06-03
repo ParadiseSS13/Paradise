@@ -64,7 +64,7 @@
 /datum/reagent/psilocybin
 	name = "Psilocybin"
 	id = "psilocybin"
-	description = "A strong psycotropic derived from certain species of mushroom."
+	description = "A strong psychotropic derived from certain species of mushroom."
 	color = "#E700E7" // rgb: 231, 0, 231
 	taste_description = "visions"
 
@@ -345,7 +345,7 @@
 			M.emote("cry")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M]</b> sways and falls over!</span>")
+			M.visible_message("<span class='warning'>[M] sways and falls over!</span>")
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
 			M.Weaken(16 SECONDS)
@@ -617,7 +617,7 @@
 /datum/reagent/happiness
 	name = "Happiness"
 	id = "happiness"
-	description = "Fills you with ecstasic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
+	description = "Fills you with ecstatic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
 	reagent_state = LIQUID
 	color = "#f2ff00"
 	overdose_threshold = 20
@@ -801,7 +801,7 @@
 /datum/reagent/rotatium
 	name = "Rotatium"
 	id = "rotatium"
-	description = "A constantly swirling, oddly colourful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
+	description = "A constantly swirling, oddly colorful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
 	reagent_state = LIQUID
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
@@ -1172,6 +1172,24 @@
 		M.emote(pick("twitch", "shiver"))
 	return ..() | update_flags
 
+/// Used to test if an IPC is a mindflayer or not
+/datum/reagent/lube/conductive
+	name = "Conductive Lubricant"
+	id = "conductivelube"
+	description = "This is a special lubricant designed to attract onto and excite parasitic mindflayer swarms, revealing if someone hosts a hive. Doesn't include a cooling agent, so tends to cause overheating."
+	harmless = FALSE
+	color = "#163b39"
+	taste_description = "batteries"
+	process_flags = SYNTHETIC
+
+/datum/reagent/lube/conductive/on_mob_life(mob/living/M)
+	var/datum/antagonist/mindflayer/flayer = M.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	if(flayer && (flayer.total_swarms_gathered > 0)) // Like vampires, give flayers who haven't done anything yet a pass
+		M.Jitter(30 SECONDS_TO_JITTER)
+		if(prob(20))
+			do_sparks(5, FALSE, M)
+	M.bodytemperature += 40
+	return ..()
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)

@@ -4,6 +4,7 @@
 
 	//general preferences
 	var/raw_muted_admins
+	var/raw_fptp
 	while(query.NextRow())
 		ooccolor = query.item[1]
 		UI_style = query.item[2]
@@ -32,6 +33,8 @@
 		server_region = query.item[25]
 		raw_muted_admins = query.item[26]
 		viewrange = query.item[27]
+		raw_fptp = query.item[28]
+		toggles3 = text2num(query.item[29])
 
 	lastchangelog_2 = lastchangelog // Clone please
 
@@ -41,6 +44,7 @@
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
 	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
+	toggles3		= sanitize_integer(toggles3, 0, TOGGLES_3_TOTAL, initial(toggles3))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
@@ -60,7 +64,11 @@
 			admin_sound_ckey_ignore = json_decode(raw_muted_admins)
 		catch
 			admin_sound_ckey_ignore = list() // Invalid JSON, handle safely please
-
+	if(length(raw_fptp))
+		try
+			map_vote_pref_json = json_decode(raw_fptp)
+		catch
+			map_vote_pref_json = list()
 	// Sanitize the region
 	if(!(server_region in GLOB.configuration.system.region_map))
 		server_region = null // This region doesnt exist anymore
@@ -88,6 +96,7 @@
 		default_slot=:defaultslot,
 		toggles=:toggles,
 		toggles_2=:toggles2,
+		toggles_3=:toggles3,
 		atklog=:atklog,
 		sound=:sound,
 		light=:light,
@@ -104,7 +113,8 @@
 		keybindings=:keybindings,
 		server_region=:server_region,
 		muted_adminsounds_ckeys=:muted_adminsounds_ckeys,
-		viewrange=:viewrange
+		viewrange=:viewrange,
+		map_vote_pref_json=:map_vote_pref_json
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -116,6 +126,7 @@
 			// Even though its a number in the DB, you have to use num2text here, otherwise byond adds scientific notation to the number
 			"toggles" = num2text(toggles, CEILING(log(10, (TOGGLES_TOTAL)), 1)),
 			"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
+			"toggles3" = num2text(toggles3, CEILING(log(10, (TOGGLES_3_TOTAL)), 1)),
 			"atklog" = atklog,
 			"sound" = sound,
 			"light" = light,
@@ -133,7 +144,8 @@
 			"ckey" = C.ckey,
 			"server_region" = server_region,
 			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
-			"viewrange" = viewrange
+			"viewrange" = viewrange,
+			"map_vote_pref_json" = json_encode(map_vote_pref_json)
 		))
 
 	if(!query.warn_execute())

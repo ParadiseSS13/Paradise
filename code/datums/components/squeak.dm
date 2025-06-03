@@ -19,19 +19,26 @@
 	///sound exponent for squeak. Defaults to 10 as squeaking is loud and annoying enough.
 	var/sound_falloff_exponent = 10
 
+	///what we set connect_loc to if parent is an item
+	var/static/list/item_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+
+
 /datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override, squeak_on_move, extrarange, falloff_exponent, fallof_distance)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_PARENT_ATTACKBY), PROC_REF(play_squeak))
+	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATTACK_BY), PROC_REF(play_squeak))
 	if(ismovable(parent))
 		RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), PROC_REF(play_squeak))
-		RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, PROC_REF(play_squeak_crossed))
+
+		AddComponent(/datum/component/connect_loc_behalf, parent, item_connections)
 		RegisterSignal(parent, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposing_react))
 		if(squeak_on_move)
 			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_squeak))
 		if(isitem(parent))
-			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), PROC_REF(play_squeak))
-			RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(use_squeak))
+			RegisterSignal(parent, list(COMSIG_ATTACK, COMSIG_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), PROC_REF(play_squeak))
+			RegisterSignal(parent, COMSIG_ACTIVATE_SELF, PROC_REF(use_squeak))
 			RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 			RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 			if(istype(parent, /obj/item/clothing/shoes))
@@ -71,26 +78,34 @@
 	else
 		steps++
 
-/datum/component/squeak/proc/play_squeak_crossed(atom/movable/AM)
-	if(isitem(AM))
-		var/obj/item/I = AM
-		if(I.flags & ABSTRACT)
+/datum/component/squeak/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(istype(entered, /obj/effect))
+		return
+	if(ismob(entered))
+		var/mob/M = entered
+		if(HAS_TRAIT(M, TRAIT_FLYING))
 			return
-		else if(isprojectile(AM))
-			var/obj/item/projectile/P = AM
-			if(P.original != parent)
-				return
-	if(ismob(AM))
-		var/mob/M = AM
-		if(M.flying)
-			return
-		if(isliving(AM))
+		if(isliving(entered))
 			var/mob/living/L = M
 			if(L.floating)
 				return
-	var/atom/current_parent = parent
-	if(isturf(current_parent.loc))
-		play_squeak()
+	else if(isitem(entered))
+		var/obj/item/I = source
+		if(I.flags & ABSTRACT)
+			return
+		if(isprojectile(entered))
+			var/obj/item/projectile/P = entered
+			if(P.original != parent)
+				return
+	if(ismob(source))
+		var/mob/M = source
+		if(HAS_TRAIT(M, TRAIT_FLYING))
+			return
+		if(isliving(source))
+			var/mob/living/L = M
+			if(L.floating)
+				return
+	play_squeak()
 
 /datum/component/squeak/proc/use_squeak()
 	if(last_use + use_delay < world.time)

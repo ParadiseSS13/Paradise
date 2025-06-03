@@ -111,8 +111,16 @@ const CloningConsoleMain = (props, context) => {
 
 const CloningConsoleDamage = (props, context) => {
   const { act, data } = useBackend(context);
-  const { selected_pod_data, has_scanned, scanner_has_patient, feedback, scan_successful, cloning_cost, has_scanner } =
-    data;
+  const {
+    selected_pod_data,
+    has_scanned,
+    scanner_has_patient,
+    feedback,
+    scan_successful,
+    cloning_cost,
+    has_scanner,
+    currently_scanning,
+  } = data;
   return (
     <Box>
       {!has_scanner && <Box color="average">Notice: No scanner connected.</Box>}
@@ -123,21 +131,25 @@ const CloningConsoleDamage = (props, context) => {
             title="Scanner Info"
             buttons={
               <Box>
-                <Button icon="hourglass-half" onClick={() => act('scan')}>
+                <Button
+                  icon="hourglass-half"
+                  onClick={() => act('scan')}
+                  disabled={!scanner_has_patient || currently_scanning}
+                >
                   Scan
                 </Button>
-                <Button icon="eject" onClick={() => act('eject')}>
+                <Button icon="eject" onClick={() => act('eject')} disabled={!scanner_has_patient || currently_scanning}>
                   Eject Patient
                 </Button>
               </Box>
             }
           >
-            {!has_scanned && (
+            {!has_scanned && !currently_scanning && (
               <Box color="average">
                 {scanner_has_patient ? 'No scan detected for current patient.' : 'No patient is in the scanner.'}
               </Box>
             )}
-            {!!has_scanned && <Box color={feedback['color']}>{feedback['text']}</Box>}
+            {(!!has_scanned || !!currently_scanning) && <Box color={feedback['color']}>{feedback['text']}</Box>}
           </Section>
           <Section layer={2} title="Damages Breakdown">
             <Box>

@@ -36,92 +36,102 @@
 		if(hijack_announce)
 			. += "<span class='warning'>It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements...</span>"
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/card/id/W, mob/user, params)
+/obj/machinery/computer/emergency_shuttle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	if(!istype(W, /obj/item/card/id))
+
+	var/obj/item/card/id/id_card
+	if(istype(used, /obj/item/card/id))
+		id_card = used
+	else if(istype(used, /obj/item/pda))
+		var/obj/item/pda/pda = used
+		id_card = pda.id
+	else
 		return
+
 	if(SSshuttle.emergency.mode != SHUTTLE_DOCKED && !SSshuttle.emergency.aihacked)
 		return
 	if(!user)
 		return
 	if(SSshuttle.emergency.timeLeft() < 11)
 		return
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		if(istype(W, /obj/item/pda))
-			var/obj/item/pda/pda = W
-			W = pda.id
-		if(!W.access) //no access
-			to_chat(user, "The access level of [W.registered_name]\'s card is not high enough. ")
-			return
 
-		var/list/cardaccess = W.access
-		if(!istype(cardaccess, /list) || !length(cardaccess)) //no access
-			to_chat(user, "The access level of [W.registered_name]\'s card is not high enough. ")
-			return
+	if(!id_card.access) //no access
+		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
+		return ITEM_INTERACT_COMPLETE
 
-		if(!(ACCESS_HEADS in W.access)) //doesn't have this access
-			to_chat(user, "The access level of [W.registered_name]\'s card is not high enough. ")
-			return 0
-		if(!SSshuttle.emergency.aihacked)
-			var/choice = tgui_alert(user, "Would you like to (un)authorize a shortened launch time? [auth_need - length(authorized)] authorization\s are still needed. Use abort to cancel all authorizations.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
-			if(SSshuttle.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
-				return 0
+	var/list/cardaccess = id_card.access
+	if(!istype(cardaccess, /list) || !length(cardaccess)) //no access
+		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
+		return ITEM_INTERACT_COMPLETE
 
-			var/seconds = SSshuttle.emergency.timeLeft()
-			if(seconds <= 10)
-				return 0
+	if(!(ACCESS_HEADS in id_card.access)) //doesn't have this access
+		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
+		return ITEM_INTERACT_COMPLETE
+	if(!SSshuttle.emergency.aihacked)
+		var/choice = tgui_alert(user, "Would you like to (un)authorize a shortened launch time? [auth_need - length(authorized)] authorization\s are still needed. Use abort to cancel all authorizations.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
+		if(SSshuttle.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != id_card)
+			return ITEM_INTERACT_COMPLETE
 
-			switch(choice)
-				if("Authorize")
-					if(!authorized.Find(W.registered_name))
-						authorized += W.registered_name
-						if(auth_need - length(authorized) > 0)
-							message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
-							log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
-							GLOB.minor_announcement.Announce("[auth_need - length(authorized)] more authorization(s) needed until shuttle is launched early")
-						else
-							message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
-							log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
-							GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds")
-							SSshuttle.emergency.setTimer(10 SECONDS)
+		var/seconds = SSshuttle.emergency.timeLeft()
+		if(seconds <= 10)
+			return ITEM_INTERACT_COMPLETE
 
-				if("Repeal")
-					if(authorized.Remove(W.registered_name))
-						GLOB.minor_announcement.Announce("[auth_need - length(authorized)] authorizations needed until shuttle is launched early")
-
-				if("Abort")
-					if(length(authorized))
-						GLOB.minor_announcement.Announce("All authorizations to launch the shuttle early have been revoked.")
-						authorized.Cut()
-			return FALSE
-		var/choice = tgui_alert(user, "\[ERROR] HOSTILE AI DETECTED IN SHUTTLE CONTROL. RESTORE SHUTTLE CONSOLE TO BACKUP SYSTEM? [auth_need - length(authorized)] AUTHORIZATIONS\s REQUIRED TO RESTORE. ABORT TO REMOVE ALL AUTHORIZATION OF BACKUP RESTORAL, P-P--PLEASE...", "HOSTILE VIRAL AI INTRUSION", list("Authorize", "Repeal", "Abort"))
-		if(user.get_active_hand() != W)
-			return FALSE
 		switch(choice)
 			if("Authorize")
-				if(!authorized.Find(W.registered_name))
-					authorized += W.registered_name
+				if(!authorized.Find(id_card.registered_name))
+					authorized += id_card.registered_name
 					if(auth_need - length(authorized) > 0)
-						message_admins("[key_name_admin(user)] has authorized restoring shuttle AI backup.")
-						log_game("[key_name(user)] has authorized restoring shuttle AI backup in ([x], [y], [z]).")
-						GLOB.minor_announcement.Announce("[auth_need - length(authorized)] more authorization(s) needed until sh-tt- STOP STOP STOP STOP!")
+						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
+						log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
+						GLOB.minor_announcement.Announce("[auth_need - length(authorized)] more authorization(s) needed until shuttle is launched early")
 					else
-						message_admins("[key_name_admin(user)] has wiped the AI in the shuttle computer.")
-						log_game("[key_name(user)] has wiped the AI in the shuttle computer in ([x], [y], [z])")
-						GLOB.minor_announcement.Announce("NO NO NO N---\[[Gibberish("###########", 100, 90)]\]...")
-						GLOB.minor_announcement.Announce("Shuttle AI restored to emergency backup. Avoiding toll hyperlanes. Recalculating route. Recalculating. Recalculating. Please stand by...")
-						SSshuttle.emergency.setTimer(60 SECONDS)
-						kill_the_ai()
+						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
+						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
+						GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds")
+						SSshuttle.emergency.setTimer(10 SECONDS)
 
 			if("Repeal")
-				if(authorized.Remove(W.registered_name))
-					GLOB.minor_announcement.Announce("[auth_need - length(authorized)] authorizations needed unti- THE SHUTTLE EXPLODES. PLEASE REVO-KE ALL AUTHORIZATIONS.")
+				if(authorized.Remove(id_card.registered_name))
+					GLOB.minor_announcement.Announce("[auth_need - length(authorized)] authorizations needed until shuttle is launched early")
 
 			if("Abort")
 				if(length(authorized))
-					GLOB.minor_announcement.Announce("All authorizations to restore shuttle AI backup have been re-- Really applied. The AI is gone. There is no reason to worry. Enjoy your flight.")
+					GLOB.minor_announcement.Announce("All authorizations to launch the shuttle early have been revoked.")
 					authorized.Cut()
+
+		return ITEM_INTERACT_COMPLETE
+
+	var/choice = tgui_alert(user, "\[ERROR] HOSTILE AI DETECTED IN SHUTTLE CONTROL. RESTORE SHUTTLE CONSOLE TO BACKUP SYSTEM? [auth_need - length(authorized)] AUTHORIZATIONS\s REQUIRED TO RESTORE. ABORT TO REMOVE ALL AUTHORIZATION OF BACKUP RESTORAL, P-P--PLEASE...", "HOSTILE VIRAL AI INTRUSION", list("Authorize", "Repeal", "Abort"))
+	if(user.get_active_hand() != id_card)
+		return ITEM_INTERACT_COMPLETE
+
+	switch(choice)
+		if("Authorize")
+			if(!authorized.Find(id_card.registered_name))
+				authorized += id_card.registered_name
+				if(auth_need - length(authorized) > 0)
+					message_admins("[key_name_admin(user)] has authorized restoring shuttle AI backup.")
+					log_game("[key_name(user)] has authorized restoring shuttle AI backup in ([x], [y], [z]).")
+					GLOB.minor_announcement.Announce("[auth_need - length(authorized)] more authorization(s) needed until sh-tt- STOP STOP STOP STOP!")
+				else
+					message_admins("[key_name_admin(user)] has wiped the AI in the shuttle computer.")
+					log_game("[key_name(user)] has wiped the AI in the shuttle computer in ([x], [y], [z])")
+					GLOB.minor_announcement.Announce("NO NO NO N---\[[Gibberish("###########", 100, 90)]\]...")
+					GLOB.minor_announcement.Announce("Shuttle AI restored to emergency backup. Avoiding toll hyperlanes. Recalculating route. Recalculating. Recalculating. Please stand by...")
+					SSshuttle.emergency.setTimer(60 SECONDS)
+					kill_the_ai()
+
+		if("Repeal")
+			if(authorized.Remove(id_card.registered_name))
+				GLOB.minor_announcement.Announce("[auth_need - length(authorized)] authorizations needed unti- THE SHUTTLE EXPLODES. PLEASE REVO-KE ALL AUTHORIZATIONS.")
+
+		if("Abort")
+			if(length(authorized))
+				GLOB.minor_announcement.Announce("All authorizations to restore shuttle AI backup have been re-- Really applied. The AI is gone. There is no reason to worry. Enjoy your flight.")
+				authorized.Cut()
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
 	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED)
@@ -140,7 +150,7 @@
 		return FALSE //If you put an AI that isn't malf in it I'm shooting you
 	if(interaction == AI_TRANS_TO_CARD) //No patrick you can't card the AI out of the computer.
 		return
-	AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
+	AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 	ai_enter_emergency_computer(AI)
 
 /obj/machinery/computer/emergency_shuttle/proc/ai_enter_emergency_computer(mob/living/silicon/ai/AI)
@@ -182,7 +192,7 @@
 		attempt_hijack_stage(user)
 
 /obj/machinery/computer/emergency_shuttle/proc/attempt_hijack_stage(mob/living/user)
-	var/is_ai = isAI(user)
+	var/is_ai = is_ai(user)
 	if(!Adjacent(user) && !is_ai)
 		return
 	if(!ishuman(user) && !is_ai) //No, xenomorphs, constructs and traitors in cyborgs can not hack it.
@@ -254,7 +264,7 @@
 
 
 /obj/machinery/computer/emergency_shuttle/proc/announce_here(a_header = "Emergency Shuttle", a_text = "")
-	var/msg_text = "<b><font size=4 color=red>[a_header]</font><br> <font size=3><span class='robot'>[a_text]</font size></font></b></span>"
+	var/msg_text = "<b><font size=4 color='red'>[a_header]</font><br> <font size=3><span class='robot'>[a_text]</font></font></b></span>"
 	for(var/mob/R in range(35, src)) //Normal escape shutttle is 30 tiles from console to bottom. Extra range for if we ever get a bigger shuttle. Would do in shuttle area, doesn't account for mechs and such,
 		to_chat(R, msg_text)
 		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
@@ -267,7 +277,7 @@
 	width = 22
 	height = 11
 	dir = 4
-	travelDir = 0
+	port_direction = WEST
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
 
@@ -468,6 +478,15 @@
 				)
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
+				return
+
+			if(time_left <= 10 SECONDS)
+				var/failure = !check_transit_zone()
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile_docking_ports)
+					if(is_station_level(M.z)) //Will not launch from the mine/planet
+						failure |= !M.check_transit_zone()
+				if(failure)
+					setTimer(10 SECONDS)
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
@@ -477,7 +496,7 @@
 
 			if(time_left <= 0 && !length(SSshuttle.hostile_environments))
 				//move each escape pod to its corresponding transit dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile_docking_ports)
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
@@ -495,7 +514,7 @@
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
 				//move each escape pod to its corresponding escape dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile_docking_ports)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
 				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
@@ -516,17 +535,6 @@
 
 				mode = SHUTTLE_ENDGAME
 				timer = 0
-				open_dock()
-
-/obj/docking_port/mobile/emergency/proc/open_dock()
-	pass()
-/*
-	for(var/obj/machinery/door/poddoor/shuttledock/D in airlocks)
-		var/turf/T = get_step(D, D.checkdir)
-		if(!istype(T,/turf/space))
-			spawn(0)
-				D.open()
-*/ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
 
 /obj/docking_port/mobile/emergency/proc/random_docking_go()
 	var/cycles = 1000
@@ -577,6 +585,18 @@
 	for(var/turf/T in L2)
 		ripples += new /obj/effect/temp_visual/ripple/lance_crush(T)
 
+/obj/docking_port/mobile/emergency/transit_failure()
+	..()
+	message_admins("Moving emergency shuttle directly to centcom dock to prevent deadlock.")
+
+	mode = SHUTTLE_ESCAPE
+	// launch_status = ENDGAME_LAUNCHED
+	setTimer(60 SECONDS)
+	GLOB.major_announcement.Announce(
+		"The emergency shuttle is preparing for direct jump. Estimate [timeLeft(1 MINUTES)] minutes until the shuttle docks at Central Command.",
+		"Emergency Shuttle Transit Failure",
+	)
+
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
 	name = "escape pod"
@@ -585,11 +605,13 @@
 	dwidth = 1
 	width = 3
 	height = 4
+	port_direction = SOUTH
 
 /obj/docking_port/mobile/pod/Initialize(mapload)
 	. = ..()
 	if(id == "pod")
 		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
+	preferred_direction = dir
 
 /obj/docking_port/mobile/pod/cancel()
 	return
@@ -602,7 +624,7 @@
 	height = 4
 	var/target_area = /area/mine/unexplored
 
-/obj/docking_port/stationary/random/Initialize()
+/obj/docking_port/stationary/random/Initialize(mapload)
 	. = ..()
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)

@@ -6,7 +6,7 @@
 	l_ear = /obj/item/radio/headset/abductor
 
 /datum/outfit/abductor/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.team == team_number)
 			return C
 
@@ -25,7 +25,7 @@
 			console.vest = V
 			V.flags |= NODROP
 
-		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(SLOT_HUD_BACK)
+		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(ITEM_SLOT_BACK)
 		if(G)
 			console.gizmo = G
 			G.console = console

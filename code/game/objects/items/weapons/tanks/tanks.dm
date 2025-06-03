@@ -2,7 +2,7 @@
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
@@ -137,7 +137,7 @@
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
-/obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/tank/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	add_fingerprint(user)
@@ -147,7 +147,7 @@
 	if(istype(W, /obj/item/assembly_holder))
 		bomb_assemble(W,user)
 
-/obj/item/tank/attack_self(mob/user as mob)
+/obj/item/tank/attack_self__legacy__attackchain(mob/user as mob)
 	if(!(air_contents))
 		return
 
@@ -250,7 +250,7 @@
 
 //		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
 
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cause = "Exploding tank rupture")
 		if(istype(loc,/obj/item/transfer_valve))
 			qdel(loc)
 		else

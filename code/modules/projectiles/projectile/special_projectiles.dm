@@ -33,7 +33,7 @@
 
 /obj/item/projectile/bullet/a40mm
 	name ="40mm grenade"
-	desc = "USE A WEEL GUN"
+	desc = "USE A WEEL GUN."
 	icon_state= "bolter"
 	alwayslog = TRUE
 	damage = 60
@@ -111,9 +111,7 @@
 	nodamage = 1
 	flag = "bullet"
 
-/obj/item/projectile/meteor/Bump(atom/A, yes)
-	if(yes)
-		return
+/obj/item/projectile/meteor/Bump(atom/A)
 	if(A == firer)
 		loc = A.loc
 		return
@@ -183,7 +181,7 @@
 	qdel(src)
 
 /obj/item/projectile/beam/wormhole
-	name = "bluespace beam"
+	name = "wormhole beam"
 	icon_state = "spark"
 	hitsound = "sparks"
 	damage = 0
@@ -192,7 +190,7 @@
 	nodamage = TRUE
 
 /obj/item/projectile/beam/wormhole/orange
-	name = "orange bluespace beam"
+	name = "orange wormhole beam"
 	color = "#FF6600"
 
 /obj/item/projectile/beam/wormhole/New(obj/item/ammo_casing/energy/wormhole/casing)
@@ -217,7 +215,7 @@
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 1)
+	explosion(target, -1, 0, 1, cause = "frag 12 fired by [key_name(firer)]")
 	return TRUE
 
 /obj/item/projectile/bullet/confetti

@@ -23,7 +23,7 @@
 			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [singular_name]\s!</span>")
 		return TRUE
 
-	if(!iscarbon(M) && !isanimal(M))
+	if(!iscarbon(M) && !isanimal_or_basicmob(M))
 		to_chat(user, "<span class='danger'>[src] cannot be applied to [M]!</span>")
 		return TRUE
 
@@ -53,8 +53,8 @@
 				return TRUE
 		return
 
-	if(isanimal(M))
-		var/mob/living/simple_animal/critter = M
+	if(isanimal_or_basicmob(M))
+		var/mob/living/critter = M
 		if(!(critter.healable))
 			to_chat(user, "<span class='notice'>You cannot use [src] on [critter]!</span>")
 			return
@@ -77,10 +77,10 @@
 							"<span class='green'>You apply [src] on [M].</span>")
 		use(1)
 
-/obj/item/stack/medical/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/attack__legacy__attackchain(mob/living/M, mob/user)
 	return apply(M, user)
 
-/obj/item/stack/medical/attack_self(mob/user)
+/obj/item/stack/medical/attack_self__legacy__attackchain(mob/user)
 	return apply(user, user)
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
@@ -135,7 +135,7 @@
 	stop_bleeding = 1800
 	dynamic_icon_state = TRUE
 
-/obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/medical/bruise_pack/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		if(get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
@@ -212,6 +212,7 @@
 	healverb = "salve"
 	heal_burn = 10
 	dynamic_icon_state = TRUE
+	merge_type = /obj/item/stack/medical/ointment
 
 /obj/item/stack/medical/ointment/apply(mob/living/M, mob/user)
 	if(..())
@@ -258,6 +259,7 @@
 	belt_icon = "burnkit"
 	heal_burn = 25
 	dynamic_icon_state = FALSE
+	merge_type = /obj/item/stack/medical/ointment/advanced
 
 /obj/item/stack/medical/ointment/advanced/cyborg
 	energy_type = /datum/robot_storage/energy/medical/adv_burn_kit
@@ -308,6 +310,7 @@
 	icon_state = "splint"
 	unique_handling = TRUE
 	self_delay = 100
+	merge_type = /obj/item/stack/medical/splint
 	var/other_delay = 0
 
 /obj/item/stack/medical/splint/apply(mob/living/M, mob/user)

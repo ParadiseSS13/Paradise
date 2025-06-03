@@ -34,7 +34,7 @@
 	},
 /area/ruin/space/moonbase19)
 "af" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "ag" = (
@@ -42,8 +42,6 @@
 /area/ruin/space/moonbase19)
 "ah" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -95,9 +93,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ap" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/noslip,
@@ -149,8 +145,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -202,9 +196,7 @@
 	},
 /area/ruin/space/moonbase19)
 "aD" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
@@ -286,12 +278,12 @@
 /turf/simulated/wall,
 /area/ruin/space/moonbase19)
 "aM" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/ruin/space/moonbase19)
 "aN" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271";
 	name = "Storage Room"
 	},
 /turf/simulated/floor/plasteel,
@@ -361,7 +353,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -379,9 +371,10 @@
 	},
 /area/ruin/space/moonbase19)
 "aY" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -390,22 +383,21 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awaymlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271";
 	name = "Medical Ward"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "ba" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/moonbase19)
 "bb" = (
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -442,7 +434,7 @@
 /area/ruin/space/moonbase19)
 "bh" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -468,13 +460,6 @@
 	icon_state = "darkfull";
 	dir = 8
 	},
-/area/ruin/space/moonbase19)
-"bl" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "bm" = (
 /obj/structure/closet,
@@ -527,7 +512,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "bv" = (
@@ -579,7 +564,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -615,7 +600,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -678,7 +663,7 @@
 /area/ruin/space/moonbase19)
 "bU" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -746,17 +731,9 @@
 	dir = 4
 	},
 /area/ruin/space/moonbase19)
-"ch" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/moonbase19)
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -791,7 +768,7 @@
 	},
 /area/ruin/space/moonbase19)
 "cp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "cq" = (
@@ -803,7 +780,7 @@
 	},
 /area/ruin/space/moonbase19)
 "cr" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
 "cs" = (
@@ -846,9 +823,8 @@
 	},
 /area/ruin/space/moonbase19)
 "cx" = (
-/obj/machinery/door/airlock/security/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/security/glass,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
@@ -901,7 +877,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "cF" = (
@@ -909,9 +885,8 @@
 	layer = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "cI" = (
@@ -991,19 +966,6 @@
 	icon_state = "black"
 	},
 /area/ruin/space/moonbase19)
-"cY" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/catwalk,
-/area/ruin/space/moonbase19)
 "da" = (
 /obj/structure/chair{
 	dir = 8
@@ -1043,7 +1005,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "dg" = (
@@ -1182,9 +1144,7 @@
 	},
 /area/ruin/space/moonbase19)
 "dD" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "dE" = (
@@ -1198,8 +1158,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awaycontlockdown"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271";
 	name = "Specimen Containtment Zone"
 	},
 /turf/simulated/floor/catwalk,
@@ -1329,7 +1289,7 @@
 /area/ruin/space/moonbase19)
 "eb" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -1341,8 +1301,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1364,7 +1322,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -1394,8 +1352,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awaymlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Medical Ward"
 	},
 /turf/simulated/floor/catwalk,
@@ -1451,7 +1409,7 @@
 	},
 /area/ruin/space/moonbase19)
 "ey" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1465,9 +1423,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/sign/poster/official/dig{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/dig/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "eA" = (
@@ -1502,7 +1458,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/moonbase19)
 "eK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "West Lobby";
@@ -1515,9 +1471,6 @@
 	},
 /area/ruin/space/moonbase19)
 "eL" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -32
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1537,10 +1490,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1555,6 +1505,21 @@
 	dir = 8;
 	icon_state = "black"
 	},
+/area/ruin/space/moonbase19)
+"eT" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "eU" = (
 /turf/simulated/floor/plasteel{
@@ -1574,9 +1539,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/machinery/door/airlock/external{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/external,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "eZ" = (
@@ -1595,9 +1559,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/safety_eye_protection{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/safety_eye_protection/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1622,6 +1584,9 @@
 	dir = 8
 	},
 /obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "ff" = (
@@ -1629,18 +1594,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
@@ -1672,9 +1631,8 @@
 	},
 /area/ruin/space/moonbase19)
 "fn" = (
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "fp" = (
@@ -1744,7 +1702,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/moonbase19)
 "fC" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 10
@@ -1819,8 +1777,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Cafeteria"
 	},
 /turf/simulated/floor/catwalk,
@@ -1842,23 +1800,21 @@
 "fX" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
 "fY" = (
 /obj/item/stack/sheet/mineral/titanium,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/molten_object/large,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
 "gb" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel/stairs{
 	dir = 1
 	},
@@ -1997,7 +1953,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -2020,7 +1976,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gy" = (
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/drinks/coffee{
@@ -2058,7 +2014,7 @@
 /area/ruin/space/moonbase19)
 "gC" = (
 /obj/effect/decal/cleanable/greenglow,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
@@ -2106,9 +2062,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gM" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -2127,7 +2081,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "gP" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -2155,7 +2109,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gW" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
@@ -2165,7 +2119,10 @@
 "gX" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -2229,7 +2186,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
@@ -2317,7 +2274,7 @@
 	},
 /area/ruin/space/moonbase19)
 "hs" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -2339,8 +2296,6 @@
 /area/ruin/space/moonbase19)
 "hw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2522,7 +2477,7 @@
 "hV" = (
 /obj/structure/railing,
 /obj/structure/closet/secure_closet,
-/obj/item/reagent_containers/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/bottle/beer{
 	pixel_x = -3;
 	pixel_y = -2
 	},
@@ -2574,19 +2529,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/moonbase19)
-"ic" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
-/obj/structure/closet/crate,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/catwalk,
-/area/ruin/space/moonbase19)
 "id" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel,
@@ -2601,6 +2543,10 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/machinery/iv_drip,
+/obj/machinery/camera{
+	c_tag = "Medical Ward";
+	network = list("MO19")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -2627,7 +2573,7 @@
 /area/ruin/space/moonbase19)
 "ij" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/north{
 	id_tag = "awaycargogate"
 	},
 /turf/simulated/floor/catwalk,
@@ -2661,7 +2607,7 @@
 	},
 /area/ruin/space/moonbase19)
 "io" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/directions/engineering{
 	pixel_x = -32;
 	dir = 8
@@ -2930,12 +2876,10 @@
 "iZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/engineering/glass{
-	req_access_txt = "271";
 	name = "Workshop"
 	},
 /turf/simulated/floor/catwalk,
@@ -2995,7 +2939,7 @@
 	},
 /area/ruin/space/moonbase19)
 "jj" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -3045,7 +2989,7 @@
 /area/ruin/space/moonbase19)
 "jp" = (
 /obj/structure/railing,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -3058,7 +3002,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "jr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "jt" = (
@@ -3083,7 +3027,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "jy" = (
@@ -3116,7 +3060,7 @@
 	},
 /area/ruin/space/moonbase19)
 "jC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
@@ -3153,7 +3097,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -3247,8 +3191,6 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -3316,15 +3258,15 @@
 /area/ruin/space/moonbase19)
 "kf" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
 	},
 /area/ruin/space/moonbase19)
 "kg" = (
-/obj/item/kirbyplants,
-/obj/effect/landmark/damageturf,
+/obj/item/kirbyplants/large,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -3335,8 +3277,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Research Division"
 	},
 /turf/simulated/floor/catwalk,
@@ -3448,7 +3390,6 @@
 /area/ruin/space/moonbase19)
 "kz" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -3457,7 +3398,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "kB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 10
 	},
@@ -3484,7 +3425,7 @@
 	},
 /area/ruin/space/moonbase19)
 "kG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
@@ -3507,7 +3448,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/moonbase19)
 "kN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -3548,9 +3489,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "kW" = (
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -3585,7 +3525,6 @@
 	req_access = null
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/box,
@@ -3628,9 +3567,8 @@
 	},
 /area/ruin/space/moonbase19)
 "lq" = (
-/obj/machinery/door/airlock{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3673,7 +3611,7 @@
 	},
 /area/ruin/space/moonbase19)
 "lD" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3710,7 +3648,7 @@
 	},
 /area/ruin/space/moonbase19)
 "lI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
@@ -3722,8 +3660,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -3783,7 +3719,7 @@
 /area/ruin/space/moonbase19)
 "mb" = (
 /obj/structure/closet/cabinet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "md" = (
@@ -3803,8 +3739,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -3902,7 +3836,7 @@
 	},
 /area/ruin/space/moonbase19)
 "mv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -3944,11 +3878,6 @@
 /obj/machinery/economy/vending/cigarette,
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "North Cafeteria";
-	dir = 4;
-	network = list("MO19")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4038,12 +3967,9 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/box,
@@ -4054,8 +3980,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /mob/living/simple_animal/hostile/alien/sentinel,
@@ -4086,11 +4010,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Medical Ward";
-	dir = 4;
-	network = list("MO19")
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel/stairs,
@@ -4148,7 +4067,6 @@
 	id_tag = "awaymlock"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -4181,14 +4099,14 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "nx" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Engineering Division"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ny" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "nz" = (
@@ -4223,15 +4141,26 @@
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
+"nD" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/moonbase19)
 "nE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/engine,
@@ -4268,9 +4197,10 @@
 /area/ruin/space/moonbase19)
 "nK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -4338,8 +4268,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4352,9 +4280,7 @@
 	},
 /area/ruin/space/moonbase19)
 "oh" = (
-/obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph/directional/north,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table,
 /obj/item/salvage/ruin/nanotrasen,
@@ -4369,8 +4295,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4382,8 +4306,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/hostile/alien,
@@ -4416,7 +4338,7 @@
 	},
 /obj/structure/rack,
 /obj/structure/window/basic,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "ot" = (
@@ -4473,13 +4395,9 @@
 "oH" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4509,7 +4427,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "oM" = (
@@ -4557,7 +4475,7 @@
 	},
 /area/ruin/space/moonbase19)
 "oU" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4602,7 +4520,6 @@
 	id_tag = "awaymlock"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -4641,13 +4558,9 @@
 /area/ruin/space/moonbase19)
 "pp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/item/clothing/gloves/color/yellow,
@@ -4669,8 +4582,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -4753,7 +4664,7 @@
 "pL" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "pN" = (
@@ -4785,8 +4696,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4813,8 +4722,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Research Division"
 	},
 /turf/simulated/floor/catwalk,
@@ -4822,8 +4731,6 @@
 "pW" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4881,12 +4788,9 @@
 /area/ruin/space/moonbase19)
 "qm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -4949,7 +4853,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "qu" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "escape"
@@ -4968,8 +4872,8 @@
 	},
 /area/ruin/space/moonbase19)
 "qx" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Cafeteria"
 	},
 /turf/simulated/floor/catwalk,
@@ -5041,14 +4945,22 @@
 /obj/machinery/atmospherics/air_sensor,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
+"qO" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "black"
+	},
+/area/ruin/space/moonbase19)
 "qQ" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -5063,7 +4975,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault1,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5117,7 +5029,7 @@
 /area/ruin/space/moonbase19)
 "rk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
@@ -5127,11 +5039,7 @@
 	},
 /area/ruin/space/moonbase19)
 "rl" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 4
@@ -5213,8 +5121,6 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/meson,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/item/paper/fluff/ruins/moonoutpost19/engineering,
@@ -5260,7 +5166,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "rH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "escape"
@@ -5281,8 +5187,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/chair{
@@ -5323,13 +5227,9 @@
 /area/ruin/space/moonbase19)
 "rS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/alien/weeds/node,
@@ -5354,8 +5254,8 @@
 	},
 /area/ruin/space/moonbase19)
 "rV" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock{
-	req_access_txt = "271";
 	name = "Dorms"
 	},
 /turf/simulated/floor/plasteel{
@@ -5379,9 +5279,8 @@
 	},
 /area/ruin/space/moonbase19)
 "rZ" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "sa" = (
@@ -5421,8 +5320,6 @@
 	pixel_y = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/table/reinforced,
@@ -5430,8 +5327,6 @@
 /area/ruin/space/moonbase19)
 "si" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -5452,8 +5347,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -5499,11 +5392,9 @@
 	},
 /area/ruin/space/moonbase19)
 "sp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -5526,17 +5417,12 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
-"sy" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/ruin/space/moonbase19)
 "sF" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/moonbase19)
 "sK" = (
@@ -5591,7 +5477,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "td" = (
@@ -5642,8 +5528,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5665,7 +5549,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "to" = (
@@ -5680,8 +5564,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -5736,14 +5618,12 @@
 	},
 /area/ruin/space/moonbase19)
 "tE" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "tG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/sign/security{
@@ -5911,15 +5791,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -5997,13 +5874,9 @@
 /area/ruin/space/moonbase19)
 "vd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
@@ -6027,9 +5900,8 @@
 /area/ruin/space/moonbase19)
 "vh" = (
 /obj/structure/rack,
-/obj/item/mecha_parts/core,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/stock_parts/cell/infinite/abductor,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault3,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6078,8 +5950,6 @@
 	},
 /obj/item/hand_labeler,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -6088,7 +5958,7 @@
 	},
 /area/ruin/space/moonbase19)
 "vB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6146,7 +6016,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -6217,9 +6087,7 @@
 /area/ruin/space/moonbase19)
 "we" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/structure/sign/poster/contraband/donut_corp{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/donut_corp/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6263,7 +6131,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "wp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 5
@@ -6284,7 +6152,7 @@
 	},
 /area/ruin/space/moonbase19)
 "wv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -6341,6 +6209,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "wR" = (
@@ -6380,8 +6249,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6397,15 +6264,13 @@
 	},
 /area/ruin/space/moonbase19)
 "xi" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/stairs{
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
 "xl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6452,13 +6317,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -6485,7 +6346,7 @@
 /area/ruin/space/moonbase19)
 "xw" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "xz" = (
@@ -6582,7 +6443,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "xZ" = (
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/disposal/delivery_chute{
 	dir = 8
 	},
 /obj/structure/disposalpipe/trunk,
@@ -6634,6 +6495,13 @@
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
+"yg" = (
+/obj/machinery/camera{
+	c_tag = "Dorms";
+	network = list("MO19")
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
 "yi" = (
 /obj/structure/rack,
 /obj/item/pickaxe,
@@ -6683,8 +6551,6 @@
 	initialize_directions = 11
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -6698,13 +6564,9 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6750,7 +6612,7 @@
 /area/ruin/space/moonbase19)
 "yE" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
@@ -6825,12 +6687,12 @@
 	},
 /area/ruin/space/moonbase19)
 "yR" = (
-/obj/item/food/xenomeatbreadslice,
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread,
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 7;
 	pixel_x = 6
 	},
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 9;
 	pixel_x = -5
 	},
@@ -6853,8 +6715,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -6864,7 +6724,7 @@
 "yZ" = (
 /obj/structure/closet/cabinet,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "zh" = (
@@ -6886,9 +6746,7 @@
 	dir = 1;
 	network = list("MO19")
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -6898,8 +6756,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -6919,8 +6775,8 @@
 	},
 /area/ruin/space/moonbase19)
 "zn" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "zr" = (
@@ -6933,8 +6789,6 @@
 "zu" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -6964,8 +6818,6 @@
 	pixel_x = 2
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -6988,7 +6840,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -7001,7 +6853,7 @@
 	},
 /area/ruin/space/moonbase19)
 "zK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
@@ -7022,16 +6874,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/moonbase19)
 "zM" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -7074,7 +6924,7 @@
 /area/ruin/space/moonbase19)
 "zV" = (
 /obj/machinery/economy/vending/medical{
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
@@ -7084,7 +6934,7 @@
 "zW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Aa" = (
@@ -7099,8 +6949,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Af" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/command/glass{
-	req_access_txt = "271";
 	name = "Senior Researcher's Office"
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
@@ -7260,8 +7110,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7281,8 +7129,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -7415,7 +7261,7 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/alien/resin/wall,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Bu" = (
@@ -7455,8 +7301,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -7491,7 +7335,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "awayscilock2"
@@ -7516,9 +7360,8 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "BK" = (
@@ -7527,8 +7370,8 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "BO" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/engineering/glass{
-	req_access_txt = "271";
 	name = "Engineering Division"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7538,8 +7381,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -7599,15 +7440,13 @@
 /area/ruin/space/moonbase19)
 "Cr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awaycontlockdown"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271";
 	name = "Specimen Containtment Zone"
 	},
 /turf/simulated/floor/catwalk,
@@ -7621,9 +7460,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Ct" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/highsecurity,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "awayscilock1"
 	},
@@ -7640,13 +7478,11 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Engineering Division"
 	},
 /turf/simulated/floor/plasteel,
@@ -7698,7 +7534,7 @@
 "CH" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "CI" = (
@@ -7725,8 +7561,6 @@
 /area/ruin/space/moonbase19)
 "CM" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7738,8 +7572,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7766,8 +7598,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -7882,9 +7712,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Dt" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/medical/glass,
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -7893,13 +7722,13 @@
 /area/ruin/space/moonbase19)
 "Dw" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
 /area/ruin/space/moonbase19)
 "Dy" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
@@ -7911,11 +7740,18 @@
 	icon_state = "caution"
 	},
 /area/ruin/space/moonbase19)
+"Dz" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull";
+	dir = 8
+	},
+/area/ruin/space/moonbase19)
 "DA" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk,
@@ -7962,13 +7798,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "DO" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/camera{
 	dir = 8;
 	network = list("MO19");
@@ -8056,14 +7889,12 @@
 /area/ruin/space/moonbase19)
 "Eo" = (
 /obj/structure/filingcabinet,
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /obj/item/paper/fluff/ruins/moonoutpost19/rdnote,
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Ep" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
@@ -8077,9 +7908,6 @@
 /obj/structure/rack,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/machinery/light/small,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -8098,8 +7926,6 @@
 	},
 /mob/living/simple_animal/hostile/alien,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8133,9 +7959,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Ey" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/noslip,
 /area/ruin/space/moonbase19)
@@ -8151,8 +7975,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8250,8 +8072,6 @@
 /area/ruin/space/moonbase19)
 "Fc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -8271,8 +8091,6 @@
 /obj/structure/table/reinforced,
 /obj/item/stock_parts/cell/high,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -8287,7 +8105,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Fk" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -8300,8 +8118,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/assembly/signaler/anomaly/random,
-/obj/item/storage/lockbox/experimental_weapon,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault2,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8317,10 +8134,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "Fp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -8370,7 +8184,7 @@
 /area/ruin/space/moonbase19)
 "FC" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -8403,7 +8217,7 @@
 	},
 /area/ruin/space/moonbase19)
 "FO" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -8424,14 +8238,14 @@
 /area/ruin/space/moonbase19)
 "FT" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitecorner"
 	},
 /area/ruin/space/moonbase19)
 "FV" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8464,8 +8278,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/air_sensor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -8481,7 +8293,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "Ge" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Gg" = (
@@ -8496,8 +8308,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Gk" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271";
 	name = "Operation Room"
 	},
 /turf/simulated/floor/plasteel{
@@ -8524,8 +8336,6 @@
 /area/ruin/space/moonbase19)
 "Gq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -8538,8 +8348,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8553,14 +8361,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -8595,10 +8401,8 @@
 /area/ruin/space/moonbase19)
 "GD" = (
 /obj/structure/holosign/barrier/engineering,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -8614,6 +8418,10 @@
 	icon_state = "caution";
 	dir = 8
 	},
+/area/ruin/space/moonbase19)
+"GI" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "GJ" = (
 /obj/structure/railing{
@@ -8782,8 +8590,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -8798,7 +8604,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "HA" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -8819,8 +8625,6 @@
 	status = 2
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -8829,13 +8633,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/clothing/glasses/welding{
@@ -8845,8 +8645,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "HO" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271";
 	name = "Chamber #1"
 	},
 /obj/effect/turf_decal/delivery,
@@ -8877,7 +8677,7 @@
 /area/ruin/space/moonbase19)
 "HV" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
@@ -8929,9 +8729,7 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/bench/right,
-/obj/structure/sign/poster/official/help_others{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/help_others/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -8945,8 +8743,6 @@
 /area/ruin/space/moonbase19)
 "Ip" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/engine,
@@ -9042,7 +8838,7 @@
 /area/ruin/space/moonbase19)
 "IN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "IO" = (
@@ -9070,8 +8866,8 @@
 /area/ruin/space/moonbase19)
 "IU" = (
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "271";
 	name = "Chamber #2"
 	},
 /turf/simulated/floor/plasteel{
@@ -9090,13 +8886,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -9197,9 +8990,8 @@
 	},
 /area/ruin/space/moonbase19)
 "JE" = (
-/obj/machinery/door/airlock/external{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/external,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "JG" = (
@@ -9254,9 +9046,7 @@
 /area/ruin/space/moonbase19)
 "JP" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "JQ" = (
@@ -9268,9 +9058,7 @@
 /area/ruin/space/moonbase19)
 "JR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "JS" = (
@@ -9292,16 +9080,10 @@
 	locked = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -9327,9 +9109,7 @@
 	pixel_y = -3
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/sign/poster/official/ion_rifle{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/ion_rifle/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Kb" = (
@@ -9352,15 +9132,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitecorner"
-	},
-/area/ruin/space/moonbase19)
-"Ki" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/ruin/space/moonbase19)
 "Km" = (
@@ -9386,8 +9157,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -9424,14 +9193,14 @@
 	},
 /area/ruin/space/moonbase19)
 "Kz" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
 	dir = 4
 	},
 /area/ruin/space/moonbase19)
 "KC" = (
-/obj/machinery/disposal/deliveryChute,
+/obj/machinery/disposal/delivery_chute,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -9468,7 +9237,6 @@
 /area/ruin/space/moonbase19)
 "KI" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/box,
@@ -9497,9 +9265,6 @@
 	},
 /area/ruin/space/moonbase19)
 "KP" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair{
 	dir = 4;
@@ -9551,7 +9316,6 @@
 	id_tag = "awaycontlockdown"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -9570,7 +9334,7 @@
 /area/ruin/space/moonbase19)
 "Lb" = (
 /obj/structure/rack,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Ld" = (
@@ -9670,7 +9434,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 4
@@ -9693,8 +9457,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -9839,9 +9601,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Mx" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
@@ -9861,9 +9622,6 @@
 /area/ruin/space/moonbase19)
 "MF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
 /obj/machinery/camera{
 	c_tag = "Hangar";
 	dir = 1;
@@ -9904,8 +9662,6 @@
 "MJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -9939,8 +9695,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -9950,6 +9704,9 @@
 /area/ruin/space/moonbase19)
 "MT" = (
 /obj/structure/lattice,
+/obj/item/shard{
+	icon_state = "medium"
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "MU" = (
@@ -9959,7 +9716,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "MY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -9983,7 +9740,6 @@
 /area/ruin/space/moonbase19)
 "Nc" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -10015,6 +9771,7 @@
 	name = "shutters control"
 	},
 /obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 5
@@ -10032,8 +9789,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10056,9 +9811,7 @@
 /obj/structure/chair/sofa/bench{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -10099,8 +9852,6 @@
 "Ny" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10150,8 +9901,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10173,7 +9922,7 @@
 	pixel_y = 7;
 	pixel_x = -3
 	},
-/obj/item/clothing/accessory/horrible{
+/obj/item/clothing/neck/tie/horrible{
 	pixel_y = -2;
 	pixel_x = 2
 	},
@@ -10229,7 +9978,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Od" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -10248,7 +9997,7 @@
 /area/ruin/space/moonbase19)
 "Of" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Og" = (
@@ -10306,13 +10055,11 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Oo" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -10336,8 +10083,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -10448,8 +10193,6 @@
 /area/ruin/space/moonbase19)
 "OX" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10503,8 +10246,6 @@
 "Pj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -10578,8 +10319,8 @@
 	},
 /area/ruin/space/moonbase19)
 "PF" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/security{
-	req_access_txt = "271";
 	name = "Security Checkpoint"
 	},
 /turf/simulated/floor/plasteel{
@@ -10602,7 +10343,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "PP" = (
@@ -10614,7 +10355,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "PQ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -10649,16 +10390,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/stack/rods,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -10682,14 +10420,14 @@
 /obj/structure/railing/cap{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
 	},
 /area/ruin/space/moonbase19)
 "Qf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -10697,8 +10435,6 @@
 /area/ruin/space/moonbase19)
 "Qh" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -10796,8 +10532,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -10839,7 +10573,7 @@
 /obj/structure/sign/pods{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "QG" = (
@@ -10888,14 +10622,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Cafeteria"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "QP" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "QQ" = (
@@ -10935,8 +10669,6 @@
 "QZ" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/stairs,
@@ -10951,13 +10683,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -10969,8 +10697,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -10979,9 +10705,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Rg" = (
-/obj/machinery/door/airlock/freezer{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/freezer,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -11015,8 +10740,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11045,7 +10768,7 @@
 /area/ruin/space/moonbase19)
 "Rv" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -11060,9 +10783,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "RD" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
@@ -11077,7 +10799,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "RH" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -11157,8 +10879,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -11246,10 +10966,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Sz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -11262,6 +10980,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -11299,9 +11018,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/centcom,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -11342,12 +11060,9 @@
 	dir = 2
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/box,
@@ -11365,8 +11080,8 @@
 	},
 /area/ruin/space/moonbase19)
 "Ti" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/command/glass{
-	req_access_txt = "271";
 	name = "Senior Researcher's Office"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -11391,12 +11106,9 @@
 /area/ruin/space/moonbase19)
 "Tn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -11449,6 +11161,17 @@
 	icon_state = "escape"
 	},
 /area/ruin/space/moonbase19)
+"Ty" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "North Cafeteria";
+	network = list("MO19")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
+/area/ruin/space/moonbase19)
 "Tz" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
@@ -11481,8 +11204,6 @@
 /area/ruin/space/moonbase19)
 "TF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/stairs{
@@ -11497,8 +11218,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -11546,15 +11265,11 @@
 	pixel_y = -32
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
@@ -11580,9 +11295,7 @@
 /area/ruin/space/moonbase19)
 "Ub" = (
 /obj/structure/filingcabinet,
-/obj/structure/sign/poster/contraband/fun_police{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/fun_police/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 1
@@ -11591,8 +11304,8 @@
 "Ue" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock{
-	req_access_txt = "271";
 	name = "Dorms"
 	},
 /turf/simulated/floor/plasteel{
@@ -11616,8 +11329,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11643,8 +11354,6 @@
 /area/ruin/space/moonbase19)
 "Ur" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -11667,8 +11376,6 @@
 	color = "green"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -11695,9 +11402,8 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "UA" = (
@@ -11768,11 +11474,9 @@
 /area/ruin/space/moonbase19)
 "UO" = (
 /obj/structure/lattice,
-/obj/item/shard{
-	icon_state = "medium"
-	},
+/obj/machinery/door/firedoor/closed,
 /turf/template_noop,
-/area/space/nearstation)
+/area/ruin/space/moonbase19)
 "UQ" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -11858,7 +11562,7 @@
 "Vo" = (
 /obj/structure/closet/crate/can,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "escape"
@@ -11912,7 +11616,7 @@
 	},
 /area/ruin/space/moonbase19)
 "VG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 9
@@ -11920,8 +11624,6 @@
 /area/ruin/space/moonbase19)
 "VH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -11987,15 +11689,13 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "VT" = (
 /obj/structure/bed,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "VU" = (
@@ -12022,9 +11722,7 @@
 	},
 /area/ruin/space/moonbase19)
 "VX" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light/small{
@@ -12043,9 +11741,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "We" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/maintenance_hatch,
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awayscilock"
 	},
@@ -12053,10 +11750,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Wg" = (
-/obj/structure/lattice,
-/obj/machinery/door/firedoor/closed,
+/obj/item/stack/rods,
 /turf/template_noop,
-/area/ruin/space/moonbase19)
+/area/space/nearstation)
 "Wi" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
@@ -12071,7 +11767,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Wn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -12137,14 +11833,12 @@
 /obj/item/cigbutt{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/bottle/beer,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "WF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -12153,14 +11847,14 @@
 	},
 /area/ruin/space/moonbase19)
 "WG" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/vault{
-	locked = 1;
-	req_access_txt = "271"
+	locked = 1
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "WH" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
@@ -12168,7 +11862,7 @@
 	},
 /area/ruin/space/moonbase19)
 "WJ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 9
 	},
@@ -12212,16 +11906,12 @@
 	},
 /obj/structure/alien/weeds/node,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "WW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -12230,7 +11920,9 @@
 	},
 /area/ruin/space/moonbase19)
 "WX" = (
-/obj/item/stack/rods,
+/obj/item/shard{
+	icon_state = "medium"
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "WZ" = (
@@ -12288,20 +11980,13 @@
 	},
 /area/ruin/space/moonbase19)
 "Xl" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
+/obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
 "Xm" = (
 /obj/structure/railing/cap,
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Dorms";
-	dir = 4;
-	network = list("MO19")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12320,8 +12005,6 @@
 /area/ruin/space/moonbase19)
 "Xq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -12366,8 +12049,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12432,7 +12113,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -12502,14 +12183,14 @@
 /area/ruin/space/moonbase19)
 "XX" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/ruin/space/moonbase19)
 "XY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -12547,9 +12228,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -12557,8 +12235,8 @@
 /area/ruin/space/moonbase19)
 "Yj" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/engineering/glass{
-	req_access_txt = "271";
 	name = "Engineering Division"
 	},
 /turf/simulated/floor/plasteel,
@@ -12575,10 +12253,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12597,9 +12272,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Yu" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/vomit/green,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plasteel{
@@ -12643,8 +12316,8 @@
 	id_tag = "awaymlock"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/centcom{
-	req_access_txt = "271";
 	name = "Medical Ward"
 	},
 /turf/simulated/floor/catwalk,
@@ -12675,9 +12348,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/spiders{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/spiders/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -12688,8 +12359,8 @@
 	},
 /area/ruin/space/moonbase19)
 "YM" = (
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
 /obj/machinery/door/airlock/engineering/glass{
-	req_access_txt = "271";
 	name = "Workshop"
 	},
 /turf/simulated/floor/catwalk,
@@ -12710,8 +12381,6 @@
 "YS" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -12735,9 +12404,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/here_for_your_safety{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/here_for_your_safety/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -12745,7 +12412,7 @@
 /area/ruin/space/moonbase19)
 "Za" = (
 /obj/structure/holosign/barrier/engineering,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Zb" = (
@@ -12773,8 +12440,6 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12783,7 +12448,7 @@
 "Zh" = (
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "awayscilock1"
 	},
@@ -12830,7 +12495,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Zp" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -12863,8 +12528,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -12916,8 +12579,6 @@
 "ZL" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -12948,9 +12609,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "ZP" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "271"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
+/obj/machinery/door/airlock/medical/glass,
 /obj/structure/barricade/wooden{
 	layer = 4
 	},
@@ -13002,42 +12662,43 @@ aa
 aa
 aa
 aa
-tX
-tX
-tX
-tX
-tX
-tX
-tX
 aa
 aa
 aa
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
 aa
 aa
 aa
-tX
-tX
-tX
-tX
-tX
-tX
 aa
-tX
-tX
 aa
-tX
-tX
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -13054,6 +12715,67 @@ aa
 aa
 "}
 (2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+aa
+aa
+aa
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+tX
+aa
+aa
+aa
+tX
+tX
+tX
+tX
+tX
+tX
+aa
+tX
+tX
+aa
+tX
+tX
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
 aa
 aa
 aa
@@ -13112,8 +12834,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(3,1,1) = {"
+(4,1,1) = {"
 aa
 aa
 aa
@@ -13172,8 +12895,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(4,1,1) = {"
+(5,1,1) = {"
 aa
 aa
 aa
@@ -13232,8 +12956,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(5,1,1) = {"
+(6,1,1) = {"
 aa
 aa
 aa
@@ -13292,8 +13017,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(6,1,1) = {"
+(7,1,1) = {"
 aa
 aa
 aa
@@ -13352,8 +13078,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(7,1,1) = {"
+(8,1,1) = {"
 aa
 aa
 aa
@@ -13412,8 +13139,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(8,1,1) = {"
+(9,1,1) = {"
 aa
 aa
 tX
@@ -13436,7 +13164,7 @@ ru
 ag
 ag
 af
-Ll
+Ty
 ak
 NC
 cL
@@ -13472,8 +13200,9 @@ tX
 aa
 aa
 aa
+aa
 "}
-(9,1,1) = {"
+(10,1,1) = {"
 aa
 aa
 tX
@@ -13485,7 +13214,7 @@ af
 af
 ag
 ag
-aA
+yg
 KG
 Ol
 ak
@@ -13532,8 +13261,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(10,1,1) = {"
+(11,1,1) = {"
 aa
 aa
 tX
@@ -13592,8 +13322,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(11,1,1) = {"
+(12,1,1) = {"
 aa
 aa
 tX
@@ -13652,8 +13383,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(12,1,1) = {"
+(13,1,1) = {"
 aa
 aa
 tX
@@ -13712,8 +13444,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(13,1,1) = {"
+(14,1,1) = {"
 aa
 aa
 tX
@@ -13772,8 +13505,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(14,1,1) = {"
+(15,1,1) = {"
 aa
 aa
 tX
@@ -13832,8 +13566,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(15,1,1) = {"
+(16,1,1) = {"
 aa
 aa
 tX
@@ -13892,8 +13627,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(16,1,1) = {"
+(17,1,1) = {"
 aa
 aa
 tX
@@ -13952,8 +13688,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(17,1,1) = {"
+(18,1,1) = {"
 aa
 aa
 aa
@@ -14012,8 +13749,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(18,1,1) = {"
+(19,1,1) = {"
 aa
 aa
 aa
@@ -14072,8 +13810,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(19,1,1) = {"
+(20,1,1) = {"
 aa
 aa
 aa
@@ -14132,8 +13871,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(20,1,1) = {"
+(21,1,1) = {"
 aa
 aa
 aa
@@ -14192,8 +13932,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(21,1,1) = {"
+(22,1,1) = {"
 aa
 aa
 aa
@@ -14252,8 +13993,9 @@ Wl
 tX
 tX
 tX
+aa
 "}
-(22,1,1) = {"
+(23,1,1) = {"
 aa
 aa
 tX
@@ -14312,8 +14054,9 @@ gi
 fV
 tX
 tX
+aa
 "}
-(23,1,1) = {"
+(24,1,1) = {"
 aa
 tX
 tX
@@ -14323,7 +14066,7 @@ PB
 ag
 ag
 ny
-MT
+Xl
 EE
 ag
 ag
@@ -14372,8 +14115,9 @@ fw
 hI
 tX
 tX
+aa
 "}
-(24,1,1) = {"
+(25,1,1) = {"
 aa
 tX
 tX
@@ -14382,8 +14126,8 @@ tE
 bP
 ag
 wl
-MT
 Xl
+WX
 ON
 ny
 wP
@@ -14432,8 +14176,9 @@ Ob
 ph
 tX
 tX
+aa
 "}
-(25,1,1) = {"
+(26,1,1) = {"
 aa
 tX
 tX
@@ -14441,12 +14186,12 @@ af
 DM
 bP
 ag
-MT
-MT
-ON
-WX
+Xl
+Xl
 ON
 Wg
+ON
+UO
 Za
 Sz
 ag
@@ -14492,8 +14237,9 @@ ad
 tX
 tX
 tX
+aa
 "}
-(26,1,1) = {"
+(27,1,1) = {"
 aa
 tX
 tX
@@ -14505,11 +14251,11 @@ IW
 wl
 ON
 RA
+MT
 UO
-Wg
 GD
 Fc
-mJ
+Dz
 oH
 qt
 sv
@@ -14552,8 +14298,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(27,1,1) = {"
+(28,1,1) = {"
 aa
 tX
 tX
@@ -14564,7 +14311,7 @@ af
 af
 IW
 nu
-MT
+Xl
 af
 af
 RN
@@ -14612,8 +14359,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(28,1,1) = {"
+(29,1,1) = {"
 aa
 tX
 tX
@@ -14672,8 +14420,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(29,1,1) = {"
+(30,1,1) = {"
 aa
 aa
 tX
@@ -14703,7 +14452,7 @@ Wd
 rL
 mh
 Mv
-sy
+ag
 tX
 tX
 Dd
@@ -14732,8 +14481,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(30,1,1) = {"
+(31,1,1) = {"
 aa
 aa
 tX
@@ -14792,8 +14542,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(31,1,1) = {"
+(32,1,1) = {"
 aa
 aa
 tX
@@ -14852,8 +14603,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(32,1,1) = {"
+(33,1,1) = {"
 aa
 aa
 tX
@@ -14912,8 +14664,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(33,1,1) = {"
+(34,1,1) = {"
 aa
 aa
 aa
@@ -14972,8 +14725,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(34,1,1) = {"
+(35,1,1) = {"
 aa
 aa
 aa
@@ -15032,8 +14786,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(35,1,1) = {"
+(36,1,1) = {"
 aa
 aa
 aa
@@ -15092,8 +14847,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(36,1,1) = {"
+(37,1,1) = {"
 aa
 aa
 tX
@@ -15152,8 +14908,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(37,1,1) = {"
+(38,1,1) = {"
 aa
 aa
 tX
@@ -15212,8 +14969,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(38,1,1) = {"
+(39,1,1) = {"
 aa
 aa
 tX
@@ -15272,8 +15030,9 @@ ag
 tX
 tX
 aa
+aa
 "}
-(39,1,1) = {"
+(40,1,1) = {"
 aa
 aa
 tX
@@ -15332,8 +15091,9 @@ ag
 ag
 tX
 aa
+aa
 "}
-(40,1,1) = {"
+(41,1,1) = {"
 aa
 aa
 tX
@@ -15392,8 +15152,9 @@ tW
 ag
 tX
 tX
+aa
 "}
-(41,1,1) = {"
+(42,1,1) = {"
 aa
 aa
 tX
@@ -15452,8 +15213,9 @@ cm
 af
 tX
 tX
+aa
 "}
-(42,1,1) = {"
+(43,1,1) = {"
 aa
 aa
 tX
@@ -15512,8 +15274,9 @@ rZ
 ag
 tX
 tX
+aa
 "}
-(43,1,1) = {"
+(44,1,1) = {"
 aa
 aa
 tX
@@ -15572,8 +15335,9 @@ jb
 tX
 tX
 tX
+aa
 "}
-(44,1,1) = {"
+(45,1,1) = {"
 aa
 tX
 tX
@@ -15632,8 +15396,9 @@ pK
 tX
 tX
 tX
+aa
 "}
-(45,1,1) = {"
+(46,1,1) = {"
 aa
 tX
 tX
@@ -15692,8 +15457,9 @@ db
 pK
 tX
 tX
+aa
 "}
-(46,1,1) = {"
+(47,1,1) = {"
 aa
 tX
 tX
@@ -15752,8 +15518,9 @@ ag
 jb
 tX
 tX
+aa
 "}
-(47,1,1) = {"
+(48,1,1) = {"
 aa
 tX
 tX
@@ -15812,8 +15579,9 @@ ag
 kp
 Rv
 tX
+aa
 "}
-(48,1,1) = {"
+(49,1,1) = {"
 aa
 tX
 tX
@@ -15872,8 +15640,9 @@ ag
 jb
 pK
 tX
+aa
 "}
-(49,1,1) = {"
+(50,1,1) = {"
 aa
 tX
 tX
@@ -15932,8 +15701,9 @@ ag
 aj
 eC
 tX
+aa
 "}
-(50,1,1) = {"
+(51,1,1) = {"
 aa
 aa
 tX
@@ -15992,8 +15762,9 @@ ag
 hP
 Gg
 tX
+aa
 "}
-(51,1,1) = {"
+(52,1,1) = {"
 aa
 aa
 tX
@@ -16017,7 +15788,7 @@ OZ
 VR
 af
 bP
-sy
+ag
 af
 tX
 tX
@@ -16052,8 +15823,9 @@ jb
 kp
 Gg
 tX
+aa
 "}
-(52,1,1) = {"
+(53,1,1) = {"
 aa
 aa
 tX
@@ -16112,8 +15884,9 @@ tI
 Gg
 Gg
 tX
+aa
 "}
-(53,1,1) = {"
+(54,1,1) = {"
 aa
 aa
 tX
@@ -16172,8 +15945,9 @@ pK
 Gg
 tX
 tX
+aa
 "}
-(54,1,1) = {"
+(55,1,1) = {"
 aa
 aa
 tX
@@ -16232,8 +16006,9 @@ Ln
 Gg
 tX
 tX
+aa
 "}
-(55,1,1) = {"
+(56,1,1) = {"
 aa
 aa
 tX
@@ -16292,8 +16067,9 @@ qA
 Gg
 tX
 tX
+aa
 "}
-(56,1,1) = {"
+(57,1,1) = {"
 aa
 tX
 tX
@@ -16352,8 +16128,9 @@ Oi
 Gg
 tX
 aa
+aa
 "}
-(57,1,1) = {"
+(58,1,1) = {"
 aa
 tX
 tX
@@ -16412,8 +16189,9 @@ Gg
 Gg
 tX
 aa
+aa
 "}
-(58,1,1) = {"
+(59,1,1) = {"
 aa
 tX
 tX
@@ -16472,8 +16250,9 @@ Gg
 tX
 tX
 aa
+aa
 "}
-(59,1,1) = {"
+(60,1,1) = {"
 aa
 tX
 tX
@@ -16532,8 +16311,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(60,1,1) = {"
+(61,1,1) = {"
 aa
 tX
 tX
@@ -16592,8 +16372,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(61,1,1) = {"
+(62,1,1) = {"
 aa
 tX
 tX
@@ -16641,7 +16422,7 @@ bv
 fl
 vY
 hS
-lp
+qO
 eL
 nt
 fC
@@ -16652,8 +16433,9 @@ db
 tX
 tX
 aa
+aa
 "}
-(62,1,1) = {"
+(63,1,1) = {"
 aa
 tX
 tX
@@ -16702,7 +16484,7 @@ dM
 hN
 aE
 rJ
-bl
+Df
 uX
 aO
 ag
@@ -16712,8 +16494,9 @@ jb
 tX
 aa
 aa
+aa
 "}
-(63,1,1) = {"
+(64,1,1) = {"
 aa
 tX
 tX
@@ -16772,8 +16555,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(64,1,1) = {"
+(65,1,1) = {"
 aa
 tX
 tX
@@ -16810,7 +16594,7 @@ ad
 ad
 ad
 ag
-ic
+eT
 is
 hO
 dh
@@ -16822,7 +16606,7 @@ aA
 aB
 bi
 cX
-ch
+gS
 cv
 uM
 ag
@@ -16832,8 +16616,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(65,1,1) = {"
+(66,1,1) = {"
 aa
 tX
 tX
@@ -16892,8 +16677,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(66,1,1) = {"
+(67,1,1) = {"
 aa
 aa
 tX
@@ -16930,7 +16716,7 @@ Ib
 hI
 ad
 ag
-cY
+nD
 it
 hu
 dj
@@ -16952,8 +16738,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(67,1,1) = {"
+(68,1,1) = {"
 aa
 aa
 tX
@@ -17012,8 +16799,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(68,1,1) = {"
+(69,1,1) = {"
 aa
 aa
 tX
@@ -17072,8 +16860,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(69,1,1) = {"
+(70,1,1) = {"
 aa
 aa
 tX
@@ -17132,8 +16921,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(70,1,1) = {"
+(71,1,1) = {"
 aa
 aa
 aa
@@ -17192,8 +16982,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(71,1,1) = {"
+(72,1,1) = {"
 aa
 aa
 aa
@@ -17208,8 +16999,8 @@ tX
 AP
 If
 Wd
-Ki
-fq
+ib
+GI
 DO
 Wd
 If
@@ -17252,8 +17043,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(72,1,1) = {"
+(73,1,1) = {"
 aa
 aa
 aa
@@ -17312,8 +17104,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(73,1,1) = {"
+(74,1,1) = {"
 aa
 aa
 aa
@@ -17372,8 +17165,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(74,1,1) = {"
+(75,1,1) = {"
 aa
 aa
 aa
@@ -17432,8 +17226,9 @@ tX
 tX
 tX
 tX
+aa
 "}
-(75,1,1) = {"
+(76,1,1) = {"
 aa
 aa
 aa
@@ -17492,8 +17287,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(76,1,1) = {"
+(77,1,1) = {"
 aa
 aa
 aa
@@ -17552,8 +17348,9 @@ tX
 tX
 tX
 aa
+aa
 "}
-(77,1,1) = {"
+(78,1,1) = {"
 aa
 aa
 aa
@@ -17612,8 +17409,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(78,1,1) = {"
+(79,1,1) = {"
 aa
 aa
 aa
@@ -17672,8 +17470,9 @@ tX
 tX
 aa
 aa
+aa
 "}
-(79,1,1) = {"
+(80,1,1) = {"
 aa
 aa
 aa
@@ -17732,8 +17531,9 @@ tX
 aa
 aa
 aa
+aa
 "}
-(80,1,1) = {"
+(81,1,1) = {"
 aa
 aa
 aa
@@ -17787,6 +17587,68 @@ tX
 tX
 tX
 tX
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(82,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
