@@ -14,6 +14,7 @@ use eyre::eyre;
 use eyre::Context;
 use eyre::ContextCompat;
 use itertools::Itertools;
+use procgen::{MazegenHauberkSettings, mapmanip_mazegen_hauberk};
 use rand::prelude::IteratorRandom;
 use rand::seq::SliceRandom;
 use serde::{Deserialize, Serialize};
@@ -23,6 +24,7 @@ use tools::insert_submap;
 use crate::logging::setup_panic_handler;
 
 mod core;
+mod procgen;
 mod tools;
 
 #[cfg(test)]
@@ -47,6 +49,7 @@ pub enum MapManipulation {
         submaps_can_repeat: bool,
     },
     RandomOrientation,
+    MazegenHauberk(MazegenHauberkSettings),
 }
 
 #[derive(Debug)]
@@ -118,6 +121,9 @@ pub fn mapmanip(
             )),
             MapManipulation::RandomOrientation => {
                 mapmanip_orientation_randomize(&mut map).wrap_err("randomize orientation failure")
+            }
+            MapManipulation::MazegenHauberk(settings) => {
+                mapmanip_mazegen_hauberk(&mut map, settings)
             }
         }
         .wrap_err(format!("mapmanip fail; manip n is: {n}/{config_len}"))?;
