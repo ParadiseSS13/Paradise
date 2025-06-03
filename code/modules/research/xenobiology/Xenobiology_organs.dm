@@ -219,6 +219,7 @@
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
 	active = FALSE
+	antimagic_flags = NONE
 
 	selection_activated_message = "<span class='notice'>You take in a deep bread, readying to breathe fire!</span>"
 	selection_deactivated_message = "<span class='notice'>You relax your breaths as you decide not to breathe fire.</span>"
@@ -278,6 +279,7 @@
 	base_cooldown = 5 MINUTES
 	var/quality = ORGAN_NORMAL
 	var/cooldown = 0
+	antimagic_flags = NONE
 
 /datum/spell/create_sinew/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -437,6 +439,7 @@
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	base_cooldown = 5 MINUTES
+	antimagic_flags = NONE
 	var/quality = ORGAN_NORMAL
 	var/cooldown = 0
 	var/terror = FALSE
@@ -514,6 +517,7 @@
 	action_background_icon_state = "bg_changeling"
 	sound = 'sound/effects/blood1.ogg'
 	sound = null
+	antimagic_flags = NONE
 	var/duration_time = 30 SECONDS
 	active = FALSE
 	var/quality
@@ -581,6 +585,7 @@
 	sound = null
 	active = FALSE
 	base_cooldown = 30 SECONDS
+	antimagic_flags = NONE
 	var/quality
 
 /datum/spell/absorb_blood/create_new_targeting()
@@ -682,6 +687,7 @@
 	action_background_icon_state = "bg_default"
 	sound = null
 	active = FALSE
+	antimagic_flags = NONE
 	var/quality
 
 /datum/spell/tendril_grab/create_new_targeting(list/targets, mob/living/user)
@@ -770,6 +776,7 @@
 	active = FALSE
 	sound1 = 'sound/magic/blink.ogg'
 	sound2 = 'sound/magic/blink.ogg'
+	antimagic_flags = NONE
 	var/quality
 
 /datum/spell/turf_teleport/organ_teleport/create_new_targeting()
@@ -911,6 +918,7 @@
 	sound = 'sound/effects/splat.ogg'
 	active = FALSE
 	base_cooldown = 3 MINUTES
+	antimagic_flags = NONE
 	var/quality
 
 /datum/spell/create_mirror/create_new_targeting()
@@ -1263,6 +1271,7 @@
 	stop_charging_text = "You cool your core before it goes critical."
 	start_charging_text = "You begin to overload your core!"
 	stop_charging_fail_text = "You try to stop your cores charge but it's too late!"
+	antimagic_flags = NONE
 	var/quality
 
 /datum/spell/charge_up/explode/New()
@@ -1482,6 +1491,7 @@
 	sound = 'sound/effects/blood1.ogg'
 	sound = null
 	active = FALSE
+	antimagic_flags = NONE
 	var/quality
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/newhead
 
