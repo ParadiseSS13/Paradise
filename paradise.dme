@@ -2342,6 +2342,7 @@
 #include "code\modules\mob\camera\eye\syndicate.dm"
 #include "code\modules\mob\camera\eye\xenobio_eye.dm"
 #include "code\modules\mob\dead\dead.dm"
+#include "code\modules\mob\dead\observer\observer_admin_actions.dm"
 #include "code\modules\mob\dead\observer\observer_base.dm"
 #include "code\modules\mob\dead\observer\observer_login.dm"
 #include "code\modules\mob\dead\observer\observer_logout.dm"
