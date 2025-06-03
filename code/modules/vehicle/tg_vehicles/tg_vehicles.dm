@@ -37,6 +37,10 @@
 	///This vehicle will follow us when we move (like atrailer duh)
 	var/obj/tgvehicle/trailer
 	var/are_legs_exposed = FALSE
+	/// Sound played when entering a vehicle
+	var/enter_sound
+	/// Sound played when exiting a vehicle
+	var/exit_sound
 
 /obj/tgvehicle/Initialize(mapload)
 	. = ..()
@@ -54,6 +58,8 @@
 /obj/tgvehicle/Exited(atom/movable/gone, direction)
 	if(gone == inserted_key)
 		inserted_key = null
+	if(exit_sound)
+		playsound(src, exit_sound, 70, TRUE)
 	return ..()
 
 /obj/tgvehicle/examine(mob/user)
@@ -239,14 +245,12 @@
 	if(!istype(M))
 		return FALSE
 	remove_occupant(M)
-	if(!isAI(M))//This is the ONE mob we dont want to be moved to the vehicle that should be handeled when used
+	if(!is_ai(M))// This is the ONE mob we dont want to be moved to the vehicle that should be handeled when used
 		M.forceMove(exit_location(M))
 	if(randomstep)
 		var/turf/target_turf = get_step(exit_location(M), pick(GLOB.alldirs))
 		M.throw_at(target_turf, 5, 10)
 
-	if(!silent)
-		M.visible_message("<span class='notice'>[M] drops out of \the [src]!</span>")
 	return TRUE
 
 /obj/tgvehicle/proc/exit_location(M)

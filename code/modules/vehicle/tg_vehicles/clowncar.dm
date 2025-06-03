@@ -7,25 +7,27 @@
 	key_type = /obj/item/bikehorn
 	light_range = 6
 	light_power = 2
-	///Traits
+	enter_sound = 'sound/effects/clowncar/door_close.ogg'
+	exit_sound = 'sound/effects/clowncar/door_open.ogg'
+	/// Traits
 	var/car_traits = CAN_KIDNAP
-	///Armor
+	/// Armor
 	var/armor_type = /datum/armor/car_clowncar
-	//How long does it take to get in?
+	/// How long does it take to get in?
 	var/enter_delay = 40
-	///Are the lights on?
+	/// Are the lights on?
 	var/light_on = FALSE
-	///Determines which occupants provide access when bumping into doors
+	// /Determines which occupants provide access when bumping into doors
 	var/access_provider_flags = VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_KIDNAPPED
-	///list of headlight colors we use to pick through when we have party mode due to emag
+	/// list of headlight colors we use to pick through when we have party mode due to emag
 	var/headlight_colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_LIME, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_PURPLE)
-	///Cooldown time inbetween [/obj/tgvehicle/clowncar/proc/roll_the_dice()] usages
-	var/dice_cooldown_time = 150
-	///Current status of the cannon, alternates between CLOWN_CANNON_INACTIVE, CLOWN_CANNON_BUSY and CLOWN_CANNON_READY
+	/// Cooldown time inbetween [/obj/tgvehicle/clowncar/proc/roll_the_dice()] usages
+	var/dice_cooldown_time = 15 SECONDS
+	/// Current status of the cannon, alternates between CLOWN_CANNON_INACTIVE, CLOWN_CANNON_BUSY and CLOWN_CANNON_READY
 	var/cannonmode = CLOWN_CANNON_INACTIVE
-	///Does the driver require the clown role to drive it
+	/// Does the driver require the clown role to drive it
 	var/enforce_clown_role = TRUE
-	///Emag Button Cooldown
+	/// Emag Button Cooldown
 	var/last_emag_button_use = 0
 
 /datum/armor/car_clowncar
@@ -39,7 +41,7 @@
 /obj/tgvehicle/clowncar/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj,src)
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(check_crossed))
+	RegisterSignal(src, COMSIG_MOVABLE_CHECK_CROSS, PROC_REF(check_crossed))
 
 /obj/tgvehicle/clowncar/process()
 	if(light_on && emagged)
@@ -57,7 +59,7 @@
 	initialize_controller_action_type(/datum/action/vehicle/headlights, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/thank, VEHICLE_CONTROL_KIDNAPPED)
 
-//Getting in the car
+// Getting in the car
 /obj/tgvehicle/clowncar/proc/mob_try_enter(mob/rider)
 	if(!istype(rider))
 		return FALSE
@@ -80,16 +82,19 @@
 /obj/tgvehicle/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.mind?.assigned_role == "Clown") //Ensures only clowns can drive the car. (Including more at once)
+		if(H.mind?.assigned_role == "Clown") // Ensures only clowns can drive the car. (Including more at once)
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE)
+			RegisterSignal(H, COMSIG_MOB_CLICKON, PROC_REF(fire_cannon_at))
+			playsound(src, 'sound/effects/clowncar/door_close.ogg', 70, TRUE)
+			log_game("[M] has entered [src] as a possible driver")
 			return
 	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 
 /obj/tgvehicle/clowncar/after_add_occupant(mob/M)
 	. = ..()
-	//ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, "clowncar")
+	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, "clowncar")
 
-//Getting out of the car
+// Getting out of the car
 /obj/tgvehicle/clowncar/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_CLICKON)
@@ -132,9 +137,9 @@
 
 /obj/tgvehicle/clowncar/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
-	if(!istype(I, /obj/item/food/snacks/grown/banana))
+	if(!istype(I, /obj/item/food/grown/banana))
 		return
-	var/obj/item/food/snacks/grown/banana/banana = I
+	var/obj/item/food/grown/banana/banana = I
 	obj_integrity += min(banana.seed.potency, max_integrity-obj_integrity)
 	to_chat(user, "<span class='warning'>You use the [banana] to repair [src]!</span>")
 	qdel(banana)
@@ -160,15 +165,15 @@
 			return
 		var/mob/living/hittarget_living = bumped
 
-		if(istype(hittarget_living, /mob/living/simple_animal/deer))
+		if(istype(hittarget_living, /mob/living/basic/deer))
 			visible_message("<span class='warning'>[src] careens into [hittarget_living]! Oh the humanity!</span>")
 			for(var/mob/living/carbon/carbon_occupant in occupants)
-				if(prob(35)) //Note: The randomstep on dump_mobs throws occupants into each other and often causes wounds regardless.
+				if(prob(35)) // Note: The randomstep on dump_mobs throws occupants into each other and often causes wounds regardless.
 					continue
 			hittarget_living.adjustBruteLoss(200)
 			new /obj/effect/decal/cleanable/blood/splatter(get_turf(hittarget_living))
 
-			//log_combat(src, hittarget_living, "rammed into", null, "injuring all passengers and killing the [hittarget_living]")
+			// log_combat(src, hittarget_living, "rammed into", null, "injuring all passengers and killing the [hittarget_living]")
 			dump_mobs(TRUE)
 			playsound(src, 'sound/effects/clowncar/car_crash.ogg', 100)
 			return
@@ -181,8 +186,10 @@
 		playsound(src, pick('sound/effects/clowncar/clowncar_ram1.ogg', 'sound/effects/clowncar/clowncar_ram2.ogg', 'sound/effects/clowncar/clowncar_ram3.ogg'), 75)
 		//log_combat(src, hittarget_living, "sucked up")
 		return
-	if(!is_blocked_turf(bumped))
-		return
+	if(isturf(bumped))
+		var/turf/bumped_turf = bumped
+		if(!bumped_turf.is_blocked_turf())
+			return
 	visible_message("<span class='warning'>[src] rams into [bumped] and crashes!</span>")
 	playsound(src, pick('sound/effects/clowncar/clowncar_crash1.ogg', 'sound/effects/clowncar/clowncar_crash2.ogg'), 75)
 	playsound(src, 'sound/effects/clowncar/clowncar_crashpins.ogg', 75)
@@ -190,7 +197,7 @@
 	//log_combat(src, bumped, "crashed into", null, "dumping all passengers")
 
 /obj/tgvehicle/clowncar/proc/check_crossed(datum/source, atom/movable/crossed)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOVABLE_CHECK_CROSS
 	if(!has_gravity())
 		return
 	if(!iscarbon(crossed))

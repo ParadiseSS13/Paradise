@@ -292,7 +292,7 @@
 /datum/action/vehicle/climb_out
 	name = "Climb Out"
 	desc = "Climb out of your vehicle!"
-	button_icon_state = "car_eject"
+	button_overlay_icon_state = "car_eject"
 
 /datum/action/vehicle/climb_out/Trigger(trigger_flags)
 	if(..() && istype(vehicle_target))
@@ -301,7 +301,7 @@
 /datum/action/vehicle/horn
 	name = "Honk Horn"
 	desc = "Honk your classy horn."
-	button_icon_state = "car_horn"
+	button_overlay_icon_state = "car_horn"
 	var/horn_sound = 'sound/items/airhorn.ogg'
 	var/horn_cooldown = 60
 	var/last_horn = 0
@@ -313,14 +313,14 @@
 	vehicle_target.visible_message("<span class='warning'>[vehicle_target] loudly honks!</span>")
 	to_chat(owner, "<span class=notice'>You press [vehicle_target]'s horn.</span>")
 	if(istype(vehicle_target.inserted_key, /obj/item/bikehorn))
-		vehicle_target.inserted_key.attack_self(owner) //The bikehorn plays a sound instead
+		playsound(target, 'sound/items/bikehorn.ogg', 75) // The bikehorn plays a sound instead
 		return
 	playsound(vehicle_target, horn_sound, 75)
 
 /datum/action/vehicle/headlights
 	name = "Toggle Headlights"
 	desc = "Turn on your brights!"
-	button_icon_state = "car_headlights"
+	button_overlay_icon_state = "car_headlights"
 
 /datum/action/vehicle/headlights/Trigger(trigger_flags)
 	to_chat(owner, "<span class=notice'>You flip the switch for the vehicle's headlights.</span>")
@@ -332,7 +332,7 @@
 /datum/action/vehicle/dump_kidnapped_mobs
 	name = "Dump Kidnapped Mobs"
 	desc = "Dump all objects and people in your car on the floor."
-	button_icon_state = "car_dump"
+	button_overlay_icon_state = "car_dump"
 
 /datum/action/vehicle/dump_kidnapped_mobs/Trigger(trigger_flags)
 	vehicle_target.visible_message("<span class='warning'>[vehicle_target] starts dumping the people inside of it.</span>")
@@ -342,7 +342,7 @@
 /datum/action/vehicle/roll_the_dice
 	name = "Press Colorful Button"
 	desc = "Press one of those colorful buttons on your display panel!"
-	button_icon_state = "car_rtd"
+	button_overlay_icon_state = "car_rtd"
 
 /datum/action/vehicle/roll_the_dice/Trigger(trigger_flags)
 	if(!istype(vehicle_target, /obj/tgvehicle/clowncar))
@@ -353,7 +353,7 @@
 /datum/action/vehicle/cannon
 	name = "Toggle Siege Mode"
 	desc = "Destroy them with their own fodder!"
-	button_icon_state = "car_cannon"
+	button_overlay_icon_state = "car_cannon"
 
 /datum/action/vehicle/cannon/Trigger(trigger_flags)
 	if(!istype(vehicle_target, /obj/tgvehicle/clowncar))
@@ -365,7 +365,7 @@
 /datum/action/vehicle/thank
 	name = "Thank the Clown Car Driver"
 	desc = "They're just doing their job."
-	button_icon_state = "car_thanktheclown"
+	button_overlay_icon_state = "car_thanktheclown"
 	COOLDOWN_DECLARE(thank_time_cooldown)
 
 /datum/action/vehicle/thank/Trigger(trigger_flags)
