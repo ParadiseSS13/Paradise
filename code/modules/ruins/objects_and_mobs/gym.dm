@@ -10,24 +10,24 @@
 	var/material_drop = /obj/item/stack/sheet/cloth
 	var/material_drop_amount = 10
 
-/obj/structure/punching_bag/attack_hand(mob/user)
+/obj/structure/punching_bag/attack_hand(mob/living/user, obj/item/I)
 	user.changeNext_move(CLICK_CD_MELEE)
-	. = ..()
+	. = FALSE
 	if(.)
+		return
+	if(istype(I, /obj/item/wirecutters))
 		return
 	flick("[icon_state]2", src)
 	playsound(loc, pick(hit_sounds), 25, TRUE, -1)
 
 /obj/structure/punching_bag/wirecutter_act(mob/user, obj/item/I)
-	. = ..()
+	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
-	else
-		WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
-		if(I.use_tool(src,user, 5 SECONDS, volume = I.tool_volume))
-			WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
-			deconstruct(TRUE)
-			return
+	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src,user, 5 SECONDS, volume = I.tool_volume))
+		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct(TRUE)
 
 /obj/structure/punching_bag/deconstruct(disassembled = TRUE)
 	if(ispath(material_drop) && material_drop_amount && !(flags & NODECONSTRUCT))
@@ -90,6 +90,7 @@
 	qdel(src)
 
 /obj/structure/weightmachine/stacklifter
+	name = "chest press"
 	icon = 'icons/goonstation/objects/fitness.dmi'
 	icon_state = "fitnesslifter"
 	icon_state_inuse = "fitnesslifter2"
@@ -107,6 +108,7 @@
 		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, 1)
 
 /obj/structure/weightmachine/weightlifter
+	name = "bench press"
 	icon = 'icons/goonstation/objects/fitness.dmi'
 	icon_state = "fitnessweight"
 	icon_state_inuse = "fitnessweight-c"
