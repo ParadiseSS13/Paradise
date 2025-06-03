@@ -34807,21 +34807,9 @@
 	},
 /area/station/security/warden)
 "dZQ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/chair/office/light{
-	dir = 8
-	},
 /obj/effect/landmark/start/xenobiologist,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/chair/office{
 	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -46589,10 +46577,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
-"inr" = (
-/obj/structure/chair/office/light,
-/turf/simulated/floor/wood,
-/area/station/public/vacant_office)
 "inv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -58862,9 +58846,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/office/light{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
@@ -76582,12 +76563,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/station/engineering/solar/fore_port)
-"tpn" = (
-/obj/structure/chair/office/light{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/station/public/vacant_office)
 "tpq" = (
 /obj/structure/lattice,
 /obj/structure/sign/electricshock{
@@ -100616,7 +100591,7 @@ oJl
 eoq
 bHf
 bHf
-tpn
+bHf
 eoq
 bHf
 bFp
@@ -100875,7 +100850,7 @@ vsf
 dNc
 vsf
 xyi
-inr
+bHf
 eyr
 bFp
 mbZ
