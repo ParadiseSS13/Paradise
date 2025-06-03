@@ -146,6 +146,9 @@
 
 /mob/living/simple_animal/hostile/gorilla/update_icon_state()
 	. = ..()
+	if(is_dead())
+		icon_state = icon_dead
+		return
 	if(is_bipedal || LAZYLEN(crates_in_hand))
 		icon_state = "standing"
 		return
