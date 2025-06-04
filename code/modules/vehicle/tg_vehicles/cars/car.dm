@@ -26,9 +26,9 @@
 
 /obj/tgvehicle/sealed/car/MouseDrop_T(mob/living/M, mob/living/user)
 	if(!istype(M))
-		return
+		return FALSE
 	if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !is_driver(M))
-		return
+		return FALSE
 	if((car_traits & CAN_KIDNAP) && isliving(user) && M != user)
 		var/mob/living/kidnapped = M
 		kidnapped.visible_message("<span class='warning'>[user] starts forcing [kidnapped] into [src]!</span>")
@@ -105,12 +105,10 @@
 
 	..()
 	if(trailer)
-		var/oldloc = loc
-		if(get_dist(oldloc, loc) <= 2)
-			trailer.Move(oldloc, get_dir(trailer, oldloc))
-			trailer.dir = dir
-			if(trailer.has_buckled_mobs())
-				for(var/m in trailer.buckled_mobs)
-					var/mob/living/buckled_mob = m
-					buckled_mob.setDir(dir)
+		var/dir_to_move = get_dir(trailer.loc, loc)
+		var/did_move = step(trailer, direction)
+		if(did_move)
+			step(trailer, dir_to_move)
+		return did_move
 	after_move(direction)
+	return step(src, direction)

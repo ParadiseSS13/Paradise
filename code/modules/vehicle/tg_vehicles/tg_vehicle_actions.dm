@@ -329,7 +329,7 @@
 	vehicle_entered_target.visible_message("<span class='warning'>[vehicle_entered_target] loudly honks!</span>")
 	to_chat(owner, "<span class=notice'>You press [vehicle_entered_target]'s horn.</span>")
 	if(istype(vehicle_entered_target.inserted_key, /obj/item/bikehorn))
-		playsound(target, 'sound/items/bikehorn.ogg', 75) // The bikehorn plays a sound instead
+		playsound(vehicle_entered_target, 'sound/items/bikehorn.ogg', 75) // The bikehorn plays a sound instead
 		return
 	playsound(vehicle_entered_target, horn_sound, 75)
 

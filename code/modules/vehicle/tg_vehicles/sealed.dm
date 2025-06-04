@@ -39,7 +39,9 @@
 	if(istype(A, /obj/machinery/door))
 		var/obj/machinery/door/conditionalwall = A
 		for(var/mob/occupant as anything in return_controllers_with_flag(access_provider_flags))
-			if(conditionalwall.allowed(occupant))
+			if(!conditionalwall.allowed(occupant))
+				continue
+			if(conditionalwall.operating || conditionalwall.emagged || conditionalwall.foam_level)
 				return
 			conditionalwall.bumpopen(occupant)
 
@@ -47,22 +49,22 @@
 	. = ..()
 	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, src)
 
-
 /obj/tgvehicle/sealed/after_remove_occupant(mob/M)
 	. = ..()
 	REMOVE_TRAIT(M, TRAIT_HANDS_BLOCKED, src)
-
 
 /obj/tgvehicle/sealed/proc/mob_try_enter(mob/rider)
 	if(!istype(rider))
 		return FALSE
 	var/enter_delay = get_enter_delay(rider)
-	if (enter_delay == 0)
-		if (enter_checks(rider))
+	if(enter_delay == 0)
+		if(enter_checks(rider))
 			mob_enter(rider)
 			return TRUE
 		return FALSE
-	if (do_after(rider, enter_delay, src, extra_checks = CALLBACK(src, PROC_REF(enter_checks), rider)))
+	if(do_after(rider, enter_delay, target = src))
+		if(!enter_checks(rider))
+			return FALSE
 		mob_enter(rider)
 		return TRUE
 	return FALSE
@@ -127,10 +129,7 @@
 		to_chat(user, "<span class='warning'>You must be driving [src] to remove [src]'s key!</span>")
 		return
 	to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
-	if(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		user.put_in_hands(inserted_key)
-	else
-		inserted_key.equip_to_best_slot(user)
+	user.put_in_hands(inserted_key)
 	inserted_key = null
 
 /obj/tgvehicle/sealed/Destroy()

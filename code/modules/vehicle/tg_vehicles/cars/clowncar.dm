@@ -28,6 +28,9 @@
 	var/enforce_clown_role = TRUE
 	/// Emag Button Cooldown
 	var/last_emag_button_use = 0
+	/// How fast can you fire the cannon
+	var/cannon_fire_delay = 0.5 SECONDS
+	COOLDOWN_DECLARE(cannon_cooldown)
 
 /datum/armor/car_clowncar
 	melee = 70
@@ -60,33 +63,19 @@
 		var/mob/living/carbon/human/H = M
 		if(H.mind?.assigned_role == "Clown") // Ensures only clowns can drive the car. (Including more at once)
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE)
-			RegisterSignal(H, COMSIG_MOB_CLICKON, PROC_REF(fire_cannon_at))
 			playsound(src, 'sound/effects/clowncar/door_close.ogg', 70, TRUE)
 			log_game("[M] has entered [src] as a possible driver")
 			return
 	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
-
-/obj/tgvehicle/sealed/car/clowncar/after_add_occupant(mob/M)
-	. = ..()
-	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, "clowncar")
-
-// Getting out of the car
-/obj/tgvehicle/sealed/car/clowncar/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
-	. = ..()
-	UnregisterSignal(M, COMSIG_MOB_CLICKON)
-
-/obj/tgvehicle/sealed/car/clowncar/after_remove_occupant(mob/M)
-	. = ..()
-	REMOVE_TRAIT(M, TRAIT_HANDS_BLOCKED, "clowncar")
 
 /obj/tgvehicle/sealed/car/clowncar/mob_forced_enter(mob/M)
 	. = ..()
 	playsound(src, pick('sound/effects/clowncar/clowncar_load1.ogg', 'sound/effects/clowncar/clowncar_load2.ogg'), 75)
 	if(iscarbon(M))
 		var/mob/living/carbon/forced_mob = M
-		if(forced_mob.reagents.has_reagent("irishcarbomb"))
-			var/reagent_amount = forced_mob.reagents.get_reagent_amount("irishcarbomb")
-			forced_mob.reagents.del_reagent("irishcarbomb")
+		if(forced_mob.reagents.has_reagent("dublindrop"))
+			var/reagent_amount = forced_mob.reagents.get_reagent_amount("dublindrop")
+			forced_mob.reagents.del_reagent("dublindrop")
 			if(reagent_amount >= 30)
 				message_admins("[ADMIN_LOOKUPFLW(forced_mob)] was forced into a clown car with [reagent_amount] unit(s) of Irish Car Bomb, causing an explosion.")
 				audible_message("<span class='warning'>You hear a rattling sound coming from the engine. That can't be good...</span>", null, 1)
@@ -121,15 +110,8 @@
 
 /obj/tgvehicle/sealed/car/clowncar/Bump(atom/bumped)
 	. = ..()
-	if(istype(bumped, /obj/machinery/door))
-		var/obj/machinery/door/conditionalwall = bumped
-		for(var/mob/occupant as anything in return_controllers_with_flag(access_provider_flags))
-			if(conditionalwall.try_to_activate_door(occupant))
-				return
-			conditionalwall.bumpopen(occupant)
-
 	if(isliving(bumped))
-		if(ismegafauna(bumped)) //No, you cannot kidnap megafauna with the clown car
+		if(ismegafauna(bumped)) // No, you cannot kidnap megafauna with the clown car
 			return
 		var/mob/living/hittarget_living = bumped
 
@@ -148,7 +130,7 @@
 
 		if(iscarbon(hittarget_living))
 			var/mob/living/carbon/C = hittarget_living
-			C.Paralyse(4 SECONDS) //I play to make sprites go horizontal
+			C.Paralyse(4 SECONDS) // I play to make sprites go horizontal
 		hittarget_living.visible_message("<span class='warning'>[src] rams into [hittarget_living] and sucks [hittarget_living.p_them()] up!</span>")
 		mob_forced_enter(hittarget_living)
 		playsound(src, pick('sound/effects/clowncar/clowncar_ram1.ogg', 'sound/effects/clowncar/clowncar_ram2.ogg', 'sound/effects/clowncar/clowncar_ram3.ogg'), 75)
@@ -158,11 +140,18 @@
 		var/turf/bumped_turf = bumped
 		if(!bumped_turf.is_blocked_turf())
 			return
+	if(istype(bumped, /obj/machinery/door))
+		var/obj/machinery/door/conditionalwall = bumped
+		for(var/mob/occupant as anything in return_controllers_with_flag(access_provider_flags))
+			if(conditionalwall.allowed(occupant))
+				return
+			if(conditionalwall.operating)
+				return
 	visible_message("<span class='warning'>[src] rams into [bumped] and crashes!</span>")
 	playsound(src, pick('sound/effects/clowncar/clowncar_crash1.ogg', 'sound/effects/clowncar/clowncar_crash2.ogg'), 75)
 	playsound(src, 'sound/effects/clowncar/clowncar_crashpins.ogg', 75)
 	dump_mobs(TRUE)
-	//log_combat(src, bumped, "crashed into", null, "dumping all passengers")
+	log_attack(src, bumped, "crashed into", null)
 
 /obj/tgvehicle/sealed/car/clowncar/proc/check_crossed(datum/source, atom/movable/crossed)
 	SIGNAL_HANDLER // COMSIG_MOVABLE_CHECK_CROSS
@@ -179,7 +168,7 @@
 	target_pancake.AddElement(/datum/element/squish, 5 SECONDS)
 	target_pancake.apply_effect(2 SECONDS, PARALYZE)
 	playsound(target_pancake, 'sound/effects/clowncar/cartoon_splat.ogg', 75)
-	//log_combat(src, crossed, "ran over")
+	log_attack(src, crossed, "ran over")
 
 /obj/tgvehicle/sealed/car/clowncar/emag_act(mob/user, obj/item/card/emag/emag_card)
 	if(emagged)
@@ -246,34 +235,34 @@
 			for(var/mob/living/L as anything in occupants)
 				L.emote("laugh")
 
-///resets the icon and iconstate of the clowncar after it was set to singulo states
+/// resets the icon and iconstate of the clowncar after it was set to singulo states
 /obj/tgvehicle/sealed/car/clowncar/proc/reset_icon()
 	icon = initial(icon)
 	icon_state = initial(icon_state)
 
-///Deploys oil when the clowncar moves in oil deploy mode
+/// Deploys oil when the clowncar moves in oil deploy mode
 /obj/tgvehicle/sealed/car/clowncar/proc/cover_in_oil()
 	SIGNAL_HANDLER
 	var/turf/simulated/T = get_turf(src)
 	T.MakeSlippery(TURF_WET_LUBE)
 
-///Stops dropping oil after the time has run up
+/// Stops dropping oil after the time has run up
 /obj/tgvehicle/sealed/car/clowncar/proc/stop_dropping_oil()
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 
-///Toggles the on and off state of the clown cannon that shoots random kidnapped people
+/// Toggles the on and off state of the clown cannon that shoots random kidnapped people
 /obj/tgvehicle/sealed/car/clowncar/proc/toggle_cannon(mob/user)
 	if(cannonmode == CLOWN_CANNON_BUSY)
 		to_chat(user, "<span class='notice'>Please wait for the vehicle to finish its current action first.</span>")
 		return
-	if(cannonmode) //canon active, deactivate
+	if(cannonmode) // canon active, deactivate
 		flick("clowncar_fromfire", src)
 		icon_state = "clowncar"
 		addtimer(CALLBACK(src, PROC_REF(deactivate_cannon)), 2 SECONDS)
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode2.ogg', 75)
 		visible_message("<span class='warning'>[src] starts going back into mobile mode.</span>")
 	else
-		canmove = FALSE //anchor and activate canon
+		canmove = FALSE // anchor and activate canon
 		flick("clowncar_tofire", src)
 		icon_state = "clowncar_fire"
 		visible_message("<span class='warning'>[src] opens up and reveals a large cannon.</span>")
@@ -281,34 +270,35 @@
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode1.ogg', 75)
 	cannonmode = CLOWN_CANNON_BUSY
 
-///Finalizes canon activation
+/// Finalizes canon activation
 /obj/tgvehicle/sealed/car/clowncar/proc/activate_cannon()
 	var/mouse_pointer = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
 	cannonmode = CLOWN_CANNON_READY
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
+		REMOVE_TRAIT(driver, TRAIT_HANDS_BLOCKED, src)
 		if(driver.client.mouse_pointer_icon == initial(driver.client.mouse_pointer_icon))
 			driver.client.mouse_pointer_icon = mouse_pointer
 
-///Finalizes canon deactivation
+/// Finalizes canon deactivation
 /obj/tgvehicle/sealed/car/clowncar/proc/deactivate_cannon()
 	canmove = TRUE
 	cannonmode = CLOWN_CANNON_INACTIVE
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
 		driver.client.mouse_pointer_icon = initial(driver.client.mouse_pointer_icon)
+		ADD_TRAIT(driver, TRAIT_HANDS_BLOCKED, src)
 
-///Fires the cannon where the user clicks
-/obj/tgvehicle/sealed/car/clowncar/proc/fire_cannon_at(mob/user, atom/target, list/modifiers)
-	SIGNAL_HANDLER
+/// Fires the cannon where the user clicks
+/obj/tgvehicle/sealed/car/clowncar/proc/fire_cannon_at(atom/target, mob/user, list/modifiers)
 	if(cannonmode != CLOWN_CANNON_READY || !length(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED)))
 		return
-	//The driver can still examine things and interact with his inventory.
-	if(modifiers[SHIFT_CLICK] || (ismovable(target) && !isturf(target.loc)))
+	if(!COOLDOWN_FINISHED(src, cannon_cooldown))
 		return
 	var/mob/living/unlucky_sod = pick(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
 	mob_exit(unlucky_sod, silent = TRUE)
 	flick("clowncar_recoil", src)
 	playsound(src, pick('sound/effects/clowncar/carcannon1.ogg', 'sound/effects/clowncar/carcannon2.ogg', 'sound/effects/clowncar/carcannon3.ogg'), 75)
 	unlucky_sod.throw_at(target, 10, 2)
-	//log_combat(user, unlucky_sod, "fired", src, "towards [target]") //this doesn't catch if the mob hits something between the car and the target
+	COOLDOWN_START(src, cannon_cooldown, cannon_fire_delay)
+	log_attack(user, unlucky_sod, "fired towards [target]") // this doesn't catch if the mob hits something between the car and the target
 	return COMSIG_MOB_CANCEL_CLICKON
 
