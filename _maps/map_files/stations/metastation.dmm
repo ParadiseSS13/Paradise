@@ -46574,7 +46574,7 @@
 	},
 /area/station/medical/virology)
 "inr" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "inv" = (
@@ -52159,6 +52159,9 @@
 "kpb" = (
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
@@ -58826,7 +58829,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -63283,6 +63286,9 @@
 /obj/machinery/camera{
 	c_tag = "Fore Port Solar Control";
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
@@ -69596,6 +69602,9 @@
 /obj/machinery/power/solar_control{
 	name = "Fore Port Solar Control";
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
@@ -76542,7 +76551,7 @@
 /turf/space,
 /area/station/engineering/solar/fore_port)
 "tpn" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
