@@ -672,39 +672,20 @@
 	opacity = FALSE
 	glass = TRUE
 
+/// Player view blocking fillers for multi-tile doors
 /obj/airlock_filler_object
 	name = "airlock fluff"
 	desc = "You shouldn't be able to see this fluff!"
-	icon = null
-	icon_state = null
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
 	invisibility = INVISIBILITY_MAXIMUM
-	obj_integrity = INFINITY // our parent airlock/assembly will handle that
-	//atmos_canpass = CANPASS_DENSITY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// The door/airlock this fluff panel is attached to
 	var/obj/machinery/door/filled_airlock
-	/// The assembly this fluff panel is attached to
-	var/obj/structure/door_assembly/filled_assembly
 
 /obj/airlock_filler_object/Destroy()
 	filled_airlock = null
-	filled_assembly = null
-	return ..()
-
-/obj/airlock_filler_object/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
-	if(filled_airlock)
-		filled_airlock.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
-	else if(filled_assembly)
-		filled_assembly.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
-	return ..()
-
-/obj/airlock_filler_object/ex_act(severity)
-	if(filled_airlock)
-		filled_airlock.ex_act(severity)
-	else if(filled_assembly)
-		filled_assembly.ex_act(severity)
 	return ..()
 
 /// Multi-tile airlocks pair with a filler panel, if one goes so does the other.
@@ -715,31 +696,13 @@
 	filled_airlock = parent_airlock
 	RegisterSignal(filled_airlock, COMSIG_PARENT_QDELETING, PROC_REF(no_airlock))
 
-/obj/airlock_filler_object/proc/pair_assembly(obj/structure/door_assembly/parent_assembly)
-	if(isnull(parent_assembly))
-		stack_trace("Attempted to pair an airlock filler with no parent assembly specified!")
-
-	filled_assembly = parent_assembly
-	RegisterSignal(filled_assembly, COMSIG_PARENT_QDELETING, PROC_REF(no_assembly))
-
 /obj/airlock_filler_object/proc/no_airlock()
 	UnregisterSignal(filled_airlock)
 	qdel(src)
 
-/obj/airlock_filler_object/proc/no_assembly()
-	UnregisterSignal(filled_assembly)
-	qdel(src)
-
-/// Multi-tile airlocks (using a filler panel) have special handling for movables with PASS_FLAG_GLASS
+/// They only block our visuals, not movement
 /obj/airlock_filler_object/CanPass(atom/movable/mover, border_dir)
-	if(mover == filled_assembly)
-		return TRUE
-	. = ..()
-	if(.)
-		return
-
-	if(istype(mover))
-		return !opacity
+	return TRUE
 
 /obj/airlock_filler_object/singularity_act()
 	return

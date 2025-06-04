@@ -90,8 +90,9 @@
 		return
 	update_icon()
 
+/// We don't wanna end up getting ex_act() multiple times because we are located at multiple tiles
 /obj/machinery/door/ex_act()
-	if(width > 1 && fillers)
+	if(width > 1)
 		if(!COOLDOWN_FINISHED(src, explosion_cooldown))
 			return
 		COOLDOWN_START(src, explosion_cooldown, 1 SECONDS)
@@ -442,9 +443,9 @@
 
 /obj/machinery/door/proc/get_airlock_turfs()
 	var/list/airlock_turfs = list(get_turf(src))
-	if(width > 1 && fillers)
-		for(var/obj/F in fillers)
-			airlock_turfs |= get_turf(F)
+	if(width > 1)
+		for(var/i in 1 to width - 1)
+			airlock_turfs |= get_step(airlock_turfs[i], turn(dir, 90))
 	return airlock_turfs
 
 /obj/machinery/door/proc/check_for_mobs()
