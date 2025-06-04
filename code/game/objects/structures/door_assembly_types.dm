@@ -142,27 +142,15 @@
 	glass_type = /obj/machinery/door/airlock/multi_tile/glass
 	material_amt = 8
 
-/obj/structure/door_assembly/multi_tile/Initialize(mapload)
+/obj/structure/door_assembly/multi_tile/Initialize(mapload, direction)
 	. = ..()
+	if(direction)
+		setDir(direction)
 	update_bounds()
 
 /obj/structure/door_assembly/multi_tile/Move(new_loc, new_dir)
 	. = ..()
 	update_bounds()
-
-/obj/structure/door_assembly/multi_tile/start_pulling(atom/movable/AM, state, force, show_message)
-	. = ..()
-	if(fillers)
-		for(var/i in 1 to width)
-			var/obj/airlock_filler_object/filler = fillers[i]
-			filler.density = FALSE
-
-/obj/structure/door_assembly/multi_tile/stop_pulling()
-	. = ..()
-	if(fillers)
-		for(var/i in 1 to width)
-			var/obj/airlock_filler_object/filler = fillers[i]
-			filler.density = TRUE
 
 /obj/structure/door_assembly/multi_tile/proc/update_bounds()
 	if(width <= 1)
@@ -196,7 +184,7 @@
 	LAZYINITLIST(fillers)
 
 	var/obj/last_filler = src
-	for(var/i in 1 to width)
+	for(var/i in 1 to width - 1)
 		var/obj/airlock_filler_object/filler
 
 		if(length(fillers) < i)
