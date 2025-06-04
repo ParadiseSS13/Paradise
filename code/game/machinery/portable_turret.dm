@@ -17,7 +17,8 @@
 	layer = ABOVE_OBJ_LAYER
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
-	var/health = 130			//the turret's health
+	/// The turret's health. The last 50 health is reserved for a broken state, so functional health default is 80.
+	var/health = 130
 	var/locked = TRUE			//if the turret's behaviour control access is locked
 	var/controllock = FALSE		//if the turret responds to control panels. TRUE = does NOT respond
 
