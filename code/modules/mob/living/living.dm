@@ -817,7 +817,7 @@
 
 //Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
 /mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
-	if(check_eye_prot() >= intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
+	if((check_eye_prot() >= intensity) || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND))) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		return FALSE
 
 	return TRUE
