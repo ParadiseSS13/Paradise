@@ -104,7 +104,7 @@
 				Gun.current_lens.on_attached(Gun)
 			Gun.update_icon()
 		if(prob(50))
-			new /obj/item/stack/sheet/metal(loc, rand(1,4))
+			new /obj/item/stack/sheet/metal(loc, rand(1, 4))
 		if(prob(50))
 			new /obj/item/assembly/prox_sensor(loc)
 	return ..()
