@@ -14446,7 +14446,7 @@
 /obj/machinery/camera{
 	c_tag = "Engineering - Laser Room Aft";
 	dir = 1;
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -55893,7 +55893,7 @@
 /obj/machinery/camera{
 	c_tag = "Engineering - Supermatter Chamber";
 	dir = 9;
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
@@ -58508,7 +58508,7 @@
 /obj/machinery/camera{
 	c_tag = "Engineering - Supermatter Aft";
 	dir = 1;
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -59274,6 +59274,10 @@
 	icon_state = "2-8"
 	},
 /obj/item/crowbar/red,
+/obj/item/stack/cable_coil{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -62494,30 +62498,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "nSe" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/box,
 /obj/structure/cable{
 	icon_state = "0-4"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -66327,20 +66310,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "poF" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/hologram/holopad,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/landmark/start/chief_engineer,
-/obj/structure/chair/office{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -70157,7 +70127,7 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/camera{
 	c_tag = "Engineering - Supermatter Fore";
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -71319,7 +71289,7 @@
 "rbC" = (
 /obj/machinery/camera{
 	c_tag = "Engineering - Laser Room Fore";
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -79890,7 +79860,7 @@
 /obj/machinery/camera{
 	c_tag = "Engineering - Supermatter Starboard";
 	dir = 5;
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
@@ -80048,7 +80018,7 @@
 /obj/machinery/camera{
 	c_tag = "Engineering - Supermatter Port";
 	dir = 8;
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -89732,7 +89702,7 @@
 /obj/machinery/camera{
 	c_tag = "Engineering - Supermatter Entrance";
 	dir = 5;
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
