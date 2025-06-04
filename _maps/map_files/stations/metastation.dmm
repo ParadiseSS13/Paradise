@@ -1309,7 +1309,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "anD" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
 	layer = 4;
@@ -2586,15 +2586,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
-"awn" = (
-/obj/effect/turf_decal/box,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
-	},
-/area/station/engineering/gravitygenerator)
 "awo" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -10238,12 +10229,6 @@
 	icon_state = "darkyellowfull"
 	},
 /area/station/command/office/ce)
-"bgx" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowfull"
-	},
-/area/station/command/office/ce)
 "bgA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -15737,7 +15722,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/geneticist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -20467,7 +20452,7 @@
 /turf/simulated/wall,
 /area/station/supply/expedition)
 "cad" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/virologist,
@@ -26494,7 +26479,7 @@
 	},
 /area/station/medical/virology)
 "cBD" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
@@ -26923,7 +26908,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "cDA" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -26939,7 +26924,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "cDK" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/machinery/hologram/holopad,
@@ -27114,7 +27099,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "cEE" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -28031,7 +28016,7 @@
 	dir = 6
 	},
 /obj/item/reagent_containers/syringe,
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "cIj" = (
@@ -29659,7 +29644,7 @@
 	},
 /area/station/science/rnd)
 "cQg" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -31348,7 +31333,7 @@
 	},
 /area/station/science/robotics)
 "dan" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -33202,7 +33187,7 @@
 	},
 /area/station/engineering/solar/fore_port)
 "dvU" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/doctor,
@@ -35686,7 +35671,7 @@
 	},
 /area/station/security/storage)
 "esb" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/chief_medical_officer,
@@ -45851,7 +45836,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
 	layer = 4;
@@ -46507,7 +46492,7 @@
 	},
 /area/station/medical/virology)
 "inr" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "inv" = (
@@ -52435,6 +52420,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "kpl" = (
@@ -54849,7 +54837,7 @@
 	},
 /area/station/science/robotics)
 "lgr" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -57508,7 +57496,7 @@
 /area/station/public/construction)
 "mfm" = (
 /obj/effect/landmark/start/paramedic,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -59361,7 +59349,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -62505,6 +62493,36 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"nSe" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/turf_decal/box,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/chair/office{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/station/engineering/gravitygenerator)
 "nSs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/oil/maybe,
@@ -63850,6 +63868,9 @@
 /obj/machinery/camera{
 	c_tag = "Fore Port Solar Control";
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
@@ -66305,6 +66326,25 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"poF" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/hologram/holopad,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/landmark/start/chief_engineer,
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowfull"
+	},
+/area/station/command/office/ce)
 "poG" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
@@ -70244,6 +70284,9 @@
 	name = "Fore Port Solar Control";
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "qKE" = (
@@ -71058,7 +71101,7 @@
 	},
 /area/station/engineering/control)
 "qYe" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -71168,7 +71211,7 @@
 /area/station/maintenance/fsmaint2)
 "rak" = (
 /obj/effect/landmark/start/chemist,
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -71393,7 +71436,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "rdg" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -77357,7 +77400,7 @@
 	},
 /area/station/engineering/break_room)
 "tpn" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -80621,7 +80664,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1;
 	pixel_y = 3
 	},
@@ -83997,7 +84040,7 @@
 /area/station/maintenance/fore)
 "vTk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -85974,7 +86017,7 @@
 	},
 /area/station/public/sleep)
 "wEa" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -87814,7 +87857,7 @@
 	pixel_y = 26
 	},
 /obj/effect/landmark/start/geneticist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -88662,7 +88705,7 @@
 /area/station/engineering/atmos)
 "xBh" = (
 /obj/effect/landmark/start/chemist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -129969,7 +130012,7 @@ tBG
 bbK
 mpz
 beK
-bgx
+poF
 bhU
 bom
 bam
@@ -133539,7 +133582,7 @@ aoK
 asK
 arw
 ayN
-awn
+nSe
 enp
 sJu
 jhK
