@@ -40,6 +40,8 @@
 	/// Sound played when exiting a vehicle
 	var/exit_sound
 
+	new_attack_chain = TRUE
+
 /obj/tgvehicle/Initialize(mapload)
 	. = ..()
 	occupants = list()
