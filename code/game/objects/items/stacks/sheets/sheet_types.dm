@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe_list("office chairs",list(
 		new /datum/stack_recipe("dark office chair", /obj/structure/chair/office/dark, 5, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("light office chair", /obj/structure/chair/office, 5, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 
 	new /datum/stack_recipe_list("comfy chairs", list(
