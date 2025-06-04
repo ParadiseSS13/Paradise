@@ -1,45 +1,12 @@
-help: "Use the specific directional subtypes for this poddoor. Run 28928_directional_doors.txt to fix this."
 /obj/machinery/door/poddoor/multi_tile:
+  allowed_values_by_var:
+    dir: [2, 4]
   banned_variables:
    - pixel_x
    - pixel_y
-   - dir
-=/obj/machinery/door/poddoor/multi_tile/double:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/double/directional:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/triple:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/triple/directional:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/quad:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/quad/directional:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/impassable:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/impassable/double:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/impassable/double/directional:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/impassable/triple:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/impassable/quad:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional:
-  banned: TRUE
 /obj/machinery/door/airlock/multi_tile:
+  allowed_values_by_var:
+    dir: [2, 4]
   banned_variables:
    - pixel_x
    - pixel_y
-   - dir
-=/obj/machinery/door/airlock/multi_tile:
-  banned: TRUE
-=/obj/machinery/door/airlock/multi_tile/directional:
-  banned: TRUE
-=/obj/machinery/door/airlock/multi_tile/glass:
-  banned: TRUE
-=/obj/machinery/door/airlock/multi_tile/glass/directional:
-  banned: TRUE

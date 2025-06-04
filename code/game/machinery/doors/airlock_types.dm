@@ -661,12 +661,12 @@
 	assemblytype = /obj/structure/door_assembly/multi_tile
 	paintable = FALSE
 
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/airlock/multi_tile, 32)
+/obj/machinery/door/airlock/multi_tile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	update_bounds()
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return
-
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/airlock/multi_tile/glass, 32)
 
 /obj/machinery/door/airlock/multi_tile/glass
 	opacity = FALSE
