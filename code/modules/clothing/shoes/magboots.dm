@@ -71,7 +71,7 @@
 
 /obj/item/clothing/shoes/magboots/atmos
 	name = "atmospheric magboots"
-	desc = "Magnetic boots, made to withstand gusts of space wind over 500km/h."
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500k mph."
 	icon_state = "atmosmagboots0"
 	magboot_state = "atmosmagboots"
 
