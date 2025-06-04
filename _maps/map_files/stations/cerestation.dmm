@@ -12141,7 +12141,7 @@
 /turf/simulated/floor/catwalk,
 /area/station/engineering/secure_storage)
 "bPH" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -115553,7 +115553,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "ycn" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/orange,
