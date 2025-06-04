@@ -158,6 +158,8 @@
 							return TRUE
 
 				// No same active program found, install the new active power.
+				new_spell.program = program
+				new_spell.update_desc()
 				program.upgrade(A, first_install = TRUE) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
 				A.AddSpell(new_spell)
 				to_chat(A, program.unlock_text)
@@ -188,7 +190,7 @@
 	/// How much memory does the program cost?
 	var/cost = 1
 	/// How much does this program cost to use?
-	var/nanite_cost = 10
+	var/nanite_cost = 0
 	/// How many upgrades have been bought of this program?
 	var/bandwidth_used = 0
 	/// If the module gives an active ability, use this. Mutually exclusive with upgrade.
@@ -207,6 +209,11 @@
 	var/cooldown = 30 SECONDS
 	/// Is this program installed?
 	var/installed = FALSE
+
+/datum/ai_program/New()
+	. = ..()
+	if(nanite_cost)
+		description += " Costs [nanite_cost] Nanites to use."
 
 /datum/spell/ai_spell/choose_program
 	name = "Choose Programs"
@@ -270,14 +277,14 @@
 /datum/ai_program/rgb_lighting
 	program_name = "RGB Lighting"
 	program_id = "rgb_lighting"
-	description = "Recolor a light to a desired color. At significantly high efficiency, it can change the color of an entire room's lighting by targeting the APC. Costs 5 Nanites to use."
+	description = "Recolor a light to a desired color. At significantly high efficiency, it can change the color of an entire room's lighting by targeting the APC."
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/rgb_lighting
 	unlock_text = "RGB Lighting installation complete!"
 
 /datum/spell/ai_spell/ranged/rgb_lighting
 	name = "RGB Lighting"
-	desc = "Changes the color of a selected light. Costs 5 Nanites to use."
+	desc = "Changes the color of a selected light."
 	action_icon = 'icons/effects/random_spawners.dmi'
 	action_icon_state = "glowstick"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -340,14 +347,14 @@
 /datum/ai_program/power_shunt
 	program_name = "Power Shunt"
 	program_id = "power_shunt"
-	description = "Recharge an APC, Borg, or Mech with power directly from your SMES! Costs 20 Nanites to use."
+	description = "Recharge an APC, Borg, or Mech with power directly from your SMES!"
 	nanite_cost = 20
 	power_type = /datum/spell/ai_spell/ranged/power_shunt
 	unlock_text = "Power Shunt installation complete!"
 
 /datum/spell/ai_spell/ranged/power_shunt
 	name = "Power Shunt"
-	desc = "Recharge an APC, Borg, or Mech with power directly from your SMES.  Costs 20 Nanites to use."
+	desc = "Recharge an APC, Borg, or Mech with power directly from your SMES."
 	action_icon = 'icons/obj/power.dmi'
 	action_icon_state = "smes-o"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -418,7 +425,7 @@
 /datum/ai_program/repair_nanites
 	program_name = "Repair Nanites"
 	program_id = "repair_nanites"
-	description = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines! Costs 75 Nanites to use."
+	description = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines!"
 	cost = 2
 	nanite_cost = 75
 	power_type = /datum/spell/ai_spell/ranged/repair_nanites
@@ -426,7 +433,7 @@
 
 /datum/spell/ai_spell/ranged/repair_nanites
 	name = "Repair Nanites"
-	desc = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines! Costs 75 Nanites to use."
+	desc = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines!"
 	action_icon = 'icons/obj/surgery.dmi'
 	action_icon_state = "tube"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -512,7 +519,7 @@
 /datum/ai_program/airlock_restoration
 	program_name = "Airlock Restoration"
 	program_id = "airlock_restoration"
-	description = "Repair an airlock's wires, if the AI control wire is not cut. Costs 25 Nanites to use."
+	description = "Repair an airlock's wires, if the AI control wire is not cut."
 	cost = 2
 	nanite_cost = 25
 	power_type = /datum/spell/ai_spell/ranged/airlock_restoration
@@ -520,7 +527,7 @@
 
 /datum/spell/ai_spell/ranged/airlock_restoration
 	name = "Airlock Restoration"
-	desc = "Repair the wires in an airlock that still has an intact AI control wire. Costs 25 Nanites to use."
+	desc = "Repair the wires in an airlock that still has an intact AI control wire."
 	action_icon = 'icons/obj/doors/doorint.dmi'
 	action_icon_state = "door_closed"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -576,7 +583,7 @@
 /datum/ai_program/extinguishing_system
 	program_name = "Automated Extinguishing System"
 	program_id = "extinguishing_system"
-	description = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires. Costs 50 Nanites to use."
+	description = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires."
 	cost = 3
 	nanite_cost = 50
 	power_type = /datum/spell/ai_spell/ranged/extinguishing_system
@@ -584,7 +591,7 @@
 
 /datum/spell/ai_spell/ranged/extinguishing_system
 	name = "Automated Extinguishing System"
-	desc = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires. Costs 50 Nanites to use."
+	desc = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires."
 	action_icon = 'icons/effects/effects.dmi'
 	action_icon_state = "frozen_smoke_capsule"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -688,14 +695,14 @@
 /datum/ai_program/light_repair
 	program_name = "Light Synthesizer"
 	program_id = "light_repair"
-	description = "Replace damaged or missing lightbulbs. Costs 5 Nanites to use."
+	description = "Replace damaged or missing lightbulbs."
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/light_repair
 	unlock_text = "Light replacer configuration installed."
 
 /datum/spell/ai_spell/ranged/light_repair
 	name = "Light Synthesizer"
-	desc = "Replace damaged or missing lightbulbs. Costs 5 Nanites to use."
+	desc = "Replace damaged or missing lightbulbs."
 	action_icon = 'icons/obj/janitor.dmi'
 	action_icon_state = "lightreplacer0"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -742,7 +749,7 @@
 /datum/ai_program/nanosurgeon_deployment
 	program_name = "Nanosurgeon Deployment"
 	program_id = "nanosurgeon_deployment"
-	description = "Heal a crew member with large numbers of robotic nanomachines! Costs 75 Nanites to use."
+	description = "Heal a crew member with large numbers of robotic nanomachines!"
 	cost = 3
 	nanite_cost = 75
 	power_type = /datum/spell/ai_spell/ranged/nanosurgeon_deployment
@@ -750,7 +757,7 @@
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment
 	name = "Nanosurgeon Deployment"
-	desc = "Heal a crew member with large numbers of robotic nanomachines! Costs 75 Nanites to use."
+	desc = "Heal a crew member with large numbers of robotic nanomachines!"
 	action_icon = 'icons/obj/surgery.dmi'
 	action_icon_state = "scalpel_laser1_on"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -843,7 +850,7 @@
 /datum/ai_program/research_subsystem
 	program_name = "Experimental Research Subsystem"
 	program_id = "research_subsystem"
-	description = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field. Costs 60 Nanites to use."
+	description = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field."
 	cost = 5
 	nanite_cost = 60
 	power_type = /datum/spell/ai_spell/research_subsystem
@@ -851,7 +858,7 @@
 
 /datum/spell/ai_spell/research_subsystem
 	name = "Experimental Research Subsystem"
-	desc = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field. Costs 60 Nanites to use."
+	desc = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field."
 	action_icon = 'icons/obj/machines/research.dmi'
 	action_icon_state = "tdoppler"
 	auto_use_uses = FALSE
@@ -923,7 +930,7 @@
 /datum/ai_program/emergency_sealant
 	program_name = "Emergency Sealant"
 	program_id = "emergency_sealant"
-	description = "Deploy an area of metal foam to rapidly repair and seal hull breaches. Costs 50 Nanites to use."
+	description = "Deploy an area of metal foam to rapidly repair and seal hull breaches."
 	cost = 2
 	nanite_cost = 50
 	power_type = /datum/spell/ai_spell/ranged/emergency_sealant
@@ -931,7 +938,7 @@
 
 /datum/spell/ai_spell/ranged/emergency_sealant
 	name = "Emergency Sealant"
-	desc = "Deploy an area of metal foam to rapidly repair and seal hull breaches. Costs 50 Nanites to use."
+	desc = "Deploy an area of metal foam to rapidly repair and seal hull breaches."
 	action_icon = 'icons/obj/structures.dmi'
 	action_icon_state = "reinforced"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -975,7 +982,7 @@
 /datum/ai_program/holosign_displayer
 	program_name = "Holosign Displayer"
 	program_id = "holosign_displayer"
-	description = "Deploy a holographic sign to alert crewmembers to potential hazards. Costs 10 Nanites to use."
+	description = "Deploy a holographic sign to alert crewmembers to potential hazards."
 	cost = 1
 	nanite_cost = 10
 	power_type = /datum/spell/ai_spell/ranged/holosign_displayer
@@ -983,7 +990,7 @@
 
 /datum/spell/ai_spell/ranged/holosign_displayer
 	name = "Holosign Displayer"
-	desc = "Deploy a holographic sign to alert crewmembers to potential hazards. Costs 10 Nanites to use."
+	desc = "Deploy a holographic sign to alert crewmembers to potential hazards."
 	action_icon = 'icons/obj/device.dmi'
 	action_icon_state = "signmaker"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -1043,14 +1050,14 @@
 /datum/ai_program/honk_subsystem
 	program_name = "Honk Subsystem"
 	program_id = "honk_subsystem"
-	description = "Download a program from Clowns.NT to be able to play bike horn sounds on demand. Costs 5 Nanites to use."
+	description = "Download a program from Clowns.NT to be able to play bike horn sounds on demand."
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/honk_subsystem
 	unlock_text = "Honker.exe installed."
 
 /datum/spell/ai_spell/ranged/honk_subsystem
 	name = "Honk Subsystem"
-	desc = "Download a program from Clowns.NT to be able to play bike horn sounds on demand. Costs 5 Nanites to use."
+	desc = "Download a program from Clowns.NT to be able to play bike horn sounds on demand."
 	action_icon = 'icons/obj/items.dmi'
 	action_icon_state = "bike_horn"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -1157,7 +1164,7 @@
 /datum/ai_program/pointer
 	program_name = "Holopointer"
 	program_id = "holopointer"
-	description = "Illuminate a hologram to notify or beckon crew. Costs 5 Nanites to use."
+	description = "Illuminate a hologram to notify or beckon crew."
 	cost = 1
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/pointer
@@ -1165,7 +1172,7 @@
 
 /datum/spell/ai_spell/ranged/pointer
 	name = "Holopointer"
-	desc = "Illuminate a hologram to notify or beckon crew. Costs 5 Nanites to use."
+	desc = "Illuminate a hologram to notify or beckon crew."
 	action_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
 	action_icon_state = "target_circle"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
