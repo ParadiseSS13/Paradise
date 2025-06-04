@@ -179,6 +179,14 @@
 	build_path = /obj/item/stack/sheet/cardboard
 	category = list("initial", "Organic Materials")
 
+/datum/design/paper
+	name = "Sheet of paper"
+	id = "paper"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 5)
+	build_path = /obj/item/paper
+	category = list("initial", "Organic Materials")
+
 /datum/design/leather
 	name = "Sheet of Leather"
 	id = "leather"
