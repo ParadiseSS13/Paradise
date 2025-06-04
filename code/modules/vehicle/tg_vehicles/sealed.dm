@@ -8,8 +8,6 @@
 	/// Determines which occupants provide access when bumping into doors
 	var/access_provider_flags = VEHICLE_CONTROL_DRIVE
 
-	new_attack_chain = TRUE
-
 /obj/tgvehicle/sealed/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_SUPERMATTER_CONSUMED, PROC_REF(on_entered_supermatter))

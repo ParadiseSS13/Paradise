@@ -40,6 +40,8 @@
 	/// Sound played when exiting a vehicle
 	var/exit_sound
 
+	new_attack_chain = TRUE
+
 /obj/tgvehicle/Initialize(mapload)
 	. = ..()
 	occupants = list()
@@ -199,7 +201,7 @@
 	add_occupant(M)
 	return ..()
 
-/obj/tgvehicle/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/tgvehicle/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(!key_type || is_key(inserted_key) || !is_key(I))
 		return ..()
 	if(user.drop_item())
