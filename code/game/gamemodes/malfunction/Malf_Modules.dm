@@ -53,7 +53,7 @@
 			continue
 	return closest_camera
 
-/datum/spell/ai_spell/proc/update_desc()
+/datum/spell/ai_spell/proc/desc_update()
 	desc = initial(desc)
 	if(program)
 		desc += " Costs [program.nanite_cost] Nanites to use."

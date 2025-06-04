@@ -159,7 +159,7 @@
 
 				// No same active program found, install the new active power.
 				new_spell.program = program
-				new_spell.update_desc()
+				new_spell.desc_update()
 				program.upgrade(A, first_install = TRUE) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
 				A.AddSpell(new_spell)
 				to_chat(A, program.unlock_text)
