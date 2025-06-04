@@ -428,7 +428,7 @@
 
 /obj/item/borg/upgrade/holo_stretcher
 	name = "holo stretcher rack upgrade"
-	desc = "An upgrade that allows medical cyborgs to carry holo stretchers in addition to basic roller beds"
+	desc = "An upgrade that allows medical cyborgs to carry holo stretchers in addition to basic roller beds."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "holo_retracted"
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
