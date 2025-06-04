@@ -46574,7 +46574,7 @@
 	},
 /area/station/medical/virology)
 "inr" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "inv" = (
@@ -58829,7 +58829,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -76551,7 +76551,7 @@
 /turf/space,
 /area/station/engineering/solar/fore_port)
 "tpn" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
