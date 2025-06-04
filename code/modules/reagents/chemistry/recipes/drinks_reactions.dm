@@ -605,7 +605,7 @@
 	id = "dublindrop"
 	result = "dublindrop"
 	required_reagents = list("stout" = 1, "irishcream" = 1, "whiskey" = 1)
-	result_amount = 2
+	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/syndicatebomb
