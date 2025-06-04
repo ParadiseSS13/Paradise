@@ -22,7 +22,7 @@
 	if(istype(E))
 		E.vehicle_entered_target = src
 
-/obj/tgvehicle/sealed/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+/obj/tgvehicle/sealed/MouseDrop_T(mob/living/M, mob/living/user)
 	if(!istype(M))
 		return ..()
 	mob_try_enter(M)

@@ -361,9 +361,9 @@
 	button_overlay_icon_state = "car_rtd"
 
 /datum/action/vehicle/sealed/roll_the_dice/Trigger(trigger_flags)
-	if(!istype(vehicle_entered_target, /obj/tgvehicle/clowncar))
+	if(!istype(vehicle_entered_target, /obj/tgvehicle/sealed/car/clowncar))
 		return
-	var/obj/tgvehicle/clowncar/C = vehicle_entered_target
+	var/obj/tgvehicle/sealed/car/clowncar/C = vehicle_entered_target
 	C.roll_the_dice(owner)
 
 /datum/action/vehicle/sealed/cannon
@@ -372,9 +372,9 @@
 	button_overlay_icon_state = "car_cannon"
 
 /datum/action/vehicle/sealed/cannon/Trigger(trigger_flags)
-	if(!istype(vehicle_entered_target, /obj/tgvehicle/clowncar))
+	if(!istype(vehicle_entered_target, /obj/tgvehicle/sealed/car/clowncar))
 		return
-	var/obj/tgvehicle/clowncar/C = vehicle_entered_target
+	var/obj/tgvehicle/sealed/car/clowncar/C = vehicle_entered_target
 	C.toggle_cannon(owner)
 
 
@@ -385,12 +385,12 @@
 	COOLDOWN_DECLARE(thank_time_cooldown)
 
 /datum/action/vehicle/sealed/thank/Trigger(trigger_flags)
-	if(!istype(vehicle_entered_target, /obj/tgvehicle/clowncar))
+	if(!istype(vehicle_entered_target, /obj/tgvehicle/sealed/car/clowncar))
 		return
 	if(!COOLDOWN_FINISHED(src, thank_time_cooldown))
 		return
 	COOLDOWN_START(src, thank_time_cooldown, 6 SECONDS)
-	var/obj/tgvehicle/clowncar/clown_car = vehicle_entered_target
+	var/obj/tgvehicle/sealed/car/clowncar/clown_car = vehicle_entered_target
 	var/list/mob/drivers = clown_car.return_drivers()
 	if(!length(drivers))
 		to_chat(owner, "<span class='warning'>You prepare to thank the driver, only to realize that they don't exist.</span>")

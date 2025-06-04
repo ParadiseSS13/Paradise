@@ -9,8 +9,7 @@
 	light_power = 2
 	enter_sound = 'sound/effects/clowncar/door_close.ogg'
 	exit_sound = 'sound/effects/clowncar/door_open.ogg'
-	/// Traits
-	var/car_traits = CAN_KIDNAP
+	car_traits = CAN_KIDNAP
 	/// Armor
 	var/armor_type = /datum/armor/car_clowncar
 	/// How long does it take to get in?
@@ -21,7 +20,7 @@
 	access_provider_flags = VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_KIDNAPPED
 	/// list of headlight colors we use to pick through when we have party mode due to emag
 	var/headlight_colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_LIME, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_PURPLE)
-	/// Cooldown time inbetween [/obj/tgvehicle/clowncar/proc/roll_the_dice()] usages
+	/// Cooldown time inbetween [/obj/tgvehicle/sealed/car/clowncar/proc/roll_the_dice()] usages
 	var/dice_cooldown_time = 15 SECONDS
 	/// Current status of the cannon, alternates between CLOWN_CANNON_INACTIVE, CLOWN_CANNON_BUSY and CLOWN_CANNON_READY
 	var/cannonmode = CLOWN_CANNON_INACTIVE
@@ -38,48 +37,25 @@
 	fire = 80
 	acid = 80
 
-/obj/tgvehicle/clowncar/Initialize(mapload)
+/obj/tgvehicle/sealed/car/clowncar/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj,src)
 	RegisterSignal(src, COMSIG_MOVABLE_CHECK_CROSS, PROC_REF(check_crossed))
 
-/obj/tgvehicle/clowncar/process()
+/obj/tgvehicle/sealed/car/clowncar/process()
 	if(light_on && emagged)
 		set_light(light_range, light_power, pick(headlight_colors))
 
-/obj/tgvehicle/clowncar/MouseDrop_T(mob/living/M, mob/living/user)
+/obj/tgvehicle/sealed/car/clowncar/MouseDrop_T(mob/living/M, mob/living/user)
 	mob_try_enter(user)
 
-/obj/tgvehicle/clowncar/generate_actions()
+/obj/tgvehicle/sealed/car/clowncar/generate_actions()
 	. = ..()
-	if(car_traits & CAN_KIDNAP)
-		initialize_controller_action_type(/datum/action/vehicle/dump_kidnapped_mobs, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/sealed/climb_out, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/horn, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/headlights, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/thank, VEHICLE_CONTROL_KIDNAPPED)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/horn, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/headlights, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/thank, VEHICLE_CONTROL_KIDNAPPED)
 
-// Getting in the car
-/obj/tgvehicle/clowncar/proc/mob_try_enter(mob/rider)
-	if(!istype(rider))
-		return FALSE
-	if (do_after(rider, enter_delay, target = src))
-		if(occupant_amount() < max_occupants)
-			mob_enter(rider)
-		else
-			audible_message("<span class='notify'>The clown car is full... somehow.</span>", null, 1)
-		return TRUE
-	return FALSE
-
-/obj/tgvehicle/clowncar/proc/mob_enter(mob/M, silent = FALSE)
-	if(!istype(M))
-		return FALSE
-	M.visible_message("<span class='notice'>[M] climbs into \the [src]!</span>")
-	M.forceMove(src)
-	add_occupant(M)
-	return TRUE
-
-/obj/tgvehicle/clowncar/auto_assign_occupant_flags(mob/M)
+/obj/tgvehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.mind?.assigned_role == "Clown") // Ensures only clowns can drive the car. (Including more at once)
@@ -90,22 +66,21 @@
 			return
 	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 
-/obj/tgvehicle/clowncar/after_add_occupant(mob/M)
+/obj/tgvehicle/sealed/car/clowncar/after_add_occupant(mob/M)
 	. = ..()
 	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, "clowncar")
 
 // Getting out of the car
-/obj/tgvehicle/clowncar/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
+/obj/tgvehicle/sealed/car/clowncar/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_CLICKON)
 
-/obj/tgvehicle/clowncar/after_remove_occupant(mob/M)
+/obj/tgvehicle/sealed/car/clowncar/after_remove_occupant(mob/M)
 	. = ..()
 	REMOVE_TRAIT(M, TRAIT_HANDS_BLOCKED, "clowncar")
 
-/obj/tgvehicle/clowncar/proc/mob_forced_enter(mob/M, silent = FALSE)
-	M.forceMove(src)
-	add_occupant(M, VEHICLE_CONTROL_KIDNAPPED)
+/obj/tgvehicle/sealed/car/clowncar/mob_forced_enter(mob/M)
+	. = ..()
 	playsound(src, pick('sound/effects/clowncar/clowncar_load1.ogg', 'sound/effects/clowncar/clowncar_load2.ogg'), 75)
 	if(iscarbon(M))
 		var/mob/living/carbon/forced_mob = M
@@ -117,15 +92,15 @@
 				audible_message("<span class='warning'>You hear a rattling sound coming from the engine. That can't be good...</span>", null, 1)
 				addtimer(CALLBACK(src, PROC_REF(irish_car_bomb)), 5 SECONDS)
 
-/obj/tgvehicle/clowncar/proc/irish_car_bomb()
+/obj/tgvehicle/sealed/car/clowncar/proc/irish_car_bomb()
 	dump_mobs()
 	explosion(src, light_impact_range = 1)
 
-/obj/tgvehicle/clowncar/attack_animal(mob/living/simple_animal/user, list/modifiers)
+/obj/tgvehicle/sealed/car/clowncar/attack_animal(mob/living/simple_animal/user, list/modifiers)
 	if((user.loc != src) || user.environment_smash >= ENVIRONMENT_SMASH_WALLS)
 		return ..()
 
-/obj/tgvehicle/clowncar/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/tgvehicle/sealed/car/clowncar/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(prob(33))
 		visible_message("<span class='warning'>[src] spews out a ton of space lube!</span>")
@@ -135,7 +110,7 @@
 		L.set_up(40, loc, foamreagent)
 		L.start()
 
-/obj/tgvehicle/clowncar/attacked_by(obj/item/I, mob/living/user)
+/obj/tgvehicle/sealed/car/clowncar/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
 	if(!istype(I, /obj/item/food/grown/banana))
 		return
@@ -144,14 +119,7 @@
 	to_chat(user, "<span class='warning'>You use the [banana] to repair [src]!</span>")
 	qdel(banana)
 
-/obj/tgvehicle/clowncar/proc/dump_mobs(randomstep = TRUE)
-	for(var/i in occupants)
-		mob_exit(i, randomstep = randomstep)
-		if(iscarbon(i))
-			var/mob/living/carbon/Carbon = i
-			Carbon.apply_effect(4 SECONDS, PARALYZE)
-
-/obj/tgvehicle/clowncar/Bump(atom/bumped)
+/obj/tgvehicle/sealed/car/clowncar/Bump(atom/bumped)
 	. = ..()
 	if(istype(bumped, /obj/machinery/door))
 		var/obj/machinery/door/conditionalwall = bumped
@@ -196,7 +164,7 @@
 	dump_mobs(TRUE)
 	//log_combat(src, bumped, "crashed into", null, "dumping all passengers")
 
-/obj/tgvehicle/clowncar/proc/check_crossed(datum/source, atom/movable/crossed)
+/obj/tgvehicle/sealed/car/clowncar/proc/check_crossed(datum/source, atom/movable/crossed)
 	SIGNAL_HANDLER // COMSIG_MOVABLE_CHECK_CROSS
 	if(!has_gravity())
 		return
@@ -213,16 +181,16 @@
 	playsound(target_pancake, 'sound/effects/clowncar/cartoon_splat.ogg', 75)
 	//log_combat(src, crossed, "ran over")
 
-/obj/tgvehicle/clowncar/emag_act(mob/user, obj/item/card/emag/emag_card)
+/obj/tgvehicle/sealed/car/clowncar/emag_act(mob/user, obj/item/card/emag/emag_card)
 	if(emagged)
 		return FALSE
 	emagged = TRUE
 	to_chat(user, "<span class='warning'>You scramble [src]'s child safety lock, and a panel with six colorful buttons appears!</span>")
-	initialize_controller_action_type(/datum/action/vehicle/roll_the_dice, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/cannon, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/roll_the_dice, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/cannon, VEHICLE_CONTROL_DRIVE)
 	return TRUE
 
-/obj/tgvehicle/clowncar/obj_destruction(damage_flag)
+/obj/tgvehicle/sealed/car/clowncar/obj_destruction(damage_flag)
 	playsound(src, 'sound/misc/sadtrombone.ogg', 100)
 	STOP_PROCESSING(SSobj,src)
 	return ..()
@@ -241,7 +209,7 @@
 
 //clown car cooldowns
 
-/obj/tgvehicle/clowncar/proc/roll_the_dice(mob/user)
+/obj/tgvehicle/sealed/car/clowncar/proc/roll_the_dice(mob/user)
 	if(last_emag_button_use + dice_cooldown_time > world.time)
 		to_chat(user, "<span class=notice'>The button panel is currently recharging.</span>")
 		return
@@ -279,22 +247,22 @@
 				L.emote("laugh")
 
 ///resets the icon and iconstate of the clowncar after it was set to singulo states
-/obj/tgvehicle/clowncar/proc/reset_icon()
+/obj/tgvehicle/sealed/car/clowncar/proc/reset_icon()
 	icon = initial(icon)
 	icon_state = initial(icon_state)
 
 ///Deploys oil when the clowncar moves in oil deploy mode
-/obj/tgvehicle/clowncar/proc/cover_in_oil()
+/obj/tgvehicle/sealed/car/clowncar/proc/cover_in_oil()
 	SIGNAL_HANDLER
 	var/turf/simulated/T = get_turf(src)
 	T.MakeSlippery(TURF_WET_LUBE)
 
 ///Stops dropping oil after the time has run up
-/obj/tgvehicle/clowncar/proc/stop_dropping_oil()
+/obj/tgvehicle/sealed/car/clowncar/proc/stop_dropping_oil()
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 
 ///Toggles the on and off state of the clown cannon that shoots random kidnapped people
-/obj/tgvehicle/clowncar/proc/toggle_cannon(mob/user)
+/obj/tgvehicle/sealed/car/clowncar/proc/toggle_cannon(mob/user)
 	if(cannonmode == CLOWN_CANNON_BUSY)
 		to_chat(user, "<span class='notice'>Please wait for the vehicle to finish its current action first.</span>")
 		return
@@ -314,7 +282,7 @@
 	cannonmode = CLOWN_CANNON_BUSY
 
 ///Finalizes canon activation
-/obj/tgvehicle/clowncar/proc/activate_cannon()
+/obj/tgvehicle/sealed/car/clowncar/proc/activate_cannon()
 	var/mouse_pointer = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
 	cannonmode = CLOWN_CANNON_READY
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
@@ -322,14 +290,14 @@
 			driver.client.mouse_pointer_icon = mouse_pointer
 
 ///Finalizes canon deactivation
-/obj/tgvehicle/clowncar/proc/deactivate_cannon()
+/obj/tgvehicle/sealed/car/clowncar/proc/deactivate_cannon()
 	canmove = TRUE
 	cannonmode = CLOWN_CANNON_INACTIVE
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
 		driver.client.mouse_pointer_icon = initial(driver.client.mouse_pointer_icon)
 
 ///Fires the cannon where the user clicks
-/obj/tgvehicle/clowncar/proc/fire_cannon_at(mob/user, atom/target, list/modifiers)
+/obj/tgvehicle/sealed/car/clowncar/proc/fire_cannon_at(mob/user, atom/target, list/modifiers)
 	SIGNAL_HANDLER
 	if(cannonmode != CLOWN_CANNON_READY || !length(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED)))
 		return

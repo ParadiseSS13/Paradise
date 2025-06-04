@@ -58,7 +58,7 @@
 			are very sensitive. Now with our included lube defense mechanism which will protect you against any angry shitcurity! \
 			Premium features can be unlocked with a cryptographic sequencer!"
 	reference = "CCR"
-	item = /obj/tgvehicle/clowncar
+	item = /obj/tgvehicle/sealed/car/clowncar
 	cost = 50
 	job = list("Clown")
 	surplus = 0
