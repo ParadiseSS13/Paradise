@@ -1791,7 +1791,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/structure/cable/green{
@@ -10222,7 +10222,7 @@
 	},
 /area/station/command/office/ce)
 "bgw" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
