@@ -583,8 +583,8 @@
 	category = list ("Misc. Machinery")
 
 /datum/design/scientific_assembler
-	name = "Machine Design (Kinetic Assembler)"
-	desc = "The circuit board for a Kinetic Assembler."
+	name = "Machine Design (Scientific Assembler)"
+	desc = "The circuit board for a Scientific Assembler."
 	id = "scientific_assembler"
 	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
 	build_type = IMPRINTER
