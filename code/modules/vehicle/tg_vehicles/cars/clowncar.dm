@@ -134,7 +134,7 @@
 		hittarget_living.visible_message("<span class='warning'>[src] rams into [hittarget_living] and sucks [hittarget_living.p_them()] up!</span>")
 		mob_forced_enter(hittarget_living)
 		playsound(src, pick('sound/effects/clowncar/clowncar_ram1.ogg', 'sound/effects/clowncar/clowncar_ram2.ogg', 'sound/effects/clowncar/clowncar_ram3.ogg'), 75)
-		//log_combat(src, hittarget_living, "sucked up")
+		log_attack(src, hittarget_living, "sucked up")
 		return
 	if(isturf(bumped))
 		var/turf/bumped_turf = bumped
@@ -195,8 +195,6 @@
  * * Drop oil
  * * Fart and make everyone nearby laugh
  */
-
-//clown car cooldowns
 
 /obj/tgvehicle/sealed/car/clowncar/proc/roll_the_dice(mob/user)
 	if(last_emag_button_use + dice_cooldown_time > world.time)

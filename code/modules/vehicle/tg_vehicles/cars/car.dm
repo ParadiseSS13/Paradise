@@ -39,7 +39,7 @@
 	if(future_pedestrian != user || !(LAZYACCESS(occupants, future_pedestrian) & VEHICLE_CONTROL_KIDNAPPED))
 		mob_exit(future_pedestrian, silent)
 		return TRUE
-	if (escape_time > 0)
+	if(escape_time > 0)
 		to_chat(user, "<span class='notice'>You push against the back of \the [src]'s trunk to try and get out.</span>")
 		if(!do_after(user, escape_time, target = src))
 			return FALSE

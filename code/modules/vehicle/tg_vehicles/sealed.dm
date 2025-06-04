@@ -5,7 +5,7 @@
 	var/mouse_pointer
 	/// Are the headlights on?
 	var/headlights_toggle = FALSE
-	///Determines which occupants provide access when bumping into doors
+	/// Determines which occupants provide access when bumping into doors
 	var/access_provider_flags = VEHICLE_CONTROL_DRIVE
 
 /obj/tgvehicle/sealed/Initialize(mapload)
@@ -73,7 +73,7 @@
 /obj/tgvehicle/sealed/proc/get_enter_delay(mob/M)
 	return enter_delay
 
-///Extra checks to perform during the do_after to enter the vehicle
+/// Extra checks to perform during the do_after to enter the vehicle
 /obj/tgvehicle/sealed/proc/enter_checks(mob/M)
 	return occupant_amount() < max_occupants
 
@@ -93,7 +93,7 @@
 	if(!istype(M))
 		return FALSE
 	remove_occupant(M)
-	if(!is_ai(M))//This is the ONE mob we don't want to be moved to the vehicle that should be handled when used
+	if(!is_ai(M)) // This is the ONE mob we don't want to be moved to the vehicle that should be handled when used
 		M.forceMove(exit_location(M))
 	else
 		return TRUE
