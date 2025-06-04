@@ -77,7 +77,7 @@
 	data = list("donor" = null,
 				"viruses" = null,
 				"blood_DNA" = null,
-				"blood_type" = "O-",
+				"blood_type" = "O-",,
 				"blood_colour" = "#A10808",
 				"resistances" = null,
 				"trace_chem" = null,
