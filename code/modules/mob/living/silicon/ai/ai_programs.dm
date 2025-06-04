@@ -309,7 +309,7 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(5))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -322,7 +322,7 @@
 	if(istype(target, /obj/machinery/power/apc))
 		if(spell_level < 3) // If you haven't upgraded it 3 times, you have to color lights individually.
 			to_chat(user, "<span class='warning'>Your coloring subsystem is not strong enough to target an entire room!</span>")
-			AI.program_picker.refund_nanites(5)
+			AI.program_picker.refund_nanites(program.nanite_cost)
 			revert_cast()
 			return
 		var/obj/machinery/power/apc/A = target
@@ -389,7 +389,7 @@
 		to_chat(user, "<span class='warning'>No SMES detected to power from!</span>")
 		revert_cast()
 		return
-	if(!AI.program_picker.spend_nanites(20))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -462,7 +462,7 @@
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to repair IPCs!</span>")
 		revert_cast()
 		return
-	if(!AI.program_picker.spend_nanites(75))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -557,7 +557,7 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(25))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -616,7 +616,7 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(50))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -727,7 +727,7 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(5))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -782,7 +782,7 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(75))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -798,7 +798,7 @@
 	if(do_after(AI, 5 SECONDS, target = target, allow_moving_target = allow_moving))
 		// Check camera vision again.
 		if(!check_camera_vision(user, target))
-			AI.program_picker.refund_nanites(75)
+			AI.program_picker.refund_nanites(program.nanite_cost)
 			revert_cast()
 			return
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
@@ -810,7 +810,7 @@
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
 	else
-		AI.program_picker.refund_nanites(75)
+		AI.program_picker.refund_nanites(program.nanite_cost)
 		revert_cast()
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
@@ -871,7 +871,7 @@
 
 /datum/spell/ai_spell/research_subsystem/cast(list/targets, mob/user)
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(60))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -900,7 +900,7 @@
 		if(!tech_to_upgrade)
 			to_chat(user, "<span class='notice'>Current research cannot be discovered any further.</span>")
 			revert_cast()
-			AI.program_picker.refund_nanites(60)
+			AI.program_picker.refund_nanites(program.nanite_cost)
 			return
 		// No illegals until level 10
 		if(spell_level < 10 && istype(tech_to_upgrade, /datum/tech/syndicate))
@@ -959,7 +959,7 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(50))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -1019,7 +1019,7 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(10))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -1080,7 +1080,7 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(5))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
@@ -1193,7 +1193,7 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(5))
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
 		revert_cast()
 		return
