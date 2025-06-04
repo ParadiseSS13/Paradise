@@ -236,22 +236,6 @@
 	else
 		..()
 
-// this has 500 things to organ internal and a rework into new attack change seems out of scope.
-/obj/item/organ/internal/attack__legacy__attackchain(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/regen_mesh) && is_xeno_organ)
-		if(organ_quality < ORGAN_PRISTINE)
-			organ_quality = ORGAN_PRISTINE
-			to_chat(user, "<span class='info'>You apply the regenerative mesh to the organ. It now looks pristine!</span>")
-			name = "pristine [name]"
-			qdel(used)
-			return ITEM_INTERACT_COMPLETE
-		else
-			to_chat(user, "<span class='warning'>This organ is already in pristine condition!</span>")
-			return ITEM_INTERACT_COMPLETE
-	return ..()
-
-
-
 /****************************************************
 				INTERNAL ORGANS DEFINES
 ****************************************************/

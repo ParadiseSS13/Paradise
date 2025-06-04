@@ -3,6 +3,26 @@
 	desc = "A specialized mesh carved from a fleshling that can improve the quality of any organ its used on."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_leaf_p" // its unused and looks fine soooo whatever lol
+	new_attack_chain = TRUE
+
+/obj/item/regen_mesh/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return
+	if(istype(used, /obj/item/organ/internal))
+		var/obj/item/organ/internal/organ = used
+		if(!organ.is_xeno_organ)
+			to_chat(user, "<span class='warning'>The regenerative mesh mesh cannot improve this!</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(organ.organ_quality < ORGAN_PRISTINE)
+			organ.organ_quality = ORGAN_PRISTINE
+			to_chat(user, "<span class='info'>The regenerative mesh clings to [organ] and fuses to it's surface. The [organ] now looks pristine!</span>")
+			organ.name = "pristine [name]"
+			qdel(src)
+			return ITEM_INTERACT_COMPLETE
+		else
+			to_chat(user, "<span class='warning'>This organ is already in pristine condition!</span>")
+			return ITEM_INTERACT_COMPLETE
+
 
 // We dont want to keep the unidentified organ as an implantable version to skip the research phase
 /obj/item/xeno_organ
