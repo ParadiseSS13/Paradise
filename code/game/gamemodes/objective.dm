@@ -605,6 +605,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/is_valid_exfiltration()
 	if(istype(steal_target, /datum/theft_objective/nukedisc) || istype(steal_target, /datum/theft_objective/plutonium_core))
 		return FALSE
+	return TRUE
 
 /datum/objective/steal/proc/get_location()
 	return steal_target.location_override || "an unknown area"
