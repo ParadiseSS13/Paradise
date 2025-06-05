@@ -555,10 +555,8 @@
 
 /obj/effect/portal/advanced/exfiltration/proc/pass_extraction(mob/living/M)
 	// Freeze objectives
-	var/all_objectives = antag_mind.get_all_objectives(include_team = FALSE)
-	if(length(all_objectives))// If the antag had no objectives, don't need to process this.
-		for(var/datum/objective/objective in all_objectives)
-			objective.completed = objective.check_completion()
+	for(var/datum/objective/objective in antag_mind.get_all_objectives(include_team = FALSE))
+		objective.completed = objective.check_completion()
 	// Handle syndicate barification
 	prepare_ghosting(M)
 
