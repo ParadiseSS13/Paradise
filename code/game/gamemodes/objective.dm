@@ -44,6 +44,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	/// What is the text we show when our objective is delayed?
 	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
+	/// Is this objective exfiltration-restricted?
+	var/restricts_exfiltration = FALSE
 
 /datum/objective/New(text, datum/team/team_to_join, datum/mind/_owner)
 	. = ..()
@@ -397,6 +399,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
 	Alternatively, hack the shuttle console multiple times (by alt clicking on it) until the shuttle directions are corrupted."
 	needs_target = FALSE
+	restricts_exfiltration = TRUE
 
 /datum/objective/hijack/check_completion()
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
@@ -623,6 +626,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 
 		steal_target = O
+		if(istype(steal_target, /datum/theft_objective/nukedisc) || istype(steal_target, /datum/theft_objective/plutonium_core))
+			restricts_exfiltration = TRUE
 		update_explanation_text()
 		if(steal_target.special_equipment)
 			give_kit(steal_target.special_equipment)

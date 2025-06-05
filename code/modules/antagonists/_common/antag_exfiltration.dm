@@ -141,12 +141,7 @@
 
 	// No extraction for NAD, Plutonium core theft, or Hijack
 	for(var/datum/objective/goal in objectives)
-		if(istype(goal, /datum/objective/steal))
-			var/datum/objective/steal/theft = goal
-			if(istype(theft.steal_target, /datum/theft_objective/nukedisc) || istype(theft.steal_target, /datum/theft_objective/plutonium_core))
-				denied = TRUE
-
-		if(istype(goal, /datum/objective/hijack))
+		if(goal.restricts_exfiltration)
 			denied = TRUE
 
 		if(istype(goal, /datum/objective/potentially_backstabbed))

@@ -15,14 +15,8 @@
 	var/denied = FALSE
 	var/objectives = user.mind.get_all_objectives()
 	for(var/datum/objective/goal in objectives)
-		if(istype(goal, /datum/objective/steal))
-			var/datum/objective/steal/theft = goal
-			if(istype(theft.steal_target, /datum/theft_objective/nukedisc) || istype(theft.steal_target, /datum/theft_objective/plutonium_core))
-				denied = TRUE
-				break
-		if(istype(goal, /datum/objective/hijack))
+		if(goal.restricts_exfiltration)
 			denied = TRUE
-			break
 	if(denied)
 		to_chat(user, "<span class='warning'>The greater hivemind has deemed your objectives too delicate for an early extraction.</span>")
 		ling.remove_specific_power(/datum/action/changeling/exfiltration)
