@@ -51,6 +51,6 @@ if __name__ == "__main__":
         print(f"{pth} contains prefabs. Please convert these to subtypes:\n{result_list}")
 
     end = time.time()
-    print(f"check_legacy_attack_chain tests completed in {end - start:.2f}s\n")
+    print(f"check_random_spawner_prefabs tests completed in {end - start:.2f}s\n")
 
     sys.exit(exit_code)
