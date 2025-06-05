@@ -1246,29 +1246,6 @@
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ghost_bar)
-"ex" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/reagentgrinder{
-	desc = "Used to grind things up into raw materials and liquids.";
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "ey" = (
 /obj/structure/chair/stool,
 /obj/machinery/computer/security/telescreen{
@@ -1572,19 +1549,6 @@
 /obj/item/storage/box/characters,
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership)
-"fC" = (
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/wall/indestructible/riveted,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/ghost_bar)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -1940,21 +1904,6 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
-"gO" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/multi_tile/glass/directional/east{
-	name = "Badmin's Bar"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall/indestructible/opsglass,
-/area/ghost_bar)
 "gP" = (
 /obj/structure/flora/tree/pine,
 /turf/simulated/floor/plating/asteroid/snow,
@@ -2333,22 +2282,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
-"hR" = (
-/obj/machinery/cooking/ice_cream_mixer/upgraded,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/ghost_bar)
 "hS" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plasteel{
@@ -3753,26 +3686,6 @@
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
-"mp" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table/reinforced,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/cooking/grill/upgraded,
-/obj/item/stack/sheet/wood{
-	amount = 30
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "ms" = (
 /obj/mecha/combat/honker/loaded,
 /turf/simulated/floor/plasteel,
@@ -4792,22 +4705,6 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
-"pA" = (
-/obj/machinery/economy/vending/dinnerware,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/mineral/ancient/outer,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/space/nearstation/centcom)
 "pD" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4877,29 +4774,6 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"pN" = (
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/mineral/ancient/outer,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/wall/indestructible/riveted,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/space/nearstation/centcom,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/ghost_bar,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
 "pO" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
@@ -6193,12 +6067,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/specops)
-"tR" = (
-/obj/structure/closet/crate/cookware,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "tS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -6206,22 +6074,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
-	},
-/area/ghost_bar)
-"tT" = (
-/obj/machinery/chem_master/condimaster,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/ghost_bar)
 "tU" = (
@@ -6629,12 +6481,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
-"vi" = (
-/obj/machinery/cooking/deepfryer/upgraded,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "vj" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/freezer,
@@ -6984,22 +6830,6 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/trader_station/sol)
-"wq" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/poster/official/fruit_bowl/directional/north,
-/obj/machinery/cooking/oven/upgraded,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "wr" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass{
@@ -7792,22 +7622,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
-"ze" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/cooking/stovetop,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "zf" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/turf_decal/box,
@@ -8008,22 +7822,6 @@
 /obj/item/flag/syndi,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"zU" = (
-/obj/machinery/icemachine,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/ghost_bar)
 "zV" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
@@ -8834,20 +8632,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
-"CE" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/area/ghost_bar)
 "CF" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -9063,19 +8847,6 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
-"Ds" = (
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/mineral/ancient/outer,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/wall/indestructible/riveted,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/ghost_bar)
 "Du" = (
 /obj/machinery/washing_machine,
 /obj/effect/turf_decal/tile/red,
@@ -9572,24 +9343,6 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/suppy)
-"Fi" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light/small,
-/obj/machinery/smartfridge/foodcart{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "Fj" = (
 /obj/machinery/computer/med_data{
 	dir = 8
@@ -11804,21 +11557,6 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
-"LY" = (
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/ghost_bar)
 "LZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -12001,24 +11739,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
-"MC" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/bag/tray,
-/obj/item/kitchen/rollingpin,
-/obj/item/kitchen/knife,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "MD" = (
 /obj/machinery/door/airlock/centcom{
 	hackProof = 1;
@@ -13783,12 +13503,6 @@
 /obj/machinery/light/floor,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
-"RR" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
-	name = "Syndicate Evacuation Area"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ghost_bar)
 "RS" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "CCcustoms2";
@@ -14059,32 +13773,6 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"SO" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 5
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/ghost_bar)
 "SP" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
@@ -14289,32 +13977,10 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
-"TC" = (
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/turf/simulated/floor/plating/asteroid/ancient/airless,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/wall/indestructible/riveted,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/area/ghost_bar)
 "TE" = (
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/mineral/ancient/outer,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/space/nearstation/centcom)
 "TF" = (
@@ -71827,7 +71493,7 @@ OK
 ps
 ps
 Me
-RR
+rU
 tS
 xm
 xm
@@ -72608,7 +72274,7 @@ Td
 Td
 Td
 Td
-CE
+Td
 XK
 Td
 Td
@@ -73134,7 +72800,7 @@ OS
 rU
 RQ
 BS
-gO
+NJ
 PE
 PE
 lE
@@ -75693,7 +75359,7 @@ SR
 es
 YP
 YP
-ex
+es
 YP
 YP
 YP
@@ -76207,12 +75873,12 @@ Vw
 es
 es
 es
-wq
 es
-MC
-ze
 es
-Fi
+es
+es
+es
+es
 mE
 Td
 pu
@@ -76464,12 +76130,12 @@ Td
 Oj
 zj
 fF
-vi
+es
 wC
-mp
-SO
-LY
-zU
+YP
+Td
+Td
+Td
 Td
 Td
 UN
@@ -76720,12 +76386,12 @@ ps
 Td
 Td
 Td
-fC
-hR
-LY
-LY
-LY
-es
+Td
+Td
+Td
+Td
+Td
+ps
 TE
 ps
 Td
@@ -76977,13 +76643,13 @@ ps
 ps
 ps
 ps
-fC
-wC
-es
-xU
-tT
-tR
-pA
+Td
+ps
+ps
+ps
+Td
+ps
+TE
 ps
 ps
 ps
@@ -77234,14 +76900,14 @@ OK
 ps
 ps
 ps
-pN
-Ds
-TC
-Me
-Me
-Me
-TC
-Me
+ps
+ps
+OK
+ps
+ps
+ps
+OK
+ps
 ps
 ps
 ps
@@ -77490,13 +77156,13 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
+aN
 OK
-ps
-ps
-ps
 OK
-ps
-ps
+OK
 OK
 OK
 OK
@@ -77748,11 +77414,11 @@ aN
 aN
 aN
 aN
-OK
-OK
-OK
-OK
-OK
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
