@@ -877,6 +877,11 @@
 	We go now to purge the dogs from the hole we know they hide within, and then The Eminance shall then call us back to Reebe so that we may begin preperations for His awakening.<br><br>\
 	The guardians shall protect the monastery in our stead. Make use of its supplies and prepare for our return, together we shall all finalize His vison."
 
+/obj/item/paper/white_ship_telepad
+	name = "Don't forget"
+	info = "Make sure to not forget the link code for the telepad. Rather not get stuck out here for a few more weeks."
+
+
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
 

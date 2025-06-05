@@ -51,7 +51,7 @@
 /obj/item/seeds/kudzu/on_chem_reaction(datum/reagents/S)
 	var/list/temp_mut_list = list()
 
-	if(S.has_reagent("sterilizine", 5))
+	if(S.has_reagent("spaceacillin", 5))
 		for(var/datum/spacevine_mutation/SM as anything in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_NEGATIVE)
 				temp_mut_list += SM
