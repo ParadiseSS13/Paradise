@@ -216,7 +216,7 @@
 	/// Used for deleting gun after hitting something
 	var/hit_something = FALSE
 	/// True if we're shooting our shot -- used to track shooting to prevent deleting mid shot
-	var/shooting_right_now = FALSE 
+	var/shooting_right_now = FALSE
 
 /obj/item/gun/magic/tentacle/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	shooting_right_now = TRUE
@@ -292,7 +292,7 @@
 
 /obj/item/projectile/tentacle/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY)
 	..()
 
 /mob/proc/tentacle_stab(mob/living/carbon/C)

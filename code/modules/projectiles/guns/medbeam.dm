@@ -54,9 +54,8 @@
 
 	current_target = target
 	active = TRUE
-	var/datum/beam/current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
+	var/datum/beam/current_beam = user.Beam(current_target, "medbeam", time = 10 MINUTES, beam_type = /obj/effect/ebeam/medical)
 	beam_UID = current_beam.UID()
-	INVOKE_ASYNC(current_beam, TYPE_PROC_REF(/datum/beam, Start))
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
@@ -104,7 +103,7 @@
 				qdel(dummy)
 				return FALSE
 		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
-			if(B.owner != current_beam)
+			if(B.owner && B.owner != current_beam && !QDELETED(B)) // only blow up if it has a CONFIRMED different owner than us. Don't want it blowing up on creation/deletion of beams.
 				turf.visible_message("<span class='userdanger'>The medbeams cross and EXPLODE!</span>")
 				explosion(B.loc,0,3,5,8, cause = "Crossed beams")
 				qdel(dummy)
