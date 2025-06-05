@@ -146,7 +146,7 @@
 
 	// No extraction for NAD, Plutonium core theft, or Hijack
 	for(var/datum/objective/goal in objectives)
-		if(goal.restricts_exfiltration)
+		if(!goal.is_valid_exfiltration())
 			denied = TRUE
 
 		if(istype(goal, /datum/objective/potentially_backstabbed))

@@ -507,7 +507,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/denied = FALSE
 	var/objectives = user.mind.get_all_objectives()
 	for(var/datum/objective/goal in objectives)
-		if(goal.restricts_exfiltration)
+		if(!goal.is_valid_exfiltration())
 			denied = TRUE
 	if(denied)
 		to_chat(user, "<span class='warning'>The [boss_title] has deemed your objectives too delicate for an early extraction.</span>")
