@@ -442,14 +442,12 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/door/window{
 	dir = 8;
 	name = "Toilet";
 	opacity = 1
 	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "bE" = (
@@ -2150,9 +2148,6 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "hz" = (
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/door/window{
 	dir = 8;
 	name = "Toilet";
@@ -2165,6 +2160,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "hA" = (
@@ -4679,15 +4675,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "pw" = (
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/door/window{
 	dir = 8;
 	name = "Toilet";
 	opacity = 1
 	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "py" = (
@@ -7368,13 +7362,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "xW" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/structure/mirror{
 	pixel_x = 32
 	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "xX" = (
@@ -8515,8 +8506,8 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Ck" = (
-/obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Cl" = (
@@ -9684,10 +9675,6 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "Gl" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -9695,6 +9682,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "Gm" = (
@@ -10150,11 +10138,8 @@
 /turf/simulated/floor/indestructible/necropolis,
 /area/ruin/space/bubblegum_arena)
 "HG" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = -2
-	},
 /obj/structure/curtain/open/shower,
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "HH" = (
@@ -12074,16 +12059,13 @@
 	},
 /area/centcom/evac)
 "NC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/structure/mirror{
 	pixel_x = 32
 	},
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "ND" = (
@@ -12391,9 +12373,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "OB" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Badmin's Bar"
-	},
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/carpet/arcade,
 /area/ghost_bar)
 "OC" = (
@@ -13200,16 +13180,13 @@
 	},
 /area/shuttle/escape)
 "QS" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = -2
-	},
 /obj/structure/curtain/open/shower,
 /obj/structure/window/reinforced/tinted,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "QT" = (
@@ -13731,15 +13708,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "SH" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = -2
-	},
 /obj/structure/curtain/open/shower,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "SI" = (
@@ -13977,12 +13951,6 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
-"TE" = (
-/turf/simulated/mineral/ancient/outer,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/space/nearstation/centcom)
 "TF" = (
 /obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
@@ -14360,9 +14328,6 @@
 	},
 /area/ghost_bar)
 "UR" = (
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
@@ -14372,6 +14337,7 @@
 	name = "Toilet";
 	opacity = 1
 	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "UT" = (
@@ -76392,7 +76358,7 @@ Td
 Td
 Td
 ps
-TE
+ps
 ps
 Td
 Td
@@ -76649,7 +76615,7 @@ ps
 ps
 Td
 ps
-TE
+ps
 ps
 ps
 ps
