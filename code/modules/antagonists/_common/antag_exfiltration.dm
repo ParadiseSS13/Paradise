@@ -583,59 +583,7 @@
 	// Equip outfits and remove spells
 	var/datum/mind/extractor_mind = extractor.mind
 	for(var/datum/antagonist/antag in extractor_mind.antag_datums)
-		if(istype(antag, /datum/antagonist/traitor))
-			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
-			// Remove mindslaves
-			var/list/mindslaves = SSticker.mode.implanted
-			for(var/datum/mind/possible_slave in mindslaves)
-				for(var/datum/antagonist/slavetag in possible_slave.antag_datums)
-					if(!istype(slavetag, /datum/antagonist/mindslave))
-						continue
-					var/datum/antagonist/mindslave/slave = slavetag
-					if(slave.master == extractor.mind)
-						possible_slave.remove_antag_datum(/datum/antagonist/mindslave/implant)
-
-			radio.autosay("<b>--ZZZT!- Good work, $@gent [extractor.real_name]. Return to -^%&!-ZZT!-</b>", "Syndicate Operations", "Security")
-			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Traitor")
-			return
-
-		if(istype(antag, /datum/antagonist/vampire))
-			var/datum/antagonist/vampire/bloodsucker = antag
-			bloodsucker.remove_all_powers()
-			// Remove thralls
-			if(istype(bloodsucker.subclass, SUBCLASS_DANTALION))
-				var/list/thralls = SSticker.mode.vampire_enthralled
-				for(var/datum/mind/possible_thrall in thralls)
-					for(var/datum/antagonist/slavetag in possible_thrall.antag_datums)
-						if(!istype(slavetag, /datum/antagonist/mindslave))
-							continue
-						var/datum/antagonist/mindslave/slave = slavetag
-						if(slave.master == extractor.mind)
-							possible_thrall.remove_antag_datum(/datum/antagonist/mindslave/thrall)
-
-			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire)
-			radio.autosay("<b>--ZZZT!- Wonderfully done, [extractor.real_name]. Welcome to -^%&!-ZZT!-</b>", "Ancient Vampire", "Security")
-			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Vampire")
-			return
-
-		if(istype(antag, /datum/antagonist/mindflayer))
-			var/datum/antagonist/mindflayer/brainsucker = antag
-			brainsucker.remove_all_abilities()
-			brainsucker.remove_all_passives()
-			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/mindflayer)
-			radio.autosay("<b>--ZZZT!- Excellent job, [extractor.real_name]. Proceed to -^%&!-ZZT!-</b>", "Master Flayer", "Security")
-			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Mindflayer")
-			return
-
-		if(istype(antag, /datum/antagonist/changeling))
-			var/datum/antagonist/changeling/ling = antag
-			ling.remove_changeling_powers(FALSE)
-			var/datum/action/changeling/power = new /datum/action/changeling/transform
-			power.Grant(extractor)
-			extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling)
-			radio.autosay("<b>--ZZZT!- Welcome home, [extractor.real_name]. -ZZT!-</b>", "Changeling Hive", "Security")
-			SSblackbox.record_feedback("tally", "successful_extraction", 1, "Changeling")
-			return
+		antag.exfiltrate(extractor, radio)
 
 	// Apply traits
 	ADD_TRAIT(extractor, TRAIT_PACIFISM, GHOST_ROLE)

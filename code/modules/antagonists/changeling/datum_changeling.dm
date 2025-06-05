@@ -186,6 +186,14 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 	update_chem_charges_ui(H)
 
+/datum/antagonist/changeling/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
+	remove_changeling_powers(FALSE)
+	var/datum/action/changeling/power = new /datum/action/changeling/transform
+	power.Grant(extractor)
+	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling)
+	radio.autosay("<b>--ZZZT!- Welcome home, [extractor.real_name]. -ZZT!-</b>", "Changeling Hive", "Security")
+	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Changeling")
+
 /datum/antagonist/changeling/proc/update_chem_charges_ui(mob/living/carbon/human/H = owner.current)
 	if(H.hud_used?.lingchemdisplay)
 		H.hud_used.lingchemdisplay.invisibility = 0

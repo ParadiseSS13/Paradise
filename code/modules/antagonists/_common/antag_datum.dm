@@ -497,4 +497,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/custom_blurb()
 	return FALSE
 
+/datum/antagonist/proc/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
+	return
+
 #undef SUCCESSFUL_DETACH

@@ -97,6 +97,23 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	REMOVE_TRAITS_IN(owner.current, "vampire")
 	UnregisterSignal(owner, COMSIG_ATOM_HOLY_ATTACK)
 
+/datum/antagonist/vampire/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
+	remove_all_powers()
+	// Remove thralls
+	if(istype(subclass, SUBCLASS_DANTALION))
+		var/list/thralls = SSticker.mode.vampire_enthralled
+		for(var/datum/mind/possible_thrall in thralls)
+			for(var/datum/antagonist/slavetag in possible_thrall.antag_datums)
+				if(!istype(slavetag, /datum/antagonist/mindslave))
+					continue
+				var/datum/antagonist/mindslave/slave = slavetag
+				if(slave.master == extractor.mind)
+					possible_thrall.remove_antag_datum(/datum/antagonist/mindslave/thrall)
+
+	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire)
+	radio.autosay("<b>--ZZZT!- Wonderfully done, [extractor.real_name]. Welcome to -^%&!-ZZT!-</b>", "Ancient Vampire", "Security")
+	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Vampire")
+
 #define BLOOD_GAINED_MODIFIER 0.5
 
 /datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H, suck_rate = 5 SECONDS)
