@@ -8,7 +8,7 @@
 	/// What areas can be extracted from?
 	var/list/extractable_areas = list()
 	/// Is there a roundstart delay?
-	var/delayed_extraction = FALSE
+	var/delayed_extraction = TRUE
 	/// How long does the extraction take?
 	var/extraction_time = 90 SECONDS
 	/// Type of setup once a flare is lit

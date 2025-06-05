@@ -28,9 +28,9 @@
 		ling.remove_specific_power(/datum/action/changeling/exfiltration)
 		return
 
-	//if(world.time < 60 MINUTES) // 60 minutes of no exfil
-		//to_chat(user, "<span class='warning'>The hivemind is still amassing an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
-		//return
+	if(world.time < 60 MINUTES) // 60 minutes of no exfil
+		to_chat(user, "<span class='warning'>The hivemind is still amassing an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		return
 	var/mob/living/L = user
 	if(!istype(L))
 		return
