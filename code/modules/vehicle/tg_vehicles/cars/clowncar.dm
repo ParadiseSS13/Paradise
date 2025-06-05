@@ -83,7 +83,6 @@
 
 // We don't want everything in the clown car to get dusted when it touches the supermatter, so dump the mobs.
 /obj/tgvehicle/sealed/car/clowncar/on_entered_supermatter(atom/movable/vehicle, atom/movable/supermatter)
-	SIGNAL_HANDLER // COMSIG_SUPERMATTER_CONSUMED
 	dump_mobs(TRUE)
 
 /obj/tgvehicle/sealed/car/clowncar/proc/irish_car_bomb()
