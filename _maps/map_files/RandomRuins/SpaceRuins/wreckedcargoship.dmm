@@ -163,7 +163,7 @@
 /area/ruin/space/wreck_cargoship)
 "hn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -568,7 +568,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "un" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
