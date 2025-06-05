@@ -167,7 +167,7 @@
 
 /// When we touch a crystal, kill everything inside us
 /obj/tgvehicle/sealed/proc/on_entered_supermatter(atom/movable/vehicle, atom/movable/supermatter)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_SUPERMATTER_CONSUMED
 	for(var/mob/passenger as anything in occupants)
 		if(!is_ai(passenger))
 			passenger.Bump(supermatter)

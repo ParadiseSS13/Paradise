@@ -81,6 +81,11 @@
 				audible_message("<span class='warning'>You hear a rattling sound coming from the engine. That can't be good...</span>", null, 1)
 				addtimer(CALLBACK(src, PROC_REF(irish_car_bomb)), 5 SECONDS)
 
+// We don't want everything in the clown car to get dusted when it touches the supermatter, so dump the mobs.
+/obj/tgvehicle/sealed/car/clowncar/on_entered_supermatter(atom/movable/vehicle, atom/movable/supermatter)
+	SIGNAL_HANDLER // COMSIG_SUPERMATTER_CONSUMED
+	dump_mobs(TRUE)
+
 /obj/tgvehicle/sealed/car/clowncar/proc/irish_car_bomb()
 	dump_mobs()
 	explosion(src, light_impact_range = 1)
