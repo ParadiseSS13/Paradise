@@ -4655,9 +4655,7 @@
 "pu" = (
 /obj/structure/mopbucket,
 /obj/item/mop,
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "pw" = (
@@ -8530,9 +8528,7 @@
 /area/admin)
 "Ct" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Cu" = (
@@ -10067,9 +10063,7 @@
 	},
 /area/syndicate_mothership)
 "Hy" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Hz" = (
