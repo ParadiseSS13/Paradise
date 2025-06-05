@@ -236,6 +236,13 @@
 	user.visible_message("<span class='notice'>[user] sets a strange telepad on the floor. It begins to unfold.</span>",
 					"<span class='notice'>You push a button on [src], and watch as it begins to unfold.</span>")
 
+/obj/item/wormhole_jaunter/extraction/admin
+	name = "advanced extraction flare"
+	desc = "An advanced single-use extraction flare that will let you escape the station quickly. One way trip."
+	delayed_extraction = FALSE
+	extraction_time = 5 SECONDS
+	setup_type = /obj/effect/temp_visual/exfiltration/admin
+
 // MARK: Traitor Flare
 /obj/effect/temp_visual/exfiltration
 	name = "extraction flare"
@@ -430,13 +437,6 @@
 	qdel(src)
 
 // MARK:  Debug/Admin
-/obj/item/wormhole_jaunter/extraction/admin
-	name = "advanced extraction flare"
-	desc = "An advanced single-use extraction flare that will let you escape the station quickly. One way trip."
-	delayed_extraction = FALSE
-	extraction_time = 5 SECONDS
-	setup_type = /obj/effect/temp_visual/exfiltration/admin
-
 /obj/effect/temp_visual/exfiltration/admin
 	duration = 5.1 SECONDS
 
