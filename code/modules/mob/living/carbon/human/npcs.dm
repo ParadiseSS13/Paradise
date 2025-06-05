@@ -65,7 +65,7 @@
 	for(var/turf/T in target_turfs)
 		if(isspaceturf(T))
 			continue
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		if(T.x > world.maxx - 5 || T.x < 5)
 			continue	//putting them at the edge is dumb

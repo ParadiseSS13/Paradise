@@ -88,6 +88,9 @@
 	.["Jump to Object"] = "byond://?_src_=vars;jump_to=[UID()]"
 	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
 	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
+	.["Add Component/Element"] = "byond://?_src_=vars;addcomponent=[UID()]"
+	.["Remove Component/Element"] = "byond://?_src_=vars;removecomponent=[UID()]"
+	.["Mass Remove Component/Element"] = "byond://?_src_=vars;massremovecomponent=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
@@ -1271,6 +1274,87 @@
 			return
 		holder.modify_traits(A)
 
+	if(href_list["addcomponent"])
+		if(!check_rights(NONE))
+			return
+		var/datum/target = locateUID(href_list["addcomponent"])
+		if(!target)
+			return
+		var/list/names = list()
+		var/list/componentsubtypes = sortList(subtypesof(/datum/component), GLOBAL_PROC_REF(cmp_typepaths_asc))
+		names += "---Components---"
+		names += componentsubtypes
+		names += "---Elements---"
+		names += sortList(subtypesof(/datum/element), GLOBAL_PROC_REF(cmp_typepaths_asc))
+
+		var/result = tgui_input_list(usr, "Choose a component/element to add", "Add Component", names)
+		if(isnull(result))
+			return
+		if(!usr || result == "---Components---" || result == "---Elements---")
+			return
+
+		if(QDELETED(src))
+			to_chat(usr, "That thing doesn't exist anymore!", confidential = TRUE)
+			return
+
+		var/list/lst = get_callproc_args()
+		if(!lst)
+			return
+
+		var/datumname = "error"
+		lst.Insert(1, result)
+		if(result in componentsubtypes)
+			datumname = "component"
+			target._AddComponent(lst)
+		else
+			datumname = "element"
+			target._AddElement(lst)
+		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(target)].")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(target)].</span>")
+	if(href_list["removecomponent"] || href_list["massremovecomponent"])
+		if(!check_rights(NONE))
+			return
+		var/datum/target = href_list["removecomponent"] ? locateUID(href_list["removecomponent"]) : locateUID(href_list["massremovecomponent"])
+		if(!target)
+			return
+		var/mass_remove = href_list["massremovecomponent"]
+		var/list/components = target.datum_components.Copy()
+		var/list/names = list()
+		names += "---Components---"
+		if(length(components))
+			names += sortList(components, GLOBAL_PROC_REF(cmp_typepaths_asc))
+		names += "---Elements---"
+		// We have to list every element here because there is no way to know what element is on this object without doing some sort of hack.
+		names += sortList(subtypesof(/datum/element), GLOBAL_PROC_REF(cmp_typepaths_asc))
+		var/path = tgui_input_list(usr, "Choose a component/element to remove. All elements listed here may not be on the datum.", "Remove element", names)
+		if(isnull(path))
+			return
+		if(!usr || path == "---Components---" || path == "---Elements---")
+			return
+		if(QDELETED(src))
+			to_chat(usr, "That thing doesn't exist anymore!")
+			return
+		var/list/targets_to_remove_from = list(target)
+		if(mass_remove)
+			var/method = vv_subtype_prompt(target.type)
+			targets_to_remove_from = get_all_of_type(target.type, method)
+
+			if(alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", "Yes", "No") == "No")
+				return
+
+		var/list/ele_list = list()
+		if(ispath(path, /datum/element))
+			ele_list = get_callproc_args()
+			ele_list.Insert(1, path)
+		for(var/datum/target_to_remove_from as anything in targets_to_remove_from)
+			if(ispath(path, /datum/element))
+				target._RemoveElement(ele_list)
+			else
+				var/list/components_actual = target_to_remove_from.GetComponents(path)
+				for(var/to_delete in components_actual)
+					qdel(to_delete)
+
+		message_admins("<span class='notice'>[key_name_admin(usr)] has [mass_remove ? "mass" : ""] removed [path] component from [mass_remove ? target.type : key_name_admin(target)].</span>")
 	if(href_list["datumrefresh"])
 		var/datum/DAT = locateUID(href_list["datumrefresh"])
 		if(!istype(DAT, /datum) && !isclient(DAT))

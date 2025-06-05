@@ -1,0 +1,1 @@
+/obj/structure/chair/office/light : /obj/structure/chair/office{@OLD}
