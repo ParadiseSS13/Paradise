@@ -1775,7 +1775,7 @@
 	layer = 2.9;
 	name = "Security Wing Lockdown"
 	},
-/obj/machinery/door/airlock/multi_tile/glass{
+/obj/machinery/door/airlock/multi_tile/glass/directional/east{
 	name = "Security Wing"
 	},
 /turf/simulated/floor/plasteel{
@@ -2697,7 +2697,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hf" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3043,7 +3043,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "id" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ie" = (
@@ -6786,14 +6786,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "sm" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem_ussp";
-	name = "Near USSP Station";
-	width = 16
-	},
+/obj/docking_port/stationary/golem/ussp,
 /turf/template_noop,
 /area/template_noop)
 "sn" = (

@@ -20,7 +20,6 @@ use serde::{Deserialize, Serialize};
 use tools::extract_submap;
 use tools::insert_submap;
 
-use crate::logging::dm_call_stack_trace;
 use crate::logging::setup_panic_handler;
 
 mod core;
@@ -29,7 +28,12 @@ mod tools;
 #[cfg(test)]
 mod test;
 
-///
+/// A specific map transformation. Currently implemented transformations are
+/// `SubmapExtractInsert`, which looks up matching markers in another DMM file
+/// to replace the contents of the specified submap dimensions, and
+/// `RandomOrientation`, which rotates the map 0, 90, 180, or 270 degrees,
+/// performing specialized transformations for atoms which require it in order
+/// to make sense when rotated.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum MapManipulation {
@@ -74,7 +78,7 @@ pub fn mapmanip_config_parse(config_path: &std::path::Path) -> eyre::Result<Vec<
 pub fn mapmanip(
     map_dir_path: &std::path::Path,
     map: dmmtools::dmm::Map,
-    config: &Vec<MapManipulation>,
+    config: &[MapManipulation],
 ) -> eyre::Result<dmmtools::dmm::Map> {
     // convert to gridmap
     let mut map = to_grid_map(&map);
@@ -112,15 +116,17 @@ pub fn mapmanip(
 					submaps path: {submaps_dmm:?};
 					markers: {marker_extract}, {marker_insert};"
             )),
-            MapManipulation::RandomOrientation => mapmanip_orientation_randomize(&mut map)
-                .wrap_err(format!("randomize orientation fail")),
+            MapManipulation::RandomOrientation => {
+                mapmanip_orientation_randomize(&mut map).wrap_err("randomize orientation failure")
+            }
         }
         .wrap_err(format!("mapmanip fail; manip n is: {n}/{config_len}"))?;
     }
 
-    Ok(core::to_dict_map(&map).wrap_err("failed on `to_dict_map`")?)
+    core::to_dict_map(&map).wrap_err("failed on `to_dict_map`")
 }
 
+#[allow(clippy::too_many_arguments)]
 fn mapmanip_submap_extract_insert(
     map_dir_path: &std::path::Path,
     map: &mut GridMap,
@@ -140,7 +146,7 @@ fn mapmanip_submap_extract_insert(
     );
 
     // get the submaps map
-    let submaps_dmm: std::path::PathBuf = submaps_dmm.try_into().wrap_err("invalid path")?;
+    let submaps_dmm: std::path::PathBuf = submaps_dmm.into();
     let submaps_dmm = map_dir_path.join(submaps_dmm);
     let submaps_map = GridMap::from_file(&submaps_dmm)
         .wrap_err(format!("can't read and parse submap dmm: {submaps_dmm:?}"))?;
@@ -228,40 +234,70 @@ fn rotate_cable(dir_i: i32, rotation: &MapRotation) -> i32 {
     }
 }
 
-fn directional_mapper_rotate(path: String, rotation: &MapRotation) -> String {
+fn directional_rotate(path: String, rotation: &MapRotation) -> String {
     match rotation {
         MapRotation::None => path,
         MapRotation::Clockwise90 => {
-            if path.ends_with("/directional/north") {
-                path.replace("/directional/north", "/directional/east")
-            } else if path.ends_with("/directional/south") {
-                path.replace("/directional/south", "/directional/west")
-            } else if path.ends_with("/directional/east") {
-                path.replace("/directional/east", "/directional/south")
+            if path.ends_with("/north") {
+                path.replace("/north", "/east")
+            } else if path.ends_with("/south") {
+                path.replace("/south", "/west")
+            } else if path.ends_with("/east") {
+                path.replace("/east", "/south")
+            } else if path.ends_with("/west") {
+                path.replace("/west", "/north")
+            } else if path.ends_with("/northeast") {
+                path.replace("/northeast", "/southeast")
+            } else if path.ends_with("/northwest") {
+                path.replace("/northwest", "/northeast")
+            } else if path.ends_with("/southeast") {
+                path.replace("/southeast", "/southwest")
+            } else if path.ends_with("/southwest") {
+                path.replace("/southwest", "/northwest")
             } else {
-                path.replace("/directional/west", "/directional/north")
+                path
             }
         }
         MapRotation::Clockwise180 => {
-            if path.ends_with("/directional/north") {
-                path.replace("/directional/north", "/directional/south")
-            } else if path.ends_with("/directional/south") {
-                path.replace("/directional/south", "/directional/north")
-            } else if path.ends_with("/directional/east") {
-                path.replace("/directional/east", "/directional/west")
+            if path.ends_with("/north") {
+                path.replace("/north", "/south")
+            } else if path.ends_with("/south") {
+                path.replace("/south", "/north")
+            } else if path.ends_with("/east") {
+                path.replace("/east", "/west")
+            } else if path.ends_with("/west") {
+                path.replace("/west", "/east")
+            } else if path.ends_with("/northeast") {
+                path.replace("/northeast", "/southwest")
+            } else if path.ends_with("/northwest") {
+                path.replace("/northwest", "/southeast")
+            } else if path.ends_with("/southeast") {
+                path.replace("/southeast", "/northwest")
+            } else if path.ends_with("/southwest") {
+                path.replace("/southwest", "/northeast")
             } else {
-                path.replace("/directional/west", "/directional/east")
+                path
             }
         }
         MapRotation::Clockwise270 => {
-            if path.ends_with("/directional/north") {
-                path.replace("/directional/north", "/directional/west")
-            } else if path.ends_with("/directional/south") {
-                path.replace("/directional/south", "/directional/east")
-            } else if path.ends_with("/directional/east") {
-                path.replace("/directional/east", "/directional/north")
+            if path.ends_with("/north") {
+                path.replace("/north", "/west")
+            } else if path.ends_with("/south") {
+                path.replace("/south", "/east")
+            } else if path.ends_with("/east") {
+                path.replace("/east", "/north")
+            } else if path.ends_with("/west") {
+                path.replace("/west", "/south")
+            } else if path.ends_with("/northeast") {
+                path.replace("/northeast", "/northwest")
+            } else if path.ends_with("/northwest") {
+                path.replace("/northwest", "/southwest")
+            } else if path.ends_with("/southeast") {
+                path.replace("/southeast", "/northeast")
+            } else if path.ends_with("/southwest") {
+                path.replace("/southwest", "/southeast")
             } else {
-                path.replace("/directional/west", "/directional/south")
+                path
             }
         }
     }
@@ -336,8 +372,8 @@ fn mapmanip_orientation_randomize(map: &mut GridMap) -> eyre::Result<()> {
 
     for t in map.grid.values_mut() {
         t.prefabs.iter_mut().for_each(|f| {
-            if f.path.contains("/directional/") {
-                f.path = directional_mapper_rotate(f.path.to_string(), rotation);
+            if f.path.contains("/directional/") || f.path.contains("/offset/") {
+                f.path = directional_rotate(f.path.to_string(), rotation);
             } else if f.path.starts_with("/obj/structure/cable") {
                 let cable_dirs = f
                     .vars
@@ -420,13 +456,10 @@ fn mapmanip_read_dmm_file(path: ByondValue) -> eyre::Result<ByondValue> {
 pub(crate) fn internal_mapmanip_read_dmm_file(path: ByondValue) -> eyre::Result<ByondValue> {
     setup_panic_handler();
 
-    let path: String = path
-        .get_string()
-        .wrap_err(format!("path arg is not a string: {:?}", path))?;
     let path: std::path::PathBuf = path
-        .clone()
-        .try_into()
-        .wrap_err(format!("path arg is not a valid file path: {}", path))?;
+        .get_string()
+        .wrap_err(format!("path arg is not a string: {:?}", path))?
+        .into();
 
     // just return null if path is bad for whatever reason
     if !path.is_file() || !path.exists() {
@@ -465,32 +498,17 @@ pub(crate) fn internal_mapmanip_read_dmm_file(path: ByondValue) -> eyre::Result<
     Ok(ByondValue::new_str(dmm)?)
 }
 
-///
-#[no_mangle]
-pub unsafe extern "C" fn read_dmm_file_ffi(
-    argc: byondapi::sys::u4c,
-    argv: *mut byondapi::value::ByondValue,
-) -> byondapi::value::ByondValue {
-    setup_panic_handler();
-    let args = unsafe { ::byondapi::parse_args(argc, argv) };
-    match crate::mapmanip::internal_mapmanip_read_dmm_file(
-        args.get(0).map(ByondValue::clone).unwrap_or_default(),
-    ) {
-        Ok(val) => val,
-        Err(info) => {
-            let _ = dm_call_stack_trace(format!("Rustlibs ERROR read_dmm_file_ffi() \n {info:#?}"));
-            ByondValue::null()
-        }
-    }
-}
-
 /// To be used by the `tools/rustlib_tools/mapmanip.ps1` script.
 /// Not to be called from the game server, so bad error-handling is fine.
 /// This should run map manipulations on every `.dmm` map that has a `.jsonc` config file,
 /// and write it to a `.mapmanipout.dmm` file in the same location.
 #[no_mangle]
 pub unsafe extern "C" fn all_mapmanip_configs_execute_ffi() {
-    let mapmanip_configs = walkdir::WalkDir::new("./_maps")
+    all_mapmanip_configs_execute("./_maps".into());
+}
+
+fn all_mapmanip_configs_execute(root_path: String) {
+    let mapmanip_configs = walkdir::WalkDir::new(root_path)
         .into_iter()
         .map(|d| d.unwrap().path().to_owned())
         .filter(|p| p.extension().is_some())
