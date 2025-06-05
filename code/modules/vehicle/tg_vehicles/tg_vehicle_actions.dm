@@ -341,7 +341,10 @@
 /datum/action/vehicle/sealed/headlights/Trigger(trigger_flags)
 	to_chat(owner, "<span class=notice'>You flip the switch for the vehicle's headlights.</span>")
 	vehicle_entered_target.headlights_toggle = !vehicle_entered_target.headlights_toggle
-	vehicle_entered_target.set_light(vehicle_entered_target.headlights_toggle)
+	if(vehicle_entered_target.headlights_toggle)
+		vehicle_entered_target.set_light(vehicle_entered_target.headlight_range, vehicle_entered_target.headlight_power)
+	else
+		vehicle_entered_target.remove_light()
 	vehicle_entered_target.update_appearance()
 	playsound(owner, vehicle_entered_target.headlights_toggle ? 'sound/weapons/gun_interactions/pistol_magin.ogg' : 'sound/weapons/gun_interactions/pistol_magout.ogg', 40, TRUE)
 

@@ -5,6 +5,10 @@
 	var/mouse_pointer
 	/// Are the headlights on?
 	var/headlights_toggle = FALSE
+	/// How far do the headlights reach?
+	var/headlight_range = 6
+	/// How powerful are the headlights?
+	var/headlight_power = 2
 	/// Determines which occupants provide access when bumping into doors
 	var/access_provider_flags = VEHICLE_CONTROL_DRIVE
 

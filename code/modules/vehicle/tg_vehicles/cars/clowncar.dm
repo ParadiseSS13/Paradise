@@ -5,8 +5,6 @@
 	max_integrity = 150
 	max_occupants = 50
 	key_type = /obj/item/bikehorn
-	light_range = 6
-	light_power = 2
 	enter_sound = 'sound/effects/clowncar/door_close.ogg'
 	exit_sound = 'sound/effects/clowncar/door_open.ogg'
 	car_traits = CAN_KIDNAP
@@ -14,8 +12,6 @@
 	var/armor_type = /datum/armor/car_clowncar
 	/// How long does it take to get in?
 	enter_delay = 4 SECONDS
-	/// Are the lights on?
-	var/light_on = FALSE
 	// /Determines which occupants provide access when bumping into doors
 	access_provider_flags = VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_KIDNAPPED
 	/// list of headlight colors we use to pick through when we have party mode due to emag
@@ -46,8 +42,8 @@
 	RegisterSignal(src, COMSIG_MOVABLE_CHECK_CROSS, PROC_REF(check_crossed))
 
 /obj/tgvehicle/sealed/car/clowncar/process()
-	if(light_on && emagged)
-		set_light(light_range, light_power, pick(headlight_colors))
+	if(headlights_toggle && emagged)
+		set_light(headlight_range, headlight_power, pick(headlight_colors))
 
 /obj/tgvehicle/sealed/car/clowncar/MouseDrop_T(mob/living/M, mob/living/user)
 	mob_try_enter(user)
