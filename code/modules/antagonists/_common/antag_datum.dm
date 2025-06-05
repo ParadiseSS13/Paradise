@@ -61,6 +61,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	/// Do we have delayed objective giving?
 	var/delayed_objectives = FALSE
+	/// The title of the players "boss", used for exfil strings
+	var/boss_title = "Operations"
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -499,5 +501,25 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /datum/antagonist/proc/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
 	return
+
+/datum/antagonist/proc/prepare_exfiltration(mob/user, obj/item/wormhole_jaunter/extraction/extraction_type = null)
+	// No extraction for certian steals/hijack
+	var/denied = FALSE
+	var/objectives = user.mind.get_all_objectives()
+	for(var/datum/objective/goal in objectives)
+		if(goal.restricts_exfiltration)
+			denied = TRUE
+	if(denied)
+		to_chat(user, "<span class='warning'>The [boss_title] has deemed your objectives too delicate for an early extraction.</span>")
+		return
+
+	if(world.time < 60 MINUTES) // 60 minutes of no exfil
+		to_chat(user, "<span class='warning'>The [boss_title] is still preparing an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		return
+	var/mob/living/L = user
+	if(!istype(L))
+		return
+	var/obj/item/wormhole_jaunter/extraction/extractor = new extraction_type()
+	L.put_in_active_hand(extractor)
 
 #undef SUCCESSFUL_DETACH

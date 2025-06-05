@@ -27,6 +27,7 @@
 	var/can_pick_capstone = TRUE
 	/// Have we notified that our victim does not give swarms from draining
 	var/has_notified = FALSE
+	boss_title = "Master Mindflayer"
 
 /datum/antagonist/mindflayer/New()
 	. = ..()

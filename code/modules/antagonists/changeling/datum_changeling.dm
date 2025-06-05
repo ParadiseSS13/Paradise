@@ -50,6 +50,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	var/regenerating = FALSE
 	blurb_text_color = COLOR_PURPLE
 	blurb_text_outline_width = 1
+	boss_title = "Greater Hivemind"
 
 /datum/antagonist/changeling/New()
 	..()

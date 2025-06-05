@@ -10,25 +10,6 @@
 
 // Create extraction mass
 /datum/action/changeling/exfiltration/sting_action(mob/living/user)
-	var/datum/antagonist/changeling/ling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	// No extraction for certian steals/hijack
-	var/denied = FALSE
-	var/objectives = user.mind.get_all_objectives()
-	for(var/datum/objective/goal in objectives)
-		if(goal.restricts_exfiltration)
-			denied = TRUE
-	if(denied)
-		to_chat(user, "<span class='warning'>The greater hivemind has deemed your objectives too delicate for an early extraction.</span>")
-		ling.remove_specific_power(/datum/action/changeling/exfiltration)
-		return
-
-	if(world.time < 60 MINUTES) // 60 minutes of no exfil
-		to_chat(user, "<span class='warning'>The hivemind is still amassing an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
-		return
-	var/mob/living/L = user
-	if(!istype(L))
-		return
-	var/obj/item/wormhole_jaunter/extraction/changeling/extractor = new /obj/item/wormhole_jaunter/extraction/changeling()
-	L.put_in_active_hand(extractor)
-	ling.remove_specific_power(/datum/action/changeling/exfiltration)
+	cling.prepare_exfiltration(user, /obj/item/wormhole_jaunter/extraction/changeling)
+	cling.remove_specific_power(/datum/action/changeling/exfiltration)
 	return TRUE

@@ -36,6 +36,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	blurb_g = 221
 	blurb_b = 138
 	blurb_a = 1
+	boss_title = "Master Vampire"
 
 /datum/antagonist/vampire/Destroy(force, ...)
 	draining = null

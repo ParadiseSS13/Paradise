@@ -18,6 +18,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/give_uplink = TRUE
 	blurb_r = 200
 	blurb_a = 0.75
+	boss_title = "Syndicate Operations"
 
 	/// Have we / are we sending a backstab message at this time. If we are, do not send another.
 	var/sending_backstab = FALSE
