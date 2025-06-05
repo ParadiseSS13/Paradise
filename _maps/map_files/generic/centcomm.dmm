@@ -1043,16 +1043,12 @@
 	},
 /area/holodeck/source_basketball)
 "dH" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/centcom)
 "dI" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/centcom)
 "dJ" = (
@@ -1126,9 +1122,7 @@
 /area/holodeck/source_basketball)
 "eb" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/centcom)
 "ec" = (
@@ -1382,10 +1376,7 @@
 	},
 /area/ghost_bar)
 "eW" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4001,9 +3992,7 @@
 /obj/machinery/door/window/reinforced/reversed{
 	name = "Tactical Toilet"
 	},
-/obj/structure/toilet{
-	pixel_y = 13
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "np" = (
@@ -4599,13 +4588,10 @@
 /turf/simulated/wall/r_wall,
 /area/start)
 "pi" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "pj" = (
@@ -7503,6 +7489,12 @@
 /obj/structure/flora/bush,
 /turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
+"yG" = (
+/obj/structure/sink/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "yH" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -8522,10 +8514,7 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "Cp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -9456,10 +9445,7 @@
 /obj/structure/curtain/open/shower/security,
 /obj/item/soap/syndie,
 /obj/item/bikehorn/rubberducky/captainducky,
-/obj/machinery/shower{
-	dir = 1;
-	pixel_y = -2
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "FB" = (
@@ -68905,7 +68891,7 @@ Zq
 wF
 Bc
 Me
-Vw
+yG
 es
 es
 es
