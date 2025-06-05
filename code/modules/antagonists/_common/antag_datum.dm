@@ -504,14 +504,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /datum/antagonist/proc/prepare_exfiltration(mob/user, obj/item/wormhole_jaunter/extraction/extraction_type = null)
 	// No extraction for certian steals/hijack
-	var/denied = FALSE
 	var/objectives = user.mind.get_all_objectives()
 	for(var/datum/objective/goal in objectives)
 		if(!goal.is_valid_exfiltration())
-			denied = TRUE
-	if(denied)
-		to_chat(user, "<span class='warning'>The [boss_title] has deemed your objectives too delicate for an early extraction.</span>")
-		return
+			to_chat(user, "<span class='warning'>The [boss_title] has deemed your objectives too delicate for an early extraction.</span>")
+			return
 
 	if(world.time < 60 MINUTES) // 60 minutes of no exfil
 		to_chat(user, "<span class='warning'>The [boss_title] is still preparing an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
