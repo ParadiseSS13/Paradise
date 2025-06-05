@@ -203,6 +203,39 @@
 	user.visible_message("<span class='notice'>[user] pulls out a black and gold flare and lights it.</span>",
 					"<span class='notice'>You light an extraction flare, initiating the extraction process.</span>")
 
+/obj/item/wormhole_jaunter/extraction/vampire
+	name = "blood chalice"
+	icon = 'icons/obj/items.dmi'
+	desc = "An unholy construct that will create a single-use portal that will let you escape the station. One way trip."
+	icon_state = "blood-chalice"
+	setup_type = /obj/effect/temp_visual/exfiltration/vampire
+
+/obj/item/wormhole_jaunter/extraction/vampire/show_activation_message(mob/user)
+	user.visible_message("<span class='notice'>[user] sets a blood-filled chalice on the ground. It begins to bubble ominously...</span>",
+					"<span class='notice'>You set a blood-filled chalice on the ground. It begins to bubble ominously...</span>")
+
+/obj/item/wormhole_jaunter/extraction/changeling
+	name = "writhing mass"
+	icon = 'icons/obj/items.dmi'
+	desc = "A mass of writhing flesh that will create a single-use portal that will let you escape the station. One way trip."
+	icon_state = "changeling_organ"
+	setup_type = /obj/effect/temp_visual/exfiltration/changeling
+
+/obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
+	user.visible_message("<span class='notice'>[user] sets a grotesque fleshy mass on the floor.</span>",
+					"<span class='notice'>You set a pulsing piece of yourself on the floor.</span>")
+
+/obj/item/wormhole_jaunter/extraction/mindflayer
+	name = "nanite telepad"
+	icon = 'icons/obj/lighting.dmi'
+	desc = "A swarm of mindflayer nanites in the shape of a telepad that will create a single-use portal that will let you escape the station. One way trip."
+	icon_state = "flayer_telepad_base"
+	setup_type = /obj/effect/temp_visual/exfiltration/mindflayer
+
+/obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
+	user.visible_message("<span class='notice'>[user] sets a strange telepad on the floor. It begins to unfold.</span>",
+					"<span class='notice'>You push a button on [src], and watch as it begins to unfold.</span>")
+
 // MARK: Traitor Flare
 /obj/effect/temp_visual/exfiltration
 	name = "extraction flare"
@@ -224,17 +257,6 @@
 		set_light(8, l_color = emitted_color)
 
 // MARK: Vampire Chalice
-/obj/item/wormhole_jaunter/extraction/vampire
-	name = "blood chalice"
-	icon = 'icons/obj/items.dmi'
-	desc = "An unholy construct that will create a single-use portal that will let you escape the station. One way trip."
-	icon_state = "blood-chalice"
-	setup_type = /obj/effect/temp_visual/exfiltration/vampire
-
-/obj/item/wormhole_jaunter/extraction/vampire/show_activation_message(mob/user)
-	user.visible_message("<span class='notice'>[user] sets a blood-filled chalice on the ground. It begins to bubble ominously...</span>",
-					"<span class='notice'>You set a blood-filled chalice on the ground. It begins to bubble ominously...</span>")
-
 /obj/effect/temp_visual/exfiltration/vampire
 	name = "bloody portal"
 	icon_state = "vampire-portal"
@@ -242,17 +264,6 @@
 	emitted_color = "#710C04"
 
 // MARK: Changeling Mass
-/obj/item/wormhole_jaunter/extraction/changeling
-	name = "writhing mass"
-	icon = 'icons/obj/items.dmi'
-	desc = "A mass of writhing flesh that will create a single-use portal that will let you escape the station. One way trip."
-	icon_state = "changeling_organ"
-	setup_type = /obj/effect/temp_visual/exfiltration/changeling
-
-/obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
-	user.visible_message("<span class='notice'>[user] sets a grotesque fleshy mass on the floor.</span>",
-					"<span class='notice'>You set a pulsing piece of yourself on the floor.</span>")
-
 /obj/effect/temp_visual/exfiltration/changeling
 	name = "writhing mass"
 	icon_state = "changeling-organ"
@@ -260,17 +271,6 @@
 	emitted_color = "#E79592"
 
 // MARK: Mindflayer telepad
-/obj/item/wormhole_jaunter/extraction/mindflayer
-	name = "nanite telepad"
-	icon = 'icons/obj/lighting.dmi'
-	desc = "A swarm of mindflayer nanites in the shape of a telepad that will create a single-use portal that will let you escape the station. One way trip."
-	icon_state = "flayer_telepad_base"
-	setup_type = /obj/effect/temp_visual/exfiltration/mindflayer
-
-/obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
-	user.visible_message("<span class='notice'>[user] sets a strange telepad on the floor. It begins to unfold.</span>",
-					"<span class='notice'>You push a button on [src], and watch as it begins to unfold.</span>")
-
 /obj/effect/temp_visual/exfiltration/mindflayer
 	name = "mindflayer telepad"
 	desc = "A swarm of mindflayer nanites in the shape of a telepad that will create a single-use portal."
