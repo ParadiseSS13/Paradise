@@ -8,7 +8,7 @@
 	/// What areas can be extracted from?
 	var/list/extractable_areas = list()
 	/// Is there a roundstart delay?
-	var/delayed_extraction = TRUE
+	var/delayed_extraction = FALSE
 	/// How long does the extraction take?
 	var/extraction_time = 90 SECONDS
 	/// Type of setup once a flare is lit
@@ -210,6 +210,7 @@
 // MARK: Traitor Flare
 /obj/effect/temp_visual/exfiltration
 	name = "extraction flare"
+	layer = BELOW_MOB_LAYER
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flare-contractor-on"
 	duration = 90.1 SECONDS
@@ -247,9 +248,9 @@
 // MARK: Changeling Mass
 /obj/item/wormhole_jaunter/extraction/changeling
 	name = "writhing mass"
-	icon = 'icons/obj/lighting.dmi'
+	icon = 'icons/obj/items.dmi'
 	desc = "A mass of writhing flesh that will create a single-use portal that will let you escape the station. One way trip."
-	icon_state = "flare-contractor"
+	icon_state = "changeling_organ"
 	setup_type = /obj/effect/temp_visual/exfiltration/changeling
 
 /obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
@@ -258,6 +259,7 @@
 
 /obj/effect/temp_visual/exfiltration/changeling
 	name = "writhing mass"
+	icon_state = "changeling-organ"
 	activation_sound = 'sound/effects/squelch1.ogg'
 	emitted_color = "#E79592"
 
