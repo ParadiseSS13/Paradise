@@ -1,4 +1,5 @@
 /datum/event_meta
+	var/name = ""
 	/// Whether or not the event is available for random selection at all.
 	var/enabled 	= TRUE
 	/// The base weight of this event. A zero means it may never fire, but see get_weight()
@@ -16,6 +17,7 @@
 
 /datum/event_meta/New(event_severity, type, event_weight, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
 	skeleton = new type(EM = src, skeleton = TRUE, _severity = event_severity)
+	name = skeleton.name
 	one_shot = is_one_shot
 	weight = event_weight
 	min_weight = min_event_weight

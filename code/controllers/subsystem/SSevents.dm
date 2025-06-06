@@ -40,8 +40,7 @@ SUBSYSTEM_DEF(events)
 	for(var/datum/event/E in active_events)
 		E.process()
 
-	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
-		var/datum/event_container/EC = event_containers[i]
+	for(var/datum/event_container/EC in event_containers)
 		EC.process()
 
 /datum/controller/subsystem/events/proc/event_complete(datum/event/E)
@@ -131,8 +130,8 @@ SUBSYSTEM_DEF(events)
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options2]>Name</td><td [row_options2]>Type</td><td [row_options1]>Weight</td><td [row_options1]>OneShot</td></tr>"
 		html += "<tr>"
-		html += "<td><A align='right' href='byond://?src=[UID()];set_name=\ref[new_event]'>[new_event.skeleton.name ? new_event.skeleton.name : "Enter Event"]</A></td>"
-		html += "<td><A align='right' href='byond://?src=[UID()];set_type=\ref[new_event]'>[new_event.skeleton.type ? new_event.skeleton.type : "Select Type"]</A></td>"
+		html += "<td><A align='right' href='byond://?src=[UID()];set_name=\ref[new_event]'>[new_event?.skeleton?.name ? new_event?.skeleton?.name : "Enter Event"]</A></td>"
+		html += "<td><A align='right' href='byond://?src=[UID()];set_type=\ref[new_event]'>[new_event?.skeleton?.type ? new_event?.skeleton?.type : "Select Type"]</A></td>"
 		html += "<td><A align='right' href='byond://?src=[UID()];set_weight=\ref[new_event]'>[new_event.weight ? new_event.weight : 0]</A></td>"
 		html += "<td><A align='right' href='byond://?src=[UID()];toggle_oneshot=\ref[new_event]'>[new_event.one_shot]</A></td>"
 		html += "</tr>"
@@ -173,7 +172,7 @@ SUBSYSTEM_DEF(events)
 		html += "<h2>Next Event</h2>"
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options1]>Severity</td><td [row_options2]>Name</td><td [row_options3]>Event Rotation</td><td>Clear</td></tr>"
-		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
+		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_DISASTER)
 			var/datum/event_container/EC = event_containers[severity]
 			var/datum/event_meta/EM = EC.next_event
 			html += "<tr>"
