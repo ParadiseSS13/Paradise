@@ -146,7 +146,7 @@ SUBSYSTEM_DEF(events)
 
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options1]>Severity</td><td [row_options1]>Starts At</td><td [row_options1]>Starts In</td><td [row_options3]>Adjust Start</td><td [row_options1]>Pause</td><td [row_options1]>Interval Mod</td></tr>"
-		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
+		for(var/severity = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_DISASTER)
 			var/datum/event_container/EC = event_containers[severity]
 			var/next_event_at = max(0, EC.next_event_time - world.time)
 			html += "<tr>"

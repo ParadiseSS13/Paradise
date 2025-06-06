@@ -3,7 +3,9 @@
 	announceWhen	= 180
 	endWhen			= 240
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
-	role_weights = list(ASSIGNMENT_ENGINEERING =  4)
+	nominal_severity = EVENT_LEVEL_DISASTER
+	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 3)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_TOTAL = 60, ASSIGNMENT_MEDICAL = 4)
 
 /datum/event/blob/announce(false_alarm)
 	if(successSpawn || false_alarm)

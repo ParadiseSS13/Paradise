@@ -49,6 +49,8 @@
 	var/endWhen			= 0
 	/// Severity. Lower means less severe, higher means more severe. Does not have to be supported. Is set on New().
 	var/severity		= 0
+	/// The severity the event has normally
+	var/nominal_severity = EVENT_LEVEL_MUNDANE
 	/// How long the event has existed. You don't need to change this.
 	var/activeFor		= 0
 	/// If this event is currently running. You should not change this.
@@ -64,7 +66,7 @@
 	var/datum/event_meta/event_meta = null
 	/// The base weight of each role on the event for the purpose of calculating event weight and resource cost
 	var/list/role_weights = list()
-	/// A baseline requirement of different roles the event has
+	/// A baseline requirement of different roles the event has at it's nominal severity
 	var/list/role_requirements = list()
 
 /datum/event/nothing
@@ -75,7 +77,7 @@
 	var/job_weight = 0
 	for(var/role in role_weights)
 		var/role_available = total_resources[role] ? total_resources[role] : 0
-		job_weight += (role_available - role_requirements[role]) * role_weights[role] * severity
+		job_weight += (role_available - role_requirements[role] * (severity / nominal_severity)) * role_weights[role]
 	return job_weight
 
 /**
@@ -213,4 +215,4 @@
 	return FALSE
 
 /datum/event/proc/event_resource_cost()
-	return list()
+	return role_requirements
