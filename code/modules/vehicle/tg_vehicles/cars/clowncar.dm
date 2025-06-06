@@ -8,11 +8,8 @@
 	enter_sound = 'sound/effects/clowncar/door_close.ogg'
 	exit_sound = 'sound/effects/clowncar/door_open.ogg'
 	car_traits = CAN_KIDNAP
-	/// Armor
-	var/armor_type = /datum/armor/car_clowncar
-	/// How long does it take to get in?
+	armor = list(melee = 70, bullet = 40, laser = 40, energy = 40, bomb = 30, rad = 0, fire = 80, acid = 80)
 	enter_delay = 4 SECONDS
-	// /Determines which occupants provide access when bumping into doors
 	access_provider_flags = VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_KIDNAPPED
 	/// list of headlight colors we use to pick through when we have party mode due to emag
 	var/headlight_colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_LIME, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_PURPLE)
@@ -28,14 +25,6 @@
 	var/cannon_fire_delay = 0.5 SECONDS
 	COOLDOWN_DECLARE(cannon_cooldown)
 
-/datum/armor/car_clowncar
-	melee = 70
-	bullet = 40
-	laser = 40
-	bomb = 30
-	fire = 80
-	acid = 80
-
 /obj/tgvehicle/sealed/car/clowncar/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj,src)
@@ -44,9 +33,6 @@
 /obj/tgvehicle/sealed/car/clowncar/process()
 	if(headlights_toggle && emagged)
 		set_light(headlight_range, headlight_power, pick(headlight_colors))
-
-/obj/tgvehicle/sealed/car/clowncar/MouseDrop_T(mob/living/M, mob/living/user)
-	mob_try_enter(user)
 
 /obj/tgvehicle/sealed/car/clowncar/generate_actions()
 	. = ..()

@@ -52,7 +52,7 @@
 	if(!(car_traits & CAN_KIDNAP))
 		return
 	to_chat(user, "<span class='notice'>You start opening [src]'s trunk.</span>")
-	if(!do_after(user, 30))
+	if(!do_after(user, 30, target = src))
 		return
 	if(return_amount_of_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
 		to_chat(user, "<span class='notice'>The people stuck in [src]'s trunk all come tumbling out.</span>?")
