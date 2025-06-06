@@ -32729,6 +32729,11 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/medbay3)
+"fFR" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/west)
 "fFU" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Gas to Chamber";
@@ -49449,24 +49454,24 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/sign/directions/science{
-	pixel_y = -40;
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/sign/directions/security{
+	pixel_y = -21;
 	dir = 8
 	},
 /obj/structure/sign/directions/service{
-	pixel_y = -32;
+	pixel_y = -28;
 	dir = 8
 	},
-/obj/structure/sign/directions/security{
-	pixel_y = -24;
+/obj/structure/sign/directions/science{
+	pixel_y = -35;
 	dir = 8
 	},
 /obj/structure/sign/directions/evac{
-	pixel_y = -48;
+	pixel_y = -42;
 	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -62273,22 +62278,6 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
 "mbT" = (
-/obj/structure/sign/directions/security{
-	pixel_y = -24;
-	dir = 8
-	},
-/obj/structure/sign/directions/service{
-	pixel_y = -32;
-	dir = 8
-	},
-/obj/structure/sign/directions/science{
-	pixel_y = -40;
-	dir = 8
-	},
-/obj/structure/sign/directions/evac{
-	pixel_y = -48;
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -62297,6 +62286,22 @@
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
+	},
+/obj/structure/sign/directions/security{
+	pixel_y = -21;
+	dir = 8
+	},
+/obj/structure/sign/directions/service{
+	pixel_y = -28;
+	dir = 8
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = -35;
+	dir = 8
+	},
+/obj/structure/sign/directions/evac{
+	pixel_y = -42;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -65600,10 +65605,9 @@
 	},
 /area/station/hallway/primary/central/east)
 "mRT" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
 	},
-/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "mSa" = (
@@ -77811,7 +77815,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 6;
+	icon_state = "yellow"
 	},
 /area/station/engineering/atmos/control)
 "pHQ" = (
@@ -80631,7 +80636,7 @@
 /obj/effect/map_effect/dynamic_airlock/door/exterior,
 /obj/machinery/access_button/offset/west,
 /turf/simulated/floor/plating/airless,
-/area/station/hallway/spacebridge/comeng)
+/area/station/hallway/primary/central/north)
 "qot" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -93931,6 +93936,10 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block/a)
+"tjA" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/west)
 "tjI" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/barricade/wooden/crude,
@@ -96305,6 +96314,10 @@
 	icon_state = "purplecorner"
 	},
 /area/station/hallway/primary/aft/east)
+"tNQ" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/west)
 "tNS" = (
 /obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/catwalk,
@@ -114497,7 +114510,7 @@
 /obj/effect/map_effect/dynamic_airlock/door/exterior,
 /obj/machinery/access_button/offset/northeast,
 /turf/simulated/floor/plating/airless,
-/area/station/hallway/spacebridge/comeng)
+/area/station/hallway/primary/central/north)
 "xNf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -143435,13 +143448,13 @@ rNK
 lzH
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
+xbO
+xbO
+xbO
 dWD
 dWD
-dWD
+tjA
+tjA
 dWD
 dWD
 dWD
@@ -143693,11 +143706,11 @@ aYg
 xbO
 xbO
 xbO
-xbO
-xbO
-xbO
+aXR
+aXR
 dWD
-tYC
+fFR
+tNQ
 mRT
 dWD
 aXz
@@ -143952,7 +143965,7 @@ aXR
 aXR
 aXR
 aXR
-aXR
+dWD
 dWD
 tYC
 lxJ
@@ -148927,10 +148940,10 @@ bMG
 qQU
 lzH
 lzH
-lzH
-lzH
-lzH
-lzH
+rNK
+rNK
+rNK
+rNK
 pwH
 jci
 pdj
@@ -149184,10 +149197,10 @@ eDk
 qQU
 qQU
 lzH
-rNK
-rNK
-rNK
-rNK
+lzH
+lzH
+lzH
+lzH
 pwH
 jci
 pdj
@@ -149337,9 +149350,9 @@ aXD
 aXD
 xbO
 xbO
-aYg
-aYg
-aYg
+aYJ
+aYJ
+aYJ
 aYJ
 dlG
 uxO
@@ -149594,7 +149607,7 @@ rNK
 aXD
 aXD
 xbO
-aYg
+aYJ
 pae
 dmO
 aYJ
@@ -150469,10 +150482,10 @@ aXP
 hqg
 qQU
 lzH
-lzH
-lzH
-lzH
-lzH
+rNK
+rNK
+rNK
+rNK
 pwH
 igi
 pdj
@@ -150726,11 +150739,11 @@ aXP
 qQU
 qQU
 lzH
-rNK
-rNK
-rNK
-rNK
-rNK
+lzH
+lzH
+lzH
+lzH
+lzH
 rNK
 rNK
 lzH
@@ -151650,7 +151663,7 @@ rNK
 rNK
 rNK
 aXD
-aYg
+aYJ
 nkU
 mQD
 aYJ
@@ -151907,9 +151920,9 @@ rNK
 rNK
 aXD
 xbO
-aYg
-aYg
-aYg
+aYJ
+aYJ
+aYJ
 aYJ
 aYJ
 aIj
@@ -152167,7 +152180,7 @@ xbO
 aXR
 aXR
 aXR
-gcU
+aXR
 gcU
 eKx
 tEL
