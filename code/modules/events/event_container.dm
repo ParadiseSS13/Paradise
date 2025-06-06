@@ -104,6 +104,23 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	available_events -= picked_event
 	return picked_event
 
+/datum/event_container/proc/get_playercount_modifier()
+	switch(length(GLOB.player_list))
+		if(0 to 10)
+			return 1.2
+		if(11 to 15)
+			return 1.1
+		if(16 to 25)
+			return 1
+		if(26 to 35)
+			return 0.9
+		if(36 to 50)
+			return 0.8
+		if(50 to 80)
+			return 0.7
+		if(80 to 10000)
+			return 0.6
+
 /datum/event_container/proc/set_event_delay()
 	// If the next event time has not yet been set and we have a custom first time start
 	if(next_event_time == 0 && GLOB.configuration.event.first_run_times[severity])
@@ -113,22 +130,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		next_event_time = world.time + event_delay
 	// Otherwise, follow the standard setup process
 	else
-		var/playercount_modifier = 1
-		switch(length(GLOB.player_list))
-			if(0 to 10)
-				playercount_modifier = 1.2
-			if(11 to 15)
-				playercount_modifier = 1.1
-			if(16 to 25)
-				playercount_modifier = 1
-			if(26 to 35)
-				playercount_modifier = 0.9
-			if(36 to 50)
-				playercount_modifier = 0.8
-			if(50 to 80)
-				playercount_modifier = 0.7
-			if(80 to 10000)
-				playercount_modifier = 0.6
+		var/playercount_modifier = get_playercount_modifier()
 
 		playercount_modifier = playercount_modifier * delay_modifier
 
@@ -216,12 +218,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	0),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/blob, 20, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 0, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 20, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/alien_infestation, 15, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 85, 	is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spider_terror, 	15,		list(ASSIGNMENT_SECURITY = 3), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 0, TRUE)
@@ -235,5 +234,18 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 590),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 20, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 15, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 	15,		list(ASSIGNMENT_SECURITY = 3), TRUE)
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 15, TRUE)
 		)
+	var/activation_counter = 0
+
+/datum/event_container/disaster/get_playercount_modifier()
+	return 1
+
+/datum/event_container/disaster/acquire_event()
+	if(activation_counter > 1) // Disaster level events should normally roll up to 2 times per round. Doing it this way makes adminbus easier.
+		return new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 590)
+	. = ..()
+
+/datum/event_container/disaster/start_event()
+	activation_counter++
+	. = ..()

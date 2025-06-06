@@ -69,7 +69,13 @@
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
-		active_with_role[ASSIGNMENT_TOTAL]++
+		if(M.mind.assigned_role in (GLOB.exp_jobsmap[EXP_TYPE_CREW]["titles"]))
+			active_with_role[ASSIGNMENT_TOTAL]++
+
+		if(active_with_role[M.mind.assigned_role])
+			active_with_role[M.mind.assigned_role]++
+		else
+			active_with_role[M.mind.assigned_role] = 1
 
 		if(isrobot(M))
 			var/mob/living/silicon/robot/R = M
@@ -96,11 +102,6 @@
 
 		if(M.mind.assigned_role in GLOB.command_positions)
 			active_with_role[ASSIGNMENT_COMMAND]++
-
-		if(active_with_role[M.mind.assigned_role])
-			active_with_role[M.mind.assigned_role]++
-		else
-			active_with_role[M.mind.assigned_role] = 1
 
 	return active_with_role
 

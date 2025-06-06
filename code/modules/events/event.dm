@@ -64,6 +64,8 @@
 	var/datum/event_meta/event_meta = null
 	/// The base weight of each role on the event for the purpose of calculating event weight and resource cost
 	var/list/role_weights = list()
+	/// A baseline requirement of different roles the event has
+	var/list/role_requirements = list()
 
 /datum/event/nothing
 	name = "Nothing"
@@ -72,8 +74,9 @@
 /datum/event/proc/get_weight(list/total_resources)
 	var/job_weight = 0
 	for(var/role in role_weights)
-		if(role in total_resources)
-			job_weight += total_resources[role] * role_weights[role] * severity
+		var/role_available = total_resources[role] ? total_resources[role] : 0
+		job_weight += (role_available - role_requirements[role]) * role_weights[role] * severity
+	return job_weight
 
 /**
   * Called first before processing.
