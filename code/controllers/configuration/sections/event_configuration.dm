@@ -15,7 +15,7 @@
 		EVENT_LEVEL_MUNDANE = 5 MINUTES,
 		EVENT_LEVEL_MODERATE = 15 MINUTES,
 		EVENT_LEVEL_MAJOR = 20 MINUTES,
-		EVENT_LEVEL_DISASTER = 35 MINUTES
+		EVENT_LEVEL_DISASTER = 40 MINUTES
 	)
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
 	var/list/delay_upper_bound = list(

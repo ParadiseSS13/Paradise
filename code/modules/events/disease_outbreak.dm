@@ -1,7 +1,8 @@
 GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak
 	name = "Disease Outbreak"
-	role_weights = list(ASSIGNMENT_MEDICAL = 30)
+	role_weights = list(ASSIGNMENT_MEDICAL = 10)
+	role_requirements = list(ASSIGNMENT_MEDICAL = 1.5)
 	/// The type of disease that patient zero will be infected with.
 	var/datum/disease/chosen_disease
 
@@ -10,6 +11,8 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/static/list/transmissable_symptoms = list()
 	var/static/list/diseases_minor = list()
 	var/static/list/diseases_moderate_major = list()
+
+
 
 /datum/event/disease_outbreak/setup()
 	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate_major))
