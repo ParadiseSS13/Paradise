@@ -29,6 +29,8 @@
 	var/obj/effect/ebeam/visuals
 	///The color of the beam we're drawing.
 	var/beam_color
+	///Should we use a turf for origin/target's x and y values instead
+	var/use_get_turf
 
 /datum/beam/New(
 	origin,
@@ -38,7 +40,8 @@
 	time = INFINITY,
 	max_distance = INFINITY,
 	beam_type = /obj/effect/ebeam,
-	beam_color = null,
+	beam_color,
+	use_get_turf = FALSE
 )
 	src.origin = origin
 	src.target = target
@@ -47,6 +50,7 @@
 	src.max_distance = max_distance
 	src.beam_type = beam_type
 	src.beam_color = beam_color
+	src.use_get_turf = use_get_turf
 	if(time < INFINITY)
 		QDEL_IN(src, time)
 
@@ -61,8 +65,8 @@
 	visuals.vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_LAYER
 	visuals.update_appearance()
 	Draw()
-	RegisterSignal(origin, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(redrawing))
-	RegisterSignal(target, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(redrawing))
+	RegisterSignal(origin, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(redrawing), TRUE)
+	RegisterSignal(target, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(redrawing), TRUE)
 
 /**
  * Triggered by signals set up when the beam is set up. If it's still sane to create a beam, it removes the old beam, creates a new one. Otherwise it kills the beam.
@@ -76,11 +80,15 @@
 	SIGNAL_HANDLER
 	if(QDELING(src))
 		return
-	if(!QDELETED(origin) && !QDELETED(target) && get_dist(origin,target) < max_distance && origin.z == target.z)
-		QDEL_LIST_CONTENTS(elements)
-		INVOKE_ASYNC(src, PROC_REF(Draw))
-	else
+	if(QDELETED(origin) || QDELETED(target) || get_dist(origin,target) > max_distance)
 		qdel(src)
+		return
+	if(origin.z != target.z)
+		if(!use_get_turf || !atoms_share_level(get_turf(origin), get_turf(target)))
+			qdel(src)
+			return
+	QDEL_LIST_CONTENTS(elements)
+	INVOKE_ASYNC(src, PROC_REF(Draw))
 
 /datum/beam/Destroy()
 	QDEL_LIST_CONTENTS(elements)
@@ -99,15 +107,28 @@
 	var/origin_py = origin.pixel_y + origin.pixel_z
 	var/target_px = target.pixel_x + target.pixel_w
 	var/target_py = target.pixel_y + target.pixel_z
-	var/Angle = get_angle_raw(origin.x, origin.y, origin_px, origin_py, target.x , target.y, target_px, target_py)
+
+	var/origin_x = origin.x
+	var/origin_y = origin.y
+	var/target_x = target.x
+	var/target_y = target.y
+	if(use_get_turf)
+		var/turf/T = get_turf(origin)
+		origin_x = T.x
+		origin_y = T.y
+		T = get_turf(target)
+		target_x = T.x
+		target_y = T.y
+
+	var/Angle = get_angle_raw(origin_x, origin_y, origin_px, origin_py, target_x, target_y, target_px, target_py)
 	///var/Angle = round(get_angle(origin,target))
 	var/matrix/rot_matrix = matrix()
 	var/turf/origin_turf = get_turf(origin)
 	rot_matrix.Turn(Angle)
 
 	//Translation vector for origin and target
-	var/DX = (32 * target.x + target_px) - (32 * origin.x + origin_px)
-	var/DY = (32 * target.y + target_py) - (32 * origin.y + origin_py)
+	var/DX = (32 * target_x + target_px) - (32 * origin_x + origin_px)
+	var/DY = (32 * target_y + target_py) - (32 * origin_y + origin_py)
 	var/N = 0
 	var/length = round(sqrt((DX)**2 + (DY)**2)) // hypotenuse of the triangle formed by target and origin's displacement
 
@@ -225,8 +246,9 @@
 	time = 5 SECONDS,
 	maxdistance = 10,
 	beam_type = /obj/effect/ebeam,
-	beam_color
+	beam_color,
+	use_get_turf = FALSE
 )
-	var/datum/beam/newbeam = new(src, BeamTarget, icon, icon_state, time, maxdistance, beam_type, beam_color)
+	var/datum/beam/newbeam = new(src, BeamTarget, icon, icon_state, time, maxdistance, beam_type, beam_color, use_get_turf)
 	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam, Start))
 	return newbeam

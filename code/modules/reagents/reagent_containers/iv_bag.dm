@@ -18,6 +18,10 @@
 	var/mob/living/carbon/human/injection_target
 	var/injection_action_delay = 3 SECONDS
 
+/obj/item/reagent_containers/iv_bag/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_TETHER_DESTROYED, PROC_REF(tether_snapped))
+
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
 	return ..()
@@ -52,12 +56,34 @@
 	injection_target = target
 	RegisterSignal(injection_target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	START_PROCESSING(SSobj, src)
+	update_iv_type()
 
-/obj/item/reagent_containers/iv_bag/proc/end_processing()
+/obj/item/reagent_containers/iv_bag/proc/update_iv_type()
+	var/target = injection_target
+	injection_target = null
+	SEND_SIGNAL(src, COMSIG_TETHER_STOP)
+	injection_target = target
+	if(!injection_target)
+		return
+	if(istype(loc, /obj/machinery/iv_drip))
+		injection_target.AddComponent(/datum/component/tether, src, 2, 50, "iv_tether")
+	else
+		injection_target.AddComponent(/datum/component/tether, src, 1, 5, "iv_tether")
+
+/obj/item/reagent_containers/iv_bag/proc/end_processing(send_signal = TRUE)
 	if(injection_target)
 		UnregisterSignal(injection_target, COMSIG_PARENT_EXAMINE)
 	injection_target = null
 	STOP_PROCESSING(SSobj, src)
+	if(send_signal)
+		SEND_SIGNAL(src, COMSIG_TETHER_STOP)
+
+/obj/item/reagent_containers/iv_bag/proc/tether_snapped()
+	if(!injection_target)
+		return
+	to_chat(injection_target, "<span class='userdanger'>[src]'s needle is ripped out of you!</span>")
+	injection_target.apply_damage(3, BRUTE, pick("r_arm", "l_arm"))
+	end_processing(FALSE)
 
 /obj/item/reagent_containers/iv_bag/process()
 	if(QDELETED(injection_target))
@@ -66,12 +92,6 @@
 
 	if(amount_per_transfer_from_this > 10) // Prevents people from switching to illegal transfer values while the IV is already in someone, i.e. anything over 10
 		visible_message("<span class='danger'>The IV bag's needle pops out of [injection_target]'s arm. The transfer amount is too high!</span>")
-		end_processing()
-		return
-
-	if(get_dist(get_turf(src), get_turf(injection_target)) > 1)
-		to_chat(injection_target, "<span class='userdanger'>[src]'s needle is ripped out of you!</span>")
-		injection_target.apply_damage(3, BRUTE, pick("r_arm", "l_arm"))
 		end_processing()
 		return
 
