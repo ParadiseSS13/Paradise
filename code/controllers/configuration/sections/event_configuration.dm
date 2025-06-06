@@ -6,8 +6,8 @@
 	var/list/first_run_times = list(
 		EVENT_LEVEL_MUNDANE = null,
 		EVENT_LEVEL_MODERATE = null,
-		EVENT_LEVEL_MAJOR = list("lower" = 30 MINUTES, "upper" = 40 MINUTES),
-		EVENT_LEVEL_DISASTER = list("lower" = 35 MINUTES, "upper" = 50 MINUTES)
+		EVENT_LEVEL_MAJOR = list("lower" = 20 MINUTES, "upper" = 30 MINUTES),
+		EVENT_LEVEL_DISASTER = list("lower" = 30 MINUTES, "upper" = 45 MINUTES)
 	) // <---- Whoever designed this needs to be shot
 
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
@@ -15,14 +15,14 @@
 		EVENT_LEVEL_MUNDANE = 5 MINUTES,
 		EVENT_LEVEL_MODERATE = 15 MINUTES,
 		EVENT_LEVEL_MAJOR = 20 MINUTES,
-		EVENT_LEVEL_DISASTER = 45 MINUTES
+		EVENT_LEVEL_DISASTER = 35 MINUTES
 	)
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
 	var/list/delay_upper_bound = list(
 		EVENT_LEVEL_MUNDANE = 7.5 MINUTES,
 		EVENT_LEVEL_MODERATE = 22.5 MINUTES,
 		EVENT_LEVEL_MAJOR = 30 MINUTES,
-		EVENT_LEVEL_DISASTER = 50 MINUTES
+		EVENT_LEVEL_DISASTER = 45 MINUTES
 	)
 	/// Expected time of a round in deciseconds
 	var/expected_round_length = 120 MINUTES // This macro is equivilent to 72,000 deciseconds
