@@ -40,12 +40,14 @@
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MUNDANE], data["event_delay_lower_bounds"]["mundane"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MODERATE], data["event_delay_lower_bounds"]["moderate"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MAJOR], data["event_delay_lower_bounds"]["major"], MINUTES)
+		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_DISASTER], data["event_delay_lower_bounds"]["major"], MINUTES)
 
 	// Same here. I hate this.
 	if(islist(data["event_delay_upper_bounds"]))
 		CONFIG_LOAD_NUM_MULT(delay_upper_bound[EVENT_LEVEL_MUNDANE], data["event_delay_upper_bounds"]["mundane"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_upper_bound[EVENT_LEVEL_MODERATE], data["event_delay_upper_bounds"]["moderate"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_upper_bound[EVENT_LEVEL_MAJOR], data["event_delay_upper_bounds"]["major"], MINUTES)
+		CONFIG_LOAD_NUM_MULT(delay_upper_bound[EVENT_LEVEL_DISASTER], data["event_delay_upper_bounds"]["major"], MINUTES)
 
 	// And for the worst, the first run delays. I hate this so much -aa07
 	if(islist(data["event_initial_delays"]))
@@ -58,7 +60,9 @@
 					target = EVENT_LEVEL_MODERATE
 				if("major")
 					target = EVENT_LEVEL_MAJOR
-			ASSERT(target in list(EVENT_LEVEL_MUNDANE, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MAJOR))
+				if("disaster")
+					target = EVENT_LEVEL_DISASTER
+			ASSERT(target in list(EVENT_LEVEL_MUNDANE, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MAJOR, EVENT_LEVEL_DISASTER))
 			first_run_times[target] = list("lower" = assoclist["lower_bound"] MINUTES, "upper" = assoclist["upper_bound"] MINUTES)
 
 
