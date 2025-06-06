@@ -7,7 +7,9 @@
  */
 /datum/event/tear
 	name = "dimensional tear"
-	role_weights = list(ASSIGNMENT_SECURITY = 35)
+	nominal_severity = EVENT_LEVEL_MODERATE
+	role_weights = list(ASSIGNMENT_SECURITY = 5)
+	role_requirements = list(ASSIGNMENT_SECURITY = 1)
 	announceWhen = 6
 	endWhen = 14
 	var/notify_title = "Dimensional Rift"
