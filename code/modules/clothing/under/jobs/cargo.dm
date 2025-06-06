@@ -98,7 +98,7 @@
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland/skirt
 	name = "shaft miner's harshskirt"
-	desc = "It's an ash grey uniform with some padded armour for operating in hazardous environments while keeping your beautiness."
+	desc = "It's an ash grey uniform with some padded armour for operating in hazardous environments while remaining pretty."
 	icon_state = "explorer_skirt"
 	item_state = "explorer_skirt"
 	item_color = "explorer_skirt"
