@@ -1,4 +1,5 @@
 /obj/tgvehicle/sealed
+	can_buckle = FALSE
 	/// How long it takes to enter the vehice
 	var/enter_delay = 2 SECONDS
 	/// A special curser you may get while driving

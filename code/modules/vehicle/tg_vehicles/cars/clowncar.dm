@@ -28,7 +28,6 @@
 /obj/tgvehicle/sealed/car/clowncar/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj,src)
-	RegisterSignal(src, COMSIG_MOVABLE_CHECK_CROSS, PROC_REF(check_crossed))
 
 /obj/tgvehicle/sealed/car/clowncar/process()
 	if(headlights_toggle && emagged)
@@ -116,7 +115,7 @@
 
 		if(iscarbon(hittarget_living))
 			var/mob/living/carbon/C = hittarget_living
-			C.Paralyse(4 SECONDS) // I play to make sprites go horizontal
+			C.Stun(4 SECONDS) // I play to make sprites go horizontal
 		hittarget_living.visible_message("<span class='warning'>[src] rams into [hittarget_living] and sucks [hittarget_living.p_them()] up!</span>")
 		mob_forced_enter(hittarget_living)
 		playsound(src, pick('sound/effects/clowncar/clowncar_ram1.ogg', 'sound/effects/clowncar/clowncar_ram2.ogg', 'sound/effects/clowncar/clowncar_ram3.ogg'), 75)
@@ -139,22 +138,29 @@
 	dump_mobs(TRUE)
 	log_attack(src, bumped, "crashed into", null)
 
-/obj/tgvehicle/sealed/car/clowncar/proc/check_crossed(datum/source, atom/movable/crossed)
-	SIGNAL_HANDLER // COMSIG_MOVABLE_CHECK_CROSS
-	if(!has_gravity())
+/obj/tgvehicle/sealed/car/clowncar/after_move(direction)
+	..()
+	if(!has_gravity(src))
 		return
-	if(!iscarbon(crossed))
+	var/mob/possible_pancake = locate(/mob/living/carbon) in loc
+	if(!possible_pancake)
 		return
-	var/mob/living/carbon/target_pancake = crossed
+	if(possible_pancake.loc == src)
+		return
+	if(!iscarbon(possible_pancake))
+		return
+	var/mob/living/carbon/target_pancake = possible_pancake
 	if(target_pancake.body_position != LYING_DOWN)
 		return
-	if(HAS_TRAIT(target_pancake, TRAIT_KNOCKEDOUT))
+	if(HAS_TRAIT(target_pancake, TRAIT_CLOWN_CAR_SQUISHED))
 		return
 	target_pancake.visible_message("<span class='warning'>[src] runs over [target_pancake], flattening [target_pancake.p_them()] like a pancake!</span>")
-	target_pancake.AddElement(/datum/element/squish, 5 SECONDS)
-	target_pancake.apply_effect(2 SECONDS, PARALYZE)
+	handle_squish_carbon(target_pancake, 30)
+	ADD_TRAIT(target_pancake, TRAIT_CLOWN_CAR_SQUISHED, src)
+	addtimer(CALLBACK(src, PROC_REF(allow_resquish), target_pancake), 5 SECONDS)
+	target_pancake.Stun(2 SECONDS)
 	playsound(target_pancake, 'sound/effects/clowncar/cartoon_splat.ogg', 75)
-	log_attack(src, crossed, "ran over")
+	log_attack(src, target_pancake, "ran over")
 
 /obj/tgvehicle/sealed/car/clowncar/emag_act(mob/user, obj/item/card/emag/emag_card)
 	if(emagged)
@@ -169,6 +175,9 @@
 	playsound(src, 'sound/misc/sadtrombone.ogg', 100)
 	STOP_PROCESSING(SSobj,src)
 	return ..()
+
+/obj/tgvehicle/sealed/car/clowncar/proc/allow_resquish(mob/living/carbon/pancake)
+	REMOVE_TRAIT(pancake, TRAIT_CLOWN_CAR_SQUISHED, src)
 
 /**
  * Plays a random funky effect
