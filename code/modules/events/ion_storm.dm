@@ -11,7 +11,7 @@
 	var/ionAnnounceChance = 33
 	announceWhen	= 1
 
-/datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
+/datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33, _severity)
 	src.botEmagChance = botEmagChance
 	src.announceEvent = announceEvent
 	src.ionMessage = ionMessage

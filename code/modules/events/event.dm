@@ -16,21 +16,24 @@
 	var/datum/event/skeleton
 
 /datum/event_meta/New(event_severity, type, event_weight, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
-	skeleton = new type(EM = src, skeleton = TRUE, _severity = event_severity)
-	name = skeleton.name
+	if(type)
+		skeleton = new type(EM = src, skeleton = TRUE, _severity = event_severity)
+		name = skeleton.name
 	one_shot = is_one_shot
 	weight = event_weight
 	min_weight = min_event_weight
 	max_weight = max_event_weight
 
 /datum/event_meta/proc/change_event(type)
-	var/event_severity = skeleton.severity
-	skeleton.event_meta = null
-	qdel(skeleton)
+	var/event_severity = 0
+	if(skeleton)
+		event_severity = skeleton.severity
+		skeleton.event_meta = null
+		qdel(skeleton)
 	skeleton = new type(EM = src, skeleton = TRUE, _severity = event_severity)
 
 /datum/event_meta/proc/get_weight(list/total_resources)
-	if(!enabled)
+	if(!enabled || !skeleton)
 		return 0
 	return clamp((weight + skeleton.get_weight(total_resources)) * weight_mod, min_weight, max_weight)
 
@@ -193,7 +196,7 @@
 
 	event_meta = EM
 
-	severity = _severity
+	severity = _severity ? _severity : nominal_severity
 	if(severity < EVENT_LEVEL_MUNDANE) severity = EVENT_LEVEL_MUNDANE
 	if(severity > EVENT_LEVEL_DISASTER) severity = EVENT_LEVEL_DISASTER
 
