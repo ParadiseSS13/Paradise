@@ -237,6 +237,24 @@
 	if(src == target)
 		return
 
+	var/mob/living/L = user
+	if(target.Adjacent(src))
+		if(selected && selected.is_melee())
+			if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
+				to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+				return
+			selected.action(target, params)
+		else
+			if(internal_damage & MECHA_INT_CONTROL_LOST)
+				target = safepick(oview(1, src))
+			if(mecha_melee_cooldown || !isatom(target))
+				return
+			if(iswallturf(target) || isliving(target) || isobj(target))
+				target.mech_melee_attack(src)
+				mecha_melee_cooldown = TRUE
+				addtimer(VARSET_CALLBACK(src, mecha_melee_cooldown, FALSE), melee_cooldown)
+		return
+
 	var/dir_to_target = get_dir(src, target)
 	if(dir_to_target && !(dir_to_target & dir))//wrong direction
 		return
@@ -246,30 +264,14 @@
 		if(!target)
 			return
 
-	var/mob/living/L = user
-	if(!target.Adjacent(src))
-		if(selected && selected.is_ranged())
-			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
-				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
-				return
-			if(user.mind?.martial_art?.no_guns)
-				to_chat(L, "<span class='warning'>[L.mind.martial_art.no_guns_message]</span>")
-				return
-			selected.action(target, params)
-	else if(selected && selected.is_melee())
-		if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+	if(selected && selected.is_ranged())
+		if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
+			to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
+			return
+		if(user.mind?.martial_art?.no_guns)
+			to_chat(L, "<span class='warning'>[L.mind.martial_art.no_guns_message]</span>")
 			return
 		selected.action(target, params)
-	else
-		if(internal_damage & MECHA_INT_CONTROL_LOST)
-			target = safepick(oview(1, src))
-		if(mecha_melee_cooldown || !isatom(target))
-			return
-		if(iswallturf(target) || isliving(target) || isobj(target))
-			target.mech_melee_attack(src)
-			mecha_melee_cooldown = TRUE
-			addtimer(VARSET_CALLBACK(src, mecha_melee_cooldown, FALSE), melee_cooldown)
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
