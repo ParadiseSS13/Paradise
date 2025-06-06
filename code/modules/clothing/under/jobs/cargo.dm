@@ -84,7 +84,7 @@
 
 /obj/item/clothing/under/rank/cargo/miner/skirt
 	name = "shaft miner's jumpskirt"
-	desc = "It's an outdated jumpskirt, designed specifically to withstand the harsh conditions of Lavaland while keeping your beautiness. It is very dirty."
+	desc = "It's an outdated jumpskirt, designed specifically to withstand the harsh conditions of Lavaland while remaining pretty. It is very dirty."
 	icon_state = "miner_skirt"
 	item_state = "miner_skirt"
 	item_color = "miner_skirt"
@@ -105,7 +105,7 @@
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland/overalls
 	name = "shaft miner's overalls"
-	desc = "It's an ash grey turtleneck with a sturdy set of overalls. Sadly, doesn't have any pockets to carry extra sandwiches. It is very dirty."
+	desc = "It's an ash grey turtleneck with a sturdy set of overalls. Sadly, doesn't have any extra pockets to carry extra sandwiches. It is very dirty."
 	icon_state = "explorer_overalls"
 	item_state = "explorer_overalls"
 	item_color = "explorer_overalls"
