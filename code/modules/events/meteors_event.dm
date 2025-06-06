@@ -3,6 +3,9 @@
 	role_weights = list(ASSIGNMENT_ENGINEERING = 25)
 	startWhen		= 5
 	endWhen 		= 7
+	nominal_severity = EVENT_LEVEL_MODERATE
+	role_weights = list(ASSIGNMENT_ENGINEERING = 10)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 2)
 	var/next_meteor = 6
 	var/waves = 1
 	var/atom/movable/screen/alert/augury/meteor/screen_alert

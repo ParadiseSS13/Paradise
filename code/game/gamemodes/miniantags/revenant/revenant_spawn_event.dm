@@ -2,6 +2,9 @@
 
 /datum/event/revenant
 	name = "Revenant"
+	nominal_severity = EVENT_LEVEL_MAJOR
+	role_weights = list(ASSIGNMENT_CHAPLAIN = 10)
+	role_requirements = list(ASSIGNMENT_CHAPLAIN = 1)
 	var/key_of_revenant
 
 

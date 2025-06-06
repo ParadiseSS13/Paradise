@@ -8,6 +8,7 @@
 #define ASSIGNMENT_CYBORG "Cyborg"
 #define ASSIGNMENT_JANITOR "Janitor"
 #define ASSIGNMENT_BOTANIST "Botanist"
+#define ASSIGMENT_CHAPLAIN "Chaplain"
 #define ASSIGNMENT_CHEMIST "Chemist"
 #define ASSIGNMENT_VIROLOGIST "Virologist"
 

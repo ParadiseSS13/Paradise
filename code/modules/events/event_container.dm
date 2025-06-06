@@ -153,68 +153,68 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 1100),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 0, FALSE, 25, 50),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	300),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 		400),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 300),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 100),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 50),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 360),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 10),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	20),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 20),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 20),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 20),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 20),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot, 0),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot/fungus, 50),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/carp_migration/koi,		80),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/camera_failure, 100),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/fake_virus,		50),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bureaucratic_error,	40, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/disease_outbreak, 50, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot/fungus, 10),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/carp_migration/koi,	20),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/camera_failure, 20),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/fake_virus,		20),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bureaucratic_error,	20, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/disease_outbreak, 15, TRUE)
 	)
 
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 1230),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/falsealarm, 200),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 700),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/falsealarm, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spontaneous_appendicitis, 	0, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 200, , TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 20, , TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/rogue_drone, 0),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spacevine, 250),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spacevine, 25),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/solar_flare, 0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 0),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 500),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 100),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/prison_break, 0),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/apc_short, 200),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/electrical_storm, 250),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/radiation_storm, 25, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spider_infestation, 100, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/apc_short, 15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/electrical_storm, 25),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/radiation_storm, 10, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spider_infestation, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/ion_storm, 0),
 		//new /datum/event_meta/ninja(EVENT_LEVEL_MODERATE, "Space Ninja",		/datum/event/space_ninja, 				0,		list(ASSIGNMENT_SECURITY = 15), TRUE),
 		// NON-BAY EVENTS
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/mass_hallucination,		300),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 50, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/mass_hallucination,		10),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear, 0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear/honk,	0),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/vent_clog,	250),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/wormholes,	150),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_pyro, 75),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_cryo, 75),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_vortex, 75),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_bluespace,	75),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 75),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 200),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/revenant, 150),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_morph, 40, is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 50, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 50, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 100, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/vent_clog,	25),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/wormholes,	15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_pyro, 15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_cryo, 15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_vortex, 15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_bluespace,	15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 20),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/revenant, 20),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_morph, 20, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 25, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 25, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 50, TRUE)
 	)
 
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 590),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 360),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	0),
@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 85, 	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 20, is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 0, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 20, TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/disaster
 	severity = EVENT_LEVEL_DISASTER
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 590),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 360),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 90, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 90, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 90, TRUE)

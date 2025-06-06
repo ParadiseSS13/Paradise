@@ -2,7 +2,8 @@
 
 /datum/event/apc_short
 	name = "APC Short"
-	role_weights = 	list(ASSIGNMENT_ENGINEERING = 60)
+	role_weights = 	list(ASSIGNMENT_ENGINEERING = 2)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 3)
 	var/const/announce_after_mc_ticks     = 5
 	var/const/event_max_duration_mc_ticks = announce_after_mc_ticks * 2
 	var/const/event_min_duration_mc_ticks = announce_after_mc_ticks

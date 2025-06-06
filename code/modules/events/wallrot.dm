@@ -1,6 +1,7 @@
 /datum/event/wallrot
 	name = "Wallrot"
-	role_weights = list(ASSIGNMENT_ENGINEERING = 30)
+	role_weights = list(ASSIGNMENT_ENGINEERING = 5)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 1)
 
 /datum/event/wallrot/start()
 	INVOKE_ASYNC(src, PROC_REF(spawn_wallrot))
@@ -41,7 +42,8 @@
 
 /datum/event/wallrot/fungus
 	name = "Fungal Growth"
-	role_weights = list(ASSIGNMENT_CHEMIST = 50)
+	role_weights = list(ASSIGNMENT_CHEMIST = 5)
+	role_weights = list(ASSIGNMENT_CHEMIST = 0)
 
 /datum/event/wallrot/fungus/is_valid_candidate(turf/T)
 	return istype(get_area(T), /area/station/maintenance)

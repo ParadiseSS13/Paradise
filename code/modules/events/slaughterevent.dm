@@ -2,6 +2,9 @@
 	name = "Slaughter Demon"
 	var/key_of_slaughter
 	var/mob/living/simple_animal/demon/demon = /mob/living/simple_animal/demon/slaughter/lesser
+	nominal_severity = EVENT_LEVEL_MAJOR
+	role_weights = list(ASSIGNMENT_SECURITY = 5)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3)
 
 /datum/event/spawn_slaughter/proc/get_slaughter()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [initial(demon.name)]?", ROLE_DEMON, TRUE, source = demon)
