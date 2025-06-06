@@ -66,7 +66,7 @@
 		return FALSE
 	var/atom/old_loc = loc
 	var/enter_delay = get_enter_delay(kidnapped)
-	if(enter_delay == 0 || do_after(forcer, enter_delay, kidnapped, extra_checks=CALLBACK(src, TYPE_PROC_REF(/obj/tgvehicle/sealed/car, is_car_stationary), old_loc)))
+	if(enter_delay == 0 || do_after(forcer, enter_delay, target = kidnapped, extra_checks=CALLBACK(src, TYPE_PROC_REF(/obj/tgvehicle/sealed/car, is_car_stationary), old_loc)))
 		mob_forced_enter(kidnapped, silent)
 		return TRUE
 	return FALSE
