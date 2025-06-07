@@ -47,11 +47,13 @@
 	description = "Scan alien organs via the organ analyzer to learn more about their local ecology."
 	gives_payout = TRUE
 	completion_payment = 200
+	/// How many organs should be scanned to complete this goal
+	var/amount_to_scan = 10
 
 /datum/job_objective/scan_organs/check_for_completion()
 	var/total_organs
 	for(var/item in GLOB.scanned_organs)
 		total_organs += GLOB.scanned_organs[item]
-	if(total_organs >= 10)
+	if(total_organs >= amount_to_scan)
 		return TRUE
 	return FALSE

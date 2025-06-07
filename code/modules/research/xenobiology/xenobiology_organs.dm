@@ -1,6 +1,6 @@
 /obj/item/regen_mesh
 	name = "regenerative Organ Mesh"
-	desc = "A specialized mesh carved from a fleshling that can improve the quality of any organ its used on."
+	desc = "A specialized mesh carved from a fleshling that can improve the quality of any organ it's used on."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_leaf_p" // its unused and looks fine soooo whatever lol
 	new_attack_chain = TRUE
@@ -11,11 +11,11 @@
 	if(istype(used, /obj/item/organ/internal))
 		var/obj/item/organ/internal/organ = used
 		if(!organ.is_xeno_organ)
-			to_chat(user, "<span class='warning'>The regenerative mesh mesh cannot improve this!</span>")
+			to_chat(user, "<span class='warning'>The regenerative mesh cannot improve this!</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(organ.organ_quality < ORGAN_PRISTINE)
 			organ.organ_quality = ORGAN_PRISTINE
-			to_chat(user, "<span class='info'>The regenerative mesh clings to [organ] and fuses to it's surface. The [organ] now looks pristine!</span>")
+			to_chat(user, "<span class='info'>The regenerative mesh clings to [organ] and fuses to its surface. \The [organ] now looks pristine!</span>")
 			organ.name = "pristine [name]"
 			qdel(src)
 			return ITEM_INTERACT_COMPLETE
@@ -231,7 +231,7 @@
 
 /datum/spell/drake_breath
 	name = "Drake Breath"
-	desc = "Draw from special glands in your body to produce a small, but dazzling flame!"
+	desc = "Draw from special glands in your body to produce a small but dazzling flame!"
 	base_cooldown = 3 MINUTES
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
@@ -241,7 +241,7 @@
 	active = FALSE
 	antimagic_flags = NONE
 
-	selection_activated_message = "<span class='notice'>You take in a deep bread, readying to breathe fire!</span>"
+	selection_activated_message = "<span class='notice'>You take in a deep breath, readying to breathe fire!</span>"
 	selection_deactivated_message = "<span class='notice'>You relax your breaths as you decide not to breathe fire.</span>"
 
 /datum/spell/drake_breath/create_new_targeting()
@@ -351,7 +351,7 @@
 	name = "metallic processor"
 	desc = "A dense, metallic organ that enables the consumption of precious metals as food. No guarentee for taste, though"
 	analyzer_price = 20
-	///Component that handles the ability to eat precious metals
+	/// Component that handles the ability to eat precious metals
 	var/datum/component/special_tastes/special_tastes
 
 /obj/item/organ/internal/kidneys/xenobiology/metallic/insert(mob/living/carbon/organ_owner, special = FALSE, dont_remove_slot = FALSE)
@@ -452,7 +452,7 @@
 
 /datum/spell/organ_sting
 	name = "Toxic Sting"
-	desc = "Silently sting an unsuspecting victim with a mild coctail of poisons"
+	desc = "Silently sting an unsuspecting victim with a mild cocktail of poisons"
 	action_icon_state = "sting_blind"
 	action_background_icon_state = "bg_changeling"
 	invocation_type = "none"
@@ -656,15 +656,13 @@
 	. = ..()
 	if(is_type_in_list(/datum/mutation/grant_spell/mattereater, M.active_mutations))
 		return
-	else
-		M.AddSpell(new /datum/spell/eat)
+	M.AddSpell(new /datum/spell/eat)
 
 /obj/item/organ/internal/liver/xenobiology/hungry/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(is_type_in_list(/datum/mutation/grant_spell/mattereater, M.active_mutations))
 		return
-	else
-		M.RemoveSpell(/datum/spell/eat)
+	M.RemoveSpell(/datum/spell/eat)
 
 /obj/item/organ/internal/liver/xenobiology/hungry/on_life()
 	. = ..()
@@ -807,15 +805,15 @@
 /datum/spell/turf_teleport/organ_teleport/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
 	if(!isliving(target))
-		to_chat(user, "<span class = 'warning'>We can only teleport living things!</span>")
+		to_chat(user, "<span class='warning'>We can only teleport living things!</span>")
 		revert_cast()
 		return
 	if(target == user)
-		to_chat(user, "<span class = 'warning'>We are unable to teleport ourself!</span>")
+		to_chat(user, "<span class='warning'>We are unable to teleport ourself!</span>")
 		revert_cast()
 		return
 	if(get_dist(target.loc, user.loc) > 2)
-		to_chat(user, "<span class = 'warning'>They're too far away!</span>")
+		to_chat(user, "<span class='warning'>They're too far away!</span>")
 		revert_cast()
 	if(!length(get_path_to(user, target, max_distance = 2, simulated_only = FALSE, skip_first = FALSE)))
 		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
@@ -826,9 +824,9 @@
 			targets += user
 			user.adjustBruteLoss(10)
 			user.adjustFireLoss(10)
-			to_chat(user, "<span class = 'danger'>You get dragged along into bluespace, your flesh searing from the unstable energies!</span>")
+			to_chat(user, "<span class='danger'>You get dragged along into bluespace, your flesh searing from the unstable energies!</span>")
 		else
-			to_chat(user, "<span class = 'danger'>Drawing upon unstable energy singes your flesh!</span>")
+			to_chat(user, "<span class='danger'>Drawing upon unstable energy singes your flesh!</span>")
 			user.adjustFireLoss(8)
 	user.mob_light(LIGHT_COLOR_PURPLE, 3, _duration = 3)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(target))
@@ -982,7 +980,7 @@
 
 /obj/item/organ/internal/appendix/xenobiology/electro_strands
 	name = "electromagnetic strands"
-	desc = "A large number of electrically sensitive strands all bundled up together. Its lost most of its potential."
+	desc = "A large number of electrically sensitive strands all bundled up together. It has lost most of its potential."
 	analyzer_price = 30
 	hidden_origin_tech = TECH_MAGNETS
 	hidden_tech_level = 7
