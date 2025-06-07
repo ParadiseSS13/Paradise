@@ -216,7 +216,7 @@
 
 /obj/item/clothing/shoes/magboots/vox/attack_self__legacy__attackchain(mob/user)
 	if(magpulse)
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 		to_chat(user, "You relax your deathgrip on the flooring.")
 	else
 		//make sure these can only be used when equipped.
@@ -226,7 +226,7 @@
 		if(H.shoes != src)
 			to_chat(user, "<span class='warning'>You will have to put on [src] before you can do that.</span>")
 			return
-		flags |= NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
+		set_nodrop(TRUE, loc) //kinda hard to take off magclaws when you are gripping them tightly.
 		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
 		to_chat(user, "It would be hard to take off [src] without relaxing your grip first.")
 	return ..()
@@ -238,7 +238,7 @@
 		user.visible_message("[src] go limp as they are removed from [usr]'s feet.", "[src] go limp as they are removed from your feet.")
 		magpulse = FALSE
 		no_slip = FALSE
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)
 	. = ..()
