@@ -18,9 +18,9 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 // Pull info from the rust DLL
 /datum/code_revision/New()
-	commit_hash = rustg_git_revparse("HEAD")
+	commit_hash = rustlibs_git_revparse("HEAD")
 	if(commit_hash)
-		commit_date = rustg_git_commit_date(commit_hash)
+		commit_date = rustlibs_git_commit_date(commit_hash)
 
 // Pull info from TGS
 /datum/code_revision/proc/load_tgs_info()
