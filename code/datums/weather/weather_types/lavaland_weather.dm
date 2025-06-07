@@ -171,8 +171,12 @@
 		var/hits = 0
 		var/target
 		for(var/turf/T in get_area_turfs(/area/lavaland/surface/outdoors))
-			if(istype(T, /turf/simulated/floor/)) // dont waste our time hitting walls
+			if(istype(get_area(T), /area/lavaland/surface/outdoors/outpost/no_boulder))
+				continue // No hitting the no boulder area
+			if(istype(T, /turf/simulated/floor)) // dont waste our time hitting walls
 				valid_targets += T
+		if(isnull(valid_targets)) // prevents a runtime when coding without lavaland enabled. Or theres somehow ZERO turfs.
+			return
 		while(hits <= 150 && length(valid_targets)) //sling a bunch of rocks around the map
 			target = pick(valid_targets)
 			new /obj/effect/temp_visual/rock_target(target)
@@ -186,6 +190,8 @@
 	sleep(ROCKFALL_DELAY)
 	for(var/mob/M in GLOB.player_list)
 		var/turf/M_turf = get_turf(M)
+		if(isnull(target))
+			return
 		if(M_turf.z == target.z)
 			M.playsound_local(target, 'sound/effects/explosionfar.ogg', 50, 1, get_rand_frequency(), distance_multiplier = 0)
 			shake_camera(M, 2, 4)
@@ -228,8 +234,8 @@
 	sleep(duration)
 	T = get_turf(src)
 	var/turf_area = get_area(T)
-	if(ispath(turf_area, /area/shuttle)) //prevent hitting the shuttle when it moves
-		log_debug("we hit a shuttle area. breaking rock")
+	if(istype(turf_area, /area/shuttle)) // prevent hitting the shuttle when it moves
+		log_debug("A rockfall has somehow struck at [x], [y].")
 		qdel(src)
 		return
 	playsound(T, 'sound/effects/break_stone.ogg', 80, TRUE)
@@ -246,7 +252,7 @@
 				L.gib()
 	if(!islava(T) && !istype(T, /turf/simulated/floor/chasm)) // Splash harmlessly into the lava pools
 		for(var/obj/structure/thing in T.contents) // dont cover the tendrils
-			if(thing.name == "necropolis tendril")
+			if(istype(thing, /obj/structure/spawner/lavaland))
 				return
 		T.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic)
 
