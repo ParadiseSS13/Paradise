@@ -329,6 +329,7 @@
 	desc = "A rechargeable starch based power cell."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "potato"
+	item_state = "cellp"
 	origin_tech = "powerstorage=1;biotech=1"
 	charge = 100
 	maxcharge = 300
@@ -342,6 +343,7 @@
 	origin_tech = "powerstorage=5;biotech=4"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
+	item_state = "cellsl"
 	materials = list()
 	rating = 5 //self-recharge makes these desirable
 	self_recharge = 1 // Infused slime cores self-recharge, over time
