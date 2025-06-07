@@ -36,7 +36,7 @@
 
 /mob/living/carbon/alien/death(gibbed)
 	move_resist = null
-	. = ..()
+	return ..()
 
 /// returns the list of type paths of the organs that we need to insert into
 /// this particular xeno upon its creation

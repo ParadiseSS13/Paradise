@@ -229,7 +229,11 @@
 		to_chat(user, "<span class='warning'>[src] doesnt have anything left inside it!</span>")
 		return ITEM_INTERACT_COMPLETE
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-	visible_message("<span class='warning'>[src] begins to pry open the morph's massive jaws!", "<span class='warning'>You begin to pry open the morph's massive jaws!", "<span class='warning'>You hear wet, meaty tearing nearby!")
+	visible_message(
+		"<span class='warning'>[src] begins to pry open the morph's massive jaws!</span>", 
+		"<span class='danger'>You begin to pry open the morph's massive jaws!</span>", 
+		"<span class='warning'>You hear wet, meaty tearing nearby!</span>"
+	)
 	if(do_after_once(user, 8 SECONDS, target = src))
 		eject_contents()
 		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE, -1)
@@ -245,8 +249,8 @@
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		if(contents.len)
-			. += "<span class='notice'>You can use <b>ALT + Click</b> to eject anything the morph may have eaten."
+		if(length(contents))
+			. += "<span class='notice'>You can use <b>ALT + Click</b> to eject anything the morph may have eaten.</span>"
 		else if(in_range(user, src))
 			. += "<span class='warning'>\The [src] seems to have nothing left inside of it!</span>"
 #define MORPH_ATTACKED if((. = ..()) && morphed) mimic_spell.restore_form(src)

@@ -182,7 +182,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Life(seconds, times_fired)
 	..()
-	if(!exploding && !stat == DEAD)
+	if(!exploding && stat != DEAD)
 		return
 	else if(stat != DEAD)
 		playsound(src, 'sound/items/timer.ogg', 70, 0)

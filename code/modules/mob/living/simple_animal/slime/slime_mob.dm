@@ -21,7 +21,6 @@
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
 
-
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	maxHealth = 150
@@ -434,7 +433,7 @@
 			return ITEM_INTERACT_COMPLETE
 		if(trained && prob(20)) // trained slimes are more resistant to losing discipline
 			trained = 0
-			visible_message("<span class='warning'>[src] becomes spooked and cowers from [user]!</span>")
+			visible_message("<span class='warning'>[src] gets spooked and cowers from [user]!</span>")
 
 /mob/living/simple_animal/slime/attacked_by(obj/item/I, mob/living/user)
 	if(..())
@@ -557,7 +556,7 @@
 
 /mob/living/simple_animal/slime/proc/eject_organ()
 	holding_organ.forceMove(loc)
-	visible_message("<span class='notice'>[src] drops the [holding_organ.name] as it splits!</span>")
+	visible_message("<span class='notice'>[src] drops \the [holding_organ.name] as it splits!</span>")
 	holding_organ = null
 	update_appearance()
 

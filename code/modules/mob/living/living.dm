@@ -233,7 +233,7 @@
 	if(dissection)
 		. += "<span class='notice'>You detect the next dissection step will be: [dissection.get_surgery_step()]</span>"
 	if(surgery_container && !contains_xeno_organ)
-		. += "<span class='warning'>[src] looks like they have had their organs dissected!</span>"
+		. += "<span class='warning'>[src] looks like [p_they()] [p_have()] had [p_their()] organs dissected!</span>"
 
 
 /mob/living/item_interaction(mob/living/user, obj/item/I, list/modifiers)

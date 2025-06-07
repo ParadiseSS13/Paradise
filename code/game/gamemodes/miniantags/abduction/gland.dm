@@ -9,7 +9,7 @@
 	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery) // alien glands are immune to stopping, and provide power to IPCs
 	tough = TRUE //not easily broken by combat damage
 
-	/// Do these organs have an repeatbale ongoing effects?
+	/// Do these organs have an repeatable ongoing effects?
 	var/has_ongoing_effect = TRUE
 	/// Is this organ's effect currently active
 	var/active = FALSE
