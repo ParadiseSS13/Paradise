@@ -126,7 +126,7 @@
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/unpowered)
 "aZ" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "Di" = (

@@ -4707,7 +4707,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "Br" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
