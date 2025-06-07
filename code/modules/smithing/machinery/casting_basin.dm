@@ -33,7 +33,7 @@
 	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
 		linked_crucible = crucible
 		linked_crucible.linked_machines |= src
-		return 
+		return
 
 /obj/machinery/smithing/casting_basin/examine(mob/user)
 	. = ..()
@@ -163,6 +163,9 @@
 		user.put_in_hands(produced_item)
 		produced_item = null
 		update_icon(UPDATE_OVERLAYS)
+		return FINISH_ATTACK
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return FINISH_ATTACK
 	if(!cast)
 		to_chat(user, "<span class='warning'>There is no cast inserted!</span>")
