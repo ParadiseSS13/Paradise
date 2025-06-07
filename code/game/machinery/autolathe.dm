@@ -320,6 +320,9 @@
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return
+	if(shocked && !(stat & NOPOWER))
+		if(shock(user, 50))
+			return
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
 

@@ -520,6 +520,8 @@
 	if(tilted)
 		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
+	if(seconds_electrified != 0 && shock(user, 100))
+		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/economy/vending/multitool_act(mob/user, obj/item/I)
