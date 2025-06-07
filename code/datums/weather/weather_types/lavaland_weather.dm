@@ -234,7 +234,7 @@
 	sleep(duration)
 	T = get_turf(src)
 	var/turf_area = get_area(T)
-	if(istype(turf_area, /area/shuttle)) //prevent hitting the shuttle when it moves
+	if(istype(turf_area, /area/shuttle)) // prevent hitting the shuttle when it moves
 		log_debug("A rockfall has somehow struck at [x], [y].")
 		qdel(src)
 		return
