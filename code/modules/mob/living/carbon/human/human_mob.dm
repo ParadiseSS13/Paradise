@@ -2174,3 +2174,45 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 
 	return TRUE
+
+/mob/living/carbon/human/AltClick(mob/user, modifiers)
+	. = ..()
+	if(user.stat || user.restrained() || (!in_range(src, user)))
+		return
+
+	if(user.mind && !HAS_TRAIT(user.mind, TRAIT_MED_EXAMINE))
+		return
+
+	user.visible_message("[user] begins to thoroughly examine [src].")
+	if(do_after_once(user, 12 SECONDS, target = src, allow_moving = FALSE, attempt_cancel_message = "You couldn't get a good look at [src]!"))
+		var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
+		var/list/analysis = list()
+		for(var/obj/item/organ/external/E in src.bodyparts)
+			missing -= E.limb_name
+			if(E.status & ORGAN_DEAD)
+				analysis += "<span class='info'>You conclude [src]'s [E.name] is dead.</span>"
+			if(E.status & ORGAN_INT_BLEEDING)
+				analysis += "<span class='info'>You conclude [src]'s [E.name] has internal bleeding.</span>"
+			if(E.status & ORGAN_BURNT)
+				analysis += "<span class='info'>You conclude [src]'s [E.name] has been critically burned.</span>"
+			if(E.status & ORGAN_BROKEN)
+				if(!E.broken_description)
+					analysis += "<span class='info'>You conclude [src]'s [E.name] is broken.</span>"
+				else
+					analysis += "<span class='info'>You conclude [src]'s [E.name] has a [E.broken_description].</span>"
+		to_chat(user, chat_box_healthscan(analysis.Join("<br>")))
+
+/mob/living/carbon/human/pointed(atom/A as mob|obj|turf in view())
+	set name = "Point To"
+	set category = null
+	if(next_move >= world.time)
+		return
+
+	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
+		return FALSE
+	if(mind && HAS_TRAIT(mind, TRAIT_COFFEE_SNOB) && reagents.has_reagent("coffee"))
+		changeNext_move(CLICK_CD_POINT / 3)
+	else
+		changeNext_move(CLICK_CD_POINT)
+
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))

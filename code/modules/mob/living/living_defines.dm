@@ -104,6 +104,9 @@
 	/// Famous last words -- if succumbing, what the user's last words were
 	var/last_words
 
+	/// Does this mob talk with a BIG VOICE. 0 off, 1 single use, 2 multi-use
+	var/big_voice = 0
+
 	///This variable is the chance for a mob to automatically dodge a bullet. Useful for admins, and applied to some mobs by default, such as the malfunctioning drone mobs.
 	var/advanced_bullet_dodge_chance = 0
 

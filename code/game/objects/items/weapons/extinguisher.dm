@@ -143,7 +143,8 @@
 		INVOKE_ASYNC(src, PROC_REF(buckled_speed_move), user.buckled, direction)
 	else
 		user.newtonian_move(turn(direction, 180))
-
+	if(user.mind && HAS_TRAIT(user.mind, TRAIT_FIRE_FIGHTER))
+		precision = TRUE
 	var/turf/T = get_turf(A)
 	var/turf/T1 = get_step(T, turn(direction, 90))
 	var/turf/T2 = get_step(T, turn(direction, -90))
