@@ -1,6 +1,7 @@
 /datum/ai_planning_subtree/random_speech/pig
 	speech_chance = 2
 	speak = list("oink?", "oink", "OINK")
+	sound = list('sound/creatures/pig.ogg')
 	emote_hear = list("oinks.")
 	emote_see = list("rolls around.")
 
