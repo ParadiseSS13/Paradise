@@ -69,7 +69,7 @@
 /datum/antag_org/syndicate/spiderclan // Targets one syndicate agent and one non-mindshielded crewmember.
 	name = "Spider Clan"
 	intro_desc = "You are an initiate of the elusive Spider Clan, an insular cult of assassins and rogues styling themselves after ancient ninjas from Earth. \
-		This is your final test, Initiate. Terminate the selected targets by any means necessary and you will have earned your place within the Clan."
+		This is your final test, Initiate. Terminate the selected targets by any means necessary, and you will have earned your place within the Clan."
 	forced_objectives = list(/datum/objective/assassinate/syndicate, /datum/objective/assassinate/nomindshield)
 	chaos_level = ORG_CHAOS_HUNTER
 
