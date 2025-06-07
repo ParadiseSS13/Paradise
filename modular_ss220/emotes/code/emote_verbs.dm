@@ -307,22 +307,22 @@
 	set category = "Эмоции"
 	emote("bshake", intentional = TRUE)
 
+/// Racial Emotes ///
 /mob/living/carbon/human/proc/emote_flap()
-	set name = "◦ " + EMOTE_HUMAN_FLAP + " "
+	set name = "< " + EMOTE_HUMAN_FLAP + " >"
 	set category = "Эмоции"
 	emote("flap", intentional = TRUE)
 
 /mob/living/carbon/human/proc/emote_aflap()
-	set name = "◦ " + EMOTE_HUMAN_AFLAP + " "
+	set name = "< " + EMOTE_HUMAN_AFLAP + " >"
 	set category = "Эмоции"
 	emote("aflap", intentional = TRUE)
 
 /mob/living/carbon/human/proc/emote_flutter()
-	set name = "◦ " + EMOTE_HUMAN_FLUTTER + " "
+	set name = "< " + EMOTE_HUMAN_FLUTTER + " >"
 	set category = "Эмоции"
 	emote("flutter", intentional = TRUE)
 
-/// Racial Emotes ///
 /mob/living/carbon/human/proc/emote_wag()
 	set name = "< " + EMOTE_HUMAN_WAG + " >"
 	set category = "Эмоции"
