@@ -294,6 +294,14 @@
 
 			add_fingerprint(M)
 
+/obj/item/mod/control/wirecutter_act(mob/living/user, obj/item/I)
+	if(open)
+		if(seconds_electrified && get_charge() && shock(user))
+			return TRUE
+		wires.Interact(user)
+		return TRUE
+	return ..()
+
 /obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
 	if(..())
 		return TRUE
@@ -317,6 +325,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(open)
+		if(seconds_electrified && get_charge() && shock(user))
+			return TRUE
+		wires.Interact(user)
+		return TRUE
 	if(!I.multitool_check_buffer(user))
 		return
 	var/obj/item/multitool/M = I
@@ -428,11 +441,6 @@
 		user.drop_item()
 		attacking_core.install(src)
 		update_charge_alert()
-		return TRUE
-	else if(istype(attacking_item, /obj/item/multitool) && open)
-		if(seconds_electrified && get_charge() && shock(user))
-			return TRUE
-		wires.Interact(user)
 		return TRUE
 	else if(open && attacking_item.GetID())
 		update_access(user, attacking_item.GetID())

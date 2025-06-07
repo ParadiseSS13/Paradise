@@ -156,8 +156,8 @@
 	weaken = 0
 
 /datum/spell/smoke/disable
-	name = "Paralysing Smoke"
-	desc = "This spell spawns a cloud of paralysing smoke."
+	name = "Paralyzing Smoke"
+	desc = "This spell spawns a cloud of paralyzing smoke."
 	action_icon_state = "parasmoke"
 	action_background_icon_state = "bg_cult"
 	base_cooldown = 200
