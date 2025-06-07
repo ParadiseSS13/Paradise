@@ -127,14 +127,24 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/melee_damage_upper = 0
 	/// How much damage this simple animal does to objects, if any
 	var/obj_damage = 0
+	/// What can this mob break?
+	var/environment_smash = ENVIRONMENT_SMASH_NONE
 	/// Flat armour reduction, occurs after percentage armour penetration.
 	var/armour_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
 	var/armour_penetration_percentage = 0
 	/// Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
-	/// How often can you melee attack?
-	var/melee_attack_cooldown = 2 SECONDS
+	/// Lower bound for melee attack cooldown
+	var/melee_attack_cooldown_min = 2 SECONDS
+	/// Upper bound for melee attack cooldown
+	var/melee_attack_cooldown_max = 2 SECONDS
+
+	/// Loot this mob drops on death.
+	var/list/loot = list()
+
+	/// Compatibility with mob spawners
+	var/datum/component/spawner/nest
 
 /mob/living/basic/Initialize(mapload)
 	. = ..()
@@ -144,6 +154,12 @@ RESTRICT_TYPE(/mob/living/basic)
 
 	apply_atmos_requirements()
 	apply_temperature_requirements()
+
+/mob/living/basic/Destroy()
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
+	return ..()
 
 /mob/living/basic/movement_delay()
 	. = speed
@@ -196,6 +212,7 @@ RESTRICT_TYPE(/mob/living/basic)
 /mob/living/basic/proc/early_melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
 	if(!ignore_cooldown)
+		var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
 		changeNext_move(melee_attack_cooldown)
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target, Adjacent(target), modifiers) & COMPONENT_HOSTILE_NO_ATTACK)
 		return FALSE
@@ -231,6 +248,10 @@ RESTRICT_TYPE(/mob/living/basic)
 	. = ..()
 	if(!.)
 		return FALSE
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
+	drop_loot()
 	if(!gibbed)
 		if(death_sound)
 			playsound(get_turf(src), death_sound, 200, 1)
@@ -299,3 +320,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
+
+/mob/living/basic/proc/drop_loot()
+	if(length(loot))
+		for(var/item in loot)
+			new item(get_turf(src))
