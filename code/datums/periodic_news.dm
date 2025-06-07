@@ -12,7 +12,7 @@
 
 /datum/news_announcement/revolution_inciting_event/paycuts_suspicion
 	round_time = 60*10
-	message = {"Reports have leaked that Nanotrasen Inc. is planning to put paycuts into
+	message = {"Reports have leaked that Nanotrasen Inc. is planning to put pay cuts into
 				effect on many of its Research Stations in Tau Ceti. Apparently these research
 				stations haven't been able to yield the expected revenue, and thus adjustments
 				have to be made."}
@@ -20,7 +20,7 @@
 
 /datum/news_announcement/revolution_inciting_event/paycuts_confirmation
 	round_time = 60*40
-	message = {"Earlier rumours about paycuts on Research Stations in the Tau Ceti system have
+	message = {"Earlier rumours about pay cuts on Research Stations in the Tau Ceti system have
 				been confirmed. Shockingly, however, the cuts will only affect lower tier
 				personnel. Heads of Staff will, according to our sources, not be affected."}
 	author = "Unauthorized"
