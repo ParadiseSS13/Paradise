@@ -140,21 +140,31 @@
 		if(MACHINE_FRAME_CIRCUITBOARD)
 			// see crowbar_act()
 
-			if(istype(P, /obj/item/storage/part_replacer) && length(P.contents) && get_req_components_amt())
+			if(istype(P, /obj/item/storage/part_replacer) && length(req_components))
 				var/obj/item/storage/part_replacer/replacer = P
 				var/list/added_components = list()
-				var/list/part_list = list()
+				var/list/part_list = replacer.get_sorted_parts()
+				var/shouldplaysound = FALSE
 
-				//Assemble a list of current parts, then sort them by their rating!
-				for(var/obj/item/stock_parts/co in replacer)
-					part_list += co
+				if(!length(part_list))
+					return
 
-				for(var/obj/item/reagent_containers/glass/beaker/be in replacer)
-					part_list += be
-
+				var/cell_exploded = FALSE
 				for(var/path in req_components)
+					if(cell_exploded)
+						break
 					while(req_components[path] > 0 && (locate(path) in part_list))
 						var/obj/item/part = (locate(path) in part_list)
+
+						// If it's a rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
+						if(istype(part, /obj/item/stock_parts/cell) && replacer.works_from_distance)
+							var/obj/item/stock_parts/cell/new_cell = part
+							if(new_cell.rigged)
+								new_cell.charge = new_cell.maxcharge
+								new_cell.explode()
+								cell_exploded = TRUE
+								break
+
 						added_components[part] = path
 						replacer.remove_from_storage(part, src)
 						req_components[path]--
@@ -162,9 +172,11 @@
 
 				for(var/obj/item/part in added_components)
 					components += part
-					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
-				replacer.play_rped_sound()
+					shouldplaysound = TRUE
+					to_chat(user, "<span class='notice'>You add [part] to [src].</span>")
 
+				if(shouldplaysound)
+					replacer.play_rped_sound()
 				update_appearance(UPDATE_DESC)
 				return
 

@@ -397,61 +397,65 @@
 
 	return ..()
 
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
-	var/shouldplaysound = 0
+/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer)
+	var/shouldplaysound = FALSE
 	if(flags & NODECONSTRUCT)
 		return FALSE
 
-	if(!istype(W) || !component_parts)
+	if(!istype(replacer) || !component_parts)
 		return FALSE
 
-	if(panel_open || W.works_from_distance)
-		var/obj/item/circuitboard/CB = locate(/obj/item/circuitboard) in component_parts
-		var/P
-		if(W.works_from_distance)
-			to_chat(user, display_parts(user))
-		for(var/obj/item/stock_parts/A in component_parts)
-			for(var/D in CB.req_components)
-				if(ispath(A.type, D))
-					P = D
+	if(!panel_open && !replacer.works_from_distance)
+		to_chat(user, display_parts(user))
+		return TRUE
+
+	var/list/part_list = replacer.get_sorted_parts()
+	if(!length(part_list))
+		to_chat(user, display_parts(user))
+		return TRUE
+
+	to_chat(user, display_parts(user))
+	var/obj/item/circuitboard/board = locate(/obj/item/circuitboard) in component_parts
+
+	for(var/obj/item/current_part in component_parts)
+		// We exchanged all we could, time to bail
+		if(!length(part_list))
+			break
+		// Currently we support only these 2
+		if(!(istype(current_part, /obj/item/stock_parts) || istype(current_part, /obj/item/reagent_containers/glass/beaker)))
+			continue
+
+		var/current_rating = current_part.get_part_rating()
+		var/required_type
+		for(var/part_type in board.req_components)
+			if(istype(current_part, part_type))
+				required_type = part_type
+				break
+
+		for(var/obj/item/new_part in part_list)
+			if(!istype(new_part, required_type))
+				continue
+			// If it's a rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
+			if(istype(new_part, /obj/item/stock_parts/cell) && replacer.works_from_distance)
+				var/obj/item/stock_parts/cell/new_cell = new_part
+				if(new_cell.rigged)
+					new_cell.charge = new_cell.maxcharge
+					new_cell.explode()
 					break
-			for(var/obj/item/stock_parts/B in W.contents)
-				if(istype(B, P) && istype(A, P))
-					//If it's cell - check: 1) Max charge is better? 2) Max charge same but current charge better? - If both NO -> next content
-					if(ispath(B.type, /obj/item/stock_parts/cell))
-						var/obj/item/stock_parts/cell/tA = A
-						var/obj/item/stock_parts/cell/tB = B
-						if(!(tB.maxcharge > tA.maxcharge) && !((tB.maxcharge == tA.maxcharge) && (tB.charge > tA.charge)))
-							continue
-					//If it's not cell and not better -> next content
-					else if(B.rating <= A.rating)
-						continue
-					W.remove_from_storage(B, src)
-					W.handle_item_insertion(A, user, TRUE)
-					component_parts -= A
-					component_parts += B
-					B.loc = null
-					to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
-					shouldplaysound = TRUE
-					break
-		for(var/obj/item/reagent_containers/glass/beaker/A in component_parts)
-			for(var/obj/item/reagent_containers/glass/beaker/B in W.contents)
-				// If it's not better -> next content
-				if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
-					continue
-				W.remove_from_storage(B, src)
-				W.handle_item_insertion(A, TRUE)
-				component_parts -= A
-				component_parts += B
-				B.loc = null
-				to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+			if(new_part.get_part_rating() > current_rating)
+				component_parts -= current_part
+				replacer.remove_from_storage(new_part, src)
+				replacer.handle_item_insertion(current_part, user, TRUE)
+				component_parts += new_part
+				part_list -= new_part
+				to_chat(user, "<span class='notice'>[current_part] replaced with [new_part].</span>")
 				shouldplaysound = TRUE
 				break
-		RefreshParts()
-	else
-		to_chat(user, display_parts(user))
+
+	RefreshParts()
 	if(shouldplaysound)
-		W.play_rped_sound()
+		replacer.play_rped_sound()
+
 	return TRUE
 
 /obj/machinery/proc/display_parts(mob/user)

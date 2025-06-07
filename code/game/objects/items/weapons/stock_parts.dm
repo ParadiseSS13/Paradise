@@ -17,16 +17,30 @@
 	storage_slots = 50
 	use_to_pickup = TRUE
 	allow_quick_gather = TRUE
-	allow_quick_empty = TRUE
 	pickup_all_on_tile = TRUE
 	display_contents_with_number = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
 	toolspeed = 1
 	usesound = 'sound/items/rped.ogg'
+	new_attack_chain = TRUE
 	var/works_from_distance = FALSE
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
+
+/obj/item/storage/part_replacer/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can use [src] <b>in hand</b> to drop lowest-tier components.</span>"
+
+/obj/item/storage/part_replacer/proc/get_sorted_parts()
+	var/list/obj/item/part_list = list()
+	// Assemble a list of current parts, then sort them by their rating!
+	for(var/obj/item/component_part in contents)
+		part_list += component_part
+		// Sort the parts. This ensures that higher tier items are applied first.
+	sortTim(part_list, GLOBAL_PROC_REF(cmp_rped_sort))
+
+	return part_list
 
 /obj/item/storage/part_replacer/Initialize(mapload)
 	. = ..()
@@ -43,23 +57,44 @@
 		return FALSE
 	return ..()
 
-/obj/item/storage/part_replacer/afterattack__legacy__attackchain(obj/machinery/M, mob/user, proximity_flag, params)
-	if(!istype(M))
-		return ..()
+/obj/item/storage/part_replacer/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+	var/list/obj/item/part_list = reverselist(get_sorted_parts())
+	if(!length(part_list))
+		return FINISH_ATTACK
 
-	if(!proximity_flag)
-		if(!works_from_distance)
-			return
-		if(get_dist(user, M) > (user.client.maxview() / 2))
+	var/current_lowest_tier = part_list[1].get_part_rating()
+	to_chat(user, "<span class='notice'>You remove lowest tier components from [src].</span>")
+
+	var/dump_loc = user.drop_location()
+	for(var/obj/item/part in part_list)
+		if(part.get_part_rating() != current_lowest_tier)
+			break
+		if(!remove_from_storage(part, dump_loc))
+			continue
+		part.scatter_atom(rand(-8, 8), rand(-8, 8))
+
+/obj/item/storage/part_replacer/ranged_interact_with_atom(obj/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/machinery) && !istype(target, /obj/structure/machine_frame))
+		return ITEM_INTERACT_COMPLETE
+	if(!works_from_distance)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(target, /obj/machinery))
+		var/obj/machinery/machinery = target
+		if(get_dist(user, machinery) > (user.client.maxview() / 2))
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console (attempted range exploit).")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
-			return
+			to_chat(user, "<span class='notice'>ERROR: [machinery] is out of [src]'s range!</span>")
+			return ITEM_INTERACT_COMPLETE
 
-	if(M.component_parts)
-		M.exchange_parts(user, src)
-		if(works_from_distance)
-			user.Beam(M, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+		machinery.exchange_parts(user, src)
+	else
+		var/obj/structure/machine_frame/frame = target
+		frame.attackby__legacy__attackchain(src, user)
+
+	user.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 
 /obj/item/storage/part_replacer/tier4/populate_contents()
 	for(var/amount in 1 to 30)
@@ -118,6 +153,9 @@
 	var/rating = 1
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/stock_parts/get_part_rating()
+	return rating
 
 //Rank 1
 
