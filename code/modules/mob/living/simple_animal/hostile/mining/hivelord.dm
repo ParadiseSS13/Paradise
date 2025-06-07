@@ -57,6 +57,12 @@
 		return FALSE
 	mouse_opacity = MOUSE_OPACITY_ICON
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/space
+	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/space
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/space/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
+
 //A fragile but rapidly produced creature
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	name = "hivelord brood"
@@ -92,6 +98,11 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(death)), 100)
 	AddComponent(/datum/component/swarming)
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/space
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/space/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
@@ -179,6 +190,8 @@
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/Process_Spacemove(movement_dir, continuous_move)
+	return FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"
