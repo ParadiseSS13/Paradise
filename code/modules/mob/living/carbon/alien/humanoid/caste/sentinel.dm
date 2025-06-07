@@ -4,6 +4,7 @@
 	maxHealth = 175
 	health = 175
 	icon_state = "aliens_s"
+	surgery_container = /datum/xenobiology_surgery_container/alien/sentinel
 
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"

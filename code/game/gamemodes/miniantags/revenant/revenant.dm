@@ -12,8 +12,8 @@
 	desc = "A malevolent spirit."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "revenant_idle"
-
 	mob_biotypes = MOB_SPIRIT
+	sentience_type = SENTIENCE_BOSS // no reviving funny ghost
 	incorporeal_move = INCORPOREAL_MOVE_HOLY_BLOCK
 	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
@@ -37,6 +37,9 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	initial_traits = list(TRAIT_FLYING)
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/revenant
 
 	/// The revenant's idle icon
 	var/icon_idle = "revenant_idle"
@@ -73,20 +76,23 @@
 	var/list/drained_mobs = list()
 	///How many perfect, regen-cap increasing souls the revenant has.
 	var/perfectsouls = 0
+	/// Are we currently dying? extra check against becomming incorporeal
+	var/dying = FALSE
 
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
 	..()
 	if(revealed && essence <= 0)
+		dying = TRUE
 		death()
 	if(essence_regenerating && !inhibited && essence < essence_regen_cap) //While inhibited, essence will not regenerate
 		essence = min(essence_regen_cap, essence+essence_regen_amount)
-	if(unreveal_time && world.time >= unreveal_time)
+	if(unreveal_time && world.time >= unreveal_time && !dying)
 		unreveal_time = 0
 		revealed = FALSE
 		incorporeal_move = INCORPOREAL_MOVE_HOLY_BLOCK
 		invisibility = INVISIBILITY_REVENANT
 		to_chat(src, "<span class='revennotice bold'>You are once more concealed.</span>")
-	if(unstun_time && world.time >= unstun_time)
+	if(unstun_time && world.time >= unstun_time && !dying)
 		unstun_time = 0
 		notransform = FALSE
 		to_chat(src, "<span class='revennotice bold'>You can move again!</span>")
@@ -206,9 +212,13 @@
 	icon_state = "revenant_draining"
 	animate(src, alpha = 0, time = 3 SECONDS)
 	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
-	new /obj/item/ectoplasm(get_turf(src))
-	ghostize()
-	qdel(src)
+	ghostize(FALSE)
+	name = "ectoplasm"
+	desc = "A pile of clumpy dust from a restless spirit"
+	alpha = 255
+	icon_state = "revenant_ectoplasm"
+	move_resist = null
+	return ..()
 
 /mob/living/simple_animal/revenant/attack_by(obj/item/W, mob/living/user, params)
 	if(..())
@@ -279,6 +289,9 @@
 	update_spooky_icon()
 
 /mob/living/simple_animal/revenant/proc/update_spooky_icon()
+	if(dying)
+		return
+
 	if(!revealed)
 		icon_state = icon_idle
 		return
@@ -290,6 +303,7 @@
 	if(draining)
 		icon_state = icon_drain
 		return
+
 	// No other state is happening, therefore we are stunned
 	icon_state = icon_stun
 
@@ -338,6 +352,7 @@
 /datum/objective/revenant_fluff/check_completion()
 	return TRUE
 
+//no longer used
 /obj/item/ectoplasm
 	name = "glimmering residue"
 	desc = "A pile of fine blue dust. Small tendrils of violet mist swirl around it."

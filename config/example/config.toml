@@ -458,7 +458,8 @@ job_slot_amounts = [
   {name = "Medical Doctor", lowpop = 5, highpop = 6},
   {name = "Virologist", lowpop = 1, highpop = 1}, # Science
   {name = "Roboticist", lowpop = 2, highpop = 2},
-  {name = "Scientist", lowpop = 6, highpop = 7}, # Security
+  {name = "Scientist", lowpop = 4, highpop = 5},
+  {name = "Xenobiologist", lowpop = 2, highpop = 2}, # Security
   {name = "Detective", lowpop = 1, highpop = 1},
   {name = "Security Officer", lowpop = 8, highpop = 9},
   {name = "Warden", lowpop = 1, highpop = 1},

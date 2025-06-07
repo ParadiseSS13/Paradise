@@ -16,6 +16,11 @@
 #define ORGAN_DATUM_LUNGS	"lungs"
 #define ORGAN_DATUM_BATTERY "battery"
 
+// Organ quality datums.
+#define ORGAN_DAMAGED 1
+#define ORGAN_NORMAL 2
+#define ORGAN_PRISTINE 3
+
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)

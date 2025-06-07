@@ -32,6 +32,8 @@
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/hivelord
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -298,6 +300,7 @@
 	sentience_type = SENTIENCE_BOSS
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speed = 0
+	butcher_results = list(/obj/item/regen_mesh)
 
 /mob/living/simple_animal/hostile/asteroid/big_legion/AttackingTarget()
 	if(!isliving(target))

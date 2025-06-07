@@ -167,6 +167,8 @@
 	base_cooldown = 300
 	clothes_req = FALSE
 	aoe_range = 14
+	/// Is this ability granted from a xenobiology organ? Causes user to spark.
+	var/from_organ = FALSE
 
 /datum/spell/aoe/flicker_lights/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/targeting = new()
@@ -177,6 +179,8 @@
 	for(var/turf/T in targets)
 		for(var/obj/machinery/light/L in T)
 			L.forced_flicker()
+	if(from_organ)
+		do_sparks(3, FALSE, user)
 
 //Blind AOE
 /datum/spell/aoe/blindness

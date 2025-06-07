@@ -25,3 +25,5 @@
 	minbodytemp = 150
 	maxbodytemp = 500
 	gold_core_spawnable = HOSTILE_SPAWN
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/tomato
