@@ -29,6 +29,18 @@
 	var/mob/dead/observer/G = usr
 	G.dead_tele()
 
+/atom/movable/screen/ghost/vision
+	name = "Ghost Vision"
+	icon_state = "disappear"
+
+/atom/movable/screen/ghost/vision/Click()
+	var/mob/dead/observer/G = usr
+	G.ghost_vision()
+
+/atom/movable/screen/ghost/vision/MouseEntered()
+	. = ..()
+	flick(icon_state + "_anim", src)
+
 /atom/movable/screen/ghost/respawn_list
 	name = "Ghost spawns"
 	icon = 'icons/mob/screen_midnight.dmi'
@@ -93,6 +105,9 @@
 	using = new /atom/movable/screen/ghost/teleport()
 	using.screen_loc = ui_ghost_teleport
 	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/vision()
+	using.screen_loc = ui_ghost_vision
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/respawn_list()
