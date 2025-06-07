@@ -499,6 +499,4 @@
 	finished_organ.icon_state = holding_organ.icon_state
 	finished_organ.name = "[quality_to_string(finished_organ.organ_quality, FALSE)] [finished_organ.name]"
 	underlays.Cut()
-	qdel(holding_organ)
-	holding_organ = null
-
+	QDEL_NULL(holding_organ)

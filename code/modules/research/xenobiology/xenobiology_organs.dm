@@ -1,5 +1,5 @@
 /obj/item/regen_mesh
-	name = "Regenerative Organ Mesh"
+	name = "regenerative Organ Mesh"
 	desc = "A specialized mesh carved from a fleshling that can improve the quality of any organ its used on."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_leaf_p" // its unused and looks fine soooo whatever lol
@@ -26,7 +26,7 @@
 
 // We dont want to keep the unidentified organ as an implantable version to skip the research phase
 /obj/item/xeno_organ
-	name = "Unidentified Mass"
+	name = "unidentified Mass"
 	desc = "This unusual clump of flesh, though now still, holds great potential. It will require revitalization via slime therapy to get any use out of it."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -42,7 +42,7 @@
 
 // A list of parent objects, to inherent the functions of where they are placed.
 /obj/item/organ/internal/liver/xenobiology
-	name = "Unidentified Mass"
+	name = "unidentified mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -52,7 +52,7 @@
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/heart/xenobiology
-	name = "Unidentified Mass"
+	name = "unidentified mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -64,7 +64,7 @@
 	var/can_paradox = FALSE
 
 /obj/item/organ/internal/lungs/xenobiology
-	name = "Unidentified Mass"
+	name = "unidentified mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -74,7 +74,7 @@
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/kidneys/xenobiology
-	name = "Unidentified Mass"
+	name = "unidentified mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -84,7 +84,7 @@
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/appendix/xenobiology
-	name = "Unidentified Mass"
+	name = "unidentified mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -94,7 +94,7 @@
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/eyes/xenobiology
-	name = "Unidentified Mass"
+	name = "unidentified mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -104,7 +104,7 @@
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/ears/xenobiology
-	name = "Unidentified Mass"
+	name = "unidentified mass"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -114,7 +114,7 @@
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/cell/xenobiology
-	name = "Unidentified Electronic"
+	name = "unidentified electronic"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -124,7 +124,7 @@
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/cyberimp/mouth/xenobiology
-	name = "Unidentified Electronic"
+	name = "unidentified electronic"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -134,7 +134,7 @@
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/eyes/cybernetic/xenobiology
-	name = "Unidentified Electronic"
+	name = "unidentified electronic"
 	desc = "This is a parent object and should not appear. Contact a developer."
 	icon = 'icons/obj/xeno_organs.dmi'
 	icon_state = "organ4"
@@ -144,7 +144,7 @@
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/liver/xenobiology/toxic
-	name = "Toxic Glands"
+	name = "toxic glands"
 	desc = "These fleshy glands' alien chemistry are incompatible with most humanoid life."
 
 
@@ -165,7 +165,7 @@
 				owner.AdjustConfused(rand(4 SECONDS, 6 SECONDS))
 
 /obj/item/organ/internal/liver/xenobiology/detox
-	name = "Chemical Neutralizers"
+	name = "chemical neutralizers"
 	desc = "These glands seem to absorb any liquid they come in contact with, neutralizing any unnatural substances."
 	analyzer_price = 25
 
@@ -184,7 +184,7 @@
 				owner.reagents.remove_reagent(R.id,4)
 
 /obj/item/organ/internal/heart/xenobiology/vestigial
-	name = "Vestigial Organ"
+	name = "vestigial organ"
 	desc = "Whether this has ever had any function is a mystery. It certainly doesn't work in its current state."
 
 /obj/item/organ/internal/heart/xenobiology/vestigial/on_life()
@@ -193,7 +193,7 @@
 		owner.set_heartattack(TRUE) // what did you expect?
 
 /obj/item/organ/internal/heart/xenobiology/incompatible
-	name = "Incompatible Organ"
+	name = "incompatible organ"
 	desc = "This organ is largely incompatible with humanoid physiology. You might be able to get it to work, but will likely cause a host of other issues."
 
 /obj/item/organ/internal/heart/xenobiology/incompatible/on_life()
@@ -208,7 +208,7 @@
 		owner.vomit(20)
 
 /obj/item/organ/internal/lungs/xenobiology/flame_sack
-	name = "Flame Sack"
+	name = "flame sack"
 	desc = "An unusual set of aerosolizing glands capable of starting light fires."
 	analyzer_price = 50
 	hidden_origin_tech = TECH_PLASMA
@@ -274,7 +274,7 @@
 	return (get_line(user, T) - get_turf(user))
 
 /obj/item/organ/internal/kidneys/xenobiology/sinew
-	name = "Sinewous Bands"
+	name = "sinewous bands"
 	desc = "Long, strands of durable fibers that seem to grow at astonishing speeds."
 	analyzer_price = 25
 
@@ -320,7 +320,7 @@
 			user.put_in_hands(sinew_cuffs)
 
 /obj/item/organ/internal/heart/xenobiology/hyperactive
-	name = "Hyperactive Organ"
+	name = "hyperactive organ"
 	desc = "This organ replaces its own cells so quickly, that it appears to spread this effect to other cells around it in a rather exhaustive process."
 	analyzer_price = 25
 	can_paradox = TRUE
@@ -348,7 +348,7 @@
 			owner.adjustFireLoss(-1)
 
 /obj/item/organ/internal/kidneys/xenobiology/metallic
-	name = "Metallic Processor"
+	name = "metallic processor"
 	desc = "A dense, metallic organ that enables the consumption of precious metals as food. No guarentee for taste, though"
 	analyzer_price = 20
 	///Component that handles the ability to eat precious metals
@@ -411,7 +411,7 @@
 	return ..()
 
 /obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants
-	name = "Vocal Coord Remnants"
+	name = "vocal cord remnants"
 	desc = "The remnants of a great beast's vocal coords. While only a fraction of the true organ's power, these could probably still get decently loud."
 	analyzer_price = 35
 	hidden_origin_tech = TECH_COMBAT
@@ -430,7 +430,7 @@
 	REMOVE_TRAIT(M, TRAIT_LOUD, ORGAN_TRAIT)
 
 /obj/item/organ/internal/appendix/xenobiology/toxin_stinger
-	name = "Hidden Stinger"
+	name = "hidden stinger"
 	desc = "This organ holds a deceptive stinger tucked inside of itself, dripping with venom."
 	analyzer_price = 35
 	var/terror = FALSE
@@ -507,7 +507,7 @@
 		revert_cast()
 
 /obj/item/organ/internal/heart/xenobiology/contortion
-	name = "Contortion Fibers"
+	name = "contortion fibers"
 	desc = "A set of bands that wrap around joints and ligaments and muscles alike, pulling the body into unnatural shapes."
 	analyzer_price = 75
 	can_paradox = TRUE
@@ -577,7 +577,7 @@
 	to_chat(user, "<span class='notice'>Our body stiffens and returns to form. That was exhausting!</span>")
 
 /obj/item/organ/internal/heart/xenobiology/bloody_sack
-	name = "Bloody Sack"
+	name = "bloody sack"
 	desc = "A large sack spilling with blood. Despite the fact it oozes with blood, you can feel its hunger for more."
 	analyzer_price = 75
 	can_paradox = TRUE
@@ -645,7 +645,7 @@
 
 
 /obj/item/organ/internal/liver/xenobiology/hungry
-	name = "Hungry Organ"
+	name = "hungry organ"
 	desc = "This organ seems to actively attempt to dissolve and absorb anything it touches."
 	analyzer_price = 40
 	hidden_origin_tech = TECH_BIO
@@ -677,7 +677,7 @@
 			owner.adjust_nutrition(-0.3)
 
 /obj/item/organ/internal/appendix/xenobiology/tendril
-	name = "Writhing Tendrils"
+	name = "writhing tendrils"
 	desc = "This organ is constantly squirming and writhing around. Yuck."
 	analyzer_price = 20
 	hidden_origin_tech = TECH_BIO
@@ -757,7 +757,7 @@
 				T.visible_message("<span class='warning'>[T] refuses to budge!</span>")
 
 /obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing
-	name = "Glowing Core"
+	name = "glowing core"
 	desc = "This organ glows with a strange energy from its depths. Is it even appropiate to call this an organ?"
 	analyzer_price = 40
 	hidden_origin_tech = TECH_BLUESPACE
@@ -785,7 +785,7 @@
 	M.RemoveSpell(/datum/spell/turf_teleport/organ_teleport)
 
 /datum/spell/turf_teleport/organ_teleport
-	name = "Unstable blink"
+	name = "Unstable Blink"
 	desc = "Touch someone to destabilize their location in bluespace for a moment."
 	base_cooldown = 2 MINUTES
 	clothes_req = FALSE
@@ -835,7 +835,7 @@
 	return ..()
 
 /obj/item/organ/internal/kidneys/xenobiology/shivering
-	name = "Shivering Organ"
+	name = "shivering organ"
 	desc = "It constantly shivers, seeking to warm itself from its environment."
 	analyzer_price = 30
 
@@ -851,7 +851,7 @@
 				owner.bodytemperature += 30
 
 /obj/item/organ/internal/kidneys/xenobiology/sweating
-	name = "Sweaty Organ"
+	name = "sweaty organ"
 	desc = "It constantly sweats, seeking to cool itself off from its environment."
 	analyzer_price = 30
 	hidden_origin_tech = TECH_TOXINS
@@ -869,7 +869,7 @@
 				owner.bodytemperature -= 30
 
 /obj/item/organ/internal/liver/xenobiology/soupy
-	name = "Soupy Organ"
+	name = "soupy organ"
 	desc = "This organ seems to barely keep its own form together. It also reeks of tomato sauce."
 	analyzer_price = 15
 	hidden_origin_tech = TECH_BIO
@@ -902,7 +902,7 @@
 	to_chat(owner, "<span class='userdanger'>You no longer constantly taste ketchup.</span>")
 
 /obj/item/organ/internal/appendix/xenobiology/toxin_stinger/terror
-	name = "Hidden Terror Stinger"
+	name = "hidden terror stinger"
 	desc = "This organ holds a deceptive stinger tucked inside of itself, dripping with potent venom."
 	analyzer_price = 60
 	terror = TRUE
@@ -910,7 +910,7 @@
 	hidden_tech_level = 7
 
 /obj/item/organ/internal/lungs/xenobiology/mirror
-	name = "Silvered Organ"
+	name = "silvered organ"
 	desc = "This organ is dazzlingly reflective."
 	analyzer_price = 30
 	hidden_origin_tech = TECH_MATERIAL
@@ -927,7 +927,7 @@
 	M.RemoveSpell(/datum/spell/create_mirror)
 
 /datum/spell/create_mirror
-	name = "Create Mirror"
+	name = "create mirror"
 	desc = "Regurgitate a slick, mirrored surface where you are standing. Disgusting."
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
@@ -955,7 +955,7 @@
 		M.icon_state = "herald_mirror"
 
 /obj/item/organ/internal/heart/xenobiology/squirming
-	name = "Squirming Organ"
+	name = "squirming organ"
 	desc = "This organ refuses to sit still, constantly moving about however it can."
 	analyzer_price = 75
 	can_paradox = TRUE
@@ -981,7 +981,7 @@
 					owner.AdjustKnockDown(-2 SECONDS)
 
 /obj/item/organ/internal/appendix/xenobiology/electro_strands
-	name = "Electromagnetic Strands"
+	name = "electromagnetic strands"
 	desc = "A large number of electrically sensitive strands all bundled up together. Its lost most of its potential."
 	analyzer_price = 30
 	hidden_origin_tech = TECH_MAGNETS
@@ -999,7 +999,7 @@
 
 
 /obj/item/organ/internal/liver/xenobiology/sharp
-	name = "Sharp organ"
+	name = "sharp organ"
 	desc = "This organ sprouts several sharp points out of itself, which you can't imagine would feel good to get implanted."
 	analyzer_price = 30
 	var/original_unarmed
@@ -1031,7 +1031,7 @@
 		unarmed.sharp = original_sharpened
 
 /obj/item/organ/internal/appendix/xenobiology/noisemaker
-	name = "Mimicry Organ"
+	name = "mimicry organ"
 	desc = "This organ continues to make odd sounds, copying things that it has heard."
 	analyzer_price = 15
 	hidden_origin_tech = TECH_ENGINEERING
@@ -1072,7 +1072,7 @@
 	COOLDOWN_START(src, migo_cooldown, 10 SECONDS)
 
 /obj/item/organ/internal/eyes/xenobiology/receptors
-	name = "Photosensitive Receptors"
+	name = "photosensitive receptors"
 	desc = "A set of organs receptive to light in the spectrum of -- hey, wait a second. Aren't these just eyes?"
 	analyzer_price = 40
 	hidden_origin_tech = TECH_BIO
@@ -1090,7 +1090,7 @@
 	return ..()
 
 /obj/item/organ/internal/heart/xenobiology/paradox
-	name = "Paradoxical Organ"
+	name = "paradoxical organ"
 	desc = "The organ is constantly shifting and morphing; each time you look away it's something new."
 	analyzer_price = 40
 	/// holds the list what all the valid hearts that the paradox heart can swap out with
@@ -1112,7 +1112,7 @@
 	qdel(src)
 
 /obj/item/organ/internal/heart/xenobiology/bananium
-	name = "Bananium Laced Heart"
+	name = "bananium laced heart"
 	desc = "Squeak squeak squeak sqonk honk honk snorf"
 	analyzer_price = 5
 	can_paradox = TRUE
@@ -1193,7 +1193,7 @@
 			M.dna.SetSEState(GLOB.comicblock, FALSE, FALSE)
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium
-	name = "Cursed Bananium Heart"
+	name = "cursed bananium heart"
 	desc = "This organ is wreathed in foul energy from cursed bananium. There may be great power here, but only the truest of souls could bring it forward."
 	analyzer_price = 50
 	unremovable = TRUE
@@ -1256,7 +1256,7 @@
 				to_chat(owner, "<span class='userdanger'>[pick(clown_noises)]</span>")
 
 /obj/item/organ/internal/cell/xenobiology/supercharged
-	name = "Supercharged Core"
+	name = "supercharged core"
 	desc = "This specialized core thrumms with potental and energy. It desperately seeks release."
 	analyzer_price = 80
 	hidden_origin_tech = TECH_TOXINS
@@ -1329,7 +1329,7 @@
 		C.damage += 20 // ouch. Maybe dont blow up
 
 /obj/item/organ/internal/heart/xenobiology/megacarp
-	name = "Rancid Clump"
+	name = "rancid clump"
 	desc = "It reeks of fish and... soy sauce?"
 	analyzer_price = 40
 	can_paradox = TRUE
@@ -1391,7 +1391,7 @@
 	pass_flags = PASSTABLE
 
 /obj/item/organ/internal/appendix/xenobiology/feverish
-	name = "Feverish Organ"
+	name = "feverish organ"
 	desc = "This organ is warm, and looks sickly. Yet by all means, there doesnt appear to be any infections."
 	analyzer_price = 15
 
@@ -1426,7 +1426,7 @@
 			owner.bodytemperature -= 30
 
 /obj/item/organ/internal/kidneys/xenobiology/lethargic
-	name = "Lethargic Organ"
+	name = "lethargic organ"
 	desc = "This organ barely seems to do anything, only being just active enough to keep itself alive. However, it seems exceptionally hardy."
 	analyzer_price = 20
 	var/datum/armor/organ_resistance_boost
@@ -1458,7 +1458,7 @@
 	QDEL_NULL(organ_resistance_boost)
 
 /obj/item/organ/internal/ears/xenobiology/colorful
-	name = "Colorful Organ"
+	name = "colorful organ"
 	desc = "This organ seems to constantly color and mold the other flesh around it. Thankfully, the changes are only aesthetic."
 	analyzer_price = 20
 	var/next_change = 1
@@ -1474,7 +1474,7 @@
 	scramble(1, owner, 100)
 
 /obj/item/organ/internal/ears/xenobiology/sinister
-	name = "Sinister Organ"
+	name = "sinister organ"
 	desc = "This organ is brimming with foul aura. Small buds seem to be growing out of it"
 	analyzer_price = 60
 	hidden_origin_tech = TECH_COMBAT

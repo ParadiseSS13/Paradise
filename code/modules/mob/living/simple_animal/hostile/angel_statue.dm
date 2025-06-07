@@ -167,6 +167,7 @@
 	base_cooldown = 300
 	clothes_req = FALSE
 	aoe_range = 14
+	/// Is this ability granted from a xenobiology organ? Causes user to spark.
 	var/from_organ = FALSE
 
 /datum/spell/aoe/flicker_lights/create_new_targeting()

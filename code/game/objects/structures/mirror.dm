@@ -57,7 +57,6 @@
 
 /obj/structure/mirror/organ/obj_break(damage_flag, mapload)
 	playsound(src, "shatter", 70, TRUE)
-	GLOB.mirrors -= src
 	qdel(src)
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
