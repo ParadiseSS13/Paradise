@@ -1,3 +1,6 @@
+/datum/event/fake_virus
+	name = "Fake Virus"
+
 /datum/event/fake_virus/start()
 	var/list/valid_targets = list()
 	for(var/mob/living/carbon/human/victim in shuffle(GLOB.player_list))
