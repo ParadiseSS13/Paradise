@@ -78,10 +78,6 @@
 		A.attack_robot(src)
 		return
 
-	// buckled cannot prevent machine interlinking but stops arm movement
-	if(buckled)
-		return
-
 	if(W == A)
 		if(W.new_attack_chain)
 			W.activate_self(src)
