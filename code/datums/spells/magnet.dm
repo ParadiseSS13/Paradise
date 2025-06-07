@@ -1,6 +1,6 @@
 /datum/spell/charge_up/bounce/magnet
 	name = "Magnetic Pull"
-	desc = "Pulls metalic objects from enemies hands with the power of MAGNETS."
+	desc = "Pulls metallic objects from enemies hands with the power of MAGNETS."
 	action_icon_state = "magnet"
 	base_cooldown	= 30 SECONDS
 	clothes_req = FALSE

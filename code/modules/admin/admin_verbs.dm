@@ -241,7 +241,8 @@ GLOBAL_LIST_INIT(admin_verbs_dev, list(
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
-	/client/proc/SDQL2_query
+	/client/proc/SDQL2_query,
+	/client/proc/load_sdql2_query,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/openAdminTicketUI,
@@ -970,6 +971,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		if(istype(mob, /mob/dead/observer))
+			var/mob/dead/observer/O = mob
+			O.update_admin_actions()
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
 	else
