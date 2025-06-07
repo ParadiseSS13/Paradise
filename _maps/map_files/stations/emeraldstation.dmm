@@ -65743,7 +65743,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "nib" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
@@ -92601,7 +92601,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "svF" = (
-/obj/machinery/door/airlock/multi_tile/directional/east{
+/obj/machinery/door/airlock/multi_tile{
 	name = "maintenance access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -94765,7 +94765,7 @@
 	},
 /area/station/legal/lawoffice)
 "sSv" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/east{
+/obj/machinery/door/airlock/multi_tile/glass{
 	locked = 1
 	},
 /obj/structure/barricade/wooden,
@@ -104091,7 +104091,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/computer)
 "uJn" = (
-/obj/machinery/door/airlock/multi_tile/directional/east{
+/obj/machinery/door/airlock/multi_tile{
 	name = "maintenance access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
