@@ -459,3 +459,41 @@ spawners together if possible.
     		/obj/item/gun/ballistic/revolver/mateba
     	)
     ```
+
+### Do not use prefabs in loot lists
+
+_Prefabs_ refer to raw typepaths with variable edits attached. Types declared in
+this way do not have easily identifiable reflection information, so they cannot
+be logged in a useful manner.
+
+!!! success "Good"
+
+    ```dm
+    /obj/item/stack/ore/plasma/ten
+    	amount = 10
+
+    /obj/item/stack/ore/gold/fifty
+    	amount = 50
+
+    /obj/effect/spawner/random/minerals
+    	name = "mineral spawner"
+    	icon_state = "rock"
+    	loot = list(
+    		/obj/item/stack/ore/diamond,
+    		/obj/item/stack/ore/plasma/ten,
+    		/obj/item/stack/ore/gold/fifty,
+    	)
+    ```
+
+!!! failure "Bad"
+
+    ```dm
+    /obj/effect/spawner/random/minerals
+    	name = "mineral spawner"
+    	icon_state = "rock"
+    	loot = list(
+			/obj/item/stack/ore/diamond{amount = 1},
+			/obj/item/stack/ore/plasma{amount = 10},
+			/obj/item/stack/ore/gold{amount = 50},
+    	)
+    ```
