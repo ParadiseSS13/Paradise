@@ -52,10 +52,10 @@
 /datum/data/pda/app/alarm/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return TRUE
-	
+
 	if(!pda.silent)
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
-	
+
 	switch(action)
 		if("submit")
 			handle_alarm_button()
@@ -72,7 +72,7 @@
 		last_response_success = FALSE
 		last_response_acts = list("ok")
 		return
-	
+
 	var/turf/location = get_turf(pda)
 	if(!pda.radio.on || (!is_station_level(location.z) && !is_mining_level(location.z)))
 		last_response_title = "Ошибка"
@@ -91,7 +91,7 @@
 /datum/data/pda/app/alarm/proc/call_security()
 	var/turf/loc = get_turf(pda)
 	log_game("[usr] ([usr.client.ckey]) has triggered an alarm button at ([loc.x], [loc.y], [loc.z]) using PDA of [pda.owner], [pda.ownrank].")
-	
+
 	var/area/area = get_area(pda)
 	var/message = "Внимание! [pda.owner], [pda.ownrank], использует тревожную кнопку в [area.name]! \
 		Необходимо[prioritized ? " немедленное" : ""] реагирование."
@@ -115,7 +115,8 @@
 		ghost_sound = 'sound/effects/electheart.ogg',
 		enter_link = "<a href=byond://?src=[pda.UID()];follow=1>(Click to follow)</a>",
 		source = pda,
-		action = NOTIFY_FOLLOW
+		action = NOTIFY_FOLLOW,
+		flashwindow = FALSE,
 	)
 
 /datum/data/pda/app/alarm/heads
