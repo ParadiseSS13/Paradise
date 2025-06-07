@@ -98,7 +98,7 @@
 	. = ..()
 	if(!.) // ..() will return 0 if we didn't actually move anywhere.
 		return
-	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 75, TRUE, ignore_walls = FALSE)
 
 #undef IV_TAKING
 #undef IV_INJECTING
