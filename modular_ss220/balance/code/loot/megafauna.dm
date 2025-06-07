@@ -15,24 +15,10 @@
 	if(length(loot))
 		new /obj/structure/closet/crate/necropolis/tendril(loc)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/round_2
-	loot = list(/obj/structure/closet/crate/necropolis/bubblegum/enraged)
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/enraged/crusher)
-
-/obj/structure/closet/crate/necropolis/bubblegum/populate_contents()
-	new /obj/item/clothing/suit/space/hostile_environment(src)
-	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
-
-/obj/structure/closet/crate/necropolis/bubblegum/enraged/populate_contents()
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
-	new /obj/item/melee/spellblade/random(src)
-
-/obj/structure/closet/crate/necropolis/bubblegum/enraged/crusher
-	name = "bloody bubblegum chest"
-
-/obj/structure/closet/crate/necropolis/bubblegum/enraged/crusher/populate_contents()
-	. = ..()
-	new /obj/item/crusher_trophy/demon_claws(src)
+	if(!second_life)
+		loot -= /obj/item/melee/spellblade/random
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination
 	loot_chance = 100
