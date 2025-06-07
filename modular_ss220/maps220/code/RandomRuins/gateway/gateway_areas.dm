@@ -1,25 +1,25 @@
 /* Wild West */
 /area/awaymission/wildwest
-	name = "Wild West"
+	name = "Дикий Запад"
 	report_alerts = FALSE
 	icon_state = "away"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/wildwest/wildwest_mines
-	name = "\improper Wild West Mines"
+	name = "Дикий Запад - Шахты"
 	icon_state = "awaycontent1"
 
 /area/awaymission/wildwest/wildwest_vaultdoors
-	name = "\improper Wild West Vault Doors"
+	name = "Дикий Запад - Подземелье"
 	icon_state = "awaycontent2"
 
 /area/awaymission/wildwest/wildwest_refine
-	name = "\improper Wild West Refinery"
+	name = "Дикий Запад - Складские Помещения"
 	icon_state = "awaycontent3"
 
 /area/awaymission/wildwest/wildwest_vault
-	name = "\improper Wild West Vault"
+	name = "Дикий Запад - Врата Подземелья"
 	icon_state = "awaycontent3"
 
 /* Terror Spiders */
@@ -98,194 +98,194 @@
 
 /* Black Market Packers */
 /area/awaymission/bmp_ship
-	name = "BMP Asteroids"
+	name = "Корабль Контрабандистов"
 	icon_state = "away"
 	report_alerts = FALSE
 	requires_power = FALSE
 	ambientsounds = list('sound/music/space.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambigen11.ogg', 'sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg')
 
 /area/awaymission/bmp_ship/engines
-	name = "BMP Engine Block"
+	name = "Корабль Контрабандистов - Двигательный Отсек"
 	icon_state = "awaycontent1"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/containment
-	name = "BMP Containment Block"
+	name = "Корабль Контрабандистов - Зона Содержания"
 	icon_state = "awaycontent2"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambicave.ogg', 'sound/ambience/ambiatmos2.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/fore
-	name = "BMP Fore Block"
+	name = "Корабль Контрабандистов - Мостик"
 	icon_state = "awaycontent3"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambigen12.ogg', 'sound/ambience/ambicave.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/gate
-	name = "BMP Gate"
+	name = "Корабль Контрабандистов - Гейт"
 	icon_state = "awaycontent4"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambidanger.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/armory
-	name = "BMP Armory"
+	name = "Корабль Контрабандистов - Арсенал"
 	icon_state = "awaycontent5"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/common
-	name = "BMP Common Area"
+	name = "Корабль Контрабандистов - Зона Экипажа"
 	icon_state = "awaycontent6"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambigen4.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/medbay
-	name = "BMP MedBay Block"
+	name = "Корабль Контрабандистов - Медицинский Отдел"
 	icon_state = "awaycontent7"
 	requires_power = TRUE
 	ambientsounds = list('sound/ambience/ambigen6.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/chem_lab
-	name = "BMP Chem Lab"
+	name = "Химическая Лаборатория Контрабандистов"
 	icon_state = "awaycontent8"
 	requires_power = TRUE
 	ambientsounds = "sound/ambience/ambifailure.ogg"
 
 /area/awaymission/bmp_ship/shelter
-	name = "BMP Shelter"
+	name = "Убежище Контрабандистов"
 	icon_state = "awaycontent9"
 	requires_power = TRUE
 	ambientsounds = "sound/ambience/ambifailure.ogg"
 
 /area/awaymission/bmp_ship/dormitories
-	name = "BMP Dormitories"
+	name = "Корабль Контрабандистов - Дормитории"
 	icon_state = "awaycontent10"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambigen3.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/turrets_north
-	name = "BMP Turrets North"
+	name = "Корабль Контрабандистов - Северные Турели"
 	icon_state = "awaycontent11"
 	requires_power = TRUE
 
 /area/awaymission/bmp_ship/turrets_south
-	name = "BMP Turrets South"
+	name = "Корабль Контрабандистов - Южные Турели"
 	icon_state = "awaycontent12"
 	requires_power = TRUE
 
 /area/awaymission/bmp_ship/bath
-	name = "Bath"
+	name = "Корабль Контрабандистов - Уборная"
 	icon_state = "awaycontent13"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/kitchen
-	name = "BMP Kitchen"
+	name = "Корабль Контрабандистов - Кухня"
 	icon_state = "awaycontent14"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/buffer
-	name = "BMP Buffer"
+	name = "Корабль Контрабандистов - Основной Коридор"
 	icon_state = "awaycontent15"
 	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambigen5.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/bmp_ship/trader_shuttle
-	name = "BMP Trader Shuttle"
+	name = "Шаттл Контрабандистов"
 	icon_state = "awaycontent16"
 	requires_power = TRUE
 	ambientsounds = "sound/spookoween/ghost_whisper.ogg"
 
 /area/awaymission/bmp_ship/mining
-	name = "BMP Mining"
+	name = "Корабль Контрабандистов - Шахтный Док"
 	icon_state = "awaycontent17"
 	requires_power = TRUE
 
 /* Jungle Planet */
 /area/awaymission/jungle_planet
-	name = "Jungle"
+	name = "Джунгли"
 	icon_state = "away"
 	report_alerts = FALSE
 
 /area/awaymission/jungle_planet/outside
-	name = "Jungle"
+	name = "Джунгли"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	icon_state = "awaycontent1"
 	always_unpowered = TRUE
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/jungle1.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/jungle2.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/jungle3.ogg')
 
 /area/awaymission/jungle_planet/outside/abandoned
-	name = "Abandoned"
+	name = "Заброшенный Шаттл"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	icon_state = "awaycontent5"
 
 /area/awaymission/jungle_planet/outside/river
-	name = "River"
+	name = "Река"
 	icon_state = "awaycontent2"
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/river.ogg')
 
 /area/awaymission/jungle_planet/outside/waterfall
-	name = "Waterfall"
+	name = "Водопад"
 	icon_state = "awaycontent3"
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/waterfall.ogg')
 
 /area/awaymission/jungle_planet/outside/cave
-	name = "Cave"
+	name = "Пещеры"
 	icon_state = "awaycontent4"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/cave_ambient2.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_ambient3.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterdrops.ogg')
 
 /area/awaymission/jungle_planet/outside/cave/small
-	name = "Small Cave"
+	name = "Узкие Пещеры"
 	icon_state = "awaycontent7"
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterfall.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterdrops.ogg')
 
 /area/awaymission/jungle_planet/outside/cave/pirate
-	name = "Pirate Cave"
+	name = "Пещеры Пиратов"
 	icon_state = "awaycontent6"
 	always_unpowered = FALSE
 	requires_power = FALSE
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterdrops.ogg')
 
 /area/awaymission/jungle_planet/inside
-	name = "Hangar 2"
+	name = "Ангар"
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	icon_state = "awaycontent8"
 	requires_power = TRUE
 
 /area/awaymission/jungle_planet/inside/complex
-	name = "MC-16"
+	name = "Комплекс MC-16"
 	icon_state = "awaycontent9"
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/ambient_pulse1.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/ambient_pulse2.ogg')
 
 /* Caves */
 /area/awaymission/caves
-	name = "Caves"
+	name = "Пещеры"
 	icon_state = "away"
 	report_alerts = FALSE
 	always_unpowered = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/caves/build
-	name = "Abandoned building"
+	name = "Заброшенное Строение"
 	icon_state = "awaycontent1"
 	always_unpowered = FALSE
 	requires_power = FALSE
 
 /area/awaymission/caves/build/reqpower_build
-	name = "Research Сomplex ''Mirror''"
+	name = "Исследовательский Комплекс \"Зеркало\""
 	icon_state = "awaycontent2"
 	requires_power = TRUE
 
@@ -637,165 +637,165 @@
 
 /*Space Battle*/
 /area/awaymission/space_battle
-	name = "\improper Space Battle"
+	name = "Космическая Баталия"
 	icon_state = "awaycontent1"
 	requires_power = TRUE
 	report_alerts = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/space_battle/cruiser
-	name = "\improper Nanotrasen Cruiser"
+	name = "Крейсер НТ"
 	icon_state = "awaycontent2"
 
 /area/awaymission/space_battle/prhallway1
-	name = "\improper Port Primary Hallway"
+	name = "Крейсер НТ - Основной Западный Коридор"
 	icon_state = "awaycontent10"
 
 /area/awaymission/space_battle/prhallway2
-	name = "\improper Central Primary Hallway"
+	name = "Крейсер НТ - Основной Коридор"
 	icon_state = "awaycontent11"
 
 /area/awaymission/space_battle/prhallway3
-	name = "\improper Starboard Primary Hallway"
+	name = "Крейсер НТ - Основной Восточный Коридор"
 	icon_state = "awaycontent12"
 
 /area/awaymission/space_battle/kitchen
-	name = "\improper Kitchen"
+	name = "Крейсер НТ - Кухня"
 	icon_state = "awaycontent13"
 
 /area/awaymission/space_battle/medbay
-	name = "\improper MedBay"
+	name = "Крейсер НТ - Медицинский Отдел"
 	icon_state = "awaycontent14"
 
 /area/awaymission/space_battle/server
-	name = "\improper Server Room"
+	name = "Крейсер НТ - Серверная"
 	icon_state = "awaycontent15"
 
 /area/awaymission/space_battle/bridge
-	name = "\improper Bridge"
+	name = "Крейсер НТ - Мостик"
 	icon_state = "awaycontent16"
 
 /area/awaymission/space_battle/hallway1
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent17"
 
 /area/awaymission/space_battle/hallway2
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent18"
 
 /area/awaymission/space_battle/hallway3
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent19"
 
 /area/awaymission/space_battle/hallway4
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent20"
 
 /area/awaymission/space_battle/hallway5
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent21"
 
 /area/awaymission/space_battle/hallway6
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent22"
 
 /area/awaymission/space_battle/hallway7
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent23"
 
 /area/awaymission/space_battle/hallway8
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent24"
 
 /area/awaymission/space_battle/hallway9
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent25"
 
 /area/awaymission/space_battle/hallway10
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent26"
 
 /area/awaymission/space_battle/hallway11
-	name = "\improper Hallway"
+	name = "Крейсер НТ - Коридоры"
 	icon_state = "awaycontent27"
 
 /area/awaymission/space_battle/engine
-	name = "\improper Engine Room"
+	name = "Крейсер НТ - Двигательный Отсек"
 	icon_state = "awaycontent28"
 
 /area/awaymission/space_battle/engineering
-	name = "\improper Engineering"
+	name = "Крейсер НТ - Инженерный Отдел"
 	icon_state = "awaycontent29"
 
 /area/awaymission/space_battle/storage
-	name = "\improper Storage"
+	name = "Крейсер НТ - Грузовой Отсек"
 	icon_state = "awaycontent30"
 
 /area/awaymission/space_battle/living
-	name = "\improper Living Room"
+	name = "Крейсер НТ - Жилое Помещение"
 	icon_state = "awaycontent1"
 
 /area/awaymission/space_battle/turret1
-	name = "\improper Turret Room"
+	name = "Крейсер НТ - Турели"
 	icon_state = "awaycontent2"
 
 /area/awaymission/space_battle/turret2
-	name = "\improper Turret Room"
+	name = "Крейсер НТ - Турели"
 	icon_state = "awaycontent3"
 
 /area/awaymission/space_battle/turret3
-	name = "\improper Turret Room"
+	name = "Крейсер НТ - Турели"
 	icon_state = "awaycontent4"
 
 /area/awaymission/space_battle/turret4
-	name = "\improper Turret Room"
+	name = "Крейсер НТ - Турели"
 	icon_state = "awaycontent5"
 
 /area/awaymission/space_battle/turret5
-	name = "\improper Turret Room"
+	name = "Крейсер НТ - Турели"
 	icon_state = "awaycontent6"
 
 /area/awaymission/space_battle/turret6
-	name = "\improper Turret Room"
+	name = "Крейсер НТ - Турели"
 	icon_state = "awaycontent7"
 
 /area/awaymission/space_battle/turret7
-	name = "\improper Turret Room"
+	name = "Крейсер НТ - Турели"
 	icon_state = "awaycontent8"
 
 /area/awaymission/space_battle/turret8
-	name = "\improper Turret Room"
+	name = "Крейсер НТ - Турели"
 	icon_state = "awaycontent9"
 
 /area/awaymission/space_battle/syndicate
-	name = "\improper Syndicate Assault Ship 1"
+	name = "Корабль-Перехватчик Синдиката"
 	icon_state = "awaycontent3"
 	requires_power = FALSE
 
 /area/awaymission/space_battle/syndicate/syndicate1
-	name = "\improper Syndicate Assault Ship 2"
+	name = "Корабль-Перехватчик Синдиката"
 	icon_state = "awaycontent4"
 
 /area/awaymission/space_battle/syndicate/syndicate2
-	name = "\improper Syndicate Assault Ship 3"
+	name = "Корабль-Перехватчик Синдиката"
 	icon_state = "awaycontent5"
 
 /area/awaymission/space_battle/syndicate/syndicate3
-	name = "\improper Syndicate War Sphere 1"
+	name = "Корабль-Перехватчик Синдиката"
 	icon_state = "awaycontent6"
 
 /area/awaymission/space_battle/syndicate/syndicate4
-	name = "\improper Syndicate War Sphere 2"
+	name = "Корабль-Перехватчик Синдиката"
 	icon_state = "awaycontent7"
 
 /area/awaymission/space_battle/syndicate/syndicate5
-	name = "\improper Syndicate War Sphere 3"
+	name = "Корабль-Перехватчик Синдиката"
 	icon_state = "awaycontent8"
 
 /area/awaymission/space_battle/syndicate/syndicate6
-	name = "\improper Syndicate Fighter"
+	name = "Корабль-Перехватчик Синдиката"
 	icon_state = "awaycontent9"
 
 /area/awaymission/space_battle/sec_storage
-	name = "\improper Turret Room"
+	name = "Крейсер НТ - Защищенное Хранилище"
 	icon_state = "awaycontent10"

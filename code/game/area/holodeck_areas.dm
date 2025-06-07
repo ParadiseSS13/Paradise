@@ -1,57 +1,57 @@
 
 /area/holodeck
-	name = "\improper Holodeck"
+	name = "Голодек"
 	icon_state = "Holodeck"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 
 /area/holodeck/alphadeck
-	name = "\improper Holodeck Alpha"
+	name = "Голодек"
 
 
 /area/holodeck/source_plating
-	name = "\improper Holodeck - Off"
+	name = "Голодек - Выкл"
 	icon_state = "Holodeck"
 
 /area/holodeck/source_emptycourt
-	name = "\improper Holodeck - Empty Court"
+	name = "Голодек - Пустой Корт"
 
 /area/holodeck/source_boxingcourt
-	name = "\improper Holodeck - Boxing Court"
+	name = "Голодек - Боксерский Ринг"
 
 /area/holodeck/source_basketball
-	name = "\improper Holodeck - Basketball Court"
+	name = "Голодек - Баскетбольная Площадка"
 
 /area/holodeck/source_thunderdomecourt
-	name = "\improper Holodeck - Thunderdome Court"
+	name = "Голодек - Арена Тандердома"
 
 /area/holodeck/source_beach
-	name = "\improper Holodeck - Beach"
+	name = "Голодек - Пляж"
 	icon_state = "Holodeck" // Lazy.
 
 /area/holodeck/source_burntest
-	name = "\improper Holodeck - Atmospheric Burn Test"
+	name = "Голодек - Симуляция Атмосферы"
 
 /area/holodeck/source_wildlife
-	name = "\improper Holodeck - Wildlife Simulation"
+	name = "Голодек - Симуляция Дикой Природы"
 
 /area/holodeck/source_meetinghall
-	name = "\improper Holodeck - Meeting Hall"
+	name = "Голодек - Зал Заседаний"
 
 /area/holodeck/source_theatre
-	name = "\improper Holodeck - Theatre"
+	name = "Голодек - Театр"
 
 /area/holodeck/source_picnicarea
-	name = "\improper Holodeck - Picnic Area"
+	name = "Голодек - Пикник"
 
 /area/holodeck/source_snowfield
-	name = "\improper Holodeck - Snow Field"
+	name = "Голодек - Заснеженное Поле"
 
 /area/holodeck/source_desert
-	name = "\improper Holodeck - Desert"
+	name = "Голодек - Пустыня"
 
 /area/holodeck/source_space
-	name = "\improper Holodeck - Space"
+	name = "Голодек - Космос"
 
 /area/holodeck/source_knightarena
-	name = "\improper Holodeck - Knight Arena"
+	name = "Голодек - Рыцарская Арена"

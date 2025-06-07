@@ -258,12 +258,12 @@
 	icon_state = "centcom"
 
 /area/shuttle/assault_pod/nanotrasen
-	name = "Nanotrasen Drop Pod"
+	name = "Десантная Капсула НТ"
 	icon_state = "shuttle"
 
 /* Syndicate Base - Mothership */
 /area/syndicate_mothership
-	name = "Syndicate Forward Base"
+	name = "СЦК"
 	icon = 'modular_ss220/maps220/icons/areas.dmi'
 	icon_state = "syndie-ship"
 	requires_power = FALSE
@@ -272,49 +272,49 @@
 	ambientsounds = HIGHSEC_SOUNDS
 
 /area/syndicate_mothership/outside
-	name = "Syndicate Controlled Territory"
+	name = "СЦК - Подконтрольная Территория"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	icon_state = "syndie-outside"
 
 /area/syndicate_mothership/control
-	name = "Syndicate Control Room"
+	name = "СЦК - Командный Центр"
 	icon_state = "syndie-control"
 
 /area/syndicate_mothership/elite_squad
-	name = "Syndicate Elite Squad"
+	name = "СЦК - Отдел Специальных Операций"
 	icon_state = "syndie-elite"
 
 /area/syndicate_mothership/infteam
-	name = "Syndicate Infiltrators"
+	name = "СЦК - Отдел Внедрения"
 	icon_state = "syndie-infiltrator"
 
 /area/syndicate_mothership/jail
-	name = "Syndicate Jail"
+	name = "СЦК - Тюрьма"
 	icon_state = "syndie-jail"
 
 /area/syndicate_mothership/cargo
-	name = "Syndicate Cargo"
+	name = "СЦК - Грузовой Корабль"
 	icon_state = "syndie-cargo"
 
 /* Skyrat Ghostbar */
 /area/ghost_bar/outdoor
-	name = "Ghost Bar - Outdoor"
+	name = "Призрачный Бар - Улица"
 	icon_state = "away"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/jungle1.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/jungle2.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/jungle3.ogg')
 
 /area/ghost_bar/outdoor/beach
-	name = "Ghost Bar - Beach"
+	name = "Призрачный Бар - Пляж"
 	icon_state = "beach"
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/river.ogg', 'sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg')
 
 /area/ghost_bar/indoor
-	name = "Ghost Bar - Indoor"
+	name = "Призрачный Бар"
 	icon_state = "observatory"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ghost_bar/indoor/cave
-	name = "Ghost Bar - Cave"
+	name = "Призрачный Бар - Пещеры"
 	icon_state = "cave"
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/cave_ambient2.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_ambient3.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterdrops.ogg')
 

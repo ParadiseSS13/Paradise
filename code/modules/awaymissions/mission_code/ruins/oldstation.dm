@@ -458,7 +458,7 @@
 //////////////////////////////
 //Ruin of ancient Space Station
 /area/ruin/ancientstation
-	name = "Charlie Station Main Corridor"
+	name = "Станция Чарли - Основной Коридор"
 	icon_state = "green"
 	has_gravity = TRUE
 
@@ -469,49 +469,49 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ruin/ancientstation/atmo
-	name = "Beta Station Atmospherics"
+	name = "Станция Бета - Атмосферный Отдел"
 	icon_state = "red"
 	has_gravity = FALSE
 	ambientsounds = ENGINEERING_SOUNDS
 
 /area/ruin/ancientstation/betanorth
-	name = "Beta Station North Corridor"
+	name = "Станция Бета - Южный Коридор"
 	icon_state = "purple"
 
 /area/ruin/ancientstation/engi
-	name = "Charlie Station Engineering"
+	name = "Станция Чарли - Инженерный Отдел"
 	icon_state = "engine"
 	ambientsounds = ENGINEERING_SOUNDS
 
 /area/ruin/ancientstation/comm
-	name = "Charlie Station Command"
+	name = "Станция Чарли - Мостик"
 	icon_state = "captain"
 
 /area/ruin/ancientstation/hydroponics
-	name = "Charlie Station Hydroponics"
+	name = "Станция Чарли - Гидропоника"
 	icon_state = "hydro"
 
 /area/ruin/ancientstation/kitchen
-	name = "Charlie Station Kitchen"
+	name = "Станция Чарли - Кухня"
 	icon_state = "kitchen"
 
 /area/ruin/ancientstation/sec
-	name = "Charlie Station Security"
+	name = "Станция Чарли - Служба Безопасности"
 	icon_state = "red"
 
 /area/ruin/ancientstation/thetacorridor
-	name = "Theta Station Main Corridor"
+	name = "Станция Тета - Основной Коридор"
 	icon_state = "green"
 
 /area/ruin/ancientstation/proto
-	name = "Theta Station Prototype Lab"
+	name = "Станция Тета - Хранилище Прототипов"
 	icon_state = "scilab"
 
 /area/ruin/ancientstation/rnd
-	name = "Theta Station Research and Development"
+	name = "Станция Тета - Отдел Исследований"
 	icon_state = "rnd"
 
 /area/ruin/ancientstation/hivebot
-	name = "Hivebot Mothership"
+	name = "Материнский Корабль Дронов"
 	icon_state = "teleporter"
 	requires_power = FALSE
