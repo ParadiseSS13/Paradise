@@ -1,6 +1,4 @@
-@use '../base.scss';
 @use '../colors.scss';
-@use '../functions.scss' as *;
 
 .SecurityRecords__list {
   tr > td {
@@ -8,46 +6,46 @@
   }
 
   tr:not(:first-child) {
-    height: 24px;
+    cursor: var(--cursor-pointer);
     line-height: 24px;
-    cursor: pointer;
+    height: 24px;
+    transition: background-color var(--transition-time-fast);
 
-    transition: background-color 50ms;
     &:hover,
     &:focus {
-      background-color: rgba(base.$color-bg, 1);
+      background-color: var(--color-base);
     }
   }
 }
 
 .SecurityRecords__listRow--arrest {
-  background-color: colors.bg(#890e26);
+  background-color: colors.bg(hsl(350, 80%, 30%));
 }
 
 .SecurityRecords__listRow--execute {
-  background-color: colors.bg(#7a49a5);
+  background-color: colors.bg(hsl(270, 40%, 47.5%));
 }
 
 .SecurityRecords__listRow--incarcerated {
-  background-color: colors.bg(#743b03);
+  background-color: colors.bg(hsl(30, 95%, 22.5%));
 }
 
 .SecurityRecords__listRow--parolled {
-  background-color: colors.bg(#008091);
+  background-color: colors.bg(hsl(187.5, 100%, 27.5%));
 }
 
 .SecurityRecords__listRow--released {
-  background-color: colors.bg(#216489);
+  background-color: colors.bg(hsl(200, 60%, 32.5%));
 }
 
 .SecurityRecords__listRow--demote {
-  background-color: colors.bg(#196400);
+  background-color: colors.bg(hsl(105, 100%, 20%));
 }
 
 .SecurityRecords__listRow--search {
-  background-color: colors.bg(#b38f00);
+  background-color: colors.bg(hsl(48, 100%, 35%));
 }
 
 .SecurityRecords__listRow--monitor {
-  background-color: colors.bg(#251496);
+  background-color: colors.bg(hsl(250, 75%, 32.5%));
 }

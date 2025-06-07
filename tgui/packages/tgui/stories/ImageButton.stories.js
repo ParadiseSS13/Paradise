@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
-import { Button, LabeledList, ImageButton, Input, Slider, Section, Stack } from '../components';
+import { useState } from 'react';
+import { Button, ImageButton, Input, LabeledList, Section, Slider, Stack } from 'tgui-core/components';
 
 export const meta = {
   title: 'ImageButton',
@@ -30,17 +30,30 @@ const COLORS_SPECTRUM = [
 
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
-const Story = (props, context) => {
-  const [fluid1, setFluid1] = useLocalState(context, 'fluid1', true);
-  const [fluid2, setFluid2] = useLocalState(context, 'fluid2', false);
-  const [fluid3, setFluid3] = useLocalState(context, 'fluid3', false);
-  const [disabled, setDisabled] = useLocalState(context, 'disabled', false);
-  const [selected, setSelected] = useLocalState(context, 'selected', false);
-  const [addImage, setAddImage] = useLocalState(context, 'addImage', false);
-  const [base64, setbase64] = useLocalState(context, 'base64', '');
-  const [title, setTitle] = useLocalState(context, 'title', 'Image Button');
-  const [content, setContent] = useLocalState(context, 'content', 'You can put anything in there');
-  const [imageSize, setImageSize] = useLocalState(context, 'imageSize', 64);
+const Story = (props) => {
+  const [fluid1, setFluid1] = useState(true);
+  const [fluid2, setFluid2] = useState(false);
+  const [fluid3, setFluid3] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [addImage, setAddImage] = useState(false);
+  const [base64, setbase64] = useState('');
+  const [title, setTitle] = useState('Image Button');
+  const [content, setContent] = useState('You can put anything in there');
+  const [imageSize, setImageSize] = useState(64);
+
+  const buttons = (
+    <Button
+      fluid
+      translucent={fluid1}
+      compact={!fluid1}
+      color={!fluid1 && 'transparent'}
+      selected={addImage}
+      onClick={() => setAddImage(!addImage)}
+    >
+      Add Image
+    </Button>
+  );
 
   return (
     <>
@@ -50,15 +63,15 @@ const Story = (props, context) => {
             <LabeledList>
               {addImage ? (
                 <LabeledList.Item label="base64">
-                  <Input value={base64} onInput={(e, value) => setbase64(value)} />
+                  <Input value={base64} onChange={(value) => setbase64(value)} />
                 </LabeledList.Item>
               ) : (
                 <>
                   <LabeledList.Item label="Title">
-                    <Input value={title} onInput={(e, value) => setTitle(value)} />
+                    <Input value={title} onChange={(value) => setTitle(value)} />
                   </LabeledList.Item>
                   <LabeledList.Item label="Content">
-                    <Input value={content} onInput={(e, value) => setContent(value)} />
+                    <Input value={content} onChange={(value) => setContent(value)} />
                   </LabeledList.Item>
                   <LabeledList.Item label="Image Size">
                     <Slider
@@ -104,19 +117,8 @@ const Story = (props, context) => {
             tooltip={!fluid1 && content}
             disabled={disabled}
             selected={selected}
-            buttonsAlt={fluid1}
-            buttons={
-              <Button
-                fluid
-                translucent={fluid1}
-                compact={!fluid1}
-                color={!fluid1 && 'transparent'}
-                selected={addImage}
-                onClick={() => setAddImage(!addImage)}
-              >
-                Add Image
-              </Button>
-            }
+            buttonsAlt={fluid1 && buttons}
+            buttons={!fluid1 && buttons}
           >
             {content}
           </ImageButton>
