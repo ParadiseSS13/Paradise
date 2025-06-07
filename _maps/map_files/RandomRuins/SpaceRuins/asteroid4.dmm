@@ -51,7 +51,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/unpowered)
 "p" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "Q" = (

@@ -459,9 +459,9 @@
 /obj/item/stack/sheet/mineral/gold/fifty,
 /obj/item/clothing/gloves/ring/plasma,
 /obj/item/banhammer,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
 /obj/structure/safe/floor,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/rocky_motel)
 "Kn" = (

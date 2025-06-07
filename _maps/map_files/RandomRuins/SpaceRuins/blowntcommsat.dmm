@@ -53,7 +53,7 @@
 /area/ruin/space/tcommsat)
 "cl" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -488,7 +488,7 @@
 /area/ruin/space/tcommsat)
 "Go" = (
 /obj/structure/table,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "GG" = (
@@ -599,7 +599,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "NC" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "NJ" = (
@@ -644,7 +644,7 @@
 	dir = 8
 	},
 /obj/structure/closet/firecloset,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "PZ" = (

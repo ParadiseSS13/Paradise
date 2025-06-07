@@ -129,7 +129,7 @@
 /area/ruin/space/unathi_breacher/hold)
 "kb" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/unathi_breacher/hold)
 "kf" = (
@@ -144,7 +144,7 @@
 "kt" = (
 /obj/structure/table,
 /obj/item/screwdriver,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "li" = (
