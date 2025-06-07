@@ -242,7 +242,7 @@
 /obj/structure/morgue/welder_act(mob/user, obj/item/I)
 	if(!anchored)
 		WELDER_ATTEMPT_SLICING_MESSAGE
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE
 			deconstruct(TRUE)
 		return TRUE
