@@ -93344,6 +93344,7 @@
 	},
 /area/station/command/office/cmo)
 "sCy" = (
+/obj/machinery/economy/vending/minedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
