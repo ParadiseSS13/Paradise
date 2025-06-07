@@ -29,7 +29,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "aZ" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
@@ -254,7 +254,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "fZ" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/pod/light/lavaland_air{
@@ -1170,7 +1170,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Cp" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
@@ -1576,7 +1576,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "MK" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
