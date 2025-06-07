@@ -643,9 +643,7 @@
 	icon_broken = "base_drobe"
 	icon_off = "base_drobe"
 	category = VENDOR_TYPE_CLOTHING
-	ads_list = list("Not guaranteed to protect the user from the hot ash storms and lava. We are not liable!")
 
-	vend_reply = "Aye, thanks for using the MineDrobe, lad!"
 	products = list(/obj/item/clothing/under/rank/cargo/miner/lavaland/overalls = 3,
 				/obj/item/clothing/under/rank/cargo/miner/lavaland = 3,
 				/obj/item/clothing/under/rank/cargo/miner/lavaland/skirt = 3,
