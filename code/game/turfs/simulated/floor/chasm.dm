@@ -67,7 +67,7 @@
 	if(!pass_info.is_living)
 		return TRUE
 
-	return pass_info.is_flying || pass_info.is_megafauna
+	return pass_info.is_flying || pass_info.is_megafauna || (locate(/obj/structure/bridge_walkway) in src)
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
@@ -179,6 +179,9 @@
 			L.Weaken(10 SECONDS)
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
+
+/turf/simulated/floor/chasm/can_cross_safely(atom/movable/crossing)
+	return locate(/obj/structure/bridge_walkway) in src
 
 /turf/simulated/floor/chasm/straight_down
 	var/obj/effect/abstract/chasm_storage/storage
