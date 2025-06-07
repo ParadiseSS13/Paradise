@@ -399,7 +399,7 @@
 /area/ruin/ancientstation/betanorth)
 "bp" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/nasavoid/old,
+/obj/item/clothing/suit/space/void/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1391,7 +1391,7 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/magboots,
-/obj/item/clothing/head/helmet/space/nasavoid/old,
+/obj/item/clothing/head/helmet/space/void/old,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
