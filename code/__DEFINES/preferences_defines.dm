@@ -183,3 +183,29 @@
 #define COLOURBLIND_MODE_DEUTER "Red-green (green weak, deuteranopia)"
 #define COLOURBLIND_MODE_PROT "Red-green (red weak, protanopia)"
 #define COLOURBLIND_MODE_TRIT "Blue-yellow (tritanopia)"
+
+/// Client FPS options. List's indexes are text values, not numeric. Don't forget to convert them if you ever gonna use them
+GLOBAL_LIST_INIT(client_fps_options, list_fps_options())
+
+/proc/list_fps_options()
+	. = list() // fps options, but in descending
+	var/list/options = list() // fps options
+	var/list/keys = list() // keys so we can perform reverse of the `options`
+
+	for(var/fps_desired in world.fps to 1000)
+		var/frame_time = floor(1000 / fps_desired)
+		var/fps_actual = ceil(1000 / frame_time)
+
+		if(options["[fps_actual]"])
+			continue
+
+		options["[fps_actual]"] = fps_desired // have to use "[]" cos custom numeric indexes result in runtimes
+
+	for(var/key in options)
+		keys += text2num(key) // otherwise `max()` works wrong
+
+	while(length(keys)) // displays fps options in descending
+		var/current_key = max(keys)
+		var/current = options["[current_key]"]
+		.["[current_key]"] = current
+		keys -= current_key
