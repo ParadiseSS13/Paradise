@@ -86,6 +86,8 @@
 /obj/item/gun/medbeam/proc/los_check(atom/movable/user, mob/target)
 	var/turf/user_turf = user.loc
 	var/datum/beam/current_beam = locateUID(beam_UID)
+	if(QDELETED(current_beam))
+		return FALSE
 	if(mounted)
 		user_turf = get_turf(user)
 	else if(!istype(user_turf))
