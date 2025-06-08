@@ -42,7 +42,9 @@
 /datum/component/tether/Destroy(force, silent)
 	QDEL_NULL(tether_tracker)
 	QDEL_NULL(parent_tracker)
-	QDEL_NULL(beam)
+	if(!QDELETED(beam))
+		qdel(beam)
+		beam = null
 	SEND_SIGNAL(tethered_to, COMSIG_TETHER_DESTROYED)
 	tether_visual_target = null
 	tethered_to = null
