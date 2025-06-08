@@ -611,9 +611,9 @@
 	occupant = null
 	icon_state = base_icon_state
 	name = initial(name)
-	log_admin("[key_name(E)] exited a stasis pod.")
+	log_admin("[key_name(occupant)] exited a stasis pod.")
 	if(isAntag(occupant))
-		message_admins("[key_name_admin(E)] antag exited a stasis pod after " + round((world.time - time_entered )/600, 2) + " minutes inside (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)" )
+		message_admins("[key_name_admin(occupant)] antag exited a stasis pod after [round((world.time - time_entered )/600, 2)] minutes inside (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)" )
 	playsound(src, 'sound/machines/podopen.ogg', 5)
 
 //Attacks/effects.
