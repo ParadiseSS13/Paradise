@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(central)
 /datum/controller/subsystem/central/proc/load_whitelist()
 	var/endpoint = "[GLOB.configuration.central.api_url]/whitelists/ckeys?sever_type=[GLOB.configuration.central.server_type]&active_only=true&page=1&page_size=9999"
 
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, endpoint, "", list(), CALLBACK(src, PROC_REF(load_whitelist_callback)))
+	SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_GET, endpoint, "", list(), CALLBACK(src, PROC_REF(load_whitelist_callback)))
 
 /datum/controller/subsystem/central/proc/load_whitelist_callback(datum/http_response/response)
 	if(response.errored || response.status_code != 200)
@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(central)
 /datum/controller/subsystem/central/proc/get_player_discord_async(client/player)
 	var/endpoint = "[GLOB.configuration.central.api_url]/players/ckey/[player.ckey]"
 
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, endpoint, "", list(), CALLBACK(src, PROC_REF(get_player_discord_callback), player))
+	SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_GET, endpoint, "", list(), CALLBACK(src, PROC_REF(get_player_discord_callback), player))
 
 /datum/controller/subsystem/central/proc/get_player_discord_callback(client/player, datum/http_response/response)
 	if(response.errored || response.status_code != 200 && response.status_code != 404)
@@ -102,7 +102,7 @@ SUBSYSTEM_DEF(central)
 		return TRUE
 
 	var/endpoint = "[GLOB.configuration.central.api_url]/whitelists?sever_type=[GLOB.configuration.central.server_type]&ckey=[ckey]&page=1&page_size=1"
-	var/datum/http_response/response = SShttp.make_sync_request(RUSTG_HTTP_METHOD_GET, endpoint, "", list())
+	var/datum/http_response/response = SShttp.make_sync_request(RUSTLIBS_HTTP_METHOD_GET, endpoint, "", list())
 	if(response.errored || response.status_code != 200 && response.status_code != 404)
 		stack_trace("Failed to check whitelist: HTTP error - [response.error]")
 	if(response.status_code == 404)
@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(central)
 	body["sever_type"] = GLOB.configuration.central.server_type
 	body["duration_days"] = duration_days
 
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, endpoint, json_encode(body), headers, CALLBACK(src, PROC_REF(add_to_whitelist_callback), ckey))
+	SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, endpoint, json_encode(body), headers, CALLBACK(src, PROC_REF(add_to_whitelist_callback), ckey))
 
 /datum/controller/subsystem/central/proc/add_to_whitelist_callback(ckey, datum/http_response/response)
 	if(response.errored)
@@ -159,7 +159,7 @@ SUBSYSTEM_DEF(central)
 	body["duration_days"] = duration_days
 	body["reason"] = reason
 
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, endpoint, json_encode(body), headers, CALLBACK(src, PROC_REF(whitelist_ban_player_callback), player_ckey))
+	SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, endpoint, json_encode(body), headers, CALLBACK(src, PROC_REF(whitelist_ban_player_callback), player_ckey))
 
 /datum/controller/subsystem/central/proc/whitelist_ban_player_callback(ckey, datum/http_response/response)
 	if(response.errored || response.status_code != 201)
@@ -171,7 +171,7 @@ SUBSYSTEM_DEF(central)
 
 /datum/controller/subsystem/central/proc/update_player_donate_tier_async(client/player)
 	var/endpoint = "[GLOB.configuration.central.api_url]/donates?ckey=[player.ckey]&active_only=true&page=1&page_size=1"
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, endpoint, "", list(), CALLBACK(src, PROC_REF(update_player_donate_tier_callback), player))
+	SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_GET, endpoint, "", list(), CALLBACK(src, PROC_REF(update_player_donate_tier_callback), player))
 
 /datum/controller/subsystem/central/proc/update_player_donate_tier_callback(client/player, datum/http_response/response)
 	if(response.errored || response.status_code != 200)
@@ -183,7 +183,7 @@ SUBSYSTEM_DEF(central)
 
 /datum/controller/subsystem/central/proc/get_player_donate_tier_blocking(client/player)
 	var/endpoint = "[GLOB.configuration.central.api_url]/donates?ckey=[player.ckey]&active_only=true&page=1&page_size=1"
-	var/datum/http_response/response = SShttp.make_sync_request(RUSTG_HTTP_METHOD_GET, endpoint, "", list())
+	var/datum/http_response/response = SShttp.make_sync_request(RUSTLIBS_HTTP_METHOD_GET, endpoint, "", list())
 	if(response.errored || response.status_code != 200)
 		stack_trace("Failed to get player donate tier: HTTP status code [response.status_code] - [response.error] - [response.body]")
 		return 0

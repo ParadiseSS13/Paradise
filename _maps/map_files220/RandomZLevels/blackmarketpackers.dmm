@@ -555,7 +555,7 @@
 /area/awaymission/bmp_ship/gate)
 "bY" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /obj/structure/spider/stickyweb,
@@ -1358,7 +1358,7 @@
 /area/awaymission/bmp_ship/gate)
 "eh" = (
 /obj/structure/alien/weeds,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,

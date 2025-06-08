@@ -26,4 +26,4 @@ GLOBAL_DATUM_INIT(gpt220, /datum/gpt220, new())
 		"authorization" = "Bearer [GLOB.configuration.gpt.access_token]"
 	)
 
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, endpoint, body, headers, callback)
+	SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, endpoint, body, headers, callback)

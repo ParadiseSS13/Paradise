@@ -813,7 +813,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "auK" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -9382,7 +9382,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -12952,7 +12952,7 @@
 	},
 /area/centcom/ss220/admin1)
 "fyn" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -16112,7 +16112,7 @@
 /turf/simulated/floor/grass,
 /area/ghost_bar/indoor/cave)
 "gWt" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -19290,7 +19290,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "ikf" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/wood/oak,
@@ -45681,7 +45681,7 @@
 	},
 /area/vox_base)
 "tMn" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/general)
 "tMz" = (
@@ -46195,7 +46195,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -49808,7 +49808,7 @@
 /turf/simulated/floor/grass,
 /area/ghost_bar/outdoor)
 "vCe" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -53547,7 +53547,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
 "xio" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,

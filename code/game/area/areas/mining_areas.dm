@@ -64,6 +64,10 @@
 	name = "Внешная Площадка Шахтерского Аванпоста"
 	icon_state = "mining"
 
+/area/lavaland/surface/outdoors/outpost/no_boulder
+	name = "Mining Station"
+	icon_state = "mining"
+
 /area/mine/outpost/comms
 	name = "Отделение Телекоммуникаций Шахтерского Аванпоста"
 	icon_state = "tcomms"

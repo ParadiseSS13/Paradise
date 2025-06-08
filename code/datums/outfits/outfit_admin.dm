@@ -1418,7 +1418,7 @@
 		B.desc = "Sometimes, someone's just gotta die."
 	var/obj/item/radio/headset/R = H.l_ear
 	if(istype(R))
-		R.flags |= NODROP
+		R.set_nodrop(TRUE, H)
 
 /datum/outfit/admin/honksquad
 	name = "Honksquad"

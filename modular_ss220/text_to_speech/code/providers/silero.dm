@@ -22,7 +22,7 @@
 	req_body["format"] = "ogg"
 	req_body["word_ts"] = FALSE
 
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, GLOB.configuration.tts.tts_api_url_silero , json_encode(req_body), list("content-type" = "application/json"), proc_callback)
+	SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, GLOB.configuration.tts.tts_api_url_silero , json_encode(req_body), list("content-type" = "application/json"), proc_callback)
 
 	return TRUE
 

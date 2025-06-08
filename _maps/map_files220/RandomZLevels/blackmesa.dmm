@@ -574,7 +574,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/black_ops_entrance)
 "aOA" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "aOQ" = (
@@ -2373,7 +2373,7 @@
 /area/awaymission/black_mesa/tram_room)
 "cVd" = (
 /obj/machinery/light_construct/directional/west,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/blue,
@@ -3316,7 +3316,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_hallway)
 "ecs" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/blue,
@@ -3544,7 +3544,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/black_mesa/black_ops_entrance)
 "eoT" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4794,7 +4794,7 @@
 	},
 /area/awaymission/black_mesa/xen/nihilanth_arena)
 "fRY" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/blue,
@@ -5023,7 +5023,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/black_mesa/genetics_sec)
 "ghw" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/blue{
@@ -5039,7 +5039,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/scientist_hall)
 "gkP" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/blue{
@@ -6399,7 +6399,7 @@
 	},
 /area/awaymission/black_mesa/security_outpost)
 "hWN" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -6636,7 +6636,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "imP" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -7005,7 +7005,7 @@
 /area/awaymission/black_mesa/xen/entering_zone)
 "iLR" = (
 /obj/machinery/light/directional/north,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -7392,7 +7392,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/cryo_hallway)
 "jji" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /obj/machinery/light/directional/west,
@@ -10089,7 +10089,7 @@
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/normal_temp,
 /area/awaymission/black_mesa/entrance)
 "mwg" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/blue,
@@ -12678,7 +12678,7 @@
 /area/awaymission/black_mesa/xen/lost_camp)
 "pyz" = (
 /obj/machinery/light/directional/west,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/blue,
@@ -12841,7 +12841,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/black_mesa/black_ops_downstairs_atrium)
 "pKq" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -12984,7 +12984,7 @@
 /turf/simulated/floor/catwalk,
 /area/awaymission/black_mesa/resonant_chamber)
 "pTC" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -13672,7 +13672,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/black_mesa/high_security_surgery)
 "qKL" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -13996,7 +13996,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/entrance_large_office)
 "rdI" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,

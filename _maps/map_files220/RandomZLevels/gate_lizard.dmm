@@ -100,7 +100,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "ahF" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8;
 	pixel_x = -12
 	},
@@ -480,7 +480,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "aIU" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -1254,7 +1254,7 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "bFY" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1;
 	pixel_y = 12
 	},
@@ -7373,7 +7373,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "jEQ" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4;
 	pixel_y = 3
 	},
@@ -9187,7 +9187,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "lRG" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,

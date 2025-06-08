@@ -31,7 +31,7 @@
 	var/list/headers = list(
 		"Authorization" = "Bearer [GLOB.configuration.central.api_token]"
 	)
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, endpoint, "", headers, CALLBACK(SScentral, PROC_REF(verify_in_discord_callback), player))
+	SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, endpoint, "", headers, CALLBACK(SScentral, PROC_REF(verify_in_discord_callback), player))
 
 /datum/controller/subsystem/central/proc/verify_in_discord_callback(client/player, datum/http_response/response)
 	if(response.errored || response.status_code != 201)

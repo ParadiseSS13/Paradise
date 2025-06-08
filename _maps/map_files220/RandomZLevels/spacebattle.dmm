@@ -2611,7 +2611,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate)
 "iw" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -4387,7 +4387,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway4)
 "op" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -4600,7 +4600,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway3)
 "pc" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mob_spawn/human/corpse/spacebattle/scientist,
 /turf/simulated/floor/plasteel{
@@ -6551,7 +6551,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/space_battle/hallway4)
 "vO" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -6878,7 +6878,7 @@
 /area/awaymission/space_battle/hallway8)
 "wS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
@@ -7227,7 +7227,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
 "yd" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -7552,7 +7552,7 @@
 /turf/space,
 /area/space)
 "zg" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/syndie{
 	id = "MainBridge"
 	},
@@ -8189,7 +8189,7 @@
 	pixel_x = 32;
 	density = 0
 	},
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -13485,7 +13485,7 @@
 	},
 /area/awaymission/space_battle/syndicate/syndicate1)
 "Sp" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -14540,7 +14540,7 @@
 	},
 /area/awaymission/space_battle/hallway10)
 "VO" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -14791,7 +14791,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/hallway6)
 "WG" = (
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/bridge)
 "WH" = (

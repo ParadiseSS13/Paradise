@@ -191,6 +191,7 @@ SUBSYSTEM_DEF(tickets)
 	SEND_SOUND(C, sound('sound/effects/adminticketopen.ogg'))
 
 	message_staff(url_title, NONE, TRUE)
+	open_ticket_count_updated()
 	return T
 
 //Set ticket state with key N to open
@@ -201,6 +202,7 @@ SUBSYSTEM_DEF(tickets)
 		sendFollowupToDiscord(T, usr.client, "*Ticket reopened.*")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Ваш [ticket_name] был переоткрыт.</span>")
 		T.ticketState = TICKET_OPEN
+		open_ticket_count_updated()
 		return TRUE
 
 //Set ticket state with key N to resolved
@@ -211,6 +213,7 @@ SUBSYSTEM_DEF(tickets)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) решил [ticket_name] номер [N]</span>")
 		sendFollowupToDiscord(T, usr.client, "*Ticket resolved.*")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Ваш [ticket_name] был решён.</span>")
+		open_ticket_count_updated()
 		return TRUE
 
 /datum/controller/subsystem/tickets/proc/refresh_tickets(list/tickets)
@@ -275,6 +278,7 @@ SUBSYSTEM_DEF(tickets)
 	message_staff("<span class='[span_class]'>[C] конвертировал тикет номер [T.ticketNum] в [other_ticket_name] тикет.</span>")
 	log_game("[C] конвертировал тикет номер [T.ticketNum] в [other_ticket_name] тикет.")
 	create_other_system_ticket(T)
+	open_ticket_count_updated()
 
 /datum/controller/subsystem/tickets/proc/create_other_system_ticket(datum/ticket/T)
 	var/client/C = get_client_by_ckey(T.client_ckey)
@@ -330,6 +334,7 @@ SUBSYSTEM_DEF(tickets)
 		sendFollowupToDiscord(T, usr.client, "*Ticket closed.*")
 		to_chat_safe(returnClient(N), close_messages)
 		T.ticketState = TICKET_CLOSED
+		open_ticket_count_updated()
 		return TRUE
 
 //Check if the user already has a ticket open and within the cooldown period.
@@ -830,6 +835,13 @@ UI STUFF
 	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
+
+/datum/controller/subsystem/tickets/proc/open_ticket_count_updated()
+	var/ticket_count = 0
+	for(var/datum/ticket/T in allTickets)
+		if(T.ticketState == TICKET_OPEN || T.ticketState == TICKET_STALE)
+			ticket_count++
+	SEND_SIGNAL(src, COMSIGN_TICKET_COUNT_UPDATE, ticket_count)
 
 #undef TICKET_STAFF_MESSAGE_ADMIN_CHANNEL
 #undef TICKET_STAFF_MESSAGE_PREFIX

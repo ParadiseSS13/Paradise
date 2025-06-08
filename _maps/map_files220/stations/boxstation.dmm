@@ -5426,7 +5426,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "axi" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -19661,7 +19661,7 @@
 /area/station/hallway/secondary/exit)
 "bvU" = (
 /obj/machinery/camera{
-	c_tag = "Mini Satellite Teleporter";
+	c_tag = "AI Satellite Teleporter";
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
@@ -20781,7 +20781,7 @@
 /area/station/public/vacant_store)
 "bBc" = (
 /obj/effect/landmark/start/scientist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -23590,7 +23590,7 @@
 	},
 /area/station/science/robotics)
 "bNm" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/roboticist,
@@ -24001,7 +24001,7 @@
 	},
 /area/station/command/bridge)
 "bOB" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/doctor,
@@ -25328,7 +25328,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bUc" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/machinery/button/windowtint/west{
@@ -29374,7 +29374,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "ckU" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/psychiatrist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -31119,7 +31119,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "csb" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/chief_medical_officer,
@@ -33293,7 +33293,7 @@
 	req_access = list(75)
 	},
 /obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Antechamber Center";
+	c_tag = "AI Satellite Antechamber Center";
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
@@ -34534,7 +34534,7 @@
 	},
 /area/station/hallway/primary/aft)
 "cFb" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/scientist,
@@ -34604,7 +34604,7 @@
 /area/station/hallway/primary/aft)
 "cFz" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -35090,7 +35090,7 @@
 	},
 /area/station/science/misc_lab)
 "cHq" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -35104,7 +35104,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "cHs" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/effect/landmark/start/scientist,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
@@ -35824,7 +35824,7 @@
 /area/station/science/xenobiology)
 "cJL" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module Chamber 5";
+	c_tag = "Xenobiology Chamber 5";
 	network = list("Research","SS13")
 	},
 /obj/structure/disposaloutlet{
@@ -37313,7 +37313,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Engineering Supermatter Port";
+	c_tag = "Supermatter Port";
 	dir = 4;
 	network = list("SS13","Engineering","engine")
 	},
@@ -38073,7 +38073,7 @@
 	name = "Slime Processor"
 	},
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module North";
+	c_tag = "Xenobiology North";
 	network = list("Research","SS13")
 	},
 /obj/machinery/light/directional/north,
@@ -38134,7 +38134,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Engineering Supermatter Fore";
+	c_tag = "Supermatter Fore";
 	dir = 1;
 	network = list("SS13","Engineering","engine")
 	},
@@ -38518,7 +38518,7 @@
 "cTV" = (
 /obj/machinery/light/directional/south,
 /obj/machinery/camera{
-	c_tag = "Engineering Chief Engineer's Office";
+	c_tag = "Chief Engineer's Office";
 	dir = 1
 	},
 /obj/machinery/keycard_auth/directional/south,
@@ -40073,7 +40073,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
 "cZT" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/scientist,
@@ -40583,7 +40583,7 @@
 /area/station/ai_monitored/storage/eva)
 "dbR" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module Chamber 4";
+	c_tag = "Xenobiology Chamber 4";
 	dir = 1;
 	network = list("Research","SS13")
 	},
@@ -45513,7 +45513,7 @@
 /area/station/maintenance/aft)
 "dDQ" = (
 /obj/effect/landmark/start/roboticist,
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white/side{
@@ -46299,7 +46299,7 @@
 /area/station/telecomms/chamber)
 "dQM" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module Chamber 6";
+	c_tag = "Xenobiology Chamber 6";
 	network = list("Research","SS13")
 	},
 /obj/structure/disposaloutlet{
@@ -49968,7 +49968,7 @@
 	},
 /area/station/engineering/control)
 "feR" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/research_director,
@@ -58395,7 +58395,7 @@
 /area/station/supply/office)
 "hTF" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module East";
+	c_tag = "Xenobiology East";
 	dir = 1;
 	network = list("Research","SS13")
 	},
@@ -60340,7 +60340,7 @@
 /area/station/medical/paramedic)
 "iGI" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module Chamber 7";
+	c_tag = "Xenobiology Chamber 7";
 	network = list("Research","SS13")
 	},
 /obj/structure/disposaloutlet{
@@ -62232,7 +62232,7 @@
 /area/station/hallway/primary/aft)
 "jqj" = (
 /obj/machinery/camera/motion{
-	c_tag = "Mini Satellite Antechamber North";
+	c_tag = "AI Satellite Antechamber North";
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
@@ -62816,7 +62816,7 @@
 	},
 /area/station/security/warden)
 "jzZ" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/psychiatrist,
@@ -63209,7 +63209,7 @@
 /area/station/hallway/secondary/garden)
 "jIE" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module Hazard Pen";
+	c_tag = "Xenobiology Hazard Pen";
 	dir = 1;
 	network = list("Research","SS13")
 	},
@@ -66810,7 +66810,7 @@
 /area/station/maintenance/port)
 "kUv" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module Chamber 2";
+	c_tag = "Xenobiology Chamber 2";
 	dir = 1;
 	network = list("Research","SS13")
 	},
@@ -67011,7 +67011,7 @@
 	},
 /area/station/medical/surgery/observation)
 "kXD" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/virologist,
@@ -78847,7 +78847,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/detective)
 "oVO" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -81609,7 +81609,7 @@
 /area/station/supply/qm)
 "pRE" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module Chamber 3";
+	c_tag = "Xenobiology Chamber 3";
 	dir = 1;
 	network = list("Research","SS13")
 	},
@@ -82013,7 +82013,7 @@
 /obj/machinery/light/directional/west,
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/camera{
-	c_tag = "Xenobiology Module West";
+	c_tag = "Xenobiology West";
 	dir = 4;
 	network = list("Research","SS13")
 	},
@@ -87039,7 +87039,7 @@
 	},
 /area/station/security/permabrig)
 "rLL" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
@@ -88501,7 +88501,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/utility)
 "snj" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/geneticist,
@@ -88797,7 +88797,7 @@
 	},
 /area/station/maintenance/asmaint)
 "ssQ" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/effect/landmark/start/chief_engineer,
@@ -92888,7 +92888,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
 "tLB" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -96403,7 +96403,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
-	c_tag = "Engineering Supermatter Starboard";
+	c_tag = "Supermatter Starboard";
 	dir = 8;
 	network = list("SS13","Engineering","engine")
 	},
@@ -96790,7 +96790,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Engineering Supermatter Aft";
+	c_tag = "Supermatter Aft";
 	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/plasteel{
@@ -103024,7 +103024,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "xdY" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /obj/effect/landmark/start/geneticist,

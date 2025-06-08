@@ -765,6 +765,7 @@
 	. = ..()
 	for(var/datum/disease/zombie/zomb in H.viruses)
 		zomb.spread_flags = SPECIAL
+		zomb.visibility_flags = HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
 
 
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
