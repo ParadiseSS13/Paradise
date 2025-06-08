@@ -598,6 +598,7 @@
 	log_admin("[key_name(E)] entered a stasis pod.")
 	if(SSticker.mode.tdm_gamemode)
 		SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Cryopods"))
+	create_log(MISC_LOG, "entered a stasis pod")
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
@@ -609,6 +610,7 @@
 	occupant.forceMove(get_turf(src))
 	occupant.clear_alert("cryopod")
 	log_admin("[key_name(occupant)] exited a stasis pod.")
+	create_log(MISC_LOG, "exited a stasis pod")
 	if(isAntag(occupant))
 		message_admins("[key_name_admin(occupant)] antag exited a stasis pod after [round((world.time - time_entered )/600, 2)] minutes inside (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)" )
 	occupant = null
