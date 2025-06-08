@@ -1,7 +1,7 @@
 
 // Away Missions
 /area/awaymission
-	name = "\improper Strange Location"
+	name = "Странная Локация"
 	icon_state = "away"
 	report_alerts = FALSE
 	ambientsounds = AWAY_MISSION_SOUNDS
@@ -12,25 +12,25 @@
 	icon_state = "away"
 
 /area/awaymission/desert
-	name = "Mars"
+	name = "Марс"
 	icon_state = "away"
 
 /area/awaymission/beach
-	name = "Beach"
+	name = "Пляж"
 	icon_state = "beach"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambinice.ogg')
 
 /area/awaymission/undersea
-	name = "Undersea"
+	name = "Океаническое Дно"
 	icon_state = "undersea"
 
 
 ////////////////////////AWAY AREAS///////////////////////////////////
 
 /area/awaycontent
-	name = "space"
+	name = "Глубокий Космос"
 	report_alerts = FALSE
 
 /area/awaycontent/a1

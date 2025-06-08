@@ -1,0 +1,6 @@
+#include "code/drums.dm"
+#include "code/guitar.dm"
+#include "code/merch_items.dm"
+#include "code/instrument_items.dm"
+#include "code/concertspeaker_fake.dm"
+#include "code/drumskit.dm"

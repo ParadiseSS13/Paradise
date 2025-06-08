@@ -1,0 +1,40 @@
+help: 'Use the specific directional subtypes for this reagent dispenser.'
+/obj/structure/reagent_dispensers/fueltank/chem:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/structure/reagent_dispensers/fueltank/chem:
+  banned: true
+=/obj/structure/reagent_dispensers/fueltank/chem/directional:
+  banned: true
+
+/obj/structure/reagent_dispensers/virusfood:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/structure/reagent_dispensers/virusfood:
+  banned: true
+=/obj/structure/reagent_dispensers/virusfood/directional:
+  banned: true
+
+/obj/structure/reagent_dispensers/spacecleanertank:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/structure/reagent_dispensers/spacecleanertank:
+  banned: true
+=/obj/structure/reagent_dispensers/spacecleanertank/directional:
+  banned: true
+
+/obj/structure/reagent_dispensers/peppertank:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/structure/reagent_dispensers/peppertank:
+  banned: true
+=/obj/structure/reagent_dispensers/peppertank/directional:
+  banned: true

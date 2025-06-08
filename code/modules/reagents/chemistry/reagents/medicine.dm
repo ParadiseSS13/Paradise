@@ -123,7 +123,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/heal_modifier = 0.4
-		if(M.reagents.has_reagent("mephedrone"))
+		if(M.reagents.has_reagent("mephedrone") || M.reagents.has_reagent("pump_up")) // SS220 EDIT
 			heal_modifier -= 0.3 //This lowers the healing to 0.1. As such, you need time off the drug to heal heart damage, but can be on the drug endlessly when not oding IF you keep your supply going.
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
@@ -1067,7 +1067,12 @@
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBrainLoss(-3, FALSE)
+	// SS220 EDIT START
+	var/heal_amount = 3
+	if(isslimeperson(M) && (M.reagents.has_reagent("mephedrone") || M.reagents.has_reagent("pump_up"))) // so these 2 drugs deal more brain damage than we can heal using mannitol
+		heal_amount = 0.1 // sadge
+	update_flags |= M.adjustBrainLoss(-heal_amount, FALSE)
+	// SS220 EDIT END
 	return ..() | update_flags
 
 /datum/reagent/medicine/mutadone

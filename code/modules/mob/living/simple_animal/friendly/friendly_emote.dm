@@ -4,7 +4,7 @@
 /datum/emote/living/simple_animal/diona_chirp
 	key = "chirp"
 	key_third_person = "chirps"
-	message = "chirps!"
+	message = "стрекочет!"
 	sound = "sound/creatures/nymphchirp.ogg"
 	emote_type = EMOTE_AUDIBLE
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/diona)
@@ -17,8 +17,8 @@
 /datum/emote/living/simple_animal/pet/dog/bark
 	key = "bark"
 	key_third_person = "barks"
-	message = "barks."
-	message_param = "barks at %t."
+	message = "лает."
+	message_param = "лает на %t."
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/simple_animal/pet/dog/bark/get_sound(mob/living/user)
@@ -31,8 +31,8 @@
 /datum/emote/living/simple_animal/pet/dog/yelp
 	key = "yelp"
 	key_third_person = "yelps"
-	message = "yelps!"
-	message_param = "yelps at %t!"
+	message = "визжит!"
+	message_param = "визжит на %t!"
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/simple_animal/pet/dog/yelp/get_sound(mob/living/user)
@@ -42,8 +42,8 @@
 /datum/emote/living/simple_animal/pet/dog/growl
 	key = "growl"
 	key_third_person = "growls"
-	message = "growls!"
-	message_param = "growls at %t!"
+	message = "рычит!"
+	message_param = "рычит на %t!"
 	emote_type = EMOTE_AUDIBLE
 	sound = "growl"
 
@@ -55,8 +55,8 @@
 /datum/emote/living/simple_animal/mouse/squeak
 	key = "squeak"
 	key_third_person = "squeaks"
-	message = "squeaks!"
-	message_param = "squeaks at %t!"
+	message = "пищит!"
+	message_param = "пищит на %t!"
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/simple_animal/mouse/squeak/get_sound(mob/living/user)
@@ -71,8 +71,8 @@
 /datum/emote/living/simple_animal/pet/cat/meow
 	key = "meow"
 	key_third_person = "meows"
-	message = "meows."
-	message_param = "meows at %t."
+	message = "мяукает."
+	message_param = "мяукает на %t."
 	sound = "sound/creatures/cat_meow.ogg"
 	emote_type = EMOTE_AUDIBLE
 
@@ -84,13 +84,13 @@
 /datum/emote/living/simple_animal/pet/cat/hiss
 	key = "hiss"
 	key_third_person = "hisses"
-	message = "hisses!"
-	message_param = "hisses at %t!"
+	message = "шипит!"
+	message_param = "шипит на %t!"
 
 /datum/emote/living/simple_animal/pet/cat/purr
 	key = "purr"
 	key_third_person = "purrs"
-	message = "purrs."
+	message = "мурчит."
 
 /datum/emote/living/sit/cat
 	message = null

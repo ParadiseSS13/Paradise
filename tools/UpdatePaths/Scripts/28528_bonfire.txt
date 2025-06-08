@@ -1,1 +1,1 @@
-/obj/structure/bonfire : /obj/structure/lightable/bonfire{@OLD}
+/obj/structure/bonfire/@SUBTYPES : /obj/structure/lightable/bonfire/@SUBTYPES{@OLD}

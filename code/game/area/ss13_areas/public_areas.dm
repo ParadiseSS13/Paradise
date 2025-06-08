@@ -8,72 +8,72 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/hallway/primary/fore
-	name = "\improper Fore Primary Hallway"
+	name = "Основной Северный Коридор"
 	icon_state = "hallF"
 
 /area/station/hallway/primary/fore/west
-	name = "\improper Fore West Hallway"
+	name = "Северо-Западный Коридор"
 
 /area/station/hallway/primary/fore/east
-	name = "\improper Fore East Hallway"
+	name = "Северо-Восточный Коридор"
 
 /area/station/hallway/primary/fore/north
-	name = "\improper Fore North Hallway"
+	name = "Северный Коридор"
 
 /area/station/hallway/primary/fore/south
-	name = "\improper Fore South Hallway"
+	name = "Северо-Южный Коридор"
 
 /area/station/hallway/primary/starboard
-	name = "\improper Starboard Primary Hallway"
+	name = "Основной Восточный Коридор"
 	icon_state = "hallS"
 
 /area/station/hallway/primary/starboard/west
-	name = "\improper Starboard West Hallway"
+	name = "Восточно-Западный Коридор"
 
 /area/station/hallway/primary/starboard/east
-	name = "\improper Starboard East Hallway"
+	name = "Восточный Коридор"
 
 /area/station/hallway/primary/starboard/north
-	name = "\improper Starboard North Hallway"
+	name = "Восточно-Северный Коридор"
 
 /area/station/hallway/primary/starboard/south
-	name = "\improper Starboard South Hallway"
+	name = "Восточно-Южный Коридор"
 
 /area/station/hallway/primary/aft
-	name = "\improper Aft Primary Hallway"
+	name = "Основной Южный Коридор"
 	icon_state = "hallA"
 
 /area/station/hallway/primary/aft/west
-	name = "\improper Aft West Hallway"
+	name = "Юго-Западный Коридор"
 
 /area/station/hallway/primary/aft/east
-	name = "\improper Aft East Hallway"
+	name = "Юго-Восточный Коридор"
 
 /area/station/hallway/primary/aft/north
-	name = "\improper Aft North Hallway"
+	name = "Юго-Северный Коридор"
 
 /area/station/hallway/primary/aft/south
-	name = "\improper Aft South Hallway"
+	name = "Южный Коридор"
 
 
 /area/station/hallway/primary/port
-	name = "\improper Port Primary Hallway"
+	name = "Основной Западный Коридор"
 	icon_state = "hallP"
 
 /area/station/hallway/primary/port/west
-	name = "\improper Port West Hallway"
+	name = "Западный Коридор"
 
 /area/station/hallway/primary/port/east
-	name = "\improper Port East Hallway"
+	name = "Западно-Восточный Коридор"
 
 /area/station/hallway/primary/port/north
-	name = "\improper Port North Hallway"
+	name = "Западно-Северный Коридор"
 
 /area/station/hallway/primary/port/south
-	name = "\improper Port South Hallway"
+	name = "Западно-Южный Коридор"
 
 /area/station/hallway/primary/central
-	name = "\improper Central Primary Hallway"
+	name = "Центральный Основной Коридор"
 	icon_state = "hallC"
 
 /area/station/hallway/primary/central/north
@@ -90,53 +90,53 @@
 
 /area/station/hallway/spacebridge/security
 	icon_state = "hall_space"
-	name = "\improper Security Space Bridge"
+	name = "Мост Службы Безопасности"
 
 /area/station/hallway/spacebridge/security/west
 	icon_state = "hall_space"
-	name = "\improper Security West Space Bridge"
+	name = "Западный Мост Службы Безопасности"
 
 /area/station/hallway/spacebridge/security/south
 	icon_state = "hall_space"
-	name = "\improper Security South Space Bridge"
+	name = "Южный Мост Службы Безопасности"
 
 /area/station/hallway/spacebridge/dockmed
-	name = "Docking-Medical Bridge"
+	name = "Мост Прибытие-Медбей"
 
 /area/station/hallway/spacebridge/scidock
-	name = "Science-Docking Bridge"
+	name = "Мост РНД-Прибытие"
 
 /area/station/hallway/spacebridge/servsci
-	name = "Service-Science Bridge"
+	name = "Мост Сервис-РНД"
 
 /area/station/hallway/spacebridge/serveng
-	name = "Service-Engineering Bridge"
+	name = "Мост Сервис-Инженерия"
 
 /area/station/hallway/spacebridge/engmed
-	name = "Engineering-Medical Bridge"
+	name = "Мост Медбей-Инженерия"
 
 /area/station/hallway/spacebridge/medcargo
-	name = "Medical-Cargo Bridge"
+	name = "Мост Медбей-Карго"
 
 /area/station/hallway/spacebridge/cargocom
-	name = "Cargo-AI-Command Bridge"
+	name = "Мост Карго-Спутник-Командование"
 
 /area/station/hallway/spacebridge/sercom
-	name = "Command-Service Bridge"
+	name = "Мост Сервис-Командование"
 
 /area/station/hallway/spacebridge/comeng
-	name = "Command-Engineering Bridge"
+	name = "Мост Командование-Инженерия"
 
 /area/station/hallway/secondary/exit
-	name = "\improper Escape Shuttle Hallway"
+	name = "Коридор Эвакуационного Шаттла"
 	icon_state = "escape"
 
 /area/station/hallway/secondary/garden
-	name = "\improper Garden"
+	name = "Сад"
 	icon_state = "garden"
 
 /area/station/hallway/secondary/entry
-	name = "\improper Arrival Shuttle Hallway"
+	name = "Коридор Шаттла Прибытия"
 	icon_state = "entry"
 
 /area/station/hallway/secondary/entry/north
@@ -148,88 +148,88 @@
 /area/station/hallway/secondary/entry/west
 
 /area/station/hallway/secondary/entry/lounge
-	name = "\improper Arrivals Lounge"
+	name = "Зал Прибытия"
 
 /area/station/hallway/secondary/bridge
-	name = "\improper Command Hallway"
+	name = "Коридор Командования"
 	icon_state = "hallC"
 
 // Hallways for departments
 
 /area/station/hallway/supply
-	name = "\improper Cargo Hallway"
+	name = "Коридор Карго"
 	icon_state = "cargo_hallway"
 
 /area/station/hallway/supply/fore
-	name = "\improper Fore Cargo Hallway"
+	name = "Северный Коридор Карго"
 
 /area/station/hallway/supply/starboard
-	name = "\improper Starboard Cargo Hallway"
+	name = "Восточный Коридор Карго"
 
 /area/station/hallway/supply/aft
-	name = "\improper Aft Cargo Hallway"
+	name = "Южный Коридор Карго"
 
 /area/station/hallway/supply/port
-	name = "\improper Port Cargo Hallway"
+	name = "Западный Коридор Карго"
 
 
 // Other public areas
 
 
 /area/station/public/dorms
-	name = "\improper Dormitories"
+	name = "Дормитории"
 	icon_state = "dorms"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	request_console_name = "Crew Quarters"
 
 /area/station/public/sleep
-	name = "\improper Primary Cryogenic Dormitories"
+	name = "Криохранилище Дормитория"
 	icon_state = "Sleep"
 	valid_territory = FALSE
 
 /area/station/public/sleep/secondary
-	name = "\improper Secondary Cryogenic Dormitories"
+	name = "Вторичное Криохранилище Дормитория"
 	icon_state = "Sleep"
 
 /area/station/public/locker
-	name = "\improper Locker Room"
+	name = "Бытовое Помещение"
 	icon_state = "locker"
 	request_console_name = "Crew Quarters"
 
 /area/station/public/toilet
-	name = "\improper Dormitory Toilets"
+	name = "Туалеты Дормиторий"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/public/toilet/unisex
-	name = "\improper Unisex Restroom"
+	name = "Общие Туалеты"
 
 /area/station/public/toilet/lockerroom
-	name = "\improper Locker Toilets"
+	name = "Бытовые Туалеты"
 
 /area/station/public/fitness
-	name = "\improper Fitness Room"
+	name = "Фитнес-Зал"
 	icon_state = "fitness"
 	request_console_name = "Crew Quarters"
 
 /area/station/public/arcade
-	name = "\improper Arcade"
+	name = "Аркадный Зал"
 	icon_state = "arcade"
 
 /area/station/public/mrchangs
-	name = "\improper Mr Chang's"
+	name = "Забегаловка Мистера Чанга"
 	icon_state = "changs"
 
 /area/station/public/pet_store
-	name = "\improper Pet Store"
+	name = "Зоомагазин"
 	icon_state = "pet_store"
 
 /area/station/public/vacant_office
-	name = "\improper Vacant Office"
+	name = "Свободный Офис"
 	icon_state = "vacantoffice"
 
 /area/station/public/storefront
-	name = "\improper Storefront"
+	name = "Вакантная Коммерческая Зона"
 	icon_state = "vacantoffice"
 
 //Storage
@@ -237,58 +237,58 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/public/storage/tools/auxiliary
-	name = "Auxiliary Tool Storage"
+	name = "Вспомогательное Хранилище Инструментов"
 	icon_state = "auxstorage"
 
 /area/station/public/storage/tools
-	name = "Primary Tool Storage"
+	name = "Основное Хранилище Инструментов"
 	icon_state = "primarystorage"
 	request_console_name = "Tool Storage"
 
 /area/station/public/storage/art
-	name = "Art Supply Storage"
+	name = "Хранилище Художественных Принадлежностей"
 	icon_state = "storage"
 
 /area/station/public/storage/emergency
-	name = "Starboard Emergency Storage"
+	name = "Восточное Аварийное Хранилище"
 	icon_state = "emergencystorage"
 
 /area/station/public/storage/emergency/port
-	name = "Port Emergency Storage"
+	name = "Западное Аварийное Хранилище"
 	icon_state = "emergencystorage"
 
 /area/station/public/storage/office
-	name = "Office Supplies"
+	name = "Комната Канцелярских Принадлежностей"
 	icon_state = "office_supplies"
 
 /area/station/public/construction
-	name = "\improper Construction Area"
+	name = "Зона Для Строительства"
 	icon_state = "construction"
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/public/quantum/security
-	name = "Security Quantum Pad"
+	name = "Телепортерный Узел Службы Безопасности"
 
 /area/station/public/quantum/docking
-	name = "Docking Quantum Pad"
+	name = "Телепортерный Узел Зоны Прибытия"
 
 /area/station/public/quantum/science
-	name = "Science Quantum Pad"
+	name = "Телепортерный Узел Исследовательского Отдела"
 
 /area/station/public/quantum/cargo
-	name = "Cargo Quantum Pad"
+	name = "Телепортерный Узел Карго"
 
 /area/station/public/quantum/service
-	name = "Service Quantum Pad"
+	name = "Телепортерный Узел Сервисного Отдела"
 
 /area/station/public/quantum/medbay
-	name = "Medbay Quantum Pad"
+	name = "Телепортерный Узел Медицинского Отдела"
 
 /area/station/public/park
-	name = "Public Nature Reserve"
+	name = "Общественный Парк"
 	icon_state = "park"
 
 /area/station/public/shops
-	name = "Dorms Public Storefront"
+	name = "Вакантная Коммерческая Зона Дормиториев"
 	icon_state = "shop"

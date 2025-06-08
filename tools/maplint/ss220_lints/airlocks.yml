@@ -1,0 +1,5 @@
+help: "Use mapping helpers instead of varedits"
+/obj/machinery/door/airlock:
+  banned_variables:
+   - locked
+   - welded

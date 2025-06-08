@@ -1,7 +1,7 @@
 //Lavaland Ruins
 
 /area/ruin/powered/beach
-	name = "Beach Bar"
+	name = "Пляжный Бар"
 	icon_state = "beach"
 
 /area/ruin/powered/clownplanet
@@ -18,7 +18,7 @@
 	icon_state = "yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
+	name = "Корабль Свободных Големов"
 	icon_state = "yellow"
 
 /area/ruin/powered/greed
@@ -37,7 +37,7 @@
 	icon_state = "yellow"
 
 /area/ruin/unpowered/hierophant
-	name = "Hierophant's Arena"
+	name = "Арена Иерофанта"
 	icon_state = "yellow"
 
 /area/ruin/powered/pride
@@ -50,7 +50,7 @@
 //Xeno Nest
 
 /area/ruin/unpowered/xenonest
-	name = "The Hive"
+	name = "Улей"
 	always_unpowered = TRUE
 	poweralm = FALSE
 
@@ -59,15 +59,15 @@
 	icon_state = "red"
 
 /area/ruin/unpowered/althland_processing
-	name = "Processing Facility"
+	name = "Рудо-Обогатительный Аванпост"
 	icon_state = "red"
 
 /area/ruin/unpowered/althland_excavation
-	name = "Excavation Pit"
+	name = "Карьер"
 	icon_state = "red"
 
 /area/ruin/unpowered/althland_factory
-	name = "Minebot Factory"
+	name = "Фабрика Шахтерских Ботов"
 	icon_state = "red"
 
 // This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
@@ -75,9 +75,9 @@
 
 
 /area/ruin/lavaland_relay
-	name = "Nanotrasen Lavaland Relay"
+	name = "Реле Нанотрейзен - Лаваленд"
 	icon_state = "lava_relay"
 
 /area/ruin/lavaland_relay/Initialize(mapload)
-	name = "Nanotrasen Lavaland Relay #[rand(1, 1000)]" //Give it a random relay name
+	name = "Реле Нанотрейзен - Лаваленд #[rand(1, 1000)]" //Give it a random relay name
 	return ..()

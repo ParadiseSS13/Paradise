@@ -1,0 +1,3 @@
+#include "_autolathe_tgui.dm"
+
+#include "code/autolathe_ui.dm"

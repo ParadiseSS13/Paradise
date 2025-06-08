@@ -188,7 +188,7 @@
 	dir = WEST
 	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
-	var/on_store_message = "has entered long-term storage."
+	var/on_store_message = "был помещен в долгосрочное хранилище."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
@@ -645,9 +645,9 @@
 	icon_state = "pod_0"
 	base_icon_state = "pod_0"
 	occupied_icon_state = "pod_1"
-	on_store_message = "has entered robotic storage."
+	on_store_message = "был помещён в роботическое хранилище."
 	on_store_name = "Robotic Storage Oversight"
-	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
+	on_enter_occupant_message = "Юнит хранилища посылает вам сигнал сна. Ваши системы отключаются и вы переходите на режим энергосбережения"
 	console_type = /obj/machinery/computer/cryopod/robot
 	allow_occupant_types = list(/mob/living/silicon/robot)
 	disallow_occupant_types = list(/mob/living/silicon/robot/drone)

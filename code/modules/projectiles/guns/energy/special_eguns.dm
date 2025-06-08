@@ -1058,7 +1058,7 @@
 
 /obj/item/gun/energy/detective/proc/start_pointing(target_UID)
 	tracking_target_UID = target_UID
-	Announcer.autosay("Alert: Detective's revolver discharged in tracking mode. Tracking: [locateUID(tracking_target_UID)] at [get_area_name(src)].", src, "Security")
+	Announcer.autosay("Внимание: размещена метка слежения. Отслеживание: [locateUID(tracking_target_UID)] в [get_area_name(src)].", src, "Security")
 	var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
 	if(C)
 		C.start_tracking()

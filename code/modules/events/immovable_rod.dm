@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.minor_announcement.Announce("What the fuck was that?!", "General Alert")
+	GLOB.minor_announcement.Announce("Что это за хуйня?!", "ОБЩАЯ ТРЕВОГА.")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
