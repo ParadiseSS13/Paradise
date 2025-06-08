@@ -10,8 +10,10 @@
 	var/datum/movement_detector/parent_tracker
 	var/datum/beam/beam
 	var/atom/movable/tether_visual_target
+	var/tether_name
+	var/last_movement = 0
 
-/datum/component/tether/Initialize(tethered_atom_movable, range = 2, durability = INFINITY, tether_icon_state = "tether")
+/datum/component/tether/Initialize(tethered_atom_movable, range = 2, durability = INFINITY, tether_icon_state = "tether", tether_name = "tether")
 	. = ..()
 	if(!isatom(parent) || !ismovable(tethered_atom_movable))
 		return COMPONENT_INCOMPATIBLE
@@ -20,10 +22,11 @@
 	src.max_range = range
 	src.durability = durability // movement is bugged right now. Durability wears out 3 times faster than expected. 1 durability should last 1 tile.
 	src.tether_icon_state = tether_icon_state
+	src.tether_name = tether_name
 
 	RegisterSignal(parent, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_movement))
 	RegisterSignal(tethered_atom_movable, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(pre_tethered_movement))
-	RegisterSignal(tethered_atom_movable, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
+	RegisterSignal(tethered_atom_movable, COMSIG_ATOM_ATTACK_HAND, PROC_REF(can_equip))
 	parent_tracker = new /datum/movement_detector(parent, CALLBACK(src, PROC_REF(parent_check_bounds)))
 	tether_tracker = new /datum/movement_detector(tethered_atom_movable, CALLBACK(src, PROC_REF(check_bounds)))
 	parent_tracker.fix_signal()
@@ -61,6 +64,8 @@
 	// check if the item is in range. If not, try to move it towards the parent.
 	if(get_dist(get_turf(tethered_to), newloc) <= max_range)
 		return
+	if(source.pulledby == tethered_to.loc)
+		return
 	if(tether_move_towards_parent(newloc))
 		return
 	if(get_dir(parent, newloc) & get_dir(parent, tethered_to))
@@ -82,15 +87,17 @@
 	to_chat(atom, "<span class='warning'>You can't move in that direction with the [tethered_to] tethered to you!</span>")
 	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
-// /datum/component/tether/proc/equipped(atom/movable/source, mob/user, slot)
-// 	// Check to make sure we dont go into an inventory outside of our range
-// 	if(get_dist(get_turf(parent), get_turf(user)) <= max_range)
-// 		return
-// 	addtimer(CALLBACK(src, PROC_REF(tether_move_towards_parent)), 1) // let the tick finish first before dropping it
+/datum/component/tether/proc/can_equip(atom/source, mob/user)
+	// Check to make sure we dont go into an inventory outside of our range
+	if(get_dist(get_turf(parent), get_turf(user)) > max_range)
+		to_chat(user, "<span class='warning'>You try to pick up [tethered_to], you can't pull it's [tether_name] any farther!</span>")
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/tether/proc/parent_check_bounds(atom/movable/source, atom/mover, atom/old_loc, direction)
 	// check to see if the parent has moved out of range (while inside another objects contents). If it has, pull the tether towards the parent.
 	if(get_dist(get_turf(parent), get_turf(tethered_to)) <= max_range)
+		return
+	if(source.pulledby == tethered_to.loc)
 		return
 	tether_move_towards_parent()
 
@@ -100,13 +107,14 @@
 	make_beam(mover)
 	if(get_dist(get_turf(parent), get_turf(tethered_to)) <= max_range)
 		return
+	if(ismovable(mover))
+		var/atom/movable/a_mover = mover
+		if(a_mover.pulledby == parent || a_mover.pulling == parent)
+			return
 	tether_move_towards_parent()
 
 /datum/component/tether/proc/tether_move_towards_parent(parent_newloc)
-	if(QDELETED(tethered_to) || !istype(tethered_to))
-		return TRUE
-	durability_cost()
-	if(QDELETED(tethered_to) || !istype(tethered_to))
+	if(QDELETED(tethered_to) || !istype(tethered_to) || last_movement == world.time)
 		return TRUE
 	var/atom/current_loc = tethered_to.loc
 	var/i = 0
@@ -118,28 +126,31 @@
 			M.drop_item_to_ground(tethered_to)
 			current_loc = tethered_to.loc
 			break
-		else if(istype(current_loc, /obj/item/storage))
+		if(istype(current_loc, /obj/item/storage))
 			var/obj/item/storage/S = current_loc
 			S.remove_from_storage(tethered_to, get_turf(tethered_to))
 			current_loc = tethered_to.loc
 			break
-		else if(istype(current_loc, /obj/structure/closet))
+		if(istype(current_loc, /obj/structure/closet))
 			var/obj/structure/closet/C = current_loc
-			if(!C.can_open())
-				return
-			C.open()
-			current_loc = tethered_to.loc
-			break
-		else if(ismovable(current_loc))
+			if(C.can_open())
+				C.open()
+				current_loc = tethered_to.loc
+				break
+		if(ismovable(current_loc))
 			var/atom/movable/AM = current_loc
 			if(AM.anchored)
 				return FALSE
 			if(isturf(AM.loc))
+				last_movement = world.time
+				durability_cost()
 				step_towards(AM, get_turf(parent)) // holy shitcode
 				return get_dist(get_turf(parent_newloc || parent), get_turf(tethered_to)) <= max_range
 		current_loc = current_loc.loc
 	if(get_dist(get_turf(parent), get_turf(tethered_to)) <= max_range)
 		return TRUE
+	last_movement = world.time
+	durability_cost()
 	if(!step_towards(tethered_to, get_turf(parent))) // shitcode
 		return durability_cost(2) // use 3 total durability
 	return TRUE
@@ -154,7 +165,7 @@
 		return
 	durability -= cost
 	if(durability <= 0 && !QDELETED(tethered_to))
-		tethered_to.visible_message("<span class='warning'>[tethered_to]'s tether wears out and snaps!</span>")
+		tethered_to.visible_message("<span class='warning'>[tethered_to]'s [tether_name] wears out and snaps back!</span>")
 		terminate()
 		return TRUE // it breaks, let the parent move outside of the range again
 	return FALSE

@@ -66,9 +66,9 @@
 	if(!injection_target)
 		return
 	if(istype(loc, /obj/machinery/iv_drip))
-		injection_target.AddComponent(/datum/component/tether, src, 2, 50, "iv_tether")
+		injection_target.AddComponent(/datum/component/tether, src, 2, 50, "iv_tether", "tubing")
 	else
-		injection_target.AddComponent(/datum/component/tether, src, 1, 5, "iv_tether")
+		injection_target.AddComponent(/datum/component/tether, src, 1, 5, "iv_tether", "tubing")
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing(send_signal = TRUE)
 	if(injection_target)
