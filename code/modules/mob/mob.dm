@@ -681,6 +681,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/obj/item/I = examined
 		if(I.in_storage)
 			if(get(I, /mob/living) == src)
+				I = get(I, /obj/item/storage)
+				if(istype(I, /obj/item/storage/hidden_implant)) // Don't annnounce items in a bluespace pocket.
+					return
 				loc_str = "inside [p_their()] [I.loc.name]..."
 			else
 				loc_str = "inside [I.loc]..."
@@ -697,7 +700,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			examining_worn_item = TRUE
 
 	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
-	if(examining_worn_item)
+	if(examining_worn_item || examining_stored_item)
 		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
 
 	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
