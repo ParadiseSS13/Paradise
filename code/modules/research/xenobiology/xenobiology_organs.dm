@@ -1596,9 +1596,9 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/Life(seconds, times_fired)
 	if(target != permanent_target)
-		src.visible_message("<span class ='notice'>With no valid targets, the head crumbles into a pile of flesh</span>")
+		src.visible_message("<span class='notice'>With no valid targets, the head crumbles into a pile of flesh.</span>")
 		death()
 	if(COOLDOWN_FINISHED(src, time_to_live))
-		src.visible_message("<span class ='notice'>The head loses energy, and crumbles into a pile of flesh</span>")
+		src.visible_message("<span class='notice'>\The [src] loses energy, and it crumbles into a pile of flesh.</span>")
 		death()
 	return ..()
