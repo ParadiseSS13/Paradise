@@ -1334,7 +1334,7 @@
 
 /obj/item/organ/internal/heart/xenobiology/megacarp/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	if(!M.mind)
-		M.visible_message("[src] doesn't look like it's going to fit right now! It...refuses?")
+		M.visible_message("<span class='warning'>[src] doesn't look like it's going to fit right now! It...refuses?</span>")
 		return
 	var/datum/spell/shapeshift/megacarp/spell = new(organ_quality)
 	M.mind.AddSpell(spell)
