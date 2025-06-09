@@ -219,7 +219,7 @@
 
 /obj/item/clothing/head/beret/mining
 	name = "mining beret"
-	desc = "An ash grey beret with a purple insignia emblazoned on it. Won't help you against the atmosphere of the planet, but will look stylish."
+	desc = "An brown beret with a purple insignia emblazoned on it. Won't help you against the atmosphere of the planet, but will look stylish."
 	icon_state = "beret_mining"
 	item_color = "beret_mining"
 	sprite_sheets = list(

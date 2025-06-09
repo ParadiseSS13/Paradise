@@ -91,21 +91,21 @@
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland
 	name = "shaft miner's harshsuit"
-	desc = "It's an ash grey uniform with some padded armour for operating in hazardous environments."
+	desc = "It's an brown uniform with some padded armour for operating in hazardous environments."
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland/skirt
 	name = "shaft miner's harshskirt"
-	desc = "It's an ash grey uniform with some padded armour for operating in hazardous environments while remaining pretty."
+	desc = "It's an brown uniform with some padded armour for operating in hazardous environments while remaining pretty."
 	icon_state = "explorer_skirt"
 	item_state = "explorer_skirt"
 	item_color = "explorer_skirt"
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland/overalls
 	name = "shaft miner's overalls"
-	desc = "It's an ash grey turtleneck with a sturdy set of overalls. Sadly, doesn't have any extra pockets to carry extra sandwiches. It is very dirty."
+	desc = "It's an dark purple turtleneck with a sturdy set of overalls. Sadly, doesn't have any extra pockets to carry some sandwiches. It is very dirty."
 	icon_state = "explorer_overalls"
 	item_state = "explorer_overalls"
 	item_color = "explorer_overalls"

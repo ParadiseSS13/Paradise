@@ -106,7 +106,7 @@
 
 /obj/item/clothing/head/soft/mining
 	name = "mining cap"
-	desc = "It's an ash grey hard peaked baseball hat with a purple miner shield."
+	desc = "It's an brown hard peaked baseball hat with a purple miner shield."
 	icon_state = "miningsoft"
 	item_color = "mining"
 	dog_fashion = /datum/dog_fashion/head/miningsoft
