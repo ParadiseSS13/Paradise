@@ -641,23 +641,6 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return 1
 
-/proc/is_blocked_turf(turf/T, exclude_mobs, list/excluded_objs)
-	if(T.density)
-		return TRUE
-	if(locate(/mob/living/silicon/ai) in T) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
-		return TRUE
-	if(!exclude_mobs)
-		for(var/mob/living/L in T)
-			if(L.density)
-				return TRUE
-	var/any_excluded_objs = length(excluded_objs)
-	for(var/obj/O in T)
-		if(any_excluded_objs && (O in excluded_objs))
-			continue
-		if(O.density)
-			return TRUE
-	return FALSE
-
 //Returns: all the areas in the world
 /proc/return_areas()
 	var/list/area/areas = list()
@@ -1895,7 +1878,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Surgery Sounds"
 
 /**
-  * HTTP Get (Powered by RUSTG)
+  * HTTP Get (Powered by rustlibs)
   *
   * This proc should be used as a replacement for [/world/proc/Export] due to an underlying issue with it.
   * See: https://www.byond.com/forum/post/2772166
@@ -1908,7 +1891,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   */
 /proc/HTTPGet(url)
 	var/datum/http_request/req = new
-	req.prepare(RUSTG_HTTP_METHOD_GET, url)
+	req.prepare(RUSTLIBS_HTTP_METHOD_GET, url)
 	req.begin_async()
 
 	// Check if we are complete
