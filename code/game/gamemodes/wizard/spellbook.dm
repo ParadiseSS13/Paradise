@@ -1109,7 +1109,8 @@
 	if(ishuman(user))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-		magichead.flags |= NODROP | DROPDEL	//curses!
+		magichead.flags |= DROPDEL	//curses!
+		magichead.set_nodrop(TRUE, magichead.loc)
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.drop_item_to_ground(user.wear_mask))
