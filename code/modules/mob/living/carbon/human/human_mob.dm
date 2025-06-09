@@ -1075,8 +1075,7 @@
 	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
-	if(dna.flavor_text)
-		flavor_text = dna.flavor_text
+	flavor_text = dna.flavor_text
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	dna.UpdateSE()
 	dna.UpdateUI()
