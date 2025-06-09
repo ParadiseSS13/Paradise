@@ -1542,7 +1542,7 @@
 		revert_cast()
 		return
 	if(target.stat == DEAD)
-		to_chat(user, "<span class='warning'>Our new head wont attack corpses</span>")
+		to_chat(user, "<span class='warning'>Our new head wont attack corpses.</span>")
 		revert_cast()
 		return
 	if(!newhead)
