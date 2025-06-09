@@ -415,6 +415,7 @@
 	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
 
+/// Checks that the organ is inside of a host and that they are a valid recipient. Used for abductor glands
 /obj/item/organ/internal/proc/owner_check()
 	if(ishuman(owner) || iscarbon(owner))
 		return TRUE

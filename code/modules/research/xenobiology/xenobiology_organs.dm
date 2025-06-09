@@ -1429,6 +1429,10 @@
 	analyzer_price = 20
 	var/datum/armor/organ_resistance_boost
 
+/obj/item/organ/internal/kidneys/xenobiology/lethargic/Destroy()
+	qdel(organ_resistance_boost)
+	return ..()
+
 /obj/item/organ/internal/kidneys/xenobiology/lethargic/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
 	ADD_TRAIT(M, TRAIT_GOTTAGOSLOW, ORGAN_TRAIT)
@@ -1459,7 +1463,6 @@
 	name = "colorful organ"
 	desc = "This organ seems to constantly color and mold the other flesh around it. Thankfully, the changes are only aesthetic."
 	analyzer_price = 20
-	var/next_change = 1
 
 	COOLDOWN_DECLARE(hair_change)
 
