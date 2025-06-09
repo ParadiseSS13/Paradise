@@ -120,6 +120,7 @@ STATUS EFFECTS
 			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_CANNOT_PULL, LYING_DOWN_TRAIT)
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, TRUE)
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(orient_crawling))
 	set_density(FALSE)
 	set_lying_angle(pick(90, 270))
@@ -129,6 +130,7 @@ STATUS EFFECTS
 		layer = initial(layer)
 	set_density(initial(density))
 	REMOVE_TRAITS_IN(src, LYING_DOWN_TRAIT)
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, FALSE)
 	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
 	set_lying_angle(0)
 	pixel_y = 0

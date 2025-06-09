@@ -262,7 +262,13 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
-	..()
+	if(pulling)
+		var/atom/pullee = pulling
+		..()
+		for(var/log_pulltype in GLOB.log_pulltypes)
+			if(istype(pullee, log_pulltype))
+				create_log(MISC_LOG, "Stopped pulling", pullee)
+				break
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
 
@@ -811,7 +817,7 @@
 
 //Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
 /mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
-	if(check_eye_prot() >= intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
+	if((check_eye_prot() >= intensity) || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND))) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		return FALSE
 
 	return TRUE
@@ -1012,6 +1018,12 @@
 	AM.pulledby = src
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
+	SEND_SIGNAL(AM, COMSIG_ATOM_PULLED, src)
+
+	for(var/log_pulltype in GLOB.log_pulltypes)
+		if(istype(AM, log_pulltype))
+			create_log(MISC_LOG, "Started pulling", AM)
+			break
 
 /mob/living/proc/check_pull()
 	if(pulling && !pulling.Adjacent(src))

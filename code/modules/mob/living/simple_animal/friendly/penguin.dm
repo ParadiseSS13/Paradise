@@ -19,6 +19,7 @@
 
 /mob/living/simple_animal/pet/penguin/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/wears_collar)
 	AddElement(/datum/element/waddling)
 
 /mob/living/simple_animal/pet/penguin/emperor

@@ -88,6 +88,7 @@ nav:
       - 'Mapping Quickstart': './mapping/quickstart.md'
       - 'Mapping Requirements': './mapping/requirements.md'
       - 'Design Guidelines': './mapping/design.md'
+      - 'Random Spawners': './mapping/random_spawners.md'
       - 'Guide to Submaps': './mapping/submaps.md'
       - 'Spawn Pools': './mapping/spawn_pools.md'
 
