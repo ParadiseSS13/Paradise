@@ -225,7 +225,7 @@
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(is_xeno_organ == TRUE)
-			to_chat(user, "<span class = 'warning'>It wouldnt be a very good idea to eat this.</span>")
+			to_chat(user, "<span class='warning'>It wouldnt be a very good idea to eat this.</span>")
 			return ..()
 		var/obj/item/food/S = prepare_eat()
 		if(S)
