@@ -1,9 +1,9 @@
 /datum/spell/inspectors_gaze
 	name = "Inspector's Gaze"
 	desc = "Let the crew know that they're being watched and inspected."
-	base_cooldown = 60
+	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
-	selection_activated_message		= "<span class='notice'>You look for a crewmember to inspect! <B>Left-click to gaze at a target!</B></span>"
+	selection_activated_message		= "<span class='notice'>You look for a crewmember to inspect! <b>Left-click to gaze at a target!</b></span>"
 	selection_deactivated_message	= "<span class='notice'>You relinquish your gaze... for now.</span>"
 	action_icon_state = "genetic_view"
 
