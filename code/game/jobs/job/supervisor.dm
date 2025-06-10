@@ -206,9 +206,6 @@
 
 	INVOKE_ASYNC(src, PROC_REF(give_gaze), H)
 
-/datum/outfit/job/nanotrasenrep/proc/give_gaze(mob/living/carbon/human/user)
-	user.AddSpell(new /datum/spell/inspectors_gaze(null))
-
 /datum/job/blueshield
 	title = "Blueshield"
 	flag = JOB_BLUESHIELD
@@ -372,9 +369,6 @@
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(give_gaze), H)
-
-/datum/outfit/job/iaa/proc/give_gaze(mob/living/carbon/human/user)
-	user.AddSpell(new /datum/spell/inspectors_gaze(null))
 
 /datum/job/nanotrasentrainer
 	title = "Nanotrasen Career Trainer"
