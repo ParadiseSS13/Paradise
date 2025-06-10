@@ -6,7 +6,7 @@
 	// Client does not have 2FA enabled. Set it up.
 	if(prefs._2fa_status == _2FA_DISABLED)
 		// Get us an auth token
-		var/datum/http_response/qrcr = MakeAPICall(RUSTG_HTTP_METHOD_GET, "2fa/generate_qr?ckey=[ckey]")
+		var/datum/http_response/qrcr = MakeAPICall(RUSTLIBS_HTTP_METHOD_GET, "2fa/generate_qr?ckey=[ckey]")
 		// If this fails, shits gone bad
 		if(qrcr.errored)
 			alert(usr, "Something has gone VERY wrong ingame. Please inform the server host.\nError details: [qrcr.error]")
@@ -33,7 +33,7 @@
 			B.close()
 			return
 
-		var/datum/http_response/vr = MakeAPICall(RUSTG_HTTP_METHOD_GET, "2fa/validate_code?ckey=[ckey]&code=[entered_code]")
+		var/datum/http_response/vr = MakeAPICall(RUSTLIBS_HTTP_METHOD_GET, "2fa/validate_code?ckey=[ckey]&code=[entered_code]")
 		// If this fails, shits gone bad
 		if(vr.errored)
 			alert(usr, "Something has gone VERY wrong ingame. Please inform the server host.\nError details: [vr.error]")
@@ -86,7 +86,7 @@
 				alert(usr, "2FA deactivation aborted!")
 				return
 
-			var/datum/http_response/vr = MakeAPICall(RUSTG_HTTP_METHOD_GET, "2fa/validate_code?ckey=[ckey]&code=[entered_code]")
+			var/datum/http_response/vr = MakeAPICall(RUSTLIBS_HTTP_METHOD_GET, "2fa/validate_code?ckey=[ckey]&code=[entered_code]")
 			// If this fails, shits gone bad
 			if(vr.errored)
 				alert(usr, "Something has gone VERY wrong ingame. Please inform the server host.\nError details: [vr.error]")

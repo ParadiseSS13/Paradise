@@ -14,6 +14,13 @@
 	var/uses //If we have multiple uses of the same power
 	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
 	antimagic_flags = NONE
+	/// Is this spell an AI program?
+	var/datum/ai_program/program
+
+/datum/spell/ai_spell/New()
+	. = ..()
+	if(program)
+		desc += " Costs [program.nanite_cost] Nanites to use."
 
 /datum/spell/ai_spell/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -45,6 +52,12 @@
 			closest_camera = C
 			continue
 	return closest_camera
+
+/datum/spell/ai_spell/proc/desc_update()
+	desc = initial(desc)
+	if(program)
+		desc += " Costs [program.nanite_cost] Nanites to use."
+	action.desc = desc
 
 /datum/spell/ai_spell/proc/camera_beam(target, icon_state, icon, time)
 	var/obj/machinery/camera/C = find_nearest_camera(target)

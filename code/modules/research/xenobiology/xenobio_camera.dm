@@ -345,13 +345,13 @@
 /datum/action/innate/hotkey_help/Activate()
 	if(!target || !isliving(owner))
 		return
-	var/obj/machinery/computer/camera_advanced/xenobio/X = owner.machine
+	var/obj/machinery/computer/camera_advanced/xenobio/console = target
 	to_chat(owner, "<b>Click shortcuts:</b>")
 	to_chat(owner, "Shift-click a slime to pick it up, or the floor to drop all held slimes.")
 	to_chat(owner, "Ctrl-click a slime to scan it.")
 	to_chat(owner, "Alt-click a slime to feed it a potion.")
 	to_chat(owner, "Ctrl-click or a dead monkey to recycle it, or the floor to place a new monkey.")
-	to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
+	to_chat(owner, "[console] now has [console.monkeys] monkey\s left.")
 
 //
 // Alternate clicks for slime, monkey and open turf if using a xenobio console

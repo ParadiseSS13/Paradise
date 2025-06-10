@@ -192,6 +192,10 @@
 	randomspread = 1
 	delay = 0
 
+/obj/item/ammo_casing/energy/disabler/fake
+	projectile_type = /obj/item/projectile/beam/disabler/fake
+	e_cost = 100
+
 /obj/item/ammo_casing/energy/disabler/eshotgun
 	projectile_type = /obj/item/projectile/beam/disabler/pellet
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE

@@ -37,7 +37,7 @@
 
 /datum/spell/projectile/honk_missile
 	name = "Honk Missile"
-	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
+	desc = "This spell fires several, slow moving, magic bike horns at nearby targets."
 
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
