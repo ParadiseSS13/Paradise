@@ -75,7 +75,7 @@
 /area/station/hallway/spacebridge/scidock)
 "hA" = (
 /obj/machinery/door/airlock/glass,
-/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -89,7 +89,7 @@
 /area/station/hallway/spacebridge/scidock)
 "kV" = (
 /obj/machinery/door/airlock/glass,
-/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "ld" = (
@@ -97,9 +97,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "ly" = (
-/obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/glass,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -191,9 +191,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/hallway/spacebridge/scidock)
-"vR" = (
-/turf/simulated/mineral/ancient,
-/area/station/maintenance/maintcentral)
 "vW" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -223,13 +220,14 @@
 /area/station/hallway/spacebridge/scidock)
 "zC" = (
 /obj/machinery/door/airlock/glass,
-/obj/structure/barricade/wooden,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "Af" = (
 /obj/machinery/door/airlock/research,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
 "BP" = (
@@ -309,10 +307,6 @@
 "IY" = (
 /turf/simulated/mineral/ancient/outer,
 /area/station/hallway/spacebridge/scidock)
-"Ju" = (
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/station/maintenance/maintcentral)
 "Kf" = (
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
@@ -325,6 +319,7 @@
 /area/station/hallway/spacebridge/scidock)
 "Ms" = (
 /obj/machinery/door/airlock/research,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -411,6 +406,9 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"Up" = (
+/turf/simulated/mineral/ancient,
+/area/station/maintenance/maintcentral)
 "US" = (
 /obj/item/chair{
 	dir = 1
@@ -462,7 +460,7 @@
 "VM" = (
 /obj/machinery/door/airlock/research,
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/hallway/spacebridge/scidock)
 "WL" = (
@@ -492,8 +490,8 @@ ET
 ET
 ET
 ET
-mU
 ET
+mU
 ET
 ET
 ET
@@ -543,10 +541,10 @@ ET
 ET
 ET
 ET
+ET
 SC
-vR
+Up
 cc
-py
 py
 Vo
 Vo
@@ -596,8 +594,8 @@ ET
 ET
 ET
 ET
-Ju
-py
+ET
+Up
 py
 Vo
 Vo
@@ -648,9 +646,9 @@ ET
 ET
 ET
 ET
-wy
+ET
+Up
 py
-Vo
 Vo
 Vo
 Vb
@@ -700,9 +698,9 @@ ET
 ET
 ET
 ET
+ET
 wy
 wy
-ok
 ok
 ok
 wy
@@ -752,9 +750,9 @@ ET
 ET
 ET
 ET
+ET
 zC
 fQ
-ld
 Xf
 ld
 kV
@@ -803,10 +801,10 @@ ET
 ET
 ET
 ET
+ET
 SC
 Rl
 Rl
-ok
 ok
 ok
 wy
@@ -856,8 +854,8 @@ ET
 ET
 ET
 ET
-Tj
 ET
+Tj
 ET
 ET
 ET
@@ -1116,8 +1114,8 @@ ET
 ET
 ET
 ET
-mU
 ET
+mU
 ET
 ET
 ET
@@ -1167,10 +1165,10 @@ ET
 ET
 ET
 ET
+ET
 SC
-vR
+Up
 cc
-py
 py
 Vo
 Vo
@@ -1220,8 +1218,8 @@ ET
 ET
 ET
 ET
-Ju
-py
+ET
+Up
 py
 Vo
 Vo
@@ -1272,9 +1270,9 @@ ET
 ET
 ET
 ET
-wy
+ET
+Up
 py
-EV
 EV
 EV
 EV
@@ -1324,9 +1322,9 @@ ET
 ET
 ET
 ET
+ET
 wy
 wy
-ok
 ok
 ok
 wy
@@ -1376,9 +1374,9 @@ ET
 ET
 ET
 ET
+ET
 zC
 fQ
-ld
 Xf
 ld
 ie
@@ -1427,10 +1425,10 @@ ET
 ET
 ET
 ET
+ET
 SC
 wy
 wy
-ok
 ok
 ok
 wy
@@ -1480,8 +1478,8 @@ ET
 ET
 ET
 ET
-Tj
 ET
+Tj
 ET
 ET
 ET

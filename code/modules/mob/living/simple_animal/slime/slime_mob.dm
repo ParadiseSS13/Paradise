@@ -9,6 +9,7 @@
 	var/is_adult = FALSE
 	var/docile = FALSE
 	faction = list("slime", "neutral")
+	new_attack_chain = TRUE
 
 	harm_intent_damage = 5
 	icon_living = "grey baby slime"
@@ -49,7 +50,7 @@
 	var/target_patience = 0 // AI variable, cooloff-ish for how long it's going to follow its target
 
 	var/mood = "" // To show its face
-	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
+	var/mutator_used = FALSE // So you can't shove a dozen mutators into a single slime
 	var/force_stasis = FALSE
 
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
@@ -64,6 +65,12 @@
 	var/Discipline = 0
 	/// Stun variable
 	var/SStun = 0
+	// does this slime have a xeno organ inserted into it already?
+	var/obj/item/xeno_organ/holding_organ
+	// An elevated form of discipline. Is this slime trained and ready to begin organ therapy?
+	var/trained = FALSE
+	// how far along in the organ processing are we
+	var/organ_progress = 0
 
 	///////////TIME FOR SUBSPECIES
 
@@ -111,6 +118,22 @@
 	Target = null
 	return ..()
 
+/mob/living/simple_animal/slime/death()
+	if(holding_organ)
+		eject_organ()
+	underlays.Cut()
+	return ..()
+
+/mob/living/simple_animal/slime/update_overlays()
+	. = ..()
+	if(stat != DEAD)
+		. += "aslime-[mood]"
+		if(holding_organ)
+			var/mutable_appearance/underlay_appearance = mutable_appearance(layer = 3.9, plane = GAME_PLANE) // 3.9 so it wont potentially layer weird if someones laying below
+			underlay_appearance.icon = icon = 'icons/mob/slimes.dmi'
+			underlay_appearance.icon_state = "xeno_organ"
+			underlays += underlay_appearance
+
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
 	update_appearance(UPDATE_NAME)
@@ -136,7 +159,7 @@
 	if(stat != DEAD)
 		icon_state = icon_text
 		if(mood && stat == CONSCIOUS)
-			add_overlay("aslime-[mood]")
+			update_appearance(UPDATE_OVERLAYS)
 	else
 		icon_state = icon_dead
 
@@ -347,6 +370,11 @@
 				for(var/datum/surgery/S in surgeries)
 					if(S.next_step(M, src))
 						return 1
+		if(M.a_intent == INTENT_HELP)
+			new /obj/effect/temp_visual/heart(src.loc)
+			if(prob(4))
+				discipline_slime(M, positive_reinforcement = TRUE)
+
 		if(..()) //successful attack
 			attacked += 10
 
@@ -355,18 +383,43 @@
 		attacked += 10
 		discipline_slime(M)
 
-
 /mob/living/simple_animal/slime/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(stat == DEAD && length(surgeries))
 		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
 					return ITEM_INTERACT_COMPLETE
+	if(istype(I, /obj/item/xeno_organ) && stat == CONSCIOUS)
+		if(!is_adult)
+			to_chat(user, "<span class='notice'>The slime is not old enough yet to process organs!</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(holding_organ)
+			to_chat(user, "<span class='warning'>The slime is already processing an organ!</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(trained)
+			if(src.mind)
+				src.visible_message("<span class='notice'>Sentient slimes are unable to process organs!</span>")
+				return ITEM_INTERACT_COMPLETE
+			if(user.transfer_item_to(I, src, force = TRUE))
+				holding_organ = I
+				src.visible_message("<span class='notice'>The slime gently pulls the offered organ into itself.</span>")
+				update_appearance(UPDATE_OVERLAYS)
+				return ITEM_INTERACT_COMPLETE
+		else
+			to_chat(user, "<span class='notice'>The slime seems puzzled at what you want it to do with the organ! It needs to be trained first.</span>")
+			return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && stat == CONSCIOUS) //Let's you feed slimes plasma.
-		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
-		S.use(1)
-		discipline_slime(user)
+		if(S.amount < 5)
+			to_chat(user, "<span class='notice'>You need at least five sheets of plasma to feed the slime!</span>")
+			return ITEM_INTERACT_COMPLETE
+		new /obj/effect/temp_visual/heart(loc)
+		visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
+		S.use(5)
+		if(Discipline)
+			trained = TRUE
+		else
+			discipline_slime(user, positive_reinforcement = TRUE)
 		return ITEM_INTERACT_COMPLETE
 	if(I.force > 0)
 		attacked += 10
@@ -375,9 +428,12 @@
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, "<span class='danger'>[I] passes right through [src]!</span>")
 			return ITEM_INTERACT_COMPLETE
-		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
+		if(Discipline && prob(50) && !trained) // wow, buddy, why am I getting attacked??
 			Discipline = 0
 			return ITEM_INTERACT_COMPLETE
+		if(trained && prob(20)) // trained slimes are more resistant to losing discipline
+			trained = 0
+			visible_message("<span class='warning'>[src] gets spooked and cowers from [user]!</span>")
 
 /mob/living/simple_animal/slime/attacked_by(obj/item/I, mob/living/user)
 	if(..())
@@ -394,9 +450,18 @@
 	. = ..()
 	var/water_damage = rand(10, 15) * volume
 	adjustBruteLoss(water_damage)
+	// Extinguishers just piss them off more
+	if(!client && istype(source, /obj/effect/particle_effect/water))
+		adjustBruteLoss(5) // extra potent
+		if(trained && prob(75))
+			say("Ow! HEY!!!", pick(speak_emote))
+			trained = FALSE
+			rabid = TRUE
 	if(!client && Target && volume >= 3) // Like cats
 		Target = null
-		++Discipline
+		discipline_slime(FALSE)
+		if(prob(5))
+			say("Ow ow ow!", pick(speak_emote))
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
@@ -413,7 +478,8 @@
 			else
 				. += "<B>It has severe punctures and tears in its flesh!</B>"
 			. += "</span>\n"
-
+		if(holding_organ)
+			. += "It seems to be currently processing something inside of itself."
 		switch(powerlevel)
 			if(2 to 3)
 				. += "It is flickering gently with a little electrical activity."
@@ -429,23 +495,30 @@
 
 	. += "</span>"
 
-/mob/living/simple_animal/slime/proc/discipline_slime(mob/user)
+/mob/living/simple_animal/slime/proc/discipline_slime(mob/user, positive_reinforcement = FALSE)
 	if(stat)
 		return
 
-	if(prob(80) && !client)
+	if(!client)
 		Discipline++
 
 		if(!is_adult)
-			if(Discipline == 1)
+			if(Discipline >= 1)
 				attacked = 0
 
-	if(Target)
+	if(trained && !positive_reinforcement)
+		say("Sorry...", pick(speak_emote))
 		Target = null
+
 	if(buckled)
 		Feedstop(silent = TRUE) //we unbuckle the slime from the mob it latched onto.
 
 	SStun = world.time + rand(20,60)
+
+	if(positive_reinforcement)
+		mood = ":33"
+		regenerate_icons()
+		return
 	spawn(0)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_TRAIT)
 		if(user)
@@ -480,3 +553,13 @@
 /mob/living/simple_animal/slime/unit_test_dummy
 	wander = FALSE
 	stop_automated_movement = TRUE
+
+/mob/living/simple_animal/slime/proc/eject_organ()
+	holding_organ.forceMove(loc)
+	visible_message("<span class='notice'>[src] drops \the [holding_organ.name] as it splits!</span>")
+	holding_organ = null
+	update_appearance()
+
+/mob/living/simple_animal/slime/sentience_act()
+	. = ..()
+	eject_organ()

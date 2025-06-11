@@ -62,6 +62,10 @@ Difficulty: Medium
 	death_sound = 'sound/misc/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/ash_drake
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/drake
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							/datum/action/innate/megafauna_attack/fire_cone_meteors,
 							/datum/action/innate/megafauna_attack/mass_fire,
@@ -100,6 +104,13 @@ Difficulty: Medium
 	gpstag = "Fiery Signal"
 	desc = "Here there be dragons."
 	invisibility = 100
+
+/mob/living/simple_animal/hostile/megafauna/dragon/death(gibbed)
+	move_force = MOVE_FORCE_OVERPOWERING
+	move_resist = MOVE_FORCE_OVERPOWERING
+	pull_force = MOVE_FORCE_OVERPOWERING
+	mob_size = MOB_SIZE_LARGE
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
 	if(swooping)
@@ -603,6 +614,7 @@ Difficulty: Medium
 	crusher_loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
+	contains_xeno_organ = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/generate_random_loot()
 	return
