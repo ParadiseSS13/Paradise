@@ -22,4 +22,4 @@
 #define SHOCK_MINOR 1 // Minimum amount of damage for something to be considered a minor shock
 #define SHOCK_MODERATE 26 // Minimum amount of damage for something to be considered a moderate shock
 #define SHOCK_MAJOR 51 // Minimum amount of damage for something to be considered a major shock
-#define SHOCK_FLASH 200 // Minimum amount of damage to arc flash
+#define SHOCK_FLASH 201 // Minimum amount of damage to arc flash
