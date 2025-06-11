@@ -25,6 +25,7 @@
 /area/ruin/powered/sloth)
 "f" = (
 /obj/structure/table/wood,
+/obj/item/organ/internal/kidneys/xenobiology/lethargic,
 /obj/item/food/grown/citrus/orange,
 /turf/simulated/floor/sepia{
 	slowdown = 10
