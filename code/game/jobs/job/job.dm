@@ -300,3 +300,7 @@
 	if(!H.mind.initial_account)
 		return
 	id.associated_account_number = H.mind.initial_account.account_number
+
+/// Used to give the gaze ability to NTReps and IAAs
+/datum/outfit/job/proc/give_gaze(mob/living/carbon/human/user)
+	user.AddSpell(new /datum/spell/inspectors_gaze(null))
