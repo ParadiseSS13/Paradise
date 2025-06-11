@@ -87895,7 +87895,7 @@
 /obj/merge_conflict_marker{
 	name = "Merge Conflict Marker: <<<"
 	},
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/virologist,
