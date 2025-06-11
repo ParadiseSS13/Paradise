@@ -172,23 +172,29 @@
 		for(var/victim in shocking_queue)
 			var/mob/living/carbon/C = victim
 			C.electrocute_act(shock_damage * 0.75, src, 1, flags)
+
 	// Minor shock - Jitters and Stutters
 	var/should_jitter = 0
 	if(shock_damage >= SHOCK_MINOR)
 		should_jitter = shock_damage
 		AdjustStuttering(4 SECONDS)
+
 	// Moderate shock - Stun, knockdown, funny effect
 	var/should_stun = 0
 	var/stun_dur = 0 SECONDS
 	if(shock_damage >= SHOCK_MODERATE)
 		should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
 		if(should_stun)
-			stun_dur = (shock_damage / 25) * 1 SECONDS
+			stun_dur = max((shock_damage / 50) * 1 SECONDS, 4 SECONDS)
 			Stun(stun_dur)
-		var/obj/effect/temp_visual/electrocution/shock_effect = new /obj/effect/temp_visual/electrocution(loc, stun_dur)
-		shock_effect.setDir(dir)
+		if(shock_damage >= SHOCK_FLASH) // Arc flash explosion is instant, don't wait for the secondary shock and bypass the effect
+			stun_dur = 0
+		else
+			var/obj/effect/temp_visual/electrocution/shock_effect = new /obj/effect/temp_visual/electrocution(loc, stun_dur)
+			shock_effect.setDir(dir)
 		emote("scream")
 		AdjustStuttering(4 SECONDS)
+
 	// Major Shock - YEET
 	var/throw_distance = 0
 	var/fuck_you_dir = null
