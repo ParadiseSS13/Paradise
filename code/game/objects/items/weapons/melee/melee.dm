@@ -241,11 +241,11 @@
 	var/force_on = 24
 	new_attack_chain = TRUE
 
-// These are currently used by syndie chainsaw
-/obj/item/melee/chainsaw/proc/wield(obj/item/source, mob/user)
+// These 2 are currently used by syndie chainsaw
+/obj/item/melee/chainsaw/proc/wield()
 	return
 
-/obj/item/melee/chainsaw/proc/unwield(obj/item/source, mob/user)
+/obj/item/melee/chainsaw/proc/unwield()
 	return
 
 /obj/item/melee/chainsaw/update_icon_state()
@@ -282,13 +282,11 @@
 	. = ..()
 	AddElement(/datum/element/butchers_humans)
 
-/obj/item/melee/chainsaw/syndie/wield(obj/item/source, mob/user) // you can't disarm an active chainsaw, you crazy person.
-	flags |= NODROP
-	return ..()
+/obj/item/melee/chainsaw/syndie/wield() // you can't disarm an active chainsaw, you crazy person.
+	set_nodrop(TRUE, loc)
 
-/obj/item/melee/chainsaw/syndie/unwield(obj/item/source, mob/user)
-	flags &= ~NODROP
-	return ..()
+/obj/item/melee/chainsaw/syndie/unwield()
+	set_nodrop(FALSE, loc)
 
 /obj/item/melee/chainsaw/syndie/attack(mob/living/target, mob/living/user, params)
 	if(..())
@@ -299,8 +297,8 @@
 			user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
 
 /obj/item/melee/chainsaw/syndie/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if((attack_type in NON_PROJECTILE_ATTACKS) && owner.has_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)) //It's a chainsaw, you can't block projectiles with it
-		final_block_chance = 80 //Need to be ready to ruuuummbllleeee
+	if((attack_type in NON_PROJECTILE_ATTACKS) && owner.has_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)) // It's a chainsaw, you can't block projectiles with it
+		final_block_chance = 80 // Need to be ready to ruuuummbllleeee
 	return ..()
 
 // MARK: SLAYER CHAINSAW
