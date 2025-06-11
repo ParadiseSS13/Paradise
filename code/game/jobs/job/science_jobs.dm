@@ -81,9 +81,8 @@
 		ACCESS_RESEARCH,
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
-		ACCESS_XENOBIOLOGY
 	)
-	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	alt_titles = list("Anomalist", "Plasma Researcher", "Chemical Researcher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
 	// All science-y guys get bonuses for maxing out their tech.
@@ -107,6 +106,60 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+
+/datum/job/xenobiologist
+	title = "Xenobiologist"
+	flag = JOB_XENOBIOLOGIST
+	department_flag = JOBCAT_MEDSCI
+	total_positions = 2
+	spawn_positions = 2
+	job_department_flags = DEP_FLAG_SCIENCE
+	supervisors = "the research director"
+	department_head = list("Research Director")
+	selection_color = "#ffeeff"
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_RESEARCH,
+		ACCESS_XENOBIOLOGY,
+		ACCESS_EVA,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_TELEPORTER,
+	)
+	alt_titles = list("Xenoarcheologist", "Slime Cultivator", "Slime Rancher")
+	minimal_player_age = 3
+	exp_map = list(EXP_TYPE_CREW = 300)
+	// All science-y guys get bonuses for maxing out their tech.
+	required_objectives = list(
+		/datum/job_objective/scan_organs,
+	)
+
+	outfit = /datum/outfit/job/xenobiologist
+
+/datum/outfit/job/xenobiologist
+	name = "Xenobiologist"
+	jobtype = /datum/job/xenobiologist
+
+	uniform = /obj/item/clothing/under/rank/rnd/scientist
+	suit = /obj/item/clothing/suit/storage/labcoat/science
+	shoes = /obj/item/clothing/shoes/white
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
+	glasses = /obj/item/clothing/glasses/science
+	l_ear = /obj/item/radio/headset/headset_sci
+	id = /obj/item/card/id/xenobiology
+	pda = /obj/item/pda/toxins
+
+	backpack = /obj/item/storage/backpack/science
+	satchel = /obj/item/storage/backpack/satchel_tox
+	dufflebag = /obj/item/storage/backpack/duffel/science
+
+	backpack_contents = list(
+		/obj/item/healthanalyzer = 1,
+		/obj/item/storage/box/bodybags = 1,
+		/obj/item/clipboard = 1,
+	)
 
 /datum/job/roboticist
 	title = "Roboticist"

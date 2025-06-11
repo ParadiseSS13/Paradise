@@ -136,10 +136,11 @@
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	base_name = "large airlock"
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
+	var/width = 2
+	var/list/fillers
 	airlock_type = /obj/machinery/door/airlock/multi_tile
 	glass_type = /obj/machinery/door/airlock/multi_tile/glass
 	material_amt = 8
-	var/width = 2
 
 /obj/structure/door_assembly/multi_tile/Initialize(mapload, direction)
 	. = ..()
@@ -178,6 +179,25 @@
 		else
 			bound_y = 0
 			pixel_y = 0
+
+	QDEL_LIST_CONTENTS(fillers)
+	LAZYINITLIST(fillers)
+
+	var/obj/last_filler = src
+	for(var/i in 1 to width - 1)
+		var/obj/airlock_filler_object/filler
+
+		if(length(fillers) < i)
+			filler = new(src)
+			filler.pair_assembly(src)
+			fillers += filler
+		else
+			filler = fillers[i]
+
+		filler.loc = get_step(last_filler, dir)
+		filler.set_opacity(opacity)
+
+		last_filler = filler
 
 /obj/structure/door_assembly/door_assembly_cult
 	name = "cult airlock assembly"

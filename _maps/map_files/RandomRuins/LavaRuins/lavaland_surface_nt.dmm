@@ -848,7 +848,7 @@
 /obj/docking_port/mobile/mining,
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
-	area_type = /area/lavaland/surface/outdoors;
+	area_type = /area/lavaland/surface/outdoors/outpost/no_boulder;
 	dir = 8;
 	dwidth = 3;
 	height = 5;
