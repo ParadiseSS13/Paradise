@@ -60,3 +60,6 @@
 
 /proc/cmp_changeling_power_category_asc(datum/changeling_power_category/a, datum/changeling_power_category/b)
 	return initial(a.priority) - initial(b.priority)
+
+/proc/cmp_ruin_placement_cost(datum/map_template/ruin/A, datum/map_template/ruin/B)
+	return A.get_cost() - B.get_cost()

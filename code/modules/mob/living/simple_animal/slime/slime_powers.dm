@@ -167,7 +167,8 @@
 
 			if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
 				return //no you cannot split while you're in the matrix (this prevents GC issues and slimes disappearing)
-
+			if(holding_organ)
+				eject_organ()
 			var/list/babies = list()
 			var/new_nutrition = round(nutrition * 0.9)
 			var/new_powerlevel = round(powerlevel / 4)
