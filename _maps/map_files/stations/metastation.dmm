@@ -117,6 +117,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "acv" = (
@@ -7137,6 +7140,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
+/obj/effect/landmark/start/geneticist,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25494,12 +25498,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "cwR" = (
-/obj/effect/landmark/start/scientist,
 /obj/structure/chair/stool{
 	dir = 8
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
+/obj/effect/landmark/start/roboticist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -26374,6 +26378,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/chair/stool,
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -27984,6 +27989,10 @@
 /obj/machinery/door/window/reinforced/normal,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "cIR" = (
@@ -31340,8 +31349,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "ddz" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/machinery/telepad_cargo,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33880,6 +33890,13 @@
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/item/toy/figure/crew/scientist{
+	pixel_x = -4;
+	pixel_y = 4;
+	name = "\improper Xenobiologist action figure";
+	desc = "The bored xenobiologist, from Space Life's SS12 figurine collection.";
+	toysay = "Lets make some guns!"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
@@ -38700,11 +38717,10 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/door/window/classic/reversed{
-	dir = 4;
-	name = "Xenobiology Coldroom"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 4
+	},
+/obj/machinery/door/window/classic/reversed{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -39796,6 +39812,9 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 1;
 	name = "Containment Pen"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -44471,6 +44490,7 @@
 	name = "Containment Pen"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "hFF" = (
@@ -44561,6 +44581,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "hGS" = (
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -45268,6 +45289,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/xenobio_north)
 "hXd" = (
@@ -45549,6 +45571,9 @@
 	name = "Containment Pen"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "ibL" = (
@@ -48333,7 +48358,6 @@
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "jbd" = (
-/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -48531,18 +48555,18 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/machinery/access_button{
 	autolink_id = "xeno_btn_int";
 	name = "Xenobiology Access Button";
 	pixel_x = -3;
 	pixel_y = 26;
 	req_access = list(55)
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -52991,7 +53015,7 @@
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
-/obj/effect/landmark/start/xenobiologist,
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurplecorners"
@@ -54033,8 +54057,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/catwalk,
-/area/station/science/xenobiology)
+/area/station/maintenance/xenobio_north)
 "lcc" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel{
@@ -60373,6 +60398,9 @@
 	dir = 1;
 	name = "Containment Pen"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "nkx" = (
@@ -61867,6 +61895,10 @@
 	c_tag = "Xenobiology Lab - Containment Hallway Starboard";
 	dir = 9;
 	network = list("Research","SS13")
+	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -64359,8 +64391,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/catwalk,
-/area/station/science/xenobiology)
+/area/station/maintenance/xenobio_north)
 "oJW" = (
 /obj/structure/dispenser,
 /obj/structure/sign/double/map/left{
@@ -72374,6 +72407,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "rBe" = (
@@ -77857,7 +77891,7 @@
 	pixel_y = 32
 	},
 /obj/structure/chair/sofa/corp,
-/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -83191,6 +83225,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -90342,6 +90377,7 @@
 /obj/machinery/door/window/classic/reversed{
 	name = "Containment Pen"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "ybI" = (
@@ -135199,11 +135235,11 @@ aaa
 abf
 aef
 aef
-rPS
-uQm
+cAb
+eUC
 lcb
-uQm
-uQm
+eUC
+eUC
 uQm
 uQm
 uQm
@@ -135460,7 +135496,7 @@ quL
 wtm
 rUQ
 qyA
-uQm
+eUC
 mdi
 pes
 pes
@@ -135717,7 +135753,7 @@ quL
 xzR
 rUQ
 dPb
-uQm
+eUC
 pes
 hfR
 pes
@@ -135974,7 +136010,7 @@ quL
 xzR
 oLN
 dLG
-uQm
+eUC
 mdi
 gxC
 gtF
@@ -136231,8 +136267,8 @@ eUC
 lGs
 ssA
 qfe
-uQm
-uQm
+eUC
+eUC
 uQm
 uQm
 fhR
@@ -136489,7 +136525,7 @@ aEl
 oLN
 xzR
 aHh
-uQm
+eUC
 pes
 pes
 mdi
@@ -136746,7 +136782,7 @@ jWt
 hQf
 rPU
 rxp
-uQm
+eUC
 mdi
 iRg
 pes
@@ -137003,7 +137039,7 @@ ltH
 jSb
 oLN
 dVK
-uQm
+eUC
 mdi
 hyg
 oDO
@@ -137260,8 +137296,8 @@ eUC
 nxT
 qMX
 nxT
-uQm
-uQm
+eUC
+eUC
 uQm
 uQm
 fhR
@@ -137518,7 +137554,7 @@ uzb
 rUQ
 aEl
 ltu
-uQm
+eUC
 mdi
 pes
 gSu
@@ -137775,7 +137811,7 @@ aEl
 oLN
 xzR
 azt
-uQm
+eUC
 mdi
 hfR
 ybD
@@ -138032,7 +138068,7 @@ rYB
 rUQ
 vSw
 hvj
-uQm
+eUC
 ivR
 hyg
 wXA
@@ -138289,7 +138325,7 @@ agt
 gOu
 sIV
 wUY
-uQm
+eUC
 uQm
 uQm
 ciz
@@ -138546,7 +138582,7 @@ aEl
 hEj
 oLN
 dLG
-uQm
+eUC
 mdi
 pes
 gSu
@@ -138803,7 +138839,7 @@ ngG
 aEl
 oLN
 xzR
-uQm
+eUC
 pes
 uLb
 ybD
@@ -139060,7 +139096,7 @@ qiA
 aEl
 oLN
 jWt
-uQm
+eUC
 hGF
 gxC
 wXA
@@ -139317,17 +139353,17 @@ eUC
 rMt
 oLN
 aEl
-uQm
-uQm
-uQm
-uQm
-uQm
-cZr
+eUC
+eUC
+eUC
+eUC
+eUC
+nxT
 oJQ
-cZr
-uQm
-uQm
-uQm
+nxT
+eUC
+eUC
+eUC
 uQm
 uQm
 aef
