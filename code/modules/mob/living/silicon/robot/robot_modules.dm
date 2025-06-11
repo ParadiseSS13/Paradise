@@ -452,7 +452,7 @@
 		/obj/item/flash/cyborg,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
-		/obj/item/extinguisher/mini/cyborg, //Give them the option of BOTH extinguishers
+		/obj/item/extinguisher/mini/cyborg, // Give them the option of BOTH extinguishers
 		/obj/item/weldingtool/largetank/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/wrench/cyborg,
@@ -858,7 +858,7 @@
 		/obj/item/stack/medical/splint/cyborg/syndicate,
 		/obj/item/stack/nanopaste/cyborg/syndicate,
 		/obj/item/gun/medbeam,
-		/obj/item/extinguisher/mini, //Why the hell would the syndicate care about greys?
+		/obj/item/extinguisher/mini, // Why the hell would the syndicate care about greys?
 		/obj/item/gripper/medical,
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
@@ -881,7 +881,7 @@
 		/obj/item/flash/cyborg,
 		/obj/item/rcd/borg/syndicate,
 		/obj/item/rpd,
-		/obj/item/extinguisher, //Syndicate dont care about no greys.
+		/obj/item/extinguisher, // Syndicate dont care about no greys.
 		/obj/item/weldingtool/largetank/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/wrench/cyborg,
