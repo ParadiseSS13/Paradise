@@ -378,9 +378,9 @@ const ExploitableInfoPage = (_properties, context) => {
         <Section fill scrollable title="Exploitable Records">
           <Input fluid mb={1} placeholder="Search Crew" onInput={(e, value) => setSearchText(value)} />
           <Tabs vertical>
-            {crew.map((r) => (
+            {crew.map((r, index) => (
               <Tabs.Tab
-                key={r}
+                key={index}
                 selected={r.name === selected_record.name}
                 onClick={() => act('view_record', { uid_gen: r.uid_gen })}
               >
