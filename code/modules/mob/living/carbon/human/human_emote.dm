@@ -672,7 +672,7 @@
 	vary = TRUE
 
 /datum/emote/living/carbon/human/caw/get_sound(mob/living/user)
-	return pick("sound/effects/voxfcaw.ogg","sound/effects/voxrcaw.ogg")
+	return pick("sound/effects/voxfcaw.ogg", "sound/effects/voxrcaw.ogg")
 
 /datum/emote/living/carbon/human/warble
 	key = "warble"
