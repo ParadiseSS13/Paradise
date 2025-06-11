@@ -319,4 +319,4 @@
 
 /datum/dog_fashion/head/miningsoft
 	name = "Spelunker REAL_NAME"
-	desc = "Legions are just like a walking chew toys for him."
+	desc = "Legions are just like walking chew toys for him."
