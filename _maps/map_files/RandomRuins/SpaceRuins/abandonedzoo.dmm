@@ -112,7 +112,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "as" = (
-/mob/living/simple_animal/hostile/asteroid/basilisk,
+/mob/living/simple_animal/hostile/asteroid/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "at" = (
