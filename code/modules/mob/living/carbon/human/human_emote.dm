@@ -669,6 +669,7 @@
 	// Credit to zeroisnotnull (opengameart.org) for the original sound.
 	species_type_whitelist_typecache = list(/datum/species/vox)
 	muzzled_noises = list("frustrated")
+	vary = TRUE
 
 /datum/emote/living/carbon/human/caw/get_sound(mob/living/user)
 	return pick("sound/effects/voxfcaw.ogg","sound/effects/voxrcaw.ogg")
