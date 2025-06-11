@@ -737,7 +737,7 @@
 	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
 	user.put_in_hands(W)
 	on_cooldown = TRUE
-	flags |= NODROP
+	set_nodrop(TRUE, user)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 2 MINUTES)
 	if(world.time > next_spark_time)
 		do_sparks(rand(1,6), 1, loc)
@@ -759,7 +759,7 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE
-	flags &= ~NODROP
+	set_nodrop(FALSE, loc)
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
 
 /// Max number of atoms a broom can sweep at once

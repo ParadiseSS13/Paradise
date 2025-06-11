@@ -65,6 +65,8 @@
 		M.dna.SetSEState(GLOB.colourblindblock, FALSE)
 		singlemutcheck(M, GLOB.colourblindblock, MUTCHK_FORCED)
 	. = ..()
+	if(!M)
+		return
 	M.update_tint()
 	M.update_sight()
 
