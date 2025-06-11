@@ -96,6 +96,8 @@
 		"Scientist" = "sciradio",
 		"Xenoarcheologist" = "sciradio",
 		"Xenobiologist" = "sciradio",
+		"Slime Cultivator" = "sciradio",
+		"Slime Rancher" = "sciradio",
 		// Security
 		"Detective" = "secradio",
 		"Forensic Technician" = "secradio",
