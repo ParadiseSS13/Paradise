@@ -87892,24 +87892,11 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "tOS" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/effect/landmark/start/virologist,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "tOT" = (
