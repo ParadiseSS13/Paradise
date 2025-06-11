@@ -199,7 +199,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "fs" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord,
+/mob/living/simple_animal/hostile/asteroid/hivelord/space,
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "fA" = (
@@ -953,7 +953,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "FN" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord,
+/mob/living/simple_animal/hostile/asteroid/hivelord/space,
 /turf/simulated/floor/carpet/airless,
 /area/ruin/space/abandoned_engi_sat)
 "FQ" = (
@@ -1147,7 +1147,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "OW" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord,
+/mob/living/simple_animal/hostile/asteroid/hivelord/space,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "OZ" = (
@@ -1261,7 +1261,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "RV" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/asteroid/hivelord,
+/mob/living/simple_animal/hostile/asteroid/hivelord/space,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "Sa" = (
@@ -1338,7 +1338,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "Xq" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/asteroid/hivelord,
+/mob/living/simple_animal/hostile/asteroid/hivelord/space,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "XP" = (
@@ -1346,7 +1346,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "Ye" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord,
+/mob/living/simple_animal/hostile/asteroid/hivelord/space,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "Yz" = (
