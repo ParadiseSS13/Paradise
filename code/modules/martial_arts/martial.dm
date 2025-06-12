@@ -169,6 +169,7 @@
 	if(!H.mind)
 		return
 	deltimer(combo_timer)
+	MA.reset_combos()
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
 	remove_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
