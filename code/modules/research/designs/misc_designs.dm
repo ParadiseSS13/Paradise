@@ -169,6 +169,6 @@
 	req_tech = list("combat" = 3, "engineering" = 6, "toxins" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 500) //Same as Advanced Release Grenade
-	reagents_list = list("oyxgen" = 50) //One small beaker at least, to make it require Chem Dispenser
+	reagents_list = list("oxygen" = 50) //One small beaker at least, to make it require Chem Dispenser
 	build_path = /obj/item/grenade/gas/oxygen
 	category = list("Miscellaneous")
