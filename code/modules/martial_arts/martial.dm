@@ -172,6 +172,8 @@
 	var/datum/martial_art/MA = src
 	if(!H.mind)
 		return
+	if(H.hud_used)
+		reset_combos()
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
