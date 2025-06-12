@@ -138,7 +138,7 @@
 /obj/item/robot_module/proc/fix_modules()
 	for(var/item in modules)
 		var/obj/item/I = item
-		I.flags |= NODROP
+		I.set_nodrop(TRUE)
 		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 /**
@@ -184,7 +184,7 @@
 		I.forceMove(src)
 
 	modules += I
-	I.flags |= NODROP
+	I.set_nodrop(TRUE)
 	I.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 	if(requires_rebuild)
