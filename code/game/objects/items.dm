@@ -163,8 +163,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/list/sprite_sheets_inhand
 	/// Used to override hardcoded clothing dmis in human clothing proc.
 	var/icon_override
-	/// Used to override hardcoded clothing inventory object dmis in human clothing proc.
-	var/sprite_sheets_obj
 
 	//Tooltip vars
 
