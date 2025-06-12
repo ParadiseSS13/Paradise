@@ -76,10 +76,14 @@
 			return check_combos(step, user, target, could_start_new_combo)
 	return FALSE
 
-/datum/martial_art/proc/reset_combos()
+/datum/martial_art/proc/reset_combos(mob/living/carbon/human/H)
 	current_combos.Cut()
 	streak = ""
-	var/mob/living/carbon/human/owner = locateUID(owner_UID)
+	var/mob/living/carbon/human/owner
+	if(H)
+		owner = H
+	else
+		owner = locateUID(owner_UID)
 	if(istype(owner) && !QDELETED(owner))
 		owner.hud_used.combo_display.update_icon(ALL, streak)
 	for(var/combo_type in combos)
