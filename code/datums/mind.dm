@@ -153,6 +153,7 @@
 	transfer_actions(new_character)
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
+			MA.reset_combos()
 			if(MA.temporary)
 				MA.remove(current)
 			else
