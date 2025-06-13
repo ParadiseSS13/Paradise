@@ -353,8 +353,6 @@
 	active = TRUE
 	to_chat(user, "<span class='notice'>You have cast summon ghosts!</span>")
 	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
-	message_admins("[key_name_admin(usr)] summoned ghosts as a wizard! (Ghosts are now VISIBLE)")
-	add_attack_logs(user, null, "Cast summon ghosts", ATKLOG_ALL)
 	return TRUE
 
 /datum/spellbook_entry/summon/slience_ghosts
@@ -369,7 +367,6 @@
 	to_chat(user, "<span class='notice'>You have silenced all ghosts!</span>")
 	playsound(get_turf(user), 'sound/effects/ghost.ogg', 50, 1)
 	message_admins("[key_name_admin(usr)] silenced all ghosts as a wizard! (Deadchat is now DISABLED)")
-	add_attack_logs(user, null, "Cast silence ghosts", ATKLOG_ALL)
 	return TRUE
 
 /datum/spellbook_entry/summon/guns
@@ -1112,7 +1109,8 @@
 	if(ishuman(user))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-		magichead.flags |= NODROP | DROPDEL	//curses!
+		magichead.flags |= DROPDEL	//curses!
+		magichead.set_nodrop(TRUE, magichead.loc)
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.drop_item_to_ground(user.wear_mask))
