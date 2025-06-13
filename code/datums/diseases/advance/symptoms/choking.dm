@@ -19,11 +19,12 @@ Bonus
 
 	name = "Choking"
 	stealth = -3
-	resistance = -2
+	resistance = 0
 	stage_speed = -2
 	transmittable = -4
 	level = 3
 	severity = 3
+	treatments = list("perfluorodecalin")
 
 /datum/symptom/choking/Activate(datum/disease/advance/A)
 	..()

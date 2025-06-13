@@ -15,6 +15,8 @@
 
 	atmos_mode = ATMOS_MODE_SPACE
 
+	rad_insulation_alpha = RAD_NO_INSULATION
+
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(!istype(src, /turf/space/transit))

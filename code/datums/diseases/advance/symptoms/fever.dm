@@ -18,8 +18,8 @@ Bonus
 /datum/symptom/fever
 
 	name = "Fever"
-	stealth = 0
-	resistance = 3
+	stealth = 2
+	resistance = 1
 	stage_speed = 3
 	transmittable = 2
 	level = 2

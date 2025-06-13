@@ -9,7 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 
 /datum/disease/kingstons/stage_act()
 	if(!..())
@@ -59,7 +59,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will mutate to a different species."
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi,/datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona,
 		/datum/species/slime, /datum/species/kidan, /datum/species/drask, /datum/species/grey, /datum/species/moth) // No IPCs (not organic), or vox+plasmemes because of air requirements
 	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
