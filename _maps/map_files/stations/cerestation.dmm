@@ -5159,6 +5159,16 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/storage)
+"aPO" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry)
 "aPT" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/camera{
@@ -48367,6 +48377,16 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/station/science/misc_lab)
+"iYA" = (
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/south)
 "iYG" = (
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/pipe,
@@ -159206,7 +159226,7 @@ ogc
 uhc
 wEk
 cFz
-uhc
+iYA
 uhc
 mHB
 opo
@@ -163318,7 +163338,7 @@ wPP
 jBN
 wKD
 jBQ
-jBN
+aPO
 wiH
 osw
 uiu
