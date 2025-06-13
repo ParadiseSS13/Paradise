@@ -15,6 +15,8 @@
 	var/health = 100 	//A mob's health
 	/// Healable by medical stacks?
 	var/healable = FALSE
+	/// The action emote which is displayed after the mob's name upon death.
+	var/deathmessage = ""
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	VAR_PROTECTED/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)

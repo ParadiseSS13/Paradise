@@ -40,7 +40,6 @@
 	med_hud_set_health()
 	med_hud_set_status()
 
-
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
@@ -66,6 +65,12 @@
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
+
+/// Legacy method for simplemobs to handle turning off their AI.
+/// Unrelated to and unused for AI controllers, which handle their
+/// AI cooperation with signals.
+/mob/living/proc/sentience_act()
+	return
 
 /mob/living/proc/OpenCraftingMenu()
 	return
@@ -1266,3 +1271,18 @@
 
 /mob/living/proc/sec_hud_set_ID()
 	return
+
+/// Proc for giving a mob a new 'friend', generally used for AI control and
+/// targeting. Returns false if already friends or null if qdeleted.
+/mob/living/proc/befriend(mob/living/new_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	if(QDELETED(new_friend))
+		return
+	var/friend_ref = new_friend.UID()
+	if(faction.Find(friend_ref))
+		return FALSE
+	faction |= friend_ref
+	ai_controller?.insert_blackboard_key_lazylist(BB_FRIENDS_LIST, new_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
+	return TRUE
