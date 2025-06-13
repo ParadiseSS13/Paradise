@@ -840,10 +840,9 @@
 			held_items += held.UID()
 
 /obj/structure/table/tray/Move(NewLoc, direct)
-	var/atom/OldLoc = loc
-
+	var/atom/oldloc = loc
 	. = ..()
-	if(!.) // ..() will return 0 if we didn't actually move anywhere.
+	if(oldloc == loc) // ..() will return 0 if we didn't actually move anywhere, except for some diagonal cases.
 		return
 
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
@@ -857,7 +856,7 @@
 		if(!held)
 			held_items -= held_uid
 			continue
-		if(OldLoc != held.loc)
+		if(oldloc != held.loc)
 			held_items -= held_uid
 			continue
 		held.forceMove(NewLoc)
