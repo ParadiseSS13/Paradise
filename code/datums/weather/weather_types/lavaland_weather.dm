@@ -362,21 +362,29 @@
 	update_areas()
 	update_eligible_areas()
 
-/datum/weather/acid/weather_act(atom/L)
-	while(L && !isturf(L))
-		if(ismecha(L)) //Mechs are immune
-			return
-		if(!ishuman(L) || isgrey(L)) // greys and natural fauna shouldnt be affected by acid rain
-			return
-		var/mob/living/carbon/human/H = L
-		if(!H.wear_suit || !H.head) // No need to check further if they dont have clothing on
-			H.adjustFireLoss(2)
-			H.adjustBruteLoss(2)
-			return
-		if(!(H.head.resistance_flags & ACID_PROOF) && !(H.wear_suit.resistance_flags & ACID_PROOF))
-			H.adjustFireLoss(2)
-			H.adjustBruteLoss(2)
-		L = L.loc //Matryoshka check
+/datum/weather/acid/weather_act(mob/living/carbon/human/target)
+	if(!istype(target)) // natural fauna shouldnt be affected by acid rain
+		return
+	if(!is_acid_proof(target))
+		target.adjustFireLoss(2)
+		target.adjustBruteLoss(2)
+
+/datum/weather/acid/proc/is_acid_proof(mob/living/carbon/human/target)
+	while(target && !isturf(target))
+		if(ismecha(target) || isgrey(target)) // we are gray or inside a mecha
+			return TRUE
+		if(is_human_acid_proof(target))
+			return TRUE
+		target = target.loc
+	return FALSE
+
+/datum/weather/acid/proc/is_human_acid_proof(mob/living/carbon/human/target)
+	if(!istype(target))
+		return FALSE
+	if(!target.wear_suit || !target.head) // No need to check further if they dont have clothing on
+		return FALSE
+	if(target.wear_suit.resistance_flags & ACID_PROOF && target.head.resistance_flags & ACID_PROOF) // our clothing is acid proof
+		return TRUE
 
 /// MARK: Wind Storm
 /datum/weather/wind
@@ -459,16 +467,23 @@
 	overlay_dir = null
 	. = ..()
 
-/datum/weather/wind/weather_act(mob/living/L)
+/datum/weather/wind/weather_act(mob/living/carbon/human/target)
 	if(next_dir_change <= world.time)
 		next_dir_change = world.time + rand(10 SECONDS, 30 SECONDS)
 		wind_dir = pick(GLOB.alldirs)
 		overlay_dir = wind_dir
 		update_areas()
-	if(ismecha(L)) //Mechs are immune
+	if(!istype(target)) // lets not push around lavaland mobs
 		return
-	if(ishuman(L)) // lets not push around lavaland mobs
-		L.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
+	if(!is_wind_immune(target))
+		target.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
+
+/datum/weather/wind/proc/is_wind_immune(mob/living/carbon/human/target)
+	while(target && !isturf(target))
+		if(ismecha(target)) // we are inside of mecha - immune
+			return TRUE
+		target = target.loc
+	return FALSE
 
 #undef ROCKFALL_DELAY
 
