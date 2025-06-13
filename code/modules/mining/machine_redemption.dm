@@ -48,6 +48,7 @@
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
 	var/datum/component/material_container/mat_container
+	var/invalid_material
 
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
@@ -149,8 +150,14 @@
 	for(var/obj/item/stack/stack in input)
 		if(QDELETED(stack))
 			return
-		mat_container.insert_stack(stack, stack.amount)
+		if(!mat_container.insert_stack(stack, stack.amount))
+			stack.forceMove(get_step(src, output_dir))
+			invalid_material = TRUE
 		CHECK_TICK
+	if(invalid_material)
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		atom_say("ERROR - Spitting out invalid materials.")
+		invalid_material = FALSE
 	// Process it
 	if(length(ore_buffer))
 		message_sent = FALSE
