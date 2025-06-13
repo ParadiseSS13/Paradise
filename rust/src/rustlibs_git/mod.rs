@@ -22,7 +22,7 @@ fn rl_git_revparse(rev: ByondValue) -> eyre::Result<ByondValue> {
 
     match repo_check_result {
         Some(res) => {
-            return Ok(ByondValue::new_str(res).unwrap());
+            return Ok(ByondValue::new_str(res)?);
         }
         None => {
             return Ok(ByondValue::null());
@@ -49,7 +49,7 @@ fn rl_git_commit_date(rev: ByondValue, ts_format: ByondValue) -> eyre::Result<By
 
     match repo_check_result {
         Some(res) => {
-            return Ok(ByondValue::new_str(res).unwrap());
+            return Ok(ByondValue::new_str(res)?);
         }
         None => {
             return Ok(ByondValue::null());
