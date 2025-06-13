@@ -941,8 +941,12 @@
 	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?
 		to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-		if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
-			harvest(user)
+		if(user.mind && HAS_TRAIT(user.mind, TRAIT_BUTCHER))
+			if(do_mob(user, src, 3 SECONDS) && Adjacent(I))
+				harvest(user)
+		else
+			if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
+				harvest(user)
 		return TRUE
 
 /mob/living/proc/harvest(mob/living/user)
