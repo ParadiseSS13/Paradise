@@ -212,7 +212,7 @@
 		return
 
 
-	var/atom/movable/screen/movable/action_button/button = CreateButton()
+	var/atom/movable/screen/movable/action_button/button = create_button()
 	SetId(button, viewer)
 
 	button.our_hud = our_hud
@@ -234,17 +234,17 @@
 		qdel(button)
 
 
-/datum/action/proc/CreateButton()
+/datum/action/proc/create_button()
 	var/atom/movable/screen/movable/action_button/button = new()
 	button.linked_action = src
-	button.name = name
+	build_button_icon(button, ALL, force = TRUE)
+	// TODO: Pull all of this into the build button structure somehow later
 	button.actiontooltipstyle = buttontooltipstyle
 	var/list/our_description = list()
 	our_description += desc
 	our_description += button.desc
 	button.desc = our_description.Join(" ")
 	return button
-
 
 /datum/action/proc/SetId(atom/movable/screen/movable/action_button/our_button, mob/owner)
 	//button id generation

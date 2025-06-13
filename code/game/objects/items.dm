@@ -1026,7 +1026,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/update_action_buttons(update_flags = ALL, force = FALSE)
 	for(var/datum/action/current_action as anything in actions)
-		current_action.build_button_icon(update_flags, force)
+		current_action.build_all_button_icons(update_flags, force)
 
 /**
   * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.
