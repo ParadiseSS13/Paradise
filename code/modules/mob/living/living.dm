@@ -226,6 +226,30 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
+/mob/living/examine(mob/user)
+	. = ..()
+	if(stat != DEAD)
+		return
+	if(!user.reagent_vision())
+		return
+	var/datum/surgery/dissection
+	for(var/datum/surgery/dissect/D in surgeries)
+		dissection = D
+	if(dissection)
+		. += "<span class='notice'>You detect the next dissection step will be: [dissection.get_surgery_step()]</span>"
+	if(surgery_container && !contains_xeno_organ)
+		. += "<span class='warning'>[src] looks like [p_they()] [p_have()] had [p_their()] organs dissected!</span>"
+
+
+/mob/living/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
+			for(var/datum/surgery/S in surgeries)
+				if(S.next_step(user, src))
+					return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
 /mob/living/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
@@ -822,7 +846,7 @@
 
 //Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
 /mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
-	if(check_eye_prot() >= intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
+	if((check_eye_prot() >= intensity) || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND))) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		return FALSE
 
 	return TRUE

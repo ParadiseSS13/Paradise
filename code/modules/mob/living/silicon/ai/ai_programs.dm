@@ -76,6 +76,16 @@
 /datum/program_picker/ui_host()
 	return assigned_ai ? assigned_ai : src
 
+/datum/program_picker/proc/spend_nanites(amount)
+	if(nanites - amount < 0)
+		return FALSE
+	else
+		nanites -= amount
+		return TRUE
+
+/datum/program_picker/proc/refund_nanites(amount)
+	nanites = min(max_nanites, nanites + amount)
+
 /datum/program_picker/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -148,6 +158,8 @@
 							return TRUE
 
 				// No same active program found, install the new active power.
+				new_spell.program = program
+				new_spell.desc_update()
 				program.upgrade(A, first_install = TRUE) // Usually does nothing for actives, but is needed for hybrid abilities like the enhanced tracker
 				A.AddSpell(new_spell)
 				to_chat(A, program.unlock_text)
@@ -178,7 +190,7 @@
 	/// How much memory does the program cost?
 	var/cost = 1
 	/// How much does this program cost to use?
-	var/nanite_cost = 10
+	var/nanite_cost = 0
 	/// How many upgrades have been bought of this program?
 	var/bandwidth_used = 0
 	/// If the module gives an active ability, use this. Mutually exclusive with upgrade.
@@ -197,6 +209,11 @@
 	var/cooldown = 30 SECONDS
 	/// Is this program installed?
 	var/installed = FALSE
+
+/datum/ai_program/New()
+	. = ..()
+	if(nanite_cost)
+		description += " Costs [nanite_cost] Nanites to use."
 
 /datum/spell/ai_spell/choose_program
 	name = "Choose Programs"
@@ -270,7 +287,7 @@
 
 /datum/spell/ai_spell/ranged/rgb_lighting
 	name = "RGB Lighting"
-	desc = "Changes the color of a selected light"
+	desc = "Changes the color of a selected light."
 	action_icon = 'icons/effects/random_spawners.dmi'
 	action_icon_state = "glowstick"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -294,6 +311,11 @@
 		to_chat(user, "<span class='warning'>You can only recolor lights!</span>")
 		revert_cast()
 		return
+	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	// Color selection
 	var/color_picked = tgui_input_color(user, "Please select a light color.", "RGB Lighting Color")
 	var/list/hsl = rgb2hsl(hex2num(copytext(color_picked, 2, 4)), hex2num(copytext(color_picked, 4, 6)), hex2num(copytext(color_picked, 6, 8)))
@@ -303,6 +325,7 @@
 	if(istype(target, /obj/machinery/power/apc))
 		if(spell_level < 3) // If you haven't upgraded it 3 times, you have to color lights individually.
 			to_chat(user, "<span class='warning'>Your coloring subsystem is not strong enough to target an entire room!</span>")
+			AI.program_picker.refund_nanites(program.nanite_cost)
 			revert_cast()
 			return
 		var/obj/machinery/power/apc/A = target
@@ -315,8 +338,6 @@
 		L.color = new_color
 		L.brightness_color = new_color
 		L.update(TRUE, TRUE, FALSE)
-	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 5
 	AI.play_sound_remote(target, 'sound/effects/spray.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
@@ -336,7 +357,7 @@
 
 /datum/spell/ai_spell/ranged/power_shunt
 	name = "Power Shunt"
-	desc = "Recharge an APC, Borg, or Mech with power directly from your SMES"
+	desc = "Recharge an APC, Borg, or Mech with power directly from your SMES."
 	action_icon = 'icons/obj/power.dmi'
 	action_icon_state = "smes-o"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
@@ -371,6 +392,10 @@
 		to_chat(user, "<span class='warning'>No SMES detected to power from!</span>")
 		revert_cast()
 		return
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	if(ismecha(target))
 		var/obj/mecha/T = target
 		T.cell.give(power_sent)
@@ -390,7 +415,6 @@
 			continue
 		power_source.charge -= power_sent
 		break
-	AI.program_picker.nanites -= 20
 	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
@@ -441,6 +465,10 @@
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to repair IPCs!</span>")
 		revert_cast()
 		return
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	if(ismecha(target)|| isapc(target))
 		var/obj/T = target
 		T.obj_integrity = min(T.max_integrity, T.obj_integrity + (T.max_integrity * (0.2 + min(0.3, (0.1 * spell_level)))))
@@ -452,7 +480,6 @@
 		var/mob/living/carbon/human/machine/T = target
 		var/damage_healed = AI.adapter_efficiency * (20 + (min(30, (10 * spell_level))))
 		T.heal_overall_damage(damage_healed, damage_healed, TRUE, 0, 1)
-	AI.program_picker.nanites -= 75
 	AI.play_sound_remote(target, 'sound/goonstation/misc/fuse.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 10)
 
@@ -532,11 +559,13 @@
 		to_chat(user, "<span class='warning'>Error: Null Connection to Airlock!</span>")
 		revert_cast()
 		return
-
-	var/turf/T = get_turf(target)
 	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
+	var/turf/T = get_turf(target)
 	var/duration = (6 - spell_level) SECONDS
-	AI.program_picker.nanites -= 25
 	AI.playsound_local(user, 'sound/items/deconstruct.ogg', 50, FALSE, use_reverb = FALSE)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
@@ -589,11 +618,13 @@
 		to_chat(user, "<span class='warning'>Invalid location for nanofrost deployment!</span>")
 		revert_cast()
 		return
-
+	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	var/obj/effect/nanofrost_container/nanofrost = new /obj/effect/nanofrost_container(target)
 	log_game("[key_name(user)] used Nanofrost at [get_area(target)] ([target.x], [target.y], [target.z]).")
-	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 50
 	AI.play_sound_remote(src, 'sound/items/syringeproj.ogg', 40)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 	addtimer(CALLBACK(nanofrost, TYPE_PROC_REF(/obj/effect/nanofrost_container, Smoke)), 5 SECONDS)
@@ -699,13 +730,16 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	// Handle repairs here since we're using a spell and not a tool
 	target.status = LIGHT_OK
 	target.switchcount = 0
 	target.emagged = FALSE
 	target.on = target.has_power()
 	target.update(TRUE, TRUE, FALSE)
-	AI.program_picker.nanites -= 5
 	AI.play_sound_remote(target, 'sound/machines/ding.ogg', 50)
 	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
 
@@ -751,6 +785,10 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	AI.play_sound_remote(target, 'sound/magic/magic_block.ogg', 50)
 	camera_beam(target, "medbeam", 'icons/effects/beam.dmi', 5 SECONDS)
 	// Only allow moving targets if the program is max level.
@@ -763,9 +801,9 @@
 	if(do_after(AI, 5 SECONDS, target = target, allow_moving_target = allow_moving))
 		// Check camera vision again.
 		if(!check_camera_vision(user, target))
+			AI.program_picker.refund_nanites(program.nanite_cost)
 			revert_cast()
 			return
-		AI.program_picker.nanites -= 75
 		var/damage_healed = 20 + (min(30, (10 * spell_level)))
 		target.heal_overall_damage(damage_healed, damage_healed)
 		if(spell_level >= 5)
@@ -775,6 +813,7 @@
 					E.fix_internal_bleeding()
 					E.fix_burn_wound()
 	else
+		AI.program_picker.refund_nanites(program.nanite_cost)
 		revert_cast()
 
 /datum/spell/ai_spell/ranged/nanosurgeon_deployment/on_purchase_upgrade()
@@ -834,6 +873,11 @@
 	var/rnd_server = "station_rnd"
 
 /datum/spell/ai_spell/research_subsystem/cast(list/targets, mob/user)
+	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	// First, find the RND server
 	var/network_manager_uid = null
 	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
@@ -859,6 +903,7 @@
 		if(!tech_to_upgrade)
 			to_chat(user, "<span class='notice'>Current research cannot be discovered any further.</span>")
 			revert_cast()
+			AI.program_picker.refund_nanites(program.nanite_cost)
 			return
 		// No illegals until level 10
 		if(spell_level < 10 && istype(tech_to_upgrade, /datum/tech/syndicate))
@@ -917,7 +962,10 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 50
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	AI.play_sound_remote(target, 'sound/effects/bubbles2.ogg', 50)
 	new /obj/effect/temp_visual/ai_sealant(get_turf(target))
 	addtimer(CALLBACK(src, PROC_REF(do_metal_foam), user, target), 10 SECONDS)
@@ -973,6 +1021,11 @@
 	if(!check_camera_vision(user, target))
 		revert_cast()
 		return
+	var/mob/living/silicon/ai/AI = user
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	var/sign_id = tgui_input_list(usr, "Select a holosign!", "AI", sign_choices)
 	if(!sign_id)
 		return
@@ -987,8 +1040,6 @@
 		else
 			revert_cast()
 			return
-	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 10
 	var/H = new sign_type(get_turf(target), src)
 	addtimer(CALLBACK(src, PROC_REF(sign_timer_complete), H), (60 + 30 * spell_level) SECONDS, TIMER_UNIQUE)
 	AI.play_sound_remote(target, 'sound/machines/click.ogg', 20)
@@ -1032,7 +1083,10 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 5
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	if(spell_level >= 10)
 		AI.play_sound_remote(target, 'sound/items/airhorn.ogg', 50,)
 	else
@@ -1142,5 +1196,8 @@
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
-	AI.program_picker.nanites -= 5
+	if(!AI.program_picker.spend_nanites(program.nanite_cost))
+		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
+		revert_cast()
+		return
 	new /obj/effect/temp_visual/ai_pointer(get_turf(target))
