@@ -202,9 +202,14 @@
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
-/datum/outfit/job/nanotrasenrep/on_mind_initialize(mob/living/carbon/human/H)
+/datum/outfit/job/nanotrasenrep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_COFFEE_SNOB, JOB_TRAIT)
+
+	if(visualsOnly)
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(give_gaze), H)
 
 /datum/job/blueshield
 	title = "Blueshield"
@@ -341,7 +346,7 @@
 		ACCESS_RESEARCH,
 		ACCESS_SEC_DOORS
 	)
-	alt_titles = list("Human Resources Agent")
+	alt_titles = list("Human Resources Agent", "Inspector")
 	minimal_player_age = 30
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
@@ -368,10 +373,15 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
-/datum/outfit/job/iaa/on_mind_initialize(mob/living/carbon/human/H)
+/datum/outfit/job/iaa/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
 	add_verb(H, /mob/living/carbon/human/proc/space_law)
+
+	if(visualsOnly)
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(give_gaze), H)
 
 /datum/job/nanotrasentrainer
 	title = "Nanotrasen Career Trainer"

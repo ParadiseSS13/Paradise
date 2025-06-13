@@ -301,6 +301,10 @@
 		return
 	id.associated_account_number = H.mind.initial_account.account_number
 
+/// Used to give the gaze ability to NTReps and IAAs
+/datum/outfit/job/proc/give_gaze(mob/living/carbon/human/user)
+	user.AddSpell(new /datum/spell/inspectors_gaze(null))
+
 /mob/living/carbon/human/proc/space_law()
 	set name = "Open Space Law"
 	set desc = "Open a memorized version of the space law booklet."

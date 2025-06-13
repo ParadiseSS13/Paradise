@@ -340,6 +340,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
 #define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
 
+//****** ORGAN TRAITS *****//
+
+/// Does this person produce loud runechat
+#define TRAIT_LOUD "loud"
+
 //***** JOB TRAITS *****//
 
 // med traits
@@ -436,6 +441,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define EYES_OF_GOD "eyes_of_god"
 #define GHOSTED		"isghost"
 #define GHOST_ROLE	"ghost_role"
+#define ORGAN_TRAIT "organ"
 #define JOB_TRAIT "job_trait"
 
 // unique trait sources

@@ -181,6 +181,8 @@
 	for(var/obj/structure/closet/closet in get_turf(src))
 		if(closet != src && closet.anchored != 1)
 			return FALSE
+	for(var/mob/living/simple_animal/hostile/megafauna/M in get_turf(src))
+		return FALSE
 	return TRUE
 
 /obj/structure/closet/proc/dump_contents()

@@ -193,6 +193,7 @@
 		/datum/job/rd = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
 		/datum/job/roboticist = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
 		/datum/job/scientist = /obj/item/organ/internal/ears/cybernetic,
+		/datum/job/xenobiologist = /obj/item/organ/internal/cyberimp/arm/surgery,
 		/datum/job/officer = /obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/datum/job/mining = /obj/item/organ/internal/eyes/cybernetic/meson,
 		/datum/job/engineer = /obj/item/organ/internal/eyes/cybernetic/shield,

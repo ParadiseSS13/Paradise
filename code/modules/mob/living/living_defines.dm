@@ -113,6 +113,9 @@
 	/// List of traits that should be applied on Initialize
 	var/list/initial_traits = list()
 
+	/// Sets our icon to `null` when `gib()` is used
+	var/gib_nullifies_icon = TRUE
+
 	/*
 	Taste Vars
 	*/
@@ -122,5 +125,12 @@
 	var/last_taste_text
 	///If a creature gets to be super special and have extra range on their chat messages
 	var/extra_message_range = 0
-	/// Sets our icon to `null` when `gib()` is used
-	var/gib_nullifies_icon = TRUE
+
+	/// Points to what specialized dissection information a mob gets.
+	var/datum/xenobiology_surgery_container/surgery_container
+
+	/// Does this creature contain a xeno organ we can harvest?
+	var/contains_xeno_organ = FALSE
+
+	/// The toggle for if this creature should ignore the rolls for generic organs upon dissection
+	var/ignore_generic_organs = FALSE
