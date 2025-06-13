@@ -61,6 +61,7 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(remove_organ))
 	if(organ_to_give)
 		RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(give_organ))
+	owner.update_sight()
 
 /datum/quirk/proc/remove_organ()
 	SIGNAL_HANDLER //COMSIG_GLOB_JOB_AFTER_SPAWN
@@ -79,6 +80,7 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 		REMOVE_TRAIT(owner, trait_to_apply, "quirk")
 	if(processes)
 		STOP_PROCESSING(SSprocessing, src)
+	owner.update_sight()
 
 /********************************************************************
 *   Mob Procs, mostly for many mob/new_player in the lobby screen 	*

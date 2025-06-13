@@ -58,14 +58,6 @@
 	blacklisted = TRUE
 	trait_to_apply = TRAIT_MUTE
 
-/datum/quirk/blind/apply_quirk_effects()
-	..()
-	owner.update_sight() // Gotta make sure to manually update sight, apparently.
-
-/datum/quirk/blind/remove_quirk_effects()
-	..()
-	owner.update_sight()
-
 /datum/quirk/frail
 	name = "Frail"
 	desc = "You get major injuries much easier than most people."
@@ -100,15 +92,15 @@
 	owner.visible_message("<span class='notice'>[owner] violently coughs!</span>", "<span class='warning'>Your asthma flares up!</span>")
 	switch(current_severity)
 		if(50 to 75)
-			owner.adjustOxyLoss(3)
-		if(76 to 100)
 			owner.adjustOxyLoss(5)
+		if(76 to 100)
+			owner.adjustOxyLoss(7)
 		if(101 to 150) // By now you're doubled over coughing
-			owner.adjustOxyLoss(2)
+			owner.adjustOxyLoss(5)
 			owner.AdjustLoseBreath(4 SECONDS)
 			owner.KnockDown(4 SECONDS)
 		if(151 to INFINITY)
-			owner.adjustOxyLoss(10)
+			owner.adjustOxyLoss(15)
 
 #undef ASTHMA_ATTACK_THRESHOLD
 
@@ -125,3 +117,22 @@
 	desc = "You can't bring yourself to hurt others, and cannot take a command or security position."
 	cost = -3
 	trait_to_apply = TRAIT_PACIFISM
+
+/datum/quirk/hungry
+	name = "Hungry"
+	desc = "You get hungry faster."
+	cost = -1
+
+/datum/quirk/hungry/apply_quirk_effects()
+	..()
+	owner.dna.species.hunger_drain += 0.03
+
+/datum/quirk/hungry/remove_quirk_effects()
+	..()
+	owner.dna.species.hunger_drain += 0.03
+
+/datum/quirk/colorblind
+	name = "Colorblind"
+	desc = "You are incurably colorblind."
+	cost = -1
+	trait_to_apply = TRAIT_COLORBLIND
