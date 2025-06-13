@@ -47,11 +47,12 @@
 	var/datum/research/files
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
+	var/datum/component/material_container/mat_container
 
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLATINUM, MAT_IRIDIUM, MAT_PALLADIUM), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
+	mat_container = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLATINUM, MAT_IRIDIUM, MAT_PALLADIUM), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
 	ore_buffer = list()
 	files = new /datum/research/smelter(src)
 	// Stock parts
@@ -144,6 +145,11 @@
 			continue
 		ore_buffer |= O
 		O.forceMove(src)
+		CHECK_TICK
+	for(var/obj/item/stack/stack in input)
+		if(QDELETED(stack))
+			return
+		mat_container.insert_stack(stack, stack.amount)
 		CHECK_TICK
 	// Process it
 	if(length(ore_buffer))
