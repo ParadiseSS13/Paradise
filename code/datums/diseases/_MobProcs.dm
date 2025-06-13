@@ -60,6 +60,13 @@
 	if(!CanContractDisease(D))
 		return 0
 
+	if(src.mind)
+		if(HAS_TRAIT(src.mind, TRAIT_GERMOPHOBE) && prob(85))
+			log_debug("failed to contract disease")
+			return 0
+		else
+			log_debug("contracted a disease!")
+
 	var/obj/item/clothing/Cl = null
 	var/passed = 1
 

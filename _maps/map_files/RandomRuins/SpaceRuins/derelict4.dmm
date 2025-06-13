@@ -91,7 +91,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "K" = (
-/obj/structure/spawner/mining/basilisk,
+/obj/structure/spawner/mining/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "Z" = (
