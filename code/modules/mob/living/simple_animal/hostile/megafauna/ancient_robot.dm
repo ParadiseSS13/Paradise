@@ -56,6 +56,7 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "ancient_robot"
 	icon_living = "ancient_robot"
+	icon_dead = "ancient_robot_dead"
 	friendly = "stares down"
 	speak_emote = list("BUZZES")
 	universal_speak = TRUE
@@ -69,7 +70,6 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -16
 	pixel_y = -16
-	del_on_death = TRUE
 	loot = list(/obj/item/pinpointer/tendril)
 	crusher_loot = list(/obj/item/crusher_trophy/adaptive_intelligence_core)
 	internal_gps = /obj/item/gps/internal/ancient
@@ -78,6 +78,9 @@ Difficulty: Hard
 	deathmessage = "explodes into a shower of alloys"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/vetus
 	difficulty_ore_modifier = 4 //Vetus' whole deal was that it dropped ore before all megas did, so it gets a ton
 
 	var/charging = FALSE
@@ -158,7 +161,17 @@ Difficulty: Hard
 	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/death(gibbed, allowed = FALSE)
+	icon = 'icons/mob/lavaland/corpses.dmi'
 	if(allowed)
+		overlays.Cut()
+		underlays.Cut()
+		QDEL_NULL(TR)
+		QDEL_NULL(TL)
+		QDEL_NULL(BR)
+		QDEL_NULL(BL)
+		QDEL_NULL(beam)
+		body_shield_enabled = FALSE
+		update_appearance(UPDATE_OVERLAYS)
 		return ..()
 	else if(exploding) //but it refused
 		return
@@ -169,9 +182,10 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Life(seconds, times_fired)
 	..()
-	if(!exploding)
+	if(!exploding && stat != DEAD)
 		return
-	playsound(src, 'sound/items/timer.ogg', 70, 0)
+	else if(stat != DEAD)
+		playsound(src, 'sound/items/timer.ogg', 70, 0)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/drop_loot()
 	var/core_type = null
@@ -499,7 +513,7 @@ Difficulty: Hard
 	extra_player_anger = clamp(anger,1,cap) - 1
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
-	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
+	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
 	walk(src, 0)
 	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
@@ -601,6 +615,8 @@ Difficulty: Hard
 	return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	if(stat == DEAD || exploding == TRUE) // a check so it doesnt try to move after death
+		return
 	if(Dir)
 		leg_walking_controler(Dir)
 		if(charging)

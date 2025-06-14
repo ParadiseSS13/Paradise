@@ -1,3 +1,4 @@
+
 ///////////////////////////////////
 // POWERS
 ///////////////////////////////////
@@ -363,6 +364,24 @@
 /datum/mutation/grant_spell/mattereater/New()
 	..()
 	block = GLOB.eatblock
+
+// checks with those with the hungry organ from adding/removing matter eater
+/datum/mutation/grant_spell/mattereater/activate(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/internal/liver/xenobiology/hungry/O = H.get_int_organ(/obj/item/organ/internal/liver/xenobiology/hungry)
+		if(O)
+			return
+	return 	..()
+
+/datum/mutation/grant_spell/mattereater/deactivate(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/internal/liver/xenobiology/hungry/O = H.get_int_organ(/obj/item/organ/internal/liver/xenobiology/hungry)
+		if(O)
+			return
+	return 	..()
+
 
 /datum/spell/eat
 	name = "Eat"
@@ -939,7 +958,7 @@
 		if(!new_tone)
 			new_tone = 35
 		else
-			new_tone = 35 - max(min(round(text2num(new_tone)), 220), 1)
+			new_tone = max(min(round(text2num(new_tone)), 220), 1)
 			M.change_skin_tone(new_tone)
 
 	if(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE)

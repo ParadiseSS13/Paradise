@@ -341,6 +341,69 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
 #define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
 
+//****** ORGAN TRAITS *****//
+
+/// Does this person produce loud runechat
+#define TRAIT_LOUD "loud"
+
+//***** JOB TRAITS *****//
+
+// med traits
+
+/// allows user to do_after to give bone and IB locations
+#define TRAIT_MED_EXAMINE "med_examine"
+/// Grants a 85% chance to NOT catch a disease when contract() is called. You'll probably still catch it though with exposure
+#define TRAIT_GERMOPHOBE "germophobe"
+/// user wont vomit around corpses
+#define TRAIT_CORPSE_RESIST "corpse_resist"
+/// user will take 25% less tox damage
+#define TRAIT_QUICK_HEATER "quick_heater"
+/// user can drive the ambulance cart to push people out of the way
+#define TRAIT_SPEED_DEMON "speed_demon"
+
+// sci traits
+
+/// user can craft things from the crafting menu in 1/4 time
+#define TRAIT_CRAFTY "crafty"
+/// User is alloted a higher genetics budget
+#define TRAIT_GENETIC_BUDGET "genetic_budget"
+/// allows the user to quick-charge borgs by using a battery on them
+#define TRAIT_CYBORG_SPECIALIST "cyborg_specialist"
+
+// service traits
+
+/// Allows user to pick weeds with their bare hands
+#define TRAIT_GREEN_THUMB "green_thumb"
+/// Allows user to use mops faster, and have galoshes slow less
+#define TRAIT_JANITOR "janitor"
+
+// Engi traits
+
+/// Allows user to to quick-repair unlocked APCs with a frame and board, and quick-swap cells.alist
+#define TRAIT_ELECTRICAL_SPECIALIST "electrical_specialist"
+/// Allows user to spray extinguishers further, and gives precisions  = 1 during spray
+#define TRAIT_FIRE_FIGHTER "fire_fighter"
+
+// cargo traits
+
+/// allows the user to stuff more items in lockers/crates and wrap them faster
+#define TRAIT_PACK_RAT "pack_rat"
+/// Allows the user to ????
+#define TRAIT_SMITH "tait_smith"
+/// Allows faster butchering times
+#define TRAIT_BUTCHER "butcher"
+
+// sec traits
+
+/// Gives the user a new tab for being able to open up space law/sop book pages
+#define TRAIT_JUDICIAL "judicial"
+
+// command traits
+
+/// Allows user to drink coffee to point rapidly to get others to do what you want
+#define TRAIT_COFFEE_SNOB "coffee_snob"
+
+
 //****** OBJ TRAITS *****//
 
 ///An /obj that should not increase the "depth" of the search for adjacency,
@@ -379,6 +442,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define EYES_OF_GOD "eyes_of_god"
 #define GHOSTED		"isghost"
 #define GHOST_ROLE	"ghost_role"
+#define ORGAN_TRAIT "organ"
+#define JOB_TRAIT "job_trait"
 
 // unique trait sources
 #define STATUE_MUTE "statue"

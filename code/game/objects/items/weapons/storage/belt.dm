@@ -238,6 +238,7 @@
 		/obj/item/fix_o_vein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
+		/obj/item/dissector
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
