@@ -78,14 +78,6 @@
 	else
 		ai_controller.set_blackboard_key(BB_INJURED, FALSE)
 
-// TODO: Bug Warriorstar about this
-// /mob/living/basic/netherworld/hellhound/proc/wants_to_rest()
-// 	if(target)
-// 		return FALSE
-// 	if(getBruteLoss() || getFireLoss())
-// 		return TRUE
-// 	return FALSE
-
 /mob/living/basic/hostile/hellhound/greater
 	name = "greater hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and should be engaged with extreme caution."
