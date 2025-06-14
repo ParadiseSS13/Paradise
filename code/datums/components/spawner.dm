@@ -62,5 +62,12 @@
 	// start the cooldown first, because a rallied mob might fire on
 	// ourselves while this is happening, causing confusion
 	COOLDOWN_START(src, last_rally, 30 SECONDS)
-	for(var/mob/living/simple_animal/hostile/rallied as anything in spawned_mobs)
-		INVOKE_ASYNC(rallied, TYPE_PROC_REF(/mob/living/simple_animal/hostile, aggro_fast), target)
+	for(var/mob/living/rallied as anything in spawned_mobs)
+		if(istype(rallied, /mob/living/basic))
+			var/mob/living/basic/basic = rallied
+			basic.ai_controller.cancel_actions()
+			basic.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+		if(istype(rallied, /mob/living/simple_animal/hostile))
+			var/mob/living/simple_animal/hostile/simple = rallied
+			INVOKE_ASYNC(simple, TYPE_PROC_REF(/mob/living/simple_animal/hostile, aggro_fast), target)
+
