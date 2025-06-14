@@ -231,8 +231,13 @@
 	if(amount < 3)
 		to_chat(user, "<span class='warning'>You need more paper.</span>")
 		return
-	if(!do_after_once(user, 1.5 SECONDS, target = C) || C.opened || !use(3)) // Checking these again since it's after a delay
-		return
+	// Checking these again since it's after a delay
+	if(user.mind && HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
+		if(!do_after_once(user, 0.75 SECONDS, target = C) || C.opened || !use(3))
+			return
+	else
+		if(!do_after_once(user, 2 SECONDS, target = C) || C.opened || !use(3))
+			return
 	var/obj/structure/big_delivery/P = new(get_turf(C))
 	P.wrapped = C
 	C.loc = P
