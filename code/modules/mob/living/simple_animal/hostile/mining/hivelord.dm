@@ -192,9 +192,6 @@
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/Process_Spacemove(movement_dir, continuous_move)
-	return FALSE
-
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"
 	desc = "You can still see what was once a dwarf under the shifting mass of corruption."
