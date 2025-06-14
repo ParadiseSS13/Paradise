@@ -41,3 +41,8 @@
 		name = "[quality.name] " + name
 		return
 	name = "[quality.name] [material.name] [initial(name)]"
+
+/obj/item/smithed_item/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT(user.mind, TRAIT_SMITH))
+		. += "<span class='notice'>You can use <b>ALT + Click</b> while in-hand to determine specific statistics of this item.</span>"

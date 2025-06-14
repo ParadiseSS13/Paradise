@@ -82,7 +82,7 @@
 		return
 	if(!IS_HORIZONTAL(L) && !can_start_on_stander)
 		return
-	if(IS_HORIZONTAL(L) && !on_operable_surface(L))
+	if(IS_HORIZONTAL(L) && !on_operable_surface(L) && !isanimal(L))
 		return
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
@@ -128,7 +128,7 @@
 	var/datum/surgery/procedure
 
 	if(!length(available_surgeries))
-		if(IS_HORIZONTAL(target))
+		if(IS_HORIZONTAL(target) || isanimal(target))
 			to_chat(user, "<span class='notice'>There aren't any surgeries you can perform there right now.</span>")
 		else
 			to_chat(user, "<span class='notice'>You can't perform any surgeries there while [target] is standing.</span>")
@@ -209,8 +209,7 @@
 			if(!affected)
 				skip_surgery = TRUE
 
-		else
-			// uh there's no reason this should be hit but let's be safe LOL
+		else if(!isanimal(patient)) // surgery is base to living mobs now but we should still probably restrict this
 			skip_surgery = TRUE
 
 	if(!skip_surgery)
@@ -288,9 +287,15 @@
 
 		return
 
-	if(!isnull(affecting_limb) && (surgery.requires_organic_bodypart && affecting_limb.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting_limb.is_robotic()))
-		to_chat(user, "<span class='warning'>That's not the right type of limb for this operation!</span>")
-		return
+	if(iscarbon(target))
+		if(!isnull(affecting_limb))
+			if((surgery.requires_organic_bodypart && affecting_limb.is_robotic()) || (!surgery.requires_organic_bodypart && !affecting_limb.is_robotic()))
+				to_chat(user, "<span class='warning'>That's not the right type of limb for this operation!</span>")
+				return
+
+		if(surgery_needs_exposure(surgery, target))
+			to_chat(user, "<span class='warning'>You have to expose [target.p_their()] [parse_zone(selected_zone)] first!</span>")
+			return
 
 	if(surgery.lying_required && !on_operable_surface(target))
 		to_chat(user, "<span class='notice'>Patient must be lying down for this operation.</span>")
@@ -304,12 +309,16 @@
 		to_chat(user, "<span class='warning'>Can't start the surgery!</span>")
 		return
 
-	if(surgery_needs_exposure(surgery, target))
-		to_chat(user, "<span class='warning'>You have to expose [target.p_their()] [parse_zone(selected_zone)] first!</span>")
-		return
-
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
 
+	// Need to pass dissection its steps because it changes alot depending on the creature
+	if(istype(procedure, /datum/surgery/dissect))
+		if(isnull(target.surgery_container))
+			log_debug("A dissection was started on [target] with contains_xeno_organ as TRUE, however its surgery_container was null!")
+			CRASH("<span class='userdanger'>[target] does not have a dissection surgery information set to it. Please inform an admin or developer.</span>")
+		if(ispath(target.surgery_container, /datum/xenobiology_surgery_container))
+			target.surgery_container = new target.surgery_container
+		procedure.steps = target.surgery_container.dissection_tool_step
 
 	RegisterSignal(procedure, COMSIG_SURGERY_BLOOD_SPLASH, PROC_REF(on_blood_splash))
 
@@ -381,7 +390,6 @@
 			"<span class='warning'>You stop applying [parent] onto [target].</span>"
 		)
 		return
-
 
 	if(!isnull(surgery_start_sound))
 		playsound(src, surgery_start_sound, 50, TRUE)

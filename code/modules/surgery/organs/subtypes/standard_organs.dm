@@ -210,7 +210,7 @@
 
 /obj/item/organ/external/hand/proc/update_hand_missing()
 	// we need to come back to this once the hand is actually removed/dead
-	if(!owner) // Rather not have this trigger on already remove limbs
+	if(!owner) // Rather not have this trigger on already removed limbs
 		return
 	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, update_hands_hud), 0))
 
