@@ -317,6 +317,7 @@
 	desc = "An alien power cell that produces energy seemingly out of nowhere."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cell"
+	item_state = "cella"
 	maxcharge = 50000
 	rating = 12
 	ratingdesc = FALSE
