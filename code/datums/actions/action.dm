@@ -264,12 +264,13 @@
 			return
 
 /datum/action/proc/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)
-	unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', icon_state = "template")
-	unavailable_effect.alpha = 200
-	unavailable_effect.appearance_flags = RESET_COLOR | RESET_ALPHA
-	unavailable_effect.color = "#000000"
-	unavailable_effect.plane = FLOAT_PLANE + 1
-	button.add_overlay(unavailable_effect)
+	if(isnull(unavailable_effect))
+		unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', icon_state = "template")
+		unavailable_effect.alpha = 200
+		unavailable_effect.appearance_flags = RESET_COLOR | RESET_ALPHA
+		unavailable_effect.color = "#000000"
+		unavailable_effect.plane = FLOAT_PLANE + 1
+	button.overlays |= unavailable_effect
 
 /**
  * Applies any overlays to our button
