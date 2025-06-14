@@ -30,6 +30,11 @@
 	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
 
+	/// Amount of thermal protection we need to be protected from this storm
+	var/thermal_protection_threshold = FIRE_IMMUNITY_MAX_TEMP_PROTECT - 15
+	/// Amount of burn damage we receive if we aren't immune
+	var/burn_damage = 4
+
 /datum/weather/ash_storm/update_eligible_areas()
 	. = ..()
 	sound_ao.output_atoms = outside_areas
@@ -72,14 +77,14 @@
 /datum/weather/ash_storm/proc/is_ash_immune(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/target = user
-		if(target.get_thermal_protection() >= (FIRE_IMMUNITY_MAX_TEMP_PROTECT - 15))
+		if(target.get_thermal_protection() >= thermal_protection_threshold)
 			return TRUE
 	if(is_mecha_occupant(user)) // mecha's occupants are immune
 		return TRUE
 
 /datum/weather/ash_storm/weather_act(mob/living/target)
 	if(!is_ash_immune(target))
-		target.adjustFireLoss(4)
+		target.adjustFireLoss(burn_damage)
 
 /// MARK: Heavy Ash Storm
 // Radar needed to detect the difference, but shouldnt matter much
@@ -93,15 +98,8 @@
 
 	probability = 10
 
-/datum/weather/ash_storm/heavy/is_human_ash_immune(mob/living/carbon/human/H)
-	var/thermal_protection = H.get_thermal_protection()
-	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-		return TRUE
-
-/datum/weather/ash_storm/heavy/weather_act(mob/living/L)
-	if(is_ash_immune(L))
-		return
-	L.adjustFireLoss(6) // does more damage
+	thermal_protection_threshold = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	burn_damage = 6
 
 /// MARK: Emberfall
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
