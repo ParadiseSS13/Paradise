@@ -70,4 +70,3 @@
 		if(istype(rallied, /mob/living/simple_animal/hostile))
 			var/mob/living/simple_animal/hostile/simple = rallied
 			INVOKE_ASYNC(simple, TYPE_PROC_REF(/mob/living/simple_animal/hostile, aggro_fast), target)
-
