@@ -56,8 +56,6 @@
 #define BB_LOW_PRIORITY_HUNTING_TARGET "BB_LOW_PRIORITY_HUNTING_TARGET"
 /// Key that holds the cooldown for our hunting subtree
 #define BB_HUNTING_COOLDOWN(type) "BB_HUNTING_COOLDOWN_[type]"
-/// Blackboard field for what we actually want the pet to target
-#define BB_CURRENT_PET_TARGET "BB_current_pet_target"
 
 // Food and eating
 
@@ -89,6 +87,9 @@
 #define BB_STATIONARY_TARGETS "BB_STATIONARY_TARGETS"
 /// How often can we get spooked by a target?
 #define BB_STATIONARY_COOLDOWN "BB_STATIONARY_COOLDOWN"
+
+/// Are we injured?
+#define BB_INJURED "BB_INJURED"
 
 // minebot keys
 /// key that stores our toggle light ability

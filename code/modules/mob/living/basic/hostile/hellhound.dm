@@ -5,6 +5,7 @@
 	icon_state = "hellhound"
 	icon_living = "hellhound"
 	icon_dead = "hellhound_dead"
+	icon_resting = "hellhound_rest"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	melee_damage_lower = 10 // slightly higher than araneus
@@ -20,11 +21,11 @@
 	speak_emote = list("growls")
 	see_in_dark = 9
 	universal_understand = TRUE
-	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
+	ai_controller = /datum/ai_controller/basic_controller/simple/hellhound
 	step_type = FOOTSTEP_MOB_CLAW
 	faction = list("nether")
-	/// The hellhound's icon when resting
-	var/icon_resting = "hellhound_rest"
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/hound
 	/// How many cycles has the hellhound rested
 	var/life_regen_cycles = 0
 	/// Trigger number for health regen
@@ -57,16 +58,25 @@
 				msgs += "<span class='notice'>It is currently resting.</span>"
 		. += msgs.Join("<BR>")
 
+/mob/living/basic/hostile/hellhound/Move(atom/newloc, direct, glide_size_override, update_dir)
+	. = ..()
+	if(IS_HORIZONTAL(src))
+		stand_up()
+
 /mob/living/basic/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
-	if(stat != DEAD && IS_HORIZONTAL(src) && (getBruteLoss() || getFireLoss()))
-		if(life_regen_cycles >= life_regen_cycle_trigger)
-			life_regen_cycles = 0
-			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
-			adjustBruteLoss(life_regen_amount)
-			adjustFireLoss(life_regen_amount)
-		else
-			life_regen_cycles++
+	if(stat != DEAD && (getBruteLoss() || getFireLoss()))
+		ai_controller.set_blackboard_key(BB_INJURED, TRUE)
+		if(IS_HORIZONTAL(src))
+			if(life_regen_cycles >= life_regen_cycle_trigger)
+				life_regen_cycles = 0
+				to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
+				adjustBruteLoss(life_regen_amount)
+				adjustFireLoss(life_regen_amount)
+			else
+				life_regen_cycles++
+	else
+		ai_controller.set_blackboard_key(BB_INJURED, FALSE)
 
 // TODO: Bug Warriorstar about this
 // /mob/living/basic/netherworld/hellhound/proc/wants_to_rest()
@@ -111,7 +121,7 @@
 	var/datum/spell/aoe/conjure/creature/summonspell = new
 	summonspell.base_cooldown = 1
 	summonspell.invocation_type = "none"
-	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
+	summonspell.summon_type = list(/mob/living/basic/hostile/hellhound)
 	summonspell.summon_amt = 1
 	AddSpell(summonspell)
 

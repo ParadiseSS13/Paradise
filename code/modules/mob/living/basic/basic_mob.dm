@@ -30,6 +30,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/icon_living
 	/// Icon when the animal is dead.
 	var/icon_dead
+	/// Icon when the animal is resting
+	var/icon_resting
 	/// We only try to show a gibbing animation if this exists.
 	var/icon_gib
 	/// The sound played on death
@@ -322,6 +324,17 @@ RESTRICT_TYPE(/mob/living/basic)
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
+
+/mob/living/basic/on_lying_down(new_lying_angle)
+	..()
+	if(icon_resting && stat != DEAD)
+		icon_state = icon_resting
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //simple mobs cannot crawl (unless they can)
+
+/mob/living/basic/on_standing_up()
+	..()
+	if(icon_resting && stat != DEAD)
+		icon_state = icon_living
 
 // Health/Damage adjustment, cribbed straight from simplemobs
 

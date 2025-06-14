@@ -21,6 +21,8 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, STAM = 0, OXY = 1)
 	faction = list("nether")
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/sweating
 	var/step_type = FOOTSTEP_MOB_SHOE
 	/// The component we use for making ranged attacks
 	var/datum/component/ranged_attacks/ranged_attacks

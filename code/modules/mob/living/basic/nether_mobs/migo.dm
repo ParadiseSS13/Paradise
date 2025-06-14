@@ -15,6 +15,7 @@
 	var/static/list/migo_sounds
 	/// Will the migo dodge?
 	var/dodge_prob = 10
+	surgery_container = /datum/xenobiology_surgery_container/migo
 
 /mob/living/basic/netherworld/migo/Initialize(mapload)
 	. = ..()
