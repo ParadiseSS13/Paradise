@@ -256,8 +256,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-10 SECONDS)
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
-		M.Dizzy(10 SECONDS)
 		if(IS_CULTIST(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
@@ -273,25 +271,16 @@
 				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
 
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
-		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 
 			holder.remove_reagent(id, volume)
 			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
-			M.SetJitter(0)
-			M.SetStuttering(0)
-			M.SetConfused(0)
 			return
 		if(IS_CULTIST(M))
 			var/datum/antagonist/cultist/cultist = IS_CULTIST(M)
 			cultist.remove_gear_on_removal = TRUE
 			M.mind.remove_antag_datum(/datum/antagonist/cultist)
-
-			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
-			M.SetJitter(0)
-			M.SetStuttering(0)
-			M.SetConfused(0)
 			return
 	var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(M) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && prob(80))
