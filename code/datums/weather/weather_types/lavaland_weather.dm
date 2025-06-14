@@ -69,26 +69,17 @@
 		sound_ai.output_atoms |= A
 		sound_wi.output_atoms |= A
 
-/datum/weather/ash_storm/proc/is_ash_immune(atom/L)
-	while(L && !isturf(L))
-		if(ismecha(L)) //Mechs are immune
+/datum/weather/ash_storm/proc/is_ash_immune(mob/living/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/target = user
+		if(target.get_thermal_protection() >= (FIRE_IMMUNITY_MAX_TEMP_PROTECT - 15))
 			return TRUE
-		if(ishuman(L)) //Are you immune?
-			if(is_human_ash_immune(L))
-				return TRUE
-		L = L.loc //Matryoshka check
-	return FALSE //RIP you
-
-/datum/weather/ash_storm/proc/is_human_ash_immune(mob/living/carbon/human/H)
-	var/thermal_protection = H.get_thermal_protection()
-	if(thermal_protection >= (FIRE_IMMUNITY_MAX_TEMP_PROTECT - 15))
+	if(is_mecha_occupant(user)) // mecha's occupants are immune
 		return TRUE
 
-/datum/weather/ash_storm/weather_act(mob/living/L)
-	if(is_ash_immune(L))
-		return
-	L.adjustFireLoss(4)
-
+/datum/weather/ash_storm/weather_act(mob/living/target)
+	if(!is_ash_immune(target))
+		target.adjustFireLoss(4)
 
 /// MARK: Heavy Ash Storm
 // Radar needed to detect the difference, but shouldnt matter much
@@ -370,20 +361,11 @@
 		target.adjustBruteLoss(2)
 
 /datum/weather/acid/proc/is_acid_proof(mob/living/carbon/human/target)
-	while(target && !isturf(target))
-		if(ismecha(target) || isgrey(target)) // we are gray or inside a mecha
-			return TRUE
-		if(is_human_acid_proof(target))
-			return TRUE
-		target = target.loc
-	return FALSE
-
-/datum/weather/acid/proc/is_human_acid_proof(mob/living/carbon/human/target)
-	if(!istype(target))
-		return FALSE
+	if(isgrey(target) || is_mecha_occupant(target)) // grays and mecha's occupants are immune to acid
+		return TRUE
 	if(!target.wear_suit || !target.head) // No need to check further if they dont have clothing on
 		return FALSE
-	if(target.wear_suit.resistance_flags & ACID_PROOF && target.head.resistance_flags & ACID_PROOF) // our clothing is acid proof
+	if(target.wear_suit.resistance_flags & ACID_PROOF && target.head.resistance_flags & ACID_PROOF) // their clothing is acid proof
 		return TRUE
 
 /// MARK: Wind Storm
@@ -475,15 +457,8 @@
 		update_areas()
 	if(!istype(target)) // lets not push around lavaland mobs
 		return
-	if(!is_wind_immune(target))
+	if(!is_mecha_occupant(target)) // mecha's occupants are unaffected
 		target.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
-
-/datum/weather/wind/proc/is_wind_immune(mob/living/carbon/human/target)
-	while(target && !isturf(target))
-		if(ismecha(target)) // we are inside of mecha - immune
-			return TRUE
-		target = target.loc
-	return FALSE
 
 #undef ROCKFALL_DELAY
 
