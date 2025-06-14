@@ -325,6 +325,13 @@ RESTRICT_TYPE(/mob/living/basic)
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
 
+
+/mob/living/basic/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+		return attack_threshold_check(damage, attacker.melee_damage_type)
+
 /mob/living/basic/on_lying_down(new_lying_angle)
 	..()
 	if(icon_resting && stat != DEAD)
