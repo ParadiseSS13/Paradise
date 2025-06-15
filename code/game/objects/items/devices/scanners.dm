@@ -144,7 +144,6 @@ SLIME SCANNER
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 3
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=200)
@@ -449,7 +448,6 @@ SLIME SCANNER
 	item_state = "analyzer"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
 	throw_range = 10
@@ -598,7 +596,6 @@ SLIME SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL = 210, MAT_GLASS = 140)
@@ -848,7 +845,6 @@ SLIME SCANNER
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=300, MAT_GLASS=200)
@@ -928,7 +924,6 @@ SLIME SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
@@ -984,7 +979,6 @@ SLIME SCANNER
 	item_state = "healthanalyser"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 3
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=6;biotech=6"
