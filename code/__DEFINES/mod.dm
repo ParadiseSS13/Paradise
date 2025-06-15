@@ -40,6 +40,14 @@
 // Flags for skin modifiers
 #define MAKE_SPACEPROOF (1<<0)
 
-//Defines used to override MOD clothing's icon and worn icon files in the skin.
+// Defines used to override MOD clothing's icon, worn icon and sprite sheets files in the skin.
 #define MOD_ICON_OVERRIDE "mod_icon_override"
 
+#define MOD_WORN_ICON_OVERRIDE "mod_worn_icon_override"
+
+#define MOD_SPRITE_SHEETS_OVERRIDE "mod_sprite_sheets_override"
+
+#define HELMET_SPRITE_SHEETS "helmet_sprite_sheets"
+#define CHESTPLATE_SPRITE_SHEETS "chestplate_sprite_sheets"
+#define GAUNTLETS_SPRITE_SHEETS "gauntlets_sprite_sheets"
+#define BOOTS_SPRITE_SHEETS "boots_sprite_sheets"
