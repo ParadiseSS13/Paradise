@@ -34423,10 +34423,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera{
-	c_tag = "Research Escape Pod";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -46270,10 +46266,6 @@
 /area/station/command/office/blueshield)
 "iJv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera{
-	c_tag = "Medbay Escape Pod";
-	dir = 1
-	},
 /obj/structure/chair/sofa/bench{
 	dir = 1;
 	cover_color = "#85130b"
@@ -82317,10 +82309,6 @@
 	},
 /area/station/security/lobby)
 "qGY" = (
-/obj/machinery/camera{
-	c_tag = "North Maint Escape Pod";
-	dir = 1
-	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -87564,10 +87552,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint)
 "rPj" = (
-/obj/machinery/camera{
-	c_tag = "Bridge Escape Pod";
-	dir = 1
-	},
 /obj/structure/chair/sofa/bench/right{
 	dir = 1;
 	cover_color = "#85130b"
@@ -92827,10 +92811,6 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "sUD" = (
-/obj/machinery/camera{
-	c_tag = "Civilian Escape Pod";
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -97486,10 +97466,6 @@
 /area/station/service/chapel)
 "tYJ" = (
 /obj/structure/table,
-/obj/machinery/camera{
-	c_tag = "Command Atmospherics Checkpoint";
-	dir = 6
-	},
 /obj/item/reagent_containers/syringe,
 /obj/item/storage/pill_bottle/random_drug_bottle,
 /turf/simulated/floor/plating,
@@ -102497,9 +102473,6 @@
 	},
 /area/station/hallway/primary/aft/west)
 "veg" = (
-/obj/machinery/camera{
-	c_tag = "Service Atmospherics Checkpoint"
-	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
@@ -116727,10 +116700,6 @@
 /area/station/maintenance/disposal/external/southwest)
 "ylI" = (
 /obj/structure/table,
-/obj/machinery/camera{
-	c_tag = "Cargo Atmospherics Checkpoint";
-	dir = 8
-	},
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
 	},
