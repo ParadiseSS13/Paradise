@@ -6,8 +6,6 @@
 	var/notify_title = "Demonic Incursion"
 	/// The icon of the notification
 	var/notify_image = "nether"
-	/// The current number of portals
-	var/portals = 0
 	/// List of portals
 	var/list/portal_list = list()
 	/// The target number of portals
@@ -45,9 +43,8 @@
 	var/obj/structure/spawner/nether/demon_incursion/new_portal = new /obj/structure/spawner/nether/demon_incursion(location)
 	new_portal.linked_incursion = src
 	portal_list += new_portal
-	portals++
 	// Too many portals - make a bad thing happen
-	if(portals > target_portals)
+	if(length(portal_list) > target_portals)
 		target_portals *= 2
 		prepare_spawn_elite()
 
@@ -89,8 +86,8 @@
 	name = "demonic portal"
 	density = FALSE
 	spawn_time = 5 SECONDS // Short spawn time initially, it gets updated after it spawns initial mobs
-	max_mobs = 15 // We want a lot of mobs, but not too many
-	max_integrity = 250
+	max_mobs = 6 // We want a lot of mobs, but not too many
+	max_integrity = 200
 	mob_types = list(/mob/living/basic/netherworld/migo,
 					/mob/living/basic/netherworld,
 					/mob/living/basic/netherworld/blankbody,
@@ -108,7 +105,7 @@
 	/// Time until next portal
 	var/expansion_delay
 	/// How fast does the portal spawn mobs after the initial spawns?
-	var/spawn_rate = 1 MINUTES
+	var/spawn_rate = 75 SECONDS
 	/// How many initial mobs does it spawn?
 	var/initial_spawns_min = 1
 	var/initial_spawns_max = 4
@@ -129,7 +126,6 @@
 /obj/structure/spawner/nether/demon_incursion/Destroy()
 	. = ..()
 	if(linked_incursion)
-		linked_incursion.portals--
 		linked_incursion.portal_list -= src
 
 /obj/structure/spawner/nether/demon_incursion/on_mob_spawn(mob/created_mob)
