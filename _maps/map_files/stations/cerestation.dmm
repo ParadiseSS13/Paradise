@@ -15201,6 +15201,12 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -15286,6 +15292,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -44521,8 +44530,10 @@
 "idW" = (
 /obj/machinery/recharger,
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable/orange,
 /obj/structure/table/reinforced,
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -53418,13 +53429,9 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "jUz" = (
+/obj/machinery/firealarm/directional/east,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
-	},
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -70285,6 +70292,9 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -81665,9 +81675,12 @@
 	},
 /area/station/service/chapel)
 "qgo" = (
-/obj/machinery/firealarm/directional/north,
 /obj/structure/cable/orange{
 	icon_state = "2-8"
+	},
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable/orange{
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -84380,6 +84393,7 @@
 /area/station/turret_protected/ai_upload)
 "qLz" = (
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/orange,
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint/secondary)
 "qLJ" = (
@@ -96677,6 +96691,9 @@
 /obj/item/crowbar,
 /obj/item/radio,
 /obj/structure/table/reinforced,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -165740,7 +165757,7 @@ ncC
 ncC
 ncC
 hUU
-hUU
+bhO
 bhO
 bhO
 aXn
@@ -165997,7 +166014,7 @@ aXn
 hUU
 hUU
 hUU
-hUU
+bhO
 bhO
 bhO
 rGf
