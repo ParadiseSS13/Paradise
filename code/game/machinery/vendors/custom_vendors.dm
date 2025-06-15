@@ -28,7 +28,7 @@
 	return linked_pos?.linked_account || ..()
 
 /obj/machinery/economy/vending/custom/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM || (used.flags & ABSTRACT))
 		return ..()
 
 	if((isnull(linked_pos) || locked(user) != VENDOR_LOCKED) && istype(used, /obj/item/eftpos))
@@ -50,6 +50,10 @@
 
 /// Tries to add something to the vendor. can_wait returns INSERT_NEEDS_INPUT if it would wait for user input, quiet suppresses success messages, and bag is used when the item is being transferred from a storage item.
 /obj/machinery/economy/vending/custom/proc/try_add_stock(mob/living/user, obj/item/used, can_wait = TRUE, quiet = FALSE, obj/item/storage/bag = null)
+	if(istype(used, /obj/item/holder))
+		to_chat(user, "<span class='warning'>[used] wriggles out of your hands!</span>")
+		user.drop_item_to_ground(used)
+		return INSERT_FAIL
 	if(isnull(bag) && !user.canUnEquip(used, FALSE))
 		to_chat(user, "<span class='warning'>\The [used] is stuck to your hand!</span>")
 		return INSERT_FAIL
@@ -76,7 +80,7 @@
 					user.unequip(used)
 				else
 					bag.remove_from_storage(used)
-				used.moveToNullspace()
+				used.forceMove(src)
 				if(!quiet)
 					user.visible_message("<span class='notice'>[user] puts [used] into [src].</span>", "<span class='notice>'You put [used] into [src].</span>")
 				return INSERT_DONE
@@ -114,7 +118,7 @@
 		user.unequip(used)
 	else
 		bag.remove_from_storage(used)
-	used.moveToNullspace()
+	used.forceMove(src)
 	if(!quiet)
 		user.visible_message("<span class='notice'>[user] puts [used] into [src].</span>", "<span class='notice'>You put [used] into [src].</span>")
 	return INSERT_DONE
