@@ -226,6 +226,13 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy shotgun crate"
 
+/datum/supply_packs/security/armory/stingers
+	name = "Stinger Grenade Crate"
+	contains = list(/obj/item/storage/box/stingers,
+					/obj/item/storage/box/stingers)
+	cost = 300
+	containername = "stingball grenade crate"
+
 /// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
 /datum/supply_packs/security/armory/epistol
 	name = "Energy Pistol Crate"
