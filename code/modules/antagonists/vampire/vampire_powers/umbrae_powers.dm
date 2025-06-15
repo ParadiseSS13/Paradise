@@ -14,7 +14,7 @@
 
 	action.name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME)
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
