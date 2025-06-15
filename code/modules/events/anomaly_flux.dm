@@ -1,5 +1,6 @@
 /datum/event/anomaly/anomaly_flux
-	name = "Anomaly event"
+	name = "Flux Anomaly"
+	role_weights = 	list(ASSIGNMENT_ENGINEERING = 50)
 	startWhen = 10
 	announceWhen = 3
 	anomaly_path = /obj/effect/anomaly/flux
