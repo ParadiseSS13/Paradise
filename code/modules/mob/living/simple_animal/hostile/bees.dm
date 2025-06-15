@@ -323,6 +323,11 @@
 	QDEL_NULL(queen)
 	return ..()
 
+/mob/living/simple_animal/hostile/poison/bees/queen/consider_wakeup()
+	if(beehome && loc == beehome) // The queen is home and doesn't have to do anything.
+		return
+	return ..()
+
 /mob/living/simple_animal/hostile/poison/bees/consider_wakeup()
 	if(beehome && loc == beehome) // If bees are chilling in their nest, they're not actively looking for targets
 		idle = min(100, ++idle)
