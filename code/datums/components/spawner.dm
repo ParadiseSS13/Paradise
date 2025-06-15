@@ -35,6 +35,9 @@
 	for(var/mob/living/simple_animal/L in spawned_mobs)
 		if(L.nest == src)
 			L.nest = null
+	for(var/mob/living/basic/L in spawned_mobs)
+		if(L.nest == src)
+			L.nest = null
 	spawned_mobs = null
 
 /datum/component/spawner/proc/try_spawn_mob()
