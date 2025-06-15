@@ -41,7 +41,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "t" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "T" = (

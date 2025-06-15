@@ -174,7 +174,7 @@
 /obj/item/stack/sheet/mineral/gold/fifty,
 /obj/item/clothing/gloves/ring/plasma,
 /obj/item/banhammer,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating/burnt,
 /area/template_noop)
 "rK" = (
@@ -445,7 +445,7 @@
 /obj/item/stack/sheet/mineral/gold/fifty,
 /obj/item/clothing/gloves/ring/plasma,
 /obj/item/banhammer,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /obj/structure/safe/floor,
 /turf/simulated/floor/carpet/black,
 /area/template_noop)

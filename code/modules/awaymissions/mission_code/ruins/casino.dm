@@ -1,5 +1,10 @@
-/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/casino
+/obj/effect/spawner/random/pool/spaceloot/casino
 	guaranteed = TRUE
+	loot = list(
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
+		/obj/effect/spawner/random/pool/spaceloot/trader_departments/rare,
+		/obj/effect/spawner/random/pool/spaceloot/trader_organizations/rare,
+	)
 
 /datum/spawn_pool/casino_mobs
 	available_points = 6
