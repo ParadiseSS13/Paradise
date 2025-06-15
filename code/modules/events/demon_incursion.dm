@@ -98,6 +98,9 @@
 					/mob/living/basic/hostile/hellhound,
 					/mob/living/basic/hostile/skeleton,
 					/mob/living/basic/netherworld/faithless)
+	light_range = 4
+	light_power = 2
+	light_color = "#780606"
 	/// The event that spawned this portal
 	var/datum/event/demon_incursion/linked_incursion
 	/// Percentage chance that a portal will spread every time spread() is called
@@ -123,6 +126,12 @@
 	addtimer(CALLBACK(src, PROC_REF(stop_initial_mobs)), initial_spawn_time)
 
 /obj/structure/spawner/nether/demon_incursion/deconstruct(disassembled)
+	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
+	for(var/mob/living/basic/summoned_mob in spawn_comp.spawned_mobs)
+		if(prob(50))
+			playsound(src, 'sound/magic/lightningbolt.ogg', 60, TRUE)
+			Beam(summoned_mob, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
+			summoned_mob.addtimer(CALLBACK(summoned_mob, TYPE_PROC_REF(/mob/living/basic, death), TRUE), 1 SECONDS)
 	var/reward_type = pick(/obj/item/stack/ore/bluespace_crystal, /obj/item/stack/ore/palladium, /obj/item/stack/ore/platinum, /obj/item/stack/ore/iridium, /obj/item/stack/ore/diamond)
 	new reward_type(loc)
 	return ..()
