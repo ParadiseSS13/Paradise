@@ -315,9 +315,12 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
 /obj/item/projectile/energy/demonic_grappler/on_hit(atom/target, blocked = 0)
-	var/turf/source_turf = get_turf(firer)
 	if(isliving(target))
+		var/turf/source_turf = get_turf(firer)
 		do_teleport(target, source_turf)
+	else
+		var/turf/miss_turf = get_step(target, get_dir(target, firer))
+		do_teleport(firer, miss_turf)
 	return ..()
 
 /obj/item/projectile/snowball
