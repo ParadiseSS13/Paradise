@@ -24,15 +24,13 @@
 	contains_xeno_organ = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/sweating
 	var/step_type = FOOTSTEP_MOB_SHOE
-	/// The component we use for making ranged attacks
-	var/datum/component/ranged_attacks/ranged_attacks
 	/// The chance of it being a grappler variant
 	var/grappler_chance = 20
 
 /mob/living/basic/netherworld/Initialize(mapload)
 	. = ..()
 	if(prob(grappler_chance))
-		ranged_attacks = AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
+		AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
 		name = "grappling " + name
 		ai_controller = new /datum/ai_controller/basic_controller/simple/simple_skirmisher(src)
 		update_appearance(UPDATE_NAME)
