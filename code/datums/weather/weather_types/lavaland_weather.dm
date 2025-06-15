@@ -30,6 +30,11 @@
 	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
 
+	/// Amount of thermal protection we need to be protected from this storm
+	var/thermal_protection_threshold = FIRE_IMMUNITY_MAX_TEMP_PROTECT - 15
+	/// Amount of burn damage we receive if we aren't immune
+	var/burn_damage = 4
+
 /datum/weather/ash_storm/update_eligible_areas()
 	. = ..()
 	sound_ao.output_atoms = outside_areas
@@ -69,26 +74,17 @@
 		sound_ai.output_atoms |= A
 		sound_wi.output_atoms |= A
 
-/datum/weather/ash_storm/proc/is_ash_immune(atom/L)
-	while(L && !isturf(L))
-		if(ismecha(L)) //Mechs are immune
+/datum/weather/ash_storm/proc/is_ash_immune(mob/living/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/target = user
+		if(target.get_thermal_protection() >= thermal_protection_threshold)
 			return TRUE
-		if(ishuman(L)) //Are you immune?
-			if(is_human_ash_immune(L))
-				return TRUE
-		L = L.loc //Matryoshka check
-	return FALSE //RIP you
-
-/datum/weather/ash_storm/proc/is_human_ash_immune(mob/living/carbon/human/H)
-	var/thermal_protection = H.get_thermal_protection()
-	if(thermal_protection >= (FIRE_IMMUNITY_MAX_TEMP_PROTECT - 15))
+	if(is_mecha_occupant(user)) // mecha's occupants are immune
 		return TRUE
 
-/datum/weather/ash_storm/weather_act(mob/living/L)
-	if(is_ash_immune(L))
-		return
-	L.adjustFireLoss(4)
-
+/datum/weather/ash_storm/weather_act(mob/living/target)
+	if(!is_ash_immune(target))
+		target.adjustFireLoss(burn_damage)
 
 /// MARK: Heavy Ash Storm
 // Radar needed to detect the difference, but shouldnt matter much
@@ -102,15 +98,8 @@
 
 	probability = 10
 
-/datum/weather/ash_storm/heavy/is_human_ash_immune(mob/living/carbon/human/H)
-	var/thermal_protection = H.get_thermal_protection()
-	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-		return TRUE
-
-/datum/weather/ash_storm/heavy/weather_act(mob/living/L)
-	if(is_ash_immune(L))
-		return
-	L.adjustFireLoss(6) // does more damage
+	thermal_protection_threshold = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	burn_damage = 6
 
 /// MARK: Emberfall
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
@@ -362,21 +351,20 @@
 	update_areas()
 	update_eligible_areas()
 
-/datum/weather/acid/weather_act(atom/L)
-	while(L && !isturf(L))
-		if(ismecha(L)) //Mechs are immune
-			return
-		if(!ishuman(L) || isgrey(L)) // greys and natural fauna shouldnt be affected by acid rain
-			return
-		var/mob/living/carbon/human/H = L
-		if(!H.wear_suit || !H.head) // No need to check further if they dont have clothing on
-			H.adjustFireLoss(2)
-			H.adjustBruteLoss(2)
-			return
-		if(!(H.head.resistance_flags & ACID_PROOF) && !(H.wear_suit.resistance_flags & ACID_PROOF))
-			H.adjustFireLoss(2)
-			H.adjustBruteLoss(2)
-		L = L.loc //Matryoshka check
+/datum/weather/acid/weather_act(mob/living/carbon/human/target)
+	if(!istype(target)) // natural fauna shouldnt be affected by acid rain
+		return
+	if(!is_acid_proof(target))
+		target.adjustFireLoss(2)
+		target.adjustBruteLoss(2)
+
+/datum/weather/acid/proc/is_acid_proof(mob/living/carbon/human/target)
+	if(isgrey(target) || is_mecha_occupant(target)) // grays and mecha's occupants are immune to acid
+		return TRUE
+	if(!target.wear_suit || !target.head) // No need to check further if they dont have clothing on
+		return FALSE
+	if(target.wear_suit.resistance_flags & ACID_PROOF && target.head.resistance_flags & ACID_PROOF) // their clothing is acid proof
+		return TRUE
 
 /// MARK: Wind Storm
 /datum/weather/wind
@@ -459,16 +447,16 @@
 	overlay_dir = null
 	. = ..()
 
-/datum/weather/wind/weather_act(mob/living/L)
+/datum/weather/wind/weather_act(mob/living/carbon/human/target)
 	if(next_dir_change <= world.time)
 		next_dir_change = world.time + rand(10 SECONDS, 30 SECONDS)
 		wind_dir = pick(GLOB.alldirs)
 		overlay_dir = wind_dir
 		update_areas()
-	if(ismecha(L)) //Mechs are immune
+	if(!istype(target)) // lets not push around lavaland mobs
 		return
-	if(ishuman(L)) // lets not push around lavaland mobs
-		L.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
+	if(!is_mecha_occupant(target)) // mecha's occupants are unaffected
+		target.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
 
 #undef ROCKFALL_DELAY
 

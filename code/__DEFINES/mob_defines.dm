@@ -296,6 +296,7 @@
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
+#define is_mecha_occupant(A)  (istype(A.loc, /obj/mecha))
 
 // Hearing protection
 #define HEARING_PROTECTION_NONE	0
