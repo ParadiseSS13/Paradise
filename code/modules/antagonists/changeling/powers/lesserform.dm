@@ -25,6 +25,7 @@
 
 	H.visible_message("<span class='warning'>[H] transforms!</span>")
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
+	H.flavor_text = ""
 	H.monkeyize()
 
 	H.adjustBruteLoss(brute_damage)
