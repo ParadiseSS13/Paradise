@@ -44533,7 +44533,6 @@
 /area/station/maintenance/disposal/east)
 "idW" = (
 /obj/machinery/recharger,
-/obj/machinery/power/apc/directional/south,
 /obj/structure/table/reinforced,
 /obj/structure/cable/orange{
 	icon_state = "1-8"
