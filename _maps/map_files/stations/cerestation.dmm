@@ -50579,6 +50579,10 @@
 	pixel_y = -28;
 	dir = 8
 	},
+/obj/structure/sign/directions/science{
+	pixel_y = -35;
+	dir = 8
+	},
 /obj/structure/sign/directions/evac{
 	pixel_y = -42;
 	dir = 4
@@ -63671,6 +63675,10 @@
 /obj/structure/sign/directions/evac{
 	pixel_y = -42;
 	dir = 4
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = -35;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
