@@ -77,6 +77,13 @@
 				life_regen_cycles++
 	else
 		ai_controller.set_blackboard_key(BB_INJURED, FALSE)
+	if(ai_controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET))
+		stand_up()
+
+/mob/living/basic/hostile/hellhound/apply_damage(damage, damagetype, def_zone, blocked, sharp, used_weapon, spread_damage)
+	. = ..()
+	if(stat != DEAD && IS_HORIZONTAL(src))
+		stand_up()
 
 /mob/living/basic/hostile/hellhound/greater
 	name = "greater hellhound"
