@@ -4500,7 +4500,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "rU" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/east{
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/east{
 	name = "prototype vault blast doors";
 	desc = "A heavy duty blast door that opens mechanically. It was hermetically sealed when the crew went into cryostasis.";
 	id_tag = "prototype_vault"
