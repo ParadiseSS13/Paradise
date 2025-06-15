@@ -21554,8 +21554,8 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "deS" = (
-/obj/machinery/conveyor/auto/ccw{
-	dir = 10
+/obj/machinery/conveyor/auto{
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
@@ -43611,6 +43611,10 @@
 	icon_state = "neutralfull"
 	},
 /area/station/public/storefront)
+"hUc" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/mine/unexplored/cere/orbiting)
 "hUg" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -79325,6 +79329,9 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"pFB" = (
+/turf/simulated/wall/r_wall,
+/area/mine/unexplored/cere/orbiting)
 "pFD" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -95980,6 +95987,12 @@
 	icon_state = "dark"
 	},
 /area/station/command/meeting_room)
+"tkw" = (
+/obj/structure/marker_beacon/dock_marker,
+/turf/simulated/floor/plating/airless{
+	icon_state = "asteroidplating"
+	},
+/area/mine/unexplored/cere/orbiting)
 "tkC" = (
 /obj/machinery/door/window/brigdoor{
 	id = "Cell 7";
@@ -164986,7 +164999,7 @@ cfZ
 oZM
 sHm
 bhO
-bhO
+rNK
 rNK
 rNK
 rNK
@@ -165243,8 +165256,8 @@ xYY
 oHy
 sHm
 bhO
-bhO
-bhO
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -165500,11 +165513,11 @@ uRr
 vXR
 fio
 hUU
-bhO
-bhO
-bhO
-bhO
-aXn
+rNK
+rNK
+rNK
+jft
+jft
 rNK
 rNK
 rNK
@@ -165756,13 +165769,13 @@ fio
 ncC
 ncC
 ncC
-hUU
-bhO
-bhO
-bhO
-aXn
-aXn
-aXn
+tCm
+lzH
+lzH
+lzH
+pFB
+jft
+jft
 rNK
 rNK
 rNK
@@ -166014,13 +166027,13 @@ aXn
 hUU
 hUU
 hUU
-bhO
-bhO
-bhO
-rGf
-aXn
-aXn
-aXn
+rNK
+rNK
+ayb
+jft
+jft
+jft
+jft
 rNK
 rNK
 rNK
@@ -166271,13 +166284,13 @@ hUU
 hUU
 bhO
 bhO
-bhO
-bhO
 rNK
-bhO
-aXn
-aXn
-bhO
+rNK
+ayb
+hUc
+jft
+jft
+ayb
 rNK
 rNK
 rNK
@@ -166532,8 +166545,8 @@ rNK
 rNK
 rNK
 rNK
-cVL
-bhO
+tkw
+ayb
 rNK
 rNK
 rNK
