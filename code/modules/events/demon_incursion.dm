@@ -18,7 +18,7 @@
 	if(isnull(impact_area))
 		log_debug("No valid event areas could be generated for demonic incursion.")
 	var/initial_portals = max(length(GLOB.player_list) / 10, 1)
-	target_portals = initial_portals * 10
+	target_portals = max(initial_portals * 10, 30)
 	var/list/area_turfs = get_area_turfs(impact_area)
 	var/notice_sent = FALSE
 	while(length(area_turfs) && initial_portals > 0)
