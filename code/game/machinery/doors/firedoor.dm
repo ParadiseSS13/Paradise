@@ -34,6 +34,7 @@
 	var/active_alarm = FALSE
 	var/heat_resistance = 15000
 	var/list/affecting_areas
+	var/last_opened_time = 0
 
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
@@ -256,6 +257,7 @@
 	if(welded)
 		return
 	. = ..()
+	last_opened_time = world.time
 	latetoggle()
 	if(active_alarm)
 		layer = closingLayer // Active firedoors take precedence and remain visible over closed airlocks.
@@ -284,6 +286,10 @@
 		open()
 	else
 		close()
+
+/obj/machinery/door/firedoor/proc/can_be_closed_by_alarm()
+	// Only allow closing if at least 5 seconds have passed since last opened
+	return (world.time - last_opened_time) >= 5 SECONDS
 
 /obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
