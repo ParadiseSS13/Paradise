@@ -156,7 +156,12 @@
 			continue
 		if(possible_loc.is_blocked_turf(exclude_mobs = TRUE))
 			continue
-		if(locate(/obj/structure/spawner/nether/demon_incursion) in possible_loc)
+		var/density_check = TRUE
+		for(var/turf/possible_turf in view(3, possible_loc))
+			if(locate(/obj/structure/spawner/nether/demon_incursion) in possible_turf)
+				density_check = FALSE
+				continue
+		if(!density_check)
 			continue
 		spawnable_turfs += possible_loc
 	if(!spawnable_turfs)
