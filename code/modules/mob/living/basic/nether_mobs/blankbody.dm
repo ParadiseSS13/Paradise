@@ -16,3 +16,11 @@
 	melee_attack_cooldown_max = 1.5 SECONDS
 	speak_emote = list("screams")
 	death_message = "falls apart into a fine dust."
+	/// The body/brain of the player turned into a blank, if the blank was turned
+	var/mob/living/held_body
+
+/mob/living/basic/netherworld/blankbody/death(gibbed)
+	. = ..()
+	if(held_body)
+		held_body.forceMove(loc)
+		qdel(src)

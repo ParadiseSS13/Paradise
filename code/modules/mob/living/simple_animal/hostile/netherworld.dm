@@ -42,4 +42,5 @@
 				blank.name = "[M]"
 				blank.desc = "It's [M], but [M.p_their()] flesh has an ashy texture, and [M.p_their()] face is featureless save an eerie smile."
 				visible_message("<span class='warning'>[M] reemerges from the link!</span>")
-				qdel(M)
+				blank.held_body = M
+				M.forceMove(blank)
