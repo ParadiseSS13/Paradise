@@ -88,6 +88,7 @@
 /obj/structure/spawner/nether/demon_incursion
 	name = "demonic portal"
 	density = FALSE
+	layer = ABOVE_MOB_LAYER
 	spawn_time = 5 SECONDS // Short spawn time initially, it gets updated after it spawns initial mobs
 	max_mobs = 8 // We want a lot of mobs, but not too many
 	max_integrity = 200
