@@ -45,6 +45,8 @@
 #define BB_TEMPORARILY_IGNORE_FACTION "BB_TEMPORARILY_IGNORE_FACTIONS"
 ///List of mobs who have damaged us
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_BASIC_MOB_SHITLIST"
+///Blackboard key for a whitelist typecache of "things we can target while trying to move"
+#define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
 
 //Hunting BB keys
 
@@ -85,6 +87,9 @@
 #define BB_STATIONARY_TARGETS "BB_STATIONARY_TARGETS"
 /// How often can we get spooked by a target?
 #define BB_STATIONARY_COOLDOWN "BB_STATIONARY_COOLDOWN"
+
+/// Are we injured?
+#define BB_INJURED "BB_INJURED"
 
 // minebot keys
 /// key that stores our toggle light ability
