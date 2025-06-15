@@ -10,14 +10,6 @@
 	make_reagents = list("milk" = 10)
 	category = list("initial","Food")
 
-/datum/design/cream
-	name = "10u cream"
-	id = "cream"
-	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 30)
-	make_reagents = list("cream" = 10)
-	category = list("initial","Food")
-
 /datum/design/milk_carton
 	name = "Milk carton"
 	id = "milk_carton"
@@ -26,12 +18,36 @@
 	build_path = /obj/item/reagent_containers/condiment/milk
 	category = list("initial","Food")
 
+/datum/design/cream
+	name = "10u cream"
+	id = "cream"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 30)
+	make_reagents = list("cream" = 10)
+	category = list("initial","Food")
+
 /datum/design/cream_carton
 	name = "Cream carton"
 	id = "cream_carton"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/reagent_containers/drinks/bottle/cream
+	category = list("initial","Food")
+
+/datum/design/sugar
+	name = "10u sugar"
+	id = "sugar"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 20)
+	make_reagents = list("sugar" = 10)
+	category = list("initial","Food")
+
+/datum/design/sugar_sack
+	name = "Sack of sugar (50u)"
+	id = "sugar_sack"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 100)
+	build_path = /obj/item/reagent_containers/condiment/sugar
 	category = list("initial","Food")
 
 /datum/design/black_pepper
