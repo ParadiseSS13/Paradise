@@ -4,14 +4,14 @@
  * @license MIT
  */
 
-import { Blink, Section } from '../components';
+import { Blink, Section } from 'tgui-core/components';
 
 export const meta = {
   title: 'Blink',
   render: () => <Story />,
 };
 
-const Story = (props, context) => {
+const Story = (props) => {
   return (
     <Section>
       <Blink>Blink</Blink>
