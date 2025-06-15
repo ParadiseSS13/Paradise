@@ -20,6 +20,7 @@
 	var/initial_portals = max(length(GLOB.clients) / 10, 1)
 	target_portals = initial_portals * 10
 	var/list/area_turfs = get_area_turfs(impact_area)
+	var/notice_sent = FALSE
 	while(length(area_turfs) && initial_portals > 0)
 		var/turf/T = pick_n_take(area_turfs)
 		if(T.is_blocked_turf(exclude_mobs = TRUE))
@@ -27,7 +28,9 @@
 
 		// Give ghosts some time to jump there before it begins.
 		var/image/alert_overlay = image('icons/mob/nest.dmi', notify_image)
-		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
+		if(!notice_sent)
+			notify_ghosts("\A [src] is about to open in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, flashwindow = FALSE, action = NOTIFY_FOLLOW)
+			notice_sent = TRUE
 		addtimer(CALLBACK(src, PROC_REF(spawn_portal), T), 4 SECONDS)
 
 		// Energy overload; we mess with machines as an early warning and for extra spookiness.
