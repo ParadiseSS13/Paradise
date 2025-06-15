@@ -100,6 +100,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"dk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/floor/catwalk,
+/area/shuttle/escape)
 "dl" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/recharger{
@@ -123,6 +127,19 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"ef" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/purple,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/catwalk,
 /area/shuttle/escape)
 "ej" = (
 /obj/structure/chair/comfy/shuttle,
@@ -234,8 +251,13 @@
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/passive_vent/high_volume{
-	dir = 8
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins_siphon{
+	dir = 8;
+	scrub_CO2 = 1;
+	scrub_N2 = 1;
+	scrub_N2O = 1;
+	scrub_O2 = 1;
+	scrubbing = 1
 	},
 /turf/simulated/floor/engine,
 /area/shuttle/escape)
@@ -556,15 +578,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/floor/plating/airless,
-/area/shuttle/escape)
-"pV" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/turf/simulated/floor/catwalk,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "qx" = (
 /obj/structure/railing{
@@ -605,6 +622,12 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"sA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/catwalk,
 /area/shuttle/escape)
 "tj" = (
 /obj/effect/spawner/window/plastitanium,
@@ -795,6 +818,13 @@
 /obj/machinery/computer/atmos_alert,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
+"zj" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/yellow,
+/turf/simulated/floor/catwalk,
+/area/shuttle/escape)
 "zl" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/structure/sign/radiation/rad_area,
@@ -837,6 +867,12 @@
 "AT" = (
 /obj/machinery/atmospherics/pipe/cap/hidden,
 /turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
+"Bs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/catwalk,
 /area/shuttle/escape)
 "Bv" = (
 /obj/structure/cable{
@@ -1971,9 +2007,9 @@ cw
 ib
 cw
 cw
-cw
-cw
-jF
+sA
+dk
+zj
 cw
 cw
 cw
@@ -2014,7 +2050,7 @@ cw
 ib
 cw
 cw
-cw
+ib
 cw
 jF
 cw
@@ -2057,8 +2093,8 @@ uZ
 uI
 Xf
 Xf
-Xf
-pV
+ef
+ac
 NS
 ac
 ac
@@ -2100,7 +2136,7 @@ cw
 bM
 cw
 cw
-cw
+bM
 cw
 jF
 cw
@@ -2143,9 +2179,9 @@ cw
 bM
 cw
 cw
-cw
-cw
-jF
+Bs
+dk
+zj
 cw
 cw
 cw
