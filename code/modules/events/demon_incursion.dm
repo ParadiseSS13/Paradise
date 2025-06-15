@@ -89,7 +89,7 @@
 	name = "demonic portal"
 	density = FALSE
 	spawn_time = 5 SECONDS // Short spawn time initially, it gets updated after it spawns initial mobs
-	max_mobs = 6 // We want a lot of mobs, but not too many
+	max_mobs = 8 // We want a lot of mobs, but not too many
 	max_integrity = 200
 	mob_types = list(/mob/living/basic/netherworld/migo,
 					/mob/living/basic/netherworld,
@@ -104,11 +104,11 @@
 	/// Lower bound for portal spreading
 	var/portal_spread_cooldown_min = 3 MINUTES
 	/// Upper bound for portal spreading
-	var/portal_spread_cooldown_max = 5 MINUTES
+	var/portal_spread_cooldown_max = 4 MINUTES
 	/// Time until next portal
 	var/expansion_delay
 	/// How fast does the portal spawn mobs after the initial spawns?
-	var/spawn_rate = 75 SECONDS
+	var/spawn_rate = 60 SECONDS
 	/// How many initial mobs does it spawn?
 	var/initial_spawns_min = 1
 	var/initial_spawns_max = 4
