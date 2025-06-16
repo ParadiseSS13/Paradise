@@ -935,6 +935,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ITEM_INTERACT_COMPLETE
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		being_charged = TRUE
+		to_chat(src, "<span class='notice'>[user] begins to manually charge your internal cell.</span>")
 		while(do_after(user, 0.5 SECONDS, target = src))
 			var/cell_difference = cell.maxcharge - cell.charge
 			if(donor.charge >= 500 && cell_difference >= 500)
