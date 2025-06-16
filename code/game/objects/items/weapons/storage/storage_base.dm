@@ -103,6 +103,17 @@
 /obj/item/storage/proc/removal_allowed_check(mob/user)
 	return TRUE
 
+/obj/item/storage/proc/dump_storage(mob/user, obj/item/storage/target)
+	if(!length(contents) || user.restrained() || (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) || !user.can_reach(target) || src == target)
+		return
+	for(var/obj/item/thing in contents)
+		if(!target.can_be_inserted(thing))
+			continue
+		if(!do_after(user, 0.3 SECONDS, target = user))
+			break
+		playsound(loc, "rustle", 50, TRUE, -5)
+		target.handle_item_insertion(thing, user)
+
 /obj/item/storage/MouseDrop(obj/over_object, src_location, over_location, src_control, over_control, params)
 	if(!ismob(usr)) //so monkeys can take off their backpacks -- Urist
 		return
@@ -115,6 +126,14 @@
 		if(M.s_active)
 			M.s_active.close(M)
 		open(M)
+		return
+
+	if(ismodcontrol(over_object))
+		var/obj/item/mod/control/mod = over_object
+		dump_storage(M, mod.bag)
+		return
+	if(isstorage(over_object))
+		dump_storage(M, over_object)
 		return
 
 	if((istype(over_object, /obj/structure/table) || isfloorturf(over_object)) && length(contents) \
