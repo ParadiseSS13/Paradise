@@ -94,3 +94,7 @@
 
 /datum/ai_planning_subtree/attack_obstacle_in_path/pet_target
 	target_key = BB_CURRENT_PET_TARGET
+
+/datum/ai_planning_subtree/attack_obstacle_in_path/prowl
+	attack_behaviour = /datum/ai_behavior/attack_obstructions/avoid_breaches
+	target_key = BB_PROWL_TARGET
