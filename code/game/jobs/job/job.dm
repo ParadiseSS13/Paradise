@@ -304,3 +304,23 @@
 /// Used to give the gaze ability to NTReps and IAAs
 /datum/outfit/job/proc/give_gaze(mob/living/carbon/human/user)
 	user.AddSpell(new /datum/spell/inspectors_gaze(null))
+
+/// Gives the imaginary space law booklet verb
+/mob/living/carbon/human/proc/space_law()
+	set name = "Open Space Law"
+	set desc = "Open a memorized version of the space law booklet."
+	set category = "Space Law"
+
+	var/obj/item/book/manual/wiki/security_space_law/imaginary/book = new()
+	if(!put_in_any_hand_if_possible(book))
+		QDEL_NULL(book)
+
+/// Gives the imaginary legal sop booklet verb
+/mob/living/carbon/human/proc/sop_legal()
+	set name = "Open Legal SOP"
+	set desc = "Open a memorized version of the legal SOP booklet."
+	set category = "Space Law"
+
+	var/obj/item/book/manual/wiki/sop_legal/imaginary/book = new()
+	if(!put_in_any_hand_if_possible(book))
+		QDEL_NULL(book)
