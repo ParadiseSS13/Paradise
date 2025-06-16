@@ -28,6 +28,7 @@
 	see_in_dark = 8
 	faction = list("skeleton")
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	basic_mob_flags = DEL_ON_DEATH
 	speed = 1
 	step_type = FOOTSTEP_MOB_SHOE
 	gold_core_spawnable = HOSTILE_SPAWN
