@@ -9,7 +9,7 @@
 	IPCs have forged numerous diplomatic treaties with different species, elevating their status from mere tools to recognized minor players within galactic affairs."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
-	language = "Common Encoding Standard"
+	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
 	inherent_factions = list("slime")
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!

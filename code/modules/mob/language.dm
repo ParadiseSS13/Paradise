@@ -267,16 +267,16 @@
 	new_name += " [pick("The Void", "The Sky", "Encroaching Night", "Planetsong", "Starsong", "The Wandering Star", "The Empty Day", "Daybreak", "Nightfall", "The Rain", "The Stars", "The Waves", "Dusk", "Night", "The Wind", "The Summer Wind", "The Blazing Sun", "The Scorching Sun", "Eternal Fields", "The Soothing Plains", "The Undying Fiona", "Mother Nature's Bousum")]"
 	return new_name
 
-/datum/language/ces
-	name = "Common Encoding Standard"
-	desc = "An encoding framework used to communicate on a verbal level. Audibly, CES consists of an atonal mix of static, beeps, and chirps."
+/datum/language/trinary
+	name = "Trinary"
+	desc = "A modification of binary to allow fuzzy logic. 0 is no, 1 is maybe, 2 is yes. Credited with giving Machine People the ability to think creatively."
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("exclaims")
-	colour = "ces"
+	colour = "trinary"
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("kshhh", "bzzt", "beep", "bip", "boop", "chirp", "bop", "bzz", "hsss", "kshk", "blip", "bloop")
+	syllables = list("0", "1", "2")
 	space_chance = 0
 	join_override = ""
 

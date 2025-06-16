@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Vox-pidgin", 1)
 	add_language("Orluum", 1)
 	add_language("Rootspeak", 1)
-	add_language("Common Encoding Standard", 1)
+	add_language("Trinary", 1)
 	add_language("Chittin", 1)
 	add_language("Bubblish", 1)
 	add_language("Clownish", 1)

@@ -101,7 +101,7 @@
 	add_language("Sol Common")
 	add_language("Tradeband")
 	add_language("Gutter")
-	add_language("Common Encoding Standard")
+	add_language("Trinary")
 
 	AddSpell(new /datum/spell/access_software_pai)
 	AddSpell(new /datum/spell/unfold_chassis_pai)
