@@ -12,7 +12,7 @@
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_max = 2.5 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/demonic_incursion
 	attack_verb_simple = "chomp"
 	attack_verb_continuous = "chomps"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -32,7 +32,7 @@
 	if(prob(grappler_chance))
 		AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
 		name = "grappling " + name
-		ai_controller = new /datum/ai_controller/basic_controller/simple/simple_skirmisher(src)
+		ai_controller = new /datum/ai_controller/basic_controller/simple/simple_skirmisher/demon_incursion(src)
 		update_appearance(UPDATE_NAME)
 	AddElement(/datum/element/ai_retaliate)
 	AddComponent(/datum/component/footstep, step_type)
