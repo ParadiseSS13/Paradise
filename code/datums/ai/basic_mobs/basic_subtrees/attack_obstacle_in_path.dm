@@ -80,6 +80,15 @@
 
 	return TRUE // It's in our way, let's get it out of our way
 
+/datum/ai_behavior/attack_obstructions/avoid_breaches
+
+/datum/ai_behavior/attack_obstructions/avoid_breaches/can_smash_object(mob/living/basic/basic_mob, obj/object)
+	. = ..()
+	if(istype(object, /obj/structure/window) || istype(object, /obj/machinery/door/airlock/external))
+		for(var/dir in GLOB.alldirs)
+			if(isspaceturf(get_step(object, dir)))
+				return FALSE
+
 /datum/ai_planning_subtree/attack_obstacle_in_path/low_priority_target
 	target_key = BB_LOW_PRIORITY_HUNTING_TARGET
 

@@ -88,9 +88,6 @@
 /// How often can we get spooked by a target?
 #define BB_STATIONARY_COOLDOWN "BB_STATIONARY_COOLDOWN"
 
-/// Are we injured?
-#define BB_INJURED "BB_INJURED"
-
 // minebot keys
 /// key that stores our toggle light ability
 #define BB_MINEBOT_LIGHT_ABILITY "BB_MINEBOT_LIGHT_ABILITY"
@@ -143,3 +140,7 @@
 #define BB_ORE_TARGET "BB_ORE_TARGET"
 /// which ore types we will not eat
 #define BB_ORE_IGNORE_TYPES "BB_ORE_IGNORE_TYPES"
+
+#define BB_INCURSION_HOME_PORTAL "BB_INCURSION_HOME_PORTAL"
+#define BB_INCURSION_HOME_PORTAL_TARGET "BB_INCURSION_HOME_PORTAL_TARGET"
+#define BB_PROWL_TARGET "BB_PROWL_TARGET"

@@ -465,6 +465,7 @@
 #include "code\datums\ai\basic_mobs\basic_subtrees\find_food.dm"
 #include "code\datums\ai\basic_mobs\basic_subtrees\flee_target.dm"
 #include "code\datums\ai\basic_mobs\basic_subtrees\mine_walls.dm"
+#include "code\datums\ai\basic_mobs\basic_subtrees\prowl.dm"
 #include "code\datums\ai\basic_mobs\basic_subtrees\random_speech.dm"
 #include "code\datums\ai\basic_mobs\basic_subtrees\ranged_skirmish.dm"
 #include "code\datums\ai\basic_mobs\basic_subtrees\simple_attack_target.dm"

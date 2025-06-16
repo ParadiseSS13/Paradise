@@ -101,6 +101,7 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#780606"
+	spawner_type = /datum/component/spawner/demon_incursion_portal
 	/// The event that spawned this portal
 	var/datum/event/demon_incursion/linked_incursion
 	/// Percentage chance that a portal will spread every time spread() is called

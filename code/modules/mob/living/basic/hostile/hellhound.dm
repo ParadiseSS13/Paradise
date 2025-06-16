@@ -66,7 +66,6 @@
 /mob/living/basic/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
 	if(stat != DEAD && (getBruteLoss() || getFireLoss()))
-		ai_controller.set_blackboard_key(BB_INJURED, TRUE)
 		if(IS_HORIZONTAL(src))
 			if(life_regen_cycles >= life_regen_cycle_trigger)
 				life_regen_cycles = 0
@@ -75,8 +74,6 @@
 				adjustFireLoss(life_regen_amount)
 			else
 				life_regen_cycles++
-	else
-		ai_controller.set_blackboard_key(BB_INJURED, FALSE)
 	if(ai_controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET))
 		stand_up()
 
