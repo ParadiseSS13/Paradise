@@ -45,6 +45,8 @@
 #define BB_TEMPORARILY_IGNORE_FACTION "BB_TEMPORARILY_IGNORE_FACTIONS"
 ///List of mobs who have damaged us
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_BASIC_MOB_SHITLIST"
+///Blackboard key for a whitelist typecache of "things we can target while trying to move"
+#define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
 
 //Hunting BB keys
 
@@ -138,3 +140,7 @@
 #define BB_ORE_TARGET "BB_ORE_TARGET"
 /// which ore types we will not eat
 #define BB_ORE_IGNORE_TYPES "BB_ORE_IGNORE_TYPES"
+
+#define BB_INCURSION_HOME_PORTAL "BB_INCURSION_HOME_PORTAL"
+#define BB_INCURSION_HOME_PORTAL_TARGET "BB_INCURSION_HOME_PORTAL_TARGET"
+#define BB_PROWL_TARGET "BB_PROWL_TARGET"
