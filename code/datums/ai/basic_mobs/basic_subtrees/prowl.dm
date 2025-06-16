@@ -24,5 +24,5 @@
 	finding_behavior = /datum/ai_behavior/find_hunt_target/prowl
 	hunting_behavior = /datum/ai_behavior/hunt_target/prowl
 	hunt_targets = list(/turf/simulated/floor/plasteel)
-	hunt_range = 16
-	hunt_chance = 80
+	hunt_range = 8
+	hunt_chance = 50
