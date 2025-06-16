@@ -280,35 +280,6 @@
 	update_icon()
 	update_controls()
 
-/mob/living/simple_animal/bot/Initialize(mapload)
-	. = ..()
-	GLOB.bots_list += src
-	icon_living = icon_state
-	icon_dead = icon_state
-	access_card = new /obj/item/card/id(src)
-	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
-	access_card.access += ACCESS_ROBOTICS
-	set_custom_texts()
-	Radio = new/obj/item/radio/headset/bot(src)
-	Radio.follow_target = src
-	add_language("Galactic Common", 1)
-	add_language("Sol Common", 1)
-	add_language("Tradeband", 1)
-	add_language("Gutter", 1)
-	add_language("Trinary", 1)
-	default_language = GLOB.all_languages["Galactic Common"]
-
-	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
-		permanent_huds |= diag_hud
-
-	diag_hud_set_bothealth()
-	diag_hud_set_botstat()
-	diag_hud_set_botmode()
-
-	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
-
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return // We use a different hud
 
