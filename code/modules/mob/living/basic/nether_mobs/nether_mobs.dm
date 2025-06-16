@@ -23,7 +23,7 @@
 	faction = list("nether")
 	contains_xeno_organ = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/sweating
-	var/step_type = FOOTSTEP_MOB_SHOE
+	step_type = FOOTSTEP_MOB_SHOE
 	/// The chance of it being a grappler variant
 	var/grappler_chance = 20
 
@@ -35,4 +35,3 @@
 		ai_controller = new /datum/ai_controller/basic_controller/simple/simple_skirmisher/demon_incursion(src)
 		update_appearance(UPDATE_NAME)
 	AddElement(/datum/element/ai_retaliate)
-	AddComponent(/datum/component/footstep, step_type)

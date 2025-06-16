@@ -95,8 +95,8 @@
 	mob_types = list(/mob/living/basic/netherworld/migo,
 					/mob/living/basic/netherworld,
 					/mob/living/basic/netherworld/blankbody,
-					/mob/living/basic/hostile/hellhound,
-					/mob/living/basic/hostile/skeleton,
+					/mob/living/basic/hellhound,
+					/mob/living/basic/skeleton,
 					/mob/living/basic/netherworld/faithless)
 	light_range = 4
 	light_power = 2

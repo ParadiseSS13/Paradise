@@ -27,7 +27,7 @@
 
 /datum/ai_behavior/hellhound_rest/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	. = ..()
-	var/mob/living/basic/hostile/hellhound/hound = controller.pawn
+	var/mob/living/basic/hellhound/hound = controller.pawn
 	if(!IS_HORIZONTAL(hound))
 		hound.lay_down()
 
@@ -38,7 +38,7 @@
 
 /datum/ai_behavior/hellhound_stand/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	. = ..()
-	var/mob/living/basic/hostile/hellhound/hound = controller.pawn
+	var/mob/living/basic/hellhound/hound = controller.pawn
 	if(IS_HORIZONTAL(hound))
 		hound.stand_up()
 

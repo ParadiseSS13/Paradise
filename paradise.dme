@@ -2389,7 +2389,6 @@
 #include "code\modules\mob\living\stat_states.dm"
 #include "code\modules\mob\living\taste.dm"
 #include "code\modules\mob\living\basic\basic_mob.dm"
-#include "code\modules\mob\living\basic\hostile\basic_hostile.dm"
 #include "code\modules\mob\living\basic\hostile\hellhound.dm"
 #include "code\modules\mob\living\basic\hostile\hellhound_ai.dm"
 #include "code\modules\mob\living\basic\hostile\skeleton_mob.dm"

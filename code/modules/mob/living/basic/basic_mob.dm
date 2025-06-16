@@ -150,6 +150,9 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// Compatibility with mob spawners
 	var/datum/component/spawner/nest
 
+	/// Footsteps
+	var/step_type
+
 /mob/living/basic/Initialize(mapload)
 	. = ..()
 
@@ -158,6 +161,8 @@ RESTRICT_TYPE(/mob/living/basic)
 
 	apply_atmos_requirements()
 	apply_temperature_requirements()
+	if(step_type)
+		AddComponent(/datum/component/footstep, step_type)
 
 /mob/living/basic/Destroy()
 	if(nest)

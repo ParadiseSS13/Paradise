@@ -112,14 +112,14 @@
 	action_icon_state = "glare"
 	gain_desc = "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting."
 
-	shapeshift_type = /mob/living/basic/hostile/hellhound
-	current_shapes = list(/mob/living/basic/hostile/hellhound)
+	shapeshift_type = /mob/living/basic/hellhound
+	current_shapes = list(/mob/living/basic/hellhound)
 	current_casters = list()
-	possible_shapes = list(/mob/living/basic/hostile/hellhound)
+	possible_shapes = list(/mob/living/basic/hellhound)
 
 /datum/spell/shapeshift/hellhound/greater
 	name = "Greater Hellhound Form"
-	shapeshift_type = /mob/living/basic/hostile/hellhound/greater
-	current_shapes = list(/mob/living/basic/hostile/hellhound/greater)
+	shapeshift_type = /mob/living/basic/hellhound/greater
+	current_shapes = list(/mob/living/basic/hellhound/greater)
 	current_casters = list()
-	possible_shapes = list(/mob/living/basic/hostile/hellhound/greater)
+	possible_shapes = list(/mob/living/basic/hellhound/greater)

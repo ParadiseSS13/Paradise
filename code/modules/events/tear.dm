@@ -73,12 +73,12 @@
 	pixel_x = -106
 	pixel_y = -96
 	/// What the leader of the dimensional tear will be
-	var/leader = /mob/living/basic/hostile/hellhound/tear
+	var/leader = /mob/living/basic/hellhound/tear
 	var/spawn_max = 0
 	var/spawn_total = 0
 	var/list/possible_mobs = list(
-		/mob/living/basic/hostile/hellhound,
-		/mob/living/basic/hostile/skeleton,
+		/mob/living/basic/hellhound,
+		/mob/living/basic/skeleton,
 		/mob/living/basic/netherworld/,
 		/mob/living/basic/netherworld/migo,
 		/mob/living/basic/netherworld/faithless)

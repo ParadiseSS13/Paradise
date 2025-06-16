@@ -149,7 +149,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aH" = (
-/mob/living/basic/hostile/skeleton/arctic,
+/mob/living/basic/skeleton/arctic,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aI" = (
