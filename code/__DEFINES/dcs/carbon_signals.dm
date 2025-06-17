@@ -57,3 +57,16 @@
 
 ///from /mob/living/carbon/human/create_mob_hud()
 #define COMSIG_HUMAN_CREATE_MOB_HUD "human_create_mob_hud"
+
+/// Sent at the end of /human/electrocute_act()
+#define COMSIG_HUMAN_ELECTROCUTE_POST_ACT "human_electrocute_post_act"
+/// Sent near the start of /human/emp_act() in the event of the mob having TRAIT_EMP_RESIST
+#define COMSIG_HUMAN_EMP_RESIST_SIGNAL "human_emp_resist_signal"
+/// Sent near the start of /human/emp_act() in the event of the mob having TRAIT_EMP_IMMUNE
+#define COMSIG_HUMAN_EMP_IMMUNE_SIGNAL "human_emp_immune_signal"
+/// Sent at the end of /human/emp_act()
+#define COMSIG_HUMAN_EMP_POST_ACT "human_emp_post_act"
+
+// Species signals, putting here because it fits best
+/// Sent at the end of /species/spec_electrocute_act()
+#define COMSIG_SPECIES_SPEC_ELECTROCUTE_POST_ACT "species_spec_electrocute_post_act"

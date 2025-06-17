@@ -284,12 +284,16 @@ emp_act
 /mob/living/carbon/human/emp_act(severity)
 	..()
 	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
+		SEND_SIGNAL(src, COMSIG_HUMAN_EMP_IMMUNE_SIGNAL, severity)
 		return
 	if(HAS_TRAIT(src, TRAIT_EMP_RESIST))
+		SEND_SIGNAL(src, COMSIG_HUMAN_EMP_RESIST_SIGNAL, severity)
 		severity = clamp(severity, EMP_LIGHT, EMP_WEAKENED)
 	for(var/X in bodyparts)
 		var/obj/item/organ/external/L = X
 		L.emp_act(severity)
+
+	SEND_SIGNAL(src, COMSIG_HUMAN_EMP_POST_ACT, severity)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()

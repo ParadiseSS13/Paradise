@@ -1361,16 +1361,6 @@
 	construction_time = 20 SECONDS
 	category = list("IPC")
 
-/datum/design/ipc_charger_twoway
-	name = "IPC Two-Way Charger"
-	id = "ipc_twoway_charger"
-	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4, "engineering" = 5)
-	build_type = MECHFAB
-	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord/twoway
-	materials = list(MAT_METAL = 2500, MAT_SILVER = 5000, MAT_GOLD = 2500, MAT_PLASMA = 2500)
-	construction_time = 20 SECONDS
-	category = list("IPC")
-
 /datum/design/ipc_optics
 	name = "IPC Optical Sensor"
 	id = "ipc_optics"
@@ -1390,6 +1380,26 @@
 	category = list("IPC")
 
 // IPC Upgrades
+
+/datum/design/ipc_charger_twoway
+	name = "IPC Two-Way Charger"
+	id = "ipc_twoway_charger"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4, "engineering" = 5)
+	build_type = MECHFAB
+	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord/twoway
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 5000, MAT_GOLD = 2500, MAT_PLASMA = 2500)
+	construction_time = 20 SECONDS
+	category = list("IPC Upgrades")
+
+/datum/design/overvoltage_cell
+	name = "Overvoltage-proof Microbattery"
+	id = "ipc_cell_overvoltage"
+	req_tech = list("materials" = 5, "programming" = 5, "biotech" = 6, "powerstorage" = 6, "magnets" = 6, "engineering" = 5)
+	build_type = MECHFAB
+	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord/twoway
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 5000, MAT_GOLD = 10000, MAT_PLASMA = 5000)
+	construction_time = 20 SECONDS
+	category = list("IPC Upgrades")
 
 /datum/design/raiden_implant
 	name = "Reactive Repair Implant"
