@@ -333,7 +333,7 @@
 	icon_panel = "drobe"
 	icon_addon = "genedrobe"
 	category = VENDOR_TYPE_CLOTHING
-	ads_list = "Perfect for the mad scientist in you!"
+	ads_list = list("Perfect for the mad scientist in you!")
 	vend_reply = "Thank you for using the GeneDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/geneticist = 3,
 					/obj/item/clothing/shoes/laceup = 3,
