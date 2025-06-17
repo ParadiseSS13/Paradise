@@ -141,15 +141,14 @@
 			playsound(src, 'sound/magic/lightningbolt.ogg', 60, TRUE)
 			Beam(summoned_mob, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
 			summoned_mob.addtimer(CALLBACK(summoned_mob, TYPE_PROC_REF(/mob/living/basic, death), TRUE), 1 SECONDS)
-	var/obj/item/stack/ore/reward_type = pick(/obj/item/stack/ore/bluespace_crystal, /obj/item/stack/ore/palladium, /obj/item/stack/ore/platinum, /obj/item/stack/ore/iridium, /obj/item/stack/ore/diamond)
-	reward_type.amount = 2
-	new reward_type(loc)
-	return ..()
-
-/obj/structure/spawner/nether/demon_incursion/Destroy()
-	. = ..()
+	var/reward_type = pick(/obj/item/stack/ore/bluespace_crystal, /obj/item/stack/ore/palladium, /obj/item/stack/ore/platinum, /obj/item/stack/ore/iridium, /obj/item/stack/ore/diamond)
+	var/obj/item/stack/ore/reward = new reward_type(loc)
+	reward.amount = 2
 	if(linked_incursion)
 		linked_incursion.portal_list -= src
+		if(!length(linked_incursion.portal_list))
+			playsound(src, 'sound/misc/demon_dies.ogg', 100, TRUE, ignore_walls = TRUE)
+	return ..()
 
 /obj/structure/spawner/nether/demon_incursion/on_mob_spawn(mob/created_mob)
 	. = ..()
