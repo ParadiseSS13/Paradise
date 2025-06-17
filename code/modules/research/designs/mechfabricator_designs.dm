@@ -1354,10 +1354,20 @@
 
 /datum/design/ipc_charger
 	name = "IPC Charger"
-	id = "ipc_cahrger"
+	id = "ipc_charger"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord
 	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
+	construction_time = 20 SECONDS
+	category = list("IPC")
+
+/datum/design/ipc_charger_twoway
+	name = "IPC Two-Way Charger"
+	id = "ipc_twoway_charger"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4, "engineering" = 5)
+	build_type = MECHFAB
+	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord/twoway
+	materials = list(MAT_METAL = 2500, MAT_SILVER = 5000, MAT_GOLD = 2500, MAT_PLASMA = 2500)
 	construction_time = 20 SECONDS
 	category = list("IPC")
 
