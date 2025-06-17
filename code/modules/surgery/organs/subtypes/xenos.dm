@@ -67,6 +67,8 @@
 	var/max_plasma = 300
 	var/heal_rate = 5
 	var/plasma_rate = 10
+	/// For curing viruses
+	var/processing_ticks = 0
 
 /obj/item/organ/internal/alien/plasmavessel/prepare_eat()
 	var/obj/S = ..()
@@ -116,6 +118,15 @@
 			owner.adjustFireLoss(-heal_amt)
 			owner.adjustOxyLoss(-heal_amt)
 			owner.adjustCloneLoss(-heal_amt)
+		if(IS_HORIZONTAL(owner))
+			processing_ticks++
+			for(var/datum/disease/virus in owner.viruses)
+				if(virus.stage < 1 && processing_ticks >= 4)
+					virus.cure()
+					processing_ticks = 0
+				if(virus.stage > 1 && processing_ticks >= 4)
+					virus.stage--
+					processing_ticks = 0
 
 /obj/item/organ/internal/alien/plasmavessel/insert(mob/living/carbon/M, special = 0)
 	..()
