@@ -141,7 +141,8 @@
 			playsound(src, 'sound/magic/lightningbolt.ogg', 60, TRUE)
 			Beam(summoned_mob, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
 			summoned_mob.addtimer(CALLBACK(summoned_mob, TYPE_PROC_REF(/mob/living/basic, death), TRUE), 1 SECONDS)
-	var/reward_type = pick(/obj/item/stack/ore/bluespace_crystal, /obj/item/stack/ore/palladium, /obj/item/stack/ore/platinum, /obj/item/stack/ore/iridium, /obj/item/stack/ore/diamond)
+	var/obj/item/stack/ore/reward_type = pick(/obj/item/stack/ore/bluespace_crystal, /obj/item/stack/ore/palladium, /obj/item/stack/ore/platinum, /obj/item/stack/ore/iridium, /obj/item/stack/ore/diamond)
+	reward_type.amount = 2
 	new reward_type(loc)
 	return ..()
 
