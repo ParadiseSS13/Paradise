@@ -117,6 +117,12 @@
 	/// How many initial mobs does it spawn?
 	var/initial_spawns_min = 1
 	var/initial_spawns_max = 4
+	/// Current tile spread distance
+	var/tile_spread = 1
+	/// Max tile Spread distance
+	var/tile_spread_max = 3
+	/// Turf type that is spread by the portals
+	var/turf_to_spread = /turf/simulated/floor/engine/cult/demon_incursion
 
 /obj/structure/spawner/nether/demon_incursion/Initialize(mapload)
 	. = ..()
@@ -125,6 +131,8 @@
 	var/initial_spawns = rand(initial_spawns_min, initial_spawns_max)
 	var/initial_spawn_time = spawn_time * initial_spawns - 1
 	addtimer(CALLBACK(src, PROC_REF(stop_initial_mobs)), initial_spawn_time)
+	if(turf_to_spread)
+		spread_turf()
 
 /obj/structure/spawner/nether/demon_incursion/deconstruct(disassembled)
 	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
@@ -186,3 +194,19 @@
 	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
 	spawn_comp.spawn_time = spawn_rate
 	spawn_time = spawn_rate
+
+/obj/structure/spawner/nether/demon_incursion/proc/spread_turf()
+	for(var/turf/spread_turf in range(tile_spread, loc))
+		if(isfloorturf(spread_turf) && !istype(spread_turf, turf_to_spread))
+			spread_turf.ChangeTurf(turf_to_spread)
+			Beam(spread_turf, icon_state = "sendbeam", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
+	if(tile_spread < tile_spread_max)
+		tile_spread++
+		addtimer(CALLBACK(src, PROC_REF(spread_turf)), spawn_rate)
+
+/turf/simulated/floor/engine/cult/demon_incursion
+	name = "hellish flooring"
+
+/turf/simulated/floor/engine/cult/demon_incursion/Initialize(mapload)
+	. = ..()
+	icon_state = "culthell" // Cult floors auto adjust. This forces it to be the hell variant
