@@ -1,0 +1,15 @@
+.AIControllerDebugger__Blackboard {
+  .Table__row:nth-child(odd) {
+    background-color: #222;
+  }
+}
+
+.bb_value {
+  vertical-align: top;
+  overflow-wrap: break-word;
+  text-wrap: wrap;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  display: inline-block;
+}
