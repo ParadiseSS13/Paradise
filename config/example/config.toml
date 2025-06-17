@@ -271,6 +271,8 @@ gamemode_probabilities = [
 	{ gamemode = "dynamic", probability = 22 },
 	{ gamemode = "antag_mix", probability = 3 },
 ]
+# List of gamemodes that shouldn't be played for more than 1 round in a row.
+non_repeatable_gamemodes = ["nuclear", "wizard", "raginmages"]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
 # Protect mindshielded roles from being antagonists
