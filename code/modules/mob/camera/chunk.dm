@@ -8,7 +8,6 @@
 	var/list/inactive_cameras = list()
 	var/list/turfs = list()
 	var/list/seenby = list()
-	var/image/camera_static
 	var/changed = FALSE
 	var/updating = FALSE
 	var/x = 0
@@ -128,9 +127,8 @@
 
 	for(var/turf/t as anything in vis_removed)
 		if(!t.obscured)
-			camera_static = image('icons/effects/cameravis.dmi', t, null, BYOND_LIGHTING_LAYER + 0.1)
-			camera_static.appearance_flags = RESET_TRANSFORM
-			t.obscured = camera_static
+			t.obscured = image('icons/effects/cameravis.dmi', t, null, BYOND_LIGHTING_LAYER + 0.1)
+			t.obscured.appearance_flags = RESET_TRANSFORM
 			t.obscured.plane = BYOND_LIGHTING_PLANE + 1
 		obscured += t.obscured
 		images_to_add += t.obscured
@@ -169,8 +167,7 @@
 
 	for(var/turf/t as anything in obscured_turfs)
 		if(!t.obscured)
-			camera_static = image('icons/effects/cameravis.dmi', t, "black", BYOND_LIGHTING_LAYER + 0.1)
-			camera_static.appearance_flags = RESET_TRANSFORM
-			t.obscured = camera_static
+			t.obscured = image('icons/effects/cameravis.dmi', t, "black", BYOND_LIGHTING_LAYER + 0.1)
+			t.obscured.appearance_flags = RESET_TRANSFORM
 			t.obscured.plane = BYOND_LIGHTING_PLANE + 1
 		obscured += t.obscured
