@@ -434,7 +434,7 @@
 		to_chat(user, "<span class='notice'>You switch \the [src] to drawing mode, allowing you to charge yourself.</span>")
 		charge_apc_mode = FALSE
 	else
-		to_chat(user, "<span class='notice'>You switch \the [src] to sending power, allowing you to charge APCs.</span>")
+		to_chat(user, "<span class='notice'>You switch \the [src] to sending mode, allowing you to charge APCs.</span>")
 		charge_apc_mode = TRUE
 
 /obj/item/apc_powercord/proc/handle_apc_interaction(mob/living/carbon/user, obj/machinery/power/apc/target)
@@ -454,7 +454,7 @@
 				H.adjustFireLoss(10,0)
 			else
 				do_sparks(3, 1, target)
-				to_chat(H, "<span class='warning'>The APC power currents surge erratically, but your overvoltage-proofed microbattery protects you from damage!</span>")
+				to_chat(H, "<span class='warning'>The APC power currents surge erratically, but your overvoltage system protects you from damage!</span>")
 		else if(target.cell)
 			if(!charge_apc_mode)
 				if(target.cell.charge == 0)
