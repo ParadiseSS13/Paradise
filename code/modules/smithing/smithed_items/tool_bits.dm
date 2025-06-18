@@ -32,6 +32,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/smithed_item/tool_bit/set_stats()
+	..()
 	durability = initial(durability) * material.durability_mult
 	max_durability = durability
 	size_mod = initial(size_mod) + material.size_mod
@@ -149,3 +150,21 @@
 	durability = 300
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
+
+/obj/item/smithed_item/tool_bit/AltClick(mob/user, modifiers)
+	if(!HAS_TRAIT(user.mind, TRAIT_SMITH))
+		return
+	if(do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
+		var/compiled_message = "<span class='notice'>\
+		You determine the following properties on [src]: <br>\
+		Base Speed mod: [base_speed_mod] <br>\
+		Base Efficiency mod: [base_efficiency_mod] <br>\
+		Base Productivity mod: [base_productivity_mod] <br>\
+		Speed Multiplier: [speed_mod] <br>\
+		Efficiency Multiplier: [efficiency_mod] <br>\
+		Productivity Multiplier: [productivity_mod] <br>\
+		Failure Rate: [failure_rate] <br>\
+		Size Mod: [size_mod] <br>\
+		Durability: [durability] <br>\
+		</span>"
+		to_chat(user, compiled_message)

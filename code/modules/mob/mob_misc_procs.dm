@@ -74,7 +74,7 @@
 	if(istype(worn_glasses) && worn_glasses.color_view) //Check to see if they got those magic glasses and they're augmenting the colour of what the wearer sees. If they're not, color_view should be null.
 		return worn_glasses.color_view
 	else if(eyes) //If they're not, check to see if their eyes got one of them there colour matrices. Will be null if eyes are robotic/the mob isn't colourblind and they have no default colour matrix.
-		return eyes.get_colourmatrix()
+		return eyes.get_colormatrix()
 
 /**
   * Flash up a color as an overlay on a player's screen, then fade back to normal.
@@ -480,7 +480,7 @@
 			if(hud_used && hud_used.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
-		else if(isrobot(src) || islarva(src) || isanimal(src) || is_ai(src))
+		else if(isrobot(src) || islarva(src) || isanimal_or_basicmob(src) || is_ai(src))
 			switch(input)
 				if(INTENT_HELP)
 					a_intent = INTENT_HELP

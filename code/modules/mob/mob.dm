@@ -261,10 +261,6 @@
 	if(!istype(W))
 		return FALSE
 
-	if(W.flags & NODROP)
-		to_chat(src, "<span class='warning'>[W] is stuck to your hand!</span>")
-		return FALSE
-
 	if(!W.mob_can_equip(src, slot, disable_warning))
 		if(del_on_fail)
 			qdel(W)
@@ -912,6 +908,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
+	if(href_list["station_report"])
+		var/obj/item/clipboard/station_report/report = GLOB.station_report
+		if(!istype(report))
+			to_chat(src, "<span class='notice'>Nobody wrote a station report this shift!</span>")
+		else if(!report.toppaper)
+			to_chat(src, "<span class='notice'>Nobody wrote a station report this shift!</span>")
+		else if(istype(report.toppaper, /obj/item/paper_bundle))
+			var/obj/item/paper_bundle/report_page = report.toppaper
+			report_page.show_content(src)
+		else if(istype(report.toppaper, /obj/item/paper))
+			var/obj/item/paper/report_page = report.toppaper
+			report_page.show_content(src)
 
 	if(usr != src)
 		return TRUE

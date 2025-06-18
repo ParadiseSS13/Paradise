@@ -1,5 +1,5 @@
 /obj/item/clothing/under/rank/captain
-	name = "captain's jumpsuit"
+	name = "captain's uniform"
 	desc = "It's a blue dress shirt and black slacks with some gold markings denoting the rank of \"Captain\"."
 	icon = 'icons/obj/clothing/under/captain.dmi'
 	icon_state = "captain"
@@ -15,7 +15,7 @@
 		)
 
 /obj/item/clothing/under/rank/captain/skirt
-	name = "captain's jumpskirt"
+	name = "captain's skirt"
 	desc = "It's a blue dress shirt and black skirt with some gold markings denoting the rank of \"Captain\"."
 	icon_state = "captain_skirt"
 	item_color = "captain_skirt"

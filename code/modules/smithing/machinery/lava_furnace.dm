@@ -58,6 +58,9 @@
 
 /obj/machinery/smithing/lava_furnace/attack_hand(mob/user)
 	. = ..()
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return FINISH_ATTACK
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
 		return

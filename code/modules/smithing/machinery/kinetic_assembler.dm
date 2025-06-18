@@ -63,6 +63,8 @@
 	. = ..()
 	if(panel_open)
 		icon_state = "assembler_wires"
+	else
+		icon_state = "assembler"
 
 /obj/machinery/smithing/kinetic_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	. = ..()
@@ -117,6 +119,9 @@
 			return
 
 /obj/machinery/smithing/kinetic_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -174,6 +179,9 @@
 		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/kinetic_assembler/attack_hand(mob/user)
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return FINISH_ATTACK
 	if(!primary)
 		to_chat(user, "<span class='warning'>[src] lacks a primary component!</span>")
 		return FINISH_ATTACK
@@ -246,6 +254,7 @@
 	bound_width = 32
 	bound_y = 0
 	operation_sound = 'sound/items/welder.ogg'
+	req_one_access = list(ACCESS_TOX, ACCESS_XENOBIOLOGY, ACCESS_SMITH)
 	/// Slime extract for the egun
 	var/obj/item/slime_extract/slime_core
 	/// The gun frame
@@ -257,7 +266,7 @@
 	. = ..()
 	// Stock parts
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/kinetic_assembler(null)
+	component_parts += new /obj/item/circuitboard/scientific_assembler(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -287,8 +296,10 @@
 	. = ..()
 	if(panel_open)
 		icon_state = "assembler_wires"
+	else
+		icon_state = "assembler"
 
-/obj/machinery/smithing/kinetic_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+/obj/machinery/smithing/scientific_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
@@ -299,6 +310,9 @@
 		icon_state = "assembler_wires"
 
 /obj/machinery/smithing/scientific_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -351,6 +365,9 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/smithing/scientific_assembler/attack_hand(mob/user)
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return FINISH_ATTACK
 	if(!slime_core)
 		to_chat(user, "<span class='warning'>[src] lacks a slime core!</span>")
 		return FINISH_ATTACK

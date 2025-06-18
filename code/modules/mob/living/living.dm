@@ -40,7 +40,6 @@
 	med_hud_set_health()
 	med_hud_set_status()
 
-
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
@@ -66,6 +65,12 @@
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
+
+/// Legacy method for simplemobs to handle turning off their AI.
+/// Unrelated to and unused for AI controllers, which handle their
+/// AI cooperation with signals.
+/mob/living/proc/sentience_act()
+	return
 
 /mob/living/proc/OpenCraftingMenu()
 	return
@@ -221,6 +226,30 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
+/mob/living/examine(mob/user)
+	. = ..()
+	if(stat != DEAD)
+		return
+	if(!user.reagent_vision())
+		return
+	var/datum/surgery/dissection
+	for(var/datum/surgery/dissect/D in surgeries)
+		dissection = D
+	if(dissection)
+		. += "<span class='notice'>You detect the next dissection step will be: [dissection.get_surgery_step()]</span>"
+	if(surgery_container && !contains_xeno_organ)
+		. += "<span class='warning'>[src] looks like [p_they()] [p_have()] had [p_their()] organs dissected!</span>"
+
+
+/mob/living/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
+			for(var/datum/surgery/S in surgeries)
+				if(S.next_step(user, src))
+					return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
 /mob/living/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
@@ -262,7 +291,13 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
-	..()
+	if(pulling)
+		var/atom/pullee = pulling
+		..()
+		for(var/log_pulltype in GLOB.log_pulltypes)
+			if(istype(pullee, log_pulltype))
+				create_log(MISC_LOG, "Stopped pulling", pullee)
+				break
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
 
@@ -811,7 +846,7 @@
 
 //Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
 /mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
-	if(check_eye_prot() >= intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
+	if((check_eye_prot() >= intensity) || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND))) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		return FALSE
 
 	return TRUE
@@ -911,8 +946,12 @@
 	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?
 		to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-		if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
-			harvest(user)
+		if(user.mind && HAS_TRAIT(user.mind, TRAIT_BUTCHER))
+			if(do_mob(user, src, 3 SECONDS) && Adjacent(I))
+				harvest(user)
+		else
+			if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
+				harvest(user)
 		return TRUE
 
 /mob/living/proc/harvest(mob/living/user)
@@ -1012,6 +1051,12 @@
 	AM.pulledby = src
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
+	SEND_SIGNAL(AM, COMSIG_ATOM_PULLED, src)
+
+	for(var/log_pulltype in GLOB.log_pulltypes)
+		if(istype(AM, log_pulltype))
+			create_log(MISC_LOG, "Started pulling", AM)
+			break
 
 /mob/living/proc/check_pull()
 	if(pulling && !pulling.Adjacent(src))
@@ -1226,3 +1271,18 @@
 
 /mob/living/proc/sec_hud_set_ID()
 	return
+
+/// Proc for giving a mob a new 'friend', generally used for AI control and
+/// targeting. Returns false if already friends or null if qdeleted.
+/mob/living/proc/befriend(mob/living/new_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	if(QDELETED(new_friend))
+		return
+	var/friend_ref = new_friend.UID()
+	if(faction.Find(friend_ref))
+		return FALSE
+	faction |= friend_ref
+	ai_controller?.insert_blackboard_key_lazylist(BB_FRIENDS_LIST, new_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
+	return TRUE

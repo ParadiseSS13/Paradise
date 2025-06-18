@@ -19,6 +19,8 @@
 	var/adding_ore
 	/// State for if ore is being taken from it
 	var/pouring
+	/// How many outputs are we pouring to? Do not stop animating until we are no longer pouring.
+	var/number_of_pours = 0
 	/// List of linked machines
 	var/list/linked_machines = list()
 
@@ -35,6 +37,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/assembly/igniter(null)
 	RefreshParts()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/examine(mob/user)
 	. = ..()
@@ -66,6 +69,8 @@
 		. += "crucible_wires"
 	if(pouring)
 		. += "crucible_output"
+	else if(has_power() && !(stat & (BROKEN)))
+		. += "crucible_passive"
 
 /obj/machinery/magma_crucible/update_icon_state()
 	. = ..()
@@ -95,6 +100,7 @@
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/proc/animate_transfer(time_to_animate)
 	adding_ore = TRUE
@@ -107,12 +113,15 @@
 
 /obj/machinery/magma_crucible/proc/animate_pour(time_to_animate)
 	pouring = TRUE
+	number_of_pours++
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(stop_pouring)), time_to_animate)
 
 /obj/machinery/magma_crucible/proc/stop_pouring()
-	pouring = FALSE
-	update_icon(UPDATE_OVERLAYS)
+	number_of_pours--
+	if(!number_of_pours)
+		pouring = FALSE
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE

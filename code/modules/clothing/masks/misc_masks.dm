@@ -32,7 +32,7 @@
 	if(security_lock)
 		security_lock = FALSE
 		locked = FALSE
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 		desc += " This one appears to be broken."
 		return TRUE
 	else
@@ -46,7 +46,7 @@
 	else if(ACCESS_BRIG in user.get_access())
 		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
 		locked = FALSE
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 		return TRUE
 
 	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
@@ -55,7 +55,7 @@
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
 	if(security_lock)
 		locked = TRUE
-		flags |= NODROP
+		set_nodrop(TRUE, loc)
 		return TRUE
 	return FALSE
 
@@ -373,6 +373,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
@@ -413,6 +414,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 		actions_types = list(/datum/action/item_action/adjust)

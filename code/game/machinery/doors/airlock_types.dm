@@ -688,14 +688,6 @@ MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/airlock/multi_tile/gla
 	/// The assembly this fluff panel is attached to
 	var/obj/structure/door_assembly/filled_assembly
 
-/obj/airlock_filler_object/Bumped(atom/A)
-	if(filled_airlock)
-		return filled_airlock.Bumped(A)
-	if(filled_assembly)
-		return filled_assembly.Bumped(A)
-	else
-		stack_trace("Someone bumped into an airlock filler with no parent airlock/assembly specified!")
-
 /obj/airlock_filler_object/Destroy()
 	filled_airlock = null
 	filled_assembly = null
@@ -747,7 +739,7 @@ MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/airlock/multi_tile/gla
 		return
 
 	if(istype(mover))
-		return !density
+		return !opacity
 
 /obj/airlock_filler_object/singularity_act()
 	return
