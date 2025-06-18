@@ -43,6 +43,10 @@ SUBSYSTEM_DEF(ticker)
 	var/tipped = FALSE
 	/// What will be the tip of the round?
 	var/selected_tip
+	///Did we broadcast the fact of the round yet?
+	var/facted = FALSE
+	///What will be the fact of the round?
+	var/selected_fact
 	/// This is used for calculations for the statpanel
 	var/pregame_timeleft
 	/// If set to TRUE, the round will not restart on it's own
@@ -103,6 +107,10 @@ SUBSYSTEM_DEF(ticker)
 			if(pregame_timeleft <= 1 MINUTES && !tipped)
 				send_tip_of_the_round()
 				tipped = TRUE
+
+			if(pregame_timeleft <= 120 SECONDS && !facted)
+				send_fact_of_the_round()
+				facted = TRUE
 
 			if(pregame_timeleft <= 0 || force_start)
 				current_state = GAME_STATE_SETTING_UP
@@ -552,6 +560,18 @@ SUBSYSTEM_DEF(ticker)
 
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
+
+/datum/controller/subsystem/ticker/proc/send_fact_of_the_round()
+	var/n
+	if(selected_fact)
+		n = selected_fact
+	else
+		var/list/randomfacts = file2list("strings/facts.txt")
+		if(length(randomfacts))
+			n = pick(randomfacts)
+
+	if(n)
+		to_chat(world, "<span class='green'><b>Fact of the round: </b>[html_encode(n)]</span>")
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
