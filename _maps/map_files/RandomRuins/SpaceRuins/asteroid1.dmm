@@ -10,7 +10,7 @@
 /turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "l" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "V" = (

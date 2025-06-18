@@ -73,7 +73,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/mineral/tranquillite,
 /area/ruin/space/powered)
 "fS" = (
@@ -737,7 +737,7 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/sheet/wood,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "Pt" = (

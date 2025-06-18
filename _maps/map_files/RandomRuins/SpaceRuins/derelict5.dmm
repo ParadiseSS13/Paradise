@@ -84,7 +84,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "lE" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "mn" = (
@@ -245,7 +245,7 @@
 /area/ruin/space/unpowered)
 "LA" = (
 /obj/structure/table,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "LD" = (
