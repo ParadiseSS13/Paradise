@@ -103,6 +103,7 @@
 		"Forensic Technician" = "secradio",
 		"Head of Security" = "secradio",
 		"Human Resources Agent" = "secradio",
+		"Inspector" = "secradio",
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",

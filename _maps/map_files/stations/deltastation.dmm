@@ -72339,12 +72339,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedbar)
 "nnV" = (
-/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -30
 	},
 /obj/machinery/light,
+/obj/machinery/economy/vending/minedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "purple"

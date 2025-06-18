@@ -274,6 +274,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/visualize_interesting_turfs,
 	/client/proc/profile_code
 ))
+GLOBAL_LIST_INIT(view_logs_verbs, list(
+	/client/proc/getserverlogs,
+	/client/proc/get_server_logs_by_round_id,
+))
 
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -323,6 +327,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				control_freak = 0
 		if(holder.rights & R_DEV_TEAM)
 			add_verb(src, GLOB.admin_verbs_dev)
+		if(holder.rights & R_VIEWLOGS)
+			add_verb(src, GLOB.view_logs_verbs)
 		if(is_connecting_from_localhost())
 			add_verb(src, /client/proc/export_current_character)
 

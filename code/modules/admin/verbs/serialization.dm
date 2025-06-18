@@ -19,7 +19,7 @@
 		return
 
 	if(choice == "PC")
-		to_chat(src, json_data)
+		to_chat(src, chat_box_examine(json_data))
 
 	if(choice == "Server")
 		// Right, get their slot names

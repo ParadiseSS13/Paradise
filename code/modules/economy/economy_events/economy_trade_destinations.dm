@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/anansi/get_custom_eventstring(event_type)
 	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
-		return "Thanks to research conducted on the NSS Anansi, Second Green Cross Society wishes to announce a major breakthough in the field of \
+		return "Thanks to research conducted on the NSS Anansi, Second Green Cross Society wishes to announce a major breakthrough in the field of \
 		[pick("mind-machine interfacing","neuroscience","nano-augmentation","genetics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."
 	return null
 
@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/redolant
 	name = "OAV Redolant"
-	description = "Osiris Atmospherics station in orbit around the only gas giant insystem. They retain tight control over shipping rights, and Osiris warships protecting their prize are not an uncommon sight in Tau Ceti."
+	description = "Osiris Atmospherics station in orbit around the only gas giant in system. They retain tight control over shipping rights, and Osiris warships protecting their prize are not an uncommon sight in Tau Ceti."
 	distance = 0.6
 	willing_to_buy = list()
 	willing_to_sell = list()
@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/redolant/get_custom_eventstring(event_type)
 	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
-		return "Thanks to research conducted on the OAV Redolant, Osiris Atmospherics wishes to announce a major breakthough in the field of \
+		return "Thanks to research conducted on the OAV Redolant, Osiris Atmospherics wishes to announce a major breakthrough in the field of \
 		[pick("plasma research","high energy flux capacitance","super-compressed materials","theoretical particle physics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."
 	return null
 
@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/new_gibson
 	name = "New Gibson"
-	description = "Heavily industrialised rocky planet containing the majority of the planet-bound resources in the system, New Gibson is torn by unrest and has very little wealth to call it's own except in the hands of the corporations who jostle with NT for control."
+	description = "Heavily industrialized rocky planet containing the majority of the planet-bound resources in the system, New Gibson is torn by unrest and has very little wealth to call it's own except in the hands of the corporations who jostle with NT for control."
 	distance = 6.6
 	willing_to_buy = list()
 	willing_to_sell = list()
