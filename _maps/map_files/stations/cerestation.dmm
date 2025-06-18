@@ -4078,6 +4078,9 @@
 /area/station/command/office/captain)
 "aEP" = (
 /obj/machinery/firealarm/directional/south,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "aES" = (
@@ -4085,9 +4088,6 @@
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
@@ -18615,7 +18615,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/orange{
-	icon_state = "2-4"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
@@ -40798,13 +40798,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
-"hzs" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain)
 "hzA" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -93609,6 +93602,9 @@
 /area/station/security/brig)
 "tdM" = (
 /obj/machinery/light,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "tdO" = (
@@ -97700,6 +97696,13 @@
 "uay" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/serveng)
+"uaz" = (
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable/orange{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/command/office/captain)
 "uaJ" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -149224,7 +149227,7 @@ vUn
 aVo
 dPP
 qEF
-aEU
+uaz
 eTm
 nZB
 tpA
@@ -149481,7 +149484,7 @@ aNu
 aVg
 aEU
 aEU
-aEU
+tMM
 eTm
 bDh
 pZl
@@ -150252,7 +150255,7 @@ nQN
 aEU
 bce
 bjd
-aEU
+tMM
 eTm
 tVI
 bMQ
@@ -151023,7 +151026,7 @@ aEU
 aVC
 wVh
 aCh
-tMM
+aEU
 eTm
 eYJ
 xzb
@@ -151280,7 +151283,7 @@ aBj
 ovr
 meB
 uER
-hzs
+aEU
 eTm
 fgx
 oJf
