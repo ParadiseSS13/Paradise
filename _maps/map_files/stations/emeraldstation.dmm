@@ -23322,10 +23322,7 @@
 "eIi" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/sign/poster/official/random/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "eIv" = (
 /obj/machinery/hologram/holopad,
@@ -31375,10 +31372,7 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "gks" = (
 /obj/structure/chair/sofa/bench/right{
@@ -33235,6 +33229,12 @@
 /obj/effect/spawner/random/cobweb/right/rare,
 /obj/item/extinguisher/mini,
 /turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
+"gEg" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escapecorner"
+	},
 /area/station/maintenance/starboard)
 "gEj" = (
 /obj/structure/closet/emcloset,
@@ -35104,7 +35104,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/primary/starboard)
 "gYK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -43971,13 +43973,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
-"iKO" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "escape"
-	},
-/area/station/maintenance/starboard)
 "iKR" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
@@ -81569,8 +81564,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "escapecorner";
-	dir = 1
+	dir = 1;
+	icon_state = "escapecorner"
 	},
 /area/station/hallway/secondary/exit)
 "qkB" = (
@@ -171003,7 +170998,7 @@ qKm
 emt
 ijF
 iro
-kyA
+sfM
 mof
 gYF
 ngr
@@ -173326,7 +173321,7 @@ jxS
 iLD
 aZh
 aZh
-gRv
+gEg
 sAp
 cGm
 xTH
@@ -173583,7 +173578,7 @@ gHn
 jHe
 nvH
 aZh
-iKO
+jcy
 sLU
 stp
 mXw

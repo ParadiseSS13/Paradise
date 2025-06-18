@@ -2434,6 +2434,13 @@
 	icon_state = "darkred"
 	},
 /area/station/hallway/secondary/exit)
+"auZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
+/area/station/maintenance/aft)
 "avc" = (
 /turf/simulated/wall/r_wall,
 /area/station/command/office/hos)
@@ -28908,7 +28915,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 10;
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
@@ -29438,10 +29445,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "cOj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -42606,7 +42610,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "escapecorner"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "gMG" = (
@@ -48930,8 +48934,8 @@
 "jfY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "escapecorner";
-	dir = 4
+	dir = 6;
+	icon_state = "escape"
 	},
 /area/station/maintenance/aft)
 "jgq" = (
@@ -52909,8 +52913,8 @@
 /obj/effect/spawner/random/cobweb/left/frequent,
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
-	icon_state = "escapecorner";
-	dir = 8
+	dir = 9;
+	icon_state = "escape"
 	},
 /area/station/maintenance/aft2)
 "kEy" = (
@@ -56298,7 +56302,7 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "lOz" = (
@@ -59716,7 +59720,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 6;
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
@@ -62246,7 +62250,10 @@
 /obj/item/extinguisher,
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "escape"
+	},
 /area/station/maintenance/aft2)
 "nWH" = (
 /obj/structure/disposalpipe/segment,
@@ -69806,7 +69813,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "escapecorner"
+	icon_state = "neutralfull"
 	},
 /area/station/maintenance/aft)
 "qMg" = (
@@ -74906,8 +74913,7 @@
 "sIC" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
-	icon_state = "escapecorner";
-	dir = 8
+	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
 "sID" = (
@@ -79579,8 +79585,8 @@
 "uCE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "escapecorner";
-	dir = 1
+	dir = 8;
+	icon_state = "escape"
 	},
 /area/station/maintenance/aft2)
 "uCW" = (
@@ -80568,8 +80574,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "escape"
+	icon_state = "neutralfull"
 	},
 /area/station/maintenance/aft)
 "uUX" = (
@@ -81737,6 +81742,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
+"vps" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
+/area/station/maintenance/aft)
 "vpw" = (
 /obj/machinery/cooking/oven,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -113381,7 +113392,7 @@ vfz
 iGq
 olD
 cfc
-chy
+auZ
 dfQ
 bWj
 bZU
@@ -113638,9 +113649,9 @@ eod
 yhv
 cfc
 cfc
-chy
+auZ
 cgU
-chy
+vps
 bZU
 grP
 ecg
