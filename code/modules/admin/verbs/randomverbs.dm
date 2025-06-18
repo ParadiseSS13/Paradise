@@ -1177,6 +1177,43 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	usr << browse(dat.Join("<br>"), "window=goals;size=400x400")
 
+/datum/admins/proc/modify_implants(mob/living/carbon/M)
+	if(!M)
+		return
+
+	var/add_or_remove = tgui_input_list(usr, "Add or Remove Implant?", "Modify Implants", list("Add","Remove"))
+	if(!add_or_remove)
+		return
+
+	var/static/list/implants
+	if(!length(implants))
+		implants = subtypesof(/obj/item/bio_chip)
+
+	switch(add_or_remove)
+		if("Add")
+			var/obj/item/bio_chip/chip_to_add = tgui_input_list(usr, "Select implant to add.", "Implants", implants)
+			if(!chip_to_add)
+				return
+			chip_to_add = new chip_to_add
+			if(!chip_to_add.implant(M))
+				to_chat(usr, "<span class='warning'>Failed to bio-chip [M].</span>")
+				if(chip_to_add)
+					qdel(chip_to_add)
+				return
+		if("Remove")
+			var/list/chips = list()
+			for(var/obj/item/bio_chip/chip in M.contents)
+				if(!istype(chip))
+					continue
+				chips += chip
+			if(!length(chips))
+				to_chat(usr, "<span class='notice'>[M] has no bio-chips.</span>")
+				return
+			var/obj/item/bio_chip/chip_to_remove = tgui_input_list(usr, "Select implant to remove.", "Implants", chips)
+			if(!chip_to_remove)
+				return
+			qdel(chip_to_remove)
+
 /// Allow admin to add or remove traits of datum
 /datum/admins/proc/modify_traits(datum/D)
 	if(!D)
