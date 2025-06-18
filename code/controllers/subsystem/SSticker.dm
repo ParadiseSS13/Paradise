@@ -566,9 +566,9 @@ SUBSYSTEM_DEF(ticker)
 	if(selected_fact)
 		n = selected_fact
 	else
-		var/list/randomfacts = file2list("strings/facts.txt")
-		if(length(randomfacts))
-			n = pick(randomfacts)
+		var/list/random_facts = file2list("strings/facts.txt")
+		if(length(random_facts))
+			n = pick(random_facts)
 
 	if(n)
 		to_chat(world, "<span class='green'><b>Fact of the round: </b>[html_encode(n)]</span>")
