@@ -388,7 +388,7 @@
 // lets make IPCs even *more* vulnerable to EMPs!
 /obj/item/organ/internal/cyberimp/arm/power_cord
 	name = "APC-compatible power adapter implant"
-	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment."
+	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment, or to charge it in emergencies."
 	icon_state = "toolkit_ipc"
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/apc_powercord)
@@ -410,20 +410,17 @@
 
 /obj/item/apc_powercord
 	name = "power cable"
-	desc = "Insert into a nearby APC to draw power from it."
+	desc = "A universal APC power cable, able to be switched between drawing or discharging. Use in hands."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "wire1"
 	flags = NOBLUDGEON
 	new_attack_chain = TRUE
 	var/drawing_power = FALSE
-	var/mode_switchable = FALSE
 	var/charge_apc_mode = FALSE
+	var/hunger_limit = NUTRITION_LEVEL_STARVING
 
 /obj/item/apc_powercord/activate_self(mob/user)
 	if(..())
-		return FINISH_ATTACK
-
-	if(!mode_switchable)
 		return FINISH_ATTACK
 
 	if(drawing_power)
@@ -434,7 +431,7 @@
 		to_chat(user, "<span class='notice'>You switch \the [src] to drawing mode, allowing you to charge yourself.</span>")
 		charge_apc_mode = FALSE
 	else
-		to_chat(user, "<span class='notice'>You switch \the [src] to sending mode, allowing you to charge APCs.</span>")
+		to_chat(user, "<span class='notice'>You switch \the [src] to discharging mode, allowing you to charge APCs with your own charge.</span>")
 		charge_apc_mode = TRUE
 
 /obj/item/apc_powercord/proc/handle_apc_interaction(mob/living/carbon/user, obj/machinery/power/apc/target)
@@ -443,6 +440,12 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/internal/cyberimp/chest/nutriment/plus/nutri_pump_plus = H.get_int_organ(/obj/item/organ/internal/cyberimp/chest/nutriment/plus)
+	if(istype(nutri_pump_plus)) // As amusing as it would be, we don't want IPCs to be infinite power generators
+		hunger_limit = NUTRITION_LEVEL_HUNGRY
+	else
+		hunger_limit = NUTRITION_LEVEL_STARVING
+
 	var/datum/organ/battery/power_source = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
 	var/obj/item/organ/internal/cell/battery = H.get_int_organ(/obj/item/organ/internal/cell)
 	if(istype(power_source))
@@ -454,7 +457,7 @@
 				H.adjustFireLoss(10,0)
 			else
 				do_sparks(3, 1, target)
-				to_chat(H, "<span class='warning'>The APC power currents surge erratically, but your overvoltage system protects you from damage!</span>")
+				to_chat(H, "<span class='warning'>The APC power currents surge erratically, but your overvoltage-proofed microbattery protects you from damage!</span>")
 		else if(target.cell)
 			if(!charge_apc_mode)
 				if(target.cell.charge == 0)
@@ -506,11 +509,11 @@
 		if(loc != H)
 			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
 			break
-		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
+		if(H.nutrition <= hunger_limit)
 			to_chat(H, "<span class='warning'>You feel too drained to continue charging \the [target]!</span>")
 			break
 		target.charging = APC_IS_CHARGING
-		if(H.nutrition >= (NUTRITION_LEVEL_STARVING + 50))
+		if(H.nutrition >= (hunger_limit + 50))
 			target.cell.charge += 500
 			H.adjust_nutrition(-50)
 			to_chat(H, "<span class='notice'>You siphon some of some of your own energy to charge \the [target].</span>")
@@ -524,17 +527,6 @@
 			break
 	H.visible_message("<span class='notice'>[H] unplugs from \the [target].</span>", "<span class='notice'>You unplug from \the [target].</span>")
 	drawing_power = FALSE
-
-/obj/item/organ/internal/cyberimp/arm/power_cord/twoway
-	name = "APC-compatible two-way adapter implant"
-	desc = "A variant of the ubiquitous charger implant capable of reversing its function, allowing the user to charge the connected APC at the cost of ones own energy."
-	origin_tech = "materials=4;biotech=3;powerstorage=5"
-	contents = newlist(/obj/item/apc_powercord/twoway)
-
-/obj/item/apc_powercord/twoway
-	name = "two-way power cable"
-	desc = "A cable capable of both drawing power from and sending power to an APC."
-	mode_switchable = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/telebaton
 	name = "telebaton implant"

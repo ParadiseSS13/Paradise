@@ -542,7 +542,6 @@
 		. = stun_mod * H.physiology.stun_mod * amount
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
-	SEND_SIGNAL(H, COMSIG_SPECIES_SPEC_ELECTROCUTE_POST_ACT, H, shock_damage, source, siemens_coeff, flags)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)

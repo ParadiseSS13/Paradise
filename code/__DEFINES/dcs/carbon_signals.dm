@@ -68,5 +68,5 @@
 #define COMSIG_HUMAN_EMP_POST_ACT "human_emp_post_act"
 
 // Species signals, putting here because it fits best
-/// Sent at the end of /species/spec_electrocute_act()
+/// Sent after /species/spec_electrocute_act() call in /human/electrocute_act()
 #define COMSIG_SPECIES_SPEC_ELECTROCUTE_POST_ACT "species_spec_electrocute_post_act"

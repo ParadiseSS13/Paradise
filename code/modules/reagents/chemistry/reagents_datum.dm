@@ -235,7 +235,7 @@
 	else
 		if(prob(8))
 			M.emote("shiver")
-		if(prob(8))
+		if(prob(8) && !ismachineperson(M))
 			M.emote("sneeze")
 		if(prob(4))
 			to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
@@ -280,8 +280,12 @@
 			M.emote(pick("twitch"))
 	else
 		if(prob(6))
-			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
-			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
+			if(ismachineperson(M))
+				to_chat(M, "<span class='warning'>Your body shuts down!</span>")
+				M.visible_message("<span class='warning'>[M] suddenly keels over!</span>")
+			else
+				to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
+				M.visible_message("<span class='warning'>[M] gags and retches!</span>")
 			M.Weaken(rand(4 SECONDS, 8 SECONDS))
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))

@@ -192,7 +192,6 @@
 		return
 	H.adjustBrainLoss(shock_damage)
 	H.adjust_nutrition(shock_damage)
-	return ..()
 
 /datum/species/machine/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	H.adjustBrainLoss(H.radiation / 100)
