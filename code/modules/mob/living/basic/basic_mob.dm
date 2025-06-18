@@ -48,6 +48,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/gold_core_spawnable = NO_SPAWN
 	/// Holding var for determining who own/controls a sentient simple animal (for sentience potions).
 	var/mob/living/carbon/human/master_commander = null
+	/// Sentience type, for slime potions
+	var/sentience_type = SENTIENCE_ORGANIC
 
 	/// Higher speed is slower, negative speed is faster
 	var/speed = 1
@@ -299,3 +301,35 @@ RESTRICT_TYPE(/mob/living/basic)
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
+
+// Health/Damage adjustment, cribbed straight from simplemobs
+
+/mob/living/basic/adjustHealth(amount, updating_health = TRUE)
+	. = ..()
+	if(!ckey && stat == CONSCIOUS)
+		if(ai_controller?.ai_status == AI_STATUS_IDLE)
+			ai_controller.set_ai_status(AI_STATUS_ON)
+
+/mob/living/basic/adjustBruteLoss(amount, updating_health = TRUE)
+	if(damage_coeff[BRUTE])
+		return adjustHealth(amount * damage_coeff[BRUTE], updating_health)
+
+/mob/living/basic/adjustFireLoss(amount, updating_health = TRUE)
+	if(damage_coeff[BURN])
+		return adjustHealth(amount * damage_coeff[BURN], updating_health)
+
+/mob/living/basic/adjustOxyLoss(amount, updating_health = TRUE)
+	if(damage_coeff[OXY])
+		return adjustHealth(amount * damage_coeff[OXY], updating_health)
+
+/mob/living/basic/adjustToxLoss(amount, updating_health = TRUE)
+	if(damage_coeff[TOX])
+		return adjustHealth(amount * damage_coeff[TOX], updating_health)
+
+/mob/living/basic/adjustCloneLoss(amount, updating_health = TRUE)
+	if(damage_coeff[CLONE])
+		return adjustHealth(amount * damage_coeff[CLONE], updating_health)
+
+/mob/living/basic/adjustStaminaLoss(amount, updating_health = TRUE)
+	if(damage_coeff[STAMINA])
+		return ..(amount * damage_coeff[STAMINA], updating_health)

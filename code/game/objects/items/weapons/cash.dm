@@ -4,8 +4,8 @@
 	icon = 'icons/obj/money.dmi'
 	icon_state = "cash"
 	hitsound = "swing_hit"
-	force = 1
-	throwforce = 1
+	force = 0
+	throwforce = 0
 	throw_speed = 1
 	throw_range = 7
 	w_class = WEIGHT_CLASS_TINY

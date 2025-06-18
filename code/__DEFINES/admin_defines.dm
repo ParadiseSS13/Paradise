@@ -40,9 +40,10 @@
 #define R_VIEWRUNTIMES	(1<<16)
 #define R_MAINTAINER	(1<<17)
 #define R_DEV_TEAM		(1<<18)
+#define R_VIEWLOGS		(1<<19)
 // Update the following two defines if you add more
 
-#define R_MAXPERMISSION (1<<18) // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION (1<<19) // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define R_HOST			(~0) // Sum of all permissions to allow easy setting.
 

@@ -81,7 +81,7 @@
 			overslot.forceMove(part)
 			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
 	if(wearer.equip_to_slot_if_possible(part, part.slot_flags, disable_warning = TRUE))
-		part.flags |= NODROP
+		part.set_nodrop(TRUE)
 		if(mass)
 			return TRUE
 		wearer.visible_message("<span class='notice'>[wearer]'s [part.name] deploy[part.p_s()] with a mechanical hiss.</span>",
@@ -103,7 +103,7 @@
 			return FALSE
 		to_chat(user, "<span class='warning'>You already have retracted there!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-	part.flags &= ~NODROP
+	part.set_nodrop(FALSE)
 	wearer.transfer_item_to(part, src, force = TRUE)
 	if(overslotting_parts[part])
 		UnregisterSignal(part, COMSIG_ATOM_EXITED)

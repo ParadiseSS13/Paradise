@@ -190,30 +190,28 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_METAL = 5000)
+	new_attack_chain = TRUE
 	var/extended = /obj/structure/bed/roller
 
-/obj/item/roller/attack_self__legacy__attackchain(mob/user)
+/obj/item/roller/activate_self(mob/user)
+	if(..())
+		return
+
 	var/obj/structure/bed/roller/R = new extended(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/item/roller/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
-	if(!proximity)
-		return
-	if(isturf(target))
-		var/turf/T = target
-		if(!T.density)
-			var/obj/structure/bed/roller/R = new extended(T)
-			R.add_fingerprint(user)
-			qdel(src)
+/obj/item/roller/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!isturf(target))
+		return ..()
 
-/obj/item/roller/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/roller_holder))
-		var/obj/item/roller_holder/RH = W
-		if(!RH.held)
-			user.visible_message("<span class='notice'>[user] collects \the [name].</span>", "<span class='notice'>You collect \the [name].</span>")
-			forceMove(RH)
-			RH.held = src
+	var/turf/T = target
+	if(!T.density)
+		var/obj/structure/bed/roller/R = new extended(T)
+		R.add_fingerprint(user)
+		qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/roller/holo
 	name = "holo stretcher"
@@ -222,9 +220,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
 	extended = /obj/structure/bed/roller/holo
-
-/obj/item/roller/holo/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	return
 
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
@@ -243,21 +238,56 @@
 	desc = "A rack for carrying a collapsed roller bed."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
+	new_attack_chain = TRUE
 	var/obj/item/roller/held
+	var/obj/carry_holo = FALSE
 
 /obj/item/roller_holder/New()
 	..()
 	held = new /obj/item/roller(src)
 
-/obj/item/roller_holder/attack_self__legacy__attackchain(mob/user as mob)
-	if(!held)
-		to_chat(user, "<span class='notice'>The rack is empty.</span>")
+/obj/item/roller_holder/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/item/roller))
+		return ..()
+	
+	if(istype(target, /obj/item/roller/holo) && !carry_holo)
+		return ITEM_INTERACT_COMPLETE
+
+	if(held)
+		to_chat(user, "<span class='warning'>[src] is already full!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/roller/bed = target
+	user.visible_message(
+		"<span class='notice'>[user] collects [target].</span>",
+		"<span class='notice'>You collect [target].</span>"
+	)
+	bed.forceMove(src)
+	held = target
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/roller_holder/activate_self(mob/user)
+	if(..())
 		return
 
-	to_chat(user, "<span class='notice'>You deploy the roller bed.</span>")
-	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)
+	if(!held)
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You deploy [held].</span>")
+	var/obj/structure/bed/roller/R = new held.extended(user.loc)
 	R.add_fingerprint(user)
 	QDEL_NULL(held)
+
+/obj/item/roller_holder/holo
+	name = "holo stretcher rack"
+	desc = "A rack for carrying an undeployed holo stretcher. It can also support a basic roller bed in a pinch."
+	icon_state = "holo_retracted"
+	carry_holo = TRUE
+
+/obj/item/roller_holder/holo/New()
+	..()
+	held = new /obj/item/roller/holo(src)
 
 /*
  * Dog beds
