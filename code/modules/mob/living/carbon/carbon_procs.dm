@@ -174,13 +174,13 @@
 			C.electrocute_act(shock_damage * 0.75, src, 1, flags)
 
 	// Minor shock - Jitters and Stutters
-	var/should_jitter = 0
+	var/jitter_amount = 0
 	if(shock_damage >= SHOCK_MINOR)
-		should_jitter = shock_damage
+		jitter_amount = shock_damage
 		AdjustStuttering(4 SECONDS)
 
 	// Moderate shock - Stun, knockdown, funny effect
-	var/should_stun = 0
+	var/should_stun = FALSE
 	var/stun_dur = 0 SECONDS
 	if(shock_damage >= SHOCK_MODERATE)
 		should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
@@ -197,22 +197,22 @@
 
 	// Major Shock - YEET
 	var/throw_distance = 0
-	var/fuck_you_dir = null
+	var/throw_dir = null
 	if(shock_damage >= SHOCK_MAJOR)
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 		AdjustStuttering(4 SECONDS)
 		if(isatom(source))
 			var/atom/shock_source = source
-			fuck_you_dir = get_dir(shock_source.loc, src)
+			throw_dir = get_dir(shock_source.loc, src)
 			throw_distance = round(shock_damage / 10)
 
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_jitter, should_stun, fuck_you_dir, throw_distance), stun_dur)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), jitter_amount, should_stun, throw_dir, throw_distance), stun_dur)
 	return shock_damage
 
 /// Called after electrocute_act to apply secondary effects
-/mob/living/carbon/proc/secondary_shock(should_jitter, should_stun, throw_dir, throw_distance)
-	if(should_jitter)
-		AdjustJitter(should_jitter)
+/mob/living/carbon/proc/secondary_shock(jitter_amount, should_stun, throw_dir, throw_distance)
+	if(jitter_amount)
+		AdjustJitter(jitter_amount)
 	if(should_stun)
 		KnockDown(6 SECONDS)
 	if(throw_dir && throw_distance && !HAS_TRAIT(src, TRAIT_MAGPULSE)) // Don't yeet if they're wearing magboots
