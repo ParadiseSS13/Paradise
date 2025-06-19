@@ -122,11 +122,17 @@
 	dead_icon = "extracell_bork"
 	var/protection_inactive = FALSE
 
+
 /obj/item/organ/internal/cell/overvoltageproof/insert(mob/living/carbon/M, special, dont_remove_slot)
 	..()
 	if(emagged)
 		ADD_TRAIT(M, TRAIT_SHOCKIMMUNE, "overvoltageproof_emagged[UID()]")
 	ADD_TRAIT(M, TRAIT_EMP_IMMUNE, "overvoltageproof[UID()]")
+
+	if(IS_MINDFLAYER(M))
+		to_chat(M, "<span class='boldwarning'>Your nanites interfere with the overvoltage protection system, \
+		causing EMPs to deal damage to your non-vital organs unless you have an Internal Faraday Cage. \
+		Vital organs include \the [src] itself and your brain.</span>")
 
 	RegisterSignal(M, COMSIG_SPECIES_SPEC_ELECTROCUTE_POST_ACT, PROC_REF(shock_effects))
 	RegisterSignal(M, COMSIG_HUMAN_EMP_IMMUNE_SIGNAL, PROC_REF(emp_effects))
@@ -142,15 +148,16 @@
 
 /obj/item/organ/internal/cell/overvoltageproof/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='warning'>You disable the overvoltage protection failsafe on [src]</span>")
+		to_chat(user, "<span class='warning'>You disable the overvoltage protection failsafe on [src].</span><br>\
+		<span class='boldwarning'>The overvoltage protection system will redirect EMP damage to non-vital organs. \
+		Vital organs include \the [src] itself and your brain.</span>")
 		emagged = TRUE
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>You re-enable the overvoltage protection failsafe on [src]</span>")
+		to_chat(user, "<span class='warning'>You re-enable the overvoltage protection failsafe on [src], returning it to normal.</span>")
 		emagged = FALSE
 
-/obj/item/organ/internal/cell/overvoltageproof/proc/shock_effects(bloob, mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)
-	// Bloob is a dummy value to properly offset var placement so shock damage isn't the same as H, because the vars from the signal for some reason have been supremely fucky
+/obj/item/organ/internal/cell/overvoltageproof/proc/shock_effects(mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)
 	SIGNAL_HANDLER
 
 	if(!owner && owner.stat == DEAD)
@@ -159,16 +166,26 @@
 	if(protection_inactive)
 		return
 
+	var/mindflayer_has_insulated = FALSE
+	var/datum/antagonist/mindflayer/flayer = owner.mind.has_antag_datum(/datum/antagonist/mindflayer)
+	if(flayer)
+		var/datum/mindflayer_passive/insulated/insulpassive = flayer.has_passive(/datum/mindflayer_passive/insulated)
+		if(!isnull(insulpassive) && insulpassive.level == 1)
+			mindflayer_has_insulated = TRUE
+
+		if(mindflayer_has_insulated)
+			return
+
 	if(emagged)
 		to_chat(H, "<span class='warning'>You feel drained of energy!</span>")
-		H.adjust_nutrition(shock_damage / 2) // In exchange for shock immunity, nutrition is siphoned
+		H.adjust_nutrition(shock_damage * 1.2) // In exchange for shock immunity, nutrition is siphoned (multiplied to actually be a negative, otherwise IPCs will still gain nutrition from shocks)
 
 	else
 		// Real jank ways to prevent the IPC brain damage caused by shocks and reduce the damage recieved
 		H.adjustFireLoss(-shock_damage / 2)
 		H.adjustBrainLoss(-shock_damage)
 
-/obj/item/organ/internal/cell/overvoltageproof/proc/emp_effects(severity)
+/obj/item/organ/internal/cell/overvoltageproof/proc/emp_effects(mob/victim, severity)
 	SIGNAL_HANDLER
 
 	if(!owner && owner.stat == DEAD)
@@ -177,18 +194,50 @@
 	if(protection_inactive)
 		return
 
+	var/mindflayer_has_faraday = 0
+	var/datum/antagonist/mindflayer/flayer = owner.mind.has_antag_datum(/datum/antagonist/mindflayer)
+	if(flayer)
+		var/datum/mindflayer_passive/emp_resist/emppassive = flayer.has_passive(/datum/mindflayer_passive/emp_resist)
+		if(!isnull(emppassive) && emppassive.level >= 1)
+			switch(emppassive.level)
+				if(1)
+					mindflayer_has_faraday = 1
+				if(2)
+					mindflayer_has_faraday = 2
+
+	if(emagged || mindflayer_has_faraday == 0)
+		for(var/X in owner.internal_organs)
+			var/obj/item/organ/internal/O = X
+			if(istype(O, /obj/item/organ/internal/brain/mmi_holder))
+				continue
+			if(istype(O, /obj/item/mmi/robotic_brain))
+				continue
+			if(istype(O, /obj/item/organ/internal/cell))
+				continue
+			O.emp_act(severity)
+
+		if(mindflayer_has_faraday == 2)
+			return
+
 	if(emagged)
 		to_chat(owner, "<span class='warning'>You feel drained of energy!</span>")
-		owner.adjust_nutrition(severity / 2) // In exchange for EMP immunity, nutrition is siphoned
+		switch(severity) // In exchange for EMP immunity, nutrition is siphoned
+			if(EMP_HEAVY)
+				owner.adjust_nutrition(100)
+			if(EMP_LIGHT)
+				owner.adjust_nutrition(50)
+			if(EMP_WEAKENED)
+				owner.adjust_nutrition(25)
 
 	else
-		to_chat(owner, "<span class='warning'>You recieve a diagnostics notice that your overvoltage protection system has rebooted itself and is now inactive!</span>")
+		to_chat(owner, "<span class='warning'>You recieve a diagnostics notice that your overvoltage protection system has prevented EMP damage, and is now rebooting!</span>")
 		protection_inactive = TRUE
 		REMOVE_TRAIT(owner, TRAIT_EMP_IMMUNE, "overvoltageproof[UID()]")
-		addtimer(CALLBACK(src, PROC_REF(protection_reenable)), 30 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(protection_reenable)), 45 SECONDS)
 
 /obj/item/organ/internal/cell/overvoltageproof/proc/protection_reenable()
 	if(!owner)
+		protection_inactive = TRUE
 		return
 
 	to_chat(owner, "<span class='notice'>You recieve a diagnostics notice that your overvoltage protection system has finished rebooting and is now active!</span>")

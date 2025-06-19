@@ -247,12 +247,6 @@
 		attack_hand(user)
 		return ITEM_INTERACT_COMPLETE
 
-	// IPC wants to charge from the APC, or the reverse
-	if(istype(used, /obj/item/apc_powercord) && !opened)
-		var/obj/item/apc_powercord/charge_cable = used
-		charge_cable.handle_apc_interaction(user, src)
-		return ITEM_INTERACT_COMPLETE
-
 	// Adding power cell.
 	if(istype(used, /obj/item/stock_parts/cell) && opened)
 		if(cell)

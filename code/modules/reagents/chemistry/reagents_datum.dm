@@ -235,7 +235,7 @@
 	else
 		if(prob(8))
 			M.emote("shiver")
-		if(prob(8) && !ismachineperson(M))
+		if(prob(8))
 			M.emote("sneeze")
 		if(prob(4))
 			to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
