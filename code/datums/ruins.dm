@@ -15,6 +15,9 @@
 	var/allow_duplicates = TRUE
 	var/list/never_spawn_with = null //If this ruin is spawned these will not eg list(/datum/map_template/ruin/base_alternate)
 
+	/// If a ruin ID is in this list, this ruin will not spawn on the same level as that ruin.
+	var/list/never_spawn_on_the_same_level = list()
+
 	var/prefix = null
 	var/suffix = null
 

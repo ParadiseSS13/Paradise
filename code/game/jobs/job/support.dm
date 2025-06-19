@@ -54,7 +54,9 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-
+/datum/outfit/job/qm/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_PACK_RAT, JOB_TRAIT)
 
 /datum/job/cargo_tech
 	title = "Cargo Technician"
@@ -87,6 +89,10 @@
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
+
+/datum/outfit/job/cargo_tech/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_PACK_RAT, JOB_TRAIT)
 
 /datum/job/smith
 	title = "Smith"
@@ -121,6 +127,10 @@
 	shoes = /obj/item/clothing/shoes/workboots/smithing
 	id = /obj/item/card/id/smith
 	pda = /obj/item/pda/cargo
+
+/datum/outfit/job/smith/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_SMITH, JOB_TRAIT)
 
 /datum/job/mining
 	title = "Shaft Miner"
@@ -163,6 +173,10 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	box = /obj/item/storage/box/survival_mining
+
+/datum/outfit/job/mining/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 /datum/outfit/job/mining/equipped
 	name = "Shaft Miner"
@@ -233,6 +247,10 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	box = /obj/item/storage/box/survival_mining
+
+/datum/outfit/job/explorer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 //Food
 /datum/job/bartender
@@ -353,7 +371,9 @@
 	satchel = /obj/item/storage/backpack/satchel_hyd
 	dufflebag = /obj/item/storage/backpack/duffel/hydro
 
-
+/datum/outfit/job/hydro/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_GREEN_THUMB, JOB_TRAIT)
 
 //Griff //BS12 EDIT
 
@@ -545,6 +565,10 @@
 		return
 	ADD_TRAIT(H, TRAIT_NEVER_MISSES_DISPOSALS, ROUNDSTART_TRAIT)
 
+/datum/outfit/job/janitor/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_JANITOR, JOB_TRAIT)
+
 //More or less assistants
 /datum/job/librarian
 	title = "Librarian"
@@ -576,7 +600,9 @@
 	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam/advanced = 1)
+		/obj/item/videocam/advanced = 1,
+		/obj/item/clothing/suit/armor/vest/press = 1
+)
 
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

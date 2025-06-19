@@ -120,7 +120,7 @@
 			put_in_cart(user, used)
 			return
 		item_present = TRUE
-	
+
 	if(istype(used, /obj/item/storage/bag/trash))
 		if(!my_bag)
 			my_bag = used
@@ -291,3 +291,9 @@
 				reagentsImage.icon_state = "cart_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += reagentsImage
+
+/obj/structure/janitorialcart/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)

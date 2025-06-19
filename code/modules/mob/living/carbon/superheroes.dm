@@ -20,7 +20,7 @@
 
 /datum/superheroes/proc/fixflags(mob/living/carbon/human/H)
 	for(var/obj/item/W in H.get_all_slots())
-		W.flags |= NODROP
+		W.set_nodrop(TRUE, H)
 
 /datum/superheroes/proc/assign_mutations(mob/living/carbon/human/H)
 	var/list/default_mutations = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
@@ -51,7 +51,7 @@
 	W.icon_state = "lifetimeid"
 	W.SetOwnerInfo(H)
 	W.UpdateName()
-	W.flags |= NODROP
+	W.set_nodrop(TRUE, H)
 	H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 	H.regenerate_icons()
 
@@ -218,7 +218,7 @@
 	if(istype(head_organ))
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"
-	target.s_tone = 35
+	target.change_skin_tone(1)
 	// No `update_dna=0` here because the character is being over-written
 	target.change_eye_color(1,1,1)
 	for(var/obj/item/W in target.get_all_slots())
@@ -233,7 +233,7 @@
 	W.access = list(ACCESS_MAINT_TUNNELS)
 	W.assignment = "Greyshirt"
 	W.rank = "Greyshirt"
-	W.flags |= NODROP
+	W.set_nodrop(TRUE, W.loc)
 	W.SetOwnerInfo(target)
 	W.UpdateName()
 	target.equip_to_slot_or_del(W, ITEM_SLOT_ID)

@@ -182,6 +182,7 @@
 					/obj/item/clothing/suit/hooded/wintercoat/medical = 3,
 					/obj/item/clothing/suit/storage/fr_jacket = 3,
 					/obj/item/clothing/suit/storage/labcoat = 3,
+					/obj/item/clothing/suit/storage/labcoat/medical = 3,
 					/obj/item/clothing/suit/apron/surgical = 3,
 					/obj/item/clothing/suit/jacket/bomber/med = 3,
 					/obj/item/clothing/accessory/armband/med = 3,
@@ -215,6 +216,7 @@
 				/obj/item/clothing/suit/hooded/wintercoat/medical = 75,
 				/obj/item/clothing/suit/storage/fr_jacket = 75,
 				/obj/item/clothing/suit/storage/labcoat = 75,
+				/obj/item/clothing/suit/storage/labcoat/medical = 75,
 				/obj/item/clothing/suit/apron/surgical = 75,
 				/obj/item/clothing/suit/jacket/bomber/med = 75,
 				/obj/item/clothing/accessory/armband/med = 20,
@@ -331,7 +333,7 @@
 	icon_panel = "drobe"
 	icon_addon = "genedrobe"
 	category = VENDOR_TYPE_CLOTHING
-	ads_list = "Perfect for the mad scientist in you!"
+	ads_list = list("Perfect for the mad scientist in you!")
 	vend_reply = "Thank you for using the GeneDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/geneticist = 3,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -376,6 +378,7 @@
 	products = list(/obj/item/clothing/under/rank/rnd/scientist = 6,
 					/obj/item/clothing/under/rank/rnd/scientist/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/science = 3,
+					/obj/item/clothing/suit/storage/labcoat = 3,
 					/obj/item/clothing/suit/storage/labcoat/science = 3,
 					/obj/item/clothing/suit/jacket/bomber/sci = 3,
 					/obj/item/clothing/head/beret/sci = 3,
@@ -395,6 +398,7 @@
 	prices = list(/obj/item/clothing/under/rank/rnd/scientist = 50,
 				/obj/item/clothing/under/rank/rnd/scientist/skirt = 50,
 				/obj/item/clothing/suit/hooded/wintercoat/science = 75,
+				/obj/item/clothing/suit/storage/labcoat = 75,
 				/obj/item/clothing/suit/storage/labcoat/science = 75,
 				/obj/item/clothing/suit/jacket/bomber/sci = 75,
 				/obj/item/clothing/head/beret/sci = 20,
@@ -609,8 +613,7 @@
 					/obj/item/clothing/under/plasmaman/cargo = 3)
 
 	contraband = list(/obj/item/toy/figure/crew/qm = 1,
-					/obj/item/toy/figure/crew/cargotech = 1,
-					/obj/item/toy/figure/crew/miner = 1)
+					/obj/item/toy/figure/crew/cargotech = 1)
 
 	prices = list(/obj/item/clothing/under/rank/cargo/tech = 50,
 				/obj/item/clothing/under/rank/cargo/tech/skirt = 50,
@@ -630,6 +633,53 @@
 				/obj/item/clothing/under/plasmaman/cargo = 60)
 
 	refill_canister = /obj/item/vending_refill/cargodrobe
+
+/obj/machinery/economy/vending/minedrobe
+	name = "\improper MineDrobe"
+	desc = "This vending machine dispenses sturdy clothing for the mining team."
+	icon_state = "minedrobe"
+	icon_lightmask = "base_drobe"
+	icon_panel = "drobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
+	category = VENDOR_TYPE_CLOTHING
+
+	products = list(/obj/item/clothing/under/rank/cargo/miner/lavaland/overalls = 3,
+				/obj/item/clothing/under/rank/cargo/miner/lavaland = 3,
+				/obj/item/clothing/under/rank/cargo/miner/lavaland/skirt = 3,
+				/obj/item/clothing/head/soft/mining = 3,
+				/obj/item/clothing/head/beret/mining = 3,
+				/obj/item/clothing/suit/jacket/bomber/mining = 3,
+				/obj/item/clothing/suit/hooded/wintercoat/miner =3,
+				/obj/item/clothing/suit/storage/hazardvest/staff = 3,
+				/obj/item/clothing/gloves/color/black = 3,
+				/obj/item/clothing/accessory/armband/cargo = 3,
+				/obj/item/clothing/shoes/workboots/mining = 3,
+				/obj/item/clothing/mask/gas/explorer = 3,
+				/obj/item/storage/backpack/explorer = 2,
+				/obj/item/storage/backpack/satchel/explorer = 2,
+				/obj/item/clothing/head/helmet/space/plasmaman/mining = 3,
+				/obj/item/clothing/under/plasmaman/mining = 3)
+
+	contraband = list(/obj/item/toy/figure/crew/miner = 1)
+
+	prices = list(/obj/item/clothing/under/rank/cargo/miner/lavaland/overalls = 50,
+				/obj/item/clothing/under/rank/cargo/miner/lavaland = 50,
+				/obj/item/clothing/under/rank/cargo/miner/lavaland/skirt = 50,
+				/obj/item/clothing/head/soft/mining = 20,
+				/obj/item/clothing/head/beret/mining = 20,
+				/obj/item/clothing/suit/jacket/bomber/mining = 75,
+				/obj/item/clothing/suit/hooded/wintercoat/miner = 75,
+				/obj/item/clothing/suit/storage/hazardvest/staff = 50,
+				/obj/item/clothing/gloves/color/black = 20,
+				/obj/item/clothing/accessory/armband/cargo = 20,
+				/obj/item/clothing/shoes/workboots/mining = 20,
+				/obj/item/storage/backpack/explorer = 50,
+				/obj/item/storage/backpack/satchel/explorer = 50,
+				/obj/item/clothing/head/helmet/space/plasmaman/mining = 60,
+				/obj/item/clothing/under/plasmaman/mining = 60)
+
+	refill_canister = /obj/item/vending_refill/minedrobe
 
 /obj/machinery/economy/vending/exploredrobe
 	name = "\improper ExploreDrobe"
@@ -953,6 +1003,8 @@
 		/obj/item/clothing/head/drilltrainer = 2,
 		/obj/item/clothing/under/rank/procedure/nct = 2,
 		/obj/item/clothing/under/rank/procedure/nct/skirt = 2,
+		/obj/item/clothing/suit/storage/hazardvest/staff = 2,
+		/obj/item/clothing/suit/storage/labcoat = 2,
 		/obj/item/clothing/suit/storage/nct = 2,
 		/obj/item/clothing/head/helmet/space/plasmaman/trainer = 2,
 		/obj/item/clothing/under/plasmaman/trainer = 2,

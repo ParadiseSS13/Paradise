@@ -971,6 +971,14 @@
 	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 
+/obj/item/storage/box/marine_armor_export
+	name = "\improper Federation marine armor box"
+	desc = "A box containing a factory-fresh suit of export-grade Trans-Solar Marine Corps combat armor."
+
+/obj/item/storage/box/marine_armor_export/populate_contents()
+	new /obj/item/clothing/suit/armor/federation/marine/export(src)
+	new /obj/item/clothing/head/helmet/federation/marine/export(src)
+
 /obj/item/storage/box/skrell_suit
 	name = "skrellian suit box"
 	desc = "A box containing a skrell-designed medical spacesuit."
@@ -1218,6 +1226,21 @@
 
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
+
+/obj/item/storage/box/smithboards
+	name = "the Liberator's fabricator"
+	desc = "A box containing a gift for golems with the will to create."
+	icon_state = "circuit_box"
+
+/obj/item/storage/box/smithboards/populate_contents()
+	new /obj/item/circuitboard/magma_crucible(src)
+	new /obj/item/circuitboard/casting_basin(src)
+	new /obj/item/circuitboard/casting_basin(src)
+	new /obj/item/circuitboard/power_hammer(src)
+	new /obj/item/circuitboard/lava_furnace(src)
+	new /obj/item/circuitboard/kinetic_assembler(src)
+	new /obj/item/vending_refill/smith(src)
+	new /obj/item/circuitboard/vendor(src)
 
 /// for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
 /obj/item/storage/box/stockparts/basic

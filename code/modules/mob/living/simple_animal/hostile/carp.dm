@@ -66,7 +66,6 @@
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	. = ..()
 	carp_randomify(rarechance)
-	update_icons()
 	AddComponent(/datum/component/swarming)
 
 /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
@@ -78,21 +77,7 @@
 		else
 			our_color = pick(carp_colors)
 			add_atom_colour(carp_colors[our_color], FIXED_COLOUR_PRIORITY)
-		regenerate_icons()
-
-/mob/living/simple_animal/hostile/carp/proc/add_carp_overlay()
-	if(!random_color)
-		return
-	var/mutable_appearance/base_overlay = mutable_appearance(icon, "base_mouth")
-	base_overlay.appearance_flags = RESET_COLOR
-	add_overlay(base_overlay)
-
-/mob/living/simple_animal/hostile/carp/proc/add_dead_carp_overlay()
-	if(!random_color)
-		return
-	var/mutable_appearance/base_dead_overlay = mutable_appearance(icon, "base_dead_mouth")
-	base_dead_overlay.appearance_flags = RESET_COLOR
-	add_overlay(base_dead_overlay)
+		update_icon()
 
 /mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//No drifting in space for space carp!	//original comments do not steal
@@ -107,20 +92,18 @@
 	. = ..()
 	if(!random_color || gibbed)
 		return
-	regenerate_icons()
+	update_icon()
 
 /mob/living/simple_animal/hostile/carp/revive()
 	..()
-	regenerate_icons()
+	update_icon()
 
-/mob/living/simple_animal/hostile/carp/regenerate_icons()
-	..()
+/mob/living/simple_animal/hostile/carp/update_overlays()
+	. = ..()
 	if(!random_color)
 		return
-	if(stat != DEAD)
-		add_carp_overlay()
-	else
-		add_dead_carp_overlay()
+
+	. += mutable_appearance(icon, "base_[stat == DEAD ? "dead_" : ""]mouth", appearance_flags = RESET_COLOR)
 
 // We do not want mobs moving through space carp, we as such we block it if the mob is not dense
 /mob/living/simple_animal/hostile/carp/CanPass(atom/movable/mover, border_dir)
@@ -159,6 +142,9 @@
 	melee_damage_upper = 20
 
 	var/regen_cooldown = 0
+
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/megacarp
 
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()
