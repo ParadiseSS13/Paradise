@@ -1185,6 +1185,8 @@
 	for(var/thing in thing_to_check)
 		var/obj/item/I = get_item_by_slot(thing)
 		if(I)
+			if(I.flags & SKIP_TRANSFORM_REEQUIP)
+				continue
 			kept_items[I] = thing
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
