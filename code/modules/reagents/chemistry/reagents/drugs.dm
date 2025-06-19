@@ -910,7 +910,7 @@
 			L.visible_message(
 				"<span class='danger'>[L] suddenly slows from their inhuman speeds, sparking ever so slightly!</span>",
 				"<span class='danger'>You suddenly slow back to normal, a few sparks coming from your body!</span>")
-			playsound(L, "sparks", 25, TRUE)
+			playsound(L, "sparks", 30, TRUE)
 		else
 			L.visible_message(
 				"<span class='danger'>[L] suddenly slows from their inhuman speeds, coming back with a wicked nosebleed!</span>",
