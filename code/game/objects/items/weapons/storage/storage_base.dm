@@ -128,12 +128,14 @@
 		open(M)
 		return
 
-	if(ismodcontrol(over_object))
+	if(isstorage(over_object))
+		var/obj/item/storage = over_object
+		if(!storage.in_storage)
+			dump_storage(M, over_object)
+			return
+	else if(ismodcontrol(over_object))
 		var/obj/item/mod/control/mod = over_object
 		dump_storage(M, mod.bag)
-		return
-	if(isstorage(over_object))
-		dump_storage(M, over_object)
 		return
 
 	if((istype(over_object, /obj/structure/table) || isfloorturf(over_object)) && length(contents) \
