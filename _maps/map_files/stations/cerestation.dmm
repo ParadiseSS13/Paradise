@@ -293,8 +293,10 @@
 /area/space)
 "abP" = (
 /obj/structure/sign/directions/evac{
-	pixel_y = 8
+	pixel_y = 8;
+	dir = 4
 	},
+/obj/machinery/quantumpad/cere/security_arrivals,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -6909,11 +6911,15 @@
 	},
 /area/station/command/bridge)
 "bfT" = (
-/obj/item/airlock_electronics,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
+/obj/structure/sign/directions/science{
+	pixel_y = 8;
+	dir = 8
 	},
-/area/station/hallway/primary/central/west)
+/obj/machinery/quantumpad/cere/engineering_science,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurplefull"
+	},
+/area/station/public/quantum/engineering)
 "bfW" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7012,10 +7018,10 @@
 	pixel_y = 8;
 	dir = 8
 	},
-/obj/machinery/quantumpad/cere/medbay_science,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/machinery/quantumpad/cere/cargo_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -11176,12 +11182,12 @@
 	},
 /area/station/engineering/break_room/secondary)
 "bIH" = (
-/obj/effect/spawner/random/dirt/frequent,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -12912,9 +12918,6 @@
 /obj/machinery/power/apc/important/directional/west,
 /obj/structure/cable/orange{
 	icon_state = "0-4"
-	},
-/obj/structure/sign/directions/science{
-	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -15280,14 +15283,6 @@
 /obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
-"ckv" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/sign/directions/evac{
-	dir = 4;
-	pixel_y = 39
-	},
-/turf/simulated/floor/plating,
-/area/station/public/quantum/science)
 "ckw" = (
 /obj/structure/chair/sofa/corp{
 	dir = 1
@@ -17993,9 +17988,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "cGq" = (
-/obj/item/stack/tile/light,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/hallway/primary/central/west)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/light{
+	color = "#A28226"
+	},
+/area/station/public/quantum/engineering)
 "cGv" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar"
@@ -18267,11 +18269,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "cIc" = (
-/obj/item/stack/light_w,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
+/turf/simulated/floor/light{
+	color = "#A28226"
 	},
-/area/station/hallway/primary/central/west)
+/area/station/public/quantum/engineering)
 "cIh" = (
 /obj/machinery/light{
 	dir = 4
@@ -18330,10 +18331,13 @@
 	layer = 4
 	},
 /turf/simulated/wall,
-/area/station/hallway/primary/central/west)
+/area/station/public/quantum/engineering)
 "cIO" = (
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/hallway/primary/central/west)
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "cIX" = (
 /obj/machinery/cryopod{
 	dir = 1
@@ -20181,6 +20185,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/west)
 "cWr" = (
+/obj/machinery/quantumpad/cere/service_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -26042,6 +26047,7 @@
 	dir = 1;
 	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/arrivals_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -26248,11 +26254,6 @@
 /obj/machinery/alarm/server/directional/east,
 /turf/simulated/floor/carpet/nitrogen,
 /area/station/maintenance/abandonedbar)
-"efJ" = (
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/hallway/primary/central/west)
 "efL" = (
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
@@ -28776,6 +28777,10 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "eJd" = (
+/obj/structure/sign/directions/service{
+	pixel_y = 8;
+	dir = 8
+	},
 /obj/machinery/quantumpad/cere/arrivals_service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -30378,6 +30383,9 @@
 /area/station/maintenance/disposal/east)
 "fcW" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/floodlight{
+	light_power = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -32325,6 +32333,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -36013,6 +36024,10 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -39508,6 +39523,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/service_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -40501,6 +40517,7 @@
 	pixel_y = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/quantumpad/cere/cargo_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -40866,9 +40883,9 @@
 /area/station/engineering/control)
 "hAm" = (
 /obj/structure/sign/directions/engineering{
-	dir = 4;
 	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/security_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -41227,6 +41244,19 @@
 	icon_state = "darkgreen"
 	},
 /area/station/public/quantum/service)
+"hEv" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/west)
 "hEz" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable/orange,
@@ -41361,17 +41391,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/interrogation)
-"hGl" = (
-/obj/structure/sign/directions/medical{
-	pixel_y = -26;
-	dir = 4
-	},
-/obj/structure/sign/directions/cargo{
-	pixel_y = -18;
-	dir = 4
-	},
-/turf/simulated/mineral/ancient,
-/area/station/service/library)
 "hGp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -42057,9 +42076,11 @@
 	},
 /area/station/command/office/rd)
 "hNb" = (
-/obj/machinery/quantumpad/cere/arrivals_science{
-	name = "quantum pad"
+/obj/structure/sign/directions/science{
+	dir = 8;
+	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/arrivals_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -42133,7 +42154,6 @@
 	},
 /area/station/maintenance/port)
 "hNE" = (
-/obj/machinery/door/airlock/public/glass,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
@@ -42143,9 +42163,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/station/public/quantum/service)
 "hNJ" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -43113,6 +43132,14 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"hYA" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "hYF" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -43234,6 +43261,14 @@
 	},
 /area/station/hallway/spacebridge/scidock)
 "hZB" = (
+/obj/structure/sign/directions/medical{
+	pixel_y = 6;
+	dir = 4
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = 13;
+	dir = 4
+	},
 /obj/machinery/quantumpad/cere/security_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -43437,6 +43472,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
+"ibH" = (
+/obj/structure/sign/directions/security{
+	pixel_y = 8;
+	dir = 8
+	},
+/obj/machinery/quantumpad/cere/engineering_security,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredfull"
+	},
+/area/station/public/quantum/engineering)
 "ibJ" = (
 /obj/effect/turf_decal/arrows/white{
 	dir = 1
@@ -43509,6 +43554,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -44273,9 +44321,19 @@
 	},
 /area/station/hallway/primary/aft/east)
 "ikC" = (
-/obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/hallway/primary/central/west)
+/obj/structure/sign/directions/medical{
+	pixel_y = 6;
+	dir = 4
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = 13;
+	dir = 4
+	},
+/obj/machinery/quantumpad/cere/engineering_cargo,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/station/public/quantum/engineering)
 "ikI" = (
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/plating{
@@ -45601,10 +45659,10 @@
 /obj/structure/sign/directions/evac{
 	pixel_y = 8
 	},
-/obj/machinery/quantumpad/cere/cargo_arrivals,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/machinery/quantumpad/cere/cargo_arrivals,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -49182,6 +49240,16 @@
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
+"joQ" = (
+/obj/structure/sign/directions/service{
+	pixel_y = 8;
+	dir = 8
+	},
+/obj/machinery/quantumpad/cere/engineering_service,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
+/area/station/public/quantum/engineering)
 "joR" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -49228,13 +49296,17 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "jpb" = (
-/obj/machinery/floodlight{
-	light_power = 1
+/obj/effect/turf_decal/loading_area{
+	dir = 8
 	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
 	},
-/area/station/hallway/primary/central/west)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "jpg" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -49672,12 +49744,15 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "jte" = (
-/obj/structure/table,
-/obj/item/painter,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	icon_state = "2-4"
 	},
-/area/station/hallway/primary/central/west)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "jth" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -50572,9 +50647,18 @@
 /turf/simulated/wall,
 /area/station/medical/sleeper)
 "jCl" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/central/west)
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "jCn" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery,
@@ -51497,6 +51581,9 @@
 	dir = 4
 	},
 /obj/machinery/economy/atm/directional/north,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -56883,6 +56970,15 @@
 	icon_state = "darkpurple"
 	},
 /area/station/science/genetics)
+"kTV" = (
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/important/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "kUi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -57204,6 +57300,7 @@
 	pixel_y = 8;
 	dir = 8
 	},
+/obj/machinery/quantumpad/cere/arrivals_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -57654,7 +57751,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/random/directional/north,
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -58825,17 +58925,15 @@
 	},
 /area/station/maintenance/fore)
 "lpl" = (
-/obj/structure/sign/directions/cargo{
-	dir = 1;
-	pixel_y = 14
-	},
 /obj/structure/sign/directions/medical{
 	dir = 1;
 	pixel_y = 6
 	},
-/obj/machinery/quantumpad/cere/arrivals_cargo{
-	name = "quantum pad"
+/obj/structure/sign/directions/cargo{
+	dir = 1;
+	pixel_y = 13
 	},
+/obj/machinery/quantumpad/cere/arrivals_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -62264,17 +62362,6 @@
 /obj/item/reagent_containers/drinks/bottle/whiskey,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
-"mab" = (
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/obj/machinery/power/apc/directional/west,
-/obj/structure/cable/orange,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/port/south)
 "mac" = (
 /obj/item/seeds/coffee/robusta,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -63157,6 +63244,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -65683,12 +65773,7 @@
 	},
 /area/station/maintenance/fpmaint)
 "mQN" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67002,6 +67087,14 @@
 "nhx" = (
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
+"nhC" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "nhG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -68870,6 +68963,9 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"nEJ" = (
+/turf/simulated/mineral/ancient,
+/area/station/public/quantum/engineering)
 "nEO" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -72106,10 +72202,13 @@
 	},
 /area/station/public/quantum/service)
 "orl" = (
-/obj/structure/holosign/barrier/engineering,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/central/west)
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "ors" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -75270,10 +75369,6 @@
 	},
 /area/station/security/brig)
 "pdh" = (
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_y = 39
-	},
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
@@ -81062,10 +81157,13 @@
 	},
 /area/station/engineering/control)
 "qrT" = (
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
+/obj/effect/turf_decal/loading_area{
+	dir = 8
 	},
-/area/station/hallway/primary/central/west)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "qrU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83295,28 +83393,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/turbine)
-"qRh" = (
-/obj/effect/spawner/random/dirt/frequent,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/area/station/hallway/primary/central/west)
-"qRk" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/sign/directions/cargo{
-	pixel_y = -18;
-	dir = 4
-	},
-/obj/structure/sign/directions/medical{
-	pixel_y = -26;
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/public/quantum/security)
 "qRl" = (
 /obj/machinery/chem_heater,
 /turf/simulated/floor/plating{
@@ -84672,6 +84748,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -85462,10 +85541,6 @@
 /turf/simulated/mineral/ancient/outer,
 /area/station/maintenance/disposal/westalt)
 "rrt" = (
-/obj/structure/sign/directions/service{
-	pixel_y = 39;
-	dir = 8
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -85616,12 +85691,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/apmaint)
-"rtn" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/maintcentral)
 "rtu" = (
 /obj/machinery/door/poddoor/shutters{
 	name = "Storefront Shutters";
@@ -86475,11 +86544,15 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "rEe" = (
-/obj/item/beacon,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
 	},
-/area/station/hallway/primary/central/west)
+/turf/simulated/floor/light{
+	color = "#A28226"
+	},
+/area/station/public/quantum/engineering)
 "rEw" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -87460,6 +87533,16 @@
 /obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fsmaint)
+"rOa" = (
+/obj/structure/sign/directions/evac{
+	pixel_y = 8;
+	dir = 4
+	},
+/obj/machinery/quantumpad/cere/engineering_arrivals,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcheck"
+	},
+/area/station/public/quantum/engineering)
 "rOc" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -88293,6 +88376,17 @@
 	icon_state = "darkfull"
 	},
 /area/station/supply/sorting)
+"rWJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "rWL" = (
 /obj/machinery/door_control{
 	id = "chemisttop";
@@ -90343,11 +90437,11 @@
 	},
 /area/station/maintenance/electrical_shop)
 "stO" = (
-/obj/machinery/quantumpad/cere/service_arrivals,
 /obj/structure/sign/directions/evac{
 	pixel_y = 7;
 	dir = 4
 	},
+/obj/machinery/quantumpad/cere/service_arrivals,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -91311,6 +91405,7 @@
 	dir = 1;
 	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/science_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -91480,6 +91575,18 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/comeng)
+"sGi" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Engineering Quantum Pad";
+	network = list("SS13","CE","engine")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "sGq" = (
 /obj/machinery/computer/atmos_alert{
 	dir = 4
@@ -95359,7 +95466,7 @@
 "tyv" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/hallway/primary/central/west)
+/area/station/public/quantum/engineering)
 "tyF" = (
 /obj/machinery/r_n_d/circuit_imprinter,
 /obj/effect/turf_decal/stripes/line,
@@ -96517,6 +96624,7 @@
 	dir = 1;
 	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/service_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -98265,8 +98373,9 @@
 /area/station/supply/expedition)
 "ugt" = (
 /obj/structure/sign/directions/service{
-	pixel_y = 7
+	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/security_service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -101078,17 +101187,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"uMM" = (
-/obj/structure/sign/directions/cargo{
-	pixel_y = -18;
-	dir = 4
-	},
-/obj/structure/sign/directions/medical{
-	pixel_y = -26;
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/station/public/quantum/science)
 "uMN" = (
 /obj/machinery/light{
 	dir = 8
@@ -101737,6 +101835,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "escape"
@@ -102639,6 +102738,14 @@
 /area/station/telecomms/computer)
 "vfr" = (
 /obj/machinery/firealarm/directional/north,
+/obj/structure/sign/directions/medical{
+	pixel_y = 6;
+	dir = 4
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = 13;
+	dir = 4
+	},
 /obj/machinery/quantumpad/cere/service_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -103329,9 +103436,11 @@
 	pixel_x = 28;
 	name = "custom placement"
 	},
-/obj/machinery/quantumpad/cere/science_arrivals{
-	name = "quantum pad"
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/science_arrivals,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -104362,6 +104471,12 @@
 	icon_state = "yellow"
 	},
 /area/station/maintenance/disposal/east)
+"vyo" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/station/public/quantum/service)
 "vyr" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cooking/stovetop,
@@ -105085,6 +105200,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"vFq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/light{
+	color = "#A28226"
+	},
+/area/station/public/quantum/engineering)
 "vFs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -105531,14 +105654,6 @@
 	icon_state = "dark"
 	},
 /area/station/science/toxins/launch)
-"vLi" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/sign/directions/science{
-	dir = 8;
-	pixel_y = 39
-	},
-/turf/simulated/floor/plating,
-/area/station/public/quantum/docking)
 "vLy" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -106888,9 +107003,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "wcs" = (
-/obj/machinery/quantumpad/cere/security_science{
-	name = "quantum pad"
+/obj/structure/sign/directions/science{
+	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/security_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -107411,9 +107527,6 @@
 	},
 /area/station/medical/cloning)
 "wjg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -107422,6 +107535,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -108366,9 +108482,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
-"wse" = (
-/turf/simulated/mineral/ancient,
-/area/station/public/quantum/service)
 "wsh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -108848,6 +108961,9 @@
 	dir = 4
 	},
 /obj/effect/landmark/lightsout,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -109273,6 +109389,7 @@
 	dir = 1;
 	pixel_y = 8
 	},
+/obj/machinery/quantumpad/cere/science_service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -110117,6 +110234,12 @@
 /obj/structure/sign/directions/security,
 /turf/simulated/mineral/ancient,
 /area/station/maintenance/fore2)
+"wKG" = (
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "wKK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -110311,9 +110434,14 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "wMQ" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -111191,7 +111319,7 @@
 "wWC" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/mineral/ancient,
-/area/station/hallway/primary/central/west)
+/area/station/public/quantum/engineering)
 "wWG" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "med2"
@@ -114018,7 +114146,6 @@
 	},
 /area/station/security/prison/cell_block/a)
 "xGj" = (
-/obj/effect/spawner/random/dirt/frequent,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
@@ -114357,10 +114484,18 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "xIP" = (
-/obj/machinery/quantumpad/cere/science_medbay,
+/obj/structure/sign/directions/medical{
+	pixel_y = 6;
+	dir = 4
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = 13;
+	dir = 4
+	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/machinery/quantumpad/cere/science_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -116467,6 +116602,9 @@
 /obj/machinery/camera{
 	c_tag = "Central Service Plaza North";
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -132615,7 +132753,7 @@ bNh
 bHZ
 mKI
 vGm
-hGl
+aEe
 vfr
 lHI
 xZQ
@@ -132872,12 +133010,12 @@ rWz
 rWz
 kht
 rWz
-aEe
-wse
+xOy
 ePI
+vyo
 hNE
+vyo
 ePI
-wse
 sov
 nKl
 lGK
@@ -133134,7 +133272,7 @@ gCh
 gCh
 fkL
 gCh
-mab
+gCh
 yjd
 mFM
 wGo
@@ -135230,12 +135368,12 @@ tuK
 odt
 chQ
 iLV
-uMM
+lyI
 xIP
 mqW
 pSN
 vmU
-ckv
+fPc
 wMV
 xEd
 sEg
@@ -136932,7 +137070,7 @@ peB
 hII
 ilz
 jKH
-qRk
+oTv
 hZB
 tjR
 hAm
@@ -144922,12 +145060,12 @@ tnr
 tnr
 gzv
 aXR
-aZK
-aZK
-aZK
-aZK
-aZK
-aZK
+nEJ
+nEJ
+nEJ
+nEJ
+nEJ
+nEJ
 wWC
 gzX
 bCd
@@ -145179,14 +145317,14 @@ wyi
 tnr
 gzv
 aXR
-aZK
-cIO
-cIO
-cIO
+nEJ
+ibH
+nhC
+joQ
 cIO
 bfT
 tyv
-qRh
+gzX
 bCd
 uZF
 xCD
@@ -145436,15 +145574,15 @@ txP
 ilA
 gzv
 aXR
-aZK
+nEJ
 jpb
-cIO
-efJ
+vFq
+qrT
 cIc
 qrT
 orl
 xGj
-bIH
+bCd
 tOM
 hkk
 vMM
@@ -145693,14 +145831,14 @@ bxv
 fMu
 gzv
 aXR
-aZK
-cIO
+nEJ
+sGi
 cGq
 jte
 rEe
 jCl
-orl
-xGj
+rWJ
+hEv
 bIH
 tOM
 wKn
@@ -145950,14 +146088,14 @@ aZh
 uqY
 gzv
 aXR
-aZK
+nEJ
 ikC
-cIO
-qrT
-qrT
-jCl
+hYA
+kTV
+wKG
+rOa
 tyv
-qRh
+gzX
 ics
 vnE
 usW
@@ -146207,12 +146345,12 @@ nKm
 xlM
 gzv
 aXR
-aZK
-aZK
-aZK
-aZK
-aZK
-aZK
+nEJ
+nEJ
+nEJ
+nEJ
+nEJ
+nEJ
 cIA
 oIr
 fzR
@@ -155996,7 +156134,7 @@ aEs
 mkk
 mkk
 eAS
-rtn
+ibf
 nVW
 nVW
 tUJ
@@ -162737,7 +162875,7 @@ noC
 eJd
 rrt
 hNb
-vLi
+pLr
 daX
 djw
 sla
