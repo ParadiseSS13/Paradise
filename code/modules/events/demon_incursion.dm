@@ -98,6 +98,8 @@
 					/mob/living/basic/hellhound,
 					/mob/living/basic/skeleton,
 					/mob/living/basic/netherworld/faithless)
+	icon = 'icons/obj/structures/portal.dmi'
+	icon_state = "portal"
 	light_range = 4
 	light_power = 2
 	light_color = "#780606"
