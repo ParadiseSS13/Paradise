@@ -7017,11 +7017,7 @@
 	},
 /area/station/supply/office)
 "bgS" = (
-/obj/structure/sign/directions/science{
-	pixel_y = 8;
-	dir = 8
-	},
-/obj/machinery/quantumpad/cere/cargo_science,
+/obj/machinery/teleport/perma/preset/cerestation/science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -18594,8 +18590,9 @@
 /area/station/maintenance/fore2)
 "cLc" = (
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/teleport/perma/preset/cerestation/engineering,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "yellowfull"
 	},
 /area/station/public/quantum/docking)
 "cLj" = (
@@ -20196,7 +20193,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/west)
 "cWr" = (
-/obj/machinery/quantumpad/cere/service_science,
+/obj/machinery/teleport/perma/preset/cerestation/science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -20702,6 +20699,10 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/sign/directions/engineering{
+	dir = 8;
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -26049,6 +26050,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/lobby)
+"ecx" = (
+/obj/machinery/bluespace_beacon/cerestation/departures,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/exit)
 "ecz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -26057,13 +26064,9 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/fore/north)
 "ecA" = (
-/obj/structure/sign/directions/engineering{
-	dir = 1;
-	pixel_y = 8
-	},
-/obj/machinery/quantumpad/cere/arrivals_engineering,
+/obj/machinery/teleport/perma/preset/cerestation/medbay,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowfull"
+	icon_state = "whitebluefull"
 	},
 /area/station/public/quantum/docking)
 "ecE" = (
@@ -28809,11 +28812,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "eJd" = (
-/obj/structure/sign/directions/service{
-	pixel_y = 8;
-	dir = 8
-	},
-/obj/machinery/quantumpad/cere/arrivals_service,
+/obj/machinery/teleport/perma/preset/cerestation/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -34938,6 +34937,13 @@
 	icon_state = "red"
 	},
 /area/station/hallway/secondary/exit)
+"gfk" = (
+/obj/machinery/bluespace_beacon/cerestation/cargo,
+/obj/effect/turf_decal/box/white{
+	color = "#886c4c"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/lobby)
 "gfr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -36058,17 +36064,11 @@
 /turf/simulated/floor/plating,
 /area/station/security/main)
 "gux" = (
-/obj/machinery/quantumpad/cere/science_security{
-	name = "quantum pad"
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_y = 8
-	},
+/obj/machinery/teleport/perma/preset/cerestation/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -39569,11 +39569,7 @@
 	},
 /area/station/security/main)
 "hkY" = (
-/obj/structure/sign/directions/engineering{
-	dir = 4;
-	pixel_y = 8
-	},
-/obj/machinery/quantumpad/cere/service_engineering,
+/obj/machinery/teleport/perma/preset/cerestation/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -40562,11 +40558,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "hvs" = (
-/obj/structure/sign/directions/engineering{
-	dir = 8;
-	pixel_y = 8
-	},
-/obj/machinery/quantumpad/cere/cargo_engineering,
+/obj/machinery/teleport/perma/preset/cerestation/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -41288,6 +41280,14 @@
 /area/station/supply/miningdock)
 "hEs" = (
 /obj/machinery/alarm/directional/west,
+/obj/structure/sign/directions/engineering{
+	dir = 4;
+	pixel_y = -23
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 41
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreen"
@@ -42125,11 +42125,7 @@
 	},
 /area/station/command/office/rd)
 "hNb" = (
-/obj/structure/sign/directions/science{
-	dir = 8;
-	pixel_y = 8
-	},
-/obj/machinery/quantumpad/cere/arrivals_science,
+/obj/machinery/teleport/perma/preset/cerestation/science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -44078,11 +44074,7 @@
 	},
 /area/station/public/sleep)
 "ihB" = (
-/obj/structure/sign/directions/security{
-	pixel_y = 8;
-	dir = 8
-	},
-/obj/machinery/quantumpad/cere/cargo_security,
+/obj/machinery/teleport/perma/preset/cerestation/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -45702,10 +45694,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/asmaint)
 "iAS" = (
-/obj/structure/sign/directions/evac{
-	pixel_y = 8
-	},
-/obj/machinery/quantumpad/cere/cargo_arrivals,
+/obj/machinery/teleport/perma/preset/cerestation/departures,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -45850,6 +45839,12 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block/a)
+"iCw" = (
+/obj/machinery/bluespace_beacon/cerestation/service,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/port/south)
 "iCy" = (
 /obj/effect/spawner/airlock,
 /turf/simulated/wall,
@@ -51816,11 +51811,7 @@
 	},
 /area/station/hallway/primary/port/south)
 "jNc" = (
-/obj/structure/sign/directions/service{
-	pixel_y = 8;
-	dir = 8
-	},
-/obj/machinery/quantumpad/cere/cargo_service,
+/obj/machinery/teleport/perma/preset/cerestation/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -53043,10 +53034,9 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "kbw" = (
-/obj/machinery/firealarm/directional/south,
-/obj/item/kirbyplants/large,
+/obj/machinery/teleport/perma/preset/cerestation/engineering,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "yellowfull"
 	},
 /area/station/public/quantum/science)
 "kbz" = (
@@ -55339,9 +55329,22 @@
 	icon_state = "yellowfull"
 	},
 /area/station/maintenance/disposal/east)
+"kAk" = (
+/obj/structure/sign/directions/security{
+	pixel_y = 41;
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/docking)
 "kAn" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/sign/directions/evac{
+	pixel_y = -23;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -57358,11 +57361,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/storage)
 "kXN" = (
-/obj/structure/sign/directions/security{
-	pixel_y = 8;
-	dir = 8
-	},
-/obj/machinery/quantumpad/cere/arrivals_security,
+/obj/machinery/teleport/perma/preset/cerestation/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -58981,17 +58980,9 @@
 	},
 /area/station/maintenance/fore)
 "lpl" = (
-/obj/structure/sign/directions/medical{
-	dir = 1;
-	pixel_y = 6
-	},
-/obj/structure/sign/directions/cargo{
-	dir = 1;
-	pixel_y = 13
-	},
-/obj/machinery/quantumpad/cere/arrivals_cargo,
+/obj/machinery/teleport/perma/preset/cerestation/cargo,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
+	icon_state = "darkbrownfull"
 	},
 /area/station/public/quantum/docking)
 "lpt" = (
@@ -60809,6 +60800,14 @@
 /area/shuttle/arrival/station)
 "lHI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/sign/directions/medical{
+	pixel_y = -23;
+	dir = 4
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = 41;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -63795,6 +63794,10 @@
 	pixel_x = 24;
 	name = "custom placement"
 	},
+/obj/structure/sign/directions/medical{
+	pixel_y = 41;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -65825,6 +65828,12 @@
 	icon_state = "redcorner"
 	},
 /area/station/maintenance/fpmaint)
+"mQN" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/docking)
 "mQU" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -70321,6 +70330,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = 41;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70948,6 +70961,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/aft/west)
+"obK" = (
+/obj/machinery/bluespace_beacon/cerestation/science,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
 "obL" = (
@@ -71586,6 +71605,7 @@
 "oku" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/bluespace_beacon/cerestation/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -75353,6 +75373,10 @@
 /area/station/hallway/spacebridge/sercom)
 "pcf" = (
 /obj/effect/turf_decal/loading_area,
+/obj/structure/sign/directions/service{
+	dir = 1;
+	pixel_y = -23
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -75450,6 +75474,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 41
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -78852,6 +78880,14 @@
 /area/station/maintenance/storage)
 "pPj" = (
 /obj/machinery/alarm/directional/east,
+/obj/structure/sign/directions/medical{
+	dir = 1;
+	pixel_y = -23
+	},
+/obj/structure/sign/directions/cargo{
+	dir = 1;
+	pixel_y = 41
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79231,6 +79267,10 @@
 	c_tag = "Research Quantum Pad";
 	dir = 9;
 	network = list("SS13","RD")
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -80917,6 +80957,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/sign/directions/science{
+	pixel_y = -23;
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -81194,6 +81238,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/directional/east,
+/obj/structure/sign/directions/evac{
+	pixel_y = -23
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -85636,6 +85683,14 @@
 "rrt" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/structure/sign/directions/service{
+	pixel_y = 41;
+	dir = 8
+	},
+/obj/structure/sign/directions/science{
+	dir = 8;
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -90526,11 +90581,7 @@
 	},
 /area/station/maintenance/electrical_shop)
 "stO" = (
-/obj/structure/sign/directions/evac{
-	pixel_y = 7;
-	dir = 4
-	},
-/obj/machinery/quantumpad/cere/service_arrivals,
+/obj/machinery/teleport/perma/preset/cerestation/departures,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -91488,11 +91539,7 @@
 	},
 /area/station/security/storage)
 "sDR" = (
-/obj/structure/sign/directions/engineering{
-	dir = 1;
-	pixel_y = 8
-	},
-/obj/machinery/quantumpad/cere/science_engineering,
+/obj/machinery/teleport/perma/preset/cerestation/cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -96710,11 +96757,7 @@
 	},
 /area/station/hallway/primary/aft/east)
 "tNN" = (
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_y = 8
-	},
-/obj/machinery/quantumpad/cere/service_security,
+/obj/machinery/teleport/perma/preset/cerestation/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -102621,6 +102664,10 @@
 	c_tag = "Docking Quantum Pad";
 	dir = 8
 	},
+/obj/structure/sign/directions/engineering{
+	dir = 1;
+	pixel_y = -23
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -102823,17 +102870,9 @@
 /area/station/telecomms/computer)
 "vfr" = (
 /obj/machinery/firealarm/directional/north,
-/obj/structure/sign/directions/medical{
-	pixel_y = 6;
-	dir = 4
-	},
-/obj/structure/sign/directions/cargo{
-	pixel_y = 13;
-	dir = 4
-	},
-/obj/machinery/quantumpad/cere/service_cargo,
+/obj/machinery/teleport/perma/preset/cerestation/cargo,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
+	icon_state = "darkbrownfull"
 	},
 /area/station/public/quantum/service)
 "vfu" = (
@@ -103512,11 +103551,7 @@
 	pixel_x = 28;
 	name = "custom placement"
 	},
-/obj/structure/sign/directions/evac{
-	dir = 4;
-	pixel_y = 8
-	},
-/obj/machinery/quantumpad/cere/science_arrivals,
+/obj/machinery/teleport/perma/preset/cerestation/departures,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -103725,12 +103760,6 @@
 "vpJ" = (
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
-"vpQ" = (
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/public/quantum/docking)
 "vpS" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/orange{
@@ -109479,11 +109508,7 @@
 	},
 /area/station/security/permabrig)
 "wAO" = (
-/obj/structure/sign/directions/service{
-	dir = 1;
-	pixel_y = 8
-	},
-/obj/machinery/quantumpad/cere/science_service,
+/obj/machinery/teleport/perma/preset/cerestation/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -111217,6 +111242,12 @@
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
+"wUB" = (
+/obj/machinery/bluespace_beacon/cerestation/engineering,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/west)
 "wUI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -112439,6 +112470,10 @@
 /obj/structure/disposalpipe/segment{
 	color = "#505050";
 	dir = 4
+	},
+/obj/machinery/bluespace_beacon/cerestation/medbay,
+/obj/effect/turf_decal/box/white{
+	color = "#658da9"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -113914,7 +113949,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/sign/directions/science{
-	pixel_y = -25
+	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -114577,18 +114612,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "xIP" = (
-/obj/structure/sign/directions/medical{
-	pixel_y = 6;
-	dir = 4
-	},
-/obj/structure/sign/directions/cargo{
-	pixel_y = 13;
-	dir = 4
-	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
-/obj/machinery/quantumpad/cere/science_cargo,
+/obj/machinery/teleport/perma/preset/cerestation/medbay,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -114862,6 +114889,11 @@
 	},
 /area/station/security/prison/cell_block/a)
 "xMA" = (
+/obj/effect/turf_decal/loading_area,
+/obj/structure/sign/directions/engineering{
+	dir = 1;
+	pixel_y = -23
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -115996,8 +116028,9 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
+/obj/machinery/teleport/perma/preset/cerestation/medbay,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "whitebluefull"
 	},
 /area/station/public/quantum/service)
 "xZS" = (
@@ -116665,6 +116698,14 @@
 /area/station/science/xenobiology)
 "yiQ" = (
 /obj/machinery/alarm/directional/west,
+/obj/structure/sign/directions/service{
+	pixel_y = -23;
+	dir = 8
+	},
+/obj/structure/sign/directions/security{
+	pixel_y = 41;
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbrown"
@@ -133624,7 +133665,7 @@ mCM
 mCM
 mCM
 mCM
-mCM
+iCw
 tTz
 mCM
 mCM
@@ -137520,7 +137561,7 @@ fxp
 fxp
 ylx
 iqk
-xEd
+obK
 dnS
 xYx
 pPq
@@ -145678,7 +145719,7 @@ vMM
 vDl
 gsF
 rMZ
-lYS
+wUB
 nvS
 juN
 pct
@@ -162960,7 +163001,7 @@ vRX
 fLk
 vpJ
 kXN
-noC
+kAk
 eJd
 rrt
 hNb
@@ -163478,7 +163519,7 @@ vqp
 nlJ
 tJP
 noC
-vpQ
+mQN
 pKz
 djw
 fEC
@@ -166216,7 +166257,7 @@ frk
 jxd
 mJE
 mJE
-jxd
+gfk
 mJE
 nlT
 jxd
@@ -167335,7 +167376,7 @@ jvl
 pob
 jvl
 qoU
-jvl
+ecx
 fbD
 aXn
 aXn

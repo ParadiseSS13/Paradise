@@ -218,6 +218,8 @@
 			continue
 		if(R.syndicate && !emagged)
 			continue
+		if(!R.broadcast_to_teleport_hubs)
+			continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])
 			tmpname = "[tmpname] ([++areaindex[tmpname]])"
@@ -524,6 +526,11 @@
 		to_chat(entered, "<span class='notice'>You can't use this here.</span>")
 		return
 
+	if(entered.anchored)
+		return
+	if(entered == src)
+		return
+
 	if(target && !recalibrating && !panel_open && !blockAI(entered) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS) && !iseffect(entered))
 		do_teleport(entered, target)
 		use_power(5000)
@@ -576,6 +583,54 @@
 /obj/machinery/teleport/perma/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
 		return TRUE
+
+/obj/machinery/teleport/perma/preset
+	var/target_beacon_type
+
+/obj/machinery/teleport/perma/preset/Initialize(mapload)
+	. = ..()
+	if(target_beacon_type)
+		target = locate(target_beacon_type)
+
+/obj/machinery/teleport/perma/preset/cerestation
+
+/obj/machinery/teleport/perma/preset/cerestation/medbay
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/medbay
+
+/obj/machinery/teleport/perma/preset/cerestation/service
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/service
+
+/obj/machinery/teleport/perma/preset/cerestation/cargo
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/cargo
+
+/obj/machinery/teleport/perma/preset/cerestation/brig
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/brig
+
+/obj/machinery/teleport/perma/preset/cerestation/science
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/science
+
+/obj/machinery/teleport/perma/preset/cerestation/departures
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/departures
+
+/obj/machinery/teleport/perma/preset/cerestation/engineering
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/engineering
+
+/obj/machinery/bluespace_beacon/cerestation
+	broadcast_to_teleport_hubs = FALSE
+
+/obj/machinery/bluespace_beacon/cerestation/medbay
+
+/obj/machinery/bluespace_beacon/cerestation/cargo
+
+/obj/machinery/bluespace_beacon/cerestation/brig
+
+/obj/machinery/bluespace_beacon/cerestation/science
+
+/obj/machinery/bluespace_beacon/cerestation/departures
+
+/obj/machinery/bluespace_beacon/cerestation/engineering
+
+/obj/machinery/bluespace_beacon/cerestation/service
 
 /obj/machinery/teleport/station
 	name = "station"
