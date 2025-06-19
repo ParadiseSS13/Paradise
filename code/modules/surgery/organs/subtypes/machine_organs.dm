@@ -163,6 +163,9 @@
 	if(!owner && owner.stat == DEAD)
 		return
 
+	if(status & ORGAN_DEAD)
+		return
+
 	if(protection_inactive)
 		return
 
@@ -191,6 +194,9 @@
 	if(!owner && owner.stat == DEAD)
 		return
 
+	if(status & ORGAN_DEAD)
+		return
+
 	if(protection_inactive)
 		return
 
@@ -206,6 +212,15 @@
 					mindflayer_has_faraday = 2
 
 	if(emagged || mindflayer_has_faraday == 0)
+		 // We want them to take damage, but give them a bit more leeway than going blind instantly (for instance)
+		var/emp_mimic_damage = 0
+		switch(severity)
+			if(EMP_HEAVY)
+				emp_mimic_damage = 15
+			if(EMP_LIGHT)
+				emp_mimic_damage = 5
+			if(EMP_WEAKENED)
+				emp_mimic_damage = 2
 		for(var/X in owner.internal_organs)
 			var/obj/item/organ/internal/O = X
 			if(istype(O, /obj/item/organ/internal/brain/mmi_holder))
@@ -214,7 +229,7 @@
 				continue
 			if(istype(O, /obj/item/organ/internal/cell))
 				continue
-			O.emp_act(severity)
+			O.receive_damage(emp_mimic_damage, 1)
 
 		if(mindflayer_has_faraday == 2)
 			return
