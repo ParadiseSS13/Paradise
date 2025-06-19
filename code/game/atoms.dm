@@ -499,12 +499,14 @@
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
 
 /**
- * Updates the appearence of the icon
+ * Updates the appearence of the atom, including text.
  *
  * Mostly delegates to update_name, update_desc, and update_icon
  *
  * Arguments:
  * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
+ * 
+ * Supported bitflags: UPDATE_NAME, UPDATE_DESC, UPDATE_ICON
  */
 /atom/proc/update_appearance(updates=ALL)
 	SHOULD_NOT_SLEEP(TRUE)
@@ -531,7 +533,16 @@
 	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
 
-/// Updates the icon of the atom
+/**
+ * Updates the icon and overlays of the atom
+ *
+ * Mostly delegates to update_icon_state and update_overlays
+ *
+ * Arguments:
+ * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
+ * 
+ * Supported bitflags: UPDATE_ICON_STATE, UPDATE_OVERLAYS
+ */
 /atom/proc/update_icon(updates=ALL)
 	SIGNAL_HANDLER
 	SHOULD_CALL_PARENT(TRUE)
@@ -558,12 +569,22 @@
 
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
 
-/// Updates the icon state of the atom
+/**
+ * Updates the icon state of the atom
+ *
+ * Excluding the base proc, or child overrides that do not intend to change the icon_state, this proc needs a minimum of two possible icon_states, otherwise it effectively becomes permanent and a redundant proc.
+ */
 /atom/proc/update_icon_state()
 	PROTECTED_PROC(TRUE)
 	return
 
-/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/**
+ * Updates the managed overlays of the atom
+ *
+ * Old overlays from this proc are removed when called, and does not affect overlays from outside it. e.g. add_overlay() called independently in a different proc.
+ *
+ * It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon state names...
+ */
 /atom/proc/update_overlays()
 	PROTECTED_PROC(TRUE)
 	. = list()

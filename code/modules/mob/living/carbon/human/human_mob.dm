@@ -1075,8 +1075,7 @@
 	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
-	if(dna.flavor_text)
-		flavor_text = dna.flavor_text
+	flavor_text = dna.flavor_text
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	dna.UpdateSE()
 	dna.UpdateUI()
@@ -1176,8 +1175,8 @@
 	else
 		skin_colour = "#000000"
 
-	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
-		s_tone = 0
+	if(!(dna.species.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE)))
+		s_tone = 1
 
 	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_SHOES, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_NECK)
 	var/list/kept_items[0]
@@ -1185,6 +1184,8 @@
 	for(var/thing in thing_to_check)
 		var/obj/item/I = get_item_by_slot(thing)
 		if(I)
+			if(I.flags & SKIP_TRANSFORM_REEQUIP)
+				continue
 			kept_items[I] = thing
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0

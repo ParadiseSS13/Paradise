@@ -63,17 +63,17 @@
 	new /obj/item/stack/medical/ointment(src)
 	new /obj/item/stack/medical/ointment(src)
 
-/obj/item/clothing/head/helmet/space/nasavoid/old
-	name = "Engineering Void Helmet"
-	desc = "A CentCom engineering dark red space suit helmet. While old and dusty, it still gets the job done."
+/obj/item/clothing/head/helmet/space/void/old
+	name = "Antique Engineering Void Helmet"
+	desc = "An old helmet meant for EVA engineering work. Any insignia it had has long since worn away. While old and dusty, it still gets the job done."
 	icon_state = "void-red"
 	item_state = "void"
 
-/obj/item/clothing/suit/space/nasavoid/old
-	name = "Engineering Voidsuit"
+/obj/item/clothing/suit/space/void/old
+	name = "Antique Engineering Void Suit"
 	icon_state = "void-red"
 	item_state = "void"
-	desc = "A CentCom engineering dark red space suit. Age has degraded the suit making it difficult to move around in."
+	desc = "An old softsuit meant for engineering work. Any insignia it had has long since worn away. Age has degraded the suit making it difficult to move around in."
 	slowdown = 4
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 
