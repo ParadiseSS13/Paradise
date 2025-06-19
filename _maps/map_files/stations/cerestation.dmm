@@ -111377,7 +111377,7 @@
 /area/station/hallway/primary/central/north)
 "wWC" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/mineral/ancient,
+/turf/simulated/wall,
 /area/station/public/quantum/engineering)
 "wWG" = (
 /obj/effect/spawner/window/reinforced/polarized{
