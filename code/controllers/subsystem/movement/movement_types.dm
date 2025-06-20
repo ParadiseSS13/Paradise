@@ -833,3 +833,74 @@
 	var/turf/next = get_step_rand(moving)
 	moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
+
+/**
+ * Used for getting to a vent in a connected pipeline when ventcrawling.
+ *
+ * Returns TRUE if the loop sucessfully started, or FALSE if it failed
+ *
+ * Arguments:
+ * moving - The atom we want to move
+ * chasing - The atom we want to move towards
+ * min_dist - the closest we're allower to get to the target
+ * delay - How many deci-seconds to wait between fires. Defaults to the lowest value, 0.1
+ * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
+ * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
+ * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
+ * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ *
+**/
+/datum/move_manager/proc/ventcrawl(moving, chasing, min_dist, delay, timeout, subsystem, priority, flags, datum/extra_info)
+	return add_to_loop(moving, subsystem, /datum/move_loop/has_target/ventcrawl, priority, flags, extra_info, delay, timeout, chasing, min_dist)
+
+// Move loop for ventcrawling
+/datum/move_loop/has_target/ventcrawl
+	///A list for the path we're currently following
+	var/list/movement_path
+	///Cooldown for repathing, prevents spam
+	COOLDOWN_DECLARE(repath_cooldown)
+	///Bool used to determine if we're already making a path in JPS. this prevents us from re-pathing while we're already busy.
+	var/is_pathing = FALSE
+
+/datum/move_loop/has_target/ventcrawl/loop_started()
+	. = ..()
+	if(!movement_path)
+		INVOKE_ASYNC(src, PROC_REF(recalculate_path))
+
+/datum/move_loop/has_target/ventcrawl/loop_stopped()
+	. = ..()
+	movement_path = null
+
+///Tries to calculate a new path for this moveloop.
+/datum/move_loop/has_target/ventcrawl/proc/recalculate_path()
+	if(!COOLDOWN_FINISHED(src, repath_cooldown))
+		return
+	COOLDOWN_START(src, repath_cooldown, 0.5 SECONDS)
+	if(SSpathfinder.ventcrawl_pathfind(moving, target, list(CALLBACK(src, PROC_REF(on_finish_pathing)))))
+		is_pathing = TRUE
+
+///Called when a path has finished being created
+/datum/move_loop/has_target/ventcrawl/proc/on_finish_pathing(list/path)
+	movement_path = path
+	is_pathing = FALSE
+
+/datum/move_loop/has_target/ventcrawl/move()
+	if(!length(movement_path))
+		if(is_pathing)
+			return MOVELOOP_NOT_READY
+		INVOKE_ASYNC(src, PROC_REF(recalculate_path))
+		return MOVELOOP_FAILURE
+
+	var/obj/machinery/atmospherics/next_step = movement_path[1]
+	var/atom/old_loc = moving.loc
+	moving.relaymove(get_dir(moving, next_step))
+	. = (old_loc != moving?.loc) ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
+
+	// this check if we're on exactly the next tile may be overly brittle for dense objects who may get bumped slightly
+	// to the side while moving but could maybe still follow their path without needing a whole new path
+	if(.)
+		if(length(movement_path))
+			movement_path.Cut(1, 2)
+		return
+	INVOKE_ASYNC(src, PROC_REF(recalculate_path))
+	return MOVELOOP_FAILURE

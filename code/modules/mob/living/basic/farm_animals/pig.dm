@@ -14,6 +14,7 @@
 	ai_movement = /datum/ai_movement/basic_avoidance
 	idle_behavior = /datum/idle_behavior/idle_random_walk
 	planning_subtrees = list(
+		/datum/ai_planning_subtree/ventcrawl,
 		/datum/ai_planning_subtree/find_nearest_thing_which_attacked_me_to_flee,
 		/datum/ai_planning_subtree/flee_target,
 		/datum/ai_planning_subtree/target_retaliate,
@@ -39,9 +40,11 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	unintelligble_phrases = list("Oink?", "Oink", "OINK")
 	unintelligble_speak_verbs = list("oinks")
+	ventcrawler = VENTCRAWLER_ALWAYS
 
 /mob/living/basic/pig/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/ai_retaliate)
 	AddElement(/datum/element/ai_flee_while_injured)
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_SHOE)
+	ai_controller.set_blackboard_key(BB_VENTCRAWL_FINAL_TARGET, locate(87, 106, 2))
