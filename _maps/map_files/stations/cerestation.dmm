@@ -26061,12 +26061,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/lobby)
-"ecx" = (
-/obj/machinery/bluespace_beacon/cerestation/departures,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/exit)
 "ecz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -89557,6 +89551,13 @@
 "shL" = (
 /turf/simulated/mineral/ancient/outer,
 /area/station/maintenance/gambling_den)
+"shO" = (
+/obj/effect/turf_decal/box/white,
+/obj/machinery/bluespace_beacon/cerestation/departures,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/entry/east)
 "shP" = (
 /obj/structure/cable/orange,
 /obj/machinery/power/apc/directional/south,
@@ -165870,7 +165871,7 @@ uix
 jEJ
 chI
 uAz
-djw
+shO
 jUc
 evU
 bhO
@@ -167412,7 +167413,7 @@ jvl
 pob
 jvl
 qoU
-ecx
+jvl
 fbD
 aXn
 aXn
