@@ -508,7 +508,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/machinery/teleport/perma/InitializeParts()
+/obj/machinery/teleport/perma/proc/InitializeParts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_perma(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
