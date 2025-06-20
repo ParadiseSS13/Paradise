@@ -39,10 +39,17 @@
 	controller.queue_behavior(/datum/ai_behavior/interact_with_vent, BB_VENTCRAWL_ENTRANCE)
 	return SUBTREE_RETURN_FINISH_PLANNING
 
+/**
+ * This proc assumes that all ventcrawling creatures are omniscient.
+ *
+ * This could also be significantly improved, using some form of bi-directional flood-fill search to get
+ * accessible and connected vents.
+ *
+ * Currently, this has a problem where the pawn may not be able to access the entrance vent
+ * or the final destintion because of obstacles.
+ */
 /datum/ai_behavior/find_and_set/ventcrawl/search_tactic(datum/ai_controller/controller, locate_path, search_range)
-	// presume that all ventcrawling creatures are omniscient, at least about vents :)
-
-	// CTODO, replace this with a flood fill search, getting the nearest reachable vents. OR port whatever tg does for finding stuff in range thats accessible idk.
+	// we're inside a vent already, lets look for another way
 	if(istype(controller.pawn.loc, /obj/machinery/atmospherics))
 		var/obj/machinery/atmospherics/A = controller.pawn.loc
 		var/datum/pipeline/P = A.returnPipenet()
@@ -81,8 +88,6 @@
 		for(var/obj/machinery/atmospherics/entrance in entrance_vents)
 			if(exit_pipeline == entrance.returnPipenet()) // It will probably be quicker if theyre on the same pipenet
 				controller.set_blackboard_key(BB_VENTCRAWL_ENTRANCE, entrance)
-				// // ctodo remove
-				// message_admins("Entrance: [ADMIN_JMP(entrance)], Exit: [ADMIN_JMP(exit)]")
 				return exit
 
 	// fuck it, search all possible paths
@@ -92,8 +97,6 @@
 		for(var/obj/machinery/atmospherics/entrance in (entrance_vents & vents))
 			if(entrance != exit) // They're connected and not the same vent
 				controller.set_blackboard_key(BB_VENTCRAWL_ENTRANCE, entrance)
-				// // ctodo remove
-				// message_admins("Entrance: [ADMIN_JMP(entrance)], Exit: [ADMIN_JMP(exit)]")
 				return exit
 
 /datum/ai_behavior/find_and_set/pipenet_vent/search_tactic(datum/ai_controller/controller, locate_path, search_range)

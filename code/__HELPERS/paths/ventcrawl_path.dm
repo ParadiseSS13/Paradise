@@ -81,7 +81,6 @@
 		// 	continue
 		closed_set[current.atmos] = TRUE
 
-		// ctodo change this to the initialize directions of the neighbor!
 		for(var/dir in GLOB.cardinal)
 			if (!(dir & current.atmos.initialize_directions))
 				continue

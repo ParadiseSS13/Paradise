@@ -913,14 +913,6 @@
 	if(.)
 		if(length(movement_path))
 			movement_path.Cut(1, 2)
-		// CTODO remove
-		var/turf/T = get_turf(next_step)
-		T.color = "#ff0000"
-		addtimer(VARSET_CALLBACK(T, color, null), 10 SECONDS)
 		return
-	// CTODO remove
-	var/turf/T = get_turf(next_step)
-	T.color = "#0000FF"
-	addtimer(VARSET_CALLBACK(T, color, null), 10 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 	return MOVELOOP_FAILURE
