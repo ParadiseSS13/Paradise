@@ -166,9 +166,6 @@
 				var/mob/camera/eye/ai/eye = this_mob
 				if((ai_eyes == AI_EYE_INCLUDE || eye.relay_speech) && eye.ai && (!client_check || eye.ai.client))
 					mobs |= eye.ai
-			for(var/mob/dead/observer/ghost in this_mob.observers)
-				if(!client_check || ghost.client)
-					mobs += ghost
 		if(!length(next_layer))
 			return
 

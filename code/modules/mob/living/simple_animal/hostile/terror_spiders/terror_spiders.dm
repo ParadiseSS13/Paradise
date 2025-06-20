@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(ts_spiderlist)
 GLOBAL_LIST_EMPTY(ts_egg_list)
 GLOBAL_LIST_EMPTY(ts_spiderling_list)
 GLOBAL_LIST_EMPTY(ts_infected_list)
-
+#define DECOMPOSE_TIMER 5 MINUTES
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: DEFAULTS ---------------------------------
 // --------------------------------------------------------------------------------
@@ -19,6 +19,8 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	name = "terror spider"
 	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
 	gender = FEMALE
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/terror_spider
 
 	// Icons
 	icon = 'icons/mob/terrorspider.dmi'
@@ -314,26 +316,22 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()
-	if(stat == DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
-		if(prob(2))
-			// 2% chance every cycle to decompose
-			visible_message("<span class='notice'>The dead body of [src] decomposes!</span>")
-			gib()
-	else
-		if(degenerate)
-			adjustToxLoss(rand(1, 10))
-		if(regen_points < regen_points_max)
-			regen_points += regen_points_per_tick
-		if(getBruteLoss() || getFireLoss())
-			if(regen_points > regen_points_per_hp)
-				if(getBruteLoss())
-					adjustBruteLoss(-1)
-					regen_points -= regen_points_per_hp
-				else if(getFireLoss())
-					adjustFireLoss(-1)
-					regen_points -= regen_points_per_hp
-		if(prob(5)) // AA 2022-08-11 - This gives me prob(80) vibes. Should probably be refactored.
-			CheckFaction()
+	if(stat == DEAD)
+		return
+	if(degenerate)
+		adjustToxLoss(rand(1, 10))
+	if(regen_points < regen_points_max)
+		regen_points += regen_points_per_tick
+	if(getBruteLoss() || getFireLoss())
+		if(regen_points > regen_points_per_hp)
+			if(getBruteLoss())
+				adjustBruteLoss(-1)
+				regen_points -= regen_points_per_hp
+			else if(getFireLoss())
+				adjustFireLoss(-1)
+				regen_points -= regen_points_per_hp
+	if(prob(5)) // AA 2022-08-11 - This gives me prob(80) vibes. Should probably be refactored.
+		CheckFaction()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
 	if(!hasdied)
@@ -353,8 +351,13 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	if(can_die())
 		if(!gibbed)
 			msg_terrorspiders("[src] has died in [get_area(src)].")
+			addtimer(CALLBACK(src, PROC_REF(decompose_now)), DECOMPOSE_TIMER)
 		handle_dying()
 	return ..()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/decompose_now()
+	visible_message("<span class='notice'>The dead body of [src] decomposes!</span>")
+	gib()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return
@@ -476,3 +479,5 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	. = ..()
 	if(pulling && !ismob(pulling) && pulling.density)
 		. += 6 // Drastic move speed penalty for dragging anything that is not a mob or a non dense object
+
+#undef DECOMPOSE_TIMER

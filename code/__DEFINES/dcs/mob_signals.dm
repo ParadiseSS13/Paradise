@@ -242,3 +242,19 @@
 	#define MOVE_ARG_DIRECTION 2
 
 #define COMSIG_LIVING_RESTING "living_resting"
+
+/// From /mob/living/befriend() : (mob/living/new_friend)
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+
+/// From /mob/living/unfriend() : (mob/living/old_friend)
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"
+
+/// From the base of /datum/component/callouts/proc/callout_picker(mob/user, atom/clicked_atom): (datum/callout_option/callout, atom/target)
+#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"
+
+///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
+#define COMSIG_BASICMOB_PRE_ATTACK_RANGED "basicmob_pre_attack_ranged"
+	#define COMPONENT_CANCEL_RANGED_ATTACK COMPONENT_CANCEL_ATTACK_CHAIN //! Cancel to prevent the attack from happening
+
+///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
+#define COMSIG_BASICMOB_POST_ATTACK_RANGED "basicmob_post_attack_ranged"

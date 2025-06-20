@@ -610,5 +610,22 @@
 
 	return FALSE
 
+/// Fire a projectile from this atom at another atom
+/atom/proc/fire_projectile(projectile_type, atom/target, sound, firer, list/ignore_targets = list())
+	if(!isnull(sound))
+		playsound(src, sound, vol = 100, vary = TRUE)
+
+	var/turf/startloc = get_turf(src)
+	var/obj/item/projectile/bullet = new projectile_type(startloc)
+	bullet.starting = startloc
+	bullet.firer = firer || src
+	bullet.firer_source_atom = src
+	bullet.yo = target.y - startloc.y
+	bullet.xo = target.x - startloc.x
+	bullet.original = target
+	bullet.preparePixelProjectile(target, src)
+	bullet.fire()
+	return bullet
+
 #undef MOVES_HITSCAN
 #undef MUZZLE_EFFECT_PIXEL_INCREMENT
