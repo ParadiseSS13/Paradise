@@ -9,9 +9,8 @@
 		return SUBTREE_RETURN_FINISH_PLANNING
 
 	if(!controller.blackboard_key_exists(BB_VENTCRAWL_EXIT))
-		controller.queue_behavior(/datum/ai_behavior/find_and_set/in_list/ventcrawl, BB_VENTCRAWL_EXIT, null, BB_VENT_SEARCH_RANGE)
+		controller.queue_behavior(/datum/ai_behavior/find_and_set/in_list/ventcrawl, BB_VENTCRAWL_EXIT, null, controller.blackboard[BB_VENT_SEARCH_RANGE])
 		return
-
 	controller.queue_behavior(/datum/ai_behavior/interact_with_target/start_ventcrawl, BB_VENTCRAWL_ENTRANCE)
 	return SUBTREE_RETURN_FINISH_PLANNING
 
