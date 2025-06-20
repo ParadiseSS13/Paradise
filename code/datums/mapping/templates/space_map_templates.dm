@@ -282,6 +282,7 @@
 	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
 	suffix = "syndie_space_base.dmm"
 	always_place = TRUE
+	always_place_priority = 10
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/syndiecakesfactory

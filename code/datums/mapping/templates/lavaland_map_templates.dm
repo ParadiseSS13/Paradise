@@ -63,6 +63,7 @@
 	suffix = "lavaland_surface_golem_ship.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	always_place_priority = 1
 	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/althland_facility
@@ -250,6 +251,7 @@
 	suffix = "lavaland_surface_nt.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	always_place_priority = 100
 	never_spawn_on_the_same_level = list("lavaland_relay")
 
 /datum/map_template/ruin/lavaland/legiongate
@@ -259,6 +261,7 @@
 	suffix = "lavaland_surface_legiongate.dmm"
 	allow_duplicates = FALSE
 	always_place = TRUE
+	always_place_priority = 10
 
 /datum/map_template/ruin/lavaland/lavaland_relay
 	id = "lavaland_relay"
@@ -270,6 +273,7 @@
 	never_spawn_on_the_same_level = list("gulag")
 	allow_duplicates = FALSE // Less space on lavaland. Ideally we would figure out a way to ban this from spawning the same level as the mining base
 	always_place = TRUE // Since only one can spawn for now, might as well ensure it.
+	always_place_priority = 5
 
 // MARK: Bridges
 

@@ -9,12 +9,19 @@
 
 	/// Prevents megafauna spawning within a certain range of ruins.
 	var/megafauna_safe_range = FALSE
-	var/unpickable = FALSE 	 //If TRUE these won't be placed automatically (can still be forced or loaded with another ruin)
-	var/always_place = FALSE //Will skip the whole weighting process and just plop this down, ideally you want the ruins of this kind to have no cost.
-	var/placement_weight = 1 //How often should this ruin appear
+	/// If TRUE these won't be placed automatically (can still be forced or loaded with another ruin).
+	var/unpickable = FALSE
+	/// If TRUE, the placer will skip the whole weighting process and just plop this down.
+	/// Ideally you want the ruins of this kind to have no cost.
+	var/always_place = FALSE
+	/// Required ruins with higher priority will be placed first.
+	var/always_place_priority = 0
+	/// How often should non-required ruin appear.
+	var/placement_weight = 1
+	/// Whether or not this ruin can spawn multiple times.
 	var/allow_duplicates = TRUE
-	var/list/never_spawn_with = null //If this ruin is spawned these will not eg list(/datum/map_template/ruin/base_alternate)
-
+	/// If this ruin is spawned these will not eg list(/datum/map_template/ruin/base_alternate).
+	var/list/never_spawn_with = null
 	/// If a ruin ID is in this list, this ruin will not spawn on the same level as that ruin.
 	var/list/never_spawn_on_the_same_level = list()
 
