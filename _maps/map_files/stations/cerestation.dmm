@@ -49770,11 +49770,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
-"jte" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/public/quantum/engineering)
 "jth" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -50453,6 +50448,9 @@
 "jzW" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -67514,6 +67512,9 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67787,11 +67788,6 @@
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
-"noC" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/public/quantum/docking)
 "noD" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -146001,7 +145997,7 @@ aXR
 nEJ
 sGi
 cIc
-jte
+jCl
 rEe
 jCl
 rWJ
@@ -163555,7 +163551,7 @@ pus
 vqp
 nlJ
 tJP
-noC
+nlJ
 mQN
 pKz
 djw
