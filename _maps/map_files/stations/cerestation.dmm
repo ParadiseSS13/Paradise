@@ -296,7 +296,6 @@
 	pixel_y = 8;
 	dir = 4
 	},
-/obj/machinery/quantumpad/cere/security_arrivals,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -6918,7 +6917,6 @@
 	pixel_y = 8;
 	dir = 8
 	},
-/obj/machinery/quantumpad/cere/engineering_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -40926,7 +40924,6 @@
 /obj/structure/sign/directions/engineering{
 	pixel_y = 8
 	},
-/obj/machinery/quantumpad/cere/security_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -43311,7 +43308,6 @@
 	pixel_y = 13;
 	dir = 4
 	},
-/obj/machinery/quantumpad/cere/security_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -43519,7 +43515,6 @@
 	pixel_y = 8;
 	dir = 8
 	},
-/obj/machinery/quantumpad/cere/engineering_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -44367,7 +44362,6 @@
 	pixel_y = 13;
 	dir = 4
 	},
-/obj/machinery/quantumpad/cere/engineering_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -49287,7 +49281,6 @@
 	pixel_y = 8;
 	dir = 8
 	},
-/obj/machinery/quantumpad/cere/engineering_service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -87691,7 +87684,6 @@
 	pixel_y = 8;
 	dir = 4
 	},
-/obj/machinery/quantumpad/cere/engineering_arrivals,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -98509,7 +98501,6 @@
 /obj/structure/sign/directions/service{
 	pixel_y = 8
 	},
-/obj/machinery/quantumpad/cere/security_service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -107131,7 +107122,6 @@
 /obj/structure/sign/directions/science{
 	pixel_y = 8
 	},
-/obj/machinery/quantumpad/cere/security_science,
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
