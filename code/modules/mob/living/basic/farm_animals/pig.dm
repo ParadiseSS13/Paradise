@@ -8,6 +8,7 @@
 /datum/ai_controller/basic_controller/pig
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_VENT_SEARCH_RANGE = 10,
 	)
 
 	ai_traits = AI_FLAG_STOP_MOVING_WHEN_PULLED
