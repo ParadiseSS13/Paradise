@@ -508,7 +508,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/machinery/teleport/perma/proc/InitializeParts()
+/obj/machinery/teleport/perma/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_perma(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
@@ -600,7 +600,7 @@
 	if(target_beacon_type)
 		target = locate(target_beacon_type)
 
-/obj/machinery/teleport/perma/InitializeParts()
+/obj/machinery/teleport/perma/initialize_parts()
 	tele_delay = 0 // Act like a fully upgraded tele, no T4 stock parts to plunder.
 
 /obj/machinery/teleport/perma/preset/cerestation
