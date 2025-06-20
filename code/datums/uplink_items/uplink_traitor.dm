@@ -35,7 +35,7 @@
 
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"
-	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
+	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilantes or just a good laugh."
 	reference = "CTR"
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 5
@@ -52,7 +52,7 @@
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
-	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being suppressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
+	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding its contents and the pin alongside being suppressed. Comes boxed with 6 specialized shrapnel rounds laced with a silencing toxin, and 1 preloaded in the shotgun's chamber."
 	reference = "MCS"
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
 	cost = 40
@@ -107,7 +107,7 @@
 
 /datum/uplink_item/jobspecific/meatcleaver
 	name = "Meat Cleaver"
-	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died."
+	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword, but with the added benefit of chopping your victim into hunks of meat after they've died."
 	reference = "MC"
 	item = /obj/item/kitchen/knife/butcher/meatcleaver
 	cost = 40
@@ -134,7 +134,7 @@
 
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "His Grace"
-	desc = "An incredibly dangerous weapon recovered from a station overcome by the grey tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \
+	desc = "An incredibly dangerous weapon recovered from a station overcome by the Grey Tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \
 	His Grace grants gradual regeneration and complete stun immunity to His wielder, but be wary: if He gets too hungry, He will become impossible to drop and eventually kill you if not fed. \
 	However, if left alone for long enough, He will fall back to slumber. \
 	To activate His Grace, simply unlatch Him."
@@ -149,7 +149,7 @@
 
 /datum/uplink_item/jobspecific/cautionsign
 	name = "Proximity Mine"
-	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
+	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it. Activate it to start the 15 second timer and activate again to disarm."
 	reference = "PM"
 	item = /obj/item/caution/proximity_sign
 	cost = 10
@@ -158,7 +158,7 @@
 /datum/uplink_item/jobspecific/titaniumbroom
 	name = "Titanium Push Broom"
 	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants. \
-			When wielded hitting people will have different effects based on your intent. "
+			When wielded, hitting people will have different effects based on your intent. "
 	reference = "TPBR"
 	item = /obj/item/push_broom/traitor
 	cost = 60
@@ -177,7 +177,7 @@
 
 /datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"
-	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be re-hydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
 	cost = 10
@@ -206,7 +206,7 @@
 //Botanist
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
-	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s), WARNING: exotic blood types such as slime jelly do not work. It also wirelessly taps into station intercomms to broadcast a message of TERROR."
+	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s), WARNING: exotic blood types such as slime jelly do not work. It also wirelessly taps into station intercoms to broadcast a message of TERROR."
 	reference = "BEE"
 	item = /obj/item/bee_briefcase
 	cost = 50
@@ -239,7 +239,7 @@
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's inside. Cyborgs made with this MMI will be permanently slaved to you, but will appear to have a normal set of laws and be synchronised to the station AI, if present. Provides immunity to remote detonation and allows overriding lockdowns if the cyborg is not also emagged. It can also be inserted into a mech, but will not fit inside an AI core."
+	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's inside. Cyborgs made with this MMI will be permanently slaved to you, but will appear to have a normal set of laws and be synchronized to the station AI, if present. Provides immunity to remote detonation and allows overriding lockdowns if the cyborg is not also emagged. It can also be inserted into a mech, but will not fit inside an AI core."
 	reference = "SMMI"
 	item = /obj/item/mmi/syndie
 	cost = 10
@@ -250,7 +250,7 @@
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
-	desc = "A seemingly innocent die, those who are not afraid to roll for attack will find it's effects quite explosive. Has a four second timer."
+	desc = "A seemingly innocent die, those who are not afraid to roll for attack will find its effects quite explosive. Has a four second timer."
 	reference = "ETW"
 	item = /obj/item/dice/d20/e20
 	cost = 15
@@ -408,7 +408,7 @@
 // Drask
 /datum/uplink_item/species_restricted/cryoregenerative_enhancer
 	name = "Cryoregenerative Enhancer"
-	desc = "Specially designed nanomachines that enhance the low-temperature regenerative capabilities of drask. Requires supercooled air in the enviroment or internals to function."
+	desc = "Specially designed nanomachines that enhance the low-temperature regenerative capabilities of drask. Requires supercooled air in the environment or internals to function."
 	reference = "CRE"
 	item = /obj/item/cryoregenerative_enhancer
 	cost = 25
@@ -486,9 +486,9 @@
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
-	desc = "A bear pelt that infuses the wearer with bear spirits and knowledge on an occultic martial art known as Rage of the Space Bear. \
+	desc = "A bear pelt that infuses the wearer with bear spirits and knowledge of an occultic martial art known as Rage of the Space Bear. \
 			The pelt itself is also armored, providing the wearer great longevity. \
-			Made with love, lots of spirits and lots of the other kind of spirits by the Sydnicate-affiliated cult, Children of Ursa Major."
+			Made with love, lots of spirits and lots of the other kind of spirits by the Syndicate-affiliated cult, Children of Ursa Major."
 	reference = "BSP"
 	item = /obj/item/clothing/head/bearpelt/bearserk
 	cost = 60
@@ -496,7 +496,7 @@
 
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
-	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
+	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modeled after the standard NT toolbelt so as to avoid suspicion while wearing it."
 	reference = "SBM"
 	item = /obj/item/storage/belt/military/traitor
 	cost = 10
@@ -542,7 +542,7 @@
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
+	desc = "A syringe disguised as a functional pen. It's filled with a potent anesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
 	reference = "SP"
 	item = /obj/item/pen/sleepy
 	cost = 40
@@ -595,7 +595,7 @@
 
 /datum/uplink_item/suits/modsuit
 	name = "Syndicate MODsuit"
-	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and a eva mode \
+	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and an EVA mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
 			Comes containing internals. \
@@ -691,7 +691,7 @@
 
 /datum/uplink_item/bundles_tc/badass
 	name = "Syndicate Bundle"
-	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specialisations after purchase."
+	desc = "Syndicate Bundles are specialized groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specializations after purchase."
 	reference = "SYB"
 	item = /obj/item/beacon/syndicate/bundle
 	cost = 100
@@ -784,7 +784,7 @@
 
 /datum/uplink_item/explosives/detomatix
 	name = "Detomatix PDA Cartridge"
-	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient down for a short period, and deafen them for longer."
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crew members who have their message feature enabled. The concussive effect from the explosion will knock the recipient down for a short period, and deafen them for longer."
 	reference = "DEPC"
 	item = /obj/item/cartridge/syndicate
 	cost = 30

@@ -2269,6 +2269,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
+"hR" = (
+/obj/machinery/economy/vending/dinnerware,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "hS" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plasteel{
@@ -3770,12 +3776,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"mE" = (
-/obj/machinery/economy/vending/dinnerware,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "mF" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass{
@@ -5563,6 +5563,12 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"si" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ghost_bar)
 "sj" = (
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
@@ -6466,6 +6472,7 @@
 	pixel_x = -2;
 	pixel_y = 1
 	},
+/obj/item/dissector,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vl" = (
@@ -6660,6 +6667,8 @@
 "vM" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
+/obj/item/organ/internal/heart/xenobiology/cursed_bananium,
+/obj/item/organ/internal/heart/xenobiology/bananium,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "vN" = (
@@ -6881,6 +6890,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
+/obj/item/dissector/alien,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wA" = (
@@ -6890,12 +6900,6 @@
 "wB" = (
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
-"wC" = (
-/obj/machinery/processor,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "wD" = (
 /obj/structure/mirror{
 	pixel_x = 28
@@ -7479,12 +7483,6 @@
 /obj/structure/flora/bush,
 /turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
-"yG" = (
-/obj/structure/sink/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "yH" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -7814,9 +7812,8 @@
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "zY" = (
-/obj/machinery/smartfridge/foodcart{
-	dir = 4
-	},
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -9213,6 +9210,14 @@
 "EJ" = (
 /obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood,
+/area/ghost_bar)
+"EK" = (
+/obj/machinery/smartfridge/foodcart{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/ghost_bar)
 "EL" = (
 /obj/machinery/door/airlock/hatch{
@@ -10889,13 +10894,6 @@
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
-"JZ" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cooking/stovetop,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ghost_bar)
 "Ka" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -11413,6 +11411,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
+	},
+/area/ghost_bar)
+"LG" = (
+/obj/structure/sink/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
 	},
 /area/ghost_bar)
 "LH" = (
@@ -14568,9 +14572,9 @@
 /turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
 "VR" = (
+/obj/machinery/processor,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+	icon_state = "cafeteria"
 	},
 /area/ghost_bar)
 "VS" = (
@@ -68864,7 +68868,7 @@ Zq
 wF
 Bc
 Me
-yG
+LG
 es
 es
 es
@@ -69124,7 +69128,7 @@ Me
 XR
 wN
 Dk
-zY
+EK
 xU
 zP
 Me
@@ -70914,9 +70918,9 @@ Td
 Td
 Td
 wJ
-VR
-VR
-VR
+si
+si
+si
 bL
 Td
 HE
@@ -74511,7 +74515,7 @@ CV
 Td
 Dk
 es
-JZ
+zY
 YP
 es
 YP
@@ -75794,7 +75798,7 @@ ps
 ps
 ps
 Td
-yG
+LG
 es
 es
 es
@@ -75804,7 +75808,7 @@ es
 es
 es
 es
-mE
+hR
 Td
 pu
 RQ
@@ -76056,7 +76060,7 @@ Oj
 zj
 fF
 es
-wC
+VR
 YP
 Td
 Td
