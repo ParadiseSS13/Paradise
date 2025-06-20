@@ -2169,10 +2169,9 @@
 		switch(punishment)
 			// These smiting types are valid for all living mobs
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", flags = SHOCK_NOGLOVES)
+				M.electrocute_act(50, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
-				M.adjustFireLoss(75)
-				M.Weaken(10 SECONDS)
+				M.adjustFireLoss(30)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 				logmsg = "a lightning bolt."
 			if("Fire Death")
