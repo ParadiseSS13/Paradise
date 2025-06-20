@@ -107,7 +107,8 @@
 		return 0
 	else
 		var/play_soundeffect = 1
-		if(M.environment_smash)
+		// ctodo fix this
+		if(istype(M) && M.environment_smash)
 			play_soundeffect = 0
 		var/obj_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
 		if(M.obj_damage)

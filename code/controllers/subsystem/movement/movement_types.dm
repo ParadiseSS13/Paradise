@@ -850,17 +850,26 @@
  * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
  *
 **/
-/datum/move_manager/proc/ventcrawl(moving, chasing, min_dist, delay, timeout, subsystem, priority, flags, datum/extra_info)
-	return add_to_loop(moving, subsystem, /datum/move_loop/has_target/ventcrawl, priority, flags, extra_info, delay, timeout, chasing, min_dist)
+/datum/move_manager/proc/ventcrawl(moving, chasing, delay, timeout, subsystem, priority, flags, skip_first = TRUE, datum/extra_info)
+	return add_to_loop(moving, subsystem, /datum/move_loop/has_target/ventcrawl, priority, flags, extra_info, delay, timeout, chasing, skip_first)
 
 // Move loop for ventcrawling
 /datum/move_loop/has_target/ventcrawl
+	flags = MOVEMENT_LOOP_IGNORE_GLIDE
 	///A list for the path we're currently following
 	var/list/movement_path
 	///Cooldown for repathing, prevents spam
 	COOLDOWN_DECLARE(repath_cooldown)
 	///Bool used to determine if we're already making a path in JPS. this prevents us from re-pathing while we're already busy.
 	var/is_pathing = FALSE
+	///Should we skip the first step? This is the tile we're currently on, which breaks some things
+	var/skip_first
+
+/datum/move_loop/has_target/ventcrawl/setup(delay, timeout, atom/chasing, skip_first)
+	. = ..()
+	if(!.)
+		return
+	src.skip_first = skip_first
 
 /datum/move_loop/has_target/ventcrawl/loop_started()
 	. = ..()
@@ -876,7 +885,7 @@
 	if(!COOLDOWN_FINISHED(src, repath_cooldown))
 		return
 	COOLDOWN_START(src, repath_cooldown, 0.5 SECONDS)
-	if(SSpathfinder.ventcrawl_pathfind(moving, target, list(CALLBACK(src, PROC_REF(on_finish_pathing)))))
+	if(SSpathfinder.ventcrawl_pathfind(moving, target, skip_first, list(CALLBACK(src, PROC_REF(on_finish_pathing)))))
 		is_pathing = TRUE
 
 ///Called when a path has finished being created
@@ -885,6 +894,9 @@
 	is_pathing = FALSE
 
 /datum/move_loop/has_target/ventcrawl/move()
+	// jps has skip_first for this purpose i think but we're not jps
+	// while(length(movement_path) && movement_path[1] == moving.loc)
+	// 	movement_path.Cut(1, 2)
 	if(!length(movement_path))
 		if(is_pathing)
 			return MOVELOOP_NOT_READY
@@ -893,7 +905,7 @@
 
 	var/obj/machinery/atmospherics/next_step = movement_path[1]
 	var/atom/old_loc = moving.loc
-	moving.relaymove(get_dir(moving, next_step))
+	old_loc.relaymove(moving, get_dir(moving, next_step))
 	. = (old_loc != moving?.loc) ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
 	// this check if we're on exactly the next tile may be overly brittle for dense objects who may get bumped slightly
@@ -901,6 +913,14 @@
 	if(.)
 		if(length(movement_path))
 			movement_path.Cut(1, 2)
+		// CTODO remove
+		var/turf/T = get_turf(next_step)
+		T.color = "#ff0000"
+		addtimer(VARSET_CALLBACK(T, color, null), 10 SECONDS)
 		return
+	// CTODO remove
+	var/turf/T = get_turf(next_step)
+	T.color = "#0000FF"
+	addtimer(VARSET_CALLBACK(T, color, null), 10 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 	return MOVELOOP_FAILURE

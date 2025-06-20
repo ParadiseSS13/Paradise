@@ -206,9 +206,9 @@ SUBSYSTEM_DEF(pathfinder)
 	return valid_maps
 
 /// Initiates a pathfind. Returns true if we're good, FALSE if something's failed
-/datum/controller/subsystem/pathfinder/proc/ventcrawl_pathfind(atom/movable/caller, atom/end, list/datum/callback/on_finish)
+/datum/controller/subsystem/pathfinder/proc/ventcrawl_pathfind(atom/movable/caller, atom/end, skip_first, list/datum/callback/on_finish)
 	var/datum/pathfind/ventcrawl/path = new()
-	path.setup(caller, end, on_finish)
+	path.setup(caller, end, skip_first, on_finish)
 	if(path.start())
 		active_pathing += path
 		return TRUE

@@ -12,7 +12,7 @@
 	src.previous_node = incoming_previous_node
 	if(previous_node)
 		src.number_tiles = previous_node.number_tiles + 1
-	src.f_value = number_tiles + get_dist(atmos, incoming_goal)
+	src.f_value = number_tiles + get_dist_euclidian(atmos, incoming_goal)
 
 /datum/ventcrawl_node/Destroy(force)
 	previous_node = null
@@ -35,11 +35,14 @@
 	var/list/path
 	///An assoc list that serves as the closed list. Key is the turf, points to true if we've seen it before
 	var/list/closed_set
+	/// If we should delete the first step in the path or not. Used often because it is just the starting point
+	var/skip_first = FALSE
 
-/datum/pathfind/ventcrawl/proc/setup(atom/movable/requester, obj/machinery/atmospherics/unary/goal, list/datum/callback/on_finish)
+/datum/pathfind/ventcrawl/proc/setup(atom/movable/requester, obj/machinery/atmospherics/unary/goal, skip_first, list/datum/callback/on_finish)
 	src.requester = requester
 	src.end = goal
 	src.on_finish = on_finish
+	src.skip_first = skip_first
 
 	open = new /datum/heap(/proc/HeapPathWeightCompareVent)
 	closed_set = list()
@@ -78,7 +81,10 @@
 		// 	continue
 		closed_set[current.atmos] = TRUE
 
+		// ctodo change this to the initialize directions of the neighbor!
 		for(var/dir in GLOB.cardinal)
+			if (!(dir & current.atmos.initialize_directions))
+				continue
 			var/obj/machinery/atmospherics/neighbor = current.atmos.findConnecting(dir)
 			if(!neighbor || closed_set[neighbor])
 				continue
@@ -96,11 +102,14 @@
 	//we're done! turn our reversed path (end to start) into a path (start to end)
 	closed_set = null
 	QDEL_NULL(open)
-	hand_back(path || list())
+	path ||= list()
+	if(skip_first && length(path))
+		path.Cut(1, 2)
+	hand_back(path)
 	return ..()
 
 /datum/pathfind/ventcrawl/proc/unwind_path(datum/ventcrawl_node/unwind_node)
-	path = list(unwind_node.atmos)
+	path = list(end, unwind_node.atmos)
 
 	while(unwind_node.previous_node)
 		path += unwind_node.previous_node.atmos

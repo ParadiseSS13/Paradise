@@ -70,11 +70,17 @@
 
 // Ventcrawling
 
-/// key that holds the turf we will move to
+/// key holding the turf we will move to
 #define BB_VENTCRAWL_FINAL_TARGET "BB_VENTCRAWL_FINAL_TARGET"
+/// key holding the vent we will move to
 #define BB_VENTCRAWL_ENTRANCE "BB_VENTCRAWL_ENTRANCE"
+/// key holding the vent we will ventcrawl to
 #define BB_VENTCRAWL_EXIT "BB_VENTCRAWL_EXIT"
-/// key holding a range to look for vents
+/// key holding a boolean value if we're entering into a vent
+#define BB_VENTCRAWL_IS_ENTERING "BB_VENTCRAWL_IS_ENTERING"
+/// key holding the amount of delay between steps in a vent (recommended: 1)
+#define BB_VENTCRAWL_DELAY "BB_VENTCRAWL_DELAY"
+/// key holding a range to look for vents (recommended: 10)
 #define BB_VENT_SEARCH_RANGE "BB_VENT_SEARCH_RANGE"
 
 // Tipped blackboards
