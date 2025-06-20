@@ -45841,6 +45841,9 @@
 /area/station/security/prison/cell_block/a)
 "iCw" = (
 /obj/machinery/bluespace_beacon/cerestation/service,
+/obj/effect/turf_decal/box/white{
+	color = "#499E3B"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -70965,6 +70968,9 @@
 /area/station/hallway/primary/aft/west)
 "obK" = (
 /obj/machinery/bluespace_beacon/cerestation/science,
+/obj/effect/turf_decal/box/white{
+	color = "#805C8F"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -71605,7 +71611,6 @@
 "oku" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/bluespace_beacon/cerestation/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -111244,6 +111249,7 @@
 /area/station/security/evidence)
 "wUB" = (
 /obj/machinery/bluespace_beacon/cerestation/engineering,
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -112744,6 +112750,8 @@
 	dir = 4;
 	color = "#954535"
 	},
+/obj/machinery/bluespace_beacon/cerestation/brig,
+/obj/effect/turf_decal/box/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
