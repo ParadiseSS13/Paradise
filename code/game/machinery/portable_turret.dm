@@ -91,6 +91,7 @@
 	spark_system.attach(src)
 
 	setup()
+	AddElement(/datum/element/hostile_machine)
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)

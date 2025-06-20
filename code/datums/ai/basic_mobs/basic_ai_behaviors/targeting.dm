@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY_TYPED(hostile_machines, /atom)
 GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	/mob,
 	/obj/machinery/porta_turret,
+	/obj/machinery/power/emitter,
 	/obj/mecha,
 )))
 

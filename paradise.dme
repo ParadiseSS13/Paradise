@@ -626,6 +626,7 @@
 #include "code\datums\elements\decal_element.dm"
 #include "code\datums\elements\earhealing.dm"
 #include "code\datums\elements\high_value_item.dm"
+#include "code\datums\elements\hostile_machine.dm"
 #include "code\datums\elements\rad_insulation.dm"
 #include "code\datums\elements\relay_attackers.dm"
 #include "code\datums\elements\ridable.dm"
