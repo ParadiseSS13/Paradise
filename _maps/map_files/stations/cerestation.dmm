@@ -292,10 +292,7 @@
 /turf/space,
 /area/space)
 "abP" = (
-/obj/structure/sign/directions/evac{
-	pixel_y = 8;
-	dir = 4
-	},
+/obj/machinery/teleport/perma/preset/cerestation/departures,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -6913,10 +6910,7 @@
 	},
 /area/station/command/bridge)
 "bfT" = (
-/obj/structure/sign/directions/science{
-	pixel_y = 8;
-	dir = 8
-	},
+/obj/machinery/teleport/perma/preset/cerestation/science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -6938,6 +6932,14 @@
 /area/station/hallway/primary/central/north)
 "bgb" = (
 /obj/machinery/alarm/directional/east,
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = -23
+	},
+/obj/structure/sign/directions/medical{
+	pixel_y = 41;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -11496,6 +11498,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/sign/directions/engineering{
+	pixel_y = 41
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -12565,7 +12570,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	dir = 1;
+	icon_state = "darkfull"
 	},
 /area/station/public/quantum/science)
 "bSc" = (
@@ -12916,6 +12922,12 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "bTV" = (
+/obj/structure/sign/directions/science{
+	pixel_y = -23
+	},
+/obj/structure/sign/directions/service{
+	pixel_y = 41
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -17992,17 +18004,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
-"cGq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/light{
-	color = "#A28226"
-	},
-/area/station/public/quantum/engineering)
 "cGv" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar"
@@ -18338,9 +18339,21 @@
 /turf/simulated/wall,
 /area/station/public/quantum/engineering)
 "cIO" = (
-/obj/machinery/firealarm/directional/west,
+/obj/structure/sign/directions/service{
+	pixel_y = 41;
+	dir = 8
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = -23;
+	dir = 8
+	},
+/obj/machinery/power/apc/important/directional/west,
+/obj/structure/cable/orange{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkyellow";
+	dir = 8
 	},
 /area/station/public/quantum/engineering)
 "cIX" = (
@@ -28528,6 +28541,19 @@
 /obj/effect/mapping_helpers/airlock/access/any/science/tox,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/test_chamber)
+"eGE" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/west)
 "eGK" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -40921,11 +40947,9 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "hAm" = (
-/obj/structure/sign/directions/engineering{
-	pixel_y = 8
-	},
+/obj/machinery/teleport/perma/preset/cerestation/medbay,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowfull"
+	icon_state = "whitebluefull"
 	},
 /area/station/public/quantum/security)
 "hAn" = (
@@ -41290,19 +41314,6 @@
 	icon_state = "darkgreen"
 	},
 /area/station/public/quantum/service)
-"hEv" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/central/west)
 "hEz" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable/orange,
@@ -43172,11 +43183,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "hYA" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
+/obj/structure/sign/directions/cargo{
+	pixel_y = 41;
+	dir = 4
 	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/station/public/quantum/engineering)
 "hYF" = (
@@ -43300,16 +43314,9 @@
 	},
 /area/station/hallway/spacebridge/scidock)
 "hZB" = (
-/obj/structure/sign/directions/medical{
-	pixel_y = 6;
-	dir = 4
-	},
-/obj/structure/sign/directions/cargo{
-	pixel_y = 13;
-	dir = 4
-	},
+/obj/machinery/teleport/perma/preset/cerestation/cargo,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
+	icon_state = "darkbrownfull"
 	},
 /area/station/public/quantum/security)
 "hZE" = (
@@ -43511,10 +43518,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
 "ibH" = (
-/obj/structure/sign/directions/security{
-	pixel_y = 8;
-	dir = 8
-	},
+/obj/machinery/teleport/perma/preset/cerestation/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -44354,16 +44358,9 @@
 	},
 /area/station/hallway/primary/aft/east)
 "ikC" = (
-/obj/structure/sign/directions/medical{
-	pixel_y = 6;
-	dir = 4
-	},
-/obj/structure/sign/directions/cargo{
-	pixel_y = 13;
-	dir = 4
-	},
+/obj/machinery/teleport/perma/preset/cerestation/cargo,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
+	icon_state = "darkbrownfull"
 	},
 /area/station/public/quantum/engineering)
 "ikI" = (
@@ -49277,10 +49274,7 @@
 	},
 /area/station/turret_protected/ai_upload)
 "joQ" = (
-/obj/structure/sign/directions/service{
-	pixel_y = 8;
-	dir = 8
-	},
+/obj/machinery/teleport/perma/preset/cerestation/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -49339,7 +49333,8 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkyellow";
+	dir = 1
 	},
 /area/station/public/quantum/engineering)
 "jpg" = (
@@ -49782,11 +49777,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "jte" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/orange{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50687,11 +50677,6 @@
 "jCl" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -53427,9 +53412,9 @@
 /turf/simulated/floor/plating,
 /area/station/supply/sorting)
 "kgd" = (
+/obj/machinery/teleport/perma/preset/cerestation/engineering,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+	icon_state = "yellowfull"
 	},
 /area/station/public/quantum/security)
 "kgl" = (
@@ -55343,8 +55328,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgreen"
+	dir = 1;
+	icon_state = "darkfull"
 	},
 /area/station/public/quantum/service)
 "kAv" = (
@@ -57026,12 +57011,9 @@
 	},
 /area/station/science/genetics)
 "kTV" = (
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/important/directional/east,
+/obj/machinery/teleport/perma/preset/cerestation/medbay,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "whitebluefull"
 	},
 /area/station/public/quantum/engineering)
 "kUi" = (
@@ -59175,6 +59157,18 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/primary/fore/north)
+"lrw" = (
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/light{
+	color = "#A28226"
+	},
+/area/station/public/quantum/engineering)
 "lrx" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -60805,8 +60799,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgreen"
+	dir = 1;
+	icon_state = "darkfull"
 	},
 /area/station/public/quantum/service)
 "lHU" = (
@@ -64086,7 +64080,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
+	dir = 1;
+	icon_state = "darkfull"
 	},
 /area/station/public/quantum/cargo)
 "muS" = (
@@ -67143,8 +67138,13 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/sign/directions/security{
+	pixel_y = 41;
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkyellow";
+	dir = 8
 	},
 /area/station/public/quantum/engineering)
 "nhG" = (
@@ -72287,6 +72287,11 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75376,8 +75381,8 @@
 	pixel_y = -23
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurple"
+	dir = 1;
+	icon_state = "darkfull"
 	},
 /area/station/public/quantum/science)
 "pci" = (
@@ -75478,8 +75483,8 @@
 	pixel_y = 41
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurple"
+	dir = 1;
+	icon_state = "darkfull"
 	},
 /area/station/public/quantum/science)
 "pdj" = (
@@ -78695,7 +78700,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
+	dir = 1;
+	icon_state = "darkfull"
 	},
 /area/station/public/quantum/cargo)
 "pNL" = (
@@ -80240,6 +80246,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"qeY" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/west)
 "qfa" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -81277,6 +81297,15 @@
 	icon_state = "darkredfull"
 	},
 /area/station/security/permabrig)
+"qry" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/engineering)
 "qrB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -81302,6 +81331,11 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86690,10 +86724,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "rEe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/light{
 	color = "#A28226"
@@ -87680,10 +87712,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fsmaint)
 "rOa" = (
-/obj/structure/sign/directions/evac{
-	pixel_y = 8;
-	dir = 4
-	},
+/obj/machinery/teleport/perma/preset/cerestation/departures,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -88518,11 +88547,6 @@
 	},
 /area/station/supply/sorting)
 "rWJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -91538,7 +91562,7 @@
 "sDR" = (
 /obj/machinery/teleport/perma/preset/cerestation/cargo,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowfull"
+	icon_state = "darkbrownfull"
 	},
 /area/station/public/quantum/science)
 "sDY" = (
@@ -91715,7 +91739,8 @@
 	network = list("SS13","CE","engine")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkyellow";
+	dir = 1
 	},
 /area/station/public/quantum/engineering)
 "sGq" = (
@@ -94421,6 +94446,10 @@
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = 41;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -98498,9 +98527,7 @@
 	},
 /area/station/supply/expedition)
 "ugt" = (
-/obj/structure/sign/directions/service{
-	pixel_y = 8
-	},
+/obj/machinery/teleport/perma/preset/cerestation/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -102362,7 +102389,8 @@
 /area/station/engineering/control)
 "van" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	dir = 1;
+	icon_state = "darkfull"
 	},
 /area/station/public/quantum/science)
 "vap" = (
@@ -105311,7 +105339,7 @@
 /area/station/security/permabrig)
 "vFq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	dir = 10
 	},
 /turf/simulated/floor/light{
 	color = "#A28226"
@@ -107119,12 +107147,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "wcs" = (
-/obj/structure/sign/directions/science{
-	pixel_y = 8
-	},
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
+/obj/machinery/teleport/perma/preset/cerestation/science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -110349,9 +110375,21 @@
 /turf/simulated/mineral/ancient,
 /area/station/maintenance/fore2)
 "wKG" = (
-/obj/machinery/alarm/directional/east,
+/obj/structure/sign/directions/evac{
+	pixel_y = -23;
+	dir = 4
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 41
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/station/public/quantum/engineering)
 "wKK" = (
@@ -145705,12 +145743,12 @@ aXR
 nEJ
 jpb
 vFq
-qrT
-cIc
+qry
+lrw
 qrT
 orl
-xGj
-bCd
+eGE
+bIH
 tOM
 hkk
 vMM
@@ -145961,13 +145999,13 @@ gzv
 aXR
 nEJ
 sGi
-cGq
+cIc
 jte
 rEe
 jCl
 rWJ
-hEv
-bIH
+xGj
+qeY
 tOM
 wKn
 eOz
