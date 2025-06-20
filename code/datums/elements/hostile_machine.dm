@@ -5,7 +5,7 @@
 /datum/element/hostile_machine/Attach(datum/target)
 	. = ..()
 
-	if (!isatom(target))
+	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
 #ifdef UNIT_TESTS
