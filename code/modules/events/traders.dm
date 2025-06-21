@@ -4,6 +4,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 // Heavily copy-pasted from "heist" gamemode.
 
 /datum/event/traders
+	name = "Traders"
 	var/success_spawn = 0
 	var/station = null
 	var/spawn_count = 2
