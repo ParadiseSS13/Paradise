@@ -190,8 +190,10 @@
 /datum/species/machine/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)
 	if(flags & SHOCK_ILLUSION)
 		return
-	H.adjustBrainLoss(shock_damage)
-	H.adjust_nutrition(shock_damage)
+
+	var/obj/item/organ/internal/cell/battery = H.get_int_organ(/obj/item/organ/internal/cell)
+	if(battery.recharge_off_shocks)
+		battery.shock_recharge(shock_damage)
 	return ..()
 
 /datum/species/machine/handle_mutations_and_radiation(mob/living/carbon/human/H)

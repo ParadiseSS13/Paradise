@@ -1,7 +1,7 @@
 // IPC limbs.
 /obj/item/organ/external/head/ipc
 	can_intake_reagents = 0
-	max_damage = 50 //made same as arm, since it is not vital
+	max_damage = 75
 	min_broken_damage = 30
 	encased = null
 	status = ORGAN_ROBOT
@@ -30,6 +30,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/ipc
+	max_damage = 75
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -48,6 +49,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/ipc
+	max_damage = 75
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -66,6 +68,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/ipc
+	max_damage = 45
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -84,6 +87,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/ipc
+	max_damage = 45
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -113,6 +117,12 @@
 	status = ORGAN_ROBOT
 	requires_robotic_bodypart = TRUE
 	organ_datums = list(/datum/organ/battery)
+	var/recharge_off_shocks = TRUE
+	var/apc_damage_proof = FALSE
+
+/obj/item/organ/internal/cell/proc/shock_recharge(shock_damage = 0)
+	owner.adjust_nutrition(shock_damage)
+	to_chat(owner, "<span class='notice'>You feel invigorated!</span>")
 
 /obj/item/organ/internal/cell/overvoltageproof
 	name = "overvoltage-proofed microbattery"
@@ -183,11 +193,6 @@
 		to_chat(H, "<span class='warning'>You feel drained of energy!</span>")
 		H.adjust_nutrition(shock_damage * 1.2) // In exchange for shock immunity, nutrition is siphoned (multiplied to actually be a negative, otherwise IPCs will still gain nutrition from shocks)
 
-	else
-		// Real jank ways to prevent the IPC brain damage caused by shocks and reduce the damage recieved
-		H.adjustFireLoss(-shock_damage / 2)
-		H.adjustBrainLoss(-shock_damage)
-
 /obj/item/organ/internal/cell/overvoltageproof/proc/emp_effects(mob/victim, severity)
 	SIGNAL_HANDLER
 
@@ -213,14 +218,6 @@
 
 	if(emagged || mindflayer_has_faraday == 0)
 		 // We want them to take damage, but give them a bit more leeway than going blind instantly (for instance)
-		var/emp_mimic_damage = 0
-		switch(severity)
-			if(EMP_HEAVY)
-				emp_mimic_damage = 15
-			if(EMP_LIGHT)
-				emp_mimic_damage = 5
-			if(EMP_WEAKENED)
-				emp_mimic_damage = 2
 		for(var/X in owner.internal_organs)
 			var/obj/item/organ/internal/O = X
 			if(istype(O, /obj/item/organ/internal/brain/mmi_holder))
@@ -229,7 +226,7 @@
 				continue
 			if(istype(O, /obj/item/organ/internal/cell))
 				continue
-			O.receive_damage(emp_mimic_damage, 1)
+			O.receive_damage(5, 1)
 
 		if(mindflayer_has_faraday == 2)
 			return

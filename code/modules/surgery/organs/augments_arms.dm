@@ -385,7 +385,7 @@
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 
-// lets make IPCs even *more* vulnerable to EMPs!
+
 /obj/item/organ/internal/cyberimp/arm/power_cord
 	name = "APC-compatible power adapter implant"
 	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment, or to charge it in emergencies."
@@ -393,20 +393,7 @@
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/apc_powercord)
 	requires_robotic_bodypart = TRUE
-
-/obj/item/organ/internal/cyberimp/arm/power_cord/emp_act(severity)
-	// To allow repair via nanopaste/screwdriver
-	// also so IPCs don't also catch on fire and fall even more apart upon EMP
-	if(emp_proof)
-		return
-	damage = 1
-	crit_fail = TRUE
-
-/obj/item/organ/internal/cyberimp/arm/power_cord/surgeryize()
-	if(crit_fail && owner)
-		to_chat(owner, "<span class='notice'>Your [src] feels functional again.</span>")
-	crit_fail = FALSE
-
+	emp_proof = TRUE // No reason this should still be EMP-vulnerable after *8 years*
 
 /obj/item/apc_powercord
 	name = "power cable"
@@ -470,14 +457,13 @@
 	var/obj/item/organ/internal/cell/battery = H.get_int_organ(/obj/item/organ/internal/cell)
 	if(istype(power_source))
 		if((target.emagged || target.stat & BROKEN))
-			var/obj/item/organ/internal/cell/overvoltageproof/proofed_battery = battery
-			if(!istype(battery, /obj/item/organ/internal/cell/overvoltageproof) || proofed_battery.protection_inactive)
+			if(battery.apc_damage_proof)
+				do_sparks(3, 1, target)
+				to_chat(H, "<span class='warning'>The APC power currents surge erratically, but your [battery] protects you from damage!</span>")
+			else
 				do_sparks(3, 1, target)
 				to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
 				H.adjustFireLoss(10,0)
-			else
-				do_sparks(3, 1, target)
-				to_chat(H, "<span class='warning'>The APC power currents surge erratically, but your overvoltage-proofed microbattery protects you from damage!</span>")
 		else if(target.cell)
 			if(!charge_apc_mode)
 				if(target.cell.charge == 0)
