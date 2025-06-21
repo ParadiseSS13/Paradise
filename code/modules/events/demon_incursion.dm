@@ -42,6 +42,9 @@
 	if(initial_portals > 0)
 		log_debug("demonic incursion failed to find a valid turf in [impact_area]")
 
+	SSticker.record_biohazard_start(INCURSION_DEMONS)
+	SSevents.biohazards_this_round += INCURSION_DEMONS
+
 /datum/event/demon_incursion/proc/spawn_portal(location)
 	var/obj/structure/spawner/nether/demon_incursion/new_portal = new /obj/structure/spawner/nether/demon_incursion(location)
 	new_portal.linked_incursion = src
@@ -135,6 +138,7 @@
 	addtimer(CALLBACK(src, PROC_REF(stop_initial_mobs)), initial_spawn_time)
 	if(turf_to_spread)
 		spread_turf()
+	SSticker.mode.incursion_portals += src
 
 /obj/structure/spawner/nether/demon_incursion/deconstruct(disassembled)
 	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
@@ -150,6 +154,7 @@
 		linked_incursion.portal_list -= src
 		if(!length(linked_incursion.portal_list))
 			playsound(src, 'sound/misc/demon_dies.ogg', 100, TRUE, ignore_walls = TRUE)
+	SSticker.mode.incursion_portals -= src
 	return ..()
 
 /obj/structure/spawner/nether/demon_incursion/on_mob_spawn(mob/created_mob)
