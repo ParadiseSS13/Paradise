@@ -1391,16 +1391,6 @@
 
 // IPC Upgrades
 
-/datum/design/overvoltage_cell
-	name = "Overvoltage-proof Microbattery"
-	id = "ipc_cell_overvoltage"
-	req_tech = list("materials" = 5, "programming" = 6, "biotech" = 7, "powerstorage" = 7, "magnets" = 6, "engineering" = 7)
-	build_type = MECHFAB
-	build_path = /obj/item/organ/internal/cell/overvoltageproof
-	materials = list(MAT_METAL = 12500, MAT_SILVER = 5000, MAT_GOLD = 10000, MAT_PLASMA = 5000, MAT_DIAMOND = 5000)
-	construction_time = 20 SECONDS
-	category = list("IPC Upgrades")
-
 /datum/design/raiden_implant
 	name = "Reactive Repair Implant"
 	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
