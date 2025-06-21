@@ -13,7 +13,7 @@ jobs:
       (github.event.comment.author_association == 'MEMBER') ||
       (github.event.comment.author_association == 'OWNER'))
 
-    runs-on: ubuntu-24.04
+    runs-on: self-hosted
     steps:
       - id: create_token
         uses: actions/create-github-app-token@v2

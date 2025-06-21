@@ -11,7 +11,7 @@ on:
 
 jobs:
   CheckCL:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.base_ref == 'master' && github.event.pull_request.draft == false
 
     steps:

@@ -16,7 +16,7 @@ on:
 
 jobs:
   modular-maplint:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Lint Modular Maps
     steps:
       - name: Checkout
