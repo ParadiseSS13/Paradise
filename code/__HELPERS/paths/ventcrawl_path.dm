@@ -82,7 +82,7 @@
 		closed_set[current.atmos] = TRUE
 
 		for(var/dir in GLOB.cardinal)
-			if (!(dir & current.atmos.initialize_directions))
+			if(!(dir & current.atmos.initialize_directions))
 				continue
 			var/obj/machinery/atmospherics/neighbor = current.atmos.findConnecting(dir)
 			if(!neighbor || closed_set[neighbor])
