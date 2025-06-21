@@ -17,10 +17,10 @@
 	/// The `world.time` at the time the holocall is created
 	var/call_start_time
 
-/// Creates a holocall made by `caller` from `calling_pad` to `callees`
-/datum/holocall/New(mob/living/caller, obj/machinery/hologram/holopad/calling_pad, list/callees)
+/// Creates a holocall made by `holo_caller` from `calling_pad` to `callees`
+/datum/holocall/New(mob/living/holo_caller, obj/machinery/hologram/holopad/calling_pad, list/callees)
 	call_start_time = world.time
-	user = caller
+	user = holo_caller
 	calling_pad.outgoing_call = src
 	calling_holopad = calling_pad
 	dialed_holopads = list()
@@ -31,7 +31,7 @@
 			dialed_holopads += H
 			var/area/area = get_area(H)
 			LAZYADD(H.holo_calls, src)
-			H.atom_say("[area] pad beeps: Incoming call from [caller]!")
+			H.atom_say("[area] pad beeps: Incoming call from [holo_caller]!")
 
 	if(!length(dialed_holopads))
 		calling_holopad.atom_say("Connection failure.")
