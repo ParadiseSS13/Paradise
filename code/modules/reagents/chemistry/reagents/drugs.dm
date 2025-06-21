@@ -906,16 +906,32 @@
 		changeling_chemical_tracker = 0
 
 	if(current_cycle < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
-		L.visible_message(
-			"<span class='danger'>[L] suddenly slows from their inhuman speeds, coming back with a wicked nosebleed!</span>",
-			"<span class='danger'>You suddenly slow back to normal, a stream of blood gushing from your nose!</span>")
+		if(ismachineperson(L))
+			L.visible_message(
+				"<span class='danger'>[L] suddenly slows from their inhuman speeds, sparking ever so slightly!</span>",
+				"<span class='danger'>You suddenly slow back to normal, a few sparks coming from your body!</span>")
+			playsound(L, "sparks", 30, TRUE)
+		else
+			L.visible_message(
+				"<span class='danger'>[L] suddenly slows from their inhuman speeds, coming back with a wicked nosebleed!</span>",
+				"<span class='danger'>You suddenly slow back to normal, a stream of blood gushing from your nose!</span>")
 		L.adjustStaminaLoss(current_cycle * 2)
 	else // Much longer than that however, and you're not gonna have a good day
-		L.visible_message(
-			"<span class='danger'>[L] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!</span>",
-			"<span class='danger'>As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.</span>")
-		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
-		L.bleed(25)
+		if(ismachineperson(L))
+			L.visible_message(
+				"<span class='danger'>[L] suddenly snaps back from their inhumans speeds, emitting a shower of sparks!</span>",
+				"<span class='danger'>As you snap back to normal speed your body emits a worrying shower of sparks. You feel like you just touched a tesla.</span>")
+			var/datum/effect_system/spark_spread/sparkies = new /datum/effect_system/spark_spread
+			sparkies.set_up(2, 0, L)
+			sparkies.attach(L)
+			sparkies.start()
+			QDEL_NULL(sparkies)
+		else
+			L.visible_message(
+				"<span class='danger'>[L] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!</span>",
+				"<span class='danger'>As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.</span>")
+			L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
+			L.bleed(25)
 		L.apply_damage(max(current_cycle * 2 / 3, 60), STAMINA)
 		L.KnockDown((current_cycle * 2 / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
 		if(!HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED) || current_cycle >= CONSTANT_DOSE_DEATH_LIMIT) //If you are going infinite with mito and you run out, you deserve this even with an implant
@@ -1066,8 +1082,7 @@
 		else
 			handle_heartless(L, 0.9)
 
-
-	if(prob(5))
+	if(prob(5) && !ismachineperson(L))
 		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 		L.bleed(5)
 

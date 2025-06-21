@@ -637,11 +637,20 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
 		return
-	owner.vomit(100, FALSE, TRUE, 3, FALSE)	// because when else do we ever use projectile vomiting
-	owner.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
-		"<span class='warning'>You feel like your insides are burning as you vomit profusely!</span>",
-		"<span class='warning'>You hear vomiting and a sickening splattering against the floor!</span>")
-	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
+	if(!ismachineperson(owner)) // Robots cannot vomit or get sick!
+		owner.vomit(100, FALSE, TRUE, 3, FALSE)	// because when else do we ever use projectile vomiting
+		owner.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
+			"<span class='warning'>You feel like your insides are burning as you vomit profusely!</span>",
+			"<span class='warning'>You hear vomiting and a sickening splattering against the floor!</span>")
+		owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
+	else // Instead, disorient them almost akin to a thrown batonga, and remove some nutrition
+		owner.visible_message("<span class='warning'>[owner] starts violently shaking!</span>",
+			"<span class='warning'>You feel an unpleasant jolt in your body, jumbling your movement and disorienting you!</span>",
+			"<span class='warning'>You hear a sudden clatter of metal and servos!</span>")
+		owner.Confused(4 SECONDS)
+		owner.Jitter(4 SECONDS)
+		owner.SetStuttering(4 SECONDS)
+		owner.adjust_nutrition(-50)
 	disabled_by_emp = TRUE		// Disable the implant for a little bit so this effect actually matters
 	synthesizing = FALSE
 	addtimer(CALLBACK(src, PROC_REF(emp_cool)), 60 SECONDS)
