@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	action_cooldown = 2 SECONDS
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 	/// How far can we see stuff?
-	var/vision_range = 9
+	var/vision_range = 11
 	/// Blackboard key for aggro range, uses vision range if not specified
 	var/aggro_range_key = BB_AGGRO_RANGE
 

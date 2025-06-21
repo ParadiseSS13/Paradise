@@ -34,4 +34,5 @@
 		name = "grappling " + name
 		ai_controller = new /datum/ai_controller/basic_controller/simple/simple_skirmisher/demon_incursion(src)
 		update_appearance(UPDATE_NAME)
+		color = "#5494DA"
 	AddElement(/datum/element/ai_retaliate)

@@ -1,7 +1,7 @@
 /datum/event/demon_incursion
 	name = "demon incursion"
-	announceWhen = 15
-	endWhen = 45
+	announceWhen = 60
+	endWhen = 60
 	/// The name of the notification for dchat
 	var/notify_title = "Demonic Incursion"
 	/// The icon of the notification
@@ -82,7 +82,7 @@
 				kill()
 				return
 		else
-			log_debug("Tried to announce a tear without a valid area!")
+			log_debug("Tried to announce an incursion without a valid area!")
 			kill()
 			return
 
