@@ -220,8 +220,8 @@
 //	CIG PACK
 ////////////
 /obj/item/storage/fancy/cigarettes
-	name = "Solar Rays packet"
-	desc = "A popular brand within the Trans-Solar Federation, they have a smooth, slightly cinnamon flavour. \
+	name = "\improper Solar Rays packet"
+	desc = "A popular brand within the Trans-Solar Federation, they have a smooth, slightly cinnamon flavour.<br><br>\
 	Whilst not actually state-owned, these cigarettes lean heavily into patriotic marketing, and are included in federal ration packs as a morale booster."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "solar_packet"
@@ -333,7 +333,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
-	desc = "Whilst you cannot decipher what the strange runes on the packet say, the cigarettes inside bear the unmistakable scent of cannabis."
+	desc = "Whilst you cannot decipher what the strange runes on the packet say, it bears the unmistakable scent of cannabis."
 	icon_state = "midori_packet"
 	item_state = "midori_packet"
 	cigarette_slogan = ""
@@ -341,9 +341,9 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_our_brand
 	name = "\improper Our Brand packet"
-	desc = "The one, official brand of cigarette available USSP. \
-	Exported across the Orion Sector by vendors affiliated with the Nian Merchant Guild. \
-	The flavour is bland, the smoke is thin and wispy, yet harsh on the throat. The only redeeming features are the high nicotine content and the very cheap price."
+	desc = "The one, official brand of cigarette available in the USSP. \
+	Exported across the Orion sector by vendors affiliated with the Nian Merchant Guild.<br><br> \
+	The flavour is bland, the smoke is thin and wispy, yet harsh on the throat. The only redeeming features are the high nicotine content and the low price."
 	icon_state = "our_brand_packet"
 	item_state = "our_brand_packet"
 	cigarette_slogan = "Smoke, for the Union!"
@@ -358,7 +358,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	name = "\improper Robust Gold packet"
-	desc = "Nanotrasen's premium cigarette offering. Has a smooth drawn-out flavour and a dense smoke. Contains real gold."
+	desc = "Nanotrasen's premium cigarette offering. Has a smooth, drawn-out flavour and a dense smoke. Contains real gold."
 	icon_state = "robust_g_packet"
 	item_state = "robust_g_packet"
 	cigarette_slogan = "Smoked by the <b>truly</b> robust."
@@ -377,7 +377,7 @@
 	. += "<span class = 'warning'>*Warning: Do not expose to high temperatures or naked flames, contains additives that will form nicotine at high temperatures.</span>"
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
-	name ="\improper Shady Jim's Super Slims"
+	name ="\improper Shady Jim's Super Slims packet"
 	desc = "Despite the doubious appearance, these cigarettes do exactly what they say on the box. The smoke tastes like cheap berry juice and battery acid, with a bitter chemical aftertaste."
 	icon_state = "shady_jim_packet"
 	item_state = "shady_jim_packet"
@@ -394,7 +394,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
-	name = "\improper Medical Marijuana Packet"
+	name = "medical marijuana packet"
 	desc = "A prescription packet containing six medical marijuana cigarettes. Made using a strain of cannabis engineered to maximise CBD content and eliminate THC, much to the chagrin of stoners everywhere."
 	icon_state = "med_packet"
 	item_state = "med_packet"
@@ -402,8 +402,8 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	name = "Suspicious cigarette packet"
-	desc = "An obscure brand of evil-looking cigarettes. They smell like donk pockets."
+	name = "suspicious cigarette packet"
+	desc = "An obscure brand of evil-looking cigarettes. Smells like Donk pockets."
 	icon_state = "syndie_packet"
 	item_state = "syndie_packet"
 	cigarette_slogan = "Strong flavour, dense smoke, infused with omnizine."
