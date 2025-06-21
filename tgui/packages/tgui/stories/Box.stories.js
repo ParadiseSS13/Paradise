@@ -4,14 +4,14 @@
  * @license MIT
  */
 
-import { Box, Section } from '../components';
+import { Box, Section } from 'tgui-core/components';
 
 export const meta = {
   title: 'Box',
   render: () => <Story />,
 };
 
-const Story = (props, context) => {
+const Story = (props) => {
   return (
     <Section>
       <Box bold>bold</Box>

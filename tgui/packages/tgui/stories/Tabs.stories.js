@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
-import { Button, Section, Tabs } from '../components';
+import { useState } from 'react';
+import { Button, Section, Tabs } from 'tgui-core/components';
 
 export const meta = {
   title: 'Tabs',
@@ -14,9 +14,9 @@ export const meta = {
 
 const TAB_RANGE = ['Tab #1', 'Tab #2', 'Tab #3', 'Tab #4'];
 
-const Story = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const [tabProps, setTabProps] = useLocalState(context, 'tabProps', {});
+const Story = (props) => {
+  const [tabIndex, setTabIndex] = useState(0);
+  const [tabProps, setTabProps] = useState({});
   return (
     <>
       <Section>
