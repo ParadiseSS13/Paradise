@@ -151,7 +151,7 @@
 	if(prob(5))
 		owner.Dizzy(5 SECONDS)
 		to_chat(owner, "<span class='warning'>Your head feels foggy.</span>")
-	else if(prob(4) && !ismachineperson())
+	else if(prob(4) && !ismachineperson(owner))
 		owner.vomit()
 		to_chat(owner, "<span class='warning'>You feel nauseous.</span>")
 
