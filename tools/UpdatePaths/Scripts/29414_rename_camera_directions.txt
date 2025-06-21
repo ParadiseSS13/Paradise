@@ -1,0 +1,87 @@
+/obj/machinery/camera/motion{c_tag="Mini Satellite Antechamber Center"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Antechamber Center"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Antechamber North"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Antechamber North"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Antechamber"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Antechamber"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Exterior East"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior East"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Exterior West"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior West"}
+/obj/machinery/camera/motion{c_tag="Mini Satellite Maintenance"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Maintenance"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Aft Port"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Aft Port"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Aft Starboard"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Aft Starboard"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Aft"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Aft"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Fore Port"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Fore Port"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Fore Starboard"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Fore Starboard"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Fore"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Fore"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Port Aft"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Port Aft"}
+/obj/machinery/camera/motion{c_tag="MiniSat Exterior - Starboard Aft"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Exterior - Starboard Aft"}
+/obj/machinery/camera/motion{c_tag="MiniSat Telecomms"} : /obj/machinery/camera/motion{@OLD;c_tag="AI Satellite Telecomms"}
+/obj/machinery/camera{c_tag="AI Minisatellite Airlock Exterior"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Airlock Exterior"}
+/obj/machinery/camera{c_tag="AI Minisatellite Foyer Access"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Foyer Access"}
+/obj/machinery/camera{c_tag="AI Minisatellite Foyer Airlock"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Foyer Airlock"}
+/obj/machinery/camera{c_tag="AI Minisatellite Foyer Exterior North"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Foyer Exterior North"}
+/obj/machinery/camera{c_tag="AI Minisatellite Foyer Exterior South"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Foyer Exterior South"}
+/obj/machinery/camera{c_tag="AI Minisatellite Foyer"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Foyer"}
+/obj/machinery/camera{c_tag="AI Minisatellite North"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite North"}
+/obj/machinery/camera{c_tag="AI Minisatellite NorthEast"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite NorthEast"}
+/obj/machinery/camera{c_tag="AI Minisatellite NorthWest"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite NorthWest"}
+/obj/machinery/camera{c_tag="AI Minisatellite South"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite South"}
+/obj/machinery/camera{c_tag="AI Minisatellite SouthEast"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite SouthEast"}
+/obj/machinery/camera{c_tag="AI Minisatellite SouthWest"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite SouthWest"}
+/obj/machinery/camera{c_tag="AI Minisatellite West"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite West"}
+/obj/machinery/camera{c_tag="AI Sat Break Room"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Break Room"}
+/obj/machinery/camera{c_tag="AI Sat Outer Ring North East"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Outer Ring North East"}
+/obj/machinery/camera{c_tag="AI Sat Outer Ring North West"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Outer Ring North West"}
+/obj/machinery/camera{c_tag="AI Sat Outer Ring South East"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Outer Ring South East"}
+/obj/machinery/camera{c_tag="AI Sat Outer Ring South West"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Outer Ring South West"}
+/obj/machinery/camera{c_tag="Brig HOS Office"} : /obj/machinery/camera{@OLD;c_tag="Brig Head of Security's Office"}
+/obj/machinery/camera{c_tag="Courtroom "} : /obj/machinery/camera{@OLD;c_tag="Courtroom"}
+/obj/machinery/camera{c_tag="Engineering Chief Engineer's Office"} : /obj/machinery/camera{@OLD;c_tag="Chief Engineer's Office"}
+/obj/machinery/camera{c_tag="Engineering Supermatter Aft"} : /obj/machinery/camera{@OLD;c_tag="Supermatter Aft"}
+/obj/machinery/camera{c_tag="Engineering Supermatter Decontamination"} : /obj/machinery/camera{@OLD;c_tag="Supermatter Decontamination"}
+/obj/machinery/camera{c_tag="Engineering Supermatter Emitter Chamber"} : /obj/machinery/camera{@OLD;c_tag="Supermatter Emitter Chamber"}
+/obj/machinery/camera{c_tag="Engineering Supermatter Entrance Chamber"} : /obj/machinery/camera{@OLD;c_tag="Supermatter Entrance Chamber"}
+/obj/machinery/camera{c_tag="Engineering Supermatter Fore"} : /obj/machinery/camera{@OLD;c_tag="Supermatter Fore"}
+/obj/machinery/camera{c_tag="Engineering Supermatter Port"} : /obj/machinery/camera{@OLD;c_tag="Supermatter Port"}
+/obj/machinery/camera{c_tag="Engineering Supermatter Starboard"} : /obj/machinery/camera{@OLD;c_tag="Supermatter Starboard"}
+/obj/machinery/camera{c_tag="Head of Personnel Office North"} : /obj/machinery/camera{@OLD;c_tag="Head of Personnel's Office North"}
+/obj/machinery/camera{c_tag="Head of Personnel Office South East"} : /obj/machinery/camera{@OLD;c_tag="Head of Personnel's Office South East"}
+/obj/machinery/camera{c_tag="Mini Satellite Access"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Access"}
+/obj/machinery/camera{c_tag="Mini Satellite Teleporter"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Teleporter"}
+/obj/machinery/camera{c_tag="MiniSat Central"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Central"}
+/obj/machinery/camera{c_tag="MiniSat Exterior - Space Access"} : /obj/machinery/camera{@OLD;c_tag="AI Satellite Exterior - Space Access"}
+/obj/machinery/camera{c_tag="SM Cooling Port"} : /obj/machinery/camera{@OLD;c_tag="Supermatter Cooling Port"}
+/obj/machinery/camera{c_tag="SM Cooling Starboard"} : /obj/machinery/camera{@OLD;c_tag="Supermatter Cooling Starboard"}
+/obj/machinery/camera{c_tag="SM East"} : /obj/machinery/camera{@OLD;c_tag="Supermatter East"}
+/obj/machinery/camera{c_tag="SM North"} : /obj/machinery/camera{@OLD;c_tag="Supermatter North"}
+/obj/machinery/camera{c_tag="SM South"} : /obj/machinery/camera{@OLD;c_tag="Supermatter South"}
+/obj/machinery/camera{c_tag="SM West"} : /obj/machinery/camera{@OLD;c_tag="Supermatter West"}
+/obj/machinery/camera{c_tag="Science Hallway - Xenobio Acess"} : /obj/machinery/camera{@OLD;c_tag="Science Hallway - Xenobiology Acess"}
+/obj/machinery/camera{c_tag="Xeno Containment 1"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Containment 1"}
+/obj/machinery/camera{c_tag="Xeno Containment 2"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Containment 2"}
+/obj/machinery/camera{c_tag="Xeno Containment 3"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Containment 3"}
+/obj/machinery/camera{c_tag="Xeno Containment 4"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Containment 4"}
+/obj/machinery/camera{c_tag="Xeno Containment 5"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Containment 5"}
+/obj/machinery/camera{c_tag="Xeno Containment 6"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Containment 6"}
+/obj/machinery/camera{c_tag="Xeno Containment Mini-Pen 1"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Containment Mini-Pen 1"}
+/obj/machinery/camera{c_tag="Xeno Containment Mini-Pen 2"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Containment Mini-Pen 2"}
+/obj/machinery/camera{c_tag="Xeno High Security Containment"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology High Security Containment"}
+/obj/machinery/camera{c_tag="Xeno Kill Room"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Kill Room"}
+/obj/machinery/camera{c_tag="Xenobio East"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology East"}
+/obj/machinery/camera{c_tag="Xenobio West"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology West"}
+/obj/machinery/camera{c_tag="Xenobiology Lab - Airlock"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology - Airlock"}
+/obj/machinery/camera{c_tag="Xenobiology Lab - Central Aft Starboard"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology - Central Aft Starboard"}
+/obj/machinery/camera{c_tag="Xenobiology Lab - Central Aft"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology - Central Aft"}
+/obj/machinery/camera{c_tag="Xenobiology Lab - Central Fore Starboard"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology - Central Fore Starboard"}
+/obj/machinery/camera{c_tag="Xenobiology Lab - Central Fore"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology - Central Fore"}
+/obj/machinery/camera{c_tag="Xenobiology Lab - Central Port"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology - Central Port"}
+/obj/machinery/camera{c_tag="Xenobiology Lab - Fore"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology - Fore"}
+/obj/machinery/camera{c_tag="Xenobiology Lab - Space Bridge"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology - Space Bridge"}
+/obj/machinery/camera{c_tag="Xenobiology Lab - Special Containment"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology - Special Containment"}
+/obj/machinery/camera{c_tag="Xenobiology Module Chamber 2"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Chamber 2"}
+/obj/machinery/camera{c_tag="Xenobiology Module Chamber 3"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Chamber 3"}
+/obj/machinery/camera{c_tag="Xenobiology Module Chamber 4"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Chamber 4"}
+/obj/machinery/camera{c_tag="Xenobiology Module Chamber 5"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Chamber 5"}
+/obj/machinery/camera{c_tag="Xenobiology Module Chamber 6"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Chamber 6"}
+/obj/machinery/camera{c_tag="Xenobiology Module Chamber 7"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Chamber 7"}
+/obj/machinery/camera{c_tag="Xenobiology Module East"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology East"}
+/obj/machinery/camera{c_tag="Xenobiology Module Hazard Pen"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology Hazard Pen"}
+/obj/machinery/camera{c_tag="Xenobiology Module North"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology North"}
+/obj/machinery/camera{c_tag="Xenobiology Module West"} : /obj/machinery/camera{@OLD;c_tag="Xenobiology West"}

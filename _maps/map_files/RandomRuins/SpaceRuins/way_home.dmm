@@ -15,7 +15,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
 "g" = (
-/obj/structure/spawner/mining/hivelord,
+/obj/structure/spawner/mining/hivelord/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
 "n" = (
@@ -26,7 +26,7 @@
 /turf/template_noop,
 /area/template_noop)
 "z" = (
-/obj/structure/spawner/mining/basilisk,
+/obj/structure/spawner/mining/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
 "O" = (

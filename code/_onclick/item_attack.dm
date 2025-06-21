@@ -69,9 +69,14 @@
 	if(temperature && A.reagents && !ismob(A) && !istype(A, /obj/item/clothing/mask/cigarette))
 		var/reagent_temp = A.reagents.chem_temp
 		var/time = (reagent_temp / 10) / (temperature / 1000)
-		if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
-			to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
-			A.reagents.temperature_reagents(temperature)
+		if(user.mind && HAS_TRAIT(user.mind, TRAIT_QUICK_HEATER))
+			while(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
+				to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+				A.reagents.temperature_reagents(temperature)
+		else
+			if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
+				to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+				A.reagents.temperature_reagents(temperature)
 
 /**
  * Called when mob `user` is hitting us with an item `attacking`.

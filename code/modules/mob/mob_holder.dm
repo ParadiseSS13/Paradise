@@ -114,6 +114,7 @@
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/holder/bunny
 	name = "bunny"

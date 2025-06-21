@@ -36,7 +36,7 @@
 	if(!length(possible_transfer_amounts))
 		// Nothing to configure.
 		return FALSE
-	return TRUE
+	return is_valid_interaction(user)
 
 /obj/item/reagent_containers/proc/is_valid_interaction(mob/user)
 	if(isrobot(user) && src.loc == user)
