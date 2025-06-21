@@ -1,5 +1,5 @@
 /obj/machinery/computer/camera_advanced/abductor
-	name = "Human Observation Console"
+	name = "Station Observation Console"
 	var/team = 0
 	networks = list("SS13","Abductor")
 	var/datum/action/innate/teleport_in/tele_in_action = new
