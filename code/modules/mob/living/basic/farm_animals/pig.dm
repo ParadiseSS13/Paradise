@@ -39,7 +39,6 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	unintelligble_phrases = list("Oink?", "Oink", "OINK")
 	unintelligble_speak_verbs = list("oinks")
-	ventcrawler = VENTCRAWLER_ALWAYS
 
 /mob/living/basic/pig/Initialize(mapload)
 	. = ..()

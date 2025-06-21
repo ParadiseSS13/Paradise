@@ -26,6 +26,7 @@
 
 	// we have a target and we're nearby
 	if(controller.blackboard_key_exists(BB_VENT_SEARCH_RANGE) && get_dist(controller.pawn, controller.blackboard[BB_VENTCRAWL_FINAL_TARGET]) <= controller.blackboard[BB_VENT_SEARCH_RANGE])
+		// sometimes mobs can get stuck here if they're behind a wall... dunno how to fix this.
 		controller.set_blackboard_key(BB_VENTCRAWL_ENTRANCE, null)
 		controller.set_blackboard_key(BB_VENTCRAWL_EXIT, null)
 		controller.queue_behavior(/datum/ai_behavior/travel_towards/stop_on_arrival, BB_VENTCRAWL_FINAL_TARGET)
@@ -41,12 +42,6 @@
 
 /**
  * This proc assumes that all ventcrawling creatures are omniscient.
- *
- * This could also be significantly improved, using some form of bi-directional flood-fill search to get
- * accessible and connected vents.
- *
- * Currently, this has a problem where the pawn may not be able to access the entrance vent
- * or the final destintion because of obstacles.
  */
 /datum/ai_behavior/find_and_set/ventcrawl/search_tactic(datum/ai_controller/controller, locate_path, search_range)
 	// we're inside a vent already, lets look for another way
@@ -54,7 +49,7 @@
 		var/obj/machinery/atmospherics/A = controller.pawn.loc
 		var/datum/pipeline/P = A.returnPipenet()
 		var/list/datum/pipeline/connected_pipelines = P.get_connected_pipelines()
-		for(var/turf/T in spiral_range_turfs(search_range, controller.blackboard[BB_VENTCRAWL_FINAL_TARGET]))
+		for(var/turf/T in spiral_range_turfs(search_range, controller.blackboard[BB_VENTCRAWL_FINAL_TARGET])) // get the nearest vents to the target first
 			for(var/obj/machinery/atmospherics/exit in T)
 				if(!is_type_in_list(exit, GLOB.ventcrawl_machinery))
 					continue
@@ -64,22 +59,16 @@
 					return exit
 		return
 
-	var/list/obj/machinery/atmospherics/exit_vents = list()
-	for(var/turf/T in spiral_range_turfs(search_range, controller.blackboard[BB_VENTCRAWL_FINAL_TARGET]))
-		for(var/obj/machinery/atmospherics/atmos in T)
-			if(is_type_in_list(atmos, GLOB.ventcrawl_machinery) && atmos.can_crawl_through())
-				exit_vents |= atmos
+	// else, lets do a search for vents we have access to
+	var/mob/M = controller.pawn
+	var/datum/can_pass_info/pass_info = new(M, M.get_access())
 
-	if(!length(exit_vents))
+	var/list/obj/machinery/atmospherics/entrance_vents = nearby_vents(get_turf(controller.pawn), FALSE, search_range, pass_info)
+	if(!length(entrance_vents))
 		return
 
-	var/list/obj/machinery/atmospherics/entrance_vents = list()
-	for(var/turf/T in spiral_range_turfs(search_range, controller.pawn))
-		for(var/obj/machinery/atmospherics/atmos in T)
-			if(is_type_in_list(atmos, GLOB.ventcrawl_machinery) && atmos.can_crawl_through())
-				entrance_vents |= atmos
-
-	if(!length(entrance_vents))
+	var/list/obj/machinery/atmospherics/exit_vents = nearby_vents(get_turf(controller.blackboard[BB_VENTCRAWL_FINAL_TARGET]), TRUE, search_range, pass_info)
+	if(!length(exit_vents))
 		return
 
 	// try to find ones that share a pipeline first
@@ -98,6 +87,39 @@
 			if(entrance != exit) // They're connected and not the same vent
 				controller.set_blackboard_key(BB_VENTCRAWL_ENTRANCE, entrance)
 				return exit
+
+/**
+ * Find something interesting nearby that we have access to.
+ */
+/datum/ai_behavior/find_and_set/ventcrawl/proc/nearby_vents(initial_location, reversed, max_dist, pass_info)
+	// to search
+	var/list/open_set = list(initial_location)
+	// already searched
+	var/list/closed_set = list()
+	// the vents to return
+	var/list/obj/machinery/atmospherics/vents = list()
+
+	while(length(open_set))
+		var/turf/current = popleft(open_set)
+		closed_set |= current
+		for(var/obj/machinery/atmospherics/atmos in current)
+			if(is_type_in_list(atmos, GLOB.ventcrawl_machinery) && atmos.can_crawl_through())
+				vents |= atmos
+
+		for(var/dir in GLOB.cardinal)
+			var/turf/next = get_step(current, dir)
+			if((next in closed_set) || (get_dist(initial_location, next) > max_dist))
+				continue
+			// some accesses are directionally sensitive, like one-way airlocks
+			if(reversed)
+				if(current.density || next.LinkBlockedWithAccess(current, pass_info))
+					continue
+			else
+				if(next.density || current.LinkBlockedWithAccess(next, pass_info))
+					continue
+			open_set |= next
+
+	return vents
 
 /datum/ai_behavior/find_and_set/pipenet_vent/search_tactic(datum/ai_controller/controller, locate_path, search_range)
 	// presume that all ventcrawling creatures are omniscient, at least about vents :)
