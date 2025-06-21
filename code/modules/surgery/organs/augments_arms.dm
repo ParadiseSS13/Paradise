@@ -430,13 +430,10 @@
 		to_chat(user, "<span class='notice'>You switch \the [src] to discharging mode, allowing you to charge APCs with your own charge.</span>")
 		charge_apc_mode = TRUE
 
-/obj/item/apc_powercord/pre_attack(atom/A, mob/living/user, params)
-	if(..())
-		return FINISH_ATTACK
-
-	if(istype(A, /obj/machinery/power/apc))
-		handle_apc_interaction(user, A)
-		return FINISH_ATTACK
+/obj/item/apc_powercord/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(istype(target, /obj/machinery/power/apc))
+		handle_apc_interaction(user, target)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/apc_powercord/proc/handle_apc_interaction(mob/living/carbon/user, obj/machinery/power/apc/target)
 	if(drawing_power)
@@ -453,7 +450,6 @@
 	hunger_limit += 50 // Kinda jank workaround to prevent Nutriment Pumps from activating when you drain your own hunger to power an APC
 
 	var/datum/organ/battery/power_source = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
-	var/obj/item/organ/internal/cell/battery = H.get_int_organ(/obj/item/organ/internal/cell)
 	if(istype(power_source))
 		if(target.emagged || target.stat & BROKEN)
 			do_sparks(3, 1, target)
