@@ -171,8 +171,11 @@
 		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
 
 /obj/structure/spawner/nether/demon_incursion/proc/spread()
+	// Spread chance linearly decreases as more portals are added, flattening at 50% once portal count is 3x the starting amount
+	var/base_portal_count = max(length(GLOB.crew_list) / 10, 1)
+	portal_spread_chance = 100 - min((50 * max(length(linked_incursion.portal_list) - base_portal_count, 0) / (base_portal_count * 2)), 50)
+	expansion_delay = rand(portal_spread_cooldown_min, portal_spread_cooldown_max)
 	if(!prob(portal_spread_chance))
-		expansion_delay = rand(portal_spread_cooldown_min, portal_spread_cooldown_max)
 		addtimer(CALLBACK(src, PROC_REF(spread)), expansion_delay)
 		return
 	var/list/spawnable_turfs = list()
@@ -193,7 +196,6 @@
 		return
 	var/turf/spawn_loc = pick_n_take(spawnable_turfs)
 	linked_incursion.spawn_portal(spawn_loc)
-	expansion_delay = rand(portal_spread_cooldown_min, portal_spread_cooldown_max)
 	addtimer(CALLBACK(src, PROC_REF(spread)), expansion_delay)
 	return
 
