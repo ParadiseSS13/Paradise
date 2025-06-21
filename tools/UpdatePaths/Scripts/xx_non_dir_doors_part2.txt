@@ -1,0 +1,39 @@
+/obj/machinery/door/poddoor/multi_tile/quad/directional/north : /obj/machinery/door/poddoor/multi_tile/quad{@OLD;dir=4}
+/obj/machinery/door/poddoor/multi_tile/quad/directional/south : /obj/machinery/door/poddoor/multi_tile/quad{@OLD;dir=8}
+/obj/machinery/door/poddoor/multi_tile/quad/directional/east : /obj/machinery/door/poddoor/multi_tile/quad{@OLD;dir=@SKIP}
+/obj/machinery/door/poddoor/multi_tile/quad/directional/west : /obj/machinery/door/poddoor/multi_tile/quad{@OLD;dir=1}
+
+/obj/machinery/door/poddoor/multi_tile/triple/directional/north : /obj/machinery/door/poddoor/multi_tile/triple{@OLD;dir=4}
+/obj/machinery/door/poddoor/multi_tile/triple/directional/south : /obj/machinery/door/poddoor/multi_tile/triple{@OLD;dir=8}
+/obj/machinery/door/poddoor/multi_tile/triple/directional/east : /obj/machinery/door/poddoor/multi_tile/triple{@OLD;dir=@SKIP}
+/obj/machinery/door/poddoor/multi_tile/triple/directional/west : /obj/machinery/door/poddoor/multi_tile/triple{@OLD;dir=1}
+
+/obj/machinery/door/poddoor/multi_tile/double/directional/north : /obj/machinery/door/poddoor/multi_tile{@OLD;dir=4}
+/obj/machinery/door/poddoor/multi_tile/double/directional/south : /obj/machinery/door/poddoor/multi_tile{@OLD;dir=8}
+/obj/machinery/door/poddoor/multi_tile/double/directional/east : /obj/machinery/door/poddoor/multi_tile{@OLD;dir=@SKIP}
+/obj/machinery/door/poddoor/multi_tile/double/directional/west : /obj/machinery/door/poddoor/multi_tile{@OLD;dir=1}
+
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/north : /obj/machinery/door/poddoor/multi_tile/impassable/quad{@OLD;dir=4}
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/south : /obj/machinery/door/poddoor/multi_tile/impassable/quad{@OLD;dir=8}
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/east : /obj/machinery/door/poddoor/multi_tile/impassable/quad{@OLD;dir=@SKIP}
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/directional/west : /obj/machinery/door/poddoor/multi_tile/impassable/quad{@OLD;dir=1}
+
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north : /obj/machinery/door/poddoor/multi_tile/impassable/triple{@OLD;dir=4}
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/south : /obj/machinery/door/poddoor/multi_tile/impassable/triple{@OLD;dir=8}
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east : /obj/machinery/door/poddoor/multi_tile/impassable/triple{@OLD;dir=@SKIP}
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/west : /obj/machinery/door/poddoor/multi_tile/impassable/triple{@OLD;dir=1}
+
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/north : /obj/machinery/door/poddoor/multi_tile/impassable{@OLD;dir=4}
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/south : /obj/machinery/door/poddoor/multi_tile/impassable{@OLD;dir=8}
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/east : /obj/machinery/door/poddoor/multi_tile/impassable{@OLD;dir=@SKIP}
+/obj/machinery/door/poddoor/multi_tile/impassable/double/directional/west : /obj/machinery/door/poddoor/multi_tile/impassable{@OLD;dir=1}
+
+/obj/machinery/door/airlock/multi_tile/directional/north : /obj/machinery/door/airlock/multi_tile{@OLD;dir=4}
+/obj/machinery/door/airlock/multi_tile/directional/south : /obj/machinery/door/airlock/multi_tile{@OLD;dir=8}
+/obj/machinery/door/airlock/multi_tile/directional/east : /obj/machinery/door/airlock/multi_tile{@OLD;dir=@SKIP}
+/obj/machinery/door/airlock/multi_tile/directional/west : /obj/machinery/door/airlock/multi_tile{@OLD;dir=1}
+
+/obj/machinery/door/airlock/multi_tile/glass/directional/north : /obj/machinery/door/airlock/multi_tile/glass{@OLD;dir=4}
+/obj/machinery/door/airlock/multi_tile/glass/directional/south : /obj/machinery/door/airlock/multi_tile/glass{@OLD;dir=8}
+/obj/machinery/door/airlock/multi_tile/glass/directional/east : /obj/machinery/door/airlock/multi_tile/glass{@OLD;dir=@SKIP}
+/obj/machinery/door/airlock/multi_tile/glass/directional/west : /obj/machinery/door/airlock/multi_tile/glass{@OLD;dir=1}

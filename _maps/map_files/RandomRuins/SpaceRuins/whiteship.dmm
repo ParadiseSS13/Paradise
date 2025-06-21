@@ -102,7 +102,9 @@
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "tV" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/north,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "ux" = (
