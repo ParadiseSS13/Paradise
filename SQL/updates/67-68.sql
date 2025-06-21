@@ -14,7 +14,7 @@ CREATE TABLE `ip2group_copy` (
 DELETE FROM ip2group WHERE groupstr = ''; # This is junk
 
 INSERT INTO ip2group_copy (ip, date, groupstr)
-SELECT INET_ATON(`ip`), `date`, CAST(`groupstr` AS INT) FROM ip2group;
+SELECT INET_ATON(`ip`), `date`, CAST(`groupstr` AS UNSIGNED) FROM ip2group;
 
 # Drop old table
 DROP TABLE `ip2group`;
