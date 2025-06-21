@@ -56,9 +56,9 @@
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
-	desc = "Reverse engineered by Cybersun Industries from Donk Corporation designs, this system of hidden compartments \
-		is entirely within the suit, distributing items and weight evenly to ensure a comfortable experience for the user; \
-		whether smuggling, or simply hauling."
+	desc = "A collaborative effort between Cybersun Industries and Donk Corporation, this system of hidden compartments, attachment points, and pouches \
+		fits entirely within the suit, distributing items and weight evenly to ensure a comfortable carrying experience for the user \
+		in all manner of hauling tasks."
 	icon_state = "storage_large"
 	max_combined_w_class = 21
 	max_items = 14
@@ -115,9 +115,9 @@
 ///Ion Jetpack - Lets the user fly freely through space using battery charge.
 /obj/item/mod/module/jetpack
 	name = "MOD ion jetpack module"
-	desc = "A series of electric thrusters installed across the suit, this is a module highly anticipated by trainee Engineers. \
-		Rather than using gasses for combustion thrust, these jets are capable of accelerating ions using \
-		charge from the suit's charge. Some say this isn't Cybersun Industries's first foray into jet-enabled suits."
+	desc = "A series of electric thrusters installed across the suit, allowing for precision movement in zero-G environments. \
+		Rather than using gasses for combustion thrust, this modules uses lightweight ion thrusters connected directly to the suit's energy cell, \
+		removing any reliance on external fuel systems. This does, however, mean that the thrusters are useless outside of zero-G, as any heavy weight will easily overwhelm the ion engines."
 	icon_state = "jetpack"
 	module_type = MODULE_TOGGLE
 	complexity = 3
