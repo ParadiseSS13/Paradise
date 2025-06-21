@@ -80033,17 +80033,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
-"pMF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "escape"
-	},
-/area/station/hallway/secondary/entry/east)
 "pMG" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/dirt/frequent,
@@ -169183,7 +169172,7 @@ sVB
 kXu
 daX
 djw
-pMF
+qaS
 qde
 hUU
 bhO
