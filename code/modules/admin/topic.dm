@@ -2171,6 +2171,8 @@
 			if("Lightning bolt")
 				M.electrocute_act(50, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
+				var/turf/simulated/T = get_turf(M)
+				new /obj/effect/temp_visual/thunderbolt(T)
 				M.adjustFireLoss(30)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 				logmsg = "a lightning bolt."
