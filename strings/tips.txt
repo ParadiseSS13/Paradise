@@ -51,6 +51,10 @@ As the Research Director, you can spy on and even forge PDA communications with 
 As a Scientist, you can maximize the number of uses you get out of a slime by feeding it slime steroid, created from purple slimes, while alive. You can then apply extract enhancer, created from cerulean slimes, on each extract.
 As a Scientist, you can disable anomalies by scanning them with an analyzer, then send a signal on the frequency it gives you with a remote signaling device. This will leave behind an anomaly core, which can be used to construct nifty gadgets!
 As a Scientist, researchable stock parts can seriously improve the efficiency and speed of machines around the station. In some cases, it can even unlock new functions.
+As a Xenobiologist, the organ extractor can be used in place of a dissector tool when extracting organs to retrieve a functional organ immediately. Who needs slimes?
+Xenobiologists are granted teleporter access, allowing them immediate transportation to corpses otherwise unable to be brought to the science department. Make sure you can find your way back!
+Not all alien organs are created equal. The quality of extracted organs can amplify or suppress its effects, and sometimes this even grants special effects!
+As a Xenobiologist, get out of your basement and actually do some field work to get those organs you lazy bums!
 As a Roboticist, keep an ear out for anomaly announcements. If you get your hands on a bluespace anomaly core, you can build a Phazon mech!
 As a Roboticist, you can repair your cyborgs with a welding tool. If they have taken burn damage, you can remove their battery, expose the wiring with a screwdriver and replace their wires with a cable coil.
 As a Roboticist, you can use a multitool on an empty cyborg shell to alter various settings, including whether it will connect to the AI.

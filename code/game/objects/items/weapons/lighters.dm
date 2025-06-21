@@ -8,7 +8,7 @@
 	icon_state = "lighter-g"
 	item_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 4
+	throwforce = 0
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = null
@@ -155,6 +155,7 @@
 	icon_state = "zippo"
 	item_state = "zippo"
 	is_a_zippo = TRUE
+	throwforce = 4
 
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()

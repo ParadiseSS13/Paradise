@@ -228,7 +228,6 @@
 	item_state = "solar_packet"
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
 	storage_slots = 6
 	max_combined_w_class = 6
@@ -396,7 +395,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
 	name = "\improper Medical Marijuana Packet"
-	desc = "A prescription packet containing six medical marijuana cigarettes. Made using a strain of cannabis engineered to maximise CBD content and minimise THC, much to the chagrin of stoners everywhere."
+	desc = "A prescription packet containing six medical marijuana cigarettes. Made using a strain of cannabis engineered to maximise CBD content and eliminate THC, much to the chagrin of stoners everywhere."
 	icon_state = "med_packet"
 	item_state = "med_packet"
 	cigarette_slogan = "All the medical benefits, with none of the high!"

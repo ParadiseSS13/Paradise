@@ -376,7 +376,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
 	name = "medical marijuana cigarette"
-	desc = "A cigarette containing cannabis that has been engineered to only contain CBD, for medical use. The lack of THC makes it legal under Space Law."
+	desc = "A cigarette containing specially-bread cannabis that has been engineered to only contain CBD, for medical use. The lack of THC makes it fully legal under Space Law."
 	icon_state = "medical_weed_cig"
 	item_state = "cig"
 	list_reagents = list("cbd" = 60)
@@ -391,7 +391,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
-	desc = "A roll of dried plant matter wrapped in thin paper. It carries the unmistakable smell of cannabis, illegal under Space Law."
+	desc = "A roll of dried plant matter wrapped in thin paper. It carries the unmistakable smell of cannabis."
 	icon_state = "spliff"
 	item_state = "spliff"
 	butt_type = /obj/item/cigbutt/roach
