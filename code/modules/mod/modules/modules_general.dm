@@ -214,7 +214,6 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/flashlight)
 	cooldown_time = 0.5 SECONDS
-	overlay_state_inactive = "module_light"
 	overlay_state_active = "module_light_on"
 	light_color = COLOR_WHITE
 	///The light power for the mod
