@@ -456,7 +456,7 @@
 	var/datum/organ/battery/power_source = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
 	var/obj/item/organ/internal/cell/battery = H.get_int_organ(/obj/item/organ/internal/cell)
 	if(istype(power_source))
-		if((target.emagged || target.stat & BROKEN))
+		if(target.emagged || target.stat & BROKEN)
 			if(battery.apc_damage_proof)
 				do_sparks(3, 1, target)
 				to_chat(H, "<span class='warning'>The APC power currents surge erratically, but your [battery] protects you from damage!</span>")
