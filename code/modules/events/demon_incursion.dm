@@ -128,6 +128,9 @@
 	var/tile_spread_max = 3
 	/// Turf type that is spread by the portals
 	var/turf_to_spread = /turf/simulated/floor/engine/cult/demon_incursion
+	/// How long of a cooldown on portal repair
+	var/portal_repair_cooldown = 15 SECONDS
+	COOLDOWN_DECLARE(portal_repair)
 
 /obj/structure/spawner/nether/demon_incursion/Initialize(mapload)
 	. = ..()
@@ -139,6 +142,20 @@
 	if(turf_to_spread)
 		spread_turf()
 	SSticker.mode.incursion_portals += src
+
+/obj/structure/spawner/nether/demon_incursion/examine(mob/user)
+	. = ..()
+	if(COOLDOWN_FINISHED(src, portal_repair) && obj_integrity < max_integrity)
+		. += "<span class='warning'>Dark tendrils are stabilizing the portal!</span>"
+
+/obj/structure/spawner/nether/demon_incursion/process()
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, portal_repair))
+		return
+	if(obj_integrity >= max_integrity)
+		return
+	obj_integrity += 5
+	new /obj/effect/temp_visual/heal(loc, COLOR_BLOOD_MACHINE)
 
 /obj/structure/spawner/nether/demon_incursion/deconstruct(disassembled)
 	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
@@ -156,6 +173,10 @@
 			playsound(src, 'sound/misc/demon_dies.ogg', 100, TRUE, ignore_walls = TRUE)
 	SSticker.mode.incursion_portals -= src
 	return ..()
+
+/obj/structure/spawner/nether/demon_incursion/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration_flat, armour_penetration_percentage)
+	. = ..()
+	COOLDOWN_START(src, portal_repair, portal_repair_cooldown)
 
 /obj/structure/spawner/nether/demon_incursion/on_mob_spawn(mob/created_mob)
 	. = ..()
