@@ -27,7 +27,7 @@
 	// Run map tests first in case unit tests futz with map state
 	RunMap()
 	#endif
-	#ifdef GAME_TESTS
+	#if defined(GAME_TESTS) || defined(MAP_TESTS)
 	Run()
 	#endif
 	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
@@ -95,9 +95,10 @@
 	QDEL_LIST_CONTENTS(tests)
 
 /datum/test_runner/proc/Finalize(emit_failures = FALSE)
+	set waitfor = FALSE
+
 	log_world("Test runner: finalizing.")
 	var/time = world.timeofday
-	set waitfor = FALSE
 
 	#ifdef LOCAL_GAME_TESTS
 	emit_failures = TRUE
