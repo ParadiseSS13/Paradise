@@ -24,3 +24,56 @@
 #define VV_VISIBLE_ATOM "Visible Atom"
 #define VV_INSIDE_VISIBLE_ATOM "Inside a Visible Atom"
 #define VV_VISIBLE_TURF "Visible Turf"
+
+// VV HREF KEYS
+#define VV_HK_TARGET "target"
+
+// /datum
+#define VV_HK_PROC_CALL "proc_call"
+#define VV_HK_MARK_OBJECT "mark_object"
+#define VV_HK_DELETE "delete"
+#define VV_HK_MODIFY_TRAITS "traitmod"
+#define VV_HK_JUMP_TO "jump_to"
+#define VV_HK_TRAITMOD "traitmod"
+#define VV_HK_ADDCOMPONENT "addcomponent"
+#define VV_HK_REMOVECOMPONENT "removecomponent"
+#define VV_HK_MASSREMOVECOMPONENT "massremovecomponent"
+
+// /atom
+
+#define VV_HK_MANIPULATE_COLOR_MATRIX "manipcolours"
+#define VV_HK_ADDREAGENT "addreagent"
+#define VV_HK_EDITREAGENTS "editreagents"
+#define VV_HK_EXPLODE "explode"
+#define VV_HK_EMP "emp"
+
+// /obj
+#define VV_HK_DELALL "delall"
+#define VV_HK_MAKESPEEDY "makespeedy"
+#define VV_HK_MAKENORMALSPEED "makenormalspeed"
+#define VV_HK_MODIFYARMOR "modifyarmor"
+
+// /mob
+#define VV_HK_MOB_PLAYER_PANEL "mob_player_panel"
+#define VV_HK_GIVE_SPELL "give_spell"
+#define VV_HK_GIVEMARTIALART "givemartialart"
+#define VV_HK_GIVE_DISEASE "give_disease"
+#define VV_HK_GODMODE "godmode"
+#define VV_HK_BUILD_MODE "build_mode"
+#define VV_HK_MAKE_SKELETON "make_skeleton"
+#define VV_HK_HALLUCINATE "hallucinate"
+#define VV_HK_DIRECT_CONTROL "direct_control"
+#define VV_HK_OFFER_CONTROL "offer_control"
+#define VV_HK_DROP_EVERYTHING "drop_everything"
+#define VV_HK_REGENERATEICONS "regenerateicons"
+#define VV_HK_ADDLANGUAGE "addlanguage"
+#define VV_HK_REMLANGUAGE "remlanguage"
+#define VV_HK_ADDORGAN "addorgan"
+#define VV_HK_REMORGAN "remorgan"
+#define VV_HK_ADDVERB "addverb"
+#define VV_HK_REMVERB "remverb"
+#define VV_HK_GIB "gib"
+
+#define GET_VV_TARGET locateUID(href_list[VV_HK_TARGET])
+
+#define VV_DROPDOWN_OPTION(href_key, name) .[name] = "byond://?_src_=vars;[href_key]=TRUE;[VV_HK_TARGET]=[src.UID()]"
