@@ -21,7 +21,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A roll of tobacco and nicotine."
 	icon = 'icons/obj/clothing/smoking.dmi'
 	icon_state = "cig"
-	throw_speed = 0.5
+	lefthand_file = 'icons/mob/inhands/smoking_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/smoking_righthand.dmi'
 	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
@@ -485,7 +486,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "\improper Nano Cigar"
 	desc = "A huge, brown roll of dried and fermented tobacco, manufactured by Nanotrasen's Robust Tobacco subsidiary."
 	icon_state = "cigar"
-	throw_speed = 1
 	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	butt_type = /obj/item/cigbutt/cigarbutt
 	smoketime = 300
