@@ -65,6 +65,10 @@
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
+/datum/outfit/job/rd/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_CRAFTY, JOB_TRAIT)
+
 /datum/job/scientist
 	title = "Scientist"
 	flag = JOB_SCIENTIST
@@ -106,6 +110,10 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+
+/datum/outfit/job/scientist/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_CRAFTY, JOB_TRAIT)
 
 /datum/job/xenobiologist
 	title = "Xenobiologist"
@@ -205,3 +213,7 @@
 	backpack = /obj/item/storage/backpack/robotics
 	satchel = /obj/item/storage/backpack/satchel_robo
 	dufflebag = /obj/item/storage/backpack/duffel/robotics
+
+/datum/outfit/job/roboticist/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_CYBORG_SPECIALIST, JOB_TRAIT)
