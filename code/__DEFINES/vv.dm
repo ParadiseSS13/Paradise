@@ -76,4 +76,4 @@
 
 #define GET_VV_TARGET locateUID(href_list[VV_HK_TARGET])
 
-#define VV_DROPDOWN_OPTION(href_key, name) .[name] = "byond://?_src_=vars;[href_key]=TRUE;[VV_HK_TARGET]=[src.UID()]"
+#define VV_DROPDOWN_OPTION(href_key, name) . += "<option value='byond://?_src_=vars;[href_key]=TRUE;[VV_HK_TARGET]=[src.UID()]'>[name]</option>"

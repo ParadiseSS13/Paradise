@@ -81,6 +81,8 @@
 //please call . = ..() first and append to the result, that way parent items are always at the top and child items are further down
 //add seperaters by doing . += "---"
 /datum/proc/vv_get_dropdown()
+	SHOULD_CALL_PARENT(TRUE)
+
 	. = list()
 
 	VV_DROPDOWN_OPTION("", "---")
@@ -111,7 +113,7 @@
 	. = list()
 
 /client/vv_get_dropdown()
-	. = list()
+	. = ..()
 
 	VV_DROPDOWN_OPTION(VV_HK_MANIPULATE_COLOR_MATRIX, "Manipulate Color Matrix")
 	VV_DROPDOWN_OPTION("", "---")
@@ -210,7 +212,7 @@
 		varedited_line += "<br><font size='1' color='red'><b>Var Edited</b></font>"
 
 
-	var/dropdownoptions = list()
+	var/list/dropdownoptions = list()
 	if(islist)
 		dropdownoptions = list(
 			"---",
@@ -222,16 +224,6 @@
 		)
 	else
 		dropdownoptions = D.vv_get_dropdown()
-
-
-	var/list/dropdownoptions_html = list()
-	for(var/name in dropdownoptions)
-		var/link = dropdownoptions[name]
-		if(link)
-			dropdownoptions_html += "<option value='[link]'>[name]</option>"
-		else
-			dropdownoptions_html += "<option value>[name]</option>"
-
 
 	var/list/names = list()
 	if(!islist)
@@ -421,7 +413,7 @@
 									onmouseclick="this.focus()"
 									style="background-color:#ffffff">
 									<option value selected>Select option</option>
-									[dropdownoptions_html.Join()]
+									[dropdownoptions.Join()]
 								</select>
 							</form>
 						</div>
