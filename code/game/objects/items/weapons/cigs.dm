@@ -357,19 +357,34 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/mob/living/carbon/human/target = A
 	if(target != user)
 		user.visible_message(
-			"<span_class = 'notice'>You begin to feed [target] [src].</span>",
-			"<span_class = 'warning'>[user] begins to feed [target] [src]!</span>"
+			"<span_class='notice'>You begin to feed [target] [src].</span>",
+			"<span_class='warning'>[user] begins to feed [target] [src]!</span>"
 		)
 		if(!do_after(user, 5 SECONDS, target = target))
-			qdel(src)
 			return ITEM_INTERACT_COMPLETE
 	
 	else
-		to_chat(user, "<span_class = 'notice'>You eat [src].</span>")
+		to_chat(user, "<span_class='notice'>You eat [src].</span>")
 		
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-	target.adjust_nutrition(5)
-	target.reagents.add_reagent("sugar", 5)
+
+	// A SPICY candy!
+	if(lit)
+		target.adjust_nutrition(2)
+		target.reagents.add_reagent("sugar", 2, reagtemp = 100)
+		target.reagents.add_reagent("ash", 3, reagtemp = 100)
+		target.reagents.add_reagent("nicotine", 3, reagtemp = 100)
+		var/obj/item/organ/external/head/target_head = target.get_organ("head")
+		if(target_head.receive_damage(0, 15)) // OH GOD IT BURNS WHY DID I EAT THIS!?
+			target.UpdateDamageIcon()
+			to_chat(target, "<span_class='notice'>You can taste burnt sugar, ash, burning chemicals, and your own burning flesh...</span>")
+			to_chat(target, "<span_class='userdanger'>OH FUCK! IT BURNS!</span>")
+			target.emote("scream")
+	else
+		target.adjust_nutrition(5)
+		target.reagents.add_reagent("sugar", 5)
+		to_chat(target, "<span_class='notice'>You can taste sugar, and a hint of chemicals.</span>")
+
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
 
@@ -544,8 +559,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "holo-cigar"
 	desc = "A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it..."
 	icon = 'icons/obj/clothing/smoking.dmi'
-	icon_state = "holo_cigar_off"
+	icon_state = "holo_cigar"
+	lefthand_file = 'icons/mob/inhands/smoking_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/smoking_righthand.dmi'
 	new_attack_chain = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi')
 	/// Is the holo-cigar lit?
 	var/enabled = FALSE
 	/// Tracks if this is the first cycle smoking the cigar.
@@ -572,7 +595,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/update_icon_state()
 	. = ..()
-	icon_state = "holo_cigar_[enabled ? "on" : "off"]"
+	icon_state = "holo_cigar[enabled ? "_on" : ""]"
 
 /obj/item/clothing/mask/holo_cigar/update_name()
 	. = ..()

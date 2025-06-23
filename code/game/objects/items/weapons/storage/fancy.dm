@@ -347,7 +347,6 @@
 	icon_state = "our_brand_packet"
 	item_state = "our_brand_packet"
 	cigarette_slogan = "Smoke, for the Union!"
-//	cigarette_type = /obj/item/clothing/mask/cigarette/papirosa
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
 	name = "\improper Robust packet"
