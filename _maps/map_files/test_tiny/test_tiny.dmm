@@ -11,83 +11,20 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"d" = (
-/obj/item/storage/fancy/cigarettes/cigpack_midori,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"f" = (
-/obj/item/storage/fancy/cigarettes/cigpack_random,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"h" = (
-/obj/item/cigbutt/cigarbutt,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"n" = (
-/obj/item/clothing/mask/cigarette/cigar/havana,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"o" = (
-/obj/item/storage/fancy/rollingpapers,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"q" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"r" = (
-/obj/item/lighter,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"s" = (
-/obj/item/storage/fancy/cigarettes/cigpack_med,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "u" = (
 /turf/simulated/wall/mineral/titanium,
-/area/shuttle/arrival/station)
-"w" = (
-/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
-/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "x" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"A" = (
-/obj/item/storage/fancy/cigarettes/cigpack_robust,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"B" = (
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"D" = (
-/obj/item/storage/fancy/cigarettes/cigpack_uplift,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"E" = (
-/obj/item/lighter/zippo,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "F" = (
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"G" = (
-/obj/item/clothing/mask/holo_cigar,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"H" = (
-/obj/item/storage/fancy/cigarettes/cigpack_candy,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "I" = (
@@ -96,53 +33,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"J" = (
-/obj/item/clothing/mask/cigarette/pipe,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"K" = (
-/obj/item/clothing/mask/cigarette/cigar/cohiba,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"L" = (
-/obj/item/clothing/mask/cigarette/cigar,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"N" = (
-/obj/item/clothing/mask/cigarette/pipe/cobpipe,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"O" = (
-/obj/item/storage/fancy/cigarettes/cigpack_carp,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"Q" = (
-/obj/item/storage/fancy/cigarettes/dromedaryco,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"S" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/storage/fancy/cigarettes,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "U" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"W" = (
-/obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"Y" = (
-/obj/item/cigbutt/cigarbutt/gold,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"Z" = (
-/obj/item/storage/fancy/cigarettes/cigpack_our_brand,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 
@@ -31374,8 +31268,8 @@ I
 x
 x
 x
-S
-D
+I
+x
 x
 x
 u
@@ -31631,8 +31525,8 @@ x
 x
 x
 x
-H
-Q
+x
+x
 x
 x
 u
@@ -31884,11 +31778,11 @@ u
 x
 x
 x
-L
-h
 x
 x
-O
+x
+x
+x
 x
 x
 x
@@ -32145,7 +32039,7 @@ x
 x
 x
 x
-s
+x
 x
 x
 F
@@ -32398,11 +32292,11 @@ u
 x
 x
 x
-K
-Y
-r
-J
-d
+x
+x
+x
+x
+x
 x
 x
 x
@@ -32658,8 +32552,8 @@ x
 x
 x
 b
-W
-Z
+x
+x
 x
 x
 x
@@ -32912,11 +32806,11 @@ u
 x
 x
 x
-n
-Y
-E
-N
-f
+x
+x
+x
+x
+x
 x
 x
 x
@@ -33173,7 +33067,7 @@ x
 x
 x
 x
-A
+x
 x
 x
 F
@@ -33426,11 +33320,11 @@ u
 x
 x
 x
-G
 x
-o
 x
-B
+x
+x
+x
 x
 x
 x
@@ -33687,7 +33581,7 @@ x
 x
 x
 x
-w
+x
 x
 x
 x
@@ -33944,7 +33838,7 @@ U
 x
 x
 x
-q
+U
 x
 x
 x
