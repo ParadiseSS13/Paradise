@@ -227,12 +227,16 @@
 
 /obj/structure/spawner/nether/demon_incursion/proc/spread_turf()
 	for(var/turf/spread_turf in range(tile_spread, loc))
+		var/mob/living/basic/portal_cleanup = locate(/mob/living/basic) in spread_turf
+		if(portal_cleanup && portal_cleanup.stat == DEAD)
+			new /obj/effect/temp_visual/demonic_grasp(spread_turf)
+			portal_cleanup.gib()
 		if(isfloorturf(spread_turf) && !istype(spread_turf, turf_to_spread))
 			spread_turf.ChangeTurf(turf_to_spread)
 			Beam(spread_turf, icon_state = "sendbeam", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	if(tile_spread < tile_spread_max)
 		tile_spread++
-		addtimer(CALLBACK(src, PROC_REF(spread_turf)), spawn_rate)
+	addtimer(CALLBACK(src, PROC_REF(spread_turf)), spawn_rate)
 
 /turf/simulated/floor/engine/cult/demon_incursion
 	name = "hellish flooring"
