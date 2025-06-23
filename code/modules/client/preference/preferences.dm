@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
 	/// This value will be converted by BYOND, don't set already converted values there, otherwise it will set client's fps 1 step higher than it should've
-	var/clientfps = 60
+	var/clientfps = 100
 	var/atklog = ATKLOG_ALL
 	/// Forum userid
 	var/fuid

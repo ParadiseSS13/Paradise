@@ -289,7 +289,7 @@ CREATE TABLE `player` (
   `volume_mixer` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `exp` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `clientfps` smallint(4) DEFAULT '60',
+  `clientfps` smallint(4) DEFAULT '100',
   `atklog` smallint(4) DEFAULT '0',
   `fuid` bigint(20) DEFAULT NULL,
   `fupdate` smallint(4) DEFAULT '0',

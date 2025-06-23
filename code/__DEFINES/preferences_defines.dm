@@ -188,15 +188,18 @@
 GLOBAL_LIST_INIT(client_fps_options, list_fps_options())
 
 /proc/list_fps_options()
-	. = list() // fps options, but in descending
-	var/list/options = list() // fps options
-	var/list/keys = list() // keys so we can perform reverse of the `options`
+	var/list/options = list() // sorted fps options, without repetitions
+	var/list/output_options = list() // same as above, but in descending order
+	var/list/keys = list() // keys so we can perform descending order
 
 	for(var/fps_desired in world.fps to 1000)
 		var/frame_time = floor(1000 / fps_desired)
 		var/fps_actual = ceil(1000 / frame_time)
 
-		if(options["[fps_actual]"])
+		if(options["[fps_actual]"]) // not repeating
+			continue
+
+		if(1000 % fps_desired) // Lummox said it works better with divisors of 1000
 			continue
 
 		options["[fps_actual]"] = fps_desired // have to use "[]" cos custom numeric indexes result in runtimes
@@ -207,5 +210,7 @@ GLOBAL_LIST_INIT(client_fps_options, list_fps_options())
 	while(length(keys)) // displays fps options in descending
 		var/current_key = max(keys)
 		var/current = options["[current_key]"]
-		.["[current_key]"] = current
+		output_options["[current_key]"] = current
 		keys -= current_key
+
+	return output_options
