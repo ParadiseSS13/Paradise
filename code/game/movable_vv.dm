@@ -23,8 +23,8 @@
 			to_chat(usr, "<span class='warning'>Deadchat is globally muted, un-mute deadchat before enabling this.</span>")
 			return
 
-		if(A.GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, "<span class='warning'>[A] is already under deadchat control!</span>")
+		if(GetComponent(/datum/component/deadchat_control))
+			to_chat(usr, "<span class='warning'>[src] is already under deadchat control!</span>")
 			return
 
 		var/control_mode = input(usr, "Please select the control mode","Deadchat Control", null) as null|anything in list("democracy", "anarchy")
@@ -57,7 +57,7 @@
 			return
 
 		if(!GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, "<span class='warning'>[A] is not currently under deadchat control!</span>")
+			to_chat(usr, "<span class='warning'>[src] is not currently under deadchat control!</span>")
 			return
 
 		stop_deadchat_plays()
