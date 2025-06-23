@@ -332,7 +332,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/rollie
 
 /obj/item/storage/fancy/cigarettes/cigpack_our_brand
-	name = "\improper Our Brand packet"
+	name = "\improper Our Brand packet" // This brand name is an obscure reference to The Master and Margarita by Ivan Bezdomny.
 	desc = "The one, official brand of cigarette available in the USSP. \
 	Exported across the Orion sector by vendors affiliated with the Nian Merchant Guild. \
 	The flavour is bland, the smoke is thin and wispy, yet harsh on the throat. The only redeeming features are the high nicotine content and the low price."
