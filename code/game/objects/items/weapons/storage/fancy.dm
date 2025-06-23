@@ -11,6 +11,8 @@
  *		Candle Box
  *		Crayon Box
  *		Cigarette Box
+ *		Vial Box
+ *		Aquatic Starter Kit
  */
 
 /obj/item/storage/fancy
@@ -43,10 +45,7 @@
 	update_icon()
 	return ..()
 
-/*
- // Donut Box
- */
-
+// MARK: Donut Box
 /obj/item/storage/fancy/donut_box
 	name = "donut box"
 	desc = "\"To do, or do nut, the choice is obvious.\""
@@ -83,9 +82,8 @@
 		return TRUE
 	return ..()
 
-/*
- * Egg Box
- */
+// MARK: Egg Box
+
 
 /obj/item/storage/fancy/egg_box
 	icon_state = "eggbox"
@@ -99,10 +97,7 @@
 	for(var/I in 1 to storage_slots)
 		new /obj/item/food/egg(src)
 
-/*
- * Candle Box
- */
-
+// MARK: Candle Box
 /obj/item/storage/fancy/candle_box
 	name = "Candle pack"
 	desc = "A pack of red candles."
@@ -130,10 +125,8 @@
 	for(var/I in 1 to storage_slots)
 		new /obj/item/candle/eternal(src)
 
-/*
- * Crayon Box
- */
 
+// MARK: Crayon Box
 /obj/item/storage/fancy/crayons
 	name = "box of crayons"
 	desc = "A box of crayons for all your rune drawing needs."
@@ -216,12 +209,10 @@
 		if(0)
 			icon_state = "[base_icon_state]_e"
 
-////////////
-//	CIG PACK
-////////////
+//	MARK: Cigarette Box
 /obj/item/storage/fancy/cigarettes
 	name = "\improper Solar Rays packet"
-	desc = "A popular brand within the Trans-Solar Federation, they have a smooth, slightly cinnamon flavour.<br><br>\
+	desc = "A popular brand within the Trans-Solar Federation, they have a smooth, slightly cinnamon flavour. \
 	Whilst not actually state-owned, these cigarettes lean heavily into patriotic marketing, and are included in federal ration packs as a morale booster."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "solar_packet"
@@ -243,7 +234,8 @@
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>\"[cigarette_slogan]\"</span>"
+	if(cigarette_slogan)
+		. += "<span class='notice'>\"[cigarette_slogan]\"</span>"
 
 /obj/item/storage/fancy/cigarettes/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -342,7 +334,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_our_brand
 	name = "\improper Our Brand packet"
 	desc = "The one, official brand of cigarette available in the USSP. \
-	Exported across the Orion sector by vendors affiliated with the Nian Merchant Guild.<br><br> \
+	Exported across the Orion sector by vendors affiliated with the Nian Merchant Guild. \
 	The flavour is bland, the smoke is thin and wispy, yet harsh on the throat. The only redeeming features are the high nicotine content and the low price."
 	icon_state = "our_brand_packet"
 	item_state = "our_brand_packet"
@@ -394,7 +386,8 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
 	name = "medical marijuana packet"
-	desc = "A prescription packet containing six medical marijuana cigarettes. Made using a strain of cannabis engineered to maximise CBD content and eliminate THC, much to the chagrin of stoners everywhere."
+	desc = "A prescription packet containing six fully legal medical marijuana cigarettes. \
+	Made using a strain of cannabis engineered to maximise CBD content and eliminate THC, much to the chagrin of stoners everywhere."
 	icon_state = "med_packet"
 	item_state = "med_packet"
 	cigarette_slogan = "All the medical benefits, with none of the high!"
@@ -431,10 +424,8 @@
 	if(!length(contents))
 		. += "[icon_state]_empty"
 
-/*
- * Vial Box
- */
 
+// MARK: Vial Box
 /obj/item/storage/fancy/vials
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox6"
@@ -491,9 +482,7 @@
 	new /obj/item/reagent_containers/glass/bottle/zombiecure3(src)
 	new /obj/item/reagent_containers/glass/bottle/zombiecure4(src)
 
-
-///Aquatic Starter Kit
-
+// MARK: Aquatic Starter Kit
 /obj/item/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
 	desc = "It's a starter kit box for an aquarium."
