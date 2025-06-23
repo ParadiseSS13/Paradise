@@ -371,9 +371,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	// A SPICY candy!
 	if(lit)
 		target.adjust_nutrition(2)
-		target.reagents.add_reagent("sugar", 2, reagtemp = 100)
-		target.reagents.add_reagent("ash", 3, reagtemp = 100)
-		target.reagents.add_reagent("nicotine", 3, reagtemp = 100)
+		target.reagents.add_reagent("sugar", 2, reagtemp = 373)
+		target.reagents.add_reagent("ash", 3, reagtemp = 373)
+		target.reagents.add_reagent("nicotine", 3, reagtemp = 373)
 		var/obj/item/organ/external/head/target_head = target.get_organ("head")
 		if(target_head.receive_damage(0, 15)) // OH GOD IT BURNS WHY DID I EAT THIS!?
 			target.UpdateDamageIcon()
