@@ -1,4 +1,23 @@
-# Updates DB from 67 to 68
-# Changes DB default for clientFPS to 60
+# Updating DB from 67-68 -AffectedArc07
+# Changes the data types in ip2group from varchar to int
 
-ALTER TABLE `player` CHANGE COLUMN `clientfps` `clientfps` smallint(4) DEFAULT '60' AFTER `exp`;
+# Create temporary table
+CREATE TABLE `ip2group_copy` (
+	`ip` INT UNSIGNED NOT NULL,
+	`date` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	`groupstr` INT UNSIGNED NOT NULL,
+	PRIMARY KEY (`ip`) USING BTREE,
+	INDEX `groupstr` (`groupstr`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+# Migrate data
+DELETE FROM ip2group WHERE groupstr = ''; # This is junk
+
+INSERT INTO ip2group_copy (ip, date, groupstr)
+SELECT INET_ATON(`ip`), `date`, CAST(`groupstr` AS UNSIGNED) FROM ip2group;
+
+# Drop old table
+DROP TABLE `ip2group`;
+
+# Rename new table
+RENAME TABLE `ip2group_copy` TO `ip2group`;
