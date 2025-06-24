@@ -12,7 +12,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_MANIPULATE_COLOR_MATRIX, "Manipulate Colour Matrix")
 	var/turf/curturf = get_turf(src)
 	if(curturf)
-		.["Jump to turf"] = "byond://?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
+		. += "<option value='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]'>Jump to turf</option>"
 	VV_DROPDOWN_OPTION(VV_HK_ADDREAGENT, "Add reagent")
 	VV_DROPDOWN_OPTION(VV_HK_EDITREAGENTS, "Edit reagents")
 	VV_DROPDOWN_OPTION(VV_HK_EXPLODE, "Trigger explosion")
