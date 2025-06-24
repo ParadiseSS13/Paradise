@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/anansi/get_custom_eventtitle(event_type)
 	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
-		return "Major Breakthrough on NSS Anansi!"
+		return "Major Breakthrough on NSS Anansi"
 	return null
 
 /datum/trade_destination/icarus
@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/redolant/get_custom_eventtitle(event_type)
 	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
-		return "Major Breakthrough on OAV Redolant!"
+		return "Major Breakthrough on OAV Redolant"
 	return null
 
 /datum/trade_destination/beltway
