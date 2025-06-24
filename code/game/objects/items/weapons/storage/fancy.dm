@@ -209,14 +209,13 @@
 		if(0)
 			icon_state = "[base_icon_state]_e"
 
-//	MARK: Cigarette Box
+//	MARK: Cigarette Pack
 /obj/item/storage/fancy/cigarettes
-	name = "\improper Solar Rays packet"
-	desc = "A popular brand within the Trans-Solar Federation, they have a smooth, slightly cinnamon flavour. \
-	Whilst not actually state-owned, these cigarettes lean heavily into patriotic marketing, and are included in federal ration packs as a morale booster."
+	name = "generic cigarette packet"
+	desc = "An abstract brand of cigarette that should not exist. Make a GitHub report if you see this."
 	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "solar_packet"
-	item_state = "solar_packet"
+	icon_state = "robust_packet"
+	item_state = "robust_packet"
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
@@ -229,7 +228,7 @@
 		/obj/item/clothing/mask/cigarette/pipe,
 		/obj/item/lighter/zippo)
 	icon_type = "cigarette"
-	var/cigarette_slogan = "Smoked by true patriots."
+	var/cigarette_slogan = "The preferred brand of coders and developers."
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
@@ -343,8 +342,6 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust
 	name = "\improper Robust packet"
 	desc = "Nanotrasen's in-house brand of cigarettes. Cheap quality, wispy smoke, has a somewhat harsh flavour."
-	icon_state = "robust_packet"
-	item_state = "robust_packet"
 	cigarette_slogan = "Smoked by the robust."
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
@@ -358,8 +355,6 @@
 /obj/item/storage/fancy/cigarettes/cigpack_candy
 	name = "\improper Robust Junior packet"
 	desc = "A packet of nicotine-free* candy cigarettes, manufactured by Robust Tobacco."
-	icon_state = "robust_packet"
-	item_state = "robust_packet"
 	cigarette_slogan = "Unsure about smoking? Want to bring your children safely into the family tradition? Look no more with this special packet! Includes 100% nicotine-free* candy cigarettes."
 	cigarette_type = /obj/item/clothing/mask/cigarette/candy
 
@@ -375,6 +370,15 @@
 	cigarette_slogan = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? \
 	Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
+
+/obj/item/storage/fancy/cigarettes/cigpack_solar_rays
+	name = "\improper Solar Rays packet"
+	desc = "A popular brand within the Trans-Solar Federation, they have a smooth, slightly cinnamon flavour. \
+	Whilst not actually state-owned, these cigarettes lean heavily into patriotic marketing, and are included in federal ration packs as a morale booster."
+	icon_state = "solar_packet"
+	item_state = "solar_packet"
+	cigarette_slogan = "Smoked by true patriots."
+	cigarette_type = /obj/item/clothing/mask/cigarette
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"

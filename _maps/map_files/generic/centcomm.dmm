@@ -3024,7 +3024,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "kY" = (
-/obj/item/storage/fancy/cigarettes{
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
 	pixel_y = 6
 	},
 /obj/item/clothing/mask/cigarette/cigar/cohiba{
@@ -6267,7 +6267,7 @@
 /obj/item/restraints/handcuffs/cable/red,
 /obj/item/kitchen/knife,
 /obj/item/storage/box/mousetraps,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/item/pen,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
