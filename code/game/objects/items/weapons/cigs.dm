@@ -380,6 +380,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			to_chat(target, "<span_class='notice'>You can taste burnt sugar, ash, burning chemicals, and your own burning flesh...</span>")
 			to_chat(target, "<span_class='userdanger'>OH FUCK! IT BURNS!</span>")
 			target.emote("scream")
+		add_attack_logs(user, target, "Fed a burning candy cigarette.")
 	else
 		target.adjust_nutrition(5)
 		target.reagents.add_reagent("sugar", 5)
