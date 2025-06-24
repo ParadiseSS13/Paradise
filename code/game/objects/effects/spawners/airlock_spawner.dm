@@ -119,7 +119,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	set_access_helper(the_button)
 	return the_button
 
-/obj/effect/spawner/airlock/proc/make_controller() //Stick the controller on the wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs
+/// Stick the controller on the wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs.
+/obj/effect/spawner/airlock/proc/make_controller()
 	var/turf/T = get_turf(src)
 	var/obj/machinery/airlock_controller/air_cycler/AC = new(T)
 	set_access_helper(AC)
