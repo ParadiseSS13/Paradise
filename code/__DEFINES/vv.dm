@@ -25,7 +25,7 @@
 #define VV_INSIDE_VISIBLE_ATOM "Inside a Visible Atom"
 #define VV_VISIBLE_TURF "Visible Turf"
 
-// VV HREF KEYS
+// VV href keys
 #define VV_HK_TARGET "target"
 
 // /datum
@@ -40,7 +40,6 @@
 #define VV_HK_MASSREMOVECOMPONENT "massremovecomponent"
 
 // /atom
-
 #define VV_HK_MANIPULATE_COLOR_MATRIX "manipcolours"
 #define VV_HK_ADDREAGENT "addreagent"
 #define VV_HK_EDITREAGENTS "editreagents"
