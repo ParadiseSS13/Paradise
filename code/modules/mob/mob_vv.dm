@@ -37,31 +37,31 @@
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(src)] to [new_name].")
 		rename_character(real_name, new_name)
-		href_list["datumrefresh"] = href_list["rename"]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_MOB_PLAYER_PANEL])
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
 
 		usr.client.holder.show_player_panel(src)
-		href_list["datumrefresh"] = href_list[VV_HK_MOB_PLAYER_PANEL]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_GIVE_SPELL])
 		if(!check_rights(R_SERVER|R_EVENT))
 			return
 
 		usr.client.give_spell(src)
-		href_list["datumrefresh"] = href_list[VV_HK_GIVE_SPELL]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_GIVE_DISEASE])
 		if(!check_rights(R_SERVER|R_EVENT))
 			return
 
 		usr.client.give_disease(src)
-		href_list["datumrefresh"] = href_list[VV_HK_GIVE_DISEASE]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_GODMODE])
 		if(!check_rights(R_EVENT))
 			return
 
 		usr.client.cmd_admin_godmode(src)
-		href_list["datumrefresh"] = href_list[VV_HK_GODMODE]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_GIB])
 		if(!check_rights(R_ADMIN|R_EVENT))
 			return
@@ -72,7 +72,7 @@
 			return
 
 		togglebuildmode(src)
-		href_list["datumrefresh"] = href_list[VV_HK_BUILD_MODE]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_DROP_EVERYTHING])
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return

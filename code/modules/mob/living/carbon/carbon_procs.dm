@@ -1492,7 +1492,7 @@ so that different stomachs can handle things in different ways VB*/
 			var/datum/martial_art/MA = new chosenart
 			MA.teach(src)
 
-		href_list["datumrefresh"] = href_list[VV_HK_GIVEMARTIALART]
+		href_list["datumrefresh"] = UID()
 	else if(href_list[VV_HK_ADDORGAN])
 		if(!check_rights(R_SPAWN))
 			return

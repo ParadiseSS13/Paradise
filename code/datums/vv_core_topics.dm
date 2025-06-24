@@ -9,7 +9,7 @@
 		var/turf/T = get_turf(target)
 		if(T)
 			jumptoturf(T)
-		href_list["datumrefresh"] = href_list[VV_HK_JUMP_TO]
+		href_list["datumrefresh"] = target.UID()
 	if(href_list["varnameedit"] && href_list["datumedit"])
 		if(!check_rights(R_VAREDIT))	return
 
@@ -42,7 +42,7 @@
 			return
 
 		admin_delete(src)
-		href_list["datumrefresh"] = href_list[VV_HK_DELETE]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_MARK_OBJECT])
 		if(!check_rights(0))	return
 
@@ -51,7 +51,7 @@
 			return
 
 		src.holder.marked_datum = target
-		href_list["datumrefresh"] = href_list[VV_HK_MARK_OBJECT]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_PROC_CALL])
 		if(!check_rights(R_PROCCALL))
 			return

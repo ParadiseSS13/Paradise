@@ -20,7 +20,7 @@
 		makeSkeleton()
 		message_admins("[key_name(usr)] has turned [key_name(src)] into a skeleton")
 		log_admin("[key_name_admin(usr)] has turned [key_name_admin(src)] into a skeleton")
-		href_list["datumrefresh"] = href_list[VV_HK_MAKE_SKELETON]
+		href_list["datumrefresh"] = UID()
 
 	if(href_list[VV_HK_HALLUCINATE])
 		if(!check_rights(R_SERVER | R_EVENT))
@@ -32,4 +32,4 @@
 		invoke_hallucination(haltype)
 		message_admins("[key_name(usr)] has given [key_name(src)] the [haltype] hallucination")
 		log_admin("[key_name_admin(usr)] has given [key_name_admin(src)] the [haltype] hallucination")
-		href_list["datumrefresh"] = href_list[VV_HK_HALLUCINATE]
+		href_list["datumrefresh"] = UID()

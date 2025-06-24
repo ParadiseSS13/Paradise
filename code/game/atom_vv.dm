@@ -22,7 +22,7 @@
 	. = ..()
 	. += "<a href='byond://?_src_=vars;datumedit=[UID()];varnameedit=name'><b>[src]</b></a>"
 	if(dir)
-		. += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=[UID()];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[UID()];varnameedit=dir'>[dir2text(dir)]</a> <a href='byond://?_src_=vars;rotatedatum=[UID()];rotatedir=right'>>></a></font>"
+		. += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=TRUE;[VV_HK_TARGET]=[UID()];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[UID()];varnameedit=dir'>[dir2text(dir)]</a> <a href='byond://?_src_=vars;rotatedatum=TRUE;[VV_HK_TARGET]=[UID()];rotatedir=right'>>></a></font>"
 
 /atom/vv_do_topic(list/href_list)
 	. = ..()
@@ -40,19 +40,19 @@
 
 		message_admins("[key_name_admin(usr)] has rotated \the [src]")
 		log_admin("[key_name(usr)] has rotated \the [src]")
-		href_list["datumrefresh"] = href_list["rotatedatum"]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_EXPLODE])
 		if(!check_rights(R_DEBUG|R_EVENT))
 			return
 
 		usr.client.cmd_admin_explosion(src)
-		href_list["datumrefresh"] = href_list[VV_HK_EXPLODE]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_EMP])
 		if(!check_rights(R_DEBUG|R_EVENT))
 			return
 
 		usr.client.cmd_admin_emp(src)
-		href_list["datumrefresh"] = href_list[VV_HK_EMP]
+		href_list["datumrefresh"] = UID()
 	if(href_list[VV_HK_ADDREAGENT]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return

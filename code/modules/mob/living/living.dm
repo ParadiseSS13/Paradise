@@ -1212,7 +1212,7 @@
 		if(amount != 0)
 			log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [src]")
 			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [src]")
-			href_list["datumrefresh"] = href_list["adjustDamage"]
+			href_list["datumrefresh"] = UID()
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
