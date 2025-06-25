@@ -60,9 +60,9 @@ SUBSYSTEM_DEF(pathfinder)
 		currentmaps.len--
 
 /// Initiates a pathfind. Returns true if we're good, FALSE if something's failed
-/datum/controller/subsystem/pathfinder/proc/pathfind(atom/movable/caller, atom/end, max_distance = 30, mintargetdist, access = list(), simulated_only = TRUE, turf/exclude, skip_first = TRUE, diagonal_handling = DIAGONAL_REMOVE_CLUNKY, list/datum/callback/on_finish)
+/datum/controller/subsystem/pathfinder/proc/pathfind(atom/movable/pathfind_caller, atom/end, max_distance = 30, mintargetdist, access = list(), simulated_only = TRUE, turf/exclude, skip_first = TRUE, diagonal_handling = DIAGONAL_REMOVE_CLUNKY, list/datum/callback/on_finish)
 	var/datum/pathfind/jps/path = new()
-	path.setup(caller, access, max_distance, simulated_only, exclude, on_finish, end, mintargetdist, skip_first, diagonal_handling)
+	path.setup(pathfind_caller, access, max_distance, simulated_only, exclude, on_finish, end, mintargetdist, skip_first, diagonal_handling)
 	if(path.start())
 		active_pathing += path
 		return TRUE
@@ -70,21 +70,21 @@ SUBSYSTEM_DEF(pathfinder)
 
 /// Initiates a swarmed pathfind. Returns TRUE if we're good, FALSE if something's failed
 /// If a valid pathmap exists for the TARGET turf we'll use that, otherwise we have to build a new one
-/datum/controller/subsystem/pathfinder/proc/swarmed_pathfind(atom/movable/caller, atom/end, max_distance = 30, mintargetdist = 0, age = MAP_REUSE_INSTANT, access = list(), simulated_only = TRUE, turf/exclude, skip_first = TRUE, list/datum/callback/on_finish)
+/datum/controller/subsystem/pathfinder/proc/swarmed_pathfind(atom/movable/pathfind_caller, atom/end, max_distance = 30, mintargetdist = 0, age = MAP_REUSE_INSTANT, access = list(), simulated_only = TRUE, turf/exclude, skip_first = TRUE, list/datum/callback/on_finish)
 	var/turf/target = get_turf(end)
-	var/datum/can_pass_info/pass_info = new(caller, access)
+	var/datum/can_pass_info/pass_info = new(pathfind_caller, access)
 	// If there's a map we can use already, use it
 	var/datum/path_map/valid_map = get_valid_map(pass_info, target, simulated_only, exclude, age, include_building = TRUE)
 	if(valid_map && valid_map.expand(max_distance))
-		path_map_passalong(on_finish, get_turf(caller), mintargetdist, skip_first, valid_map)
+		path_map_passalong(on_finish, get_turf(pathfind_caller), mintargetdist, skip_first, valid_map)
 		return TRUE
 
 	// Otherwise we're gonna make a new one, and turn it into a path for the callbacks passed into us
 	var/list/datum/callback/pass_in = list()
-	pass_in += CALLBACK(GLOBAL_PROC, /proc/path_map_passalong, on_finish, get_turf(caller), mintargetdist, skip_first)
+	pass_in += CALLBACK(GLOBAL_PROC, /proc/path_map_passalong, on_finish, get_turf(pathfind_caller), mintargetdist, skip_first)
 	// And to allow subsequent calls to reuse the same map, we'll put a placeholder in the cache, and fill it up when the pathing finishes
 	var/datum/path_map/empty = new()
-	empty.pass_info = new(caller, access)
+	empty.pass_info = new(pathfind_caller, access)
 	empty.start = target
 	empty.pass_space = simulated_only
 	empty.avoid = exclude
@@ -132,9 +132,9 @@ SUBSYSTEM_DEF(pathfinder)
 		source_to_maps[target] -= same_target
 
 /// Initiates a SSSP run. Returns true if we're good, FALSE if something's failed
-/datum/controller/subsystem/pathfinder/proc/build_map(atom/movable/caller, turf/source, max_distance = 30, access = list(), simulated_only = TRUE, turf/exclude, list/datum/callback/on_finish)
+/datum/controller/subsystem/pathfinder/proc/build_map(atom/movable/pathfind_caller, turf/source, max_distance = 30, access = list(), simulated_only = TRUE, turf/exclude, list/datum/callback/on_finish)
 	var/datum/pathfind/sssp/path = new()
-	path.setup(caller, access, source, max_distance, simulated_only, exclude, on_finish)
+	path.setup(pathfind_caller, access, source, max_distance, simulated_only, exclude, on_finish)
 	if(path.start())
 		active_pathing += path
 		return TRUE
