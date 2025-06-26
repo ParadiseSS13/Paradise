@@ -149,6 +149,7 @@
 			continue
 		ruins_available[R] = R.placement_weight
 
+	forced_ruins = sortTim(forced_ruins, GLOBAL_PROC_REF(cmp_ruin_placement_size)) // SS220 EDIT - sort ruins by size
 	while(length(forced_ruins))
 		var/datum/map_template/ruin/ruin = forced_ruins[length(forced_ruins)]
 		var/datum/ruin_placement/placement = new(ruin, base_padding_ = base_padding)

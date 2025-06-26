@@ -8,6 +8,7 @@
 #include "code/RandomRuins/lavaland/lavaland_turfs.dm"
 #include "code/RandomRuins/space/space_areas.dm"
 #include "code/RandomRuins/space/space_ruins.dm"
+#include "code/RandomRuins/ruins.dm"
 #include "code/Station/station_areas.dm"
 #include "code/Station/station_datums.dm"
 #include "code/admin.dm"
