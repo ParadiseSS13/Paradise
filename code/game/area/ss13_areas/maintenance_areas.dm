@@ -258,21 +258,77 @@
 	name = "Dorms Fore Maintenance"
 	icon_state = "dorms_maint_fore"
 
+/area/station/maintenance/command
+	name = "\improper Command Maintenance"
+	icon_state = "cmd_maint"
+
+/area/station/maintenance/command/fore
+	name = "\improper Command Maintenance Fore"
+	icon_state = "cmd_maint_fore"
+
+/area/station/maintenance/command/fore_starboard
+	name = "\improper Command Maintenance Fore-Starboard"
+	icon_state = "cmd_maint_fore_starboard"
+
+/area/station/maintenance/command/fore_port
+	name = "\improper Command Maintenance Fore-Port"
+	icon_state = "cmd_maint_fore_port"
+
+/area/station/maintenance/command/aft
+	name = "\improper Command Maintenance Aft"
+	icon_state = "cmd_maint_aft"
+
+/area/station/maintenance/command/aft_starboard
+	name = "\improper Command Maintenance Aft-Starboard"
+	icon_state = "cmd_maint_aft_starboard"
+
+/area/station/maintenance/command/aft_port
+	name = "\improper Command Maintenance Aft-Port"
+	icon_state = "cmd_maint_aft_port"
+
+/area/station/maintenance/command/starboard
+	name = "\improper Command Maintenance Starboard"
+	icon_state = "cmd_maint_starboard"
+
+/area/station/maintenance/command/port
+	name = "\improper Command Maintenance Port"
+	icon_state = "cmd_maint_port"
+
 /area/station/maintenance/security
-	name = "Security Maintenance"
+	name = "\improper Security Maintenance"
 	icon_state = "sec_maint"
 
 /area/station/maintenance/security/fore
-	name = "Security Maintenance Fore"
+	name = "\improper Security Maintenance Fore"
 	icon_state = "sec_maint_fore"
 
-/area/station/maintenance/security/aft_port
-	name = "Security Maintenance Aft Port"
-	icon_state = "sec_maint_ap"
+/area/station/maintenance/security/fore_starboard
+	name = "\improper Security Maintenance Fore-Starboard"
+	icon_state = "sec_maint_fore_starboard"
+
+/area/station/maintenance/security/fore_port
+	name = "\improper Security Maintenance Fore-Port"
+	icon_state = "sec_maint_fore_port"
+
+/area/station/maintenance/security/aft
+	name = "\improper Security Maintenance Aft"
+	icon_state = "sec_maint_aft"
 
 /area/station/maintenance/security/aft_starboard
-	name = "Security Maintenance Aft Starboard"
-	icon_state = "sec_maint_as"
+	name = "\improper Security Maintenance Aft-Starboard"
+	icon_state = "sec_maint_aft_starboard"
+
+/area/station/maintenance/security/aft_port
+	name = "\improper Security Maintenance Aft-Port"
+	icon_state = "sec_maint_aft_port"
+
+/area/station/maintenance/security/starboard
+	name = "\improper Security Maintenance Starboard"
+	icon_state = "sec_maint_starboard"
+
+/area/station/maintenance/security/port
+	name = "\improper Security Maintenance Port"
+	icon_state = "sec_maint_port"
 
 /area/station/engineering/atmos/asteroid_maint
 	name = "Asteroid Filtering Maintenance"
