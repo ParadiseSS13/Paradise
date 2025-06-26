@@ -26380,9 +26380,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
-/obj/structure/sign/vacuum{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "bYa" = (
@@ -26676,7 +26673,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "bZs" = (
@@ -27799,6 +27795,10 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating/airless,
+/area/station/engineering/control)
+"cdd" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall/r_wall,
 /area/station/engineering/control)
 "cde" = (
 /obj/machinery/light{
@@ -35591,8 +35591,11 @@
 /area/station/engineering/control)
 "cDz" = (
 /obj/machinery/light/small,
-/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
+/area/station/engineering/control)
+"cDA" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall,
 /area/station/engineering/control)
 "cDB" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -35625,9 +35628,6 @@
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
-	},
-/obj/structure/sign/vacuum{
-	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -52740,6 +52740,13 @@
 /turf/simulated/wall,
 /area/station/security/armory/secure)
 "esw" = (
+/obj/machinery/access_button{
+	autolink_id = "enginen_btn_ext";
+	name = "exterior access button";
+	pixel_x = 20;
+	pixel_y = 20;
+	req_access = list(10,13)
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -54656,10 +54663,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/obj/structure/sign/vacuum{
-	pixel_y = 32
-	},
-/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "fiF" = (
@@ -55544,8 +55547,9 @@
 	},
 /area/station/maintenance/apmaint)
 "fEo" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume,
-/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	autolink_id = "enginen_vent"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "fEw" = (
@@ -58892,6 +58896,13 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/ai)
 "hhD" = (
+/obj/machinery/access_button{
+	autolink_id = "engines_btn_ext";
+	name = "exterior access button";
+	pixel_x = 20;
+	pixel_y = 20;
+	req_access = list(10,13)
+	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -60094,13 +60105,18 @@
 	},
 /area/station/security/permabrig)
 "hLU" = (
+/obj/machinery/airlock_controller/air_cycler{
+	ext_button_link_id = "enginen_btn_ext";
+	ext_door_link_id = "enginen_door_ext";
+	int_button_link_id = "enginen_btn_int";
+	int_door_link_id = "enginen_door_int";
+	pixel_y = -25;
+	vent_link_id = "enginen_vent";
+	req_access = list(10,13)
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/airlock_controller/air_cycler/directional/south,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "hMa" = (
@@ -63877,12 +63893,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "jvn" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/access_button/offset/northwest,
-/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "enginen_door_ext";
+	name = "Engineering External Access"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "jvr" = (
@@ -64159,9 +64179,9 @@
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "jEI" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	autolink_id = "engines_vent";
 	dir = 1
 	},
-/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "jEV" = (
@@ -64881,6 +64901,13 @@
 	},
 /area/station/security/main)
 "jTH" = (
+/obj/machinery/access_button{
+	autolink_id = "engines_btn_int";
+	name = "interior access button";
+	pixel_x = -20;
+	pixel_y = 20;
+	req_access = list(10,13)
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -67524,10 +67551,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/obj/structure/sign/vacuum{
-	pixel_y = -32
-	},
-/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "lcg" = (
@@ -68947,15 +68970,19 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "lPV" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "enginen_door_int";
+	name = "Engineering External Access"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/access_button/offset/north,
-/obj/effect/map_effect/dynamic_airlock/door/interior,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "lQd" = (
@@ -85758,15 +85785,19 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "sYU" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "engines_door_int";
+	name = "Engineering External Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/access_button/offset/southeast,
-/obj/effect/map_effect/dynamic_airlock/door/interior,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "sYX" = (
@@ -86445,12 +86476,16 @@
 	},
 /area/station/service/hydroponics)
 "tlz" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/access_button/offset/south,
-/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "engines_door_ext";
+	name = "Engineering External Access"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "tlB" = (
@@ -90697,13 +90732,18 @@
 /turf/simulated/floor/carpet/purple,
 /area/station/medical/psych)
 "uVM" = (
+/obj/machinery/airlock_controller/air_cycler{
+	ext_button_link_id = "engines_btn_ext";
+	ext_door_link_id = "engines_door_ext";
+	int_button_link_id = "engines_btn_int";
+	int_door_link_id = "engines_door_int";
+	pixel_y = 25;
+	vent_link_id = "engines_vent";
+	req_access = list(10,13)
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/airlock_controller/air_cycler/directional/north,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "uVQ" = (
@@ -95421,6 +95461,13 @@
 	},
 /area/station/maintenance/fore)
 "wVM" = (
+/obj/machinery/access_button{
+	autolink_id = "enginen_btn_int";
+	name = "interior access button";
+	pixel_x = -20;
+	pixel_y = -20;
+	req_access = list(10,13)
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -122649,7 +122696,7 @@ bIq
 bXU
 fEo
 lbV
-bXU
+cdd
 tFc
 cib
 cib
@@ -122665,7 +122712,7 @@ cib
 cib
 cib
 dWi
-bXU
+cdd
 fiA
 jEI
 cHA
@@ -122904,7 +122951,7 @@ mNB
 gNB
 bGz
 bXU
-bXU
+cdd
 lPV
 bXU
 ceV
@@ -122924,7 +122971,7 @@ cjP
 ceV
 bXU
 sYU
-bQr
+cDA
 cHA
 cFY
 gXQ
