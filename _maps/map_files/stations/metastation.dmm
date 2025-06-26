@@ -17297,10 +17297,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "bJW" = (
-/obj/structure/table/reinforced,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/clothing/mask/breath,
+/obj/structure/dispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55354,15 +55351,10 @@
 	},
 /area/station/science/robotics/showroom)
 "lnd" = (
-/obj/machinery/airlock_controller/air_cycler{
-	vent_link_id = "engine_vent";
-	ext_door_link_id = "engine_door_ext";
-	int_door_link_id = "engine_door_int";
-	pixel_y = 24;
-	ext_button_link_id = "engine_btn_ext";
-	int_button_link_id = "engine_btn_int";
-	req_access = list(10,13)
-	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/machinery/airlock_controller/air_cycler/directional/north,
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "lnu" = (
@@ -56217,17 +56209,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
-"lFv" = (
-/obj/machinery/access_button{
-	autolink_id = "engine_btn_ext";
-	name = "interior access button";
-	pixel_x = -22;
-	pixel_y = 20;
-	req_access = list(10,13)
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "lFH" = (
 /obj/machinery/light,
 /obj/item/storage/box/donkpockets{
@@ -57580,6 +57561,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "mdS" = (
@@ -59415,6 +59397,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "mLH" = (
@@ -60733,23 +60716,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
-"nfB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/access_button{
-	autolink_id = "engine_btn_int";
-	name = "interior access button";
-	pixel_x = -22;
-	pixel_y = -20;
-	req_access = list(10,13)
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/control)
 "nfG" = (
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
@@ -62021,12 +61987,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "nEU" = (
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "engine_door_int";
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/access_button/offset/west,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "nEV" = (
@@ -62087,12 +62050,9 @@
 	},
 /area/station/science/robotics/showroom)
 "nFZ" = (
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "engine_door_ext";
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/access_button/offset/north,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "nGj" = (
@@ -67368,9 +67328,9 @@
 /area/station/supply/qm)
 "pGk" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	autolink_id = "engine_vent"
+	dir = 8
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "pGn" = (
@@ -134592,7 +134552,7 @@ aOe
 tVw
 gpj
 tAn
-nfB
+bbC
 nEU
 mdN
 mLC
@@ -135365,7 +135325,7 @@ kGw
 dea
 mwZ
 aCg
-lFv
+aef
 aef
 aef
 aef
