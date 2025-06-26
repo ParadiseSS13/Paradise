@@ -12561,15 +12561,10 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "cyf" = (
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_x = 25;
-	vent_link_id = "eng_vent";
-	ext_door_link_id = "eng_door_ext";
-	int_door_link_id = "eng_door_int";
-	ext_button_link_id = "eng_btn_ext";
-	int_button_link_id = "eng_btn_int";
-	req_access = list(10,13)
-	},
+/obj/machinery/airlock_controller/air_cycler/directional/east,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cyg" = (
@@ -18464,13 +18459,9 @@
 	},
 /area/station/engineering/engine)
 "dHT" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "eng_door_int";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/machinery/access_button/offset/southeast,
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "dHW" = (
@@ -19711,18 +19702,6 @@
 	icon_state = "arrival"
 	},
 /area/station/service/theatre)
-"dWQ" = (
-/obj/machinery/access_button{
-	autolink_id = "eng_btn_int";
-	pixel_x = -22;
-	pixel_y = -20;
-	req_access = list(10,13)
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "blackcorner"
-	},
-/area/station/engineering/control)
 "dXh" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/blood/maybe,
@@ -68617,6 +68596,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "nJL" = (
@@ -69291,17 +69271,13 @@
 	},
 /area/station/security/prison/cell_block)
 "nPX" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "eng_door_ext";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
 	},
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/access_button/offset/southwest,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "nPY" = (
@@ -69681,9 +69657,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "eng_vent";
 	dir = 8
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "nTC" = (
@@ -71076,6 +71052,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "oho" = (
@@ -117121,16 +117098,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/ai)
-"xpB" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/access_button{
-	autolink_id = "eng_btn_ext";
-	pixel_x = -22;
-	pixel_y = 20;
-	req_access = list(10,13)
-	},
-/turf/space,
-/area/space/nearstation)
 "xpF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/sign/poster/official/random/directional/north,
@@ -135543,7 +135510,7 @@ orn
 nTs
 cyf
 nPX
-xpB
+tHM
 tHM
 tHM
 aZS
@@ -136054,7 +136021,7 @@ lBp
 wDW
 wDW
 orn
-dWQ
+tdl
 tdl
 sIf
 sIf
