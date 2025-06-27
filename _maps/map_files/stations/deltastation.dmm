@@ -59567,16 +59567,10 @@
 /area/space)
 "hEe" = (
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/camera{
-	c_tag = "Research Break Room";
-	dir = 4;
-	network = list("Research","SS13")
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
+/turf/simulated/floor/plasteel/dark,
+/area/station/maintenance/solar_maintenance/aft_port)
 "hEk" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
@@ -72325,12 +72319,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedbar)
 "nnV" = (
-/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -30
 	},
 /obj/machinery/light,
+/obj/machinery/economy/vending/minedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "purple"
@@ -125416,7 +125410,7 @@ aaa
 aaa
 xDJ
 mbi
-jme
+hEe
 hJS
 xDJ
 aaa
@@ -132439,7 +132433,7 @@ drn
 ntF
 rvY
 nFq
-hEe
+mQi
 ptQ
 swS
 nhw
