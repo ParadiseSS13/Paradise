@@ -37,6 +37,20 @@
 	// Program vars
 	var/target_pressure
 
+/obj/machinery/airlock_controller/Initialize(mapload, direction)
+	. = ..()
+
+	if(direction)
+		setDir(direction)
+
+	if(!mapload)
+		set_pixel_offsets_from_dir(25, -25, 25, -25)
+		vent_link_id = VENT_ID(UID())
+		ext_door_link_id = EXT_DOOR_ID(UID())
+		int_door_link_id = INT_DOOR_ID(UID())
+		ext_button_link_id = EXT_BTN_ID(UID())
+		int_button_link_id = INT_BTN_ID(UID())
+
 /obj/machinery/airlock_controller/proc/link_all_items()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == int_door_link_id)

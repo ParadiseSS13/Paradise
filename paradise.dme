@@ -1380,6 +1380,7 @@
 #include "code\game\objects\items\granters\crafting_granters\_crafting_granter.dm"
 #include "code\game\objects\items\granters\crafting_granters\combat_baking.dm"
 #include "code\game\objects\items\mountable_frames\air_alarm_frame.dm"
+#include "code\game\objects\items\mountable_frames\airlock_chamber_frames.dm"
 #include "code\game\objects\items\mountable_frames\apc_frame.dm"
 #include "code\game\objects\items\mountable_frames\buttons_switches.dm"
 #include "code\game\objects\items\mountable_frames\extinguisher_frame.dm"
