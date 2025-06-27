@@ -111,6 +111,8 @@
 	var/datum/event/demon_incursion/linked_incursion
 	/// Percentage chance that a portal will spread every time spread() is called
 	var/portal_spread_chance = 50
+	/// Lowest possible spread chance
+	var/min_spread_chance = 10
 	/// Lower bound for portal spreading
 	var/portal_spread_cooldown_min = 3 MINUTES
 	/// Upper bound for portal spreading
@@ -192,9 +194,16 @@
 		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
 
 /obj/structure/spawner/nether/demon_incursion/proc/spread()
-	// Spread chance linearly decreases as more portals are added, flattening at 50% once portal count is 3x the starting amount
+
 	var/base_portal_count = max(length(GLOB.crew_list) / 10, 1)
-	portal_spread_chance = 100 - min((50 * max(length(linked_incursion.portal_list) - base_portal_count, 0) / (base_portal_count * 2)), 50)
+	if(length(linked_incursion.portal_list) <= base_portal_count)
+		portal_spread_chance = 100
+	else
+		// Spread chance runs on an exponential regression formula when above the base portal count.
+		var/log_value = (50 - min_spread_chance) / (100 - min_spread_chance)
+		var/midpoint = -(log(log_value) / base_portal_count)
+		var/euler_exponent = 2.71828 ** (-midpoint * (length(linked_incursion.portal_list) - base_portal_count))
+		portal_spread_chance = min_spread_chance + ((100 - min_spread_chance) * euler_exponent)
 	expansion_delay = rand(portal_spread_cooldown_min, portal_spread_cooldown_max)
 	if(!prob(portal_spread_chance))
 		addtimer(CALLBACK(src, PROC_REF(spread)), expansion_delay)
