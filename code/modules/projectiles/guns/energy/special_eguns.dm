@@ -1282,5 +1282,6 @@
 
 /obj/item/gun/energy/laser/lever_action/update_icon_state()
 	icon_state = initial(icon_state)
-	if(cell.charge < cell.maxcharge)
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(cell.charge < shot.e_cost)
 		icon_state = "lever_action_e"

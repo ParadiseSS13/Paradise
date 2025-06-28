@@ -180,7 +180,7 @@
 /obj/item/stock_parts/cell/lever_gun
 	name = "\improper cycle charge cell"
 	desc = "You shouldn't be seeing this."
-	maxcharge = 83
+	maxcharge = 150
 
 /obj/item/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargeable AA battery"
