@@ -22920,8 +22920,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
@@ -22930,10 +22928,13 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "arrival"
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "bBt" = (
 /obj/structure/chair/office/dark,
@@ -29077,7 +29078,7 @@
 /area/station/science/hallway)
 "caD" = (
 /obj/effect/spawner/airlock/s_to_n/long,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/station/maintenance/fpmaint2)
 "caE" = (
 /obj/machinery/economy/vending/medical,
@@ -52523,6 +52524,13 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/patients_rooms1)
+"gbU" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/apmaint)
 "gcJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -54789,6 +54797,10 @@
 /obj/structure/chair/sofa/bench{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -56483,6 +56495,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"hZL" = (
+/obj/effect/spawner/random/fungus/frequent,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/apmaint)
 "hZN" = (
 /obj/structure/closet/cardboard,
 /obj/effect/decal/cleanable/dirt,
@@ -58747,10 +58763,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "jje" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -60123,6 +60135,10 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"jSr" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/fpmaint2)
 "jSv" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -63803,6 +63819,10 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
+"lGJ" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/apmaint)
 "lGL" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -75728,14 +75748,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"rvh" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA";
-	pixel_y = 32
-	},
-/turf/space,
-/area/space)
 "rvo" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -100403,7 +100415,7 @@ aaa
 aaa
 aaa
 aab
-aGn
+aSt
 mzS
 aKa
 aSt
@@ -100660,7 +100672,7 @@ aaa
 aaa
 aaa
 aab
-aRp
+jSr
 ezD
 aHS
 aSt
@@ -100914,9 +100926,9 @@ aaa
 aaa
 aaa
 doE
-aGn
-aGn
-aGn
+aSt
+aSt
+aSt
 caD
 hFM
 aLg
@@ -101428,10 +101440,10 @@ aaa
 aaa
 aaa
 doE
-aGn
-aGn
-aGn
-aGn
+aSt
+aSt
+aSt
+aSt
 jEL
 tmn
 aGn
@@ -101683,9 +101695,9 @@ alv
 aaa
 aaa
 aaa
-aGn
-aGn
-aGn
+aSt
+aSt
+aSt
 aNB
 aMy
 aGn
@@ -101940,7 +101952,7 @@ aab
 aaa
 aaa
 aaa
-aGn
+aSt
 aHR
 iWL
 aHS
@@ -102197,7 +102209,7 @@ aab
 aaa
 aaa
 aaa
-aGn
+aSt
 aHM
 aIJ
 aHS
@@ -102454,7 +102466,7 @@ aab
 aaa
 aaa
 aaa
-bat
+aJU
 aHU
 erj
 aHS
@@ -102502,7 +102514,7 @@ hTL
 hgO
 ukh
 fqr
-rvh
+aaa
 aaa
 aaa
 aaa
@@ -102756,11 +102768,11 @@ vNn
 hEd
 mBl
 blQ
-nqv
 blQ
-iez
-aaa
-iez
+blQ
+lGJ
+gbU
+cvp
 lRv
 lRv
 lRv
@@ -103015,9 +103027,9 @@ cEL
 cjg
 bnw
 vwk
-cgQ
-lRv
-rgs
+gzN
+coL
+iez
 cjf
 kUo
 kJk
@@ -103531,7 +103543,7 @@ jQG
 bJt
 cvp
 cyk
-cvp
+hZL
 cvp
 cvp
 cvp
