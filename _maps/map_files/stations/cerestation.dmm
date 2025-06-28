@@ -102954,6 +102954,9 @@
 	icon_state = "cafeteria"
 	},
 /area/station/supply/break_room)
+"uWM" = (
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/security/fore_starboard)
 "uWP" = (
 /obj/effect/spawner/random/oil/maybe,
 /obj/effect/decal/cleanable/dirt,
@@ -139211,7 +139214,7 @@ vva
 vva
 vva
 vva
-ovN
+uWM
 fJf
 bIo
 bYw
