@@ -16122,6 +16122,15 @@
 "bex" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/internals,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bez" = (
@@ -56406,6 +56415,10 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/maintenance/asmaint)
+"hWF" = (
+/obj/structure/closet/wardrobe/mixed,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "hXM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -72507,7 +72520,7 @@
 /area/shuttle/arrival/station)
 "pYy" = (
 /obj/machinery/newscaster/directional/west,
-/obj/structure/closet/wardrobe/grey,
+/obj/structure/closet/wardrobe/yellow,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "pYT" = (
@@ -73355,6 +73368,17 @@
 "qqY" = (
 /obj/machinery/computer/arcade{
 	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"qrc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
@@ -76759,6 +76783,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"rXn" = (
+/obj/structure/closet/wardrobe/grey,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "rYm" = (
 /obj/structure/girder,
 /turf/simulated/floor/plasteel,
@@ -82397,7 +82425,7 @@
 /area/station/maintenance/apmaint)
 "uWH" = (
 /obj/machinery/requests_console/directional/west,
-/obj/structure/closet/wardrobe/mixed,
+/obj/structure/closet/wardrobe/green,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "uWO" = (
@@ -96982,7 +97010,7 @@ aVV
 cqY
 mog
 jyO
-aVX
+qrc
 cqY
 aVV
 aaa
@@ -97492,13 +97520,13 @@ alA
 aab
 qeu
 cqY
-aXs
-aXs
+aXu
+rXn
 pYy
 jyO
 uWH
 aXv
-aXu
+hWF
 cqY
 qeu
 aab
