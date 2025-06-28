@@ -65271,14 +65271,6 @@
 "mnN" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/transmission_laser)
-"mog" = (
-/obj/structure/chair/comfy/shuttle,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "mpk" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -71760,6 +71752,14 @@
 	icon_state = "dark"
 	},
 /area/station/legal/courtroom/gallery)
+"pDb" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/effect/landmark/spawner/late/crew,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "pDd" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -96751,9 +96751,9 @@ aab
 aaa
 aaa
 cqY
-fFc
+pDb
 jyO
-aVX
+vig
 cqY
 aaa
 aaa
@@ -97008,7 +97008,7 @@ aab
 aaa
 aVV
 cqY
-mog
+fFc
 jyO
 qrc
 cqY
