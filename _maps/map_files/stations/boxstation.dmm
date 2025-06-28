@@ -71573,6 +71573,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "arrival"
@@ -75745,6 +75748,14 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"rvh" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA";
+	pixel_y = 32
+	},
+/turf/space,
+/area/space)
 "rvo" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -81148,6 +81159,7 @@
 /obj/structure/chair/sofa/bench/left{
 	dir = 8
 	},
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "arrival"
@@ -81874,12 +81886,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"uDQ" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/south)
 "uDR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/trinary/mixer{
@@ -85122,12 +85128,6 @@
 	icon_state = "blue"
 	},
 /area/station/command/bridge)
-"wrb" = (
-/obj/structure/sign/poster/official/random/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/south)
 "wrj" = (
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 1
@@ -99420,7 +99420,7 @@ fqr
 aSn
 aSn
 fqr
-fqr
+aUo
 aaa
 aaa
 aaa
@@ -100962,7 +100962,7 @@ dLW
 vwz
 ucc
 lPn
-fqr
+aSn
 aaa
 aaa
 aaa
@@ -101218,8 +101218,8 @@ qqG
 qJd
 vwz
 tfB
-uDQ
-aUo
+lPn
+aSn
 aaa
 aaa
 aaa
@@ -101476,7 +101476,7 @@ vwz
 vwz
 iUj
 lPn
-fqr
+aSn
 aaa
 aaa
 aaa
@@ -102246,8 +102246,8 @@ cWm
 sct
 gpN
 aew
-wrb
-fqr
+lPn
+aSn
 aaa
 aaa
 aaa
@@ -102505,7 +102505,7 @@ hTL
 hgO
 ukh
 fqr
-aaa
+rvh
 aaa
 aaa
 aaa
