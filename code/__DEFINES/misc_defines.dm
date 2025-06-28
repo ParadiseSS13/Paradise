@@ -438,7 +438,7 @@
 #define INVESTIGATE_DEATHS "deaths"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 67
+#define SQL_VERSION 68
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -744,6 +744,20 @@ do { \
 #define BANK_PIN_MIN 10000
 #define BANK_PIN_MAX 99999
 
+/// Defines for hidden organ techs
+#define TECH_MATERIAL "material"
+#define TECH_ENGINEERING "engineering"
+#define TECH_PLASMA "plasma"
+#define TECH_POWER "power"
+#define TECH_BLUESPACE "bluespace"
+#define TECH_BIO "biotech"
+#define TECH_COMBAT "combat"
+#define TECH_MAGNETS "magnets"
+#define TECH_PROGRAM "programming"
+#define TECH_TOXINS "toxins"
+#define TECH_SYNDICATE "syndicate"
+#define TECH_ABDUCTOR "abductor"
+
 //! The number of seconds between the start of the UNIX and BYOND epochs.
 #define BYOND_EPOCH_UNIX 946702800
 
@@ -760,3 +774,5 @@ do { \
 
 #define DIRECT_EXPLOSIVE_TRAP_DEFUSE 1
 #define DIRECT_EXPLOSIVE_TRAP_IGNORE 2
+
+#define NODROP_TOGGLE "toggle"

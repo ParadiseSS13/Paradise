@@ -12,7 +12,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "f" = (
-/obj/structure/spawner/mining/goliath,
+/obj/structure/spawner/mining/goliath/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "o" = (
@@ -27,11 +27,11 @@
 /turf/template_noop,
 /area/template_noop)
 "U" = (
-/obj/structure/spawner/mining/basilisk,
+/obj/structure/spawner/mining/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "Y" = (
-/obj/structure/spawner/mining/hivelord,
+/obj/structure/spawner/mining/hivelord/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 

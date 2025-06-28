@@ -172,21 +172,52 @@
 		for(var/victim in shocking_queue)
 			var/mob/living/carbon/C = victim
 			C.electrocute_act(shock_damage * 0.75, src, 1, flags)
-	//Stun
-	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
-	if(should_stun)
-		Stun(1 SECONDS)
-	//Jitter and other fluff.
-	AdjustJitter(2000 SECONDS)
-	AdjustStuttering(4 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 1 SECONDS)
+
+	// Minor shock - Jitters and Stutters
+	var/jitter_amount = 0
+	if(shock_damage >= SHOCK_MINOR)
+		jitter_amount = shock_damage
+		AdjustStuttering(4 SECONDS)
+
+	// Moderate shock - Stun, knockdown, funny effect
+	var/should_stun = FALSE
+	var/stun_dur = 0 SECONDS
+	if(shock_damage >= SHOCK_MODERATE)
+		should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
+		if(should_stun)
+			stun_dur = max((shock_damage / 50) * 1 SECONDS, 4 SECONDS)
+			Stun(stun_dur)
+		if(shock_damage >= SHOCK_FLASH) // Arc flash explosion is instant, don't wait for the secondary shock and bypass the effect
+			stun_dur = 0
+		else
+			var/obj/effect/temp_visual/electrocution/shock_effect = new /obj/effect/temp_visual/electrocution(loc, stun_dur)
+			shock_effect.setDir(dir)
+		emote("scream")
+		AdjustStuttering(4 SECONDS)
+
+	// Major Shock - YEET
+	var/throw_distance = 0
+	var/throw_dir = null
+	if(shock_damage >= SHOCK_MAJOR)
+		do_sparks(3, TRUE, src)
+		AdjustStuttering(4 SECONDS)
+		if(isatom(source))
+			var/atom/shock_source = source
+			throw_dir = get_dir(shock_source.loc, src)
+			throw_distance = round(shock_damage / 10)
+
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), jitter_amount, should_stun, throw_dir, throw_distance), stun_dur)
 	return shock_damage
 
-///Called slightly after electrocute act to reduce jittering and apply a secondary knockdown.
-/mob/living/carbon/proc/secondary_shock(should_stun)
-	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
+/// Called after electrocute_act to apply secondary effects
+/mob/living/carbon/proc/secondary_shock(jitter_amount, should_stun, throw_dir, throw_distance)
+	if(jitter_amount)
+		AdjustJitter(jitter_amount)
 	if(should_stun)
 		KnockDown(6 SECONDS)
+	if(throw_dir && throw_distance && !HAS_TRAIT(src, TRAIT_MAGPULSE)) // Don't yeet if they're wearing magboots
+		var/turf/general_direction = get_edge_target_turf(src, throw_dir)
+		src.throw_at(general_direction, throw_distance, throw_distance)
 
 /mob/living/carbon/swap_hand()
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, get_active_hand()) == COMPONENT_BLOCK_SWAP)
