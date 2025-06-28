@@ -71,6 +71,16 @@
 	build_path = /obj/item/telepad_beacon
 	category = list("Bluespace")
 
+/datum/design/rcs
+	name = "Rapid Crate Sender"
+	desc = "Used to warp crates and closets to cargo telepads."
+	id = "rcs"
+	req_tech = list("programming" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3750)
+	build_path = /obj/item/rcs
+	category = list("Bluespace")
+
 /datum/design/beacon
 	name = "Tracking Beacon"
 	desc = "A bluespace tracking beacon."

@@ -62,7 +62,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/datum/dmm_suite/loaded_map/LM = new
 	// This try-catch is used as a budget "Finally" clause, as the dirt count
 	// needs to be reset
-	var/watch = start_watch()
 	log_debug("[measureOnly ? "Measuring" : "Loading"] map: [fname]")
 	try
 		LM.index = 1
@@ -162,7 +161,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		throw e
 
 	GLOB._preloader.reset()
-	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		CRASH("Bad Map bounds in [fname], Min x: [bounds[MAP_MINX]], Min y: [bounds[MAP_MINY]], Min z: [bounds[MAP_MINZ]], Max x: [bounds[MAP_MAXX]], Max y: [bounds[MAP_MAXY]], Max z: [bounds[MAP_MAXZ]]")
