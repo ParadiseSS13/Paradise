@@ -22927,6 +22927,9 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -23539,22 +23542,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/service/chapel)
-"bEm" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/south)
 "bEn" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -23876,9 +23863,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/alarm/directional/east,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -25128,14 +25117,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/lobby)
-"bKp" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/hallway/secondary/entry/south)
 "bKs" = (
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
@@ -47182,6 +47163,7 @@
 /area/station/engineering/gravitygenerator)
 "dCK" = (
 /obj/structure/closet/firecloset/full,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -53040,9 +53022,6 @@
 	},
 /area/station/hallway/secondary/exit)
 "gon" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/chair{
 	dir = 4
 	},
@@ -63403,7 +63382,6 @@
 /area/station/security/permabrig)
 "lvc" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "arrival"
@@ -72094,7 +72072,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
@@ -73375,6 +73352,9 @@
 "qqG" = (
 /obj/structure/chair{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -86870,6 +86850,20 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"xlw" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/south)
 "xlK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -87216,6 +87210,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
@@ -100690,15 +100687,15 @@ mEp
 ehu
 aLd
 aab
-fqr
+aSn
 gMW
-fqr
+aSn
 afO
 afO
 afO
-fqr
+aSn
 cOv
-fqr
+aSn
 aab
 aSn
 gIB
@@ -100946,17 +100943,17 @@ beB
 aSf
 inq
 aLd
-fqr
-fqr
-bKp
-fqr
+aSn
+aSn
+kPW
 aSn
 aSn
 aSn
-fqr
-bKp
-fqr
-aLd
+aSn
+aSn
+kPW
+aSn
+apx
 fqr
 dLW
 vwz
@@ -101204,15 +101201,15 @@ aSf
 inq
 aLd
 dCK
-fqr
+aSn
 gMW
-fqr
+aSn
 pPq
 hhj
 lvc
-fqr
+aSn
 wvC
-fqr
+aSn
 gon
 qqG
 qJd
@@ -101976,8 +101973,8 @@ buS
 ouf
 boR
 bBs
+xlw
 bDu
-bEm
 bFM
 bIb
 bJs
