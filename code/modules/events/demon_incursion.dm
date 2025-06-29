@@ -120,10 +120,12 @@
 	/// Time until next portal
 	var/expansion_delay
 	/// How fast does the portal spawn mobs after the initial spawns?
-	var/spawn_rate = 60 SECONDS
+	var/spawn_rate = 30 SECONDS
 	/// How many initial mobs does it spawn?
 	var/initial_spawns_min = 1
 	var/initial_spawns_max = 4
+	/// Are we spawning initial mobs?
+	var/spawning_initial_mobs = TRUE
 	/// Current tile spread distance
 	var/tile_spread = 1
 	/// Max tile Spread distance
@@ -152,6 +154,8 @@
 
 /obj/structure/spawner/nether/demon_incursion/process()
 	. = ..()
+	if(!spawning_initial_mobs)
+		update_spawn_time()
 	if(!COOLDOWN_FINISHED(src, portal_repair))
 		return
 	if(obj_integrity >= max_integrity)
@@ -193,6 +197,13 @@
 	if(P.firer)
 		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
 
+/obj/structure/spawner/nether/demon_incursion/proc/update_spawn_time()
+	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
+	var/spawn_increment = 0
+	for(var/mob/living/mob as anything in spawn_comp.spawned_mobs)
+		spawn_increment += 5 SECONDS
+	spawn_comp.spawn_time = spawn_time + spawn_increment
+
 /obj/structure/spawner/nether/demon_incursion/proc/spread()
 
 	var/base_portal_count = max(length(GLOB.crew_list) / 10, 1)
@@ -230,9 +241,9 @@
 	return
 
 /obj/structure/spawner/nether/demon_incursion/proc/stop_initial_mobs()
-	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
-	spawn_comp.spawn_time = spawn_rate
+	spawning_initial_mobs = FALSE
 	spawn_time = spawn_rate
+	update_spawn_time()
 
 /obj/structure/spawner/nether/demon_incursion/proc/spread_turf()
 	for(var/turf/spread_turf in range(tile_spread, loc))
