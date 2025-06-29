@@ -42417,7 +42417,8 @@
 	ext_door_link_id = "engsm_door_ext";
 	int_door_link_id = "engsm_door_int";
 	ext_button_link_id = "engsm_btn_ext";
-	int_button_link_id = "engsm_btn_int"
+	int_button_link_id = "engsm_btn_int";
+	req_one_access = list(10, 24)
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-8"
