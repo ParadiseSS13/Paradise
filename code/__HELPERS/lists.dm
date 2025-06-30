@@ -986,3 +986,10 @@
 /proc/lists_equal_unordered(list/list_one, list/list_two)
 	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
 	return !length(list_one ^ list_two)
+
+/// Tries to return a value of input[key1][key2] if both keys exist, otherwise returns null
+/proc/get_nested_value(list/input, key1, key2)
+	var/list/check_exist = input[key1]
+	if(!islist(check_exist))
+		return
+	return check_exist[key2]
