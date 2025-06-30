@@ -342,6 +342,7 @@
 					I.forceMove(C.bag)
 			else
 				I.forceMove(back)
+			I.in_storage = TRUE
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby__legacy__attackchain(I, src)
