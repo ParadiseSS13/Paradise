@@ -137,7 +137,6 @@
 	base_name = "large airlock"
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	var/width = 2
-	var/list/fillers
 	airlock_type = /obj/machinery/door/airlock/multi_tile
 	glass_type = /obj/machinery/door/airlock/multi_tile/glass
 	material_amt = 8
@@ -146,9 +145,12 @@
 	. = ..()
 	if(direction)
 		setDir(direction)
+
+/obj/structure/door_assembly/multi_tile/setDir(newdir)
+	. = ..()
 	update_bounds()
 
-/obj/structure/door_assembly/multi_tile/Move(new_loc, new_dir)
+/obj/structure/door_assembly/multi_tile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	update_bounds()
 
@@ -156,12 +158,12 @@
 	if(width <= 1)
 		return
 
-	if(dir in list(EAST, WEST))
+	if(dir in list(SOUTH, NORTH))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
 		bound_y = 0
 		pixel_y = 0
-		if(dir == WEST)
+		if(dir == NORTH)
 			bound_x = -(width - 1) * world.icon_size
 			pixel_x = -(width - 1) * world.icon_size
 		else
@@ -173,31 +175,12 @@
 		bound_height = width * world.icon_size
 		bound_x = 0
 		pixel_x = 0
-		if(dir == SOUTH)
+		if(dir == WEST)
 			bound_y = -(width - 1) * world.icon_size
 			pixel_y = -(width - 1) * world.icon_size
 		else
 			bound_y = 0
 			pixel_y = 0
-
-	QDEL_LIST_CONTENTS(fillers)
-	LAZYINITLIST(fillers)
-
-	var/obj/last_filler = src
-	for(var/i in 1 to width - 1)
-		var/obj/airlock_filler_object/filler
-
-		if(length(fillers) < i)
-			filler = new(src)
-			filler.pair_assembly(src)
-			fillers += filler
-		else
-			filler = fillers[i]
-
-		filler.loc = get_step(last_filler, dir)
-		filler.set_opacity(opacity)
-
-		last_filler = filler
 
 /obj/structure/door_assembly/door_assembly_cult
 	name = "cult airlock assembly"
