@@ -104,3 +104,8 @@
 	icon_state = "shadowring"
 	material = "shadows"
 	ring_color = "shadow"
+
+/obj/item/clothing/gloves/ring/white_diamond
+	name = "white diamond ring"
+	desc = "A small silver ring with a large light blue diamond. Someone's a big spender."
+	icon_state = "d_whitering"
