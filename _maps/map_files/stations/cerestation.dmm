@@ -40543,7 +40543,7 @@
 /area/station/hallway/primary/central/north)
 "hvI" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_solar_rays,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
 "hvX" = (
@@ -55847,7 +55847,7 @@
 /area/station/science/hallway)
 "kIn" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/south)
@@ -112738,10 +112738,10 @@
 /area/station/service/kitchen)
 "xqy" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
-/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/fancy/cigarettes/cigpack_solar_rays,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"

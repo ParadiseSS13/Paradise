@@ -1233,13 +1233,15 @@
 	icon_lightmask = "cigs"
 	category = VENDOR_TYPE_RECREATION
 	products = list(/obj/item/clothing/mask/cigarette/cigar = 2,
-					/obj/item/storage/fancy/cigarettes = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
 					/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+					/obj/item/storage/fancy/cigarettes/cigpack_candy = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 					/obj/item/reagent_containers/patch/nicotine = 10,
 					/obj/item/storage/fancy/matches = 10,
@@ -1250,14 +1252,16 @@
 	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_midori = 6)
 
 	prices = list(/obj/item/clothing/mask/cigarette/cigar = 100,
-				/obj/item/storage/fancy/cigarettes = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 25,
 				/obj/item/storage/fancy/cigarettes/dromedaryco = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
+				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 15,
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 120,
+				/obj/item/storage/fancy/cigarettes/cigpack_candy = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 50,
+				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 35,
 				/obj/item/reagent_containers/patch/nicotine = 70,
 				/obj/item/storage/fancy/matches = 20,
@@ -1274,20 +1278,24 @@
 // The Syndicate version doesn't sell Robust because that is a Nanotrasen-owned brand. It *does* have its special own-brand replacement.
 /obj/machinery/economy/vending/cigarette/syndicate
 	products = list(/obj/item/clothing/mask/cigarette/cigar = 6,
-				/obj/item/storage/fancy/cigarettes = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
 				/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 				/obj/item/reagent_containers/patch/nicotine = 10,
 				/obj/item/storage/fancy/matches = 10,
 				/obj/item/lighter/zippo = 6,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
-	contraband = list()
+	// You'd better believe that NT branded cigs are contraband in the Syndicate's territory.
+	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+					/obj/item/storage/fancy/cigarettes/cigpack_candy = 6)
 
 /obj/machinery/economy/vending/cigarette/syndicate/free
 	prices = list()
@@ -1308,13 +1316,15 @@
 	products = list(/obj/item/clothing/mask/cigarette/cigar = 6,
 				/obj/item/clothing/mask/cigarette/cigar/cohiba = 6,
 				/obj/item/clothing/mask/cigarette/cigar/havana = 6,
-				/obj/item/storage/fancy/cigarettes = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_candy = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 10,
 				/obj/item/reagent_containers/patch/nicotine = 20,
 				/obj/item/storage/fancy/matches = 10,
