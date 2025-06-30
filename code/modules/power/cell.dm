@@ -177,6 +177,11 @@
 /obj/item/stock_parts/cell/empty
 	starting_charge = 0
 
+/obj/item/stock_parts/cell/lever_gun
+	name = "\improper cycle charge cell"
+	desc = "You shouldn't be seeing this."
+	maxcharge = 150
+
 /obj/item/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargeable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
