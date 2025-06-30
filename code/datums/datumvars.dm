@@ -88,6 +88,7 @@
 	.["Jump to Object"] = "byond://?_src_=vars;jump_to=[UID()]"
 	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
 	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
+	.["Modify Implants"] = "byond://?_src_=vars;implants=[UID()]"
 	.["Add Component/Element"] = "byond://?_src_=vars;addcomponent=[UID()]"
 	.["Remove Component/Element"] = "byond://?_src_=vars;removecomponent=[UID()]"
 	.["Mass Remove Component/Element"] = "byond://?_src_=vars;massremovecomponent=[UID()]"
@@ -1273,6 +1274,14 @@
 		if(!istype(A))
 			return
 		holder.modify_traits(A)
+
+	else if(href_list["implants"])
+		if(!check_rights(NONE))
+			return
+		var/mob/living/carbon/implantee = locateUID(href_list["implants"])
+		if(!istype(implantee))
+			return
+		holder.modify_implants(implantee)
 
 	if(href_list["addcomponent"])
 		if(!check_rights(NONE))
