@@ -8,12 +8,16 @@
 	attack_verb = list("bashed","smacked")
 	resistance_flags = FLAMMABLE
 
-	var/delayed = 0 //used to do delays
+	new_attack_chain = TRUE
+
+	/// The cooldown tracking when we can next wave the sign
+	COOLDOWN_DECLARE(wave_cooldown)
 
 	var/label = ""
 
-/obj/item/picket_sign/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(is_pen(W) || istype(W, /obj/item/toy/crayon))
+/obj/item/picket_sign/attack_by(obj/item/attacking, mob/user, params)
+	. = ..()
+	if(is_pen(attacking) || istype(attacking, /obj/item/toy/crayon))
 		var/txt = tgui_input_text(user, "What would you like to write on the sign?", "Sign Label", max_length = 30)
 		if(isnull(txt))
 			return
@@ -22,20 +26,18 @@
 		desc =	"It reads: [label]"
 	..()
 
-/obj/item/picket_sign/attack_self__legacy__attackchain(mob/living/carbon/human/user)
-	if(delayed)
+/obj/item/picket_sign/activate_self(mob/user)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, wave_cooldown))
 		user.show_message("<span class='warning'>Your arm is too tired to do that again so soon!</span>")
 		return
 
-	delayed = 1
 	if(label)
 		user.visible_message("<span class='notice'>[user] waves around \the \"[label]\" sign.</span>")
 	else
 		user.visible_message("<span class='notice'>[user] waves around blank sign.</span>")
 	user.changeNext_move(CLICK_CD_MELEE)
-
-	sleep(8)
-	delayed = 0
+	COOLDOWN_START(src, wave_cooldown, 8 SECONDS)
 
 /datum/crafting_recipe/picket_sign
 	name = "Picket Sign"
