@@ -638,7 +638,7 @@
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer)
 	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/instrument/guitar/cyborg)
-	malf_modules = list(/obj/item/gun/projectile/shotgun/automatic/combat/cyborg)
+	malf_modules = list(/obj/item/gun/energy/gun/shotgun/cyborg)
 	special_rechargables = list(
 		/obj/item/reagent_containers/condiment/enzyme,
 		/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
