@@ -1233,7 +1233,7 @@
 	can_charge = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/lever_action)
 	shaded_charge = FALSE
-	var/cycle_time = 1.5 SECONDS
+	var/cycle_time = 1 SECONDS
 	COOLDOWN_DECLARE(cycle_cooldown)
 
 /obj/item/gun/energy/laser/lever_action/examine(mob/user)
