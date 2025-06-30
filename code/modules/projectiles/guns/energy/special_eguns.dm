@@ -1278,7 +1278,10 @@
 	cell.give(cell.maxcharge)
 	playsound(user, 'sound/weapons/gun_interactions/lever_action.ogg', 60, TRUE)
 	update_icon()
-	COOLDOWN_START(src, cycle_cooldown, cycle_time)
+	var/total_cycle_time = cycle_time
+	if(current_lens)
+		total_cycle_time /= current_lens.fire_rate_mult
+	COOLDOWN_START(src, cycle_cooldown, total_cycle_time)
 
 /obj/item/gun/energy/laser/lever_action/update_icon_state()
 	icon_state = initial(icon_state)
