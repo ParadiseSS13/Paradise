@@ -1,0 +1,120 @@
+/obj/vv_get_dropdown()
+	. = ..()
+
+	VV_DROPDOWN_OPTION(VV_HK_DELALL, "Delete all of type")
+	if(!speed_process)
+		VV_DROPDOWN_OPTION(VV_HK_MAKESPEEDY, "Make speed process")
+	else
+		VV_DROPDOWN_OPTION(VV_HK_MAKENORMALSPEED, "Make normal process")
+	VV_DROPDOWN_OPTION(VV_HK_MODIFYARMOR, "Modify armor values")
+
+/obj/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list[VV_HK_DELALL])
+		if(!check_rights(R_DEBUG|R_SERVER))
+			return
+
+		var/action_type = alert("Strict type ([type]) or type and all subtypes?", null, "Strict type", "Type and subtypes", "Cancel")
+		if(action_type == "Cancel" || !action_type)
+			return
+
+		if(alert("Are you really sure you want to delete all objects of type [type]?", null, "Yes", "No") != "Yes")
+			return
+
+		if(alert("Second confirmation required. Delete?", null, "Yes", "No") != "Yes")
+			return
+
+		var/O_type = type
+		switch(action_type)
+			if("Strict type")
+				var/i = 0
+				for(var/obj/Obj in world)
+					if(Obj.type == O_type)
+						i++
+						qdel(Obj)
+				if(!i)
+					to_chat(usr, "No objects of this type exist")
+					return
+				log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
+				message_admins("[key_name_admin(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
+			if("Type and subtypes")
+				var/i = 0
+				for(var/obj/Obj in world)
+					if(istype(Obj,O_type))
+						i++
+						qdel(Obj)
+				if(!i)
+					to_chat(usr, "No objects of this type exist")
+					return
+				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
+				message_admins("[key_name_admin(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
+
+	if(href_list[VV_HK_MAKESPEEDY])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var_edited = TRUE
+		makeSpeedProcess()
+		log_admin("[key_name(usr)] has made [src] speed process")
+		message_admins("<span class='notice'>[key_name(usr)] has made [src] speed process</span>")
+	if(href_list[VV_HK_MAKENORMALSPEED])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var_edited = TRUE
+		makeNormalProcess()
+		log_admin("[key_name(usr)] has made [src] process normally")
+		message_admins("<span class='notice'>[key_name(usr)] has made [src] process normally</span>")
+	if(href_list[VV_HK_MODIFYARMOR])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var_edited = TRUE
+		var/list/armorlist = armor.getList()
+		var/list/displaylist
+
+		var/result
+		do
+			displaylist = list()
+			for(var/key in armorlist)
+				displaylist += "[key] = [armorlist[key]]"
+			result = input(usr, "Select an armor type to modify..", "Modify armor") as null|anything in displaylist + "(ADD ALL)" + "(SET ALL)" + "(DONE)"
+
+			if(result == "(DONE)")
+				break
+			else if(result == "(ADD ALL)" || result == "(SET ALL)")
+				var/new_amount = input(usr, result == "(ADD ALL)" ? "Enter armor to add to all types:" : "Enter new armor value for all types:", "Modify all types") as num|null
+				if(isnull(new_amount))
+					continue
+				var/proper_amount = text2num(new_amount)
+				if(isnull(proper_amount))
+					continue
+				for(var/key in armorlist)
+					armorlist[key] = (result == "(ADD ALL)" ? armorlist[key] : 0) + proper_amount
+			else if(result)
+				var/list/fields = splittext(result, " = ")
+				if(length(fields) != 2)
+					continue
+				var/type = fields[1]
+				if(isnull(armorlist[type]))
+					continue
+				var/new_amount = input(usr, "Enter new armor value for [type]:", "Modify [type]") as num|null
+				if(isnull(new_amount))
+					continue
+				var/proper_amount = text2num(new_amount)
+				if(isnull(proper_amount))
+					continue
+				armorlist[type] = proper_amount
+		while(result)
+
+		if(!result || !QDELETED(src))
+			return TRUE
+
+		armor = armor.setRating(armorlist[MELEE], armorlist[BULLET], armorlist[LASER], armorlist[ENERGY], armorlist[BOMB], armorlist[RAD], armorlist[FIRE], armorlist[ACID], armorlist[MAGIC])
+
+		log_admin("[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
+		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
