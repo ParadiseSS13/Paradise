@@ -11,16 +11,14 @@
 	allowed_tools = list(
 		TOOL_SAW = 100,
 		/obj/item/hatchet = 90,
-		/obj/item/chainsaw = 90,	// Chainsaws were actually invented to replace manual bonesaws. Obvously *these* chainsaws aren't exactly designed for that, but then again, neither is a hatchet or a set of wirecutters.
-		/obj/item/butcher_chainsaw = 90,
+		/obj/item/melee/chainsaw = 90,	// Chainsaws were actually invented to replace manual bonesaws. Obvously *these* chainsaws aren't exactly designed for that, but then again, neither is a hatchet or a set of wirecutters.
 		TOOL_WIRECUTTER = 35 	// Silly goose!
 	)
 
 	preop_sound = list(
 		TOOL_SAW = 'sound/surgery/saw.ogg',
 		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
-		/obj/item/chainsaw = 'sound/weapons/chainsaw.ogg',
-		/obj/item/butcher_chainsaw = 'sound/weapons/chainsaw.ogg',
+		/obj/item/melee/chainsaw = 'sound/weapons/chainsaw.ogg',
 		TOOL_WIRECUTTER = 'sound/surgery/scalpel1.ogg'
 	)
 
