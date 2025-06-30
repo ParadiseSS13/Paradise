@@ -16,6 +16,7 @@
 		ACCESS_MORGUE
 	)
 	outfit = /datum/outfit/job/chaplain
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/chaplain
 	name = "Chaplain"
