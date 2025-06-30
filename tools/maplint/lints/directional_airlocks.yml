@@ -4,9 +4,9 @@ help: "Use the specific directional subtypes for this poddoor. Run 28928_directi
    - pixel_x
    - pixel_y
    - dir
-=/obj/machinery/door/poddoor/multi_tile/double:
+=/obj/machinery/door/poddoor/multi_tile:
   banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/double/directional:
+=/obj/machinery/door/poddoor/multi_tile/directional:
   banned: TRUE
 =/obj/machinery/door/poddoor/multi_tile/triple:
   banned: TRUE
@@ -18,9 +18,7 @@ help: "Use the specific directional subtypes for this poddoor. Run 28928_directi
   banned: TRUE
 =/obj/machinery/door/poddoor/multi_tile/impassable:
   banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/impassable/double:
-  banned: TRUE
-=/obj/machinery/door/poddoor/multi_tile/impassable/double/directional:
+=/obj/machinery/door/poddoor/multi_tile/impassable/directional:
   banned: TRUE
 =/obj/machinery/door/poddoor/multi_tile/impassable/triple:
   banned: TRUE

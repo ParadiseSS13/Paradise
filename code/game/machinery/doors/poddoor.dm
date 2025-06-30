@@ -89,16 +89,12 @@
  // Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
+	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
 	layer = CLOSED_BLASTDOOR_LAYER
 	closingLayer = CLOSED_BLASTDOOR_LAYER
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/poddoor/multi_tile, 0, 0)
-
-/obj/machinery/door/poddoor/multi_tile/double
-	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
 	width = 2
 
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/double, 32)
+MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile, 32)
 
 /obj/machinery/door/poddoor/multi_tile/triple
 	icon = 'icons/obj/doors/blastdoor_1x3.dmi'
@@ -114,10 +110,12 @@ MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/qua
 
 /obj/machinery/door/poddoor/multi_tile/impassable
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
+	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
+	width = 2
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/poddoor/multi_tile/impassable, 0, 0)
+MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/impassable, 32)
 
 /obj/machinery/door/poddoor/multi_tile/impassable/hostile_lockdown()
 	return
@@ -128,12 +126,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/poddoor/multi_tile/impassable, 0
 /obj/machinery/door/poddoor/multi_tile/impassable/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
 	return
-
-/obj/machinery/door/poddoor/multi_tile/impassable/double
-	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
-	width = 2
-
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/impassable/double, 32)
 
 /obj/machinery/door/poddoor/multi_tile/impassable/triple
 	icon = 'icons/obj/doors/blastdoor_1x3.dmi'
