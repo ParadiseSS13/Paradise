@@ -1,9 +1,13 @@
 #define TS_HIGHPOP_TRIGGER 80
 
 /datum/event/spider_terror
+	name = "Terror Spiders"
 	announceWhen = 240
 	var/spawncount = 1
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
+	nominal_severity = EVENT_LEVEL_DISASTER
+	role_weights = list(ASSIGNMENT_SECURITY = 6, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 4)
+	role_requirements = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_TOTAL = 60, ASSIGNMENT_MEDICAL = 3)
 
 /datum/event/spider_terror/setup()
 	announceWhen = rand(announceWhen, announceWhen + 30)
