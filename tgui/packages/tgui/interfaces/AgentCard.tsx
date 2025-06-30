@@ -1,6 +1,8 @@
-import { BooleanLike } from 'common/react';
-import { useBackend, useLocalState, useSharedState } from '../backend';
-import { Button, LabeledList, Section, Tabs, Icon, Stack, Box, Slider, ImageButton, DmIcon } from '../components';
+import { useState } from 'react';
+import { Button, DmIcon, Icon, ImageButton, LabeledList, Section, Slider, Stack, Tabs } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
+import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
 const GENDERS = [
@@ -48,8 +50,8 @@ const InfoInput = ({ label, value, onCommit, onClick, onRClick, tooltip }) => (
   </LabeledList.Item>
 );
 
-export const AgentCard = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+export const AgentCard = (props) => {
+  const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -82,8 +84,8 @@ export const AgentCard = (props, context) => {
   );
 };
 
-export const AgentCardInfo = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const AgentCardInfo = (props) => {
+  const { act, data } = useBackend<Data>();
   const {
     registered_name,
     sex,
@@ -152,7 +154,7 @@ export const AgentCardInfo = (props, context) => {
             </LabeledList.Item>
             <LabeledList.Item label="Age">
               <Slider
-                fluid
+                width="100%"
                 minValue={17}
                 value={age || 0}
                 maxValue={300}
@@ -173,7 +175,6 @@ export const AgentCardInfo = (props, context) => {
                     onClick={() => act('change_occupation', { option: 'Primary' })}
                   >
                     <DmIcon
-                      fill
                       icon={'icons/mob/hud/job_assets.dmi'}
                       icon_state={job_icon}
                       verticalAlign="bottom"
@@ -281,9 +282,9 @@ export const AgentCardInfo = (props, context) => {
   );
 };
 
-export const AgentCardAppearances = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const [selectedAppearance, setSelectedAppearance] = useSharedState(context, 'selectedAppearance', null);
+export const AgentCardAppearances = (props) => {
+  const { act, data } = useBackend<Data>();
+  const [selectedAppearance, setSelectedAppearance] = useSharedState('selectedAppearance', '');
   const { appearances, id_icon } = data;
   return (
     <Stack.Item grow>
@@ -294,7 +295,6 @@ export const AgentCardAppearances = (props, context) => {
             dmIcon={id_icon}
             dmIconState={appearance}
             imageSize={64}
-            compact
             selected={appearance === selectedAppearance}
             tooltip={appearance}
             style={{
