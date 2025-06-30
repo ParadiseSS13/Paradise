@@ -466,4 +466,7 @@ Pipelines + Other Objects -> Pipe network
 	if(user)
 		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")
 
+/obj/machinery/atmospherics/proc/get_machinery_pipelines()
+	return list()
+
 #undef VENT_SOUND_DELAY

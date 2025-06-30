@@ -4,6 +4,8 @@
 	var/list/moving_controllers = list()
 	/// How many times a given controller can fail on their route before they just give up.
 	var/max_pathing_attempts
+	/// Should this movement update the delay when a moveloop is about to happen?
+	var/update_moveloop_delay = TRUE
 
 /// Override this to setup the moveloop you want to use.
 /datum/ai_movement/proc/start_moving_towards(datum/ai_controller/controller, atom/current_movement_target, min_distance)
@@ -59,7 +61,8 @@
 		qdel(source) // stop moving
 		return MOVELOOP_SKIP_STEP
 
-	source.delay = controller.movement_delay
+	if(update_moveloop_delay)
+		source.delay = controller.movement_delay
 
 	if(allowed_to_move(source))
 		return NONE
