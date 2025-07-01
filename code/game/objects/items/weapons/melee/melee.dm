@@ -223,16 +223,20 @@
 			return ..()
 
 // MARK: CHAINSAW
-/obj/item/melee/chainsaw
+/obj/item/chainsaw
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "gchainsaw"
 	base_icon_state = "gchainsaw"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	hitsound = "swing_hit"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	origin_tech = "materials=3;engineering=4;combat=2"
 	materials = list(MAT_METAL = 13000)
 	w_class = WEIGHT_CLASS_HUGE
+	needs_permit = TRUE
 	flags = CONDUCT
 	sharp = TRUE
 	force = 13
@@ -242,32 +246,34 @@
 	new_attack_chain = TRUE
 
 // These 2 are currently used by syndie chainsaw
-/obj/item/melee/chainsaw/proc/wield()
+/obj/item/chainsaw/proc/wield()
 	return
 
-/obj/item/melee/chainsaw/proc/unwield()
+/obj/item/chainsaw/proc/unwield()
 	return
 
-/obj/item/melee/chainsaw/update_icon_state()
+/obj/item/chainsaw/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed,					\
+		icon_wielded = "[icon_state]_on",						\
+		force_wielded = force_on,								\
+		force_unwielded = force,								\
+		attacksound = 'sound/weapons/chainsaw.ogg',				\
+		wieldsound = 'sound/weapons/chainsawstart.ogg',			\
+		wield_callback = CALLBACK(src, PROC_REF(wield)),		\
+		unwield_callback = CALLBACK(src, PROC_REF(unwield)),	\
+	)
+
+/obj/item/chainsaw/update_icon_state()
 	icon_state = base_icon_state
 
-/obj/item/melee/chainsaw/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/two_handed, \
-		icon_wielded = "[icon_state]_on", \
-		force_wielded = force_on, \
-		force_unwielded = force, \
-		attacksound = 'sound/weapons/chainsaw.ogg',\
-		wieldsound = 'sound/weapons/chainsawstart.ogg', \
-		wield_callback = CALLBACK(src, PROC_REF(wield)), \
-		unwield_callback = CALLBACK(src, PROC_REF(unwield)))
-
 // MARK: SYNDIE CHAINSAW
-/obj/item/melee/chainsaw/syndie
+/obj/item/chainsaw/syndie
 	desc = "Perfect for felling trees or fellow spacemen."
 	icon_state = "chainsaw"
 	base_icon_state = "chainsaw"
 	origin_tech = "materials=6;syndicate=4"
+	flags_2 = RANDOM_BLOCKER_2
 	w_class = WEIGHT_CLASS_BULKY // can't fit in backpacks
 	force = 15
 	throwforce = 15
@@ -276,19 +282,18 @@
 	throw_range = 5
 	armour_penetration_percentage = 50
 	armour_penetration_flat = 10
-	flags_2 = RANDOM_BLOCKER_2
 
-/obj/item/melee/chainsaw/syndie/Initialize(mapload)
+/obj/item/chainsaw/syndie/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/butchers_humans)
 
-/obj/item/melee/chainsaw/syndie/wield() // you can't disarm an active chainsaw, you crazy person.
+/obj/item/chainsaw/syndie/wield() // you can't disarm an active chainsaw, you crazy person.
 	set_nodrop(TRUE, loc)
 
-/obj/item/melee/chainsaw/syndie/unwield()
+/obj/item/chainsaw/syndie/unwield()
 	set_nodrop(FALSE, loc)
 
-/obj/item/melee/chainsaw/syndie/attack(mob/living/target, mob/living/user, params)
+/obj/item/chainsaw/syndie/attack(mob/living/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -296,19 +301,19 @@
 		if(target.stat != DEAD && !isrobot(target) && !(user.reagents.get_reagent_amount("mephedrone") > 15))
 			user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
 
-/obj/item/melee/chainsaw/syndie/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/chainsaw/syndie/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if((attack_type in NON_PROJECTILE_ATTACKS) && owner.has_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)) // It's a chainsaw, you can't block projectiles with it
 		final_block_chance = 80 // Need to be ready to ruuuummbllleeee
 	return ..()
 
 // MARK: SLAYER CHAINSAW
-/obj/item/melee/chainsaw/doomslayer
+/obj/item/chainsaw/doomslayer
 	name = "OOOH BABY"
 	desc = "<span class='warning'>VRRRRRRR!!!</span>"
 	armour_penetration_percentage = 100
 	force_on = 30
 
-/obj/item/melee/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)

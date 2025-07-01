@@ -261,7 +261,7 @@
 /turf/simulated/floor/plating/ice/smooth,
 /area/ruin/powered/snow_biodome)
 "cv" = (
-/obj/item/melee/chainsaw,
+/obj/item/chainsaw,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "dS" = (

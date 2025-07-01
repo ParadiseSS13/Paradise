@@ -541,7 +541,7 @@
 
 	// snowflake checks my beloved
 	// this will become tooltype checks I swear
-	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/melee/chainsaw))
+	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw))
 		return
 
 	user.visible_message(

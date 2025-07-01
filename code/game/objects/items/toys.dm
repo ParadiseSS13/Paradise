@@ -1622,6 +1622,7 @@
 	name = "cursed russian revolver"
 	desc = "To play with this revolver requires wagering your very soul."
 	cursed_shot = TRUE
+
 /*
  * Rubber Chainsaw
  */
@@ -1633,16 +1634,11 @@
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "chainsaw"
 	base_icon_state = "chainsaw"
-	force = 0
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 
 /obj/item/toy/chainsaw/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, wieldsound = 'sound/weapons/chainsawstart.ogg', icon_wielded = "[base_icon_state]_on")
-
 
 /obj/item/toy/chainsaw/update_icon_state()
 	icon_state = base_icon_state

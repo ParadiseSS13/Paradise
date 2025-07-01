@@ -689,14 +689,14 @@
 		TOOL_SAW = 100,
 		/obj/item/melee/energy/sword/cyborg/saw = 100,
 		/obj/item/hatchet = 90,
-		/obj/item/melee/chainsaw = 90,
+		/obj/item/chainsaw = 90,
 		TOOL_WIRECUTTER = 35
 	)
 
 	preop_sound = list(
 		TOOL_SAW = 'sound/surgery/saw.ogg',
 		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
-		/obj/item/melee/chainsaw = 'sound/weapons/chainsaw.ogg',
+		/obj/item/chainsaw = 'sound/weapons/chainsaw.ogg',
 		TOOL_WIRECUTTER = 'sound/surgery/scalpel1.ogg'
 	)
 
@@ -740,7 +740,7 @@
 		/obj/item/claymore = 6,
 		/obj/item/melee/energy = 6,
 		/obj/item/pen/edagger = 6,
-		/obj/item/melee/chainsaw = 1,
+		/obj/item/chainsaw = 1,
 	)
 
 	preop_sound = 'sound/surgery/scalpel1.ogg'

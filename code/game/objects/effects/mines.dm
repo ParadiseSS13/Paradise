@@ -143,7 +143,7 @@
 
 	new /obj/effect/hallucination/delusion(get_turf(victim), victim, 'icons/mob/mob.dmi', "daemon")
 
-	var/obj/item/melee/chainsaw/doomslayer/chainsaw = new(victim.loc)
+	var/obj/item/chainsaw/doomslayer/chainsaw = new(victim.loc)
 	chainsaw.flags |= DROPDEL
 	chainsaw.set_nodrop(TRUE, victim)
 	victim.drop_l_hand()
