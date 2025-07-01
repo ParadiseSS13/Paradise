@@ -207,9 +207,9 @@ Difficulty: Hard
 	if(enraged)
 		for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
 			if(!M.client)
-				return
+				return ..()
 			loot += /obj/item/disk/fauna_research/vetus
-	..()
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()
