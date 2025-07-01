@@ -35533,12 +35533,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/asmaint2)
-"giw" = (
-/obj/structure/marker_beacon/dock_marker,
-/turf/simulated/floor/plating/airless{
-	icon_state = "asteroidplating"
-	},
-/area/space)
 "giA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -161033,7 +161027,7 @@ sNX
 bhO
 bhO
 bhO
-giw
+cVL
 rNK
 rNK
 rNK
