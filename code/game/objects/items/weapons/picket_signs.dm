@@ -19,7 +19,7 @@
 	if(is_pen(attacking) || istype(attacking, /obj/item/toy/crayon))
 		var/txt = tgui_input_text(user, "What would you like to write on the sign?", "Sign Label", max_length = 30)
 		if(isnull(txt))
-			return ITEM_INTERACT_COMPLETE
+			return
 		label = txt
 		src.name = "[label] sign"
 		desc =	"It reads: [label]"
@@ -29,7 +29,7 @@
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, wave_cooldown))
 		user.show_message("<span class='warning'>Your arm is too tired to do that again so soon!</span>")
-		return ITEM_INTERACT_COMPLETE
+		return
 
 	if(label)
 		user.visible_message("<span class='notice'>[user] waves around \the \"[label]\" sign.</span>")
@@ -66,18 +66,21 @@
 	icon_state = "floor_sign"
 	/// What does the sign say?
 	var/label = ""
+	new_attack_chain = TRUE
 
 /obj/structure/custom_sign/New(turf/loc, new_label)
 	. = ..()
 	if(new_label)
 		change_label(new_label)
 
-/obj/structure/custom_sign/attack_by(obj/item/attacking, mob/user, params)
-	if(is_pen(attacking) || istype(attacking, /obj/item/toy/crayon))
+/obj/structure/custom_sign/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used) || istype(used, /obj/item/toy/crayon))
 		var/txt = tgui_input_text(user, "What would you like to write on the sign?", "Sign Label", max_length = 30)
 		if(isnull(txt))
 			return ITEM_INTERACT_COMPLETE
 		change_label(txt)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 	..()
 
 /obj/structure/custom_sign/proc/change_label(new_label)
