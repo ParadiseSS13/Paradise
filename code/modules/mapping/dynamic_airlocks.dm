@@ -23,11 +23,8 @@
 
 /obj/effect/map_effect/dynamic_airlock/Initialize(mapload)
 	..()
-	return INITIALIZE_HINT_LATELOAD
 
-/obj/effect/map_effect/dynamic_airlock/LateInitialize()
-	. = ..()
-
+	. = INITIALIZE_HINT_QDEL
 	// One helper out of all the connected ones will actually set everything up
 	// and qdel all the connected ones so the linker doesn't attempt to do its
 	// thing more than once per zone
@@ -36,8 +33,6 @@
 
 	var/datum/dynamic_airlock_linker/linker = new()
 	linker.build(src)
-
-	qdel(src)
 
 /obj/effect/map_effect/dynamic_airlock/proc/collect_sibling_item(atom/A)
 	if(is_type_in_list(A, valid_siblings))

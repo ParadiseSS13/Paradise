@@ -100,10 +100,12 @@ RESTRICT_TYPE(/datum/dynamic_airlock_linker)
 		controller.req_access = req_access
 		controller.req_one_access = req_one_access
 
+		// despite airlock controllers looking this up in GLOB.airlocks in
+		// LateInitialize, we need to hold their hand here because *we're*
+		// (typically) in Initialize, so not all relevant airlocks may have been
+		// added to GLOB.airlocks yet.
 		controller.interior_doors = interior_airlocks.Copy()
 		controller.exterior_doors = exterior_airlocks.Copy()
-
-		controller.link_all_items()
 
 	QDEL_LIST_CONTENTS(interior_helpers)
 	QDEL_LIST_CONTENTS(exterior_helpers)

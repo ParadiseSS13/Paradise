@@ -9,13 +9,13 @@
 
 	// Setup vars
 
-	/// Airlock ID for all exterior doors to link to.
+	/// Airlock ID for all exterior doors to link to on LateInitialize()
 	var/ext_door_link_id
-	/// Airlock ID for all interior doors to link to.
+	/// Airlock ID for all interior doors to link to on LateInitialize()
 	var/int_door_link_id
-	/// Button ID for all exterior buttons to link to.
+	/// Button ID for all exterior buttons to link to on LateInitialize()
 	var/ext_button_link_id
-	/// Vutton ID for all exterior buttons to link to.
+	/// Vutton ID for all exterior buttons to link to on LateInitialize()
 	var/int_button_link_id
 
 	// Actual holding vars
@@ -29,7 +29,7 @@
 	/// Target state (MONE, INOPEN, OUTOPEN)
 	var/target_state = TARGET_NONE
 
-	/// Vent ID for all vents to link to.
+	/// Vent ID for all vents to link to on LateInitialize()
 	var/vent_link_id
 	/// All vents to control. Soft-refs only.
 	var/list/vents = list()
@@ -37,7 +37,14 @@
 	// Program vars
 	var/target_pressure
 
-/obj/machinery/airlock_controller/proc/link_all_items()
+
+/obj/machinery/airlock_controller/Initialize(mapload)
+	..()
+	// We do all the work in there
+	return INITIALIZE_HINT_LATELOAD
+
+// Do setup of stuff here
+/obj/machinery/airlock_controller/LateInitialize()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == int_door_link_id)
 			interior_doors |= A.UID()
@@ -370,9 +377,8 @@ send an additional command to open the door again.
 			cycleDoors(TARGET_OUTOPEN)
 
 /* =============================== AIR CYCLER - Ensures internal pressure matches (just about) the void or the normal atmosphere */
-/obj/machinery/airlock_controller/air_cycler/link_all_items()
-	. = ..()
-
+/obj/machinery/airlock_controller/air_cycler/LateInitialize()
+	..()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/V as anything in GLOB.all_vent_pumps)
 		if(V.autolink_id == vent_link_id)
 			vents += V.UID()
