@@ -55,3 +55,45 @@
 				/obj/item/spear,
 				/obj/item/clothing/shoes/winterboots,
 				/obj/item/clothing/suit/hooded/wintercoat)
+
+/mob/living/basic/skeleton/warden
+	name = "skeleton warden"
+	desc = "The remains of a warden."
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "skeleton_warden"
+	icon_living = "skeleton_warden"
+	loot = list(/obj/effect/decal/cleanable/shreds, /mob/living/basic/skeleton/angered_warden)
+	maxHealth = 300
+	health = 300
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+	death_message = null
+	gold_core_spawnable = NO_SPAWN
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/skeleton_warden
+
+/mob/living/basic/skeleton/warden/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+	return TRUE
+
+/mob/living/basic/skeleton/angered_warden
+	name = "angered skeleton warden" // round 2
+	desc = "An angry skeleton."
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "skeleton_warden_alt"
+	icon_living = "skeleton_warden_alt"
+	attack_verb_simple = "claw"
+	attack_verb_continuous = "claws"
+	attack_sound = 'sound/hallucinations/growl1.ogg'
+	maxHealth = 200
+	health = 200
+	speed = -1
+	melee_damage_lower = 30
+	melee_damage_upper = 30
+	loot = list(/obj/effect/decal/remains/human, /obj/item/clothing/head/warden, /obj/item/card/sec_shuttle_ruin)
+	gold_core_spawnable = NO_SPAWN
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/skeleton_warden
+
+/mob/living/basic/skeleton/angered_warden/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+	return TRUE
+
+/datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/skeleton_warden
+	idle_behavior = null // Don't idly wander
