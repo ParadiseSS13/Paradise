@@ -4078,6 +4078,9 @@
 /area/station/command/office/captain)
 "aEP" = (
 /obj/machinery/firealarm/directional/south,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "aES" = (
@@ -4085,9 +4088,6 @@
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
@@ -4792,7 +4792,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "aNu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10710,6 +10713,13 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
+"bFO" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
+/area/station/maintenance/asmaint)
 "bFY" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -10826,7 +10836,7 @@
 	autolink_id = "engsm_btn_int";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_access = list(10, 24)
+	req_one_access = list(10, 24)
 	},
 /obj/machinery/computer/sm_monitor,
 /obj/structure/disposalpipe/segment{
@@ -14679,7 +14689,10 @@
 	pixel_x = 24;
 	name = "custom placement"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "cfT" = (
 /obj/structure/railing{
@@ -15293,7 +15306,9 @@
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/south,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "ckx" = (
 /obj/effect/spawner/random/dirt/often,
@@ -15946,7 +15961,10 @@
 /area/station/maintenance/fsmaint)
 "cpF" = (
 /obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "cpG" = (
 /obj/machinery/light{
@@ -18615,7 +18633,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/orange{
-	icon_state = "2-4"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
@@ -20529,11 +20547,16 @@
 	pixel_x = 28;
 	name = "custom placement"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "cZu" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "cZw" = (
 /obj/structure/cable/orange{
@@ -26797,7 +26820,10 @@
 	c_tag = "Escape Wing South East";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "emn" = (
 /obj/item/radio/intercom{
@@ -26848,7 +26874,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_access = list(10, 24)
+	req_one_access = list(10, 24)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -27038,6 +27064,13 @@
 /obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
+"eor" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner";
+	dir = 4
+	},
+/area/station/maintenance/asmaint)
 "eot" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -30291,6 +30324,11 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/central/north)
+"fbD" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
+/area/station/hallway/secondary/exit)
 "fbO" = (
 /obj/machinery/light/small,
 /obj/effect/spawner/random/dirt/frequent,
@@ -31939,7 +31977,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "fvk" = (
 /obj/structure/cable/orange{
@@ -34346,6 +34384,9 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
+/obj/structure/sign/evac{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -34423,10 +34464,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera{
-	c_tag = "Research Escape Pod";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -34833,10 +34870,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "geE" = (
 /obj/item/radio/intercom{
@@ -36961,6 +36995,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/economy/vending/minedrobe,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "gGB" = (
@@ -38731,7 +38766,10 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "hcF" = (
 /obj/machinery/teleport/station,
@@ -39316,10 +39354,7 @@
 /area/station/maintenance/disposal/northeast)
 "hjp" = (
 /obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "hjq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -40797,13 +40832,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
-"hzs" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain)
 "hzA" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -42389,7 +42417,8 @@
 	ext_door_link_id = "engsm_door_ext";
 	int_door_link_id = "engsm_door_int";
 	ext_button_link_id = "engsm_btn_ext";
-	int_button_link_id = "engsm_btn_int"
+	int_button_link_id = "engsm_btn_int";
+	req_one_access = list(10, 24)
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-8"
@@ -42514,10 +42543,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "hRO" = (
 /obj/machinery/light{
@@ -46270,10 +46296,6 @@
 /area/station/command/office/blueshield)
 "iJv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera{
-	c_tag = "Medbay Escape Pod";
-	dir = 1
-	},
 /obj/structure/chair/sofa/bench{
 	dir = 1;
 	cover_color = "#85130b"
@@ -47331,7 +47353,10 @@
 /obj/structure/chair/sofa/corp/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "iTS" = (
 /obj/structure/disposalpipe/segment{
@@ -50602,7 +50627,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "jDl" = (
 /obj/structure/chair/comfy/black{
@@ -58328,10 +58356,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "llw" = (
 /obj/structure/disposalpipe/segment/corner,
@@ -64500,6 +64525,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
+"mCQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "mCW" = (
 /obj/structure/table/glass,
 /obj/item/hemostat,
@@ -65351,10 +65383,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "escape"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "mNt" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
@@ -68412,7 +68441,10 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/often,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/maintenance/asmaint)
 "nyR" = (
 /obj/machinery/ai_status_display,
@@ -71195,7 +71227,10 @@
 	c_tag = "Escape Wing East";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "oib" = (
 /obj/machinery/door/firedoor,
@@ -74047,7 +74082,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "oOV" = (
 /obj/structure/fans/tiny,
@@ -74145,7 +74183,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "oPJ" = (
 /obj/structure/rack,
@@ -75759,7 +75800,10 @@
 "piw" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/recharge_station,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "piy" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -77568,7 +77612,9 @@
 	pixel_y = -24;
 	name = "south bump"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "pDJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -78111,7 +78157,9 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "pKa" = (
 /obj/structure/disposalpipe/junction{
@@ -79801,6 +79849,9 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
+/obj/structure/sign/evac{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -80293,6 +80344,11 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/asmaint)
+"qic" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner"
+	},
+/area/station/hallway/secondary/exit)
 "qii" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82317,10 +82373,6 @@
 	},
 /area/station/security/lobby)
 "qGY" = (
-/obj/machinery/camera{
-	c_tag = "North Maint Escape Pod";
-	dir = 1
-	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -87564,10 +87616,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint)
 "rPj" = (
-/obj/machinery/camera{
-	c_tag = "Bridge Escape Pod";
-	dir = 1
-	},
 /obj/structure/chair/sofa/bench/right{
 	dir = 1;
 	cover_color = "#85130b"
@@ -90960,11 +91008,9 @@
 	},
 /area/station/medical/reception)
 "sBs" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "sBt" = (
 /obj/effect/decal/cleanable/blood/splatter,
@@ -92827,10 +92873,6 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "sUD" = (
-/obj/machinery/camera{
-	c_tag = "Civilian Escape Pod";
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -93608,6 +93650,9 @@
 /area/station/security/brig)
 "tdM" = (
 /obj/machinery/light,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "tdO" = (
@@ -97486,10 +97531,6 @@
 /area/station/service/chapel)
 "tYJ" = (
 /obj/structure/table,
-/obj/machinery/camera{
-	c_tag = "Command Atmospherics Checkpoint";
-	dir = 6
-	},
 /obj/item/reagent_containers/syringe,
 /obj/item/storage/pill_bottle/random_drug_bottle,
 /turf/simulated/floor/plating,
@@ -97699,6 +97740,13 @@
 "uay" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/serveng)
+"uaz" = (
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable/orange{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/command/office/captain)
 "uaJ" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -101988,7 +102036,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = -24;
-	req_access = list(10, 24)
+	req_one_access = list(10, 24)
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -102027,7 +102075,9 @@
 /obj/structure/chair/sofa/corp{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "uYW" = (
 /obj/structure/disposalpipe/segment{
@@ -102497,9 +102547,6 @@
 	},
 /area/station/hallway/primary/aft/west)
 "veg" = (
-/obj/machinery/camera{
-	c_tag = "Service Atmospherics Checkpoint"
-	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
@@ -102623,15 +102670,6 @@
 	icon_state = "green"
 	},
 /area/station/public/quantum/service)
-"vfs" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/asmaint)
 "vfu" = (
 /obj/machinery/light{
 	dir = 4
@@ -104012,7 +104050,9 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
 /area/station/hallway/secondary/exit)
 "vuM" = (
 /obj/structure/marker_beacon/dock_marker,
@@ -106188,7 +106228,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "vTo" = (
 /turf/simulated/wall,
@@ -116727,10 +116767,6 @@
 /area/station/maintenance/disposal/external/southwest)
 "ylI" = (
 /obj/structure/table,
-/obj/machinery/camera{
-	c_tag = "Cargo Atmospherics Checkpoint";
-	dir = 8
-	},
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
 	},
@@ -149223,7 +149259,7 @@ vUn
 aVo
 dPP
 qEF
-aEU
+uaz
 eTm
 nZB
 tpA
@@ -149480,7 +149516,7 @@ aNu
 aVg
 aEU
 aEU
-aEU
+tMM
 eTm
 bDh
 pZl
@@ -150251,7 +150287,7 @@ nQN
 aEU
 bce
 bjd
-aEU
+tMM
 eTm
 tVI
 bMQ
@@ -151022,7 +151058,7 @@ aEU
 aVC
 wVh
 aCh
-tMM
+aEU
 eTm
 eYJ
 xzb
@@ -151279,7 +151315,7 @@ aBj
 ovr
 meB
 uER
-hzs
+aEU
 eTm
 fgx
 oJf
@@ -165535,7 +165571,7 @@ aXn
 aXn
 aXn
 aXn
-vfs
+bGh
 vRX
 chI
 njL
@@ -165792,7 +165828,7 @@ aXn
 aXn
 aXn
 aXn
-bGh
+giR
 vRX
 chI
 gqQ
@@ -166049,7 +166085,7 @@ aXn
 aXn
 aXn
 aXn
-giR
+mCQ
 sBs
 chI
 tcs
@@ -166305,9 +166341,9 @@ aXn
 aXn
 aXn
 aXn
-fbs
+bFO
 nyL
-vRX
+eor
 chI
 mTL
 fcw
@@ -166564,7 +166600,7 @@ jpk
 cdT
 fvg
 vTf
-cdT
+jaR
 cdT
 cdT
 jpk
@@ -166574,7 +166610,7 @@ cdT
 cdT
 cdT
 cdT
-jaR
+cdT
 qct
 lkg
 fYb
@@ -167091,7 +167127,7 @@ pob
 jvl
 qoU
 jvl
-ceQ
+fbD
 aXn
 aXn
 aXn
@@ -169142,7 +169178,7 @@ jvl
 jvl
 jvl
 jvl
-ceQ
+qic
 cfO
 cpF
 hcB

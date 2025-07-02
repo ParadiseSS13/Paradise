@@ -162,6 +162,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 /obj/item/clipboard/station_report
 	name = "station report clipboard"
 	desc = "An important clipboard used to make reports on the station status, deliverable to Nanotrasen at the end of the shift. The top paper is the one formally inspected."
+	icon_state = "clipboard_premium"
 
 /obj/item/clipboard/station_report/Initialize(mapload)
 	. = ..()

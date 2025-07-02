@@ -173,7 +173,7 @@
 /// Advanced abductor version. Is a lot faster with implanting into others
 /obj/item/organ_extractor/abductor
 	name = "alien organ extractor"
-	origin_tech = "biotech=6;materials=5;alien=4"
+	origin_tech = "biotech=6;materials=5;abductor=4"
 	icon_state = "abductor_extractor"
 	insert_time = 3 SECONDS
 	self_insert_time = 1 SECONDS
