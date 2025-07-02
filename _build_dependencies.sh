@@ -12,6 +12,6 @@ export BETA_BYOND_MAJOR=516
 # Beta Byond Minor - Uncomment and update if beta cycle active
 export BETA_BYOND_MINOR=1657
 # Python version for mapmerge and other tools
-export PYTHON_VERSION=3.11.6
+export PYTHON_VERSION=3.13.5
 # RUSTG version
 export RUSTG_VERSION=v3.4.0-P
