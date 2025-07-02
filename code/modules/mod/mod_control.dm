@@ -220,7 +220,7 @@
 		QDEL_NULL(core)
 	QDEL_NULL(mod_link)
 	QDEL_NULL(wires)
-	QDEL_LIST_CONTENTS(part_data)
+	part_data = null
 	wearer = null
 	selected_module = null
 	bag = null
