@@ -775,11 +775,11 @@
 	skin = new_skin
 	var/list/used_skin = theme.skins[new_skin]
 	var/list/skin_updating = mod_parts + src
-	for(var/obj/item/part in skin_updating)
+	for(var/obj/item/part as anything in skin_updating)
 		part.icon = used_skin[MOD_ICON_OVERRIDE] || initial(part.icon)
 		part.icon_override = used_skin[MOD_WORN_ICON_OVERRIDE] || initial(part.icon_override)
 		part.icon_state = "[skin]-[part.base_icon_state]"
-	for(var/obj/item/clothing/part in mod_parts)
+	for(var/obj/item/clothing/part as anything in mod_parts)
 		part.sprite_sheets = get_nested_value(used_skin, MOD_SPRITE_SHEETS_OVERRIDE, get_nested_value(part_data, part, SPRITE_SHEETS_OVERRIDE)) \
 			|| get_nested_value(part_data, part, SPRITE_SHEETS_DEFAULT)
 		var/used_category = get_nested_value(part_data, part, PART_FLAGS)
