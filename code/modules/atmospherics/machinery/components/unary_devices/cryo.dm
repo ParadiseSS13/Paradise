@@ -28,6 +28,8 @@
 	var/efficiency
 	/// Timer that we use to remove people that are in us for too long
 	var/removal_timer
+	/// Auto-eject the occupant after 1 minute
+	var/force_eject = TRUE
 
 	light_color = LIGHT_COLOR_WHITE
 
@@ -459,8 +461,18 @@
 	add_fingerprint(usr)
 	update_icon(UPDATE_OVERLAYS)
 	M.ExtinguishMob()
-	removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
+	if(force_eject)
+		removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
 	return TRUE
+
+/obj/machinery/atmospherics/unary/cryo_cell/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(panel_open)
+		force_eject = !force_eject
+		to_chat(user, "<span class='notice'>You turn [force_eject ? "on" : "off"] the auto-ejection timer on [src].</span>")
+		return
 
 /obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
