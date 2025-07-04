@@ -541,8 +541,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/ventcrawl_delay = 0 SECONDS
 #else
 	var/ventcrawl_delay = 4.5 SECONDS
-	if(!client)
-		return
 #endif
 	if(ismorph(src))
 		if(!do_after(src, ventcrawl_delay, target = src, hidden = TRUE))
