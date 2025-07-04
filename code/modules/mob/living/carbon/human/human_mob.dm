@@ -131,7 +131,7 @@
 		delta = (last_hit - first_hit)/10 // deciseconds -> seconds
 	var/hits_per_sec = N/delta
 	var/total_damage = 0
-	for (var/hit in hits)
+	for(var/hit in hits)
 		var/datum/hit_feedback/h = hit
 		total_damage += h.damage
 	var/damage_per_sec = total_damage/delta
