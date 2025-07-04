@@ -111,7 +111,7 @@
 		return
 	var/delta_now = world.time - last_hit
 	// Tracking window is still open
-	if (delta_now < 3 SECONDS)
+	if(delta_now < 3 SECONDS)
 		return
 	// Stop counting, print, and reset
 	if(timer_id != TIMER_ID_NULL) 
