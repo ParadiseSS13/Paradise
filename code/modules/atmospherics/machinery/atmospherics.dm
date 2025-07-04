@@ -76,7 +76,7 @@ Pipelines + Other Objects -> Pipe network
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
-/obj/machinery/atmospherics/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/obj/machinery/atmospherics/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
 	. = ..()
 	update_underlays()
 
