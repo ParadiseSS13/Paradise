@@ -1,5 +1,5 @@
 // Shuttle on-movement //
-/atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
 		on_changed_z_level(oldT, newT)

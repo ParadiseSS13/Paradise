@@ -290,7 +290,7 @@
 /obj/machinery/shieldgen/update_icon_state()
 	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
 
-/obj/machinery/shieldgen/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/obj/machinery/shieldgen/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
 	. = ..()
 	if(active)
 		shields_down()

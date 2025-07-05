@@ -277,6 +277,14 @@
 		if(ismecha(M.loc))
 			return
 
+		if(ismodcontrol(over_object))
+			var/obj/item/mod/control/target = over_object
+			bag?.dump_storage(M, target.bag)
+			return
+		if(isstorage(over_object))
+			bag?.dump_storage(M, over_object)
+			return
+
 		if(!M.restrained() && !M.stat)
 			playsound(loc, "rustle", 50, TRUE, -5)
 
