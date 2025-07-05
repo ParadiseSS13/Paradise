@@ -270,6 +270,9 @@
 /area/station/public/quantum/security
 	name = "Security Quantum Pad"
 
+/area/station/public/quantum/engineering
+	name = "Engineering Quantum Pad"
+
 /area/station/public/quantum/docking
 	name = "Docking Quantum Pad"
 

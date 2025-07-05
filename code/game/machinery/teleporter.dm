@@ -218,6 +218,8 @@
 			continue
 		if(R.syndicate && !emagged)
 			continue
+		if(!R.broadcast_to_teleport_hubs)
+			continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])
 			tmpname = "[tmpname] ([++areaindex[tmpname]])"
@@ -483,20 +485,22 @@
 
 /obj/machinery/teleport/perma
 	name = "permanent teleporter"
-	desc = "A teleporter with the target pre-set on the circuit board."
+	desc = "A teleporter with the target pre-set on the circuit board. The permently aligned transmitter allows it to be more power efficient than a regular teleporter station at the cost of flexibility."
 	icon_state = "tele0"
 	density = FALSE
 	layer = HOLOPAD_LAYER
 	plane = FLOOR_PLANE
-	idle_power_consumption = 10
-	active_power_consumption = 2000
+	idle_power_consumption = 50 // Both of these are half the consumption of a non-permanent tele.
+	active_power_consumption = 1000
 
 	var/recalibrating = FALSE
 	var/target
-	var/tele_delay = 50
+	var/tele_delay = 3 SECONDS
+	var/teleport_cost = 1000 // 1/5 cost of a non permanent tele.
 
 /obj/machinery/teleport/perma/Initialize(mapload)
 	. = ..()
+	initialize_parts()
 	update_lighting()
 
 	var/static/list/loc_connections = list(
@@ -504,6 +508,12 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/obj/machinery/teleport/perma/proc/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/teleporter_perma(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	RefreshParts()
 
 /obj/machinery/teleport/perma/process()
 	teleports_this_cycle = 0
@@ -524,9 +534,14 @@
 		to_chat(entered, "<span class='notice'>You can't use this here.</span>")
 		return
 
+	if(entered.anchored)
+		return
+	if(entered == src)
+		return
+
 	if(target && !recalibrating && !panel_open && !blockAI(entered) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS) && !iseffect(entered))
 		do_teleport(entered, target)
-		use_power(5000)
+		use_power(teleport_cost)
 		teleports_this_cycle++
 		if(tele_delay)
 			recalibrating = TRUE
@@ -576,6 +591,57 @@
 /obj/machinery/teleport/perma/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
 		return TRUE
+
+/obj/machinery/teleport/perma/preset
+	var/target_beacon_type
+
+/obj/machinery/teleport/perma/preset/Initialize(mapload)
+	. = ..()
+	if(target_beacon_type)
+		target = locate(target_beacon_type)
+
+/obj/machinery/teleport/perma/initialize_parts()
+	tele_delay = 0 // Act like a fully upgraded tele, no T4 stock parts to plunder.
+
+/obj/machinery/teleport/perma/preset/cerestation
+
+/obj/machinery/teleport/perma/preset/cerestation/medbay
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/medbay
+
+/obj/machinery/teleport/perma/preset/cerestation/service
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/service
+
+/obj/machinery/teleport/perma/preset/cerestation/cargo
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/cargo
+
+/obj/machinery/teleport/perma/preset/cerestation/brig
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/brig
+
+/obj/machinery/teleport/perma/preset/cerestation/science
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/science
+
+/obj/machinery/teleport/perma/preset/cerestation/departures
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/departures
+
+/obj/machinery/teleport/perma/preset/cerestation/engineering
+	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/engineering
+
+/obj/machinery/bluespace_beacon/cerestation
+	broadcast_to_teleport_hubs = FALSE
+
+/obj/machinery/bluespace_beacon/cerestation/medbay
+
+/obj/machinery/bluespace_beacon/cerestation/cargo
+
+/obj/machinery/bluespace_beacon/cerestation/brig
+
+/obj/machinery/bluespace_beacon/cerestation/science
+
+/obj/machinery/bluespace_beacon/cerestation/departures
+
+/obj/machinery/bluespace_beacon/cerestation/engineering
+
+/obj/machinery/bluespace_beacon/cerestation/service
 
 /obj/machinery/teleport/station
 	name = "station"
