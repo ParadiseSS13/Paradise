@@ -39,3 +39,9 @@
 	technical_name = "test_tiny"
 	map_path = "_maps/map_files/test_tiny/test_tiny.dmm"
 	voteable = FALSE
+
+/datum/map/test_tgui
+	fluff_name = "test_tgui"
+	technical_name = "test_tgui"
+	map_path = "_maps/map_files/test_tiny/test_tgui.dmm"
+	voteable = FALSE
