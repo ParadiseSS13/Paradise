@@ -30,13 +30,6 @@
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
-	sprite_sheets_obj = list(
-		"Unathi" = 'icons/obj/clothing/species/unathi/hats.dmi',
-		"Tajaran" = 'icons/obj/clothing/species/tajaran/hats.dmi',
-		"Skrell" = 'icons/obj/clothing/species/skrell/hats.dmi',
-		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
-		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
 	. = ..()
@@ -155,13 +148,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
-	sprite_sheets_obj = list(
-		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
-		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
-		"Skrell" = 'icons/obj/clothing/species/skrell/suits.dmi',
-		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
