@@ -51,6 +51,9 @@
 	select_name = "kill"
 	delay = 1 SECONDS
 
+/obj/item/ammo_casing/energy/laser/eshotgun/cyborg
+	e_cost = 500
+
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/item/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"
