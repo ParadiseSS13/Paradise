@@ -5,8 +5,6 @@
 /obj/effect/particle_effect/foam
 	name = "foam"
 	icon_state = "foam"
-	opacity = FALSE
-	density = FALSE
 	gender = PLURAL
 	layer = OBJ_LAYER + 0.9
 	animate_movement = NO_STEPS

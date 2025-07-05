@@ -190,10 +190,6 @@
 	if(light_power && light_range)
 		update_light()
 
-	if(opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
-
 	if(loc)
 		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
@@ -505,7 +501,7 @@
  *
  * Arguments:
  * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
- * 
+ *
  * Supported bitflags: UPDATE_NAME, UPDATE_DESC, UPDATE_ICON
  */
 /atom/proc/update_appearance(updates=ALL)
@@ -540,7 +536,7 @@
  *
  * Arguments:
  * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
- * 
+ *
  * Supported bitflags: UPDATE_ICON_STATE, UPDATE_OVERLAYS
  */
 /atom/proc/update_icon(updates=ALL)

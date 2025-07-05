@@ -9,8 +9,6 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
 	desc = "Some blob creature thingy."
-	density = FALSE
-	opacity = FALSE
 	anchored = TRUE
 	max_integrity = 30
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 70)
