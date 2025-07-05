@@ -47,7 +47,7 @@
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = TRUE
-	GLOB.move_manager.move_away(src, loc, rand(1,4), timeout=20)
+	GLOB.move_manager.move_away(src, loc, rand(1, 4), timeout = 20)
 	spawn(rand(15,60))
 		prime()
 
