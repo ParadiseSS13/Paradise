@@ -69,7 +69,7 @@
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P, /obj/item/grenade))
 			P.active = TRUE
-		GLOB.move_manager.move_away(P,loc,rand(1,4), timeout=20)
+		GLOB.move_manager.move_away(P, loc, rand(1, 4), timeout = 20)
 
 		spawn(rand(15,60))
 			if(!QDELETED(P))
