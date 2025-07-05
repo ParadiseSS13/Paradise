@@ -27,6 +27,9 @@
 	e_cost = 83
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/lasergun/lever_action
+	fire_sound = 'sound/weapons/laser4.ogg'
+
 /obj/item/ammo_casing/energy/laser/hos
 	e_cost = 120
 
@@ -191,6 +194,10 @@
 	variance = 15
 	randomspread = 1
 	delay = 0
+
+/obj/item/ammo_casing/energy/disabler/fake
+	projectile_type = /obj/item/projectile/beam/disabler/fake
+	e_cost = 100
 
 /obj/item/ammo_casing/energy/disabler/eshotgun
 	projectile_type = /obj/item/projectile/beam/disabler/pellet

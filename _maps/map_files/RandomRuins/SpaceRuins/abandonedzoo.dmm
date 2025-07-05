@@ -112,7 +112,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "as" = (
-/mob/living/simple_animal/hostile/asteroid/basilisk,
+/mob/living/simple_animal/hostile/asteroid/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "at" = (
@@ -278,7 +278,7 @@
 	},
 /area/ruin/space/unpowered)
 "aO" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,

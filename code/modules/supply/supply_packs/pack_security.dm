@@ -226,6 +226,13 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy shotgun crate"
 
+/datum/supply_packs/security/armory/stingers
+	name = "Stinger Grenade Crate"
+	contains = list(/obj/item/storage/box/stingers,
+					/obj/item/storage/box/stingers)
+	cost = 300
+	containername = "stingball grenade crate"
+
 /// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
 /datum/supply_packs/security/armory/epistol
 	name = "Energy Pistol Crate"
@@ -283,6 +290,14 @@
 					/obj/item/ammo_box/magazine/laser)
 	cost = 300
 	containername = "laser rifle ammo crate"
+
+/datum/supply_packs/security/armory/lever_action
+	name = "Model 2495 Laser Rifle Crate"
+	contains = list(/obj/item/gun/energy/laser/lever_action,
+					/obj/item/gun/energy/laser/lever_action)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "lever action rifle crate"
 
 /datum/supply_packs/security/armory/tranqammo
 	name = "Tranquilizer Shell Crate"
@@ -390,3 +405,16 @@
 	containertype = /obj/structure/largecrate/secway
 	containername = "secway crate"
 	access = ACCESS_HEADS
+
+/datum/supply_packs/security/party_ammo
+	name = "Party Ammunition Crate"
+	contains = list(
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/storage/fancy/shell/confetti,
+		/obj/item/storage/fancy/shell/confetti,
+		/obj/item/storage/fancy/shell/confetti
+	)
+	cost = 300
+	containername = "party ammunition crate"

@@ -52,6 +52,7 @@ jobs:
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
           python tools/ci/check_icons.py
+          python tools/ci/check_random_spawner_prefabs.py
           python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
