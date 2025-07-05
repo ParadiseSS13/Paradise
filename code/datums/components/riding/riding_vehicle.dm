@@ -198,4 +198,8 @@
 		return
 	override_allow_spacemove = FALSE
 
+/datum/component/riding/vehicle/clowncar
+	vehicle_move_delay = 0.6
+	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS
+
 #undef EPSILON

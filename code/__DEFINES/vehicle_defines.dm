@@ -27,6 +27,14 @@
 /// Do we need a carbon, a silicon, or a small mob, to ride the vehicle?
 #define RIDER_CARBON_OR_SILICON_NO_LARGE_MOBS (1<<4)
 
+///Will this car kidnap people by ramming into them?
+#define CAN_KIDNAP (1<<0)
+
+#define CLOWN_CANNON_INACTIVE 0
+#define CLOWN_CANNON_BUSY 1
+#define CLOWN_CANNON_READY 2
+
+
 /// The vehicle being ridden requires pixel offsets for all directions
 #define RIDING_OFFSET_ALL "ALL"
 
