@@ -44,6 +44,7 @@
 
 	outfit = /datum/outfit/job/rd
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Science), basic job duties, and act professionally (roleplay)."
+	standard_paycheck = CREW_PAY_HIGH
 
 /datum/outfit/job/rd
 	name = "Research Director"
@@ -95,6 +96,7 @@
 	)
 
 	outfit = /datum/outfit/job/scientist
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/scientist
 	name = "Scientist"
@@ -145,6 +147,7 @@
 	)
 
 	outfit = /datum/outfit/job/xenobiologist
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/xenobiologist
 	name = "Xenobiologist"
@@ -197,6 +200,7 @@
 	)
 
 	outfit = /datum/outfit/job/roboticist
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/roboticist
 	name = "Roboticist"
