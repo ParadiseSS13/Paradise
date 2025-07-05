@@ -340,7 +340,7 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_to_ground(H.shoes))
-					GLOB.move_manager.move_away(thingy, H, 15, 2, timeout=20)
+					GLOB.move_manager.move_away(thingy, H, 15, 2, timeout = 20)
 
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE
