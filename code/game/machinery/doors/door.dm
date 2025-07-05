@@ -384,7 +384,7 @@
 	operating = DOOR_OPENING
 	recalculate_atmos_connectivity()
 	do_animate("opening")
-	set_opacity(0)
+	set_opacity(FALSE)
 	if(width > 1)
 		set_fillers_opacity(0)
 	sleep(5)
@@ -394,7 +394,7 @@
 	sleep(5)
 	layer = initial(layer)
 	update_icon()
-	set_opacity(0)
+	set_opacity(FALSE)
 	if(width > 1)
 		set_fillers_opacity(0)
 	operating = NONE

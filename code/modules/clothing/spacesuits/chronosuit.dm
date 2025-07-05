@@ -181,10 +181,8 @@
 
 /obj/effect/chronos_cam
 	name = "chronosuit view"
-	density = FALSE
 	anchored = TRUE
 	invisibility = 101
-	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 

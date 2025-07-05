@@ -284,15 +284,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	res.Blend("#000", ICON_OVERLAY)
 
 	var/atoms[] = list()
-	for(var/turf/the_turf in turfs)
+	var/list/datum/lighting_object/lighting_objects = list()
+	for(var/turf/the_turf as anything in turfs)
 		// Add ourselves to the list of stuff to draw
 		atoms.Add(the_turf)
+		lighting_objects += the_turf.lighting_object
 		// As well as anything that isn't invisible.
-		for(var/atom/A in the_turf)
-			if(istype(A, /atom/movable/lighting_object)) //Add lighting to make image look nice
-				atoms.Add(A)
-				continue
-
+		for(var/atom/A as anything in the_turf)
 			// AI can't see unconcealed runes or cult portals
 			if(A.invisibility == INVISIBILITY_RUNES && see_cult)
 				atoms.Add(A)
@@ -324,11 +322,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	// Sort the atoms into their layers
 	var/list/sorted = sort_atoms(atoms)
 	var/center_offset = (size-1)/2 * 32 + 1
-	for(var/i; i <= length(sorted); i++)
+	for(var/i in 1 to length(sorted))
 		var/atom/A = sorted[i]
-		if(istype(A, /atom/movable/lighting_object))
-			continue //Lighting objects render last, need to be above all atoms and turfs displayed
-
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
 			if(istype(A, /obj/item/areaeditor/blueprints/ce))
@@ -363,10 +358,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),xoff,yoff)
 
 	// Render lighting objects to make picture look nice.
-	for(var/atom/movable/lighting_object/light in sorted)
-		var/xoff = (light.x - center.x) * 32 + center_offset
-		var/yoff = (light.y - center.y) * 32 + center_offset
-		res.Blend(getFlatIcon(light), blendMode2iconMode(BLEND_MULTIPLY),  light.pixel_x + xoff, light.pixel_y + yoff)
+	for(var/datum/lighting_object/light as anything in lighting_objects)
+		var/xoff = (light.affected_turf.x - center.x) * 32 + center_offset
+		var/yoff = (light.affected_turf.y - center.y) * 32 + center_offset
+		res.Blend(getFlatIcon(light.current_underlay), blendMode2iconMode(BLEND_MULTIPLY),  xoff, yoff)
 
 	return res
 
