@@ -73,6 +73,12 @@
 			return FALSE
 		return TRUE
 
+	if(istype(the_target, /obj/machinery/power/emitter)) // Targetting emitters
+		var/obj/machinery/power/emitter/E = the_target
+		if(!E.active) // Don't attack if the emitter isn't active
+			return FALSE
+		return TRUE
+
 	return FALSE
 
 /// Returns true if the mob and target share factions
