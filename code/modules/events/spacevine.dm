@@ -447,7 +447,7 @@
 			qdel(master)
 	master = null
 	mutations.Cut()
-	set_opacity(TRUE)
+	set_opacity(FALSE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
 	return ..()

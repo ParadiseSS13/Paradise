@@ -22,7 +22,7 @@
 	affected_turf.lighting_object = src
 	affected_turf.luminosity = 0
 
-	for(var/turf/space/space_tile in RANGE_TURFS(1, affected_turf)) //RANGE_TURFS is in code\__HELPERS\game.dm
+	for(var/turf/space/space_tile in RANGE_TURFS(1, affected_turf))
 		space_tile.update_starlight()
 
 	needs_update = TRUE
