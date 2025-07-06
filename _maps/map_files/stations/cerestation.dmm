@@ -4775,11 +4775,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/bridge)
-"aMy" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "escapecorner"
-	},
-/area/station/hallway/secondary/exit)
 "aMS" = (
 /obj/structure/window/reinforced,
 /obj/structure/rack,
@@ -9809,12 +9804,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/patients_rooms1)
-"byV" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/station/public/vacant_office)
 "byW" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -10853,11 +10842,6 @@
 	icon_state = "bar"
 	},
 /area/station/service/theatre)
-"bGe" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "escape"
-	},
-/area/station/hallway/secondary/exit)
 "bGh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -10955,7 +10939,7 @@
 	autolink_id = "engsm_btn_int";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_access = list(10, 24)
+	req_one_access = list(10, 24)
 	},
 /obj/machinery/computer/sm_monitor,
 /obj/structure/disposalpipe/segment{
@@ -16110,6 +16094,13 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/fsmaint)
+"cpF" = (
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "escape"
+	},
+/area/station/hallway/secondary/exit)
 "cpG" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -19116,13 +19107,6 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
-"cNH" = (
-/obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "escape"
-	},
-/area/station/hallway/secondary/exit)
 "cNK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -27214,7 +27198,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_access = list(10, 24)
+	req_one_access = list(10, 24)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -30740,6 +30724,11 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/central/north)
+"fbD" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "escape"
+	},
+/area/station/hallway/secondary/exit)
 "fbO" = (
 /obj/machinery/light/small,
 /obj/effect/spawner/random/dirt/frequent,
@@ -43247,7 +43236,8 @@
 	ext_door_link_id = "engsm_door_ext";
 	int_door_link_id = "engsm_door_int";
 	ext_button_link_id = "engsm_btn_ext";
-	int_button_link_id = "engsm_btn_int"
+	int_button_link_id = "engsm_btn_int";
+	req_one_access = list(10, 24)
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-8"
@@ -60797,7 +60787,9 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "lwP" = (
-/obj/item/kirbyplants/large,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "lwZ" = (
@@ -73909,6 +73901,10 @@
 	icon_state = "darkbrown"
 	},
 /area/station/supply/office)
+"otx" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/wood,
+/area/station/public/vacant_office)
 "otA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -81973,6 +81969,11 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/asmaint)
+"qic" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "escapecorner"
+	},
+/area/station/hallway/secondary/exit)
 "qii" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -93735,6 +93736,7 @@
 	pixel_y = -2
 	},
 /obj/item/storage/box/handcuffs,
+/obj/item/storage/box/stingers,
 /obj/item/storage/box/teargas{
 	pixel_x = -3;
 	pixel_y = -3
@@ -104233,7 +104235,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = -24;
-	req_access = list(10, 24)
+	req_one_access = list(10, 24)
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -167680,9 +167682,9 @@ pts
 cel
 jlY
 gyU
-byV
-szj
 lwP
+szj
+otx
 mWT
 mWT
 lmS
@@ -170249,7 +170251,7 @@ wFt
 jvl
 lGl
 jvl
-aMy
+qic
 hgR
 ifB
 vLR
@@ -170515,7 +170517,7 @@ ceQ
 agD
 awH
 cpX
-bGe
+fbD
 lmS
 bJS
 cLt
@@ -170772,7 +170774,7 @@ ceQ
 ciW
 qwt
 cRQ
-bGe
+fbD
 mWT
 mWT
 jLC
@@ -171269,7 +171271,7 @@ hsy
 aJy
 pUf
 bvl
-aMy
+qic
 hgR
 qTt
 vLR
@@ -171277,7 +171279,7 @@ wFt
 jvl
 lGl
 jvl
-aMy
+qic
 hgR
 qTt
 vLR
@@ -171286,7 +171288,7 @@ ceQ
 auI
 ciX
 iaA
-bGe
+fbD
 qsN
 mWT
 fNT
@@ -172053,7 +172055,7 @@ ceQ
 ceQ
 ceQ
 ceQ
-aMy
+qic
 gHl
 tdp
 tdp
@@ -172306,7 +172308,7 @@ ipY
 fbW
 oxc
 luK
-cNH
+cpF
 fWN
 wtT
 kmy
