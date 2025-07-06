@@ -27191,7 +27191,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/machinery/economy/atm/directional/north,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -54356,6 +54359,17 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/asmaint2)
+"kdn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/hallway/secondary/entry)
 "kds" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/portable/canister/air,
@@ -74758,6 +74772,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/south)
+"ozq" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/cans/cola{
+	pixel_y = 8;
+	pixel_x = -6
+	},
+/obj/item/food/chips{
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/turf/simulated/floor/carpet,
+/area/station/hallway/secondary/entry/south)
 "ozB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -86649,19 +86675,6 @@
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
-"rfK" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/cans/cola{
-	pixel_y = 8;
-	pixel_x = -6
-	},
-/obj/item/food/chips{
-	pixel_x = 8;
-	pixel_y = 7
-	},
-/obj/machinery/light,
-/turf/simulated/floor/carpet,
-/area/station/hallway/secondary/entry/south)
 "rfM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -98225,6 +98238,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
+"tEz" = (
+/obj/structure/chair/comfy/beige{
+	dir = 8
+	},
+/obj/machinery/light,
+/turf/simulated/floor/carpet,
+/area/station/hallway/secondary/entry/south)
 "tEA" = (
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
@@ -111800,12 +111820,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
 "wxp" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
+/obj/machinery/economy/atm/directional/north,
 /obj/machinery/light{
-	dir = 1
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -150490,20 +150507,20 @@ rNK
 rNK
 rNK
 rNK
-rNK
-ycG
-rNK
+pwH
+jci
+pdj
 lzH
-rNK
-ycG
-rNK
+pwH
+wmt
+pdj
 lzH
-rNK
-ycG
-rNK
-rNK
-eFs
-rNK
+pwH
+tYn
+pdj
+lzH
+dZW
+lzH
 lez
 fwi
 rNK
@@ -150758,9 +150775,9 @@ lzH
 pwH
 tYn
 pdj
-lzH
-dZW
-lzH
+rNK
+eFs
+rNK
 fwi
 fwi
 rNK
@@ -151530,7 +151547,7 @@ pwH
 tYn
 pdj
 rNK
-eFs
+dZW
 rNK
 lez
 fwi
@@ -151787,7 +151804,7 @@ pwH
 tYn
 pdj
 rNK
-dZW
+eFs
 rNK
 lez
 fwi
@@ -152043,9 +152060,9 @@ lzH
 pwH
 tYn
 pdj
-rNK
+lzH
 eFs
-rNK
+lzH
 lez
 fwi
 rNK
@@ -152300,9 +152317,9 @@ lzH
 pwH
 tYn
 pdj
-lzH
+rNK
 eFs
-lzH
+rNK
 fwi
 fwi
 rNK
@@ -152815,7 +152832,7 @@ pwH
 tYn
 pdj
 rNK
-eFs
+dZW
 rNK
 lez
 fwi
@@ -153329,7 +153346,7 @@ pwH
 tYn
 pdj
 rNK
-dZW
+eFs
 rNK
 lez
 fwi
@@ -153575,19 +153592,19 @@ rNK
 rNK
 rNK
 pwH
-jci
-pdj
-lzH
-pwH
-wmt
+igi
 pdj
 lzH
 pwH
 tYn
 pdj
-rNK
+lzH
+pwH
+rNC
+pdj
+lzH
 eFs
-rNK
+lzH
 lez
 fwi
 rNK
@@ -153831,20 +153848,20 @@ rNK
 rNK
 rNK
 rNK
-pwH
-igi
-pdj
 lzH
-pwH
-tYn
-pdj
+rNK
+rNK
 lzH
-pwH
-rNC
-pdj
+rNK
+ycG
+rNK
 lzH
-eFs
-lzH
+rNK
+rNK
+rNK
+rNK
+dZW
+rNK
 fwi
 fwi
 rNK
@@ -154088,19 +154105,19 @@ lzH
 lzH
 lzH
 lzH
-lzH
-rNK
-rNK
-lzH
-rNK
-ycG
-rNK
-lzH
-rNK
-rNK
-rNK
-rNK
 dZW
+eFs
+eFs
+lzH
+lzH
+qut
+lzH
+lzH
+eFs
+eFs
+dZW
+eFs
+eFs
 rNK
 lez
 fwi
@@ -154345,19 +154362,19 @@ rNK
 rNK
 rNK
 rNK
-dZW
+rNK
+rNK
+ejE
 eFs
-eFs
+rNK
 lzH
-lzH
-qut
-lzH
-lzH
+rNK
 eFs
-eFs
-dZW
-eFs
-eFs
+ejE
+rNK
+rNK
+rNK
+rNK
 rNK
 lez
 wFJ
@@ -154604,13 +154621,13 @@ rNK
 rNK
 rNK
 rNK
-ejE
-eFs
-rNK
-lzH
 rNK
 eFs
-ejE
+eFs
+eFs
+dZW
+eFs
+rNK
 rNK
 rNK
 rNK
@@ -154862,11 +154879,11 @@ rNK
 rNK
 rNK
 rNK
-eFs
-eFs
-eFs
-dZW
-eFs
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -156662,7 +156679,7 @@ czS
 czS
 czS
 czS
-aXn
+czS
 hUU
 hUU
 rNK
@@ -156916,8 +156933,8 @@ aXn
 aXn
 czS
 iMQ
-fXb
-jlH
+cPb
+ruS
 ruS
 czS
 aXn
@@ -157174,11 +157191,11 @@ czS
 czS
 dhB
 cPb
-cPb
-cPb
-sNX
-sNX
-dFt
+qoS
+ozq
+czS
+aXn
+hUU
 rNK
 rNK
 rNK
@@ -157431,12 +157448,12 @@ jlH
 plY
 lOj
 cPb
-cPb
-cPb
-dgs
-xJF
-dgs
-xGW
+arq
+jjL
+czS
+hUU
+hUU
+rNK
 rNK
 rNK
 rNK
@@ -157688,11 +157705,11 @@ dhZ
 cPb
 lOj
 cPb
-cPb
-cPb
-sNX
-sNX
-sNX
+hUn
+tEz
+czS
+hUU
+bhO
 rNK
 rNK
 rNK
@@ -157945,11 +157962,11 @@ hUn
 cPb
 lOj
 cPb
-ruS
-ruS
+cPb
+fXb
 czS
 hUU
-bhO
+gzW
 rNK
 rNK
 rNK
@@ -158202,11 +158219,11 @@ cPb
 cPb
 lOj
 cPb
-qoS
-rfK
-czS
-hUU
-bhO
+cPb
+cPb
+sNX
+sNX
+dFt
 rNK
 rNK
 rNK
@@ -158459,12 +158476,12 @@ cPb
 cPb
 lOj
 cPb
-arq
-jjL
-czS
-hUU
-gzW
-rNK
+cPb
+cPb
+dgs
+xJF
+dgs
+xGW
 rNK
 rNK
 rNK
@@ -158718,9 +158735,9 @@ lOj
 cPb
 hUn
 hUn
-czS
-hUU
-hUU
+sNX
+sNX
+sNX
 rNK
 rNK
 rNK
@@ -160263,7 +160280,7 @@ sNX
 sNX
 kbL
 aVB
-cVL
+rNK
 rNK
 rNK
 rNK
@@ -160520,8 +160537,8 @@ uXr
 hEG
 hOY
 aVB
-bhO
-bhO
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -160777,8 +160794,8 @@ sNX
 sNX
 sNX
 aVB
-bhO
-bhO
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -161034,7 +161051,7 @@ hUU
 hUU
 hUU
 bhO
-bhO
+rNK
 rNK
 rNK
 rNK
@@ -165905,7 +165922,7 @@ aVB
 aVB
 aVB
 sHm
-mGX
+kdn
 sHm
 aVB
 aVB
