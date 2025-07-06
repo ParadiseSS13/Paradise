@@ -22,7 +22,7 @@
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
 	domutcheck(user, MUTCHK_FORCED)
-	user.flavor_text = ""
+	user.flavor_text = chosen_dna.flavor_text
 	user.dna.UpdateSE()
 	user.dna.UpdateUI()
 	user.sync_organ_dna(1)

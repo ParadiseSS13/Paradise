@@ -386,8 +386,11 @@
 	for(var/mob/living/simple_animal/slime/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)
-		moblist.Add(M)
+		if(!istype(M, /mob/living/simple_animal/slime))
+			moblist.Add(M)
 	for(var/mob/living/basic/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/camera/blob/M in sortmob)
 		moblist.Add(M)
 	return moblist
 
