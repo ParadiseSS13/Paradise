@@ -408,7 +408,7 @@ SUBSYSTEM_DEF(mapping)
 		var/datum/space_level/level = GLOB.space_manager.z_list[z]
 		if(!level.has_traits(required_traits))
 			continue
-		if(reserve.reserve(width, height, level.zpos))
+		if(reserve.reserve(width, height, z))
 			return reserve
 	//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
 	var/z_level_num = add_reservation_zlevel(required_traits)

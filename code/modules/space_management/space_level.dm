@@ -189,9 +189,9 @@ GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
 	SSmachines.setup_template_powernets(cables)
 	cables.Cut()
 
-/datum/space_level/proc/has_traits(list/traits)
+/datum/space_level/proc/has_all_traits(list/traits)
 	// Cool, horrible set inclusion
-	return sortTim(flags & traits, GLOBAL_PROC_REF(cmp_text_asc)) == sortTim(traits, GLOBAL_PROC_REF(cmp_text_asc))
+	return length(flags & traits) == length(traits)
 
 /datum/space_level/lavaland/set_transition_borders()
 	// really no reason why these need to be so large,
