@@ -1,3 +1,1 @@
-/obj/item/chainsaw : /obj/item/chainsaw{@OLD}
 /obj/item/butcher_chainsaw : /obj/item/chainsaw/syndie{@OLD}
-/obj/item/chainsaw/doomslayer : /obj/item/chainsaw/doomslayer{@OLD}
