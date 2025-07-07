@@ -1119,7 +1119,7 @@
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)
-	possible_destinations = "trade_sol_base;trade_dock"
+	possible_destinations = "trader_base;trade_dock"
 	shuttleId = "trade_sol"
 
 //#undef DOCKING_PORT_HIGHLIGHT

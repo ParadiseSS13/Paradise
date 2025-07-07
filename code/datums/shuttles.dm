@@ -34,7 +34,6 @@
 	name = "Base Shuttle Template (Admin)"
 
 
-
 // Shuttles start here:
 
 /datum/map_template/shuttle/emergency/bar
@@ -199,3 +198,57 @@
 	suffix = "skipjack"
 	name = "Vox Skipjack"
 	description = "Vox skipjack ship."
+
+// Trader Shuttles:
+/datum/map_template/shuttle/trader
+	port_id = "trader_base"
+
+/datum/map_template/shuttle/trader/sol
+	suffix = "sol"
+	name = "Solgov Trade Freighter"
+	description = "Trading vessel for solgov traders."
+
+/datum/map_template/shuttle/trader/ussp
+	suffix = "ussp"
+	name = "USSP Trade Barge"
+	description = "Trading vessel for USSP traders."
+
+/datum/map_template/shuttle/trader/cybersun
+	suffix = "syndicate"
+	name = "Cybersun Trade Skiff"
+	description = "Trading vessel for cybersun traders."
+
+/datum/map_template/shuttle/trader/glint_scale
+	suffix = "glint"
+	name = "Glint Scale Trade Hound"
+	description = "Trading vessel for glint scale traders."
+
+/datum/map_template/shuttle/trader/steadfast
+	suffix = "stead"
+	name = "Steadfast Co. Trade Freighter"
+	description = "Trading vessel for steadfast company traders."
+
+/datum/map_template/shuttle/trader/synthetic
+	suffix = "synth"
+	name = "Synthetic Union Trade Vessel"
+	description = "Trading vessel for synthetic union traders."
+
+/datum/map_template/shuttle/trader/skipjack
+	suffix = "skip"
+	name = "Vox Trade Skipjack"
+	description = "Trading vessel for skipjack traders."
+
+/datum/map_template/shuttle/trader/skrell
+	suffix = "skrell"
+	name = "Skrellian Trade Skiff"
+	description = "Trading vessel for skrellian central authority traders."
+
+/datum/map_template/shuttle/trader/technocracy
+	suffix = "techno"
+	name = "Technocracy Trade Pod"
+	description = "Trading vessel for technocracy traders."
+
+/datum/map_template/shuttle/trader/guild
+	suffix = "guild"
+	name = "Merchant Guild Trade Freighter"
+	description = "Trading vessel for merchant guild traders."
