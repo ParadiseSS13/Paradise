@@ -50,6 +50,10 @@
 	. = ..()
 	var/mob/living/silicon/ai/AI = C.mob
 
+	if(ismecha(AI.loc))
+		to_chat(AI, "<span class='warning'>You can't change camera locations while in a mech!</span>")
+		return
+
 	if(AI.stored_locations[location_number] == "unset")
 		to_chat(AI, "<span class='warning'>You haven't set location [location_number] yet!</span>")
 		return

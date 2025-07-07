@@ -411,7 +411,7 @@
 /datum/action/changeling/weapon/shield
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
-	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Automatically parries. Cannot be used while in lesser form."
+	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Can be used to parry attacks and projectiles. Cannot be used while in lesser form."
 	button_overlay_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2

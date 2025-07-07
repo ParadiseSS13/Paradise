@@ -690,6 +690,12 @@ GLOBAL_VAR(bomb_set)
 				return
 	return
 
+/obj/machinery/nuclearbomb/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+
 // MARK: Nuclear Disk
 
 /obj/item/disk/nuclear

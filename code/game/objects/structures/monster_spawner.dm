@@ -66,15 +66,24 @@
 	desc = "A den housing a nest of goliaths, oh god why?"
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath)
 
+/obj/structure/spawner/mining/goliath/space
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/space)
+
 /obj/structure/spawner/mining/hivelord
 	name = "hivelord den"
 	desc = "A den housing a nest of hivelords."
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord)
 
+/obj/structure/spawner/mining/hivelord/space
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/space)
+
 /obj/structure/spawner/mining/basilisk
 	name = "basilisk den"
 	desc = "A den housing a nest of basilisks, bring a coat."
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk)
+
+/obj/structure/spawner/mining/basilisk/space
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/space)
 
 /obj/structure/spawner/sentient
 	var/role_name = "A sentient mob"

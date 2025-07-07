@@ -398,8 +398,11 @@
 	for(var/mob/living/simple_animal/slime/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)
-		moblist.Add(M)
+		if(!istype(M, /mob/living/simple_animal/slime))
+			moblist.Add(M)
 	for(var/mob/living/basic/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/camera/blob/M in sortmob)
 		moblist.Add(M)
 	return moblist
 
@@ -1890,7 +1893,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Surgery Sounds"
 
 /**
-  * HTTP Get (Powered by RUSTG)
+  * HTTP Get (Powered by rustlibs)
   *
   * This proc should be used as a replacement for [/world/proc/Export] due to an underlying issue with it.
   * See: https://www.byond.com/forum/post/2772166
@@ -1903,7 +1906,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   */
 /proc/HTTPGet(url)
 	var/datum/http_request/req = new
-	req.prepare(RUSTG_HTTP_METHOD_GET, url)
+	req.prepare(RUSTLIBS_HTTP_METHOD_GET, url)
 	req.begin_async()
 
 	// Check if we are complete
