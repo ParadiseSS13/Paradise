@@ -520,6 +520,7 @@
 #include "code\datums\components\forces_doors_open.dm"
 #include "code\datums\components\fullauto.dm"
 #include "code\datums\components\ghost_direct_control.dm"
+#include "code\datums\components\incursion_mob_death.dm"
 #include "code\datums\components\inherent_radioactivity.dm"
 #include "code\datums\components\jetpack_component.dm"
 #include "code\datums\components\label.dm"

@@ -187,6 +187,12 @@
 /obj/structure/spawner/nether/demon_incursion/on_mob_spawn(mob/created_mob)
 	. = ..()
 	created_mob.Move(get_step(created_mob.loc, pick(GLOB.alldirs)))
+	var/mob/living/basic/new_mob = created_mob
+	if(!istype(new_mob, /mob/living/basic))
+		return
+	if(new_mob.basic_mob_flags & DEL_ON_DEATH)
+		return
+	new_mob.AddComponent(/datum/component/incursion_mob_death)
 
 /obj/structure/spawner/nether/demon_incursion/attacked_by(obj/item/attacker, mob/living/user)
 	. = ..()
@@ -249,10 +255,6 @@
 
 /obj/structure/spawner/nether/demon_incursion/proc/spread_turf()
 	for(var/turf/spread_turf in range(tile_spread, loc))
-		var/mob/living/basic/portal_cleanup = locate(/mob/living/basic) in spread_turf
-		if(portal_cleanup && portal_cleanup.stat == DEAD)
-			new /obj/effect/temp_visual/demonic_grasp(spread_turf)
-			portal_cleanup.gib()
 		if(isfloorturf(spread_turf) && !istype(spread_turf, turf_to_spread))
 			spread_turf.ChangeTurf(turf_to_spread)
 			Beam(spread_turf, icon_state = "sendbeam", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
