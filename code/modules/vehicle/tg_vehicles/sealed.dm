@@ -52,11 +52,11 @@
 
 /obj/tgvehicle/sealed/after_add_occupant(mob/M)
 	. = ..()
-	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, src)
+	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
 
 /obj/tgvehicle/sealed/after_remove_occupant(mob/M)
 	. = ..()
-	REMOVE_TRAIT(M, TRAIT_HANDS_BLOCKED, src)
+	REMOVE_TRAITS_IN(M, VEHICLE_TRAIT)
 
 /obj/tgvehicle/sealed/proc/mob_try_enter(mob/rider)
 	if(!istype(rider))

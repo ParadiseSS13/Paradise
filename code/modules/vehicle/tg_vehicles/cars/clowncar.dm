@@ -156,7 +156,7 @@
 		return
 	target_pancake.visible_message("<span class='warning'>[src] runs over [target_pancake], flattening [target_pancake.p_them()] like a pancake!</span>")
 	handle_squish_carbon(target_pancake, 30)
-	ADD_TRAIT(target_pancake, TRAIT_CLOWN_CAR_SQUISHED, src)
+	ADD_TRAIT(target_pancake, TRAIT_CLOWN_CAR_SQUISHED, "clown_car")
 	addtimer(CALLBACK(src, PROC_REF(allow_resquish), target_pancake), 5 SECONDS)
 	target_pancake.Stun(2 SECONDS)
 	playsound(target_pancake, 'sound/effects/clowncar/cartoon_splat.ogg', 75)
@@ -177,7 +177,7 @@
 	return ..()
 
 /obj/tgvehicle/sealed/car/clowncar/proc/allow_resquish(mob/living/carbon/pancake)
-	REMOVE_TRAIT(pancake, TRAIT_CLOWN_CAR_SQUISHED, src)
+	REMOVE_TRAIT(pancake, TRAIT_CLOWN_CAR_SQUISHED, "clown_car")
 
 /**
  * Plays a random funky effect

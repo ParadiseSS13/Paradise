@@ -455,6 +455,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define DOGGO_SPACESUIT "doggo_spacesuit"
 #define FLOORCLUWNE "floorcluwne"
 #define LOCKDOWN_TRAIT "lockdown"
+#define VEHICLE_TRAIT "vehicle"
 #define STAT_TRAIT "stat_trait"
 #define TRANSFORMING_TRAIT "transforming"
 #define BUCKLING_TRAIT "buckled"
