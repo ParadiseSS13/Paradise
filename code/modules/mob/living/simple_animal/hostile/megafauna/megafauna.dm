@@ -81,6 +81,9 @@
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	GLOB.alive_megafauna_list -= UID()
+	// lets normalize the icons a bit
+	pixel_x = 0
+	pixel_y = 0
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
@@ -143,7 +146,7 @@
 	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()
 
-/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller_mob)
 	var/turf/oldloc = loc
 	. = ..()
 	if(!.)
@@ -152,7 +155,7 @@
 	message_admins("Megafauna [src] \
 		([ADMIN_FLW(src,"FLW")]) \
 		moved via shuttle from ([oldloc.x], [oldloc.y], [oldloc.z]) to \
-		([newloc.x], [newloc.y], [newloc.z])[caller ? " called by [ADMIN_LOOKUP(caller)]" : ""]")
+		([newloc.x], [newloc.y], [newloc.z])[caller_mob ? " called by [ADMIN_LOOKUP(caller_mob)]" : ""]")
 
 /mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
 	if(!L)

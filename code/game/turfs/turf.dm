@@ -85,7 +85,7 @@
 	var/datum/gas_mixture/bound_to_turf/bound_air
 
 	/// The effect used to render a pressure overlay from this tile.
-	var/obj/effect/pressure_overlay/pressure_overlay
+	var/obj/effect/abstract/pressure_overlay/pressure_overlay
 
 	var/list/milla_data = null
 
@@ -328,6 +328,11 @@
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
 
 	var/old_baseturf = baseturf
+	var/old_pressure_overlay
+	if(pressure_overlay)
+		old_pressure_overlay = pressure_overlay
+		pressure_overlay = null
+
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
 	var/list/old_comp_lookup = comp_lookup?.Copy()
@@ -346,6 +351,7 @@
 	if(!defer_change)
 		W.AfterChange(ignore_air)
 	W.blueprint_data = old_blueprint_data
+	W.pressure_overlay = old_pressure_overlay
 
 	recalc_atom_opacity()
 
@@ -790,17 +796,21 @@
 /turf/return_analyzable_air()
 	return get_readonly_air()
 
-/obj/effect/pressure_overlay
+/obj/effect/abstract/pressure_overlay
+	name = null
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	// I'm really not sure this is the right var for this, but it's what the suply shuttle is using to determine if anything is blocking a tile, so let's not do that.
 	simulated = FALSE
 	// Please do not splat the visual effect with a shuttle.
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
+	layer = OBJ_LAYER
+	invisibility = 0
 
 	var/image/overlay
 
-/obj/effect/pressure_overlay/Initialize(mapload)
+/obj/effect/abstract/pressure_overlay/Initialize(mapload)
 	. = ..()
 	overlay = new(icon, src, "white")
 	overlay.alpha = 0
@@ -808,21 +818,21 @@
 	overlay.blend_mode = BLEND_OVERLAY
 	overlay.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 
-/obj/effect/pressure_overlay/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/obj/effect/abstract/pressure_overlay/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
 	// No, I don't think I will.
 	return FALSE
 
-/obj/effect/pressure_overlay/singularity_pull()
+/obj/effect/abstract/pressure_overlay/singularity_pull()
 	// I am not a physical object, you have no control over me!
 	return FALSE
 
-/obj/effect/pressure_overlay/singularity_act()
+/obj/effect/abstract/pressure_overlay/singularity_act()
 	// I don't taste good, either!
 	return FALSE
 
 /turf/proc/ensure_pressure_overlay()
 	if(isnull(pressure_overlay))
-		for(var/obj/effect/pressure_overlay/found_overlay in src)
+		for(var/obj/effect/abstract/pressure_overlay/found_overlay in src)
 			pressure_overlay = found_overlay
 	if(isnull(pressure_overlay))
 		pressure_overlay = new(src)

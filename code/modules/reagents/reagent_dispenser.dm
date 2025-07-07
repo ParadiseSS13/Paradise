@@ -75,6 +75,12 @@
 	else
 		qdel(src)
 
+/obj/structure/reagent_dispensers/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"

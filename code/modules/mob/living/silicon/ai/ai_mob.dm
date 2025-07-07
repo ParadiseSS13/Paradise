@@ -897,7 +897,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	Bot.call_bot(src, waypoint)
 
-/mob/living/silicon/ai/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/ai/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listened_for))
 		return
 	if(alarmsource.z != z)
@@ -924,7 +924,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(viewalerts)
 		ai_alerts()
 
-/mob/living/silicon/ai/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/ai/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	if(cleared)
 		if(!(class in alarms_listened_for))
 			return
@@ -1394,6 +1394,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
 		if(GetComponent(/datum/component/ducttape))
 			QDEL_NULL(builtInCamera)
+		if(program_picker)
+			program_picker.reset_programs()
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")

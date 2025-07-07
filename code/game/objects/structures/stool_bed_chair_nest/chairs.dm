@@ -239,14 +239,6 @@
 /obj/structure/chair/comfy/orange
 	color = rgb(229,111,52)
 
-/obj/structure/chair/office
-	anchored = FALSE
-	movable = TRUE
-	item_chair = null
-	buildstackamount = 5
-	var/image/armrest
-	uses_armrest = TRUE
-
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
@@ -254,6 +246,24 @@
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
+
+/obj/structure/chair/office
+	icon_state = "officechair_white"
+	anchored = FALSE
+	movable = TRUE
+	uses_armrest = TRUE
+	item_chair = null
+	buildstackamount = 5
+	var/image/armrest
+
+/obj/structure/chair/office/Initialize(mapload)
+	armrest = get_armrest()
+	armrest.layer = ABOVE_MOB_LAYER
+	return ..()
+
+/obj/structure/chair/office/Destroy()
+	QDEL_NULL(armrest)
+	return ..()
 
 /obj/structure/chair/office/Bump(atom/A)
 	..()
@@ -271,24 +281,6 @@
 			playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
 
-/obj/structure/chair/office/light
-	icon_state = "officechair_white"
-
-/obj/structure/chair/office/dark
-	icon_state = "officechair_dark"
-
-/obj/structure/chair/office/proc/get_armrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
-
-/obj/structure/chair/office/Initialize(mapload)
-	armrest = get_armrest()
-	armrest.layer = ABOVE_MOB_LAYER
-	return ..()
-
-/obj/structure/chair/office/Destroy()
-	QDEL_NULL(armrest)
-	return ..()
-
 /obj/structure/chair/office/post_buckle_mob(mob/living/M)
 	. = ..()
 	update_armrest()
@@ -297,13 +289,23 @@
 	. = ..()
 	update_armrest()
 
+/obj/structure/chair/office/proc/get_armrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
+
 /obj/structure/chair/office/proc/update_armrest()
 	if(has_buckled_mobs())
 		add_overlay(armrest)
 	else
 		cut_overlay(armrest)
 
+/obj/structure/chair/office/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 75, TRUE, ignore_walls = FALSE)
 
+/obj/structure/chair/office/dark
+	icon_state = "officechair_dark"
 
 /obj/structure/chair/barber
 	icon_state = "barber_chair"

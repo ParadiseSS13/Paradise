@@ -569,6 +569,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/flashbang(src)
 
+/obj/item/storage/box/stingers
+	name = "box of stinger grenades (WARNING)"
+	desc = "<b>WARNING: These devices are dangerous and can cause significant physical harm with repeated use.</b>"
+	icon_state = "flashbang_box"
+
+/obj/item/storage/box/stingers/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/frag/stinger(src)
+
 /obj/item/storage/box/smoke_grenades
 	name = "smoke grenades"
 	desc = "A box with 7 smoke grenades."
@@ -970,6 +979,14 @@
 /obj/item/storage/box/deagle/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
 	new /obj/item/ammo_box/magazine/m50(src)
+
+/obj/item/storage/box/marine_armor_export
+	name = "\improper Federation marine armor box"
+	desc = "A box containing a factory-fresh suit of export-grade Trans-Solar Marine Corps combat armor."
+
+/obj/item/storage/box/marine_armor_export/populate_contents()
+	new /obj/item/clothing/suit/armor/federation/marine/export(src)
+	new /obj/item/clothing/head/helmet/federation/marine/export(src)
 
 /obj/item/storage/box/skrell_suit
 	name = "skrellian suit box"
