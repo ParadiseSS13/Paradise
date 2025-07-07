@@ -37,7 +37,10 @@
 	/// The turf type the reservation is initially made with
 	var/turf_type = /turf/space
 
-	/// The z-level traits required by the turf reservation
+	/// The z-level traits required by the turf reservation. Modify only if
+	/// you are absolutely certain pre-existing reservation types do not support
+	/// your use-case, as an entirely new z-level will be reserved if this list
+	/// of traits is unique.
 	var/list/required_traits = list()
 
 /datum/turf_reservation/New()
