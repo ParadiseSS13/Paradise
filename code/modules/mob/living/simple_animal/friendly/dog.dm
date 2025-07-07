@@ -564,6 +564,10 @@
 	// Lisa already has a cute bow, so she only needs the back slot
 	corgi_strippable_back = new
 
+/mob/living/simple_animal/pet/dog/corgi/lisa/Destroy()
+	. = ..()
+	QDEL_NULL(corgi_strippable_back)
+
 /mob/living/simple_animal/pet/dog/corgi/lisa/Life()
 	..()
 	make_babies()
