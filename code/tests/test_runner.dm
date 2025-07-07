@@ -36,7 +36,7 @@
 	log_world("Test runner: game tests.")
 	CHECK_TICK
 
-	for(var/I in subtypesof(/datum/game_test))
+	for(var/I in subtypesof(/datum/game_test) - /datum/game_test/room_test)
 		var/datum/game_test/test = new I
 		test_logs[I] = list()
 
