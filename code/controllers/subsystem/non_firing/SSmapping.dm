@@ -111,8 +111,8 @@ SUBSYSTEM_DEF(mapping)
 
 	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = empty_z_traits)
-	// Add a reserved z-level
-	add_reservation_zlevel()
+	// Add a reserved z-level for shuttle transit
+	add_reservation_zlevel(required_traits = list(TCOMM_RELAY_ALWAYS))
 
 	// Now we make a list of areas for teleport locs
 	// Located below is some of the worst code I've ever seen
@@ -406,7 +406,7 @@ SUBSYSTEM_DEF(mapping)
 	var/list/required_traits = reserve.required_traits | Z_FLAG_RESERVED
 	for(var/z in GLOB.space_manager.z_list)
 		var/datum/space_level/level = GLOB.space_manager.z_list[z]
-		if(!level.has_traits(required_traits))
+		if(!level.has_all_traits(required_traits))
 			continue
 		if(reserve.reserve(width, height, z))
 			return reserve

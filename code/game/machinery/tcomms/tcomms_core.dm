@@ -79,8 +79,6 @@
 		return FALSE
 	if(zlevel in reachable_zlevels)
 		return TRUE
-	if(check_level_trait(zlevel, TCOMM_RELAY_ALWAYS))
-		return TRUE
 	else
 		return FALSE
 
