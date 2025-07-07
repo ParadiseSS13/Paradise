@@ -37,6 +37,9 @@
 	/// The turf type the reservation is initially made with
 	var/turf_type = /turf/space
 
+	/// The z-level traits required by the turf reservation
+	var/list/required_traits = list()
+
 /datum/turf_reservation/New()
 	LAZYADD(SSmapping.turf_reservations, src)
 
@@ -153,3 +156,4 @@
 
 /datum/turf_reservation/transit
 	turf_type = /turf/space/transit
+	required_traits = list(TCOMM_RELAY_ALWAYS)

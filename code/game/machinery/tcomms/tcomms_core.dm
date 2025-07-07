@@ -43,6 +43,8 @@
 		visible_message("<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
 	update_icon()
 
+	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_Z, PROC_REF(on_new_z))
+
 	if(mapload) //Automatically links new midround tcomms cores to the cc relay
 		return
 	var/obj/machinery/tcomms/relay/cc/cc_relay = locateUID(GLOB.cc_tcomms_relay_uid)
@@ -76,6 +78,8 @@
 	if(!active || (stat & NOPOWER) || ion)
 		return FALSE
 	if(zlevel in reachable_zlevels)
+		return TRUE
+	if(check_level_trait(zlevel, TCOMM_RELAY_ALWAYS))
 		return TRUE
 	else
 		return FALSE
@@ -133,6 +137,9 @@
 		// Only if the relay is active
 		if(R.active && !(R.stat & NOPOWER))
 			reachable_zlevels |= R.loc.z
+	for(var/zlevel in GLOB.space_manager.z_list)
+		if(check_level_trait(zlevel, TCOMM_RELAY_ALWAYS))
+			reachable_zlevels |= zlevel
 
 
 /**
@@ -344,6 +351,11 @@
 					log_action(usr, "has removed [name_to_remove] from the NTTC filter list on core with ID [network_id]", TRUE)
 					to_chat(usr, "<span class='notice'>Successfully removed <b>[name_to_remove]</b> from the NTTC filtering list.</span>")
 
+/obj/machinery/tcomms/core/proc/on_new_z(datum/source, name, linkage, list/traits, transition_tag, level_type, z_level)
+	SIGNAL_HANDLER // COMSIG_GLOB_NEW_Z
+
+	if(islist(traits) && (TCOMM_RELAY_ALWAYS in traits))
+		reachable_zlevels |= z_level
 
 #undef UI_TAB_CONFIG
 #undef UI_TAB_LINKS

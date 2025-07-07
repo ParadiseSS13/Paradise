@@ -403,19 +403,24 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/turf_reservation/reserve = new reservation_type
 	if(!isnull(turf_type_override))
 		reserve.turf_type = turf_type_override
-	for(var/i in levels_by_trait(Z_FLAG_RESERVED))
-		if(reserve.reserve(width, height, i))
+	var/list/required_traits = reserve.required_traits | Z_FLAG_RESERVED
+	for(var/z in GLOB.space_manager.z_list)
+		var/datum/space_level/level = GLOB.space_manager.z_list[z]
+		if(!level.has_traits(required_traits))
+			continue
+		if(reserve.reserve(width, height, level.zpos))
 			return reserve
 	//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
-	var/z_level_num = add_reservation_zlevel()
+	var/z_level_num = add_reservation_zlevel(required_traits)
 	if(reserve.reserve(width, height, z_level_num))
 		return reserve
 	qdel(reserve)
 
-/datum/controller/subsystem/mapping/proc/add_reservation_zlevel()
+/datum/controller/subsystem/mapping/proc/add_reservation_zlevel(list/required_traits = list())
+	required_traits |= list(Z_FLAG_RESERVED, BLOCK_TELEPORT, IMPEDES_MAGIC)
 	num_of_res_levels++
 	// . here is the z of the just added z-level
-	. = GLOB.space_manager.add_new_zlevel("Transit/Reserved #[num_of_res_levels]", traits = list(Z_FLAG_RESERVED, BLOCK_TELEPORT, IMPEDES_MAGIC))
+	. = GLOB.space_manager.add_new_zlevel("Transit/Reserved #[num_of_res_levels]", traits = required_traits)
 	initialize_reserved_level(.)
 	if(!initialized)
 		return
