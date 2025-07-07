@@ -44,3 +44,10 @@
 				visible_message("<span class='warning'>[M] reemerges from the link!</span>")
 				blank.held_body = M
 				M.forceMove(blank)
+
+/obj/structure/spawner/nether/deconstruct(disassembled)
+	for(var/mob/living/M in contents)
+		if(M)
+			M.forceMove(loc)
+	return ..()
+
