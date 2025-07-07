@@ -223,6 +223,8 @@
 	for(var/turf/simulated/floor/possible_loc in orange(8, src.loc))
 		if(!istype(possible_loc))
 			continue
+		if(istype(get_area(possible_loc), /area/space))
+			continue
 		if(possible_loc.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 		var/density_check = TRUE
