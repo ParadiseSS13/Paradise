@@ -41,7 +41,7 @@
 	else
 		pool.known_spawners |= src
 
-	return INITIALIZE_HINT_QDEL
+	return INITIALIZE_HINT_NORMAL
 
 /obj/effect/spawner/random/pool/generate_loot_list()
 	var/datum/spawn_pool/pool = GLOB.spawn_pool_manager.get(spawn_pool)
