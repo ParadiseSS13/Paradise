@@ -486,9 +486,7 @@ SUBSYSTEM_DEF(shuttle)
 		CRASH("A trader shuttle was already being loaded at centcomm when another shuttle attempted to load.")
 	trader_shuttle_loading = TRUE
 	// get the existing shuttle information, if any
-	var/timer = 0
-	var/mode = SHUTTLE_IDLE
-	var/obj/docking_port/mobile/trade_sol/dock = getDock("trader_base")
+	var/obj/docking_port/mobile/trader/dock = getDock("trader_base")
 
 	if(!dock)
 		var/m = "No dock found for preview shuttle, aborting."
@@ -516,7 +514,7 @@ SUBSYSTEM_DEF(shuttle)
 	// blanking the modification tab
 
 	trader_shuttle_loading = FALSE
-	return loaded_shuttle
+	return trade_shuttle
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))

@@ -202,6 +202,7 @@
 // Trader Shuttles:
 /datum/map_template/shuttle/trader
 	port_id = "trader_base"
+	prefix = "_maps/map_files/shuttles/trader/"
 
 /datum/map_template/shuttle/trader/sol
 	suffix = "sol"

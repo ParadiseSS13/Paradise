@@ -1,0 +1,866 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"av" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/toy/figure/crew/syndie,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"bZ" = (
+/turf/template_noop,
+/area/template_noop)
+"du" = (
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/science,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"dM" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
+"eK" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"fN" = (
+/obj/structure/chair/sofa/corp/left,
+/obj/machinery/flasher{
+	id = "trader_flash";
+	pixel_x = 28
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"gl" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 8
+	},
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"gD" = (
+/obj/structure/bed,
+/obj/item/bedsheet/syndie,
+/obj/structure/sign/poster/contraband/random/directional/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"gI" = (
+/obj/machinery/flasher_button{
+	id = "trader_flash";
+	pixel_y = 23;
+	req_access = list(160)
+	},
+/obj/machinery/door_control/no_emag{
+	id = "trader_privacy";
+	name = "Privacy Shutters Control";
+	pixel_y = 24;
+	req_access = list(160);
+	pixel_x = 10
+	},
+/obj/machinery/door_control/no_emag{
+	id = "trader_port";
+	name = "Trade Deposits Door";
+	normaldoorcontrol = 1;
+	pixel_x = -10;
+	req_access = list(160);
+	pixel_y = 24
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/hand_labeler,
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/effect/turf_decal/siding,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"hn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"hF" = (
+/obj/effect/spawner/random/traders/large_item,
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"ip" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"iA" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"jd" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 8
+	},
+/obj/structure/sign/poster/contraband/random/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"jy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"kc" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"km" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"kx" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/paper_bin,
+/obj/item/pen/multi/syndicate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"kE" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"kM" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"lk" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/random/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"nc" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"nY" = (
+/obj/machinery/light/spot,
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"oZ" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "s_docking_airlock"
+	},
+/obj/docking_port/mobile/trader{
+	height = 21;
+	width = 14;
+	dwidth = 7;
+	preferred_direction = 1;
+	dir = 2
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"ps" = (
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/medical,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"qK" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
+"sz" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"sA" = (
+/obj/structure/chair/comfy/corp,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"sH" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"tl" = (
+/obj/structure/closet,
+/obj/item/stack/tile/disco_light/thirty,
+/obj/effect/spawner/random/traders/service,
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"tH" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"tX" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"uK" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"vM" = (
+/obj/machinery/computer/shuttle/trade/sol,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"wq" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/structure/chair/sofa/corp/right,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"wA" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"xz" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"xE" = (
+/obj/structure/shelf,
+/obj/effect/turf_decal/siding{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"xR" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/ashtray/glass{
+	pixel_x = 8;
+	pixel_y = 1
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/obj/item/lighter/zippo/contractor{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"ye" = (
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"yH" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"za" = (
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"zm" = (
+/obj/structure/chair/sofa/corp/right,
+/obj/machinery/flasher{
+	id = "trader_flash";
+	pixel_x = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"zB" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/stack/wrapping_paper,
+/obj/item/stack/package_wrap{
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"zY" = (
+/obj/effect/turf_decal/siding{
+	dir = 5
+	},
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/minerals,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"CP" = (
+/obj/effect/landmark/spawner/tradergearmajor,
+/obj/effect/turf_decal/siding{
+	dir = 5
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"CU" = (
+/obj/machinery/light/spot,
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"DB" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Fd" = (
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Gr" = (
+/obj/machinery/door/airlock/hatch{
+	security_level = 6;
+	id_tag = "trader_starboard"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"Hn" = (
+/obj/effect/turf_decal/siding{
+	dir = 9
+	},
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/engineering,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"HA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/chair/comfy/corp{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Ia" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/chair/sofa/corp/left,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"ID" = (
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/donksoft,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Jn" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"JI" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/trade/sol)
+"KA" = (
+/obj/machinery/flasher_button{
+	id = "trader_flash";
+	pixel_y = 23;
+	req_access = list(160)
+	},
+/obj/machinery/door_control/no_emag{
+	id = "trader_privacy";
+	name = "Privacy Shutters Control";
+	pixel_y = 24;
+	req_access = list(160);
+	pixel_x = -10
+	},
+/obj/machinery/door_control/no_emag{
+	id = "trader_starboard";
+	name = "Trade Deposits Door";
+	normaldoorcontrol = 1;
+	pixel_x = 10;
+	req_access = list(160);
+	pixel_y = 24
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/hand_labeler,
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/effect/turf_decal/siding,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Lf" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"LQ" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Mn" = (
+/obj/structure/chair/comfy/corp{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Op" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"PN" = (
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/security,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Qk" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/wirecutters,
+/obj/item/hemostat,
+/obj/item/scalpel,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"RQ" = (
+/obj/structure/shelf,
+/obj/effect/turf_decal/siding{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"SY" = (
+/obj/effect/spawner/random/traders/vehicle,
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"TK" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"TU" = (
+/obj/machinery/door/airlock/hatch{
+	security_level = 6;
+	id_tag = "trader_port"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"VQ" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/toy/nuke,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"WV" = (
+/obj/effect/landmark/spawner/tradergearminor,
+/obj/effect/turf_decal/siding{
+	dir = 9
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Xj" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/civilian,
+/obj/effect/turf_decal/siding{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"YD" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Zu" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+
+(1,1,1) = {"
+bZ
+bZ
+LQ
+LQ
+LQ
+LQ
+LQ
+LQ
+bZ
+bZ
+bZ
+bZ
+bZ
+LQ
+JI
+JI
+JI
+JI
+JI
+JI
+bZ
+"}
+(2,1,1) = {"
+bZ
+LQ
+LQ
+Op
+kM
+dM
+kc
+LQ
+LQ
+bZ
+bZ
+bZ
+LQ
+JI
+VQ
+JI
+kx
+tH
+nc
+Jn
+bZ
+"}
+(3,1,1) = {"
+LQ
+LQ
+eK
+iA
+kM
+ye
+kc
+SY
+LQ
+bZ
+bZ
+bZ
+LQ
+gD
+xz
+JI
+hn
+HA
+nc
+Jn
+bZ
+"}
+(4,1,1) = {"
+JI
+JI
+TU
+JI
+JI
+JI
+ip
+CP
+JI
+LQ
+bZ
+LQ
+LQ
+TK
+eK
+JI
+kc
+sH
+JI
+JI
+JI
+"}
+(5,1,1) = {"
+JI
+zm
+kc
+CU
+JI
+gI
+kc
+kc
+Xj
+JI
+JI
+JI
+JI
+JI
+Fd
+LQ
+kc
+Lf
+YD
+nc
+Jn
+"}
+(6,1,1) = {"
+JI
+Ia
+kc
+sA
+qK
+Mn
+kc
+kc
+zY
+ID
+du
+JI
+lk
+sz
+kc
+kc
+kc
+tX
+eK
+nc
+Jn
+"}
+(7,1,1) = {"
+oZ
+jy
+kc
+kc
+qK
+zB
+RQ
+kc
+kc
+kc
+Zu
+ye
+kc
+kc
+kc
+kc
+kc
+xR
+kE
+JI
+JI
+"}
+(8,1,1) = {"
+uK
+jy
+kc
+kc
+qK
+zB
+xE
+kc
+kc
+kc
+Zu
+ye
+kc
+kc
+kc
+kc
+kc
+vM
+kE
+JI
+JI
+"}
+(9,1,1) = {"
+JI
+wq
+kc
+sA
+qK
+Mn
+kc
+kc
+Hn
+PN
+ps
+JI
+jd
+gl
+kc
+kc
+kc
+tX
+eK
+nc
+Jn
+"}
+(10,1,1) = {"
+JI
+fN
+kc
+nY
+JI
+KA
+kc
+kc
+tl
+JI
+JI
+JI
+JI
+JI
+Fd
+LQ
+kc
+wA
+yH
+nc
+Jn
+"}
+(11,1,1) = {"
+JI
+JI
+Gr
+JI
+JI
+JI
+ip
+WV
+JI
+LQ
+bZ
+LQ
+JI
+TK
+eK
+JI
+kc
+sH
+JI
+JI
+JI
+"}
+(12,1,1) = {"
+LQ
+LQ
+eK
+DB
+kM
+ye
+kc
+hF
+LQ
+bZ
+bZ
+bZ
+JI
+gD
+xz
+JI
+km
+km
+nc
+Jn
+bZ
+"}
+(13,1,1) = {"
+bZ
+LQ
+LQ
+Op
+kM
+dM
+kc
+LQ
+LQ
+bZ
+bZ
+bZ
+LQ
+JI
+av
+JI
+za
+Qk
+nc
+Jn
+bZ
+"}
+(14,1,1) = {"
+bZ
+bZ
+LQ
+LQ
+LQ
+LQ
+LQ
+LQ
+bZ
+bZ
+bZ
+bZ
+bZ
+LQ
+JI
+JI
+JI
+JI
+JI
+JI
+bZ
+"}

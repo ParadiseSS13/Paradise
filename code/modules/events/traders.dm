@@ -88,7 +88,9 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			greet_trader(M, T)
 			success_spawn = TRUE
 	if(success_spawn)
-		SSshuttle.set_trader_shuttle(T.ship_template)
+		var/template = new T.ship_template()
+		var/obj/docking_port/mobile/trade_shuttle = SSshuttle.load_template(template)
+		SSshuttle.set_trader_shuttle(trade_shuttle)
 		GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted", 'sound/AI/tradergranted.ogg')
 		// Get the list of spawn locations for company specific items, spawn gear
 		for(var/obj/effect/landmark/spawner/tradergearminor/A in GLOB.landmarks_list)
@@ -137,7 +139,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	/// What big ticket faction gear do they start with
 	var/trader_major_special
 	/// The type of shuttle the traders get
-	var/datum/map_template/shuttle/trade/ship_template
+	var/datum/map_template/shuttle/ship_template
 
 /datum/traders/sol
 	trader_type = "Trans-Solar Federation"
@@ -177,7 +179,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_outfit = /datum/outfit/admin/trader/unathi
 	trader_minor_special = /obj/effect/spawner/random/traders/glintscale_minor
 	trader_major_special = /obj/effect/spawner/random/traders/glintscale_major
-	ship_template = /datum/map_template/shuttle/trader/glint
+	ship_template = /datum/map_template/shuttle/trader/glint_scale
 
 /datum/traders/vulp
 	trader_type = "Steadfast Trading Co."
