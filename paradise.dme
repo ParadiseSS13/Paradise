@@ -544,6 +544,7 @@
 #include "code\datums\components\sticky.dm"
 #include "code\datums\components\surgery_initiator.dm"
 #include "code\datums\components\swarming.dm"
+#include "code\datums\components\tether.dm"
 #include "code\datums\components\tilted.dm"
 #include "code\datums\components\tippable.dm"
 #include "code\datums\components\two_handed.dm"
