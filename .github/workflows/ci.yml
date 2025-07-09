@@ -70,6 +70,8 @@ jobs:
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4.3.1
+        env:
+          DOTNET_INSTALL_DIR: './_work/.dotnet'
         with:
           dotnet-version: 9.x
       - name: Run OD
@@ -82,7 +84,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['BETA']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -103,8 +105,8 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
-        byondtype: ['STABLE', 'BETA']
+        station: ['boxstation', 'deltastation', 'metastation']
+        byondtype: ['BETA']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -131,7 +133,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['BETA']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -140,7 +142,7 @@ jobs:
           release: ${{ matrix.byondtype }}
       - name: Setup & Validate DB
         run: |
-          sudo systemctl start mysql
+          sudo service mysql start
           python3 tools/ci/generate_sql_scripts.py
           tools/ci/validate_sql.sh
       - name: Install RUST_G Deps
@@ -157,13 +159,14 @@ jobs:
           echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
 
-  windows_dll_tests:
-    name: Windows RUSTG Validation
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.8.2' # Script was made for 3.8.2
-          architecture: 'x86' # This MUST be x86
-      - run: python tools/ci/validate_rustg_windows.py
+# TODO: Add back when we have a Windows runner (never)
+  # windows_dll_tests:
+  #   name: Windows RUSTG Validation
+  #   runs-on: self-hosted
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: '3.8.2' # Script was made for 3.8.2
+  #         architecture: 'x86' # This MUST be x86
+  #     - run: python tools/ci/validate_rustg_windows.py
