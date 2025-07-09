@@ -11,10 +11,10 @@
 		return
 
 	if(href_list[VV_HK_MAKE_SKELETON])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
-		var/confirm = alert("Are you sure you want to turn this mob into a skeleton?","Confirm Skeleton Transformation","Yes","No")
-		if(confirm != "Yes")
+		if(tgui_alert(usr, "Are you sure you want to turn this mob into a skeleton?", "Confirm Skeleton Transformation", list("Yes", "No")) != "Yes")
 			return
 
 		makeSkeleton()

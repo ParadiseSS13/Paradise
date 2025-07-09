@@ -15,7 +15,7 @@
 
 		var/D = locateUID(href_list["datumedit"])
 		if(!istype(D,/datum) && !isclient(D))
-			to_chat(usr, "This can only be used on instances of types /client or /datum")
+			to_chat(usr, "<span class='notice'>This can only be used on instances of types /client or /datum.</span>")
 			return
 
 		modify_variables(D, href_list["varnameedit"], 1)
@@ -24,7 +24,7 @@
 
 		var/D = locateUID(href_list["datumchange"])
 		if(!istype(D,/datum) && !isclient(D))
-			to_chat(usr, "This can only be used on instances of types /client or /datum")
+			to_chat(usr, "<span class='notice'>This can only be used on instances of types /client or /datum.</span>")
 			return
 
 		modify_variables(D, href_list["varnamechange"], 0)
@@ -33,7 +33,7 @@
 
 		var/atom/A = locateUID(href_list["datummass"])
 		if(!istype(A))
-			to_chat(usr, "This can only be used on instances of type /atom")
+			to_chat(usr, "<span class='notice'>This can only be used on instances of type /atom.</span>")
 			return
 
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
@@ -47,7 +47,7 @@
 		if(!check_rights(0))	return
 
 		if(!istype(target))
-			to_chat(usr, "This can only be done to instances of type /datum")
+			to_chat(usr, "<span class='notice'>This can only be done to instances of type /datum.</span>")
 			return
 
 		src.holder.marked_datum = target
@@ -111,14 +111,14 @@
 		if(!usr || path == "---Components---" || path == "---Elements---")
 			return
 		if(QDELETED(src))
-			to_chat(usr, "That thing doesn't exist anymore!")
+			to_chat(usr, "<span class='notice'>That thing doesn't exist anymore!</span>")
 			return
 		var/list/targets_to_remove_from = list(target)
 		if(mass_remove)
 			var/method = vv_subtype_prompt(target.type)
 			targets_to_remove_from = get_all_of_type(target.type, method)
 
-			if(alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", "Yes", "No") == "No")
+			if(tgui_alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", list("Yes", "No")) != "Yes")
 				return
 
 		var/list/ele_list = list()

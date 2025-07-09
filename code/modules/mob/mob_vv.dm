@@ -99,44 +99,44 @@
 		if(!check_rights(R_SPAWN))
 			return
 
-		var/new_language = input("Please choose a language to add.","Language",null) as null|anything in GLOB.all_languages
+		var/new_language = tgui_input_list(usr, "Please choose a language to add.", "Language", GLOB.all_languages)
 
 		if(!new_language)
 			return
 
 		if(QDELETED(src))
-			to_chat(usr, "Mob doesn't exist anymore")
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
 			return
 
 		if(add_language(new_language, TRUE))
-			to_chat(usr, "Added [new_language] to [src].")
+			to_chat(usr, "<span class='notice'>Added [new_language] to [src].</span>")
 			message_admins("[key_name_admin(usr)] has given [key_name_admin(src)] the language [new_language]")
 			log_admin("[key_name(usr)] has given [key_name(src)] the language [new_language]")
 		else
-			to_chat(usr, "Mob already knows that language.")
+			to_chat(usr, "<span class='notice'>Mob already knows that language.</span>")
 	if(href_list[VV_HK_REMLANGUAGE])
 		if(!check_rights(R_SPAWN))
 			return
 
 		if(!length(languages))
-			to_chat(usr, "This mob knows no languages.")
+			to_chat(usr, "<span class='notice'>This mob knows no languages.</span>")
 			return
 
-		var/datum/language/rem_language = input("Please choose a language to remove.","Language",null) as null|anything in src.languages
+		var/datum/language/rem_language = tgui_input_list(usr, "Please choose a language to remove.", "Language", src.languages)
 
 		if(!rem_language)
 			return
 
 		if(QDELETED(src))
-			to_chat(usr, "Mob doesn't exist anymore")
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
 			return
 
 		if(remove_language(rem_language.name, TRUE))
-			to_chat(usr, "Removed [rem_language] from [src].")
+			to_chat(usr, "<span class='notice'>Removed [rem_language] from [src].</span>")
 			message_admins("[key_name_admin(usr)] has removed language [rem_language] from [key_name_admin(src)]")
 			log_admin("[key_name(usr)] has removed language [rem_language] from [key_name(src)]")
 		else
-			to_chat(usr, "Mob doesn't know that language.")
+			to_chat(usr, "<span class='notice'>Mob doesn't know that language.</span>")
 	if(href_list[VV_HK_ADDVERB])
 		if(!check_rights(R_DEBUG))
 			return
@@ -156,7 +156,7 @@
 
 		var/verb = input("Select a verb!", "Verbs",null) as anything in possibleverbs
 		if(QDELETED(src))
-			to_chat(usr, "Mob doesn't exist anymore")
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
 			return
 		if(!verb || verb == "Cancel")
 			return
@@ -168,9 +168,9 @@
 		if(!check_rights(R_DEBUG))
 			return
 
-		var/verb = input("Please choose a verb to remove.", "Verbs", null) as null|anything in src.verbs
+		var/verb = tgui_input_list(usr, "Please choose a verb to remove.", "Verbs", src.verbs)
 		if(QDELETED(src))
-			to_chat(usr, "Mob doesn't exist anymore")
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
 			return
 		if(!verb)
 			return

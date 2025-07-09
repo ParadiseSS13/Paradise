@@ -37,18 +37,18 @@
 						i++
 						qdel(Obj)
 				if(!i)
-					to_chat(usr, "No objects of this type exist")
+					to_chat(usr, "<span class='notice'>No objects of this type exist.</span>")
 					return
 				log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
 				message_admins("[key_name_admin(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
 			if("Type and subtypes")
 				var/i = 0
 				for(var/obj/Obj in world)
-					if(istype(Obj,O_type))
+					if(istype(Obj, O_type))
 						i++
 						qdel(Obj)
 				if(!i)
-					to_chat(usr, "No objects of this type exist")
+					to_chat(usr, "<span class='notice'>No objects of this type exist.</span>")
 					return
 				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 				message_admins("[key_name_admin(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
@@ -87,7 +87,7 @@
 			if(result == "(DONE)")
 				break
 			else if(result == "(ADD ALL)" || result == "(SET ALL)")
-				var/new_amount = input(usr, result == "(ADD ALL)" ? "Enter armor to add to all types:" : "Enter new armor value for all types:", "Modify all types") as num|null
+				var/new_amount = tgui_input_number(usr, result == "(ADD ALL)" ? "Enter armor to add to all types:" : "Enter new armor value for all types:", "Modify all types")
 				if(isnull(new_amount))
 					continue
 				var/proper_amount = text2num(new_amount)
@@ -102,7 +102,7 @@
 				var/type = fields[1]
 				if(isnull(armorlist[type]))
 					continue
-				var/new_amount = input(usr, "Enter new armor value for [type]:", "Modify [type]") as num|null
+				var/new_amount = tgui_input_number(usr, "Enter new armor value for [type]:", "Modify [type]")
 				if(isnull(new_amount))
 					continue
 				var/proper_amount = text2num(new_amount)
@@ -117,4 +117,4 @@
 		armor = armor.setRating(armorlist[MELEE], armorlist[BULLET], armorlist[LASER], armorlist[ENERGY], armorlist[BOMB], armorlist[RAD], armorlist[FIRE], armorlist[ACID], armorlist[MAGIC])
 
 		log_admin("[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
-		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
+		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]</span>")

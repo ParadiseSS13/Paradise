@@ -1176,10 +1176,10 @@
 		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))	return
 
 		var/Text = href_list["adjustDamage"]
-		var/amount =	input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
+		var/amount =	tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss") 
 
 		if(QDELETED(src))
-			to_chat(usr, "Mob doesn't exist anymore")
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
 			return
 
 		switch(Text)
@@ -1206,7 +1206,7 @@
 			if("stamina")
 				adjustStaminaLoss(amount)
 			else
-				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[src]")
+				to_chat(usr, "<span class='notice'>You caused an error. DEBUG: Text:[Text] Mob:[src]</span>")
 				return
 
 		if(amount != 0)

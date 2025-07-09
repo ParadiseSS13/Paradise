@@ -1480,11 +1480,11 @@ so that different stomachs can handle things in different ways VB*/
 			var/datum/martial_art/M = i
 			artnames[initial(M.name)] = M
 
-		var/result = input(usr, "Choose the martial art to teach", "JUDO CHOP") as null|anything in artnames
+		var/result = tgui_input_list(usr, "Choose the martial art to teach", "JUDO CHOP", artnames)
 		if(!usr)
 			return
 		if(QDELETED(src))
-			to_chat(usr, "Mob doesn't exist anymore")
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
 			return
 
 		if(result)
@@ -1502,11 +1502,11 @@ so that different stomachs can handle things in different ways VB*/
 			return
 
 		if(QDELETED(src))
-			to_chat(usr, "Mob doesn't exist anymore")
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
 			return
 
 		if(locateUID(new_organ) in internal_organs)
-			to_chat(usr, "Mob already has that organ.")
+			to_chat(usr, "<span class='notice'>Mob already has that organ.</span>")
 			return
 		var/obj/item/organ/internal/organ = new new_organ
 		organ.insert(src)
@@ -1519,14 +1519,14 @@ so that different stomachs can handle things in different ways VB*/
 		var/obj/item/organ/internal/rem_organ = tgui_input_list(usr, "Please choose an organ to remove.", "Organ", internal_organs)
 
 		if(QDELETED(src))
-			to_chat(usr, "Mob doesn't exist anymore")
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
 			return
 
 		if(!(rem_organ in internal_organs))
-			to_chat(usr, "Mob does not have that organ.")
+			to_chat(usr, "<span class='notice'>Mob does not have that organ.</span>")
 			return
 
-		to_chat(usr, "Removed [rem_organ] from [src].")
+		to_chat(usr, "<span class='notice'>Removed [rem_organ] from [src].</span>")
 		rem_organ.remove(src)
 		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(src)]")
 		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(src)]")
