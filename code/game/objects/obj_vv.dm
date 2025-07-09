@@ -18,7 +18,7 @@
 		if(!check_rights(R_DEBUG|R_SERVER))
 			return
 
-		var/action_type = tgui_alert(usr, "Strict type ([type]) or type and all subtypes?", Select, list("Strict type", "Type and Subtypes", "Cancel"))
+		var/action_type = tgui_alert(usr, "Strict type ([type]) or type and all subtypes?", "Select", list("Strict type", "Type and Subtypes", "Cancel"))
 		if(action_type == "Cancel" || !action_type)
 			return
 
