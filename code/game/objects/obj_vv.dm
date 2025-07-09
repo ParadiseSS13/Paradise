@@ -7,6 +7,7 @@
 	else
 		VV_DROPDOWN_OPTION(VV_HK_MAKENORMALSPEED, "Make normal process")
 	VV_DROPDOWN_OPTION(VV_HK_MODIFYARMOR, "Modify armor values")
+	VV_DROPDOWN_OPTION(VV_HK_MODIFY_ACCESS, "Modify access")
 
 /obj/vv_do_topic(list/href_list)
 	. = ..()
@@ -118,3 +119,10 @@
 
 		log_admin("[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
 		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]</span>")
+	if(href_list[VV_HK_MODIFY_ACCESS])
+		if(!check_rights(R_ADMIN))
+			return
+
+		message_admins("[key_name_admin(usr)] is modifying the access of [src]")
+		var/datum/ui_module/obj_access_modifier/ui = new(target=src)
+		ui.ui_interact(usr)

@@ -3179,6 +3179,7 @@
 #include "code\modules\tgui\states.dm"
 #include "code\modules\tgui\tgui_datum.dm"
 #include "code\modules\tgui\tgui_window.dm"
+#include "code\modules\tgui\modules\access_modifier.dm"
 #include "code\modules\tgui\modules\appearance_changer.dm"
 #include "code\modules\tgui\modules\atmos_control.dm"
 #include "code\modules\tgui\modules\colour_matrix_tester.dm"

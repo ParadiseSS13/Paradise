@@ -141,6 +141,8 @@
 			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
 		if(REGION_CENTCOMM) //because why the heck not
 			return get_all_centcom_access() + get_all_accesses()
+		if(REGION_MISC)
+			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_VOX, ACCESS_SYNDICATE_COMMAND, ACCESS_TRADE_SOL, ACCESS_AWAY01, ACCESS_FREE_GOLEMS, ACCESS_THETA_STATION, ACCESS_DEEPSTORAGE)
 
 /proc/get_region_accesses_name(code)
 	switch(code)
@@ -162,6 +164,8 @@
 			return "Command"
 		if(REGION_CENTCOMM) //CC
 			return "CentComm"
+		if(REGION_MISC)
+			return "Misc"
 
 
 /proc/get_access_desc(A)
@@ -308,9 +312,6 @@
 			return "Nanotrasen Career Trainer"
 		if(ACCESS_EVIDENCE)
 			return "Evidence Lockers"
-
-/proc/get_centcom_access_desc(A)
-	switch(A)
 		if(ACCESS_CENT_GENERAL)
 			return "General Access"
 		if(ACCESS_CENT_LIVING)
@@ -325,15 +326,24 @@
 			return "Special Ops Commander"
 		if(ACCESS_CENT_COMMANDER)
 			return "Commander"
-
-/proc/get_syndicate_access_desc(A)
-	switch(A)
 		if(ACCESS_SYNDICATE)
 			return "Syndicate Operative"
 		if(ACCESS_SYNDICATE_LEADER)
 			return "Syndicate Operative Leader"
 		if(ACCESS_SYNDICATE_COMMAND)
 			return "Syndicate Command"
+		if(ACCESS_VOX)
+			return "Vox Skipjack"
+		if(ACCESS_TRADE_SOL)
+			return "Trade Station"
+		if(ACCESS_AWAY01)
+			return "Moon Outpost 19"
+		if(ACCESS_FREE_GOLEMS)
+			return "Free Golems"
+		if(ACCESS_THETA_STATION)
+			return "Theta Station"
+		if(ACCESS_DEEPSTORAGE)
+			return "Deepstorage"
 
 /proc/get_all_jobs()
 	var/list/all_jobs = list()
@@ -409,7 +419,7 @@
 		else
 			available_accesses = get_region_accesses(i)
 		for(var/access in available_accesses)
-			var/access_desc = (i == REGION_CENTCOMM) ? get_centcom_access_desc(access) : get_access_desc(access)
+			var/access_desc = get_access_desc(access)
 			if(access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
