@@ -15501,6 +15501,16 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel/office)
+"ckQ" = (
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=ArrivalsMiddle";
+	location = "ArrivalsWest";
+	name = "navigation beacon (Arrivals-West)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/entry/west)
 "ckW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -30686,6 +30696,18 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
+"eZp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/entry/west)
 "eZE" = (
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -37547,6 +37569,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "gDx" = (
@@ -40912,16 +40935,6 @@
 "hpQ" = (
 /turf/simulated/wall,
 /area/station/engineering/secure_storage)
-"hpW" = (
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=ArrivalsMiddle";
-	location = "ArrivalsWest";
-	name = "navigation beacon (Arrivals-West)"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/west)
 "hqb" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -48625,6 +48638,16 @@
 	icon_state = "darkredfull"
 	},
 /area/station/medical/morgue)
+"iVu" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/entry/west)
 "iVv" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -65237,18 +65260,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
-"mqR" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	color = "#954535"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/west)
 "mqT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -75163,8 +75174,6 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -93656,11 +93665,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
-"sEG" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
-/area/station/public/fitness)
 "sEI" = (
 /obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/plasteel{
@@ -96899,14 +96903,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/medbay2)
-"tnO" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/west)
 "tnS" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Secure Armory";
@@ -147425,7 +147421,7 @@ lTY
 pwt
 pwt
 pwt
-sEG
+pwt
 gDu
 kWu
 ddq
@@ -158343,7 +158339,7 @@ fiw
 jUJ
 rqB
 dbg
-mqR
+eZp
 dbg
 ssn
 bLM
@@ -158600,7 +158596,7 @@ ngb
 jUJ
 gUa
 dbg
-mqR
+eZp
 dbg
 dbg
 dbg
@@ -159627,10 +159623,10 @@ gET
 wUm
 qdb
 tZs
-oDs
+iVu
 grS
 fEb
-hpW
+ckQ
 clB
 czS
 aXn
@@ -160655,8 +160651,8 @@ wLr
 vWF
 vWF
 bCU
-tnO
-tnO
+oDs
+oDs
 qtQ
 gRQ
 cSo
