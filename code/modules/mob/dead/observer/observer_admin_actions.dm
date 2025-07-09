@@ -42,6 +42,7 @@
 
 /datum/action/innate/admin/ticket/proc/register_ticket_signals()
 	RegisterSignal(SStickets, COMSIGN_TICKET_COUNT_UPDATE, PROC_REF(update_tickets))
+	SStickets.open_ticket_count_updated() // update the starting count
 
 /datum/action/innate/admin/ticket/proc/update_tickets(ticketsystem, _ticket_amt)
 	ticket_amt = _ticket_amt
@@ -69,6 +70,7 @@
 
 /datum/action/innate/admin/ticket/mentor/register_ticket_signals()
 	RegisterSignal(SSmentor_tickets, COMSIGN_TICKET_COUNT_UPDATE, PROC_REF(update_tickets))
+	SSmentor_tickets.open_ticket_count_updated() // update the starting count
 
 /datum/action/innate/admin/ticket/mentor/admin_click(mob/user)
 	SSmentor_tickets.showUI(user)
