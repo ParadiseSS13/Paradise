@@ -66322,7 +66322,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
-/obj/machinery/power/apc/directional/north,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
