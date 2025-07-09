@@ -1,4 +1,4 @@
-/datum/game_test/room_test/attack_chain_applicator/Run()
+/datum/game_test/attack_chain_applicator/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 	var/obj/item/reagent_containers/applicator/mender = player.spawn_obj_in_hand(/obj/item/reagent_containers/applicator/burn)
@@ -32,7 +32,7 @@
 	items = list(/obj/item/food/grown/apple)
 	result = /obj/item/food/badrecipe
 
-/datum/game_test/room_test/attack_chain_condiment/Run()
+/datum/game_test/attack_chain_condiment/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/item/reagent_containers/saltshaker = player.spawn_obj_in_hand(/obj/item/reagent_containers/condiment/saltshaker)
 
@@ -70,7 +70,7 @@
 	player.click_on(backpack)
 	TEST_ASSERT_LAST_CHATLOG(player, "You put")
 
-/datum/game_test/room_test/attack_chain_drinks/Run()
+/datum/game_test/attack_chain_drinks/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/structure/reagent_dispensers/watertank/watertank = player.spawn_obj_nearby(/obj/structure/reagent_dispensers/watertank)
 	var/obj/item/reagent_containers/glass/bucket/bucket = player.spawn_obj_nearby(/obj/item/reagent_containers/glass/bucket)
@@ -195,7 +195,7 @@
 	player.use_item_in_hand()
 	TEST_ASSERT_LAST_CHATLOG(player, "The dancing flame on the flaming shot glass of Vodka dies out.")
 
-/datum/game_test/room_test/attack_chain_medcontainers/Run()
+/datum/game_test/attack_chain_medcontainers/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 
@@ -245,7 +245,7 @@
 	player.click_on(pill_bottle)
 	TEST_ASSERT_LAST_CHATLOG(player, "You put [pill] into [pill_bottle].")
 
-/datum/game_test/room_test/attack_chain_syringes/Run()
+/datum/game_test/attack_chain_syringes/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 
@@ -272,7 +272,7 @@
 	player.click_on(beaker)
 	TEST_ASSERT_LAST_CHATLOG(player, "You inject 5 units of the solution")
 
-/datum/game_test/room_test/attack_chain_iv_bags/Run()
+/datum/game_test/attack_chain_iv_bags/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 
@@ -298,7 +298,7 @@
 	player.click_on(beaker)
 	TEST_ASSERT_LAST_CHATLOG(player, "You transfer 1 units of the solution to [beaker]")
 
-/datum/game_test/room_test/attack_chain_chemistry_bags/Run()
+/datum/game_test/attack_chain_chemistry_bags/Run()
 	var/datum/test_puppeteer/player = new(src)
 
 	var/obj/table = player.spawn_obj_nearby(/obj/structure/table)
@@ -319,7 +319,7 @@
 	player.click_on(chem_bag)
 	TEST_ASSERT_LAST_CHATLOG(player, "You put [patch] into [chem_bag]")
 
-/datum/game_test/room_test/attack_chain_rags/Run()
+/datum/game_test/attack_chain_rags/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/turf/simulated/floor/floor = get_turf(player.puppet)
 	new/obj/effect/decal/cleanable/dirt(floor)
@@ -333,7 +333,7 @@
 	player.click_on(target)
 	TEST_ASSERT_LAST_CHATLOG(player, "You smother [target.puppet] with [rag]")
 
-/datum/game_test/room_test/attack_chain_hyposprays/Run()
+/datum/game_test/attack_chain_hyposprays/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/autoinjector = player.spawn_obj_in_hand(/obj/item/reagent_containers/hypospray/autoinjector/stimpack)
 	player.click_on_self()
@@ -345,7 +345,7 @@
 	player.click_on(target)
 	TEST_ASSERT_ANY_CHATLOG(player, "You inject [target] with [autoinjector]")
 
-/datum/game_test/room_test/attack_chain_droppers/Run()
+/datum/game_test/attack_chain_droppers/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 	var/obj/item/reagent_containers/dropper/dropper = player.spawn_obj_in_hand(/obj/item/reagent_containers/dropper)
@@ -357,7 +357,7 @@
 	TEST_ASSERT_ANY_CHATLOG(player, "[player.puppet] drips something into [target.puppet]'s eyes")
 	TEST_ASSERT_NOT_CHATLOG(player, "You cannot directly remove reagents from [target.puppet]")
 
-/datum/game_test/room_test/attack_chain_spray/Run()
+/datum/game_test/attack_chain_spray/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/item/reagent_containers/spray/spray = player.spawn_obj_in_hand(/obj/item/reagent_containers/spray)
 	var/obj/structure/table = player.spawn_obj_nearby(/obj/structure/table)

@@ -1,4 +1,4 @@
-/datum/game_test/room_test/attack_chain_cult_dagger/Run()
+/datum/game_test/attack_chain_cult_dagger/Run()
 	var/datum/test_puppeteer/cultist = new(src)
 	var/datum/test_puppeteer/target = cultist.spawn_puppet_nearby()
 

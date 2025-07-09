@@ -1,4 +1,4 @@
-/datum/game_test/room_test/attack_chain_borgs/Run()
+/datum/game_test/attack_chain_borgs/Run()
 	var/datum/test_puppeteer/player = new(src)
 	player.puppet.name = "Player"
 

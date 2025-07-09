@@ -1,4 +1,4 @@
-/datum/game_test/room_test/ventcrawl
+/datum/game_test/ventcrawl
 	var/mob/living/simple_animal/slime = null
 	var/obj/machinery/vent = null
 	var/obj/structure/table/table = null
@@ -6,7 +6,7 @@
 
 /datum/milla_safe_must_sleep/ventcrawl_test_setup
 
-/datum/milla_safe_must_sleep/ventcrawl_test_setup/on_run(datum/game_test/room_test/ventcrawl/test)
+/datum/milla_safe_must_sleep/ventcrawl_test_setup/on_run(datum/game_test/ventcrawl/test)
 	// I'm sure get_area_turfs is totally deterministic and this will never go wrong
 	var/turf/run_loc_bottom_left = test.available_turfs[1]
 	// This setup creates turfs that initialize themselves in MILLA on creation, which is why we need to be MILLA-safe.
@@ -19,13 +19,13 @@
 	test.table = test.find_spawned_test_object(get_step(run_loc_bottom_left, EAST), /obj/structure/table)
 	test.setup_complete = TRUE
 
-/datum/game_test/room_test/ventcrawl/proc/find_spawned_test_object(turf/location as turf, test_object_type)
+/datum/game_test/ventcrawl/proc/find_spawned_test_object(turf/location as turf, test_object_type)
 	for(var/content in location.contents)
 		if(istype(content, test_object_type))
 			return content
 	TEST_FAIL("Couldn't find spawned test object of type: [test_object_type].")
 
-/datum/game_test/room_test/ventcrawl/Run()
+/datum/game_test/ventcrawl/Run()
 	var/datum/milla_safe_must_sleep/ventcrawl_test_setup/milla = new()
 	milla.invoke_async(src)
 	while(!setup_complete)

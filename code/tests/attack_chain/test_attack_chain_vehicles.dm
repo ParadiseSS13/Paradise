@@ -1,4 +1,4 @@
-/datum/game_test/room_test/attack_chain_vehicles/Run()
+/datum/game_test/attack_chain_vehicles/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/item/key/janitor/janicart_key = player.spawn_obj_in_hand(/obj/item/key/janitor)
 	var/obj/vehicle/janicart/janicart = player.spawn_obj_nearby(/obj/vehicle/janicart)

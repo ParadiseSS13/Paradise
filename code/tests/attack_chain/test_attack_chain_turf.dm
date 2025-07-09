@@ -1,4 +1,4 @@
-/datum/game_test/room_test/attack_chain_turf/Run()
+/datum/game_test/attack_chain_turf/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/area/admin_area = get_area(player.puppet)
 

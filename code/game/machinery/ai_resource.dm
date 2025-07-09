@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 
 /obj/machinery/ai_node/Initialize(mapload)
-	. = ..()
+	..()
 	GLOB.ai_nodes += src
 
 /obj/machinery/ai_node/examine(mob/user)

@@ -1,4 +1,4 @@
-/datum/game_test/room_test/anti_drop_implant/Run()
+/datum/game_test/anti_drop_implant/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/item/organ/internal/cyberimp/brain/anti_drop/anti_drop = new/obj/item/organ/internal/cyberimp/brain/anti_drop
 	var/obj/item/autosurgeon/organ/syndicate/autosurg = player.spawn_obj_in_hand(/obj/item/autosurgeon/organ/syndicate)

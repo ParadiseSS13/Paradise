@@ -1,4 +1,4 @@
-/datum/game_test/room_test/card_deck/proc/validate_deck(obj/item/deck/deck)
+/datum/game_test/card_deck/proc/validate_deck(obj/item/deck/deck)
 	var/list/card_count = list()
 	for(var/datum/playingcard/card in deck.cards)
 		if(card_count[card.name] == null)
@@ -14,7 +14,7 @@
 	return TRUE
 
 
-/datum/game_test/room_test/card_deck/Run()
+/datum/game_test/card_deck/Run()
 	// setup
 	var/loc = pick(available_turfs)
 	var/obj/item/deck/cards/cards = allocate(/obj/item/deck/cards, loc)

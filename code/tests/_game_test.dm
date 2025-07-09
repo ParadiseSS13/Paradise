@@ -57,12 +57,30 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 	//Bit of metadata for the future maybe
 	var/list/procs_tested
 
-	// failure tracking
+	//usable vars
+	var/list/available_turfs
+
+	//internal shit
 	var/succeeded = TRUE
 	var/list/allocated
 	var/list/fail_reasons
+	var/testing_area_name = "test_generic.dmm"
+	var/obj/effect/landmark/bottom_left
+	var/obj/effect/landmark/top_right
 
 /datum/game_test/New()
+	if(!length(available_turfs))
+		load_testing_area()
+		available_turfs = get_test_turfs()
+
+/datum/game_test/proc/load_testing_area()
+	var/list/testing_levels = levels_by_trait(GAME_TEST_LEVEL)
+	if(!length(testing_levels))
+		Fail("Could not find appropriate z-level for spawning test areas")
+	var/testing_z_level = pick(testing_levels)
+	var/datum/map_template/generic_test_area = GLOB.map_templates[testing_area_name]
+	if(!generic_test_area.load(locate(TRANSITIONEDGE + 1, TRANSITIONEDGE + 1, testing_z_level)))
+		Fail("Could not place generic testing area on z-level [testing_z_level]")
 
 /datum/game_test/Destroy()
 	QDEL_LIST_CONTENTS(allocated)
@@ -70,6 +88,11 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 	for(var/turf/T in get_area_turfs(/area/game_test))
 		for(var/atom/movable/AM in T)
 			qdel(AM)
+
+	// Gotta destroy these landmarks so the next test
+	// doesn't end up seeing them if it tries to load a new map
+	qdel(bottom_left)
+	qdel(top_right)
 
 	return ..()
 
@@ -84,59 +107,7 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 
 	LAZYADD(fail_reasons, list(list(reason, file, line)))
 
-/datum/game_test/proc/get_available_turfs()
-	return get_area_turfs(findEventArea())
-
-/// Allocates an instance of the provided type, and places it somewhere in an available loc
-/// Instances allocated through this proc will be destroyed when the test is over
-/datum/game_test/proc/allocate(type, ...)
-	var/list/arguments = args.Copy(2)
-	if(ispath(type, /atom))
-		if(!arguments.len)
-			arguments = list(pick(get_available_turfs()))
-		else if(arguments[1] == null)
-			arguments[1] = pick(get_available_turfs())
-	var/instance
-	// Byond will throw an index out of bounds if arguments is empty in that arglist call. Sigh
-	if(length(arguments))
-		instance = new type(arglist(arguments))
-	else
-		instance = new type()
-	LAZYADD(allocated, instance)
-	return instance
-
-/datum/game_test/room_test
-	var/list/available_turfs
-	var/testing_area_name = "test_generic.dmm"
-	var/obj/effect/landmark/bottom_left
-	var/obj/effect/landmark/top_right
-
-/datum/game_test/room_test/New()
-	. = ..()
-	if(!length(available_turfs))
-		load_testing_area()
-		available_turfs = get_test_turfs()
-
-/datum/game_test/room_test/Destroy()
-	. = ..()
-	// Gotta destroy these landmarks so the next test
-	// doesn't end up seeing them if it tries to load a new map
-	qdel(bottom_left)
-	qdel(top_right)
-
-/datum/game_test/room_test/get_available_turfs()
-	return available_turfs
-
-/datum/game_test/room_test/proc/load_testing_area()
-	var/list/testing_levels = levels_by_trait(GAME_TEST_LEVEL)
-	if(!length(testing_levels))
-		Fail("Could not find appropriate z-level for spawning test areas")
-	var/testing_z_level = pick(testing_levels)
-	var/datum/map_template/generic_test_area = GLOB.map_templates[testing_area_name]
-	if(!generic_test_area.load(locate(TRANSITIONEDGE + 1, TRANSITIONEDGE + 1, testing_z_level)))
-		Fail("Could not place generic testing area on z-level [testing_z_level]")
-
-/datum/game_test/room_test/proc/get_test_turfs()
+/datum/game_test/proc/get_test_turfs()
 	var/list/result = list()
 	for(var/obj/effect/landmark in GLOB.landmarks_list)
 		if(istype(landmark, /obj/effect/landmark/game_test/bottom_left_corner))
@@ -154,3 +125,21 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 		Fail("could not find any test turfs")
 
 	return result
+
+/// Allocates an instance of the provided type, and places it somewhere in an available loc
+/// Instances allocated through this proc will be destroyed when the test is over
+/datum/game_test/proc/allocate(type, ...)
+	var/list/arguments = args.Copy(2)
+	if(ispath(type, /atom))
+		if(!arguments.len)
+			arguments = list(pick(available_turfs))
+		else if(arguments[1] == null)
+			arguments[1] = pick(available_turfs)
+	var/instance
+	// Byond will throw an index out of bounds if arguments is empty in that arglist call. Sigh
+	if(length(arguments))
+		instance = new type(arglist(arguments))
+	else
+		instance = new type()
+	LAZYADD(allocated, instance)
+	return instance
