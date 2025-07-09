@@ -93,7 +93,6 @@
 
 /obj/item/clothing/head/beret/sec/corporate
 	name = "corporate security beret"
-	desc = "A corporate beret with the security insignia emblazoned on it. For officers that more inclined towards style than safety."
 	icon_state = "beret_corporate_officer"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
