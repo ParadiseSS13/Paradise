@@ -27,22 +27,22 @@
 			to_chat(usr, "<span class='warning'>[src] is already under deadchat control!</span>")
 			return
 
-		var/control_mode = input(usr, "Please select the control mode","Deadchat Control", null) as null|anything in list("democracy", "anarchy")
+		var/control_mode = tgui_input_list(usr, "Please select the control mode", "Deadchat Control", list("Democracy", "Anarchy"))
 
 		var/selected_mode
 		switch(control_mode)
-			if("democracy")
+			if("Democracy")
 				selected_mode = DEADCHAT_DEMOCRACY_MODE
-			if("anarchy")
+			if("Anarchy")
 				selected_mode = DEADCHAT_ANARCHY_MODE
 			else
 				return
 
-		var/cooldown = tgui_input_number(usr, "Please enter a cooldown time in seconds. For democracy, it's the time between actions (must be greater than zero). For anarchy, it's the time between each user's actions, or -1 for no cooldown.", "Cooldown")
+		var/cooldown = tgui_input_number(usr, "Please enter a cooldown time in seconds. For Democracy, it's the time between actions (must be greater than zero). For Anarchy, it's the time between each user's actions, or -1 for no cooldown.", "Cooldown")
 		if(isnull(cooldown) || (cooldown == -1 && selected_mode == DEADCHAT_DEMOCRACY_MODE))
 			return
 		if(cooldown < 0 && selected_mode == DEADCHAT_DEMOCRACY_MODE)
-			to_chat(usr, "<span class='warning'>The cooldown for democracy mode must be greater than zero.</span>")
+			to_chat(usr, "<span class='warning'>The cooldown for Democracy mode must be greater than zero.</span>")
 			return
 		if(cooldown == -1)
 			cooldown = 0

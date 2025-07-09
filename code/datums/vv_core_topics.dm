@@ -76,7 +76,7 @@
 			return
 
 		if(QDELETED(src))
-			to_chat(usr, "That thing doesn't exist anymore!", confidential = TRUE)
+			to_chat(usr, "<span class='notice'>That thing doesn't exist anymore!</span>", confidential = TRUE)
 			return
 
 		var/list/lst = get_callproc_args()

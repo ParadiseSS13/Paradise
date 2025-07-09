@@ -18,14 +18,14 @@
 		if(!check_rights(R_DEBUG|R_SERVER))
 			return
 
-		var/action_type = alert("Strict type ([type]) or type and all subtypes?", null, "Strict type", "Type and subtypes", "Cancel")
+		var/action_type = tgui_alert(usr, "Strict type ([type]) or type and all subtypes?", Select, list("Strict type", "Type and Subtypes", "Cancel"))
 		if(action_type == "Cancel" || !action_type)
 			return
 
-		if(alert("Are you really sure you want to delete all objects of type [type]?", null, "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Are you really sure you want to delete all objects of type [type]?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
-		if(alert("Second confirmation required. Delete?", null, "Yes", "No") != "Yes")
+		if(tgui_alert("Second confirmation required. Delete?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 		var/O_type = type
@@ -41,7 +41,7 @@
 					return
 				log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
 				message_admins("[key_name_admin(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
-			if("Type and subtypes")
+			if("Type and Subtypes")
 				var/i = 0
 				for(var/obj/Obj in world)
 					if(istype(Obj, O_type))
