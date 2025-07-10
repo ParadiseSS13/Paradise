@@ -51681,7 +51681,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
 /area/station/hallway/secondary/entry/north)
 "fCu" = (
 /obj/machinery/camera{
@@ -64544,6 +64548,10 @@
 	icon_state = "purple"
 	},
 /area/station/science/rnd)
+"lTs" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/north)
 "lTB" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Solitary Confinement 1"
@@ -65955,6 +65963,12 @@
 /obj/effect/turf_decal/stripes,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
+"mFH" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/north)
 "mGe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9
@@ -66719,10 +66733,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "mZs" = (
 /obj/structure/sign/custodian{
@@ -79497,11 +79508,11 @@
 "tpl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "tpM" = (
@@ -101240,8 +101251,8 @@ hFM
 aHl
 aSt
 fCd
-feN
-vKU
+lTs
+mFH
 aRe
 dmD
 qeu
@@ -101495,7 +101506,7 @@ jVV
 aHS
 bjZ
 aDD
-aGn
+aSt
 voK
 feN
 pwv
