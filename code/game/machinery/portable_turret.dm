@@ -3,10 +3,16 @@
 		This code is slightly more documented than normal, as requested by XSI on IRC.
 */
 
+// Be sure to change the icon animation at the same time or it'll look bad
+// Animation is 0.5 seconds, but turret's popup/down lasts 1 second (balance reasons etc.), so we have to call for sleep() twice to keep that one second of (de)activation
+#define POPUP_ANIM_TIME 0.5 SECONDS
+#define POPDOWN_ANIM_TIME 0.5 SECONDS
+
 /obj/machinery/porta_turret
 	name = "turret"
 	icon = 'icons/obj/turrets.dmi'
-	icon_state = "turretCover"
+	icon_state = "standard_off"
+	base_icon_state = "standard"
 	anchored = TRUE
 	density = FALSE
 	idle_power_consumption = 50		//when inactive, this turret takes up constant 50 Equipment power
@@ -68,6 +74,10 @@
 	var/scan_range = 7
 	var/always_up = FALSE		//Will stay active
 	var/has_cover = TRUE		//Hides the cover
+	/// Turret's cover
+	var/obj/effect/overlay/turret/cover
+	/// Used when we end up with dir NE/NW and have a cover. We temporarly set new dir so turret doesn't stick out of a cover
+	var/saved_direction
 	/// Deployment override to allow turret popup on/under dense turfs/objects, for admin/CC turrets
 	var/deployment_override = FALSE
 	/// What lethal mode projectile with the turret start with?
@@ -76,7 +86,6 @@
 	var/initial_projectile = null
 	/// What lens is fitted to the turret/gun?
 	var/obj/item/smithed_item/lens/fitted_lens
-
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
@@ -91,9 +100,18 @@
 	spark_system.attach(src)
 
 	setup()
+	if(has_cover)
+		// people can't damage us when we are covered anyways
+		layer = OBJ_LAYER
+		underlays += mutable_appearance(icon, "basedark", layer + 0.1)
+		cover = new
+		cover.icon = icon
+		cover.icon_state = "turret_cover"
+		vis_contents += cover
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
+	QDEL_NULL(cover)
 	if(prob(35)) // Half chance of drops than proper deconstruction
 		if(installation)
 			var/obj/item/gun/energy/Gun = new installation(loc)
@@ -171,29 +189,19 @@
 	if(initial_projectile)
 		projectile = initial_projectile
 
-GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/update_icon_state()
-	if(!GLOB.turret_icons)
-		GLOB.turret_icons = list()
-		GLOB.turret_icons["open"] = image(icon, "openTurretCover")
-
-	underlays.Cut()
-	underlays += GLOB.turret_icons["open"]
-
 	if(stat & BROKEN)
-		icon_state = "destroyed_target_prism"
-	else if(raised || raising)
-		if(has_power() && enabled)
-			if(iconholder)
-				//lasers have a orange icon
-				icon_state = "orange_target_prism"
-			else
-				//almost everything has a blue icon
-				icon_state = "target_prism"
-		else
-			icon_state = "grey_target_prism"
+		icon_state = "[base_icon_state]_broken"
 	else
-		icon_state = "turretCover"
+		if((raised || raising) && has_power() && enabled)
+			if(iconholder)
+				// lasers have orange icon
+				icon_state = "[base_icon_state]_lethal"
+			else
+				// almost everything has blue icon
+				icon_state = "[base_icon_state]_stun"
+		else
+			icon_state = "[base_icon_state]_off"
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
@@ -370,7 +378,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		//This code handles moving the turret around. After all, it's a portable turret!
 		playsound(loc, I.usesound, 100, 1)
 		anchored = !anchored
-		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
 	wrenching = FALSE
 
@@ -500,7 +507,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = TRUE //turns it back on. The cover pop_up() pop_down() are automatically called in process(), no need to define it here
 		return TRUE
-
 
 /obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration_flat, armour_penetration_percentage)
@@ -728,9 +734,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		pop_up()
 	// check if anything's preventing us from raising
 	var/turf/T = get_turf(src)
-	for(var/atom/A in T)
-		if(A == src)
-			continue
+	for(var/atom/A in T.contents - src)
 		if(A.density)
 			if(is_type_in_typecache(A, deployment_whitelist))
 				continue
@@ -739,17 +743,20 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/proc/pop_up()	//pops the turret up
 	set_raised_raising(raised, TRUE)
-	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-	update_icon(UPDATE_ICON_STATE)
+	if(cover)
+		if(saved_direction)
+			setDir(saved_direction)
+			saved_direction = null
+		flick("popup", cover)
+		playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	flick_holder.layer = layer + 0.1
-	flick("popup", flick_holder)
-	sleep(10)
-	qdel(flick_holder)
-
+	sleep(POPUP_ANIM_TIME)
+	if(cover)
+		layer = ABOVE_OBJ_LAYER
+		cover.icon_state = "open_turret_cover"
+		cover.layer = BELOW_OBJ_LAYER
+	sleep(POPUP_ANIM_TIME)
 	set_raised_raising(TRUE, FALSE)
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/proc/pop_down()	//pops the turret down
 	last_target = null
@@ -760,18 +767,20 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		return
 	set_raised_raising(raised, TRUE)
-	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-	update_icon(UPDATE_ICON_STATE)
+	sleep(POPDOWN_ANIM_TIME)
+	if(cover)
+		layer = OBJ_LAYER
+		cover.layer = HIGH_OBJ_LAYER
+		flick("popdown", cover)
+		playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	flick_holder.layer = layer + 0.1
-	flick("popdown", flick_holder)
-	sleep(10)
-	qdel(flick_holder)
-
+	sleep(POPDOWN_ANIM_TIME)
 	set_raised_raising(FALSE, FALSE)
-	set_angle(0)
-	update_icon(UPDATE_ICON_STATE)
+	if(cover)
+		if(dir in list(NORTHEAST, NORTHWEST))
+			saved_direction = dir
+			setDir(SOUTH)
+		cover.icon_state = "turret_cover"
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
 	if((check_access || attacked) && !allowed(perp))
@@ -792,8 +801,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		last_target = target
 		if(has_cover)
 			check_pop_up()				//pop the turret up if it's not already up.
-		// Set angle
-		set_angle(get_angle(src, target))
+		setDir(get_dir(src, target)) // even if you can't shoot, follow the target
 		shootAt(target)
 		return TRUE
 
@@ -1103,12 +1111,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret_construct/attack_ai()
 	return
 
-/atom/movable/porta_turret_cover
-	icon = 'icons/obj/turrets.dmi'
-	anchored = TRUE
-
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate
+	icon_state = "syndie_off"
+	base_icon_state = "syndie"
 	projectile = /obj/item/projectile/bullet
 	eprojectile = /obj/item/projectile/bullet
 	// Syndicate turrets *always* operate in lethal mode.
@@ -1117,11 +1123,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	// Otherwise, you end up with situations where one of the two bullet types will never be used.
 	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-
-	icon_state = "syndieturret0"
-	var/icon_state_initial = "syndieturret0"
-	var/icon_state_active = "syndieturret1"
-	var/icon_state_destroyed = "syndieturret2"
 
 	syndicate = TRUE
 	installation = null
@@ -1172,14 +1173,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	set_raised_raising(TRUE, FALSE)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/porta_turret/syndicate/update_icon_state()
-	if(stat & BROKEN)
-		icon_state = icon_state_destroyed
-	else if(enabled)
-		icon_state = icon_state_active
-	else
-		icon_state = icon_state_initial
-
 /obj/machinery/porta_turret/syndicate/setup()
 	return
 
@@ -1228,9 +1221,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/inflatable_turret
 	name = "Syndicate Pop-Up Turret"
 	desc = "Looks cheaply made on the defensive side but the gun barrel still shoots."
+	icon_state = "syndie_off"
+	base_icon_state = "syndie"
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
-	icon_state = "syndieturret0"
 	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	health = 100
@@ -1257,9 +1251,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_synth	= TRUE
 	ailock = TRUE
 	var/owner_uid
-	var/icon_state_initial = "syndieturret0"
-	var/icon_state_active = "syndieturret1"
-	var/icon_state_destroyed = "syndieturret2"
 
 /obj/machinery/porta_turret/inflatable_turret/assess_and_assign(atom/movable/AM, list/targets, list/secondarytargets)
 	if(AM.UID() == owner_uid)
@@ -1268,14 +1259,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/inflatable_turret/setup()
 	return
-
-/obj/machinery/porta_turret/inflatable_turret/update_icon_state()
-	if(stat & BROKEN)
-		icon_state = icon_state_destroyed
-	else if(enabled)
-		icon_state = icon_state_active
-	else
-		icon_state = icon_state_initial
 
 /obj/machinery/porta_turret/inflatable_turret/CanPass(atom/A)
 	return ((stat & BROKEN) || !isliving(A))
@@ -1288,3 +1271,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	name = "ship defense turret"
 	lethal = TRUE
 	check_synth = TRUE
+
+#undef POPUP_ANIM_TIME
+#undef POPDOWN_ANIM_TIME
