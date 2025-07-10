@@ -215,12 +215,12 @@
 	var/list/dropdownoptions = list()
 	if(islist)
 		dropdownoptions = list(
-			"---",
-			"Add Item" = "byond://?_src_=vars;listadd=[refid]",
-			"Remove Nulls" = "byond://?_src_=vars;listnulls=[refid]",
-			"Remove Dupes" = "byond://?_src_=vars;listdupes=[refid]",
-			"Set len" = "byond://?_src_=vars;listlen=[refid]",
-			"Shuffle" = "byond://?_src_=vars;listshuffle=[refid]"
+			"<option>---</option>",
+			"<option value='byond://?_src_=vars;listadd=[refid]'>Add Item</option>",
+			"<option value='byond://?_src_=vars;listnulls=[refid]'>Remove Nulls</option>",
+			"<option value='byond://?_src_=vars;listdupes=[refid]'>Remove Dupes</option>",
+			"<option value='byond://?_src_=vars;listlen=[refid]'>Set len</option>",
+			"<option value='byond://?_src_=vars;listshuffle=[refid]'>Shuffle</option>"
 		)
 	else
 		dropdownoptions = D.vv_get_dropdown()

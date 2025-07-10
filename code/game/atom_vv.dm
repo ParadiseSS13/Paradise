@@ -18,9 +18,12 @@
 	VV_DROPDOWN_OPTION(VV_HK_EXPLODE, "Trigger explosion")
 	VV_DROPDOWN_OPTION(VV_HK_EMP, "Trigger EM pulse")
 
+/atom/proc/vv_modify_name_link()
+	return "byond://?_src_=vars;datumedit=[UID()];varnameedit=name"
+
 /atom/vv_get_header()
 	. = ..()
-	. += "<a href='byond://?_src_=vars;datumedit=[UID()];varnameedit=name'><b>[src]</b></a>"
+	. += "<a href='[vv_modify_name_link()]'><b>[src]</b></a>"
 	if(dir)
 		. += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=TRUE;[VV_HK_TARGET]=[UID()];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[UID()];varnameedit=dir'>[dir2text(dir)]</a> <a href='byond://?_src_=vars;rotatedatum=TRUE;[VV_HK_TARGET]=[UID()];rotatedir=right'>>></a></font>"
 
