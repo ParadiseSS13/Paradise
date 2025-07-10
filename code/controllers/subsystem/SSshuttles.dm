@@ -490,7 +490,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	if(!dock)
 		var/m = "No dock found for preview shuttle, aborting."
-		WARNING(m)
+		log_debug(m)
 		trader_shuttle_loading = FALSE
 		throw EXCEPTION(m)
 
@@ -502,7 +502,7 @@ SUBSYSTEM_DEF(shuttle)
 
 		var/m = "Unsuccessful dock of [trade_shuttle] ([result])."
 		message_admins(m)
-		WARNING(m)
+		log_debug(m)
 		trader_shuttle_loading = FALSE
 		return
 
