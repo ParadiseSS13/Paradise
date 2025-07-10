@@ -157,8 +157,8 @@
 		user.examinate(src)
 	return
 
-/atom/proc/BorgAltShiftClick()
-	return
+/atom/proc/BorgAltShiftClick(mob/living/silicon/robot/user)
+	AltShiftClick(user)
 
 /atom/proc/BorgShiftMiddleClick()
 	return
