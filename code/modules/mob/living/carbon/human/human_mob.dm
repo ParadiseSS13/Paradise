@@ -10,7 +10,6 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items)
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(mind_checks))
 
 /**
@@ -114,7 +113,7 @@
 	if(delta_now < 3 SECONDS)
 		return
 	// Stop counting, print, and reset
-	if(timer_id != TIMER_ID_NULL) 
+	if(timer_id != TIMER_ID_NULL)
 		deltimer(timer_id)
 		timer_id = TIMER_ID_NULL
 	print_summary()
@@ -2280,3 +2279,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		changeNext_move(CLICK_CD_POINT)
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))
+
+/mob/living/carbon/human/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_human_items
