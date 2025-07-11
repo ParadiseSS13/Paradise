@@ -115,11 +115,11 @@ export const chatMiddleware = (store) => {
     const { type, payload } = action;
     if (!initialized) {
       initialized = true;
-        if (!game.databaseBackendEnabled || needsUpdate) {
-          saveChatToStorage(store);
-          needsUpdate = false;
-        }
+      if (!game.databaseBackendEnabled || needsUpdate) {
+        saveChatToStorage(store);
+        needsUpdate = false;
       }
+    }
     if (type === 'chat/message') {
       let payload_obj;
       try {
