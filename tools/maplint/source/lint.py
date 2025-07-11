@@ -158,7 +158,6 @@ class Rules:
     banned: bool = False
     banned_neighbors: list[BannedNeighbor] = []
     banned_variables: bool | list[BannedVariable] = []
-    allowed_values_by_var: dict[str, list] = {}
 
     def __init__(self, data):
         expect(isinstance(data, dict), "Lint rules must be a dictionary.")
@@ -189,16 +188,6 @@ class Rules:
                 else:
                     self.banned_variables = [BannedVariable(variable) for variable in banned_variables_data]
 
-        if "allowed_values_by_var" in data:
-            allowed_values_data = data.pop("allowed_values_by_var")
-            expect(isinstance(allowed_values_data, dict), "allowed_values_by_var must be a dictionary.")
-
-            self.allowed_values_by_var = {}
-            for variable, values in allowed_values_data.items():
-                if not isinstance(values, list):
-                    values = [values]
-                self.allowed_values_by_var[variable] = values
-
         expect(len(data) == 0, f"Unknown lint rules: {', '.join(data.keys())}.")
 
     def run(self, identified: Content, contents: list[Content], identified_index) -> list[MaplintError]:
@@ -225,12 +214,6 @@ class Rules:
                     if ban_reason is None:
                         continue
                     failures.append(fail_content(identified, f"Typepath {identified.path} has a banned variable (set to {identified.var_edits[banned_variable.variable]}): {banned_variable.variable}. {ban_reason}"))
-
-        for variable, allowed_values in self.allowed_values_by_var.items():
-            if variable in identified.var_edits:
-                current_value = identified.var_edits[variable]
-                if current_value not in allowed_values:
-                    failures.append(fail_content(identified, f"Typepath {identified.path} has disallowed value {current_value} for variable {variable}. Allowed values: {', '.join(map(str, allowed_values))}"))
 
         return failures
 
