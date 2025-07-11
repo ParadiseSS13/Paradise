@@ -151,14 +151,13 @@
 
 /datum/event/trivial_news/announce()
 	//copy-pasted from the admin verbs to submit new newscaster messages
-	var/datum/feed_message/newMsg = new /datum/feed_message
+	var/datum/feed_message/newMsg = new
 	newMsg.author = "Editor Mike Hammers"
-	//newMsg.is_admin_message = 1
 	var/datum/trade_destination/affected_dest = pick(GLOB.weighted_mundaneevent_locations)
-	newMsg.body = pick(file2list("config/news/trivial.txt"))
-	newMsg.body = replacetext(newMsg.body,"{{AFFECTED}}",affected_dest.name)
+	var/headline = pick(file2list("config/news/trivial.txt"))
+	newMsg.title = replacetext(headline, "{{AFFECTED}}", affected_dest.name)
 
 	GLOB.news_network.get_channel_by_name("The Gibson Gazette")?.add_message(newMsg)
 	for(var/nc in GLOB.allNewscasters)
 		var/obj/machinery/newscaster/NC = nc
-		NC.alert_news("The Gibson Gazette")
+		NC.alert_news("The Gibson Gazette: [newMsg.title]")
