@@ -509,7 +509,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(current.level >= 8)
 			continue
 		files.UpdateTech(tech_to_upgrade.id, current.level + 1)
-		to_chat(src, "<span class='notice'>Discovered innovations have led to an increase in the field of [current]!</span>")
+		aiRadio.autosay("Discovered innovations have led to an increase in the field of [current]!", src, "Science")
 		upgraded = TRUE
 
 /mob/living/silicon/ai/proc/pick_icon()

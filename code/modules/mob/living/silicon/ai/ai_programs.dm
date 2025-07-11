@@ -1214,5 +1214,3 @@
 		revert_cast()
 		return
 	new /obj/effect/temp_visual/ai_pointer(get_turf(target))
-
-
