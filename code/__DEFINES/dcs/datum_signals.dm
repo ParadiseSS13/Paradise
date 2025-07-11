@@ -134,3 +134,5 @@
 
 /// from base of /datum/ruleset/proc/can_apply()
 #define COMSIG_RULESET_FAILED_SPECIES "failed_species"
+
+#define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"

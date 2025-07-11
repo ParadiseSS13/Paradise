@@ -848,7 +848,7 @@
 /obj/docking_port/mobile/mining,
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
-	area_type = /area/lavaland/surface/outdoors;
+	area_type = /area/lavaland/surface/outdoors/outpost/no_boulder;
 	dir = 8;
 	dwidth = 3;
 	height = 5;
@@ -6594,8 +6594,8 @@
 	},
 /area/mine/outpost/hallway/west)
 "KC" = (
-/obj/structure/closet/secure_closet/miner,
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/economy/vending/minedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7191,8 +7191,8 @@
 	name = "North Switch";
 	pixel_y = 24
 	},
-/obj/structure/closet/wardrobe/miner,
 /obj/machinery/alarm/directional/east,
+/obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"

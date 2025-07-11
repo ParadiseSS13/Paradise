@@ -61,6 +61,18 @@
 	else if(dx < 0)
 		. += 360
 
+/// Angle between two arbitrary points and horizontal line same as [/proc/get_angle]
+/proc/get_angle_raw(start_x, start_y, start_pixel_x, start_pixel_y, end_x, end_y, end_pixel_x, end_pixel_y)
+	var/dy = (32 * end_y + end_pixel_y) - (32 * start_y + start_pixel_y)
+	var/dx = (32 * end_x + end_pixel_x) - (32 * start_x + start_pixel_x)
+	if(!dy)
+		return (dx >= 0) ? 90 : 270
+	. = arctan(dx/dy)
+	if(dy < 0)
+		. += 180
+	else if(dx < 0)
+		. += 360
+
 // Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location, mob/target, distance = 1, density = TRUE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
 	/*
@@ -386,8 +398,11 @@
 	for(var/mob/living/simple_animal/slime/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)
-		moblist.Add(M)
+		if(!istype(M, /mob/living/simple_animal/slime))
+			moblist.Add(M)
 	for(var/mob/living/basic/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/camera/blob/M in sortmob)
 		moblist.Add(M)
 	return moblist
 
@@ -1878,7 +1893,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Surgery Sounds"
 
 /**
-  * HTTP Get (Powered by RUSTG)
+  * HTTP Get (Powered by rustlibs)
   *
   * This proc should be used as a replacement for [/world/proc/Export] due to an underlying issue with it.
   * See: https://www.byond.com/forum/post/2772166
@@ -1891,7 +1906,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   */
 /proc/HTTPGet(url)
 	var/datum/http_request/req = new
-	req.prepare(RUSTG_HTTP_METHOD_GET, url)
+	req.prepare(RUSTLIBS_HTTP_METHOD_GET, url)
 	req.begin_async()
 
 	// Check if we are complete

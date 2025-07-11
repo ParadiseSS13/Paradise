@@ -340,6 +340,7 @@
 	if(continuous_move || !istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
 
+	last_pushoff = world.time
 	var/opposite_dir = turn(movement_dir, 180)
 	if(backup.newtonian_move(opposite_dir)) //You're pushing off something movable, so it moves
 		to_chat(src, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
@@ -379,8 +380,12 @@
 			continue
 		if(continuous_move && !pass_allowed)
 			var/datum/move_loop/move/rebound_engine = GLOB.move_manager.processing_on(rebound, SSspacedrift)
-			// If you're moving toward it and you're both going the same direction, stop
-			if(moving_direction == get_dir(src, pushover) && rebound_engine && moving_direction == rebound_engine.direction)
+			// If us and the rebound object are both drifting in the same
+			// direction, we can't push off of it. We do not check
+			// get_dir(src, pushover) because two objects drifting in the same
+			// direction may potentially occupy the same turf at some point
+			// during processing.
+			if(rebound_engine && moving_direction == rebound_engine.direction)
 				continue
 		else if(!pass_allowed)
 			if(moving_direction == get_dir(src, pushover)) // Can't push "off" of something that you're walking into

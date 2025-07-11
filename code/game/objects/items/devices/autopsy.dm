@@ -1,3 +1,5 @@
+#define PRINT_TIMER 5 SECONDS
+
 /obj/item/autopsy_scanner
 	name = "autopsy scanner"
 	desc = "Extracts information on wounds."
@@ -13,6 +15,8 @@
 	var/target_UID = null
 	var/timeofdeath = null
 	var/target_rank = null
+	STATIC_COOLDOWN_DECLARE(print_cooldown)
+	new_attack_chain = TRUE
 
 /obj/item/autopsy_scanner/Destroy()
 	QDEL_LIST_ASSOC_VAL(wdata)
@@ -72,9 +76,13 @@
 	if(Adjacent(user))
 		. += "<span class='notice'>You can use a pen on it to quickly write a coroner's report.</span>"
 
-/obj/item/autopsy_scanner/attackby__legacy__attackchain(obj/item/P, mob/user)
-	if(!is_pen(P))
+/obj/item/autopsy_scanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!is_pen(used))
 		return ..()
+
+	if(!COOLDOWN_FINISHED(src, print_cooldown))
+		to_chat(user, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		return ITEM_INTERACT_COMPLETE
 
 	var/dead_name = tgui_input_text(user, "Insert name of deceased individual", default = target_name, title = "Coroner's Report", max_length = 60)
 	var/rank = tgui_input_text(user, "Insert rank of deceased individual", default = target_rank, title = "Coroner's Report", max_length = 60)
@@ -82,13 +90,25 @@
 	var/cause = tgui_input_text(user, "Insert cause of death", title = "Coroner's Report", max_length = 60)
 	var/chems = tgui_input_text(user, "Insert any chemical traces", multiline = TRUE, title = "Coroner's Report")
 	var/notes = tgui_input_text(user, "Insert any relevant notes", multiline = TRUE, title = "Coroner's Report")
+
+	COOLDOWN_START(src, print_cooldown, PRINT_TIMER)
 	var/obj/item/paper/R = new(user.loc)
 	R.name = "Official Coroner's Report - [dead_name]"
 	R.info = "<b><center>[station_name()] - Coroner's Report</b></center><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [rank]<br><br><b>Time of Death:</b> [tod]<br><br><b>Cause of Death:</b> [cause]<br><br><b>Trace Chemicals:</b> [chems]<br><br><b>Additional Coroner's Notes:</b> [notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	user.put_in_hands(R)
 
-/obj/item/autopsy_scanner/attack_self__legacy__attackchain(mob/user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/autopsy_scanner/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
+	if(!COOLDOWN_FINISHED(src, print_cooldown))
+		to_chat(user, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		return
+
+	COOLDOWN_START(src, print_cooldown, PRINT_TIMER)
 	var/scan_data = ""
 
 	if(timeofdeath)
@@ -156,29 +176,32 @@
 
 	user.put_in_hands(P)
 
-/obj/item/autopsy_scanner/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/carbon/user)
-	if(!istype(M))
-		return
+/obj/item/autopsy_scanner/interact_with_atom(mob/living/carbon/human/target, mob/living/user, list/modifiers)
+	if(!istype(target))
+		return ..()
 
-	if(!on_operable_surface(M))
-		return
+	user.changeNext_move(CLICK_CD_MELEE) // Need this so we don't speedrun autopsies
+	if(!on_operable_surface(target))
+		return ITEM_INTERACT_COMPLETE
 
-	if(target_UID != M.UID())
-		target_UID = M.UID()
-		target_name = M.name
-		target_rank = M.get_assignment(if_no_id = "Unknown", if_no_job = null)
+	if(target_UID != target.UID())
+		target_UID = target.UID()
+		target_name = target.name
+		target_rank = target.get_assignment(if_no_id = "Unknown", if_no_job = null)
 		wdata.Cut()
 		chemtraces.Cut()
 		timeofdeath = null
 		to_chat(user, "<span class='warning'>A new patient has been registered. Purging data for previous patient.</span>")
 
-	timeofdeath = M.timeofdeath
+	timeofdeath = target.timeofdeath
 
-	var/obj/item/organ/external/S = M.get_organ(user.zone_selected)
+	var/obj/item/organ/external/S = target.get_organ(user.zone_selected)
 	if(!S)
 		to_chat(user, "<span class='warning'>You can't scan this body part.</span>")
-		return
-	M.visible_message("<span class='warning'>[user] scans the wounds on [M]'s [S.name] with [src]</span>")
+		return ITEM_INTERACT_COMPLETE
+	target.visible_message("<span class='warning'>[user] scans the wounds on [target]'s [S.name] with [src]</span>")
 
 	add_data(S)
-	return 1
+	return ITEM_INTERACT_COMPLETE
+
+#undef PRINT_TIMER

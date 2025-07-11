@@ -416,11 +416,25 @@
 	name = "executive service upgrade"
 	desc = "An upgrade that replaces a service cyborg's Rapid Service Fabricator with a classy Executive version."
 	icon_state = "cyborg_upgrade5"
-	origin_tech = "bio=2;materials=1"
+	origin_tech = "biotech=2;materials=1"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/butler
 	items_to_add = list(/obj/item/kitchen/knife/cheese)
 	items_to_replace = list(/obj/item/rsf = /obj/item/rsf/executive)
+
+/***********************/
+// MARK: Medical
+/***********************/
+
+/obj/item/borg/upgrade/holo_stretcher
+	name = "holo stretcher rack upgrade"
+	desc = "An upgrade that allows medical cyborgs to carry holo stretchers in addition to basic roller beds."
+	icon = 'icons/obj/rollerbed.dmi'
+	icon_state = "holo_retracted"
+	origin_tech = "magnets=3;biotech=4;powerstorage=3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+	items_to_replace = list(/obj/item/roller_holder = /obj/item/roller_holder/holo)
 
 /***********************/
 // MARK: Syndicate
