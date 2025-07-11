@@ -209,6 +209,8 @@
 	var/cooldown = 30 SECONDS
 	/// Is this program installed?
 	var/installed = FALSE
+	/// Is this program only installable through disk?
+	var/external = FALSE
 
 /datum/ai_program/New()
 	. = ..()
@@ -276,7 +278,10 @@
 		return
 	user.program_picker.ui_interact(user)
 
-/// RGB Lighting - Recolors Lights
+//////////////////////////////
+// MARK: RGB Lighting
+//////////////////////////////
+
 /datum/ai_program/rgb_lighting
 	program_name = "RGB Lighting"
 	program_id = "rgb_lighting"
@@ -346,7 +351,10 @@
 	if(cooldown_handler.is_on_cooldown())
 		cooldown_handler.start_recharge()
 
-/// Power Shunt - Recharges things from your SMES
+//////////////////////////////
+// MARK: Power Shunt
+//////////////////////////////
+
 /datum/ai_program/power_shunt
 	program_name = "Power Shunt"
 	program_id = "power_shunt"
@@ -424,7 +432,10 @@
 	if(cooldown_handler.is_on_cooldown())
 		cooldown_handler.start_recharge()
 
-/// Repair Nanites - Uses large numbers of nanites to repair things
+//////////////////////////////
+// MARK: Repair Nanites
+//////////////////////////////
+
 /datum/ai_program/repair_nanites
 	program_name = "Repair Nanites"
 	program_id = "repair_nanites"
@@ -456,13 +467,17 @@
 	if(!check_camera_vision(user, target))
 		revert_cast()
 		return
-	if(!isrobot(target) && !isapc(target) && !ismecha(target) && !ismachineperson(target))
+	if(!isrobot(target) && !isapc(target) && !ismecha(target) && !ismachineperson(target) && !isbot(target))
 		to_chat(user, "<span class='warning'>You can only repair borgs, mechs, and APCs!</span>")
 		revert_cast()
 		return
 	var/mob/living/silicon/ai/AI = user
 	if(ismachineperson(target) && !AI.universal_adapter)
 		to_chat(user, "<span class='warning'>This software lacks the required upgrade to repair IPCs!</span>")
+		revert_cast()
+		return
+	if(isbot(target) && spell_level < 2)
+		to_chat(user, "<span class='warning'>This software is not upgraded enough to repair the robot!</span>")
 		revert_cast()
 		return
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
@@ -488,7 +503,10 @@
 	if(cooldown_handler.is_on_cooldown())
 		cooldown_handler.start_recharge()
 
-/// Universal Adapter - Unlocks usage of repair nanites and power shunt for IPCs
+//////////////////////////////
+// MARK: Universal Adapter
+//////////////////////////////
+
 /datum/ai_program/universal_adapter
 	program_name = "Universal Adapter"
 	program_id = "universal_adapter"
@@ -518,7 +536,10 @@
 	user.adapter_efficiency = 0.5
 	user.universal_adapter = FALSE
 
-/// Door Override - Repairs door wires if the AI wire is not cut
+//////////////////////////////
+// MARK: Airlock Restoration
+//////////////////////////////
+
 /datum/ai_program/airlock_restoration
 	program_name = "Airlock Restoration"
 	program_id = "airlock_restoration"
@@ -582,12 +603,15 @@
 	if(spell_level == 5)
 		desc += " Firmware version sufficient enough to repair damage caused by a cryptographic sequencer."
 
-/// Automated Extinguishing System - Deploys nanofrost to a target tile
+//////////////////////////////
+// MARK: Automated Extinguisher
+//////////////////////////////
+
 /datum/ai_program/extinguishing_system
 	program_name = "Automated Extinguishing System"
 	program_id = "extinguishing_system"
 	description = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires."
-	cost = 3
+	cost = 1
 	nanite_cost = 50
 	power_type = /datum/spell/ai_spell/ranged/extinguishing_system
 	unlock_text = "Nanofrost synthesizer online."
@@ -634,7 +658,10 @@
 	if(cooldown_handler.is_on_cooldown())
 		cooldown_handler.start_recharge()
 
-/// Bluespace Miner Subsystem - Makes money for science, at the cost of extra power drain
+//////////////////////////////
+// MARK: Bluespace Miner
+//////////////////////////////
+
 /datum/ai_program/bluespace_miner
 	program_name = "Bluespace Miner Subsystem"
 	program_id = "bluespace_miner"
@@ -665,7 +692,10 @@
 		return
 	user.bluespace_miner_rate = 100
 
-/// Multimarket Analysis Subsystem - Reduce prices of things at cargo
+//////////////////////////////
+// MARK: Multimarket Analysis
+//////////////////////////////
+
 /datum/ai_program/multimarket_analyser
 	program_name = "Multimarket Analysis Subsystem"
 	program_id = "multimarket_analyser"
@@ -694,7 +724,10 @@
 	..()
 	SSeconomy.pack_price_modifier = original_price_mod
 
-/// Light Synthesizer - Fixes lights
+//////////////////////////////
+// MARK: Light Synthesizer
+//////////////////////////////
+
 /datum/ai_program/light_repair
 	program_name = "Light Synthesizer"
 	program_id = "light_repair"
@@ -748,7 +781,10 @@
 	if(cooldown_handler.is_on_cooldown())
 		cooldown_handler.start_recharge()
 
-/// Nanosurgeon Deployment - Uses large numbers of nanites to heal things
+//////////////////////////////
+// MARK: Nanosurgeon Deployment
+//////////////////////////////
+
 /datum/ai_program/nanosurgeon_deployment
 	program_name = "Nanosurgeon Deployment"
 	program_id = "nanosurgeon_deployment"
@@ -821,7 +857,10 @@
 	if(cooldown_handler.is_on_cooldown())
 		cooldown_handler.start_recharge()
 
-/// Enhanced Door Controls - Reduces delay in bolting and shocking doors
+//////////////////////////////
+// MARK: Enhanced Door Controls
+//////////////////////////////
+
 /datum/ai_program/enhanced_doors
 	program_name = "Enhanced Door Controls"
 	program_id = "enhanced_doors"
@@ -849,87 +888,49 @@
 	user.door_bolt_delay = original_door_delay
 
 
-/// Experimental Research Subsystem - Knowledge is power
+//////////////////////////////
+// MARK: Experimental Research Subsystem
+//////////////////////////////
+
 /datum/ai_program/research_subsystem
 	program_name = "Experimental Research Subsystem"
 	program_id = "research_subsystem"
 	description = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field."
 	cost = 5
-	nanite_cost = 60
-	power_type = /datum/spell/ai_spell/research_subsystem
-	unlock_text = "Research and Discovery submodule installation complete."
+	nanite_cost = 0
+	max_level = 10
+	unlock_text = "Research and Discovery submodule installation complete. Automated information gathering enabled."
+	upgrade = TRUE
 
-/datum/spell/ai_spell/research_subsystem
-	name = "Experimental Research Subsystem"
-	desc = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field."
-	action_icon = 'icons/obj/machines/research.dmi'
-	action_icon_state = "tdoppler"
-	auto_use_uses = FALSE
-	base_cooldown = 600 SECONDS
-	cooldown_min = 300 SECONDS
-	starts_charged = FALSE
-	level_max = 10
-	selection_activated_message = "<span class='notice'>You spool up your research tools...</span>"
-	var/rnd_server = "station_rnd"
-
-/datum/spell/ai_spell/research_subsystem/cast(list/targets, mob/user)
-	var/mob/living/silicon/ai/AI = user
-	if(!AI.program_picker.spend_nanites(program.nanite_cost))
-		to_chat(user, "<span class='warning'>Not enough nanites!</span>")
-		revert_cast()
+/datum/ai_program/research_subsystem/upgrade(mob/living/silicon/ai/user, first_install = FALSE)
+	..()
+	if(!istype(user))
 		return
-	// First, find the RND server
-	var/network_manager_uid = null
-	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
-		if(RNC.network_name == rnd_server)
-			network_manager_uid = RNC.UID()
-			break
-	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
-	if(!RNC) // Could not find the RND server. It probably blew up.
-		to_chat(user, "<span class='warning'>No research server found!</span>")
+	user.research_level = upgrade_level
+	user.research_time = 10 MINUTES - (30 SECONDS * upgrade_level)
+	if(first_install)
+		user.last_research_time = 10 MINUTES - (30 SECONDS * upgrade_level)
+	user.research_subsystem = TRUE
+	installed = TRUE
+
+/datum/ai_program/research_subsystem/downgrade(mob/living/silicon/ai/user)
+	..()
+	if(!istype(user))
 		return
+	user.research_level = upgrade_level
+	user.research_time = 10 MINUTES - (30 SECONDS * upgrade_level)
 
-	var/upgraded = FALSE
-	var/datum/research/files = RNC.research_files
-	if(!files)
-		to_chat(user, "<span class='warning'>No research server found!</span>")
+/datum/ai_program/research_subsystem/uninstall(mob/living/silicon/ai/user)
+	..()
+	if(!istype(user))
 		return
-	var/list/possible_tech = list()
-	for(var/datum/tech/T in files.possible_tech)
-		possible_tech += T
-	while(!upgraded)
-		var/datum/tech/tech_to_upgrade = pick_n_take(possible_tech)
-		// If there are no possible techs to upgrade, stop the program
-		if(!tech_to_upgrade)
-			to_chat(user, "<span class='notice'>Current research cannot be discovered any further.</span>")
-			revert_cast()
-			AI.program_picker.refund_nanites(program.nanite_cost)
-			return
-		// No illegals until level 10
-		if(spell_level < 10 && istype(tech_to_upgrade, /datum/tech/syndicate))
-			continue
-		// No alien research
-		if(istype(tech_to_upgrade, /datum/tech/abductor))
-			continue
-		var/datum/tech/current = files.find_possible_tech_with_id(tech_to_upgrade.id)
-		if(!current)
-			continue
-		// If the tech is level 7 and the program too weak, don't upgrade
-		if(current.level >= 7 && spell_level < 5)
-			continue
-		// Nothing beyond 8
-		if(current.level >= 8)
-			continue
-		files.UpdateTech(tech_to_upgrade.id, current.level + 1)
-		to_chat(user, "<span class='notice'>Discovered innovations have led to an increase in the field of [current]!</span>")
-		upgraded = TRUE
+	user.research_time = 10 MINUTES
+	user.research_subsystem = FALSE
 
-/datum/spell/ai_spell/research_subsystem/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(base_cooldown - (max(spell_level - 3, 0) * 30 SECONDS), cooldown_min)
-	if(cooldown_handler.is_on_cooldown())
-		cooldown_handler.start_recharge()
+//////////////////////////////
+// MARK: Emergency Sealant
+//////////////////////////////
 
-// Emergency Sealant - Patches holes with metal foam
 /datum/ai_program/emergency_sealant
 	program_name = "Emergency Sealant"
 	program_id = "emergency_sealant"
@@ -981,7 +982,10 @@
 	if(cooldown_handler.is_on_cooldown())
 		cooldown_handler.start_recharge()
 
-// Holosign Deployment - Deploys a holosign on the selected turf
+//////////////////////////////
+// MARK: Holosign Deployer
+//////////////////////////////
+
 /datum/ai_program/holosign_displayer
 	program_name = "Holosign Displayer"
 	program_id = "holosign_displayer"
@@ -1049,7 +1053,10 @@
 	playsound(H.loc, 'sound/machines/chime.ogg', 20, 1)
 	qdel(H)
 
-/// HONK Subsystem - HONK
+//////////////////////////////
+// MARK: HONK Subsystem
+//////////////////////////////
+
 /datum/ai_program/honk_subsystem
 	program_name = "Honk Subsystem"
 	program_id = "honk_subsystem"
@@ -1097,7 +1104,10 @@
 	if(cooldown_handler.is_on_cooldown())
 		cooldown_handler.start_recharge()
 
-// Enhanced Tracking System - Select a target. Get alerted after a delay whenever that target enters camera sight
+//////////////////////////////
+// MARK: Enhanced Tracker
+//////////////////////////////
+
 /datum/ai_program/enhanced_tracker
 	program_name = "Enhanced Tracking Subsystem"
 	program_id = "enhanced_tracker"
@@ -1163,7 +1173,10 @@
 /mob/living/silicon/ai/proc/reset_tracker_cooldown()
 	tracker_alert_cooldown = FALSE
 
-// Pointer - Lets you put down a holographic reticle to draw attention to things
+//////////////////////////////
+// MARK: Holopointer
+//////////////////////////////
+
 /datum/ai_program/pointer
 	program_name = "Holopointer"
 	program_id = "holopointer"
@@ -1201,3 +1214,5 @@
 		revert_cast()
 		return
 	new /obj/effect/temp_visual/ai_pointer(get_turf(target))
+
+

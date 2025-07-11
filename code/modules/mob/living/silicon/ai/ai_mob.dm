@@ -81,6 +81,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/bluespace_miner_rate = 100
 	/// Time until next payout
 	var/next_payout = 10 MINUTES
+	/// Has the AI unlocked a research subsystem?
+	var/research_subsystem = FALSE
+	/// How potent is the research subsystem?
+	var/research_level = 0
+	/// How long does it take to unlock the next research?
+	var/research_time = 10 MINUTES
+	/// When did we last research something?
+	var/last_research_time
 	/// Do we have the enhanced tracker?
 	var/enhanced_tracking = FALSE
 	/// Who are we tracking with the enhanced tracker?
@@ -437,6 +445,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		change_power_mode(NO_POWER_USE)
 	if(powered_ai.anchored)
 		change_power_mode(ACTIVE_POWER_USE)
+	if(powered_ai.research_subsystem && powered_ai.last_research_time + powered_ai.research_time <= world.time)
+		powered_ai.do_research()
 	if(powered_ai.bluespace_miner)
 		// Money money money
 		if(powered_ai.next_payout <= world.time)
@@ -454,6 +464,53 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/update_icons()
 	. = ..()
 	update_hat_icons()
+
+/mob/living/silicon/ai/proc/do_research()
+	last_research_time = world.time
+	// First, find the RND server
+	var/network_manager_uid = null
+	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+		if(RNC.network_name == "station_rnd")
+			network_manager_uid = RNC.UID()
+			break
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	if(!RNC) // Could not find the RND server. It probably blew up.
+		to_chat(src, "<span class='warning'>No research server found!</span>")
+		return
+
+	var/upgraded = FALSE
+	var/datum/research/files = RNC.research_files
+	if(!files)
+		to_chat(src, "<span class='warning'>No research server found!</span>")
+		return
+	var/list/possible_tech = list()
+	for(var/datum/tech/T in files.possible_tech)
+		possible_tech += T
+	while(!upgraded)
+		var/datum/tech/tech_to_upgrade = pick_n_take(possible_tech)
+		// If there are no possible techs to upgrade, stop the program
+		if(!tech_to_upgrade)
+			to_chat(src, "<span class='notice'>Current research cannot be discovered any further.</span>")
+			research_subsystem = FALSE
+			return
+		// No illegals until level 10
+		if(research_level < 10 && istype(tech_to_upgrade, /datum/tech/syndicate))
+			continue
+		// No alien research
+		if(istype(tech_to_upgrade, /datum/tech/abductor))
+			continue
+		var/datum/tech/current = files.find_possible_tech_with_id(tech_to_upgrade.id)
+		if(!current)
+			continue
+		// If the tech is level 7 and the program too weak, don't upgrade
+		if(current.level >= 7 && research_level < 5)
+			continue
+		// Nothing beyond 8
+		if(current.level >= 8)
+			continue
+		files.UpdateTech(tech_to_upgrade.id, current.level + 1)
+		to_chat(src, "<span class='notice'>Discovered innovations have led to an increase in the field of [current]!</span>")
+		upgraded = TRUE
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
@@ -897,7 +954,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	Bot.call_bot(src, waypoint)
 
-/mob/living/silicon/ai/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/ai/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listened_for))
 		return
 	if(alarmsource.z != z)
@@ -924,7 +981,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(viewalerts)
 		ai_alerts()
 
-/mob/living/silicon/ai/alarm_cancelled(source, class, area/A, obj/origin, cleared)
+/mob/living/silicon/ai/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	if(cleared)
 		if(!(class in alarms_listened_for))
 			return
