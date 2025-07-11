@@ -63442,7 +63442,7 @@
 "mpD" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -109711,7 +109711,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
