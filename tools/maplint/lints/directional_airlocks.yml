@@ -3,11 +3,11 @@ help: Multitile airlocks might have pixel offset after Initialize, use them only
   banned_variables:
     dir:
       allow: [2, 4]
-    pixel_x: true
-    pixel_y: true
+    pixel_x:
+    pixel_y:
 /obj/machinery/door/airlock/multi_tile:
   banned_variables:
     dir:
       allow: [2, 4]
-    pixel_x: true
-    pixel_y: true
+    pixel_x:
+    pixel_y:
