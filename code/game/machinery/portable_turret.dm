@@ -76,7 +76,7 @@
 	var/has_cover = TRUE		//Hides the cover
 	/// Turret's cover
 	var/obj/effect/overlay/turret/cover
-	/// Used when we end up with dir NE/NW and have a cover. We temporarly set new dir so turret doesn't stick out of a cover
+	/// Used when we end up with dir NE/NW and have a cover. We temporary set new dir so turret doesn't stick out of a cover
 	var/saved_direction
 	/// Deployment override to allow turret popup on/under dense turfs/objects, for admin/CC turrets
 	var/deployment_override = FALSE

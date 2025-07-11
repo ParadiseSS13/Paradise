@@ -1,10 +1,8 @@
 
 /obj/machinery/porta_turret/tag
-	// Reasonable defaults, in case someone manually spawns us
-	installation = /obj/item/gun/energy/laser/tag/red
 	targetting_is_configurable = FALSE
 	lethal_is_configurable = FALSE
-	shot_delay = 30
+	shot_delay = 3 SECONDS
 	iconholder = TRUE
 	has_cover = FALSE
 	always_up = TRUE
@@ -20,6 +18,7 @@
 
 /obj/machinery/porta_turret/tag/red
 	team_color = "red"
+	installation = /obj/item/gun/energy/laser/tag/red
 
 /obj/machinery/porta_turret/tag/blue
 	team_color = "blue"
