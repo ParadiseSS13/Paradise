@@ -51,7 +51,7 @@
 			return
 
 		src.holder.marked_datum = target
-		href_list["datumrefresh"] = UID()
+		href_list["datumrefresh"] = target.UID()
 	if(href_list[VV_HK_PROC_CALL])
 		if(!check_rights(R_PROCCALL))
 			return
