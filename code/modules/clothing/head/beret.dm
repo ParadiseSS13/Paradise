@@ -89,7 +89,11 @@
 	icon_state = "beret_officer"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/beret/sec
+	dog_fashion = /datum/dog_fashion/head/beret/sec	
+
+/obj/item/clothing/head/beret/sec/corporate
+	name = "corporate security beret"
+	icon_state = "beret_corporate_officer"
 
 /obj/item/clothing/head/beret/warden
 	name = "warden's beret"
