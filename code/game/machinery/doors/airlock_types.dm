@@ -574,7 +574,7 @@
 /obj/machinery/door/airlock/cult/cult_conceal()
 	icon = stealth_icon
 	overlays_file = stealth_overlays
-	opacity = stealth_opacity
+	set_opacity(stealth_opacity)
 	glass = stealth_glass
 	airlock_material = stealth_airlock_material
 	name = "airlock"
@@ -585,7 +585,7 @@
 /obj/machinery/door/airlock/cult/cult_reveal()
 	icon = GET_CULT_DATA(airlock_runed_icon_file, initial(icon))
 	overlays_file = GET_CULT_DATA(airlock_runed_overlays_file, initial(overlays_file))
-	opacity = initial(opacity)
+	set_opacity(initial(opacity))
 	glass = initial(glass)
 	airlock_material = initial(airlock_material)
 	name = initial(name)
