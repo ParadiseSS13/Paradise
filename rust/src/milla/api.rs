@@ -110,12 +110,7 @@ fn milla_load_turfs(
         let (x, y, z) = byond_xyz(&turf)?.coordinates();
         let mut property = turf.read_var_id(property_ref)?;
         let data = property.get_list_values()?;
-
-        #[cfg(feature = "byond-516")]
         property.decrement_tempref();
-
-        #[cfg(feature = "byond-515")]
-        property.decrement_ref();
 
         if data.len() != 17 {
             return Err(eyre!(
