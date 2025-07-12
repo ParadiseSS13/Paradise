@@ -220,14 +220,17 @@
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)
 		return
-	else
-		switch(severity)
-			if(1)
-				brainmob.emp_damage += rand(20,30)
-			if(2)
-				brainmob.emp_damage += rand(10,20)
-			if(3)
-				brainmob.emp_damage += rand(0,10)
+
+	if(issilicon(loc)) // Silicons aren't affected by brain damage and there is no way to fix silicon brain damage either.
+		return
+
+	switch(severity)
+		if(1)
+			brainmob.emp_damage += rand(20,30)
+		if(2)
+			brainmob.emp_damage += rand(10,20)
+		if(3)
+			brainmob.emp_damage += rand(0,10)
 	..()
 
 /obj/item/mmi/Destroy()
