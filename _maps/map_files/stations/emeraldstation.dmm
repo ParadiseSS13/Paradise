@@ -110855,6 +110855,7 @@
 /obj/item/storage/box/flashbangs{
 	pixel_x = -3
 	},
+/obj/item/storage/box/stingers,
 /obj/item/storage/box/teargas{
 	pixel_x = -1;
 	pixel_y = 2
