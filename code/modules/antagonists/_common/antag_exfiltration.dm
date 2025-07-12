@@ -555,6 +555,10 @@
 /obj/effect/portal/advanced/exfiltration/proc/pass_extraction(mob/living/M)
 	// Freeze objectives
 	for(var/datum/objective/objective in antag_mind.get_all_objectives(include_team = FALSE))
+		if(istype(objective, /datum/objective/escape))
+			var/datum/objective/escape/escape_alive = objective
+			escape_alive.completed = escape_alive.check_completion(exfilling = TRUE)
+			continue
 		objective.completed = objective.check_completion()
 	// Handle syndicate barification
 	log_and_message_admins("[M] extracted using an exfiltration portal.")
@@ -592,6 +596,8 @@
 	// Apply traits
 	ADD_TRAIT(extractor, TRAIT_PACIFISM, GHOST_ROLE)
 	ADD_TRAIT(extractor, TRAIT_RESPAWNABLE, GHOST_ROLE)
+	var/obj/item/bio_chip/dust/I = new
+	I.implant(extractor, null)
 
 	if(extractor.mind)
 		if(extractor.mind.initial_account)

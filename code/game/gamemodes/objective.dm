@@ -472,7 +472,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 	needs_target = FALSE
 
-/datum/objective/escape/check_completion()
+/datum/objective/escape/check_completion(var/exfilling = FALSE)
 	if(..())
 		return TRUE
 	var/list/owners = get_owners()
@@ -484,6 +484,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(SSticker.force_ending) // This one isn't their fault, so lets just assume good faith.
 		return TRUE
 	if(SSticker.mode.station_was_nuked) // If they escaped the blast somehow, let them win.
+		return TRUE
+	if(exfilling)
 		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return FALSE
@@ -557,7 +559,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 // This objective should only be given to a single owner since only 1 person can have the ID card of the target.
 // We're fine to use `owner` instead of `get_owners()`.
-/datum/objective/escape/escape_with_identity/check_completion()
+/datum/objective/escape/escape_with_identity/check_completion(exfilling = FALSE)
 	if(..())
 		return TRUE
 	if(!target_real_name)
