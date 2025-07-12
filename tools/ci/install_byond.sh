@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+# This is needed now
+sudo apt install libcurl3
+
 if [ -z "${BYOND_MAJOR+x}" ]; then
   source _build_dependencies.sh
   # if some other build step hasn't specified the specific BYOND version we're not
