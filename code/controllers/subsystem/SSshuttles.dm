@@ -47,6 +47,8 @@ SUBSYSTEM_DEF(shuttle)
 	// These vars are necessary to prevent multiple loads on the same turfs at the same times causing massive server issues
 	/// Whether or not a custom shuttle is currently loading at centcomm.
 	var/custom_escape_shuttle_loading = FALSE
+	/// Whether or not a trader shuttle is currently loading at centcomm.
+	var/trader_shuttle_loading = FALSE
 	/// Whether or not a shuttle is currently being loaded at the template landmark, if it exists.
 	var/loading_shuttle_at_preview_template = FALSE
 	/// Have we locked in the emergency shuttle, to prevent people from breaking things / wasting player money?
@@ -478,6 +480,41 @@ SUBSYSTEM_DEF(shuttle)
 
 	custom_escape_shuttle_loading = FALSE
 	return loaded_shuttle
+
+/datum/controller/subsystem/shuttle/proc/set_trader_shuttle(obj/docking_port/mobile/trade_shuttle)
+	if(trader_shuttle_loading)
+		CRASH("A trader shuttle was already being loaded at centcomm when another shuttle attempted to load.")
+	trader_shuttle_loading = TRUE
+	// get the existing shuttle information, if any
+	var/obj/docking_port/mobile/trader/dock = getDock("trader_base")
+
+	if(!dock)
+		var/m = "No dock found for preview shuttle, aborting."
+		log_debug(m)
+		trader_shuttle_loading = FALSE
+		throw EXCEPTION(m)
+
+	var/result = trade_shuttle.canDock(dock)
+	// truthy value means that it cannot dock for some reason
+	// but we can ignore the someone else docked error because
+	// nothing is at the trader dock until this spawns
+	if((result != SHUTTLE_CAN_DOCK) && (result != SHUTTLE_SOMEONE_ELSE_DOCKED))
+
+		var/m = "Unsuccessful dock of [trade_shuttle] ([result])."
+		message_admins(m)
+		log_debug(m)
+		trader_shuttle_loading = FALSE
+		return
+
+	trade_shuttle.dock(dock)
+
+	trade_shuttle.register()
+
+	// TODO indicate to the user that success happened, rather than just
+	// blanking the modification tab
+
+	trader_shuttle_loading = FALSE
+	return trade_shuttle
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))
