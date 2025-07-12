@@ -158,6 +158,7 @@
 	show_activation_message(user)
 	user.drop_item()
 	forceMove(F)
+	log_and_message_admins("[user] activated an exfiltration flare.")
 	addtimer(CALLBACK(src, PROC_REF(create_portal), user), extraction_time)
 
 /obj/item/wormhole_jaunter/extraction/turf_check(mob/user)
@@ -437,6 +438,8 @@
 	var/datum/mind/antag_mind = null
 	/// Radio for handling extraction taunts
 	var/obj/item/radio/radio
+	/// Did we succeed?
+	var/exfil_success = FALSE
 
 /obj/effect/portal/advanced/exfiltration/Initialize(mapload)
 	. = ..()
@@ -444,6 +447,14 @@
 	radio.listening = FALSE
 	radio.follow_target = src
 	radio.config(list("Security" = 0))
+
+/obj/effect/portal/advanced/exfiltration/Destroy()
+	if(exfil_success)
+		return ..()
+	if(antag_mind)
+		log_and_message_admins("[antag_mind.original_mob_name] failed to exfiltrate.")
+	SSblackbox.record_feedback("tally", "exfiltration", 1, "exfiltration_failure")
+	return ..()
 
 /obj/effect/portal/advanced/exfiltration/can_teleport(atom/movable/A)
 	var/mob/living/M = A
@@ -498,6 +509,7 @@
 
 /obj/effect/portal/advanced/exfiltration/proc/fail_extraction(mob/living/schmuck)
 	to_chat(schmuck, "<span class='warning'>You feel immense pain!</span>")
+	log_and_message_admins("[schmuck] went through an exfiltration portal they didn't control.")
 	schmuck.Paralyse(30 SECONDS)
 	schmuck.EyeBlind(35 SECONDS)
 	schmuck.EyeBlurry(35 SECONDS)
@@ -545,18 +557,19 @@
 	for(var/datum/objective/objective in antag_mind.get_all_objectives(include_team = FALSE))
 		objective.completed = objective.check_completion()
 	// Handle syndicate barification
+	log_and_message_admins("[M] extracted using an exfiltration portal.")
+	exfil_success = TRUE
+	SSblackbox.record_feedback("tally", "exfiltration", 1, "exfiltration_success")
 	prepare_ghosting(M)
 
 /obj/effect/portal/advanced/exfiltration/proc/prepare_ghosting(mob/living/carbon/human/extractor)
 	if(!istype(extractor))
 		return
-	// Remove all clothing
+	// Remove all clothing and bio chips
 	for(var/obj/item/I in extractor)
-		if(istype(I, /obj/item/bio_chip))
-			continue
 		qdel(I)
 
-	// Remove implants
+	// Remove cybernetic implants
 	for(var/obj/item/organ/internal/cyberimp/I in extractor.internal_organs)
 		// Greys get to keep their implant
 		if(isgrey(extractor) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
@@ -566,6 +579,10 @@
 			continue
 		// Try removing it
 		I = I.remove(extractor)
+
+	// Remove martial arts
+	for(var/datum/martial_art/MA in extractor.mind.known_martial_arts)
+		MA.remove(extractor)
 
 	// Equip outfits and remove spells
 	var/datum/mind/extractor_mind = extractor.mind
