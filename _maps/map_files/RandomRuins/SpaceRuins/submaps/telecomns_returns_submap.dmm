@@ -421,7 +421,7 @@
 /area/template_noop)
 "XT" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/item/storage/firstaid/ert,
 /turf/template_noop,
 /area/template_noop)

@@ -449,7 +449,7 @@
 /area/space/nearstation)
 "CZ" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_robust,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Ds" = (
