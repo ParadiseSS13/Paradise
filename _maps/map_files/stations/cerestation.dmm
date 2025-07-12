@@ -36786,6 +36786,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "gDx" = (
@@ -91392,11 +91393,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
-"sEG" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
-/area/station/public/fitness)
 "sES" = (
 /obj/machinery/door/airlock/public/glass{
 	autoclose = 0;
@@ -92015,6 +92011,7 @@
 	pixel_y = -2
 	},
 /obj/item/storage/box/handcuffs,
+/obj/item/storage/box/stingers,
 /obj/item/storage/box/teargas{
 	pixel_x = -3;
 	pixel_y = -3
@@ -144127,7 +144124,7 @@ lTY
 pwt
 pwt
 pwt
-sEG
+pwt
 gDu
 kWu
 ddq

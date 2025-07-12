@@ -558,6 +558,10 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		return null
 	if(ismob(A))
 		return A
+	if(istype(A, /obj/structure/blob/core))
+		var/obj/structure/blob/core/blob = A
+		if(blob.overmind)
+			return blob.overmind
 
 	. = null
 	for(var/mob/M in A)
