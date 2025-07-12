@@ -73,29 +73,29 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
-	button_overlay_icon = 'icons/obj/wizard.dmi'
-	button_overlay_icon_state = "fireball"
+	button_icon = 'icons/obj/wizard.dmi'
+	button_icon_state = "fireball"
 	chosen_message = "<span class='colossus'>You are now shooting fire at your target.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/fire_cone_meteors
 	name = "Fire Cone With Meteors"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now shooting fire at your target and raining fire around you.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/mass_fire
 	name = "Mass Fire Attack"
-	button_overlay_icon = 'icons/effects/fire.dmi'
-	button_overlay_icon_state = "1"
+	button_icon = 'icons/effects/fire.dmi'
+	button_icon_state = "1"
 	chosen_message = "<span class='colossus'>You are now shooting mass fire at your target.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/lava_swoop
 	name = "Lava Swoop"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "lavastaff_warn"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "lavastaff_warn"
 	chosen_message = "<span class='colossus'>You are now swooping and raining lava at your target.</span>"
 	chosen_attack_num = 4
 
