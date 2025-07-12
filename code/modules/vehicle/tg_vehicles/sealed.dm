@@ -98,10 +98,7 @@
 	if(!istype(M))
 		return FALSE
 	remove_occupant(M)
-	if(!is_ai(M)) // This is the ONE mob we don't want to be moved to the vehicle that should be handled when used
-		M.forceMove(exit_location(M))
-	else
-		return TRUE
+	M.forceMove(exit_location(M))
 	if(randomstep)
 		var/turf/target_turf = get_step(exit_location(M), pick(GLOB.cardinal))
 		M.throw_at(target_turf, 5, 10)
