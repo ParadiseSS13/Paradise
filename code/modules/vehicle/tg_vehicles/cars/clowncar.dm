@@ -79,9 +79,9 @@
 	if(prob(33))
 		visible_message("<span class='warning'>[src] spews out a ton of space lube!</span>")
 		var/datum/effect_system/foam_spread/L = new()
-		var/datum/reagents/foamreagent = new /datum/reagents(25)
-		foamreagent.add_reagent(/datum/reagent/lube, 25)
-		L.set_up(40, loc, foamreagent)
+		var/datum/reagents/foamreagent = new /datum/reagents(200)
+		foamreagent.add_reagent("lube", 200)
+		L.set_up(40, get_turf(src), foamreagent)
 		L.start()
 
 /obj/tgvehicle/sealed/car/clowncar/attacked_by(obj/item/I, mob/living/user)
