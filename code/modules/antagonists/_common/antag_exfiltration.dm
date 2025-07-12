@@ -159,6 +159,12 @@
 	user.drop_item()
 	forceMove(F)
 	log_and_message_admins("[user] activated an exfiltration flare.")
+	var/obj/item/radio/radio = new
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Security" = 0))
+	radio.autosay("<b>Unknown portal beacon detected at [get_area(src.loc)].</b>", "Automated Announcement", "Security")
+	qdel(radio)
 	addtimer(CALLBACK(src, PROC_REF(create_portal), user), extraction_time)
 
 /obj/item/wormhole_jaunter/extraction/turf_check(mob/user)
