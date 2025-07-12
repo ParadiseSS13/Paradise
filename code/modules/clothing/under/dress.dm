@@ -29,6 +29,11 @@
 	item_state = "wcoat"
 	item_color = "black_tango"
 
+/obj/item/clothing/under/dress/blacktango/blue
+	name = "blue tango dress"
+	icon_state = "blue_tango"
+	item_color = "blue_tango"
+
 /obj/item/clothing/under/dress/blackskirt
 	name = "black skirt"
 	desc = "A black skirt, very fancy!"
