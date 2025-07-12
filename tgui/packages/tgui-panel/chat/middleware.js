@@ -4,14 +4,16 @@
  * @license MIT
  */
 
-import DOMPurify from 'dompurify';
 import { storage } from 'common/storage';
+import DOMPurify from 'dompurify';
+
 import {
-  loadSettings,
-  updateSettings,
   addHighlightSetting,
+  loadSettings,
   removeHighlightSetting,
   updateHighlightSetting,
+  updateSettings,
+  updateToggle,
 } from '../settings/actions';
 import { selectSettings } from '../settings/selectors';
 import {
@@ -23,10 +25,10 @@ import {
   moveChatPageLeft,
   moveChatPageRight,
   rebuildChat,
-  toggleAcceptedType,
-  updateMessageCount,
   removeChatPage,
   saveChatToDisk,
+  toggleAcceptedType,
+  updateMessageCount,
 } from './actions';
 import { MAX_PERSISTED_MESSAGES, MESSAGE_SAVE_INTERVAL } from './constants';
 import { createMessage, serializeMessage } from './model';
@@ -94,6 +96,7 @@ const loadChatFromStorage = async (store) => {
 export const chatMiddleware = (store) => {
   let initialized = false;
   let loaded = false;
+  let needsUpdate = true;
   const sequences = [];
   const sequences_requested = [];
   chatRenderer.events.on('batchProcessed', (countByType) => {
@@ -112,7 +115,10 @@ export const chatMiddleware = (store) => {
     const { type, payload } = action;
     if (!initialized) {
       initialized = true;
-      loadChatFromStorage(store);
+      if (!game.databaseBackendEnabled || needsUpdate) {
+        saveChatToStorage(store);
+        needsUpdate = false;
+      }
     }
     if (type === 'chat/message') {
       let payload_obj;
@@ -176,6 +182,7 @@ export const chatMiddleware = (store) => {
     }
     if (
       type === updateSettings.type ||
+      type === updateToggle.type ||
       type === loadSettings.type ||
       type === addHighlightSetting.type ||
       type === removeHighlightSetting.type ||
@@ -184,6 +191,7 @@ export const chatMiddleware = (store) => {
       next(action);
       const settings = selectSettings(store.getState());
       chatRenderer.setHighlight(settings.highlightSettings, settings.highlightSettingById);
+      needsUpdate = true;
       return;
     }
     if (type === 'roundrestart') {
