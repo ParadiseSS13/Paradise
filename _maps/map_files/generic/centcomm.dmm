@@ -7163,9 +7163,6 @@
 	icon_state = "vault"
 	},
 /area/ghost_bar)
-"xn" = (
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/area/space/nearstation/centcom)
 "xo" = (
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
@@ -15858,6 +15855,12 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/economy/vending/medical/syndicate_access,
+/obj/machinery/economy/vending/medical/syndicate_access{
+	req_access = list()
+	},
+/obj/machinery/economy/vending/medical/syndicate_access{
+	req_access = list()
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "ZA" = (
@@ -71162,7 +71165,7 @@ aN
 aN
 aN
 OK
-OK
+ps
 ps
 Td
 Td
@@ -71420,8 +71423,8 @@ aN
 aN
 OK
 ps
-ps
 Me
+Td
 rU
 tS
 xm
@@ -71677,8 +71680,8 @@ aN
 aN
 OK
 ps
-ps
 Me
+Td
 rU
 Th
 RQ
@@ -71934,8 +71937,8 @@ aN
 ps
 ps
 ps
-ps
 Me
+Td
 rU
 py
 Qq
@@ -72191,7 +72194,7 @@ aN
 aN
 ps
 ps
-xn
+Td
 Td
 Td
 Td
