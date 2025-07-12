@@ -189,6 +189,10 @@ GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
 	SSmachines.setup_template_powernets(cables)
 	cables.Cut()
 
+/datum/space_level/proc/has_all_traits(list/traits)
+	// Cool, horrible set inclusion
+	return length(flags & traits) == length(traits)
+
 /datum/space_level/lavaland/set_transition_borders()
 	// really no reason why these need to be so large,
 	// especially since ruin placement is already constrained
