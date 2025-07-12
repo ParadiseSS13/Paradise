@@ -132,7 +132,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
