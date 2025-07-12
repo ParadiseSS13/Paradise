@@ -1056,15 +1056,16 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/pixel_y_offset = AM.pixel_y + M.get_y_shift()
 
 	//Irregular objects
-	if(AM.bound_height != world.icon_size || AM.bound_width != world.icon_size)
-		var/icon/AMicon = icon(AM.icon, AM.icon_state)
-		pixel_x_offset += ((AMicon.Width()/world.icon_size)-1)*(world.icon_size*0.5)
-		pixel_y_offset += ((AMicon.Height()/world.icon_size)-1)*(world.icon_size*0.5)
-		qdel(AMicon)
+	var/icon/AM_icon = icon(AM.icon, AM.icon_state)
+	var/AM_icon_height = AM_icon.Height()
+	var/AM_icon_width = AM_icon.Width()
+	if(AM_icon_height != world.icon_size || AM_icon_width != world.icon_size)
+		pixel_x_offset += ((AM_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
+		pixel_y_offset += ((AM_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
 
 	//DY and DX
-	var/rough_x = round(round(pixel_x_offset,world.icon_size)/world.icon_size)
-	var/rough_y = round(round(pixel_y_offset,world.icon_size)/world.icon_size)
+	var/rough_x = round(round(pixel_x_offset, world.icon_size) / world.icon_size)
+	var/rough_y = round(round(pixel_y_offset, world.icon_size) / world.icon_size)
 
 	//Find coordinates
 	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
