@@ -138,9 +138,9 @@
 				if(user.head && istype(user.head, /obj/item/clothing/head/helmet/space/chronos))
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Mounting /dev/helmet")
 					helmet = user.head
-					helmet.flags |= NODROP
+					helmet.set_nodrop(TRUE, loc)
 					helmet.suit = src
-					flags |= NODROP
+					set_nodrop(TRUE, loc)
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view")
@@ -169,11 +169,11 @@
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Unmounting /dev/helmet")
-					helmet.flags &= ~NODROP
+					helmet.set_nodrop(FALSE, loc)
 					helmet.suit = null
 					helmet = null
 				to_chat(user, "logout")
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 		cooldown = world.time + cooldowntime * 1.5
 		activated = FALSE
 		activating = FALSE

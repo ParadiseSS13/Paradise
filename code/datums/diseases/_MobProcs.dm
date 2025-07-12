@@ -60,6 +60,9 @@
 	if(!CanContractDisease(D))
 		return 0
 
+	if(src.mind && HAS_TRAIT(src.mind, TRAIT_GERMOPHOBE) && prob(85))
+		return 0
+
 	var/obj/item/clothing/Cl = null
 	var/passed = 1
 

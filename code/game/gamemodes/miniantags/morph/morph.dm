@@ -35,6 +35,8 @@
 	attacktext = "glomps"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/food/meat/slab = 2)
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/morph
 
 	/// If the morph is disguised or not
 	var/morphed = FALSE
@@ -207,13 +209,35 @@
 	. = ..()
 	add_to_all_human_data_huds()
 	if(stat == DEAD && gibbed)
-		for(var/atom/movable/AM in src)
-			AM.forceMove(loc)
-			if(prob(90))
-				step(AM, pick(GLOB.alldirs))
+		eject_contents()
 	// Only execute the below if we successfully died
 	if(!.)
 		return FALSE
+
+/mob/living/simple_animal/hostile/morph/proc/eject_contents()
+	for(var/atom/movable/AM in src)
+		AM.forceMove(loc)
+		if(prob(90))
+			step(AM, pick(GLOB.alldirs))
+
+/mob/living/simple_animal/hostile/morph/crowbar_act(mob/living/user, obj/item/I)
+	if(stat != DEAD)
+		return CONTINUE_ATTACK
+	if(user.a_intent != INTENT_HELP)
+		return CONTINUE_ATTACK
+	if(!contents.len)
+		to_chat(user, "<span class='warning'>[src] doesnt have anything left inside it!</span>")
+		return ITEM_INTERACT_COMPLETE
+	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+	visible_message(
+		"<span class='warning'>[src] begins to pry open the morph's massive jaws!</span>", 
+		"<span class='danger'>You begin to pry open the morph's massive jaws!</span>", 
+		"<span class='warning'>You hear wet, meaty tearing nearby!</span>"
+	)
+	if(do_after_once(user, 8 SECONDS, target = src))
+		eject_contents()
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE, -1)
+	return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
 	if(ambush_prepared)
@@ -222,6 +246,13 @@
 	else
 		return ..()
 
+/mob/living/simple_animal/hostile/morph/examine(mob/user)
+	. = ..()
+	if(stat == DEAD)
+		if(length(contents))
+			. += "<span class='notice'>You can use <b>ALT + Click</b> to eject anything the morph may have eaten.</span>"
+		else if(in_range(user, src))
+			. += "<span class='warning'>\The [src] seems to have nothing left inside of it!</span>"
 #define MORPH_ATTACKED if((. = ..()) && morphed) mimic_spell.restore_form(src)
 
 /mob/living/simple_animal/hostile/morph/attack_by(obj/item/O, mob/living/user, params)

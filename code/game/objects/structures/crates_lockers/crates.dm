@@ -358,6 +358,12 @@
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
 
+/obj/structure/closet/crate/trashcart/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"

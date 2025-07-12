@@ -520,6 +520,8 @@
 	if(tilted)
 		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
+	if(seconds_electrified != 0 && shock(user, 100))
+		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/economy/vending/multitool_act(mob/user, obj/item/I)
@@ -1032,6 +1034,10 @@
 		var/damage = squish_damage
 		var/picked_angle = pick(90, 270)
 		var/should_crit = !from_combat && crit
+		var/turf/turf = get_turf(victim)
+		for(var/obj/thing in turf)
+			if(thing.flags & ON_BORDER) // Crush directional windows, flipped tables and windoors.
+				thing.deconstruct(FALSE, TRUE)
 		if(!crit && !from_combat)
 			// only deal this extra bit of damage if they wouldn't otherwise be taking the double damage from critting
 			damage *= self_knockover_factor
@@ -1041,6 +1047,8 @@
 			tilted = TRUE
 			anchored = FALSE
 			layer = ABOVE_MOB_LAYER
+			return TRUE
+		return FALSE
 
 	var/should_throw_at_target = TRUE
 
