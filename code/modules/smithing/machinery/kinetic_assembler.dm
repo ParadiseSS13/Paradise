@@ -88,6 +88,9 @@
 		return
 	switch(removed)
 		if("Primary")
+			if(!primary)
+				to_chat(user, "<span class='warning'>There is no primary component to remove.</span>")
+				return
 			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
 			if(primary.burn_check(user))
 				primary.burn_user(user)
@@ -98,6 +101,9 @@
 			primary = null
 			return
 		if("Secondary")
+			if(!secondary)
+				to_chat(user, "<span class='warning'>There is no secondary component to remove.</span>")
+				return
 			to_chat(user, "<span class='notice'>You remove [secondary] from the secondary component slot of [src].</span>")
 			if(secondary.burn_check(user))
 				secondary.burn_user(user)
@@ -108,6 +114,9 @@
 			secondary = null
 			return
 		if("Trim")
+			if(!trim)
+				to_chat(user, "<span class='warning'>There is no trim component to remove.</span>")
+				return
 			to_chat(user, "<span class='notice'>You remove [trim] from the trim component slot of [src].</span>")
 			if(trim.burn_check(user))
 				trim.burn_user(user)
