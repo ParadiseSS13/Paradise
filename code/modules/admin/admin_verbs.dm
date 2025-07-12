@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_intercomm_sound,
 	/client/proc/stop_global_admin_sounds,
 	/client/proc/stop_sounds_global,
-	/client/proc/play_web_sound
+	/client/proc/play_sound_tgchat
 	))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,

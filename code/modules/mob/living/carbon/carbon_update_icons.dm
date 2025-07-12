@@ -18,7 +18,13 @@
 	if(resize != RESIZE_DEFAULT_SIZE)
 		changed++
 		ntransform.Scale(resize)
-		ntransform.Translate(0, (resize - 1) * 16) // Pixel Y shift: 1.25 = 4, 1.5 = 8, 2 -> 16, 3 -> 32, 4 -> 48, 5 -> 64
+		if(body_position == LYING_DOWN) // Manipulate the X axis when horizontal
+			if(lying_angle == 270) // Depending on our lying angle, we need to add or remove from the offset.
+				ntransform.Translate((resize - 1) * -16, 0)
+			else
+				ntransform.Translate((resize - 1) * 16, 0)
+		else
+			ntransform.Translate(0, (resize - 1) * 16) // Pixel Y shift: 1.25 = 4, 1.5 = 8, 2 -> 16, 3 -> 32, 4 -> 48, 5 -> 64
 		resize = RESIZE_DEFAULT_SIZE
 
 	if(changed)

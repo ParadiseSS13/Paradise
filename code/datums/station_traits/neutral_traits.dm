@@ -107,6 +107,11 @@
 	weight = 5
 	show_in_report = TRUE
 	report_message = "Nanotrasen has chosen your station for an experiment - everyone has free scryers! Use these to talk to other people easily and privately."
+	var/static/list/unequip_slots = list(
+		"backpack" = ITEM_SLOT_IN_BACKPACK,
+		"left pocket" = ITEM_SLOT_LEFT_POCKET,
+		"right pocket" = ITEM_SLOT_RIGHT_POCKET,
+	)
 
 /datum/station_trait/scryers/New()
 	. = ..()
@@ -122,7 +127,7 @@
 	if(silly_little_scarf)
 		humanspawned.unequip(silly_little_scarf)
 		silly_little_scarf.forceMove(get_turf(humanspawned))
-		humanspawned.equip_in_one_of_slots(silly_little_scarf, ITEM_SLOT_IN_BACKPACK, ITEM_SLOT_LEFT_POCKET, ITEM_SLOT_RIGHT_POCKET)
+		humanspawned.equip_in_one_of_slots(silly_little_scarf, unequip_slots)
 
 	var/obj/item/clothing/neck/link_scryer/loaded/new_scryer = new(spawned)
 	new_scryer.label = spawned.name
