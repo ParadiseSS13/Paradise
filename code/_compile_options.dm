@@ -47,7 +47,7 @@
 // Yes I know 1648 was the earliest 516 but BYONDapi changes were made that we need
 // Expect more frequent bumps on this in the future
 #define MIN_COMPILER_BUILD 1651
-#if DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD
+#if (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(SPACEMAN_DMM)
 //Don't forget to update this part
 #error Your version of BYOND is too out-of-date to compile this project. Go to secure.byond.com/download and update.
 #error You need version 515.1651 or higher
