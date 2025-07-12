@@ -68,6 +68,8 @@
 
 #define ismecha(A) (istype(A, /obj/mecha))
 
+#define isclowncar(A) (istype(A, /obj/tgvehicle/sealed/car/clowncar))
+
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
