@@ -27,6 +27,7 @@
 	var/can_pick_capstone = TRUE
 	/// Have we notified that our victim does not give swarms from draining
 	var/has_notified = FALSE
+	boss_title = "Master Mindflayer"
 
 /datum/antagonist/mindflayer/New()
 	. = ..()
@@ -59,6 +60,13 @@
 /datum/antagonist/mindflayer/give_objectives()
 	add_antag_objective(/datum/objective/swarms)
 	forge_basic_objectives()
+
+/datum/antagonist/mindflayer/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
+	remove_all_abilities()
+	remove_all_passives()
+	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/mindflayer)
+	radio.autosay("<b>--ZZZT!- Excellent job, [extractor.real_name]. Proceed to -^%&!-ZZT!-</b>", "Master Flayer", "Security")
+	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Mindflayer")
 
 /datum/antagonist/mindflayer/proc/get_swarms()
 	return usable_swarms
