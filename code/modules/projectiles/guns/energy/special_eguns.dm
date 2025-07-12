@@ -18,6 +18,7 @@
 * 17. DETECTIVE ENERGY REVOLVER
 * 18. VOX SPIKETHROWER
 * 19. VORTEX SHOTGUN
+* 20. Model 2495
 */
 //////////////////////////////
 // MARK: ION RIFLE
@@ -1213,3 +1214,77 @@
 	COOLDOWN_START(src, emp_cooldown, 1 MINUTES)
 	atom_say("Energy coils recharged!")
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+
+//////////////////////////////
+// MARK: MODEL 2495
+//////////////////////////////
+
+/obj/item/gun/energy/laser/lever_action
+	name = "model 2495"
+	desc = "A rifle styled after an ancient Earth design. Concealed beneath the wooden furniture and forged metal is a modern laser gun. Features a hand-powered charger that can be used anywhere."
+	cell_type = /obj/item/stock_parts/cell/lever_gun
+	icon_state = "lever_action"
+	item_state = "lever_action"
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	origin_tech = "combat=5;magnets=4"
+	w_class = WEIGHT_CLASS_NORMAL
+	flags =  CONDUCT
+	slot_flags = ITEM_SLOT_BACK
+	can_charge = FALSE
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/lever_action)
+	shaded_charge = FALSE
+	var/cycle_time = 1 SECONDS
+	COOLDOWN_DECLARE(cycle_cooldown)
+
+/obj/item/gun/energy/laser/lever_action/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This weapon is rechargable by cycling the action, or by twirling the firearm with some skill.</span>"
+
+/obj/item/gun/energy/laser/lever_action/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The Model 2495 is Warp Tac's response to demand for a laserarm with the endurance required to be used far away from any support infrastructure for extended periods of time. \
+	The forged metal and wooden body of the rifle is exceptionally ruggedized to resist rough handling, harsh climates, and whatever other general abuse may be thrown at it. \
+	The internal components are beefier and larger than strictly required to lend further durability. Whilst it is quite heavy for a laserarm, it's only somewhat heavier than \
+	average compared to a traditional ballistic rifle of similar size."
+	. += ""
+	. += "The main selling point of the rifle is the built-in recharging mechanism, operated by cycling a lever located around the trigger guard. \
+	One full cycle provides enough energy for a single shot. Skillful users can twirl the rifle to operate the lever, although the operator's manual strongly cautions against doing so."
+	. += ""
+	. += "This weapon has long been one of Warp Tac's most popular products thanks to a large market among colonists, frontiersmen, and the occasional pirate outfit."
+
+/obj/item/gun/energy/laser/lever_action/emp_act()
+	return
+
+/obj/item/gun/energy/laser/lever_action/attack_self__legacy__attackchain(mob/living/user as mob)
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && user.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need both hands to cycle the action!")
+		return
+	cycle_action(user)
+	if(HAS_TRAIT(user, TRAIT_BADASS) && istype(user.get_inactive_hand(), /obj/item/gun/energy/laser/lever_action))
+		var/obj/item/gun/energy/laser/lever_action/offhand = user.get_inactive_hand()
+		offhand.cycle_action()
+
+/obj/item/gun/energy/laser/lever_action/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if(!COOLDOWN_FINISHED(src, cycle_cooldown))
+		return
+	return ..()
+
+/obj/item/gun/energy/laser/lever_action/proc/cycle_action(mob/living/user)
+	if(!COOLDOWN_FINISHED(src, cycle_cooldown))
+		return
+	if(cell.charge == cell.maxcharge)
+		return
+	cell.give(cell.maxcharge)
+	playsound(user, 'sound/weapons/gun_interactions/lever_action.ogg', 60, TRUE)
+	update_icon()
+	var/total_cycle_time = cycle_time
+	if(current_lens)
+		total_cycle_time /= current_lens.fire_rate_mult
+	COOLDOWN_START(src, cycle_cooldown, total_cycle_time)
+
+/obj/item/gun/energy/laser/lever_action/update_icon_state()
+	icon_state = initial(icon_state)
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(cell.charge < shot.e_cost)
+		icon_state = "lever_action_e"
