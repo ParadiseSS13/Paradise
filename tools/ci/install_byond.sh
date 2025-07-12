@@ -2,7 +2,9 @@
 set -euo pipefail
 
 # This is needed now
-sudo apt install libcurl4
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt install libcurl4:i386
 
 if [ -z "${BYOND_MAJOR+x}" ]; then
   source _build_dependencies.sh
