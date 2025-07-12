@@ -472,7 +472,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 	needs_target = FALSE
 
-/datum/objective/escape/check_completion(var/exfilling = FALSE)
+/datum/objective/escape/check_completion(exfilling = FALSE)
 	if(..())
 		return TRUE
 	var/list/owners = get_owners()
