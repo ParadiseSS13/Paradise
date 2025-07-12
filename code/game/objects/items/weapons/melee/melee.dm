@@ -298,7 +298,7 @@
 		return FINISH_ATTACK
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		target.KnockDown(8 SECONDS)
-		if(target.stat != DEAD && !isrobot(target) && !(user.reagents.get_reagent_amount("mephedrone") > 15))
+		if(target.stat != DEAD && !isrobot(target) && user.reagents.get_reagent_amount("mephedrone") <= 15)
 			user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
 
 /obj/item/chainsaw/syndie/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
