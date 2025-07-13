@@ -46,21 +46,6 @@
 	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_PURPLE
 
-/obj/item/projectile/magic/fireball
-	name = "bolt of fireball"
-	icon_state = "fireball"
-	damage = 10
-	damage_type = BRUTE
-	nodamage = 0
-	immolate = 6
-
-	//explosion values
-	var/exp_devastate = -1
-	var/exp_heavy = 0
-	var/exp_light = 2
-	var/exp_flash = 3
-	var/exp_fire = 2
-
 /obj/item/projectile/magic/death/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(!.)
@@ -78,6 +63,21 @@
 		target.death(FALSE)
 
 		target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
+
+/obj/item/projectile/magic/fireball
+	name = "bolt of fireball"
+	icon_state = "fireball"
+	damage = 10
+	damage_type = BRUTE
+	nodamage = 0
+	immolate = 6
+
+	//explosion values
+	var/exp_devastate = -1
+	var/exp_heavy = 0
+	var/exp_light = 2
+	var/exp_flash = 3
+	var/exp_fire = 2
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -99,8 +99,9 @@
 
 /obj/item/projectile/magic/fireball/on_hit(target)
 	. = ..()
-	if(!.)
-		return .
+	if(!isturf(target))
+		if(!.)
+			return .
 	var/turf/T = get_turf(target)
 	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = name)
 	if(ismob(target)) //multiple flavors of pain
