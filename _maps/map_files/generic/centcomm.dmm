@@ -10853,7 +10853,9 @@
 /area/syndicate_mothership)
 "JT" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/syndie,
+/obj/machinery/computer/library/syndie{
+	req_one_access = list()
+	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "JU" = (
@@ -71423,7 +71425,7 @@ aN
 aN
 OK
 ps
-Me
+ps
 Td
 rU
 tS
@@ -71680,7 +71682,7 @@ aN
 aN
 OK
 ps
-Me
+ps
 Td
 rU
 Th
@@ -71937,7 +71939,7 @@ aN
 ps
 ps
 ps
-Me
+ps
 Td
 rU
 py
@@ -72194,7 +72196,7 @@ aN
 aN
 ps
 ps
-Td
+ps
 Td
 Td
 Td
