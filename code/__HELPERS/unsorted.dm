@@ -960,6 +960,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							"luminosity",
 							"parent_type",
 							"parent",
+							"pixloc",
 							"signal_procs",
 							"type",
 							"vars",
