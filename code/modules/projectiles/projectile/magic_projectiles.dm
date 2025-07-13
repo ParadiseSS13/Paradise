@@ -6,27 +6,25 @@
 	nodamage = 1
 	armour_penetration_percentage = 100
 	flag = MAGIC
-	/// determines what type of antimagic can block the spell projectile
-	var/antimagic_flags = MAGIC_RESISTANCE
-	/// determines the drain cost on the antimagic item
-	var/antimagic_charge_cost = 1
+	antimagic_flags = MAGIC_RESISTANCE
+	antimagic_charge_cost = 1
 
-/obj/item/projectile/magic/prehit(atom/target)
-	if(isliving(target))
-		var/mob/living/victim = target
-		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
-			visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
-			damage = 0
-			nodamage = 1
-			return FALSE
-	return ..()
+// /obj/item/projectile/magic/prehit(atom/target)
+	// if(isliving(target))
+	// 	var/mob/living/victim = target
+	// 	if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
+	// 		visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
+	// 		damage = 0
+	// 		nodamage = 1
+	// 		return FALSE
+// 	// return ..()
 
-/obj/item/projectile/magic/on_hit(atom/target, blocked, hit_zone)
-	if(isliving(target))
-		var/mob/living/victim = target
-		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost)) // Yes we have to check this twice welcome to bullet hell code
-			return FALSE
-	return ..()
+// /obj/item/projectile/magic/on_hit(atom/target, blocked, hit_zone)
+// 	if(isliving(target))
+// 		var/mob/living/victim = target
+// 		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost)) // Yes we have to check this twice welcome to bullet hell code
+// 			return FALSE
+// 	return ..()
 
 
 /obj/item/projectile/magic/death
@@ -99,11 +97,10 @@
 
 /obj/item/projectile/magic/fireball/on_hit(target)
 	. = ..()
-	if(!isturf(target))
+	if(ismob(target))
 		if(!.)
 			return .
-	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = name)
+	explosion(get_turf(target), exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = name)
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
