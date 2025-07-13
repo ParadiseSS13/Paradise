@@ -56168,7 +56168,6 @@
 "kwy" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/red/corner,
-/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
