@@ -56,7 +56,7 @@
 
 /obj/tgvehicle/sealed/after_remove_occupant(mob/M)
 	. = ..()
-	REMOVE_TRAITS_IN(M, VEHICLE_TRAIT)
+	REMOVE_TRAIT(M, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
 
 /obj/tgvehicle/sealed/proc/mob_try_enter(mob/rider)
 	if(!istype(rider))

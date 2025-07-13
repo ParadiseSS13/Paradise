@@ -42,7 +42,8 @@
 /obj/tgvehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.mind?.assigned_role == "Clown") // Ensures only clowns can drive the car. (Including more at once)
+		// Only clowns can drive the car, unless an admin varedits the car to allow someone else to drive.
+		if(H.mind?.assigned_role == "Clown" || (!enforce_clown_role && length(return_controllers_with_flag(VEHICLE_CONTROL_DRIVE)) < 1))
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE)
 			playsound(src, 'sound/effects/clowncar/door_close.ogg', 70, TRUE)
 			log_game("[M] has entered [src] as a possible driver")
@@ -248,14 +249,14 @@
 	if(cannonmode == CLOWN_CANNON_BUSY)
 		to_chat(user, "<span class='notice'>Please wait for the vehicle to finish its current action first.</span>")
 		return
-	if(cannonmode) // canon active, deactivate
+	if(cannonmode) // cannon active, deactivate
 		flick("clowncar_fromfire", src)
 		icon_state = "clowncar"
 		addtimer(CALLBACK(src, PROC_REF(deactivate_cannon)), 2 SECONDS)
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode2.ogg', 75)
 		visible_message("<span class='warning'>[src] starts going back into mobile mode.</span>")
 	else
-		canmove = FALSE // anchor and activate canon
+		canmove = FALSE // anchor and activate cannon
 		flick("clowncar_tofire", src)
 		icon_state = "clowncar_fire"
 		visible_message("<span class='warning'>[src] opens up and reveals a large cannon.</span>")
@@ -263,22 +264,22 @@
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode1.ogg', 75)
 	cannonmode = CLOWN_CANNON_BUSY
 
-/// Finalizes canon activation
+/// Finalizes cannon activation
 /obj/tgvehicle/sealed/car/clowncar/proc/activate_cannon()
 	var/mouse_pointer = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
 	cannonmode = CLOWN_CANNON_READY
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
-		REMOVE_TRAIT(driver, TRAIT_HANDS_BLOCKED, src)
+		REMOVE_TRAIT(driver, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
 		if(driver.client.mouse_pointer_icon == initial(driver.client.mouse_pointer_icon))
 			driver.client.mouse_pointer_icon = mouse_pointer
 
-/// Finalizes canon deactivation
+/// Finalizes cannon deactivation
 /obj/tgvehicle/sealed/car/clowncar/proc/deactivate_cannon()
 	canmove = TRUE
 	cannonmode = CLOWN_CANNON_INACTIVE
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
 		driver.client.mouse_pointer_icon = initial(driver.client.mouse_pointer_icon)
-		ADD_TRAIT(driver, TRAIT_HANDS_BLOCKED, src)
+		ADD_TRAIT(driver, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
 
 /// Fires the cannon where the user clicks
 /obj/tgvehicle/sealed/car/clowncar/proc/fire_cannon_at(atom/target, mob/user, list/modifiers)
