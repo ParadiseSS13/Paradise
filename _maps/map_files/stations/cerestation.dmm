@@ -4765,6 +4765,9 @@
 "aMc" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
+/obj/structure/closet/fireaxecabinet{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
