@@ -16,6 +16,11 @@
 #define ORGAN_DATUM_LUNGS	"lungs"
 #define ORGAN_DATUM_BATTERY "battery"
 
+// Organ quality datums.
+#define ORGAN_DAMAGED 1
+#define ORGAN_NORMAL 2
+#define ORGAN_PRISTINE 3
+
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)
@@ -291,6 +296,7 @@
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
+#define is_mecha_occupant(A)  (istype(A.loc, /obj/mecha))
 
 // Hearing protection
 #define HEARING_PROTECTION_NONE	0

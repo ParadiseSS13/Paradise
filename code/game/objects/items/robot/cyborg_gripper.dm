@@ -27,6 +27,8 @@
 	var/can_help_up = FALSE
 	/// The item currently being held.
 	var/obj/item/gripped_item
+	/// Tracks gripper's state, prevents us from spamming actions
+	var/busy = FALSE
 
 /obj/item/gripper/examine(mob/user)
 	. = ..()
@@ -79,24 +81,24 @@
 	if(!target)
 		return ITEM_INTERACT_COMPLETE
 
+	if(busy)
+		return TRUE // prevents us from punching atom we clicked on, don't wanna return interact_complete because we didn't really complete anything
+
 	// Does the gripper already have an item?
 	if(gripped_item)
-		// Pass the attack on to the target. This might delete/relocate gripped_item. If the attackby doesn't resolve or delete the target or gripped_item, afterattack.
-		// We also need to check if it's the old or new attack chain until the migration is complete.
-		if(new_attack_chain)
-			if(!target.item_interaction(user, gripped_item, modifiers))
-				gripped_item.melee_attack_chain(user, target, modifiers)
-		else
-			if(!target.attackby__legacy__attackchain(gripped_item, user, modifiers))
-				gripped_item?.afterattack__legacy__attackchain(target, user, 1, modifiers)
+		busy = TRUE
+
+		// Pass the attack on to the target. This might delete/relocate gripped_item.
+		if(!target.item_interaction(user, gripped_item, modifiers))
+			gripped_item.melee_attack_chain(user, target, modifiers)
 		// Check to see if there is still an item in the gripper (stackable items trigger this).
 		if(!gripped_item && length(contents))
 			gripped_item = contents[1]
-			return ITEM_INTERACT_COMPLETE
 		// If the gripper thinks it has something but it actually doesn't, we fix this.
-		if(gripped_item && !length(contents))
+		else if(gripped_item && !length(contents))
 			gripped_item = null
-			return ITEM_INTERACT_COMPLETE
+
+		busy = FALSE
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -167,6 +169,8 @@
 	return TRUE
 
 /obj/item/gripper/pre_attack(atom/A, mob/living/user, params)
+	// This is required to avoid hypersonic interaction speed.
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(gripped_item)
 		gripped_item.attack(A, user)
 		return TRUE
@@ -174,8 +178,6 @@
 	if(!ismob(A))
 		return ..()
 
-	// This is required to avoid hypersonic interaction speed.
-	user.changeNext_move(CLICK_CD_MELEE)
 	. = TRUE
 	var/mob/living/target = A
 	// If a human target is horizonal, try to help them up. Unless you're trying to kill them.
