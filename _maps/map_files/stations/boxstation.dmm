@@ -11910,6 +11910,7 @@
 /area/station/public/dorms)
 "aQs" = (
 /obj/item/kirbyplants/large,
+/obj/structure/closet/secure_closet/paramedic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
@@ -24817,13 +24818,13 @@
 	},
 /area/station/medical/paramedic)
 "bHL" = (
-/obj/structure/closet/paramedic,
 /obj/machinery/light,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/structure/closet/secure_closet/paramedic,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -66927,7 +66928,6 @@
 	},
 /area/station/science/break_room)
 "nmO" = (
-/obj/structure/closet/secure_closet/paramedic,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"

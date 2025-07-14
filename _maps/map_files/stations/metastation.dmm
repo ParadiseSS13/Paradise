@@ -27698,7 +27698,6 @@
 	},
 /area/station/hallway/primary/central/south)
 "cGZ" = (
-/obj/machinery/iv_drip,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -81954,7 +81953,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/closet/paramedic,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"

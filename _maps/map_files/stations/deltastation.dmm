@@ -74915,13 +74915,6 @@
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
-"ouu" = (
-/obj/structure/closet/paramedic,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/paramedic)
 "ouE" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 4
@@ -143481,7 +143474,7 @@ dFO
 cGF
 iWE
 dfv
-ouu
+nCA
 nBa
 shb
 dfv

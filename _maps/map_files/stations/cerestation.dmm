@@ -10839,7 +10839,7 @@
 	autolink_id = "engsm_btn_int";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_one_access = list(10, 24)
+	req_one_access = list(10,24)
 	},
 /obj/machinery/computer/sm_monitor,
 /obj/structure/disposalpipe/segment{
@@ -26877,7 +26877,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_one_access = list(10, 24)
+	req_one_access = list(10,24)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -42422,7 +42422,7 @@
 	int_door_link_id = "engsm_door_int";
 	ext_button_link_id = "engsm_btn_ext";
 	int_button_link_id = "engsm_btn_int";
-	req_one_access = list(10, 24)
+	req_one_access = list(10,24)
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-8"
@@ -44512,7 +44512,6 @@
 /area/station/maintenance/port)
 "inW" = (
 /obj/machinery/firealarm/directional/east,
-/obj/structure/closet/paramedic,
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable/orange{
 	icon_state = "0-2"
@@ -102036,7 +102035,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = -24;
-	req_one_access = list(10, 24)
+	req_one_access = list(10,24)
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
