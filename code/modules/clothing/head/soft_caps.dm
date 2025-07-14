@@ -143,7 +143,7 @@
 	name = "\improper EMT cap"
 	desc = "It's a blue baseball hat with a white medical shield."
 	icon_state = "paramedicsoft"
-	item_color "paramedic"
+	item_color = "paramedic"
 	dog_fashion = /datum/dog_fashion/head/paramedic
 
 /obj/item/clothing/head/soft/sec
