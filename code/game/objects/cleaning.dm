@@ -22,10 +22,26 @@
 		to_chat(user, "<span class='notice'>You need to take that [text_targetname] off before cleaning it.</span>")
 		return FALSE
 
+	var/is_dirty = FALSE
 	if(HAS_TRAIT(src, TRAIT_CMAGGED)) //So we don't need a cleaning_act for every cmaggable object
 		is_cmagged = TRUE
 		text_verb = "clean the ooze off"
 		cleanspeed = CMAG_CLEANTIME
+		is_dirty = TRUE
+	else if(ismob(src))
+		// Mobs always get cleaned directly, because humans have clothing that needs cleaning, and because it'd just feel weird to automatically clean under them.
+		is_dirty = TRUE
+	else if(src.blood_DNA)
+		is_dirty = TRUE
+	else
+		for(var/obj/effect/decal/cleanable/C in src)
+			is_dirty = TRUE
+			break
+
+	if(!is_dirty && !isturf(src))
+		// We don't need cleaning, so let's spare the janitor a pixel hunt and let the floor under us get cleaned instead.
+		var/turf/T = get_turf(src)
+		return T.cleaning_act(user, cleaner, cleanspeed, text_verb, " under [src][text_description].", skip_do_after=skip_do_after)
 
 	if(!skip_do_after)
 		user.visible_message("<span class='warning'>[user] begins to [text_verb] \the [text_targetname][text_description]</span>", "<span class='warning'>You begin to [text_verb] \the [text_targetname][text_description]</span>")
@@ -47,8 +63,8 @@
 		return TRUE
 	else
 		//Generic cleaning functionality
-		var/obj/effect/decal/cleanable/C = locate() in src
-		qdel(C)
+		for(var/obj/effect/decal/cleanable/C in src)
+			qdel(C)
 		clean_blood()
 		SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
 		return TRUE
