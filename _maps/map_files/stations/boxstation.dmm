@@ -11910,7 +11910,6 @@
 /area/station/public/dorms)
 "aQs" = (
 /obj/item/kirbyplants/large,
-/obj/structure/closet/secure_closet/paramedic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
