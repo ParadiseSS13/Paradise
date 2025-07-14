@@ -1,20 +1,6 @@
 /*
  * Job related
  */
-//Paramedic
-/obj/item/clothing/suit/storage/paramedic
-	name = "paramedic vest"
-	desc = "A hazard vest used in the recovery of bodies."
-	icon_state = "paramedic-vest"
-	item_state = "paramedic-vest"
-	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
-	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 50, ACID = 50)
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 //Botanist
 /obj/item/clothing/suit/apron
 	name = "apron"
