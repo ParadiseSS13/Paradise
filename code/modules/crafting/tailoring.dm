@@ -305,6 +305,24 @@
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudsyndiesun
+	name = "Suspicious sunglasses"
+	result = list(/obj/item/clothing/glasses/syndie_sun)
+	time = 1 SECONDS
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/clothing/glasses/syndie = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsyndiesunremoval
+	name = "Suspicious glasses flash protection removal"
+	result = list(/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/clothing/glasses/syndie = 1,)
+	time = 1 SECONDS
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/syndie_sun = 1)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/beergoggles
 	name = "Sunscanners"
 	result = list(/obj/item/clothing/glasses/sunglasses/reagent)

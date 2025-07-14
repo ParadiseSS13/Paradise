@@ -337,6 +337,37 @@
 		)
 	prescription_upgradable = TRUE
 
+/obj/item/clothing/glasses/syndie
+	name = "suspicious glasses"
+	desc = "Suspicious-looking, stylish glasses. They don't look like they could protect you from a flash, however they have a slot around their lenses that something could easily be inserted in."
+	icon_state = "syndieglasses"
+	item_state = "syndieglasses"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+		)
+	prescription_upgradable = TRUE
+
+/obj/item/clothing/glasses/syndie_sun
+	name = "suspicious shaded glasses"
+	desc = "Suspicious-looking, dark red, stylish glasses. They seem to have an additional eye-shielding layer on their lenses."
+	icon_state = "syndieglasses_sun"
+	item_state = "syndieglasses_sun"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+		)
+	see_in_dark = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = FLASH_PROTECTION_FLASH
+	prescription_upgradable = TRUE
+
 /obj/item/clothing/glasses/sunglasses
 	name = "sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -353,7 +384,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
-
 	hide_examine = TRUE
 
 /obj/item/clothing/glasses/sunglasses_fake
