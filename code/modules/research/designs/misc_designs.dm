@@ -171,6 +171,7 @@
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 500) //Same as Advanced Release Grenade
 	reagents_list = list("oxygen" = 50) //One small beaker at least, to make it require Chem Dispenser
 	build_path = /obj/item/grenade/gas/oxygen
+	category = list("Miscellaneous")
 
 /datum/design/autochef_remote
 	name = "Autochef Remote"
