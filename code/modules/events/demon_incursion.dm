@@ -1,6 +1,8 @@
 /datum/event/demon_incursion
 	name = "demon incursion"
+	/// Corresponds to the number of process() runs the event has lasted for. Roughly 2 minutes here.
 	announceWhen = 60
+	/// Corresponds to the number of process() runs the event has lasted for. Roughly 2 minutes here.
 	endWhen = 60
 	/// The name of the notification for dchat
 	var/notify_title = "Demonic Incursion"
