@@ -5,7 +5,7 @@
 ////////////////////////////////////////
 
 /datum/uplink_item/dangerous/aps
-	name = "Type 230 Pistol"
+	name = "Type 230 Machine Pistol"
 	reference = "APS"
 	desc = "A compact machine pistol, chambered in 10mm Auto with a detachable 20-round box magazine. Perfect for dual wielding or as backup."
 	item = /obj/item/gun/projectile/automatic/pistol/aps
