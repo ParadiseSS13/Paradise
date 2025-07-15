@@ -98,6 +98,18 @@
 	projectile = /obj/item/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler
+	equip_cooldown = 2 SECONDS
+	name = "MESG-01 Disabler Scattercannon"
+	desc = "A large-bore energy shotgun, configured to fire a large blast of disabling pellets."
+	icon_state = "mecha_disabler_shotgun"
+	origin_tech = "materials=4;combat=5;"
+	energy_drain = 30 // This is per shot + 1x cost, so 390 per shot
+	projectile = /obj/item/projectile/beam/disabler/pellet
+	projectiles_per_shot = 12
+	variance = 40
+	fire_sound = 'sound/weapons/taser2.ogg'
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	equip_cooldown = 4 SECONDS
 	name = "mkIV Ion Heavy Scatter Cannon"
