@@ -233,15 +233,15 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 8
-	multi_sprite_step = 1
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
-	multi_sprite_step = 1
 	caliber = "9mm"
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/enforcer/update_overlays()
 	. = ..()
@@ -335,7 +335,7 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 32
-	multi_sprite_step = 4
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/smgm9mm
 	name = "\improper SMG magazine (9mm)"
@@ -367,7 +367,7 @@
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/fire
 	name = "stechkin aps magazine (10mm incendiary)"
@@ -375,7 +375,7 @@
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
 	caliber = "10mm"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/hp
 	name = "stechkin aps magazine (10mm HP)"
@@ -383,7 +383,7 @@
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
 	caliber = "10mm"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/ap
 	name = "stechkin aps magazine (10mm AP)"
@@ -391,7 +391,7 @@
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 	caliber = "10mm"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "\improper SMG magazine (.45)"
@@ -546,7 +546,7 @@
 	name = "\improper Enforcer foam magazine"
 	icon_state = "enforcer"
 	max_ammo = 8
-	multi_sprite_step = 1
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/toy/enforcer/update_overlays()

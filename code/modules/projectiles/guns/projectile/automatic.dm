@@ -92,7 +92,10 @@
 /obj/item/gun/projectile/automatic/proto
 	name = "\improper NF10 'Saber' SMG"
 	desc = "A rejected prototype three-round burst 9mm submachine gun, designated 'SABR'. Surplus of this model are bouncing around armories of Nanotrasen Space Stations. Has a threaded barrel for suppressors."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "saber"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	item_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
@@ -158,11 +161,19 @@
 	name = "\improper 'Type U3' Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "mini-uzi"
+	item_state = "mini-uzi"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	burst_size = 2
 	can_holster = TRUE // it's a mini-uzi after all
+
+/obj/item/gun/projectile/automatic/mini_uzi/update_overlays()
+	. = list()
+	if(suppressed)
+		. += image(icon = icon, icon_state = "suppressor_attached", pixel_x = 13, pixel_y = 5)
 
 //////////////////////////////
 // MARK: M-90GL CARBINE
